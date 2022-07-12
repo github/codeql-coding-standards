@@ -1,0 +1,93 @@
+{
+  "MISRA-C-2012": {
+    "RULE-20-11": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The order of evaluation for the '#' and '##' operators may differ between compilers, which can cause unexpected behaviour if more than one '#' or '##' operator is used.",
+          "kind": "problem",
+          "name": "A macro parameter immediately following a # operator shall not immediately be followed by a ##",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MoreThanOneHashOperatorInMacroDefinition",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query applies to function like macros and not object like macros. This rule strictly disallows the use of # operator followed by a ## and other combinations are permitted.",
+            "items": []
+          }
+        }
+      ],
+      "title": "A macro parameter immediately following a # operator shall not immediately be followed by a ## operator"
+    },
+    "RULE-20-12": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A macro parameter used in different contexts such as: 1) an operand to the # or ## operators where it is not expanded, versus 2) elsewhere where it is expanded, makes code more difficult to understand.",
+          "kind": "problem",
+          "name": "A macro parameter used as an operand to the # or ## operators shall only be used as an operand to these operators",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MacroParameterUsedAsHashOperand",
+          "tags": [
+              "maintainability",
+              "readability"
+          ]
+        }
+      ],
+      "title": "A macro parameter used as an operand to the # or ## operators, which is itself subject to further macro replacement, shall only be used as an operand to these operators"
+    },
+    "RULE-20-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using the #undef preprocessor directive makes code more difficult to understand.",
+          "kind": "problem",
+          "name": "#undef should not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UndefShouldNotBeUsed",
+          "tags": [
+              "maintainability",
+              "readability"
+          ]
+        }
+      ],
+      "title": "#undef should not be used"
+    },
+    "RULE-4-10": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using anything other than a standard include guard form can make code confusing and can lead to multiple or conflicting definitions.",
+          "kind": "problem",
+          "name": "Precautions shall be taken in order to prevent the contents of a header file being included more than once",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "PrecautionIncludeGuardsNotProvided",
+          "shared_implementation_short_name": "IncludeGuardsNotUsed",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query defines header file as any file that is included regardless of file extension. This query does not consider the use of `#pragma once` as a permitted header guard.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Precautions shall be taken in order to prevent the contents of a header file being included more than once"
+    }
+  }
+}

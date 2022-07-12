@@ -24,4 +24,5 @@
 
 #define MACROTHIRTEEN(X) #X##X // NON_COMPLIANT
 
-#define MACROFOURTEEN '#\'-#' + 1 #1 #1 + '#' // NON_COMPLIANT
+#define MACROFOURTEEN                                                          \
+  '#\'-#' + 1 #1 #1 + '#' // COMPLIANT, not a function-like macro.

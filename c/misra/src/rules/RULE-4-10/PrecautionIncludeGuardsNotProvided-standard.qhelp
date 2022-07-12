@@ -1,0 +1,41 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+  <section title="Classification">
+    <ul>
+      <li>required</li>
+      <li>implementation</li>
+      <li>automated</li>
+    </ul>
+  </section>
+
+  <section title="Rationale">
+    <p>
+      When a translation unit contains a complex hierarchy of nested <i>header files</i>, it is possible for a particular
+      <i>header file</i> to be included more than once. This can be, at best, a source of confusion. If this multiple
+      inclusion leads to multiple or conflicting definitions, then this can result in undefined or erroneous
+      behaviour.
+    </p>
+
+  </section>
+
+  <example>
+  <sample language="c">
+  /* file.h */
+  #ifndef FILE_H
+  /* Non-compliant - does not #define FILE_H */
+  #endif
+  </sample>
+    <p>
+    In order to facilitate checking, the contents of the header should be protected from being included
+    more than once using one of the following two forms:
+    </p>
+    <sample src="standard-example.c"></sample>
+    <p>
+     <i>Note:</i> the identifier used to test and record whether a given <i>header file</i> has already been included shall
+     be unique across all <i>header files</i> in the project.
+    </p>
+    <p>
+     <i>Note:</i> comments are permitted anywhere within these forms.
+    </p>
+  </example>
+</qhelp>

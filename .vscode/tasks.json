@@ -180,7 +180,9 @@
                 "Expressions",
                 "Freed",
                 "Functions",
-                "IO",
+                "IO1",
+                "IO2",
+                "IO3",
                 "Includes",
                 "Initialization",
                 "IntegerConversion",
@@ -205,9 +207,17 @@
                 "Strings",
                 "Strings1",
                 "Strings2",
+                "Strings3",
                 "Syntax",
                 "Templates",
                 "TypeRanges",
+                "Lambdas",
+                "Pointers",
+                "Preprocessor1",
+                "Preprocessor2",
+                "IntegerConversion",
+                "Expressions",
+                "DeadCode"
                 "VirtualFunctions"
             ]
         },

@@ -1,0 +1,4 @@
+| headers/test3.h:0:0:0:0 | headers/test3.h | Header file test3.h is missing expected include guard. | headers/test3.h:0:0:0:0 | headers/test3.h |  |
+| headers/test4.h:0:0:0:0 | headers/test4.h | Header file test4.h is missing expected include guard. | headers/test4.h:0:0:0:0 | headers/test4.h |  |
+| headers/test5.h:0:0:0:0 | headers/test5.h | Header file test5.h is missing expected include guard. | headers/test5.h:0:0:0:0 | headers/test5.h |  |
+| headers/test7.h:0:0:0:0 | headers/test7.h | Header file test7.h is never included by reusing the include guard used by $@. | headers/test6.h:0:0:0:0 | headers/test6.h | include guard |

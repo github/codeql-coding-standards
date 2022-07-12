@@ -82,11 +82,11 @@ predicate isMacroCheck(EqualityOperation eq, InBandErrorReadFunctionCall read) {
   exists(Expr c, EOFWEOFInvocation mi |
     // one operand is the char c fetched from `read`
     c = eq.getAnOperand() and
+    // an operand is an invocation of the EOF macro
+    mi.getAGeneratedElement() = eq.getAnOperand() and
     DataFlow::localExprFlow(read, c) and
     // c is of the appropriate type `int`/`wint_t`
-    c.getType() = mi.getRequiredType() and
-    // an operand is an invocation of the EOF macro
-    mi.getAGeneratedElement() = eq.getAnOperand()
+    c.getUnderlyingType() = mi.getRequiredType()
   )
 }
 

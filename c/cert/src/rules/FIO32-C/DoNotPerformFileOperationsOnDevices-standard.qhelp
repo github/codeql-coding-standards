@@ -1,0 +1,594 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>File names on many operating systems, including Windows and UNIX, may be used to access <em>special files</em>, which are actually devices. Reserved Microsoft Windows device names include <code>AUX</code>, <code>CON</code>, <code>PRN</code>, <code>COM1</code>, and <code>LPT1</code> or paths using the <code>\\.\</code> device namespace. Device files on UNIX systems are used to apply access rights and to direct operations on the files to the appropriate device drivers.</p>
+  <p>Performing operations on device files that are intended for ordinary character or binary files can result in crashes and <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>. For example, when Windows attempts to interpret the device name as a file resource, it performs an invalid resource access that usually results in a crash [<a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Howard02">Howard 2002</a>].</p>
+  <p>Device files in UNIX can be a security risk when an attacker can access them in an unauthorized way. For example, if attackers can read or write to the <code>/dev/kmem</code> device, they may be able to alter the priority, UID, or other attributes of their process or simply crash the system. Similarly, access to disk devices, tape devices, network devices, and terminals being used by other processes can lead to problems [<a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Garfinkel96">Garfinkel 1996</a>].</p>
+  <p>On Linux, it is possible to lock certain applications by attempting to open devices rather than files. Consider the following example:</p>
+  <sample language="cpp">/dev/mouse
+/dev/console
+/dev/tty0
+/dev/zero
+</sample>
+  <p>A Web browser that failed to check for these devices would allow an attacker to create a website with image tags such as <code>&lt;IMG src="file:///dev/mouse"&gt;</code> that would lock the user's mouse [<a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Howard02">Howard 2002</a>].</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, the user can specify a locked device or a FIFO (first-in, first-out) file name, which can cause the program to hang on the call to <code>fopen()</code>:</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
+ 
+void func(const char *file_name) {
+  FILE *file;
+  if ((file = fopen(file_name, "wb")) == NULL) {
+    /* Handle error */
+  }
+
+  /* Operate on the file */
+
+  if (fclose(file) == EOF) {
+    /* Handle error */
+  }
+}</sample>
+ </section>
+ <section title="Compliant Solution (POSIX)">
+  <p>POSIX defines the <code>O_NONBLOCK</code> flag to <code>open()</code>, which ensures that delayed operations on a file do not hang the program [<a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013">IEEE Std 1003.1:2013</a>].</p>
+  <blockquote>
+   <p>When opening a FIFO with <code>O_RDONLY</code> or <code>O_WRONLY</code> set:</p>
+   <ul>
+    <li>If <code>O_NONBLOCK</code> is set, an <code>open()</code> for reading-only returns without delay. An <code>open()</code> for writing-only returns an error if no process currently has the file open for reading.</li>
+    <li>If <code>O_NONBLOCK</code> is clear, an <code>open()</code> for reading-only blocks the calling thread until a thread opens the file for writing. An <code>open()</code> for writing-only blocks the calling thread until a thread opens the file for reading.</li>
+   </ul>
+   <p>When opening a block special or character special file that supports nonblocking opens:</p>
+   <ul>
+    <li>If <code>O_NONBLOCK</code> is set, the <code>open()</code> function returns without blocking for the device to be ready or available; subsequent behavior is device-specific.</li>
+    <li>If <code>O_NONBLOCK</code> is clear, the <code>open()</code> function blocks the calling thread until the device is ready or available before returning.</li>
+   </ul>
+   <p>Otherwise, the behavior of <code>O_NONBLOCK</code> is unspecified.</p>
+  </blockquote>
+  <p>Once the file is open, programmers can use the POSIX <code>lstat()</code> and <code>fstat()</code> functions to obtain information about a file and the <code>S_ISREG()</code> macro to determine if the file is a regular file. </p>
+  <p>Because the behavior of <code>O_NONBLOCK</code> on subsequent calls to <code>read()</code> or <code>write()</code> is <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unspecifiedbehavior">unspecified</a>, it is advisable to disable the flag after it has been determined that the file in question is not a special device.</p>
+  <p>When available (Linux 2.1.126+, FreeBSD, Solaris 10, POSIX.1-2008), the <code>O_NOFOLLOW</code> flag should also be used. (See <a href="https://wiki.sei.cmu.edu/confluence/display/c/POS01-C.+Check+for+the+existence+of+links+when+dealing+with+files">POS01-C. Check for the existence of links when dealing with files</a>.) When <code>O_NOFOLLOW</code> is not available, symbolic link checks should use the method from <a href="https://wiki.sei.cmu.edu/confluence/display/c/POS35-C.+Avoid+race+conditions+while+checking+for+the+existence+of+a+symbolic+link">POS35-C. Avoid race conditions while checking for the existence of a symbolic link</a>.</p>
+  <sample language="cpp">#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;unistd.h&gt;
+
+#ifdef O_NOFOLLOW
+  #define OPEN_FLAGS O_NOFOLLOW | O_NONBLOCK
+#else
+  #define OPEN_FLAGS O_NONBLOCK
+#endif
+
+void func(const char *file_name) {
+  struct stat orig_st;
+  struct stat open_st;
+  int fd;
+  int flags;
+
+  if ((lstat(file_name, &amp;orig_st) != 0) ||
+      (!S_ISREG(orig_st.st_mode))) {
+    /* Handle error */
+  }
+
+  /* Race window */
+
+  fd = open(file_name, OPEN_FLAGS | O_WRONLY);
+  if (fd == -1) {
+    /* Handle error */
+  }
+
+  if (fstat(fd, &amp;open_st) != 0) {
+    /* Handle error */
+  }
+
+  if ((orig_st.st_mode != open_st.st_mode) ||
+      (orig_st.st_ino  != open_st.st_ino) ||
+      (orig_st.st_dev  != open_st.st_dev)) {
+    /* The file was tampered with */
+  }
+
+  /* 
+   * Optional: drop the O_NONBLOCK now that we are sure
+   * this is a good file.
+   */
+  if ((flags = fcntl(fd, F_GETFL)) == -1) {
+    /* Handle error */
+  }
+
+  if (fcntl(fd, F_SETFL, flags &amp; ~O_NONBLOCK) == -1) {
+    /* Handle error */
+  }
+
+  /* Operate on the file */
+
+  if (close(fd) == -1) {
+    /* Handle error */
+  }
+}</sample>
+  <p>This code contains an intractable <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-TOCTOU">TOCTOU (time-of-check, time-of-use)</a> race condition under which an attacker can alter the file referenced by <code>file_name</code> following the call to <code>lstat()</code> but before the call to <code>open()</code>. The switch will be discovered after the file is opened, but opening the file cannot be prevented in the case where this action itself causes undesired behavior. (See <a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO45-C.+Avoid+TOCTOU+race+conditions+while+accessing+files">FIO45-C. Avoid TOCTOU race conditions while accessing files</a> for more information about TOCTOU race conditions.)</p>
+  <p>Essentially, an attacker can switch out a file for one of the file types shown in the following table with the specified effect.</p>
+  <p>File Types and Effects</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Type
+     </th>
+     <th>
+      Note on Effect
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Another regular file
+     </td>
+     <td>
+      The
+      <code>fstat()</code>
+      verification fails.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      FIFO
+     </td>
+     <td>
+      Either
+      <code>open()</code>
+      returns
+      <code>-1</code>
+      and sets
+      <code>errno</code>
+      to
+      <code>ENXIO</code>
+      , or
+      <code>open()</code>
+      succeeds and the
+      <code>fstat()</code>
+      verification fails.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Symbolic link
+     </td>
+     <td>
+      <code>open()</code>
+      returns
+      <code>-1</code>
+      if
+      <code>O_NOFOLLOW</code>
+      is available; otherwise, the
+      <code>fstat()</code>
+      verification fails.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Special device
+     </td>
+     <td>
+      Usually the
+      <code>fstat()</code>
+      verification fails on
+      <code>st_mode</code>
+      . This can still be a problem if the device is one for which just opening (or closing) it causes a side effect. If
+      <code>st_mode</code>
+      compares equal, then the device is one that, after opening, appears to be a regular file. It would then fail the
+      <code>fstat()</code>
+      verification on
+      <code>st_dev</code>
+      and
+      <code>st_ino</code>
+      (unless it happens to be the
+      <em>
+       same
+      </em>
+      file, as can happen with
+      <code>/dev/fd/*</code>
+      on Solaris, but this would not be a problem).
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>To be compliant with this rule and to prevent this TOCTOU race condition, <code>file_name</code> must refer to a file in a secure directory. (See <a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO15-C.+Ensure+that+file+operations+are+performed+in+a+secure+directory">FIO15-C. Ensure that file operations are performed in a secure directory</a>.)</p>
+ </section>
+ <section title="Noncompliant Code Example (Windows)">
+  <p>This noncompliant code example uses the <code>GetFileType()</code> function to attempt to prevent opening a special file: </p>
+  <sample language="cpp">#include &lt;Windows.h&gt;
+ 
+void func(const TCHAR *file_name) {
+  HANDLE hFile = CreateFile(
+    file_name,
+    GENERIC_READ | GENERIC_WRITE, 0, 
+    NULL, OPEN_EXISTING,
+    FILE_ATTRIBUTE_NORMAL, NULL
+  );
+  if (hFile == INVALID_HANDLE_VALUE) {
+    /* Handle error */
+  } else if (GetFileType(hFile) != FILE_TYPE_DISK) {
+    /* Handle error */
+    CloseHandle(hFile);
+  } else {
+    /* Operate on the file */
+    CloseHandle(hFile);
+  }
+}</sample>
+  <p>Although tempting, the Win32 <code>GetFileType()</code> function is dangerous in this case. If the file name given identifies a named pipe that is currently blocking on a read request, the call to <code>GetFileType()</code> will block until the read request completes. This provides an effective attack vector for a <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attack</a> on the application. Furthermore, the act of opening a file handle may cause side effects, such as line states being set to their default voltage when opening a serial device.</p>
+ </section>
+ <section title="Compliant Solution (Windows)">
+  <p>Microsoft documents a list of reserved identifiers that represent devices and have a device namespace to be used specifically by devices [<a href="http://msdn.microsoft.com/en-us/library/aa365247%28v=vs.85%29.aspx">MSDN</a>]. In this compliant solution, the <code>isReservedName()</code> function can be used to determine if a specified path refers to a device. Care must be taken to avoid a TOCTOU race condition when first testing a path name using the <code>isReservedName()</code> function and then later operating on that path name. </p>
+  <sample language="cpp">#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+static bool isReservedName(const char *path) {
+  /* This list of reserved names comes from MSDN */
+  static const char *reserved[] = {
+    "nul", "con", "prn", "aux", "com1", "com2", "com3",
+    "com4", "com5", "com6", "com7", "com8", "com9",
+    "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6",
+    "lpt7", "lpt8", "lpt9"
+  };
+  bool ret = false;
+
+/*
+ * First, check to see if this is a device namespace, which
+ * always starts with \\.\, because device namespaces are not
+ * valid file paths.
+ */
+
+  if (!path || 0 == strncmp(path, "\\\\.\\", 4)) {
+    return true;
+  }
+
+  /* Compare against the list of ancient reserved names */
+  for (size_t i = 0; !ret &amp;&amp;
+       i &lt; sizeof(reserved) / sizeof(*reserved); ++i) {
+   /*
+    * Because Windows uses a case-insensitive file system, operate on
+    * a lowercase version of the given filename. Note: This ignores
+    * globalization issues and assumes ASCII characters.
+    */
+    if (0 == _stricmp(path, reserved[i])) {
+      ret = true;
+    }
+  }
+  return ret;
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>Allowing operations that are appropriate only for regular files to be performed on devices can result in <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a> or more serious <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-exploit">exploits</a> depending on the platform.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      FIO32-C
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      Unlikely
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      <strong>P4</strong>
+     </td>
+     <td>
+      <strong>L3</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Rose">
+       Compass/ROSE
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      Could detect some violations of this rule. This rule applies only to untrusted file name strings, and ROSE cannot tell which strings are trusted and which are not. The best heuristic is to note if there is any verification of the file name before or after the
+      <code>fopen()</code>
+      call. If there is any verification, then the file opening should be preceded by an
+      <code>lstat()</code>
+      call and succeeded by an
+      <code>fstat()</code>
+      call. Although that does not enforce the rule completely, it does indicate that the coder is aware of the
+      <code>lstat-fopen</code>
+      -
+      <code>fstat</code>
+      idiom
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2022.1
+     </td>
+     <td>
+      <strong>C4921, C4922, C4923</strong>
+      <strong>C++4921, C++4922, C++4923</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_C-FIO32-a</strong>
+     </td>
+     <td>
+      Protect against file name injection
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2022a
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certcrulefio32c.html">
+       CERT C: Rule FIO32-C
+      </a>
+     </td>
+     <td>
+      Checks for inappropriate I/O operation on device files (rule fully covered)
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/PRQA+QA-C">
+       PRQA QA-C
+      </a>
+     </td>
+     <td>
+      9.7
+     </td>
+     <td>
+      <strong>4921, 4922, 4923</strong>
+     </td>
+     <td>
+      Enforced by QAC
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046345">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>4921, 4922, 4923</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+FIO32-C">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <p><a href="https://wiki.sei.cmu.edu/confluence/display/c/How+this+Coding+Standard+is+Organized#HowthisCodingStandardisOrganized-RelatedGuidelines">Key here</a> (explains table format and definitions)</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Taxonomy
+     </th>
+     <th>
+      Taxonomy item
+     </th>
+     <th>
+      Relationship
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       CERT C Secure Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO05-C.+Identify+files+using+multiple+file+attributes">
+       FIO05-C. Identify files using multiple file attributes
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       CERT C Secure Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO15-C.+Ensure+that+file+operations+are+performed+in+a+secure+directory">
+       FIO15-C. Ensure that file operations are performed in a secure directory
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       CERT C Secure Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/POS01-C.+Check+for+the+existence+of+links+when+dealing+with+files">
+       POS01-C. Check for the existence of links when dealing with files
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       CERT C Secure Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/POS35-C.+Avoid+race+conditions+while+checking+for+the+existence+of+a+symbolic+link">
+       POS35-C. Avoid race conditions while checking for the existence of a symbolic link
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">
+       CERT Oracle Secure Coding Standard for Java
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/java/FIO00-J.+Do+not+operate+on+files+in+shared+directories">
+       FIO00-J. Do not operate on files in shared directories
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="CERT-CWE Mapping Notes">
+  <p><a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152408#HowthisCodingStandardisOrganized-CERT-CWEMappingNotes">Key here</a> for mapping notes</p>
+  <p><strong>CWE-67 and FIO32-C</strong></p>
+  <p>FIO32-C = Union( CWE-67, list) where list =</p>
+  <ul>
+   <li>Treating trusted device names like regular files in Windows.</li>
+  </ul>
+  <ul>
+   <li>Treating device names (both trusted and untrusted) like regular files in POSIX</li>
+  </ul>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Garfinkel96">
+       Garfinkel 1996
+      </a>
+      ]
+     </td>
+     <td>
+      Section 5.6, "Device Files"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Howard02">
+       Howard 2002
+      </a>
+      ]
+     </td>
+     <td>
+      Chapter 11, "Canonical Representation Issues"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013">
+       IEEE Std 1003.1:2013
+      </a>
+      ]
+     </td>
+     <td>
+      XSH, System Interfaces,
+      <code>open</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="http://msdn.microsoft.com/en-us/library/aa365247%28v=vs.85%29.aspx">
+       MSDN
+      </a>
+      ]
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

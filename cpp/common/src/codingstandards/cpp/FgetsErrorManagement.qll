@@ -49,6 +49,7 @@ class FgetsLikeCall extends FunctionCall {
 
 class BooleanFgetsExpr extends Expr {
   boolean isNull;
+  boolean isNotNull;
   FgetsLikeCall fgetCall;
   Expr operand;
 
@@ -56,6 +57,7 @@ class BooleanFgetsExpr extends Expr {
     // if(fgets)
     fgetCall = this and
     isNull = false and
+    isNotNull = true and
     operand = this
     or
     exists(BooleanFgetsExpr e |
@@ -63,50 +65,47 @@ class BooleanFgetsExpr extends Expr {
       operand = e and
       fgetCall = e.getFgetCall() and
       (
-        // if(x==0)
-        e = this.(EQExpr).getAnOperand() and
-        this.(EQExpr).getAnOperand() instanceof NullValue and
-        isNull = e.isNull().booleanNot()
-        or
-        // if(x!=0)
-        e = this.(NEExpr).getAnOperand() and
-        this.(NEExpr).getAnOperand() instanceof NullValue and
-        isNull = e.isNull()
-        or
-        // if(x)
-        DataFlow::localExprFlow(e, this) and
-        isNull = e.isNull()
-        or
-        // if(!x)
-        e = this.(NotExpr).getOperand() and
-        isNull = e.isNull().booleanNot()
-        or
-        // if(x && cond)
-        e = this.(LogicalAndExpr).getAnOperand() and
+        isNotNull = isNull.booleanNot() and
         (
-          e.isNull() = false and
-          isNull = false
+          // if(e==0)
+          e = this.(EQExpr).getAnOperand() and
+          this.(EQExpr).getAnOperand() instanceof NullValue and
+          isNull = e.isNull().booleanNot()
           or
-          e.isNull() = true and
-          (
-            isNull = true
-            or
-            isNull = false
-          )
+          // if(e!=0)
+          e = this.(NEExpr).getAnOperand() and
+          this.(NEExpr).getAnOperand() instanceof NullValue and
+          isNull = e.isNull()
+          or
+          // if(e)
+          DataFlow::localExprFlow(e, this) and
+          isNull = e.isNull()
+          or
+          // if(!e)
+          e = this.(NotExpr).getOperand() and
+          isNull = e.isNull().booleanNot()
+          or
+          // if(cond && e)
+          e = this.(LogicalAndExpr).getRightOperand() and
+          isNull = e.isNull()
+          or
+          // if(cond || e)
+          e = this.(LogicalOrExpr).getRightOperand() and
+          isNull = e.isNull()
         )
         or
-        // if(x || cond)
-        e = this.(LogicalOrExpr).getAnOperand() and
+        // if(e && cond)
+        e = this.(LogicalAndExpr).getLeftOperand() and
         (
-          e.isNull() = true and
-          isNull = true
-          or
-          e.isNull() = false and
-          (
-            isNull = true
-            or
-            isNull = false
-          )
+          isNull = false and
+          isNotNull = false
+        )
+        or
+        // if(e || cond)
+        e = this.(LogicalOrExpr).getLeftOperand() and
+        (
+          isNull = true and
+          isNotNull = true
         )
       )
     )
@@ -114,14 +113,22 @@ class BooleanFgetsExpr extends Expr {
 
   boolean isNull() { result = isNull }
 
+  boolean isNotNull() { result = isNotNull }
+
   Expr getFgetCall() { result = fgetCall }
 
   Expr getOperand() { result = operand }
 }
 
+/*
+ * A guard controlled by a `BooleanFgetsExpr`
+ */
+
 class FgetsGuard extends BooleanFgetsExpr {
   FgetsGuard() {
-    exists(IfStmt i | i.getCondition() = this) or exists(Loop i | i.getCondition() = this)
+    exists(IfStmt i | i.getCondition() = this)
+    or
+    exists(Loop i | i.getCondition() = this)
   }
 
   Stmt getThenSuccessor() {
@@ -153,8 +160,10 @@ class FgetsGuard extends BooleanFgetsExpr {
   }
 
   ControlFlowNode getNonNullSuccessor() {
-    this.isNull() = true and result = this.getElseSuccessor()
+    this.isNotNull() = true and
+    result = this.getThenSuccessor()
     or
-    this.isNull() = false and result = getThenSuccessor()
+    this.isNotNull() = false and
+    result = getElseSuccessor()
   }
 }

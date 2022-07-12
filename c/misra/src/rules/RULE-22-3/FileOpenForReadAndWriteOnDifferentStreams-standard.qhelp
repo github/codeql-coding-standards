@@ -1,0 +1,35 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+  <section title="Classification">
+    <ul>
+      <li>required</li>
+      <li>implementation</li>
+      <li>automated</li>
+    </ul>
+  </section>
+
+  <section title="Amplification">
+    <p>
+      This rule applies to files opened with The Standard Library functions. It may also apply to similar features provided by the execution environment.
+    </p>
+  </section>
+
+  <section title="Rationale">
+    <p>
+      The Standard does not specify the behaviour if a file is both written and read via different streams.
+    </p>
+    <p>    
+      Note: it is acceptable to open a file multiple times for read-only access.
+    </p>
+  </section>
+
+  <example>
+    <sample src="standard-example.c"></sample>
+  </example>
+
+  <section title="See more">
+    <ul>
+      <li>Rule 21.6</li>
+    </ul>
+  </section>
+</qhelp>

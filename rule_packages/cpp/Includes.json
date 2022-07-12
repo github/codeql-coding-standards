@@ -144,11 +144,16 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "IncludeGuardsNotProvided",
+          "shared_implementation_short_name": "IncludeGuardsNotUsed",
           "tags": [
             "correctness",
             "maintainability",
             "readability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query defines header file as any file that is included regardless of file extension. This query does not consider the use of `#pragma once` as a permitted header guard.",
+            "items": []
+          }
         }
       ],
       "title": "Include guards shall be provided."

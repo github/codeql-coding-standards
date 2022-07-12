@@ -1,0 +1,30 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+  <section title="Classification">
+    <ul>
+      <li>required</li>
+      <li>implementation</li>
+      <li>automated</li>
+    </ul>
+  </section>
+
+  <section title="Rationale">
+    <p>
+      The order of evaluation associated with multiple <code>#</code>, multiple <code>##</code> or a mix of <code>#</code> and <code>##</code> preprocessor
+      operators is unspecified. The use of <code>#</code> and <code>##</code> is discouraged by Rule 20.10. In particular, the result of
+      a <code>#</code> operator is a string literal and it is extremely unlikely that pasting this to any other preprocessing
+      token will result in a valid token.
+    </p>
+
+  </section>
+
+  <example>
+    <sample src="standard-example.c"></sample>
+  </example>
+
+  <section title="See more">
+    <ul>
+      <li>Rule 20.10: The <code>#</code> and <code>##</code> preprocessor operators should not be used.</li>
+    </ul>
+  </section>
+</qhelp>

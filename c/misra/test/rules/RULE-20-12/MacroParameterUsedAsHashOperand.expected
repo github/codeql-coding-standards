@@ -1,0 +1,2 @@
+| test.c:4:1:4:41 | #define BAD_MACRO_WITH_ARG(x) (x) + wow ## x | Macro BAD_MACRO_WITH_ARG contains use of parameter x used in multiple contexts. |
+| test.c:5:1:5:48 | #define BAD_MACRO_WITH_ARG_TWO(x,y) (x) + wow ## x | Macro BAD_MACRO_WITH_ARG_TWO contains use of parameter x used in multiple contexts. |

@@ -1,0 +1,24 @@
+{
+  "CERT-C": {
+    "STR37-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Arguments that are not representable as an unsigned char may produce unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Arguments to character-handling functions must be representable as an unsigned char",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ToCharacterHandlingFunctionsRepresentableAsUChar",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Arguments to character-handling functions must be representable as an unsigned char"
+    }
+  }
+}

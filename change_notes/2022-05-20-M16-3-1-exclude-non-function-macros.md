@@ -1,0 +1,2 @@
+- `M16-3-1` - `MoreThanOneOccurrenceHashOperatorInMacroDefinition.ql`:
+  - Removes detection of more than one occurrence in non function like Macros.

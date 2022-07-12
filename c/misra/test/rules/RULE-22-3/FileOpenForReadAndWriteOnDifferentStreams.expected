@@ -1,0 +1,5 @@
+| test.c:6:14:6:18 | call to fopen | The same file was already opened $@. Files should not be read and written at the same time using different streams. | test.c:5:14:5:18 | call to fopen | here |
+| test.c:17:14:17:18 | call to fopen | The same file was already opened $@. Files should not be read and written at the same time using different streams. | test.c:16:14:16:18 | call to fopen | here |
+| test.c:33:14:33:18 | call to fopen | The same file was already opened $@. Files should not be read and written at the same time using different streams. | test.c:32:14:32:18 | call to fopen | here |
+| test.c:43:14:43:18 | call to fopen | The same file was already opened $@. Files should not be read and written at the same time using different streams. | test.c:42:14:42:18 | call to fopen | here |
+| test.c:59:14:59:18 | call to fopen | The same file was already opened $@. Files should not be read and written at the same time using different streams. | test.c:58:14:58:18 | call to fopen | here |
