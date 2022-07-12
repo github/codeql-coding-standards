@@ -1,0 +1,388 @@
+{
+  "MISRA-C-2012": {
+    "RULE-11-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Converting between a function pointer into an incompatible type results in undefined behaviour.",
+          "kind": "problem",
+          "name": "Conversions shall not be performed between a pointer to a function and any other type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConversionBetweenFunctionPointerAndOtherType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Conversions shall not be performed between a pointer to a function and any other type",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-11-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Converting between a pointer to an incomplete type to another type can result in undefined behaviour or violate encapsulation.",
+          "kind": "problem",
+          "name": "Conversions shall not be performed between a pointer to an incomplete type and any other type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConversionBetweenIncompleteTypePointerAndOtherType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Conversions shall not be performed between a pointer to an incomplete type and any other type",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-11-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Casting between an object pointer and a pointer to a different object type can result in a pointer that is incorrectly aligned or that results in undefined behaviour if accessed.",
+          "kind": "problem",
+          "name": "A cast shall not be performed between a pointer to object type and a pointer to a different object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastBetweenObjectPointerAndDifferentObjectType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A cast shall not be performed between a pointer to object type and a pointer to a different object type",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-11-4": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Converting between a pointer to an object and an integer type may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "A conversion should not be performed between a pointer to object and an integer type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConversionBetweenPointerToObjectAndIntegerType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A conversion should not be performed between a pointer to object and an integer type",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-11-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Converting from a pointer to void into a pointer to an object may result in an incorrectly aligned pointer and undefined behaviour.",
+          "kind": "problem",
+          "name": "A conversion should not be performed from pointer to void into pointer to object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConversionFromPointerToVoidIntoPointerToObject",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A conversion should not be performed from pointer to void into pointer to object",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-11-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Converting from an integer into a pointer to void may result in an incorrectly aligned pointer and undefined behaviour.",
+          "kind": "problem",
+          "name": "A cast shall not be performed between pointer to void and an arithmetic type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastBetweenPointerToVoidAndArithmeticType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A cast shall not be performed between pointer to void and an arithmetic type",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-11-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Converting between a pointer to an object and a pointer to a non-integer arithmetic type can result in undefined behaviour.",
+          "kind": "problem",
+          "name": "A cast shall not be performed between pointer to object and a non-integer arithmetic type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastBetweenPointerToObjectAndNonIntArithmeticType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A cast shall not be performed between pointer to object and a non-integer arithmetic type",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-11-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Casting away const or volatile qualifications violates the principle of type qualification and can result in unpredictable behaviour.",
+          "kind": "problem",
+          "name": "A cast shall not remove any const or volatile qualification from the type pointed to by a pointer",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastRemovesConstOrVolatileQualification",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A cast shall not remove any const or volatile qualification from the type pointed to by a pointer",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-11-9": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The macro NULL unambiguously signifies the intended use of a null pointer constant.",
+          "kind": "problem",
+          "name": "The macro NULL shall be the only permitted form of integer null pointer constant",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MacroNullNotUsedAsIntegerNullPointerConstant",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "The macro NULL shall be the only permitted form of integer null pointer constant",
+      "implementation_scope": {
+        "description": "This rule allows two forms of null-pointer constants: a Zero literal created by the NULL macro or a Zero literal cast to a void pointer."
+      }
+    },
+    "RULE-18-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A pointer resulting from arithmetic on a pointer operand shall address an element of the same array as that pointer operand.",
+          "kind": "problem",
+          "name": "A pointer resulting from arithmetic on a pointer operand shall address an element of the same array",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "PointerAndDerivedPointerMustAddressSameArray",
+          "shared_implementation_short_name": "DoNotUsePointerArithmeticToAddressDifferentArrays",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A pointer resulting from arithmetic on a pointer operand shall address an element of the same array as that pointer operand",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-18-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Subtraction between pointers which do not both point to elements of the same array results in undefined behavior.",
+          "kind": "path-problem",
+          "name": "Subtraction between pointers shall only be applied to pointers that address elements of the same array",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "SubtractionBetweenPointersMustAddressSameArray",
+          "shared_implementation_short_name": "DoNotSubtractPointersAddressingDifferentArrays",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Subtraction between pointers shall only be applied to pointers that address elements of the same array",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-18-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The relational operators >, >=, <, <= applied to pointers produces undefined behavior, except where they point to the same object.",
+          "kind": "path-problem",
+          "name": "The relational operators >, >=, < and <= shall not be applied to pointers unless they point to the same object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "RelationalOperatorComparesPointerToDifferentArray",
+          "shared_implementation_short_name": "DoNotUseRelationalOperatorsWithDifferingArrays",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The relational operators >, >=, < and <= shall not be applied to objects of pointer type except where they point into the same object",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-18-4": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Array indexing should be used to perform pointer arithmetic as it is less prone to errors and undefined behaviour.",
+          "kind": "problem",
+          "name": "The +, -, += and -= operators should not be applied to an expression of pointer type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotUseAdditionOrSubtractionOperatorsOnPointers",
+          "shared_implementation_short_name": "UseOnlyArrayIndexingForPointerArithmetic",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The +, -, += and -= operators should not be applied to an expression of pointer type",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-18-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Declarations with more than two levels of pointer nesting can result in code that is difficult to read and understand.",
+          "kind": "problem",
+          "name": "Declarations should contain no more than two levels of pointer nesting",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoMoreThanTwoLevelsOfPointerNestingInDeclarations",
+          "shared_implementation_short_name": "DoNotUseMoreThanTwoLevelsOfPointerIndirection",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Declarations should contain no more than two levels of pointer nesting",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-18-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Storing the address of an object in a new object that persists past the original object's lifetime results in undefined behaviour if the address is subsequently accessed.",
+          "kind": "problem",
+          "name": "The address of an object with automatic storage shall not be copied to another object that persists",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AutomaticStorageObjectAddressCopiedToOtherObject",
+          "shared_implementation_short_name": "DoNotCopyAddressOfAutoStorageObjectToOtherObject",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The address of an object with automatic storage shall not be copied to another object that persists after the first object has ceased to exist",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-4-8": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "If a pointer to a structure or union is never dereferenced within a translation unit, then the implementation of the object should be hidden to prevent unintentional changes.",
+          "kind": "problem",
+          "name": "The implementation of an object shall be hidden if a pointer to its structure or union is never dereferenced within a translation unit",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ObjectWithNoPointerDereferenceShouldBeOpaque",
+          "tags": [
+            "readability",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "If a pointer to a structure or union is never dereferenced within a translation unit, then the implementation of the object should be hidden",
+      "implementation_scope": {
+        "description": "This rule considers all cases where a structure or union is referenced as a pointer but has no FieldAccess within a translation unit. Further excluded from this rule are translation units in which the structure or union is declared as a non-pointer variable."
+      }
+    },
+    "RULE-8-13": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A pointer should point to a const-qualified type unless it is used to modify an object or the underlying object data is copied.",
+          "kind": "problem",
+          "name": "A pointer should point to a const-qualified type whenever possible",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PointerShouldPointToConstTypeWhenPossible",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A pointer should point to a const-qualified type whenever possible",
+      "implementation_scope": {
+        "description": "To exclude compliant exceptions, this rule only excludes direct assignments of pointers to non-const-qualified types in the context of a single function and does not cover memory-copying functions. This rule also excludes pointers passed to other functions without conversion."
+      }
+    }
+  }
+}

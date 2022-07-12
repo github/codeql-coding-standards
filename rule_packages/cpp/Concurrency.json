@@ -63,7 +63,8 @@
           "name": "Prevent data races when accessing bit-fields from multiple threads",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "PreventDataRacesWhenAccessingBitFieldsFromMultipleThreads",
+          "short_name": "PreventBitFieldAccessFromMultipleThreads",
+          "shared_implementation_short_name": "GuardAccessToBitFields",
           "tags": [
             "correctness",
             "concurrency"

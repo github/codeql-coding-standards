@@ -1,0 +1,2 @@
+| test.c:4:19:4:33 | (const char *)... | Cast of pointer removes volatile qualification from its base type. |
+| test.c:6:13:6:21 | (char *)... | Cast of pointer removes const qualification from its base type. |

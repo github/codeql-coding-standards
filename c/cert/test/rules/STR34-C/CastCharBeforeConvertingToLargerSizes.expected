@@ -1,0 +1,21 @@
+| test.c:7:7:7:14 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:28:11:28:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:29:3:29:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:29:11:29:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:31:11:31:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:32:11:32:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:33:3:33:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:33:11:33:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:34:3:34:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:34:11:34:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:35:3:35:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:35:11:35:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:36:3:36:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:36:11:36:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:37:11:37:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:38:11:38:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:39:3:39:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:39:11:39:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:40:12:40:13 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:42:11:42:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:43:11:43:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |

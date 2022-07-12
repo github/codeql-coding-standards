@@ -1,0 +1,4 @@
+| test.c:15:13:15:13 | 0 | $@ uses zero-value integer constant expression as null pointer constant. | test.c:15:7:15:13 | ... == ... | Equality operator |
+| test.c:17:8:17:8 | 0 | $@ uses zero-value integer constant expression as null pointer constant. | test.c:17:3:17:8 | ... = ... | Assignment to pointer |
+| test.c:25:20:25:20 | 0 | $@ uses zero-value integer constant expression as null pointer constant. | test.c:25:3:25:35 | ... ? ... : ... | Ternary operator |
+| test.c:25:20:25:20 | 0 | $@ uses zero-value integer constant expression as null pointer constant. | test.c:25:15:25:20 | ... = ... | Assignment to pointer |

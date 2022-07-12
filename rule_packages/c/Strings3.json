@@ -1,0 +1,44 @@
+{
+  "CERT-C": {
+    "STR34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Not casting smaller char sizes to unsigned char before converting to lager integer sizes may lead to unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Cast characters to unsigned char before converting to larger integer sizes",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastCharBeforeConvertingToLargerSizes",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Cast characters to unsigned char before converting to larger integer sizes"
+    },
+    "STR38-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Mixing narrow and wide character strings may cause unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Do not confuse narrow and wide character strings and functions",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotConfuseNarrowAndWideFunctions",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not confuse narrow and wide character strings and functions"
+    }
+  }
+}

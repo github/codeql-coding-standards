@@ -1,0 +1,3 @@
+| test.c:5:13:5:20 | (bool)... | Cast performed between a pointer to void type and a non-integer arithmetic type. |
+| test.c:7:21:7:28 | (bool)... | Cast performed between a pointer to void type and a non-integer arithmetic type. |
+| test.c:8:8:8:16 | (int *)... | Cast performed between a pointer to void type and a non-integer arithmetic type. |

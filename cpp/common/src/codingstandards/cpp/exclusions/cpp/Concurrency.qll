@@ -7,7 +7,7 @@ newtype ConcurrencyQuery =
   TDoNotAllowAMutexToGoOutOfScopeWhileLockedQuery() or
   TDoNotDestroyAMutexWhileItIsLockedQuery() or
   TEnsureActivelyHeldLocksAreReleasedOnExceptionalConditionsQuery() or
-  TPreventDataRacesWhenAccessingBitFieldsFromMultipleThreadsQuery() or
+  TPreventBitFieldAccessFromMultipleThreadsQuery() or
   TDeadlockByLockingInPredefinedOrderQuery() or
   TWrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery() or
   TPreserveThreadSafetyAndLivenessWhenUsingConditionVariablesQuery() or
@@ -40,11 +40,11 @@ predicate isConcurrencyQueryMetadata(Query query, string queryId, string ruleId)
   ruleId = "CON51-CPP"
   or
   query =
-    // `Query` instance for the `preventDataRacesWhenAccessingBitFieldsFromMultipleThreads` query
-    ConcurrencyPackage::preventDataRacesWhenAccessingBitFieldsFromMultipleThreadsQuery() and
+    // `Query` instance for the `preventBitFieldAccessFromMultipleThreads` query
+    ConcurrencyPackage::preventBitFieldAccessFromMultipleThreadsQuery() and
   queryId =
-    // `@id` for the `preventDataRacesWhenAccessingBitFieldsFromMultipleThreads` query
-    "cpp/cert/prevent-data-races-when-accessing-bit-fields-from-multiple-threads" and
+    // `@id` for the `preventBitFieldAccessFromMultipleThreads` query
+    "cpp/cert/prevent-bit-field-access-from-multiple-threads" and
   ruleId = "CON52-CPP"
   or
   query =
@@ -110,11 +110,11 @@ module ConcurrencyPackage {
       TQueryCPP(TConcurrencyPackageQuery(TEnsureActivelyHeldLocksAreReleasedOnExceptionalConditionsQuery()))
   }
 
-  Query preventDataRacesWhenAccessingBitFieldsFromMultipleThreadsQuery() {
+  Query preventBitFieldAccessFromMultipleThreadsQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `preventDataRacesWhenAccessingBitFieldsFromMultipleThreads` query
-      TQueryCPP(TConcurrencyPackageQuery(TPreventDataRacesWhenAccessingBitFieldsFromMultipleThreadsQuery()))
+      // `Query` type for `preventBitFieldAccessFromMultipleThreads` query
+      TQueryCPP(TConcurrencyPackageQuery(TPreventBitFieldAccessFromMultipleThreadsQuery()))
   }
 
   Query deadlockByLockingInPredefinedOrderQuery() {

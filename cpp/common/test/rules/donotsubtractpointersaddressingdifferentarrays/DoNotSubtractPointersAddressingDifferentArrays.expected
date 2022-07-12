@@ -1,0 +1,26 @@
+problems
+| test.cpp:12:10:12:11 | p1 | test.cpp:4:14:4:15 | l1 | test.cpp:12:10:12:11 | p1 | Subtraction between left operand pointing to array $@ and other operand pointing to array $@. | test.cpp:2:7:2:8 | l1 | l1 | test.cpp:3:7:3:8 | l2 | l2 |
+| test.cpp:12:15:12:16 | p2 | test.cpp:5:14:5:15 | l2 | test.cpp:12:15:12:16 | p2 | Subtraction between right operand pointing to array $@ and other operand pointing to array $@. | test.cpp:3:7:3:8 | l2 | l2 | test.cpp:2:7:2:8 | l1 | l1 |
+| test.cpp:13:10:13:11 | p4 | test.cpp:5:14:5:15 | l2 | test.cpp:13:10:13:11 | p4 | Subtraction between left operand pointing to array $@ and other operand pointing to array $@. | test.cpp:3:7:3:8 | l2 | l2 | test.cpp:2:7:2:8 | l1 | l1 |
+| test.cpp:13:15:13:16 | l1 | test.cpp:13:15:13:16 | l1 | test.cpp:13:15:13:16 | l1 | Subtraction between right operand pointing to array $@ and other operand pointing to array $@. | test.cpp:2:7:2:8 | l1 | l1 | test.cpp:3:7:3:8 | l2 | l2 |
+edges
+| test.cpp:4:14:4:15 | l1 | test.cpp:10:10:10:11 | p1 |
+| test.cpp:4:14:4:15 | l1 | test.cpp:12:10:12:11 | p1 |
+| test.cpp:5:14:5:15 | l2 | test.cpp:11:10:11:11 | p2 |
+| test.cpp:5:14:5:15 | l2 | test.cpp:12:15:12:16 | p2 |
+| test.cpp:5:14:5:15 | l2 | test.cpp:13:10:13:11 | p4 |
+| test.cpp:5:14:5:15 | l2 | test.cpp:14:10:14:11 | p4 |
+nodes
+| test.cpp:4:14:4:15 | l1 | semmle.label | l1 |
+| test.cpp:5:14:5:15 | l2 | semmle.label | l2 |
+| test.cpp:10:10:10:11 | p1 | semmle.label | p1 |
+| test.cpp:10:15:10:16 | l1 | semmle.label | l1 |
+| test.cpp:11:10:11:11 | p2 | semmle.label | p2 |
+| test.cpp:11:15:11:16 | l2 | semmle.label | l2 |
+| test.cpp:12:10:12:11 | p1 | semmle.label | p1 |
+| test.cpp:12:15:12:16 | p2 | semmle.label | p2 |
+| test.cpp:13:10:13:11 | p4 | semmle.label | p4 |
+| test.cpp:13:15:13:16 | l1 | semmle.label | l1 |
+| test.cpp:14:10:14:11 | p4 | semmle.label | p4 |
+| test.cpp:14:15:14:16 | l2 | semmle.label | l2 |
+subpaths

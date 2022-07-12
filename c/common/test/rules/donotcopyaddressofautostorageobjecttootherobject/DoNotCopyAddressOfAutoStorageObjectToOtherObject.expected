@@ -1,0 +1,1 @@
+| test.c:7:5:7:10 | ... = ... | A stack address ($@) may be assigned to a non-local variable. | test.c:7:10:7:10 | c | source |

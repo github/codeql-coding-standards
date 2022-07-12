@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "RULE-20-8": {
+        "properties": {
+          "obligation": "required"
+        },
+        "queries": [
+          {
+            "description": "A controlling expression of a #if or #elif preprocessing directive that does not evaluate to 0 or 1 makes code more difficult to understand.",
+            "kind": "problem",
+            "name": "The controlling expression of a #if or #elif preprocessing directive shall evaluate to 0 or 1",
+            "precision": "high",
+            "severity": "warning",
+            "short_name": "ControllingExpressionIfDirective",
+            "tags": [
+                "maintainability",
+                "readability"
+            ]
+          }
+        ],
+        "title": "The controlling expression of a #if or #elif preprocessing directive shall evaluate to 0 or 1"
+      }
+  }
+}

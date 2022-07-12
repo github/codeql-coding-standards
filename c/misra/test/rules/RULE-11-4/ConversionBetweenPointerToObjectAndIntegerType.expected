@@ -1,0 +1,6 @@
+| test.c:5:21:5:42 | (unsigned int)... | Cast performed between a pointer to object type and a pointer to an integer type. |
+| test.c:5:35:5:42 | (int *)... | Cast performed between a pointer to object type and a pointer to an integer type. |
+| test.c:6:21:6:37 | (unsigned int)... | Cast performed between a pointer to object type and a pointer to an integer type. |
+| test.c:8:8:8:24 | (unsigned int)... | Cast performed between a pointer to object type and a pointer to an integer type. |
+| test.c:10:22:10:22 | (unsigned int *)... | Cast performed between a pointer to object type and a pointer to an integer type. |
+| test.c:12:22:12:39 | (unsigned int *)... | Cast performed between a pointer to object type and a pointer to an integer type. |

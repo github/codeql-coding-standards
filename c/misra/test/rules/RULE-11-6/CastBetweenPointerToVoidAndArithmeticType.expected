@@ -1,0 +1,3 @@
+| test.c:3:14:3:23 | (void *)... | Cast performed between a pointer to void type and an arithmetic type. |
+| test.c:5:8:5:17 | (void *)... | Cast performed between a pointer to void type and an arithmetic type. |
+| test.c:7:8:7:14 | (int)... | Cast performed between a pointer to void type and an arithmetic type. |

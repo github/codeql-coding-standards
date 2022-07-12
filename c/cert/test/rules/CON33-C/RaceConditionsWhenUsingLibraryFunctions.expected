@@ -1,0 +1,2 @@
+| test.c:11:3:11:8 | call to strtok | Concurrent call to non-reeantrant function $@. | test.c:6:7:6:12 | strtok | strtok |
+| test.c:17:3:17:8 | call to strtok | Concurrent call to non-reeantrant function $@. | test.c:6:7:6:12 | strtok | strtok |

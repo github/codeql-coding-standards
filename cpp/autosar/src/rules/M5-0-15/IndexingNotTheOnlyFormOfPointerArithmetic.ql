@@ -16,49 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.rules.useonlyarrayindexingforpointerarithmetic.UseOnlyArrayIndexingForPointerArithmetic
 
-class ArrayToArrayBaseConfig extends DataFlow::Configuration {
-  ArrayToArrayBaseConfig() { this = "ArrayToArrayBaseConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
-    source.asExpr().(VariableAccess).getType() instanceof ArrayType
-    or
-    // Consider array to pointer decay for parameters.
-    source.asExpr().(VariableAccess).getTarget().(Parameter).getType() instanceof ArrayType
-  }
-
-  override predicate isSink(DataFlow::Node sink) {
-    exists(ArrayExpr e | e.getArrayBase() = sink.asExpr())
+class IndexingNotTheOnlyFormOfPointerArithmeticQuery extends UseOnlyArrayIndexingForPointerArithmeticSharedQuery {
+  IndexingNotTheOnlyFormOfPointerArithmeticQuery() {
+    this = PointersPackage::indexingNotTheOnlyFormOfPointerArithmeticQuery()
   }
 }
-
-predicate hasPointerResult(PointerArithmeticOperation op) {
-  op instanceof PointerAddExpr
-  or
-  op instanceof PointerSubExpr
-}
-
-predicate shouldBeArray(ArrayExpr arrayExpr) {
-  arrayExpr.getArrayBase().getUnspecifiedType() instanceof PointerType and
-  not exists(VariableAccess va |
-    any(ArrayToArrayBaseConfig config)
-        .hasFlow(DataFlow::exprNode(va), DataFlow::exprNode(arrayExpr.getArrayBase()))
-  ) and
-  not exists(Variable v |
-    v.getAnAssignedValue().getType() instanceof ArrayType and
-    arrayExpr.getArrayBase() = v.getAnAccess()
-  )
-}
-
-from Expr e
-where
-  not isExcluded(e, PointersPackage::indexingNotTheOnlyFormOfPointerArithmeticQuery()) and
-  (
-    hasPointerResult(e)
-    or
-    shouldBeArray(e)
-  ) and
-  not e.isAffectedByMacro()
-select e,
-  "Use of pointer arithmetic other than array indexing or indexing pointer not declared as an array."

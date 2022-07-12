@@ -1,0 +1,39 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+  <section title="Classification">
+    <ul>
+      <li>required</li>
+      <li>implementation</li>
+      <li>automated</li>
+    </ul>
+  </section>
+
+  <section title="Amplification">
+    <p>
+      This rule does not apply to controlling expressions in preprocessing directives which are not evaluated.
+      Controlling expressions are not evaluated if they are within code that is being excluded and cannot
+      have an effect on whether code is excluded or not.
+    </p>
+
+  </section>
+
+
+  <section title="Rationale">
+    <p>
+      Strong typing requires the controlling expression of conditional inclusion preprocessing directives to
+      have a Boolean value.
+    </p>
+
+  </section>
+
+  <example>
+    <sample src="standard-example.c"></sample>
+  </example>
+
+  <section title="See more">
+    <ul>
+      <li>See MISRA C 2012: Rule 14.4 The controlling expression of an <i>if</i> statement and the controlling
+          expression of an <i>iteration-statement</i> shall have <i>essentially Boolean</i> type </li>
+    </ul>
+  </section>
+</qhelp>

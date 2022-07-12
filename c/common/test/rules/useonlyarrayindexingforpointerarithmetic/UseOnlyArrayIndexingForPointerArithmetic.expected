@@ -1,0 +1,4 @@
+| test.c:11:8:11:13 | ... + ... | Use of pointer arithmetic other than array indexing or indexing pointer not declared as an array. |
+| test.c:12:3:12:7 | access to array | Use of pointer arithmetic other than array indexing or indexing pointer not declared as an array. |
+| test.c:13:9:13:13 | access to array | Use of pointer arithmetic other than array indexing or indexing pointer not declared as an array. |
+| test.c:17:5:17:10 | ... + ... | Use of pointer arithmetic other than array indexing or indexing pointer not declared as an array. |
