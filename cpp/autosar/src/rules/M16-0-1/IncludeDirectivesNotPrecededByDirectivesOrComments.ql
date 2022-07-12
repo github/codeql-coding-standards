@@ -15,36 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.preprocessorincludespreceded.PreprocessorIncludesPreceded
 
-class PreprocessorBranchMacroAccess extends MacroAccess {
-  PreprocessorBranchMacroAccess() {
-    // We're only interested in cases in the users source code
-    exists(getFile().getRelativePath()) and
-    exists(PreprocessorBranchDirective pd, string filepath, int startline |
-      pd.getLocation().hasLocationInfo(filepath, startline, _, _, _) and
-      getLocation().hasLocationInfo(filepath, startline, _, _, _)
-    )
+class PreprocessorIncludesPrecededQuery extends PreprocessorIncludesPrecededSharedQuery {
+  PreprocessorIncludesPrecededQuery() {
+    this = MacrosPackage::includeDirectivesNotPrecededByDirectivesOrCommentsQuery()
   }
 }
-
-class NotIncludeOrCommentElement extends Element {
-  NotIncludeOrCommentElement() {
-    exists(getFile().getRelativePath()) and
-    not (
-      this instanceof PreprocessorDirective or
-      this instanceof Comment or
-      this instanceof File or
-      this instanceof PreprocessorBranchMacroAccess
-    )
-  }
-}
-
-from NotIncludeOrCommentElement first, Include second
-where
-  exists(string filepath, int firststartline, int secondstartline |
-    first.getLocation().hasLocationInfo(filepath, firststartline, _, _, _) and
-    second.getLocation().hasLocationInfo(filepath, secondstartline, _, _, _) and
-    firststartline < secondstartline
-  ) and
-  not isExcluded(second, MacrosPackage::includeDirectivesNotPrecededByDirectivesOrCommentsQuery())
-select second, second + " is preceded by a non-preprocessor or comment code element."

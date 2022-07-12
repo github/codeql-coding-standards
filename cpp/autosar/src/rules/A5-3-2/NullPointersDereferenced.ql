@@ -7,6 +7,7 @@
  * @problem.severity error
  * @tags external/autosar/id/a5-3-2
  *       correctness
+ *       external/autosar/default-disabled
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/partially-automated
  *       external/autosar/obligation/required

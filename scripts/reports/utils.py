@@ -73,10 +73,13 @@ class CodingStandardsResultSummary:
             sys.exit(1)
 
         extensions = tool["extensions"]
+
         self.coding_standard_relevant_packs = []
+        coding_standard_name_endings = ["cpp-coding-standards", "c-coding-standards", "codeql/cpp-all"]
         for extension in extensions:
-            if extension["name"].endswith("cpp-coding-standards") or extension["name"] == "codeql/cpp-all":
-                self.coding_standard_relevant_packs.append(extension)
+            for ending in coding_standard_name_endings:
+                if extension["name"].endswith(ending):
+                    self.coding_standard_relevant_packs.append(extension)
 
         # Count the results per SARIF rule ID
         sarif_rule_result_count = defaultdict(int)

@@ -1,1 +1,0 @@
-- Updated release artifacts naming convention to include the explicit tag in the filename and updated the user manual.

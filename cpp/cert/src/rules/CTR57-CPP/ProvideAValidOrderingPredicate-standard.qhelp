@@ -1,17 +1,96 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>Associative containers place a strict weak ordering requirement on their key comparison predicates [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]. A strict weak ordering has the following properties:</p>
+  <p>
+   Associative containers place a strict weak ordering requirement on their key comparison predicates
+   [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ]
+   . A strict weak ordering has the following properties:
+  </p>
   <ul>
-   <li>for all <code>x</code>: <code>x &lt; x == false</code> (irreflexivity)</li>
-   <li>for all <code>x</code>, <code>y</code>: if <code>x &lt; y</code> then <code>!(y &lt; x)</code> (asymmetry)</li>
-   <li>for all <code>x</code>, <code>y</code>, <code>z</code>: if <code>x &lt; y &amp;&amp; y &lt; z </code>then<code> x &lt; z</code> (transitivity)</li>
+   <li>
+    for all
+    <code>
+     x
+    </code>
+    :
+    <code>
+     x &lt; x == false
+    </code>
+    (irreflexivity)
+   </li>
+   <li>
+    for all
+    <code>
+     x
+    </code>
+    ,
+    <code>
+     y
+    </code>
+    : if
+    <code>
+     x &lt; y
+    </code>
+    then
+    <code>
+     !(y &lt; x)
+    </code>
+    (asymmetry)
+   </li>
+   <li>
+    for all
+    <code>
+     x
+    </code>
+    ,
+    <code>
+     y
+    </code>
+    ,
+    <code>
+     z
+    </code>
+    : if
+    <code>
+     x &lt; y &amp;&amp; y &lt; z
+    </code>
+    then
+    <code>
+     x &lt; z
+    </code>
+    (transitivity)
+   </li>
   </ul>
-  <p>Providing an invalid ordering predicate for an associative container (e.g., sets, maps, multisets, and multimaps), or as a comparison criterion with the sorting algorithms, can result in erratic behavior or infinite loops [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Meyers01">Meyers 01</a>]. When an ordering predicate is required for an associative container or a generic standard template library algorithm, the predicate must meet the requirements for inducing a strict weak ordering.</p>
+  <p>
+   Providing an invalid ordering predicate for an associative container (e.g., sets, maps, multisets, and multimaps), or as a comparison criterion with the sorting algorithms, can result in erratic behavior or infinite loops [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Meyers01">
+    Meyers 01
+   </a>
+   ]. When an ordering predicate is required for an associative container or a generic standard template library algorithm, the predicate must meet the requirements for inducing a strict weak ordering.
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, the <code>std::set</code> object is created with a comparator that does not adhere to the strict weak ordering requirement. Specifically, it fails to return false for equivalent values. As a result, the behavior of iterating over the results from <code>std::set::equal_range</code> results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedbehavior">unspecified behavior</a>.</p>
-  <sample language="cpp">#include &lt;functional&gt;
+  <p>
+   In this noncompliant code example, the
+   <code>
+    std::set
+   </code>
+   object is created with a comparator that does not adhere to the strict weak ordering requirement. Specifically, it fails to return false for equivalent values. As a result, the behavior of iterating over the results from
+   <code>
+    std::set::equal_range
+   </code>
+   results in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedbehavior">
+    unspecified behavior
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;functional&gt;
 #include &lt;iostream&gt;
 #include &lt;set&gt;
 
@@ -21,11 +100,18 @@ void f() {
     std::cout &lt;&lt; *r.first &lt;&lt; std::endl;
   }
 }
-</sample>
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>This compliant solution uses the default comparator with <code>std::set</code> instead of providing an invalid one.</p>
-  <sample language="cpp">#include &lt;iostream&gt;
+  <p>
+   This compliant solution uses the default comparator with
+   <code>
+    std::set
+   </code>
+   instead of providing an invalid one.
+  </p>
+  <sample language="cpp">
+   #include &lt;iostream&gt;
 #include &lt;set&gt;
 
 void f() {
@@ -34,11 +120,14 @@ void f() {
     std::cout &lt;&lt; *r.first &lt;&lt; std::endl;
   }
 }
-</sample>
+  </sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, the objects stored in the std::set have an overloaded operator&lt; implementation, allowing the objects to be compared with std::less. However, the comparison operation does not provide a strict weak ordering. Specifically, two sets, x and y, whose i values are both 1, but have differing j values can result in a situation where comp(x, y) and comp(y, x) are both false, failing the asymmetry requirements.</p>
-  <sample language="cpp">#include &lt;iostream&gt;
+  <p>
+   In this noncompliant code example, the objects stored in the std::set have an overloaded operator&lt; implementation, allowing the objects to be compared with std::less. However, the comparison operation does not provide a strict weak ordering. Specifically, two sets, x and y, whose i values are both 1, but have differing j values can result in a situation where comp(x, y) and comp(y, x) are both false, failing the asymmetry requirements.
+  </p>
+  <sample language="cpp">
+   #include &lt;iostream&gt;
 #include &lt;set&gt;
 
 class S {
@@ -62,17 +151,21 @@ void f() {
   for (auto v : t) {
     std::cout &lt;&lt; v &lt;&lt; std::endl;
   }
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>This compliant solution uses std::tie() to properly implement the strict weak ordering operator&lt; predicate.</p>
-  <sample language="cpp">#include &lt;iostream&gt;
+  <p>
+   This compliant solution uses std::tie() to properly implement the strict weak ordering operator&lt; predicate.
+  </p>
+  <sample language="cpp">
+   #include &lt;iostream&gt;
 #include &lt;set&gt;
 #include &lt;tuple&gt;
- 
+ 
 class S {
   int i, j;
- 
+ 
 public:
   S(int i, int j) : i(i), j(j) {}
   
@@ -91,10 +184,13 @@ void f() {
   for (auto v : t) {
     std::cout &lt;&lt; v &lt;&lt; std::endl;
   }
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Using an invalid ordering rule can lead to erratic behavior or infinite loops.</p>
+  <p>
+   Using an invalid ordering rule can lead to erratic behavior or infinite loops.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -131,10 +227,14 @@ void f() {
       High
      </td>
      <td>
-      <strong>P2</strong>
+      <strong>
+       P2
+      </strong>
      </td>
      <td>
-      <strong>L3</strong>
+      <strong>
+       L3
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -167,7 +267,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>C++3293</strong>
+      <strong>
+       C++3293
+      </strong>
      </td>
      <td>
      </td>
@@ -182,7 +284,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-CTR57-a</strong>
+      <strong>
+       CERT_CPP-CTR57-a
+      </strong>
      </td>
      <td>
       For associative containers never use comparison function returning true for equal values
@@ -192,7 +296,17 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vul">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR40-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vul">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR40-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>

@@ -15,13 +15,14 @@ if (len(sys.argv) == 2 and sys.argv[1] == "--help"):
     print(help_statement.format(script_name=sys.argv[0]))
     sys.exit(0)
 
-if len(sys.argv) > 1:
+if not len(sys.argv) == 2:
     print("Error: incorrect number of arguments", file=sys.stderr)
     print("Usage: " + sys.argv[0] + " [--help]", file=sys.stderr)
     sys.exit(1)
 
 repo_root = Path(__file__).parent.parent.parent
 rules_file_path = repo_root.joinpath('rules.csv')
+language_name = sys.argv[1]
 
 failed = False
 
@@ -38,16 +39,22 @@ else:
         # Skip header row
         next(rules_reader, None)
         for rule in rules_reader:
-            standard = rule[0]
-            rule_id = rule[1]
-            queryable = rule[2]
-            obligation_level = rule[3]
-            enforcement_level = rule[4]
-            allocated_targets = rule[5]
-            rule_title = rule[6]
-            similar_query = rule[7]
-            package = rule[8]
-            difficulty = rule[9]
+            language = rule[0]
+
+            # only validate rules for the specified language 
+            if not language == language_name:
+                continue 
+
+            standard = rule[1]
+            rule_id = rule[2]
+            queryable = rule[3]
+            obligation_level = rule[4]
+            enforcement_level = rule[5]
+            allocated_targets = rule[6]
+            rule_title = rule[7]
+            similar_query = rule[8]
+            package = rule[9]
+            difficulty = rule[10]
             # If the rule is associated with a package
             if package:
                 if not queryable == "Yes":
@@ -60,12 +67,12 @@ else:
 
 print(f"Found {count} implementable rules, verifying.")
 
-rule_packages_file_path = repo_root.joinpath('rule_packages')
+rule_packages_file_path = repo_root.joinpath('rule_packages', language_name)
 
 # Iterate over rule packages, verifying the contents
 for rule_package_file_name in os.listdir(rule_packages_file_path):
     try:
-        rule_package_file = open(rule_packages_file_path.joinpath(rule_package_file_name), "r")
+            rule_package_file = open(rule_packages_file_path.joinpath(rule_package_file_name), "r")
     except PermissionError:
         print("Error: No permission to read the rule package file located at '" + str(rule_package_file_name) + "'")
         sys.exit(1)
@@ -79,7 +86,8 @@ for rule_package_file_name in os.listdir(rule_packages_file_path):
                     package_json_rule_ids.add(rule_id)
 
                     standard_short_name = standard_name.split("-")[0].lower()
-                    standard_dir = repo_root.joinpath("cpp").joinpath(standard_short_name)
+                    standard_dir = repo_root.joinpath(language_name).joinpath(standard_short_name)
+                    
                     # Identify the source pack for this standard
                     src_pack_dir = standard_dir.joinpath("src")
                     # Identify the rule src dir
@@ -93,12 +101,12 @@ for rule_package_file_name in os.listdir(rule_packages_file_path):
                             f" - ERROR: Rule {rule_id} included in {package_name}.json but not marked as queryable in rules.csv.")
                         failed = True
             rules_csv_rule_ids = package_rules_from_csv[package_name]
+
             json_missing_rules = rules_csv_rule_ids.difference(package_json_rule_ids)
             if json_missing_rules:
                 print(
                     f" - ERROR: Package file {package_name}.json is missing rule records for the following rules: { json_missing_rules }.")
                 failed = True
-
 if failed:
     print("ERROR: Consistency issues found")
     sys.exit(1)

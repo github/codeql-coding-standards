@@ -1,0 +1,2 @@
+| test.c:12:19:12:21 | msg | The format string argument to `$@` should be constant to prevent security issues and other potential errors. | test.c:12:3:12:9 | call to fprintf | fprintf |
+| test.c:38:20:38:22 | msg | The format string argument to `$@` should be constant to prevent security issues and other potential errors. | test.c:38:3:38:8 | call to syslog | syslog |

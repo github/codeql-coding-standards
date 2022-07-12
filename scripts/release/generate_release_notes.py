@@ -41,6 +41,18 @@ if len(sys.argv) > 2:
   print("Usage: " + sys.argv[0] + " [previous-release-tag]", file=sys.stderr)
   sys.exit(1)
 
+
+def transform_legacy_rule_path(p):
+  """
+  We need to account for these files which have been moved since CPP coding
+  standards. Essentially if there is no language stem it is by default a cpp
+  file, which should be found in the cpp directory.
+  """
+  if not (p.startswith("rule_packages/c") or p.startswith("rule_packages/cpp")):
+    return p.replace("rule_packages/", "rule_packages/cpp/")
+  else:
+    return p 
+
 # Initialise codeql-coding-standards repository object
 repo_root = Path(__file__).parent.parent.parent
 repo = Repo(repo_root)
@@ -67,7 +79,7 @@ latest_release_commit = repo.commit("v" + previous_release_tag)
 diff_from_last_release = latest_release_commit.diff(head_commit)
 
 # Store a mapping from standard -> rules with new queries -> new queries for those rules
-new_rules = {"AUTOSAR" : {}, "CERT-C++" : {}}
+new_rules = {"AUTOSAR" : {}, "CERT-C++" : {}, "MISRA-C-2012" : {}, "CERT-C" : {}}
 # Store the text of the newly added change notes
 change_notes = []
 # Store the names of the rule packages with new queries
@@ -84,7 +96,7 @@ for diff_added in diff_from_last_release.iter_change_type('A'):
       print("Error: No permission to read the rule package file located at '" + str(added_file) + "'")
       sys.exit(1)
     else:
-      new_rule_packages.append(added_file[len("rule_packages/"):(-len(".json"))])
+      new_rule_packages.append(Path(added_file).stem)
       with rule_package_file:
         package_definition = json.load(rule_package_file)
         for standard_name, rules in package_definition.items():
@@ -106,12 +118,13 @@ for diff_added in diff_from_last_release.iter_change_type('A'):
 # Iterate through changed files
 for diff_changed in diff_from_last_release.iter_change_type('M'):
   changed_file = diff_changed.a_path
+
   # Identify rule packages which have changed
   if changed_file.startswith("rule_packages/"):
     try:
-      rule_package_file = open(changed_file, "r")
+      rule_package_file = open(transform_legacy_rule_path(changed_file), "r")
     except PermissionError:
-      print("Error: No permission to read the rule package file located at '" + str(rule_package_file_path) + "'")
+      print("Error: No permission to read the rule package file located at '" + str(changed_file) + "'")
       sys.exit(1)
     else:
       # This rule package is modified, so read in the rule package description as it was in the previous tag
@@ -140,7 +153,7 @@ for diff_changed in diff_from_last_release.iter_change_type('M'):
               new_query_added = True
         if new_query_added:
           # Add this rule package to the list if a new query was added for it
-          new_rule_packages.append(changed_file[len("rule_packages/"):(-len(".json"))])
+          new_rule_packages.append(Path(changed_file).stem)
 
 # Determine our supported environments
 supported_environments = []

@@ -1,0 +1,12 @@
+| test.c:11:12:11:19 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:19:12:19:19 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:77:13:77:22 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:96:12:96:19 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:101:10:102:15 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:116:12:116:19 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:120:9:120:16 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:122:12:122:19 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:132:7:132:14 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:137:10:137:25 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:149:7:149:14 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:151:7:151:14 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |

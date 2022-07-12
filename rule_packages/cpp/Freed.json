@@ -1,0 +1,179 @@
+{
+  "AUTOSAR": {
+    "A18-5-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An object that was allocated with 'new' is being freed using 'delete[]'. Behavior in such cases is undefined and should be avoided. Use 'delete' instead.",
+          "kind": "problem",
+          "name": "'new' object freed with 'delete[]'",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "NewDeleteArrayMismatch",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An array allocated with 'new[]' is being freed using 'delete'. Behavior in such cases is undefined and should be avoided. Use 'delete[]' when freeing arrays allocated with 'new[]'.",
+          "kind": "problem",
+          "name": "'new[]' array freed with 'delete'",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "NewArrayDeleteMismatch",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The form of the delete expression shall match the form of the new expression used to allocate the memory."
+    },
+    "A3-8-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Accessing an object before its lifetime can result in undefined behavior.",
+          "kind": "problem",
+          "name": "Access of uninitialized object",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "ObjectAccessedBeforeLifetime",
+          "short_name": "ObjectAccessedBeforeLifetimeAutosar",
+          "tags": [
+            "correctness",
+            "security",
+            "external/autosar/default-disabled"
+          ]
+        },
+        {
+          "description": "Accessing an object after its lifetime results in undefined behavior.",
+          "kind": "problem",
+          "name": "Access of object after lifetime (use-after-free)",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "ObjectAccessedAfterLifetime",
+          "short_name": "ObjectAccessedAfterLifetimeAutosar",
+          "tags": [
+            "correctness",
+            "security",
+            "external/autosar/default-disabled"
+          ]
+        }
+      ],
+      "title": "An object shall not be accessed outside of its lifetime."
+    },
+    "M7-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The address of an object with automatic storage shall not be assigned to another object that may persist after the first object has ceased to exist.",
+          "kind": "problem",
+          "name": "Do not assign the address of an object with automatic storage to an object that may persist after it's lifetime",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "AssignmentOfEscapingAutoStorage",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The address of an object with automatic storage shall not be assigned to another object that may persist after the first object has ceased to exist."
+    }
+  },
+  "CERT-C++": {
+    "EXP51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Deleting an array through a pointer of an incorrect type leads to undefined behavior.",
+          "kind": "path-problem",
+          "name": "Do not delete an array through a pointer of the incorrect type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not delete an array through a pointer of the incorrect type"
+    },
+    "EXP54-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accessing an object before its lifetime can result in undefined behavior.",
+          "kind": "problem",
+          "name": "Access of uninitialized object",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "ObjectAccessedBeforeLifetime",
+          "short_name": "ObjectAccessedBeforeLifetimeCert",
+          "tags": [
+            "correctness",
+            "security",
+            "external/autosar/default-disabled"
+          ]
+        },
+        {
+          "description": "Accessing an object after its lifetime results in undefined behavior.",
+          "kind": "problem",
+          "name": "Access of object after lifetime (use-after-free)",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "ObjectAccessedAfterLifetime",
+          "short_name": "ObjectAccessedAfterLifetimeCert",
+          "tags": [
+            "correctness",
+            "security",
+            "external/autosar/default-disabled"
+          ]
+        }
+      ],
+      "title": "Do not access an object outside of its lifetime"
+    },
+    "MEM50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accessing an object after it has been deallocated is undefined behavior.",
+          "kind": "problem",
+          "name": "Do not access freed memory",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "ObjectAccessedAfterLifetime",
+          "short_name": "UseAfterFree",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not access freed memory"
+    }
+  }
+}

@@ -1,15 +1,44 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>Throwing an exception requires collaboration between the execution of the <code>throw</code> expression and the passing of control to the appropriate <code>catch</code> statement, if one applies. This collaboration takes the form of runtime logic used to calculate the correct handler for the exception and is an implementation detail specific to the platform. For code compiled by a single C++ compiler, the details of how to throw and catch exceptions can be safely ignored. However, when throwing an exception across execution boundaries, care must be taken to ensure the runtime logic used is compatible between differing sides of the execution boundary.</p>
-  <p>An <em>execution boundary</em> is the delimitation between code compiled by differing compilers, including different versions of a compiler produced by the same vendor. For instance, a function may be declared in a header file but defined in a library that is loaded at runtime. The execution boundary is between the call site in the executable and the function implementation in the library. Such boundaries are also called <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-applicationbinaryinterface">ABI</a> (application binary interface) boundaries because they relate to the interoperability of application binaries.</p>
-  <p> Throw an exception across an execution boundary only when both sides of the execution boundary use the same ABI for exception handling.</p>
+  <p>
+   Throwing an exception requires collaboration between the execution of the
+   <code>
+    throw
+   </code>
+   expression and the passing of control to the appropriate
+   <code>
+    catch
+   </code>
+   statement, if one applies. This collaboration takes the form of runtime logic used to calculate the correct handler for the exception and is an implementation detail specific to the platform. For code compiled by a single C++ compiler, the details of how to throw and catch exceptions can be safely ignored. However, when throwing an exception across execution boundaries, care must be taken to ensure the runtime logic used is compatible between differing sides of the execution boundary.
+  </p>
+  <p>
+   An
+   <em>
+    execution boundary
+   </em>
+   is the delimitation between code compiled by differing compilers, including different versions of a compiler produced by the same vendor. For instance, a function may be declared in a header file but defined in a library that is loaded at runtime. The execution boundary is between the call site in the executable and the function implementation in the library. Such boundaries are also called
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-applicationbinaryinterface">
+    ABI
+   </a>
+   (application binary interface) boundaries because they relate to the interoperability of application binaries.
+  </p>
+  <p>
+   Throw an exception across an execution boundary only when both sides of the execution boundary use the same ABI for exception handling.
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, an exception is thrown from a library function to signal an error. Despite the exception being a scalar type (and thus implicitly conforming to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP60-CPP.+Do+not+pass+a+nonstandard-layout+type+object+across+execution+boundaries">EXP60-CPP. Do not pass a nonstandard-layout type object across execution boundaries</a>), this code can still result in abnormal program execution if the library and application adhere to different ABIs.</p>
-  <sample language="cpp">// library.h
+  <p>
+   In this noncompliant code example, an exception is thrown from a library function to signal an error. Despite the exception being a scalar type (and thus implicitly conforming to
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP60-CPP.+Do+not+pass+a+nonstandard-layout+type+object+across+execution+boundaries">
+    EXP60-CPP. Do not pass a nonstandard-layout type object across execution boundaries
+   </a>
+   ), this code can still result in abnormal program execution if the library and application adhere to different ABIs.
+  </p>
+  <sample language="cpp">
+   // library.h
 void func() noexcept(false); // Implemented by the library
- 
+ 
 // library.cpp
 void func() noexcept(false) {
   // ...
@@ -17,7 +46,7 @@ void func() noexcept(false) {
     throw 42;
   }
 }
- 
+ 
 // application.cpp
 #include "library.h"
 
@@ -27,13 +56,43 @@ void f() {
   } catch(int &amp;e) {
     // Handle error
   }
-}</sample>
-  <p><strong>Implementation Details</strong></p>
-  <p>If the library code is compiled (with modification to account for mangling differences) with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-gcc">GCC </a>4.9 on a default installation of MinGW-w64 without special compiler flags, the exception throw will rely on the zero-cost, table-based exception model that is based on <a href="http://wiki.dwarfstd.org/index.php?title=Exception_Handling">DWARF</a> and uses the Itanium ABI. If the application code is compiled with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-msvc">Microsoft Visual Studio </a>2013, the catch handler will be based on <a href="https://en.wikipedia.org/wiki/Microsoft-specific_exception_handling_mechanisms">Structured Exception Handling</a> and the Microsoft ABI. These two exception-handling formats are incompatible, as are the ABIs, resulting in abnormal program behavior. Specifically, the exception thrown by the library is not caught by the application, and <code>std::terminate()</code> is eventually called.</p>
+}
+  </sample>
+  <p>
+   <strong>
+    Implementation Details
+   </strong>
+  </p>
+  <p>
+   If the library code is compiled (with modification to account for mangling differences) with
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-gcc">
+    GCC
+   </a>
+   4.9 on a default installation of MinGW-w64 without special compiler flags, the exception throw will rely on the zero-cost, table-based exception model that is based on
+   <a href="http://wiki.dwarfstd.org/index.php?title=Exception_Handling">
+    DWARF
+   </a>
+   and uses the Itanium ABI. If the application code is compiled with
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-msvc">
+    Microsoft Visual Studio
+   </a>
+   2013, the catch handler will be based on
+   <a href="https://en.wikipedia.org/wiki/Microsoft-specific_exception_handling_mechanisms">
+    Structured Exception Handling
+   </a>
+   and the Microsoft ABI. These two exception-handling formats are incompatible, as are the ABIs, resulting in abnormal program behavior. Specifically, the exception thrown by the library is not caught by the application, and
+   <code>
+    std::terminate()
+   </code>
+   is eventually called.
+  </p>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, the error from the library function is indicated by a return value instead of an exception. Using Microsoft Visual Studio (or GCC) to compile both the library and the application would also be a compliant solution because the same exception-handling machinery and ABI would be used on both sides of the execution boundary.</p>
-  <sample language="cpp">// library.h
+  <p>
+   In this compliant solution, the error from the library function is indicated by a return value instead of an exception. Using Microsoft Visual Studio (or GCC) to compile both the library and the application would also be a compliant solution because the same exception-handling machinery and ABI would be used on both sides of the execution boundary.
+  </p>
+  <sample language="cpp">
+   // library.h
 int func() noexcept(true); // Implemented by the library
 
 // library.cpp
@@ -53,10 +112,21 @@ void f() {
   if (int err = func()) {
     // Handle error
   }
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>The effects of throwing an exception across execution boundaries depends on the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">implementation details</a> of the exception-handling mechanics. They can range from correct or benign behavior to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <p>
+   The effects of throwing an exception across execution boundaries depends on the
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">
+    implementation details
+   </a>
+   of the exception-handling mechanics. They can range from correct or benign behavior to
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
   <table>
    <tbody>
     <tr>
@@ -93,10 +163,14 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>P12</strong>
+      <strong>
+       P12
+      </strong>
      </td>
      <td>
-      <strong>L1</strong>
+      <strong>
+       L1
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -129,7 +203,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>C++3809, C++3810</strong>
+      <strong>
+       C++3809, C++3810
+      </strong>
      </td>
      <td>
      </td>
@@ -144,7 +220,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-ERR59-a</strong>
+      <strong>
+       CERT_CPP-ERR59-a
+      </strong>
      </td>
      <td>
       Do not throw an exception across execution boundaries
@@ -154,7 +232,17 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR59-CPP">CERT website</a>.</p>
+  <p>
+   Search for other
+   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR59-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>

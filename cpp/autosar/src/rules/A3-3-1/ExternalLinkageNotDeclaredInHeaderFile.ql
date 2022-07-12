@@ -29,9 +29,7 @@ where
   // The declaration with external linkage does not have a declaration in a header file
   exists(Compilation c | de.getFile() = c.getAFileCompiled()) and
   not exists(DeclarationEntry otherDe |
-    de.getDeclaration() = otherDe.getDeclaration() and
-    not de = otherDe and
-    not otherDe.isDefinition()
+    de.getDeclaration() = otherDe.getDeclaration() and not de = otherDe and not de.isDefinition()
   |
     otherDe.getFile() instanceof HeaderFile
   ) and

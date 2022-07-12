@@ -16,8 +16,5 @@ import cpp
 import codingstandards.cpp.autosar
 
 from UsingDirectiveEntry u
-where
-  not isExcluded(u, BannedSyntaxPackage::usingDirectivesUsedQuery()) and
-  // Exclude using unique introduced by an anonymous namespace as described in [namespace.unnamed].
-  not u.getNamespace().isAnonymous()
+where not isExcluded(u, BannedSyntaxPackage::usingDirectivesUsedQuery())
 select u, "Use of 'using' directive."

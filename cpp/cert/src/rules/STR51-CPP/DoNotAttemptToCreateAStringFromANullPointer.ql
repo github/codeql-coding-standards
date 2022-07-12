@@ -7,6 +7,7 @@
  * @problem.severity error
  * @tags external/cert/id/str51-cpp
  *       correctness
+ *       external/cert/default-disabled
  *       external/cert/obligation/rule
  */
 

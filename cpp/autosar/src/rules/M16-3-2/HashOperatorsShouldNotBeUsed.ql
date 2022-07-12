@@ -15,15 +15,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.hashoperatorsused.HashOperatorsUsed
 
-from Macro m, string body
-where
-  body =
-    m.getBody()
-        .regexpReplaceAll("\\\\\"", "")
-        .regexpReplaceAll("\\\\'", "")
-        .regexpReplaceAll("\"[^\"]+\"", "")
-        .regexpReplaceAll("'[^']+'", "") and
-  exists(int n | n = body.indexOf("#")) and
-  not isExcluded(m, MacrosPackage::hashOperatorsShouldNotBeUsedQuery())
-select m, "Macro definition uses the # or ## operator."
+class HashOperatorsShallNotBeUsedInQuery extends HashOperatorsUsedQuery {
+  HashOperatorsShallNotBeUsedInQuery() { this = MacrosPackage::hashOperatorsShouldNotBeUsedQuery() }
+}

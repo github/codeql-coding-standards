@@ -68,7 +68,8 @@ predicate indirectlyCallsVirtualFunction(MemberFunction caller, Function target,
 
 from FunctionCall call, string explanation, Function virtFunction, Function overridingFunction
 where
-not isExcluded(virtFunction, InheritancePackage::doNotInvokeVirtualFunctionsFromConstructorsOrDestructorsQuery()) and
+  not isExcluded(virtFunction,
+    InheritancePackage::doNotInvokeVirtualFunctionsFromConstructorsOrDestructorsQuery()) and
   (
     // for calls within a constructor or destructor
     call.getEnclosingFunction() instanceof Constructor or

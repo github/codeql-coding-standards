@@ -46,13 +46,13 @@
             "label": "📏 Standards Automation: Generate Rule Description File",
             "type": "shell",
             "windows": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py ${input:rule_package_name}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py  ${input:language} ${input:rule_package_name}"
             },
             "linux": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py ${input:rule_package_name}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py ${input:language} ${input:rule_package_name}"
             },
             "osx": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py ${input:rule_package_name}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py ${input:language} ${input:rule_package_name}"
             },
             "presentation": {
                 "reveal": "always",
@@ -68,13 +68,13 @@
             "label": "📦 Standards Automation: Generate Package Files",
             "type": "shell",
             "windows": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:rule_package_name}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:language} ${input:rule_package_name}"
             },
             "linux": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:rule_package_name}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:language} ${input:rule_package_name}"
             },
             "osx": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:rule_package_name}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:language} ${input:rule_package_name}"
             },
             "presentation": {
                 "reveal": "always",
@@ -90,13 +90,13 @@
             "label": "🧪 Standards Automation: Build Case Test DB",
             "type": "shell",
             "windows": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}build_test_database.py ${input:standard} ${input:rule}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}build_test_database.py ${input:language} ${input:standard} ${input:rule}"
             },
             "linux": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}build_test_database.py  ${input:standard} ${input:rule}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}build_test_database.py ${input:language} ${input:standard} ${input:rule}"
             },
             "osx": {
-                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}build_test_database.py ${input:standard}  ${input:rule}"
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}build_test_database.py ${input:language} ${input:standard}  ${input:rule}"
             },
             "presentation": {
                 "reveal": "always",
@@ -164,6 +164,7 @@
                 "Exceptions2",
                 "Includes",
                 "Invariants",
+                "IO",
                 "Iterators",
                 "Literals",
                 "Loops",
@@ -207,6 +208,16 @@
                 "cert",
                 "misra",
                 "common"
+            ]
+        },
+        {
+            "id": "language",
+            "description": "Name of language",
+            "default": "cpp",
+            "type": "pickString",
+            "options": [
+                "cpp",
+                "c"
             ]
         },
         {

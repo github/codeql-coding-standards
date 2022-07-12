@@ -18,7 +18,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.onedefinitionruleviolation.OneDefinitionRuleViolation
 
 class OneDefinitionRuleViolationQuery extends OneDefinitionRuleViolationSharedQuery {
-  OneDefinitionRuleViolationQuery() {
-    this = ScopePackage::oneDefinitionRuleViolationQuery()
-  }
+  OneDefinitionRuleViolationQuery() { this = ScopePackage::oneDefinitionRuleViolationQuery() }
 }

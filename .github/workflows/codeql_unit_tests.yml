@@ -23,11 +23,11 @@ jobs:
       - name: Export unit test matrix
         id: export-unit-test-matrix
         run: |
+          echo "Merging Result:"
+          python scripts/create_language_matrix.py
           echo "::set-output name=matrix::$(
-            jq --compact-output \
-            '.supported_environment | map([.+{os: "ubuntu-20.04-xl", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}' \
-            supported_codeql_configs.json
-          )"
+            python scripts/create_language_matrix.py | \
+            jq --compact-output 'map([.+{os: "ubuntu-20.04-xl", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}')"
 
   run-test-suites:
     name: Run unit tests
@@ -37,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare-unit-test-matrix.outputs.matrix) }}
-
+        
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -99,8 +99,8 @@ jobs:
           codeql_home = os.environ['CODEQL_HOME']
           codeql_bin = os.path.join(codeql_home, 'codeql', 'codeql')
 
-          cpp_root = Path(workspace, 'cpp')
-          test_roots = list(map(str, cpp_root.glob('*/test')))
+          language_root = Path(workspace, '${{ matrix.language }}')
+          test_roots = list(map(str, language_root.glob('*/test')))
           for test_root in test_roots:
             print(f"Executing tests found (recursively) in the directory '{test_root}'")
           files_to_close = []
@@ -109,11 +109,11 @@ jobs:
             num_slices = 8
             procs = []
             for slice in range(1, num_slices+1):
-              test_report_path = os.path.join(runner_temp, f"test_report_{runner_os}_{cli_version}_{stdlib_ref_ident}_slice_{slice}_of_{num_slices}.json")
+              test_report_path = os.path.join(runner_temp, "${{ matrix.language }}", f"test_report_{runner_os}_{cli_version}_{stdlib_ref_ident}_slice_{slice}_of_{num_slices}.json")
               os.makedirs(os.path.dirname(test_report_path), exist_ok=True)
               test_report_file = open(test_report_path, 'w')
               files_to_close.append(test_report_file)
-              procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", f'--search-path={cpp_root}', *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
+              procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", f'--search-path={language_root}', *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
             for p in procs:
               p.wait()
               if p.returncode != 0:
@@ -135,7 +135,7 @@ jobs:
         with:
           name: test-results-${{ runner.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library_ident }}
           path: |
-            ${{ runner.temp }}/test_report_${{ runner.os }}_${{ matrix.codeql_cli }}_${{ matrix.codeql_standard_library_ident }}_slice_*.json
+            ${{ runner.temp }}/${{ matrix.language }}/test_report_${{ runner.os }}_${{ matrix.codeql_cli }}_${{ matrix.codeql_standard_library_ident }}_slice_*.json
           if-no-files-found: error
 
   validate-test-results:

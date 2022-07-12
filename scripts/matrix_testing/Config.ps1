@@ -1,16 +1,29 @@
 $COMPILER_MAPPINGS = @{
-    "clang"      = "clang++";
-    "armclang"   = "armclang";
-    "tiarmclang" = "tiarmclang";
+    "cpp" = @{
+        "clang"      = "clang++";
+        "armclang"   = "armclang";
+        "tiarmclang" = "tiarmclang";
+    };
+
+    "c"   = @{
+        "clang" = "clang";
+    };
 }
 
 $COMPILER_ARGS = @{
-    "clang"      = "-std=c++14 -fsyntax-only";
-    "armclang"   = "-std=c++14 -fsyntax-only --target=arm-arm-none-eabi";
-    "tiarmclang" = "-std=c++14 -fsyntax-only --target=arm-arm-none-eabi";
+    "cpp" = @{
+        "clang"      = "-std=c++14 -fsyntax-only";
+        "armclang"   = "-std=c++14 -fsyntax-only --target=arm-arm-none-eabi";
+        "tiarmclang" = "-std=c++14 -fsyntax-only --target=arm-arm-none-eabi";
+    };
+
+    "c"   = @{
+        "clang" = "-fsyntax-only";
+    };
+    
 }
 
-$AVAILABLE_SUITES = @("CERT-C++", "AUTOSAR")
+$AVAILABLE_SUITES = @("CERT-C++", "AUTOSAR", "MISRA-C-2012", "CERT-C")
 $REQUIRED_CODEQL_VERSION = "2.6.3"
 
 

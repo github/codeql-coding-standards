@@ -8,6 +8,11 @@ param(
     [Parameter(Mandatory = $false)] 
     [string]
     $ReportDir = (Get-Location),
+    
+    [Parameter(Mandatory)] 
+    [ValidateSet('c', 'cpp')]
+    [string]
+    $Language,
 
     # The compiler to use. Valid values are 'clang' and 'arm-clang'.
     [Parameter(Mandatory)] 
@@ -16,18 +21,17 @@ param(
     $Configuration
 )
 
-. "$PSScriptRoot\GetTestDirectory.ps1"
+Import-Module -Name "$PSScriptRoot\..\PSCodingStandards\CodingStandards"
+
 . "$PSScriptRoot\NewDatabaseForRule.ps1"
-. "$PSScriptRoot\GetRulesInSuite.ps1"
 . "$PSScriptRoot\Config.ps1"
-. "$PSScriptRoot\TestProgramInstalled.ps1"
-. "$PSScriptRoot\GetCompilerExecutable.ps1"
+. "$PSScriptRoot\Get-CompilerExecutable.ps1"
 
 #
 # Verify All the Required CLI Tools are Installed
 #
 Write-Host "Checking 'codeql' program...." -NoNewline
-Test-Program-Installed -Program "codeql" 
+Test-ProgramInstalled -Program "codeql" 
 Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
 
 $CODEQL_VERSION = (codeql version --format json | ConvertFrom-Json).version 
@@ -38,8 +42,8 @@ if (-Not $CODEQL_VERSION -eq $REQUIRED_CODEQL_VERSION) {
 }
 Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
 
-Write-Host "Checking '$(Get-CompilerExecutable -Configuration $Configuration)' program...." -NoNewline
-Test-Program-Installed -Program (Get-CompilerExecutable -Configuration $Configuration)
+Write-Host "Checking '$(Get-CompilerExecutable -Configuration $Configuration -Language $Language)' program...." -NoNewline
+Test-ProgramInstalled -Program (Get-CompilerExecutable -Configuration $Configuration -Language $Language)
 Write-Host -ForegroundColor ([ConsoleColor]2) "OK"     
 
 
@@ -47,7 +51,7 @@ $allQueries = @()
 
 # load all the queries 
 foreach ($s in $AVAILABLE_SUITES) {
-    $allQueries += Get-Rules-In-Suite -Suite $s
+    $allQueries += Get-RulesInSuite -Suite $s -Language $Language
 }
 
 $csv = Import-CSV $MatrixReport
@@ -102,7 +106,7 @@ $ctr = 0
     while ($true) {
         $q = Get-Query-From-Name -AllQueries $allQueries -RuleName $row.QUERY    
     
-        $testDirectory = (Get-Test-Directory -RuleObject $q)
+        $testDirectory = (Get-TestDirectory -RuleObject $q -Language $Language)
         $testPath = Join-Path $testDirectory "test.cpp"
 
         $P = $PROMPT -f $row.QUERY, $row.SUITE, $row.PACKAGE, $row.RULE, $testPath, $TRIAGE.Length, $ctr, $failedQueries.Length
@@ -112,7 +116,7 @@ $ctr = 0
         if ($cmd -eq "1") {
 
             try {
-                New-Database-For-Rule -RuleName $row.RULE -RuleTestDir $testDirectory -Configuration $Configuration
+                New-Database-For-Rule -RuleName $row.RULE -RuleTestDir $testDirectory -Configuration $Configuration -Language $Language
                 Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
             }
             catch {

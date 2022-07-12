@@ -42,7 +42,9 @@ jobs:
           unzip -q codeql-linux64.zip
 
       - name: Update CodeQL formatting based on new CLI version
-        run: find cpp -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 codeql/codeql query format --in-place
+        run: |
+          find cpp -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 codeql/codeql query format --in-place
+          find c -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 codeql/codeql query format --in-place
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3

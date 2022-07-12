@@ -3,8 +3,8 @@
  */
 
 import cpp
-import codingstandards.cpp.Customizations
-import codingstandards.cpp.Exclusions
+import codingstandards.{{ ql_language_name }}.Customizations
+import codingstandards.{{ ql_language_name }}.Exclusions
 
 abstract class {{shared_implementation_short_name}}SharedQuery extends Query { }
 

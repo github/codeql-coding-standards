@@ -1,0 +1,1 @@
+| test.cpp:11:19:11:21 | msg | The format string argument to `$@` should be constant to prevent security issues and other potential errors. | test.cpp:11:3:11:9 | call to fprintf | fprintf |

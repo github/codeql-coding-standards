@@ -1,0 +1,139 @@
+{
+  "CERT-C": {
+    "FIO30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Never call a formatted I/O function with a format string containing user input.",
+          "kind": "problem",
+          "name": "Exclude user input from format strings",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ExcludeUserInputFromFormatStrings",
+          "shared_implementation_short_name": "NonConstantFormat",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Exclude user input from format strings"
+    },
+    "FIO34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "File read should be followed by a check for read errors and end of file.",
+          "kind": "problem",
+          "name": "Distinguish between characters read from a file and EOF or WEOF",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DistinguishBetweenCharReadFromAFileAndEofOrWeof",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "Checks against EOF are only portable to platforms where type `char` is less wide than type `int`.",
+          "kind": "problem",
+          "name": "Checks against EOF and WEOF are not portable",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "EndOfFileCheckPortability",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Distinguish between characters read from a file and EOF or WEOF"
+    },
+    "FIO39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Do not alternately input and output from a stream without an intervening flush or positioning call",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotAlternatelyIOFromAStreamWithoutPositioning",
+          "shared_implementation_short_name": "IOFstreamMissingPositioning",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not alternately input and output from a stream without an intervening flush or positioning call"
+    },
+    "FIO42-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Close files when they are no longer needed",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CloseFilesWhenTheyAreNoLongerNeeded",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Close files when they are no longer needed"
+    },
+    "FIO46-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not access a closed file",
+          "kind": "problem",
+          "name": "Do not access a closed file",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UndefinedBehaviorAccessingAClosedFile",
+          "shared_implementation_short_name": "DoNotAccessAClosedFile",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not access a closed file"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-22-6": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "A closed FILE is accessed",
+          "kind": "problem",
+          "name": "The value of a pointer to a FILE shall not be used after the associated stream has been closed",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FileUsedAfterClosed",
+          "shared_implementation_short_name": "DoNotAccessAClosedFile",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value of a pointer to a FILE shall not be used after the associated stream has been closed"
+    }
+  }
+}

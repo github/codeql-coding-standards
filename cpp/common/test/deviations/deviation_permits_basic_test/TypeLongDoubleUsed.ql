@@ -16,6 +16,7 @@
 
 import cpp
 import codingstandards.cpp.CodingStandards
+import codingstandards.cpp.exclusions.cpp.RuleMetadata
 
 predicate isUsingLongDouble(ClassTemplateInstantiation c) {
   c.getATemplateArgument() instanceof LongDoubleType or

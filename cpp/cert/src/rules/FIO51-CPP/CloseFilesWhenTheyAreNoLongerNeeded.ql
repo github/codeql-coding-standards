@@ -12,7 +12,7 @@
  */
 
 import cpp
-import codingstandards.cpp.Exclusions
+import codingstandards.cpp.cert
 import codingstandards.cpp.standardlibrary.CStdLib
 import codingstandards.cpp.standardlibrary.FileStreams
 import codingstandards.cpp.standardlibrary.Exceptions
@@ -36,7 +36,8 @@ predicate filebufAccess(ControlFlowNode node, FileStreamSource fss) {
   node = fss or
   node.(OpenFunctionCall).getFStream() = fss.getAUse() or
   //insertion or extraction operator calls
-  node.(InExOperatorCall).getFStream() = fss.getAUse() or
+  node.(InsertionOperatorCall).getFStream() = fss.getAUse() or
+  node.(ExtractionOperatorCall).getFStream() = fss.getAUse() or
   //methods inherited from istream or ostream
   node.(IOStreamFunctionCall).getFStream() = fss.getAUse()
 }

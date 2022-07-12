@@ -15,15 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.preprocessorincludesforbiddenheadernames.PreprocessorIncludesForbiddenHeaderNames
 
-class InvalidInclude extends Include {
-  InvalidInclude() { this.getIncludeText().regexpMatch("[\"<].*(['\"\\\\]|\\/\\*|\\/\\/).*[\">]") }
+class CharactersOccurInHeaderFileNameOrInIncludeDirectiveQuery extends PreprocessorIncludesForbiddenHeaderNamesQuery {
+  CharactersOccurInHeaderFileNameOrInIncludeDirectiveQuery() {
+    this = MacrosPackage::charactersOccurInHeaderFileNameOrInIncludeDirectiveQuery()
+  }
 }
-
-from Include i
-where
-  not isExcluded(i, MacrosPackage::charactersOccurInHeaderFileNameOrInIncludeDirectiveQuery()) and
-  i instanceof InvalidInclude
-select i,
-  "The #include of " + i.getIncludeText() +
-    " contains a character sequence with implementation-defined behavior."
