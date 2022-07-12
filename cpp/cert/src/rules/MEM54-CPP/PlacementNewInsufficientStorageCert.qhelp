@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="PlacementNewInsufficientStorageCert-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="PlacementNewInsufficientStorageCert-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

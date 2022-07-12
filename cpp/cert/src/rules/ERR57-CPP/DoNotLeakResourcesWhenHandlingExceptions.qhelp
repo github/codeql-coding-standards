@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="DoNotLeakResourcesWhenHandlingExceptions-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="DoNotLeakResourcesWhenHandlingExceptions-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

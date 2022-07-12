@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="PlacementNewNotProperlyAlignedCert-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="PlacementNewNotProperlyAlignedCert-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

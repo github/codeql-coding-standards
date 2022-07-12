@@ -8,22 +8,26 @@
     </ul>
   </section>
 
+  <section title="Amplification">
+     <p>
+      The rule shall be applied to the contents of a file before preprocessing occurs.
+    </p>
+  </section>
+
   <section title="Rationale">
     <p>
-           ...
+      To aid code readability, all the <code>#include</code> directives in a particular code file should be grouped together
+      near the top of the file.
     </p>
-
-  </section>
-
-  <section title="Exception">
     <p>
-      ...
+    Additionally, using <code>#include</code> to include a standard header file within a declaration or definition, or using
+    part of The Standard Library before the inclusion of the related standard header file leads to undefined
+    behaviour.
     </p>
+
   </section>
 
-  <section title="See more">
-    <ul>
-      <li>...</li>
-    </ul>
-  </section>
+  <example>
+    <sample src="standard-example.c"></sample>
+  </example>
 </qhelp>

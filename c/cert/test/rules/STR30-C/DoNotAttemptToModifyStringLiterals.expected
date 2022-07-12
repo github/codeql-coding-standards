@@ -1,0 +1,53 @@
+| test.c:7:3:7:3 | a | This operation may write to a string that may be a string literal that was $@. | test.c:6:13:6:20 | codeql | created here |
+| test.c:30:3:30:3 | a | This operation may write to a string that may be a string literal that was $@. | test.c:29:13:29:18 | call to strchr | created here |
+| test.c:36:3:36:3 | b | This operation may write to a string that may be a string literal that was $@. | test.c:35:13:35:18 | call to strchr | created here |
+| test.c:58:3:58:3 | b | This operation may write to a string that may be a string literal that was $@. | test.c:56:13:56:18 | call to strchr | created here |
+| test.c:65:6:65:6 | b | This operation may write to a string that may be a string literal that was $@. | test.c:63:7:63:13 | call to strrchr | created here |
+| test.c:87:13:87:20 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:87:13:87:20 | codeql | created here |
+| test.c:88:12:88:19 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:88:12:88:19 | codeql | created here |
+| test.c:89:12:89:19 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:89:12:89:19 | codeql | created here |
+| test.c:90:13:90:20 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:90:13:90:20 | codeql | created here |
+| test.c:91:12:91:19 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:91:12:91:19 | codeql | created here |
+| test.c:92:13:92:20 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:92:13:92:20 | codeql | created here |
+| test.c:93:12:93:19 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:93:12:93:19 | codeql | created here |
+| test.c:94:13:94:20 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:94:13:94:20 | codeql | created here |
+| test.c:100:13:100:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:99:15:99:22 | codeql | created here |
+| test.c:101:12:101:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:99:15:99:22 | codeql | created here |
+| test.c:102:12:102:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:99:15:99:22 | codeql | created here |
+| test.c:103:13:103:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:99:15:99:22 | codeql | created here |
+| test.c:104:12:104:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:99:15:99:22 | codeql | created here |
+| test.c:105:13:105:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:99:15:99:22 | codeql | created here |
+| test.c:106:12:106:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:99:15:99:22 | codeql | created here |
+| test.c:107:13:107:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:99:15:99:22 | codeql | created here |
+| test.c:113:13:113:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
+| test.c:114:12:114:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
+| test.c:115:12:115:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
+| test.c:116:13:116:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
+| test.c:117:12:117:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
+| test.c:118:13:118:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
+| test.c:119:12:119:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
+| test.c:120:13:120:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
+| test.c:125:13:125:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
+| test.c:126:12:126:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:126:12:126:13 | aa | created here |
+| test.c:127:12:127:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:127:12:127:13 | aa | created here |
+| test.c:128:13:128:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:128:13:128:14 | aa | created here |
+| test.c:129:12:129:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:129:12:129:13 | aa | created here |
+| test.c:130:13:130:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:130:13:130:14 | aa | created here |
+| test.c:131:12:131:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:131:12:131:13 | aa | created here |
+| test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:132:13:132:14 | aa | created here |
+| test.c:137:11:137:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
+| test.c:138:10:138:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
+| test.c:139:10:139:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
+| test.c:140:11:140:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
+| test.c:141:10:141:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
+| test.c:142:11:142:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
+| test.c:143:10:143:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
+| test.c:144:11:144:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
+| test.c:154:11:154:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:165:13:165:18 | call to strchr | created here |
+| test.c:155:10:155:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:165:13:165:18 | call to strchr | created here |
+| test.c:156:10:156:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:165:13:165:18 | call to strchr | created here |
+| test.c:157:11:157:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:165:13:165:18 | call to strchr | created here |
+| test.c:158:10:158:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:165:13:165:18 | call to strchr | created here |
+| test.c:159:11:159:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:165:13:165:18 | call to strchr | created here |
+| test.c:160:10:160:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:165:13:165:18 | call to strchr | created here |
+| test.c:161:11:161:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:165:13:165:18 | call to strchr | created here |

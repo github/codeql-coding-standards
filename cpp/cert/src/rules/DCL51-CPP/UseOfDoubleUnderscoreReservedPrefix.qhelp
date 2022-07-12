@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="UseOfDoubleUnderscoreReservedPrefix-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="UseOfDoubleUnderscoreReservedPrefix-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

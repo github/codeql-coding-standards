@@ -8,8 +8,10 @@
     </blockquote>
   </overview>
   <include src="IdentifiersUsedInPreprocessorExpression-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="IdentifiersUsedInPreprocessorExpression-implementation.qhelp" />
+  <section title="Implementation scope">
+    <p>This query does not detect the case where an undefined character is used but not actually evaluated, for example, as a result of the inclusion of a logical AND operator in the #if expression.</p>
+    <ul>
+    </ul>
   </section>
   <references>
     <li>

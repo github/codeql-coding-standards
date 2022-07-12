@@ -2,7 +2,6 @@
  * @id cpp/coding-standards/invalid-deviations
  * @name Invalid deviations
  * @description Deviation records marked as invalid will not be applied.
- * @kind problem
  */
 
 import cpp

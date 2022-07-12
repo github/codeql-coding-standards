@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="RedefiningOfStandardLibraryName-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="RedefiningOfStandardLibraryName-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

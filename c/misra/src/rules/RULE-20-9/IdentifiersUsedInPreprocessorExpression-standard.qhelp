@@ -8,22 +8,32 @@
     </ul>
   </section>
 
+<section title="Amplification">
+    <p>
+      As well as using a <code>#define</code> preprocessor directive, identifiers may effectively be <code>#define</code>'d in other,
+      implementation-defined, ways. For example some implementations support:
+    </p>
+    <ul>
+      <li>Using a compiler command-line option, such as <code>-D</code> to allow identifiers to be defined prior to
+      translation;</li>
+      <li>Using environment variables to achieve the same effect;</li>
+      <li>Pre-defined identifiers provided by the compiler.</li>
+    </ul>
+     </section>
+
   <section title="Rationale">
     <p>
-           ...
+      If an attempt is made to use a macro identifier in a preprocessor directive, and that identifier has
+      not been defined, then the preprocessor will assume that it has a value of zero. This may not meet
+      developer expectations.
     </p>
 
   </section>
 
-  <section title="Exception">
+  <example>
     <p>
-      ...
+     The following examples assume that the macro M is undefined.
     </p>
-  </section>
-
-  <section title="See more">
-    <ul>
-      <li>...</li>
-    </ul>
-  </section>
+    <sample src="standard-example.c"></sample>
+  </example>
 </qhelp>

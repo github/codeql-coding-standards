@@ -1,0 +1,4 @@
+| test.c:16:3:16:11 | ... = ... | The full expression contains the $@ and the $@. | test.c:16:8:16:11 | ... ++ | ++ | test.c:16:3:16:11 | ... = ... | side effect |
+| test.c:21:7:21:23 | ... > ... | The full expression contains the $@ and the $@. | test.c:21:15:21:18 | -- ... | -- | test.c:3:19:3:20 | g1 | side effect |
+| test.c:25:7:25:23 | ... > ... | The full expression contains the $@ and the $@. | test.c:25:15:25:18 | -- ... | -- | test.c:25:8:25:9 | call to f2 | side effect |
+| test.c:33:3:33:28 | ... = ... | The full expression contains the $@ and the $@. | test.c:33:25:33:28 | ... ++ | ++ | test.c:33:3:33:28 | ... = ... | side effect |

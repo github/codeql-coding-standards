@@ -20,9 +20,6 @@
     {% endif %}
   </section>
   {% endif %}
-  <section title="Implementation notes">
-    <include src="{{ short_name }}-implementation.qhelp" />
-  </section>
   <references>
     {% if standard_title | length %}
     <li>

@@ -64,6 +64,10 @@ module Ordering {
         // Note we don't strictly check if `e2` is the next to be evaluated full expression and rely on the
         // `isCandidate` configuration to minimze the scope or related full expressions.
         e1 instanceof FullExpr and e2 instanceof FullExpr
+        or
+        // The side effect of updating the stored value of the left operand is sequenced after the value computations of the left and right operands.
+        // See 6.5.16
+        e2.(Assignment).getAnOperand().getAChild*() = e1
       )
     }
 

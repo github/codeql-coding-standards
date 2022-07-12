@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="UnevaluatedOperandWithSideEffect-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="UnevaluatedOperandWithSideEffect-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C:

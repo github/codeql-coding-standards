@@ -8,8 +8,10 @@
     </blockquote>
   </overview>
   <include src="ForbiddenCharactersInHeaderFileName-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="ForbiddenCharactersInHeaderFileName-implementation.qhelp" />
+  <section title="Implementation scope">
+    <p>This query identifies the use of the &#39;, \, /*, // characters in header file names. The query is not able to detect the use of the &#34; character in header file names.</p>
+    <ul>
+    </ul>
   </section>
   <references>
     <li>

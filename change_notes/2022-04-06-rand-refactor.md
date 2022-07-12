@@ -1,0 +1,1 @@
+- Refactored `A26-5-1` and `MSC50-CPP` to share the same query with `MSC30-C`.

@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="ProperlyDeallocateDynamicallyAllocatedResources-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="ProperlyDeallocateDynamicallyAllocatedResources-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

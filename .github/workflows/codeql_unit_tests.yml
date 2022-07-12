@@ -65,6 +65,13 @@ jobs:
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
 
+      - name: Pre-Compile Queries
+        id: pre-compile-queries
+        run: |
+         ${{ github.workspace }}/codeql_home/codeql/codeql query compile --search-path cpp --threads 0 cpp
+         ${{ github.workspace }}/codeql_home/codeql/codeql query compile --search-path c --search-path cpp --threads 0 c
+
+
       - name: Run test suites
         id: run-test-suites
         env:
@@ -108,12 +115,20 @@ jobs:
             # XL runners have 8 cores, so split the tests into 8 "slices", and run one per thread
             num_slices = 8
             procs = []
+
             for slice in range(1, num_slices+1):
               test_report_path = os.path.join(runner_temp, "${{ matrix.language }}", f"test_report_{runner_os}_{cli_version}_{stdlib_ref_ident}_slice_{slice}_of_{num_slices}.json")
               os.makedirs(os.path.dirname(test_report_path), exist_ok=True)
               test_report_file = open(test_report_path, 'w')
               files_to_close.append(test_report_file)
-              procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", f'--search-path={language_root}', *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
+              if "${{ matrix.language }}".casefold() == "c".casefold():
+                # c tests require cpp -- but we don't want c things on the cpp
+                # path in case of design errors. 
+                cpp_language_root = Path(workspace, 'cpp')
+                procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", f'--search-path={cpp_language_root}', f'--search-path={language_root}', *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
+              else:
+                procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", f'--search-path={language_root}', f'--search-path={language_root}', *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
+
             for p in procs:
               p.wait()
               if p.returncode != 0:
@@ -133,7 +148,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
-          name: test-results-${{ runner.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library_ident }}
+          name: ${{ matrix.language }}-test-results-${{ runner.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library_ident }}
           path: |
             ${{ runner.temp }}/${{ matrix.language }}/test_report_${{ runner.os }}_${{ matrix.codeql_cli }}_${{ matrix.codeql_standard_library_ident }}_slice_*.json
           if-no-files-found: error
@@ -148,11 +163,11 @@ jobs:
 
       - name: Validate test results
         run: |
-          for json_report in test-results-*/test_report_*
+          for json_report in *-test-results-*/test_report_*
           do
             jq --raw-output '"PASS \(map(select(.pass == true)) | length)/\(length)'" $json_report\"" "$json_report"
           done
-          FAILING_TESTS=$(jq --raw-output '.[] | select(.pass == false)' test-results-*/test_report_*.json)
+          FAILING_TESTS=$(jq --raw-output '.[] | select(.pass == false)' *-test-results-*/test_report_*.json)
           if [[ ! -z "$FAILING_TESTS" ]]; then
             echo "ERROR: The following tests failed:"
             echo $FAILING_TESTS | jq .

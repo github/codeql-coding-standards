@@ -78,3 +78,31 @@ class PossiblyUnsafeStringOperation extends FunctionCall {
     )
   }
 }
+
+/**
+ * Models a character array that is initialized with a string literal.
+ */
+class CharArrayInitializedWithStringLiteral extends Expr {
+  int stringLiteralLength;
+  int containerLength;
+
+  CharArrayInitializedWithStringLiteral() {
+    exists(Variable v, StringLiteral sl |
+      v.getInitializer().getExpr() = sl and
+      (
+        // `getValueText()` includes the quotes of the string
+        // this calculation is to subtract that overage. This also handles
+        // wide strings initialized with L""
+        if sl.getValueText().charAt(0) = "L"
+        then sl.getValueText().length() - 3 = stringLiteralLength
+        else sl.getValueText().length() - 2 = stringLiteralLength
+      ) and
+      containerLength = v.getType().(ArrayType).getArraySize() and
+      this = sl
+    )
+  }
+
+  int getStringLiteralLength() { result = stringLiteralLength }
+
+  int getContainerLength() { result = containerLength }
+}

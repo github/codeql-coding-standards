@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="UseValidReferencesForElementsOfString-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="UseValidReferencesForElementsOfString-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

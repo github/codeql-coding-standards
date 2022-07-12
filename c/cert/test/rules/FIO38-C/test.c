@@ -1,4 +1,10 @@
 #include <stdio.h>
+#if !defined(__DEFINED_struct__IO_FILE)
+struct _IO_FILE {
+  char __x;
+};
+#define __DEFINED_struct__IO_FILE
+#endif
 
 int f1(void) {
   FILE my_stdout = *stdout; // NON_COMPLIANT

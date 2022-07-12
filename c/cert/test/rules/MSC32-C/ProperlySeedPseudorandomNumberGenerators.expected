@@ -1,0 +1,3 @@
+| test.c:6:19:6:24 | call to random | Call to `random()` without a valid call to `srandom()`. |
+| test.c:18:19:18:24 | call to random | Call to `random()` without a valid call to `srandom()`. |
+| test.c:25:19:25:24 | call to random | Call to `random()` without a valid call to `srandom()`. |

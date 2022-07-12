@@ -60,7 +60,6 @@ In the repository, this will be organised as follows:
         <rule_id>/
           <rule-short-name>.ql
           <rule-short-name>.qhelp
-          <rule-short-name>-implementation.qhelp
       codeql-suites/
         <standard>-default.qls
         ...
@@ -205,7 +204,6 @@ python3 scripts/generate_rules/generate_package_files.py <rule_package_name>
 After running this script, the following files will be generated in the `<lang>/<standard>/src/rules/<rule-id>/` directory:
  - A `<query.short_name>.ql` query file with the query metadata pre-populated, and the standard imports included.
  - A `<query.short_name>.qhelp` query help file with some boilerplate text describing the purpose of the query.
- - A `<query.short_name>-implementation.qhelp` query help file with a space to enter details about the implementation of this rule in the query.
 
 In addition, the following files will be generated in the `<lang>/<standard>/test/rules/<rule-id>/` directory:
  - An empty `test.cpp` file.
@@ -214,7 +212,7 @@ In addition, the following files will be generated in the `<lang>/<standard>/tes
 
 The script can be safely re-run, except in a few notable cases listed below. Re-running the script has the following effect:
  - Overwrites the `<query.short_name>.qhelp` file and `<query.short_name>.qlref` file.
- - Touches the `<query.short_name>-implementation.qhelp`, `test.cpp` and `<query.short_name>.expected` files, to ensure they exist on disk, but does not modify them if they exist.
+ - Touches the `test.cpp` and `<query.short_name>.expected` files, to ensure they exist on disk, but does not modify them if they exist.
  - Updates the `<query.short_name>.ql` query by overwriting the query metadata block only. The QL portion of the file is left untouched.
 
 The notable exceptions are:

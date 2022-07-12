@@ -1,0 +1,67 @@
+{
+  "CERT-C": {
+    "STR30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Modifying a string literal can produce unexpected effects.",
+          "kind": "problem",
+          "name": "Do not attempt to modify string literals",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotAttemptToModifyStringLiterals",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not attempt to modify string literals"
+    },
+    "STR31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Many library functions in the C standard library assume C strings are null terminated and failing to null terminate strings may lead to unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Guarantee that storage for strings has sufficient space for character data and the null terminator",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "StringsHasSufficientSpaceForTheNullTerminator",
+          "tags": [
+            "correctness",
+            "security"
+          ]         
+        }
+      ],
+      "title": "Guarantee that storage for strings has sufficient space for character data and the null terminator",
+      "implementation_scope": {
+        "description": "The enforcement of this rule does not try to approximate the effects of loops and as such may not find cases where a loop operation on a string fails to null terminate a string (or causes an overflow)."
+      }
+    },
+    "STR32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Passing a string that is not null-terminated can lead to unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Do not pass a non-null-terminated character sequence to a library function that expects a string",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "NonNullTerminatedToFunctionThatExpectsAString",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not pass a non-null-terminated character sequence to a library function that expects a string"
+    }
+  }
+}

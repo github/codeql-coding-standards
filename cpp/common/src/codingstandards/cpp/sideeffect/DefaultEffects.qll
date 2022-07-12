@@ -1,10 +1,10 @@
 import cpp
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.sideeffect.Customizations
-import codingstandards.cpp.Allocations
-import codingstandards.cpp.Expr
-import codingstandards.cpp.Variable
-import semmle.code.cpp.security.FileWrite
+private import codingstandards.cpp.Allocations
+private import codingstandards.cpp.Expr
+private import codingstandards.cpp.Variable
+private import semmle.code.cpp.security.FileWrite
 
 /** A function call that performs an IO operation and thus exhibts an external side effect. */
 private class IOFunctionCall extends FunctionCall, ExternalSideEffect::Range {

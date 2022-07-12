@@ -10,20 +10,22 @@
 
   <section title="Rationale">
     <p>
-           ...
+      The behaviour is undefined if:
     </p>
-
-  </section>
-
-  <section title="Exception">
-    <p>
-      ...
-    </p>
-  </section>
-
-  <section title="See more">
     <ul>
-      <li>...</li>
+      <li>The <code>'</code>, <code>"</code> or <code>\</code> characters, or the <code>/*</code> or <code>//</code> character sequences are used between <code>&lt;</code> and <code>&gt;</code>
+          delimiters in a header name preprocessing token;</li>
+      <li>The <code>'</code> or <code>\</code> characters, or the <code>/*</code> or <code>//</code> character sequences are used between the <code>"</code> delimiters
+          in a header name preprocessing token.</li>
     </ul>
+    <p>
+      <i>Note</i>: although use of the <code>\</code> character results in undefined behaviour, many implementations will
+      accept the <code>/</code> character in its place.
+    </p>
+
   </section>
+
+  <example>
+    <sample src="standard-example.c"></sample>
+  </example>
 </qhelp>

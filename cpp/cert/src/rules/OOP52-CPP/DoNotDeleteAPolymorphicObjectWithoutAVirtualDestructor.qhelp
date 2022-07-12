@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="DoNotDeleteAPolymorphicObjectWithoutAVirtualDestructor-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="DoNotDeleteAPolymorphicObjectWithoutAVirtualDestructor-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="DoNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="DoNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

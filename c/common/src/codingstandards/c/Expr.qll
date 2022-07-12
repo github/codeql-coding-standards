@@ -1,25 +1,10 @@
 import cpp
 
-/* A full expression as defined in ISO/IEC 9899:2011 Annex C point 1. */
+/* A full expression as defined in ISO/IEC 9899:2011 6.8 point 4 and Annex C point 1 item 5. */
 class FullExpr extends Expr {
   FullExpr() {
-    // An initializer that is not part of a compound literal (see 6.7.9).
-    this instanceof AssignExpr and not this.getParent+() instanceof AggregateLiteral
-    or
-    // The expression in an expression statement (see 6.8.3)
-    any(ExprStmt s).getExpr() = this
-    or
-    // The controlling expression of a selection statement (see 6.8.4) or
-    // the controlling expression of a `while`, `do`, or `for` statement (see 6.8.5)
-    any(ControlStructure s).getControllingExpr() = this
-    or
-    // Each of the possible optional expressions, besides the controlling expression,
-    // of a `for` statement (see 6.8.5.3). Note that if `clause-1` will be an expression statement if
-    // it is an expression and is therefore handle in the expression statement case.
-    any(ForStmt s).getUpdate() = this
-    or
-    // The expression in a `return` statement, if any (see 6.8.6.4)
-    any(ReturnStmt s).getExpr() = this
+    not this.getParent() instanceof Expr and
+    not exists(Variable v | v.getInitializer().getExpr() = this)
   }
 }
 

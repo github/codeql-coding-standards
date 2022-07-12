@@ -10,20 +10,27 @@
 
   <section title="Rationale">
     <p>
-           ...
+      The order of evaluation associated with multiple <code>#</code>, multiple <code>##</code> or a mix of <code>#</code> and <code>##</code> preprocessor
+      operators is unspecified. In some cases it is therefore not possible to predict the result of macro
+      expansion.
     </p>
-
-  </section>
-
-  <section title="Exception">
     <p>
-      ...
+      The use of the <code>##</code> operator can result in code that is obscure.
     </p>
+    <p>
+      <i>Note</i>: Rule 1.3 covers the undefined behaviour that arises if either:
+    </p>
+    <ul>
+      <li>The result of a <code>#</code> operator is not a valid string literal; or</li>
+      <li>The result of a <code>##</code> operator is not a valid preprocessing token.</li>
+    </ul>
+
   </section>
 
   <section title="See more">
     <ul>
-      <li>...</li>
+      <li>Rule 20.11: A macro parameter immediately following a <code>#</code> operator shall not
+      immediately be followed by a <code>##</code> operator</li>
     </ul>
   </section>
 </qhelp>
