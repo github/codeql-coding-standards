@@ -223,7 +223,7 @@
                 "Preprocessor2",
                 "IntegerConversion",
                 "Expressions",
-                "DeadCode"
+                "DeadCode",
                 "VirtualFunctions"
             ]
         },
