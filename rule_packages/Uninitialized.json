@@ -1,0 +1,71 @@
+{
+  "AUTOSAR": {
+    "A8-5-0": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reading from uninitialized indeterminate values may produce undefined behavior.",
+          "kind": "problem",
+          "name": "All memory shall be initialized before it is read",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "MemoryNotInitializedBeforeItIsRead",
+          "shared_implementation_short_name": "ReadOfUninitializedMemory",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "All memory shall be initialized before it is read."
+    }
+  },
+  "CERT-C++": {
+    "DCL55-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Passing a class object with uninitialized data or padding bytes can cause information to be unintentionally leaked.",
+          "kind": "problem",
+          "name": "Avoid information leakage when passing a class object across a trust boundary",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "InformationLeakageAcrossTrustBoundaries",
+          "tags": [
+            "security"
+          ]
+        }
+      ],
+      "title": "Avoid information leakage when passing a class object across a trust boundary"
+    },
+    "EXP53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Reading from uninitialized indeterminate values may produce undefined behavior.",
+          "kind": "problem",
+          "name": "Do not read uninitialized memory",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "DoNotReadUninitializedMemory",
+          "shared_implementation_short_name": "ReadOfUninitializedMemory",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not read uninitialized memory"
+    }
+  }
+}

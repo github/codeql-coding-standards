@@ -1,0 +1,1 @@
+rules/DCL57-CPP/DoNotLetExceptionsEscapeFromDestructorsOrDeallocationFunctions.ql

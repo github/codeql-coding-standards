@@ -1,0 +1,3 @@
+| test2.cpp:8:6:8:31 | declaration of test_noexcept_inconsistent | Function test_noexcept_inconsistent is declared here as noexcept(false), but is declared $@ with noexcept(true). | test.cpp:7:6:7:31 | declaration of test_noexcept_inconsistent | here |
+| test2.cpp:11:16:11:22 | declaration of methodA | Function methodA is declared here as noexcept(false), but is declared $@ with noexcept(true). | test.cpp:10:16:10:22 | declaration of methodA | here |
+| test2.cpp:12:16:12:22 | declaration of methodB | Function methodB is declared here as noexcept(false), but is declared $@ with noexcept(true). | test.cpp:11:16:11:22 | declaration of methodB | here |

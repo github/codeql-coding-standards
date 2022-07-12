@@ -1,0 +1,2 @@
+| test.cpp:51:20:51:20 | i | Iteration condition has non boolean type int. |
+| test.cpp:55:10:55:10 | j | Iteration condition has non boolean type int. |

@@ -1,0 +1,1 @@
+| test.cpp:6:5:6:6 | E1 | Variable declaration $@ hides class or enumeration name $@ | test.cpp:6:5:6:6 | E1 | E1 | test.cpp:5:6:5:7 | E1 | E1 |

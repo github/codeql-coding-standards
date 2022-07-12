@@ -1,0 +1,3 @@
+| test.hpp:9:18:9:24 | definition of f5 | Header file $@ contains function f5 that lead to One Defintion Rule violation. | test.hpp:0:0:0:0 | test.hpp | test.hpp |
+| test.hpp:11:6:11:7 | definition of f4 | Header file $@ contains function f4 that lead to One Defintion Rule violation. | test.hpp:0:0:0:0 | test.hpp | test.hpp |
+| test.hpp:13:5:13:5 | definition of g | Header file $@ contains object g that lead to One Defintion Rule violation. | test.hpp:0:0:0:0 | test.hpp | test.hpp |

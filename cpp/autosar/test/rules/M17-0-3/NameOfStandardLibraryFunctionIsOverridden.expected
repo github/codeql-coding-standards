@@ -1,0 +1,5 @@
+| test.cpp:1:6:1:11 | malloc | Function malloc overrides standard library function malloc. |
+| test.cpp:3:6:3:11 | printf | Function printf overrides standard library function printf. |
+| test.cpp:5:6:5:11 | strlen | Function strlen overrides standard library function strlen. |
+| test.cpp:7:6:7:8 | end | Function end overrides standard library function std::__1::end. |
+| test.cpp:7:6:7:8 | end | Function end overrides standard library function std::end. |

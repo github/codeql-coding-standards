@@ -1,0 +1,2 @@
+| test.cpp:10:15:10:16 | call to ClassA | Initializer for variable $@ invokes constructor $@ which is not marked as noexcept(true) or equivalent. | test.cpp:10:15:10:16 | a1 | a1 | test.cpp:3:3:3:8 | ClassA | ClassA |
+| test.cpp:12:18:12:22 | call to ClassA | Initializer for variable $@ invokes constructor $@ which is not marked as noexcept(true) or equivalent. | test.cpp:12:15:12:16 | a3 | a3 | test.cpp:7:3:7:8 | ClassA | ClassA |

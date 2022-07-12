@@ -1,0 +1,2 @@
+- `M5-0-20` - `BitwiseOperatorOperandsHaveDifferentUnderlyingType.ql`
+  - Fix #463 by excluding uninstantiated templates. 

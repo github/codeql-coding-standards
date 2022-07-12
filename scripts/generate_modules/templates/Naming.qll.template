@@ -1,0 +1,60 @@
+/*
+ * WARNING: This file is auto generated! Do not modify directly!
+ */
+import cpp
+
+/** Module to reason about standard library macro, object, and function names. */
+module Naming {
+    module Cpp14 {
+
+        /** Holds if `s` is a standard library macro name. */
+        predicate hasStandardLibraryMacroName(string s) {
+        {% for macro in macros %}
+            s  = "{{ macro[0].replace("\"", "\\\"")  }}"
+            {% if not loop.last %}
+            or
+            {% endif %}
+        {% endfor %}
+        }
+
+        /** Holds if `s` is a standard library object name. */
+        predicate hasStandardLibraryObjectName(string s) {
+        {% for object in objects %}
+            s = "{{ object[0].replace("\"", "\\\"")  }}"
+            {% if not loop.last %}
+            or
+            {% endif %}
+        {% endfor %}
+        }
+
+        /** Gets the qualified object name for the unqualifed name `s`, if any. */ 
+        string getQualifiedStandardLibraryObjectName(string s) {
+        {% for object in objects %}
+            s = "{{ object[0].replace("\"", "\\\"")  }}" and result = "{{ object[1].replace("\"", "\\\"")  }}"
+            {% if not loop.last %}
+            or
+            {% endif %}
+        {% endfor %}
+        }
+
+        /** Holds if `s` is a standard library top-level function name. */
+        predicate hasStandardLibraryFunctionName(string s) {
+        {% for function in functions %}
+            s  = "{{ function[0].replace("\"", "\\\"") }}"
+            {% if not loop.last %}
+            or
+            {% endif %}
+        {% endfor %}
+        }
+
+        /** Gets the qualified function name for the unqualifed name `s`, if any. */ 
+        string getQualifiedStandardLibraryFunctionName(string s) {
+        {% for function in functions %}
+            s  = "{{ function[0].replace("\"", "\\\"") }}" and result = "{{ function[1].replace("\"", "\\\"") }}"
+            {% if not loop.last %}
+            or
+            {% endif %}
+        {% endfor %}
+        }
+    }
+}

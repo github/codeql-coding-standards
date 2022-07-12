@@ -1,0 +1,2 @@
+| test.cpp:4:7:4:14 | DerivedC | Class inherits base class $@, which is derived virtual by $@ and non-virtual by $@. | test.cpp:1:7:1:10 | Base | Base | test.cpp:2:18:2:36 | derivation | DerivedA | test.cpp:3:7:3:14 | DerivedB | DerivedB |
+| test.cpp:5:7:5:14 | DerivedD | Class inherits base class $@, which is derived virtual by $@ and non-virtual by $@. | test.cpp:1:7:1:10 | Base | Base | test.cpp:5:18:5:36 | derivation | DerivedD | test.cpp:3:7:3:14 | DerivedB | DerivedB |

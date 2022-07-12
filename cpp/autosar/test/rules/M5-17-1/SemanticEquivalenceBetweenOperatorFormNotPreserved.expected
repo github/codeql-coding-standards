@@ -1,0 +1,2 @@
+| test.cpp:19:4:19:12 | operator+ | Arithmetic Operator does not have a semantically equivalent assignment operator for type A & |
+| test.cpp:25:4:25:12 | operator+ | Arithmetic Operator does not have a semantically equivalent assignment operator for type B & |

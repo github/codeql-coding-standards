@@ -1,0 +1,2 @@
+- `A3-9-1` - `VariableWidthIntegerTypesUsed.ql`:
+   - Fixed issue #231 (false positive in main parameter which is exception to rule).

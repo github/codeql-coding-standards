@@ -1,0 +1,4 @@
+- `A7-1-5` - `AutoSpecifierNotUsedAppropriatelyInVariableDefinition.ql`
+  - Fix Issue #380 by excluding uninstantiated templates. 
+- `A7-1-5` - `AutoSpecifierNotUsedAppropriatelyInFunctionDefinition.ql`
+  - Fix Issue #381 by excluding uninstantiated templates. 

@@ -1,0 +1,3 @@
+| test.cpp:5:1:5:14 | #undef INT_MAX | Redefinition of INT_MAX declared in a standard library header. |
+| test.cpp:6:1:6:20 | #define SIZE_MAX 256 | Redefinition of SIZE_MAX declared in a standard library header. |
+| test.cpp:36:1:37:9 | #define FD_SET(X) int _ ## X | Redefinition of FD_SET declared in a standard library header. |

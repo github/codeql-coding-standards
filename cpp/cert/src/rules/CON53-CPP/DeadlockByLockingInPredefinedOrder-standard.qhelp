@@ -1,0 +1,376 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>Mutexes are used to prevent multiple threads from causing a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-datarace">data race</a> by accessing the same shared resource at the same time. Sometimes, when locking mutexes, multiple threads hold each other's lock, and the program consequently <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-deadlock">deadlocks</a>. Four conditions are required for deadlock to occur:</p>
+  <ul>
+   <li>mutual exclusion (At least one nonshareable resource must be held.),</li>
+   <li>hold and wait (A thread must hold a resource while awaiting availability of another resource.),</li>
+   <li>no preemption (Resources cannot be taken away from a thread while they are in-use.), and</li>
+   <li>circular wait (A thread must await a resource held by another thread which is, in turn, awaiting a resource held by the first thread.).</li>
+  </ul>
+  <p>Deadlock needs all four conditions, so preventing deadlock requires preventing any one of the four conditions. One simple solution is to lock the mutexes in a predefined order, which prevents circular wait.</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>The behavior of this noncompliant code example depends on the runtime environment and the platform's scheduler. The program is susceptible to deadlock if thread <code>thr1 </code>attempts to lock <code>ba2</code>'s mutex at the same time thread <code>thr2</code> attempts to lock <code>ba1</code>'s mutex in the <code>deposit()</code> function.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
+#include &lt;thread&gt;
+ 
+class BankAccount {
+  int balance;
+public:
+  std::mutex balanceMutex;
+  BankAccount() = delete;
+  explicit BankAccount(int initialAmount) : balance(initialAmount) {}
+  int get_balance() const { return balance; }
+  void set_balance(int amount) { balance = amount; }
+};
+ 
+int deposit(BankAccount *from, BankAccount *to, int amount) {
+  std::lock_guard&lt;std::mutex&gt; from_lock(from-&gt;balanceMutex);
+ 
+  // Not enough balance to transfer.
+  if (from-&gt;get_balance() &lt; amount) {
+    return -1; // Indicate error
+  }
+  std::lock_guard&lt;std::mutex&gt; to_lock(to-&gt;balanceMutex);
+ 
+  from-&gt;set_balance(from-&gt;get_balance() - amount);
+  to-&gt;set_balance(to-&gt;get_balance() + amount);
+ 
+  return 0;
+}
+ 
+void f(BankAccount *ba1, BankAccount *ba2) {
+  // Perform the deposits.
+  std::thread thr1(deposit, ba1, ba2, 100);
+  std::thread thr2(deposit, ba2, ba1, 100);
+  thr1.join();
+  thr2.join();
+}</sample>
+ </section>
+ <section title="Compliant Solution (Manual Ordering)">
+  <p>This compliant solution eliminates the circular wait condition by establishing a predefined order for locking in the <code>deposit()</code> function. Each thread will lock on the basis of the <code>BankAccount</code> ID, which is set when the <code>BankAccount</code> object is initialized.</p>
+  <sample language="cpp">#include &lt;atomic&gt;
+#include &lt;mutex&gt;
+#include &lt;thread&gt;
+ 
+class BankAccount {
+  static std::atomic&lt;unsigned int&gt; globalId;
+  const unsigned int id;
+  int balance;
+public:
+  std::mutex balanceMutex;
+  BankAccount() = delete;
+  explicit BankAccount(int initialAmount) : id(globalId++), balance(initialAmount) {}
+  unsigned int get_id() const { return id; }
+  int get_balance() const { return balance; }
+  void set_balance(int amount) { balance = amount; }
+};
+
+std::atomic&lt;unsigned int&gt; BankAccount::globalId(1);
+ 
+int deposit(BankAccount *from, BankAccount *to, int amount) {
+  std::mutex *first;
+  std::mutex *second;
+ 
+  if (from-&gt;get_id() == to-&gt;get_id()) {
+    return -1; // Indicate error
+  }
+ 
+  // Ensure proper ordering for locking.
+  if (from-&gt;get_id() &lt; to-&gt;get_id()) {
+    first = &amp;from-&gt;balanceMutex;
+    second = &amp;to-&gt;balanceMutex;
+  } else {
+    first = &amp;to-&gt;balanceMutex;
+    second = &amp;from-&gt;balanceMutex;
+  }
+  std::lock_guard&lt;std::mutex&gt; firstLock(*first);
+  std::lock_guard&lt;std::mutex&gt; secondLock(*second);
+ 
+  // Check for enough balance to transfer.
+  if (from-&gt;get_balance() &gt;= amount) {
+    from-&gt;set_balance(from-&gt;get_balance() - amount);
+    to-&gt;set_balance(to-&gt;get_balance() + amount);
+    return 0;
+  }
+  return -1;
+}
+ 
+void f(BankAccount *ba1, BankAccount *ba2) {
+  // Perform the deposits.
+  std::thread thr1(deposit, ba1, ba2, 100);
+  std::thread thr2(deposit, ba2, ba1, 100);
+  thr1.join();
+  thr2.join();
+}</sample>
+ </section>
+ <section title="Compliant Solution (std::lock())">
+  <p>This compliant solution uses Standard Template Library facilities to ensure that deadlock does not occur due to circular wait conditions. The <code>std::lock()</code> function takes a variable number of lockable objects and attempts to lock them such that deadlock does not occur [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]. In typical implementations, this is done by using a combination of <code>lock()</code>, <code>try_lock()</code>, and <code>unlock()</code> to attempt to lock the object and backing off if the lock is not acquired, which may have worse performance than a solution that locks in predefined order explicitly.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
+#include &lt;thread&gt;
+ 
+class BankAccount {
+  int balance;
+public:
+  std::mutex balanceMutex;
+  BankAccount() = delete;
+  explicit BankAccount(int initialAmount) : balance(initialAmount) {}
+  int get_balance() const { return balance; }
+  void set_balance(int amount) { balance = amount; }
+};
+ 
+int deposit(BankAccount *from, BankAccount *to, int amount) {
+  // Create lock objects but defer locking them until later.
+  std::unique_lock&lt;std::mutex&gt; lk1(from-&gt;balanceMutex, std::defer_lock);
+  std::unique_lock&lt;std::mutex&gt; lk2(to-&gt;balanceMutex, std::defer_lock);
+
+  // Lock both of the lock objects simultaneously.
+  std::lock(lk1, lk2);
+
+  if (from-&gt;get_balance() &gt;= amount) {
+    from-&gt;set_balance(from-&gt;get_balance() - amount);
+    to-&gt;set_balance(to-&gt;get_balance() + amount);
+    return 0;
+  }
+  return -1;
+}
+ 
+void f(BankAccount *ba1, BankAccount *ba2) {
+  // Perform the deposits.
+  std::thread thr1(deposit, ba1, ba2, 100);
+  std::thread thr2(deposit, ba2, ba1, 100);
+  thr1.join();
+  thr2.join();
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>Deadlock prevents multiple threads from progressing, halting program execution. A <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attack</a> is possible if the attacker can create the conditions for deadlock.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      CON53-CPP
+     </td>
+     <td>
+      Low
+     </td>
+     <td>
+      Probable
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      <strong>P4</strong>
+     </td>
+     <td>
+      <strong>L3</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>CONCURRENCY.LOCK.ORDER</strong>
+     </td>
+     <td>
+      Conflicting lock order
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Coverity">
+       Coverity
+      </a>
+     </td>
+     <td>
+      6.5
+     </td>
+     <td>
+      <strong>DEADLOCK</strong>
+     </td>
+     <td>
+      Fully implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++1772, C++1773</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-CON53-a</strong>
+     </td>
+     <td>
+      Do not acquire locks in different order
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2021b
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certccon53cpp.html">
+       CERT C++: CON53-CPP
+      </a>
+     </td>
+     <td>
+      Checks for deadlocks
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046345">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>1772, 1773</strong>
+     </td>
+     <td>
+      Enforced by MTA
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON53-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">
+       CERT Oracle Secure Coding Standard for Java
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/java/LCK07-J.+Avoid+deadlock+by+requesting+and+releasing+locks+in+the+same+order">
+       LCK07-J. Avoid deadlock by requesting and releasing locks in the same order
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://www.securecoding.cert.org/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       SEI CERT C Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://www.securecoding.cert.org/confluence/display/c/CON35-C.+Avoid+deadlock+by+locking+in+a+predefined+order">
+       CON35-C. Avoid deadlock by locking in a predefined order
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="http://cwe.mitre.org/">
+       MITRE CWE
+      </a>
+     </td>
+     <td>
+      <a href="http://cwe.mitre.org/data/definitions/764.html">
+       CWE-764
+      </a>
+      , Multiple Locks of a Critical Resource
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 30.4, "Mutual Exclusion"
+      Subclause 30.4.3, "Generic Locking Algorithms"
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

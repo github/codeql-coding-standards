@@ -1,0 +1,4 @@
+| test.cpp:6:1:6:16 | #define BADMACRO | Macro BADMACRO defined in a non-global namespace $@. | test.cpp:4:11:4:28 | notGlobalNamespace | notGlobalNamespace |
+| test.cpp:7:1:7:15 | #undef BADMACRO | Macro BADMACRO undefined in a non-global namespace $@. | test.cpp:4:11:4:28 | notGlobalNamespace | notGlobalNamespace |
+| test.cpp:12:1:12:22 | #define SECONDBADMACRO | Macro SECONDBADMACRO defined in a non-global namespace $@. | test.cpp:11:11:11:34 | secondNotGlobalNamespace | secondNotGlobalNamespace |
+| test.cpp:18:1:18:20 | #undef THIRDBADMACRO | Macro THIRDBADMACRO undefined in a non-global namespace $@. | test.cpp:17:11:17:33 | thirdNotGlobalNamespace | thirdNotGlobalNamespace |

@@ -1,0 +1,2 @@
+int __errno;
+#define errno __errno

@@ -1,0 +1,2 @@
+| test.cpp:9:7:9:7 | a | Member data in a non-POD class is not private. |
+| test.cpp:24:7:24:7 | b | Member data in a non-POD class is not private. |

@@ -1,0 +1,63 @@
+edges
+| test.cpp:9:5:9:14 | ... = ... | test.cpp:8:7:8:15 | operator= |
+| test.cpp:38:5:38:14 | ... = ... | test.cpp:37:7:37:15 | operator= |
+| test.cpp:39:5:39:11 | ... += ... | test.cpp:37:7:37:15 | operator= |
+| test.cpp:41:10:41:13 | ... ++ | test.cpp:37:7:37:15 | operator= |
+| test.cpp:53:15:53:15 | call to operator<< | test.cpp:52:7:52:15 | operator= |
+| test.cpp:54:15:54:15 | call to operator<< | test.cpp:52:7:52:15 | operator= |
+| test.cpp:65:7:65:15 | operator= | test.cpp:76:8:76:8 | call to operator= |
+| test.cpp:66:5:66:18 | ... = ... | test.cpp:65:7:65:15 | operator= |
+| test.cpp:75:5:75:18 | ... = ... | test.cpp:74:7:74:15 | operator= |
+| test.cpp:76:8:76:8 | call to operator= | test.cpp:74:7:74:15 | operator= |
+| test.cpp:76:8:76:8 | call to operator= | test.cpp:74:7:74:15 | operator= |
+| test.cpp:78:5:78:10 | ... = ... | test.cpp:74:7:74:15 | operator= |
+| test.cpp:114:9:114:24 | ... = ... | test.cpp:111:7:111:15 | operator= |
+| test.cpp:139:5:139:14 | ... = ... | test.cpp:138:7:138:15 | operator= |
+| test.cpp:140:5:140:9 | call to setM2 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:141:5:141:12 | call to setQuux1 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:142:5:142:12 | call to setQuux2 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:143:5:143:12 | call to setQuux3 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:144:5:144:12 | call to setQuux4 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:145:5:145:12 | call to setQuux5 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:146:5:146:12 | call to setQuux6 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:147:5:147:12 | call to setQuux7 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:148:5:148:12 | call to setQuux8 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:149:5:149:12 | call to setQuux9 | test.cpp:138:7:138:15 | operator= |
+| test.cpp:153:8:153:12 | setM2 | test.cpp:140:5:140:9 | call to setM2 |
+| test.cpp:153:24:153:30 | ... = ... | test.cpp:153:8:153:12 | setM2 |
+| test.cpp:155:8:155:15 | setQuux1 | test.cpp:141:5:141:12 | call to setQuux1 |
+| test.cpp:155:8:155:15 | setQuux1 | test.cpp:174:5:174:12 | call to setQuux1 |
+| test.cpp:155:27:155:47 | ... = ... | test.cpp:155:8:155:15 | setQuux1 |
+| test.cpp:157:8:157:15 | setQuux2 | test.cpp:142:5:142:12 | call to setQuux2 |
+| test.cpp:157:8:157:15 | setQuux2 | test.cpp:175:5:175:12 | call to setQuux2 |
+| test.cpp:157:34:157:59 | ... = ... | test.cpp:157:8:157:15 | setQuux2 |
+| test.cpp:159:8:159:15 | setQuux3 | test.cpp:143:5:143:12 | call to setQuux3 |
+| test.cpp:159:28:159:54 | ... = ... | test.cpp:159:8:159:15 | setQuux3 |
+| test.cpp:161:8:161:15 | setQuux4 | test.cpp:144:5:144:12 | call to setQuux4 |
+| test.cpp:161:8:161:15 | setQuux4 | test.cpp:176:5:176:12 | call to setQuux4 |
+| test.cpp:161:34:161:63 | ... = ... | test.cpp:161:8:161:15 | setQuux4 |
+| test.cpp:163:8:163:15 | setQuux5 | test.cpp:145:5:145:12 | call to setQuux5 |
+| test.cpp:163:34:163:64 | ... = ... | test.cpp:163:8:163:15 | setQuux5 |
+| test.cpp:165:8:165:15 | setQuux6 | test.cpp:146:5:146:12 | call to setQuux6 |
+| test.cpp:165:8:165:15 | setQuux6 | test.cpp:177:5:177:12 | call to setQuux6 |
+| test.cpp:165:34:165:67 | ... = ... | test.cpp:165:8:165:15 | setQuux6 |
+| test.cpp:167:8:167:15 | setQuux7 | test.cpp:147:5:147:12 | call to setQuux7 |
+| test.cpp:167:34:167:68 | ... = ... | test.cpp:167:8:167:15 | setQuux7 |
+| test.cpp:169:8:169:15 | setQuux8 | test.cpp:148:5:148:12 | call to setQuux8 |
+| test.cpp:169:8:169:15 | setQuux8 | test.cpp:178:5:178:12 | call to setQuux8 |
+| test.cpp:169:27:169:64 | ... = ... | test.cpp:169:8:169:15 | setQuux8 |
+| test.cpp:171:8:171:15 | setQuux9 | test.cpp:149:5:149:12 | call to setQuux9 |
+| test.cpp:171:27:171:65 | ... = ... | test.cpp:171:8:171:15 | setQuux9 |
+| test.cpp:174:5:174:12 | call to setQuux1 | test.cpp:173:8:173:16 | setQuux10 |
+| test.cpp:175:5:175:12 | call to setQuux2 | test.cpp:173:8:173:16 | setQuux10 |
+| test.cpp:176:5:176:12 | call to setQuux4 | test.cpp:173:8:173:16 | setQuux10 |
+| test.cpp:177:5:177:12 | call to setQuux6 | test.cpp:173:8:173:16 | setQuux10 |
+| test.cpp:178:5:178:12 | call to setQuux8 | test.cpp:173:8:173:16 | setQuux10 |
+#select
+| test.cpp:37:7:37:15 | operator= | test.cpp:39:5:39:11 | ... += ... | test.cpp:37:7:37:15 | operator= | The copy operator of the class $@ has unrelated $@. | test.cpp:34:7:34:8 | C3 | C3 | test.cpp:39:5:39:11 | ... += ... | side effect |
+| test.cpp:52:7:52:15 | operator= | test.cpp:53:15:53:15 | call to operator<< | test.cpp:52:7:52:15 | operator= | The copy operator of the class $@ has unrelated $@. | test.cpp:49:7:49:8 | C4 | C4 | test.cpp:53:15:53:15 | call to operator<< | side effect |
+| test.cpp:52:7:52:15 | operator= | test.cpp:54:15:54:15 | call to operator<< | test.cpp:52:7:52:15 | operator= | The copy operator of the class $@ has unrelated $@. | test.cpp:49:7:49:8 | C4 | C4 | test.cpp:54:15:54:15 | call to operator<< | side effect |
+| test.cpp:65:7:65:15 | operator= | test.cpp:66:5:66:18 | ... = ... | test.cpp:65:7:65:15 | operator= | The copy operator of the class $@ has unrelated $@. | test.cpp:63:8:63:9 | S1 | S1 | test.cpp:66:5:66:18 | ... = ... | side effect |
+| test.cpp:74:7:74:15 | operator= | test.cpp:66:5:66:18 | ... = ... | test.cpp:74:7:74:15 | operator= | The copy operator of the class $@ has unrelated $@. | test.cpp:71:7:71:8 | C5 | C5 | test.cpp:66:5:66:18 | ... = ... | side effect |
+| test.cpp:74:7:74:15 | operator= | test.cpp:75:5:75:18 | ... = ... | test.cpp:74:7:74:15 | operator= | The copy operator of the class $@ has unrelated $@. | test.cpp:71:7:71:8 | C5 | C5 | test.cpp:75:5:75:18 | ... = ... | side effect |
+| test.cpp:74:7:74:15 | operator= | test.cpp:78:5:78:10 | ... = ... | test.cpp:74:7:74:15 | operator= | The copy operator of the class $@ has unrelated $@. | test.cpp:71:7:71:8 | C5 | C5 | test.cpp:78:5:78:10 | ... = ... | side effect |

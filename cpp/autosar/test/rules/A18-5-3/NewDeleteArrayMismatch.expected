@@ -1,0 +1,4 @@
+| test.cpp:20:5:20:15 | delete[] | This memory may have been allocated with '$@', not 'new[]'. | test.cpp:16:16:16:25 | new | new |
+| test.cpp:61:7:61:24 | delete[] | This memory may have been allocated with '$@', not 'new[]'. | test.cpp:55:17:55:26 | new | new |
+| test.cpp:77:3:77:12 | delete[] | This memory may have been allocated with '$@', not 'new[]'. | test.cpp:72:9:72:15 | new | new |
+| test.cpp:103:5:103:14 | delete[] | This memory may have been allocated with '$@', not 'new[]'. | test.cpp:97:9:97:15 | new | new |

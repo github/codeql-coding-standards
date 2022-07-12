@@ -1,0 +1,7 @@
+edges
+| test.cpp:21:3:21:26 | throw ... [CheckedException] | test.cpp:20:6:20:27 | test_throws_no_declare [CheckedException] |
+| test.cpp:30:5:30:29 | throw ... [CheckedException2] | test.cpp:27:6:27:32 | test_throws_missing_declare [CheckedException2] |
+| test.cpp:32:5:32:28 | throw ... [CheckedException] | test.cpp:27:6:27:32 | test_throws_missing_declare [CheckedException] |
+#select
+| test.cpp:20:6:20:27 | test_throws_no_declare | test.cpp:21:3:21:26 | throw ... [CheckedException] | test.cpp:20:6:20:27 | test_throws_no_declare [CheckedException] | Checked exception of type $@ thrown here which is not specified in any declaration for test_throws_no_declare. | test.cpp:6:7:6:22 | CheckedException | CheckedException |
+| test.cpp:27:6:27:32 | test_throws_missing_declare | test.cpp:32:5:32:28 | throw ... [CheckedException] | test.cpp:27:6:27:32 | test_throws_missing_declare [CheckedException] | Checked exception of type $@ thrown here which is not specified in any declaration for test_throws_missing_declare. | test.cpp:6:7:6:22 | CheckedException | CheckedException |

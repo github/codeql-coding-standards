@@ -1,0 +1,2 @@
+| test.cpp:5:3:5:20 | ... &= ... | Modification of bit-representation of float originated at $@ | test.cpp:4:24:4:60 | reinterpret_cast<unsigned char *>... | cast |
+| test.cpp:12:3:12:14 | ... &= ... | Modification of bit-representation of float originated at $@ | test.cpp:11:18:11:30 | (uint8_t *)... | cast |

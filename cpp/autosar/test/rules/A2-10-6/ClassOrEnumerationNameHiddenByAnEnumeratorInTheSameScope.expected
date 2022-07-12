@@ -1,0 +1,1 @@
+| test.cpp:10:3:10:4 | C2 | Enumerator declaration $@ hides class or enumeration name $@ | test.cpp:10:3:10:4 | C2 | C2 | test.cpp:8:7:8:8 | C2 | C2 |

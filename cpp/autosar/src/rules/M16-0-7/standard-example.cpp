@@ -1,0 +1,1 @@
+#if x < 0   // Non-compliant - x assumed to be zero as it is not defined

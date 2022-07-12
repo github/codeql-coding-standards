@@ -1,0 +1,3 @@
+| test.cpp:4:7:4:15 | DivByZero | [AUDIT] Confirm checked exception is used to represent an error from which the caller can reasonable be expected to recover. |
+| test.cpp:8:7:8:25 | NoSuchFileException | [AUDIT] Confirm checked exception is used to represent an error from which the caller can reasonable be expected to recover. |
+| test.cpp:15:7:15:22 | CheckedException | [AUDIT] Confirm checked exception is used to represent an error from which the caller can reasonable be expected to recover. |

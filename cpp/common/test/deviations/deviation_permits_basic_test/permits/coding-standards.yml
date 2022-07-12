@@ -1,0 +1,5 @@
+deviation-permits:
+  - permit-id: MC3R14_4
+    rule-id: A0-1-2
+    justification: Unused return value
+    code-identifier: a-0-1-2-deviated

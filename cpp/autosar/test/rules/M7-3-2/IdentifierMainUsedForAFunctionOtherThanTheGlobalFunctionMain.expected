@@ -1,0 +1,4 @@
+| test.cpp:5:6:5:9 | main | Identifier main used for a function other than the global function main. |
+| test.cpp:10:5:10:8 | main | Identifier main used for a function other than the global function main. |
+| test.cpp:15:7:15:10 | main | Identifier main used for a function other than the global function main. |
+| test.cpp:20:7:20:10 | main | Identifier main used for a function other than the global function main. |

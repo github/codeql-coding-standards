@@ -1,0 +1,2 @@
+| test.cpp:6:3:6:3 | G | Virtual function $@ declared with multiple specifiers. | test.cpp:6:3:6:3 | G | G |
+| test.cpp:14:16:14:16 | F | Virtual function $@ declared with multiple specifiers. | test.cpp:14:16:14:16 | F | F |

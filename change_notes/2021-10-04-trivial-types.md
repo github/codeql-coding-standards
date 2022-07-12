@@ -1,0 +1,1 @@
+ - `ERR61-CPP`, `A15-3-5` - we have improved our definition of trivial types to detect more "trivial classes" with compiler generated constructors and destructors. This should reduce the false positives for these queries when catching trivial class exception types without an lvalue reference.

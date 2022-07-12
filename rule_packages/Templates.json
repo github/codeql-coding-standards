@@ -1,0 +1,195 @@
+{
+  "AUTOSAR": {
+    "A14-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using certain types for template arguments can cause undefined behavour if the template uses the argument in an unchecked way that conflicts with the arguments' available characteristics.",
+          "kind": "problem",
+          "name": "A template should check if a specific template argument is suitable for this template",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "TemplateShouldCheckArg",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+    ],
+      "title": "A template should check if a specific template argument is suitable for this template."
+    },
+    "A14-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using a template constructor that participates in overload resolution against copy or move constructors makes the code more difficult to understand.",
+          "kind": "problem",
+          "name": "A template constructor shall not participate in overload resolution for a single argument of the enclosing class type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "TemplateConstructorOverloadResolution",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A template constructor shall not participate in overload resolution for a single argument of the enclosing class type."
+    },
+    "A14-7-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using template argument types that do not provide all members used can lead to compilation errors and can be difficult to diagnose.",
+          "kind": "problem",
+          "name": "A type used as a template argument shall provide all members that are used by the template",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TypeUsedAsTemplateArgShallProvideAllMembers",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A type used as a template argument shall provide all members that are used by the template."
+    },
+    "A14-7-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Template specialization shall be declared in the same file (1) as the primary template (2) as a user-defined type, for which the specialization is declared, otherwise the behaviour is undefined.",
+          "kind": "problem",
+          "name": "Template specialization shall be declared in the same file as the primary template or as a user-defined type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "TemplateSpecializationNotDeclaredInTheSameFile",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Template specialization shall be declared in the same file (1) as the primary template (2) as a user-defined type, for which the specialization is declared."
+    },
+    "A14-8-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using function template specialization in combination with function overloading makes call target resolution more difficult to understand.",
+          "kind": "problem",
+          "name": "Explicit specializations of function templates shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExplicitSpecializationsOfFunctionTemplatesUsed",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Explicit specializations of function templates shall not be used."
+    },
+    "A8-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [],
+      "title": "When declaring function templates, the trailing return type syntax shall be used if the return type depends on the type of parameters."
+    },
+    "M14-5-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A copy assignment operator shall be declared when there is a template assignment operator with a parameter that is a generic parameter otherwise assignment involving types with pointer members may not behave as a developer expects.",
+          "kind": "problem",
+          "name": "A copy assignment operator shall be declared when there is a template assignment operator with a parameter that is generic",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CopyAssignmentOperatorNotDeclared",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A copy assignment operator shall be declared when there is a template assignment operator with a parameter that is a generic parameter."
+    },
+    "M14-6-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Not using a qualified-id or `this->` syntax for identifiers used in a class template makes the code more difficult to understand.",
+          "kind": "problem",
+          "name": "In a class template with a dependent base, any name that may be found in that dependent base shall shall be referred to using a qualified-id or this->",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "NameNotReferredUsingAQualifiedIdOrThis",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+            "description": "Not using a qualified-id or `this->` syntax for identifiers used in a class template makes the code more difficult to understand.",
+            "kind": "problem",
+            "name": "(Audit) In a class template with a dependent base, any name that may be found in that dependent base shall shall be referred to using a qualified-id or this->",
+            "precision": "very-high",
+            "severity": "warning",
+            "short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit",
+            "tags": [
+              "maintainability",
+              "readability"
+            ]
+          }
+      ],
+      "title": "In a class template with a dependent base, any name that may be found in that dependent base shall be referred to using a qualified-id or this->."
+    }
+  }
+}

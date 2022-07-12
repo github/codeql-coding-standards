@@ -1,0 +1,11 @@
+edges
+| test.cpp:5:3:5:20 | throw ... [ExceptionA] | test.cpp:4:6:4:15 | test_throw [ExceptionA] |
+| test.cpp:8:6:8:11 | throwA [ExceptionA] | test.cpp:11:3:11:8 | call to throwA [ExceptionA] |
+| test.cpp:8:6:8:11 | throwA [ExceptionA] | test.cpp:15:3:15:8 | call to throwA [ExceptionA] |
+| test.cpp:8:17:8:34 | throw ... [ExceptionA] | test.cpp:8:6:8:11 | throwA [ExceptionA] |
+| test.cpp:11:3:11:8 | call to throwA [ExceptionA] | test.cpp:10:6:10:24 | test_indirect_throw [ExceptionA] |
+| test.cpp:15:3:15:8 | call to throwA [ExceptionA] | test.cpp:14:6:14:26 | test_indirect_throw_2 [ExceptionA] |
+#select
+| test.cpp:4:6:4:15 | test_throw | test.cpp:5:3:5:20 | throw ... [ExceptionA] | test.cpp:4:6:4:15 | test_throw [ExceptionA] | Function test_throw is declared noexcept(true) but can throw exceptions of type ExceptionA. |
+| test.cpp:10:6:10:24 | test_indirect_throw | test.cpp:8:17:8:34 | throw ... [ExceptionA] | test.cpp:10:6:10:24 | test_indirect_throw [ExceptionA] | Function test_indirect_throw is declared noexcept(true) but can throw exceptions of type ExceptionA. |
+| test.cpp:14:6:14:26 | test_indirect_throw_2 | test.cpp:8:17:8:34 | throw ... [ExceptionA] | test.cpp:14:6:14:26 | test_indirect_throw_2 [ExceptionA] | Function test_indirect_throw_2 is declared noexcept(true) but can throw exceptions of type ExceptionA. |

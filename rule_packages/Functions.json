@@ -1,0 +1,329 @@
+{
+  "AUTOSAR": {
+    "A17-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Calls to C Standard Library functions should be encapsulated to clearly isolate responsibility for low level checks and error handling.",
+          "kind": "problem",
+          "name": "C Standard Library function calls should be encapsulated",
+          "precision": "low",
+          "severity": "recommendation",
+          "short_name": "CStandardLibraryFunctionCalls",
+          "tags": [
+            "maintainability",
+            "external/autosar/audit"
+          ]
+        }
+      ],
+      "title": "Use of the C Standard Library shall be encapsulated and isolated."
+    },
+    "A3-1-6": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Trivial accessor and mutator functions that are not inlined take up space and time.",
+          "kind": "problem",
+          "name": "Trivial accessor and mutator functions should be inlined",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "TrivialAccessorAndMutatorFunctionsNotInlined",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Trivial accessor and mutator functions should be inlined."
+    },
+    "A7-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function that returns a reference or a pointer to parameter that is by reference to const can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "Function shall not return a reference or pointer to parameter passed by reference to const",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InvalidFunctionReturnType",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "A function shall not return a reference or a pointer to a parameter that is passed by reference to const."
+    },
+    "A7-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using recursive functions can lead to stack overflows and limit scalability and portability of the program.",
+          "kind": "problem",
+          "name": "Functions shall not call themselves, either directly or indirectly",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RecursiveFunctions",
+          "tags": [
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Functions shall not call themselves, either directly or indirectly."
+    },
+    "A7-6-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function with the [[noreturn]] attribute that returns leads to undefined behaviour.",
+          "kind": "problem",
+          "name": "Functions declared with the [[noreturn]] attribute shall not return",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionNoReturnAttributeConditionAutosar",
+          "shared_implementation_short_name": "FunctionNoReturnAttributeCondition",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Functions declared with the [[noreturn]] attribute shall not return."
+    },
+    "A8-4-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function with non-void return type that does not exit via a return statement can result in undefined behaviour. An exception to this rule is exiting via exception handling.",
+          "kind": "problem",
+          "name": "All exit paths from a function with non-void return type shall have an explicit return statement",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonVoidFunctionDoesNotReturnAutosar",
+          "shared_implementation_short_name": "NonVoidFunctionDoesNotReturn",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All exit paths from a function with non-void return type shall have an explicit return statement with an expression."
+    },
+    "A8-4-4": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Multiple output values from functions that do not return as struct or tuple can cause confusion an add overhead for compilers.",
+          "kind": "problem",
+          "name": "Multiple output values from a function should be returned as a struct or tuple",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "FunctionReturnMultipleValueCondition",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Multiple output values from a function should be returned as a struct or tuple."
+    },
+    "M7-4-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Assembler instructions not introduced using the asm declaration is confusing and can cause inconsitent behaviour.",
+          "kind": "problem",
+          "name": "Assembler instructions shall only be introduced using the asm declaration",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "AssmemblerInstructionsCondition",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Assembler instructions shall only be introduced using the asm declaration."
+    },
+    "M7-4-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using assembly language that is not encapsulated and isolated leads to portability issues.",
+          "kind": "problem",
+          "name": "Assembly language shall be encapsulated and isolated",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "AssemblyLanguageCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Assembly language shall be encapsulated and isolated."
+    },
+    "M7-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Functions that return a reference or a pointer to an automatic variable (including parameters) potentially lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "A function shall not return a reference or a pointer to an automatic variable (including parameters)",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionReturnAutomaticVarCondition",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "A function shall not return a reference or a pointer to an automatic variable (including parameters), defined within the function."
+    },
+    "M8-4-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function identifier that doesn't call the function or preceded by & is ambiguous and can cause confusion.",
+          "kind": "problem",
+          "name": "A function identifier shall either be used to call the function or it shall be preceded by &",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "FunctionIdentifierCondition",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A function identifier shall either be used to call the function or it shall be preceded by &."
+    }
+  },
+  "CERT-C++": {
+    "EXP56-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A function with mismatched language linkage can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not call a function with a mismatched language linkage",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionWithMismatchedLanguageLinkage",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not call a function with a mismatched language linkage"
+    },
+    "MSC52-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A function with non-void return type that does not exit via a return statement can result in undefined behaviour. An exception to this rule is exiting via exception handling.",
+          "kind": "problem",
+          "name": "Value-returning functions must return a value from all exit paths",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonVoidFunctionDoesNotReturnCert",
+          "shared_implementation_short_name": "NonVoidFunctionDoesNotReturn",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Value-returning functions must return a value from all exit paths"
+    },
+    "MSC53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A function with the [[noreturn]] attribute that returns leads to undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not return from a function declared [[noreturn]]",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionNoReturnAttributeConditionCert",
+          "shared_implementation_short_name": "FunctionNoReturnAttributeCondition",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not return from a function declared [[noreturn]]"
+    }
+  }
+}

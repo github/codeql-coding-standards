@@ -1,0 +1,6 @@
+| test.cpp:10:3:10:13 | delete[] | Memory allocated with $@ but deleted with delete[]. | test.cpp:9:16:9:27 | new | new |
+| test.cpp:13:3:13:6 | call to free | Memory allocated with $@ but deleted with free. | test.cpp:12:16:12:27 | new | new |
+| test.cpp:18:3:18:11 | delete | Memory allocated with $@ but deleted with delete. | test.cpp:17:16:17:31 | new[] | new[] |
+| test.cpp:24:3:24:6 | call to free | Memory allocated with $@ but deleted with free. | test.cpp:23:16:23:31 | new[] | new[] |
+| test.cpp:29:3:29:11 | delete | Memory allocated with $@ but deleted with delete. | test.cpp:28:20:28:25 | call to malloc | malloc |
+| test.cpp:32:3:32:13 | delete[] | Memory allocated with $@ but deleted with delete[]. | test.cpp:31:20:31:25 | call to malloc | malloc |

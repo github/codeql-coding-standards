@@ -1,0 +1,20 @@
+edges
+| test.cpp:3:36:3:45 | new[] | test.cpp:19:27:19:44 | call to allocate_int_array |
+| test.cpp:3:36:3:45 | new[] | test.cpp:23:12:23:29 | call to allocate_int_array |
+| test.cpp:3:36:3:45 | new[] | test.cpp:27:20:27:37 | call to allocate_int_array |
+| test.cpp:11:29:11:41 | call to unique_ptr | test.cpp:12:30:12:36 | call to release |
+| test.cpp:27:20:27:37 | call to allocate_int_array | test.cpp:32:12:32:20 | int_array |
+nodes
+| test.cpp:3:36:3:45 | new[] | semmle.label | new[] |
+| test.cpp:11:29:11:41 | call to unique_ptr | semmle.label | call to unique_ptr |
+| test.cpp:12:30:12:36 | call to release | semmle.label | call to release |
+| test.cpp:19:27:19:44 | call to allocate_int_array | semmle.label | call to allocate_int_array |
+| test.cpp:23:12:23:29 | call to allocate_int_array | semmle.label | call to allocate_int_array |
+| test.cpp:27:20:27:37 | call to allocate_int_array | semmle.label | call to allocate_int_array |
+| test.cpp:32:12:32:20 | int_array | semmle.label | int_array |
+subpaths
+#select
+| test.cpp:12:30:12:36 | call to release | test.cpp:11:29:11:41 | call to unique_ptr | test.cpp:12:30:12:36 | call to release | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
+| test.cpp:19:27:19:44 | call to allocate_int_array | test.cpp:3:36:3:45 | new[] | test.cpp:19:27:19:44 | call to allocate_int_array | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
+| test.cpp:23:12:23:29 | call to allocate_int_array | test.cpp:3:36:3:45 | new[] | test.cpp:23:12:23:29 | call to allocate_int_array | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
+| test.cpp:32:12:32:20 | int_array | test.cpp:3:36:3:45 | new[] | test.cpp:32:12:32:20 | int_array | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |

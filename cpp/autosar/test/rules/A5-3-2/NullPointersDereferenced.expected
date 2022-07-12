@@ -1,0 +1,3 @@
+| test.cpp:9:4:9:5 | l1 | Null may be dereferenced here because a null value was assigned $@. | test.cpp:2:13:2:19 | 0 | here |
+| test.cpp:16:6:16:7 | l1 | Null may be dereferenced here because a null value was assigned $@. | test.cpp:2:13:2:19 | 0 | here |
+| test.cpp:35:4:35:5 | l2 | Null may be dereferenced here because a null value was assigned $@. | test.cpp:33:11:33:11 | 0 | here |

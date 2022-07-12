@@ -1,0 +1,2 @@
+| test1.cpp:3:12:3:13 | declaration of g2 | The variable declaration g2 is used in multiple translations units and has an additional $@. | test2.cpp:3:12:3:13 | declaration of g2 | declaration |
+| test2.cpp:3:12:3:13 | declaration of g2 | The variable declaration g2 is used in multiple translations units and has an additional $@. | test1.cpp:3:12:3:13 | declaration of g2 | declaration |

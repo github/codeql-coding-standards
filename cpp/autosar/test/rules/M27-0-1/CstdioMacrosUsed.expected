@@ -1,0 +1,10 @@
+| test.cpp:11:14:11:16 | EOF | Use of <cstdio> macro 'EOF'. |
+| test.cpp:20:28:20:35 | SEEK_SET | Use of <cstdio> macro 'SEEK_SET'. |
+| test.cpp:21:28:21:35 | SEEK_END | Use of <cstdio> macro 'SEEK_END'. |
+| test.cpp:22:12:22:17 | BUFSIZ | Use of <cstdio> macro 'BUFSIZ'. |
+| test.cpp:29:67:29:73 | TMP_MAX | Use of <cstdio> macro 'TMP_MAX'. |
+| test.cpp:30:15:30:26 | FILENAME_MAX | Use of <cstdio> macro 'FILENAME_MAX'. |
+| test.cpp:30:29:30:37 | FOPEN_MAX | Use of <cstdio> macro 'FOPEN_MAX'. |
+| test.cpp:41:14:41:16 | EOF | Use of <cstdio> macro 'EOF'. |
+| test.cpp:50:24:50:31 | SEEK_SET | Use of <cstdio> macro 'SEEK_SET'. |
+| test.cpp:60:10:60:13 | NULL | Use of <cstdio> macro 'NULL'. |

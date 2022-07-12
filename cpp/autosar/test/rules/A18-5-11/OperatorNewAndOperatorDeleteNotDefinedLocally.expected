@@ -1,0 +1,2 @@
+| test.cpp:6:16:6:27 | operator new | Class $@ implements 'operator new' but not 'operator delete' | test.cpp:5:7:5:7 | A | A |
+| test.cpp:15:16:15:27 | operator new | Class $@ implements 'operator new' but not 'operator delete' | test.cpp:14:8:14:8 | C | C |

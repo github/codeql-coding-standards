@@ -1,0 +1,3 @@
+| test.cpp:55:6:55:14 | operator= | User defined copy or user defined move does not handle self-assignment correctly. |
+| test.cpp:64:6:64:14 | operator= | User defined copy or user defined move does not handle self-assignment correctly. |
+| test.cpp:79:6:79:14 | operator= | User defined copy or user defined move does not handle self-assignment correctly. |

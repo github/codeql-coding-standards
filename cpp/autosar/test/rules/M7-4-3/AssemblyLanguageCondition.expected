@@ -1,0 +1,4 @@
+| test.cpp:9:3:9:13 | asm statement | The assembler instruction is not isolated and encapsulated in an assembly-only function |
+| test.cpp:25:3:25:13 | asm statement | The assembler instruction is not isolated and encapsulated in an assembly-only function |
+| test.cpp:27:3:27:13 | asm statement | The assembler instruction is not isolated and encapsulated in an assembly-only function |
+| test.cpp:28:3:28:13 | asm statement | The assembler instruction is not isolated and encapsulated in an assembly-only function |

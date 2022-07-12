@@ -1,0 +1,4 @@
+| test.cpp:9:5:9:9 | call to virt1 | Call to virtual function $@ which is overridden in $@. | test.cpp:3:16:3:20 | virt1 | virt1 | test.cpp:29:8:29:12 | virt1 | B |
+| test.cpp:13:5:13:17 | call to virt2_wrapper | Call to function virt2_wrapper that calls virtual function $@ (overridden in $@). | test.cpp:4:16:4:20 | virt2 | virt2 | test.cpp:33:8:33:12 | virt2 | B |
+| test.cpp:14:5:14:9 | call to virt2 | Call to virtual function $@ which is overridden in $@. | test.cpp:4:16:4:20 | virt2 | virt2 | test.cpp:33:8:33:12 | virt2 | B |
+| test.cpp:24:5:24:9 | call to virt3 | Call to virtual function $@ which is overridden in $@. | test.cpp:37:8:37:12 | virt3 | virt3 | test.cpp:44:8:44:12 | virt3 | C |

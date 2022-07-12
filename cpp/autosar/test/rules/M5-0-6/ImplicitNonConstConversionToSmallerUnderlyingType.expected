@@ -1,0 +1,4 @@
+| test.cpp:12:8:12:14 | (int8_t)... | Implicit conversion of integral $@ reduces the size from 4 bytes to 1 bytes. | test.cpp:12:8:12:14 | ... + ... | expression |
+| test.cpp:13:8:13:10 | (int8_t)... | Implicit conversion of integral $@ reduces the size from 4 bytes to 1 bytes. | test.cpp:13:8:13:10 | i32 | i32 |
+| test.cpp:14:8:14:10 | (int8_t)... | Implicit conversion of integral $@ reduces the size from 2 bytes to 1 bytes. | test.cpp:14:8:14:10 | i16 | i16 |
+| test.cpp:25:9:25:11 | (float)... | Implicit conversion of floating point $@ reduces the size from 8 bytes to 4 bytes. | test.cpp:25:9:25:11 | f64 | f64 |

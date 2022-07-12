@@ -1,0 +1,53 @@
+name: Create compiler validation report (x86)
+
+on:
+  push:
+    branches:
+      - main
+      - "rc/**"
+  pull_request:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  create-compiler-validation-report:
+    name: Create compiler validation report (x86)
+    runs-on: windows-latest-xl
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Fetch CodeQL
+        shell: pwsh
+        run: |
+          gh release download -R github/codeql-action codeql-bundle-20220120 --pattern 'codeql-bundle-win64.tar.gz'        
+          tar -zxf codeql-bundle-win64.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Install Reporting Drivers
+        shell: pwsh
+        run: |
+          choco install wget           
+          choco install msaccess2010-redist
+      - name: Set path
+        shell: pwsh
+        run: echo "$env:GITHUB_WORKSPACE/codeql" | Out-File -FilePath $env:GITHUB_PATH -Append
+
+      - name: Create validation report
+        shell: pwsh
+        run: |
+          . 'scripts/matrix_testing/CreateMatrixTestReport.ps1' -Configuration Clang -AllRules
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: MatrixTestReport
+          path: MatrixTestReport-*
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: MatrixTestReportSummary
+          path: MatrixTestReportSummary*

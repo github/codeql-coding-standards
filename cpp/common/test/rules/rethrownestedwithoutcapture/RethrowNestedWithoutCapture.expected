@@ -1,0 +1,5 @@
+edges
+| call to throw_not_nested | main |
+| throw_not_nested | call to throw_not_nested |
+problems
+| test_rethrow.cpp:13:3:13:24 | call to throw_with_nested | throw_not_nested | main | This throw occurs in a call path from main on which there is not a current exception. |

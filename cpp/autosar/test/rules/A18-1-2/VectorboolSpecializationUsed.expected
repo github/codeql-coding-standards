@@ -1,0 +1,6 @@
+| test.cpp:3:19:3:19 | g | Use of std::vector<bool> specialization. |
+| test.cpp:18:21:18:21 | l | Use of std::vector<bool> specialization. |
+| test.cpp:20:8:20:9 | l3 | Use of std::vector<bool> specialization. |
+| test.cpp:23:34:23:35 | l6 | Use of std::vector<bool> specialization. |
+| test.cpp:24:47:24:48 | l7 | Use of std::vector<bool> specialization. |
+| test.cpp:34:40:34:41 | d3 | Use of std::vector<bool> specialization. |

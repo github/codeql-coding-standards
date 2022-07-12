@@ -1,0 +1,1 @@
+#define NULL ( a > b )   // Non-compliant

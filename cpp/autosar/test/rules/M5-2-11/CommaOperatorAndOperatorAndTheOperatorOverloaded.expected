@@ -1,0 +1,3 @@
+| test.cpp:3:6:3:15 | operator&& | The && operator should not be overloaded . |
+| test.cpp:6:6:6:15 | operator\|\| | The \|\| operator should not be overloaded . |
+| test.cpp:9:6:9:14 | operator, | The , operator should not be overloaded . |

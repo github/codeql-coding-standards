@@ -1,0 +1,1 @@
+| test.cpp:4:12:4:13 | call to f1 | The language linkage of the function type used in the function access does not match the language linkage of the function definition. |

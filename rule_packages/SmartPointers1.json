@@ -1,0 +1,194 @@
+{
+  "AUTOSAR": {
+    "A20-8-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Pointers stored in unrelated smart pointers can be erroneously destroyed upon a single underlying pointer going out of scope.",
+          "kind": "path-problem",
+          "name": "An already-owned pointer value shall not be stored in an unrelated smart pointer",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "OwnedPointerValueStoredInUnrelatedSmartPointerAsar",
+          "shared_implementation_short_name": "OwnedPointerValueStoredInUnrelatedSmartPointer",
+          "tags": ["correctness"]
+        }
+      ],
+      "title": "An already-owned pointer value shall not be stored in an unrelated smart pointer."
+    },
+    "A20-8-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Sharing ownership of a raw pointer, including the underlying object of an std::unique_ptr, risks resource leakage and complicated scope.",
+          "kind": "problem",
+          "name": "A std::unique_ptr shall be used to represent exclusive ownership",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UniquePtrNotUsedToRepresentExclusiveOwnership",
+          "tags": ["maintainability"]
+        }
+      ],
+      "title": "A std::unique_ptr shall be used to represent exclusive ownership."
+    },
+    "A20-8-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An std::shared_ptr should be used to ensure that underlying objects remain valid if a different std::shared_ptr instance is destroyed.",
+          "kind": "problem",
+          "name": "A std::shared_ptr shall be used to represent shared ownership",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "SharedPtrNotUsedToRepresentSharedOwnership",
+          "tags": ["maintainability"]
+        }
+      ],
+      "title": "A std::shared_ptr shall be used to represent shared ownership."
+    },
+    "A20-8-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An std::unique_ptr provides sufficient functionality and demonstrates intended usage without the overhead of std::shared_ptr if shared ownership is not required.",
+          "kind": "problem",
+          "name": "A std::unique_ptr shall be used over std::shared_ptr if ownership sharing is not required",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "SharedPointerUsedWithNoOwnershipSharing",
+          "tags": ["maintainability"]
+        }
+      ],
+      "title": "A std::unique_ptr shall be used over std::shared_ptr if ownership sharing is not required."
+    },
+    "A20-8-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using std::make_unique avoids explicit calls to 'new' and provides a safe way to allocate objects managed by std::unique_ptr.",
+          "kind": "problem",
+          "name": "std::make_unique shall be used to construct objects owned by std::unique_ptr",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MakeUniqueNotUsedToConstructObjectOwnedByUniquePtr",
+          "tags": ["maintainability"]
+        }
+      ],
+      "title": "std::make_unique shall be used to construct objects owned by std::unique_ptr."
+    },
+    "A20-8-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using std::make_shared avoids explicit calls to 'new' and provides a safe way to allocate objects managed by std::shared_ptr.",
+          "kind": "problem",
+          "name": "std::make_shared shall be used to construct objects owned by std::shared_ptr",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MakeSharedNotUsedToConstructObjectOwnedBySharedPtr",
+          "tags": ["maintainability"]
+        }
+      ],
+      "title": "std::make_shared shall be used to construct objects owned by std::shared_ptr."
+    },
+    "A8-4-11": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a smart pointer object is passed into a function for uses which do not affect its lifetime, then a reference or raw pointer should be used instead.",
+          "kind": "problem",
+          "name": "A smart pointer shall only be used as a parameter type if it expresses lifetime semantics",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "SmartPointerAsParameterWithoutLifetimeSemantics",
+          "tags": ["maintainability"]
+        }
+      ],
+      "title": "A smart pointer shall only be used as a parameter type if it expresses lifetime semantics."
+    },
+    "A8-4-12": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A std::unique_ptr shall be passed to a function as: (1) a copy to express the function assumes ownership (2) an lvalue reference to express that the function replaces the managed object.",
+          "kind": "problem",
+          "name": "A std::unique_ptr shall be passed to a function as a copy if the function assumes ownership, or as an lvalue reference if the function replaces the managed object",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UniquePtrPassedToFunctionWithImproperSemantics",
+          "tags": ["maintainability"]
+        }
+      ],
+      "title": "A std::unique_ptr shall be passed to a function as: (1) a copy to express the function assumes ownership (2) an lvalue reference to express that the function replaces the managed object."
+    },
+    "A8-4-13": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A std::shared_ptr shall be passed to a function as: (1) a copy to express the function shares ownership (2) an lvalue reference to express that the function replaces the managed object (3) a const lvalue reference to express that the function retains a reference count.",
+          "kind": "problem",
+          "name": "A std::shared_ptr shall be passed to a function as a copy if the function shares ownership, as an lvalue reference if the function replaces the managed object, or as a const lvalue reference if the function retains a reference count",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "SharedPtrPassedToFunctionWithImproperSemantics",
+          "tags": ["maintainability"]
+        }
+      ],
+      "title": "A std::shared_ptr shall be passed to a function as: (1) a copy to express the function shares ownership (2) an lvalue reference to express that the function replaces the managed object (3) a const lvalue reference to express that the function retains a reference count."
+    }
+  }
+}

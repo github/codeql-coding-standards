@@ -1,0 +1,1 @@
+| PassReferenceTypeToVaStart.cpp:5:18:5:22 | count | A reference-type argument is passed to 'va_start'. |

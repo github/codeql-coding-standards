@@ -1,0 +1,3 @@
+| test.cpp:3:7:3:23 | ... && ... | Binary $@ operand of logical operation is not parenthesized. | test.cpp:3:7:3:12 | ... > ... | operator |
+| test.cpp:3:7:3:23 | ... && ... | Binary $@ operand of logical operation is not parenthesized. | test.cpp:3:17:3:23 | ... < ... | operator |
+| test.cpp:7:7:7:24 | ... \|\| ... | Binary $@ operand of logical operation is not parenthesized. | test.cpp:7:19:7:24 | ... > ... | operator |

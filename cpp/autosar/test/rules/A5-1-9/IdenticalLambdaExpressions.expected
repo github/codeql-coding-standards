@@ -1,0 +1,10 @@
+| test.cpp:54:3:54:29 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:55:3:55:29 | [...](...){...} | this |
+| test.cpp:55:3:55:29 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:54:3:54:29 | [...](...){...} | this |
+| test.cpp:57:3:57:37 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:58:3:58:37 | [...](...){...} | this |
+| test.cpp:58:3:58:37 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:57:3:57:37 | [...](...){...} | this |
+| test.cpp:60:3:63:3 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:64:3:67:3 | [...](...){...} | this |
+| test.cpp:64:3:67:3 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:60:3:63:3 | [...](...){...} | this |
+| test.cpp:69:3:75:3 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:77:3:83:3 | [...](...){...} | this |
+| test.cpp:77:3:83:3 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:69:3:75:3 | [...](...){...} | this |
+| test.cpp:96:5:96:53 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:99:5:99:53 | [...](...){...} | this |
+| test.cpp:99:5:99:53 | [...](...){...} | Lambda expression is identical to $@ lambda expression. | test.cpp:96:5:96:53 | [...](...){...} | this |

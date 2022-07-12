@@ -1,0 +1,3 @@
+| test.cpp:10:9:10:11 | u16 | Implicit integral $@ changed the signedness of the underlying type from unsigned short to signed short. | test.cpp:10:9:10:11 | (int16_t)... | conversion |
+| test.cpp:11:9:11:17 | ... + ... | Implicit integral $@ changed the signedness of the underlying type from unsigned short to signed short. | test.cpp:11:9:11:17 | (int16_t)... | conversion |
+| test.cpp:12:9:12:39 | ... + ... | Implicit integral $@ changed the signedness of the underlying type from unsigned short to signed short. | test.cpp:12:9:12:39 | (int16_t)... | conversion |

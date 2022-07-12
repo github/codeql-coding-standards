@@ -1,0 +1,2 @@
+| test.cpp:9:11:9:12 | & ... | Exception object with pointer type ClassA * is thrown here. |
+| test.cpp:11:11:11:12 | a2 | Exception object with pointer type ClassA * is thrown here. |

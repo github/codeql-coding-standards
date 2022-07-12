@@ -1,0 +1,8 @@
+edges
+| test.cpp:5:6:5:11 | throwA [ExceptionA] | test.cpp:17:3:17:8 | call to throwA [ExceptionA] |
+| test.cpp:5:6:5:11 | throwA [ExceptionA] | test.cpp:25:5:25:10 | call to throwA [ExceptionA] |
+| test.cpp:5:17:5:34 | throw ... [ExceptionA] | test.cpp:5:6:5:11 | throwA [ExceptionA] |
+| test.cpp:17:3:17:8 | call to throwA [ExceptionA] | test.cpp:16:5:16:8 | main [ExceptionA] |
+| test.cpp:25:5:25:10 | call to throwA [ExceptionA] | test.cpp:16:5:16:8 | main [ExceptionA] |
+#select
+| test.cpp:16:5:16:8 | main | test.cpp:5:17:5:34 | throw ... [ExceptionA] | test.cpp:16:5:16:8 | main [ExceptionA] | Exceptions of type 'ExceptionA' are thrown and not caught in this main-like function. |

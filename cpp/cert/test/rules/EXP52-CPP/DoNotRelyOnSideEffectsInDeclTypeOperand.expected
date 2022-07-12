@@ -1,0 +1,3 @@
+| DoNotRelyOnSideEffectsInDeclTypeOperand.cpp:4:12:4:15 | decltype(...) | Reliance on $@ in the decltype operator can result in unexpected behavior. | DoNotRelyOnSideEffectsInDeclTypeOperand.cpp:4:12:4:15 | ... ++ | side effect |
+| DoNotRelyOnSideEffectsInDeclValExpression.cpp:6:10:6:32 | decltype(...) | Reliance on $@ in the decltype operator can result in unexpected behavior. | DoNotRelyOnSideEffectsInDeclValExpression.cpp:6:10:6:32 | ... ++ | side effect |
+| DoNotRelyOnSideEffectsInDeclValExpression.cpp:19:29:19:30 | decltype(...) | Reliance on $@ in the decltype operator can result in unexpected behavior. | DoNotRelyOnSideEffectsInDeclValExpression.cpp:15:21:15:24 | ... ++ | side effect |

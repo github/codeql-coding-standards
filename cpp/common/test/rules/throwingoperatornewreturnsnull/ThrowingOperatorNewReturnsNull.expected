@@ -1,0 +1,14 @@
+problems
+| test.cpp:10:5:10:25 | return ... | test.cpp:8:23:8:23 | 0 | test.cpp:10:12:10:24 | localVariable | operator new(size_t) may return null instead of throwing a std::bad_alloc exception. |
+| test.cpp:12:5:12:19 | return ... | test.cpp:12:12:12:18 | 0 | test.cpp:12:12:12:18 | 0 | operator new(size_t) may return null instead of throwing a std::bad_alloc exception. |
+| test.cpp:14:5:14:33 | return ... | test.cpp:4:10:4:23 | call to operator new | test.cpp:14:12:14:26 | call to can_return_null | operator new(size_t) may return null instead of throwing a std::bad_alloc exception. |
+edges
+| test.cpp:4:10:4:23 | call to operator new | test.cpp:14:12:14:26 | call to can_return_null |
+| test.cpp:8:23:8:23 | 0 | test.cpp:10:12:10:24 | localVariable |
+nodes
+| test.cpp:4:10:4:23 | call to operator new | semmle.label | call to operator new |
+| test.cpp:8:23:8:23 | 0 | semmle.label | 0 |
+| test.cpp:10:12:10:24 | localVariable | semmle.label | localVariable |
+| test.cpp:12:12:12:18 | 0 | semmle.label | 0 |
+| test.cpp:14:12:14:26 | call to can_return_null | semmle.label | call to can_return_null |
+subpaths

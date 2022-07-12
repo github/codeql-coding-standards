@@ -1,0 +1,15 @@
+/**
+ * @id cpp/{{ standard_short_name }}/{{ short_id }}
+ * @name {{ rule_id }}: {{ name }}
+ * @description {{ description[0] }}
+{% for description_line in description[1:] %}
+ *              {{ description_line }}
+{% endfor %}
+ * @kind {{ kind }}
+ * @precision {{ precision }}
+ * @problem.severity {{ severity }}
+ * @tags external/{{ standard_short_name }}/id/{{ rule_id.lower() }}
+{% for tag in tags %}
+ *       {{ tag }}
+{% endfor %}
+ */

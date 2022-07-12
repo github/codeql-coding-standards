@@ -1,0 +1,9 @@
+| test_global_or_namespace.cpp:16:7:16:7 | x | Member POD variable x in GA is only $@. | test_global_or_namespace.cpp:38:6:38:6 | x | used once |
+| test_global_or_namespace.cpp:54:7:54:7 | x | Member POD variable x in N1A is only $@. | test_global_or_namespace.cpp:76:6:76:6 | x | used once |
+| test_member.cpp:5:7:5:8 | m2 | Member POD variable m2 in A is only $@. | test_member.cpp:9:21:9:25 | constructor init of field m2 | used once |
+| test_member.cpp:6:7:6:8 | m3 | Member POD variable m3 in A is only $@. | test_member.cpp:10:23:10:24 | m3 | used once |
+| test_member.cpp:7:7:7:8 | m4 | Member POD variable m4 in A is only $@. | test_member.cpp:14:23:14:24 | m4 | used once |
+| test_member.cpp:18:9:18:11 | sm1 | Member POD variable sm1 in s1 is only $@. | test_member.cpp:23:6:23:8 | sm1 | used once |
+| test_member.cpp:36:7:36:8 | m1 | Member POD variable m1 in C is only $@. | test_member.cpp:39:21:39:22 | m1 | used once |
+| test_member.cpp:37:7:37:8 | m2 | Member POD variable m2 in C is only $@. | test_member.cpp:46:5:46:6 | m2 | used once |
+| test_member.cpp:55:5:55:6 | m3 | Member POD variable m3 in E<B> is only $@. | test_member.cpp:56:27:56:32 | constructor init of field m3 | used once |

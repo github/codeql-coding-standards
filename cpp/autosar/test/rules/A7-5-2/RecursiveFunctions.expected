@@ -1,0 +1,5 @@
+| test.cpp:7:13:7:35 | call to test_recursive_function | This call directly invokes its containing function $@. | test.cpp:5:5:5:27 | test_recursive_function | test_recursive_function |
+| test.cpp:21:9:21:31 | call to test_recursive_function | The function test_indirect_recursive_function is indirectly recursive via this call to $@. | test.cpp:5:5:5:27 | test_recursive_function | test_recursive_function |
+| test.cpp:27:5:27:30 | call to test_indirect_recursive_f2 | The function test_indirect_recursive_f1 is indirectly recursive via this call to $@. | test.cpp:36:5:36:30 | test_indirect_recursive_f2 | test_indirect_recursive_f2 |
+| test.cpp:38:9:38:34 | call to test_indirect_recursive_f1 | The function test_indirect_recursive_f2 is indirectly recursive via this call to $@. | test.cpp:25:5:25:30 | test_indirect_recursive_f1 | test_indirect_recursive_f1 |
+| test.cpp:75:10:75:19 | call to operator== | This call directly invokes its containing function $@. | test.cpp:74:6:74:15 | operator== | operator== |

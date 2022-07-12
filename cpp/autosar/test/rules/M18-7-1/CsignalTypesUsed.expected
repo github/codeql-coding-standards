@@ -1,0 +1,2 @@
+| test.cpp:6:8:6:19 | type mention | Use of <csignal> type 'std::sig_atomic_t'. |
+| test.cpp:10:3:10:14 | type mention | Use of <csignal> type 'sig_atomic_t'. |

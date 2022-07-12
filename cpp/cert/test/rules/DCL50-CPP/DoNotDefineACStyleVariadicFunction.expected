@@ -1,0 +1,1 @@
+| test.cpp:2:6:2:20 | format_ellipses | Function format_ellipses declared as c-style variadic function. |

@@ -1,0 +1,1 @@
+rules/A15-2-1/ConstructorsThatAreNotNoexceptInvokedBeforeProgramStartup.ql

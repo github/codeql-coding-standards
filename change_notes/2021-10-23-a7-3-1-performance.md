@@ -1,0 +1,1 @@
+ - `A7-3-1`  - the evaluation time of the queries covering these rules has been reduced.

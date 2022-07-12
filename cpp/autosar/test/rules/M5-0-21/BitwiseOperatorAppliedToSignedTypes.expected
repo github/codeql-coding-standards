@@ -1,0 +1,11 @@
+| test.cpp:14:3:14:4 | ~ ... | Signed integral $@ used as an operand to bitwise operation '~'. | test.cpp:14:4:14:4 | a | expression |
+| test.cpp:15:3:15:8 | ... << ... | Signed integral $@ used as an operand to bitwise operation '<<'. | test.cpp:15:3:15:3 | a | expression |
+| test.cpp:16:3:16:9 | ... <<= ... | Signed integral $@ used as an operand to bitwise operation '<<='. | test.cpp:16:3:16:3 | a | expression |
+| test.cpp:17:3:17:8 | ... >> ... | Signed integral $@ used as an operand to bitwise operation '>>'. | test.cpp:17:3:17:3 | a | expression |
+| test.cpp:18:3:18:9 | ... >>= ... | Signed integral $@ used as an operand to bitwise operation '>>='. | test.cpp:18:3:18:3 | a | expression |
+| test.cpp:19:3:19:7 | ... & ... | Signed integral $@ used as an operand to bitwise operation '&'. | test.cpp:19:3:19:3 | a | expression |
+| test.cpp:20:3:20:8 | ... &= ... | Signed integral $@ used as an operand to bitwise operation '&='. | test.cpp:20:3:20:3 | a | expression |
+| test.cpp:21:3:21:7 | ... ^ ... | Signed integral $@ used as an operand to bitwise operation '^'. | test.cpp:21:3:21:3 | a | expression |
+| test.cpp:22:3:22:8 | ... ^= ... | Signed integral $@ used as an operand to bitwise operation '^='. | test.cpp:22:3:22:3 | a | expression |
+| test.cpp:23:3:23:7 | ... \| ... | Signed integral $@ used as an operand to bitwise operation '\|'. | test.cpp:23:3:23:3 | a | expression |
+| test.cpp:24:3:24:8 | ... \|= ... | Signed integral $@ used as an operand to bitwise operation '\|='. | test.cpp:24:3:24:3 | a | expression |

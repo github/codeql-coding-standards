@@ -1,0 +1,8 @@
+problems
+| test.cpp:11:7:11:18 | operator new | test.cpp:12:3:12:24 | throw ... [bad_alloc] | test.cpp:11:7:11:18 | operator new [bad_alloc] | Exception of type std::bad_alloc thrown by operator new(size_t,const nothrow_t &) which is declared with nothrow_t parameter. |
+| test.cpp:25:6:25:20 | operator delete | test.cpp:26:3:26:24 | throw ... [bad_alloc] | test.cpp:25:6:25:20 | operator delete [bad_alloc] | Exception of type std::bad_alloc thrown by operator delete(void *,size_t,const nothrow_t &) which is declared with nothrow_t parameter. |
+| test.cpp:35:6:35:22 | operator delete[] | test.cpp:36:3:36:24 | throw ... [bad_alloc] | test.cpp:35:6:35:22 | operator delete[] [bad_alloc] | Exception of type std::bad_alloc thrown by operator delete[](void *,size_t,const nothrow_t &) which is declared with nothrow_t parameter. |
+edges
+| test.cpp:12:3:12:24 | throw ... [bad_alloc] | test.cpp:11:7:11:18 | operator new [bad_alloc] |
+| test.cpp:26:3:26:24 | throw ... [bad_alloc] | test.cpp:25:6:25:20 | operator delete [bad_alloc] |
+| test.cpp:36:3:36:24 | throw ... [bad_alloc] | test.cpp:35:6:35:22 | operator delete[] [bad_alloc] |

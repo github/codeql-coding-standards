@@ -1,0 +1,211 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "https://github.com/github/codeql-coding-standards/schemas/rule-package",
+    "title": "CodeQL Coding Standards Rule Package",
+    "description": "A set of queries implementing related coding standards rules.",
+    "type": "object",
+    "allOf": [
+        {
+            "properties": {
+                "AUTOSAR": {
+                    "description": "Rules part of the AUTOSAR standard",
+                    "type": "object",
+                    "patternProperties": {
+                        "^[MA]\\d+-\\d+-\\d+": {
+                            "description": "A coding standard rule",
+                            "type": "object",
+                            "properties": {
+                                "properties": {
+                                    "type": "object",
+                                    "properties": {
+                                        "allocated-target": {
+                                            "type": "array",
+                                            "uniqueItems": true,
+                                            "items": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "implementation",
+                                                    "verification",
+                                                    "design",
+                                                    "toolchain",
+                                                    "architecture",
+                                                    "infrastructure"
+                                                ]
+                                            }
+                                        },
+                                        "enforcement": {
+                                            "type": "string",
+                                            "enum": [
+                                                "automated",
+                                                "non-automated",
+                                                "partially automated"
+                                            ]
+                                        },
+                                        "obligation": {
+                                            "type": "string",
+                                            "enum": [
+                                                "required",
+                                                "rule",
+                                                "advisory"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "allocated-target",
+                                        "enforcement",
+                                        "obligation"
+                                    ]
+                                },
+                                "queries": {
+                                    "type": "array",
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "$ref": "#/$defs/query"
+                                    }
+                                },
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "properties",
+                                "queries",
+                                "title"
+                            ]
+                        }
+                    },
+                    "minProperties": 1
+                }
+            }
+        },
+        {
+            "properties": {
+                "CERT-C++": {
+                    "description": "Rules part of the CERT-C++ standard",
+                    "type": "object",
+                    "patternProperties": {
+                        "^\\w+\\d+-CPP": {
+                            "description": "A coding standard rule",
+                            "type": "object",
+                            "properties": {
+                                "properties": {
+                                    "type": "object",
+                                    "properties": {
+                                        "obligation": {
+                                            "type": "string",
+                                            "enum": [
+                                                "required",
+                                                "rule",
+                                                "advisory"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "obligation"
+                                    ]
+                                },
+                                "queries": {
+                                    "type": "array",
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "$ref": "#/$defs/query"
+                                    }
+                                },
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "properties",
+                                "queries",
+                                "title"
+                            ]
+                        }
+                    },
+                    "minProperties": 1
+                }
+            }
+        }
+    ],
+    "minProperties": 1,
+    "maxProperties": 2,
+    "$defs": {
+        "query": {
+            "$id": "/schemas/query",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "pattern": "^.*?\\.$"
+                },
+                "kind": {
+                    "type": "string",
+                    "enum": [
+                        "problem",
+                        "path-problem"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "pattern": "^.+?[^\\.]$"
+                },
+                "precision": {
+                    "type": "string",
+                    "enum": [
+                        "very-high",
+                        "high",
+                        "medium",
+                        "low"
+                    ]
+                },
+                "severity": {
+                    "type": "string",
+                    "enum": [
+                        "recommendation",
+                        "warning",
+                        "error"
+                    ]
+                },
+                "short_name": {
+                    "type": "string",
+                    "pattern": "^[A-Z][A-Za-z0-9]+[^\\.]$",
+                    "maxLength": 50
+                },
+                "shared_implementation_short_name": {
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "tags": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string",
+                        "uniqueItems": true,
+                        "enum": [
+                            "readability",
+                            "maintainability",
+                            "correctness",
+                            "security",
+                            "concurrency",
+                            "performance",
+                            "external/cert/audit",
+                            "external/autosar/audit",
+                            "external/autosar/default-disabled",
+                            "external/cert/default-disabled",
+                            "external/autosar/strict"
+                        ]
+                    },
+                    "minLength": 1
+                }
+            },
+            "required": [
+                "description",
+                "name",
+                "precision",
+                "severity",
+                "short_name",
+                "tags"
+            ]
+        }
+    }
+}

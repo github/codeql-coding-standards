@@ -1,0 +1,6 @@
+| test.cpp:3:12:3:13 | g2 | The declaration g2 should be moved from the global namespace scope$@ into the $@ too minimize its visibility. | file://:0:0:0:0 | (global namespace) | scope | test.cpp:58:11:58:25 | { ... } | scope |
+| test.cpp:6:7:6:7 | j | The declaration j should be moved from $@ into the $@ too minimize its visibility. | test.cpp:5:11:12:1 | { ... } | scope | test.cpp:7:13:11:3 | { ... } | scope |
+| test.cpp:61:7:61:7 | i | The declaration i should be moved from $@ into the $@ too minimize its visibility. | test.cpp:60:11:70:1 | { ... } | scope | test.cpp:63:13:69:3 | { ... } | scope |
+| test.cpp:72:8:72:9 | S1 | The declaration S1 should be moved from the global namespace scope$@ into the $@ too minimize its visibility. | file://:0:0:0:0 | (global namespace) | scope | test.cpp:76:12:76:23 | { ... } | scope |
+| test.cpp:91:8:91:9 | S4 | The declaration S4 should be moved from the global namespace scope$@ into the $@ too minimize its visibility. | file://:0:0:0:0 | (global namespace) | scope | test.cpp:100:12:100:25 | { ... } | scope |
+| test.cpp:112:5:112:5 | i | The declaration i should be moved from $@ into the $@ too minimize its visibility. | test.cpp:111:11:111:13 | ns1 | scope | test.cpp:115:11:115:18 | { ... } | scope |

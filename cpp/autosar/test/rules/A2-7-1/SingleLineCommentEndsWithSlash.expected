@@ -1,0 +1,1 @@
+| test.cpp:3:3:4:6 | // NON_COMPLIANT \\\n  i++; | C++ comment includes \\ as the last character of a line |

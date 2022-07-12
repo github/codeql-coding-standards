@@ -1,0 +1,6 @@
+| test.cpp:7:20:7:27 | CodeQL | Usage of C-style string in $@. | test.cpp:7:20:7:27 | CodeQL | expression |
+| test.cpp:7:20:7:27 | CodeQL | Usage of C-style string in $@. | test.cpp:16:16:16:17 | a1 | expression |
+| test.cpp:8:22:8:26 | call to c_str | Usage of C-style string in $@. | test.cpp:8:22:8:26 | call to c_str | expression |
+| test.cpp:23:20:23:27 | CodeQL | Usage of C-style string in $@. | test.cpp:23:20:23:27 | CodeQL | expression |
+| test.cpp:23:20:23:27 | CodeQL | Usage of C-style string in $@. | test.cpp:26:6:26:7 | a1 | expression |
+| test.cpp:28:8:28:12 | call to c_str | Usage of C-style string in $@. | test.cpp:28:8:28:12 | call to c_str | expression |

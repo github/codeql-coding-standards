@@ -1,0 +1,2 @@
+| test.cpp:8:22:9:3 | { ... } | Catch block for derived type ClassB is shadowed by $@ earlier catch block for base type ClassA. | test.cpp:7:22:8:3 | { ... } | this |
+| test.cpp:15:23:16:3 | { ... } | Catch block for derived type ClassB is shadowed by $@ earlier catch block for base type ClassA. | test.cpp:14:23:15:3 | { ... } | this |

@@ -1,0 +1,1 @@
+rules/ERR59-CPP/DoNotThrowAnExceptionAcrossExecutionBoundaries.ql

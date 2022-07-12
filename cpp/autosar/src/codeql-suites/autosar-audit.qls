@@ -1,0 +1,8 @@
+- description: AUTOSAR C++14 Guidelines 19-11 (Audit)
+- qlpack: autosar-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - external/autosar/audit

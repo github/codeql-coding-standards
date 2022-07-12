@@ -1,0 +1,12 @@
+| test.cpp:5:3:5:11 | 132432 | Numeric literal 132'432uL has the lower case suffix u. |
+| test.cpp:6:3:6:11 | 132432 | Numeric literal 132'432Ul has the lower case suffix l. |
+| test.cpp:7:3:7:11 | 132432 | Numeric literal 132'432ul has the lower case suffix ul. |
+| test.cpp:8:3:8:10 | 132432 | Numeric literal 132'432u has the lower case suffix u. |
+| test.cpp:9:3:9:10 | 132432 | Numeric literal 132'432l has the lower case suffix l. |
+| test.cpp:14:3:14:14 | 1254450 | Numeric literal 0x13'24'32ul has the lower case suffix ul. |
+| test.cpp:15:3:15:14 | 1254450 | Numeric literal 0x13'24'32uL has the lower case suffix u. |
+| test.cpp:16:3:16:14 | 1254450 | Numeric literal 0x13'24'32Ul has the lower case suffix l. |
+| test.cpp:17:3:17:13 | 1254450 | Numeric literal 0x13'24'32u has the lower case suffix u. |
+| test.cpp:18:3:18:13 | 1254450 | Numeric literal 0x13'24'32l has the lower case suffix l. |
+| test.cpp:22:3:22:15 | 1.123122995e+10 | Numeric literal 1.123'123e10f has the lower case suffix f. |
+| test.cpp:23:3:23:15 | 11231230000.0 | Numeric literal 1.123'123e10l has the lower case suffix l. |

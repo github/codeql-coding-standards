@@ -1,0 +1,205 @@
+{
+  "AUTOSAR": {
+    "A12-8-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "User-defined copy and move assignment operators should use a user-defined no-throw swap function.  Using a non-throw swap operation in the copy and move assignment operators helps to achieve strong exception safety and will not require a check for assignment to itself.",
+          "kind": "problem",
+          "name": "User-defined copy and move assignment operators should use user-defined no-throw swap function",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UserDefinedCopyAndMoveUseNoThrowSwapFunction",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "User-defined copy and move assignment operators should use user-defined no-throw swap function."
+    },
+    "A12-8-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "User-defined copy and move assignment operators must prevent self-assignment so that the operation will not leave the object in an intermediate state, since destroying object-local resources will invalidate them and violate copy and move post-conditions.",
+          "kind": "problem",
+          "name": "A copy assignment and a move assignment operators shall handle self-assignment",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CopyAssignmentAndAMoveHandleSelfAssignment",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A copy assignment and a move assignment operators shall handle self-assignment."
+    },
+    "A13-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An assignment operator shall return a reference to 'this'.  Returning a type T& from an assignment operator is consistent with the C++ Standard Library.",
+          "kind": "problem",
+          "name": "An assignment operator shall return a reference to 'this'",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AssignmentOperatorReturnThis",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An assignment operator shall return a reference to 'this'."
+    },
+    "A13-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A binary arithmetic operator and a bitwise operator shall return a 'prvalue'. Returning a type T from binary arithmetic and bitwise operators is consistent with the C++ Standard Library.",
+          "kind": "problem",
+          "name": "A binary arithmetic operator and a bitwise operator shall return a 'prvalue'",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BinaryOperatorAndBitwiseOperatorReturnAPrvalue",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A binary arithmetic operator and a bitwise operator shall return a 'prvalue'."
+    },
+    "A13-5-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If two opposite operators are defined, one shall be defined in terms of the other. This simplifies maintenance and prevents accidental errors during development.",
+          "kind": "problem",
+          "name": "If two opposite operators are defined, one shall be defined in terms of the other",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "OppositeOperatorsNotDefinedInTermsOfOther",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "If two opposite operators are defined, one shall be defined in terms of the other."
+    },
+    "A18-1-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Some standard library containers use std::hash indirectly.  Having a no-except function call operator prevents container access from throwing an exception.",
+          "kind": "problem",
+          "name": "All std::hash specializations for user-defined types shall have a noexcept function call operator",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "HashSpecializationsHaveANoexceptFunctionCallOperator",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All std::hash specializations for user-defined types shall have a noexcept function call operator."
+    },
+    "M5-17-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The semantic equivalence between a binary operator and its assignment operator form shall be preserved.  Where a set of operators is overloaded, the interactions between the operators must meet developer expectations.",
+          "kind": "problem",
+          "name": "Semantic equivalence between a binary operator and its assignment operator shall be preserved",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SemanticEquivalenceBetweenOperatorFormNotPreserved",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The semantic equivalence between a binary operator and its assignment operator form shall be preserved."
+    }
+  },
+  "CERT-C++": {
+    "OOP54-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Gracefully handle self-copy assignment so that the operation will not leave the object in an intermediate state, since destroying object-local resources will invalidate them and violate copy and move post-conditions.",
+          "kind": "problem",
+          "name": "Gracefully handle self-copy assignment",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "GracefullyHandleSelfCopyAssignment",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Gracefully handle self-copy assignment"
+    },
+    "OOP58-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Copy operations must not mutate the source object.  This will violate copy post-conditions.",
+          "kind": "problem",
+          "name": "Copy operations must not mutate the source object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CopyOperationsMustNotMutateTheSourceObject",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Copy operations must not mutate the source object"
+    }
+  }
+}

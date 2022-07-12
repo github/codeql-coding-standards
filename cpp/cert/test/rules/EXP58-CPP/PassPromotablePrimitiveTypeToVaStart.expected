@@ -1,0 +1,3 @@
+| PassPromotablePrimitiveTypeToVaStart.cpp:6:18:6:22 | count | Argument to 'va_start' will undergo default-argument promotion. |
+| PassPromotablePrimitiveTypeToVaStart.cpp:12:18:12:22 | count | Argument to 'va_start' will undergo default-argument promotion. |
+| PassPromotablePrimitiveTypeToVaStart.cpp:18:18:18:22 | count | Argument to 'va_start' will undergo default-argument promotion. |

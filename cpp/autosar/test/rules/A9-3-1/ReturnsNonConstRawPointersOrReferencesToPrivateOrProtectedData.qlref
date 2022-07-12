@@ -1,0 +1,1 @@
+rules/A9-3-1/ReturnsNonConstRawPointersOrReferencesToPrivateOrProtectedData.ql

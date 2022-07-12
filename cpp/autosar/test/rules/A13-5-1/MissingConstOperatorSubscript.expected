@@ -1,0 +1,1 @@
+| test.cpp:19:7:19:16 | operator[] | A2 declares a non-const 'operator[]' but does not declare a const 'operator[]'. |

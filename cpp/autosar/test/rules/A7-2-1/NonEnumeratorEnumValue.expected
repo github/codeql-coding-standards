@@ -1,0 +1,10 @@
+| test.cpp:8:11:8:16 | (Foo)... | Cast to enum $@ with from expression with range -2147483648...2147483647 which may not be one of the enumerator values in function test_unconstrained_cast. | test.cpp:2:6:2:8 | Foo | Foo |
+| test.cpp:13:13:13:18 | (Foo)... | Cast to enum $@ with from expression with range 0...2147483647 which may not be one of the enumerator values in function test_range_check. | test.cpp:2:6:2:8 | Foo | Foo |
+| test.cpp:14:13:14:18 | (Bar)... | Cast to enum $@ with from expression with range 0...2147483647 which may not be one of the enumerator values in function test_range_check. | test.cpp:5:6:5:8 | Bar | Bar |
+| test.cpp:16:16:16:21 | (Foo)... | Cast to enum $@ with from expression with range 0...3 which may not be one of the enumerator values in function test_range_check. | test.cpp:2:6:2:8 | Foo | Foo |
+| test.cpp:17:16:17:21 | (Bar)... | Cast to enum $@ with from expression with range 0...3 which may not be one of the enumerator values in function test_range_check. | test.cpp:5:6:5:8 | Bar | Bar |
+| test.cpp:21:16:21:21 | (Bar)... | Cast to enum $@ with from expression with range 0...2 which may not be one of the enumerator values in function test_range_check. | test.cpp:5:6:5:8 | Bar | Bar |
+| test.cpp:27:12:27:25 | (Foo)... | Cast to enum $@ with from expression with range 0...3 which may not be one of the enumerator values in function test_bitwise_or. | test.cpp:2:6:2:8 | Foo | Foo |
+| test.cpp:28:12:28:25 | (Foo)... | Cast to enum $@ with from expression with range 0...7 which may not be one of the enumerator values in function test_bitwise_or. | test.cpp:2:6:2:8 | Foo | Foo |
+| test.cpp:39:12:39:17 | (Bar)... | Cast to enum $@ with from expression with range 1...1 which may not be one of the enumerator values in function test_constant. | test.cpp:5:6:5:8 | Bar | Bar |
+| test.cpp:41:12:41:17 | (Bar)... | Cast to enum $@ with from expression with value 1_+ which is not one of the enumerator values in function test_constant. | test.cpp:5:6:5:8 | Bar | Bar |

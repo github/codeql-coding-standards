@@ -1,0 +1,2 @@
+| test.cpp:16:8:16:8 | f | $@ does not have the same default parameters as $@ | test.cpp:16:8:16:8 | f | overriding function | test.cpp:4:16:4:16 | f | overridden function |
+| test.cpp:21:8:21:8 | f | $@ does not have the same default parameters as $@ | test.cpp:21:8:21:8 | f | overriding function | test.cpp:4:16:4:16 | f | overridden function |

@@ -1,0 +1,7 @@
+| test.cpp:13:29:13:32 | ~ ... | Unsigned bitwise operation result is not immediately cast to the underlying type of the operand. |
+| test.cpp:15:44:15:47 | ~ ... | Unsigned bitwise operation result is not immediately cast to the underlying type of the operand. |
+| test.cpp:16:43:16:46 | ~ ... | Unsigned bitwise operation result is not immediately cast to the underlying type of the operand. |
+| test.cpp:17:30:17:33 | ~ ... | Unsigned bitwise operation result is not immediately cast to the underlying type of the operand. |
+| test.cpp:18:30:18:33 | ~ ... | Unsigned bitwise operation result is not immediately cast to the underlying type of the operand. |
+| test.cpp:19:15:19:18 | ~ ... | Unsigned bitwise operation result is not immediately cast to the underlying type of the operand. |
+| test.cpp:20:17:20:24 | ... << ... | Unsigned bitwise operation result is not immediately cast to the underlying type of the operand. |

@@ -1,0 +1,157 @@
+{
+  "AUTOSAR": {
+    "A16-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unused directives increase compilation time, increase code size and can introduce unnecessary dependencies.",
+          "kind": "problem",
+          "name": "There shall be no unused include directives",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UnusedIncludeDirectives",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "There shall be no unused include directives."
+    },
+    "A3-1-1": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Defining externally linked objects or functions in header files can result in violations of the One Definition Rule (i.e., linkage failure or undefined behaviour can result).",
+          "kind": "problem",
+          "name": "It shall be possible to include any header file in multiple translation units without violating the One Definition Rule",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ViolationsOfOneDefinitionRule",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "It shall be possible to include any header file in multiple translation units without violating the One Definition Rule."
+    },
+    "A3-1-2": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using any header file extension other than: \".h\", \".hpp\" or \".hxx\" makes code harder to understand.",
+          "kind": "problem",
+          "name": "Header files, that are defined locally in the project, shall have a file name extension of one of: \".h\", \".hpp\" or \".hxx\"",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "HeaderFileExpectedFileNameExtension",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Header files, that are defined locally in the project, shall have a file name extension of one of: \".h\", \".hpp\" or \".hxx\"."
+    },
+    "A3-1-3": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using any implementation file extension other than \".cpp\" makes project structure harder to understand.",
+          "kind": "problem",
+          "name": "Implementation files, that are defined locally in the project, should have a file name extension of \".cpp\"",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "FileNameExtensionCpp",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Implementation files, that are defined locally in the project, should have a file name extension of \".cpp\"."
+    },
+    "A3-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using objects or functions with external linkage in implementation files makes code harder to understand.",
+          "kind": "problem",
+          "name": "Objects or functions with external linkage (including members of named namespaces) shall be declared in a header file",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExternalLinkageNotDeclaredInHeaderFile",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Objects or functions with external linkage (including members of named namespaces) shall be declared in a header file."
+    },
+    "M16-2-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using anything other than a standard include guard form can make code confusing and can lead to multiple or conflicting definitions.",
+          "kind": "problem",
+          "name": "Include guards shall be provided",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IncludeGuardsNotProvided",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Include guards shall be provided."
+    }
+  }
+}

@@ -1,0 +1,13 @@
+| test.cpp:8:19:8:20 | s3 | The declaration of s3 contain more than two levels of pointer indirection. |
+| test.cpp:9:20:9:21 | s4 | The declaration of s4 contain more than two levels of pointer indirection. |
+| test.cpp:14:6:14:8 | ps3 | The declaration of ps3 contain more than two levels of pointer indirection. |
+| test.cpp:15:7:15:9 | ps4 | The declaration of ps4 contain more than two levels of pointer indirection. |
+| test.cpp:19:20:19:26 | ptfunc3 | The declaration of ptfunc3 contain more than two levels of pointer indirection. |
+| test.cpp:20:20:20:26 | ptfunc4 | The declaration of ptfunc4 contain more than two levels of pointer indirection. |
+| test.cpp:21:21:21:27 | ptfunc5 | The declaration of ptfunc5 contain more than two levels of pointer indirection. |
+| test.cpp:25:24:25:27 | par3 | The declaration of par3 contain more than two levels of pointer indirection. |
+| test.cpp:27:29:27:32 | par5 | The declaration of par5 contain more than two levels of pointer indirection. |
+| test.cpp:29:23:29:26 | par7 | The declaration of par7 contain more than two levels of pointer indirection. |
+| test.cpp:35:19:35:22 | ptr3 | The declaration of ptr3 contain more than two levels of pointer indirection. |
+| test.cpp:36:20:36:23 | ptr4 | The declaration of ptr4 contain more than two levels of pointer indirection. |
+| test.cpp:38:24:38:27 | ptr5 | The declaration of ptr5 contain more than two levels of pointer indirection. |

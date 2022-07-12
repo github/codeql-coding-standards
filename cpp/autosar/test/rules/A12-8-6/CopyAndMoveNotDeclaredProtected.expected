@@ -1,0 +1,14 @@
+| test.cpp:4:3:4:12 | declaration of BaseClass1 | Copy constructor for base class BaseClass1 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:5:3:5:12 | declaration of BaseClass1 | Move constructor for base class BaseClass1 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:6:15:6:23 | declaration of operator= | Copy assignment operator for base class BaseClass1 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:7:15:7:23 | declaration of operator= | Move assignment operator for base class BaseClass1 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:15:7:15:7 | declaration of operator= | Copy assignment operator for base class BaseClass2 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:15:7:15:7 | declaration of operator= | Move assignment operator for base class BaseClass2 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:55:3:55:12 | declaration of BaseClass5 | Copy constructor for base class BaseClass5 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:56:3:56:12 | declaration of BaseClass5 | Move constructor for base class BaseClass5 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:57:15:57:23 | declaration of operator= | Copy assignment operator for base class BaseClass5 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:58:15:58:23 | declaration of operator= | Move assignment operator for base class BaseClass5 (a derived class exists) is not declared protected or deleted. |
+| test.cpp:75:3:75:12 | declaration of BaseClass6 | Copy constructor for base class BaseClass6 (the class is abstract) is not declared protected or deleted. |
+| test.cpp:76:3:76:12 | declaration of BaseClass6 | Move constructor for base class BaseClass6 (the class is abstract) is not declared protected or deleted. |
+| test.cpp:77:15:77:23 | declaration of operator= | Copy assignment operator for base class BaseClass6 (the class is abstract) is not declared protected or deleted. |
+| test.cpp:78:15:78:23 | declaration of operator= | Move assignment operator for base class BaseClass6 (the class is abstract) is not declared protected or deleted. |

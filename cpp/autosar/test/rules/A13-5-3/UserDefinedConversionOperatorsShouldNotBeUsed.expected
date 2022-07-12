@@ -1,0 +1,4 @@
+| test.cpp:33:7:33:7 | call to operator A | User-defined conversion operators should not be used. |
+| test.cpp:35:24:35:24 | call to operator A * | User-defined conversion operators should not be used. |
+| test.cpp:37:15:37:15 | call to operator B::array_A * | User-defined conversion operators should not be used. |
+| test.cpp:41:7:41:7 | call to operator A * | User-defined conversion operators should not be used. |

@@ -1,0 +1,3 @@
+| test.cpp:9:16:9:19 | definition of ptr1 | There is possibly a const or volatile specifier on the left hand side of typedef name $@. | test.cpp:1:7:1:12 | intptr | intptr |
+| test.cpp:10:19:10:22 | definition of ptr2 | There is possibly a const or volatile specifier on the left hand side of typedef name $@. | test.cpp:1:7:1:12 | intptr | intptr |
+| test.cpp:19:21:19:24 | definition of ptr8 | There is possibly a const or volatile specifier on the left hand side of typedef name $@. | test.cpp:3:7:3:17 | constintptr | constintptr |

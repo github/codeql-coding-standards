@@ -1,0 +1,6 @@
+#ifndef _CPP_CSTDINT
+#define _CPP_CSTDINT
+
+#define MAX_INT
+#include <cstdint.h>
+#endif

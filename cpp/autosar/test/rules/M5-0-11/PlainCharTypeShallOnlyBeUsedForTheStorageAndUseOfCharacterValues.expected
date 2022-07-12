@@ -1,0 +1,7 @@
+| test.cpp:4:11:4:11 | 2 | Assignment of a int type to variable $@ which is a variable of type char | test.cpp:4:6:4:7 | a2 | a2 |
+| test.cpp:6:13:6:13 | 3 | Assignment of a int type to variable $@ which is a variable of type char | test.cpp:6:8:6:9 | a4 | a4 |
+| test.cpp:14:13:14:13 | 2 | Assignment of a int type to variable $@ which is a variable of type char | test.cpp:14:8:14:9 | a2 | a2 |
+| test.cpp:16:15:16:15 | 3 | Assignment of a int type to variable $@ which is a variable of type char | test.cpp:16:10:16:11 | a4 | a4 |
+| test.cpp:23:8:23:9 | 10 | Assignment of a int type to variable $@ which is a variable of type char | test.cpp:13:8:13:9 | a1 | a1 |
+| test.cpp:25:8:25:10 | 10 | Assignment of a long type to variable $@ which is a variable of type char | test.cpp:13:8:13:9 | a1 | a1 |
+| test.cpp:27:8:27:8 | l | Assignment of a long type to variable $@ which is a variable of type char | test.cpp:13:8:13:9 | a1 | a1 |

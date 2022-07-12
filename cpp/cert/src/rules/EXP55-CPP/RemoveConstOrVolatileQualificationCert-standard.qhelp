@@ -1,0 +1,420 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>The C++ Standard, [dcl.type.cv], paragraph 4 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <blockquote>
+   <p>Except that any class member declared <code>mutable</code> can be modified, any attempt to modify a <code>const</code> object during its lifetime results in undefined behavior.</p>
+  </blockquote>
+  <p>Similarly, paragraph 6 states the following:</p>
+  <blockquote>
+   <p>What constitutes an access to an object that has volatile-qualified type is implementation-defined. If an attempt is made to refer to an object defined with a volatile-qualified type through the use of a glvalue with a non-volatile-qualified type, the program behavior is undefined.</p>
+  </blockquote>
+  <p>Do not cast away a <code>const</code> qualification to attempt to modify the resulting object. The <code>const</code> qualifier implies that the API designer does not intend for that object to be modified despite the possibility it may be modifiable. Do not cast away a <code>volatile</code> qualification; the <code>volatile</code> qualifier implies that the API designer intends the object to be accessed in ways unknown to the compiler, and any access of the volatile object results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, the function <code>g</code>() is passed a const int &amp;, which is then cast to an int &amp; and modified. Because the referenced value was previously declared as const, the assignment operation results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">void g(const int &amp;ci) {
+  int &amp;ir = const_cast&lt;int &amp;&gt;(ci);
+  ir = 42;
+}
+
+void f() {
+  const int i = 4;
+  g(i);
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>In this compliant solution, the function <code>g()</code> is passed an <code>int &amp;</code>, and the caller is required to pass an <code>int</code> that can be modified.</p>
+  <sample language="cpp">void g(int &amp;i) {
+  i = 42;
+}
+
+void f() {
+  int i = 4;
+  g(i);
+}
+</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, a <code>const</code>-qualified method is called that attempts to cache results by casting away the <code>const</code>-qualifier of <code>this</code>. Because <code>s</code> was declared <code>const</code>, the mutation of <code>cachedValue</code> results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
+class S {
+  int cachedValue;
+  
+  int compute_value() const;  // expensive
+public:
+  S() : cachedValue(0) {}
+  
+  // ...  
+  int get_value() const {
+    if (!cachedValue) {
+      const_cast&lt;S *&gt;(this)-&gt;cachedValue = compute_value();  
+    }        
+    return cachedValue;
+  }
+};
+
+void f() {
+  const S s;
+  std::cout &lt;&lt; s.get_value() &lt;&lt; std::endl;
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>This compliant solution uses the <code><code>mutable</code></code> keyword when declaring <code>cachedValue</code>, which allows <code>cachedValue</code> to be mutated within a <code>const</code> context without triggering <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
+class S {
+  mutable int cachedValue;
+  
+  int compute_value() const;  // expensive
+public:
+  S() : cachedValue(0) {}
+  
+  // ...  
+  int get_value() const {
+    if (!cachedValue) {
+      cachedValue = compute_value();  
+    }        
+    return cachedValue;
+  }
+};
+
+void f() {
+  const S s;
+  std::cout &lt;&lt; s.get_value() &lt;&lt; std::endl;
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, the volatile value <code>s</code> has the <code>volatile</code> qualifier cast away, and an attempt is made to read the value within <code>g()</code>, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+
+struct S {
+  int i;
+  
+  S(int i) : i(i) {}
+};
+
+void g(S &amp;s) {
+  std::cout &lt;&lt; s.i &lt;&lt; std::endl;
+}
+
+void f() {
+  volatile S s(12);
+  g(const_cast&lt;S &amp;&gt;(s));
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>This compliant solution assumes that the volatility of <code>s</code> is required, so <code>g()</code> is modified to accept a <code>volatile S &amp;.</code></p>
+  <sample language="cpp">#include &lt;iostream&gt;
+
+struct S {
+  int i;
+  
+  S(int i) : i(i) {}
+};
+
+void g(volatile S &amp;s) {
+  std::cout &lt;&lt; s.i &lt;&lt; std::endl;
+}
+
+void f() {
+  volatile S s(12);
+  g(s);
+}</sample>
+ </section>
+ <section title="Exceptions">
+  <p><strong>EXP55-CPP-EX1:</strong> An exception to this rule is allowed when it is necessary to cast away <code>const</code> when invoking a legacy API that does not accept a <code>const</code> argument, provided the function does not attempt to modify the referenced variable. However, it is always preferable to modify the API to be <code>const</code>-correct when possible. For example, the following code casts away the <code>const</code> qualification of <code>INVFNAME</code> in the call to the <code>audit_log()</code> function.</p>
+  <sample language="cpp">// Legacy function defined elsewhere - cannot be modified; does not attempt to
+// modify the contents of the passed parameter.
+void audit_log(char *errstr);
+
+void f() {
+  const char INVFNAME[]  = "Invalid file name.";
+  audit_log(const_cast&lt;char *&gt;(INVFNAME));
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>If the object is declared as being constant, it may reside in write-protected memory at runtime. Attempting to modify such an object may lead to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal program termination</a> or a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attack</a>. If an object is declared as being volatile, the compiler can make no assumptions regarding access of that object. Casting away the volatility of an object can result in reads or writes to the object being reordered or elided entirely, resulting in abnormal program execution.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      EXP55-CPP
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      Probable
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      <strong>P8</strong>
+     </td>
+     <td>
+      <strong>L2</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=222953724">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>pointer-qualifier-cast-constpointer-qualifier-cast-volatile</strong>
+     </td>
+     <td>
+      Partially checked
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Axivion+Bauhaus+Suite">
+       Axivion Bauhaus Suite
+      </a>
+     </td>
+     <td>
+      7.2.0
+     </td>
+     <td>
+      <strong>CertC++-EXP55</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++3066, C++4671</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://www.securecoding.cert.org/confluence/display/cplusplus/Klocwork">
+       Klocwork
+      </a>
+     </td>
+     <td>
+      2021.4
+     </td>
+     <td>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">MISRA.CAST.CONST</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/LDRA">
+       LDRA tool suite
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+      <strong>203 S, 242 S, 344 S</strong>
+     </td>
+     <td>
+      Fully implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-EXP55-a</strong>
+     </td>
+     <td>
+      A cast shall not remove any 'const' or 'volatile' qualification from the type of a pointer or reference
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2021b
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certcexp55cpp.html">
+       CERT C++: EXP55-CPP
+      </a>
+     </td>
+     <td>
+      Checks for casts that remove cv-qualification of pointer (rule partially covered)
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046345">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>3066, 4671</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/RuleChecker">
+       RuleChecker
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>pointer-qualifier-cast-constpointer-qualifier-cast-volatile</strong>
+     </td>
+     <td>
+      Partially checked
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046388">
+       SonarQube C/C++ Plugin
+      </a>
+     </td>
+     <td>
+      4.10
+     </td>
+     <td>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-859">S859</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vuln">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP35-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       SEI CERT C Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP32-C.+Do+not+access+a+volatile+object+through+a+nonvolatile+reference">
+       EXP32-C. Do not access a volatile object through a nonvolatile reference
+      </a>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP40-C.+Do+not+modify+constant+objects">
+       EXP40-C. Do not modify constant objects
+      </a>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 7.1.6.1, "The
+      <em>
+       cv-qualifiers
+      </em>
+      "
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Sutter04">
+       Sutter 2004
+      </a>
+      ]
+     </td>
+     <td>
+      Item 94, "Avoid Casting Away
+      <code>const</code>
+      "
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

@@ -1,0 +1,2 @@
+| test.cpp:29:17:29:29 | new | Use of non-placement new expression outside a manager or RAII class. |
+| test.cpp:37:38:37:50 | new | Use of non-placement new expression outside a manager or RAII class. |

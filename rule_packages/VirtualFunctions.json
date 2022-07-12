@@ -1,0 +1,188 @@
+{
+  "AUTOSAR": {
+    "A10-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A non-virtual member function that is hidden defeats polymorphism and causes unnecessary errors and/or complex behavior.",
+          "kind": "problem",
+          "name": "Non-virtual public or protected member functions shall not be redefined in derived classes",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonVirtualPublicOrProtectedFunctionsRedefined",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Non-virtual public or protected member functions shall not be redefined in derived classes."
+    },
+    "A10-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Virtual function declaration shall contain exactly one of the three specifiers: (1) virtual, (2) override, (3) final.",
+          "kind": "problem",
+          "name": "Virtual function declaration shall contain exactly one specifier",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VirtualFunctionsShallContainOneSpecifier",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Virtual function declaration shall contain exactly one of the three specifiers: (1) virtual, (2) override, (3) final."
+    },
+    "A10-3-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Each overriding virtual function shall be declared with either the override or final specifier.",
+          "kind": "problem",
+          "name": "Each overriding virtual function shall be declared with the override or final specifier",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OverridingFunctionNotDeclaredOverrideOrFinal",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Each overriding virtual function shall be declared with the override or final specifier."
+    },
+    "A10-3-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Virtual functions shall not be introduced in a final class.",
+          "kind": "problem",
+          "name": "Virtual functions shall not be introduced in a final class",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VirtualFunctionsIntroducedInFinalClass",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Virtual functions shall not be introduced in a final class."
+    },
+    "A12-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Destructor of a base class shall be public virtual or public override to ensure that destructors for derived types are invoked when the derived types are destroyed through a pointer or reference to its base class.  If destruction through a base class pointer or reference is prohibited, the destructor of the base class should be protected.",
+          "kind": "problem",
+          "name": "Destructor of a base class shall be public virtual, public override or protected non-virtual",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DestructorOfABaseClassNotPublicVirtual",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Destructor of a base class shall be public virtual, public override or protected non-virtual."
+    },
+    "A12-4-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "If a public destructor of a class is non-virtual, then the class should be declared final.  If a public destructor of a class is non-virtual, then the class should be declared final to prevent it from being used as a base class.  A base class with a public non-virtual destructor will not invoke the destructors of derived classes when these derived classes are destroyed through a pointer or reference to the base class.",
+          "kind": "problem",
+          "name": "If a public destructor of a class is non-virtual, then the class should be declared final",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "NonVirtualPublicDestructorInNonFinalClass",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "If a public destructor of a class is non-virtual, then the class should be declared final."
+    },
+    "M10-3-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A virtual function shall only be overridden by a pure virtual function if it is itself declared as pure virtual.",
+          "kind": "problem",
+          "name": "A virtual function shall only be overridden by a pure virtual function if itself is pure virtual",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "VirtualFunctionOverriddenByAPureVirtualFunction",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A virtual function shall only be overridden by a pure virtual function if it is itself declared as pure virtual."
+    },
+    "M8-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Parameters in an overriding virtual function shall either use the same default arguments as the function they override, or else shall not specify any default arguments.",
+          "kind": "problem",
+          "name": "Parameters in an overriding virtual function shall have the same default arguments or no default arguments",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "VirtualFunctionParametersUseTheSameDefaultArguments",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Parameters in an overriding virtual function shall either use the same default arguments as the function they override, or else shall not specify any default arguments."
+    }
+  }
+}

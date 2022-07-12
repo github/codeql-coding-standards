@@ -1,0 +1,2 @@
+| test.cpp:1:5:1:6 | f1 | test.cpp:1:5:1:6 | f1 |
+| test.cpp:18:5:18:6 | f2 | test.cpp:18:5:18:6 | f2 |

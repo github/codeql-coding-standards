@@ -1,0 +1,4 @@
+| test.cpp:3:25:3:25 | A | Template constructor looks like a copy constructor. |
+| test.cpp:8:25:8:25 | B | Template constructor looks like a move constructor. |
+| test.cpp:20:25:20:25 | D | Template constructor looks like a copy constructor. |
+| test.cpp:25:3:25:3 | E | Template constructor looks like a copy constructor. |

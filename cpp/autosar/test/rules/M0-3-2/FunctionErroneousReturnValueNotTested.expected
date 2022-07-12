@@ -1,0 +1,1 @@
+| test.cpp:16:3:16:8 | call to remove | Return value is not tested for errors. |

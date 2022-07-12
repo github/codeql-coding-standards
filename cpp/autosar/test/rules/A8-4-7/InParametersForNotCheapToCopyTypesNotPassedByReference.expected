@@ -1,0 +1,2 @@
+| test.cpp:23:12:23:14 | f8a | Parameter f8a is the trivially non-copyable type $@ but it is passed by value instead of by reference. | test.cpp:14:8:14:9 | S2 | S2 |
+| test.cpp:27:13:27:16 | f12a | Parameter f12a is the trivially non-copyable type $@ but it is passed by value instead of by reference. | test.cpp:14:8:14:9 | S2 | S2 |

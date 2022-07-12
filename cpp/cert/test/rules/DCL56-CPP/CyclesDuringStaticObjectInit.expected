@@ -1,0 +1,29 @@
+edges
+| test.cpp:1:5:1:6 | f1 | test.cpp:2:7:2:7 | i |
+| test.cpp:1:5:1:6 | f1 | test.cpp:6:24:6:46 | initializer for c |
+| test.cpp:1:5:1:6 | f1 | test.cpp:9:7:9:7 | i |
+| test.cpp:1:5:1:6 | f1 | test.cpp:9:16:9:16 | i |
+| test.cpp:1:5:1:6 | f1 | test.cpp:10:12:10:12 | c |
+| test.cpp:1:5:1:6 | f1 | test.cpp:10:14:10:14 | i |
+| test.cpp:1:5:1:6 | f1 | test.cpp:13:10:13:10 | i |
+| test.cpp:1:5:1:6 | f1 | test.cpp:13:23:13:24 | call to f1 |
+| test.cpp:1:5:1:6 | f1 | test.cpp:13:26:13:26 | i |
+| test.cpp:1:5:1:6 | f1 | test.cpp:13:35:13:35 | i |
+| test.cpp:6:24:6:46 | initializer for c | test.cpp:6:27:6:28 | call to f1 |
+| test.cpp:6:24:6:46 | initializer for c | test.cpp:6:34:6:35 | call to f1 |
+| test.cpp:6:24:6:46 | initializer for c | test.cpp:6:41:6:42 | call to f1 |
+| test.cpp:6:27:6:28 | call to f1 | test.cpp:1:5:1:6 | f1 |
+| test.cpp:6:34:6:35 | call to f1 | test.cpp:1:5:1:6 | f1 |
+| test.cpp:6:41:6:42 | call to f1 | test.cpp:1:5:1:6 | f1 |
+| test.cpp:10:12:10:12 | c | test.cpp:6:24:6:46 | initializer for c |
+| test.cpp:13:23:13:24 | call to f1 | test.cpp:1:5:1:6 | f1 |
+| test.cpp:22:9:22:11 | initializer for v2 | test.cpp:22:10:22:11 | v3 |
+| test.cpp:22:10:22:11 | v3 | test.cpp:23:9:23:11 | initializer for v3 |
+| test.cpp:23:9:23:11 | initializer for v3 | test.cpp:23:10:23:11 | v2 |
+| test.cpp:23:10:23:11 | v2 | test.cpp:22:9:22:11 | initializer for v2 |
+#select
+| test.cpp:6:20:6:20 | c | test.cpp:6:27:6:28 | call to f1 | test.cpp:6:24:6:46 | initializer for c | Initialization of variable c calls itself recursively. |
+| test.cpp:6:20:6:20 | c | test.cpp:6:34:6:35 | call to f1 | test.cpp:6:24:6:46 | initializer for c | Initialization of variable c calls itself recursively. |
+| test.cpp:6:20:6:20 | c | test.cpp:6:41:6:42 | call to f1 | test.cpp:6:24:6:46 | initializer for c | Initialization of variable c calls itself recursively. |
+| test.cpp:22:5:22:6 | v2 | test.cpp:22:10:22:11 | v3 | test.cpp:22:9:22:11 | initializer for v2 | Initialization of variable v2 calls itself recursively. |
+| test.cpp:23:5:23:6 | v3 | test.cpp:23:10:23:11 | v2 | test.cpp:23:9:23:11 | initializer for v3 | Initialization of variable v3 calls itself recursively. |

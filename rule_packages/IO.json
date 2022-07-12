@@ -1,0 +1,70 @@
+{
+  "AUTOSAR": {
+    "A27-0-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Alternate input and output operations on a file stream shall not be used without an intervening flush or positioning call.",
+          "kind": "problem",
+          "name": "Alternate input and output on a file stream shall not be used without intervening positioning calls",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "InterleavedInputOutputWithoutFlush",
+          "shared_implementation_short_name": "IOFstreamMissingPositioning",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Alternate input and output operations on a file stream shall not be used without an intervening flush or positioning call."
+    }
+  },
+  "CERT-C++": {
+    "FIO50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Alternating input and output from a file stream without an intervening positioning call is undefined behavior.",
+          "kind": "problem",
+          "name": "Do not alternately input and output from a file stream without an intervening positioning call",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "InterleavedInputOutputWithoutPosition",
+          "shared_implementation_short_name": "IOFstreamMissingPositioning",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not alternately input and output from a file stream without an intervening positioning call"
+    },
+    "FIO51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Failing to properly close files may allow an attacker to exhaust system resources.",
+          "kind": "problem",
+          "name": "Close files when they are no longer needed",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "CloseFilesWhenTheyAreNoLongerNeeded",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Close files when they are no longer needed"
+    }
+  }
+}

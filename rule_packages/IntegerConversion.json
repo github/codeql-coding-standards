@@ -1,0 +1,202 @@
+{
+  "AUTOSAR": {
+    "A4-7-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Implicit conversions, casts and arithmetic expressions may lead to data loss.",
+          "kind": "problem",
+          "name": "An integer expression shall not lead to data loss",
+          "precision": "low",
+          "severity": "warning",
+          "short_name": "IntegerExpressionLeadToDataLoss",
+          "tags": [
+            "correctness",
+            "external/autosar/strict"
+          ]
+        },
+        {
+          "description": "An integer multiplication that is subsequently cast to a larger type may indicate that data loss has occurred in the process.",
+          "kind": "problem",
+          "name": "An integer multiplication could lead to data loss",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "IntMultToLong",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "An integer expression shall not lead to data loss."
+    },
+    "M5-0-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An implicit integral conversion shall not change the signedness of the underlying type, because this may lead to implementation-defined behavior that can be inconsistent with developer expectations.",
+          "kind": "problem",
+          "name": "An implicit integral conversion shall not change the signedness of the underlying type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ImplicitChangeOfTheSignednessOfTheUnderlyingType",
+          "tags": [
+            "correctness",
+            "external/autosar/strict"
+          ]
+        }
+      ],
+      "title": "An implicit integral conversion shall not change the signedness of the underlying type."
+    },
+    "M5-0-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "There shall be no implicit floating-integral conversions, because such a conversion might not be value preserving and may lead to undefined behavior.",
+          "kind": "problem",
+          "name": "There shall be no implicit floating-integral conversions",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ImplicitNonConstFloatingIntegralConversion",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "There shall be no implicit floating-integral conversions, because such a conversion might not be value preserving and may lead to undefined behavior.",
+          "kind": "problem",
+          "name": "There shall be no implicit floating-integral conversions",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ImplicitConstFloatingIntegralConversion",
+          "tags": [
+            "correctness",
+            "external/autosar/strict"
+          ]
+        }
+      ],
+      "title": "There shall be no implicit floating-integral conversions."
+    },
+    "M5-0-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An implicit integral or floating point conversion shall not reduce the size of the underlying type because this may result in a loss of information.",
+          "kind": "problem",
+          "name": "An implicit integral or floating-point conversion shall not reduce the size of the underlying type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ImplicitNonConstConversionToSmallerUnderlyingType",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An implicit integral or floating point conversion shall not reduce the size of the underlying type because this may result in a loss of information.",
+          "kind": "problem",
+          "name": "An implicit integral or floating-point conversion shall not reduce the size of the underlying type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ImplicitConstConversionToSmallerUnderlyingType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An implicit integral or floating-point conversion shall not reduce the size of the underlying type."
+    },
+    "M5-0-7": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "There shall be no explicit floating-integral conversions of a cvalue expression, because the conversion doesn't change the type in which the expression is evaluated and may result in unexpected results.",
+          "kind": "problem",
+          "name": "There shall be no explicit floating-integral conversions of a cvalue expression",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExplicitFloatingIntegralConversionOfACValueExpr",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "There shall be no explicit floating-integral conversions of a cvalue expression."
+    },
+    "M5-0-8": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An explicit integral or floating-point conversion shall not increase the size of the underlying type of a cvalue expression, because the application of the cast to the result of an expression does not influence the type in which the expression is evaluated.",
+          "kind": "problem",
+          "name": "An explicit integral or floating-point conversion shall not increase the size of the underlying type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExplicitWideningConversionOfACValueExpr",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An explicit integral or floating-point conversion shall not increase the size of the underlying type of a cvalue expression."
+    },
+    "M5-0-9": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An explicit integral conversion shall not change the signedness of the underlying type of a cvalue expression, because the resulting value may be inconsistent with the expectations of a developer.",
+          "kind": "problem",
+          "name": "An explicit integral conversion shall not change the signedness of the underlying type of a cvalue",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExplicitSignednessConversionOfCValue",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An explicit integral conversion shall not change the signedness of the underlying type of a cvalue expression."
+    }
+  }
+}

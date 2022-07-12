@@ -1,0 +1,366 @@
+{
+  "AUTOSAR": {
+    "A18-5-10": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using placement new with incorrectly aligned pointers creates objects at misaligned locations which leads to undefined behaviour.",
+          "kind": "path-problem",
+          "name": "Placement new shall be used only with properly aligned pointers",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PlacementNewNotProperlyAlignedAutosar",
+          "shared_implementation_short_name": "PlacementNewNotProperlyAligned",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Using placement new with pointers without sufficient storage capacity creates objects which can overflow the bounds of the allocated memory leading to undefined behaviour.",
+          "kind": "path-problem",
+          "name": "Placement new shall be used only with pointers to sufficient storage capacity",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PlacementNewInsufficientStorageAutosar",
+          "shared_implementation_short_name": "PlacementNewInsufficientStorage",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Placement new shall be used only with properly aligned pointers to sufficient storage capacity."
+    },
+    "A18-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Use of raw pointers returned by non-placement new can cause a memory leak if the developer fails to free the memory at an appropriate time.",
+          "kind": "problem",
+          "name": "Non-placement new expressions shall not be used",
+          "precision": "medium",
+          "severity": "recommendation",
+          "short_name": "DoNotUseNonPlacementNew",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Use of raw pointers returned by non-placement new can cause a memory leak if the developer fails to free the memory at an appropriate time.",
+          "kind": "problem",
+          "name": "Non-placement delete expressions shall not be used",
+          "precision": "medium",
+          "severity": "recommendation",
+          "short_name": "DoNotUseNonPlacementDelete",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Non-placement new or delete expressions shall not be used."
+    },
+    "A18-5-6": {
+      "properties": {
+        "allocated-target": [
+          "verification",
+          "toolchain"
+        ],
+        "audit": "",
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An analysis shall be performed to analyze the failure modes of dynamic memory management.",
+          "kind": "problem",
+          "name": "(Audit) An analysis shall be performed to analyze the failure modes of dynamic memory management",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DynamicMemoryManagementFailureMode",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An analysis shall be performed to analyze the failure modes of dynamic memory management. In particular, the following failure modes shall be analyzed: (a) non-deterministic behavior resulting with nonexistence of worst-case execution time, (b) memory fragmentation, (c) running out of memory, (d) mismatched allocations and deallocations, (e) dependence on non-deterministic calls to kernel."
+    },
+    "A18-5-8": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Creating objects with automatic storage duration implies that there is no additional allocation and deallocation cost, which would occur when using dynamic storage.",
+          "kind": "problem",
+          "name": "Objects that do not outlive a function shall have automatic storage duration",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UnnecessaryUseOfDynamicStorage",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Objects that do not outlive a function shall have automatic storage duration."
+    },
+    "A18-5-9": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Replacement implementations of throwing operator new should not return null as it violates the 'Required behavior' clause from the C++ Standard.",
+          "kind": "path-problem",
+          "name": "Replacement operator new returns null instead of throwing std:bad_alloc",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThrowingOperatorNewReturnsNullAutosar",
+          "shared_implementation_short_name": "ThrowingOperatorNewReturnsNull",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Replacement implementations of throwing operator new should not throw exceptions other than std::bad_alloc as it violates the 'Required behavior' clause from the C++ Standard.",
+          "kind": "path-problem",
+          "name": "Replacement operator new throws an exception other than std::bad_alloc",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThrowingOperatorNewThrowsInvalidExceptionAutosar",
+          "shared_implementation_short_name": "ThrowingOperatorNewThrowsInvalidException",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Replacement implementations of nothrow operator new or operator delete should not throw exceptions as it violates the 'Required behavior' clause from the C++ Standard.",
+          "kind": "path-problem",
+          "name": "Replacement nothrow operator new or operator delete throws an exception",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThrowingNoThrowOperatorNewDeleteAutosar",
+          "shared_implementation_short_name": "ThrowingNoThrowOperatorNewDelete",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Replacement implementations of operator delete should override the variants both with and without std::size_t, otherwise it violates the 'Required behavior' clause from the C++ Standard.",
+          "kind": "problem",
+          "name": "Replacement operator delete missing partner",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OperatorDeleteMissingPartnerAutosar",
+          "shared_implementation_short_name": "OperatorDeleteMissingPartner",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Custom implementations of dynamic memory allocation and deallocation functions shall meet the semantic requirements specified in the corresponding 'Required behaviour' clause from the C++ Standard."
+    }
+  },
+  "CERT-C++": {
+    "MEM51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Deallocation functions should only be called on nullptr or a pointer returned by the corresponding allocation function, that hasn't already been deallocated.",
+          "kind": "problem",
+          "name": "Properly deallocate dynamically allocated resources",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "ProperlyDeallocateDynamicallyAllocatedResources",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Properly deallocate dynamically allocated resources"
+    },
+    "MEM52-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Ignoring memory allocation failures can lead to use of invalid pointers.",
+          "kind": "problem",
+          "name": "Detect and handle memory allocation errors",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DetectAndHandleMemoryAllocationErrors",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Detect and handle memory allocation errors"
+    },
+    "MEM53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Objects with manually managed lifetimes must be explicitly constructed.",
+          "kind": "path-problem",
+          "name": "Explicitly construct objects when manually managing object lifetime",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "MissingConstructorCallForManuallyManagedObject",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Objects with manually managed lifetimes must be explicitly destructed.",
+          "kind": "path-problem",
+          "name": "Explicitly destruct objects when manually managing object lifetime",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "MissingDestructorCallForManuallyManagedObject",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Explicitly construct and destruct objects when manually managing object lifetime"
+    },
+    "MEM54-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using placement new with incorrectly aligned pointers creates objects at misaligned locations which leads to undefined behaviour.",
+          "kind": "path-problem",
+          "name": "Placement new shall be used only with properly aligned pointers",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "PlacementNewNotProperlyAlignedCert",
+          "shared_implementation_short_name": "PlacementNewNotProperlyAligned",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Using placement new with pointers without sufficient storage capacity creates objects which can overflow the bounds of the allocated memory leading to undefined behaviour.",
+          "kind": "path-problem",
+          "name": "Placement new shall be used only with pointers to sufficient storage capacity",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "PlacementNewInsufficientStorageCert",
+          "shared_implementation_short_name": "PlacementNewInsufficientStorage",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Provide placement new with properly aligned pointers to sufficient storage capacity"
+    },
+    "MEM55-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Replacement implementations of throwing operator new should not return null as it violates the 'Required behavior' clause from the C++ Standard.",
+          "kind": "path-problem",
+          "name": "Replacement operator new returns null instead of throwing std:bad_alloc",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThrowingOperatorNewReturnsNullCert",
+          "shared_implementation_short_name": "ThrowingOperatorNewReturnsNull",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Replacement implementations of throwing operator new should not throw exceptions other than std::bad_alloc as it violates the 'Required behavior' clause from the C++ Standard.",
+          "kind": "path-problem",
+          "name": "Replacement operator new throws an exception other than std::bad_alloc",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThrowingOperatorNewThrowsInvalidExceptionCert",
+          "shared_implementation_short_name": "ThrowingOperatorNewThrowsInvalidException",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Replacement implementations of nothrow operator new or operator delete should not throw exceptions as it violates the 'Required behavior' clause from the C++ Standard.",
+          "kind": "path-problem",
+          "name": "Replacement nothrow operator new or operator delete throws an exception",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThrowingNoThrowOperatorNewDeleteCert",
+          "shared_implementation_short_name": "ThrowingNoThrowOperatorNewDelete",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Replacement implementations of operator delete should override the variants both with and without std::size_t, otherwise it violates the 'Required behavior' clause from the C++ Standard.",
+          "kind": "problem",
+          "name": "Replacement operator delete missing partner",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OperatorDeleteMissingPartnerCert",
+          "shared_implementation_short_name": "OperatorDeleteMissingPartner",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Honor replacement dynamic storage management requirements"
+    },
+    "MEM57-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Operator new only guarantees that it will return a pointer with fundamental alignment, which can lead to undefined behavior with over-aligned types.",
+          "kind": "problem",
+          "name": "Avoid using default operator new for over-aligned types",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UsingDefaultOperatorNewForOverAlignedTypes",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Avoid using default operator new for over-aligned types"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<!DOCTYPE qhelp PUBLIC "-//Semmle//qhelp//EN" "qhelp.dtd">
+<qhelp>
+    <overview>
+        <p>This query generates a list of deviation permits that have been indexed into the database.</p>
+    </overview>
+    <references>
+        <li>
+            MISRA Compliance 2020 document:
+            <a href="https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf">Chapter 4.2 (page 12) - Deviations.</a>
+        </li>
+    </references>
+</qhelp>

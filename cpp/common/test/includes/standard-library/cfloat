@@ -1,0 +1,2 @@
+#define FLT_DIG 24
+#define DBL_DIG 53

@@ -1,0 +1,2 @@
+- `M6-4-3` - `SwitchStatementNotWellFormed.ql`
+  - Fix to #370 by allowing fall-trough SwitchCase statements. 

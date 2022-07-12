@@ -1,0 +1,1 @@
+| test.cpp:7:20:7:22 | \u00ce\u00b1 | String literal uses the character '\u03b1' that is outside the language basic character set. |

@@ -1,0 +1,2 @@
+| test.cpp:15:20:15:21 | a1 | Implicit call to copy constructor use in std::move because argument has const type `const A`. |
+| test.cpp:17:18:17:19 | a3 | Implicit call to copy constructor use in std::move because argument has const type `const A &`. |

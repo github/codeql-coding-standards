@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<codingstandards>
+   <!--GENERATED: DO NOT MODIFY. Changes should be made to coding-standards.yml instead.-->
+   <deviations>
+      <deviations-entry>
+         <rule-id>A0-1-1</rule-id>
+         <query-id>cpp/autosar/useless-assignment</query-id>
+         <justification>This useless assignment is required.</justification>
+      </deviations-entry>
+      <deviations-entry>
+         <rule-id>A0-4-2</rule-id>
+         <justification>long double is required for interaction with third-party libraries.</justification>
+         <code-identifier>a-0-4-2-deviation</code-identifier>
+      </deviations-entry>
+   </deviations>
+</codingstandards>

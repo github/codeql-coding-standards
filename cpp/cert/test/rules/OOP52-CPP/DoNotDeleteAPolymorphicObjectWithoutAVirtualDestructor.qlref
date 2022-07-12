@@ -1,0 +1,1 @@
+rules/OOP52-CPP/DoNotDeleteAPolymorphicObjectWithoutAVirtualDestructor.ql

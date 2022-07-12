@@ -1,0 +1,1 @@
+| test.cpp:3:7:3:18 | operator new | Global function  'operator new' defined without 'operator delete'. |

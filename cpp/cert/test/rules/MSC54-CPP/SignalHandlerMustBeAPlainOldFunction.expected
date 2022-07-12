@@ -1,0 +1,5 @@
+| test.cpp:35:3:35:13 | call to signal | Installed handler is not a plain old function. |
+| test.cpp:37:3:37:13 | call to signal | Installed handler is not a plain old function. |
+| test.cpp:38:3:38:13 | call to signal | Installed handler is not a plain old function. |
+| test.cpp:39:3:39:13 | call to signal | Installed handler is not a plain old function. |
+| test.cpp:40:3:40:13 | call to signal | Installed handler is not a plain old function. |

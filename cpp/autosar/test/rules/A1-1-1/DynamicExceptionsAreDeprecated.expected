@@ -1,0 +1,6 @@
+| DynamicExceptionsAreDeprecated.cpp:1:6:1:15 | test_des_1 | Use of dynamic exception specification 'throw(int)' is deprecated. |
+| DynamicExceptionsAreDeprecated.cpp:2:6:2:15 | test_des_2 | Use of dynamic exception specification 'throw(float,int)' is deprecated. |
+| DynamicExceptionsAreDeprecated.cpp:3:6:3:15 | test_des_3 | Use of dynamic exception specification 'throw()' is deprecated. |
+| DynamicExceptionsAreDeprecated.cpp:7:3:7:5 | Foo | Use of dynamic exception specification 'throw()' is deprecated. |
+| DynamicExceptionsAreDeprecated.cpp:8:3:8:5 | Foo | Use of dynamic exception specification 'throw(int)' is deprecated. |
+| DynamicExceptionsAreDeprecated.cpp:9:3:9:5 | Foo | Use of dynamic exception specification 'throw(bool,int)' is deprecated. |

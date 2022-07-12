@@ -1,0 +1,1 @@
+| test.cpp:51:3:55:5 | switch (...) ...  | Switch body not enclosed within braces. |

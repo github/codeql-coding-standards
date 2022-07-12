@@ -1,0 +1,52 @@
+| test.cpp:9:3:9:4 | ! ... | Operand to operator '!' has character type. |
+| test.cpp:10:3:10:4 | ~ ... | Operand to operator '~' has character type. |
+| test.cpp:11:3:11:5 | ++ ... | Operand to operator '++' has character type. |
+| test.cpp:12:3:12:5 | ... ++ | Operand to operator '++' has character type. |
+| test.cpp:13:3:13:5 | -- ... | Operand to operator '--' has character type. |
+| test.cpp:14:3:14:5 | ... -- | Operand to operator '--' has character type. |
+| test.cpp:15:3:15:8 | ... && ... | Operand to operator '&&' has character type. |
+| test.cpp:16:3:16:8 | ... \|\| ... | Operand to operator '\|\|' has character type. |
+| test.cpp:17:3:17:7 | ... + ... | Operand to operator '+' has character type. |
+| test.cpp:18:3:18:7 | ... - ... | Operand to operator '-' has character type. |
+| test.cpp:19:3:19:7 | ... / ... | Operand to operator '/' has character type. |
+| test.cpp:20:3:20:7 | ... * ... | Operand to operator '*' has character type. |
+| test.cpp:21:3:21:8 | ... << ... | Operand to operator '<<' has character type. |
+| test.cpp:22:3:22:8 | ... >> ... | Operand to operator '>>' has character type. |
+| test.cpp:23:3:23:7 | ... \| ... | Operand to operator '\|' has character type. |
+| test.cpp:24:3:24:7 | ... ^ ... | Operand to operator '^' has character type. |
+| test.cpp:25:3:25:8 | ... += ... | Operand to operator '+=' has character type. |
+| test.cpp:26:3:26:8 | ... -= ... | Operand to operator '-=' has character type. |
+| test.cpp:27:3:27:8 | ... *= ... | Operand to operator '*=' has character type. |
+| test.cpp:28:3:28:8 | ... /= ... | Operand to operator '/=' has character type. |
+| test.cpp:29:3:29:8 | ... ^= ... | Operand to operator '^=' has character type. |
+| test.cpp:30:3:30:8 | ... %= ... | Operand to operator '%=' has character type. |
+| test.cpp:31:3:31:8 | ... \|= ... | Operand to operator '\|=' has character type. |
+| test.cpp:32:3:32:8 | ... &= ... | Operand to operator '&=' has character type. |
+| test.cpp:33:3:33:9 | ... <<= ... | Operand to operator '<<=' has character type. |
+| test.cpp:34:3:34:9 | ... >>= ... | Operand to operator '>>=' has character type. |
+| test.cpp:45:3:45:4 | ! ... | Operand to operator '!' has character type. |
+| test.cpp:46:3:46:4 | ~ ... | Operand to operator '~' has character type. |
+| test.cpp:47:3:47:5 | ++ ... | Operand to operator '++' has character type. |
+| test.cpp:48:3:48:5 | ... ++ | Operand to operator '++' has character type. |
+| test.cpp:49:3:49:5 | -- ... | Operand to operator '--' has character type. |
+| test.cpp:50:3:50:5 | ... -- | Operand to operator '--' has character type. |
+| test.cpp:51:3:51:8 | ... && ... | Operand to operator '&&' has character type. |
+| test.cpp:52:3:52:8 | ... \|\| ... | Operand to operator '\|\|' has character type. |
+| test.cpp:53:3:53:7 | ... + ... | Operand to operator '+' has character type. |
+| test.cpp:54:3:54:7 | ... - ... | Operand to operator '-' has character type. |
+| test.cpp:55:3:55:7 | ... / ... | Operand to operator '/' has character type. |
+| test.cpp:56:3:56:7 | ... * ... | Operand to operator '*' has character type. |
+| test.cpp:57:3:57:8 | ... << ... | Operand to operator '<<' has character type. |
+| test.cpp:58:3:58:8 | ... >> ... | Operand to operator '>>' has character type. |
+| test.cpp:59:3:59:7 | ... \| ... | Operand to operator '\|' has character type. |
+| test.cpp:60:3:60:7 | ... ^ ... | Operand to operator '^' has character type. |
+| test.cpp:61:3:61:8 | ... += ... | Operand to operator '+=' has character type. |
+| test.cpp:62:3:62:8 | ... -= ... | Operand to operator '-=' has character type. |
+| test.cpp:63:3:63:8 | ... *= ... | Operand to operator '*=' has character type. |
+| test.cpp:64:3:64:8 | ... /= ... | Operand to operator '/=' has character type. |
+| test.cpp:65:3:65:8 | ... ^= ... | Operand to operator '^=' has character type. |
+| test.cpp:66:3:66:8 | ... %= ... | Operand to operator '%=' has character type. |
+| test.cpp:67:3:67:8 | ... \|= ... | Operand to operator '\|=' has character type. |
+| test.cpp:68:3:68:8 | ... &= ... | Operand to operator '&=' has character type. |
+| test.cpp:69:3:69:9 | ... <<= ... | Operand to operator '<<=' has character type. |
+| test.cpp:70:3:70:9 | ... >>= ... | Operand to operator '>>=' has character type. |

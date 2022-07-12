@@ -1,0 +1,3 @@
+| test.cpp:21:4:21:19 | operator ""_uds2 | User defined literal operator should only perform conversion of passed parameters, but has $@. | test.cpp:22:3:22:6 | ... ++ | side effect |
+| test.cpp:38:4:38:19 | operator ""_uds3 | User defined literal operator should only perform conversion of passed parameters, but has $@. | test.cpp:28:3:28:10 | ... += ... | side effect |
+| test.cpp:43:6:43:21 | operator ""_uds4 | User defined literal operator should only perform conversion of passed parameters, but has $@. | test.cpp:44:13:44:13 | call to operator<< | side effect |

@@ -1,0 +1,3 @@
+| test.cpp:41:8:41:8 | G | The struct $@ is derived from another class or struct. | test.cpp:41:8:41:8 | G | G |
+| test.cpp:45:8:45:8 | H | The struct $@ is derived from another class or struct. | test.cpp:45:8:45:8 | H | H |
+| test.cpp:49:8:49:8 | I | The struct $@ is derived from another class or struct. | test.cpp:49:8:49:8 | I | I |

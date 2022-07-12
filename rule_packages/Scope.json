@@ -1,0 +1,346 @@
+{
+  "AUTOSAR": {
+    "A17-6-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Adding declarations or definitions to standard namespaces or their sub-namespaces leads to undefined behavior.",
+          "kind": "problem",
+          "name": "Non-standard entities shall not be added to standard namespaces",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonStandardEntitiesInStandardNamespaces",
+          "shared_implementation_short_name": "NonStandardEntitiesInStandardNamespaces",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Non-standard entities shall not be added to standard namespaces."
+    },
+    "A3-1-4": {
+      "properties": {
+        "allocated-target": [
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A developer can more safely access the elements of an array if the size of the array can be explicitly determined.",
+          "kind": "problem",
+          "name": "When an array with external linkage is declared, its size shall be stated explicitly",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExternalLinkageArrayWithoutExplicitSize",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "When an array with external linkage is declared, its size shall be stated explicitly."
+    },
+    "A7-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A non-overriding member function definition that hides an inherited member function can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Member function hides inherited member function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "HiddenInheritedNonOverridableMemberFunction",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An overriding member function definition thats hides an overload of the overridden inherited member function can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Member function hides inherited member function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "HiddenInheritedOverridableMemberFunction",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "A using declaration that makes a symbol available for unqualified lookup does not included definitions defined after the using declaration which can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Using declaration followed by new definition",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DefinitionNotConsideredForUnqualifiedLookup",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All overloads of a function shall be visible from where it is called."
+    },
+    "M3-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The one-definition rule specifies when there should be a single definition of an element and a violation of that rule leads to undefined behavior.",
+          "kind": "problem",
+          "name": "The one-definition rule shall not be violated",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "OneDefinitionRuleViolation",
+          "shared_implementation_short_name": "OneDefinitionRuleViolation",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The one-definition rule shall not be violated."
+    },
+    "M3-2-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A type, object or function that is used in multiple translation units shall be declared in one and only one file to prevent inconsistent declarations that can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "A type, object or function that is used in multiple translation units shall be declared in a single file",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MultipleDeclarationViolation",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A type, object or function that is used in multiple translation units shall be declared in one and only one file."
+    },
+    "M3-2-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An identifier with multiple definitions in different translation units leads to undefined behavior.",
+          "kind": "problem",
+          "name": "An identifier with external linkage shall have exactly one definition",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "IdentifierWithExternalLinkageShallHaveOneDefinition",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An identifier with external linkage shall have exactly one definition."
+    },
+    "M3-3-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a function has internal linkage then all re-declarations shall include the static storage class specifier to make the internal linkage explicit.",
+          "kind": "problem",
+          "name": "If a function has internal linkage then all re-declarations shall include the static storage class",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingStaticSpecifierOnFunctionRedeclaration",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "If a function has internal linkage then all re-declarations shall include the static storage class specifier."
+    },
+    "M3-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An identifier declared to be an object or type shall be defined in a block that minimizes its visibility to prevent any accidental use of the identifier.",
+          "kind": "problem",
+          "name": "An identifier declared to be an object or type shall be defined in a block that minimizes its visibility",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UnnecessaryExposedIdentifierDeclaration",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An identifier declared to be an object or type shall be defined in a block that minimizes its visibility."
+    },
+    "M7-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declarations in the global namespace become part of the names found during lookup and reducing the set of found names ensures that they meet a developer's expectations.",
+          "kind": "problem",
+          "name": "The global namespace shall only contain main, namespace declarations and extern \"C\" declarations",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "GlobalNamespaceMembershipViolation",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "The global namespace shall only contain main, namespace declarations and extern \"C\" declarations."
+    }
+  },
+  "CERT-C++": {
+    "DCL53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Declaration of functions inside a function requires the use of ambiguous syntax that could lead to unintended behavior.",
+          "kind": "problem",
+          "name": "Declare functions in the global namespace or other namespace",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LocalFunctionDeclaration",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An object declaration that declares an identifier that shadows an existing identifier relies on ambiguous syntax when initialized by a constructor and could lead to unintended behavior.",
+          "kind": "problem",
+          "name": "Do not declare local identifiers that shadow an in scope identifier",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LocalConstructorInitializedObjectHidesIdentifier",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not write syntactically ambiguous declarations"
+    },
+    "DCL54-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Allocation and deallocation functions can be overloaded and not providing an overload of a corresponding dynamic storage function can result in improper deallocation of dynamically allocated memory leading to undefined behavior.",
+          "kind": "problem",
+          "name": "Overload allocation and deallocation functions as a pair in the same scope",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SingularOverloadOfMemoryFunction",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Overload allocation and deallocation functions as a pair in the same scope"
+    },
+    "DCL58-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Adding declarations or definitions to the standard namespaces leads to undefined behavior and is only allowed under special circumstances described in the C++ Standard.",
+          "kind": "problem",
+          "name": "Do not modify the standard namespaces",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ModificationOfTheStandardNamespaces",
+          "shared_implementation_short_name": "NonStandardEntitiesInStandardNamespaces",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not modify the standard namespaces"
+    },
+    "DCL59-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Each translation unit has unique instances of members declared in an unnamed namespace leading to unexpected results, bloated executables, or undefined behavior due to one-definition rule violations if an unnamed namespace is introduced into translation units through a header file.",
+          "kind": "problem",
+          "name": "Do not define an unnamed namespace in a header file",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnnamedNamespaceInHeaderFile",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not define an unnamed namespace in a header file"
+    },
+    "DCL60-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The one-definition rule specifies when there should be a single definition of an element and a violation of that rule leads to undefined behavior.",
+          "kind": "problem",
+          "name": "Obey the one-definition rule",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "OneDefinitionRuleNotObeyed",
+          "shared_implementation_short_name": "OneDefinitionRuleViolation",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Obey the one-definition rule"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+| test.cpp:18:22:18:22 | x | The "forward" parameter `x` requires an explicit `std::forward` at ths call site. |
+| test.cpp:18:22:18:22 | x | The "forward" parameter `x` requires an explicit `std::forward` at ths call site. |
+| test.cpp:27:20:27:20 | x | The "forward" parameter `x` requires an explicit `std::forward` at ths call site. |
+| test.cpp:27:20:27:20 | x | The "forward" parameter `x` requires an explicit `std::forward` at ths call site. |

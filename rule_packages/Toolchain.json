@@ -1,0 +1,189 @@
+{
+  "AUTOSAR": {
+    "A0-4-1": {
+      "properties": {
+        "allocated-target": [
+          "infrastructure",
+          "toolchain"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Floating-point arithmetic has a range of problems associated with it. Some of these can be overcome by using an implementation that conforms to IEEE 754 (IEEE Standard for Floating-Point Arithmetic).",
+          "kind": "problem",
+          "name": "Floating-point implementation shall comply with IEEE 754 standard",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "FloatingPointImplementationShallComplyWithIeeeStandard",
+          "tags": [
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Floating-point implementation shall comply with IEEE 754 standard."
+    },
+    "A0-4-3": {
+      "properties": {
+        "allocated-target": [
+          "toolchain"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "It is important to determine whether implementations provided by the chosen compiler strictly follow the ISO/IEC 14882:2014 C++ Language Standard.",
+          "kind": "problem",
+          "name": "The implementations in the chosen compiler shall strictly comply with the C++14 Language Standard",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CompilerImplementationShallComplyWithCPP14Standard",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The implementations in the chosen compiler shall strictly comply with the C++14 Language Standard."
+    },
+    "A1-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of the `++` increment operator with an operand of type `bool` is deprecated.",
+          "kind": "problem",
+          "name": "The use of the `++` increment operator with an operand of type `bool` is deprecated",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "IncrementOperatorWithBoolOperandIsDeprecated",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "The `register` keyword is deprecated.",
+          "kind": "problem",
+          "name": "The `register` keyword is deprecated",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "RegisterKeywordIsDeprecated",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "The implicit declaration of a class' copy constructor is deprecated.",
+          "kind": "problem",
+          "name": "Implicit declaration of a class' copy constructor is deprecated",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ImplicitCopyConstructorIsDeprecated",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "The implicit declaration of a class' copy-assignment operators is deprecated.",
+          "kind": "problem",
+          "name": "Implicit declaration of a class' copy-assignment operators is deprecated",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ImplicitCopyAssignmentOperatorIsDeprecated",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Dynamic Exception Specifications are deprecated.",
+          "kind": "problem",
+          "name": "Dynamic Exception Specifications are deprecated",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DynamicExceptionsAreDeprecated",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "C Standard Library headers are deprecated.",
+          "kind": "problem",
+          "name": "C Standard Library headers are deprecated",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "CStandardLibraryHeadersAreDeprecated",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "std::strstreambuf, std::istrstream, and std::ostrstream are deprecated.",
+          "kind": "problem",
+          "name": "std::strstreambuf, std::istrstream, and std::ostrstream are deprecated",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "StrstreamTypesAreDeprecated",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "All code shall conform to ISO/IEC 14882:2014 - Programming Language C++ and shall not use deprecated features."
+    },
+    "A1-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation",
+          "toolchain"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If compiler enables the high warning level, then it is able to generate useful warning messages that point out potential run-time problems during compilation time. The information can be used to resolve certain errors before they occur at run-time.",
+          "kind": "problem",
+          "name": "A warning level of the compilation process shall be set in compliance with project policies",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "CompilerWarningLevelNotInCompliance",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A warning level of the compilation process shall be set in compliance with project policies."
+    },
+    "A1-1-3": {
+      "properties": {
+        "allocated-target": [
+          "toolchain"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An optimization option that disregards strict standard compliance shall not be turned on in the chosen compiler. Enabling optimizations that disregard compliance with the C++ Language Standard may create an output program that should strictly comply to the standard no longer valid.",
+          "kind": "problem",
+          "name": "An uncompliant optimization option shall be disabled in the chosen compiler",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UncompliantOptimizationOptionMustBeDisabledInCompiler",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An optimization option that disregards strict standard compliance shall not be turned on in the chosen compiler."
+    }
+  }
+}

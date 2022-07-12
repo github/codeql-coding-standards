@@ -1,0 +1,1 @@
+| test.cpp:3:6:3:18 | test_no_throw | Function test_no_throw could be declared noexcept(true). |

@@ -1,0 +1,5 @@
+| test.cpp:9:21:9:21 | g | Use of std::auto_ptr. |
+| test.cpp:15:23:15:23 | l | Use of std::auto_ptr. |
+| test.cpp:17:36:17:37 | l3 | Use of std::auto_ptr. |
+| test.cpp:18:48:18:49 | l4 | Use of std::auto_ptr. |
+| test.cpp:25:44:25:45 | d3 | Use of std::auto_ptr. |

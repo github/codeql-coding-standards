@@ -1,0 +1,3 @@
+| test.cpp:16:8:16:35 | static_cast<int8_t>... | Explicit integral conversion converts the signedness of the $@ from unsigned to signed. | test.cpp:16:28:16:34 | ... + ... | cvalue |
+| test.cpp:18:8:18:40 | static_cast<int8_t>... | Explicit integral conversion converts the signedness of the $@ from unsigned to signed. | test.cpp:18:28:18:39 | ... + ... | cvalue |
+| test.cpp:20:8:20:35 | static_cast<int8_t>... | Explicit integral conversion converts the signedness of the $@ from unsigned to signed. | test.cpp:20:28:20:34 | ... * ... | cvalue |

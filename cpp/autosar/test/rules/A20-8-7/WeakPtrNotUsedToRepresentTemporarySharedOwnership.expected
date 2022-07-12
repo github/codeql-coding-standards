@@ -1,0 +1,8 @@
+| test.cpp:10:22:10:23 | v1 | [AUDIT] Shared pointer `v1` may create a circular lifetime dependency in the inheritance hierarchies of $@ and $@. | test.cpp:9:7:9:7 | A | A | test.cpp:13:7:13:7 | B | B |
+| test.cpp:14:22:14:23 | v1 | [AUDIT] Shared pointer `v1` may create a circular lifetime dependency in the inheritance hierarchies of $@ and $@. | test.cpp:13:7:13:7 | B | B | test.cpp:9:7:9:7 | A | A |
+| test.cpp:20:23:20:24 | v2 | [AUDIT] Shared pointer `v2` may create a circular lifetime dependency in the inheritance hierarchies of $@ and $@. | test.cpp:19:7:19:8 | B1 | B1 | test.cpp:17:7:17:8 | A1 | A1 |
+| test.cpp:21:22:21:23 | v3 | [AUDIT] Shared pointer `v3` may create a circular lifetime dependency in the inheritance hierarchies of $@ and $@. | test.cpp:19:7:19:8 | B1 | B1 | test.cpp:13:7:13:7 | B | B |
+| test.cpp:26:22:26:23 | v2 | [AUDIT] Shared pointer `v2` may create a circular lifetime dependency in the inheritance hierarchies of $@ and $@. | test.cpp:24:7:24:7 | C | C | test.cpp:9:7:9:7 | A | A |
+| test.cpp:30:22:30:23 | v1 | [AUDIT] Shared pointer `v1` may create a circular lifetime dependency in the inheritance hierarchies of $@ and $@. | test.cpp:29:7:29:7 | D | D | test.cpp:24:7:24:7 | C | C |
+| test.cpp:43:24:43:25 | v2 | [AUDIT] Shared pointer `v2` may create a circular lifetime dependency in the inheritance hierarchies of $@ and $@. | test.cpp:42:9:42:13 | SubA2 | SubA2 | test.cpp:9:7:9:7 | A | A |
+| test.cpp:44:24:44:25 | v3 | [AUDIT] Shared pointer `v3` may create a circular lifetime dependency in the inheritance hierarchies of $@ and $@. | test.cpp:42:9:42:13 | SubA2 | SubA2 | test.cpp:29:7:29:7 | D | D |

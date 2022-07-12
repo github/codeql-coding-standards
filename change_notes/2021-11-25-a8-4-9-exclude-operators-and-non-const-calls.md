@@ -1,0 +1,2 @@
+- `A8-4-9` - `InOutParametersDeclaredAsTNotModified.ql`
+  - Fix issue #443 by excluding functions where parameter nonconst operators are called and cases where param is specifier for nonconst method.

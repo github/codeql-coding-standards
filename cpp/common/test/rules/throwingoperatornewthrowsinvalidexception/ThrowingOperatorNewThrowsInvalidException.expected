@@ -1,0 +1,8 @@
+problems
+| test.cpp:3:7:3:18 | operator new | test.cpp:7:5:7:18 | throw ... [char *] | test.cpp:3:7:3:18 | operator new [char *] | Exception of type char * thrown by operator new(size_t) which is declared with nothrow_t parameter. |
+| test.cpp:11:7:11:20 | operator new[] | test.cpp:15:5:15:18 | throw ... [char *] | test.cpp:11:7:11:20 | operator new[] [char *] | Exception of type char * thrown by operator new[](size_t) which is declared with nothrow_t parameter. |
+edges
+| test.cpp:5:5:5:26 | throw ... [bad_alloc] | test.cpp:3:7:3:18 | operator new [bad_alloc] |
+| test.cpp:7:5:7:18 | throw ... [char *] | test.cpp:3:7:3:18 | operator new [char *] |
+| test.cpp:13:5:13:26 | throw ... [bad_alloc] | test.cpp:11:7:11:20 | operator new[] [bad_alloc] |
+| test.cpp:15:5:15:18 | throw ... [char *] | test.cpp:11:7:11:20 | operator new[] [char *] |

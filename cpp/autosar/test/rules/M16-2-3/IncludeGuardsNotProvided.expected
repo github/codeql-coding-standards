@@ -1,0 +1,3 @@
+| headers/test3.hpp:0:0:0:0 | headers/test3.hpp | Header file $@ is missing expected include guard. | headers/test3.hpp:0:0:0:0 | headers/test3.hpp | test3.hpp |
+| headers/test4.hpp:0:0:0:0 | headers/test4.hpp | Header file $@ is missing expected include guard. | headers/test4.hpp:0:0:0:0 | headers/test4.hpp | test4.hpp |
+| headers/test5.hpp:0:0:0:0 | headers/test5.hpp | Header file $@ is missing expected include guard. | headers/test5.hpp:0:0:0:0 | headers/test5.hpp | test5.hpp |

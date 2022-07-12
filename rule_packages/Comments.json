@@ -1,0 +1,127 @@
+{
+  "AUTOSAR": {
+    "A2-7-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If the character \\ occurs as the last character of a C++ comment, the comment will continue onto the next line, possibly unexpectedly.",
+          "kind": "problem",
+          "name": "The character \\ shall not occur as a last character of a C++ comment",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SingleLineCommentEndsWithSlash",
+          "tags": [
+            "correctness",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The character \\ shall not occur as a last character of a C++ comment."
+    },
+    "A2-7-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Commented out code may become out of date leading to developer confusion.",
+          "kind": "problem",
+          "name": "Sections of code shall not be 'commented out'",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SectionsOfCodeCommentedOut",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Sections of code shall not be 'commented out'."
+    },
+    "A2-7-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "All declarations of 'user-defined' types, static and non-static data members, functions and methods shall be preceded by documentation.",
+          "kind": "problem",
+          "name": "Declarations of 'user-defined' types, member variables and functions should be documented",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UndocumentedUserDefinedType",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "All declarations of 'user-defined' types, static and non-static data members, functions and methods shall be preceded by documentation."
+    },
+    "M2-7-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The presence of a nested /* comment can indicate accidentally commented out code.",
+          "kind": "problem",
+          "name": "The character sequence /* shall not be used within a C-style comment",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SlashStarUsedWithinACStyleComment",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The character sequence /* shall not be used within a C-style comment."
+    },
+    "M6-2-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Before preprocessing, a null statement shall only occur on a line by itself; it may be followed by a comment, provided that the first character following the null statement is a white-space character.",
+          "kind": "problem",
+          "name": "Before preprocessing, a null statement shall only occur on a line by itself",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NullOnSharedLine",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Before preprocessing, a null statement shall only occur on a line by itself; it may be followed by a comment, provided that the first character following the null statement is a white-space character."
+    }
+  }
+}

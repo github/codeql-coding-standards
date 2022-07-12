@@ -1,0 +1,845 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>The C programming language provides several ways to allocate memory, such as <code>std::malloc()</code>, <code>std::calloc()</code>, and <code>std::realloc()</code>, which can be used by a C++ program. However, the C programming language defines only a single way to free the allocated memory: <code>std::free()</code>. See <a href="https://wiki.sei.cmu.edu/confluence/display/c/MEM31-C.+Free+dynamically+allocated+memory+when+no+longer+needed">MEM31-C. Free dynamically allocated memory when no longer needed</a> and <a href="https://wiki.sei.cmu.edu/confluence/display/c/MEM34-C.+Only+free+memory+allocated+dynamically">MEM34-C. Only free memory allocated dynamically</a> for rules specifically regarding C allocation and deallocation requirements.</p>
+  <p>The C++ programming language adds additional ways to allocate memory, such as the operators <code>new</code>, <code>new[]</code>, and placement <code>new</code>, and <a href="http://www.cplusplus.com/reference/memory/allocator/">allocator objects</a>. Unlike C, C++ provides multiple ways to free dynamically allocated memory, such as the operators <code>delete</code>, <code>delete[]()</code>, and deallocation functions on allocator objects.</p>
+  <p>Do not call a deallocation function on anything other than  <code>nullptr</code> , or a pointer returned by the corresponding allocation function described by the following.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Allocator
+     </th>
+     <th>
+      Deallocator
+     </th>
+    </tr>
+    <tr>
+     <td>
+      global
+      <code> operator new()/new</code>
+     </td>
+     <td>
+      global
+      <code> operator delete</code>
+      ()
+      <code>/delete</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      global
+      <code> operator new[]()/new[]</code>
+     </td>
+     <td>
+      global
+      <code> operator delete[]()/delete[]</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      class-specific
+      <code> operator new()/new</code>
+     </td>
+     <td>
+      <code>
+class-specific operator delete</code>
+      ()
+      <code>/delete</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+class-specific operator new[]()/new[]</code>
+     </td>
+     <td>
+      <code>
+class-specific operator delete[]()/delete[]</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      placement
+      <code>operator new</code>
+      ()
+     </td>
+     <td>
+      N/A
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>allocator&lt;T&gt;::allocate()</code>
+     </td>
+     <td>
+      <code>allocator&lt;T&gt;::deallocate()</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>std::malloc()</code>
+      ,
+      <code>std::calloc()</code>
+      ,
+      <code>
+std::realloc()</code>
+     </td>
+     <td>
+      <code>
+std::free()</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>std::get_temporary_buffer()</code>
+     </td>
+     <td>
+      <code>std::return_temporary_buffer()</code>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>Passing a pointer value to an inappropriate deallocation function can result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <p>The C++ Standard, [expr.delete], paragraph 2 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], in part, states the following:</p>
+  <blockquote>
+   <p>In the first alternative (<em>delete object</em>), the value of the operand of <code>delete</code> may be a null pointer value, a pointer to a non-array object created by a previous <em>new-expression</em>, or a pointer to a subobject (1.8) representing a base class of such an object (Clause 10). If not, the behavior is undefined. In the second alternative (<em>delete array</em>), the value of the operand of <code>delete</code> may be a null pointer value or a pointer value that resulted from a previous array <em>new-expression</em>. If not, the behavior is undefined.</p>
+  </blockquote>
+  <p>Deallocating a pointer that is not allocated dynamically (including non-dynamic pointers returned from calls to placement <code>new()</code>) is undefined behavior because the pointer value was not obtained by an allocation function. Deallocating a pointer that has already been passed to a deallocation function is undefined behavior because the pointer value no longer points to memory that has been dynamically allocated.</p>
+  <p>When an operator such as <code>new</code> is called, it results in a call to an overloadable operator of the same name, such as <code>operator new()</code>. These overloadable functions can be called directly but carry the same restrictions as their operator counterparts. That is, calling <code>operator delete()</code> and passing a pointer parameter has the same constraints as calling the <code>delete</code> operator on that pointer. Further, the overloads are subject to scope resolution, so it is possible (but not permissible) to call a class-specific operator to allocate an object but a global operator to deallocate the object.</p>
+  <p>See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM53-CPP.+Explicitly+construct+and+destruct+objects+when+manually+managing+object+lifetime">MEM53-CPP. Explicitly construct and destruct objects when manually managing object lifetime</a> for information on lifetime management of objects when using memory management functions other than the <code>new</code> and <code>delete</code> operators.</p>
+ </section>
+ <section title="Noncompliant Code Example (placement new())">
+  <p>In this noncompliant code example, the local variable <code>space</code> is passed as the expression to the placement <code>new</code> operator. The resulting pointer of that call is then passed to <code>::operator delete()</code>, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> due to <code>::operator delete()</code> attempting to free memory that was not returned by <code>::operator new()</code>.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
+struct S {
+  S() { std::cout &lt;&lt; "S::S()" &lt;&lt; std::endl; }
+  ~S() { std::cout &lt;&lt; "S::~S()" &lt;&lt; std::endl; }
+};
+
+void f() {
+  alignas(struct S) char space[sizeof(struct S)];
+  S *s1 = new (&amp;space) S;
+
+  // ...
+
+  delete s1;
+}</sample>
+ </section>
+ <section title="Compliant Solution (placement new())">
+  <p>This compliant solution removes the call to <code>::operator delete()</code>, instead explicitly calling <code>s1</code>'s destructor. This is one of the few times when explicitly invoking a destructor is warranted.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
+struct S {
+  S() { std::cout &lt;&lt; "S::S()" &lt;&lt; std::endl; }
+  ~S() { std::cout &lt;&lt; "S::~S()" &lt;&lt; std::endl; }
+};
+ 
+void f() {
+  alignas(struct S) char space[sizeof(struct S)];
+  S *s1 = new (&amp;space) S;
+ 
+  // ...
+
+  s1-&gt;~S();
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example (Uninitialized delete)">
+  <p>In this noncompliant code example, two allocations are attempted within the same <code>try</code> block, and if either fails, the <code>catch</code> handler attempts to free resources that have been allocated. However, because the pointer variables have not been initialized to a known value, a failure to allocate memory for <code>i1</code> may result in passing <code>::operator delete()</code> a value (in <code>i2</code>) that was not previously returned by a call to <code>::operator new()</code>, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">#include &lt;new&gt;
+ 
+void f() {
+  int *i1, *i2;
+  try {
+    i1 = new int;
+    i2 = new int;
+  } catch (std::bad_alloc &amp;) {
+    delete i1;
+    delete i2;
+  }
+}</sample>
+ </section>
+ <section title="Compliant Solution (Uninitialized delete)">
+  <p>This compliant solution initializes both pointer values to <code>nullptr</code>, which is a valid value to pass to <code>::operator delete().</code></p>
+  <sample language="cpp">#include &lt;new&gt;
+ 
+void f() {
+  int *i1 = nullptr, *i2 = nullptr;
+  try {
+    i1 = new int;
+    i2 = new int;
+  } catch (std::bad_alloc &amp;) {
+    delete i1;
+    delete i2;
+  }
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example (Double-Free)">
+  <p>Once a pointer is passed to the proper deallocation function, that pointer value is invalidated. Passing the pointer to a deallocation function a second time when the pointer value has not been returned by a subsequent call to an allocation function results in an attempt to free memory that has not been allocated dynamically. The underlying data structures that manage the heap can become corrupted in a way that can introduce security <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> into a program. These types of issues are called <em>double-free vulnerabilities</em>. In practice, double-free vulnerabilities can be <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">exploited</a> to execute arbitrary code.</p>
+  <p>In this noncompliant code example, the class <code>C</code> is given ownership of a <code>P *</code>, which is subsequently deleted by the class destructor. The C++ Standard, [class.copy], paragraph 7 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following: </p>
+  <blockquote>
+   <p>If the class definition does not explicitly declare a copy constructor, one is declared implicitly. If the class definition declares a move constructor or move assignment operator, the implicitly declared copy constructor is defined as deleted; otherwise, it is defined as defaulted (8.4). The latter case is deprecated if the class has a user-declared copy assignment operator or a user-declared destructor.</p>
+  </blockquote>
+  <p>Despite the presence of a user-declared destructor, <code>C</code> will have an implicitly defaulted copy constructor defined for it, and this defaulted copy constructor will copy the pointer value stored in <code>p</code>, resulting in a double-free: the first free happens when <code>g()</code> exits and the second free happens when <code>h()</code> exits.</p>
+  <sample language="cpp">struct P {};
+
+class C {
+  P *p;
+  
+public:
+  C(P *p) : p(p) {}
+  ~C() { delete p; }  
+  
+  void f() {}
+};
+
+void g(C c) {
+  c.f();
+}
+
+void h() {
+  P *p = new P;
+  C c(p);
+  g(c);
+}</sample>
+ </section>
+ <section title="Compliant Solution (Double-Free)">
+  <p>In this compliant solution, the copy constructor and copy assignment operator for <code>C</code> are explicitly deleted. This deletion would result in an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-ill-formed">ill-formed</a> program with the definition of <code>g()</code> from the preceding noncompliant code example due to use of the deleted copy constructor. Consequently, <code>g()</code> was modified to accept its parameter by reference, removing the double-free.</p>
+  <sample language="cpp">struct P {};
+
+class C {
+  P *p;
+  
+public:
+  C(P *p) : p(p) {}
+  C(const C&amp;) = delete;
+  ~C() { delete p; }
+ 
+  void operator=(const C&amp;) = delete;
+  
+  void f() {}
+};
+
+void g(C &amp;c) {
+  c.f();
+}
+
+void h() {
+  P *p = new P;
+  C c(p);
+  g(c);
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example (array new[])">
+  <p>In the following noncompliant code example, an array is allocated with array <code>new[]</code> but is deallocated with a scalar <code>delete</code> call instead of an array <code>delete[]</code> call, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">void f() {
+  int *array = new int[10];
+  // ...
+  delete array;
+}</sample>
+ </section>
+ <section title="Compliant Solution (array new[])">
+ </section>
+ <section title="In the compliant solution, the code is fixed by replacing the call to delete with a call to delete [] to adhere to the correct pairing of memory allocation and deallocation functions.">
+  <sample language="cpp">void f() {
+  int *array = new int[10];
+  // ...
+  delete[] array;
+}
+</sample>
+ </section>
+ <section title="Noncompliant Code Example (malloc())">
+  <p>In this noncompliant code example, the call to <code>malloc()</code> is mixed with a call to <code>delete</code>.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+void f() {
+  int *i = static_cast&lt;int *&gt;(std::malloc(sizeof(int)));
+  // ...
+  delete i;
+}
+</sample>
+  <p>This code does not violate <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM53-CPP.+Explicitly+construct+and+destruct+objects+when+manually+managing+object+lifetime">MEM53-CPP. Explicitly construct and destruct objects when manually managing object lifetime</a> because it complies with the MEM53-CPP-EX1 exception.</p>
+ </section>
+ <section title="Implementation Details">
+  <p>Some implementations of <code>::operator new()</code> result in calling <code>std::malloc()</code>. On such implementations, the <code>::operator delete()</code> function is required to call <code>std::free()</code> to deallocate the pointer, and the noncompliant code example would behave in a well-defined manner. However, this is an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">implementation</a> detail and should not be relied on—implementations are under no obligation to use underlying C memory management functions to implement C++ memory management operators.</p>
+ </section>
+ <section title="Compliant Solution (malloc())">
+  <p>In this compliant solution, the pointer allocated by <code>std::malloc()</code> is deallocated by a call to <code>std::free()</code> instead of <code>delete.</code></p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+
+void f() {
+  int *i = static_cast&lt;int *&gt;(std::malloc(sizeof(int)));
+  // ...
+  std::free(i);
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example ( new )">
+  <p>In this noncompliant code example, <code>std::free()</code> is called to deallocate memory that was allocated by <code>new</code>. A common side effect of the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> caused by using the incorrect deallocation function is that destructors will not be called for the object being deallocated by <code>std::free().</code></p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+ 
+struct S {
+  ~S();
+};
+
+void f() {
+  S *s = new S();
+  // ...
+  std::free(s);
+}</sample>
+  <p>Additionally, this code violates <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM53-CPP.+Explicitly+construct+and+destruct+objects+when+manually+managing+object+lifetime">MEM53-CPP. Explicitly construct and destruct objects when manually managing object lifetime</a>.</p>
+ </section>
+ <section title="Compliant Solution (new)">
+  <p>In this compliant solution, the pointer allocated by <code>new</code> is deallocated by calling <code>delete</code> instead of <code>std::free().</code></p>
+  <sample language="cpp">struct S {
+  ~S();
+};
+
+void f() {
+  S *s = new S();
+  // ...
+  delete s;
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example (Class new)">
+  <p>In this noncompliant code example, the global <code>new</code> operator is overridden by a class-specific implementation of <code>operator new()</code>. When <code>new</code> is called, the class-specific override is selected, so <code>S::operator new()</code> is called. However, because the object is destroyed with a scoped <code>::delete</code> operator, the global <code>operator delete()</code> function is called instead of the class-specific implementation <code>S::operator delete()</code>, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+#include &lt;new&gt;
+ 
+struct S {
+  static void *operator new(std::size_t size) noexcept(true) {
+    return std::malloc(size);
+  }
+  
+  static void operator delete(void *ptr) noexcept(true) {
+    std::free(ptr);
+  }
+};
+
+void f() {
+  S *s = new S;
+  ::delete s;
+}</sample>
+ </section>
+ <section title="Compliant Solution (class new)">
+  <p>In this compliant solution, the scoped <code>::delete</code> call is replaced by a nonscoped <code>delete</code> call, resulting in <code>S::operator delete()</code> being called.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+#include &lt;new&gt;
+ 
+struct S {
+  static void *operator new(std::size_t size) noexcept(true) {
+    return std::malloc(size);
+  }
+  
+  static void operator delete(void *ptr) noexcept(true) {
+    std::free(ptr);
+  }
+};
+
+void f() {
+  S *s = new S;
+  delete s;
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example (std::unique_ptr)">
+  <p>In this noncompliant code example, a <code>std::unique_ptr</code> is declared to hold a pointer to an object, but is direct-initialized with an array of objects. When the <code>std::unique_ptr</code> is destroyed, its default deleter calls <code>delete</code> instead of <code>delete[]</code>, resulting in undefined behavior.</p>
+  <sample language="cpp">#include &lt;memory&gt;
+
+struct S {};
+
+void f() {
+  std::unique_ptr&lt;S&gt; s{new S[10]};
+}</sample>
+ </section>
+ <section title="Compliant Solution (std::unique_ptr)">
+  <p>In this compliant solution, the <code>std::unique_ptr</code> is declared to hold an array of objects instead of a pointer to an object. Additionally, <code>std::make_unique()</code> is used to initialize the smart pointer.</p>
+  <sample language="cpp">#include &lt;memory&gt;
+
+struct S {};
+
+void f() {
+  std::unique_ptr&lt;S[]&gt; s = std::make_unique&lt;S[]&gt;(10);
+}</sample>
+  <p>Use of <code>std::make_unique()</code> instead of direct initialization will emit a diagnostic if the resulting <code>std::unique_ptr</code> is not of the correct type. Had it been used in the noncompliant code example, the result would have been an ill-formed program instead of undefined behavior. It is best to use <code>std::make_unique()</code> instead of manual initialization by other means.</p>
+ </section>
+ <section title="Noncompliant Code Example (std::shared_ptr)">
+  <p>In this noncompliant code example, a <code>std::shared_ptr</code> is declared to hold a pointer to an object, but is direct-initialized with an array of objects. As with <code>std::unique_ptr</code>, when the <code>std::shared_ptr</code> is destroyed, its default deleter calls <code>delete</code> instead of <code>delete[]</code>, resulting in undefined behavior.</p>
+  <sample language="cpp">#include &lt;memory&gt;
+
+struct S {};
+
+void f() {
+  std::shared_ptr&lt;S&gt; s{new S[10]};
+}</sample>
+ </section>
+ <section title="Compliant Solution (std::shared_ptr)">
+  <p>Unlike the compliant solution for <code>std::unique_ptr</code>, where <code>std::make_unique()</code> is called to create a unique pointer to an array, it is ill-formed to call <code>std::make_shared()</code> with an array type. Instead, this compliant solution manually specifies a custom deleter for the shared pointer type, ensuring that the underlying array is properly deleted.</p>
+  <sample language="cpp">#include &lt;memory&gt;
+
+struct S {};
+
+void f() {
+  std::shared_ptr&lt;S&gt; s{new S[10], [](const S *ptr) { delete [] ptr; }};
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>Passing a pointer value to a deallocation function that was not previously obtained by the matching allocation function results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, which can lead to exploitable <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a>.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      MEM51-CPP
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      Likely
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      <strong>P18</strong>
+     </td>
+     <td>
+      <strong>L1</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=222953724">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>invalid_dynamic_memory_allocationdangling_pointer_use</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Axivion+Bauhaus+Suite">
+       Axivion Bauhaus Suite
+      </a>
+     </td>
+     <td>
+      7.2.0
+     </td>
+     <td>
+      <strong>CertC++-MEM51</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Clang">
+       Clang
+      </a>
+     </td>
+     <td>
+      3.9
+     </td>
+     <td>
+      <code>clang-analyzer-cplusplus.NewDeleteLeaks</code>
+      <code>-Wmismatched-new-deleteclang-analyzer-unix.MismatchedDeallocator </code>
+     </td>
+     <td>
+      Checked by
+      <code>clang-tidy</code>
+      , but does not catch all violations of this rule
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>ALLOC.FNHALLOC.DFALLOC.TM</strong>
+     </td>
+     <td>
+      Free non-heap variable
+      Double free
+      Type mismatch
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++2110, C++2111, C++2112, C++2113, C++2118, C++3337, C++3339, C++4262, C++4263, C++4264</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Klocwork">
+       Klocwork
+      </a>
+     </td>
+     <td>
+      2021.4
+     </td>
+     <td>
+      <strong>CL.FFM.ASSIGN</strong>
+      <strong>CL.FFM.COPY</strong>
+      <strong>CL.FMM</strong>
+      <strong>CL.SHALLOW.ASSIGNCL.SHALLOW.COPY</strong>
+      <strong>FMM.MIGHT</strong>
+      <strong>FMM.MUST</strong>
+      <strong>FNH.MIGHT</strong>
+      <strong>FNH.MUST</strong>
+      <strong>FUM.GEN.MIGHT</strong>
+      <strong>FUM.GEN.MUST</strong>
+      <strong>UNINIT.CTOR.MIGHTUNINIT.CTOR.MUSTUNINIT.HEAP.MIGHTUNINIT.HEAP.MUST</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/LDRA">
+       LDRA tool suite
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+      <strong>232 S, 236 S, 239 S, 407 S, 469 S, 470 S, 483 S, 484 S, 485 S, 64 D, 112 D</strong>
+      <strong> </strong>
+     </td>
+     <td>
+      Partially implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-MEM51-a</strong>
+      <strong>CERT_CPP-MEM51-b</strong>
+      <strong>CERT_CPP-MEM51-c</strong>
+      <strong>CERT_CPP-MEM51-d</strong>
+     </td>
+     <td>
+      Use the same form in corresponding calls to new/malloc and delete/free
+      Always provide empty brackets ([]) for delete when deallocating arrays
+      Both copy constructor and copy assignment operator should be declared for classes with a nontrivial destructor
+      Properly deallocate dynamically allocated resources
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft Insure++
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      Runtime detection
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2021b
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certcmem51cpp.html">
+       CERT C++: MEM51-CPP
+      </a>
+     </td>
+     <td>
+      Checks for:
+      Invalid deletion of pointernvalid deletion of pointer, invalid free of pointernvalid free of pointer, deallocation of previously deallocated pointereallocation of previously deallocated pointer.
+      Rule partially covered.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046345">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>2110, 2111, 2112, 2113, 2118<strong>, </strong></strong>
+      <strong><strong>3337, 3339</strong>, 4262, 4263, 4264</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/PVS-Studio">
+       PVS-Studio
+      </a>
+     </td>
+     <td>
+      7.17
+     </td>
+     <td>
+      <strong>V515<a href="https://pvs-studio.com/en/docs/warnings/v515/"></a></strong>
+      ,
+      <strong>V554<a href="https://pvs-studio.com/en/docs/warnings/v554/"></a></strong>
+      ,
+      <strong>V611<a href="https://pvs-studio.com/en/docs/warnings/v611/"></a></strong>
+      ,
+      <strong>V701<a href="https://pvs-studio.com/en/docs/warnings/v701/"></a></strong>
+      ,
+      <strong>V748<a href="https://pvs-studio.com/en/docs/warnings/v748/"></a></strong>
+      ,
+      <strong>V773<a href="https://pvs-studio.com/en/docs/warnings/v773/"></a></strong>
+      ,
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1066/">V1066</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046388">
+       SonarQube C/C++ Plugin
+      </a>
+     </td>
+     <td>
+      4.10
+     </td>
+     <td>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-1232">S1232</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM31-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682">
+       SEI CERT C++ Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM53-CPP.+Explicitly+construct+and+destruct+objects+when+manually+managing+object+lifetime">
+       MEM53-CPP. Explicitly construct and destruct objects when manually managing object lifetime
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       SEI CERT C Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/MEM31-C.+Free+dynamically+allocated+memory+when+no+longer+needed">
+       MEM31-C. Free dynamically allocated memory when no longer needed
+      </a>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/MEM34-C.+Only+free+memory+allocated+dynamically">
+       MEM34-C. Only free memory allocated dynamically
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="http://cwe.mitre.org/">
+       MITRE CWE
+      </a>
+     </td>
+     <td>
+      <a href="http://cwe.mitre.org/data/definitions/590.html">
+       CWE 590
+      </a>
+      , Free of Memory Not on the Heap
+      <a href="http://cwe.mitre.org/data/definitions/415.html">
+       CWE 415
+      </a>
+      , Double Free
+      <a href="http://cwe.mitre.org/data/definitions/404.html">
+       CWE 404
+      </a>
+      , Improper Resource Shutdown or Release
+      <a href="http://cwe.mitre.org/data/definitions/762.html">
+       CWE 762
+      </a>
+      , Mismatched Memory Management Routines
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Dowd07">
+       Dowd 2007
+      </a>
+      ]
+     </td>
+     <td>
+      "Attacking
+      <code>delete</code>
+      and
+      <code>delete []</code>
+      in C++"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Henricson97">
+       Henricson 1997
+      </a>
+      ]
+     </td>
+     <td>
+      Rule 8.1, "
+      <code>delete</code>
+      should only be used with
+      <code>new"</code>
+      Rule 8.2, "
+      <code>delete []</code>
+      should only be used with
+      <code>new []"</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 5.3.5, "Delete"
+      Subclause 12.8, "Copying and Moving Class Objects"
+      Subclause 18.6.1, "Storage Allocation and Deallocation"
+      Subclause 20.7.11, "Temporary Buffers"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Meyers05">
+       Meyers 2005
+      </a>
+      ]
+     </td>
+     <td>
+      Item 16, "Use the Same Form in Corresponding Uses of
+      <code>new</code>
+      and
+      <code>delete</code>
+      "
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Seacord2013">
+       Seacord 2013
+      </a>
+      ]
+     </td>
+     <td>
+      Chapter 4, "Dynamic Memory Management"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Viega05">
+       Viega 2005
+      </a>
+      ]
+     </td>
+     <td>
+      "Doubly Freeing Memory"
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

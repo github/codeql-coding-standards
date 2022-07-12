@@ -1,0 +1,2 @@
+| test.cpp:2:3:2:34 | reinterpret_cast<..(*)(..)>... | Cast converting a pointer to function. |
+| test.cpp:3:3:3:30 | reinterpret_cast<void *>... | Cast converting a pointer to function. |

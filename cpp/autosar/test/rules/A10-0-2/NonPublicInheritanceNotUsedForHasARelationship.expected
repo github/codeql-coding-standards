@@ -1,0 +1,2 @@
+| test.cpp:7:18:7:28 | derivation | [AUDIT] Confirm has-a relationship in non-public inheritance of $@ by $@. | test.cpp:6:7:6:9 | CPU | CPU | test.cpp:7:7:7:14 | Printer1 | Printer1 |
+| test.cpp:8:18:8:31 | derivation | [AUDIT] Confirm has-a relationship in non-public inheritance of $@ by $@. | test.cpp:5:7:5:12 | Device | Device | test.cpp:8:7:8:14 | Printer2 | Printer2 |

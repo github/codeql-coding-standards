@@ -1,0 +1,270 @@
+{
+  "AUTOSAR": {
+    "A10-0-1": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "audit": "",
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Public inheritance should differ from non-public inheritance and should be used to implement an is-a relationship.",
+          "kind": "problem",
+          "name": "Public inheritance shall be used to implement 'is-a' relationship",
+          "precision": "low",
+          "severity": "recommendation",
+          "short_name": "PublicInheritanceNotUsedForIsARelationship",
+          "tags": []
+        }
+      ],
+      "title": "Public inheritance shall be used to implement 'is-a' relationship."
+    },
+    "A10-0-2": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "audit": "",
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Non-public inheritance should differ from public inheritance and should be used to implement a has-a relationship.",
+          "kind": "problem",
+          "name": "Membership or non-public inheritance shall be used to implement 'has-a' relationship",
+          "precision": "low",
+          "severity": "recommendation",
+          "short_name": "NonPublicInheritanceNotUsedForHasARelationship",
+          "tags": []
+        }
+      ],
+      "title": "Membership or non-public inheritance shall be used to implement 'has-a' relationship."
+    },
+    "A10-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Classes should not be derived from more than one non-interface base class to avoid exposing multiple implementations to derived classes.",
+          "kind": "problem",
+          "name": "Class shall not be derived from more than one base class which is not an interface class",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ClassDerivedFromMoreThanOneNonInterfaceBaseClass",
+          "tags": []
+        }
+      ],
+      "title": "Class shall not be derived from more than one base class which is not an interface class."
+    },
+    "A10-4-1": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "audit": "",
+        "enforcement": "non-automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Inheritance hierarchies should be based on interface classes to improve maintainability.",
+          "kind": "problem",
+          "name": "Hierarchies should be based on interface classes",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "HierarchiesShouldBeBasedOnInterfaceClasses",
+          "tags": []
+        }
+      ],
+      "title": "Hierarchies should be based on interface classes."
+    },
+    "M10-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Classes should not be derived from virtual bases to avoid potentially undefined or complicated code.",
+          "kind": "problem",
+          "name": "Classes should not be derived from virtual bases",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ClassesShouldNotBeDerivedFromVirtualBases",
+          "tags": []
+        }
+      ],
+      "title": "Classes should not be derived from virtual bases."
+    },
+    "M10-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Virtual base classes shall only be used if they are later used as a common base class in a diamond hierarchy.",
+          "kind": "problem",
+          "name": "A base class shall only be declared virtual if it is used in a diamond hierarchy",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "BaseClassCanBeVirtualOnlyInDiamondHierarchy",
+          "tags": []
+        }
+      ],
+      "title": "A base class shall only be declared virtual if it is used in a diamond hierarchy."
+    },
+    "M10-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A base class must not be virtual and non-virtual in the same hierarchy to avoid copies of the object and confusing behavior.",
+          "kind": "problem",
+          "name": "An accessible base class shall not be both virtual and non-virtual in the same hierarchy",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "AccessibleBaseClassBothVirtualAndNonVirtualInHierarchy",
+          "tags": []
+        }
+      ],
+      "title": "An accessible base class shall not be both virtual and non-virtual in the same hierarchy."
+    },
+    "M10-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Duplicate entity names in a multiple inheritance hierarchy can lead to ambiguity in variable and virtual function access.",
+          "kind": "problem",
+          "name": "All accessible entity names within a multiple inheritance hierarchy should be unique",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UniqueAccessibleEntityNamesInMultipleInheritance",
+          "tags": []
+        }
+      ],
+      "title": "All accessible entity names within a multiple inheritance hierarchy should be unique."
+    },
+    "M12-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The dynamic type of an object is undefined during construction or destruction and must not be used.",
+          "kind": "problem",
+          "name": "An object's dynamic type shall not be used from the body of its constructor or destructor",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DynamicTypeOfThisUsedFromConstructorOrDestructor",
+          "tags": []
+        }
+      ],
+      "title": "An object's dynamic type shall not be used from the body of its constructor or destructor."
+    },
+    "M5-2-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A polymorphic object should not be cast to a derived type, so as to maintain abstraction and avoid coupling.",
+          "kind": "problem",
+          "name": "Casts from a base class to a derived class should not be performed on polymorphic types",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "DowncastingShouldNotBePerformedOnPolymorphicTypes",
+          "tags": []
+        }
+      ],
+      "title": "Casts from a base class to a derived class should not be performed on polymorphic types."
+    }
+  },
+  "CERT-C++": {
+    "OOP50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Invocation of virtual functions may result in undefined behavior during object construction or destruction.",
+          "kind": "problem",
+          "name": "Do not invoke virtual functions from constructors or destructors",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotInvokeVirtualFunctionsFromConstructorsOrDestructors",
+          "tags": []
+        }
+      ],
+      "title": "Do not invoke virtual functions from constructors or destructors"
+    },
+    "OOP51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "By-value assignment or copying an object of a derived type to a base type can result in derived member variables not being copied.",
+          "kind": "problem",
+          "name": "Do not slice derived objects",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotSliceDerivedObjects",
+          "tags": []
+        }
+      ],
+      "title": "Do not slice derived objects"
+    },
+    "OOP52-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Deleting a polymorphic object without a virtual destructor through a pointer to its base type causes undefined behavior.",
+          "kind": "problem",
+          "name": "Do not delete a polymorphic object without a virtual destructor",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DoNotDeleteAPolymorphicObjectWithoutAVirtualDestructor",
+          "tags": []
+        }
+      ],
+      "title": "Do not delete a polymorphic object without a virtual destructor"
+    }
+  }
+}

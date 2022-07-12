@@ -1,0 +1,2 @@
+| test.cpp:8:6:8:8 | foo | The array $@ decays to the pointer $@ when passed as an argument to the function $@. | test.cpp:6:7:6:9 | foo | foo | test.cpp:1:13:1:13 | p | p | test.cpp:1:6:1:7 | f1 | f1 |
+| test.cpp:10:6:10:8 | foo | The array $@ decays to the pointer $@ when passed as an argument to the function $@. | test.cpp:6:7:6:9 | foo | foo | test.cpp:2:14:2:14 | p | p | test.cpp:2:6:2:7 | f2 | f2 |

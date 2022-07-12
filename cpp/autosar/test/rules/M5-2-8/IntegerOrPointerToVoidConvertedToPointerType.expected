@@ -1,0 +1,2 @@
+| test.cpp:7:11:7:34 | reinterpret_cast<S *>... | Object with pointer-to-void type converted to an object with pointer type.  |
+| test.cpp:8:11:8:34 | reinterpret_cast<S *>... | Object with integer type converted to an object with pointer type.  |

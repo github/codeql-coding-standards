@@ -1,0 +1,3 @@
+| test1.cpp:1:5:1:6 | definition of g1 | The identifier g1 has external linkage and is redefined $@. | test2.cpp:1:5:1:6 | definition of g1 | here |
+| test1.cpp:6:18:6:19 | definition of m2 | The identifier m2 has external linkage and is redefined $@. | test2.cpp:6:18:6:19 | definition of m2 | here |
+| test1.cpp:12:6:12:7 | definition of f2 | The identifier f2 has external linkage and is redefined $@. | test2.cpp:12:6:12:7 | definition of f2 | here |

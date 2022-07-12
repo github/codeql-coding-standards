@@ -1,0 +1,2 @@
+| test.cpp:12:3:13:5 | for(...;...;...) ... | For loop has multiple loop counters. |
+| test.cpp:18:3:19:5 | for(...;...;...) ... | For loop has multiple loop counters. |

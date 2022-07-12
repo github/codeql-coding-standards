@@ -1,0 +1,667 @@
+{
+  "AUTOSAR": {
+    "A15-0-1": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "audit": "",
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Exceptions should be used to only model exceptional flow.",
+          "name": "A function shall not exit with an exception if it is able to complete its task",
+          "precision": "low",
+          "severity": "recommendation",
+          "short_name": "ExceptionThrownOnCompletion",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A function shall not exit with an exception if it is able to complete its task."
+    },
+    "A15-0-4": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "audit": "",
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unchecked exceptions are not visible as part of the API for a function call, so should not be used for exceptions that the caller should be reasonably expected to recover from.",
+          "name": "Unchecked exceptions shall be used to represent errors from which the caller cannot reasonably be expected to recover",
+          "precision": "low",
+          "severity": "recommendation",
+          "short_name": "RecoverableUncheckedExceptions",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Unchecked exceptions shall be used to represent errors from which the caller cannot reasonably be expected to recover."
+    },
+    "A15-0-5": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "audit": "",
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Checked exceptions are visible as part of the API for a function call, so should only be used for exceptions that the caller should be reasonably expected to recover from.",
+          "name": "Checked exceptions shall be used to represent errors from which the caller can reasonably be expected to recover",
+          "precision": "low",
+          "severity": "recommendation",
+          "short_name": "UnrecoverableCheckedExceptions",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Checked exceptions shall be used to represent errors from which the caller can reasonably be expected to recover."
+    },
+    "A15-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Throwing an exception of pointer type can lead to use-after-free or memory leak issues.",
+          "name": "An exception object shall not be a pointer",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PointerExceptionObject",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An exception object shall not be a pointer."
+    },
+    "A15-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Throwing unique exceptions make it easier to trace the source code location of exceptions observed at runtime.",
+          "name": "All thrown exceptions should be unique",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ThrownExceptionsShouldBeUnique",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "All thrown exceptions should be unique."
+    },
+    "A15-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Exceptions thrown before startup cannot be caught and therefore are subject to abruptly terminating the program, leaving resources in an indeterminate state.",
+          "name": "Constructors that are not noexcept shall not be invoked before program startup",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConstructorsThatAreNotNoexceptInvokedBeforeProgramStartup",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Constructors that are not noexcept shall not be invoked before program startup."
+    },
+    "A15-3-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Main function and a task main function shall catch at least: base class exceptions from all third-party libraries used, std::exception and all otherwise unhandled exceptions.",
+          "name": "Main like functions should catch all relevant base class and unhandled exceptions",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "MissingCatchHandlerInMain",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Main function and a task main function shall catch at least: base class exceptions from all third-party libraries used, std::exception and all otherwise unhandled exceptions."
+    },
+    "A15-3-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Catch-all (ellipsis and std::exception) handlers shall be used only in (a) main, (b) task main functions, (c) in functions that are supposed to isolate independent components and (d) when calling third-party code that uses exceptions not according to AUTOSAR C++14 guidelines.",
+          "name": "Catch-all (ellipsis and std::exception) handlers shall be used only in main-like or encapsulating functions",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CatchAllEllipsisUsedInNonMain",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Catch-all (ellipsis and std::exception) handlers shall be used only in (a) main, (b) task main functions, (c) in functions that are supposed to isolate independent components and (d) when calling third-party code that uses exceptions not according to AUTOSAR C++14 guidelines."
+    },
+    "A15-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Dynamic exception-specifications are deprecated in C++11 onwards.",
+          "name": "Dynamic exception-specification shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UseOfDynamicExceptionSpecification",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Dynamic exception-specification shall not be used."
+    },
+    "A15-4-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a function is declared to be noexcept, noexcept(true) or noexcept(<true condition>), then it shall not exit with an exception.",
+          "name": "A function declared to be noexcept(true) shall not exit with an exception",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "short_name": "NoExceptFunctionThrows",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "If a function is declared to be noexcept, noexcept(true) or noexcept(<true condition>), then it shall not exit with an exception."
+    },
+    "A15-4-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Adding a noexcept specifier makes it clearer that the function is not intended to throw functions.",
+          "name": "A declaration of non-throwing function shall contain noexcept specification",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MissingNoExcept",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A declaration of non-throwing function shall contain noexcept specification."
+    },
+    "A15-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Abruptly terminating the program can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Do not explicitly abruptly terminate the program",
+          "precision": "very-high",
+          "severity": "error",
+          "kind": "problem",
+          "short_name": "ExplicitAbruptTerminationAutosar",
+          "shared_implementation_short_name": "ExplicitAbruptTermination",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Program shall not be abruptly terminated. In particular, an implicit or explicit invocation of std::abort(), std::quick_exit(), std::_Exit(), std::terminate() shall not be done."
+    },
+    "A15-5-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Abruptly terminating the program can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Failure to meet postcondition on condition_variable wait abruptly terminates the program",
+          "precision": "low",
+          "severity": "warning",
+          "short_name": "ConditionVariablePostConditionFailedAutosar",
+          "shared_implementation_short_name": "ConditionVariablePostConditionFailed",
+          "tags": [
+            "correctness",
+            "external/autosar/audit"
+          ]
+        },
+        {
+          "description": "Abruptly terminating the program can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Destroying or copy assigning a joinable thread abruptly terminates the program",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "JoinableThreadCopiedOrDestroyedAutosar",
+          "shared_implementation_short_name": "JoinableThreadCopiedOrDestroyed",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Throwing a nested exception when no exception is currently being handled will cause the program to terminate if the nested exception is later requested.",
+          "name": "Calling std::throw_with_nested with no current exception can lead to abrupt termination",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "short_name": "RethrowNestedWithoutCaptureAutosar",
+          "shared_implementation_short_name": "RethrowNestedWithoutCapture",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An exit handler which throws an exception causes abrupt termination of the program, and can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Registered exit handler throws an exception",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "short_name": "ExitHandlerThrowsExceptionAutosar",
+          "shared_implementation_short_name": "ExitHandlerThrowsException",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The std::terminate() function shall not be called implicitly."
+    },
+    "M15-0-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using a goto to transfer control to a try or catch block is ill-formed.",
+          "name": "Control shall not be transferred into a try or catch block using a goto statement",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GotoToCatchBlock",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Using a switch statement to transfer control to a try or catch block is ill-formed.",
+          "name": "Control shall not be transferred into a try or catch block using a switch statement",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SwitchToCatchBlock",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Control shall not be transferred into a try or catch block using a goto or a switch statement."
+    },
+    "M15-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Exceptions thrown from the assignment-expression will be propagated instead of the original exception.",
+          "name": "The assignment-expression of a throw statement shall not itself cause an exception to be thrown",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ExceptionThrownDuringThrow",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The assignment-expression of a throw statement shall not itself cause an exception to be thrown."
+    },
+    "M15-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Throwing NULL is equivalent to throwing integer 0, which will only be handled by integer handlers.",
+          "name": "NULL shall not be thrown explicitly",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NullThrownExplicitly",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "NULL shall not be thrown explicitly."
+    },
+    "M15-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Empty throws with no currently handled exception can cause abrupt program termination.",
+          "name": "An empty throw (throw;) shall only be used in the compound statement of a catch handler",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "EmptyThrowOutsideCatch",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An empty throw (throw;) shall only be used in the compound statement of a catch handler."
+    },
+    "M15-3-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An unhandled exception leads to abrupt program termination.",
+          "name": "Each exception explicitly thrown in the code shall have a handler of a compatible type in all call paths that could lead to that point",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "short_name": "CatchAllExplicitlyThrownExceptions",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Each exception explicitly thrown in the code shall have a handler of a compatible type in all call paths that could lead to that point."
+    },
+    "M15-3-7": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A catch-all handler will shadow catch handlers defined later in the try-catch.",
+          "name": "Where multiple handlers are provided in a single try-catch statement or function-try-block, any ellipsis (catch-all) handler shall occur last",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CatchAllHandlerLast",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Where multiple handlers are provided in a single try-catch statement or function-try-block, any ellipsis (catch-all) handler shall occur last."
+    }
+  },
+  "CERT-C++": {
+    "ERR50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Abruptly terminating the program can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Failure to meet postcondition on condition_variable wait abruptly terminates the program",
+          "precision": "low",
+          "severity": "warning",
+          "short_name": "ConditionVariablePostConditionFailedCert",
+          "shared_implementation_short_name": "ConditionVariablePostConditionFailed",
+          "tags": [
+            "correctness",
+            "external/cert/audit"
+          ]
+        },
+        {
+          "description": "Abruptly terminating the program can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Destroying or copy assigning a joinable thread abruptly terminates the program",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "JoinableThreadCopiedOrDestroyedCert",
+          "shared_implementation_short_name": "JoinableThreadCopiedOrDestroyed",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Throwing a nested exception when no exception is currently being handled will cause the program to terminate if the nested exception is later requested.",
+          "name": "Calling std::throw_with_nested with no current exception can lead to abrupt termination",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "short_name": "RethrowNestedWithoutCaptureCert",
+          "shared_implementation_short_name": "RethrowNestedWithoutCapture",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Abruptly terminating the program can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Do not explicitly abruptly terminate the program",
+          "precision": "very-high",
+          "severity": "error",
+          "kind": "problem",
+          "short_name": "ExplicitAbruptTerminationCert",
+          "shared_implementation_short_name": "ExplicitAbruptTermination",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An exit handler which throws an exception causes abrupt termination of the program, and can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Registered exit handler throws an exception",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "short_name": "ExitHandlerThrowsExceptionCert",
+          "shared_implementation_short_name": "ExitHandlerThrowsException",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not abruptly terminate the program"
+    },
+    "ERR51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Exceptions which are not handled by the program can cause the program to abruptly terminate leaving resources unclosed.",
+          "name": "Handle all exceptions",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "short_name": "HandleAllExceptions",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Handle all exceptions"
+    },
+    "ERR53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Referring to any non-static member or base class of an object in the handler for a function-try-block of a constructor or destructor for that object results in undefined behavior.",
+          "name": "Do not reference base classes or class data members in a constructor or destructor function-try-block handler",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "DestroyedValueReferencedInDestructorCatchBlock",
+          "short_name": "DestroyedValueReferencedInConstructorDestructorCatchBlock",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not reference base classes or class data members in a constructor or destructor function-try-block handler"
+    },
+    "ERR55-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A function which throws an exception which is not permitted by the exception specification causes abrupt termination of the program, and can leave resources such as streams and temporary files in an unclosed state.",
+          "name": "Honor exception specifications",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "short_name": "HonorExceptionSpecifications",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Honor exception specifications"
+    },
+    "ERR58-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Exceptions thrown before main begins executing cannot be caught.",
+          "name": "Handle all exceptions thrown before main() begins executing",
+          "precision": "high",
+          "severity": "error",
+          "kind": "path-problem",
+          "shared_implementation_short_name": "HandleAllExceptionsDuringStartup",
+          "short_name": "HandleAllExceptionsThrownBeforeMainBeginsExecuting",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Handle all exceptions thrown before main() begins executing"
+    },
+    "ERR60-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Exceptions are handled by copy constructing the exception object. If the copy construction process throws an exception, the application will abruptly terminate.",
+          "name": "Exception objects must be nothrow copy constructible",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExceptionObjectsMustBeNothrowCopyConstructible",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Exception objects must be nothrow copy constructible"
+    },
+    "ERR61-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A non-trivial exception which is not caught by lvalue reference may be sliced, losing valuable exception information.",
+          "name": "Catch exceptions by lvalue reference",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "CatchExceptionsByLvalueReference",
+          "short_name": "CatchExceptionsByLvalueReference",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Catch exceptions by lvalue reference"
+    }
+  }
+}

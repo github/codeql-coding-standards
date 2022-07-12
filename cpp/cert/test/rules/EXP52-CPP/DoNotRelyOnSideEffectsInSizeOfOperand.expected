@@ -1,0 +1,1 @@
+| DoNotRelyOnSideEffectsInSizeOfOperand.cpp:3:18:3:29 | sizeof(<expr>) | The sizeof operand is not evaluated and reliance on its side effects will result in unexpected behavior. |

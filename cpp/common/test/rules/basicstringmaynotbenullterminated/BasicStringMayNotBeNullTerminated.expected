@@ -1,0 +1,4 @@
+| test.cpp:22:18:23:9 | call to basic_string | Construction of string object with possibly non-null terminated C-style string. |
+| test.cpp:26:19:26:22 | call to basic_string | Construction of string object with possibly non-null terminated C-style string. |
+| test.cpp:47:18:47:20 | call to basic_string | Construction of string object with possibly non-null terminated C-style string. |
+| test.cpp:56:18:56:20 | call to basic_string | Construction of string object with possibly non-null terminated C-style string. |

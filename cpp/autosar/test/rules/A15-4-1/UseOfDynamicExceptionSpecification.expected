@@ -1,0 +1,2 @@
+| test.cpp:1:6:1:56 | test_dynamic_exception_specification_specific_throw | The function test_dynamic_exception_specification_specific_throw is declared with the dynamic exception specification throw(char *). |
+| test.cpp:6:6:6:50 | test_dynamic_exception_specification_no_throw | The function test_dynamic_exception_specification_no_throw is declared with the dynamic exception specification throw(). |

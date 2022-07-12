@@ -1,0 +1,3 @@
+| test.cpp:14:24:14:26 | sp3 | The ownership of shared_ptr $@ is not shared within or passed out of the local scope of function $@. | test.cpp:14:24:14:26 | sp3 | sp3 | test.cpp:11:22:11:23 | f1 | f1 |
+| test.cpp:16:24:16:26 | sp5 | The ownership of shared_ptr $@ is not shared within or passed out of the local scope of function $@. | test.cpp:16:24:16:26 | sp5 | sp5 | test.cpp:11:22:11:23 | f1 | f1 |
+| test.cpp:17:24:17:26 | sp6 | The ownership of shared_ptr $@ is not shared within or passed out of the local scope of function $@. | test.cpp:17:24:17:26 | sp6 | sp6 | test.cpp:11:22:11:23 | f1 | f1 |

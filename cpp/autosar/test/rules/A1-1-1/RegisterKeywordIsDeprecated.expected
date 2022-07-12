@@ -1,0 +1,2 @@
+| RegisterKeywordIsDeprecated.cpp:2:16:2:16 | a | Use of the `register` specifier is deprecated in ISO C++14. |
+| RegisterKeywordIsDeprecated.cpp:6:22:6:22 | a | Use of the `register` specifier is deprecated in ISO C++14. |

@@ -1,0 +1,7 @@
+| test.cpp:45:3:45:16 | call to remove_if | The predicate $@ argument that should not be mutable mutates the $@. | test.cpp:45:44:45:45 | l2 | function object | test.cpp:7:7:7:8 | m1 | state |
+| test.cpp:50:3:50:16 | call to remove_if | The predicate $@ argument that should not be mutable mutates the $@. | test.cpp:50:44:50:47 | 0 | function object | test.cpp:7:7:7:8 | m1 | state |
+| test.cpp:52:3:52:16 | call to remove_if | The predicate $@ argument that should not be mutable mutates the $@. | test.cpp:52:44:55:3 | [...](...){...} | function object | test.cpp:53:5:53:8 | ... ++ | state |
+| test.cpp:57:3:57:16 | call to remove_if | The predicate $@ argument that should not be mutable mutates the $@. | test.cpp:57:44:60:3 | [...](...){...} | function object | test.cpp:58:5:58:8 | l6 | state |
+| test.cpp:61:3:61:16 | call to remove_if | The predicate $@ argument that should not be mutable mutates the $@. | test.cpp:61:44:64:3 | [...](...){...} | function object | test.cpp:62:5:62:8 | l6 | state |
+| test.cpp:67:3:67:16 | call to remove_if | The predicate $@ argument that should not be mutable mutates the $@. | test.cpp:68:18:68:19 | l5 | function object | test.cpp:31:3:31:6 | ... ++ | state |
+| test.cpp:70:3:70:16 | call to remove_if | The predicate $@ argument that should not be mutable mutates the $@. | test.cpp:71:18:71:29 | nonpure_even | function object | test.cpp:31:3:31:6 | ... ++ | state |

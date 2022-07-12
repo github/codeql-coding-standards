@@ -1,0 +1,2 @@
+| test.cpp:1:7:1:7 | A | Class does not explicitly define a copy assignment operator. |
+| test.cpp:51:7:51:7 | D | Class does not explicitly define a copy assignment operator. |

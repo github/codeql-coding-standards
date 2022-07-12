@@ -1,0 +1,3 @@
+| test.cpp:7:41:7:43 | up1 | Function $@ takes smart pointer parameter 'up1' but does not implement any lifetime-affecting operations. | test.cpp:7:6:7:18 | smart_ptr_get | smart_ptr_get |
+| test.cpp:16:53:16:55 | sp1 | Function $@ takes smart pointer parameter 'sp1' but does not implement any lifetime-affecting operations. | test.cpp:16:6:16:29 | smart_ptr_ref_assign_ref | smart_ptr_ref_assign_ref |
+| test.cpp:28:55:28:57 | sp1 | Function $@ takes smart pointer parameter 'sp1' but does not implement any lifetime-affecting operations. | test.cpp:28:6:28:31 | smart_ptr_ref_noncompliant | smart_ptr_ref_noncompliant |

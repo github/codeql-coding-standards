@@ -1,0 +1,1 @@
+| test.cpp:20:19:20:21 | f5a | Parameter f5a is the trivially copyable type const S1 but it is passed by reference instead of by value. |

@@ -1,0 +1,2 @@
+ - `A15-4-4` - `MissingNoExcept.ql`:
+   - Fixed issue #366 - deleted functions are no longer flagged for requiring a `noexcept(true)` specification.

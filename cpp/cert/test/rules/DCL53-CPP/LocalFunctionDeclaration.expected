@@ -1,0 +1,1 @@
+| test.cpp:38:6:38:7 | declaration of l1 | Function $@ declares local function l1. | test.cpp:36:6:36:7 | f1 | f1 |

@@ -1,0 +1,1 @@
+rules/CON51-CPP/EnsureActivelyHeldLocksAreReleasedOnExceptionalConditions.ql

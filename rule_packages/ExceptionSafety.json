@@ -1,0 +1,121 @@
+{
+  "AUTOSAR": {
+    "A15-0-2": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Basic guarantees for exception safety shall be provided for all operations.",
+          "kind": "problem",
+          "name": "Exception safety guarantees not provided",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExceptionSafetyGuaranteesNotProvided",
+          "shared_implementation_short_name": "ExceptionSafetyGuarantees",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "At least the basic guarantee for exception safety shall be provided for all operations. In addition, each function may offer either the strong guarantee or the nothrow guarantee"
+    },
+    "A15-0-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Exception safety guarantee of a called function shall be considered.",
+          "kind": "problem",
+          "name": "Consider exception safety guarantee of called functions",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ExceptionSafetyGuaranteeOfACalledFunction",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Exception safety guarantee of a called function shall be considered."
+    },
+    "A15-1-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a function exits with an exception, then before a throw, the function shall place all objects/resources that the function constructed in valid states or it shall delete them.",
+          "kind": "problem",
+          "name": "All resources must be in a valid state before an exception is thrown",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ValidResourcesStateBeforeThrow",
+          "shared_implementation_short_name": "ExceptionSafetyValidState",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "All resources must be in a valid state before an exception is thrown."
+    }
+  },
+  "CERT-C++": {
+    "ERR56-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Guarantee exception safety.",
+          "kind": "problem",
+          "name": "Guarantee exception safety",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "GuaranteeExceptionSafety",
+          "shared_implementation_short_name": "ExceptionSafetyGuarantees",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Guarantee exception safety"
+    },
+    "ERR57-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not leak resources when handling exceptions.",
+          "kind": "problem",
+          "name": "Do not leak resources when handling exceptions",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotLeakResourcesWhenHandlingExceptions",
+          "shared_implementation_short_name": "ExceptionSafetyValidState",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not leak resources when handling exceptions"
+    }
+  }
+}

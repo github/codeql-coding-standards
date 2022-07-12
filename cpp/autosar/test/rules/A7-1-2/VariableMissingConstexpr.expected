@@ -1,0 +1,12 @@
+| test.cpp:4:5:4:6 | g1 | Variable g1 could be marked 'constexpr'. |
+| test.cpp:6:5:6:6 | g2 | Variable g2 could be marked 'constexpr'. |
+| test.cpp:13:14:13:15 | lc | Variable lc could be marked 'constexpr'. |
+| test.cpp:15:14:15:16 | lca | Variable lca could be marked 'constexpr'. |
+| test.cpp:23:15:23:17 | lc2 | Variable lc2 could be marked 'constexpr'. |
+| test.cpp:25:15:25:18 | lc2a | Variable lc2a could be marked 'constexpr'. |
+| test.cpp:41:14:41:15 | l2 | Variable l2 could be marked 'constexpr'. |
+| test.cpp:44:16:44:17 | lc | Variable lc could be marked 'constexpr'. |
+| test.cpp:45:17:45:19 | lc2 | Variable lc2 could be marked 'constexpr'. |
+| test.cpp:55:7:55:8 | m2 | Variable m2 could be marked 'constexpr'. |
+| test.cpp:130:7:130:8 | m1 | Variable m1 could be marked 'constexpr'. |
+| test.cpp:141:7:141:8 | m1 | Variable m1 could be marked 'constexpr'. |

@@ -1,0 +1,4 @@
+| test.cpp:7:3:7:13 | call to signal | Use of <csignal> function 'std::signal'. |
+| test.cpp:8:3:8:12 | call to raise | Use of <csignal> function 'std::raise'. |
+| test.cpp:11:3:11:8 | call to signal | Use of <csignal> function 'signal'. |
+| test.cpp:12:3:12:7 | call to raise | Use of <csignal> function 'raise'. |

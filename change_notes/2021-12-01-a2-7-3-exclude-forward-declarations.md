@@ -1,0 +1,2 @@
+- `A2-7-3` - `UndocumentedUserDefinedType.ql`
+  - Fix issue #376 by excluding forward declarations.

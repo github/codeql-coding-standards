@@ -1,0 +1,45 @@
+#ifndef _GHLIBCPP_MATH
+#define _GHLIBCPP_MATH
+double acos(double x);
+float acosf(float x);
+long double acosl(long double x);
+double asin(double x);
+float asinf(float x);
+long double asinl(long double x);
+double atan2(double y, double x);
+float atan2f(float y, float x);
+long double atan2l(long double y, long double x);
+double acosh(double x);
+float acoshf(float x);
+long double acoshl(long double x);
+double atanh(double x);
+float atanhf(float x);
+long double atanhl(long double x);
+int ilogb(double x);
+int ilogbf(float x);
+int ilogbl(long double x);
+double log(double x);
+float logf(float x);
+long double logl(long double x);
+double log10(double x);
+float log10f(float x);
+long double log10l(long double x);
+double log1p(double x);
+float log1pf(float x);
+long double log1pl(long double x);
+double log2(double x);
+float log2f(float x);
+long double log2l(long double x);
+double logb(double x);
+float logbf(float x);
+long double logbl(long double x);
+double pow(double x, double y);
+float powf(float x, float y);
+long double powl(long double x, long double y);
+double sqrt(double x);
+float sqrtf(float x);
+long double sqrtl(long double x);
+double tgamma(double x);
+float tgammaf(float x);
+long double tgammal(long double x);
+#endif // _GHLIBCPP_MATH

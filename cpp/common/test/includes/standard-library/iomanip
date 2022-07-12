@@ -1,0 +1,15 @@
+#ifndef _GHLIBCPP_IOMANIP
+#define _GHLIBCPP_IOMANIP
+
+#include "ios.h"
+namespace std {
+struct _Setw {};
+
+_Setw setw(int n);
+
+template <typename _CharT, typename _Traits>
+basic_istream<_CharT, _Traits> &operator>>(basic_istream<_CharT, _Traits> &,
+                                           _Setw);
+
+} // namespace std
+#endif // _GHLIBCPP_IOMANIP

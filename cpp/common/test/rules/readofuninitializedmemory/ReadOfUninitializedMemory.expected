@@ -1,0 +1,5 @@
+| test.cpp:35:7:35:8 | l1 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:34:7:34:8 | l1 | l1 |
+| test.cpp:37:7:37:8 | l2 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:36:8:36:9 | l2 | l2 |
+| test.cpp:39:7:39:8 | l3 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:38:6:38:7 | l3 | l3 |
+| test.cpp:86:9:86:16 | arrayPtr | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:79:8:79:15 | arrayPtr | arrayPtr |
+| test.cpp:93:9:93:10 | l5 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:89:7:89:8 | l5 | l5 |

@@ -1,0 +1,16 @@
+- `CTR52-CPP` - `GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql`
+  - Replaced all uses of `nullptr` with a lambda expression where the `std` function expected a callable.
+- `STR50-CPP` - `OperationMayNotNullTerminateCStyleStringCert.ql`
+  - Clang was correctly warning about buffers being overflowed, which is necessary for the CodeQL test. Disabled the clang warnings with `-Wfortify-source`.
+- `ERR62-CPP` - `DetectErrorsWhenConvertingAStringToANumber.ql`
+  - The use of `std::basic_istream` was wrong. I corrected it by passing a valid argument to its constructor. This required defining the default constructor, as well as a few other `std` classes.
+- `A18-5-10`
+  - `PlacementNewNotProperlyAlignedAutosar.ql`
+    - Moved the `alignas` specifier to the correct location.
+  - `PlacementNewInsufficientStorageAutosar.ql`
+    - Moved the `alignas` specifier to the correct location.
+    - Fixed `template` argument typo (`Type` -> `T`).
+- `A26-5-1` - `PseudorandomNumbersGeneratedUsingRand.ql`
+  - Changed the header from "cstdlib.h" to "cstdlib".
+- `A18-9-1` - `BindUsed.ql`
+  - Replaced function-pointer argument to `std::bind1st` and `std::bind2nd` with a function object (`std::equal_to`).

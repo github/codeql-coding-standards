@@ -1,0 +1,4 @@
+| test.cpp:12:5:12:6 | m1 | Declaration m1 modifies the standard namespace std. |
+| test.cpp:15:8:15:11 | plus<T> | Declaration plus<T> modifies the standard namespace std. |
+| test.cpp:24:20:24:30 | plus<float> | Declaration plus<float> modifies the standard namespace std. |
+| test.cpp:30:5:30:6 | m1 | Declaration m1 modifies the standard namespace posix. |

@@ -1,0 +1,2 @@
+| test.cpp:7:9:7:19 | setjmp(env) | Use of banned setjmp macro. |
+| test.cpp:12:3:12:9 | call to longjmp | Use of banned longjmp function. |

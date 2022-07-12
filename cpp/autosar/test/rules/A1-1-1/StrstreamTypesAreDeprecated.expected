@@ -1,0 +1,14 @@
+| StrstreamTypesAreDeprecated.cpp:4:21:4:21 | x | Use of <strstream> class 'std::strstreambuf' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:7:20:7:21 | f1 | Use of <strstream> class 'std::strstreambuf' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:12:19:12:20 | i1 | Use of <strstream> class 'std::istrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:12:22:12:27 | call to istrstream | Use of <strstream> class 'std::istrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:14:19:14:20 | i2 | Use of <strstream> class 'std::istrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:14:22:14:23 | call to istrstream | Use of <strstream> class 'std::istrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:16:19:16:20 | i3 | Use of <strstream> class 'std::istrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:16:22:16:37 | call to istrstream | Use of <strstream> class 'std::istrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:19:18:19:19 | f2 | Use of <strstream> class 'std::istrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:20:10:20:31 | call to istrstream | Use of <strstream> class 'std::istrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:24:19:24:19 | call to ostrstream | Use of <strstream> class 'std::ostrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:24:19:24:19 | o | Use of <strstream> class 'std::ostrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:27:18:27:19 | f3 | Use of <strstream> class 'std::ostrstream' is deprecated. |
+| StrstreamTypesAreDeprecated.cpp:28:10:28:30 | call to ostrstream | Use of <strstream> class 'std::ostrstream' is deprecated. |

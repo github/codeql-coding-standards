@@ -1,0 +1,2 @@
+ - `A2-7-3` - `UndocumentedUserDefinedType.ql `
+     - Fixes #365 and #368 - user-defined types that involve template parameters, instantiated templates and anonymous lambda functions do not require anymore inlined documentation.

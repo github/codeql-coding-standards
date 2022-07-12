@@ -1,0 +1,3 @@
+| test.cpp:21:5:21:5 | y | Loop control variable y is modified in a statement and must be of type bool. |
+| test.cpp:35:32:35:32 | z | Loop control variable z is modified in a statement and must be of type bool. |
+| test.cpp:36:5:36:5 | z | Loop control variable z is modified in a statement and must be of type bool. |

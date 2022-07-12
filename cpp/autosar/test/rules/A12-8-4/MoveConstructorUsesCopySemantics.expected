@@ -1,0 +1,3 @@
+| test.cpp:25:9:25:24 | call to basic_string | Move constructor for ClassA initializes m_s3 with copy semantics. |
+| test.cpp:28:9:28:24 | call to MyCustomClass | Move constructor for ClassA initializes m_c3 with copy semantics. |
+| test.cpp:31:22:31:27 | m_c2_3 | Move constructor for ClassA initializes m_c2_3 with copy semantics. |

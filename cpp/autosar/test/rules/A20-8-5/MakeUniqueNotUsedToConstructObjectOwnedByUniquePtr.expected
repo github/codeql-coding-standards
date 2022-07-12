@@ -1,0 +1,1 @@
+| test.cpp:5:12:5:36 | call to unique_ptr | Object owned by std::unique_ptr is not constructed by std::make_unique. |

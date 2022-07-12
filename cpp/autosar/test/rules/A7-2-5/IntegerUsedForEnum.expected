@@ -1,0 +1,2 @@
+| test.cpp:31:3:35:3 | switch (...) ...  | Enumeration types should be used instead of integers to select from a limited series of choices. |
+| test.cpp:38:3:42:3 | switch (...) ...  | Enumeration types should be used instead of integers to select from a limited series of choices. |

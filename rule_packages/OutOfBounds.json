@@ -1,0 +1,92 @@
+{
+  "AUTOSAR": {
+    "A5-2-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Accessing or writing to a container using an index which is not checked to be within the bounds of the container can lead reading or writing outside the bounds of the allocated memory.",
+          "kind": "problem",
+          "name": "A container shall not be accessed beyond its range",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ContainerAccessWithoutRangeCheckAutosar",
+          "shared_implementation_short_name": "ContainerAccessWithoutRangeCheck",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "An array or container shall not be accessed beyond its range."
+    }
+  },
+  "CERT-C++": {
+    "CTR50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accessing or writing to a container using an index which is not checked to be within the bounds of the container can lead reading or writing outside the bounds of the allocated memory.",
+          "kind": "problem",
+          "name": "A container shall not be accessed beyond its range",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ContainerAccessWithoutRangeCheckCert",
+          "shared_implementation_short_name": "ContainerAccessWithoutRangeCheck",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Guarantee that container indices and iterators are within the valid range"
+    },
+    "CTR52-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Guarantee that the C++ generic library functions do not overflow.",
+          "kind": "problem",
+          "name": "Guarantee that C++ library functions do not overflow",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "GuaranteeGenericCppLibraryFunctionsDoNotOverflow",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Guarantee that library functions do not overflow"
+    },
+    "STR53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accesses to elements of a string should be confirmed to be within the appropriate range to avoid unexpected or undefined behavior.",
+          "kind": "problem",
+          "name": "Range check std::string element access",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "RangeCheckStringElementAccess",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Range check element access"
+    }
+  }
+}

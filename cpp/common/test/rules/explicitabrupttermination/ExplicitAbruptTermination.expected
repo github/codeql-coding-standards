@@ -1,0 +1,4 @@
+| test_explicit_abrupt_termination.cpp:5:3:5:12 | call to abort | Explicit termination of the program |
+| test_explicit_abrupt_termination.cpp:9:3:9:12 | call to _Exit | Explicit termination of the program |
+| test_explicit_abrupt_termination.cpp:13:3:13:17 | call to quick_exit | Explicit termination of the program |
+| test_explicit_abrupt_termination.cpp:17:3:17:16 | call to terminate | Explicit termination of the program |

@@ -1,0 +1,2 @@
+| test.cpp:9:5:9:12 | throw ... | Exception thrown of type $@ which is not derived from std::exception. | file://:0:0:0:0 | char * | char * |
+| test.cpp:11:5:11:18 | throw ... | Exception thrown of type $@ which is not derived from std::exception. | test.cpp:3:7:3:12 | ClassA | ClassA |

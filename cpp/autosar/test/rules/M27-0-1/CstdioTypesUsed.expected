@@ -1,0 +1,7 @@
+| test.cpp:4:8:4:11 | type mention | Use of <cstdio> type 'std::FILE'. |
+| test.cpp:6:8:6:13 | type mention | Use of <cstdio> type 'std::fpos_t'. |
+| test.cpp:20:18:20:23 | type mention | Use of <cstdio> type 'size_t'. |
+| test.cpp:21:18:21:23 | type mention | Use of <cstdio> type 'size_t'. |
+| test.cpp:34:3:34:6 | type mention | Use of <cstdio> type 'FILE'. |
+| test.cpp:36:3:36:8 | type mention | Use of <cstdio> type 'fpos_t'. |
+| test.cpp:50:14:50:19 | type mention | Use of <cstdio> type 'size_t'. |

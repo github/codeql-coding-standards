@@ -1,0 +1,5 @@
+| test.cpp:17:4:17:4 | p | p is dereferenced here but accesses invalid memory because the variable x went out of scope $@. | test.cpp:17:3:17:9 | ExprStmt | here |
+| test.cpp:32:3:32:3 | a | a is dereferenced here but accesses invalid memory because the temporary object went out of scope $@. | test.cpp:31:21:31:21 | call to operator* | here |
+| test.cpp:47:3:47:3 | a | a is dereferenced here but accesses invalid memory because the owner type was modified $@. | test.cpp:46:6:46:10 | call to reset | here |
+| test.cpp:53:6:53:7 | it | it is dereferenced here but accesses invalid memory because the owner type was modified $@. | test.cpp:54:7:54:7 | call to operator= | here |
+| test.cpp:63:7:63:14 | contents | contents is dereferenced here but accesses invalid memory because the temporary object went out of scope $@. | test.cpp:62:44:62:48 | call to c_str | here |

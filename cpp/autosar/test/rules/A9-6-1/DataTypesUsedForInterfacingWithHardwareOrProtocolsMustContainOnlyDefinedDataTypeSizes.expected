@@ -1,0 +1,9 @@
+| test.cpp:66:8:66:9 | b1 | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:66:8:66:9 | b1 | b1 |
+| test.cpp:67:8:67:9 | c1 | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:67:8:67:9 | c1 | c1 |
+| test.cpp:69:6:69:7 | e0 | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:69:6:69:7 | e0 | e0 |
+| test.cpp:70:6:70:7 | e1 | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:70:6:70:7 | e1 | e1 |
+| test.cpp:72:6:72:7 | e3 | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:72:6:72:7 | e3 | e3 |
+| test.cpp:73:6:73:7 | e4 | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:73:6:73:7 | e4 | e4 |
+| test.cpp:76:5:76:6 | d1 | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:76:5:76:6 | d1 | d1 |
+| test.cpp:84:8:84:8 | b | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:84:8:84:8 | b | b |
+| test.cpp:85:8:85:8 | c | $@ Is a member of a hardware interface or protocol type but is not a fixed size. | test.cpp:85:8:85:8 | c | c |

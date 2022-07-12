@@ -1,0 +1,22 @@
+edges
+| file://:0:0:0:0 | re-throw exception  [exception] | test.cpp:9:3:9:9 | ~ClassB [exception] |
+| test.cpp:5:31:5:52 | throw ... [exception] | test.cpp:5:3:5:9 | ~ClassA [exception] |
+| test.cpp:11:5:11:26 | throw ... [exception] | test.cpp:12:17:13:3 | { ... } [exception] |
+| test.cpp:12:17:13:3 | { ... } [exception] | file://:0:0:0:0 | re-throw exception  [exception] |
+| test.cpp:40:3:40:24 | throw ... [exception] | test.cpp:38:6:38:20 | operator delete [exception] |
+| test.cpp:45:3:45:24 | throw ... [exception] | test.cpp:43:6:43:20 | operator delete [exception] |
+| test.cpp:54:5:54:26 | throw ... [exception] | test.cpp:53:11:53:19 | operator= [exception] |
+| test.cpp:64:5:64:26 | throw ... [exception] | test.cpp:63:3:63:8 | ClassH [exception] |
+| test.cpp:73:3:73:24 | throw ... [exception] | test.cpp:72:6:72:9 | swap [exception] |
+| test.cpp:83:5:83:26 | throw ... [exception] | test.cpp:82:8:82:11 | swap [exception] |
+| test.cpp:89:3:89:24 | throw ... [exception] | test.cpp:88:6:88:6 | swap [exception] |
+#select
+| test.cpp:5:3:5:9 | ~ClassA | test.cpp:5:31:5:52 | throw ... [exception] | test.cpp:5:3:5:9 | ~ClassA [exception] | Destructor exits with an exception of type std::exception. |
+| test.cpp:9:3:9:9 | ~ClassB | test.cpp:11:5:11:26 | throw ... [exception] | test.cpp:9:3:9:9 | ~ClassB [exception] | Destructor exits with an exception of type std::exception. |
+| test.cpp:38:6:38:20 | operator delete | test.cpp:40:3:40:24 | throw ... [exception] | test.cpp:38:6:38:20 | operator delete [exception] | Deallocation function exits with an exception of type std::exception. |
+| test.cpp:43:6:43:20 | operator delete | test.cpp:45:3:45:24 | throw ... [exception] | test.cpp:43:6:43:20 | operator delete [exception] | Deallocation function exits with an exception of type std::exception. |
+| test.cpp:53:11:53:19 | operator= | test.cpp:54:5:54:26 | throw ... [exception] | test.cpp:53:11:53:19 | operator= [exception] | Move function exits with an exception of type std::exception. |
+| test.cpp:63:3:63:8 | ClassH | test.cpp:64:5:64:26 | throw ... [exception] | test.cpp:63:3:63:8 | ClassH [exception] | Move function exits with an exception of type std::exception. |
+| test.cpp:72:6:72:9 | swap | test.cpp:73:3:73:24 | throw ... [exception] | test.cpp:72:6:72:9 | swap [exception] | Swap function exits with an exception of type std::exception. |
+| test.cpp:82:8:82:11 | swap | test.cpp:83:5:83:26 | throw ... [exception] | test.cpp:82:8:82:11 | swap [exception] | Swap function exits with an exception of type std::exception. |
+| test.cpp:88:6:88:6 | swap | test.cpp:89:3:89:24 | throw ... [exception] | test.cpp:88:6:88:6 | swap [exception] | Swap function exits with an exception of type std::exception. |

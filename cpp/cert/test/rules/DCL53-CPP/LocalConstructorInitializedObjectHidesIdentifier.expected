@@ -1,0 +1,1 @@
+| test.cpp:37:6:37:7 | g1 | The declaration declares variable g1 that hides $@ | test.cpp:35:5:35:6 | g1 | g1 |

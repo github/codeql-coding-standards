@@ -1,0 +1,2 @@
+- `A7-1-2` - `FunctionMissingConstexpr`:
+  - Excluding cases that cannot or shouldn't be constant such as compiler generated functions, destructors, copy assignment and move assignment operators.

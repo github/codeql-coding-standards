@@ -1,0 +1,1 @@
+| test.cpp:5:1:5:12 | #pragma once | Use of '#pragma once' directive. |

@@ -1,0 +1,2 @@
+- `A10-3-2` - `OverridingFunctionNotDeclaredOverrideOrFinal.ql`
+  - Fix #466 by ignoring compiler-generated member functions.

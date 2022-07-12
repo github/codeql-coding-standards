@@ -1,0 +1,2 @@
+| test.cpp:13:49:13:49 | call to operator- | Subtraction of iterators that do not refer to the same container. |
+| test.cpp:20:50:20:50 | call to operator- | Subtraction of iterators that do not refer to the same container. |

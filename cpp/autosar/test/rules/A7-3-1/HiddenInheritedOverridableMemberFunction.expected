@@ -1,0 +1,5 @@
+| test.cpp:18:8:18:9 | declaration of f2 | Declaration for member 'f2' hides overridable inherited member function $@ | test.cpp:9:16:9:17 | declaration of f2 | f2 |
+| test.cpp:18:8:18:9 | declaration of f2 | Declaration for member 'f2' hides overridable inherited member function $@ | test.cpp:11:16:11:17 | declaration of f2 | f2 |
+| test.cpp:23:8:23:9 | declaration of f2 | Declaration for member 'f2' hides overridable inherited member function $@ | test.cpp:9:16:9:17 | declaration of f2 | f2 |
+| test.cpp:23:8:23:9 | declaration of f2 | Declaration for member 'f2' hides overridable inherited member function $@ | test.cpp:10:16:10:17 | declaration of f2 | f2 |
+| test.cpp:23:8:23:9 | declaration of f2 | Declaration for member 'f2' hides overridable inherited member function $@ | test.cpp:11:16:11:17 | declaration of f2 | f2 |

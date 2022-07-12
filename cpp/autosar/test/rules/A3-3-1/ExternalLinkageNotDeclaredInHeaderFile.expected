@@ -1,0 +1,6 @@
+| test.cpp:3:5:3:6 | definition of g1 | Externally linked object g1 not declared in header file. |
+| test.cpp:4:12:4:13 | declaration of g2 | Externally linked object g2 not declared in header file. |
+| test.cpp:10:5:10:6 | definition of l1 | Externally linked object l1 not declared in header file. |
+| test.cpp:11:6:11:7 | definition of f1 | Externally linked function f1 not declared in header file. |
+| test.cpp:22:5:22:5 | definition of f | Externally linked function f not declared in header file. |
+| test.cpp:25:5:25:6 | declaration of f1 | Externally linked function f1 not declared in header file. |

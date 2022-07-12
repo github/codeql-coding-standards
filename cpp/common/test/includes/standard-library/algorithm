@@ -1,0 +1,153 @@
+#ifndef _GHLIBCPP_ALGORITHM
+#define _GHLIBCPP_ALGORITHM
+#include <bits/stl_algobase.h>
+
+namespace std {
+template <class T1, class T2> struct pair {};
+
+template <class T> constexpr const T &min(const T &a, const T &b);
+
+template <class InputIterator, class Function>
+Function for_each(InputIterator first, InputIterator last, Function f);
+
+template <class ForwardIterator, class T>
+ForwardIterator remove(ForwardIterator first, ForwardIterator last,
+                       const T &value);
+
+template <class InputIterator, class OutputIterator>
+OutputIterator copy(InputIterator first, InputIterator last,
+                    OutputIterator result);
+template <class InputIterator, class Size, class OutputIterator>
+OutputIterator copy_n(InputIterator first, Size n, OutputIterator result);
+template <class InputIterator, class OutputIterator, class Predicate>
+OutputIterator copy_if(InputIterator first, InputIterator last,
+                       OutputIterator result, Predicate pred);
+template <class BidirectionalIterator1, class BidirectionalIterator2>
+BidirectionalIterator2 copy_backward(BidirectionalIterator1 first,
+                                     BidirectionalIterator1 last,
+                                     BidirectionalIterator2 result);
+
+template <class InputIterator, class OutputIterator>
+OutputIterator move(InputIterator first, InputIterator last,
+                    OutputIterator result);
+template <class BidirectionalIterator1, class BidirectionalIterator2>
+BidirectionalIterator2 move_backward(BidirectionalIterator1 first,
+                                     BidirectionalIterator1 last,
+                                     BidirectionalIterator2 result);
+
+template <class InputIterator, class OutputIterator, class UnaryOperation>
+OutputIterator transform(InputIterator first, InputIterator last,
+                         OutputIterator result, UnaryOperation op);
+template <class InputIterator1, class InputIterator2, class OutputIterator,
+          class BinaryOperation>
+OutputIterator transform(InputIterator1 first1, InputIterator1 last1,
+                         InputIterator2 first2, OutputIterator result,
+                         BinaryOperation binary_op);
+
+template <class InputIterator, class OutputIterator, class T>
+OutputIterator replace_copy(InputIterator first, InputIterator last,
+                            OutputIterator result, const T &old_value,
+                            const T &new_value);
+template <class InputIterator, class OutputIterator, class Predicate, class T>
+OutputIterator replace_copy_if(InputIterator first, InputIterator last,
+                               OutputIterator result, Predicate pred,
+                               const T &new_value);
+
+template <class OutputIterator, class Size, class T>
+OutputIterator fill_n(OutputIterator first, Size n, const T &value);
+
+template <class OutputIterator, class Size, class Generator>
+OutputIterator generate_n(OutputIterator first, Size n, Generator gen);
+
+template <class InputIterator, class OutputIterator, class T>
+OutputIterator remove_copy(InputIterator first, InputIterator last,
+                           OutputIterator result, const T &value);
+template <class InputIterator, class OutputIterator, class Predicate>
+OutputIterator remove_copy_if(InputIterator first, InputIterator last,
+                              OutputIterator result, Predicate pred);
+
+template <class InputIterator, class OutputIterator>
+OutputIterator unique_copy(InputIterator first, InputIterator last,
+                           OutputIterator result);
+template <class InputIterator, class OutputIterator, class BinaryPredicate>
+OutputIterator unique_copy(InputIterator first, InputIterator last,
+                           OutputIterator result, BinaryPredicate pred);
+
+template <class BidirectionalIterator, class OutputIterator>
+OutputIterator reverse_copy(BidirectionalIterator first,
+                            BidirectionalIterator last, OutputIterator result);
+
+template <class ForwardIterator, class OutputIterator>
+OutputIterator rotate_copy(ForwardIterator first, ForwardIterator middle,
+                           ForwardIterator last, OutputIterator result);
+
+template <class InputIterator, class OutputIterator1, class OutputIterator2,
+          class Predicate>
+pair<OutputIterator1, OutputIterator2>
+partition_copy(InputIterator first, InputIterator last,
+               OutputIterator1 out_true, OutputIterator2 out_false,
+               Predicate pred);
+
+template <class InputIterator, class RandomAccessIterator>
+RandomAccessIterator partial_sort_copy(InputIterator first, InputIterator last,
+                                       RandomAccessIterator result_first,
+                                       RandomAccessIterator result_last);
+
+template <class InputIterator, class RandomAccessIterator, class Compare>
+RandomAccessIterator partial_sort_copy(InputIterator first, InputIterator last,
+                                       RandomAccessIterator result_first,
+                                       RandomAccessIterator result_last,
+                                       Compare comp);
+
+template <class InputIterator1, class InputIterator2, class OutputIterator>
+OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
+                     InputIterator2 first2, InputIterator2 last2,
+                     OutputIterator result);
+template <class InputIterator1, class InputIterator2, class OutputIterator,
+          class Compare>
+OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
+                     InputIterator2 first2, InputIterator2 last2,
+                     OutputIterator result, Compare comp);
+
+template <class InputIterator1, class InputIterator2, class OutputIterator>
+OutputIterator set_union(InputIterator1 first1, InputIterator1 last1,
+                         InputIterator2 first2, InputIterator2 last2,
+                         OutputIterator result);
+template <class InputIterator1, class InputIterator2, class OutputIterator,
+          class Compare>
+OutputIterator set_union(InputIterator1 first1, InputIterator1 last1,
+                         InputIterator2 first2, InputIterator2 last2,
+                         OutputIterator result, Compare comp);
+template <class InputIterator1, class InputIterator2, class OutputIterator>
+OutputIterator set_intersection(InputIterator1 first1, InputIterator1 last1,
+                                InputIterator2 first2, InputIterator2 last2,
+                                OutputIterator result);
+template <class InputIterator1, class InputIterator2, class OutputIterator,
+          class Compare>
+OutputIterator set_intersection(InputIterator1 first1, InputIterator1 last1,
+                                InputIterator2 first2, InputIterator2 last2,
+                                OutputIterator result, Compare comp);
+
+template <class InputIterator1, class InputIterator2, class OutputIterator>
+OutputIterator set_difference(InputIterator1 first1, InputIterator1 last1,
+                              InputIterator2 first2, InputIterator2 last2,
+                              OutputIterator result);
+template <class InputIterator1, class InputIterator2, class OutputIterator,
+          class Compare>
+OutputIterator set_difference(InputIterator1 first1, InputIterator1 last1,
+                              InputIterator2 first2, InputIterator2 last2,
+                              OutputIterator result, Compare comp);
+template <class InputIterator1, class InputIterator2, class OutputIterator>
+OutputIterator
+set_symmetric_difference(InputIterator1 first1, InputIterator1 last1,
+                         InputIterator2 first2, InputIterator2 last2,
+                         OutputIterator result);
+template <class InputIterator1, class InputIterator2, class OutputIterator,
+          class Compare>
+OutputIterator
+set_symmetric_difference(InputIterator1 first1, InputIterator1 last1,
+                         InputIterator2 first2, InputIterator2 last2,
+                         OutputIterator result, Compare comp);
+} // namespace std
+
+#endif // _GHLIBCPP_ALGORITHM

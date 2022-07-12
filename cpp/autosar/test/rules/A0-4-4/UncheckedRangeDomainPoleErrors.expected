@@ -1,0 +1,18 @@
+| test.cpp:4:3:4:6 | call to acos | Domain error in call to acos: the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:8:3:8:6 | call to acos | Domain error in call to acos: the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:9:3:9:6 | call to asin | Domain error in call to asin: the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:13:3:13:6 | call to asin | Domain error in call to asin: the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:14:3:14:7 | call to atanh | Domain error in call to atanh: the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:18:3:18:7 | call to atanh | Domain error in call to atanh: the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:19:3:19:7 | call to atan2 | Domain error in call to atan2: both arguments are equal to zero. |
+| test.cpp:23:3:23:5 | call to pow | Domain error in call to pow: both arguments are equal to zero. |
+| test.cpp:27:3:27:5 | call to pow | Domain error in call to pow: both arguments are less than zero. |
+| test.cpp:33:3:33:7 | call to acosh | Domain error in call to acosh: argument is less than 1. |
+| test.cpp:34:3:34:7 | call to ilogb | Domain error in call to ilogb: argument is equal to zero. |
+| test.cpp:37:3:37:5 | call to log | Domain error in call to log: argument is negative. |
+| test.cpp:40:3:40:7 | call to log10 | Domain error in call to log10: argument is negative. |
+| test.cpp:43:3:43:6 | call to log2 | Domain error in call to log2: argument is negative. |
+| test.cpp:46:3:46:6 | call to sqrt | Domain error in call to sqrt: argument is negative. |
+| test.cpp:49:3:49:7 | call to log1p | Domain error in call to log1p: argument is less than 1. |
+| test.cpp:52:3:52:6 | call to logb | Domain error in call to logb: argument is equal to zero. |
+| test.cpp:55:3:55:8 | call to tgamma | Domain error in call to tgamma: argument is equal to zero. |

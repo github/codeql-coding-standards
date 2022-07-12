@@ -1,0 +1,4 @@
+| test.cpp:6:8:6:11 | f1_1 | Function f1_1 is declared at block scope. |
+| test.cpp:21:8:21:11 | f6_1 | Function f6_1 is declared at block scope. |
+| test.cpp:30:8:30:11 | f8_1 | Function f8_1 is declared at block scope. |
+| test.cpp:37:5:37:8 | f9_1 | Function f9_1 is declared at block scope. |

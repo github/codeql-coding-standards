@@ -1,0 +1,2 @@
+| test.cpp:3:7:3:15 | DivByZero | [AUDIT] Confirm unchecked exception is used to represent an error from which the caller cannot be reasonable expected to recover. |
+| test.cpp:7:7:7:25 | NoSuchFileException | [AUDIT] Confirm unchecked exception is used to represent an error from which the caller cannot be reasonable expected to recover. |

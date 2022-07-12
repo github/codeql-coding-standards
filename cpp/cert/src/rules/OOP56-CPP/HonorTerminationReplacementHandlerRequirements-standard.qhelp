@@ -1,0 +1,214 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>The <em>handler</em> functions <code>new_handler</code>, <code>terminate_handler</code>, and <code>unexpected_handler</code> can be globally replaced by custom <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">implementations</a>, as specified by [handler.functions], paragraph 2, of the C++ Standard [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]. For instance, an application could set a custom termination handler by calling <code>std::set_terminate()</code>, and the custom termination handler may log the termination for later auditing. However, the C++ Standard, [res.on.functions], paragraph 1, states the following:</p>
+  <blockquote>
+   <p>In certain cases (replacement functions, handler functions, operations on types used to instantiate standard library template components), the C++ standard library depends on components supplied by a C++ program. If these components do not meet their requirements, the Standard places no requirements on the implementation.</p>
+  </blockquote>
+  <p>Paragraph 2, in part, further states the following:</p>
+  <blockquote>
+   <p>In particular, the effects are undefined in the following cases:— for handler functions, if the installed handler function does not implement the semantics of the applicable <em>Required behavior:</em> paragraph</p>
+  </blockquote>
+  <p>A replacement for any of the handler functions must meet the semantic requirements specified by the appropriate <em>Required behavior:</em> clause of the replaced function.</p>
+  <p><strong>New Handler</strong></p>
+  <p>The requirements for a replacement <code>new_handler</code> are specified by [new.handler], paragraph 2:</p>
+  <blockquote>
+   <p>Required behavior: A <code>new_handler</code> shall perform one of the following:— make more storage available for allocation and then return;— throw an exception of type <code>bad_alloc</code> or a class derived from <code>bad_alloc</code>;— terminate execution of the program without returning to the caller;</p>
+  </blockquote>
+  <p><strong>Terminate Handler</strong></p>
+  <p>The requirements for a replacement <code>terminate_handler</code> are specified by [terminate.handler], paragraph 2:</p>
+  <blockquote>
+   <p>Required behavior: A <code>terminate_handler</code> shall terminate execution of the program without returning to the caller.</p>
+  </blockquote>
+  <p><strong>Unexpected Handler</strong></p>
+  <p>The requirements for a replacement <code>unexpected_handler</code> are specified by [unexpected.handler], paragraph 2. </p>
+  <blockquote>
+   <p>Required behavior: An <code>unexpected_handler</code> shall not return. See also 15.5.2.</p>
+  </blockquote>
+  <p><code>unexpected_handler</code> is a deprecated feature of C++.</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, a replacement <code>new_handler</code> is written to attempt to release salvageable resources when the dynamic memory manager runs out of memory. However, this example does not take into account the situation in which all salvageable resources have been recovered and there is still insufficient memory to satisfy the allocation request. Instead of terminating the replacement handler with an exception of type <code>std::bad_alloc</code> or terminating the execution of the program without returning to the caller, the replacement handler returns as normal. Under low memory conditions, an infinite loop will occur with the default implementation of <code>::operator new()</code>. Because such conditions are rare in practice, it is likely for this bug to go undiscovered under typical testing scenarios.</p>
+  <sample language="cpp">#include &lt;new&gt;
+ 
+void custom_new_handler() {
+  // Returns number of bytes freed.
+  extern std::size_t reclaim_resources();
+  reclaim_resources();
+}
+ 
+int main() {
+  std::set_new_handler(custom_new_handler);
+ 
+  // ...
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>In this compliant solution, <code>custom_new_handler()</code> uses the return value from <code>reclaim_resources()</code>. If it returns <code>0</code>, then there will be insufficient memory for <code>operator new</code> to succeed. Hence, an exception of type <code>std::bad_alloc</code> is thrown, meeting the requirements for the replacement handler.</p>
+  <sample language="cpp">#include &lt;new&gt;
+
+void custom_new_handler() noexcept(false) {
+  // Returns number of bytes freed.
+  extern std::size_t reclaim_resources();
+  if (0 == reclaim_resources()) {
+    throw std::bad_alloc();
+  }
+}
+ 
+int main() {
+  std::set_new_handler(custom_new_handler);
+ 
+  // ...
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>Failing to meet the required behavior for a replacement handler results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      OOP56-CPP
+     </td>
+     <td>
+      Low
+     </td>
+     <td>
+      Probable
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      <strong>P2</strong>
+     </td>
+     <td>
+      <strong>L3</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++4776, C++4777, C++4778, C++4779</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-OOP56-a</strong>
+      <strong>CERT_CPP-OOP56-b</strong>
+      <strong>CERT_CPP-OOP56-c</strong>
+     </td>
+     <td>
+      Properly define terminate handlers
+      Properly define unexpected handlers
+      Properly define new handlers
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP56-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682">
+       SEI CERT C++ Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM55-CPP.+Honor+replacement+dynamic+storage+management+requirements">
+       MEM55-CPP. Honor replacement dynamic storage management requirements
+      </a>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 17.6.4.8, "Other Functions"
+      Subclause 18.6.2.3, "Type
+      <code>new_handler</code>
+      "
+      Subclause 18.8.3.1, "Type
+      <code>terminate_handler</code>
+      "
+      Subclause D.11.1, "Type
+      <code>unexpected_handler</code>
+      "
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

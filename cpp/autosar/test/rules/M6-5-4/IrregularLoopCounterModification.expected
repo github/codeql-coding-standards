@@ -1,0 +1,3 @@
+| test.cpp:31:12:31:12 | x | Loop counter x when modified may not be constant. |
+| test.cpp:37:12:37:12 | x | Loop counter x when modified may not be constant. |
+| test.cpp:44:12:44:12 | x | Loop counter x when modified may not be constant. |

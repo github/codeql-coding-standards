@@ -1,0 +1,3 @@
+| main.cpp:10:3:10:6 | call to getX | Return value from call to $@ is unused. | main.cpp:6:5:6:8 | getX | getX |
+| nested/nested2/test2.h:5:3:5:6 | call to getZ | Return value from call to $@ is unused. | nested/nested2/test2.h:1:5:1:8 | getZ | getZ |
+| nested/test.h:5:3:5:6 | call to getY | Return value from call to $@ is unused. | nested/test.h:1:5:1:8 | getY | getY |

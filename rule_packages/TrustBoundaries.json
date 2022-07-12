@@ -1,0 +1,67 @@
+{
+  "AUTOSAR": {
+    "A15-1-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The execution boundary is between the call site in the executable and the function implementation in the library.  Throwing an exception across an execution boundary requires that both sides of the execution boundary use the same application binary interface.  Throw an exception across an execution boundary only when both sides of the boundary use the same application binary interface.",
+          "kind": "problem",
+          "name": "Exceptions shall not be thrown across execution boundaries",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExceptionsThrownAcrossExecutionBoundaries",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Exceptions shall not be thrown across execution boundaries."
+    }
+  },
+  "CERT-C++": {
+    "ERR59-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The execution boundary is between the call site in the executable and the function implementation in the library.  Throwing an exception across an execution boundary requires that both sides of the execution boundary use the same application binary interface.  Throw an exception across an execution boundary only when both sides of the boundary use the same application binary interface.",
+          "kind": "problem",
+          "name": "Do not throw an exception across execution boundaries",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotThrowAnExceptionAcrossExecutionBoundaries",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not throw an exception across execution boundaries"
+    },
+    "EXP60-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The execution boundary is between the call site in the executable and the function implementation in the library.  Standard layout objects can be passed across execution boundaries because the layout of the object's type is strictly specified.",
+          "kind": "problem",
+          "name": "Do not pass a nonstandard-layout type object across execution boundaries",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotPassANonstandardObjectAcrossBoundaries",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not pass a nonstandard-layout type object across execution boundaries"
+    }
+  }
+}

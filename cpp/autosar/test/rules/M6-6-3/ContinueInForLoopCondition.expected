@@ -1,0 +1,8 @@
+| test.cpp:14:5:14:13 | continue; | The $@ statement is used inside a $@ loop that is not well formed.  | test.cpp:14:5:14:13 | continue; | continue | test.cpp:12:3:15:3 | for(...;...;...) ... | for |
+| test.cpp:28:5:28:13 | continue; | The $@ statement is used inside a $@ loop that is not well formed.  | test.cpp:28:5:28:13 | continue; | continue | test.cpp:26:3:29:3 | for(...;...;...) ... | for |
+| test.cpp:36:5:36:13 | continue; | The $@ statement is used inside a $@ loop that is not well formed.  | test.cpp:36:5:36:13 | continue; | continue | test.cpp:34:3:37:3 | for(...;...;...) ... | for |
+| test.cpp:44:5:44:13 | continue; | The $@ statement is used inside a $@ loop that is not well formed.  | test.cpp:44:5:44:13 | continue; | continue | test.cpp:42:3:45:3 | for(...;...;...) ... | for |
+| test.cpp:60:5:60:13 | continue; | The $@ statement is used inside a $@ loop that is not well formed.  | test.cpp:60:5:60:13 | continue; | continue | test.cpp:58:3:61:3 | for(...;...;...) ... | for |
+| test.cpp:83:5:83:13 | continue; | The $@ statement is used inside a $@ loop that is not well formed.  | test.cpp:83:5:83:13 | continue; | continue | test.cpp:81:3:84:3 | for(...;...;...) ... | for |
+| test.cpp:102:5:102:13 | continue; | The $@ statement is used inside a $@ loop that is not well formed.  | test.cpp:102:5:102:13 | continue; | continue | test.cpp:100:3:103:3 | for(...;...;...) ... | for |
+| test.cpp:122:5:122:13 | continue; | The $@ statement is used inside a $@ loop that is not well formed.  | test.cpp:122:5:122:13 | continue; | continue | test.cpp:118:3:123:3 | for(...;...;...) ... | for |

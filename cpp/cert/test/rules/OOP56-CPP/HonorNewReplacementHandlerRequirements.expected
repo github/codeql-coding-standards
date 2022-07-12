@@ -1,0 +1,2 @@
+| test.cpp:48:3:48:22 | call to set_new_handler | Replacement handler for `new` throws an exception that is not `bad_alloc`. |
+| test.cpp:52:3:52:22 | call to set_new_handler | Replacement handler for `new` throws an exception that is not `bad_alloc`. |

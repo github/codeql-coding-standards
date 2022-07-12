@@ -1,0 +1,2 @@
+- Adds the script `scripts\reports\analysis_report.py` to generate a Guideline Compliance Summary and database integrity report.
+- Updates the `user_manual.md` on how to generate the Guideline Compliance Summary and database integrity report and documents the limitations.

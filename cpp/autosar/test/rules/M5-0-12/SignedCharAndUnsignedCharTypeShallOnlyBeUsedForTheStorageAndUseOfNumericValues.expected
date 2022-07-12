@@ -1,0 +1,4 @@
+| test.cpp:4:22:4:24 | 99 | Assignment of an non-integer type to variable $@ which is a variable with an explicitly signed char type | test.cpp:4:17:4:18 | a1 | a1 |
+| test.cpp:6:20:6:22 | 99 | Assignment of an non-integer type to variable $@ which is a variable with an explicitly signed char type | test.cpp:6:15:6:16 | a3 | a3 |
+| test.cpp:9:20:9:22 | 99 | Assignment of an non-integer type to variable $@ which is a variable with an explicitly signed char type | test.cpp:9:15:9:16 | a5 | a5 |
+| test.cpp:12:21:12:23 | 99 | Assignment of an non-integer type to variable $@ which is a variable with an explicitly signed char type | test.cpp:12:16:12:17 | a7 | a7 |

@@ -1,0 +1,247 @@
+{
+  "AUTOSAR": {
+    "A13-6-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Digit sequences separators ' shall only be used as follows: (1) for decimal, every 3 digits, (2) for hexadecimal, every 2 digits, (3) for binary, every 4 digits.",
+          "name": "Digit sequence separators should only be used at the proscribed intervals",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UseCorrectIntervalForDigitSequencesSeparators",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Digit sequences separators ' shall only be used as follows: (1) for decimal, every 3 digits, (2) for hexadecimal, every 2 digits, (3) for binary, every 4 digits."
+    },
+    "A2-13-1": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of an undefined escape sequence leads to undefined behavior.",
+          "name": "Only those escape sequences that are defined in ISO/IEC 14882:2014 shall be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "EscapeSequenceOutsideISO",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Only those escape sequences that are defined in ISO/IEC 14882:2014 shall be used."
+    },
+    "A2-13-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using a mix of lower and upper case hexadecimal constants is inconsistent and confusing.",
+          "name": "Hexadecimal constants should be upper case",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "HexadecimalConstantsShouldBeUpperCase",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Hexadecimal constants should be upper case."
+    },
+    "A4-10-1": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using a constant other than nullptr as null-pointer-constant can lead to confusion.",
+          "name": "Only nullptr literal shall be used as the null-pointer-constant",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NullPointerConstantNotNullptr",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Only nullptr literal shall be used as the null-pointer-constant."
+    },
+    "A5-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Literal values shall not be used apart from type initialization, otherwise symbolic names shall be used instead.",
+          "name": "Literal values shall not be used apart from type initialization",
+          "precision": "low",
+          "severity": "recommendation",
+          "short_name": "LiteralValueUsedOutsideTypeInit",
+          "tags": [
+            "readability",
+            "external/autosar/audit"
+          ]
+        }
+      ],
+      "title": "Literal values shall not be used apart from type initialization, otherwise symbolic names shall be used instead."
+    },
+    "M2-13-2": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Use of octal constants (other than zero) can lead to confusion with decimal numbers.",
+          "name": "Octal constants (other than zero) shall not be used",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UseOfNonZeroOctalLiteral",
+          "tags": [
+            "readability"
+          ]
+        },
+        {
+          "description": "Use of octal escape sequences (other than '\\0') can lead to confusion with decimal numbers.",
+          "name": "Octal escape sequences (other than '\\0') shall not be used",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UseOfNonZeroOctalEscape",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Octal constants (other than zero) and octal escape sequences (other than '\\0') shall not be used."
+    },
+    "M2-13-3": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Use a 'U' suffix to ensure all unsigned literals have a consistent signedness across platforms and compilers.",
+          "name": "A 'U' suffix shall be applied to all octal or hexadecimal integer literals of unsigned type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingUSuffix",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A 'U' suffix shall be applied to all octal or hexadecimal integer literals of unsigned type."
+    },
+    "M2-13-4": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An upper case literal suffix avoids ambiguity between the letter 'l' and the digit '1'.",
+          "name": "Literal suffixes shall be upper case",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LiteralSuffixNotUpperCase",
+          "tags": [
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Literal suffixes shall be upper case."
+    },
+    "M4-10-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using NULL as an integer literal is potentially confusing.",
+          "name": "NULL shall not be used as an integer value",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NullUsedAsIntegerValue",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "NULL shall not be used as an integer value."
+    },
+    "M4-10-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using literal zero (0) as the null-pointer-constant is potentially confusiing.",
+          "name": "Literal zero (0) shall not be used as the null-pointer-constant",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "LiteralZeroUsedAsNullPointerConstant",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Literal zero (0) shall not be used as the null-pointer-constant."
+    }
+  }
+}

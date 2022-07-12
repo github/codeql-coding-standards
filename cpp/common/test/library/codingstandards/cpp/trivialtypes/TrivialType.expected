@@ -1,0 +1,6 @@
+| trivialtypes.cpp:3:7:3:19 | TrivialClassA |
+| trivialtypes.cpp:5:8:5:21 | TrivialStructA |
+| trivialtypes.cpp:7:7:7:19 | TrivialClassB |
+| trivialtypes.cpp:14:8:14:21 | TrivialStructB |
+| trivialtypes.cpp:19:7:19:19 | TrivialClassC |
+| trivialtypes.cpp:28:7:28:19 | TrivialClassD |

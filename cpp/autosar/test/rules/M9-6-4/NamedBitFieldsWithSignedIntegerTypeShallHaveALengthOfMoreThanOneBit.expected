@@ -1,0 +1,1 @@
+| test.cpp:2:14:2:14 | x | A named bit-field with signed integral type should have at least 2 bits of storage  |

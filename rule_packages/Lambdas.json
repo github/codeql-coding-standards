@@ -1,0 +1,228 @@
+{
+  "AUTOSAR": {
+    "A5-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Explicitly capturing variables used in a lambda expression helps with documenting the intention of the author.",
+          "kind": "problem",
+          "name": "Variables shall not be implicitly captured in a lambda expression",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ImplicitLambdaCapture",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Variables shall not be implicitly captured in a lambda expression."
+    },
+    "A5-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An explicit parameter list disambiguates lambda expressions from other C++ constructs and it is therefore recommended to include it in every lambda expression.",
+          "kind": "problem",
+          "name": "Parameter list (possibly empty) shall be included in every lambda expression",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LambdaExpressionWithoutParameterList",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Parameter list (possibly empty) shall be included in every lambda expression."
+    },
+    "A5-1-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Invoking a lambda object's function call operator on a lambda object with an object captured by reference that no longer references a valid object results in undefined behavior.",
+          "kind": "problem",
+          "name": "Function returning a lambda object that captures objects by reference",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ReturnedLambdaObjectOutlivesCaptureByReference",
+          "shared_implementation_short_name": "DanglingCaptureWhenReturningLambdaObject",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "Invoking a lambda object's function call operator on a lambda object with an object captured by reference that no longer references a valid object results in undefined behavior.",
+          "kind": "problem",
+          "name": "Storing lambda object capturing an object by reference in a member or global variable",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "MovedLambdaObjectOutlivesCaptureByReference",
+          "shared_implementation_short_name": "DanglingCaptureWhenMovingLambdaObject",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "A lambda expression object shall not outlive any of its reference-captured objects."
+    },
+    "A5-1-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Providing an explicit non-void return type helps prevent confusion on the type being returned.",
+          "kind": "problem",
+          "name": "Return type of a non-void return type lambda expression should be explicitly specified",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LambdaWithImplicitNonVoidReturnType",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Return type of a non-void return type lambda expression should be explicitly specified."
+    },
+    "A5-1-7": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Each lambda expression has a unique type and the result when passed to decltype can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "A lambda shall not be an operand to decltype",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LambdaPassedToDecltype",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Each lambda expression has a unique type and the result when passed to typeid can result in unexpected behavior.",
+          "kind": "path-problem",
+          "name": "A lambda shall not be an operand to typeid",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LambdaPassedToTypeid",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A lambda shall not be an operand to decltype or typeid."
+    },
+    "A5-1-8": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A lambda expression defined inside another lambda expression decreases the readability of the code.",
+          "kind": "problem",
+          "name": "Lambda expressions should not be defined inside another lambda expression",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "LambdaExpressionInLambdaExpression",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Lambda expressions should not be defined inside another lambda expression."
+    },
+    "A5-1-9": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Identical unnamed lambda expressions shall be replaced with a named function or a named lambda expression to improve code readability and maintainability.",
+          "kind": "problem",
+          "name": "Identical unnamed lambda expressions shall be replaced with a named function or a named lambda",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "IdenticalLambdaExpressions",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Identical unnamed lambda expressions shall be replaced with a named function or a named lambda expression."
+    }
+  },
+  "CERT-C++": {
+    "EXP61-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Invoking a lambda object's function call operator on a lambda object with an object captured by reference that no longer references a valid object results in undefined behavior.",
+          "kind": "problem",
+          "name": "Function returning a lambda object that captures objects by reference",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ReturningLambdaObjectWithCaptureByReference",
+          "shared_implementation_short_name": "DanglingCaptureWhenReturningLambdaObject",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "Invoking a lambda object's function call operator on a lambda object with an object captured by reference that no longer references a valid object results in undefined behavior.",
+          "kind": "problem",
+          "name": "Storing lambda object capturing an object by reference in a member or global variable",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "EscapingLambdaObjectWithCaptureByReference",
+          "shared_implementation_short_name": "DanglingCaptureWhenMovingLambdaObject",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "A lambda object must not outlive any of its reference captured objects"
+    }
+  }
+}

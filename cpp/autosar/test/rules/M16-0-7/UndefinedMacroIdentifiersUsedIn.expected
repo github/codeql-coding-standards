@@ -1,0 +1,4 @@
+| test.cpp:3:1:3:10 | #if NOTDEF | #if/#elif that uses a macro identifier NOTDEF that may be undefined. |
+| test.cpp:25:1:25:31 | #if defined(MACROONE) \|\| NOTDEF | #if/#elif that uses a macro identifier NOTDEF that may be undefined. |
+| test.cpp:29:1:29:32 | #if defined (MACROONE) \|\| NOTDEF | #if/#elif that uses a macro identifier NOTDEF that may be undefined. |
+| test.cpp:39:1:39:12 | #if MACROTWO | #if/#elif that uses a macro identifier MACROTWO that may be undefined. |

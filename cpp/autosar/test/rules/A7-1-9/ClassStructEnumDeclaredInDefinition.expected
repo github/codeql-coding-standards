@@ -1,0 +1,13 @@
+| test.cpp:1:32:1:36 | color | Variable declared in the definition of its type $@ | test.cpp:1:32:1:36 | color | COLOR |
+| test.cpp:5:33:5:38 | color1 | Variable declared in the definition of its type $@ | test.cpp:5:33:5:38 | color1 | COLOR1 |
+| test.cpp:5:41:5:47 | color11 | Variable declared in the definition of its type $@ | test.cpp:5:41:5:47 | color11 | COLOR1 |
+| test.cpp:17:3:17:5 | rgb | Variable declared in the definition of its type $@ | test.cpp:17:3:17:5 | rgb | RGB |
+| test.cpp:25:3:25:6 | rgb1 | Variable declared in the definition of its type $@ | test.cpp:25:3:25:6 | rgb1 | RGB1 |
+| test.cpp:25:9:25:13 | rgb11 | Variable declared in the definition of its type $@ | test.cpp:25:9:25:13 | rgb11 | RGB1 |
+| test.cpp:39:34:39:38 | color | Variable declared in the definition of its type $@ | test.cpp:39:34:39:38 | color | COLOR |
+| test.cpp:43:35:43:40 | color1 | Variable declared in the definition of its type $@ | test.cpp:43:35:43:40 | color1 | COLOR1 |
+| test.cpp:43:43:43:49 | color11 | Variable declared in the definition of its type $@ | test.cpp:43:43:43:49 | color11 | COLOR1 |
+| test.cpp:55:5:55:7 | rgb | Variable declared in the definition of its type $@ | test.cpp:55:5:55:7 | rgb | RGB |
+| test.cpp:63:5:63:8 | rgb1 | Variable declared in the definition of its type $@ | test.cpp:63:5:63:8 | rgb1 | RGB1 |
+| test.cpp:63:11:63:15 | rgb11 | Variable declared in the definition of its type $@ | test.cpp:63:11:63:15 | rgb11 | RGB1 |
+| test.cpp:82:19:82:19 | a | Variable declared in the definition of its type $@ | test.cpp:82:19:82:19 | a | A1 |

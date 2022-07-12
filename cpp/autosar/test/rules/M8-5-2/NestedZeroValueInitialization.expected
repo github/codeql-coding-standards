@@ -1,0 +1,10 @@
+| test.cpp:43:16:43:17 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:43:20:43:21 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:43:24:43:25 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:43:28:43:29 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:44:16:44:18 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:44:21:44:23 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:44:26:44:28 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:44:31:44:33 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:52:16:52:17 | {...} | Nested aggregate literal intialized with a leading zero. |
+| test.cpp:55:10:55:12 | {...} | Nested aggregate literal intialized with a leading zero. |

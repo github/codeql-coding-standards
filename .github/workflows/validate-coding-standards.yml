@@ -1,0 +1,124 @@
+name: Validating Coding Standards
+
+on:
+  push:
+    branches:
+      - main
+      - 'rc/**'
+  pull_request:
+    branches:
+      - main
+      - 'rc/**'
+
+env:
+  XARGS_MAX_PROCS: 4
+
+jobs:
+  validate-package-files:
+    name: Validate Package Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install generate_package_files.py dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Validate Package Descriptions
+        run: |
+          python scripts/validate-rule-package.py rule_packages/*.json
+
+      - name: Validate Package Descriptions consistency
+        run: |
+          python scripts/verify_rule_package_consistency.py
+
+      - name: Validate Package Files
+        run: |
+          find rule_packages/ -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python3 scripts/generate_rules/generate_package_files.py
+          git diff
+          git diff --compact-summary
+          git diff --quiet
+
+  validate-codeql-format:
+    name: "Validate CodeQL Format"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Fetch CodeQL
+        run: |
+          TAG="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
+          gh release download $TAG --repo https://github.com/github/codeql-cli-binaries --pattern codeql-linux64.zip
+          unzip -q codeql-linux64.zip
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Validate CodeQL Format
+        run: |
+          find cpp -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql/codeql query format --in-place
+          git diff
+          git diff --compact-summary
+          git diff --quiet
+
+  validate-query-help-files:
+    name: Validate Query Help Files
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['cpp']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Fetch CodeQL
+        run: |
+          gh release download --repo https://github.com/github/codeql-cli-binaries --pattern codeql-linux64.zip
+          unzip -q codeql-linux64.zip
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Validate Query Help Files
+        run: |
+          qhelp_output=$(( codeql/codeql generate query-help --format=markdown --output=${{ matrix.language }}/qhelp-markdown-dump ${{ matrix.language }} ) 2>&1 )
+          qhelp_count=$(find ${{ matrix.language }} -name \*.ql -or -name \*.qhelp | wc -l)
+
+          if [[ $qhelp_output ]]; then
+            errors=$( echo "$qhelp_output" | grep -v '/test/' || [[ $? == 1 ]] )
+            if [[ $errors ]]; then
+              echo "There are errors with the qhelp files: "
+              echo "$errors"
+              exit 1
+            else
+              echo "Disregarding tests..."
+              echo "Query help files look good."
+            fi
+          elif [[ ! $qhelp_output && qhelp_count -gt 0 ]]; then
+            echo "Query help files look good."
+          else
+            echo "There are no query help files to analyze."
+          fi
+
+  validate-cpp-test-files:
+    name: Validate C++ Test Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get install --yes --quiet --no-install-recommends clang-format
+          echo "::debug::$(clang-format -version)"
+
+      - name: Validate C++ Test Files
+        run: |
+          if ! test -f .clang-format; then
+            echo "Cannot find .clang-format in '$PWD'. Exiting..."
+          fi
+          
+          find cpp/*/test -name \*.cpp -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" clang-format --style=file -i --verbose
+          git diff
+          git diff --compact-summary
+          git diff --quiet

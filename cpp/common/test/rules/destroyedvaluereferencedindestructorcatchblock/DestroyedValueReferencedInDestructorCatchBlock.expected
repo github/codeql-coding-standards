@@ -1,0 +1,7 @@
+| test.cpp:11:9:11:14 | this | Reference to member or base class of an object in catch handler for $@. | test.cpp:10:3:10:8 | ClassA | ClassA |
+| test.cpp:12:7:12:12 | this | Reference to member or base class of an object in catch handler for $@. | test.cpp:10:3:10:8 | ClassA | ClassA |
+| test.cpp:14:5:14:8 | this | Reference to member or base class of an object in catch handler for $@. | test.cpp:10:3:10:8 | ClassA | ClassA |
+| test.cpp:15:5:15:10 | this | Reference to member or base class of an object in catch handler for $@. | test.cpp:10:3:10:8 | ClassA | ClassA |
+| test.cpp:16:5:16:16 | this | Reference to member or base class of an object in catch handler for $@. | test.cpp:10:3:10:8 | ClassA | ClassA |
+| test.cpp:21:11:21:16 | this | Reference to member or base class of an object in catch handler for $@. | test.cpp:10:3:10:8 | ClassA | ClassA |
+| test.cpp:22:9:22:14 | this | Reference to member or base class of an object in catch handler for $@. | test.cpp:10:3:10:8 | ClassA | ClassA |

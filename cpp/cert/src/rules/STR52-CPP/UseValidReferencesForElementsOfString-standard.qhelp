@@ -1,0 +1,249 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>Since <code>std::basic_string</code> is a container of characters, this rule is a specific instance of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CTR51-CPP.+Use+valid+references%2C+pointers%2C+and+iterators+to+reference+elements+of+a+container">CTR51-CPP. Use valid references, pointers, and iterators to reference elements of a container</a>. As a container, it supports iterators just like other containers in the Standard Template Library. However, the <code>std::basic_string</code> template class has unusual invalidation semantics. The C++ Standard, [string.require], paragraph 5 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <blockquote>
+   <p>References, pointers, and iterators referring to the elements of a <code>basic_string</code> sequence may be invalidated by the following uses of that <code>basic_string</code> object:</p>
+   <ul>
+    <li>As an argument to any standard library function taking a reference to non-const <code>basic_string</code> as an argument.</li>
+    <li>Calling non-const member functions, except <code>operator[]</code>, <code>at</code>, <code>front</code>, <code>back</code>, <code>begin</code>, <code>rbegin</code>, <code>end</code>, and <code>rend</code>.</li>
+   </ul>
+  </blockquote>
+  <p>Examples of standard library functions taking a reference to non-<code>const</code> <code>std::basic_string</code> are <code>std::swap()</code>, <code>::operator&gt;&gt;(basic_istream &amp;, string &amp;)</code>, and <code>std::getline()</code>.</p>
+  <p>Do not use an invalidated reference, pointer, or iterator because doing so results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <p>Noncompliant Code Example</p>
+  <p>This noncompliant code example copies <code>input</code> into a <code>std::string</code>, replacing semicolon (<code>;)</code> characters with spaces. This example is noncompliant because the iterator <code>loc</code> is invalidated after the first call to <code>insert()</code>. The behavior of subsequent calls to <code>insert()</code> is undefined.</p>
+  <sample language="cpp">#include &lt;string&gt;
+ 
+void f(const std::string &amp;input) {
+  std::string email;
+
+  // Copy input into email converting ";" to " "
+  std::string::iterator loc = email.begin();
+  for (auto i = input.begin(), e = input.end(); i != e; ++i, ++loc) {
+    email.insert(loc, *i != ';' ? *i : ' ');
+  }
+}</sample>
+ </section>
+ <section title="Compliant Solution (std::string::insert())">
+  <p>In this compliant solution, the value of the iterator <code>loc</code> is updated as a result of each call to <code>insert()</code> so that the invalidated iterator is never accessed. The updated iterator is then incremented at the end of the loop.</p>
+  <sample language="cpp">#include &lt;string&gt;
+ 
+void f(const std::string &amp;input) {
+  std::string email;
+
+  // Copy input into email converting ";" to " "
+  std::string::iterator loc = email.begin();
+  for (auto i = input.begin(), e = input.end(); i != e; ++i, ++loc) {
+    loc = email.insert(loc, *i != ';' ? *i : ' ');
+  }
+}
+</sample>
+ </section>
+ <section title="Compliant Solution (std::replace())">
+  <p>This compliant solution uses a standard algorithm to perform the replacement. When possible, using a generic algorithm is preferable to inventing your own solution.</p>
+  <sample language="cpp">#include &lt;algorithm&gt;
+#include &lt;string&gt;
+ 
+void f(const std::string &amp;input) {
+  std::string email{input};
+  std::replace(email.begin(), email.end(), ';', ' ');
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, <code>data</code> is invalidated after the call to <code>replace()</code>, and so its use in <code>g()</code> is undefined behavior.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+ 
+extern void g(const char *);
+ 
+void f(std::string &amp;exampleString) {
+  const char *data = exampleString.data();
+  // ...
+  exampleString.replace(0, 2, "bb");
+  // ...
+  g(data);
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>In this compliant solution, the pointer to <code>exampleString</code>'s internal buffer is not generated until after the modification from <code>replace()</code> has completed.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+extern void g(const char *);
+
+void f(std::string &amp;exampleString) {
+  // ...
+  exampleString.replace(0, 2, "bb");
+  // ...
+  g(exampleString.data());
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>Using an invalid reference, pointer, or iterator to a string object could allow an attacker to run arbitrary code.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      STR52-CPP
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      Probable
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      <strong>P6</strong>
+     </td>
+     <td>
+      <strong>L2</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>ALLOC.UAF</strong>
+     </td>
+     <td>
+      Use After Free
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++4746, C++4747, C++4748, C++4749</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-STR52-a</strong>
+     </td>
+     <td>
+      Use valid references, pointers, and iterators to reference elements of a basic_string
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+STR38-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682">
+       SEI CERT C++ Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CTR51-CPP.+Use+valid+references%2C+pointers%2C+and+iterators+to+reference+elements+of+a+container">
+       CTR51-CPP. Use valid references, pointers, and iterators to reference elements of a container
+      </a>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 21.4.1, "
+      <code>basic_string</code>
+      General Requirements"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Meyers01">
+       Meyers 2001
+      </a>
+      ]
+     </td>
+     <td>
+      Item 43, "Prefer Algorithm Calls to Hand-written Loops"
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

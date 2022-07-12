@@ -1,0 +1,4 @@
+| test.cpp:12:8:12:8 | C | Declaration of $@ in struct $@ is not a data field. | test.cpp:14:8:14:9 | f1 | f1 | test.cpp:12:8:12:8 | C | C |
+| test.cpp:17:8:17:8 | D | Declaration of $@ in struct $@ is not a data field. | test.cpp:20:8:20:9 | f1 | f1 | test.cpp:17:8:17:8 | D | D |
+| test.cpp:23:8:23:8 | E | Declaration of $@ in struct $@ is not a data field. | test.cpp:26:8:26:9 | f1 | f1 | test.cpp:23:8:23:8 | E | E |
+| test.cpp:29:8:29:8 | F | Declaration of $@ in struct $@ is not a data field. | test.cpp:32:9:32:10 | C1 | C1 | test.cpp:29:8:29:8 | F | F |

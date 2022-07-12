@@ -1,0 +1,4 @@
+| test.cpp:4:8:4:18 | ... + ... | Mixed use of the $@ operator with the $@ operator. | test.cpp:4:8:4:11 | ... ++ | increment (++) | test.cpp:4:8:4:18 | ... + ... | + |
+| test.cpp:4:8:4:18 | ... + ... | Mixed use of the $@ operator with the $@ operator. | test.cpp:4:15:4:18 | ... -- | decrement (++) | test.cpp:4:8:4:18 | ... + ... | + |
+| test.cpp:5:8:5:18 | ... * ... | Mixed use of the $@ operator with the $@ operator. | test.cpp:5:8:5:11 | ++ ... | increment (++) | test.cpp:5:8:5:18 | ... * ... | * |
+| test.cpp:5:8:5:18 | ... * ... | Mixed use of the $@ operator with the $@ operator. | test.cpp:5:15:5:18 | -- ... | decrement (++) | test.cpp:5:8:5:18 | ... * ... | * |

@@ -1,0 +1,2 @@
+| test.cpp:2:20:2:20 | i | Loop counter modified within the condition in a for loop. |
+| test.cpp:9:38:9:38 | x | Loop counter modified within the condition in a for loop. |

@@ -1,0 +1,1 @@
+| test.cpp:6:6:6:15 | operator== | Comparison operators shall be non-member functions with identical parameter types and noexcept. |

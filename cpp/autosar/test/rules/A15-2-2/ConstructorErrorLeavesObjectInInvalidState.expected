@@ -1,0 +1,62 @@
+edges
+| test.cpp:12:16:12:27 | new [bad_alloc] | test.cpp:14:33:16:5 | { ... } [bad_alloc] |
+| test.cpp:13:7:13:28 | throw ... [exception] | test.cpp:14:33:16:5 | { ... } [exception] |
+| test.cpp:14:33:16:5 | { ... } [bad_alloc] | test.cpp:15:7:15:11 | re-throw exception  [bad_alloc] |
+| test.cpp:14:33:16:5 | { ... } [exception] | test.cpp:15:7:15:11 | re-throw exception  [exception] |
+| test.cpp:25:16:25:27 | new [bad_alloc] | test.cpp:27:33:30:5 | { ... } [bad_alloc] |
+| test.cpp:26:7:26:28 | throw ... [exception] | test.cpp:27:33:30:5 | { ... } [exception] |
+| test.cpp:27:33:30:5 | { ... } [bad_alloc] | test.cpp:29:7:29:11 | re-throw exception  [bad_alloc] |
+| test.cpp:27:33:30:5 | { ... } [exception] | test.cpp:29:7:29:11 | re-throw exception  [exception] |
+| test.cpp:44:16:44:27 | call to CreateMember [bad_alloc] | test.cpp:46:33:48:5 | { ... } [bad_alloc] |
+| test.cpp:45:7:45:28 | throw ... [exception] | test.cpp:46:33:48:5 | { ... } [exception] |
+| test.cpp:46:33:48:5 | { ... } [bad_alloc] | test.cpp:47:7:47:11 | re-throw exception  [bad_alloc] |
+| test.cpp:46:33:48:5 | { ... } [exception] | test.cpp:47:7:47:11 | re-throw exception  [exception] |
+| test.cpp:58:16:58:27 | call to CreateMember [bad_alloc] | test.cpp:60:33:63:5 | { ... } [bad_alloc] |
+| test.cpp:59:7:59:28 | throw ... [exception] | test.cpp:60:33:63:5 | { ... } [exception] |
+| test.cpp:60:33:63:5 | { ... } [bad_alloc] | test.cpp:62:7:62:11 | re-throw exception  [bad_alloc] |
+| test.cpp:60:33:63:5 | { ... } [exception] | test.cpp:62:7:62:11 | re-throw exception  [exception] |
+| test.cpp:80:13:80:22 | new [bad_alloc] | test.cpp:82:33:86:5 | { ... } [bad_alloc] |
+| test.cpp:81:13:81:22 | new [bad_alloc] | test.cpp:82:33:86:5 | { ... } [bad_alloc] |
+| test.cpp:82:33:86:5 | { ... } [bad_alloc] | test.cpp:85:7:85:11 | re-throw exception  [bad_alloc] |
+nodes
+| test.cpp:12:16:12:27 | new [bad_alloc] |
+| test.cpp:13:7:13:28 | throw ... [exception] |
+| test.cpp:14:33:16:5 | { ... } [bad_alloc] |
+| test.cpp:14:33:16:5 | { ... } [exception] |
+| test.cpp:15:7:15:11 | re-throw exception  [bad_alloc] |
+| test.cpp:15:7:15:11 | re-throw exception  [exception] |
+| test.cpp:25:16:25:27 | new [bad_alloc] |
+| test.cpp:26:7:26:28 | throw ... [exception] |
+| test.cpp:27:33:30:5 | { ... } [bad_alloc] |
+| test.cpp:27:33:30:5 | { ... } [exception] |
+| test.cpp:29:7:29:11 | re-throw exception  [bad_alloc] |
+| test.cpp:29:7:29:11 | re-throw exception  [exception] |
+| test.cpp:44:16:44:27 | call to CreateMember [bad_alloc] |
+| test.cpp:45:7:45:28 | throw ... [exception] |
+| test.cpp:46:33:48:5 | { ... } [bad_alloc] |
+| test.cpp:46:33:48:5 | { ... } [exception] |
+| test.cpp:47:7:47:11 | re-throw exception  [bad_alloc] |
+| test.cpp:47:7:47:11 | re-throw exception  [exception] |
+| test.cpp:58:16:58:27 | call to CreateMember [bad_alloc] |
+| test.cpp:59:7:59:28 | throw ... [exception] |
+| test.cpp:60:33:63:5 | { ... } [bad_alloc] |
+| test.cpp:60:33:63:5 | { ... } [exception] |
+| test.cpp:62:7:62:11 | re-throw exception  [bad_alloc] |
+| test.cpp:62:7:62:11 | re-throw exception  [exception] |
+| test.cpp:77:11:77:20 | new [bad_alloc] |
+| test.cpp:78:11:78:20 | new [bad_alloc] |
+| test.cpp:80:13:80:22 | new [bad_alloc] |
+| test.cpp:81:13:81:22 | new [bad_alloc] |
+| test.cpp:82:33:86:5 | { ... } [bad_alloc] |
+| test.cpp:85:7:85:11 | re-throw exception  [bad_alloc] |
+| test.cpp:87:11:87:20 | new [bad_alloc] |
+#select
+| test.cpp:9:3:9:8 | ClassA | test.cpp:13:7:13:28 | throw ... [exception] | test.cpp:15:7:15:11 | re-throw exception  [exception] | Constructor throws $@ and allocates memory at $@ | test.cpp:15:7:15:11 | re-throw exception  | std::bad_alloc | test.cpp:12:16:12:27 | new | alloc |
+| test.cpp:9:3:9:8 | ClassA | test.cpp:13:7:13:28 | throw ... [exception] | test.cpp:15:7:15:11 | re-throw exception  [exception] | Constructor throws $@ and allocates memory at $@ | test.cpp:15:7:15:11 | re-throw exception  | std::exception | test.cpp:12:16:12:27 | new | alloc |
+| test.cpp:41:3:41:8 | ClassC | test.cpp:45:7:45:28 | throw ... [exception] | test.cpp:47:7:47:11 | re-throw exception  [exception] | Constructor throws $@ and allocates memory at $@ | test.cpp:47:7:47:11 | re-throw exception  | std::bad_alloc | test.cpp:44:16:44:27 | call to CreateMember | alloc |
+| test.cpp:41:3:41:8 | ClassC | test.cpp:45:7:45:28 | throw ... [exception] | test.cpp:47:7:47:11 | re-throw exception  [exception] | Constructor throws $@ and allocates memory at $@ | test.cpp:47:7:47:11 | re-throw exception  | std::exception | test.cpp:44:16:44:27 | call to CreateMember | alloc |
+| test.cpp:75:3:75:8 | ClassE | test.cpp:78:11:78:20 | new [bad_alloc] | test.cpp:78:11:78:20 | new [bad_alloc] | Constructor throws $@ and allocates memory at $@ | test.cpp:78:11:78:20 | new | std::bad_alloc | test.cpp:77:11:77:20 | new | alloc |
+| test.cpp:75:3:75:8 | ClassE | test.cpp:87:11:87:20 | new [bad_alloc] | test.cpp:87:11:87:20 | new [bad_alloc] | Constructor throws $@ and allocates memory at $@ | test.cpp:87:11:87:20 | new | std::bad_alloc | test.cpp:77:11:77:20 | new | alloc |
+| test.cpp:75:3:75:8 | ClassE | test.cpp:87:11:87:20 | new [bad_alloc] | test.cpp:87:11:87:20 | new [bad_alloc] | Constructor throws $@ and allocates memory at $@ | test.cpp:87:11:87:20 | new | std::bad_alloc | test.cpp:78:11:78:20 | new | alloc |
+| test.cpp:75:3:75:8 | ClassE | test.cpp:87:11:87:20 | new [bad_alloc] | test.cpp:87:11:87:20 | new [bad_alloc] | Constructor throws $@ and allocates memory at $@ | test.cpp:87:11:87:20 | new | std::bad_alloc | test.cpp:80:13:80:22 | new | alloc |
+| test.cpp:75:3:75:8 | ClassE | test.cpp:87:11:87:20 | new [bad_alloc] | test.cpp:87:11:87:20 | new [bad_alloc] | Constructor throws $@ and allocates memory at $@ | test.cpp:87:11:87:20 | new | std::bad_alloc | test.cpp:81:13:81:22 | new | alloc |

@@ -1,0 +1,286 @@
+{
+    "AUTOSAR": {
+        "A16-0-1": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+            {
+                "description": "The pre-processor shall only be used for unconditional and conditional file inclusion and include guards, and using the following directives: (1) #ifndef, #ifdef, (3) #if, (4) #if defined, (5) #elif, (6) #else, (7) #define, (8) #endif, (9) #include.",
+                "kind": "problem",
+                "name": "The pre-processor shall only be used for unconditional and conditional file inclusion and include",
+                "precision": "very-high",
+                "severity": "error",
+                "short_name": "PreProcessorShallOnlyBeUsedForCertainDirectivesPatterns",
+                "tags": [
+                    "maintainability",
+                    "readability",
+                    "external/autosar/strict"
+                ]
+                }
+            ],
+            "title": "The pre-processor shall only be used for unconditional and conditional file inclusion and include guards, and using the following directives: (1) #ifndef, #ifdef, (3) #if, (4) #if defined, (5) #elif, (6) #else, (7) #define, (8) #endif, (9) #include."
+        },
+        "A16-2-1": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "Using any of the following characters in an '#include' directive as a part of the header file name is undefined behaviour: ', \", /*, //, \\.",
+                    "kind": "problem",
+                    "name": "The ', \", /*, //, \\ characters shall not occur in a header file name or in #include directive",
+                    "precision": "very-high",
+                    "severity": "error",
+                    "short_name": "CharactersOccurInHeaderFileNameOrInIncludeDirective",
+                    "tags": [
+                        "correctness"
+                    ]
+                }
+            ],
+            "title": "The ', \", /*, //, \\ characters shall not occur in a header file name or in #include directive."
+        },
+        "A16-6-1": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "The '#error' directive makes code harder to read.",
+                    "kind": "problem",
+                    "name": "#error directive shall not be used",
+                    "precision": "very-high",
+                    "severity": "warning",
+                    "short_name": "ErrorDirectiveUsed",
+                    "tags": [
+                        "readability"
+                    ]
+                }
+            ],
+            "title": "#error directive shall not be used."
+        },
+        "A16-7-1": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "The '#pragma' directive is implementation defined and therefore can be inconsistent or hard to understand.",
+                    "kind": "problem",
+                    "name": "The #pragma directive shall not be used",
+                    "precision": "very-high",
+                    "severity": "warning",
+                    "short_name": "PragmaDirectiveUsed",
+                    "tags": [
+                        "readability",
+                        "correctness"
+                    ]
+                }
+            ],
+            "title": "The #pragma directive shall not be used."
+        },
+        "M16-0-1": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "Using anything other than other pre-processor directives or comments before an '#include' directive makes the code more difficult to read.",
+                    "kind": "problem",
+                    "name": "#include directives in a file shall only be preceded by other pre-processor directives or comments",
+                    "precision": "very-high",
+                    "severity": "warning",
+                    "short_name": "IncludeDirectivesNotPrecededByDirectivesOrComments",
+                    "tags": [
+                        "readability"
+                    ]
+                }
+            ],
+            "title": "#include directives in a file shall only be preceded by other pre-processor directives or comments."
+        },
+        "M16-0-2": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "Macros have unrestricted scope, therefore defining them in anything other than global namespace can make the code confusing to read.",
+                    "kind": "problem",
+                    "name": "Macros shall only be #define'd or #undef'd in the global namespace",
+                    "precision": "very-high",
+                    "severity": "warning",
+                    "short_name": "MacrosShallOnlyBeDefinedOrUndefdInTheGlobalNamespace",
+                    "tags": [
+                        "readability"
+                    ]
+                }
+            ],
+            "title": "Macros shall only be #define'd or #undef'd in the global namespace."
+        },
+        "M16-0-5": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "Arguments to a function-like macro shall not contain tokens that look like pre-processing directives or else behaviour after macro expansion is unpredictable.",
+                    "kind": "problem",
+                    "name": "Arguments to a function-like macro shall not contain tokens that look like pre-processing directives",
+                    "precision": "very-high",
+                    "severity": "warning",
+                    "short_name": "FunctionLikeMacroArgsContainHashToken",
+                    "tags": [
+                        "readability",
+                        "correctness"
+                    ]
+                }
+            ],
+            "title": "Arguments to a function-like macro shall not contain tokens that look like pre-processing directives."
+        },
+        "M16-0-6": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "In the definition of a function-like macro, each instance of a parameter shall be enclosed in parentheses, otherwise the result of preprocessor macro substitition may not be as expected.",
+                    "kind": "problem",
+                    "name": "In the definition of a function-like macro, each instance of a parameter shall be enclosed in parentheses",
+                    "precision": "very-high",
+                    "severity": "warning",
+                    "short_name": "FunctionLikeMacroParameterNotEnclosedInParentheses",
+                    "tags": [
+                        "correctness",
+                        "readability"
+                    ]
+                }
+            ],
+            "title": "In the definition of a function-like macro, each instance of a parameter shall be enclosed in parentheses, unless it is used as the operand of # or ##."
+        },
+        "M16-0-7": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "Using undefined macro identifiers in #if or #elif pre-processor directives, except as operands to the defined operator, can cause the code to be hard to understand because the preprocessor will just treat the value as 0 and no warning is given.",
+                    "kind": "problem",
+                    "name": "Undefined macro identifiers shall not be used in #if or #elif pre-processor directives, except as operands to the defined operator",
+                    "precision": "high",
+                    "severity": "warning",
+                    "short_name": "UndefinedMacroIdentifiersUsedIn",
+                    "tags": [
+                        "correctness",
+                        "readability"
+                    ]
+                }
+            ],
+            "title": "Undefined macro identifiers shall not be used in #if or #elif pre-processor directives, except as operands to the defined operator."
+        },
+        "M16-1-1": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "Uses of 'defined' pre-processor operator in anything other than standard form is either constraint violation or undefined behaviour.",
+                    "kind": "problem",
+                    "name": "The defined pre-processor operator shall only be used in one of the two standard forms",
+                    "precision": "very-high",
+                    "severity": "error",
+                    "short_name": "DefinedPreProcessorOperatorInOneOfTheTwoStandardForms",
+                    "tags": [
+                        "correctness"
+                    ]
+                }
+            ],
+            "title": "The defined pre-processor operator shall only be used in one of the two standard forms."
+        },
+        "M16-3-1": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "required"
+            },
+            "queries": [
+                {
+                    "description": "The order of evaluation for the '#' and '##' operators may differ between compilers, which can cause unexpected behaviour if more than one '#' or '##' operator is used.",
+                    "kind": "problem",
+                    "name": "There shall be at most one occurrence of the # or ## operators in a single macro definition",
+                    "precision": "very-high",
+                    "severity": "warning",
+                    "short_name": "MoreThanOneOccurrenceHashOperatorInMacroDefinition",
+                    "tags": [
+                        "correctness"
+                    ]
+                }
+            ],
+            "title": "There shall be at most one occurrence of the # or ## operators in a single macro definition."
+        },
+        "M16-3-2": {
+            "properties": {
+                "allocated-target": [
+                    "implementation"
+                ],
+                "enforcement": "automated",
+                "obligation": "advisory"
+            },
+            "queries": [
+                {
+                    "description": "The order of evaluation for the '#' and '##' operators may differ between compilers, which can cause unexpected behaviour.",
+                    "kind": "problem",
+                    "name": "The # and ## operators should not be used",
+                    "precision": "very-high",
+                    "severity": "warning",
+                    "short_name": "HashOperatorsShouldNotBeUsed",
+                    "tags": [
+                        "correctness"
+                    ]
+                }
+            ],
+            "title": "The # and ## operators should not be used."
+        }
+    }
+}

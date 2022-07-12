@@ -1,0 +1,2 @@
+| test.cpp:20:7:20:10 | HW_A | Data type used for hardware interface or communication protocol is not standard layout and trivial. |
+| test.cpp:28:7:28:11 | HW_A1 | Data type used for hardware interface or communication protocol is not standard layout and trivial. |

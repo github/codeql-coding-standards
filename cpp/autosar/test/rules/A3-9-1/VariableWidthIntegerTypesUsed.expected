@@ -1,0 +1,14 @@
+| test.cpp:4:8:4:8 | c | Variable 'c' has variable-width type. |
+| test.cpp:5:17:5:18 | uc | Variable 'uc' has variable-width type. |
+| test.cpp:6:15:6:16 | sc | Variable 'sc' has variable-width type. |
+| test.cpp:8:7:8:7 | i | Variable 'i' has variable-width type. |
+| test.cpp:9:16:9:17 | ui | Variable 'ui' has variable-width type. |
+| test.cpp:10:12:10:12 | u | Variable 'u' has variable-width type. |
+| test.cpp:11:14:11:15 | si | Variable 'si' has variable-width type. |
+| test.cpp:12:10:12:10 | s | Variable 's' has variable-width type. |
+| test.cpp:14:9:14:10 | sh | Variable 'sh' has variable-width type. |
+| test.cpp:15:18:15:20 | ush | Variable 'ush' has variable-width type. |
+| test.cpp:16:16:16:18 | ssh | Variable 'ssh' has variable-width type. |
+| test.cpp:18:8:18:8 | l | Variable 'l' has variable-width type. |
+| test.cpp:19:17:19:18 | ul | Variable 'ul' has variable-width type. |
+| test.cpp:20:15:20:16 | sl | Variable 'sl' has variable-width type. |

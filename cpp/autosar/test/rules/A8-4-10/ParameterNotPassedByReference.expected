@@ -1,0 +1,4 @@
+| test.cpp:13:29:13:30 | p1 | Parameter p1 is always dereferenced and therefore cannot be null but is a pointer parameter. |
+| test.cpp:21:38:21:39 | p1 | Parameter p1 is always dereferenced and therefore cannot be null but is a pointer parameter. |
+| test.cpp:23:37:23:38 | p1 | Parameter p1 is always dereferenced and therefore cannot be null but is a pointer parameter. |
+| test.cpp:25:35:25:36 | p1 | Parameter p1 is always dereferenced and therefore cannot be null but is a pointer parameter. |

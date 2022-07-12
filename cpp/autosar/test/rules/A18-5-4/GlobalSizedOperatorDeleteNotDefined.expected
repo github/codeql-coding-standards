@@ -1,0 +1,1 @@
+| test.cpp:1:6:1:20 | operator delete | Unsized function 'operator delete' defined globally without sized version. |

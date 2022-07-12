@@ -1,0 +1,4 @@
+| test.cpp:6:28:6:36 | operator+ | A non-member generic operator shall only be declared in a namespace that does not contain class (struct) type, enum type or union type declarations. |
+| test.cpp:26:28:26:36 | operator+ | A non-member generic operator shall only be declared in a namespace that does not contain class (struct) type, enum type or union type declarations. |
+| test.cpp:35:28:35:36 | operator+ | A non-member generic operator shall only be declared in a namespace that does not contain class (struct) type, enum type or union type declarations. |
+| test.cpp:45:28:45:36 | operator+ | A non-member generic operator shall only be declared in a namespace that does not contain class (struct) type, enum type or union type declarations. |

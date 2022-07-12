@@ -1,0 +1,1 @@
+| ImplicitCopyConstructorIsDeprecated.cpp:15:8:15:9 | a1 | Use of implicit copy constructor of class 'A' is deprecated. |

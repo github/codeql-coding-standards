@@ -1,0 +1,29 @@
+| file://:0:0:0:0 | (global namespace) | Element has external linkage |
+| test.cpp:1:5:1:6 | g1 | Element has external linkage |
+| test.cpp:2:12:2:13 | g2 | Element has external linkage |
+| test.cpp:7:11:7:13 | ns1 | Element has external linkage |
+| test.cpp:8:5:8:6 | l1 | Element has external linkage |
+| test.cpp:10:6:10:7 | f1 | Element has external linkage |
+| test.cpp:12:6:12:7 | e1 | Element has external linkage |
+| test.cpp:17:14:17:14 | e2 | Element has external linkage |
+| test.cpp:23:6:23:7 | f2 | Element has external linkage |
+| test.cpp:25:7:25:7 | C1 | Element has external linkage |
+| test.cpp:25:7:25:7 | operator= | Element has external linkage |
+| test.cpp:25:7:25:7 | operator= | Element has external linkage |
+| test.cpp:25:7:25:8 | C1 | Element has external linkage |
+| test.cpp:27:14:27:15 | m2 | Element has external linkage |
+| test.cpp:28:8:28:9 | m3 | Element has external linkage |
+| test.cpp:30:8:30:9 | e1 | Element has external linkage |
+| test.cpp:31:16:31:16 | e2 | Element has external linkage |
+| test.cpp:33:9:33:9 | operator= | Element has external linkage |
+| test.cpp:33:9:33:9 | operator= | Element has external linkage |
+| test.cpp:33:9:33:10 | C2 | Element has external linkage |
+| test.cpp:34:17:34:17 | operator= | Element has external linkage |
+| test.cpp:34:17:34:17 | operator= | Element has external linkage |
+| test.cpp:34:17:34:18 | C3 | Element has external linkage |
+| test.cpp:38:15:38:15 | (unnamed constructor) | Element has external linkage |
+| test.cpp:38:15:38:15 | operator= | Element has external linkage |
+| test.cpp:38:15:38:15 | operator= | Element has external linkage |
+| test.cpp:38:15:38:16 | C2 | Element has external linkage |
+| test.cpp:43:7:43:8 | C3<T> | Element has external linkage |
+| test.cpp:86:6:86:6 | g | Element has external linkage |

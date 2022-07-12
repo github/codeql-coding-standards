@@ -1,0 +1,2 @@
+| test.cpp:12:20:12:46 | dynamic_cast<Derived *>... | Use of dynamic_cast |
+| test.cpp:18:20:18:46 | dynamic_cast<Derived *>... | Use of dynamic_cast |

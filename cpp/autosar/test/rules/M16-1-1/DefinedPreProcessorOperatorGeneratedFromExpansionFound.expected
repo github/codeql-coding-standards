@@ -1,0 +1,2 @@
+| test.cpp:22:1:22:18 | #if DBLWRAPUSES(X) | The macro $@ expands to 'defined' | test.cpp:18:1:18:22 | #define BADDEF defined | BADDEF |
+| test.cpp:26:1:26:16 | #if BADDEFTWO(X) | The macro $@ expands to 'defined' | test.cpp:25:1:25:31 | #define BADDEFTWO(X) defined(X) | BADDEFTWO |

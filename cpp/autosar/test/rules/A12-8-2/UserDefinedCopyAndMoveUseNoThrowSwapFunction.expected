@@ -1,0 +1,2 @@
+| test.cpp:32:6:32:14 | operator= | User defined copy or move operator does not call no-except swap. |
+| test.cpp:44:6:44:14 | operator= | User defined copy or move operator does not call no-except swap. |

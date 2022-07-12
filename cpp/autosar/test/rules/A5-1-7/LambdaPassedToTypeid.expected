@@ -1,0 +1,12 @@
+edges
+| test.cpp:5:13:5:30 | [...](...){...} | test.cpp:8:38:8:39 | l1 |
+| test.cpp:6:13:6:30 | [...](...){...} | test.cpp:9:38:9:39 | l2 |
+nodes
+| test.cpp:5:13:5:30 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:6:13:6:30 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:8:38:8:39 | l1 | semmle.label | l1 |
+| test.cpp:9:38:9:39 | l2 | semmle.label | l2 |
+subpaths
+#select
+| test.cpp:8:38:8:39 | l1 | test.cpp:5:13:5:30 | [...](...){...} | test.cpp:8:38:8:39 | l1 | Lambda $@ passed as operand to typeid operator. | test.cpp:5:13:5:30 | [...](...){...} | expression |
+| test.cpp:9:38:9:39 | l2 | test.cpp:6:13:6:30 | [...](...){...} | test.cpp:9:38:9:39 | l2 | Lambda $@ passed as operand to typeid operator. | test.cpp:6:13:6:30 | [...](...){...} | expression |

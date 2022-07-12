@@ -1,0 +1,2 @@
+| test.cpp:9:7:9:7 | b | Field $@ of struct $@ is not public. | test.cpp:9:7:9:7 | b | b | test.cpp:5:8:5:8 | B | B |
+| test.cpp:25:7:25:7 | a | Field $@ of struct $@ is not public. | test.cpp:25:7:25:7 | a | a | test.cpp:23:8:23:8 | E | E |

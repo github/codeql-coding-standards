@@ -1,0 +1,347 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>When two pointers are subtracted, both must point to elements of the same array object or to one past the last element of the array object; the result is the difference of the subscripts of the two array elements. Similarly, when two iterators are subtracted (including via <code>std::distance()</code>), both iterators must refer to the same container object or must be obtained via a call to <code>end()</code> (or <code>cend()</code>) on the same container object.</p>
+  <p>If two unrelated iterators (including pointers) are subtracted, the operation results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]. Do not subtract two iterators (including pointers) unless both point into the same container or one past the end of the same container.</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>This noncompliant code example attempts to determine whether the pointer <code>test</code> is within the range <code>[r, r + n]</code>. However, when <code>test</code> does not point within the given range, as in this example, the subtraction produces undefined behavior.</p>
+  <sample language="cpp">#include &lt;cstddef&gt;
+#include &lt;iostream&gt;
+ 
+template &lt;typename Ty&gt;
+bool in_range(const Ty *test, const Ty *r, size_t n) {
+  return 0 &lt; (test - r) &amp;&amp; (test - r) &lt; (std::ptrdiff_t)n;
+}
+ 
+void f() {
+  double foo[10];
+  double *x = &amp;foo[0];
+  double bar;
+  std::cout &lt;&lt; std::boolalpha &lt;&lt; in_range(&amp;bar, x, 10);
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, the <code>in_range()</code> function is implemented using a comparison expression instead of subtraction. The C++ Standard, [expr.rel], paragraph 4 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <blockquote>
+   <p>If two operands <code>p</code> and <code>q</code> compare equal, <code>p&lt;=q</code> and <code>p&gt;=q</code> both yield <code>true</code> and <code>p&lt;q</code> and <code>p&gt;q</code> both yield <code>false</code>. Otherwise, if a pointer <code>p</code> compares greater than a pointer <code>q</code>, <code>p&gt;=q</code>, <code>p&gt;q</code>, <code>q&lt;=p</code>, and <code>q&lt;p</code> all yield <code>true</code> and <code>p&lt;=q</code>, <code>p&lt;q</code>, <code>q&gt;=p</code>, and <code>q&gt;p</code> all yield <code>false</code>. Otherwise, the result of each of the operators is unspecified.                                                                                 </p>
+  </blockquote>
+  <p>Thus, comparing two pointers that do not point into the same container or one past the end of the container results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedbehavior">unspecified behavior</a>. Although the following example is an improvement over the previous noncompliant code example, it does not result in portable code and may fail when executed on a segmented memory architecture (such as some antiquated x86 variants). Consequently, it is noncompliant.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
+template &lt;typename Ty&gt;
+bool in_range(const Ty *test, const Ty *r, size_t n) {
+  return test &gt;= r &amp;&amp; test &lt; (r + n);
+}
+ 
+void f() {
+  double foo[10];
+  double *x = &amp;foo[0];
+  double bar;
+  std::cout &lt;&lt; std::boolalpha &lt;&lt; in_range(&amp;bar, x, 10);
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>This noncompliant code example is roughly equivalent to the previous example, except that it uses iterators in place of raw pointers. As with the previous example, the <code>in_range_impl()</code> function exhibits <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedbehavior">unspecified behavior</a> when the iterators do not refer into the same container because the operational semantics of <code>a &lt; b</code> on a random access iterator are <code>b - a &gt; 0</code>, and <code>&gt;=</code> is implemented in terms of <code>&lt;</code>.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+#include &lt;iterator&gt;
+#include &lt;vector&gt;
+
+template &lt;typename RandIter&gt;
+bool in_range_impl(RandIter test, RandIter r_begin, RandIter r_end, std::random_access_iterator_tag) {
+  return test &gt;= r_begin &amp;&amp; test &lt; r_end;
+}
+ 
+template &lt;typename Iter&gt;
+bool in_range(Iter test, Iter r_begin, Iter r_end) {
+  typename std::iterator_traits&lt;Iter&gt;::iterator_category cat;
+  return in_range_impl(test, r_begin, r_end, cat);
+}
+ 
+void f() {
+  std::vector&lt;double&gt; foo(10);
+  std::vector&lt;double&gt; bar(1);
+  std::cout &lt;&lt; std::boolalpha &lt;&lt; in_range(bar.begin(), foo.begin(), foo.end());
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, <code>std::less&lt;&gt;</code> is used in place of the <code>&lt;</code> operator. The C++ Standard, [comparisons], paragraph 14 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <blockquote>
+   <p>For templates <code>greater</code>, <code>less</code>, <code>greater_equal</code>, and <code>less_equal</code>, the specializations for any pointer type yield a total order, even if the built-in operators <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> do not.</p>
+  </blockquote>
+  <p>Although this approach yields a total ordering, the definition of that total ordering is still unspecified by the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions">implementation</a>. For instance, the following statement could result in the assertion triggering for a given, unrelated pair of pointers, <code>a</code> and <code>b</code>: <code>assert(std::less&lt;T *&gt;()(a, b) == std::greater&lt;T *&gt;()(a, b));</code>. Consequently, this noncompliant code example is still nonportable and, on common implementations of <code>std::less&lt;&gt;</code>, may even result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> when the <code>&lt;</code> operator is invoked.</p>
+  <sample language="cpp">#include &lt;functional&gt;
+#include &lt;iostream&gt;
+ 
+template &lt;typename Ty&gt;
+bool in_range(const Ty *test, const Ty *r, size_t n) {
+  std::less&lt;const Ty *&gt; less;
+  return !less(test, r) &amp;&amp; less(test, r + n);
+}
+ 
+void f() {
+  double foo[10];
+  double *x = &amp;foo[0];
+  double bar;
+  std::cout &lt;&lt; std::boolalpha &lt;&lt; in_range(&amp;bar, x, 10);
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>This compliant solution demonstrates a fully portable, but likely inefficient, implementation of <code>in_range()</code> that compares <code>test</code> against each possible address in the range <code>[r, n]</code>. A compliant solution that is both efficient and fully portable is currently unknown.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
+template &lt;typename Ty&gt;
+bool in_range(const Ty *test, const Ty *r, size_t n) {
+  auto *cur = reinterpret_cast&lt;const unsigned char *&gt;(r);
+  auto *end = reinterpret_cast&lt;const unsigned char *&gt;(r + n);
+  auto *testPtr = reinterpret_cast&lt;const unsigned char *&gt;(test);
+ 
+  for (; cur != end; ++cur) {
+    if (cur == testPtr) {
+      return true;
+    }
+  }
+  return false;
+}
+ 
+void f() {
+  double foo[10];
+  double *x = &amp;foo[0];
+  double bar;
+  std::cout &lt;&lt; std::boolalpha &lt;&lt; in_range(&amp;bar, x, 10);
+}
+</sample>
+ </section>
+ <section title="Risk Assessment">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      CTR54-CPP
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      Probable
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      <strong>P8</strong>
+     </td>
+     <td>
+      <strong>L2</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=222953724">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>invalid_pointer_subtractioninvalid_pointer_comparison</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>LANG.STRUCT.CUP</strong>
+      <strong>LANG.STRUCT.SUP</strong>
+     </td>
+     <td>
+      Comparison of Unrelated Pointers
+      Subtraction of Unrelated Pointers
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++2668, C++2761, C++2762, C++2763, C++2766, C++2767, C++2768</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/LDRA">
+       LDRA tool suite
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+      <strong>70 S, 87 S, 437 S, 438 S</strong>
+     </td>
+     <td>
+      Enhanced Enforcement
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-CTR54-a</strong>
+      <strong>CERT_CPP-CTR54-b</strong>
+      <strong>CERT_CPP-CTR54-c</strong>
+     </td>
+     <td>
+      Do not compare iterators from different containers
+      Do not compare two unrelated pointers
+      Do not subtract two pointers that do not address elements of the same array
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046345">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>2668, 2761, 2762, 2763, 2766, 2767, 2768</strong>
+     </td>
+     <td>
+      Enforced by QA-CPP
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR36-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       SEI CERT C Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/ARR36-C.+Do+not+subtract+or+compare+two+pointers+that+do+not+refer+to+the+same+array">
+       ARR36-C. Do not subtract or compare two pointers that do not refer to the same array
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="http://cwe.mitre.org/">
+       MITRE CWE
+      </a>
+     </td>
+     <td>
+      <a href="http://cwe.mitre.org/data/definitions/469.html">
+       CWE-469
+      </a>
+      , Use of Pointer Subtraction to Determine Size
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Banahan03">
+       Banahan 2003
+      </a>
+      ]
+     </td>
+     <td>
+      Section 5.3, "Pointers"
+      Section 5.7, "Expressions Involving Pointers"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 5.7, "Additive Operators"
+      Subclause 5.9, "Relational Operators"
+      Subclause 20.9.5, "Comparisons"
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

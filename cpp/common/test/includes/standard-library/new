@@ -1,0 +1,34 @@
+#ifndef _GHLIBCPP_NEW
+#define _GHLIBCPP_NEW
+#include <exception>
+#include <memory>
+#include <stddef.h>
+
+namespace std {
+class bad_array_new_length;
+struct nothrow_t {};
+extern const nothrow_t nothrow;
+typedef void (*new_handler)();
+new_handler get_new_handler() noexcept;
+new_handler set_new_handler(new_handler new_p) noexcept;
+} // namespace std
+void *operator new(std::size_t size);
+void *operator new(std::size_t size, const std::nothrow_t &) noexcept;
+void operator delete(void *ptr) noexcept;
+void operator delete(void *ptr, const std::nothrow_t &) noexcept;
+void operator delete(void *ptr, std::size_t size) noexcept;
+void operator delete(void *ptr, std::size_t size,
+                     const std::nothrow_t &) noexcept;
+void *operator new[](std::size_t size);
+void *operator new[](std::size_t size, const std::nothrow_t &) noexcept;
+void operator delete[](void *ptr) noexcept;
+void operator delete[](void *ptr, const std::nothrow_t &) noexcept;
+void operator delete[](void *ptr, std::size_t size) noexcept;
+void operator delete[](void *ptr, std::size_t size,
+                       const std::nothrow_t &) noexcept;
+void *operator new(std::size_t size, void *ptr) noexcept;
+void *operator new[](std::size_t size, void *ptr) noexcept;
+void operator delete(void *ptr, void *) noexcept;
+void operator delete[](void *ptr, void *) noexcept;
+
+#endif // _GHLIBCPP_NEW

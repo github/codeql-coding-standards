@@ -1,0 +1,1 @@
+| PassNonTrivialObjectToVaStart.cpp:22:18:22:18 | f | A non-trivial object is passed to 'va_start'. |

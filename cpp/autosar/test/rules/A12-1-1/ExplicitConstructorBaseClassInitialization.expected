@@ -1,0 +1,7 @@
+| test.cpp:4:3:4:9 | Derived | Constructor for $@ does not explicitly call constructor for base class $@. | test.cpp:2:7:2:13 | Derived | Derived | test.cpp:1:7:1:10 | Base | Base |
+| test.cpp:23:3:23:10 | Derived4 | Constructor for $@ does not explicitly call constructor for base class $@. | test.cpp:21:7:21:14 | Derived4 | Derived4 | test.cpp:17:7:17:14 | Derived2 | Derived2 |
+| test.cpp:23:3:23:10 | Derived4 | Constructor for $@ does not explicitly call constructor for base class $@. | test.cpp:21:7:21:14 | Derived4 | Derived4 | test.cpp:19:7:19:14 | Derived3 | Derived3 |
+| test.cpp:23:3:23:10 | Derived4 | Constructor for $@ does not explicitly call constructor for virtual base class $@. | test.cpp:21:7:21:14 | Derived4 | Derived4 | test.cpp:15:7:15:17 | VirtualBase | VirtualBase |
+| test.cpp:25:3:25:10 | Derived4 | Constructor for $@ does not explicitly call constructor for virtual base class $@. | test.cpp:21:7:21:14 | Derived4 | Derived4 | test.cpp:15:7:15:17 | VirtualBase | VirtualBase |
+| test.cpp:40:3:40:10 | Derived5 | Constructor for $@ does not explicitly call constructor for base class $@. | test.cpp:38:7:38:14 | Derived5 | Derived5 | test.cpp:31:7:31:20 | NonTrivialBase | NonTrivialBase |
+| test.cpp:60:3:60:10 | Derived6 | Constructor for $@ does not explicitly call constructor for base class $@. | test.cpp:58:7:58:14 | Derived6 | Derived6 | test.cpp:56:7:56:11 | Base2 | Base2 |

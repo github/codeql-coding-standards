@@ -1,0 +1,2 @@
+| test.cpp:1:6:1:6 | C | Enum C is not a scoped enum. |
+| test.cpp:11:6:11:6 | D | Enum D is not a scoped enum. |

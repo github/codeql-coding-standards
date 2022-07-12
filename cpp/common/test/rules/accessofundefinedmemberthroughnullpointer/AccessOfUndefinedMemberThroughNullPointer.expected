@@ -1,0 +1,12 @@
+problems
+| test.cpp:10:3:10:13 | call to expression | test.cpp:8:22:8:28 | 0 | test.cpp:10:9:10:10 | l2 | A null pointer-to-member value from $@ is passed as the second operand to a pointer-to-member expression. | test.cpp:8:22:8:28 | test.cpp:8:22:8:28 | initialization |
+| test.cpp:11:8:11:9 | l3 | test.cpp:9:17:9:23 | 0 | test.cpp:11:8:11:9 | l3 | A null pointer-to-member value from $@ is passed as the second operand to a pointer-to-member expression. | test.cpp:9:17:9:23 | test.cpp:9:17:9:23 | initialization |
+edges
+| test.cpp:8:22:8:28 | 0 | test.cpp:10:9:10:10 | l2 |
+| test.cpp:9:17:9:23 | 0 | test.cpp:11:8:11:9 | l3 |
+nodes
+| test.cpp:8:22:8:28 | 0 | semmle.label | 0 |
+| test.cpp:9:17:9:23 | 0 | semmle.label | 0 |
+| test.cpp:10:9:10:10 | l2 | semmle.label | l2 |
+| test.cpp:11:8:11:9 | l3 | semmle.label | l3 |
+subpaths

@@ -1,0 +1,230 @@
+{
+  "AUTOSAR": {
+    "A17-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "It is generally bad practice to #undef a macro that is defined in the standard library. It is also bad practice to #define a macro name that is a C++ reserved identifier, or C++ keyword or the name of any macro, object or function in the standard library. For example, there are some specific reserved words and function names that are known to give rise to undefined behavior if they are redefined or undefined, including defined, __LINE__, __FILE__, __DATE__, __TIME__, __STDC__, errno and assert.",
+          "kind": "problem",
+          "name": "Reserved identifiers, macros and functions shall not be defined, redefined, or undefined",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ReservedIdentifiersMacrosAndFunctionsAreDefinedRedefinedOrUndefined",
+          "tags": [
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Reserved identifiers, macros and functions in the C++ standard library shall not be defined, redefined or undefined."
+    },
+    "A18-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "C libraries (e.g. <stdio.h>) also have corresponding C++ libraries (e.g. <cstdio>). This rule requires that the C++ version is used.",
+          "kind": "problem",
+          "name": "The C library facilities shall only be accessed through C++ library headers",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "CLibraryFacilitiesNotAccessedThroughCPPLibraryHeaders",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The C library facilities shall only be accessed through C++ library headers."
+    },
+    "A18-0-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A call to the setlocale function introduces a data race with other calls to setlocale function. It may also introduce a data race with calls to functions that are affected by the current locale settings: fprintf, isprint, iswdigit, localeconv, tolower, fscanf, ispunct, iswgraph, mblen, toupper, isalnum, isspace, iswlower, mbstowcs, towlower, isalpha, isupper, iswprint, mbtowc, towupper, isblank, iswalnum, iswpunct, setlocale, wcscoll, iscntrl, iswalpha, iswspace, strcoll, wcstod, isdigit, iswblank, iswupper, strerror, wcstombs, isgraph, iswcntrl, iswxdigit, strtod, wcsxfrm, islower, iswctype, isxdigit, strxfrm, wctomb.",
+          "kind": "problem",
+          "name": "The library <clocale> (locale.h) functions shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LocaleFunctionsUsed",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The locale library, which defines the macros LC_ALL, LC_COLLATE, LC_CTYPE, LC_MONETARY, LC_NUMERIC, and LC_TIME, shall not be used as it may introduce data races.",
+          "kind": "problem",
+          "name": "The library <clocale> (locale.h) macros shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LocaleMacrosUsed",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The locale library, which defines the type lconv, shall not be used as it may introduce data races.",
+          "kind": "problem",
+          "name": "The library <clocale> (locale.h) type lconv shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LocaleTypeLConvUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The library <clocale> (locale.h) and the setlocale function shall not be used."
+    },
+    "M18-7-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Signal handling contains implementation-defined and undefined behaviour.",
+          "kind": "problem",
+          "name": "The signal-handling functions of <csignal> shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CsignalFunctionsUsed",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Signal handling contains implementation-defined and undefined behaviour.",
+          "kind": "problem",
+          "name": "The signal-handling types of <csignal> shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CsignalTypesUsed",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The signal handling facilities of <csignal> shall not be used."
+    },
+    "M19-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "errno is a facility of C++, which should, in theory, be useful, but which, in practice, is poorly defined by ISO/IEC 14882:2003 [1]. A non-zero value may or may not indicate that a problem has occurred; therefore, errno shall not be used.",
+          "kind": "problem",
+          "name": "The error indicator errno shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ErrnoUsed",
+          "tags": [
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The error indicator errno shall not be used."
+    },
+    "M27-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Streams and file I/O have a large number of unspecified, undefined, and implementation-defined behaviours associated with them.",
+          "kind": "problem",
+          "name": "The stream input/output library <cstdio> functions shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CstdioFunctionsUsed",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Streams and file I/O have a large number of unspecified, undefined, and implementation-defined behaviours associated with them.",
+          "kind": "problem",
+          "name": "The stream input/output library <cstdio> macros shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CstdioMacrosUsed",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Streams and file I/O have a large number of unspecified, undefined, and implementation-defined behaviours associated with them.",
+          "kind": "problem",
+          "name": "The stream input/output library <cstdio> types shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CstdioTypesUsed",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The stream input/output library <cstdio> shall not be used."
+    },
+    "M7-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "audit": "",
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Assembly language code is implementation-defined and, therefore, is not portable.",
+          "kind": "problem",
+          "name": "All usage of assembler shall be documented",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UsageOfAssemblerNotDocumented",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "All usage of assembler shall be documented."
+    }
+  }
+}

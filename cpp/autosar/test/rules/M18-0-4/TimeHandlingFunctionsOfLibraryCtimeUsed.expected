@@ -1,0 +1,10 @@
+| test.cpp:5:20:5:29 | call to clock | Use of banned function clock. |
+| test.cpp:10:3:10:11 | call to time | Use of banned function time. |
+| test.cpp:11:3:11:11 | call to time | Use of banned function time. |
+| test.cpp:13:27:13:39 | call to difftime | Use of banned function difftime. |
+| test.cpp:15:14:15:27 | call to localtime | Use of banned function localtime. |
+| test.cpp:16:13:16:23 | call to gmtime | Use of banned function gmtime. |
+| test.cpp:17:3:17:13 | call to mktime | Use of banned function mktime. |
+| test.cpp:19:26:19:37 | call to asctime | Use of banned function asctime. |
+| test.cpp:20:27:20:36 | call to ctime | Use of banned function ctime. |
+| test.cpp:23:3:23:10 | call to strftime | Use of banned function strftime. |

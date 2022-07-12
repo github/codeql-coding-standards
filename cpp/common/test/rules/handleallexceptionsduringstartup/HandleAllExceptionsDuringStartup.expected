@@ -1,0 +1,14 @@
+problems
+| test.cpp:19:15:19:16 | call to ClassA | test.cpp:3:14:3:30 | throw ... [char *] | test.cpp:19:15:19:16 | call to ClassA [char *] | Initializer for variable $@ can throw an exception of type char * before main begins executing. | test.cpp:19:15:19:16 | a1 | a1 |
+| test.cpp:21:18:21:22 | call to ClassA | test.cpp:7:26:7:42 | throw ... [char *] | test.cpp:21:18:21:22 | call to ClassA [char *] | Initializer for variable $@ can throw an exception of type char * before main begins executing. | test.cpp:21:15:21:16 | a3 | a3 |
+| test.cpp:23:20:23:27 | call to bad_init | test.cpp:15:21:15:37 | throw ... [char *] | test.cpp:23:20:23:27 | call to bad_init [char *] | Initializer for variable $@ can throw an exception of type char * before main begins executing. | test.cpp:23:15:23:16 | a5 | a5 |
+| test.cpp:24:21:24:28 | call to bad_calc | test.cpp:17:30:17:46 | throw ... [char *] | test.cpp:24:21:24:28 | call to bad_calc [char *] | Initializer for variable $@ can throw an exception of type char * before main begins executing. | test.cpp:24:12:24:13 | a6 | a6 |
+edges
+| test.cpp:3:3:3:8 | ClassA [char *] | test.cpp:19:15:19:16 | call to ClassA [char *] |
+| test.cpp:3:14:3:30 | throw ... [char *] | test.cpp:3:3:3:8 | ClassA [char *] |
+| test.cpp:7:3:7:8 | ClassA [char *] | test.cpp:21:18:21:22 | call to ClassA [char *] |
+| test.cpp:7:26:7:42 | throw ... [char *] | test.cpp:7:3:7:8 | ClassA [char *] |
+| test.cpp:15:8:15:15 | bad_init [char *] | test.cpp:23:20:23:27 | call to bad_init [char *] |
+| test.cpp:15:21:15:37 | throw ... [char *] | test.cpp:15:8:15:15 | bad_init [char *] |
+| test.cpp:17:5:17:12 | bad_calc [char *] | test.cpp:24:21:24:28 | call to bad_calc [char *] |
+| test.cpp:17:30:17:46 | throw ... [char *] | test.cpp:17:5:17:12 | bad_calc [char *] |

@@ -1,0 +1,3 @@
+| test.cpp:9:13:9:21 | call to bind | Prefer lambdas to using std::bind. |
+| test.cpp:10:13:10:24 | call to bind1st | Prefer lambdas to using std::bind1st. |
+| test.cpp:11:13:11:24 | call to bind2nd | Prefer lambdas to using std::bind2nd. |

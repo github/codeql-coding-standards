@@ -1,0 +1,2 @@
+ - `A12-8-5` - `Operator.qll`
+     - Fixes #389 - deleted member functions are no longer flagged as non-compliant so the rule will produce fewer false positives.

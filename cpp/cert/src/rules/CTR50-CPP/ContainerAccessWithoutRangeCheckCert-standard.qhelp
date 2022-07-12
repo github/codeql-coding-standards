@@ -1,0 +1,435 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>Ensuring that array references are within the bounds of the array is almost entirely the responsibility of the programmer. Likewise, when using standard template library vectors, the programmer is responsible for ensuring integer indexes are within the bounds of the vector.</p>
+ </section>
+ <section title="Noncompliant Code Example (Pointers)">
+  <p>This noncompliant code example shows a function, <code>insert_in_table()</code>, that has two <code>int</code> parameters, <code>pos</code> and <code>value</code>, both of which can be influenced by data originating from untrusted sources. The function performs a range check to ensure that <code>pos</code> does not exceed the upper bound of the array, specified by <code>tableSize</code>, but fails to check the lower bound. Because <code>pos</code> is declared as a (signed) <code>int</code>, this parameter can assume a negative value, resulting in a write outside the bounds of the memory referenced by <code>table</code>.</p>
+  <sample language="cpp">#include &lt;cstddef&gt;
+ 
+void insert_in_table(int *table, std::size_t tableSize, int pos, int value) {
+  if (pos &gt;= tableSize) {
+    // Handle error
+    return;
+  }
+  table[pos] = value;
+}</sample>
+ </section>
+ <section title="Compliant Solution (size_t)">
+  <p>In this compliant solution, the parameter <code>pos</code> is declared as <code>size_t</code>, which prevents the passing of negative arguments.</p>
+  <sample language="cpp">#include &lt;cstddef&gt;
+ 
+void insert_in_table(int *table, std::size_t tableSize, std::size_t pos, int value) {
+  if (pos &gt;= tableSize) {
+    // Handle error
+    return;
+  }
+  table[pos] = value;
+}</sample>
+ </section>
+ <section title="Compliant Solution (Non-Type Templates)">
+  <p>Non-type templates can be used to define functions accepting an array type where the array bounds are deduced at compile time. This compliant solution is functionally equivalent to the previous bounds-checking one except that it additionally supports calling <code>insert_in_table()</code> with an array of known bounds.</p>
+  <sample language="cpp">#include &lt;cstddef&gt;
+#include &lt;new&gt;
+
+void insert_in_table(int *table, std::size_t tableSize, std::size_t pos, int value) { // #1
+  if (pos &gt;= tableSize) {
+    // Handle error
+    return;
+  }
+  table[pos] = value;
+}
+
+template &lt;std::size_t N&gt;
+void insert_in_table(int (&amp;table)[N], std::size_t pos, int value) { // #2
+  insert_in_table(table, N, pos, value);
+}
+ 
+void f() {
+  // Exposition only
+  int table1[100];
+  int *table2 = new int[100];
+  insert_in_table(table1, 0, 0); // Calls #2
+  insert_in_table(table2, 0, 0); // Error, no matching function call
+  insert_in_table(table1, 100, 0, 0); // Calls #1
+  insert_in_table(table2, 100, 0, 0); // Calls #1
+  delete [] table2;
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example (std::vector)">
+  <p>In this noncompliant code example, a <code>std::vector</code> is used in place of a pointer and size pair. The function performs a range check to ensure that <code>pos</code> does not exceed the upper bound of the container. Because <code>pos</code> is declared as a (signed) <code>long long</code>, this parameter can assume a negative value. On systems where <code>std::vector::size_type</code> is ultimately implemented as an <code>unsigned int</code> (such as with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-msvc">Microsoft Visual Studio </a>2013), the usual arithmetic conversions applied for the comparison expression will convert the unsigned value to a signed value. If <code>pos</code> has a negative value, this comparison will not fail, resulting in a write outside the bounds of the <code>std::vector</code> object when the negative value is interpreted as a large unsigned value in the indexing operator.</p>
+  <sample language="cpp">#include &lt;vector&gt;
+ 
+void insert_in_table(std::vector&lt;int&gt; &amp;table, long long pos, int value) {
+  if (pos &gt;= table.size()) {
+    // Handle error
+    return;
+  }
+  table[pos] = value;
+}
+</sample>
+ </section>
+ <section title="Compliant Solution (std::vector, size_t)">
+  <p>In this compliant solution, the parameter <code>pos</code> is declared as <code>size_t</code>, which ensures that the comparison expression will fail when a large, positive value (converted from a negative argument) is given.</p>
+  <sample language="cpp">#include &lt;vector&gt;
+ 
+void insert_in_table(std::vector&lt;int&gt; &amp;table, std::size_t pos, int value) {
+  if (pos &gt;= table.size()) {
+    // Handle error
+    return;
+  }
+  table[pos] = value;
+}
+</sample>
+ </section>
+ <section title="Compliant Solution (std::vector::at())">
+  <p>In this compliant solution, access to the vector is accomplished with the <code>at()</code> method. This method provides bounds checking, throwing a <code>std::out_of_range</code> exception if <code>pos</code> is not a valid index value. The <code>insert_in_table()</code> function is declared with <code>noexcept(false)</code> in compliance with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR55-CPP.+Honor+exception+specifications">ERR55-CPP. Honor exception specifications</a>.</p>
+  <sample language="cpp">#include &lt;vector&gt;
+ 
+void insert_in_table(std::vector&lt;int&gt; &amp;table, std::size_t pos, int value) noexcept(false) {
+  table.at(pos) = value;
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example (Iterators)">
+  <p>In this noncompliant code example, the <code>f_imp()</code> function is given the (correct) ending iterator <code>e</code> for a container, and <code>b</code> is an iterator from the same container. However, it is possible that <code>b</code> is not within the valid range of its container. For instance, if the container were empty, <code>b</code> would equal <code>e</code> and be improperly dereferenced.</p>
+  <sample language="cpp">#include &lt;iterator&gt;
+ 
+template &lt;typename ForwardIterator&gt;
+void f_imp(ForwardIterator b, ForwardIterator e, int val, std::forward_iterator_tag) {
+  do {
+    *b++ = val;
+  } while (b != e);
+}
+
+template &lt;typename ForwardIterator&gt;
+void f(ForwardIterator b, ForwardIterator e, int val) {
+  typename std::iterator_traits&lt;ForwardIterator&gt;::iterator_category cat;
+  f_imp(b, e, val, cat);
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>This compliant solution tests for iterator validity before attempting to dereference <code>b.</code></p>
+  <sample language="cpp">#include &lt;iterator&gt;
+ 
+template &lt;typename ForwardIterator&gt;
+void f_imp(ForwardIterator b, ForwardIterator e, int val, std::forward_iterator_tag) {
+  while (b != e) {
+    *b++ = val;
+  }
+}
+
+template &lt;typename ForwardIterator&gt;
+void f(ForwardIterator b, ForwardIterator e, int val) {
+  typename std::iterator_traits&lt;ForwardIterator&gt;::iterator_category cat;
+  f_imp(b, e, val, cat);
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>Using an invalid array or container index can result in an arbitrary memory overwrite or <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal program termination</a>.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      CTR50-CPP
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      Likely
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      <strong>P9</strong>
+     </td>
+     <td>
+      <strong>L2</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=222953724">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>overflow_upon_dereference</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>LANG.MEM.BOLANG.MEM.BULANG.MEM.TOLANG.MEM.TU</strong>
+      <strong>LANG.MEM.TBA</strong>
+      <strong>LANG.STRUCT.PBB</strong>
+      <strong>LANG.STRUCT.PPE</strong>
+     </td>
+     <td>
+      Buffer overrun
+      Buffer underrun
+      Type overrun
+      Type underrun
+      Tainted buffer access
+      Pointer before beginning of object
+      Pointer past end of object
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++2891, C++3139, C++3140</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://www.securecoding.cert.org/confluence/display/cplusplus/Klocwork">
+       Klocwork
+      </a>
+     </td>
+     <td>
+      2021.4
+     </td>
+     <td>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">ABV.ANY_SIZE_ARRAY</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">ABV.GENERAL</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">ABV.STACK</a> </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">ABV.TAINTED</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">SV.TAINTED.ALLOC_SIZE</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">SV.TAINTED.CALL.INDEX_ACCESS</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">SV.TAINTED.CALL.LOOP_BOUND</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">SV.TAINTED.INDEX_ACCESS</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/LDRA">
+       LDRA tool suite
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+      <strong>45 D, 47 S, 476 S, 489 S, 64 X, 66 X, 68 X, 69 X, 70 X, 71 X, 79 X</strong>
+     </td>
+     <td>
+      Partially implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-CTR50-a</strong>
+     </td>
+     <td>
+      Guarantee that container indices are within the valid range
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2021b
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certcctr50cpp.html">
+       CERT C++: CTR50-CPP
+      </a>
+     </td>
+     <td>
+      Checks for:
+      Array access out of boundsrray access out of bounds, array access with tainted indexrray access with tainted index, pointer dereference with tainted offsetointer dereference with tainted offset.
+      Rule partially covered.
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046345">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>2891, 3139, 3140</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/PVS-Studio">
+       PVS-Studio
+      </a>
+     </td>
+     <td>
+      7.17
+     </td>
+     <td>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v781/">V781</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR50-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       SEI CERT C Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/ARR30-C.+Do+not+form+or+use+out-of-bounds+pointers+or+array+subscripts">
+       ARR30-C. Do not form or use out-of-bounds pointers or array subscripts
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="http://cwe.mitre.org/">
+       MITRE CWE
+      </a>
+     </td>
+     <td>
+      <a href="http://cwe.mitre.org/data/definitions/119.html">
+       CWE 119
+      </a>
+      , Failure to Constrain Operations within the Bounds of a Memory Buffer
+      <a href="http://cwe.mitre.org/data/definitions/129.html">
+       CWE 129
+      </a>
+      , Improper Validation of Array Index
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Clause 23, "Containers Library"
+      Subclause 24.2.1, "In General"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIECTR24772-2013">
+       ISO/IEC TR 24772-2013
+      </a>
+      ]
+     </td>
+     <td>
+      Boundary Beginning Violation [XYX]
+      Wrap-Around Error [XYY]
+      Unchecked Array Indexing [XYZ]
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Viega05">
+       Viega 2005
+      </a>
+      ]
+     </td>
+     <td>
+      Section 5.2.13, "Unchecked Array Indexing"
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

@@ -1,0 +1,2 @@
+- `A15-2-2 - ConstructorLeavesObjectInInvalidState`
+  - Updated internal exception flow implementation to account for `new` potentially throwing an `std::bad_alloc` exception

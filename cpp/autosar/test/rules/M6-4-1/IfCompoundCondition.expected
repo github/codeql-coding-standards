@@ -1,0 +1,2 @@
+| test.cpp:2:3:3:17 | if (...) ...  | if statement not enclosed within braces. |
+| test.cpp:17:5:18:10 | if (...) ...  | if statement not enclosed within braces. |

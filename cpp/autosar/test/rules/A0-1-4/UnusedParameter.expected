@@ -1,0 +1,2 @@
+| test.cpp:3:22:3:22 | x | Unused parameter 'x' for function $@. | test.cpp:3:6:3:16 | test_unused | test_unused |
+| test.cpp:11:14:11:14 | x | Unused parameter 'x' for function $@. | test.cpp:11:8:11:8 | b | A::b |

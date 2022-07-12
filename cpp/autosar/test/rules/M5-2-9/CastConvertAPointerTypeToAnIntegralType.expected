@@ -1,0 +1,2 @@
+| test.cpp:7:11:7:44 | reinterpret_cast<long long>... | Cast converts an object of pointer type to an integral type. |
+| test.cpp:8:12:8:44 | reinterpret_cast<long>... | Cast converts an object of pointer type to an integral type. |

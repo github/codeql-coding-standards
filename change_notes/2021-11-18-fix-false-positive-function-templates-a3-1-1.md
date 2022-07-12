@@ -1,0 +1,2 @@
+- `A3-1-1` - `ViolationsOfOneDefinitionRule.ql`:
+   - Fixed issue #377 (false positive for function templates).

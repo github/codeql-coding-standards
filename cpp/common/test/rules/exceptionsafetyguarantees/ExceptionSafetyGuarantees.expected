@@ -1,0 +1,4 @@
+| test.cpp:17:13:17:22 | new[] | Throwing an exception here will leave the object in an undetermined state. |
+| test.cpp:48:12:48:16 | new | Throwing an exception here will leave the object in an undetermined state. |
+| test.cpp:61:5:61:9 | new | Throwing an exception here will leave the object in an undetermined state. |
+| test.cpp:62:10:62:14 | new | Throwing an exception here will leave the object in an undetermined state. |

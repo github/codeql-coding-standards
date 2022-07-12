@@ -1,0 +1,2 @@
+| test.cpp:7:19:7:34 | test_noreturn_f2 | The function test_noreturn_f2 declared with attribute [[noreturn]] returns a value. |
+| test.cpp:32:19:32:34 | test_noreturn_f5 | The function test_noreturn_f5 declared with attribute [[noreturn]] returns a value. |

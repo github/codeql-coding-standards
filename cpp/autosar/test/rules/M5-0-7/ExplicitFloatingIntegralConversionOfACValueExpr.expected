@@ -1,0 +1,2 @@
+| test.cpp:14:10:14:40 | static_cast<float>... | Explicit conversion of $@ from integral to float. | test.cpp:14:29:14:39 | ... / ... | expression |
+| test.cpp:18:10:18:42 | static_cast<int16_t>... | Explicit conversion of $@ from float to integral. | test.cpp:18:31:18:41 | ... / ... | expression |

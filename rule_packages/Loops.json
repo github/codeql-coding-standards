@@ -1,0 +1,237 @@
+{
+  "AUTOSAR": {
+    "A6-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A for-loop that loops through all elements of the container and does not use its loop-counter shall not be used.",
+          "kind": "problem",
+          "name": "Unused loop counter when iterating over a container",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "UnusedLoopCounterForContainerIteration",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A for-loop that loops through all elements of the container and does not use its loop-counter shall not be used."
+    },
+    "A6-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A for loop shall contain a single loop-counter.",
+          "kind": "problem",
+          "name": "Loop with multiple loop counters",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "MultipleLoopCounters",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "A for loop shall contain a single loop-counter which shall not have floating-point type.",
+          "kind": "problem",
+          "name": "Loop with floating point counter",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FloatingPointLoopCounter",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A for loop shall contain a single loop-counter which shall not have floating-point type."
+    },
+    "A6-5-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Do statements can be more prone to bugs than for or while loops, because the condition is not checked before the loop is executed.",
+          "kind": "problem",
+          "name": "Do statements should not be used",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "DoStatementsShouldNotBeUsed",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Do statements should not be used."
+    },
+    "A6-5-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "For-init-statement and expression should not perform actions other than loop-counter initialization and modification.",
+          "kind": "problem",
+          "name": "For-init-statement should not perform actions other than loop-counter initialization",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ForLoopInitializesNonLoopCounter",
+          "tags": []
+        },
+        {
+          "description": "For-init-statement and expression should not perform actions other than loop-counter initialization and modification.",
+          "kind": "problem",
+          "name": "For statement expressions should not perform actions other than loop-counter modification",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ForLoopModifiesNonLoopCounter",
+          "tags": []
+        }
+      ],
+      "title": "For-init-statement and expression should not perform actions other than loop-counter initialization and modification."
+    },
+    "M6-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If loop-counter is not modified by -- or ++, then, within condition, the loop-counter shall only be used as an operand to <=, <, > or >=.",
+          "kind": "problem",
+          "name": "Loop-counter incremented/decremented by more than one shall be an operand to <=, <, >, or >=",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NotEqualsInLoopCondition",
+          "tags": []
+        }
+      ],
+      "title": "If loop-counter is not modified by or ++, then, within condition, the loop-counter shall only be used as an operand to <=, <, > or >=."
+    },
+    "M6-5-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The loop-counter shall not be modified within condition.",
+          "kind": "problem",
+          "name": "Loop-counter modified within condition",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LoopCounterModifiedWithinCondition",
+          "tags": []
+        },
+        {
+          "description": "The loop-counter shall not be modified within a statement.",
+          "kind": "problem",
+          "name": "Loop-counter modified within condition",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LoopCounterModifiedWithinStatement",
+          "tags": []
+        }
+      ],
+      "title": "The loop-counter shall not be modified within condition or statement."
+    },
+    "M6-5-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The loop-counter should be modified by one of: --, ++, -=n, or +=n; where n remains constant for the duration of the loop.",
+          "kind": "problem",
+          "name": "Loop-counter modified by one of --, ++, = n, or + = n, where n remains constant",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IrregularLoopCounterModification",
+          "tags": []
+        }
+      ],
+      "title": "The loop-counter should be modified by one of: --, ++, -=n, or +=n, where n remains constant for the duration of the loop."
+    },
+    "M6-5-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A loop-control-variable other than the loop-counter shall not be modified within a condition.",
+          "kind": "problem",
+          "name": "Loop-control-variable modified within a condition",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LoopControlVariableModifiedInLoopCondition",
+          "tags": []
+        },
+        {
+          "description": "A loop-control-variable other than the loop-counter shall not be modified within an expression.",
+          "kind": "problem",
+          "name": "Loop-control-variable modified within a expression",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LoopControlVariableModifiedInLoopExpression",
+          "tags": []
+        }
+      ],
+      "title": "A loop-control-variable other than the loop-counter shall not be modified within a condition or an expression."
+    },
+    "M6-5-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A loop-control-variable other than the loop-counter which is modified in a statement shall have type bool.",
+          "kind": "problem",
+          "name": "Loop-control-variable modified in a statement shall have type bool",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonBooleanLoopControlVariable",
+          "tags": []
+        }
+      ],
+      "title": "A loop-control-variable other than the loop-counter which is modified in a statement shall have type bool."
+    }
+  }
+}

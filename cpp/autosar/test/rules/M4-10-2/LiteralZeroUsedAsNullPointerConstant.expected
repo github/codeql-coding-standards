@@ -1,0 +1,2 @@
+| test.cpp:17:13:17:13 | 0 | Literal 0 used as the null-pointer-constant. |
+| test.cpp:18:6:18:6 | 0 | Literal 0 used as the null-pointer-constant. |

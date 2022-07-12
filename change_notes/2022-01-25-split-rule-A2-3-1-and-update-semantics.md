@@ -1,0 +1,3 @@
+- `A2-3-1`
+  - Split into three queries for sub-rule deviation
+  - Change the semantics of `CharacterOutsideTheLanguageStandardBasicSourceCharacterSetUsedInTheSourceCode` to only consider invalid characters in declarations by looking for universal character names that indicate uses outside of the basic source character set.

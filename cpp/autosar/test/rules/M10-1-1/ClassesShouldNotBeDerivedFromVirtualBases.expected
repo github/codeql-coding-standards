@@ -1,0 +1,2 @@
+| test.cpp:2:11:2:19 | derivation | Class should not derive virtually from base class $@. | test.cpp:1:7:1:7 | A | A |
+| test.cpp:6:11:6:26 | derivation | Class should not derive virtually from base class $@. | test.cpp:2:7:2:7 | B | B |

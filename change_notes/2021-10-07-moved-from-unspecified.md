@@ -1,0 +1,1 @@
+ - `A12-8-3`, `EXP63-CPP` - we may produce fewer results for these rules where the flagged problem ocurred in a loop. The changes reduce duplication of reporting for these results.

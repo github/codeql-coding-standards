@@ -1,0 +1,4 @@
+| test_global_or_namespace.cpp:3:5:3:6 | g3 | Variable g3 is unused. |
+| test_global_or_namespace.cpp:18:4:18:4 | a | Variable a is unused. |
+| test_global_or_namespace.cpp:26:5:26:6 | x3 | Variable N1::x3 is unused. |
+| test_global_or_namespace.cpp:36:5:36:5 | a | Variable N1::a is unused. |

@@ -1,0 +1,2 @@
+| test.h:1:1:1:9 | (unnamed namespace) | Unamed namespace in header file |
+| test.hpp:1:1:1:9 | (unnamed namespace) | Unamed namespace in header file |

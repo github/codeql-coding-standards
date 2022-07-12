@@ -1,0 +1,5 @@
+| test.cpp:9:3:9:9 | case ...: | This $@ clause does not terminate. | test.cpp:9:3:9:9 | case ...: | case |
+| test.cpp:16:3:16:9 | case ...: | This $@ clause does not terminate. | test.cpp:16:3:16:9 | case ...: | case |
+| test.cpp:31:3:31:9 | case ...: | This $@ clause does not terminate. | test.cpp:31:3:31:9 | case ...: | case |
+| test.cpp:38:3:38:9 | case ...: | This $@ clause does not terminate. | test.cpp:38:3:38:9 | case ...: | case |
+| test.cpp:42:3:42:10 | default:  | This $@ clause does not terminate. | test.cpp:42:3:42:10 | default:  | case |

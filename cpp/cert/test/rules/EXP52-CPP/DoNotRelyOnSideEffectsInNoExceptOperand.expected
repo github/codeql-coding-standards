@@ -1,0 +1,2 @@
+| DoNotRelyOnSideEffectsInNoExceptOperand.cpp:7:7:7:20 | noexcept(...) | Reliance on side effects in the noexcept operator's operand can result in unexpected behavior. |
+| DoNotRelyOnSideEffectsInNoExceptOperand.cpp:10:7:10:20 | noexcept(...) | Reliance on side effects in the noexcept operator's operand can result in unexpected behavior. |

@@ -1,0 +1,1 @@
+ - Add a user manual (`user_manual.md`) in Markdown format. This document is focused on users who wish to use the CodeQL Coding Standards queries as a certified software tool according to ISO 26262, and provides details on the use cases, pre-requisites, supported environments and failure modes.

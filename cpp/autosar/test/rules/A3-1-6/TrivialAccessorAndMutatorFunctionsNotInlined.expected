@@ -1,0 +1,4 @@
+| test.cpp:12:6:12:12 | setY | Trivial mutator function A::setY is defined outside the class body of $@. | test.cpp:1:7:1:7 | A | A |
+| test.cpp:16:5:16:11 | getX | Trivial accessor function A::getX is defined outside the class body of $@. | test.cpp:1:7:1:7 | A | A |
+| test.cpp:84:6:84:12 | setX | Trivial mutator function E::setX is defined outside the class body of $@. | test.cpp:74:7:74:7 | E | E |
+| test.cpp:87:6:87:12 | setY | Trivial mutator function E::setY is defined outside the class body of $@. | test.cpp:74:7:74:7 | E | E |

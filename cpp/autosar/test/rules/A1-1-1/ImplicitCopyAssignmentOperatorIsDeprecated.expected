@@ -1,0 +1,1 @@
+| ImplicitCopyAssignmentOperatorIsDeprecated.cpp:18:3:18:9 | ... = ... | Use of implicit copy-assignment operator of class 'A' is deprecated. |
