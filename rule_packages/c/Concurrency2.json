@@ -52,6 +52,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "WrapFunctionsThatCanSpuriouslyWakeUpInLoop",
+          "shared_implementation_short_name": "WrapSpuriousFunctionInLoop",
           "tags": [
             "correctness",
             "concurrency"
