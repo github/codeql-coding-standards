@@ -20,7 +20,7 @@ if not len(sys.argv) == 2:
     print("Usage: " + sys.argv[0] + " [--help]", file=sys.stderr)
     sys.exit(1)
 
-repo_root = Path(__file__).parent.parent.parent
+repo_root = Path(__file__).parent.parent
 rules_file_path = repo_root.joinpath('rules.csv')
 language_name = sys.argv[1]
 

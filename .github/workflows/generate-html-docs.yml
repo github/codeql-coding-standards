@@ -5,10 +5,12 @@ on:
     branches:
       - main
       - 'rc/**'
+      - next
   pull_request:
     branches:
       - main
       - 'rc/**'
+      - next
 
 jobs:
   generate-html-doc:
@@ -17,6 +19,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
 
       - name: Install generate_iso26262_docs.py dependencies
         run: pip install -r scripts/requirements.txt

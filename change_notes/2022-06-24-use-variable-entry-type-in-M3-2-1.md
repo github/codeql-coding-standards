@@ -1,0 +1,2 @@
+- `M3-2-1` - `DeclarationsOfAnObjectShallHaveCompatibleTypes.ql`
+  - Use the type of the variable declaration entries instead of the variables, as variables may exist that have multiple entries with different types.

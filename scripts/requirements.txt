@@ -13,3 +13,4 @@ urllib3==1.26.5
 pyyaml==5.4
 wheel==0.37.0
 jsonschema==3.2.0
+marko==1.2.1

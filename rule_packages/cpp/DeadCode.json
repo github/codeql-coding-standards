@@ -247,7 +247,10 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query will not report unused global or namespace variables generated from a macro expansion. The rationale is that a macro may not use all variables in all expansions."
+          }
         },
         {
           "description": "Unused variables complicate the program and can indicate a possible mistake on the part of the programmer.",

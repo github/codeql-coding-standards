@@ -1,21 +1,29 @@
 #!/usr/bin/env python
-import sys
-import requests
-from bs4 import BeautifulSoup
-from bs4.element import NavigableString, Tag
-import copy
-from pathlib import Path
-import hashlib
-from urllib.parse import quote_plus, urlparse
-import urllib.request
+import tempfile
 import re
+import urllib.request
+from urllib.parse import quote_plus, urlparse
+import hashlib
+from pathlib import Path
+import copy
+from bs4.element import NavigableString, Tag
+from bs4 import BeautifulSoup
+import requests
+import sys
+import marko
+from marko.md_renderer import MarkdownRenderer
+
+script_path = Path(__file__)
+# Add the shared module to the path
+sys.path.append(str(script_path.parent.parent / 'shared'))
+from codeql import CodeQL, CodeQLError
+from markdown_helpers import HeadingReplaceSpec, HeadingFormatUpdateSpec, update_help_file, HeadingDiffUpdateSpec, find_heading, iterate_headings, get_heading_text
 
 CERT_WIKI = "https://wiki.sei.cmu.edu"
 RULES_LIST_C = "/confluence/display/c/2+Rules"
 RULES_LIST_CPP = "/confluence/display/cplusplus/2+Rules"
 
-script_path = Path(__file__)
-cache_path = script_path.parent.joinpath('.cache')
+cache_path = script_path.parent / '.cache'
 cache_path.mkdir(exist_ok=True)
 repo_root = script_path.parent.parent.parent
 rule_path = None
@@ -42,37 +50,24 @@ def soupify(url: str) -> BeautifulSoup:
     return BeautifulSoup(content, 'html.parser')
 
 
-def get_rules_c():
-    soup = soupify(f"{CERT_WIKI}{RULES_LIST_C}")
-    if soup == None:
-        return None
-
-    rule_listing_start = soup.find(
-        "h1", string="Rule Listing")
+def get_rules():
     rules = []
-    for link in rule_listing_start.next_element.next_element.find_all('a'):
-        if '-C' in link.string:
-            rule, title = map(str.strip, link.string.split('.', 1))
-            rules.append({'id': rule, 'title': title, 'link': link['href']})
+    for soup in [soupify(f"{CERT_WIKI}{RULES_LIST_C}"), soupify(f"{CERT_WIKI}{RULES_LIST_CPP}")]:
+        if soup == None:
+            return None
+
+        rule_listing_start = soup.find(
+            "h1", string="Rule Listing")
+        
+        for link in rule_listing_start.next_element.next_element.find_all('a'):
+            if '-C' in link.string:
+                rule, title = map(str.strip, link.string.split('.', 1))
+                rules.append({'id': rule, 'title': title, 'link': link['href'], 'lang':"c"})
+            if '-CPP' in link.string:  
+                rule, title = map(str.strip, link.string.split('.', 1))
+                rules.append({'id': rule, 'title': title, 'link': link['href'], 'lang':"cpp"})  
 
     return rules
-
-
-def get_rules_cpp():
-    soup = soupify(f"{CERT_WIKI}{RULES_LIST_CPP}")
-    if soup == None:
-        return None
-
-    rule_listing_start = soup.find(
-        "h1", string="Rule Listing")
-    rules = []
-    for link in rule_listing_start.next_element.next_element.find_all('a'):
-        if '-CPP' in link.string:
-            rule, title = map(str.strip, link.string.split('.', 1))
-            rules.append({'id': rule, 'title': title, 'link': link['href']})
-
-    return rules
-
 
 def between_siblings(root, node_text):
     nodes = []
@@ -475,26 +470,56 @@ def get_help(rule):
     return qhelp_doc.prettify()
 
 
-rules_c = get_rules_c()
-rules_cpp = get_rules_cpp()
-if rules_c == None or rules_cpp == None:
+rules = get_rules()
+if rules == None:
     print("Failed to retrieve list of rules", file=sys.stdout)
     sys.exit(1)
 
-for rule in get_rules_c():
-    rule_path = repo_root.joinpath('c', 'cert', 'src', 'rules', rule['id'])
+for rule in rules:
+    rule_path = repo_root / rule['lang'] / 'cert' / 'src' / 'rules' / rule['id']
     # only consider implemented rules
     if rule_path.exists():
-        for help_rule_file in rule_path.glob('*-standard.qhelp'):
-            print(f"ID: {rule['id']} url: {CERT_WIKI}{rule['link']}")
-            with help_rule_file.open('w') as f:
-                f.write(get_help(rule))
+        codeql = CodeQL()
+        md = marko.Markdown(renderer=MarkdownRenderer)
+        for query_path in rule_path.glob('*.ql'):
+            print(f"ID: {rule['id']} - Converting contents at {CERT_WIKI}{rule['link']} into Markdown help file for {query_path.stem}")
+            help_path = query_path.with_suffix('.md')
 
-for rule in get_rules_cpp():
-    rule_path = repo_root.joinpath('cpp', 'cert', 'src', 'rules', rule['id'])
-    # only consider implemented rules
-    if rule_path.exists():
-        for help_rule_file in rule_path.glob('*-standard.qhelp'):
-            print(f"ID: {rule['id']} url: {CERT_WIKI}{rule['link']}")
-            with help_rule_file.open('w') as f:
-                f.write(get_help(rule))
+            # If it hasn't been generated, skip it.
+            if not help_path.exists():
+                print(f"ID: {rule['id']} - Skipping updating help file for {query_path}, because it doesn't exist!")
+                continue
+
+            temp_qhelp_path = query_path.with_suffix('.qhelp')
+            temp_qhelp_path.write_text(get_help(rule))
+
+            temp_help_path = help_path.with_suffix('.md.tmp')
+            try:
+                codeql.generate_query_help(temp_qhelp_path, temp_help_path)
+            except CodeQLError as err:
+                print(f"{err.reason}: {err.stderr}")
+            temp_qhelp_path.unlink()
+
+            parsed_temp_help = md.parse(temp_help_path.read_text())
+            # Remove the first header that is added by the QHelp to Markdown conversion
+            del parsed_temp_help.children[0]
+            temp_help_path.write_text(md.render(parsed_temp_help))
+
+            parsed_help = md.parse(help_path.read_text())
+            if find_heading(parsed_help, 'CERT'):
+                # Check if it contains the CERT heading that needs to be replaced
+                print(f"ID: {rule['id']} - Found heading 'CERT' whose content will be replaced")
+                update_help_file(parsed_help, [HeadingReplaceSpec('CERT', parsed_temp_help.children), HeadingFormatUpdateSpec()])
+            else:
+                # Otherwise update the content of every existing second level heading, note that this doesn't add headings!
+                second_level_headings = {get_heading_text(heading) for heading in iterate_headings(parsed_temp_help) if heading.level == 2}
+                # Check if there are any headings we don't have in our current help file. If that is the case we need to manually update that first.
+                existing_second_level_headings = {get_heading_text(heading).replace(u'\xa0', u' ') for heading in iterate_headings(parsed_help) if heading.level == 2}
+                if not second_level_headings.issubset(existing_second_level_headings):
+                    print(f"ID: {rule['id']} - The original help is missing the header(s) '{', '.join(second_level_headings.difference(existing_second_level_headings))}'. Proceed with manually adding these in the expected location (See {temp_help_path}).")
+                    sys.exit(1)
+                print(f"ID: {rule['id']} - Didn't find heading 'CERT', going to update the headings '{', '.join(second_level_headings)}'.")
+                update_help_file(parsed_help, [HeadingDiffUpdateSpec(heading, parsed_temp_help) for heading in second_level_headings] + [HeadingFormatUpdateSpec()])
+
+            temp_help_path.unlink()
+            help_path.write_text(md.render(parsed_help))

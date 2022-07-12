@@ -7,3 +7,7 @@ void test_using() {
 
   string s{"hello"};
 }
+
+// Anonymous namespace introducing an using statement as specified in
+// [namespace.unnamed]
+namespace {} // namespace

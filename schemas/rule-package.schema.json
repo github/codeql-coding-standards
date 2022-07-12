@@ -196,6 +196,23 @@
                         ]
                     },
                     "minLength": 1
+                },
+                "implementation_scope": {
+                    "type": "object",
+                    "properties": {
+                        "description": {
+                            "kind": "string"
+                        },
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required": [
+                        "description"
+                    ]
                 }
             },
             "required": [

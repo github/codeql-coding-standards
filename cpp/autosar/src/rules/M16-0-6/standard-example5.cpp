@@ -1,1 +1,0 @@
-#define subs(x) a ## x   // Compliant

@@ -1,13 +1,27 @@
 import re
+from typing import Type, Dict, List, Optional, TextIO, Generator, Union, Pattern
+from jinja2 import Template
+from pathlib import Path
+from dataclasses import dataclass
+import marko
+from marko.md_renderer import MarkdownRenderer
+import tempfile
+import sys
 
-def split_camel_case(short_name):
+
+# Add the shared module to the path
+script_path = Path(__file__)
+sys.path.append(str(script_path.parent.parent / 'shared'))
+from markdown_helpers import HeadingFormatUpdateSpec, update_help_file, HeadingDiffUpdateSpec
+
+def split_camel_case(short_name : str) -> List[str]:
     """Split a camel case string to a list."""
     matches = re.finditer(
         ".+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)", short_name)
     return [m.group(0) for m in matches]
 
 
-def standard_tag(standard_short_name, key, value):
+def standard_tag(standard_short_name : str, key : str, value: Optional[str]) -> str:
     """Create a CodeQL tag for the given standard and property name"""
     return (
         "external/"
@@ -18,7 +32,7 @@ def standard_tag(standard_short_name, key, value):
     )
 
 
-def description_line_break(description):
+def description_line_break(description : str) -> List[str]:
     """Split the description into a list of lines of no more than 84 characters"""
     if len(description) < 85:
         return [description]
@@ -32,17 +46,21 @@ def description_line_break(description):
         return [description_line] + description_line_break(description[(len(description_line) + 1):])
 
 
-def write_template(template, args, package_name, file):
+def write_template(template: Type[Template], args: Dict[str, str], package_name: str, file: Type[Path]) -> None:
     """Render the template with the given args, and write it to the file using \n newlines."""
-    output = template.render(args, package_name=package_name)
     with open(file, "w", newline="\n") as f:
-        f.write(output)
+        render_template(template, args, package_name, f)
 
 
-def write_exclusion_template(template, args, packagename, language_name, file):
+def render_template(template: Type[Template], args: Dict[str, str], package_name: str, file: TextIO) -> None:
+    output = template.render(args, package_name=package_name)
+    file.write(output)
+
+
+def write_exclusion_template(template: Type[Template], args: Dict[str, str], package_name: str, language_name: str, file: TextIO):
     """Render the template with the given args, and write it to the file using \n newlines."""
     output = template.render(
-        data=args, package_name=packagename, language_name=language_name)
+        data=args, package_name=package_name, language_name=language_name)
 
     with open(file, "w", newline="\n") as f:
         f.write(output)
@@ -94,6 +112,42 @@ def extract_metadata_from_query(rule_id, title, q, rule_query_tags, language_nam
 
     metadata.update(standard_metadata[standard_name])
 
-
-
     return metadata, exclusion_model
+
+def write_query_help_file(help_dir: Type[Path], env: any, query: any, package_name: str, rule_id: str, standard_name: str) -> None:
+    # Add Markdown help file, partially overwriting elements that are automatically generated.
+    help_path = help_dir.joinpath(
+        query["short_name"] + ".md")
+    help_template = env.get_template(f"{standard_name.lower()}-help.md.template")
+
+    if not help_path.exists():
+        print(
+            rule_id + ": Writing out query help file to " + str(help_path))
+        write_template(help_template, query,
+                        package_name, help_path)
+    else:
+        print(rule_id + ": Updating query help file at " + str(help_path))
+
+        with tempfile.TemporaryFile(mode="r+", suffix="md") as updated_help_fd:
+            render_template(
+                help_template, query, package_name, updated_help_fd)
+
+            updated_help_fd.seek(0)
+            md = marko.Markdown(renderer=MarkdownRenderer)
+            updated_help = md.parse(updated_help_fd.read())
+
+            with help_path.open(mode="r+") as existing_help_fd:
+                existing_help = md.parse(
+                    existing_help_fd.read())
+                updates = [HeadingDiffUpdateSpec("Implementation notes", updated_help),
+                                           HeadingDiffUpdateSpec(
+                                               "References", updated_help),
+                                           HeadingDiffUpdateSpec(re.compile(
+                                               f"^{rule_id}\\s*:"), updated_help),
+                                           HeadingFormatUpdateSpec()
+                                           ]
+                update_help_file(existing_help, updates)
+                existing_help_fd.seek(0)
+                existing_help_fd.truncate(0)
+                existing_help_fd.write(
+                    md.render(existing_help))

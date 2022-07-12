@@ -1,1 +1,0 @@
-#if defined ( X > Y )   // Non-compliant – constraint violation

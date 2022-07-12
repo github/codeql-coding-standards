@@ -169,7 +169,10 @@
           "tags": [
             "correctness",
             "readability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query reports hex and octal literals which are either of unsigned type or are directly converted to an unsigned type."
+          }
         }
       ],
       "title": "A 'U' suffix shall be applied to all octal or hexadecimal integer literals of unsigned type."

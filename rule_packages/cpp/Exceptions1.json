@@ -475,7 +475,10 @@
           "short_name": "CatchAllHandlerLast",
           "tags": [
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Catch all handlers that cause other catch handlers to become unreachable are typically flagged as compiler errors. If you observe alerts for this rule, it is likely that you have passed a compiler flag that converts these errors to warnings - for example the `-fpermissive` flag for g++. Consider removing the permissive flag in addition to addressing the problem."
+          }
         }
       ],
       "title": "Where multiple handlers are provided in a single try-catch statement or function-try-block, any ellipsis (catch-all) handler shall occur last."
