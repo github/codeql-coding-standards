@@ -1,113 +1,16 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The C standard library facilities
-   <code>
-    setjmp()
-   </code>
-   and
-   <code>
-    longjmp()
-   </code>
-   can be used to simulate throwing and catching exceptions. However, these facilities bypass automatic resource management and can result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   , commonly including resource leaks and
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
-    denial-of-service attacks
-   </a>
-   .
-  </p>
-  <p>
-   The C++ Standard, [support.runtime], paragraph 4
-   [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following
-   :
-  </p>
+  <p>The C standard library facilities <code>setjmp()</code> and <code>longjmp()</code> can be used to simulate throwing and catching exceptions. However, these facilities bypass automatic resource management and can result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, commonly including resource leaks and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>.</p>
+  <p>The C++ Standard, [support.runtime], paragraph 4 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    The function signature
-    <code>
-     longjmp(jmp_buf jbuf, int val)
-    </code>
-    has more restricted behavior in this International Standard. A
-    <code>
-     setjmp
-    </code>
-    /
-    <code>
-     longjmp
-    </code>
-    call pair has undefined behavior if replacing the
-    <code>
-     setjmp
-    </code>
-    and
-    <code>
-     longjmp
-    </code>
-    by
-    <code>
-     catch
-    </code>
-    and
-    <code>
-     throw
-    </code>
-    would invoke any non-trivial destructors for any automatic objects.
-   </p>
+   <p>The function signature <code>longjmp(jmp_buf jbuf, int val)</code> has more restricted behavior in this International Standard. A <code>setjmp</code>/<code>longjmp</code> call pair has undefined behavior if replacing the <code>setjmp</code> and <code>longjmp</code> by <code>catch</code> and <code>throw</code> would invoke any non-trivial destructors for any automatic objects.</p>
   </blockquote>
-  <p>
-   Do not call
-   <code>
-    setjmp()
-   </code>
-   or
-   <code>
-    longjmp()
-   </code>
-   ; their usage can be replaced by more standard idioms such as
-   <code>
-    throw
-   </code>
-   expressions and
-   <code>
-    catch
-   </code>
-   statements.
-  </p>
+  <p>Do not call <code>setjmp()</code> or <code>longjmp()</code>; their usage can be replaced by more standard idioms such as <code>throw</code> expressions and <code>catch</code> statements.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   If a
-   <code>
-    throw
-   </code>
-   expression would cause a nontrivial destructor to be invoked, then calling
-   <code>
-    longjmp()
-   </code>
-   in the same context will result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . In the following noncompliant code example, the call to
-   <code>
-    longjmp()
-   </code>
-   occurs in a context with a local
-   <code>
-    Counter
-   </code>
-   object. Since this object’s destructor is nontrivial, undefined behavior results.
-  </p>
-  <sample language="cpp">
-   #include &lt;csetjmp&gt;
+  <p>If a <code>throw </code>expression would cause a nontrivial destructor to be invoked, then calling <code>longjmp() </code>in the same context will result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. In the following noncompliant code example, the call to <code>longjmp() </code>occurs in a context with a local <code>Counter </code>object. Since this object’s destructor is nontrivial, undefined behavior results.</p>
+  <sample language="cpp">#include &lt;csetjmp&gt;
 #include &lt;iostream&gt;
 
 static jmp_buf env;
@@ -135,56 +38,17 @@ int main() {
   }
   std::cout &lt;&lt; "After longjmp(): Instances: " &lt;&lt; Counter::instances &lt;&lt; std::endl;
 }
-  </sample>
-  <p>
-   <strong>
-    Implementation Details
-   </strong>
-  </p>
-  <p>
-   The above code produces the following results when compiled with
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">
-    Clang
-   </a>
-   3.8 for Linux, demonstrating that the program, on this platform, fails to destroy the local
-   <code>
-    Counter
-   </code>
-   instance when the execution of
-   <code>
-    f()
-   </code>
-   is terminated. This is permissible as the behavior is undefined.
-  </p>
-  <sample language="cpp">
-   Before setjmp(): Instances: 0
+</sample>
+  <p><strong>Implementation Details</strong></p>
+  <p>The above code produces the following results when compiled with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">Clang </a>3.8 for Linux, demonstrating that the program, on this platform, fails to destroy the local <code>Counter</code> instance when the execution of <code>f()</code> is terminated. This is permissible as the behavior is undefined.</p>
+  <sample language="cpp">Before setjmp(): Instances: 0
 f(): Instances: 1
 From longjmp(): Instances: 1
-After longjmp(): Instances: 1
-  </sample>
+After longjmp(): Instances: 1</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution replaces the calls to
-   <code>
-    setjmp()
-   </code>
-   and
-   <code>
-    longjmp()
-   </code>
-   with a
-   <code>
-    throw
-   </code>
-   expression and a
-   <code>
-    catch
-   </code>
-   statement.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>This compliant solution replaces the calls to <code>setjmp()</code> and <code>longjmp()</code> with a <code>throw</code> expression and a <code>catch</code> statement.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 
 struct Counter {
   static int instances;
@@ -209,33 +73,16 @@ int main() {
   }
   std::cout &lt;&lt; "After catch: Instances: " &lt;&lt; Counter::instances &lt;&lt; std::endl;
 }
-  </sample>
-  <p>
-   This solution produces the following output.
-  </p>
-  <sample language="cpp">
-   Before throw: Instances: 0
+</sample>
+  <p>This solution produces the following output.</p>
+  <sample language="cpp">Before throw: Instances: 0
 f(): Instances: 1
 From catch: Instances: 0
 After catch: Instances: 0
-  </sample>
+</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Using
-   <code>
-    setjmp()
-   </code>
-   and
-   <code>
-    longjmp()
-   </code>
-   could lead to a
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions">
-    denial-of-service attack
-   </a>
-   due to resources not being properly destroyed.
-  </p>
+  <p>Using <code>setjmp()</code> and <code>longjmp()</code> could lead to a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions">denial-of-service attack</a> due to resources not being properly destroyed.</p>
   <table>
    <tbody>
     <tr>
@@ -272,14 +119,10 @@ After catch: Instances: 0
       Medium
      </td>
      <td>
-      <strong>
-       P4
-      </strong>
+      <strong>P4</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -312,9 +155,7 @@ After catch: Instances: 0
       20.10
      </td>
      <td>
-      <strong>
-       include-setjmp
-      </strong>
+      <strong>include-setjmp</strong>
      </td>
      <td>
       Fully checked
@@ -330,9 +171,7 @@ After catch: Instances: 0
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-ERR52
-      </strong>
+      <strong>CertC++-ERR52</strong>
      </td>
      <td>
      </td>
@@ -347,15 +186,11 @@ After catch: Instances: 0
       3.9
      </td>
      <td>
-      <code>
-       cert-err52-cpp
-      </code>
+      <code>cert-err52-cpp</code>
      </td>
      <td>
       Checked by
-      <code>
-       clang-tidy
-      </code>
+      <code>clang-tidy</code>
       .
      </td>
     </tr>
@@ -366,13 +201,10 @@ After catch: Instances: 0
       </a>
      </td>
      <td>
-      6.1p0
+      6.2p0
      </td>
      <td>
-      <strong>
-       BADFUNC.LONGJMP
-       BADFUNC.SETJMP
-      </strong>
+      <strong>BADFUNC.LONGJMPBADFUNC.SETJMP</strong>
      </td>
      <td>
       Use of longjmp
@@ -389,9 +221,7 @@ After catch: Instances: 0
       2021.2
      </td>
      <td>
-      <strong>
-       C++5015
-      </strong>
+      <strong>C++5015</strong>
      </td>
      <td>
      </td>
@@ -406,11 +236,7 @@ After catch: Instances: 0
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        MISRA.STDLIB.LONGJMP
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">MISRA.STDLIB.LONGJMP</a></strong>
      </td>
      <td>
      </td>
@@ -424,9 +250,7 @@ After catch: Instances: 0
      <td>
      </td>
      <td>
-      <strong>
-       43 S
-      </strong>
+      <strong>43 S</strong>
      </td>
      <td>
       Fully implemented
@@ -442,12 +266,8 @@ After catch: Instances: 0
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-ERR52-a
-      </strong>
-      <strong>
-       CERT_CPP-ERR52-b
-      </strong>
+      <strong>CERT_CPP-ERR52-a</strong>
+      <strong>CERT_CPP-ERR52-b</strong>
      </td>
      <td>
       The setjmp macro and the longjmp function shall not be used
@@ -482,9 +302,7 @@ After catch: Instances: 0
       4.4
      </td>
      <td>
-      <strong>
-       5015
-      </strong>
+      <strong>5015</strong>
      </td>
      <td>
      </td>
@@ -499,9 +317,7 @@ After catch: Instances: 0
       20.10
      </td>
      <td>
-      <strong>
-       include-setjmp
-      </strong>
+      <strong>include-setjmp</strong>
      </td>
      <td>
       Fully checked
@@ -517,11 +333,7 @@ After catch: Instances: 0
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-982">
-        S982
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-982">S982</a></strong>
      </td>
      <td>
      </td>
@@ -530,17 +342,7 @@ After catch: Instances: 0
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR34-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR34-CPP">CERT website</a>.</p>
  </section>
  <section title="Bibliography">
   <table>
@@ -555,13 +357,9 @@ After catch: Instances: 0
      </td>
      <td>
       Rule 13.3, Do not use
-      <code>
-       setjmp()
-      </code>
+      <code>setjmp()</code>
       and
-      <code>
-       longjmp()
-      </code>
+      <code>longjmp()</code>
      </td>
     </tr>
     <tr>

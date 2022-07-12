@@ -1,0 +1,42 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+  <section title="Classification">
+    <ul>
+      <li>required</li>
+      <li>implementation</li>
+      <li>automated</li>
+    </ul>
+  </section>
+
+  <section title="Rationale">
+    <p>
+      Depending on the font used to display the character set, it is possible for certain glyphs to appear the same, even though the characters are different. This may lead to the developer confusing an identifier with another one.
+    </p>      
+    <p>    
+      To help reduce the chance of this, identifiers shall not differ by any combination of:
+    </p>
+    <ul>  
+      <li>Only a mixture of case;</li>
+      <li>The presence or absence of the underscore character;</li>
+      <li>The interchange of the letter “O”, and the number “0”;</li>
+      <li>The interchange of the letter “I”, and the number “1”;</li>
+      <li>The interchange of the letter “I”, and the letter “l” (el);</li>
+      <li>The interchange of the letter “l” (el), and the number “1”;</li>
+      <li>The interchange of the letter “S” and the number “5”;</li>
+      <li>The interchange of the letter “Z” and the number “2”;</li>
+      <li>The interchange of the letter “n” and the letter “h”;</li>
+      <li>The interchange of the letter “B” and the number “8”;</li>
+      <li>The interchange of the letter sequence “rn” (“r” followed by “n”) with the letter “m”.</li>
+    </ul>
+  </section>
+
+  <example>
+    <sample src="standard-example.cpp"></sample>
+  </example>
+
+  <section title="See more">
+    <ul>
+      <li>MISRA C++ 2008 [7]</li>
+    </ul>
+  </section>
+</qhelp>

@@ -1,233 +1,60 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   When an exception is thrown, the value of the object in the throw expression is used to initialize an anonymous temporary object called the
-   <em>
-    exception object
-   </em>
-   . The type of this exception object is used to transfer control to the nearest catch handler, which contains an exception declaration with a matching type. The C++ Standard, [except.handle], paragraph 16 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], in part, states the following:
-  </p>
+  <p>When an exception is thrown, the value of the object in the throw expression is used to initialize an anonymous temporary object called the <em>exception object</em>. The type of this exception object is used to transfer control to the nearest catch handler, which contains an exception declaration with a matching type. The C++ Standard, [except.handle], paragraph 16 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], in part, states the following:</p>
   <blockquote>
-   <p>
-    The variable declared by the
-    <em>
-     exception-declaration
-    </em>
-    , of type
-    <em>
-     cv
-    </em>
-    <code>
-     T
-    </code>
-    or
-    <em>
-     cv
-    </em>
-    <code>
-     T&amp;
-    </code>
-    , is initialized from the exception object, of type
-    <code>
-     E
-    </code>
-    , as follows:
-    — if
-    <code>
-     T
-    </code>
-    is a base class of
-    <code>
-     E
-    </code>
-    , the variable is copy-initialized from the corresponding base class subobject of the exception object;
-    — otherwise, the variable is copy-initialized from the exception object.
-   </p>
+   <p>The variable declared by the <em>exception-declaration</em>, of type <em>cv</em> <code>T</code> or <em>cv</em> <code>T&amp;</code>, is initialized from the exception object, of type <code>E</code>, as follows:  — if <code>T</code> is a base class of <code>E</code>, the variable is copy-initialized from the corresponding base class subobject of the exception object;  — otherwise, the variable is copy-initialized from the exception object.</p>
   </blockquote>
-  <p>
-   Because the variable declared by the
-   <em>
-    exception-declaration
-   </em>
-   is copy-initialized, it is possible to
-   <em>
-    slice
-    <a href="https://en.wikipedia.org/wiki/Object_slicing">
-    </a>
-   </em>
-   the exception object as part of the copy operation, losing valuable exception information and leading to incorrect error recovery.
-   For more information about object slicing, see
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP51-CPP.+Do+not+slice+derived+objects">
-    OOP51-CPP. Do not slice derived objects
-   </a>
-   . Further, if the copy constructor of the exception object throws an exception, the copy initialization of the
-   <em>
-    exception-declaration
-   </em>
-   object results in undefined behavior. (See
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR60-CPP.+Exception+objects+must+be+nothrow+copy+constructible">
-    ERR60-CPP. Exception objects must be nothrow copy constructible
-   </a>
-   for more information.)
-  </p>
-  <p>
-   Always catch exceptions by
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-lvalue">
-    lvalue
-   </a>
-   reference unless the type is a trivial type. For reference, the C++ Standard, [basic.types], paragraph 9 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], defines trivial types as the following:
-  </p>
+  <p>Because the variable declared by the <em>exception-declaration</em> is copy-initialized, it is possible to <em>slice<a href="https://en.wikipedia.org/wiki/Object_slicing"></a></em> the exception object as part of the copy operation, losing valuable exception information and leading to incorrect error recovery. For more information about object slicing, see <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP51-CPP.+Do+not+slice+derived+objects">OOP51-CPP. Do not slice derived objects</a>. Further, if the copy constructor of the exception object throws an exception, the copy initialization of the <em>exception-declaration</em> object results in undefined behavior. (See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR60-CPP.+Exception+objects+must+be+nothrow+copy+constructible">ERR60-CPP. Exception objects must be nothrow copy constructible</a> for more information.)</p>
+  <p>Always catch exceptions by <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-lvalue">lvalue</a> reference unless the type is a trivial type. For reference, the C++ Standard, [basic.types], paragraph 9 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], defines trivial types as the following:</p>
   <blockquote>
-   <p>
-    Arithmetic types, enumeration types, pointer types, pointer to member types,
-    <code>
-     std::nullptr_t
-    </code>
-    , and cv-qualified versions of these types are collectively called
-    <em>
-     scalar types
-    </em>
-    .... Scalar types, trivial class types, arrays of such types and cv-qualified versions of these types are collectively called
-    <em>
-     trivial types
-    </em>
-    .
-   </p>
+   <p>Arithmetic types, enumeration types, pointer types, pointer to member types, <code>std::nullptr_t</code>, and cv-qualified versions of these types are collectively called <em>scalar types</em>.... Scalar types, trivial class types, arrays of such types and cv-qualified versions of these types are collectively called <em>trivial types</em>.</p>
   </blockquote>
-  <p>
-   The C++ Standard, [class], paragraph 6, defines trivial class types as the following:
-  </p>
+  <p>The C++ Standard, [class], paragraph 6, defines trivial class types as the following:</p>
   <blockquote>
-   <p>
-    A
-    <em>
-     trivially copyable class
-    </em>
-    is a class that:
-    — has no non-trivial copy constructors,
-    — has no non-trivial move constructors,
-    — has no non-trivial copy assignment operators,
-    — has no non-trivial move assignment operators, and
-    — has a trivial destructor.
-    A
-    <em>
-     trivial class
-    </em>
-    is a class that has a default constructor, has no non-trivial default constructors, and is trivially copyable. [
-    <em>
-     Note
-    </em>
-    : In particular, a trivially copyable or trivial class does not have virtual functions or virtual base classes. —
-    <em>
-     end note
-    </em>
-    ]
-   </p>
+   <p>A <em>trivially copyable class</em> is a class that:  — has no non-trivial copy constructors,  — has no non-trivial move constructors,  — has no non-trivial copy assignment operators,  — has no non-trivial move assignment operators, and  — has a trivial destructor.A <em>trivial class</em> is a class that has a default constructor, has no non-trivial default constructors, and is trivially copyable. [<em>Note</em>: In particular, a trivially copyable or trivial class does not have virtual functions or virtual base classes. — <em>end note</em>]</p>
   </blockquote>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, an object of type
-   <code>
-    S
-   </code>
-   is used to initialize the exception object that is later caught by an
-   <em>
-    exception-declaration
-   </em>
-   of type
-   <code>
-    std::exception
-   </code>
-   . The
-   <em>
-    exception-declaration
-   </em>
-   matches the exception object type, so the variable
-   <code>
-    E
-   </code>
-   is copy-initialized from the exception object, resulting in the exception object being sliced. Consequently, the output of this noncompliant code example is the implementation-defined value returned from calling
-   <code>
-    std::exception::what()
-   </code>
-   instead of
-   <code>
-    "My custom exception"
-   </code>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;exception&gt;
+  <p>In this noncompliant code example, an object of type <code>S</code> is used to initialize the exception object that is later caught by an <em>exception-declaration</em> of type <code>std::exception</code>. The <em>exception-declaration</em> matches the exception object type, so the variable <code>E</code> is copy-initialized from the exception object, resulting in the exception object being sliced. Consequently, the output of this noncompliant code example is the implementation-defined value returned from calling <code>std::exception::what()</code> instead of <code>"My custom exception"</code>.</p>
+  <sample language="cpp">#include &lt;exception&gt;
 #include &lt;iostream&gt;
- 
+ 
 struct S : std::exception {
   const char *what() const noexcept override {
     return "My custom exception";
   }
 };
- 
+ 
 void f() {
   try {
     throw S();
   } catch (std::exception e) {
     std::cout &lt;&lt; e.what() &lt;&lt; std::endl;
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the variable declared by the
-   <em>
-    exception-declaration
-   </em>
-   is an lvalue reference. The call to
-   <code>
-    what()
-   </code>
-   results in executing
-   <code>
-    S::what()
-   </code>
-   instead of
-   <code>
-    std::exception::what()
-   </code>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;exception&gt;
+  <p>In this compliant solution, the variable declared by the <em>exception-declaration</em> is an lvalue reference. The call to <code>what()</code> results in executing <code>S::what()</code> instead of <code>std::exception::what()</code>.</p>
+  <sample language="cpp">#include &lt;exception&gt;
 #include &lt;iostream&gt;
- 
+ 
 struct S : std::exception {
   const char *what() const noexcept override {
     return "My custom exception";
   }
 };
- 
+ 
 void f() {
   try {
     throw S();
   } catch (std::exception &amp;e) {
     std::cout &lt;&lt; e.what() &lt;&lt; std::endl;
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Object slicing can result in abnormal program execution. This generally is not a problem for exceptions, but it can lead to unexpected behavior depending on the assumptions made by the exception handler.
-  </p>
+  <p>Object slicing can result in abnormal program execution. This generally is not a problem for exceptions, but it can lead to unexpected behavior depending on the assumptions made by the exception handler.</p>
   <table>
    <tbody>
     <tr>
@@ -264,14 +91,10 @@ void f() {
       Low
      </td>
      <td>
-      <strong>
-       P3
-      </strong>
+      <strong>P3</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -304,9 +127,7 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>
-       catch-class-by-value
-      </strong>
+      <strong>catch-class-by-value</strong>
      </td>
      <td>
       Fully checked
@@ -322,9 +143,7 @@ void f() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-ERR61
-      </strong>
+      <strong>CertC++-ERR61</strong>
      </td>
      <td>
      </td>
@@ -339,15 +158,11 @@ void f() {
       3.9
      </td>
      <td>
-      <code>
-       cert-err61-cpp
-      </code>
+      <code>cert-err61-cpp</code>
      </td>
      <td>
       Checked by
-      <code>
-       clang-tidy
-      </code>
+      <code>clang-tidy</code>
       ; also checks for
       <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046576">
        VOID ERR09-CPP. Throw anonymous temporaries
@@ -365,9 +180,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++4031
-      </strong>
+      <strong>C++4031 </strong>
      </td>
      <td>
      </td>
@@ -382,9 +195,7 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong>
-       MISRA.CATCH.BY_VALUE
-      </strong>
+      <strong>MISRA.CATCH.BY_VALUE</strong>
      </td>
      <td>
      </td>
@@ -398,9 +209,7 @@ void f() {
      <td>
      </td>
      <td>
-      <strong>
-       455 S
-      </strong>
+      <strong>455 S</strong>
      </td>
      <td>
       Fully implemented
@@ -416,12 +225,8 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-ERR61-a
-      </strong>
-      <strong>
-       CERT_CPP-ERR61-b
-      </strong>
+      <strong>CERT_CPP-ERR61-a</strong>
+      <strong>CERT_CPP-ERR61-b</strong>
      </td>
      <td>
       A class type exception shall always be caught by reference
@@ -456,9 +261,7 @@ void f() {
       4.4
      </td>
      <td>
-      <strong>
-       4031
-      </strong>
+      <strong>4031 </strong>
      </td>
      <td>
      </td>
@@ -470,18 +273,10 @@ void f() {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v746/">
-        V746
-       </a>
-       ,
-       <a href="https://pvs-studio.com/en/docs/warnings/v816/">
-        V816
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v746/">V746</a>, <a href="https://pvs-studio.com/en/docs/warnings/v816/">V816</a></strong>
      </td>
      <td>
      </td>
@@ -496,9 +291,7 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>
-       catch-class-by-value
-      </strong>
+      <strong>catch-class-by-value</strong>
      </td>
      <td>
       Fully checked
@@ -514,11 +307,7 @@ void f() {
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-1044">
-        S1044
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-1044">S1044</a></strong>
      </td>
      <td>
      </td>
@@ -527,27 +316,10 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR61-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR61-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
-  <p>
-   <em>
-    This rule is a subset of
-    <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP51-CPP.+Do+not+slice+derived+objects">
-     OOP51-CPP. Do not slice derived objects.
-    </a>
-   </em>
-  </p>
+  <p><em>This rule is a subset of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP51-CPP.+Do+not+slice+derived+objects">OOP51-CPP. Do not slice derived objects.</a></em></p>
   <table>
    <tbody>
     <tr>

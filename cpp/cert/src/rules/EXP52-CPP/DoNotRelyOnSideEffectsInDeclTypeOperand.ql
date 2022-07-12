@@ -15,6 +15,7 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.Sfinae
 import codingstandards.cpp.SideEffect
+import codingstandards.cpp.sideeffect.DefaultEffects
 
 from Decltype t, SideEffect e
 where

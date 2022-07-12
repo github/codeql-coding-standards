@@ -1,104 +1,35 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The
-   <code>
-    [[noreturn]]
-   </code>
-   attribute specifies that a function does not return. The C++ Standard, [dcl.attr.noreturn] paragraph 2
-   [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following:
-  </p>
+  <p>The <code>[[noreturn]]</code> attribute specifies that a function does not return. The C++ Standard, [dcl.attr.noreturn] paragraph 2 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    If a function
-    <code>
-     f
-    </code>
-    is called where
-    <code>
-     f
-    </code>
-    was previously declared with the
-    <code>
-     noreturn
-    </code>
-    attribute and
-    <code>
-     f
-    </code>
-    eventually returns, the behavior is undefined.
-   </p>
+   <p>If a function <code>f</code> is called where <code>f</code> was previously declared with the <code>noreturn</code> attribute and <code>f</code> eventually returns, the behavior is undefined.</p>
   </blockquote>
-  <p>
-   A function that specifies
-   <code>
-    [[noreturn]]
-   </code>
-   can prohibit returning by throwing an exception, entering an infinite loop, or calling another function designated with the
-   <code>
-    [[noreturn]]
-   </code>
-   attribute.
-  </p>
+  <p>A function that specifies <code>[[noreturn]]</code> can prohibit returning by throwing an exception, entering an infinite loop, or calling another function designated with the <code>[[noreturn]]</code> attribute.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, if the value
-   <code>
-    0
-   </code>
-   is passed, control will flow off the end of the function, resulting in an implicit return and
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;cstdlib&gt;
- 
+  <p>In this noncompliant code example, if the value <code>0</code> is passed, control will flow off the end of the function, resulting in an implicit return and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+ 
 [[noreturn]] void f(int i) {
   if (i &gt; 0)
     throw "Received positive input";
   else if (i &lt; 0)
     std::exit(0);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the function does not return on any code path.
-  </p>
-  <sample language="cpp">
-   #include &lt;cstdlib&gt;
- 
+  <p>In this compliant solution, the function does not return on any code path.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+ 
 [[noreturn]] void f(int i) {
   if (i &gt; 0)
     throw "Received positive input";
   std::exit(0);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Returning from a function marked
-   <code>
-    [[noreturn]]
-   </code>
-   results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   that might be
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">
-    exploited
-   </a>
-   to cause data-integrity violations.
-  </p>
+  <p>Returning from a function marked <code>[[noreturn]]</code> results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> that might be <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">exploited</a> to cause data-integrity violations.</p>
   <table>
    <tbody>
     <tr>
@@ -135,14 +66,10 @@
       Low
      </td>
      <td>
-      <strong>
-       P2
-      </strong>
+      <strong>P2</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -175,9 +102,7 @@
       20.10
      </td>
      <td>
-      <strong>
-       invalid-noreturn
-      </strong>
+      <strong>invalid-noreturn</strong>
      </td>
      <td>
       Fully checked
@@ -193,9 +118,7 @@
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-MSC53
-      </strong>
+      <strong>CertC++-MSC53</strong>
      </td>
      <td>
      </td>
@@ -210,11 +133,25 @@
       3.9
      </td>
      <td>
-      <code>
-       -Winvalid-noreturn
-      </code>
+      <code>-Winvalid-noreturn</code>
      </td>
      <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>LANG.STRUCT.RFNR</strong>
+     </td>
+     <td>
+      Return from noreturn
      </td>
     </tr>
     <tr>
@@ -227,9 +164,7 @@
       2021.2
      </td>
      <td>
-      <strong>
-       C++2886
-      </strong>
+      <strong>C++2886</strong>
      </td>
      <td>
      </td>
@@ -244,11 +179,7 @@
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CERT.MSC.NORETURN_FUNC_RETURNS
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.MSC.NORETURN_FUNC_RETURNS</a></strong>
      </td>
      <td>
      </td>
@@ -263,9 +194,7 @@
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-MSC53-a
-      </strong>
+      <strong>CERT_CPP-MSC53-a</strong>
      </td>
      <td>
       Never return from functions that should not return
@@ -287,9 +216,7 @@
      </td>
      <td>
       Checks for
-      <code>
-       [[noreturn]]
-      </code>
+      <code>[[noreturn]]</code>
       functions returning to caller (rule fully covered)
      </td>
     </tr>
@@ -303,9 +230,7 @@
       20.10
      </td>
      <td>
-      <strong>
-       invalid-noreturn
-      </strong>
+      <strong>invalid-noreturn</strong>
      </td>
      <td>
       Fully checked
@@ -321,11 +246,7 @@
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-935">
-        S935
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-935">S935</a></strong>
      </td>
      <td>
      </td>
@@ -334,17 +255,7 @@
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MSC53-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities </a>resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MSC53-CPP">CERT website</a>.</p>
  </section>
  <section title="Bibliography">
   <table>
@@ -359,9 +270,7 @@
      </td>
      <td>
       Subclause 7.6.3, "
-      <code>
-       noreturn
-      </code>
+      <code>noreturn</code>
       Attribute"
      </td>
     </tr>

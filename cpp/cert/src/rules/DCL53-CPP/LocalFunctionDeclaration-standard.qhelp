@@ -1,72 +1,19 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   It is possible to devise syntax that can ambiguously be interpreted as either an expression statement or a declaration. Syntax of this sort is called a
-   <em>
-    vexing parse
-   </em>
-   because the compiler must use disambiguation rules to determine the semantic results. The C++ Standard, [stmt.ambig], paragraph 1 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], in part, states the following:
-  </p>
+  <p>It is possible to devise syntax that can ambiguously be interpreted as either an expression statement or a declaration. Syntax of this sort is called a <em>vexing parse</em> because the compiler must use disambiguation rules to determine the semantic results. The C++ Standard, [stmt.ambig], paragraph 1 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], in part, states the following:</p>
   <blockquote>
-   <p>
-    There is an ambiguity in the grammar involving
-    <em>
-     expression-statement
-    </em>
-    s and declarations: An
-    <em>
-     expression-statement
-    </em>
-    with a function-style explicit type conversion as its leftmost subexpression can be indistinguishable from a declaration where the first declarator starts with a
-    <code>
-     (
-    </code>
-    . In those cases the statement is a declaration. [Note: To disambiguate, the whole statement might have to be examined to determine if it is an
-    <em>
-     expression-statement
-    </em>
-    or a declaration. ...
-   </p>
+   <p>There is an ambiguity in the grammar involving <em>expression-statement</em>s and declarations: An <em>expression-statement</em> with a function-style explicit type conversion as its leftmost subexpression can be indistinguishable from a declaration where the first declarator starts with a <code>(</code>. In those cases the statement is a declaration. [Note: To disambiguate, the whole statement might have to be examined to determine if it is an <em>expression-statement</em> or a declaration. ...</p>
   </blockquote>
-  <p>
-   A similarly vexing parse exists within the context of a declaration where syntax can be ambiguously interpreted as either a function declaration or a declaration with a function-style cast as the initializer. The C++ Standard, [dcl.ambig.res], paragraph 1, in part, states the following:
-  </p>
+  <p>A similarly vexing parse exists within the context of a declaration where syntax can be ambiguously interpreted as either a function declaration or a declaration with a function-style cast as the initializer. The C++ Standard, [dcl.ambig.res], paragraph 1, in part, states the following:</p>
   <blockquote>
-   <p>
-    The ambiguity arising from the similarity between a function-style cast and a declaration mentioned in 6.8 can also occur in the context of a declaration. In that context, the choice is between a function declaration with a redundant set of parentheses around a parameter name and an object declaration with a function-style cast as the initializer. Just as for the ambiguities mentioned in 6.8, the resolution is to consider any construct that could possibly be a declaration a declaration.
-   </p>
+   <p>The ambiguity arising from the similarity between a function-style cast and a declaration mentioned in 6.8 can also occur in the context of a declaration. In that context, the choice is between a function declaration with a redundant set of parentheses around a parameter name and an object declaration with a function-style cast as the initializer. Just as for the ambiguities mentioned in 6.8, the resolution is to consider any construct that could possibly be a declaration a declaration.</p>
   </blockquote>
-  <p>
-   Do not write a syntactically ambiguous declaration. With the advent of uniform initialization syntax using a braced-init-list, there is now syntax that unambiguously specifies a declaration instead of an expression statement. Declarations can also be disambiguated by using nonfunction-style casts, by initializing using =, or by removing extraneous parenthesis around the parameter name.
-  </p>
+  <p>Do not write a syntactically ambiguous declaration. With the advent of uniform initialization syntax using a braced-init-list, there is now syntax that unambiguously specifies a declaration instead of an expression statement. Declarations can also be disambiguated by using nonfunction-style casts, by initializing using =, or by removing extraneous parenthesis around the parameter name.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, an anonymous local variable of type
-   <code>
-    std::unique_lock
-   </code>
-   is expected to lock and unlock the mutex
-   <code>
-    m
-   </code>
-   by virtue of
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-RAII">
-    RAII.
-   </a>
-   However, the declaration is syntactically ambiguous as it can be interpreted as declaring an anonymous object and calling its single-argument converting constructor or interpreted as declaring an object named
-   <code>
-    m
-   </code>
-   and default constructing it. The syntax used in this example defines the latter instead of the former, and so the mutex object is never locked.
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
+  <p>In this noncompliant code example, an anonymous local variable of type <code>std::unique_lock</code> is expected to lock and unlock the mutex <code>m</code> by virtue of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-RAII">RAII.</a> However, the declaration is syntactically ambiguous as it can be interpreted as declaring an anonymous object and calling its single-argument converting constructor or interpreted as declaring an object named <code>m</code> and default constructing it. The syntax used in this example defines the latter instead of the former, and so the mutex object is never locked.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
 
 static std::mutex m;
 static int shared_resource;
@@ -74,52 +21,24 @@ static int shared_resource;
 void increment_by_42() {
   std::unique_lock&lt;std::mutex&gt;(m);
   shared_resource += 42;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the lock object is given an identifier (other than
-   <code>
-    m
-   </code>
-   ) and the proper converting constructor is called.
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
- 
+  <p>In this compliant solution, the lock object is given an identifier (other than <code>m</code>) and the proper converting constructor is called.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
+ 
 static std::mutex m;
 static int shared_resource;
 
 void increment_by_42() {
   std::unique_lock&lt;std::mutex&gt; lock(m);
   shared_resource += 42;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, an attempt is made to declare a local variable,
-   <code>
-    w
-   </code>
-   , of type
-   <code>
-    Widget
-   </code>
-   while executing the default constructor. However, this declaration is syntactically ambiguous where the code could be either a declaration of a function pointer accepting no arguments and returning a
-   <code>
-    Widget
-   </code>
-   or a declaration of a local variable of type
-   <code>
-    Widget
-   </code>
-   . The syntax used in this example defines the former instead of the latter.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
- 
+  <p>In this noncompliant code example, an attempt is made to declare a local variable, <code>w</code>, of type <code>Widget</code> while executing the default constructor. However, this declaration is syntactically ambiguous where the code could be either a declaration of a function pointer accepting no arguments and returning a <code>Widget</code> or a declaration of a local variable of type <code>Widget</code>. The syntax used in this example defines the former instead of the latter.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
 struct Widget {
   Widget() { std::cout &lt;&lt; "Constructed" &lt;&lt; std::endl; }
 };
@@ -127,21 +46,12 @@ struct Widget {
 void f() {
   Widget w();
 }
-  </sample>
-  <p>
-   As a result, this program compiles and prints no output because the default constructor is never actually invoked.
-  </p>
+</sample>
+  <p>As a result, this program compiles and prints no output because the default constructor is never actually invoked.</p>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution shows two equally compliant ways to write the declaration. The first way is to elide the parentheses after the variable declaration, which ensures the syntax is that of a variable declaration instead of a function declaration. The second way is to use a
-   <em>
-    braced-init-list
-   </em>
-   to direct-initialize the local variable.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>This compliant solution shows two equally compliant ways to write the declaration. The first way is to elide the parentheses after the variable declaration, which ensures the syntax is that of a variable declaration instead of a function declaration. The second way is to use a <em>braced-init-list</em> to direct-initialize the local variable.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
  
 struct Widget {
   Widget() { std::cout &lt;&lt; "Constructed" &lt;&lt; std::endl; }
@@ -151,37 +61,12 @@ void f() {
   Widget w1; // Elide the parentheses
   Widget w2{}; // Use direct initialization
 }
-  </sample>
-  <p>
-   Running this program produces the output
-   <code>
-    Constructed
-   </code>
-   twice, once for
-   <code>
-    w1
-   </code>
-   and once for
-   <code>
-    w2
-   </code>
-   .
-  </p>
+</sample>
+  <p>Running this program produces the output <code>Constructed</code> twice, once for <code>w1</code> and once for <code>w2</code>.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   This noncompliant code example demonstrates a vexing parse. The declaration
-   <code>
-    Gadget g(Widget(i));
-   </code>
-   is not parsed as declaring a
-   <code>
-    Gadget
-   </code>
-   object with a single argument. It is instead parsed as a function declaration with a redundant set of parentheses around a parameter.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>This noncompliant code example demonstrates a vexing parse. The declaration <code>Gadget g(Widget(i));</code> is not parsed as declaring a <code>Gadget</code> object with a single argument. It is instead parsed as a function declaration with a redundant set of parentheses around a parameter. </p>
+  <sample language="cpp">#include &lt;iostream&gt;
 
 struct Widget {
   explicit Widget(int i) { std::cout &lt;&lt; "Widget constructed" &lt;&lt; std::endl; }
@@ -196,51 +81,15 @@ void f() {
   Gadget g(Widget(i));
   std::cout &lt;&lt; i &lt;&lt; std::endl;
 }
-  </sample>
-  <p>
-   Parentheses around parameter names are optional, so the following is a semantically identical spelling of the declaration.
-  </p>
-  <sample language="cpp">
-   Gadget g(Widget i);
-  </sample>
-  <p>
-   As a result, this program is well-formed and prints only
-   <code>
-    3
-   </code>
-   as output because no
-   <code>
-    Gadget
-   </code>
-   or
-   <code>
-    Widget
-   </code>
-   objects are constructed.
-  </p>
+</sample>
+  <p>Parentheses around parameter names are optional, so the following is a semantically identical spelling of the declaration.</p>
+  <sample language="cpp">Gadget g(Widget i);
+</sample>
+  <p>As a result, this program is well-formed and prints only <code>3</code> as output because no <code>Gadget</code> or <code>Widget</code> objects are constructed.</p>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution demonstrates two equally compliant ways to write the declaration of
-   <code>
-    g
-   </code>
-   . The first declaration,
-   <code>
-    g1
-   </code>
-   , uses an extra set of parentheses around the argument to the constructor call, forcing the compiler to parse it as a local variable declaration of type
-   <code>
-    Gadget
-   </code>
-   instead of as a function declaration. The second declaration,
-   <code>
-    g2
-   </code>
-   , uses direct initialization to similar effect.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>This compliant solution demonstrates two equally compliant ways to write the declaration of <code>g</code>. The first declaration, <code>g1</code>, uses an extra set of parentheses around the argument to the constructor call, forcing the compiler to parse it as a local variable declaration of type <code>Gadget</code> instead of as a function declaration. The second declaration, <code>g2</code>, uses direct initialization to similar effect.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 
 struct Widget {
   explicit Widget(int i) { std::cout &lt;&lt; "Widget constructed" &lt;&lt; std::endl; }
@@ -256,22 +105,16 @@ void f() {
   Gadget g2{Widget(i)}; // Use direct initialization
   std::cout &lt;&lt; i &lt;&lt; std::endl;
 }
-  </sample>
-  <p>
-   Running this program produces the expected output.
-  </p>
-  <sample language="cpp">
-   Widget constructed
+</sample>
+  <p>Running this program produces the expected output.</p>
+  <sample language="cpp">Widget constructed
 Gadget constructed
 Widget constructed 
 Gadget constructed
-3
-  </sample>
+3</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Syntactically ambiguous declarations can lead to unexpected program execution. However, it is likely that rudimentary testing would uncover violations of this rule.
-  </p>
+  <p>Syntactically ambiguous declarations can lead to unexpected program execution. However, it is likely that rudimentary testing would uncover violations of this rule.</p>
   <table>
    <tbody>
     <tr>
@@ -308,14 +151,10 @@ Gadget constructed
       Medium
      </td>
      <td>
-      <strong>
-       P2
-      </strong>
+      <strong> P2 </strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong> L3 </strong>
      </td>
     </tr>
    </tbody>
@@ -348,9 +187,7 @@ Gadget constructed
       2021.2
      </td>
      <td>
-      <strong>
-       C++2502, C++2510
-      </strong>
+      <strong>C++2502, C++2510</strong>
      </td>
      <td>
      </td>
@@ -365,11 +202,7 @@ Gadget constructed
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CERT.DCL.AMBIGUOUS_DECL
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.DCL.AMBIGUOUS_DECL</a></strong>
      </td>
      <td>
      </td>
@@ -383,11 +216,8 @@ Gadget constructed
      <td>
      </td>
      <td>
-      <strong>
-       296 S
-      </strong>
-      <strong>
-      </strong>
+      <strong>296 S</strong>
+      <strong> </strong>
      </td>
      <td>
       Partially implemented
@@ -403,13 +233,8 @@ Gadget constructed
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-DCL53-a
-      </strong>
-      <strong>
-       CERT_CPP-DCL53-b
-       CERT_CPP-DCL53-c
-      </strong>
+      <strong>CERT_CPP-DCL53-a</strong>
+      <strong>CERT_CPP-DCL53-bCERT_CPP-DCL53-c</strong>
      </td>
      <td>
       Parameter names in function declarations should not be enclosed in parentheses
@@ -433,7 +258,7 @@ Gadget constructed
      </td>
      <td>
       Checks for declarations that can be confused between:
-      Function and object declaration, unnamed object or function parameter declaration.
+      Function and object declarationunction and object declaration, unnamed object or function parameter declarationnnamed object or function parameter declaration.
       Rule fully covered.
      </td>
     </tr>
@@ -447,9 +272,7 @@ Gadget constructed
       4.4
      </td>
      <td>
-      <strong>
-       2502, 2510
-      </strong>
+      <strong>2502, 2510</strong>
      </td>
      <td>
      </td>
@@ -464,9 +287,7 @@ Gadget constructed
       3.9
      </td>
      <td>
-      <code>
-       -Wvexing-parse
-      </code>
+      <code>-Wvexing-parse</code>
      </td>
      <td>
      </td>
@@ -481,11 +302,7 @@ Gadget constructed
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-3468">
-        S3468
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-3468">S3468</a></strong>
      </td>
      <td>
      </td>
@@ -494,17 +311,7 @@ Gadget constructed
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+DCL34-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+DCL34-CPP">CERT website</a>.</p>
  </section>
  <section title="Bibliography">
   <table>

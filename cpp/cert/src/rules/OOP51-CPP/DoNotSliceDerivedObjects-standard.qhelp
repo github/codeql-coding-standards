@@ -1,43 +1,12 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   An object deriving from a base class typically contains additional member variables that extend the base class. When by-value assigning or copying an object of the derived type to an object of the base type, those additional member variables are not copied because the base class contains insufficient space in which to store them. This action is commonly called
-   <em>
-    slicing
-   </em>
-   the object because the additional members are "sliced off" the resulting object.
-  </p>
-  <p>
-   Do not initialize an object of base class type with an object of derived class type, except through references, pointers, or pointer-like abstractions (such as
-   <code>
-    std::unique_ptr, or std::shared_ptr
-   </code>
-   ).
-  </p>
+  <p>An object deriving from a base class typically contains additional member variables that extend the base class. When by-value assigning or copying an object of the derived type to an object of the base type, those additional member variables are not copied because the base class contains insufficient space in which to store them. This action is commonly called <em>slicing</em> the object because the additional members are "sliced off" the resulting object.</p>
+  <p>Do not initialize an object of base class type with an object of derived class type, except through references, pointers, or pointer-like abstractions (such as <code>std::unique_ptr, or std::shared_ptr</code>).</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, an object of the derived
-   <code>
-    Manager
-   </code>
-   type is passed by value to a function accepting a base
-   <code>
-    Employee
-   </code>
-   type. Consequently, the
-   <code>
-    Manager
-   </code>
-   objects are sliced, resulting in information loss and unexpected behavior when the
-   <code>
-    print()
-   </code>
-   function is called.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>In this noncompliant code example, an object of the derived <code>Manager</code> type is passed by value to a function accepting a base <code>Employee</code> type. Consequently, the <code>Manager</code> objects are sliced, resulting in information loss and unexpected behavior when the <code>print()</code> function is called.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
 
 class Employee {
@@ -84,49 +53,14 @@ int main() {
   f(typist);
   f(designer);
 }
-  </sample>
-  <p>
-   When
-   <code>
-    f()
-   </code>
-   is called with the
-   <code>
-    designer
-   </code>
-   argument, the formal parameter in
-   <code>
-    f()
-   </code>
-   is sliced and information is lost. When the object
-   <code>
-    e
-   </code>
-   is printed,
-   <code>
-    Employee::print()
-   </code>
-   is called instead of
-   <code>
-    Manager::print()
-   </code>
-   , resulting in the following output:
-  </p>
-  <sample language="cpp">
-   Employee: Jane Doe
-  </sample>
+</sample>
+  <p>When <code>f()</code> is called with the <code>designer</code> argument, the formal parameter in <code>f()</code> is sliced and information is lost. When the object <code>e</code> is printed, <code>Employee::print()</code> is called instead of <code>Manager::print()</code>, resulting in the following output:</p>
+  <sample language="cpp">Employee: Jane Doe</sample>
  </section>
  <section title="Compliant Solution (Pointers)">
-  <p>
-   Using the same class definitions as the noncompliant code example, this compliant solution modifies the definition of
-   <code>
-    f()
-   </code>
-   to require raw pointers to the object, removing the slicing problem.
-  </p>
-  <sample language="cpp">
-   // Remainder of code unchanged...
- 
+  <p>Using the same class definitions as the noncompliant code example, this compliant solution modifies the definition of <code>f()</code> to require raw pointers to the object, removing the slicing problem.</p>
+  <sample language="cpp">// Remainder of code unchanged...
+ 
 void f(const Employee *e) {
   if (e) {
     std::cout &lt;&lt; *e;
@@ -142,36 +76,17 @@ int main() {
   f(&amp;typist);
   f(&amp;designer);
 }
-  </sample>
-  <p>
-   This compliant solution also complies with
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP34-C.+Do+not+dereference+null+pointers">
-    EXP34-C. Do not dereference null pointers
-   </a>
-   in the implementation of
-   <code>
-    f()
-   </code>
-   . With this definition, the program correctly outputs the following.
-  </p>
-  <sample language="cpp">
-   Employee: Joe Smith
+</sample>
+  <p>This compliant solution also complies with <a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP34-C.+Do+not+dereference+null+pointers">EXP34-C. Do not dereference null pointers</a> in the implementation of <code>f()</code>. With this definition, the program correctly outputs the following.</p>
+  <sample language="cpp">Employee: Joe Smith
 Employee: Bill Jones
 Manager: Jane Doe
 Assistant: 
-	Employee: Bill Jones
-  </sample>
+	Employee: Bill Jones</sample>
  </section>
  <section title="Compliant Solution (References)">
-  <p>
-   An improved compliant solution, which does not require guarding against null pointers within
-   <code>
-    f()
-   </code>
-   , uses references instead of pointers.
-  </p>
-  <sample language="cpp">
-   // ... Remainder of code unchanged ...
+  <p>An improved compliant solution, which does not require guarding against null pointers within <code>f()</code>, uses references instead of pointers.</p>
+  <sample language="cpp">// ... Remainder of code unchanged ...
  
 void f(const Employee &amp;e) {
   std::cout &lt;&lt; e;
@@ -185,43 +100,11 @@ int main() {
   f(coder);
   f(typist);
   f(designer);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (Noncopyable)">
-  <p>
-   Both previous compliant solutions depend on consumers of the
-   <code>
-    Employee
-   </code>
-   and
-   <code>
-    Manager
-   </code>
-   types to be declared in a compliant manner with the expected usage of the class hierarchy. This compliant solution ensures that consumers are unable to accidentally slice objects by removing the ability to copy-initialize an object that derives from
-   <code>
-    Noncopyable
-   </code>
-   . If copy-initialization is attempted, as in the original definition of
-   <code>
-    f()
-   </code>
-   , the program is
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-ill-formed">
-    ill-formed
-   </a>
-   and a diagnostic will be emitted. However, such a solution also restricts the
-   <code>
-    Manager
-   </code>
-   object from attempting to copy-initialize its
-   <code>
-    Employee
-   </code>
-   object, which subtly changes the semantics of the class hierarchy.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>Both previous compliant solutions depend on consumers of the <code>Employee</code> and <code>Manager</code> types to be declared in a compliant manner with the expected usage of the class hierarchy. This compliant solution ensures that consumers are unable to accidentally slice objects by removing the ability to copy-initialize an object that derives from <code>Noncopyable</code>. If copy-initialization is attempted, as in the original definition of <code>f()</code>, the program is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-ill-formed">ill-formed</a> and a diagnostic will be emitted. However, such a solution also restricts the <code>Manager</code> object from attempting to copy-initialize its <code>Employee</code> object, which subtly changes the semantics of the class hierarchy.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
 
 class Noncopyable {
@@ -264,7 +147,7 @@ public:
   Manager(const std::string &amp;name, const Employee &amp;assistant) : Employee(name), assistant(assistant) {}
   const Employee &amp;get_assistant() const { return assistant; }
 };
- 
+ 
 // If f() were declared as accepting an Employee, the program would be
 // ill-formed because Employee cannot be copy-initialized.
 void f(const Employee &amp;e) {
@@ -279,38 +162,14 @@ int main() {
   f(coder);
   f(typist);
   f(designer);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   This noncompliant code example uses the same class definitions of
-   <code>
-    Employee
-   </code>
-   and
-   <code>
-    Manager
-   </code>
-   as in the previous noncompliant code example and attempts to store
-   <code>
-    Employee
-   </code>
-   objects in a
-   <code>
-    std::vector
-   </code>
-   . However, because
-   <code>
-    std::vector
-   </code>
-   requires a homogeneous list of elements, slicing occurs.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>This noncompliant code example uses the same class definitions of <code>Employee</code> and <code>Manager</code> as in the previous noncompliant code example and attempts to store <code>Employee</code> objects in a <code>std::vector</code>. However, because <code>std::vector</code> requires a homogeneous list of elements, slicing occurs.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
- 
+ 
 void f(const std::vector&lt;Employee&gt; &amp;v) {
   for (const auto &amp;e : v) {
     std::cout &lt;&lt; e;
@@ -321,19 +180,11 @@ int main() {
   Employee typist("Joe Smith");
   std::vector&lt;Employee&gt; v{typist, Employee("Bill Jones"), Manager("Jane Doe", typist)};
   f(v);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution uses a vector of
-   <code>
-    std::unique_ptr
-   </code>
-   objects, which eliminates the slicing problem.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>This compliant solution uses a vector of <code>std::unique_ptr</code> objects, which eliminates the slicing problem.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;memory&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
@@ -352,17 +203,10 @@ int main() {
   v.emplace_back(new Manager("Jane Doe", *v.front()));
   
   f(v);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Slicing results in information loss, which could lead to abnormal program execution or
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
-    denial-of-service attacks
-   </a>
-   .
-  </p>
+  <p>Slicing results in information loss, which could lead to abnormal program execution or <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>.</p>
   <table>
    <tbody>
     <tr>
@@ -399,14 +243,10 @@ int main() {
       Medium
      </td>
      <td>
-      <strong>
-       P4
-      </strong>
+      <strong>P4</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -431,6 +271,22 @@ int main() {
     </tr>
     <tr>
      <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>LANG.CAST.OBJSLICE</strong>
+     </td>
+     <td>
+      Object Slicing
+     </td>
+    </tr>
+    <tr>
+     <td>
       <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
        Helix QAC
       </a>
@@ -439,9 +295,7 @@ int main() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++3072
-      </strong>
+      <strong>C++3072</strong>
      </td>
      <td>
      </td>
@@ -456,9 +310,7 @@ int main() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-OOP51-a
-      </strong>
+      <strong>CERT_CPP-OOP51-a</strong>
      </td>
      <td>
       Avoid slicing function arguments / return value
@@ -492,9 +344,7 @@ int main() {
       4.4
      </td>
      <td>
-      <strong>
-       3072
-      </strong>
+      <strong> 3072</strong>
      </td>
      <td>
      </td>
@@ -506,14 +356,10 @@ int main() {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v1054/">
-        V1054
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1054/">V1054</a></strong>
      </td>
      <td>
      </td>
@@ -522,17 +368,7 @@ int main() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP33-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP33-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

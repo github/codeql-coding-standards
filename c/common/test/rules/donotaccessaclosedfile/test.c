@@ -71,3 +71,22 @@ int f7(void) {
   p = fp;          // NON_COMPLIANT
   return 0;
 }
+
+void finter_helper(FILE *f) {
+  fputs("write", f); // NON_COMPLIANT
+}
+int finter(void) {
+  FILE *f = fopen("myfile", "rw");
+  fclose(f);
+  finter_helper(f);
+}
+
+FILE *g_f;
+void fglobal_helper() {
+  fputs("write", g_f); // NON_COMPLIANT[FALSE_NEGATIVE]
+}
+int fglobal(void) {
+  g_f = fopen("myfile", "rw");
+  fclose(g_f);
+  fglobal_helper();
+}

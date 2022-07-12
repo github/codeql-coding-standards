@@ -1,229 +1,48 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   Namespaces introduce new declarative regions for declarations, reducing the likelihood of conflicting identifiers with other declarative regions. One feature of namespaces is that they can be further extended, even within separate translation units. For instance, the following declarations are well-formed.
-  </p>
-  <sample language="cpp">
-   namespace MyNamespace {
+  <p>Namespaces introduce new declarative regions for declarations, reducing the likelihood of conflicting identifiers with other declarative regions. One feature of namespaces is that they can be further extended, even within separate translation units. For instance, the following declarations are well-formed.</p>
+  <sample language="cpp">namespace MyNamespace {
 int length;
 }
- 
+ 
 namespace MyNamespace {
 int width;
 }
- 
+ 
 void f() {
   MyNamespace::length = MyNamespace::width = 12;
-}
-  </sample>
-  <p>
-   The standard library introduces the namespace
-   <code>
-    std
-   </code>
-   for standards-provided declarations such as
-   <code>
-    std::string
-   </code>
-   ,
-   <code>
-    std::vector
-   </code>
-   , and
-   <code>
-    std::for_each
-   </code>
-   . However, it is
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   to introduce new declarations in namespace
-   <code>
-    std
-   </code>
-   except under special circumstances. The C++ Standard, [namespace.std], paragraphs 1 and 2 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following:
-  </p>
+}</sample>
+  <p>The standard library introduces the namespace <code>std</code> for standards-provided declarations such as <code>std::string</code>, <code>std::vector</code>, and <code>std::for_each</code>. However, it is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> to introduce new declarations in namespace <code>std</code> except under special circumstances. The C++ Standard, [namespace.std], paragraphs 1 and 2 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    <sup>
-     1
-    </sup>
-    The behavior of a C++ program is undefined if it adds declarations or definitions to namespace
-    <code>
-     std
-    </code>
-    or to a namespace within namespace
-    <code>
-     std
-    </code>
-    unless otherwise specified. A program may add a template specialization for any standard library template to namespace
-    <code>
-     std
-    </code>
-    only if the declaration depends on a user-defined type and the specialization meets the standard library requirements for the original template and is not explicitly prohibited.
-   </p>
-   <p>
-    <sup>
-     2
-    </sup>
-    The behavior of a C++ program is undefined if it declares
-   </p>
-   <p>
-    — an explicit specialization of any member function of a standard library class template, or
-    — an explicit specialization of any member function template of a standard library class or class template, or
-    — an explicit or partial specialization of any member class template of a standard library class or class template.
-   </p>
+   <p><sup>1</sup> The behavior of a C++ program is undefined if it adds declarations or definitions to namespace <code>std</code> or to a namespace within namespace <code>std</code> unless otherwise specified. A program may add a template specialization for any standard library template to namespace <code>std</code> only if the declaration depends on a user-defined type and the specialization meets the standard library requirements for the original template and is not explicitly prohibited.</p>
+   <p><sup>2</sup> The behavior of a C++ program is undefined if it declares</p>
+   <p>— an explicit specialization of any member function of a standard library class template, or— an explicit specialization of any member function template of a standard library class or class template, or— an explicit or partial specialization of any member class template of a standard library class or class template.</p>
   </blockquote>
-  <p>
-   In addition to restricting extensions to the the namespace
-   <code>
-    std
-   </code>
-   , the C++ Standard, [namespace.posix], paragraph 1, further states the following:
-  </p>
+  <p>In addition to restricting extensions to the the namespace <code>std</code>, the C++ Standard, [namespace.posix], paragraph 1, further states the following:</p>
   <blockquote>
-   <p>
-    The behavior of a C++ program is undefined if it adds declarations or definitions to namespace
-    <code>
-     posix
-    </code>
-    or to a namespace within namespace
-    <code>
-     posix
-    </code>
-    unless otherwise specified. The namespace
-    <code>
-     posix
-    </code>
-    is reserved for use by ISO/IEC 9945 and other POSIX standards.
-   </p>
+   <p>The behavior of a C++ program is undefined if it adds declarations or definitions to namespace <code>posix</code> or to a namespace within namespace <code>posix</code> unless otherwise specified. The namespace <code>posix</code> is reserved for use by ISO/IEC 9945 and other POSIX standards.</p>
   </blockquote>
-  <p>
-   Do not add declarations or definitions to the standard namespaces
-   <code>
-    std
-   </code>
-   or
-   <code>
-    posix
-   </code>
-   , or to a namespace contained therein, except for a template specialization that depends on a user-defined type that meets the standard library requirements for the original template.
-  </p>
-  <p>
-   The Library Working Group, responsible for the wording of the Standard Library section of the C++ Standard, has an unresolved
-   <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/lwg-active.html#2139">
-    issue
-   </a>
-   on the definition of
-   <em>
-    user-defined type
-   </em>
-   . Although the Library Working Group has no official stance on the definition [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-INCITS2014">
-    INCITS 2014
-   </a>
-   ], we define it to be any
-   <code>
-    class
-   </code>
-   ,
-   <code>
-    struct
-   </code>
-   ,
-   <code>
-    union
-   </code>
-   , or
-   <code>
-    enum
-   </code>
-   that is not defined within namespace
-   <code>
-    std
-   </code>
-   or a namespace contained within namespace
-   <code>
-    std
-   </code>
-   . Effectively, it is a user-provided type instead of a standard library–provided type.
-  </p>
+  <p>Do not add declarations or definitions to the standard namespaces <code>std</code> or <code>posix</code>, or to a namespace contained therein, except for a template specialization that depends on a user-defined type that meets the standard library requirements for the original template.</p>
+  <p>The Library Working Group, responsible for the wording of the Standard Library section of the C++ Standard, has an unresolved <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/lwg-active.html#2139">issue</a> on the definition of <em>user-defined type</em>. Although the Library Working Group has no official stance on the definition [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-INCITS2014">INCITS 2014</a>], we define it to be any <code>class</code>, <code>struct</code>, <code>union</code>, or <code>enum</code> that is not defined within namespace <code>std</code> or a namespace contained within namespace <code>std</code>. Effectively, it is a user-provided type instead of a standard library–provided type.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the declaration of
-   <code>
-    x
-   </code>
-   is added to the namespace
-   <code>
-    std
-   </code>
-   , resulting in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   namespace std {
+  <p>In this noncompliant code example, the declaration of <code>x</code> is added to the namespace <code>std</code>, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">namespace std {
 int x;
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution assumes the intention of the programmer was to place the declaration of
-   <code>
-    x
-   </code>
-   into a namespace to prevent collisions with other global identifiers. Instead of placing the declaration into the namespace
-   <code>
-    std
-   </code>
-   , the declaration is placed into a namespace without a reserved name.
-  </p>
-  <sample language="cpp">
-   namespace nonstd {
+  <p>This compliant solution assumes the intention of the programmer was to place the declaration of <code>x</code> into a namespace to prevent collisions with other global identifiers. Instead of placing the declaration into the namespace <code>std</code>, the declaration is placed into a namespace without a reserved name.</p>
+  <sample language="cpp">namespace nonstd {
 int x;
 }
-  </sample>
+</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, a template specialization of
-   <code>
-    std::plus
-   </code>
-   is added to the namespace
-   <code>
-    std
-   </code>
-   in an attempt to allow
-   <code>
-    std::plus
-   </code>
-   to concatenate a
-   <code>
-    std::string
-   </code>
-   and
-   <code>
-    MyString
-   </code>
-   object. However, because the template specialization is of a standard library–provided type (
-   <code>
-    std::string
-   </code>
-   ), this code results in undefined behavior.
-  </p>
-  <sample language="cpp">
-   #include &lt;functional&gt;
+  <p>In this noncompliant code example, a template specialization of <code>std::plus</code> is added to the namespace <code>std</code> in an attempt to allow <code>std::plus</code> to concatenate a <code>std::string</code> and <code>MyString</code> object. However, because the template specialization is of a standard library–provided type (<code>std::string</code>), this code results in undefined behavior.</p>
+  <sample language="cpp">#include &lt;functional&gt;
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 
@@ -252,38 +71,11 @@ void f() {
   
   std::cout &lt;&lt; p(s1, s2) &lt;&lt; std::endl;
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   The interface for
-   <code>
-    std::plus
-   </code>
-   requires that both arguments to the function call operator and the return type are of the same type. Because the attempted specialization in the noncompliant code example results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   , this compliant solution defines a new
-   <code>
-    std::binary_function
-   </code>
-   derivative that can add a
-   <code>
-    std::string
-   </code>
-   to a
-   <code>
-    MyString
-   </code>
-   object without requiring modification of the namespace
-   <code>
-    std
-   </code>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;functional&gt;
+  <p>The interface for <code>std::plus</code> requires that both arguments to the function call operator and the return type are of the same type. Because the attempted specialization in the noncompliant code example results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, this compliant solution defines a new <code>std::binary_function</code> derivative that can add a <code>std::string</code> to a <code>MyString</code> object without requiring modification of the namespace <code>std</code>.</p>
+  <sample language="cpp">#include &lt;functional&gt;
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 
@@ -308,31 +100,11 @@ void f() {
   my_plus p;
   
   std::cout &lt;&lt; p(s1, s2) &lt;&lt; std::endl;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, a specialization of
-   <code>
-    std::plus
-   </code>
-   is added to the
-   <code>
-    std
-   </code>
-   namespace, but the specialization depends on a user-defined type and meets the Standard Template Library requirements for the original template, so it complies with this rule. However, because
-   <code>
-    MyString
-   </code>
-   can be constructed from
-   <code>
-    std::string
-   </code>
-   , this compliant solution involves invoking a converting constructor whereas the previous compliant solution does not.
-  </p>
-  <sample language="cpp">
-   #include &lt;functional&gt;
+  <p>In this compliant solution, a specialization of <code>std::plus</code> is added to the <code>std</code> namespace, but the specialization depends on a user-defined type and meets the Standard Template Library requirements for the original template, so it complies with this rule. However, because <code>MyString</code> can be constructed from <code>std::string</code>, this compliant solution involves invoking a converting constructor whereas the previous compliant solution does not.</p>
+  <sample language="cpp">#include &lt;functional&gt;
 #include &lt;iostream&gt;
 #include &lt;string&gt;
  
@@ -360,17 +132,10 @@ void f() {
   std::plus&lt;MyString&gt; p;
    
   std::cout &lt;&lt; p(s1, s2).get_data() &lt;&lt; std::endl;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Altering the standard namespace can cause
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   in the C++ standard library.
-  </p>
+  <p>Altering the standard namespace can cause <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> in the C++ standard library.</p>
   <table>
    <tbody>
     <tr>
@@ -407,14 +172,10 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>
-       P6
-      </strong>
+      <strong>P6</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -447,9 +208,7 @@ void f() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-DCL58
-      </strong>
+      <strong>CertC++-DCL58</strong>
      </td>
      <td>
      </td>
@@ -464,9 +223,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++3180, C++3181, C++3182
-      </strong>
+      <strong>C++3180, C++3181, C++3182</strong>
      </td>
      <td>
      </td>
@@ -481,11 +238,7 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CERT.DCL.STD_NS_MODIFIED
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.DCL.STD_NS_MODIFIED </a></strong>
      </td>
      <td>
      </td>
@@ -500,9 +253,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-DCL58-a
-      </strong>
+      <strong>CERT_CPP-DCL58-a</strong>
      </td>
      <td>
       Do not modify the standard namespaces 'std' and 'posix'
@@ -536,12 +287,7 @@ void f() {
       4.4
      </td>
      <td>
-      <strong>
-       4032, 4035,
-       <strong>
-        4631
-       </strong>
-      </strong>
+      <strong>4032, 4035, <strong>4631</strong> </strong>
      </td>
      <td>
      </td>
@@ -553,14 +299,10 @@ void f() {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v1061/">
-        V1061
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1061/">V1061</a></strong>
      </td>
      <td>
      </td>
@@ -575,11 +317,7 @@ void f() {
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-3470">
-        S3470
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-3470">S3470</a></strong>
      </td>
      <td>
      </td>
@@ -588,17 +326,7 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+DCL58-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+DCL58-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>
@@ -647,14 +375,10 @@ void f() {
      </td>
      <td>
       Subclause 17.6.4.2.1, "Namespace
-      <code>
-       std
-      </code>
+      <code>std</code>
       "
       Subclause 17.6.4.2.2, "Namespace
-      <code>
-       posix
-      </code>
+      <code>posix</code>
       "
      </td>
     </tr>

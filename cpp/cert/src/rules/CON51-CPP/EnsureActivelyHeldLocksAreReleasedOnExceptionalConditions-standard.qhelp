@@ -1,85 +1,12 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   Mutexes that are used to protect accesses to shared data may be locked using the
-   <code>
-    lock()
-   </code>
-   member function and unlocked using the
-   <code>
-    unlock()
-   </code>
-   member function. If an exception occurs between the call to
-   <code>
-    lock()
-   </code>
-   and the call to
-   <code>
-    unlock()
-   </code>
-   , and the exception changes control flow such that
-   <code>
-    unlock()
-   </code>
-   is not called, the mutex will be left in the locked state and no
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections">
-    critical sections
-   </a>
-   protected by that mutex will be allowed to execute. This is likely to lead to deadlock.
-  </p>
-  <p>
-   The throwing of an exception must not allow a mutex to remain locked indefinitely. If a mutex was locked and an exception occurs within the critical section protected by that mutex, the mutex must be unlocked as part of exception handling before rethrowing the exception or continuing execution unless subsequent control flow will unlock the mutex.
-  </p>
-  <p>
-   C++ supplies the lock classes
-   <code>
-    lock_guard
-   </code>
-   ,
-   <code>
-    unique_lock
-   </code>
-   , and
-   <code>
-    shared_lock
-   </code>
-   , which can be initialized with a mutex. In its constructor, the lock object locks the mutex, and in its destructor, it unlocks the mutex. The
-   <code>
-    lock_guard
-   </code>
-   class provides a simple
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-RAII">
-    RAII
-   </a>
-   wrapper around a mutex. The
-   <code>
-    unique_lock
-   </code>
-   and
-   <code>
-    shared_lock
-   </code>
-   classes also use RAII and provide additional functionality, such as manual control over the locking strategy. The
-   <code>
-    unique_lock
-   </code>
-   class prevents the lock from being copied, although it allows the lock ownership to be moved to another lock. The
-   <code>
-    shared_lock
-   </code>
-   class allows the mutex to be shared by several locks. For all three classes, if an exception occurs and takes control flow out of the scope of the lock, the destructor will unlock the mutex and the program can continue working normally. These lock objects are the preferred way to ensure that a mutex is properly released when an exception is thrown.
-  </p>
-  <p>
-   Noncompliant Code Example
-  </p>
-  <p>
-   This noncompliant code example manipulates shared data and protects the critical section by locking the mutex. When it is finished, it unlocks the mutex.
-   However, if an exception occurs while manipulating the shared data, the mutex will remain locked
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
+  <p>Mutexes that are used to protect accesses to shared data may be locked using the <code>lock()</code> member function and unlocked using the <code>unlock()</code> member function. If an exception occurs between the call to <code>lock()</code> and the call to <code>unlock()</code>, and the exception changes control flow such that <code>unlock()</code> is not called, the mutex will be left in the locked state and no <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections">critical sections</a> protected by that mutex will be allowed to execute. This is likely to lead to deadlock.</p>
+  <p>The throwing of an exception must not allow a mutex to remain locked indefinitely. If a mutex was locked and an exception occurs within the critical section protected by that mutex, the mutex must be unlocked as part of exception handling before rethrowing the exception or continuing execution unless subsequent control flow will unlock the mutex.</p>
+  <p>C++ supplies the lock classes <code>lock_guard</code>, <code>unique_lock</code>, and <code>shared_lock</code>, which can be initialized with a mutex. In its constructor, the lock object locks the mutex, and in its destructor, it unlocks the mutex. The <code>lock_guard</code> class provides a simple <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-RAII">RAII</a> wrapper around a mutex. The <code>unique_lock</code> and <code>shared_lock</code> classes also use RAII and provide additional functionality, such as manual control over the locking strategy. The <code>unique_lock</code> class prevents the lock from being copied, although it allows the lock ownership to be moved to another lock. The <code>shared_lock</code> class allows the mutex to be shared by several locks. For all three classes, if an exception occurs and takes control flow out of the scope of the lock, the destructor will unlock the mutex and the program can continue working normally. These lock objects are the preferred way to ensure that a mutex is properly released when an exception is thrown.</p>
+  <p>Noncompliant Code Example</p>
+  <p>This noncompliant code example manipulates shared data and protects the critical section by locking the mutex. When it is finished, it unlocks the mutex. However, if an exception occurs while manipulating the shared data, the mutex will remain locked.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
 
 void manipulate_shared_data(std::mutex &amp;pm) {
   pm.lock();
@@ -88,14 +15,11 @@ void manipulate_shared_data(std::mutex &amp;pm) {
 
   pm.unlock();
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution (Manual Unlock)">
-  <p>
-   This compliant solution catches any exceptions thrown when performing work on the shared data and unlocks the mutex before rethrowing the exception.
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
+  <p>This compliant solution catches any exceptions thrown when performing work on the shared data and unlocks the mutex before rethrowing the exception.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
 
 void manipulate_shared_data(std::mutex &amp;pm) {
   pm.lock();
@@ -106,31 +30,21 @@ void manipulate_shared_data(std::mutex &amp;pm) {
     throw;
   }
   pm.unlock(); // in case no exceptions occur
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (Lock Object)">
-  <p>
-   This compliant solution uses a
-   <code>
-    lock_guard
-   </code>
-   object to ensure that the mutex will be unlocked, even if an exception occurs, without relying on exception handling machinery and manual resource management.
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
+  <p>This compliant solution uses a <code>lock_guard</code> object to ensure that the mutex will be unlocked, even if an exception occurs, without relying on exception handling machinery and manual resource management.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
 
 void manipulate_shared_data(std::mutex &amp;pm) {
   std::lock_guard&lt;std::mutex&gt; lk(pm);
 
   // Perform work on shared data.
 }
-  </sample>
+</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   If an exception occurs while a mutex is locked, deadlock may result.
-  </p>
+  <p>If an exception occurs while a mutex is locked, deadlock may result.</p>
   <table>
    <tbody>
     <tr>
@@ -167,14 +81,10 @@ void manipulate_shared_data(std::mutex &amp;pm) {
       Low
      </td>
      <td>
-      <strong>
-       P6
-      </strong>
+      <strong>P6</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -207,9 +117,7 @@ void manipulate_shared_data(std::mutex &amp;pm) {
       2021.2
      </td>
      <td>
-      <strong>
-       C++5018
-      </strong>
+      <strong>C++5018</strong>
      </td>
      <td>
      </td>
@@ -224,9 +132,7 @@ void manipulate_shared_data(std::mutex &amp;pm) {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-CON51-a
-      </strong>
+      <strong>CERT_CPP-CON51-a</strong>
      </td>
      <td>
       Do not call lock() directly on a mutex
@@ -242,9 +148,7 @@ void manipulate_shared_data(std::mutex &amp;pm) {
       4.4
      </td>
      <td>
-      <strong>
-       5018
-      </strong>
+      <strong>5018</strong>
      </td>
      <td>
      </td>
@@ -253,28 +157,10 @@ void manipulate_shared_data(std::mutex &amp;pm) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON51-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON51-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
-  <p>
-   <em>
-    This rule is a subset of
-    <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR56-CPP.+Guarantee+exception+safety">
-     ERR56-CPP. Guarantee exception safety
-    </a>
-    .
-   </em>
-  </p>
+  <p><em>This rule is a subset of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR56-CPP.+Guarantee+exception+safety">ERR56-CPP. Guarantee exception safety</a>.</em></p>
   <table>
    <tbody>
     <tr>

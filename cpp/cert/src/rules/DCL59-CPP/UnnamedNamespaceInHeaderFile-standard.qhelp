@@ -1,136 +1,61 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   Unnamed namespaces are used to define a namespace that is unique to the translation unit, where the names contained within have internal linkage by default. The C++ Standard, [namespace.unnamed], paragraph 1 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following:
-  </p>
+  <p>Unnamed namespaces are used to define a namespace that is unique to the translation unit, where the names contained within have internal linkage by default. The C++ Standard, [namespace.unnamed], paragraph 1 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    An
-    <em>
-     unnamed-namespace-definition
-    </em>
-    behaves as if it were replaced by:
-   </p>
-   <pre>  inline namespace unique { /* empty body */ }  using namespace unique ;  namespace unique { namespace-body }</pre>
-   <p>
-    where
-    <code>
-     inline
-    </code>
-    appears if and only if it appears in the
-    <em>
-     unnamed-namespace-definition
-    </em>
-    , all occurrences of
-    <code>
-     unique
-    </code>
-    in a translation unit are replaced by the same identifier, and this identifier differs from all other identifiers in the entire program.
-   </p>
+   <p>An <em>unnamed-namespace-definition</em> behaves as if it were replaced by:</p>
+   <pre>  inline namespace unique { /* empty body */ }  using namespace unique ;  namespace unique { namespace-body }</pre>
+   <p>where <code>inline</code> appears if and only if it appears in the <em>unnamed-namespace-definition</em>, all occurrences of <code>unique</code> in a translation unit are replaced by the same identifier, and this identifier differs from all other identifiers in the entire program.</p>
   </blockquote>
-  <p>
-   Production-quality C++ code frequently uses
-   <em>
-    header files
-   </em>
-   as a means to share code between translation units. A header file is any file that is inserted into a translation unit through an
-   <code>
-    #include
-   </code>
-   directive. Do not define an unnamed namespace in a header file. When an unnamed namespace is defined in a header file, it can lead to surprising results. Due to default internal linkage, each translation unit will define its own unique instance of members of the unnamed namespace that are
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-odr-use">
-    ODR-used
-   </a>
-   within that translation unit. This can cause unexpected results, bloat the resulting executable, or inadvertently trigger
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   due to one-definition rule (ODR) violations.
-  </p>
+  <p>Production-quality C++ code frequently uses <em>header files</em> as a means to share code between translation units. A header file is any file that is inserted into a translation unit through an <code>#include</code> directive. Do not define an unnamed namespace in a header file. When an unnamed namespace is defined in a header file, it can lead to surprising results. Due to default internal linkage, each translation unit will define its own unique instance of members of the unnamed namespace that are <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-odr-use">ODR-used</a> within that translation unit. This can cause unexpected results, bloat the resulting executable, or inadvertently trigger <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> due to one-definition rule (ODR) violations.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the variable
-   <code>
-    v
-   </code>
-   is defined in an unnamed namespace within a header file and is accessed from two separate translation units. Each translation unit prints the current value of
-   <code>
-    v
-   </code>
-   and then assigns a new value into it. However, because
-   <code>
-    v
-   </code>
-   is defined within an unnamed namespace, each translation unit operates on its own instance of
-   <code>
-    v
-   </code>
-   , resulting in unexpected output.
-  </p>
-  <sample language="cpp">
-   // a.h
+  <p>In this noncompliant code example, the variable <code>v</code> is defined in an unnamed namespace within a header file and is accessed from two separate translation units. Each translation unit prints the current value of <code>v</code> and then assigns a new value into it. However, because <code>v</code> is defined within an unnamed namespace, each translation unit operates on its own instance of <code>v</code>, resulting in unexpected output.</p>
+  <sample language="cpp">// a.h
 #ifndef A_HEADER_FILE
 #define A_HEADER_FILE
- 
+ 
 namespace {
 int v;
 }
- 
+ 
 #endif // A_HEADER_FILE
- 
+ 
 // a.cpp
 #include "a.h"
 #include &lt;iostream&gt;
- 
+ 
 void f() {
   std::cout &lt;&lt; "f(): " &lt;&lt; v &lt;&lt; std::endl;
   v = 42;
   // ...
 }
- 
+ 
 // b.cpp
 #include "a.h"
 #include &lt;iostream&gt;
- 
+ 
 void g() {
   std::cout &lt;&lt; "g(): " &lt;&lt; v &lt;&lt; std::endl;
   v = 100;
 }
- 
+ 
 int main() {
   extern void f();
   f(); // Prints v, sets it to 42
   g(); // Prints v, sets it to 100
   f();
   g();
-}
-  </sample>
-  <p>
-   When executed, this program prints the following.
-  </p>
-  <sample language="cpp">
-   f(): 0
+}</sample>
+  <p>When executed, this program prints the following.</p>
+  <sample language="cpp">f(): 0
 g(): 0
 f(): 42
-g(): 100
-  </sample>
+g(): 100</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution,
-   <code>
-    v
-   </code>
-   is defined in only one translation unit but is externally visible to all translation units, resulting in the expected behavior.
-  </p>
-  <sample language="cpp">
-   // a.h
+  <p>In this compliant solution, <code>v</code> is defined in only one translation unit but is externally visible to all translation units, resulting in the expected behavior.</p>
+  <sample language="cpp">// a.h
 #ifndef A_HEADER_FILE
 #define A_HEADER_FILE
  
@@ -165,104 +90,50 @@ int main() {
   g(); // Prints v, sets it to 100
   f(); // Prints v, sets it back to 42
   g(); // Prints v, sets it back to 100
-}
-  </sample>
-  <p>
-   When executed, this program prints the following.
-  </p>
-  <sample language="cpp">
-   f(): 0
+}</sample>
+  <p>When executed, this program prints the following.</p>
+  <sample language="cpp">f(): 0
 g(): 42
 f(): 100
-g(): 42
-  </sample>
+g(): 42</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the variable
-   <code>
-    v
-   </code>
-   is defined in an unnamed namespace within a header file, and an inline function,
-   <code>
-    get_v()
-   </code>
-   , is defined, which accesses that variable. ODR-using the inline function from multiple translation units (as shown in the implementation of
-   <code>
-    f()
-   </code>
-   and
-   <code>
-    g()
-   </code>
-   ) violates the
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-onedefinitionrule">
-    one-definition rule
-   </a>
-   because the definition of
-   <code>
-    get_v()
-   </code>
-   is not identical in all translation units due to referencing a unique
-   <code>
-    v
-   </code>
-   in each translation unit.
-  </p>
-  <sample language="cpp">
-   // a.h
+  <p>In this noncompliant code example, the variable <code>v</code> is defined in an unnamed namespace within a header file, and an inline function, <code>get_v()</code>, is defined, which accesses that variable. ODR-using the inline function from multiple translation units (as shown in the implementation of <code>f()</code> and <code>g()</code>) violates the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-onedefinitionrule">one-definition rule</a> because the definition of <code>get_v()</code> is not identical in all translation units due to referencing a unique <code>v</code> in each translation unit.</p>
+  <sample language="cpp">// a.h
 #ifndef A_HEADER_FILE
 #define A_HEADER_FILE
- 
+ 
 namespace {
 int v;
 }
- 
+ 
 inline int get_v() { return v; }
- 
+ 
 #endif // A_HEADER_FILE
- 
+ 
 // a.cpp
 #include "a.h"
- 
+ 
 void f() {
   int i = get_v();
   // ...
 }
- 
+ 
 // b.cpp
 #include "a.h"
- 
+ 
 void g() {
   int i = get_v();
   // ...
-}
-  </sample>
-  <p>
-   See
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL60-CPP.+Obey+the+one-definition+rule">
-    DCL60-CPP. Obey the one-definition rule
-   </a>
-   for more information on violations of the one-definition rule.
-  </p>
+}</sample>
+  <p>See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL60-CPP.+Obey+the+one-definition+rule">DCL60-CPP. Obey the one-definition rule</a> for more information on violations of the one-definition rule.</p>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution,
-   <code>
-    v
-   </code>
-   is defined in only one translation unit but is externally visible to all translation units and can be accessed from the inline
-   <code>
-    get_v()
-   </code>
-   function.
-  </p>
-  <sample language="cpp">
-   // a.h
+  <p>In this compliant solution, <code>v</code> is defined in only one translation unit but is externally visible to all translation units and can be accessed from the inline <code>get_v()</code> function.</p>
+  <sample language="cpp">// a.h
 #ifndef A_HEADER_FILE
 #define A_HEADER_FILE
- 
+ 
 extern int v;
 
 inline int get_v() {
@@ -273,7 +144,7 @@ inline int get_v() {
  
 // a.cpp
 #include "a.h"
- 
+ 
 // Externally used by get_v();
 int v;
  
@@ -288,85 +159,49 @@ void f() {
 void g() {
   int i = get_v();
   // ...
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the function
-   <code>
-    f()
-   </code>
-   is defined within a header file. However, including the header file in multiple translation units causes a violation of the one-definition rule that usually results in an error diagnostic generated at link time due to multiple definitions of a function with the same name.
-  </p>
-  <sample language="cpp">
-   // a.h
+  <p>In this noncompliant code example, the function <code>f()</code> is defined within a header file. However, including the header file in multiple translation units causes a violation of the one-definition rule that usually results in an error diagnostic generated at link time due to multiple definitions of a function with the same name.</p>
+  <sample language="cpp">// a.h
 #ifndef A_HEADER_FILE
 #define A_HEADER_FILE
- 
+ 
 void f() { /* ... */ }
- 
+ 
 #endif // A_HEADER_FILE
- 
+ 
 // a.cpp
 #include "a.h"
 // ...
- 
+ 
 // b.cpp
 #include "a.h"
-// ...
-  </sample>
+// ...</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   This noncompliant code example attempts to resolve the link-time errors by defining
-   <code>
-    f()
-   </code>
-   within an unnamed namespace. However, it produces multiple, unique definitions of
-   <code>
-    f()
-   </code>
-   in the resulting executable. If
-   <code>
-    a.h
-   </code>
-   is included from many translation units, it can lead to increased link times, a larger executable file, and reduced performance.
-  </p>
-  <sample language="cpp">
-   // a.h
+  <p>This noncompliant code example attempts to resolve the link-time errors by defining <code>f()</code> within an unnamed namespace. However, it produces multiple, unique definitions of <code>f()</code> in the resulting executable. If <code>a.h</code> is included from many translation units, it can lead to increased link times, a larger executable file, and reduced performance.</p>
+  <sample language="cpp">// a.h
 #ifndef A_HEADER_FILE
 #define A_HEADER_FILE
- 
-namespace { 
+ 
+namespace { 
 void f() { /* ... */ }
 }
- 
+ 
 #endif // A_HEADER_FILE
- 
+ 
 // a.cpp
 #include "a.h"
 // ...
- 
+ 
 // b.cpp
 #include "a.h"
-// ...
-  </sample>
+// ...</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution,
-   <code>
-    f()
-   </code>
-   is not defined with an unnamed namespace and is instead defined as an inline function. Inline functions are required to be defined identically in all the translation units in which they are used, which allows an
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">
-    implementation
-   </a>
-   to generate only a single instance of the function at runtime in the event the body of the function does not get generated for each call site.
-  </p>
-  <sample language="cpp">
-   // a.h
+  <p>In this compliant solution, <code>f()</code> is not defined with an unnamed namespace and is instead defined as an inline function. Inline functions are required to be defined identically in all the translation units in which they are used, which allows an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">implementation</a> to generate only a single instance of the function at runtime in the event the body of the function does not get generated for each call site.</p>
+  <sample language="cpp">// a.h
 #ifndef A_HEADER_FILE
 #define A_HEADER_FILE
  
@@ -380,17 +215,10 @@ inline void f() { /* ... */ }
  
 // b.cpp
 #include "a.h"
-// ...
-  </sample>
+// ...</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Defining an unnamed namespace within a header file can cause data integrity violations and performance problems but is unlikely to go unnoticed with sufficient testing. One-definition rule violations result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
+  <p>Defining an unnamed namespace within a header file can cause data integrity violations and performance problems but is unlikely to go unnoticed with sufficient testing. One-definition rule violations result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
   <table>
    <tbody>
     <tr>
@@ -427,20 +255,16 @@ inline void f() { /* ... */ }
       Medium
      </td>
      <td>
-      <strong>
-       P4
-      </strong>
+      <strong>P4</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
   </table>
  </section>
- <section title="Automated Detection">
+ <section title="Automated Detection ">
   <table>
    <tbody>
     <tr>
@@ -467,9 +291,7 @@ inline void f() { /* ... */ }
       20.10
      </td>
      <td>
-      <strong>
-       unnamed-namespace-header
-      </strong>
+      <strong>unnamed-namespace-header</strong>
      </td>
      <td>
       Fully checked
@@ -485,9 +307,7 @@ inline void f() { /* ... */ }
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-DCL59
-      </strong>
+      <strong>CertC++-DCL59</strong>
      </td>
      <td>
      </td>
@@ -502,15 +322,27 @@ inline void f() { /* ... */ }
       3.9
      </td>
      <td>
-      <code>
-       cert-dcl59-cpp
-      </code>
+      <code>cert-dcl59-cpp</code>
      </td>
      <td>
       Checked by
-      <code>
-       clang-tidy
-      </code>
+      <code>clang-tidy</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>LANG.STRUCT.DECL.ANH</strong>
+     </td>
+     <td>
+      Anonymous Namespace in Header File
      </td>
     </tr>
     <tr>
@@ -523,9 +355,7 @@ inline void f() { /* ... */ }
       2021.2
      </td>
      <td>
-      <strong>
-       C++2518
-      </strong>
+      <strong>C++2518</strong>
      </td>
      <td>
      </td>
@@ -540,9 +370,7 @@ inline void f() { /* ... */ }
       2021.4
      </td>
      <td>
-      <strong>
-       MISRA.NAMESPACE.UNMD
-      </strong>
+      <strong>MISRA.NAMESPACE.UNMD</strong>
      </td>
      <td>
      </td>
@@ -556,9 +384,7 @@ inline void f() { /* ... */ }
      <td>
      </td>
      <td>
-      <strong>
-       286 S, 512 S
-      </strong>
+      <strong>286 S, 512 S</strong>
      </td>
      <td>
       Fully implemented
@@ -574,9 +400,7 @@ inline void f() { /* ... */ }
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-DCL59-a
-      </strong>
+      <strong>CERT_CPP-DCL59-a</strong>
      </td>
      <td>
       There shall be no unnamed namespaces in header files
@@ -610,9 +434,7 @@ inline void f() { /* ... */ }
       20.10
      </td>
      <td>
-      <strong>
-       unnamed-namespace-header
-      </strong>
+      <strong>unnamed-namespace-header</strong>
      </td>
      <td>
       Fully checked
@@ -628,11 +450,7 @@ inline void f() { /* ... */ }
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-1000">
-        UnnamedNamespaceInHeader
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-1000">UnnamedNamespaceInHeader</a></strong>
      </td>
      <td>
      </td>
@@ -647,9 +465,7 @@ inline void f() { /* ... */ }
       4.4
      </td>
      <td>
-      <strong>
-       2518
-      </strong>
+      <strong>2518</strong>
      </td>
      <td>
      </td>
@@ -661,14 +477,10 @@ inline void f() { /* ... */ }
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v1068/">
-        V1068
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1068/">V1068</a></strong>
      </td>
      <td>
      </td>
@@ -677,17 +489,7 @@ inline void f() { /* ... */ }
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+DCL59-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+DCL59-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

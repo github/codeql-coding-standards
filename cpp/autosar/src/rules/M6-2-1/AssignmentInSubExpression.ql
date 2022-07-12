@@ -16,6 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SideEffect
+import codingstandards.cpp.Expr
 
 from AssignExpr assignment
 where

@@ -16,6 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SideEffect
+import codingstandards.cpp.sideeffect.DefaultEffects
 import codingstandards.cpp.Ordering
 import codingstandards.cpp.orderofevaluation.VariableAccessOrdering
 

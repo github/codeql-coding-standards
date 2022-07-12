@@ -1,0 +1,1 @@
+rules/FIO44-C/OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql

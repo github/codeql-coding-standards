@@ -1,4 +1,5 @@
 import cpp
+import codingstandards.cpp.Expr
 import codingstandards.cpp.SideEffect
 
 module Ordering {

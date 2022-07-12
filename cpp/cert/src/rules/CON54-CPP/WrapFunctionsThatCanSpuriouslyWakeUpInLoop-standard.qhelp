@@ -1,58 +1,9 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The
-   <code>
-    wait()
-   </code>
-   ,
-   <code>
-    wait_for()
-   </code>
-   , and
-   <code>
-    wait_until()
-   </code>
-   member functions of the
-   <code>
-    std::condition_variable
-   </code>
-   class temporarily cede possession of a mutex so that other threads that may be requesting the mutex can proceed. These functions must always be called from code that is protected by locking a mutex. The waiting thread resumes execution only after it has been notified, generally as the result of the invocation of the
-   <code>
-    notify_one()
-   </code>
-   or
-   <code>
-    notify_all()
-   </code>
-   member functions invoked by another thread.
-  </p>
-  <p>
-   The
-   <code>
-    wait()
-   </code>
-   function must be invoked from a loop that checks whether a
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-conditionpredicate">
-    condition predicate
-   </a>
-   holds. A condition predicate is an expression constructed from the variables of a function that must be true for a thread to be allowed to continue execution. The thread pauses execution via
-   <code>
-    wait()
-   </code>
-   ,
-   <code>
-    wait_for()
-   </code>
-   ,
-   <code>
-    wait_until()
-   </code>
-   , or some other mechanism, and is resumed later, presumably when the condition predicate is true and the thread is notified.
-  </p>
-  <sample language="cpp">
-   #include &lt;condition_variable&gt;
+  <p>The <code>wait()</code>, <code>wait_for()</code>, and <code>wait_until()</code> member functions of the <code>std::condition_variable</code> class temporarily cede possession of a mutex so that other threads that may be requesting the mutex can proceed. These functions must always be called from code that is protected by locking a mutex. The waiting thread resumes execution only after it has been notified, generally as the result of the invocation of the <code>notify_one()</code> or <code>notify_all()</code> member functions invoked by another thread.</p>
+  <p>The <code>wait()</code> function must be invoked from a loop that checks whether a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-conditionpredicate">condition predicate</a> holds. A condition predicate is an expression constructed from the variables of a function that must be true for a thread to be allowed to continue execution. The thread pauses execution via <code>wait()</code>, <code>wait_for()</code>, <code>wait_until()</code>, or some other mechanism, and is resumed later, presumably when the condition predicate is true and the thread is notified.</p>
+  <sample language="cpp">#include &lt;condition_variable&gt;
 #include &lt;mutex&gt;
  
 extern bool until_finish(void);
@@ -67,71 +18,15 @@ void func(void) {
   }
  
   // Resume when condition holds.
-}
-  </sample>
-  <p>
-   The notification mechanism notifies the waiting thread and allows it to check its condition predicate. The invocation of
-   <code>
-    notify_all()
-   </code>
-   in another thread cannot precisely determine which waiting thread will be resumed. Condition predicate statements allow notified threads to determine whether they should resume upon receiving the notification.
-  </p>
+}</sample>
+  <p>The notification mechanism notifies the waiting thread and allows it to check its condition predicate. The invocation of <code>notify_all()</code> in another thread cannot precisely determine which waiting thread will be resumed. Condition predicate statements allow notified threads to determine whether they should resume upon receiving the notification. </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   This noncompliant code example monitors a linked list and assigns one thread to consume list elements when the list is nonempty.
-  </p>
-  <p>
-   This thread pauses execution using
-   <code>
-    wait()
-   </code>
-   and resumes when notified, presumably when the list has elements to be consumed. It is possible for the thread to be notified even if the list is still empty, perhaps because the notifying thread used
-   <code>
-    notify_all()
-   </code>
-   , which notifies all threads. Notification using
-   <code>
-    notify_all()
-   </code>
-   is frequently preferred over using
-   <code>
-    notify_one()
-   </code>
-   . (See
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CON55-CPP.+Preserve+thread+safety+and+liveness+when+using+condition+variables">
-    CON55-CPP. Preserve thread safety and liveness when using condition variables
-   </a>
-   for more information.)
-  </p>
-  <p>
-   A condition predicate is typically the negation of the condition expression in the loop. In this noncompliant code example, the condition predicate for removing an element from a linked list is
-   <code>
-    (list-&gt;next != nullptr)
-   </code>
-   , whereas the condition expression for the
-   <code>
-    while
-   </code>
-   loop condition is
-   <code>
-    (list-&gt;next == nullptr)
-   </code>
-   .
-  </p>
-  <p>
-   This noncompliant code example nests the call to
-   <code>
-    wait()
-   </code>
-   inside an
-   <code>
-    if
-   </code>
-   block and consequently fails to check the condition predicate after the notification is received. If the notification was spurious or malicious, the thread would wake up prematurely.
-  </p>
-  <sample language="cpp">
-   #include &lt;condition_variable&gt;
+  <p>This noncompliant code example monitors a linked list and assigns one thread to consume list elements when the list is nonempty. </p>
+  <p>This thread pauses execution using <code>wait()</code> and resumes when notified, presumably when the list has elements to be consumed. It is possible for the thread to be notified even if the list is still empty, perhaps because the notifying thread used <code>notify_all()</code>, which notifies all threads. Notification using <code>notify_all()</code> is frequently preferred over using <code>notify_one()</code>. (See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CON55-CPP.+Preserve+thread+safety+and+liveness+when+using+condition+variables">CON55-CPP. Preserve thread safety and liveness when using condition variables</a> for more information.)</p>
+  <p>A condition predicate is typically the negation of the condition expression in the loop. In this noncompliant code example, the condition predicate for removing an element from a linked list is <code>(list-&gt;next != nullptr)</code>, whereas the condition expression for the <code>while</code> loop condition is <code>(list-&gt;next == nullptr)</code>.</p>
+  <p>This noncompliant code example nests the call to <code>wait()</code> inside an <code>if</code> block and consequently fails to check the condition predicate after the notification is received. If the notification was spurious or malicious, the thread would wake up prematurely.</p>
+  <sample language="cpp">#include &lt;condition_variable&gt;
 #include &lt;mutex&gt;
  
 struct Node {
@@ -151,27 +46,11 @@ void consume_list_element(std::condition_variable &amp;condition) {
   }
  
   // Proceed when condition holds.
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (Explicit loop with predicate)">
-  <p>
-   This compliant solution calls the
-   <code>
-    wait()
-   </code>
-   member function from within a
-   <code>
-    while
-   </code>
-   loop to check the condition both before and after the call to
-   <code>
-    wait()
-   </code>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;condition_variable&gt;
+  <p>This compliant solution calls the <code>wait()</code> member function from within a <code>while</code> loop to check the condition both before and after the call to <code>wait()</code>.</p>
+  <sample language="cpp">#include &lt;condition_variable&gt;
 #include &lt;mutex&gt;
  
 struct Node {
@@ -191,31 +70,11 @@ void consume_list_element() {
   }
  
   // Proceed when condition holds.
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (Implicit loop with lambda predicate)">
-  <p>
-   The
-   <code>
-    std::condition_variable::wait()
-   </code>
-   function has an overloaded form that accepts a function object representing the predicate. This form of
-   <code>
-    wait()
-   </code>
-   behaves as if it were implemented as
-   <code>
-    while (!pred()) wait(lock);
-   </code>
-   . This compliant solution uses a lambda as a predicate and passes it to the
-   <code>
-    wait()
-   </code>
-   function. The predicate is expected to return true when it is safe to proceed, which reverses the predicate logic from the compliant solution using an explicit loop predicate.
-  </p>
-  <sample language="cpp">
-   #include &lt;condition_variable&gt;
+  <p>The <code>std::condition_variable::wait()</code> function has an overloaded form that accepts a function object representing the predicate. This form of <code>wait()</code> behaves as if it were implemented as <code>while (!pred()) wait(lock);</code>. This compliant solution uses a lambda as a predicate and passes it to the <code>wait()</code> function. The predicate is expected to return true when it is safe to proceed, which reverses the predicate logic from the compliant solution using an explicit loop predicate.</p>
+  <sample language="cpp">#include &lt;condition_variable&gt;
 #include &lt;mutex&gt;
  
 struct Node {
@@ -229,36 +88,13 @@ static std::condition_variable condition;
   
 void consume_list_element() {
   std::unique_lock&lt;std::mutex&gt; lk(m);
- 
+ 
   condition.wait(lk, []{ return list.next; });
   // Proceed when condition holds.
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Failure to enclose calls to the
-   <code>
-    wait()
-   </code>
-   ,
-   <code>
-    wait_for()
-   </code>
-   , or
-   <code>
-    wait_until()
-   </code>
-   member functions inside a
-   <code>
-    while
-   </code>
-   loop can lead to indefinite blocking and
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
-    denial of service
-   </a>
-   (DoS).
-  </p>
+  <p>Failure to enclose calls to the <code>wait()</code>, <code>wait_for()</code>, or <code>wait_until()</code> member functions inside a <code>while</code> loop can lead to indefinite blocking and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial of service</a> (DoS).</p>
   <table>
    <tbody>
     <tr>
@@ -295,14 +131,10 @@ void consume_list_element() {
       Medium
      </td>
      <td>
-      <strong>
-       P2
-      </strong>
+      <strong>P2</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -335,9 +167,7 @@ void consume_list_element() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++5019
-      </strong>
+      <strong>C++5019</strong>
      </td>
      <td>
      </td>
@@ -352,11 +182,7 @@ void consume_list_element() {
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CERT.CONC.WAKE_IN_LOOP
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.CONC.WAKE_IN_LOOP</a></strong>
      </td>
      <td>
      </td>
@@ -371,9 +197,7 @@ void consume_list_element() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-CON54-a
-      </strong>
+      <strong>CERT_CPP-CON54-a</strong>
      </td>
      <td>
       Wrap functions that can spuriously wake up in a loop
@@ -407,9 +231,7 @@ void consume_list_element() {
       4.4
      </td>
      <td>
-      <strong>
-       5019
-      </strong>
+      <strong>5019</strong>
      </td>
      <td>
      </td>
@@ -418,17 +240,7 @@ void consume_list_element() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON54-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON54-CPP">CERT website</a>. </p>
  </section>
  <section title="Related Guidelines">
   <table>
@@ -485,9 +297,7 @@ void consume_list_element() {
      </td>
      <td>
       7.17.7.4, "The
-      <code>
-       atomic_compare_exchange
-      </code>
+      <code>atomic_compare_exchange</code>
       Generic Functions"
      </td>
     </tr>

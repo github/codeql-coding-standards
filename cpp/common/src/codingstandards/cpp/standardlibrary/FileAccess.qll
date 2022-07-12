@@ -115,10 +115,10 @@ class FileReadFunctionCall extends FileAccess {
     this.getTarget().hasGlobalName(["getchar", "getwchar"]) and filePos = -1
     or
     this.getTarget()
-        .hasGlobalName(["fgetc", "getc", "gets", "gets_s", "fgetwc", "getwc", "fscanf", "fscanf_s"]) and
+        .hasGlobalName(["getc", "getwc", "fgetc", "fgetwc", "gets", "gets_s", "fscanf", "fscanf_s"]) and
     filePos = 0
     or
-    this.getTarget().hasGlobalName(["fgets", "getline", "getwline"]) and filePos = 2
+    this.getTarget().hasGlobalName(["fgets", "fgetws", "getline", "getwline"]) and filePos = 2
     or
     this.getTarget().hasGlobalName(["fread", "getdelim", "getwdelim"]) and filePos = 3
   }

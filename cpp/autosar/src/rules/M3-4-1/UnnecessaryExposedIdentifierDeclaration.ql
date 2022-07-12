@@ -17,6 +17,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Scope
 import codingstandards.cpp.SideEffect
+import codingstandards.cpp.sideeffect.Customizations
 
 class ExternalCall extends Call {
   ExternalCall() {

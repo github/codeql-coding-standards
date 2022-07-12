@@ -1,0 +1,5 @@
+| test.c:13:12:13:23 | sizeof(<expr>) | The sizeof $@ is not evaluated but has a potential $@. | test.c:13:19:13:22 | ... ++ | operand | test.c:13:19:13:22 | ... ++ | side effect |
+| test.c:14:12:14:23 | sizeof(<expr>) | The sizeof $@ is not evaluated but has a potential $@. | test.c:14:19:14:22 | ... ++ | operand | test.c:14:19:14:22 | ... ++ | side effect |
+| test.c:16:12:16:26 | sizeof(<expr>) | The sizeof $@ is not evaluated but has a potential $@. | test.c:16:19:16:20 | call to f1 | operand | test.c:16:19:16:20 | call to f1 | side effect |
+| test.c:17:12:17:23 | sizeof(<expr>) | The sizeof $@ is not evaluated but has a potential $@. | test.c:17:19:17:20 | call to f2 | operand | test.c:17:19:17:20 | call to f2 | side effect |
+| test.c:20:12:20:21 | sizeof(<expr>) | The sizeof $@ is not evaluated but has a potential $@. | test.c:20:19:20:20 | l8 | operand | test.c:20:19:20:20 | l8 | side effect |

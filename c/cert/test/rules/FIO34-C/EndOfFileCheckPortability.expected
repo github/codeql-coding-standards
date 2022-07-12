@@ -10,3 +10,4 @@
 | test.c:137:10:137:25 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
 | test.c:149:7:149:14 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
 | test.c:151:7:151:14 | ... != ... | This check is only portable to platforms where type `char` is less wide than type `int`. |
+| test.c:171:12:171:19 | ... == ... | This check is only portable to platforms where type `char` is less wide than type `int`. |

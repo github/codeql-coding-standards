@@ -1,0 +1,9 @@
+| test.c:7:7:7:12 | ... = ... | Assignment in selection statement. |
+| test.c:22:12:22:17 | ... = ... | Assignment in selection statement. |
+| test.c:24:19:24:23 | ... = ... | Assignment in selection statement. |
+| test.c:28:13:28:18 | ... = ... | Assignment in selection statement. |
+| test.c:32:15:32:20 | ... = ... | Assignment in selection statement. |
+| test.c:33:26:33:31 | ... = ... | Assignment in selection statement. |
+| test.c:34:15:34:20 | ... = ... | Assignment in selection statement. |
+| test.c:35:26:35:31 | ... = ... | Assignment in selection statement. |
+| test.c:41:15:41:20 | ... = ... | Assignment in selection statement. |

@@ -19,7 +19,10 @@
           ]
         }
       ],
-      "title": "Exclude user input from format strings"
+      "title": "Exclude user input from format strings",
+      "implementation_scope": {
+        "description": "None."
+      }
     },
     "FIO34-C": {
       "properties": {
@@ -51,7 +54,10 @@
           ]
         }
       ],
-      "title": "Distinguish between characters read from a file and EOF or WEOF"
+      "title": "Distinguish between characters read from a file and EOF or WEOF",
+      "implementation_scope": {
+        "description": "The rule is enforced in the context of a single function. The query does not validate if the FILE status is handled correctly after being read."
+      }
     },
     "FIO39-C": {
       "properties": {
@@ -71,7 +77,10 @@
           ]
         }
       ],
-      "title": "Do not alternately input and output from a stream without an intervening flush or positioning call"
+      "title": "Do not alternately input and output from a stream without an intervening flush or positioning call",
+      "implementation_scope": {
+        "description": "The rule is enforced in the context of a single function."
+      }
     },
     "FIO42-C": {
       "properties": {
@@ -91,7 +100,10 @@
           ]
         }
       ],
-      "title": "Close files when they are no longer needed"
+      "title": "Close files when they are no longer needed",
+      "implementation_scope": {
+        "description": "The rule is enforced in the context of a single function."
+      }
     },
     "FIO46-C": {
       "properties": {
@@ -111,7 +123,10 @@
           ]
         }
       ],
-      "title": "Do not access a closed file"
+      "title": "Do not access a closed file",
+      "implementation_scope": {
+        "description": "The rule is enforced in the context of a single function."
+      }
     }
   },
   "MISRA-C-2012": {
@@ -133,7 +148,10 @@
           ]
         }
       ],
-      "title": "The value of a pointer to a FILE shall not be used after the associated stream has been closed"
+      "title": "The value of a pointer to a FILE shall not be used after the associated stream has been closed",
+      "implementation_scope": {
+        "description": "The rule is enforced in the context of a single function."
+      }
     }
   }
 }

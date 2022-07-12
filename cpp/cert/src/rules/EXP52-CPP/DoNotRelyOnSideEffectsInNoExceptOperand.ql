@@ -14,6 +14,7 @@
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.SideEffect
+import codingstandards.cpp.sideeffect.DefaultEffects
 
 from NoExceptExpr e
 where

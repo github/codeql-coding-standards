@@ -1,175 +1,24 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The C++ Standard Library supplies both recursive and non-recursive mutex classes used to protect
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections">
-    critical sections
-   </a>
-   . The recursive mutex classes (
-   <code>
-    std::recursive_mutex
-   </code>
-   and
-   <code>
-    std::recursive_timed_mutex
-   </code>
-   ) differ from the non-recursive mutex classes (
-   <code>
-    std::mutex
-   </code>
-   ,
-   <code>
-    std::timed_mutex
-   </code>
-   , and
-   <code>
-    std::shared_timed_mutex
-   </code>
-   ) in that a recursive mutex may be locked recursively by the thread that currently owns the mutex. All mutex classes support the ability to speculatively lock the mutex through functions such as
-   <code>
-    try_lock()
-   </code>
-   ,
-   <code>
-    try_lock_for()
-   </code>
-   ,
-   <code>
-    try_lock_until()
-   </code>
-   ,
-   <code>
-    try_lock_shared_for()
-   </code>
-   , and
-   <code>
-    try_lock_shared_until()
-   </code>
-   . These speculative locking functions attempt to obtain ownership of the mutex for the calling thread, but will not block in the event the ownership cannot be obtained. Instead, they return a Boolean value specifying whether the ownership of the mutex was obtained or not.
-  </p>
-  <p>
-   The C++ Standard, [thread.mutex.requirements.mutex], paragraphs 14 and 15 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], state the following:
-  </p>
+  <p>The C++ Standard Library supplies both recursive and non-recursive mutex classes used to protect <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections">critical sections</a>. The recursive mutex classes (<code>std::recursive_mutex</code> and <code>std::recursive_timed_mutex</code>) differ from the non-recursive mutex classes (<code>std::mutex</code>, <code>std::timed_mutex</code>, and <code>std::shared_timed_mutex</code>) in that a recursive mutex may be locked recursively by the thread that currently owns the mutex. All mutex classes support the ability to speculatively lock the mutex through functions such as <code>try_lock()</code>, <code>try_lock_for()</code>, <code>try_lock_until()</code>, <code>try_lock_shared_for()</code>, and <code>try_lock_shared_until()</code>. These speculative locking functions attempt to obtain ownership of the mutex for the calling thread, but will not block in the event the ownership cannot be obtained. Instead, they return a Boolean value specifying whether the ownership of the mutex was obtained or not.</p>
+  <p>The C++ Standard, [thread.mutex.requirements.mutex], paragraphs 14 and 15 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], state the following:</p>
   <blockquote>
-   <p>
-    The expression
-    <code>
-     m.try_lock()
-    </code>
-    shall be well-formed and have the following semantics:
-    Requires: If
-    <code>
-     m
-    </code>
-    is of type
-    <code>
-     std::mutex
-    </code>
-    ,
-    <code>
-     std::timed_mutex
-    </code>
-    , or
-    <code>
-     std::shared_timed_mutex
-    </code>
-    , the calling thread does not own the mutex.
-   </p>
+   <p>The expression <code>m.try_lock()</code> shall be well-formed and have the following semantics:Requires: If <code>m</code> is of type <code>std::mutex</code>, <code>std::timed_mutex</code>, or <code>std::shared_timed_mutex</code>, the calling thread does not own the mutex.</p>
   </blockquote>
-  <p>
-   Further,
-   [thread.timedmutex.class], paragraph 3, in part, states the following:
-  </p>
+  <p>Further, [thread.timedmutex.class], paragraph 3, in part, states the following:</p>
   <blockquote>
-   <p>
-    The behavior of a program is undefined if:
-    — a thread that owns a
-    <code>
-     timed_mutex
-    </code>
-    object calls
-    <code>
-     lock()
-    </code>
-    ,
-    <code>
-     try_lock()
-    </code>
-    ,
-    <code>
-     try_lock_for()
-    </code>
-    , or
-    <code>
-     try_lock_until()
-    </code>
-    on that object
-   </p>
+   <p>The behavior of a program is undefined if:— a thread that owns a <code>timed_mutex</code> object calls <code>lock()</code>, <code>try_lock()</code>, <code>try_lock_for()</code>, or <code>try_lock_until()</code> on that object</p>
   </blockquote>
-  <p>
-   Finally, [thread.sharedtimedmutex.class], paragraph 3, in part, states the following:
-  </p>
+  <p>Finally, [thread.sharedtimedmutex.class], paragraph 3, in part, states the following:</p>
   <blockquote>
-   <p>
-    The behavior of a program is undefined if:
-    — a thread attempts to recursively gain any ownership of a
-    <code>
-     shared_timed_mutex
-    </code>
-    .
-   </p>
+   <p>The behavior of a program is undefined if:— a thread attempts to recursively gain any ownership of a <code>shared_timed_mutex</code>.</p>
   </blockquote>
-  <p>
-   Thus, attempting to speculatively lock a non-recursive mutex object that is already owned by the calling thread is
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . Do not call
-   <code>
-    try_lock()
-   </code>
-   ,
-   <code>
-    try_lock_for()
-   </code>
-   ,
-   <code>
-    try_lock_until()
-   </code>
-   ,
-   <code>
-    try_lock_shared_for()
-   </code>
-   , or
-   <code>
-    try_lock_shared_until()
-   </code>
-   on a non-recursive mutex object from a thread that already owns that mutex object.
-  </p>
+  <p>Thus, attempting to speculatively lock a non-recursive mutex object that is already owned by the calling thread is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. Do not call <code>try_lock()</code>, <code>try_lock_for()</code>, <code>try_lock_until()</code>, <code>try_lock_shared_for()</code>, or <code>try_lock_shared_until()</code> on a non-recursive mutex object from a thread that already owns that mutex object.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the mutex
-   <code>
-    m
-   </code>
-   is locked by the thread's initial entry point and is speculatively locked in the
-   <code>
-    do_work()
-   </code>
-   function from the same thread, resulting in undefined behavior because it is not a recursive mutex. With common implementations, this may result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-deadlock">
-    deadlock
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
+  <p>In this noncompliant code example, the mutex <code>m</code> is locked by the thread's initial entry point and is speculatively locked in the <code>do_work()</code> function from the same thread, resulting in undefined behavior because it is not a recursive mutex. With common implementations, this may result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-deadlock">deadlock</a>.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
 #include &lt;thread&gt;
 
 std::mutex m;
@@ -206,14 +55,11 @@ int main() {
 
   t.join();
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution removes the lock from the thread's initial entry point, allowing the mutex to be speculatively locked, but not recursively.
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
+  <p>This compliant solution removes the lock from the thread's initial entry point, allowing the mutex to be speculatively locked, but not recursively.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
 #include &lt;thread&gt;
 
 std::mutex m;
@@ -247,13 +93,10 @@ int main() {
   do_work();
 
   t.join();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Speculatively locking a non-recursive mutex in a recursive manner is undefined behavior that can lead to deadlock.
-  </p>
+  <p>Speculatively locking a non-recursive mutex in a recursive manner is undefined behavior that can lead to deadlock.</p>
   <table>
    <tbody>
     <tr>
@@ -290,14 +133,10 @@ int main() {
       High
      </td>
      <td>
-      <strong>
-       P1
-      </strong>
+      <strong>P1</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -330,9 +169,7 @@ int main() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++4986, C++4987
-      </strong>
+      <strong>C++4986, C++4987</strong>
      </td>
      <td>
      </td>
@@ -347,9 +184,7 @@ int main() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-CON56-a
-      </strong>
+      <strong>CERT_CPP-CON56-a</strong>
      </td>
      <td>
       Avoid double locking
@@ -359,17 +194,7 @@ int main() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON56-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON56-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

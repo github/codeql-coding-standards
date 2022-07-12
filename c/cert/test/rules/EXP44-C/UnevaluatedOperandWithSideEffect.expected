@@ -1,0 +1,2 @@
+| test.c:4:19:4:22 | ... ++ | Unevaluated operand with side effect that will not be generated. |
+| test.c:15:21:15:24 | ++ ... | Unevaluated operand with side effect that will not be generated. |

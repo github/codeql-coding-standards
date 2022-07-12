@@ -16,6 +16,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.UserDefinedLiteral
 import codingstandards.cpp.SideEffect
+import codingstandards.cpp.sideeffect.DefaultEffects
 
 from UserDefinedLiteral udl, SideEffect e
 where

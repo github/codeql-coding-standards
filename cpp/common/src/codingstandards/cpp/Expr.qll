@@ -13,6 +13,13 @@ class FullExpr extends Expr {
   }
 }
 
+/** A subexpression of another expression. */
+class ConstituentExpr extends Expr {
+  ConstituentExpr() { exists(FullExpr e | e = this.getParent+()) }
+
+  FullExpr getFullExpr() { result.getAChild+() = this }
+}
+
 /** An overloaded assign expression. */
 class OverloadedAssignExpr extends FunctionCall {
   OverloadedAssignExpr() { this.getTarget().getName() = "operator=" }

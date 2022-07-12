@@ -1,160 +1,31 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   When invoked by a
-   <code>
-    new
-   </code>
-   expression for a given type, the default global non-placement forms of
-   <code>
-    operator new
-   </code>
-   attempt to allocate sufficient storage for an object of the type and, if successful, return a pointer with alignment suitable for any object with a fundamental alignment requirement. However, the default placement
-   <code>
-    new
-   </code>
-   operator simply returns the given pointer back to the caller without guaranteeing that there is sufficient space in which to construct the object or ensuring that the pointer meets the proper alignment requirements. The C++ Standard, [expr.new], paragraph 16 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], nonnormatively states the following:
-  </p>
+  <p>When invoked by a <code>new</code> expression for a given type, the default global non-placement forms of <code>operator new</code> attempt to allocate sufficient storage for an object of the type and, if successful, return a pointer with alignment suitable for any object with a fundamental alignment requirement. However, the default placement <code>new</code> operator simply returns the given pointer back to the caller without guaranteeing that there is sufficient space in which to construct the object or ensuring that the pointer meets the proper alignment requirements. The C++ Standard, [expr.new], paragraph 16 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], nonnormatively states the following:</p>
   <blockquote>
-   <p>
-    [Note: when the allocation function returns a value other than null, it must be a pointer to a block of storage in which space for the object has been reserved. The block of storage is assumed to be appropriately aligned and of the requested size. The address of the created object will not necessarily be the same as that of the block if the object is an array. —end note]
-   </p>
+   <p>[Note: when the allocation function returns a value other than null, it must be a pointer to a block of storage in which space for the object has been reserved. The block of storage is assumed to be appropriately aligned and of the requested size. The address of the created object will not necessarily be the same as that of the block if the object is an array. —end note]</p>
   </blockquote>
-  <p>
-   (This note is a reminder of the general requirements specified by the C++ Standard, [basic.stc.dynamic.allocation], paragraph 1, which apply to placement
-   <code>
-    new
-   </code>
-   operators by virtue of [basic.stc.dynamic], paragraph 3.)
-  </p>
-  <p>
-   In addition, the standard provides the following example later in the same section:
-  </p>
+  <p>(This note is a reminder of the general requirements specified by the C++ Standard, [basic.stc.dynamic.allocation], paragraph 1, which apply to placement <code>new</code> operators by virtue of [basic.stc.dynamic], paragraph 3.)</p>
+  <p>In addition, the standard provides the following example later in the same section:</p>
   <blockquote>
-   <p>
-    <code>
-     new(2, f) T[5]
-    </code>
-    results in a call
-    <code>
-     of operator new[](sizeof(T) * 5 + y, 2, f).
-    </code>
-   </p>
-   <p>
-    Here,
-    <code>
-     ...
-    </code>
-    and
-    <code>
-     y
-    </code>
-    are non-negative unspecified values representing array allocation overhead; the result of the new-expression will be offset by this amount from the value returned by
-    <code>
-     operator new[]
-    </code>
-    . This overhead may be applied in all array
-    <em>
-     new-expressions
-    </em>
-    , including those referencing the library function
-    <code>
-     operator new[](std::size_t, void*)
-    </code>
-    and other placement allocation functions. The amount of overhead may vary from one invocation of new to another.
-   </p>
+   <p><code>new(2, f) T[5] </code>results in a call<code> of operator new[](sizeof(T) * 5 + y, 2, f).</code></p>
+   <p>Here, <code>...</code> and <code>y</code> are non-negative unspecified values representing array allocation overhead; the result of the new-expression will be offset by this amount from the value returned by <code>operator new[]</code>. This overhead may be applied in all array <em>new-expressions</em>, including those referencing the library function <code>operator new[](std::size_t, void*)</code> and other placement allocation functions. The amount of overhead may vary from one invocation of new to another.</p>
   </blockquote>
-  <p>
-   Do not pass a pointer that is not suitably aligned for the object being constructed to placement
-   <code>
-    new
-   </code>
-   . Doing so results in an object being constructed at a misaligned location, which results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . Do not pass a pointer that has insufficient storage capacity for the object being constructed, including the overhead required for arrays. Doing so may result in initialization of memory outside of the bounds of the object being constructed, which results in undefined behavior.
-  </p>
-  <p>
-   Finally, do not use placement
-   <code>
-    new[]
-   </code>
-   on any platform that does not specify a limit for the overhead it requires.
-  </p>
+  <p>Do not pass a pointer that is not suitably aligned for the object being constructed to placement <code>new</code>. Doing so results in an object being constructed at a misaligned location, which results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. Do not pass a pointer that has insufficient storage capacity for the object being constructed, including the overhead required for arrays. Doing so may result in initialization of memory outside of the bounds of the object being constructed, which results in undefined behavior. </p>
+  <p>Finally, do not use placement <code>new[]</code> on any platform that does not specify a limit for the overhead it requires.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, a pointer to a
-   <code>
-    short
-   </code>
-   is passed to placement
-   <code>
-    new
-   </code>
-   , which is attempting to initialize a
-   <code>
-    long
-   </code>
-   . On architectures where
-   <code>
-    sizeof(short) &lt; sizeof(long)
-   </code>
-   , this results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . This example, and subsequent ones, all assume the pointer returned by placement
-   <code>
-    new
-   </code>
-   will not be used after the lifetime of its underlying storage has ended. For instance, the pointer will not be stored in a
-   <code>
-    static
-   </code>
-   global variable and dereferenced after the call to
-   <code>
-    f()
-   </code>
-   has ended. This assumption is in conformance with
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM50-CPP.+Do+not+access+freed+memory">
-    MEM50-CPP. Do not access freed memory
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
- 
+  <p>In this noncompliant code example, a pointer to a <code>short</code> is passed to placement <code>new</code>, which is attempting to initialize a <code>long</code>. On architectures where <code>sizeof(short) &lt; sizeof(long)</code>, this results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. This example, and subsequent ones, all assume the pointer returned by placement <code>new</code> will not be used after the lifetime of its underlying storage has ended. For instance, the pointer will not be stored in a <code>static</code> global variable and dereferenced after the call to <code>f()</code> has ended. This assumption is in conformance with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM50-CPP.+Do+not+access+freed+memory">MEM50-CPP. Do not access freed memory</a>.</p>
+  <sample language="cpp">#include &lt;new&gt;
+ 
 void f() {
   short s;
   long *lp = ::new (&amp;s) long;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   This noncompliant code example ensures that the
-   <code>
-    long
-   </code>
-   is constructed into a buffer of sufficient size. However, it does not ensure that the alignment requirements are met for the pointer passed into placement
-   <code>
-    new
-   </code>
-   . To make this example clearer, an additional local variable
-   <code>
-    c
-   </code>
-   has also been declared.
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
+  <p>This noncompliant code example ensures that the <code>long</code> is constructed into a buffer of sufficient size. However, it does not ensure that the alignment requirements are met for the pointer passed into placement <code>new</code>. To make this example clearer, an additional local variable <code>c</code> has also been declared.</p>
+  <sample language="cpp">#include &lt;new&gt;
  
 void f() {
   char c; // Used elsewhere in the function
@@ -162,62 +33,35 @@ void f() {
   long *lp = ::new (buffer) long;
  
   // ...
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (alignas)">
-  <p>
-   In this compliant solution, the
-   <code>
-    alignas
-   </code>
-   declaration specifier is used to ensure the buffer is appropriately aligned for a
-   <code>
-    long.
-   </code>
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
- 
+  <p>In this compliant solution, the <code>alignas</code> declaration specifier is used to ensure the buffer is appropriately aligned for a <code>long.</code></p>
+  <sample language="cpp">#include &lt;new&gt;
+ 
 void f() {
   char c; // Used elsewhere in the function
   alignas(long) unsigned char buffer[sizeof(long)];
   long *lp = ::new (buffer) long;
- 
+ 
   // ...
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (std::aligned_storage)">
-  <p>
-   This compliant solution ensures that the
-   <code>
-    long
-   </code>
-   is constructed into a buffer of sufficient size and with suitable alignment.
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
- 
+  <p>This compliant solution ensures that the <code>long</code> is constructed into a buffer of sufficient size and with suitable alignment.</p>
+  <sample language="cpp">#include &lt;new&gt;
+ 
 void f() {
   char c; // Used elsewhere in the function
   std::aligned_storage&lt;sizeof(long), alignof(long)&gt;::type buffer;
   long *lp = ::new (&amp;buffer) long;
- 
+ 
   // ...
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example (Failure to Account for Array Overhead)">
-  <p>
-   This noncompliant code example attempts to allocate sufficient storage of the appropriate alignment for the array of objects of
-   <code>
-    S
-   </code>
-   .  However, it fails to account for the overhead an implementation may add to the amount of storage for array objects.  The overhead (commonly referred to as a cookie) is necessary to store the number of elements in the array so that the array delete expression or the exception unwinding mechanism can invoke the type's destructor on each successfully constructed element of the array.  While some implementations are able to avoid allocating space for the cookie in some situations, assuming they do in all cases is unsafe.
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
+  <p>This noncompliant code example attempts to allocate sufficient storage of the appropriate alignment for the array of objects of <code>S</code>.  However, it fails to account for the overhead an implementation may add to the amount of storage for array objects.  The overhead (commonly referred to as a cookie) is necessary to store the number of elements in the array so that the array delete expression or the exception unwinding mechanism can invoke the type's destructor on each successfully constructed element of the array.  While some implementations are able to avoid allocating space for the cookie in some situations, assuming they do in all cases is unsafe.</p>
+  <sample language="cpp">#include &lt;new&gt;
 
 struct S {
   S ();
@@ -234,31 +78,11 @@ void f() {
   for (size_t i = 0; i != n; ++i) {
     sp[i].~S();
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (Clang/GCC)">
-  <p>
-   The amount of overhead required by array new expressions is unspecified but ideally would be documented by quality implementations. The following compliant solution is specifically for the
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">
-    Clang
-   </a>
-   and GNU
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-gcc">
-    GCC
-   </a>
-   compilers, which guarantee that the overhead for dynamic array allocations is a single value of type
-   <code>
-    size_t
-   </code>
-   . (Note that this value is often treated as a "-1th" element in the array, so the actual space used may be larger.) To verify that the assumption is, in fact, safe, the compliant solution also overloads the placement
-   <code>
-    new[]
-   </code>
-   operator to accept the buffer size as a third argument and verifies that it is not smaller than the total amount of storage required.
-  </p>
-  <sample language="cpp">
-   #include &lt;cstddef&gt;
+  <p>The amount of overhead required by array new expressions is unspecified but ideally would be documented by quality implementations. The following compliant solution is specifically for the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">Clang </a>and GNU <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-gcc">GCC </a>compilers, which guarantee that the overhead for dynamic array allocations is a single value of type <code>size_t</code>. (Note that this value is often treated as a "-1th" element in the array, so the actual space used may be larger.) To verify that the assumption is, in fact, safe, the compliant solution also overloads the placement <code>new[]</code> operator to accept the buffer size as a third argument and verifies that it is not smaller than the total amount of storage required.</p>
+  <sample language="cpp">#include &lt;cstddef&gt;
 #include &lt;new&gt;
 
 #if defined(__clang__) || defined(__GNUG__)
@@ -290,28 +114,11 @@ void f() {
   for (size_t i = 0; i != n; ++i) {
     sp[i].~S();
   }
-}
-  </sample>
-  <p>
-   Porting this compliant solution to other implementations requires adding similar conditional definitions of the overhead constant, depending on the constraints of the platform.
-  </p>
+}</sample>
+  <p>Porting this compliant solution to other implementations requires adding similar conditional definitions of the overhead constant, depending on the constraints of the platform.</p>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Passing improperly aligned pointers or pointers to insufficient storage to placement
-   <code>
-    new
-   </code>
-   expressions can result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   , including buffer overflow and
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormal termination
-   </a>
-   .
-  </p>
+  <p>Passing improperly aligned pointers or pointers to insufficient storage to placement <code>new</code> expressions can result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, including buffer overflow and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal termination</a>.</p>
   <table>
    <tbody>
     <tr>
@@ -348,14 +155,10 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>
-       P18
-      </strong>
+      <strong>P18</strong>
      </td>
      <td>
-      <strong>
-       L1
-      </strong>
+      <strong>L1</strong>
      </td>
     </tr>
    </tbody>
@@ -388,9 +191,7 @@ void f() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-MEM54
-      </strong>
+      <strong>CertC++-MEM54</strong>
      </td>
      <td>
      </td>
@@ -405,9 +206,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++3119, C++3128
-      </strong>
+      <strong>C++3119, C++3128</strong>
      </td>
      <td>
      </td>
@@ -421,9 +220,7 @@ void f() {
      <td>
      </td>
      <td>
-      <strong>
-       597 S
-      </strong>
+      <strong>597 S</strong>
      </td>
      <td>
       Enhanced Enforcement
@@ -439,12 +236,8 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-MEM54-a
-      </strong>
-      <strong>
-       CERT_CPP-MEM54-b
-      </strong>
+      <strong>CERT_CPP-MEM54-a</strong>
+      <strong>CERT_CPP-MEM54-b</strong>
      </td>
      <td>
       Do not pass a pointer that has insufficient storage capacity or that is not suitably aligned for the object being constructed to placement 'new'
@@ -476,14 +269,10 @@ void f() {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v752/">
-        V752
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v752/">V752</a></strong>
      </td>
      <td>
      </td>
@@ -492,17 +281,7 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulner">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM45-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulner">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM45-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

@@ -1,148 +1,50 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   Copying data to a buffer that is not large enough to hold that data results in a buffer overflow. Buffer overflows occur frequently when manipulating strings [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Seacord2013">
-    Seacord 2013
-   </a>
-   ]. To prevent such errors, either limit copies through truncation or, preferably, ensure that the destination is of sufficient size to hold the data to be copied. C-style strings require a null character to indicate the end of the string, while the C++
-   <code>
-    std::basic_string
-   </code>
-   template requires no such character.
-  </p>
+  <p>Copying data to a buffer that is not large enough to hold that data results in a buffer overflow. Buffer overflows occur frequently when manipulating strings [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Seacord2013">Seacord 2013</a>]. To prevent such errors, either limit copies through truncation or, preferably, ensure that the destination is of sufficient size to hold the data to be copied. C-style strings require a null character to indicate the end of the string, while the C++ <code>std::basic_string</code> template requires no such character.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   Because the input is unbounded, the following code could lead to a buffer overflow.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
- 
+  <p>Because the input is unbounded, the following code could lead to a buffer overflow.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
 void f() {
   char buf[12];
   std::cin &gt;&gt; buf;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   To solve this problem, it may be tempting to use the
-   <code>
-    std::ios_base::width()
-   </code>
-   method, but there still is a trap, as shown in this noncompliant code example.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
- 
+  <p>To solve this problem, it may be tempting to use the <code>std::ios_base::width()</code> method, but there still is a trap, as shown in this noncompliant code example.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
 void f() {
   char bufOne[12];
   char bufTwo[12];
   std::cin.width(12);
   std::cin &gt;&gt; bufOne;
   std::cin &gt;&gt; bufTwo;
-}
-  </sample>
-  <p>
-   In this example, the first read will not overflow, but could fill
-   <code>
-    bufOne
-   </code>
-   with a truncated string. Furthermore, the second read still could overflow
-   <code>
-    bufTwo
-   </code>
-   . The C++ Standard, [istream.extractors], paragraphs 7–9  [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], describes the behavior of
-   <code>
-    operator&gt;&gt;(basic_istream &amp;, charT *)
-   </code>
-   and, in part, states the following:
-  </p>
+}</sample>
+  <p>In this example, the first read will not overflow, but could fill <code>bufOne</code> with a truncated string. Furthermore, the second read still could overflow <code>bufTwo</code>. The C++ Standard, [istream.extractors], paragraphs 7–9  [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], describes the behavior of <code>operator&gt;&gt;(basic_istream &amp;, charT *)</code> and, in part, states the following:</p>
   <blockquote>
-   <p>
-    <code>
-     operator&gt;&gt;
-    </code>
-    then stores a null byte (
-    <code>
-     charT()
-    </code>
-    ) in the next position, which may be the first position if no characters were extracted.
-    <code>
-     operator&gt;&gt;
-    </code>
-    then calls
-    <code>
-     width(0)
-    </code>
-    .
-   </p>
+   <p><code>operator&gt;&gt;</code> then stores a null byte (<code>charT()</code>) in the next position, which may be the first position if no characters were extracted. <code>operator&gt;&gt;</code> then calls <code>width(0)</code>.</p>
   </blockquote>
-  <p>
-   Consequently, it is necessary to call
-   <code>
-    width()
-   </code>
-   prior to each
-   <code>
-    operator&gt;&gt;
-   </code>
-   call passing a bounded array. However, this does not account for the input being truncated, which may lead to information loss or a possible
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerability
-   </a>
-   .
-  </p>
+  <p>Consequently, it is necessary to call <code>width()</code> prior to each <code>operator&gt;&gt;</code> call passing a bounded array. However, this does not account for the input being truncated, which may lead to information loss or a possible <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerability</a>.</p>
  </section>
  <section title="Compliant Solution">
-  <p>
-   The best solution for ensuring that data is not truncated and for guarding against buffer overflows is to use
-   <code>
-    std::string
-   </code>
-   instead of a bounded array, as in this compliant solution.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>The best solution for ensuring that data is not truncated and for guarding against buffer overflows is to use <code>std::string</code> instead of a bounded array, as in this compliant solution.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
- 
+ 
 void f() {
   std::string input;
   std::string stringOne, stringTwo;
   std::cin &gt;&gt; stringOne &gt;&gt; stringTwo;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant example, the unformatted input function
-   <code>
-    std::basic_istream&lt;T&gt;::read()
-   </code>
-   is used to read an unformatted character array of 32 characters from the given file. However, the
-   <code>
-    read()
-   </code>
-   function does not guarantee that the string will be null terminated, so the subsequent call of the
-   <code>
-    std::string
-   </code>
-   constructor results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   if the character array does not contain a null terminator.
-  </p>
-  <sample language="cpp">
-   #include &lt;fstream&gt;
+  <p>In this noncompliant example, the unformatted input function <code>std::basic_istream&lt;T&gt;::read()</code> is used to read an unformatted character array of 32 characters from the given file. However, the <code>read()</code> function does not guarantee that the string will be null terminated, so the subsequent call of the <code>std::string</code> constructor results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> if the character array does not contain a null terminator.</p>
+  <sample language="cpp">#include &lt;fstream&gt;
 #include &lt;string&gt;
- 
+ 
 void f(std::istream &amp;in) {
   char buffer[32];
   try {
@@ -153,23 +55,11 @@ void f(std::istream &amp;in) {
  
   std::string str(buffer);
   // ...
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution assumes that the input from the file is at most 32 characters. Instead of inserting a null terminator, it constructs the
-   <code>
-    std::string
-   </code>
-   object based on the number of characters read from the input stream. If the size of the input is uncertain, it is better to use
-   <code>
-    std::basic_istream&lt;T&gt;::readsome()
-   </code>
-   or a formatted input function, depending on need.
-  </p>
-  <sample language="cpp">
-   #include &lt;fstream&gt;
+  <p>This compliant solution assumes that the input from the file is at most 32 characters. Instead of inserting a null terminator, it constructs the <code>std::string</code> object based on the number of characters read from the input stream. If the size of the input is uncertain, it is better to use <code>std::basic_istream&lt;T&gt;::readsome()</code> or a formatted input function, depending on need.</p>
+  <sample language="cpp">#include &lt;fstream&gt;
 #include &lt;string&gt;
 
 void f(std::istream &amp;in) {
@@ -181,17 +71,10 @@ void f(std::istream &amp;in) {
   }
   std::string str(buffer, in.gcount());
   // ...
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Copying string data to a buffer that is too small to hold that data results in a buffer overflow. Attackers can
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">
-    exploit
-   </a>
-   this condition to execute arbitrary code with the permissions of the vulnerable process.
-  </p>
+  <p>Copying string data to a buffer that is too small to hold that data results in a buffer overflow. Attackers can <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">exploit</a> this condition to execute arbitrary code with the permissions of the vulnerable process.</p>
   <table>
    <tbody>
     <tr>
@@ -228,14 +111,10 @@ void f(std::istream &amp;in) {
       Medium
      </td>
      <td>
-      <strong>
-       P18
-      </strong>
+      <strong>P18</strong>
      </td>
      <td>
-      <strong>
-       L1
-      </strong>
+      <strong>L1</strong>
      </td>
     </tr>
    </tbody>
@@ -265,16 +144,11 @@ void f(std::istream &amp;in) {
       </a>
      </td>
      <td>
-      6.1p0
+      6.2p0
      </td>
      <td>
-      <strong>
-       MISC.MEM.NTERM
-      </strong>
-      <strong>
-       LANG.MEM.BO
-       LANG.MEM.TO
-      </strong>
+      <strong>MISC.MEM.NTERM</strong>
+      <strong>LANG.MEM.BOLANG.MEM.TO</strong>
      </td>
      <td>
       No space for null terminator
@@ -292,9 +166,7 @@ void f(std::istream &amp;in) {
       2021.2
      </td>
      <td>
-      <strong>
-       C++2835, C++2836, C++2839, C++5216
-      </strong>
+      <strong>C++2835, C++2836, C++2839, C++5216</strong>
      </td>
      <td>
      </td>
@@ -309,18 +181,10 @@ void f(std::istream &amp;in) {
       2021.4
      </td>
      <td>
-      <strong>
-       NNTS.MIGHT
-      </strong>
-      <strong>
-       NNTS.TAINTED
-      </strong>
-      <strong>
-       NNTS.MUST
-      </strong>
-      <strong>
-       SV.UNBOUND_STRING_INPUT.CIN
-      </strong>
+      <strong>NNTS.MIGHT</strong>
+      <strong>NNTS.TAINTED</strong>
+      <strong>NNTS.MUST</strong>
+      <strong>SV.UNBOUND_STRING_INPUT.CIN</strong>
      </td>
      <td>
      </td>
@@ -334,9 +198,7 @@ void f(std::istream &amp;in) {
      <td>
      </td>
      <td>
-      <strong>
-       489 S, 66 X, 70 X, 71 X
-      </strong>
+      <strong>489 S, 66 X, 70 X, 71 X</strong>
      </td>
      <td>
       Partially implemented
@@ -352,21 +214,11 @@ void f(std::istream &amp;in) {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-STR50-b
-      </strong>
-      <strong>
-       CERT_CPP-STR50-c
-      </strong>
-      <strong>
-       CERT_CPP-STR50-e
-      </strong>
-      <strong>
-       CERT_CPP-STR50-f
-      </strong>
-      <strong>
-       CERT_CPP-STR50-g
-      </strong>
+      <strong>CERT_CPP-STR50-b</strong>
+      <strong>CERT_CPP-STR50-c</strong>
+      <strong>CERT_CPP-STR50-e</strong>
+      <strong>CERT_CPP-STR50-f</strong>
+      <strong>CERT_CPP-STR50-g</strong>
      </td>
      <td>
       Avoid overflow due to reading a not zero terminated string
@@ -392,7 +244,7 @@ void f(std::istream &amp;in) {
      </td>
      <td>
       Checks for:
-      Use of dangerous standard function, missing null in string array, buffer overflow from incorrect string format specifier, destination buffer overflow in string manipulation.
+      Use of dangerous standard functionse of dangerous standard function, missing null in string arrayissing null in string array, buffer overflow from incorrect string format specifieruffer overflow from incorrect string format specifier, destination buffer overflow in string manipulationestination buffer overflow in string manipulation.
       Rule partially covered.
      </td>
     </tr>
@@ -406,11 +258,7 @@ void f(std::istream &amp;in) {
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-3519">
-        S3519
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-3519">S3519</a></strong>
      </td>
      <td>
      </td>
@@ -419,17 +267,7 @@ void f(std::istream &amp;in) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+STR35-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+STR35-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>
@@ -462,9 +300,7 @@ void f(std::istream &amp;in) {
      </td>
      <td>
       Subclause 27.7.2.2.3, "
-      <code>
-       basic_istream::operator&gt;&gt;
-      </code>
+      <code>basic_istream::operator&gt;&gt;</code>
       "
       Subclause 27.7.2.3, "Unformatted Input Functions"
      </td>

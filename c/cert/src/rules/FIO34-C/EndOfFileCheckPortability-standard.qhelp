@@ -1,29 +1,547 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
-  <section title="Classification">
-    <ul>
-      <li>required</li>
-      <li>implementation</li>
-      <li>automated</li>
-    </ul>
-  </section>
+ <section title="Description">
+  <p>The <code>EOF</code> macro represents a negative value that is used to indicate that the file is exhausted and no data remains when reading data from a file. <code>EOF</code> is an example of an <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-in-banderrorindicator">in-band error indicator</a>. In-band error indicators are problematic to work with, and the creation of new in-band-error indicators is discouraged by <a href="https://wiki.sei.cmu.edu/confluence/display/c/ERR02-C.+Avoid+in-band+error+indicators">ERR02-C. Avoid in-band error indicators</a>.</p>
+  <p>The byte I/O functions <code>fgetc()</code>, <code>getc()</code>, and <code>getchar()</code> all read a character from a stream and return it as an <code>int.</code> (See <a href="https://wiki.sei.cmu.edu/confluence/display/c/STR00-C.+Represent+characters+using+an+appropriate+type">STR00-C. Represent characters using an appropriate type</a>.) If the stream is at the end of the file, the end-of-file indicator for the stream is set and the function returns <code>EOF</code>. If a read error occurs, the error indicator for the stream is set and the function returns <code>EOF</code>. If these functions succeed, they cast the character returned into an <code>unsigned char</code>.</p>
+  <p>Because <code>EOF</code> is negative, it should not match any unsigned character value. However, this is only true for <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-implementation">implementations</a> where the <code>int</code> type is wider than <code>char</code>. On an implementation where <code>int</code> and <code>char</code> have the same width, a character-reading function can read and return a valid character that has the same bit-pattern as <code>EOF</code>. This could occur, for example, if an attacker inserted a value that looked like <code>EOF</code> into the file or data stream to alter the behavior of the program.</p>
+  <p>The C Standard requires only that the <code>int</code> type be able to represent a maximum value of +32767 and that a <code>char</code> type be no larger than an <code>int</code>. Although uncommon, this situation can result in the integer constant expression <code>EOF</code> being indistinguishable from a valid character; that is, <code>(int)(unsigned char)65535 == -1</code>. Consequently, failing to use <code>feof()</code> and <code>ferror()</code> to detect end-of-file and file errors can result in incorrectly identifying the <code>EOF</code> character on rare implementations where <code>sizeof(int) == sizeof(char)</code>.</p>
+  <p>This problem is much more common when reading wide characters. The <code>fgetwc()</code>, <code>getwc()</code>, and <code>getwchar()</code> functions return a value of type <code>wint_t</code>. This value can represent the next wide character read, or it can represent <code>WEOF</code>, which indicates end-of-file for wide character streams. On most implementations, the <code>wchar_t</code> type has the same width as <code>wint_t</code>, and these functions can return a character indistinguishable from <code>WEOF</code>.</p>
+  <p>In the UTF-16 character set, <code>0xFFFF</code> is guaranteed not to be a character, which allows <code>WEOF</code> to be represented as the value <code>-1</code>. Similarly, all UTF-32 characters are positive when viewed as a signed 32-bit integer. All widely used character sets are designed with at least one value that does not represent a character. Consequently, it would require a custom character set designed without consideration of the C programming language for this problem to occur with wide characters or with ordinary characters that are as wide as <code>int</code>.</p>
+  <p>The C Standard <code>feof()</code> and <code>ferror()</code> functions are not subject to the problems associated with character and integer sizes and should be used to verify end-of-file and file errors for susceptible implementations [<a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Kettle02">Kettlewell 2002</a>]. Calling both functions on each iteration of a loop adds significant overhead, so a good strategy is to temporarily trust <code>EOF</code> and <code>WEOF</code> within the loop but verify them with <code>feof()</code> and <code>ferror()</code> following the loop.</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>This noncompliant code example loops while the character <code>c</code> is not <code>EOF</code>:</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
+ 
+void func(void) {
+  int c;
+ 
+  do {
+    c = getchar();
+  } while (c != EOF);
+}
+</sample>
+  <p>Although <code>EOF</code> is guaranteed to be negative and distinct from the value of any unsigned character, it is not guaranteed to be different from any such value when converted to an <code>int</code>. Consequently, when <code>int</code> has the same width as <code>char</code>, this loop may terminate prematurely.</p>
+ </section>
+ <section title="Compliant Solution (Portable)">
+  <p>This compliant solution uses <code>feof()</code> and <code>ferror()</code> to test whether the <code>EOF</code> was an actual character or a real <code>EOF</code> because of end-of-file or errors:</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
 
-  <section title="Rationale">
-    <p>
-           ...
-    </p>
+void func(void) {
+  int c;
 
-  </section>
+  do {
+    c = getchar();
+  } while (c != EOF || (!feof(stdin) &amp;&amp; !ferror(stdin)));
+}
+</sample>
+ </section>
+ <section title="Noncompliant Code Example (Nonportable)">
+  <p>This noncompliant code example uses an assertion to ensure that the code is executed only on architectures where <code>int</code> is wider than <code>char</code> and <code>EOF</code> is guaranteed not to be a valid character value. However, this code example is noncompliant because the variable <code>c</code> is declared as a <code>char</code> rather than an <code>int</code>, making it possible for a valid character value to compare equal to the value of the <code>EOF</code> macro when <code>char</code> is signed because of sign extension:</p>
+  <sample language="cpp">#include &lt;assert.h&gt;
+#include &lt;limits.h&gt;
+#include &lt;stdio.h&gt;
 
-  <section title="Exception">
-    <p>
-      ...
-    </p>
-  </section>
+void func(void) {
+  char c;
+  static_assert(UCHAR_MAX &lt; UINT_MAX, "FIO34-C violation");
+
+  do {
+    c = getchar();
+  } while (c != EOF);
+}
+</sample>
+  <p>Assuming that a <code>char</code> is a signed 8-bit type and an int is a 32-bit type, if <code>getchar()</code> returns the character value <code>'\xff</code> (decimal 255), it will be interpreted as <code>EOF</code> because this value is sign-extended to <code>0xFFFFFFFF</code> (the value of <code>EOF</code>) to perform the comparison. (See <a href="https://wiki.sei.cmu.edu/confluence/display/c/STR34-C.+Cast+characters+to+unsigned+char+before+converting+to+larger+integer+sizes">STR34-C. Cast characters to unsigned char before converting to larger integer sizes</a>.)</p>
+ </section>
+ <section title="Compliant Solution (Nonportable)">
+  <p>This compliant solution declares <code>c</code> to be an <code>int</code>. Consequently, the loop will terminate only when the file is exhausted.</p>
+  <sample language="cpp">#include &lt;assert.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;limits.h&gt;
+
+void func(void) {
+  int c;
+  static_assert(UCHAR_MAX &lt; UINT_MAX, "FIO34-C violation");
+
+  do {
+    c = getchar();
+  } while (c != EOF);
+}
+</sample>
+ </section>
+ <section title="Noncompliant Code Example (Wide Characters)">
+  <p>In this noncompliant example, the result of the call to the C standard library function <code>getwc()</code> is stored into a variable of type <code>wchar_t</code> and is subsequently compared with <code>WEOF</code>:</p>
+  <sample language="cpp">#include &lt;stddef.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;wchar.h&gt;
+
+enum { BUFFER_SIZE = 32 };
+
+void g(void) {
+  wchar_t buf[BUFFER_SIZE];
+  wchar_t wc;
+  size_t i = 0;
+
+  while ((wc = getwc(stdin)) != L'\n' &amp;&amp; wc != WEOF) {
+    if (i &lt; (BUFFER_SIZE - 1)) {
+      buf[i++] = wc;
+    }
+  }
+  buf[i] = L'\0';
+}
+</sample>
+  <p>This code suffers from two problems. First, the value returned by <code>getwc()</code> is immediately converted to <code>wchar_t</code> before being compared with <code>WEOF</code>. Second, there is no check to ensure that <code>wint_t</code> is wider than <code>wchar_t</code>. Both of these problems make it possible for an attacker to terminate the loop prematurely by supplying the wide-character value matching <code>WEOF</code> in the file.</p>
+ </section>
+ <section title="Compliant Solution (Portable)">
+  <p>This compliant solution declares <code>c</code> to be a <code>wint_t</code> to match the integer type returned by <code>getwc()</code>. Furthermore, it does not rely on <code>WEOF</code> to determine end-of-file definitively.</p>
+  <sample language="cpp">#include &lt;stddef.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;wchar.h&gt;
+ 
+enum {BUFFER_SIZE = 32 }
+
+void g(void) {
+  wchar_t buf[BUFFER_SIZE];
+  wint_t wc;
+  size_t i = 0;
   
-  <section title="See more">
-    <ul>
-      <li>...</li>
-    </ul>
-  </section>
+  while ((wc = getwc(stdin)) != L'\n' &amp;&amp; wc != WEOF) {
+    if (i &lt; BUFFER_SIZE - 1) {
+      buf[i++] = wc;
+    }
+  }
+
+  if (feof(stdin) || ferror(stdin)) {
+   buf[i] = L'\0';
+  } else {
+    /* Received a wide character that resembles WEOF; handle error */
+  }
+}
+</sample>
+ </section>
+ <section title="Exceptions">
+  <p><strong>FIO34-C-EX1:</strong> A number of C functions do not return characters but can return <code>EOF</code> as a status code. These functions include <code>fclose()</code>, <code>fflush()</code>, <code>fputs()</code>, <code>fscanf()</code>, <code>puts()</code>, <code>scanf()</code>, <code>sscanf()</code>, <code>vfscanf()</code>, and <code>vscanf()</code>. These return values can be compared to <code>EOF</code> without validating the result.</p>
+ </section>
+ <section title="Risk Assessment">
+  <p>Incorrectly assuming characters from a file cannot match <code>EOF</code> or <code>WEOF</code> has resulted in significant vulnerabilities, including command injection attacks. (See the <a href="http://www.cert.org/historical/advisories/CA-1996-22.cfm">*CA-1996-22</a> advisory.)</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      FIO34-C
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      Probable
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      <strong>P12</strong>
+     </td>
+     <td>
+      <strong>L1</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Axivion+Bauhaus+Suite">
+       Axivion Bauhaus Suite
+      </a>
+     </td>
+     <td>
+      7.2.0
+     </td>
+     <td>
+      <strong>CertC-FIO34</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>LANG.CAST.COERCE</strong>
+     </td>
+     <td>
+      Coercion alters value
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Rose">
+       Compass/ROSE
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Coverity">
+       Coverity
+      </a>
+     </td>
+     <td>
+      2017.07
+     </td>
+     <td>
+      <strong>CHAR_IO</strong>
+     </td>
+     <td>
+      Identifies defects when the return value of
+      <code>fgetc()</code>
+      ,
+      <code>getc()</code>
+      , or
+      <code>getchar()</code>
+      is incorrectly assigned to a
+      <code>char</code>
+      instead of an
+      <code>int</code>
+      . Coverity Prevent cannot discover all violations of this rule, so further verification is necessary
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/ECLAIR">
+       ECLAIR
+      </a>
+     </td>
+     <td>
+      1.2
+     </td>
+     <td>
+      <strong>CC2.FIO34</strong>
+     </td>
+     <td>
+      Partially implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.3
+     </td>
+     <td>
+      <strong>C2676, C2678</strong>
+      <strong>C++2676, C++2678, C++3001, C++3010, C++3051, C++3137, C++3717</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Klocwork">
+       Klocwork
+      </a>
+     </td>
+     <td>
+      2021.4
+     </td>
+     <td>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CWARN.CMPCHR.EOF</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/LDRA">
+       LDRA tool suite
+      </a>
+     </td>
+     <td>
+      9.7.1
+     </td>
+     <td>
+      <strong>662 S</strong>
+     </td>
+     <td>
+      Fully implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_C-FIO34-a</strong>
+     </td>
+     <td>
+      The macro EOF should be compared with the unmodified return value from the Standard Library function
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2021a
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certcrulefio34c.html">
+       CERT C: Rule FIO34-C
+      </a>
+     </td>
+     <td>
+      Checks for character values absorbed into EOF (rule partially covered)
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/PRQA+QA-C">
+       PRQA QA-C
+      </a>
+     </td>
+     <td>
+      9.7
+     </td>
+     <td>
+      <strong>2676, 2678</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=142409849">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>2676, 2678, 3001, 3010, 3051, 3137, 3717</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Splint">
+       Splint
+      </a>
+     </td>
+     <td>
+      3.1.1
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+FIO34-C">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <p><a href="https://wiki.sei.cmu.edu/confluence/display/c/How+this+Coding+Standard+is+Organized#HowthisCodingStandardisOrganized-RelatedGuidelines">Key here</a> (explains table format and definitions)</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Taxonomy
+     </th>
+     <th>
+      Taxonomy item
+     </th>
+     <th>
+      Relationship
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       CERT C Secure Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO34-C.+Distinguish+between+characters+read+from+a+file+and+EOF+or+WEOF#">
+       STR00-C. Represent characters using an appropriate type
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       CERT C Secure Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/INT31-C.+Ensure+that+integer+conversions+do+not+result+in+lost+or+misinterpreted+data">
+       INT31-C. Ensure that integer conversions do not result in lost or misinterpreted data
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">
+       CERT Oracle Secure Coding Standard for Java
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/java/FIO08-J.+Distinguish+between+characters+or+bytes+read+from+a+stream+and+-1">
+       FIO08-J. Use an int to capture the return value of methods that read a character or byte
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO%2FIECTS17961">
+       ISO/IEC TS 17961:2013
+      </a>
+     </td>
+     <td>
+      Using character values that are indistinguishable from EOF [chreof]
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="http://cwe.mitre.org/">
+       CWE 2.11
+      </a>
+     </td>
+     <td>
+      <a href="https://cwe.mitre.org/data/index.html197.html">
+       CWE-197
+      </a>
+     </td>
+     <td>
+      2017-06-14: CERT: Rule subset of CWE
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="CERT-CWE Mapping Notes">
+  <p><a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152408#HowthisCodingStandardisOrganized-CERT-CWEMappingNotes">Key here</a> for mapping notes</p>
+  <p><strong>CWE-197 and FIO34-C</strong></p>
+  <p>Independent( FLP34-C, INT31-C) FIO34-C = Subset( INT31-C)</p>
+  <p>Therefore: FIO34-C = Subset( CWE-197)</p>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Kettle02">
+       Kettlewell 2002
+      </a>
+      ]
+     </td>
+     <td>
+      Section 1.2, "&lt;
+      <code>stdio.h</code>
+      &gt; and Character Types"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-NIST06">
+       NIST 2006
+      </a>
+      ]
+     </td>
+     <td>
+      SAMATE Reference Dataset Test Case ID 000-000-088
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Summit95">
+       Summit 2005
+      </a>
+      ]
+     </td>
+     <td>
+      Question 12.2
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
 </qhelp>

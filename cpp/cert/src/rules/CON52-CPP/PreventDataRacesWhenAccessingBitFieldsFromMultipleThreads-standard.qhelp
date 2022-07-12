@@ -1,26 +1,13 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   When accessing a bit-field, a thread may inadvertently access a separate bit-field in adjacent memory. This is because compilers are required to store multiple adjacent bit-fields in one storage unit whenever they fit. Consequently, data races may exist not just on a bit-field accessed by multiple threads but also on other bit-fields sharing the same byte or word. The problem is difficult to diagnose because it may not be obvious that the same memory location is being modified by multiple threads.
-  </p>
-  <p>
-   One approach for preventing data races in concurrent programming is to use a mutex. When properly observed by all threads, a mutex can provide safe and secure access to a shared object. However, mutexes provide no guarantees with regard to other objects that might be accessed when the mutex is not controlled by the accessing thread. Unfortunately, there is no portable way to determine which adjacent bit-fields may be stored along with the desired bit-field.
-  </p>
-  <p>
-   Another approach is to insert a non-bit-field member between any two bit-fields to ensure that each bit-field is the only one accessed within its storage unit. This technique effectively guarantees that no two bit-fields are accessed simultaneously.
-  </p>
+  <p>When accessing a bit-field, a thread may inadvertently access a separate bit-field in adjacent memory. This is because compilers are required to store multiple adjacent bit-fields in one storage unit whenever they fit. Consequently, data races may exist not just on a bit-field accessed by multiple threads but also on other bit-fields sharing the same byte or word. The problem is difficult to diagnose because it may not be obvious that the same memory location is being modified by multiple threads.</p>
+  <p>One approach for preventing data races in concurrent programming is to use a mutex. When properly observed by all threads, a mutex can provide safe and secure access to a shared object. However, mutexes provide no guarantees with regard to other objects that might be accessed when the mutex is not controlled by the accessing thread. Unfortunately, there is no portable way to determine which adjacent bit-fields may be stored along with the desired bit-field.</p>
+  <p>Another approach is to insert a non-bit-field member between any two bit-fields to ensure that each bit-field is the only one accessed within its storage unit. This technique effectively guarantees that no two bit-fields are accessed simultaneously.</p>
  </section>
  <section title="Noncompliant Code Example (bit-field)">
-  <p>
-   Adjacent bit-fields may be stored in a single memory location. Consequently, modifying adjacent bit-fields in different threads is
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   , as shown in this noncompliant code example.
-  </p>
-  <sample language="cpp">
-   struct MultiThreadedFlags {
+  <p>Adjacent bit-fields may be stored in a single memory location. Consequently, modifying adjacent bit-fields in different threads is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, as shown in this noncompliant code example.</p>
+  <sample language="cpp">struct MultiThreadedFlags {
   unsigned int flag1 : 2;
   unsigned int flag2 : 2;
 };
@@ -34,28 +21,21 @@ void thread1() {
 void thread2() {
   flags.flag2 = 2;
 }
-  </sample>
-  <p>
-   For example, the following instruction sequence is possible.
-  </p>
-  <sample language="cpp">
-   Thread 1: register 0 = flags
+</sample>
+  <p>For example, the following instruction sequence is possible.</p>
+  <sample language="cpp">Thread 1: register 0 = flags
 Thread 1: register 0 &amp;= ~mask(flag1)
 Thread 2: register 0 = flags
 Thread 2: register 0 &amp;= ~mask(flag2)
 Thread 1: register 0 |= 1 &lt;&lt; shift(flag1)
 Thread 1: flags = register 0
 Thread 2: register 0 |= 2 &lt;&lt; shift(flag2)
-Thread 2: flags = register 0
-  </sample>
+Thread 2: flags = register 0</sample>
  </section>
  <section title="Compliant Solution (bit-field, C++11 and later, mutex)">
-  <p>
-   This compliant solution protects all accesses of the flags with a mutex, thereby preventing any data races.
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
- 
+  <p>This compliant solution protects all accesses of the flags with a mutex, thereby preventing any data races.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
+ 
 struct MultiThreadedFlags {
   unsigned int flag1 : 2;
   unsigned int flag2 : 2;
@@ -77,14 +57,11 @@ void thread2() {
   std::lock_guard&lt;std::mutex&gt; lk(flags.mutex);
   flags.s.flag2 = 2;
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution (C++11)">
-  <p>
-   In this compliant solution, two threads simultaneously modify two distinct non-bit-field members of a structure. Because the members occupy different bytes in memory, no concurrency protection is required.
-  </p>
-  <sample language="cpp">
-   struct MultiThreadedFlags {
+  <p>In this compliant solution, two threads simultaneously modify two distinct non-bit-field members of a structure. Because the members occupy different bytes in memory, no concurrency protection is required.</p>
+  <sample language="cpp">struct MultiThreadedFlags {
   unsigned char flag1;
   unsigned char flag2;
 };
@@ -97,44 +74,15 @@ void thread1() {
 
 void thread2() {
   flags.flag2 = 2;
-}
-  </sample>
-  <p>
-   Unlike earlier versions of the standard, C++11 and later explicitly define a memory location and provide the following note in [intro.memory] paragraph 4 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ]:
-  </p>
+}</sample>
+  <p>Unlike earlier versions of the standard, C++11 and later explicitly define a memory location and provide the following note in [intro.memory] paragraph 4 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]:</p>
   <blockquote>
-   <p>
-    [
-    <em>
-     Note:
-    </em>
-    Thus a bit-field and an adjacent non-bit-field are in separate memory locations, and therefore can be concurrently updated by two threads of execution without interference.  The same applies to two bit-fields, if one is declared inside a nested struct declaration and the other is not, or if the two are separated by a zero-length bit-field declaration, or if they are separated by a non-bit-field declaration.  It is not safe to concurrently update two bit-fields in the same struct if all fields between them are also bit-fields of non-zero width.  –
-    <em>
-     end note
-    </em>
-    ]
-   </p>
+   <p>[<em>Note:</em> Thus a bit-field and an adjacent non-bit-field are in separate memory locations, and therefore can be concurrently updated by two threads of execution without interference.  The same applies to two bit-fields, if one is declared inside a nested struct declaration and the other is not, or if the two are separated by a zero-length bit-field declaration, or if they are separated by a non-bit-field declaration.  It is not safe to concurrently update two bit-fields in the same struct if all fields between them are also bit-fields of non-zero width.  – <em>end note</em>]</p>
   </blockquote>
-  <p>
-   It is almost certain that
-   <code>
-    flag1
-   </code>
-   and
-   <code>
-    flag2
-   </code>
-   are stored in the same word. Using a compiler that conforms to earlier versions of the standard, if both assignments occur on a thread-scheduling interleaving that ends with both stores occurring after one another, it is possible that only one of the flags will be set as intended, and the other flag will contain its previous value because both members are represented by the same word, which is the smallest unit the processor can work on. Before the changes made to the C++ Standard for C++11, there were no guarantees that these flags could be modified concurrently.
-  </p>
+  <p>It is almost certain that <code>flag1</code> and <code>flag2</code> are stored in the same word. Using a compiler that conforms to earlier versions of the standard, if both assignments occur on a thread-scheduling interleaving that ends with both stores occurring after one another, it is possible that only one of the flags will be set as intended, and the other flag will contain its previous value because both members are represented by the same word, which is the smallest unit the processor can work on. Before the changes made to the C++ Standard for C++11, there were no guarantees that these flags could be modified concurrently.</p>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Although the race window is narrow, an assignment or an expression can evaluate improperly because of misinterpreted data resulting in a corrupted running state or unintended information disclosure.
-  </p>
+  <p>Although the race window is narrow, an assignment or an expression can evaluate improperly because of misinterpreted data resulting in a corrupted running state or unintended information disclosure.</p>
   <table>
    <tbody>
     <tr>
@@ -171,14 +119,10 @@ void thread2() {
       Medium
      </td>
      <td>
-      <strong>
-       P8
-      </strong>
+      <strong>P8</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -211,10 +155,7 @@ void thread2() {
       20.10
      </td>
      <td>
-      <strong>
-       read_write_data_race
-       write_write_data_race
-      </strong>
+      <strong>read_write_data_racewrite_write_data_race</strong>
      </td>
      <td>
       Supported
@@ -230,9 +171,7 @@ void thread2() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-CON52
-      </strong>
+      <strong>CertC++-CON52</strong>
      </td>
      <td>
      </td>
@@ -247,9 +186,7 @@ void thread2() {
       6.5
      </td>
      <td>
-      <strong>
-       RACE_CONDITION
-      </strong>
+      <strong>RACE_CONDITION</strong>
      </td>
      <td>
       Fully implemented
@@ -265,9 +202,7 @@ void thread2() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++1774, C++1775
-      </strong>
+      <strong>C++1774, C++1775</strong>
      </td>
      <td>
      </td>
@@ -282,9 +217,7 @@ void thread2() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-CON52-a
-      </strong>
+      <strong>CERT_CPP-CON52-a</strong>
      </td>
      <td>
       Use locks to prevent race conditions when modifying bit fields
@@ -318,9 +251,7 @@ void thread2() {
       4.4
      </td>
      <td>
-      <strong>
-       1774, 1775
-      </strong>
+      <strong>1774, 1775</strong>
      </td>
      <td>
       Enforced by MTA
@@ -330,17 +261,7 @@ void thread2() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON52-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON52-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

@@ -1,0 +1,4 @@
+| test.c:21:12:21:34 | ... ? ... : ... | Operand $@ is not enclosed by parentheses. | test.c:21:12:21:19 | ... == ... | ... == ... |
+| test.c:21:12:21:34 | ... ? ... : ... | Operand $@ is not enclosed by parentheses. | test.c:21:28:21:34 | ... - ... | ... - ... |
+| test.c:27:7:27:19 | ... && ... | Operand $@ is not enclosed by parentheses. | test.c:27:7:27:13 | ... > ... | ... > ... |
+| test.c:31:7:31:19 | ... && ... | Operand $@ is not enclosed by parentheses. | test.c:31:13:31:19 | ... < ... | ... < ... |

@@ -1,401 +1,115 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   In C++, modifying an object, calling a library I/O function, accessing a
-   <code>
-    volatile
-   </code>
-   -qualified value, or calling a function that performs one of these actions are ways to modify the state of the execution environment. These actions are called
-   <em>
-    side effects
-   </em>
-   . All relationships between value computations and side effects can be described in terms of sequencing of their evaluations. The C++ Standard, [intro.execution], paragraph 13 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], establishes three sequencing terms:
-  </p>
+  <p>In C++, modifying an object, calling a library I/O function, accessing a <code>volatile</code>-qualified value, or calling a function that performs one of these actions are ways to modify the state of the execution environment. These actions are called <em>side effects</em>. All relationships between value computations and side effects can be described in terms of sequencing of their evaluations. The C++ Standard, [intro.execution], paragraph 13 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], establishes three sequencing terms:</p>
   <blockquote>
-   <p>
-    <em>
-     Sequenced before
-    </em>
-    is an asymmetric, transitive, pair-wise relation between evaluations executed by a single thread, which induces a partial order among those evaluations. Given any two evaluations
-    <em>
-     A
-    </em>
-    and
-    <em>
-     B
-    </em>
-    , if
-    <em>
-     A
-    </em>
-    is sequenced before
-    <em>
-     B
-    </em>
-    , then the execution of
-    <em>
-     A
-    </em>
-    shall precede the execution of
-    <em>
-     B
-    </em>
-    . If
-    <em>
-     A
-    </em>
-    is not sequenced before
-    <em>
-     B
-    </em>
-    and
-    <em>
-     B
-    </em>
-    is not sequenced before
-    <em>
-     A
-    </em>
-    , then
-    <em>
-     A
-    </em>
-    and
-    <em>
-     B
-    </em>
-    are
-    <em>
-     unsequenced
-    </em>
-    . [Note: The execution of unsequenced evaluations can overlap. — end note] Evaluations
-    <em>
-     A
-    </em>
-    and
-    <em>
-     B
-    </em>
-    are
-    <em>
-     indeterminately sequenced
-    </em>
-    when either
-    <em>
-     A
-    </em>
-    is sequenced before
-    <em>
-     B
-    </em>
-    or
-    <em>
-     B
-    </em>
-    is sequenced before
-    <em>
-     A
-    </em>
-    , but it is unspecified which. [Note: Indeterminately sequenced evaluations cannot overlap, but either could be executed first. — end note]
-   </p>
+   <p><em>Sequenced before</em> is an asymmetric, transitive, pair-wise relation between evaluations executed by a single thread, which induces a partial order among those evaluations. Given any two evaluations <em>A</em> and <em>B</em>, if <em>A</em> is sequenced before <em>B</em>, then the execution of <em>A</em> shall precede the execution of <em>B</em>. If <em>A</em> is not sequenced before <em>B</em> and <em>B</em> is not sequenced before <em>A</em>, then <em>A</em> and <em>B</em> are <em>unsequenced</em>. [Note: The execution of unsequenced evaluations can overlap. — end note] Evaluations <em>A</em> and <em>B</em> are <em>indeterminately sequenced</em> when either <em>A</em> is sequenced before <em>B</em> or <em>B</em> is sequenced before <em>A</em>, but it is unspecified which. [Note: Indeterminately sequenced evaluations cannot overlap, but either could be executed first. — end note]</p>
   </blockquote>
-  <p>
-   Paragraph 15 further states (nonnormative text removed for brevity) the following:
-  </p>
+  <p>Paragraph 15 further states (nonnormative text removed for brevity) the following:</p>
   <blockquote>
-   <p>
-    Except where noted, evaluations of operands of individual operators and of subexpressions of individual expressions are unsequenced. ... The value computations of the operands of an operator are sequenced before the value computation of the result of the operator. If a side effect on a scalar object is unsequenced relative to either another side effect on the same scalar object or a value computation using the value of the same scalar object, and they are not potentially concurrent, the behavior is undefined. ... When calling a function (whether or not the function is inline), every value computation and side effect associated with any argument expression, or with the postfix expression designating the called function, is sequenced before execution of every expression or statement in the body of the called function. ... Every evaluation in the calling function (including other function calls) that is not otherwise specifically sequenced before or after the execution of the body of the called function is indeterminately sequenced with respect to the execution of the called function. Several contexts in C++ cause evaluation of a function call, even though no corresponding function call syntax appears in the translation unit. ... The sequencing constraints on the execution of the called function (as described above) are features of the function calls as evaluated, whatever the syntax of the expression that calls the function might be.
-   </p>
+   <p>Except where noted, evaluations of operands of individual operators and of subexpressions of individual expressions are unsequenced. ... The value computations of the operands of an operator are sequenced before the value computation of the result of the operator. If a side effect on a scalar object is unsequenced relative to either another side effect on the same scalar object or a value computation using the value of the same scalar object, and they are not potentially concurrent, the behavior is undefined. ... When calling a function (whether or not the function is inline), every value computation and side effect associated with any argument expression, or with the postfix expression designating the called function, is sequenced before execution of every expression or statement in the body of the called function. ... Every evaluation in the calling function (including other function calls) that is not otherwise specifically sequenced before or after the execution of the body of the called function is indeterminately sequenced with respect to the execution of the called function. Several contexts in C++ cause evaluation of a function call, even though no corresponding function call syntax appears in the translation unit. ... The sequencing constraints on the execution of the called function (as described above) are features of the function calls as evaluated, whatever the syntax of the expression that calls the function might be.</p>
   </blockquote>
-  <p>
-   Do not allow the same scalar object to appear in side effects or value computations in both halves of an unsequenced or indeterminately sequenced operation.
-  </p>
-  <p>
-   The following expressions have sequencing restrictions that deviate from the usual unsequenced ordering [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ]:
-  </p>
+  <p>Do not allow the same scalar object to appear in side effects or value computations in both halves of an unsequenced or indeterminately sequenced operation.</p>
+  <p>The following expressions have sequencing restrictions that deviate from the usual unsequenced ordering [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]:</p>
   <ul>
-   <li>
-    In postfix
-    <code>
-     ++
-    </code>
-    and
-    <code>
-     --
-    </code>
-    expressions, the value computation is sequenced before the modification of the operand. ([expr.post.incr], paragraph 1)
-   </li>
-   <li>
-    In logical
-    <code>
-     &amp;&amp;
-    </code>
-    expressions, if the second expression is evaluated, every value computation and side effect associated with the first expression is sequenced before every value computation and side effect associated with the second expression. ([expr.log.and], paragraph 2)
-   </li>
-   <li>
-    In logical
-    <code>
-     ||
-    </code>
-    expressions, if the second expression is evaluated, every value computation and side effect associated with the first expression is sequenced before every value computation and side effect associated with the second expression. ([expr.log.or], paragraph 2)
-   </li>
-   <li>
-    In conditional
-    <code>
-     ?:
-    </code>
-    expressions, every value computation and side effect associated with the first expression is sequenced before every value computation and side effect associated with the second or third expression (whichever is evaluated). ([expr.cond], paragraph 1)
-   </li>
-   <li>
-    In assignment expressions (including compound assignments), the assignment is sequenced after the value computations of left and right operands and before the value computation of the assignment expression. ([expr.ass], paragraph 1)
-   </li>
-   <li>
-    In comma
-    <code>
-     ,
-    </code>
-    expressions, every value computation and side effect associated with the left expression is sequenced before every value computation and side effect associated with the right expression. ([expr.comma], paragraph 1)
-   </li>
-   <li>
-    When evaluating initializer lists, the value computation and side effect associated with each
-    <em>
-     initializer-clause
-    </em>
-    is sequenced before every value computation and side effect associated with a subsequent
-    <em>
-     initializer-clause
-    </em>
-    . ([dcl.init.list], paragraph 4)
-   </li>
-   <li>
-    When a signal handler is executed as a result of a call to
-    <code>
-     std::raise()
-    </code>
-    , the execution of the handler is sequenced after the invocation of
-    <code>
-     std::raise()
-    </code>
-    and before its return. ([intro.execution], paragraph 6)
-   </li>
-   <li>
-    The completions of the destructors for all initialized objects with thread storage duration within a thread are sequenced before the initiation of the destructors of any object with static storage duration. ([basic.start.term], paragraph 1)
-   </li>
-   <li>
-    In a
-    <em>
-     new-expression
-    </em>
-    , initialization of an allocated object is sequenced before the value computation of the
-    <em>
-     new-expression
-    </em>
-    . ([expr.new], paragraph 18)
-   </li>
-   <li>
-    When a default constructor is called to initialize an element of an array and the constructor has at least one default argument, the destruction of every temporary created in a default argument is sequenced before the construction of the next array element, if any. ([class.temporary], paragraph 4)
-   </li>
-   <li>
-    The destruction of a temporary whose lifetime is not extended by being bound to a reference is sequenced before the destruction of every temporary that is constructed earlier in the same full-expression. ([class.temporary], paragraph 5)
-   </li>
-   <li>
-    Atomic memory ordering functions can explicitly determine the sequencing order for expressions. ([atomics.order] and [atomics.fences])
-   </li>
+   <li>In postfix <code>++</code> and <code>--</code> expressions, the value computation is sequenced before the modification of the operand. ([expr.post.incr], paragraph 1)</li>
+   <li>In logical <code>&amp;&amp;</code> expressions, if the second expression is evaluated, every value computation and side effect associated with the first expression is sequenced before every value computation and side effect associated with the second expression. ([expr.log.and], paragraph 2)</li>
+   <li>In logical <code>||</code> expressions, if the second expression is evaluated, every value computation and side effect associated with the first expression is sequenced before every value computation and side effect associated with the second expression. ([expr.log.or], paragraph 2)</li>
+   <li>In conditional <code>?:</code> expressions, every value computation and side effect associated with the first expression is sequenced before every value computation and side effect associated with the second or third expression (whichever is evaluated). ([expr.cond], paragraph 1)</li>
+   <li>In assignment expressions (including compound assignments), the assignment is sequenced after the value computations of left and right operands and before the value computation of the assignment expression. ([expr.ass], paragraph 1)</li>
+   <li>In comma <code>,</code> expressions, every value computation and side effect associated with the left expression is sequenced before every value computation and side effect associated with the right expression. ([expr.comma], paragraph 1)</li>
+   <li>When evaluating initializer lists, the value computation and side effect associated with each <em>initializer-clause</em> is sequenced before every value computation and side effect associated with a subsequent <em>initializer-clause</em>. ([dcl.init.list], paragraph 4)</li>
+   <li>When a signal handler is executed as a result of a call to <code>std::raise()</code>, the execution of the handler is sequenced after the invocation of <code>std::raise()</code> and before its return. ([intro.execution], paragraph 6)</li>
+   <li>The completions of the destructors for all initialized objects with thread storage duration within a thread are sequenced before the initiation of the destructors of any object with static storage duration. ([basic.start.term], paragraph 1)</li>
+   <li>In a <em>new-expression</em>, initialization of an allocated object is sequenced before the value computation of the <em>new-expression</em>. ([expr.new], paragraph 18)</li>
+   <li>When a default constructor is called to initialize an element of an array and the constructor has at least one default argument, the destruction of every temporary created in a default argument is sequenced before the construction of the next array element, if any. ([class.temporary], paragraph 4)</li>
+   <li>The destruction of a temporary whose lifetime is not extended by being bound to a reference is sequenced before the destruction of every temporary that is constructed earlier in the same full-expression. ([class.temporary], paragraph 5)</li>
+   <li>Atomic memory ordering functions can explicitly determine the sequencing order for expressions. ([atomics.order] and [atomics.fences])</li>
   </ul>
-  <p>
-   This rule means that statements such as
-  </p>
-  <sample language="cpp">
-   i = i + 1;
+  <p>This rule means that statements such as</p>
+  <sample language="cpp">i = i + 1;
 a[i] = i;
-  </sample>
-  <p>
-   have defined behavior, and statements such as the following do not.
-  </p>
-  <sample language="cpp">
-   // i is modified twice in the same full expression
+</sample>
+  <p>have defined behavior, and statements such as the following do not.</p>
+  <sample language="cpp">// i is modified twice in the same full expression
 i = ++i + 1;  
 
 // i is read other than to determine the value to be stored
-a[i++] = i;
-  </sample>
-  <p>
-   Not all instances of a comma in C++ code denote use of the comma operator. For example, the comma between arguments in a function call is
-   <em>
-    not
-   </em>
-   the comma operator. Additionally, overloaded operators behave the same as a function call, with the operands to the operator acting as arguments to a function call.
-  </p>
+a[i++] = i;   
+</sample>
+  <p>Not all instances of a comma in C++ code denote use of the comma operator. For example, the comma between arguments in a function call is <em>not</em> the comma operator. Additionally, overloaded operators behave the same as a function call, with the operands to the operator acting as arguments to a function call.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example,
-   <code>
-    i
-   </code>
-   is evaluated more than once in an unsequenced manner, so the behavior of the expression is
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   void f(int i, const int *b) {
+  <p>In this noncompliant code example, <code>i</code> is evaluated more than once in an unsequenced manner, so the behavior of the expression is <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined</a>.</p>
+  <sample language="cpp">void f(int i, const int *b) {
   int a = i + b[++i];
   // ...
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   These examples are independent of the order of evaluation of the operands and can each be interpreted in only one way.
-  </p>
-  <sample language="cpp">
-   void f(int i, const int *b) {
+  <p>These examples are independent of the order of evaluation of the operands and can each be interpreted in only one way.</p>
+  <sample language="cpp">void f(int i, const int *b) {
   ++i;
   int a = i + b[i];
   // ...
 }
-  </sample>
-  <sample language="cpp">
-   void f(int i, const int *b) {
+</sample>
+  <sample language="cpp">void f(int i, const int *b) {
   int a = i + b[i + 1];
   ++i;
   // ...
 }
-  </sample>
+</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   The call to
-   <code>
-    func()
-   </code>
-   in this noncompliant code example has
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   because the argument expressions are unsequenced.
-  </p>
-  <sample language="cpp">
-   extern void func(int i, int j);
+  <p>The call to <code>func()</code> in this noncompliant code example has <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> because the argument expressions are unsequenced.</p>
+  <sample language="cpp">extern void func(int i, int j);
  
 void f(int i) {
   func(i++, i);
 }
-  </sample>
-  <p>
-   The first (left) argument expression reads the value of
-   <code>
-    i
-   </code>
-   (to determine the value to be stored) and then modifies
-   <code>
-    i
-   </code>
-   . The second (right) argument expression reads the value of
-   <code>
-    i
-   </code>
-   , but not to determine the value to be stored in
-   <code>
-    i
-   </code>
-   . This additional attempt to read the value of
-   <code>
-    i
-   </code>
-   has
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
+</sample>
+  <p>The first (left) argument expression reads the value of <code>i</code> (to determine the value to be stored) and then modifies <code>i</code>. The second (right) argument expression reads the value of <code>i</code>, but not to determine the value to be stored in <code>i</code>. This additional attempt to read the value of <code>i</code> has <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution is appropriate when the programmer intends for both arguments to
-   <code>
-    func()
-   </code>
-   to be equivalent.
-  </p>
-  <sample language="cpp">
-   extern void func(int i, int j);
+  <p>This compliant solution is appropriate when the programmer intends for both arguments to <code>func()</code> to be equivalent.</p>
+  <sample language="cpp">extern void func(int i, int j);
  
 void f(int i) {
   i++;
   func(i, i);
 }
-  </sample>
-  <p>
-   This compliant solution is appropriate when the programmer intends for the second argument to be 1 greater than the first.
-  </p>
-  <sample language="cpp">
-   extern void func(int i, int j);
+</sample>
+  <p>This compliant solution is appropriate when the programmer intends for the second argument to be 1 greater than the first.</p>
+  <sample language="cpp">extern void func(int i, int j);
  
 void f(int i) {
   int j = i++;
   func(j, i);
 }
-  </sample>
+</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   This noncompliant code example is similar to the previous noncompliant code example. However, instead of calling a function directly, this code calls an overloaded
-   <code>
-    operator&lt;&lt;()
-   </code>
-   . Overloaded operators are equivalent to a function call and have the same restrictions regarding the sequencing of the function call arguments. This means that the operands are not evaluated left-to-right, but are unsequenced with respect to one another. Consequently, this noncompliant code example has undefined behavior.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>This noncompliant code example is similar to the previous noncompliant code example. However, instead of calling a function directly, this code calls an overloaded <code>operator&lt;&lt;()</code>. Overloaded operators are equivalent to a function call and have the same restrictions regarding the sequencing of the function call arguments. This means that the operands are not evaluated left-to-right, but are unsequenced with respect to one another. Consequently, this noncompliant code example has undefined behavior.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
  
 void f(int i) {
   std::cout &lt;&lt; i++ &lt;&lt; i &lt;&lt; std::endl;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, two calls are made to
-   <code>
-    operator&lt;&lt;()
-   </code>
-   , ensuring that the arguments are printed in a well-defined order.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
- 
+  <p>In this compliant solution, two calls are made to <code>operator&lt;&lt;()</code>, ensuring that the arguments are printed in a well-defined order.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
 void f(int i) {
   std::cout &lt;&lt; i++;
   std::cout &lt;&lt; i &lt;&lt; std::endl;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   The order of evaluation for function arguments is unspecified. This noncompliant code example exhibits
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unspecifiedbehavior">
-    unspecified behavior
-   </a>
-   but not
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   extern void c(int i, int j);
+  <p>The order of evaluation for function arguments is unspecified. This noncompliant code example exhibits <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unspecifiedbehavior">unspecified behavior</a> but not <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">extern void c(int i, int j);
 int glob;
  
 int a() {
@@ -410,61 +124,12 @@ int b() {
 void f() {
   c(a(), b());
 }
-  </sample>
-  <p>
-   The order in which
-   <code>
-    a()
-   </code>
-   and
-   <code>
-    b()
-   </code>
-   are called is unspecified; the only guarantee is that both
-   <code>
-    a()
-   </code>
-   and
-   <code>
-    b()
-   </code>
-   will be called before
-   <code>
-    c()
-   </code>
-   is called. If
-   <code>
-    a()
-   </code>
-   or
-   <code>
-    b()
-   </code>
-   rely on shared state when calculating their return value, as they do in this example, the resulting arguments passed to
-   <code>
-    c()
-   </code>
-   may differ between compilers or architectures.
-  </p>
+</sample>
+  <p>The order in which <code>a()</code> and <code>b()</code> are called is unspecified; the only guarantee is that both <code>a()</code> and <code>b()</code> will be called before <code>c()</code> is called. If <code>a()</code> or <code>b()</code> rely on shared state when calculating their return value, as they do in this example, the resulting arguments passed to <code>c()</code> may differ between compilers or architectures.</p>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the order of evaluation for
-   <code>
-    a()
-   </code>
-   and
-   <code>
-    b()
-   </code>
-   is fixed, and so no
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unspecifiedbehavior">
-    unspecified behavior
-   </a>
-   occurs.
-  </p>
-  <sample language="cpp">
-   extern void c(int i, int j);
+  <p>In this compliant solution, the order of evaluation for <code>a()</code> and <code>b()</code> is fixed, and so no <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unspecifiedbehavior">unspecified behavior</a> occurs.</p>
+  <sample language="cpp">extern void c(int i, int j);
 int glob;
  
 int a() {
@@ -484,14 +149,10 @@ void f() {
 
   c(a_val, b_val);
 }
-  </sample>
+</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Attempting to modify an object in an unsequenced or indeterminately sequenced evaluation may cause that object to take on an unexpected value, which can lead to
-   unexpected program behavior
-   .
-  </p>
+  <p>Attempting to modify an object in an unsequenced or indeterminately sequenced evaluation may cause that object to take on an unexpected value, which can lead to unexpected program behavior.</p>
   <table>
    <tbody>
     <tr>
@@ -528,14 +189,10 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>
-       P8
-      </strong>
+      <strong>P8</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -568,9 +225,7 @@ void f() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-EXP50
-      </strong>
+      <strong>CertC++-EXP50</strong>
      </td>
      <td>
      </td>
@@ -585,9 +240,7 @@ void f() {
       3.9
      </td>
      <td>
-      <code>
-       -Wunsequenced
-      </code>
+      <code>-Wunsequenced</code>
      </td>
      <td>
       Can detect simple violations of this rule where path-sensitive analysis is not required
@@ -604,7 +257,7 @@ void f() {
      <td>
      </td>
      <td>
-      Can detect simple violations of this rule. It needs to examine each expression and make sure that no variable is modified twice in the expression. It also must check that no variable is modified once, then read elsewhere, with the single exception that a variable may appear on both the left and right of an assignment operator
+      Can detect simple violations of this rule. It needs to examine each expression and make sure that no variable is modified twice in the expression. It also must check that no variable is modified once, then read elsewhere, with the single exception that a variable may appear on both the left and right of an assignment operator
      </td>
     </tr>
     <tr>
@@ -617,9 +270,7 @@ void f() {
       v7.5.0
      </td>
      <td>
-      <strong>
-       EVALUATION_ORDER
-      </strong>
+      <strong>EVALUATION_ORDER</strong>
      </td>
      <td>
       Can detect the specific instance where a statement contains multiple side effects on the same value with an undefined evaluation order because, with different compiler flags or different compilers or platforms, the statement may behave differently
@@ -635,9 +286,7 @@ void f() {
       1.2
      </td>
      <td>
-      <strong>
-       CC2.EXP30
-      </strong>
+      <strong>CC2.EXP30</strong>
      </td>
      <td>
       Fully implemented
@@ -655,9 +304,7 @@ void f() {
      </td>
      <td>
       Can detect violations of this rule when the
-      <code>
-       -Wsequence-point
-      </code>
+      <code>-Wsequence-point</code>
       flag is used
      </td>
     </tr>
@@ -671,9 +318,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++3220, C++3221, C++3222, C++3223, C++3228
-      </strong>
+      <strong>C++3220, C++3221, C++3222, C++3223, C++3228</strong>
      </td>
      <td>
      </td>
@@ -688,31 +333,11 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        PORTING.VAR.EFFECTS
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        MISRA.EXPR.PARENS
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        MISRA.EXPR.PARENS.INSUFFICIENT
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        MISRA.EXPR.PARENS.REDUNDANT
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        MISRA.INCR_DECR.OTHER
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">PORTING.VAR.EFFECTS</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">MISRA.EXPR.PARENS</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">MISRA.EXPR.PARENS.INSUFFICIENT</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">MISRA.EXPR.PARENS.REDUNDANT</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">MISRA.INCR_DECR.OTHER</a></strong>
      </td>
      <td>
      </td>
@@ -726,18 +351,10 @@ void f() {
      <td>
      </td>
      <td>
-      <strong>
-       35 D
-      </strong>
-      <strong>
-       , 1 Q
-      </strong>
-      <strong>
-       , 9 S
-      </strong>
-      <strong>
-       , 134 S, 67 D, 72 D
-      </strong>
+      <strong>35 D</strong>
+      <strong>, 1 Q</strong>
+      <strong>, 9 S</strong>
+      <strong>, 134 S, 67 D, 72 D</strong>
      </td>
      <td>
       Partially implemented
@@ -753,24 +370,12 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-EXP50-a
-      </strong>
-      <strong>
-       CERT_CPP-EXP50-b
-      </strong>
-      <strong>
-       CERT_CPP-EXP50-c
-      </strong>
-      <strong>
-       CERT_CPP-EXP50-d
-      </strong>
-      <strong>
-       CERT_CPP-EXP50-e
-      </strong>
-      <strong>
-       CERT_CPP-EXP50-f
-      </strong>
+      <strong>CERT_CPP-EXP50-a</strong>
+      <strong>CERT_CPP-EXP50-b</strong>
+      <strong>CERT_CPP-EXP50-c</strong>
+      <strong>CERT_CPP-EXP50-d</strong>
+      <strong>CERT_CPP-EXP50-e</strong>
+      <strong>CERT_CPP-EXP50-f</strong>
      </td>
      <td>
       The value of an expression shall be the same under any order of evaluation that the standard permits
@@ -809,9 +414,7 @@ void f() {
       4.4
      </td>
      <td>
-      <strong>
-       3220, 3221, 3222, 3223, 3228
-      </strong>
+      <strong>3220, 3221, 3222, 3223, 3228</strong>
      </td>
      <td>
      </td>
@@ -823,20 +426,12 @@ void f() {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       V521
-       <a href="https://pvs-studio.com/en/docs/warnings/v521/">
-       </a>
-      </strong>
+      <strong>V521<a href="https://pvs-studio.com/en/docs/warnings/v521/"></a></strong>
       ,
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v708/">
-        V708
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v708/">V708</a></strong>
      </td>
      <td>
      </td>
@@ -851,11 +446,7 @@ void f() {
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-881">
-        IncAndDecMixedWithOtherOperators
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-881">IncAndDecMixedWithOtherOperators</a></strong>
      </td>
      <td>
       Partially implemented
@@ -878,17 +469,7 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP30-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP30-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

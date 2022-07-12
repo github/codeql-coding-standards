@@ -1,0 +1,5 @@
+| test.c:8:20:8:21 | 0 | Unsigned literal does not explicitly express sign with a 'U' or 'u' suffix. |
+| test.c:9:20:9:22 | 0 | Unsigned literal does not explicitly express sign with a 'U' or 'u' suffix. |
+| test.c:33:6:33:6 | 1 | Unsigned literal does not explicitly express sign with a 'U' or 'u' suffix. |
+| test.c:35:6:35:9 | 1 | Unsigned literal does not explicitly express sign with a 'U' or 'u' suffix. |
+| test.c:37:6:37:8 | 1 | Unsigned literal does not explicitly express sign with a 'U' or 'u' suffix. |

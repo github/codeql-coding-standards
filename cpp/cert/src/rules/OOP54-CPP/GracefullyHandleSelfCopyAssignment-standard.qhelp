@@ -1,129 +1,54 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   Self-copy assignment can occur in situations of varying complexity, but essentially, all self-copy assignments entail some variation of the following.
-  </p>
-  <sample language="cpp">
-   #include &lt;utility&gt;
- 
+  <p>Self-copy assignment can occur in situations of varying complexity, but essentially, all self-copy assignments entail some variation of the following.</p>
+  <sample language="cpp">#include &lt;utility&gt;
+ 
 struct S { /* ... */ }
- 
+ 
 void f() {
   S s;
   s = s; // Self-copy assignment
-}
-  </sample>
-  <p>
-   User-provided copy operators must properly handle self-copy assignment.
-  </p>
-  <p>
-   The postconditions required for copy assignment are specified by the C++ Standard, [utility.arg.requirements], Table 23 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], which states that for
-   <code>
-    x = y
-   </code>
-   , the value of
-   <code>
-    y
-   </code>
-   is unchanged. When
-   <code>
-    &amp;x == &amp;y
-   </code>
-   , this postcondition translates into the values of both
-   <code>
-    x
-   </code>
-   and
-   <code>
-    y
-   </code>
-   remaining unchanged. A naive implementation of copy assignment could destroy object-local resources in the process of copying resources from the given parameter. If the given parameter is the same object as the local object, the act of destroying object-local resources will invalidate them. The subsequent copy of those resources will be left in an indeterminate state, which violates the postcondition.
-  </p>
-  <p>
-   A user-provided copy assignment operator must prevent self-copy assignment from leaving the object in an indeterminate state. This can be accomplished by self-assignment tests, copy-and-swap, or other idiomatic design patterns.
-  </p>
-  <p>
-   The C++ Standard, [copyassignable], specifies that types must ensure that self-copy assignment leave the object in a consistent state when passed to Standard Template Library (STL) functions. Since objects of STL types are used in contexts where
-   <code>
-    CopyAssignable
-   </code>
-   is required, STL types are required to gracefully handle self-copy assignment.
-  </p>
+}</sample>
+  <p>User-provided copy operators must properly handle self-copy assignment.</p>
+  <p>The postconditions required for copy assignment are specified by the C++ Standard, [utility.arg.requirements], Table 23 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], which states that for <code>x = y</code>, the value of <code>y</code> is unchanged. When <code>&amp;x == &amp;y</code>, this postcondition translates into the values of both <code>x</code> and <code>y</code> remaining unchanged. A naive implementation of copy assignment could destroy object-local resources in the process of copying resources from the given parameter. If the given parameter is the same object as the local object, the act of destroying object-local resources will invalidate them. The subsequent copy of those resources will be left in an indeterminate state, which violates the postcondition.</p>
+  <p>A user-provided copy assignment operator must prevent self-copy assignment from leaving the object in an indeterminate state. This can be accomplished by self-assignment tests, copy-and-swap, or other idiomatic design patterns.</p>
+  <p>The C++ Standard, [copyassignable], specifies that types must ensure that self-copy assignment leave the object in a consistent state when passed to Standard Template Library (STL) functions. Since objects of STL types are used in contexts where <code>CopyAssignable</code> is required, STL types are required to gracefully handle self-copy assignment.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the copy assignment operator does not protect against self-copy assignment. If self-copy assignment occurs,
-   <code>
-    this-&gt;s1
-   </code>
-   is deleted, which results in
-   <code>
-    rhs.s1
-   </code>
-   also being deleted. The invalidated memory for
-   <code>
-    rhs.s1
-   </code>
-   is then passed into the copy constructor for
-   <code>
-    S
-   </code>
-   , which can result in dereferencing an
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-invalidpointer">
-    invalid pointer
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
- 
+  <p>In this noncompliant code example, the copy assignment operator does not protect against self-copy assignment. If self-copy assignment occurs, <code>this-&gt;s1</code> is deleted, which results in <code>rhs.s1</code> also being deleted. The invalidated memory for <code>rhs.s1</code> is then passed into the copy constructor for <code>S</code>, which can result in dereferencing an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-invalidpointer">invalid pointer</a>.</p>
+  <sample language="cpp">#include &lt;new&gt;
+ 
 struct S { S(const S &amp;) noexcept; /* ... */ };
- 
+ 
 class T {
   int n;
   S *s1;
- 
+ 
 public:
   T(const T &amp;rhs) : n(rhs.n), s1(rhs.s1 ? new S(*rhs.s1) : nullptr) {}
   ~T() { delete s1; }
- 
+ 
   // ...
- 
+ 
   T&amp; operator=(const T &amp;rhs) {
     n = rhs.n;
     delete s1;
     s1 = new S(*rhs.s1);
     return *this;
   }
-};
-  </sample>
+};</sample>
  </section>
  <section title="Compliant Solution (Self-Test)">
-  <p>
-   This compliant solution guards against self-copy assignment by testing whether the given parameter is the same as
-   <code>
-    this
-   </code>
-   . If self-copy assignment occurs, then
-   <code>
-    operator=
-   </code>
-   does nothing; otherwise, the copy proceeds as in the original example.
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
+  <p>This compliant solution guards against self-copy assignment by testing whether the given parameter is the same as <code>this</code>. If self-copy assignment occurs, then <code>operator=</code> does nothing; otherwise, the copy proceeds as in the original example.</p>
+  <sample language="cpp">#include &lt;new&gt;
  
 struct S { S(const S &amp;) noexcept; /* ... */ };
  
 class T {
   int n;
   S *s1;
- 
+ 
 public:
   T(const T &amp;rhs) : n(rhs.n), s1(rhs.s1 ? new S(*rhs.s1) : nullptr) {}
   ~T() { delete s1; }
@@ -144,45 +69,12 @@ public:
     return *this;
   }
 };
-  </sample>
-  <p>
-   This solution does not provide a
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-strongexceptionsafety">
-    strong exception
-   </a>
-   guarantee for the copy assignment. Specifically, if an exception is called when evaluating the
-   <code>
-    new
-   </code>
-   expression,
-   <code>
-    this
-   </code>
-   has already been modified. However, this solution does provide a basic exception guarantee because no resources are leaked and all data members contain valid values. Consequently, this code complies with
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR56-CPP.+Guarantee+exception+safety">
-    ERR56-CPP. Guarantee exception safety
-   </a>
-   .
-  </p>
+</sample>
+  <p>This solution does not provide a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-strongexceptionsafety">strong exception</a> guarantee for the copy assignment. Specifically, if an exception is called when evaluating the <code>new</code> expression, <code>this</code> has already been modified. However, this solution does provide a basic exception guarantee because no resources are leaked and all data members contain valid values. Consequently, this code complies with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR56-CPP.+Guarantee+exception+safety">ERR56-CPP. Guarantee exception safety</a>.</p>
  </section>
  <section title="Compliant Solution (Copy and Swap)">
-  <p>
-   This compliant solution avoids self-copy assignment by constructing a temporary object from
-   <code>
-    rhs
-   </code>
-   that is then swapped with
-   <code>
-    *this
-   </code>
-   . This compliant solution provides a strong exception guarantee because
-   <code>
-    swap()
-   </code>
-   will never be called if resource allocation results in an exception being thrown while creating the temporary object.
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
+  <p>This compliant solution avoids self-copy assignment by constructing a temporary object from <code>rhs</code> that is then swapped with <code>*this</code>. This compliant solution provides a strong exception guarantee because <code>swap()</code> will never be called if resource allocation results in an exception being thrown while creating the temporary object.</p>
+  <sample language="cpp">#include &lt;new&gt;
 #include &lt;utility&gt;
  
 struct S { S(const S &amp;) noexcept; /* ... */ };
@@ -196,7 +88,7 @@ public:
   ~T() { delete s1; }
 
   // ...
- 
+ 
   void swap(T &amp;rhs) noexcept {
     using std::swap;
     swap(n, rhs.n);
@@ -207,23 +99,11 @@ public:
     rhs.swap(*this);
     return *this;
   }
-};
-  </sample>
+};</sample>
  </section>
  <section title="Compliant Solution (Move and Swap)">
-  <p>
-   This compliant solution uses the same classes
-   <code>
-    S
-   </code>
-   and
-   <code>
-    T
-   </code>
-   from the previous compliant solution, but adds the following public constructor and methods:
-  </p>
-  <sample language="cpp">
-   T(T &amp;&amp;rhs) { *this = std::move(rhs); }
+  <p>This compliant solution uses the same classes <code>S</code> and <code>T</code> from the previous compliant solution, but adds the following public constructor and methods:</p>
+  <sample language="cpp">  T(T &amp;&amp;rhs) { *this = std::move(rhs); }
 
   // ... everything except operator= ..
 
@@ -232,34 +112,13 @@ public:
     swap(n, rhs.n);
     swap(s1, rhs.s1);
     return *this;
-  }
-  </sample>
-  <p>
-   The copy assignment operator uses
-   <code>
-    std::move()
-   </code>
-   rather than
-   <code>
-    swap()
-   </code>
-   to achieve safe self-assignment and a strong exception guarantee. The move assignment operator uses a move (via the method parameter) and swap.
-  </p>
-  <p>
-   The move constructor is not strictly necessary, but defining a move constructor along with a move assignment operator is conventional for classes that support move operations.
-  </p>
-  <p>
-   Note that unlike copy assignment operators, the signature of a move assignment operator accepts a non-const reference to its object with the expectation that the moved-from object will be left in an unspecified, but valid state. Move constructors have the same difference from copy constructors.
-  </p>
+  }</sample>
+  <p>The copy assignment operator uses <code>std::move()</code> rather than <code>swap()</code> to achieve safe self-assignment and a strong exception guarantee. The move assignment operator uses a move (via the method parameter) and swap.</p>
+  <p>The move constructor is not strictly necessary, but defining a move constructor along with a move assignment operator is conventional for classes that support move operations.</p>
+  <p>Note that unlike copy assignment operators, the signature of a move assignment operator accepts a non-const reference to its object with the expectation that the moved-from object will be left in an unspecified, but valid state. Move constructors have the same difference from copy constructors.</p>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Allowing a copy assignment operator to corrupt an object could lead to
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
+  <p>Allowing a copy assignment operator to corrupt an object could lead to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
   <table>
    <tbody>
     <tr>
@@ -296,14 +155,10 @@ public:
       High
      </td>
      <td>
-      <strong>
-       P2
-      </strong>
+      <strong>P2</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -336,9 +191,7 @@ public:
       20.10
      </td>
      <td>
-      <strong>
-       dangling_pointer_use
-      </strong>
+      <strong>dangling_pointer_use</strong>
      </td>
      <td>
      </td>
@@ -353,15 +206,11 @@ public:
       9.0 (r361550)
      </td>
      <td>
-      <code>
-       cert-oop54-cpp
-      </code>
+      <code>cert-oop54-cpp</code>
      </td>
      <td>
       Checked by
-      <code>
-       clang-tidy
-      </code>
+      <code>clang-tidy</code>
       .
      </td>
     </tr>
@@ -375,9 +224,7 @@ public:
       2021.2
      </td>
      <td>
-      <strong>
-       C++4072, C++4073, C++4075, C++4076
-      </strong>
+      <strong>C++4072, C++4073, C++4075, C++4076</strong>
      </td>
      <td>
      </td>
@@ -392,11 +239,7 @@ public:
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CL.SELF-ASSIGN
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CL.SELF-ASSIGN</a></strong>
      </td>
      <td>
      </td>
@@ -411,9 +254,7 @@ public:
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-OOP54-a
-      </strong>
+      <strong>CERT_CPP-OOP54-a</strong>
      </td>
      <td>
       Check for assignment to self in operator=
@@ -447,9 +288,7 @@ public:
       4.4
      </td>
      <td>
-      <strong>
-       4072, 4073, 4075, 4076
-      </strong>
+      <strong>4072, 4073, 4075, 4076</strong>
      </td>
      <td>
      </td>
@@ -458,26 +297,10 @@ public:
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP38-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP38-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
-  <p>
-   This rule is a partial subset of
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP58-CPP.+Copy+operations+must+not+mutate+the+source+object">
-    OOP58-CPP. Copy operations must not mutate the source object
-   </a>
-   when copy operations do not gracefully handle self-copy assignment, because the copy operation may mutate both the source and destination objects (due to them being the same object).
-  </p>
+  <p>This rule is a partial subset of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP58-CPP.+Copy+operations+must+not+mutate+the+source+object">OOP58-CPP. Copy operations must not mutate the source object</a> when copy operations do not gracefully handle self-copy assignment, because the copy operation may mutate both the source and destination objects (due to them being the same object).</p>
  </section>
  <section title="Bibliography">
   <table>
@@ -517,9 +340,7 @@ public:
      </td>
      <td>
       Item 11, "Handle Assignment to Self in
-      <code>
-       operator=
-      </code>
+      <code>operator=</code>
       "
      </td>
     </tr>

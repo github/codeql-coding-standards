@@ -1,61 +1,18 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   Mutexes are used to prevent multiple threads from causing a
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-datarace">
-    data race
-   </a>
-   by accessing the same shared resource at the same time. Sometimes, when locking mutexes, multiple threads hold each other's lock, and the program consequently
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-deadlock">
-    deadlocks
-   </a>
-   . Four conditions are required for deadlock to occur:
-  </p>
+  <p>Mutexes are used to prevent multiple threads from causing a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-datarace">data race</a> by accessing the same shared resource at the same time. Sometimes, when locking mutexes, multiple threads hold each other's lock, and the program consequently <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-deadlock">deadlocks</a>. Four conditions are required for deadlock to occur:</p>
   <ul>
-   <li>
-    mutual exclusion (At least one nonshareable resource must be held.),
-   </li>
-   <li>
-    hold and wait (A thread must hold a resource while awaiting availability of another resource.),
-   </li>
-   <li>
-    no preemption (Resources cannot be taken away from a thread while they are in-use.), and
-   </li>
-   <li>
-    circular wait (A thread must await a resource held by another thread which is, in turn, awaiting a resource held by the first thread.).
-   </li>
+   <li>mutual exclusion (At least one nonshareable resource must be held.),</li>
+   <li>hold and wait (A thread must hold a resource while awaiting availability of another resource.),</li>
+   <li>no preemption (Resources cannot be taken away from a thread while they are in-use.), and</li>
+   <li>circular wait (A thread must await a resource held by another thread which is, in turn, awaiting a resource held by the first thread.).</li>
   </ul>
-  <p>
-   Deadlock needs all four conditions, so preventing deadlock requires preventing any one of the four conditions. One simple solution is to lock the mutexes in a predefined order, which prevents circular wait.
-  </p>
+  <p>Deadlock needs all four conditions, so preventing deadlock requires preventing any one of the four conditions. One simple solution is to lock the mutexes in a predefined order, which prevents circular wait.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   The behavior of this noncompliant code example depends on the runtime environment and the platform's scheduler. The program is susceptible to deadlock if thread
-   <code>
-    thr1
-   </code>
-   attempts to lock
-   <code>
-    ba2
-   </code>
-   's mutex at the same time thread
-   <code>
-    thr2
-   </code>
-   attempts to lock
-   <code>
-    ba1
-   </code>
-   's mutex in the
-   <code>
-    deposit()
-   </code>
-   function.
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
+  <p>The behavior of this noncompliant code example depends on the runtime environment and the platform's scheduler. The program is susceptible to deadlock if thread <code>thr1 </code>attempts to lock <code>ba2</code>'s mutex at the same time thread <code>thr2</code> attempts to lock <code>ba1</code>'s mutex in the <code>deposit()</code> function.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
 #include &lt;thread&gt;
  
 class BankAccount {
@@ -89,27 +46,11 @@ void f(BankAccount *ba1, BankAccount *ba2) {
   std::thread thr2(deposit, ba2, ba1, 100);
   thr1.join();
   thr2.join();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (Manual Ordering)">
-  <p>
-   This compliant solution eliminates the circular wait condition by establishing a predefined order for locking in the
-   <code>
-    deposit()
-   </code>
-   function. Each thread will lock on the basis of the
-   <code>
-    BankAccount
-   </code>
-   ID, which is set when the
-   <code>
-    BankAccount
-   </code>
-   object is initialized.
-  </p>
-  <sample language="cpp">
-   #include &lt;atomic&gt;
+  <p>This compliant solution eliminates the circular wait condition by establishing a predefined order for locking in the <code>deposit()</code> function. Each thread will lock on the basis of the <code>BankAccount</code> ID, which is set when the <code>BankAccount</code> object is initialized.</p>
+  <sample language="cpp">#include &lt;atomic&gt;
 #include &lt;mutex&gt;
 #include &lt;thread&gt;
  
@@ -155,42 +96,18 @@ int deposit(BankAccount *from, BankAccount *to, int amount) {
   }
   return -1;
 }
- 
+ 
 void f(BankAccount *ba1, BankAccount *ba2) {
   // Perform the deposits.
   std::thread thr1(deposit, ba1, ba2, 100);
   std::thread thr2(deposit, ba2, ba1, 100);
   thr1.join();
   thr2.join();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (std::lock())">
-  <p>
-   This compliant solution uses Standard Template Library facilities to ensure that deadlock does not occur due to circular wait conditions. The
-   <code>
-    std::lock()
-   </code>
-   function takes a variable number of lockable objects and attempts to lock them such that deadlock does not occur [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ]. In typical implementations, this is done by using a combination of
-   <code>
-    lock()
-   </code>
-   ,
-   <code>
-    try_lock()
-   </code>
-   , and
-   <code>
-    unlock()
-   </code>
-   to attempt to lock the object and backing off if the lock is not acquired, which may have worse performance than a solution that locks in predefined order explicitly.
-  </p>
-  <sample language="cpp">
-   #include &lt;mutex&gt;
+  <p>This compliant solution uses Standard Template Library facilities to ensure that deadlock does not occur due to circular wait conditions. The <code>std::lock()</code> function takes a variable number of lockable objects and attempts to lock them such that deadlock does not occur [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]. In typical implementations, this is done by using a combination of <code>lock()</code>, <code>try_lock()</code>, and <code>unlock()</code> to attempt to lock the object and backing off if the lock is not acquired, which may have worse performance than a solution that locks in predefined order explicitly.</p>
+  <sample language="cpp">#include &lt;mutex&gt;
 #include &lt;thread&gt;
  
 class BankAccount {
@@ -218,24 +135,17 @@ int deposit(BankAccount *from, BankAccount *to, int amount) {
   }
   return -1;
 }
- 
+ 
 void f(BankAccount *ba1, BankAccount *ba2) {
   // Perform the deposits.
   std::thread thr1(deposit, ba1, ba2, 100);
   std::thread thr2(deposit, ba2, ba1, 100);
   thr1.join();
   thr2.join();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Deadlock prevents multiple threads from progressing, halting program execution. A
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
-    denial-of-service attack
-   </a>
-   is possible if the attacker can create the conditions for deadlock.
-  </p>
+  <p>Deadlock prevents multiple threads from progressing, halting program execution. A <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attack</a> is possible if the attacker can create the conditions for deadlock.</p>
   <table>
    <tbody>
     <tr>
@@ -272,14 +182,10 @@ void f(BankAccount *ba1, BankAccount *ba2) {
       Medium
      </td>
      <td>
-      <strong>
-       P4
-      </strong>
+      <strong>P4</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -309,12 +215,10 @@ void f(BankAccount *ba1, BankAccount *ba2) {
       </a>
      </td>
      <td>
-      6.1p0
+      6.2p0
      </td>
      <td>
-      <strong>
-       CONCURRENCY.LOCK.ORDER
-      </strong>
+      <strong>CONCURRENCY.LOCK.ORDER</strong>
      </td>
      <td>
       Conflicting lock order
@@ -330,9 +234,7 @@ void f(BankAccount *ba1, BankAccount *ba2) {
       6.5
      </td>
      <td>
-      <strong>
-       DEADLOCK
-      </strong>
+      <strong>DEADLOCK</strong>
      </td>
      <td>
       Fully implemented
@@ -348,9 +250,7 @@ void f(BankAccount *ba1, BankAccount *ba2) {
       2021.2
      </td>
      <td>
-      <strong>
-       C++1772, C++1773
-      </strong>
+      <strong>C++1772, C++1773</strong>
      </td>
      <td>
      </td>
@@ -365,9 +265,7 @@ void f(BankAccount *ba1, BankAccount *ba2) {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-CON53-a
-      </strong>
+      <strong>CERT_CPP-CON53-a</strong>
      </td>
      <td>
       Do not acquire locks in different order
@@ -401,9 +299,7 @@ void f(BankAccount *ba1, BankAccount *ba2) {
       4.4
      </td>
      <td>
-      <strong>
-       1772, 1773
-      </strong>
+      <strong>1772, 1773</strong>
      </td>
      <td>
       Enforced by MTA
@@ -413,17 +309,7 @@ void f(BankAccount *ba1, BankAccount *ba2) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON53-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON53-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>
