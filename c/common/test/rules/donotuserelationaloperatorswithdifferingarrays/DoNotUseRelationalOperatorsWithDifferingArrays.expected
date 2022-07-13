@@ -1,0 +1,44 @@
+problems
+| test.c:17:7:17:13 | ... < ... | test.c:7:14:7:15 | l1 | test.c:17:7:17:8 | p1 | Compare operation < comparing left operand pointing to array $@ and other operand pointing to array $@. | test.c:2:7:2:8 | l1 | l1 | test.c:3:7:3:8 | l2 | l2 |
+| test.c:17:7:17:13 | ... < ... | test.c:17:12:17:13 | l2 | test.c:17:12:17:13 | l2 | Compare operation < comparing right operand pointing to array $@ and other operand pointing to array $@. | test.c:3:7:3:8 | l2 | l2 | test.c:2:7:2:8 | l1 | l1 |
+| test.c:19:7:19:13 | ... < ... | test.c:19:7:19:8 | l1 | test.c:19:7:19:8 | l1 | Compare operation < comparing left operand pointing to array $@ and other operand pointing to array $@. | test.c:2:7:2:8 | l1 | l1 | test.c:3:7:3:8 | l2 | l2 |
+| test.c:19:7:19:13 | ... < ... | test.c:19:12:19:13 | l2 | test.c:19:12:19:13 | l2 | Compare operation < comparing right operand pointing to array $@ and other operand pointing to array $@. | test.c:3:7:3:8 | l2 | l2 | test.c:2:7:2:8 | l1 | l1 |
+| test.c:21:7:21:13 | ... < ... | test.c:8:14:8:15 | l1 | test.c:21:7:21:8 | p2 | Compare operation < comparing left operand pointing to array $@ and other operand pointing to array $@. | test.c:2:7:2:8 | l1 | l1 | test.c:3:7:3:8 | l2 | l2 |
+| test.c:21:7:21:13 | ... < ... | test.c:9:14:9:15 | l2 | test.c:21:12:21:13 | p3 | Compare operation < comparing right operand pointing to array $@ and other operand pointing to array $@. | test.c:3:7:3:8 | l2 | l2 | test.c:2:7:2:8 | l1 | l1 |
+| test.c:23:7:23:14 | ... <= ... | test.c:7:14:7:15 | l1 | test.c:23:13:23:14 | p1 | Compare operation <= comparing right operand pointing to array $@ and other operand pointing to array $@. | test.c:2:7:2:8 | l1 | l1 | test.c:3:7:3:8 | l2 | l2 |
+| test.c:23:7:23:14 | ... <= ... | test.c:23:7:23:8 | l2 | test.c:23:7:23:8 | l2 | Compare operation <= comparing left operand pointing to array $@ and other operand pointing to array $@. | test.c:3:7:3:8 | l2 | l2 | test.c:2:7:2:8 | l1 | l1 |
+| test.c:25:7:25:14 | ... >= ... | test.c:7:14:7:15 | l1 | test.c:25:7:25:8 | p1 | Compare operation >= comparing left operand pointing to array $@ and other operand pointing to array $@. | test.c:2:7:2:8 | l1 | l1 | test.c:4:7:4:8 | l3 | l3 |
+| test.c:25:7:25:14 | ... >= ... | test.c:25:13:25:14 | l3 | test.c:25:13:25:14 | l3 | Compare operation >= comparing right operand pointing to array $@ and other operand pointing to array $@. | test.c:4:7:4:8 | l3 | l3 | test.c:2:7:2:8 | l1 | l1 |
+edges
+| test.c:6:13:6:14 | l1 | test.c:13:12:13:13 | p0 |
+| test.c:7:14:7:15 | l1 | test.c:11:7:11:8 | p1 |
+| test.c:7:14:7:15 | l1 | test.c:13:7:13:8 | p1 |
+| test.c:7:14:7:15 | l1 | test.c:15:13:15:14 | p1 |
+| test.c:7:14:7:15 | l1 | test.c:17:7:17:8 | p1 |
+| test.c:7:14:7:15 | l1 | test.c:23:13:23:14 | p1 |
+| test.c:7:14:7:15 | l1 | test.c:25:7:25:8 | p1 |
+| test.c:8:14:8:15 | l1 | test.c:11:12:11:13 | p2 |
+| test.c:8:14:8:15 | l1 | test.c:21:7:21:8 | p2 |
+| test.c:9:14:9:15 | l2 | test.c:21:12:21:13 | p3 |
+nodes
+| test.c:6:13:6:14 | l1 | semmle.label | l1 |
+| test.c:7:14:7:15 | l1 | semmle.label | l1 |
+| test.c:8:14:8:15 | l1 | semmle.label | l1 |
+| test.c:9:14:9:15 | l2 | semmle.label | l2 |
+| test.c:11:7:11:8 | p1 | semmle.label | p1 |
+| test.c:11:12:11:13 | p2 | semmle.label | p2 |
+| test.c:13:7:13:8 | p1 | semmle.label | p1 |
+| test.c:13:12:13:13 | p0 | semmle.label | p0 |
+| test.c:15:7:15:8 | l1 | semmle.label | l1 |
+| test.c:15:13:15:14 | p1 | semmle.label | p1 |
+| test.c:17:7:17:8 | p1 | semmle.label | p1 |
+| test.c:17:12:17:13 | l2 | semmle.label | l2 |
+| test.c:19:7:19:8 | l1 | semmle.label | l1 |
+| test.c:19:12:19:13 | l2 | semmle.label | l2 |
+| test.c:21:7:21:8 | p2 | semmle.label | p2 |
+| test.c:21:12:21:13 | p3 | semmle.label | p3 |
+| test.c:23:7:23:8 | l2 | semmle.label | l2 |
+| test.c:23:13:23:14 | p1 | semmle.label | p1 |
+| test.c:25:7:25:8 | p1 | semmle.label | p1 |
+| test.c:25:13:25:14 | l3 | semmle.label | l3 |
+subpaths

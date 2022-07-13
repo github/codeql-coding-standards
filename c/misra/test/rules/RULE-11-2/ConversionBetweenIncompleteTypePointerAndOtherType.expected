@@ -1,0 +1,3 @@
+| test.c:14:8:14:22 | (s2 *)... | Cast performed between a pointer to incomplete type and another type. |
+| test.c:15:8:15:17 | (void *)... | Cast performed between a pointer to incomplete type and another type. |
+| test.c:19:8:19:21 | (s1 *)... | Cast performed between a pointer to incomplete type and another type. |

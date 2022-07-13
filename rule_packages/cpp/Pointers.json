@@ -39,6 +39,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "DeclarationContainLessThanTwoLevelsOfIndirection",
+          "shared_implementation_short_name": "DoNotUseMoreThanTwoLevelsOfPointerIndirection",
           "tags": [
             "readability",
             "maintainability"
@@ -181,6 +182,7 @@
           "precision": "high",
           "severity": "recommendation",
           "short_name": "IndexingNotTheOnlyFormOfPointerArithmetic",
+          "shared_implementation_short_name": "UseOnlyArrayIndexingForPointerArithmetic",
           "tags": [
             "correctness",
             "external/autosar/strict"
@@ -205,6 +207,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "PointerAndDerivedPointerAccessDifferentArray",
+          "shared_implementation_short_name": "DoNotUsePointerArithmeticToAddressDifferentArrays",
           "tags": [
             "correctness"
           ]
@@ -228,6 +231,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "PointerSubtractionOnDifferentArrays",
+          "shared_implementation_short_name": "DoNotSubtractPointersAddressingDifferentArrays",
           "tags": [
             "correctness"
           ]
@@ -251,6 +255,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "AppliedToObjectsOfPointerType",
+          "shared_implementation_short_name": "DoNotUseRelationalOperatorsWithDifferingArrays",
           "tags": [
             "correctness"
           ]

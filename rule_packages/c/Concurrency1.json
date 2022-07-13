@@ -1,0 +1,66 @@
+{
+  "CERT-C": {
+    "CON32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accesses to bit fields without proper concurrency protection can result in data races.",
+          "kind": "problem",
+          "name": "Prevent data races when accessing bit-fields from multiple threads",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PreventDataRacesWithMultipleThreads",
+          "shared_implementation_short_name": "GuardAccessToBitFields",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Prevent data races when accessing bit-fields from multiple threads"
+    },
+    "CON33-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Certain functions may cause race conditions when used from a threaded context.",
+          "kind": "problem",
+          "name": "Avoid race conditions when using library functions",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RaceConditionsWhenUsingLibraryFunctions",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Avoid race conditions when using library functions"
+    },
+    "CON37-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Calling signal() from within a multithreaded program can result in unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Do not call signal() in a multithreaded program",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotCallSignalInMultithreadedProgram",
+          "implementation_scope" : "This implementation does not consider threads created function pointers.",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Do not call signal() in a multithreaded program"
+    }
+  }
+}

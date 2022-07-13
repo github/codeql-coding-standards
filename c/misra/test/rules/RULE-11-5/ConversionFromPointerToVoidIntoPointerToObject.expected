@@ -1,0 +1,1 @@
+| test.c:6:13:6:21 | (int *)... | Cast performed from a void pointer into a pointer to an object (int *). |

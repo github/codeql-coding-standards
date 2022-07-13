@@ -17,29 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.donotusemorethantwolevelsofpointerindirection.DoNotUseMoreThanTwoLevelsOfPointerIndirection
 
-Type getBaseType(DerivedType t) { result = t.getBaseType() }
-
-int levelsOfIndirection(Type t) {
-  if t instanceof FunctionPointerType
-  then result = t.(FunctionPointerType).getReturnType().getPointerIndirectionLevel()
-  else result = t.getPointerIndirectionLevel()
+class DeclarationContainLessThanTwoLevelsOfIndirectionQuery extends DoNotUseMoreThanTwoLevelsOfPointerIndirectionSharedQuery {
+  DeclarationContainLessThanTwoLevelsOfIndirectionQuery() {
+    this = PointersPackage::declarationContainLessThanTwoLevelsOfIndirectionQuery()
+  }
 }
-
-int paramLevelsOfIndirection(Type t) {
-  if t instanceof ArrayType
-  then result = 1 + levelsOfIndirection(t.(ArrayType).getBaseType())
-  else result = levelsOfIndirection(t)
-}
-
-from Variable v, Type type
-where
-  not isExcluded(v, PointersPackage::declarationContainLessThanTwoLevelsOfIndirectionQuery()) and
-  type = getBaseType*(v.getType()) and
-  (
-    if v instanceof Parameter
-    then paramLevelsOfIndirection(type) > 2
-    else levelsOfIndirection(type) > 2
-  )
-select v,
-  "The declaration of " + v.getName() + " contain more than two levels of pointer indirection."

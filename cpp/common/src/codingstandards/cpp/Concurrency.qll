@@ -1,9 +1,37 @@
 import cpp
+import semmle.code.cpp.dataflow.TaintTracking
+
+/**
+ * Models CFG nodes which should be added to a thread context.
+ */
+abstract class ThreadedCFGPathExtension extends ControlFlowNode {
+  /**
+   * Returns the next `ControlFlowNode` in this thread context.
+   */
+  abstract ControlFlowNode getNext();
+}
+
+/**
+ * Models a `FunctionCall` invoked from a threaded context.
+ */
+class ThreadContextFunctionCall extends FunctionCall, ThreadedCFGPathExtension {
+  override ControlFlowNode getNext() { getTarget().getEntryPoint() = result }
+}
+
+/**
+ * Models a specialized `FunctionCall` that may create a thread.
+ */
+abstract class ThreadCreationFunction extends FunctionCall, ThreadedCFGPathExtension {
+  /**
+   * Returns the function that will be invoked.
+   */
+  abstract Function getFunction();
+}
 
 /**
  * Models a call to a thread constructor via `std::thread`.
  */
-class ThreadConstructorCall extends ConstructorCall {
+class ThreadConstructorCall extends ConstructorCall, ThreadCreationFunction {
   Function f;
 
   ThreadConstructorCall() {
@@ -14,21 +42,58 @@ class ThreadConstructorCall extends ConstructorCall {
   /**
    * Returns the function that will be invoked by this `std::thread`.
    */
-  Function getFunction() { result = f }
+  override Function getFunction() { result = f }
+
+  override ControlFlowNode getNext() { result = getFunction().getEntryPoint() }
 }
 
 /**
- *  Models calls to various mutex types.
+ * Models a call to a thread constructor via `std::thread`.
  */
-class MutexFunctionCall extends LockingOperation {
+class C11ThreadCreateCall extends ThreadCreationFunction {
+  Function f;
+
+  C11ThreadCreateCall() {
+    getTarget().getName() = "thrd_create" and
+    (
+      f = getArgument(1).(FunctionAccess).getTarget() or
+      f = getArgument(1).(AddressOfExpr).getOperand().(FunctionAccess).getTarget()
+    )
+  }
+
+  /**
+   * Returns the function that will be invoked by this thread.
+   */
+  override Function getFunction() { result = f }
+
+  override ControlFlowNode getNext() { result = getFunction().getEntryPoint() }
+}
+
+/**
+ * Common base class providing an interface into function call
+ * based mutex locks.
+ */
+abstract class MutexFunctionCall extends LockingOperation {
+  abstract predicate isRecursive();
+
+  abstract predicate isSpeculativeLock();
+
+  abstract predicate unlocks(MutexFunctionCall fc);
+}
+
+/**
+ *  Models calls to various mutex types found in CPP.
+ */
+class CPPMutexFunctionCall extends MutexFunctionCall {
   VariableAccess var;
 
-  MutexFunctionCall() {
-    // the non recursive kinds
+  CPPMutexFunctionCall() {
     (
+      // the non recursive kinds
       getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "mutex") or
       getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "timed_mutex") or
       getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "shared_timed_mutex") or
+      // the recursive ones
       getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "recursive_mutex") or
       getTarget()
           .(MemberFunction)
@@ -41,40 +106,41 @@ class MutexFunctionCall extends LockingOperation {
   /**
    * Holds if this mutex is a recursive mutex.
    */
-  predicate isRecursive() {
+  override predicate isRecursive() {
     getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "recursive_mutex") or
     getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "recursive_timed_mutex")
   }
 
   /**
-   * Holds if this `MutexFunctionCall` is a lock.
+   * Holds if this `CPPMutexFunctionCall` is a lock.
    */
   override predicate isLock() { getTarget().getName() = "lock" }
 
   /**
-   * Holds if this `MutexFunctionCall` is a speculative lock, defined as calling
+   * Holds if this `CPPMutexFunctionCall` is a speculative lock, defined as calling
    * one of the speculative locking functions such as `try_lock`.
    */
-  predicate isSpeculativeLock() {
+  override predicate isSpeculativeLock() {
     getTarget().getName() in [
         "try_lock", "try_lock_for", "try_lock_until", "try_lock_shared_for", "try_lock_shared_until"
       ]
   }
 
   /**
-   * Returns the lock to which this `MutexFunctionCall` refers to.
+   * Returns the lock to which this `CPPMutexFunctionCall` refers to.
    */
   override Variable getLock() { result = getQualifier().(VariableAccess).getTarget() }
 
   /**
-   * Returns the qualifier for this `MutexFunctionCall`.
+   * Returns the qualifier for this `CPPMutexFunctionCall`.
    */
   override Expr getLockExpr() { result = var }
 
   /**
-   * Holds if this is a `unlock` and it unlocks the previously locked `MutexFunctionCall`.
+   * Holds if this is a `unlock` and *may* unlock the previously locked `MutexFunctionCall`.
+   * This predicate does not check that the mutex is currently locked.
    */
-  predicate unlocks(MutexFunctionCall fc) {
+  override predicate unlocks(MutexFunctionCall fc) {
     isUnlock() and
     fc.getQualifier().(VariableAccess).getTarget() = getQualifier().(VariableAccess).getTarget()
   }
@@ -83,6 +149,69 @@ class MutexFunctionCall extends LockingOperation {
    * Holds if this is an unlock call.
    */
   override predicate isUnlock() { getTarget().getName() = "unlock" }
+}
+
+/**
+ *  Models calls to various mutex types specialized to C code.
+ */
+class CMutexFunctionCall extends MutexFunctionCall {
+  Expr arg;
+
+  CMutexFunctionCall() {
+    // the non recursive kinds
+    getTarget().getName() = ["mtx_lock", "mtx_unlock", "mtx_timedlock", "mtx_trylock"] and
+    arg = getArgument(0)
+  }
+
+  /**
+   * Holds if this mutex is a recursive mutex.
+   */
+  override predicate isRecursive() { none() }
+
+  /**
+   * Holds if this `CMutexFunctionCall` is a lock.
+   */
+  override predicate isLock() {
+    getTarget().getName() = ["mtx_lock", "mtx_timedlock", "mtx_trylock"]
+  }
+
+  /**
+   * Holds if this `CMutexFunctionCall` is a speculative lock, defined as calling
+   * one of the speculative locking functions such as `try_lock`.
+   */
+  override predicate isSpeculativeLock() {
+    getTarget().getName() in ["mtx_timedlock", "mtx_trylock"]
+  }
+
+  /**
+   * Returns the `Variable` to which this `CMutexFunctionCall` refers to. For this
+   * style of lock it can reference a number of different variables.
+   */
+  override Variable getLock() {
+    exists(VariableAccess va |
+      TaintTracking::localTaint(DataFlow::exprNode(va), DataFlow::exprNode(getLockExpr())) and
+      result = va.getTarget()
+    )
+  }
+
+  /**
+   * Returns the expression for this `CMutexFunctionCall`.
+   */
+  override Expr getLockExpr() { result = arg }
+
+  /**
+   * Holds if this is a `unlock` and *may* unlock the previously locked `CMutexFunctionCall`.
+   * This predicate does not check that the mutex is currently locked.
+   */
+  override predicate unlocks(MutexFunctionCall fc) {
+    isUnlock() and
+    fc.getLock() = getLock()
+  }
+
+  /**
+   * Holds if this is an unlock call.
+   */
+  override predicate isUnlock() { getTarget().getName() = "mtx_unlock" }
 }
 
 /**
@@ -113,11 +242,7 @@ ControlFlowNode getAThreadContextAwarePredecessor(ControlFlowNode start, Control
 ControlFlowNode getAThreadContextAwareSuccessorR(ControlFlowNode cfn) {
   result = cfn.getASuccessor()
   or
-  cfn instanceof FunctionCall and
-  result = cfn.(FunctionCall).getTarget().getEntryPoint()
-  or
-  cfn instanceof ThreadConstructorCall and
-  result = cfn.(ThreadConstructorCall).getFunction().getEntryPoint()
+  result = cfn.(ThreadedCFGPathExtension).getNext()
 }
 
 ControlFlowNode getAThreadContextAwareSuccessor(ControlFlowNode m) {
@@ -224,8 +349,22 @@ class RAIIStyleLock extends LockingOperation {
 /**
  * Models a function that may be executed by some thread.
  */
-class ThreadedFunction extends Function {
-  ThreadedFunction() { exists(ThreadConstructorCall tcc | tcc.getFunction() = this) }
+abstract class ThreadedFunction extends Function { }
+
+/**
+ * Models a function that may be executed by some thread via
+ * C++ standard classes.
+ */
+class CPPThreadedFunction extends ThreadedFunction {
+  CPPThreadedFunction() { exists(ThreadConstructorCall tcc | tcc.getFunction() = this) }
+}
+
+/**
+ * Models a function that may be executed by some thread via
+ * C11 standard functions.
+ */
+class C11ThreadedFunction extends ThreadedFunction {
+  C11ThreadedFunction() { exists(C11ThreadCreateCall cc | cc.getFunction() = this) }
 }
 
 /**

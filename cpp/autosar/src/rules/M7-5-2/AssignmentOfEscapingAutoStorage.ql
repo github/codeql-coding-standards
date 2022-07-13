@@ -15,47 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.StackAddress
+import codingstandards.cpp.rules.donotcopyaddressofautostorageobjecttootherobject.DoNotCopyAddressOfAutoStorageObjectToOtherObject
 
-/*
- * This is a variant of the `cpp/stack-address-escape` query, provided in the CodeQL C++ default
- * query set, which enforces the stricter version of the rule required by MISRA. In particular,
- * MISRA requires that stack addresses are never assigned to other stack variables with a wider
- * scope, even if the address never leaks from the function itself.
- */
-
-/**
- * Find assignments where the rhs might be a stack pointer and the lhs is
- * not a stack variable. Such assignments might allow a stack address to
- * escape.
- */
-predicate stackAddressEscapes(AssignExpr assignExpr, Expr source, boolean isLocal) {
-  stackPointerFlowsToUse(assignExpr.getRValue(), _, source, isLocal) and
-  (
-    // Not assigned to a StackVariable
-    not stackReferenceFlowsToUse(assignExpr.getLValue(), _, _, _)
-    or
-    // Assigned to a StackVariable with wider scope
-    exists(StackVariable rvalueVar, StackVariable lvalueVar, Expr lvalueSource |
-      // Restrict to local variables
-      stackReferenceFlowsToUse(assignExpr.getLValue(), _, lvalueSource, true) and
-      lvalueSource = lvalueVar.getAnAccess() and
-      source = rvalueVar.getAnAccess() and
-      lvalueVar.getParentScope() = rvalueVar.getParentScope().getParentScope+()
-    )
-  )
+class AssignmentOfEscapingAutoStorageQuery extends DoNotCopyAddressOfAutoStorageObjectToOtherObjectSharedQuery {
+  AssignmentOfEscapingAutoStorageQuery() {
+    this = FreedPackage::assignmentOfEscapingAutoStorageQuery()
+  }
 }
-
-from Expr use, Expr source, boolean isLocal, string msg, string srcStr
-where
-  not isExcluded(use, FreedPackage::assignmentOfEscapingAutoStorageQuery()) and
-  stackAddressEscapes(use, source, isLocal) and
-  if isLocal = true
-  then (
-    msg = "A stack address ($@) may be assigned to a non-local variable." and
-    srcStr = "source"
-  ) else (
-    msg = "A stack address which arrived via a $@ may be assigned to a non-local variable." and
-    srcStr = "parameter"
-  )
-select use, msg, source, srcStr
