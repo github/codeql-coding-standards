@@ -265,7 +265,11 @@
                     "short_name": "MoreThanOneOccurrenceHashOperatorInMacroDefinition",
                     "tags": [
                         "correctness"
-                    ]
+                    ],
+                    "implementation_scope": {
+                      "description": "This query applies to function like macros and not object like macros.",
+                      "items": []
+                    }
                 }
             ],
             "title": "There shall be at most one occurrence of the # or ## operators in a single macro definition."

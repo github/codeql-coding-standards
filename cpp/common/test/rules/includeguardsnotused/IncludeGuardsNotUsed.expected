@@ -1,0 +1,4 @@
+| headers/test3.hpp:0:0:0:0 | headers/test3.hpp | Header file test3.hpp is missing expected include guard. | headers/test3.hpp:0:0:0:0 | headers/test3.hpp |  |
+| headers/test4.hpp:0:0:0:0 | headers/test4.hpp | Header file test4.hpp is missing expected include guard. | headers/test4.hpp:0:0:0:0 | headers/test4.hpp |  |
+| headers/test5.hpp:0:0:0:0 | headers/test5.hpp | Header file test5.hpp is missing expected include guard. | headers/test5.hpp:0:0:0:0 | headers/test5.hpp |  |
+| headers/test6.hpp:0:0:0:0 | headers/test6.hpp | Header file test6.hpp is missing expected include guard. | headers/test6.hpp:0:0:0:0 | headers/test6.hpp |  |

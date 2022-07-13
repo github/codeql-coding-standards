@@ -1,0 +1,139 @@
+{
+  "CERT-C": {
+    "FIO32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Performing file operations on devices can result in crashes.",
+          "kind": "path-problem",
+          "name": "Do not perform operations on devices that are only appropriate for files",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "DoNotPerformFileOperationsOnDevices",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not perform operations on devices that are only appropriate for files",
+      "implementation_scope": {
+        "description": "The rule checks that filenames are not tainted. It does not verify that appropriate OS-specific checks are in place to exclude that the opened file is a device."
+      }
+    },
+    "FIO37-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A string returned by fgets() or fegtws() might be empty.",
+          "kind": "problem",
+          "name": "Do not assume that fgets() or fgetws() returns a nonempty string when successful",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "SuccessfulFgetsOrFgetwsMayReturnAnEmptyString",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not assume that fgets() or fgetws() returns a nonempty string when successful",
+      "implementation_scope": {
+        "description": "The rule checks that access to a string returned by fgets() or fgetws() if protected by a guard condition. The rule is enforced in the context of a single function."
+      }
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-22-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Accessing the same file for read and write from different streams is undefined behavior.",
+          "kind": "problem",
+          "name": "The same file shall not be open for read and write access at the same time on different streams",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "FileOpenForReadAndWriteOnDifferentStreams",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The same file shall not be open for read and write access at the same time on different streams",
+      "implementation_scope": {
+        "description": "The rule is enforced in the context of a single function."
+      }
+    },
+    "RULE-22-4": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Attempting to write on a read-only stream is undefined behavior.",
+          "kind": "problem",
+          "name": "There shall be no attempt to write to a stream which has been opened as read-only",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AttemptToWriteToAReadOnlyStream",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "There shall be no attempt to write to a stream which has been opened as read-only",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-22-5": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "A FILE object should not be directly manipulated.",
+          "kind": "problem",
+          "name": "A pointer to a FILE object shall not be dereferenced",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PointerToAFileObjectDereferenced",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A pointer to a FILE object shall not be dereferenced",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "RULE-22-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The macro EOF shall only be compared with the unmodified return value from any Standard Library function capable of returning EOF",
+          "kind": "problem",
+          "name": "The macro EOF shall only be compared with the unmodified return value from any Standard Library",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "EofShallBeComparedWithUnmodifiedReturnValues",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The macro EOF shall only be compared with the unmodified return value from any Standard Library function capable of returning EOF",
+      "implementation_scope": {
+        "description": "None."
+      }
+    }
+  }
+}

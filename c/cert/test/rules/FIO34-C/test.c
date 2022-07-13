@@ -74,7 +74,7 @@ void f4(void) {
   size_t i = 0;
 
   while ((wc = getwc(stdin)) != L'\n' // COMPLIANT
-         && wc != WEOF) {             // NON_PORTABLE
+         && wc != WEOF) {             // PORTABLE
     if (i < BUFFER_SIZE - 1) {
       buf[i++] = wc;
     }

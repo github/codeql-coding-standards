@@ -17,54 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.includeguardsnotused.IncludeGuardsNotUsed
 
-pragma[noinline]
-predicate isPreprocFileAndLine(Element pd, string filepath, int startLine) {
-  pd.getLocation().hasLocationInfo(filepath, startLine, _, _, _)
-}
-
-pragma[noinline]
-predicate isPreprocConditionalRange(
-  PreprocessorBranch pb, string filepath, int startLine, int endLine
-) {
-  exists(PreprocessorEndif end | pb.getEndIf() = end |
-    isPreprocFileAndLine(pb, filepath, startLine) and
-    isPreprocFileAndLine(end, filepath, endLine)
-  )
-}
-
-class GuardMacro extends Macro {
-  GuardMacro() {
-    //wrapper #ifndef present for use as include guard
-    //and they only suffice if there are no non comment elements above them
-    exists(PreprocessorIfndef wrapper |
-      getAGuard(this) = wrapper and
-      not exists(Element above, string filepath, int aboveStartLine, int ifdefStartLine |
-        aboveStartLine < ifdefStartLine and
-        isPreprocFileAndLine(wrapper, filepath, ifdefStartLine) and
-        isPreprocFileAndLine(above, filepath, aboveStartLine) and
-        not (above instanceof Comment or above instanceof File)
-      )
-    )
+class PrecautionIncludeGuardsNotProvidedQuery extends IncludeGuardsNotUsedSharedQuery {
+  PrecautionIncludeGuardsNotProvidedQuery() {
+    this = IncludesPackage::includeGuardsNotProvidedQuery()
   }
 }
-
-/**
- * An optimised version of `PreprocessorBranchDirective.getAGuard()`.
- */
-private PreprocessorBranch getAGuard(Element guardedElement) {
-  exists(string filepath, int ifStartLine, int guardedElementStartLine, int endifStartLine |
-    isPreprocConditionalRange(result, filepath, ifStartLine, endifStartLine) and
-    isPreprocFileAndLine(guardedElement, filepath, guardedElementStartLine) and
-    ifStartLine < guardedElementStartLine and
-    guardedElementStartLine < endifStartLine
-  )
-}
-
-from File file
-where
-  not exists(GuardMacro guard | guard.getFile() = file) and
-  //headers are anything included
-  exists(Include i | i.getIncludedFile() = file) and
-  not isExcluded(file, IncludesPackage::includeGuardsNotProvidedQuery())
-select file, "Header file $@ is missing expected include guard.", file, file.getBaseName()

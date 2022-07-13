@@ -1,0 +1,7 @@
+| test.c:13:8:13:11 | * ... | Dereferencing an object of type `FILE`. |
+| test.c:14:8:14:10 | pos | Dereferencing an object of type `FILE`. |
+| test.c:16:10:16:12 | pf1 | Dereferencing an object of type `FILE`. |
+| test.c:16:15:16:17 | pf2 | Dereferencing an object of type `FILE`. |
+| test.c:17:10:17:12 | pf1 | Dereferencing an object of type `FILE`. |
+| test.c:17:15:17:17 | pf2 | Dereferencing an object of type `FILE`. |
+| test.c:22:8:22:10 | pos | Dereferencing an object of type `FILE`. |

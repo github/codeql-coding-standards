@@ -58,9 +58,6 @@ class BuffAccessExpr extends Expr {
     // dereferenced expressions
     this instanceof DereferencedExpr
     or
-    // any array access `array[0]`
-    this = any(ArrayExpr ae).getArrayBase()
-    or
     // any parameter to a function
     this = any(FunctionCall fc).getAnArgument()
   }

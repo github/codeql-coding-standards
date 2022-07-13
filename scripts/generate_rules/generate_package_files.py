@@ -78,6 +78,16 @@ parser.add_argument(
     default=False,
     help="create anonymized versions of the queries, without identifying rule information",
 )
+# Skip the generation of tests. This is useful when creating releases
+# wherein we should preserve the author's intention to not provide c-specific 
+# test cases. 
+parser.add_argument(
+    "--skip-shared-test-generation",
+    action="store_true",
+    dest="skip_shared_test_generation",
+    default=False,
+    help="Do not generate tests.",
+)
 parser.add_argument("language_name", help="the language of the package")
 parser.add_argument(
     "package_name", help="the name of the package to generate query files for")
@@ -105,7 +115,7 @@ env = Environment(loader=FileSystemLoader(Path(__file__).parent.joinpath(
 
 
 
-def write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir):
+def write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir, skip_tests=False):
 
     shared_impl_dir_name = query["shared_implementation_short_name"].lower()
 
@@ -146,50 +156,51 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
 
     # Write out the test. Test are always stored under the `language_name`
     # directory. 
-    shared_impl_test_dir = common_test_pack_dir.joinpath(
-        "rules", 
-        shared_impl_dir_name
-    )
-
-    shared_impl_test_dir.mkdir(exist_ok=True, parents=True)
-
-    # Generate test query file
-    shared_impl_test_query_path = shared_impl_test_dir.joinpath(
-        f"{query['shared_implementation_short_name']}.ql"
-    )
-    
-    with open(shared_impl_test_query_path, "w", newline="\n") as f:
-        f.write("// GENERATED FILE - DO NOT MODIFY\n")
-        f.write(
-            "import "
-            + str(shared_impl_query_library_path.relative_to(common_src_pack_dir).with_suffix(''))
-            .replace("\\", "/")
-            .replace("/", ".")
-            + "\n"
+    if not skip_tests:
+        shared_impl_test_dir = common_test_pack_dir.joinpath(
+            "rules", 
+            shared_impl_dir_name
         )
 
-    # Create an empty test file, if one doesn't already exist
-    shared_impl_test_dir.joinpath(
-        "test." + language_name).touch()
+        shared_impl_test_dir.mkdir(exist_ok=True, parents=True)
 
-    # Add an empty expected results file - this makes it possible to see the results the
-    # first time you run the test in VS Code
-    expected_results_file = shared_impl_test_dir.joinpath(
-        query["shared_implementation_short_name"] + ".expected")
-    if not expected_results_file.exists():
-        with open(expected_results_file, "w", newline="\n") as f:
+        # Generate test query file
+        shared_impl_test_query_path = shared_impl_test_dir.joinpath(
+            f"{query['shared_implementation_short_name']}.ql"
+        )
+        
+        with open(shared_impl_test_query_path, "w", newline="\n") as f:
+            f.write("// GENERATED FILE - DO NOT MODIFY\n")
             f.write(
-                "No expected results have yet been specified")
+                "import "
+                + str(shared_impl_query_library_path.relative_to(common_src_pack_dir).with_suffix(''))
+                .replace("\\", "/")
+                .replace("/", ".")
+                + "\n"
+            )
 
-    # Add a testref file for this query, that refers to the shared library
-    test_ref_file = test_src_dir.joinpath(
-        query["short_name"] + ".testref")
+        # Create an empty test file, if one doesn't already exist
+        shared_impl_test_dir.joinpath(
+            "test." + language_name).touch()
 
-    # don't write it if it already exists 
-    if not test_ref_file.exists():
-        with open(test_ref_file, "w", newline="\n") as f:
-            f.write(str(shared_impl_test_query_path.relative_to(
-                repo_root)).replace("\\", "/"))
+        # Add an empty expected results file - this makes it possible to see the results the
+        # first time you run the test in VS Code
+        expected_results_file = shared_impl_test_dir.joinpath(
+            query["shared_implementation_short_name"] + ".expected")
+        if not expected_results_file.exists():
+            with open(expected_results_file, "w", newline="\n") as f:
+                f.write(
+                    "No expected results have yet been specified")
+
+        # Add a testref file for this query, that refers to the shared library
+        test_ref_file = test_src_dir.joinpath(
+            query["short_name"] + ".testref")
+
+        # don't write it if it already exists 
+        if not test_ref_file.exists():
+            with open(test_ref_file, "w", newline="\n") as f:
+                f.write(str(shared_impl_test_query_path.relative_to(
+                    repo_root)).replace("\\", "/"))
 
 
 def write_non_shared_testfiles(query, language_name, query_path, test_src_dir, src_pack_dir):
@@ -360,7 +371,7 @@ else:
                         f"""standard-example.{query["sourcefile_ext"]}""").touch()
 
                     if "shared_implementation_short_name" in query:
-                        write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir)
+                        write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir, args.skip_shared_test_generation)
                     else:
                         write_non_shared_testfiles(query, language_name, query_path, test_src_dir, src_pack_dir)
         # Exclusions

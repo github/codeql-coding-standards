@@ -15,16 +15,17 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Macro
 
-from Macro m, string body
+from Macro m
 where
-  body =
-    m.getBody()
-        .regexpReplaceAll("#+", "#")
-        .regexpReplaceAll("\\\\\"", "")
-        .regexpReplaceAll("\\\\'", "")
-        .regexpReplaceAll("\"[^\"]+\"", "")
-        .regexpReplaceAll("'[^']+'", "") and
-  exists(int c | c = count(int x | x = body.indexOf("#")) and c > 1) and
+  count(StringizingOperator op | op.getMacro() = m | op) > 1
+  or
+  count(any(TokenPastingOperator op | op.getMacro() = m | op.getOffset())) > 1
+  or
+  exists(StringizingOperator one, TokenPastingOperator two |
+    one.getMacro() = m and
+    two.getMacro() = m
+  ) and
   not isExcluded(m, MacrosPackage::moreThanOneOccurrenceHashOperatorInMacroDefinitionQuery())
 select m, "Macro definition uses the # or ## operator more than once."

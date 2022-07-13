@@ -55,6 +55,27 @@ class Wint_t extends Type {
   override string getAPrimaryQlClass() { result = "Wint_t" }
 }
 
+/**
+ * A function call that opens a file
+ */
+class FOpenCall extends FunctionCall {
+  FOpenCall() { this.getTarget().hasGlobalName(["fopen", "fopen_s", "freopen", "freopen_s"]) }
+
+  /** The expression corresponding to the accessed file */
+  Expr getFilenameExpr() { result = this.getArgument(getNumberOfArguments() - 2) }
+
+  Expr getMode() { result = this.getArgument(getNumberOfArguments() - 1) }
+
+  // make predicate
+  predicate isReadMode() { this.getMode().getValue() = ["r", "r+", "w+", "a+"] }
+
+  predicate isWriteMode() { this.getMode().getValue() = ["w", "a", "r+", "w+", "a+"] }
+
+  predicate isReadOnlyMode() { this.isReadMode() and not this.isWriteMode() }
+
+  predicate isReadWriteMode() { this.isReadMode() and this.isWriteMode() }
+}
+
 abstract class FileAccess extends FunctionCall {
   abstract Expr getFileExpr();
 }

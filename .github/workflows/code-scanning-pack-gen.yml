@@ -73,7 +73,7 @@ jobs:
           PATH=$PATH:$CODEQL_HOME/codeql
           pip install -r scripts/requirements.txt
           find rule_packages/cpp -name '*.json' -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python3 scripts/generate_rules/generate_package_files.py -a cpp
-          find rule_packages/c -name '*.json' -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python3 scripts/generate_rules/generate_package_files.py -a c
+          find rule_packages/c -name '*.json' -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python3 scripts/generate_rules/generate_package_files.py --skip-shared-test-generation -a c
 
           echo "Generating help markdown file for cert"
           $CODEQL_LATEST_HOME/codeql/codeql generate query-help -vvv --format=markdown -o cpp/cert/src/ cpp/cert/src/rules

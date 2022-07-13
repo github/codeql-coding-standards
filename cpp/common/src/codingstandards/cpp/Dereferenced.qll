@@ -24,6 +24,9 @@ class DereferencedExpr extends Expr {
         c.getTarget() instanceof StarOperator
       )
       or
+      // And access to arrays `array[0]`
+      this = any(ArrayExpr ae).getArrayBase()
+      or
       this instanceof StandardLibraryDereferencedExpr
     )
   }

@@ -1,0 +1,2 @@
+| test.c:10:3:10:9 | call to fprintf | Attempt to write to a $@ opened as read-only. | test.c:9:14:9:18 | call to fopen | stream |
+| test.c:15:3:15:9 | call to fprintf | Attempt to write to a $@ opened as read-only. | test.c:18:14:18:18 | call to fopen | stream |

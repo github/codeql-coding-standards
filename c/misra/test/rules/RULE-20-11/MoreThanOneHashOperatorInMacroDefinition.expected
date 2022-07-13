@@ -1,0 +1,1 @@
+| test.c:25:1:25:29 | #define MACROTHIRTEEN(X) #X ## X | Macro definition uses an # operator followed by a ## operator. |

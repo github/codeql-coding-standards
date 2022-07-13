@@ -1,0 +1,2 @@
+#define TEST 1 // COMPLIANT
+#undef TEST    // NON_COMPLIANT

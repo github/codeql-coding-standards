@@ -3,11 +3,15 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
+{% if data | length == 1 %}
+newtype {{ package_name }}Query = T{{ data[0]['queryname']}}Query()
+{% else %}
 newtype {{ package_name }}Query =
   {% for query in data%}
   T{{ query['queryname']}}Query(){% if not loop.last %} or
   {% endif %}{% endfor %}
 
+{% endif %}
 
 predicate is{{package_name}}QueryMetadata(Query query, string queryId, string ruleId) {
   {% for item in data %}
