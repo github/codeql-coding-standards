@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - "rc/**"
+      - next
     paths:
       - "supported_codeql_configs.json"
   workflow_dispatch:
@@ -155,10 +156,10 @@ jobs:
     needs: [run-test-suites]
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Python 3
-        uses: actions/setup-python@v2
+      - name: Install Python
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.x"
+          python-version: "3.9"
 
       - name: Collect test results
         uses: actions/download-artifact@v2

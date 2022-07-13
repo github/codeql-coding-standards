@@ -30,3 +30,9 @@ static int f2() { // COMPLIANT
 
 int main(int, char **) { // COMPLIANT
 }
+
+namespace n {
+void f5() { // COMPLIANT
+  int i = 0;
+}
+} // namespace n

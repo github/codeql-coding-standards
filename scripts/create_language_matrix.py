@@ -12,9 +12,7 @@ with open(config_file_path, "r") as config_file:
     # foreach language, merge in the existing metadata
     for e in json_data["supported_language"]:
         for c in json_data["supported_environment"]:
-            pass
             #print(f"lang={e}, env={c}")
-            #             
             data = e 
             data.update(c) 
             matrix.append(data)

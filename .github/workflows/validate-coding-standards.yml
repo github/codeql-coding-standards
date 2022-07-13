@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - main
-      - 'rc/**'
+      - "rc/**"
+      - next
   pull_request:
     branches:
       - main
-      - 'rc/**'
-      - 'c-coding-standards'
+      - "rc/**"
+      - next
 
 env:
   XARGS_MAX_PROCS: 4
@@ -21,6 +22,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
 
       - name: Install generate_package_files.py dependencies
         run: pip install -r scripts/requirements.txt
@@ -43,18 +49,17 @@ jobs:
 
       - name: Validate Package Files (CPP)
         run: |
-          find rule_packages/cpp -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python3 scripts/generate_rules/generate_package_files.py cpp
+          find rule_packages/cpp -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python scripts/generate_rules/generate_package_files.py cpp
           git diff
           git diff --compact-summary
           git diff --quiet
 
       - name: Validate Package Files (C)
         run: |
-          find rule_packages/c -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python3 scripts/generate_rules/generate_package_files.py c
+          find rule_packages/c -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python scripts/generate_rules/generate_package_files.py c
           git diff
           git diff --compact-summary
           git diff --quiet
-
 
   validate-codeql-format:
     name: "Validate CodeQL Format"
@@ -90,41 +95,37 @@ jobs:
   validate-query-help-files:
     name: Validate Query Help Files
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        language: ['cpp', 'c']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Fetch CodeQL
+      - name: Validate CPP Query Help Files
         run: |
-          gh release download --repo https://github.com/github/codeql-cli-binaries --pattern codeql-linux64.zip
-          unzip -q codeql-linux64.zip
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Validate Query Help Files
-        run: |
-          qhelp_output=$(( codeql/codeql generate query-help --format=markdown --output=${{ matrix.language }}/qhelp-markdown-dump ${{ matrix.language }} ) 2>&1 )
-          qhelp_count=$(find ${{ matrix.language }} -name \*.ql -or -name \*.qhelp | wc -l)
-
-          if [[ $qhelp_output ]]; then
-            errors=$( echo "$qhelp_output" | grep -v '/test/' || [[ $? == 1 ]] )
-            if [[ $errors ]]; then
-              echo "There are errors with the qhelp files: "
-              echo "$errors"
-              exit 1
-            else
-              echo "Disregarding tests..."
-              echo "Query help files look good."
+          exit_code=0
+          for help_file in `find cpp -name '*.md'`
+          do
+            if grep -F -q 'REPLACE THIS' "$help_file" > /dev/null
+            then
+              echo "Help file $help_file contains placeholders that are not replaced or removed!"
+              exit_code=1
             fi
-          elif [[ ! $qhelp_output && qhelp_count -gt 0 ]]; then
-            echo "Query help files look good."
-          else
-            echo "There are no query help files to analyze."
-          fi
+          done
+
+          exit $exit_code
+
+      - name: Validate C Query Help Files
+        run: |
+          exit_code=0
+          for help_file in `find c -name '*.md'`
+          do
+            if grep -F -q 'REPLACE THIS' "$help_file" > /dev/null
+            then
+              echo "Help file $help_file contains placeholders that are not replaced or removed!"
+              exit_code=1
+            fi
+          done
+
+          exit $exit_code
 
   validate-cpp-test-files:
     name: Validate C++ Test Files
@@ -143,7 +144,7 @@ jobs:
           if ! test -f .clang-format; then
             echo "Cannot find .clang-format in '$PWD'. Exiting..."
           fi
-          
+
           find cpp/*/test -name \*.cpp -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" clang-format --style=file -i --verbose
           git diff
           git diff --compact-summary
@@ -166,7 +167,7 @@ jobs:
           if ! test -f .clang-format; then
             echo "Cannot find .clang-format in '$PWD'. Exiting..."
           fi
-          
+
           find c/*/test -name \*.c -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" clang-format --style=file -i --verbose
           git diff
           git diff --compact-summary

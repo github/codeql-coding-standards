@@ -1,0 +1,28 @@
+# {{ rule_id }}: {{ name }}
+
+This query implements the {{ standard_name | escape }} rule {{ rule_id | escape }}:
+
+> {{ rule_title }}
+
+## CERT
+
+** REPLACE THIS BY RUNNING THE SCRIPT `scripts/help/cert-help-extraction.py` **
+
+## Implementation notes
+
+{% if implementation_scope is defined %}
+{{ implementation_scope["description"] }}
+{% if implementation_scope["items"] is iterable %}
+{% for implementation_scope_entry in implementation_scope["items"] %}
+* {{ implementation_scope_entry }}
+{% endfor %}
+{% endif %}
+{% else %}
+None
+{% endif %}
+
+## References
+
+{% if standard_title | length %}
+* {{ standard_title | escape }}: [{{ rule_id }}: {{ rule_title }}]({{ standard_url }})
+{% endif %}

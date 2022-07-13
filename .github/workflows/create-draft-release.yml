@@ -41,6 +41,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
       - name: Install generate_release_notes.py dependencies
         run: pip install -r scripts/requirements.txt
 

@@ -20,7 +20,7 @@ _please enter the description of your change here_
 
 ## Release change checklist
 
-A change note ([development_handbook.md#change-notes](https://github.com/github/codeql-coding-standards/blob/main/development_handbook.md#change-notes)) is required for any pull request which modifies:
+A change note ([development_handbook.md#change-notes](https://github.com/github/codeql-coding-standards/blob/main/docs/development_handbook.md#change-notes)) is required for any pull request which modifies:
 
  - The structure or layout of the release artifacts.
  - The evaluation performance (memory, execution time) of an existing query.
@@ -44,7 +44,7 @@ For PRs that add new queries or modify existing queries, the following checklist
  - [ ] Have all the relevant rule package description files been checked in?
  - [ ] Have you verified that the metadata properties of each new query is set appropriately?
  - [ ] Do all the unit tests contain both "COMPLIANT" and "NON_COMPLIANT" cases?
- - [ ] Are the alert messages properly formatted and consistent with the [style guide](https://github.com/github/codeql-coding-standards/blob/main/development_handbook.md#query-style-guide)?
+ - [ ] Are the alert messages properly formatted and consistent with the [style guide](https://github.com/github/codeql-coding-standards/blob/main/docs/development_handbook.md#query-style-guide)?
  - [ ] Have you run the queries on OpenPilot and verified that the performance and results are acceptable?<br />_As a rule of thumb, predicates specific to the query should take no more than 1 minute, and for simple queries be under 10 seconds. If this is not the case, this should be highlighted and agreed in the code review process._
  - [ ] Does the query have an appropriate level of in-query comments/documentation?
  - [ ] Have you considered/identified possible edge cases?
@@ -56,7 +56,7 @@ For PRs that add new queries or modify existing queries, the following checklist
  - [ ] Have all the relevant rule package description files been checked in?
  - [ ] Have you verified that the metadata properties of each new query is set appropriately?
  - [ ] Do all the unit tests contain both "COMPLIANT" and "NON_COMPLIANT" cases?
- - [ ] Are the alert messages properly formatted and consistent with the [style guide](https://github.com/github/codeql-coding-standards/blob/main/development_handbook.md#query-style-guide)?
+ - [ ] Are the alert messages properly formatted and consistent with the [style guide](https://github.com/github/codeql-coding-standards/blob/main/docs/development_handbook.md#query-style-guide)?
  - [ ] Have you run the queries on OpenPilot and verified that the performance and results are acceptable?<br />_As a rule of thumb, predicates specific to the query should take no more than 1 minute, and for simple queries be under 10 seconds. If this is not the case, this should be highlighted and agreed in the code review process._
  - [ ] Does the query have an appropriate level of in-query comments/documentation?
  - [ ] Have you considered/identified possible edge cases?

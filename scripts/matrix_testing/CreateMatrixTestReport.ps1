@@ -258,7 +258,7 @@ Write-Host "Checking 'codeql' version = $REQUIRED_CODEQL_VERSION...." -NoNewline
 if (-Not $CODEQL_VERSION -eq $REQUIRED_CODEQL_VERSION) {
     throw "Invalid CodeQL version $CODEQL_VERSION. Please install $REQUIRED_CODEQL_VERSION."
 }
-Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
+Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
 
 Write-Host "Checking '$(Get-CompilerExecutable -Configuration $Configuration -Language $Language)' program...." -NoNewline
 Test-ProgramInstalled -Program (Get-CompilerExecutable -Configuration $Configuration -Language $Language)
@@ -275,7 +275,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
 
     #. "$using:PSScriptRoot\GetTestDirectory.ps1"
     . "$using:PSScriptRoot\NewDatabaseForRule.ps1"
-    
+    . "$using:PSScriptRoot\ExecuteQueryAndDecodeAsJson.ps1"
 
     $q = $_ 
 
@@ -285,14 +285,24 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     $CurrentPackageName = $q.__memberof_package
     # for the report 
     $row = @{
-        "SUITE"           = $CurrentSuiteName;
-        "PACKAGE"         = $CurrentPackageName;
-        "RULE"            = $CurrentRuleName;
-        "QUERY"           = $CurrentQueryName;
-        "COMPILE_PASS"    = $false;
-        "TEST_PASS"       = $false 
-        "TEST_DIFFERENCE" = ""
+        "SUITE"             = $CurrentSuiteName;
+        "PACKAGE"           = $CurrentPackageName;
+        "RULE"              = $CurrentRuleName;
+        "QUERY"             = $CurrentQueryName;
+        "COMPILE_PASS"      = $false;
+        "EXTRACTOR_PASS"    = $false;
+        "EXTRACTOR_ERRORS"  = "";
+        "TEST_PASS"         = $false ;
+        "TEST_DIFFERENCE"   = "";
     }
+
+    Write-Host "Resolving pack 'codeql/cpp-queries'...." -NoNewline
+    $CODEQL_CPP_QUERIES_PATH = (codeql resolve qlpacks --format json | ConvertFrom-Json)."codeql/cpp-queries"
+    if ( -Not (Test-Path -Path $CODEQL_CPP_QUERIES_PATH -PathType Container) ) {
+        Write-Host "Could not resolve pack 'codeql/cpp-queries'. Please install the pack 'codeql/cpp-queries'."
+        return $row
+    }
+    Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
 
     Write-Host "====================[Rule=$CurrentRuleName,Suite=$CurrentSuiteName/Query=$CurrentQueryName]====================" 
 
@@ -312,7 +322,24 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
                     # output. 
     }
 
-    $row["COMPILE_PASS"] = $true 
+    $row["COMPILE_PASS"] = $true
+    Write-Host "Validating extractor results..." -NoNewline
+
+    try {
+         $diagnostics = Execute-QueryAndDecodeAsJson -DatabasePath $db -QueryPath $diagnostic_query
+   }catch {
+        Write-Host -ForegroundColor ([ConsoleColor]4) $_Exception.Message
+        return $row
+   }
+
+    if ( $diagnostics.'#select'.tuples.Length -eq 0 ) {
+        $row["EXTRACTOR_PASS"] = $true
+        Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
+    } else {
+        Write-Host -ForegroundColor ([ConsoleColor]4) "FAILED"
+        $row["EXTRACTOR_ERRORS"] = $diagnostics | ConvertTo-Json -Depth 100
+    }
+
     Write-Host "Checking expected output..."
 
     # Note this technique uses so-called "wizard" settings to make it possible

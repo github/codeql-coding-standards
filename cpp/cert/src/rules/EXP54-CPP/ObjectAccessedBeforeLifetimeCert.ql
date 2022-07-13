@@ -8,7 +8,6 @@
  * @tags external/cert/id/exp54-cpp
  *       correctness
  *       security
- *       external/autosar/default-disabled
  *       external/cert/obligation/rule
  */
 

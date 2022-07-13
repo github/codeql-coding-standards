@@ -1,0 +1,2 @@
+ - `A3-8-1`, `A5-3-2`, `EXP54-CPP`, `STR51-CPP`
+   - All queries for these rules are now enabled by default. They previously disabled due to performance concerns.

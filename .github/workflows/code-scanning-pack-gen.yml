@@ -5,13 +5,13 @@ on:
     branches:
       - main
       - "rc/**"
-      - "c-coding-standards"
+      - next
 
   push:
     branches:
       - main
       - "rc/**"
-      - "c-coding-standards"
+      - next
 
 env:
   XARGS_MAX_PROCS: 4
@@ -59,25 +59,23 @@ jobs:
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
 
-      - name: Install latest CodeQL for docs generation
-        id: install-latest-codeql
-        uses: ./.github/actions/install-codeql
+      - name: Install Python
+        uses: actions/setup-python@v4
         with:
-          add-to-path: false
+          python-version: "3.9"
 
       - name: Anonymising and pre-compiling queries
         env:
           CODEQL_HOME: ${{ github.workspace }}/codeql_home
-          CODEQL_LATEST_HOME: ${{ steps.install-latest-codeql.outputs.codeql-home}}
         run: |
           PATH=$PATH:$CODEQL_HOME/codeql
           pip install -r scripts/requirements.txt
-          find rule_packages/cpp -name '*.json' -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python3 scripts/generate_rules/generate_package_files.py -a cpp
-          find rule_packages/c -name '*.json' -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python3 scripts/generate_rules/generate_package_files.py --skip-shared-test-generation -a c
+          find rule_packages/cpp -name '*.json' -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python scripts/generate_rules/generate_package_files.py -a cpp
+          find rule_packages/c -name '*.json' -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python scripts/generate_rules/generate_package_files.py --skip-shared-test-generation -a c
 
-          echo "Generating help markdown file for cert"
-          $CODEQL_LATEST_HOME/codeql/codeql generate query-help -vvv --format=markdown -o cpp/cert/src/ cpp/cert/src/rules
-          $CODEQL_LATEST_HOME/codeql/codeql generate query-help -vvv --format=markdown -o c/cert/src/ c/cert/src/rules
+          echo "Remove help files that cannot be freely distributed"
+          find cpp/autosar/src/rules -name "*.md" -delete
+          find c/misra/src/rules -name "*.md" -delete
 
           codeql query compile --search-path cpp --threads 0 cpp
           codeql query compile --search-path c --search-path cpp --threads 0 c
@@ -103,12 +101,11 @@ jobs:
               copy_to_root_name=$(realpath --relative-to "./$2/$1/src/" "$copy_from_root_name")
               query_dir=$(dirname "lgtm-cpp-query-pack/$copy_to_root_name")
               mkdir -p "$query_dir"
-              # Copy each selected ql file, plus the related files (qhelp, qhelp implementation)
+              # Copy each selected ql file
               cp "$copy_from_root_name.ql" "lgtm-cpp-query-pack/$copy_to_root_name.ql"
-              cp "$copy_from_root_name.qhelp" "lgtm-cpp-query-pack/$copy_to_root_name.qhelp"
             done
           }
-          
+
           echo "Copying autosar-default queries (CPP)"
           copy_queries_for_pack "autosar" "cpp"
           echo "Copying cert-default queries (CPP)"
@@ -186,30 +183,25 @@ jobs:
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
 
-      - name: Install latest CodeQL for docs generation
-        id: install-latest-codeql
-        uses: ./.github/actions/install-codeql
+      - name: Checkout external help files
+        uses: actions/checkout@v2
         with:
-          add-to-path: false
+          ssh-key: ${{ secrets.CODEQL_CODING_STANDARDS_HELP_KEY }}
+          repository: "github/codeql-coding-standards-help"
+          ref: ${{ github.head_ref }}
+          path: external-help-files
+
+      - name: Include external help files
+        run: |
+          pushd external-help-files
+          find . -name '*.md' -exec rsync -av --relative {} "$GITHUB_WORKSPACE" \;
+          popd
 
       - name: Pre-compiling queries
         env:
           CODEQL_HOME: ${{ github.workspace }}/codeql_home
-          CODEQL_LATEST_HOME: ${{ steps.install-latest-codeql.outputs.codeql-home}}
         run: |
           PATH=$PATH:$CODEQL_HOME/codeql
-          for s in "autosar" "cert"
-          do
-            echo "Generating help markdown file for $s"
-            $CODEQL_LATEST_HOME/codeql/codeql generate query-help -vvv --format=markdown -o cpp/$s/src/ cpp/$s/src/rules
-          done
-
-          for s in "misra" "cert"
-          do
-            echo "Generating help markdown file for $s"
-            $CODEQL_LATEST_HOME/codeql/codeql generate query-help -vvv --format=markdown -o c/$s/src/ c/$s/src/rules
-          done
-
 
           codeql query compile --search-path cpp --threads 0 cpp
           codeql query compile --search-path c --search-path cpp --threads 0 c
@@ -234,8 +226,8 @@ jobs:
             do
               copy_to_root="lgtm-cpp-query-pack/$(realpath --relative-to "./$2/$1/src/" "$rule_dir")"
               mkdir -p "$copy_to_root"
-              # Copy each selected ql file, plus the related files (qhelp, qhelp implementation)
-              find "$rule_dir" -name '*.ql' -o -name '*.qhelp' -o -name '*.c' -name '*.cpp' -o -name '*.png' -exec cp -n {} "$copy_to_root" \;
+              # Copy each selected ql file, plus the related files
+              find "$rule_dir" -name '*.ql' -o -name '*.c' -name '*.cpp' -o -name '*.png' -exec cp -n {} "$copy_to_root" \;
             done
           }
           echo "Copying autosar-default queries (CPP)"

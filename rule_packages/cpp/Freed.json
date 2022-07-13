@@ -53,8 +53,7 @@
           "short_name": "ObjectAccessedBeforeLifetimeAutosar",
           "tags": [
             "correctness",
-            "security",
-            "external/autosar/default-disabled"
+            "security"
           ]
         },
         {
@@ -67,8 +66,7 @@
           "short_name": "ObjectAccessedAfterLifetimeAutosar",
           "tags": [
             "correctness",
-            "security",
-            "external/autosar/default-disabled"
+            "security"
           ]
         }
       ],
@@ -134,8 +132,7 @@
           "short_name": "ObjectAccessedBeforeLifetimeCert",
           "tags": [
             "correctness",
-            "security",
-            "external/autosar/default-disabled"
+            "security"
           ]
         },
         {
@@ -148,8 +145,7 @@
           "short_name": "ObjectAccessedAfterLifetimeCert",
           "tags": [
             "correctness",
-            "security",
-            "external/autosar/default-disabled"
+            "security"
           ]
         }
       ],

@@ -24,9 +24,9 @@ def convert_yaml_dict_to_xml(data, output_file):
 
 
 def process_item(parent, item):
-    assert(isinstance(item, dict))
     if item == None:
         return
+    assert(isinstance(item, dict))
     for (key, value) in item.items():
         if isinstance(value, dict):
             child = ET.SubElement(parent, key)

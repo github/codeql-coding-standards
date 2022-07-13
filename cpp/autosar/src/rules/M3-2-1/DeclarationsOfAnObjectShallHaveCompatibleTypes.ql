@@ -22,9 +22,9 @@ import codingstandards.cpp.Typehelpers
 
 from VariableDeclarationEntry decl1, VariableDeclarationEntry decl2
 where
-  not isExcluded(decl1) and
+  not isExcluded(decl1, DeclarationsPackage::declarationsOfAnObjectShallHaveCompatibleTypesQuery()) and
   not isExcluded(decl2, DeclarationsPackage::declarationsOfAnObjectShallHaveCompatibleTypesQuery()) and
-  not areCompatible(decl1.getVariable().getType(), decl2.getVariable().getType()) and
+  not areCompatible(decl1.getType(), decl2.getType()) and
   // Note that normally `VariableDeclarationEntry` includes parameters, which are not covered
   // by this query. We implicitly exclude them with the `getQualifiedName()` predicate.
   decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName()

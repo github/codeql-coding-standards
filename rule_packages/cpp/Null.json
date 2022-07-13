@@ -17,8 +17,7 @@
           "severity": "error",
           "short_name": "NullPointersDereferenced",
           "tags": [
-            "correctness",
-            "external/autosar/default-disabled"
+            "correctness"
           ]
         }
       ],
@@ -63,8 +62,7 @@
           "severity": "error",
           "short_name": "DoNotAttemptToCreateAStringFromANullPointer",
           "tags": [
-            "correctness",
-            "external/cert/default-disabled"
+            "correctness"
           ]
         }
       ],

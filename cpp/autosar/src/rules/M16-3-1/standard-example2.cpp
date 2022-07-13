@@ -1,1 +1,0 @@
-#define D(x, y, z, yz) x ## y ## z   // Non-compliant

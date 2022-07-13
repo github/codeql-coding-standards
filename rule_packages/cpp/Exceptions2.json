@@ -144,7 +144,10 @@
           "short_name": "MissingCheckedExceptions",
           "tags": [
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query will flag functions for which no function declaration specifies the reported checked exception as being thrown. When remediating this issue, ensure that all function declarations are updated to specify that this exception is thrown."
+          }
         },
         {
           "description": "Checked exceptions that could be thrown from a function shall be specified identically in all function declarations and for all overriders.",
