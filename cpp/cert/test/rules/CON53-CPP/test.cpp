@@ -1,4 +1,5 @@
 #include <mutex>
+#include <stdlib.h>
 #include <thread>
 
 class B {
@@ -54,9 +55,64 @@ int d3(B *from, B *to, int amount) { // NON_COMPLIANT
   return 0;
 }
 
+int getA() { return 0; }
+int getARand() { return rand(); }
+
+int d4(B *from, B *to, int amount) { // COMPLIANT
+  std::mutex *one;
+  std::mutex *two;
+
+  int a = getARand();
+
+  // here a may take on multiple different
+  // values and thus different values may flow
+  // into the locks
+  if (a == 9) {
+    one = &from->mu;
+    two = &to->mu;
+  } else {
+    one = &to->mu;
+    two = &from->mu;
+  }
+
+  std::lock_guard<std::mutex> from_lock(*one);
+  std::lock_guard<std::mutex> to_lock(*two);
+
+  from->set(from->get() - amount);
+  to->set(to->get() + amount);
+
+  return 0;
+}
+
+int d5(B *from, B *to, int amount) { // NON_COMPLIANT
+  std::mutex *one;
+  std::mutex *two;
+
+  int a = getARand();
+
+  // here a may take on multiple different
+  // values and thus different values may flow
+  // into the locks
+  if (a == 9) {
+    one = &from->mu;
+    two = &to->mu;
+  } else {
+    one = &to->mu;
+    two = &from->mu;
+  }
+
+  std::lock_guard<std::mutex> from_lock(from->mu);
+  std::lock_guard<std::mutex> to_lock(to->mu);
+
+  from->set(from->get() - amount);
+  to->set(to->get() + amount);
+
+  return 0;
+}
+
 void f(B *ba1, B *ba2) {
   std::thread thr1(d1, ba1, ba2, 100);
-  std::thread thr2(d2, ba2, ba1, 100);
+  std::thread thr2(d1, ba2, ba1, 100);
   thr1.join();
   thr2.join();
 }
@@ -71,6 +127,20 @@ void f2(B *ba1, B *ba2) {
 void f3(B *ba1, B *ba2) {
   std::thread thr1(d3, ba1, ba2, 100);
   std::thread thr2(d3, ba1, ba2, 100);
+  thr1.join();
+  thr2.join();
+}
+
+void f4(B *ba1, B *ba2) {
+  std::thread thr1(d4, ba1, ba2, 100);
+  std::thread thr2(d4, ba1, ba2, 100);
+  thr1.join();
+  thr2.join();
+}
+
+void f5(B *ba1, B *ba2) {
+  std::thread thr1(d5, ba1, ba2, 100);
+  std::thread thr2(d5, ba1, ba2, 100);
   thr1.join();
   thr2.join();
 }

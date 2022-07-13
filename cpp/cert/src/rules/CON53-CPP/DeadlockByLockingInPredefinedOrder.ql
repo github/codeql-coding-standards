@@ -15,6 +15,7 @@
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.Concurrency
+import semmle.code.cpp.controlflow.Dominance
 
 /**
  * Gets a pair of locks guarding a `LockProtectedControlFlowNode` in an order
@@ -27,7 +28,8 @@ predicate getAnOrderedLockPair(
   lock1 = node.coveredByLock() and
   lock2 = node.coveredByLock() and
   not lock1 = lock2 and
-  lock1.getFile() = lock2.getFile() and
+  lock1.getEnclosingFunction() = lock2.getEnclosingFunction() and
+  node.(Expr).getEnclosingFunction() = lock1.getEnclosingFunction() and
   exists(Location l1Loc, Location l2Loc |
     l1Loc = lock1.getLocation() and
     l2Loc = lock2.getLocation()
@@ -53,15 +55,30 @@ predicate getAnOrderedLockPair(
  * same time that are invoked from a thread.
  */
 
+predicate isUnSerializedLock(LockingOperation lock) {
+  exists(VariableAccess va |
+    va = lock.getArgument(0).getAChild().(VariableAccess) and
+    not exists(Assignment assn |
+      assn = va.getTarget().getAnAssignment() and
+      not bbDominates(assn.getBasicBlock(), lock.getBasicBlock())
+    )
+  )
+}
+
+predicate isSerializedLock(LockingOperation lock) { not isUnSerializedLock(lock) }
+
 from LockProtectedControlFlowNode node, Function f, FunctionCall lock1, FunctionCall lock2
 where
   not isExcluded(node, ConcurrencyPackage::deadlockByLockingInPredefinedOrderQuery()) and
   // we can get into trouble when we get into a situation where there may be two
   // locks in the same threaded function active at the same time.
-  // simple ordering
-  // lock1 = node.coveredByLock() and
-  // lock2 = node.coveredByLock() and
+  // simple ordering is applied here for presentation purposes.
   getAnOrderedLockPair(lock1, lock2, node) and
+  // it is difficult to determine if the ordering applied to the locks is "safe"
+  // so here we simply look to see that there exists at least one other program
+  // path that would yield different argument values to the lock functions
+  // perhaps arising from some logic that applies an ordering to the locking.
+  not (isSerializedLock(lock1) and isSerializedLock(lock2)) and
   // To reduce the noise (and increase usefulness) we alert the user at the
   // level of the function, which is the unit the synchronization should be
   // performed.

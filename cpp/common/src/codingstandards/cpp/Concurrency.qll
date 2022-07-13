@@ -318,7 +318,7 @@ class RAIIStyleLock extends LockingOperation {
    */
   override predicate isLock() {
     this instanceof ConstructorCall and
-    lock = getArgument(0) and
+    lock = getArgument(0).getAChild() and
     // defer_locks don't cause a lock
     not exists(Expr exp |
       exp = getArgument(1) and
