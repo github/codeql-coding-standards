@@ -4,13 +4,19 @@ This repository contains CodeQL queries and libraries which support various Codi
 
 ## Supported standards
 
-Carnegie Mellon and CERT are registered trademarks of Carnegie Mellon University.
+_Carnegie Mellon and CERT are registered trademarks of Carnegie Mellon University._
+
 This repository contains CodeQL queries and libraries which support various Coding Standards for the [C++14](https://www.iso.org/standard/64029.html) programming language.
 
-The following coding standards are included:
-- [AUTOSAR - Guidelines for the use of C++14 language in critical and safety-related systems Release 18-10](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/18-10/AUTOSAR_RS_CPP14Guidelines.pdf)
-- [MISRA C++:2008](https://www.misra.org.uk)
+The following coding standards are supported:
+- [AUTOSAR - Guidelines for the use of C++14 language in critical and safety-related systems Release 20-11](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf)
+- [MISRA C++:2008](https://www.misra.org.uk) (support limited to the rules specified in AUTOSAR 20-11).
 - [SEI CERT C++ Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932)
+
+In addition, the following Coding Standards for the C programming language are under development:
+
+- [SEI CERT C Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)
+- [MISRA C 2012](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/).
 
 ## How do I use the CodeQL Coding Standards Queries?
 
