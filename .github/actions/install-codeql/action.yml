@@ -90,7 +90,7 @@ runs:
 
         if [ "$CODEQL_STDLIB_VERSION" != "latest" ]
         then
-          pushd codeql-stdlib
+          push codeql-stdlib
           echo "::debug::Switching to revision $CODEQL_STDLIB_VERSION"
           git checkout $CODEQL_STDLIB_VERSION
           popd

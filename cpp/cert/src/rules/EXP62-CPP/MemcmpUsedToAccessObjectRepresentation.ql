@@ -20,8 +20,7 @@ import VirtualTable
 from MemcmpBA cmp
 where
   not isExcluded(cmp, RepresentationPackage::memcmpUsedToAccessObjectRepresentationQuery()) and
-  cmp
-      .getBuffer(_, _)
+  cmp.getBuffer(_, _)
       .getUnconverted()
       .getUnspecifiedType()
       .(PointerType)

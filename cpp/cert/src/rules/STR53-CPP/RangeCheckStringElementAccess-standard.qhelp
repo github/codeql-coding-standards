@@ -1,24 +1,120 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>The <code>std::string</code> index operators <code>const_reference operator[](size_type) const</code> and <code>reference operator[](size_type)</code> return the character stored at the specified position, <code>pos</code>. When <code>pos &gt;= size()</code>, a reference to an object of type <code>charT</code> with value <code>charT()</code> is returned. The index operators are unchecked (no exceptions are thrown for range errors), and attempting to modify the resulting out-of-range object results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
-  <p>Similarly, the <code>std::string::back()</code> and <code>std::string::front()</code> functions are unchecked as they are defined to call through to the appropriate <code>operator[]()</code> without throwing.</p>
-  <p>Do not pass an out-of-range value as an argument to <code>std::string::operator[]()</code>. Similarly, do not call <code>std::string::back()</code> or <code>std::string::front()</code> on an empty string. This rule is a specific instance of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CTR50-CPP.+Guarantee+that+container+indices+and+iterators+are+within+the+valid+range">CTR50-CPP. Guarantee that container indices and iterators are within the valid range</a>.</p>
+  <p>
+   The
+   <code>
+    std::string
+   </code>
+   index operators
+   <code>
+    const_reference operator[](size_type) const
+   </code>
+   and
+   <code>
+    reference operator[](size_type)
+   </code>
+   return the character stored at the specified position,
+   <code>
+    pos
+   </code>
+   . When
+   <code>
+    pos &gt;= size()
+   </code>
+   , a reference to an object of type
+   <code>
+    charT
+   </code>
+   with value
+   <code>
+    charT()
+   </code>
+   is returned. The index operators are unchecked (no exceptions are thrown for range errors), and attempting to modify the resulting out-of-range object results in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
+  <p>
+   Similarly, the
+   <code>
+    std::string::back()
+   </code>
+   and
+   <code>
+    std::string::front()
+   </code>
+   functions are unchecked as they are defined to call through to the appropriate
+   <code>
+    operator[]()
+   </code>
+   without throwing.
+  </p>
+  <p>
+   Do not pass an out-of-range value as an argument to
+   <code>
+    std::string::operator[]()
+   </code>
+   . Similarly, do not call
+   <code>
+    std::string::back()
+   </code>
+   or
+   <code>
+    std::string::front()
+   </code>
+   on an empty string. This rule is a specific instance of
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CTR50-CPP.+Guarantee+that+container+indices+and+iterators+are+within+the+valid+range">
+    CTR50-CPP. Guarantee that container indices and iterators are within the valid range
+   </a>
+   .
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, the value returned by the call to <code>get_index()</code> may be greater than the number of elements stored in the string, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
-  <sample language="cpp">#include &lt;string&gt;
- 
+  <p>
+   In this noncompliant code example, the value returned by the call to
+   <code>
+    get_index()
+   </code>
+   may be greater than the number of elements stored in the string, resulting in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;string&gt;
+ 
 extern std::size_t get_index();
- 
+ 
 void f() {
   std::string s("01234567");
   s[get_index()] = '1';
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (try/catch)">
-  <p>This compliant solution uses the <code>std::basic_string::at()</code> function, which behaves in a similar fashion to the index <code>operator[]</code> but throws a <code>std::out_of_range</code> exception if <code>pos &gt;= size().</code></p>
-  <sample language="cpp">#include &lt;stdexcept&gt;
+  <p>
+   This compliant solution uses the
+   <code>
+    std::basic_string::at()
+   </code>
+   function, which behaves in a similar fashion to the index
+   <code>
+    operator[]
+   </code>
+   but throws a
+   <code>
+    std::out_of_range
+   </code>
+   exception if
+   <code>
+    pos &gt;= size().
+   </code>
+  </p>
+  <sample language="cpp">
+   #include &lt;stdexcept&gt;
 #include &lt;string&gt;
 extern std::size_t get_index();
 
@@ -29,11 +125,22 @@ void f() {
   } catch (std::out_of_range &amp;) {
     // Handle error
   }
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (Range Check)">
-  <p>This compliant solution checks that the value returned by <code>get_index()</code> is within a valid range before calling <code>operator[]().</code></p>
-  <sample language="cpp">#include &lt;string&gt;
+  <p>
+   This compliant solution checks that the value returned by
+   <code>
+    get_index()
+   </code>
+   is within a valid range before calling
+   <code>
+    operator[]().
+   </code>
+  </p>
+  <sample language="cpp">
+   #include &lt;string&gt;
 
 extern std::size_t get_index();
 
@@ -45,21 +152,37 @@ void f() {
   } else {
     // Handle error
   }
-}</sample>
+}
+  </sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>This noncompliant code example attempts to replace the initial character in the string with a capitalized equivalent. However, if the given string is empty, the behavior is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined</a>.</p>
-  <sample language="cpp">#include &lt;string&gt;
+  <p>
+   This noncompliant code example attempts to replace the initial character in the string with a capitalized equivalent. However, if the given string is empty, the behavior is
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;string&gt;
 #include &lt;locale&gt;
 
 void capitalize(std::string &amp;s) {
   std::locale loc;
   s.front() = std::use_facet&lt;std::ctype&lt;char&gt;&gt;(loc).toupper(s.front());
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, the call to <code>std::string::front()</code> is made only if the string is not empty.</p>
-  <sample language="cpp">#include &lt;string&gt;
+  <p>
+   In this compliant solution, the call to
+   <code>
+    std::string::front()
+   </code>
+   is made only if the string is not empty.
+  </p>
+  <sample language="cpp">
+   #include &lt;string&gt;
 #include &lt;locale&gt;
 
 void capitalize(std::string &amp;s) {
@@ -69,10 +192,17 @@ void capitalize(std::string &amp;s) {
 
   std::locale loc;
   s.front() = std::use_facet&lt;std::ctype&lt;char&gt;&gt;(loc).toupper(s.front());
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Unchecked element access can lead to out-of-bound reads and writes and write-anywhere <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">exploits</a>. These exploits can, in turn, lead to the execution of arbitrary code with the permissions of the vulnerable process.</p>
+  <p>
+   Unchecked element access can lead to out-of-bound reads and writes and write-anywhere
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">
+    exploits
+   </a>
+   . These exploits can, in turn, lead to the execution of arbitrary code with the permissions of the vulnerable process.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -109,10 +239,14 @@ void capitalize(std::string &amp;s) {
       Medium
      </td>
      <td>
-      <strong>P6</strong>
+      <strong>
+       P6
+      </strong>
      </td>
      <td>
-      <strong>L2</strong>
+      <strong>
+       L2
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -145,7 +279,9 @@ void capitalize(std::string &amp;s) {
       20.10
      </td>
      <td>
-      <strong>assert_failure</strong>
+      <strong>
+       assert_failure
+      </strong>
      </td>
      <td>
      </td>
@@ -157,14 +293,24 @@ void capitalize(std::string &amp;s) {
       </a>
      </td>
      <td>
-      6.2p0
+      6.1p0
      </td>
      <td>
-      <strong>LANG.MEM.BO</strong>
-      <strong>LANG.MEM.BU</strong>
-      <strong>LANG.MEM.TBA</strong>
-      <strong>LANG.MEM.TO</strong>
-      <strong>LANG.MEM.TU</strong>
+      <strong>
+       LANG.MEM.BO
+      </strong>
+      <strong>
+       LANG.MEM.BU
+      </strong>
+      <strong>
+       LANG.MEM.TBA
+      </strong>
+      <strong>
+       LANG.MEM.TO
+      </strong>
+      <strong>
+       LANG.MEM.TU
+      </strong>
      </td>
      <td>
       Buffer overrun
@@ -184,7 +330,9 @@ void capitalize(std::string &amp;s) {
       2021.2
      </td>
      <td>
-      <strong>C++3162, C++3163, C++3164, C++3165</strong>
+      <strong>
+       C++3162, C++3163, C++3164, C++3165
+      </strong>
      </td>
      <td>
      </td>
@@ -199,7 +347,9 @@ void capitalize(std::string &amp;s) {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-STR53-a</strong>
+      <strong>
+       CERT_CPP-STR53-a
+      </strong>
      </td>
      <td>
       Guarantee that container indices are within the valid range
@@ -221,7 +371,7 @@ void capitalize(std::string &amp;s) {
      </td>
      <td>
       Checks for:
-      Array access out of boundsrray access out of bounds, array access with tainted indexrray access with tainted index, pointer dereference with tainted offsetointer dereference with tainted offset.
+      Array access out of bounds, array access with tainted index, pointer dereference with tainted offset.
       Rule partially covered.
      </td>
     </tr>
@@ -229,7 +379,17 @@ void capitalize(std::string &amp;s) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+STR39-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+STR39-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>
@@ -262,7 +422,9 @@ void capitalize(std::string &amp;s) {
      </td>
      <td>
       Subclause 21.4.5, "
-      <code>basic_string</code>
+      <code>
+       basic_string
+      </code>
       Element Access"
      </td>
     </tr>

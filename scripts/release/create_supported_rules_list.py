@@ -29,25 +29,26 @@ if len(sys.argv) > 2:
 is_csv = len(sys.argv) == 2 and sys.argv[1] == "--csv"
 
 repo_root = Path(__file__).parent.parent.parent
-rule_packages_file_path = repo_root.joinpath('rule_packages')
 
-rules_covered = {"AUTOSAR": {}, "CERT-C++": {}}
+rules_covered = {"AUTOSAR" : {}, "CERT-C++" : {}, "MISRA-C-2012" : {}, "CERT-C" : {}}
 
 # Iterate over rule packages
-for rule_package_file_name in os.listdir(rule_packages_file_path):
-    try:
-        rule_package_file = open(rule_packages_file_path.joinpath(rule_package_file_name), "r")
-    except PermissionError:
-        print("Error: No permission to read the rule package file located at '" + str(rule_package_file_name) + "'")
-        sys.exit(1)
-    else:
-        with rule_package_file:
-            package_definition = json.load(rule_package_file)
-            for standard_name, rules in package_definition.items():
-                for rule_id, rule_details in rules.items():
-                    # If we have at least one query specified
-                    if len(rule_details["queries"]) > 0:
-                        rules_covered[standard_name][rule_id] = get_query_short_names(rule_details)
+for language_name in ["cpp", "c"]:
+    rule_packages_file_path = repo_root.joinpath('rule_packages', language_name)
+    for rule_package_file_name in os.listdir(rule_packages_file_path):
+        try:
+            rule_package_file = open(rule_packages_file_path.joinpath(rule_package_file_name), "r")
+        except PermissionError:
+            print("Error: No permission to read the rule package file located at '" + str(rule_package_file_name) + "'")
+            sys.exit(1)
+        else:
+            with rule_package_file:
+                package_definition = json.load(rule_package_file)
+                for standard_name, rules in package_definition.items():
+                    for rule_id, rule_details in rules.items():
+                        # If we have at least one query specified
+                        if len(rule_details["queries"]) > 0:
+                            rules_covered[standard_name][rule_id] = get_query_short_names(rule_details)
 
 
 if is_csv:

@@ -16,7 +16,5 @@ import codingstandards.cpp.cert
 import codingstandards.cpp.rules.onedefinitionruleviolation.OneDefinitionRuleViolation
 
 class OneDefinitionRuleNotObeyedQuery extends OneDefinitionRuleViolationSharedQuery {
-  OneDefinitionRuleNotObeyedQuery() {
-    this = ScopePackage::oneDefinitionRuleNotObeyedQuery()
-  }
+  OneDefinitionRuleNotObeyedQuery() { this = ScopePackage::oneDefinitionRuleNotObeyedQuery() }
 }

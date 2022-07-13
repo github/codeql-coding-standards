@@ -1,1 +1,1 @@
-{ "provide": [ "codeql_modules/*/.codeqlmanifest.json", "cpp/.codeqlmanifest.json"] }
+{ "provide": [ "codeql_modules/*/.codeqlmanifest.json", "cpp/.codeqlmanifest.json", "c/.codeqlmanifest.json"] }

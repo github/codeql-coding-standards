@@ -1,0 +1,209 @@
+{
+  "AUTOSAR": {
+    "A0-4-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Range, domain or pole errors in math functions may return unexpected values, trigger floating-point exceptions or set unexpected error modes.",
+          "kind": "problem",
+          "name": "Range, domain and pole errors shall be checked when using math functions",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UncheckedRangeDomainPoleErrors",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Range, domain and pole errors shall be checked when using math functions."
+    },
+    "A18-0-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A string-to-number conversion may fail if the input string is not a number or is out of range, which may lead to inconsistent program behavior if not caught.",
+          "kind": "problem",
+          "name": "The error state of a conversion from string to a numeric value shall be checked",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "StringNumberConversionMissingErrorCheck",
+          "short_name": "StringNumberConversionMissingErrorCheck",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Some functions for string-to-number conversions in the C Standard library have undefined behavior when a string cannot be converted to a number.",
+          "kind": "problem",
+          "name": "Use of unsafe C string to number conversion routine",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UseOfUnsafeCStringToNumberConversion",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The error state of a conversion from string to a numeric value shall be checked."
+    },
+    "A21-8-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Passing values which are not unsigned chars to character-handling functions can result in undefined behavior.",
+          "kind": "problem",
+          "name": "Arguments to character-handling functions shall be representable as an unsigned char",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "SignedValPassedToChar",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Arguments to character-handling functions shall be representable as an unsigned char."
+    },
+    "A27-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Inputs from independent components is not validated.",
+          "kind": "problem",
+          "name": "Inputs from independent components shall be validated",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "InputsFromIndependentComponentsNotValidated",
+          "shared_implementation_short_name": "NonConstantFormat",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Inputs from independent components shall be validated."
+    },
+    "A7-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An expression with enum underlying type shall only have values corresponding to the enumerators of the enumeration.",
+          "kind": "problem",
+          "name": "An expression with enum underlying type shall only have values corresponding to the enumerators of the enumeration",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "NonEnumeratorEnumValue",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An expression with enum underlying type shall only have values corresponding to the enumerators of the enumeration."
+    },
+    "A7-2-5": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "An enumeration should only be used to represent a set of related, named constants.",
+          "kind": "problem",
+          "name": "(Audit) Enumerations should be used to represent sets of related named constants",
+          "precision": "low",
+          "severity": "recommendation",
+          "short_name": "UseOfEnumForRelatedConstants",
+          "tags": [
+            "external/autosar/audit"
+          ]
+        },
+        {
+          "description": "Enumeration types should be used instead of integer types (and constants) to select from a limited series of choices.",
+          "kind": "problem",
+          "name": "Enumerations should be used to represent sets of related named constants",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "IntegerUsedForEnum",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Enumerations should be used to represent sets of related named constants."
+    }
+  },
+  "CERT-C++": {
+    "ERR62-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A string-to-number conversion may fail if the input string is not a number or is out of range, which may lead to inconsistent program behavior if not caught.",
+          "kind": "problem",
+          "name": "Detect errors when converting a string to a number",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DetectErrorsWhenConvertingAStringToANumber",
+          "shared_implementation_short_name": "StringNumberConversionMissingErrorCheck",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Detect errors when converting a string to a number"
+    },
+    "INT50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Casting to an out-of-range enumeration value leads to unspecified or undefined behavior.",
+          "kind": "problem",
+          "name": "Do not cast to an out-of-range enumeration value",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotCastToAnOutOfRangeEnumerationValue",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not cast to an out-of-range enumeration value"
+    }
+  }
+}

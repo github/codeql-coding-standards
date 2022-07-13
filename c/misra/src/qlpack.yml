@@ -1,0 +1,4 @@
+name: misra-c-coding-standards
+version: 2.0.0
+suites: codeql-suites
+libraryPathDependencies: common-c-coding-standards

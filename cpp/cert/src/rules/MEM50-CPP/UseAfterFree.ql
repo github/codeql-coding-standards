@@ -16,7 +16,5 @@ import codingstandards.cpp.cert
 import codingstandards.cpp.rules.objectaccessedafterlifetime.ObjectAccessedAfterLifetime
 
 class ObjectAccessedAfterLifetimeCertQuery extends ObjectAccessedAfterLifetimeSharedQuery {
-  ObjectAccessedAfterLifetimeCertQuery() {
-    this = FreedPackage::useAfterFreeQuery()
-  }
+  ObjectAccessedAfterLifetimeCertQuery() { this = FreedPackage::useAfterFreeQuery() }
 }

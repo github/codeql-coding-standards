@@ -1,0 +1,8 @@
+| test.c:7:13:7:17 | call to fopen | The file opened here may not be closed at $@. | test.c:6:31:13:1 | { ... } | this location |
+| test.c:16:13:16:19 | call to freopen | The file opened here may not be closed at $@. | test.c:15:31:22:1 | { ... } | this location |
+| test.c:25:13:25:19 | call to freopen | The file opened here may not be closed at $@. | test.c:24:32:31:1 | { ... } | this location |
+| test.c:46:13:46:17 | call to fopen | The file opened here may not be closed at $@. | test.c:56:3:56:11 | return ... | this location |
+| test.c:85:13:85:17 | call to fopen | The file opened here may not be closed at $@. | test.c:89:3:89:27 | return ... | this location |
+| test.c:93:13:93:19 | call to freopen | The file opened here may not be closed at $@. | test.c:92:33:104:1 | { ... } | this location |
+| test.c:107:13:107:17 | call to fopen | The file opened here may not be closed at $@. | test.c:106:30:113:1 | { ... } | this location |
+| test.c:128:12:128:15 | call to open | The file opened here may not be closed at $@. | test.c:127:30:134:1 | { ... } | this location |

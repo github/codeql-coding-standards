@@ -1,0 +1,9 @@
+| test.c:27:9:27:15 | call to getchar | The file read is not checked for errors and end of file. |
+| test.c:35:9:35:15 | call to getchar | The file read is not checked for errors and end of file. |
+| test.c:43:9:43:15 | call to getchar | The file read is not checked for errors and end of file. |
+| test.c:63:16:63:20 | call to getwc | The file read is not checked for errors and end of file. |
+| test.c:107:15:107:21 | call to getchar | The file read is not checked for errors and end of file. |
+| test.c:114:9:114:15 | call to getchar | The file read is not checked for errors and end of file. |
+| test.c:130:9:130:15 | call to getchar | The file read is not checked for errors and end of file. |
+| test.c:146:7:146:10 | call to getc | The file read is not checked for errors and end of file. |
+| test.c:148:8:148:11 | call to getc | The file read is not checked for errors and end of file. |

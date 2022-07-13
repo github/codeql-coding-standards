@@ -18,7 +18,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.validcontainerelementaccess.ValidContainerElementAccess
 
 class ValidContainerElementAccessQuery extends ValidContainerElementAccessSharedQuery {
-  ValidContainerElementAccessQuery() {
-    this = IteratorsPackage::validContainerElementAccessQuery()
-  }
+  ValidContainerElementAccessQuery() { this = IteratorsPackage::validContainerElementAccessQuery() }
 }

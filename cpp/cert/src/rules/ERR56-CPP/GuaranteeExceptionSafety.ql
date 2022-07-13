@@ -15,7 +15,5 @@ import codingstandards.cpp.cert
 import codingstandards.cpp.rules.exceptionsafetyguarantees.ExceptionSafetyGuarantees
 
 class GuaranteeExceptionSafetyQuery extends ExceptionSafetyGuaranteesSharedQuery {
-  GuaranteeExceptionSafetyQuery() {
-    this = ExceptionSafetyPackage::guaranteeExceptionSafetyQuery()
-  }
+  GuaranteeExceptionSafetyQuery() { this = ExceptionSafetyPackage::guaranteeExceptionSafetyQuery() }
 }

@@ -1,0 +1,85 @@
+{
+  "MISRA-C-2012": {
+    "RULE-20-1": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using anything other than other pre-processor directives or comments before an '#include' directive makes the code more difficult to read.",
+          "kind": "problem",
+          "name": "#include directives should only be preceded by preprocessor directives or comments",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IncludeDirectivesPrecededByDirectivesOrComments",
+          "shared_implementation_short_name": "PreprocessorIncludesPreceded",
+          "tags": [
+              "readability"
+          ]
+        }
+      ],
+      "title": "#include directives should only be preceded by preprocessor directives or comments"
+    },
+    "RULE-20-10": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The order of evaluation for the '#' and '##' operators may differ between compilers, which can cause unexpected behaviour.",
+          "kind": "problem",
+          "name": "The # and ## preprocessor operators should not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "PreprocessorHashOperatorsShouldNotBeUsed",
+          "shared_implementation_short_name": "HashOperatorsUsed",
+          "tags": [
+              "correctness"
+          ]
+        }
+      ],
+      "title": "The # and ## preprocessor operators should not be used"
+    },
+    "RULE-20-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using any of the following characters in an '#include' directive as a part of the header file name is undefined behaviour: ', \", /*, //, \\.",
+          "kind": "problem",
+          "name": "The ', \" or \\ characters and the /* or // character sequences shall not occur in a header file name",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ForbiddenCharactersInHeaderFileName",
+          "shared_implementation_short_name": "PreprocessorIncludesForbiddenHeaderNames",
+          "tags": [
+              "correctness"
+          ]
+        }
+      ],
+      "title": "The ', \" or \\ characters and the /* or // character sequences shall not occur in a header file name"
+    },
+    "RULE-20-9": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using undefined macro identifiers in #if or #elif pre-processor directives, except as operands to the defined operator, can cause the code to be hard to understand because the preprocessor will just treat the value as 0 and no warning is given.",
+          "kind": "problem",
+          "name": "All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "IdentifiersUsedInPreprocessorExpression",
+          "shared_implementation_short_name": "UndefinedMacroIdentifiers",
+          "tags": [
+              "correctness",
+              "readability"
+          ]
+        }
+      ],
+      "title": "All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be #define\ufffdd before evaluation"
+    }
+  }
+}

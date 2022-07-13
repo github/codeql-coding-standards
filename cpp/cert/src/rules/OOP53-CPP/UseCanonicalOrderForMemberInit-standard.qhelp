@@ -1,47 +1,134 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>The member initializer list for a class constructor allows members to be initialized to specified values and for base class constructors to be called with specific arguments. However, the order in which initialization occurs is fixed and does not depend on the order written in the member initializer list. The C++ Standard, [class.base.init], paragraph 11 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <p>
+   The member initializer list for a class constructor allows members to be initialized to specified values and for base class constructors to be called with specific arguments. However, the order in which initialization occurs is fixed and does not depend on the order written in the member initializer list. The C++ Standard, [class.base.init], paragraph 11 [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ], states the following:
+  </p>
   <blockquote>
-   <p>In a non-delegating constructor, initialization proceeds in the following order:— First, and only for the constructor of the most derived class, virtual base classes are initialized in the order they appear on a depth-first left-to-right traversal of the directed acyclic graph of base classes, where “left-to-right” is the order of appearance of the base classes in the derived class base-specifier-list.— Then, direct base classes are initialized in declaration order as they appear in the base-specifier-list (regardless of the order of the mem-initializers).— Then, non-static data members are initialized in the order they were declared in the class definition (again regardless of the order of the mem-initializers).— Finally, the compound-statement of the constructor body is executed.[Note: The declaration order is mandated to ensure that base and member subobjects are destroyed in the reverse order of initialization. —end note]</p>
+   <p>
+    In a non-delegating constructor, initialization proceeds in the following order:
+    — First, and only for the constructor of the most derived class, virtual base classes are initialized in the order they appear on a depth-first left-to-right traversal of the directed acyclic graph of base classes, where “left-to-right” is the order of appearance of the base classes in the derived class base-specifier-list.
+    — Then, direct base classes are initialized in declaration order as they appear in the base-specifier-list (regardless of the order of the mem-initializers).
+    — Then, non-static data members are initialized in the order they were declared in the class definition (again regardless of the order of the mem-initializers).
+    — Finally, the compound-statement of the constructor body is executed.
+    [Note: The declaration order is mandated to ensure that base and member subobjects are destroyed in the reverse order of initialization. —end note]
+   </p>
   </blockquote>
-  <p>Consequently, the order in which member initializers appear in the member initializer list is irrelevant. The order in which members are initialized, including base class initialization, is determined by the declaration order of the class member variables or the base class specifier list. Writing member initializers other than in canonical order can result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, such as reading uninitialized memory.</p>
-  <p>Always write member initializers in a constructor in the canonical order: first, direct base classes in the order in which they appear in the <em>base-specifier-list</em> for the class, then nonstatic data members in the order in which they are declared in the class definition.</p>
+  <p>
+   Consequently, the order in which member initializers appear in the member initializer list is irrelevant. The order in which members are initialized, including base class initialization, is determined by the declaration order of the class member variables or the base class specifier list. Writing member initializers other than in canonical order can result in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   , such as reading uninitialized memory.
+  </p>
+  <p>
+   Always write member initializers in a constructor in the canonical order: first, direct base classes in the order in which they appear in the
+   <em>
+    base-specifier-list
+   </em>
+   for the class, then nonstatic data members in the order in which they are declared in the class definition.
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, the member initializer list for <code>C::C()</code> attempts to initialize <code>someVal</code> first and then to initialize <code>dependsOnSomeVal</code> to a value dependent on <code>someVal</code>. Because the declaration order of the member variables does not match the member initializer order, attempting to read the value of <code>someVal</code> results in an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedvalue">unspecified value</a> being stored into dependsOnSomeVal.</p>
-  <sample language="cpp">class C {
+  <p>
+   In this noncompliant code example, the member initializer list for
+   <code>
+    C::C()
+   </code>
+   attempts to initialize
+   <code>
+    someVal
+   </code>
+   first and then to initialize
+   <code>
+    dependsOnSomeVal
+   </code>
+   to a value dependent on
+   <code>
+    someVal
+   </code>
+   . Because the declaration order of the member variables does not match the member initializer order, attempting to read the value of
+   <code>
+    someVal
+   </code>
+   results in an
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedvalue">
+    unspecified value
+   </a>
+   being stored into
+   dependsOnSomeVal
+   .
+  </p>
+  <sample language="cpp">
+   class C {
   int dependsOnSomeVal;
   int someVal;
- 
-public:
-  C(int val) : someVal(val), dependsOnSomeVal(someVal + 1) {}
-};</sample>
- </section>
- <section title="Compliant Solution">
-  <p>This compliant solution changes the declaration order of the class member variables so that the dependency can be ordered properly in the constructor's member initializer list.</p>
-  <sample language="cpp">class C {
-  int someVal;
-  int dependsOnSomeVal;
- 
+ 
 public:
   C(int val) : someVal(val), dependsOnSomeVal(someVal + 1) {}
 };
-</sample>
-  <p>It is reasonable for initializers to depend on previously initialized values.</p>
+  </sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>
+   This compliant solution changes the declaration order of the class member variables so that the dependency can be ordered properly in the constructor's member initializer list.
+  </p>
+  <sample language="cpp">
+   class C {
+  int someVal;
+  int dependsOnSomeVal;
+ 
+public:
+  C(int val) : someVal(val), dependsOnSomeVal(someVal + 1) {}
+};
+  </sample>
+  <p>
+   It is reasonable for initializers to depend on previously initialized values.
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, the derived class, <code>D</code>, attempts to initialize the base class, <code>B1</code>, with a value obtained from the base class, <code>B2</code>. However, because <code>B1</code> is initialized before <code>B2</code> due to the declaration order in the base class specifier list, the resulting behavior is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined</a>.</p>
-  <sample language="cpp">class B1 {
+  <p>
+   In this noncompliant code example, the derived class,
+   <code>
+    D
+   </code>
+   , attempts to initialize the base class,
+   <code>
+    B1
+   </code>
+   , with a value obtained from the base class,
+   <code>
+    B2
+   </code>
+   . However, because
+   <code>
+    B1
+   </code>
+   is initialized before
+   <code>
+    B2
+   </code>
+   due to the declaration order in the base class specifier list, the resulting behavior is
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   class B1 {
   int val;
- 
+ 
 public:
   B1(int val) : val(val) {}
 };
 
 class B2 {
   int otherVal;
- 
+ 
 public:
   B2(int otherVal) : otherVal(otherVal) {}
   int get_other_val() const { return otherVal; }
@@ -50,11 +137,15 @@ public:
 class D : B1, B2 {
 public:
   D(int a) : B2(a), B1(get_other_val()) {}
-};</sample>
+};
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>This compliant solution initializes both base classes using the same value from the constructor's parameter list instead of relying on the initialization order of the base classes.</p>
-  <sample language="cpp">class B1 {
+  <p>
+   This compliant solution initializes both base classes using the same value from the constructor's parameter list instead of relying on the initialization order of the base classes.
+  </p>
+  <sample language="cpp">
+   class B1 {
   int val;
  
 public:
@@ -71,10 +162,16 @@ public:
 class D : B1, B2 {
 public:
   D(int a) : B1(a), B2(a) {}
-};</sample>
+};
+  </sample>
  </section>
  <section title="Exceptions">
-  <p><strong>OOP53-CPP-EX0:</strong> Constructors that do not use member initializers do not violate this rule.</p>
+  <p>
+   <strong>
+    OOP53-CPP-EX0:
+   </strong>
+   Constructors that do not use member initializers do not violate this rule.
+  </p>
  </section>
  <section title="Risk Assessment">
   <table>
@@ -113,10 +210,14 @@ public:
       Medium
      </td>
      <td>
-      <strong>P4</strong>
+      <strong>
+       P4
+      </strong>
      </td>
      <td>
-      <strong>L3</strong>
+      <strong>
+       L3
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -149,7 +250,9 @@ public:
       20.10
      </td>
      <td>
-      <strong>initializer-list-order</strong>
+      <strong>
+       initializer-list-order
+      </strong>
      </td>
      <td>
       Fully checked
@@ -165,7 +268,9 @@ public:
       7.2.0
      </td>
      <td>
-      <strong>CertC++-OOP53</strong>
+      <strong>
+       CertC++-OOP53
+      </strong>
      </td>
      <td>
      </td>
@@ -180,25 +285,11 @@ public:
       3.9
      </td>
      <td>
-      <code>-Wreorder</code>
+      <code>
+       -Wreorder
+      </code>
      </td>
      <td>
-     </td>
-    </tr>
-    <tr>
-     <td>
-      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
-       CodeSonar
-      </a>
-     </td>
-     <td>
-      6.2p0
-     </td>
-     <td>
-      <strong>LANG.STRUCT.INIT.OOMI</strong>
-     </td>
-     <td>
-      Out of Order Member Initializers
      </td>
     </tr>
     <tr>
@@ -211,7 +302,9 @@ public:
       2021.2
      </td>
      <td>
-      <strong>C++4053</strong>
+      <strong>
+       C++4053
+      </strong>
      </td>
      <td>
      </td>
@@ -226,7 +319,11 @@ public:
       2021.4
      </td>
      <td>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.OOP.CTOR.INIT_ORDER</a></strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        CERT.OOP.CTOR.INIT_ORDER
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -240,7 +337,9 @@ public:
      <td>
      </td>
      <td>
-      <strong>206 S</strong>
+      <strong>
+       206 S
+      </strong>
      </td>
      <td>
       Fully implemented
@@ -256,7 +355,9 @@ public:
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-OOP53-a</strong>
+      <strong>
+       CERT_CPP-OOP53-a
+      </strong>
      </td>
      <td>
       List members in an initialization list in the order in which they are declared
@@ -290,7 +391,9 @@ public:
       4.4
      </td>
      <td>
-      <strong>4053</strong>
+      <strong>
+       4053
+      </strong>
      </td>
      <td>
      </td>
@@ -305,7 +408,9 @@ public:
       20.10
      </td>
      <td>
-      <strong>initializer-list-order</strong>
+      <strong>
+       initializer-list-order
+      </strong>
      </td>
      <td>
       Fully checked
@@ -321,7 +426,11 @@ public:
       4.10
      </td>
      <td>
-      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-3229">S3229</a></strong>
+      <strong>
+       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-3229">
+        S3229
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -330,7 +439,17 @@ public:
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP37-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP37-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Bibliography">
   <table>

@@ -8,6 +8,7 @@
  * @tags external/autosar/id/a3-8-1
  *       correctness
  *       security
+ *       external/autosar/default-disabled
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/non-automated
  *       external/autosar/obligation/required

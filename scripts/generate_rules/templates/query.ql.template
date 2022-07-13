@@ -2,9 +2,9 @@
 
 
 import cpp
-import codingstandards.cpp.{{ standard_short_name }}
+import codingstandards.{{ language_name }}.{{ standard_short_name }}
 {% if shared_implementation_short_name is defined %}
-import codingstandards.cpp.rules.{{ shared_implementation_short_name.lower() }}.{{ shared_implementation_short_name }}
+import codingstandards.{{ ql_language_name }}.rules.{{ shared_implementation_short_name.lower() }}.{{ shared_implementation_short_name }}
 
 class {{short_name}}Query extends {{shared_implementation_short_name}}SharedQuery {
   {{short_name}}Query() {

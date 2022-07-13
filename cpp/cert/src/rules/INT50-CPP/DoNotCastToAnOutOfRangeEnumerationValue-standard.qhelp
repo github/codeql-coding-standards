@@ -1,19 +1,78 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>Enumerations in C++ come in two forms: <em>scoped</em> enumerations in which the underlying type is fixed and <em>unscoped</em> enumerations in which the underlying type may or may not be fixed. The range of values that can be represented by either form of enumeration may include enumerator values not specified by the enumeration itself. The range of valid enumeration values for an enumeration type is defined by the C++ Standard, [dcl.enum], in paragraph 8 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2020">ISO/IEC 14882-2020</a>]:</p>
+  <p>
+   Enumerations in C++ come in two forms:
+   <em>
+    scoped
+   </em>
+   enumerations in which the underlying type is fixed and
+   <em>
+    unscoped
+   </em>
+   enumerations in which the underlying type may or may not be fixed. The range of values that can be represented by either form of enumeration may include enumerator values not specified by the enumeration itself. The range of valid enumeration values for an enumeration type is defined by the C++ Standard, [dcl.enum], in paragraph 8 [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2020">
+    ISO/IEC 14882-2020
+   </a>
+   ]:
+  </p>
   <blockquote>
-   <p>  For an enumeration whose underlying type is fixed, the values of the enumeration are the values of the underlying type. Otherwise, the values of the enumeration are the values representable by a hypothetical integer type with minimal width M such that all enumerators can be represented. The width of the smallest bit-field large enough to hold all the values of the enumeration type is M. It is possible to define an enumeration that has values not defined by any of its enumerators. If the enumerator-list is empty, the values of the enumeration are as if the enumeration had a single enumerator with value 0.</p>
+   <p>
+    For an enumeration whose underlying type is fixed, the values of the enumeration are the values of the underlying type. Otherwise, the values of the enumeration are the values representable by a hypothetical integer type with minimal width
+    M
+    such that all enumerators can be represented. The width of the smallest bit-field large enough to hold all the values of the enumeration type is
+    M
+    . It is possible to define an enumeration that has values not defined by any of its enumerators. If the
+    enumerator-list
+    is empty, the values of the enumeration are as if the enumeration had a single enumerator with value 0.
+   </p>
   </blockquote>
-  <p>The C++ Standard, [expr.static.cast], paragraph 10, states the following:</p>
+  <p>
+   The C++ Standard, [expr.static.cast], paragraph 10, states the following:
+  </p>
   <blockquote>
-   <p>A value of integral or enumeration type can be explicitly converted to a complete enumeration type. If the enumeration type has a fixed underlying type, the value is first converted to that type by integral conversion, if necessary, and then to the enumeration type. If the enumeration type does not have a fixed underlying type, the value is unchanged if the original value is within the range of the enumeration values (9.7.1), and otherwise, the behavior is undefined. A value of floating-point type can also be explicitly converted to an enumeration type. The resulting value is the same as converting the original value to the underlying type of the enumeration (7.3.10), and subsequently to the enumeration type. </p>
+   <p>
+    A value of integral or enumeration type can be explicitly converted to a complete enumeration type. If the enumeration type has a fixed underlying type, the value is first converted to that type by integral conversion, if necessary, and then to the enumeration type. If the enumeration type does not have a fixed underlying type, the value is unchanged if the original value is within the range of the enumeration values (
+    9.7.1
+    ), and otherwise, the behavior is undefined. A value of floating-point type can also be explicitly converted to an enumeration type. The resulting value is the same as converting the original value to the underlying type of the enumeration (
+    7.3.10
+    ), and subsequently to the enumeration type.
+   </p>
   </blockquote>
-  <p>To avoid operating on <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedvalue">unspecified values</a>, the arithmetic value being cast must be within the range of values the enumeration can represent. When dynamically checking for out-of-range values, checking must be performed before the cast expression.</p>
+  <p>
+   To avoid operating on
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedvalue">
+    unspecified values
+   </a>
+   , the arithmetic value being cast must be within the range of values the enumeration can represent. When dynamically checking for out-of-range values, checking must be performed before the cast expression.
+  </p>
  </section>
  <section title="Noncompliant Code Example (Bounds Checking)">
-  <p>This noncompliant code example attempts to check whether a given value is within the range of acceptable enumeration values. However, it is doing so after casting to the enumeration type, which may not be able to represent the given integer value. On a two's complement system, the valid range of values that can be represented by <code>EnumType</code> are [0..3], so if a value outside of that range were passed to <code>f()</code>, the cast to <code>EnumType</code> would result in an unspecified value, and using that value within the <code>if</code> statement results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedbehavior">unspecified behavior</a>.</p>
-  <sample language="cpp">enum EnumType {
+  <p>
+   This noncompliant code example attempts to check whether a given value is within the range of acceptable enumeration values. However, it is doing so after casting to the enumeration type, which may not be able to represent the given integer value. On a two's complement system, the valid range of values that can be represented by
+   <code>
+    EnumType
+   </code>
+   are [0..3], so if a value outside of that range were passed to
+   <code>
+    f()
+   </code>
+   , the cast to
+   <code>
+    EnumType
+   </code>
+   would result in an unspecified value, and using that value within the
+   <code>
+    if
+   </code>
+   statement results in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedbehavior">
+    unspecified behavior
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   enum EnumType {
   First,
   Second,
   Third
@@ -25,11 +84,15 @@ void f(int intVar) {
   if (enumVar &lt; First || enumVar &gt; Third) {
     // Handle error
   }
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (Bounds Checking)">
-  <p>This compliant solution checks that the value can be represented by the enumeration type before performing the conversion to guarantee the conversion does not result in an unspecified value. It does this by restricting the converted value to one for which there is a specific enumerator value.</p>
-  <sample language="cpp">enum EnumType {
+  <p>
+   This compliant solution checks that the value can be represented by the enumeration type before performing the conversion to guarantee the conversion does not result in an unspecified value. It does this by restricting the converted value to one for which there is a specific enumerator value.
+  </p>
+  <sample language="cpp">
+   enum EnumType {
   First,
   Second,
   Third
@@ -41,11 +104,18 @@ void f(int intVar) {
   }
   EnumType enumVar = static_cast&lt;EnumType&gt;(intVar);
 }
-</sample>
+  </sample>
  </section>
  <section title="Compliant Solution (Scoped Enumeration)">
-  <p>This compliant solution uses a scoped enumeration, which has a fixed underlying <code>int</code> type by default, allowing any value from the parameter to be converted into a valid enumeration value. It does not restrict the converted value to one for which there is a specific enumerator value, but it could do so as shown in the previous compliant solution.</p>
-  <sample language="cpp">enum class EnumType {
+  <p>
+   This compliant solution uses a scoped enumeration, which has a fixed underlying
+   <code>
+    int
+   </code>
+   type by default, allowing any value from the parameter to be converted into a valid enumeration value. It does not restrict the converted value to one for which there is a specific enumerator value, but it could do so as shown in the previous compliant solution.
+  </p>
+  <sample language="cpp">
+   enum class EnumType {
   First,
   Second,
   Third
@@ -53,11 +123,19 @@ void f(int intVar) {
 
 void f(int intVar) {
   EnumType enumVar = static_cast&lt;EnumType&gt;(intVar);
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (Fixed Unscoped Enumeration)">
-  <p>Similar to the previous compliant solution, this compliant solution uses an unscoped enumeration but provides a fixed underlying <code>int</code> type allowing any value from the parameter to be converted to a valid enumeration value.</p>
-  <sample language="cpp">enum EnumType : int {
+  <p>
+   Similar to the previous compliant solution, this compliant solution uses an unscoped enumeration but provides a fixed underlying
+   <code>
+    int
+   </code>
+   type allowing any value from the parameter to be converted to a valid enumeration value.
+  </p>
+  <sample language="cpp">
+   enum EnumType : int {
   First,
   Second,
   Third
@@ -65,11 +143,28 @@ void f(int intVar) {
 
 void f(int intVar) {
   EnumType enumVar = static_cast&lt;EnumType&gt;(intVar);
-}</sample>
-  <p>Although similar to the previous compliant solution, this compliant solution differs from the noncompliant code example in the way the enumerator values are expressed in code and which implicit conversions are allowed. The previous compliant solution requires a nested name specifier to identify the enumerator (for example, <code>EnumType::First</code>) and will not implicitly convert the enumerator value to <code>int</code>. As with the noncompliant code example, this compliant solution does not allow a nested name specifier and will implicitly convert the enumerator value to <code>int</code>.</p>
+}
+  </sample>
+  <p>
+   Although similar to the previous compliant solution, this compliant solution differs from the noncompliant code example in the way the enumerator values are expressed in code and which implicit conversions are allowed. The previous compliant solution requires a nested name specifier to identify the enumerator (for example,
+   <code>
+    EnumType::First
+   </code>
+   ) and will not implicitly convert the enumerator value to
+   <code>
+    int
+   </code>
+   . As with the noncompliant code example, this compliant solution does not allow a nested name specifier and will implicitly convert the enumerator value to
+   <code>
+    int
+   </code>
+   .
+  </p>
  </section>
  <section title="Risk Assessment">
-  <p>It is possible for unspecified values to result in a buffer overflow, leading to the execution of arbitrary code by an attacker. However, because enumerators are rarely used for indexing into arrays or other forms of pointer arithmetic, it is more likely that this scenario will result in data integrity violations rather than arbitrary code execution.</p>
+  <p>
+   It is possible for unspecified values to result in a buffer overflow, leading to the execution of arbitrary code by an attacker. However, because enumerators are rarely used for indexing into arrays or other forms of pointer arithmetic, it is more likely that this scenario will result in data integrity violations rather than arbitrary code execution.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -106,10 +201,14 @@ void f(int intVar) {
       Medium
      </td>
      <td>
-      <strong>P4</strong>
+      <strong>
+       P4
+      </strong>
      </td>
      <td>
-      <strong>L3</strong>
+      <strong>
+       L3
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -142,27 +241,11 @@ void f(int intVar) {
       7.2.0
      </td>
      <td>
-      <strong>CertC++-INT50</strong>
+      <strong>
+       CertC++-INT50
+      </strong>
      </td>
      <td>
-     </td>
-    </tr>
-    <tr>
-     <td>
-      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
-       CodeSonar
-      </a>
-     </td>
-     <td>
-      6.2p0
-     </td>
-     <td>
-      <strong>LANG.CAST.COERCE</strong>
-      <strong>LANG.CAST.VALUE</strong>
-     </td>
-     <td>
-      Coercion Alters Value
-      Cast Alters Value
      </td>
     </tr>
     <tr>
@@ -175,7 +258,10 @@ void f(int intVar) {
       2021.2
      </td>
      <td>
-      <strong>C++3013</strong>
+      <strong>
+       C++
+       3013
+      </strong>
      </td>
      <td>
      </td>
@@ -190,7 +276,9 @@ void f(int intVar) {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-INT50-a</strong>
+      <strong>
+       CERT_CPP-INT50-a
+      </strong>
      </td>
      <td>
       An expression with enum underlying type shall only have values corresponding to the enumerators of the enumeration
@@ -206,7 +294,9 @@ void f(int intVar) {
       4.4
      </td>
      <td>
-      <strong>3013</strong>
+      <strong>
+       3013
+      </strong>
      </td>
      <td>
      </td>
@@ -218,10 +308,14 @@ void f(int intVar) {
       </a>
      </td>
      <td>
-      7.17
+      7.16
      </td>
      <td>
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1016/">V1016</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v1016/">
+        V1016
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -230,7 +324,17 @@ void f(int intVar) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabilty">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+INT50-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabilty">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+INT50-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Bibliography">
   <table>

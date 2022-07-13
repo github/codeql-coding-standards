@@ -114,6 +114,11 @@ param(
     [switch]
     $AllRules,
 
+    [Parameter(Mandatory)] 
+    [ValidateSet('c', 'cpp')]
+    [string]
+    $Language,
+
     [Parameter(Mandatory = $false)] 
     [string]
     $ReportDir = (Get-Location),
@@ -136,9 +141,9 @@ param(
     $Configuration,
 
     # For a suite, the suites we support. Valid values are 'CERT-C++' and
-    # 'AUTOSAR'. 
+    # 'AUTOSAR' and MISRA-C-2012 and CERT-C
     [Parameter(Mandatory, ParameterSetName = 'Suite')] 
-    [ValidateSet("CERT-C++", "AUTOSAR")]
+    [ValidateSet("CERT-C++", "AUTOSAR", "MISRA-C-2012", "CERT-C")]
     [string]
     $SuiteName,
 
@@ -197,10 +202,10 @@ param(
     $PackageName
 )
 
-. "$PSScriptRoot\TestProgramInstalled.ps1"
-. "$PSScriptRoot\GetRulesInSuite.ps1"
-. "$PSScriptRoot\GetCompilerExecutable.ps1"
+Import-Module -Name "$PSScriptRoot\..\PSCodingStandards\CodingStandards"
+
 . "$PSScriptRoot\CreateSummaryReport.ps1"
+. "$PSScriptRoot\Get-CompilerExecutable.ps1"
 . "$PSScriptRoot\Config.ps1"
 
 $REPORT = @() 
@@ -215,7 +220,7 @@ $queriesToCheck = @()
 
 # load all the queries 
 foreach ($s in $AVAILABLE_SUITES) {
-    $allQueries += Get-Rules-In-Suite -Suite $s
+    $allQueries += Get-RulesInSuite -Suite $s -Language $Language
 }
 
 # filter the set down based on the selections 
@@ -244,7 +249,7 @@ else {
 # Step 2: Verify All the Required CLI Tools are Installed
 #
 Write-Host "Checking 'codeql' program...." -NoNewline
-Test-Program-Installed -Program "codeql" 
+Test-ProgramInstalled -Program "codeql" 
 Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
 
 $CODEQL_VERSION = (codeql version --format json | ConvertFrom-Json).version 
@@ -253,10 +258,10 @@ Write-Host "Checking 'codeql' version = $REQUIRED_CODEQL_VERSION...." -NoNewline
 if (-Not $CODEQL_VERSION -eq $REQUIRED_CODEQL_VERSION) {
     throw "Invalid CodeQL version $CODEQL_VERSION. Please install $REQUIRED_CODEQL_VERSION."
 }
-Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
+Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
 
-Write-Host "Checking '$(Get-CompilerExecutable -Configuration $Configuration)' program...." -NoNewline
-Test-Program-Installed -Program (Get-CompilerExecutable -Configuration $Configuration)
+Write-Host "Checking '$(Get-CompilerExecutable -Configuration $Configuration -Language $Language)' program...." -NoNewline
+Test-ProgramInstalled -Program (Get-CompilerExecutable -Configuration $Configuration -Language $Language)
 Write-Host -ForegroundColor ([ConsoleColor]2) "OK"     
 
 #
@@ -266,9 +271,11 @@ Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
 #
 $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel {
 
-    . "$using:PSScriptRoot\GetTestDirectory.ps1"
+    Import-Module -Name "$using:PSScriptRoot\..\PSCodingStandards\CodingStandards"
+
+    #. "$using:PSScriptRoot\GetTestDirectory.ps1"
     . "$using:PSScriptRoot\NewDatabaseForRule.ps1"
-    . "$using:PSScriptRoot\ExecuteQueryAndDecodeAsJson.ps1"
+    
 
     $q = $_ 
 
@@ -278,33 +285,23 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     $CurrentPackageName = $q.__memberof_package
     # for the report 
     $row = @{
-        "SUITE"             = $CurrentSuiteName;
-        "PACKAGE"           = $CurrentPackageName;
-        "RULE"              = $CurrentRuleName;
-        "QUERY"             = $CurrentQueryName;
-        "COMPILE_PASS"      = $false;
-        "EXTRACTOR_PASS"    = $false;
-        "EXTRACTOR_ERRORS"  = "";
-        "TEST_PASS"         = $false ;
-        "TEST_DIFFERENCE"   = "";
+        "SUITE"           = $CurrentSuiteName;
+        "PACKAGE"         = $CurrentPackageName;
+        "RULE"            = $CurrentRuleName;
+        "QUERY"           = $CurrentQueryName;
+        "COMPILE_PASS"    = $false;
+        "TEST_PASS"       = $false 
+        "TEST_DIFFERENCE" = ""
     }
-
-    Write-Host "Resolving pack 'codeql/cpp-queries'...." -NoNewline
-    $CODEQL_CPP_QUERIES_PATH = (codeql resolve qlpacks --format json | ConvertFrom-Json)."codeql/cpp-queries"
-    if ( -Not (Test-Path -Path $CODEQL_CPP_QUERIES_PATH -PathType Container) ) {
-        Write-Host "Could not resolve pack 'codeql/cpp-queries'. Please install the pack 'codeql/cpp-queries'."
-        return $row
-    }
-    Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
 
     Write-Host "====================[Rule=$CurrentRuleName,Suite=$CurrentSuiteName/Query=$CurrentQueryName]====================" 
 
-    $testDirectory = (Get-Test-Directory -RuleObject $q)
+    $testDirectory = (Get-TestDirectory -RuleObject $q -Language $using:Language)
 
     Write-Host "Compiling database in $testDirectory..." -NoNewline
 
     try {
-        $db = New-Database-For-Rule -RuleName $CurrentRuleName -RuleTestDir $testDirectory -Configuration $using:Configuration
+        $db = New-Database-For-Rule -RuleName $CurrentRuleName -RuleTestDir $testDirectory -Configuration $using:Configuration -Language $using:Language
         Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
     }
     catch {
@@ -315,24 +312,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
                     # output. 
     }
 
-    $row["COMPILE_PASS"] = $true
-    Write-Host "Validating extractor results..." -NoNewline
-
-    try {
-         $diagnostics = Execute-QueryAndDecodeAsJson -DatabasePath $db -QueryPath $diagnostic_query
-   }catch {
-        Write-Host -ForegroundColor ([ConsoleColor]4) $_Exception.Message
-        return $row
-   }
-
-    if ( $diagnostics.'#select'.tuples.Length -eq 0 ) {
-        $row["EXTRACTOR_PASS"] = $true
-        Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
-    } else {
-        Write-Host -ForegroundColor ([ConsoleColor]4) "FAILED"
-        $row["EXTRACTOR_ERRORS"] = $diagnostics | ConvertTo-Json -Depth 100
-    }
-
+    $row["COMPILE_PASS"] = $true 
     Write-Host "Checking expected output..."
 
     # Note this technique uses so-called "wizard" settings to make it possible
@@ -402,7 +382,7 @@ $jobRows | ForEach-Object {
 # Step 4: Create reports 
 # 
 
-$fileTag = "$($Configuration.ToLower())-$(Get-Date -Format "yyyy-MM-dd_HH-mm-ss")"
+$fileTag = "$($Configuration.ToLower())-$Language-$(Get-Date -Format "yyyy-MM-dd_HH-mm-ss")"
 
 $reportOutputFile = Join-Path $ReportDir "MatrixTestReport-$fileTag.csv"
 $summaryReportOutputFile = Join-Path $ReportDir "MatrixTestReportSummary-$fileTag.csv"

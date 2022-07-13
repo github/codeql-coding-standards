@@ -1,19 +1,5 @@
 # Software tool qualification under ISO 26262
 
-## Document management
-
-**Document ID:** codeql-coding-standards/iso-26262-tool-qualification
-
-| Version | Date       | Author          | Changes                                                                                  |
-| ------- | ---------- | --------------- | ---------------------------------------------------------------------------------------- |
-| 0.1.0   | 2021-09-07 | Luke Cartey     | Initial version.                                                                         |
-| 0.2.0   | 2021-09-08 | Luke Cartey     | Update CodeQL qualification methods.                                                     |
-| 0.3.0   | 2021-09-08 | Luke Cartey     | Update the customer table.                                                               |
-| 0.4.0   | 2021-09-19 | Luke Cartey     | Add more detail on approach to V&V. Update section around increased confidence from use. |
-| 0.5.0   | 2021-11-29 | Remco Vermeulen | Add document management section.                                                         |
-
-## Introduction
-
 A common use case for coding standards is in the verification and certification process for safety critical or low fault tolerance systems. The "CodeQL Coding Standards" product is therefore intended to be qualified as a "software tool" under "Part 8: Supporting processes" of ISO 26262 ("Road vehicles - Functional Safety"), to support use within the automotive industry as part of an ISO 26262 certification process.
 
 ## Tool confidence level
@@ -106,13 +92,13 @@ In addition to testing on LGTM.com, we have also analyzed a further 748 C++ repo
 
 In addition, the following companies have publicly described their use of CodeQL for C++:
 
-| Company                        | Creates CodeQL databases?                         | Runs default queries? | Runs custom queries? | References                                                                                                                                                                                                               |
-| ------------------------------ | ------------------------------------------------- | --------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Microsoft                      | Yes, including for Edge, Office 365, Windows etc. | Yes                   | Yes                  | https://semmle.com/case-studies/semmle-microsoft-vulnerability-hunting<br>https://msrc-blog.microsoft.com/2019/11/06/vulnerability-hunting-with-semmle-ql-dom-xss/                                                       |
-| NASA                           | Yes                                               | Yes                   | Yes                  | https://semmle.com/case-studies/semmle-nasa-landing-curiosity-safely-mars                                                                                                                                                |
-| Murex                          | Yes                                               | Yes                   | Yes                  | https://semmle.com/case-studies/semmle-murex-securing-and-modernizing-worlds-leading-capital-markets-platform                                                                                                            |
-| Thermofisher                   | Yes                                               | Yes                   | No                   | https://resources.github.com/webcasts/community-powered-security-developer-workflow-thankyou/<br>https://github.blog/2020-07-15-how-organizations-can-tackle-securing-the-worlds-code/#make-sure-your-own-code-is-secure |
-| Woven Planet (formerly TRI-AD) | Yes                                               | Yes                   | Yes                  | https://www.youtube.com/watch?v=Twdftv0Tkfo                                                                                                                                                                              |
+| Company | Creates CodeQL databases? | Runs default queries? | Runs custom queries? | References |
+| ------- | ------------------------- | --------------------- | -------------------- | ---------- |
+| Microsoft | Yes, including for Edge, Office 365, Windows etc. | Yes | Yes | https://semmle.com/case-studies/semmle-microsoft-vulnerability-hunting<br>https://msrc-blog.microsoft.com/2019/11/06/vulnerability-hunting-with-semmle-ql-dom-xss/ |
+| NASA | Yes | Yes | Yes | https://semmle.com/case-studies/semmle-nasa-landing-curiosity-safely-mars |
+| Murex | Yes | Yes | Yes | https://semmle.com/case-studies/semmle-murex-securing-and-modernizing-worlds-leading-capital-markets-platform |
+| Thermofisher | Yes | Yes | No | https://resources.github.com/webcasts/community-powered-security-developer-workflow-thankyou/<br>https://github.blog/2020-07-15-how-organizations-can-tackle-securing-the-worlds-code/#make-sure-your-own-code-is-secure |
+| Woven Planet (formerly TRI-AD) | Yes | Yes | Yes | https://www.youtube.com/watch?v=Twdftv0Tkfo |
 
 This usage includes the analysis of a broad range and styles of C and C++ codebases, including some which are extremely large and complex. These customers continue to use the CodeQL tooling and make use of releases as and when they become available.
 

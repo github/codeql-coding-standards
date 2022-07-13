@@ -1,0 +1,4 @@
+| test.c:3:1:3:10 | #if NOTDEF | #if/#elif that uses a macro identifier NOTDEF that may be undefined. |
+| test.c:19:1:19:31 | #if defined(MACROONE) \|\| NOTDEF | #if/#elif that uses a macro identifier NOTDEF that may be undefined. |
+| test.c:22:1:22:31 | #if defined(MACROONE) && NOTDEF | #if/#elif that uses a macro identifier NOTDEF that may be undefined. |
+| test.c:31:1:31:12 | #if MACROTWO | #if/#elif that uses a macro identifier MACROTWO that may be undefined. |

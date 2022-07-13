@@ -7,13 +7,13 @@ import re
 import sys
 
 help_statement ="""
-Usage: {script_name} <package_name>
+Usage: {script_name} <language> <package_name>
 
 A tool for generating a rule package description, in JSON format.
 
 The rules.csv file at the root of this repository is processed, and rules with a matching
-package name are processed and used to generate a "rule package description" file in the
-'rule_packages' directory, using the name of the package.
+language and package name are processed and used to generate a "rule package description"
+file in the 'rule_packages' directory, using the name of the package.
 
 The file will contain a JSON dictionary for each standard where the key is the rule ID and
 the value is a dictionary describing the rule metadata. The dictionary will also contain a
@@ -30,6 +30,7 @@ The generated file should be reviewed, and updated to:
 If the file already exists, it will not be overwritten.
 
 Arguments:
+ <language> - the programming language of the package (currently 'cpp' or 'c')
  <package_name> - the name of the package to generate a package file for.
 """
 
@@ -37,10 +38,11 @@ if len(sys.argv) == 1 or (len(sys.argv) == 2 and sys.argv[1] == "--help"):
   print(help_statement.format(script_name=sys.argv[0]))
   sys.exit(0)
 
-package_name = sys.argv[1]
+language_name = sys.argv[1]
+package_name = sys.argv[2]
 repo_root = Path(__file__).parent.parent.parent
 rules_file_path = repo_root.joinpath('rules.csv')
-rule_packages_file_path = repo_root.joinpath('rule_packages')
+rule_packages_file_path = repo_root.joinpath('rule_packages', language_name)
 if not os.path.isdir(rule_packages_file_path):
   os.mkdir(rule_packages_file_path)
 rule_package_file_path = rule_packages_file_path.joinpath(package_name + ".json")
@@ -91,18 +93,19 @@ else:
     # Skip header row
     next(rules_reader, None)
     for rule in rules_reader:
-      standard = rule[0]
-      rule_id = rule[1]
-      queryable = rule[2]
-      obligation_level = rule[3]
-      enforcement_level = rule[4]
-      allocated_targets = rule[5]
-      rule_title = rule[6]
-      similar_query = rule[7]
-      package = rule[8]
-      difficulty = rule[9]
-      # Find all rules in the given package
-      if rule[8] == package_name:
+      language = rule[0]
+      standard = rule[1]
+      rule_id = rule[2]
+      queryable = rule[3]
+      obligation_level = rule[4]
+      enforcement_level = rule[5]
+      allocated_targets = rule[6]
+      rule_title = rule[7]
+      similar_query = rule[8]
+      package = rule[9]
+      difficulty = rule[10]
+      # Find all rules in the given language and package
+      if language == language_name and package == package_name:
         if not queryable == "Yes":
           print("Error: " + standard + " " + rule_id + " is marked as part of package " + package_name + " but is not marked as queryable.")
           sys.exit(1)

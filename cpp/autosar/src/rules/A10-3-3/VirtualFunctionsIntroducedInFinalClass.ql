@@ -27,5 +27,5 @@ where
   not f.isDefaulted() and
   not f.isCompilerGenerated() and
   not f.getBlock().getLocation().hasLocationInfo("", 0, 0, 0, 0)
-select f, "Non-final virtual function $@ is introduced in final class $@.", f, f.getName(),
+select f, "Non-final virtual function $@ is introduced in final class @$.", f, f.getName(),
   f.getDeclaringType(), f.getDeclaringType().getName()

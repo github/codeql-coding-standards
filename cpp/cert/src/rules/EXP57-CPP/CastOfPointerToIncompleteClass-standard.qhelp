@@ -1,28 +1,117 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>Referring to objects of incomplete class type, also known as <em>forward declarations</em>, is a common practice. One such common usage is with the "pimpl idiom" [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Sutter00">Sutter 00</a>] whereby an opaque pointer is used to hide implementation details from a public-facing API. However, attempting to delete a pointer to an object of incomplete class type can lead to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. The C++ Standard, [expr.delete], paragraph 5 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <p>
+   Referring to objects of incomplete class type, also known as
+   <em>
+    forward declarations
+   </em>
+   , is a common practice. One such common usage is with the "pimpl idiom" [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Sutter00">
+    Sutter 00
+   </a>
+   ] whereby an opaque pointer is used to hide implementation details from a public-facing API. However, attempting to delete a pointer to an object of incomplete class type can lead to
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   . The C++ Standard, [expr.delete], paragraph 5 [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ], states the following:
+  </p>
   <blockquote>
-   <p>If the object being deleted has incomplete class type at the point of deletion and the complete class has a non-trivial destructor or a deallocation function, the behavior is undefined.</p>
+   <p>
+    If the object being deleted has incomplete class type at the point of deletion and the complete class has a non-trivial destructor or a deallocation function, the behavior is undefined.
+   </p>
   </blockquote>
-  <p>Do not attempt to delete a pointer to an object of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-incompletetype">incomplete type</a>. Although it is well-formed if the class has no nontrivial destructor and no associated deallocation function, it would become undefined behavior were a nontrivial destructor or deallocation function added later. It would be possible to check for a nontrivial destructor at compile time using a <code>static_assert</code> and the <code>std::is_trivially_destructible</code> type trait, but no such type trait exists to test for the presence of a deallocation function.</p>
-  <p>Pointer downcasting to a pointer of incomplete class type has similar caveats. Pointer upcasting (casting from a more derived type to a less derived type) is a standard implicit conversion operation. C++ allows <code>static_cast</code> to perform the inverse operation, pointer downcasting, via [expr.static.cast], paragraph 7. However, when the pointed-to type is incomplete, the compiler is unable to make any class offset adjustments that may be required in the presence of multiple inheritance, resulting in a pointer that cannot be validly dereferenced.</p>
-  <p><code>reinterpret_cast</code> of a pointer type is defined by [expr.reinterpret.cast], paragraph 7, as being <code>static_cast&lt;cv T *&gt;(static_cast&lt;cv void *&gt;(PtrValue))</code>, meaning that <code>reinterpret_cast</code> is simply a sequence of <code>static_cast</code> operations. C-style casts of a pointer to an incomplete object type are defined as using either <code>static_cast</code> or <code>reinterpret_cast</code> (it is unspecified which is picked) in [expr.cast], paragraph 5.</p>
-  <p>Do not attempt to cast through a pointer to an object of incomplete type. The cast operation itself is well-formed, but dereferencing the resulting pointer may result in undefined behavior if the downcast is unable to adjust for multiple inheritance.</p>
+  <p>
+   Do not attempt to delete a pointer to an object of
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-incompletetype">
+    incomplete type
+   </a>
+   . Although it is well-formed if the class has no nontrivial destructor and no associated deallocation function, it would become undefined behavior were a nontrivial destructor or deallocation function added later. It would be possible to check for a nontrivial destructor at compile time using a
+   <code>
+    static_assert
+   </code>
+   and the
+   <code>
+    std::is_trivially_destructible
+   </code>
+   type trait, but no such type trait exists to test for the presence of a deallocation function.
+  </p>
+  <p>
+   Pointer downcasting to a pointer of incomplete class type has similar caveats. Pointer upcasting (casting from a more derived type to a less derived type) is a standard implicit conversion operation. C++ allows
+   <code>
+    static_cast
+   </code>
+   to perform the inverse operation, pointer downcasting, via [expr.static.cast], paragraph 7. However, when the pointed-to type is incomplete, the compiler is unable to make any class offset adjustments that may be required in the presence of multiple inheritance, resulting in a pointer that cannot be validly dereferenced.
+  </p>
+  <p>
+   <code>
+    reinterpret_cast
+   </code>
+   of a pointer type is defined by [expr.reinterpret.cast], paragraph 7, as being
+   <code>
+    static_cast&lt;cv T *&gt;(static_cast&lt;cv void *&gt;(PtrValue))
+   </code>
+   , meaning that
+   <code>
+    reinterpret_cast
+   </code>
+   is simply a sequence of
+   <code>
+    static_cast
+   </code>
+   operations. C-style casts of a pointer to an incomplete object type are defined as using either
+   <code>
+    static_cast
+   </code>
+   or
+   <code>
+    reinterpret_cast
+   </code>
+   (it is unspecified which is picked) in [expr.cast], paragraph 5.
+  </p>
+  <p>
+   Do not attempt to cast through a pointer to an object of incomplete type. The cast operation itself is well-formed, but dereferencing the resulting pointer may result in undefined behavior if the downcast is unable to adjust for multiple inheritance.
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, a class attempts to implement the pimpl idiom but deletes a pointer to an incomplete class type, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> if <code>Body</code> has a nontrivial destructor.</p>
-  <sample language="cpp">class Handle {
+  <p>
+   In this noncompliant code example, a class attempts to implement the pimpl idiom but deletes a pointer to an incomplete class type, resulting in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   if
+   <code>
+    Body
+   </code>
+   has a nontrivial destructor.
+  </p>
+  <sample language="cpp">
+   class Handle {
   class Body *impl;  // Declaration of a pointer to an incomplete class
 public:
   ~Handle() { delete impl; } // Deletion of pointer to an incomplete class
   // ...
 };
-</sample>
+  </sample>
  </section>
  <section title="Compliant Solution (delete)">
-  <p>In this compliant solution, the deletion of <code>impl</code> is moved to a part of the code where <code>Body</code> is defined.</p>
-  <sample language="cpp">class Handle {
+  <p>
+   In this compliant solution, the deletion of
+   <code>
+    impl
+   </code>
+   is moved to a part of the code where
+   <code>
+    Body
+   </code>
+   is defined.
+  </p>
+  <sample language="cpp">
+   class Handle {
   class Body *impl;  // Declaration of a pointer to an incomplete class
 public:
   ~Handle();
@@ -31,33 +120,85 @@ public:
 
 // Elsewhere
 class Body { /* ... */ };
- 
+ 
 Handle::~Handle() {
   delete impl;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (std::shared_ptr)">
-  <p>In this compliant solution, a <code>std::shared_ptr</code> is used to own the memory to <code>impl</code>. A <code>std::shared_ptr</code> is capable of referring to an incomplete type, but a <code>std::unique_ptr</code> is not.</p>
-  <sample language="cpp">#include &lt;memory&gt;
- 
+  <p>
+   In this compliant solution, a
+   <code>
+    std::shared_ptr
+   </code>
+   is used to own the memory to
+   <code>
+    impl
+   </code>
+   . A
+   <code>
+    std::shared_ptr
+   </code>
+   is capable of referring to an incomplete type, but a
+   <code>
+    std::unique_ptr
+   </code>
+   is not.
+  </p>
+  <sample language="cpp">
+   #include &lt;memory&gt;
+ 
 class Handle {
   std::shared_ptr&lt;class Body&gt; impl;
   public:
     Handle();
     ~Handle() {}
     // ...
-};</sample>
+};
+  </sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>Pointer downcasting (casting a pointer to a base class into a pointer to a derived class) may require adjusting the address of the pointer by a fixed amount that can be determined only when the layout of the class inheritance structure is known. In this noncompliant code example, <code>f()</code> retrieves a polymorphic pointer of complete type <code>B</code> from <code>get_d()</code>. That pointer is then cast to a pointer of incomplete type <code>D</code> before being passed to <code>g()</code>. Casting to a pointer to the derived class may fail to properly adjust the resulting pointer, causing <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> when the pointer is dereferenced by calling <code>d-&gt;do_something()</code>.</p>
-  <sample language="cpp">// File1.h
+  <p>
+   Pointer downcasting (casting a pointer to a base class into a pointer to a derived class) may require adjusting the address of the pointer by a fixed amount that can be determined only when the layout of the class inheritance structure is known. In this noncompliant code example,
+   <code>
+    f()
+   </code>
+   retrieves a polymorphic pointer of complete type
+   <code>
+    B
+   </code>
+   from
+   <code>
+    get_d()
+   </code>
+   . That pointer is then cast to a pointer of incomplete type
+   <code>
+    D
+   </code>
+   before being passed to
+   <code>
+    g()
+   </code>
+   . Casting to a pointer to the derived class may fail to properly adjust the resulting pointer, causing
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   when the pointer is dereferenced by calling
+   <code>
+    d-&gt;do_something()
+   </code>
+   .
+  </p>
+  <sample language="cpp">
+   // File1.h
 class B {
 protected:
   double d;
 public:
   B() : d(1.0) {}
 };
- 
+ 
 // File2.h
 void g(class D *);
 class B *get_d(); // Returns a pointer to a D object
@@ -70,7 +211,7 @@ void f() {
   B *v = get_d();
   g(reinterpret_cast&lt;class D *&gt;(v));
 }
- 
+ 
 // File2.cpp
 #include "File2.h"
 #include "File1.h"
@@ -97,15 +238,59 @@ void g(D *d) {
 B *get_d() {
   return new D;
 }
-</sample>
-  <p><strong>Implementation Details</strong></p>
-  <p>When compiled with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">Clang</a><a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">BB. Definitions#clang</a>3.8 and the function <code>f()</code> is executed, the noncompliant code example prints the following.</p>
-  <sample language="cpp">f: 1.89367e-40, d: 5.27183e-315, s: 0</sample>
-  <p>Similarly, unexpected values are printed when the example is run in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-msvc">Microsoft Visual Studio</a> 2015 and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-gcc">GCC </a>6.1.0.</p>
+  </sample>
+  <p>
+   <strong>
+    Implementation Details
+   </strong>
+  </p>
+  <p>
+   When compiled with
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">
+    Clang
+   </a>
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">
+    BB. Definitions#clang
+   </a>
+   3.8 and the function
+   <code>
+    f()
+   </code>
+   is executed, the noncompliant code example prints the following.
+  </p>
+  <sample language="cpp">
+   f: 1.89367e-40, d: 5.27183e-315, s: 0
+  </sample>
+  <p>
+   Similarly, unexpected values are printed when the example is run in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-msvc">
+    Microsoft Visual Studio
+   </a>
+   2015 and
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-gcc">
+    GCC
+   </a>
+   6.1.0.
+  </p>
  </section>
  <section title="Compliant Solution">
-  <p>This compliant solution assumes that the intent is to hide implementation details by using incomplete class types. Instead of requiring a <code>D *</code> to be passed to <code>g()</code>, it expects a <code>B *</code> type.</p>
-  <sample language="cpp">// File1.h -- contents identical.
+  <p>
+   This compliant solution assumes that the intent is to hide implementation details by using incomplete class types. Instead of requiring a
+   <code>
+    D *
+   </code>
+   to be passed to
+   <code>
+    g()
+   </code>
+   , it expects a
+   <code>
+    B *
+   </code>
+   type.
+  </p>
+  <sample language="cpp">
+   // File1.h -- contents identical.
 // File2.h
 void g(class B *); // Accepts a B object, expects a D object
 class B *get_d(); // Returns a pointer to a D object
@@ -132,10 +317,13 @@ void g(B *d) {
 
 B *get_d() {
   return new D;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Casting pointers or references to incomplete classes can result in bad addresses. Deleting a pointer to an incomplete class results in undefined behavior if the class has a nontrivial destructor. Doing so can cause program termination, a runtime signal, or resource leaks.</p>
+  <p>
+   Casting pointers or references to incomplete classes can result in bad addresses. Deleting a pointer to an incomplete class results in undefined behavior if the class has a nontrivial destructor. Doing so can cause program termination, a runtime signal, or resource leaks.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -172,10 +360,14 @@ B *get_d() {
       Medium
      </td>
      <td>
-      <strong>P4</strong>
+      <strong>
+       P4
+      </strong>
      </td>
      <td>
-      <strong>L3</strong>
+      <strong>
+       L3
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -208,7 +400,9 @@ B *get_d() {
       20.10
      </td>
      <td>
-      <strong>delete-with-incomplete-type</strong>
+      <strong>
+       delete-with-incomplete-type
+      </strong>
      </td>
      <td>
      </td>
@@ -223,7 +417,9 @@ B *get_d() {
       6.5
      </td>
      <td>
-      <strong>DELETE_VOID</strong>
+      <strong>
+       DELETE_VOID
+      </strong>
      </td>
      <td>
       Fully implemented
@@ -239,7 +435,9 @@ B *get_d() {
       3.9
      </td>
      <td>
-      <code>-Wdelete-incomplete</code>
+      <code>
+       -Wdelete-incomplete
+      </code>
      </td>
      <td>
      </td>
@@ -251,10 +449,12 @@ B *get_d() {
       </a>
      </td>
      <td>
-      6.2p0
+      6.1p0
      </td>
      <td>
-      <strong>LANG.CAST.PC.INC</strong>
+      <strong>
+       LANG.CAST.PC.INC
+      </strong>
      </td>
      <td>
       Conversion: pointer to incomplete
@@ -270,7 +470,9 @@ B *get_d() {
       2021.2
      </td>
      <td>
-      <strong>C++3112</strong>
+      <strong>
+       C++3112
+      </strong>
      </td>
      <td>
      </td>
@@ -285,7 +487,11 @@ B *get_d() {
       2021.4
      </td>
      <td>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.EXPR.DELETE_PTR.INCOMPLETE_TYPE</a></strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        CERT.EXPR.DELETE_PTR.INCOMPLETE_TYPE
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -299,8 +505,11 @@ B *get_d() {
      <td>
      </td>
      <td>
-      <strong>169 S, 554 S</strong>
-      <strong> </strong>
+      <strong>
+       169 S, 554 S
+      </strong>
+      <strong>
+      </strong>
      </td>
      <td>
       Enhanced Enforcement
@@ -316,8 +525,12 @@ B *get_d() {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-EXP57-a</strong>
-      <strong>CERT_CPP-EXP57-b</strong>
+      <strong>
+       CERT_CPP-EXP57-a
+      </strong>
+      <strong>
+       CERT_CPP-EXP57-b
+      </strong>
      </td>
      <td>
       Do not delete objects with incomplete class at the point of deletion
@@ -366,7 +579,9 @@ B *get_d() {
       20.10
      </td>
      <td>
-      <strong>delete-with-incomplete-type</strong>
+      <strong>
+       delete-with-incomplete-type
+      </strong>
      </td>
      <td>
      </td>
@@ -375,7 +590,17 @@ B *get_d() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP39-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabi">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP39-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Bibliography">
   <table>

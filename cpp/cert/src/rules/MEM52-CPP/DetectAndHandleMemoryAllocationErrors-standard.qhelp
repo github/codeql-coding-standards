@@ -1,30 +1,141 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>The default memory allocation operator, <code>::operator new(std::size_t)</code>, throws a <code>std::bad_alloc</code> exception if the allocation fails. Therefore, you need not check whether calling <code>::operator new(std::size_t)</code> results in nullptr. The nonthrowing form, <code>::operator new(std::size_t, const std::nothrow_t &amp;)</code>, does not throw an exception if the allocation fails but instead returns <code>nullptr</code>. The same behaviors apply for the <code>operator new[]</code> versions of both allocation functions. Additionally, the default allocator object (<code>std::allocator</code>) uses <code>::operator new(std::size_t)</code> to perform allocations and should be treated similarly.</p>
-  <sample language="cpp">T *p1 = new T; // Throws std::bad_alloc if allocation fails
+  <p>
+   The default memory allocation operator,
+   <code>
+    ::operator new(std::size_t)
+   </code>
+   , throws a
+   <code>
+    std::bad_alloc
+   </code>
+   exception if the allocation fails. Therefore, you need not check whether calling
+   <code>
+    ::operator new(std::size_t)
+   </code>
+   results in
+   nullptr
+   . The nonthrowing form,
+   <code>
+    ::operator new(std::size_t, const std::nothrow_t &amp;)
+   </code>
+   , does not throw an exception if the allocation fails but instead returns
+   <code>
+    nullptr
+   </code>
+   . The same behaviors apply for the
+   <code>
+    operator new[]
+   </code>
+   versions of both allocation functions. Additionally, the default allocator object (
+   <code>
+    std::allocator
+   </code>
+   ) uses
+   <code>
+    ::operator new(std::size_t)
+   </code>
+   to perform allocations and should be treated similarly.
+  </p>
+  <sample language="cpp">
+   T *p1 = new T; // Throws std::bad_alloc if allocation fails
 T *p2 = new (std::nothrow) T; // Returns nullptr if allocation fails
 
 T *p3 = new T[1]; // Throws std::bad_alloc if the allocation fails
-T *p4 = new (std::nothrow) T[1]; // Returns nullptr if the allocation fails</sample>
-  <p>Furthermore, <code>operator new[]</code> can throw an error of type <code>std::bad_array_new_length</code>, a subclass of <code>std::bad_alloc</code>, if the <code>size</code> argument passed to <code>new</code> is negative or excessively large.</p>
-  <p>When using the nonthrowing form, it is imperative to check that the return value is not <code>nullptr</code> before accessing the resulting pointer. When using either form, be sure to comply with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">ERR50-CPP. Do not abruptly terminate the program</a>.</p>
+T *p4 = new (std::nothrow) T[1]; // Returns nullptr if the allocation fails
+  </sample>
+  <p>
+   Furthermore,
+   <code>
+    operator new[]
+   </code>
+   can throw an error of type
+   <code>
+    std::bad_array_new_length
+   </code>
+   , a subclass of
+   <code>
+    std::bad_alloc
+   </code>
+   , if the
+   <code>
+    size
+   </code>
+   argument passed to
+   <code>
+    new
+   </code>
+   is negative or excessively large.
+  </p>
+  <p>
+   When using the nonthrowing form, it is imperative to check that the return value is not
+   <code>
+    nullptr
+   </code>
+   before accessing the resulting pointer. When using either form, be sure to comply with
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">
+    ERR50-CPP. Do not abruptly terminate the program
+   </a>
+   .
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, an array of <code>int</code> is created using <code>::operator new[](std::size_t)</code> and the results of the allocation are not checked. The function is marked as <code>noexcept</code>, so the caller assumes this function does not throw any exceptions. Because <code>::operator new[](std::size_t)</code> can throw an exception if the allocation fails, it could lead to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal termination</a> of the program.</p>
-  <sample language="cpp">#include &lt;cstring&gt;
- 
+  <p>
+   In this noncompliant code example, an array of
+   <code>
+    int
+   </code>
+   is created using
+   <code>
+    ::operator new[](std::size_t)
+   </code>
+   and the results of the allocation are not checked. The function is marked as
+   <code>
+    noexcept
+   </code>
+   , so the caller assumes this function does not throw any exceptions. Because
+   <code>
+    ::operator new[](std::size_t)
+   </code>
+   can throw an exception if the allocation fails, it could lead to
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
+    abnormal termination
+   </a>
+   of the program.
+  </p>
+  <sample language="cpp">
+   #include &lt;cstring&gt;
+ 
 void f(const int *array, std::size_t size) noexcept {
   int *copy = new int[size];
   std::memcpy(copy, array, size * sizeof(*copy));
   // ...
   delete [] copy;
 }
-</sample>
+  </sample>
  </section>
  <section title="Compliant Solution (std::nothrow)">
-  <p>When using <code>std::nothrow</code>, the <code>new</code> operator returns either a null pointer or a pointer to the allocated space. Always test the returned pointer to ensure it is not <code>nullptr</code> before referencing the pointer. This compliant solution handles the error condition appropriately when the returned pointer is <code>nullptr.</code></p>
-  <sample language="cpp">#include &lt;cstring&gt;
+  <p>
+   When using
+   <code>
+    std::nothrow
+   </code>
+   , the
+   <code>
+    new
+   </code>
+   operator returns either a null pointer or a pointer to the allocated space. Always test the returned pointer to ensure it is not
+   <code>
+    nullptr
+   </code>
+   before referencing the pointer. This compliant solution handles the error condition appropriately when the returned pointer is
+   <code>
+    nullptr.
+   </code>
+  </p>
+  <sample language="cpp">
+   #include &lt;cstring&gt;
 #include &lt;new&gt;
  
 void f(const int *array, std::size_t size) noexcept {
@@ -36,11 +147,27 @@ void f(const int *array, std::size_t size) noexcept {
   std::memcpy(copy, array, size * sizeof(*copy));
   // ...
   delete [] copy;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (std::bad_alloc)">
-  <p>Alternatively, you can use <code>::operator new[]</code> without <code>std::nothrow</code> and instead catch a <code>std::bad_alloc</code> exception if sufficient memory cannot be allocated.</p>
-  <sample language="cpp">#include &lt;cstring&gt;
+  <p>
+   Alternatively, you can use
+   <code>
+    ::operator new[]
+   </code>
+   without
+   <code>
+    std::nothrow
+   </code>
+   and instead catch a
+   <code>
+    std::bad_alloc
+   </code>
+   exception if sufficient memory cannot be allocated.
+  </p>
+  <sample language="cpp">
+   #include &lt;cstring&gt;
 #include &lt;new&gt;
  
 void f(const int *array, std::size_t size) noexcept {
@@ -55,11 +182,19 @@ void f(const int *array, std::size_t size) noexcept {
   std::memcpy(copy, array, size * sizeof(*copy));
   // ...
   delete [] copy;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (noexcept(false))">
-  <p>If the design of the function is such that the caller is expected to handle exceptional situations, it is permissible to mark the function explicitly as one that may throw, as in this compliant solution. Marking the function is not strictly required, as any function without a <code>noexcept</code> specifier is presumed to allow throwing.</p>
-  <sample language="cpp">#include &lt;cstring&gt;
+  <p>
+   If the design of the function is such that the caller is expected to handle exceptional situations, it is permissible to mark the function explicitly as one that may throw, as in this compliant solution. Marking the function is not strictly required, as any function without a
+   <code>
+    noexcept
+   </code>
+   specifier is presumed to allow throwing.
+  </p>
+  <sample language="cpp">
+   #include &lt;cstring&gt;
  
 void f(const int *array, std::size_t size) noexcept(false) {
   int *copy = new int[size];
@@ -68,23 +203,100 @@ void f(const int *array, std::size_t size) noexcept(false) {
   std::memcpy(copy, array, size * sizeof(*copy));
   // ...
   delete [] copy;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, two memory allocations are performed within the same expression. Because the memory allocations are passed as arguments to a function call, an exception thrown as a result of one of the calls to <code>new</code> could result in a memory leak.</p>
-  <sample language="cpp">struct A { /* ... */ };
-struct B { /* ... */ }; 
- 
+  <p>
+   In this noncompliant code example, two memory allocations are performed within the same expression. Because the memory allocations are passed as arguments to a function call, an exception thrown as a result of one of the calls to
+   <code>
+    new
+   </code>
+   could result in a memory leak.
+  </p>
+  <sample language="cpp">
+   struct A { /* ... */ };
+struct B { /* ... */ }; 
+ 
 void g(A *, B *);
 void f() {
   g(new A, new B);
-}</sample>
-  <p>Consider the situation in which <code>A</code> is allocated and constructed first, and then <code>B</code> is allocated and throws an exception. Wrapping the call to <code>g()</code> in a <code>try</code>/<code>catch</code> block is insufficient because it would be impossible to free the memory allocated for <code>A</code>.</p>
-  <p>This noncompliant code example also violates <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP50-CPP.+Do+not+depend+on+the+order+of+evaluation+for+side+effects">EXP50-CPP. Do not depend on the order of evaluation for side effects</a>, because the order in which the arguments to <code>g()</code> are evaluated is unspecified.</p>
+}
+  </sample>
+  <p>
+   Consider the situation in which
+   <code>
+    A
+   </code>
+   is allocated and constructed first, and then
+   <code>
+    B
+   </code>
+   is allocated and throws an exception. Wrapping the call to
+   <code>
+    g()
+   </code>
+   in a
+   <code>
+    try
+   </code>
+   /
+   <code>
+    catch
+   </code>
+   block is insufficient because it would be impossible to free the memory allocated for
+   <code>
+    A
+   </code>
+   .
+  </p>
+  <p>
+   This noncompliant code example also violates
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP50-CPP.+Do+not+depend+on+the+order+of+evaluation+for+side+effects">
+    EXP50-CPP. Do not depend on the order of evaluation for side effects
+   </a>
+   , b
+   ecause the order in which the arguments to
+   <code>
+    g()
+   </code>
+   are evaluated is unspecified.
+  </p>
  </section>
  <section title="Compliant Solution (std::unique_ptr)">
-  <p>In this compliant solution, a <code>std::unique_ptr</code> is used to manage the resources for the <code>A</code> and <code>B</code> objects with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-RAII">RAII</a>. In the situation described by the noncompliant code example, <code>B</code> throwing an exception would still result in the destruction and deallocation of the <code>A</code> object when then <code>std::unique_ptr&lt;A&gt;</code> was destroyed.</p>
-  <sample language="cpp">#include &lt;memory&gt;
+  <p>
+   In this compliant solution, a
+   <code>
+    std::unique_ptr
+   </code>
+   is used to manage the resources for the
+   <code>
+    A
+   </code>
+   and
+   <code>
+    B
+   </code>
+   objects with
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-RAII">
+    RAII
+   </a>
+   . In the situation described by the noncompliant code example,
+   <code>
+    B
+   </code>
+   throwing an exception would still result in the destruction and deallocation of the
+   <code>
+    A
+   </code>
+   object when then
+   <code>
+    std::unique_ptr&lt;A&gt;
+   </code>
+   was destroyed.
+  </p>
+  <sample language="cpp">
+   #include &lt;memory&gt;
  
 struct A { /* ... */ };
 struct B { /* ... */ }; 
@@ -92,11 +304,15 @@ struct B { /* ... */ };
 void g(std::unique_ptr&lt;A&gt; a, std::unique_ptr&lt;B&gt; b);
 void f() {
   g(std::make_unique&lt;A&gt;(), std::make_unique&lt;B&gt;());
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (References)">
-  <p>When possible, the more resilient compliant solution is to remove the memory allocation entirely and pass the objects by reference instead.</p>
-  <sample language="cpp">struct A { /* ... */ };
+  <p>
+   When possible, the more resilient compliant solution is to remove the memory allocation entirely and pass the objects by reference instead.
+  </p>
+  <sample language="cpp">
+   struct A { /* ... */ };
 struct B { /* ... */ }; 
  
 void g(A &amp;a, B &amp;b);
@@ -104,11 +320,32 @@ void f() {
   A a;
   B b;
   g(a, b);
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Failing to detect allocation failures can lead to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal program termination</a> and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>.</p>
-  <p>If the vulnerable program references memory offset from the return value, an attacker can exploit the program to read or write arbitrary memory. This <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerability</a> has been used to execute arbitrary code [<a href="http://www.kb.cert.org/vuls/id/159523">VU#159523</a>].</p>
+  <p>
+   Failing to detect allocation failures can lead to
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
+    abnormal program termination
+   </a>
+   and
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
+    denial-of-service attacks
+   </a>
+   .
+  </p>
+  <p>
+   If the vulnerable program references memory offset from the return value, an attacker can exploit the program to read or write arbitrary memory. This
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerability
+   </a>
+   has been used to execute arbitrary code [
+   <a href="http://www.kb.cert.org/vuls/id/159523">
+    VU#159523
+   </a>
+   ].
+  </p>
   <table>
    <tbody>
     <tr>
@@ -145,10 +382,14 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>P18</strong>
+      <strong>
+       P18
+      </strong>
      </td>
      <td>
-      <strong>L1</strong>
+      <strong>
+       L1
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -194,7 +435,9 @@ void f() {
       7.5
      </td>
      <td>
-      <strong>CHECKED_RETURN</strong>
+      <strong>
+       CHECKED_RETURN
+      </strong>
      </td>
      <td>
       Finds inconsistencies in how function call return values are handled
@@ -210,7 +453,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>C++3225, C++3226, C++3227, C++3228, C++3229, C++4632</strong>
+      <strong>
+       C++3225, C++3226, C++3227, C++3228, C++3229, C++4632
+      </strong>
      </td>
      <td>
      </td>
@@ -225,18 +470,81 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.CHECK.CALL.MIGHT</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.CHECK.CALL.MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.CHECK.MIGHT</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.CHECK.MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.CONST.CALL</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.CONST.DEREF</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.FUNC.CALL.MIGHT</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.FUNC.CALL.MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.FUNC.MIGHT</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.FUNC.MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.GEN.CALL.MIGHT</a><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.GEN.CALL.MUST</a><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.GEN.MIGHT</a><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">NPD.GEN.</a><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">RNPD.CALL</a><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">RNPD.DEREF</a></strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.CHECK.CALL.MIGHT
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.CHECK.CALL.MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.CHECK.MIGHT
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.CHECK.MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.CONST.CALL
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.CONST.DEREF
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.FUNC.CALL.MIGHT
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.FUNC.CALL.MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.FUNC.MIGHT
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.FUNC.MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.GEN.CALL.MIGHT
+       </a>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.GEN.CALL.MUST
+       </a>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.GEN.MIGHT
+       </a>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        NPD.GEN.
+       </a>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        RNPD.CALL
+       </a>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        RNPD.DEREF
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -250,7 +558,9 @@ void f() {
      <td>
      </td>
      <td>
-      <strong>45 D</strong>
+      <strong>
+       45 D
+      </strong>
      </td>
      <td>
       Partially implemented
@@ -266,8 +576,12 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-MEM52-a</strong>
-      <strong>CERT_CPP-MEM52-b</strong>
+      <strong>
+       CERT_CPP-MEM52-a
+      </strong>
+      <strong>
+       CERT_CPP-MEM52-b
+      </strong>
      </td>
      <td>
       Check the return value of new
@@ -316,7 +630,12 @@ void f() {
       4.4
      </td>
      <td>
-      <strong>3225, 3226, 3227, 3228, 3229, <strong>4632</strong> </strong>
+      <strong>
+       3225, 3226, 3227, 3228, 3229,
+       <strong>
+        4632
+       </strong>
+      </strong>
      </td>
      <td>
      </td>
@@ -328,10 +647,18 @@ void f() {
       </a>
      </td>
      <td>
-      7.17
+      7.16
      </td>
      <td>
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v522/">V522</a>, <a href="https://pvs-studio.com/en/docs/warnings/v668/">V668</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v522/">
+        V522
+       </a>
+       ,
+       <a href="https://pvs-studio.com/en/docs/warnings/v668/">
+        V668
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -340,8 +667,48 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>The <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerability</a> in Adobe Flash [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-VU%23159523">VU#159523</a>] arises because Flash neglects to check the return value from <code>calloc()</code>. Even though <code>calloc()</code> returns <code>NULL</code>, Flash does not attempt to read or write to the return value. Instead, it attempts to write to an offset from the return value. Dereferencing <code>NULL</code> usually results in a program crash, but dereferencing an offset from <code>NULL</code> allows an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">exploit</a> to succeed without crashing the program.</p>
-  <p>Search for vulnerabilities resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM32-CPP">CERT website</a>.</p>
+  <p>
+   The
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerability
+   </a>
+   in Adobe Flash [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-VU%23159523">
+    VU#159523
+   </a>
+   ] arises because Flash neglects to check the return value from
+   <code>
+    calloc()
+   </code>
+   . Even though
+   <code>
+    calloc()
+   </code>
+   returns
+   <code>
+    NULL
+   </code>
+   , Flash does not attempt to read or write to the return value. Instead, it attempts to write to an offset from the return value. Dereferencing
+   <code>
+    NULL
+   </code>
+   usually results in a program crash, but dereferencing an offset from
+   <code>
+    NULL
+   </code>
+   allows an
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">
+    exploit
+   </a>
+   to succeed without crashing the program.
+  </p>
+  <p>
+   Search for vulnerabilities resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM32-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>

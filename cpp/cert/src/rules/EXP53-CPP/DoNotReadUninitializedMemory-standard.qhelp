@@ -1,78 +1,292 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>Local, automatic variables assume unexpected values if they are read before they are initialized. The C++ Standard, [dcl.init], paragraph 12 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following: </p>
+  <p>
+   Local, automatic variables assume unexpected values if they are read before they are initialized. The C++ Standard, [dcl.init], paragraph 12 [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ], states the following:
+  </p>
   <blockquote>
-   <p>If no initializer is specified for an object, the object is default-initialized. When storage for an object with automatic or dynamic storage duration is obtained, the object has an <em>indeterminate value</em>, and if no initialization is performed for the object, that object retains an indeterminate value until that value is replaced. If an indeterminate value is produced by an evaluation, the behavior is undefined except in the following cases:</p>
-   <p>— If an indeterminate value of unsigned narrow character type is produced by the evaluation of:    — the second or third operand of a conditional expression,    — the right operand of a comma expression,    — the operand of a cast or conversion to an unsigned narrow character type, or    — a discarded-value expression,then the result of the operation is an indeterminate value.— If an indeterminate value of unsigned narrow character type is produced by the evaluation of the right operand of a simple assignment operator whose first operand is an lvalue of unsigned narrow character type, an indeterminate value replaces the value of the object referred to by the left operand.— If an indeterminate value of unsigned narrow character type is produced by the evaluation of the initialization expression when initializing an object of unsigned narrow character type, that object is initialized to an indeterminate value.</p>
+   <p>
+    If no initializer is specified for an object, the object is default-initialized. When storage for an object with automatic or dynamic storage duration is obtained, the object has an
+    <em>
+     indeterminate value
+    </em>
+    , and if no initialization is performed for the object, that object retains an indeterminate value until that value is replaced. If an indeterminate value is produced by an evaluation, the behavior is undefined except in the following cases:
+   </p>
+   <p>
+    — If an indeterminate value of unsigned narrow character type is produced by the evaluation of:
+    — the second or third operand of a conditional expression,
+    — the right operand of a comma expression,
+    — the operand of a cast or conversion to an unsigned narrow character type, or
+    — a discarded-value expression,
+    then the result of the operation is an indeterminate value.
+    — If an indeterminate value of unsigned narrow character type is produced by the evaluation of the right operand of a simple assignment operator whose first operand is an lvalue of unsigned narrow character type, an indeterminate value replaces the value of the object referred to by the left operand.
+    — If an indeterminate value of unsigned narrow character type is produced by the evaluation of the initialization expression when initializing an object of unsigned narrow character type, that object is initialized to an indeterminate value.
+   </p>
   </blockquote>
-  <p>The default initialization of an object is described by paragraph 7 of the same subclause:</p>
+  <p>
+   The default initialization of an object is described by paragraph 7 of the same subclause:
+  </p>
   <blockquote>
-   <p>To <em>default-initialize</em> an object of type <code>T</code> means:— if <code>T</code> is a (possibly cv-qualified) class type, the default constructor for <code>T</code> is called (and the initialization is ill-formed if <code>T</code> has no default constructor or overload resolution results in an ambiguity or in a function that is deleted or inaccessible from the context of the initialization);— if <code>T</code> is an array type, each element is default-initialized;— otherwise, no initialization is performed.If a program calls for the default initialization of an object of a const-qualified type <code>T</code>, <code>T</code> shall be a class type with a user-provided default constructor.                                             </p>
+   <p>
+    To
+    <em>
+     default-initialize
+    </em>
+    an object of type
+    <code>
+     T
+    </code>
+    means:
+    — if
+    <code>
+     T
+    </code>
+    is a (possibly cv-qualified) class type, the default constructor for
+    <code>
+     T
+    </code>
+    is called (and the initialization is ill-formed if
+    <code>
+     T
+    </code>
+    has no default constructor or overload resolution results in an ambiguity or in a function that is deleted or inaccessible from the context of the initialization);
+    — if
+    <code>
+     T
+    </code>
+    is an array type, each element is default-initialized;
+    — otherwise, no initialization is performed.
+    If a program calls for the default initialization of an object of a const-qualified type
+    <code>
+     T
+    </code>
+    ,
+    <code>
+     T
+    </code>
+    shall be a class type with a user-provided default constructor.
+   </p>
   </blockquote>
-  <p>As a result, objects of type <code>T</code> with automatic or dynamic storage duration must be explicitly initialized before having their value read as part of an expression unless <code>T</code> is a class type or an array thereof or is an unsigned narrow character type. If <code>T</code> is an unsigned narrow character type, it may be used to initialize an object of unsigned narrow character type, which results in both objects having an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-indeterminatevalue">indeterminate value</a>. This technique can be used to implement copy operations such as <code>std::memcpy()</code> without triggering <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
-  <p>Additionally, memory dynamically allocated with a  <code>new</code>  expression is default-initialized when the  <em>new-initialized</em>  is omitted. Memory allocated by the standard library function  <code>std::calloc()</code>  is zero-initialized. Memory allocated by the standard library function  <code>std::realloc()</code>  assumes the values of the original pointer but may not initialize the full range of memory. Memory allocated by any other means ( <code>std::malloc()</code>, allocator objects,  <code>operator new()</code>, and so on) is assumed to be default-initialized.</p>
-  <p>Objects of static or thread storage duration are zero-initialized before any other initialization takes place [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>] and need not be explicitly initialized before having their value read.</p>
-  <p>Reading uninitialized variables for creating entropy is problematic because these memory accesses can be removed by compiler optimization.  VU925211 is an example of a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerability</a> caused by this coding error [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-VU925211">VU#925211</a>].</p>
+  <p>
+   As a result, objects of type
+   <code>
+    T
+   </code>
+   with automatic or dynamic storage duration must be explicitly initialized before having their value read as part of an expression unless
+   <code>
+    T
+   </code>
+   is a class type or an array thereof or is an unsigned narrow character type. If
+   <code>
+    T
+   </code>
+   is an unsigned narrow character type, it may be used to initialize an object of unsigned narrow character type, which results in both objects having an
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-indeterminatevalue">
+    indeterminate value
+   </a>
+   . This technique can be used to implement copy operations such as
+   <code>
+    std::memcpy()
+   </code>
+   without triggering
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
+  <p>
+   Additionally, memory
+   dynamically allocated with a
+   <code>
+    new
+   </code>
+   expression is default-initialized when the
+   <em>
+    new-initialized
+   </em>
+   is omitted. Memory allocated by the standard library function
+   <code>
+    std::calloc()
+   </code>
+   is zero-initialized. Memory allocated by the standard library function
+   <code>
+    std::realloc()
+   </code>
+   assumes the values of the original pointer but may not initialize the full range of memory. Memory allocated by any other means (
+   <code>
+    std::malloc()
+   </code>
+   , allocator objects,
+   <code>
+    operator new()
+   </code>
+   , and so on) is assumed to be default-initialized.
+  </p>
+  <p>
+   Objects of static or thread storage duration are zero-initialized before any other initialization takes place [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ] and need not be explicitly initialized before having their value read.
+  </p>
+  <p>
+   Reading uninitialized variables for creating entropy is problematic because these memory accesses can be removed by compiler optimization.
+   VU925211
+   is an example of a
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerability
+   </a>
+   caused by this coding error [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-VU925211">
+    VU#925211
+   </a>
+   ].
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, an uninitialized local variable is evaluated as part of an expression to print its value, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
-  <sample language="cpp">#include &lt;iostream&gt;
- 
+  <p>
+   In this noncompliant code example, an uninitialized local variable is evaluated as part of an expression to print its value, resulting in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;iostream&gt;
+ 
 void f() {
   int i;
   std::cout &lt;&lt; i;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, the object is initialized prior to printing its value.</p>
-  <sample language="cpp">#include &lt;iostream&gt;
- 
+  <p>
+   In this compliant solution, the object is initialized prior to printing its value.
+  </p>
+  <sample language="cpp">
+   #include &lt;iostream&gt;
+ 
 void f() {
   int i = 0;
   std::cout &lt;&lt; i;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, an <code>int *</code> object is allocated by a <em>new-expression</em>, but the memory it points to is not initialized. The object's pointer value and the value it points to are printed to the standard output stream. Printing the pointer value is well-defined, but attempting to print the value pointed to yields an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-indeterminatevalue">indeterminate value</a>, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
-  <sample language="cpp">#include &lt;iostream&gt;
- 
+  <p>
+   In this noncompliant code example, an
+   <code>
+    int *
+   </code>
+   object is allocated by a
+   <em>
+    new-expression
+   </em>
+   , but the memory it points to is not initialized. The object's pointer value and the value it points to are printed to the standard output stream. Printing the pointer value is well-defined, but attempting to print the value pointed to yields an
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-indeterminatevalue">
+    indeterminate value
+   </a>
+   , resulting in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;iostream&gt;
+ 
 void f() {
   int *i = new int;
   std::cout &lt;&lt; i &lt;&lt; ", " &lt;&lt; *i;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, the memory is direct-initialized to the value <code>12</code> prior to printing its value.</p>
-  <sample language="cpp">#include &lt;iostream&gt;
+  <p>
+   In this compliant solution, the memory is direct-initialized to the value
+   <code>
+    12
+   </code>
+   prior to printing its value.
+  </p>
+  <sample language="cpp">
+   #include &lt;iostream&gt;
  
 void f() {
   int *i = new int(12);
   std::cout &lt;&lt; i &lt;&lt; ", " &lt;&lt; *i;
-}</sample>
-  <p>Initialization of an object produced by a <em>new-expression</em> is performed by placing (possibly empty) parenthesis or curly braces after the type being allocated. This causes direct initialization of the pointed-to object to occur, which will zero-initialize the object if the initialization omits a value, as illustrated by the following code.</p>
-  <sample language="cpp">int *i = new int(); // zero-initializes *i
+}
+  </sample>
+  <p>
+   Initialization of an object produced by a
+   <em>
+    new-expression
+   </em>
+   is performed by placing (possibly empty) parenthesis or curly braces after the type being allocated. This causes direct initialization of the pointed-to object to occur, which will zero-initialize the object if the initialization omits a value, as illustrated by the following code.
+  </p>
+  <sample language="cpp">
+   int *i = new int(); // zero-initializes *i
 int *j = new int{}; // zero-initializes *j
 int *k = new int(12); // initializes *k to 12
-int *l = new int{12}; // initializes *l to 12</sample>
+int *l = new int{12}; // initializes *l to 12
+  </sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, the class member variable <code>c</code> is not explicitly initialized by a <em>ctor-initializer</em> in the default constructor. Despite the local variable <code>s</code> being default-initialized, the use of <code>c</code> within the call to <code>S::f()</code> results in the evaluation of an object with indeterminate value, resulting in undefined behavior.</p>
-  <sample language="cpp">class S {
+  <p>
+   In this noncompliant code example, the class member variable
+   <code>
+    c
+   </code>
+   is not explicitly initialized by a
+   <em>
+    ctor-initializer
+   </em>
+   in the default constructor. Despite the local variable
+   <code>
+    s
+   </code>
+   being default-initialized, the use of
+   <code>
+    c
+   </code>
+   within the call to
+   <code>
+    S::f()
+   </code>
+   results in the evaluation of an object with indeterminate value, resulting in undefined behavior.
+  </p>
+  <sample language="cpp">
+   class S {
   int c;
- 
+ 
 public:
   int f(int i) const { return i + c; }
 };
- 
+ 
 void f() {
   S s;
   int i = s.f(10);
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, <code>S</code> is given a default constructor that initializes the class member variable <code>c.</code></p>
-  <sample language="cpp">class S {
+  <p>
+   In this compliant solution,
+   <code>
+    S
+   </code>
+   is given a default constructor that initializes the class member variable
+   <code>
+    c.
+   </code>
+  </p>
+  <sample language="cpp">
+   class S {
   int c;
  
 public:
@@ -83,10 +297,17 @@ public:
 void f() {
   S s;
   int i = s.f(10);
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Reading uninitialized variables is undefined behavior and can result in unexpected program behavior. In some cases, these <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-securityflaw">security flaws</a> may allow the execution of arbitrary code.</p>
+  <p>
+   Reading uninitialized variables is undefined behavior and can result in unexpected program behavior. In some cases, these
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-securityflaw">
+    security flaws
+   </a>
+   may allow the execution of arbitrary code.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -123,10 +344,14 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>P12</strong>
+      <strong>
+       P12
+      </strong>
      </td>
      <td>
-      <strong>L1</strong>
+      <strong>
+       L1
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -159,7 +384,9 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>uninitialized-read</strong>
+      <strong>
+       uninitialized-read
+      </strong>
      </td>
      <td>
       Partially checked
@@ -175,8 +402,12 @@ void f() {
       3.9
      </td>
      <td>
-      <code>-Wuninitialized</code>
-      <code>clang-analyzer-core.UndefinedBinaryOperatorResult</code>
+      <code>
+       -Wuninitialized
+      </code>
+      <code>
+       clang-analyzer-core.UndefinedBinaryOperatorResult
+      </code>
      </td>
      <td>
       Does not catch all instances of this rule, such as uninitialized values read from heap-allocated memory.
@@ -189,10 +420,13 @@ void f() {
       </a>
      </td>
      <td>
-      6.2p0
+      6.1p0
      </td>
      <td>
-      <strong>LANG.STRUCT.RPLLANG.MEM.UVAR</strong>
+      <strong>
+       LANG.STRUCT.RPL
+       LANG.MEM.UVAR
+      </strong>
      </td>
      <td>
       Return pointer to local
@@ -209,7 +443,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>C++2726, C++2727, C++2728, C++2961, C++2962, C++2963, C++2966, C++2967, C++2968, C++2971, C++2972, C++2973, C++2976, C++2977, C++2978</strong>
+      <strong>
+       C++2726, C++2727, C++2728, C++2961, C++2962, C++2963, C++2966, C++2967, C++2968, C++2971, C++2972, C++2973, C++2976, C++2977, C++2978
+      </strong>
      </td>
      <td>
      </td>
@@ -224,15 +460,51 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.CTOR.MIGHT</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.CTOR.MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.HEAP.MIGHT</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.HEAP.MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.STACK.ARRAY.MIGHT</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.STACK.ARRAY.MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.STACK.ARRAY.PARTIAL.MUST</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.STACK.MIGHT</a></strong>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UNINIT.STACK.MUST</a></strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.CTOR.MIGHT
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.CTOR.MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.HEAP.MIGHT
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.HEAP.MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.STACK.ARRAY.MIGHT
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.STACK.ARRAY.MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.STACK.ARRAY.PARTIAL.MUST
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.STACK.MIGHT
+       </a>
+      </strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        UNINIT.STACK.MUST
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -246,7 +518,9 @@ void f() {
      <td>
      </td>
      <td>
-      <strong>53 D, 69 D, 631 S, 652 S</strong>
+      <strong>
+       53 D, 69 D, 631 S, 652 S
+      </strong>
      </td>
      <td>
       Partially implemented
@@ -262,7 +536,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-EXP53-a</strong>
+      <strong>
+       CERT_CPP-EXP53-a
+      </strong>
      </td>
      <td>
       Avoid use before initialization
@@ -298,7 +574,7 @@ void f() {
      </td>
      <td>
       Checks for:
-      Non-initialized variableon-initialized variable, non-initialized pointeron-initialized pointer.
+      Non-initialized variable, non-initialized pointer.
       Rule partially covered.
      </td>
     </tr>
@@ -312,7 +588,9 @@ void f() {
       4.4
      </td>
      <td>
-      <strong>2726, 2727, 2728, 2961, 2962, 2963, 2966, 2967, 2968, 2971, 2972, 2973, 2976, 2977, 2978</strong>
+      <strong>
+       2726, 2727, 2728, 2961, 2962, 2963, 2966, 2967, 2968, 2971, 2972, 2973, 2976, 2977, 2978
+      </strong>
      </td>
      <td>
      </td>
@@ -324,26 +602,62 @@ void f() {
       </a>
      </td>
      <td>
-      7.17
+      7.16
      </td>
      <td>
-      <strong>V546<a href="https://pvs-studio.com/en/docs/warnings/v546/"></a></strong>
+      <strong>
+       V546
+       <a href="https://pvs-studio.com/en/docs/warnings/v546/">
+       </a>
+      </strong>
       ,
-      <strong>V573<a href="https://pvs-studio.com/en/docs/warnings/v573/"></a></strong>
+      <strong>
+       V573
+       <a href="https://pvs-studio.com/en/docs/warnings/v573/">
+       </a>
+      </strong>
       ,
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v614/">V614</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v614/">
+        V614
+       </a>
+      </strong>
       ,
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v670/">V670</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v670/">
+        V670
+       </a>
+      </strong>
       ,
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v679/">V679</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v679/">
+        V679
+       </a>
+      </strong>
       ,
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v730/">V730</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v730/">
+        V730
+       </a>
+      </strong>
       ,
-      <strong>V788<a href="https://pvs-studio.com/en/docs/warnings/v788/"></a></strong>
+      <strong>
+       V788
+       <a href="https://pvs-studio.com/en/docs/warnings/v788/">
+       </a>
+      </strong>
       ,
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1007/">V1007</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v1007/">
+        V1007
+       </a>
+      </strong>
       ,
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1050/">V1050</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v1050/">
+        V1050
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -358,7 +672,9 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>uninitialized-read</strong>
+      <strong>
+       uninitialized-read
+      </strong>
      </td>
      <td>
       Partially checked
@@ -368,7 +684,17 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP33-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP33-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>

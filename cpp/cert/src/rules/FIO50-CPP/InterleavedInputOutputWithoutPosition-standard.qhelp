@@ -1,25 +1,138 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>The C++ Standard, [filebuf], paragraph 2 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <p>
+   The C++ Standard, [filebuf], paragraph 2 [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ], states the following:
+  </p>
   <blockquote>
-   <p>The restrictions on reading and writing a sequence controlled by an object of class <code>basic_filebuf&lt;charT, traits&gt;</code> are the same as for reading and writing with the Standard C library <code>FILE</code>s.</p>
+   <p>
+    The restrictions on reading and writing a sequence controlled by an object of class
+    <code>
+     basic_filebuf&lt;charT, traits&gt;
+    </code>
+    are the same as for reading and writing with the Standard C library
+    <code>
+     FILE
+    </code>
+    s.
+   </p>
   </blockquote>
-  <p>The C Standard, subclause 7.19.5.3, paragraph 6 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-1999">ISO/IEC 9899:1999</a>], places the following restrictions on <code>FILE</code> objects opened for both reading and writing:</p>
+  <p>
+   The C Standard, subclause 7.19.5.3, paragraph 6 [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-1999">
+    ISO/IEC 9899:1999
+   </a>
+   ], places the following restrictions on
+   <code>
+    FILE
+   </code>
+   objects opened for both reading and writing:
+  </p>
   <blockquote>
-   <p>When a file is opened with update mode . . ., both input and output may be performed on the associated stream. However, output shall not be directly followed by input without an intervening call to the <code>fflush</code> function or to a file positioning function (<code>fseek</code>, <code>fsetpos</code>, or <code>rewind</code>), and input shall not be directly followed by output without an intervening call to a file positioning function, unless the input operation encounters end-of-file.</p>
+   <p>
+    When a file is opened with update mode . . ., both input and output may be performed on the associated stream. However, output shall not be directly followed by input without an intervening call to the
+    <code>
+     fflush
+    </code>
+    function or to a file positioning function (
+    <code>
+     fseek
+    </code>
+    ,
+    <code>
+     fsetpos
+    </code>
+    , or
+    <code>
+     rewind
+    </code>
+    ), and input shall not be directly followed by output without an intervening call to a file positioning function, unless the input operation encounters end-of-file.
+   </p>
   </blockquote>
-  <p>Consequently, the following scenarios can result in <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>:</p>
+  <p>
+   Consequently, the following scenarios can result in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   :
+  </p>
   <ul>
-   <li> Receiving input from a stream directly following an output to that stream without an intervening call to <code>std::basic_filebuf&lt;T&gt;::seekoff()</code> if the file is not at end-of-file</li>
-   <li> Outputting to a stream after receiving input from that stream without a call to <code>std::basic_filebuf&lt;T&gt;::seekoff()</code> if the file is not at end-of-file</li>
+   <li>
+    Receiving input from a stream directly following an output to that stream without an intervening call to
+    <code>
+     std::basic_filebuf&lt;T&gt;::seekoff()
+    </code>
+    if the file is not at end-of-file
+   </li>
+   <li>
+    Outputting to a stream after receiving input from that stream without a call to
+    <code>
+     std::basic_filebuf&lt;T&gt;::seekoff()
+    </code>
+    if the file is not at end-of-file
+   </li>
   </ul>
-  <p>No other <code>std::basic_filebuf&lt;T&gt;</code> function guarantees behavior as if a call were made to a standard C library file-positioning function, or <code>std::fflush()</code>.</p>
-  <p>Calling <code>std::basic_ostream&lt;T&gt;::seekp()</code> or <code>std::basic_istream&lt;T&gt;::seekg()</code> eventually results in a call to <code>std::basic_filebuf&lt;T&gt;::seekoff()</code> for file stream positioning. Given that <code>std::basic_iostream&lt;T&gt;</code> inherits from both <code>std::basic_ostream&lt;T&gt;</code> and <code>std::basic_istream&lt;T&gt;</code>, and <code>std::fstream</code> inherits from <code>std::basic_iostream</code>, either function is acceptable to call to ensure the file buffer is in a valid state before the subsequent I/O operation.</p>
+  <p>
+   No other
+   <code>
+    std::basic_filebuf&lt;T&gt;
+   </code>
+   function guarantees behavior as if a call were made to a standard C library file-positioning function, or
+   <code>
+    std::fflush()
+   </code>
+   .
+  </p>
+  <p>
+   Calling
+   <code>
+    std::basic_ostream&lt;T&gt;::seekp()
+   </code>
+   or
+   <code>
+    std::basic_istream&lt;T&gt;::seekg()
+   </code>
+   eventually results in a call to
+   <code>
+    std::basic_filebuf&lt;T&gt;::seekoff()
+   </code>
+   for file stream positioning. Given that
+   <code>
+    std::basic_iostream&lt;T&gt;
+   </code>
+   inherits from both
+   <code>
+    std::basic_ostream&lt;T&gt;
+   </code>
+   and
+   <code>
+    std::basic_istream&lt;T&gt;
+   </code>
+   , and
+   <code>
+    std::fstream
+   </code>
+   inherits from
+   <code>
+    std::basic_iostream
+   </code>
+   , either function is acceptable to call to ensure the file buffer is in a valid state before the subsequent I/O operation.
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>This noncompliant code example appends data to the end of a file and then reads from the same file. However, because there is no intervening positioning call between the formatted output and input calls, the behavior is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined</a>.</p>
-  <sample language="cpp">#include &lt;fstream&gt;
+  <p>
+   This noncompliant code example appends data to the end of a file and then reads from the same file. However, because there is no intervening positioning call between the formatted output and input calls, the behavior is
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;fstream&gt;
 #include &lt;string&gt;
 
 void f(const std::string &amp;fileName) {
@@ -33,11 +146,22 @@ void f(const std::string &amp;fileName) {
   std::string str;
   file &gt;&gt; str;
 }
-</sample>
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, the <code>std::basic_istream&lt;T&gt;::seekg()</code> function is called between the output and input, eliminating the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
-  <sample language="cpp">#include &lt;fstream&gt;
+  <p>
+   In this compliant solution, the
+   <code>
+    std::basic_istream&lt;T&gt;::seekg()
+   </code>
+   function is called between the output and input, eliminating the
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;fstream&gt;
 #include &lt;string&gt;
 
 void f(const std::string &amp;fileName) {
@@ -48,15 +172,21 @@ void f(const std::string &amp;fileName) {
   }
   
   file &lt;&lt; "Output some data";
- 
+ 
   std::string str;
   file.seekg(0, std::ios::beg);
   file &gt;&gt; str;
 }
-</sample>
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Alternately inputting and outputting from a stream without an intervening flush or positioning call is <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <p>
+   Alternately inputting and outputting from a stream without an intervening flush or positioning call is
+   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
   <table>
    <tbody>
     <tr>
@@ -93,10 +223,14 @@ void f(const std::string &amp;fileName) {
       Medium
      </td>
      <td>
-      <strong>P6</strong>
+      <strong>
+       P6
+      </strong>
      </td>
      <td>
-      <strong>L2</strong>
+      <strong>
+       L2
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -129,27 +263,11 @@ void f(const std::string &amp;fileName) {
       7.2.0
      </td>
      <td>
-      <strong>CertC++-FIO50</strong>
+      <strong>
+       CertC++-FIO50
+      </strong>
      </td>
      <td>
-     </td>
-    </tr>
-    <tr>
-     <td>
-      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
-       CodeSonar
-      </a>
-     </td>
-     <td>
-      6.2p0
-     </td>
-     <td>
-      <strong>IO.IOWOP</strong>
-      <strong>IO.OIWOP</strong>
-     </td>
-     <td>
-      Input After Output Without Positioning
-      Output After Input Without Positioning
      </td>
     </tr>
     <tr>
@@ -162,7 +280,9 @@ void f(const std::string &amp;fileName) {
       2021.2
      </td>
      <td>
-      <strong>C++4711, C++4712, C++4713</strong>
+      <strong>
+       C++4711, C++4712, C++4713
+      </strong>
      </td>
      <td>
      </td>
@@ -177,7 +297,9 @@ void f(const std::string &amp;fileName) {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-FIO50-a</strong>
+      <strong>
+       CERT_CPP-FIO50-a
+      </strong>
      </td>
      <td>
       Do not alternately input and output from a stream without an intervening flush or positioning call
@@ -205,10 +327,30 @@ void f(const std::string &amp;fileName) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabilit">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+FIO39-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabilit">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+FIO39-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
-  <p><em>This rule supplements </em><em><a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO39-C.+Do+not+alternately+input+and+output+from+a+stream+without+an+intervening+flush+or+positioning+call">FIO39-C. Do not alternately input and output from a stream without an intervening flush or positioning call</a>.</em></p>
+  <p>
+   <em>
+    This rule supplements
+   </em>
+   <em>
+    <a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO39-C.+Do+not+alternately+input+and+output+from+a+stream+without+an+intervening+flush+or+positioning+call">
+     FIO39-C. Do not alternately input and output from a stream without an intervening flush or positioning call
+    </a>
+    .
+   </em>
+  </p>
   <table>
    <tbody>
     <tr>
@@ -233,7 +375,9 @@ void f(const std::string &amp;fileName) {
      </td>
      <td>
       Subclause 7.19.5.3, "The
-      <code>fopen</code>
+      <code>
+       fopen
+      </code>
       Function"
      </td>
     </tr>

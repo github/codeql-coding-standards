@@ -1,17 +1,74 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>Mutex objects are used to protect shared data from being concurrently accessed. If a mutex object is destroyed while a thread is blocked waiting for the lock, <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections">critical sections</a> and shared data are no longer protected.</p>
-  <p>The C++ Standard, [thread.mutex.class], paragraph 5 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <p>
+   Mutex objects are used to protect shared data from being concurrently accessed. If a mutex object is destroyed while a thread is blocked waiting for the lock,
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections">
+    critical sections
+   </a>
+   and shared data are no longer protected.
+  </p>
+  <p>
+   The C++ Standard, [thread.mutex.class], paragraph 5 [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ], states the following:
+  </p>
   <blockquote>
-   <p>The behavior of a program is undefined if it destroys a <code>mutex</code> object owned by any thread or a thread terminates while owning a <code>mutex</code> object.</p>
+   <p>
+    The behavior of a program is undefined if it destroys a
+    <code>
+     mutex
+    </code>
+    object owned by any thread or a thread terminates while owning a
+    <code>
+     mutex
+    </code>
+    object.
+   </p>
   </blockquote>
-  <p>Similar wording exists for <code>std::recursive_mutex</code>, <code>std::timed_mutex</code>, <code>std::recursive_timed_mutex</code>, and <code>std::shared_timed_mutex</code>. These statements imply that destroying a mutex object while a thread is waiting on it is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <p>
+   Similar wording exists for
+   <code>
+    std::recursive_mutex
+   </code>
+   ,
+   <code>
+    std::timed_mutex
+   </code>
+   ,
+   <code>
+    std::recursive_timed_mutex
+   </code>
+   , and
+   <code>
+    std::shared_timed_mutex
+   </code>
+   . These statements imply that destroying a mutex object while a thread is waiting on it is
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>This noncompliant code example creates several threads that each invoke the <code>do_work()</code> function, passing a unique number as an ID.</p>
-  <p>Unfortunately, this code contains a race condition, allowing the mutex to be destroyed while it is still owned, because <code>start_threads()</code> may invoke the mutex's destructor before all of the threads have exited.</p>
-  <sample language="cpp">#include &lt;mutex&gt;
+  <p>
+   This noncompliant code example creates several threads that each invoke the
+   <code>
+    do_work()
+   </code>
+   function, passing a unique number as an ID.
+  </p>
+  <p>
+   Unfortunately, this code contains a race condition, allowing the mutex to be destroyed while it is still owned, because
+   <code>
+    start_threads()
+   </code>
+   may invoke the mutex's destructor before all of the threads have exited.
+  </p>
+  <sample language="cpp">
+   #include &lt;mutex&gt;
 #include &lt;thread&gt;
 
 const size_t maxThreads = 10;
@@ -30,11 +87,14 @@ void start_threads() {
     threads[i] = std::thread(do_work, i, &amp;m);
   }
 }
-</sample>
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>This compliant solution eliminates the race condition by extending the lifetime of the mutex.</p>
-  <sample language="cpp">#include &lt;mutex&gt;
+  <p>
+   This compliant solution eliminates the race condition by extending the lifetime of the mutex.
+  </p>
+  <sample language="cpp">
+   #include &lt;mutex&gt;
 #include &lt;thread&gt;
 
 const size_t maxThreads = 10;
@@ -54,11 +114,14 @@ void start_threads() {
     threads[i] = std::thread(do_work, i, &amp;m);
   }
 }
-</sample>
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>This compliant solution eliminates the race condition by joining the threads before the mutex's destructor is invoked.</p>
-  <sample language="cpp">#include &lt;mutex&gt;
+  <p>
+   This compliant solution eliminates the race condition by joining the threads before the mutex's destructor is invoked.
+  </p>
+  <sample language="cpp">
+   #include &lt;mutex&gt;
 #include &lt;thread&gt;
 
 const size_t maxThreads = 10;
@@ -79,10 +142,13 @@ void run_threads() {
   for (size_t i = 0; i &lt; maxThreads; ++i) {
     threads[i].join();
   }
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Destroying a mutex while it is locked may result in invalid control flow and data corruption.</p>
+  <p>
+   Destroying a mutex while it is locked may result in invalid control flow and data corruption.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -119,10 +185,14 @@ void run_threads() {
       High
      </td>
      <td>
-      <strong>P4</strong>
+      <strong>
+       P4
+      </strong>
      </td>
      <td>
-      <strong>L3</strong>
+      <strong>
+       L3
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -155,7 +225,9 @@ void run_threads() {
       2021.2
      </td>
      <td>
-      <strong>C++4961, C++4962</strong>
+      <strong>
+       C++4961, C++4962
+      </strong>
      </td>
      <td>
      </td>
@@ -170,7 +242,11 @@ void run_threads() {
       2021.4
      </td>
      <td>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.CONC.MUTEX.DESTROY_WHILE_LOCKED</a></strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        CERT.CONC.MUTEX.DESTROY_WHILE_LOCKED
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -185,7 +261,9 @@ void run_threads() {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-CON50-a</strong>
+      <strong>
+       CERT_CPP-CON50-a
+      </strong>
      </td>
      <td>
       Do not destroy another thread's mutex
@@ -219,7 +297,9 @@ void run_threads() {
       4.4
      </td>
      <td>
-      <strong>4961, 4962</strong>
+      <strong>
+       4961, 4962
+      </strong>
      </td>
      <td>
      </td>
@@ -228,7 +308,17 @@ void run_threads() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON50-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CON50-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>

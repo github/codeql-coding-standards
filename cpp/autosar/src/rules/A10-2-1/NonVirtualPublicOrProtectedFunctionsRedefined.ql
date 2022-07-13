@@ -44,5 +44,5 @@ where
       subclass = shadowingVariable.getDeclaringType()
     )
   )
-select f, "Member function $@ is shadowed by $@ in derived class $@", f, f.getName(), e,
+select f, "Member function $@ is shadowed by $@ in derived class @a", f, f.getName(), e,
   description, subclass, subclass.getName()

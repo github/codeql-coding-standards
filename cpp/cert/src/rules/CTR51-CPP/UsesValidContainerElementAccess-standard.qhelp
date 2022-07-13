@@ -1,13 +1,44 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>Iterators are a generalization of pointers that allow a C++ program to work with different data structures (containers) in a uniform manner [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]. Pointers, references, and iterators share a close relationship in which it is required that referencing values be done through a valid iterator, pointer, or reference. Storing an iterator, reference, or pointer to an element within a container for any length of time comes with a risk that the underlying container may be modified such that the stored iterator, pointer, or reference becomes invalid. For instance, when a sequence container such as <code>std::vector</code> requires an underlying reallocation, outstanding iterators, pointers, and references will be invalidated [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Kalev99">Kalev 99</a>]. Use only a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-validpointer">valid pointer</a>, reference, or iterator to refer to an element of a container.</p>
-  <p>The C++ Standard, [container.requirements.general], paragraph 12 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>] states the following: </p>
+  <p>
+   Iterators are a generalization of pointers that allow a C++ program to work with different data structures (containers) in a uniform manner [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ]. Pointers, references, and iterators share a close relationship in which it is required that referencing values be done through a valid iterator, pointer, or reference. Storing an iterator, reference, or pointer to an element within a container for any length of time comes with a risk that the underlying container may be modified such that the stored iterator, pointer, or reference becomes invalid. For instance, when a sequence container such as
+   <code>
+    std::vector
+   </code>
+   requires an underlying reallocation, outstanding iterators, pointers, and references will be invalidated [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Kalev99">
+    Kalev 99
+   </a>
+   ]. Use only a
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-validpointer">
+    valid pointer
+   </a>
+   , reference, or iterator to refer to an element of a container.
+  </p>
+  <p>
+   The C++ Standard, [container.requirements.general], paragraph 12
+   [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ] states the following:
+  </p>
   <blockquote>
-   <p>Unless otherwise specified (either explicitly or by defining a function in terms of other functions), invoking a container member function or passing a container as an argument to a library function shall not invalidate iterators to, or change the values of, objects within that container.</p>
+   <p>
+    Unless otherwise specified (either explicitly or by defining a function in terms of other functions), invoking a container member function or passing a container as an argument to a library function shall not invalidate iterators to, or change the values of, objects within that container.
+   </p>
   </blockquote>
-  <p>The C++ Standard allows references and pointers to be invalidated independently for the same operation, which may result in an invalidated reference but not an invalidated pointer. However, relying on this distinction is insecure because the object pointed to by the pointer may be different than expected even if the pointer is valid. For instance, it is possible to retrieve a pointer to an element from a container, erase that element (invalidating references when destroying the underlying object), then insert a new element at the same location within the container causing the extant pointer to now point to a valid, but distinct object. Thus, any operation that invalidates a pointer or a reference should be treated as though it invalidates both pointers and references.</p>
-  <p>The following container functions can invalidate iterators, references, and pointers under certain circumstances.</p>
+  <p>
+   The C++ Standard allows references and pointers to be invalidated independently for the same operation, which may result in an invalidated reference but not an invalidated pointer. However, relying on this distinction is insecure because the object pointed to by the pointer may be different than expected even if the pointer is valid. For instance, it is possible to retrieve a pointer to an element from a container, erase that element (invalidating references when destroying the underlying object), then insert a new element at the same location within the container causing the extant pointer to now point to a valid, but distinct object. Thus, any operation that invalidates a pointer or a reference should be treated as though it invalidates both pointers and references.
+  </p>
+  <p>
+   The following container functions can invalidate iterators, references, and pointers under certain circumstances.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -29,7 +60,9 @@
     </tr>
     <tr>
      <td>
-      <code>std::deque</code>
+      <code>
+       std::deque
+      </code>
      </td>
      <td>
      </td>
@@ -44,17 +77,29 @@
      <td>
      </td>
      <td>
-      <code>insert()</code>
+      <code>
+       insert()
+      </code>
       ,
-      <code>emplace_front()</code>
+      <code>
+       emplace_front()
+      </code>
       ,
-      <code>emplace_back()</code>
+      <code>
+       emplace_back()
+      </code>
       ,
-      <code>emplace()</code>
+      <code>
+       emplace()
+      </code>
       ,
-      <code>push_front()</code>
+      <code>
+       push_front()
+      </code>
       ,
-      <code>push_back()</code>
+      <code>
+       push_back()
+      </code>
      </td>
      <td>
       X
@@ -71,11 +116,17 @@
      <td>
      </td>
      <td>
-      <code>erase()</code>
+      <code>
+       erase()
+      </code>
       ,
-      <code>pop_back()</code>
+      <code>
+       pop_back()
+      </code>
       ,
-      <code>resize()</code>
+      <code>
+       resize()
+      </code>
      </td>
      <td>
       X
@@ -92,7 +143,9 @@
      <td>
      </td>
      <td>
-      <code>clear()</code>
+      <code>
+       clear()
+      </code>
      </td>
      <td>
       X
@@ -106,7 +159,9 @@
     </tr>
     <tr>
      <td>
-      <code>std::forward_list</code>
+      <code>
+       std::forward_list
+      </code>
      </td>
      <td>
      </td>
@@ -121,11 +176,17 @@
      <td>
      </td>
      <td>
-      <code>erase_after()</code>
+      <code>
+       erase_after()
+      </code>
       ,
-      <code>pop_front()</code>
+      <code>
+       pop_front()
+      </code>
       ,
-      <code>resize()</code>
+      <code>
+       resize()
+      </code>
      </td>
      <td>
       X
@@ -134,7 +195,9 @@
       X
      </td>
      <td>
-      <code>erase_after</code>
+      <code>
+       erase_after
+      </code>
       shall invalidate only iterators and references to the erased elements. ([forwardlist.modifiers], paragraph 1)
      </td>
     </tr>
@@ -142,9 +205,13 @@
      <td>
      </td>
      <td>
-      <code>remove()</code>
+      <code>
+       remove()
+      </code>
       ,
-      <code>unique()</code>
+      <code>
+       unique()
+      </code>
      </td>
      <td>
       X
@@ -160,7 +227,9 @@
      <td>
      </td>
      <td>
-      <code>clear()</code>
+      <code>
+       clear()
+      </code>
      </td>
      <td>
       X
@@ -178,7 +247,9 @@
     </tr>
     <tr>
      <td>
-      <code>std::list</code>
+      <code>
+       std::list
+      </code>
      </td>
      <td>
      </td>
@@ -193,19 +264,33 @@
      <td>
      </td>
      <td>
-      <code>erase()</code>
+      <code>
+       erase()
+      </code>
       ,
-      <code>pop_front()</code>
+      <code>
+       pop_front()
+      </code>
       ,
-      <code>pop_back()</code>
+      <code>
+       pop_back()
+      </code>
       ,
-      <code>clear()</code>
+      <code>
+       clear()
+      </code>
       ,
-      <code>remove()</code>
+      <code>
+       remove()
+      </code>
       ,
-      <code>remove_if()</code>
+      <code>
+       remove_if()
+      </code>
       ,
-      <code>unique()</code>
+      <code>
+       unique()
+      </code>
      </td>
      <td>
       X
@@ -221,7 +306,9 @@
      <td>
      </td>
      <td>
-      <code>clear()</code>
+      <code>
+       clear()
+      </code>
      </td>
      <td>
       X
@@ -239,7 +326,9 @@
     </tr>
     <tr>
      <td>
-      <code>std::vector</code>
+      <code>
+       std::vector
+      </code>
      </td>
      <td>
      </td>
@@ -254,7 +343,9 @@
      <td>
      </td>
      <td>
-      <code>reserve()</code>
+      <code>
+       reserve()
+      </code>
      </td>
      <td>
       X
@@ -264,13 +355,21 @@
      </td>
      <td>
       After
-      <code>reserve()</code>
+      <code>
+       reserve()
+      </code>
       ,
-      <code>capacity()</code>
+      <code>
+       capacity()
+      </code>
       is greater or equal to the argument of
-      <code>reserve</code>
+      <code>
+       reserve
+      </code>
       if reallocation happens and is equal to the previous value of
-      <code>capacity()</code>
+      <code>
+       capacity()
+      </code>
       otherwise. Reallocation invalidates all the references, pointers, and iterators referring to the elements in the sequence. ([vector.capacity], paragraph 3 &amp; paragraph 6)
      </td>
     </tr>
@@ -278,13 +377,21 @@
      <td>
      </td>
      <td>
-      <code>insert()</code>
+      <code>
+       insert()
+      </code>
       ,
-      <code>emplace_back()</code>
+      <code>
+       emplace_back()
+      </code>
       ,
-      <code>emplace()</code>
+      <code>
+       emplace()
+      </code>
       ,
-      <code>push_back()</code>
+      <code>
+       push_back()
+      </code>
      </td>
      <td>
       X
@@ -300,11 +407,17 @@
      <td>
      </td>
      <td>
-      <code>erase()</code>
+      <code>
+       erase()
+      </code>
       ,
-      <code>pop_back()</code>
+      <code>
+       pop_back()
+      </code>
       ,
-      <code>resize()</code>
+      <code>
+       resize()
+      </code>
      </td>
      <td>
       X
@@ -321,7 +434,9 @@
      <td>
      </td>
      <td>
-      <code>clear()</code>
+      <code>
+       clear()
+      </code>
      </td>
      <td>
       X
@@ -339,13 +454,21 @@
     </tr>
     <tr>
      <td>
-      <code>std::set</code>
+      <code>
+       std::set
+      </code>
       ,
-      <code>std::multiset</code>
+      <code>
+       std::multiset
+      </code>
       ,
-      <code>std::map</code>
+      <code>
+       std::map
+      </code>
       ,
-      <code>std::multimap</code>
+      <code>
+       std::multimap
+      </code>
      </td>
      <td>
      </td>
@@ -360,9 +483,13 @@
      <td>
      </td>
      <td>
-      <code>erase()</code>
+      <code>
+       erase()
+      </code>
       ,
-      <code>clear()</code>
+      <code>
+       clear()
+      </code>
      </td>
      <td>
       X
@@ -376,13 +503,21 @@
     </tr>
     <tr>
      <td>
-      <code>std::unordered_set</code>
+      <code>
+       std::unordered_set
+      </code>
       ,
-      <code>std::unordered_multiset</code>
+      <code>
+       std::unordered_multiset
+      </code>
       ,
-      <code>std::unordered_map</code>
+      <code>
+       std::unordered_map
+      </code>
       ,
-      <code>std::unordered_multimap</code>
+      <code>
+       std::unordered_multimap
+      </code>
      </td>
      <td>
      </td>
@@ -397,9 +532,13 @@
      <td>
      </td>
      <td>
-      <code>erase()</code>
+      <code>
+       erase()
+      </code>
       ,
-      <code>clear()</code>
+      <code>
+       clear()
+      </code>
      </td>
      <td>
       X
@@ -415,9 +554,13 @@
      <td>
      </td>
      <td>
-      <code>insert()</code>
+      <code>
+       insert()
+      </code>
       ,
-      <code>emplace()</code>
+      <code>
+       emplace()
+      </code>
      </td>
      <td>
       X
@@ -426,9 +569,13 @@
      </td>
      <td>
       The
-      <code>insert</code>
+      <code>
+       insert
+      </code>
       and
-      <code>emplace</code>
+      <code>
+       emplace
+      </code>
       members shall not affect the validity of iterators if (
       <em>
        N
@@ -450,7 +597,9 @@
        N
       </em>
       is the number of elements in the container prior to the
-      <code>insert</code>
+      <code>
+       insert
+      </code>
       operation,
       <em>
        n
@@ -471,9 +620,13 @@
      <td>
      </td>
      <td>
-      <code>rehash()</code>
+      <code>
+       rehash()
+      </code>
       ,
-      <code>reserve()</code>
+      <code>
+       reserve()
+      </code>
      </td>
      <td>
       X
@@ -487,10 +640,14 @@
     </tr>
     <tr>
      <td>
-      <code>std::valarray</code>
+      <code>
+       std::valarray
+      </code>
      </td>
      <td>
-      <code>resize()</code>
+      <code>
+       resize()
+      </code>
      </td>
      <td>
      </td>
@@ -503,23 +660,60 @@
     </tr>
    </tbody>
   </table>
-  <p>A <code>std::basic_string</code> object is also a container to which this rule applies. For more specific information pertaining to <code>std::basic_string</code> containers, see <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/STR52-CPP.+Use+valid+references%2C+pointers%2C+and+iterators+to+reference+elements+of+a+basic_string">STR52-CPP. Use valid references, pointers, and iterators to reference elements of a basic_string</a>.</p>
+  <p>
+   A
+   <code>
+    std::basic_string
+   </code>
+   object is also a container to which this rule applies. For more specific information pertaining to
+   <code>
+    std::basic_string
+   </code>
+   containers, see
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/STR52-CPP.+Use+valid+references%2C+pointers%2C+and+iterators+to+reference+elements+of+a+basic_string">
+    STR52-CPP. Use valid references, pointers, and iterators to reference elements of a basic_string
+   </a>
+   .
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, <code>pos</code> is invalidated after the first call to <code>insert()</code>, and subsequent loop iterations have <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
-  <sample language="cpp">#include &lt;deque&gt;
- 
+  <p>
+   In this noncompliant code example,
+   <code>
+    pos
+   </code>
+   is invalidated after the first call to
+   <code>
+    insert()
+   </code>
+   , and subsequent loop iterations have
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;deque&gt;
+ 
 void f(const double *items, std::size_t count) {
   std::deque&lt;double&gt; d;
   auto pos = d.begin();
   for (std::size_t i = 0; i &lt; count; ++i, ++pos) {
     d.insert(pos, items[i] + 41.0);
   }
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution (Updated Iterator)">
-  <p>In this compliant solution, <code>pos</code> is assigned a valid iterator on each insertion, preventing undefined behavior.</p>
-  <sample language="cpp">#include &lt;deque&gt;
+  <p>
+   In this compliant solution,
+   <code>
+    pos
+   </code>
+   is assigned a valid iterator on each insertion, preventing undefined behavior.
+  </p>
+  <sample language="cpp">
+   #include &lt;deque&gt;
  
 void f(const double *items, std::size_t count) {
   std::deque&lt;double&gt; d;
@@ -528,11 +722,30 @@ void f(const double *items, std::size_t count) {
     pos = d.insert(pos, items[i] + 41.0);
   }
 }
-</sample>
+  </sample>
  </section>
  <section title="Compliant Solution (Generic Algorithm)">
-  <p>This compliant solution replaces the handwritten loop with the generic standard template library algorithm <code>std::transform()</code>. The call to <code>std::transform()</code> accepts the range of elements to transform, the location to store the transformed values (which, in this case, is a <code>std::inserter</code> object to insert them at the beginning of <code>d</code>), and the transformation function to apply (which, in this case, is a simple lambda).</p>
-  <sample language="cpp">#include &lt;algorithm&gt;
+  <p>
+   This compliant solution replaces the handwritten loop with the generic standard template library algorithm
+   <code>
+    std::transform()
+   </code>
+   . The call to
+   <code>
+    std::transform()
+   </code>
+   accepts the range of elements to transform, the location to store the transformed values (which, in this case, is a
+   <code>
+    std::inserter
+   </code>
+   object to insert them at the beginning of
+   <code>
+    d
+   </code>
+   ), and the transformation function to apply (which, in this case, is a simple lambda).
+  </p>
+  <sample language="cpp">
+   #include &lt;algorithm&gt;
 #include &lt;deque&gt;
 #include &lt;iterator&gt;
  
@@ -541,10 +754,12 @@ void f(const double *items, std::size_t count) {
   std::transform(items, items + count, std::inserter(d, d.begin()),
                  [](double d) { return d + 41.0; });
 }
-</sample>
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Using invalid references, pointers, or iterators to reference elements of a container results in undefined behavior.</p>
+  <p>
+   Using invalid references, pointers, or iterators to reference elements of a container results in undefined behavior.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -581,10 +796,14 @@ void f(const double *items, std::size_t count) {
       High
      </td>
      <td>
-      <strong>P6</strong>
+      <strong>
+       P6
+      </strong>
      </td>
      <td>
-      <strong>L2</strong>
+      <strong>
+       L2
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -617,25 +836,11 @@ void f(const double *items, std::size_t count) {
       20.10
      </td>
      <td>
-      <strong>overflow_upon_dereference</strong>
+      <strong>
+       overflow_upon_dereference
+      </strong>
      </td>
      <td>
-     </td>
-    </tr>
-    <tr>
-     <td>
-      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
-       CodeSonar
-      </a>
-     </td>
-     <td>
-      6.2p0
-     </td>
-     <td>
-      <strong>ALLOC.UAF</strong>
-     </td>
-     <td>
-      Use After Free
      </td>
     </tr>
     <tr>
@@ -648,7 +853,9 @@ void f(const double *items, std::size_t count) {
       2021.2
      </td>
      <td>
-      <strong>C++4746, C++4747, C++4748, C++4749</strong>
+      <strong>
+       C++4746, C++4747, C++4748, C++4749
+      </strong>
      </td>
      <td>
      </td>
@@ -663,7 +870,9 @@ void f(const double *items, std::size_t count) {
       2021.4
      </td>
      <td>
-      <strong>ITER.CONTAINER.MODIFIED</strong>
+      <strong>
+       ITER.CONTAINER.MODIFIED
+      </strong>
      </td>
      <td>
      </td>
@@ -678,7 +887,9 @@ void f(const double *items, std::size_t count) {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-CTR51-a</strong>
+      <strong>
+       CERT_CPP-CTR51-a
+      </strong>
      </td>
      <td>
       Do not modify container while iterating over it
@@ -691,10 +902,14 @@ void f(const double *items, std::size_t count) {
       </a>
      </td>
      <td>
-      7.17
+      7.16
      </td>
      <td>
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v783/">V783</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v783/">
+        V783
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -703,7 +918,17 @@ void f(const double *items, std::size_t count) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabil">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR51-CPP">CERT website</a>.</p>
+  <p>
+   Search for
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabil">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR51-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>

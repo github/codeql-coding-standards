@@ -1,33 +1,200 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>Smart pointers such as <code>std::unique_ptr</code> and <code>std::shared_ptr</code> encode pointer ownership semantics as part of the type system. They wrap a pointer value, provide pointer-like semantics through <code>operator *()</code> and <code>operator-&gt;()</code> member functions, and control the lifetime of the pointer they manage. When a smart pointer is constructed from a pointer value, that value is said to be <em>owned</em> by the smart pointer.</p>
-  <p>Calling <code>std::unique_ptr::release()</code> will relinquish ownership of the managed pointer value. Destruction of, move assignment of, or calling <code>std::unique_ptr::reset()</code> on a <code>std::unique_ptr</code> object will also relinquish ownership of the managed pointer value, but results in destruction of the managed pointer value. If a call to <code>std::shared_ptr::unique()</code> returns true, then destruction of or calling <code>std::shared_ptr::reset()</code> on that <code>std::shared_ptr</code> object will relinquish ownership of the managed pointer value but results in destruction of the managed pointer value.</p>
-  <p>Some smart pointers, such as <code>std::shared_ptr</code>, allow multiple smart pointer objects to manage the same underlying pointer value. In such cases, the initial smart pointer object owns the pointer value, and subsequent smart pointer objects are related to the original smart pointer. Two smart pointers are <em>related</em> when the initial smart pointer is used in the initialization of the subsequent smart pointer objects. For instance, copying a <code>std::shared_ptr</code> object to another <code>std::shared_ptr</code> object via copy assignment creates a relationship between the two smart pointers, whereas creating a <code>std::shared_ptr</code> object from the managed pointer value of another <code>std::shared_ptr</code> object does not.</p>
-  <p>Do not create an unrelated smart pointer object with a pointer value that is owned by another smart pointer object. This includes resetting a smart pointer's managed pointer to an already-owned pointer value, such as by calling <code>reset()</code>.</p>
+  <p>
+   Smart pointers such as
+   <code>
+    std::unique_ptr
+   </code>
+   and
+   <code>
+    std::shared_ptr
+   </code>
+   encode pointer ownership semantics as part of the type system. They wrap a pointer value, provide pointer-like semantics through
+   <code>
+    operator *()
+   </code>
+   and
+   <code>
+    operator-&gt;()
+   </code>
+   member functions, and control the lifetime of the pointer they manage. When a smart pointer is constructed from a pointer value, that value is said to be
+   <em>
+    owned
+   </em>
+   by the smart pointer.
+  </p>
+  <p>
+   Calling
+   <code>
+    std::unique_ptr::release()
+   </code>
+   will relinquish ownership of the managed pointer value. Destruction of, move assignment of, or calling
+   <code>
+    std::unique_ptr::reset()
+   </code>
+   on a
+   <code>
+    std::unique_ptr
+   </code>
+   object will also relinquish ownership of the managed pointer value, but results in destruction of the managed pointer value. If a call to
+   <code>
+    std::shared_ptr::unique()
+   </code>
+   returns true, then destruction of or calling
+   <code>
+    std::shared_ptr::reset()
+   </code>
+   on that
+   <code>
+    std::shared_ptr
+   </code>
+   object will relinquish ownership of the managed pointer value but results in destruction of the managed pointer value.
+  </p>
+  <p>
+   Some smart pointers, such as
+   <code>
+    std::shared_ptr
+   </code>
+   , allow multiple smart pointer objects to manage the same underlying pointer value. In such cases, the initial smart pointer object owns the pointer value, and subsequent smart pointer objects are related to the original smart pointer. Two smart pointers are
+   <em>
+    related
+   </em>
+   when the initial smart pointer is used in the initialization of the subsequent smart pointer objects. For instance, copying a
+   <code>
+    std::shared_ptr
+   </code>
+   object to another
+   <code>
+    std::shared_ptr
+   </code>
+   object via copy assignment creates a relationship between the two smart pointers, whereas creating a
+   <code>
+    std::shared_ptr
+   </code>
+   object from the managed pointer value of another
+   <code>
+    std::shared_ptr
+   </code>
+   object does not.
+  </p>
+  <p>
+   Do not create an unrelated smart pointer object with a pointer value that is owned by another smart pointer object. This includes resetting a smart pointer's managed pointer to an already-owned pointer value, such as by calling
+   <code>
+    reset()
+   </code>
+   .
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, two unrelated smart pointers are constructed from the same underlying pointer value. When the local, automatic variable <code>p2</code> is destroyed, it deletes the pointer value it manages. Then, when the local, automatic variable <code>p1</code> is destroyed, it deletes the same pointer value, resulting in a double-free <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerability</a>.</p>
-  <sample language="cpp">#include &lt;memory&gt;
+  <p>
+   In this noncompliant code example, two unrelated smart pointers are constructed from the same underlying pointer value. When the local, automatic variable
+   <code>
+    p2
+   </code>
+   is destroyed, it deletes the pointer value it manages. Then, when the local, automatic variable
+   <code>
+    p1
+   </code>
+   is destroyed, it deletes the same pointer value, resulting in a double-free
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerability
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   #include &lt;memory&gt;
 
 void f() {
   int *i = new int;
   std::shared_ptr&lt;int&gt; p1(i);
   std::shared_ptr&lt;int&gt; p2(i);
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, the <code>std::shared_ptr</code> objects are related to one another through copy construction. When the local, automatic variable <code>p2</code> is destroyed, the use count for the shared pointer value is decremented but still nonzero. Then, when the local, automatic variable <code>p1</code> is destroyed, the use count for the shared pointer value is decremented to zero, and the managed pointer is destroyed. This compliant solution also calls <code>std::make_shared</code>() instead of allocating a raw pointer and storing its value in a local variable.</p>
-  <sample language="cpp">#include &lt;memory&gt;
+  <p>
+   In this compliant solution, the
+   <code>
+    std::shared_ptr
+   </code>
+   objects are related to one another through copy construction. When the local, automatic variable
+   <code>
+    p2
+   </code>
+   is destroyed, the use count for the shared pointer value is decremented but still nonzero. Then, when the local, automatic variable
+   <code>
+    p1
+   </code>
+   is destroyed, the use count for the shared pointer value is decremented to zero, and the managed pointer is destroyed. This compliant solution also calls
+   <code>
+    std::make_shared
+   </code>
+   () instead of allocating a raw pointer and storing its value in a local variable.
+  </p>
+  <sample language="cpp">
+   #include &lt;memory&gt;
 
 void f() {
   std::shared_ptr&lt;int&gt; p1 = std::make_shared&lt;int&gt;();
   std::shared_ptr&lt;int&gt; p2(p1);
-}</sample>
+}
+  </sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, the <code>poly</code> pointer value owned by a <code>std::shared_ptr</code> object is cast to the <code>D *</code> pointer type with <code>dynamic_cast</code> in an attempt to obtain a <code>std::shared_ptr</code> of the polymorphic derived type. However, this eventually results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> as the same pointer is thereby stored in two different <code>std::shared_ptr</code> objects. When <code>g()</code> exits, the pointer stored in <code>derived</code> is freed by the default deleter. Any further use of <code>poly</code> results in accessing freed memory. When <code>f()</code> exits, the same pointer stored in <code>poly</code> is destroyed, resulting in a double-free vulnerability.</p>
-  <sample language="cpp">#include &lt;memory&gt;
+  <p>
+   In this noncompliant code example, the
+   <code>
+    poly
+   </code>
+   pointer value owned by a
+   <code>
+    std::shared_ptr
+   </code>
+   object is cast to the
+   <code>
+    D *
+   </code>
+   pointer type with
+   <code>
+    dynamic_cast
+   </code>
+   in an attempt to obtain a
+   <code>
+    std::shared_ptr
+   </code>
+   of the polymorphic derived type. However, this eventually results in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   as the same pointer is thereby stored in two different
+   <code>
+    std::shared_ptr
+   </code>
+   objects. When
+   <code>
+    g()
+   </code>
+   exits, the pointer stored in
+   <code>
+    derived
+   </code>
+   is freed by the default deleter. Any further use of
+   <code>
+    poly
+   </code>
+   results in accessing freed memory. When
+   <code>
+    f()
+   </code>
+   exits, the same pointer stored in
+   <code>
+    poly
+   </code>
+   is destroyed, resulting in a double-free vulnerability.
+  </p>
+  <sample language="cpp">
+   #include &lt;memory&gt;
 
 struct B {
   virtual ~B() = default; // Polymorphic object
@@ -42,11 +209,47 @@ void f() {
   // ...
   g(std::shared_ptr&lt;D&gt;(dynamic_cast&lt;D *&gt;(poly.get())));
   // Any use of poly will now result in accessing freed memory.
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, the <code>dynamic_cast</code> is replaced with a call to <code>std::dynamic_pointer_cast()</code>, which returns a <code>std::shared_ptr</code> of the polymorphic type with the valid shared pointer value. When <code>g()</code> exits, the reference count to the underlying pointer is decremented by the destruction of <code>derived</code>, but because of the reference held by <code>poly</code> (within <code>f()</code>), the stored pointer value is still valid after <code>g()</code> returns.</p>
-  <sample language="cpp">#include &lt;memory&gt;
+  <p>
+   In this compliant solution, the
+   <code>
+    dynamic_cast
+   </code>
+   is replaced with a call to
+   <code>
+    std::dynamic_pointer_cast()
+   </code>
+   , which returns a
+   <code>
+    std::shared_ptr
+   </code>
+   of the polymorphic type with the valid shared pointer value. When
+   <code>
+    g()
+   </code>
+   exits, the reference count to the underlying pointer is decremented by the destruction of
+   <code>
+    derived
+   </code>
+   , but because of the reference held by
+   <code>
+    poly
+   </code>
+   (within
+   <code>
+    f()
+   </code>
+   ), the stored pointer value is still valid after
+   <code>
+    g()
+   </code>
+   returns.
+  </p>
+  <sample language="cpp">
+   #include &lt;memory&gt;
 
 struct B {
   virtual ~B() = default; // Polymorphic object
@@ -61,11 +264,55 @@ void f() {
   // ...
   g(std::dynamic_pointer_cast&lt;D, B&gt;(poly));
   // poly is still referring to a valid pointer value.
-}</sample>
+}
+  </sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, a <code>std::shared_ptr</code> of type <code>S</code> is constructed and stored in <code>s1</code>. Later, <code>S::g()</code> is called to get another shared pointer to the pointer value managed by <code>s1</code>. However, the smart pointer returned by <code>S::g()</code> is not related to the smart pointer stored in <code>s1</code>. When <code>s2</code> is destroyed, it will free the pointer managed by <code>s1</code>, causing a double-free vulnerability when <code>s1</code> is destroyed.</p>
-  <sample language="cpp">#include &lt;memory&gt;
+  <p>
+   In this noncompliant code example, a
+   <code>
+    std::shared_ptr
+   </code>
+   of type
+   <code>
+    S
+   </code>
+   is constructed and stored in
+   <code>
+    s1
+   </code>
+   . Later,
+   <code>
+    S::g()
+   </code>
+   is called to get another shared pointer to the pointer value managed by
+   <code>
+    s1
+   </code>
+   . However, the smart pointer returned by
+   <code>
+    S::g()
+   </code>
+   is not related to the smart pointer stored in
+   <code>
+    s1
+   </code>
+   . When
+   <code>
+    s2
+   </code>
+   is destroyed, it will free the pointer managed by
+   <code>
+    s1
+   </code>
+   , causing a double-free vulnerability when
+   <code>
+    s1
+   </code>
+   is destroyed.
+  </p>
+  <sample language="cpp">
+   #include &lt;memory&gt;
 
 struct S {
   std::shared_ptr&lt;S&gt; g() { return std::shared_ptr&lt;S&gt;(this); }    
@@ -75,11 +322,55 @@ void f() {
   std::shared_ptr&lt;S&gt; s1 = std::make_shared&lt;S&gt;();
   // ...
   std::shared_ptr&lt;S&gt; s2 = s1-&gt;g();
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>The compliant solution is to use <code>std::enable_shared_from_this::shared_from_this()</code> to get a shared pointer from <code>S</code> that is related to an existing <code>std::shared_ptr</code> object. A common implementation strategy is for the <code>std::shared_ptr</code> constructors to detect the presence of a pointer that inherits from <code>std::enable_shared_from_this</code>, and automatically update the internal bookkeeping required for <code>std::enable_shared_from_this::shared_from_this()</code> to work. Note that <code>std::enable_shared_from_this::shared_from_this()</code> requires an existing <code>std::shared_ptr</code> instance that manages the pointer value pointed to by <code>this</code>. Failure to meet this requirement results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, as it would result in a smart pointer attempting to manage the lifetime of an object that itself does not have lifetime management semantics.</p>
-  <sample language="cpp">#include &lt;memory&gt;
+  <p>
+   The compliant solution is to use
+   <code>
+    std::enable_shared_from_this::shared_from_this()
+   </code>
+   to get a shared pointer from
+   <code>
+    S
+   </code>
+   that is related to an existing
+   <code>
+    std::shared_ptr
+   </code>
+   object. A common implementation strategy is for the
+   <code>
+    std::shared_ptr
+   </code>
+   constructors to detect the presence of a pointer that inherits from
+   <code>
+    std::enable_shared_from_this
+   </code>
+   , and automatically update the internal bookkeeping required for
+   <code>
+    std::enable_shared_from_this::shared_from_this()
+   </code>
+   to work. Note that
+   <code>
+    std::enable_shared_from_this::shared_from_this()
+   </code>
+   requires an existing
+   <code>
+    std::shared_ptr
+   </code>
+   instance that manages the pointer value pointed to by
+   <code>
+    this
+   </code>
+   . Failure to meet this requirement results in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   , as it would result in a smart pointer attempting to manage the lifetime of an object that itself does not have lifetime management semantics.
+  </p>
+  <sample language="cpp">
+   #include &lt;memory&gt;
 
 struct S : std::enable_shared_from_this&lt;S&gt; {
   std::shared_ptr&lt;S&gt; g() { return shared_from_this(); }    
@@ -88,10 +379,21 @@ struct S : std::enable_shared_from_this&lt;S&gt; {
 void f() {
   std::shared_ptr&lt;S&gt; s1 = std::make_shared&lt;S&gt;();
   std::shared_ptr&lt;S&gt; s2 = s1-&gt;g();
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Passing a pointer value to a deallocation function that was not previously obtained by the matching allocation function results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, which can lead to exploitable <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a>.</p>
+  <p>
+   Passing a pointer value to a deallocation function that was not previously obtained by the matching allocation function results in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   , which can lead to exploitable
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerabilities
+   </a>
+   .
+  </p>
   <table>
    <tbody>
     <tr>
@@ -128,10 +430,14 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>P18</strong>
+      <strong>
+       P18
+      </strong>
      </td>
      <td>
-      <strong>L1</strong>
+      <strong>
+       L1
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -164,7 +470,9 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>dangling_pointer_use</strong>
+      <strong>
+       dangling_pointer_use
+      </strong>
      </td>
      <td>
      </td>
@@ -179,7 +487,9 @@ void f() {
       7.2.0
      </td>
      <td>
-      <strong>CertC++-MEM56</strong>
+      <strong>
+       CertC++-MEM56
+      </strong>
      </td>
      <td>
      </td>
@@ -194,7 +504,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>C++4721, C++4722, C++4723</strong>
+      <strong>
+       C++4721, C++4722, C++4723
+      </strong>
      </td>
      <td>
      </td>
@@ -209,7 +521,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-MEM56-a</strong>
+      <strong>
+       CERT_CPP-MEM56-a
+      </strong>
      </td>
      <td>
       Do not store an already-owned pointer value in an unrelated smart pointer
@@ -240,10 +554,14 @@ void f() {
       </a>
      </td>
      <td>
-      7.17
+      7.16
      </td>
      <td>
-      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1006/">V1006</a></strong>
+      <strong>
+       <a href="https://pvs-studio.com/en/docs/warnings/v1006/">
+        V1006
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -252,7 +570,17 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM56-CPP">CERT website</a>.</p>
+  <p>
+   Search for other
+   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM56-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>

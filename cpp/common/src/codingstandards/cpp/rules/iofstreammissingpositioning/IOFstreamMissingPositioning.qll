@@ -8,48 +8,89 @@ import cpp
 import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.standardlibrary.FileStreams
+import codingstandards.cpp.standardlibrary.FileAccess
 
 abstract class IOFstreamMissingPositioningSharedQuery extends Query { }
 
 Query getQuery() { result instanceof IOFstreamMissingPositioningSharedQuery }
 
-predicate sameStreamSource(FileStreamFunctionCall a, FileStreamFunctionCall b) {
-  exists(FileStreamSource c |
-    c.getAUse() = a.getFStream() and
-    c.getAUse() = b.getFStream()
-  )
+/**
+ * A Class modelling calls to file read and write functions.
+ */
+abstract class ReadWriteCall extends FunctionCall {
+  abstract string getAccessDirection();
+
+  abstract Expr getFStream();
 }
 
-predicate sameOperator(InExOperatorCall a, InExOperatorCall b) { a.getTarget() = b.getTarget() }
+class ReadFunctionCall extends ReadWriteCall {
+  ReadFunctionCall() {
+    this instanceof FileReadFunctionCall or
+    this instanceof ExtractionOperatorCall
+  }
 
-predicate oppositeOperator(InExOperatorCall a, InExOperatorCall b) { not sameOperator(a, b) }
+  override string getAccessDirection() { result = "read" }
+
+  override Expr getFStream() {
+    result = this.(FileReadFunctionCall).getFileExpr() or
+    result = this.(ExtractionOperatorCall).getFStream()
+  }
+}
+
+class WriteFunctionCall extends ReadWriteCall {
+  WriteFunctionCall() {
+    this instanceof FileWriteFunctionCall or
+    this instanceof InsertionOperatorCall
+  }
+
+  override string getAccessDirection() { result = "write" }
+
+  override Expr getFStream() {
+    result = this.(FileWriteFunctionCall).getFileExpr() or
+    result = this.(InsertionOperatorCall).getFStream()
+  }
+}
+
+predicate sameSource(FunctionCall a, FunctionCall b) {
+  sameStreamSource(a, b) or
+  sameFileSource(a, b)
+}
+
+predicate sameAccessDirection(ReadWriteCall a, ReadWriteCall b) {
+  a.getAccessDirection() = b.getAccessDirection()
+}
+
+predicate oppositeAccessDirection(ReadWriteCall a, ReadWriteCall b) {
+  not sameAccessDirection(a, b)
+}
 
 /**
- * Insertion operator (`operator>>`) before extraction operator (`operator<<`)
+ * A write operation reaching a read and vice versa
+ * without intervening filepositioning
  */
-ControlFlowNode reachesInExOperator(InExOperatorCall op) {
+ControlFlowNode reachesInExOperator(ReadWriteCall op) {
   result = op
   or
   exists(ControlFlowNode mid |
     mid = reachesInExOperator(op) and
     result = mid.getAPredecessor() and
     //Stop recursion after first occurrence of the opposite operator
-    not (oppositeOperator(mid, op) and sameStreamSource(mid, op)) and
-    //Stop recursion on seek function calls
-    not sameStreamSource(result.(SeekFunctionCall), op) and
+    not (oppositeAccessDirection(mid, op) and sameStreamSource(mid, op)) and
+    //Stop recursion on positioning function calls
+    not sameSource(result.(FileStreamPositioningCall), op) and
+    not sameSource(result.(FilePositioningFunctionCall), op) and
     //Stop recursion on same operator
-    not (sameOperator(result, op) and sameStreamSource(result, op))
+    not (sameAccessDirection(result, op) and sameSource(result, op))
   )
 }
 
 query predicate problems(
-  InExOperatorCall fstOperator, string message, InExOperatorCall sndOperator,
-  string sndOperatorDescription
+  ReadWriteCall snd, string message, ReadWriteCall fst, string fstOperatorDescription
 ) {
-  not isExcluded(sndOperator, getQuery()) and
-  not sameOperator(fstOperator, sndOperator) and
-  sameStreamSource(fstOperator, sndOperator) and
-  fstOperator = reachesInExOperator(sndOperator) and
+  not isExcluded(snd, getQuery()) and
+  not sameAccessDirection(fst, snd) and
+  sameSource(fst, snd) and
+  fst = reachesInExOperator(snd) and
   message = "Missing call to positioning function before $@." and
-  sndOperatorDescription = sndOperator.toString()
+  fstOperatorDescription = snd.toString()
 }

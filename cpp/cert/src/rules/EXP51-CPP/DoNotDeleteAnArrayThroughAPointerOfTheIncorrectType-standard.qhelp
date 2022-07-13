@@ -1,15 +1,64 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>The C++ Standard, [expr.delete], paragraph 3 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <p>
+   The C++ Standard, [expr.delete], paragraph 3 [
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+    ISO/IEC 14882-2014
+   </a>
+   ], states the following:
+  </p>
   <blockquote>
-   <p>In the first alternative (<em>delete object</em>), if the static type of the object to be deleted is different from its dynamic type, the static type shall be a base class of the dynamic type of the object to be deleted and the static type shall have a virtual destructor or the behavior is undefined. In the second alternative (<em>delete array</em>) if the dynamic type of the object to be deleted differs from its static type, the behavior is undefined.</p>
+   <p>
+    In the first alternative (
+    <em>
+     delete object
+    </em>
+    ), if the static type of the object to be deleted is different from its dynamic type, the static type shall be a base class of the dynamic type of the object to be deleted and the static type shall have a virtual destructor or the behavior is undefined. In the second alternative (
+    <em>
+     delete array
+    </em>
+    ) if the dynamic type of the object to be deleted differs from its static type, the behavior is undefined.
+   </p>
   </blockquote>
-  <p>Do not delete an array object through a static pointer type that differs from the dynamic pointer type of the object. Deleting an array through a pointer to the incorrect type results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <p>
+   Do not delete an array object through a static pointer type that differs from the dynamic pointer type of the object. Deleting an array through a pointer to the incorrect type results in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   .
+  </p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>In this noncompliant code example, an array of <code>Derived</code> objects is created and the pointer is stored in a <code>Base *</code>. Despite <code>Base::~Base</code>() being declared virtual, it still results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. Further, attempting to perform pointer arithmetic on the static type <code>Base *</code> violates <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CTR56-CPP.+Do+not+use+pointer+arithmetic+on+polymorphic+objects">CTR56-CPP. Do not use pointer arithmetic on polymorphic objects</a>.</p>
-  <sample language="cpp">struct Base {
+  <p>
+   In this noncompliant code example, an array of
+   <code>
+    Derived
+   </code>
+   objects is created and the pointer is stored in a
+   <code>
+    Base *
+   </code>
+   . Despite
+   <code>
+    Base::~Base
+   </code>
+   () being declared virtual, it still results in
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   . Further, attempting to perform pointer arithmetic on the static type
+   <code>
+    Base *
+   </code>
+   violates
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CTR56-CPP.+Do+not+use+pointer+arithmetic+on+polymorphic+objects">
+    CTR56-CPP. Do not use pointer arithmetic on polymorphic objects
+   </a>
+   .
+  </p>
+  <sample language="cpp">
+   struct Base {
   virtual ~Base() = default;
 };
 
@@ -19,11 +68,27 @@ void f() {
    Base *b = new Derived[10];
    // ...
    delete [] b;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Compliant Solution">
-  <p>In this compliant solution, the static type of <code>b</code> is <code>Derived *</code>, which removes the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> when indexing into the array as well as when deleting the pointer.</p>
-  <sample language="cpp">struct Base {
+  <p>
+   In this compliant solution, the static type of
+   <code>
+    b
+   </code>
+   is
+   <code>
+    Derived *
+   </code>
+   , which removes the
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
+    undefined behavior
+   </a>
+   when indexing into the array as well as when deleting the pointer.
+  </p>
+  <sample language="cpp">
+   struct Base {
   virtual ~Base() = default;
 };
 
@@ -33,10 +98,13 @@ void f() {
    Derived *b = new Derived[10];
    // ...
    delete [] b;
-}</sample>
+}
+  </sample>
  </section>
  <section title="Risk Assessment">
-  <p>Attempting to destroy an array of polymorphic objects through the incorrect static type is undefined behavior. In practice, potential consequences include abnormal program execution and memory leaks.</p>
+  <p>
+   Attempting to destroy an array of polymorphic objects through the incorrect static type is undefined behavior. In practice, potential consequences include abnormal program execution and memory leaks.
+  </p>
   <table>
    <tbody>
     <tr>
@@ -73,10 +141,14 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>P2</strong>
+      <strong>
+       P2
+      </strong>
      </td>
      <td>
-      <strong>L3</strong>
+      <strong>
+       L3
+      </strong>
      </td>
     </tr>
    </tbody>
@@ -109,13 +181,19 @@ void f() {
       3.9
      </td>
      <td>
-      <code>-analyzer-checker=cplusplus</code>
+      <code>
+       -analyzer-checker=cplusplus
+      </code>
      </td>
      <td>
       Checked with
-      <code>clang -cc1</code>
+      <code>
+       clang -cc1
+      </code>
       or (preferably)
-      <code>scan-build</code>
+      <code>
+       scan-build
+      </code>
      </td>
     </tr>
     <tr>
@@ -128,7 +206,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>C++3166</strong>
+      <strong>
+       C++3166
+      </strong>
      </td>
      <td>
      </td>
@@ -143,7 +223,11 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.EXPR.DELETE_ARR.BASE_PTR</a></strong>
+      <strong>
+       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
+        CERT.EXPR.DELETE_ARR.BASE_PTR
+       </a>
+      </strong>
      </td>
      <td>
      </td>
@@ -158,7 +242,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>CERT_CPP-EXP51-a</strong>
+      <strong>
+       CERT_CPP-EXP51-a
+      </strong>
      </td>
      <td>
       Do not treat arrays polymorphically
@@ -182,7 +268,17 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP31-CPP">CERT website</a>.</p>
+  <p>
+   Search for other
+   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
+    vulnerabilities
+   </a>
+   resulting from the violation of this rule on the
+   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP31-CPP">
+    CERT website
+   </a>
+   .
+  </p>
  </section>
  <section title="Related Guidelines">
   <table>

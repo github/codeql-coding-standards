@@ -10,27 +10,28 @@
  */
 
 import cpp
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
 
 /**
  * A `basic_fstream` like `std::fstream`
  */
 class FileStream extends ClassTemplateInstantiation {
-  FileStream() { getTemplate().hasQualifiedName("std", "basic_fstream") }
+  FileStream() { this.getTemplate().hasQualifiedName("std", "basic_fstream") }
 }
 
 /**
  * A `basic_istream` like `std::istream`
  */
 class IStream extends ClassTemplateInstantiation {
-  IStream() { getTemplate().hasQualifiedName("std", "basic_istream") }
+  IStream() { this.getTemplate().hasQualifiedName("std", "basic_istream") }
 }
 
 /**
  * A `basic_ostream` like `std::ostream`
  */
 class OStream extends ClassTemplateInstantiation {
-  OStream() { getTemplate().hasQualifiedName("std", "basic_ostream") }
+  OStream() { this.getTemplate().hasQualifiedName("std", "basic_ostream") }
 }
 
 /**
@@ -41,32 +42,33 @@ abstract class FileStreamFunctionCall extends FunctionCall {
   abstract Expr getFStream();
 }
 
+predicate sameStreamSource(FileStreamFunctionCall a, FileStreamFunctionCall b) {
+  exists(FileStreamSource c |
+    c.getAUse() = a.getFStream() and
+    c.getAUse() = b.getFStream()
+  )
+}
+
 /**
  * Insertion `operator<<` and Extraction `operator>>` operators.
  */
-abstract class InExOperator extends Operator { }
+class InsertionOperatorCall extends FileStreamFunctionCall {
+  InsertionOperatorCall() { this.getTarget().(Operator).hasQualifiedName("std", "operator<<") }
 
-class InsertionOperator extends InExOperator {
-  InsertionOperator() { hasQualifiedName("std", "operator<<") }
-}
-
-class ExtractionOperator extends InExOperator {
-  ExtractionOperator() { hasQualifiedName("std", "operator>>") }
-}
-
-/**
- * A call to a `FileStream` insertion or extractor operator.
- */
-class InExOperatorCall extends FileStreamFunctionCall {
-  InExOperatorCall() { getTarget() instanceof InExOperator }
-
-  /**
-   * Get the `FileStream` expression on which the operator is called.
-   */
   override Expr getFStream() {
-    result = getQualifier()
+    result = this.getQualifier()
     or
-    result = getArgument(0) and getNumberOfArguments() = 2
+    result = this.getArgument(0) and this.getNumberOfArguments() = 2
+  }
+}
+
+class ExtractionOperatorCall extends FileStreamFunctionCall {
+  ExtractionOperatorCall() { this.getTarget().(Operator).hasQualifiedName("std", "operator>>") }
+
+  override Expr getFStream() {
+    result = this.getQualifier()
+    or
+    result = this.getArgument(0) and this.getNumberOfArguments() = 2
   }
 }
 
@@ -83,19 +85,26 @@ class OpenFunctionCall extends FileStreamFunctionCall {
  * A call to `close` functions.
  */
 class CloseFunctionCall extends FileStreamFunctionCall {
-  CloseFunctionCall() { getTarget().hasQualifiedName("std", "basic_fstream", "close") }
+  CloseFunctionCall() {
+    this.getTarget().hasQualifiedName("std", "basic_fstream", "close") or
+    this.getTarget().hasGlobalName("fclose")
+  }
 
-  override Expr getFStream() { result = getQualifier() }
+  override Expr getFStream() {
+    result = getQualifier()
+    or
+    result = this.getArgument(0) and this.getNumberOfArguments() = 1
+  }
 }
 
 /**
- * A call to `seekg` or `seekp` functions.
+ * A call to `std:basic_istream:seekg`, `std:basic_istream:seekg`,
+ * `fflush`,`fseek`,`fsetpos`,`rewind` functions.
  */
-class SeekFunctionCall extends FileStreamFunctionCall {
-  SeekFunctionCall() {
-    getTarget().hasQualifiedName("std", "basic_istream", "seekg")
-    or
-    getTarget().hasQualifiedName("std", "basic_ostream", "seekp")
+class FileStreamPositioningCall extends FileStreamFunctionCall {
+  FileStreamPositioningCall() {
+    this.getTarget().hasQualifiedName("std", "basic_istream", "seekg") or
+    this.getTarget().hasQualifiedName("std", "basic_ostream", "seekp")
   }
 
   override Expr getFStream() { result = getQualifier() }
@@ -106,9 +115,9 @@ class SeekFunctionCall extends FileStreamFunctionCall {
  */
 class IOStreamFunctionCall extends FileStreamFunctionCall {
   IOStreamFunctionCall() {
-    getTarget().getDeclaringType() instanceof IStream
+    this.getTarget().getDeclaringType() instanceof IStream
     or
-    getTarget().getDeclaringType() instanceof OStream
+    this.getTarget().getDeclaringType() instanceof OStream
   }
 
   override Expr getFStream() {
@@ -141,6 +150,18 @@ class FileStreamConstructorCall extends FileStreamSource, Expr {
 }
 
 /**
+ * A `FileStream` defined externally, and which therefore cannot be tracked as a source by taint tracking.
+ */
+class FileStreamExternGlobal extends FileStreamSource, GlobalOrNamespaceVariable {
+  FileStreamExternGlobal() { this.getType().stripType() instanceof FileStream }
+
+  override Expr getAUse() {
+    // Defined externally, so assume any access is a use.
+    result = getAnAccess()
+  }
+}
+
+/**
  * A global taint tracking configuration to track `FileStream` uses in the program.
  */
 private class FileStreamConstructorCallUseConfig extends TaintTracking::Configuration {
@@ -163,17 +184,5 @@ private class FileStreamConstructorCallUseConfig extends TaintTracking::Configur
       node1.asExpr() = cfi.getExpr() and
       node2.asExpr() = f.getAnAccess()
     )
-  }
-}
-
-/**
- * A `FileStream` defined externally, and which therefore cannot be tracked as a source by taint tracking.
- */
-class FileStreamExternGlobal extends FileStreamSource, GlobalOrNamespaceVariable {
-  FileStreamExternGlobal() { getType().stripType() instanceof FileStream }
-
-  override Expr getAUse() {
-    // Defined externally, so assume any access is a use.
-    result = getAnAccess()
   }
 }
