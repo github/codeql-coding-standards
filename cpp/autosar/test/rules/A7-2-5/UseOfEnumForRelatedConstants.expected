@@ -1,0 +1,4 @@
+| test.cpp:1:12:1:16 | Color | [AUDIT] Confirm enum represents a set of related named constants. |
+| test.cpp:7:6:7:12 | FooBars | [AUDIT] Confirm enum represents a set of related named constants. |
+| test.cpp:13:12:13:22 | RelatedEnum | [AUDIT] Confirm enum represents a set of related named constants. |
+| test.cpp:18:6:18:17 | RelatedEnum2 | [AUDIT] Confirm enum represents a set of related named constants. |

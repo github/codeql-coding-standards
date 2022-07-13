@@ -1,0 +1,2 @@
+| test.cpp:12:7:12:13 | trivial | Non-Trivial or non-template function trivial is defined in the class body of $@. | test.cpp:2:7:2:7 | A | A |
+| test.cpp:26:7:26:9 | gcd | Non-Trivial or non-template function gcd is defined in the class body of $@. | test.cpp:2:7:2:7 | A | A |

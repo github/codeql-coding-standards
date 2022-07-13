@@ -1,0 +1,473 @@
+{
+  "AUTOSAR": {
+    "A18-1-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A pointer pointing to an element of an array of objects shall not be passed to a smart pointer of single object type.",
+          "kind": "path-problem",
+          "name": "A pointer pointing to an element of an array of objects shall not be passed to a smart pointer of a non-array type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PointerToAnElementOfAnArrayPassedToASmartPointer",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A pointer pointing to an element of an array of objects shall not be passed to a smart pointer of single object type."
+    },
+    "A5-0-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The declaration of objects shall contain no more than two levels of pointer indirection, because the use or more than two levels can impair the ability to understand the behavior of the code.",
+          "kind": "problem",
+          "name": "The declaration of objects shall contain no more than two levels of pointer indirection",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DeclarationContainLessThanTwoLevelsOfIndirection",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The declaration of objects shall contain no more than two levels of pointer indirection."
+    },
+    "A5-0-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Pointer arithmetic shall not be used with pointers to non-final classes because it is not guaranteed that the pointed-to type of the pointer equals the element type of the array it points into which can lead to undefined behavior.",
+          "kind": "path-problem",
+          "name": "Pointer arithmetic shall not be used with pointers to non-final classes",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "PointerArithmeticUsedWithPointersToNonFinalClasses",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Pointer arithmetic shall not be used with pointers to non-final classes."
+    },
+    "A5-10-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A pointer to member virtual function shall only be tested for equality with null-pointer-constant, because an equality comparison with anything other than a null-pointer-constant is unspecified.",
+          "kind": "problem",
+          "name": "A pointer to member virtual function shall only be tested for equality with null-pointer-constant",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PointerToMemberVirtualFunctionWithNullPointerConstant",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A pointer to member virtual function shall only be tested for equality with null-pointer-constant."
+    },
+    "A5-3-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Pointers to incomplete class types shall not be deleted because it results in undefined behavior.",
+          "kind": "problem",
+          "name": "Pointers to incomplete class types shall not be deleted",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeletingPointerToIncompleteType",
+          "shared_implementation_short_name": "DeleteOfPointerToIncompleteClass",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Pointers to incomplete class types shall not be deleted."
+    },
+    "A5-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A pointer to member shall not access non-existent class members because this leads to undefined behavior.",
+          "kind": "problem",
+          "name": "A pointer to member shall not access non-existent class members",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PointerToMemberAccessNonExistentClassMembers",
+          "shared_implementation_short_name": "AccessOfNonExistingMemberThroughPointerToMember",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Accessing the a member through a pointer-to-member expression when the pointer to member is a null pointer leads to undefined behavior.",
+          "kind": "path-problem",
+          "name": "Use of pointer to member that is a null pointer",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "NullPointerToMemberAccessNonExistentClassMembers",
+          "shared_implementation_short_name": "AccessOfUndefinedMemberThroughNullPointer",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The use of a null pointer-to-member value as the second operand in a pointer-to-member expression results in undefined behavior.",
+          "kind": "problem",
+          "name": "Use of a null pointer-to-member value in a pointer-to-member expression",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UninitializedStaticPointerToMemberUse",
+          "shared_implementation_short_name": "AccessOfUndefinedMemberThroughUninitializedStaticPointer",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A pointer to member shall not access non-existent class members."
+    },
+    "M5-0-15": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Array indexing shall be the only form of pointer arithmetic because it less error prone than pointer manipulation.",
+          "kind": "problem",
+          "name": "Array indexing shall be the only form of pointer arithmetic",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "IndexingNotTheOnlyFormOfPointerArithmetic",
+          "tags": [
+            "correctness",
+            "external/autosar/strict"
+          ]
+        }
+      ],
+      "title": "Array indexing shall be the only form of pointer arithmetic."
+    },
+    "M5-0-16": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A pointer operand and any pointer resulting from pointer arithmetic using that operand shall both address elements of the same array.",
+          "kind": "problem",
+          "name": "A pointer operand and any pointer resulting from pointer arithmetic using that operand shall both",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "PointerAndDerivedPointerAccessDifferentArray",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A pointer operand and any pointer resulting from pointer arithmetic using that operand shall both address elements of the same array."
+    },
+    "M5-0-17": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Subtraction between pointers shall only be applied to pointers that address elements of the same array, otherwise subtraction results in undefined behavior.",
+          "kind": "path-problem",
+          "name": "Subtraction between pointers shall only be applied to pointers that address elements of the same array",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PointerSubtractionOnDifferentArrays",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Subtraction between pointers shall only be applied to pointers that address elements of the same array."
+    },
+    "M5-0-18": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": ">, >=, <, <= applied to objects of pointer type produces undefined behavior, except where they point to the same array.",
+          "kind": "path-problem",
+          "name": ">, >=, <, <= shall not be applied to pointers pointing to different arrays",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "AppliedToObjectsOfPointerType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": ">, >=, <, <= shall not be applied to objects of pointer type, except where they point to the same array."
+    },
+    "M5-2-12": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An identifier with array type passed as a function argument shall not decay to a pointer to prevent loss of its bounds.",
+          "kind": "problem",
+          "name": "An identifier with array type passed as a function argument shall not decay to a pointer",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointer",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An identifier with array type passed as a function argument shall not decay to a pointer."
+    },
+    "M5-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A pointer to a virtual base class shall only be cast to a pointer to a derived class by means of dynamic_cast, otherwise the cast has undefined behavior.",
+          "kind": "problem",
+          "name": "A pointer to a virtual base class shall only be cast to a pointer to a derived class using a dynamic_cast",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PointerToAVirtualBaseClassCastToAPointer",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A pointer to a virtual base class shall only be cast to a pointer to a derived class by means of dynamic_cast."
+    },
+    "M5-2-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A cast shall not convert a pointer to a function to any other pointer type, including a pointer to function type, to prevent undefined behavior.",
+          "kind": "problem",
+          "name": "A cast shall not convert a pointer to a function to any other pointer type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastNotConvertPointerToFunction",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A cast shall not convert a pointer to a function to any other pointer type, including a pointer to function type."
+    },
+    "M5-2-8": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An object with integer type or pointer to void type shall not be converted to an object with pointer type, because it can lead to unspecified behavior.",
+          "kind": "problem",
+          "name": "An object with integer type or pointer to void type shall not be converted to an object with pointer type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IntegerOrPointerToVoidConvertedToPointerType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An object with integer type or pointer to void type shall not be converted to an object with pointer type."
+    },
+    "M5-2-9": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A cast shall not convert a pointer type to an integral type, because the size of an integral type is implementation defined.",
+          "kind": "problem",
+          "name": "A cast shall not convert a pointer type to an integral type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastConvertAPointerTypeToAnIntegralType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A cast shall not convert a pointer type to an integral type."
+    }
+  },
+  "CERT-C++": {
+    "CTR56-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Pointer arithmetic on polymorphic objects does not account for polymorphic object sizes and could lead to undefined behavior.",
+          "kind": "path-problem",
+          "name": "Do not use pointer arithmetic on polymorphic objects",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DoNotUsePointerArithmeticOnPolymorphicObjects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not use pointer arithmetic on polymorphic objects"
+    },
+    "EXP57-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not delete pointers to incomplete classes to prevent undefined behavior.",
+          "kind": "problem",
+          "name": "Do not delete pointers to incomplete classes",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeletingPointerToIncompleteClass",
+          "shared_implementation_short_name": "DeleteOfPointerToIncompleteClass",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Do not cast pointer to incomplete classes to prevent undefined behavior when the resulting pointer is dereferenced.",
+          "kind": "problem",
+          "name": "Do not cast pointers to incomplete classes",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastOfPointerToIncompleteClass",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not cast or delete pointers to incomplete classes"
+    },
+    "OOP55-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The use of a null pointer-to-member value as the second operand in a pointer-to-member expression results in undefined behavior.",
+          "kind": "path-problem",
+          "name": "Do not use a null pointer-to-member value in a pointer-to-member expression",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UseOfPointerToMemberToAccessUndefinedMember",
+          "shared_implementation_short_name": "AccessOfUndefinedMemberThroughNullPointer",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The use of a null pointer-to-member value as the second operand in a pointer-to-member expression results in undefined behavior.",
+          "kind": "problem",
+          "name": "Use of a null pointer-to-member value in a pointer-to-member expression",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemberAccessWithUninitializedStaticPointerToMember",
+          "shared_implementation_short_name": "AccessOfUndefinedMemberThroughUninitializedStaticPointer",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The use of a pointer-to-member expression where the dynamic type of the first operand does not contain the member pointed to by the second operand results in undefined behavior.",
+          "kind": "problem",
+          "name": "Do not use pointer-to-member operators to access nonexistent members",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UseOfPointerToMemberToAccessNonexistentMember",
+          "shared_implementation_short_name": "AccessOfNonExistingMemberThroughPointerToMember",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not use pointer-to-member operators to access nonexistent members"
+    }
+  }
+}

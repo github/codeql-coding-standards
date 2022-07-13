@@ -1,0 +1,2 @@
+| test.cpp:3:3:3:13 | 43255132451 | The hexidecimal constant 0xA1234f123 contains lower case literals. |
+| test.cpp:4:3:4:13 | 43255132451 | The hexidecimal constant 0xa1234f123 contains lower case literals. |

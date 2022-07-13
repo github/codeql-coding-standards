@@ -1,0 +1,1 @@
+| test.cpp:30:7:30:7 | D | Entities $@ and $@ are ambiguously accessible as 'v1' in the multiple inheritance hierarchy of class D. | test.cpp:3:7:3:8 | v1 | A::v1 | test.cpp:15:7:15:8 | v1 | B::v1 |

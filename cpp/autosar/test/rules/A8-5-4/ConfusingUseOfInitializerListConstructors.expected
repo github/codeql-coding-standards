@@ -1,0 +1,2 @@
+| test.cpp:10:3:10:8 | ClassB | The constructor ClassB::ClassB(int) may be ignored in favour of $@ when using braced initialization. | test.cpp:11:3:11:8 | ClassB | the constructor accepting std::initializer_list |
+| test.cpp:24:3:24:8 | ClassD | The constructor ClassD::ClassD(int) may be ignored in favour of $@ when using braced initialization. | test.cpp:23:3:23:8 | ClassD | the constructor accepting std::initializer_list |

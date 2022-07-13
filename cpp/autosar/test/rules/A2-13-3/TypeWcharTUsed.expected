@@ -1,0 +1,7 @@
+| test.cpp:3:9:3:9 | g | Use of wchar_t type. |
+| test.cpp:10:11:10:11 | l | Use of wchar_t type. |
+| test.cpp:13:8:13:9 | l4 | Use of wchar_t type. |
+| test.cpp:14:24:14:25 | l5 | Use of wchar_t type. |
+| test.cpp:15:37:15:38 | l6 | Use of wchar_t type. |
+| test.cpp:18:16:18:16 | i | Use of wchar_t type. |
+| test.cpp:25:20:25:21 | d3 | Use of wchar_t type. |

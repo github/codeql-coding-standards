@@ -1,0 +1,1 @@
+| test.cpp:5:12:5:36 | call to shared_ptr | Object owned by std::shared_ptr is not constructed by std::make_shared. |

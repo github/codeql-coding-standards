@@ -1,0 +1,2 @@
+- `M5-3-1` - `EachOperandOfTheOperatorTheLogicalAndOrTheLogicalOperatorsShallHaveTypeBool.ql`:
+  - Fix for #464 by excluding uninstantiated templates from consideration.

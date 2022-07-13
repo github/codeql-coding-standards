@@ -1,0 +1,5 @@
+| test.cpp:41:16:41:19 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 0 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.cpp:41:16:41:38 | {...} | array of type int[4][2] |
+| test.cpp:41:22:41:25 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 1 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.cpp:41:16:41:38 | {...} | array of type int[4][2] |
+| test.cpp:41:28:41:31 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 2 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.cpp:41:16:41:38 | {...} | array of type int[4][2] |
+| test.cpp:41:34:41:37 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 3 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.cpp:41:16:41:38 | {...} | array of type int[4][2] |
+| test.cpp:48:15:48:18 | {...} | Missing braces on aggregate literal of type $@ which is assigned to field $@. | test.cpp:6:10:6:10 | struct <unnamed> | struct <unnamed> | test.cpp:9:5:9:8 | m_s1 | m_s1 |

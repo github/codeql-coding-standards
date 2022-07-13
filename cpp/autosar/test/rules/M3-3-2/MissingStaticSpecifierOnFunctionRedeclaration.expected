@@ -1,0 +1,1 @@
+| test.cpp:2:6:2:7 | definition of f1 | The redeclaration of $@ with internal linkage misses the static specifier. | test.cpp:1:13:1:14 | declaration of f1 | function |

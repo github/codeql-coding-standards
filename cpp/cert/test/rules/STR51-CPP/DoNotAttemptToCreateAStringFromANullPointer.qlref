@@ -1,0 +1,1 @@
+rules/STR51-CPP/DoNotAttemptToCreateAStringFromANullPointer.ql

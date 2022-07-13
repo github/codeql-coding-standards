@@ -1,0 +1,282 @@
+{
+  "AUTOSAR": {
+    "A5-2-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Removing `const`/`volatile` qualification can result in undefined behavior when a `const`/`volatile` qualified object is modified through a non-const access path.",
+          "kind": "problem",
+          "name": "A cast shall not remove any const or volatile qualification from the type of a pointer or reference",
+          "precision": "very-high",
+          "severity": "warning",
+          "shared_implementation_short_name": "RemoveConstOrVolatileQualification",
+          "short_name": "RemoveConstOrVolatileQualificationAutosar",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A cast shall not remove any const or volatile qualification from the type of a pointer or reference."
+    },
+    "A7-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "`Constexpr`/`const` specifiers prevent unintentional data modification for parameters intended as immutable.",
+          "kind": "problem",
+          "name": "Constexpr or const specifiers shall be used for immutable parameter usage",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DeclarationUnmodifiedParamMissingConstSpecifier",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "`Constexpr`/`const` specifiers prevent unintentional data modification for data intended as immutable.",
+          "kind": "problem",
+          "name": "Constexpr or const specifiers shall be used for immutable data declaration",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DeclarationUnmodifiedObjectMissingConstSpecifier",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Constexpr or const specifiers shall be used for immutable data declaration."
+    },
+    "A7-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using 'constexpr' makes it clear that a variable is intended to be compile time constant.",
+          "kind": "problem",
+          "name": "The constexpr specifier shall be used for variables that can be determined at compile time",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "VariableMissingConstexpr",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Using 'constexpr' makes it clear that a function is intended to return a compile time constant.",
+          "kind": "problem",
+          "name": "The constexpr specifier shall be used for functions whose return value can be determined at compile time",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "FunctionMissingConstexpr",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The constexpr specifier shall be used for values that can be determined at compile time."
+    },
+    "A7-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using `const`/`volatile` qualifiers on the left hand side of types that are `typedef`s or `using` names makes it harder to understand what the qualifier applies to.",
+          "kind": "problem",
+          "name": "CV-qualifiers shall be placed on the right hand side of the type that is a typedef or a using name",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CvQualifiersNotPlacedOnTheRightHandSide",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "CV-qualifiers shall be placed on the right hand side of the type that is a typedef or a using name."
+    },
+    "A8-4-8": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using output parameters can lead to undefined program behaviour, for example when they return dangling references.",
+          "kind": "problem",
+          "name": "Output parameters shall not be used",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "OutputParametersUsed",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability",
+            "external/autosar/strict"
+          ]
+        }
+      ],
+      "title": "Output parameters shall not be used."
+    },
+    "A8-4-9": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Parameters declared as `T &` are intended to be modified (or else they would be specified to be read-only) and not modifiying them indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "'in-out' parameters declared as T & shall be modified",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "InOutParametersDeclaredAsTNotModified",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "'in-out' parameters declared as T & shall be modified."
+    },
+    "M7-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using a pointer/reference parameter in a function as pointer/reference to const if the corresponding object is not modified prevents unintended program behaviour.",
+          "kind": "problem",
+          "name": "A pointer or reference parameter in a function shall be declared as pointer to const or reference to const where possible",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "PointerOrReferenceParameterToConst",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A pointer or reference parameter in a function shall be declared as pointer to const or reference to const if the corresponding object is not modified."
+    },
+    "M9-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Returning references to class-data from `const` member functions is inconsistent with developer expectations because it allows modification of state of an object that was expected to be overall `const`.",
+          "kind": "problem",
+          "name": "Const member functions shall not return non-const pointers/references to class-data",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ConstMemberFunctionReturnsNonConstPointer",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Const member functions shall not return non-const pointers or references to class-data."
+    },
+    "M9-3-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using `static` specifiers for member functions where possible prevents unintentional data modification (and therefore unintentional program behaviour).",
+          "kind": "problem",
+          "name": "A member function shall be made static where possible",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MemberFunctionStaticIfPossible",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Using `const` specifiers for member functions where possible prevents unintentional data modification (and therefore unintentional program behaviour).",
+          "kind": "problem",
+          "name": "A member function shall be made const where possible",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MemberFunctionConstIfPossible",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "If a member function can be made static then it shall be made static, otherwise if it can be made const then it shall be made const."
+    }
+  },
+  "CERT-C++": {
+    "EXP55-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Removing `const`/`volatile` qualification can result in undefined behavior when a `const`/`volatile` qualified object is modified through a non-const access path.",
+          "kind": "problem",
+          "name": "Do not access a cv-qualified object through a cv-unqualified type",
+          "precision": "very-high",
+          "severity": "warning",
+          "shared_implementation_short_name": "RemoveConstOrVolatileQualification",
+          "short_name": "RemoveConstOrVolatileQualificationCert",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not access a cv-qualified object through a cv-unqualified type"
+    }
+  }
+}

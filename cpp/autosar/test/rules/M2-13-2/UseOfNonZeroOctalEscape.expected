@@ -1,0 +1,6 @@
+| test.cpp:3:3:3:8 | 10 | This literal contains the non-zero octal escape code \\012. |
+| test.cpp:4:3:4:8 | 44 | This literal contains the non-zero octal escape code \\054. |
+| test.cpp:5:3:5:9 | 3129 | This literal contains the non-zero octal escape code \\014. |
+| test.cpp:10:3:10:8 | \n | This literal contains the non-zero octal escape code \\012. |
+| test.cpp:11:3:11:8 | , | This literal contains the non-zero octal escape code \\054. |
+| test.cpp:12:3:12:9 | \u000c9 | This literal contains the non-zero octal escape code \\014. |

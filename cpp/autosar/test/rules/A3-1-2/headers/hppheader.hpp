@@ -1,0 +1,5 @@
+// COMPLIANT
+#ifndef _GHLIBCPP_GOODHPPHEADER
+#define _GHLIBCPP_GOODHPPHEADER
+int g5;
+#endif

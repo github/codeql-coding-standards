@@ -1,0 +1,1 @@
+| test.cpp:4:3:6:3 | for(...;...;...) ... | Loop counter $@ is not used. | test.cpp:4:12:4:12 | i | i |

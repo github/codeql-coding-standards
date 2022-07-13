@@ -1,0 +1,1 @@
+| test.cpp:4:3:4:11 | goto ... | The goto label $@ is located inside a nested block. | test.cpp:6:3:6:6 | label ...: | BAD |

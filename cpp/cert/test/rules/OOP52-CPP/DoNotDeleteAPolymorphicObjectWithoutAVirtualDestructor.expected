@@ -1,0 +1,3 @@
+| test.cpp:13:5:13:15 | delete | Pointer to polymorphic object of type $@ calls non-virtual destructor if destructed. | test.cpp:11:7:11:14 | DerivedA | DerivedA |
+| test.cpp:32:8:32:21 | (DerivedA *)... | Pointer to polymorphic object of type $@ calls non-virtual destructor if destructed. | test.cpp:11:7:11:14 | DerivedA | DerivedA |
+| test.cpp:35:8:35:33 | (DerivedA *)... | Pointer to polymorphic object of type $@ calls non-virtual destructor if destructed. | test.cpp:11:7:11:14 | DerivedA | DerivedA |

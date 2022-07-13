@@ -1,0 +1,25 @@
+The SEI CERT® Coding Standards are made available with special permission from
+Carnegie Mellon University’s Software Engineering Institute subject to the
+following terms:
+(c) 2021  Carnegie Mellon University.
+
+The CERT® secure coding standards project is based upon work funded and
+supported by the Department of Defense under Contract No. FA8702-15-D-0002 with
+Carnegie Mellon University for the operation of the Software Engineering
+Institute, a federally funded research and development center.
+
+The view, opinions, and/or findings contained in the CERT® secure coding
+standards are those of the author(s) and should not be construed as an official
+Government position, policy, or decision, unless designated by other
+documentation.
+
+The SEI CERT® Coding Standards are licensed under a Creative Commons 4.0 BY
+Attribution License, and the code examples contained therein are licensed under
+a MIT license. 
+
+Although the rights granted by the referenced licenses allow modification,
+because the CERT® secure coding standards project is an active project, you are
+encouraged to contribute modifications to the official project at
+https://wiki.sei.cmu.edu/confluence/display/seccode/SEI+CERT+Coding+Standards.
+
+Carnegie Mellon and CERT are registered trademarks of Carnegie Mellon University.

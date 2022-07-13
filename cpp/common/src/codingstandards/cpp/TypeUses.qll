@@ -1,0 +1,147 @@
+/**
+ * A module for identifying uses of a `Type` within the source code.
+ *
+ * The strategy used within this module is to identify types directly used within the AST classes
+ * represented in the databases - for example, `Type`s associated with variables, function return
+ * types, casts/sizeofs, name qualifiers and so forth. A recursive approach is then used to unwrap
+ * those types to determine which types are used transitively, such as base types, type arguments
+ * and so forth.
+ *
+ * The analysis also makes some basic attempts to exclude type self references, to avoid marking a
+ * type as "used" if it is only referenced from itself.
+ */
+
+import cpp
+
+/**
+ * Gets a typedef with the same qualified name and declared at the same location.
+ *
+ * A single typedef may occur in our database multiple times, if it is compiled into multiple
+ * separate link targets with a different context. This predicate implements a hueristic for
+ * identifying "equivalent" typedefs, so that we can say if one is "live", the others are live.
+ */
+pragma[noinline, nomagic]
+private TypedefType getAnEquivalentTypeDef(TypedefType type) {
+  // pragmas due to bad magic, bad inlining
+  type.getQualifiedName() = result.getQualifiedName() and
+  type.getLocation() = result.getLocation()
+}
+
+/**
+ * Gets a meaningful use of `type` in the source code.
+ *
+ * This reports all the places in the source checkout root that the type was used, directly or
+ * indirectly. The makes a basic attempt to exclude self-referential types where the only reference
+ * is from within the function signature or field declaration of the type itself.
+ */
+Locatable getATypeUse(Type type) {
+  result = getATypeUse_i(type)
+  or
+  // Identify `TypeMention`s of typedef types, where the underlying type is used.
+  //
+  // In principle, we shouldn't need to use `TypeMention` at all, because `getATypeUse_i` captures
+  // all the AST structures which reference types. Unfortunately, there is one case where the AST
+  // type structures don't capture full fidelity type information: type arguments of template
+  // instantiations and specializations which are typedef'd types. Instead of the type argument
+  // being represented as the typedef type, it is represented as the _underlying_ type. There is,
+  // however, a type mention in the appropriate place for the typedef'd type. We therefore use
+  // the TypeMention information in this one case only, restricting it to avoid largely duplicating
+  // the work already determined as part of `getATypeUse_i`.
+  //
+  // For example, in:
+  // ```
+  // 1 | typedef X Y;
+  // 2 | std::list<Y> x;
+  // ```
+  // The type of `x` is `std::list<X>` not `std::list<Y>`. There is, however a `TypeMention` of `Y`
+  // on line 2, we determine `Y` is used
+  exists(TypeMention tm, TypedefType typedefType |
+    result = tm and
+    type = getAnEquivalentTypeDef(typedefType) and
+    tm.getMentionedType() = typedefType
+  |
+    exists(tm.getFile().getRelativePath()) and
+    exists(getATypeUse_i(typedefType.getUnderlyingType()))
+  )
+}
+
+private Locatable getATypeUse_i(Type type) {
+  // Restrict to uses within the source checkout root
+  exists(result.getFile().getRelativePath()) and
+  (
+    // Used as a variable type
+    exists(Variable v | result = v |
+      type = v.getType() and
+      // Ignore self referential variables and parameters
+      not v.getDeclaringType().refersTo(type) and
+      not type = v.(Parameter).getFunction().getDeclaringType()
+    )
+    or
+    // Used a function return type
+    exists(Function f |
+      result = f and
+      not f.isCompilerGenerated() and
+      not type = f.getDeclaringType()
+    |
+      type = f.getType()
+      or
+      type = f.getATemplateArgument()
+    )
+    or
+    // Used either in a function call as a template argument, or as the declaring type
+    // of the function
+    exists(FunctionCall fc | result = fc |
+      type = fc.getTarget().getDeclaringType()
+      or
+      type = fc.getATemplateArgument()
+    )
+    or
+    // Aliased in a user typedef
+    exists(TypedefType t | result = t | type = t.getBaseType())
+    or
+    // A use in a `FunctionAccess`
+    exists(FunctionAccess fa | result = fa | type = fa.getTarget().getDeclaringType())
+    or
+    // A use in a `sizeof` expr
+    exists(SizeofTypeOperator soto | result = soto | type = soto.getTypeOperand())
+    or
+    // A use in a `Cast`
+    exists(Cast c | c = result | type = c.getType())
+    or
+    // Use of the type name in source
+    exists(TypeName t | t = result | type = t.getType())
+    or
+    // Access of an enum constant
+    exists(EnumConstantAccess eca | result = eca | type = eca.getTarget().getDeclaringEnum())
+    or
+    // Accessing a field on the type
+    exists(FieldAccess fa |
+      result = fa and
+      type = fa.getTarget().getDeclaringType()
+    )
+    or
+    // Name qualifiers
+    exists(NameQualifier nq |
+      result = nq and
+      type = nq.getQualifyingElement()
+    )
+  )
+  or
+  // Recursive case - used by a used type
+  exists(Type used | result = getATypeUse_i(used) |
+    // The `used` class has `type` as a base class
+    type = used.(DerivedType).getBaseType()
+    or
+    // The `used` class has `type` as a template argument
+    type = used.(Class).getATemplateArgument()
+    or
+    // A used class is derived from the type class
+    type = used.(Class).getABaseClass()
+    or
+    // This is a TemplateClass where one of the instantiations is used
+    type.(TemplateClass).getAnInstantiation() = used
+    or
+    // This is a TemplateClass where one of the specializations is used
+    type = used.(ClassTemplateSpecialization).getPrimaryTemplate()
+  )
+}

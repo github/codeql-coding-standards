@@ -1,0 +1,3 @@
+ - `A3-3-1` - `ExternalLinkageNotDeclaredInHeaderFile.ql`
+     - Explicitly check missing declaration in header file.
+     - Exclude subobjects.

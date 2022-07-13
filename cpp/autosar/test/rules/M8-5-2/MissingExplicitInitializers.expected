@@ -1,0 +1,5 @@
+| test.cpp:46:13:46:17 | {...} | Aggregate literal for type int[4]$@ is missing an explicit initializer for $@. | file://:0:0:0:0 | int[4] | int[4] | test.cpp:46:13:46:17 | {...} | the elements in the index range 2 to 3 |
+| test.cpp:47:16:47:22 | {...} | Aggregate literal for type int[4][2]$@ is missing an explicit initializer for $@. | file://:0:0:0:0 | int[4][2] | int[4][2] | test.cpp:47:16:47:22 | {...} | the elements in the index range 1 to 3 |
+| test.cpp:51:10:51:14 | {...} | Aggregate literal for type $@ is missing an explicit initializer for $@. | test.cpp:3:8:3:10 | Foo | Foo | test.cpp:9:5:9:8 | m_s1 | field m_s1 |
+| test.cpp:55:10:55:13 | {...} | Aggregate literal for type $@ is missing an explicit initializer for $@. | test.cpp:12:8:12:10 | Bar | Bar | test.cpp:17:7:17:10 | m_i1 | field m_i1 |
+| test.cpp:55:10:55:13 | {...} | Aggregate literal for type $@ is missing an explicit initializer for $@. | test.cpp:12:8:12:10 | Bar | Bar | test.cpp:18:7:18:10 | m_i2 | field m_i2 |

@@ -1,0 +1,3 @@
+| test.cpp:16:9:16:17 | operator- | User-defined bitwise or arithmetic operator operator-(const A &, int) -> const A does not return a prvalue. |
+| test.cpp:20:4:20:12 | operator\| | User-defined bitwise or arithmetic operator operator\|(const A &, const A &) -> A * does not return a prvalue. |
+| test.cpp:29:6:29:14 | operator+ | User-defined bitwise or arithmetic operator NS_C::operator+(const C &, const C &) -> int & does not return a prvalue. |

@@ -1,0 +1,2 @@
+- `A13-3-1` - `FunctionThatContainsForwardingReferenceAsItsArgumentOverloaded.ql`
+  - Fix to #369 which adds detail about which function is being overloaded. 

@@ -1,0 +1,48 @@
+problems
+| test.cpp:31:16:31:51 | new | test.cpp:29:32:29:45 | call to operator new | test.cpp:31:21:31:40 | badlyAllocatedMemory | Placement new expression is used with an insufficiently large memory allocation from $@. | test.cpp:29:32:29:45 | call to operator new | call to operator new |
+| test.cpp:37:16:37:52 | new | test.cpp:35:33:35:46 | call to operator new | test.cpp:37:21:37:41 | badlyAllocatedMemory2 | Placement new expression is used with an insufficiently large memory allocation from $@. | test.cpp:35:33:35:46 | call to operator new | call to operator new |
+| test.cpp:46:16:46:33 | new | test.cpp:46:21:46:22 | & ... | test.cpp:46:21:46:22 | & ... | Placement new expression is used with an insufficiently large memory allocation from $@. | test.cpp:46:21:46:22 | & ... | & ... |
+| test.cpp:53:16:53:39 | new | test.cpp:53:21:53:28 | badAlloc | test.cpp:53:21:53:28 | badAlloc | Placement new expression is used with an insufficiently large memory allocation from $@. | test.cpp:53:21:53:28 | badAlloc | badAlloc |
+| test.cpp:100:16:100:39 | new | test.cpp:62:16:62:29 | call to operator new | test.cpp:100:21:100:28 | badAlloc | Placement new expression is used with an insufficiently large memory allocation from $@. | test.cpp:62:16:62:29 | call to operator new | call to operator new |
+| test.cpp:100:16:100:39 | new | test.cpp:65:36:65:38 | call to pop | test.cpp:100:21:100:28 | badAlloc | Placement new expression is used with an insufficiently large memory allocation from $@. | test.cpp:65:36:65:38 | call to pop | call to pop |
+| test.cpp:113:7:113:32 | new[] | test.cpp:113:14:113:21 | badAlloc | test.cpp:113:14:113:21 | badAlloc | Placement new expression is used with an insufficiently large memory allocation from $@. | test.cpp:113:14:113:21 | badAlloc | badAlloc |
+edges
+| test.cpp:18:36:18:49 | call to operator new | test.cpp:19:21:19:44 | correctlyAllocatedMemory |
+| test.cpp:24:37:24:50 | call to operator new | test.cpp:25:21:25:45 | correctlyAllocatedMemory2 |
+| test.cpp:29:32:29:45 | call to operator new | test.cpp:31:21:31:40 | badlyAllocatedMemory |
+| test.cpp:35:33:35:46 | call to operator new | test.cpp:37:21:37:41 | badlyAllocatedMemory2 |
+| test.cpp:62:16:62:29 | call to operator new | test.cpp:67:12:67:17 | memory |
+| test.cpp:62:16:62:29 | call to operator new | test.cpp:67:12:67:17 | memory |
+| test.cpp:65:36:65:38 | call to pop | test.cpp:67:12:67:17 | memory |
+| test.cpp:65:36:65:38 | call to pop | test.cpp:67:12:67:17 | memory |
+| test.cpp:67:12:67:17 | memory | test.cpp:94:32:94:39 | call to allocate |
+| test.cpp:67:12:67:17 | memory | test.cpp:98:31:98:38 | call to allocate |
+| test.cpp:94:32:94:39 | call to allocate | test.cpp:95:21:95:29 | goodAlloc |
+| test.cpp:98:31:98:38 | call to allocate | test.cpp:100:21:100:28 | badAlloc |
+nodes
+| test.cpp:18:36:18:49 | call to operator new | semmle.label | call to operator new |
+| test.cpp:19:21:19:44 | correctlyAllocatedMemory | semmle.label | correctlyAllocatedMemory |
+| test.cpp:24:37:24:50 | call to operator new | semmle.label | call to operator new |
+| test.cpp:25:21:25:45 | correctlyAllocatedMemory2 | semmle.label | correctlyAllocatedMemory2 |
+| test.cpp:29:32:29:45 | call to operator new | semmle.label | call to operator new |
+| test.cpp:31:21:31:40 | badlyAllocatedMemory | semmle.label | badlyAllocatedMemory |
+| test.cpp:35:33:35:46 | call to operator new | semmle.label | call to operator new |
+| test.cpp:37:21:37:41 | badlyAllocatedMemory2 | semmle.label | badlyAllocatedMemory2 |
+| test.cpp:44:21:44:22 | & ... | semmle.label | & ... |
+| test.cpp:46:21:46:22 | & ... | semmle.label | & ... |
+| test.cpp:51:21:51:29 | goodAlloc | semmle.label | goodAlloc |
+| test.cpp:53:21:53:28 | badAlloc | semmle.label | badAlloc |
+| test.cpp:62:16:62:29 | call to operator new | semmle.label | call to operator new |
+| test.cpp:62:16:62:29 | call to operator new | semmle.label | call to operator new |
+| test.cpp:65:36:65:38 | call to pop | semmle.label | call to pop |
+| test.cpp:65:36:65:38 | call to pop | semmle.label | call to pop |
+| test.cpp:67:12:67:17 | memory | semmle.label | memory |
+| test.cpp:67:12:67:17 | memory | semmle.label | memory |
+| test.cpp:94:32:94:39 | call to allocate | semmle.label | call to allocate |
+| test.cpp:95:21:95:29 | goodAlloc | semmle.label | goodAlloc |
+| test.cpp:98:31:98:38 | call to allocate | semmle.label | call to allocate |
+| test.cpp:100:21:100:28 | badAlloc | semmle.label | badAlloc |
+| test.cpp:113:14:113:21 | badAlloc | semmle.label | badAlloc |
+| test.cpp:120:23:120:31 | goodAlloc | semmle.label | goodAlloc |
+| test.cpp:126:25:126:34 | goodAlloc2 | semmle.label | goodAlloc2 |
+subpaths

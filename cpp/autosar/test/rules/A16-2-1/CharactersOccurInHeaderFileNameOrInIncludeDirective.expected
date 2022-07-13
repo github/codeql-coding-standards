@@ -1,0 +1,2 @@
+| test.cpp:4:1:4:23 | #include "'badheader.h" | The #include of "'badheader.h" contains a character sequence with implementation-defined behavior. |
+| test.cpp:5:1:5:23 | #include "badheade'r.h" | The #include of "badheade'r.h" contains a character sequence with implementation-defined behavior. |

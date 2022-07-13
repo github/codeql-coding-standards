@@ -1,0 +1,1 @@
+| test.cpp:7:3:7:6 | call to func | Nonstandard class $@ is used as an argument to function $@, which is compiled differently than its implementation $@ | test-diff.h:2:8:2:8 | S | Class | test.cpp:7:3:7:6 | call to func | Function Call | test-diff.cpp:3:6:3:9 | func | Function Implementation |

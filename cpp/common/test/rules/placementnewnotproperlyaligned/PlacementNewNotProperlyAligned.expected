@@ -1,0 +1,10 @@
+problems
+| test.cpp:19:16:19:33 | new | test.cpp:19:21:19:22 | & ... | test.cpp:19:21:19:22 | & ... | Placement new expression is used with inappropriately aligned memory from $@. | test.cpp:19:21:19:22 | & ... | & ... |
+| test.cpp:27:16:27:39 | new | test.cpp:27:21:27:28 | badAlloc | test.cpp:27:21:27:28 | badAlloc | Placement new expression is used with inappropriately aligned memory from $@. | test.cpp:27:21:27:28 | badAlloc | badAlloc |
+edges
+nodes
+| test.cpp:17:21:17:22 | & ... | semmle.label | & ... |
+| test.cpp:19:21:19:22 | & ... | semmle.label | & ... |
+| test.cpp:24:21:24:29 | goodAlloc | semmle.label | goodAlloc |
+| test.cpp:27:21:27:28 | badAlloc | semmle.label | badAlloc |
+subpaths

@@ -1,0 +1,145 @@
+{
+  "AUTOSAR": {
+    "A5-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value of an expression shall be the same under any order of evaluation that the standard permits.",
+          "kind": "problem",
+          "name": "The value of an expression does not rely on the order of evaluation",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ExpressionShouldNotRelyOnOrderOfEvaluation",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value of an expression shall be the same under any order of evaluation that the standard permits."
+    },
+    "A5-2-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The operands of a logical && or || shall be parenthesized if the operands contain binary operators to make the expressions more readable.",
+          "kind": "problem",
+          "name": "The operands of a logical && or || shall be parenthesized if the operands contain binary operators",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "OperandsOfALogicalAndOrNotParenthesized",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The operands of a logical && or || shall be parenthesized if the operands contain binary operators."
+    },
+    "A6-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The explicit creation of a temporary object without usage that will be destroyed at the end of the full expression might be inconsistent with the developer's intentions.",
+          "kind": "problem",
+          "name": "Expression statements shall not be explicit calls to constructors of temporary objects only",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ExplicitConstructionOfUnnamedTemporary",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Expression statements shall not be explicit calls to constructors of temporary objects only."
+    },
+    "M5-0-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The use of parentheses should be used to override or emphasize operator precedence. However, gratuitous use of parentheses can decrease code readability.",
+          "kind": "problem",
+          "name": "Limited dependence should be placed on C++ operator precedence rules in expressions",
+          "precision": "medium",
+          "severity": "recommendation",
+          "short_name": "GratuitousUseOfParentheses",
+          "tags": [
+            "external/autosar/audit",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Limited dependence should be placed on C++ operator precedence rules in expressions."
+    },
+    "M5-2-10": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The increment (++) and decrement (--) operators shall not be mixed with other operators in an expression.",
+          "kind": "problem",
+          "name": "The increment (++) and decrement (--) operators shall not be mixed with other operators",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IncrementAndDecrementOperatorsMixedWithOtherOperatorsInExpression",
+          "tags": [
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The increment (++) and decrement (--) operators shall not be mixed with other operators in an expression."
+    },
+    "M6-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Assigning values in a sub-expression add additional side-effects that potentially results in values inconsistent with the developers expectations.",
+          "kind": "problem",
+          "name": "Assignment operators shall not be used in sub-expressions",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "AssignmentInSubExpression",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Assignment operators shall not be used in sub-expressions."
+    }
+  }
+}

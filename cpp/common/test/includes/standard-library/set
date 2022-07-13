@@ -1,0 +1,34 @@
+#include "iterator.h"
+#include <bits/stl_function.h>
+
+namespace std {
+template <typename _Key, typename _Compare = std::less<_Key>,
+          typename _Alloc = std::allocator<_Key>>
+class set {
+public:
+  typedef std::iterator<random_access_iterator_tag, _Key> iterator;
+  typedef std::iterator<random_access_iterator_tag, _Key> const_iterator;
+
+  iterator begin();
+  iterator end();
+  const_iterator cbegin();
+  const_iterator cend();
+
+  set();
+};
+template <typename _Key, typename _Compare = std::less<_Key>,
+          typename _Alloc = std::allocator<_Key>>
+class multiset {
+public:
+  typedef std::iterator<random_access_iterator_tag, _Key> iterator;
+  typedef std::iterator<random_access_iterator_tag, _Key> const_iterator;
+
+  iterator begin();
+  iterator end();
+  const_iterator cbegin();
+  const_iterator cend();
+
+  multiset();
+};
+
+} // namespace std

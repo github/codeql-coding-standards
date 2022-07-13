@@ -1,0 +1,3 @@
+| test.cpp:4:8:4:8 | \\u03b1 | Declaration uses the character '\\u03b1' that is outside the language basic character set. |
+| test.cpp:5:7:5:21 | to_\\U00010185_and_beyond | Declaration uses the character '\\U00010185' that is outside the language basic character set. |
+| test.cpp:6:5:6:13 | l1_\\u00a8 | Declaration uses the character '\\u00a8' that is outside the language basic character set. |

@@ -1,0 +1,109 @@
+name: Fetch CodeQL CLI and queries
+description: |
+  Fetches a CodeQL CLI and a copy of the CodeQL standard libraries at the specified versions.
+inputs:
+  codeql-cli-version:
+    description: |
+      The version of the CodeQL CLI to be downloaded.
+    required: false
+    default: "latest"
+
+  codeql-stdlib-version:
+    description: |
+      The tag or commit to use from the CodeQL Standard Library
+    required: false
+    default: "latest"
+
+  add-to-path:
+    description: |
+      Add the CodeQL CLI to the system path
+    required: false
+    default: "true"
+
+  codeql-home:
+    description: |
+      The directory to store the CodeQL CLI and Standard Library.
+      A fixed location can be used for caching the tooling.
+    required: false
+outputs:
+  codeql-home:
+    description: "The directory containing the CodeQL CLI and CodeQL Standard Library"
+    value: ${{ steps.install-codeql.outputs.codeql-home }}
+
+runs:
+  using: composite
+  steps:
+    - name: Install CodeQL
+      id: install-codeql
+      env:
+        RUNNER_OS: ${{ runner.os }}
+        RUNNER_TEMP: ${{ runner.temp }}
+        CODEQL_CLI_VERSION: ${{ inputs.codeql-cli-version }}
+        CODEQL_STDLIB_VERSION: ${{ inputs.codeql-stdlib-version }}
+        GITHUB_TOKEN: ${{ github.token }}
+        ADD_TO_PATH: ${{ inputs.add-to-path }}
+        CODEQL_HOME: ${{ inputs.codeql-home }}
+      shell: bash
+      run: |
+        echo "::debug::Determining CodeQL release for $RUNNER_OS"
+        case $RUNNER_OS in
+          "Linux")
+            RELEASE_PATTERN="codeql-linux64.zip"
+            ;;
+          "macOS")
+            RELEASE_PATTERN="codeql-osx64.zip"
+            ;;
+          "Windows")
+            RELEASE_PATTERN="codeql-win64.zip"
+            ;;
+          *)
+            echo "::error::Unsupported runner operating system $RUNNER_OS"
+            exit 1
+            ;;
+        esac
+        echo "::debug::Selected $RELEASE_PATTERN"
+
+        if [ "$CODEQL_HOME" == "" ]
+        then
+          echo "::debug::Creating temporary CodeQL home"
+          CODEQL_HOME=$(mktemp -d -p $RUNNER_TEMP codeql-home-XXXXXXXXXX)
+        else
+          echo "::debug::Creating CodeQL home at $CODEQL_HOME"
+          mkdir -p $CODEQL_HOME
+        fi
+
+        echo "::debug::Changing directory to $CODEQL_HOME"
+        pushd $CODEQL_HOME
+
+        echo "::debug::Downloading CodeQL CLI version $CODEQL_CLI_VERSION"
+        if [ "$CODEQL_CLI_VERSION" == "latest" ]
+        then
+          gh release download --repo https://github.com/github/codeql-cli-binaries --pattern $RELEASE_PATTERN
+        else
+          gh release download "v${CODEQL_CLI_VERSION}" --repo https://github.com/github/codeql-cli-binaries --pattern $RELEASE_PATTERN
+        fi
+        echo "::debug::Unpacking CodeQL CLI"
+        unzip -q $RELEASE_PATTERN
+
+        echo "::debug::Cloning CodeQL standard library"
+        git clone https://github.com/github/codeql.git codeql-stdlib
+
+        if [ "$CODEQL_STDLIB_VERSION" != "latest" ]
+        then
+          pushd codeql-stdlib
+          echo "::debug::Switching to revision $CODEQL_STDLIB_VERSION"
+          git checkout $CODEQL_STDLIB_VERSION
+          popd
+        fi
+
+        if [ "$ADD_TO_PATH" == "true" ]
+        then
+          echo "::debug::Adding CodeQL CLI path '$(pwd)/codeql' to system path"
+          echo "$(pwd)/codeql" >> $GITHUB_PATH
+        fi
+
+        echo "::debug::Setting output parameter codeql-home to $(pwd)"
+        echo "::set-output name=codeql-home::$(pwd)"
+
+        popd
+        echo "::debug::Done."

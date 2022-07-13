@@ -1,0 +1,6 @@
+| test_non_compliant.cpp:11:5:11:8 | main | Main-like function does not include a handler for CustomException. |
+| test_non_compliant.cpp:11:5:11:8 | main | Main-like function does not include a handler for std::exception. |
+| test_non_compliant_multi_try.cpp:9:5:9:8 | main | Main-like function does not include a handler for CustomException. |
+| test_non_compliant_multi_try.cpp:9:5:9:8 | main | Main-like function does not include a handler for std::exception. |
+| test_non_compliant_try_function.cpp:11:5:11:8 | main | Main-like function does not include a handler for CustomException. |
+| test_non_compliant_try_function.cpp:11:5:11:8 | main | Main-like function does not include a handler for std::exception. |

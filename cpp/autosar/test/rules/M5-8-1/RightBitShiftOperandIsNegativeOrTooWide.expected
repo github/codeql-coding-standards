@@ -1,0 +1,16 @@
+| test.cpp:28:12:28:13 | - ... | Bit-shift amount, -1, is either negative or larger than the width, 32. |
+| test.cpp:29:12:29:22 | - ... | Bit-shift amount, -1, is either negative or larger than the width, 32. |
+| test.cpp:32:12:32:13 | - ... | Bit-shift amount, -1, is either negative or larger than the width, 32. |
+| test.cpp:33:12:33:22 | - ... | Bit-shift amount, -1, is either negative or larger than the width, 32. |
+| test.cpp:36:12:36:19 | ... * ... | Bit-shift amount, 32, is either negative or larger than the width, 32. |
+| test.cpp:37:13:37:24 | ... + ... | Bit-shift amount, 33, is either negative or larger than the width, 32. |
+| test.cpp:40:12:40:19 | ... * ... | Bit-shift amount, 32, is either negative or larger than the width, 32. |
+| test.cpp:41:13:41:24 | ... + ... | Bit-shift amount, 33, is either negative or larger than the width, 32. |
+| test.cpp:44:9:44:10 | - ... | Bit-shift amount, -1, is either negative or larger than the width, 32. |
+| test.cpp:45:9:45:19 | - ... | Bit-shift amount, -1, is either negative or larger than the width, 32. |
+| test.cpp:48:9:48:10 | - ... | Bit-shift amount, -1, is either negative or larger than the width, 32. |
+| test.cpp:49:9:49:19 | - ... | Bit-shift amount, -1, is either negative or larger than the width, 32. |
+| test.cpp:52:9:52:16 | ... * ... | Bit-shift amount, 32, is either negative or larger than the width, 32. |
+| test.cpp:53:10:53:21 | ... + ... | Bit-shift amount, 33, is either negative or larger than the width, 32. |
+| test.cpp:56:9:56:16 | ... * ... | Bit-shift amount, 32, is either negative or larger than the width, 32. |
+| test.cpp:57:10:57:21 | ... + ... | Bit-shift amount, 33, is either negative or larger than the width, 32. |

@@ -1,0 +1,1 @@
+ - The supported rules list is now provided in CSV as well as Markdown format.

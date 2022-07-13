@@ -1,0 +1,2 @@
+| test.cpp:11:3:11:3 | A | Copy constructor or copy assignment operator mutates the source object. |
+| test.cpp:13:6:13:14 | operator= | Copy constructor or copy assignment operator mutates the source object. |

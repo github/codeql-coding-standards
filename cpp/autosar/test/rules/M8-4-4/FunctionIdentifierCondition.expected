@@ -1,0 +1,3 @@
+| test.cpp:11:18:11:18 | f | The function identifier $@ is not used to call the function and is not preceded by &. | test.cpp:8:6:8:6 | f | f |
+| test.cpp:14:18:14:21 | h | The function identifier $@ is not used to call the function and is not preceded by &. | test.cpp:5:15:5:15 | h | h |
+| test.cpp:19:7:19:7 | f | The function identifier $@ is not used to call the function and is not preceded by &. | test.cpp:8:6:8:6 | f | f |

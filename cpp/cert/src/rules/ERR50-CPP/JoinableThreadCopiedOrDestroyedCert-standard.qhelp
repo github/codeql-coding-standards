@@ -1,0 +1,454 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>The <code>std::abort()</code>, <code>std::quick_exit()</code>, and <code>std::_Exit()</code> functions are used to terminate the program in an immediate fashion. They do so without calling exit handlers registered with <code>std::atexit()</code> and without executing destructors for objects with automatic, thread, or static storage duration. How a system manages open streams when a program ends is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">implementation-defined</a> [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-1999">ISO/IEC 9899:1999</a>]. Open streams with unwritten buffered data may or may not be flushed, open streams may or may not be closed, and temporary files may or may not be removed. Because these functions can leave external resources, such as files and network communications, in an indeterminate state, they should be called explicitly only in direct response to a critical error in the application. (See ERR50-CPP-EX1 for more information.)</p>
+  <p>The <code>std::terminate()</code> function calls the current <code>terminate_handler</code> function, which defaults to calling <code>std::abort()</code>.</p>
+  <p>The C++ Standard defines several ways in which <code>std::terminate()</code> may be called implicitly by an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">implementation</a> [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>]:</p>
+  <ol>
+   <li>When the exception handling mechanism, after completing the initialization of the exception object but before activation of a handler for the exception, calls a function that exits via an exception ([except.throw], paragraph 7)See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR60-CPP.+Exception+objects+must+be+nothrow+copy+constructible">ERR60-CPP. Exception objects must be nothrow copy constructible</a> for more information.</li>
+   <li>When a <em>throw-expression</em> with no operand attempts to rethrow an exception and no exception is being handled ([except.throw], paragraph 9)</li>
+   <li>When the exception handling mechanism cannot find a handler for a thrown exception ([except.handle], paragraph 9)See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR51-CPP.+Handle+all+exceptions">ERR51-CPP. Handle all exceptions</a> for more information.</li>
+   <li>When the search for a handler encounters the outermost block of a function with a <em>noexcept-specification</em> that does not allow the exception ([except.spec], paragraph 9)See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR55-CPP.+Honor+exception+specifications">ERR55-CPP. Honor exception specifications</a> for more information.</li>
+   <li>When the destruction of an object during stack unwinding terminates by throwing an exception ([except.ctor], paragraph 3)See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL57-CPP.+Do+not+let+exceptions+escape+from+destructors+or+deallocation+functions">DCL57-CPP. Do not let exceptions escape from destructors or deallocation functions</a> for more information.</li>
+   <li>When initialization of a nonlocal variable with static or thread storage duration exits via an exception ([basic.start.init], paragraph 6)See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR58-CPP.+Handle+all+exceptions+thrown+before+main%28%29+begins+executing">ERR58-CPP. Handle all exceptions thrown before main() begins executing</a> for more information.</li>
+   <li>When destruction of an object with static or thread storage duration exits via an exception ([basic.start.term], paragraph 1)See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL57-CPP.+Do+not+let+exceptions+escape+from+destructors+or+deallocation+functions">DCL57-CPP. Do not let exceptions escape from destructors or deallocation functions</a> for more information.</li>
+   <li>When execution of a function registered with <code>std::atexit()</code>or <code>std::at_quick_exit()</code> exits via an exception ([support.start.term], paragraphs 8 and 12)</li>
+   <li>When the implementation’s default unexpected exception handler is called ([except.unexpected], paragraph 2) Note that <code>std::unexpected()</code> is currently deprecated.</li>
+   <li>When <code>std::unexpected()</code> throws an exception that is not allowed by the previously violated <em>dynamic-exception-specification</em>, and <code>std::bad_exception()</code> is not included in that <em>dynamic-exception-specification</em> ([except.unexpected], paragraph 3)</li>
+   <li>When the function <code>std::nested_exception::rethrow_nested()</code> is called for an object that has captured no exception ([except.nested], paragraph 4)</li>
+   <li>When execution of the initial function of a thread exits via an exception ([thread.thread.constr], paragraph 5)See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR51-CPP.+Handle+all+exceptions">ERR51-CPP. Handle all exceptions</a> for more information.</li>
+   <li>When the destructor is invoked on an object of type <code>std::thread</code> that refers to a joinable thread ([thread.thread.destr], paragraph 1)</li>
+   <li>When the copy assignment operator is invoked on an object of type <code>std::thread</code> that refers to a joinable thread ([thread.thread.assign], paragraph 1)</li>
+   <li>When calling <code>condition_variable::wait()</code>, <code>condition_variable::wait_until()</code>, or <code>condition_variable::wait_for()</code> results in a failure to meet the postcondition: <code>lock.owns_lock() == true</code> or <code>lock.mutex()</code> is not locked by the calling thread ([thread.condition.condvar], paragraphs 11, 16, 21, 28, 33, and 40)</li>
+   <li>When calling <code>condition_variable_any::wait()</code>, <code>condition_variable_any::wait_until()</code>, or <code>condition_variable_any::wait_for()</code> results in a failure to meet the postcondition: <code>lock</code> is not locked by the calling thread ([thread.condition.condvarany], paragraphs 11, 16, and 22)</li>
+  </ol>
+  <p>In many circumstances, the call stack will not be unwound in response to an implicit call to <code>std::terminate()</code>, and in a few cases, it is implementation-defined whether or not stack unwinding will occur. The C++ Standard, [except.terminate], paragraph 2 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], in part, states the following:</p>
+  <blockquote>
+   <p>In the situation where no matching handler is found, it is implementation-defined whether or not the stack is unwound before <code>std::terminate()</code> is called. In the situation where the search for a handler encounters the outermost block of a function with a <em>noexcept-specification</em> that does not allow the exception, it is implementation-defined whether the stack is unwound, unwound partially, or not unwound at all before <code>std::terminate()</code> is called. In all other situations, the stack shall not be unwound before <code>std::terminate()</code> is called.</p>
+  </blockquote>
+  <p>Do not explicitly or implicitly call <code>std::quick_exit()</code>,  <code>std::abort()</code>, or <code>std::_Exit()</code>. When the default <code>terminate_handler</code> is installed or the current <code>terminate_handler</code> responds by calling <code>std::abort()</code> or <code>std::_Exit()</code>, do not explicitly or implicitly call <code>std::terminate()</code>. <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">Abnormal process termination</a> is the typical vector for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>.</p>
+  <p>The <code>std::exit()</code> function is more complex. The C++ Standard, [basic.start.main], paragraph 4, states:</p>
+  <blockquote>
+   <p>Terminating the program without leaving the current block (e.g., by calling the function std::exit(int) (17.5)) does not destroy any objects with automatic storage duration (11.4.6). If std::exit is called to end a program during the destruction of an object with static or thread storage duration, the program has undefined behavior.</p>
+  </blockquote>
+  <p>You may call <code>std::exit()</code> only in a program that has not yet initialized any objects with automatic storage duration.</p>
+  <p>Noncompliant Code Example</p>
+  <p>In this noncompliant code example, the call to <code>f()</code>, which was registered as an exit handler with <code>std::at_exit()</code>, may result in a call to <code>std::terminate()</code> because <code>throwing_func()</code> may throw an exception.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+ 
+void throwing_func() noexcept(false);
+ 
+void f() { // Not invoked by the program except as an exit handler.
+  throwing_func();
+}
+ 
+int main() {
+  if (0 != std::atexit(f)) {
+    // Handle error
+  }
+  // ...
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>In this compliant solution, <code>f()</code> handles all exceptions thrown by <code>throwing_func()</code> and does not rethrow.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
+
+void throwing_func() noexcept(false);
+
+void f() { // Not invoked by the program except as an exit handler.
+  try {
+    throwing_func();
+  } catch (...) {
+    // Handle error
+  }
+}
+
+int main() {
+  if (0 != std::atexit(f)) {
+    // Handle error
+  }
+  // ...
+}</sample>
+ </section>
+ <section title="Exceptions">
+  <p><strong>ERR50-CPP-EX1:</strong> It is acceptable, after indicating the nature of the problem to the operator, to explicitly call <code>std::abort()</code>, <code>std::_Exit()</code>, or <code>std::terminate()</code> in response to a critical program error for which no recovery is possible, as in this example.</p>
+  <sample language="cpp">#include &lt;exception&gt;
+
+void report(const char *msg) noexcept;
+[[noreturn]] void fast_fail(const char *msg) {
+  // Report error message to operator
+  report(msg);
+ 
+  // Terminate
+  std::terminate();
+}
+ 
+void critical_function_that_fails() noexcept(false);
+ 
+void f() {
+  try {
+    critical_function_that_fails();
+  } catch (...) {
+    fast_fail("Critical function failure");
+  }
+}</sample>
+  <p>The <code>assert()</code> macro is permissible under this exception because failed assertions will notify the operator on the standard error stream in an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">implementation-defined</a> manner before calling <code>std::abort()</code>.</p>
+ </section>
+ <section title="Risk Assessment">
+  <p>Allowing the application to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormally terminate</a> can lead to resources not being freed, closed, and so on. It is frequently a vector for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      ERR50-CPP
+     </td>
+     <td>
+      Low
+     </td>
+     <td>
+      Probable
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      <strong>P4</strong>
+     </td>
+     <td>
+      <strong>L3</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=222953724">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>stdlib-use</strong>
+     </td>
+     <td>
+      Partially checked
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>BADFUNC.ABORTBADFUNC.EXIT</strong>
+     </td>
+     <td>
+      Use of abort
+      Use of exit
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++5014</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://www.securecoding.cert.org/confluence/display/cplusplus/Klocwork">
+       Klocwork
+      </a>
+     </td>
+     <td>
+      2021.4
+     </td>
+     <td>
+      <strong>MISRA.TERMINATE</strong>
+      <strong>CERT.ERR.ABRUPT_TERM</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/LDRA">
+       LDRA tool suite
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+      <strong>122 S</strong>
+     </td>
+     <td>
+      Enhanced Enforcement
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-ERR50-a</strong>
+      <strong>CERT_CPP-ERR50-b</strong>
+      <strong>CERT_CPP-ERR50-c</strong>
+      <strong>CERT_CPP-ERR50-d</strong>
+      <strong>CERT_CPP-ERR50-e</strong>
+      <strong>CERT_CPP-ERR50-f</strong>
+      <strong>CERT_CPP-ERR50-g</strong>
+      <strong>CERT_CPP-ERR50-h</strong>
+      <strong>CERT_CPP-ERR50-i</strong>
+      <strong>CERT_CPP-ERR50-j</strong>
+      <strong>CERT_CPP-ERR50-k</strong>
+      <strong>CERT_CPP-ERR50-l</strong>
+      <strong>CERT_CPP-ERR50-mCERT_CPP-ERR50-n</strong>
+     </td>
+     <td>
+      The execution of a function registered with 'std::atexit()' or 'std::at_quick_exit()' should not exit via an exception
+      Never allow an exception to be thrown from a destructor, deallocation, and swap
+      Do not throw from within destructor
+      There should be at least one exception handler to catch all otherwise unhandled exceptions
+      An empty throw (throw;) shall only be used in the compound-statement of a catch handler
+      Exceptions shall be raised only after start-up and before termination of the program
+      Each exception explicitly thrown in the code shall have a handler of a compatible type in all call paths that could lead to that point
+      Where a function's declaration includes an exception-specification, the function shall only be capable of throwing exceptions of the indicated type(s)
+      Function called in global or namespace scope shall not throw unhandled exceptions
+      Always catch exceptions
+      Properly define exit handlers
+      The 'abort()' function from the 'stdlib.h' or 'cstdlib' library shall not be used
+      Avoid throwing exceptions from functions that are declared not to throw
+      The 'quick_exit()' and '_Exit()' functions from the 'stdlib.h' or 'cstdlib' library shall not be used
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2021b
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certcerr50cpp.html">
+       CERT C++: ERR50-CPP
+      </a>
+     </td>
+     <td>
+      Checks for implicit call to terminate() function (rule partially covered)
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046345">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>5014</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/PVS-Studio">
+       PVS-Studio
+      </a>
+     </td>
+     <td>
+      7.17
+     </td>
+     <td>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v667/">V667</a>, <a href="https://pvs-studio.com/en/docs/warnings/v2014/">V2014</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/RuleChecker">
+       RuleChecker
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>stdlib-use</strong>
+     </td>
+     <td>
+      Partially checked
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046388">
+       SonarQube C/C++ Plugin
+      </a>
+     </td>
+     <td>
+      4.10
+     </td>
+     <td>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-990">S990</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR50-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682">
+       SEI CERT C++ Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR51-CPP.+Handle+all+exceptions">
+       ERR51-CPP. Handle all exceptions
+      </a>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR55-CPP.+Honor+exception+specifications">
+       ERR55-CPP. Honor exception specifications
+      </a>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL57-CPP.+Do+not+let+exceptions+escape+from+destructors+or+deallocation+functions">
+       DCL57-CPP. Do not let exceptions escape from destructors or deallocation functions
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="http://cwe.mitre.org/">
+       MITRE CWE
+      </a>
+     </td>
+     <td>
+      <a href="http://cwe.mitre.org/data/definitions/754.html">
+       CWE-754
+      </a>
+      , Improper Check for Unusual or Exceptional Conditions
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC9899-2011">
+       ISO/IEC 9899-2011
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 7.20.4.1, "The
+      <code>abort</code>
+      Function"
+      Subclause 7.20.4.4, "The
+      <code>_Exit</code>
+      Function"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 15.5.1, "The
+      <code>std::terminate()</code>
+      Function"
+      Subclause 18.5, "Start and Termination"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-MISRA08">
+       MISRA 2008
+      </a>
+      ]
+     </td>
+     <td>
+      Rule 15-3-2 (Advisory)
+      Rule 15-3-4 (Required)
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

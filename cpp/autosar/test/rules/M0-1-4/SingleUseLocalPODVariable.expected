@@ -1,0 +1,3 @@
+| test.cpp:12:5:12:5 | b | Local POD variable b in test_unused_local is only $@. | test.cpp:13:3:13:3 | b | used once |
+| test.cpp:14:7:14:7 | i | Local POD variable i in test_unused_local is only $@. | test.cpp:14:10:14:11 | initializer for i | used once |
+| test.cpp:25:5:25:5 | t | Local POD variable t in f1 is only $@. | test.cpp:26:3:26:3 | t | used once |

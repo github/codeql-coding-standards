@@ -1,0 +1,2 @@
+| test.cpp:4:3:4:46 | asm statement | Use of asm declaration |
+| test.cpp:7:3:9:17 | asm statement | Use of asm declaration |

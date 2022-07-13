@@ -1,0 +1,2 @@
+| test.cpp:6:3:6:12 | operator!= | User defined comparison operator does not have a boolean return type. |
+| test.cpp:7:3:7:11 | operator> | User defined comparison operator does not have a boolean return type. |

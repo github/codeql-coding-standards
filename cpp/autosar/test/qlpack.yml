@@ -1,0 +1,4 @@
+name: autosar-cpp-coding-standards-tests
+version: 1.1.0
+libraryPathDependencies: autosar-cpp-coding-standards
+extractor: cpp

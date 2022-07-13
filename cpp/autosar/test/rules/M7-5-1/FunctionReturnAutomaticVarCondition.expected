@@ -1,0 +1,4 @@
+| test.cpp:3:3:3:12 | return ... | The $@ returns a pointerto an $@ variable | test.cpp:1:6:1:23 | test_ptr_return_f2 | test_ptr_return_f2 | test.cpp:2:7:2:7 | x | automatic |
+| test.cpp:6:34:6:43 | return ... | The $@ returns a pointerto an $@ variable | test.cpp:6:6:6:23 | test_ptr_return_f3 | test_ptr_return_f3 | test.cpp:6:29:6:29 | y | automatic |
+| test.cpp:10:3:10:11 | return ... | The $@ returns a referenceto an $@ variable | test.cpp:8:6:8:23 | test_ref_return_f2 | test_ref_return_f2 | test.cpp:9:7:9:7 | x | automatic |
+| test.cpp:13:34:13:42 | return ... | The $@ returns a referenceto an $@ variable | test.cpp:13:6:13:23 | test_ref_return_f3 | test_ref_return_f3 | test.cpp:13:29:13:29 | y | automatic |

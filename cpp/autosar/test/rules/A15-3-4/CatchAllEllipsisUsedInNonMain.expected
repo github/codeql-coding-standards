@@ -1,0 +1,1 @@
+| test.cpp:4:17:5:3 | { ... } | Catch-all handler defined in $@ which is not a main function or encapsulating functions. | test.cpp:1:6:1:18 | test_non_main | test_non_main |

@@ -1,0 +1,3 @@
+- `M7-5-2` - `AssignmentOfEscapingAutoStorage.ql`: 
+    - Improve detection of leaked stack addresses
+    - Reduce query precision from `very-high` to `high` to account for missing heuristics, such as exclusions for classes which are only ever allocated on the stack.

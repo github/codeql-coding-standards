@@ -1,0 +1,1 @@
+| test.cpp:23:3:23:25 | ExprStmt | Expression statement is an explicit call to a constructor of an unused temporary object. |

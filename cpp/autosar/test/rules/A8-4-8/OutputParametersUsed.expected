@@ -1,0 +1,5 @@
+| test.cpp:5:22:5:24 | str | Out parameter str that is modified before being read. |
+| test.cpp:16:14:16:14 | i | Out parameter i that is modified before being read. |
+| test.cpp:21:14:21:14 | i | Out parameter i that is modified before being read. |
+| test.cpp:29:12:29:12 | a | Out parameter a that is modified before being read. |
+| test.cpp:33:12:33:12 | a | Out parameter a that is modified before being read. |

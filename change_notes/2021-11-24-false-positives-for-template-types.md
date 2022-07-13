@@ -1,0 +1,2 @@
+- `A5-0-2` - `NonBooleanIfCondition.ql`
+  - Fix to #465. Query now does not find unknown types within uninstantiated templates. 

@@ -1,0 +1,2 @@
+| test.cpp:14:9:14:9 | u | u is not a tagged union. |
+| test.cpp:21:7:21:7 | u | u is not a tagged union. |

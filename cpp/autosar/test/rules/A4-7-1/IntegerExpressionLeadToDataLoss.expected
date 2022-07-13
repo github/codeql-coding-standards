@@ -1,0 +1,11 @@
+| IntMultToLongc.cpp:23:18:23:22 | ... + ... | Binary expression ...+... may overflow. |
+| IntMultToLongc.cpp:24:18:24:22 | ... + ... | Binary expression ...+... may overflow. |
+| IntMultToLongc.cpp:66:21:66:36 | ... + ... | Binary expression ...+... may overflow. |
+| IntMultToLongc.cpp:66:26:66:30 | ... + ... | Binary expression ...+... may overflow. |
+| IntMultToLongc.cpp:68:21:68:43 | ... + ... | Binary expression ...+... may overflow. |
+| IntMultToLongc.cpp:68:26:68:37 | ... + ... | Binary expression ...+... may overflow. |
+| IntMultToLongc.cpp:105:13:105:17 | ... + ... | Binary expression ...+... may overflow. |
+| IntMultToLongc.cpp:109:13:109:28 | ... + ... | Binary expression ...+... may overflow. |
+| test.cpp:2:10:2:14 | ... + ... | Binary expression ...+... may overflow. |
+| test.cpp:22:12:22:16 | ... + ... | Binary expression ...+... may overflow. |
+| test.cpp:52:7:52:14 | ... + ... | Binary expression ...+... may overflow. |

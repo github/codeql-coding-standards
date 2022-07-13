@@ -1,0 +1,13 @@
+| test.cpp:4:3:4:14 | call to isalnum | Argument to call to isalnum is not explicitly cast to 'unsigned char'. |
+| test.cpp:5:3:5:14 | call to isalpha | Argument to call to isalpha is not explicitly cast to 'unsigned char'. |
+| test.cpp:6:3:6:14 | call to iscntrl | Argument to call to iscntrl is not explicitly cast to 'unsigned char'. |
+| test.cpp:7:3:7:14 | call to isdigit | Argument to call to isdigit is not explicitly cast to 'unsigned char'. |
+| test.cpp:8:3:8:14 | call to islower | Argument to call to islower is not explicitly cast to 'unsigned char'. |
+| test.cpp:9:3:9:14 | call to isgraph | Argument to call to isgraph is not explicitly cast to 'unsigned char'. |
+| test.cpp:10:3:10:14 | call to isprint | Argument to call to isprint is not explicitly cast to 'unsigned char'. |
+| test.cpp:11:3:11:14 | call to ispunct | Argument to call to ispunct is not explicitly cast to 'unsigned char'. |
+| test.cpp:12:3:12:14 | call to isspace | Argument to call to isspace is not explicitly cast to 'unsigned char'. |
+| test.cpp:13:3:13:14 | call to isupper | Argument to call to isupper is not explicitly cast to 'unsigned char'. |
+| test.cpp:14:3:14:15 | call to isxdigit | Argument to call to isxdigit is not explicitly cast to 'unsigned char'. |
+| test.cpp:15:3:15:14 | call to tolower | Argument to call to tolower is not explicitly cast to 'unsigned char'. |
+| test.cpp:16:3:16:14 | call to toupper | Argument to call to toupper is not explicitly cast to 'unsigned char'. |

@@ -1,0 +1,17 @@
+| test.cpp:19:3:19:6 | c | This literal contains the non-standard escape sequence \\c. |
+| test.cpp:20:3:20:6 | d | This literal contains the non-standard escape sequence \\d. |
+| test.cpp:21:3:21:6 | \u001b | This literal contains the non-standard escape sequence \\e. |
+| test.cpp:22:3:22:6 | g | This literal contains the non-standard escape sequence \\g. |
+| test.cpp:23:3:23:6 | h | This literal contains the non-standard escape sequence \\h. |
+| test.cpp:24:3:24:6 | i | This literal contains the non-standard escape sequence \\i. |
+| test.cpp:25:3:25:6 | j | This literal contains the non-standard escape sequence \\j. |
+| test.cpp:26:3:26:6 | k | This literal contains the non-standard escape sequence \\k. |
+| test.cpp:27:3:27:6 | l | This literal contains the non-standard escape sequence \\l. |
+| test.cpp:28:3:28:6 | m | This literal contains the non-standard escape sequence \\m. |
+| test.cpp:29:3:29:6 | o | This literal contains the non-standard escape sequence \\o. |
+| test.cpp:30:3:30:6 | p | This literal contains the non-standard escape sequence \\p. |
+| test.cpp:31:3:31:6 | q | This literal contains the non-standard escape sequence \\q. |
+| test.cpp:32:3:32:6 | s | This literal contains the non-standard escape sequence \\s. |
+| test.cpp:33:3:33:6 | w | This literal contains the non-standard escape sequence \\w. |
+| test.cpp:34:3:34:6 | y | This literal contains the non-standard escape sequence \\y. |
+| test.cpp:35:3:35:6 | z | This literal contains the non-standard escape sequence \\z. |

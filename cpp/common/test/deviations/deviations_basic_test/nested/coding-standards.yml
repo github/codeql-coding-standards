@@ -1,0 +1,6 @@
+deviations:
+  - rule-id: A0-1-2
+    justification: Unused return value.
+    paths:
+      - nested1
+      - nested2

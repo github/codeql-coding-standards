@@ -1,0 +1,1 @@
+ - `A1-1-1` - the `register` keyword is now detected on parameters so the rule will fewer false negatives.

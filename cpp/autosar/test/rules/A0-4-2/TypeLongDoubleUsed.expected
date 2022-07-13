@@ -1,0 +1,7 @@
+| test.cpp:3:13:3:13 | g | Use of long double type. |
+| test.cpp:9:15:9:15 | l | Use of long double type. |
+| test.cpp:12:8:12:9 | l4 | Use of long double type. |
+| test.cpp:13:28:13:29 | l5 | Use of long double type. |
+| test.cpp:14:41:14:42 | l6 | Use of long double type. |
+| test.cpp:17:20:17:20 | i | Use of long double type. |
+| test.cpp:24:28:24:29 | d3 | Use of long double type. |

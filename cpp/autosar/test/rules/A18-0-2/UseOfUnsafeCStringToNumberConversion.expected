@@ -1,0 +1,8 @@
+| test.cpp:6:3:6:6 | call to atoi | Use of string-to-number coversion function 'atoi' which has undefined behavior when converting invalid strings. |
+| test.cpp:7:3:7:6 | call to atol | Use of string-to-number coversion function 'atol' which has undefined behavior when converting invalid strings. |
+| test.cpp:8:3:8:7 | call to atoll | Use of string-to-number coversion function 'atoll' which has undefined behavior when converting invalid strings. |
+| test.cpp:9:3:9:6 | call to atof | Use of string-to-number coversion function 'atof' which has undefined behavior when converting invalid strings. |
+| test.cpp:10:3:10:11 | call to atoi | Use of string-to-number coversion function 'atoi' which has undefined behavior when converting invalid strings. |
+| test.cpp:11:3:11:11 | call to atol | Use of string-to-number coversion function 'atol' which has undefined behavior when converting invalid strings. |
+| test.cpp:12:3:12:12 | call to atoll | Use of string-to-number coversion function 'atoll' which has undefined behavior when converting invalid strings. |
+| test.cpp:13:3:13:11 | call to atof | Use of string-to-number coversion function 'atof' which has undefined behavior when converting invalid strings. |

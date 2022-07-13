@@ -1,0 +1,4 @@
+- `A5-1-4` - `ReturnedLambdaObjectOutlivesCaptureByReferenceQuery`:
+  - Added a heuristic to flag objects which are returned after being constructed with lambdas with dangling references
+- `EXP61-CPP` - `ReturnedLambdaObjectOutlivesCaptureByReferenceQuery`
+  - See above notes for `A5-1-4`

@@ -1,0 +1,10 @@
+| test.cpp:4:13:4:13 | i | In-out parameter i that is not written to. |
+| test.cpp:7:22:7:24 | str | In-out parameter str that is not read from. |
+| test.cpp:18:14:18:14 | i | In-out parameter i that is not read from. |
+| test.cpp:26:15:26:15 | i | In-out parameter i that is not written to. |
+| test.cpp:43:12:43:12 | a | In-out parameter a that is not read from. |
+| test.cpp:85:15:85:15 | a | In-out parameter a that is not written to. |
+| test.cpp:89:16:89:16 | a | In-out parameter a that is not read from. |
+| test.cpp:93:13:93:13 | a | In-out parameter a that is not used. |
+| test.cpp:111:13:111:13 | a | In-out parameter a that is not read from. |
+| test.cpp:123:8:123:8 | a | In-out parameter a that is not read from. |

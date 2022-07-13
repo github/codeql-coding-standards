@@ -1,0 +1,2 @@
+- `M8-4-4` - `FunctionIdentifierCondition.ql`
+  - Fix #471 by excluding lambda functions. 

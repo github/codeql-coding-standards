@@ -1,0 +1,4 @@
+edges
+| test.cpp:5:15:5:36 | throw ... [exception] | test.cpp:5:3:5:9 | ~ClassA [exception] |
+#select
+| test.cpp:8:8:8:13 | classA | test.cpp:5:15:5:36 | throw ... [exception] | test.cpp:5:3:5:9 | ~ClassA [exception] | Variable classA can throw an exception of type std::exception after termination when calling $@. | test.cpp:5:3:5:9 | ~ClassA | ~ClassA |

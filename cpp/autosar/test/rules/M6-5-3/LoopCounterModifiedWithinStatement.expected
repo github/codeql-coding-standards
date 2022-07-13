@@ -1,0 +1,4 @@
+| test.cpp:15:5:15:5 | x | Loop counters should not be modified within a statement in a for loop. |
+| test.cpp:25:35:25:35 | x | Loop counters should not be modified within a statement in a for loop. |
+| test.cpp:36:5:36:5 | x | Loop counters should not be modified within a statement in a for loop. |
+| test.cpp:43:9:43:9 | i | Loop counters should not be modified within a statement in a for loop. |

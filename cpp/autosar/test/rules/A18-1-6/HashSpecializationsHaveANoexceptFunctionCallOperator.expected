@@ -1,0 +1,1 @@
+| test.cpp:49:20:49:26 | hash<B> | Hash specialization $@ does not implement a no-except function call operator. | test.cpp:49:20:49:26 | hash<B> | Hash specialization |

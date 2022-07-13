@@ -1,0 +1,2 @@
+| test.cpp:1:1:1:14 | #define NULL 0 | Macro reuses the name NULL from the standard library. |
+| test.cpp:3:5:3:10 | tzname | Object reuses the name tzname from the standard library. |

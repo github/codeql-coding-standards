@@ -1,0 +1,1 @@
+| test.cpp:4:3:4:14 | goto ... | Use of goto. |

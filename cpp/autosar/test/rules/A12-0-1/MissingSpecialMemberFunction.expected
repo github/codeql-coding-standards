@@ -1,0 +1,2 @@
+| test.cpp:12:7:12:8 | C3 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:12:7:12:8 | C3 | C3 |
+| test.cpp:28:7:28:8 | C5 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:28:7:28:8 | C5 | C5 |

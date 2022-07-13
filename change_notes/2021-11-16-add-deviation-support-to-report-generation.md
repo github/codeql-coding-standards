@@ -1,0 +1,2 @@
+- Updates the script `scripts\reports\analysis_report.py` to generate a Deviations report and updates the Guideline Compliance Summary to support the deviation status.
+- Updates the `user_manual.md` on how to generate the Guideline Compliance Summary with deviation status support.

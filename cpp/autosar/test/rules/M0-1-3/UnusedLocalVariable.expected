@@ -1,0 +1,6 @@
+| test.cpp:7:7:7:7 | y | Local variable y in test_simple is not used. |
+| test.cpp:14:13:14:13 | y | Local variable y in test_const is not used. |
+| test.cpp:17:7:17:7 | z | Local variable z in test_const is not used. |
+| test.cpp:23:5:23:5 | t | Local variable t in f1 is not used. |
+| test.cpp:23:5:23:5 | t | Local variable t in f1 is not used. |
+| test.cpp:44:6:44:6 | a | Local variable a in test_side_effect_init is not used. |

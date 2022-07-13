@@ -1,0 +1,8 @@
+| test.cpp:3:29:3:29 | A<T> | Class should check if template type is copy assignable due to its member $@. | test.cpp:25:5:25:5 | definition of a | a |
+| test.cpp:3:29:3:29 | A<T> | Class should check if template type is move assignable due to its member $@. | test.cpp:25:5:25:5 | definition of a | a |
+| test.cpp:3:29:3:29 | A<T> | Class should check if template type is move constructible due to its member $@. | test.cpp:25:5:25:5 | definition of a | a |
+| test.cpp:28:29:28:29 | B<T> | Class should check if template type is copy assignable due to its member $@. | test.cpp:37:5:37:5 | definition of b | b |
+| test.cpp:28:29:28:29 | B<T> | Class should check if template type is copy constructible due to its member $@. | test.cpp:37:5:37:5 | definition of b | b |
+| test.cpp:28:29:28:29 | B<T> | Class should check if template type is copy/move assignable/constructible due to its member $@. | test.cpp:37:5:37:5 | definition of b | b |
+| test.cpp:28:29:28:29 | B<T> | Class should check if template type is move assignable due to its member $@. | test.cpp:37:5:37:5 | definition of b | b |
+| test.cpp:28:29:28:29 | B<T> | Class should check if template type is move constructible due to its member $@. | test.cpp:37:5:37:5 | definition of b | b |

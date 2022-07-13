@@ -1,0 +1,6 @@
+| test.cpp:10:11:10:29 | const_cast<C *>... | Cast that does not preserve const qualifier. |
+| test.cpp:11:11:11:17 | (C *)... | Cast that does not preserve const qualifier. |
+| test.cpp:15:5:15:27 | const_cast<char *>... | Cast that does not preserve const qualifier. |
+| test.cpp:18:13:18:33 | const_cast<int *>... | Cast that does not preserve volatile qualifier. |
+| test.cpp:19:13:19:21 | (int *)... | Cast that does not preserve volatile qualifier. |
+| test.cpp:20:13:20:23 | (int *)... | Cast that does not preserve volatile qualifier. |

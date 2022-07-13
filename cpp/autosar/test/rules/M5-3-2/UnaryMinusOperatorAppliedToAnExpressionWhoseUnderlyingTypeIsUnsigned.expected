@@ -1,0 +1,2 @@
+| test.cpp:10:21:10:21 | a | The unary minus operator shall not be applied to an expression whose underlying type is unsigned. |
+| test.cpp:12:21:12:21 | c | The unary minus operator shall not be applied to an expression whose underlying type is unsigned. |

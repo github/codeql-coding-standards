@@ -1,0 +1,1 @@
+| test.cpp:20:1:20:20 | #include <exception> | #include <exception> is preceded by a non-preprocessor or comment code element. |

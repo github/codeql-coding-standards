@@ -1,0 +1,6 @@
+| test.cpp:16:3:16:14 | call to strncpy | Operation on a C-style string that may not result in a null-terminated string. |
+| test.cpp:17:3:17:14 | call to strncpy | Operation on a C-style string that may not result in a null-terminated string. |
+| test.cpp:21:12:21:12 | call to operator>> | Operation on a C-style string that may not result in a null-terminated string. |
+| test.cpp:27:6:27:9 | call to read | Operation on a C-style string that may not result in a null-terminated string. |
+| test.cpp:40:3:40:15 | call to snprintf | Operation on a C-style string that may not result in a null-terminated string. |
+| test.cpp:46:3:46:14 | call to strncat | Operation on a C-style string that may not result in a null-terminated string. |

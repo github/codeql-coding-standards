@@ -1,0 +1,152 @@
+{
+  "AUTOSAR": {
+    "A2-13-4": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The type of string literal as of C++0x was changed from 'array of char' to array of const char and therefore assignment to a non-const pointer is considered an error, which is reported as a warning by some compliers.",
+          "kind": "problem",
+          "name": "String literals shall not be assigned to non-constant pointers",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "StringLiteralsAssignedToNonConstantPointers",
+          "tags": []
+        }
+      ],
+      "title": "String literals shall not be assigned to non-constant pointers."
+    },
+    "A27-0-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The C++ string constructor will only terminate a C-Style string if the C-Style string is also null terminated.",
+          "kind": "problem",
+          "name": "A C-style string shall guarantee sufficient space for data and the null terminator",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "shared_implementation_short_name": "BasicStringMayNotBeNullTerminated",
+          "short_name": "BasicStringMayNotBeNullTerminatedAutosar",
+          "tags": []
+        },
+        {
+          "description": "Certain operations may not null terminate CStyle strings which may cause unpredictable behavior.",
+          "kind": "problem",
+          "name": "A C-style string shall guarantee sufficient space for data and the null terminator",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "shared_implementation_short_name": "OperationMayNotNullTerminateCStyleString",
+          "short_name": "OperationMayNotNullTerminateCStyleStringAutosar",
+          "tags": []
+        }
+      ],
+      "title": "A C-style string shall guarantee sufficient space for data and the null terminator."
+    },
+    "A27-0-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "C-style strings can be difficult to use correctly so std::string should be preferred.",
+          "kind": "problem",
+          "name": "C-style strings shall not be used",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "CStyleStringsUsed",
+          "tags": []
+        }
+      ],
+      "title": "C-style strings shall not be used."
+    },
+    "M5-0-11": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The signedness of type char is implementation defined and therefore assigning non-character values to plain char types can cause undefined behavior.",
+          "kind": "problem",
+          "name": "The plain char type shall only be used for the storage and use of character values",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "PlainCharTypeShallOnlyBeUsedForTheStorageAndUseOfCharacterValues",
+          "tags": []
+        }
+      ],
+      "title": "The plain char type shall only be used for the storage and use of character values."
+    },
+    "M5-0-12": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The signedness of the plain char type is implementation defined and thus signed char and unsigned char should only be used for numeric data and the plain char type may only be used for character data.",
+          "kind": "problem",
+          "name": "Signed char and unsigned char type shall only be used for the storage and use of numeric values",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SignedCharAndUnsignedCharTypeShallOnlyBeUsedForTheStorageAndUseOfNumericValues",
+          "tags": []
+        }
+      ],
+      "title": "Signed char and unsigned char type shall only be used for the storage and use of numeric values."
+    }
+  },
+  "CERT-C++": {
+    "STR50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The C++ string constructor will only terminate a C-Style string if the C-Style string is also null terminated.",
+          "kind": "problem",
+          "name": "A C-style string shall guarantee sufficient space for data and the null terminator",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "shared_implementation_short_name": "BasicStringMayNotBeNullTerminated",
+          "short_name": "BasicStringMayNotBeNullTerminatedCert",
+          "tags": []
+        },
+        {
+          "description": "Certain operations may not null terminate CStyle strings which may cause unpredictable behavior.",
+          "kind": "problem",
+          "name": "A C-style string shall guarantee sufficient space for data and the null terminator",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "shared_implementation_short_name": "OperationMayNotNullTerminateCStyleString",
+          "short_name": "OperationMayNotNullTerminateCStyleStringCert",
+          "tags": []
+        }
+      ],
+      "title": "Guarantee that storage for strings has sufficient space for character data and the null terminator"
+    }
+  }
+}

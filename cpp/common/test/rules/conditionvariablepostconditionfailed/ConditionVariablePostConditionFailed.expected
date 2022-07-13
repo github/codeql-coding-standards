@@ -1,0 +1,6 @@
+| test_condition_variable.cpp:11:12:11:15 | call to wait | [AUDIT] Call to wait may call std::terminate if certain postconditions do not hold. |
+| test_condition_variable.cpp:16:16:16:23 | call to wait_for | [AUDIT] Call to wait_for may call std::terminate if certain postconditions do not hold. |
+| test_condition_variable.cpp:24:16:24:25 | call to wait_until | [AUDIT] Call to wait_until may call std::terminate if certain postconditions do not hold. |
+| test_condition_variable_any.cpp:11:16:11:19 | call to wait | [AUDIT] Call to wait may call std::terminate if certain postconditions do not hold. |
+| test_condition_variable_any.cpp:16:20:16:27 | call to wait_for | [AUDIT] Call to wait_for may call std::terminate if certain postconditions do not hold. |
+| test_condition_variable_any.cpp:24:20:24:29 | call to wait_until | [AUDIT] Call to wait_until may call std::terminate if certain postconditions do not hold. |

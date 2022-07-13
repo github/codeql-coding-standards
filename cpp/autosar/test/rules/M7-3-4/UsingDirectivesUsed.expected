@@ -1,0 +1,1 @@
+| test.cpp:6:3:6:21 | using namespace std | Use of 'using' directive. |

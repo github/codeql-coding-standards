@@ -1,0 +1,14 @@
+| test.cpp:5:3:5:10 | 3000000 | The digit sequence 3'000000 uses a digit sequence separator at a spacing other than 3. |
+| test.cpp:6:3:6:12 | 3000000 | The digit sequence 3'00'00'00 uses a digit sequence separator at a spacing other than 3. |
+| test.cpp:7:3:7:11 | 3000000 | The digit sequence 300'00'00 uses a digit sequence separator at a spacing other than 3. |
+| test.cpp:12:3:12:13 | 2694881440 | The digit sequence A0A0'A0A0 uses a digit sequence separator at a spacing other than 2. |
+| test.cpp:13:3:13:14 | 2694881440 | The digit sequence A0'A0A'0A0 uses a digit sequence separator at a spacing other than 2. |
+| test.cpp:14:3:14:13 | 2694881440 | The digit sequence A0A0A'0A0 uses a digit sequence separator at a spacing other than 2. |
+| test.cpp:19:3:19:17 | 1370 | The digit sequence 01010101'1010 uses a digit sequence separator at a spacing other than 4. |
+| test.cpp:20:3:20:15 | 85 | The digit sequence 01'01'01'01 uses a digit sequence separator at a spacing other than 4. |
+| test.cpp:21:3:21:14 | 85 | The digit sequence 010'1010'1 uses a digit sequence separator at a spacing other than 4. |
+| test.cpp:26:3:26:15 | 11000000000.0 | The digit sequence 1000'000 uses a digit sequence separator at a spacing other than 3. |
+| test.cpp:27:3:27:16 | 11000000000.0 | The digit sequence 10'00'000 uses a digit sequence separator at a spacing other than 3. |
+| test.cpp:28:3:28:17 | 11000000000.0 | The digit sequence 1'0 uses a digit sequence separator at a spacing other than 3. |
+| test.cpp:29:3:29:16 | 11000000000.0 | The digit sequence 10'000'00 uses a digit sequence separator at a spacing other than 3. |
+| test.cpp:30:3:30:15 | 11000000000.0 | The digit sequence 1'0 uses a digit sequence separator at a spacing other than 3. |

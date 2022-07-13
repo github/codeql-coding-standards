@@ -1,0 +1,2 @@
+| test.cpp:9:4:9:4 | y | y is dereferenced here but is invalid because the variable y was never initialized $@. | test.cpp:8:3:8:9 | declaration | here |
+| test.cpp:13:3:13:3 | a | a is dereferenced here but is invalid because the variable a was never initialized $@. | test.cpp:12:3:12:12 | declaration | here |

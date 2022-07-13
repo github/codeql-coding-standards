@@ -1,0 +1,363 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>Not all exceptions can be caught, even with careful use of <em>function-try-blocks</em>. The C++ Standard, [except.handle], paragraph 13 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <blockquote>
+   <p>Exceptions thrown in destructors of objects with static storage duration or in constructors of namespace scope objects with static storage duration are not caught by a <em>function-try-block</em> on <code>main()</code> . Exceptions thrown in destructors of objects with thread storage duration or in constructors of namespace-scope objects with thread storage duration are not caught by a function-try-block on the initial function of the thread.</p>
+  </blockquote>
+  <p>When declaring an object with static or thread storage duration, and that object is not declared within a function block scope, the type's constructor must be declared <code>noexcept</code> and must comply with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR55-CPP.+Honor+exception+specifications">ERR55-CPP. Honor exception specifications</a>. Additionally, the initializer for such a declaration, if any, must not throw an uncaught exception (including from any implicitly constructed objects that are created as a part of the initialization). If an uncaught exception is thrown before <code>main()</code> is executed, or if an uncaught exception is thrown after <code>main()</code> has finished executing, there are no further opportunities to handle the exception and it results in implementation-defined behavior. (See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">ERR50-CPP. Do not abruptly terminate the program</a> for further details.)</p>
+  <p>For more information on exception specifications of destructors, see <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL57-CPP.+Do+not+let+exceptions+escape+from+destructors+or+deallocation+functions">DCL57-CPP. Do not let exceptions escape from destructors or deallocation functions</a>.</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant example, the constructor for S may throw an exception that is not caught when <code>globalS</code> is constructed during program startup.</p>
+  <sample language="cpp">struct S {
+  S() noexcept(false);
+};
+ 
+static S globalS;</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>This compliant solution makes <code>globalS</code> into a local variable with static storage duration, allowing any exceptions thrown during object construction to be caught because the constructor for <code>S</code> will be executed the first time the function <code>globalS()</code> is called rather than at program startup. This solution does require the programmer to modify source code so that previous uses of <code>globalS</code> are replaced by a function call to <code>globalS()</code>.</p>
+  <sample language="cpp">struct S {
+  S() noexcept(false);
+};
+ 
+S &amp;globalS() {
+  try {
+    static S s;
+    return s;
+  } catch (...) {
+    // Handle error, perhaps by logging it and gracefully terminating the application.
+  }
+  // Unreachable.
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant example, the constructor of <code>global</code> may throw an exception during program startup. (The <code>std::string</code> constructor, which accepts a <code>const char *</code> and a default allocator object, is not marked <code>noexcept</code> and consequently allows all exceptions.) This exception is not caught by the <em>function-try-block</em> on <code>main()</code>, resulting in a call to <code>std::terminate()</code> and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal program termination</a>.</p>
+  <sample language="cpp">#include &lt;string&gt;
+ 
+static const std::string global("...");
+
+int main()
+try {
+  // ...
+} catch(...) {
+  // IMPORTANT: Will not catch exceptions thrown
+  // from the constructor of global
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>Compliant code must prevent exceptions from escaping during program startup and termination. This compliant solution avoids defining a <code>std::string</code> at global namespace scope and instead uses a <code>static const char *</code>.</p>
+  <sample language="cpp">static const char *global = "...";
+
+int main() {
+  // ...
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>This compliant solution introduces a class derived from <code>std::string</code> with a constructor that catches all exceptions with a function try block and terminates the application in accordance with <strong>ERR50-CPP-EX1</strong> in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">ERR50-CPP. Do not abruptly terminate the program</a> in the event any exceptions are thrown. Because no exceptions can escape the constructor, it is marked <code>noexcept</code> and the class type is permissible to use in the declaration or initialization of a static global variable.</p>
+  <p>For brevity, the full interface for such a type is not described.</p>
+  <sample language="cpp">#include &lt;exception&gt;
+#include &lt;string&gt;
+
+namespace my {
+struct string : std::string {
+  explicit string(const char *msg,
+                  const std::string::allocator_type &amp;alloc = std::string::allocator_type{}) noexcept
+  try : std::string(msg, alloc) {} catch(...) {
+    extern void log_message(const char *) noexcept;
+    log_message("std::string constructor threw an exception");
+    std::terminate();
+  }
+  // ...
+};
+}
+ 
+static const my::string global("...");
+
+int main() {
+  // ...
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant example, an exception may be thrown by the initializer for the static global variable <code>i</code>.</p>
+  <sample language="cpp">extern int f() noexcept(false);
+int i = f();
+ 
+int main() {
+  // ...
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>This compliant solution wraps the call to <code>f()</code> with a helper function that catches all exceptions and terminates the program in conformance with <strong>ERR50-CPP-EX1</strong> of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">ERR50-CPP. Do not abruptly terminate the program</a>.</p>
+  <sample language="cpp">#include &lt;exception&gt;
+ 
+int f_helper() noexcept {
+  try {
+    extern int f() noexcept(false);
+    return f();
+  } catch (...) {
+    extern void log_message(const char *) noexcept;
+    log_message("f() threw an exception");
+    std::terminate();
+  }
+  // Unreachable.
+}
+ 
+int i = f_helper();
+
+int main() {
+  // ...
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>Throwing an exception that cannot be caught results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal program termination</a> and can lead to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      ERR58-CPP
+     </td>
+     <td>
+      Low
+     </td>
+     <td>
+      Likely
+     </td>
+     <td>
+      Low
+     </td>
+     <td>
+      <strong>P9</strong>
+     </td>
+     <td>
+      <strong>L2</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=222953724">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>potentially-throwing-static-initialization</strong>
+     </td>
+     <td>
+      Partially checked
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Axivion+Bauhaus+Suite">
+       Axivion Bauhaus Suite
+      </a>
+     </td>
+     <td>
+      7.2.0
+     </td>
+     <td>
+      <strong>CertC++-ERR58</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Clang">
+       Clang
+      </a>
+     </td>
+     <td>
+      3.9
+     </td>
+     <td>
+      <code>cert-err58-cpp</code>
+     </td>
+     <td>
+      Checked by
+      <code>clang-tidy</code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++4634, C++4636, C++4637, C++4639</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-ERR58-a</strong>
+     </td>
+     <td>
+      Exceptions shall be raised only after start-up and before termination of the program
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2021b
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certcerr58cpp.html">
+       CERT C++: ERR58-CPP
+      </a>
+     </td>
+     <td>
+      Checks for exceptions raised during program startup (rule fully covered)
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=142409849">
+       PRQA QA-C++
+      </a>
+     </td>
+     <td>
+      4.4
+     </td>
+     <td>
+      <strong>4634, 4636, 4637, 4639</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/RuleChecker">
+       RuleChecker
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>potentially-throwing-static-initialization</strong>
+     </td>
+     <td>
+      Partially checked
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vuln">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR58-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <p><em>This rule is a subset of </em><em><a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">ERR50-CPP. Do not abruptly terminate the program</a></em></p>
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682">
+       SEI CERT C++ Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL57-CPP.+Do+not+let+exceptions+escape+from+destructors+or+deallocation+functions">
+       DCL57-CPP. Do not let exceptions escape from destructors or deallocation functions
+      </a>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR55-CPP.+Honor+exception+specifications">
+       ERR55-CPP. Honor exception specifications
+      </a>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 15.4, "Exception Specifications"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Sutter00">
+       Sutter 2000
+      </a>
+      ]
+     </td>
+     <td>
+      Item 8, "Writing Exception-Safe Code—Part 1"
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

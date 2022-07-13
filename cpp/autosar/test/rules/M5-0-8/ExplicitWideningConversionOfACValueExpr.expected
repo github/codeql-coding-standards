@@ -1,0 +1,5 @@
+| test.cpp:10:9:10:38 | static_cast<int32_t>... | Explicit conversion increases the size of $@ from 2 to 4. | test.cpp:10:30:10:37 | ... + ... | expression |
+| test.cpp:11:9:11:39 | static_cast<int32_t>... | Explicit conversion increases the size of $@ from 2 to 4. | test.cpp:11:30:11:38 | ... + ... | expression |
+| test.cpp:12:9:12:35 | static_cast<int16_t>... | Explicit conversion increases the size of $@ from 1 to 2. | test.cpp:12:30:12:34 | ... + ... | expression |
+| test.cpp:21:9:21:36 | static_cast<double>... | Explicit conversion increases the size of $@ from 4 to 8. | test.cpp:21:29:21:35 | ... + ... | expression |
+| test.cpp:22:9:22:40 | static_cast<double>... | Explicit conversion increases the size of $@ from 4 to 8. | test.cpp:22:29:22:39 | ... + ... | expression |

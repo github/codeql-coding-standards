@@ -1,0 +1,4 @@
+| test.cpp:8:8:8:16 | (...) | Gratuitous use of parentheses around $@. | test.cpp:8:9:8:15 | ... + ... | ... + ... |
+| test.cpp:13:13:13:16 | (...) | Gratuitous use of parentheses around $@. | test.cpp:13:14:13:15 | - ... | - ... |
+| test.cpp:17:12:17:20 | (...) | Gratuitous use of parentheses around $@. | test.cpp:17:13:17:19 | ... + ... | ... + ... |
+| test.cpp:27:15:27:23 | (...) | Gratuitous use of parentheses around $@. | test.cpp:27:16:27:22 | ... - ... | ... - ... |

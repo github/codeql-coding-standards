@@ -1,0 +1,8 @@
+| test.cpp:37:16:37:25 | derivation | Base class $@ derived virtually by $@ but is not used in a diamond hierarchy. | test.cpp:31:7:31:8 | H1 | H1 | test.cpp:37:7:37:8 | L2 | L2 |
+| test.cpp:38:12:38:21 | derivation | Base class $@ derived virtually by $@ but is not used in a diamond hierarchy. | test.cpp:33:7:33:8 | J1 | J1 | test.cpp:38:7:38:8 | L3 | L3 |
+| test.cpp:39:12:39:21 | derivation | Base class $@ derived virtually by $@ but is not used in a diamond hierarchy. | test.cpp:30:7:30:8 | G1 | G1 | test.cpp:39:7:39:8 | K2 | K2 |
+| test.cpp:39:24:39:33 | derivation | Base class $@ derived virtually by $@ but is not used in a diamond hierarchy. | test.cpp:31:7:31:8 | H1 | H1 | test.cpp:39:7:39:8 | K2 | K2 |
+| test.cpp:40:16:40:25 | derivation | Base class $@ derived virtually by $@ but is not used in a diamond hierarchy. | test.cpp:28:7:28:8 | Y1 | Y1 | test.cpp:40:7:40:8 | J2 | J2 |
+| test.cpp:41:12:41:21 | derivation | Base class $@ derived virtually by $@ but is not used in a diamond hierarchy. | test.cpp:25:7:25:8 | D1 | D1 | test.cpp:41:7:41:8 | G2 | G2 |
+| test.cpp:41:24:41:33 | derivation | Base class $@ derived virtually by $@ but is not used in a diamond hierarchy. | test.cpp:26:7:26:8 | E1 | E1 | test.cpp:41:7:41:8 | G2 | G2 |
+| test.cpp:42:12:42:21 | derivation | Base class $@ derived virtually by $@ but is not used in a diamond hierarchy. | test.cpp:28:7:28:8 | Y1 | Y1 | test.cpp:42:7:42:8 | Z2 | Z2 |

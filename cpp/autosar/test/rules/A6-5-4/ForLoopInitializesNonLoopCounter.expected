@@ -1,0 +1,4 @@
+| test.cpp:9:3:10:3 | for(...;...;...) ... | For loop initializes multiple variables. |
+| test.cpp:13:3:14:3 | for(...;...;...) ... | For loop initializes multiple variables. |
+| test.cpp:29:3:30:3 | for(...;...;...) ... | For loop initializes multiple variables. |
+| test.cpp:32:3:33:3 | for(...;...;...) ... | For loop initializes multiple variables. |

@@ -1,0 +1,4 @@
+| test.cpp:5:19:5:24 | call to getenv | Use of banned function getenv. |
+| test.cpp:6:11:6:16 | call to system | Use of banned function system. |
+| test.cpp:8:3:8:7 | call to abort | Use of banned function abort. |
+| test.cpp:9:3:9:6 | call to exit | Use of banned function exit. |

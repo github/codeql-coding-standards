@@ -1,0 +1,469 @@
+{
+  "AUTOSAR": {
+    "A13-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "User defined suffixes of the user defined literal operators shall start with underscore followed by one or more letters.",
+          "name": "User defined suffixes of user defined literal operator syntax requirement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UserDefinedLiteralOperatorSuffixViolation",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "User defined suffixes of the user defined literal operators shall start with underscore followed by one or more letters."
+    },
+    "A2-10-1": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Use of an identifier declared in an inner scope with an identical name to an identifier in an outer scope can lead to inadvertent errors if the incorrect identifier is modified.",
+          "name": "An identifier declared in an inner scope shall not hide an identifier declared in an outer scope",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifierHiding",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "An identifier declared in an inner scope shall not hide an identifier declared in an outer scope."
+    },
+    "A2-10-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The identifier name of a non-member object with static storage duration shall not be reused within a namespace.",
+          "name": "Reuse of identifier name of a non-member static object within a namespace",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifierNameOfStaticNonMemberObjectReusedInNamespace",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The identifier name of a static function shall not be reused within a namespace.",
+          "name": "Reuse of identifier name of a static function within a namespace",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifierNameOfStaticFunctionReusedInNamespace",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The identifier name of a non-member object with static storage duration or static function shall not be reused within a namespace."
+    },
+    "A2-10-5": {
+      "properties": {
+        "allocated-target": [
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "An identifier name of a function with internal linkage not be reused anywhere in the source code.",
+          "name": "Reuse of identifier that identifies an internally linked function",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifierNameOfAStaticFunctionIsReused",
+          "tags": [
+            "readability"
+          ]
+        },
+        {
+          "description": "An identifier name of a non-member object with external or internal linkage should not be reused anywhere in the source code.",
+          "name": "Reuse of identifier name of a non-member object with external or internal linkage",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifierNameOfANonMemberObjectWithExternalOrInternalLinkageIsReused",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "An identifier name of a function with static storage duration or a non-member object with external or internal linkage should not be reused."
+    },
+    "A2-10-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A class or enumeration name shall not be hidden by a variable in the same scope.",
+          "name": "Hiding of class or enumeration name by a variable declaration in the same scope",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ClassOrEnumerationNameHiddenByAVariableInTheSameScope",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "A class or enumeration name shall not be hidden by a function declaration in the same scope.",
+          "name": "Hiding of class or enumeration name by a function declaration in the same scope",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ClassOrEnumerationNameHiddenByAFunctionInTheSameScope",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "A class or enumeration name shall not be hidden by an enumerator declaration in the same scope.",
+          "name": "Hiding of class or enumeration name by an enumerator declaration in the same scope",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ClassOrEnumerationNameHiddenByAnEnumeratorInTheSameScope",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A class or enumeration name shall not be hidden by a variable, function or enumerator declaration in the same scope."
+    },
+    "A2-13-6": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Universal character names can be confusing to the developer, and may break tools which parse or process the source code.",
+          "name": "Universal character names shall be used only inside character or string literals",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UniversalCharacterNamesUsedOutsideCharacterOrStringLiterals",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Universal character names shall be used only inside character or string literals."
+    },
+    "A2-3-1": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Only those characters specified in the C++ Language Standard basic source character set shall be used in the source code.",
+          "name": "Use of characters outside the C++ Language Standard basic source character set",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "CharacterOutsideTheLanguageStandardBasicSourceCharacterSetUsedInTheSourceCode",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Only those characters specified in the C++ Language Standard basic source character set shall be used in a string literal.",
+          "name": "Use of characters outside the C++ Language Standard basic source character set",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "InvalidCharacterInStringLiteral",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Only those characters specified in the C++ Language Standard basic source character set shall be used in a comment.",
+          "name": "Use of characters outside the C++ Language Standard basic source character set",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "InvalidCharacterInComment",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Only those characters specified in the C++ Language Standard basic source character set shall be used in the source code."
+    },
+    "M17-0-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing the names of standard library macros and objects can lead to developer confusion.",
+          "name": "The names of standard library macros and objects shall not be reused",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "NameOfStandardLibraryMacroOrObjectReused",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The names of standard library macros and objects shall not be reused."
+    },
+    "M17-0-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing the names of standard library functions can lead to developer confusion.",
+          "name": "The names of standard library functions shall not be overridden",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "NameOfStandardLibraryFunctionIsOverridden",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The names of standard library functions shall not be overridden."
+    },
+    "M2-10-1": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Typographically ambiguous identifiers can lead to developer confusion.",
+          "name": "Different identifiers shall be typographically unambiguous",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "DifferentIdentifiersNotTypographicallyUnambiguous",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Different identifiers shall be typographically unambiguous."
+    },
+    "M7-3-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing the name main in non-main contexts can lead to developer confusion.",
+          "name": "The identifier main shall not be used for a function other than the global function main",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The identifier main shall not be used for a function other than the global function main."
+    },
+    "M7-3-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unnamed namespaces are unique within each translation unit, which can be confusing for developers.",
+          "name": "There shall be no unnamed namespaces in header files",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnnamedNamespacesInHeaderFile",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "There shall be no unnamed namespaces in header files."
+    },
+    "M8-4-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The identifiers used for the parameters in a re-declaration of a function shall be identical to those in the declaration.",
+          "name": "The identifiers used for the parameters in a re-declaration of a function shall be identical",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonIdenticalIdentifierUsedForTheParameterInReDeclarationOfAFunction",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The identifiers used for the parameters in a re-declaration of a function shall be identical to those in the declaration."
+    }
+  },
+  "CERT-C++": {
+    "DCL51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A translation unit that includes a standard library header shall not #define or #undef names declared in any standard library header.",
+          "name": "Redefining of names declared in standard library header using #define or #undef",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RedefiningOfStandardLibraryName",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "A translation unit shall not #define or #undef names lexically identical to keywords, special identifiers, or reserved attribute tokens.",
+          "name": "Redefining or undefining of keyword, special identifier, or reserved attribute token",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ReuseOfReservedIdentifier",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Each name prefixed with a double underscore, an underscore followed by an uppercase letter, or a single underscore and is defined in the global namespace is reserved.",
+          "name": "Name uses reserved prefix",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UseOfSingleUnderscoreReservedPrefix",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "Each name prefixed with a double underscore, an underscore followed by an uppercase letter, or a single underscore and is defined in the global namespace is reserved.",
+          "name": "Name uses reserved prefix",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UseOfDoubleUnderscoreReservedPrefix",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "Literal suffix identifiers that do not start with an underscore are reserved for future standardization.",
+          "name": "Use of reserved literal suffix identifier",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UseOfReservedLiteralSuffixIdentifier",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Declaration of an object identifier in the context where it is reserved results in undefined behavior.",
+          "name": "Reuse of reserved standard library name by an object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ObjectReusesReservedName",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Declaration of a function identifier in the context where it is reserved results in undefined behavior.",
+          "name": "Reuse of reserved standard library name by a function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionReusesReservedName",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Declaration of a enumerator identifier in the context where it is reserved results in undefined behavior.",
+          "name": "Reuse of reserved standard library name by a enumerator",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "EnumeratorReusesReservedName",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not declare or define a reserved identifier"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+| test.cpp:8:7:8:7 | D | Class derives from more than one non-abstract base class ($@ and $@) | test.cpp:8:11:8:11 | derivation | B | test.cpp:8:14:8:14 | derivation | A |
+| test.cpp:19:7:19:7 | I | Class derives from more than one non-abstract base class ($@ and $@) | test.cpp:19:31:19:31 | derivation | B | test.cpp:19:34:19:34 | derivation | A |

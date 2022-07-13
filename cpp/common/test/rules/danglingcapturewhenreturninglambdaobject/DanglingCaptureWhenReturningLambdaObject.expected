@@ -1,0 +1,7 @@
+| test.cpp:6:3:6:12 | return ... | Returning lambda $@ with potentially dangling capture $@. | test.cpp:5:12:5:27 | [...](...){...} | object | test.cpp:5:21:5:21 | l1 | l1 |
+| test.cpp:17:5:17:36 | return ... | Returning lambda $@ with potentially dangling capture $@. | test.cpp:17:5:17:36 | [...](...){...} | object | test.cpp:17:27:17:27 | (captured this) | this |
+| test.cpp:27:5:27:17 | return ... | Returning lambda $@ with potentially dangling capture $@. | test.cpp:26:17:26:42 | [...](...){...} | object | test.cpp:26:33:26:33 | val | val |
+| test.cpp:27:5:27:17 | return ... | Returning lambda $@ with potentially dangling capture $@. | test.cpp:26:18:26:42 | [...](...){...} | object | test.cpp:26:33:26:33 | val | val |
+| test.cpp:33:3:33:33 | return ... | Returning lambda $@ with potentially dangling capture $@. | test.cpp:33:3:33:33 | [...](...){...} | object | test.cpp:33:25:33:25 | i | i |
+| test.cpp:37:3:37:33 | return ... | Returning lambda $@ with potentially dangling capture $@. | test.cpp:37:3:37:33 | [...](...){...} | object | test.cpp:37:25:37:25 | i | i |
+| test.cpp:46:3:46:45 | return ... | Returning lambda $@ with potentially dangling capture $@. | test.cpp:46:11:46:43 | [...](...){...} | object | test.cpp:46:13:46:16 | data | data |

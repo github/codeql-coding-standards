@@ -1,0 +1,163 @@
+{
+  "AUTOSAR": {
+    "A12-8-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Moved-from object shall not be read-accessed.",
+          "kind": "problem",
+          "name": "Moved-from object shall not be read-accessed",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "MovedFromObjectReadAccessed",
+          "shared_implementation_short_name": "MovedFromObjectsUnspecifiedState",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Moved-from object shall not be read-accessed."
+    },
+    "A18-9-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Rvalue references are forwarded with std::move and forwarding reference with std::forward.",
+          "kind": "problem",
+          "name": "Rvalue references are forwarded with std::move and forwarding reference with std::forward",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ForwardingValuesToOtherFunctions",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Forwarding values to other functions shall be done via: (1) std::move if the value is an rvalue reference, (2) std::forward if the value is forwarding reference."
+    },
+    "A18-9-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The std::move shall not be used on objects declared const or const&.",
+          "kind": "problem",
+          "name": "The std::move shall not be used on objects declared const or const&",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MoveUsedOnConstObjects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The std::move shall not be used on objects declared const or const&."
+    },
+    "A18-9-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An argument to std::forward shall not be subsequently used.",
+          "kind": "problem",
+          "name": "An argument to std::forward shall not be subsequently used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ArgumentToForwardSubsequentlyUsed",
+          "tags": []
+        }
+      ],
+      "title": "An argument to std::forward shall not be subsequently used."
+    },
+    "A8-4-5": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "'consume' parameters declared as X && shall always be moved from.",
+          "kind": "problem",
+          "name": "'consume' parameters declared as X && shall always be moved from",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MoveFromConsumeParametersRvalRef",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "'consume' parameters declared as X && shall always be moved from."
+    },
+    "A8-4-6": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "\"forward\" parameters declared as T && shall always be forwarded.",
+          "kind": "problem",
+          "name": "\"forward\" parameters declared as T && shall always be forwarded",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ForwardForwardingReferences",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "\"forward\" parameters declared as T && shall always be forwarded."
+    }
+  },
+  "CERT-C++": {
+    "EXP63-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not rely on the value of a moved-from object.",
+          "kind": "problem",
+          "name": "Do not rely on the value of a moved-from object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotRelyOnTheValueOfAMovedFromObject",
+          "shared_implementation_short_name": "MovedFromObjectsUnspecifiedState",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not rely on the value of a moved-from object"
+    }
+  }
+}

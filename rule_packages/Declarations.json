@@ -1,0 +1,353 @@
+{
+  "AUTOSAR": {
+    "A18-5-11": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A class implementation of 'operator new' implies the use of a custom memory allocator, which should have a corresponding memory deallocator member-function implemented in 'operator delete' of the same class.",
+          "kind": "problem",
+          "name": "'operator new' and 'operator delete' shall be locally defined together",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OperatorNewAndOperatorDeleteNotDefinedLocally",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Use of a global 'operator new' function implies the use of a custom memory allocator, which should have a corresponding memory deallocator implemented in a global 'operator delete' function.",
+          "kind": "problem",
+          "name": "'operator new' and 'operator delete' shall be globally defined together",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OperatorNewAndOperatorDeleteNotDefinedGlobally",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "'operator new' and 'operator delete' shall be defined together."
+    },
+    "A18-5-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a project has the unsized version of operator 'delete' globally defined, then the sized version shall be defined.",
+          "kind": "problem",
+          "name": "Sized 'operator delete' must be defined globally if unsized 'operator delete' is defined globally",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GlobalSizedOperatorDeleteNotDefined",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "If a project has the sized version of operator 'delete' globally defined, then the unsized version shall be defined.",
+          "kind": "problem",
+          "name": "Unsized 'operator delete' must be defined globally if sized 'operator delete' is defined globally",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GlobalUnsizedOperatorDeleteNotDefined",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "If a project has sized or unsized version of operator 'delete' globally defined, then both sized and unsized versions shall be defined."
+    },
+    "A3-9-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The basic numerical types of char, int, short, long are not supposed to be used. The specific-length types from <cstdint> header need be used instead.",
+          "kind": "problem",
+          "name": "Use fixed-width integer types instead of basic, variable-width, integer types",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VariableWidthIntegerTypesUsed",
+          "tags": [
+            "correctness",
+            "security",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Fixed width integer types from <cstdint>, indicating the size and signedness, shall be used in place of the basic numerical types."
+    },
+    "A7-1-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The auto specifier shall not be used apart from following cases: (1) to declare that a variable has the same type as return type of a function call, (2) to declare that a variable has the same type as initializer of non-fundamental type, (3) to declare parameters of a generic lambda expression, (4) to declare a function template using trailing return type syntax.",
+          "kind": "problem",
+          "name": "Within a function definition the auto specifier may only be used to declare a function template using trailing return type syntax",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "AutoSpecifierNotUsedAppropriatelyInFunctionDefinition",
+          "tags": [
+            "readability"
+          ]
+        },
+        {
+          "description": "The auto specifier shall not be used apart from following cases: (1) to declare that a variable has the same type as return type of a function call, (2) to declare that a variable has the same type as initializer of non-fundamental type, (3) to declare parameters of a generic lambda expression, (4) to declare a function template using trailing return type syntax.",
+          "kind": "problem",
+          "name": "The auto specifier should only be used when the deducted type is obvious",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "AutoSpecifierNotUsedAppropriatelyInVariableDefinition",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "The auto specifier shall not be used apart from following cases: (1) to declare that a variable has the same type as return type of a function call, (2) to declare that a variable has the same type as initializer of non-fundamental type, (3) to declare parameters of a generic lambda expression, (4) to declare a function template using trailing return type syntax."
+    },
+    "A7-1-7": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declaring an identifier on a separate line makes the identifier declaration easier to find and the source code more readable.",
+          "kind": "problem",
+          "name": "Each expression statement and identifier declaration shall be placed on a separate line",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "IdentifierDeclarationAndInitializationNotOnSeparateLines",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "Each expression statement and identifier declaration shall be placed on a separate line."
+    },
+    "A7-1-8": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [],
+      "title": "A non-type specifier shall be placed before a type specifier in a declaration."
+    },
+    "A7-1-9": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Combining a type definition with a declaration of another entity can lead to readability problems and can be confusing for a developer.",
+          "kind": "problem",
+          "name": "A class, structure, or enumeration shall not be declared in the definition of its type",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "ClassStructEnumDeclaredInDefinition",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "A class, structure, or enumeration shall not be declared in the definition of its type."
+    },
+    "A7-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Although scoped enum will implicitly define an underlying type of int, the underlying base type of enumeration should always be explicitly defined with a type that will be large enough to store all enumerators.",
+          "kind": "problem",
+          "name": "Enumeration underlying base type shall be explicitly defined",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "EnumerationUnderlyingBaseTypeNotExplicitlyDefined",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Enumeration underlying base type shall be explicitly defined."
+    },
+    "A7-2-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If unscoped enumeration enum is declared in a global scope, then its values can redeclare constants declared with the same identifier in the global scope. This may lead to developer’s confusion.",
+          "kind": "problem",
+          "name": "Enumerations shall be declared as scoped enum classes",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "EnumerationsNotDeclaredAsScopedEnumClasses",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Enumerations shall be declared as scoped enum classes."
+    },
+    "A7-2-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Explicit initialization of only some enumerators in an enumeration, and relying on compiler to initialize the remaining ones, may lead to developer‘s confusion.",
+          "kind": "problem",
+          "name": "In an enumeration, either (1) none, (2) the first or (3) all enumerators shall be initialized",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NoneFirstOrAllEnumeratorsNotInitialized",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "In an enumeration, either (1) none, (2) the first or (3) all enumerators shall be initialized."
+    },
+    "M3-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function declared at block scope will refer to a member of the enclosing namespace, and so the declaration should be explicitly placed at the namespace level.",
+          "kind": "problem",
+          "name": "Functions shall not be declared at block scope",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "FunctionsDeclaredAtBlockScope",
+          "tags": [
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Functions shall not be declared at block scope."
+    },
+    "M3-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "It is undefined behavior if the declarations of an object or function in two different translation units do not have compatible types. The easiest way of ensuring object or function types are compatible is to make the declarations identical.",
+          "kind": "problem",
+          "name": "All declarations of an object shall have compatible types",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DeclarationsOfAnObjectShallHaveCompatibleTypes",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "It is undefined behavior if the declarations of an object or function in two different translation units do not have compatible types. The easiest way of ensuring object or function types are compatible is to make the declarations identical.",
+          "kind": "problem",
+          "name": "All declarations of a function shall have compatible types",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DeclarationsOfAFunctionShallHaveCompatibleTypes",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "All declarations of an object or function shall have compatible types."
+    },
+    "M3-9-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The types used for an object or a function parameter shall be token-for-token identical in all declarations and re-declarations.",
+          "kind": "problem",
+          "name": "Types shall be token-for-token identical in all declarations and re-declarations",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "TypesNotIdenticalInObjectDeclarations",
+          "tags": [
+            "readability"
+          ]
+        },
+        {
+          "description": "The types used for a function return type shall be token-for-token identical in all declarations and re-declarations.",
+          "kind": "problem",
+          "name": "Types shall be token-for-token identical in all declarations and re-declarations",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "TypesNotIdenticalInReturnDeclarations",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "The types used for an object, a function return type, or a function parameter shall be token-for-token identical in all declarations and re-declarations."
+    }
+  }
+}

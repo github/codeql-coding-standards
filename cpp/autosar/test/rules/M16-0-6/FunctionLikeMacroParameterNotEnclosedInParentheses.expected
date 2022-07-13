@@ -1,0 +1,10 @@
+| test.cpp:8:1:8:21 | #define BADMACRO(X) X | Accesses of parameter 'X' are not always enclosed in parentheses in the macro BADMACRO. |
+| test.cpp:9:1:9:30 | #define BADNEGATIVEMACRO(X) -X | Accesses of parameter 'X' are not always enclosed in parentheses in the macro BADNEGATIVEMACRO. |
+| test.cpp:15:1:15:56 | #define BADCOMPLICATENDNEGATIVEMACRO(X) (X < 0 ? X : -X) | Accesses of parameter 'X' are not always enclosed in parentheses in the macro BADCOMPLICATENDNEGATIVEMACRO. |
+| test.cpp:18:1:19:44 | #define BADMACROMANYPARAMS(X,Y,Z) (X + Y + Z < 0 ? X + Y + Z : -(X + Y + Z)) | Accesses of parameter 'X' are not always enclosed in parentheses in the macro BADMACROMANYPARAMS. |
+| test.cpp:18:1:19:44 | #define BADMACROMANYPARAMS(X,Y,Z) (X + Y + Z < 0 ? X + Y + Z : -(X + Y + Z)) | Accesses of parameter 'Y' are not always enclosed in parentheses in the macro BADMACROMANYPARAMS. |
+| test.cpp:18:1:19:44 | #define BADMACROMANYPARAMS(X,Y,Z) (X + Y + Z < 0 ? X + Y + Z : -(X + Y + Z)) | Accesses of parameter 'Z' are not always enclosed in parentheses in the macro BADMACROMANYPARAMS. |
+| test.cpp:20:1:21:52 | #define BADMACROMANYPARAMSNOTALLPARENTH(X,Y,Z) (X) + Y + Z < 0 ? (X) + (Y) + (Z) : -(X) + Y + Z)) | Accesses of parameter 'Y' are not always enclosed in parentheses in the macro BADMACROMANYPARAMSNOTALLPARENTH. |
+| test.cpp:20:1:21:52 | #define BADMACROMANYPARAMSNOTALLPARENTH(X,Y,Z) (X) + Y + Z < 0 ? (X) + (Y) + (Z) : -(X) + Y + Z)) | Accesses of parameter 'Z' are not always enclosed in parentheses in the macro BADMACROMANYPARAMSNOTALLPARENTH. |
+| test.cpp:29:1:29:37 | #define BADMACROVARIADICBAD(X,__VA_ARGS__...) X | Accesses of parameter 'X' are not always enclosed in parentheses in the macro BADMACROVARIADICBAD. |
+| test.cpp:34:1:35:29 | #define MACROFUNCTIONNAMEWITHPARAMSUBSTRBAD(x) function_with_x_name(x + 1) | Accesses of parameter 'x' are not always enclosed in parentheses in the macro MACROFUNCTIONNAMEWITHPARAMSUBSTRBAD. |

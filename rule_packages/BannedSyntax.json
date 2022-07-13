@@ -1,0 +1,399 @@
+{
+  "AUTOSAR": {
+    "A11-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Friend declarations shall not be used unless for comparison operators.",
+          "kind": "problem",
+          "name": "Friend declarations shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FriendDeclarationsUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Friend declarations shall not be used."
+    },
+    "A18-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Do not use C-style arrays.  Prefer std::array.  C-style arrays that are static constexpr data members are allowed.",
+          "kind": "problem",
+          "name": "C-style arrays shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CStyleArraysUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "C-style arrays shall not be used."
+    },
+    "A2-11-1": {
+      "properties": {
+        "allocated-target": [
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The volatile keyword shall not be used.",
+          "kind": "problem",
+          "name": "Volatile keyword shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VolatileKeywordUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Volatile keyword shall not be used."
+    },
+    "A5-16-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The ternary conditional operator shall not be used as a sub-expression or in a nested condition.",
+          "kind": "problem",
+          "name": "The ternary conditional operator shall not be used as a sub-expression",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TernaryConditionalOperatorUsedAsSubExpression",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The ternary conditional operator shall not be used as a sub-expression."
+    },
+    "A5-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The statement dynamic_cast should not be used.",
+          "kind": "problem",
+          "name": "dynamic_cast should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DynamicCastShouldNotBeUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "dynamic_cast should not be used."
+    },
+    "A5-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Traditional C-style casts shall not be used.",
+          "kind": "problem",
+          "name": "Traditional C-style casts shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TraditionalCStyleCastsUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Traditional C-style casts shall not be used."
+    },
+    "A5-2-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The statement reinterpret_cast shall not be used.",
+          "kind": "problem",
+          "name": "reinterpret_cast shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ReinterpretCastUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "reinterpret_cast shall not be used."
+    },
+    "A6-6-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The goto statement shall not be used.",
+          "kind": "problem",
+          "name": "The goto statement shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GotoStatementUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The goto statement shall not be used."
+    },
+    "A7-1-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The register keyword shall not be used.",
+          "kind": "problem",
+          "name": "The register keyword shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RegisterKeywordUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The register keyword shall not be used."
+    },
+    "A7-1-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The typedef specifier shall not be used.",
+          "kind": "problem",
+          "name": "The typedef specifier shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TypedefSpecifierUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The typedef specifier shall not be used."
+    },
+    "A7-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The asm declaration shall not be used.",
+          "kind": "problem",
+          "name": "The asm declaration shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AsmDeclarationUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The asm declaration shall not be used."
+    },
+    "A8-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Functions shall not be defined using the ellipsis notation.",
+          "kind": "problem",
+          "name": "Functions shall not be defined using the ellipsis notation",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionsDefinedUsingTheEllipsisNotation",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Functions shall not be defined using the ellipsis notation."
+    },
+    "A9-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unions shall not be used.  Tagged untions can be used if std::variant is not available.",
+          "kind": "problem",
+          "name": "Unions shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnionsUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Unions shall not be used."
+    },
+    "M5-18-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The comma operator shall not be used.",
+          "kind": "problem",
+          "name": "The comma operator shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CommaOperatorUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The comma operator shall not be used."
+    },
+    "M7-3-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using namespace directives shall not be used.",
+          "kind": "problem",
+          "name": "Using-directives shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UsingDirectivesUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Using-directives shall not be used."
+    },
+    "M7-3-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using-directives and using-declarations (excluding class scope or function scope using-declarations) shall not be used in header files.",
+          "kind": "problem",
+          "name": "Using-directives and using-declarations shall not be used in header files",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UsingDeclarationsUsedInHeaderFiles",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Using-directives and using-declarations (excluding class scope or function scope using-declarations) shall not be used in header files."
+    }
+  },
+  "CERT-C++": {
+    "DCL50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not define a C-style variadic function.",
+          "kind": "problem",
+          "name": "Do not define a C-style variadic function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotDefineACStyleVariadicFunction",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not define a C-style variadic function"
+    }
+  }
+}

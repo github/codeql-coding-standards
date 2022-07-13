@@ -1,0 +1,1 @@
+| test.cpp:0:0:0:0 | test.cpp | [AUDIT] Confirm encapsulation of function calls to C standard library function(s) remove, strcpy, strlen. |

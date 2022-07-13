@@ -1,0 +1,12 @@
+const uint32_t   a = 0U;
+const uint32_t   b = 0u;     // Non-compliant
+const int64_t    c = 0L;
+const int64_t    d = 0l;     // Non-compliant
+const uint64_t   e = 0UL;
+const uint64_t   f = 0Ul;    // Non-compliant
+const uint32_t   g = 0x12bU;
+const uint32_t   h = 0x12bu; // Non-compliant
+const float32_t  m = 1.2F; 
+const float32_t  n = 2.4f;   // Non-compliant
+const float128_t p = 1.2L; 
+const float128_t n = 2.4l;   // Non-compliant

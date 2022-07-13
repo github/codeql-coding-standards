@@ -1,0 +1,2 @@
+| test.cpp:12:1:12:15 | #undef noreturn | Redefinition of $@ lexically identical to reserved attribute token. | test.cpp:12:1:12:15 | #undef noreturn | noreturn |
+| test.cpp:13:1:13:17 | #define private 1 | Redefinition of $@ lexically identical to keyword. | test.cpp:13:1:13:17 | #define private 1 | private |

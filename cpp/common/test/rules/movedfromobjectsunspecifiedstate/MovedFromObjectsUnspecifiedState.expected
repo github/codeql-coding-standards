@@ -1,0 +1,5 @@
+| test.cpp:9:16:9:17 | s1 | The argument of the $@ may be indeterminate when accessed at this location. | test.cpp:7:18:7:26 | call to move | call to move |
+| test.cpp:30:5:30:5 | s | The argument of the $@ may be indeterminate when accessed at this location. | test.cpp:31:11:31:19 | call to move | call to move |
+| test.cpp:31:11:31:22 | call to basic_string | The argument of the $@ may be indeterminate when accessed at this location. | test.cpp:31:11:31:19 | call to move | call to move |
+| test.cpp:31:21:31:21 | s | The argument of the $@ may be indeterminate when accessed at this location. | test.cpp:31:11:31:19 | call to move | call to move |
+| test.cpp:79:16:79:23 | s_global | The argument of the $@ may be indeterminate when accessed at this location. | test.cpp:78:18:78:26 | call to move | call to move |

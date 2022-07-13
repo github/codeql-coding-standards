@@ -1,0 +1,4 @@
+| test.cpp:4:13:4:14 | p2 | Parameter p2 points to an object that is not modified and therefore should be declared as const. |
+| test.cpp:5:19:5:20 | p3 | Parameter p3 points to an object that is not modified and therefore should be declared as const. |
+| test.cpp:19:12:19:12 | a | Parameter a points to an object that is not modified and therefore should be declared as const. |
+| test.cpp:50:12:50:12 | a | Parameter a points to an object that is not modified and therefore should be declared as const. |

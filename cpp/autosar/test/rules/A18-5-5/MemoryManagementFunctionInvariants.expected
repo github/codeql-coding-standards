@@ -1,0 +1,8 @@
+| test.cpp:5:7:5:13 | malloc1 | Memory management function uses recursion. |
+| test.cpp:15:7:15:13 | malloc2 | Memory management function does not depend on its argument. |
+| test.cpp:25:7:25:13 | malloc3 | Loop condition within a user defined memory management function defined depends on a complex condition. |
+| test.cpp:25:7:25:13 | malloc3 | Memory management function does not depend on its argument. |
+| test.cpp:35:7:35:13 | malloc4 | Loop within a user defined memory management function is unbounded. |
+| test.cpp:35:7:35:13 | malloc4 | Memory management function does not depend on its argument. |
+| test.cpp:44:6:44:7 | h1 | Memory management function is empty. |
+| test.cpp:45:6:45:7 | h2 | Memory management function uses recursion. |

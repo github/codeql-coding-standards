@@ -1,0 +1,3 @@
+| main.cpp:9:10:9:11 | 0 | Definition of $@ is unused. | main.cpp:9:7:9:7 | x | x |
+| nested/nested2/test2.h:4:10:4:11 | 0 | Definition of $@ is unused. | nested/nested2/test2.h:4:7:4:7 | x | x |
+| nested/test.h:4:10:4:11 | 0 | Definition of $@ is unused. | nested/test.h:4:7:4:7 | x | x |

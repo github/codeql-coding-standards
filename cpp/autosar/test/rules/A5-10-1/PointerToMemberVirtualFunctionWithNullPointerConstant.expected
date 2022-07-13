@@ -1,0 +1,2 @@
+| test.cpp:14:14:14:29 | ... == ... | A pointer to member virtual function $@ is tested for equality with non-null-pointer-constant $@.  | test.cpp:6:16:6:17 | F3 | F3 | test.cpp:14:24:14:29 | F1 | F1 |
+| test.cpp:15:14:15:29 | ... == ... | A pointer to member virtual function $@ is tested for equality with non-null-pointer-constant $@.  | test.cpp:6:16:6:17 | F3 | F3 | test.cpp:15:24:15:29 | F2 | F2 |

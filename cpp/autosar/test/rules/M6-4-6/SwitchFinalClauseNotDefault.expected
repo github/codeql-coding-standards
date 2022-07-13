@@ -1,0 +1,1 @@
+| test.cpp:41:3:53:3 | switch (...) ...  | The final clause of this $@ statement is not a default clause. | test.cpp:41:3:53:3 | switch (...) ...  | switch |

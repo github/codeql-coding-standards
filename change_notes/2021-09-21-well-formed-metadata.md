@@ -1,0 +1,53 @@
+- `M8-3-1` - `VirtualFunctionParametersUseTheSameDefaultArguments.ql`:
+  - Removed duplicate `quality` tag.
+  - Replaced `quality` tag with `correctness` tag.
+- `A12-8-2` - `UserDefinedCopyAndMoveUseNoThrowSwapFunction.ql`:
+  - Removed the `quality` tag.
+- `A13-5-4` - `OppositeOperatorsNotDefinedInTermsOfOther.ql`:
+  - Removed the `quality` tag.
+- `A18-1-6` - `HashSpecializationsHaveANoexceptFunctionCallOperator.ql`:
+  - Replaced the `quality` tag with `correctness` tag.
+- `OOP54-CPP` - `GracefullyHandleSelfCopyAssignment.ql`:
+  - Removed the `quality` tag.
+- `M2-10-1` - `DifferentIdentifiersNotTypographicallyUnambiguous.ql`:
+  - Change the severity from `notification` to `recommendation`.
+- `A18-5-3` - `NewArrayDeleteMismatch.ql`:
+  - Replace the tag `reliability` with `correctness`.
+- `A18-5-3` - `NewDeleteArrayMismatch.ql`:
+  - Replace the tag `reliability` with `correctness`.
+- `A11-3-1` - `FriendDeclarationsUsed.ql`:
+  - Remove the tag `quality`.
+- `A5-16-1` - `TernaryConditionalOperatorUsedAsSubExpression.ql`
+  - Replace the tag `quality` with `correctness`.
+- `A5-2-1` - `DynamicCastShouldNotBeUsed.ql`:
+  - Remove the tag `quality`.
+- `A5-2-2` - `TraditionalCStyleCastsUsed.ql`:
+  - Remove the tag `quality`.
+- `A5-2-4` - `ReinterpretCastUsed.ql`:
+  - Remove the tag `quality`.
+- `A6-6-1` - `GotoStatementUsed.ql`:
+  - Remove the tag `quality`.
+- `A7-1-4` - `RegisterKeywordUsed.ql`:
+  - Replace the tag `quality` with `correctness`.
+- `A7-1-6` - `TypedefSpecifierUsed.ql`:
+  - Replace the tag `quality` with `correctness`.
+- `A7-4-1` - `AsmDeclarationUsed.ql`:
+  - Remove the tag `quality`.
+- `A8-4-1` - `FunctionsDefinedUsingTheEllipsisNotation.ql`:
+  - Remove the tag `quality`.
+- `M5-18-1` - `CommaOperatorUsed.ql`
+  - Remove the tag `quality`.
+- `M7-3-4` - `UsingDirectivesUsed.ql`:
+  - Remove the tag `quality`.
+- `M7-3-6` - `UsingDeclarationsUsedInHeaderFiles.ql`
+  - Remove the tag `quality`.
+- `DCL50-CPP` - `DoNotDefineACStyleVariadicFunction.ql`:
+  - Remove the tag `quality`.
+- `A18-9-1` - `BindUsed.ql`:
+  - Replace the tag `quality` with `correctness`.
+- `M17-0-5` - `SetjmpMacroAndTheLongjmpFunctionUsed.ql`
+  - Replace the tag `quality` with `correctness`.
+- `ERR52-CPP` - `DoNotUseSetjmpOrLongjmp.ql`:
+  - Replace the tag `quality` with `correctness`.
+- `OOP57-CPP` - `PreferSpecialMemberFunctionsAndOverloadedOperatorsToCStandardLibraryFunctions.ql`
+  - Remove the tag `quality`.

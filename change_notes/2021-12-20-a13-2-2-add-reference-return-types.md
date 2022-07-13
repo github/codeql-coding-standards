@@ -1,0 +1,2 @@
+- `A13-2-2` - `BinaryOperatorAndBitwiseOperatorReturnAPrvalue.ql`
+  - Include reference return types in query results to address the false negative issue #520.

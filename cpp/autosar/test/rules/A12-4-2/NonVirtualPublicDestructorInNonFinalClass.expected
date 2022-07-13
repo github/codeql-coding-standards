@@ -1,0 +1,1 @@
+| test.cpp:4:3:4:4 | ~A | Public non-virtual destructor of a non-final base class A. |

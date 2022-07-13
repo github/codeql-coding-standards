@@ -1,0 +1,2 @@
+ - `A12-8-1` - `MoveConstructorShallOnlyMoveObject.ql`:
+   - Improved evaluation performance.

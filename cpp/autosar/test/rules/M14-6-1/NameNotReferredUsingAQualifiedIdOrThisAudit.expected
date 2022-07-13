@@ -1,0 +1,3 @@
+| test.cpp:16:5:16:5 | m | Use of identifier that also exists in a base class that is not fully qualified. |
+| test.cpp:17:5:17:5 | call to g | Use of identifier that also exists in a base class that is not fully qualified. |
+| test.cpp:19:20:19:20 | g | Use of identifier that also exists in a base class that is not fully qualified. |

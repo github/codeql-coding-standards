@@ -1,0 +1,14 @@
+| test.cpp:10:9:10:10 | T1 | Member T1 template class does not use any of template arguments of its $@. | test.cpp:6:29:6:30 | C1<T> | declaring type |
+| test.cpp:11:9:11:10 | T2 | Member T2 template class does not use any of template arguments of its $@. | test.cpp:6:29:6:30 | C1<T> | declaring type |
+| test.cpp:28:31:28:33 | C12<N> | Member C12<N> template class does not use any of template arguments of its $@. | test.cpp:6:29:6:30 | C1<T> | declaring type |
+| test.cpp:45:7:45:8 | a1 | Member a1 template class does not use any of template arguments of its $@. | test.cpp:37:31:37:33 | C22<N> | declaring type |
+| test.cpp:46:9:46:10 | a2 | Member a2 template class does not use any of template arguments of its $@. | test.cpp:37:31:37:33 | C22<N> | declaring type |
+| test.cpp:48:10:48:11 | f0 | Member f0 template class does not use any of template arguments of its $@. | test.cpp:37:31:37:33 | C22<N> | declaring type |
+| test.cpp:49:10:49:11 | f1 | Member f1 template class does not use any of template arguments of its $@. | test.cpp:37:31:37:33 | C22<N> | declaring type |
+| test.cpp:54:10:54:11 | f5 | Member f5 template class does not use any of template arguments of its $@. | test.cpp:37:31:37:33 | C22<N> | declaring type |
+| test.cpp:63:8:63:9 | f0 | Member f0 template class does not use any of template arguments of its $@. | test.cpp:33:29:33:30 | C2<T> | declaring type |
+| test.cpp:95:29:95:29 | B<T2> | Member B<T2> template class does not use any of template arguments of its $@. | test.cpp:91:37:91:37 | A<T1, T3> | declaring type |
+| test.cpp:100:9:100:9 | b | Member b template class does not use any of template arguments of its $@. | test.cpp:95:29:95:29 | B<T2> | declaring type |
+| test.cpp:102:7:102:7 | a | Member a template class does not use any of template arguments of its $@. | test.cpp:91:37:91:37 | A<T1, T3> | declaring type |
+| test.cpp:133:8:133:8 | m | Member m template class does not use any of template arguments of its $@. | test.cpp:131:29:131:33 | Value<T> | declaring type |
+| test.cpp:151:11:151:14 | type | Member type template class does not use any of template arguments of its $@. | test.cpp:149:28:149:28 | V<t> | declaring type |

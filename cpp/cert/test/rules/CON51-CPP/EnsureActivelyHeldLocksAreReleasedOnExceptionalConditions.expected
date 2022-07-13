@@ -1,0 +1,3 @@
+| test.cpp:35:5:35:14 | call to mightThrow | Expression that may throw an exception is not surrounded by a try/catch that ensures the $@ is properly released. | test.cpp:33:7:33:10 | call to lock | locked mutex |
+| test.cpp:50:3:50:12 | call to mightThrow | Expression that may throw an exception is not surrounded by a try/catch that ensures the $@ is properly released. | test.cpp:49:7:49:10 | call to lock | locked mutex |
+| test.cpp:58:5:58:14 | call to mightThrow | Expression that may throw an exception is not surrounded by a try/catch that ensures the $@ is properly released. | test.cpp:57:9:57:12 | call to lock | locked mutex |

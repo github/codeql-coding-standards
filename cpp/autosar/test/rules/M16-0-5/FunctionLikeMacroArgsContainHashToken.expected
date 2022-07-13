@@ -1,0 +1,3 @@
+| test.cpp:5:3:11:3 | MACROFUNCTION(X) | Invocation of macro MACROFUNCTION includes a $@ that could be confused for an argument | test.cpp:6:1:6:19 | #if NOTDEFINEDMACRO | preprocessor directive |
+| test.cpp:5:3:11:3 | MACROFUNCTION(X) | Invocation of macro MACROFUNCTION includes a $@ that could be confused for an argument | test.cpp:8:1:8:5 | #else | preprocessor directive |
+| test.cpp:5:3:11:3 | MACROFUNCTION(X) | Invocation of macro MACROFUNCTION includes a $@ that could be confused for an argument | test.cpp:10:1:10:6 | #endif | preprocessor directive |

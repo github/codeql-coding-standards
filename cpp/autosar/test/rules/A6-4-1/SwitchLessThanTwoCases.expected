@@ -1,0 +1,1 @@
+| test.cpp:3:3:11:3 | switch (...) ...  | Unnecessary use of switch statement with 1 non default case(s). |

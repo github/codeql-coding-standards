@@ -1,0 +1,7 @@
+| test.cpp:4:5:4:7 | id1 | Variable is hiding variable $@. | test.cpp:1:5:1:7 | id1 | id1 |
+| test.cpp:8:5:8:7 | id1 | Variable is hiding variable $@. | test.cpp:1:5:1:7 | id1 | id1 |
+| test.cpp:11:5:11:7 | id1 | Variable is hiding variable $@. | test.cpp:8:5:8:7 | id1 | id1 |
+| test.cpp:20:7:20:9 | id1 | Variable is hiding variable $@. | test.cpp:1:5:1:7 | id1 | id1 |
+| test.cpp:23:13:23:15 | id1 | Variable is hiding variable $@. | test.cpp:1:5:1:7 | id1 | id1 |
+| test.cpp:26:12:26:14 | id1 | Variable is hiding variable $@. | test.cpp:1:5:1:7 | id1 | id1 |
+| test.cpp:27:14:27:16 | id1 | Variable is hiding variable $@. | test.cpp:26:12:26:14 | id1 | id1 |

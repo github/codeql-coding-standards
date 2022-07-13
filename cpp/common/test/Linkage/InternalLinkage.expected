@@ -1,0 +1,16 @@
+| test.cpp:3:11:3:12 | g3 | Element has internal linkage |
+| test.cpp:4:18:4:19 | g4 | Element has internal linkage |
+| test.cpp:5:12:5:13 | g5 | Element has internal linkage |
+| test.cpp:48:1:48:9 | (unnamed namespace) | Element has internal linkage |
+| test.cpp:49:11:49:13 | (unnamed namespace)::ns2 | Element has internal linkage |
+| test.cpp:50:5:50:6 | l1 | Element has internal linkage |
+| test.cpp:52:6:52:7 | f1 | Element has internal linkage |
+| test.cpp:54:6:54:7 | e1 | Element has internal linkage |
+| test.cpp:59:14:59:14 | e2 | Element has internal linkage |
+| test.cpp:65:6:65:7 | f2 | Element has internal linkage |
+| test.cpp:67:7:67:8 | C1 | Element has internal linkage |
+| test.cpp:71:15:71:16 | C2 | Element has internal linkage |
+| test.cpp:76:7:76:8 | C3<T> | Element has internal linkage |
+| test.cpp:84:13:84:13 | f | Element has internal linkage |
+| test.cpp:85:12:85:12 | i | Element has internal linkage |
+| test.cpp:87:15:87:15 | f | Element has internal linkage |

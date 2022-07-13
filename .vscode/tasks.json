@@ -1,0 +1,219 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Standards Automation: Initialize venv",
+            "type": "shell",
+            "command": "python3 -mvenv scripts${pathSeparator}.venv",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Standards Automation: Install Deps",
+            "type": "shell",
+            "windows": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}pip3.exe install -r scripts${pathSeparator}requirements.txt"
+            },
+            "linux": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}pip3 install -r scripts${pathSeparator}requirements.txt"
+            },
+            "osx": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}pip3 install -r scripts${pathSeparator}requirements.txt"
+            },
+            "dependsOn": "Standards Automation: Initialize venv",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "🔥 Standards Automation: Initialize",
+            "dependsOn": "Standards Automation: Install Deps",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "📏 Standards Automation: Generate Rule Description File",
+            "type": "shell",
+            "windows": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py ${input:rule_package_name}"
+            },
+            "linux": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py ${input:rule_package_name}"
+            },
+            "osx": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_description.py ${input:rule_package_name}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "runOptions": {
+                "reevaluateOnRerun": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "📦 Standards Automation: Generate Package Files",
+            "type": "shell",
+            "windows": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:rule_package_name}"
+            },
+            "linux": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:rule_package_name}"
+            },
+            "osx": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}generate_rules${pathSeparator}generate_package_files.py ${input:rule_package_name}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "runOptions": {
+                "reevaluateOnRerun": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "🧪 Standards Automation: Build Case Test DB",
+            "type": "shell",
+            "windows": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}build_test_database.py ${input:standard} ${input:rule}"
+            },
+            "linux": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}build_test_database.py  ${input:standard} ${input:rule}"
+            },
+            "osx": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}build_test_database.py ${input:standard}  ${input:rule}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "runOptions": {
+                "reevaluateOnRerun": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "📝 Standards Automation: Format CodeQL",
+            "type": "shell",
+            "command": "${config:codeQL.cli.executablePath} query format -i ${file}",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "📝 Standards Automation: Format Test",
+            "type": "shell",
+            "command": "clang-format --style=file -i --verbose ${file}",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "⚡ Standards Automation: Generated Expected Output",
+            "type": "shell",
+            "command": " ${config:codeQL.cli.executablePath} test run --show-extractor-output --search-path . ${file}",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "runOptions": {
+                "reevaluateOnRerun": false
+            },
+            "problemMatcher": []
+        },
+    ],
+    "inputs": [
+        {
+            "id": "rule_package_name",
+            "description": "Rule Package Name",
+            "default": "",
+            "type": "pickString",
+            "options": [
+                "Allocations",
+                "BannedSyntax",
+                "BannedTypes",
+                "BannedFunctions",
+                "Classes",
+                "Concurrency",
+                "Const",
+                "Declarations",
+                "Exceptions1",
+                "Exceptions2",
+                "Includes",
+                "Invariants",
+                "Iterators",
+                "Literals",
+                "Loops",
+                "Macros",
+                "Naming",
+                "Scope",
+                "Side-effects1",
+                "Side-effects2",
+                "Classes",
+                "SmartPointers1",
+                "SmartPointers2",
+                "SideEffects1",
+                "SideEffects2",
+                "Strings",
+                "Templates",
+                "Classes",
+                "Freed",
+                "Initialization",
+                "Functions",
+                "Null",
+                "OperatorInvariants",
+                "VirtualFunctions",
+                "Conditionals",
+                "MoveForward",
+                "Operators",
+                "TypeRanges",
+                "Lambdas",
+                "Pointers",
+                "IntegerConversion",
+                "Expressions",
+                "DeadCode"
+            ]
+        },
+        {
+            "id": "standard",
+            "description": "Name of standard (e.g., autosar)",
+            "default": "autosar",
+            "type": "pickString",
+            "options": [
+                "autosar",
+                "cert",
+                "misra",
+                "common"
+            ]
+        },
+        {
+            "id": "rule",
+            "description": "Rule in package (e.g., M3-9-1)",
+            "default": "",
+            "type": "promptString"
+        },
+    ]
+}

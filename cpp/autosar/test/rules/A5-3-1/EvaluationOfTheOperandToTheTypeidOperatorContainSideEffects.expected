@@ -1,0 +1,3 @@
+| test.cpp:6:30:6:41 | typeid ... | The typeid operand is a call to $@ which may or may not be evaluated depending on whether it returns a polymorphic type. | test.cpp:3:5:3:6 | f1 | f1 |
+| test.cpp:21:30:21:44 | typeid ... | The typeid operand is a call to $@ which may or may not be evaluated depending on whether it returns a polymorphic type. | test.cpp:14:13:14:14 | f1 | f1 |
+| test.cpp:22:30:22:44 | typeid ... | The typeid operand is a call to $@ which may or may not be evaluated depending on whether it returns a polymorphic type. | test.cpp:15:14:15:15 | f2 | f2 |

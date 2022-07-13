@@ -1,0 +1,1 @@
+rules/CTR56-CPP/DoNotUsePointerArithmeticOnPolymorphicObjects.ql

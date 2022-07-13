@@ -1,0 +1,1 @@
+ - `A8-4-13`, `A20-8-2`, `A20-8-3` - the evaluation time of the queries covering these rules has been reduced.

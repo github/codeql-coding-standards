@@ -1,0 +1,5 @@
+| test.cpp:6:16:6:21 | call to malloc | Use of banned function malloc. |
+| test.cpp:7:16:7:21 | call to calloc | Use of banned function calloc. |
+| test.cpp:8:16:8:22 | call to realloc | Use of banned function realloc. |
+| test.cpp:11:3:11:6 | call to free | Use of banned function free. |
+| test.cpp:12:3:12:6 | call to free | Use of banned function free. |

@@ -1,0 +1,1 @@
+| test.cpp:13:28:13:51 | new | Use of default operator new for over-aligned type $@ (alignment: 32, max_align_t: 16). | test.cpp:7:20:7:37 | StructAOverAligned | StructAOverAligned |

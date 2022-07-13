@@ -1,0 +1,1 @@
+| test2.cpp:3:6:3:36 | declaration of test_noexcept_true_no_exception | Function test_noexcept_true_no_exception does not throw an exception, but is declared here as noexcept(false) which is inconsistent with $@ which declare it as noexcept(true). | test.cpp:3:6:3:36 | definition of test_noexcept_true_no_exception | other declarations |

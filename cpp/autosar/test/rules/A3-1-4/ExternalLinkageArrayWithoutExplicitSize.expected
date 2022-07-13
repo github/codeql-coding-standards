@@ -1,0 +1,1 @@
+| test.cpp:1:12:1:17 | declaration of array1 | The declared array 'array1' with external linkage doesn't specify the size explicitly. |

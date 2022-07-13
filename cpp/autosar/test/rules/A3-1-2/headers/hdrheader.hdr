@@ -1,0 +1,5 @@
+// NON_COMPLIANT
+#ifndef _GHLIBCPP_BADHDRHEADER
+#define _GHLIBCPP_BADHDRHEADER
+int g2;
+#endif

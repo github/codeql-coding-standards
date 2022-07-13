@@ -1,0 +1,12 @@
+| test.cpp:7:3:7:3 | A | Constructor $@ without using a member initializer | test.cpp:8:5:8:15 | ... = ... | initializes a data member |
+| test.cpp:7:3:7:3 | A | Constructor $@ without using a member initializer | test.cpp:9:7:9:17 | ... = ... | initializes a data member |
+| test.cpp:7:3:7:3 | A | Constructor $@ without using a member initializer | test.cpp:13:5:13:15 | ... = ... | initializes a data member |
+| test.cpp:7:3:7:3 | A | Constructor $@ without using a member initializer | test.cpp:14:7:14:20 | ... = ... | initializes a data member |
+| test.cpp:12:3:12:3 | A | Constructor $@ without using a member initializer | test.cpp:9:7:9:17 | ... = ... | initializes a data member |
+| test.cpp:12:3:12:3 | A | Constructor $@ without using a member initializer | test.cpp:14:7:14:20 | ... = ... | initializes a data member |
+| test.cpp:23:3:23:3 | B | Constructor $@ without using a member initializer | test.cpp:24:5:24:15 | ... = ... | initializes a data member |
+| test.cpp:23:3:23:3 | B | Constructor $@ without using a member initializer | test.cpp:25:7:25:17 | ... = ... | initializes a data member |
+| test.cpp:23:3:23:3 | B | Constructor $@ without using a member initializer | test.cpp:29:5:29:15 | ... = ... | initializes a data member |
+| test.cpp:23:3:23:3 | B | Constructor $@ without using a member initializer | test.cpp:30:7:30:20 | ... = ... | initializes a data member |
+| test.cpp:28:3:28:3 | B | Constructor $@ without using a member initializer | test.cpp:25:7:25:17 | ... = ... | initializes a data member |
+| test.cpp:28:3:28:3 | B | Constructor $@ without using a member initializer | test.cpp:30:7:30:20 | ... = ... | initializes a data member |

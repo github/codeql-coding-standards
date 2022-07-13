@@ -1,0 +1,3 @@
+| test.cpp:2:3:3:32 | for(...;...;...) ... | Loop body not enclosed within braces. |
+| test.cpp:12:3:13:15 | while (...) ... | Loop body not enclosed within braces. |
+| test.cpp:17:3:19:26 | do (...) ... | Loop body not enclosed within braces. |

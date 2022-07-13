@@ -1,0 +1,4 @@
+| headers/cheader.c:0:0:0:0 | headers/cheader.c | File cheader.c is $@ but has the non header extension 'c'. | test.cpp:1:1:1:28 | #include "headers/cheader.c" | included |
+| headers/cppheader.cpp:0:0:0:0 | headers/cppheader.cpp | File cppheader.cpp is $@ but has the non header extension 'cpp'. | test.cpp:2:1:2:32 | #include "headers/cppheader.cpp" | included |
+| headers/hdrheader.hdr:0:0:0:0 | headers/hdrheader.hdr | File hdrheader.hdr is $@ but has the non header extension 'hdr'. | test.cpp:3:1:3:32 | #include "headers/hdrheader.hdr" | included |
+| headers/incheader.inc:0:0:0:0 | headers/incheader.inc | File incheader.inc is $@ but has the non header extension 'inc'. | test.cpp:4:1:4:32 | #include "headers/incheader.inc" | included |

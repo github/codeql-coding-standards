@@ -1,0 +1,2 @@
+| test.cpp:2:13:2:25 | derivation | [AUDIT] Confirm is-a relationship in public inheritance of $@ by $@. | test.cpp:1:7:1:12 | Animal | Animal | test.cpp:2:7:2:9 | Dog | Dog |
+| test.cpp:3:13:3:25 | derivation | [AUDIT] Confirm is-a relationship in public inheritance of $@ by $@. | test.cpp:1:7:1:12 | Animal | Animal | test.cpp:3:7:3:9 | Zoo | Zoo |

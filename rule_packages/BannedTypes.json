@@ -1,0 +1,100 @@
+{
+  "AUTOSAR": {
+    "A0-4-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The type long double has an implementation-defined width and therefore shall not be used.",
+          "kind": "problem",
+          "name": "Type long double shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "TypeLongDoubleUsed",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Type long double shall not be used."
+    },
+    "A18-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The std::vector<bool> specialization differs from all other containers std::vector<T> such that sizeof bool is implementation defined which causes errors when using some STL algorithms.",
+          "kind": "problem",
+          "name": "The std::vector<bool> specialization shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "VectorboolSpecializationUsed",
+          "tags": [
+              "correctness"
+          ]
+        }
+      ],
+      "title": "The std::vector<bool> specialization shall not be used."
+    },
+    "A18-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The std::auto_ptr type is deprecated because it cannot be placed in STL containers.",
+          "kind": "problem",
+          "name": "The std::auto_ptr type shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "AutoPtrTypeUsed",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The std::auto_ptr type shall not be used."
+    },
+    "A2-13-3": {
+      "properties": {
+        "allocated-target": [
+          "architecture",
+          "design",
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Type wchar_t shall not be used because its width is implementation defined.",
+          "kind": "problem",
+          "name": "Type wchar_t shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "TypeWcharTUsed",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Type wchar_t shall not be used."
+    }
+  }
+}

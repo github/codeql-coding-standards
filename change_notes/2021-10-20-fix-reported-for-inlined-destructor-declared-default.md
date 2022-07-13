@@ -1,0 +1,2 @@
+ - `A12-7-1` - `RedundantMemberFunctionsShouldBeDefaultedOrLeftUndefined.ql`
+    - Fixes #388 - defaulted destructors are no longer flagged as non-compliant so the rule will produce fewer false positives.

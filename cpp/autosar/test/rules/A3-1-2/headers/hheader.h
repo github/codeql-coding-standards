@@ -1,0 +1,5 @@
+// COMPLIANT
+#ifndef _GHLIBCPP_GOODHHEADER
+#define _GHLIBCPP_GOODHHEADER
+int g4;
+#endif

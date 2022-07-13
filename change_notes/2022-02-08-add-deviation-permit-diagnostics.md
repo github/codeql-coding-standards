@@ -1,0 +1,1 @@
+- The script `scripts\reports\analysis_report.py` is extended to include deviation permit diagnostics in the deviation report.

@@ -1,0 +1,350 @@
+{
+  "AUTOSAR": {
+    "A12-0-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Performing bitwise operations on objects may access bits that are not part of the value representation, which may lead to undefined behavior. Operations on objects (e.g. initialization, copying, comparing, setting, accessing) shall be done by dedicated constructors, overloaded operators, accessors or mutators.",
+          "kind": "problem",
+          "name": "Bitwise operations and operations that assume data representation in memory shall not be performed on objects",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "OperationsAssumingMemoryLayoutPerformedOnObjects",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Bitwise operations and operations that assume data representation in memory shall not be performed on objects."
+    },
+    "A4-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Expressions with type enum or enum class shall not be used as operands to built-in and overloaded operators other than the subscript operator [], the assignment operator =, the equality operators == and ! =, the unary & operator, and the relational operators <, <=, >, >=.",
+          "kind": "problem",
+          "name": "Enums shall not be used in arithmetic contexts",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "EnumUsedInArithmeticContexts",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Expressions with type enum or enum class shall not be used as operands to built-in and overloaded operators other than the subscript operator [ ], the assignment operator =, the equality operators == and ! =, the unary & operator, and the relational operators <, <=, >, >=."
+    },
+    "A5-6-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The result is undefined if the right hand operand of the integer division or the remainder operator is zero.",
+          "kind": "problem",
+          "name": "The right operand of the integer division or remainder operators shall not be equal to zero",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DivisorEqualToZero",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The right hand operand of the integer division or remainder operators shall not be equal to zero."
+    },
+    "M0-3-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function (whether it is part of the standard library, a third party library or a user defined function) may provide some means of indicating the occurrence of an error. This may be via a global error flag, a parametric error flag, a special return value or some other means. Whenever such a mechanism is provided by a function the calling program shall check for the indication of an error as soon as the function returns.",
+          "kind": "problem",
+          "name": "If a function generates error information, then that error information shall be tested",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "FunctionErroneousReturnValueNotTested",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "If a function generates error information, then that error information shall be tested."
+    },
+    "M4-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of bool operands with other operators is unlikely to be meaningful (or intended). This rule allows the detection of such uses, which often occur because the logical operators (&&, || and !) can be easily confused with the bitwise operators (&, | and ~).",
+          "kind": "problem",
+          "name": "Expressions with type bool shall only be used as operands to =, &&, ||, !, ==, !=, &, and ?:",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "BoolOperandsToDisallowedBuiltInOperators",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Expressions with type bool shall not be used as operands to built-in operators other than the assignment operator =, the logical operators"
+    },
+    "M4-5-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Expressions with type (plain) char and wchar_t shall not be used as operands to built-in operators other than the assignment operator =, the equality operators == and ! =, and the unary & operator. Manipulation of character data may generate results that are contrary to developer expectations. For example, ISO/IEC 14882:2003 [1] §2.2(3) only requires that the digits \"0\" to \"9\" have consecutive numerical values.",
+          "kind": "problem",
+          "name": "Expressions with type (plain) char and wchar_t shall only be used as operands to =, ==, !=, &",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CharUsedAsOperandsToDisallowedBuiltInOperators",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Expressions with type (plain) char and wchar_t shall not be used as operands to built-in operators other than the assignment operator =, the equality operators == and ! =, and the unary & operator."
+    },
+    "M5-0-14": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If an expression with type other than bool is used as the first operand of a conditional-operator, then its result will be implicitly converted to bool. The first operand shall contain an explicit test (yielding a result of type bool) in order to clarify the intentions of the developer.",
+          "kind": "problem",
+          "name": "The first operand of a conditional-operator shall have type bool",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "TernaryOperatorConditionNotTypeBool",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The first operand of a conditional-operator shall have type bool."
+    },
+    "M5-0-20": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using operands of the same underlying type documents that it is the number of bits in the final (promoted and balanced) type that are used, and not the number of bits in the original types of the expression.",
+          "kind": "problem",
+          "name": "Non-constant operands to a binary bitwise operator shall have the same underlying type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BitwiseOperatorOperandsHaveDifferentUnderlyingType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Non-constant operands to a binary bitwise operator shall have the same underlying type."
+    },
+    "M5-0-21": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Bitwise operations (~, <<, <<=, >>, >>=, &, &=, ^, ^=, | and |=) are not normally meaningful on signed integers or enumeration constants. Additionally, an implementation-defined result is obtained if a right shift is applied to a negative value.",
+          "kind": "problem",
+          "name": "Bitwise operators shall only be applied to operands of unsigned underlying type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BitwiseOperatorAppliedToSignedTypes",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Bitwise operators shall only be applied to operands of unsigned underlying type."
+    },
+    "M5-0-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "In order to ensure all operations in an expression are performed in the same underlying type, an expression defined as a cvalue shall not undergo further implicit conversions.",
+          "kind": "problem",
+          "name": "A cvalue expression shall not be implicitly converted to a different underlying type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CvalueExpressionConvertedToDifferentUnderlyingType",
+          "tags": [
+            "correctness",
+            "external/autosar/strict"
+          ]
+        }
+      ],
+      "title": "A cvalue expression shall not be implicitly converted to a different underlying type."
+    },
+    "M5-19-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unsigned integer expressions do not strictly overflow, but instead wrap around in a modular way. Any constant unsigned integer expressions that in effect \"overflow\" will not be detected by the compiler. Although there may be good reasons at run-time to rely on the modular arithmetic provided by unsigned integer types, the reasons for using it at compile-time to evaluate a constant expression are less obvious. Any instance of an unsigned integer constant expression wrapping around is therefore likely to indicate a programming error.",
+          "kind": "problem",
+          "name": "Evaluation of constant unsigned integer expressions shall not lead to wrap-around",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConstantUnsignedIntegerExpressionsWrapAround",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Evaluation of constant unsigned integer expressions shall not lead to wrap-around."
+    },
+    "M5-8-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "It is undefined behaviour if the right hand operand is negative, or greater than or equal to the width of the left hand operand. If, for example, the left hand operand of a left-shift or right-shift is a 16-bit integer, then it is important to ensure that this is shifted only by a number between 0 and 15 inclusive.",
+          "kind": "problem",
+          "name": "The right bit-shift operand shall be between zero and one less than the width of the left operand",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RightBitShiftOperandIsNegativeOrTooWide",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The right hand operand of a shift operator shall lie between zero and one less than the width in bits of the underlying type of the left hand operand."
+    },
+    "M6-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The inherent nature of floating-point types is such that comparisons of equality will often not evaluate to true, even when they are expected to. Also, the behaviour of such a comparison cannot be predicted before execution, and may well vary from one implementation to another.",
+          "kind": "problem",
+          "name": "Floating-point expressions shall not be directly or indirectly tested for equality or inequality",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "FloatsTestedForEquality",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Floating-point expressions shall not be directly or indirectly tested for equality or inequality."
+    }
+  },
+  "CERT-C++": {
+    "EXP58-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Passing an object of an unsupported type as the second argument to va_start() can result in undefined behavior that might be exploited to cause data integrity violations.",
+          "kind": "problem",
+          "name": "Pass a primitive type that will be promoted to va_start",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PassPromotablePrimitiveTypeToVaStart",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Passing an object of an unsupported type as the second argument to va_start() can result in undefined behavior that might be exploited to cause data integrity violations.",
+          "kind": "problem",
+          "name": "Pass an object with a reference type to va_start",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PassReferenceTypeToVaStart",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Passing an object of an unsupported type as the second argument to va_start() can result in undefined behavior that might be exploited to cause data integrity violations.",
+          "kind": "problem",
+          "name": "Pass a non-trivial object to va_start",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "PassNonTrivialObjectToVaStart",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Pass an object of the correct type to va_start"
+    }
+  }
+}

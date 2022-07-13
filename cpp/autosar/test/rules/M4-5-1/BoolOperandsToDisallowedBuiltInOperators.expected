@@ -1,0 +1,22 @@
+| test.cpp:13:3:13:7 | ... \| ... | Operand to operator '\|' does not have type 'bool'. |
+| test.cpp:14:3:14:8 | ... >> ... | Operand to operator '>>' does not have type 'bool'. |
+| test.cpp:15:3:15:8 | ... << ... | Operand to operator '<<' does not have type 'bool'. |
+| test.cpp:16:3:16:4 | ~ ... | Operand to operator '~' does not have type 'bool'. |
+| test.cpp:17:3:17:7 | ... / ... | Operand to operator '/' does not have type 'bool'. |
+| test.cpp:18:3:18:7 | ... + ... | Operand to operator '+' does not have type 'bool'. |
+| test.cpp:19:3:19:7 | ... - ... | Operand to operator '-' does not have type 'bool'. |
+| test.cpp:20:3:20:6 | ... * ... | Operand to operator '*' does not have type 'bool'. |
+| test.cpp:21:3:21:7 | ... % ... | Operand to operator '%' does not have type 'bool'. |
+| test.cpp:22:3:22:7 | ... ^ ... | Operand to operator '^' does not have type 'bool'. |
+| test.cpp:23:3:23:5 | ++ ... | Operand to operator '++' does not have type 'bool'. |
+| test.cpp:24:3:24:5 | ... ++ | Operand to operator '++' does not have type 'bool'. |
+| test.cpp:25:3:25:8 | ... += ... | Operand to operator '+=' does not have type 'bool'. |
+| test.cpp:26:3:26:8 | ... -= ... | Operand to operator '-=' does not have type 'bool'. |
+| test.cpp:27:3:27:8 | ... /= ... | Operand to operator '/=' does not have type 'bool'. |
+| test.cpp:28:3:28:8 | ... %= ... | Operand to operator '%=' does not have type 'bool'. |
+| test.cpp:29:3:29:8 | ... *= ... | Operand to operator '*=' does not have type 'bool'. |
+| test.cpp:30:3:30:8 | ... \|= ... | Operand to operator '\|=' does not have type 'bool'. |
+| test.cpp:31:3:31:8 | ... &= ... | Operand to operator '&=' does not have type 'bool'. |
+| test.cpp:32:3:32:8 | ... ^= ... | Operand to operator '^=' does not have type 'bool'. |
+| test.cpp:33:3:33:9 | ... <<= ... | Operand to operator '<<=' does not have type 'bool'. |
+| test.cpp:34:3:34:9 | ... >>= ... | Operand to operator '>>=' does not have type 'bool'. |

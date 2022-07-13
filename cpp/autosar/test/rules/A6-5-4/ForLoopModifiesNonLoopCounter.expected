@@ -1,0 +1,4 @@
+| test.cpp:9:3:10:3 | for(...;...;...) ... | For-loop counter $@ is not modified in the update expression of the loop. | test.cpp:9:12:9:12 | i | i |
+| test.cpp:9:3:10:3 | for(...;...;...) ... | For-loop counter $@ is not modified in the update expression of the loop. | test.cpp:9:19:9:19 | j | j |
+| test.cpp:32:3:33:3 | for(...;...;...) ... | For-loop counter $@ is not modified in the update expression of the loop. | test.cpp:32:19:32:19 | j | j |
+| test.cpp:35:3:36:3 | for(...;...;...) ... | For-loop counter $@ is not modified in the update expression of the loop. | test.cpp:35:12:35:12 | i | i |

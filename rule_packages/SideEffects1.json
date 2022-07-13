@@ -1,0 +1,168 @@
+{
+  "AUTOSAR": {
+    "A5-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The operand of the typeid may or may not be evaluated if it is a function call and reliance on side effects will result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Evaluation of the operand to the typeid operator shall not contain side effects",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "EvaluationOfTheOperandToTheTypeidOperatorContainSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Evaluation of the operand to the typeid operator shall not contain side effects."
+    },
+    "M5-14-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The evaluation of the right hand operand of the logical && and || operators depends on the left hand operand so reliance on side effects will result in unexpected behavior.",
+          "kind": "problem",
+          "name": "The right hand operand of a logical &&, || operators shall not contain side effects",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "RightHandOperandOfALogicalAndOperatorsContainSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The right hand operand of a logical &&, || operators shall not contain side effects."
+    },
+    "M5-3-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The sizeof operator does not evaluate expressions so reliance on side effects will result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Evaluation of the operand to the sizeof operator shall not contain side effects",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "EvaluationOfTheOperandToTheSizeofOperatorContainSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Evaluation of the operand to the sizeof operator shall not contain side effects."
+    }
+  },
+  "CERT-C++": {
+    "EXP50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Depending on the order of evaluation for side effects for evaluation of scalar objects that are unsequenced results in undefined behavior.",
+          "kind": "problem",
+          "name": "Do not depend on the order of scalar object evaluation for side effects",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DoNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Depending on the order of evaluation for side effects in function calls that are function arguments can result in unexpected program behavior.",
+          "kind": "problem",
+          "name": "Do not depend on the order of evaluation of function calls as function arguments for side effects",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DoNotDependOnTheOrderOfEvaluationForSideEffectsInFunctionCallsAsFunctionArguments",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not depend on the order of evaluation for side effects"
+    },
+    "EXP52-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The sizeof operator does not evaluate expressions so reliance on side effects will result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Do not rely on side effects in the operator sizeof",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "DoNotRelyOnSideEffectsInSizeOfOperand",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The typeid operator does not always evaluate expressions so reliance on side effects will result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Do not rely on side effects in the operator typeid",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DoNotRelyOnSideEffectsInTypeIdOperand",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The noexcept operator does not evaluate expressions so reliance on side effects will result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Do not rely on side effects in the operator noexcept",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "DoNotRelyOnSideEffectsInNoExceptOperand",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The decltype operator does not evaluate expressions so reliance on side effects will result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Do not rely on side effects in the operator decltype",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "DoNotRelyOnSideEffectsInDeclTypeOperand",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The declval operator does not evaluate expressions so reliance on side effects will result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Do not rely on side effects in the operator declval",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "DoNotRelyOnSideEffectsInDeclValExpression",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not rely on side effects in unevaluated operands"
+    }
+  }
+}

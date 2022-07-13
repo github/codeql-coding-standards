@@ -1,0 +1,8 @@
+| test.cpp:17:7:17:8 | i2 | Variable i2 does not appear to use braced-initialization. |
+| test.cpp:18:7:18:8 | i3 | Variable i3 does not appear to use braced-initialization. |
+| test.cpp:19:7:19:8 | i4 | Variable i4 does not appear to use braced-initialization. |
+| test.cpp:24:10:24:11 | a4 | Variable a4 does not appear to use braced-initialization. |
+| test.cpp:25:10:25:11 | a5 | Variable a5 does not appear to use braced-initialization. |
+| test.cpp:26:10:26:11 | a6 | Variable a6 does not appear to use braced-initialization. |
+| test.cpp:27:11:27:12 | a7 | Variable a7 does not appear to use braced-initialization. |
+| test.cpp:29:11:29:12 | a9 | Variable a9 does not appear to use braced-initialization. |

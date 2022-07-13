@@ -1,0 +1,31 @@
+/**
+ * @id cpp/cert/memcmp-used-to-access-object-representation
+ * @name EXP62-CPP: Do not use memcmp to access bits that are not part of the object's value
+ * @description Do not use memcmp to access the bits of an object representation that are not part
+ *              of the object's value representation.
+ * @kind problem
+ * @precision very-high
+ * @problem.severity error
+ * @tags external/cert/id/exp62-cpp
+ *       correctness
+ *       external/cert/obligation/rule
+ */
+
+import cpp
+import codingstandards.cpp.cert
+import semmle.code.cpp.padding.Padding
+import semmle.code.cpp.security.BufferAccess
+import VirtualTable
+
+from MemcmpBA cmp
+where
+  not isExcluded(cmp, RepresentationPackage::memcmpUsedToAccessObjectRepresentationQuery()) and
+  cmp
+      .getBuffer(_, _)
+      .getUnconverted()
+      .getUnspecifiedType()
+      .(PointerType)
+      .getBaseType()
+      .getUnspecifiedType() instanceof PaddedType
+select cmp,
+  cmp.getName() + " accesses bits which are not part of the object's value representation."

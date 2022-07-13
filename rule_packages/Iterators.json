@@ -1,0 +1,148 @@
+{
+  "AUTOSAR": {
+    "A23-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Assigning directly to a `const_iterator` can remove implicit conversions.",
+          "kind": "problem",
+          "name": "An iterator shall not be implicitly converted to const_iterator",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "IteratorImplicitlyConvertedToConstIterator",
+          "tags": []
+        }
+      ],
+      "title": "An iterator shall not be implicitly converted to const_iterator."
+    },
+    "A23-0-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using references, pointers, and iterators to containers after calling certain functions can cause unreliable program behavior.",
+          "kind": "problem",
+          "name": "Elements of a container shall only be accessed via valid references, iterators, and pointers",
+          "precision": "very-high",
+          "shared_implementation_short_name": "ValidContainerElementAccess",
+          "severity": "error",
+          "short_name": "ValidContainerElementAccess",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Elements of a container shall only be accessed via valid references, iterators, and pointers."
+    }
+  },
+  "CERT-C++": {
+    "CTR51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using references, pointers, and iterators to containers after calling certain functions can cause unreliable program behavior.",
+          "kind": "problem",
+          "name": "Use valid references, pointers, and iterators to reference elements of a container",
+          "precision": "high",
+          "shared_implementation_short_name": "ValidContainerElementAccess",
+          "severity": "error",
+          "short_name": "UsesValidContainerElementAccess",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Use valid references, pointers, and iterators to reference elements of a container"
+    },
+    "CTR53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Relying on the incorrect bounds of iterators can lead to inconsistent program behavior.",
+          "kind": "problem",
+          "name": "Use valid iterator ranges",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UseValidIteratorRanges",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Use valid iterator ranges"
+    },
+    "CTR54-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Subtracting iterators that do not refer to the same container can cause unreliable program behavior.",
+          "kind": "problem",
+          "name": "Do not subtract iterators that do not refer to the same container",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotSubtractIteratorsForDifferentContainers",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not subtract iterators that do not refer to the same container"
+    },
+    "CTR55-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using an additive operator on an iterator without proper bounds checks can result in an overflow.",
+          "kind": "problem",
+          "name": "Do not use an additive operator on an iterator if the result would overflow",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotUseAnAdditiveOperatorOnAnIterator",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not use an additive operator on an iterator if the result would overflow"
+    },
+    "STR52-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using references, pointers, and iterators to containers after calling certain functions can cause unreliable program behavior.",
+          "kind": "problem",
+          "name": "Use valid references, pointers, and iterators to reference elements of a basic_string",
+          "precision": "high",
+          "shared_implementation_short_name": "ValidContainerElementAccess",
+          "severity": "error",
+          "short_name": "UseValidReferencesForElementsOfString",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Use valid references, pointers, and iterators to reference elements of a basic_string"
+    }
+  }
+}

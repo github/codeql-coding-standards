@@ -1,0 +1,1 @@
+| test2.cpp:17:8:17:14 | methodA | The function methodA overrides $@ which is specified noexcept(true), but is specified as the less restrictive noexcept(false). | test.cpp:10:16:10:22 | declaration of methodA | this virtual member function |

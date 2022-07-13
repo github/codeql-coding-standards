@@ -1,0 +1,1 @@
+- `A12-4-1` - update query for compatibility with the new definition of `isPossibleBaseClass`

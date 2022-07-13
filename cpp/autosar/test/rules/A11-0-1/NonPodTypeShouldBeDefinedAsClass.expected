@@ -1,0 +1,2 @@
+| test.cpp:15:8:15:9 | B2 | Non-POD type defined as struct instead of class. |
+| test.cpp:17:8:17:9 | B3 | Non-POD type defined as struct instead of class. |

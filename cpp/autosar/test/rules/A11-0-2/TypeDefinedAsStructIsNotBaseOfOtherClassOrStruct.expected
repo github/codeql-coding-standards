@@ -1,0 +1,2 @@
+| test.cpp:29:8:29:8 | F | The struct $@ is is used as the base in the derivation of $@. | test.cpp:29:8:29:8 | F | F | test.cpp:45:8:45:8 | H | H |
+| test.cpp:41:8:41:8 | G | The struct $@ is is used as the base in the derivation of $@. | test.cpp:41:8:41:8 | G | G | test.cpp:49:8:49:8 | I | I |

@@ -1,0 +1,1 @@
+| test.cpp:4:17:4:27 | delete | Deleting pointer to the incomplete class $@. | test.cpp:2:9:2:9 | B | B |

@@ -1,0 +1,2 @@
+| test.cpp:4:3:4:12 | throw ... | NULL thrown explicitly. |
+| test.cpp:8:3:8:13 | throw ... | NULL thrown explicitly. |

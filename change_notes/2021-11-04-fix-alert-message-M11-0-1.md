@@ -1,0 +1,2 @@
+- `M11-0-1` - `MemberDataInNonPodClassTypesNotPrivate.ql`:
+   - Fixed issue #367 (alert message simply has opposite condition stated compared to what is detected).

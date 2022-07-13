@@ -1,0 +1,1 @@
+| test.cpp:14:23:14:24 | decltype(...) | Lambda $@ passed as operand to decltype. | test.cpp:5:13:5:30 | [...](...){...} | expression |

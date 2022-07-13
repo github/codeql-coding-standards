@@ -1,0 +1,5 @@
+| test.cpp:8:16:8:45 | ... ? ... : ... | Use of ternary conditional operator as a sub-expression |
+| test.cpp:8:26:8:40 | ... ? ... : ... | Use of ternary conditional operator as a sub-expression |
+| test.cpp:11:20:11:36 | ... ? ... : ... | Use of ternary conditional operator as a sub-expression |
+| test.cpp:11:42:11:54 | ... ? ... : ... | Use of ternary conditional operator as a sub-expression |
+| test.cpp:15:8:15:21 | ... ? ... : ... | Use of ternary conditional operator as a sub-expression |

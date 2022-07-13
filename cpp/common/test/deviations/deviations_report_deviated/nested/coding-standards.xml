@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<codingstandards>
+   <!--GENERATED: DO NOT MODIFY. Changes should be made to coding-standards.yml instead.-->
+   <deviations>
+      <deviations-entry>
+         <rule-id>A0-1-2</rule-id>
+         <justification>Unused return value.</justification>
+         <paths>
+            <paths-entry>nested2</paths-entry>
+         </paths>
+      </deviations-entry>
+   </deviations>
+</codingstandards>

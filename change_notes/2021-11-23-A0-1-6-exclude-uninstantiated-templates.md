@@ -1,0 +1,2 @@
+- `A0-1-6` - `UnusedTypeDeclarations.ql`
+  - Fix #447 by excluding anything from an uninstantiated template.

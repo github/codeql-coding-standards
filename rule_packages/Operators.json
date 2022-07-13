@@ -1,0 +1,327 @@
+{
+  "AUTOSAR": {
+    "A10-3-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A user-defined assignment operator overrider can receive a reference to an unrelated class sharing a base class which can result in undefined behavior.",
+          "kind": "problem",
+          "name": "A user-defined assignment operator shall not be virtual",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UserDefinedAssignmentOperatorVirtual",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A user-defined assignment operator shall not be virtual."
+    },
+    "A12-8-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Copy and move constructors and copy assignment and move assignment operators shall be declared protected or defined '=delete' in base class.",
+          "kind": "problem",
+          "name": "Copy and move constructors and copy assignment and move assignment operators shall be declared",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CopyAndMoveNotDeclaredProtected",
+          "tags": []
+        }
+      ],
+      "title": "Copy and move constructors and copy assignment and move assignment operators shall be declared protected or defined '=delete' in base class."
+    },
+    "A12-8-7": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Assignment operators should be declared with the ref-qualifier &.",
+          "kind": "problem",
+          "name": "Assignment operators should be declared with the ref-qualifier &",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OperatorsShouldBeDeclaredWithTheRefQualifier",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Assignment operators should be declared with the ref-qualifier &."
+    },
+    "A13-2-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A relational operator shall return a boolean value to be consistent with the C++ Standard Library.",
+          "kind": "problem",
+          "name": "A relational operator shall return a boolean value",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RelationalOperatorShallReturnABooleanValue",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A relational operator shall return a boolean value."
+    },
+    "A13-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function that contains 'forwarding reference' as its argument shall not be overloaded.",
+          "kind": "problem",
+          "name": "A function that contains 'forwarding reference' as its argument shall not be overloaded",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionThatContainsForwardingReferenceAsItsArgumentOverloaded",
+          "tags": []
+        }
+      ],
+      "title": "A function that contains 'forwarding reference' as its argument shall not be overloaded."
+    },
+    "A13-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If 'operator[]' is to be overloaded with a non-const version, const version shall also be implemented.",
+          "kind": "problem",
+          "name": "If 'operator[]' is to be overloaded with a non-const version, const version shall also be",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MissingConstOperatorSubscript",
+          "tags": []
+        }
+      ],
+      "title": "If 'operator[]' is to be overloaded with a non-const version, const version shall also be implemented."
+    },
+    "A13-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "All user-defined conversion operators shall be defined explicit.",
+          "kind": "problem",
+          "name": "All user-defined conversion operators shall be defined explicit",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UserDefinedConversionOperatorsNotDefinedExplicit",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All user-defined conversion operators shall be defined explicit."
+    },
+    "A13-5-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "User-defined conversion operators should not be used.",
+          "kind": "problem",
+          "name": "User-defined conversion operators should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UserDefinedConversionOperatorsShouldNotBeUsed",
+          "tags": []
+        }
+      ],
+      "title": "User-defined conversion operators should not be used."
+    },
+    "A13-5-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Comparison operators shall be non-member functions with identical parameter types and noexcept.",
+          "kind": "problem",
+          "name": "Comparison operators shall be non-member functions with identical parameter types and noexcept",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ComparisonOperatorsNotNonMemberFunctionsWithIdenticalParameterTypesAndNoexcept",
+          "tags": []
+        }
+      ],
+      "title": "Comparison operators shall be non-member functions with identical parameter types and noexcept."
+    },
+    "A14-5-3": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A non-member generic operator shall only be declared in a namespace that does not contain class (struct) type, enum type or union type declarations.",
+          "kind": "problem",
+          "name": "A non-member generic operator shall only be declared in a namespace that does not contain class",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonMemberGenericOperatorCondition",
+          "tags": []
+        }
+      ],
+      "title": "A non-member generic operator shall only be declared in a namespace that does not contain class (struct) type, enum type or union type declarations."
+    },
+    "M5-0-10": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If the bitwise operators ~and << are applied to an operand with an underlying type of unsigned char or unsigned short, the result shall be immediately cast to the underlying type of the operand.",
+          "kind": "problem",
+          "name": "If the bitwise operators ~and << are applied to an operand with an underlying type of unsigned char",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnsignedBitwiseOperatorWithoutCast",
+          "tags": []
+        }
+      ],
+      "title": "If the bitwise operators ~and << are applied to an operand with an underlying type of unsigned char or unsigned short, the result shall be immediately cast to the underlying type of the operand."
+    },
+    "M5-2-11": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The comma operator, && operator and the || operator shall not be overloaded.",
+          "kind": "problem",
+          "name": "The comma operator, && operator and the || operator shall not be overloaded",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CommaOperatorAndOperatorAndTheOperatorOverloaded",
+          "tags": []
+        }
+      ],
+      "title": "The comma operator, && operator and the || operator shall not be overloaded."
+    },
+    "M5-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Each operand of the ! operator, the logical && or the logical || operators shall have type bool.",
+          "kind": "problem",
+          "name": "Each operand of the ! operator, the logical && or the logical || operators shall have type bool",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "EachOperandOfTheOperatorTheLogicalAndOrTheLogicalOperatorsShallHaveTypeBool",
+          "tags": []
+        }
+      ],
+      "title": "Each operand of the ! operator, the logical && or the logical || operators shall have type bool."
+    },
+    "M5-3-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The unary minus operator shall not be applied to an expression whose underlying type is unsigned.",
+          "kind": "problem",
+          "name": "The unary minus operator shall not be applied to an expression whose underlying type is unsigned",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned",
+          "tags": []
+        }
+      ],
+      "title": "The unary minus operator shall not be applied to an expression whose underlying type is unsigned."
+    },
+    "M5-3-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The unary & operator shall not be overloaded.",
+          "kind": "problem",
+          "name": "The unary & operator shall not be overloaded",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnaryOperatorOverloaded",
+          "tags": []
+        }
+      ],
+      "title": "The unary & operator shall not be overloaded."
+    }
+  }
+}

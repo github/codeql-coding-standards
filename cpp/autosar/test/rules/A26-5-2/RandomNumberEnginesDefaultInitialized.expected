@@ -1,0 +1,13 @@
+| test.cpp:6:33:6:33 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized. |
+| test.cpp:7:30:7:31 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized. |
+| test.cpp:8:21:8:22 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized. |
+| test.cpp:9:20:9:21 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized. |
+| test.cpp:10:16:10:17 | call to mersenne_twister_engine | Random number generator mersenne_twister_engine is default-initialized. |
+| test.cpp:11:19:11:20 | call to mersenne_twister_engine | Random number generator mersenne_twister_engine is default-initialized. |
+| test.cpp:12:22:12:23 | call to subtract_with_carry_engine | Random number generator subtract_with_carry_engine is default-initialized. |
+| test.cpp:13:22:13:23 | call to subtract_with_carry_engine | Random number generator subtract_with_carry_engine is default-initialized. |
+| test.cpp:14:17:14:19 | call to discard_block_engine | Random number generator discard_block_engine is default-initialized. |
+| test.cpp:15:17:15:19 | call to discard_block_engine | Random number generator discard_block_engine is default-initialized. |
+| test.cpp:16:16:16:18 | call to shuffle_order_engine | Random number generator shuffle_order_engine is default-initialized. |
+| test.cpp:21:30:21:35 | default initialization engine of type default_random_engine | Random number generator linear_congruential_engine is default-initialized. |
+| test.cpp:27:51:27:51 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized. |

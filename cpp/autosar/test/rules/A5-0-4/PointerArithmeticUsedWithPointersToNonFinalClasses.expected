@@ -1,0 +1,30 @@
+edges
+| test.cpp:10:18:10:20 | foo | test.cpp:11:23:11:25 | foo |
+| test.cpp:10:18:10:20 | foo | test.cpp:11:50:11:52 | foo |
+| test.cpp:22:18:22:20 | foo | test.cpp:24:18:24:20 | foo |
+| test.cpp:35:11:35:17 | new | test.cpp:38:6:38:7 | l1 |
+| test.cpp:35:11:35:17 | new | test.cpp:39:6:39:7 | l1 |
+| test.cpp:37:11:37:13 | & ... | test.cpp:40:6:40:7 | l3 |
+| test.cpp:37:11:37:13 | & ... | test.cpp:41:6:41:7 | l3 |
+| test.cpp:38:6:38:7 | l1 | test.cpp:10:18:10:20 | foo |
+| test.cpp:39:6:39:7 | l1 | test.cpp:22:18:22:20 | foo |
+| test.cpp:40:6:40:7 | l3 | test.cpp:10:18:10:20 | foo |
+| test.cpp:41:6:41:7 | l3 | test.cpp:22:18:22:20 | foo |
+nodes
+| test.cpp:10:18:10:20 | foo | semmle.label | foo |
+| test.cpp:11:23:11:25 | foo | semmle.label | foo |
+| test.cpp:11:50:11:52 | foo | semmle.label | foo |
+| test.cpp:22:18:22:20 | foo | semmle.label | foo |
+| test.cpp:24:18:24:20 | foo | semmle.label | foo |
+| test.cpp:35:11:35:17 | new | semmle.label | new |
+| test.cpp:37:11:37:13 | & ... | semmle.label | & ... |
+| test.cpp:38:6:38:7 | l1 | semmle.label | l1 |
+| test.cpp:39:6:39:7 | l1 | semmle.label | l1 |
+| test.cpp:40:6:40:7 | l3 | semmle.label | l3 |
+| test.cpp:41:6:41:7 | l3 | semmle.label | l3 |
+subpaths
+#select
+| test.cpp:11:23:11:33 | ... + ... | test.cpp:35:11:35:17 | new | test.cpp:11:23:11:25 | foo | Pointer arithmetic with pointer to non-final class $@. | test.cpp:4:8:4:8 | S | S |
+| test.cpp:11:23:11:33 | ... + ... | test.cpp:37:11:37:13 | & ... | test.cpp:11:23:11:25 | foo | Pointer arithmetic with pointer to non-final class $@. | test.cpp:4:8:4:8 | S | S |
+| test.cpp:24:18:24:23 | access to array | test.cpp:35:11:35:17 | new | test.cpp:24:18:24:20 | foo | Pointer arithmetic with pointer to non-final class $@. | test.cpp:4:8:4:8 | S | S |
+| test.cpp:24:18:24:23 | access to array | test.cpp:37:11:37:13 | & ... | test.cpp:24:18:24:20 | foo | Pointer arithmetic with pointer to non-final class $@. | test.cpp:4:8:4:8 | S | S |

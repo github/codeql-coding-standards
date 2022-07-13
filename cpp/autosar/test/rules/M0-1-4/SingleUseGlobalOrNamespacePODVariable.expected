@@ -1,0 +1,7 @@
+| test_global_or_namespace.cpp:2:5:2:6 | g2 | Global POD variable g2 is only $@. | test_global_or_namespace.cpp:35:3:35:4 | g2 | used once |
+| test_global_or_namespace.cpp:4:5:4:6 | g4 | Global POD variable g4 is only $@. | test_global_or_namespace.cpp:20:10:20:11 | g4 | used once |
+| test_global_or_namespace.cpp:28:4:28:5 | a2 | Global POD variable a2 is only $@. | test_global_or_namespace.cpp:38:3:38:4 | a2 | used once |
+| test_global_or_namespace.cpp:44:5:44:6 | x2 | Global POD variable N1::x2 is only $@. | test_global_or_namespace.cpp:73:3:73:4 | x2 | used once |
+| test_global_or_namespace.cpp:46:5:46:6 | x4 | Global POD variable N1::x4 is only $@. | test_global_or_namespace.cpp:58:11:58:12 | x4 | used once |
+| test_global_or_namespace.cpp:48:5:48:6 | x6 | Global POD variable N1::x6 is only $@. | test_global_or_namespace.cpp:83:37:83:42 | x6 | used once |
+| test_global_or_namespace.cpp:66:5:66:6 | a2 | Global POD variable N1::a2 is only $@. | test_global_or_namespace.cpp:76:3:76:4 | a2 | used once |

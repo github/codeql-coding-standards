@@ -1,0 +1,1 @@
+| test.cpp:6:27:6:27 | e | Non trivial type std::exception is not caught by lvalue reference. |

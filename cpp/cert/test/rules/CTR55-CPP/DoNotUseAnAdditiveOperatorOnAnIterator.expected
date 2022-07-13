@@ -1,0 +1,4 @@
+| test.cpp:8:7:8:7 | i | Increment of iterator may overflow since its bounds are not checked. |
+| test.cpp:9:9:9:9 | i | Increment of iterator may overflow since its bounds are not checked. |
+| test.cpp:10:9:10:9 | i | Increment of iterator may overflow since its bounds are not checked. |
+| test.cpp:27:31:27:31 | i | Increment of iterator may overflow since its bounds are not checked. |

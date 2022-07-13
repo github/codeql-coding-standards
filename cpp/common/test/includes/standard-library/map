@@ -1,0 +1,35 @@
+#include "iterator.h"
+#include <bits/stl_function.h>
+
+namespace std {
+
+template <typename _Key, typename _Tp, typename _Compare = std::less<_Key>,
+          typename _Alloc = std::allocator<_Key>>
+class multimap {
+public:
+  typedef std::iterator<random_access_iterator_tag, _Key, _Tp> iterator;
+  typedef std::iterator<random_access_iterator_tag, _Key, _Tp> const_iterator;
+
+  iterator begin();
+  iterator end();
+  const_iterator cbegin();
+  const_iterator cend();
+
+  multimap();
+};
+
+template <typename _Key, typename _Tp, typename _Compare = std::less<_Key>,
+          typename _Alloc = std::allocator<_Key>>
+class map {
+public:
+  typedef std::iterator<random_access_iterator_tag,  _Key, _Tp> iterator;
+  typedef std::iterator<random_access_iterator_tag,  _Key, _Tp> const_iterator;
+
+  iterator begin();
+  iterator end();
+  const_iterator cbegin();
+  const_iterator cend();
+
+  map();
+};
+} // namespace std

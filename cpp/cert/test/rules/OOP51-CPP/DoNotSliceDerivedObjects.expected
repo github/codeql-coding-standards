@@ -1,0 +1,3 @@
+| test.cpp:27:10:27:32 | call to Dog | Derived object sliced from type $@ to base $@. | test.cpp:9:7:9:15 | Chihuahua | Chihuahua | test.cpp:1:7:1:9 | Dog | Dog |
+| test.cpp:28:11:28:13 | call to Dog | Derived object sliced from type $@ to base $@. | test.cpp:9:7:9:15 | Chihuahua | Chihuahua | test.cpp:1:7:1:9 | Dog | Dog |
+| test.cpp:31:5:31:6 | call to Dog | Derived object sliced from type $@ to base $@. | test.cpp:9:7:9:15 | Chihuahua | Chihuahua | test.cpp:1:7:1:9 | Dog | Dog |

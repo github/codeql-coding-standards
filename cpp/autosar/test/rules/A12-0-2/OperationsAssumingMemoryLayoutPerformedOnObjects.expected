@@ -1,0 +1,8 @@
+| test.cpp:35:3:35:13 | call to memset | Use of an object as argument to 'std::memset'. |
+| test.cpp:36:3:36:13 | call to memcpy | Use of an object as argument to 'std::memcpy'. |
+| test.cpp:37:3:37:14 | call to memmove | Use of an object as argument to 'std::memmove'. |
+| test.cpp:38:3:38:6 | call to free | Use of an object as argument to 'std::free'. |
+| test.cpp:40:3:40:13 | call to memset | Use of an object as argument to 'std::memset'. |
+| test.cpp:41:3:41:13 | call to memcpy | Use of an object as argument to 'std::memcpy'. |
+| test.cpp:42:3:42:14 | call to memmove | Use of an object as argument to 'std::memmove'. |
+| test.cpp:43:3:43:6 | call to free | Use of an object as argument to 'std::free'. |

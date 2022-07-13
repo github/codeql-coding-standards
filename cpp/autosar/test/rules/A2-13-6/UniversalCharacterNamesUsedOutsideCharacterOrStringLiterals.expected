@@ -1,0 +1,9 @@
+| test.cpp:2:5:2:13 | definition of l2_\\u00a8 | Declaration uses the universal character name '\\u00a8' which should only be used inside character or string literals. |
+| test.cpp:3:6:3:14 | declaration of f1_\\u00a8 | Declaration uses the universal character name '\\u00a8' which should only be used inside character or string literals. |
+| test.cpp:5:11:5:19 | ns_\\u00a8 | Namespace uses the universal character name '\\u00a8' which should only be used inside character or string literals. |
+| test.cpp:6:7:6:7 | declaration of class_\\u00a8 | Declaration uses the universal character name '\\u00a8' which should only be used inside character or string literals. |
+| test.cpp:6:7:6:7 | declaration of class_\\u00a8 | Declaration uses the universal character name '\\u00a8' which should only be used inside character or string literals. |
+| test.cpp:6:7:6:18 | definition of class_\\u00a8 | Declaration uses the universal character name '\\u00a8' which should only be used inside character or string literals. |
+| test.cpp:7:3:7:14 | definition of class_\\u00a8 | Declaration uses the universal character name '\\u00a8' which should only be used inside character or string literals. |
+| test.cpp:9:8:9:21 | definition of member1_\\u00a8 | Declaration uses the universal character name '\\u00a8' which should only be used inside character or string literals. |
+| test.cpp:10:20:10:27 | definition of p_\\u00a8 | Declaration uses the universal character name '\\u00a8' which should only be used inside character or string literals. |

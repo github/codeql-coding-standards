@@ -1,0 +1,1 @@
+extern unsigned short g1; // COMPLIANT

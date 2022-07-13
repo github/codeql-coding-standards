@@ -1,0 +1,20 @@
+edges
+| test.cpp:16:26:16:31 | call to malloc | test.cpp:22:8:22:9 | a1 |
+| test.cpp:17:38:17:43 | call to malloc | test.cpp:23:8:23:9 | a2 |
+| test.cpp:18:26:18:39 | call to operator new | test.cpp:26:21:26:22 | a3 |
+| test.cpp:20:29:20:42 | call to operator new | test.cpp:27:21:27:22 | a4 |
+nodes
+| test.cpp:16:26:16:31 | call to malloc | semmle.label | call to malloc |
+| test.cpp:17:38:17:43 | call to malloc | semmle.label | call to malloc |
+| test.cpp:18:26:18:39 | call to operator new | semmle.label | call to operator new |
+| test.cpp:20:29:20:42 | call to operator new | semmle.label | call to operator new |
+| test.cpp:22:8:22:9 | a1 | semmle.label | a1 |
+| test.cpp:23:8:23:9 | a2 | semmle.label | a2 |
+| test.cpp:26:21:26:22 | a3 | semmle.label | a3 |
+| test.cpp:27:21:27:22 | a4 | semmle.label | a4 |
+subpaths
+#select
+| test.cpp:22:8:22:9 | a1 | test.cpp:16:26:16:31 | call to malloc | test.cpp:22:8:22:9 | a1 | Memory freed without an appropriate destructor called. |
+| test.cpp:23:8:23:9 | a2 | test.cpp:17:38:17:43 | call to malloc | test.cpp:23:8:23:9 | a2 | Memory freed without an appropriate destructor called. |
+| test.cpp:26:21:26:22 | a3 | test.cpp:18:26:18:39 | call to operator new | test.cpp:26:21:26:22 | a3 | Memory freed without an appropriate destructor called. |
+| test.cpp:27:21:27:22 | a4 | test.cpp:20:29:20:42 | call to operator new | test.cpp:27:21:27:22 | a4 | Memory freed without an appropriate destructor called. |

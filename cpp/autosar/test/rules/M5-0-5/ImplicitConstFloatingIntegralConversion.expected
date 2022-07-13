@@ -1,0 +1,2 @@
+| test.cpp:18:11:18:11 | (float)... | Implicit conversion of constant $@ from integral to float. | test.cpp:18:11:18:11 | 1 | 1 |
+| test.cpp:19:11:19:14 | (float)... | Implicit conversion of constant $@ from integral to float. | test.cpp:19:11:19:14 | (...) | expression |

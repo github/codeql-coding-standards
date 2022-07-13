@@ -1,0 +1,1 @@
+| test.cpp:3:13:3:41 | [...](...){...} | Lambda expression with implicit non-void return type.  |

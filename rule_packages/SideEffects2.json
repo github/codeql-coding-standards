@@ -1,0 +1,175 @@
+{
+  "AUTOSAR": {
+    "A12-8-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Move constructor shall move data members of a class without any side effects.",
+          "kind": "path-problem",
+          "name": "Move constructor shall only move the object of the class type",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MoveConstructorShallOnlyMoveObject",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Copy constructor shall copy base classes and data members of a class without any side effects.",
+          "kind": "path-problem",
+          "name": "Copy constructor shall only copy the object of the class type",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "CopyConstructorShallOnlyCopyObject",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Move and copy constructors shall move and respectively copy base classes and data members of a class, without any side effects."
+    },
+    "A13-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "User defined literals operators are expected to convert passed parameters and otherwise lead to unexpected behavior.",
+          "kind": "problem",
+          "name": "User defined literals operators shall only perform conversion of passed parameters",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UserDefinedLiteralsOperatorsShallOnlyPerformConversionOfPassedParameters",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "User defined literals operators with side effects can exhibit unexpected behavior.",
+          "kind": "problem",
+          "name": "User defined literals operators shall not perform side effects",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UserDefinedLiteralsOperatorsShallNotHaveSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "User defined literals operators shall only perform conversion of passed parameters."
+    },
+    "A25-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Non-static data members or captured values of predicate function objects that are state related to this object's identity shall not be copied.",
+          "kind": "problem",
+          "name": "State related to predicate function object's identity shall not be copied",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "PredicateFunctionObjectsShouldNotBeMutable",
+          "short_name": "StateRelatedToFunctionObjectIdentityShallNotBeCopied",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Non-static data members or captured values of predicate function objects that are state related to this object's identity shall not be copied."
+    },
+    "A6-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Move operator shall move data members of a class without any side effects.",
+          "kind": "path-problem",
+          "name": "Move operator shall only move the object of the class type",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MoveOperatorShallOnlyMoveObject",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Copy operator shall copy base classes and data members of a class without any side effects.",
+          "kind": "path-problem",
+          "name": "Copy operator shall only copy the object of the class type",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "CopyOperatorShallOnlyCopyObject",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Move and copy assignment operators shall either move or respectively copy base classes and data members of a class, without any side effects."
+    },
+    "M0-1-8": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "All functions with void return type are expected to contribute to the generation of outputs and should therefore exhibit an external side effect.",
+          "kind": "problem",
+          "name": "All functions with void return type shall have external side effect(s)",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "FunctionsWithVoidReturnTypeShallHaveExternalSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All functions with void return type shall have external side effect(s)."
+    }
+  },
+  "CERT-C++": {
+    "CTR58-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A mutable predicate function object passed to a C++ standard library algorithm may behave incorrectly because an algorithm can copy the predicate function object.",
+          "kind": "problem",
+          "name": "Predicate function objects should not be mutable",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "PredicateFunctionObjectsShouldNotBeMutable",
+          "short_name": "PredicateFunctionObjectsShouldNotBeMutable",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Predicate function objects should not be mutable"
+    }
+  }
+}

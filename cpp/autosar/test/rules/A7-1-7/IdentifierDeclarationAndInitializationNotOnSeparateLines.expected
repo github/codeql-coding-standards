@@ -1,0 +1,28 @@
+| test.cpp:4:14:4:15 | declaration of p1 | Expression statement and identifier are on the same line. |
+| test.cpp:4:19:4:20 | declaration of p2 | Expression statement and identifier are on the same line. |
+| test.cpp:5:14:5:15 | declaration of p3 | Expression statement and identifier are on the same line. |
+| test.cpp:5:18:5:19 | declaration of p4 | Expression statement and identifier are on the same line. |
+| test.cpp:10:7:10:7 | definition of b | Expression statement and identifier are on the same line. |
+| test.cpp:10:11:10:11 | definition of c | Expression statement and identifier are on the same line. |
+| test.cpp:11:7:11:7 | definition of d | Expression statement and identifier are on the same line. |
+| test.cpp:11:10:11:10 | definition of e | Expression statement and identifier are on the same line. |
+| test.cpp:33:31:33:38 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:33:40:33:47 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:41:11:41:16 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:41:18:41:23 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:49:3:49:7 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:49:9:49:13 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:55:7:55:7 | definition of a | Expression statement and identifier are on the same line. |
+| test.cpp:55:18:55:18 | definition of b | Expression statement and identifier are on the same line. |
+| test.cpp:62:3:62:6 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:62:8:62:11 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:63:3:63:6 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:63:8:63:11 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:64:3:64:6 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:64:8:64:12 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:65:7:65:7 | definition of e | Expression statement and identifier are on the same line. |
+| test.cpp:65:10:65:13 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:66:3:66:6 | ExprStmt | Expression statement and identifier are on the same line. |
+| test.cpp:66:12:66:12 | definition of g | Expression statement and identifier are on the same line. |
+| test.cpp:82:7:82:10 | definition of S3_a | Expression statement and identifier are on the same line. |
+| test.cpp:82:17:82:20 | definition of S3_b | Expression statement and identifier are on the same line. |

@@ -1,0 +1,332 @@
+{
+  "AUTOSAR": {
+    "A11-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The class specifier forces the type to provide private access control for all its members by default. This is consistent with developer expectations, because it is expected that a class has its invariant, interface and could provide custom-defined constructors.",
+          "kind": "problem",
+          "name": "A non-POD type should be defined as class",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonPodTypeShouldBeDefinedAsClass",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A non-POD type should be defined as class."
+    },
+    "A11-0-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "It is consistent with developer expectations that a struct is only an aggregate data type, without class-like features.",
+          "kind": "problem",
+          "name": "A type defined as struct shall provide only public data members",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "TypeDefinedAsStructHasOnlyPublicDataMembers",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "It is consistent with developer expectations that a struct is only an aggregate data type, without class-like features.",
+          "kind": "problem",
+          "name": "A type defined as struct shall not provide any special member functions or methods",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "TypeDefinedAsStructHasNoMethods",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "It is consistent with developer expectations that a struct is only an aggregate data type, without class-like features.",
+          "kind": "problem",
+          "name": "A type defined as struct shall not be a base of another struct or class",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "TypeDefinedAsStructIsNotBaseOfOtherClassOrStruct",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "It is consistent with developer expectations that a struct is only an aggregate data type, without class-like features.",
+          "kind": "problem",
+          "name": "A type defined as struct shall not inherit from another struct or class",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "TypeDefinedAsStructIsDoesNotInheritFromStructOrClass",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A type defined as struct shall: (1) provide only public data members, (2) not provide any special member functions or methods, (3) not be a base of another struct or class, (4) not inherit from another struct or class."
+    },
+    "A12-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a class declares a copy or move operation, or a destructor, either via '=default', '=delete', or via a user-provided declaration, then all others of these five special member functions shall be declared as well.",
+          "kind": "problem",
+          "name": "If a class declares a copy or move operation, or a destructor, either via '=default', '=delete', or",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "MissingSpecialMemberFunction",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "If a class declares a copy or move operation, or a destructor, either via '=default', '=delete', or via a user-provided declaration, then all others of these five special member functions shall be declared as well."
+    },
+    "A12-6-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "All class data members that are initialized by the constructor shall be initialized using member initializers.",
+          "kind": "problem",
+          "name": "All class data members that are initialized by the constructor shall be initialized using member initializers",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ClassDataMembersInitializationCondition",
+          "tags": []
+        }
+      ],
+      "title": "All class data members that are initialized by the constructor shall be initialized using member initializers."
+    },
+    "A12-7-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If the behavior of a user-defined special member function is identical to implicitly defined special member function, then it shall be defined '=default' or be left undefined.",
+          "kind": "problem",
+          "name": "Redundant special member functions should be defaulted or left undefined",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "RedundantMemberFunctionsShouldBeDefaultedOrLeftUndefined",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "If the behavior of a user-defined special member function is identical to implicitly defined special member function, then it shall be defined '=default' or be left undefined."
+    },
+    "A14-5-2": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Class members that are not dependent on template class parameters should be defined in a separate base class.",
+          "kind": "problem",
+          "name": "Class members that are not dependent on template class parameters should be defined separately",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonTemplateMemberDefinedInTemplate",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Class members that are not dependent on template class parameters should be defined in a separate base class."
+    },
+    "A3-1-5": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function that is either trivial, a template function, or a member of a template class may not be defined outside of a class body.",
+          "kind": "problem",
+          "name": "A function shall be defined with a class body if and only if it is intended to be inlined",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "TrivialOrTemplateFunctionDefinedOutsideClassDefinition",
+          "tags": []
+        },
+        {
+          "description": "A function that is not either trivial, a template function, or a member of a template class may not be defined within a class body.",
+          "kind": "problem",
+          "name": "A function shall be defined with a class body if and only if it is intended to be inlined",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonTrivialNonTemplateFunctionDefinedInsideClassDefinition",
+          "tags": []
+        }
+      ],
+      "title": "A function definition shall only be placed in a class definition if (1) the function is intended to be inlined (2) it is a member function template (3) it is a member function of a class template."
+    },
+    "A8-4-7": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "One purpose of passing an argument by value is to document that the argument won't be modified. Copying the value (instead of passing by reference to const) also ensures that no indirection is needed in the function body to access the value.",
+          "kind": "problem",
+          "name": "'in' parameters for not 'cheap to copy' types shall be passed by reference",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "InParametersForNotCheapToCopyTypesNotPassedByReference",
+          "tags": []
+        },
+        {
+          "description": "One purpose of passing an argument by value is to document that the argument won't be modified. Copying the value (instead of passing by reference to const) also ensures that no indirection is needed in the function body to access the value.",
+          "kind": "problem",
+          "name": "'in' parameters for 'cheap to copy' types shall be passed by value",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "InParametersForCheapToCopyTypesNotPassedByValue",
+          "tags": []
+        }
+      ],
+      "title": "'in' parameters for 'cheap to copy' types shall be passed by value."
+    },
+    "A9-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Member functions shall not return non-const 'raw' pointers or references to private or protected data owned by the class.",
+          "kind": "problem",
+          "name": "Member functions shall not return non-const 'raw' pointers or references to private or protected",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "ReturnsNonConstRawPointersOrReferencesToPrivateOrProtectedData",
+          "tags": []
+        }
+      ],
+      "title": "Member functions shall not return non-const 'raw' pointers or references to private or protected data owned by the class."
+    },
+    "A9-6-1": {
+      "properties": {
+        "allocated-target": [
+          "design"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "To ensure reliable behavior, data types used for interfacing with hardware or conforming to communication protocols shall be trivial, standard-layout and only contain members of types with defined sizes.",
+          "kind": "problem",
+          "name": "Data types used for interfacing with hardware shall be trivial and standard-layout",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "DataTypesUsedForInterfacingWithHardwareOrProtocolsMustBeTrivialAndStandardLayout",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "To ensure reliable behavior, data types used for interfacing with hardware or conforming to communication protocols shall be trivial, standard-layout and only contain members of types with defined sizes.",
+          "kind": "problem",
+          "name": "Data types used for interfacing with hardware shall contain only members with types of defined sizes",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "DataTypesUsedForInterfacingWithHardwareOrProtocolsMustContainOnlyDefinedDataTypeSizes",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Data types used for interfacing with hardware or conforming to communication protocols shall be trivial, standard-layout and only contain members of types with defined sizes."
+    },
+    "M11-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using member functions to access internal class data allows a class to be maintained without impacting clients.",
+          "kind": "problem",
+          "name": "Member data in non-POD class types shall be private",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "MemberDataInNonPodClassTypesNotPrivate",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Member data in non-POD class types shall be private."
+    }
+  },
+  "CERT-C++": {
+    "EXP59-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using offsetof() on a non-standard layout type results in undefined behavior.",
+          "kind": "problem",
+          "name": "Use offsetof() on valid types and members",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "OffsetUsedOnInvalidTypeOrMember",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Use offsetof() on valid types and members"
+    }
+  }
+}

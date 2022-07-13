@@ -1,0 +1,168 @@
+{
+  "CERT-C++": {
+    "CON50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Allowing a mutex to go out of scope while it is locked removes protections around shared resources.",
+          "kind": "problem",
+          "name": "Do not destroy a mutex while it is locked",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotAllowAMutexToGoOutOfScopeWhileLocked",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        },
+        {
+          "description": "Calling delete on a locked mutex removes protections around shared resources.",
+          "kind": "problem",
+          "name": "Do not destroy a mutex while it is locked",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotDestroyAMutexWhileItIsLocked",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Do not destroy a mutex while it is locked"
+    },
+    "CON51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A program that fails to release a lock on exceptional conditions will leave a lock in the locked state which will block other critical sections from executing properly.",
+          "kind": "problem",
+          "name": "Ensure actively held locks are released on exceptional conditions",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "EnsureActivelyHeldLocksAreReleasedOnExceptionalConditions",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Ensure actively held locks are released on exceptional conditions"
+    },
+    "CON52-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accesses to bit fields without proper concurrency protection can result in data races.",
+          "kind": "problem",
+          "name": "Prevent data races when accessing bit-fields from multiple threads",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PreventDataRacesWhenAccessingBitFieldsFromMultipleThreads",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Prevent data races when accessing bit-fields from multiple threads"
+    },
+    "CON53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Circular waits leading to thread deadlocks may be avoided by locking in a predefined order.",
+          "kind": "problem",
+          "name": "Avoid deadlock by locking in a predefined order",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "DeadlockByLockingInPredefinedOrder",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Avoid deadlock by locking in a predefined order"
+    },
+    "CON54-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Not wrapping functions that can wake up spuriously in a conditioned loop can result race conditions.",
+          "kind": "problem",
+          "name": "Wrap functions that can spuriously wake up in a loop",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "WrapFunctionsThatCanSpuriouslyWakeUpInLoop",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Wrap functions that can spuriously wake up in a loop"
+    },
+    "CON55-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Usage of `notify_one` within a thread can lead to potential deadlocks and liveness problems.",
+          "kind": "problem",
+          "name": "Preserve thread safety and liveness when using condition variables",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PreserveThreadSafetyAndLivenessWhenUsingConditionVariables",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Preserve thread safety and liveness when using condition variables"
+    },
+    "CON56-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Speculatively locking a non-recursive mutex that is already owned by the calling thread can result in undefined behavior.",
+          "kind": "problem",
+          "name": "Do not speculatively lock a non-recursive mutex that is already owned by the calling thread",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotSpeculativelyLockALockedNonRecursiveMutex",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        },
+        {
+          "description": "Speculatively locking a non-recursive mutex that is already owned by the calling thread can result in undefined behavior.",
+          "kind": "problem",
+          "name": "(Audit) Do not speculatively lock a non-recursive mutex that is already owned by the calling thread",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "LockedALockedNonRecursiveMutexAudit",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Do not speculatively lock a non-recursive mutex that is already owned by the calling thread"
+    }
+  }
+}

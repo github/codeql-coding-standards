@@ -1,0 +1,1 @@
+| test.cpp:21:11:21:34 | derivation | [AUDIT] Class $@ publicly derives from non-interface class $@. | test.cpp:21:7:21:7 | C | C | test.cpp:1:7:1:23 | NonInterfaceBase1 | NonInterfaceBase1 |

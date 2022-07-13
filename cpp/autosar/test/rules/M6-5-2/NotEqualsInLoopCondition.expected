@@ -1,0 +1,3 @@
+| test.cpp:4:3:5:5 | for(...;...;...) ... | For-loop counter $@ is updated by an increment larger than 1 and tested in the condition using == or !=. | test.cpp:4:12:4:12 | i | i |
+| test.cpp:6:3:7:5 | for(...;...;...) ... | For-loop counter $@ is updated by an increment larger than 1 and tested in the condition using == or !=. | test.cpp:6:12:6:12 | i | i |
+| test.cpp:24:3:26:5 | for(...;...;...) ... | For-loop counter $@ is updated by an increment larger than 1 and tested in the condition using == or !=. | test.cpp:24:30:24:31 | it | it |

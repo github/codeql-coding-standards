@@ -1,0 +1,16 @@
+| catchblockcandidates.cpp:15:29:16:5 | { ... } | catchblockcandidates.cpp:13:14:13:15 | call to ClassB | 0 | 0 |
+| catchblockcandidates.cpp:15:29:16:5 | { ... } | catchblockcandidates.cpp:14:7:14:24 | throw ... | 0 | 0 |
+| catchblockcandidates.cpp:16:19:19:5 | { ... } | catchblockcandidates.cpp:13:14:13:15 | call to ClassB | 0 | 1 |
+| catchblockcandidates.cpp:16:19:19:5 | { ... } | catchblockcandidates.cpp:14:7:14:24 | throw ... | 0 | 1 |
+| catchblockcandidates.cpp:20:27:21:3 | { ... } | catchblockcandidates.cpp:10:12:10:12 | call to ClassB | 0 | 0 |
+| catchblockcandidates.cpp:20:27:21:3 | { ... } | catchblockcandidates.cpp:11:5:11:22 | throw ... | 0 | 0 |
+| catchblockcandidates.cpp:20:27:21:3 | { ... } | catchblockcandidates.cpp:13:14:13:15 | call to ClassB | 1 | 0 |
+| catchblockcandidates.cpp:20:27:21:3 | { ... } | catchblockcandidates.cpp:14:7:14:24 | throw ... | 1 | 0 |
+| catchblockcandidates.cpp:20:27:21:3 | { ... } | catchblockcandidates.cpp:17:14:17:15 | call to ClassB | 0 | 0 |
+| catchblockcandidates.cpp:20:27:21:3 | { ... } | catchblockcandidates.cpp:18:7:18:24 | throw ... | 0 | 0 |
+| catchblockcandidates.cpp:21:17:22:3 | { ... } | catchblockcandidates.cpp:10:12:10:12 | call to ClassB | 0 | 1 |
+| catchblockcandidates.cpp:21:17:22:3 | { ... } | catchblockcandidates.cpp:11:5:11:22 | throw ... | 0 | 1 |
+| catchblockcandidates.cpp:21:17:22:3 | { ... } | catchblockcandidates.cpp:13:14:13:15 | call to ClassB | 1 | 1 |
+| catchblockcandidates.cpp:21:17:22:3 | { ... } | catchblockcandidates.cpp:14:7:14:24 | throw ... | 1 | 1 |
+| catchblockcandidates.cpp:21:17:22:3 | { ... } | catchblockcandidates.cpp:17:14:17:15 | call to ClassB | 0 | 1 |
+| catchblockcandidates.cpp:21:17:22:3 | { ... } | catchblockcandidates.cpp:18:7:18:24 | throw ... | 0 | 1 |

@@ -1,0 +1,3 @@
+| test.cpp:11:8:11:14 | (int16_t)... | Implicit conversion converts cvalue $@ from signed char to signed short. | test.cpp:11:8:11:14 | ... + ... | expression |
+| test.cpp:11:8:11:14 | ... + ... | Implicit conversion converts cvalue $@ from signed char to signed short. | test.cpp:11:8:11:14 | ... + ... | expression |
+| test.cpp:13:8:13:13 | ... + ... | Implicit conversion converts cvalue $@ from signed short to signed int. | test.cpp:13:8:13:13 | ... + ... | expression |

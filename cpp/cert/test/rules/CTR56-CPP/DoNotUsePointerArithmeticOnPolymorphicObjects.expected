@@ -1,0 +1,30 @@
+edges
+| test.cpp:15:19:15:21 | foo | test.cpp:16:24:16:26 | foo |
+| test.cpp:15:19:15:21 | foo | test.cpp:16:51:16:53 | foo |
+| test.cpp:27:19:27:21 | foo | test.cpp:29:18:29:20 | foo |
+| test.cpp:40:12:40:19 | new | test.cpp:43:6:43:7 | l1 |
+| test.cpp:40:12:40:19 | new | test.cpp:44:6:44:7 | l1 |
+| test.cpp:42:12:42:14 | & ... | test.cpp:45:6:45:7 | l3 |
+| test.cpp:42:12:42:14 | & ... | test.cpp:46:6:46:7 | l3 |
+| test.cpp:43:6:43:7 | l1 | test.cpp:15:19:15:21 | foo |
+| test.cpp:44:6:44:7 | l1 | test.cpp:27:19:27:21 | foo |
+| test.cpp:45:6:45:7 | l3 | test.cpp:15:19:15:21 | foo |
+| test.cpp:46:6:46:7 | l3 | test.cpp:27:19:27:21 | foo |
+nodes
+| test.cpp:15:19:15:21 | foo | semmle.label | foo |
+| test.cpp:16:24:16:26 | foo | semmle.label | foo |
+| test.cpp:16:51:16:53 | foo | semmle.label | foo |
+| test.cpp:27:19:27:21 | foo | semmle.label | foo |
+| test.cpp:29:18:29:20 | foo | semmle.label | foo |
+| test.cpp:40:12:40:19 | new | semmle.label | new |
+| test.cpp:42:12:42:14 | & ... | semmle.label | & ... |
+| test.cpp:43:6:43:7 | l1 | semmle.label | l1 |
+| test.cpp:44:6:44:7 | l1 | semmle.label | l1 |
+| test.cpp:45:6:45:7 | l3 | semmle.label | l3 |
+| test.cpp:46:6:46:7 | l3 | semmle.label | l3 |
+subpaths
+#select
+| test.cpp:16:24:16:34 | ... + ... | test.cpp:40:12:40:19 | new | test.cpp:16:24:16:26 | foo | Pointer arithmetic used on polymorphic object $@. | test.cpp:4:7:4:8 | C1 | C1 |
+| test.cpp:16:24:16:34 | ... + ... | test.cpp:42:12:42:14 | & ... | test.cpp:16:24:16:26 | foo | Pointer arithmetic used on polymorphic object $@. | test.cpp:4:7:4:8 | C1 | C1 |
+| test.cpp:29:18:29:23 | access to array | test.cpp:40:12:40:19 | new | test.cpp:29:18:29:20 | foo | Pointer arithmetic used on polymorphic object $@. | test.cpp:4:7:4:8 | C1 | C1 |
+| test.cpp:29:18:29:23 | access to array | test.cpp:42:12:42:14 | & ... | test.cpp:29:18:29:20 | foo | Pointer arithmetic used on polymorphic object $@. | test.cpp:4:7:4:8 | C1 | C1 |

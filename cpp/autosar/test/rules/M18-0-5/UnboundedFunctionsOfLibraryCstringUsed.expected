@@ -1,0 +1,12 @@
+| test.cpp:8:13:8:23 | call to strlen | Use of un-bounded function strlen. |
+| test.cpp:10:3:10:13 | call to strcpy | Use of un-bounded function strcpy. |
+| test.cpp:12:3:12:14 | call to strncpy | Use of un-bounded function strncpy. |
+| test.cpp:14:3:14:13 | call to strcat | Use of un-bounded function strcat. |
+| test.cpp:16:3:16:14 | call to strncat | Use of un-bounded function strncat. |
+| test.cpp:18:3:18:13 | call to strcmp | Use of un-bounded function strcmp. |
+| test.cpp:19:3:19:14 | call to strcoll | Use of un-bounded function strcoll. |
+| test.cpp:21:3:21:14 | call to strxfrm | Use of un-bounded function strxfrm. |
+| test.cpp:23:15:23:25 | call to strchr | Use of un-bounded function strchr. |
+| test.cpp:25:11:25:22 | call to strcspn | Use of un-bounded function strcspn. |
+| test.cpp:27:15:27:25 | call to strstr | Use of un-bounded function strstr. |
+| test.cpp:29:16:29:26 | call to strtok | Use of un-bounded function strtok. |

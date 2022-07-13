@@ -1,0 +1,122 @@
+{
+  "AUTOSAR": {
+    "A18-5-5": {
+      "properties": {
+        "allocated-target": [
+          "toolchain"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Memory management functions shall ensure the following: (a) deterministic behavior resulting with the existence of worst-case execution time, (b) avoiding memory fragmentation, (c) avoid running out of memory, (d) 349 of 510 Document ID 839: AUTOSAR_RS_CPP14Guidelines.",
+          "kind": "problem",
+          "name": "Memory management functions must adhere to safe guidelines",
+          "precision": "low",
+          "severity": "error",
+          "short_name": "MemoryManagementFunctionInvariants",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Memory management functions shall ensure the following: (a) deterministic behavior resulting with the existence of worst-case execution time, (b) avoiding memory fragmentation, (c) avoid running out of memory, (d) 349 of 510 Document ID 839: AUTOSAR_RS_CPP14Guidelines"
+    },
+    "A25-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Providing an ordering predicate that is not strictly weak can result in unexpected behavior from containers and sorting functions.",
+          "kind": "problem",
+          "name": "Ordering predicates must be strictly weakly ordering",
+          "precision": "very-high",
+          "shared_implementation_short_name": "OrderingPredicateMustBeStrictlyWeak",
+          "severity": "error",
+          "short_name": "OrderingPredicatesInvariants",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Ordering predicates used with associative containers and STL sorting and related algorithms shall adhere to a strict weak ordering relation."
+    }
+  },
+  "CERT-C++": {
+    "CTR57-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Providing an ordering predicate that is not strictly weak can result in unexpected behavior from containers and sorting functions.",
+          "kind": "problem",
+          "name": "Provide a valid ordering predicate",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "OrderingPredicateMustBeStrictlyWeak",
+          "short_name": "ProvideAValidOrderingPredicate",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Provide a valid ordering predicate"
+    },
+    "MSC54-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Signal handlers that are not a plain old function can result in undefined behavior.",
+          "kind": "problem",
+          "name": "A signal handler must be a plain old function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SignalHandlerMustBeAPlainOldFunction",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A signal handler must be a plain old function"
+    },
+    "OOP56-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Replacement handlers for termination or unexpected exceptions must terminate to ensure correct program behavior.",
+          "kind": "problem",
+          "name": "Honor replacement handler requirements",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "HonorTerminationReplacementHandlerRequirements",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Replacement handlers for new must test for allocation errors.",
+          "kind": "problem",
+          "name": "Honor replacement handler requirements",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "HonorNewReplacementHandlerRequirements",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Honor replacement handler requirements"
+    }
+  }
+}

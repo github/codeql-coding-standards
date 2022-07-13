@@ -1,0 +1,2 @@
+| test.cpp:4:3:4:4 | definition of ~A | Destructor of base class A is not declared as public virtual, public override, or protected non-virtual. |
+| test.cpp:30:3:30:4 | definition of ~E | Destructor of base class E is not declared as public virtual, public override, or protected non-virtual. |

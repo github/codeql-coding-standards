@@ -1,0 +1,12 @@
+| test.cpp:11:5:11:37 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:9:12:9:21 | new | allocated resource |
+| test.cpp:31:5:31:37 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:29:12:29:21 | new | allocated resource |
+| test.cpp:33:5:33:37 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:29:12:29:21 | new | allocated resource |
+| test.cpp:42:5:42:37 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:39:12:39:21 | new | allocated resource |
+| test.cpp:45:5:45:37 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:38:12:38:21 | new | allocated resource |
+| test.cpp:103:5:103:9 | re-throw exception  | The $@ is not released explicitly before throwing an exception. | test.cpp:99:12:99:21 | new | allocated resource |
+| test.cpp:125:5:125:37 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:124:9:124:18 | new | allocated resource |
+| test.cpp:134:5:134:37 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:133:23:133:32 | new | allocated resource |
+| test.cpp:142:3:142:35 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:141:3:141:4 | fs | allocated resource |
+| test.cpp:154:3:154:35 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:152:3:152:4 | fs | allocated resource |
+| test.cpp:160:3:160:35 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:159:3:159:5 | mtx | allocated resource |
+| test.cpp:172:3:172:35 | throw ... | The $@ is not released explicitly before throwing an exception. | test.cpp:170:3:170:5 | mtx | allocated resource |

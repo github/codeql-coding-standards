@@ -1,0 +1,4 @@
+ - `A8-4-7` - `InParametersForCheapToCopyTypesNotPassedByValue.ql` - `InParametersForNotCheapToCopyTypesNotPassedByReference.ql`
+    - Fixes #382 and #383  - pointers to cheap to copy types and catch clause parameters are no longer flagged as non-compliant so the rule will produce fewer false positives.
+    - Fixes #384 - copy constructors are no longer flagged as non-compliant, so the rule will produce fewer false positives.
+    - Fixes #410 - A8-4-7 exclude results from uninstantiated templates, as they do not have full type information.

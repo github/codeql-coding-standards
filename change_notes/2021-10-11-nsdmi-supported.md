@@ -1,0 +1,3 @@
+ - `A12-1-2`
+   - This rule previously reported no results when running on CodeQL CLI 2.5.9 and lower, as non-static data member initializers (NSDMI) were not supported. On CodeQL 2.6.3, NSDMI is supported, so this rule will report fewer false negatives.
+   - For customers already using this query with 2.6.0 and later, this query has fewer false positives, as we no longer identify compiler generated constructor field initializations as a conflicting constructor initialization.

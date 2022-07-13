@@ -1,0 +1,250 @@
+{
+  "AUTOSAR": {
+    "A18-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "C-style memory allocation and deallocation functions malloc, calloc, realloc and free shall not be used.",
+          "kind": "problem",
+          "name": "Functions malloc, calloc, realloc and free shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionsMallocCallocReallocAndFreeUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Functions malloc, calloc, realloc and free shall not be used."
+    },
+    "A18-9-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Neither std::bind nor boost::bind shall be used.",
+          "kind": "problem",
+          "name": "The std::bind shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BindUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The std::bind shall not be used."
+    },
+    "A26-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "std::rand shall not be used to generate pseudorandom numbers.",
+          "kind": "problem",
+          "name": "Pseudorandom numbers shall not be generated using std::rand()",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PseudorandomNumbersGeneratedUsingRand",
+          "tags": [
+            "security"
+          ]
+        }
+      ],
+      "title": "Pseudorandom numbers shall not be generated using std::rand()."
+    },
+    "M17-0-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The macro setjmp and function longjmp shall not be used.",
+          "kind": "problem",
+          "name": "The setjmp macro and the longjmp function shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SetjmpMacroAndTheLongjmpFunctionUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The setjmp macro and the longjmp function shall not be used."
+    },
+    "M18-0-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Functions abort, exit, getenv, and system from <cstdlib shall not be used.",
+          "kind": "problem",
+          "name": "The library functions abort, exit, getenv and system from library <cstdlib> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LibraryFunctionsAbortExitGetenvAndSystemFromLibraryCstdlibUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The library functions abort, exit, getenv and system from library <cstdlib> shall not be used."
+    },
+    "M18-0-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Time handling functions in the <ctime> library shall not be used.",
+          "kind": "problem",
+          "name": "The time handling functions of library <ctime> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TimeHandlingFunctionsOfLibraryCtimeUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The time handling functions of library <ctime> shall not be used."
+    },
+    "M18-0-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The unbounded functions of the <cstring> library shall not be used.",
+          "kind": "problem",
+          "name": "The unbounded functions of library <cstring> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnboundedFunctionsOfLibraryCstringUsed",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The unbounded functions of library <cstring> shall not be used."
+    },
+    "M18-2-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The macro offsetof shall not be used.",
+          "kind": "problem",
+          "name": "The macro offsetof shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MacroOffsetofUsed",
+          "tags": [
+            "security"
+          ]
+        }
+      ],
+      "title": "The macro offsetof shall not be used."
+    }
+  },
+  "CERT-C++": {
+    "ERR52-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not use setjmp() or longjmp().",
+          "kind": "problem",
+          "name": "Do not use setjmp() or longjmp()",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotUseSetjmpOrLongjmp",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not use setjmp() or longjmp()"
+    },
+    "MSC50-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "std::rand shall not be used to generate pseudorandom numbers.",
+          "kind": "problem",
+          "name": "Do not use std::rand() for generating pseudorandom numbers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
+          "tags": [
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not use std::rand() for generating pseudorandom numbers"
+    },
+    "OOP57-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Prefer member functions and overloaded operators to C-Standard Library functions.",
+          "kind": "problem",
+          "name": "Prefer special member functions and overloaded operators to C Standard Library functions",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PreferSpecialMemberFunctionsAndOverloadedOperatorsToCStandardLibraryFunctions",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Prefer special member functions and overloaded operators to C Standard Library functions"
+    }
+  }
+}

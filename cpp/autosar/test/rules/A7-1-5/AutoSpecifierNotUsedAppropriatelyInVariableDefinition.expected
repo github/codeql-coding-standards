@@ -1,0 +1,6 @@
+| test.cpp:5:6:5:7 | a0 | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
+| test.cpp:6:6:6:7 | a1 | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
+| test.cpp:7:6:7:7 | a2 | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
+| test.cpp:27:8:27:8 | a | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
+| test.cpp:28:8:28:8 | b | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
+| test.cpp:81:10:81:10 | a | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |

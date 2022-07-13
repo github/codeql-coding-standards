@@ -1,0 +1,1 @@
+rules/OOP50-CPP/DoNotInvokeVirtualFunctionsFromConstructorsOrDestructors.ql

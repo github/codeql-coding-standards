@@ -1,0 +1,1 @@
+ - Removed query library incompatability with CodeQL Standard Library `codeql-cli/v2.5.6`. A QL class called `FixedWidthIntegralType` was added to both the CodeQL Standard Library for C++ and to the Coding Standards library, causing query compilation errors. This has been resolved.

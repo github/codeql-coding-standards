@@ -1,0 +1,4 @@
+| test_joinable_thread.cpp:13:1:13:1 | call to ~thread | A std::thread object which has not yet been joined is destroyed here. |
+| test_joinable_thread.cpp:27:1:27:1 | call to ~thread | A std::thread object which has not yet been joined is destroyed here. |
+| test_joinable_thread.cpp:32:3:32:3 | call to ~thread | A std::thread object which has not yet been joined is destroyed here. |
+| test_joinable_thread.cpp:47:6:47:6 | call to operator= | A std::thread object which has not yet been joined is move-assigned here. |

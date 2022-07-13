@@ -1,0 +1,4 @@
+| test.cpp:17:17:17:29 | new | StructA object of size 8 bytes does not appear to outlive the function, but is created on the heap instead of the stack. |
+| test.cpp:21:17:21:32 | new[] | StructA[] object of size 800 bytes does not appear to outlive the function, but is created on the heap instead of the stack. |
+| test.cpp:35:20:35:44 | call to make_shared | StructA object of size 8 bytes does not appear to outlive the function, but is created on the heap instead of the stack. |
+| test.cpp:43:20:43:44 | call to make_unique | StructA object of size 8 bytes does not appear to outlive the function, but is created on the heap instead of the stack. |

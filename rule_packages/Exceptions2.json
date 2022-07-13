@@ -1,0 +1,322 @@
+{
+  "AUTOSAR": {
+    "A15-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Throwing types which are not derived from std::exception can lead to developer confusion.",
+          "kind": "problem",
+          "name": "Only instances of types derived from std::exception should be thrown",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "OnlyThrowStdExceptionDerivedTypes",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Only instances of types derived from std::exception should be thrown."
+    },
+    "A15-2-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a constructor is not noexcept and the constructor cannot finish object initialization, then it shall deallocate the object's resources and it shall throw an exception.",
+          "kind": "path-problem",
+          "name": "Constructors which fail initialization should deallocate the object's resources and throw an exception",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "ConstructorErrorLeavesObjectInInvalidState",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "If a constructor is not noexcept and the constructor cannot finish object initialization, then it shall deallocate the object's resources and it shall throw an exception."
+    },
+    "A15-3-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A non-trivial class type exception which is not caught by lvalue reference may be sliced, losing valuable exception information.",
+          "kind": "problem",
+          "name": "A class type exception shall be caught by reference or const reference",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "CatchExceptionsByLvalueReference",
+          "short_name": "ClassTypeExceptionNotCaughtByReference",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A class type exception shall be caught by reference or const reference."
+    },
+    "A15-4-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The noexcept specification of a function shall be identical across all translation units.",
+          "kind": "problem",
+          "name": "The noexcept specification of a function shall be identical across all translation units",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IncompatibleNoexceptSpecification",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The noexcept specification of a function shall be identical across all translation units.",
+          "kind": "problem",
+          "name": "Inconsistent noexcept(false) specification on function declaration",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InconsistentNoexceptFalseSpecification",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The noexcept specification of a function shall be identical across all translation units.",
+          "kind": "problem",
+          "name": "Inconsistent noexcept(true) specification on function declaration",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InconsistentNoexceptTrueSpecification",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The noexcept specification of a function shall be identical or more restrictive between a virtual member function and an overrider.",
+          "kind": "problem",
+          "name": "The noexcept specification of a function shall be identical or more restrictive between a virtual member function and an overrider",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IncompatibleNoexceptSpecificationForOverriders",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The noexcept specification of a function shall either be identical across all translation units, or identical or more restrictive between a virtual member function and an overrider."
+    },
+    "A15-4-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Checked exceptions that could be thrown from a function shall be specified together with the function declaration and they shall be identical in all function declarations and for all its overriders.",
+          "kind": "path-problem",
+          "name": "Checked exceptions that could be thrown from a function should be specified",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingCheckedExceptions",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Checked exceptions that could be thrown from a function shall be specified identically in all function declarations and for all overriders.",
+          "kind": "problem",
+          "name": "Checked exceptions that could be thrown from a function should be consistently specified",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "InconsistentCheckedExceptions",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Checked exceptions that could be thrown from a function shall be specified together with the function declaration and they shall be identical in all function declarations and for all its overriders."
+    },
+    "A15-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "All user-provided class destructors, deallocation functions, move constructors, move assignment operators and swap functions shall not exit with an exception.",
+          "kind": "path-problem",
+          "name": "All user-provided class destructors, deallocation functions, move constructors, move assignment operators and swap functions shall not exit with an exception",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SpecialFunctionExitsWithException",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "All user-provided class destructors, deallocation functions, move constructors, move assignment operators and swap functions shall have a noexcept exception specification.",
+          "kind": "problem",
+          "name": "All user-provided class destructors, deallocation functions, move constructors, move assignment operators and swap functions shall have a noexcept exception specification",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SpecialFunctionMissingNoExceptSpecification",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All user-provided class destructors, deallocation functions, move constructors, move assignment operators and swap functions shall not exit with an exception. A noexcept exception specification shall be added to these functions as appropriate."
+    },
+    "M15-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Exceptions raised before start-up or during termination can lead to the program being terminated in an implementation defined manner.",
+          "kind": "path-problem",
+          "name": "Exceptions shall be raised only before termination",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "HandleAllExceptionsDuringStartup",
+          "short_name": "ExceptionRaisedDuringStartup",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Exceptions raised before start-up or during termination can lead to the program being terminated in an implementation defined manner.",
+          "kind": "path-problem",
+          "name": "Exceptions shall be raised only after start-up",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExceptionRaisedDuringTermination",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Exceptions shall be raised only after start-up and before termination."
+    },
+    "M15-3-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Referring to any non-static member or base class of an object in the handler for a function-try-block of a constructor or destructor for that object results in undefined behavior.",
+          "kind": "problem",
+          "name": "Handlers of a function-try-block implementation of a class constructor or destructor shall not reference non-static members from this class or its bases",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "DestroyedValueReferencedInDestructorCatchBlock",
+          "short_name": "DestroyedValueReferencedInDestructorCatchBlock",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Handlers of a function-try-block implementation of a class constructor or destructor shall not reference non-static members from this class or its bases."
+    },
+    "M15-3-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Where multiple handlers are provided in a single try-catch statement or function-try-block for a derived class and some or all of its bases, the handlers shall be ordered most-derived to base class.",
+          "kind": "problem",
+          "name": "Catch block is shadow by prior catch block",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "CatchBlockShadowing",
+          "short_name": "CatchBlockShadowingMisra",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Where multiple handlers are provided in a single try-catch statement or function-try-block for a derived class and some or all of its bases, the handlers shall be ordered most-derived to base class."
+    }
+  },
+  "CERT-C++": {
+    "DCL57-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Destructors or deallocation functions that terminate by throwing an exception can lead to undefined behavior.",
+          "kind": "path-problem",
+          "name": "Do not let exceptions escape from destructors or deallocation functions",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotLetExceptionsEscapeFromDestructorsOrDeallocationFunctions",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not let exceptions escape from destructors or deallocation functions"
+    },
+    "ERR54-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Catch blocks with less derived types ordered ahead of more derived types can lead to unreachable catch blocks.",
+          "kind": "problem",
+          "name": "Catch handlers should order their parameter types from most derived to least derived",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "CatchBlockShadowing",
+          "short_name": "CatchBlockShadowingCert",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Catch handlers should order their parameter types from most derived to least derived"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+| test.cpp:16:7:16:15 | operator= | User-defined assignment operator is declared as virtual. |
+| test.cpp:23:7:23:15 | operator= | User-defined assignment operator is declared as virtual. |

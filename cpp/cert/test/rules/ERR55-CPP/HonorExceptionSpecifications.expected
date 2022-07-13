@@ -1,0 +1,8 @@
+edges
+| test_dynamic_specification.cpp:22:3:22:24 | throw ... [exception] | test_dynamic_specification.cpp:20:6:20:49 | test_simple_exception_spec_covered_inherited [exception] |
+| test_dynamic_specification.cpp:29:3:29:24 | throw ... [exception] | test_dynamic_specification.cpp:28:6:28:30 | test_no_throw_contravened [exception] |
+| test_no_except.cpp:8:3:8:14 | throw ... [char *] | test_no_except.cpp:7:6:7:23 | test_noexcept_true [char *] |
+#select
+| test_dynamic_specification.cpp:20:6:20:49 | test_simple_exception_spec_covered_inherited | test_dynamic_specification.cpp:22:3:22:24 | throw ... [exception] | test_dynamic_specification.cpp:20:6:20:49 | test_simple_exception_spec_covered_inherited [exception] | test_simple_exception_spec_covered_inherited can throw an exception of type std::exception but has a dynamic exception specification that does not specify this type. |
+| test_dynamic_specification.cpp:28:6:28:30 | test_no_throw_contravened | test_dynamic_specification.cpp:29:3:29:24 | throw ... [exception] | test_dynamic_specification.cpp:28:6:28:30 | test_no_throw_contravened [exception] | test_no_throw_contravened can throw an exception of type std::exception but has a dynamic exception specification that does not specify this type. |
+| test_no_except.cpp:7:6:7:23 | test_noexcept_true | test_no_except.cpp:8:3:8:14 | throw ... [char *] | test_no_except.cpp:7:6:7:23 | test_noexcept_true [char *] | test_noexcept_true can throw an exception of type char * but is marked noexcept(true). |

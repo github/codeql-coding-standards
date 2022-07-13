@@ -1,0 +1,22 @@
+edges
+nodes
+| test.cpp:16:26:16:31 | call to malloc | semmle.label | call to malloc |
+| test.cpp:17:38:17:43 | call to malloc | semmle.label | call to malloc |
+| test.cpp:18:26:18:39 | call to operator new | semmle.label | call to operator new |
+| test.cpp:20:29:20:42 | call to operator new | semmle.label | call to operator new |
+| test.cpp:45:26:45:31 | call to malloc | semmle.label | call to malloc |
+| test.cpp:46:38:46:43 | call to malloc | semmle.label | call to malloc |
+| test.cpp:47:26:47:39 | call to operator new | semmle.label | call to operator new |
+| test.cpp:49:29:49:42 | call to operator new | semmle.label | call to operator new |
+| test.cpp:51:29:51:42 | call to operator new | semmle.label | call to operator new |
+subpaths
+#select
+| test.cpp:16:26:16:31 | call to malloc | test.cpp:16:26:16:31 | call to malloc | test.cpp:16:26:16:31 | call to malloc | Allocation to cast without constructor call |
+| test.cpp:17:38:17:43 | call to malloc | test.cpp:17:38:17:43 | call to malloc | test.cpp:17:38:17:43 | call to malloc | Allocation to cast without constructor call |
+| test.cpp:18:26:18:39 | call to operator new | test.cpp:18:26:18:39 | call to operator new | test.cpp:18:26:18:39 | call to operator new | Allocation to cast without constructor call |
+| test.cpp:20:29:20:42 | call to operator new | test.cpp:20:29:20:42 | call to operator new | test.cpp:20:29:20:42 | call to operator new | Allocation to cast without constructor call |
+| test.cpp:45:26:45:31 | call to malloc | test.cpp:45:26:45:31 | call to malloc | test.cpp:45:26:45:31 | call to malloc | Allocation to cast without constructor call |
+| test.cpp:46:38:46:43 | call to malloc | test.cpp:46:38:46:43 | call to malloc | test.cpp:46:38:46:43 | call to malloc | Allocation to cast without constructor call |
+| test.cpp:47:26:47:39 | call to operator new | test.cpp:47:26:47:39 | call to operator new | test.cpp:47:26:47:39 | call to operator new | Allocation to cast without constructor call |
+| test.cpp:49:29:49:42 | call to operator new | test.cpp:49:29:49:42 | call to operator new | test.cpp:49:29:49:42 | call to operator new | Allocation to cast without constructor call |
+| test.cpp:51:29:51:42 | call to operator new | test.cpp:51:29:51:42 | call to operator new | test.cpp:51:29:51:42 | call to operator new | Allocation to cast without constructor call |

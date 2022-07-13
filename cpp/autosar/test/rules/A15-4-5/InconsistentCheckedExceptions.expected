@@ -1,0 +1,1 @@
+| test.cpp:41:6:41:27 | definition of test_decl_inconsistent | Function declaration entry for test_decl_inconsistent is missing @throw entry for checked exception $@ specified on $@. | test.cpp:6:7:6:22 | CheckedException | CheckedException | test.cpp:41:6:41:27 | definition of test_decl_inconsistent | other declaration. |

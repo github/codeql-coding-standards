@@ -1,0 +1,2 @@
+| test1a.cpp:7:13:7:14 | f1 | Identifier name of static function $@ reuses identifier name of static function $@ | test1a.cpp:7:13:7:14 | f1 | f1 | test1b.cpp:9:13:9:14 | f1 | f1 |
+| test1b.cpp:9:13:9:14 | f1 | Identifier name of static function $@ reuses identifier name of static function $@ | test1b.cpp:9:13:9:14 | f1 | f1 | test1a.cpp:7:13:7:14 | f1 | f1 |

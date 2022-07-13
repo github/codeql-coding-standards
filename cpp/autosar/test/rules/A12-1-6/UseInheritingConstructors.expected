@@ -1,0 +1,2 @@
+| test.cpp:14:7:14:12 | ClassC | Derived class ClassC unecessarily reimplements all the constructors from $@. | test.cpp:1:7:1:12 | ClassA | ClassA |
+| test.cpp:48:7:48:30 | AllOverridesDerivedClass | Derived class AllOverridesDerivedClass unecessarily reimplements all the constructors from $@. | test.cpp:33:7:33:27 | ManyDefaultsBaseClass | ManyDefaultsBaseClass |

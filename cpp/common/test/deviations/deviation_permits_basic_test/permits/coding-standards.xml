@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<codingstandards>
+   <!--GENERATED: DO NOT MODIFY. Changes should be made to coding-standards.yml instead.-->
+   <deviation-permits>
+      <deviation-permits-entry>
+         <permit-id>MC3R14_4</permit-id>
+         <rule-id>A0-1-2</rule-id>
+         <justification>Unused return value</justification>
+         <code-identifier>a-0-1-2-deviated</code-identifier>
+      </deviation-permits-entry>
+   </deviation-permits>
+</codingstandards>

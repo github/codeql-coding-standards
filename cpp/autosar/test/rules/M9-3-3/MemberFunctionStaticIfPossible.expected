@@ -1,0 +1,2 @@
+| test.cpp:19:7:19:7 | f | Member function can be declared as static. |
+| test.cpp:139:8:139:9 | f2 | Member function can be declared as static. |

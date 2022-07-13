@@ -1,0 +1,46 @@
+{
+  "AUTOSAR": {
+    "A20-8-7": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "non-automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "To avoid cyclical dependency of shared pointers, an std::weak_ptr shall be used to represent temporary shared ownership.",
+          "kind": "problem",
+          "name": "A std::weak_ptr shall be used to represent temporary shared ownership",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "WeakPtrNotUsedToRepresentTemporarySharedOwnership",
+          "tags": ["correctness", "external/autosar/audit"]
+        }
+      ],
+      "title": "A std::weak_ptr shall be used to represent temporary shared ownership."
+    }
+  },
+  "CERT-C++": {
+    "MEM56-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Pointers stored in unrelated smart pointers can be erroneously destroyed upon a single underlying pointer going out of scope.",
+          "kind": "path-problem",
+          "name": "Do not store an already-owned pointer value in an unrelated smart pointer",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "OwnedPointerValueStoredInUnrelatedSmartPointerCert",
+          "shared_implementation_short_name": "OwnedPointerValueStoredInUnrelatedSmartPointer",
+
+          "tags": ["correctness"]
+        }
+      ],
+      "title": "Do not store an already-owned pointer value in an unrelated smart pointer"
+    }
+  }
+}

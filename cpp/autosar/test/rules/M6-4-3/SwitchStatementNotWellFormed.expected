@@ -1,0 +1,3 @@
+| test.cpp:51:3:57:3 | switch (...) ...  | $@ statement not well formed because this $@ block uses a statement that is not allowed. | test.cpp:51:3:57:3 | switch (...) ...  | Switch | test.cpp:52:3:52:9 | case ...: | case |
+| test.cpp:61:3:70:3 | switch (...) ...  | $@ statement not well formed because this $@ block uses a statement that is not allowed. | test.cpp:61:3:70:3 | switch (...) ...  | Switch | test.cpp:62:3:62:10 | case ...: | case |
+| test.cpp:76:3:82:3 | switch (...) ...  | $@ statement not well formed because this $@ block uses a statement that is not allowed. | test.cpp:76:3:82:3 | switch (...) ...  | Switch | test.cpp:77:3:77:9 | case ...: | case |

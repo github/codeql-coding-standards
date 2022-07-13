@@ -1,0 +1,4 @@
+| test.cpp:21:1:21:29 | #define MACROELEVEN(X) X #X #X | Macro definition uses the # or ## operator more than once. |
+| test.cpp:23:1:23:29 | #define MACROTWELVE(X) X ## X ## X | Macro definition uses the # or ## operator more than once. |
+| test.cpp:25:1:25:29 | #define MACROTHIRTEEN(X) #X ## X | Macro definition uses the # or ## operator more than once. |
+| test.cpp:27:1:27:45 | #define MACROFOURTEEN '#\\'-#' + 1 #1 #1 + '#' | Macro definition uses the # or ## operator more than once. |

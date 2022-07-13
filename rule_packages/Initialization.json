@@ -1,0 +1,465 @@
+{
+  "AUTOSAR": {
+    "A12-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Constructors shall explicitly initialize all virtual base classes, all direct non-virtual base classes and all non-static data members.",
+          "kind": "problem",
+          "name": "Constructors shall explicitly initialize all base classes",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExplicitConstructorBaseClassInitialization",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Constructors shall explicitly initialize all virtual base classes, all direct non-virtual base classes and all non-static data members."
+    },
+    "A12-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using both non-static data member initialization and non static member initializers can cause confusion over which values are used.",
+          "kind": "problem",
+          "name": "Both non-static data member initialization and a non-static member initializer in a constructor shall not be used in the same type",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonStaticMemberMultipleInit",
+          "tags": [
+            "correctness",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Both NSDMI and a non-static member initializer in a constructor shall not be used in the same type."
+    },
+    "A12-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If all user-defined constructors of a class initialize data members with constant values that are the same across all constructors, then data members shall be initialized using non-static data member initialization instead.",
+          "kind": "problem",
+          "name": "Use non-static data member initialization to initialize constant data members",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "MissedNSDMIOpportunity",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "If all user-defined constructors of a class initialize data members with constant values that are the same across all constructors, then data members shall be initialized using NSDMI instead."
+    },
+    "A12-1-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Constructors which are not marked explicit may be used in implicit conversions, which may be unexpected for fundamental types.",
+          "kind": "problem",
+          "name": "All constructors that are callable with a single argument of fundamental type shall be declared explicit",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ConstructorWithFundamentalArgMissingExplicit",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "All constructors that are callable with a single argument of fundamental type shall be declared explicit."
+    },
+    "A12-1-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "partially automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Repeating initialization steps in multiple places is error prone and hard to maintain.",
+          "kind": "problem",
+          "name": "Common class initialization for non-constant members shall be done by a delegating constructor",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "AvoidDuplicationInConstructors",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Common class initialization for non-constant members shall be done by a delegating constructor."
+    },
+    "A12-1-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Derived classes that do not need further explicit initialization and require all the constructors from the base class shall use inheriting constructors.",
+          "kind": "problem",
+          "name": "Use inheriting constructors instead of reimplementing all the base class constructors",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "UseInheritingConstructors",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Derived classes that do not need further explicit initialization and require all the constructors from the base class shall use inheriting constructors."
+    },
+    "A12-8-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using copying semantics in move constructors can have a performance penalty, and is contrary to developer expectations.",
+          "kind": "problem",
+          "name": "Move constructor shall not initialize its class members and base classes using copy semantics",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MoveConstructorUsesCopySemantics",
+          "tags": [
+            "maintainability",
+            "performance"
+          ]
+        }
+      ],
+      "title": "Move constructor shall not initialize its class members and base classes using copy semantics."
+    },
+    "A26-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Default initializing a random number generator can lead to producing the same random sequence on every program run, which may be unexpected for the developer.",
+          "kind": "problem",
+          "name": "Random number engines shall not be default-initialized",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RandomNumberEnginesDefaultInitialized",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Random number engines shall not be default-initialized."
+    },
+    "A3-3-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Non-const global and static variables are difficult to read and maintain.",
+          "kind": "problem",
+          "name": "Static and thread-local objects shall be constant-initialized",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "StaticOrThreadLocalObjectsNonConstantInit",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Static and thread-local objects shall be constant-initialized."
+    },
+    "A8-5-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "In an initialization list, the order of initialization shall be following: (1) virtual base classes in depth and left to right order of the inheritance graph, (2) direct base classes in left to right order of inheritance list, (3) non-static data members in the order they were declared in the class definition.",
+          "kind": "problem",
+          "name": "Write constructor member initializers in the canonical order",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "InitializationListOutOfOrder",
+          "shared_implementation_short_name": "UseCanonicalOrderForMemberInit",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "In an initialization list, the order of initialization shall be following: (1) virtual base classes in depth and left to right order of the inheritance graph, (2) direct base classes in left to right order of inheritance list, (3) non-static data members in the order they were declared in the class definition."
+    },
+    "A8-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Braced initialization is less confusing than alternative approaches initialization.",
+          "kind": "problem",
+          "name": "Braced-initialization {}, without equals sign, shall be used for variable initialization",
+          "precision": "medium",
+          "severity": "recommendation",
+          "short_name": "UseBracedVariableInitialization",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Braced-initialization {}, without equals sign, shall be used for variable initialization."
+    },
+    "A8-5-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If auto is used with braced initialization then the deduced type will always be std::initializer_list, which may be contrary to developer expectations.",
+          "kind": "problem",
+          "name": "A variable of type auto shall not be initialized using {} or ={} braced-initialization",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "AvoidAutoWithBracedInitialization",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A variable of type auto shall not be initialized using {} or ={} braced-initialization."
+    },
+    "A8-5-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "If a class has a user-declared constructor that takes a parameter of type std::initializer_list, then it shall be the only constructor apart from special member function constructors.",
+          "kind": "problem",
+          "name": "Constructor may be confused with a constructor that accepts std::initializer_list",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ConfusingUseOfInitializerListConstructors",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "If a class has a user-declared constructor that takes a parameter of type std::initializer_list, then it shall be the only constructor apart from special member function constructors."
+    },
+    "M8-0-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An init-declarator-list or a member-declarator-list shall consist of a single init-declarator or member-declarator respectively.",
+          "kind": "problem",
+          "name": "Multiple declarations in the same local statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "MultipleLocalDeclarators",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "An init-declarator-list or a member-declarator-list shall consist of a single init-declarator or member-declarator respectively.",
+          "kind": "problem",
+          "name": "Multiple declarations in the same global or member declaration sequence",
+          "precision": "medium",
+          "severity": "recommendation",
+          "short_name": "MultipleGlobalOrMemberDeclarators",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "An init-declarator-list or a member-declarator-list shall consist of a single init-declarator or member-declarator respectively."
+    },
+    "M8-5-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "It can be confusing to the developer if the structure of braces in an initializer does not match the structure of the object being initialized.",
+          "kind": "problem",
+          "name": "Braces shall be used to indicate and match the structure in the non-zero initialization of arrays and structures",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "UseInitBracesToMatchTypeStructure",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "It can be confusing to the developer if the structure of braces in an initializer does not match the structure of the object being initialized.",
+          "kind": "problem",
+          "name": "Non-zero initialization of arrays or structures requires an explicit initializer for each element",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "MissingExplicitInitializers",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "It can be confusing to the developer if the structure of braces in an initializer does not match the structure of the object being initialized.",
+          "kind": "problem",
+          "name": "The zero initialization of arrays or structures shall only be applied at the top level",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "NestedZeroValueInitialization",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Braces shall be used to indicate and match the structure in the non-zero initialization of arrays and structures."
+    }
+  },
+  "CERT-C++": {
+    "DCL56-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Cycles during initialization of static objects can lead to undefined behavior.",
+          "kind": "path-problem",
+          "name": "Avoid cycles during initialization of static objects",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "CyclesDuringStaticObjectInit",
+          "tags": [
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Avoid cycles during initialization of static objects"
+    },
+    "MSC51-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Poorly seeded random number generators can lead to predicatable sequences of random numbers being generated.",
+          "kind": "problem",
+          "name": "Ensure your random number generator is properly seeded",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BadlySeededRandomNumberGenerator",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Ensure your random number generator is properly seeded"
+    },
+    "OOP53-CPP": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Writing constructor intializers out-of-order can lead to developer confusion over the order of initialization, which can result to reading uninitialized memory and therefore undefined behavior.",
+          "kind": "problem",
+          "name": "Write constructor member initializers in the canonical order",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UseCanonicalOrderForMemberInit",
+          "shared_implementation_short_name": "UseCanonicalOrderForMemberInit",
+          "tags": [
+            "correctness",
+            "security",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Write constructor member initializers in the canonical order"
+    }
+  }
+}

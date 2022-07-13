@@ -1,0 +1,2 @@
+- `A2-7-3` - `UndocumentedUserDefinedType.ql`
+  - Fix #462 by not requiring documentation for lambda captures.

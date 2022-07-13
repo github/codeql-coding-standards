@@ -1,0 +1,1 @@
+rules/CON52-CPP/PreventDataRacesWhenAccessingBitFieldsFromMultipleThreads.ql

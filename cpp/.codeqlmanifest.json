@@ -1,0 +1,3 @@
+{ "provide": [
+  "*/src/qlpack.yml",
+  "*/test/qlpack.yml" ] }

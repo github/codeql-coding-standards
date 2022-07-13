@@ -1,0 +1,2 @@
+- `A5-1-9` - `IdenticalLambdaExpressions.ql`
+  - Fix #468 by excluding template instantiation. 

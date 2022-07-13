@@ -1,0 +1,5 @@
+| test.cpp:8:1:8:17 | #if defined X > Y | Use of defined with non-standard form: X > Y. |
+| test.cpp:9:1:9:19 | #elif defined X < Y | Use of defined with non-standard form: X < Y. |
+| test.cpp:13:1:13:18 | #if defined(X > Y) | Use of defined with non-standard form: X > Y. |
+| test.cpp:14:1:14:20 | #elif defined(X < Y) | Use of defined with non-standard form: X < Y. |
+| test.cpp:34:1:34:47 | #if defined(X) \|\| defined _Y_ + X && defined(Y) | Use of defined with non-standard form: _Y_ + X. |

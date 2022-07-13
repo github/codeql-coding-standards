@@ -1,0 +1,1 @@
+- `A12-8-6` - output the reason for which a class was determined to be a potential base class

@@ -1,0 +1,2 @@
+- `A3-1-6` - `TrivialAccessorAndMutatorFunctionsNotInlined.ql `
+     - Adjust the definition of a trivial accessor and trivial mutator to follow the examples from the standard.

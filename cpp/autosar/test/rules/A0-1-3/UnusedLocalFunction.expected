@@ -1,0 +1,6 @@
+| test.cpp:3:13:3:14 | f1 | Static function f1 is not statically called, or is in an unused template. |
+| test.cpp:21:29:21:33 | getAT | Static function getAT is not statically called, or is in an unused template. |
+| test.cpp:45:8:45:9 | g2 | Private member function A::g2 is not statically called, or is in an unused template. |
+| test.cpp:60:5:60:9 | getAT | Private member function C<T>::getAT is not statically called, or is in an unused template. |
+| test.cpp:81:6:81:7 | h2 | Anonymous namespace function (unnamed namespace)::h2 is not statically called, or is in an unused template. |
+| test.cpp:85:6:85:7 | h3 | Anonymous namespace function (unnamed namespace)::foo::bar::h3 is not statically called, or is in an unused template. |

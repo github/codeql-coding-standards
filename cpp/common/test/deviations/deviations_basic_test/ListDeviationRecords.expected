@@ -1,0 +1,3 @@
+| A0-1-1 | cpp/autosar/useless-assignment | Applies to the following file paths: deviations/deviations_basic_test |  | This useless assignment is required. |  |  |
+| A0-1-2 | cpp/autosar/unused-return-value | Applies to the following file paths: deviations/deviations_basic_test/nested/nested1,deviations/deviations_basic_test/nested/nested2 |  | Unused return value. |  |  |
+| A0-4-2 | cpp/autosar/type-long-double-used | Identified by the use of the code-identifier: a-0-4-2-deviation |  | long double is required for interaction with third-party libraries. |  |  |

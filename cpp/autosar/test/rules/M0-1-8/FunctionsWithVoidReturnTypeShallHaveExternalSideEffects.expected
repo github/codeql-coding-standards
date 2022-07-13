@@ -1,0 +1,1 @@
+| test.cpp:3:6:3:7 | f1 | The function $@ with return type void does not have any external side effects. | test.cpp:3:6:3:7 | f1 | f1 |

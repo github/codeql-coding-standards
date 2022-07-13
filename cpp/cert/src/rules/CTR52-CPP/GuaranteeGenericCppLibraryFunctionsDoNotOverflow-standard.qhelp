@@ -1,0 +1,309 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>Copying data into a container that is not large enough to hold that data results in a buffer overflow. To prevent such errors, data copied to the destination container must be restricted on the basis of the destination container's size, or preferably, the destination container must be guaranteed to be large enough to hold the data to be copied.</p>
+  <p><a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">Vulnerabilities</a> that result from copying data to an undersized buffer can also involve null-terminated strings. Consult <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/STR50-CPP.+Guarantee+that+storage+for+strings+has+sufficient+space+for+character+data+and+the+null+terminator">STR50-CPP. Guarantee that storage for strings has sufficient space for character data and the null terminator</a> for specific examples of this rule that involve strings.</p>
+  <p>Copies can be made with the <code>std::memcpy()</code> function. However, the <code>std::memmove()</code> and <code>std::memset()</code> functions can also have the same vulnerabilities because they overwrite a block of memory without checking that the block is valid. Such issues are not limited to C standard library functions; standard template library (STL) generic algorithms, such as <code>std::copy()</code>, <code>std::fill()</code>, and <code>std::transform()</code>, also assume valid output buffer sizes [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>].</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>STL containers can be subject to the same vulnerabilities as array data types. The <code>std::copy()</code> algorithm provides no inherent bounds checking and can lead to a buffer overflow. In this noncompliant code example, a vector of integers is copied from <code>src</code> to <code>dest</code> using <code>std::copy()</code>. Because <code>std::copy()</code> does nothing to expand the <code>dest</code> vector, the program will overflow the buffer on copying the first element.</p>
+  <sample language="cpp">#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+
+void f(const std::vector&lt;int&gt; &amp;src) {
+  std::vector&lt;int&gt; dest;
+  std::copy(src.begin(), src.end(), dest.begin());
+  // ...
+}
+</sample>
+  <p>This hazard applies to any algorithm that takes a destination iterator, expecting to fill it with values. Most of the STL algorithms expect the destination container to have sufficient space to hold the values provided.</p>
+ </section>
+ <section title="Compliant Solution (Sufficient Initial Capacity)">
+  <p>The proper way to use <code>std::copy()</code> is to ensure the destination container can hold all the elements being copied to it. This compliant solution enlarges the capacity of the vector prior to the copy operation.</p>
+  <sample language="cpp">#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+void f(const std::vector&lt;int&gt; &amp;src) {
+  // Initialize dest with src.size() default-inserted elements
+  std::vector&lt;int&gt; dest(src.size());
+  std::copy(src.begin(), src.end(), dest.begin());
+  // ...
+}
+</sample>
+ </section>
+ <section title="Compliant Solution (Per-Element Growth)">
+  <p>An alternative approach is to supply a <code>std::back_insert_iterator</code> as the destination argument. This iterator expands the destination container by one element for each element supplied by the algorithm, which guarantees the destination container will become sufficiently large to hold the elements provided.</p>
+  <sample language="cpp">#include &lt;algorithm&gt;
+#include &lt;iterator&gt;
+#include &lt;vector&gt;
+
+void f(const std::vector&lt;int&gt; &amp;src) {
+  std::vector&lt;int&gt; dest;
+  std::copy(src.begin(), src.end(), std::back_inserter(dest));
+  // ...
+}</sample>
+ </section>
+ <section title="Compliant Solution (Assignment)">
+  <p>The simplest solution is to construct <code>dest</code> from <code>src</code> directly, as in this compliant solution.</p>
+  <sample language="cpp">#include &lt;vector&gt;
+
+void f(const std::vector&lt;int&gt; &amp;src) {
+  std::vector&lt;int&gt; dest(src);
+  // ...
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, <code>std::fill_n()</code> is used to fill a buffer with 10 instances of the value <code>0x42</code>. However, the buffer has not allocated any space for the elements, so this operation results in a buffer overflow.</p>
+  <sample language="cpp">#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+
+void f() {
+  std::vector&lt;int&gt; v;
+  std::fill_n(v.begin(), 10, 0x42);
+}</sample>
+ </section>
+ <section title="Compliant Solution (Sufficient Initial Capacity)">
+  <p>This compliant solution ensures the capacity of the vector is sufficient before attempting to fill the container.</p>
+  <sample language="cpp">#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+
+void f() {
+  std::vector&lt;int&gt; v(10);
+  std::fill_n(v.begin(), 10, 0x42);
+}</sample>
+  <p>However, this compliant solution is inefficient. The constructor will default-construct 10 elements of type <code>int</code>, which are subsequently replaced by the call to <code>std::fill_n()</code>, meaning that each element in the container is initialized twice.</p>
+ </section>
+ <section title="Compliant Solution (Fill Initialization)">
+  <p>This compliant solution initializes <code>v</code> to 10 elements whose values are all <code>0x42</code>.</p>
+  <sample language="cpp">#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+
+void f() {
+  std::vector&lt;int&gt; v(10, 0x42);
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>Copying data to a buffer that is too small to hold the data results in a buffer overflow. Attackers can <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">exploit</a> this condition to execute arbitrary code.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      CTR52-CPP
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      Likely
+     </td>
+     <td>
+      Medium
+     </td>
+     <td>
+      <strong>P18</strong>
+     </td>
+     <td>
+      <strong>L1</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=222953724">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>invalid_pointer_dereference</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>BADFUNC.BO.*</strong>
+      <strong>LANG.MEM.BO</strong>
+     </td>
+     <td>
+      A collection of warning classes that report uses of library functions prone to internal buffer overflows.
+      Buffer Overrun
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++3526, C++3527, C++3528, C++3529, C++3530, C++3531, C++3532, C++3533, C++3534</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-CTR52-a</strong>
+     </td>
+     <td>
+      Do not pass empty container iterators to std algorithms as destinations
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR52-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682">
+       SEI CERT C++ Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/STR50-CPP.+Guarantee+that+storage+for+strings+has+sufficient+space+for+character+data+and+the+null+terminator">
+       STR50-CPP. Guarantee that storage for strings has sufficient space for character data and the null terminator
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">
+       SEI CERT C Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/ARR38-C.+Guarantee+that+library+functions+do+not+form+invalid+pointers">
+       ARR38-C. Guarantee that library functions do not form invalid pointers
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="http://cwe.mitre.org/">
+       MITRE CWE
+      </a>
+     </td>
+     <td>
+      <a href="http://cwe.mitre.org/data/definitions/119.html">
+       CWE 119
+      </a>
+      , Failure to Constrain Operations within the Bounds of an Allocated Memory Buffer
+      <a href="http://cwe.mitre.org/data/definitions/805.html">
+       CWE 805
+      </a>
+      , Buffer Access with Incorrect Length Value
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 25.3, "Mutating Sequence Operations"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIECTR24772-2013">
+       ISO/IEC TR 24772-2013
+      </a>
+      ]
+     </td>
+     <td>
+      Buffer Overflow in Heap [XYB]
+      Buffer Overflow in Stack [XYW]
+      Unchecked Array Indexing [XYZ]
+     </td>
+    </tr>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Meyers01">
+       Meyers 2001
+      </a>
+      ]
+     </td>
+     <td>
+      Item 30, "Make Sure Destination Ranges Are Big Enough"
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>

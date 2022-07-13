@@ -1,0 +1,1 @@
+| test.cpp:26:3:26:17 | __builtin_offsetof | Usage of offsetof on a invalid storage class or member. |

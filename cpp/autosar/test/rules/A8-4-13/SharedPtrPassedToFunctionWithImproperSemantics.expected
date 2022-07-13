@@ -1,0 +1,5 @@
+| test.cpp:13:55:13:56 | v1 | Parameter of type 'const std::shared_ptr' passed as lvalue reference with no copy made. |
+| test.cpp:21:47:21:48 | v1 | Parameter of type std::shared_ptr passed as lvalue reference but not used to modify underlying object. |
+| test.cpp:25:47:25:48 | v1 | Parameter of type std::shared_ptr passed as raw pointer. |
+| test.cpp:30:28:30:29 | v1 | Parameter of type std::shared_ptr passed as rvalue reference. |
+| test.cpp:34:55:34:56 | v1 | Parameter of type std::shared_ptr passed as rvalue reference. |

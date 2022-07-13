@@ -1,0 +1,13 @@
+| test.cpp:4:6:4:7 | f4 | Function f4 is never called. |
+| test.cpp:13:25:13:27 | f11 | Function f11 is never called. |
+| test.cpp:14:6:14:8 | f12 | Function f12 is never called from a main function or entry point. |
+| test.cpp:16:6:16:8 | f13 | Function f13 is never called from a main function or entry point. |
+| test.cpp:23:6:23:8 | f14 | Function f14 is never called from a main function or entry point. |
+| test.cpp:30:16:30:17 | h2 | Function A::h2 is never called. |
+| test.cpp:31:8:31:9 | h3 | Function A::h3 is never called. |
+| test.cpp:32:16:32:17 | h4 | Function A::h4 is never called. |
+| test.cpp:49:8:49:9 | i2 | Function C<T>::i2 is never called. |
+| test.cpp:50:5:50:6 | i3 | Function C<T>::i3 is never called. |
+| test.cpp:51:8:51:9 | i4 | Function C<T>::i4 is never called. |
+| test.cpp:52:15:52:16 | i5 | Function C<T>::i5 is never called. |
+| test.cpp:69:17:69:18 | g4 | Function g4 is never called. |

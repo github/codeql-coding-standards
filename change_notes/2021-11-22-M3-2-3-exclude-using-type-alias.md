@@ -1,0 +1,2 @@
+- `M3-2-3` - `MultipleDeclarationViolation.ql`
+  - Fix #467 by allowing 'using' type-alias statements as it is not a type declaration, but a type alias. 

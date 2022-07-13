@@ -1,0 +1,2 @@
+ - `A7-5-2` - `RecursiveFunctions.ql`:
+   - Added test cases to clarify operator of the query.

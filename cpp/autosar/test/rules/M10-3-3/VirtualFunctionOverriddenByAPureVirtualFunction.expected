@@ -1,0 +1,1 @@
+| test.cpp:5:16:5:16 | g | $@ is not a pure virtual function, and it is overriden by pure virtual function $@ | test.cpp:5:16:5:16 | g | Overridden function | test.cpp:11:16:11:16 | g | Overriding function |

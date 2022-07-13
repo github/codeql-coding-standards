@@ -1,0 +1,2 @@
+ - `A3-1-6` - `TrivialAccessorAndMutatorFunctionsNotInlined.ql `
+     - Fixes #379 and #358 - constructors and destructors are no longer flagged as non-compliant so the rule will produce fewer false positives.

@@ -1,0 +1,3 @@
+| test.cpp:6:3:6:17 | operator double | User-defined conversion operator is not explicit. |
+| test.cpp:7:3:7:15 | operator char | User-defined conversion operator is not explicit. |
+| test.cpp:8:3:8:14 | operator int | User-defined conversion operator is not explicit. |

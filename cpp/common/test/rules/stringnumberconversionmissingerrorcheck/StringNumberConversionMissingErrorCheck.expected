@@ -1,0 +1,8 @@
+| test.cpp:9:5:9:5 | call to operator>> | Error state not checked after call to string-to-numeric conversion function operator>>. |
+| test.cpp:15:33:15:33 | call to operator>> | Error state not checked after call to string-to-numeric conversion function operator>>. |
+| test.cpp:58:5:58:5 | call to operator>> | Error state not checked after call to string-to-numeric conversion function operator>>. |
+| test.cpp:105:12:105:12 | call to operator>> | Error state not checked after call to string-to-numeric conversion function operator>>. |
+| test.cpp:112:6:112:6 | call to operator>> | Error state not checked after call to string-to-numeric conversion function operator>>. |
+| test.cpp:134:5:134:5 | call to operator>> | Error state not checked after call to string-to-numeric conversion function operator>>. |
+| test.cpp:180:6:180:6 | call to operator>> | Error state not checked after call to string-to-numeric conversion function operator>>. |
+| test.cpp:186:34:186:34 | call to operator>> | Error state not checked after call to string-to-numeric conversion function operator>>. |

@@ -1,0 +1,2 @@
+| test.cpp:1:5:1:6 | definition of g1 | Declaration g1 is in the global namespace and is not a main, a namespace, or an extern "C" declaration. |
+| test.cpp:2:6:2:7 | declaration of f1 | Declaration f1 is in the global namespace and is not a main, a namespace, or an extern "C" declaration. |

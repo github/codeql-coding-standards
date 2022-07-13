@@ -1,0 +1,22 @@
+#pragma once
+
+#define SIGABRT 0
+#define SIGFPE 1
+#define SIGILL 2
+#define SIGINT 3
+#define SIGSEGV 4
+#define SIGTERM 5
+#define SIG_DFL 6
+#define SIG_IGN 7
+#define SIG_ERR 8
+
+namespace std {
+typedef int sig_atomic_t;
+void (*signal(int, void (*func)(int)))(int);
+int raise(int sig);
+} // namespace std
+
+// global namespace
+typedef int sig_atomic_t;
+void (*signal(int, void (*func)(int)))(int);
+int raise(int);

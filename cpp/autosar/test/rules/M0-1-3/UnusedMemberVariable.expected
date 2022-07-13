@@ -1,0 +1,4 @@
+| test_member.cpp:4:7:4:8 | m1 | Member variable m1 is unused. |
+| test_member.cpp:17:9:17:11 | pad | Member variable pad is unused. |
+| test_member.cpp:19:9:19:11 | sm2 | Member variable sm2 is unused. |
+| test_member.cpp:31:7:31:8 | m1 | Member variable m1 is unused. |

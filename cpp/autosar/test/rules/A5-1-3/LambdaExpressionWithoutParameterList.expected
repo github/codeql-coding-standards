@@ -1,0 +1,3 @@
+| test.cpp:3:3:5:3 | [...](...){...} | Lambda expression does not have explicit parameter list. |
+| test.cpp:12:3:14:3 | [...](...){...} | Lambda expression does not have explicit parameter list. |
+| test.cpp:15:3:17:3 | [...](...){...} | Lambda expression does not have explicit parameter list. |

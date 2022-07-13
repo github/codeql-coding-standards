@@ -1,0 +1,2 @@
+| test.cpp:56:3:56:20 | call to set_terminate | Replacement handler does not terminate. |
+| test.cpp:57:3:57:21 | call to set_unexpected | Replacement handler does not terminate. |

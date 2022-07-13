@@ -1,0 +1,2 @@
+- `A0-1-2` - `UnusedReturnValue.ql`
+  - Fix issue #375 by using `getUnderlyingType()` instead of `getType()` to recursively resolve the typedefs for `std::swap`.

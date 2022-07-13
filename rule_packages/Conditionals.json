@@ -1,0 +1,364 @@
+{
+  "AUTOSAR": {
+    "A5-0-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Non boolean conditions can be confusing for developers.",
+          "kind": "problem",
+          "name": "The condition of an if-statement shall have type bool",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonBooleanIfCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "Non boolean conditions can be confusing for developers.",
+          "kind": "problem",
+          "name": "The condition of an iteration statement shall have type bool",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonBooleanIterationCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The condition of an if-statement and the condition of an iteration statement shall have type bool."
+    },
+    "A6-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A switch statement constructed with less than two case-clauses can be expressed as an if statement more naturally.",
+          "kind": "problem",
+          "name": "A switch statement shall have at least two case-clauses, distinct from the default label",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SwitchLessThanTwoCases",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A switch statement shall have at least two case-clauses, distinct from the default label."
+    },
+    "M6-3-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If the body of a switch is not enclosed in braces, then this can lead to incorrect execution, and hard for developers to maintain.",
+          "kind": "problem",
+          "name": "The statement forming the body of a switch shall be a compound statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SwitchCompoundCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "If the body of a loop is not enclosed in braces, then this can lead to incorrect execution, and hard for developers to maintain.",
+          "kind": "problem",
+          "name": "The statement forming the body of a loop shall be a compound statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "LoopCompoundCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The statement forming the body of a switch, while, do ... while or for statement shall be a compound statement."
+    },
+    "M6-4-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If the body of an if statement is not enclosed within brackets then this can lead to incorrect execution and is hard for developers to maintain.",
+          "kind": "problem",
+          "name": "An if ( condition ) construct shall be followed by a compound statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "IfCompoundCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "An if ( condition ) construct shall be followed by a compound statement. The else keyword shall be followed by either a compound statement, or another if statement."
+    },
+    "M6-4-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The final else statement is a defensive programming technique.",
+          "kind": "problem",
+          "name": "All if ... else if constructs shall be terminated with an else clause",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "IfElseTerminationCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "All if ... else if constructs shall be terminated with an else clause."
+    },
+    "M6-4-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "By default, in C++ the switch statement syntax is weak which may lead to unspecified behaviour.",
+          "kind": "problem",
+          "name": "A well formed switch statement must start with a case clause",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SwitchDoesNotStartWithCase",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "By default, in C++ the switch statement syntax is weak which may lead to unspecified behaviour.",
+          "kind": "problem",
+          "name": "A well formed switch statement should only have expression, compound, selection, iteration or try statements within its body",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SwitchStatementNotWellFormed",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A switch statement shall be a well-formed switch statement."
+    },
+    "M6-4-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "By default in C++, the switch structure is weak, which may lead to switch labels being placed anywhere in the switch block. This can cause unspecified behaviour.",
+          "kind": "problem",
+          "name": "A switch-label shall only be used when the most closely-enclosing compound statement is the body of a switch statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NestedCaseInSwitch",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A switch-label shall only be used when the most closely-enclosing compound statement is the body of a switch statement."
+    },
+    "M6-4-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a non empty switch clause does not have a throw/break statement, it will by default fall into the next switch clause. This can lead to unspecified behaviour. A switch clause shall always have a throw or break.",
+          "kind": "problem",
+          "name": "An unconditional throw or break statement shall terminate every non-empty switch-clause",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonEmptySwitchClauseDoesNotTerminate",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "An unconditional throw or break statement shall terminate every non-empty switch-clause."
+    },
+    "M6-4-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "This is a defensive programming technique. The exception to this is if the condition of the switch statement is of type enum and all of the enum values are included in case labels.",
+          "kind": "problem",
+          "name": "Missing default-clause in switch",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "MissingDefaultInSwitch",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "This is a defensive programming technique.",
+          "kind": "problem",
+          "name": "The final clause of a switch statement shall be the default-clause",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SwitchFinalClauseNotDefault",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The final clause of a switch statement shall be the default-clause."
+    },
+    "M6-4-7": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An if statement is more appropriate for bool type.",
+          "kind": "problem",
+          "name": "The condition of a switch statement shall not have bool type",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "BooleanInSwitchCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The condition of a switch statement shall not have bool type."
+    },
+    "M6-6-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unconstrained use of goto can lead to unspecified behaviour.",
+          "kind": "problem",
+          "name": "Any label referenced by a goto statement shall be declared in the same block, or in a block enclosing the goto statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "GotoBlockCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Any label referenced by a goto statement shall be declared in the same block, or in a block enclosing the goto statement."
+    },
+    "M6-6-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Jumping back to an earlier section in the code can lead to accidental iterations.",
+          "kind": "problem",
+          "name": "The goto statement shall jump to a label declared later in the same function body",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "GotoStatementJumpCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The goto statement shall jump to a label declared later in the same function body."
+    },
+    "M6-6-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The continue statement can cause unnecessary complexity.",
+          "kind": "problem",
+          "name": "The continue statement shall only be used within a well-formed for loop",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ContinueInForLoopCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The continue statement shall only be used within a well-formed for loop."
+    }
+  }
+}

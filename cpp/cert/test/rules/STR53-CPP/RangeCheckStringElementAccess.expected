@@ -1,0 +1,11 @@
+| test.cpp:7:4:7:4 | call to operator[] | Access of container of type string does not ensure that the index is smaller than the bounds. |
+| test.cpp:11:4:11:4 | call to operator[] | Access of container of type string does not ensure that the index is smaller than the bounds. |
+| test.cpp:12:4:12:4 | call to operator[] | Access of container of type string does not ensure that the index is smaller than the bounds. |
+| test.cpp:20:6:20:6 | call to operator[] | Access of container of type string & does not ensure that the index is smaller than the bounds. |
+| test.cpp:22:6:22:6 | call to operator[] | Access of container of type string & does not ensure that the index is smaller than the bounds. |
+| test.cpp:23:6:23:6 | call to operator[] | Access of container of type string & does not ensure that the index is smaller than the bounds. |
+| test.cpp:24:6:24:6 | call to operator[] | Access of container of type string & does not ensure that the index is smaller than the bounds. |
+| test.cpp:25:6:25:6 | call to operator[] | Access of container of type string & does not ensure that the index is smaller than the bounds. |
+| test.cpp:31:4:31:4 | call to operator[] | Access of container of type string does not ensure that the index is smaller than the bounds. |
+| test.cpp:37:5:37:5 | call to operator[] | Access of container of type string does not ensure that the index is smaller than the bounds. |
+| test.cpp:42:5:42:5 | call to operator[] | Access of container of type string does not ensure that the index is smaller than the bounds. |

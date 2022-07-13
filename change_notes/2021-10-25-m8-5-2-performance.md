@@ -1,0 +1,2 @@
+ - `M5-8-2`
+   - Fixes #308 - reduced the execution time for `MissingExplicitInitializer.ql` on code which has large fixed size arrays.

@@ -1,0 +1,1 @@
+| test.cpp:5:3:15:3 | switch (...) ...  | This $@ statement is missing a final default clause. | test.cpp:5:3:15:3 | switch (...) ...  | switch |

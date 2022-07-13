@@ -1,0 +1,2 @@
+| test.cpp:12:8:12:8 | g | Non-final virtual function $@ is introduced in final class $@. | test.cpp:12:8:12:8 | g | g | test.cpp:9:7:9:13 | Derived | Derived |
+| test.cpp:14:16:14:16 | h | Non-final virtual function $@ is introduced in final class $@. | test.cpp:14:16:14:16 | h | h | test.cpp:9:7:9:13 | Derived | Derived |

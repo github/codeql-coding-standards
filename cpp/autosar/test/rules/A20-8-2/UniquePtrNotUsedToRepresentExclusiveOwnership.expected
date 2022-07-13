@@ -1,0 +1,2 @@
+| test.cpp:7:8:7:9 | v1 | Raw pointer $@ is exclusively owned by $@ but is not declared as an std::unique_ptr. | test.cpp:7:8:7:9 | v1 | v1 | test.cpp:5:7:5:8 | C1 | C1 |
+| test.cpp:26:8:26:9 | v2 | Raw pointer $@ is exclusively owned by $@ but is not declared as an std::unique_ptr. | test.cpp:26:8:26:9 | v2 | v2 | test.cpp:25:6:25:7 | f1 | f1 |

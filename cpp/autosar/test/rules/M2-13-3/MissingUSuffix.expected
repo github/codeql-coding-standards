@@ -1,0 +1,1 @@
+| test.cpp:3:3:3:12 | 4294967295 | Hex literal is an unsigned integer but does not include a 'U' suffix. |

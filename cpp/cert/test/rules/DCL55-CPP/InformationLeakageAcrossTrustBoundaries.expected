@@ -1,0 +1,20 @@
+| arrays.cpp:11:20:11:21 | wa | 'wa' may leak information from {elements of a[...] (arrays.cpp:7)}. Path: wa (arrays.cpp:11) --> & ... (arrays.cpp:12) |
+| arrays.cpp:33:22:33:23 | wa | 'wa' may leak information from {elements of elements of a[...][...] (arrays.cpp:29)}. Path: wa (arrays.cpp:33) --> & ... (arrays.cpp:34) |
+| arrays.cpp:57:22:57:23 | wa | 'wa' may leak information from {WithPointer (arrays.cpp:52)}. Path: wa (arrays.cpp:57) --> & ... (arrays.cpp:59) |
+| inheritance.cpp:19:14:19:14 | s | 's' may leak information from {i (inheritance.cpp:7)}. Path: s (inheritance.cpp:19) --> & ... (inheritance.cpp:21) |
+| inheritance.cpp:32:14:32:14 | s | 's' may leak information from {0 to 4 bytes of padding in ptrDerived (inheritance.cpp:14)}. Path: s (inheritance.cpp:32) --> & ... (inheritance.cpp:35) |
+| interprocedural.cpp:37:9:37:9 | p | 'p' may leak information from {y (interprocedural.cpp:8)}. Path: p (interprocedural.cpp:37) --> past assign_x (interprocedural.cpp:32) --> & ... (interprocedural.cpp:39) |
+| interprocedural.cpp:104:9:104:9 | p | 'p' may leak information from {x (interprocedural.cpp:7), y (interprocedural.cpp:8)}. Path: p (interprocedural.cpp:104) --> overwrite_after_leak(...) (interprocedural.cpp:96) --> p (interprocedural.cpp:97) |
+| multilayer.cpp:16:10:16:10 | s | 's' may leak information from {b (multilayer.cpp:12)}. Path: s (multilayer.cpp:16) --> & ... (multilayer.cpp:18) |
+| multilayer.cpp:29:10:29:10 | s | 's' may leak information from {b (multilayer.cpp:12), x (multilayer.cpp:7)}. Path: s (multilayer.cpp:29) --> & ... (multilayer.cpp:30) |
+| multilayer.cpp:34:8:34:8 | s | 's' may leak information from {intx (multilayer.cpp:6)}. Path: s (multilayer.cpp:34) --> & ... (multilayer.cpp:35) |
+| test.cpp:12:12:12:12 | s | 's' may leak information from {y (test.cpp:8)}. Path: s (test.cpp:12) --> & ... (test.cpp:14) |
+| test.cpp:18:12:18:12 | s | 's' may leak information from {x (test.cpp:7)}. Path: s (test.cpp:18) --> & ... (test.cpp:20) |
+| test.cpp:24:12:24:12 | s | 's' may leak information from {x (test.cpp:7), y (test.cpp:8)}. Path: s (test.cpp:24) --> & ... (test.cpp:25) |
+| test.cpp:36:12:36:12 | s | 's' may leak information from {y (test.cpp:8)}. Path: s (test.cpp:36) --> & ... (test.cpp:38) |
+| test.cpp:43:12:43:12 | s | 's' may leak information from {x (test.cpp:7)}. Path: s (test.cpp:43) --> & ... (test.cpp:47) |
+| test.cpp:58:12:58:12 | s | 's' may leak information from {x (test.cpp:7), y (test.cpp:8)}. Path: s (test.cpp:58) --> & ... (test.cpp:59) |
+| test.cpp:64:12:64:12 | s | 's' may leak information from {y (test.cpp:8)}. Path: s (test.cpp:64) --> & ... (test.cpp:66) |
+| test.cpp:112:16:112:16 | s | 's' may leak information from {buf (test.cpp:92)}. Path: s (test.cpp:112) --> & ... (test.cpp:115) |
+| test.cpp:128:12:128:12 | s | 's' may leak information from {x (test.cpp:7), y (test.cpp:8)}. Path: s (test.cpp:128) --> & ... (test.cpp:132) |
+| test.cpp:157:22:157:22 | s | 's' may leak information from {2 to 2 bytes of padding in has_padding (test.cpp:151)}. Path: s (test.cpp:157) --> & ... (test.cpp:160) |

@@ -1,0 +1,2 @@
+| test.cpp:27:21:27:21 | c | The "consume" parameter `c` requires an explicit `std::move` at ths call site. |
+| test.cpp:76:19:76:19 | c | The "consume" parameter `c` requires an explicit `std::move` at ths call site. |

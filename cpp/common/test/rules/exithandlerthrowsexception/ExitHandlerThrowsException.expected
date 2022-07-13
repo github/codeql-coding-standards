@@ -1,0 +1,5 @@
+problems
+| test_exit_handler.cpp:5:6:5:21 | throwing_handler | test_exit_handler.cpp:5:27:5:48 | throw ... [exception] | test_exit_handler.cpp:5:6:5:21 | throwing_handler [exception] | This function is $@ and can throw an exception of type std::exception | test_exit_handler.cpp:10:3:10:13 | call to atexit | registered as an exit handler |
+| test_exit_handler.cpp:5:6:5:21 | throwing_handler | test_exit_handler.cpp:5:27:5:48 | throw ... [exception] | test_exit_handler.cpp:5:6:5:21 | throwing_handler [exception] | This function is $@ and can throw an exception of type std::exception | test_exit_handler.cpp:18:3:18:20 | call to at_quick_exit | registered as an exit handler |
+edges
+| test_exit_handler.cpp:5:27:5:48 | throw ... [exception] | test_exit_handler.cpp:5:6:5:21 | throwing_handler [exception] |

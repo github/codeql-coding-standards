@@ -1,0 +1,7 @@
+| test.cpp:17:5:17:27 | dynamic_cast<A *>... | $@ uses the dynamic type of its own object. | test.cpp:14:3:14:3 | A | A::A |
+| test.cpp:29:5:29:16 | typeid ... | $@ uses the dynamic type of its own object. | test.cpp:28:3:28:3 | B | B::B |
+| test.cpp:30:5:30:27 | dynamic_cast<B *>... | $@ uses the dynamic type of its own object. | test.cpp:28:3:28:3 | B | B::B |
+| test.cpp:31:5:31:6 | call to f1 | $@ uses the dynamic type of its own object. | test.cpp:28:3:28:3 | B | B::B |
+| test.cpp:41:5:41:16 | typeid ... | $@ calls B::ctor_method1, which uses the dynamic type of its own object. | test.cpp:28:3:28:3 | B | B::B |
+| test.cpp:41:5:41:16 | typeid ... | $@ calls B::ctor_method1_internal, which uses the dynamic type of its own object. | test.cpp:51:3:51:3 | C | C::C |
+| test.cpp:54:5:54:16 | typeid ... | $@ uses the dynamic type of its own object. | test.cpp:51:3:51:3 | C | C::C |

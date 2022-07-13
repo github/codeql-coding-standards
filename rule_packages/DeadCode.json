@@ -1,0 +1,340 @@
+{
+  "AUTOSAR": {
+    "A0-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A project shall not contain instances of non-volatile variables being given values that are not subsequently used.",
+          "kind": "problem",
+          "name": "Non-volatile variable assigned a value which is never used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UselessAssignment",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A project shall not contain instances of non-volatile variables being given values that are not subsequently used."
+    },
+    "A0-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value returned by a function having a non-void return type that is not an overloaded operator shall be used.",
+          "kind": "problem",
+          "name": "Unused return value",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedReturnValue",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The value returned by a function having a non-void return type that is not an overloaded operator shall be used."
+    },
+    "A0-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Every function defined in an anonymous namespace, or static function with internal linkage, or private member function shall be used.",
+          "kind": "problem",
+          "name": "Unused local function",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedLocalFunction",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Every function defined in an anonymous namespace, or static function with internal linkage, or private member function shall be used."
+    },
+    "A0-1-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unused parameters can indicate a mistake when implementing the function.",
+          "kind": "problem",
+          "name": "There shall be no unused named parameters in non-virtual functions",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedParameter",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "There shall be no unused named parameters in non-virtual functions."
+    },
+    "A0-1-5": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "There shall be no unused named parameters in the set of parameters for a virtual function and all the functions that override it.",
+          "kind": "problem",
+          "name": "There shall be no unused named parameters in virtual functions",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedVirtualParameter",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "There shall be no unused named parameters in the set of parameters for a virtual function and all the functions that override it."
+    },
+    "A0-1-6": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Unused type declarations are either redundant or indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "There should be no unused type declarations",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedTypeDeclarations",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "There should be no unused type declarations."
+    },
+    "M0-1-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unreachable code complicates the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A project shall not contain unreachable code",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnreachableCode",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A project shall not contain unreachable code."
+    },
+    "M0-1-10": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Uncalled functions complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "Every defined function should be called at least once",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedFunction",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Every defined function should be called at least once."
+    },
+    "M0-1-2": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Infeasible paths complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A project shall not contain infeasible paths",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "InfeasiblePath",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A project shall not contain infeasible paths."
+    },
+    "M0-1-3": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unused variables complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A project shall not contain unused local variables",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedLocalVariable",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Unused variables complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A project shall not contain unused global and namespace variables",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedGlobalOrNamespaceVariable",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Unused variables complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A project shall not contain unused member variables",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnusedMemberVariable",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A project shall not contain unused variables."
+    },
+    "M0-1-4": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Single use local POD variables complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A project shall not contain non-volatile local POD variables having only one use",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SingleUseLocalPODVariable",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Single use global or namespace POD variables complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A project shall not contain non-volatile global or namespace POD variables having only one use",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SingleUseGlobalOrNamespacePODVariable",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Single use member POD variables complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A project shall not contain non-volatile member POD variables having only one use",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SingleUseMemberPODVariable",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A project shall not contain non-volatile POD variables having only one use."
+    },
+    "M0-1-9": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "automated",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Dead code complicates the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "There shall be no dead code",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DeadCode",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "There shall be no dead code."
+    }
+  }
+}

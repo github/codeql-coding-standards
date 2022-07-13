@@ -1,0 +1,7 @@
+| test.cpp:32:7:32:8 | f2 | Member function can be declared as const. |
+| test.cpp:56:5:56:6 | f1 | Member function can be declared as const. |
+| test.cpp:78:7:78:7 | f | Member function can be declared as const. |
+| test.cpp:86:7:86:8 | f1 | Member function can be declared as const. |
+| test.cpp:139:8:139:9 | f2 | Member function can be declared as const. |
+| test.cpp:140:16:140:17 | f3 | Member function can be declared as const. |
+| test.cpp:150:16:150:17 | f3 | Member function can be declared as const. |

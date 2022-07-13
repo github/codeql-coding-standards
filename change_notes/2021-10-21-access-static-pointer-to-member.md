@@ -1,0 +1,2 @@
+ - `A5-5-1`, `OOP55-CPP` - Access of uninitialized static pointer to member
+    - The performance of this query has been improved. In some rare cases of complex assingment of null values to global static pointer to member variables there may be some false negatives.

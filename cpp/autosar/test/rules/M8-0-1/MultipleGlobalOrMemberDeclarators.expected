@@ -1,0 +1,3 @@
+| test.cpp:1:5:1:6 | g1 | Multiple declarations after g1 in this declaration sequence. |
+| test.cpp:5:5:5:8 | n_v1 | Multiple declarations after n_v1 in this declaration sequence. |
+| test.cpp:15:7:15:8 | m1 | Multiple declarations after m1 in this declaration sequence. |

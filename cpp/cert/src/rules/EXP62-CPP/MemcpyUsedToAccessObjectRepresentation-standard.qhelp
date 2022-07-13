@@ -1,0 +1,304 @@
+<!DOCTYPE qhelp SYSTEM "qhelp.dtd">
+<qhelp>
+ <section title="Description">
+  <p>The C++ Standard, [basic.types], paragraph 9 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
+  <blockquote>
+   <p>The <em>object representation</em> of an object of type <code>T</code> is the sequence of <em>N</em> <code>unsigned char</code> objects taken up by the object of type <code>T</code>, where <em>N</em> equals <code>sizeof(T)</code>. The <em>value representation</em> of an object is the set of bits that hold the value of type <code>T</code>.</p>
+  </blockquote>
+  <p>The narrow character types (<code>char</code>, <code>signed char</code>, and <code>unsigned char</code>)—as well as some other integral types on specific platforms—have an object representation that consists solely of the bits from the object's value representation. For such types, accessing any of the bits of the value representation is well-defined behavior. This form of object representation allows a programmer to access and modify an object solely based on its bit representation, such as by calling <code>std::memcmp()</code> on its object representation.</p>
+  <p>Other types, such as classes, may not have an object representation composed solely of the bits from the object's value representation. For instance, classes may have bit-field data members, padding inserted between data members, a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vtable">vtable</a> to support virtual method dispatch, or data members declared with different access privileges. For such types, accessing bits of the object representation that are not part of the object's value representation may result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> depending on how those bits are accessed.</p>
+  <p>Do not access the bits of an object representation that are not part of the object's value representation. Even if the bits are accessed in a well-defined manner, such as through an array of <code>unsigned char</code> objects, the values represented by those bits are unspecified or implementation-defined, and reliance on any particular value can lead to abnormal program execution.</p>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, the complete object representation is accessed when comparing two objects of type <code>S</code>. Per the C++ Standard, [class], paragraph 13 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], classes may be padded with data to ensure that they are properly aligned in memory. The contents of the padding and the amount of padding added is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">implementation-defined</a>. This can lead to incorrect results when comparing the object representation of classes instead of the value representation, as the padding may assume different <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-unspecifiedvalue">unspecified values</a> for each object instance.</p>
+  <sample language="cpp">#include &lt;cstring&gt;
+ 
+struct S {
+  unsigned char buffType;
+  int size;
+};
+ 
+void f(const S &amp;s1, const S &amp;s2) {
+  if (!std::memcmp(&amp;s1, &amp;s2, sizeof(S))) {
+    // ...
+  }
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>In this compliant solution, <code>S</code> overloads <code>operator==()</code> to perform a comparison of the value representation of the object.</p>
+  <sample language="cpp">struct S {  
+  unsigned char buffType;
+  int size;
+ 
+  friend bool operator==(const S &amp;lhs, const S &amp;rhs) {
+    return lhs.buffType == rhs.buffType &amp;&amp;
+           lhs.size == rhs.size;
+  }
+};
+ 
+void f(const S &amp;s1, const S &amp;s2) {
+  if (s1 == s2) {
+    // ...
+  }
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example">
+  <p>In this noncompliant code example, <code>std::memset()</code> is used to clear the internal state of an object. An <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">implementation</a> may store a vtable within the object instance due to the presence of a virtual function, and that vtable is subsequently overwritten by the call to <code>std::memset()</code>, leading to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> when virtual method dispatch is required.</p>
+  <sample language="cpp">#include &lt;cstring&gt;
+
+struct S {
+  int i, j, k;
+ 
+  // ...
+
+  virtual void f();
+};
+
+void f() {
+  S *s = new S;
+  // ...
+  std::memset(s, 0, sizeof(S));
+  // ...
+  s-&gt;f(); // undefined behavior
+}</sample>
+ </section>
+ <section title="Compliant Solution">
+  <p>In this compliant solution, the data members of <code>S</code> are cleared explicitly instead of calling <code>std::memset().</code></p>
+  <sample language="cpp">struct S {
+  int i, j, k;
+ 
+  // ...
+
+  virtual void f();
+  void clear() { i = j = k = 0; }
+};
+
+void f() {
+  S *s = new S;
+  // ...
+  s-&gt;clear();
+  // ...
+  s-&gt;f(); // ok
+}</sample>
+ </section>
+ <section title="Exceptions">
+  <p><strong>EXP62-CPP-EX1:</strong> It is permissible to access the bits of an object representation when that access is otherwise unobservable in well-defined code. Specifically, reading bits that are not part of the value representation is permissible when there is no reliance or assumptions placed on their values, and writing bits that are not part of the value representation is only permissible when those bits are padding bits. This exception does not permit writing to bits that are part of the object representation aside from padding bits, such as overwriting a vtable pointer.</p>
+  <p>For instance, it is acceptable to call <code>std::memcpy()</code> on an object containing a bit-field, as in the following example, because the read and write of the padding bits cannot be observed. </p>
+  <sample language="cpp">#include &lt;cstring&gt;
+ 
+struct S {
+  int i : 10;
+  int j;
+};
+ 
+void f(const S &amp;s1) {
+  S s2;
+  std::memcpy(&amp;s2, &amp;s1, sizeof(S));
+}</sample>
+  <p>Code that complies with this exception must still comply with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP57-CPP.+Prefer+special+member+functions+and+overloaded+operators+to+C+Standard+Library+functions">OOP57-CPP. Prefer special member functions and overloaded operators to C Standard Library functions</a>.</p>
+ </section>
+ <section title=" Risk Assessment">
+  <p>The effects of accessing bits of an object representation that are not part of the object's value representation can range from <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">implementation-defined behavior</a> (such as assuming the layout of fields with differing access controls) to code execution <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> (such as overwriting the vtable pointer).</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      EXP62-CPP
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      Probable
+     </td>
+     <td>
+      High
+     </td>
+     <td>
+      <strong>P6</strong>
+     </td>
+     <td>
+      <strong>L2</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=222953724">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>invalid_pointer_dereferenceuninitialized_variable_use</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>BADFUNC.MEMCMP</strong>
+      <strong>BADFUNC.MEMSET</strong>
+     </td>
+     <td>
+      Use of memcmp
+      Use of memset
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>C++4726, C++4727, C++4728, C++4729, C++4731, C++4732, C++4733, C++4734</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/LDRA">
+       LDRA tool suite
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+      <strong>618 S</strong>
+     </td>
+     <td>
+      Partially implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_CPP-EXP62-a</strong>
+     </td>
+     <td>
+      Do not compare objects of a class that may contain padding bits with C standard library functions
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/PVS-Studio">
+       PVS-Studio
+      </a>
+     </td>
+     <td>
+      7.17
+     </td>
+     <td>
+      <strong>V598<a href="https://pvs-studio.com/en/docs/warnings/v598/"></a></strong>
+      ,
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v780/">V780</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabil">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;amp;query=FIELD+KEYWORDS+contains+EXP62-CPP">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682">
+       SEI CERT C++ Coding Standard
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/OOP57-CPP.+Prefer+special+member+functions+and+overloaded+operators+to+C+Standard+Library+functions">
+       OOP57-CPP. Prefer special member functions and overloaded operators to C Standard Library functions
+      </a>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Bibliography">
+  <table>
+   <tbody>
+    <tr>
+     <td>
+      [
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
+       ISO/IEC 14882-2014
+      </a>
+      ]
+     </td>
+     <td>
+      Subclause 3.9, "Types"
+      Subclause 3.10, "Lvalues and Rvalues"
+      Clause 9, "Classes"
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+</qhelp>
