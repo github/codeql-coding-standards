@@ -1,0 +1,94 @@
+{
+  "CERT-C": {
+    "FIO38-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using a copy of a FILE object may result in program failure.",
+          "kind": "problem",
+          "name": "Do not copy a FILE object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotCopyAFileObject",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not copy a FILE object",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "FIO40-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A string that used in a failing call to fgets() or fgetws() requires a reset before being referenced.",
+          "kind": "problem",
+          "name": "Reset strings on fgets() or fgetws() failure",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ResetStringsOnFgetsOrFgetwsFailure",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Reset strings on fgets() or fgetws() failure",
+      "implementation_scope": {
+        "description": "The rule is enforced in the context of a single function. Not all failing calls can be recognized statically, the rule looks for specific patterns in comparisons against NULL."
+      }
+    },
+    "FIO41-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using an expression that has side effects as the stream argument to `getc()` or `putc()` can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Do not call getc(), putc(), getwc(), or putwc() with a stream argument that has side effects",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotCallGetcAndPutcWithSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not call getc(), putc(), getwc(), or putwc() with a stream argument that has side effects",
+      "implementation_scope": {
+        "description": "None."
+      }
+    },
+    "FIO44-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Arguments for `fsetpos()` can only be obtained from calls to `fgetpos()`.",
+          "kind": "problem",
+          "name": "Only use values for fsetpos() that are returned from fgetpos()",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OnlyUseValuesForFsetposThatAreReturnedFromFgetpos",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Only use values for fsetpos() that are returned from fgetpos()",
+      "implementation_scope": {
+        "description": "None."
+      }
+    }
+  }
+}

@@ -1,183 +1,38 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The C++ Standard, [except.spec], paragraph 8
-   [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following
-   :
-  </p>
+  <p>The C++ Standard, [except.spec], paragraph 8 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    A function is said to
-    <em>
-     allow
-    </em>
-    an exception of type
-    <code>
-     E
-    </code>
-    if the
-    <em>
-     constant-expression
-    </em>
-    in its
-    <em>
-     noexcept-specification
-    </em>
-    evaluates to
-    <code>
-     false
-    </code>
-    or its
-    <em>
-     dynamic-exception-specification
-    </em>
-    contains a type
-    <code>
-     T
-    </code>
-    for which a handler of type
-    <code>
-     T
-    </code>
-    would be a match (15.3) for an exception of type
-    <code>
-     E
-    </code>
-    .
-   </p>
+   <p>A function is said to <em>allow</em> an exception of type <code>E</code> if the <em>constant-expression</em> in its <em>noexcept-specification</em> evaluates to <code>false</code> or its <em>dynamic-exception-specification</em> contains a type <code>T</code> for which a handler of type <code>T</code> would be a match (15.3) for an exception of type <code>E</code>.</p>
   </blockquote>
-  <p>
-   If a function throws an exception other than one allowed by its
-   <em>
-    exception-specification
-   </em>
-   , it can lead to an
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">
-    implementation-defined
-   </a>
-   termination of the program ([except.spec], paragraph 9).
-  </p>
-  <p>
-   If a function declared with a
-   <em>
-    dynamic-exception-specification
-   </em>
-   throws an exception of a type that would not match the
-   <em>
-    exception-specification
-   </em>
-   , the function
-   <code>
-    std::unexpected()
-   </code>
-   is called. The behavior of this function can be overridden but, by default, causes an exception of
-   <code>
-    std::bad_exception
-   </code>
-   to be thrown. Unless
-   <code>
-    std::bad_exception
-   </code>
-   is listed in the
-   <em>
-    exception-specification
-   </em>
-   , the function
-   <code>
-    std::terminate()
-   </code>
-   will be called.
-  </p>
-  <p>
-   Similarly, if a function declared with a
-   <em>
-    noexcept-specification
-   </em>
-   throws an exception of a type that would cause the
-   <em>
-    noexcept-specification
-   </em>
-   to evaluate to
-   <code>
-    false
-   </code>
-   , the function
-   <code>
-    std::terminate()
-   </code>
-   will be called.
-  </p>
-  <p>
-   Calling
-   <code>
-    std::terminate()
-   </code>
-   leads to implementation-defined termination of the program. To prevent
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormal termination
-   </a>
-   of the program, any function that declares an
-   <em>
-    exception-specification
-   </em>
-   should restrict itself, as well as any functions it calls, to throwing only allowed exceptions.
-  </p>
+  <p>If a function throws an exception other than one allowed by its <em>exception-specification</em>, it can lead to an <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">implementation-defined</a> termination of the program ([except.spec], paragraph 9).</p>
+  <p>If a function declared with a <em>dynamic-exception-specification</em> throws an exception of a type that would not match the <em>exception-specification</em>, the function <code>std::unexpected()</code> is called. The behavior of this function can be overridden but, by default, causes an exception of <code>std::bad_exception</code> to be thrown. Unless <code>std::bad_exception</code> is listed in the <em>exception-specification</em>, the function <code>std::terminate()</code> will be called.</p>
+  <p>Similarly, if a function declared with a <em>noexcept-specification</em> throws an exception of a type that would cause the <em>noexcept-specification</em> to evaluate to <code>false</code>, the function <code>std::terminate()</code> will be called.</p>
+  <p>Calling <code>std::terminate()</code> leads to implementation-defined termination of the program. To prevent <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal termination</a> of the program, any function that declares an <em>exception-specification</em> should restrict itself, as well as any functions it calls, to throwing only allowed exceptions.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, a function is declared as nonthrowing, but it is possible for
-   <code>
-    std::vector::resize()
-   </code>
-   to throw an exception when the requested memory cannot be allocated.
-  </p>
-  <sample language="cpp">
-   #include &lt;cstddef&gt;
+  <p>In this noncompliant code example, a function is declared as nonthrowing, but it is possible for <code>std::vector::resize()</code> to throw an exception when the requested memory cannot be allocated.</p>
+  <sample language="cpp">#include &lt;cstddef&gt;
 #include &lt;vector&gt;
- 
+ 
 void f(std::vector&lt;int&gt; &amp;v, size_t s) noexcept(true) {
   v.resize(s); // May throw 
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the function's
-   <em>
-    noexcept-specification
-   </em>
-   is removed, signifying that the function allows all exceptions.
-  </p>
-  <sample language="cpp">
-   #include &lt;cstddef&gt;
+  <p>In this compliant solution, the function's <em>noexcept-specification</em> is removed, signifying that the function allows all exceptions.</p>
+  <sample language="cpp">#include &lt;cstddef&gt;
 #include &lt;vector&gt;
 
 void f(std::vector&lt;int&gt; &amp;v, size_t s) {
   v.resize(s); // May throw, but that is okay
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the second function claims to throw only
-   <code>
-    Exception1
-   </code>
-   , but it may also throw
-   <code>
-    <code>
-     Exception2.
-    </code>
-   </code>
-  </p>
-  <sample language="cpp">
-   #include &lt;exception&gt;
- 
+  <p>In this noncompliant code example, the second function claims to throw only <code>Exception1</code>, but it may also throw <code><code>Exception2.</code></code></p>
+  <sample language="cpp">#include &lt;exception&gt;
+ 
 class Exception1 : public std::exception {};
 class Exception2 : public std::exception {};
 
@@ -188,17 +43,11 @@ void foo() {
 void bar() throw (Exception1) {
   foo();    // Bad because foo() can throw Exception2
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution catches the exceptions thrown by
-   <code>
-    foo().
-   </code>
-  </p>
-  <sample language="cpp">
-   #include &lt;exception&gt;
+  <p>This compliant solution catches the exceptions thrown by <code>foo().</code></p>
+  <sample language="cpp">#include &lt;exception&gt;
  
 class Exception1 : public std::exception {};
 class Exception2 : public std::exception {};
@@ -214,22 +63,11 @@ void bar() throw (Exception1) {
     // Handle error without rethrowing it
   }
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution declares a dynamic
-   <em>
-    exception-specification
-   </em>
-   for
-   <code>
-    bar()
-   </code>
-   , which covers all of the exceptions that can be thrown from it.
-  </p>
-  <sample language="cpp">
-   #include &lt;exception&gt;
+  <p>This compliant solution declares a dynamic <em>exception-specification</em> for <code>bar()</code>, which covers all of the exceptions that can be thrown from it.</p>
+  <sample language="cpp">#include &lt;exception&gt;
  
 class Exception1 : public std::exception {};
 class Exception2 : public std::exception {};
@@ -240,42 +78,13 @@ void foo() {
 
 void bar() throw (Exception1, Exception2) {
   foo();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Implementation Details">
-  <p>
-   Some vendors provide language extensions for specifying whether or not a function throws. For instance,
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-msvc">
-    Microsoft Visual Studio
-   </a>
-   provides
-   <code>
-    __declspec(nothrow))
-   </code>
-   , and
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">
-    Clang
-   </a>
-   supports
-   <code>
-    __attribute__((nothrow))
-   </code>
-   . Currently, the vendors do not document the behavior of specifying a nonthrowing function using these extensions. Throwing from a function declared with one of these language extensions is presumed to be
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
+  <p>Some vendors provide language extensions for specifying whether or not a function throws. For instance, <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-msvc">Microsoft Visual Studio</a> provides <code>__declspec(nothrow))</code>, and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-clang">Clang </a>supports <code>__attribute__((nothrow))</code>. Currently, the vendors do not document the behavior of specifying a nonthrowing function using these extensions. Throwing from a function declared with one of these language extensions is presumed to be <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Throwing unexpected exceptions disrupts control flow and can cause premature termination and
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
-    denial of service
-   </a>
-   .
-  </p>
+  <p>Throwing unexpected exceptions disrupts control flow and can cause premature termination and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial of service</a>.</p>
   <table>
    <tbody>
     <tr>
@@ -312,14 +121,10 @@ void bar() throw (Exception1, Exception2) {
       Low
      </td>
      <td>
-      <strong>
-       P9
-      </strong>
+      <strong>P9</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -352,9 +157,7 @@ void bar() throw (Exception1, Exception2) {
       20.10
      </td>
      <td>
-      <strong>
-       unhandled-throw-noexcept
-      </strong>
+      <strong>unhandled-throw-noexcept</strong>
      </td>
      <td>
       Partially checked
@@ -370,9 +173,7 @@ void bar() throw (Exception1, Exception2) {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-ERR55
-      </strong>
+      <strong>CertC++-ERR55</strong>
      </td>
      <td>
      </td>
@@ -387,9 +188,7 @@ void bar() throw (Exception1, Exception2) {
       2021.2
      </td>
      <td>
-      <strong>
-       C++4035, C++4036, C++4632
-      </strong>
+      <strong>C++4035, C++4036, C++4632</strong>
      </td>
      <td>
      </td>
@@ -403,9 +202,7 @@ void bar() throw (Exception1, Exception2) {
      <td>
      </td>
      <td>
-      <strong>
-       56 D
-      </strong>
+      <strong>56 D</strong>
      </td>
      <td>
       Partially implemented
@@ -421,9 +218,7 @@ void bar() throw (Exception1, Exception2) {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-ERR55-a
-      </strong>
+      <strong>CERT_CPP-ERR55-a</strong>
      </td>
      <td>
       Where a function's declaration includes an exception-specification, the function shall only be capable of throwing exceptions of the indicated type(s)
@@ -444,7 +239,7 @@ void bar() throw (Exception1, Exception2) {
       </a>
      </td>
      <td>
-      Checks for noexcept functions exiting with exception (rule fully covered)
+      Checks for noexcept functions exiting with exception (rule fully covered)
      </td>
     </tr>
     <tr>
@@ -457,9 +252,7 @@ void bar() throw (Exception1, Exception2) {
       4.4
      </td>
      <td>
-      <strong>
-       4035, 4036, 4632
-      </strong>
+      <strong>4035, 4036, 4632</strong>
      </td>
      <td>
      </td>
@@ -474,9 +267,7 @@ void bar() throw (Exception1, Exception2) {
       20.10
      </td>
      <td>
-      <strong>
-       unhandled-throw-noexcept
-      </strong>
+      <strong>unhandled-throw-noexcept</strong>
      </td>
      <td>
       Partially checked
@@ -486,17 +277,7 @@ void bar() throw (Exception1, Exception2) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulner">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR37-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulner">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR37-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>
@@ -553,9 +334,7 @@ void bar() throw (Exception1, Exception2) {
      </td>
      <td>
       "
-      <code>
-       nothrow
-      </code>
+      <code>nothrow</code>
       (C++)"
      </td>
     </tr>

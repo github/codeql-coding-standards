@@ -16,6 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SideEffect
+import codingstandards.cpp.sideeffect.DefaultEffects
 
 from SizeofExprOperator op, Expr e
 where

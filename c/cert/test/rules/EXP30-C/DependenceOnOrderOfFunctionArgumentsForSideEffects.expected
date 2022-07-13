@@ -1,0 +1,1 @@
+| test.c:20:3:20:4 | call to f1 | Depending on the order of evaluation for the arguments $@ and $@ for side effects on shared state is unspecified and can result in unexpected behavior. | test.c:20:6:20:7 | call to f2 | call to f2 | test.c:20:12:20:13 | call to f3 | call to f3 |

@@ -10,7 +10,7 @@
   <include src="{{ short_name }}-standard.qhelp" />
   {% if implementation_scope is defined %}
   <section title="Implementation scope">
-    {{ implementation_scope["description"] | escape }}
+    <p>{{ implementation_scope["description"] | escape }}</p>
     {% if implementation_scope["items"] is defined %}
     <ul>
       {% for implementation_scope_entry in implementation_scope["items"] %}

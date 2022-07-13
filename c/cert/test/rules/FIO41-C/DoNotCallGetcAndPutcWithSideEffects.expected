@@ -1,0 +1,2 @@
+| test.c:5:8:5:34 | ... = ... | The stream argument has side effects and might be evaluated more then once. |
+| test.c:15:13:15:51 | ... ? ... : ... | The stream argument has side effects and might be evaluated more then once. |

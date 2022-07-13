@@ -16,6 +16,8 @@ import codingstandards.cpp.cert
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.Ordering
 import codingstandards.cpp.orderofevaluation.VariableAccessOrdering
+import codingstandards.cpp.Expr
+import codingstandards.cpp.Variable
 
 from
   VariableAccessInFullExpressionOrdering config, FullExpr e, ScalarVariable v, VariableEffect ve,

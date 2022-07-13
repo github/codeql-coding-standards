@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 import requests
 from bs4 import BeautifulSoup
@@ -5,15 +6,19 @@ from bs4.element import NavigableString, Tag
 import copy
 from pathlib import Path
 import hashlib
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlparse
+import urllib.request
+import re
 
 CERT_WIKI = "https://wiki.sei.cmu.edu"
-RULES_LIST = "/confluence/display/cplusplus/2+Rules"
+RULES_LIST_C = "/confluence/display/c/2+Rules"
+RULES_LIST_CPP = "/confluence/display/cplusplus/2+Rules"
 
 script_path = Path(__file__)
 cache_path = script_path.parent.joinpath('.cache')
 cache_path.mkdir(exist_ok=True)
 repo_root = script_path.parent.parent.parent
+rule_path = None
 
 
 def soupify(url: str) -> BeautifulSoup:
@@ -23,7 +28,7 @@ def soupify(url: str) -> BeautifulSoup:
     cache_file = cache_path.joinpath(cache_key)
     if cache_file.exists():
         with cache_file.open() as f:
-            content = f.read()
+            content = f.read().replace(u'\xa0', u' ')
     else:
         resp = requests.get(url)
 
@@ -37,8 +42,24 @@ def soupify(url: str) -> BeautifulSoup:
     return BeautifulSoup(content, 'html.parser')
 
 
-def get_rules():
-    soup = soupify(f"{CERT_WIKI}{RULES_LIST}")
+def get_rules_c():
+    soup = soupify(f"{CERT_WIKI}{RULES_LIST_C}")
+    if soup == None:
+        return None
+
+    rule_listing_start = soup.find(
+        "h1", string="Rule Listing")
+    rules = []
+    for link in rule_listing_start.next_element.next_element.find_all('a'):
+        if '-C' in link.string:
+            rule, title = map(str.strip, link.string.split('.', 1))
+            rules.append({'id': rule, 'title': title, 'link': link['href']})
+
+    return rules
+
+
+def get_rules_cpp():
+    soup = soupify(f"{CERT_WIKI}{RULES_LIST_CPP}")
     if soup == None:
         return None
 
@@ -134,7 +155,6 @@ def text(e):
 
 SECTION_ELEMENTS = [e('example', none, any_block_element),
                     e('fragment', none, any_block_element),
-                    e('hr', none, none),
                     e('include', any_of('hr'), none),
                     e('overview', none, any_block_element),
                     e('recommendation', none, any_block_element),
@@ -171,7 +191,8 @@ INLINE_ELEMENTS = [e('a', any_of('href'), text),
 ELEMENTS = {e_tag(e): e for e in SECTION_ELEMENTS + BLOCK_ELEMENTS +
             LIST_ELEMENTS + TABLE_ELEMENTS + INLINE_ELEMENTS}
 
-SUPPORTED_TAGS = list(ELEMENTS.keys()) + ['body', 'h1', 'h2', 'h3', 'h4']
+SUPPORTED_TAGS = list(ELEMENTS.keys()) + \
+    ['body', 'h1', 'h2', 'h3', 'h4', 'h6', 'thead']
 
 
 def is_code_table(tag):
@@ -191,14 +212,20 @@ def is_navigation(node):
         return False
 
 
-def transform_html(soup):
+def transform_html(rule, soup):
     """Remove unsupported tags and attributes starting at node"""
     def helper(node):
         if isinstance(node, Tag):
             if node.name in SUPPORTED_TAGS:
+                # Fix a broken url present in many CERT-C pages
+                if node.name == 'a' and 'href' in node.attrs and node['href'] == "http://BB. Definitions#vulnerability":
+                    node['href'] = "https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability"
                 # Turn relative URLs into absolute URLS
-                if node.name == "a" and 'href' in node.attrs and node['href'].startswith("/confluence"):
+                elif node.name == 'a' and 'href' in node.attrs and node['href'].startswith("/confluence"):
                     node['href'] = f"{CERT_WIKI}{node['href']}"
+                # Turn anchor references into absolute URLS
+                elif node.name == 'a' and 'href' in node.attrs and node['href'].startswith('#'):
+                    node['href'] = f"{CERT_WIKI}{rule['link']}{node['href']}"
                 # Percent encode exclude characters in fragments according to https://datatracker.ietf.org/doc/html/rfc2396#section-2.4.3
                 if node.name == 'a' and 'href' in node.attrs:
                     href = node['href']
@@ -227,37 +254,33 @@ def transform_html(soup):
                 # Remove the navigation, we can only use the src attribute of the child because all other
                 # attributes have been stripped
                 if is_navigation(node):
-                    if node.previous_sibling.name == 'hr':
-                        node.previous_sibling.decompose()
                     node.decompose()
                 # Unwrap <p> tags containing a list
                 # Remove empty <p> tags or tags containing a No-Break Space Unicode character representing a `&nbsp;`.
                 if node.name == "p" and (len(node.contents) == 0 or node.string == "\u00a0"):
                     node.decompose()
 
-                # Remove non breaking spaces in headers
-                if node.name in ['h2', 'h3', 'h4']:
-                    if len(node.contents) == 2 and node.contents[1].string == "\u00a0":
-                        node.string = node.contents[0]
                 # Smooth headers
                 if node.name in ['h1', 'h2', 'h3', 'h4']:
                     for child in node.contents:
-                        if not isNavigableString(child):
+                        if not text(child):
                             child.unwrap()
                     node.smooth()
                 # Upgrade header levels :/
                 if node.name == 'h3' and node.string in ['Automated Detection', 'Related Vulnerabilities']:
                     # print('Inconsistent header')
                     node.name = 'h2'
-                # Wrap tr tags that are a direct child of a table without a tbody into a mandatory tbody
-                if node.name == 'table' and not node.tbody:
+                # All <tr> should be in a table inside a single <tbody>
+                if node.name == 'table':
+                    for b in node.find_all('thead', Recursive=False):
+                        b.unwrap()
+                    for b in node.find_all('tbody', Recursive=False):
+                        b.unwrap()
+
                     tbody = soup.new_tag('tbody')
                     for tr in node.find_all('tr', Recursive=False):
-                        tbody.append(tr.extract())
+                        tbody.append(tr)
                     node.append(tbody)
-                # Insert tr tags that are a direct child of a table with a tbody because are a result of an unwrapped thead
-                if node.name == 'table' and node.tbody and node.tr:
-                    node.tbody.insert(0, node.tr.extract())
                 # Remove p tags from td and th tags
                 if node.name in ['th', 'td'] and node.p:
                     node.p.unwrap()
@@ -266,6 +289,22 @@ def transform_html(soup):
                     node.decompose()
                 if node.name == 'img' and 'data-macro-name' in node.attrs and node['data-macro-name'] == 'anchor':
                     node.decompose()
+                # Retrieve Images
+                if node.name == 'img' and 'src' in node.attrs and node['src'].startswith("/confluence") and not node['src'].startswith("/confluence/plugins/"):
+                    url = CERT_WIKI+node['src']
+                    filename = urlparse(url).path.split("/")[-1]
+                    # exclude button arrows images
+                    if not 'button_arrow' in filename:
+                        full_name = repo_root.joinpath(rule_path, filename)
+                        urllib.request.urlretrieve(url, full_name)
+                        node['src'] = filename
+                # Unwrap <code>, because <a> can only contain text in QHelp
+                if node.name == 'code' and node.find_parent('a'):
+                    node.unwrap()
+                # Swap <a> containing <sup>, because <a> can only contain text in QHelp
+                if node.name == 'a' and node.sup:
+                    sup = node.sup.extract()
+                    node.wrap(sup)
                 # Swap <a> containing <strong>, because <a> can only contain text in QHelp
                 if node.name == 'a' and node.strong:
                     strong = node.strong.extract()
@@ -291,10 +330,14 @@ def transform_html(soup):
                 # Replace <td><pre>...</pre></td> with <td><code>...</code></td> because in QLHelp <pre> is a block element while <td> only allows inline content elements.
                 if node.name == 'td' and node.pre:
                     node.pre.name = 'code'
+                # Replace <td><sample>...</sample></td> with <td><code>...</code></td> because in QLHelp <sample> is a block element while <td> only allows inline content elements.
+                if node.name == 'td' and node.sample:
+                    node.sample.attrs = {}
+                    node.sample.name = 'code'
                 # Replace <td><ul>...</ul></td> with <td> - ..., ... </td> because QLHelp doesn't support nested lists.
                 if node.name == 'td' and node.ul:
                     list_contents = ", ".join(
-                        map(lambda n: n.string[0].lower() + n.string[1:], node.ul.find_all('li'))).capitalize()
+                        map(lambda n: n.string.lower() + n.string[1:] if n.string else '', node.ul.find_all('li'))).capitalize()
                     if not list_contents.endswith('.'):
                         list_contents += '.'
                     node.ul.replace_with(list_contents)
@@ -303,28 +346,32 @@ def transform_html(soup):
                     for child in node.find_all('li', recursive=False):
                         child.unwrap()
                     node.unwrap()
+                # Replace <ul><li><p>...</p></li></ul> with the contents of the paragraph because QLHelp doesn't support paragraphs inside lists.
+                if node.name == 'p' and node.find_parent('li'):
+                    node.unwrap()
                 strip_attributes(node)
+                if node.name == 'h6':
+                    node.name = 'p'
             else:
                 node.unwrap()
     apply_post_order(soup.body, helper)
 
 
 def inject_versions(soup_with, soup_without):
+    def find_automated_detection_table(soup):
+        # Some help files use h2 and some use h3
+        h = soup.find(text=re.compile("Automated Detection"))
+        return h.find_next('table')
+
     def get_versions():
-        # Some help files use h3 instead of :/
-        h = soup_with.find(['h2', 'h3'], string="Automated Detection")
-        # Some help files use h2, but with additional content :/
-        if not h:
-            for h2 in soup_with.find_all(['h2', 'h3']):
-                text = h2.contents[0]
-                if text.string == "Automated Detection":
-                    h = h2
-                    break
-        if not h:
-            raise "Unable to find required 'Automated Detection' header"
-        table = h.next_sibling.table
+        table = find_automated_detection_table(soup_with)
         versions = []
-        for tr in table.tbody.find_all('tr', Recursive=False):
+        trs = []
+        if table.thead:
+            trs.extend(table.thead.find_all('tr', Recursive=False))
+        if table.tbody:
+            trs.extend(table.tbody.find_all('tr', Recursive=False))
+        for tr in trs:
             # Skip header row, if any
             if tr.th:
                 continue
@@ -332,29 +379,31 @@ def inject_versions(soup_with, soup_without):
             first_column = tr.td
             version_column = first_column.next_sibling
 
-            if version_column.div and version_column.div.p:
+            if version_column.div and version_column.div.div and version_column.div.div.p:
+                version = version_column.div.div.p.string
+            elif version_column.div and version_column.div.p:
                 version = version_column.div.p.string
             elif version_column.div:
                 version = version_column.div.string
-            elif (version_column.p and version_column.p.br) or version_column.br:
-                # No version information
-                version = ""
-            elif len(version_column.find_all(True)) > 0:
-                print(version_column)
-                raise "Unexpected version column"
+            elif version_column.p:
+                version = version_column.p.string
+            elif version_column.a:
+                version = version_column.a.string
             else:
                 version = version_column.string
-            versions.append(version)
+            # replace None with the empty string
+            versions.append(version or '')
         return versions
 
     def set_versions(versions):
-        h = soup_without.find('h2', string="Automated Detection")
-        if not h:
-            print("Failed to find header 'Automated Detection'")
-        table = h.find_next('table')
-
+        table = find_automated_detection_table(soup_without)
         i = 0
-        for tr in table.tbody.find_all('tr', Recursive=False):
+        trs = []
+        if table.thead:
+            trs.extend(table.thead.find_all('tr', Recursive=False))
+        if table.tbody:
+            trs.extend(table.tbody.find_all('tr', Recursive=False))
+        for tr in trs:
             # Skip header row, if any
             if tr.th:
                 continue
@@ -403,10 +452,6 @@ def is_not(pred):
     return aux
 
 
-def isNavigableString(t):
-    return isinstance(t, NavigableString)
-
-
 def get_help(rule):
     # print(rule)
     rule_view = soupify(f"{CERT_WIKI}{rule['link']}")
@@ -420,24 +465,36 @@ def get_help(rule):
         return None
 
     soup.head.decompose()
-    transform_html(soup)
+    transform_html(rule, soup)
     inject_versions(rule_view, soup)
     qhelp_doc = convert2qhelp(soup)
 
+    # preserve whitespace when printing
+    qhelp_doc.preserve_whitespace_tags.update(
+        ['sample', 'code', 'strong', 'p', 'li'])
     return qhelp_doc.prettify()
 
 
-rules = get_rules()
-if rules == None:
+rules_c = get_rules_c()
+rules_cpp = get_rules_cpp()
+if rules_c == None or rules_cpp == None:
     print("Failed to retrieve list of rules", file=sys.stdout)
     sys.exit(1)
 
-for rule in rules:
-    print(f"ID: {rule['id']} url: {CERT_WIKI}{rule['link']}")
-    help = get_help(rule)
-    rule_path = repo_root.joinpath('cpp', 'cert', 'src', 'rules', rule['id'])
+for rule in get_rules_c():
+    rule_path = repo_root.joinpath('c', 'cert', 'src', 'rules', rule['id'])
+    # only consider implemented rules
     if rule_path.exists():
         for help_rule_file in rule_path.glob('*-standard.qhelp'):
-            print(f"Writing {help_rule_file}")
+            print(f"ID: {rule['id']} url: {CERT_WIKI}{rule['link']}")
             with help_rule_file.open('w') as f:
-                f.write(help)
+                f.write(get_help(rule))
+
+for rule in get_rules_cpp():
+    rule_path = repo_root.joinpath('cpp', 'cert', 'src', 'rules', rule['id'])
+    # only consider implemented rules
+    if rule_path.exists():
+        for help_rule_file in rule_path.glob('*-standard.qhelp'):
+            print(f"ID: {rule['id']} url: {CERT_WIKI}{rule['link']}")
+            with help_rule_file.open('w') as f:
+                f.write(get_help(rule))

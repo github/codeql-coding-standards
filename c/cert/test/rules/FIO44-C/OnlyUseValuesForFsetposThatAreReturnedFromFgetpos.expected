@@ -1,0 +1,2 @@
+| test.c:7:24:7:30 | & ... | The position argument of a call to `fsetpos()` should be obtained from a call to `fgetpos()`. |
+| test.c:33:24:33:30 | & ... | The position argument of a call to `fsetpos()` should be obtained from a call to `fgetpos()`. |

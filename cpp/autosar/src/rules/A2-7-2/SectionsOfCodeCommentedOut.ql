@@ -16,8 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.CommentedOutCode
+import codingstandards.cpp.rules.sectionsofcodeshallnotbecommentedout.SectionsOfCodeShallNotBeCommentedOut
 
-from CommentedOutCode comment
-where not isExcluded(comment, CommentsPackage::sectionsOfCodeCommentedOutQuery())
-select comment, "This comment appears to contain commented-out code."
+class SectionsOfCodeCommentedOutQuery extends SectionsOfCodeShallNotBeCommentedOutSharedQuery {
+  SectionsOfCodeCommentedOutQuery() {
+    this = CommentsPackage::sectionsOfCodeCommentedOutQuery()
+  }
+}

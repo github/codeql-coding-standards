@@ -6,6 +6,7 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.SideEffect
+import codingstandards.cpp.sideeffect.DefaultEffects
 
 abstract class PredicateFunctionObjectsShouldNotBeMutableSharedQuery extends Query { }
 

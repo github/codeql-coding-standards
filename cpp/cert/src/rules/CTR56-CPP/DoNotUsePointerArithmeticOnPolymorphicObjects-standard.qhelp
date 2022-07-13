@@ -1,84 +1,18 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The definition of
-   <em>
-    pointer arithmetic
-   </em>
-   from the C++ Standard, [expr.add], paragraph 7 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following:
-  </p>
+  <p>The definition of <em>pointer arithmetic</em> from the C++ Standard, [expr.add], paragraph 7 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    For addition or subtraction, if the expressions
-    <code>
-     P
-    </code>
-    or
-    <code>
-     Q
-    </code>
-    have type “pointer to
-    <em>
-     cv
-    </em>
-    <code>
-     T
-    </code>
-    ”, where
-    <code>
-     T
-    </code>
-    is different from the cv-unqualified array element type, the behavior is undefined. [
-    <em>
-     Note:
-    </em>
-    In particular, a pointer to a base class cannot be used for pointer arithmetic when the array contains objects of a derived class type. —
-    <em>
-     end note
-    </em>
-    ]
-   </p>
+   <p>For addition or subtraction, if the expressions <code>P</code> or <code>Q</code> have type “pointer to <em>cv</em> <code>T</code>”, where <code>T</code> is different from the cv-unqualified array element type, the behavior is undefined. [<em>Note:</em> In particular, a pointer to a base class cannot be used for pointer arithmetic when the array contains objects of a derived class type. —<em>end note</em>]</p>
   </blockquote>
-  <p>
-   Pointer arithmetic does not account for polymorphic object sizes, and attempting to perform pointer arithmetic on a polymorphic object value results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
-  <p>
-   The C++ Standard, [expr.sub], paragraph 1 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], defines array subscripting as being identical to pointer arithmetic. Specifically, it states the following:
-  </p>
+  <p>Pointer arithmetic does not account for polymorphic object sizes, and attempting to perform pointer arithmetic on a polymorphic object value results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <p>The C++ Standard, [expr.sub], paragraph 1 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], defines array subscripting as being identical to pointer arithmetic. Specifically, it states the following:</p>
   <blockquote>
-   <p>
-    The expression
-    <code>
-     E1[E2]
-    </code>
-    is identical (by definition) to
-    <code>
-     *((E1)+(E2))
-    </code>
-    .
-   </p>
+   <p>The expression <code>E1[E2]</code> is identical (by definition) to <code>*((E1)+(E2))</code>.</p>
   </blockquote>
-  <p>
-   Do not use pointer arithmetic, including array subscripting, on polymorphic objects.
-  </p>
-  <p>
-   The following code examples assume the following static variables and class definitions.
-  </p>
-  <sample language="cpp">
-   int globI;
+  <p>Do not use pointer arithmetic, including array subscripting, on polymorphic objects.</p>
+  <p>The following code examples assume the following static variables and class definitions.</p>
+  <sample language="cpp">int globI;
 double globD;
 
 struct S {
@@ -91,44 +25,12 @@ struct T : S {
   double d;
   
   T() : S(), d(globD++) {}
-};
-  </sample>
+};</sample>
  </section>
  <section title="Noncompliant Code Example (Pointer Arithmetic)">
-  <p>
-   In this noncompliant code example,
-   <code>
-    f()
-   </code>
-   accepts an array of
-   <code>
-    S
-   </code>
-   objects as its first parameter. However,
-   <code>
-    main()
-   </code>
-   passes an array of
-   <code>
-    T
-   </code>
-   objects as the first argument to
-   <code>
-    f()
-   </code>
-   , which results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   due to the pointer arithmetic used within the
-   <code>
-    for
-   </code>
-   loop.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
- 
+  <p>In this noncompliant code example, <code>f()</code> accepts an array of <code>S</code> objects as its first parameter. However, <code>main()</code> passes an array of <code>T</code> objects as the first argument to <code>f()</code>, which results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> due to the pointer arithmetic used within the <code>for</code> loop.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
 // ... definitions for S, T, globI, globD ...
 
 void f(const S *someSes, std::size_t count) { 
@@ -141,20 +43,12 @@ int main() {
   T test[5];
   f(test, 5);
 }
-  </sample>
+</sample>
  </section>
  <section title="Noncompliant Code Example (Array Subscripting)">
-  <p>
-   In this noncompliant code example, the
-   <code>
-    for
-   </code>
-   loop uses array subscripting. Since array subscripts are computed using pointer arithmetic, this code also results in undefined behavior
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
- 
+  <p>In this noncompliant code example, the <code>for</code> loop uses array subscripting. Since array subscripts are computed using pointer arithmetic, this code also results in undefined behavior.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
+ 
 // ... definitions for S, T, globI, globD ...
 
 void f(const S *someSes, std::size_t count) { 
@@ -166,15 +60,11 @@ void f(const S *someSes, std::size_t count) {
 int main() {
   T test[5];
   f(test, 5);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (Array)">
-  <p>
-   Instead of having an array of objects, an array of pointers solves the problem of the objects being of different sizes, as in this compliant solution.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>Instead of having an array of objects, an array of pointers solves the problem of the objects being of different sizes, as in this compliant solution.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 
 // ... definitions for S, T, globI, globD ...
 
@@ -191,25 +81,12 @@ int main() {
     delete v;
   }
 }
-  </sample>
-  <p>
-   The elements in the arrays are no longer polymorphic objects (instead, they are pointers to polymorphic objects), and so there is no
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   with the pointer arithmetic.
-  </p>
+</sample>
+  <p>The elements in the arrays are no longer polymorphic objects (instead, they are pointers to polymorphic objects), and so there is no <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> with the pointer arithmetic.</p>
  </section>
  <section title="Compliant Solution (std::vector)">
-  <p>
-   Another approach is to use a standard template library (STL) container instead of an array and have
-   <code>
-    f()
-   </code>
-   accept iterators as parameters, as in this compliant solution. However, because STL containers require homogeneous elements, pointers are still required within the container.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>Another approach is to use a standard template library (STL) container instead of an array and have <code>f()</code> accept iterators as parameters, as in this compliant solution. However, because STL containers require homogeneous elements, pointers are still required within the container.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 
 // ... definitions for S, T, globI, globD ...
@@ -227,12 +104,10 @@ int main() {
     delete v;
   }
 }
-  </sample>
+</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Using arrays polymorphically can result in memory corruption, which could lead to an attacker being able to execute arbitrary code.
-  </p>
+  <p>Using arrays polymorphically can result in memory corruption, which could lead to an attacker being able to execute arbitrary code.</p>
   <table>
    <tbody>
     <tr>
@@ -269,14 +144,10 @@ int main() {
       High
      </td>
      <td>
-      <strong>
-       P9
-      </strong>
+      <strong>P9</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -309,9 +180,7 @@ int main() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-CTR56
-      </strong>
+      <strong>CertC++-CTR56</strong>
      </td>
      <td>
      </td>
@@ -326,9 +195,7 @@ int main() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++3073
-      </strong>
+      <strong>C++3073</strong>
      </td>
      <td>
      </td>
@@ -343,15 +210,9 @@ int main() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-CTR56-a
-      </strong>
-      <strong>
-       CERT_CPP-CTR56-b
-      </strong>
-      <strong>
-       CERT_CPP-CTR56-c
-      </strong>
+      <strong>CERT_CPP-CTR56-a</strong>
+      <strong>CERT_CPP-CTR56-b</strong>
+      <strong>CERT_CPP-CTR56-c</strong>
      </td>
      <td>
       Don't treat arrays polymorphically
@@ -368,9 +229,7 @@ int main() {
      <td>
      </td>
      <td>
-      <strong>
-       567 S
-      </strong>
+      <strong>567 S</strong>
      </td>
      <td>
       Enhanced Enforcement
@@ -386,9 +245,7 @@ int main() {
       4.4
      </td>
      <td>
-      <strong>
-       3073
-      </strong>
+      <strong>3073</strong>
      </td>
      <td>
      </td>
@@ -400,14 +257,10 @@ int main() {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v777/">
-        V777
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v777/">V777</a></strong>
      </td>
      <td>
      </td>
@@ -416,17 +269,7 @@ int main() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabil">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR39-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabil">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+CTR39-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

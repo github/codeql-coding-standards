@@ -1,48 +1,17 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   Evaluating a pointer—including dereferencing the pointer, using it as an operand of an arithmetic operation, type casting it, and using it as the right-hand side of an assignment—into memory that has been deallocated by a memory management function is
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . Pointers to memory that has been deallocated are called
-   <em>
-    dangling pointers
-   </em>
-   . Accessing a dangling pointer can result in exploitable
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   .
-  </p>
-  <p>
-   It is at the memory manager's discretion when to reallocate or recycle the freed memory. When memory is freed, all pointers into it become invalid, and its contents might either be returned to the operating system, making the freed space inaccessible, or remain intact and accessible. As a result, the data at the freed location can appear to be valid but change unexpectedly. Consequently, memory must not be written to or read from once it is freed.
-  </p>
+  <p>Evaluating a pointer—including dereferencing the pointer, using it as an operand of an arithmetic operation, type casting it, and using it as the right-hand side of an assignment—into memory that has been deallocated by a memory management function is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. Pointers to memory that has been deallocated are called <em>dangling pointers</em>. Accessing a dangling pointer can result in exploitable <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a>.</p>
+  <p>It is at the memory manager's discretion when to reallocate or recycle the freed memory. When memory is freed, all pointers into it become invalid, and its contents might either be returned to the operating system, making the freed space inaccessible, or remain intact and accessible. As a result, the data at the freed location can appear to be valid but change unexpectedly. Consequently, memory must not be written to or read from once it is freed.</p>
  </section>
- <section title="Noncompliant Code Example (new and delete)">
-  <p>
-   In this noncompliant code example,
-   <code>
-    s
-   </code>
-   is dereferenced after it has been deallocated. If this access results in a write-after-free, the
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerability
-   </a>
-   can be
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">
-    exploited
-   </a>
-   to run arbitrary code with the permissions of the vulnerable process. Typically, dynamic memory allocations and deallocations are far removed, making it difficult to recognize and diagnose such problems.
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
- 
+ <section title="Noncompliant Code Example (new and delete)">
+  <p>In this noncompliant code example, <code>s</code> is dereferenced after it has been deallocated. If this access results in a write-after-free, the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerability</a> can be <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-exploit">exploited</a> to run arbitrary code with the permissions of the vulnerable process. Typically, dynamic memory allocations and deallocations are far removed, making it difficult to recognize and diagnose such problems.</p>
+  <sample language="cpp">#include &lt;new&gt;
+ 
 struct S {
   void f();
 };
- 
+ 
 void g() noexcept(false) {
   S *s = new S;
   // ...
@@ -50,29 +19,12 @@ void g() noexcept(false) {
   // ...
   s-&gt;f();
 }
-  </sample>
-  <p>
-   The function
-   <code>
-    g()
-   </code>
-   is marked
-   <code>
-    noexcept(false)
-   </code>
-   to comply with
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM52-CPP.+Detect+and+handle+memory+allocation+errors">
-    MEM52-CPP. Detect and handle memory allocation errors
-   </a>
-   .
-  </p>
+</sample>
+  <p>The function <code>g()</code> is marked <code>noexcept(false)</code> to comply with <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM52-CPP.+Detect+and+handle+memory+allocation+errors">MEM52-CPP. Detect and handle memory allocation errors</a>.</p>
  </section>
- <section title="Compliant Solution (new and delete)">
-  <p>
-   In this compliant solution, the dynamically allocated memory is not deallocated until it is no longer required.
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
+ <section title="Compliant Solution (new and delete)">
+  <p>In this compliant solution, the dynamically allocated memory is not deallocated until it is no longer required.</p>
+  <sample language="cpp">#include &lt;new&gt;
 
 struct S {
   void f();
@@ -83,30 +35,11 @@ void g() noexcept(false) {
   // ...
   s-&gt;f();
   delete s;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (Automatic Storage Duration)">
-  <p>
-   When possible, use automatic storage duration instead of dynamic storage duration. Since
-   <code>
-    s
-   </code>
-   is not required to live beyond the scope of
-   <code>
-    g()
-   </code>
-   , this compliant solution uses automatic storage duration to limit the lifetime of
-   <code>
-    s
-   </code>
-   to the scope of
-   <code>
-    g().
-   </code>
-  </p>
-  <sample language="cpp">
-   struct S {
+  <p>When possible, use automatic storage duration instead of dynamic storage duration. Since <code>s</code> is not required to live beyond the scope of <code>g()</code>, this compliant solution uses automatic storage duration to limit the lifetime of <code>s</code> to the scope of <code>g().</code></p>
+  <sample language="cpp">struct S {
   void f();
 };
 
@@ -114,22 +47,14 @@ void g() {
   S s;
   // ...
   s.f();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example (std::unique_ptr)">
-  <p>
-   In the following noncompliant code example, the dynamically allocated memory managed by the
-   <code>
-    buff
-   </code>
-   object is accessed after it has been implicitly deallocated by the object's destructor.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>In the following noncompliant code example, the dynamically allocated memory managed by the <code>buff</code> object is accessed after it has been implicitly deallocated by the object's destructor.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;memory&gt;
 #include &lt;cstring&gt;
- 
+ 
 int main(int argc, const char *argv[]) {
   const char *s = "";
   if (argc &gt; 1) {
@@ -146,32 +71,15 @@ int main(int argc, const char *argv[]) {
 
   std::cout &lt;&lt; s &lt;&lt; std::endl;
 }
-  </sample>
-  <p>
-   This code always creates a null-terminated byte string, despite its use of
-   <code>
-    strncpy()
-   </code>
-   , because it leaves the final
-   <code>
-    char
-   </code>
-   in the buffer set to 0.
-  </p>
+</sample>
+  <p>This code always creates a null-terminated byte string, despite its use of <code>strncpy()</code>, because it leaves the final <code>char</code> in the buffer set to 0.</p>
  </section>
  <section title="Compliant Solution (std::unique_ptr)">
-  <p>
-   In this compliant solution, the lifetime of the
-   <code>
-    buff
-   </code>
-   object extends past the point at which the memory managed by the object is accessed.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>In this compliant solution, the lifetime of the <code>buff</code> object extends past the point at which the memory managed by the object is accessed.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;memory&gt;
 #include &lt;cstring&gt;
- 
+ 
 int main(int argc, const char *argv[]) {
   std::unique_ptr&lt;char[]&gt; buff;
   const char *s = "";
@@ -190,24 +98,13 @@ int main(int argc, const char *argv[]) {
 
   std::cout &lt;&lt; s &lt;&lt; std::endl;
 }
-  </sample>
+</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, a variable with automatic storage duration of type
-   <code>
-    std::string
-   </code>
-   is used in place of the
-   <code>
-    std::unique_ptr&lt;char[]&gt;
-   </code>
-   , which reduces the complexity and improves the security of the solution.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>In this compliant solution, a variable with automatic storage duration of type <code>std::string</code> is used in place of the <code>std::unique_ptr&lt;char[]&gt;</code>, which reduces the complexity and improves the security of the solution.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
- 
+ 
 int main(int argc, const char *argv[]) {
   std::string str;
 
@@ -216,60 +113,24 @@ int main(int argc, const char *argv[]) {
   }
 
   std::cout &lt;&lt; str &lt;&lt; std::endl;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example (std::string::c_str())">
-  <p>
-   In this noncompliant code example,
-   <code>
-    std::string::c_str()
-   </code>
-   is being called on a temporary
-   <code>
-    std::string
-   </code>
-   object. The resulting pointer will point to released memory once the
-   <code>
-    std::string
-   </code>
-   object is destroyed at the end of the assignment expression, resulting in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   when accessing elements of that pointer.
-  </p>
-  <sample language="cpp">
-   #include &lt;string&gt;
- 
+  <p>In this noncompliant code example, <code>std::string::c_str()</code> is being called on a temporary <code>std::string</code> object. The resulting pointer will point to released memory once the <code>std::string</code> object is destroyed at the end of the assignment expression, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> when accessing elements of that pointer.</p>
+  <sample language="cpp">#include &lt;string&gt;
+ 
 std::string str_func();
 void display_string(const char *);
- 
+ 
 void f() {
   const char *str = str_func().c_str();
   display_string(str);  /* Undefined behavior */
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant solution (std::string::c_str())">
-  <p>
-   In this compliant solution, a local copy of the string returned by
-   <code>
-    str_func()
-   </code>
-   is made to ensure that string
-   <code>
-    str
-   </code>
-   will be valid when the call to
-   <code>
-    display_string()
-   </code>
-   is made.
-  </p>
-  <sample language="cpp">
-   #include &lt;string&gt;
- 
+  <p>In this compliant solution, a local copy of the string returned by <code>str_func()</code> is made to ensure that string <code>str</code> will be valid when the call to <code>display_string()</code> is made.</p>
+  <sample language="cpp">#include &lt;string&gt;
+ 
 std::string str_func();
 void display_string(const char *s);
 
@@ -277,106 +138,40 @@ void f() {
   std::string str = str_func();
   const char *cstr = str.c_str();
   display_string(cstr);  /* ok */
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, an attempt is made to allocate zero bytes of memory through a call to
-   <code>
-    operator new()
-   </code>
-   . If this request succeeds,
-   <code>
-    operator new()
-   </code>
-   is required to return a non-null pointer value. However, according to the C++ Standard, [basic.stc.dynamic.allocation], paragraph 2 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], attempting to dereference memory through such a pointer results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
+  <p>In this noncompliant code example, an attempt is made to allocate zero bytes of memory through a call to <code>operator new()</code>. If this request succeeds, <code>operator new()</code> is required to return a non-null pointer value. However, according to the C++ Standard, [basic.stc.dynamic.allocation], paragraph 2 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], attempting to dereference memory through such a pointer results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">#include &lt;new&gt;
 
 void f() noexcept(false) {
   unsigned char *ptr = static_cast&lt;unsigned char *&gt;(::operator new(0));
   *ptr = 0;
   // ...
   ::operator delete(ptr);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   The compliant solution depends on programmer intent. If the programmer intends to allocate a single
-   <code>
-    unsigned char
-   </code>
-   object, the compliant solution is to use
-   <code>
-    new
-   </code>
-   instead of a direct call to
-   <code>
-    operator new()
-   </code>
-   , as this compliant solution demonstrates.
-  </p>
-  <sample language="cpp">
-   void f() noexcept(false) {
+  <p>The compliant solution depends on programmer intent. If the programmer intends to allocate a single <code>unsigned char</code> object, the compliant solution is to use <code>new</code> instead of a direct call to <code>operator new()</code>, as this compliant solution demonstrates.</p>
+  <sample language="cpp">void f() noexcept(false) {
   unsigned char *ptr = new unsigned char;
   *ptr = 0;
   // ...
   delete ptr;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   If the programmer intends to allocate zero bytes of memory (perhaps to obtain a unique pointer value that cannot be reused by any other pointer in the program until it is properly released), then instead of attempting to dereference the resulting pointer, the recommended solution is to declare
-   <code>
-    ptr
-   </code>
-   as a
-   <code>
-    void *
-   </code>
-   , which cannot be dereferenced by a
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-conformingprogram">
-    conforming
-   </a>
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">
-    implementation
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
+  <p>If the programmer intends to allocate zero bytes of memory (perhaps to obtain a unique pointer value that cannot be reused by any other pointer in the program until it is properly released), then instead of attempting to dereference the resulting pointer, the recommended solution is to declare <code>ptr</code> as a <code>void *</code>, which cannot be dereferenced by a <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-conformingprogram">conforming</a> <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">implementation</a>.</p>
+  <sample language="cpp">#include &lt;new&gt;
 
 void f() noexcept(false) {
   void *ptr = ::operator new(0);
   // ...
   ::operator delete(ptr);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Reading previously dynamically allocated memory after it has been deallocated can lead to
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormal program termination
-   </a>
-   and
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
-    denial-of-service attacks
-   </a>
-   . Writing memory that has been deallocated can lead to the execution of arbitrary code with the permissions of the vulnerable process.
-  </p>
+  <p>Reading previously dynamically allocated memory after it has been deallocated can lead to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal program termination</a> and <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>. Writing memory that has been deallocated can lead to the execution of arbitrary code with the permissions of the vulnerable process.</p>
   <table>
    <tbody>
     <tr>
@@ -413,14 +208,10 @@ void f() noexcept(false) {
       Medium
      </td>
      <td>
-      <strong>
-       P18
-      </strong>
+      <strong>P18</strong>
      </td>
      <td>
-      <strong>
-       L1
-      </strong>
+      <strong>L1</strong>
      </td>
     </tr>
    </tbody>
@@ -453,9 +244,7 @@ void f() noexcept(false) {
       20.10
      </td>
      <td>
-      <strong>
-       dangling_pointer_use
-      </strong>
+      <strong>dangling_pointer_use</strong>
      </td>
      <td>
      </td>
@@ -470,9 +259,7 @@ void f() noexcept(false) {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-MEM50
-      </strong>
+      <strong>CertC++-MEM50</strong>
      </td>
      <td>
      </td>
@@ -487,16 +274,11 @@ void f() noexcept(false) {
       3.9
      </td>
      <td>
-      <code>
-       clang-analyzer-cplusplus.NewDelete
-       clang-analyzer-alpha.security.ArrayBoundV2
-      </code>
+      <code>clang-analyzer-cplusplus.NewDeleteclang-analyzer-alpha.security.ArrayBoundV2 </code>
      </td>
      <td>
       Checked by
-      <code>
-       clang-tidy
-      </code>
+      <code>clang-tidy</code>
       , but does not catch all violations of this rule.
      </td>
     </tr>
@@ -507,12 +289,10 @@ void f() noexcept(false) {
       </a>
      </td>
      <td>
-      6.1p0
+      6.2p0
      </td>
      <td>
-      <strong>
-       ALLOC.UAF
-      </strong>
+      <strong>ALLOC.UAF</strong>
      </td>
      <td>
       Use after free
@@ -541,12 +321,10 @@ void f() noexcept(false) {
       v7.5.0
      </td>
      <td>
-      <strong>
-       USE_AFTER_FREE
-      </strong>
+      <strong>USE_AFTER_FREE</strong>
      </td>
      <td>
-      Can detect the specific instances where memory is deallocated more than once or read/written to the target of a freed pointer
+      Can detect the specific instances where memory is deallocated more than once or read/written to the target of a freed pointer
      </td>
     </tr>
     <tr>
@@ -559,9 +337,7 @@ void f() noexcept(false) {
       2021.2
      </td>
      <td>
-      <strong>
-       C++4303, C++4304
-      </strong>
+      <strong>C++4303, C++4304</strong>
      </td>
      <td>
      </td>
@@ -576,46 +352,14 @@ void f() noexcept(false) {
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        UFM.DEREF.MIGHT
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        UFM.DEREF.MUST
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        UFM.FFM.MIGHT
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        UFM.FFM.MUST
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        UFM.RETURN.MIGHT
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        UFM.RETURN.MUST
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        UFM.USE.MIGHT
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        UFM.USE.MUST
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UFM.DEREF.MIGHT</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UFM.DEREF.MUST</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UFM.FFM.MIGHT</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UFM.FFM.MUST</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UFM.RETURN.MIGHT</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UFM.RETURN.MUST</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UFM.USE.MIGHT</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">UFM.USE.MUST</a></strong>
      </td>
      <td>
      </td>
@@ -629,9 +373,7 @@ void f() noexcept(false) {
      <td>
      </td>
      <td>
-      <strong>
-       483 S, 484 S
-      </strong>
+      <strong>483 S, 484 S</strong>
      </td>
      <td>
       Partially implemented
@@ -647,9 +389,7 @@ void f() noexcept(false) {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-MEM50-a
-      </strong>
+      <strong>CERT_CPP-MEM50-a</strong>
      </td>
      <td>
       Do not use resources that have been freed
@@ -685,7 +425,7 @@ void f() noexcept(false) {
      </td>
      <td>
       Checks for:
-      Pointer access out of bounds, deallocation of previously deallocated pointer, use of previously freed pointer.
+      Pointer access out of boundsointer access out of bounds, deallocation of previously deallocated pointereallocation of previously deallocated pointer, use of previously freed pointerse of previously freed pointer.
       Rule partially covered.
      </td>
     </tr>
@@ -699,9 +439,7 @@ void f() noexcept(false) {
       4.4
      </td>
      <td>
-      <strong>
-       4303, 4304
-      </strong>
+      <strong>4303, 4304 </strong>
      </td>
      <td>
      </td>
@@ -713,20 +451,12 @@ void f() noexcept(false) {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       V586
-       <a href="https://pvs-studio.com/en/docs/warnings/v586/">
-       </a>
-      </strong>
+      <strong>V586<a href="https://pvs-studio.com/en/docs/warnings/v586/"></a></strong>
       ,
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v774/">
-        V774
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v774/">V774</a></strong>
      </td>
      <td>
      </td>
@@ -748,28 +478,8 @@ void f() noexcept(false) {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   VU#623332 describes a double-free vulnerability in the MIT Kerberos 5 function
-   <a href="http://web.mit.edu/kerberos/www/advisories/MITKRB5-SA-2005-003-recvauth.txt">
-    krb5_recvauth()
-   </a>
-   [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-VU623332">
-    VU# 623332
-   </a>
-   ].
-  </p>
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM30-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>VU#623332 describes a double-free vulnerability in the MIT Kerberos 5 function <a href="http://web.mit.edu/kerberos/www/advisories/MITKRB5-SA-2005-003-recvauth.txt">krb5_recvauth()</a> [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-VU623332">VU# 623332</a>].</p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM30-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

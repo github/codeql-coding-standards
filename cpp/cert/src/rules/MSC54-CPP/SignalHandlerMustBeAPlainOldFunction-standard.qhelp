@@ -1,107 +1,27 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The C++14 Standard, [support.runtime], paragraph 10
-   [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ]
-   , states the following:
-  </p>
+  <p>The C++14 Standard, [support.runtime], paragraph 10 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    The common subset of the C and C++ languages consists of all declarations, definitions, and expressions that may appear in a well-formed C++ program and also in a conforming C program. A POF (“plain old function”) is a function that uses only features from this common subset, and that does not directly or indirectly use any function that is not a POF, except that it may use plain lock-free atomic operations. A plain lock-free atomic operation is an invocation of a function f from Clause 29, such that f is not a member function, and either f is the function atomic_is_lock_free, or for every atomic argument A passed to f, atomic_is_lock_free(A) yields true. All signal handlers shall have C linkage. The behavior of any function other than a POF used as a signal handler in a C++ program is implementation-defined.228
-   </p>
+   <p>The common subset of the C and C++ languages consists of all declarations, definitions, and expressions that may appear in a well-formed C++ program and also in a conforming C program. A POF (“plain old function”) is a function that uses only features from this common subset, and that does not directly or indirectly use any function that is not a POF, except that it may use plain lock-free atomic operations. A plain lock-free atomic operation is an invocation of a function f from Clause 29, such that f is not a member function, and either f is the function atomic_is_lock_free, or for every atomic argument A passed to f, atomic_is_lock_free(A) yields true. All signal handlers shall have C linkage. The behavior of any function other than a POF used as a signal handler in a C++ program is implementation-defined.228</p>
   </blockquote>
-  <p>
-   Footnote 228 states the following:
-  </p>
+  <p>Footnote 228 states the following:</p>
   <blockquote>
-   <p>
-    In particular, a signal handler using exception handling is very likely to have problems. Also, invoking
-    <code>
-     std::exit
-    </code>
-    may cause destruction of objects, including those of the standard library implementation, which, in general, yields undefined behavior in a signal handler.
-   </p>
+   <p>In particular, a signal handler using exception handling is very likely to have problems. Also, invoking <code>std::exit</code> may cause destruction of objects, including those of the standard library implementation, which, in general, yields undefined behavior in a signal handler.</p>
   </blockquote>
-  <p>
-   If your signal handler is not a plain old function, then the behavior of a call to it in response to a signal is
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">
-    implementation-defined
-   </a>
-   , at best, and is likely to result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . All signal handlers must meet the definition of a plain old function. In addition to the restrictions placed on signal handlers in a C program, this definition also prohibits the use of features that exist in C++ but not in C (such as non-POD [non–plain old data] objects and exceptions). This includes indirect use of such features through function calls.
-  </p>
-  <p>
-   In C++17, the wording has changed and relaxed some of the constraints on signal handlers. Section [support.signal], paragraph 3 says:
-  </p>
+  <p>If your signal handler is not a plain old function, then the behavior of a call to it in response to a signal is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">implementation-defined</a>, at best, and is likely to result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. All signal handlers must meet the definition of a plain old function. In addition to the restrictions placed on signal handlers in a C program, this definition also prohibits the use of features that exist in C++ but not in C (such as non-POD [non–plain old data] objects and exceptions). This includes indirect use of such features through function calls.</p>
+  <p>In C++17, the wording has changed and relaxed some of the constraints on signal handlers. Section [support.signal], paragraph 3 says:</p>
   <blockquote>
-   <p>
-    An evaluation is
-    signal-safe
-    unless it includes one of the following:
-   </p>
-   <p>
-    —
-    a call to any standard library function, except for plain lock-free atomic operations and functions explicitly identified as signal-safe. [
-    Note:
-    This implicitly excludes the use of
-    new
-    and
-    delete
-    expressions that rely on a library-provided memory allocator.
-    — end note
-    ]
-    — an access to an object with thread storage duration;
-    — a
-    dynamic_cast
-    expression;
-    — throwing of an exception;
-    — control entering a
-    try-block
-    or
-    function-try-block
-    ;
-    — initialization of a variable with static storage duration requiring dynamic initialization (
-    6.6.3
-    ,
-    9.7
-    )
-    220
-    ; or
-    — waiting for the completion of the initialization of a variable with static storage duration (
-    9.7
-    ).
-   </p>
-   <p>
-    A signal handler invocation has undefined behavior if it includes an evaluation that is not signal-safe.
-   </p>
+   <p>An evaluation is signal-safe unless it includes one of the following:</p>
+   <p>— a call to any standard library function, except for plain lock-free atomic operations and functions explicitly identified as signal-safe. [ Note: This implicitly excludes the use of new and delete expressions that rely on a library-provided memory allocator. — end note ]— an access to an object with thread storage duration;— a dynamic_cast expression;— throwing of an exception;— control entering a try-block or function-try-block;— initialization of a variable with static storage duration requiring dynamic initialization (6.6.3, 9.7)220; or— waiting for the completion of the initialization of a variable with static storage duration (9.7). </p>
+   <p>A signal handler invocation has undefined behavior if it includes an evaluation that is not signal-safe.</p>
   </blockquote>
-  <p>
-   Signal handlers in code that will be executed on C++17-compliant platforms must be signal-safe.
-  </p>
+  <p>Signal handlers in code that will be executed on C++17-compliant platforms must be signal-safe.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the signal handler is declared as a
-   <code>
-    static
-   </code>
-   function. However, since all signal handler functions must have C language linkage, and C++ is the default language linkage for functions in C++, calling the signal handler results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;csignal&gt;
- 
+  <p>In this noncompliant code example, the signal handler is declared as a <code>static</code> function. However, since all signal handler functions must have C language linkage, and C++ is the default language linkage for functions in C++, calling the signal handler results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
+  <sample language="cpp">#include &lt;csignal&gt;
+ 
 static void sig_handler(int sig) {
   // Implementation details elided.
 }
@@ -110,19 +30,11 @@ void install_signal_handler() {
   if (SIG_ERR == std::signal(SIGTERM, sig_handler)) {
     // Handle error
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   This compliant solution defines
-   <code>
-    sig_handler()
-   </code>
-   as having C language linkage. As a consequence of declaring the signal handler with C language linkage, the signal handler will have external linkage rather than internal linkage.
-  </p>
-  <sample language="cpp">
-   #include &lt;csignal&gt;
+  <p>This compliant solution defines <code>sig_handler()</code> as having C language linkage. As a consequence of declaring the signal handler with C language linkage, the signal handler will have external linkage rather than internal linkage.</p>
+  <sample language="cpp">#include &lt;csignal&gt;
  
 extern "C" void sig_handler(int sig) {
   // Implementation details elided.
@@ -132,27 +44,11 @@ void install_signal_handler() {
   if (SIG_ERR == std::signal(SIGTERM, sig_handler)) {
     // Handle error
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, a signal handler calls a function that allows exceptions, and it attempts to handle any exceptions thrown. Because exceptions are not part of the common subset of C and C++ features, this example results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">
-    implementation-defined behavior
-   </a>
-   . However, it is unlikely that the implementation's behavior will be suitable. For instance, on a stack-based architecture where a signal is generated asynchronously (instead of as a result of a call to
-   <code>
-    std:abort()
-   </code>
-   or
-   <code>
-    std::raise()
-   </code>
-   ), it is possible that the stack frame is not properly initialized, causing stack tracing to be unreliable and preventing the exception from being caught properly.
-  </p>
-  <sample language="cpp">
-   #include &lt;csignal&gt;
+  <p>In this noncompliant code example, a signal handler calls a function that allows exceptions, and it attempts to handle any exceptions thrown. Because exceptions are not part of the common subset of C and C++ features, this example results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">implementation-defined behavior</a>. However, it is unlikely that the implementation's behavior will be suitable. For instance, on a stack-based architecture where a signal is generated asynchronously (instead of as a result of a call to <code>std:abort()</code> or <code>std::raise()</code>), it is possible that the stack frame is not properly initialized, causing stack tracing to be unreliable and preventing the exception from being caught properly.</p>
+  <sample language="cpp">#include &lt;csignal&gt;
 
 static void g() noexcept(false);
 
@@ -163,56 +59,16 @@ extern "C" void sig_handler(int sig) {
     // Handle error
   }
 }
- 
+ 
 void install_signal_handler() {
   if (SIG_ERR == std::signal(SIGTERM, sig_handler)) {
     // Handle error
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   There is no compliant solution whereby
-   <code>
-    g()
-   </code>
-   can be called from the signal handler because it allows exceptions. Even if
-   <code>
-    g()
-   </code>
-   were implemented such that it handled all exceptions and was marked
-   <code>
-    noexcept(true)
-   </code>
-   , it would still be noncompliant to call
-   <code>
-    g()
-   </code>
-   from a signal handler because
-   <code>
-    g()
-   </code>
-   would still use a feature that is not a part of the common subset of C and C++ features allowed by a signal handler. Therefore, this compliant solution removes the call to
-   <code>
-    g()
-   </code>
-   from the signal handler and instead polls a variable of type
-   <code>
-    volatile sig_atomic_t
-   </code>
-   periodically; if the variable is set to
-   <code>
-    1
-   </code>
-   in the signal handler, then
-   <code>
-    g()
-   </code>
-   is called to respond to the signal.
-  </p>
-  <sample language="cpp">
-   #include &lt;csignal&gt;
+  <p>There is no compliant solution whereby <code>g()</code> can be called from the signal handler because it allows exceptions. Even if <code>g()</code> were implemented such that it handled all exceptions and was marked <code>noexcept(true)</code>, it would still be noncompliant to call <code>g()</code> from a signal handler because <code>g()</code> would still use a feature that is not a part of the common subset of C and C++ features allowed by a signal handler. Therefore, this compliant solution removes the call to <code>g()</code> from the signal handler and instead polls a variable of type <code>volatile sig_atomic_t</code> periodically; if the variable is set to <code>1</code> in the signal handler, then <code>g()</code> is called to respond to the signal.</p>
+  <sample language="cpp">#include &lt;csignal&gt;
 
 volatile sig_atomic_t signal_flag = 0;
 static void g() noexcept(false);
@@ -226,7 +82,7 @@ void install_signal_handler() {
     // Handle error
   }
 }
- 
+ 
 // Called periodically to poll the signal flag.
 void poll_signal_flag() {
   if (signal_flag == 1) {
@@ -237,25 +93,10 @@ void poll_signal_flag() {
       // Handle error
     }
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Failing to use a plain old function as a signal handler can result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">
-    implementation-defined behavior
-   </a>
-   as well as
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . Given the number of features that exist in C++ that do not also exist in C, the consequences that arise from failure to comply with this rule can range from benign (harmless) behavior to
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormal program termination
-   </a>
-   , or even arbitrary code execution.
-  </p>
+  <p>Failing to use a plain old function as a signal handler can result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior">implementation-defined behavior</a> as well as <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. Given the number of features that exist in C++ that do not also exist in C, the consequences that arise from failure to comply with this rule can range from benign (harmless) behavior to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal program termination</a>, or even arbitrary code execution.</p>
   <table>
    <tbody>
     <tr>
@@ -292,14 +133,10 @@ void poll_signal_flag() {
       High
      </td>
      <td>
-      <strong>
-       P6
-      </strong>
+      <strong>P6</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -332,9 +169,7 @@ void poll_signal_flag() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++2888
-      </strong>
+      <strong>C++2888</strong>
      </td>
      <td>
      </td>
@@ -349,11 +184,7 @@ void poll_signal_flag() {
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CERT.MSC.SIG_HANDLER.POF
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.MSC.SIG_HANDLER.POF</a></strong>
      </td>
      <td>
      </td>
@@ -368,9 +199,7 @@ void poll_signal_flag() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-MSC54-a
-      </strong>
+      <strong>CERT_CPP-MSC54-a</strong>
      </td>
      <td>
       Properly define signal handlers
@@ -386,9 +215,7 @@ void poll_signal_flag() {
       4.4
      </td>
      <td>
-      <strong>
-       2888
-      </strong>
+      <strong>2888 </strong>
      </td>
      <td>
      </td>
@@ -397,17 +224,7 @@ void poll_signal_flag() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerab">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MSC54-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerab">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MSC54-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

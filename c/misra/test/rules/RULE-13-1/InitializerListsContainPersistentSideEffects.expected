@@ -1,0 +1,3 @@
+| test.c:6:14:6:21 | {...} | Initializer list constains persistent $@ | test.c:6:19:6:20 | l1 | side effect |
+| test.c:8:14:8:20 | {...} | Initializer list constains persistent $@ | test.c:8:16:8:19 | ... ++ | side effect |
+| test.c:9:6:9:19 | {...} | Initializer list constains persistent $@ | test.c:9:15:9:18 | ... ++ | side effect |

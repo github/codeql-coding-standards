@@ -1,122 +1,29 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   When an exception is thrown, control is transferred to the nearest handler with a type that matches the type of the exception thrown. If no matching handler is directly found within the handlers for a try block in which the exception is thrown, the search for a matching handler continues to dynamically search for handlers in the surrounding try blocks of the same thread. The C++ Standard, [except.handle], paragraph 9 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following:
-  </p>
+  <p>When an exception is thrown, control is transferred to the nearest handler with a type that matches the type of the exception thrown. If no matching handler is directly found within the handlers for a try block in which the exception is thrown, the search for a matching handler continues to dynamically search for handlers in the surrounding try blocks of the same thread. The C++ Standard, [except.handle], paragraph 9 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    If no matching handler is found, the function
-    <code>
-     std::terminate()
-    </code>
-    is called; whether or not the stack is unwound before this call to
-    <code>
-     std::terminate()
-    </code>
-    is implementation-defined.
-   </p>
+   <p>If no matching handler is found, the function <code>std::terminate()</code> is called; whether or not the stack is unwound before this call to <code>std::terminate()</code> is implementation-defined.</p>
   </blockquote>
-  <p>
-   The default terminate handler called by
-   <code>
-    std::terminate()
-   </code>
-   calls
-   <code>
-    std::abort()
-   </code>
-   , which
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormally terminates
-   </a>
-   the process. When
-   <code>
-    std::abort()
-   </code>
-   is called, or if the
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">
-    implementation
-   </a>
-   does not unwind the stack prior to calling
-   <code>
-    std::terminate()
-   </code>
-   , destructors for objects may not be called and external resources can be left in an indeterminate state. Abnormal process termination is the typical vector for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
-    denial-of-service
-   </a>
-   attacks. For more information on implicitly calling
-   <code>
-    std::terminate()
-   </code>
-   , see
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">
-    ERR50-CPP. Do not abruptly terminate the program
-   </a>
-   .
-  </p>
-  <p>
-   All exceptions thrown by an application must be caught by a matching exception handler. Even if the exception cannot be gracefully recovered from, using the matching exception handler ensures that the stack will be properly unwound and provides an opportunity to gracefully manage external resources before terminating the process.
-  </p>
-  <p>
-   As per
-   <strong>
-    ERR50-CPP-EX1
-   </strong>
-   , a program that encounters an unrecoverable exception may explicitly catch the exception and terminate, but it may not allow the exception to remain uncaught. One possible solution to comply with this rule, as well as with ERR50-CPP, is for the
-   <code>
-    main()
-   </code>
-   function to catch all exceptions. While this does not generally allow the application to recover from the exception gracefully, it does allow the application to terminate in a controlled fashion.
-  </p>
+  <p>The default terminate handler called by <code>std::terminate()</code> calls <code>std::abort()</code>, which <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormally terminates</a> the process. When <code>std::abort()</code> is called, or if the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation">implementation</a> does not unwind the stack prior to calling <code>std::terminate()</code>, destructors for objects may not be called and external resources can be left in an indeterminate state. Abnormal process termination is the typical vector for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service</a> attacks. For more information on implicitly calling <code>std::terminate()</code>, see <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">ERR50-CPP. Do not abruptly terminate the program</a>.</p>
+  <p>All exceptions thrown by an application must be caught by a matching exception handler. Even if the exception cannot be gracefully recovered from, using the matching exception handler ensures that the stack will be properly unwound and provides an opportunity to gracefully manage external resources before terminating the process.</p>
+  <p>As per <strong>ERR50-CPP-EX1</strong>, a program that encounters an unrecoverable exception may explicitly catch the exception and terminate, but it may not allow the exception to remain uncaught. One possible solution to comply with this rule, as well as with ERR50-CPP, is for the <code>main()</code> function to catch all exceptions. While this does not generally allow the application to recover from the exception gracefully, it does allow the application to terminate in a controlled fashion.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, neither
-   <code>
-    f()
-   </code>
-   nor
-   <code>
-    main()
-   </code>
-   catch exceptions thrown by
-   <code>
-    throwing_func()
-   </code>
-   . Because no matching handler can be found for the exception thrown,
-   <code>
-    std::terminate()
-   </code>
-   is called.
-  </p>
-  <sample language="cpp">
-   void throwing_func() noexcept(false);
- 
+  <p>In this noncompliant code example, neither <code>f()</code> nor <code>main()</code> catch exceptions thrown by <code>throwing_func()</code>. Because no matching handler can be found for the exception thrown, <code>std::terminate()</code> is called.</p>
+  <sample language="cpp">void throwing_func() noexcept(false);
+ 
 void f() {
   throwing_func();
 }
- 
+ 
 int main() {
   f();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the main entry point handles all exceptions, which ensures that the stack is unwound up to the
-   <code>
-    main()
-   </code>
-   function and allows for graceful management of external resources.
-  </p>
-  <sample language="cpp">
-   void throwing_func() noexcept(false);
+  <p>In this compliant solution, the main entry point handles all exceptions, which ensures that the stack is unwound up to the <code>main()</code> function and allows for graceful management of external resources.</p>
+  <sample language="cpp">void throwing_func() noexcept(false);
  
 void f() {
   throwing_func();
@@ -128,51 +35,26 @@ int main() {
   } catch (...) {
     // Handle error
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, the thread entry point function
-   <code>
-    thread_start()
-   </code>
-   does not catch exceptions thrown by
-   <code>
-    throwing_func()
-   </code>
-   . If the initial thread function exits because an exception is thrown,
-   <code>
-    std::terminate()
-   </code>
-   is called.
-  </p>
-  <sample language="cpp">
-   #include &lt;thread&gt;
+  <p>In this noncompliant code example, the thread entry point function <code>thread_start()</code> does not catch exceptions thrown by <code>throwing_func()</code>. If the initial thread function exits because an exception is thrown, <code>std::terminate()</code> is called.</p>
+  <sample language="cpp">#include &lt;thread&gt;
 
 void throwing_func() noexcept(false);
- 
+ 
 void thread_start() {
   throwing_func();
 }
- 
+ 
 void f() {
   std::thread t(thread_start);
   t.join();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the
-   <code>
-    thread_start()
-   </code>
-   handles all exceptions and does not rethrow, allowing the thread to
-   terminate normally.
-  </p>
-  <sample language="cpp">
-   #include &lt;thread&gt;
+  <p>In this compliant solution, the <code>thread_start()</code> handles all exceptions and does not rethrow, allowing the thread to terminate normally.</p>
+  <sample language="cpp">#include &lt;thread&gt;
 
 void throwing_func() noexcept(false);
 
@@ -187,21 +69,10 @@ void thread_start(void) {
 void f() {
   std::thread t(thread_start);
   t.join();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Allowing the application to
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormally terminate
-   </a>
-   can lead to resources not being freed, closed, and so on. It is frequently a vector for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">
-    denial-of-service attacks
-   </a>
-   .
-  </p>
+  <p>Allowing the application to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormally terminate</a> can lead to resources not being freed, closed, and so on. It is frequently a vector for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service">denial-of-service attacks</a>.</p>
   <table>
    <tbody>
     <tr>
@@ -238,14 +109,10 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>
-       P4
-      </strong>
+      <strong>P4</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -278,10 +145,7 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>
-       main-function-catch-all
-       early-catch-all
-      </strong>
+      <strong>main-function-catch-allearly-catch-all</strong>
      </td>
      <td>
       Partially checked
@@ -297,9 +161,7 @@ void f() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-ERR51
-      </strong>
+      <strong>CertC++-ERR51</strong>
      </td>
      <td>
      </td>
@@ -314,9 +176,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++4035, C++4036, C++4037
-      </strong>
+      <strong>C++4035, C++4036, C++4037</strong>
      </td>
      <td>
      </td>
@@ -331,9 +191,7 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong>
-       MISRA.CATCH.ALL
-      </strong>
+      <strong>MISRA.CATCH.ALL</strong>
      </td>
      <td>
      </td>
@@ -347,9 +205,7 @@ void f() {
      <td>
      </td>
      <td>
-      <strong>
-       527 S
-      </strong>
+      <strong>527 S</strong>
      </td>
      <td>
       Partially implemented
@@ -365,12 +221,8 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-ERR51-a
-      </strong>
-      <strong>
-       CERT_CPP-ERR51-b
-      </strong>
+      <strong>CERT_CPP-ERR51-a</strong>
+      <strong>CERT_CPP-ERR51-b</strong>
      </td>
      <td>
       Always catch exceptions
@@ -405,9 +257,7 @@ void f() {
       4.4
      </td>
      <td>
-      <strong>
-       4035, 4036, 4037
-      </strong>
+      <strong>4035, 4036, 4037</strong>
      </td>
      <td>
      </td>
@@ -422,12 +272,7 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>
-       <strong>
-        main-function-catch-all
-        early-catch-all
-       </strong>
-      </strong>
+      <strong><strong>main-function-catch-allearly-catch-all</strong></strong>
      </td>
      <td>
       Partially checked
@@ -437,30 +282,10 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR31-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities </a>resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR31-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
-  <p>
-   <em>
-    This rule is a subset of
-   </em>
-   <em>
-    <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">
-     ERR50-CPP. Do not abruptly terminate the program
-    </a>
-   </em>
-   .
-  </p>
+  <p><em>This rule is a subset of </em><em><a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR50-CPP.+Do+not+abruptly+terminate+the+program">ERR50-CPP. Do not abruptly terminate the program</a></em>.</p>
   <table>
    <tbody>
     <tr>
@@ -494,9 +319,7 @@ void f() {
       Subclause 15.1, "Throwing an Exception"
       Subclause 15.3, "Handling an Exception"
       Subclause 15.5.1, "The
-      <code>
-       std::terminate()
-      </code>
+      <code>std::terminate()</code>
       Function"
      </td>
     </tr>

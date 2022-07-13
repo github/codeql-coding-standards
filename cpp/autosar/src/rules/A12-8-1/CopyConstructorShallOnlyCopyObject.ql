@@ -17,6 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.SideEffect::PathGraph
+import codingstandards.cpp.sideeffect.Customizations
+import codingstandards.cpp.sideeffect.DefaultEffects
 import codingstandards.cpp.Constructor
 import codingstandards.cpp.Operator
 

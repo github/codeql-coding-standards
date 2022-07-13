@@ -1,0 +1,149 @@
+{
+  "MISRA-C-2012": {
+    "RULE-3-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A /* or // character sequence within a comment is sometimes indicative of a missed comment and should not be allowed.",
+          "kind": "problem",
+          "name": "The character sequences /* and // shall not be used within a comment",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CharacterSequencesAndUsedWithinAComment",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The character sequences /* and // shall not be used within a comment"
+    },
+    "RULE-3-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Entering a newline following a '\\' character can erroneously commenting out regions of code.",
+          "kind": "problem",
+          "name": "Line-splicing shall not be used in // comments",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LineSplicingUsedInComments",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Line-splicing shall not be used in // comments"
+    },
+    "RULE-4-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Not explicitly terminating octal and hexadecimal escape sequences can results in developer confusion and lead to programming errors.",
+          "kind": "problem",
+          "name": "Octal and hexadecimal escape sequences shall be terminated",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "OctalAndHexadecimalEscapeSequencesNotTerminated",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Octal and hexadecimal escape sequences shall be terminated"
+    },
+    "RULE-4-4": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Commented out code may become out of date leading to developer confusion.",
+          "kind": "problem",
+          "name": "Sections of code should not be commented out",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "SectionsOfCodeShallNotBeCommentedOut",
+          "shared_implementation_short_name": "SectionsOfCodeShallNotBeCommentedOut",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]        
+        }
+      ],
+      "title": "Sections of code should not be commented out"
+    },
+    "DIR-4-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Typographically ambiguous identifiers can lead to developer confusion.",
+          "kind": "problem",
+          "name": "Identifiers in the same name space with overlapping visibility should be typographically unambiguous",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "IdentifiersInTheSameNameSpaceUnambiguous",
+          "shared_implementation_short_name" : "DifferentIdentifiersNotTypographicallyUnambiguous",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Identifiers in the same name space with overlapping visibility should be typographically unambiguous"
+    },
+    "RULE-7-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A  'U' or 'u' suffix shall be applied to all integer constants that are represented in an unsigned type.",
+          "kind": "problem",
+          "name": "A 'U' or 'u' suffix shall be applied to all unsigned integers constants",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UOrUSuffixRepresentedInUnsignedType",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A 'U' or 'u' suffix shall be applied to all integer constants that are represented in an unsigned type"
+    },
+    "RULE-7-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using the lowercase letter l in a literal suffix can be mistaken for other characters such as 1.",
+          "kind": "problem",
+          "name": "The lowercase character l shall not be used in a literal suffix",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "LowercaseCharacterLUsedInLiteralSuffix",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The lowercase character l shall not be used in a literal suffix"
+    }
+  }
+}

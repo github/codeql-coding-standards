@@ -1,0 +1,1 @@
+| test.c:4:12:4:20 | sizeof(<expr>) | The operand of the sizeof operator is not enclosed in parentheses. |

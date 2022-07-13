@@ -1,0 +1,21 @@
+| test.c:9:18:9:24 | \u001aG | Invalid hexadecimal escape in string literal at '\\x1AG"'. |
+| test.c:12:18:12:23 | \u00029 | Invalid octal escape in string literal at '\\029"'. |
+| test.c:15:18:15:24 | \n7 | Invalid octal escape in string literal at '\\0127"'. |
+| test.c:16:18:16:24 | \r7 | Invalid octal escape in string literal at '\\0157"'. |
+| test.c:18:19:18:29 | \n\n9 | Invalid octal escape in string literal at '\\0129"'. |
+| test.c:19:19:19:28 | \n\u00019 | Invalid octal escape in string literal at '\\019"'. |
+| test.c:22:19:22:31 | \nAAA\u000f | Invalid octal escape in string literal at '\\012AAA\\017"'. |
+| test.c:25:19:25:39 | Some Data \n\u000fA | Invalid octal escape in string literal at '\\017A"'. |
+| test.c:26:19:27:21 | Some Data \n\u000fA5 | Invalid octal escape in string literal at '\\017A"\n                  "5"'. |
+| test.c:28:19:30:25 | Some Data \n\u000fA\n1 | Invalid octal escape in string literal at '\\0121"'. |
+| test.c:34:19:35:26 | \u0011G\u00012 | Invalid octal escape in string literal at '\\0012"'. |
+| test.c:36:19:37:25 | \u0011GG\u0001 | Invalid hexadecimal escape in string literal at '\\x11G"\n                  "G\\001"'. |
+| test.c:38:19:39:26 | \u0011GG\u00013 | Invalid hexadecimal escape in string literal at '\\x11G"\n                  "G\\0013"'. |
+| test.c:38:19:39:26 | \u0011GG\u00013 | Invalid octal escape in string literal at '\\0013"'. |
+| test.c:45:18:45:42 | Some Data \n\u000fA5 | Invalid octal escape in string literal at '\\017A" "5"'. |
+| test.c:46:18:46:49 | Some Data \n\u000fA\n1 | Invalid octal escape in string literal at '\\0121"'. |
+| test.c:48:18:48:32 | \u0011G\u00012 | Invalid octal escape in string literal at '\\0012"'. |
+| test.c:49:18:49:32 | \u0011GG\u0001 | Invalid hexadecimal escape in string literal at '\\x11G" "G\\001"'. |
+| test.c:50:18:50:33 | \u0011GG\u00013 | Invalid hexadecimal escape in string literal at '\\x11G" "G\\0013"'. |
+| test.c:50:18:50:33 | \u0011GG\u00013 | Invalid octal escape in string literal at '\\0013"'. |
+| test.c:53:11:53:16 | 10 | Invalid hexadecimal escape in string literal at '\\x0a''. |

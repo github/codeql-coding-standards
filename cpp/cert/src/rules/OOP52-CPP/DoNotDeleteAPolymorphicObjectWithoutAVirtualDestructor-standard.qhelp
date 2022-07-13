@@ -1,160 +1,48 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The C++ Standard, [expr.delete], paragraph 3
-   [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ],
-   states the following:
-  </p>
+  <p>The C++ Standard, [expr.delete], paragraph 3 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    In the first alternative (
-    <em>
-     delete object
-    </em>
-    ), if the static type of the object to be deleted is different from its dynamic type, the static type shall be a base class of the dynamic type of the object to be deleted and the static type shall have a virtual destructor or the behavior is undefined. In the second alternative (
-    <em>
-     delete array
-    </em>
-    ) if the dynamic type of the object to be deleted differs from its static type, the behavior is undefined.
-   </p>
+   <p>In the first alternative (<em>delete object</em>), if the static type of the object to be deleted is different from its dynamic type, the static type shall be a base class of the dynamic type of the object to be deleted and the static type shall have a virtual destructor or the behavior is undefined. In the second alternative (<em>delete array</em>) if the dynamic type of the object to be deleted differs from its static type, the behavior is undefined.</p>
   </blockquote>
-  <p>
-   Do not delete an object of derived class type through a pointer to its base class type that has a non-
-   <code>
-    virtual
-   </code>
-   destructor. Instead, the base class should be defined with a
-   <code>
-    virtual
-   </code>
-   destructor. Deleting an object through a pointer to a type without a
-   <code>
-    virtual
-   </code>
-   destructor results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   .
-  </p>
+  <p>Do not delete an object of derived class type through a pointer to its base class type that has a non-<code>virtual</code> destructor. Instead, the base class should be defined with a <code>virtual</code> destructor. Deleting an object through a pointer to a type without a <code>virtual</code> destructor results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant example,
-   <code>
-    b
-   </code>
-   is a polymorphic pointer type whose static type is
-   <code>
-    Base *
-   </code>
-   and whose dynamic type is
-   <code>
-    Derived *
-   </code>
-   . When
-   <code>
-    b
-   </code>
-   is deleted, it results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   because
-   <code>
-    Base
-   </code>
-   does not have a
-   <code>
-    virtual
-   </code>
-   destructor. The C++ Standard, [class.dtor], paragraph 4
-   [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following
-   :
-  </p>
+  <p>In this noncompliant example, <code>b</code> is a polymorphic pointer type whose static type is <code>Base *</code> and whose dynamic type is <code>Derived *</code>. When <code>b</code> is deleted, it results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> because <code>Base</code> does not have a <code>virtual</code> destructor. The C++ Standard, [class.dtor], paragraph 4 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    If a class has no user-declared destructor, a destructor is implicitly declared as defaulted. An implicitly declared destructor is an
-    <code>
-     inline public
-    </code>
-    member of its class.
-   </p>
+   <p>If a class has no user-declared destructor, a destructor is implicitly declared as defaulted. An implicitly declared destructor is an <code>inline public</code> member of its class.</p>
   </blockquote>
-  <p>
-   The implicitly declared destructor is not declared as
-   <code>
-    virtual
-   </code>
-   even in the presence of other
-   <code>
-    virtual
-   </code>
-   functions.
-  </p>
-  <sample language="cpp">
-   struct Base {
+  <p>The implicitly declared destructor is not declared as <code>virtual</code> even in the presence of other <code>virtual</code> functions.</p>
+  <sample language="cpp">struct Base {
   virtual void f();
 };
- 
+ 
 struct Derived : Base {};
- 
+ 
 void f() {
   Base *b = new Derived();
   // ...
   delete b;
 }
-  </sample>
+</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant example, the explicit pointer operations have been replaced with a smart pointer object, demonstrating that smart pointers suffer from the same problem as other pointers. Because the default deleter for
-   <code>
-    std::unique_ptr
-   </code>
-   calls
-   <code>
-    delete
-   </code>
-   on the internal pointer value, the resulting behavior is identical to the previous noncompliant example.
-  </p>
-  <sample language="cpp">
-   #include &lt;memory&gt;
- 
+  <p>In this noncompliant example, the explicit pointer operations have been replaced with a smart pointer object, demonstrating that smart pointers suffer from the same problem as other pointers. Because the default deleter for <code>std::unique_ptr</code> calls <code>delete</code> on the internal pointer value, the resulting behavior is identical to the previous noncompliant example.</p>
+  <sample language="cpp">#include &lt;memory&gt;
+ 
 struct Base {
   virtual void f();
 };
- 
+ 
 struct Derived : Base {};
- 
+ 
 void f() {
   std::unique_ptr&lt;Base&gt; b = std::make_unique&lt;Derived()&gt;();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the destructor for
-   <code>
-    Base
-   </code>
-   has an explicitly declared
-   <code>
-    virtual
-   </code>
-   destructor, ensuring that the polymorphic delete operation results in well-defined behavior.
-  </p>
-  <sample language="cpp">
-   struct Base {
+  <p>In this compliant solution, the destructor for <code>Base</code> has an explicitly declared <code>virtual</code> destructor, ensuring that the polymorphic delete operation results in well-defined behavior.</p>
+  <sample language="cpp">struct Base {
   virtual ~Base() = default;
   virtual void f();
 };
@@ -165,18 +53,11 @@ void f() {
   Base *b = new Derived();
   // ...
   delete b;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Exceptions">
-  <p>
-   <strong>
-    OOP52-CPP:EX0
-   </strong>
-   : Deleting a polymorphic object without a virtual destructor is permitted if the object is referenced by a pointer to its class, rather than via a pointer to a class it inherits from.
-  </p>
-  <sample language="cpp">
-   class Base {
+  <p><strong>OOP52-CPP:EX0</strong>: Deleting a polymorphic object without a virtual destructor is permitted if the object is referenced by a pointer to its class, rather than via a pointer to a class it inherits from.</p>
+  <sample language="cpp">class Base {
 public:
   // ...
   virtual void AddRef() = 0;
@@ -190,39 +71,10 @@ public:
   virtual void Destroy() { delete this; }
 private:
   ~Derived() {}
-};
-  </sample>
-  <p>
-   Note that if
-   <code>
-    Derived
-   </code>
-   were not marked as
-   <code>
-    final
-   </code>
-   , then
-   <code>
-    delete this
-   </code>
-   could actually reference a subclass of
-   <code>
-    Derived
-   </code>
-   , violating this rule.
-  </p>
-  <p>
-   <strong>
-    OOP52-CPP:EX1
-   </strong>
-   : Deleting a polymorphic object without a virtual destructor is permitted if its base class has a destroying
-   <code>
-    operator delete
-   </code>
-   that will figure out the correct derived class's destructor to call by other means.
-  </p>
-  <sample language="cpp">
-   #include &lt;new&gt;
+};</sample>
+  <p>Note that if <code>Derived</code> were not marked as <code>final</code>, then <code>delete this</code> could actually reference a subclass of <code>Derived</code>, violating this rule.</p>
+  <p><strong>OOP52-CPP:EX1</strong>: Deleting a polymorphic object without a virtual destructor is permitted if its base class has a destroying <code>operator delete</code> that will figure out the correct derived class's destructor to call by other means.</p>
+  <sample language="cpp">#include &lt;new&gt;
 
 class Base {
   const int whichDerived;
@@ -261,25 +113,10 @@ void f() {
   Base *b = new Derived1();
   // ...
   delete b;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Attempting to destruct a polymorphic object that does not have a
-   <code>
-    virtual
-   </code>
-   destructor declared results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . In practice, potential consequences include
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormal program termination
-   </a>
-   and memory leaks.
-  </p>
+  <p>Attempting to destruct a polymorphic object that does not have a <code>virtual</code> destructor declared results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. In practice, potential consequences include <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal program termination</a> and memory leaks.</p>
   <table>
    <tbody>
     <tr>
@@ -316,14 +153,10 @@ void f() {
       Low
      </td>
      <td>
-      <strong>
-       P9
-      </strong>
+      <strong> P9 </strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong> L2 </strong>
      </td>
     </tr>
    </tbody>
@@ -356,9 +189,7 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>
-       non-virtual-public-destructor-in-non-final-class
-      </strong>
+      <strong>non-virtual-public-destructor-in-non-final-class</strong>
      </td>
      <td>
       Partially checked
@@ -374,9 +205,7 @@ void f() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-OOP52
-      </strong>
+      <strong>CertC++-OOP52</strong>
      </td>
      <td>
      </td>
@@ -391,11 +220,25 @@ void f() {
       3.9
      </td>
      <td>
-      <code>
-       -Wdelete-non-virtual-dtor
-      </code>
+      <code>-Wdelete-non-virtual-dtor</code>
      </td>
      <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>LANG.STRUCT.DNVD</strong>
+     </td>
+     <td>
+      delete with Non-Virtual Destructor
      </td>
     </tr>
     <tr>
@@ -408,9 +251,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++3402, C++3403, C++3404
-      </strong>
+      <strong>C++3402, C++3403, C++3404</strong>
      </td>
      <td>
      </td>
@@ -425,16 +266,8 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CL.MLK.VIRTUAL
-       </a>
-      </strong>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CWARN.DTOR.NONVIRT.DELETE
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CL.MLK.VIRTUAL</a></strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CWARN.DTOR.NONVIRT.DELETE</a></strong>
      </td>
      <td>
      </td>
@@ -448,9 +281,7 @@ void f() {
      <td>
      </td>
      <td>
-      <strong>
-       303 S
-      </strong>
+      <strong>303 S</strong>
      </td>
      <td>
       Partially implemented
@@ -466,9 +297,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-OOP52-a
-      </strong>
+      <strong>CERT_CPP-OOP52-a</strong>
      </td>
      <td>
       Define a virtual destructor in classes used as base classes which have virtual functions
@@ -484,9 +313,7 @@ void f() {
       4.4
      </td>
      <td>
-      <strong>
-       3402, 3403, 3404
-      </strong>
+      <strong>3402, 3403, 3404</strong>
      </td>
      <td>
      </td>
@@ -516,20 +343,12 @@ void f() {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       V599
-       <a href="https://pvs-studio.com/en/docs/warnings/v599/">
-       </a>
-      </strong>
+      <strong>V599<a href="https://pvs-studio.com/en/docs/warnings/v599/"></a></strong>
       ,
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v689/">
-        V689
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v689/">V689</a></strong>
      </td>
      <td>
      </td>
@@ -544,9 +363,7 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>
-       non-virtual-public-destructor-in-non-final-class
-      </strong>
+      <strong>non-virtual-public-destructor-in-non-final-class</strong>
      </td>
      <td>
       Partially checked
@@ -562,11 +379,7 @@ void f() {
       4.10
      </td>
      <td>
-      <strong>
-       <a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-1235">
-        S1235
-       </a>
-      </strong>
+      <strong><a href="https://www.sonarsource.com/products/codeanalyzers/sonarcfamilyforcpp/rules-cpp.html#RSPEC-1235">S1235</a></strong>
      </td>
      <td>
      </td>
@@ -575,17 +388,7 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP52-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+OOP52-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

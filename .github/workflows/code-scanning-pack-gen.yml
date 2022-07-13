@@ -5,11 +5,13 @@ on:
     branches:
       - main
       - "rc/**"
+      - "c-coding-standards"
 
   push:
     branches:
       - main
       - "rc/**"
+      - "c-coding-standards"
 
 env:
   XARGS_MAX_PROCS: 4

@@ -1,0 +1,12 @@
+| test.c:20:10:20:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:15:7:15:11 | call to fgets | call to fgets |
+| test.c:57:10:57:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:52:7:52:11 | call to fgets | call to fgets |
+| test.c:66:18:66:20 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:61:7:61:11 | call to fgets | call to fgets |
+| test.c:68:10:68:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:61:7:61:11 | call to fgets | call to fgets |
+| test.c:87:10:87:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:82:9:82:13 | call to fgets | call to fgets |
+| test.c:96:10:96:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:91:10:91:14 | call to fgets | call to fgets |
+| test.c:114:10:114:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:107:15:107:19 | call to fgets | call to fgets |
+| test.c:137:10:137:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:130:15:130:19 | call to fgets | call to fgets |
+| test.c:176:10:176:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:173:15:173:19 | call to fgets | call to fgets |
+| test.c:197:10:197:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:192:10:192:14 | call to fgets | call to fgets |
+| test.c:207:10:207:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:202:17:202:21 | call to fgets | call to fgets |
+| test.c:213:12:213:14 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:211:8:211:12 | call to fgets | call to fgets |

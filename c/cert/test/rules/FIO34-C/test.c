@@ -151,3 +151,22 @@ void f9(void) {
   if (d != EOF) // NON_PORTABLE
     ;
 }
+
+int helper() { return ((!feof(stdin) && !ferror(stdin))); }
+void finter(void) {
+  int c;
+
+  do {
+    c = getchar(); // COMPLIANT[FALSE_POSITIVE]
+  } while (helper());
+}
+
+// the char is compared to EOF
+// but the result is not handled corectly
+void fmishandling(void) {
+  int c;
+
+  do {
+    c = getchar();    // NON_COMPLIANT[FALSE_NEGATIVE]
+  } while (c == EOF); // NON_PORTABLE
+}

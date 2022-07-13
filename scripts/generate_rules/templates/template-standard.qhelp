@@ -22,7 +22,7 @@
   </section>
 
   <example>
-    <sample src="standard-example.cpp"></sample>
+    <sample src="standard-example.{{sourcefile_ext}}"></sample>
   </example>
 
   <section title="See more">

@@ -1,176 +1,21 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The creation of dynamically allocated objects in C++ happens in two stages. The first stage is responsible for allocating sufficient memory to store the object, and the second stage is responsible for initializing the newly allocated chunk of memory, depending on the type of the object being created.
-  </p>
-  <p>
-   Similarly, the destruction of dynamically allocated objects in C++ happens in two stages. The first stage is responsible for finalizing the object, depending on the type, and the second stage is responsible for deallocating the memory used by the object. The C++ Standard, [basic.life], paragraph 1 [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], states the following:
-  </p>
+  <p>The creation of dynamically allocated objects in C++ happens in two stages. The first stage is responsible for allocating sufficient memory to store the object, and the second stage is responsible for initializing the newly allocated chunk of memory, depending on the type of the object being created.</p>
+  <p>Similarly, the destruction of dynamically allocated objects in C++ happens in two stages. The first stage is responsible for finalizing the object, depending on the type, and the second stage is responsible for deallocating the memory used by the object. The C++ Standard, [basic.life], paragraph 1 [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], states the following:</p>
   <blockquote>
-   <p>
-    The
-    <em>
-     lifetime
-    </em>
-    of an object is a runtime property of the object. An object is said to have non-trivial initialization if it is of a class or aggregate type and it or one of its members is initialized by a constructor other than a trivial default constructor. [
-    <em>
-     Note:
-    </em>
-    initialization by a trivial copy/move constructor is non-trivial initialization. —
-    <em>
-     end note
-    </em>
-    ] The lifetime of an object of type
-    <code>
-     T
-    </code>
-    begins when:
-   </p>
-   <p>
-    — storage with the proper alignment and size for type
-    <code>
-     T
-    </code>
-    is obtained, and
-    — if the object has non-trivial initialization, its initialization is complete.
-   </p>
-   <p>
-    The lifetime of an object of type
-    <code>
-     T
-    </code>
-    ends when:
-   </p>
-   <p>
-    — if
-    <code>
-     T
-    </code>
-    is a class type with a non-trivial destructor, the destructor call starts, or
-    — the storage which the object occupies is reused or released.
-   </p>
+   <p>The <em>lifetime</em> of an object is a runtime property of the object. An object is said to have non-trivial initialization if it is of a class or aggregate type and it or one of its members is initialized by a constructor other than a trivial default constructor. [<em>Note:</em> initialization by a trivial copy/move constructor is non-trivial initialization. — <em>end note</em>] The lifetime of an object of type <code>T</code> begins when:</p>
+   <p>— storage with the proper alignment and size for type <code>T</code> is obtained, and— if the object has non-trivial initialization, its initialization is complete.</p>
+   <p>The lifetime of an object of type <code>T</code> ends when:</p>
+   <p>— if <code>T</code> is a class type with a non-trivial destructor, the destructor call starts, or— the storage which the object occupies is reused or released.</p>
   </blockquote>
-  <p>
-   For a dynamically allocated object, these two stages are typically handled automatically by using the
-   <code>
-    new
-   </code>
-   and
-   <code>
-    delete
-   </code>
-   operators. The expression
-   <code>
-    new T
-   </code>
-   for a type
-   <code>
-    T
-   </code>
-   results in a call to
-   <code>
-    operator new()
-   </code>
-   to allocate sufficient memory for
-   <code>
-    T
-   </code>
-   . If memory is successfully allocated, the default constructor for
-   <code>
-    T
-   </code>
-   is called. The result of the expression is a pointer
-   <code>
-    P
-   </code>
-   to the object of type
-   <code>
-    T
-   </code>
-   . When that pointer is passed in the expression
-   <code>
-    delete P
-   </code>
-   , it results in a call to the destructor for
-   <code>
-    T
-   </code>
-   . After the destructor completes, a call is made to
-   <code>
-    operator delete()
-   </code>
-   to deallocate the memory.
-  </p>
-  <p>
-   When a program creates a dynamically allocated object by means other than the
-   <code>
-    new
-   </code>
-   operator, it is said to be
-   <em>
-    manually managing
-   </em>
-   the lifetime of that object. This situation arises when using other allocation schemes to obtain storage for the dynamically allocated object, such as using an
-   <a href="http://www.cplusplus.com/reference/memory/allocator/">
-    allocator object
-   </a>
-   or
-   <code>
-    malloc()
-   </code>
-   . For example, a custom container class may allocate a slab of memory in a
-   <code>
-    reserve()
-   </code>
-   function in which subsequent objects will be stored. See
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM51-CPP.+Properly+deallocate+dynamically+allocated+resources">
-    MEM51-CPP. Properly deallocate dynamically allocated resources
-   </a>
-   for further information on dynamic memory management.
-  </p>
-  <p>
-   When manually managing the lifetime of an object, the constructor must be called to initiate the lifetime of the object. Similarly, the destructor must be called to terminate the lifetime of the object. Use of an object outside of its lifetime is
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   . An object can be constructed either by calling the constructor explicitly using the placement
-   <code>
-    new
-   </code>
-   operator or by calling the
-   <code>
-    construct()
-   </code>
-   function of an allocator object. An object can be destroyed either by calling the destructor explicitly or by calling the
-   <code>
-    destroy()
-   </code>
-   function of an allocator object.
-  </p>
+  <p>For a dynamically allocated object, these two stages are typically handled automatically by using the <code>new</code> and <code>delete</code> operators. The expression <code>new T</code> for a type <code>T</code> results in a call to <code>operator new()</code> to allocate sufficient memory for <code>T</code>. If memory is successfully allocated, the default constructor for <code>T</code> is called. The result of the expression is a pointer <code>P</code> to the object of type <code>T</code>. When that pointer is passed in the expression <code>delete P</code>, it results in a call to the destructor for <code>T</code>. After the destructor completes, a call is made to <code>operator delete()</code> to deallocate the memory.</p>
+  <p>When a program creates a dynamically allocated object by means other than the <code>new</code> operator, it is said to be <em>manually managing</em> the lifetime of that object. This situation arises when using other allocation schemes to obtain storage for the dynamically allocated object, such as using an <a href="http://www.cplusplus.com/reference/memory/allocator/">allocator object</a> or <code>malloc()</code>. For example, a custom container class may allocate a slab of memory in a <code>reserve()</code> function in which subsequent objects will be stored. See <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM51-CPP.+Properly+deallocate+dynamically+allocated+resources">MEM51-CPP. Properly deallocate dynamically allocated resources</a> for further information on dynamic memory management.</p>
+  <p>When manually managing the lifetime of an object, the constructor must be called to initiate the lifetime of the object. Similarly, the destructor must be called to terminate the lifetime of the object. Use of an object outside of its lifetime is <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>. An object can be constructed either by calling the constructor explicitly using the placement <code>new</code> operator or by calling the <code>construct()</code> function of an allocator object. An object can be destroyed either by calling the destructor explicitly or by calling the <code>destroy()</code> function of an allocator object.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, a class with nontrivial initialization (due to the presence of a user-provided constructor) is created with a call to
-   <code>
-    std::malloc()
-   </code>
-   . However, the constructor for the object is never called, resulting in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   when the class is later accessed by calling
-   <code>
-    s-&gt;f()
-   </code>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;cstdlib&gt;
+  <p>In this noncompliant code example, a class with nontrivial initialization (due to the presence of a user-provided constructor) is created with a call to <code>std::malloc()</code>. However, the constructor for the object is never called, resulting in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> when the class is later accessed by calling <code>s-&gt;f()</code>.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
 
 struct S {
   S();
@@ -180,19 +25,15 @@ struct S {
 
 void g() {
   S *s = static_cast&lt;S *&gt;(std::malloc(sizeof(S)));
- 
+ 
   s-&gt;f();
- 
+ 
   std::free(s);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the constructor and destructor are both explicitly called. Further, to reduce the possibility of the object being used outside of its lifetime, the underlying storage is a separate variable from the live object.
-  </p>
-  <sample language="cpp">
-   #include &lt;cstdlib&gt;
+  <p>In this compliant solution, the constructor and destructor are both explicitly called. Further, to reduce the possibility of the object being used outside of its lifetime, the underlying storage is a separate variable from the live object.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
 #include &lt;new&gt;
 
 struct S {
@@ -206,34 +47,14 @@ void g() {
   S *s = new (ptr) S;
 
   s-&gt;f();
- 
+ 
   s-&gt;~S();
   std::free(ptr);
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, a custom container class uses an allocator object to obtain storage for arbitrary element types. While the
-   <code>
-    copy_elements()
-   </code>
-   function is presumed to call copy constructors for elements being moved into the newly allocated storage, this example fails to explicitly call the default constructor for any additional elements being reserved. If such an element is accessed through the
-   <code>
-    operator[]()
-   </code>
-   function, it results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   , depending on the type
-   <code>
-    T
-   </code>
-   .
-  </p>
-  <sample language="cpp">
-   #include &lt;memory&gt;
+  <p>In this noncompliant code example, a custom container class uses an allocator object to obtain storage for arbitrary element types. While the <code>copy_elements()</code> function is presumed to call copy constructors for elements being moved into the newly allocated storage, this example fails to explicitly call the default constructor for any additional elements being reserved. If such an element is accessed through the <code>operator[]()</code> function, it results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, depending on the type <code>T</code>.</p>
+  <sample language="cpp">#include &lt;memory&gt;
 
 template &lt;typename T, typename Alloc = std::allocator&lt;T&gt;&gt;
 class Container {
@@ -260,18 +81,11 @@ public:
   
   T &amp;operator[](size_t idx) { return underlyingStorage[idx]; }
   const T &amp;operator[](size_t idx) const { return underlyingStorage[idx]; }
-};
-  </sample>
+};</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, all elements are properly initialized by explicitly calling copy or default constructors for
-   <code>
-    T.
-   </code>
-  </p>
-  <sample language="cpp">
-   #include &lt;memory&gt;
+  <p>In this compliant solution, all elements are properly initialized by explicitly calling copy or default constructors for <code>T.</code></p>
+  <sample language="cpp">#include &lt;memory&gt;
 
 template &lt;typename T, typename Alloc = std::allocator&lt;T&gt;&gt;
 class Container {
@@ -301,45 +115,13 @@ public:
   
   T &amp;operator[](size_t idx) { return underlyingStorage[idx]; }
   const T &amp;operator[](size_t idx) const { return underlyingStorage[idx]; }
-};
-  </sample>
+};</sample>
  </section>
  <section title="Exceptions">
-  <p>
-   <strong>
-    MEM53-CPP-EX1:
-   </strong>
-   If the object is trivially constructable, it need not have its constructor explicitly called to initiate the object's lifetime. If the object is trivially destructible, it need not have its destructor explicitly called to terminate the object's lifetime. These properties can be tested by calling
-   <code>
-    std::is_trivially_constructible()
-   </code>
-   and
-   <code>
-    std::is_trivially_destructible()
-   </code>
-   from
-   <code>
-    &lt;type_traits&gt;
-   </code>
-   . For instance, integral types such as
-   <code>
-    int
-   </code>
-   and
-   <code>
-    long long
-   </code>
-   do not require an explicit constructor or destructor call.
-  </p>
+  <p><strong>MEM53-CPP-EX1:</strong> If the object is trivially constructable, it need not have its constructor explicitly called to initiate the object's lifetime. If the object is trivially destructible, it need not have its destructor explicitly called to terminate the object's lifetime. These properties can be tested by calling <code>std::is_trivially_constructible()</code> and <code>std::is_trivially_destructible()</code> from <code>&lt;type_traits&gt;</code>. For instance, integral types such as <code>int</code> and <code>long long</code> do not require an explicit constructor or destructor call.</p>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Failing to properly construct or destroy an object leaves its internal state inconsistent, which can result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   and accidental information exposure.
-  </p>
+  <p>Failing to properly construct or destroy an object leaves its internal state inconsistent, which can result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> and accidental information exposure.</p>
   <table>
    <tbody>
     <tr>
@@ -376,14 +158,10 @@ public:
       Medium
      </td>
      <td>
-      <strong>
-       P18
-      </strong>
+      <strong>P18</strong>
      </td>
      <td>
-      <strong>
-       L1
-      </strong>
+      <strong>L1</strong>
      </td>
     </tr>
    </tbody>
@@ -416,9 +194,7 @@ public:
       2021.2
      </td>
      <td>
-      <strong>
-       C++4761, C++4762, C++4766, C++4767
-      </strong>
+      <strong>C++4761, C++4762, C++4766, C++4767</strong>
      </td>
      <td>
      </td>
@@ -433,9 +209,7 @@ public:
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-MEM53-a
-      </strong>
+      <strong>CERT_CPP-MEM53-a</strong>
      </td>
      <td>
       Do not invoke malloc/realloc for objects having constructors
@@ -448,18 +222,10 @@ public:
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v630/">
-        V630
-       </a>
-       ,
-       <a href="https://pvs-studio.com/en/docs/warnings/v749/">
-        V749
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v630/">V630</a>, <a href="https://pvs-studio.com/en/docs/warnings/v749/">V749</a></strong>
      </td>
      <td>
      </td>
@@ -468,17 +234,7 @@ public:
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerab">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM33-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerab">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM33-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

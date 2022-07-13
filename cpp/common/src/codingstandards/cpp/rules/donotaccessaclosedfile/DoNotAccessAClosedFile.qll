@@ -60,7 +60,7 @@ query predicate problems(
       // explicit access to a closed FILE object
       closedFileAccess(closedFile, fileAccess)
     ) and
-    message = "Access of closed file" + closedFile + "which was closed at $@" and
+    message = "Access of closed file" + closedFile + " which was closed at $@" and
     closeFCDescription = "this location."
   )
 }

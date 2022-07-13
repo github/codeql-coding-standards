@@ -1,67 +1,12 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   Lambda expressions may capture objects with automatic storage duration from the set of enclosing scopes (called the
-   <em>
-    reaching scope
-   </em>
-   ) for use in the lambda's function body. These captures may be either explicit, by specifying the object to capture in the lambda's
-   <em>
-    capture-list
-   </em>
-   , or implicit, by using a
-   <em>
-    capture-default
-   </em>
-   and referring to the object within the lambda's function body. When capturing an object explicitly or implicitly, the capture-default indicates that the object is either captured by copy (using
-   <code>
-    =)
-   </code>
-   or captured by reference (using
-   <code>
-    &amp;
-   </code>
-   ). When an object is captured by copy, the lambda object will contain an unnamed nonstatic data member that is initialized to the value of the object being captured. This nonstatic data member's lifetime is that of the lambda object's lifetime. However, when an object is captured by reference, the lifetime of the referent is not tied to the lifetime of the lambda object.
-  </p>
-  <p>
-   Because entities captured are objects with automatic storage duration (or
-   <code>
-    this
-   </code>
-   ), a general guideline is that functions returning a lambda object (including returning via a reference parameter), or storing a lambda object in a member variable or global, should not capture an entity by reference because the lambda object often outlives the captured reference object.
-  </p>
-  <p>
-   When a lambda object outlives one of its reference-captured objects, execution of the lambda object's function call operator results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   once that reference-captured object is accessed. Therefore, a lambda object must not outlive any of its reference-captured objects. This is a specific instance of
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP54-CPP.+Do+not+access+an+object+outside+of+its+lifetime">
-    EXP54-CPP. Do not access an object outside of its lifetime
-   </a>
-   .
-  </p>
-  <p>
-   Noncompliant Code Example
-  </p>
-  <p>
-   In this noncompliant code example, the function
-   <code>
-    g()
-   </code>
-   returns a lambda, which implicitly captures the automatic local variable
-   <code>
-    i
-   </code>
-   by reference. When that lambda is returned from the call, the reference it captured will refer to a variable whose lifetime has ended. As a result, when the lambda is executed in
-   <code>
-    f()
-   </code>
-   , the use of the dangling reference in the lambda results in undefined behavior.
-  </p>
-  <sample language="cpp">
-   auto g() {
+  <p>Lambda expressions may capture objects with automatic storage duration from the set of enclosing scopes (called the <em>reaching scope</em>) for use in the lambda's function body. These captures may be either explicit, by specifying the object to capture in the lambda's <em>capture-list</em>, or implicit, by using a <em>capture-default</em> and referring to the object within the lambda's function body. When capturing an object explicitly or implicitly, the capture-default indicates that the object is either captured by copy (using <code>=)</code> or captured by reference (using <code>&amp;</code>). When an object is captured by copy, the lambda object will contain an unnamed nonstatic data member that is initialized to the value of the object being captured. This nonstatic data member's lifetime is that of the lambda object's lifetime. However, when an object is captured by reference, the lifetime of the referent is not tied to the lifetime of the lambda object.</p>
+  <p>Because entities captured are objects with automatic storage duration (or <code>this</code>), a general guideline is that functions returning a lambda object (including returning via a reference parameter), or storing a lambda object in a member variable or global, should not capture an entity by reference because the lambda object often outlives the captured reference object.</p>
+  <p>When a lambda object outlives one of its reference-captured objects, execution of the lambda object's function call operator results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> once that reference-captured object is accessed. Therefore, a lambda object must not outlive any of its reference-captured objects. This is a specific instance of <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP54-CPP.+Do+not+access+an+object+outside+of+its+lifetime">EXP54-CPP. Do not access an object outside of its lifetime</a>.</p>
+  <p>Noncompliant Code Example</p>
+  <p>In this noncompliant code example, the function <code>g()</code> returns a lambda, which implicitly captures the automatic local variable <code>i</code> by reference. When that lambda is returned from the call, the reference it captured will refer to a variable whose lifetime has ended. As a result, when the lambda is executed in <code>f()</code>, the use of the dangling reference in the lambda results in undefined behavior.</p>
+  <sample language="cpp">auto g() {
   int i = 12;
   return [&amp;] {
     i = 100;
@@ -71,19 +16,11 @@
 
 void f() {
   int j = g()();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the lambda does not capture
-   <code>
-    i
-   </code>
-   by reference but instead captures it by copy. Consequently, the lambda contains an implicit nonstatic data member whose lifetime is that of the lambda.
-  </p>
-  <sample language="cpp">
-   auto g() {
+  <p>In this compliant solution, the lambda does not capture <code>i</code> by reference but instead captures it by copy. Consequently, the lambda contains an implicit nonstatic data member whose lifetime is that of the lambda.</p>
+  <sample language="cpp">auto g() {
   int i = 12;
   return [=] () mutable {
     i = 100;
@@ -93,19 +30,11 @@ void f() {
 
 void f() {
   int j = g()();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, a lambda reference captures a local variable from an outer lambda. However, this inner lambda outlives the lifetime of the outer lambda and any automatic local variables it defines, resulting in undefined behavior when an inner lambda object is executed within
-   <code>
-    f()
-   </code>
-   .
-  </p>
-  <sample language="cpp">
-   auto g(int val) {
+  <p>In this noncompliant code example, a lambda reference captures a local variable from an outer lambda. However, this inner lambda outlives the lifetime of the outer lambda and any automatic local variables it defines, resulting in undefined behavior when an inner lambda object is executed within <code>f()</code>.</p>
+  <sample language="cpp">auto g(int val) {
   auto outer = [val] {
     int i = val;
     auto inner = [&amp;] {
@@ -120,19 +49,11 @@ void f() {
 void f() {
   auto fn = g(12);
   int j = fn();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, the inner lambda captures
-   <code>
-    i
-   </code>
-   by copy instead of by reference.
-  </p>
-  <sample language="cpp">
-   auto g(int val) {
+  <p>In this compliant solution, the inner lambda captures <code>i</code> by copy instead of by reference.</p>
+  <sample language="cpp">auto g(int val) {
   auto outer = [val] {
     int i = val;
     auto inner = [i] {
@@ -146,13 +67,10 @@ void f() {
 void f() {
   auto fn = g(12);
   int j = fn();
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Referencing an object outside of its lifetime can result in an attacker being able to run arbitrary code.
-  </p>
+  <p>Referencing an object outside of its lifetime can result in an attacker being able to run arbitrary code.</p>
   <table>
    <tbody>
     <tr>
@@ -189,14 +107,10 @@ void f() {
       High
      </td>
      <td>
-      <strong>
-       P6
-      </strong>
+      <strong>P6</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -229,9 +143,7 @@ void f() {
       20.10
      </td>
      <td>
-      <strong>
-       invalid_pointer_dereference
-      </strong>
+      <strong>invalid_pointer_dereference</strong>
      </td>
      <td>
      </td>
@@ -246,9 +158,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++4706, C++4707, C++4708
-      </strong>
+      <strong>C++4706, C++4707, C++4708</strong>
      </td>
      <td>
      </td>
@@ -263,15 +173,9 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-EXP61-a
-      </strong>
-      <strong>
-       CERT_CPP-EXP61-b
-      </strong>
-      <strong>
-       CERT_CPP-EXP61-c
-      </strong>
+      <strong>CERT_CPP-EXP61-a</strong>
+      <strong>CERT_CPP-EXP61-b</strong>
+      <strong>CERT_CPP-EXP61-c</strong>
      </td>
      <td>
       Never return lambdas that capture local objects by reference
@@ -304,14 +208,10 @@ void f() {
       </a>
      </td>
      <td>
-      7.16
+      7.17
      </td>
      <td>
-      <strong>
-       <a href="https://pvs-studio.com/en/docs/warnings/v1047">
-        V1047
-       </a>
-      </strong>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v1047">V1047</a></strong>
      </td>
      <td>
      </td>
@@ -320,17 +220,7 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabil">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;amp;query=FIELD+KEYWORDS+contains+EXP61-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerabil">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;amp;query=FIELD+KEYWORDS+contains+EXP61-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

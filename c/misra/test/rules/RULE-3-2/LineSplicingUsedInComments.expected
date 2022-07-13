@@ -1,0 +1,4 @@
+| test.c:6:12:7:13 | // \\\n    if(a > 1) | Line splicing in //-style comment. |
+| test.c:16:12:17:13 | // \\\\\n    if(a > 1) | Line splicing in //-style comment. |
+| test.c:26:12:27:13 | // \\\n    if(a > 1) | Line splicing in //-style comment. |
+| test.c:36:12:37:13 | // \\\\\n    if(a > 1) | Line splicing in //-style comment. |

@@ -1,12 +1,11 @@
 /** A module to reason about side effects. */
 
 import cpp
-import semmle.code.cpp.security.FileWrite
-import semmle.code.cpp.PODType03
 import semmle.code.cpp.dataflow.DataFlow
-import exceptions.ExceptionFlow
-import codingstandards.cpp.Allocations
-import codingstandards.cpp.Expr
+private import exceptions.ExceptionFlow
+private import codingstandards.cpp.Expr
+private import codingstandards.cpp.Variable
+private import codingstandards.cpp.sideeffect.Customizations
 
 /**
  * A side effect that captures external, global, and local side effects.
@@ -17,14 +16,8 @@ import codingstandards.cpp.Expr
  */
 class SideEffect extends Expr {
   SideEffect() {
-    not this instanceof SideEffect::Exclusion::Range and
-    (
-      this instanceof ExternalSideEffect::Range
-      or
-      this instanceof GlobalSideEffect::Range
-      or
-      this instanceof LocalSideEffect::Range
-    )
+    not this instanceof SideEffect::ExclusionRange and
+    this instanceof SideEffect::Range
   }
 }
 
@@ -33,19 +26,13 @@ class NonLocalSideEffect extends SideEffect {
   NonLocalSideEffect() { not this instanceof LocalSideEffect }
 }
 
-module SideEffect {
-  module Exclusion {
-    abstract class Range extends Expr { }
-  }
-}
-
 /** A compiler generated side effect (typicall of the type ClassObjectSideEffect) that we want to exclude. */
-private class CompilerGeneratedSideEffect extends SideEffect::Exclusion::Range {
+private class CompilerGeneratedSideEffect extends SideEffect::ExclusionRange {
   CompilerGeneratedSideEffect() { this.isCompilerGenerated() }
 }
 
 /* A side effect occuring in a source file not part of the code repository (e.g. included standard header files) */
-private class NonSourceSideEffect extends SideEffect::Exclusion::Range {
+private class NonSourceSideEffect extends SideEffect::ExclusionRange {
   NonSourceSideEffect() { not exists(this.getFile().getRelativePath()) }
 }
 
@@ -70,10 +57,6 @@ SideEffect getASideEffectInFunction(Function f) {
 /** A side effect that affects the program environment (e.g., writing a file). */
 class ExternalSideEffect extends SideEffect {
   ExternalSideEffect() { this instanceof ExternalSideEffect::Range }
-}
-
-module ExternalSideEffect {
-  abstract class Range extends Expr { }
 }
 
 /** Holds if the expression `e` produces an external, global, or local (limited to expression `e`) side effect. */
@@ -120,18 +103,9 @@ SideEffect getAnExternalOrGlobalSideEffectInFunction(Function f) {
   result = getAGlobalSideEffectInFunction(f)
 }
 
-/** A function call that performs an IO operation and thus exhibts an external side effect. */
-private class IOFunctionCall extends FunctionCall, ExternalSideEffect::Range {
-  IOFunctionCall() { this instanceof BasicOStreamCall or this instanceof FileWrite }
-}
-
 /** A side effect that affects global the state of the program. */
 class GlobalSideEffect extends SideEffect {
   GlobalSideEffect() { this instanceof GlobalSideEffect::Range }
-}
-
-module GlobalSideEffect {
-  abstract class Range extends Expr { }
 }
 
 /** Gets a global side effect produced by the expression `e`. */
@@ -193,83 +167,6 @@ private predicate modifyingOperator(Function op) {
     ]
 }
 
-private class ResourceReleaseCall extends ExternalSideEffect::Range {
-  ResourceReleaseCall() { freeExpr(this, _, _) }
-}
-
-/** A pointer or reference parameter. */
-class AliasParameter extends Parameter {
-  AliasParameter() { this.getUnspecifiedType() instanceof DerivedType }
-
-  /**
-   * Gets an expression that modifies the object referenced by this parameter, but doesn't
-   * track whether the reference is changed (i.e., the alias parameter is reassigned a different object).
-   * This might attribute effects to an object that are performed on another object that happen after the pointer
-   * is changed.
-   */
-  Expr getAnEffect() {
-    exists(VariableAccess va | va.getTarget() = this |
-      result = getAnEffect(va) and
-      (
-        not this.getUnspecifiedType() instanceof PointerType
-        or
-        // Exclude effects that change the who we point to, since we care about changes to the referenced object.
-        not result.(AssignExpr).getLValue() = va and
-        not result.(CrementOperation).getOperand() = va
-      )
-    )
-  }
-
-  /** Holds if there exists an expresison that modifies the value referred by the parameter. */
-  predicate isModified() { exists(getAnEffect()) }
-}
-
-/** An effect that changes the value of a variable. */
-class VariableEffect extends Expr {
-  VariableAccess va;
-  Variable v;
-
-  VariableEffect() { this = getAnEffect(va) and v = va.getTarget() }
-
-  Variable getTarget() { result = v }
-
-  VariableAccess getAnAccess() { result = va }
-
-  // Holds if an effect modifies the identity of an object and not the entire object.
-  predicate isPartial() {
-    exists(VariableAccess qualifiedAccess | qualifiedAccess.getQualifier() = getAnAccess())
-    or
-    exists(ArrayExpr array | array.getArrayBase() = getAnAccess())
-  }
-}
-
-class MemberVariableEffect extends Expr {
-  MemberVariableEffect() {
-    this instanceof VariableEffect
-    or
-    this instanceof ConstructorFieldInit
-  }
-
-  Variable getTarget() {
-    result = this.(VariableEffect).getTarget()
-    or
-    result = this.(ConstructorFieldInit).getTarget()
-  }
-}
-
-/** Gets a member variable effect in function `f` or a function reachable from `f`. */
-MemberVariableEffect getAMemberVariableEffect(MemberFunction f) {
-  result.getEnclosingFunction() = f and
-  exists(MemberVariable v | v = result.getTarget() | v.getDeclaringType() = f.getDeclaringType())
-  or
-  exists(FunctionCall call, MemberFunction other |
-    call.getQualifier() instanceof ThisExpr and
-    call.getEnclosingFunction() = f and
-    call.getTarget() = other and
-    result = getAMemberVariableEffect(other)
-  )
-}
-
 /** Gets an effect directly applied to expression `base` or indirectly but changes the identity of `base`. */
 Expr getAnEffect(Expr base) {
   // base cases
@@ -324,83 +221,86 @@ Expr getAnEffect(Expr base) {
   )
 }
 
-private class DirectStaticStorageDurationVariableModification extends VariableEffect,
-  GlobalSideEffect::Range {
-  DirectStaticStorageDurationVariableModification() {
-    this.getTarget() instanceof StaticStorageDurationVariable
-  }
-}
-
-private class ConstructorFieldInitEffect extends GlobalSideEffect::Range, ConstructorFieldInit { }
-
-private class AliasVariableModification extends VariableEffect, GlobalSideEffect::Range {
-  AliasVariableModification() { this.getTarget() instanceof AliasParameter }
-}
-
-private class ViolatileAccess extends ExternalSideEffect::Range, VariableAccess {
-  ViolatileAccess() { this.getTarget().(Variable).isVolatile() }
-}
-
 /** A side effect happing as part of a subexpression that can result in unexpected/unspecified behavior when unsequenced. */
 class LocalSideEffect extends SideEffect {
   LocalSideEffect() { this instanceof LocalSideEffect::Range }
 }
 
-module LocalSideEffect {
-  abstract class Range extends Expr { }
-}
-
 /** Gets a local side effect produced by the expression `e`. */
 LocalSideEffect getALocalSideEffect(Expr e) { result = e.getAChild*() }
 
-/** A subexpression of another expression. */
-class ConstituentExpr extends Expr {
-  ConstituentExpr() { exists(FullExpr e | e = this.getParent+()) }
+/** An effect that changes the value of a variable. */
+class VariableEffect extends Expr {
+  VariableAccess va;
+  Variable v;
 
-  FullExpr getFullExpr() { result.getAChild+() = this }
+  VariableEffect() { this = getAnEffect(va) and v = va.getTarget() }
+
+  Variable getTarget() { result = v }
+
+  VariableAccess getAnAccess() { result = va }
+
+  // Holds if an effect modifies the identity of an object and not the entire object.
+  predicate isPartial() {
+    exists(VariableAccess qualifiedAccess | qualifiedAccess.getQualifier() = getAnAccess())
+    or
+    exists(ArrayExpr array | array.getArrayBase() = getAnAccess())
+  }
 }
 
-/** A variable of type scalar. */
-class ScalarVariable extends Variable {
-  ScalarVariable() { isScalarType03(this.getType()) }
+class MemberVariableEffect extends Expr {
+  MemberVariableEffect() {
+    this instanceof VariableEffect
+    or
+    this instanceof ConstructorFieldInit
+  }
+
+  Variable getTarget() {
+    result = this.(VariableEffect).getTarget()
+    or
+    result = this.(ConstructorFieldInit).getTarget()
+  }
 }
 
-private Expr getAnOperandPlus(Operation op) {
-  result = op.getAnOperand()
+/** Gets a member variable effect in function `f` or a function reachable from `f`. */
+MemberVariableEffect getAMemberVariableEffect(MemberFunction f) {
+  result.getEnclosingFunction() = f and
+  exists(MemberVariable v | v = result.getTarget() | v.getDeclaringType() = f.getDeclaringType())
   or
-  exists(Operation oper | oper = op.getAnOperand() | result = getAnOperandPlus(oper))
-}
-
-/** Holds if the scalar variable is incremented or decremented using a prefix or postfix operation. */
-predicate hasScalarSideEffects(ConstituentExpr e, ScalarVariable v) {
-  exists(VariableAccess va |
-    va.getTarget() = v and
-    e.(CrementOperation).getAnOperand() = va
+  exists(FunctionCall call, MemberFunction other |
+    call.getQualifier() instanceof ThisExpr and
+    call.getEnclosingFunction() = f and
+    call.getTarget() = other and
+    result = getAMemberVariableEffect(other)
   )
 }
 
-private class LocalScalarValueModificationAndValueComputation extends LocalSideEffect::Range {
-  LocalScalarValueModificationAndValueComputation() {
-    exists(ScalarVariable v |
-      v instanceof LocalVariable and
-      hasScalarSideEffects(this, v)
+/** A pointer or reference parameter. */
+class AliasParameter extends Parameter {
+  AliasParameter() { this.getUnspecifiedType() instanceof DerivedType }
+
+  /**
+   * Gets an expression that modifies the object referenced by this parameter, but doesn't
+   * track whether the reference is changed (i.e., the alias parameter is reassigned a different object).
+   * This might attribute effects to an object that are performed on another object that happen after the pointer
+   * is changed.
+   */
+  Expr getAnEffect() {
+    exists(VariableAccess va | va.getTarget() = this |
+      result = getAnEffect(va) and
+      (
+        // Any effect on a reference type
+        this.getUnspecifiedType() instanceof ReferenceType
+        or
+        // Exclude effects that change the who we point to, since we care about changes to the referenced object.
+        not result.(AssignExpr).getLValue() = va and
+        not result.(CrementOperation).getOperand() = va
+      )
     )
   }
-}
 
-private class PointerCrementOperation extends CrementOperation, LocalSideEffect::Range {
-  PointerCrementOperation() {
-    exists(VariableAccess va | va.getType() instanceof PointerType | this.getAnOperand() = va)
-  }
-}
-
-private class ReturnedReferenceModificationAndValueComputation extends LocalSideEffect::Range {
-  ReturnedReferenceModificationAndValueComputation() {
-    exists(FunctionCall call |
-      this.(CrementOperation).getOperand() = call and
-      call.getType().getUnderlyingType().getUnspecifiedType() instanceof ReferenceType
-    )
-  }
+  /** Holds if there exists an expresison that modifies the value referred by the parameter. */
+  predicate isModified() { exists(getAnEffect()) }
 }
 
 module PathGraph {

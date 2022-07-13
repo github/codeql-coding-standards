@@ -12,6 +12,18 @@
             },
             "problemMatcher": []
         },
+
+        {
+            "label": "🔃 Standards Automation: Switch To Test or Implementation",
+            "type": "shell",
+            "command": "pwsh .${pathSeparator}scripts${pathSeparator}vscode${pathSeparator}Get-TestOrQueryDirectoryForCurrentFile.ps1 -CurrentFile ${file}",
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated"
+            },
+            "problemMatcher": []
+        },
+
         {
             "label": "Standards Automation: Install Deps",
             "type": "shell",
@@ -157,6 +169,7 @@
                 "BannedTypes",
                 "BannedFunctions",
                 "Classes",
+                "Comments",
                 "Concurrency",
                 "Const",
                 "Declarations",
@@ -171,14 +184,13 @@
                 "Macros",
                 "Naming",
                 "Scope",
-                "Side-effects1",
-                "Side-effects2",
                 "Classes",
                 "SmartPointers1",
                 "SmartPointers2",
                 "SideEffects1",
                 "SideEffects2",
                 "Strings",
+                "Syntax",
                 "Templates",
                 "Classes",
                 "Freed",

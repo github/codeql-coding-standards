@@ -1,121 +1,24 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The non-placement
-   <code>
-    new
-   </code>
-   expression is specified to invoke an allocation function to allocate storage for an object of the specified type. When successful, the allocation function, in turn, is required to return a pointer to storage with alignment suitable for any object with a fundamental alignment requirement. Although the global
-   <code>
-    operator new
-   </code>
-   , the default allocation function invoked by the new expression, is specified by the C++ standard [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ] to allocate sufficient storage suitably aligned to represent any object of the specified size, since the expected alignment isn't part of the function's interface, the most a program can safely assume is that the storage allocated by the default
-   <code>
-    operator new
-   </code>
-   defined by the implementation is aligned for an object with a fundamental alignment. In particular, it is unsafe to use the storage for an object of a type with a stricter alignment requirement—an
-   <em>
-    over-aligned type
-   </em>
-   .
-  </p>
-  <p>
-   Furthermore, the array form of the non-placement
-   <code>
-    new
-   </code>
-   expression may increase the amount of storage it attempts to obtain by invoking the corresponding allocation function by an unspecified amount. This amount, referred to as overhead in the C++ standard, is commonly known as a
-   <em>
-    cookie
-   </em>
-   . The cookie is used to store the number of elements in the array so that the array delete expression or the exception unwinding mechanism can invoke the type's destructor on each successfully constructed element of the array. While the specific conditions under which the cookie is required by the array new expression aren't described in the C++ standard, they may be outlined in other specifications such as the
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions">
-    application binary interface
-   </a>
-   (ABI) document for the target environment. For example, the Itanium C++ ABI describes the rules for computing the size of a cookie, its location, and achieving the correct alignment of the array elements. When these rules require that a cookie be created, it is possible to obtain a suitably aligned array of elements of an overaligned type [
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-codesourcery2016a">
-    CodeSourcery 2016a
-   </a>
-   ]. However, the rules are complex and the Itanium C++ ABI isn't universally applicable.
-  </p>
-  <p>
-   Avoid relying on the default
-   <code>
-    operator new
-   </code>
-   to obtain storage for objects of over-aligned types. Doing so may result in an object being constructed at a misaligned location, which has
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   and can result in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormal termination
-   </a>
-   when the object is accessed, even on architectures otherwise known to tolerate misaligned accesses.
-  </p>
+  <p>The non-placement <code>new</code> expression is specified to invoke an allocation function to allocate storage for an object of the specified type. When successful, the allocation function, in turn, is required to return a pointer to storage with alignment suitable for any object with a fundamental alignment requirement. Although the global <code>operator new</code>, the default allocation function invoked by the new expression, is specified by the C++ standard [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>] to allocate sufficient storage suitably aligned to represent any object of the specified size, since the expected alignment isn't part of the function's interface, the most a program can safely assume is that the storage allocated by the default <code>operator new</code> defined by the implementation is aligned for an object with a fundamental alignment. In particular, it is unsafe to use the storage for an object of a type with a stricter alignment requirement—an<em> over-aligned type</em>.</p>
+  <p>Furthermore, the array form of the non-placement <code>new</code> expression may increase the amount of storage it attempts to obtain by invoking the corresponding allocation function by an unspecified amount. This amount, referred to as overhead in the C++ standard, is commonly known as a <em>cookie</em>. The cookie is used to store the number of elements in the array so that the array delete expression or the exception unwinding mechanism can invoke the type's destructor on each successfully constructed element of the array. While the specific conditions under which the cookie is required by the array new expression aren't described in the C++ standard, they may be outlined in other specifications such as the <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions">application binary interface</a> (ABI) document for the target environment. For example, the Itanium C++ ABI describes the rules for computing the size of a cookie, its location, and achieving the correct alignment of the array elements. When these rules require that a cookie be created, it is possible to obtain a suitably aligned array of elements of an overaligned type [<a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-codesourcery2016a">CodeSourcery 2016a</a>]. However, the rules are complex and the Itanium C++ ABI isn't universally applicable.</p>
+  <p>Avoid relying on the default <code>operator new</code> to obtain storage for objects of over-aligned types. Doing so may result in an object being constructed at a misaligned location, which has <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a> and can result in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal termination</a> when the object is accessed, even on architectures otherwise known to tolerate misaligned accesses.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In the following noncompliant code example, the new expression is used to invoke the default
-   <code>
-    operator new
-   </code>
-   to obtain storage in which to then construct an object of the user-defined type
-   <code>
-    Vector
-   </code>
-   with alignment that exceeds the fundamental alignment of most implementations (typically 16 bytes). Objects of such over-aligned types are typically required by SIMD (single instruction, multiple data) vectorization instructions, which can trap when passed unsuitably aligned arguments.
-  </p>
-  <sample language="cpp">
-   struct alignas(32) Vector {
+  <p>In the following noncompliant code example, the new expression is used to invoke the default <code>operator new</code> to obtain storage in which to then construct an object of the user-defined type <code>Vector</code> with alignment that exceeds the fundamental alignment of most implementations (typically 16 bytes). Objects of such over-aligned types are typically required by SIMD (single instruction, multiple data) vectorization instructions, which can trap when passed unsuitably aligned arguments.</p>
+  <sample language="cpp">struct alignas(32) Vector {
   char elems[32];
 };
 
 Vector *f() {
   Vector *pv = new Vector;
   return pv;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution (aligned_alloc)">
-  <p>
-   In this compliant solution, an overloaded
-   <code>
-    operator new
-   </code>
-   function is defined to obtain appropriately aligned storage by calling the C11 function
-   <code>
-    aligned_alloc()
-   </code>
-   . Programs that make use of the array form of the new expression must define the corresponding member array
-   <code>
-    operator new[]
-   </code>
-   and
-   <code>
-    operator delete[]
-   </code>
-   . The
-   <code>
-    aligned_alloc()
-   </code>
-   function is not part of the C++ 98, C++ 11, or C++ 14 standards but may be provided by implementations of such standards as an extension. Programs targeting C++ implementations that do not provide the C11
-   <code>
-    aligned_alloc()
-   </code>
-   function must define the member
-   <code>
-    operator new
-   </code>
-   to adjust the alignment of the storage obtained by the allocation function of their choice.
-  </p>
-  <sample language="cpp">
-   #include &lt;cstdlib&gt;
+  <p>In this compliant solution, an overloaded <code>operator new</code> function is defined to obtain appropriately aligned storage by calling the C11 function <code>aligned_alloc()</code>. Programs that make use of the array form of the new expression must define the corresponding member array <code>operator new[]</code> and <code>operator delete[]</code>. The <code>aligned_alloc()</code> function is not part of the C++ 98, C++ 11, or C++ 14 standards but may be provided by implementations of such standards as an extension. Programs targeting C++ implementations that do not provide the C11 <code>aligned_alloc()</code> function must define the member <code>operator new</code> to adjust the alignment of the storage obtained by the allocation function of their choice.</p>
+  <sample language="cpp">#include &lt;cstdlib&gt;
 #include &lt;new&gt;
 
 struct alignas(32) Vector {
@@ -134,21 +37,10 @@ struct alignas(32) Vector {
 Vector *f() {
   Vector *pv = new Vector;
   return pv;
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   Using improperly aligned pointers results in
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">
-    undefined behavior
-   </a>
-   , typically leading to
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">
-    abnormal termination
-   </a>
-   .
-  </p>
+  <p>Using improperly aligned pointers results in <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior">undefined behavior</a>, typically leading to <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-abnormaltermination">abnormal termination</a>.</p>
   <table>
    <tbody>
     <tr>
@@ -185,14 +77,10 @@ Vector *f() {
       Low
      </td>
      <td>
-      <strong>
-       P6
-      </strong>
+      <strong>P6</strong>
      </td>
      <td>
-      <strong>
-       L2
-      </strong>
+      <strong>L2</strong>
      </td>
     </tr>
    </tbody>
@@ -225,9 +113,7 @@ Vector *f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++3129
-      </strong>
+      <strong>C++3129</strong>
      </td>
      <td>
      </td>
@@ -242,9 +128,7 @@ Vector *f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-MEM57-a
-      </strong>
+      <strong>CERT_CPP-MEM57-a</strong>
      </td>
      <td>
       Avoid using the default operator 'new' for over-aligned types
@@ -272,17 +156,7 @@ Vector *f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulner">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM57-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for  <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulner">vulnerabilities</a>  resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+MEM57-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>

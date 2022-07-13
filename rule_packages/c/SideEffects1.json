@@ -1,0 +1,181 @@
+{
+  "CERT-C": {
+    "EXP30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Depending on the order of evaluation for side effects for evaluation of scalar objects that are unsequenced results in undefined behavior.",
+          "kind": "problem",
+          "name": "Do not depend on the order of scalar object evaluation for side effects",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DependenceOnOrderOfScalarEvaluationForSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Depending on the order of evaluation for side effects in function call arguments can result in unexpected program behavior.",
+          "kind": "problem",
+          "name": "Do not depend on the order of evaluation of function call arguments for side effects",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DependenceOnOrderOfFunctionArgumentsForSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not depend on the order of evaluation for side effects"
+    },
+    "EXP44-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The operands to sizeof, _Alignof, or _Generic are not evaluated and their side effect will not be generated. Using operands with a side effect can result in unexpected program behavior.",
+          "kind": "problem",
+          "name": "Do not rely on side effects in operands to sizeof, _Alignof, or _Generic",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnevaluatedOperandWithSideEffect",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not rely on side effects in operands to sizeof, _Alignof, or _Generic"
+    },
+    "EXP45-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Assignments in selection statements is indicative of a programmer error and can result in unexpected program behavior.",
+          "kind": "problem",
+          "name": "Do not perform assignments in selection statements",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AssignmentsInSelectionStatements",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not perform assignments in selection statements"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-12-1": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The relative precedences of operators are not intuitive and can lead to mistakes. The use of parentheses to make the precedence of operators explicit removes the possibility of incorrect expectations.",
+          "kind": "problem",
+          "name": "The operand of the sizeof operator should be enclosed in parentheses",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnenclosedSizeofOperand",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The relative precedences of operators are not intuitive and can lead to mistakes. The use of parentheses to make the precedence of operators explicit removes the possibility of incorrect expectations.",
+          "kind": "problem",
+          "name": "The precedence of operators within expressions should be made explicit",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ImplicitPrecedenceOfOperatorsInExpression",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The precedence of operators within expressions should be made explicit"
+    },
+    "RULE-13-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The order in which side effects occur during the evaluation of the expressions in an initializer list is unspecified and can result in unexpected program behavior.",
+          "kind": "problem",
+          "name": "Initializer lists shall not contain persistent side effects",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InitializerListsContainPersistentSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Initializer lists shall not contain persistent side effects"
+    },
+    "RULE-13-4": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The use of an assignment operator can impair the readability of the code and the introduced side effect may result in undefined behavior.",
+          "kind": "problem",
+          "name": "The result of an assignment operator should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The result of an assignment operator should not be used"
+    },
+    "RULE-13-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The evaluation of the right-hand operand of the && and || operators is conditional on the value of the left-hand operand. Any side effects in the right-hand operand may or may not occur and may result in unexpected program behavior.",
+          "kind": "problem",
+          "name": "The right hand operand of a logical && or || operator shall not contain persistent side effects",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PossibleSuppressedSideEffectInLogicOperatorOperand",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The right hand operand of a logical && or || operator shall not contain persistent side effects"
+    },
+    "RULE-13-6": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "The operand to sizeof is not evaluated and its side effect will not be generated. Using an operand with a side effect can result in unexpected program behavior.",
+          "kind": "problem",
+          "name": "The operand of the sizeof operator shall not contain any expression which has potential side effects",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SizeofOperandWithSideEffect",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The operand of the sizeof operator shall not contain any expression which has potential side effects"
+    }
+  }
+}

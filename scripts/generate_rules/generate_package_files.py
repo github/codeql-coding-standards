@@ -21,7 +21,7 @@ The JSON file at <repo_root>/rule_packages/<language_name>/<package_name>.json i
 entry in the `queries` array for each rule, we generate the following:
  - Query file in <language>/<standard>/src/rules/<rule_id>/<short_name>.ql
  - Query help file in <language>/<standard>/src/rules/<ruleid>/<short_name>.qhelp
- - Implementation section in <language>/<standard>/src/rules/<rule_id>/<short_name>-implementation.xml
+ - Implementation section in <language>/<standard>/src/rules/<rule_id>/<short_name>.qhelp
  - Test reference in <language>/<standard>/test/<rule_id>/<short_name>.qlref
  - Test file in <language>/<standard>/test/<rule_id>/test.<language_extension>
 
@@ -61,6 +61,12 @@ standard_metadata = {
         "standard_title" : "MISRA-C:2012 Guidelines for the use of the C language in critical systems",
         "standard_url"   : "https://www.misra.org.uk/"
     }
+}
+
+# Mapping from the QL language to source file extension used to generate a help example file.
+ql_language_ext_mappings = {
+    "cpp": "cpp",
+    "c": "c"
 }
 
 parser = ArgumentParser(description=help_statement)
@@ -178,9 +184,12 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
     # Add a testref file for this query, that refers to the shared library
     test_ref_file = test_src_dir.joinpath(
         query["short_name"] + ".testref")
-    with open(test_ref_file, "w", newline="\n") as f:
-        f.write(str(shared_impl_test_query_path.relative_to(
-            repo_root)).replace("\\", "/"))
+
+    # don't write it if it already exists 
+    if not test_ref_file.exists():
+        with open(test_ref_file, "w", newline="\n") as f:
+            f.write(str(shared_impl_test_query_path.relative_to(
+                repo_root)).replace("\\", "/"))
 
 
 def write_non_shared_testfiles(query, language_name, query_path, test_src_dir, src_pack_dir):
@@ -337,16 +346,8 @@ else:
                     write_template(qhelp_template, query,
                                    package_name, qhelp_path)
 
-                    # Add qhelp implementation file placeholder, if it doesn't exist
-                    qhelp_impl_template = env.get_template(
-                        "template-implementation.qhelp")
-                    qhelp_impl_path = rule_src_dir.joinpath(
-                        query["short_name"] + "-implementation.qhelp")
-                    if not qhelp_impl_path.exists():
-                        write_template(qhelp_impl_template, query,
-                                       package_name, qhelp_impl_path)
-
                     # Add qhelp standard file placeholder, if it doesn't exist
+                    query["sourcefile_ext"] = ql_language_ext_mappings[language_name]
                     qhelp_std_template = env.get_template(
                         "template-standard.qhelp")
                     qhelp_std_path = rule_src_dir.joinpath(
@@ -354,6 +355,9 @@ else:
                     if not qhelp_std_path.exists():
                         write_template(qhelp_std_template, query,
                                        package_name, qhelp_std_path)
+
+                    rule_src_dir.joinpath(
+                        f"""standard-example.{query["sourcefile_ext"]}""").touch()
 
                     if "shared_implementation_short_name" in query:
                         write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir)
@@ -389,4 +393,4 @@ print("==========================================================")
 repo_root = Path(__file__).parent.parent.parent
 update_metadata_path = repo_root.joinpath(
     "scripts", "generate_metadata", "generate_metadata_for_language.py")
-subprocess.run(["python", update_metadata_path, language_name])
+subprocess.run([sys.executable, update_metadata_path, language_name])

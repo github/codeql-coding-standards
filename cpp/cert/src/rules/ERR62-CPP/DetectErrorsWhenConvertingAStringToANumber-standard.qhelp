@@ -1,159 +1,28 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
  <section title="Description">
-  <p>
-   The process of parsing an integer or floating-point number from a string can produce many errors. The string might not contain a number. It might contain a number of the correct type that is out of range (such as an integer that is larger than
-   <code>
-    INT_MAX
-   </code>
-   ). The string may also contain extra information after the number, which may or may not be useful after the conversion. These error conditions must be detected and addressed when a string-to-number conversion is performed using a formatted input stream such as
-   <code>
-    std::istream
-   </code>
-   or the locale facet
-   <code>
-    num_get&lt;&gt;
-   </code>
-   .
-  </p>
-  <p>
-   When calling a formatted input stream function like
-   <code>
-    istream::operator&gt;&gt;()
-   </code>
-   , information about conversion errors is queried through the
-   <code>
-    basic_ios::good()
-   </code>
-   ,
-   <code>
-    basic_ios::bad()
-   </code>
-   , and
-   <code>
-    basic_ios::fail()
-   </code>
-   inherited member functions or through exception handling if it is enabled on the stream object.
-  </p>
-  <p>
-   When calling
-   <code>
-    num_get&lt;&gt;::get()
-   </code>
-   , information about conversion errors is returned to the caller through the
-   <code>
-    ios_base::iostate&amp;
-   </code>
-   argument. The C++ Standard, section [facet.num.get.virtuals], paragraph 3 [
-   <a href="https://www.securecoding.cert.org/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">
-    ISO/IEC 14882-2014
-   </a>
-   ], in part, states the following:
-  </p>
+  <p>The process of parsing an integer or floating-point number from a string can produce many errors. The string might not contain a number. It might contain a number of the correct type that is out of range (such as an integer that is larger than <code>INT_MAX</code>). The string may also contain extra information after the number, which may or may not be useful after the conversion. These error conditions must be detected and addressed when a string-to-number conversion is performed using a formatted input stream such as <code>std::istream</code> or the locale facet <code>num_get&lt;&gt;</code>.</p>
+  <p>When calling a formatted input stream function like <code>istream::operator&gt;&gt;()</code>, information about conversion errors is queried through the <code>basic_ios::good()</code>, <code>basic_ios::bad()</code>, and <code>basic_ios::fail()</code> inherited member functions or through exception handling if it is enabled on the stream object.</p>
+  <p>When calling <code>num_get&lt;&gt;::get()</code>, information about conversion errors is returned to the caller through the <code>ios_base::iostate&amp;</code> argument. The C++ Standard, section [facet.num.get.virtuals], paragraph 3 [<a href="https://www.securecoding.cert.org/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014">ISO/IEC 14882-2014</a>], in part, states the following:</p>
   <blockquote>
-   <p>
-    If the conversion function fails to convert the entire field, or if the field represents a value outside the range of representable values,
-    <code>
-     ios_base::failbit
-    </code>
-    is assigned to
-    <code>
-     err
-    </code>
-    .
-   </p>
+   <p>If the conversion function fails to convert the entire field, or if the field represents a value outside the range of representable values, <code>ios_base::failbit</code> is assigned to <code>err</code>.</p>
   </blockquote>
-  <p>
-   Always explicitly check the error state of a conversion from string to a numeric value (or handle the related exception, if applicable) instead of assuming the conversion results in a valid value. This rule is in addition to
-   <a href="https://wiki.sei.cmu.edu/confluence/display/c/ERR34-C.+Detect+errors+when+converting+a+string+to+a+number">
-    ERR34-C. Detect errors when converting a string to a number
-   </a>
-   , which bans the use of conversion functions that do not perform conversion validation such as
-   <code>
-    std::atoi()
-   </code>
-   and
-   <code>
-    std::scanf()
-   </code>
-   from the C Standard Library.
-  </p>
+  <p>Always explicitly check the error state of a conversion from string to a numeric value (or handle the related exception, if applicable) instead of assuming the conversion results in a valid value. This rule is in addition to <a href="https://wiki.sei.cmu.edu/confluence/display/c/ERR34-C.+Detect+errors+when+converting+a+string+to+a+number">ERR34-C. Detect errors when converting a string to a number</a>, which bans the use of conversion functions that do not perform conversion validation such as <code>std::atoi()</code> and <code>std::scanf()</code> from the C Standard Library.</p>
  </section>
  <section title="Noncompliant Code Example">
-  <p>
-   In this noncompliant code example, multiple numeric values are converted from the standard input stream. However, if the text received from the standard input stream cannot be converted into a numeric value that can be represented by an
-   <code>
-    int
-   </code>
-   , the resulting value stored into the variables
-   <code>
-    i
-   </code>
-   and
-   <code>
-    j
-   </code>
-   may be unexpected.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>In this noncompliant code example, multiple numeric values are converted from the standard input stream. However, if the text received from the standard input stream cannot be converted into a numeric value that can be represented by an <code>int</code>, the resulting value stored into the variables <code>i</code> and <code>j</code> may be unexpected.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 
 void f() {
   int i, j;
   std::cin &gt;&gt; i &gt;&gt; j;
   // ...
-}
-  </sample>
-  <p>
-   For instance, if the text
-   <code>
-    12345678901234567890
-   </code>
-   is the first converted value read from the standard input stream, then
-   <code>
-    i
-   </code>
-   will have the value
-   <code>
-    std::numeric_limits&lt;int&gt;::max()
-   </code>
-   (per [facet.num.get.virtuals] paragraph 3), and
-   <code>
-    j
-   </code>
-   will be uninitialized (per [istream.formatted.arithmetic] paragraph 3). If the text
-   <code>
-    abcdefg
-   </code>
-   is the first converted value read from the standard input stream, then
-   <code>
-    i
-   </code>
-   will have the value
-   <code>
-    0
-   </code>
-   and
-   <code>
-    j
-   </code>
-   will remain uninitialized.
-  </p>
+}</sample>
+  <p>For instance, if the text <code>12345678901234567890</code> is the first converted value read from the standard input stream, then <code>i</code> will have the value <code>std::numeric_limits&lt;int&gt;::max()</code> (per [facet.num.get.virtuals] paragraph 3), and <code>j</code> will be uninitialized (per [istream.formatted.arithmetic] paragraph 3). If the text <code>abcdefg</code> is the first converted value read from the standard input stream, then <code>i</code> will have the value <code>0</code> and <code>j</code> will remain uninitialized.</p>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, exceptions are enabled so that any conversion failure results in an exception being thrown. However, this approach cannot distinguish between which values are valid and which values are invalid and must assume that all values are invalid. Both the
-   <code>
-    badbit
-   </code>
-   and
-   <code>
-    failbit
-   </code>
-   flags are set to ensure that conversion errors as well as loss of integrity with the stream are treated as exceptions.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>In this compliant solution, exceptions are enabled so that any conversion failure results in an exception being thrown. However, this approach cannot distinguish between which values are valid and which values are invalid and must assume that all values are invalid. Both the <code>badbit</code> and <code>failbit</code> flags are set to ensure that conversion errors as well as loss of integrity with the stream are treated as exceptions.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 
 void f() {
   int i, j;
@@ -165,23 +34,11 @@ void f() {
   } catch (std::istream::failure &amp;E) {
     // Handle error
   }
-}
-  </sample>
+}</sample>
  </section>
  <section title="Compliant Solution">
-  <p>
-   In this compliant solution, each converted value read from the standard input stream is tested for validity before reading the next value in the sequence, allowing error recovery on a per-value basis. It checks
-   <code>
-    std::istream::fail()
-   </code>
-   to see if the failure bit was set due to a conversion failure or whether the bad bit was set due to a loss of integrity with the stream object. If a failure condition is encountered, it is cleared on the input stream and then characters are read and discarded until a
-   <code>
-    ' '
-   </code>
-   (space) character occurs. The error handling in this case only works if a space character is what delimits the two numeric values to be converted.
-  </p>
-  <sample language="cpp">
-   #include &lt;iostream&gt;
+  <p>In this compliant solution, each converted value read from the standard input stream is tested for validity before reading the next value in the sequence, allowing error recovery on a per-value basis. It checks <code>std::istream::fail()</code> to see if the failure bit was set due to a conversion failure or whether the bad bit was set due to a loss of integrity with the stream object. If a failure condition is encountered, it is cleared on the input stream and then characters are read and discarded until a <code>' '</code> (space) character occurs. The error handling in this case only works if a space character is what delimits the two numeric values to be converted.</p>
+  <sample language="cpp">#include &lt;iostream&gt;
 #include &lt;limits&gt;
 
 void f() {
@@ -199,19 +56,12 @@ void f() {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), ' ');
   }
- 
+ 
   // ...
-}
-  </sample>
+}</sample>
  </section>
  <section title="Risk Assessment">
-  <p>
-   It is rare for a violation of this rule to result in a security
-   <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerability
-   </a>
-   unless it occurs in security-sensitive code. However, violations of this rule can easily result in lost or misinterpreted data.
-  </p>
+  <p>It is rare for a violation of this rule to result in a security <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-vulnerability">vulnerability</a> unless it occurs in security-sensitive code. However, violations of this rule can easily result in lost or misinterpreted data. </p>
   <table>
    <tbody>
     <tr>
@@ -248,14 +98,10 @@ void f() {
       Medium
      </td>
      <td>
-      <strong>
-       P4
-      </strong>
+      <strong>P4</strong>
      </td>
      <td>
-      <strong>
-       L3
-      </strong>
+      <strong>L3</strong>
      </td>
     </tr>
    </tbody>
@@ -288,9 +134,7 @@ void f() {
       7.2.0
      </td>
      <td>
-      <strong>
-       CertC++-ERR62
-      </strong>
+      <strong>CertC++-ERR62</strong>
      </td>
      <td>
      </td>
@@ -305,15 +149,11 @@ void f() {
       3.9
      </td>
      <td>
-      <code>
-       cert-err34-c
-      </code>
+      <code>cert-err34-c</code>
      </td>
      <td>
       Checked by
-      <code>
-       clang-tidy
-      </code>
+      <code>clang-tidy</code>
       ; only identifies use of unsafe C Standard Library functions corresponding to ERR34-C
      </td>
     </tr>
@@ -324,21 +164,10 @@ void f() {
       </a>
      </td>
      <td>
-      6.1p0
+      6.2p0
      </td>
      <td>
-      <strong>
-       BADFUNC.ATOF
-       <strong>
-        BADFUNC.ATOI
-       </strong>
-       <strong>
-        BADFUNC.ATOF
-       </strong>
-       <strong>
-        BADFUNC.ATOF
-       </strong>
-      </strong>
+      <strong>BADFUNC.ATOF<strong>BADFUNC.ATOI</strong><strong>BADFUNC.ATOF</strong><strong>BADFUNC.ATOF</strong></strong>
      </td>
      <td>
       Use of atof
@@ -357,9 +186,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       C++3161
-      </strong>
+      <strong>C++3161</strong>
      </td>
      <td>
      </td>
@@ -374,11 +201,7 @@ void f() {
       2021.4
      </td>
      <td>
-      <strong>
-       <a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">
-        CERT.ERR.CONV.STR_TO_NUM
-       </a>
-      </strong>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">CERT.ERR.CONV.STR_TO_NUM</a></strong>
      </td>
      <td>
      </td>
@@ -393,9 +216,7 @@ void f() {
       2021.2
      </td>
      <td>
-      <strong>
-       CERT_CPP-ERR62-a
-      </strong>
+      <strong>CERT_CPP-ERR62-a</strong>
      </td>
      <td>
       The library functions atof, atoi and atol from library stdlib.h shall not be used
@@ -405,17 +226,7 @@ void f() {
   </table>
  </section>
  <section title="Related Vulnerabilities">
-  <p>
-   Search for other
-   <a href="https://www.securecoding.cert.org/confluence/display/seccode/BB.+Definitions#BB.Definitions-vulnerability">
-    vulnerabilities
-   </a>
-   resulting from the violation of this rule on the
-   <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR62-CPP">
-    CERT website
-   </a>
-   .
-  </p>
+  <p>Search for other <a href="https://www.securecoding.cert.org/confluence/display/seccode/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+ERR62-CPP">CERT website</a>.</p>
  </section>
  <section title="Related Guidelines">
   <table>
