@@ -1,0 +1,16 @@
+| test.c:19:3:19:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:7:20:7:24 | Co | this expression |
+| test.c:20:3:20:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:7:20:7:24 | Co | this expression |
+| test.c:22:3:22:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:13:3:13:9 | call to strncpy | this expression |
+| test.c:23:3:23:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:13:3:13:9 | call to strncpy | this expression |
+| test.c:24:3:24:8 | call to strlen | String modified by $@ is passed to function expecting a null-terminated string. | test.c:13:3:13:9 | call to strncpy | this expression |
+| test.c:33:3:33:9 | call to wprintf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:30:24:30:29 | Co | this expression |
+| test.c:46:3:46:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:41:3:41:10 | call to snprintf | this expression |
+| test.c:47:3:47:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:41:3:41:10 | call to snprintf | this expression |
+| test.c:55:3:55:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:53:3:53:9 | call to strncat | this expression |
+| test.c:56:3:56:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:53:3:53:9 | call to strncat | this expression |
+| test.c:62:3:62:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:60:20:60:24 | Co | this expression |
+| test.c:63:3:63:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:60:20:60:24 | Co | this expression |
+| test.c:75:3:75:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:72:20:72:24 | Co | this expression |
+| test.c:76:3:76:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:72:20:72:24 | Co | this expression |
+| test.c:85:3:85:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:83:3:83:9 | call to strncpy | this expression |
+| test.c:86:3:86:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:83:3:83:9 | call to strncpy | this expression |

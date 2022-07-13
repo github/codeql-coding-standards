@@ -4,23 +4,32 @@ import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
 import IO1
 import IO2
+import Misc
 import Preprocessor1
 import SideEffects1
+import SideEffects2
+import Strings1
 import Syntax
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
+  TMiscPackageQuery(MiscQuery q) or
   TPreprocessor1PackageQuery(Preprocessor1Query q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
+  TSideEffects2PackageQuery(SideEffects2Query q) or
+  TStrings1PackageQuery(Strings1Query q) or
   TSyntaxPackageQuery(SyntaxQuery q)
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isIO1QueryMetadata(query, queryId, ruleId) or
   isIO2QueryMetadata(query, queryId, ruleId) or
+  isMiscQueryMetadata(query, queryId, ruleId) or
   isPreprocessor1QueryMetadata(query, queryId, ruleId) or
   isSideEffects1QueryMetadata(query, queryId, ruleId) or
+  isSideEffects2QueryMetadata(query, queryId, ruleId) or
+  isStrings1QueryMetadata(query, queryId, ruleId) or
   isSyntaxQueryMetadata(query, queryId, ruleId)
 }

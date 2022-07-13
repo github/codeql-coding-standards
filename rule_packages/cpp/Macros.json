@@ -44,7 +44,11 @@
                     "shared_implementation_short_name": "PreprocessorIncludesForbiddenHeaderNames",
                     "tags": [
                         "correctness"
-                    ]
+                    ],
+                    "implementation_scope": {
+                      "description": "This query identifies the use of the ', \\, /*, // characters in header file names. The query is not able to detect the use of the \" character in header file names.",
+                      "items": []
+                    }
                 }
             ],
             "title": "The ', \", /*, //, \\ characters shall not occur in a header file name or in #include directive."
@@ -211,7 +215,11 @@
                     "tags": [
                         "correctness",
                         "readability"
-                    ]
+                    ],
+                    "implementation_scope": {
+                      "description": "This query does not detect the case where an undefined character is used but not actually evaluated, for example, as a result of the inclusion of a logical AND operator in the #if expression.",
+                      "items": []
+                    }
                 }
             ],
             "title": "Undefined macro identifiers shall not be used in #if or #elif pre-processor directives, except as operands to the defined operator."

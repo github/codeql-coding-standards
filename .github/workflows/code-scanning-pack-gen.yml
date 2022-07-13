@@ -105,7 +105,6 @@ jobs:
               mkdir -p "$query_dir"
               # Copy each selected ql file, plus the related files (qhelp, qhelp implementation)
               cp "$copy_from_root_name.ql" "lgtm-cpp-query-pack/$copy_to_root_name.ql"
-              cp "$copy_from_root_name-implementation.qhelp" "lgtm-cpp-query-pack/$copy_to_root_name-implementation.qhelp"
               cp "$copy_from_root_name.qhelp" "lgtm-cpp-query-pack/$copy_to_root_name.qhelp"
             done
           }

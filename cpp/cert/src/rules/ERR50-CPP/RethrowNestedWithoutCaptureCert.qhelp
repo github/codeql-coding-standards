@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="RethrowNestedWithoutCaptureCert-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="RethrowNestedWithoutCaptureCert-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

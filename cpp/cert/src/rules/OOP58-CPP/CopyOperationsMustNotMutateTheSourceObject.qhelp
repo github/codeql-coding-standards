@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="CopyOperationsMustNotMutateTheSourceObject-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="CopyOperationsMustNotMutateTheSourceObject-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

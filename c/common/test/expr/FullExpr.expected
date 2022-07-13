@@ -1,8 +1,9 @@
-| fullexpr.c:11:3:11:5 | ... ++ |
-| fullexpr.c:13:7:13:7 | i |
-| fullexpr.c:15:10:15:10 | i |
-| fullexpr.c:18:12:18:12 | i |
-| fullexpr.c:20:8:20:12 | ... = ... |
-| fullexpr.c:20:15:20:20 | ... < ... |
-| fullexpr.c:20:23:20:25 | ++ ... |
-| fullexpr.c:23:10:23:10 | i |
+| fullexpr.c:8:18:11:37 | temporary object |
+| fullexpr.c:13:3:13:5 | ... ++ |
+| fullexpr.c:15:7:15:7 | i |
+| fullexpr.c:17:10:17:10 | i |
+| fullexpr.c:20:12:20:12 | i |
+| fullexpr.c:22:8:22:12 | ... = ... |
+| fullexpr.c:22:15:22:20 | ... < ... |
+| fullexpr.c:22:23:22:25 | ++ ... |
+| fullexpr.c:25:10:25:10 | i |

@@ -14,11 +14,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.donotuserandforgeneratingpseudorandomnumbers.DoNotUseRandForGeneratingPseudorandomNumbers
 
-predicate isRand(FunctionCall fc) { fc.getTarget().hasGlobalOrStdName("rand") }
-
-from FunctionCall fc
-where
-  not isExcluded(fc, BannedFunctionsPackage::pseudorandomNumbersGeneratedUsingRandQuery()) and
-  isRand(fc)
-select fc, "Use of banned function " + fc.getTarget().getQualifiedName() + "."
+class PseudorandomNumbersGeneratedUsingRandQuery extends DoNotUseRandForGeneratingPseudorandomNumbersSharedQuery {
+  PseudorandomNumbersGeneratedUsingRandQuery() {
+    this = BannedFunctionsPackage::pseudorandomNumbersGeneratedUsingRandQuery()
+  }
+}

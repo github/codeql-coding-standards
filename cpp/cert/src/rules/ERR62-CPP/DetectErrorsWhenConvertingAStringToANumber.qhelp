@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="DetectErrorsWhenConvertingAStringToANumber-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="DetectErrorsWhenConvertingAStringToANumber-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

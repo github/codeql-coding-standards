@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="EscapingLambdaObjectWithCaptureByReference-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="EscapingLambdaObjectWithCaptureByReference-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

@@ -5,8 +5,10 @@ struct foo {
 
 void full_expr() {
   int i;
-  struct foo f = (struct foo){
-      .i = 0, .j = 0}; // Not a full expression, part of a compound expression.
+  struct foo f = (struct foo){// Compound expression is a full expression.
+                              .i = 0, // Assignments not a full expression, part
+                                      // of a compound expression.
+                              .j = 0};
 
   i++; // Full expression, part of expression statement
 

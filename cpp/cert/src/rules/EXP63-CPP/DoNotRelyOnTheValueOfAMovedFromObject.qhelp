@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="DoNotRelyOnTheValueOfAMovedFromObject-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="DoNotRelyOnTheValueOfAMovedFromObject-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

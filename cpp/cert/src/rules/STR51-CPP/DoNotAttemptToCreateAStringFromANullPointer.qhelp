@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="DoNotAttemptToCreateAStringFromANullPointer-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="DoNotAttemptToCreateAStringFromANullPointer-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

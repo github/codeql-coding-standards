@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="ObjectReusesReservedName-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="ObjectReusesReservedName-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

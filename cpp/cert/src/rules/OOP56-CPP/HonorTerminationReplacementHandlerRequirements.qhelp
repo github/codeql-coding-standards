@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="HonorTerminationReplacementHandlerRequirements-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="HonorTerminationReplacementHandlerRequirements-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

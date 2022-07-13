@@ -1,0 +1,43 @@
+{
+  "MISRA-C-2012": {
+    "RULE-13-3": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A full expression containing an increment (++) or decrement (--) operator should have no other potential side effects other than that caused by the increment or decrement operator",
+          "kind": "problem",
+          "name": "A full expression containing an increment (++) or decrement (--) operator should have no other",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "SideEffectAndCrementInFullExpression",
+          "tags": [
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A full expression containing an increment (++) or decrement (--) operator should have no other potential side effects other than that caused by the increment or decrement operator"
+    },
+    "RULE-17-8": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A function parameter behaves in the same manner as an object with automatic storage duration and the effects of modifying a parameter are not visible in the calling function.",
+          "kind": "problem",
+          "name": "A function parameter should not be modified",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ModificationOfFunctionParameter",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A function parameter should not be modified"
+    }
+  }
+}

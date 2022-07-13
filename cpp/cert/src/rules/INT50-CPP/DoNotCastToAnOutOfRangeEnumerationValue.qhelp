@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="DoNotCastToAnOutOfRangeEnumerationValue-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="DoNotCastToAnOutOfRangeEnumerationValue-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:

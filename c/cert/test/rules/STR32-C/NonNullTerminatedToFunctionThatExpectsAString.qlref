@@ -1,0 +1,1 @@
+rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql

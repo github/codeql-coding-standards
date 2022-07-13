@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="OnlyUseValuesForFsetposThatAreReturnedFromFgetpos-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="OnlyUseValuesForFsetposThatAreReturnedFromFgetpos-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C:

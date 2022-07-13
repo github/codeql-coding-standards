@@ -62,6 +62,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "PseudorandomNumbersGeneratedUsingRand",
+          "shared_implementation_short_name" : "DoNotUseRandForGeneratingPseudorandomNumbers",
           "tags": [
             "security"
           ]
@@ -220,6 +221,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
+          "shared_implementation_short_name" : "DoNotUseRandForGeneratingPseudorandomNumbers",
           "tags": [
             "security"
           ]

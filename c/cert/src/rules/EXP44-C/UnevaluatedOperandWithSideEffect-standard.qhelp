@@ -1,33 +1,481 @@
 <!DOCTYPE qhelp SYSTEM "qhelp.dtd">
 <qhelp>
-  <section title="Classification">
-    <ul>
-      <li>required</li>
-      <li>implementation</li>
-      <li>automated</li>
-    </ul>
-  </section>
+ <section title="Description">
+  <p>Some operators do not evaluate their operands beyond the type information the operands provide. When using one of these operators, do not pass an operand that would otherwise yield a side effect since the side effect will not be generated.</p>
+  <p>The <code>sizeof</code> operator yields the size (in bytes) of its operand, which may be an expression or the parenthesized name of a type.  In most cases, the operand is not evaluated.  A possible exception is when the type of the operand is a variable length array type (VLA); then the expression is evaluated. When part of the operand of the sizeof operator is a VLA type and when changing the value of the VLA's size expression would not affect the result of the operator, it is <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unspecifiedbehavior">unspecified</a> whether or not the size expression is evaluated. (See <a href="https://wiki.sei.cmu.edu/confluence/display/c/DD.+Unspecified+Behavior#DD.UnspecifiedBehavior-usb_22">unspecified behavior 22</a>.)</p>
+  <p>The operand passed to<code>_Alignof</code> is never evaluated, despite not being an expression. For instance, if the operand is a VLA type and the VLA's size expression contains a side effect, that side effect is never evaluated.</p>
+  <p>The operand used in the controlling expression of a <code>_Generic</code> selection expression is never evaluated.</p>
+  <p>Providing an expression that appears to produce side effects may be misleading to programmers who are not aware that these expressions are not evaluated, and in the case of a VLA used in <code>sizeof</code>, have unspecified results. As a result, programmers may make invalid assumptions about program state, leading to errors and possible software <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a>.</p>
+  <p>This rule is similar to <a href="https://wiki.sei.cmu.edu/confluence/display/c/PRE31-C.+Avoid+side+effects+in+arguments+to+unsafe+macros">PRE31-C. Avoid side effects in arguments to unsafe macros</a>.</p>
+ </section>
+ <section title="Noncompliant Code Example (sizeof)">
+  <p>In this noncompliant code example, the expression <code>a++</code> is not evaluated:</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
+ 
+void func(void) {
+  int a = 14;
+  int b = sizeof(a++);
+  printf("%d, %d\n", a, b);
+}</sample>
+  <p>Consequently, the value of <code>a</code> after <code>b</code> has been initialized is 14.</p>
+ </section>
+ <section title="Compliant Solution (sizeof)">
+  <p>In this compliant solution, the variable <code>a</code> is incremented outside of the <code>sizeof</code> operation:</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
+ 
+void func(void) {
+  int a = 14;
+  int b = sizeof(a);
+  ++a;
+  printf("%d, %d\n", a, b);
+}</sample>
+ </section>
+ <section title="Noncompliant Code Example (sizeof, VLA)">
+  <p>In this noncompliant code example, the expression <code>++n</code> in the initialization expression of <code>a</code> must be evaluated because its value affects the size of the VLA operand of the <code>sizeof</code> operator. However, in the initialization expression of <code>b</code>, the expression <code>++n % 1</code> evaluates to <code>0.</code> This means that the value of <code>n</code> does not affect the result of the <code>sizeof</code> operator. Consequently, it is unspecified whether or not <code>n</code> will be incremented when initializing <code>b</code>.</p>
+  <sample language="cpp">#include &lt;stddef.h&gt;
+#include &lt;stdio.h&gt;
+  
+void f(size_t n) {
+  /* n must be incremented */ 
+  size_t a = sizeof(int[++n]);
+ 
+  /* n need not be incremented */
+  size_t b = sizeof(int[++n % 1 + 1]);
 
-  <section title="Rationale">
-    <p>
-           ...
-    </p>
+  printf("%zu, %zu, %zu\n", a, b, n);
+  /* ... */
+}</sample>
+ </section>
+ <section title="Compliant Solution (sizeof, VLA)">
+  <p>This compliant solution avoids changing the value of the variable <code>n</code> used in each <code>sizeof</code> expression and instead increments <code>n</code> safely afterwards:</p>
+  <sample language="cpp">#include &lt;stddef.h&gt;
+#include &lt;stdio.h&gt;
+  
+void f(size_t n) {
+  size_t a = sizeof(int[n + 1]);
+  ++n;
 
-  </section>
+  size_t b = sizeof(int[n % 1 + 1]);
+  ++n;
+  printf("%zu, %zu, %zu\n", a, b, n);
+  /* ... */
+}
+</sample>
+ </section>
+ <section title="Noncompliant Code Example (_Generic)">
+  <p>This noncompliant code example attempts to modify a variable's value as part of the <code>_Generic</code> selection control expression. The programmer may expect that <code>a</code> is incremented, but because <code>_Generic</code> does not evaluate its control expression, the value of <code>a</code> is not modified.</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
 
-  <section title="Exception">
-    <p>
-      ...
-    </p>
-  </section>
+#define S(val) _Generic(val, int : 2, \
+                             short : 3, \
+                             default : 1)
+void func(void) {
+  int a = 0;
+  int b = S(a++);
+  printf("%d, %d\n", a, b);
+}</sample>
+ </section>
+ <section title="Compliant Solution (_Generic)">
+  <p>In this compliant solution, a is incremented outside of the <code>_Generic</code> selection expression:</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
 
-  <example>
-    <sample src="standard-example.c"></sample>
-  </example>
-
-  <section title="See more">
-    <ul>
-      <li>...</li>
-    </ul>
-  </section>
+#define S(val) _Generic(val, int : 2, \
+                             short : 3, \
+                             default : 1)
+void func(void) {
+  int a = 0;
+  int b = S(a);
+  ++a;
+  printf("%d, %d\n", a, b);
+} </sample>
+ </section>
+ <section title="Noncompliant Code Example (_Alignof)">
+  <p>This noncompliant code example attempts to modify a variable while getting its default alignment value. The user may have expected <code>val</code> to be incremented as part of the <code>_Alignof</code> expression, but because <code>_Alignof</code> does not evaluate its operand, <code>val</code> is unchanged.</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
+ 
+void func(void) {
+  int val = 0; 
+  /* ... */ 
+  size_t align = _Alignof(int[++val]);
+  printf("%zu, %d\n", align, val);
+  /* ... */
+}</sample>
+ </section>
+ <section title="Compliant Solution (_Alignof)">
+  <p> This compliant solution moves the expression out of the <code>_Alignof</code> operator:</p>
+  <sample language="cpp">#include &lt;stdio.h&gt;
+void func(void) {
+  int val = 0; 
+  /* ... */ 
+  ++val;
+  size_t align = _Alignof(int[val]);
+  printf("%zu, %d\n", align, val);
+  /* ... */
+}</sample>
+ </section>
+ <section title="Exceptions">
+  <p><strong>EXP44-C-EX1</strong>: Reading a <code>volatile</code>-qualified value is a side-effecting operation. However, accessing a value through a <code>volatile</code>-qualified type does not guarantee side effects will happen on the read of the value unless the underlying object is also <code>volatile</code>-qualified. Idiomatic reads of a <code>volatile</code>-qualified object are permissible as an operand to a <code>sizeof()</code>, <code>_Alignof()</code>, or <code>_Generic</code> expression, as in the following example:</p>
+  <sample language="cpp">void f(void) {
+  int * volatile v;
+  (void)sizeof(*v);
+}</sample>
+ </section>
+ <section title="Risk Assessment">
+  <p>If expressions that appear to produce side effects are supplied to an operator that does not evaluate its operands, the results may be different than expected. Depending on how this result is used, it can lead to unintended program behavior.</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Rule
+     </th>
+     <th>
+      Severity
+     </th>
+     <th>
+      Likelihood
+     </th>
+     <th>
+      Remediation Cost
+     </th>
+     <th>
+      Priority
+     </th>
+     <th>
+      Level
+     </th>
+    </tr>
+    <tr>
+     <td>
+      EXP44-C
+     </td>
+     <td>
+      Low
+     </td>
+     <td>
+      Unlikely
+     </td>
+     <td>
+      Low
+     </td>
+     <td>
+      <strong>P3</strong>
+     </td>
+     <td>
+      <strong>L3</strong>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Automated Detection">
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Tool
+     </th>
+     <th>
+      Version
+     </th>
+     <th>
+      Checker
+     </th>
+     <th>
+      Description
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152428">
+       Astrée
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>alignof-side-effectgeneric-selection-side-effectsizeof</strong>
+     </td>
+     <td>
+      Fully checked
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Axivion+Bauhaus+Suite">
+       Axivion Bauhaus Suite
+      </a>
+     </td>
+     <td>
+      7.2.0
+     </td>
+     <td>
+      <strong>CertC-EXP44</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Clang">
+       Clang
+      </a>
+     </td>
+     <td>
+      3.9
+     </td>
+     <td>
+      <code>-Wunevaluated-expression</code>
+     </td>
+     <td>
+      Can diagnose some instance of this rule, but not all (such as the
+      <code>_Alignof</code>
+      NCCE).
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/CodeSonar">
+       CodeSonar
+      </a>
+     </td>
+     <td>
+      6.2p0
+     </td>
+     <td>
+      <strong>LANG.STRUCT.SE.SIZEOF</strong>
+     </td>
+     <td>
+      Side effects in sizeof
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Rose">
+       Compass/ROSE
+      </a>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Coverity">
+       Coverity
+      </a>
+     </td>
+     <td>
+      2017.07
+     </td>
+     <td>
+      <strong>MISRA C 2004 Rule 12.3</strong>
+     </td>
+     <td>
+      Partially implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/ECLAIR">
+       ECLAIR
+      </a>
+     </td>
+     <td>
+      1.2
+     </td>
+     <td>
+      <strong>CC2.EXP06</strong>
+     </td>
+     <td>
+      Fully implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Helix+QAC">
+       Helix QAC
+      </a>
+     </td>
+     <td>
+      2022.1
+     </td>
+     <td>
+      <strong>C3307</strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Klocwork">
+       Klocwork
+      </a>
+     </td>
+     <td>
+      2022.1
+     </td>
+     <td>
+      <strong><a href="https://support.roguewave.com/documentation/klocwork/en/current/certcandcsecurecodingstandardidsmappedtoklocworkcandccheckers/">MISRA.SIZEOF.SIDE_EFFECT</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/LDRA">
+       LDRA tool suite
+      </a>
+     </td>
+     <td>
+      9.7.1
+     </td>
+     <td>
+      <strong>54 S, 653 S</strong>
+     </td>
+     <td>
+      Fully implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Parasoft">
+       Parasoft C/C++test
+      </a>
+     </td>
+     <td>
+      2021.2
+     </td>
+     <td>
+      <strong>CERT_C-EXP44-a</strong>
+      <strong>CERT_C-EXP44-b</strong>
+     </td>
+     <td>
+      Object designated by a volatile lvalue should not be accessed in the operand of the sizeof operator
+      The function call that causes the side effect shall not be the operand of the sizeof operator
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/PC-lint+Plus">
+       PC-lint Plus
+      </a>
+     </td>
+     <td>
+      1.4
+     </td>
+     <td>
+      <strong>9006</strong>
+     </td>
+     <td>
+      Partially supported: reports use of sizeof with an expression that would have side effects
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/Polyspace+Bug+Finder">
+       Polyspace Bug Finder
+      </a>
+     </td>
+     <td>
+      R2021a
+     </td>
+     <td>
+      <a href="https://www.mathworks.com/help/bugfinder/ref/certcruleexp44c.html">
+       CERT C: Rule EXP44-C
+      </a>
+     </td>
+     <td>
+      Checks for situations when side effects of specified expressions are ignored (rule fully covered)
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/PRQA+QA-C">
+       PRQA QA-C
+      </a>
+     </td>
+     <td>
+      9.7
+     </td>
+     <td>
+      <strong>3307</strong>
+     </td>
+     <td>
+      Fully implemented
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/PVS-Studio">
+       PVS-Studio
+      </a>
+     </td>
+     <td>
+      7.18
+     </td>
+     <td>
+      <strong><a href="https://pvs-studio.com/en/docs/warnings/v568/">V568</a></strong>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/c/RuleChecker">
+       RuleChecker
+      </a>
+     </td>
+     <td>
+      20.10
+     </td>
+     <td>
+      <strong>alignof-side-effectgeneric-selection-side-effectsizeof</strong>
+     </td>
+     <td>
+      Fully checked
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
+ <section title="Related Vulnerabilities">
+  <p>Search for <a href="https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability">vulnerabilities</a> resulting from the violation of this rule on the <a href="https://www.kb.cert.org/vulnotes/bymetric?searchview&amp;query=FIELD+KEYWORDS+contains+EXP44-C">CERT website</a>.</p>
+ </section>
+ <section title="Related Guidelines">
+  <p><a href="https://wiki.sei.cmu.edu/confluence/display/c/How+this+Coding+Standard+is+Organized#HowthisCodingStandardisOrganized-RelatedGuidelines">Key here</a> (explains table format and definitions)</p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Taxonomy
+     </th>
+     <th>
+      Taxonomy item
+     </th>
+     <th>
+      Relationship
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682">
+       CERT C
+      </a>
+     </td>
+     <td>
+      <a href="https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP52-CPP.+Do+not+rely+on+side+effects+in+unevaluated+operands">
+       EXP52-CPP. Do not rely on side effects in unevaluated operands
+      </a>
+     </td>
+     <td>
+      Prior to 2018-01-12: CERT: Unspecified Relationship
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </section>
 </qhelp>

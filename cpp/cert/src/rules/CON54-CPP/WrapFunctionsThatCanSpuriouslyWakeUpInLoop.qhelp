@@ -8,9 +8,6 @@
     </blockquote>
   </overview>
   <include src="WrapFunctionsThatCanSpuriouslyWakeUpInLoop-standard.qhelp" />
-  <section title="Implementation notes">
-    <include src="WrapFunctionsThatCanSpuriouslyWakeUpInLoop-implementation.qhelp" />
-  </section>
   <references>
     <li>
       CERT-C++:
