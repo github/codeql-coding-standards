@@ -1,25 +1,5 @@
 {
   "CERT-C": {
-    "CON31-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "Allowing a mutex to go out of scope while it is locked removes protections around shared resources.",
-          "kind": "problem",
-          "name": "Do not destroy a mutex while it is locked",
-          "precision": "medium",
-          "severity": "error",
-          "short_name": "DoNotDestroyAMutexWhileItIsLocked",
-          "tags": [
-            "correctness",
-            "concurrency"
-          ]
-        }
-      ],
-      "title": "Do not destroy a mutex while it is locked"
-    },
     "CON35-C": {
       "properties": {
         "obligation": "rule"
@@ -32,6 +12,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DeadlockByLockingInPredefinedOrder",
+          "shared_implementation_short_name": "PreventDeadlockByLockingInPredefinedOrder",
           "tags": [
             "correctness",
             "concurrency"
