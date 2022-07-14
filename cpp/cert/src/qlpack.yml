@@ -1,4 +1,6 @@
-name: cert-cpp-coding-standards
+name: codeql/cert-cpp-coding-standards
 version: 2.6.0-dev
 suites: codeql-suites
-libraryPathDependencies: common-cpp-coding-standards
+dependencies:
+  codeql/cpp-all: 0.0.13
+  codeql/common-cpp-coding-standards: '*'

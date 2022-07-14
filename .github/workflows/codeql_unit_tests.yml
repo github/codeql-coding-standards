@@ -66,11 +66,16 @@ jobs:
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
 
+      - name: Install CodeQL packs
+        uses: ./.github/actions/install-codeql-packs
+        with:
+          cli_path: ${{ github.workspace }}/codeql_home/codeql
+
       - name: Pre-Compile Queries
         id: pre-compile-queries
         run: |
-         ${{ github.workspace }}/codeql_home/codeql/codeql query compile --search-path cpp --threads 0 cpp
-         ${{ github.workspace }}/codeql_home/codeql/codeql query compile --search-path c --search-path cpp --threads 0 c
+         ${{ github.workspace }}/codeql_home/codeql/codeql query compile --threads 0 cpp
+         ${{ github.workspace }}/codeql_home/codeql/codeql query compile --threads 0 c
 
 
       - name: Run test suites
@@ -122,18 +127,11 @@ jobs:
               os.makedirs(os.path.dirname(test_report_path), exist_ok=True)
               test_report_file = open(test_report_path, 'w')
               files_to_close.append(test_report_file)
-              if "${{ matrix.language }}".casefold() == "c".casefold():
-                # c tests require cpp -- but we don't want c things on the cpp
-                # path in case of design errors. 
-                cpp_language_root = Path(workspace, 'cpp')
-                procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", f'--search-path={cpp_language_root}', f'--search-path={language_root}', *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
-              else:
-                procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", f'--search-path={language_root}', f'--search-path={language_root}', *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
+              procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
 
             for p in procs:
-              p.wait()
+              _, err = p.communicate()
               if p.returncode != 0:
-                _, err = p.communicate()
                 if p.returncode == 122:
                   # Failed because a test case failed, so just print the regular output.
                   # This will allow us to proceed to validate-test-results, which will fail if

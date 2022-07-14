@@ -1,3 +1,4 @@
-name: report-cpp-coding-standards
+name: codeql/report-cpp-coding-standards
 version: 2.6.0-dev
-libraryPathDependencies: codeql-cpp
+dependencies:
+  codeql/cpp-all: 0.0.13

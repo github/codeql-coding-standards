@@ -1,4 +1,5 @@
-name: common-cpp-coding-standards-tests
+name: codeql/common-cpp-coding-standards-tests
 version: 2.6.0-dev
-libraryPathDependencies: common-cpp-coding-standards
 extractor: cpp
+dependencies:
+  codeql/common-cpp-coding-standards: '*'

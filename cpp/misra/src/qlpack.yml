@@ -1,3 +1,5 @@
-name: misra-cpp-coding-standards
+name: codeql/misra-cpp-coding-standards
 version: 2.6.0-dev
-libraryPathDependencies: common-cpp-coding-standards
+dependencies:
+  codeql/common-cpp-coding-standards: '*'
+  codeql/cpp-all: 0.0.13
