@@ -486,7 +486,7 @@ c,CERT-C,ARR37-C,Yes,Rule,,,Do not add or subtract an integer to a pointer to a 
 c,CERT-C,ARR38-C,Yes,Rule,,,Guarantee that library functions do not form invalid pointers,,Pointers2,Very Hard,
 c,CERT-C,ARR39-C,Yes,Rule,,,Do not add or subtract a scaled integer to a pointer,,Pointers2,Medium,
 c,CERT-C,CON30-C,Yes,Rule,,,Clean up thread-specific storage,,Concurrency3,Very Hard,
-c,CERT-C,CON31-C,Yes,Rule,,,Do not destroy a mutex while it is locked,CON50-CPP,Concurrency2,Very Hard,
+c,CERT-C,CON31-C,Yes,Rule,,,Do not destroy a mutex while it is locked,CON50-CPP,Concurrency3,Very Hard,
 c,CERT-C,CON32-C,Yes,Rule,,,Prevent data races when accessing bit-fields from multiple threads,,Concurrency1,Easy,
 c,CERT-C,CON33-C,Yes,Rule,,,Avoid race conditions when using library functions,,Concurrency1,Easy,
 c,CERT-C,CON34-C,Yes,Rule,,,Declare objects shared between threads with appropriate storage durations,,Concurrency3,Hard,
