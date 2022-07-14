@@ -2,4 +2,4 @@ name: codeql/common-c-coding-standards
 version: 2.6.0-dev
 dependencies:
   codeql/common-cpp-coding-standards: '*'
-  codeql/cpp-all: 0.0.13
+  codeql/cpp-all: 0.2.3
