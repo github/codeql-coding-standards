@@ -4,19 +4,10 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Concurrency2Query =
-  TDoNotDestroyAMutexWhileItIsLockedQuery() or
   TDeadlockByLockingInPredefinedOrderQuery() or
   TWrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery()
 
 predicate isConcurrency2QueryMetadata(Query query, string queryId, string ruleId) {
-  query =
-    // `Query` instance for the `doNotDestroyAMutexWhileItIsLocked` query
-    Concurrency2Package::doNotDestroyAMutexWhileItIsLockedQuery() and
-  queryId =
-    // `@id` for the `doNotDestroyAMutexWhileItIsLocked` query
-    "c/cert/do-not-destroy-a-mutex-while-it-is-locked" and
-  ruleId = "CON31-C"
-  or
   query =
     // `Query` instance for the `deadlockByLockingInPredefinedOrder` query
     Concurrency2Package::deadlockByLockingInPredefinedOrderQuery() and
@@ -35,13 +26,6 @@ predicate isConcurrency2QueryMetadata(Query query, string queryId, string ruleId
 }
 
 module Concurrency2Package {
-  Query doNotDestroyAMutexWhileItIsLockedQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `doNotDestroyAMutexWhileItIsLocked` query
-      TQueryC(TConcurrency2PackageQuery(TDoNotDestroyAMutexWhileItIsLockedQuery()))
-  }
-
   Query deadlockByLockingInPredefinedOrderQuery() {
     //autogenerate `Query` type
     result =
