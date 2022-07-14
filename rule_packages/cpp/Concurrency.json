@@ -85,6 +85,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "DeadlockByLockingInPredefinedOrder",
+          "shared_implementation_short_name": "PreventDeadlockByLockingInPredefinedOrder",
           "tags": [
             "correctness",
             "concurrency"
