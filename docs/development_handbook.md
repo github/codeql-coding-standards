@@ -32,6 +32,7 @@
 | 0.24.0  | 2022-07-05 | Remco Vermeulen | Update release process to include steps for external help files.                                                                                                                                                                                                                          |
 | 0.25.0  | 2022-07-22 | Jeroen Ketema   | Document the existence and purpose of the `next` branch.                                                                                                                                                                                                                                  |
 | 0.26.0  | 2022-08-10 | Remco Vermeulen | Address incorrect package file generation command. This was missing the required language argument.                                                                                                                                                                                       |
+| 0.27.0  | 2022-08-31 | David Bartolomeo | Add section on installing QL dependencies and update CLI commands to account for the migration to CodeQL packs. 
 
 ## Scope of work
 
@@ -332,6 +333,12 @@ A query **must** include:
 
 All public predicates, classes, modules and files should be documented with QLDoc. All QLDoc should follow the [QLDoc style guide](https://github.com/github/codeql/blob/main/docs/qldoc-style-guide.md).
 
+### Installing QL dependencies
+
+All of our query and library packs depend on the standard CodeQL library for C++, `codeql/cpp-all`. This dependency is specified in the `qlpack.yml` file for each of our packs. Before compiling, running, or testing any of our queries or libraries, you must download the proper dependencies by running `python3 scripts/install-packs.py`. This will download the appropriate version of the standard library from the public package registry, installing it in a cache in your `~/.codeql` directory. When compiling queries or running tests, the QL compiler will pick up the appropriate dependencies from this cache without any need to specify an additional library search path on the command line.
+
+Because the downloaded packs are cached, it is only necessary to run `install-packs.py` once each time we upgrade to a new standard library version. It does not hurt to run it more often; if all necessary packs are already in the download cache, then it will complete quickly without trying to download anything.
+
 ### Unit testing
 
 Every query which implements a rule **must** include:
@@ -345,11 +352,10 @@ During query development in VS Code, the unit tests can be run using the [testin
 
 Unit tests can also be run on the command line using the CodeQL CLI. With an appropriate CodeQL CLI (as specified in the `supported_codeql_configs.json` at the root of the repository), you can run the following from the root of the repository:
 ```
-codeql test run --show-extractor-output --search-path . path/to/test/directory
+codeql test run --show-extractor-output path/to/test/directory
 ```
 
 * `--show-extractor-output` - this shows the output from the extractor. It is most useful when the test fails because the file is not valid C++, where the extractor output will include the compilation failure. This is not shown in VS Code.
-* `--search-path .` - this allows the CodeQL CLI to discover all the QL packs within our repository.
 * `path/to/test/directory` - this can be a qlref file (like `cpp/autosar/test/rules/A15-2-2/`), a rule directory (`cpp/autosar/test/rules/A15-2-2/`) or a test qlpack (`cpp/autosar/test/`).
 
 For more details on running unit tests with the CodeQL CLI see the [Testing custom queries](https://codeql.github.com/docs/codeql-cli/testing-custom-queries/) help topic.
@@ -668,7 +674,6 @@ ls cpp/cert/src/$(cat cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDecl
 # Run a test.  See
 # https://github.com/github/codeql-coding-standards/blob/main/development_handbook.md#unit-testing
 codeql test run --show-extractor-output \
-       --search-path . \
        cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.qlref 
 
 # Get a db error?  Applying  the recommended fix 
@@ -686,7 +691,7 @@ codeql test run --show-extractor-output \
 
 # If the expected output is not yet present, it is printed as a diff:
 mv cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.expected foo
-codeql test run --show-extractor-output --search-path .                         \
+codeql test run --show-extractor-output \
        cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.qlref
 
 # The actual output can be accepted via codeql test accept (which moves some files):
