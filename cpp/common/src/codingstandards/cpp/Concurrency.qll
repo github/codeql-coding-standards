@@ -421,9 +421,10 @@ class LockProtectedControlFlowNode extends ThreadedCFN {
 /**
  * Models a function that conditionally waits.
  */
-abstract class ConditionalWait extends FunctionCall {}
+abstract class ConditionalWait extends FunctionCall { }
+
 /**
- * Models a function in CPP that will conditionally wait. 
+ * Models a function in CPP that will conditionally wait.
  */
 class CPPConditionalWait extends ConditionalWait {
   CPPConditionalWait() {
@@ -436,12 +437,10 @@ class CPPConditionalWait extends ConditionalWait {
 }
 
 /**
- * Models a function in C that will conditionally wait. 
+ * Models a function in C that will conditionally wait.
  */
 class CConditionalWait extends ConditionalWait {
-  CConditionalWait() {
-    getTarget().getName() in ["cnd_wait"]
-  }
+  CConditionalWait() { getTarget().getName() in ["cnd_wait"] }
 }
 
 /**
