@@ -330,6 +330,7 @@ A query **must** include:
    - Do not try to explain the solution in the message; instead that should be provided in the help for the query.
 
 All public predicates, classes, modules and files should be documented with QLDoc. All QLDoc should follow the [QLDoc style guide](https://github.com/github/codeql/blob/main/docs/qldoc-style-guide.md).
+
 ### Installing QL dependencies
 
 All of our query and library packs depend on the standard CodeQL library for C++, `codeql/cpp-all`. This dependency is specified in the `qlpack.yml` file for each of our packs. Before compiling, running, or testing any of our queries or libraries, you must download the proper dependencies by running `python3 scripts/install-packs.py`. This will download the appropriate version of the standard library from the public package registry, installing it in a cache in your `~/.codeql` directory. When compiling queries or running tests, the QL compiler will pick up the appropriate dependencies from this cache without any need to specify an additional library search path on the command line.
