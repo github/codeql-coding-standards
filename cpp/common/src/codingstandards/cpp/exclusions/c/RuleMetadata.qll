@@ -2,6 +2,7 @@
 import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
+import Banned
 import Concurrency1
 import IO1
 import IO2
@@ -20,6 +21,7 @@ import Syntax
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
+  TBannedPackageQuery(BannedQuery q) or
   TConcurrency1PackageQuery(Concurrency1Query q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
@@ -38,6 +40,7 @@ newtype TCQuery =
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId) {
+  isBannedQueryMetadata(query, queryId, ruleId) or
   isConcurrency1QueryMetadata(query, queryId, ruleId) or
   isIO1QueryMetadata(query, queryId, ruleId) or
   isIO2QueryMetadata(query, queryId, ruleId) or

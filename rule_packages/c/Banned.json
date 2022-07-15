@@ -1,0 +1,370 @@
+{
+  "CERT-C": {
+    "ENV33-C": {
+      "properties": {
+        "obligtion": "rule"
+      },
+      "queries": [
+        {
+          "description": "Use of the 'system()' function may result in exploitable vulnerabilities.",
+          "kind": "problem",
+          "name": "Do not call system()",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotCallSystem",
+          "tags": [
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not call system()"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-12-3": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Use of the comma operator may affect the readability of the code.",
+          "kind": "problem",
+          "name": "The comma operator should not be used",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "CommaOperatorShouldNotBeUsed",
+          "shared_implementation_short_name": "CommaOperatorUsed",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "The comma operator should not be used"
+    },
+    "RULE-17-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of the features of '<stdarg.h> may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The features of <stdarg.h> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FeaturesOfStdarghUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The features of <stdarg.h> shall not be used"
+    },
+    "RULE-19-2": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The use of 'union' may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The union keyword should not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UnionKeywordShouldNotBeUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The union keyword should not be used"
+    },
+    "RULE-21-10": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of date and time functions may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The Standard Library time and date functions shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "StandardLibraryTimeAndDateFunctionsUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The Standard Library time and date functions shall not be used"
+    },
+    "RULE-21-11": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of the header file '<tgmath.h>' may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The standard header file <tgmath.h> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "StandardHeaderFileTgmathhUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The standard header file <tgmath.h> shall not be used"
+    },
+    "RULE-21-12": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The use of the exception handling features of '<fenv.h>' may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The exception handling features of <fenv.h> should not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExceptionHandlingFeaturesOfFenvhUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The exception handling features of <fenv.h> should not be used"
+    },
+    "RULE-21-21": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "They use of the 'system()' function from '<stdlib.h> may result in exploitable vulnerabilities.",
+          "kind": "problem",
+          "name": "The Standard Library function system of <stdlib.h> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SystemOfStdlibhUsed",
+          "tags": [
+            "security"
+          ]
+        }
+      ],
+      "title": "The Standard Library function system of <stdlib.h> shall not be used"
+    },
+    "RULE-21-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of memory allocation and deallocation in '<stdlib.h>' may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The memory allocation and deallocation functions of <stdlib.h> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemoryAllocDeallocFunctionsOfStdlibhUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The memory allocation and deallocation functions of <stdlib.h> shall not be used"
+    },
+    "RULE-21-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of features of '<setjmp.h>' may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The standard header file shall not be used <setjmp.h>",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "StandardHeaderFileUsedSetjmph",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The standard header file shall not be used <setjmp.h>"
+    },
+    "RULE-21-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of features of '<signal.h>' may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The standard header file shall not be used <signal.h>",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "StandardHeaderFileUsedSignalh",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The standard header file shall not be used <signal.h>"
+    },
+    "RULE-21-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of the Standard Library input/output functions may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The Standard Library input/output functions shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "StandardLibraryInputoutputFunctionsUsed",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The Standard Library input/output functions shall not be used"
+    },
+    "RULE-21-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of Standard Library functions atof, atoi, atol and atoll of <stdlib.h> may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The Standard Library functions atof, atoi, atol and atoll of <stdlib.h> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AtofAtoiAtolAndAtollOfStdlibhUsed",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The Standard Library functions 'atof', 'atoi','atol' and 'atoll' of <stdlib.h> shall not be used"
+    },
+    "RULE-21-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of the Standard Library functions 'abort', 'exit' and 'system' of <stdlib.h> may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The Standard Library termination functions of <stdlib.h> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TerminationFunctionsOfStdlibhUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "The use of the Standard Library macros 'abort', 'exit' and 'system' of <stdlib.h> may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The Standard Library termination macros of <stdlib.h> shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "TerminationMacrosOfStdlibhUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The Standard Library termination functions of <stdlib.h> shall not be used"
+    },
+    "RULE-21-9": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of the Standard Library functions 'bsearch' and 'qsort' of <stdlib.h> may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The Standard Library functions bsearch and qsort of <stdlib.h> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BsearchAndQsortOfStdlibhUsed",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The Standard Library functions bsearch and qsort of <stdlib.h> shall not be used"
+    },
+    "RULE-4-12": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using dynamic memory allocation and deallocation can result to undefined behaviour. This query is for the Standard Library Implementation. Any implementation outside it will require a seperate query under the same directive",
+          "kind": "problem",
+          "name": "Dynamic memory allocation shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "StdLibDynamicMemoryAllocationUsed",
+          "tags": [
+            "security",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Dynamic memory allocation shall not be used"
+    },
+    "RULE-7-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of octal constants affects the readbility of the program and should not be used.",
+          "kind": "problem",
+          "name": "Octal constants shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OctalConstantsUsed",
+          "tags": [
+            "readability",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Octal constants shall not be used"
+    },
+    "RULE-8-14": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of the 'restrict' type qualifier may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "The restrict type qualifier shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RestrictTypeQualifierUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The restrict type qualifier shall not be used"
+    }
+  }
+}
