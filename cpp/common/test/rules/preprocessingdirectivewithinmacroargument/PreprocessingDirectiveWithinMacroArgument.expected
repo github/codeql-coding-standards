@@ -1,0 +1,3 @@
+| test.cpp:5:3:11:3 | MACROFUNCTION(X) | Invocation of macro MACROFUNCTION includes a token "#else" that could be confused for an argument preprocessor directive. |
+| test.cpp:5:3:11:3 | MACROFUNCTION(X) | Invocation of macro MACROFUNCTION includes a token "#endif" that could be confused for an argument preprocessor directive. |
+| test.cpp:5:3:11:3 | MACROFUNCTION(X) | Invocation of macro MACROFUNCTION includes a token "#if NOTDEFINEDMACRO" that could be confused for an argument preprocessor directive. |
