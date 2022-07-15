@@ -184,6 +184,8 @@ jobs:
           add-to-path: false
 
       - name: Checkout external help files
+        continue-on-error: true
+        id: checkout-external-help-files
         uses: actions/checkout@v2
         with:
           ssh-key: ${{ secrets.CODEQL_CODING_STANDARDS_HELP_KEY }}
@@ -192,6 +194,7 @@ jobs:
           path: external-help-files
 
       - name: Include external help files
+        if: ${{ steps.checkout-external-help-files.outcome == 'success' }}
         run: |
           pushd external-help-files
           find . -name '*.md' -exec rsync -av --relative {} "$GITHUB_WORKSPACE" \;
