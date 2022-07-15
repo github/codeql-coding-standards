@@ -1,0 +1,5 @@
+| test.c:10:3:10:8 | call to system | Call to banned function $@. | test.c:4:5:4:10 | system | system |
+| test.c:12:8:12:12 | call to popen | Call to banned function $@. | test.c:6:7:6:11 | popen | popen |
+| test.c:20:3:20:8 | call to system | Call to banned function $@. | test.c:4:5:4:10 | system | system |
+| test.c:21:3:21:8 | call to system | Call to banned function $@. | test.c:4:5:4:10 | system | system |
+| test.c:22:3:22:7 | call to popen | Call to banned function $@. | test.c:6:7:6:11 | popen | popen |

@@ -1,0 +1,11 @@
+| test.c:5:17:5:18 | p1 | Use of banned type va_list. |
+| test.c:8:8:8:25 | __builtin_va_arg | Use of banned built-in operation __builtin_va_arg. |
+| test.c:12:11:12:12 | l1 | Use of banned type va_list. |
+| test.c:16:3:16:20 | __builtin_va_start | Use of banned built-in operation __builtin_va_start. |
+| test.c:19:12:19:35 | __builtin_va_arg | Use of banned built-in operation __builtin_va_arg. |
+| test.c:22:3:22:12 | __builtin_va_end | Use of banned built-in operation __builtin_va_end. |
+| test.c:27:11:27:12 | l2 | Use of banned type va_list. |
+| test.c:28:11:28:12 | l3 | Use of banned type va_list. |
+| test.c:29:3:29:18 | __builtin_va_start | Use of banned built-in operation __builtin_va_start. |
+| test.c:30:3:30:17 | __builtin_va_copy | Use of banned built-in operation __builtin_va_copy. |
+| test.c:31:3:31:12 | __builtin_va_end | Use of banned built-in operation __builtin_va_end. |
