@@ -1,1 +1,1 @@
-{ "provide": [ "codeql_modules/*/.codeqlmanifest.json", "cpp/.codeqlmanifest.json", "c/.codeqlmanifest.json"] }
+{ "provide": [ "cpp/*/src/qlpack.yml", "cpp/*/test/qlpack.yml", "c/*/src/qlpack.yml", "c/*/test/qlpack.yml" ] }
