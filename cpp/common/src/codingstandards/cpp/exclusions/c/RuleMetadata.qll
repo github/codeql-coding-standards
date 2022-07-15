@@ -2,6 +2,7 @@
 import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
+import Banned
 import Concurrency1
 import Concurrency2
 import IO1
@@ -12,6 +13,7 @@ import Pointers1
 import Preprocessor1
 import Preprocessor2
 import Preprocessor3
+import Preprocessor4
 import SideEffects1
 import SideEffects2
 import Strings1
@@ -21,6 +23,7 @@ import Syntax
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
+  TBannedPackageQuery(BannedQuery q) or
   TConcurrency1PackageQuery(Concurrency1Query q) or
   TConcurrency2PackageQuery(Concurrency2Query q) or
   TIO1PackageQuery(IO1Query q) or
@@ -31,6 +34,7 @@ newtype TCQuery =
   TPreprocessor1PackageQuery(Preprocessor1Query q) or
   TPreprocessor2PackageQuery(Preprocessor2Query q) or
   TPreprocessor3PackageQuery(Preprocessor3Query q) or
+  TPreprocessor4PackageQuery(Preprocessor4Query q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
   TStrings1PackageQuery(Strings1Query q) or
@@ -40,6 +44,7 @@ newtype TCQuery =
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId) {
+  isBannedQueryMetadata(query, queryId, ruleId) or
   isConcurrency1QueryMetadata(query, queryId, ruleId) or
   isConcurrency2QueryMetadata(query, queryId, ruleId) or
   isIO1QueryMetadata(query, queryId, ruleId) or
@@ -50,6 +55,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isPreprocessor1QueryMetadata(query, queryId, ruleId) or
   isPreprocessor2QueryMetadata(query, queryId, ruleId) or
   isPreprocessor3QueryMetadata(query, queryId, ruleId) or
+  isPreprocessor4QueryMetadata(query, queryId, ruleId) or
   isSideEffects1QueryMetadata(query, queryId, ruleId) or
   isSideEffects2QueryMetadata(query, queryId, ruleId) or
   isStrings1QueryMetadata(query, queryId, ruleId) or

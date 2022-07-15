@@ -163,6 +163,7 @@
             "type": "pickString",
             "options": [
                 "Allocations",
+                "Banned",
                 "BannedFunctions",
                 "BannedSyntax",
                 "BannedTypes",
@@ -221,6 +222,8 @@
                 "Pointers",
                 "Preprocessor1",
                 "Preprocessor2",
+                "Preprocessor3",
+                "Preprocessor4",
                 "IntegerConversion",
                 "Expressions",
                 "DeadCode",
