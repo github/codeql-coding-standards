@@ -1,7 +1,7 @@
 /**
  * @id c/misra/union-keyword-should-not-be-used
- * @name RULE-19-2: The union keyword should not be used
- * @description The use of 'union' may result in undefined behaviour.
+ * @name RULE-19-2: The 'union' keyword should not be used
+ * @description The use of 'union' may result in undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity warning

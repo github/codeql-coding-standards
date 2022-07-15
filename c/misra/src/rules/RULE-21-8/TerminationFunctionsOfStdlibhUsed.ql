@@ -1,8 +1,8 @@
 /**
  * @id c/misra/termination-functions-of-stdlibh-used
- * @name RULE-21-8: The Standard Library termination functions of <stdlib.h> shall not be used
- * @description The use of the Standard Library functions 'abort', 'exit' and 'system' of <stdlib.h>
- *              may result in undefined behaviour.
+ * @name RULE-21-8: The Standard Library termination functions of stdlib.h shall not be used
+ * @description The use of the Standard Library functions 'abort', 'exit' and 'system' of 'stdlib.h'
+ *              may result in undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

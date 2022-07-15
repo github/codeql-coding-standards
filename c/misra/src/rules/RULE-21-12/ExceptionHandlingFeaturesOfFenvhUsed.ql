@@ -1,8 +1,8 @@
 /**
  * @id c/misra/exception-handling-features-of-fenvh-used
- * @name RULE-21-12: The exception handling features of <fenv.h> should not be used
- * @description The use of the exception handling features of '<fenv.h>' may result in undefined
- *              behaviour.
+ * @name RULE-21-12: The exception handling features of 'fenv.h' should not be used
+ * @description The use of the exception handling features of 'fenv.h' may result in undefined
+ *              behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity warning

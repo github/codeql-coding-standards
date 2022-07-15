@@ -1,7 +1,7 @@
 /**
  * @id c/misra/octal-constants-used
  * @name RULE-7-1: Octal constants shall not be used
- * @description The use of octal constants affects the readbility of the program and should not be
+ * @description The use of octal constants affects the readability of the program and should not be
  *              used.
  * @kind problem
  * @precision very-high

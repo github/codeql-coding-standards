@@ -1,8 +1,8 @@
 /**
  * @id c/misra/memory-alloc-dealloc-functions-of-stdlibh-used
- * @name RULE-21-3: The memory allocation and deallocation functions of <stdlib.h> shall not be used
- * @description The use of memory allocation and deallocation in '<stdlib.h>' may result in
- *              undefined behaviour.
+ * @name RULE-21-3: The memory allocation and deallocation functions of 'stdlib.h' shall not be used
+ * @description The use of memory allocation and deallocation in 'stdlib.h' may result in undefined
+ *              behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

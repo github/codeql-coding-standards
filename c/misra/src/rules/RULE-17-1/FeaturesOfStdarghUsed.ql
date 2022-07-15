@@ -1,7 +1,7 @@
 /**
  * @id c/misra/features-of-stdargh-used
- * @name RULE-17-1: The features of <stdarg.h> shall not be used
- * @description The use of the features of '<stdarg.h> may result in undefined behaviour.
+ * @name RULE-17-1: The features of 'stdarg.h' shall not be used
+ * @description The use of the features of 'stdarg.h' may result in undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

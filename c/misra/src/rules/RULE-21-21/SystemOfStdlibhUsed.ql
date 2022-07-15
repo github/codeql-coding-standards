@@ -1,7 +1,7 @@
 /**
  * @id c/misra/system-of-stdlibh-used
- * @name RULE-21-21: The Standard Library function system of <stdlib.h> shall not be used
- * @description They use of the 'system()' function from '<stdlib.h> may result in exploitable
+ * @name RULE-21-21: The Standard Library function system of 'stdlib.h' shall not be used
+ * @description They use of the 'system()' function from 'stdlib.h' may result in exploitable
  *              vulnerabilities.
  * @kind problem
  * @precision very-high

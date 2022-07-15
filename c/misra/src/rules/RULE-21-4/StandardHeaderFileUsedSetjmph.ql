@@ -1,7 +1,7 @@
 /**
  * @id c/misra/standard-header-file-used-setjmph
- * @name RULE-21-4: The standard header file shall not be used <setjmp.h>
- * @description The use of features of '<setjmp.h>' may result in undefined behaviour.
+ * @name RULE-21-4: The standard header file shall not be used 'setjmp.h'
+ * @description The use of features of 'setjmp.h' may result in undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

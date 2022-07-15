@@ -6,9 +6,9 @@
       },
       "queries": [
         {
-          "description": "Use of the 'system()' function may result in exploitable vulnerabilities.",
+          "description": "Use of the 'system' function may result in exploitable vulnerabilities.",
           "kind": "problem",
-          "name": "Do not call system()",
+          "name": "Do not call 'system'",
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotCallSystem",
@@ -47,9 +47,9 @@
       },
       "queries": [
         {
-          "description": "The use of the features of '<stdarg.h> may result in undefined behaviour.",
+          "description": "The use of the features of 'stdarg.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The features of <stdarg.h> shall not be used",
+          "name": "The features of 'stdarg.h' shall not be used",
           "precision": "very-high",
           "severity": "error",
           "short_name": "FeaturesOfStdarghUsed",
@@ -58,7 +58,7 @@
           ]
         }
       ],
-      "title": "The features of <stdarg.h> shall not be used"
+      "title": "The features of 'stdarg.h' shall not be used"
     },
     "RULE-19-2": {
       "properties": {
@@ -66,9 +66,9 @@
       },
       "queries": [
         {
-          "description": "The use of 'union' may result in undefined behaviour.",
+          "description": "The use of 'union' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The union keyword should not be used",
+          "name": "The 'union' keyword should not be used",
           "precision": "very-high",
           "severity": "warning",
           "short_name": "UnionKeywordShouldNotBeUsed",
@@ -85,7 +85,7 @@
       },
       "queries": [
         {
-          "description": "The use of date and time functions may result in undefined behaviour.",
+          "description": "The use of date and time functions may result in undefined behavior.",
           "kind": "problem",
           "name": "The Standard Library time and date functions shall not be used",
           "precision": "very-high",
@@ -104,9 +104,9 @@
       },
       "queries": [
         {
-          "description": "The use of the header file '<tgmath.h>' may result in undefined behaviour.",
+          "description": "The use of the header file 'tgmath.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The standard header file <tgmath.h> shall not be used",
+          "name": "The standard header file 'tgmath.h' shall not be used",
           "precision": "very-high",
           "severity": "error",
           "short_name": "StandardHeaderFileTgmathhUsed",
@@ -115,7 +115,7 @@
           ]
         }
       ],
-      "title": "The standard header file <tgmath.h> shall not be used"
+      "title": "The standard header file 'tgmath.h' shall not be used"
     },
     "RULE-21-12": {
       "properties": {
@@ -123,9 +123,9 @@
       },
       "queries": [
         {
-          "description": "The use of the exception handling features of '<fenv.h>' may result in undefined behaviour.",
+          "description": "The use of the exception handling features of 'fenv.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The exception handling features of <fenv.h> should not be used",
+          "name": "The exception handling features of 'fenv.h' should not be used",
           "precision": "very-high",
           "severity": "warning",
           "short_name": "ExceptionHandlingFeaturesOfFenvhUsed",
@@ -134,7 +134,7 @@
           ]
         }
       ],
-      "title": "The exception handling features of <fenv.h> should not be used"
+      "title": "The exception handling features of 'fenv.h' should not be used"
     },
     "RULE-21-21": {
       "properties": {
@@ -142,9 +142,9 @@
       },
       "queries": [
         {
-          "description": "They use of the 'system()' function from '<stdlib.h> may result in exploitable vulnerabilities.",
+          "description": "They use of the 'system()' function from 'stdlib.h' may result in exploitable vulnerabilities.",
           "kind": "problem",
-          "name": "The Standard Library function system of <stdlib.h> shall not be used",
+          "name": "The Standard Library function system of 'stdlib.h' shall not be used",
           "precision": "very-high",
           "severity": "error",
           "short_name": "SystemOfStdlibhUsed",
@@ -153,7 +153,7 @@
           ]
         }
       ],
-      "title": "The Standard Library function system of <stdlib.h> shall not be used"
+      "title": "The Standard Library function system of 'stdlib.h' shall not be used"
     },
     "RULE-21-3": {
       "properties": {
@@ -161,9 +161,9 @@
       },
       "queries": [
         {
-          "description": "The use of memory allocation and deallocation in '<stdlib.h>' may result in undefined behaviour.",
+          "description": "The use of memory allocation and deallocation in 'stdlib.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The memory allocation and deallocation functions of <stdlib.h> shall not be used",
+          "name": "The memory allocation and deallocation functions of 'stdlib.h' shall not be used",
           "precision": "very-high",
           "severity": "error",
           "short_name": "MemoryAllocDeallocFunctionsOfStdlibhUsed",
@@ -173,7 +173,7 @@
           ]
         }
       ],
-      "title": "The memory allocation and deallocation functions of <stdlib.h> shall not be used"
+      "title": "The memory allocation and deallocation functions of 'stdlib.h' shall not be used"
     },
     "RULE-21-4": {
       "properties": {
@@ -181,9 +181,9 @@
       },
       "queries": [
         {
-          "description": "The use of features of '<setjmp.h>' may result in undefined behaviour.",
+          "description": "The use of features of 'setjmp.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The standard header file shall not be used <setjmp.h>",
+          "name": "The standard header file shall not be used 'setjmp.h'",
           "precision": "very-high",
           "severity": "error",
           "short_name": "StandardHeaderFileUsedSetjmph",
@@ -192,7 +192,7 @@
           ]
         }
       ],
-      "title": "The standard header file shall not be used <setjmp.h>"
+      "title": "The standard header file shall not be used 'setjmp.h'"
     },
     "RULE-21-5": {
       "properties": {
@@ -200,9 +200,9 @@
       },
       "queries": [
         {
-          "description": "The use of features of '<signal.h>' may result in undefined behaviour.",
+          "description": "The use of features of 'signal.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The standard header file shall not be used <signal.h>",
+          "name": "The standard header file shall not be used 'signal.h'",
           "precision": "very-high",
           "severity": "error",
           "short_name": "StandardHeaderFileUsedSignalh",
@@ -211,7 +211,7 @@
           ]
         }
       ],
-      "title": "The standard header file shall not be used <signal.h>"
+      "title": "The standard header file shall not be used 'signal.h'"
     },
     "RULE-21-6": {
       "properties": {
@@ -219,7 +219,7 @@
       },
       "queries": [
         {
-          "description": "The use of the Standard Library input/output functions may result in undefined behaviour.",
+          "description": "The use of the Standard Library input/output functions may result in undefined behavior.",
           "kind": "problem",
           "name": "The Standard Library input/output functions shall not be used",
           "precision": "very-high",
@@ -239,9 +239,9 @@
       },
       "queries": [
         {
-          "description": "The use of Standard Library functions atof, atoi, atol and atoll of <stdlib.h> may result in undefined behaviour.",
+          "description": "The use of Standard Library functions 'atof', 'atoi', 'atol' and 'atoll' of 'stdlib.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The Standard Library functions atof, atoi, atol and atoll of <stdlib.h> shall not be used",
+          "name": "The Standard Library functions 'atof', 'atoi', 'atol' and 'atoll' of 'stdlib.h' shall not be used",
           "precision": "very-high",
           "severity": "error",
           "short_name": "AtofAtoiAtolAndAtollOfStdlibhUsed",
@@ -250,7 +250,7 @@
           ]
         }
       ],
-      "title": "The Standard Library functions 'atof', 'atoi','atol' and 'atoll' of <stdlib.h> shall not be used"
+      "title": "The Standard Library functions 'atof', 'atoi','atol' and 'atoll' of stdlib.h shall not be used"
     },
     "RULE-21-8": {
       "properties": {
@@ -258,9 +258,9 @@
       },
       "queries": [
         {
-          "description": "The use of the Standard Library functions 'abort', 'exit' and 'system' of <stdlib.h> may result in undefined behaviour.",
+          "description": "The use of the Standard Library functions 'abort', 'exit' and 'system' of 'stdlib.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The Standard Library termination functions of <stdlib.h> shall not be used",
+          "name": "The Standard Library termination functions of stdlib.h shall not be used",
           "precision": "very-high",
           "severity": "error",
           "short_name": "TerminationFunctionsOfStdlibhUsed",
@@ -270,9 +270,9 @@
           ]
         },
         {
-          "description": "The use of the Standard Library macros 'abort', 'exit' and 'system' of <stdlib.h> may result in undefined behaviour.",
+          "description": "The use of the Standard Library macros 'abort', 'exit' and 'system' of 'stdlib.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The Standard Library termination macros of <stdlib.h> shall not be used",
+          "name": "The Standard Library termination macros of 'stdlib.h' shall not be used",
           "precision": "very-high",
           "severity": "warning",
           "short_name": "TerminationMacrosOfStdlibhUsed",
@@ -282,7 +282,7 @@
           ]
         }
       ],
-      "title": "The Standard Library termination functions of <stdlib.h> shall not be used"
+      "title": "The Standard Library termination functions of stdlib.h shall not be used"
     },
     "RULE-21-9": {
       "properties": {
@@ -290,9 +290,9 @@
       },
       "queries": [
         {
-          "description": "The use of the Standard Library functions 'bsearch' and 'qsort' of <stdlib.h> may result in undefined behaviour.",
+          "description": "The use of the Standard Library functions 'bsearch' and 'qsort' of 'stdlib.h' may result in undefined behavior.",
           "kind": "problem",
-          "name": "The Standard Library functions bsearch and qsort of <stdlib.h> shall not be used",
+          "name": "The Standard Library functions 'bsearch' and 'qsort' of 'stdlib.h' shall not be used",
           "precision": "very-high",
           "severity": "error",
           "short_name": "BsearchAndQsortOfStdlibhUsed",
@@ -302,7 +302,7 @@
           ]
         }
       ],
-      "title": "The Standard Library functions bsearch and qsort of <stdlib.h> shall not be used"
+      "title": "The Standard Library functions 'bsearch' and 'qsort' of 'stdlib.h' shall not be used"
     },
     "RULE-4-12": {
       "properties": {
@@ -310,7 +310,7 @@
       },
       "queries": [
         {
-          "description": "Using dynamic memory allocation and deallocation can result to undefined behaviour. This query is for the Standard Library Implementation. Any implementation outside it will require a seperate query under the same directive",
+          "description": "Using dynamic memory allocation and deallocation can result to undefined behavior. This query is for the Standard Library Implementation. Any implementation outside it will require a separate query under the same directive",
           "kind": "problem",
           "name": "Dynamic memory allocation shall not be used",
           "precision": "very-high",
@@ -331,7 +331,7 @@
       },
       "queries": [
         {
-          "description": "The use of octal constants affects the readbility of the program and should not be used.",
+          "description": "The use of octal constants affects the readability of the program and should not be used.",
           "kind": "problem",
           "name": "Octal constants shall not be used",
           "precision": "very-high",
@@ -352,7 +352,7 @@
       },
       "queries": [
         {
-          "description": "The use of the 'restrict' type qualifier may result in undefined behaviour.",
+          "description": "The use of the 'restrict' type qualifier may result in undefined behavior.",
           "kind": "problem",
           "name": "The restrict type qualifier shall not be used",
           "precision": "very-high",

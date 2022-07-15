@@ -1,7 +1,7 @@
 /**
  * @id c/cert/do-not-call-system
- * @name ENV33-C: Do not call system()
- * @description Use of the 'system()' function may result in exploitable vulnerabilities.
+ * @name ENV33-C: Do not call 'system'
+ * @description Use of the 'system' function may result in exploitable vulnerabilities.
  * @kind problem
  * @precision very-high
  * @problem.severity error

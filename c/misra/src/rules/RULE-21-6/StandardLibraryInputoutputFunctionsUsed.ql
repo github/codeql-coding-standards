@@ -2,7 +2,7 @@
  * @id c/misra/standard-library-inputoutput-functions-used
  * @name RULE-21-6: The Standard Library input/output functions shall not be used
  * @description The use of the Standard Library input/output functions may result in undefined
- *              behaviour.
+ *              behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

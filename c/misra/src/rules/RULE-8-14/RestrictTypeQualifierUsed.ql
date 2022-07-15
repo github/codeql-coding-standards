@@ -1,7 +1,7 @@
 /**
  * @id c/misra/restrict-type-qualifier-used
  * @name RULE-8-14: The restrict type qualifier shall not be used
- * @description The use of the 'restrict' type qualifier may result in undefined behaviour.
+ * @description The use of the 'restrict' type qualifier may result in undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

@@ -1,4 +1,4 @@
-# ENV33-C: Do not call system()
+# ENV33-C: Do not call 'system'
 
 This query implements the CERT-C rule ENV33-C:
 

@@ -1,9 +1,9 @@
 /**
  * @id c/misra/std-lib-dynamic-memory-allocation-used
  * @name RULE-4-12: Dynamic memory allocation shall not be used
- * @description Using dynamic memory allocation and deallocation can result to undefined behaviour.
+ * @description Using dynamic memory allocation and deallocation can result to undefined behavior.
  *              This query is for the Standard Library Implementation. Any implementation outside it
- *              will require a seperate query under the same directive
+ *              will require a separate query under the same directive
  * @kind problem
  * @precision very-high
  * @problem.severity error

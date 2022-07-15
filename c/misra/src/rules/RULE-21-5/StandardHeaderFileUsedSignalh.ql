@@ -1,7 +1,7 @@
 /**
  * @id c/misra/standard-header-file-used-signalh
- * @name RULE-21-5: The standard header file shall not be used <signal.h>
- * @description The use of features of '<signal.h>' may result in undefined behaviour.
+ * @name RULE-21-5: The standard header file shall not be used 'signal.h'
+ * @description The use of features of 'signal.h' may result in undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

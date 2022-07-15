@@ -1,7 +1,7 @@
 /**
  * @id c/misra/standard-header-file-tgmathh-used
- * @name RULE-21-11: The standard header file <tgmath.h> shall not be used
- * @description The use of the header file '<tgmath.h>' may result in undefined behaviour.
+ * @name RULE-21-11: The standard header file 'tgmath.h' shall not be used
+ * @description The use of the header file 'tgmath.h' may result in undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

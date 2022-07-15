@@ -1,8 +1,8 @@
 /**
  * @id c/misra/bsearch-and-qsort-of-stdlibh-used
- * @name RULE-21-9: The Standard Library functions bsearch and qsort of <stdlib.h> shall not be used
- * @description The use of the Standard Library functions 'bsearch' and 'qsort' of <stdlib.h> may
- *              result in undefined behaviour.
+ * @name RULE-21-9: The Standard Library functions 'bsearch' and 'qsort' of 'stdlib.h' shall not be used
+ * @description The use of the Standard Library functions 'bsearch' and 'qsort' of 'stdlib.h' may
+ *              result in undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error
