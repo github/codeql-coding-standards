@@ -32,7 +32,7 @@ void f3() {
 
 void f4() {
   mtx_lock(&lk);
-  
+
   for (;;) {
     cnd_wait(&cnd, &lk); // COMPLIANT
   }
@@ -40,7 +40,7 @@ void f4() {
 
 void f5() {
   mtx_lock(&lk);
-  
+
   int i = 2;
   while (i > 0) {
     i--;
@@ -51,7 +51,7 @@ void f5() {
 
 void f6() {
   mtx_lock(&lk);
-  
+
   for (int i = 0; i < 10; i++) {
   }
   int i = 0;
