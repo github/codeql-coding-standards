@@ -5,7 +5,6 @@ This query implements the CERT-C rule ENV33-C:
 > Do not call system()
 
 
-
 ## Description
 
 The C Standard `system()` function executes a specified command by invoking an [implementation-defined](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-implementation-definedbehavior) command processor, such as a UNIX shell or `CMD.EXE` in Microsoft Windows. The POSIX [popen()](http://pubs.opengroup.org/onlinepubs/9699919799/) and Windows `[_popen()](https://msdn.microsoft.com/en-us/library/96ayss4b(v=vs.140).aspx)` functions also invoke a command processor but create a pipe between the calling program and the executed command, returning a pointer to a stream that can be used to either read from or write to the pipe \[[IEEE Std 1003.1:2013](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013)\]. 
