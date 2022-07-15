@@ -1,0 +1,2 @@
+- Remove support for the anonymized pack because it is no longer necessary. The code scanning pack is superseding this pack.
+- Remove support for the LGTM pack because LGTM is EOL.

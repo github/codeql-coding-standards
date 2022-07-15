@@ -1,0 +1,2 @@
+| test.c:7:3:7:5 | 10 | Use of banned $@ constant. | test.c:7:3:7:5 | 10 | octal |
+| test.c:8:3:8:5 | 44 | Use of banned $@ constant. | test.c:8:3:8:5 | 44 | octal |

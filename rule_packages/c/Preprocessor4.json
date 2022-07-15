@@ -1,0 +1,67 @@
+{
+  "MISRA-C-2012": {
+    "RULE-20-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Redefinition of keywords is confusing and in the case where the standard library is included where that keyword is defined, the redefinition will result in undefined behaviour.",
+          "kind": "problem",
+          "name": "A macro shall not be defined with the same name as a keyword",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MacroDefinedWithTheSameNameAsKeyword",
+          "tags": [
+            "correctness",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A macro shall not be defined with the same name as a keyword"
+    },
+    "RULE-20-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Arguments to a function-like macro shall not contain tokens that look like pre-processing directives or else behaviour after macro expansion is unpredictable.",
+          "kind": "problem",
+          "name": "Tokens that look like a preprocessing directive shall not occur within a macro argument",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "FunctionLikeMacroArgsContainHashTokenCQuery",
+          "shared_implementation_short_name": "PreprocessingDirectiveWithinMacroArgument",
+          "tags": [
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Tokens that look like a preprocessing directive shall not occur within a macro argument"
+    },
+    "RULE-21-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of #define and #undef on reserved identifiers or macro names can result in undefined behaviour.",
+          "kind": "problem",
+          "name": "#define and #undef shall not be used on a reserved identifier or reserved macro name",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DefineAndUndefUsedOnReservedIdentifierOrMacroName",
+          "tags": [
+            "correctness",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "#define and #undef shall not be used on a reserved identifier or reserved macro name"
+    }
+  }
+}

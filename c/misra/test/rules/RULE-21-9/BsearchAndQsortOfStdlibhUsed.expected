@@ -1,0 +1,2 @@
+| test.c:22:3:22:7 | call to qsort | Call to banned function $@. | stdlib.h:56:6:56:10 | qsort | qsort |
+| test.c:26:9:26:15 | call to bsearch | Call to banned function $@. | stdlib.h:55:7:55:13 | bsearch | bsearch |
