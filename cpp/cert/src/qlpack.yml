@@ -2,5 +2,5 @@ name: codeql/cert-cpp-coding-standards
 version: 2.6.0-dev
 suites: codeql-suites
 dependencies:
-  codeql/cpp-all: 0.0.13
+  codeql/cpp-all: 0.2.3
   codeql/common-cpp-coding-standards: '*'
