@@ -122,7 +122,7 @@ As required by 11.4.7.2 d), both the CodeQL CLI and CodeQL Standard Library prov
 
 [^1] The projects analyzed are visible in the public LGTM search at https://lgtm.com/search?q=language%3Acpp. The default analysis was applied, which exercises both the CodeQL CLI
 
-#### 1d. Validation of the software tool in accordance with 11.4.9
+#### 1c. Validation of the software tool in accordance with 11.4.9
 
 When selecting a new pair of versions of the CodeQL CLI and CodeQL Standard Library for C++ to define as "supported", we perform the following black box testing of those components:
 
