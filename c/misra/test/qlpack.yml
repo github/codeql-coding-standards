@@ -1,4 +1,4 @@
 name: misra-c-coding-standards-tests
-version: 2.6.0-dev
+version: 2.6.0
 libraryPathDependencies: misra-c-coding-standards
 extractor: cpp
