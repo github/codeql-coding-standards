@@ -85,6 +85,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "DeadlockByLockingInPredefinedOrder",
+          "shared_implementation_short_name": "PreventDeadlockByLockingInPredefinedOrder",
           "tags": [
             "correctness",
             "concurrency"
@@ -105,6 +106,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "WrapFunctionsThatCanSpuriouslyWakeUpInLoop",
+          "shared_implementation_short_name": "WrapSpuriousFunctionInLoop",
           "tags": [
             "correctness",
             "concurrency"

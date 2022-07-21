@@ -318,7 +318,7 @@ class RAIIStyleLock extends LockingOperation {
    */
   override predicate isLock() {
     this instanceof ConstructorCall and
-    lock = getArgument(0) and
+    lock = getArgument(0).getAChild*() and
     // defer_locks don't cause a lock
     not exists(Expr exp |
       exp = getArgument(1) and
@@ -421,14 +421,26 @@ class LockProtectedControlFlowNode extends ThreadedCFN {
 /**
  * Models a function that conditionally waits.
  */
-class ConditionalWait extends FunctionCall {
-  ConditionalWait() {
+abstract class ConditionalWait extends FunctionCall { }
+
+/**
+ * Models a function in CPP that will conditionally wait.
+ */
+class CPPConditionalWait extends ConditionalWait {
+  CPPConditionalWait() {
     exists(MemberFunction mf |
       mf = getTarget() and
       mf.getDeclaringType().hasQualifiedName("std", "condition_variable") and
       mf.getName() in ["wait", "wait_for", "wait_until"]
     )
   }
+}
+
+/**
+ * Models a function in C that will conditionally wait.
+ */
+class CConditionalWait extends ConditionalWait {
+  CConditionalWait() { getTarget().getName() in ["cnd_wait"] }
 }
 
 /**
