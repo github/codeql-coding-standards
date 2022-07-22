@@ -608,7 +608,7 @@ Requirements and project planning are maintained separately within an internal r
 
 ### Purpose ot the `next` branch
 
-This git repository also has a [`next` branch](https://github.com/github/codeql-coding-standards/tree/next). The purpose of this branch is to track changes that that will become necessary when upgrading the CodeQL external dependencies as described in section _Upgrading external dependencies_. The changes on the `next` branch will undergo only light reviewing. As such, a full review as described in section _Code review and automated checks_ is required when merging these changes in `main`, and no releases should be made from the `next` branch. We do aim the changes on the `next` branch to be as complete as possible to make merging into `main` as straightforward as possible.
+This git repository also has a [`next` branch](https://github.com/github/codeql-coding-standards/tree/next). The purpose of this branch is to track changes that that will become necessary when upgrading the CodeQL external dependencies as described in section _Upgrading external dependencies_. The changes on the `next` branch will undergo only light reviewing. As such, a full review as described in section _Code review and automated checks_ is required when merging these changes into `main`; no releases should be made from the `next` branch. We aim to ensure that the changes on the `next` branch are as complete as possible so that merging into `main` will be straightforward.
 
 ## Task Automation
 
