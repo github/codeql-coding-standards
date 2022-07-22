@@ -163,6 +163,7 @@
             "type": "pickString",
             "options": [
                 "Allocations",
+                "Banned",
                 "BannedFunctions",
                 "BannedSyntax",
                 "BannedTypes",

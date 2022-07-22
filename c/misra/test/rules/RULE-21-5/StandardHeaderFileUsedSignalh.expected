@@ -1,0 +1,2 @@
+| test.c:4:7:4:12 | call to signal | Call to banned function $@. | signal.h:282:8:282:13 | signal | signal |
+| test.c:6:7:6:11 | call to raise | Call to banned function $@. | signal.h:283:5:283:9 | raise | raise |

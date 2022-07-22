@@ -1,2 +1,0 @@
-| test.cpp:29:5:29:6 | d2 | Threaded function may be called from a context that uses $@ and $@ which may lead to deadlocks. | test.cpp:30:41:30:49 | call to lock_guard | lock 1 | test.cpp:35:39:35:45 | call to lock_guard | lock 2 |
-| test.cpp:43:5:43:6 | d3 | Threaded function may be called from a context that uses $@ and $@ which may lead to deadlocks. | test.cpp:44:41:44:49 | call to lock_guard | lock 1 | test.cpp:49:39:49:45 | call to lock_guard | lock 2 |

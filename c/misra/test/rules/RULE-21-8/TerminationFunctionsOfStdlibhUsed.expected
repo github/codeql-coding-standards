@@ -1,0 +1,6 @@
+| test.c:10:3:10:6 | call to exit | Call to banned function $@. | stdlib.h:46:16:46:19 | exit | exit |
+| test.c:11:3:11:8 | call to system | Call to banned function $@. | stdlib.h:53:5:53:10 | system | system |
+| test.c:12:3:12:7 | call to abort | Call to banned function $@. | stdlib.h:44:16:44:20 | abort | abort |
+| test.c:14:3:14:9 | call to exit | Call to banned function $@. | stdlib.h:46:16:46:19 | exit | exit |
+| test.c:15:3:15:7 | call to abort | Call to banned function $@. | stdlib.h:44:16:44:20 | abort | abort |
+| test.c:16:3:16:14 | call to system | Call to banned function $@. | stdlib.h:53:5:53:10 | system | system |

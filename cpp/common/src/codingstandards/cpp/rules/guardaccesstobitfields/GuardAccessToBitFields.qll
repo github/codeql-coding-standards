@@ -42,6 +42,24 @@ ControlFlowNode getAReachableLockCFN(MutexFunctionCall mfc) {
 query predicate problems(BitFieldAccess ba, string message) {
   not isExcluded(ba, getQuery()) and
   ba instanceof ThreadedCFN and
-  not ba instanceof LockProtectedControlFlowNode and
+  // to be a valid bit field access there must be
+  // a RAII-style lock before this access
+  not exists(RAIIStyleLock lock |
+    // A lock came before this node
+    lock = ba.getAPredecessor*() and
+    lock.isLock() and
+    // But wasn't followed by an unlock
+    not exists(RAIIStyleLock unlock |
+      // That worked on the same underlying lock variable
+      unlock.isUnlock() and
+      unlock.getLock() = lock.getLock() and
+      // such that the unlock came after the lock
+      unlock.getAPredecessor*() = lock and
+      // and after before the access
+      ba.getAPredecessor*() = unlock
+    )
+  ) and
+  // or the bit field access must be protected by a lock region
+  not exists(MutexFunctionCall mfc | ba = getAReachableLockCFN(mfc)) and
   message = "Access to a bit-field without a concurrency guard."
 }

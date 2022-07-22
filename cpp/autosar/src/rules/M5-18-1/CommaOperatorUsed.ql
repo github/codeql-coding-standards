@@ -14,7 +14,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.commaoperatorused.CommaOperatorUsed
 
-from CommaExpr c
-where not isExcluded(c, BannedSyntaxPackage::commaOperatorUsedQuery())
-select c, "Use of comma operator"
+class CommaOperatorUsedQuery extends CommaOperatorUsedSharedQuery {
+  CommaOperatorUsedQuery() {
+    this = BannedSyntaxPackage::commaOperatorUsedQuery()
+  }
+}

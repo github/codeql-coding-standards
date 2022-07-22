@@ -1,0 +1,3 @@
+| test.c:15:5:15:6 | d1 | Threaded function may be called from a context that uses $@ and $@ which may lead to deadlocks. | test.c:22:3:22:10 | call to mtx_lock | lock 1 | test.c:23:3:23:10 | call to mtx_lock | lock 2 |
+| test.c:33:5:33:6 | d2 | Threaded function may be called from a context that uses $@ and $@ which may lead to deadlocks. | test.c:41:3:41:10 | call to mtx_lock | lock 1 | test.c:45:3:45:10 | call to mtx_lock | lock 2 |
+| test.c:88:5:88:6 | d4 | Threaded function may be called from a context that uses $@ and $@ which may lead to deadlocks. | test.c:111:3:111:10 | call to mtx_lock | lock 1 | test.c:112:3:112:10 | call to mtx_lock | lock 2 |

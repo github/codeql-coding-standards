@@ -320,6 +320,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CommaOperatorUsed",
+          "shared_implementation_short_name": "CommaOperatorUsed",
           "tags": [
             "correctness"
           ]

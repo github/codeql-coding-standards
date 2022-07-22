@@ -1,0 +1,46 @@
+{
+  "CERT-C": {
+    "CON35-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Circular waits leading to thread deadlocks may be avoided by locking in a predefined order.",
+          "kind": "problem",
+          "name": "Avoid deadlock by locking in a predefined order",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeadlockByLockingInPredefinedOrder",
+          "shared_implementation_short_name": "PreventDeadlockByLockingInPredefinedOrder",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Avoid deadlock by locking in a predefined order"
+    },
+    "CON36-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Not wrapping functions that can wake up spuriously in a conditioned loop can result race conditions.",
+          "kind": "problem",
+          "name": "Wrap functions that can spuriously wake up in a loop",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "WrapFunctionsThatCanSpuriouslyWakeUpInLoop",
+          "shared_implementation_short_name": "WrapSpuriousFunctionInLoop",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Wrap functions that can spuriously wake up in a loop"
+    }
+  }
+}

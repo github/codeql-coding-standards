@@ -1,0 +1,3 @@
+| test.cpp:11:8:11:11 | call to wait | Use of a function that may wake up spuriously without a controlling loop. |
+| test.cpp:49:6:49:9 | call to wait | Use of a function that may wake up spuriously without a controlling loop. |
+| test.cpp:59:8:59:11 | call to wait | Use of a function that may wake up spuriously without a controlling loop. |

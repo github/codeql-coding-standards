@@ -1,0 +1,1 @@
+- `M5-18-1`: Update the alert message to conform with our query style-guide.
