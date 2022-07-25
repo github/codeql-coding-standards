@@ -735,7 +735,7 @@ c,MISRA-C-2012,RULE-20-3,No,Required,,,"The #include directive shall be followed
 c,MISRA-C-2012,RULE-20-4,Yes,Required,,,A macro shall not be defined with the same name as a keyword,A17-0-1,Preprocessor4,Medium,
 c,MISRA-C-2012,RULE-20-5,Yes,Advisory,,,#undef should not be used,,Preprocessor2,Easy,
 c,MISRA-C-2012,RULE-20-6,Yes,Required,,,Tokens that look like a preprocessing directive shall not occur within a macro argument,M16-0-5,Preprocessor4,Import,
-c,MISRA-C-2012,RULE-20-7,Yes,Required,,,Expressions resulting from the expansion of macro parameters shall be enclosed in parentheses,M16-0-6,Preprocessor,Easy,
+c,MISRA-C-2012,RULE-20-7,Yes,Required,,,Expressions resulting from the expansion of macro parameters shall be enclosed in parentheses,M16-0-6,Preprocessor5,Easy,
 c,MISRA-C-2012,RULE-20-8,Yes,Required,,,The controlling expression of a #if or #elif preprocessing directive shall evaluate to 0 or 1,,Preprocessor3,Hard,
 c,MISRA-C-2012,RULE-20-9,Yes,Required,,,All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be #defined before evaluation,M16-0-7,Preprocessor1,Import,
 c,MISRA-C-2012,RULE-20-10,Yes,Advisory,,,The # and ## preprocessor operators should not be used,M16-3-2,Preprocessor1,Import,

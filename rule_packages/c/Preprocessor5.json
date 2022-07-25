@@ -1,0 +1,25 @@
+{
+  "MISRA-C-2012": {
+    "RULE-20-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "In the definition of a function-like macro, each instance of a parameter shall be enclosed in parentheses, otherwise the result of preprocessor macro substitition may not be as expected.",
+          "kind": "problem",
+          "name": "Expressions resulting from the expansion of macro parameters shall be enclosed in parentheses",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MacroParameterNotEnclosedInParenthesesCQuery",
+          "shared_implementation_short_name": "MacroParameterNotEnclosedInParentheses",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Expressions resulting from the expansion of macro parameters shall be enclosed in parentheses"
+    }
+  }
+}

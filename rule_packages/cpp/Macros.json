@@ -188,6 +188,7 @@
                     "precision": "very-high",
                     "severity": "warning",
                     "short_name": "FunctionLikeMacroParameterNotEnclosedInParentheses",
+                    "shared_implementation_short_name": "MacroParameterNotEnclosedInParentheses",
                     "tags": [
                         "correctness",
                         "readability"
