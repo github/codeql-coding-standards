@@ -30,6 +30,7 @@
 | 0.22.0  | 2022-07-05 | Remco Vermeulen | Update section `Generation of query templates from rule specifications` to include external help files.                                                                                                                                                                                   |
 | 0.23.0  | 2022-07-05 | Remco Vermeulen | Update text to consider both the C++ and the C standards.                                                                                                                                                                                                                                 |
 | 0.24.0  | 2022-07-05 | Remco Vermeulen | Update release process to include steps for external help files.                                                                                                                                                                                                                          |
+| 0.25.0  | 2022-07-22 | Jeroen Ketema   | Document the existence and purpose of the `next` branch.                                                                                                                                                                                                                                  |
 
 ## Scope of work
 
@@ -604,6 +605,10 @@ All code and external documentation for the CodeQL Coding Standards queries shou
 All software development processes associated with this repository should be documented in markdown files within the repository itself. Any changes to the software lifecycle processes should cause the documentation to updated to specify the new processes.
 
 Requirements and project planning are maintained separately within an internal repository at GitHub.
+
+### Purpose ot the `next` branch
+
+This git repository also has a [`next` branch](https://github.com/github/codeql-coding-standards/tree/next). The purpose of this branch is to track changes that that will become necessary when upgrading the CodeQL external dependencies as described in section _Upgrading external dependencies_. The changes on the `next` branch will undergo only light reviewing. As such, a full review as described in section _Code review and automated checks_ is required when merging these changes into `main`; no releases should be made from the `next` branch. We aim to ensure that the changes on the `next` branch are as complete as possible so that merging into `main` will be straightforward.
 
 ## Task Automation
 
