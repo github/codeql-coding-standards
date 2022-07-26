@@ -3,9 +3,19 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Preprocessor5Query = TMacroParameterNotEnclosedInParenthesesCQueryQuery()
+newtype Preprocessor5Query =
+  TMacroOrFunctionArgsContainHashTokenQuery() or
+  TMacroParameterNotEnclosedInParenthesesCQueryQuery()
 
 predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleId) {
+  query =
+    // `Query` instance for the `macroOrFunctionArgsContainHashToken` query
+    Preprocessor5Package::macroOrFunctionArgsContainHashTokenQuery() and
+  queryId =
+    // `@id` for the `macroOrFunctionArgsContainHashToken` query
+    "c/cert/macro-or-function-args-contain-hash-token" and
+  ruleId = "PRE32-C"
+  or
   query =
     // `Query` instance for the `macroParameterNotEnclosedInParenthesesCQuery` query
     Preprocessor5Package::macroParameterNotEnclosedInParenthesesCQueryQuery() and
@@ -16,6 +26,13 @@ predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Preprocessor5Package {
+  Query macroOrFunctionArgsContainHashTokenQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `macroOrFunctionArgsContainHashToken` query
+      TQueryC(TPreprocessor5PackageQuery(TMacroOrFunctionArgsContainHashTokenQuery()))
+  }
+
   Query macroParameterNotEnclosedInParenthesesCQueryQuery() {
     //autogenerate `Query` type
     result =

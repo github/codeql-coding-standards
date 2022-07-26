@@ -63,3 +63,9 @@ class StringizingOperator extends TStringizingOperator {
 
   string toString() { result = getMacro().toString() }
 }
+
+
+pragma[noinline]
+predicate isMacroInvocationLocation(MacroInvocation mi, File f, int startChar, int endChar) {
+  mi.getActualLocation().charLoc(f, startChar, endChar)
+}

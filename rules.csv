@@ -587,7 +587,7 @@ c,CERT-C,POS53-C,OutOfScope,Rule,,,Do not use more than one mutex for concurrent
 c,CERT-C,POS54-C,OutOfScope,Rule,,,Detect and handle POSIX library errors,,,,
 c,CERT-C,PRE30-C,No,Rule,,,Do not create a universal character name through concatenation,,,Medium,
 c,CERT-C,PRE31-C,Yes,Rule,,,Avoid side effects in arguments to unsafe macros,RULE-13-2,SideEffects,Medium,
-c,CERT-C,PRE32-C,Yes,Rule,,,Do not use preprocessor directives in invocations of function-like macros,,Preprocessor,Hard,
+c,CERT-C,PRE32-C,Yes,Rule,,,Do not use preprocessor directives in invocations of function-like macros,,Preprocessor5,Hard,
 c,CERT-C,SIG30-C,Yes,Rule,,,Call only asynchronous-safe functions within signal handlers,,Contracts,Medium,
 c,CERT-C,SIG31-C,Yes,Rule,,,Do not access shared objects in signal handlers,,Contracts,Medium,
 c,CERT-C,SIG34-C,Yes,Rule,,,Do not call signal() from within interruptible signal handlers,,Contracts,Medium,

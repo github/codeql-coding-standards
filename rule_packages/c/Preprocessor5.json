@@ -1,4 +1,26 @@
 {
+  "CERT-C": {
+    "PRE32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Arguments to a function-like macros shall not contain tokens that look like pre-processing directives or else behaviour after macro expansion is unpredictable. This rule applies to functions as well in case they are implemented using macros.",
+          "kind": "problem",
+          "name": "Do not use preprocessor directives in invocations of function-like macros",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MacroOrFunctionArgsContainHashToken",
+          "tags": [
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not use preprocessor directives in invocations of function-like macros"
+    }
+  },
   "MISRA-C-2012": {
     "RULE-20-7": {
       "properties": {
