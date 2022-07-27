@@ -565,7 +565,7 @@ c,CERT-C,MSC30-C,Yes,Rule,,,Do not use the rand() function for generating pseudo
 c,CERT-C,MSC32-C,Yes,Rule,,,Properly seed pseudorandom number generators,MSC51-CPP,Misc,Easy,
 c,CERT-C,MSC33-C,Yes,Rule,,,Do not pass invalid data to the asctime() function,,Contracts,Easy,
 c,CERT-C,MSC37-C,Yes,Rule,,,Ensure that control never reaches the end of a non-void function,,Misc,Easy,
-c,CERT-C,MSC38-C,Yes,Rule,,,Do not treat a predefined identifier as an object if it might only be implemented as a macro,M17-0-2,Preprocessor,Medium,
+c,CERT-C,MSC38-C,Yes,Rule,,,Do not treat a predefined identifier as an object if it might only be implemented as a macro,M17-0-2,Preprocessor5,Medium,
 c,CERT-C,MSC39-C,Yes,Rule,,,Do not call va_arg() on a va_list that has an indeterminate value,,Contracts,Hard,
 c,CERT-C,MSC40-C,Yes,Rule,,,Do not violate constraints,,Contracts,Very Hard,
 c,CERT-C,MSC41-C,OutOfScope,Rule,,,Never hard code sensitive information,,,,

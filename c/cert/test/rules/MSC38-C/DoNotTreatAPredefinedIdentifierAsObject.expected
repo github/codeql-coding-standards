@@ -1,0 +1,2 @@
+| test.c:3:12:3:16 | errno | Redefinition of standard library macro errno. |
+| test.c:10:21:10:26 | assert | Access of standard library macro assert. |

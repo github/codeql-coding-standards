@@ -1,5 +1,25 @@
 {
   "CERT-C": {
+    "MSC38-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accessing an object or function that expands to one of a few specific standard library macros is undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not treat a predefined identifier as an object if it might only be implemented as a macro",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DoNotTreatAPredefinedIdentifierAsObject",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Do not treat a predefined identifier as an object if it might only be implemented as a macro"
+    },
     "PRE32-C": {
       "properties": {
         "obligation": "rule"
@@ -13,8 +33,8 @@
           "severity": "warning",
           "short_name": "MacroOrFunctionArgsContainHashToken",
           "tags": [
-            "readability",
-            "correctness"
+            "correctness",
+            "readability"
           ]
         }
       ],

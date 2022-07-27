@@ -4,10 +4,19 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Preprocessor5Query =
+  TDoNotTreatAPredefinedIdentifierAsObjectQuery() or
   TMacroOrFunctionArgsContainHashTokenQuery() or
   TMacroParameterNotEnclosedInParenthesesCQueryQuery()
 
 predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleId) {
+  query =
+    // `Query` instance for the `doNotTreatAPredefinedIdentifierAsObject` query
+    Preprocessor5Package::doNotTreatAPredefinedIdentifierAsObjectQuery() and
+  queryId =
+    // `@id` for the `doNotTreatAPredefinedIdentifierAsObject` query
+    "c/cert/do-not-treat-a-predefined-identifier-as-object" and
+  ruleId = "MSC38-C"
+  or
   query =
     // `Query` instance for the `macroOrFunctionArgsContainHashToken` query
     Preprocessor5Package::macroOrFunctionArgsContainHashTokenQuery() and
@@ -26,6 +35,13 @@ predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Preprocessor5Package {
+  Query doNotTreatAPredefinedIdentifierAsObjectQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `doNotTreatAPredefinedIdentifierAsObject` query
+      TQueryC(TPreprocessor5PackageQuery(TDoNotTreatAPredefinedIdentifierAsObjectQuery()))
+  }
+
   Query macroOrFunctionArgsContainHashTokenQuery() {
     //autogenerate `Query` type
     result =

@@ -8,8 +8,8 @@
  * @precision high
  * @problem.severity warning
  * @tags external/cert/id/pre32-c
- *       readability
  *       correctness
+ *       readability
  *       external/cert/obligation/rule
  */
 
