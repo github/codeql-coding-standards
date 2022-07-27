@@ -33,15 +33,13 @@ predicate hasRestrictedMacroName(string s) {
   s = "va_start"
 }
 
-from Element m, string name, string condition
+from Element m, string name
 where
   not isExcluded(m, Preprocessor5Package::doNotTreatAPredefinedIdentifierAsObjectQuery()) and
   (
-    condition = "Access" and
     m.(Access).getTarget().hasName(name)
     or
-    m.(Declaration).hasGlobalName(name) and
-    condition = "Redefinition"
+    m.(Declaration).hasGlobalName(name)
   ) and
   hasRestrictedMacroName(name)
-select m, condition + " of standard library macro " + name + "."
+select m, "Supression of standard library macro " + name + "."
