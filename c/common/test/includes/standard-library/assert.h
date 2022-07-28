@@ -1,7 +1,6 @@
 #include <features.h>
 
 #undef assert
-void assert(int i);
 
 #ifdef NDEBUG
 #define	assert(x) (void)0
