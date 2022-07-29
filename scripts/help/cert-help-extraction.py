@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import tempfile
 import re
 import urllib.request
@@ -12,6 +12,7 @@ import requests
 import sys
 import marko
 from marko.md_renderer import MarkdownRenderer
+import unicodedata
 
 script_path = Path(__file__)
 # Add the shared module to the path
@@ -35,8 +36,7 @@ def soupify(url: str) -> BeautifulSoup:
     cache_key = m.hexdigest()
     cache_file = cache_path.joinpath(cache_key)
     if cache_file.exists():
-        with cache_file.open() as f:
-            content = f.read().replace(u'\xa0', u' ')
+        content = unicodedata.normalize("NFKD", cache_file.read_text())
     else:
         resp = requests.get(url)
 
@@ -500,12 +500,12 @@ for rule in rules:
                 print(f"{err.reason}: {err.stderr}")
             temp_qhelp_path.unlink()
 
-            parsed_temp_help = md.parse(temp_help_path.read_text())
+            parsed_temp_help = md.parse(unicodedata.normalize("NFKD", temp_help_path.read_text()))
             # Remove the first header that is added by the QHelp to Markdown conversion
             del parsed_temp_help.children[0]
             temp_help_path.write_text(md.render(parsed_temp_help))
 
-            parsed_help = md.parse(help_path.read_text())
+            parsed_help = md.parse(unicodedata.normalize("NFKD", help_path.read_text()))
             if find_heading(parsed_help, 'CERT'):
                 # Check if it contains the CERT heading that needs to be replaced
                 print(f"ID: {rule['id']} - Found heading 'CERT' whose content will be replaced")
@@ -514,7 +514,7 @@ for rule in rules:
                 # Otherwise update the content of every existing second level heading, note that this doesn't add headings!
                 second_level_headings = {get_heading_text(heading) for heading in iterate_headings(parsed_temp_help) if heading.level == 2}
                 # Check if there are any headings we don't have in our current help file. If that is the case we need to manually update that first.
-                existing_second_level_headings = {get_heading_text(heading).replace(u'\xa0', u' ') for heading in iterate_headings(parsed_help) if heading.level == 2}
+                existing_second_level_headings = {get_heading_text(heading) for heading in iterate_headings(parsed_help) if heading.level == 2}
                 if not second_level_headings.issubset(existing_second_level_headings):
                     print(f"ID: {rule['id']} - The original help is missing the header(s) '{', '.join(second_level_headings.difference(existing_second_level_headings))}'. Proceed with manually adding these in the expected location (See {temp_help_path}).")
                     sys.exit(1)
