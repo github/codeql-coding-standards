@@ -20,8 +20,13 @@ import codingstandards.cpp.PreprocessorDirective
 pragma[noinline]
 predicate isFunctionInvocationLocation(FunctionCall call, File f, int startline, int endline) {
   call.getLocation().hasLocationInfo(f.getAbsolutePath(), startline, _, _, _) and
+  isFunctionSuccessorLocation(call.getASuccessor(), f, endline)
+}
+
+pragma[noinline]
+predicate isFunctionSuccessorLocation(ControlFlowNode node, File f, int endline) {
   //for all function calls the closest location heurisitc we have for end line is the next node in cfg
-  call.getASuccessor().getLocation().hasLocationInfo(f.getAbsolutePath(), endline, _, _, _)
+  node.getLocation().hasLocationInfo(f.getAbsolutePath(), endline, _, _, _)
 }
 
 PreprocessorDirective isLocatedInAFunctionInvocation(FunctionCall c) {
