@@ -8,7 +8,7 @@ This query implements the CERT-C rule PRE32-C:
 
 ## Description
 
-The arguments to a macro must not include preprocessor directives, such as `#define`, `#ifdef`, and `#include`. Doing so results in [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior), according to the C Standard, 6.10.3, paragraph 11 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\]:
+The arguments to a macro must not include preprocessor directives, such as `#define`, `#ifdef`, and `#include`. Doing so results in [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior), according to the C Standard, 6.10.3, paragraph 11 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\]:
 
 > The sequence of preprocessing tokens bounded by the outside-most matching parentheses forms the list of arguments for the function-like macro. The individual arguments within the list are separated by comma preprocessing tokens, but comma preprocessing tokens between matching inner parentheses do not separate arguments. **If there are sequences of preprocessing tokens within the list of arguments that would otherwise act as preprocessing directives, the behavior is undefined.**
 
@@ -23,7 +23,7 @@ In this noncompliant code example \[[GCC Bugs](http://gcc.gnu.org/bugs.html#nonb
 
 ```cpp
 #include <string.h>
- 
+ 
 void func(const char *src) {
   /* Validate the source string; calculate size */
   char *dest;
@@ -35,7 +35,7 @@ void func(const char *src) {
       24
     #endif
   );
-  /* ... */
+  /* ... */
 }
 
 ```
@@ -50,7 +50,7 @@ In this compliant solution \[[GCC Bugs](http://gcc.gnu.org/bugs.html#nonbugs_c)\
 void func(const char *src) {
   /* Validate the source string; calculate size */
   char *dest;
-  /* malloc() destination string */ 
+  /* malloc() destination string */ 
   #ifdef PLATFORM1
     memcpy(dest, src, 12);
   #else
@@ -69,7 +69,7 @@ Including preprocessor directives in macro arguments is undefined behavior.
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> <strong>macro-argument-hash</strong> </td> <td> Fully checked </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-PRE32</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.PREPROC.MACROARG</strong> </td> <td> Preprocessing directives in macro argument </td> </tr> <tr> <td> <a> ECLAIR </a> </td> <td> 1.2 </td> <td> <strong>CC2.PRE32</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C0853</strong> <strong>C++1072</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>MISRA.EXPANSION.DIRECTIVE</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>341 S</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-PRE32-a</strong> </td> <td> Arguments to a function-like macro shall not contain tokens that look like preprocessing directives </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>436, 9501</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule PRE32-C </a> </td> <td> Checks for preprocessor directive in macro argument (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>0853</strong> </td> <td> </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>1072 </strong> </td> <td> </td> </tr> <tr> <td> <a> RuleChecker </a> </td> <td> 22.04 </td> <td> <strong>macro-argument-hash</strong> </td> <td> Fully checked </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> <strong>macro-argument-hash</strong> </td> <td> Fully checked </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-PRE32</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.PREPROC.MACROARG</strong> </td> <td> Preprocessing directives in macro argument </td> </tr> <tr> <td> <a> ECLAIR </a> </td> <td> 1.2 </td> <td> <strong>CC2.PRE32</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C0853</strong> <strong>C++1072</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>MISRA.EXPANSION.DIRECTIVE</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>341 S</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-PRE32-a</strong> </td> <td> Arguments to a function-like macro shall not contain tokens that look like preprocessing directives </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>436, 9501</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule PRE32-C </a> </td> <td> Checks for preprocessor directive in macro argument (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>0853</strong> </td> <td> </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>1072 </strong> </td> <td> </td> </tr> <tr> <td> <a> RuleChecker </a> </td> <td> 22.04 </td> <td> <strong>macro-argument-hash</strong> </td> <td> Fully checked </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
@@ -83,7 +83,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-None
+This query defines end of function call as the next node in the control flow graph.
 
 ## References
 
