@@ -100,3 +100,13 @@ void test_nested_struct() {
 template <class T> class X { // COMPLIANT - template class never instantiated
   using custom_type = E<T>;  // COMPLIANT - template class never instantiated
 };
+
+template <class T> class Y {}; // COMPLIANT[FALSE_POSITIVE] - used in the test case below
+
+// Alias templates
+template <typename T> using Z = Y<T>; // COMPLIANT[FALSE_POSITIVE] - used below
+template <typename T> using AA = Y<T>; // NON_COMPLIANT - never instantiated
+
+void test_alias_template() {
+  Z<int> v;
+}
