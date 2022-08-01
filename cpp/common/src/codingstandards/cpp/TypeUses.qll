@@ -66,8 +66,15 @@ Locatable getATypeUse(Type type) {
 }
 
 private Locatable getATypeUse_i(Type type) {
-  // Restrict to uses within the source checkout root
-  exists(result.getFile().getRelativePath()) and
+  (
+    // Restrict to uses within the source checkout root
+    exists(result.getFile().getRelativePath())
+    or
+    // Unless it's an alias template instantiation, as they do not have correct locations (last
+    // verified in CodeQL CLI 2.7.6)
+    result instanceof UsingAliasTypedefType and
+    not exists(result.getLocation())
+  ) and
   (
     // Used as a variable type
     exists(Variable v | result = v |
@@ -143,5 +150,20 @@ private Locatable getATypeUse_i(Type type) {
     or
     // This is a TemplateClass where one of the specializations is used
     type = used.(ClassTemplateSpecialization).getPrimaryTemplate()
+    or
+    // Alias templates - alias templates and instantiations are not properly captured by the
+    // extractor (last verified in CodeQL CLI 2.7.6). The only distinguishing factor is that
+    // instantiations of alias templates do not have a location.
+    exists(UsingAliasTypedefType template, UsingAliasTypedefType instantiation |
+      // Instantiation is a "use" of the template
+      used = instantiation and
+      type = template and
+      // The template has a location
+      exists(template.getLocation()) and
+      // The instantiation does not
+      not exists(instantiation.getLocation()) and
+      // Template and instantiation both have the same qualified name
+      template.getQualifiedName() = instantiation.getQualifiedName()
+    )
   )
 }
