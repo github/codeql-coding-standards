@@ -1,14 +1,6 @@
 name: 📦 Bump Workflow
 
 on:
-  pull_request:
-    branches:
-      - "*"
-  push:
-    branches:
-      - "*"
-
-on:
   workflow_dispatch:
     inputs:
       temp_branch_name:
@@ -50,7 +42,7 @@ jobs:
         - name: Apply Bump
           shell: bash
           run: |
-            find . -name 'qlpack.yml' | grep -v './codeql_modules' | grep -v './scripts' | sed -i 's/^version.*$/version: ${{ github.event.inputs.new_version }}/' ./c/cert/src/qlpack.yml
+            find . -name 'qlpack.yml' | grep -v './codeql_modules' | grep -v './scripts' | xargs sed -i 's/^version.*$/version: ${{ github.event.inputs.new_version }}/' 
             
 
         - name: Push Performance Data
