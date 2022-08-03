@@ -1,6 +1,14 @@
 name: 📦 Bump Workflow
 
 on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - "*"
+
+on:
   workflow_dispatch:
     inputs:
       temp_branch_name:
