@@ -1,4 +1,4 @@
-name: 📦 Test Release
+name: 📦 Bump Workflow
 
 on:
   workflow_dispatch:
