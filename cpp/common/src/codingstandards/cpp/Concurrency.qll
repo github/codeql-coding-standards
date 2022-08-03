@@ -48,7 +48,7 @@ class ThreadConstructorCall extends ConstructorCall, ThreadCreationFunction {
 }
 
 /**
- * Models a call to a thread constructor via `std::thread`.
+ * Models a call to a thread constructor via `thrd_create`.
  */
 class C11ThreadCreateCall extends ThreadCreationFunction {
   Function f;
@@ -458,13 +458,139 @@ class MutexDependentThreadConstructor extends ThreadConstructorCall {
 }
 
 /**
- * Models a call to a a `std::thread` join.
+ * Models thread waiting functions.
  */
-class ThreadWait extends FunctionCall {
+abstract class ThreadWait extends FunctionCall { }
+
+/**
+ * Models a call to a `std::thread` join.
+ */
+class CPPThreadWait extends ThreadWait {
   VariableAccess var;
 
-  ThreadWait() {
+  CPPThreadWait() {
     getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "thread") and
     getTarget().getName() = "join"
   }
+}
+
+/**
+ * Models a call to `thread_join` in C11.
+ */
+class C11ThreadWait extends FunctionCall {
+  VariableAccess var;
+
+  C11ThreadWait() { getTarget().getName() = "thread_join" }
+}
+
+abstract class MutexSource extends FunctionCall { }
+
+/**
+ * Models a C++ style mutex.
+ */
+class CPPMutexSource extends MutexSource, ConstructorCall {
+  CPPMutexSource() { getTarget().getDeclaringType().hasQualifiedName("std", "mutex") }
+}
+
+/**
+ * Models a C11 style mutex.
+ */
+class C11MutexSource extends MutexSource, FunctionCall {
+  C11MutexSource() { getTarget().hasName("mtx_init") }
+}
+
+/**
+ * Models a thread dependent mutex. A thread dependent mutex is a mutex
+ * that is used by a thread.
+ */
+class ThreadDependentMutex extends DataFlow::Node {
+  DataFlow::Node sink;
+
+  ThreadDependentMutex() {
+    exists(ThreadDependentMutexTaintTrackingConfiguration config | config.hasFlow(this, sink))
+  }
+
+  DataFlow::Node getASource() {
+    // the source is either the thing that declared
+    // the mutex
+    result = this
+    or
+    // or the thread we are using it in
+    result = getAThreadSource()
+  }
+
+  /**
+   * Gets the dataflow nodes corresponding to thread local usages of the
+   * dependent mutex.
+   */
+  DataFlow::Node getAThreadSource() {
+    exists(FunctionCall fc, Function f, int n |
+      fc.getArgument(n) = sink.asExpr() and
+      f = fc.getArgument(0).(FunctionAccess).getTarget() and
+      result = DataFlow::exprNode(f.getParameter(n - 1).getAnAccess())
+    )
+  }
+
+  /**
+   * Produces the set of dataflow nodes to thread creation for threads
+   * that are dependent on this mutex.
+   */
+  DataFlow::Node getADependentThreadCreationExpr() {
+    exists(FunctionCall fc |
+      fc.getAnArgument() = sink.asExpr() and
+      result = DataFlow::exprNode(fc)
+    )
+  }
+
+  /**
+   * Gets a set of usages of this mutex in both the local and thread scope.
+   */
+  DataFlow::Node getAUsage() { TaintTracking::localTaint(getASource(), result) }
+}
+
+class ThreadDependentMutexTaintTrackingConfiguration extends TaintTracking::Configuration {
+  ThreadDependentMutexTaintTrackingConfiguration() {
+    this = "ThreadDependentMutexTaintTrackingConfiguration"
+  }
+
+  override predicate isSource(DataFlow::Node node) { node.asExpr() instanceof MutexSource }
+
+  override predicate isSink(DataFlow::Node node) {
+    exists(ThreadCreationFunction f | f.getAnArgument() = node.asExpr())
+  }
+}
+
+/**
+ * Models expressions that destroy mutexes.
+ */
+abstract class MutexDestroyer extends Expr {
+  /**
+   * Gets the expression that references the mutex being destroyed.
+   */
+  abstract Expr getMutexExpr();
+}
+
+/**
+ * Models C style mutex destruction via `mtx_destroy`.
+ */
+class C11MutexDestroyer extends MutexDestroyer, FunctionCall {
+  C11MutexDestroyer() { getTarget().getName() = "mtx_destroy" }
+
+  /**
+   * Returns the `Expr` being destroyed.
+   */
+  override Expr getMutexExpr() { result = getArgument(0) }
+}
+
+/**
+ * Models implicit or explicit calls to the destructor of a mutex, either via
+ * a `delete` statement or a variable going out of scope.
+ */
+class DestructorMutexDestroyer extends MutexDestroyer, DestructorCall {
+  DestructorMutexDestroyer() { getTarget().getDeclaringType().hasQualifiedName("std", "mutex") }
+
+  /**
+   * Returns the `Expr` being deleted.
+   */
+  override Expr getMutexExpr() { this.getQualifier() = result }
 }

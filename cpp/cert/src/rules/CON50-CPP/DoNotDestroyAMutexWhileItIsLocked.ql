@@ -19,28 +19,35 @@ import semmle.code.cpp.dataflow.TaintTracking
 
 /*
  * This query finds potential misuse of mutexes passed to threads by considering
- * cases where the underlying mutex may be deleted explicitly. The scope of this
- * query is that it considers this behavior locally within the procedure. We do
- * this by looking for cases where the mutex is the target of a delete within
- * the same procedure following the creation of the thread.
+ * cases where the underlying mutex may be destroyed. The scope of this query is 
+ * that it performs this analysis both locally within the function but can also
+ * look through to the called thread to identify mutexes it may not own. 
+ * query is that it considers this behavior locally within the procedure. 
  *
- * It is of course possible to safely use such a pattern. A safe usage of this
- * pattern one would perform some sort of waiting or looping or control after
- * passing such a mutex in. For this reason we perform a broad analysis that
- * looks for waiting-like behavior following the call to `std::thread`. Since
- * there are a wide variety of correct behaviors that may be called we take the
- * very broad view that calling the `join` method subsequent to creating the
- * thread is enough to classify as "correct behavior."
+ * In order to safely destroy a dependent mutex, it is necessary both to not delete 
+ * it, but also if deletes do happen, one must wait for a thread to exit prior to 
+ * deleting it. We broadly model this by using standard language support for thread
+ * synchronization. 
  */
-
-from MutexDependentThreadConstructor cc, DeleteExpr deleteExpr, VariableAccess va
-where
-  not isExcluded(cc, ConcurrencyPackage::doNotDestroyAMutexWhileItIsLockedQuery()) and
-  deleteExpr = cc.getASuccessor*() and
-  DataFlow::localFlow(DataFlow::exprNode(va), DataFlow::exprNode(cc.dependentMutex())) and
-  deleteExpr.getExpr() = va.getTarget().getAnAccess() and
-  // exempt cases where some "waiting like" behavior is detected
-  not exists(ThreadWait tw |
-    TaintTracking::localTaint(DataFlow::exprNode(cc), DataFlow::exprNode(tw.getQualifier()))
+from ThreadDependentMutex dm, MutexDestroyer md
+where 
+  not isExcluded(dm.asExpr(), ConcurrencyPackage::doNotDestroyAMutexWhileItIsLockedQuery()) and
+  not isExcluded(md, ConcurrencyPackage::doNotDestroyAMutexWhileItIsLockedQuery()) and
+  // find all instances where a usage of a dependent mutex flows into a
+  // expression that will destroy it. 
+  TaintTracking::localTaint(dm.getAUsage(), DataFlow::exprNode(md.getMutexExpr()))
+  and 
+  (
+    // firstly, we assume it is never safe to destroy a global mutex, but it is
+    // difficult to make assumptions about the intended control flow.
+    not exists(dm.asExpr().getEnclosingFunction()) or 
+    // secondly, we assume it is never safe to destroy a mutex created by
+    // another function scope -- which includes trying to destroy a mutex that
+    // was passed into a function. 
+    not md.getMutexExpr().getEnclosingFunction() = dm.asExpr().getEnclosingFunction() or
+    // this leaves only destructions of mutexes locally near the thread that may
+    // consume them. We allow this only if there has been some effort to
+    // synchronize the threads prior to destroying the mutex.
+    not exists(ThreadWait tw | tw = md.getAPredecessor*())
   )
-select cc, "Mutex used by thread potentially deleted while in use."
+select dm, "Mutex used by thread potentially $@ while in use.", md, "deleted"
