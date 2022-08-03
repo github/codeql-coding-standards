@@ -3,9 +3,19 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Declarations1Query = TDoNotDeclareOrDefineAReservedIdentifierQuery()
+newtype Declarations1Query =
+  TDeclareIdentifiersBeforeUsingThemQuery() or
+  TDoNotDeclareOrDefineAReservedIdentifierQuery()
 
 predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleId) {
+  query =
+    // `Query` instance for the `declareIdentifiersBeforeUsingThem` query
+    Declarations1Package::declareIdentifiersBeforeUsingThemQuery() and
+  queryId =
+    // `@id` for the `declareIdentifiersBeforeUsingThem` query
+    "c/cert/declare-identifiers-before-using-them" and
+  ruleId = "DCL31-C"
+  or
   query =
     // `Query` instance for the `doNotDeclareOrDefineAReservedIdentifier` query
     Declarations1Package::doNotDeclareOrDefineAReservedIdentifierQuery() and
@@ -16,6 +26,13 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Declarations1Package {
+  Query declareIdentifiersBeforeUsingThemQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `declareIdentifiersBeforeUsingThem` query
+      TQueryC(TDeclarations1PackageQuery(TDeclareIdentifiersBeforeUsingThemQuery()))
+  }
+
   Query doNotDeclareOrDefineAReservedIdentifierQuery() {
     //autogenerate `Query` type
     result =

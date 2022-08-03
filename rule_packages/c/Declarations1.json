@@ -1,5 +1,29 @@
 {
   "CERT-C": {
+    "DCL31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Omission of type specifiers may not be supported by some compilers.",
+          "kind": "problem",
+          "name": "Declare identifiers before using them",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeclareIdentifiersBeforeUsingThem",
+          "tags": [
+            "correctness",
+            "readability" 
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for implicit function declarations as this is partially compiler checked.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Declare identifiers before using them"
+    },
     "DCL37-C": {
       "properties": {
         "obligation": "rule"
