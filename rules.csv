@@ -501,7 +501,7 @@ c,CERT-C,CON43-C,OutOfScope,Rule,,,Do not allow data races in multithreaded code
 c,CERT-C,DCL30-C,Yes,Rule,,,Declare objects with appropriate storage durations,,Declarations,Hard,
 c,CERT-C,DCL31-C,Yes,Rule,,,Declare identifiers before using them,,Declarations,Medium,
 c,CERT-C,DCL36-C,Yes,Rule,,,Do not declare an identifier with conflicting linkage classifications,,Declarations,Medium,
-c,CERT-C,DCL37-C,Yes,Rule,,,Do not declare or define a reserved identifier,,Declarations,Easy,
+c,CERT-C,DCL37-C,Yes,Rule,,,Do not declare or define a reserved identifier,,Declarations1,Easy,
 c,CERT-C,DCL38-C,Yes,Rule,,,Use the correct syntax when declaring a flexible array member,,Declarations,Easy,
 c,CERT-C,DCL39-C,Yes,Rule,,,Avoid information leakage when passing a structure across a trust boundary,,Declarations,Hard,
 c,CERT-C,DCL40-C,Yes,Rule,,,Do not create incompatible declarations of the same function or object,,Declarations,Hard,

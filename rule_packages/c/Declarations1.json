@@ -1,0 +1,29 @@
+{
+  "CERT-C": {
+    "DCL37-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Declaring a reserved identifier can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not declare or define a reserved identifier",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DoNotDeclareOrDefineAReservedIdentifier",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query does not consider identifiers described in the future library directions section of the standard. This query also checks for any reserved identifier as declared regardless of whether its header file is included or not.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Do not declare or define a reserved identifier"
+    }
+  }
+}

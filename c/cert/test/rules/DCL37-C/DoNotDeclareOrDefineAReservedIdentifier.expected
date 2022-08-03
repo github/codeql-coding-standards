@@ -1,0 +1,5 @@
+| test.c:2:1:2:23 | #define _RESERVED_MACRO | Reserved identifier '_RESERVED_MACRO' is declared. |
+| test.c:11:8:11:9 | _s | Reserved identifier '_s' is declared. |
+| test.c:15:6:15:7 | _f | Reserved identifier '_f' is declared. |
+| test.c:19:7:19:12 | malloc | Reserved identifier 'malloc' is declared. |
+| test.c:24:12:24:16 | errno | Reserved identifier 'errno' is declared. |
