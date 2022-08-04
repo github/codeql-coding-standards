@@ -1,0 +1,3 @@
+| test.c:1:1:1:27 | #define MACRO(X,Y) (X * Y) | Accesses of parameter 'X' are not always enclosed in parentheses in the macro MACRO. |
+| test.c:1:1:1:27 | #define MACRO(X,Y) (X * Y) | Accesses of parameter 'Y' are not always enclosed in parentheses in the macro MACRO. |
+| test.c:4:1:4:29 | #define MACROFOUR(X,Y) (X).Y | Accesses of parameter 'Y' are not always enclosed in parentheses in the macro MACROFOUR. |

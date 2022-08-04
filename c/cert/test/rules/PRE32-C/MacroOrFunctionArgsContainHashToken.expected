@@ -1,0 +1,8 @@
+| test.c:9:1:9:19 | #if NOTDEFINEDMACRO | Invocation of macro MACROFUNCTION includes a token "#if NOTDEFINEDMACRO" that could be confused for an argument preprocessor directive. |
+| test.c:11:1:11:5 | #else | Invocation of macro MACROFUNCTION includes a token "#else" that could be confused for an argument preprocessor directive. |
+| test.c:13:1:13:6 | #endif | Invocation of macro MACROFUNCTION includes a token "#endif" that could be confused for an argument preprocessor directive. |
+| test.c:20:1:20:16 | #ifdef SOMEMACRO | Invocation of function memcpy includes a token "#ifdef SOMEMACRO" that could be confused for an argument preprocessor directive. |
+| test.c:22:1:22:5 | #else | Invocation of function memcpy includes a token "#else" that could be confused for an argument preprocessor directive. |
+| test.c:24:1:24:6 | #endif | Invocation of function memcpy includes a token "#endif" that could be confused for an argument preprocessor directive. |
+| test.c:27:1:27:8 | #if TEST | Invocation of function memcpy includes a token "#if TEST" that could be confused for an argument preprocessor directive. |
+| test.c:28:1:28:6 | #endif | Invocation of function memcpy includes a token "#endif" that could be confused for an argument preprocessor directive. |

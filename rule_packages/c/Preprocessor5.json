@@ -1,0 +1,79 @@
+{
+  "CERT-C": {
+    "MSC38-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accessing an object or function that expands to one of a few specific standard library macros is undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not treat a predefined identifier as an object if it might only be implemented as a macro",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DoNotTreatAPredefinedIdentifierAsObject",
+          "tags": [
+            "correctness",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query reports locations corresponding to both redefinitions of those standard library macros as well as locations where the identifiers used for accesses.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Do not treat a predefined identifier as an object if it might only be implemented as a macro"
+    },
+    "PRE32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Arguments to a function-like macros shall not contain tokens that look like pre-processing directives or else behaviour after macro expansion is unpredictable. This rule applies to functions as well in case they are implemented using macros.",
+          "kind": "problem",
+          "name": "Do not use preprocessor directives in invocations of function-like macros",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MacroOrFunctionArgsContainHashToken",
+          "tags": [
+            "correctness",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query defines end of function call as the next node in the control flow graph.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Do not use preprocessor directives in invocations of function-like macros"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-20-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "In the definition of a function-like macro, each instance of a parameter shall be enclosed in parentheses, otherwise the result of preprocessor macro substitition may not be as expected.",
+          "kind": "problem",
+          "name": "Expressions resulting from the expansion of macro parameters shall be enclosed in parentheses",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MacroParameterNotEnclosedInParenthesesCQuery",
+          "shared_implementation_short_name": "MacroParameterNotEnclosedInParentheses",
+          "tags": [
+            "correctness",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query checks for every instance of a parameter to be enclosed in parentheses regardless of whether the expansion of that parameter forms an expression or not.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Expressions resulting from the expansion of macro parameters shall be enclosed in parentheses"
+    }
+  }
+}

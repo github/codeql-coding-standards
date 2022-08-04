@@ -1,0 +1,3 @@
+| assert.h:2:6:2:11 | assert | Supression of standard library macro assert. |
+| test.c:3:12:3:16 | errno | Supression of standard library macro errno. |
+| test.c:10:21:10:26 | assert | Supression of standard library macro assert. |

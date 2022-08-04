@@ -188,10 +188,15 @@
                     "precision": "very-high",
                     "severity": "warning",
                     "short_name": "FunctionLikeMacroParameterNotEnclosedInParentheses",
+                    "shared_implementation_short_name": "MacroParameterNotEnclosedInParentheses",
                     "tags": [
                         "correctness",
                         "readability"
-                    ]
+                    ],
+                    "implementation_scope": {
+                      "description": "This query checks for every instance of a parameter to be enclosed in parentheses regardless of whether the expansion of that parameter forms an expression or not.",
+                      "items": []
+                    }
                 }
             ],
             "title": "In the definition of a function-like macro, each instance of a parameter shall be enclosed in parentheses, unless it is used as the operand of # or ##."
