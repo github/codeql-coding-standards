@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL56-CPP:
 > Avoid cycles during initialization of static objects
 
 
-
 ## Description
 
 The C++ Standard, \[stmt.dcl\], paragraph 4 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

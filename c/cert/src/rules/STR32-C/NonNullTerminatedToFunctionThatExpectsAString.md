@@ -5,7 +5,6 @@ This query implements the CERT-C rule STR32-C:
 > Do not pass a non-null-terminated character sequence to a library function that expects a string
 
 
-
 ## Description
 
 Many library functions accept a string or wide string argument with the constraint that the string they receive is properly null-terminated. Passing a character sequence or wide character sequence that is not null-terminated to such a function can result in accessing memory that is outside the bounds of the object. Do not pass a character sequence or wide character sequence that is not null-terminated to a library function that expects a string or wide string argument.

@@ -5,7 +5,6 @@ This query implements the CERT-C rule MSC37-C:
 > Ensure that control never reaches the end of a non-void function
 
 
-
 ## Description
 
 If control reaches the closing curly brace (`}`) of a non-`void` function without evaluating a `return` statement, using the return value of the function call is [undefined behavior. ](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior)(See [undefined behavior 88](https://wiki.sei.cmu.edu/confluence/display/c/CC.+Undefined+Behavior#CC.UndefinedBehavior-ub_88).)

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP56-CPP:
 > Honor replacement handler requirements
 
 
-
 ## Description
 
 The *handler* functions `new_handler`, `terminate_handler`, and `unexpected_handler` can be globally replaced by custom [implementations](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation), as specified by \[handler.functions\], paragraph 2, of the C++ Standard \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]. For instance, an application could set a custom termination handler by calling `std::set_terminate()`, and the custom termination handler may log the termination for later auditing. However, the C++ Standard, \[res.on.functions\], paragraph 1, states the following:

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule STR53-CPP:
 > Range check element access
 
 
-
 ## Description
 
 The `std::string` index operators `const_reference operator[](size_type) const` and `reference operator[](size_type)` return the character stored at the specified position, `pos`. When `pos >= size()`, a reference to an object of type `charT` with value `charT()` is returned. The index operators are unchecked (no exceptions are thrown for range errors), and attempting to modify the resulting out-of-range object results in [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior).

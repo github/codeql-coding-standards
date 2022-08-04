@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR53-CPP:
 > Do not reference base classes or class data members in a constructor or destructor function-try-block handler
 
 
-
 ## Description
 
 When an exception is caught by a *[function-try-block](https://en.cppreference.com/w/cpp/language/function-try-block)* handler in a constructor, any fully constructed base classes and class members of the object are destroyed prior to entering the handler \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]. Similarly, when an exception is caught by a *function-try-block* handler in a destructor, all base classes and nonvariant class members of the objects are destroyed prior to entering the handler. Because of this behavior, the C++ Standard, \[except.handle\], paragraph 10, states the following:

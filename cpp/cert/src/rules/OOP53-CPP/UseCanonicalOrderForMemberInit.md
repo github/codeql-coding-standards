@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP53-CPP:
 > Write constructor member initializers in the canonical order
 
 
-
 ## Description
 
 The member initializer list for a class constructor allows members to be initialized to specified values and for base class constructors to be called with specific arguments. However, the order in which initialization occurs is fixed and does not depend on the order written in the member initializer list. The C++ Standard, \[class.base.init\], paragraph 11 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

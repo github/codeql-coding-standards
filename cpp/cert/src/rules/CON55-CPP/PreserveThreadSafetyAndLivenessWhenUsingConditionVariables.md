@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CON55-CPP:
 > Preserve thread safety and liveness when using condition variables
 
 
-
 ## Description
 
 Both thread safety and [liveness](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-liveness) are concerns when using condition variables. The *thread-safety* property requires that all objects maintain consistent states in a multithreaded environment \[[Lea 2000](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Lea2000)\]. The *liveness* property requires that every operation or function invocation execute to completion without interruption; for example, there is no deadlock.

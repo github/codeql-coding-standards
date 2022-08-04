@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule FIO50-CPP:
 > Do not alternately input and output from a file stream without an intervening positioning call
 
 
-
 ## Description
 
 The C++ Standard, \[filebuf\], paragraph 2 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

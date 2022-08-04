@@ -5,7 +5,6 @@ This query implements the CERT-C rule STR37-C:
 > Arguments to character-handling functions must be representable as an unsigned char
 
 
-
 ## Description
 
 According to the C Standard, 7.4 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\],

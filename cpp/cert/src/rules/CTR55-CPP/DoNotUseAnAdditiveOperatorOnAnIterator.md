@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR55-CPP:
 > Do not use an additive operator on an iterator if the result would overflow
 
 
-
 ## Description
 
 Expressions that have an integral type can be added to or subtracted from a pointer, resulting in a value of the pointer type. If the resulting pointer is not a valid member of the container, or one past the last element of the container, the behavior of the additive operator is [undefined](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior). The C++ Standard, \[expr.add\], paragraph 5 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], in part, states the following:

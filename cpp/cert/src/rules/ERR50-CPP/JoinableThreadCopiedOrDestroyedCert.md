@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR50-CPP:
 > Do not abruptly terminate the program
 
 
-
 ## Description
 
 The `std::abort()`, `std::quick_exit()`, and `std::_Exit()` functions are used to terminate the program in an immediate fashion. They do so without calling exit handlers registered with `std::atexit()` and without executing destructors for objects with automatic, thread, or static storage duration. How a system manages open streams when a program ends is [implementation-defined](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation-definedbehavior) \[[ISO/IEC 9899:1999](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-1999)\]. Open streams with unwritten buffered data may or may not be flushed, open streams may or may not be closed, and temporary files may or may not be removed. Because these functions can leave external resources, such as files and network communications, in an indeterminate state, they should be called explicitly only in direct response to a critical error in the application. (See ERR50-CPP-EX1 for more information.)

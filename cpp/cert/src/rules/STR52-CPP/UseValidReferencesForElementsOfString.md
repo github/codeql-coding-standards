@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule STR52-CPP:
 > Use valid references, pointers, and iterators to reference elements of a basic_string
 
 
-
 ## Description
 
 Since `std::basic_string` is a container of characters, this rule is a specific instance of [CTR51-CPP. Use valid references, pointers, and iterators to reference elements of a container](https://wiki.sei.cmu.edu/confluence/display/cplusplus/CTR51-CPP.+Use+valid+references%2C+pointers%2C+and+iterators+to+reference+elements+of+a+container). As a container, it supports iterators just like other containers in the Standard Template Library. However, the `std::basic_string` template class has unusual invalidation semantics. The C++ Standard, \[string.require\], paragraph 5 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

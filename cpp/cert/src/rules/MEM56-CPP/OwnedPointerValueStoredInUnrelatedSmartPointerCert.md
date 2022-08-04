@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MEM56-CPP:
 > Do not store an already-owned pointer value in an unrelated smart pointer
 
 
-
 ## Description
 
 Smart pointers such as `std::unique_ptr` and `std::shared_ptr` encode pointer ownership semantics as part of the type system. They wrap a pointer value, provide pointer-like semantics through `operator *()` and `operator->()` member functions, and control the lifetime of the pointer they manage. When a smart pointer is constructed from a pointer value, that value is said to be *owned* by the smart pointer.

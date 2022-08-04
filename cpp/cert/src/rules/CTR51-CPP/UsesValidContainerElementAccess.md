@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR51-CPP:
 > Use valid references, pointers, and iterators to reference elements of a container
 
 
-
 ## Description
 
 Iterators are a generalization of pointers that allow a C++ program to work with different data structures (containers) in a uniform manner \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]. Pointers, references, and iterators share a close relationship in which it is required that referencing values be done through a valid iterator, pointer, or reference. Storing an iterator, reference, or pointer to an element within a container for any length of time comes with a risk that the underlying container may be modified such that the stored iterator, pointer, or reference becomes invalid. For instance, when a sequence container such as `std::vector` requires an underlying reallocation, outstanding iterators, pointers, and references will be invalidated \[[Kalev 99](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Kalev99)\]. Use only a [valid pointer](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-validpointer), reference, or iterator to refer to an element of a container.

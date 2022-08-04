@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MSC51-CPP:
 > Ensure your random number generator is properly seeded
 
 
-
 ## Description
 
 A pseudorandom number generator (PRNG) is a deterministic algorithm capable of generating sequences of numbers that approximate the properties of random numbers. Each sequence is completely determined by the initial state of the PRNG and the algorithm for changing the state. Most PRNGs make it possible to set the initial state, also called the *seed state*. Setting the initial state is called *seeding* the PRNG.

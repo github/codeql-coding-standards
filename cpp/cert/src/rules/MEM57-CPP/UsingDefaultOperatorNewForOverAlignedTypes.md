@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MEM57-CPP:
 > Avoid using default operator new for over-aligned types
 
 
-
 ## Description
 
 The non-placement `new` expression is specified to invoke an allocation function to allocate storage for an object of the specified type. When successful, the allocation function, in turn, is required to return a pointer to storage with alignment suitable for any object with a fundamental alignment requirement. Although the global `operator new`, the default allocation function invoked by the new expression, is specified by the C++ standard \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\] to allocate sufficient storage suitably aligned to represent any object of the specified size, since the expected alignment isn't part of the function's interface, the most a program can safely assume is that the storage allocated by the default `operator new` defined by the implementation is aligned for an object with a fundamental alignment. In particular, it is unsafe to use the storage for an object of a type with a stricter alignment requirement—an* over-aligned type*.

@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO39-C:
 > Do not alternately input and output from a stream without an intervening flush or positioning call
 
 
-
 ## Description
 
 The C Standard, 7.21.5.3, paragraph 7 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], places the following restrictions on update streams:

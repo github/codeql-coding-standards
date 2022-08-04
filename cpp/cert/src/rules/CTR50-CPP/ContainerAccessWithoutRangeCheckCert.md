@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR50-CPP:
 > Guarantee that container indices and iterators are within the valid range
 
 
-
 ## Description
 
 Ensuring that array references are within the bounds of the array is almost entirely the responsibility of the programmer. Likewise, when using standard template library vectors, the programmer is responsible for ensuring integer indexes are within the bounds of the vector.

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MEM51-CPP:
 > Properly deallocate dynamically allocated resources
 
 
-
 ## Description
 
 The C programming language provides several ways to allocate memory, such as `std::malloc()`, `std::calloc()`, and `std::realloc()`, which can be used by a C++ program. However, the C programming language defines only a single way to free the allocated memory: `std::free()`. See [MEM31-C. Free dynamically allocated memory when no longer needed](https://wiki.sei.cmu.edu/confluence/display/c/MEM31-C.+Free+dynamically+allocated+memory+when+no+longer+needed) and [MEM34-C. Only free memory allocated dynamically](https://wiki.sei.cmu.edu/confluence/display/c/MEM34-C.+Only+free+memory+allocated+dynamically) for rules specifically regarding C allocation and deallocation requirements.

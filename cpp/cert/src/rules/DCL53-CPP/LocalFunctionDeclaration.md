@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL53-CPP:
 > Do not write syntactically ambiguous declarations
 
 
-
 ## Description
 
 It is possible to devise syntax that can ambiguously be interpreted as either an expression statement or a declaration. Syntax of this sort is called a *vexing parse* because the compiler must use disambiguation rules to determine the semantic results. The C++ Standard, \[stmt.ambig\], paragraph 1 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], in part, states the following:

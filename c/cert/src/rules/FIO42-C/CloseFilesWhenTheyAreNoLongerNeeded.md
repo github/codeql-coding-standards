@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO42-C:
 > Close files when they are no longer needed
 
 
-
 ## Description
 
 A call to the `fopen()` or `freopen()` function must be matched with a call to `fclose()` before the lifetime of the last pointer that stores the return value of the call has ended or before normal program termination, whichever occurs first.

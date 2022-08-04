@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO41-C:
 > Do not call getc(), putc(), getwc(), or putwc() with a stream argument that has side effects
 
 
-
 ## Description
 
 Do not invoke `getc()` or `putc()` or their wide-character analogues `getwc()` and `putwc()` with a stream argument that has side effects. The stream argument passed to these macros may be evaluated more than once if these functions are implemented as unsafe macros. (See [PRE31-C. Avoid side effects in arguments to unsafe macros](https://wiki.sei.cmu.edu/confluence/display/c/PRE31-C.+Avoid+side+effects+in+arguments+to+unsafe+macros) for more information.)

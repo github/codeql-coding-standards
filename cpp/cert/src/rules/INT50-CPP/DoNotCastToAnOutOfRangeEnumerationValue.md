@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule INT50-CPP:
 > Do not cast to an out-of-range enumeration value
 
 
-
 ## Description
 
 Enumerations in C++ come in two forms: *scoped* enumerations in which the underlying type is fixed and *unscoped* enumerations in which the underlying type may or may not be fixed. The range of values that can be represented by either form of enumeration may include enumerator values not specified by the enumeration itself. The range of valid enumeration values for an enumeration type is defined by the C++ Standard, \[dcl.enum\], in paragraph 8 \[[ISO/IEC 14882-2020](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2020)\]:

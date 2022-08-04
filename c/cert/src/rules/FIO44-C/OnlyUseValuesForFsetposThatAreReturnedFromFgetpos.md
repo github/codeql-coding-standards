@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO44-C:
 > Only use values for fsetpos() that are returned from fgetpos()
 
 
-
 ## Description
 
 The C Standard, 7.21.9.3 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], defines the following behavior for `fsetpos()`:

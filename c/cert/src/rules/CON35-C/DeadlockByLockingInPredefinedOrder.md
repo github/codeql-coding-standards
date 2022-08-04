@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON35-C:
 > Avoid deadlock by locking in a predefined order
 
 
-
 ## Description
 
 Mutexes are used to prevent multiple threads from causing a data race by accessing shared resources at the same time. Sometimes, when locking mutexes, multiple threads hold each other's lock, and the program consequently deadlocks. Four conditions are required for deadlock to occur:

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MSC54-CPP:
 > A signal handler must be a plain old function
 
 
-
 ## Description
 
 The C++14 Standard, \[support.runtime\], paragraph 10 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

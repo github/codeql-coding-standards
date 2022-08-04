@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL57-CPP:
 > Do not let exceptions escape from destructors or deallocation functions
 
 
-
 ## Description
 
 Under certain circumstances, terminating a destructor, `operator delete`, or `operator delete[]` by throwing an exception can trigger [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior).

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CON53-CPP:
 > Avoid deadlock by locking in a predefined order
 
 
-
 ## Description
 
 Mutexes are used to prevent multiple threads from causing a [data race](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-datarace) by accessing the same shared resource at the same time. Sometimes, when locking mutexes, multiple threads hold each other's lock, and the program consequently [deadlocks](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-deadlock). Four conditions are required for deadlock to occur:

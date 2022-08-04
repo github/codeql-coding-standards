@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON32-C:
 > Prevent data races when accessing bit-fields from multiple threads
 
 
-
 ## Description
 
 When accessing a bit-field, a thread may inadvertently access a separate bit-field in adjacent memory. This is because compilers are required to store multiple adjacent bit-fields in one storage unit whenever they fit. Consequently, data races may exist not just on a bit-field accessed by multiple threads but also on other bit-fields sharing the same byte or word. A similar problem is discussed in [CON43-C. Do not allow data races in multithreaded code](https://wiki.sei.cmu.edu/confluence/display/c/CON43-C.+Do+not+allow+data+races+in+multithreaded+code), but the issue described by this rule can be harder to diagnose because it may not be obvious that the same memory location is being modified by multiple threads.

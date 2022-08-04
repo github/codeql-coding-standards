@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR58-CPP:
 > Handle all exceptions thrown before main() begins executing
 
 
-
 ## Description
 
 Not all exceptions can be caught, even with careful use of *function-try-blocks*. The C++ Standard, \[except.handle\], paragraph 13 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

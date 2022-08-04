@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP57-CPP:
 > Do not cast or delete pointers to incomplete classes
 
 
-
 ## Description
 
 Referring to objects of incomplete class type, also known as *forward declarations*, is a common practice. One such common usage is with the "pimpl idiom" \[[Sutter 00](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Sutter00)\] whereby an opaque pointer is used to hide implementation details from a public-facing API. However, attempting to delete a pointer to an object of incomplete class type can lead to [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior). The C++ Standard, \[expr.delete\], paragraph 5 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

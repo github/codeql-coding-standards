@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR58-CPP:
 > Predicate function objects should not be mutable
 
 
-
 ## Description
 
 The C++ standard library implements numerous common algorithms that accept a predicate function object. The C++ Standard, \[algorithms.general\], paragraph 10 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

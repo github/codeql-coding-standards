@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP44-C:
 > Do not rely on side effects in operands to sizeof, _Alignof, or _Generic
 
 
-
 ## Description
 
 Some operators do not evaluate their operands beyond the type information the operands provide. When using one of these operators, do not pass an operand that would otherwise yield a side effect since the side effect will not be generated.

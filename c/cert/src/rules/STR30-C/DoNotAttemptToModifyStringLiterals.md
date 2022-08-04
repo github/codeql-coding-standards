@@ -5,7 +5,6 @@ This query implements the CERT-C rule STR30-C:
 > Do not attempt to modify string literals
 
 
-
 ## Description
 
 According to the C Standard, 6.4.5, paragraph 3 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\]:

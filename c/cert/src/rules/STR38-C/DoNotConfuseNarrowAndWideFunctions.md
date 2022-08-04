@@ -5,7 +5,6 @@ This query implements the CERT-C rule STR38-C:
 > Do not confuse narrow and wide character strings and functions
 
 
-
 ## Description
 
 Passing narrow string arguments to wide string functions or wide string arguments to narrow string functions can lead to [unexpected](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unexpectedbehavior) and [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior). Scaling problems are likely because of the difference in size between wide and narrow characters. (See [ARR39-C. Do not add or subtract a scaled integer to a pointer.)](https://wiki.sei.cmu.edu/confluence/display/c/ARR39-C.+Do+not+add+or+subtract+a+scaled+integer+to+a+pointer) Because wide strings are terminated by a null wide character and can contain null bytes, determining the length is also problematic.

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL54-CPP:
 > Overload allocation and deallocation functions as a pair in the same scope
 
 
-
 ## Description
 
 Allocation and deallocation functions can be overloaded at both global and class scopes.

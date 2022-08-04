@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP45-C:
 > Do not perform assignments in selection statements
 
 
-
 ## Description
 
 Do not use the assignment operator in the contexts listed in the following table because doing so typically indicates programmer error and can result in [unexpected behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unexpectedbehavior).

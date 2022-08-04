@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CON54-CPP:
 > Wrap functions that can spuriously wake up in a loop
 
 
-
 ## Description
 
 The `wait()`, `wait_for()`, and `wait_until()` member functions of the `std::condition_variable` class temporarily cede possession of a mutex so that other threads that may be requesting the mutex can proceed. These functions must always be called from code that is protected by locking a mutex. The waiting thread resumes execution only after it has been notified, generally as the result of the invocation of the `notify_one()` or `notify_all()` member functions invoked by another thread.

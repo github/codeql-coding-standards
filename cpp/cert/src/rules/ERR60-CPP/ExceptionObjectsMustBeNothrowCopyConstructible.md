@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR60-CPP:
 > Exception objects must be nothrow copy constructible
 
 
-
 ## Description
 
 When an exception is thrown, the exception object operand of the `throw` expression is copied into a temporary object that is used to initialize the handler. The C++ Standard, \[except.throw\], paragraph 3 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], in part, states the following:

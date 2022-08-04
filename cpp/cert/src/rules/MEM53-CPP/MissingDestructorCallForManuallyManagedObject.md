@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MEM53-CPP:
 > Explicitly construct and destruct objects when manually managing object lifetime
 
 
-
 ## Description
 
 The creation of dynamically allocated objects in C++ happens in two stages. The first stage is responsible for allocating sufficient memory to store the object, and the second stage is responsible for initializing the newly allocated chunk of memory, depending on the type of the object being created.

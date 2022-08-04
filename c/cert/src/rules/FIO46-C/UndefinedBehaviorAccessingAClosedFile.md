@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO46-C:
 > Do not access a closed file
 
 
-
 ## Description
 
 Using the value of a pointer to a `FILE` object after the associated file is closed is [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior). (See [undefined behavior 148](https://wiki.sei.cmu.edu/confluence/display/c/CC.+Undefined+Behavior#CC.UndefinedBehavior-ub_148).) Programs that close the standard streams (especially `stdout` but also `stderr` and `stdin`) must be careful not to use these streams in subsequent function calls, particularly those that implicitly operate on them (such as `printf()`, `perror()`, and `getc()`).

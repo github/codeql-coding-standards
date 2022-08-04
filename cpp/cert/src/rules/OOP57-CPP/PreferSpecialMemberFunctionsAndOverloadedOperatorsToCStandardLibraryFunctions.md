@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP57-CPP:
 > Prefer special member functions and overloaded operators to C Standard Library functions
 
 
-
 ## Description
 
 Several C standard library functions perform bytewise operations on objects. For instance, `std::memcmp()` compares the bytes comprising the object representation of two objects, and `std::memcpy()` copies the bytes comprising an object representation into a destination buffer. However, for some object types, it results in undefined or abnormal program behavior.

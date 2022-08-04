@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP63-CPP:
 > Do not rely on the value of a moved-from object
 
 
-
 ## Description
 
 Many types, including user-defined types and types provided by the Standard Template Library, support move semantics. Except in rare circumstances, an object of a type that supports move operations (move initialization or move assignment) will be left in a valid, but unspecified state after the object's value has been moved.

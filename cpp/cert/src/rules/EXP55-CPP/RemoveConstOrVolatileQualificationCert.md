@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP55-CPP:
 > Do not access a cv-qualified object through a cv-unqualified type
 
 
-
 ## Description
 
 The C++ Standard, \[dcl.type.cv\], paragraph 4 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

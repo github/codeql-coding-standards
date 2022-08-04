@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO38-C:
 > Do not copy a FILE object
 
 
-
 ## Description
 
 According to the C Standard, 7.21.3, paragraph 6 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\],

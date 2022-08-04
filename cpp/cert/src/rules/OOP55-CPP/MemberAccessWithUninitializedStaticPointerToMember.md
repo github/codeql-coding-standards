@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP55-CPP:
 > Do not use pointer-to-member operators to access nonexistent members
 
 
-
 ## Description
 
 The pointer-to-member operators `.*` and `->*` are used to obtain an object or a function as though it were a member of an underlying object. For instance, the following are functionally equivalent ways to call the member function `f()` on the object `o`.

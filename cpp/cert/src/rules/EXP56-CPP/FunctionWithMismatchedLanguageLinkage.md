@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP56-CPP:
 > Do not call a function with a mismatched language linkage
 
 
-
 ## Description
 
 C++ allows a degree of interoperability with other languages through the use of language linkage specifications. These specifications affect the way in which functions are called or data is accessed. By default, all function types, as well as function and variable names, with external linkage have C++ language linkage, though a different language linkage may be specified. Implementations are required to support `"C" and `"C++"`` as a language linkage, but other language linkages exist with implementation-defined semantics, such as `"java"`, `"Ada"`, and `"FORTRAN"`.

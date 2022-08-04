@@ -5,7 +5,6 @@ This query implements the CERT-C rule STR34-C:
 > Cast characters to unsigned char before converting to larger integer sizes
 
 
-
 ## Description
 
 Signed character data must be converted to `unsigned char` before being assigned or converted to a larger signed type. This rule applies to both `signed char` and (plain) `char` characters on implementations where `char` is defined to have the same range, representation, and behaviors as `signed char`.

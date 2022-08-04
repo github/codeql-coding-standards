@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP61-CPP:
 > A lambda object must not outlive any of its reference captured objects
 
 
-
 ## Description
 
 Lambda expressions may capture objects with automatic storage duration from the set of enclosing scopes (called the *reaching scope*) for use in the lambda's function body. These captures may be either explicit, by specifying the object to capture in the lambda's *capture-list*, or implicit, by using a *capture-default* and referring to the object within the lambda's function body. When capturing an object explicitly or implicitly, the capture-default indicates that the object is either captured by copy (using `=)` or captured by reference (using `&`). When an object is captured by copy, the lambda object will contain an unnamed nonstatic data member that is initialized to the value of the object being captured. This nonstatic data member's lifetime is that of the lambda object's lifetime. However, when an object is captured by reference, the lifetime of the referent is not tied to the lifetime of the lambda object.

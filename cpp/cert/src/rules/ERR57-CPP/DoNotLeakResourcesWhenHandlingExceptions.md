@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR57-CPP:
 > Do not leak resources when handling exceptions
 
 
-
 ## Description
 
 Reclaiming resources when exceptions are thrown is important. An exception being thrown may result in cleanup code being bypassed or an object being left in a partially initialized state. Such a partially initialized object would violate basic exception safety, as described in [ERR56-CPP. Guarantee exception safety](https://wiki.sei.cmu.edu/confluence/display/cplusplus/ERR56-CPP.+Guarantee+exception+safety). It is preferable that resources be reclaimed automatically, using the [RAII](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-RAII) design pattern \[[Stroustrup 2001](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Stroustrup01)\], when objects go out of scope. This technique avoids the need to write complex cleanup code when allocating resources.

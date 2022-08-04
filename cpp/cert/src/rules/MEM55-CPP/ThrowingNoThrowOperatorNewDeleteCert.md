@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MEM55-CPP:
 > Honor replacement dynamic storage management requirements
 
 
-
 ## Description
 
 Dynamic memory allocation and deallocation functions can be globally replaced by custom implementations, as specified by \[replacement.functions\], paragraph 2, of the C++ Standard \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]. For instance, a user may profile the dynamic memory usage of an application and decide that the default allocator is not optimal for their usage pattern, and a different allocation strategy may be a marked improvement. However, the C++ Standard, \[res.on.functions\], paragraph 1, states the following:

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule STR50-CPP:
 > Guarantee that storage for strings has sufficient space for character data and the null terminator
 
 
-
 ## Description
 
 Copying data to a buffer that is not large enough to hold that data results in a buffer overflow. Buffer overflows occur frequently when manipulating strings \[[Seacord 2013](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-Seacord2013)\]. To prevent such errors, either limit copies through truncation or, preferably, ensure that the destination is of sufficient size to hold the data to be copied. C-style strings require a null character to indicate the end of the string, while the C++ `std::basic_string` template requires no such character.

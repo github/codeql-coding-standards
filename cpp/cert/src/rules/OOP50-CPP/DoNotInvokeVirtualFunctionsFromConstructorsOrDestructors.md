@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP50-CPP:
 > Do not invoke virtual functions from constructors or destructors
 
 
-
 ## Description
 
 Virtual functions allow for the choice of member function calls to be determined at run time based on the dynamic type of the object that the member function is being called on. This convention supports object-oriented programming practices commonly associated with object inheritance and function overriding. When calling a nonvirtual member function or when using a class member access expression to denote a call, the specified function is called. Otherwise, a virtual function call is made to the final overrider in the dynamic type of the object expression.

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CON56-CPP:
 > Do not speculatively lock a non-recursive mutex that is already owned by the calling thread
 
 
-
 ## Description
 
 The C++ Standard Library supplies both recursive and non-recursive mutex classes used to protect [critical sections](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections). The recursive mutex classes (`std::recursive_mutex` and `std::recursive_timed_mutex`) differ from the non-recursive mutex classes (`std::mutex`, `std::timed_mutex`, and `std::shared_timed_mutex`) in that a recursive mutex may be locked recursively by the thread that currently owns the mutex. All mutex classes support the ability to speculatively lock the mutex through functions such as `try_lock()`, `try_lock_for()`, `try_lock_until()`, `try_lock_shared_for()`, and `try_lock_shared_until()`. These speculative locking functions attempt to obtain ownership of the mutex for the calling thread, but will not block in the event the ownership cannot be obtained. Instead, they return a Boolean value specifying whether the ownership of the mutex was obtained or not.

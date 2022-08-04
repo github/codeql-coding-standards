@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP58-CPP:
 > Copy operations must not mutate the source object
 
 
-
 ## Description
 
 Copy operations (copy constructors and copy assignment operators) are expected to copy the salient properties of a source object into the destination object, with the resulting object being a "copy" of the original. What is considered to be a salient property of the type is type-dependent, but for types that expose comparison or equality operators, includes any properties used for those comparison operations. This expectation leads to assumptions in code that a copy operation results in a destination object with a value representation that is equivalent to the source object value representation. Violation of this basic assumption can lead to unexpected behavior.

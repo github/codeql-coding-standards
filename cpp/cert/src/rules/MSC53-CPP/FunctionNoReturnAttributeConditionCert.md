@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MSC53-CPP:
 > Do not return from a function declared [[noreturn]]
 
 
-
 ## Description
 
 The `[[noreturn]]` attribute specifies that a function does not return. The C++ Standard, \[dcl.attr.noreturn\] paragraph 2 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

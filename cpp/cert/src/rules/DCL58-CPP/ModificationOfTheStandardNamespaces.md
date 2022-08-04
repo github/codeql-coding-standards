@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL58-CPP:
 > Do not modify the standard namespaces
 
 
-
 ## Description
 
 Namespaces introduce new declarative regions for declarations, reducing the likelihood of conflicting identifiers with other declarative regions. One feature of namespaces is that they can be further extended, even within separate translation units. For instance, the following declarations are well-formed.

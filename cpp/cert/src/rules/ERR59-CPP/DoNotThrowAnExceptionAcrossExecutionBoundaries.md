@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR59-CPP:
 > Do not throw an exception across execution boundaries
 
 
-
 ## Description
 
 Throwing an exception requires collaboration between the execution of the `throw` expression and the passing of control to the appropriate `catch` statement, if one applies. This collaboration takes the form of runtime logic used to calculate the correct handler for the exception and is an implementation detail specific to the platform. For code compiled by a single C++ compiler, the details of how to throw and catch exceptions can be safely ignored. However, when throwing an exception across execution boundaries, care must be taken to ensure the runtime logic used is compatible between differing sides of the execution boundary.

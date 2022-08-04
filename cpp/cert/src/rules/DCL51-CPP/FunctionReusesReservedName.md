@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL51-CPP:
 > Do not declare or define a reserved identifier
 
 
-
 ## Description
 
 The C++ Standard, \[reserved.names\] \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], specifies the following rules regarding reserved names:

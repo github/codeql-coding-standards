@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO32-C:
 > Do not perform operations on devices that are only appropriate for files
 
 
-
 ## Description
 
 File names on many operating systems, including Windows and UNIX, may be used to access *special files*, which are actually devices. Reserved Microsoft Windows device names include `AUX`, `CON`, `PRN`, `COM1`, and `LPT1` or paths using the `\\.\` device namespace. Device files on UNIX systems are used to apply access rights and to direct operations on the files to the appropriate device drivers.

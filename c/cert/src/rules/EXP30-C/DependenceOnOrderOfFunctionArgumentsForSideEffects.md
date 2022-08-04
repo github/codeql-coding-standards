@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP30-C:
 > Do not depend on the order of evaluation for side effects
 
 
-
 ## Description
 
 Evaluation of an expression may produce [side effects](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-sideeffect). At specific points during execution, known as [sequence points](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-sequencepoint), all side effects of previous evaluations are complete, and no side effects of subsequent evaluations have yet taken place. Do not depend on the order of evaluation for side effects unless there is an intervening sequence point.

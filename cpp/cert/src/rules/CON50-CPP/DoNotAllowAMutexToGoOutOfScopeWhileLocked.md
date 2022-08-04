@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CON50-CPP:
 > Do not destroy a mutex while it is locked
 
 
-
 ## Description
 
 Mutex objects are used to protect shared data from being concurrently accessed. If a mutex object is destroyed while a thread is blocked waiting for the lock, [critical sections](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections) and shared data are no longer protected.

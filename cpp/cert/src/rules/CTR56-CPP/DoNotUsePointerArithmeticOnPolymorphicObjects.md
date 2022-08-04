@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR56-CPP:
 > Do not use pointer arithmetic on polymorphic objects
 
 
-
 ## Description
 
 The definition of *pointer arithmetic* from the C++ Standard, \[expr.add\], paragraph 7 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

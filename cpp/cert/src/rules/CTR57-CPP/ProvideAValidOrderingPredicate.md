@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR57-CPP:
 > Provide a valid ordering predicate
 
 
-
 ## Description
 
 Associative containers place a strict weak ordering requirement on their key comparison predicates \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]. A strict weak ordering has the following properties:

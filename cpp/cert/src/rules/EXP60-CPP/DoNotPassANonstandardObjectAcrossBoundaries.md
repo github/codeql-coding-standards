@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP60-CPP:
 > Do not pass a nonstandard-layout type object across execution boundaries
 
 
-
 ## Description
 
 Standard-layout types can be used to communicate with code written in other programming languages, as the layout of the type is strictly specified. The C++ Standard, \[class\], paragraph 7 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], defines a standard-layout class as a class that

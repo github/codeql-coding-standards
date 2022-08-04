@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP52-CPP:
 > Do not delete a polymorphic object without a virtual destructor
 
 
-
 ## Description
 
 The C++ Standard, \[expr.delete\], paragraph 3 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

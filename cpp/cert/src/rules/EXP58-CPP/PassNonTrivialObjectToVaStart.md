@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP58-CPP:
 > Pass an object of the correct type to va_start
 
 
-
 ## Description
 
 While rule [DCL50-CPP. Do not define a C-style variadic function](https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL50-CPP.+Do+not+define+a+C-style+variadic+function) forbids creation of such functions, they may still be defined when that function has external, C language linkage. Under these circumstances, care must be taken when invoking the `va_start()` macro. The C-standard library macro `va_start()` imposes several semantic restrictions on the type of the value of its second parameter. The C Standard, subclause 7.16.1.4, paragraph 4 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], states the following:

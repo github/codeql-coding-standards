@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP53-CPP:
 > Do not read uninitialized memory
 
 
-
 ## Description
 
 Local, automatic variables assume unexpected values if they are read before they are initialized. The C++ Standard, \[dcl.init\], paragraph 12 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

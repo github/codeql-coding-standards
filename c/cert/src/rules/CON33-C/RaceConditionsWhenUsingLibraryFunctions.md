@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON33-C:
 > Avoid race conditions when using library functions
 
 
-
 ## Description
 
 Some C standard library functions are not guaranteed to be [reentrant](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-reentrant) with respect to threads. Functions such as `strtok()` and `asctime()` return a pointer to the result stored in function-allocated memory on a per-process basis. Other functions such as `rand()` store state information in function-allocated memory on a per-process basis. Multiple threads invoking the same function can cause concurrency problems, which often result in abnormal behavior and can cause more serious [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability), such as [abnormal termination](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-abnormaltermination), [denial-of-service attack](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-denial-of-service), and data integrity violations.

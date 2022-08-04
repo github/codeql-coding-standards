@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MEM52-CPP:
 > Detect and handle memory allocation errors
 
 
-
 ## Description
 
 The default memory allocation operator, `::operator new(std::size_t)`, throws a `std::bad_alloc` exception if the allocation fails. Therefore, you need not check whether calling `::operator new(std::size_t)` results in nullptr. The nonthrowing form, `::operator new(std::size_t, const std::nothrow_t &)`, does not throw an exception if the allocation fails but instead returns `nullptr`. The same behaviors apply for the `operator new[]` versions of both allocation functions. Additionally, the default allocator object (`std::allocator`) uses `::operator new(std::size_t)` to perform allocations and should be treated similarly.

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP54-CPP:
 > Gracefully handle self-copy assignment
 
 
-
 ## Description
 
 Self-copy assignment can occur in situations of varying complexity, but essentially, all self-copy assignments entail some variation of the following.

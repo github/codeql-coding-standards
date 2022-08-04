@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP59-CPP:
 > Use offsetof() on valid types and members
 
 
-
 ## Description
 
 The `offsetof()` macro is defined by the C Standard as a portable way to determine the offset, expressed in bytes, from the start of the object to a given member of that object. The C Standard, subclause 7.17, paragraph 3 \[[ISO/IEC 9899:1999](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC9899-1999)\], in part, specifies the following:

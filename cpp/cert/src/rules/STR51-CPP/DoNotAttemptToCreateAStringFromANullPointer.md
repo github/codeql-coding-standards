@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule STR51-CPP:
 > Do not attempt to create a std::string from a null pointer
 
 
-
 ## Description
 
 The `std::basic_string` type uses the *traits* design pattern to handle implementation details of the various string types, resulting in a series of string-like classes with a common, underlying implementation. Specifically, the `std::basic_string` class is paired with `std::char_traits` to create the `std::string`, `std::wstring`, `std::u16string`, and `std::u32string` classes. The `std::char_traits` class is explicitly specialized to provide policy-based implementation details to the `std::basic_string` type. One such implementation detail is the `std::char_traits::length()` function, which is frequently used to determine the number of characters in a null-terminated string. According to the C++ Standard, \[char.traits.require\], Table 62 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], passing a null pointer to this function is [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior) because it would result in dereferencing a null pointer.

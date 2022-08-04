@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL60-CPP:
 > Obey the one-definition rule
 
 
-
 ## Description
 
 Nontrivial C++ programs are generally divided into multiple translation units that are later linked together to form an executable. To support such a model, C++ restricts named object definitions to ensure that linking will behave deterministically by requiring a single definition for an object across all translation units. This model is called the o*ne-definition rule* (ODR), which is defined by the C++ Standard, \[basic.def.odr\], in paragraph 4 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]:

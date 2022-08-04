@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL50-CPP:
 > Do not define a C-style variadic function
 
 
-
 ## Description
 
 Functions can be defined to accept more formal arguments at the call site than are specified by the parameter declaration clause. Such functions are called *variadic* functions because they can accept a variable number of arguments from a caller. C++ provides two mechanisms by which a variadic function can be defined: function parameter packs and use of a C-style ellipsis as the final parameter declaration.

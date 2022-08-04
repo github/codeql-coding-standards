@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL59-CPP:
 > Do not define an unnamed namespace in a header file
 
 
-
 ## Description
 
 Unnamed namespaces are used to define a namespace that is unique to the translation unit, where the names contained within have internal linkage by default. The C++ Standard, \[namespace.unnamed\], paragraph 1 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR53-CPP:
 > Use valid iterator ranges
 
 
-
 ## Description
 
 When iterating over elements of a container, the iterators used must iterate over a valid range. An iterator range is a pair of iterators that refer to the first and past-the-end elements of the range respectively.

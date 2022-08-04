@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR62-CPP:
 > Detect errors when converting a string to a number
 
 
-
 ## Description
 
 The process of parsing an integer or floating-point number from a string can produce many errors. The string might not contain a number. It might contain a number of the correct type that is out of range (such as an integer that is larger than `INT_MAX`). The string may also contain extra information after the number, which may or may not be useful after the conversion. These error conditions must be detected and addressed when a string-to-number conversion is performed using a formatted input stream such as `std::istream` or the locale facet `num_get<>`.

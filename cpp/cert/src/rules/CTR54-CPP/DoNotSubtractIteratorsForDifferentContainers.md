@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR54-CPP:
 > Do not subtract iterators that do not refer to the same container
 
 
-
 ## Description
 
 When two pointers are subtracted, both must point to elements of the same array object or to one past the last element of the array object; the result is the difference of the subscripts of the two array elements. Similarly, when two iterators are subtracted (including via `std::distance()`), both iterators must refer to the same container object or must be obtained via a call to `end()` (or `cend()`) on the same container object.

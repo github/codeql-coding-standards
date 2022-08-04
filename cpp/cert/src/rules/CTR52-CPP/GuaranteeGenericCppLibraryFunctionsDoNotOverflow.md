@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CTR52-CPP:
 > Guarantee that library functions do not overflow
 
 
-
 ## Description
 
 Copying data into a container that is not large enough to hold that data results in a buffer overflow. To prevent such errors, data copied to the destination container must be restricted on the basis of the destination container's size, or preferably, the destination container must be guaranteed to be large enough to hold the data to be copied.

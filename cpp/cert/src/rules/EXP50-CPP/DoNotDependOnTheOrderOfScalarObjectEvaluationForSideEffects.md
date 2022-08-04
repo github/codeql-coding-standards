@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP50-CPP:
 > Do not depend on the order of evaluation for side effects
 
 
-
 ## Description
 
 In C++, modifying an object, calling a library I/O function, accessing a `volatile`-qualified value, or calling a function that performs one of these actions are ways to modify the state of the execution environment. These actions are called *side effects*. All relationships between value computations and side effects can be described in terms of sequencing of their evaluations. The C++ Standard, \[intro.execution\], paragraph 13 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], establishes three sequencing terms:

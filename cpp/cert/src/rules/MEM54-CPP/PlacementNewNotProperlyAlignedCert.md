@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule MEM54-CPP:
 > Provide placement new with properly aligned pointers to sufficient storage capacity
 
 
-
 ## Description
 
 When invoked by a `new` expression for a given type, the default global non-placement forms of `operator new` attempt to allocate sufficient storage for an object of the type and, if successful, return a pointer with alignment suitable for any object with a fundamental alignment requirement. However, the default placement `new` operator simply returns the given pointer back to the caller without guaranteeing that there is sufficient space in which to construct the object or ensuring that the pointer meets the proper alignment requirements. The C++ Standard, \[expr.new\], paragraph 16 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], nonnormatively states the following:

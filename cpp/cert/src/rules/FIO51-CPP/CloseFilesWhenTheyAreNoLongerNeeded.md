@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule FIO51-CPP:
 > Close files when they are no longer needed
 
 
-
 ## Description
 
 A call to the `std::basic_filebuf<T>::open()` function must be matched with a call to `std::basic_filebuf<T>::close()` before the lifetime of the last pointer that stores the return value of the call has ended or before normal program termination, whichever occurs first.

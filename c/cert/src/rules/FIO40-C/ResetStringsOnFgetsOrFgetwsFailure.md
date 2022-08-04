@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO40-C:
 > Reset strings on fgets() or fgetws() failure
 
 
-
 ## Description
 
 If either of the C Standard `fgets()` or `fgetws()` functions fail, the contents of the array being written is [indeterminate](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-indeterminatevalue). (See [undefined behavior 170](https://wiki.sei.cmu.edu/confluence/display/c/CC.+Undefined+Behavior#CC.UndefinedBehavior-ub_170).) It is necessary to reset the string to a known value to avoid errors on subsequent string manipulation functions.

@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR52-CPP:
 > Do not use setjmp() or longjmp()
 
 
-
 ## Description
 
 The C standard library facilities `setjmp()` and `longjmp()` can be used to simulate throwing and catching exceptions. However, these facilities bypass automatic resource management and can result in [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior), commonly including resource leaks and [denial-of-service attacks](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-denial-of-service).

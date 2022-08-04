@@ -5,7 +5,6 @@ This query implements the CERT-C rule MSC30-C:
 > Do not use the rand() function for generating pseudorandom numbers
 
 
-
 ## Description
 
 Pseudorandom number generators use mathematical algorithms to produce a sequence of numbers with good statistical properties, but the numbers produced are not genuinely random.

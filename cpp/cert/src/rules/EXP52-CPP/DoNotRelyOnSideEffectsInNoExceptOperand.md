@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule EXP52-CPP:
 > Do not rely on side effects in unevaluated operands
 
 
-
 ## Description
 
 Some expressions involve operands that are *unevaluated*. The C++ Standard, \[expr\], paragraph 8 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\] states the following:

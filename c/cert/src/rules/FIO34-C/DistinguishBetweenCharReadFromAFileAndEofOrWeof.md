@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO34-C:
 > Distinguish between characters read from a file and EOF or WEOF
 
 
-
 ## Description
 
 The `EOF` macro represents a negative value that is used to indicate that the file is exhausted and no data remains when reading data from a file. `EOF` is an example of an [in-band error indicator](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-in-banderrorindicator). In-band error indicators are problematic to work with, and the creation of new in-band-error indicators is discouraged by [ERR02-C. Avoid in-band error indicators](https://wiki.sei.cmu.edu/confluence/display/c/ERR02-C.+Avoid+in-band+error+indicators).

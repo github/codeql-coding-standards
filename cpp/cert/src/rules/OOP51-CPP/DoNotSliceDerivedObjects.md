@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule OOP51-CPP:
 > Do not slice derived objects
 
 
-
 ## Description
 
 An object deriving from a base class typically contains additional member variables that extend the base class. When by-value assigning or copying an object of the derived type to an object of the base type, those additional member variables are not copied because the base class contains insufficient space in which to store them. This action is commonly called *slicing* the object because the additional members are "sliced off" the resulting object.

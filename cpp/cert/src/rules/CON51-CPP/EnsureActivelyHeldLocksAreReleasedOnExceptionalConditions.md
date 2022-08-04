@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule CON51-CPP:
 > Ensure actively held locks are released on exceptional conditions
 
 
-
 ## Description
 
 Mutexes that are used to protect accesses to shared data may be locked using the `lock()` member function and unlocked using the `unlock()` member function. If an exception occurs between the call to `lock()` and the call to `unlock()`, and the exception changes control flow such that `unlock()` is not called, the mutex will be left in the locked state and no [critical sections](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections) protected by that mutex will be allowed to execute. This is likely to lead to deadlock.

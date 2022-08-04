@@ -5,7 +5,6 @@ This query implements the CERT-C rule FIO37-C:
 > Do not assume that fgets() or fgetws() returns a nonempty string when successful
 
 
-
 ## Description
 
 Errors can occur when incorrect assumptions are made about the type of data being read. These assumptions may be violated, for example, when binary data has been read from a file instead of text from a user's terminal or the output of a process is piped to `stdin.` (See [FIO14-C. Understand the difference between text mode and binary mode with file streams](https://wiki.sei.cmu.edu/confluence/display/c/FIO14-C.+Understand+the+difference+between+text+mode+and+binary+mode+with+file+streams).) On some systems, it may also be possible to input a null byte (as well as other binary codes) from the keyboard.

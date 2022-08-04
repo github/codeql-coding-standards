@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule ERR61-CPP:
 > Catch exceptions by lvalue reference
 
 
-
 ## Description
 
 When an exception is thrown, the value of the object in the throw expression is used to initialize an anonymous temporary object called the *exception object*. The type of this exception object is used to transfer control to the nearest catch handler, which contains an exception declaration with a matching type. The C++ Standard, \[except.handle\], paragraph 16 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], in part, states the following:

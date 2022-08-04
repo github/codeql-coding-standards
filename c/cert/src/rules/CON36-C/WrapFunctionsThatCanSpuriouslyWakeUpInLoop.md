@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON36-C:
 > Wrap functions that can spuriously wake up in a loop
 
 
-
 ## Description
 
 The `cnd_wait()` and `cnd_timedwait()` functions temporarily cede possession of a mutex so that other threads that may be requesting the mutex can proceed. These functions must always be called from code that is protected by locking a mutex. The waiting thread resumes execution only after it has been notified, generally as the result of the invocation of the `cnd_signal()` or `cnd_broadcast()` function invoked by another thread. The `cnd_wait()` function must be invoked from a loop that checks whether a [condition predicate](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-conditionpredicate) holds. A condition predicate is an expression constructed from the variables of a function that must be true for a thread to be allowed to continue execution. The thread pauses execution, via `cnd_wait()`, `cnd_timedwait()`, or some other mechanism, and is resumed later, presumably when the condition predicate is true and the thread is notified.

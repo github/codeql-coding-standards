@@ -5,7 +5,6 @@ This query implements the CERT-C rule PRE32-C:
 > Do not use preprocessor directives in invocations of function-like macros
 
 
-
 ## Description
 
 The arguments to a macro must not include preprocessor directives, such as `#define`, `#ifdef`, and `#include`. Doing so results in [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior), according to the C Standard, 6.10.3, paragraph 11 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\]:

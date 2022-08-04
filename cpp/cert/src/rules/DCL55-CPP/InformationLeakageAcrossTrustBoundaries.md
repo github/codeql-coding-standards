@@ -5,7 +5,6 @@ This query implements the CERT-C++ rule DCL55-CPP:
 > Avoid information leakage when passing a class object across a trust boundary
 
 
-
 ## Description
 
 The C++ Standard, \[class.mem\], paragraph 13 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], describes the layout of non-static data members of a non-union class, specifying the following:

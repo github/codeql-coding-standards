@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON37-C:
 > Do not call signal() in a multithreaded program
 
 
-
 ## Description
 
 Calling the `signal()` function in a multithreaded program is [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior). (See [undefined behavior 135](https://wiki.sei.cmu.edu/confluence/display/c/CC.+Undefined+Behavior#CC.UndefinedBehavior-ub_135).)
