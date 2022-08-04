@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule STR52-CPP:
 > Use valid references, pointers, and iterators to reference elements of a basic_string
 
 
+
 ## Description
 
 Since `std::basic_string` is a container of characters, this rule is a specific instance of [CTR51-CPP. Use valid references, pointers, and iterators to reference elements of a container](https://wiki.sei.cmu.edu/confluence/display/cplusplus/CTR51-CPP.+Use+valid+references%2C+pointers%2C+and+iterators+to+reference+elements+of+a+container). As a container, it supports iterators just like other containers in the Standard Template Library. However, the `std::basic_string` template class has unusual invalidation semantics. The C++ Standard, \[string.require\], paragraph 5 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:
@@ -115,7 +116,7 @@ Using an invalid reference, pointer, or iterator to a string object could allow 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>ALLOC.UAF</strong> </td> <td> Use After Free </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4746, C++4747, C++4748, C++4749</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-STR52-a</strong> </td> <td> Use valid references, pointers, and iterators to reference elements of a basic_string </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>ALLOC.UAF</strong> </td> <td> Use After Free </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4746, C++4747, C++4748, C++4749</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-STR52-a</strong> </td> <td> Use valid references, pointers, and iterators to reference elements of a basic_string </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

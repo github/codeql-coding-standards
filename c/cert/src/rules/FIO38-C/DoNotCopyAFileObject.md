@@ -5,6 +5,7 @@ This query implements the CERT-C rule FIO38-C:
 > Do not copy a FILE object
 
 
+
 ## Description
 
 According to the C Standard, 7.21.3, paragraph 6 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\],
@@ -58,7 +59,7 @@ Using a copy of a `FILE` object in place of the original may result in a crash, 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>file-dereference</strong> </td> <td> Partially checked </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-FIO38</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>misc-non-copyable-objects</code> </td> <td> Checked with <code>clang-tidy</code> </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> Can detect simple violations of this rule </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 2017.07 </td> <td> <strong>MISRA C 2012 Rule 22.5</strong> </td> <td> Partially implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.3 </td> <td> <strong>C1485, C5028</strong> <strong>C++3113, C++3114</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong>MISRA.FILE_PTR.DEREF.2012</strong> <strong>MISRA.FILE_PTR.DEREF.CAST.2012</strong> <strong>MISRA.FILE_PTR.DEREF.INDIRECT.2012</strong> <strong>MISRA.FILE_PTR.DEREF.RETURN.2012</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>591 S</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_C-FIO38-a</strong> </td> <td> A pointer to a FILE object shall not be dereferenced </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>9047</strong> </td> <td> Partially supported: reports when a FILE pointer is dereferenced </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021a </td> <td> <a> CERT C: Rule FIO38-C </a> </td> <td> Checks for misuse of a FILE object (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>1485, 5028 </strong> </td> <td> </td> </tr> <tr> <td> <a> RuleChecker </a> </td> <td> 20.10 </td> <td> <strong>file-dereference</strong> </td> <td> Partially checked </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> <strong>file-dereference</strong> </td> <td> Partially checked </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-FIO38</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>misc-non-copyable-objects</code> </td> <td> Checked with <code>clang-tidy</code> </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> Can detect simple violations of this rule </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 2017.07 </td> <td> <strong>MISRA C 2012 Rule 22.5</strong> </td> <td> Partially implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C1485, C5028</strong> <strong>C++3113, C++3114</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>MISRA.FILE_PTR.DEREF.2012</strong> <strong>MISRA.FILE_PTR.DEREF.CAST.2012</strong> <strong>MISRA.FILE_PTR.DEREF.INDIRECT.2012</strong> <strong>MISRA.FILE_PTR.DEREF.RETURN.2012</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>591 S</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-FIO38-a</strong> </td> <td> A pointer to a FILE object shall not be dereferenced </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>9047</strong> </td> <td> Partially supported: reports when a FILE pointer is dereferenced </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule FIO38-C </a> </td> <td> Checks for misuse of a FILE object (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>1485, 5028 </strong> </td> <td> </td> </tr> <tr> <td> <a> RuleChecker </a> </td> <td> 22.04 </td> <td> <strong>file-dereference</strong> </td> <td> Partially checked </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
@@ -76,6 +77,10 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 <table> <tbody> <tr> <td> \[ <a> ISO/IEC 9899:2011 </a> \] </td> <td> 7.21.3, "Files" </td> </tr> </tbody> </table>
 
+
+## Implementation notes
+
+None
 
 ## References
 

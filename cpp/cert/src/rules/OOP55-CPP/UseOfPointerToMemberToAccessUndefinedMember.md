@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule OOP55-CPP:
 > Do not use pointer-to-member operators to access nonexistent members
 
 
+
 ## Description
 
 The pointer-to-member operators `.*` and `->*` are used to obtain an object or a function as though it were a member of an underlying object. For instance, the following are functionally equivalent ways to call the member function `f()` on the object `o`.
@@ -148,7 +149,7 @@ void f() {
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>overflow_upon_dereferenceinvalid_function_pointer</strong> </td> <td> </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-OOP55</strong> </td> <td> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++2810, C++2811, C++2812, C++2813, C++2814</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong><a>CERT.OOP.PTR_MEMBER.NO_MEMBER</a></strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-OOP55-a</strong> </td> <td> A cast shall not convert a pointer to a function to any other pointer type, including a pointer to function type </td> </tr> <tr> <td> <a> Parasoft Insure++ </a> </td> <td> </td> <td> </td> <td> Runtime detection </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>2810, 2811, 2812, 2813, 2814 </strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>overflow_upon_dereferenceinvalid_function_pointer</strong> </td> <td> </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-OOP55</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.MEM.UVAR</strong> </td> <td> Uninitialized Variable </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++2810, C++2811, C++2812, C++2813, C++2814</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.OOP.PTR_MEMBER.NO_MEMBER</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-OOP55-a</strong> </td> <td> A cast shall not convert a pointer to a function to any other pointer type, including a pointer to function type </td> </tr> <tr> <td> <a> Parasoft Insure++ </a> </td> <td> </td> <td> </td> <td> Runtime detection </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: OOP55-CPP </a> </td> <td> Checks for pointers to member accessing non-existent class members (rule fully covered). </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>2810, 2811, 2812, 2813, 2814 </strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

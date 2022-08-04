@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CON52-CPP:
 > Prevent data races when accessing bit-fields from multiple threads
 
 
+
 ## Description
 
 When accessing a bit-field, a thread may inadvertently access a separate bit-field in adjacent memory. This is because compilers are required to store multiple adjacent bit-fields in one storage unit whenever they fit. Consequently, data races may exist not just on a bit-field accessed by multiple threads but also on other bit-fields sharing the same byte or word. The problem is difficult to diagnose because it may not be obvious that the same memory location is being modified by multiple threads.
@@ -114,7 +115,7 @@ Although the race window is narrow, an assignment or an expression can evaluate 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>read_write_data_racewrite_write_data_race</strong> </td> <td> Supported </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-CON52</strong> </td> <td> </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 6.5 </td> <td> <strong>RACE_CONDITION</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++1774, C++1775</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CON52-a</strong> </td> <td> Use locks to prevent race conditions when modifying bit fields </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: CON52-CPP </a> </td> <td> Checks for data races (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>1774, 1775</strong> </td> <td> Enforced by MTA </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>read_write_data_racewrite_write_data_race</strong> </td> <td> Supported </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-CON52</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>CONCURRENCY.DATARACE</strong> </td> <td> Data Race </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 6.5 </td> <td> <strong>RACE_CONDITION</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++1774, C++1775</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CON52-a</strong> </td> <td> Use locks to prevent race conditions when modifying bit fields </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: CON52-CPP </a> </td> <td> Checks for data races (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>1774, 1775</strong> </td> <td> Enforced by MTA </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

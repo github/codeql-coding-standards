@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule DCL55-CPP:
 > Avoid information leakage when passing a class object across a trust boundary
 
 
+
 ## Description
 
 The C++ Standard, \[class.mem\], paragraph 13 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], describes the layout of non-static data members of a non-union class, specifying the following:
@@ -283,7 +284,7 @@ Padding bits might inadvertently contain sensitive data such as pointers to kern
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-DCL55</strong> </td> <td> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4941, C++4942, C++4943</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-DCL55-a</strong> </td> <td> A pointer to a structure should not be passed to a function that can copy data to the user space </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-DCL55</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>MISC.PADDING.POTB</strong> </td> <td> Padding Passed Across a Trust Boundary </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4941, C++4942, C++4943</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-DCL55-a</strong> </td> <td> A pointer to a structure should not be passed to a function that can copy data to the user space </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

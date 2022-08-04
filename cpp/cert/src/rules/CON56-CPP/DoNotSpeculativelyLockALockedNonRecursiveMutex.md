@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CON56-CPP:
 > Do not speculatively lock a non-recursive mutex that is already owned by the calling thread
 
 
+
 ## Description
 
 The C++ Standard Library supplies both recursive and non-recursive mutex classes used to protect [critical sections](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections). The recursive mutex classes (`std::recursive_mutex` and `std::recursive_timed_mutex`) differ from the non-recursive mutex classes (`std::mutex`, `std::timed_mutex`, and `std::shared_timed_mutex`) in that a recursive mutex may be locked recursively by the thread that currently owns the mutex. All mutex classes support the ability to speculatively lock the mutex through functions such as `try_lock()`, `try_lock_for()`, `try_lock_until()`, `try_lock_shared_for()`, and `try_lock_shared_until()`. These speculative locking functions attempt to obtain ownership of the mutex for the calling thread, but will not block in the event the ownership cannot be obtained. Instead, they return a Boolean value specifying whether the ownership of the mutex was obtained or not.
@@ -122,7 +123,7 @@ Speculatively locking a non-recursive mutex in a recursive manner is undefined b
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4986, C++4987</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CON56-a</strong> </td> <td> Avoid double locking </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>CONCURRENCY.TL</strong> </td> <td> Try-lock that will never succeed </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4986, C++4987</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CON56-a</strong> </td> <td> Avoid double locking </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

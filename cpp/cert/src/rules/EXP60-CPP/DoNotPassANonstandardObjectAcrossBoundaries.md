@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule EXP60-CPP:
 > Do not pass a nonstandard-layout type object across execution boundaries
 
 
+
 ## Description
 
 Standard-layout types can be used to communicate with code written in other programming languages, as the layout of the type is strictly specified. The C++ Standard, \[class\], paragraph 7 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], defines a standard-layout class as a class that
@@ -126,7 +127,7 @@ The effects of passing objects of nonstandard-layout type across execution bound
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-Wdynamic-class-memaccess</code> </td> <td> Catches instances where the vtable pointer will be overwritten </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4741, C++4742, C++4743</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-EXP60-a</strong> </td> <td> Do not pass a nonstandard-layout type object across execution boundaries </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-Wdynamic-class-memaccess</code> </td> <td> Catches instances where the vtable pointer will be overwritten </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4741, C++4742, C++4743</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-EXP60-a</strong> </td> <td> Do not pass a nonstandard-layout type object across execution boundaries </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

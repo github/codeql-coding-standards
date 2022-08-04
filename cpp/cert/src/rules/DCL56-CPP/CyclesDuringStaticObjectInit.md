@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule DCL56-CPP:
 > Avoid cycles during initialization of static objects
 
 
+
 ## Description
 
 The C++ Standard, \[stmt.dcl\], paragraph 4 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:
@@ -170,7 +171,7 @@ Recursively reentering a function during the initialization of one of its static
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>LANG.STRUCT.INIT.CYCLE</strong> <strong>LANG.STRUCT.INIT.UNORDERED</strong> </td> <td> Initialization Cycle Unordered Initialization </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++1552, C++1554, C++1704</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> </td> <td> <strong>6 D</strong> </td> <td> Enhanced Enforcement </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-DCL56-a</strong> </td> <td> Avoid initialization order problems across translation units by replacing non-local static objects with local static objects </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.STRUCT.INIT.CYCLE</strong> <strong>LANG.STRUCT.INIT.UNORDERED</strong> </td> <td> Initialization Cycle Unordered Initialization </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++1552, C++1554, C++1704</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> </td> <td> <strong>6 D</strong> </td> <td> Enhanced Enforcement </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-DCL56-a</strong> </td> <td> Avoid initialization order problems across translation units by replacing non-local static objects with local static objects </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

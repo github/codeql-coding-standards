@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CTR53-CPP:
 > Use valid iterator ranges
 
 
+
 ## Description
 
 When iterating over elements of a container, the iterators used must iterate over a valid range. An iterator range is a pair of iterators that refer to the first and past-the-end elements of the range respectively.
@@ -86,7 +87,7 @@ Using an invalid iterator range is similar to allowing a buffer overflow, which 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>overflow_upon_dereference</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>LANG.MEM.BO</strong> </td> <td> Buffer Overrun </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3802</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CTR53-a</strong> <strong>CERT_CPP-CTR53-b</strong> </td> <td> Do not use an iterator range that isn't really a range Do not compare iterators from different containers </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3802 </strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.17 </td> <td> <strong>V539<a></a></strong> , <strong>V662<a></a></strong> , <strong><a>V789</a></strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>overflow_upon_dereference</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.MEM.BO</strong> </td> <td> Buffer Overrun </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3802</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CTR53-a</strong> <strong>CERT_CPP-CTR53-b</strong> </td> <td> Do not use an iterator range that isn't really a range Do not compare iterators from different containers </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3802 </strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.19 </td> <td> <strong>V539<a></a></strong> , <strong>V662<a></a></strong> , <strong><a>V789</a></strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

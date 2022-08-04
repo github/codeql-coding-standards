@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule OOP56-CPP:
 > Honor replacement handler requirements
 
 
+
 ## Description
 
 The *handler* functions `new_handler`, `terminate_handler`, and `unexpected_handler` can be globally replaced by custom [implementations](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-implementation), as specified by \[handler.functions\], paragraph 2, of the C++ Standard \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]. For instance, an application could set a custom termination handler by calling `std::set_terminate()`, and the custom termination handler may log the termination for later auditing. However, the C++ Standard, \[res.on.functions\], paragraph 1, states the following:
@@ -93,7 +94,7 @@ Failing to meet the required behavior for a replacement handler results in [unde
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4776, C++4777, C++4778, C++4779</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-OOP56-a</strong> <strong>CERT_CPP-OOP56-b</strong> <strong>CERT_CPP-OOP56-c</strong> </td> <td> Properly define terminate handlers Properly define unexpected handlers Properly define new handlers </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4776, C++4777, C++4778, C++4779</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-OOP56-a</strong> <strong>CERT_CPP-OOP56-b</strong> <strong>CERT_CPP-OOP56-c</strong> </td> <td> Properly define terminate handlers Properly define unexpected handlers Properly define new handlers </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

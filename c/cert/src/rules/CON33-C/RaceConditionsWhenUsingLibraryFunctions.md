@@ -5,6 +5,7 @@ This query implements the CERT-C rule CON33-C:
 > Avoid race conditions when using library functions
 
 
+
 ## Description
 
 Some C standard library functions are not guaranteed to be [reentrant](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-reentrant) with respect to threads. Functions such as `strtok()` and `asctime()` return a pointer to the result stored in function-allocated memory on a per-process basis. Other functions such as `rand()` store state information in function-allocated memory on a per-process basis. Multiple threads invoking the same function can cause concurrency problems, which often result in abnormal behavior and can cause more serious [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability), such as [abnormal termination](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-abnormaltermination), [denial-of-service attack](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-denial-of-service), and data integrity violations.
@@ -36,7 +37,7 @@ void f(FILE *fp) {
 ```
 This code first sets `errno` to 0 to comply with [ERR30-C. Take care when reading errno](https://wiki.sei.cmu.edu/confluence/display/c/ERR30-C.+Take+care+when+reading+errno).
 
-## Compliant Solution (Annex K, strerror_s())
+## Compliant Solution (Annex K, strerror_s())
 
 This compliant solution uses the `strerror_s()` function from Annex K of the C Standard, which has the same functionality as `strerror()` but guarantees thread-safety:
 
@@ -45,7 +46,7 @@ This compliant solution uses the `strerror_s()` function from Annex K of the C S
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
- 
+ 
 enum { BUFFERSIZE = 64 };
 void f(FILE *fp) {
   fpos_t pos;
@@ -60,9 +61,9 @@ void f(FILE *fp) {
   }
 }
 ```
-Because Annex K is optional, `strerror_s()` may not be available in all implementations. 
+Because Annex K is optional, `strerror_s()` may not be available in all implementations.
 
-## Compliant Solution (POSIX, strerror_r())
+## Compliant Solution (POSIX, strerror_r())
 
 This compliant solution uses the POSIX `strerror_r()` function, which has the same functionality as `strerror()` but guarantees thread safety:
 
@@ -72,7 +73,7 @@ This compliant solution uses the POSIX `strerror_r()` function, which has the sa
 #include <string.h>
 
 enum { BUFFERSIZE = 64 };
- 
+ 
 void f(FILE *fp) {
   fpos_t pos;
   errno = 0;
@@ -101,7 +102,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> </td> <td> Supported, but no explicit checker </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>BADFUNC.RANDOM.RAND</strong> <strong>BADFUNC.TEMP.TMPNAM</strong> <strong>BADFUNC.TTYNAME</strong> </td> <td> Use of <code>rand</code> (includes check for uses of <code>srand()</code> ) Use of <code>tmpnam</code> (includes check for uses of <code>tmpnam_r()</code> ) Use of <code>ttyname</code> </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> A module written in Compass/ROSE can detect violations of this rule </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C4976, C4977,C5037</strong> <strong>C++4976, C++4977, C++5021</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.CONC.LIB_FUNC_USE</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>44 S</strong> </td> <td> Partially Implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-CON33-a</strong> </td> <td> Avoid using thread-unsafe functions </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>586</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule CON33-C </a> </td> <td> Checks for data race through standard library function call (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>5037, 4976, 4977</strong> </td> <td> </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4976, 4977, 5021</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> </td> <td> Supported, but no explicit checker </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>BADFUNC.RANDOM.RAND</strong> <strong>BADFUNC.TEMP.TMPNAM</strong> <strong>BADFUNC.TTYNAME</strong> </td> <td> Use of <code>rand</code> (includes check for uses of <code>srand()</code> ) Use of <code>tmpnam</code> (includes check for uses of <code>tmpnam_r()</code> ) Use of <code>ttyname</code> </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> A module written in Compass/ROSE can detect violations of this rule </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C4976, C4977,C5037</strong> <strong>C++4976, C++4977, C++5021</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.CONC.LIB_FUNC_USE</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>44 S</strong> </td> <td> Partially Implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-CON33-a</strong> </td> <td> Avoid using thread-unsafe functions </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>586</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule CON33-C </a> </td> <td> Checks for data race through standard library function call (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>5037, 4976, 4977</strong> </td> <td> </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4976, 4977, 5021</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Guidelines

@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CON53-CPP:
 > Avoid deadlock by locking in a predefined order
 
 
+
 ## Description
 
 Mutexes are used to prevent multiple threads from causing a [data race](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-datarace) by accessing the same shared resource at the same time. Sometimes, when locking mutexes, multiple threads hold each other's lock, and the program consequently [deadlocks](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-deadlock). Four conditions are required for deadlock to occur:
@@ -170,7 +171,7 @@ Deadlock prevents multiple threads from progressing, halting program execution. 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>CONCURRENCY.LOCK.ORDER</strong> </td> <td> Conflicting lock order </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 6.5 </td> <td> <strong>DEADLOCK</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++1772, C++1773</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CON53-a</strong> </td> <td> Do not acquire locks in different order </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: CON53-CPP </a> </td> <td> Checks for deadlocks </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>1772, 1773</strong> </td> <td> Enforced by MTA </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>CONCURRENCY.LOCK.ORDER</strong> </td> <td> Conflicting lock order </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 6.5 </td> <td> <strong>DEADLOCK</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++1772, C++1773</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CON53-a</strong> </td> <td> Do not acquire locks in different order </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: CON53-CPP </a> </td> <td> Checks for deadlocks </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>1772, 1773</strong> </td> <td> Enforced by MTA </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

@@ -5,17 +5,18 @@ This query implements the CERT-C rule ENV33-C:
 > Do not call system()
 
 
+
 ## Description
 
-The C Standard `system()` function executes a specified command by invoking an [implementation-defined](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-implementation-definedbehavior) command processor, such as a UNIX shell or `CMD.EXE` in Microsoft Windows. The POSIX [popen()](http://pubs.opengroup.org/onlinepubs/9699919799/) and Windows `[_popen()](https://msdn.microsoft.com/en-us/library/96ayss4b(v=vs.140).aspx)` functions also invoke a command processor but create a pipe between the calling program and the executed command, returning a pointer to a stream that can be used to either read from or write to the pipe \[[IEEE Std 1003.1:2013](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013)\]. 
+The C Standard `system()` function executes a specified command by invoking an [implementation-defined](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-implementation-definedbehavior) command processor, such as a UNIX shell or `CMD.EXE` in Microsoft Windows. The POSIX [popen()](http://pubs.opengroup.org/onlinepubs/9699919799/) and Windows `[_popen()](https://msdn.microsoft.com/en-us/library/96ayss4b(v=vs.140).aspx)` functions also invoke a command processor but create a pipe between the calling program and the executed command, returning a pointer to a stream that can be used to either read from or write to the pipe \[[IEEE Std 1003.1:2013](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013)\].
 
-Use of the system() function can result in exploitable [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability), in the worst case allowing execution of arbitrary system commands. Situations in which calls to system() have high risk include the following: 
+Use of the system() function can result in exploitable [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability), in the worst case allowing execution of arbitrary system commands. Situations in which calls to system() have high risk include the following:
 
 * When passing an unsanitized or improperly sanitized command string originating from a tainted source
 * If a command is specified without a path name and the command processor path name resolution mechanism is accessible to an attacker
 * If a relative path to an executable is specified and control over the current working directory is accessible to an attacker
 * If the specified executable program can be spoofed by an attacker
-Do not invoke a command processor via `system()` or equivalent functions to execute a command. 
+Do not invoke a command processor via `system()` or equivalent functions to execute a command.
 
 ## Noncompliant Code Example
 
@@ -63,7 +64,7 @@ This noncompliant code example also violates [STR02-C. Sanitize data passed to c
 
 In this compliant solution, the call to `system()` is replaced with a call to `execve()`. The `exec` family of functions does not use a full shell interpreter, so it is not vulnerable to command-injection attacks, such as the one illustrated in the noncompliant code example.
 
-The `execlp()`, `execvp()`, and (nonstandard) `execvP()` functions duplicate the actions of the shell in searching for an executable file if the specified file name does not contain a forward slash character (`/`). As a result, they should be used without a forward slash character (`/`) only if the `PATH` environment variable is set to a safe value, as described in [ENV03-C. Sanitize the environment when invoking external programs](https://wiki.sei.cmu.edu/confluence/display/c/ENV03-C.+Sanitize+the+environment+when+invoking+external+programs).
+The `execlp()`, `execvp()`, and (nonstandard) `execvP()` functions duplicate the actions of the shell in searching for an executable file if the specified file name does not contain a forward slash character (`/`). As a result, they should be used without a forward slash character (`/`) only if the `PATH` environment variable is set to a safe value, as described in [ENV03-C. Sanitize the environment when invoking external programs](https://wiki.sei.cmu.edu/confluence/display/c/ENV03-C.+Sanitize+the+environment+when+invoking+external+programs).
 
 The `execl()`, `execle()`, `execv()`, and `execve()` functions do not perform path name substitution.
 
@@ -75,7 +76,7 @@ Additionally, precautions should be taken to ensure the external executable cann
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
- 
+ 
 void func(char *input) {
   pid_t pid;
   int status;
@@ -110,9 +111,9 @@ void func(char *input) {
 }
 
 ```
-This compliant solution is significantly different from the preceding noncompliant code example. First, `input` is incorporated into the `args` array and passed as an argument to `execve()`, eliminating concerns about buffer overflow or string truncation while forming the command string. Second, this compliant solution forks a new process before executing `"/usr/bin/any_cmd"` in the child process. Although this method is more complicated than calling `system()`, the added security is worth the additional effort.
+This compliant solution is significantly different from the preceding noncompliant code example. First, `input` is incorporated into the `args` array and passed as an argument to `execve()`, eliminating concerns about buffer overflow or string truncation while forming the command string. Second, this compliant solution forks a new process before executing `"/usr/bin/any_cmd"` in the child process. Although this method is more complicated than calling `system()`, the added security is worth the additional effort.
 
-The exit status of 127 is the value set by the shell when a command is not found, and POSIX recommends that applications should do the same. XCU, Section 2.8.2, of *Standard for Information Technology—Portable Operating System Interface (POSIX®), Base Specifications, Issue 7* \[[IEEE Std 1003.1:2013](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013)\], says
+The exit status of 127 is the value set by the shell when a command is not found, and POSIX recommends that applications should do the same. XCU, Section 2.8.2, of *Standard for Information Technology—Portable Operating System Interface (POSIX®), Base Specifications, Issue 7* \[[IEEE Std 1003.1:2013](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-IEEEStd1003.1-2013)\], says
 
 > If a command is not found, the exit status shall be 127. If the command name is found, but it is not an executable utility, the exit status shall be 126. Applications that invoke utilities without using the shell should use these exit status values to report similar errors.
 
@@ -142,11 +143,11 @@ This solution creates the process such that the child process does not inherit a
 
 ## Noncompliant Code Example (POSIX)
 
-This noncompliant code invokes the C `system()` function to remove the `.config` file in the user's home directory.
+This noncompliant code invokes the C `system()` function to remove the `.config` file in the user's home directory.
 
 ```cpp
 #include <stdlib.h>
- 
+ 
 void func(void) {
   system("rm ~/.config");
 }
@@ -195,17 +196,17 @@ void func(void) {
 }
 
 ```
-The `unlink()` function is not susceptible to a symlink attack where the final component of `pathname `(the file name) is a symbolic link because `unlink()` will remove the symbolic link and not affect any file or directory named by the contents of the symbolic link. (See [FIO01-C. Be careful using functions that use file names for identification](https://wiki.sei.cmu.edu/confluence/display/c/FIO01-C.+Be+careful+using+functions+that+use+file+names+for+identification).)  While this reduces the susceptibility of the `unlink()` function to symlink attacks, it does not eliminate it.  The `unlink()` function is still susceptible if one of the directory names included in the `pathname` is a symbolic link.  This could cause the `unlink()` function to delete a similarly named file in a different directory.
+The `unlink()` function is not susceptible to a symlink attack where the final component of `pathname `(the file name) is a symbolic link because `unlink()` will remove the symbolic link and not affect any file or directory named by the contents of the symbolic link. (See [FIO01-C. Be careful using functions that use file names for identification](https://wiki.sei.cmu.edu/confluence/display/c/FIO01-C.+Be+careful+using+functions+that+use+file+names+for+identification).) While this reduces the susceptibility of the `unlink()` function to symlink attacks, it does not eliminate it. The `unlink()` function is still susceptible if one of the directory names included in the `pathname` is a symbolic link. This could cause the `unlink()` function to delete a similarly named file in a different directory.
 
 ## Compliant Solution (Windows)
 
-This compliant solution uses the Microsoft Windows [SHGetKnownFolderPath()](http://msdn.microsoft.com/en-us/library/windows/desktop/bb762188(v=vs.85).aspx) API to get the current user's My Documents folder, which is then combined with the file name to create the path to the file to be deleted. The file is then removed using the [DeleteFile()](http://msdn.microsoft.com/en-us/library/windows/desktop/aa363915(v=vs.85).aspx) API.
+This compliant solution uses the Microsoft Windows [SHGetKnownFolderPath()](http://msdn.microsoft.com/en-us/library/windows/desktop/bb762188(v=vs.85).aspx) API to get the current user's My Documents folder, which is then combined with the file name to create the path to the file to be deleted. The file is then removed using the [DeleteFile()](http://msdn.microsoft.com/en-us/library/windows/desktop/aa363915(v=vs.85).aspx) API.
 
 ```cpp
 #include <Windows.h>
 #include <ShlObj.h>
 #include <Shlwapi.h>
- 
+ 
 #if defined(_MSC_VER)
   #pragma comment(lib, "Shlwapi")
 #endif
@@ -231,7 +232,7 @@ void func(void) {
 
 ## Exceptions
 
-**ENV33-C-EX1**: It is permissible to call `system()` with a null pointer argument to determine the presence of a command processor for the system.
+**ENV33-C-EX1**: It is permissible to call `system()` with a null pointer argument to determine the presence of a command processor for the system.
 
 ## Risk Assessments
 
@@ -242,7 +243,7 @@ If the command string passed to `system()`, `popen()`, or other function that in
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> <strong>stdlib-use-system</strong> </td> <td> Fully checked </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-ENV33</strong> </td> <td> </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>cert-env33-c</code> </td> <td> Checked by <code>clang-tidy</code> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>BADFUNC.PATH.SYSTEM</strong> <strong>IO.INJ.COMMAND</strong> </td> <td> Use of system Command injection </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 2017.07 </td> <td> <strong>DONT_CALL</strong> </td> <td> Implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C5018</strong> <strong>C++5031</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>SV.CODE_INJECTION.SHELL_EXEC</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>588 S</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-ENV33-a</strong> </td> <td> Do not call the 'system()' function from the 'stdlib.h' or 'cstdlib' library with an argument other than '0' (null pointer) </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>586</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule ENV33-C </a> </td> <td> Checks for unsafe call to a system function (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>5018</strong> </td> <td> Partially implemented </td> </tr> <tr> <td> <a> RuleChecker </a> </td> <td> 22.04 </td> <td> <strong>stdlib-use-system</strong> </td> <td> Fully checked </td> </tr> <tr> <td> <a> SonarQube C/C++ Plugin </a> </td> <td> 3.11 </td> <td> <strong><a>S990</a></strong> </td> <td> Detects uses of "abort", "exit", "getenv" and "system" from &lt;stdlib.h&gt; </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> <strong>stdlib-use-system</strong> </td> <td> Fully checked </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-ENV33</strong> </td> <td> </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>cert-env33-c</code> </td> <td> Checked by <code>clang-tidy</code> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>BADFUNC.PATH.SYSTEM</strong> <strong>IO.INJ.COMMAND</strong> </td> <td> Use of system Command injection </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 2017.07 </td> <td> <strong>DONT_CALL</strong> </td> <td> Implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C5018</strong> <strong>C++5031</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>SV.CODE_INJECTION.SHELL_EXEC</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>588 S</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-ENV33-a</strong> </td> <td> Do not call the 'system()' function from the 'stdlib.h' or 'cstdlib' library with an argument other than '0' (null pointer) </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>586</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule ENV33-C </a> </td> <td> Checks for unsafe call to a system function (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>5018</strong> </td> <td> Partially implemented </td> </tr> <tr> <td> <a> RuleChecker </a> </td> <td> 22.04 </td> <td> <strong>stdlib-use-system</strong> </td> <td> Fully checked </td> </tr> <tr> <td> <a> SonarQube C/C++ Plugin </a> </td> <td> 3.11 </td> <td> <strong><a>S990</a></strong> </td> <td> Detects uses of "abort", "exit", "getenv" and "system" from &lt;stdlib.h&gt; </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

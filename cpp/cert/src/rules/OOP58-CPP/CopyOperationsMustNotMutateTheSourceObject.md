@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule OOP58-CPP:
 > Copy operations must not mutate the source object
 
 
+
 ## Description
 
 Copy operations (copy constructors and copy assignment operators) are expected to copy the salient properties of a source object into the destination object, with the resulting object being a "copy" of the original. What is considered to be a salient property of the type is type-dependent, but for types that expose comparison or equality operators, includes any properties used for those comparison operations. This expectation leads to assumptions in code that a copy operation results in a destination object with a value representation that is equivalent to the source object value representation. Violation of this basic assumption can lead to unexpected behavior.
@@ -123,7 +124,7 @@ Copy operations that mutate the source operand or global state can lead to unexp
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4075</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong><a>CERT.OOP.COPY_MUTATES </a></strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-OOP58-a</strong> </td> <td> Copy operations must not mutate the source object </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: OOP58-CPP </a> </td> <td> Checks for copy operation modifying source operand (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4075</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.FUNCS.COPINC</strong> </td> <td> Copy Operation Parameter Is Not const </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4075</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.OOP.COPY_MUTATES </strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-OOP58-a</strong> </td> <td> Copy operations must not mutate the source object </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: OOP58-CPP </a> </td> <td> Checks for copy operation modifying source operand (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4075</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

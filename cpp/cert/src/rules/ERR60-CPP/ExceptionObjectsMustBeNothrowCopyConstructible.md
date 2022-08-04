@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule ERR60-CPP:
 > Exception objects must be nothrow copy constructible
 
 
+
 ## Description
 
 When an exception is thrown, the exception object operand of the `throw` expression is copied into a temporary object that is used to initialize the handler. The C++ Standard, \[except.throw\], paragraph 3 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], in part, states the following:
@@ -123,7 +124,7 @@ Allowing the application to [abnormally terminate](https://wiki.sei.cmu.edu/conf
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>cert-err60-cpp</code> </td> <td> Checked by <code>clang-tidy</code> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3508</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-ERR60-a</strong> <strong>CERT_CPP-ERR60-b</strong> </td> <td> Exception objects must be nothrow copy constructible An explicitly declared copy constructor for a class that inherits from 'std::exception' should have a non-throwing exception specification </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3508</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>cert-err60-cpp</code> </td> <td> Checked by <code>clang-tidy</code> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3508</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-ERR60-a</strong> <strong>CERT_CPP-ERR60-b</strong> </td> <td> Exception objects must be nothrow copy constructible An explicitly declared copy constructor for a class that inherits from 'std::exception' should have a non-throwing exception specification </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3508</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule INT50-CPP:
 > Do not cast to an out-of-range enumeration value
 
 
+
 ## Description
 
 Enumerations in C++ come in two forms: *scoped* enumerations in which the underlying type is fixed and *unscoped* enumerations in which the underlying type may or may not be fixed. The range of values that can be represented by either form of enumeration may include enumerator values not specified by the enumeration itself. The range of valid enumeration values for an enumeration type is defined by the C++ Standard, \[dcl.enum\], in paragraph 8 \[[ISO/IEC 14882-2020](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2020)\]:
@@ -101,7 +102,7 @@ It is possible for unspecified values to result in a buffer overflow, leading to
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-INT50</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>LANG.CAST.COERCE</strong> <strong>LANG.CAST.VALUE</strong> </td> <td> Coercion Alters Value Cast Alters Value </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3013</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-INT50-a</strong> </td> <td> An expression with enum underlying type shall only have values corresponding to the enumerators of the enumeration </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3013</strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.17 </td> <td> <strong><a>V1016</a></strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-INT50</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.CAST.COERCE</strong> <strong>LANG.CAST.VALUE</strong> </td> <td> Coercion Alters Value Cast Alters Value </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3013</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-INT50-a</strong> </td> <td> An expression with enum underlying type shall only have values corresponding to the enumerators of the enumeration </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3013</strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.19 </td> <td> <strong><a>V1016</a></strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

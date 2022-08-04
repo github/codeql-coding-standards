@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CTR52-CPP:
 > Guarantee that library functions do not overflow
 
 
+
 ## Description
 
 Copying data into a container that is not large enough to hold that data results in a buffer overflow. To prevent such errors, data copied to the destination container must be restricted on the basis of the destination container's size, or preferably, the destination container must be guaranteed to be large enough to hold the data to be copied.
@@ -126,7 +127,7 @@ Copying data to a buffer that is too small to hold the data results in a buffer 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>invalid_pointer_dereference</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>BADFUNC.BO.\*</strong> <strong>LANG.MEM.BO</strong> </td> <td> A collection of warning classes that report uses of library functions prone to internal buffer overflows. Buffer Overrun </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3526, C++3527, C++3528, C++3529, C++3530, C++3531, C++3532, C++3533, C++3534</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CTR52-a</strong> </td> <td> Do not pass empty container iterators to std algorithms as destinations </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>invalid_pointer_dereference</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>BADFUNC.BO.\*</strong> <strong>LANG.MEM.BOLANG.MEM.TBA</strong> </td> <td> A collection of warning classes that report uses of library functions prone to internal buffer overflows. Buffer Overrun Tainted Buffer Access </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3526, C++3527, C++3528, C++3529, C++3530, C++3531, C++3532, C++3533, C++3534</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CTR52-a</strong> </td> <td> Do not pass empty container iterators to std algorithms as destinations </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

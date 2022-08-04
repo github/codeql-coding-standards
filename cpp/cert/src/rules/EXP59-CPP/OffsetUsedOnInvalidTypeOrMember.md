@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule EXP59-CPP:
 > Use offsetof() on valid types and members
 
 
+
 ## Description
 
 The `offsetof()` macro is defined by the C Standard as a portable way to determine the offset, expressed in bytes, from the start of the object to a given member of that object. The C Standard, subclause 7.17, paragraph 3 \[[ISO/IEC 9899:1999](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC9899-1999)\], in part, specifies the following:
@@ -113,7 +114,7 @@ Passing an invalid type or member to `offsetof()` can result in [undefined behav
 **Automated Detection**
 
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-EXP59</strong> </td> <td> </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-Winvalid-offsetof</code> </td> <td> Emits an error diagnostic on invalid member designators, and emits a warning diagnostic on invalid types. </td> </tr> <tr> <td> <a> GCC </a> </td> <td> </td> <td> <code>-Winvalid-offsetof</code> </td> <td> Emits an error diagnostic on invalid member designators, and emits a warning diagnostic on invalid types. </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3915, C++3916</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-EXP59-a</strong> </td> <td> Use offsetof() on valid types and members </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: EXP59-CPP </a> </td> <td> Checks use of offsetof macro with nonstandard layout class (rule fully covered) </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-EXP59</strong> </td> <td> </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-Winvalid-offsetof</code> </td> <td> Emits an error diagnostic on invalid member designators, and emits a warning diagnostic on invalid types. </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>BADMACRO.OFFSETOF</strong> </td> <td> Use of offsetof </td> </tr> <tr> <td> <a> GCC </a> </td> <td> </td> <td> <code>-Winvalid-offsetof</code> </td> <td> Emits an error diagnostic on invalid member designators, and emits a warning diagnostic on invalid types. </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3915, C++3916</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-EXP59-a</strong> </td> <td> Use offsetof() on valid types and members </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: EXP59-CPP </a> </td> <td> Checks use of offsetof macro with nonstandard layout class (rule fully covered) </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

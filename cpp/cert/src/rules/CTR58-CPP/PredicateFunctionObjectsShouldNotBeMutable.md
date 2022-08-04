@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CTR58-CPP:
 > Predicate function objects should not be mutable
 
 
+
 ## Description
 
 The C++ standard library implements numerous common algorithms that accept a predicate function object. The C++ Standard, \[algorithms.general\], paragraph 10 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:
@@ -172,7 +173,7 @@ Using a predicate function object that contains state can produce unexpected val
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3225, C++3226, C++3227, C++3228, C++3229, C++3230, C++3231, C++3232, C++3233, C++3234</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CTR58-a</strong> </td> <td> Make predicates const pure functions </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3225, 3226, 3227, 3228, 3229, </strong> <strong>3230, 3231, 3232, 3233, 3234 </strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3225, C++3226, C++3227, C++3228, C++3229, C++3230, C++3231, C++3232, C++3233, C++3234</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CTR58-a</strong> </td> <td> Make predicates const pure functions </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: CTR58-CPP </a> </td> <td> Checks for function object that modifies its state (rule fully covered). </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3225, 3226, 3227, 3228, 3229, </strong> <strong>3230, 3231, 3232, 3233, 3234 </strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

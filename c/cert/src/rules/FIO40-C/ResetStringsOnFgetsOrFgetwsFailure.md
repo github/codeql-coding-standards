@@ -5,6 +5,7 @@ This query implements the CERT-C rule FIO40-C:
 > Reset strings on fgets() or fgetws() failure
 
 
+
 ## Description
 
 If either of the C Standard `fgets()` or `fgetws()` functions fail, the contents of the array being written is [indeterminate](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-indeterminatevalue). (See [undefined behavior 170](https://wiki.sei.cmu.edu/confluence/display/c/CC.+Undefined+Behavior#CC.UndefinedBehavior-ub_170).) It is necessary to reset the string to a known value to avoid errors on subsequent string manipulation functions.
@@ -58,12 +59,16 @@ Making invalid assumptions about the contents of an array modified by `fgets()` 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>LANG.MEM.UVAR</strong> </td> <td> Uninitialized Variable </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.3 </td> <td> <strong>C4861, C4862, C4863</strong> <strong>C++4861, C++4862, C++4863</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>44 S</strong> </td> <td> Enhanced enforcement </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_C-FIO40-a</strong> </td> <td> Reset strings on fgets() or fgetws() failure </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021a </td> <td> <a> CERT C: Rule FIO40-C </a> </td> <td> Checks for use of indeterminate string (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>2956 </strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.17 </td> <td> <strong><a>V1024</a></strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.MEM.UVAR</strong> </td> <td> Uninitialized Variable </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C4861, C4862, C4863</strong> <strong>C++4861, C++4862, C++4863</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>44 S</strong> </td> <td> Enhanced enforcement </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-FIO40-a</strong> </td> <td> Reset strings on fgets() or fgetws() failure </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule FIO40-C </a> </td> <td> Checks for use of indeterminate string (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>2956 </strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.19 </td> <td> <strong><a>V1024</a></strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
 
 Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability) resulting from the violation of this rule on the [CERT website](https://www.kb.cert.org/vulnotes/bymetric?searchview&query=FIELD+KEYWORDS+contains+FIO40-C).
+
+## Implementation notes
+
+None
 
 ## References
 

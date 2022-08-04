@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CTR55-CPP:
 > Do not use an additive operator on an iterator if the result would overflow
 
 
+
 ## Description
 
 Expressions that have an integral type can be added to or subtracted from a pointer, resulting in a value of the pointer type. If the resulting pointer is not a valid member of the container, or one past the last element of the container, the behavior of the additive operator is [undefined](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior). The C++ Standard, \[expr.add\], paragraph 5 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], in part, states the following:
@@ -59,7 +60,7 @@ If adding or subtracting an integer to a pointer results in a reference to an el
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3526, C++3527, C++3528, C++3529, C++3530, C++3531, C++3532, C++3533, C++3534</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> </td> <td> <strong>567 S</strong> </td> <td> Enhanced Enforcement </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CTR55-a</strong> </td> <td> Do not add or subtract a constant with a value greater than one from an iterator </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3526, C++3527, C++3528, C++3529, C++3530, C++3531, C++3532, C++3533, C++3534</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> </td> <td> <strong>567 S</strong> </td> <td> Enhanced Enforcement </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CTR55-a</strong> </td> <td> Do not add or subtract a constant with a value greater than one from an iterator </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

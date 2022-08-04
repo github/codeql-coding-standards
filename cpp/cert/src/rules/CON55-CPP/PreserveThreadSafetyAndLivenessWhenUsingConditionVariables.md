@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CON55-CPP:
 > Preserve thread safety and liveness when using condition variables
 
 
+
 ## Description
 
 Both thread safety and [liveness](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-liveness) are concerns when using condition variables. The *thread-safety* property requires that all objects maintain consistent states in a multithreaded environment \[[Lea 2000](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-Lea2000)\]. The *liveness* property requires that every operation or function invocation execute to completion without interruption; for example, there is no deadlock.
@@ -175,7 +176,7 @@ Failing to preserve the thread safety and liveness of a program when using condi
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++1778, C++1779</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong><a>CERT.CONC.UNSAFE_COND_VAR</a></strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CON55-a</strong> </td> <td> Do not use the 'notify_one()' function when multiple threads are waiting on the same condition variable </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>5020</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>CONCURRENCY.BADFUNC.CNDSIGNAL</strong> </td> <td> Use of Condition Variable Signal </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++1778, C++1779</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.CONC.UNSAFE_COND_VAR</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CON55-a</strong> </td> <td> Do not use the 'notify_one()' function when multiple threads are waiting on the same condition variable </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>5020</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

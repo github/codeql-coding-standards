@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CTR54-CPP:
 > Do not subtract iterators that do not refer to the same container
 
 
+
 ## Description
 
 When two pointers are subtracted, both must point to elements of the same array object or to one past the last element of the array object; the result is the difference of the subscripts of the two array elements. Similarly, when two iterators are subtracted (including via `std::distance()`), both iterators must refer to the same container object or must be obtained via a call to `end()` (or `cend()`) on the same container object.
@@ -148,7 +149,7 @@ void f() {
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>invalid_pointer_subtractioninvalid_pointer_comparison</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>LANG.STRUCT.CUP</strong> <strong>LANG.STRUCT.SUP</strong> </td> <td> Comparison of Unrelated Pointers Subtraction of Unrelated Pointers </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++2668, C++2761, C++2762, C++2763, C++2766, C++2767, C++2768</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> </td> <td> <strong>70 S, 87 S, 437 S, 438 S</strong> </td> <td> Enhanced Enforcement </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CTR54-a</strong> <strong>CERT_CPP-CTR54-b</strong> <strong>CERT_CPP-CTR54-c</strong> </td> <td> Do not compare iterators from different containers Do not compare two unrelated pointers Do not subtract two pointers that do not address elements of the same array </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>2668, 2761, 2762, 2763, 2766, 2767, 2768</strong> </td> <td> Enforced by QA-CPP </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>invalid_pointer_subtractioninvalid_pointer_comparison</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.STRUCT.CUP</strong> <strong>LANG.STRUCT.SUP</strong> </td> <td> Comparison of Unrelated Pointers Subtraction of Unrelated Pointers </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++2668, C++2761, C++2762, C++2763, C++2766, C++2767, C++2768</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> </td> <td> <strong>70 S, 87 S, 437 S, 438 S</strong> </td> <td> Enhanced Enforcement </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CTR54-a</strong> <strong>CERT_CPP-CTR54-b</strong> <strong>CERT_CPP-CTR54-c</strong> </td> <td> Do not compare iterators from different containers Do not compare two unrelated pointers Do not subtract two pointers that do not address elements of the same array </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>2668, 2761, 2762, 2763, 2766, 2767, 2768</strong> </td> <td> Enforced by QA-CPP </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

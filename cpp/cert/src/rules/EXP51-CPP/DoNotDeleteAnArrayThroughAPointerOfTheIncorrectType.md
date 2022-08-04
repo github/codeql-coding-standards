@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule EXP51-CPP:
 > Do not delete an array through a pointer of the incorrect type
 
 
+
 ## Description
 
 The C++ Standard, \[expr.delete\], paragraph 3 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:
@@ -59,7 +60,7 @@ Attempting to destroy an array of polymorphic objects through the incorrect stat
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-analyzer-checker=cplusplus</code> </td> <td> Checked with <code>clang -cc1</code> or (preferably) <code>scan-build</code> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3166</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong><a>CERT.EXPR.DELETE_ARR.BASE_PTR</a></strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-EXP51-a</strong> </td> <td> Do not treat arrays polymorphically </td> </tr> <tr> <td> <a> Parasoft Insure++ </a> </td> <td> </td> <td> </td> <td> Runtime detection </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-analyzer-checker=cplusplus</code> </td> <td> Checked with <code>clang -cc1</code> or (preferably) <code>scan-build</code> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>ALLOC.TM</strong> </td> <td> Type Mismatch </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3166</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.EXPR.DELETE_ARR.BASE_PTR</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-EXP51-a</strong> </td> <td> Do not treat arrays polymorphically </td> </tr> <tr> <td> <a> Parasoft Insure++ </a> </td> <td> </td> <td> </td> <td> Runtime detection </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

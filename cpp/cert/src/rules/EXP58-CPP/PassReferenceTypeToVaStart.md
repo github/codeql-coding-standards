@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule EXP58-CPP:
 > Pass an object of the correct type to va_start
 
 
+
 ## Description
 
 While rule [DCL50-CPP. Do not define a C-style variadic function](https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL50-CPP.+Do+not+define+a+C-style+variadic+function) forbids creation of such functions, they may still be defined when that function has external, C language linkage. Under these circumstances, care must be taken when invoking the `va_start()` macro. The C-standard library macro `va_start()` imposes several semantic restrictions on the type of the value of its second parameter. The C Standard, subclause 7.16.1.4, paragraph 4 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], states the following:
@@ -136,7 +137,7 @@ Passing an object of an unsupported type as the second argument to `va_start()` 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-Wvarargs</code> </td> <td> Does not catch the violation in the third noncompliant code example (it is conditionally supported by <a> Clang </a> ) </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3852, C++3853</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-EXP58-a</strong> </td> <td> Use macros for variable arguments correctly </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: EXP58-CPP </a> </td> <td> Checks for incorrect data types for second argument of va_start (rule fully covered) </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-Wvarargs</code> </td> <td> Does not catch the violation in the third noncompliant code example (it is conditionally supported by <a> Clang </a> ) </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>BADMACRO.STDARG_H</strong> </td> <td> Use of &lt;stdarg.h&gt; Feature </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3852, C++3853</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.VA_START.TYPE</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-EXP58-a</strong> </td> <td> Use macros for variable arguments correctly </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: EXP58-CPP </a> </td> <td> Checks for incorrect data types for second argument of va_start (rule fully covered) </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

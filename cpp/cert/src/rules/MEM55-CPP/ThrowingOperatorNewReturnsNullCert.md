@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule MEM55-CPP:
 > Honor replacement dynamic storage management requirements
 
 
+
 ## Description
 
 Dynamic memory allocation and deallocation functions can be globally replaced by custom implementations, as specified by \[replacement.functions\], paragraph 2, of the C++ Standard \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]. For instance, a user may profile the dynamic memory usage of an application and decide that the default allocator is not optimal for their usage pattern, and a different allocation strategy may be a marked improvement. However, the C++ Standard, \[res.on.functions\], paragraph 1, states the following:
@@ -64,7 +65,7 @@ Failing to meet the stated requirements for a replaceable dynamic storage functi
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4736, C++4737, C++4738, C++4739</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong><a>CERT.MEM.OVERRIDE.DELETE</a></strong> <strong><a>CERT.MEM.OVERRIDE.NEW</a></strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-MEM55-a</strong> </td> <td> The user defined 'new' operator should throw the 'std::bad_alloc' exception when the allocation fails </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: MEM55-CPP </a> </td> <td> Checks for replacement allocation/deallocation functions that do not meet requirements of the Standard (rule fully covered) </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4736, C++4737, C++4738, C++4739</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.MEM.OVERRIDE.DELETE</strong> <strong>CERT.MEM.OVERRIDE.NEW</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-MEM55-a</strong> </td> <td> The user defined 'new' operator should throw the 'std::bad_alloc' exception when the allocation fails </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: MEM55-CPP </a> </td> <td> Checks for replacement allocation/deallocation functions that do not meet requirements of the Standard (rule fully covered) </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

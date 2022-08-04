@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule OOP54-CPP:
 > Gracefully handle self-copy assignment
 
 
+
 ## Description
 
 Self-copy assignment can occur in situations of varying complexity, but essentially, all self-copy assignments entail some variation of the following.
@@ -156,7 +157,7 @@ Allowing a copy assignment operator to corrupt an object could lead to [undefine
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>dangling_pointer_use</strong> </td> <td> </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 9.0 (r361550) </td> <td> <code>cert-oop54-cpp</code> </td> <td> Checked by <code>clang-tidy</code> . </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4072, C++4073, C++4075, C++4076</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong><a>CL.SELF-ASSIGN</a></strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-OOP54-a</strong> </td> <td> Check for assignment to self in operator= </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: OOP54-CPP </a> </td> <td> Checks for copy assignment operators where self-assignment is not tested (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4072, 4073, 4075, 4076</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>dangling_pointer_use</strong> </td> <td> </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 9.0 (r361550) </td> <td> <code>cert-oop54-cpp</code> </td> <td> Checked by <code>clang-tidy</code> . </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>IO.DC</strong> <strong>ALLOC.DF</strong> <strong>ALLOC.LEAK</strong> <strong>LANG.MEM.NPD</strong> <strong>LANG.STRUCT.RC</strong> <strong>IO.UAC</strong> <strong>ALLOC.UAF</strong> </td> <td> Double Close Double Free Leak Null Pointer Dereference Redundant Condition Use After Close Use After Free </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4072, C++4073, C++4075, C++4076</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CL.SELF-ASSIGN</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-OOP54-a</strong> </td> <td> Check for assignment to self in operator= </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: OOP54-CPP </a> </td> <td> Checks for copy assignment operators where self-assignment is not tested (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4072, 4073, 4075, 4076</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

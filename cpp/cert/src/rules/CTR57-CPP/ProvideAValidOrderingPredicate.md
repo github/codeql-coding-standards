@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CTR57-CPP:
 > Provide a valid ordering predicate
 
 
+
 ## Description
 
 Associative containers place a strict weak ordering requirement on their key comparison predicates \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\]. A strict weak ordering has the following properties:
@@ -123,7 +124,7 @@ Using an invalid ordering rule can lead to erratic behavior or infinite loops.
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3293</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CTR57-a</strong> </td> <td> For associative containers never use comparison function returning true for equal values </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3293</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CTR57-a</strong> </td> <td> For associative containers never use comparison function returning true for equal values </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: CTR57-CPP </a> </td> <td> Checks for predicate lacking strict weak ordering (rule partially covered). </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

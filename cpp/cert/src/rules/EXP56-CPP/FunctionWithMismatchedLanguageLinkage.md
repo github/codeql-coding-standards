@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule EXP56-CPP:
 > Do not call a function with a mismatched language linkage
 
 
+
 ## Description
 
 C++ allows a degree of interoperability with other languages through the use of language linkage specifications. These specifications affect the way in which functions are called or data is accessed. By default, all function types, as well as function and variable names, with external linkage have C++ language linkage, though a different language linkage may be specified. Implementations are required to support `"C" and `"C++"`` as a language linkage, but other language linkages exist with implementation-defined semantics, such as `"java"`, `"Ada"`, and `"FORTRAN"`.
@@ -83,7 +84,7 @@ Mismatched language linkage specifications generally do not create exploitable s
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3033, C++3038</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong><a>PORTING.CAST.PTR</a></strong> <strong><a>PORTING.CAST.PTR.FLTPNT</a></strong> <strong><a>PORTING.CAST.PTR.SIZE</a></strong> <strong><a>PORTING.CAST.SIZE</a></strong> <strong><a>MISRA.CAST.PTR.UNRELATED</a></strong> <strong><a>MISRA.CAST.PTR_TO_INT</a></strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-EXP56-a</strong> </td> <td> Do not call a function with a mismatched language linkage </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3033. 3038</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3033, C++3038</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>PORTING.CAST.PTR</strong> <strong>PORTING.CAST.PTR.FLTPNT</strong> <strong>PORTING.CAST.PTR.SIZE</strong> <strong>PORTING.CAST.SIZE</strong> <strong>MISRA.CAST.PTR.UNRELATED</strong> <strong>MISRA.CAST.PTR_TO_INT</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-EXP56-a</strong> </td> <td> Do not call a function with a mismatched language linkage </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>3033. 3038</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

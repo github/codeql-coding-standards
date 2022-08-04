@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule EXP63-CPP:
 > Do not rely on the value of a moved-from object
 
 
+
 ## Description
 
 Many types, including user-defined types and types provided by the Standard Template Library, support move semantics. Except in rare circumstances, an object of a type that supports move operations (move initialization or move assignment) will be left in a valid, but unspecified state after the object's value has been moved.
@@ -138,7 +139,7 @@ The state of a moved-from object is generally valid, but unspecified. Relying on
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>LANG.MEM.NPD</strong> </td> <td> Null Pointer Dereference </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4701, C++4702, C++4703</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-EXP63-a</strong> </td> <td> Do not rely on the value of a moved-from object </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: EXP63-CPP </a> </td> <td> Checks for read operations that reads the value of a moved-from object (rule fully covered) </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.17 </td> <td> <strong><a>V1030</a></strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.MEM.NPD</strong> </td> <td> Null Pointer Dereference </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4701, C++4702, C++4703</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-EXP63-a</strong> </td> <td> Do not rely on the value of a moved-from object </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: EXP63-CPP </a> </td> <td> Checks for read operations that reads the value of a moved-from object (rule fully covered) </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.19 </td> <td> <strong><a>V1030</a></strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule ERR62-CPP:
 > Detect errors when converting a string to a number
 
 
+
 ## Description
 
 The process of parsing an integer or floating-point number from a string can produce many errors. The string might not contain a number. It might contain a number of the correct type that is out of range (such as an integer that is larger than `INT_MAX`). The string may also contain extra information after the number, which may or may not be useful after the conversion. These error conditions must be detected and addressed when a string-to-number conversion is performed using a formatted input stream such as `std::istream` or the locale facet `num_get<>`.
@@ -90,7 +91,7 @@ It is rare for a violation of this rule to result in a security [vulnerability](
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-ERR62</strong> </td> <td> </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>cert-err34-c</code> </td> <td> Checked by <code>clang-tidy</code> ; only identifies use of unsafe C Standard Library functions corresponding to ERR34-C </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>BADFUNC.ATOF<strong>BADFUNC.ATOI</strong><strong>BADFUNC.ATOF</strong><strong>BADFUNC.ATOF</strong></strong> </td> <td> Use of atof Use of atoi Use of atol Use of atoll </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3161</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2021.4 </td> <td> <strong><a>CERT.ERR.CONV.STR_TO_NUM</a></strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-ERR62-a</strong> </td> <td> The library functions atof, atoi and atol from library stdlib.h shall not be used </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-ERR62</strong> </td> <td> </td> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>cert-err34-c</code> </td> <td> Checked by <code>clang-tidy</code> ; only identifies use of unsafe C Standard Library functions corresponding to ERR34-C </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>BADFUNC.ATOF<strong>BADFUNC.ATOI</strong><strong>BADFUNC.ATOL</strong><strong>BADFUNC.ATOLL</strong></strong> </td> <td> Use of atof Use of atoi Use of atol Use of atoll </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3161</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.ERR.CONV.STR_TO_NUM</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-ERR62-a</strong> </td> <td> The library functions atof, atoi and atol from library stdlib.h shall not be used </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

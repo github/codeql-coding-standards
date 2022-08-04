@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule STR53-CPP:
 > Range check element access
 
 
+
 ## Description
 
 The `std::string` index operators `const_reference operator[](size_type) const` and `reference operator[](size_type)` return the character stored at the specified position, `pos`. When `pos >= size()`, a reference to an object of type `charT` with value `charT()` is returned. The index operators are unchecked (no exceptions are thrown for range errors), and attempting to modify the resulting out-of-range object results in [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-undefinedbehavior).
@@ -108,7 +109,7 @@ Unchecked element access can lead to out-of-bound reads and writes and write-any
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>assert_failure</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>LANG.MEM.BO</strong> <strong>LANG.MEM.BU</strong> <strong>LANG.MEM.TBA</strong> <strong>LANG.MEM.TO</strong> <strong>LANG.MEM.TU</strong> </td> <td> Buffer overrun Buffer underrun Tainted buffer access Type overrun Type underrun </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3162, C++3163, C++3164, C++3165</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-STR53-a</strong> </td> <td> Guarantee that container indices are within the valid range </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: STR53-CPP </a> </td> <td> Checks for: Array access out of boundsrray access out of bounds, array access with tainted indexrray access with tainted index, pointer dereference with tainted offsetointer dereference with tainted offset. Rule partially covered. </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>assert_failure</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>LANG.MEM.BO</strong> <strong>LANG.MEM.BU</strong> <strong>LANG.MEM.TBA</strong> <strong>LANG.MEM.TO</strong> <strong>LANG.MEM.TU</strong> </td> <td> Buffer overrun Buffer underrun Tainted buffer access Type overrun Type underrun </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3162, C++3163, C++3164, C++3165</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-STR53-a</strong> </td> <td> Guarantee that container indices are within the valid range </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: STR53-CPP </a> </td> <td> Checks for: Array access out of boundsrray access out of bounds, array access with tainted indexrray access with tainted index, pointer dereference with tainted offsetointer dereference with tainted offset. Rule partially covered. </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

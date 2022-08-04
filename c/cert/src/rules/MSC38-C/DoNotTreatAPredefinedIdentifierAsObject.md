@@ -5,6 +5,7 @@ This query implements the CERT-C rule MSC38-C:
 > Do not treat a predefined identifier as an object if it might only be implemented as a macro
 
 
+
 ## Description
 
 The C Standard, 7.1.4 paragraph 1, \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO%2FIEC9899-2011)\] states
@@ -18,7 +19,7 @@ However, the C Standard enumerates specific exceptions in which the behavior of 
 
 ## Noncompliant Code Example (assert)
 
-In this noncompliant code example, the standard `assert()` macro is suppressed in an attempt to pass it as a function pointer to the `execute_handler()` function. Attempting to suppress the `assert()` macro is [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior).
+In this noncompliant code example, the standard `assert()` macro is suppressed in an attempt to pass it as a function pointer to the  `execute_handler()` function. Attempting to suppress the `assert()` macro is [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior).
 
 ```cpp
 #include <assert.h>

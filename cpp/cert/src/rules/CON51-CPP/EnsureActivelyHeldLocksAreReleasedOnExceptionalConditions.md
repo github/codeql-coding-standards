@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule CON51-CPP:
 > Ensure actively held locks are released on exceptional conditions
 
 
+
 ## Description
 
 Mutexes that are used to protect accesses to shared data may be locked using the `lock()` member function and unlocked using the `unlock()` member function. If an exception occurs between the call to `lock()` and the call to `unlock()`, and the exception changes control flow such that `unlock()` is not called, the mutex will be left in the locked state and no [critical sections](https://wiki.sei.cmu.edu/confluence/display/cplusplus/BB.+Definitions#BB.Definitions-criticalsections) protected by that mutex will be allowed to execute. This is likely to lead to deadlock.
@@ -73,7 +74,7 @@ If an exception occurs while a mutex is locked, deadlock may result.
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++5018</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CON51-a</strong> </td> <td> Do not call lock() directly on a mutex </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>5018</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>CONCURRENCY.LOCK.NOUNLOCK</strong> </td> <td> Missing Lock Release </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++5018</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CON51-a</strong> </td> <td> Do not call lock() directly on a mutex </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>5018</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

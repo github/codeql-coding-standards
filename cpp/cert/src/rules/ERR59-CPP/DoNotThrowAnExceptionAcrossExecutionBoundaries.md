@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule ERR59-CPP:
 > Do not throw an exception across execution boundaries
 
 
+
 ## Description
 
 Throwing an exception requires collaboration between the execution of the `throw` expression and the passing of control to the appropriate `catch` statement, if one applies. This collaboration takes the form of runtime logic used to calculate the correct handler for the exception and is an implementation detail specific to the platform. For code compiled by a single C++ compiler, the details of how to throw and catch exceptions can be safely ignored. However, when throwing an exception across execution boundaries, care must be taken to ensure the runtime logic used is compatible between differing sides of the execution boundary.
@@ -81,7 +82,7 @@ The effects of throwing an exception across execution boundaries depends on the 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3809, C++3810</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-ERR59-a</strong> </td> <td> Do not throw an exception across execution boundaries </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3809, C++3810</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-ERR59-a</strong> </td> <td> Do not throw an exception across execution boundaries </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

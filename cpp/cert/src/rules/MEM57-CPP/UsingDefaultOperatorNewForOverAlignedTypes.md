@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule MEM57-CPP:
 > Avoid using default operator new for over-aligned types
 
 
+
 ## Description
 
 The non-placement `new` expression is specified to invoke an allocation function to allocate storage for an object of the specified type. When successful, the allocation function, in turn, is required to return a pointer to storage with alignment suitable for any object with a fundamental alignment requirement. Although the global `operator new`, the default allocation function invoked by the new expression, is specified by the C++ standard \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\] to allocate sufficient storage suitably aligned to represent any object of the specified size, since the expected alignment isn't part of the function's interface, the most a program can safely assume is that the storage allocated by the default `operator new` defined by the implementation is aligned for an object with a fundamental alignment. In particular, it is unsafe to use the storage for an object of a type with a stricter alignment requirement—an* over-aligned type*.
@@ -64,7 +65,7 @@ Using improperly aligned pointers results in [undefined behavior](https://wiki.s
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3129</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-MEM57-a</strong> </td> <td> Avoid using the default operator 'new' for over-aligned types </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: MEM57-CPP </a> </td> <td> Checks for situations where operator new is not overloaded for possibly overaligned types (rule fully covered) </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3129</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-MEM57-a</strong> </td> <td> Avoid using the default operator 'new' for over-aligned types </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: MEM57-CPP </a> </td> <td> Checks for situations where operator new is not overloaded for possibly overaligned types (rule fully covered) </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

@@ -5,6 +5,7 @@ This query implements the CERT-C rule FIO44-C:
 > Only use values for fsetpos() that are returned from fgetpos()
 
 
+
 ## Description
 
 The C Standard, 7.21.9.3 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], defines the following behavior for `fsetpos()`:
@@ -87,7 +88,7 @@ Misuse of the `fsetpos()` function can position a file position indicator to an 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>(customization)</strong> </td> <td> Users can add a custom check for violations of this constraint. </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> Can detect common violations of this rule. However, it cannot handle cases in which the value returned by <code>fgetpos()</code> is copied between several variables before being passed to <code>fsetpos()</code> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.3 </td> <td> <strong>C4841, C4842, C4843</strong> <strong>C++4841, C++4842, C++4843</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>82 D</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_C-FIO44-a</strong> </td> <td> Only use values for fsetpos() that are returned from fgetpos() </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> </td> <td> <a> CERT C: Rule FIO44-C </a> </td> <td> Checks for invalid file position (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>4841, 4842, 4843</strong> </td> <td> Enforced by QAC </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4841, 4842, 4843</strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.17 </td> <td> <strong><a>V1035</a></strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>(customization)</strong> </td> <td> Users can add a custom check for violations of this constraint. </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> Can detect common violations of this rule. However, it cannot handle cases in which the value returned by <code>fgetpos()</code> is copied between several variables before being passed to <code>fsetpos()</code> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C4841, C4842, C4843</strong> <strong>C++4841, C++4842, C++4843</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.FSETPOS.VALUE</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>82 D</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-FIO44-a</strong> </td> <td> Only use values for fsetpos() that are returned from fgetpos() </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> </td> <td> <a> CERT C: Rule FIO44-C </a> </td> <td> Checks for invalid file position (rule partially covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>4841, 4842, 4843</strong> </td> <td> Enforced by QAC </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4841, 4842, 4843</strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.19 </td> <td> <strong><a>V1035</a></strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
@@ -105,6 +106,10 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 <table> <tbody> <tr> <td> \[ <a> ISO/IEC 9899:2011 </a> \] </td> <td> 7.21.9.3, "The <code>fsetpos</code> Function" </td> </tr> </tbody> </table>
 
+
+## Implementation notes
+
+None
 
 ## References
 

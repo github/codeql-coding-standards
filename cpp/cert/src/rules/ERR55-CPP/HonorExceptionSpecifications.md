@@ -5,6 +5,7 @@ This query implements the CERT-C++ rule ERR55-CPP:
 > Honor exception specifications
 
 
+
 ## Description
 
 The C++ Standard, \[except.spec\], paragraph 8 \[[ISO/IEC 14882-2014](https://wiki.sei.cmu.edu/confluence/display/cplusplus/AA.+Bibliography#AA.Bibliography-ISO%2FIEC14882-2014)\], states the following:
@@ -123,7 +124,7 @@ Throwing unexpected exceptions disrupts control flow and can cause premature ter
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>unhandled-throw-noexcept</strong> </td> <td> Partially checked </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-ERR55</strong> </td> <td> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4035, C++4036, C++4632</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> </td> <td> <strong>56 D</strong> </td> <td> Partially implemented </td> </tr> <tr> <td> <a> Parasoft C/C++Test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-ERR55-a</strong> </td> <td> Where a function's declaration includes an exception-specification, the function shall only be capable of throwing exceptions of the indicated type(s) </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: ERR55-CPP </a> </td> <td> Checks for noexcept functions exiting with exception (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4035, 4036, 4632</strong> </td> <td> </td> </tr> <tr> <td> <a> RuleChecker </a> </td> <td> 20.10 </td> <td> <strong>unhandled-throw-noexcept</strong> </td> <td> Partially checked </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> <strong>unhandled-throw-noexcept</strong> </td> <td> Partially checked </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC++-ERR55</strong> </td> <td> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4035, C++4036, C++4632</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> </td> <td> <strong>56 D</strong> </td> <td> Partially implemented </td> </tr> <tr> <td> <a> Parasoft C/C++Test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-ERR55-a</strong> </td> <td> Where a function's declaration includes an exception-specification, the function shall only be capable of throwing exceptions of the indicated type(s) </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: ERR55-CPP </a> </td> <td> Checks for noexcept functions exiting with exception (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>4035, 4036, 4632</strong> </td> <td> </td> </tr> <tr> <td> <a> RuleChecker </a> </td> <td> 20.10 </td> <td> <strong>unhandled-throw-noexcept</strong> </td> <td> Partially checked </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
