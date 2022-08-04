@@ -11,6 +11,7 @@ The C++ Standard, \[reserved.names\] \[[ISO/IEC 14882-2014](https://wiki.sei.cmu
 
 > 
 
+
 * A translation unit that includes a standard library header shall not `#define` or `#undef` names declared in any standard library header.
 * A translation unit shall not `#define` or `#undef` names lexically identical to keywords, to the identifiers listed in Table 3, or to the *attribute-token*s described in 7.6.
 * Each name that contains a double underscore `__` or begins with an underscore followed by an uppercase letter is reserved to the implementation for any use.
