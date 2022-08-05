@@ -1,0 +1,50 @@
+{
+  "CERT-C": {
+    "FIO45-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Avoid TOCTOU race conditions accessing files",
+          "kind": "problem",
+          "name": "Avoid TOCTOU race conditions while accessing files",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ToctouRaceConditionsWhileAccessingFiles",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Avoid TOCTOU race conditions while accessing files",
+      "implementation_scope": {
+        "description": "None"
+      }
+    },
+    "FIO47-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Use valid format strings",
+          "kind": "problem",
+          "name": "Use valid format strings",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UseValidFormatStrings",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Use valid format strings",
+      "implementation_scope": {
+        "description": "None"
+      }
+    }
+  }
+}
