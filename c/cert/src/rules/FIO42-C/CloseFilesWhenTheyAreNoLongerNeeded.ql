@@ -1,7 +1,7 @@
 /**
  * @id c/cert/close-files-when-they-are-no-longer-needed
  * @name FIO42-C: Close files when they are no longer needed
- * @description 
+ * @description Close files when they are no longer needed
  * @kind problem
  * @precision very-high
  * @problem.severity error

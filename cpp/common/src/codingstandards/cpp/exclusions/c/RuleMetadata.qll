@@ -8,6 +8,7 @@ import Concurrency2
 import IO1
 import IO2
 import IO3
+import IO4
 import Misc
 import Pointers1
 import Preprocessor1
@@ -30,6 +31,7 @@ newtype TCQuery =
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
+  TIO4PackageQuery(IO4Query q) or
   TMiscPackageQuery(MiscQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPreprocessor1PackageQuery(Preprocessor1Query q) or
@@ -52,6 +54,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isIO1QueryMetadata(query, queryId, ruleId) or
   isIO2QueryMetadata(query, queryId, ruleId) or
   isIO3QueryMetadata(query, queryId, ruleId) or
+  isIO4QueryMetadata(query, queryId, ruleId) or
   isMiscQueryMetadata(query, queryId, ruleId) or
   isPointers1QueryMetadata(query, queryId, ruleId) or
   isPreprocessor1QueryMetadata(query, queryId, ruleId) or
