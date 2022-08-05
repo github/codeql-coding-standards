@@ -37,13 +37,13 @@ def soupify(url: str) -> BeautifulSoup:
     cache_key = m.hexdigest()
     cache_file = cache_path.joinpath(cache_key)
     if cache_file.exists():
-        content = cache_file.read_text()
+        content = cache_file.read_text('utf-8')
     else:
         resp = requests.get(url)
         if resp.status_code != 200:
             return None
         content = unicodedata.normalize("NFKD", resp.text)
-        cache_file.write_text(content)
+        cache_file.write_text(content,encoding='utf8')
 
     return BeautifulSoup(content, 'html.parser')
 
@@ -502,7 +502,7 @@ for rule in rules:
                 continue
 
             temp_qhelp_path = query_path.with_suffix('.qhelp')
-            temp_qhelp_path.write_text(get_help(rule))
+            temp_qhelp_path.write_text(get_help(rule),encoding='utf8')
 
             temp_help_path = help_path.with_suffix('.md.tmp')
             try:
@@ -511,12 +511,12 @@ for rule in rules:
                 print(f"{err.reason}: {err.stderr}")
             temp_qhelp_path.unlink()
 
-            parsed_temp_help = md.parse(temp_help_path.read_text())
+            parsed_temp_help = md.parse(temp_help_path.read_text('utf-8'))
             # Remove the first header that is added by the QHelp to Markdown conversion
             del parsed_temp_help.children[0]
-            temp_help_path.write_text(md.render(parsed_temp_help))
+            temp_help_path.write_text(md.render(parsed_temp_help),encoding='utf8')
 
-            parsed_help = md.parse(help_path.read_text())
+            parsed_help = md.parse(help_path.read_text('utf-8'))
             if find_heading(parsed_help, 'CERT'):
                 # Check if it contains the CERT heading that needs to be replaced
                 print(f"ID: {rule['id']} - Found heading 'CERT' whose content will be replaced")
@@ -533,4 +533,4 @@ for rule in rules:
                 update_help_file(parsed_help, [HeadingDiffUpdateSpec(heading, parsed_temp_help) for heading in second_level_headings] + [HeadingFormatUpdateSpec()])
 
             temp_help_path.unlink()
-            help_path.write_text(md.render(parsed_help))
+            help_path.write_text(md.render(parsed_help),encoding='utf8')
