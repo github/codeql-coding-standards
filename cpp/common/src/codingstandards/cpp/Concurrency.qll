@@ -501,13 +501,42 @@ class C11MutexSource extends MutexSource, FunctionCall {
 
 /**
  * Models a thread dependent mutex. A thread dependent mutex is a mutex
- * that is used by a thread.
+ * that is used by a thread. This dependency is established either by directly 
+ * passing in a mutex or by referencing a mutex that is in the local scope. The utility 
+ * of this class is it captures the `DataFlow::Node` source at which the mutex
+ * came from. For example, if it is passed in from a local function to a thread. 
+ * This functionality is critical, since it allows one to inspect how the thread 
+ * behaves with respect to the owner of a resource. 
  */
-class ThreadDependentMutex extends DataFlow::Node {
+abstract class ThreadDependentMutex extends DataFlow::Node {
+  DataFlow::Node sink;
+
+}
+class FlowBasedThreadDependentMutex extends ThreadDependentMutex {
   DataFlow::Node sink;
 
   ThreadDependentMutex() {
-    exists(ThreadDependentMutexTaintTrackingConfiguration config | config.hasFlow(this, sink))
+
+    // this predicate captures two cases. The first being some sort of dataflow, 
+    // likely through parameter passing.
+    exists(ThreadDependentMutexTaintTrackingConfiguration config | config.hasFlow(this, sink)) or
+    
+    // the second encapsulates usages from outside scopes not directly expressed
+    // in dataflow.
+    exists(MutexSource mutexSrc, ThreadedFunction f, Variable variableSource | 
+      DataFlow::exprNode(mutexSrc) = this and 
+      
+      // find a variable that was assigned the mutex
+      TaintTracking::localTaint(DataFlow::exprNode(mutexSrc), DataFlow::exprNode(variableSource.getAnAssignedValue())) and
+
+      // find all subsequent accesses of that variable that are within a
+      // function and set those to the sink 
+      exists(VariableAccess va | 
+        va = variableSource.getAnAccess() and 
+        va.getEnclosingFunction() = f   
+        and sink = DataFlow::exprNode(va)
+      )
+      )
   }
 
   DataFlow::Node getASource() {
@@ -524,10 +553,23 @@ class ThreadDependentMutex extends DataFlow::Node {
    * dependent mutex.
    */
   DataFlow::Node getAThreadSource() {
+    // here we line up the actual parameter at the thread creation 
+    // site with the formal parameter in the target thread. 
+    // Note that there are differences between the C and C++ versions
+    // of the argument ordering in the thread creation function. However, 
+    // since the C version only takes one parameter (as opposed to multiple)
+    // we can simplify this search by considering only the first argument.
     exists(FunctionCall fc, Function f, int n |
+      // Get the argument to which the mutex flowed. 
       fc.getArgument(n) = sink.asExpr() and
+      // Get the thread function we are calling.
       f = fc.getArgument(0).(FunctionAccess).getTarget() and
-      result = DataFlow::exprNode(f.getParameter(n - 1).getAnAccess())
+      // in C++, there is an extra argument to the `std::thread` call 
+      // so we must subtract 1 since this is not passed to the thread.
+      (result = DataFlow::exprNode(f.getParameter(n - 1).getAnAccess()) or
+      // In C, only one argument is allowed. Thus IF the flow predicate holds, 
+      // it will be to the first argument 
+      result = DataFlow::exprNode(f.getParameter(0).getAnAccess()))
     )
   }
 
@@ -543,10 +585,16 @@ class ThreadDependentMutex extends DataFlow::Node {
   }
 
   /**
-   * Gets a set of usages of this mutex in both the local and thread scope.
+   * Gets a set of usages of this mutex in both the local and thread scope. 
+   * In the case of scoped usage, this also captures typical accesses of variables. 
    */
   DataFlow::Node getAUsage() { TaintTracking::localTaint(getASource(), result) }
 }
+
+class AccessBasedThreadDependentMutex extends ThreadDependentMutex {
+
+}
+
 
 class ThreadDependentMutexTaintTrackingConfiguration extends TaintTracking::Configuration {
   ThreadDependentMutexTaintTrackingConfiguration() {
