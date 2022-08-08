@@ -1,53 +1,78 @@
 {
   "CERT-C": {
     "DCL31-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "Omission of type specifiers may not be supported by some compilers.",
-          "kind": "problem",
-          "name": "Declare identifiers before using them",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "DeclareIdentifiersBeforeUsingThem",
-          "tags": [
-            "correctness",
-            "readability" 
-          ],
-          "implementation_scope": {
-            "description": "This query does not check for implicit function declarations as this is partially compiler checked.",
-            "items": []
+        "properties": {
+          "obligation": "rule"
+        },
+        "queries": [
+          {
+            "description": "Omission of type specifiers may not be supported by some compilers.",
+            "kind": "problem",
+            "name": "Declare identifiers before using them",
+            "precision": "very-high",
+            "severity": "error",
+            "short_name": "DeclareIdentifiersBeforeUsingThem",
+            "tags": [
+              "correctness",
+              "readability" 
+            ],
+            "implementation_scope": {
+              "description": "This query does not check for implicit function declarations as this is partially compiler checked.",
+              "items": []
+            }
           }
-        }
-      ],
-      "title": "Declare identifiers before using them"
-    },
-    "DCL37-C": {
+        ],
+        "title": "Declare identifiers before using them"
+      },
+      "DCL37-C": {
+        "properties": {
+          "obligation": "rule"
+        },
+        "queries": [
+          {
+            "description": "Declaring a reserved identifier can lead to undefined behaviour.",
+            "kind": "problem",
+            "name": "Do not declare or define a reserved identifier",
+            "precision": "very-high",
+            "severity": "warning",
+            "short_name": "DoNotDeclareOrDefineAReservedIdentifier",
+            "shared_implementation_short_name": "DeclaredAReservedIdentifier",
+            "tags": [
+              "correctness",
+              "maintainability",
+              "readability"
+            ],
+            "implementation_scope": {
+              "description": "This query does not consider identifiers described in the future library directions section of the standard. This query also checks for any reserved identifier as declared regardless of whether its header file is included or not.",
+              "items": []
+            }
+          }
+        ],
+        "title": "Do not declare or define a reserved identifier"
+      }
+  },
+  "MISRA-C-2012": {
+    "RULE-21-2": {
       "properties": {
-        "obligation": "rule"
+        "obligation": "required"
       },
       "queries": [
         {
           "description": "Declaring a reserved identifier can lead to undefined behaviour.",
           "kind": "problem",
-          "name": "Do not declare or define a reserved identifier",
+          "name": "A reserved identifier or reserved macro name shall not be declared",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "DoNotDeclareOrDefineAReservedIdentifier",
+          "short_name": "DoNotDeclareAReservedIdentifier",
+          "shared_implementation_short_name": "DeclaredAReservedIdentifier",
           "tags": [
             "correctness",
             "maintainability",
             "readability"
-          ],
-          "implementation_scope": {
-            "description": "This query does not consider identifiers described in the future library directions section of the standard. This query also checks for any reserved identifier as declared regardless of whether its header file is included or not.",
-            "items": []
-          }
+          ]
         }
       ],
-      "title": "Do not declare or define a reserved identifier"
+      "title": "A reserved identifier or reserved macro name shall not be declared"
     }
   }
 }

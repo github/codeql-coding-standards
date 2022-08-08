@@ -5,7 +5,8 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations1Query =
   TDeclareIdentifiersBeforeUsingThemQuery() or
-  TDoNotDeclareOrDefineAReservedIdentifierQuery()
+  TDoNotDeclareOrDefineAReservedIdentifierQuery() or
+  TDoNotDeclareAReservedIdentifierQuery()
 
 predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -23,6 +24,14 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `doNotDeclareOrDefineAReservedIdentifier` query
     "c/cert/do-not-declare-or-define-a-reserved-identifier" and
   ruleId = "DCL37-C"
+  or
+  query =
+    // `Query` instance for the `doNotDeclareAReservedIdentifier` query
+    Declarations1Package::doNotDeclareAReservedIdentifierQuery() and
+  queryId =
+    // `@id` for the `doNotDeclareAReservedIdentifier` query
+    "c/misra/do-not-declare-a-reserved-identifier" and
+  ruleId = "RULE-21-2"
 }
 
 module Declarations1Package {
@@ -38,5 +47,12 @@ module Declarations1Package {
     result =
       // `Query` type for `doNotDeclareOrDefineAReservedIdentifier` query
       TQueryC(TDeclarations1PackageQuery(TDoNotDeclareOrDefineAReservedIdentifierQuery()))
+  }
+
+  Query doNotDeclareAReservedIdentifierQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `doNotDeclareAReservedIdentifier` query
+      TQueryC(TDeclarations1PackageQuery(TDoNotDeclareAReservedIdentifierQuery()))
   }
 }

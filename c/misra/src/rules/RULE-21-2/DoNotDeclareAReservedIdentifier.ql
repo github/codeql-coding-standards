@@ -1,23 +1,23 @@
 /**
- * @id c/cert/do-not-declare-or-define-a-reserved-identifier
- * @name DCL37-C: Do not declare or define a reserved identifier
+ * @id c/misra/do-not-declare-a-reserved-identifier
+ * @name RULE-21-2: A reserved identifier or reserved macro name shall not be declared
  * @description Declaring a reserved identifier can lead to undefined behaviour.
  * @kind problem
  * @precision very-high
  * @problem.severity warning
- * @tags external/cert/id/dcl37-c
+ * @tags external/misra/id/rule-21-2
  *       correctness
  *       maintainability
  *       readability
- *       external/cert/obligation/rule
+ *       external/misra/obligation/required
  */
 
 import cpp
-import codingstandards.c.cert
+import codingstandards.c.misra
 import codingstandards.cpp.rules.declaredareservedidentifier.DeclaredAReservedIdentifier
 
 class DoNotDeclareAReservedIdentifierQuery extends DeclaredAReservedIdentifierSharedQuery {
   DoNotDeclareAReservedIdentifierQuery() {
-    this = Declarations1Package::doNotDeclareOrDefineAReservedIdentifierQuery()
+    this = Declarations1Package::doNotDeclareAReservedIdentifierQuery()
   }
 }

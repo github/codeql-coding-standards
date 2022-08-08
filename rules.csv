@@ -744,7 +744,7 @@ c,MISRA-C-2012,RULE-20-12,Yes,Required,,,"A macro parameter used as an operand t
 c,MISRA-C-2012,RULE-20-13,No,Required,,,A line whose first token is # shall be a valid preprocessing directive,M16-0-8,,,This is verified by the compiler in the cases where the token is not within an ifdef branch that's never taken
 c,MISRA-C-2012,RULE-20-14,No,Required,,,"All #else, #elif and #endif preprocessor directives shall reside in the same file as the #if, #ifdef or #ifndef directive to which they are related",M16-1-2,,,Compilers already prohibit this case
 c,MISRA-C-2012,RULE-21-1,Yes,Required,,,#define and #undef shall not be used on a reserved identifier or reserved macro name,,Preprocessor4,Hard,
-c,MISRA-C-2012,RULE-21-2,Yes,Required,,,A reserved identifier or reserved macro name shall not be declared,,Declarations,Hard,
+c,MISRA-C-2012,RULE-21-2,Yes,Required,,,A reserved identifier or reserved macro name shall not be declared,,Declarations1,Hard,
 c,MISRA-C-2012,RULE-21-3,Yes,Required,,,The memory allocation and deallocation functions of <stdlib.h> shall not be used,,Banned,Medium,
 c,MISRA-C-2012,RULE-21-4,Yes,Required,,,The standard header file shall not be used <setjmp.h>,,Banned,Easy,
 c,MISRA-C-2012,RULE-21-5,Yes,Required,,,The standard header file shall not be used <signal.h>,,Banned,Easy,
