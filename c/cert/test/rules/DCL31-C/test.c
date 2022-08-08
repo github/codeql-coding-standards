@@ -1,12 +1,12 @@
 
-extern g; //NON_COMPLIANT
+extern g; // NON_COMPLIANT
 
-extern int g1; //COMPLIANT
+extern int g1; // COMPLIANT
 
-f(void) { //NON_COMPLIANT
+f(void) { // NON_COMPLIANT
   return 1;
 }
 
-int f1(void) { //COMPLIANT
+int f1(void) { // COMPLIANT
   return 1;
 }
