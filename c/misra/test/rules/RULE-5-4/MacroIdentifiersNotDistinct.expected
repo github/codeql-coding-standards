@@ -1,0 +1,4 @@
+| test.c:1:1:1:72 | #define iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyA | Nondistinct macro identifer used iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyA . |
+| test.c:2:1:2:72 | #define iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyB | Nondistinct macro identifer used iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyB . |
+| test.c:7:1:7:57 | #define FUNCTION_MACRO(FUNCTION_MACRO) FUNCTION_MACRO + 1 | Nondistinct macro identifer used FUNCTION_MACRO . |
+| test.c:8:1:8:31 | #define FUNCTION_MACRO(X) X + 1 | Nondistinct macro identifer used FUNCTION_MACRO . |

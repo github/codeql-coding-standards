@@ -6,7 +6,9 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype Declarations1Query =
   TDeclareIdentifiersBeforeUsingThemQuery() or
   TDoNotDeclareOrDefineAReservedIdentifierQuery() or
-  TDoNotDeclareAReservedIdentifierQuery()
+  TDoNotDeclareAReservedIdentifierQuery() or
+  TMacroIdentifiersNotDistinctQuery() or
+  TMacroIdentifierNotDistinctFromParameterQuery()
 
 predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -32,6 +34,22 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `doNotDeclareAReservedIdentifier` query
     "c/misra/do-not-declare-a-reserved-identifier" and
   ruleId = "RULE-21-2"
+  or
+  query =
+    // `Query` instance for the `macroIdentifiersNotDistinct` query
+    Declarations1Package::macroIdentifiersNotDistinctQuery() and
+  queryId =
+    // `@id` for the `macroIdentifiersNotDistinct` query
+    "c/misra/macro-identifiers-not-distinct" and
+  ruleId = "RULE-5-4"
+  or
+  query =
+    // `Query` instance for the `macroIdentifierNotDistinctFromParameter` query
+    Declarations1Package::macroIdentifierNotDistinctFromParameterQuery() and
+  queryId =
+    // `@id` for the `macroIdentifierNotDistinctFromParameter` query
+    "c/misra/macro-identifier-not-distinct-from-parameter" and
+  ruleId = "RULE-5-4"
 }
 
 module Declarations1Package {
@@ -54,5 +72,19 @@ module Declarations1Package {
     result =
       // `Query` type for `doNotDeclareAReservedIdentifier` query
       TQueryC(TDeclarations1PackageQuery(TDoNotDeclareAReservedIdentifierQuery()))
+  }
+
+  Query macroIdentifiersNotDistinctQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `macroIdentifiersNotDistinct` query
+      TQueryC(TDeclarations1PackageQuery(TMacroIdentifiersNotDistinctQuery()))
+  }
+
+  Query macroIdentifierNotDistinctFromParameterQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `macroIdentifierNotDistinctFromParameter` query
+      TQueryC(TDeclarations1PackageQuery(TMacroIdentifierNotDistinctFromParameterQuery()))
   }
 }
