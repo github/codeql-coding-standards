@@ -7,6 +7,7 @@ newtype Declarations1Query =
   TDeclareIdentifiersBeforeUsingThemQuery() or
   TDoNotDeclareOrDefineAReservedIdentifierQuery() or
   TDoNotDeclareAReservedIdentifierQuery() or
+  TExternalIdentifiersNotDistinctQuery() or
   TMacroIdentifiersNotDistinctQuery() or
   TMacroIdentifierNotDistinctFromParameterQuery()
 
@@ -34,6 +35,14 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `doNotDeclareAReservedIdentifier` query
     "c/misra/do-not-declare-a-reserved-identifier" and
   ruleId = "RULE-21-2"
+  or
+  query =
+    // `Query` instance for the `externalIdentifiersNotDistinct` query
+    Declarations1Package::externalIdentifiersNotDistinctQuery() and
+  queryId =
+    // `@id` for the `externalIdentifiersNotDistinct` query
+    "c/misra/external-identifiers-not-distinct" and
+  ruleId = "RULE-5-1"
   or
   query =
     // `Query` instance for the `macroIdentifiersNotDistinct` query
@@ -72,6 +81,13 @@ module Declarations1Package {
     result =
       // `Query` type for `doNotDeclareAReservedIdentifier` query
       TQueryC(TDeclarations1PackageQuery(TDoNotDeclareAReservedIdentifierQuery()))
+  }
+
+  Query externalIdentifiersNotDistinctQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `externalIdentifiersNotDistinct` query
+      TQueryC(TDeclarations1PackageQuery(TExternalIdentifiersNotDistinctQuery()))
   }
 
   Query macroIdentifiersNotDistinctQuery() {

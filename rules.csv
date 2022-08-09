@@ -631,7 +631,7 @@ c,MISRA-C-2012,RULE-3-1,Yes,Required,,,The character sequences /* and // shall n
 c,MISRA-C-2012,RULE-3-2,Yes,Required,,,Line-splicing shall not be used in // comments,,Syntax,Easy,
 c,MISRA-C-2012,RULE-4-1,Yes,Required,,,Octal and hexadecimal escape sequences shall be terminated,A2-13-1 M2-13-2,Syntax,Medium,
 c,MISRA-C-2012,RULE-4-2,No,Advisory,,,Trigraphs should not be used,A2-5-1,,Import,
-c,MISRA-C-2012,RULE-5-1,Yes,Required,,,External identifiers shall be distinct,,Declarations,Medium,
+c,MISRA-C-2012,RULE-5-1,Yes,Required,,,External identifiers shall be distinct,,Declarations1,Medium,
 c,MISRA-C-2012,RULE-5-2,Yes,Required,,,Identifiers declared in the same scope and name space shall be distinct,,Declarations,Medium,
 c,MISRA-C-2012,RULE-5-3,Yes,Required,,,An identifier declared in an inner scope shall not hide an identifier declared in an outer scope,A2-10-1,Declarations,Import,
 c,MISRA-C-2012,RULE-5-4,Yes,Required,,,Macro identifiers shall be distinct,,Declarations1,Easy,

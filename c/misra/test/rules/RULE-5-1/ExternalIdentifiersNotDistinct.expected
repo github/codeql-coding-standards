@@ -1,0 +1,2 @@
+| test.c:1:5:1:36 | iltiqzxgfqsgigwfuyntzghvzltueeeA | External identifer is nondistinct iltiqzxgfqsgigwfuyntzghvzltueeeA compared to $@. | test.c:2:5:2:36 | iltiqzxgfqsgigwfuyntzghvzltueeeB | iltiqzxgfqsgigwfuyntzghvzltueeeA |
+| test.c:2:5:2:36 | iltiqzxgfqsgigwfuyntzghvzltueeeB | External identifer is nondistinct iltiqzxgfqsgigwfuyntzghvzltueeeB compared to $@. | test.c:1:5:1:36 | iltiqzxgfqsgigwfuyntzghvzltueeeA | iltiqzxgfqsgigwfuyntzghvzltueeeB |
