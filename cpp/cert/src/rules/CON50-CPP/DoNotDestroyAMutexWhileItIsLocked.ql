@@ -17,6 +17,7 @@ import codingstandards.cpp.Concurrency
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
 
+
 /*
  * This query finds potential misuse of mutexes passed to threads by considering
  * cases where the underlying mutex may be destroyed. The scope of this query is 
@@ -39,7 +40,12 @@ where
   and 
   (
     // firstly, we assume it is never safe to destroy a global mutex, but it is
-    // difficult to make assumptions about the intended control flow.
+    // difficult to make assumptions about the intended control flow. Note that
+    // this means the point at where the mutex is defined -- not where the variable
+    // that contains it is scoped -- a `ThreadDependentMutex` is bound to the
+    // function that creates an initialized mutex. For example, in `C`
+    // `mtx_init` is called to initialize the mutex and in C++, the constructor 
+    // of std::mutex is called.     
     not exists(dm.asExpr().getEnclosingFunction()) or 
     // secondly, we assume it is never safe to destroy a mutex created by
     // another function scope -- which includes trying to destroy a mutex that
@@ -50,4 +56,4 @@ where
     // synchronize the threads prior to destroying the mutex.
     not exists(ThreadWait tw | tw = md.getAPredecessor*())
   )
-select dm, "Mutex used by thread potentially $@ while in use.", md, "deleted"
+select dm, "Mutex used by thread potentially $@ while in use.", md, "destroyed"
