@@ -1,0 +1,4 @@
+- `CON53-CPP` - `DeadlockByLockingInPredefinedOrder.ql`
+  - Optimized performance by removing unneeded conditionals. 
+- `CON35-C`  - `DeadlockByLockingInPredefinedOrder.ql`
+  - Optimized performance by removing unneeded conditionals. 

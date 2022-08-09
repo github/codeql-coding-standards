@@ -36,7 +36,7 @@ void f(FILE *fp) {
 ```
 This code first sets `errno` to 0 to comply with [ERR30-C. Take care when reading errno](https://wiki.sei.cmu.edu/confluence/display/c/ERR30-C.+Take+care+when+reading+errno).
 
-## Compliant Solution (Annex K, strerror_s())
+## Compliant Solution (Annex K, strerror_s())
 
 This compliant solution uses the `strerror_s()` function from Annex K of the C Standard, which has the same functionality as `strerror()` but guarantees thread-safety:
 
@@ -45,7 +45,7 @@ This compliant solution uses the `strerror_s()` function from Annex K of the C S
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
- 
+ 
 enum { BUFFERSIZE = 64 };
 void f(FILE *fp) {
   fpos_t pos;
@@ -60,9 +60,9 @@ void f(FILE *fp) {
   }
 }
 ```
-Because Annex K is optional, `strerror_s()` may not be available in all implementations. 
+Because Annex K is optional, `strerror_s()` may not be available in all implementations.
 
-## Compliant Solution (POSIX, strerror_r())
+## Compliant Solution (POSIX, strerror_r())
 
 This compliant solution uses the POSIX `strerror_r()` function, which has the same functionality as `strerror()` but guarantees thread safety:
 
@@ -72,7 +72,7 @@ This compliant solution uses the POSIX `strerror_r()` function, which has the sa
 #include <string.h>
 
 enum { BUFFERSIZE = 64 };
- 
+ 
 void f(FILE *fp) {
   fpos_t pos;
   errno = 0;
