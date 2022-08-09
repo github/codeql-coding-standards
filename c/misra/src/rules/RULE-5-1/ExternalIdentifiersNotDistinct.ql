@@ -24,7 +24,10 @@ class ExternalIdentifiersLong extends ExternalIdentifiers {
   ExternalIdentifiersLong() { this.getName().length() >= 32 }
 }
 
-predicate notSame(ExternalIdentifiers d, ExternalIdentifiers d2) { not d = d2 }
+predicate notSame(ExternalIdentifiers d, ExternalIdentifiers d2) {
+  not d = d2 and
+  d.getLocation().getStartLine() >= d2.getLocation().getStartLine()
+}
 
 from ExternalIdentifiers d, ExternalIdentifiers d2
 where

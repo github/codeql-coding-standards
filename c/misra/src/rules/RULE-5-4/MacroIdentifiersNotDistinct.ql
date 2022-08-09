@@ -15,13 +15,15 @@
 import cpp
 import codingstandards.c.misra
 
-from Macro m
+from Macro m, Macro m2
 where
   not isExcluded(m, Declarations1Package::macroIdentifiersNotDistinctQuery()) and
-  exists(Macro m2 |
-    not m = m2 and
+  not m = m2 and
+  (
     if m.getName().length() >= 64
     then m.getName().substring(0, 62) = m2.getName().substring(0, 62)
     else m.getName() = m2.getName()
-  )
-select m, "Nondistinct macro identifer used " + m.getName() + " ."
+  ) and
+  //reduce double report since both macros are in alert, arbitrary ordering
+  m.getLocation().getStartLine() >= m2.getLocation().getStartLine()
+select m, "Nondistinct macro identifer used " + m.getName() + " compared to $@.", m2, m2.getName()
