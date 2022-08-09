@@ -9,7 +9,7 @@
           "description": "Avoid TOCTOU race conditions accessing files",
           "kind": "problem",
           "name": "Avoid TOCTOU race conditions while accessing files",
-          "precision": "very-high",
+          "precision": "high",
           "severity": "error",
           "short_name": "ToctouRaceConditionsWhileAccessingFiles",
           "tags": [
@@ -20,7 +20,7 @@
       ],
       "title": "Avoid TOCTOU race conditions while accessing files",
       "implementation_scope": {
-        "description": "None"
+        "description": "The query is limited to one specific class of TOCTOU race conditions."
       }
     },
     "FIO47-C": {

@@ -1,0 +1,1 @@
+| test.c:4:13:4:17 | call to fopen | This call is trying to prevent an exsisting file to be overwritten by $@. An attacker might be able to exploit the race window between the two calls. | test.c:11:9:11:13 | call to fopen | another call |
