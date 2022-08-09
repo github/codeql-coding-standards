@@ -97,6 +97,28 @@
             "problemMatcher": []
         },
         {
+            "label": "📖 Standards Automation: Generate Help Files for CERT rules",
+            "type": "shell",
+            "windows": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}help${pathSeparator}cert-help-extraction.py ${input:rule}"
+            },
+            "linux": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}help${pathSeparator}cert-help-extraction.py ${input:rule}"
+            },
+            "osx": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}help${pathSeparator}cert-help-extraction.py ${input:rule}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "runOptions": {
+                "reevaluateOnRerun": false
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "🧪 Standards Automation: Build Case Test DB",
             "type": "shell",
             "windows": {

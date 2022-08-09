@@ -90,7 +90,7 @@ In this noncompliant code example, the cast of `*s` to `unsigned int` can result
 ```cpp
 #include <limits.h>
 #include <stddef.h>
- 
+ 
 static const char table[UCHAR_MAX + 1] = { 'a' /* ... */ };
 
 ptrdiff_t first_not_in_table(const char *c_str) {
@@ -111,7 +111,7 @@ This compliant solution casts the value of type `char` to `unsigned char` before
 ```cpp
 #include <limits.h>
 #include <stddef.h>
- 
+ 
 static const char table[UCHAR_MAX + 1] = { 'a' /* ... */ };
 
 ptrdiff_t first_not_in_table(const char *c_str) {
