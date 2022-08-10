@@ -12,6 +12,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "DoNotAllowAMutexToGoOutOfScopeWhileLocked",
+          "shared_implementation_short_name": "DoNotAllowAMutexToGoOutOfScopeWhileLocked",
           "tags": [
             "correctness",
             "concurrency"
@@ -24,6 +25,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "DoNotDestroyAMutexWhileItIsLocked",
+          "shared_implementation_short_name": "DoNotDestroyAMutexWhileItIsLocked",
           "tags": [
             "correctness",
             "concurrency"
