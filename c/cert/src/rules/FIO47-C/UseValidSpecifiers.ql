@@ -14,10 +14,43 @@
 import cpp
 import codingstandards.c.cert
 
-class InvalidSpecifier extends FormatLiteral {
-  InvalidSpecifier() { not this.specsAreKnown() }
+string getInvalidFlag(string specChar) {
+  specChar = ["d", "i", "u"] and result = ["#"]
+  or
+  specChar = ["o", "x", "X", "e", "E"] and result = ["'"]
+  or
+  specChar = ["c", "s", "p", "C", "S", "%"] and result = ["'", "#", "0"]
+  or
+  specChar = ["n"] and result = ["'", "-", "+", " ", "#", "0"]
 }
 
-from InvalidSpecifier x
-where not isExcluded(x, IO4Package::useValidSpecifiersQuery())
-select x, "The conversion specifier '" + x + "' is not valid."
+string getInvalidLength(string specChar) {
+  specChar = ["d", "i", "o", "u", "x", "X", "n"] and result = ["L"]
+  or
+  specChar = ["f", "F", "e", "E", "g", "G", "a", "A"] and result = ["h", "hh", "j", "z", "t"]
+  or
+  specChar = ["c", "s"] and result = ["h", "hh", "ll", "j", "z", "t", "L"]
+  or
+  specChar = ["p", "C", "S", "%"] and result = ["h", "hh", "l", "ll", "j", "z", "t", "L"]
+}
+
+from FormatLiteral x, string message, string compatible, string specChar
+where
+  not isExcluded(x, IO4Package::useValidSpecifiersQuery()) and
+  message = "The conversion specifier '" + x + "' is not valid." and
+  compatible = "" and
+  specChar = "" and
+  not x.specsAreKnown()
+  or
+  message =
+    "The conversion specifier '" + specChar + "' is not compatible with flags '" + compatible + "'" and
+  compatible = x.getFlags(_) and
+  specChar = x.getConversionChar(_) and
+  compatible.matches("%" + getInvalidFlag(specChar) + "%")
+  or
+  message =
+    "The conversion specifier '" + specChar + "' is not compatible with length '" + compatible + "'" and
+  compatible = x.getLength(_) and
+  specChar = x.getConversionChar(_) and
+  compatible.matches("%" + getInvalidLength(specChar) + "%")
+select x, message

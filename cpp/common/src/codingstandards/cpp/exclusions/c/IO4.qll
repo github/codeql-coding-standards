@@ -7,10 +7,7 @@ newtype IO4Query =
   TToctouRaceConditionsWhileAccessingFilesQuery() or
   TUseValidSpecifiersQuery() or
   TWrongNumberOfFormatArgumentsQuery() or
-  TWrongTypeFormatArgumentsQuery() or
-  TUseValidSpecifierFlagsQuery() or
-  TUseValidSpecifierLengthQuery() or
-  TUseIntArgumentForWidthAndPrecisionQuery()
+  TWrongTypeFormatArgumentsQuery()
 
 predicate isIO4QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -44,30 +41,6 @@ predicate isIO4QueryMetadata(Query query, string queryId, string ruleId) {
     // `@id` for the `wrongTypeFormatArguments` query
     "c/cert/wrong-type-format-arguments" and
   ruleId = "FIO47-C"
-  or
-  query =
-    // `Query` instance for the `useValidSpecifierFlags` query
-    IO4Package::useValidSpecifierFlagsQuery() and
-  queryId =
-    // `@id` for the `useValidSpecifierFlags` query
-    "c/cert/use-valid-specifier-flags" and
-  ruleId = "FIO47-C"
-  or
-  query =
-    // `Query` instance for the `useValidSpecifierLength` query
-    IO4Package::useValidSpecifierLengthQuery() and
-  queryId =
-    // `@id` for the `useValidSpecifierLength` query
-    "c/cert/use-valid-specifier-length" and
-  ruleId = "FIO47-C"
-  or
-  query =
-    // `Query` instance for the `useIntArgumentForWidthAndPrecision` query
-    IO4Package::useIntArgumentForWidthAndPrecisionQuery() and
-  queryId =
-    // `@id` for the `useIntArgumentForWidthAndPrecision` query
-    "c/cert/use-int-argument-for-width-and-precision" and
-  ruleId = "FIO47-C"
 }
 
 module IO4Package {
@@ -97,26 +70,5 @@ module IO4Package {
     result =
       // `Query` type for `wrongTypeFormatArguments` query
       TQueryC(TIO4PackageQuery(TWrongTypeFormatArgumentsQuery()))
-  }
-
-  Query useValidSpecifierFlagsQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `useValidSpecifierFlags` query
-      TQueryC(TIO4PackageQuery(TUseValidSpecifierFlagsQuery()))
-  }
-
-  Query useValidSpecifierLengthQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `useValidSpecifierLength` query
-      TQueryC(TIO4PackageQuery(TUseValidSpecifierLengthQuery()))
-  }
-
-  Query useIntArgumentForWidthAndPrecisionQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `useIntArgumentForWidthAndPrecision` query
-      TQueryC(TIO4PackageQuery(TUseIntArgumentForWidthAndPrecisionQuery()))
   }
 }

@@ -1,1 +1,2 @@
-No expected results have yet been specified
+| test.c:540:3:540:8 | call to printf | Format expects 2 arguments but given 1 |
+| test.c:543:3:543:8 | call to printf | Format expects 2 arguments but given 1 |

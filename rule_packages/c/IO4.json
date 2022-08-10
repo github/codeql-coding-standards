@@ -63,42 +63,6 @@
             "correctness",
             "security"
           ]
-        },
-        {
-          "description": "Use valid specifier flags",
-          "kind": "problem",
-          "name": "Use valid specifier flags",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "UseValidSpecifierFlags",
-          "tags": [
-            "correctness",
-            "security"
-          ]
-        },
-        {
-          "description": "Use valid specifier length",
-          "kind": "problem",
-          "name": "Use valid specifier length",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "UseValidSpecifierLength",
-          "tags": [
-            "correctness",
-            "security"
-          ]
-        },
-        {
-          "description": "Use `int` arguments for `width` and `precision`",
-          "kind": "problem",
-          "name": "Use `int` arguments for `width` and `precision`",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "UseIntArgumentForWidthAndPrecision",
-          "tags": [
-            "correctness",
-            "security"
-          ]
         }
       ],
       "title": "Use valid format strings",
