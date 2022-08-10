@@ -3,7 +3,6 @@
 This query implements the {{ standard_name | escape }} rule {{ rule_id | escape }}:
 
 > {{ rule_title }}
-
 ## CERT
 
 ** REPLACE THIS BY RUNNING THE SCRIPT `scripts/help/cert-help-extraction.py` **

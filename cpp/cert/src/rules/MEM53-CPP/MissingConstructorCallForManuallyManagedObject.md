@@ -159,7 +159,7 @@ Failing to properly construct or destroy an object leaves its internal state inc
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4761, C++4762, C++4766, C++4767</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-MEM53-a</strong> </td> <td> Do not invoke malloc/realloc for objects having constructors </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.17 </td> <td> <strong><a>V630</a>, <a>V749</a></strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4761, C++4762, C++4766, C++4767</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-MEM53-a</strong> </td> <td> Do not invoke malloc/realloc for objects having constructors </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.19 </td> <td> <strong><a>V630</a>, <a>V749</a></strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

@@ -73,7 +73,7 @@ If an exception occurs while a mutex is locked, deadlock may result.
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++5018</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CON51-a</strong> </td> <td> Do not call lock() directly on a mutex </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>5018</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>CONCURRENCY.LOCK.NOUNLOCK</strong> </td> <td> Missing Lock Release </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++5018</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CON51-a</strong> </td> <td> Do not call lock() directly on a mutex </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>5018</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

@@ -91,7 +91,7 @@ This compliant solution correctly calculates the number of bytes required to con
 ```cpp
 #include <stdlib.h>
 #include <wchar.h>
- 
+ 
 void func(void) {
   wchar_t wide_str1[] = L"0123456789";
   wchar_t *wide_str2 = (wchar_t *)malloc(
