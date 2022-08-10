@@ -758,7 +758,10 @@ class LocalMutexDestroyer extends MutexDestroyer {
 
   LocalMutexDestroyer() {
     exists(LocalVariable lv |
+      // static types aren't destroyers
       not lv.isStatic() and
+      // neither are pointers
+      not lv.getType() instanceof PointerType and
       lv.getAnAssignedValue() = assignedValue and
       // map the location to the return statements of the
       // enclosing function

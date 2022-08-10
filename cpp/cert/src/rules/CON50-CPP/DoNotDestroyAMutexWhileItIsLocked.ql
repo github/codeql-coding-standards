@@ -10,14 +10,11 @@
  *       concurrency
  *       external/cert/obligation/rule
  */
-
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.Concurrency
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
-
-
 /*
  * This query finds potential misuse of mutexes passed to threads by considering
  * cases where the underlying mutex may be destroyed. The scope of this query is 
