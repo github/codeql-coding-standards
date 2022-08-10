@@ -34,23 +34,25 @@ string getInvalidLength(string specChar) {
   specChar = ["p", "C", "S", "%"] and result = ["h", "hh", "l", "ll", "j", "z", "t", "L"]
 }
 
-from FormatLiteral x, string message, string compatible, string specChar
+from FormatLiteral x, string message
 where
   not isExcluded(x, IO4Package::useValidSpecifiersQuery()) and
   message = "The conversion specifier '" + x + "' is not valid." and
-  compatible = "" and
-  specChar = "" and
   not x.specsAreKnown()
   or
-  message =
-    "The conversion specifier '" + specChar + "' is not compatible with flags '" + compatible + "'" and
-  compatible = x.getFlags(_) and
-  specChar = x.getConversionChar(_) and
-  compatible.matches("%" + getInvalidFlag(specChar) + "%")
-  or
-  message =
-    "The conversion specifier '" + specChar + "' is not compatible with length '" + compatible + "'" and
-  compatible = x.getLength(_) and
-  specChar = x.getConversionChar(_) and
-  compatible.matches("%" + getInvalidLength(specChar) + "%")
+  exists(string compatible, string specChar, int n |
+    message =
+      "The conversion specifier '" + specChar + "' is not compatible with flags '" + compatible +
+        "'" and
+    compatible = x.getFlags(n) and
+    specChar = x.getConversionChar(n) and
+    compatible.matches("%" + getInvalidFlag(specChar) + "%")
+    or
+    message =
+      "The conversion specifier '" + specChar + "' is not compatible with length '" + compatible +
+        "'" and
+    compatible = x.getLength(n) and
+    specChar = x.getConversionChar(n) and
+    compatible.matches("%" + getInvalidLength(specChar) + "%")
+  )
 select x, message
