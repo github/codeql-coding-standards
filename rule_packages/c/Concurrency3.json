@@ -125,13 +125,16 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Failing to wrap a function that may fail spuriously may result in unreliable program behavior.",
           "kind": "problem",
           "name": "Wrap functions that can fail spuriously in a loop",
           "precision": "very-high",
           "severity": "error",
           "short_name": "WrapFunctionsThatCanFailSpuriouslyInLoop",
-          "tags": []
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
         }
       ],
       "title": "Wrap functions that can fail spuriously in a loop"
