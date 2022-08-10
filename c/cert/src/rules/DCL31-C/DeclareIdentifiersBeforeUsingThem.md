@@ -5,7 +5,6 @@ This query implements the CERT-C rule DCL31-C:
 > Declare identifiers before using them
 
 
-
 ## Description
 
 The C11 Standard requires type specifiers and forbids implicit function declarations. The C90 Standard allows implicit typing of variables and functions. Consequently, some existing legacy code uses implicit typing. Some C compilers still support legacy code by allowing implicit typing, but it should not be used for new code. Such an [implementation](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-implementation) may choose to assume an implicit declaration and continue translation to support existing programs that used this feature.
