@@ -1,22 +1,5 @@
 {
   "CERT-C": {
-    "CON30-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "Clean up thread-specific storage",
-          "precision": "medium",
-          "severity": "error",
-          "short_name": "CleanUpThreadSpecificStorage",
-          "tags": []
-        }
-      ],
-      "title": "Clean up thread-specific storage"
-    },
     "CON31-C": {
       "properties": {
         "obligation": "rule"
@@ -51,73 +34,26 @@
       ],
       "title": "Do not destroy a mutex while it is locked"
     },
-    "CON34-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "Declare objects shared between threads with appropriate storage durations",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "DeclareThreadsWithAppropriateStorageDurations",
-          "tags": []
-        }
-      ],
-      "title": "Declare objects shared between threads with appropriate storage durations"
-    },
     "CON38-C": {
       "properties": {
         "obligation": "rule"
       },
       "queries": [
         {
-          "description": "",
+          "description": "Usages of `cnd_signal` with non-unique condition variables may impact thread safety and liveness.",
           "kind": "problem",
           "name": "Preserve thread safety and liveness when using condition variables",
           "precision": "very-high",
           "severity": "error",
           "short_name": "PreserveSafetyWhenUsingConditionVariables",
-          "tags": []
+          "shared_implementation_short_name": "PreserveSafetyWhenUsingConditionVariables",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
         }
       ],
       "title": "Preserve thread safety and liveness when using condition variables"
-    },
-    "CON39-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "Do not join or detach a thread that was previously joined or detached",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "ThreadPreviouslyJoinedOrDetached",
-          "tags": []
-        }
-      ],
-      "title": "Do not join or detach a thread that was previously joined or detached"
-    },
-    "CON40-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "Do not refer to an atomic variable twice in an expression",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "DoNotReferToAnAtomicVariableTwiceInExpression",
-          "tags": []
-        }
-      ],
-      "title": "Do not refer to an atomic variable twice in an expression"
     },
     "CON41-C": {
       "properties": {

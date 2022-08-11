@@ -128,7 +128,8 @@
           "name": "Preserve thread safety and liveness when using condition variables",
           "precision": "high",
           "severity": "error",
-          "short_name": "PreserveThreadSafetyAndLivenessWhenUsingConditionVariables",
+          "short_name": "PreserveSafetyWhenUsingConditionVariables",
+          "shared_implementation_short_name": "PreserveSafetyWhenUsingConditionVariables",
           "tags": [
             "correctness",
             "concurrency"
