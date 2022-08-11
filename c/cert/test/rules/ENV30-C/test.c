@@ -65,6 +65,15 @@ void f4(void) {
   }
 }
 
+void f4alias(void) {
+  struct lconv *conv4 = localeconv();
+  struct lconv *conv = conv4;
+
+  if ('\0' == conv4->decimal_point[0]) {
+    conv->decimal_point = "."; // NON_COMPLIANT
+  }
+}
+
 void f5(void) {
   const struct lconv *conv5 = localeconv();
   if (conv5 == NULL) {
