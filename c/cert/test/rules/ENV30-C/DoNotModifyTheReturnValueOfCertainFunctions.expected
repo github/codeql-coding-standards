@@ -1,78 +1,16 @@
 edges
-| test.c:5:18:5:22 | c_str | test.c:5:18:5:22 | c_str |
-| test.c:5:18:5:22 | c_str | test.c:5:18:5:22 | c_str |
-| test.c:5:18:5:22 | c_str | test.c:6:10:6:15 | * ... |
-| test.c:5:18:5:22 | c_str | test.c:6:11:6:15 | c_str |
-| test.c:5:18:5:22 | c_str | test.c:7:9:7:14 | * ... |
-| test.c:5:18:5:22 | c_str | test.c:7:10:7:14 | c_str |
-| test.c:5:18:5:22 | c_str | test.c:8:7:8:12 | * ... |
 | test.c:5:18:5:22 | c_str | test.c:8:8:8:12 | c_str |
-| test.c:5:18:5:22 | c_str | test.c:10:7:10:11 | c_str |
-| test.c:15:16:15:21 | call to getenv | test.c:17:3:17:20 | ... = ... |
-| test.c:15:16:15:21 | call to getenv | test.c:17:17:17:20 | env1 |
-| test.c:15:16:15:21 | call to getenv | test.c:19:7:19:10 | env1 |
-| test.c:15:16:15:21 | call to getenv | test.c:21:9:21:12 | env1 |
 | test.c:15:16:15:21 | call to getenv | test.c:21:9:21:12 | env1 |
 | test.c:21:9:21:12 | env1 | test.c:5:18:5:22 | c_str |
-| test.c:21:9:21:12 | env1 | test.c:5:18:5:22 | c_str |
-| test.c:21:9:21:12 | env1 | test.c:21:9:21:12 | ref arg env1 |
-| test.c:28:10:28:15 | call to getenv | test.c:28:3:28:27 | ... = ... |
-| test.c:28:10:28:15 | call to getenv | test.c:29:7:29:10 | env2 |
-| test.c:28:10:28:15 | call to getenv | test.c:32:39:32:42 | env2 |
-| test.c:28:10:28:15 | call to getenv | test.c:36:23:36:26 | env2 |
-| test.c:44:10:44:15 | call to getenv | test.c:44:3:44:27 | ... = ... |
-| test.c:44:10:44:15 | call to getenv | test.c:45:7:45:10 | env3 |
-| test.c:44:10:44:15 | call to getenv | test.c:48:24:48:27 | env3 |
-| test.c:60:11:60:19 | call to setlocale | test.c:60:3:60:32 | ... = ... |
-| test.c:60:11:60:19 | call to setlocale | test.c:62:15:62:19 | conv4 |
-| test.c:60:11:60:19 | call to setlocale | test.c:63:5:63:9 | conv4 |
-| test.c:68:31:68:40 | call to localeconv | test.c:69:7:69:11 | conv5 |
-| test.c:68:31:68:40 | call to localeconv | test.c:76:24:76:28 | conv5 |
+| test.c:61:11:61:20 | call to localeconv | test.c:64:5:64:9 | conv4 |
 nodes
 | test.c:5:18:5:22 | c_str | semmle.label | c_str |
-| test.c:5:18:5:22 | c_str | semmle.label | c_str |
-| test.c:5:18:5:22 | c_str | semmle.label | c_str |
-| test.c:5:18:5:22 | c_str | semmle.label | c_str |
-| test.c:6:10:6:15 | * ... | semmle.label | * ... |
-| test.c:6:11:6:15 | c_str | semmle.label | c_str |
-| test.c:7:9:7:14 | * ... | semmle.label | * ... |
-| test.c:7:10:7:14 | c_str | semmle.label | c_str |
-| test.c:8:7:8:12 | * ... | semmle.label | * ... |
 | test.c:8:8:8:12 | c_str | semmle.label | c_str |
-| test.c:10:7:10:11 | c_str | semmle.label | c_str |
 | test.c:15:16:15:21 | call to getenv | semmle.label | call to getenv |
-| test.c:15:16:15:21 | call to getenv | semmle.label | call to getenv |
-| test.c:17:3:17:20 | ... = ... | semmle.label | ... = ... |
-| test.c:17:17:17:20 | env1 | semmle.label | env1 |
-| test.c:19:7:19:10 | env1 | semmle.label | env1 |
 | test.c:21:9:21:12 | env1 | semmle.label | env1 |
-| test.c:21:9:21:12 | env1 | semmle.label | env1 |
-| test.c:21:9:21:12 | ref arg env1 | semmle.label | ref arg env1 |
-| test.c:28:3:28:27 | ... = ... | semmle.label | ... = ... |
-| test.c:28:10:28:15 | call to getenv | semmle.label | call to getenv |
-| test.c:28:10:28:15 | call to getenv | semmle.label | call to getenv |
-| test.c:29:7:29:10 | env2 | semmle.label | env2 |
-| test.c:32:39:32:42 | env2 | semmle.label | env2 |
-| test.c:36:23:36:26 | env2 | semmle.label | env2 |
-| test.c:44:3:44:27 | ... = ... | semmle.label | ... = ... |
-| test.c:44:10:44:15 | call to getenv | semmle.label | call to getenv |
-| test.c:44:10:44:15 | call to getenv | semmle.label | call to getenv |
-| test.c:45:7:45:10 | env3 | semmle.label | env3 |
-| test.c:48:24:48:27 | env3 | semmle.label | env3 |
-| test.c:58:25:58:34 | call to localeconv | semmle.label | call to localeconv |
-| test.c:60:3:60:32 | ... = ... | semmle.label | ... = ... |
-| test.c:60:11:60:19 | call to setlocale | semmle.label | call to setlocale |
-| test.c:60:11:60:19 | call to setlocale | semmle.label | call to setlocale |
-| test.c:62:15:62:19 | conv4 | semmle.label | conv4 |
-| test.c:63:5:63:9 | conv4 | semmle.label | conv4 |
-| test.c:68:31:68:40 | call to localeconv | semmle.label | call to localeconv |
-| test.c:68:31:68:40 | call to localeconv | semmle.label | call to localeconv |
-| test.c:69:7:69:11 | conv5 | semmle.label | conv5 |
-| test.c:76:24:76:28 | conv5 | semmle.label | conv5 |
+| test.c:61:11:61:20 | call to localeconv | semmle.label | call to localeconv |
+| test.c:64:5:64:9 | conv4 | semmle.label | conv4 |
 subpaths
-| test.c:21:9:21:12 | env1 | test.c:5:18:5:22 | c_str | test.c:5:18:5:22 | c_str | test.c:21:9:21:12 | ref arg env1 |
-| test.c:21:9:21:12 | env1 | test.c:5:18:5:22 | c_str | test.c:5:18:5:22 | c_str | test.c:21:9:21:12 | ref arg env1 |
 #select
-| test.c:8:7:8:12 | * ... | test.c:15:16:15:21 | call to getenv | test.c:8:7:8:12 | * ... | The object returned by the function getenv should no be modified. |
-| test.c:10:7:10:11 | c_str | test.c:15:16:15:21 | call to getenv | test.c:10:7:10:11 | c_str | The object returned by the function getenv should no be modified. |
-| test.c:63:5:63:9 | conv4 | test.c:60:11:60:19 | call to setlocale | test.c:63:5:63:9 | conv4 | The object returned by the function setlocale should no be modified. |
+| test.c:8:8:8:12 | c_str | test.c:15:16:15:21 | call to getenv | test.c:8:8:8:12 | c_str | The object returned by the function getenv should no be modified. |
+| test.c:64:5:64:9 | conv4 | test.c:61:11:61:20 | call to localeconv | test.c:64:5:64:9 | conv4 | The object returned by the function localeconv should no be modified. |

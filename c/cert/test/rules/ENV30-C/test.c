@@ -7,7 +7,7 @@ void trstr(char *c_str, char orig, char rep) {
     if (*c_str == orig) {
       *c_str = rep; // NON_COMPLIANT
     }
-    ++c_str; // NON_COMPLIANT
+    ++c_str;
   }
 }
 
@@ -57,7 +57,8 @@ void f3(void) {
 void f4(void) {
   struct lconv *conv4 = localeconv();
 
-  conv4 = setlocale(LC_ALL, "C"); // COMPLIANT
+  setlocale(LC_ALL, "C"); // COMPLIANT
+  conv4 = localeconv();   // COMPLIANT
 
   if ('\0' == conv4->decimal_point[0]) {
     conv4->decimal_point = "."; // NON_COMPLIANT
