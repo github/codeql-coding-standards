@@ -1,0 +1,99 @@
+{
+  "CERT-C": {
+    "ARR39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Adding or subtracting a scaled integer value to or from a pointer may yield an out-of-bounds pointer.",
+          "kind": "path-problem",
+          "name": "Do not add or subtract a scaled integer to a pointer",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotAddOrSubtractAScaledIntegerToAPointer",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not add or subtract a scaled integer to a pointer"
+    },
+    "EXP32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Do not access a volatile object through a nonvolatile reference",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotAccessVolatileObjectWithNonvolatileReference",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not access a volatile object through a nonvolatile reference"
+    },
+    "EXP36-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Converting a pointer value to a pointer type which is more strictly aligned results in undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not cast pointers into more strictly aligned pointer types",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotCastPointerToMoreStrictlyAlignedPointerType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not cast pointers into more strictly aligned pointer types"
+    },
+    "EXP39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accessing an object's stored value by means of anything other than an lvalue of an allowable type results in undefined behavior.",
+          "kind": "problem",
+          "name": "Do not access a variable through a pointer of an incompatible type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotAccessVariableWithPointerOfIncompatibleType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not access a variable through a pointer of an incompatible type"
+    },
+    "EXP43-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Avoid undefined behavior when using restrict-qualified pointers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UndefinedBehaviorWithRestrictQualifiedPointer",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Avoid undefined behavior when using restrict-qualified pointers"
+    }
+  }
+}
