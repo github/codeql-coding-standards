@@ -59,25 +59,6 @@ class DFConf extends DataFlow::Configuration {
 
   override predicate isSink(DataFlow::Node sink) { any() }
 
-  override predicate isBarrier(DataFlow::Node node) {
-    // exclude some functions that are known to be safe
-    exists(FunctionCall fc |
-      exists(string names |
-        names = ["strlen", "strdup", "string", "strcmp"] and
-        fc.getTarget().hasGlobalName(names) and
-        node.asExpr() = fc.getArgument(0)
-        or
-        names = ["memcpy", "memcpy_s", "strcpy", "strcpy_s", "strncpy", "strncpy_s"] and
-        node.asExpr() = fc.getArgument(1) and
-        (
-          fc.getTarget().hasGlobalName(names)
-          or
-          exists(MacroInvocation mi | mi.getMacroName() = names and fc = mi.getExpr())
-        )
-      )
-    )
-  }
-
   // Flow through pointer dereference expressions
   override predicate isAdditionalFlowStep(DataFlow::Node node1, DataFlow::Node node2) {
     exists(PointerDereferenceExpr de |

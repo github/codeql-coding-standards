@@ -18,12 +18,16 @@ edges
 | test.c:21:9:21:12 | env1 | test.c:21:9:21:12 | ref arg env1 |
 | test.c:28:10:28:15 | call to getenv | test.c:28:3:28:27 | ... = ... |
 | test.c:28:10:28:15 | call to getenv | test.c:29:7:29:10 | env2 |
+| test.c:28:10:28:15 | call to getenv | test.c:32:39:32:42 | env2 |
+| test.c:28:10:28:15 | call to getenv | test.c:36:23:36:26 | env2 |
 | test.c:44:10:44:15 | call to getenv | test.c:44:3:44:27 | ... = ... |
 | test.c:44:10:44:15 | call to getenv | test.c:45:7:45:10 | env3 |
+| test.c:44:10:44:15 | call to getenv | test.c:48:24:48:27 | env3 |
 | test.c:60:11:60:19 | call to setlocale | test.c:60:3:60:32 | ... = ... |
 | test.c:60:11:60:19 | call to setlocale | test.c:62:15:62:19 | conv4 |
 | test.c:60:11:60:19 | call to setlocale | test.c:63:5:63:9 | conv4 |
 | test.c:68:31:68:40 | call to localeconv | test.c:69:7:69:11 | conv5 |
+| test.c:68:31:68:40 | call to localeconv | test.c:76:24:76:28 | conv5 |
 nodes
 | test.c:5:18:5:22 | c_str | semmle.label | c_str |
 | test.c:5:18:5:22 | c_str | semmle.label | c_str |
@@ -48,10 +52,13 @@ nodes
 | test.c:28:10:28:15 | call to getenv | semmle.label | call to getenv |
 | test.c:28:10:28:15 | call to getenv | semmle.label | call to getenv |
 | test.c:29:7:29:10 | env2 | semmle.label | env2 |
+| test.c:32:39:32:42 | env2 | semmle.label | env2 |
+| test.c:36:23:36:26 | env2 | semmle.label | env2 |
 | test.c:44:3:44:27 | ... = ... | semmle.label | ... = ... |
 | test.c:44:10:44:15 | call to getenv | semmle.label | call to getenv |
 | test.c:44:10:44:15 | call to getenv | semmle.label | call to getenv |
 | test.c:45:7:45:10 | env3 | semmle.label | env3 |
+| test.c:48:24:48:27 | env3 | semmle.label | env3 |
 | test.c:58:25:58:34 | call to localeconv | semmle.label | call to localeconv |
 | test.c:60:3:60:32 | ... = ... | semmle.label | ... = ... |
 | test.c:60:11:60:19 | call to setlocale | semmle.label | call to setlocale |
@@ -61,6 +68,7 @@ nodes
 | test.c:68:31:68:40 | call to localeconv | semmle.label | call to localeconv |
 | test.c:68:31:68:40 | call to localeconv | semmle.label | call to localeconv |
 | test.c:69:7:69:11 | conv5 | semmle.label | conv5 |
+| test.c:76:24:76:28 | conv5 | semmle.label | conv5 |
 subpaths
 | test.c:21:9:21:12 | env1 | test.c:5:18:5:22 | c_str | test.c:5:18:5:22 | c_str | test.c:21:9:21:12 | ref arg env1 |
 | test.c:21:9:21:12 | env1 | test.c:5:18:5:22 | c_str | test.c:5:18:5:22 | c_str | test.c:21:9:21:12 | ref arg env1 |
