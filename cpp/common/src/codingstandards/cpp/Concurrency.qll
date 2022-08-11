@@ -787,3 +787,22 @@ class DestructorMutexDestroyer extends MutexDestroyer, DestructorCall {
    */
   override Expr getMutexExpr() { getQualifier() = result }
 }
+
+/**
+ * Models a conditional variable denoted by `std::condition_variable`.
+ */
+class ConditionalVariable extends Variable {
+  ConditionalVariable() {
+    getUnderlyingType().(Class).hasQualifiedName("std", "condition_variable")
+  }
+}
+
+/**
+ * Models a conditional function, which is a function that depends on the value
+ * of a conditional variable.
+ */
+class ConditionalFunction extends Function {
+  ConditionalFunction() {
+    exists(ConditionalVariable cv | cv.getAnAccess().getEnclosingFunction() = this)
+  }
+}
