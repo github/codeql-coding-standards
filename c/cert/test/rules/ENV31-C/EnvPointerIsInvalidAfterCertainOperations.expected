@@ -1,0 +1,6 @@
+| test.c:26:9:26:12 | envp | Accessing envp following a $@ is invalid because the optional $@ argument is present in main. | test.c:18:9:18:14 | call to setenv | call to setenv | test.c:14:52:14:55 | envp | envp |
+| test.c:27:26:27:29 | envp | Accessing envp following a $@ is invalid because the optional $@ argument is present in main. | test.c:18:9:18:14 | call to setenv | call to setenv | test.c:14:52:14:55 | envp | envp |
+| test.c:28:14:28:17 | envp | Accessing envp following a $@ is invalid because the optional $@ argument is present in main. | test.c:18:9:18:14 | call to setenv | call to setenv | test.c:14:52:14:55 | envp | envp |
+| test.c:41:9:41:12 | envp | Accessing envp following a $@ is invalid because the optional $@ argument is present in main. | test.c:33:9:33:17 | call to _putenv_s | call to _putenv_s | test.c:14:52:14:55 | envp | envp |
+| test.c:42:26:42:29 | envp | Accessing envp following a $@ is invalid because the optional $@ argument is present in main. | test.c:33:9:33:17 | call to _putenv_s | call to _putenv_s | test.c:14:52:14:55 | envp | envp |
+| test.c:43:14:43:17 | envp | Accessing envp following a $@ is invalid because the optional $@ argument is present in main. | test.c:33:9:33:17 | call to _putenv_s | call to _putenv_s | test.c:14:52:14:55 | envp | envp |

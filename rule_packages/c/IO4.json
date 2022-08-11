@@ -20,7 +20,7 @@
       ],
       "title": "Avoid TOCTOU race conditions while accessing files",
       "implementation_scope": {
-        "description": "The query is limited to one specific class of TOCTOU race conditions."
+        "description": "The query is limited to the specific class of TOCTOU race conditions."
       }
     },
     "FIO47-C": {
