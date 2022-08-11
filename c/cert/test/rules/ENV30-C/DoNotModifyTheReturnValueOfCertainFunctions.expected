@@ -74,4 +74,5 @@ subpaths
 | test.c:21:9:21:12 | env1 | test.c:5:18:5:22 | c_str | test.c:5:18:5:22 | c_str | test.c:21:9:21:12 | ref arg env1 |
 #select
 | test.c:8:7:8:12 | * ... | test.c:15:16:15:21 | call to getenv | test.c:8:7:8:12 | * ... | The object returned by the function getenv should no be modified. |
+| test.c:10:7:10:11 | c_str | test.c:15:16:15:21 | call to getenv | test.c:10:7:10:11 | c_str | The object returned by the function getenv should no be modified. |
 | test.c:63:5:63:9 | conv4 | test.c:60:11:60:19 | call to setlocale | test.c:63:5:63:9 | conv4 | The object returned by the function setlocale should no be modified. |

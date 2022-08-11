@@ -5,9 +5,9 @@
 void trstr(char *c_str, char orig, char rep) {
   while (*c_str != '\0') {
     if (*c_str == orig) {
-      *c_str = rep;
+      *c_str = rep; // NON_COMPLIANT
     }
-    ++c_str;
+    ++c_str; // NON_COMPLIANT
   }
 }
 
@@ -18,7 +18,7 @@ void f1(void) {
 
   if (env1 == NULL) {
   }
-  trstr(env1, '"', '_'); // NON_COMPLIANT
+  trstr(env1, '"', '_');
 }
 
 void f2(void) {

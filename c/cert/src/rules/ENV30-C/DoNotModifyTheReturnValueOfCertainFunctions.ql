@@ -45,6 +45,8 @@ Expr objectModified(NotModifiableCall c) {
       ae.getRValue().(FunctionCall).getArgument(0).getValue() = ["0", "3", "4"]
     )
   )
+  or
+  exists(CrementOperation co | result = co.getOperand())
 }
 
 /**
