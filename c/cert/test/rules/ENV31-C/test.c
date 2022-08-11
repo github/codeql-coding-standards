@@ -6,10 +6,7 @@ extern char **environ;
 
 // WINDOWS
 extern char **_environ;
-int _putenv_s(
-   const char *varname,
-   const char *value_string
-);
+int _putenv_s(const char *varname, const char *value_string);
 
 int main(int argc, const char *argv[], const char *envp[]) {
 
