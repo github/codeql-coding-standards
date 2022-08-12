@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON31-C:
 > Do not destroy a mutex while it is locked
 
 
-
 ## Description
 
 Mutexes are used to protect shared data structures being concurrently accessed. If a mutex is destroyed while a thread is blocked waiting for that mutex, [critical sections](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-criticalsections) and shared data are no longer protected.
