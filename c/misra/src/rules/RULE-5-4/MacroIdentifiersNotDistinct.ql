@@ -20,6 +20,10 @@ where
   not isExcluded(m, Declarations1Package::macroIdentifiersNotDistinctQuery()) and
   not m = m2 and
   (
+    //C99 states the first 63 characters of macro identifiers are significant
+    //C90 states the first 31 characters of macro identifiers are significant and is not currently considered by this rule
+    //ie an identifier differing on the 32nd character would be indistinct for C90 but distinct for C99
+    //and is currently not reported by this rule
     if m.getName().length() >= 64
     then m.getName().substring(0, 62) = m2.getName().substring(0, 62)
     else m.getName() = m2.getName()

@@ -33,6 +33,9 @@ from ExternalIdentifiers d, ExternalIdentifiers d2
 where
   not isExcluded(d, Declarations1Package::externalIdentifiersNotDistinctQuery()) and
   notSame(d, d2) and
+  //C99 states the first 31 characters of external identifiers are significant
+  //C90 states the first 6 characters of external identifiers are significant and case is not required to be significant
+  //C90 is not currently considered by this rule
   if d instanceof ExternalIdentifiersLong and d2 instanceof ExternalIdentifiersLong
   then d.getName().substring(0, 30) = d2.getName().substring(0, 30)
   else d.getName() = d2.getName()
