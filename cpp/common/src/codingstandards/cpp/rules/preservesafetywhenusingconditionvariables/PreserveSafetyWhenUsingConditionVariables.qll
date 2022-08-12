@@ -1,5 +1,6 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library which includes a `problems` predicate for reporting errors
+ * related to the use of condition variables.
  */
 
 import cpp
