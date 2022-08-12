@@ -165,7 +165,7 @@ CWE-667 = Union, CON31-C, POS48-C, list) where list =
 
 ## Implementation notes
 
-This implementation does not allow for thread synchronization to be performed in subroutines. All synchronization must be performed within the context of the other thread management functions.
+None
 
 ## References
 
