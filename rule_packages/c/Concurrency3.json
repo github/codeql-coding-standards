@@ -32,7 +32,10 @@
           ]
         }
       ],
-      "title": "Do not destroy a mutex while it is locked"
+      "title": "Do not destroy a mutex while it is locked",
+      "implementation_scope": {
+        "description": "This implementation does not allow for thread synchronization to be performed in subroutines. All synchronization must be performed within the context of the other thread management functions."
+      }
     },
     "CON38-C": {
       "properties": {
@@ -53,7 +56,10 @@
           ]
         }
       ],
-      "title": "Preserve thread safety and liveness when using condition variables"
+      "title": "Preserve thread safety and liveness when using condition variables",
+      "implementation_scope": {
+        "description": "This implementation does not attempt to identify unique condition variables and instead advocates for the usage of `cnd_broadcast`."
+      }
     },
     "CON41-C": {
       "properties": {
@@ -73,7 +79,10 @@
           ]
         }
       ],
-      "title": "Wrap functions that can fail spuriously in a loop"
+      "title": "Wrap functions that can fail spuriously in a loop",
+      "implementation_scope": {
+        "description": "This implementation does not attempt to identify a relationship between the condition variable and the atomic operation."
+      }
     }
   }
 }
