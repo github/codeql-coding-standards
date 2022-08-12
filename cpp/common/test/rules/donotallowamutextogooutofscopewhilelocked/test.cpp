@@ -122,3 +122,20 @@ void f10() {
     threads[i] = std::thread(t5, i);
   }
 }
+
+void join_threads(std::thread *threads) {
+  for (int i = 0; i < 5; ++i) {
+    threads[i].join();
+  }
+}
+
+void f11() {
+  std::thread threads[5];
+  std::mutex m1; // NON_COMPLIANT (FALSE POSITIVE)
+
+  for (int i = 0; i < 5; ++i) {
+    threads[i] = std::thread(t1, i, &m1);
+  }
+
+  join_threads(threads);
+}
