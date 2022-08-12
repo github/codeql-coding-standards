@@ -1,7 +1,7 @@
 /**
  * @id c/cert/wrong-type-format-arguments
  * @name FIO47-C: Wrong type format arguments
- * @description Wrong type format arguments
+ * @description Wrong type format arguments.
  * @kind problem
  * @precision high
  * @problem.severity error

@@ -1,7 +1,7 @@
 /**
  * @id c/cert/toctou-race-conditions-while-accessing-files
  * @name FIO45-C: Avoid TOCTOU race conditions while accessing files
- * @description Avoid TOCTOU race conditions accessing files
+ * @description TOCTOU race conditions when accessing files can lead to vulnerability.
  * @kind problem
  * @precision high
  * @problem.severity error

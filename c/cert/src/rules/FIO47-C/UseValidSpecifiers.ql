@@ -1,7 +1,7 @@
 /**
  * @id c/cert/use-valid-specifiers
  * @name FIO47-C: Use valid format strings
- * @description Use valid conversion specifier
+ * @description Use valid conversion specifier.
  * @kind problem
  * @precision high
  * @problem.severity error

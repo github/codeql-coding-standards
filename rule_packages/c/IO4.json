@@ -6,7 +6,7 @@
       },
       "queries": [
         {
-          "description": "Avoid TOCTOU race conditions accessing files",
+          "description": "TOCTOU race conditions when accessing files can lead to vulnerability.",
           "kind": "problem",
           "name": "Avoid TOCTOU race conditions while accessing files",
           "precision": "high",
@@ -29,7 +29,7 @@
       },
       "queries": [
         {
-          "description": "Use valid conversion specifier",
+          "description": "Use valid conversion specifier.",
           "kind": "problem",
           "name": "Use valid format strings",
           "precision": "high",
@@ -41,7 +41,7 @@
           ]
         },
         {
-          "description": "Use correct number of format arguments",
+          "description": "Use correct number of format arguments.",
           "kind": "problem",
           "name": "Use correct number fo arguments",
           "precision": "high",
@@ -53,7 +53,7 @@
           ]
         },
         {
-          "description": "Wrong type format arguments",
+          "description": "Wrong type format arguments.",
           "kind": "problem",
           "name": "Wrong type format arguments",
           "precision": "high",
@@ -67,7 +67,7 @@
       ],
       "title": "Use valid format strings",
       "implementation_scope": {
-        "description": "None"
+        "description": "None."
       }
     }
   }

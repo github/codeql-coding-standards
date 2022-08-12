@@ -88,7 +88,7 @@
       },
       "queries": [
         {
-          "description": "Close files when they are no longer needed",
+          "description": "Close files when they are no longer needed.",
           "kind": "problem",
           "name": "Close files when they are no longer needed",
           "precision": "very-high",
@@ -111,7 +111,7 @@
       },
       "queries": [
         {
-          "description": "Do not access a closed file",
+          "description": "Do not access a closed file.",
           "kind": "problem",
           "name": "Do not access a closed file",
           "precision": "high",
@@ -136,7 +136,7 @@
       },
       "queries": [
         {
-          "description": "A closed FILE is accessed",
+          "description": "A closed FILE is accessed.",
           "kind": "problem",
           "name": "The value of a pointer to a FILE shall not be used after the associated stream has been closed",
           "precision": "very-high",
