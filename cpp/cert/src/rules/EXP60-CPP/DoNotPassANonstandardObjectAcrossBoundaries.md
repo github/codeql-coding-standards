@@ -126,7 +126,7 @@ The effects of passing objects of nonstandard-layout type across execution bound
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-Wdynamic-class-memaccess</code> </td> <td> Catches instances where the vtable pointer will be overwritten </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4741, C++4742, C++4743</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-EXP60-a</strong> </td> <td> Do not pass a nonstandard-layout type object across execution boundaries </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Clang </a> </td> <td> 3.9 </td> <td> <code>-Wdynamic-class-memaccess</code> </td> <td> Catches instances where the vtable pointer will be overwritten </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4741, C++4742, C++4743</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-EXP60-a</strong> </td> <td> Do not pass a nonstandard-layout type object across execution boundaries </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
