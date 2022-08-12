@@ -166,10 +166,7 @@ else:
               "kind" : "problem",
               "tags" : []
             }
-          ],
-          "implementation_scope": {
-            "description": "None."
-          }
+          ]
         }
   
   if not package_description:
