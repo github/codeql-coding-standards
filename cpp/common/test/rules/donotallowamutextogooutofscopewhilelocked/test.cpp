@@ -131,7 +131,7 @@ void join_threads(std::thread *threads) {
 
 void f11() {
   std::thread threads[5];
-  std::mutex m1; // NON_COMPLIANT (FALSE POSITIVE)
+  std::mutex m1; // COMPLIANT[FALSE_POSITIVE]
 
   for (int i = 0; i < 5; ++i) {
     threads[i] = std::thread(t1, i, &m1);
