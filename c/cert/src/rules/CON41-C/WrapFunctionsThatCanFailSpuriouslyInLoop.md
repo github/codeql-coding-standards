@@ -149,7 +149,7 @@ Search for [vulnerabilities](https://www.securecoding.cert.org/confluence/displa
 
 ## Implementation notes
 
-This implementation does not attempt to identify a relationship between the condition variable and the atomic operation.
+None
 
 ## References
 
