@@ -64,6 +64,8 @@ class ArrayCountOfExpr extends ArrayExpr {
     exists(DivExpr div, Variable arr, VariableAccess left, ArrayExpr right |
       div = this.getArrayOffset() and
       arr = this.getArrayBase().(VariableAccess).getTarget() and
+      // exclude cases where arr is a pointer rather than an array
+      arr.getUnderlyingType() instanceof ArrayType and
       // holds if the dividend is sizeof(arr)
       left = div.getLeftOperand().(SizeofExprOperator).getExprOperand() and
       left.getTarget() = this.getArrayBase().(VariableAccess).getTarget() and
