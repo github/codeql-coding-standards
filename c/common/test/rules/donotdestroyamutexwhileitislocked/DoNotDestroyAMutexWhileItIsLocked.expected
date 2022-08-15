@@ -1,0 +1,2 @@
+| test.c:49:3:49:10 | call to mtx_init | Mutex used by thread potentially $@ while in use. | test.c:55:3:55:13 | call to mtx_destroy | destroyed |
+| test.c:84:3:84:10 | call to mtx_init | Mutex used by thread potentially $@ while in use. | test.c:90:3:90:13 | call to mtx_destroy | destroyed |
