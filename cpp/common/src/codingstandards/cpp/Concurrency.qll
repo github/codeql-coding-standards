@@ -48,7 +48,7 @@ class ThreadConstructorCall extends ConstructorCall, ThreadCreationFunction {
 }
 
 /**
- * Models a call to a thread constructor via `std::thread`.
+ * Models a call to a thread constructor via `thrd_create`.
  */
 class C11ThreadCreateCall extends ThreadCreationFunction {
   Function f;
@@ -458,13 +458,351 @@ class MutexDependentThreadConstructor extends ThreadConstructorCall {
 }
 
 /**
- * Models a call to a a `std::thread` join.
+ * Models thread waiting functions.
  */
-class ThreadWait extends FunctionCall {
+abstract class ThreadWait extends FunctionCall { }
+
+/**
+ * Models a call to a `std::thread` join.
+ */
+class CPPThreadWait extends ThreadWait {
   VariableAccess var;
 
-  ThreadWait() {
+  CPPThreadWait() {
     getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "thread") and
     getTarget().getName() = "join"
+  }
+}
+
+/**
+ * Models a call to `thrd_join` in C11.
+ */
+class C11ThreadWait extends ThreadWait {
+  VariableAccess var;
+
+  C11ThreadWait() { getTarget().getName() = "thrd_join" }
+}
+
+abstract class MutexSource extends FunctionCall { }
+
+/**
+ * Models a C++ style mutex.
+ */
+class CPPMutexSource extends MutexSource, ConstructorCall {
+  CPPMutexSource() { getTarget().getDeclaringType().hasQualifiedName("std", "mutex") }
+}
+
+/**
+ * Models a C11 style mutex.
+ */
+class C11MutexSource extends MutexSource, FunctionCall {
+  C11MutexSource() { getTarget().hasName("mtx_init") }
+}
+
+/**
+ * Models a thread dependent mutex. A thread dependent mutex is a mutex
+ * that is used by a thread. This dependency is established either by directly
+ * passing in a mutex or by referencing a mutex that is in the local scope. The utility
+ * of this class is it captures the `DataFlow::Node` source at which the mutex
+ * came from. For example, if it is passed in from a local function to a thread.
+ * This functionality is critical, since it allows one to inspect how the thread
+ * behaves with respect to the owner of a resource.
+ *
+ * To model the myriad ways this can happen, the subclasses of this class are
+ * responsible for implementing the various usage patterns.
+ */
+abstract class ThreadDependentMutex extends DataFlow::Node {
+  DataFlow::Node sink;
+
+  DataFlow::Node getASource() {
+    // the source is either the thing that declared
+    // the mutex
+    result = this
+    or
+    // or the thread we are using it in
+    result = getAThreadSource()
+  }
+
+  /**
+   * Gets the dataflow nodes corresponding to thread local usages of the
+   * dependent mutex.
+   */
+  DataFlow::Node getAThreadSource() {
+    // here we line up the actual parameter at the thread creation
+    // site with the formal parameter in the target thread.
+    // Note that there are differences between the C and C++ versions
+    // of the argument ordering in the thread creation function. However,
+    // since the C version only takes one parameter (as opposed to multiple)
+    // we can simplify this search by considering only the first argument.
+    exists(FunctionCall fc, Function f, int n |
+      // Get the argument to which the mutex flowed.
+      fc.getArgument(n) = sink.asExpr() and
+      // Get the thread function we are calling.
+      f = fc.getArgument(0).(FunctionAccess).getTarget() and
+      // in C++, there is an extra argument to the `std::thread` call
+      // so we must subtract 1 since this is not passed to the thread.
+      (
+        result = DataFlow::exprNode(f.getParameter(n - 1).getAnAccess())
+        or
+        // In C, only one argument is allowed. Thus IF the flow predicate holds,
+        // it will be to the first argument
+        result = DataFlow::exprNode(f.getParameter(0).getAnAccess())
+      )
+    )
+  }
+
+  /**
+   * Produces the set of dataflow nodes to thread creation for threads
+   * that are dependent on this mutex.
+   */
+  DataFlow::Node getADependentThreadCreationExpr() {
+    exists(FunctionCall fc |
+      fc.getAnArgument() = sink.asExpr() and
+      result = DataFlow::exprNode(fc)
+    )
+  }
+
+  /**
+   * Gets a set of usages of this mutex in both the local and thread scope.
+   * In the case of scoped usage, this also captures typical accesses of variables.
+   */
+  DataFlow::Node getAUsage() { TaintTracking::localTaint(getASource(), result) }
+}
+
+/**
+ * This class models the type of thread/mutex dependency that is established
+ * through the typical parameter passing mechanisms found in C++.
+ */
+class FlowBasedThreadDependentMutex extends ThreadDependentMutex {
+  FlowBasedThreadDependentMutex() {
+    // some sort of dataflow, likely through parameter passing.
+    exists(ThreadDependentMutexTaintTrackingConfiguration config | config.hasFlow(this, sink))
+  }
+}
+
+/**
+ * This class models the type of thread/mutex dependency that is established by
+ * either scope based accesses (e.g., global variables) or block scope differences.
+ */
+class AccessBasedThreadDependentMutex extends ThreadDependentMutex {
+  Variable variableSource;
+
+  AccessBasedThreadDependentMutex() {
+    // encapsulates usages from outside scopes not directly expressed
+    // in dataflow.
+    exists(MutexSource mutexSrc, ThreadedFunction f |
+      DataFlow::exprNode(mutexSrc) = this and
+      // find a variable that was assigned the mutex
+      TaintTracking::localTaint(DataFlow::exprNode(mutexSrc),
+        DataFlow::exprNode(variableSource.getAnAssignedValue())) and
+      // find all subsequent accesses of that variable that are within a
+      // function and set those to the sink
+      exists(VariableAccess va |
+        va = variableSource.getAnAccess() and
+        va.getEnclosingFunction() = f and
+        sink = DataFlow::exprNode(va)
+      )
+    )
+  }
+
+  override DataFlow::Node getAUsage() { DataFlow::exprNode(variableSource.getAnAccess()) = result }
+}
+
+/**
+ * In the typical C thread model, a mutex is a created by a function that is not responsible
+ * for creating the variable. Thus this class encodes a slightly different semantics
+ * wherein the usage pattern is that of variables that have been both initialized
+ * and then subsequently passed into a thread directly.
+ */
+class DeclarationInitBasedThreadDependentMutex extends ThreadDependentMutex {
+  Variable variableSource;
+
+  DeclarationInitBasedThreadDependentMutex() {
+    exists(MutexSource ms, ThreadCreationFunction tcf |
+      this = DataFlow::exprNode(ms) and
+      // accessed as a mutex source
+      TaintTracking::localTaint(DataFlow::exprNode(variableSource.getAnAccess()),
+        DataFlow::exprNode(ms.getAnArgument())) and
+      // subsequently passed to a thread creation function (order not strictly
+      // enforced for performance reasons)
+      sink = DataFlow::exprNode(tcf.getAnArgument()) and
+      TaintTracking::localTaint(DataFlow::exprNode(variableSource.getAnAccess()), sink)
+    )
+  }
+
+  override DataFlow::Node getAUsage() {
+    TaintTracking::localTaint(getASource(), result) or
+    DataFlow::exprNode(variableSource.getAnAccess()) = result
+  }
+
+  override DataFlow::Node getASource() {
+    // the source is either the thing that declared
+    // the mutex
+    result = this
+    or
+    // or the thread we are using it in
+    result = getAThreadSource()
+  }
+
+  DataFlow::Node getSink() { result = sink }
+
+  /**
+   * Gets the dataflow nodes corresponding to thread local usages of the
+   * dependent mutex.
+   */
+  override DataFlow::Node getAThreadSource() {
+    // here we line up the actual parameter at the thread creation
+    // site with the formal parameter in the target thread.
+    // Note that there are differences between the C and C++ versions
+    // of the argument ordering in the thread creation function. However,
+    // since the C version only takes one parameter (as opposed to multiple)
+    // we can simplify this search by considering only the first argument.
+    exists(
+      FunctionCall fc, Function f, int n // CPP Version
+    |
+      fc.getArgument(n) = sink.asExpr() and
+      f = fc.getArgument(0).(FunctionAccess).getTarget() and
+      // in C++, there is an extra argument to the `std::thread` call
+      // so we must subtract 1 since this is not passed to the thread.
+      result = DataFlow::exprNode(f.getParameter(n - 1).getAnAccess())
+    )
+    or
+    exists(
+      FunctionCall fc, Function f // C Version
+    |
+      fc.getAnArgument() = sink.asExpr() and
+      // in C, the second argument is the function
+      f = fc.getArgument(1).(FunctionAccess).getTarget() and
+      // in C, the passed argument is always the zeroth argument
+      result = DataFlow::exprNode(f.getParameter(0).getAnAccess())
+    )
+  }
+}
+
+/**
+ * In the typical C model, another way to use mutexes is to work with global variables
+ * that can be initialized at various points -- one of which must be inside a thread.
+ * This class encapsulates this pattern.
+ */
+class DeclarationInitAccessBasedThreadDependentMutex extends ThreadDependentMutex {
+  Variable variableSource;
+
+  DeclarationInitAccessBasedThreadDependentMutex() {
+    exists(MutexSource ms, ThreadedFunction tf, VariableAccess va |
+      this = DataFlow::exprNode(ms) and
+      // accessed as a mutex source
+      TaintTracking::localTaint(DataFlow::exprNode(variableSource.getAnAccess()),
+        DataFlow::exprNode(ms.getAnArgument())) and
+      // is accessed somewhere else
+      va = variableSource.getAnAccess() and
+      sink = DataFlow::exprNode(va) and
+      // one of which must be a thread
+      va.getEnclosingFunction() = tf
+    )
+  }
+
+  override DataFlow::Node getAUsage() { result = DataFlow::exprNode(variableSource.getAnAccess()) }
+}
+
+class ThreadDependentMutexTaintTrackingConfiguration extends TaintTracking::Configuration {
+  ThreadDependentMutexTaintTrackingConfiguration() {
+    this = "ThreadDependentMutexTaintTrackingConfiguration"
+  }
+
+  override predicate isSource(DataFlow::Node node) { node.asExpr() instanceof MutexSource }
+
+  override predicate isSink(DataFlow::Node node) {
+    exists(ThreadCreationFunction f | f.getAnArgument() = node.asExpr())
+  }
+}
+
+/**
+ * Models expressions that destroy mutexes.
+ */
+abstract class MutexDestroyer extends StmtParent {
+  /**
+   * Gets the expression that references the mutex being destroyed.
+   */
+  abstract Expr getMutexExpr();
+}
+
+/**
+ * Models C style mutex destruction via `mtx_destroy`.
+ */
+class C11MutexDestroyer extends MutexDestroyer, FunctionCall {
+  C11MutexDestroyer() { getTarget().getName() = "mtx_destroy" }
+
+  /**
+   * Returns the `Expr` being destroyed.
+   */
+  override Expr getMutexExpr() { result = getArgument(0) }
+}
+
+/**
+ * Models a delete expression -- note it is necessary to add this in
+ * addition to destructors to handle certain implementations of the
+ * standard library which obscure the destructors of mutexes.
+ */
+class DeleteMutexDestroyer extends MutexDestroyer {
+  DeleteMutexDestroyer() { this instanceof DeleteExpr }
+
+  override Expr getMutexExpr() { this.(DeleteExpr).getExpr() = result }
+}
+
+/**
+ * Models a possible mutex variable that if it goes
+ * out of scope would destroy an underlying mutex.
+ */
+class LocalMutexDestroyer extends MutexDestroyer {
+  Expr assignedValue;
+
+  LocalMutexDestroyer() {
+    exists(LocalVariable lv |
+      // static types aren't destroyers
+      not lv.isStatic() and
+      // neither are pointers
+      not lv.getType() instanceof PointerType and
+      lv.getAnAssignedValue() = assignedValue and
+      // map the location to the return statements of the
+      // enclosing function
+      exists(ReturnStmt rs |
+        rs.getEnclosingFunction() = assignedValue.getEnclosingFunction() and
+        rs = this
+      )
+    )
+  }
+
+  override Expr getMutexExpr() { result = assignedValue }
+}
+
+/**
+ * Models implicit or explicit calls to the destructor of a mutex, either via
+ * a `delete` statement or a variable going out of scope.
+ */
+class DestructorMutexDestroyer extends MutexDestroyer, DestructorCall {
+  DestructorMutexDestroyer() { getTarget().getDeclaringType().hasQualifiedName("std", "mutex") }
+
+  /**
+   * Returns the `Expr` being deleted.
+   */
+  override Expr getMutexExpr() { getQualifier() = result }
+}
+
+/**
+ * Models a conditional variable denoted by `std::condition_variable`.
+ */
+class ConditionalVariable extends Variable {
+  ConditionalVariable() {
+    getUnderlyingType().(Class).hasQualifiedName("std", "condition_variable")
+  }
+}
+
+/**
+ * Models a conditional function, which is a function that depends on the value
+ * of a conditional variable.
+ */
+class ConditionalFunction extends Function {
+  ConditionalFunction() {
+    exists(ConditionalVariable cv | cv.getAnAccess().getEnclosingFunction() = this)
   }
 }
