@@ -4,3 +4,5 @@
 | test.c:14:8:14:15 | (fp2)... | Cast performed between a function pointer and another type. |
 | test.c:15:8:15:15 | (fp2)... | Cast performed between a function pointer and another type. |
 | test.c:22:12:22:13 | (fp1)... | Cast performed between a function pointer and another type. |
+| test.c:25:8:25:9 | (fp1)... | Cast performed between a function pointer and another type. |
+| test.c:27:8:27:25 | (..(*)(..))... | Cast performed between a function pointer and another type. |
