@@ -1,7 +1,8 @@
 /**
  * @id c/cert/do-not-use-a-bitwise-operator-with-a-boolean-like-operand
  * @name EXP46-C: Do not use a bitwise operator with a Boolean-like operand
- * @description
+ * @description Using bitwise operators with unparenthesized Boolean-like operands may
+ *              indicate a logic error.
  * @kind problem
  * @precision very-high
  * @problem.severity error
