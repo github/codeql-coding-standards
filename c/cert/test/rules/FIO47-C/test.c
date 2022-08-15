@@ -442,36 +442,36 @@ void test_wrong_arg_type() {
   printf("%hho", v_char_ptr); // NON_COMPLIANT
   printf("%lo", v_char_ptr);  // NON_COMPLIANT
   printf("%llo", v_char_ptr); // NON_COMPLIANT
-  printf("%jo", v_char_ptr);  // NON_COMPLIANT[FALSE_POSITIVE]
+  printf("%jo", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
   printf("%zo", v_char_ptr);  // NON_COMPLIANT
-  printf("%to", v_char_ptr);  // NON_COMPLIANT[FALSE_POSITIVE]
+  printf("%to", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
 
   printf("%u", v_char_ptr);   // NON_COMPLIANT
   printf("%hu", v_char_ptr);  // NON_COMPLIANT
   printf("%hhu", v_char_ptr); // NON_COMPLIANT
   printf("%lu", v_char_ptr);  // NON_COMPLIANT
   printf("%llu", v_char_ptr); // NON_COMPLIANT
-  printf("%ju", v_char_ptr);  // NON_COMPLIANT[FALSE_POSITIVE]
+  printf("%ju", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
   printf("%zu", v_char_ptr);  // NON_COMPLIANT
-  printf("%tu", v_char_ptr);  // NON_COMPLIANT[FALSE_POSITIVE]
+  printf("%tu", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
 
   printf("%x", v_char_ptr);   // NON_COMPLIANT
   printf("%hx", v_char_ptr);  // NON_COMPLIANT
   printf("%hhx", v_char_ptr); // NON_COMPLIANT
   printf("%lx", v_char_ptr);  // NON_COMPLIANT
   printf("%llx", v_char_ptr); // NON_COMPLIANT
-  printf("%jx", v_char_ptr);  // NON_COMPLIANT[FALSE_POSITIVE]
+  printf("%jx", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
   printf("%zx", v_char_ptr);  // NON_COMPLIANT
-  printf("%tx", v_char_ptr);  // NON_COMPLIANT[FALSE_POSITIVE]
+  printf("%tx", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
 
   printf("%X", v_char_ptr);   // NON_COMPLIANT
   printf("%hX", v_char_ptr);  // NON_COMPLIANT
   printf("%hhX", v_char_ptr); // NON_COMPLIANT
   printf("%lX", v_char_ptr);  // NON_COMPLIANT
   printf("%llX", v_char_ptr); // NON_COMPLIANT
-  printf("%jX", v_char_ptr);  // NON_COMPLIANT[FALSE_POSITIVE]
+  printf("%jX", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
   printf("%zX", v_char_ptr);  // NON_COMPLIANT
-  printf("%tX", v_char_ptr);  // NON_COMPLIANT[FALSE_POSITIVE]
+  printf("%tX", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
 
   printf("%f", v_char_ptr);   // NON_COMPLIANT
   printf("%lf", v_char_ptr);  // NON_COMPLIANT
