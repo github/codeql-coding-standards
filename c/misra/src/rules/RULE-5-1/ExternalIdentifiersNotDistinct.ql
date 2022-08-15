@@ -17,7 +17,17 @@ import codingstandards.c.misra
 import codingstandards.cpp.Linkage
 
 class ExternalIdentifiers extends Declaration {
-  ExternalIdentifiers() { hasExternalLinkage(this) }
+  ExternalIdentifiers() {
+    this.getName().length() > 31 and
+    hasExternalLinkage(this) and
+    getNamespace() instanceof GlobalNamespace and
+    not this.isFromTemplateInstantiation(_) and
+    not this.isFromUninstantiatedTemplate(_) and
+    not this.hasDeclaringType() and
+    not this instanceof UserType and
+    not this instanceof Operator and
+    not this.hasName("main")
+  }
 
   string getSignificantName() {
     //C99 states the first 31 characters of external identifiers are significant
@@ -25,6 +35,8 @@ class ExternalIdentifiers extends Declaration {
     //C90 is not currently considered by this rule
     result = this.getName().prefix(31)
   }
+
+  string getNonSignificantName() { result = this.getName().suffix(31) }
 }
 
 from ExternalIdentifiers d, ExternalIdentifiers d2
@@ -32,7 +44,8 @@ where
   not isExcluded(d, Declarations1Package::externalIdentifiersNotDistinctQuery()) and
   not d = d2 and
   d.getLocation().getStartLine() >= d2.getLocation().getStartLine() and
-  d.getSignificantName() = d2.getSignificantName()
+  d.getSignificantName() = d2.getSignificantName() and
+  not d.getNonSignificantName() = d2.getNonSignificantName()
 select d,
   "External identifer " + d.getName() + " is nondistinct in first 31 characters, compared to $@.",
   d2, d2.getName()
