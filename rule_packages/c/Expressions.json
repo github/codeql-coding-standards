@@ -51,7 +51,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Using bitwise operators with unparenthesized Boolean-like operands may indicate a logic error.",
           "kind": "problem",
           "name": "Do not use a bitwise operator with a Boolean-like operand",
           "precision": "very-high",
