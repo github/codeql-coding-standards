@@ -65,10 +65,7 @@
           ]
         }
       ],
-      "title": "Use valid format strings",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Use valid format strings"
     }
   }
 }
