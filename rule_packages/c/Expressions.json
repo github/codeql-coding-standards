@@ -20,7 +20,7 @@
           "description": "The arguments passed to a function must be compatible with the function's parameters.",
           "kind": "problem",
           "name": "Do not pass arguments with an incompatible count or type to a function.",
-          "precision": "very-high",
+          "precision": "high",
           "severity": "error",
           "short_name": "DoNotCallFunctionsWithIncompatibleArguments",
           "tags": [
