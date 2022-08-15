@@ -18,27 +18,21 @@ import codingstandards.cpp.Linkage
 
 class ExternalIdentifiers extends Declaration {
   ExternalIdentifiers() { hasExternalLinkage(this) }
-}
 
-class ExternalIdentifiersLong extends ExternalIdentifiers {
-  ExternalIdentifiersLong() { this.getName().length() >= 32 }
-}
-
-predicate notSame(ExternalIdentifiers d, ExternalIdentifiers d2) {
-  not d = d2 and
-  d.getLocation().getStartLine() >= d2.getLocation().getStartLine()
+  string getSignificantName() {
+    //C99 states the first 31 characters of external identifiers are significant
+    //C90 states the first 6 characters of external identifiers are significant and case is not required to be significant
+    //C90 is not currently considered by this rule
+    result = this.getName().prefix(31)
+  }
 }
 
 from ExternalIdentifiers d, ExternalIdentifiers d2
 where
   not isExcluded(d, Declarations1Package::externalIdentifiersNotDistinctQuery()) and
-  notSame(d, d2) and
-  //C99 states the first 31 characters of external identifiers are significant
-  //C90 states the first 6 characters of external identifiers are significant and case is not required to be significant
-  //C90 is not currently considered by this rule
-  if d instanceof ExternalIdentifiersLong and d2 instanceof ExternalIdentifiersLong
-  then d.getName().prefix(31) = d2.getName().prefix(31)
-  else d.getName() = d2.getName()
+  not d = d2 and
+  d.getLocation().getStartLine() >= d2.getLocation().getStartLine() and
+  d.getSignificantName() = d2.getSignificantName()
 select d,
   "External identifer " + d.getName() + " is nondistinct in first 31 characters, compared to $@.",
   d2, d2.getName()
