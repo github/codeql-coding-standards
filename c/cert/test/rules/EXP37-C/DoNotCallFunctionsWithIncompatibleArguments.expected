@@ -1,0 +1,2 @@
+| test.c:93:3:93:12 | call to test_func1 | Argument $@ in call to $@ is incompatible with parameter $@. | test.c:93:14:93:15 | p1 | p1 | test2.c:1:6:1:15 | test_func1 | test_func1 | test2.c:1:23:1:24 | p1 | short p1 |
+| test.c:94:3:94:12 | call to test_func1 | Argument $@ in call to $@ is incompatible with parameter $@. | test.c:94:14:94:15 | p2 | p2 | test2.c:1:6:1:15 | test_func1 | test_func1 | test2.c:1:23:1:24 | p1 | short p1 |
