@@ -25,9 +25,9 @@ where
     //ie an identifier differing on the 32nd character would be indistinct for C90 but distinct for C99
     //and is currently not reported by this rule
     if m.getName().length() >= 64
-    then m.getName().substring(0, 62) = m2.getName().substring(0, 62)
+    then m.getName().prefix(63) = m2.getName().prefix(63)
     else m.getName() = m2.getName()
   ) and
   //reduce double report since both macros are in alert, arbitrary ordering
   m.getLocation().getStartLine() >= m2.getLocation().getStartLine()
-select m, "Nondistinct macro identifer used " + m.getName() + " compared to $@.", m2, m2.getName()
+select m, "Macro identifer " + m.getName() + " is nondistinct in first 63 characters, compared to $@.", m2, m2.getName()

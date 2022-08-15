@@ -37,6 +37,8 @@ where
   //C90 states the first 6 characters of external identifiers are significant and case is not required to be significant
   //C90 is not currently considered by this rule
   if d instanceof ExternalIdentifiersLong and d2 instanceof ExternalIdentifiersLong
-  then d.getName().substring(0, 30) = d2.getName().substring(0, 30)
+  then d.getName().prefix(31) = d2.getName().prefix(31)
   else d.getName() = d2.getName()
-select d, "External identifer is nondistinct " + d.getName() + " compared to $@.", d2, d.getName()
+select d,
+  "External identifer " + d.getName() + " is nondistinct in first 31 characters, compared to $@.",
+  d2, d2.getName()
