@@ -10,7 +10,7 @@ newtype ConcurrencyQuery =
   TPreventBitFieldAccessFromMultipleThreadsQuery() or
   TDeadlockByLockingInPredefinedOrderQuery() or
   TWrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery() or
-  TPreserveThreadSafetyAndLivenessWhenUsingConditionVariablesQuery() or
+  TPreserveSafetyWhenUsingConditionVariablesQuery() or
   TDoNotSpeculativelyLockALockedNonRecursiveMutexQuery() or
   TLockedALockedNonRecursiveMutexAuditQuery()
 
@@ -64,11 +64,11 @@ predicate isConcurrencyQueryMetadata(Query query, string queryId, string ruleId)
   ruleId = "CON54-CPP"
   or
   query =
-    // `Query` instance for the `preserveThreadSafetyAndLivenessWhenUsingConditionVariables` query
-    ConcurrencyPackage::preserveThreadSafetyAndLivenessWhenUsingConditionVariablesQuery() and
+    // `Query` instance for the `preserveSafetyWhenUsingConditionVariables` query
+    ConcurrencyPackage::preserveSafetyWhenUsingConditionVariablesQuery() and
   queryId =
-    // `@id` for the `preserveThreadSafetyAndLivenessWhenUsingConditionVariables` query
-    "cpp/cert/preserve-thread-safety-and-liveness-when-using-condition-variables" and
+    // `@id` for the `preserveSafetyWhenUsingConditionVariables` query
+    "cpp/cert/preserve-safety-when-using-condition-variables" and
   ruleId = "CON55-CPP"
   or
   query =
@@ -131,11 +131,11 @@ module ConcurrencyPackage {
       TQueryCPP(TConcurrencyPackageQuery(TWrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery()))
   }
 
-  Query preserveThreadSafetyAndLivenessWhenUsingConditionVariablesQuery() {
+  Query preserveSafetyWhenUsingConditionVariablesQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `preserveThreadSafetyAndLivenessWhenUsingConditionVariables` query
-      TQueryCPP(TConcurrencyPackageQuery(TPreserveThreadSafetyAndLivenessWhenUsingConditionVariablesQuery()))
+      // `Query` type for `preserveSafetyWhenUsingConditionVariables` query
+      TQueryCPP(TConcurrencyPackageQuery(TPreserveSafetyWhenUsingConditionVariablesQuery()))
   }
 
   Query doNotSpeculativelyLockALockedNonRecursiveMutexQuery() {
