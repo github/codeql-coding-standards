@@ -14,7 +14,6 @@ Query getQuery() { result instanceof DeclaredAReservedIdentifierSharedQuery }
 
 query predicate problems(Element m, string message) {
   not isExcluded(m, getQuery()) and
-  exists(m.getFile().getRelativePath()) and
   exists(string name |
     (
       m.(Macro).hasName(name) or

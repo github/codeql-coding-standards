@@ -17,6 +17,5 @@ import codingstandards.c.cert
 from Declaration d
 where
   not isExcluded(d, Declarations1Package::declareIdentifiersBeforeUsingThemQuery()) and
-  exists(Specifier s | s = d.getASpecifier() and s.toString() = "implicit_int") and
-  exists(d.getFile().getRelativePath())
+  d.hasSpecifier("implicit_int")
 select d, "Declaration is missing a type specifier."
