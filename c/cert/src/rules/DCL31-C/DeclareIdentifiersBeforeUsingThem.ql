@@ -1,8 +1,7 @@
 /**
  * @id c/cert/declare-identifiers-before-using-them
  * @name DCL31-C: Declare identifiers before using them
- * @description Omission of type specifiers may not be supported by some
- * compilers.
+ * @description Omission of type specifiers may not be supported by some compilers.
  * @kind problem
  * @precision very-high
  * @problem.severity error
