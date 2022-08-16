@@ -101,13 +101,13 @@
           "tags": [
             "correctness",
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The query is limited to the case of user input in format strings."
+          }
         }
       ],
-      "title": "Inputs from independent components shall be validated.",
-      "implementation_scope": {
-        "description": "The query is limited to the case of user input in format strings."
-      }
+      "title": "Inputs from independent components shall be validated."
     },
     "A7-2-1": {
       "properties": {

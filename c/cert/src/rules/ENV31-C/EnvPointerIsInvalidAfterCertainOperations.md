@@ -218,7 +218,7 @@ Search for vulnerabilities resulting from the violation of this rule on the [CER
 
 ## Implementation notes
 
-None
+The rule is enforced in the context of a single function.
 
 ## References
 
