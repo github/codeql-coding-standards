@@ -18,7 +18,7 @@ import codingstandards.cpp.Linkage
 
 class ExternalIdentifiers extends Declaration {
   ExternalIdentifiers() {
-    this.getName().length() > 31 and
+    this.getName().length() >= 31 and
     hasExternalLinkage(this) and
     getNamespace() instanceof GlobalNamespace and
     not this.isFromTemplateInstantiation(_) and
@@ -35,8 +35,6 @@ class ExternalIdentifiers extends Declaration {
     //C90 is not currently considered by this rule
     result = this.getName().prefix(31)
   }
-
-  string getNonSignificantName() { result = this.getName().suffix(31) }
 }
 
 from ExternalIdentifiers d, ExternalIdentifiers d2
@@ -45,7 +43,7 @@ where
   not d = d2 and
   d.getLocation().getStartLine() >= d2.getLocation().getStartLine() and
   d.getSignificantName() = d2.getSignificantName() and
-  not d.getNonSignificantName() = d2.getNonSignificantName()
+  not d.getName() = d2.getName()
 select d,
-  "External identifer " + d.getName() + " is nondistinct in first 31 characters, compared to $@.",
-  d2, d2.getName()
+  "External identifer " + d.getName() +
+    " is nondistinct in characters at or over 31 limit, compared to $@.", d2, d2.getName()
