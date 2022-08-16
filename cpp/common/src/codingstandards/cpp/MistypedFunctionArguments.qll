@@ -108,7 +108,7 @@ predicate complexArgumentPassedToRealParameter(FunctionCall fc, Function f, Para
   p = f.getAParameter() and
   // Some implementations implicitly convert complex floating point values by
   // extracting the real part of the complex number (in-place or via a creal() call).
-  // This predicate includes those results unless the value is explicitly converted.
+  // This predicate holds in those cases unless the value is explicitly converted.
   not isTypeInComplexDomain(p.getType()) and
   isTypeInComplexDomain(fc.getArgument(p.getIndex()).getExplicitlyConverted().getType())
 }
