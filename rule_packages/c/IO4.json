@@ -15,13 +15,13 @@
           "tags": [
             "correctness",
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The query is limited to the specific class of TOCTOU race conditions."
+          }
         }
       ],
-      "title": "Avoid TOCTOU race conditions while accessing files",
-      "implementation_scope": {
-        "description": "The query is limited to the specific class of TOCTOU race conditions."
-      }
+      "title": "Avoid TOCTOU race conditions while accessing files"
     },
     "FIO47-C": {
       "properties": {
