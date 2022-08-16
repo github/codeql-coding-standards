@@ -25,11 +25,5 @@ where
   // exception 1 (null pointer constant)
   not isNullPointerConstant(cast.getExpr()) and
   // exception 2 (conversion to void)
-  not newType instanceof VoidType and
-  // exception 3 (implicit conversion of function to function pointer)
-  not (
-    cast.isImplicit() and
-    newType instanceof FunctionPointerType and
-    cast.getExpr() instanceof FunctionAccess
-  )
+  not newType instanceof VoidType
 select cast, "Cast performed between a function pointer and another type."
