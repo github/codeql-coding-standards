@@ -3,12 +3,7 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Pointers2Query =
-  TDoNotAddOrSubtractAScaledIntegerToAPointerQuery() or
-  TDoNotAccessVolatileObjectWithNonvolatileReferenceQuery() or
-  TDoNotCastPointerToMoreStrictlyAlignedPointerTypeQuery() or
-  TDoNotAccessVariableWithPointerOfIncompatibleTypeQuery() or
-  TUndefinedBehaviorWithRestrictQualifiedPointerQuery()
+newtype Pointers2Query = TDoNotAddOrSubtractAScaledIntegerToAPointerQuery()
 
 predicate isPointers2QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -18,38 +13,6 @@ predicate isPointers2QueryMetadata(Query query, string queryId, string ruleId) {
     // `@id` for the `doNotAddOrSubtractAScaledIntegerToAPointer` query
     "c/cert/do-not-add-or-subtract-a-scaled-integer-to-a-pointer" and
   ruleId = "ARR39-C"
-  or
-  query =
-    // `Query` instance for the `doNotAccessVolatileObjectWithNonvolatileReference` query
-    Pointers2Package::doNotAccessVolatileObjectWithNonvolatileReferenceQuery() and
-  queryId =
-    // `@id` for the `doNotAccessVolatileObjectWithNonvolatileReference` query
-    "c/cert/do-not-access-volatile-object-with-nonvolatile-reference" and
-  ruleId = "EXP32-C"
-  or
-  query =
-    // `Query` instance for the `doNotCastPointerToMoreStrictlyAlignedPointerType` query
-    Pointers2Package::doNotCastPointerToMoreStrictlyAlignedPointerTypeQuery() and
-  queryId =
-    // `@id` for the `doNotCastPointerToMoreStrictlyAlignedPointerType` query
-    "c/cert/do-not-cast-pointer-to-more-strictly-aligned-pointer-type" and
-  ruleId = "EXP36-C"
-  or
-  query =
-    // `Query` instance for the `doNotAccessVariableWithPointerOfIncompatibleType` query
-    Pointers2Package::doNotAccessVariableWithPointerOfIncompatibleTypeQuery() and
-  queryId =
-    // `@id` for the `doNotAccessVariableWithPointerOfIncompatibleType` query
-    "c/cert/do-not-access-variable-with-pointer-of-incompatible-type" and
-  ruleId = "EXP39-C"
-  or
-  query =
-    // `Query` instance for the `undefinedBehaviorWithRestrictQualifiedPointer` query
-    Pointers2Package::undefinedBehaviorWithRestrictQualifiedPointerQuery() and
-  queryId =
-    // `@id` for the `undefinedBehaviorWithRestrictQualifiedPointer` query
-    "c/cert/undefined-behavior-with-restrict-qualified-pointer" and
-  ruleId = "EXP43-C"
 }
 
 module Pointers2Package {
@@ -58,33 +21,5 @@ module Pointers2Package {
     result =
       // `Query` type for `doNotAddOrSubtractAScaledIntegerToAPointer` query
       TQueryC(TPointers2PackageQuery(TDoNotAddOrSubtractAScaledIntegerToAPointerQuery()))
-  }
-
-  Query doNotAccessVolatileObjectWithNonvolatileReferenceQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `doNotAccessVolatileObjectWithNonvolatileReference` query
-      TQueryC(TPointers2PackageQuery(TDoNotAccessVolatileObjectWithNonvolatileReferenceQuery()))
-  }
-
-  Query doNotCastPointerToMoreStrictlyAlignedPointerTypeQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `doNotCastPointerToMoreStrictlyAlignedPointerType` query
-      TQueryC(TPointers2PackageQuery(TDoNotCastPointerToMoreStrictlyAlignedPointerTypeQuery()))
-  }
-
-  Query doNotAccessVariableWithPointerOfIncompatibleTypeQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `doNotAccessVariableWithPointerOfIncompatibleType` query
-      TQueryC(TPointers2PackageQuery(TDoNotAccessVariableWithPointerOfIncompatibleTypeQuery()))
-  }
-
-  Query undefinedBehaviorWithRestrictQualifiedPointerQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `undefinedBehaviorWithRestrictQualifiedPointer` query
-      TQueryC(TPointers2PackageQuery(TUndefinedBehaviorWithRestrictQualifiedPointerQuery()))
   }
 }
