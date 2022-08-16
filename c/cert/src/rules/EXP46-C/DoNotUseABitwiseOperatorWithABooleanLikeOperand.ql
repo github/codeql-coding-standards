@@ -15,12 +15,19 @@
 import cpp
 import codingstandards.c.cert
 
+/**
+ * Holds if `op` is a bitwise AND, OR, or XOR expression
+ */
 predicate isBitwiseOperationPotentiallyAmbiguous(BinaryBitwiseOperation op) {
   op instanceof BitwiseAndExpr or
   op instanceof BitwiseOrExpr or
   op instanceof BitwiseXorExpr
 }
 
+/**
+ * Holds if `e` is an unparenthesised boolean expression,
+ * relational operation, or equality operation.
+ */
 predicate isDisallowedBitwiseOperationOperand(Expr e) {
   not e.isParenthesised() and
   (

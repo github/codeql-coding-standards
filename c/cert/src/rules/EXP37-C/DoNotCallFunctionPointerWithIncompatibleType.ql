@@ -16,8 +16,12 @@ import codingstandards.c.cert
 import semmle.code.cpp.dataflow.DataFlow
 import DataFlow::PathGraph
 
-class SuspectFunctionPointerCastExpr extends Expr {
-  SuspectFunctionPointerCastExpr() {
+/**
+ * An expression of type `FunctionPointer` which is the unconverted expression of a cast
+ * which converts the function pointer to a pointer to a function of a different type.
+ */
+class SuspiciousFunctionPointerCastExpr extends Expr {
+  SuspiciousFunctionPointerCastExpr() {
     exists(CStyleCast cast, Type old, Type new |
       this = cast.getUnconverted() and
       old = cast.getUnconverted().getUnderlyingType() and
@@ -29,11 +33,15 @@ class SuspectFunctionPointerCastExpr extends Expr {
   }
 }
 
+/**
+ * Data-flow configuration for flow from a `SuspiciousFunctionPointerCastExpr`
+ * to a call of the function pointer resulting from the function pointer cast
+ */
 class SuspectFunctionPointerToCallConfig extends DataFlow::Configuration {
   SuspectFunctionPointerToCallConfig() { this = "SuspectFunctionPointerToCallConfig" }
 
   override predicate isSource(DataFlow::Node src) {
-    src.asExpr() instanceof SuspectFunctionPointerCastExpr
+    src.asExpr() instanceof SuspiciousFunctionPointerCastExpr
   }
 
   override predicate isSink(DataFlow::Node sink) {
