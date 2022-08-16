@@ -43,7 +43,7 @@ class POSIXOpenFunctionCall extends FunctionCall {
    */
   predicate isOpenCreateCall() {
     hasFlagsArgBounds() and
-    upperBound(this.getArgument(1)).toString().toInt().bitAnd(o_creat_val()) != 0
+    upperBound(this.getArgument(1)).(int).bitAnd(o_creat_val()) != 0
   }
 }
 
