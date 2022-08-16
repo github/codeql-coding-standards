@@ -236,7 +236,7 @@ CWE-628 = Union( EXP37-C, list) where list =
 
 ## Implementation notes
 
-None
+The analysis of invalid parameter count passed to POSIX open calls only applies when the value of the flags argument is computed locally.
 
 ## References
 

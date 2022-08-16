@@ -236,7 +236,7 @@ CWE-628 = Union( EXP37-C, list) where list =
 
 ## Implementation notes
 
-None
+This query raises a result for a function assigned to a function pointer of an incompatible type even if the function pointer is never eventually called.
 
 ## References
 
