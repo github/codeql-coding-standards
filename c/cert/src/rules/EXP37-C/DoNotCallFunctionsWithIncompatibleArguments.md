@@ -1,4 +1,4 @@
-# EXP37-C: Do not pass arguments with an incompatible count or type to a function.
+# EXP37-C: Do not pass arguments with an incompatible count or type to a function
 
 This query implements the CERT-C rule EXP37-C:
 

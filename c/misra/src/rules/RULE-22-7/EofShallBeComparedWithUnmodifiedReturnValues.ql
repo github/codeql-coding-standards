@@ -2,7 +2,7 @@
  * @id c/misra/eof-shall-be-compared-with-unmodified-return-values
  * @name RULE-22-7: The macro EOF shall only be compared with the unmodified return value from any Standard Library
  * @description The macro EOF shall only be compared with the unmodified return value from any
- *              Standard Library function capable of returning EOF
+ *              Standard Library function capable of returning EOF.
  * @kind problem
  * @precision high
  * @problem.severity error

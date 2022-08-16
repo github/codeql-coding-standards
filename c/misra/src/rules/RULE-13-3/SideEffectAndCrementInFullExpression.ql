@@ -3,7 +3,7 @@
  * @name RULE-13-3: A full expression containing an increment (++) or decrement (--) operator should have no other
  * @description A full expression containing an increment (++) or decrement (--) operator should
  *              have no other potential side effects other than that caused by the increment or
- *              decrement operator
+ *              decrement operator.
  * @kind problem
  * @precision very-high
  * @problem.severity warning
