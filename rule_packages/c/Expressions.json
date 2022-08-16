@@ -7,6 +7,9 @@
       "queries": [
         {
           "description": "Calling a function pointer with a type incompatible with the function it points to is undefined.",
+          "implementation_scope": {
+            "description": "This query raises a result for a function assigned to a function pointer of an incompatible type even if the function pointer is never eventually called."
+          },
           "kind": "path-problem",
           "name": "Do not call a function pointer which points to a function of an incompatible type",
           "precision": "high",
@@ -29,6 +32,9 @@
         },
         {
           "description": "A third argument should be passed to the POSIX function open() when and only when creating a new file.",
+          "implementation_scope": {
+            "description": "The analysis of invalid parameter count passed to POSIX open calls only applies when the value of the flags argument is computed locally."
+          },
           "kind": "problem",
           "name": "Pass the correct number of arguments to the POSIX open function.",
           "precision": "high",
@@ -40,10 +46,7 @@
           ]
         }
       ],
-      "title": "Call functions with the correct number and type of arguments",
-      "implementation_scope": {
-        "description": "The rule raises a result for a function assigned to a function pointer of an incompatible type even if the function pointer is never eventually called. The analysis of invalid parameter count passed to POSIX open calls only applies when the value of the flags argument is computed locally."
-      }
+      "title": "Call functions with the correct number and type of arguments"
     },
     "EXP46-C": {
       "properties": {
@@ -63,10 +66,7 @@
           ]
         }
       ],
-      "title": "Do not use a bitwise operator with a Boolean-like operand",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Do not use a bitwise operator with a Boolean-like operand"
     }
   }
 }
