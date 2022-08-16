@@ -6,7 +6,7 @@
       },
       "queries": [
         {
-          "description": "A full expression containing an increment (++) or decrement (--) operator should have no other potential side effects other than that caused by the increment or decrement operator",
+          "description": "A full expression containing an increment (++) or decrement (--) operator should have no other potential side effects other than that caused by the increment or decrement operator.",
           "kind": "problem",
           "name": "A full expression containing an increment (++) or decrement (--) operator should have no other",
           "precision": "very-high",
