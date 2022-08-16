@@ -135,7 +135,7 @@ This CWE is vague on what constitutes “improper control of a resource”. It c
 
 ## Implementation notes
 
-None
+The rule is enforced in the context of a single function.
 
 ## References
 

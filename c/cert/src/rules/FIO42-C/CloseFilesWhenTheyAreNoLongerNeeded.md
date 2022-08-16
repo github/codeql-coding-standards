@@ -229,7 +229,7 @@ FIO42-C - CWE-403 = SPECIAL_CASES, where SPECIAL_CASES =
 
 ## Implementation notes
 
-None
+The rule is enforced in the context of a single function.
 
 ## References
 
