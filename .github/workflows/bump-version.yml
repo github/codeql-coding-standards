@@ -3,73 +3,31 @@ name: 📦 Bump Workflow
 on:
   workflow_dispatch:
     inputs:
-      temp_branch_name:
-        description: |
-          The branch to do the work in. 
-        required: true
-
       new_version:
         description: |
-          The version to update to (eg: 2.6.0 or 2.6.0-dev).
+          The version to update to (eg: 2.6.0 or 2.6.0-dev do not include `v`).
         required: true 
-
-
 jobs:
-  setup-branch:
-    runs-on: ubuntu-latest 
-    name: ➕ Create Branch
-    needs: setup 
-    steps:
-        - name: Checkout 
-          uses: actions/checkout@v2
-
-        - name: Create Branch  
-          shell: pwsh 
-          run: |
-            git checkout -b ${{ github.event.inputs.temp_branch_name }}
-            git push --set-upstream origin ${{ github.event.inputs.temp_branch_name }}
 
   apply-version-bump:
     runs-on: ubuntu-latest 
-    name: 🎇 Apply Version Bump
+    name: Apply Version Bump
     steps:
         - name: Checkout 
           uses: actions/checkout@v2
-          with:
-            ref: ${{ github.event.inputs.temp_branch_name }}   
-
 
         - name: Apply Bump
           shell: bash
           run: |
-            find . -name 'qlpack.yml' | grep -v './codeql_modules' | grep -v './scripts' | xargs sed -i 's/^version.*$/version: ${{ github.event.inputs.new_version }}/' 
-            
+            bash ./scripts/bump_version.sh ${{ github.event.inputs.new_version }}
 
-        - name: Push Performance Data
-          uses: EndBug/add-and-commit@v8 
-          with:
-            add: '.'
-            pull: '--rebase --autostash'
-            author_name: John Singleton
-            author_email: jsinglet@github.com
-            default_author: github_actor
-            message: 'Version bump to ${{ github.event.inputs.new_version }}.'
-            pathspec_error_handling: ignore
-            push: true
-
-  create-pr:
-    runs-on: ubuntu-latest 
-    name: 🎇 Create PR 
-    steps:
-        - name: Checkout 
-          uses: actions/checkout@v2
-          with:
-            ref: ${{ github.event.inputs.temp_branch_name }}
-        
-        - name: Create PR
-          shell: pwsh 
-          run: |
-            gh pr create -b "Bump to Version ${{ github.event.inputs.new_version}}" -t "Bump to Version ${{ github.event.inputs.new_version}}" 
-          env:
-            GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-
+        - uses: actions/checkout@v3
+        - name: Create Pull Request
+          uses: peter-evans/create-pull-request@v4
+          with: 
+            title: "Release Engineering: Version bump to ${{ github.event.inputs.new_version }}."
+            body: "This PR updates codeql-coding-standards to version ${{ github.event.inputs.new_version }}."
+            commit-message: "Version bump to ${{ github.event.inputs.new_version }}."
+            team-reviewers: github/codeql-coding-standards
+            delete-branch: true
+            branch: "codeql/version-bump-${{ github.event.inputs.new_version }}"
