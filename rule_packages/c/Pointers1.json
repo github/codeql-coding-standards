@@ -308,8 +308,7 @@
           "short_name": "ObjectWithNoPointerDereferenceShouldBeOpaque",
           "tags": [
             "readability",
-            "maintainability",
-            "readability"
+            "maintainability"
           ],
           "implementation_scope": {
             "description": "This rule considers all cases where a structure or union is referenced as a pointer but has no FieldAccess within a translation unit. Further excluded from this rule are translation units in which the structure or union is declared as a non-pointer variable."
