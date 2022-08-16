@@ -1,9 +1,6 @@
 {
   "CERT-C": {
     "ENV30-C": {
-      "implementation_scope": {
-        "description": "None."
-      },
       "properties": {
         "obligation": "rule"
       },
@@ -23,9 +20,6 @@
       "title": "Do not modify the object referenced by the return value of certain functions"
     },
     "ENV31-C": {
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function."
-      },
       "properties": {
         "obligation": "rule"
       },
@@ -39,7 +33,10 @@
           "short_name": "EnvPointerIsInvalidAfterCertainOperations",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
         }
       ],
       "title": "Do not rely on an environment pointer following an operation that may invalidate it"

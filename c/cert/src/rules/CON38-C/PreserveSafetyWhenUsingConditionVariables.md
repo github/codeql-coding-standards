@@ -350,7 +350,7 @@ Search for [vulnerabilities](https://www.securecoding.cert.org/confluence/displa
 
 ## Implementation notes
 
-None
+This implementation does not attempt to identify unique condition variables and instead advocates for the usage of `cnd_broadcast`.
 
 ## References
 
