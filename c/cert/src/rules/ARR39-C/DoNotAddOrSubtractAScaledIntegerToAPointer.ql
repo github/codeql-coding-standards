@@ -25,12 +25,18 @@ abstract class PointerArithmeticExpr extends Expr {
   abstract Expr getOperand();
 }
 
+/**
+ * A pointer arithmetic binary operation expression.
+ */
 class SimplePointerArithmeticExpr extends PointerArithmeticExpr, PointerArithmeticOperation {
   override Expr getPointer() { result = this.getLeftOperand() }
 
   override Expr getOperand() { result = this.getRightOperand() }
 }
 
+/**
+ * A pointer arithmetic assignment expression.
+ */
 class AssignPointerArithmeticExpr extends PointerArithmeticExpr, AssignOperation {
   AssignPointerArithmeticExpr() {
     this instanceof AssignPointerAddExpr or
@@ -42,12 +48,18 @@ class AssignPointerArithmeticExpr extends PointerArithmeticExpr, AssignOperation
   override Expr getOperand() { result = this.getRValue() }
 }
 
+/**
+ * A pointer arithmetic array access expression.
+ */
 class ArrayPointerArithmeticExpr extends PointerArithmeticExpr, ArrayExpr {
   override Expr getPointer() { result = this.getArrayBase() }
 
   override Expr getOperand() { result = this.getArrayOffset() }
 }
 
+/**
+ * An expression which invokes the `offsetof` macro or `__builtin_offsetof` operation.
+ */
 class OffsetOfExpr extends Expr {
   OffsetOfExpr() {
     this instanceof BuiltInOperationBuiltInOffsetOf
@@ -57,7 +69,7 @@ class OffsetOfExpr extends Expr {
 }
 
 /**
- * An array expression conforming to the "arr[ sizeof(arr)/sizeof(arr[ 0 ]) ]" idiom
+ * An array expression conforming to the `arr[sizeof(arr)/sizeof(arr[0])]` idiom.
  */
 class ArrayCountOfExpr extends ArrayExpr {
   ArrayCountOfExpr() {
@@ -77,6 +89,9 @@ class ArrayCountOfExpr extends ArrayExpr {
   }
 }
 
+/**
+ * An `offsetof` expression or a `sizeof` expression with an operand of a size greater than 1.
+ */
 class ScaledIntegerExpr extends Expr {
   ScaledIntegerExpr() {
     not this.getParent*() instanceof ArrayCountOfExpr and
@@ -90,6 +105,10 @@ class ScaledIntegerExpr extends Expr {
   }
 }
 
+/**
+ * A data-flow configuration modeling data-flow from a `ScaledIntegerExpr` to a
+ * `PointerArithmeticExpr` where the pointer does not point to a 1-byte type.
+ */
 class ScaledIntegerPointerArithmeticConfig extends DataFlow::Configuration {
   ScaledIntegerPointerArithmeticConfig() { this = "ScaledIntegerPointerArithmeticConfig" }
 
