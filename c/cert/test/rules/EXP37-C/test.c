@@ -94,6 +94,6 @@ void test_incompatible_arguments(int p1, short p2) {
   test_func1(p2);                   // NON_COMPLIANT
   ((int (*)(short))test_func1)(p2); // COMPLIANT
   test_func2(0);                    // COMPLIANT
-  test_func3(0);                    // NON_COMPLIANT
+  test_func3(0);                    // NON_COMPLIANT[FALSE_NEGATIVE]
   test_func3(0, 1);                 // NON_COMPLIANT[FALSE_NEGATIVE]
 }
