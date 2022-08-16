@@ -249,7 +249,7 @@ FIO32-C = Union( CWE-67, list) where list =
 
 ## Implementation notes
 
-None
+The rule checks that filenames are not tainted. It does not verify that appropriate OS-specific checks are in place to exclude that the opened file is a device.
 
 ## References
 

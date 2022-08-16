@@ -68,7 +68,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-None
+The rule is enforced in the context of a single function.
 
 ## References
 

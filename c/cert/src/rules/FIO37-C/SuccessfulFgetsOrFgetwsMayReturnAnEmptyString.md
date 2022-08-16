@@ -102,7 +102,7 @@ CWE-241 = Union( FIO37-C, list) where list =
 
 ## Implementation notes
 
-None
+The rule checks that access to a string returned by fgets() or fgetws() if protected by a guard condition. The rule is enforced in the context of a single function.
 
 ## References
 
