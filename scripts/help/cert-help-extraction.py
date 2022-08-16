@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from argparse import ArgumentParser
 import tempfile
 import re
 import urllib.request
@@ -32,20 +33,17 @@ rule_path = None
 
 def soupify(url: str) -> BeautifulSoup:
     m = hashlib.sha1()
-    m.update(url.encode('UTF-8'))
+    m.update(url.encode('utf-8'))
     cache_key = m.hexdigest()
     cache_file = cache_path.joinpath(cache_key)
     if cache_file.exists():
-        content = unicodedata.normalize("NFKD", cache_file.read_text())
+        content = cache_file.read_text('utf-8')
     else:
         resp = requests.get(url)
-
         if resp.status_code != 200:
             return None
-
-        content = resp.text
-        with cache_file.open('w') as f:
-            f.write(content)
+        content = unicodedata.normalize("NFKD", resp.text)
+        cache_file.write_text(content,encoding='utf8')
 
     return BeautifulSoup(content, 'html.parser')
 
@@ -68,6 +66,7 @@ def get_rules():
                 rules.append({'id': rule, 'title': title, 'link': link['href'], 'lang':"cpp"})  
 
     return rules
+
 
 def between_siblings(root, node_text):
     nodes = []
@@ -469,13 +468,25 @@ def get_help(rule):
         ['sample', 'code', 'strong', 'p', 'li'])
     return qhelp_doc.prettify()
 
+# Parse args
+help_statement = """
+A tool for generating CERT query help files.
+All help files will be generated if no rule names are provided as argument.
+"""
+parser = ArgumentParser(description=help_statement)
+parser.add_argument(
+    "arg_rule_name", nargs="*", help="the name of the rule to generate help files for")
+args = parser.parse_args()
 
+# Get rules
 rules = get_rules()
 if rules == None:
     print("Failed to retrieve list of rules", file=sys.stdout)
     sys.exit(1)
 
 for rule in rules:
+    if args.arg_rule_name and rule['id'].lower() not in (string.lower() for string in args.arg_rule_name):
+        continue
     rule_path = repo_root / rule['lang'] / 'cert' / 'src' / 'rules' / rule['id']
     # only consider implemented rules
     if rule_path.exists():
@@ -491,7 +502,7 @@ for rule in rules:
                 continue
 
             temp_qhelp_path = query_path.with_suffix('.qhelp')
-            temp_qhelp_path.write_text(get_help(rule))
+            temp_qhelp_path.write_text(get_help(rule),encoding='utf8')
 
             temp_help_path = help_path.with_suffix('.md.tmp')
             try:
@@ -500,12 +511,12 @@ for rule in rules:
                 print(f"{err.reason}: {err.stderr}")
             temp_qhelp_path.unlink()
 
-            parsed_temp_help = md.parse(unicodedata.normalize("NFKD", temp_help_path.read_text()))
+            parsed_temp_help = md.parse(temp_help_path.read_text('utf-8'))
             # Remove the first header that is added by the QHelp to Markdown conversion
             del parsed_temp_help.children[0]
-            temp_help_path.write_text(md.render(parsed_temp_help))
+            temp_help_path.write_text(md.render(parsed_temp_help),encoding='utf8')
 
-            parsed_help = md.parse(unicodedata.normalize("NFKD", help_path.read_text()))
+            parsed_help = md.parse(help_path.read_text('utf-8'))
             if find_heading(parsed_help, 'CERT'):
                 # Check if it contains the CERT heading that needs to be replaced
                 print(f"ID: {rule['id']} - Found heading 'CERT' whose content will be replaced")
@@ -522,4 +533,4 @@ for rule in rules:
                 update_help_file(parsed_help, [HeadingDiffUpdateSpec(heading, parsed_temp_help) for heading in second_level_headings] + [HeadingFormatUpdateSpec()])
 
             temp_help_path.unlink()
-            help_path.write_text(md.render(parsed_help))
+            help_path.write_text(md.render(parsed_help), encoding='utf8', newline='\n')

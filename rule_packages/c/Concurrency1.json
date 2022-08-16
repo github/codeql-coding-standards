@@ -53,11 +53,13 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotCallSignalInMultithreadedProgram",
-          "implementation_scope" : "This implementation does not consider threads created function pointers.",
           "tags": [
             "correctness",
             "concurrency"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This implementation does not consider threads created function pointers."
+          }
         }
       ],
       "title": "Do not call signal() in a multithreaded program"

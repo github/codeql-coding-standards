@@ -1,0 +1,6 @@
+| test.cpp:4:18:4:33 | call to mutex | Mutex used by thread potentially $@ while in use. | test.cpp:11:18:11:26 | call to ~mutex | destroyed |
+| test.cpp:4:18:4:33 | call to mutex | Mutex used by thread potentially $@ while in use. | test.cpp:11:18:11:26 | delete | destroyed |
+| test.cpp:16:14:16:15 | call to mutex | Mutex used by thread potentially $@ while in use. | test.cpp:21:1:21:1 | call to ~mutex | destroyed |
+| test.cpp:16:14:16:15 | call to mutex | Mutex used by thread potentially $@ while in use. | test.cpp:21:1:21:1 | return ... | destroyed |
+| test.cpp:94:8:94:23 | call to mutex | Mutex used by thread potentially $@ while in use. | test.cpp:10:34:10:42 | call to ~mutex | destroyed |
+| test.cpp:94:8:94:23 | call to mutex | Mutex used by thread potentially $@ while in use. | test.cpp:10:34:10:42 | delete | destroyed |

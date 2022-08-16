@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Keywords
+import codingstandards.cpp.CKeywords
 
 from Macro m, string name
 where
