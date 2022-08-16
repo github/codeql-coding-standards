@@ -1,4 +1,4 @@
-# EXP37-C: Pass the correct number of arguments to the POSIX open function.
+# EXP37-C: Pass the correct number of arguments to the POSIX open function
 
 This query implements the CERT-C rule EXP37-C:
 
