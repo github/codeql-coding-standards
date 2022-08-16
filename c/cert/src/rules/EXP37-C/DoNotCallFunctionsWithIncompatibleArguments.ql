@@ -23,5 +23,6 @@ where
     or
     complexArgumentPassedToRealParameter(fc, f, p)
   )
-select fc, "Argument $@ in call to $@ is incompatible with parameter $@.",
-  fc.getArgument(p.getIndex()) as arg, arg.toString(), f, f.toString(), p, p.getTypedName()
+select fc,
+  "Argument $@ in call to " + f.toString() + " is incompatible with parameter " + p.getTypedName() +
+    ".", fc.getArgument(p.getIndex()) as arg, arg.toString()
