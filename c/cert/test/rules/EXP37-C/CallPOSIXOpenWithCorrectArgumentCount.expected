@@ -1,0 +1,6 @@
+| test.c:18:3:18:6 | call to open | Call to open without O_CREAT flag does not pass exactly two arguments. |
+| test.c:19:3:19:6 | call to open | Call to open with O_CREAT flag does not pass exactly three arguments. |
+| test.c:23:3:23:6 | call to open | Call to open without O_CREAT flag does not pass exactly two arguments. |
+| test.c:26:3:26:6 | call to open | Call to open with O_CREAT flag does not pass exactly three arguments. |
+| test.c:34:3:34:6 | call to open | Call to open without O_CREAT flag does not pass exactly two arguments. |
+| test.c:35:3:35:6 | call to open | Call to open with O_CREAT flag does not pass exactly three arguments. |

@@ -43,7 +43,7 @@ This code example is noncompliant because the wide character sequence `cur_msg` 
 ```cpp
 #include <stdlib.h>
 #include <wchar.h>
- 
+ 
 wchar_t *cur_msg = NULL;
 size_t cur_msg_size = 1024;
 size_t cur_msg_len = 0;
@@ -76,7 +76,7 @@ In this compliant solution, `cur_msg` will always be null-terminated when passed
 ```cpp
 #include <stdlib.h>
 #include <wchar.h>
- 
+ 
 wchar_t *cur_msg = NULL;
 size_t cur_msg_size = 1024;
 size_t cur_msg_len = 0;
@@ -220,7 +220,7 @@ Failure to properly null-terminate a character sequence that is passed to a libr
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> </td> <td> Supported Astrée supports the implementation of library stubs to fully verify this guideline. </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-STR32</strong> </td> <td> Partially implemented: can detect some violation of the rule </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>MISC.MEM.NTERM.CSTRING</strong> </td> <td> Unterminated C String </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> Can detect some violations of this rule </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 2017.07 </td> <td> <strong>STRING_NULL</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C2835, C2836, C2839</strong> <strong>C++2835, C++2836, C++2839</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>NNTS.MIGHTSV.STRBO.BOUND_COPY.UNTERM</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>404 S, 600 S</strong> </td> <td> Partially implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-STR32-a</strong> </td> <td> Avoid overflow due to reading a not zero terminated string </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule STR32-C </a> </td> <td> Checks for: Invalid use of standard library string routinenvalid use of standard library string routine, tainted null or non-null-terminated stringainted null or non-null-terminated string. Rule partially covered. </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>2835, 2836, 2839</strong> </td> <td> </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>0145</strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.19 </td> <td> <strong><a>V692</a></strong> </td> <td> </td> </tr> <tr> <td> <a> TrustInSoft Analyzer </a> </td> <td> 1.38 </td> <td> <strong>match format and arguments</strong> </td> <td> Partially verified. </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> </td> <td> Supported Astrée supports the implementation of library stubs to fully verify this guideline. </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-STR32</strong> </td> <td> Partially implemented: can detect some violation of the rule </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>MISC.MEM.NTERM.CSTRING</strong> </td> <td> Unterminated C String </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> Can detect some violations of this rule </td> </tr> <tr> <td> <a> Coverity </a> </td> <td> 2017.07 </td> <td> <strong>STRING_NULL</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C2835, C2836, C2839</strong> <strong>C++2835, C++2836, C++2839</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>NNTS.MIGHTSV.STRBO.BOUND_COPY.UNTERM</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>404 S, 600 S</strong> </td> <td> Partially implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-STR32-a</strong> </td> <td> Avoid overflow due to reading a not zero terminated string </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule STR32-C </a> </td> <td> Checks for: Invalid use of standard library string routinenvalid use of standard library string routine, tainted null or non-null-terminated stringainted null or non-null-terminated string. Rule partially covered. </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>2835, 2836, 2839</strong> </td> <td> </td> </tr> <tr> <td> <a> PRQA QA-C++ </a> </td> <td> 4.4 </td> <td> <strong>0145</strong> </td> <td> </td> </tr> <tr> <td> <a> PVS-Studio </a> </td> <td> 7.19 </td> <td> <strong><a>V692</a></strong> </td> <td> </td> </tr> <tr> <td> <a> TrustInSoft Analyzer </a> </td> <td> 1.38 </td> <td> <strong>match format and arguments</strong> </td> <td> Partially verified. </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

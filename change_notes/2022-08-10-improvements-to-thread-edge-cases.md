@@ -1,0 +1,4 @@
+- `CON50-CPP` - `DoNotAllowAMutexToGoOutOfScopeWhileLocked.ql`
+  - Improvements to detection of mutexes shared across threads and expanded test coverage.
+- `CON50-CPP` - `DoNotDestroyAMutexWhileItIsLocked.ql`
+  - Improvements to detection of mutexes shared across threads and expanded test coverage.

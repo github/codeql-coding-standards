@@ -105,6 +105,8 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
+This implementation does not consider threads created function pointers.
+
 ## References
 
 * CERT-C: [CON37-C: Do not call signal() in a multithreaded program](https://wiki.sei.cmu.edu/confluence/display/c)

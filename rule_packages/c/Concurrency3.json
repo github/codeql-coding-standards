@@ -1,0 +1,88 @@
+{
+  "CERT-C": {
+    "CON31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Allowing a mutex to go out of scope while it is locked removes protections around shared resources.",
+          "kind": "problem",
+          "name": "Do not destroy a mutex while it is locked",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotAllowAMutexToGoOutOfScopeWhileLocked",
+          "shared_implementation_short_name": "DoNotAllowAMutexToGoOutOfScopeWhileLocked",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This implementation does not allow for thread synchronization to be performed in subroutines. All synchronization must be performed within the context of the other thread management functions."
+          }
+        },
+        {
+          "description": "Calling delete on a locked mutex removes protections around shared resources.",
+          "kind": "problem",
+          "name": "Do not destroy a mutex while it is locked",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotDestroyAMutexWhileItIsLocked",
+          "shared_implementation_short_name": "DoNotDestroyAMutexWhileItIsLocked",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Do not destroy a mutex while it is locked"
+    },
+    "CON38-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Usages of `cnd_signal` with non-unique condition variables may impact thread safety and liveness.",
+          "kind": "problem",
+          "name": "Preserve thread safety and liveness when using condition variables",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PreserveSafetyWhenUsingConditionVariables",
+          "shared_implementation_short_name": "PreserveSafetyWhenUsingConditionVariables",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This implementation does not attempt to identify unique condition variables and instead advocates for the usage of `cnd_broadcast`."
+          }
+        }
+      ],
+      "title": "Preserve thread safety and liveness when using condition variables"
+    },
+    "CON41-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Failing to wrap a function that may fail spuriously may result in unreliable program behavior.",
+          "kind": "problem",
+          "name": "Wrap functions that can fail spuriously in a loop",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "WrapFunctionsThatCanFailSpuriouslyInLoop",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This implementation does not attempt to identify a relationship between the condition variable and the atomic operation."
+          }
+        }
+      ],
+      "title": "Wrap functions that can fail spuriously in a loop"
+    }
+  }
+}

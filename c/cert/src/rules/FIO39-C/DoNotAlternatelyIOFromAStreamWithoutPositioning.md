@@ -103,7 +103,7 @@ Alternately inputting and outputting from a stream without an intervening flush 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> </td> <td> Supported, but no explicit checker </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-FIO39</strong> </td> <td> </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> Can detect simple violations of this rule </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.3 </td> <td> <strong>C4711, C4712, C4713</strong> <strong>C++4711, C++4712, C++4713</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>84 D</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_C-FIO39-a</strong> </td> <td> Do not alternately input and output from a stream without an intervening flush or positioning call </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>2478, 2479</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021a </td> <td> <a> CERT C: Rule FIO39-C </a> </td> <td> Checks for alternating input and output from a stream without flush or positioning call (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>5029</strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> </td> <td> Supported, but no explicit checker </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-FIO39</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>IO.IOWOP</strong> <strong>IO.OIWOP</strong> </td> <td> Input After Output Without Positioning Output After Input Without Positioning </td> </tr> <tr> <td> <a> Compass/ROSE </a> </td> <td> </td> <td> </td> <td> Can detect simple violations of this rule </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C4711, C4712, C4713</strong> <strong>C++4711, C++4712, C++4713</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.FIO.NO_FLUSH</strong> </td> <td> </td> </tr> <tr> <td> <a> LDRA tool suite </a> </td> <td> 9.7.1 </td> <td> <strong>84 D</strong> </td> <td> Fully implemented </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-FIO39-a</strong> </td> <td> Do not alternately input and output from a stream without an intervening flush or positioning call </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>2478, 2479</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule FIO39-C </a> </td> <td> Checks for alternating input and output from a stream without flush or positioning call (rule fully covered) </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>5029</strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
@@ -132,6 +132,10 @@ This CWE is vague on what constitutes “improper control of a resource”. It c
 
 <table> <tbody> <tr> <td> \[ <a> ISO/IEC 9899:2011 </a> \] </td> <td> 7.21.5.3, "The <code>fopen</code> Function" </td> </tr> </tbody> </table>
 
+
+## Implementation notes
+
+The rule is enforced in the context of a single function.
 
 ## References
 

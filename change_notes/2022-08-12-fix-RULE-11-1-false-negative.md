@@ -1,0 +1,3 @@
+ - `RULE-11-1` - `ConversionBetweenFunctionPointerAndOtherType.ql`:
+   - A result is now reported for an implicit conversion of a pointer to a function into a pointer to a function with an incompatible type.
+   - Modified the test to reflect the fixed coverage.

@@ -64,7 +64,7 @@ Using improperly aligned pointers results in [undefined behavior](https://wiki.s
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++3129</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-MEM57-a</strong> </td> <td> Avoid using the default operator 'new' for over-aligned types </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021b </td> <td> <a> CERT C++: MEM57-CPP </a> </td> <td> Checks for situations where operator new is not overloaded for possibly overaligned types (rule fully covered) </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++3129</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-MEM57-a</strong> </td> <td> Avoid using the default operator 'new' for over-aligned types </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C++: MEM57-CPP </a> </td> <td> Checks for situations where operator new is not overloaded for possibly overaligned types (rule fully covered) </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
