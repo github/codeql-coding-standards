@@ -25,4 +25,4 @@ where
     // Exclude "signed" or "unsigned", as opposed to "signed int" or "unsigned int".
     not exists(IntegralType it | it = t | it.isExplicitlySigned() or it.isExplicitlyUnsigned())
   )
-select d, "Declaration is missing a type specifier."
+select d, "Declaration " + d.getName() + " is missing a type specifier."

@@ -92,7 +92,7 @@
             "readability"
           ],
           "implementation_scope": {
-            "description": "This query checks the first 31 characters of identifiers as significant, as per C99. This query does not consider universal or extended source characters.",
+            "description": "This query considers the first 31 characters of identifiers as significant, as per C99 and reports the case when names are longer than 31 characters and differ in those characters past the 31 first only. This query does not consider universal or extended source characters.",
             "items": []
           }
         }
@@ -124,7 +124,7 @@
           {
               "description": "Macros with the same name as their parameters are less readable.",
               "kind": "problem",
-              "name": "Macro identifiers shall be distinct",
+              "name": "Macro identifiers shall be distinct from paramters",
               "precision": "very-high",
               "severity": "warning",
               "short_name": "MacroIdentifierNotDistinctFromParameter",
