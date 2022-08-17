@@ -10,6 +10,7 @@
  * @tags external/autosar/id/m19-3-1
  *       correctness
  *       maintainability
+ *       scope/single-translation-unit
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
