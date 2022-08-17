@@ -29,7 +29,7 @@
       },
       "queries": [
         {
-          "description": "Use valid conversion specifier.",
+          "description": "Invalid conversion specifiers leeds to undefined behavior.",
           "kind": "problem",
           "name": "Use valid format strings",
           "precision": "high",
@@ -41,7 +41,7 @@
           ]
         },
         {
-          "description": "Use correct number of format arguments.",
+          "description": "Incorrect number of format arguments leeds to undefined behavior.",
           "kind": "problem",
           "name": "Use correct number fo arguments",
           "precision": "high",
@@ -53,7 +53,7 @@
           ]
         },
         {
-          "description": "Wrong type format arguments.",
+          "description": "Wrong type of format arguments leeds to undefined behavior.",
           "kind": "problem",
           "name": "Wrong type format arguments",
           "precision": "high",
