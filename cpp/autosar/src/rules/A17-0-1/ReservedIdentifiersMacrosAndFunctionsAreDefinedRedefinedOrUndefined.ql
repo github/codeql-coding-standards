@@ -14,6 +14,7 @@
  * @tags external/autosar/id/a17-0-1
  *       correctness
  *       maintainability
+ *       scope/single-translation-unit
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

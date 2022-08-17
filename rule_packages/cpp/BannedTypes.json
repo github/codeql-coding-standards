@@ -18,7 +18,8 @@
           "short_name": "TypeLongDoubleUsed",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -41,7 +42,8 @@
           "severity": "warning",
           "short_name": "VectorboolSpecializationUsed",
           "tags": [
-              "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -64,7 +66,8 @@
           "severity": "warning",
           "short_name": "AutoPtrTypeUsed",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -90,7 +93,8 @@
           "short_name": "TypeWcharTUsed",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "scope/single-translation-unit"
           ]
         }
       ],
