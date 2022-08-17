@@ -10,7 +10,6 @@
  * @tags external/misra/id/rule-4-8
  *       readability
  *       maintainability
- *       readability
  *       external/misra/obligation/advisory
  */
 

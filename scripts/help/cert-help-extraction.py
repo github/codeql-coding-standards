@@ -539,4 +539,4 @@ for rule in rules:
                 update_help_file(parsed_help, [HeadingDiffUpdateSpec(heading, parsed_temp_help) for heading in second_level_headings] + [HeadingFormatUpdateSpec()])
 
             temp_help_path.unlink()
-            help_path.write_text(md.render(parsed_help), encoding='utf8', newline='\n')
+            help_path.write_text(md.render(parsed_help), encoding='utf8')

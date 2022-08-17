@@ -35,13 +35,13 @@
           "tags": [
             "correctness",
             "security"
-          ]         
+          ],
+          "implementation_scope": {
+            "description": "The enforcement of this rule does not try to approximate the effects of loops and as such may not find cases where a loop operation on a string fails to null terminate a string (or causes an overflow)."
+          }
         }
       ],
-      "title": "Guarantee that storage for strings has sufficient space for character data and the null terminator",
-      "implementation_scope": {
-        "description": "The enforcement of this rule does not try to approximate the effects of loops and as such may not find cases where a loop operation on a string fails to null terminate a string (or causes an overflow)."
-      }
+      "title": "Guarantee that storage for strings has sufficient space for character data and the null terminator"
     },
     "STR32-C": {
       "properties": {

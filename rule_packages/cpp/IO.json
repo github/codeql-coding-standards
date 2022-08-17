@@ -19,13 +19,13 @@
           "shared_implementation_short_name": "IOFstreamMissingPositioning",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
         }
       ],
-      "title": "Alternate input and output operations on a file stream shall not be used without an intervening flush or positioning call.",
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function."
-      }
+      "title": "Alternate input and output operations on a file stream shall not be used without an intervening flush or positioning call."
     }
   },
   "CERT-C++": {

@@ -45,7 +45,6 @@
                                             "type": "string",
                                             "enum": [
                                                 "required",
-                                                "rule",
                                                 "advisory"
                                             ]
                                         }
@@ -67,6 +66,7 @@
                                     "type": "string"
                                 }
                             },
+                            "additionalProperties": false,
                             "required": [
                                 "properties",
                                 "queries",
@@ -94,9 +94,7 @@
                                         "obligation": {
                                             "type": "string",
                                             "enum": [
-                                                "required",
-                                                "rule",
-                                                "advisory"
+                                                "rule"
                                             ]
                                         }
                                     },
@@ -119,7 +117,104 @@
                                 "properties",
                                 "queries",
                                 "title"
-                            ]
+                            ],
+                            "additionalProperties": false
+                        }
+                    },
+                    "minProperties": 1
+                }
+            }
+        },
+        {
+            "properties": {
+                "CERT-C": {
+                    "description": "Rules part of the CERT-C standard",
+                    "type": "object",
+                    "patternProperties": {
+                        "^\\w+\\d+-C": {
+                            "description": "A coding standard rule",
+                            "type": "object",
+                            "properties": {
+                                "properties": {
+                                    "type": "object",
+                                    "properties": {
+                                        "obligation": {
+                                            "type": "string",
+                                            "enum": [
+                                                "rule"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "obligation"
+                                    ]
+                                },
+                                "queries": {
+                                    "type": "array",
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "$ref": "#/$defs/query"
+                                    }
+                                },
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "properties",
+                                "queries",
+                                "title"
+                            ],
+                            "additionalProperties": false
+                        }
+                    },
+                    "minProperties": 1
+                }
+            }
+        },
+        {
+            "properties": {
+                "MISRA-C-2012": {
+                    "description": "Rules part of the MISRA C 2012 standard",
+                    "type": "object",
+                    "patternProperties": {
+                        "^RULE-\\d+-\\d+": {
+                            "description": "A coding standard rule",
+                            "type": "object",
+                            "properties": {
+                                "properties": {
+                                    "type": "object",
+                                    "properties": {
+                                        "obligation": {
+                                            "type": "string",
+                                            "enum": [
+                                                "required",
+                                                "advisory",
+                                                "mandatory"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "obligation"
+                                    ]
+                                },
+                                "queries": {
+                                    "type": "array",
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "$ref": "#/$defs/query"
+                                    }
+                                },
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "properties",
+                                "queries",
+                                "title"
+                            ],
+                            "additionalProperties": false
                         }
                     },
                     "minProperties": 1
@@ -128,7 +223,7 @@
         }
     ],
     "minProperties": 1,
-    "maxProperties": 2,
+    "maxProperties": 4,
     "$defs": {
         "query": {
             "$id": "/schemas/query",

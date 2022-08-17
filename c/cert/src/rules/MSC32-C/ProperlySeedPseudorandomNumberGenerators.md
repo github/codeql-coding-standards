@@ -162,7 +162,7 @@ MSC30-C, MSC32-C and CON33-C are independent, they have no intersections. They e
 
 ## Implementation notes
 
-None
+This rule will be checked by looking for calls to random that are no preceded by a call to srandom(). We perform a simple check for the argument to srandom() and verify it is not a literal (or a value easily deduced to be a literal).
 
 ## References
 

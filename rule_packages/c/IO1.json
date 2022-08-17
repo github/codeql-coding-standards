@@ -19,10 +19,7 @@
           ]
         }
       ],
-      "title": "Exclude user input from format strings",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Exclude user input from format strings"
     },
     "FIO34-C": {
       "properties": {
@@ -39,7 +36,10 @@
           "tags": [
             "correctness",
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function. The query does not validate if the FILE status is handled correctly after being read."
+          }
         },
         {
           "description": "Checks against EOF are only portable to platforms where type `char` is less wide than type `int`.",
@@ -51,13 +51,13 @@
           "tags": [
             "correctness",
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function. The query does not validate if the FILE status is handled correctly after being read."
+          }
         }
       ],
-      "title": "Distinguish between characters read from a file and EOF or WEOF",
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function. The query does not validate if the FILE status is handled correctly after being read."
-      }
+      "title": "Distinguish between characters read from a file and EOF or WEOF"
     },
     "FIO39-C": {
       "properties": {
@@ -65,7 +65,7 @@
       },
       "queries": [
         {
-          "description": "Do not alternate input and output operations on a file without an intervening flush or positioning call.",
+          "description": "Do not alternately input and output from a stream without an intervening flush or positioning call. This may result in undefined behavior.",
           "kind": "problem",
           "name": "Do not alternately input and output from a stream without an intervening flush or positioning call",
           "precision": "very-high",
@@ -74,13 +74,13 @@
           "shared_implementation_short_name": "IOFstreamMissingPositioning",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
         }
       ],
-      "title": "Do not alternately input and output from a stream without an intervening flush or positioning call",
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function."
-      }
+      "title": "Do not alternately input and output from a stream without an intervening flush or positioning call"
     },
     "FIO42-C": {
       "properties": {
@@ -88,7 +88,7 @@
       },
       "queries": [
         {
-          "description": "Close files when they are no longer needed.",
+          "description": "Open files must be closed before the lifetime of the last pointer to the file-object has ended to prevent resource exhaustion and data loss issues.",
           "kind": "problem",
           "name": "Close files when they are no longer needed",
           "precision": "very-high",
@@ -97,13 +97,13 @@
           "tags": [
             "correctness",
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
         }
       ],
-      "title": "Close files when they are no longer needed",
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function."
-      }
+      "title": "Close files when they are no longer needed"
     },
     "FIO46-C": {
       "properties": {
@@ -120,13 +120,13 @@
           "shared_implementation_short_name": "DoNotAccessAClosedFile",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
         }
       ],
-      "title": "Do not access a closed file",
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function."
-      }
+      "title": "Do not access a closed file"
     }
   },
   "MISRA-C-2012": {
@@ -145,13 +145,13 @@
           "shared_implementation_short_name": "DoNotAccessAClosedFile",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
         }
       ],
-      "title": "The value of a pointer to a FILE shall not be used after the associated stream has been closed",
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function."
-      }
+      "title": "The value of a pointer to a FILE shall not be used after the associated stream has been closed"
     }
   }
 }

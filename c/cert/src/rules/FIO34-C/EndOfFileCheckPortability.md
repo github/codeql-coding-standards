@@ -199,7 +199,7 @@ Therefore: FIO34-C = Subset( CWE-197)
 
 ## Implementation notes
 
-None
+The rule is enforced in the context of a single function. The query does not validate if the FILE status is handled correctly after being read.
 
 ## References
 
