@@ -7,6 +7,7 @@
  * @problem.severity error
  * @tags external/cert/id/oop57-cpp
  *       correctness
+ *       scope/single-translation-unit
  *       external/cert/obligation/rule
  */
 

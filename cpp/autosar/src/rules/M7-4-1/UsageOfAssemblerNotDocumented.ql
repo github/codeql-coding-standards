@@ -8,6 +8,7 @@
  * @tags external/autosar/id/m7-4-1
  *       readability
  *       maintainability
+ *       scope/single-translation-unit
  *       external/autosar/allocated-target/implementation
  *       external/autosar/audit
  *       external/autosar/enforcement/non-automated

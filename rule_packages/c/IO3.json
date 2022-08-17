@@ -113,7 +113,7 @@
       },
       "queries": [
         {
-          "description": "The macro EOF shall only be compared with the unmodified return value from any Standard Library function capable of returning EOF",
+          "description": "The macro EOF shall only be compared with the unmodified return value from any Standard Library function capable of returning EOF.",
           "kind": "problem",
           "name": "The macro EOF shall only be compared with the unmodified return value from any Standard Library",
           "precision": "high",

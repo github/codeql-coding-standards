@@ -1,6 +1,6 @@
 /**
  * @id c/cert/call-posix-open-with-correct-argument-count
- * @name EXP37-C: Pass the correct number of arguments to the POSIX open function.
+ * @name EXP37-C: Pass the correct number of arguments to the POSIX open function
  * @description A third argument should be passed to the POSIX function open() when and only when
  *              creating a new file.
  * @kind problem

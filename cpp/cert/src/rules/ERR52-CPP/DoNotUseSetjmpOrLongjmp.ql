@@ -7,6 +7,7 @@
  * @problem.severity error
  * @tags external/cert/id/err52-cpp
  *       correctness
+ *       scope/single-translation-unit
  *       external/cert/obligation/rule
  */
 
