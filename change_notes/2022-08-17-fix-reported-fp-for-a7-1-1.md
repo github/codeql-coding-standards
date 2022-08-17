@@ -1,0 +1,2 @@
+ - `A7-1-1` - `DeclarationUnmodifiedObjectMissingConstSpecifier.ql`:
+   -  Remove findings in uninstantiated Templates.
