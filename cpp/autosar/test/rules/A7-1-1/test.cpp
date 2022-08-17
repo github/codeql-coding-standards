@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 
@@ -39,9 +40,42 @@ public:
     m_ = a.m;
   }
   void Call() {
-    [this]() { std::cout << m_ << '\n'; }(); // COMPLIANT ignore lambdas
+    // ignore lambdas
+    [this]() { std::cout << m_ << '\n'; }(); // COMPLIANT
   }
 
 private:
   std::string m_;
 };
+
+template <typename T> class A7_1_1b final {
+public:
+  explicit A7_1_1b(int i) noexcept {
+    t_.Init(i);
+  } // t_ is modified here by Init
+private:
+  // ignore uninstantiated templates
+  T t_; // COMPLIANT
+};
+
+class A7_1_1bHelper {
+public:
+  void Init(int i) {}
+};
+
+class Issue18 {
+public:
+  template <typename T> void F(const T &s) {
+    // ignore uninstantiated templates
+    std::ostream ostr; // COMPLIANT
+    ostr << s;         // <= Modified here
+    return;
+  }
+};
+
+/// main
+int main(int, char **) noexcept {
+  new A7_1_1b<A7_1_1bHelper>(0);
+
+  (new Issue18)->F(0);
+}
