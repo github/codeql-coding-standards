@@ -287,7 +287,9 @@
                             "external/autosar/audit",
                             "external/autosar/default-disabled",
                             "external/cert/default-disabled",
-                            "external/autosar/strict"
+                            "external/autosar/strict",
+                            "scope/single-translation-unit",
+                            "scope/system"
                         ]
                     },
                     "minLength": 1
