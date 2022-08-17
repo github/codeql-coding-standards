@@ -8,6 +8,7 @@
  * @tags external/autosar/id/m18-0-5
  *       security
  *       correctness
+ *       scope/single-translation-unit
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
