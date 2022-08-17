@@ -35,5 +35,6 @@ where
       cond = " points to an object"
     else cond = " is used for an object"
   ) and
-  not exists(LambdaExpression lc | lc.getACapture().getField() = v)
+  not exists(LambdaExpression lc | lc.getACapture().getField() = v) and
+  not v.isFromUninstantiatedTemplate(_)
 select v, "Non-constant variable " + v.getName() + cond + " and is not modified."
