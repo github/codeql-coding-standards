@@ -1,6 +1,6 @@
 /**
  * @id c/cert/do-not-call-functions-with-incompatible-arguments
- * @name EXP37-C: Do not pass arguments with an incompatible count or type to a function.
+ * @name EXP37-C: Do not pass arguments with an incompatible count or type to a function
  * @description The arguments passed to a function must be compatible with the function's
  *              parameters.
  * @kind problem

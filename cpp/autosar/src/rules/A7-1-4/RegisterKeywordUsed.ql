@@ -7,6 +7,7 @@
  * @problem.severity error
  * @tags external/autosar/id/a7-1-4
  *       correctness
+ *       scope/single-translation-unit
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

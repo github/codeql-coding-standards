@@ -14,6 +14,7 @@
  * @problem.severity warning
  * @tags external/autosar/id/a18-0-3
  *       correctness
+ *       scope/single-translation-unit
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

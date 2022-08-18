@@ -22,7 +22,7 @@
         {
           "description": "The arguments passed to a function must be compatible with the function's parameters.",
           "kind": "problem",
-          "name": "Do not pass arguments with an incompatible count or type to a function.",
+          "name": "Do not pass arguments with an incompatible count or type to a function",
           "precision": "high",
           "severity": "error",
           "short_name": "DoNotCallFunctionsWithIncompatibleArguments",
@@ -33,7 +33,7 @@
         {
           "description": "A third argument should be passed to the POSIX function open() when and only when creating a new file.",
           "kind": "problem",
-          "name": "Pass the correct number of arguments to the POSIX open function.",
+          "name": "Pass the correct number of arguments to the POSIX open function",
           "precision": "high",
           "severity": "error",
           "short_name": "CallPOSIXOpenWithCorrectArgumentCount",
