@@ -1,0 +1,3 @@
+ - Added the `autosar-single-translation-unit.qls` and `cert-single-translation-unit.qls` query suites for C++.
+     - These include a subset of queries which are suitable for running over databases including only a single translation unit.
+     - The initial version includes rules from the "Banned*" C++ packages. Future updates will add additional queries into this suite as they are identified as suitable.

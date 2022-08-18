@@ -18,10 +18,7 @@
           ]
         }
       ],
-      "title": "Do not copy a FILE object",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Do not copy a FILE object"
     },
     "FIO40-C": {
       "properties": {
@@ -41,10 +38,7 @@
           ]
         }
       ],
-      "title": "Reset strings on fgets() or fgetws() failure",
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function. Not all failing calls can be recognized statically, the rule looks for specific patterns in comparisons against NULL."
-      }
+      "title": "Reset strings on fgets() or fgetws() failure"
     },
     "FIO41-C": {
       "properties": {
@@ -63,10 +57,7 @@
           ]
         }
       ],
-      "title": "Do not call getc(), putc(), getwc(), or putwc() with a stream argument that has side effects",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Do not call getc(), putc(), getwc(), or putwc() with a stream argument that has side effects"
     },
     "FIO44-C": {
       "properties": {
@@ -85,10 +76,7 @@
           ]
         }
       ],
-      "title": "Only use values for fsetpos() that are returned from fgetpos()",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Only use values for fsetpos() that are returned from fgetpos()"
     }
   }
 }

@@ -93,7 +93,7 @@ Failing to meet the required behavior for a replacement handler results in [unde
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4776, C++4777, C++4778, C++4779</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-OOP56-a</strong> <strong>CERT_CPP-OOP56-b</strong> <strong>CERT_CPP-OOP56-c</strong> </td> <td> Properly define terminate handlers Properly define unexpected handlers Properly define new handlers </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4776, C++4777, C++4778, C++4779</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-OOP56-a</strong> <strong>CERT_CPP-OOP56-b</strong> <strong>CERT_CPP-OOP56-c</strong> </td> <td> Properly define terminate handlers Properly define unexpected handlers Properly define new handlers </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

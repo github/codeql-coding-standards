@@ -8,6 +8,7 @@
  * @tags external/cert/id/dcl50-cpp
  *       correctness
  *       security
+ *       scope/single-translation-unit
  *       external/cert/obligation/rule
  */
 

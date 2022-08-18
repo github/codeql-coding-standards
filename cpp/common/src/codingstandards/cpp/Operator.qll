@@ -170,8 +170,8 @@ class UserBitwiseOperator extends Function {
       op in ["&", "|", "^", "~", "%", "<<", ">>"]
     ) and
     not this.isCompilerGenerated() and
-    not this.getType().hasName("ostream") and
-    not this.getType().hasName("istream")
+    not this.getType().(ReferenceType).getBaseType().hasName("ostream") and
+    not this.getType().(ReferenceType).getBaseType().hasName("istream")
   }
 }
 

@@ -1,0 +1,2 @@
+| test.c:1:8:1:8 | g | Declaration g is missing a type specifier. |
+| test.c:5:1:5:1 | f | Declaration f is missing a type specifier. |

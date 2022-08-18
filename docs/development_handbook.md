@@ -31,6 +31,7 @@
 | 0.23.0  | 2022-07-05 | Remco Vermeulen | Update text to consider both the C++ and the C standards.                                                                                                                                                                                                                                 |
 | 0.24.0  | 2022-07-05 | Remco Vermeulen | Update release process to include steps for external help files.                                                                                                                                                                                                                          |
 | 0.25.0  | 2022-07-22 | Jeroen Ketema   | Document the existence and purpose of the `next` branch.                                                                                                                                                                                                                                  |
+| 0.26.0  | 2022-08-10 | Remco Vermeulen | Address incorrect package file generation command. This was missing the required language argument.                                                                                                                                                                                       |
 
 ## Scope of work
 
@@ -262,13 +263,13 @@ Ensure that the repository [codeql-coding-standards-help](https://github.com/git
 To generate the rule package files, run the following script from the root of the repository:
 
 ```
-python3.9 scripts/generate_rules/generate_package_files.py <rule_package_name>
+python3.9 scripts/generate_rules/generate_package_files.py <language> <rule_package_name>
 ```
 
 If the repository [codeql-coding-standards-help](https://github.com/github/codeql-coding-standards-help) is not cloned as a sibling, then run the script as follows:
 
 ```
-python3.9 scripts/generate_rules/generate_package_files.py  --external-help-dir <codeql_coding_standards_help_path> <rule_package_name>
+python3.9 scripts/generate_rules/generate_package_files.py  --external-help-dir <codeql_coding_standards_help_path> <language> <rule_package_name>
 ```
 
 After running this script, the following files will be generated in the `<lang>/<standard>/src/rules/<rule-id>/` directory:

@@ -15,13 +15,13 @@
           "tags": [
             "correctness",
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule checks that filenames are not tainted. It does not verify that appropriate OS-specific checks are in place to exclude that the opened file is a device."
+          }
         }
       ],
-      "title": "Do not perform operations on devices that are only appropriate for files",
-      "implementation_scope": {
-        "description": "The rule checks that filenames are not tainted. It does not verify that appropriate OS-specific checks are in place to exclude that the opened file is a device."
-      }
+      "title": "Do not perform operations on devices that are only appropriate for files"
     },
     "FIO37-C": {
       "properties": {
@@ -37,13 +37,13 @@
           "short_name": "SuccessfulFgetsOrFgetwsMayReturnAnEmptyString",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule checks that access to a string returned by fgets() or fgetws() if protected by a guard condition. The rule is enforced in the context of a single function."
+          }
         }
       ],
-      "title": "Do not assume that fgets() or fgetws() returns a nonempty string when successful",
-      "implementation_scope": {
-        "description": "The rule checks that access to a string returned by fgets() or fgetws() if protected by a guard condition. The rule is enforced in the context of a single function."
-      }
+      "title": "Do not assume that fgets() or fgetws() returns a nonempty string when successful"
     }
   },
   "MISRA-C-2012": {
@@ -61,13 +61,13 @@
           "short_name": "FileOpenForReadAndWriteOnDifferentStreams",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
         }
       ],
-      "title": "The same file shall not be open for read and write access at the same time on different streams",
-      "implementation_scope": {
-        "description": "The rule is enforced in the context of a single function."
-      }
+      "title": "The same file shall not be open for read and write access at the same time on different streams"
     },
     "RULE-22-4": {
       "properties": {
@@ -86,10 +86,7 @@
           ]
         }
       ],
-      "title": "There shall be no attempt to write to a stream which has been opened as read-only",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "There shall be no attempt to write to a stream which has been opened as read-only"
     },
     "RULE-22-5": {
       "properties": {
@@ -108,10 +105,7 @@
           ]
         }
       ],
-      "title": "A pointer to a FILE object shall not be dereferenced",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "A pointer to a FILE object shall not be dereferenced"
     },
     "RULE-22-7": {
       "properties": {
@@ -119,7 +113,7 @@
       },
       "queries": [
         {
-          "description": "The macro EOF shall only be compared with the unmodified return value from any Standard Library function capable of returning EOF",
+          "description": "The macro EOF shall only be compared with the unmodified return value from any Standard Library function capable of returning EOF.",
           "kind": "problem",
           "name": "The macro EOF shall only be compared with the unmodified return value from any Standard Library",
           "precision": "high",
@@ -130,10 +124,7 @@
           ]
         }
       ],
-      "title": "The macro EOF shall only be compared with the unmodified return value from any Standard Library function capable of returning EOF",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "The macro EOF shall only be compared with the unmodified return value from any Standard Library function capable of returning EOF"
     }
   }
 }

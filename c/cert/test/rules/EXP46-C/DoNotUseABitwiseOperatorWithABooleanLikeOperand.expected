@@ -1,0 +1,2 @@
+| test.c:4:12:4:21 | ... & ... | Bitwise operator & performs potentially unintended operation on $@. | test.c:4:16:4:21 | ... == ... | boolean operand |
+| test.c:14:9:14:38 | ... & ... | Bitwise operator & performs potentially unintended operation on $@. | test.c:14:23:14:38 | ... == ... | boolean operand |

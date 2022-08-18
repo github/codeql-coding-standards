@@ -17,10 +17,7 @@
           ]
         }
       ],
-      "title": "Conversions shall not be performed between a pointer to a function and any other type",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Conversions shall not be performed between a pointer to a function and any other type"
     },
     "RULE-11-2": {
       "properties": {
@@ -39,10 +36,7 @@
           ]
         }
       ],
-      "title": "Conversions shall not be performed between a pointer to an incomplete type and any other type",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Conversions shall not be performed between a pointer to an incomplete type and any other type"
     },
     "RULE-11-3": {
       "properties": {
@@ -61,10 +55,7 @@
           ]
         }
       ],
-      "title": "A cast shall not be performed between a pointer to object type and a pointer to a different object type",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "A cast shall not be performed between a pointer to object type and a pointer to a different object type"
     },
     "RULE-11-4": {
       "properties": {
@@ -83,10 +74,7 @@
           ]
         }
       ],
-      "title": "A conversion should not be performed between a pointer to object and an integer type",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "A conversion should not be performed between a pointer to object and an integer type"
     },
     "RULE-11-5": {
       "properties": {
@@ -105,10 +93,7 @@
           ]
         }
       ],
-      "title": "A conversion should not be performed from pointer to void into pointer to object",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "A conversion should not be performed from pointer to void into pointer to object"
     },
     "RULE-11-6": {
       "properties": {
@@ -127,10 +112,7 @@
           ]
         }
       ],
-      "title": "A cast shall not be performed between pointer to void and an arithmetic type",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "A cast shall not be performed between pointer to void and an arithmetic type"
     },
     "RULE-11-7": {
       "properties": {
@@ -149,10 +131,7 @@
           ]
         }
       ],
-      "title": "A cast shall not be performed between pointer to object and a non-integer arithmetic type",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "A cast shall not be performed between pointer to object and a non-integer arithmetic type"
     },
     "RULE-11-8": {
       "properties": {
@@ -171,10 +150,7 @@
           ]
         }
       ],
-      "title": "A cast shall not remove any const or volatile qualification from the type pointed to by a pointer",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "A cast shall not remove any const or volatile qualification from the type pointed to by a pointer"
     },
     "RULE-11-9": {
       "properties": {
@@ -190,13 +166,13 @@
           "short_name": "MacroNullNotUsedAsIntegerNullPointerConstant",
           "tags": [
             "readability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This rule allows two forms of null-pointer constants: a Zero literal created by the NULL macro or a Zero literal cast to a void pointer."
+          }
         }
       ],
-      "title": "The macro NULL shall be the only permitted form of integer null pointer constant",
-      "implementation_scope": {
-        "description": "This rule allows two forms of null-pointer constants: a Zero literal created by the NULL macro or a Zero literal cast to a void pointer."
-      }
+      "title": "The macro NULL shall be the only permitted form of integer null pointer constant"
     },
     "RULE-18-1": {
       "properties": {
@@ -216,10 +192,7 @@
           ]
         }
       ],
-      "title": "A pointer resulting from arithmetic on a pointer operand shall address an element of the same array as that pointer operand",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "A pointer resulting from arithmetic on a pointer operand shall address an element of the same array as that pointer operand"
     },
     "RULE-18-2": {
       "properties": {
@@ -239,10 +212,7 @@
           ]
         }
       ],
-      "title": "Subtraction between pointers shall only be applied to pointers that address elements of the same array",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Subtraction between pointers shall only be applied to pointers that address elements of the same array"
     },
     "RULE-18-3": {
       "properties": {
@@ -262,10 +232,7 @@
           ]
         }
       ],
-      "title": "The relational operators >, >=, < and <= shall not be applied to objects of pointer type except where they point into the same object",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "The relational operators >, >=, < and <= shall not be applied to objects of pointer type except where they point into the same object"
     },
     "RULE-18-4": {
       "properties": {
@@ -285,10 +252,7 @@
           ]
         }
       ],
-      "title": "The +, -, += and -= operators should not be applied to an expression of pointer type",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "The +, -, += and -= operators should not be applied to an expression of pointer type"
     },
     "RULE-18-5": {
       "properties": {
@@ -308,10 +272,7 @@
           ]
         }
       ],
-      "title": "Declarations should contain no more than two levels of pointer nesting",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "Declarations should contain no more than two levels of pointer nesting"
     },
     "RULE-18-6": {
       "properties": {
@@ -331,10 +292,7 @@
           ]
         }
       ],
-      "title": "The address of an object with automatic storage shall not be copied to another object that persists after the first object has ceased to exist",
-      "implementation_scope": {
-        "description": "None."
-      }
+      "title": "The address of an object with automatic storage shall not be copied to another object that persists after the first object has ceased to exist"
     },
     "RULE-4-8": {
       "properties": {
@@ -350,15 +308,14 @@
           "short_name": "ObjectWithNoPointerDereferenceShouldBeOpaque",
           "tags": [
             "readability",
-            "maintainability",
-            "readability"
-          ]
+            "maintainability"
+          ],
+          "implementation_scope": {
+            "description": "This rule considers all cases where a structure or union is referenced as a pointer but has no FieldAccess within a translation unit. Further excluded from this rule are translation units in which the structure or union is declared as a non-pointer variable."
+          }
         }
       ],
-      "title": "If a pointer to a structure or union is never dereferenced within a translation unit, then the implementation of the object should be hidden",
-      "implementation_scope": {
-        "description": "This rule considers all cases where a structure or union is referenced as a pointer but has no FieldAccess within a translation unit. Further excluded from this rule are translation units in which the structure or union is declared as a non-pointer variable."
-      }
+      "title": "If a pointer to a structure or union is never dereferenced within a translation unit, then the implementation of the object should be hidden"
     },
     "RULE-8-13": {
       "properties": {
@@ -376,13 +333,13 @@
             "correctness",
             "maintainability",
             "readability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "To exclude compliant exceptions, this rule only excludes direct assignments of pointers to non-const-qualified types in the context of a single function and does not cover memory-copying functions. This rule also excludes pointers passed to other functions without conversion."
+          }
         }
       ],
-      "title": "A pointer should point to a const-qualified type whenever possible",
-      "implementation_scope": {
-        "description": "To exclude compliant exceptions, this rule only excludes direct assignments of pointers to non-const-qualified types in the context of a single function and does not cover memory-copying functions. This rule also excludes pointers passed to other functions without conversion."
-      }
+      "title": "A pointer should point to a const-qualified type whenever possible"
     }
   }
 }

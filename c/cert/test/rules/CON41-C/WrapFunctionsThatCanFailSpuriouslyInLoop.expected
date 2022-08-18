@@ -1,0 +1,4 @@
+| test.c:5:8:5:46 | atomic_compare_exchange_weak(a,b,c) | Function that can spuriously fail not wrapped in a loop. |
+| test.c:9:3:9:41 | atomic_compare_exchange_weak(a,b,c) | Function that can spuriously fail not wrapped in a loop. |
+| test.c:11:8:12:47 | atomic_compare_exchange_weak_explicit(a,b,c,d,e) | Function that can spuriously fail not wrapped in a loop. |
+| test.c:16:3:16:56 | atomic_compare_exchange_weak_explicit(a,b,c,d,e) | Function that can spuriously fail not wrapped in a loop. |

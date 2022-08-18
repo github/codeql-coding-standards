@@ -18,6 +18,11 @@ void f1(void) {
   (void)(*v4()); // COMPLIANT
 
   extern void f2(int p1);
-  f2(0);       // COMPLIANT
-  fp1 v5 = f2; // COMPLIANT
+  f2(0);                   // COMPLIANT
+  fp1 v5 = f2;             // NON_COMPLIANT
+  fp2 v6 = f2;             // COMPLIANT
+  v5 = v1;                 // COMPLIANT
+  v5 = v2;                 // NON_COMPLIANT
+  v5 = (void (*)(void))v1; // COMPLIANT
+  v5 = (void (*)(void))v2; // NON_COMPLIANT
 }
