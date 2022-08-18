@@ -20,6 +20,11 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Typehelpers
 
+predicate isNonTemplateObjectVariable(GlobalOrNamespaceVariable gv) {
+  not gv.isFromTemplateInstantiation(_) and
+  not gv.isFromUninstantiatedTemplate(_)
+}
+
 from VariableDeclarationEntry decl1, VariableDeclarationEntry decl2
 where
   not isExcluded(decl1, DeclarationsPackage::declarationsOfAnObjectShallHaveCompatibleTypesQuery()) and
@@ -28,16 +33,9 @@ where
   // Note that normally `VariableDeclarationEntry` includes parameters, which are not covered
   // by this query. We implicitly exclude them with the `getQualifiedName()` predicate.
   decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName() and
-  // The underlying Variable shouldn't be from a TemplateVariable or a template instantiation
-  not exists(Variable v |
-    v = decl1.getVariable()
-    or
-    v = decl2.getVariable()
-  |
-    v instanceof TemplateVariable
-    or
-    v.isFromTemplateInstantiation(_)
-  )
+  // Only consider global/namespace variables which aren't templated
+  isNonTemplateObjectVariable(decl1.getVariable()) and
+  isNonTemplateObjectVariable(decl2.getVariable())
 select decl1,
   "The object $@ of type " + decl1.getType().toString() +
     " is not compatible with re-declaration $@ of type " + decl2.getType().toString(), decl1,
