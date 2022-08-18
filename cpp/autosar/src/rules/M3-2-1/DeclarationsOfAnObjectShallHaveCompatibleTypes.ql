@@ -38,5 +38,7 @@ where
     or
     v.isFromTemplateInstantiation(_)
   )
-select decl1, "The object $@ is not compatible with re-declaration $@", decl1, decl1.getName(),
-  decl2, decl2.getName()
+select decl1,
+  "The object $@ of type " + decl1.getType().toString() +
+    " is not compatible with re-declaration $@ of type " + decl2.getType().toString(), decl1,
+  decl1.getName(), decl2, decl2.getName()
