@@ -45,7 +45,13 @@ python3 scripts/release/generate_release_notes.py > "$TEMP_DIR/release_notes_$VE
 python3 scripts/release/create_supported_rules_list.py > "$TEMP_DIR/supported_rules_list_$VERSION.md"
 python3 scripts/release/create_supported_rules_list.py --csv > "$TEMP_DIR/supported_rules_list_$VERSION.csv"
 
-gh release create "v$VERSION" -d --target "$BRANCH" -F "$TEMP_DIR/release_notes_$VERSION.md" -t "v$VERSION" "$TEMP_DIR/$CODE_SCANNING_VERSIONED_ARTIFACT_NAME" "$TEMP_DIR/supported_rules_list_$VERSION.md" "$TEMP_DIR/supported_rules_list_$VERSION.csv" docs/user_manual.md
+echo "Copy Docs to Artifact Directory"
+cp docs/user_manual.md "$TEMP_DIR/user_manual_$VERSION.md"
+
+echo "Generating Checksums"
+sha256sum $TEMP_DIR/* > "$TEMP_DIR/checksums.txt"
+
+gh release create "v$VERSION" -d --target "$BRANCH" -F "$TEMP_DIR/release_notes_$VERSION.md" -t "v$VERSION" "$TEMP_DIR/$CODE_SCANNING_VERSIONED_ARTIFACT_NAME" "$TEMP_DIR/supported_rules_list_$VERSION.md" "$TEMP_DIR/checksums.txt" "$TEMP_DIR/supported_rules_list_$VERSION.csv" "$TEMP_DIR/user_manual_$VERSION.md"
 
 curl \
   -X POST \
