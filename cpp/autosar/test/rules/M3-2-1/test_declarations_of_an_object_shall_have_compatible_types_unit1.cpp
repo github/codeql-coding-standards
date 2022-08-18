@@ -17,3 +17,10 @@ int a2; // NON_COMPLIANT
 int a9[100];  // COMPLIANT
 int a10[100]; // COMPLIANT
 int a11[100]; // NON_COMPLIANT - different sizes
+
+// Variable templates can cause false positives
+template <class T> constexpr T number_one = T(1); // COMPLIANT
+
+int test() { return number_one<int>; }
+
+long test2() { return number_one<long>; }
