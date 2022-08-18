@@ -27,6 +27,16 @@ where
   not areCompatible(decl1.getType(), decl2.getType()) and
   // Note that normally `VariableDeclarationEntry` includes parameters, which are not covered
   // by this query. We implicitly exclude them with the `getQualifiedName()` predicate.
-  decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName()
+  decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName() and
+  // The underlying Variable shouldn't be from a TemplateVariable or a template instantiation
+  not exists(Variable v |
+    v = decl1.getVariable()
+    or
+    v = decl2.getVariable()
+  |
+    v instanceof TemplateVariable
+    or
+    v.isFromTemplateInstantiation(_)
+  )
 select decl1, "The object $@ is not compatible with re-declaration $@", decl1, decl1.getName(),
   decl2, decl2.getName()
