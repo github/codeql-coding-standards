@@ -24,3 +24,12 @@ template <class T> constexpr T number_one = T(1); // COMPLIANT
 int test() { return number_one<int>; }
 
 long test2() { return number_one<long>; }
+
+template <class T> class ClassB {
+private:
+  T mA;      // Should be ignored, as not an object
+  double mB; // Should be ignored, as not an object
+};
+
+void test3() { ClassB<int> b; }
+void test4() { ClassB<long> b; }
