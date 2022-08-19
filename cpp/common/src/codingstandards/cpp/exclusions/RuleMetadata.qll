@@ -8,13 +8,18 @@ newtype TQuery =
 
 class Query extends TQuery {
   string getQueryId() {
-    CPPRuleMetadata::isQueryMetadata(this, result, _) or
-    CRuleMetadata::isQueryMetadata(this, result, _)
+    CPPRuleMetadata::isQueryMetadata(this, result, _, _) or
+    CRuleMetadata::isQueryMetadata(this, result, _, _)
   }
 
   string getRuleId() {
-    CPPRuleMetadata::isQueryMetadata(this, _, result) or
-    CRuleMetadata::isQueryMetadata(this, _, result)
+    CPPRuleMetadata::isQueryMetadata(this, _, result, _) or
+    CRuleMetadata::isQueryMetadata(this, _, result, _)
+  }
+
+  string getCategory() {
+    CPPRuleMetadata::isQueryMetadata(this, _, _, result) or
+    CRuleMetadata::isQueryMetadata(this, _, _, result)
   }
 
   string toString() { result = getQueryId() }

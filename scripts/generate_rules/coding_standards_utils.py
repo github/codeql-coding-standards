@@ -65,7 +65,7 @@ def write_exclusion_template(template: Type[Template], args: Dict[str, str], pac
     with open(file, "w", newline="\n") as f:
         f.write(output)
 
-def extract_metadata_from_query(rule_id, title, q, rule_query_tags, language_name, ql_language_name, standard_name, standard_short_name, standard_metadata, anonymise):
+def extract_metadata_from_query(rule_id, title, rule_category, q, rule_query_tags, language_name, ql_language_name, standard_name, standard_short_name, standard_metadata, anonymise):
 
     metadata = q.copy()
 
@@ -92,6 +92,7 @@ def extract_metadata_from_query(rule_id, title, q, rule_query_tags, language_nam
     exclusion_model["queryname"] = metadata["short_name"]
     exclusion_model["queryname_camelcase"] = metadata["short_name"][0].lower(
     ) + metadata["short_name"][1:]
+    exclusion_model["category"] = rule_category
 
     if not "kind" in metadata:
         # default to problem if not specified

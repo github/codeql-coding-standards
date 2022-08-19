@@ -18,14 +18,15 @@ newtype InheritanceQuery =
   TDoNotSliceDerivedObjectsQuery() or
   TDoNotDeleteAPolymorphicObjectWithoutAVirtualDestructorQuery()
 
-predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `publicInheritanceNotUsedForIsARelationship` query
     InheritancePackage::publicInheritanceNotUsedForIsARelationshipQuery() and
   queryId =
     // `@id` for the `publicInheritanceNotUsedForIsARelationship` query
     "cpp/autosar/public-inheritance-not-used-for-is-a-relationship" and
-  ruleId = "A10-0-1"
+  ruleId = "A10-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonPublicInheritanceNotUsedForHasARelationship` query
@@ -33,7 +34,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `nonPublicInheritanceNotUsedForHasARelationship` query
     "cpp/autosar/non-public-inheritance-not-used-for-has-a-relationship" and
-  ruleId = "A10-0-2"
+  ruleId = "A10-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `classDerivedFromMoreThanOneNonInterfaceBaseClass` query
@@ -41,7 +43,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `classDerivedFromMoreThanOneNonInterfaceBaseClass` query
     "cpp/autosar/class-derived-from-more-than-one-non-interface-base-class" and
-  ruleId = "A10-1-1"
+  ruleId = "A10-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `hierarchiesShouldBeBasedOnInterfaceClasses` query
@@ -49,7 +52,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `hierarchiesShouldBeBasedOnInterfaceClasses` query
     "cpp/autosar/hierarchies-should-be-based-on-interface-classes" and
-  ruleId = "A10-4-1"
+  ruleId = "A10-4-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `classesShouldNotBeDerivedFromVirtualBases` query
@@ -57,7 +61,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `classesShouldNotBeDerivedFromVirtualBases` query
     "cpp/autosar/classes-should-not-be-derived-from-virtual-bases" and
-  ruleId = "M10-1-1"
+  ruleId = "M10-1-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `baseClassCanBeVirtualOnlyInDiamondHierarchy` query
@@ -65,7 +70,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `baseClassCanBeVirtualOnlyInDiamondHierarchy` query
     "cpp/autosar/base-class-can-be-virtual-only-in-diamond-hierarchy" and
-  ruleId = "M10-1-2"
+  ruleId = "M10-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `accessibleBaseClassBothVirtualAndNonVirtualInHierarchy` query
@@ -73,7 +79,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `accessibleBaseClassBothVirtualAndNonVirtualInHierarchy` query
     "cpp/autosar/accessible-base-class-both-virtual-and-non-virtual-in-hierarchy" and
-  ruleId = "M10-1-3"
+  ruleId = "M10-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `uniqueAccessibleEntityNamesInMultipleInheritance` query
@@ -81,7 +88,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `uniqueAccessibleEntityNamesInMultipleInheritance` query
     "cpp/autosar/unique-accessible-entity-names-in-multiple-inheritance" and
-  ruleId = "M10-2-1"
+  ruleId = "M10-2-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `dynamicTypeOfThisUsedFromConstructorOrDestructor` query
@@ -89,7 +97,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `dynamicTypeOfThisUsedFromConstructorOrDestructor` query
     "cpp/autosar/dynamic-type-of-this-used-from-constructor-or-destructor" and
-  ruleId = "M12-1-1"
+  ruleId = "M12-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `downcastingShouldNotBePerformedOnPolymorphicTypes` query
@@ -97,7 +106,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `downcastingShouldNotBePerformedOnPolymorphicTypes` query
     "cpp/autosar/downcasting-should-not-be-performed-on-polymorphic-types" and
-  ruleId = "M5-2-3"
+  ruleId = "M5-2-3" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `doNotInvokeVirtualFunctionsFromConstructorsOrDestructors` query
@@ -105,7 +115,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotInvokeVirtualFunctionsFromConstructorsOrDestructors` query
     "cpp/cert/do-not-invoke-virtual-functions-from-constructors-or-destructors" and
-  ruleId = "OOP50-CPP"
+  ruleId = "OOP50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotSliceDerivedObjects` query
@@ -113,7 +124,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotSliceDerivedObjects` query
     "cpp/cert/do-not-slice-derived-objects" and
-  ruleId = "OOP51-CPP"
+  ruleId = "OOP51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotDeleteAPolymorphicObjectWithoutAVirtualDestructor` query
@@ -121,7 +133,8 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotDeleteAPolymorphicObjectWithoutAVirtualDestructor` query
     "cpp/cert/do-not-delete-a-polymorphic-object-without-a-virtual-destructor" and
-  ruleId = "OOP52-CPP"
+  ruleId = "OOP52-CPP" and
+  category = "rule"
 }
 
 module InheritancePackage {

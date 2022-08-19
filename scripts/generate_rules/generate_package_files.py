@@ -274,6 +274,9 @@ else:
                 test_src_dir = standard_dir.joinpath(
                     "test/rules").joinpath(rule_id)
                 test_src_dir.mkdir(exist_ok=True, parents=True)
+                # Extract the rule category from the obligation property.
+                assert("properties" in rule_details and "obligation" in rule_details["properties"])
+                rule_category = rule_details["properties"]["obligation"]
                 # Build list of tags for this rule to apply to each query
                 rule_query_tags = []
                 for key, value in rule_details["properties"].items():
@@ -291,6 +294,7 @@ else:
                     query, exclusion_model = extract_metadata_from_query(
                         rule_id,
                         rule_details["title"],
+                        rule_category,
                         q,
                         rule_query_tags,
                         language_name,

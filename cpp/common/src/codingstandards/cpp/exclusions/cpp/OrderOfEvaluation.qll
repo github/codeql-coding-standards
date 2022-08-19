@@ -11,14 +11,15 @@ newtype OrderOfEvaluationQuery =
   TIncrementAndDecrementOperatorsMixedWithOtherOperatorsInExpressionQuery() or
   TAssignmentInSubExpressionQuery()
 
-predicate isOrderOfEvaluationQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isOrderOfEvaluationQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `expressionShouldNotRelyOnOrderOfEvaluation` query
     OrderOfEvaluationPackage::expressionShouldNotRelyOnOrderOfEvaluationQuery() and
   queryId =
     // `@id` for the `expressionShouldNotRelyOnOrderOfEvaluation` query
     "cpp/autosar/expression-should-not-rely-on-order-of-evaluation" and
-  ruleId = "A5-0-1"
+  ruleId = "A5-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `operandsOfALogicalAndOrNotParenthesized` query
@@ -26,7 +27,8 @@ predicate isOrderOfEvaluationQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `operandsOfALogicalAndOrNotParenthesized` query
     "cpp/autosar/operands-of-a-logical-and-or-not-parenthesized" and
-  ruleId = "A5-2-6"
+  ruleId = "A5-2-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `explicitConstructionOfUnnamedTemporary` query
@@ -34,7 +36,8 @@ predicate isOrderOfEvaluationQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `explicitConstructionOfUnnamedTemporary` query
     "cpp/autosar/explicit-construction-of-unnamed-temporary" and
-  ruleId = "A6-2-2"
+  ruleId = "A6-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `gratuitousUseOfParentheses` query
@@ -42,7 +45,8 @@ predicate isOrderOfEvaluationQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `gratuitousUseOfParentheses` query
     "cpp/autosar/gratuitous-use-of-parentheses" and
-  ruleId = "M5-0-2"
+  ruleId = "M5-0-2" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `incrementAndDecrementOperatorsMixedWithOtherOperatorsInExpression` query
@@ -50,7 +54,8 @@ predicate isOrderOfEvaluationQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `incrementAndDecrementOperatorsMixedWithOtherOperatorsInExpression` query
     "cpp/autosar/increment-and-decrement-operators-mixed-with-other-operators-in-expression" and
-  ruleId = "M5-2-10"
+  ruleId = "M5-2-10" and
+  category = "required"
   or
   query =
     // `Query` instance for the `assignmentInSubExpression` query
@@ -58,7 +63,8 @@ predicate isOrderOfEvaluationQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `assignmentInSubExpression` query
     "cpp/autosar/assignment-in-sub-expression" and
-  ruleId = "M6-2-1"
+  ruleId = "M6-2-1" and
+  category = "required"
 }
 
 module OrderOfEvaluationPackage {

@@ -14,14 +14,15 @@ newtype OperatorInvariantsQuery =
   TGracefullyHandleSelfCopyAssignmentQuery() or
   TCopyOperationsMustNotMutateTheSourceObjectQuery()
 
-predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `userDefinedCopyAndMoveUseNoThrowSwapFunction` query
     OperatorInvariantsPackage::userDefinedCopyAndMoveUseNoThrowSwapFunctionQuery() and
   queryId =
     // `@id` for the `userDefinedCopyAndMoveUseNoThrowSwapFunction` query
     "cpp/autosar/user-defined-copy-and-move-use-no-throw-swap-function" and
-  ruleId = "A12-8-2"
+  ruleId = "A12-8-2" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `copyAssignmentAndAMoveHandleSelfAssignment` query
@@ -29,7 +30,8 @@ predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string 
   queryId =
     // `@id` for the `copyAssignmentAndAMoveHandleSelfAssignment` query
     "cpp/autosar/copy-assignment-and-a-move-handle-self-assignment" and
-  ruleId = "A12-8-5"
+  ruleId = "A12-8-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `assignmentOperatorReturnThis` query
@@ -37,7 +39,8 @@ predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string 
   queryId =
     // `@id` for the `assignmentOperatorReturnThis` query
     "cpp/autosar/assignment-operator-return-this" and
-  ruleId = "A13-2-1"
+  ruleId = "A13-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `binaryOperatorAndBitwiseOperatorReturnAPrvalue` query
@@ -45,7 +48,8 @@ predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string 
   queryId =
     // `@id` for the `binaryOperatorAndBitwiseOperatorReturnAPrvalue` query
     "cpp/autosar/binary-operator-and-bitwise-operator-return-a-prvalue" and
-  ruleId = "A13-2-2"
+  ruleId = "A13-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `oppositeOperatorsNotDefinedInTermsOfOther` query
@@ -53,7 +57,8 @@ predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string 
   queryId =
     // `@id` for the `oppositeOperatorsNotDefinedInTermsOfOther` query
     "cpp/autosar/opposite-operators-not-defined-in-terms-of-other" and
-  ruleId = "A13-5-4"
+  ruleId = "A13-5-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `hashSpecializationsHaveANoexceptFunctionCallOperator` query
@@ -61,7 +66,8 @@ predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string 
   queryId =
     // `@id` for the `hashSpecializationsHaveANoexceptFunctionCallOperator` query
     "cpp/autosar/hash-specializations-have-a-noexcept-function-call-operator" and
-  ruleId = "A18-1-6"
+  ruleId = "A18-1-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `semanticEquivalenceBetweenOperatorFormNotPreserved` query
@@ -69,7 +75,8 @@ predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string 
   queryId =
     // `@id` for the `semanticEquivalenceBetweenOperatorFormNotPreserved` query
     "cpp/autosar/semantic-equivalence-between-operator-form-not-preserved" and
-  ruleId = "M5-17-1"
+  ruleId = "M5-17-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `gracefullyHandleSelfCopyAssignment` query
@@ -77,7 +84,8 @@ predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string 
   queryId =
     // `@id` for the `gracefullyHandleSelfCopyAssignment` query
     "cpp/cert/gracefully-handle-self-copy-assignment" and
-  ruleId = "OOP54-CPP"
+  ruleId = "OOP54-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `copyOperationsMustNotMutateTheSourceObject` query
@@ -85,7 +93,8 @@ predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string 
   queryId =
     // `@id` for the `copyOperationsMustNotMutateTheSourceObject` query
     "cpp/cert/copy-operations-must-not-mutate-the-source-object" and
-  ruleId = "OOP58-CPP"
+  ruleId = "OOP58-CPP" and
+  category = "rule"
 }
 
 module OperatorInvariantsPackage {

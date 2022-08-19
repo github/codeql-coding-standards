@@ -9,14 +9,15 @@ newtype BannedTypesQuery =
   TAutoPtrTypeUsedQuery() or
   TTypeWcharTUsedQuery()
 
-predicate isBannedTypesQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isBannedTypesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `typeLongDoubleUsed` query
     BannedTypesPackage::typeLongDoubleUsedQuery() and
   queryId =
     // `@id` for the `typeLongDoubleUsed` query
     "cpp/autosar/type-long-double-used" and
-  ruleId = "A0-4-2"
+  ruleId = "A0-4-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `vectorboolSpecializationUsed` query
@@ -24,7 +25,8 @@ predicate isBannedTypesQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `vectorboolSpecializationUsed` query
     "cpp/autosar/vectorbool-specialization-used" and
-  ruleId = "A18-1-2"
+  ruleId = "A18-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `autoPtrTypeUsed` query
@@ -32,7 +34,8 @@ predicate isBannedTypesQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `autoPtrTypeUsed` query
     "cpp/autosar/auto-ptr-type-used" and
-  ruleId = "A18-1-3"
+  ruleId = "A18-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typeWcharTUsed` query
@@ -40,7 +43,8 @@ predicate isBannedTypesQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `typeWcharTUsed` query
     "cpp/autosar/type-wchar-t-used" and
-  ruleId = "A2-13-3"
+  ruleId = "A2-13-3" and
+  category = "required"
 }
 
 module BannedTypesPackage {
