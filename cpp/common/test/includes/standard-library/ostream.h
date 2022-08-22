@@ -1,6 +1,7 @@
 #ifndef _GHLIBCPP_OSTREAM
 #define _GHLIBCPP_OSTREAM
 #include "string.h"
+#include <ios>
 
 namespace std {
 template <class charT, class traits>

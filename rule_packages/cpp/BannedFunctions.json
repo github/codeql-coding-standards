@@ -17,7 +17,8 @@
           "severity": "error",
           "short_name": "FunctionsMallocCallocReallocAndFreeUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -40,7 +41,8 @@
           "severity": "error",
           "short_name": "BindUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -62,9 +64,10 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "PseudorandomNumbersGeneratedUsingRand",
-          "shared_implementation_short_name" : "DoNotUseRandForGeneratingPseudorandomNumbers",
+          "shared_implementation_short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
           "tags": [
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -87,7 +90,8 @@
           "severity": "error",
           "short_name": "SetjmpMacroAndTheLongjmpFunctionUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -111,7 +115,8 @@
           "short_name": "LibraryFunctionsAbortExitGetenvAndSystemFromLibraryCstdlibUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -135,7 +140,8 @@
           "short_name": "TimeHandlingFunctionsOfLibraryCtimeUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -159,7 +165,8 @@
           "short_name": "UnboundedFunctionsOfLibraryCstringUsed",
           "tags": [
             "security",
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -182,7 +189,8 @@
           "severity": "error",
           "short_name": "MacroOffsetofUsed",
           "tags": [
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -203,7 +211,8 @@
           "severity": "error",
           "short_name": "DoNotUseSetjmpOrLongjmp",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -221,9 +230,10 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
-          "shared_implementation_short_name" : "DoNotUseRandForGeneratingPseudorandomNumbers",
+          "shared_implementation_short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
           "tags": [
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -242,7 +252,8 @@
           "severity": "error",
           "short_name": "PreferSpecialMemberFunctionsAndOverloadedOperatorsToCStandardLibraryFunctions",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],

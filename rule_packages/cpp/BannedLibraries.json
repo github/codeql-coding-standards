@@ -18,7 +18,8 @@
           "short_name": "ReservedIdentifiersMacrosAndFunctionsAreDefinedRedefinedOrUndefined",
           "tags": [
             "correctness",
-            "maintainability"
+            "maintainability",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -42,7 +43,8 @@
           "short_name": "CLibraryFacilitiesNotAccessedThroughCPPLibraryHeaders",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -65,7 +67,8 @@
           "severity": "warning",
           "short_name": "LocaleFunctionsUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         },
         {
@@ -76,7 +79,8 @@
           "severity": "warning",
           "short_name": "LocaleMacrosUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         },
         {
@@ -87,7 +91,8 @@
           "severity": "warning",
           "short_name": "LocaleTypeLConvUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -111,7 +116,8 @@
           "short_name": "CsignalFunctionsUsed",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         },
         {
@@ -123,7 +129,8 @@
           "short_name": "CsignalTypesUsed",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -147,7 +154,8 @@
           "short_name": "ErrnoUsed",
           "tags": [
             "correctness",
-            "maintainability"
+            "maintainability",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -171,7 +179,8 @@
           "short_name": "CstdioFunctionsUsed",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         },
         {
@@ -183,7 +192,8 @@
           "short_name": "CstdioMacrosUsed",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         },
         {
@@ -195,7 +205,8 @@
           "short_name": "CstdioTypesUsed",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -220,7 +231,8 @@
           "short_name": "UsageOfAssemblerNotDocumented",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "scope/single-translation-unit"
           ]
         }
       ],

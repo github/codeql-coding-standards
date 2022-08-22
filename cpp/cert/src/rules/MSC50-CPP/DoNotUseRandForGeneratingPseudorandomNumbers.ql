@@ -7,6 +7,7 @@
  * @problem.severity error
  * @tags external/cert/id/msc50-cpp
  *       security
+ *       scope/single-translation-unit
  *       external/cert/obligation/rule
  */
 

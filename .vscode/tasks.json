@@ -185,12 +185,10 @@
             "type": "pickString",
             "options": [
                 "Allocations",
-                "Banned",
                 "BannedFunctions",
+                "BannedLibraries",
                 "BannedSyntax",
                 "BannedTypes",
-                "Classes",
-                "Classes",
                 "Classes",
                 "Comments",
                 "Contracts1",
