@@ -7,7 +7,7 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/cert/id/env32-c
- *       correcteness
+ *       correctness
  *       external/cert/obligation/rule
  */
 

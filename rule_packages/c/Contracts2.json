@@ -13,7 +13,7 @@
           "severity": "error",
           "short_name": "ExitHandlersMustReturnNormally",
           "tags": [
-            "correcteness"
+            "correctness"
           ]
         }
       ],
