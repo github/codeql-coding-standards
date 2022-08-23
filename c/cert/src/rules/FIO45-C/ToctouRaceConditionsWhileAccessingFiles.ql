@@ -14,7 +14,6 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.standardlibrary.FileAccess
-import codingstandards.cpp.ReadErrorsAndEOF
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
@@ -26,11 +25,9 @@ class EmptyFOpenCall extends FOpenCall {
     this.isReadOnlyMode() and
     // FILE is only used as argument to close or in a NULL check
     forall(Expr x | this != x and DataFlow::localExprFlow(this, x) |
-      closed(x)
+      fcloseCall(_, x)
       or
-      exists(EqualityOperation eq |
-        eq.getAnOperand() = x and eq.getAnOperand() = any(NULLMacro m).getAnInvocation().getExpr()
-      )
+      exists(EqualityOperation eq | eq.getAnOperand() = x and eq.getAnOperand() = any(NULL n))
     )
   }
 }
