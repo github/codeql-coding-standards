@@ -1,2 +1,2 @@
-| test.c:540:3:540:8 | call to printf | Format expects 2 arguments but given 1 |
-| test.c:543:3:543:8 | call to printf | Format expects 2 arguments but given 1 |
+| test.c:551:3:551:8 | call to printf | Format expects 2 arguments but given 1 |
+| test.c:554:3:554:8 | call to printf | Format expects 2 arguments but given 1 |
