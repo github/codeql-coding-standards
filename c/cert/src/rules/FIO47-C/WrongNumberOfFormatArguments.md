@@ -1,4 +1,4 @@
-# FIO47-C: Use correct number fo arguments
+# FIO47-C: Use correct number of arguments
 
 This query implements the CERT-C rule FIO47-C:
 

@@ -19,18 +19,16 @@ import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /**
- * A function call that opens a file as read-only
- * but does not read the content of the file.
+ * A file opened as read-only that is never read from.
  */
 class EmptyFOpenCall extends FOpenCall {
   EmptyFOpenCall() {
     this.isReadOnlyMode() and
-    // the FILE is only used as argument to close or in a NULL check
-    not exists(Expr x |
-      this != x and
-      DataFlow::localExprFlow(this, x) and
-      not closed(x) and
-      exists(EQExpr eq |
+    // FILE is only used as argument to close or in a NULL check
+    forall(Expr x | this != x and DataFlow::localExprFlow(this, x) |
+      closed(x)
+      or
+      exists(EqualityOperation eq |
         eq.getAnOperand() = x and eq.getAnOperand() = any(NULLMacro m).getAnInvocation().getExpr()
       )
     )
@@ -44,5 +42,5 @@ where
   not fopen.isReadOnlyMode() and
   globalValueNumber(emptyFopen.getFilenameExpr()) = globalValueNumber(fopen.getFilenameExpr())
 select emptyFopen,
-  "This call is trying to prevent an exsisting file to be overwritten by $@. An attacker might be able to exploit the race window between the two calls.",
+  "This call is trying to prevent an existing file from being overwritten by $@. An attacker might be able to exploit the race window between the two calls.",
   fopen, "another call"

@@ -83,3 +83,38 @@ int f4(char *filename, int flags) {
   /* f is the expected regular open file */
   return f;
 }
+
+void f5(const char *file) {
+  FILE *f = fopen("file", "r"); // NON_COMPLIANT
+  if (NULL != f) {
+    /* File exists, handle error */
+  } else {
+    if (fclose(f) == EOF) {
+      /* Handle error */
+    }
+    f = fopen("file", "w");
+    if (NULL == f) {
+      /* Handle error */
+    }
+
+    /* Write to file */
+    if (fclose(f) == EOF) {
+      /* Handle error */
+    }
+  }
+}
+
+void f6(const char *file) {
+  int readChar;
+  FILE *f = fopen(file, "r"); // COMPLIANT
+  // the file is accessed
+  if (NULL != f) {
+    /* File exists, handle error */
+  } else {
+    // read file
+    readChar = fgetc(f);
+    printf("%c", readChar);
+  }
+
+  f = fopen(file, "w");
+}

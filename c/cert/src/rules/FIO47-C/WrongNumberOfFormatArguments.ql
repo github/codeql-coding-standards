@@ -1,6 +1,6 @@
 /**
  * @id c/cert/wrong-number-of-format-arguments
- * @name FIO47-C: Use correct number fo arguments
+ * @name FIO47-C: Use correct number of arguments
  * @description Incorrect number of format arguments leeds to undefined behavior.
  * @kind problem
  * @precision high
