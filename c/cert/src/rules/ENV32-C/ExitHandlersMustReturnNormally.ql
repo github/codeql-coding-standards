@@ -1,11 +1,13 @@
 /**
  * @id c/cert/exit-handlers-must-return-normally
  * @name ENV32-C: All exit handlers must return normally
- * @description
+ * @description Exit handlers must terminate by returning as a nested call to an exit function is
+ *              undefined behavior.
  * @kind path-problem
  * @precision very-high
  * @problem.severity error
  * @tags external/cert/id/env32-c
+ *       correcteness
  *       external/cert/obligation/rule
  */
 
@@ -33,12 +35,14 @@ class RegisteredAtexit extends FunctionAccess {
 query predicate edges(ControlFlowNode a, ControlFlowNode b) {
   a.(FunctionAccess).getTarget() = b
   or
-  a.(FunctionCall).getTarget() = b
+  a.(FunctionCall).getTarget() = b and
+  // avoid referencing library functions
+  b.(Function).calls(any(ExitFunctionCall e).getTarget())
   or
   a.(Function).calls(_, b)
 }
 
 from RegisteredAtexit hr, Function f, ExitFunctionCall e
-where edges(hr, f) and edges*(f, e)
+where edges(hr, f) and edges+(f, e)
 select f, hr, e, "The function is $@ and $@. It must instead terminate by returning.", hr,
   "registered as `exit handler`", e, "calls an `exit function`"

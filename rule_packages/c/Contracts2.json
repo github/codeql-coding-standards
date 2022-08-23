@@ -6,13 +6,15 @@
       },
       "queries": [
         {
-          "description": "",
-          "kind": "problem",
+          "description": "Exit handlers must terminate by returning as a nested call to an exit function is undefined behavior.",
+          "kind": "path-problem",
           "name": "All exit handlers must return normally",
           "precision": "very-high",
           "severity": "error",
           "short_name": "ExitHandlersMustReturnNormally",
-          "tags": []
+          "tags": [
+            "correcteness"
+          ]
         }
       ],
       "title": "All exit handlers must return normally"
