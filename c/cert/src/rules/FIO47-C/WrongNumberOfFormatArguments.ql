@@ -11,7 +11,11 @@
  *       external/cert/obligation/rule
  */
 
-// Copy of Standard Library's query WrongNumberOfFormatArguments.ql
+/*
+ * This is a copy of the `WrongNumberOfFormatArguments.ql` query from the standard set of
+ * queries as of the `codeql-cli/2.6.3` tag in `github/codeql`.
+ */
+
 import cpp
 import codingstandards.c.cert
 
