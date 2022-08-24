@@ -114,6 +114,26 @@ void f5(void) {
   }
 }
 
+void f5b(void) {
+  const char *envVars[] = {
+      "v1",
+      "v2",
+      "v3",
+  };
+  char *temp;
+  char *tmp;
+  for (int i = 0; i < 3; i++) {
+    temp = getenv(envVars[i]);
+    tmp = getenv(envVars[i]);
+  }
+
+  if (strcmp(temp, tmp) == 0) { // NON_COMPLIANT
+    printf("TMP and TEMP are the same.\n");
+  } else {
+    printf("TMP and TEMP are NOT the same.\n");
+  }
+}
+
 void f6(void) {
   const char *envVars[] = {
       "v1",
