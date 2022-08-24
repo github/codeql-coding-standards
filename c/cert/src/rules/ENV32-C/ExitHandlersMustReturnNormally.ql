@@ -1,7 +1,7 @@
 /**
  * @id c/cert/exit-handlers-must-return-normally
  * @name ENV32-C: All exit handlers must return normally
- * @description Exit handlers must terminate by returning as a nested call to an exit function is
+ * @description Exit handlers must terminate by returning, as a nested call to an exit function is
  *              undefined behavior.
  * @kind path-problem
  * @precision very-high
