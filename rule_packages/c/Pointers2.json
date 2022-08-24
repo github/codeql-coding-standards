@@ -1,0 +1,23 @@
+{
+  "CERT-C": {
+    "ARR39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Adding or subtracting a scaled integer value to or from a pointer may yield an out-of-bounds pointer.",
+          "kind": "path-problem",
+          "name": "Do not add or subtract a scaled integer to a pointer",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotAddOrSubtractAScaledIntegerToAPointer",
+          "tags":[
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not add or subtract a scaled integer to a pointer"
+    }
+  }
+}
