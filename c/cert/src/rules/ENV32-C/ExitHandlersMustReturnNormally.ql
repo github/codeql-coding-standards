@@ -14,8 +14,12 @@
 import cpp
 import codingstandards.c.cert
 
+class ExitFunction extends Function {
+  ExitFunction() { this.hasGlobalName(["_Exit", "exit", "quick_exit", "longjmp"]) }
+}
+
 class ExitFunctionCall extends FunctionCall {
-  ExitFunctionCall() { this.getTarget().hasGlobalName(["_Exit", "exit", "quick_exit", "longjmp"]) }
+  ExitFunctionCall() { this.getTarget() instanceof ExitFunction }
 }
 
 class RegisteredAtexit extends FunctionAccess {
@@ -27,17 +31,40 @@ class RegisteredAtexit extends FunctionAccess {
   }
 }
 
+/*
+ * Nodes of type Function, FunctionCall or FunctionAccess that \
+ * are reachable from a redistered atexit handler and
+ * can reach an exit function.
+ */
+class InterestingNode extends ControlFlowNode {
+  InterestingNode() {
+    exists(Function f |
+      (
+        this.(Function) = f and
+        // exit functions are not part of edges
+        not this = any(ExitFunction ec)
+        or
+        this.(FunctionCall).getTarget() = f
+        or
+        this.(FunctionAccess).getTarget() = f
+      ) and
+      // reaches an exit function
+      f.calls*(any(ExitFunction e)) and
+      // is reachable from a registered atexit function
+      exists(RegisteredAtexit re | re.getTarget().calls*(f))
+    )
+  }
+}
+
 /**
  * An `edges` predicate to support the `path-problem` query. Reports edges between
  * `FunctionAccess`/`FunctionCall` nodes and their target `Function` and between
  * `Function` and `FunctionCall` in their body.
  */
-query predicate edges(ControlFlowNode a, ControlFlowNode b) {
+query predicate edges(InterestingNode a, InterestingNode b) {
   a.(FunctionAccess).getTarget() = b
   or
-  a.(FunctionCall).getTarget() = b and
-  // avoid referencing library functions
-  b.(Function).calls(any(ExitFunctionCall e).getTarget())
+  a.(FunctionCall).getTarget() = b
   or
   a.(Function).calls(_, b)
 }
