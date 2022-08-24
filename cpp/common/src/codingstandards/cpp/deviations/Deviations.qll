@@ -16,7 +16,7 @@ predicate applyDeviationsAtQueryLevel() {
 }
 
 /** A `coding-standards.xml` configuration file (usually generated from an YAML configuration file). */
-class CodingStandardsFile extends XMLFile {
+class CodingStandardsFile extends XmlFile {
   CodingStandardsFile() {
     this.getBaseName() = "coding-standards.xml" and
     // Must be within the users source code.
@@ -25,7 +25,7 @@ class CodingStandardsFile extends XMLFile {
 }
 
 /** A "Coding Standards" configuration file */
-class CodingStandardsConfig extends XMLElement {
+class CodingStandardsConfig extends XmlElement {
   CodingStandardsConfig() {
     any(CodingStandardsFile csf).getARootElement() = this and
     this.getName() = "codingstandards"
@@ -36,7 +36,7 @@ class CodingStandardsConfig extends XMLElement {
 }
 
 /** An element which tells the analysis whether to report deviated results. */
-class CodingStandardsReportDeviatedAlerts extends XMLElement {
+class CodingStandardsReportDeviatedAlerts extends XmlElement {
   CodingStandardsReportDeviatedAlerts() {
     getParent() instanceof CodingStandardsConfig and
     hasName("report-deviated-alerts")
@@ -44,7 +44,7 @@ class CodingStandardsReportDeviatedAlerts extends XMLElement {
 }
 
 /** A container of deviation records. */
-class DeviationRecords extends XMLElement {
+class DeviationRecords extends XmlElement {
   DeviationRecords() {
     getParent() instanceof CodingStandardsConfig and
     hasName("deviations")
@@ -52,7 +52,7 @@ class DeviationRecords extends XMLElement {
 }
 
 /** A container for the deviation permits records. */
-class DeviationPermits extends XMLElement {
+class DeviationPermits extends XmlElement {
   DeviationPermits() {
     getParent() instanceof CodingStandardsConfig and
     hasName("deviation-permits")
@@ -60,7 +60,7 @@ class DeviationPermits extends XMLElement {
 }
 
 /** A deviation permit record, that is specified by a permit identifier */
-class DeviationPermit extends XMLElement {
+class DeviationPermit extends XmlElement {
   DeviationPermit() {
     getParent() instanceof DeviationPermits and
     hasName("deviation-permits-entry")
@@ -143,7 +143,7 @@ class DeviationPermit extends XMLElement {
 }
 
 /** A deviation record, that is a specified rule or query */
-class DeviationRecord extends XMLElement {
+class DeviationRecord extends XmlElement {
   DeviationRecord() {
     getParent() instanceof DeviationRecords and
     hasName("deviations-entry")
@@ -159,13 +159,13 @@ class DeviationRecord extends XMLElement {
 
   private string getRawPermitId() { result = getAChild("permit-id").getTextValue() }
 
-  private XMLElement getRawRaisedBy() { result = getAChild("raised-by") }
+  private XmlElement getRawRaisedBy() { result = getAChild("raised-by") }
 
   private string getRawRaisedByName() { result = getRawRaisedBy().getAChild("name").getTextValue() }
 
   private string getRawRaisedByDate() { result = getRawRaisedBy().getAChild("date").getTextValue() }
 
-  private XMLElement getRawApprovedBy() { result = getAChild("approved-by") }
+  private XmlElement getRawApprovedBy() { result = getAChild("approved-by") }
 
   private string getRawApprovedByName() {
     result = getRawApprovedBy().getAChild("name").getTextValue()
