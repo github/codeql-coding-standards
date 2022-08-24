@@ -155,7 +155,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-The query is limited to the specific class of TOCTOU race conditions.
+The query is limited to the specific class of TOCTOU race conditions that derives from the incorrectuse of `fopen` to check the existence of a file.
 
 ## References
 
