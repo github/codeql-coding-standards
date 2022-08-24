@@ -94,3 +94,53 @@ void f3(void) {
   free(tempvar);
   tempvar = NULL;
 }
+
+void f4(void) {
+  char *temp = getenv("VAR1");
+  printf(temp);
+  temp = getenv("VAR2");
+  printf(temp); // COMPLIANT
+}
+
+void f5(void) {
+  const char *envVars[] = {
+      "v1",
+      "v2",
+      "v3",
+  };
+  for (int i = 0; i < 3; i++) {
+    char *temp = getenv(envVars[i]);
+    printf(temp); // COMPLIANT
+  }
+}
+
+void f6(void) {
+  const char *envVars[] = {
+      "v1",
+      "v2",
+      "v3",
+  };
+  char *temp[3];
+  for (int i = 0; i < 3; i++) {
+    temp[i] = getenv(envVars[i]);
+  }
+  printf(temp[0]); // NON_COMPLIANT[FALSE_NEGATIVE]
+}
+
+char *tmpvar_global;
+char *tempvar_global;
+void f7(void) {
+  tmpvar_global = getenv("TMP");
+  if (!tmpvar_global) {
+    /* Handle error */
+  }
+  tempvar_global = getenv("TEMP");
+  if (!tempvar_global) {
+    /* Handle error */
+  }
+  if (strcmp(tmpvar_global, tempvar_global) == 0) { // NON_COMPLIANT
+    printf("TMP and TEMP are the same.\n");
+  } else {
+    printf("TMP and TEMP are NOT the same.\n");
+  }
+}

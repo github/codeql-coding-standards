@@ -19,24 +19,25 @@ import semmle.code.cpp.dataflow.DataFlow
  * A model of environment functions
  */
 
-class GetEnvFunctionCall extends FunctionCall {
-  GetEnvFunctionCall() {
+class GetenvFunctionCall extends FunctionCall {
+  GetenvFunctionCall() {
     this.getTarget().getName() = ["getenv", "asctime", "localeconv", "setlocale", "strerror"]
   }
 }
 
-from GetEnvFunctionCall fc1, GetEnvFunctionCall fc2, Expr e
+from GetenvFunctionCall fc1, GetenvFunctionCall fc2, Expr e
 where
   not isExcluded(e, Contracts2Package::doNotStorePointersReturnedByCertainFunctionsQuery()) and
-  // A variable `v` is assigned with `GetEnvFunctionCall` return value
+  // A variable `v` is assigned with `GetenvFunctionCall` return value
   exists(Variable v |
     fc1 = v.getInitializer().getExpr()
     or
     exists(Assignment ae | fc1 = ae.getRValue() and v = ae.getLValue().(VariableAccess).getTarget())
   ) and
-  // A second `GetEnvFunctionCall`
+  // A second `GetenvFunctionCall`
   fc2 = fc1.getASuccessor+() and
-  // The value is is accessed in `e` afer the second `GetEnvFunctionCall`
+  fc2 != fc1 and
+  // The value is is accessed in `e` afer the second `GetenvFunctionCall`
   e = fc2.getASuccessor+() and
   DataFlow::localExprFlow(fc1, e)
 select e, "The string $@ may have been overwritten by the second $@.", e, e.toString(), fc2,
