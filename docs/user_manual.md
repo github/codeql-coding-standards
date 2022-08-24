@@ -284,16 +284,16 @@ The example describes three ways of scoping a deviation:
 3. The deviation for `A0-4-2` applies to any source element that has a comment residing on **the same line** containing the identifier specified in `code-identifier`.
 
 The activation of the deviation mechanism requires an extra step in the database creation process.
-This extra step is the invocation of the Python script `path/to/codeql-coding-standards/scripts/deviations/process_coding_standards_config.py` that is part of the coding standards code scanning pack. 
+This extra step is the invocation of the Python script `path/to/codeql-coding-standards/scripts/configuration/process_coding_standards_config.py` that is part of the coding standards code scanning pack.
 The script should be invoked as follows:
 
 ```codeql
-codeql database create --language cpp --command 'python3 path/to/codeql-coding-standards/scripts/deviations/process_coding_standards_config.py' --command <build_command> <output_database_name>
+codeql database create --language cpp --command 'python3 path/to/codeql-coding-standards/scripts/configuration/process_coding_standards_config.py' --command <build_command> <output_database_name>
 ```
 
 The `process_coding_standards_config.py` has a dependency on the package `pyyaml` that can be installed using the provided PIP package manifest by running the following command:
 
-`pip install -r path/to/codeql-coding-standards/scripts/deviations/requirements.txt`
+`pip install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
 
 
 ##### Deviation permit
