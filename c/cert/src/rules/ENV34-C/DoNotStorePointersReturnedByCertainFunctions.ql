@@ -25,7 +25,7 @@ class GetenvFunctionCall extends FunctionCall {
   }
 }
 
-from GetenvFunctionCall fc1, GetenvFunctionCall fc2, Expr e
+from GetenvFunctionCall fc1, GetenvFunctionCall fc2, VariableAccess e
 where
   not isExcluded(e, Contracts2Package::doNotStorePointersReturnedByCertainFunctionsQuery()) and
   // A variable `v` is assigned with `GetenvFunctionCall` return value
