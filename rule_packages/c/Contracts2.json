@@ -44,7 +44,7 @@
       },
       "queries": [
         {
-          "description": "Set errno to zero before calling a library function known to set errno, and check errno only after the function returns a value indicating failure",
+          "description": "Set errno to zero before calling a library function known to set errno, and check errno only after the function returns a value indicating failure.",
           "kind": "problem",
           "name": "Set errno to zero before calling a library function known to set errno, and check errno only after",
           "precision": "high",
@@ -53,7 +53,7 @@
           "tags": []
         },
         {
-          "description": "Set errno to zero before calling a library function known to set errno, and check errno only after the function returns a value indicating failure",
+          "description": "Set errno to zero before calling a library function known to set errno, and check errno only after the function returns a value indicating failure.",
           "kind": "problem",
           "name": "Set errno to zero before calling a library function known to set errno, and check errno only after",
           "precision": "high",
@@ -62,7 +62,7 @@
           "tags": []
         }
       ],
-      "title": "Set errno to zero before calling a library function known to set errno, and check errno only after the function returns a value indicating failure"
+      "title": "Set errno to zero before calling a library function known to set errno, and check errno only after the function returns a value indicating failure."
     },
     "ERR32-C": {
       "properties": {
@@ -70,7 +70,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Do not rely on indeterminate values of errno.",
           "kind": "problem",
           "name": "Do not rely on indeterminate values of errno",
           "precision": "high",
@@ -89,7 +89,7 @@
       },
       "queries": [
         {
-          "description": "The pointers returned by the Standard Library functions localeconv, getenv, setlocale or, strerror shall only be used as if they have pointer to const-qualified type",
+          "description": "The pointers returned by the Standard Library functions localeconv, getenv, setlocale or, strerror shall only be used as if they have pointer to const-qualified type.",
           "kind": "problem",
           "name": "The pointers returned by the Standard Library functions localeconv, getenv, setlocale or, strerror",
           "precision": "very-high",
@@ -106,7 +106,7 @@
       },
       "queries": [
         {
-          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror shall not be used following a subsequent call to the same function",
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror shall not be used following a subsequent call to the same function.",
           "kind": "problem",
           "name": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime,",
           "precision": "very-high",
@@ -123,7 +123,7 @@
       },
       "queries": [
         {
-          "description": "The value of errno shall only be tested when the last function to be called was an errno-setting-function",
+          "description": "The value of errno shall only be tested when the last function to be called was an errno-setting-function.",
           "kind": "problem",
           "name": "The value of errno shall only be tested when the last function to be called was an",
           "precision": "very-high",
@@ -140,7 +140,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "The value of errno shall be set to zero prior to a call to an errno- setting-function.",
           "kind": "problem",
           "name": "The value of errno shall be set to zero prior to a call to an errno- setting-function",
           "precision": "very-high",
@@ -157,7 +157,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "The value of errno shall be tested against zero after calling an errno-setting-function.",
           "kind": "problem",
           "name": "The value of errno shall be tested against zero after calling an errno-setting-function",
           "precision": "very-high",
