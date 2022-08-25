@@ -80,8 +80,8 @@ parser.add_argument(
     help="create anonymized versions of the queries, without identifying rule information",
 )
 # Skip the generation of tests. This is useful when creating releases
-# wherein we should preserve the author's intention to not provide c-specific 
-# test cases. 
+# wherein we should preserve the author's intention to not provide c-specific
+# test cases.
 parser.add_argument(
     "--skip-shared-test-generation",
     action="store_true",
@@ -99,36 +99,33 @@ parser.add_argument(
     help="directory containing external help files"
 )
 parser.add_argument(
-    "package_name", help="the name of the package to generate query files for")
+    "package_names", help="the name of the package to generate query files for", metavar='FILE', nargs='+')
 ########################################################
 
 
 args = parser.parse_args()
 language_name = args.language_name.lower()
-package_name = args.package_name
 
-# validate language 
+# validate language
 if not language_name in ql_language_mappings:
     exit(f"Unsupported language '{language_name}'")
 else:
     ql_language_name = ql_language_mappings[language_name]
 
-# set up some basic paths 
+# set up some basic paths
 repo_root = Path(__file__).parent.parent.parent
 rule_packages_file_path = repo_root.joinpath("rule_packages")
-rule_package_file_path = rule_packages_file_path.joinpath(
-    language_name, package_name + ".json")
 env = Environment(loader=FileSystemLoader(Path(__file__).parent.joinpath(
     "templates")), trim_blocks=True, lstrip_blocks=True)
 
-def write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir, skip_tests=False):
+def write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir, test_src_dir, skip_tests=False):
 
     shared_impl_dir_name = query["shared_implementation_short_name"].lower()
 
     shared_impl_dir = common_src_pack_dir.joinpath(
-        "codingstandards", 
-        ql_language_name, 
-        "rules", 
+        "codingstandards",
+        ql_language_name,
+        "rules",
         shared_impl_dir_name
     )
 
@@ -138,33 +135,33 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
 
     #
     # Write out the implementation. Implementations are
-    # always stored in the `ql_language_name` directory. 
+    # always stored in the `ql_language_name` directory.
     #
     if not shared_impl_query_library_path.exists():
-        
+
         if len(query["short_name"]) > 50:
             exit(f"Error: {query['short_name']} has more than 50 characters.")
-        
+
         shared_library_template = env.get_template(
             "shared_library.ql.template"
             )
 
         print(f"{rule_id}: Writing out shared implementation file to {str(shared_impl_query_library_path)}")
-        
+
         write_template(
-            shared_library_template, 
-            query, 
-            package_name, 
+            shared_library_template,
+            query,
+            package_name,
             shared_impl_query_library_path
             )
     else:
         print(f"{rule_id}: Skipping writing shared implementation file to {str(shared_impl_query_library_path)}")
 
     # Write out the test. Test are always stored under the `language_name`
-    # directory. 
+    # directory.
     if not skip_tests:
         shared_impl_test_dir = common_test_pack_dir.joinpath(
-            "rules", 
+            "rules",
             shared_impl_dir_name
         )
 
@@ -174,7 +171,7 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
         shared_impl_test_query_path = shared_impl_test_dir.joinpath(
             f"{query['shared_implementation_short_name']}.ql"
         )
-        
+
         with open(shared_impl_test_query_path, "w", newline="\n") as f:
             f.write("// GENERATED FILE - DO NOT MODIFY\n")
             f.write(
@@ -202,13 +199,13 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
         test_ref_file = test_src_dir.joinpath(
             query["short_name"] + ".testref")
 
-        # don't write it if it already exists 
+        # don't write it if it already exists
         if not test_ref_file.exists():
             with open(test_ref_file, "w", newline="\n") as f:
                 f.write(str(shared_impl_test_query_path.relative_to(
                     repo_root)).replace("\\", "/"))
 
-def write_non_shared_testfiles(query, language_name, query_path, test_src_dir, src_pack_dir):
+def write_non_shared_testfiles(rule_id, query, language_name, query_path, test_src_dir, src_pack_dir):
         # Add qlref test file
     print(
         rule_id + ": Writing out query test files to " + str(test_src_dir))
@@ -221,185 +218,197 @@ def write_non_shared_testfiles(query, language_name, query_path, test_src_dir, s
     expected_results_file = test_src_dir.joinpath(
         f"{query['short_name']}.expected"
     )
-     
+
     if not expected_results_file.exists():
         with open(expected_results_file, "w", newline="\n") as f:
             f.write(
                 "No expected results have yet been specified")
 
-try:
-    rule_package_file = open(rule_package_file_path, "r")
-except PermissionError:
-    print("Error: No permission to read the rule package file located at '" +
-          str(rule_package_file_path) + "'")
-    sys.exit(1)
-else:
-    with rule_package_file:
-        package_definition = json.load(rule_package_file)
 
-        # Initialize exclusion
-        exclusion_query = []
+def resolve_package(package_name: str) -> Path:
+    global rule_packages_file_path, language_name
+    return rule_packages_file_path.joinpath(
+    language_name, package_name + ".json")
 
-        # Check query standard name is unique before proceeding
-        query_names = []
-        for standard_name, rules in package_definition.items():
-            for rule_id, rule_details in rules.items():
-                for query in rule_details["queries"]:
-                    query_names.append(query["short_name"])
-        if len(query_names) > len(set(query_names)):
-            print(
-                "Error: " + "Duplicate query name detected, each query must have a unique query name.")
-            sys.exit(1)
+def generate_package_files(package_name: str) -> None:
+    global language_name, env
+    rule_package_file_path = resolve_package(package_name)
+    print(str(rule_package_file_path))
+    try:
+        rule_package_file = rule_package_file_path.open("r")
+    except PermissionError:
+        print("Error: No permission to read the rule package file located at '" +
+            str(rule_package_file_path) + "'")
+        sys.exit(1)
+    else:
+        with rule_package_file:
+            package_definition = json.load(rule_package_file)
 
-        for standard_name, rules in package_definition.items():
+            # Initialize exclusion
+            exclusion_query = []
 
-            # Identify the short name for the standard, used for directory and tag names
-            standard_short_name = standard_name.split("-")[0].lower()
-            # Currently assumes that language_name is also the subdirectory name
-            standard_dir = repo_root.joinpath(
-                language_name).joinpath(standard_short_name)
-            # Identify common src and test packs
-            common_dir = repo_root.joinpath(
-                ql_language_name).joinpath("common")
-            common_src_pack_dir = common_dir.joinpath("src")
-            # The language specific files always live under the commons for that
-            # language 
-            common_test_pack_dir = repo_root.joinpath(language_name, "common", "test")
-            # Identify the source pack for this standard
-            src_pack_dir = standard_dir.joinpath("src")
-            for rule_id, rule_details in rules.items():
-                # Identify and create the directories required for this rule
-                rule_src_dir = src_pack_dir.joinpath("rules").joinpath(rule_id)
-                rule_src_dir.mkdir(exist_ok=True, parents=True)
-                test_src_dir = standard_dir.joinpath(
-                    "test/rules").joinpath(rule_id)
-                test_src_dir.mkdir(exist_ok=True, parents=True)
-                # Extract the rule category from the obligation property.
-                assert("properties" in rule_details and "obligation" in rule_details["properties"])
-                rule_category = rule_details["properties"]["obligation"]
-                # Build list of tags for this rule to apply to each query
-                rule_query_tags = []
-                for key, value in rule_details["properties"].items():
-                    if isinstance(value, list):
-                        for v in value:
-                            rule_query_tags.append(
-                                standard_tag(standard_short_name, key, v))
-                    else:
-                        rule_query_tags.append(standard_tag(
-                            standard_short_name, key, value))
+            # Check query standard name is unique before proceeding
+            query_names = []
+            for standard_name, rules in package_definition.items():
+                for rule_id, rule_details in rules.items():
+                    for query in rule_details["queries"]:
+                        query_names.append(query["short_name"])
+            if len(query_names) > len(set(query_names)):
+                print(
+                    "Error: " + "Duplicate query name detected, each query must have a unique query name.")
+                sys.exit(1)
 
-                for q in rule_details["queries"]:
+            for standard_name, rules in package_definition.items():
 
-                    # extract metadata and model
-                    query, exclusion_model = extract_metadata_from_query(
-                        rule_id,
-                        rule_details["title"],
-                        rule_category,
-                        q,
-                        rule_query_tags,
-                        language_name,
-                        ql_language_name,
-                        standard_name,
-                        standard_short_name,
-                        standard_metadata,
-                        args.anonymise
-                    )
-                    # add query to each dict
-                    exclusion_query.append(exclusion_model)
-
-                    # Path to query file we want to generate or modify
-                    query_path = rule_src_dir.joinpath(
-                        query["short_name"] + ".ql")
-                    if not query_path.exists():
-                        # Doesn't already exist, generate full template, including imports and select
-                        if len(query["short_name"]) > 50:
-                            print(
-                                "Error: " + query["short_name"] + " has more than 50 characters. Query name should be less than 50 characters. ")
-                            sys.exit(1)
-                        print(rule_id + ": Writing out query file to " +
-                              str(query_path))
-                        query_template = env.get_template("query.ql.template")
-                        write_template(query_template, query,
-                                       package_name, query_path)
-                    else:
-                        # Query file does already exist, so we only re-write the metadata
-                        print(
-                            rule_id + ": Re-writing metadata for query file at " + str(query_path))
-                        query_metadata_template = env.get_template(
-                            "query.metadata.template")
-                        # Generate the new metadata
-                        new_metadata = query_metadata_template.render(**query)
-                        with open(query_path, "r+", newline="\n") as query_file:
-                            # Read the existing query file contents
-                            existing_contents = query_file.read()
-                            # Move cursor back to the start of the file, so we can write later
-                            query_file.seek(0)
-                            # Confirm that the query file is valid
-                            if not existing_contents.startswith("/**"):
-                                print("Error: " + " cannot modify the metadata for query file at " + str(
-                                    query_path) + " - does not start with /**.")
-                                sys.exit(1)
-                            pos_of_comment_end = existing_contents.find("*/")
-                            if pos_of_comment_end == -1:
-                                print("Error: " + " cannot modify the metadata for query file at " + str(
-                                    query_path) + " - does not include a */.")
-                                sys.exit(1)
-
-                            # Write the new contents to the query file
-                            new_contents = new_metadata + \
-                                existing_contents[pos_of_comment_end + 2:]
-                            # Write the new contents to the file
-                            query_file.writelines(new_contents)
-                            # Ensure any trailing old data is deleted
-                            query_file.truncate()
-
-                    # Add some metadata for each supported standard
-                    if standard_name == "CERT-C++":
-                        query["standard_title"] = "CERT-C++"
-                        query["standard_url"] = "https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682"
-                    elif standard_name == "AUTOSAR":
-                        query["standard_title"] = "AUTOSAR: Guidelines for the use of the C++14 language in critical and safety-related systems"
-                        query[
-                            "standard_url"
-                        ] = "https://www.autosar.org/fileadmin/user_upload/standards/adaptive/19-11/AUTOSAR_RS_CPP14Guidelines.pdf"
-
-                    help_dir = None
-                    if standard_name in external_help_file_standards:
-                        if args.external_help_dir.is_dir() and args.external_help_dir.exists():
-                            help_dir = Path(args.external_help_dir).resolve() / (rule_src_dir.relative_to(repo_root))
-                            help_dir.mkdir(parents=True, exist_ok=True)
+                # Identify the short name for the standard, used for directory and tag names
+                standard_short_name = standard_name.split("-")[0].lower()
+                # Currently assumes that language_name is also the subdirectory name
+                standard_dir = repo_root.joinpath(
+                    language_name).joinpath(standard_short_name)
+                # Identify common src and test packs
+                common_dir = repo_root.joinpath(
+                    ql_language_name).joinpath("common")
+                common_src_pack_dir = common_dir.joinpath("src")
+                # The language specific files always live under the commons for that
+                # language
+                common_test_pack_dir = repo_root.joinpath(language_name, "common", "test")
+                # Identify the source pack for this standard
+                src_pack_dir = standard_dir.joinpath("src")
+                for rule_id, rule_details in rules.items():
+                    # Identify and create the directories required for this rule
+                    rule_src_dir = src_pack_dir.joinpath("rules").joinpath(rule_id)
+                    rule_src_dir.mkdir(exist_ok=True, parents=True)
+                    test_src_dir = standard_dir.joinpath(
+                        "test/rules").joinpath(rule_id)
+                    test_src_dir.mkdir(exist_ok=True, parents=True)
+                    # Extract the rule category from the obligation property.
+                    assert("properties" in rule_details and "obligation" in rule_details["properties"])
+                    rule_category = rule_details["properties"]["obligation"]
+                    # Build list of tags for this rule to apply to each query
+                    rule_query_tags = []
+                    for key, value in rule_details["properties"].items():
+                        if isinstance(value, list):
+                            for v in value:
+                                rule_query_tags.append(
+                                    standard_tag(standard_short_name, key, v))
                         else:
-                            print(f"{rule_id} : Skipping writing of help file for {query_path} because no existing external help directory is provided!")
-                    else:
-                        help_dir = rule_src_dir
-                    if help_dir:
-                        write_query_help_file(help_dir, env, query, package_name, rule_id, standard_name)
+                            rule_query_tags.append(standard_tag(
+                                standard_short_name, key, value))
 
-                    if "shared_implementation_short_name" in query:
-                        write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir, args.skip_shared_test_generation)
-                    else:
-                        write_non_shared_testfiles(query, language_name, query_path, test_src_dir, src_pack_dir)
-        # Exclusions
-        exclusions_template = env.get_template("exclusions.qll.template")
-        common_exclusions_dir = common_src_pack_dir.joinpath(
-            "codingstandards", 
-            ql_language_name, 
-            "exclusions")
-        # assign package and sanitize
-        package_name = package_name.replace("-", "")
-        package_name = package_name[:1].upper() + package_name[1:]
-        exclusion_library_file = common_exclusions_dir.joinpath(language_name,
-                                                                package_name + ".qll")
-        # write exclusions file
-        print(package_name + ": Writing out exclusions file to " +
-              str(exclusion_library_file))
+                    for q in rule_details["queries"]:
 
-        os.makedirs(common_exclusions_dir.joinpath(
-            language_name), exist_ok=True)
+                        # extract metadata and model
+                        query, exclusion_model = extract_metadata_from_query(
+                            rule_id,
+                            rule_details["title"],
+                            rule_category,
+                            q,
+                            rule_query_tags,
+                            language_name,
+                            ql_language_name,
+                            standard_name,
+                            standard_short_name,
+                            standard_metadata,
+                            args.anonymise
+                        )
+                        # add query to each dict
+                        exclusion_query.append(exclusion_model)
 
-        write_exclusion_template(exclusions_template, exclusion_query,
-                                 package_name, language_name, exclusion_library_file)
+                        # Path to query file we want to generate or modify
+                        query_path = rule_src_dir.joinpath(
+                            query["short_name"] + ".ql")
+                        if not query_path.exists():
+                            # Doesn't already exist, generate full template, including imports and select
+                            if len(query["short_name"]) > 50:
+                                print(
+                                    "Error: " + query["short_name"] + " has more than 50 characters. Query name should be less than 50 characters. ")
+                                sys.exit(1)
+                            print(rule_id + ": Writing out query file to " +
+                                str(query_path))
+                            query_template = env.get_template("query.ql.template")
+                            write_template(query_template, query,
+                                        package_name, query_path)
+                        else:
+                            # Query file does already exist, so we only re-write the metadata
+                            print(
+                                rule_id + ": Re-writing metadata for query file at " + str(query_path))
+                            query_metadata_template = env.get_template(
+                                "query.metadata.template")
+                            # Generate the new metadata
+                            new_metadata = query_metadata_template.render(**query)
+                            with open(query_path, "r+", newline="\n") as query_file:
+                                # Read the existing query file contents
+                                existing_contents = query_file.read()
+                                # Move cursor back to the start of the file, so we can write later
+                                query_file.seek(0)
+                                # Confirm that the query file is valid
+                                if not existing_contents.startswith("/**"):
+                                    print("Error: " + " cannot modify the metadata for query file at " + str(
+                                        query_path) + " - does not start with /**.")
+                                    sys.exit(1)
+                                pos_of_comment_end = existing_contents.find("*/")
+                                if pos_of_comment_end == -1:
+                                    print("Error: " + " cannot modify the metadata for query file at " + str(
+                                        query_path) + " - does not include a */.")
+                                    sys.exit(1)
 
+                                # Write the new contents to the query file
+                                new_contents = new_metadata + \
+                                    existing_contents[pos_of_comment_end + 2:]
+                                # Write the new contents to the file
+                                query_file.writelines(new_contents)
+                                # Ensure any trailing old data is deleted
+                                query_file.truncate()
+
+                        # Add some metadata for each supported standard
+                        if standard_name == "CERT-C++":
+                            query["standard_title"] = "CERT-C++"
+                            query["standard_url"] = "https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682"
+                        elif standard_name == "AUTOSAR":
+                            query["standard_title"] = "AUTOSAR: Guidelines for the use of the C++14 language in critical and safety-related systems"
+                            query[
+                                "standard_url"
+                            ] = "https://www.autosar.org/fileadmin/user_upload/standards/adaptive/19-11/AUTOSAR_RS_CPP14Guidelines.pdf"
+
+                        help_dir = None
+                        if standard_name in external_help_file_standards:
+                            if args.external_help_dir.is_dir() and args.external_help_dir.exists():
+                                help_dir = Path(args.external_help_dir).resolve() / (rule_src_dir.relative_to(repo_root))
+                                help_dir.mkdir(parents=True, exist_ok=True)
+                            else:
+                                print(f"{rule_id} : Skipping writing of help file for {query_path} because no existing external help directory is provided!")
+                        else:
+                            help_dir = rule_src_dir
+                        if help_dir:
+                            write_query_help_file(help_dir, env, query, package_name, rule_id, standard_name)
+
+                        if "shared_implementation_short_name" in query:
+                            write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir, test_src_dir, args.skip_shared_test_generation)
+                        else:
+                            write_non_shared_testfiles(rule_id, query, language_name, query_path, test_src_dir, src_pack_dir)
+            # Exclusions
+            exclusions_template = env.get_template("exclusions.qll.template")
+            common_exclusions_dir = common_src_pack_dir.joinpath(
+                "codingstandards",
+                ql_language_name,
+                "exclusions")
+            # assign package and sanitize
+            package_name = package_name.replace("-", "")
+            package_name = package_name[:1].upper() + package_name[1:]
+            exclusion_library_file = common_exclusions_dir.joinpath(language_name,
+                                                                    package_name + ".qll")
+            # write exclusions file
+            print(package_name + ": Writing out exclusions file to " +
+                str(exclusion_library_file))
+
+            os.makedirs(common_exclusions_dir.joinpath(
+                language_name), exist_ok=True)
+
+            write_exclusion_template(exclusions_template, exclusion_query,
+                                    package_name, language_name, exclusion_library_file)
+
+for package_name in args.package_names:
+    generate_package_files(package_name)
 
 # After updating these files, the metadata should be regenerated
 print("==========================================================")

@@ -59,7 +59,6 @@ def render_template(template: Type[Template], args: Dict[str, str], package_name
     output = template.render(args, package_name=package_name)
     file.write(output)
 
-
 def write_exclusion_template(template: Type[Template], args: Dict[str, str], package_name: str, language_name: str, file: TextIO):
     """Render the template with the given args, and write it to the file using \n newlines."""
     output = template.render(
