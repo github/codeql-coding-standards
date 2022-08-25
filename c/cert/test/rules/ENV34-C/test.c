@@ -49,7 +49,7 @@ void f2(void) {
     /* Handle error */
   }
 
-  if (strcmp(tmpvar, tempvar) == 0) {
+  if (strcmp(tmpvar, tempvar) == 0) { // COMPLIANT
     printf("TMP and TEMP are the same.\n");
   } else {
     printf("TMP and TEMP are NOT the same.\n");
@@ -84,7 +84,7 @@ void f3(void) {
     /* Handle error */
   }
 
-  if (strcmp(tmpvar, tempvar) == 0) {
+  if (strcmp(tmpvar, tempvar) == 0) { // COMPLIANT
     printf("TMP and TEMP are the same.\n");
   } else {
     printf("TMP and TEMP are NOT the same.\n");
@@ -163,4 +163,13 @@ void f7(void) {
   } else {
     printf("TMP and TEMP are NOT the same.\n");
   }
+}
+
+extern void f8fun();
+void f8(void) {
+  char *temp = getenv("VAR1");
+  printf(temp);
+  f8fun(); // this function might call getenv()
+  temp = getenv("VAR2");
+  printf(temp); // NON_COMPLIANT
 }
