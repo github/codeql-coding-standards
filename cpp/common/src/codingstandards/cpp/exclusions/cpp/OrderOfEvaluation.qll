@@ -11,7 +11,9 @@ newtype OrderOfEvaluationQuery =
   TIncrementAndDecrementOperatorsMixedWithOtherOperatorsInExpressionQuery() or
   TAssignmentInSubExpressionQuery()
 
-predicate isOrderOfEvaluationQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isOrderOfEvaluationQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `expressionShouldNotRelyOnOrderOfEvaluation` query
     OrderOfEvaluationPackage::expressionShouldNotRelyOnOrderOfEvaluationQuery() and

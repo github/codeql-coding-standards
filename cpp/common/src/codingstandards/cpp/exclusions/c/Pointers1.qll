@@ -22,7 +22,9 @@ newtype Pointers1Query =
   TObjectWithNoPointerDereferenceShouldBeOpaqueQuery() or
   TPointerShouldPointToConstTypeWhenPossibleQuery()
 
-predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isPointers1QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `conversionBetweenFunctionPointerAndOtherType` query
     Pointers1Package::conversionBetweenFunctionPointerAndOtherTypeQuery() and

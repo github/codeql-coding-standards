@@ -14,7 +14,9 @@ newtype OperatorInvariantsQuery =
   TGracefullyHandleSelfCopyAssignmentQuery() or
   TCopyOperationsMustNotMutateTheSourceObjectQuery()
 
-predicate isOperatorInvariantsQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isOperatorInvariantsQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `userDefinedCopyAndMoveUseNoThrowSwapFunction` query
     OperatorInvariantsPackage::userDefinedCopyAndMoveUseNoThrowSwapFunctionQuery() and

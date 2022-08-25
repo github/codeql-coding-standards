@@ -9,7 +9,9 @@ newtype BannedTypesQuery =
   TAutoPtrTypeUsedQuery() or
   TTypeWcharTUsedQuery()
 
-predicate isBannedTypesQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isBannedTypesQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `typeLongDoubleUsed` query
     BannedTypesPackage::typeLongDoubleUsedQuery() and

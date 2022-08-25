@@ -17,7 +17,9 @@ newtype MacrosQuery =
   TMoreThanOneOccurrenceHashOperatorInMacroDefinitionQuery() or
   THashOperatorsShouldNotBeUsedQuery()
 
-predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isMacrosQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `preProcessorShallOnlyBeUsedForCertainDirectivesPatterns` query
     MacrosPackage::preProcessorShallOnlyBeUsedForCertainDirectivesPatternsQuery() and

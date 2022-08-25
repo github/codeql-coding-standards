@@ -32,7 +32,9 @@ newtype NamingQuery =
   TFunctionReusesReservedNameQuery() or
   TEnumeratorReusesReservedNameQuery()
 
-predicate isNamingQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isNamingQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `userDefinedLiteralOperatorSuffixViolation` query
     NamingPackage::userDefinedLiteralOperatorSuffixViolationQuery() and

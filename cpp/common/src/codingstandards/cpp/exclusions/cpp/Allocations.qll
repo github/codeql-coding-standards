@@ -26,7 +26,9 @@ newtype AllocationsQuery =
   TOperatorDeleteMissingPartnerCertQuery() or
   TUsingDefaultOperatorNewForOverAlignedTypesQuery()
 
-predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isAllocationsQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `placementNewNotProperlyAlignedAutosar` query
     AllocationsPackage::placementNewNotProperlyAlignedAutosarQuery() and

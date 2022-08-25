@@ -18,7 +18,9 @@ newtype InheritanceQuery =
   TDoNotSliceDerivedObjectsQuery() or
   TDoNotDeleteAPolymorphicObjectWithoutAVirtualDestructorQuery()
 
-predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isInheritanceQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `publicInheritanceNotUsedForIsARelationship` query
     InheritancePackage::publicInheritanceNotUsedForIsARelationshipQuery() and

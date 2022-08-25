@@ -7,7 +7,9 @@ newtype SmartPointers2Query =
   TWeakPtrNotUsedToRepresentTemporarySharedOwnershipQuery() or
   TOwnedPointerValueStoredInUnrelatedSmartPointerCertQuery()
 
-predicate isSmartPointers2QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isSmartPointers2QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `weakPtrNotUsedToRepresentTemporarySharedOwnership` query
     SmartPointers2Package::weakPtrNotUsedToRepresentTemporarySharedOwnershipQuery() and

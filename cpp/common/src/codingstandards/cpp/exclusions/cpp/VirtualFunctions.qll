@@ -13,7 +13,9 @@ newtype VirtualFunctionsQuery =
   TVirtualFunctionOverriddenByAPureVirtualFunctionQuery() or
   TVirtualFunctionParametersUseTheSameDefaultArgumentsQuery()
 
-predicate isVirtualFunctionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isVirtualFunctionsQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `nonVirtualPublicOrProtectedFunctionsRedefined` query
     VirtualFunctionsPackage::nonVirtualPublicOrProtectedFunctionsRedefinedQuery() and

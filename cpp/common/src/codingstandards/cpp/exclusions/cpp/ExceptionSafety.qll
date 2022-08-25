@@ -10,7 +10,9 @@ newtype ExceptionSafetyQuery =
   TGuaranteeExceptionSafetyQuery() or
   TDoNotLeakResourcesWhenHandlingExceptionsQuery()
 
-predicate isExceptionSafetyQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isExceptionSafetyQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `exceptionSafetyGuaranteesNotProvided` query
     ExceptionSafetyPackage::exceptionSafetyGuaranteesNotProvidedQuery() and

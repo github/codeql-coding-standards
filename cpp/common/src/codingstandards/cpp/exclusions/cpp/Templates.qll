@@ -13,7 +13,9 @@ newtype TemplatesQuery =
   TNameNotReferredUsingAQualifiedIdOrThisQuery() or
   TNameNotReferredUsingAQualifiedIdOrThisAuditQuery()
 
-predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isTemplatesQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `templateShouldCheckArg` query
     TemplatesPackage::templateShouldCheckArgQuery() and

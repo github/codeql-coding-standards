@@ -11,7 +11,9 @@ newtype IO3Query =
   TPointerToAFileObjectDereferencedQuery() or
   TEofShallBeComparedWithUnmodifiedReturnValuesQuery()
 
-predicate isIO3QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isIO3QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `doNotPerformFileOperationsOnDevices` query
     IO3Package::doNotPerformFileOperationsOnDevicesQuery() and

@@ -16,7 +16,9 @@ newtype BannedFunctionsQuery =
   TDoNotUseRandForGeneratingPseudorandomNumbersQuery() or
   TPreferSpecialMemberFunctionsAndOverloadedOperatorsToCStandardLibraryFunctionsQuery()
 
-predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isBannedFunctionsQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `functionsMallocCallocReallocAndFreeUsed` query
     BannedFunctionsPackage::functionsMallocCallocReallocAndFreeUsedQuery() and

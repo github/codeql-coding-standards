@@ -22,7 +22,9 @@ newtype BannedSyntaxQuery =
   TUsingDeclarationsUsedInHeaderFilesQuery() or
   TDoNotDefineACStyleVariadicFunctionQuery()
 
-predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isBannedSyntaxQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `friendDeclarationsUsed` query
     BannedSyntaxPackage::friendDeclarationsUsedQuery() and

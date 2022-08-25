@@ -14,7 +14,9 @@ newtype SideEffects2Query =
   TFunctionsWithVoidReturnTypeShallHaveExternalSideEffectsQuery() or
   TPredicateFunctionObjectsShouldNotBeMutableQuery()
 
-predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isSideEffects2QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `moveConstructorShallOnlyMoveObject` query
     SideEffects2Package::moveConstructorShallOnlyMoveObjectQuery() and

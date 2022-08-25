@@ -15,7 +15,9 @@ newtype IntegerConversionQuery =
   TExplicitWideningConversionOfACValueExprQuery() or
   TExplicitSignednessConversionOfCValueQuery()
 
-predicate isIntegerConversionQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isIntegerConversionQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `integerExpressionLeadToDataLoss` query
     IntegerConversionPackage::integerExpressionLeadToDataLossQuery() and

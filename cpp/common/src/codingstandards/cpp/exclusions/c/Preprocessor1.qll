@@ -9,7 +9,9 @@ newtype Preprocessor1Query =
   TForbiddenCharactersInHeaderFileNameQuery() or
   TIdentifiersUsedInPreprocessorExpressionQuery()
 
-predicate isPreprocessor1QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isPreprocessor1QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `includeDirectivesPrecededByDirectivesOrComments` query
     Preprocessor1Package::includeDirectivesPrecededByDirectivesOrCommentsQuery() and

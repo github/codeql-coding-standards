@@ -7,7 +7,9 @@ newtype SideEffects2Query =
   TSideEffectAndCrementInFullExpressionQuery() or
   TModificationOfFunctionParameterQuery()
 
-predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isSideEffects2QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `sideEffectAndCrementInFullExpression` query
     SideEffects2Package::sideEffectAndCrementInFullExpressionQuery() and

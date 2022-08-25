@@ -20,7 +20,9 @@ newtype OperatorsQuery =
   TUnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery() or
   TUnaryOperatorOverloadedQuery()
 
-predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isOperatorsQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `userDefinedAssignmentOperatorVirtual` query
     OperatorsPackage::userDefinedAssignmentOperatorVirtualQuery() and

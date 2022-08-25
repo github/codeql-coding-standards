@@ -16,7 +16,9 @@ newtype ToolchainQuery =
   TCompilerWarningLevelNotInComplianceQuery() or
   TUncompliantOptimizationOptionMustBeDisabledInCompilerQuery()
 
-predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isToolchainQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `floatingPointImplementationShallComplyWithIeeeStandard` query
     ToolchainPackage::floatingPointImplementationShallComplyWithIeeeStandardQuery() and

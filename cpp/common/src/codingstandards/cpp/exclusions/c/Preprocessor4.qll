@@ -8,7 +8,9 @@ newtype Preprocessor4Query =
   TFunctionLikeMacroArgsContainHashTokenCQueryQuery() or
   TDefineAndUndefUsedOnReservedIdentifierOrMacroNameQuery()
 
-predicate isPreprocessor4QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isPreprocessor4QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `macroDefinedWithTheSameNameAsKeyword` query
     Preprocessor4Package::macroDefinedWithTheSameNameAsKeywordQuery() and

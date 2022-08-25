@@ -13,7 +13,9 @@ newtype StringsQuery =
   TBasicStringMayNotBeNullTerminatedCertQuery() or
   TOperationMayNotNullTerminateCStyleStringCertQuery()
 
-predicate isStringsQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isStringsQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `stringLiteralsAssignedToNonConstantPointers` query
     StringsPackage::stringLiteralsAssignedToNonConstantPointersQuery() and

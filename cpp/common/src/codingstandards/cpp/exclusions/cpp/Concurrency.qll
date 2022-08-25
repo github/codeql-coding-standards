@@ -14,7 +14,9 @@ newtype ConcurrencyQuery =
   TDoNotSpeculativelyLockALockedNonRecursiveMutexQuery() or
   TLockedALockedNonRecursiveMutexAuditQuery()
 
-predicate isConcurrencyQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isConcurrencyQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `doNotAllowAMutexToGoOutOfScopeWhileLocked` query
     ConcurrencyPackage::doNotAllowAMutexToGoOutOfScopeWhileLockedQuery() and

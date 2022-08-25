@@ -22,7 +22,9 @@ newtype ConditionalsQuery =
   TGotoStatementJumpConditionQuery() or
   TContinueInForLoopConditionQuery()
 
-predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isConditionalsQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `nonBooleanIfCondition` query
     ConditionalsPackage::nonBooleanIfConditionQuery() and

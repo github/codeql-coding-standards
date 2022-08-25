@@ -14,7 +14,9 @@ newtype SmartPointers1Query =
   TUniquePtrPassedToFunctionWithImproperSemanticsQuery() or
   TSharedPtrPassedToFunctionWithImproperSemanticsQuery()
 
-predicate isSmartPointers1QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isSmartPointers1QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `ownedPointerValueStoredInUnrelatedSmartPointerAsar` query
     SmartPointers1Package::ownedPointerValueStoredInUnrelatedSmartPointerAsarQuery() and

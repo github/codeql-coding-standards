@@ -14,7 +14,9 @@ newtype FreedQuery =
   TObjectAccessedAfterLifetimeCertQuery() or
   TUseAfterFreeQuery()
 
-predicate isFreedQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isFreedQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `newDeleteArrayMismatch` query
     FreedPackage::newDeleteArrayMismatchQuery() and

@@ -7,7 +7,9 @@ newtype Contracts1Query =
   TDoNotModifyTheReturnValueOfCertainFunctionsQuery() or
   TEnvPointerIsInvalidAfterCertainOperationsQuery()
 
-predicate isContracts1QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isContracts1QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `doNotModifyTheReturnValueOfCertainFunctions` query
     Contracts1Package::doNotModifyTheReturnValueOfCertainFunctionsQuery() and

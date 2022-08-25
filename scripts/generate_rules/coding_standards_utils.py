@@ -8,11 +8,14 @@ from marko.md_renderer import MarkdownRenderer
 import tempfile
 import sys
 
-
 # Add the shared module to the path
 script_path = Path(__file__)
 sys.path.append(str(script_path.parent.parent / 'shared'))
+from codeql import CodeQL, CodeQLError
 from markdown_helpers import HeadingFormatUpdateSpec, update_help_file, HeadingDiffUpdateSpec
+
+# Global holding an instance of CodeQL that can be shared too prevent repeated instantiation costs.
+codeql = None
 
 def split_camel_case(short_name : str) -> List[str]:
     """Split a camel case string to a list."""
@@ -64,6 +67,13 @@ def write_exclusion_template(template: Type[Template], args: Dict[str, str], pac
 
     with open(file, "w", newline="\n") as f:
         f.write(output)
+
+    global codeql
+    if codeql == None:
+        codeql = CodeQL()
+    # Format the generated exclusion file because we don't want to handle this in the template.
+    # The format relies on the length of the package name.
+    codeql.format(file)
 
 def extract_metadata_from_query(rule_id, title, rule_category, q, rule_query_tags, language_name, ql_language_name, standard_name, standard_short_name, standard_metadata, anonymise):
 

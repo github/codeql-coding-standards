@@ -12,7 +12,9 @@ newtype MoveForwardQuery =
   TForwardForwardingReferencesQuery() or
   TDoNotRelyOnTheValueOfAMovedFromObjectQuery()
 
-predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isMoveForwardQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `movedFromObjectReadAccessed` query
     MoveForwardPackage::movedFromObjectReadAccessedQuery() and

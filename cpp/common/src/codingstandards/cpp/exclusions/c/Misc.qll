@@ -8,7 +8,9 @@ newtype MiscQuery =
   TProperlySeedPseudorandomNumberGeneratorsQuery() or
   TControlFlowReachesTheEndOfANonVoidFunctionQuery()
 
-predicate isMiscQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isMiscQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `randUsedForGeneratingPseudorandomNumbers` query
     MiscPackage::randUsedForGeneratingPseudorandomNumbersQuery() and

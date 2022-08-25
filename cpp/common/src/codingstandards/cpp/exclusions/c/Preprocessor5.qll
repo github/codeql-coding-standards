@@ -8,7 +8,9 @@ newtype Preprocessor5Query =
   TMacroOrFunctionArgsContainHashTokenQuery() or
   TMacroParameterNotEnclosedInParenthesesCQueryQuery()
 
-predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isPreprocessor5QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `doNotTreatAPredefinedIdentifierAsObject` query
     Preprocessor5Package::doNotTreatAPredefinedIdentifierAsObjectQuery() and

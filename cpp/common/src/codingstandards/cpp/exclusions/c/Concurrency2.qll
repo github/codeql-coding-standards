@@ -7,7 +7,9 @@ newtype Concurrency2Query =
   TDeadlockByLockingInPredefinedOrderQuery() or
   TWrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery()
 
-predicate isConcurrency2QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isConcurrency2QueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `deadlockByLockingInPredefinedOrder` query
     Concurrency2Package::deadlockByLockingInPredefinedOrderQuery() and

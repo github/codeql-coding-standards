@@ -8,7 +8,9 @@ newtype TrustBoundariesQuery =
   TDoNotThrowAnExceptionAcrossExecutionBoundariesQuery() or
   TDoNotPassANonstandardObjectAcrossBoundariesQuery()
 
-predicate isTrustBoundariesQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isTrustBoundariesQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `exceptionsThrownAcrossExecutionBoundaries` query
     TrustBoundariesPackage::exceptionsThrownAcrossExecutionBoundariesQuery() and

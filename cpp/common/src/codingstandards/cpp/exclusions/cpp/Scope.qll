@@ -22,7 +22,9 @@ newtype ScopeQuery =
   TUnnamedNamespaceInHeaderFileQuery() or
   TOneDefinitionRuleNotObeyedQuery()
 
-predicate isScopeQueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isScopeQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `nonStandardEntitiesInStandardNamespaces` query
     ScopePackage::nonStandardEntitiesInStandardNamespacesQuery() and

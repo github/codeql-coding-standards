@@ -131,3 +131,11 @@ class CodeQL():
         if not result.returncode == 0:
                 raise CodeQLError(
                     f"Failed to generate query help file {query_help_path}", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
+
+    def format(self, path: Path) -> None:
+        command = ['codeql', 'query', 'format', '--in-place', str(path)]
+
+        result = subprocess.run(command, capture_output=True)
+        if not result.returncode == 0:
+                raise CodeQLError(
+                    f"Failed to format file {path}", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
