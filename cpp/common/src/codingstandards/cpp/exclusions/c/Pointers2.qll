@@ -5,9 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Pointers2Query = TDoNotAddOrSubtractAScaledIntegerToAPointerQuery()
 
-predicate isPointers2QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isPointers2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotAddOrSubtractAScaledIntegerToAPointer` query
     Pointers2Package::doNotAddOrSubtractAScaledIntegerToAPointerQuery() and

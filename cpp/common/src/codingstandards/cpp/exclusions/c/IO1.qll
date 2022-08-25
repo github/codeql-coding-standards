@@ -12,9 +12,7 @@ newtype IO1Query =
   TUndefinedBehaviorAccessingAClosedFileQuery() or
   TFileUsedAfterClosedQuery()
 
-predicate isIO1QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isIO1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `excludeUserInputFromFormatStrings` query
     IO1Package::excludeUserInputFromFormatStringsQuery() and

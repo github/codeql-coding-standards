@@ -8,9 +8,7 @@ newtype Concurrency1Query =
   TRaceConditionsWhenUsingLibraryFunctionsQuery() or
   TDoNotCallSignalInMultithreadedProgramQuery()
 
-predicate isConcurrency1QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isConcurrency1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `preventDataRacesWithMultipleThreads` query
     Concurrency1Package::preventDataRacesWithMultipleThreadsQuery() and

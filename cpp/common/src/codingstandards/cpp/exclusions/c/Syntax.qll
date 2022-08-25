@@ -12,9 +12,7 @@ newtype SyntaxQuery =
   TUOrUSuffixRepresentedInUnsignedTypeQuery() or
   TLowercaseCharacterLUsedInLiteralSuffixQuery()
 
-predicate isSyntaxQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `characterSequencesAndUsedWithinAComment` query
     SyntaxPackage::characterSequencesAndUsedWithinACommentQuery() and

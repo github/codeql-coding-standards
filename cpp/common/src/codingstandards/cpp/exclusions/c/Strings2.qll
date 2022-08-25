@@ -5,9 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Strings2Query = TToCharacterHandlingFunctionsRepresentableAsUCharQuery()
 
-predicate isStrings2QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isStrings2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `toCharacterHandlingFunctionsRepresentableAsUChar` query
     Strings2Package::toCharacterHandlingFunctionsRepresentableAsUCharQuery() and

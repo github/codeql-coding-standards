@@ -11,9 +11,7 @@ newtype Declarations1Query =
   TMacroIdentifiersNotDistinctQuery() or
   TMacroIdentifierNotDistinctFromParameterQuery()
 
-predicate isDeclarations1QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `declareIdentifiersBeforeUsingThem` query
     Declarations1Package::declareIdentifiersBeforeUsingThemQuery() and

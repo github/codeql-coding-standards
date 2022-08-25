@@ -9,9 +9,7 @@ newtype Concurrency3Query =
   TPreserveSafetyWhenUsingConditionVariablesQuery() or
   TWrapFunctionsThatCanFailSpuriouslyInLoopQuery()
 
-predicate isConcurrency3QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isConcurrency3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotAllowAMutexToGoOutOfScopeWhileLocked` query
     Concurrency3Package::doNotAllowAMutexToGoOutOfScopeWhileLockedQuery() and

@@ -7,9 +7,7 @@ newtype Strings3Query =
   TCastCharBeforeConvertingToLargerSizesQuery() or
   TDoNotConfuseNarrowAndWideFunctionsQuery()
 
-predicate isStrings3QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isStrings3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `castCharBeforeConvertingToLargerSizes` query
     Strings3Package::castCharBeforeConvertingToLargerSizesQuery() and

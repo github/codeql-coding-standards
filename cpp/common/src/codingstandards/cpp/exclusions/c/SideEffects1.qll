@@ -15,9 +15,7 @@ newtype SideEffects1Query =
   TPossibleSuppressedSideEffectInLogicOperatorOperandQuery() or
   TSizeofOperandWithSideEffectQuery()
 
-predicate isSideEffects1QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `dependenceOnOrderOfScalarEvaluationForSideEffects` query
     SideEffects1Package::dependenceOnOrderOfScalarEvaluationForSideEffectsQuery() and

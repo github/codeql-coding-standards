@@ -24,9 +24,7 @@ newtype BannedQuery =
   TOctalConstantsUsedQuery() or
   TRestrictTypeQualifierUsedQuery()
 
-predicate isBannedQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isBannedQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotCallSystem` query
     BannedPackage::doNotCallSystemQuery() and

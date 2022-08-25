@@ -9,9 +9,7 @@ newtype Preprocessor2Query =
   TUndefShouldNotBeUsedQuery() or
   TPrecautionIncludeGuardsNotProvidedQuery()
 
-predicate isPreprocessor2QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isPreprocessor2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `moreThanOneHashOperatorInMacroDefinition` query
     Preprocessor2Package::moreThanOneHashOperatorInMacroDefinitionQuery() and

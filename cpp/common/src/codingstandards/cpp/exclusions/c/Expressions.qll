@@ -9,9 +9,7 @@ newtype ExpressionsQuery =
   TCallPOSIXOpenWithCorrectArgumentCountQuery() or
   TDoNotUseABitwiseOperatorWithABooleanLikeOperandQuery()
 
-predicate isExpressionsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotCallFunctionPointerWithIncompatibleType` query
     ExpressionsPackage::doNotCallFunctionPointerWithIncompatibleTypeQuery() and

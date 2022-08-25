@@ -9,9 +9,7 @@ newtype IO2Query =
   TDoNotCallGetcAndPutcWithSideEffectsQuery() or
   TOnlyUseValuesForFsetposThatAreReturnedFromFgetposQuery()
 
-predicate isIO2QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isIO2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotCopyAFileObject` query
     IO2Package::doNotCopyAFileObjectQuery() and

@@ -8,9 +8,7 @@ newtype Strings1Query =
   TStringsHasSufficientSpaceForTheNullTerminatorQuery() or
   TNonNullTerminatedToFunctionThatExpectsAStringQuery()
 
-predicate isStrings1QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isStrings1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotAttemptToModifyStringLiterals` query
     Strings1Package::doNotAttemptToModifyStringLiteralsQuery() and
