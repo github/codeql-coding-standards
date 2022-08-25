@@ -284,7 +284,7 @@ predicate isTrivialType(Type t) {
 /** A POD type as defined by [basic.types]/9. */
 class PODType extends Type {
   PODType() {
-    this.(Class).isPOD()
+    this.(Class).isPod()
     or
     isScalarType(this)
     or
