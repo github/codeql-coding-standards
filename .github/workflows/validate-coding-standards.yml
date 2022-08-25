@@ -58,14 +58,14 @@ jobs:
 
       - name: Validate Package Files (CPP)
         run: |
-          find rule_packages/cpp -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python scripts/generate_rules/generate_package_files.py cpp
+          find rule_packages/cpp -name \*.json -exec basename {} .json \; | xargs python scripts/generate_rules/generate_package_files.py cpp
           git diff
           git diff --compact-summary
           git diff --quiet
 
       - name: Validate Package Files (C)
         run: |
-          find rule_packages/c -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python scripts/generate_rules/generate_package_files.py c
+          find rule_packages/c -name \*.json -exec basename {} .json \; | xargs python scripts/generate_rules/generate_package_files.py c
           git diff
           git diff --compact-summary
           git diff --quiet
