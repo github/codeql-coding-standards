@@ -171,5 +171,5 @@ void f8(void) {
   printf(temp);
   f8fun(); // this function might call getenv()
   temp = getenv("VAR2");
-  printf(temp); // NON_COMPLIANT
+  printf(temp); // NON_COMPLIANT[FALSE_NEGATIVE]
 }
