@@ -1,4 +1,0 @@
-| test.c:17:14:17:19 | tmpvar | The string $@ may have been overwritten by the second $@. | test.c:17:14:17:19 | tmpvar | tmpvar | test.c:13:13:13:18 | call to getenv | call to getenv |
-| test.c:130:14:130:17 | temp | The string $@ may have been overwritten by the second $@. | test.c:130:14:130:17 | temp | temp | test.c:127:11:127:16 | call to getenv | call to getenv |
-| test.c:130:20:130:22 | tmp | The string $@ may have been overwritten by the second $@. | test.c:130:20:130:22 | tmp | tmp | test.c:126:12:126:17 | call to getenv | call to getenv |
-| test.c:161:14:161:26 | tmpvar_global | The string $@ may have been overwritten by the second $@. | test.c:161:14:161:26 | tmpvar_global | tmpvar_global | test.c:157:20:157:25 | call to getenv | call to getenv |

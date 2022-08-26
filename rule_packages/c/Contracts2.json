@@ -25,12 +25,13 @@
       },
       "queries": [
         {
-          "description": "The value returned by functions `getenv`, `asctime`, `localeconv`, `setlocale`, and `strerror` may be overwritten by a second call.",
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror may be invalid following a subsequent call to the same function.",
           "kind": "problem",
           "name": "Do not store pointers returned by certain functions",
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotStorePointersReturnedByCertainFunctions",
+          "shared_implementation_short_name": "InvalidatedEnvStringPointers",
           "tags": [
             "correctness"
           ]
@@ -65,13 +66,16 @@
       },
       "queries": [
         {
-          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror shall not be used following a subsequent call to the same function.",
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror may be invalid following a subsequent call to the same function.",
           "kind": "problem",
           "name": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime,",
           "precision": "very-high",
           "severity": "error",
           "short_name": "SubsequentCallToSetlocaleInvalidatesOldPointers",
-          "tags": []
+          "shared_implementation_short_name": "InvalidatedEnvStringPointers",
+          "tags": [
+            "correctness"
+          ]
         }
       ],
       "title": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror shall not be used following a subsequent call to the same function"

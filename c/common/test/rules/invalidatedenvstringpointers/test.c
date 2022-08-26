@@ -1,6 +1,8 @@
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 void f1(void) {
   char *tmpvar;
@@ -172,4 +174,21 @@ void f8(void) {
   f8fun(); // this function might call getenv()
   temp = getenv("VAR2");
   printf(temp); // NON_COMPLIANT[FALSE_NEGATIVE]
+}
+
+void f9(void) {
+  const char *r;
+  struct lconv *lc;
+  char c[128];
+  r = setlocale(LC_ALL, "ja_JP.UTF-8");
+  strcpy(c, r);
+  lc = localeconv();
+  printf("%s\n", r);                   // NON_COMPLIANT
+  printf("%s\n", c);                   // COMPLIANT
+  printf("%s\n", lc->currency_symbol); // COMPLIANT
+}
+
+void f10(void) {
+  struct tm tm = *localtime(&(time_t){time(NULL)});
+  printf("%s", asctime(&tm)); // COMPLIANT
 }

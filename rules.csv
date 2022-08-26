@@ -762,7 +762,7 @@ c,MISRA-C-2012,RULE-21-16,Yes,Required,,,"The pointer arguments to the Standard 
 c,MISRA-C-2012,RULE-21-17,Yes,Mandatory,,,Use of the string handling functions from <string.h> shall not result in accesses beyond the bounds of the objects referenced by their pointer parameters,,Memory,Hard,
 c,MISRA-C-2012,RULE-21-18,Yes,Mandatory,,,The size_t argument passed to any function in <string.h> shall have an appropriate value,,OutOfBounds,Hard,
 c,MISRA-C-2012,RULE-21-19,Yes,Mandatory,,,"The pointers returned by the Standard Library functions localeconv, getenv, setlocale or, strerror shall only be used as if they have pointer to const-qualified type",ENV30-C,Contracts2,Medium,
-c,MISRA-C-2012,RULE-21-20,Yes,Mandatory,,,"The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror shall not be used following a subsequent call to the same function","ENV31-C",Contracts2,Medium,
+c,MISRA-C-2012,RULE-21-20,Yes,Mandatory,,,"The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror shall not be used following a subsequent call to the same function","ENV34-C",Contracts2,Import,
 c,MISRA-C-2012,RULE-21-21,Yes,Required,,,The Standard Library function system of <stdlib.h> shall not be used,ENV33-C,Banned,Import,
 c,MISRA-C-2012,RULE-22-1,Yes,Required,,,All resources obtained dynamically by means of Standard Library functions shall be explicitly released,,Memory,Hard,
 c,MISRA-C-2012,RULE-22-2,Yes,Mandatory,,,A block of memory shall only be freed if it was allocated by means of a Standard Library function,,Memory,Hard,
