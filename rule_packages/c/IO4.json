@@ -1,0 +1,71 @@
+{
+  "CERT-C": {
+    "FIO45-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "TOCTOU race conditions when accessing files can lead to vulnerability.",
+          "kind": "problem",
+          "name": "Avoid TOCTOU race conditions while accessing files",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ToctouRaceConditionsWhileAccessingFiles",
+          "tags": [
+            "correctness",
+            "security"
+          ],
+          "implementation_scope": {
+            "description": "The query is limited to the specific class of TOCTOU race conditions that derives from the incorrectuse of `fopen` to check the existence of a file."
+          }
+        }
+      ],
+      "title": "Avoid TOCTOU race conditions while accessing files"
+    },
+    "FIO47-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Invalid conversion specifiers leads to undefined behavior.",
+          "kind": "problem",
+          "name": "Use valid format strings",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UseValidSpecifiers",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "Incorrect number of format arguments leads to undefined behavior.",
+          "kind": "problem",
+          "name": "Use correct number of arguments",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "WrongNumberOfFormatArguments",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "Wrong type of format arguments leads to undefined behavior.",
+          "kind": "problem",
+          "name": "Wrong type format arguments",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "WrongTypeFormatArguments",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Use valid format strings"
+    }
+  }
+}
