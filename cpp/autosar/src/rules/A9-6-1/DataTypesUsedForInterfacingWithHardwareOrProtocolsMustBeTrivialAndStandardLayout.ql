@@ -23,6 +23,6 @@ from HardwareOrProtocolInterfaceClass c
 where
   not isExcluded(c,
     ClassesPackage::dataTypesUsedForInterfacingWithHardwareOrProtocolsMustBeTrivialAndStandardLayoutQuery()) and
-  not c.isPOD()
+  not c.isPod()
 select c,
   "Data type used for hardware interface or communication protocol is not standard layout and trivial."
