@@ -40,7 +40,7 @@ class InterestingNode extends ControlFlowNode {
   InterestingNode() {
     exists(Function f |
       (
-        this.(Function) = f and
+        this = f and
         // exit functions are not part of edges
         not this = any(ExitFunction ec)
         or
