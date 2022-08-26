@@ -6,14 +6,8 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype Contracts2Query =
   TExitHandlersMustReturnNormallyQuery() or
   TDoNotStorePointersReturnedByCertainFunctionsQuery() or
-  TSetErrnoToZeroBeforeCallingCertainFunctionsQuery() or
-  TCheckErrnoOnlyAfterFailureQuery() or
-  TDoNotRelyOnIndeterminateValuesOfErrnoQuery() or
   TValuesReturnedByLocaleSettingUsedAsPtrToConstQuery() or
-  TSubsequentCallToSetlocaleInvalidatesOldPointersQuery() or
-  TOnlyCheckErrnoRightAfterErrnoSettingFunctionQuery() or
-  TSetErrnoToZeroPriorToErrnoSettingFunctionCallsQuery() or
-  TCheckErrnoAfterCallingAnErrnoSettingFunctionQuery()
+  TSubsequentCallToSetlocaleInvalidatesOldPointersQuery()
 
 predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -33,30 +27,6 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
   ruleId = "ENV34-C"
   or
   query =
-    // `Query` instance for the `setErrnoToZeroBeforeCallingCertainFunctions` query
-    Contracts2Package::setErrnoToZeroBeforeCallingCertainFunctionsQuery() and
-  queryId =
-    // `@id` for the `setErrnoToZeroBeforeCallingCertainFunctions` query
-    "c/cert/set-errno-to-zero-before-calling-certain-functions" and
-  ruleId = "ERR30-C"
-  or
-  query =
-    // `Query` instance for the `checkErrnoOnlyAfterFailure` query
-    Contracts2Package::checkErrnoOnlyAfterFailureQuery() and
-  queryId =
-    // `@id` for the `checkErrnoOnlyAfterFailure` query
-    "c/cert/check-errno-only-after-failure" and
-  ruleId = "ERR30-C"
-  or
-  query =
-    // `Query` instance for the `doNotRelyOnIndeterminateValuesOfErrno` query
-    Contracts2Package::doNotRelyOnIndeterminateValuesOfErrnoQuery() and
-  queryId =
-    // `@id` for the `doNotRelyOnIndeterminateValuesOfErrno` query
-    "c/cert/do-not-rely-on-indeterminate-values-of-errno" and
-  ruleId = "ERR32-C"
-  or
-  query =
     // `Query` instance for the `valuesReturnedByLocaleSettingUsedAsPtrToConst` query
     Contracts2Package::valuesReturnedByLocaleSettingUsedAsPtrToConstQuery() and
   queryId =
@@ -71,30 +41,6 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
     // `@id` for the `subsequentCallToSetlocaleInvalidatesOldPointers` query
     "c/misra/subsequent-call-to-setlocale-invalidates-old-pointers" and
   ruleId = "RULE-21-20"
-  or
-  query =
-    // `Query` instance for the `onlyCheckErrnoRightAfterErrnoSettingFunction` query
-    Contracts2Package::onlyCheckErrnoRightAfterErrnoSettingFunctionQuery() and
-  queryId =
-    // `@id` for the `onlyCheckErrnoRightAfterErrnoSettingFunction` query
-    "c/misra/only-check-errno-right-after-errno-setting-function" and
-  ruleId = "RULE-22-10"
-  or
-  query =
-    // `Query` instance for the `setErrnoToZeroPriorToErrnoSettingFunctionCalls` query
-    Contracts2Package::setErrnoToZeroPriorToErrnoSettingFunctionCallsQuery() and
-  queryId =
-    // `@id` for the `setErrnoToZeroPriorToErrnoSettingFunctionCalls` query
-    "c/misra/set-errno-to-zero-prior-to-errno-setting-function-calls" and
-  ruleId = "RULE-22-8"
-  or
-  query =
-    // `Query` instance for the `checkErrnoAfterCallingAnErrnoSettingFunction` query
-    Contracts2Package::checkErrnoAfterCallingAnErrnoSettingFunctionQuery() and
-  queryId =
-    // `@id` for the `checkErrnoAfterCallingAnErrnoSettingFunction` query
-    "c/misra/check-errno-after-calling-an-errno-setting-function" and
-  ruleId = "RULE-22-9"
 }
 
 module Contracts2Package {
@@ -112,27 +58,6 @@ module Contracts2Package {
       TQueryC(TContracts2PackageQuery(TDoNotStorePointersReturnedByCertainFunctionsQuery()))
   }
 
-  Query setErrnoToZeroBeforeCallingCertainFunctionsQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `setErrnoToZeroBeforeCallingCertainFunctions` query
-      TQueryC(TContracts2PackageQuery(TSetErrnoToZeroBeforeCallingCertainFunctionsQuery()))
-  }
-
-  Query checkErrnoOnlyAfterFailureQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `checkErrnoOnlyAfterFailure` query
-      TQueryC(TContracts2PackageQuery(TCheckErrnoOnlyAfterFailureQuery()))
-  }
-
-  Query doNotRelyOnIndeterminateValuesOfErrnoQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `doNotRelyOnIndeterminateValuesOfErrno` query
-      TQueryC(TContracts2PackageQuery(TDoNotRelyOnIndeterminateValuesOfErrnoQuery()))
-  }
-
   Query valuesReturnedByLocaleSettingUsedAsPtrToConstQuery() {
     //autogenerate `Query` type
     result =
@@ -145,26 +70,5 @@ module Contracts2Package {
     result =
       // `Query` type for `subsequentCallToSetlocaleInvalidatesOldPointers` query
       TQueryC(TContracts2PackageQuery(TSubsequentCallToSetlocaleInvalidatesOldPointersQuery()))
-  }
-
-  Query onlyCheckErrnoRightAfterErrnoSettingFunctionQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `onlyCheckErrnoRightAfterErrnoSettingFunction` query
-      TQueryC(TContracts2PackageQuery(TOnlyCheckErrnoRightAfterErrnoSettingFunctionQuery()))
-  }
-
-  Query setErrnoToZeroPriorToErrnoSettingFunctionCallsQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `setErrnoToZeroPriorToErrnoSettingFunctionCalls` query
-      TQueryC(TContracts2PackageQuery(TSetErrnoToZeroPriorToErrnoSettingFunctionCallsQuery()))
-  }
-
-  Query checkErrnoAfterCallingAnErrnoSettingFunctionQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `checkErrnoAfterCallingAnErrnoSettingFunction` query
-      TQueryC(TContracts2PackageQuery(TCheckErrnoAfterCallingAnErrnoSettingFunctionQuery()))
   }
 }

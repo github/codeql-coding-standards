@@ -37,6 +37,7 @@ where
   // A second `GetenvFunctionCall`
   fc2 = fc1.getASuccessor+() and
   fc2 != fc1 and
+  fc1.getTarget()=fc2.getTarget() and
   // The value is is accessed in `e` afer the second `GetenvFunctionCall`
   e = fc2.getASuccessor+() and
   DataFlow::localExprFlow(fc1, e)
