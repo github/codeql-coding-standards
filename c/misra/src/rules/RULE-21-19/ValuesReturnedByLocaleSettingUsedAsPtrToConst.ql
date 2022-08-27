@@ -76,5 +76,5 @@ where
     modifiesInternalString(e, c)
   )
 select e,
-  "The pointer returned by $@ shell only be used as a pointer to const-qualified type as modifying the pointed object leads to unspecified behavior.",
+  "The pointer returned by $@ shall only be used as a pointer to const-qualified type as modifying the pointed object leads to unspecified behavior.",
   c, c.toString()
