@@ -18,9 +18,7 @@ newtype LoopsQuery =
   TLoopControlVariableModifiedInLoopExpressionQuery() or
   TNonBooleanLoopControlVariableQuery()
 
-predicate isLoopsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `unusedLoopCounterForContainerIteration` query
     LoopsPackage::unusedLoopCounterForContainerIterationQuery() and

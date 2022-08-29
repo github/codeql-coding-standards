@@ -9,9 +9,7 @@ newtype OutOfBoundsQuery =
   TGuaranteeGenericCppLibraryFunctionsDoNotOverflowQuery() or
   TRangeCheckStringElementAccessQuery()
 
-predicate isOutOfBoundsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isOutOfBoundsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `containerAccessWithoutRangeCheckAutosar` query
     OutOfBoundsPackage::containerAccessWithoutRangeCheckAutosarQuery() and

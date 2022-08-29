@@ -8,9 +8,7 @@ newtype NullQuery =
   TParameterNotPassedByReferenceQuery() or
   TDoNotAttemptToCreateAStringFromANullPointerQuery()
 
-predicate isNullQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isNullQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `nullPointersDereferenced` query
     NullPackage::nullPointersDereferencedQuery() and

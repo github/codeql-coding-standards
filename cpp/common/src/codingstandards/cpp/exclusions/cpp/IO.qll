@@ -8,9 +8,7 @@ newtype IOQuery =
   TInterleavedInputOutputWithoutPositionQuery() or
   TCloseFilesWhenTheyAreNoLongerNeededQuery()
 
-predicate isIOQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isIOQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `interleavedInputOutputWithoutFlush` query
     IOPackage::interleavedInputOutputWithoutFlushQuery() and

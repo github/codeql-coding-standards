@@ -21,9 +21,7 @@ newtype ExpressionsQuery =
   TPassReferenceTypeToVaStartQuery() or
   TPassNonTrivialObjectToVaStartQuery()
 
-predicate isExpressionsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `operationsAssumingMemoryLayoutPerformedOnObjects` query
     ExpressionsPackage::operationsAssumingMemoryLayoutPerformedOnObjectsQuery() and

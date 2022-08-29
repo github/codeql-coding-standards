@@ -16,9 +16,7 @@ newtype LiteralsQuery =
   TNullUsedAsIntegerValueQuery() or
   TLiteralZeroUsedAsNullPointerConstantQuery()
 
-predicate isLiteralsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `useCorrectIntervalForDigitSequencesSeparators` query
     LiteralsPackage::useCorrectIntervalForDigitSequencesSeparatorsQuery() and

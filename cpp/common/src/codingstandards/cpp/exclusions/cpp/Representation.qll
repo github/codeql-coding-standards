@@ -13,9 +13,7 @@ newtype RepresentationQuery =
   TMemcmpUsedToAccessObjectRepresentationQuery() or
   TMemcpyUsedToAccessObjectRepresentationQuery()
 
-predicate isRepresentationQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isRepresentationQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols` query
     RepresentationPackage::bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery() and

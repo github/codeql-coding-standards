@@ -16,9 +16,7 @@ newtype LambdasQuery =
   TReturningLambdaObjectWithCaptureByReferenceQuery() or
   TEscapingLambdaObjectWithCaptureByReferenceQuery()
 
-predicate isLambdasQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `implicitLambdaCapture` query
     LambdasPackage::implicitLambdaCaptureQuery() and

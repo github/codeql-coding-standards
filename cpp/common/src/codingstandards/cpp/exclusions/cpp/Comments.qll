@@ -10,9 +10,7 @@ newtype CommentsQuery =
   TSlashStarUsedWithinACStyleCommentQuery() or
   TNullOnSharedLineQuery()
 
-predicate isCommentsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isCommentsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `singleLineCommentEndsWithSlash` query
     CommentsPackage::singleLineCommentEndsWithSlashQuery() and

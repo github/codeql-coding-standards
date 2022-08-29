@@ -22,9 +22,7 @@ newtype Exceptions2Query =
   TDoNotLetExceptionsEscapeFromDestructorsOrDeallocationFunctionsQuery() or
   TCatchBlockShadowingCertQuery()
 
-predicate isExceptions2QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `onlyThrowStdExceptionDerivedTypes` query
     Exceptions2Package::onlyThrowStdExceptionDerivedTypesQuery() and

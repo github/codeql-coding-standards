@@ -28,9 +28,7 @@ newtype PointersQuery =
   TMemberAccessWithUninitializedStaticPointerToMemberQuery() or
   TUseOfPointerToMemberToAccessNonexistentMemberQuery()
 
-predicate isPointersQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isPointersQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `pointerToAnElementOfAnArrayPassedToASmartPointer` query
     PointersPackage::pointerToAnElementOfAnArrayPassedToASmartPointerQuery() and

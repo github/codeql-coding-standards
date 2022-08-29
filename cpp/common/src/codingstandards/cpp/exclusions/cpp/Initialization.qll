@@ -26,9 +26,7 @@ newtype InitializationQuery =
   TBadlySeededRandomNumberGeneratorQuery() or
   TUseCanonicalOrderForMemberInitQuery()
 
-predicate isInitializationQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isInitializationQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `explicitConstructorBaseClassInitialization` query
     InitializationPackage::explicitConstructorBaseClassInitializationQuery() and

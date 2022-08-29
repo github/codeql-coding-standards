@@ -11,9 +11,7 @@ newtype IncludesQuery =
   TExternalLinkageNotDeclaredInHeaderFileQuery() or
   TIncludeGuardsNotProvidedQuery()
 
-predicate isIncludesQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isIncludesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `unusedIncludeDirectives` query
     IncludesPackage::unusedIncludeDirectivesQuery() and

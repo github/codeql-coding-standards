@@ -15,9 +15,7 @@ newtype TypeRangesQuery =
   TDetectErrorsWhenConvertingAStringToANumberQuery() or
   TDoNotCastToAnOutOfRangeEnumerationValueQuery()
 
-predicate isTypeRangesQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `uncheckedRangeDomainPoleErrors` query
     TypeRangesPackage::uncheckedRangeDomainPoleErrorsQuery() and

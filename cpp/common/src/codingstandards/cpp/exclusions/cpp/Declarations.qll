@@ -22,9 +22,7 @@ newtype DeclarationsQuery =
   TTypesNotIdenticalInObjectDeclarationsQuery() or
   TTypesNotIdenticalInReturnDeclarationsQuery()
 
-predicate isDeclarationsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `operatorNewAndOperatorDeleteNotDefinedLocally` query
     DeclarationsPackage::operatorNewAndOperatorDeleteNotDefinedLocallyQuery() and

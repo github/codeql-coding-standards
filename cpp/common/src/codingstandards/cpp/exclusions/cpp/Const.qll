@@ -18,9 +18,7 @@ newtype ConstQuery =
   TMemberFunctionConstIfPossibleQuery() or
   TRemoveConstOrVolatileQualificationCertQuery()
 
-predicate isConstQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isConstQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `removeConstOrVolatileQualificationAutosar` query
     ConstPackage::removeConstOrVolatileQualificationAutosarQuery() and

@@ -19,9 +19,7 @@ newtype FunctionsQuery =
   TNonVoidFunctionDoesNotReturnCertQuery() or
   TFunctionNoReturnAttributeConditionCertQuery()
 
-predicate isFunctionsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `cStandardLibraryFunctionCalls` query
     FunctionsPackage::cStandardLibraryFunctionCallsQuery() and

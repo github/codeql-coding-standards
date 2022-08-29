@@ -21,9 +21,7 @@ newtype DeadCodeQuery =
   TSingleUseMemberPODVariableQuery() or
   TDeadCodeQuery()
 
-predicate isDeadCodeQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `uselessAssignment` query
     DeadCodePackage::uselessAssignmentQuery() and

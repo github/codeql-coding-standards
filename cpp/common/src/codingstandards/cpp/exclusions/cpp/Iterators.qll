@@ -12,9 +12,7 @@ newtype IteratorsQuery =
   TDoNotUseAnAdditiveOperatorOnAnIteratorQuery() or
   TUseValidReferencesForElementsOfStringQuery()
 
-predicate isIteratorsQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `iteratorImplicitlyConvertedToConstIterator` query
     IteratorsPackage::iteratorImplicitlyConvertedToConstIteratorQuery() and

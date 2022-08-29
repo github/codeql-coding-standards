@@ -8,9 +8,7 @@ newtype UninitializedQuery =
   TInformationLeakageAcrossTrustBoundariesQuery() or
   TDoNotReadUninitializedMemoryQuery()
 
-predicate isUninitializedQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isUninitializedQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `memoryNotInitializedBeforeItIsRead` query
     UninitializedPackage::memoryNotInitializedBeforeItIsReadQuery() and

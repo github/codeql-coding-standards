@@ -17,9 +17,7 @@ newtype BannedLibrariesQuery =
   TCstdioTypesUsedQuery() or
   TUsageOfAssemblerNotDocumentedQuery()
 
-predicate isBannedLibrariesQueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `reservedIdentifiersMacrosAndFunctionsAreDefinedRedefinedOrUndefined` query
     BannedLibrariesPackage::reservedIdentifiersMacrosAndFunctionsAreDefinedRedefinedOrUndefinedQuery() and

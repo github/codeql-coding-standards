@@ -15,9 +15,7 @@ newtype SideEffects1Query =
   TDoNotRelyOnSideEffectsInDeclTypeOperandQuery() or
   TDoNotRelyOnSideEffectsInDeclValExpressionQuery()
 
-predicate isSideEffects1QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `evaluationOfTheOperandToTheTypeidOperatorContainSideEffects` query
     SideEffects1Package::evaluationOfTheOperandToTheTypeidOperatorContainSideEffectsQuery() and

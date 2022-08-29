@@ -39,9 +39,7 @@ newtype Exceptions1Query =
   TExceptionObjectsMustBeNothrowCopyConstructibleQuery() or
   TCatchExceptionsByLvalueReferenceQuery()
 
-predicate isExceptions1QueryMetadata(
-  Query query, string queryId, string ruleId, string category
-) {
+predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `exceptionThrownOnCompletion` query
     Exceptions1Package::exceptionThrownOnCompletionQuery() and
