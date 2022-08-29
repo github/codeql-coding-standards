@@ -32,7 +32,8 @@ predicate isExcluded(Element e, Query query) {
   or
   not exists(e.getFile())
   or
-  // There exists a `DeviationRecord` that applies to this element and query
+  // There exists a `DeviationRecord` that applies to this element and query, and the query's effective category permits deviation.
+  query.getEffectiveCategory().permitsDeviation() and
   exists(DeviationRecord dr | applyDeviationsAtQueryLevel() |
     // The element is in a file which has a deviation for this query
     exists(string path |

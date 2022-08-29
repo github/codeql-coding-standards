@@ -332,6 +332,13 @@ class DeviationRecord extends XMLElement {
     hasPermitId() and
     not hasADeviationPermit() and
     result = "There is no deviation permit with id `" + getPermitId() + "`."
+    or
+    exists(Query q | q.getQueryId() = getQueryId() |
+      not q.getEffectiveCategory().permitsDeviation() and
+      result =
+        "The deviation is applied to a query with the rule category '" +
+          q.getEffectiveCategory().toString() + "' that does not permit a deviation."
+    )
   }
 
   /** Holds if the deviation record is valid */

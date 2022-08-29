@@ -12,32 +12,6 @@ class GuidelineRecategorizations extends CodingStandardsConfigSection {
   GuidelineRecategorizations() { hasName("guideline-recategorizations") }
 }
 
-newtype TEffectiveCategory =
-  TInvalid(string reason) {
-    exists(GuidelineRecategorization gr | reason = gr.getAnInvalidReason())
-  } or
-  TDisapplied() or
-  TAdvisory() or
-  TRequired() or
-  TMandatory()
-
-class EffectiveCategory extends TEffectiveCategory {
-  string toString() {
-    this instanceof TInvalid and result = "invalid"
-    or
-    this instanceof TDisapplied and result = "disapplied"
-    or
-    this instanceof TAdvisory and result = "advisory"
-    or
-    this instanceof TRequired and result = "required"
-    or
-    this instanceof TMandatory and result = "mandatory"
-  }
-
-  /** Holds if the effective category permits a deviation */
-  predicate permitsDeviation() { not this instanceof TMandatory and not this instanceof TInvalid }
-}
-
 class GuidelineRecategorization extends XMLElement {
   GuidelineRecategorization() {
     getParent() instanceof GuidelineRecategorizations and
