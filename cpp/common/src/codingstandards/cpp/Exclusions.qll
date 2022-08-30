@@ -59,4 +59,9 @@ predicate isExcluded(Element e, Query query, string reason) {
     reason =
       "Query has an associated deviation record with a code identifier that is applied to the element."
   )
+  or
+  // The effective category of the query is 'Disapplied'.
+  // This can occur when a Guideline Recategorization Plan is applied.
+  query.getEffectiveCategory().isDisapplied() and
+  reason = "The query is disapplied."
 }

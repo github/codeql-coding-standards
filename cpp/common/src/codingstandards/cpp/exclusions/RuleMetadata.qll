@@ -40,6 +40,9 @@ class EffectiveCategory extends TEffectiveCategory {
 
   /** Holds if the effective category permits a deviation */
   predicate permitsDeviation() { not this instanceof TMandatory and not this instanceof TInvalid }
+
+  /** Holds if the effective category is 'Disapplied'. */
+  predicate isDisapplied() { this instanceof TDisapplied }
 }
 
 class Query extends TQuery {
