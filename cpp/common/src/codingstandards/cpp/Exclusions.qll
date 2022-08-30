@@ -25,12 +25,15 @@ predicate isExcluded(Element e) {
 }
 
 bindingset[e, query]
-predicate isExcluded(Element e, Query query) {
-  e instanceof ExcludedElement
+predicate isExcluded(Element e, Query query) { isExcluded(e, query, _) }
+
+bindingset[e, query]
+predicate isExcluded(Element e, Query query, string reason) {
+  e instanceof ExcludedElement and reason = "Element is an excluded element."
   or
-  e.getFile() instanceof ExcludedFile
+  e.getFile() instanceof ExcludedFile and reason = "Element is part of an excluded file."
   or
-  not exists(e.getFile())
+  not exists(e.getFile()) and reason = "Element is not part of the source repository."
   or
   // There exists a `DeviationRecord` that applies to this element and query, and the query's effective category permits deviation.
   query.getEffectiveCategory().permitsDeviation() and
@@ -39,7 +42,8 @@ predicate isExcluded(Element e, Query query) {
     exists(string path |
       dr.isDeviated(query, path) and
       e.getFile().getRelativePath().prefix(path.length()) = path
-    )
+    ) and
+    reason = "Query has an associated deviation record for the element's file."
     or
     // The element is on the same line as a suppression comment
     exists(Comment c |
@@ -51,6 +55,8 @@ predicate isExcluded(Element e, Query query) {
         e.getLocation().hasLocationInfo(filepath, _, _, endLine, _) and
         c.getLocation().hasLocationInfo(filepath, endLine, _, _, _)
       )
-    )
+    ) and
+    reason =
+      "Query has an associated deviation record with a code identifier that is applied to the element."
   )
 }
