@@ -1,4 +1,4 @@
-name: cert-c-coding-standards
+name: codeql/cert-c-coding-standards
 version: 2.8.0-dev
 suites: codeql-suites
 dependencies:
