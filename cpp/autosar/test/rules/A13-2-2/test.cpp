@@ -21,6 +21,11 @@ A *operator|(A const &a1, A const &a2) noexcept { // NON_COMPLIANT
   return new A();
 }
 
+const A operator<<(A const &, A const &) noexcept // NON_COMPLIANT
+{
+  return A{};
+}
+
 class C {
   C &operator=(const C &rhs);
 };
@@ -31,3 +36,10 @@ int &operator+(const C &lhs, const C &rhs) { // NON_COMPLIANT
   return slocal;
 }
 } // namespace NS_C
+
+#include <iostream>
+struct Test {};
+std::ostream &operator<<(std::ostream &os, const Test &) { // COMPLIANT
+  os << "test";
+  return os;
+}

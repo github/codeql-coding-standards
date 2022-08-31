@@ -1,0 +1,72 @@
+{
+  "CERT-C": {
+    "EXP37-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Calling a function pointer with a type incompatible with the function it points to is undefined.",
+          "kind": "path-problem",
+          "name": "Do not call a function pointer which points to a function of an incompatible type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotCallFunctionPointerWithIncompatibleType",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query raises a result for a function assigned to a function pointer of an incompatible type even if the function pointer is never eventually called."
+          }
+        },
+        {
+          "description": "The arguments passed to a function must be compatible with the function's parameters.",
+          "kind": "problem",
+          "name": "Do not pass arguments with an incompatible count or type to a function",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotCallFunctionsWithIncompatibleArguments",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "A third argument should be passed to the POSIX function open() when and only when creating a new file.",
+          "kind": "problem",
+          "name": "Pass the correct number of arguments to the POSIX open function",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "CallPOSIXOpenWithCorrectArgumentCount",
+          "tags": [
+            "correctness",
+            "security"
+          ],
+          "implementation_scope": {
+            "description": "The analysis of invalid parameter count passed to POSIX open calls only applies when the value of the flags argument is computed locally."
+          }
+        }
+      ],
+      "title": "Call functions with the correct number and type of arguments"
+    },
+    "EXP46-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using bitwise operators with unparenthesized Boolean-like operands may indicate a logic error.",
+          "kind": "problem",
+          "name": "Do not use a bitwise operator with a Boolean-like operand",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotUseABitwiseOperatorWithABooleanLikeOperand",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Do not use a bitwise operator with a Boolean-like operand"
+    }
+  }
+}

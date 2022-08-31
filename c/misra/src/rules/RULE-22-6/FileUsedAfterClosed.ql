@@ -1,7 +1,7 @@
 /**
  * @id c/misra/file-used-after-closed
  * @name RULE-22-6: The value of a pointer to a FILE shall not be used after the associated stream has been closed
- * @description A closed FILE is accessed
+ * @description A closed FILE is accessed.
  * @kind problem
  * @precision very-high
  * @problem.severity error
