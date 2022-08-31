@@ -1,0 +1,8 @@
+- `M0-1-4` - `SingleUsePODVariable.ql`
+  - This rule no longer considers compiler-generated access to a variable when determining if the variable has a single use.
+- `A8-5-3` - `AvoidAutoWithBracedInitialization.ql`:
+  - Fix regression where `auto x{0}` was no longer detected as a braced initialization with type `auto` with the latest CodeQL versions.
+  - No longer falsely detect cases where braced initialization was not used, but where the inferred type would be `std::initializer_list`.
+- `A7-3-1` - `DefinitionNotConsideredForUnqualifiedLookup.ql`
+  - The locations reported for names occurring in using-declarations has improved in the latest CodeQL versions.
+- Updated the CodeQL version to `2.9.4`.
