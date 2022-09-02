@@ -1,2 +1,0 @@
-- `A7-3-1` - `DefinitionNotConsideredForUnqualifiedLookup.ql`
-  - The locations reported for names occurring in using-declarations has improved in the latest CodeQL versions.
