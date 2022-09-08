@@ -66,7 +66,7 @@ private newtype TParameterEquivalenceClass =
  */
 class ParameterEquivalenceClass extends TParameterEquivalenceClass {
   /** Gets a `Function` whose `Parameter` at `index` is part of the equivalence class. */
-  pragma[noinline, nomagic]
+  pragma[nomagic]
   private Function getAFunction(int index) {
     exists(string qualifiedName, string typeSig |
       functionSignature(result, qualifiedName, typeSig) and
