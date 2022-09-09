@@ -62,7 +62,7 @@ jobs:
       - name: Checkout external help files
         continue-on-error: true
         id: checkout-external-help-files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ssh-key: ${{ secrets.CODEQL_CODING_STANDARDS_HELP_KEY }}
           repository: "github/codeql-coding-standards-help"
