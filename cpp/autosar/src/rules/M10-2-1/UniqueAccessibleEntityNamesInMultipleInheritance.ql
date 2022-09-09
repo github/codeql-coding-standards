@@ -54,8 +54,8 @@ where
   // and the declaring types of both declarations are not in the same inheritance hierarchy
   not decl1.getDeclaringType().getABaseClass*() = decl2.getDeclaringType().getABaseClass*() and
   // and both declarations are accessible from 'derived'
-  decl1.isAccessibleFromClass(derived) and
-  decl2.isAccessibleFromClass(derived) and
+  pragma[only_bind_into](decl1).isAccessibleFromClass(derived) and
+  pragma[only_bind_into](decl2).isAccessibleFromClass(derived) and
   // and the declaring type name (DTN) of decl1 is less than the DTN of decl2 (remove permutations)
   decl1 =
     rank[1](MemberEntityDeclaration decl |
