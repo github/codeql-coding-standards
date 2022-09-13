@@ -21,7 +21,6 @@ jobs:
           run: |
             bash ./scripts/bump_version.sh ${{ github.event.inputs.new_version }}
 
-        - uses: actions/checkout@v3
         - name: Create Pull Request
           uses: peter-evans/create-pull-request@v4
           with: 
@@ -30,4 +29,4 @@ jobs:
             commit-message: "Version bump to ${{ github.event.inputs.new_version }}."
             team-reviewers: github/codeql-coding-standards
             delete-branch: true
-            branch: "codeql/version-bump-${{ github.event.inputs.new_version }}"
+            branch: "automation/version-bump-${{ github.event.inputs.new_version }}"

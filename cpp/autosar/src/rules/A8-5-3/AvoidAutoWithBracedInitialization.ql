@@ -21,5 +21,5 @@ from Variable v
 where
   not isExcluded(v, InitializationPackage::avoidAutoWithBracedInitializationQuery()) and
   v.getTypeWithAuto().getUnspecifiedType() instanceof AutoType and
-  v.getType().getUnspecifiedType().(Class).hasQualifiedName("std", "initializer_list")
+  v.getInitializer().isBraced()
 select v, "Variable " + v.getName() + " of type auto uses braced initialization."
