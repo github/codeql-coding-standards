@@ -1,0 +1,25 @@
+{
+  "CERT-C": {
+    "DCL41-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Declaring a variable in a switch statement before the first case label can result in reading uninitialized memory which is undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not declare variables inside a switch statement before the first case label",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VariablesInsideSwitchStatement",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Do not declare variables inside a switch statement before the first case label"
+    }
+  }
+}
