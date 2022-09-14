@@ -1,5 +1,26 @@
 {
   "CERT-C": {
+    "DCL38-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Structures with flexible array members can be declared in ways that will lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "Use the correct syntax when declaring a flexible array member",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeclaringAFlexibleArrayMember",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Use the correct syntax when declaring a flexible array member"
+    },
     "DCL41-C": {
       "properties": {
         "obligation": "rule"

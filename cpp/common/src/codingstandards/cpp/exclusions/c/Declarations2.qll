@@ -3,9 +3,19 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Declarations2Query = TVariablesInsideSwitchStatementQuery()
+newtype Declarations2Query =
+  TDeclaringAFlexibleArrayMemberQuery() or
+  TVariablesInsideSwitchStatementQuery()
 
 predicate isDeclarations2QueryMetadata(Query query, string queryId, string ruleId) {
+  query =
+    // `Query` instance for the `declaringAFlexibleArrayMember` query
+    Declarations2Package::declaringAFlexibleArrayMemberQuery() and
+  queryId =
+    // `@id` for the `declaringAFlexibleArrayMember` query
+    "c/cert/declaring-a-flexible-array-member" and
+  ruleId = "DCL38-C"
+  or
   query =
     // `Query` instance for the `variablesInsideSwitchStatement` query
     Declarations2Package::variablesInsideSwitchStatementQuery() and
@@ -16,6 +26,13 @@ predicate isDeclarations2QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Declarations2Package {
+  Query declaringAFlexibleArrayMemberQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `declaringAFlexibleArrayMember` query
+      TQueryC(TDeclarations2PackageQuery(TDeclaringAFlexibleArrayMemberQuery()))
+  }
+
   Query variablesInsideSwitchStatementQuery() {
     //autogenerate `Query` type
     result =
