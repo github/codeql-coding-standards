@@ -5,7 +5,6 @@ This query implements the CERT-C rule DCL38-C:
 > Use the correct syntax when declaring a flexible array member
 
 
-
 ## Description
 
 Flexible array members are a special type of array in which the last element of a structure with more than one named member has an incomplete array type; that is, the size of the array is not specified explicitly within the structure. This "struct hack" was widely used in practice and supported by a variety of compilers. Consequently, a variety of different syntaxes have been used for declaring flexible array members. For conforming C implementations, use the syntax guaranteed to be valid by the C Standard.
