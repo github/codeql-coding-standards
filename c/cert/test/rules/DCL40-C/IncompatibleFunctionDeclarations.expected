@@ -1,0 +1,4 @@
+| test1.c:4:12:4:12 | declaration of f | The object $@ is not compatible with re-declaration $@ | test1.c:4:12:4:12 | declaration of f | f | test.c:4:6:4:6 | definition of f | f |
+| test.c:4:6:4:6 | definition of f | The object $@ is not compatible with re-declaration $@ | test.c:4:6:4:6 | definition of f | f | test1.c:4:12:4:12 | declaration of f | f |
+| test.c:8:6:8:7 | declaration of f1 | The object $@ is not compatible with re-declaration $@ | test.c:8:6:8:7 | declaration of f1 | f1 | test1.c:5:13:5:14 | declaration of f1 | f1 |
+| test.c:9:6:9:7 | definition of f2 | The object $@ is not compatible with re-declaration $@ | test.c:9:6:9:7 | definition of f2 | f2 | test1.c:6:6:6:7 | definition of f2 | f2 |
