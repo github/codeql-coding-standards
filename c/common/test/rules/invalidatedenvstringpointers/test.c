@@ -192,3 +192,16 @@ void f10(void) {
   struct tm tm = *localtime(&(time_t){time(NULL)});
   printf("%s", asctime(&tm)); // COMPLIANT
 }
+
+void f11fun(void) { char *tempvar = getenv("TEMP"); }
+void f11(void) {
+  char *tmpvar;
+
+  tmpvar = getenv("TMP");
+  if (!tmpvar) {
+    /* Handle error */
+  }
+  f11fun();
+
+  printf(tmpvar); // NON_COMPLIANT
+}

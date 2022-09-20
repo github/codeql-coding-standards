@@ -1,8 +1,8 @@
-# ENV34-C: Do not store pointers returned by certain functions
+# ENV34-C: Do not store pointers returned by environment functions warning
 
 This query implements the CERT-C rule ENV34-C:
 
-> Do not store pointers returned by certain functions
+> Do not store pointers returned by environment functions
 
 
 ## Description
@@ -274,4 +274,4 @@ None
 
 ## References
 
-* CERT-C: [ENV34-C: Do not store pointers returned by certain functions](https://wiki.sei.cmu.edu/confluence/display/c)
+* CERT-C: [ENV34-C: Do not store pointers returned by environment functions](https://wiki.sei.cmu.edu/confluence/display/c)
