@@ -5,7 +5,6 @@ This query implements the CERT-C rule DCL40-C:
 > Do not create incompatible declarations of the same function or object
 
 
-
 ## Description
 
 Two or more incompatible declarations of the same function or object must not appear in the same program because they result in [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior). The C Standard, 6.2.7, mentions that two types may be distinct yet compatible and addresses precisely when two distinct types are compatible.
