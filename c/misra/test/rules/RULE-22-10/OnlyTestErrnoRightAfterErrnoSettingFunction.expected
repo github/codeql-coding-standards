@@ -1,0 +1,2 @@
+| test.c:7:3:8:3 | if (...) ...  | The value of `errno` shell only be tested after an errno-setting function call. |
+| test.c:16:3:17:3 | if (...) ...  | The value of `errno` shell only be tested after an errno-setting function call. |
