@@ -4,15 +4,11 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Contracts3Query =
-  TSetErrnoToZeroBeforeAndAfterCallingAnErrnoFunctionQuery() or
   TOnlyTestErrnoRightAfterErrnoSettingFunctionQuery() or
   TErrnoSetToZeroPriorToCallQuery() or
   TErrnoSetToZeroAfterCallQuery()
 
 predicate isContracts3QueryMetadata(Query query, string queryId, string ruleId) {
-  query =
-    // `Query` instance for the `setErrnoToZeroBeforeAndAfterCallingAnErrnoFunction` query
-    Contracts3Package::setErrnoToZeroBeforeAndAfterCallingAnErrnoFunctionQuery() and
   query =
     // `Query` instance for the `onlyTestErrnoRightAfterErrnoSettingFunction` query
     Contracts3Package::onlyTestErrnoRightAfterErrnoSettingFunctionQuery() and
@@ -39,13 +35,6 @@ predicate isContracts3QueryMetadata(Query query, string queryId, string ruleId) 
 }
 
 module Contracts3Package {
-  Query setErrnoToZeroBeforeAndAfterCallingAnErrnoFunctionQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `setErrnoToZeroBeforeAndAfterCallingAnErrnoFunction` query
-      TQueryC(TContracts3PackageQuery(TSetErrnoToZeroBeforeAndAfterCallingAnErrnoFunctionQuery()))
-  }
-
   Query onlyTestErrnoRightAfterErrnoSettingFunctionQuery() {
     //autogenerate `Query` type
     result =

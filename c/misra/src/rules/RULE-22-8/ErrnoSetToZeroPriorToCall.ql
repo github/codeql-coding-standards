@@ -1,12 +1,13 @@
 /**
- * @id c/misra/errno-set-to-zero-after-call
- * @name RULE-22-9: The value of errno shall be tested against zero after calling an errno-setting-function
- * @description The value of errno shall be tested against zero after calling an
+ * @id c/misra/errno-set-to-zero-prior-to-call
+ * @name RULE-22-8: The value of errno shall be set to zero prior to a call to an errno-setting-function
+ * @description The value of errno shall be set to zero prior to a call to an
  *              errno-setting-function.
  * @kind problem
  * @precision very-high
  * @problem.severity error
- * @tags external/misra/id/rule-22-9
+ * @tags external/misra/id/rule-22-8
+ *       correctness
  *       external/misra/obligation/required
  */
 

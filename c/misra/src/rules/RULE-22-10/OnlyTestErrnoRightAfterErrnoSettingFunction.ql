@@ -2,11 +2,12 @@
  * @id c/misra/only-test-errno-right-after-errno-setting-function
  * @name RULE-22-10: The value of errno shall only be tested when the last function to be called was an
  * @description The value of errno shall only be tested when the last function to be called was an
- *              errno-setting-function
+ *              errno-setting-function.
  * @kind problem
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-22-10
+ *       correctness
  *       external/misra/obligation/required
  */
 

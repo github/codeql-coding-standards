@@ -7,6 +7,7 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-22-9
+ *       correctness
  *       external/misra/obligation/required
  */
 
