@@ -5,9 +5,11 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Contracts2Query =
   TExitHandlersMustReturnNormallyQuery() or
-  TDoNotStorePointersReturnedByCertainFunctionsQuery() or
+  TDoNotStorePointersReturnedByEnvFunctionsQuery() or
+  TDoNotStorePointersReturnedByEnvironmentFunWarnQuery() or
   TValuesReturnedByLocaleSettingUsedAsPtrToConstQuery() or
-  TSubsequentCallToSetlocaleInvalidatesOldPointersQuery()
+  TCallToSetlocaleInvalidatesOldPointersQuery() or
+  TCallToSetlocaleInvalidatesOldPointersWarnQuery()
 
 predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -19,11 +21,19 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
   ruleId = "ENV32-C"
   or
   query =
-    // `Query` instance for the `doNotStorePointersReturnedByCertainFunctions` query
-    Contracts2Package::doNotStorePointersReturnedByCertainFunctionsQuery() and
+    // `Query` instance for the `doNotStorePointersReturnedByEnvFunctions` query
+    Contracts2Package::doNotStorePointersReturnedByEnvFunctionsQuery() and
   queryId =
-    // `@id` for the `doNotStorePointersReturnedByCertainFunctions` query
-    "c/cert/do-not-store-pointers-returned-by-certain-functions" and
+    // `@id` for the `doNotStorePointersReturnedByEnvFunctions` query
+    "c/cert/do-not-store-pointers-returned-by-env-functions" and
+  ruleId = "ENV34-C"
+  or
+  query =
+    // `Query` instance for the `doNotStorePointersReturnedByEnvironmentFunWarn` query
+    Contracts2Package::doNotStorePointersReturnedByEnvironmentFunWarnQuery() and
+  queryId =
+    // `@id` for the `doNotStorePointersReturnedByEnvironmentFunWarn` query
+    "c/cert/do-not-store-pointers-returned-by-environment-fun-warn" and
   ruleId = "ENV34-C"
   or
   query =
@@ -35,11 +45,19 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
   ruleId = "RULE-21-19"
   or
   query =
-    // `Query` instance for the `subsequentCallToSetlocaleInvalidatesOldPointers` query
-    Contracts2Package::subsequentCallToSetlocaleInvalidatesOldPointersQuery() and
+    // `Query` instance for the `callToSetlocaleInvalidatesOldPointers` query
+    Contracts2Package::callToSetlocaleInvalidatesOldPointersQuery() and
   queryId =
-    // `@id` for the `subsequentCallToSetlocaleInvalidatesOldPointers` query
-    "c/misra/subsequent-call-to-setlocale-invalidates-old-pointers" and
+    // `@id` for the `callToSetlocaleInvalidatesOldPointers` query
+    "c/misra/call-to-setlocale-invalidates-old-pointers" and
+  ruleId = "RULE-21-20"
+  or
+  query =
+    // `Query` instance for the `callToSetlocaleInvalidatesOldPointersWarn` query
+    Contracts2Package::callToSetlocaleInvalidatesOldPointersWarnQuery() and
+  queryId =
+    // `@id` for the `callToSetlocaleInvalidatesOldPointersWarn` query
+    "c/misra/call-to-setlocale-invalidates-old-pointers-warn" and
   ruleId = "RULE-21-20"
 }
 
@@ -51,11 +69,18 @@ module Contracts2Package {
       TQueryC(TContracts2PackageQuery(TExitHandlersMustReturnNormallyQuery()))
   }
 
-  Query doNotStorePointersReturnedByCertainFunctionsQuery() {
+  Query doNotStorePointersReturnedByEnvFunctionsQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `doNotStorePointersReturnedByCertainFunctions` query
-      TQueryC(TContracts2PackageQuery(TDoNotStorePointersReturnedByCertainFunctionsQuery()))
+      // `Query` type for `doNotStorePointersReturnedByEnvFunctions` query
+      TQueryC(TContracts2PackageQuery(TDoNotStorePointersReturnedByEnvFunctionsQuery()))
+  }
+
+  Query doNotStorePointersReturnedByEnvironmentFunWarnQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `doNotStorePointersReturnedByEnvironmentFunWarn` query
+      TQueryC(TContracts2PackageQuery(TDoNotStorePointersReturnedByEnvironmentFunWarnQuery()))
   }
 
   Query valuesReturnedByLocaleSettingUsedAsPtrToConstQuery() {
@@ -65,10 +90,17 @@ module Contracts2Package {
       TQueryC(TContracts2PackageQuery(TValuesReturnedByLocaleSettingUsedAsPtrToConstQuery()))
   }
 
-  Query subsequentCallToSetlocaleInvalidatesOldPointersQuery() {
+  Query callToSetlocaleInvalidatesOldPointersQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `subsequentCallToSetlocaleInvalidatesOldPointers` query
-      TQueryC(TContracts2PackageQuery(TSubsequentCallToSetlocaleInvalidatesOldPointersQuery()))
+      // `Query` type for `callToSetlocaleInvalidatesOldPointers` query
+      TQueryC(TContracts2PackageQuery(TCallToSetlocaleInvalidatesOldPointersQuery()))
+  }
+
+  Query callToSetlocaleInvalidatesOldPointersWarnQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `callToSetlocaleInvalidatesOldPointersWarn` query
+      TQueryC(TContracts2PackageQuery(TCallToSetlocaleInvalidatesOldPointersWarnQuery()))
   }
 }
