@@ -1,0 +1,78 @@
+{
+  "CERT-C": {
+    "CON30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Clean up thread-specific storage",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "CleanUpThreadSpecificStorage",
+          "tags": []
+        }
+      ],
+      "title": "Clean up thread-specific storage"
+    },
+    "CON34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accessing thread-local variables with automatic storage durations can lead to unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Declare objects shared between threads with appropriate storage durations",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "AppropriateThreadObjectStorageDurations",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This query does not consider Windows implementations or OpenMP implementations. This query is primarily about excluding cases wherein the storage duration of a variable is appropriate. As such, this query is not concerned if the appropriate synchronization mechanisms are used, such as sequencing calls to `thrd_join` and `free`. An audit query is supplied to handle those cases."
+          }
+        }
+      ],
+      "title": "Declare objects shared between threads with appropriate storage durations"
+    },
+    "CON39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Do not join or detach a thread that was previously joined or detached",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThreadWasPreviouslyJoinedOrDetached",
+          "tags": []
+        }
+      ],
+      "title": "Do not join or detach a thread that was previously joined or detached"
+    },
+    "CON40-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Do not refer to an atomic variable twice in an expression",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotReferToAnAtomicVariableTwiceInExpression",
+          "tags": []
+        }
+      ],
+      "title": "Do not refer to an atomic variable twice in an expression"
+    }
+  }
+}
