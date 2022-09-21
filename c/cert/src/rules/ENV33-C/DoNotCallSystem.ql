@@ -7,7 +7,7 @@
  * @problem.severity error
  * @tags external/cert/id/env33-c
  *       security
- *       external/cert/obligtion/rule
+ *       external/cert/obligation/rule
  */
 
 import cpp

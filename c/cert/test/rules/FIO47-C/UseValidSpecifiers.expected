@@ -1,0 +1,131 @@
+| test.c:60:10:60:13 | %b | The conversion specifier '%b' is not valid. |
+| test.c:65:10:65:16 | %'-#d | The conversion specifier 'd' is not compatible with flags ''-#' |
+| test.c:71:10:71:14 | %#d | The conversion specifier 'd' is not compatible with flags '#' |
+| test.c:78:10:78:14 | %#i | The conversion specifier 'i' is not compatible with flags '#' |
+| test.c:81:10:81:14 | %'o | The conversion specifier 'o' is not compatible with flags ''' |
+| test.c:92:10:92:14 | %#u | The conversion specifier 'u' is not compatible with flags '#' |
+| test.c:95:10:95:14 | %'x | The conversion specifier 'x' is not compatible with flags ''' |
+| test.c:102:10:102:14 | %'X | The conversion specifier 'X' is not compatible with flags ''' |
+| test.c:123:10:123:14 | %'e | The conversion specifier 'e' is not compatible with flags ''' |
+| test.c:130:10:130:14 | %'E | The conversion specifier 'E' is not compatible with flags ''' |
+| test.c:165:10:165:14 | %'c | The conversion specifier 'c' is not compatible with flags ''' |
+| test.c:169:10:169:14 | %#c | The conversion specifier 'c' is not compatible with flags '#' |
+| test.c:170:10:170:14 | %0c | The conversion specifier 'c' is not compatible with flags '0' |
+| test.c:172:10:172:14 | %'s | The conversion specifier 's' is not compatible with flags ''' |
+| test.c:176:10:176:14 | %#s | The conversion specifier 's' is not compatible with flags '#' |
+| test.c:177:10:177:14 | %0s | The conversion specifier 's' is not compatible with flags '0' |
+| test.c:179:10:179:14 | %'p | The conversion specifier 'p' is not compatible with flags ''' |
+| test.c:183:10:183:14 | %#p | The conversion specifier 'p' is not compatible with flags '#' |
+| test.c:184:10:184:14 | %0p | The conversion specifier 'p' is not compatible with flags '0' |
+| test.c:186:10:186:14 | %'n | The conversion specifier 'n' is not compatible with flags ''' |
+| test.c:187:10:187:14 | %-n | The conversion specifier 'n' is not compatible with flags '-' |
+| test.c:188:10:188:14 | %+n | The conversion specifier 'n' is not compatible with flags '+' |
+| test.c:189:10:189:14 | % n | The conversion specifier 'n' is not compatible with flags ' ' |
+| test.c:190:10:190:14 | %#n | The conversion specifier 'n' is not compatible with flags '#' |
+| test.c:191:10:191:14 | %0n | The conversion specifier 'n' is not compatible with flags '0' |
+| test.c:193:10:193:14 | %'C | The conversion specifier 'C' is not compatible with flags ''' |
+| test.c:197:10:197:14 | %#C | The conversion specifier 'C' is not compatible with flags '#' |
+| test.c:198:10:198:14 | %0C | The conversion specifier 'C' is not compatible with flags '0' |
+| test.c:200:10:200:14 | %'S | The conversion specifier 'S' is not compatible with flags ''' |
+| test.c:204:10:204:14 | %#S | The conversion specifier 'S' is not compatible with flags '#' |
+| test.c:205:10:205:14 | %0S | The conversion specifier 'S' is not compatible with flags '0' |
+| test.c:208:10:208:14 | %'% | The conversion specifier '%'%' is not valid. |
+| test.c:209:10:209:14 | %-% | The conversion specifier '%-%' is not valid. |
+| test.c:210:10:210:14 | %+% | The conversion specifier '%+%' is not valid. |
+| test.c:211:10:211:14 | % % | The conversion specifier '% %' is not valid. |
+| test.c:212:10:212:14 | %#% | The conversion specifier '%#%' is not valid. |
+| test.c:213:10:213:14 | %0% | The conversion specifier '%0%' is not valid. |
+| test.c:214:10:214:14 | %0% | The conversion specifier '%0%' is not valid. |
+| test.c:225:10:225:14 | %Ld | The conversion specifier 'd' is not compatible with length 'L' |
+| test.c:234:10:234:14 | %Li | The conversion specifier 'i' is not compatible with length 'L' |
+| test.c:243:10:243:14 | %Lo | The conversion specifier 'o' is not compatible with length 'L' |
+| test.c:252:10:252:14 | %Lu | The conversion specifier 'u' is not compatible with length 'L' |
+| test.c:261:10:261:14 | %Lx | The conversion specifier 'x' is not compatible with length 'L' |
+| test.c:270:10:270:14 | %LX | The conversion specifier 'X' is not compatible with length 'L' |
+| test.c:272:10:272:14 | %hf | The conversion specifier 'f' is not compatible with length 'h' |
+| test.c:273:10:273:15 | %hhf | The conversion specifier 'f' is not compatible with length 'hh' |
+| test.c:276:10:276:14 | %jf | The conversion specifier 'f' is not compatible with length 'j' |
+| test.c:277:10:277:14 | %zf | The conversion specifier 'f' is not compatible with length 'z' |
+| test.c:278:10:278:14 | %tf | The conversion specifier 'f' is not compatible with length 't' |
+| test.c:281:10:281:14 | %hF | The conversion specifier 'F' is not compatible with length 'h' |
+| test.c:282:10:282:15 | %hhF | The conversion specifier 'F' is not compatible with length 'hh' |
+| test.c:285:10:285:14 | %jF | The conversion specifier 'F' is not compatible with length 'j' |
+| test.c:286:10:286:14 | %zF | The conversion specifier 'F' is not compatible with length 'z' |
+| test.c:287:10:287:14 | %tF | The conversion specifier 'F' is not compatible with length 't' |
+| test.c:290:10:290:14 | %he | The conversion specifier 'e' is not compatible with length 'h' |
+| test.c:291:10:291:15 | %hhe | The conversion specifier 'e' is not compatible with length 'hh' |
+| test.c:294:10:294:14 | %je | The conversion specifier 'e' is not compatible with length 'j' |
+| test.c:295:10:295:14 | %ze | The conversion specifier 'e' is not compatible with length 'z' |
+| test.c:296:10:296:14 | %te | The conversion specifier 'e' is not compatible with length 't' |
+| test.c:299:10:299:14 | %hE | The conversion specifier 'E' is not compatible with length 'h' |
+| test.c:300:10:300:15 | %hhE | The conversion specifier 'E' is not compatible with length 'hh' |
+| test.c:303:10:303:14 | %jE | The conversion specifier 'E' is not compatible with length 'j' |
+| test.c:304:10:304:14 | %zE | The conversion specifier 'E' is not compatible with length 'z' |
+| test.c:305:10:305:14 | %tE | The conversion specifier 'E' is not compatible with length 't' |
+| test.c:308:10:308:14 | %hg | The conversion specifier 'g' is not compatible with length 'h' |
+| test.c:309:10:309:15 | %hhg | The conversion specifier 'g' is not compatible with length 'hh' |
+| test.c:312:10:312:14 | %jg | The conversion specifier 'g' is not compatible with length 'j' |
+| test.c:313:10:313:14 | %zg | The conversion specifier 'g' is not compatible with length 'z' |
+| test.c:314:10:314:14 | %tg | The conversion specifier 'g' is not compatible with length 't' |
+| test.c:317:10:317:14 | %hG | The conversion specifier 'G' is not compatible with length 'h' |
+| test.c:318:10:318:15 | %hhG | The conversion specifier 'G' is not compatible with length 'hh' |
+| test.c:321:10:321:14 | %jG | The conversion specifier 'G' is not compatible with length 'j' |
+| test.c:322:10:322:14 | %zG | The conversion specifier 'G' is not compatible with length 'z' |
+| test.c:323:10:323:14 | %tG | The conversion specifier 'G' is not compatible with length 't' |
+| test.c:326:10:326:14 | %ha | The conversion specifier 'a' is not compatible with length 'h' |
+| test.c:327:10:327:15 | %hha | The conversion specifier 'a' is not compatible with length 'hh' |
+| test.c:330:10:330:14 | %ja | The conversion specifier 'a' is not compatible with length 'j' |
+| test.c:331:10:331:14 | %za | The conversion specifier 'a' is not compatible with length 'z' |
+| test.c:332:10:332:14 | %ta | The conversion specifier 'a' is not compatible with length 't' |
+| test.c:335:10:335:14 | %hA | The conversion specifier 'A' is not compatible with length 'h' |
+| test.c:336:10:336:15 | %hhA | The conversion specifier 'A' is not compatible with length 'hh' |
+| test.c:339:10:339:14 | %jA | The conversion specifier 'A' is not compatible with length 'j' |
+| test.c:340:10:340:14 | %zA | The conversion specifier 'A' is not compatible with length 'z' |
+| test.c:341:10:341:14 | %tA | The conversion specifier 'A' is not compatible with length 't' |
+| test.c:344:10:344:14 | %hc | The conversion specifier 'c' is not compatible with length 'h' |
+| test.c:345:10:345:15 | %hhc | The conversion specifier 'c' is not compatible with length 'hh' |
+| test.c:347:10:347:15 | %llc | The conversion specifier 'c' is not compatible with length 'll' |
+| test.c:348:10:348:14 | %jc | The conversion specifier 'c' is not compatible with length 'j' |
+| test.c:349:10:349:14 | %zc | The conversion specifier 'c' is not compatible with length 'z' |
+| test.c:350:10:350:14 | %tc | The conversion specifier 'c' is not compatible with length 't' |
+| test.c:351:10:351:14 | %Lc | The conversion specifier 'c' is not compatible with length 'L' |
+| test.c:353:10:353:14 | %hs | The conversion specifier 's' is not compatible with length 'h' |
+| test.c:354:10:354:15 | %hhs | The conversion specifier 's' is not compatible with length 'hh' |
+| test.c:356:10:356:15 | %lls | The conversion specifier 's' is not compatible with length 'll' |
+| test.c:357:10:357:14 | %js | The conversion specifier 's' is not compatible with length 'j' |
+| test.c:358:10:358:14 | %zs | The conversion specifier 's' is not compatible with length 'z' |
+| test.c:359:10:359:14 | %ts | The conversion specifier 's' is not compatible with length 't' |
+| test.c:360:10:360:14 | %Ls | The conversion specifier 's' is not compatible with length 'L' |
+| test.c:362:10:362:14 | %hp | The conversion specifier 'p' is not compatible with length 'h' |
+| test.c:363:10:363:15 | %hhp | The conversion specifier 'p' is not compatible with length 'hh' |
+| test.c:364:10:364:14 | %lp | The conversion specifier 'p' is not compatible with length 'l' |
+| test.c:365:10:365:15 | %llp | The conversion specifier 'p' is not compatible with length 'll' |
+| test.c:366:10:366:14 | %jp | The conversion specifier 'p' is not compatible with length 'j' |
+| test.c:367:10:367:14 | %zp | The conversion specifier 'p' is not compatible with length 'z' |
+| test.c:368:10:368:14 | %tp | The conversion specifier 'p' is not compatible with length 't' |
+| test.c:369:10:369:14 | %Lp | The conversion specifier 'p' is not compatible with length 'L' |
+| test.c:381:10:381:14 | %Ln | The conversion specifier 'n' is not compatible with length 'L' |
+| test.c:383:10:383:14 | %hC | The conversion specifier 'C' is not compatible with length 'h' |
+| test.c:384:10:384:15 | %hhC | The conversion specifier 'C' is not compatible with length 'hh' |
+| test.c:385:10:385:14 | %lC | The conversion specifier 'C' is not compatible with length 'l' |
+| test.c:386:10:386:15 | %llC | The conversion specifier 'C' is not compatible with length 'll' |
+| test.c:387:10:387:14 | %jC | The conversion specifier 'C' is not compatible with length 'j' |
+| test.c:388:10:388:14 | %zC | The conversion specifier 'C' is not compatible with length 'z' |
+| test.c:389:10:389:14 | %tC | The conversion specifier 'C' is not compatible with length 't' |
+| test.c:390:10:390:14 | %LC | The conversion specifier 'C' is not compatible with length 'L' |
+| test.c:392:10:392:14 | %hS | The conversion specifier 'S' is not compatible with length 'h' |
+| test.c:393:10:393:15 | %hhS | The conversion specifier 'S' is not compatible with length 'hh' |
+| test.c:394:10:394:14 | %lS | The conversion specifier 'S' is not compatible with length 'l' |
+| test.c:395:10:395:15 | %llS | The conversion specifier 'S' is not compatible with length 'll' |
+| test.c:396:10:396:14 | %jS | The conversion specifier 'S' is not compatible with length 'j' |
+| test.c:397:10:397:14 | %zS | The conversion specifier 'S' is not compatible with length 'z' |
+| test.c:398:10:398:14 | %tS | The conversion specifier 'S' is not compatible with length 't' |
+| test.c:399:10:399:14 | %LS | The conversion specifier 'S' is not compatible with length 'L' |
+| test.c:401:10:401:14 | %h% | The conversion specifier '%h%' is not valid. |
+| test.c:402:10:402:15 | %hh% | The conversion specifier '%hh%' is not valid. |
+| test.c:403:10:403:14 | %l% | The conversion specifier '%l%' is not valid. |
+| test.c:404:10:404:15 | %ll% | The conversion specifier '%ll%' is not valid. |
+| test.c:405:10:405:14 | %j% | The conversion specifier '%j%' is not valid. |
+| test.c:406:10:406:14 | %z% | The conversion specifier '%z%' is not valid. |
+| test.c:407:10:407:14 | %t% | The conversion specifier '%t%' is not valid. |
+| test.c:408:10:408:14 | %L% | The conversion specifier '%L%' is not valid. |

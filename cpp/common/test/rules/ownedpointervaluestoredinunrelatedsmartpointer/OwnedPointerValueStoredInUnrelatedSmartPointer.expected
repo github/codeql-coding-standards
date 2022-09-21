@@ -11,21 +11,14 @@ edges
 | test.cpp:3:14:3:15 | v1 | test.cpp:6:31:6:33 | call to get |
 | test.cpp:3:14:3:15 | v1 | test.cpp:7:28:7:29 | v2 |
 | test.cpp:4:13:4:14 | v1 | test.cpp:7:28:7:29 | v2 |
-| test.cpp:5:27:5:28 | v1 | ../../includes/standard-library/memory.h:76:17:76:19 | ptr |
 | test.cpp:5:27:5:29 | call to shared_ptr | test.cpp:6:31:6:33 | call to get |
-| test.cpp:6:31:6:33 | call to get | ../../includes/standard-library/memory.h:76:17:76:19 | ptr |
-| test.cpp:6:31:6:33 | call to get | ../../includes/standard-library/memory.h:76:17:76:19 | ptr |
-| test.cpp:7:28:7:29 | v2 | ../../includes/standard-library/memory.h:76:17:76:19 | ptr |
-| test.cpp:7:28:7:29 | v2 | ../../includes/standard-library/memory.h:76:17:76:19 | ptr |
 | test.cpp:8:8:8:14 | 0 | test.cpp:9:28:9:29 | v2 |
-| test.cpp:9:28:9:29 | v2 | ../../includes/standard-library/memory.h:76:17:76:19 | ptr |
 | test.cpp:10:8:10:17 | new | test.cpp:11:28:11:29 | v2 |
 | test.cpp:10:8:10:17 | new | test.cpp:11:28:11:29 | v2 |
 | test.cpp:10:8:10:17 | new | test.cpp:12:28:12:29 | v2 |
 | test.cpp:11:28:11:29 | ref arg v2 | test.cpp:12:28:12:29 | v2 |
 | test.cpp:11:28:11:29 | v2 | ../../includes/standard-library/memory.h:76:17:76:19 | ptr |
 | test.cpp:11:28:11:29 | v2 | test.cpp:11:28:11:29 | ref arg v2 |
-| test.cpp:12:28:12:29 | v2 | ../../includes/standard-library/memory.h:76:17:76:19 | ptr |
 | test.cpp:16:13:16:22 | new | test.cpp:17:27:17:28 | v1 |
 | test.cpp:16:13:16:22 | new | test.cpp:17:27:17:28 | v1 |
 | test.cpp:16:13:16:22 | new | test.cpp:19:6:19:7 | v1 |

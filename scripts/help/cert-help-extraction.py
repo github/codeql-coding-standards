@@ -282,7 +282,7 @@ def transform_html(rule, soup):
                 if node.name == 'table' and 'data-macro-name' in node.attrs and node['data-macro-name'] == 'details' and 'data-macro-parameters' in node.attrs and node['data-macro-parameters'] == 'hidden=true':
                     node.decompose()
                 if node.name == 'img' and 'data-macro-name' in node.attrs and node['data-macro-name'] == 'anchor':
-                    node.decompose()
+                    node.decompose()                
                 # Retrieve Images
                 if node.name == 'img' and 'src' in node.attrs and node['src'].startswith("/confluence") and not node['src'].startswith("/confluence/plugins/"):
                     url = CERT_WIKI+node['src']
@@ -292,6 +292,12 @@ def transform_html(rule, soup):
                         full_name = repo_root.joinpath(rule_path, filename)
                         urllib.request.urlretrieve(url, full_name)
                         node['src'] = filename
+                # Replace check.svg and error.svg images with unicode characters
+                if node.name == 'img':
+                    if node['src'].endswith("check.svg"):
+                        node.replace_with('\u2713')
+                    elif node['src'].endswith("error.svg"):
+                        node.replace_with('\u274C')
                 # Unwrap <code>, because <a> can only contain text in QHelp
                 if node.name == 'code' and node.find_parent('a'):
                     node.unwrap()
@@ -533,4 +539,4 @@ for rule in rules:
                 update_help_file(parsed_help, [HeadingDiffUpdateSpec(heading, parsed_temp_help) for heading in second_level_headings] + [HeadingFormatUpdateSpec()])
 
             temp_help_path.unlink()
-            help_path.write_text(md.render(parsed_help), encoding='utf8', newline='\n')
+            help_path.write_text(md.render(parsed_help), encoding='utf8')

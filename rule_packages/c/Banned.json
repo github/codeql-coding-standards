@@ -2,7 +2,7 @@
   "CERT-C": {
     "ENV33-C": {
       "properties": {
-        "obligtion": "rule"
+        "obligation": "rule"
       },
       "queries": [
         {
@@ -310,7 +310,7 @@
       },
       "queries": [
         {
-          "description": "Using dynamic memory allocation and deallocation can result to undefined behavior. This query is for the Standard Library Implementation. Any implementation outside it will require a separate query under the same directive",
+          "description": "Using dynamic memory allocation and deallocation can result to undefined behavior. This query is for the Standard Library Implementation. Any implementation outside it will require a separate query under the same directive.",
           "kind": "problem",
           "name": "Dynamic memory allocation shall not be used",
           "precision": "very-high",

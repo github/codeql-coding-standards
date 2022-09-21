@@ -1,4 +1,4 @@
-- description: AUTOSAR C++14 Guidelines 19-11 (Audit)
+- description: AUTOSAR C++14 Guidelines 20-11 (Audit)
 - qlpack: autosar-cpp-coding-standards
 - include:
     kind:

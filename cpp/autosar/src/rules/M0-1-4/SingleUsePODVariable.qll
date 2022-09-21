@@ -10,8 +10,9 @@ int getUseCount(Variable v) {
     // We enforce that it's a POD type variable, so if it has an initializer it is explicit
     (if v.hasInitializer() then initializers = 1 else initializers = 0) and
     result =
-      initializers + count(v.getAnAccess()) +
-        count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v)
+      initializers +
+        count(VariableAccess access | access = v.getAnAccess() and not access.isCompilerGenerated())
+        + count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v)
   )
 }
 
@@ -23,7 +24,9 @@ Element getSingleUse(Variable v) {
     or
     result = any(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v)
     or
-    result = v.getAnAccess()
+    exists(VariableAccess access |
+      access = v.getAnAccess() and not access.isCompilerGenerated() and result = access
+    )
   )
 }
 

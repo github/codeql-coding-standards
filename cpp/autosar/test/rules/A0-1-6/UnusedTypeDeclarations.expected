@@ -3,3 +3,4 @@
 | test.cpp:10:11:10:11 | D | Type declaration D is not used. |
 | test.cpp:74:11:74:11 | R | Type declaration R is not used. |
 | test.cpp:87:12:87:12 | struct <unnamed> | Type declaration struct <unnamed> is not used. |
+| test.cpp:108:29:108:30 | AA | Type declaration AA is not used. |

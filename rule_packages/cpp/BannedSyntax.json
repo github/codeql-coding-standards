@@ -18,7 +18,8 @@
           "short_name": "FriendDeclarationsUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -41,7 +42,8 @@
           "severity": "error",
           "short_name": "CStyleArraysUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -65,7 +67,8 @@
           "severity": "error",
           "short_name": "VolatileKeywordUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -88,7 +91,8 @@
           "severity": "error",
           "short_name": "TernaryConditionalOperatorUsedAsSubExpression",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -111,7 +115,8 @@
           "severity": "error",
           "short_name": "DynamicCastShouldNotBeUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -134,7 +139,8 @@
           "severity": "error",
           "short_name": "TraditionalCStyleCastsUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -158,7 +164,8 @@
           "short_name": "ReinterpretCastUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -182,7 +189,8 @@
           "short_name": "GotoStatementUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -205,7 +213,8 @@
           "severity": "error",
           "short_name": "RegisterKeywordUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -228,7 +237,8 @@
           "severity": "error",
           "short_name": "TypedefSpecifierUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -251,7 +261,8 @@
           "severity": "error",
           "short_name": "AsmDeclarationUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -275,7 +286,8 @@
           "short_name": "FunctionsDefinedUsingTheEllipsisNotation",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -298,7 +310,8 @@
           "severity": "error",
           "short_name": "UnionsUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -322,7 +335,8 @@
           "short_name": "CommaOperatorUsed",
           "shared_implementation_short_name": "CommaOperatorUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -345,7 +359,8 @@
           "severity": "error",
           "short_name": "UsingDirectivesUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -368,7 +383,8 @@
           "severity": "error",
           "short_name": "UsingDeclarationsUsedInHeaderFiles",
           "tags": [
-            "correctness"
+            "correctness",
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -390,7 +406,8 @@
           "short_name": "DoNotDefineACStyleVariadicFunction",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "scope/single-translation-unit"
           ]
         }
       ],
