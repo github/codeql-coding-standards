@@ -63,7 +63,7 @@ query predicate problems(
   e = sink.getNode().asExpr() and
   message =
     "The object returned by the function " +
-      source.getNode().asExpr().(FunctionCall).getTarget().getName() + " should no be modified." and
+      source.getNode().asExpr().(FunctionCall).getTarget().getName() + " should not be modified." and
   sourcetext = source.toString() and
   sinktext = sink.toString()
 }
