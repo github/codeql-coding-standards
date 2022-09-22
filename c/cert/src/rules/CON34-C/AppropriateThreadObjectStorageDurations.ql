@@ -16,50 +16,31 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Concurrency
 import semmle.code.cpp.dataflow.TaintTracking
-
-
-/// anything from tss_get is ok. the tss get must obtain the value from the
-//  context that called tss_set NOT in the thread. 
-/// anything that was static is ok
-/// anything dynamically allocated is ok. 
-
-// THREAD LOCAL IS NOT OK -- EG STACK VARIBLES ARE NEVER OK
-
-// we can make this really simple -- just look for thread create functions
-// wherein you pass in a variable created on the stack that is a) not static or
-// b) not created via malloc and c) not obtained from tss_get. 
-// we should do something more to determine if tss_get is wrongly called from a
-// thread context without a matching tss_get as another query. That should be an
-// audit. tss get without set. 
-// tss_get in the parent thread should maybe be followed by a thread_join
-// function 
-// 
-// 
-
-// IN THE PARENT -- a call to tss_set MUST be followed by a thread_join. 
-// Without this, it is possible the context isn't valid anymore.
-
-// It's important to note -- tss_get set DOES NOT require a call to delete 
-// to require the wait. It just requires the wait if it is used at all. 
+import semmle.code.cpp.dataflow.DataFlow
 
 class MallocFunctionCall extends FunctionCall {
-  MallocFunctionCall(){
-    getTarget().getName() = "malloc"
-  }
+  MallocFunctionCall() { getTarget().getName() = "malloc" }
 }
 
-from MallocFunctionCall fc, StackVariable sv, Expr e
-where not isExcluded(fc) 
-and TaintTracking::localTaint(DataFlow::exprNode(fc), DataFlow::exprNode(e)) 
-select fc, e
-
-
-// from C11ThreadCreateCall tcc, StackVariable sv, Expr arg
-// where
-//   not isExcluded(tcc, Concurrency4Package::appropriateThreadObjectStorageDurationsQuery()) and
-//   tcc.getArgument(2) = arg and 
-//   // a stack variable that is given as an argument to a thread
-//   TaintTracking::localTaint(DataFlow::exprNode(sv.getAnAccess()), DataFlow::exprNode(arg)) 
-//   // that isn't one of the allowed usage patterns
-//   TaintTracking::localTaint(DataFlow::exprNode(sv.getAnAccess()), DataFlow::exprNode(arg)) 
-// select tcc, "$@ not declared with appropriate storage duration", arg, "Shared object"
+from C11ThreadCreateCall tcc, StackVariable sv, Expr arg, Expr acc
+where
+  not isExcluded(tcc, Concurrency4Package::appropriateThreadObjectStorageDurationsQuery()) and
+  tcc.getArgument(2) = arg and
+  sv.getAnAccess() = acc and
+  // a stack variable that is given as an argument to a thread
+  TaintTracking::localTaint(DataFlow::exprNode(acc), DataFlow::exprNode(arg)) and
+  // it's either not static
+  not sv.isStatic() and
+  // or isn't one of the allowed usage patterns
+  not exists(MallocFunctionCall mfc |
+    sv.getAnAssignedValue() = mfc and acc.getAPredecessor*() = mfc
+  ) and
+  not exists(TSSGetFunctionCall tsg, TSSSetFunctionCall tss, DataFlow::Node src |
+    sv.getAnAssignedValue() = tsg and
+    acc.getAPredecessor*() = tsg and
+    // there should be dataflow from somewhere (the same somewhere)
+    // into each of the first arguments
+    DataFlow::localFlow(src, DataFlow::exprNode(tsg.getArgument(0))) and
+    DataFlow::localFlow(src, DataFlow::exprNode(tss.getArgument(0)))
+  )
+select tcc, "$@ not declared with appropriate storage duration", arg, "Shared object"
