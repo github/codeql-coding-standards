@@ -33,8 +33,6 @@ ControlFlowNode notTestedAfterErrnoSet(InBandErrnoSettingFunctionCall fc) {
   exists(ControlFlowNode mid |
     result = mid.getASuccessor() and
     mid = notTestedAfterErrnoSet(fc) and
-    // stop recursion after first problem occurrence
-    not mid = any(FunctionCall fc2 | fc2 != fc) and
     // stop recursion when `errno` is checked
     not result = any(ControlStructure i | i.getControllingExpr() instanceof ErrnoGuard)
   )

@@ -33,8 +33,6 @@ ControlFlowNode notZeroedPriorToErrnoSet(ErrnoSettingFunctionCall fc) {
   exists(ControlFlowNode mid |
     result = mid.getAPredecessor() and
     mid = notZeroedPriorToErrnoSet(fc) and
-    // stop recursion after first problem occurrence
-    not mid = any(ErrnoGuard g).getNonZeroedSuccessor() and
     // stop recursion when `errno` is set to zero
     not result instanceof ErrnoZeroed and
     not result = any(ErrnoGuard g).getZeroedSuccessor()
@@ -50,7 +48,7 @@ where
     cause = fc.getEnclosingFunction().getBlock()
     or
     // `errno` is not reset after a call to an errno-setting function
-    exists(ErrnoSettingFunctionCall ec | ec != fc | cause = ec)
+    cause = any(ErrnoSettingFunctionCall ec | ec != fc)
     or
     // `errno` is not reset after a call to a function
     cause = any(FunctionCall fc2 | fc2 != fc)

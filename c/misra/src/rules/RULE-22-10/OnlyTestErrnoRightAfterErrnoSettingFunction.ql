@@ -24,7 +24,17 @@ class ErrnoSettingFunctionCall extends FunctionCall {
 }
 
 /*
- * CFG nodes preceding a `errno` test
+ * A function call that is not part of the `errno` macro expansion
+ */
+
+class MaySetErrnoCall extends FunctionCall {
+  MaySetErrnoCall() {
+    not inmacroexpansion(this, any(MacroInvocation ma | ma.getMacroName() = "errno"))
+  }
+}
+
+/*
+ * CFG nodes preceding a `errno` test where `errno` is not set
  */
 
 ControlFlowNode notSetPriorToErrnoTest(EqualityOperation eg) {
@@ -33,21 +43,9 @@ ControlFlowNode notSetPriorToErrnoTest(EqualityOperation eg) {
   exists(ControlFlowNode mid |
     result = mid.getAPredecessor() and
     mid = notSetPriorToErrnoTest(eg) and
-    // stop recursion after first problem occurrence
-    not mid = any(MaySetErrnoCall c) and
     // stop recursion on an errno-setting function call
     not result = any(ErrnoSettingFunctionCall c)
   )
-}
-
-/*
- * A function call that is not part of the `errno` macro expansion
- */
-
-class MaySetErrnoCall extends FunctionCall {
-  MaySetErrnoCall() {
-    not inmacroexpansion(this, any(MacroInvocation ma | ma.getMacroName() = "errno"))
-  }
 }
 
 from EqualityOperation eq, ControlFlowNode cause
