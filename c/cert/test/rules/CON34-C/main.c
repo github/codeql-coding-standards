@@ -55,6 +55,7 @@ void m5() {
   thrd_t id;
   int *value = (int *)malloc(sizeof(int));
 
+  tss_create(&k, free);
   tss_set(k, value);
 
   void *p = tss_get(k);
@@ -62,17 +63,54 @@ void m5() {
   thrd_create(&id, t1, p); // COMPLIANT
 }
 
-void m6(void *v) {
+void m5a() {
+  thrd_t id;
+  int *value = (int *)malloc(sizeof(int));
+
+  tss_set(k, value);
+
+  void *p = tss_get(k);
+
+  thrd_create(&id, t1, p); // NON_COMPLIANT - k not initialized.
+}
+
+void m6() {
+  thrd_t id;
+  int *value = (int *)malloc(sizeof(int));
+
+  tss_create(&k, free);
+
+  void *p = tss_get(k);
+
+  thrd_create(&id, t1, p); // NON_COMPLIANT -- get without set
+}
+
+void m6a() {
+  thrd_t id;
+  int *value = (int *)malloc(sizeof(int));
+
+  void *p = tss_get(k);
+
+  thrd_create(&id, t1, p); // NON_COMPLIANT -- get without set
+}
+
+void m7(void *v) {
   int *value =
       tss_get(k); // COMPLIANT (AUDIT) - A non-threaded function without a
                   // `tss_set` should not be considered suspicious.
   int a = *value + 1;
 }
 
-void m7() {
+void m8() {
   thrd_t id;
   int *value = (int *)malloc(sizeof(int));
   thrd_create(&id, t2,
               value); // COMPLIANT - note that t2 (which is now a threaded
                       // function) is NON_COMPLIANT in an audit query.
+}
+
+void m9() {
+  thrd_t id;
+  static int value = 100;
+  thrd_create(&id, t1, &value); // COMPLIANT - compliant for static values.
 }
