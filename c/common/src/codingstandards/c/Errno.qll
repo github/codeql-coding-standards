@@ -14,10 +14,7 @@ abstract class ErrnoSettingFunction extends Function { }
 
 class OutOfBandErrnoSettingFunction extends ErrnoSettingFunction {
   OutOfBandErrnoSettingFunction() {
-    this.hasGlobalName([
-        "ftell", "fgetpos", "fsetpos", "mbrtowc", "mbsrtowcs", "signal", "wcrtomb", "wcsrtombs",
-        "mbrtoc16", "mbrtoc32", "c16rtomb", "c32rtomb"
-      ])
+    this.hasGlobalName(["ftell", "fgetpos", "fsetpos", "mbrtowc", "wcrtomb", "wcsrtombs"])
   }
 }
 
