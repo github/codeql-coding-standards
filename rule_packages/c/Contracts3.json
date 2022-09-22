@@ -7,9 +7,9 @@
       "queries": [{
         "description": "The value of errno shall only be tested when the last function to be called was an errno-setting-function.",
         "kind": "problem",
-        "name": "The value of errno shall only be tested when the last function to be called was an",
-        "precision": "very-high",
-        "severity": "error",
+        "name": "The value of errno shall only be tested when the last called function is errno-setting",
+        "precision": "high",
+        "severity": "warning",
         "short_name": "OnlyTestErrnoRightAfterErrnoSettingFunction",
         "tags": ["correctness"]
       }],
