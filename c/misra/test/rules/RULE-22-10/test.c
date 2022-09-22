@@ -13,6 +13,14 @@ void f1(void) {
 }
 
 void f2(void) {
-  if (0 == errno) { // NON_COMPLIANT
+  if (EAGAIN == errno      // NON_COMPLIANT
+      || errno == EINTR) { // NON_COMPLIANT
+  }
+}
+
+void f3(void) {
+  errno = 0;
+  strtod("0", NULL);
+  if (errno == EAGAIN || errno == EINTR) { // COMPLIANT
   }
 }

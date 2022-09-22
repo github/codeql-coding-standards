@@ -27,29 +27,39 @@ class ErrnoSettingFunctionCall extends FunctionCall {
  * CFG nodes preceding a `errno` test
  */
 
-ControlFlowNode notSetPriorToErrnoTest(ControlStructure eg) {
+ControlFlowNode notSetPriorToErrnoTest(EqualityOperation eg) {
   result = eg
   or
   exists(ControlFlowNode mid |
     result = mid.getAPredecessor() and
     mid = notSetPriorToErrnoTest(eg) and
     // stop recursion after first problem occurrence
-    not mid = any(FunctionCall fc) and
+    not mid = any(MaySetErrnoCall c) and
     // stop recursion on an errno-setting function call
-    not result = any(ErrnoSettingFunctionCall fc)
+    not result = any(ErrnoSettingFunctionCall c)
   )
 }
 
-from ControlStructure eg, ControlFlowNode cause
+/*
+ * A function call that is not part of the `errno` macro expansion
+ */
+
+class MaySetErrnoCall extends FunctionCall {
+  MaySetErrnoCall() {
+    not inmacroexpansion(this, any(MacroInvocation ma | ma.getMacroName() = "errno"))
+  }
+}
+
+from EqualityOperation eq, ControlFlowNode cause
 where
-  not isExcluded(eg, Contracts3Package::onlyTestErrnoRightAfterErrnoSettingFunctionQuery()) and
-  cause = notSetPriorToErrnoTest(eg) and
-  eg.getControllingExpr() instanceof ErrnoGuard and
+  not isExcluded(eq, Contracts3Package::onlyTestErrnoRightAfterErrnoSettingFunctionQuery()) and
+  cause = notSetPriorToErrnoTest(eq) and
+  eq.getAnOperand() = any(MacroInvocation ma | ma.getMacroName() = "errno").getExpr() and
   (
     // `errno` is not set anywhere in the function
-    cause = eg.getEnclosingFunction().getBlock()
+    cause = eq.getEnclosingFunction().getBlock()
     or
     // `errno` is not set after a non-errno-setting function call
-    cause = any(FunctionCall fc)
+    cause = any(MaySetErrnoCall c)
   )
-select eg, "The value of `errno` shell only be tested after an errno-setting function call."
+select eq, "The value of `errno` shell only be tested after an errno-setting function call."
