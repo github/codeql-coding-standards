@@ -6,6 +6,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype Concurrency4Query =
   TCleanUpThreadSpecificStorageQuery() or
   TAppropriateThreadObjectStorageDurationsQuery() or
+  TThreadObjectStorageDurationsNotInitializedQuery() or
   TThreadWasPreviouslyJoinedOrDetachedQuery() or
   TDoNotReferToAnAtomicVariableTwiceInExpressionQuery()
 
@@ -24,6 +25,14 @@ predicate isConcurrency4QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `appropriateThreadObjectStorageDurations` query
     "c/cert/appropriate-thread-object-storage-durations" and
+  ruleId = "CON34-C"
+  or
+  query =
+    // `Query` instance for the `threadObjectStorageDurationsNotInitialized` query
+    Concurrency4Package::threadObjectStorageDurationsNotInitializedQuery() and
+  queryId =
+    // `@id` for the `threadObjectStorageDurationsNotInitialized` query
+    "c/cert/thread-object-storage-durations-not-initialized" and
   ruleId = "CON34-C"
   or
   query =
@@ -56,6 +65,13 @@ module Concurrency4Package {
     result =
       // `Query` type for `appropriateThreadObjectStorageDurations` query
       TQueryC(TConcurrency4PackageQuery(TAppropriateThreadObjectStorageDurationsQuery()))
+  }
+
+  Query threadObjectStorageDurationsNotInitializedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `threadObjectStorageDurationsNotInitialized` query
+      TQueryC(TConcurrency4PackageQuery(TThreadObjectStorageDurationsNotInitializedQuery()))
   }
 
   Query threadWasPreviouslyJoinedOrDetachedQuery() {

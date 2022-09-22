@@ -806,3 +806,22 @@ class ConditionalFunction extends Function {
     exists(ConditionalVariable cv | cv.getAnAccess().getEnclosingFunction() = this)
   }
 }
+
+/**
+ * Models calls to thread specific storage function calls.
+ */
+abstract class ThreadSpecificStorageFunctionCall extends FunctionCall { }
+
+/**
+ * Models calls to `tss_get`.
+ */
+class TSSGetFunctionCall extends ThreadSpecificStorageFunctionCall {
+  TSSGetFunctionCall() { getTarget().getName() = "tss_get" }
+}
+
+/**
+ * Models calls to `tss_set`.
+ */
+class TSSSetFunctionCall extends ThreadSpecificStorageFunctionCall {
+  TSSSetFunctionCall() { getTarget().getName() = "tss_set" }
+}
