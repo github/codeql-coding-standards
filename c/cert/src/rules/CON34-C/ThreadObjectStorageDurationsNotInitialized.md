@@ -3,6 +3,8 @@
 This query implements the CERT-C rule CON34-C:
 
 > Declare objects shared between threads with appropriate storage durations
+
+
 ## CERT
 
 ** REPLACE THIS BY RUNNING THE SCRIPT `scripts/help/cert-help-extraction.py` **
