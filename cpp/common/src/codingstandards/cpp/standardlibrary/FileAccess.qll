@@ -101,6 +101,7 @@ abstract class FileAccess extends FunctionCall {
   abstract Expr getFileExpr();
 }
 
+pragma[inline]
 predicate sameFileSource(FileAccess a, FileAccess b) {
   exists(Variable c |
     c.getAnAccess() = a.getFileExpr() and

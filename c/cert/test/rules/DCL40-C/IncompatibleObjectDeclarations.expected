@@ -1,0 +1,2 @@
+| test1.c:2:12:2:12 | declaration of i | The object $@ is not compatible with re-declaration $@ | test1.c:2:12:2:12 | declaration of i | i | test.c:1:7:1:7 | definition of i | i |
+| test.c:2:5:2:5 | definition of a | The object $@ is not compatible with re-declaration $@ | test.c:2:5:2:5 | definition of a | a | test1.c:1:13:1:13 | declaration of a | a |
