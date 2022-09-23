@@ -6,13 +6,20 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Failing to clean up thread-specific resources can lead to unpredictable program behavior.",
           "kind": "problem",
           "name": "Clean up thread-specific storage",
           "precision": "medium",
           "severity": "error",
           "short_name": "CleanUpThreadSpecificStorage",
-          "tags": []
+          "tags": [
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This query does not attempt to ensure that the deallocation function in fact deallocates memory and instead assumes the contract is valid."
+          }
+   
         }
       ],
       "title": "Clean up thread-specific storage"
