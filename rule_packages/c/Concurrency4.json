@@ -52,40 +52,6 @@
         }
       ],
       "title": "Declare objects shared between threads with appropriate storage durations"
-    },
-    "CON39-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "Do not join or detach a thread that was previously joined or detached",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "ThreadWasPreviouslyJoinedOrDetached",
-          "tags": []
-        }
-      ],
-      "title": "Do not join or detach a thread that was previously joined or detached"
-    },
-    "CON40-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "Do not refer to an atomic variable twice in an expression",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "DoNotReferToAnAtomicVariableTwiceInExpression",
-          "tags": []
-        }
-      ],
-      "title": "Do not refer to an atomic variable twice in an expression"
     }
   }
 }
