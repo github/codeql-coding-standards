@@ -810,13 +810,11 @@ class ConditionalFunction extends Function {
 /**
  * Models calls to thread specific storage function calls.
  */
-abstract class ThreadSpecificStorageFunctionCall extends FunctionCall { 
+abstract class ThreadSpecificStorageFunctionCall extends FunctionCall {
   /**
    * Gets the key to which this call references.
    */
-  Expr getKey(){
-    getArgument(0) = result
-  }
+  Expr getKey() { getArgument(0) = result }
 }
 
 /**
@@ -838,9 +836,18 @@ class TSSSetFunctionCall extends ThreadSpecificStorageFunctionCall {
  */
 class TSSCreateFunctionCall extends ThreadSpecificStorageFunctionCall {
   TSSCreateFunctionCall() { getTarget().getName() = "tss_create" }
-  
-  // predicate hasDeallocator(){
-  //   getArgument(0) instanceof NULLMacro 
-  // }
-  
+
+  predicate hasDeallocator() {
+    not exists(MacroInvocation mi, NULLMacro nm |
+      getArgument(1) = mi.getExpr() and
+      mi = nm.getAnInvocation()
+    )
+  }
+}
+
+/**
+ * Models calls to `tss_delete`
+ */
+class TSSDeleteFunctionCall extends ThreadSpecificStorageFunctionCall {
+  TSSDeleteFunctionCall() { getTarget().getName() = "tss_delete" }
 }

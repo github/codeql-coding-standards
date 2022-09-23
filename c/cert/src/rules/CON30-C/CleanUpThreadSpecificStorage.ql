@@ -14,18 +14,78 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.cpp.Concurrency
+import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.DataFlow
 
-// there are two safe patterns. 
-// 1) They call free(tss_get(key))
-// 2) They call tss_create(key, destructor) -- we don't make an attempt to
-//    understand what the function is. They must also call tss_delete(key)
-// THAT MEANS there is dataflow from tss_create -> tss_delete 
-// OR there is dataflow from tss_create -> tss_delete
-// we just make sure in one arg version it's wrapped in a call to free. 
-// That IS there is taint from tss_create -> free();
+class FreeFunctionCall extends FunctionCall {
+  FreeFunctionCall() { getTarget().getName() = "free" }
+}
 
-from Function f 
+class TssCreateToTssDeleteDataFlowConfiguration extends DataFlow::Configuration {
+  TssCreateToTssDeleteDataFlowConfiguration() { this = "TssCreateToTssDeleteDataFlowConfiguration" }
+
+  override predicate isSource(DataFlow::Node node) {
+    exists(TSSCreateFunctionCall tsc, Expr e |
+      // the only requirement of the source is that at some point
+      // it refers to the key of a create statement
+      e.getParent*() = tsc.getKey() and
+      (e = node.asDefiningArgument() or e = node.asExpr())
+    )
+  }
+
+  override predicate isSink(DataFlow::Node node) {
+    exists(TSSDeleteFunctionCall tsd, Expr e |
+      // the only requirement of a sink is that at some point
+      // it references the key of a delete call.
+      e.getParent*() = tsd.getKey() and
+      (e = node.asDefiningArgument() or e = node.asExpr())
+    )
+  }
+}
+
+class TssCreateToFreeDataFlowConfiguration extends DataFlow::Configuration {
+  TssCreateToFreeDataFlowConfiguration() { this = "TssCreateToFreeDataFlowConfiguration" }
+
+  override predicate isSource(DataFlow::Node node) {
+    exists(TSSCreateFunctionCall tsc, Expr e |
+      // the only requirement of the source is that at some point
+      // it refers to the key of a create statement
+      e.getParent*() = tsc.getKey() and
+      (e = node.asDefiningArgument() or e = node.asExpr())
+    )
+  }
+
+  override predicate isSink(DataFlow::Node node) {
+    exists(TSSGetFunctionCall tsg, FreeFunctionCall ffc, Expr e |
+      // the only requirement of a sink is that at some point
+      // it references the key of a delete call.
+      e.getParent*() = tsg.getKey() and
+      (e = node.asDefiningArgument() or e = node.asExpr()) and
+      ffc.getArgument(0) = tsg
+    )
+  }
+}
+
+from TSSCreateFunctionCall tcc
 where
-  not isExcluded(f, Concurrency4Package::cleanUpThreadSpecificStorageQuery())
-  and nm
-select mi.getExpr()
+  not isExcluded(tcc, Concurrency4Package::cleanUpThreadSpecificStorageQuery()) and
+  if tcc.hasDeallocator()
+  then
+    // if they specify a deallocator the memory must be freed with a call to
+    // tss_delete(key), which implies that there is dataflow from the create call
+    // to the delete call
+    not exists(TssCreateToTssDeleteDataFlowConfiguration config |
+      config.hasFlow(DataFlow::definitionByReferenceNodeFromArgument(tcc.getKey()), _)
+      or
+      config.hasFlow(DataFlow::exprNode(tcc.getKey()), _)
+    )
+  else
+    // otherwise, they are required to call some kind of free on the result of
+    // a key which has dataflow of the form tss_create -> tss_get -> free.
+    not exists(TssCreateToFreeDataFlowConfiguration config |
+      config.hasFlow(DataFlow::definitionByReferenceNodeFromArgument(tcc.getKey()), _)
+      or
+      config.hasFlow(DataFlow::exprNode(tcc.getKey()), _)
+    )
+select tcc

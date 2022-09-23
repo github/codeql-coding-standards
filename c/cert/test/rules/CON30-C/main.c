@@ -24,17 +24,22 @@ void m3() {
 }
 
 void m1a() {
-  tss_create(&k, free); // COMPLIANT
+  tss_create(&k, free); // NON_COMPLIANT - The memory is deallocated, but the
+                        // usage pattern is non-standard and may lead to errors.
   free(tss_get(k));
 }
 
 void m2a() {
-  tss_create(&k, do_free); // COMPLIANT
+  tss_create(&k,
+             do_free); // NON_COMPLIANT - The memory is deallocated, but the
+                       // usage pattern is non-standard and may lead to errors.
   free(tss_get(k));
 }
 
 void m3a() {
-  tss_create(&k, maybe_free); // COMPLIANT
+  tss_create(
+      &k, maybe_free); // NON_COMPLIANT - The memory is deallocated, but the
+                       // usage pattern is non-standard and may lead to errors.
   free(tss_get(k));
 }
 
