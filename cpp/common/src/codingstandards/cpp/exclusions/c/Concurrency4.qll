@@ -6,9 +6,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype Concurrency4Query =
   TCleanUpThreadSpecificStorageQuery() or
   TAppropriateThreadObjectStorageDurationsQuery() or
-  TThreadObjectStorageDurationsNotInitializedQuery() or
-  TThreadWasPreviouslyJoinedOrDetachedQuery() or
-  TDoNotReferToAnAtomicVariableTwiceInExpressionQuery()
+  TThreadObjectStorageDurationsNotInitializedQuery()
 
 predicate isConcurrency4QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -34,22 +32,6 @@ predicate isConcurrency4QueryMetadata(Query query, string queryId, string ruleId
     // `@id` for the `threadObjectStorageDurationsNotInitialized` query
     "c/cert/thread-object-storage-durations-not-initialized" and
   ruleId = "CON34-C"
-  or
-  query =
-    // `Query` instance for the `threadWasPreviouslyJoinedOrDetached` query
-    Concurrency4Package::threadWasPreviouslyJoinedOrDetachedQuery() and
-  queryId =
-    // `@id` for the `threadWasPreviouslyJoinedOrDetached` query
-    "c/cert/thread-was-previously-joined-or-detached" and
-  ruleId = "CON39-C"
-  or
-  query =
-    // `Query` instance for the `doNotReferToAnAtomicVariableTwiceInExpression` query
-    Concurrency4Package::doNotReferToAnAtomicVariableTwiceInExpressionQuery() and
-  queryId =
-    // `@id` for the `doNotReferToAnAtomicVariableTwiceInExpression` query
-    "c/cert/do-not-refer-to-an-atomic-variable-twice-in-expression" and
-  ruleId = "CON40-C"
 }
 
 module Concurrency4Package {
@@ -72,19 +54,5 @@ module Concurrency4Package {
     result =
       // `Query` type for `threadObjectStorageDurationsNotInitialized` query
       TQueryC(TConcurrency4PackageQuery(TThreadObjectStorageDurationsNotInitializedQuery()))
-  }
-
-  Query threadWasPreviouslyJoinedOrDetachedQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `threadWasPreviouslyJoinedOrDetached` query
-      TQueryC(TConcurrency4PackageQuery(TThreadWasPreviouslyJoinedOrDetachedQuery()))
-  }
-
-  Query doNotReferToAnAtomicVariableTwiceInExpressionQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `doNotReferToAnAtomicVariableTwiceInExpression` query
-      TQueryC(TConcurrency4PackageQuery(TDoNotReferToAnAtomicVariableTwiceInExpressionQuery()))
   }
 }
