@@ -24,7 +24,7 @@ import codingstandards.c.cert
 // we just make sure in one arg version it's wrapped in a call to free. 
 // That IS there is taint from tss_create -> free();
 
-from Function f
+from Function f 
 where
   not isExcluded(f, Concurrency4Package::cleanUpThreadSpecificStorageQuery())
   and nm
