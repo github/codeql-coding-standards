@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON30-C:
 > Clean up thread-specific storage
 
 
-
 ## Description
 
 The `tss_create()` function creates a thread-specific storage pointer identified by a key. Threads can allocate thread-specific storage and associate the storage with a key that uniquely identifies the storage by calling the `tss_set()` function. If not properly freed, this memory may be leaked. Ensure that thread-specific storage is freed.

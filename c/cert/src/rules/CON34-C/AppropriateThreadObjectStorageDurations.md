@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON34-C:
 > Declare objects shared between threads with appropriate storage durations
 
 
-
 ## Description
 
 Accessing the automatic or thread-local variables of one thread from another thread is [implementation-defined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-implementation-definedbehavior) and can cause invalid memory accesses because the execution of threads can be interwoven within the constraints of the synchronization model. As a result, the referenced stack frame or thread-local variable may no longer be valid when another thread tries to access it. Shared static variables can be protected by thread synchronization mechanisms.
