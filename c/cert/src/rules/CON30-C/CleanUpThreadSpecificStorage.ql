@@ -18,10 +18,6 @@ import codingstandards.cpp.Concurrency
 import semmle.code.cpp.dataflow.TaintTracking
 import semmle.code.cpp.dataflow.DataFlow
 
-class FreeFunctionCall extends FunctionCall {
-  FreeFunctionCall() { getTarget().getName() = "free" }
-}
-
 class TssCreateToTssDeleteDataFlowConfiguration extends DataFlow::Configuration {
   TssCreateToTssDeleteDataFlowConfiguration() { this = "TssCreateToTssDeleteDataFlowConfiguration" }
 
