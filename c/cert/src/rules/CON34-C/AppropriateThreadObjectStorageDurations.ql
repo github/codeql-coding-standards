@@ -17,10 +17,7 @@ import codingstandards.c.cert
 import codingstandards.cpp.Concurrency
 import semmle.code.cpp.dataflow.TaintTracking
 import semmle.code.cpp.dataflow.DataFlow
-
-class MallocFunctionCall extends FunctionCall {
-  MallocFunctionCall() { getTarget().getName() = "malloc" }
-}
+import semmle.code.cpp.commons.Alloc
 
 from C11ThreadCreateCall tcc, StackVariable sv, Expr arg, Expr acc
 where
@@ -29,11 +26,11 @@ where
   sv.getAnAccess() = acc and
   // a stack variable that is given as an argument to a thread
   TaintTracking::localTaint(DataFlow::exprNode(acc), DataFlow::exprNode(arg)) and
-  // it's either not static
-  not sv.isStatic() and
   // or isn't one of the allowed usage patterns
-  not exists(MallocFunctionCall mfc |
-    sv.getAnAssignedValue() = mfc and acc.getAPredecessor*() = mfc
+  not exists(Expr mfc |
+    isAllocationExpr(mfc) and
+    sv.getAnAssignedValue() = mfc and
+    acc.getAPredecessor*() = mfc
   ) and
   not exists(TSSGetFunctionCall tsg, TSSSetFunctionCall tss, DataFlow::Node src |
     sv.getAnAssignedValue() = tsg and

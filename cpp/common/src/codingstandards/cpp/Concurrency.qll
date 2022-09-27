@@ -851,3 +851,14 @@ class TSSCreateFunctionCall extends ThreadSpecificStorageFunctionCall {
 class TSSDeleteFunctionCall extends ThreadSpecificStorageFunctionCall {
   TSSDeleteFunctionCall() { getTarget().getName() = "tss_delete" }
 }
+
+/**
+ * Gets a call to `DeallocationExpr` that deallocates memory owned by thread specific
+ * storage.
+ */
+predicate getAThreadSpecificStorageDeallocationCall(C11ThreadCreateCall tcc, DeallocationExpr dexp) {
+  exists(TSSGetFunctionCall tsg |
+    tcc.getFunction().getEntryPoint().getASuccessor*() = tsg and
+    DataFlow::localFlow(DataFlow::exprNode(tsg), DataFlow::exprNode(dexp.getFreedExpr()))
+  )
+}

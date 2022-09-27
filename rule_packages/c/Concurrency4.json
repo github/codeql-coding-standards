@@ -52,7 +52,7 @@
           "severity": "error",
           "short_name": "ThreadObjectStorageDurationsNotInitialized",
           "tags": [
-            "external/autosar/audit",
+            "external/cert/audit",
             "correctness",
             "concurrency"            
           ]
