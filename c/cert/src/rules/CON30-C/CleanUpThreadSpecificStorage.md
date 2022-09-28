@@ -173,7 +173,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-This query does not attempt to ensure that the deallocation function in fact deallocates memory and instead assumes the contract is valid.
+This query does not attempt to ensure that the deallocation function in fact deallocates memory and instead assumes the contract is valid. Additionally, this query requires that all `tss_create` calls are bookended by calls to `tss_delete`, even if a thread is not created.
 
 ## References
 

@@ -17,7 +17,7 @@
             "concurrency"
           ],
           "implementation_scope": {
-            "description": "This query does not attempt to ensure that the deallocation function in fact deallocates memory and instead assumes the contract is valid."
+            "description": "This query does not attempt to ensure that the deallocation function in fact deallocates memory and instead assumes the contract is valid. Additionally, this query requires that all `tss_create` calls are bookended by calls to `tss_delete`, even if a thread is not created."
           }
    
         }
