@@ -42,7 +42,7 @@ void m3() {
 
 void m4() {
   thrd_t id;
-  int *value = (int *)realloc(NULL, sizeof(int)); 
+  int *value = (int *)realloc(NULL, sizeof(int));
 
   thrd_create(&id, t1, value); // COMPLIANT
 
