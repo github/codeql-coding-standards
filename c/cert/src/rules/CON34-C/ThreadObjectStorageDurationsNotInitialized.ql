@@ -7,7 +7,7 @@
  * @precision high
  * @problem.severity error
  * @tags external/cert/id/con34-c
- *       external/autosar/audit
+ *       external/cert/audit
  *       correctness
  *       concurrency
  *       external/cert/obligation/rule
