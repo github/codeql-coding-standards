@@ -1,0 +1,98 @@
+{
+  "CERT-C": {
+    "DCL38-C": {
+        "properties": {
+          "obligation": "rule"
+        },
+        "queries": [
+          {
+            "description": "Structures with flexible array members can be declared in ways that will lead to undefined behaviour.",
+            "kind": "problem",
+            "name": "Use the correct syntax when declaring a flexible array member",
+            "precision": "very-high",
+            "severity": "error",
+            "short_name": "DeclaringAFlexibleArrayMember",
+            "tags": [
+              "correctness",
+              "maintainability",
+              "readability"
+            ]
+          }
+        ],
+        "title": "Use the correct syntax when declaring a flexible array member"
+      },
+    "DCL40-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+            "description": "Using nondistinct external identifiers results in undefined behaviour.",
+            "kind": "problem",
+            "name": "External identifiers shall be distinct",
+            "precision": "very-high",
+            "severity": "warning",
+            "short_name": "ExcessLengthNamesIdentifiersNotDistinct",
+            "shared_implementation_short_name": "NotDistinctIdentifier",
+            "tags": [
+              "correctness",
+              "maintainability",
+              "readability"
+            ],
+            "implementation_scope": {
+              "description": "This query considers the first 31 characters of identifiers as significant, as per C99 and reports the case when names are longer than 31 characters and differ in those characters past the 31 first only. This query does not consider universal or extended source characters.",
+              "items": []
+            }
+          },
+        {
+            "description": "Declaring incompatible objects, in other words same named objects of different types, then accessing those objects can lead to undefined behaviour.",
+            "kind": "problem",
+            "name": "Do not create incompatible declarations of the same function or object",
+            "precision": "high",
+            "severity": "error",
+            "short_name": "IncompatibleObjectDeclarations",
+            "tags": [
+              "correctness",
+              "maintainability",
+              "readability"
+            ]
+          },
+          {
+            "description": "Declaring incompatible functions, in other words same named function of different return types or with different numbers of parameters or parameter types, then accessing those functions can lead to undefined behaviour.",
+            "kind": "problem",
+            "name": "Do not create incompatible declarations of the same function or object",
+            "precision": "high",
+            "severity": "error",
+            "short_name": "IncompatibleFunctionDeclarations",
+            "tags": [
+              "correctness",
+              "maintainability",
+              "readability"
+            ]
+          }
+      ],
+      "title": "Do not create incompatible declarations of the same function or object"
+    },
+    "DCL41-C": {
+        "properties": {
+          "obligation": "rule"
+        },
+        "queries": [
+          {
+            "description": "Declaring a variable in a switch statement before the first case label can result in reading uninitialized memory which is undefined behaviour.",
+            "kind": "problem",
+            "name": "Do not declare variables inside a switch statement before the first case label",
+            "precision": "very-high",
+            "severity": "error",
+            "short_name": "VariablesInsideSwitchStatement",
+            "tags": [
+              "correctness",
+              "maintainability",
+              "readability"
+            ]
+          }
+        ],
+        "title": "Do not declare variables inside a switch statement before the first case label"
+      }
+  }
+}
