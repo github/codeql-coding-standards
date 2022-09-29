@@ -1,0 +1,28 @@
+{
+  "MISRA-C-2012": {
+    "RULE-5-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Use of an identifier declared in an inner scope with an identical name to an identifier in an outer scope can lead to inadvertent errors if the incorrect identifier is modified.",
+          "name": "An identifier declared in an inner scope shall not hide an identifier declared in an outer scope",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifierHidingC",
+          "shared_implementation_short_name": "IdentifierHidden",
+          "tags": [
+            "readability",
+            "maintainability"
+          ],
+          "implementation_scope": {
+            "description": "This query does not consider C90 or C99 definitions of significant name and instead uses full name matches only.",
+            "items": []
+          }
+        }
+      ],
+      "title": "An identifier declared in an inner scope shall not hide an identifier declared in an outer scope."
+    }
+  }
+}
