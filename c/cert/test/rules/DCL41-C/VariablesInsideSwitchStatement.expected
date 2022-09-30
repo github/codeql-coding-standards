@@ -1,0 +1,1 @@
+| test.c:5:9:5:9 | definition of i | Declaration is located in switch $@. | test.c:4:3:10:3 | switch (...) ...  | statement |
