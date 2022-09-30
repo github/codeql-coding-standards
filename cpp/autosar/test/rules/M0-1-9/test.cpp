@@ -76,5 +76,7 @@ int test_dead_code(int x) {
   } catch (...) {   // NON_COMPLIANT
   }
 
+  static_assert(1); // COMPLIANT
+
   return live5 + live6; // COMPLIANT
 }

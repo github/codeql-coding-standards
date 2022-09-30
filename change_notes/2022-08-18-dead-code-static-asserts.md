@@ -1,0 +1,2 @@
+ - `M0-1-9` - `DeadCode.ql`:
+   - More compiler generated statements are now excluded from being reported as dead code, including compiler generated statements for `static_assert` calls.
