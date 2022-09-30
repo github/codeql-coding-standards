@@ -1,0 +1,4 @@
+| test.c:23:3:23:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:23:24:23:29 | & ... | Shared object |
+| test.c:74:3:74:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:74:24:74:24 | p | Shared object |
+| test.c:85:3:85:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:85:24:85:24 | p | Shared object |
+| test.c:94:3:94:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:94:24:94:24 | p | Shared object |

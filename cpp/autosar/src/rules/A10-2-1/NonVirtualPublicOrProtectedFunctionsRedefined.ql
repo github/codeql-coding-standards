@@ -29,8 +29,8 @@ where
   not f instanceof Operator and
   (
     exists(MemberFunction shadowingFunction |
-      getPublicOrPrivateDerivedClass+(f.getDeclaringType()) = shadowingFunction.getDeclaringType() and
-      f.getName() = shadowingFunction.getName() and
+      getPublicOrPrivateDerivedClass+(f.getDeclaringType()) = subclass and
+      f.getName() = pragma[only_bind_out](shadowingFunction.getName()) and
       e = shadowingFunction and
       description = "this member function" and
       subclass = shadowingFunction.getDeclaringType()
