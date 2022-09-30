@@ -1,0 +1,1 @@
+| test.c:3:7:3:7 | definition of b | Incorrect syntax used for declaring this flexible array member. |

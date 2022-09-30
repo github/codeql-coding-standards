@@ -1,4 +1,4 @@
 name: common-cpp-coding-standards-tests
-version: 2.8.0-dev
+version: 2.9.0-dev
 libraryPathDependencies: common-cpp-coding-standards
 extractor: cpp
