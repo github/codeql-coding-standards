@@ -1,0 +1,2 @@
+ - `A2-10-5` - `IdentifierNameOfANonMemberObjectWithExternalOrInternalLinkageIsReused.ql`
+   - Reduce false positives by excluding variable template instantiations.
