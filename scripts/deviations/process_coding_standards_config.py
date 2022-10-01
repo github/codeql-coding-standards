@@ -87,6 +87,12 @@ def main():
         action='store_true',
         help='Skip indexing the configurations and only convert them to XML. Should be used with --save-temps.'
     )
+    parser.add_argument(
+        '--coding-standards-file',
+        help='Filename and extension of coding standards deviations file.  Default is coding-standards.yml',
+        required=False,
+        default="coding-standards.yml"
+    )
     args = parser.parse_args()
 
     if not args.skip_indexing:
@@ -105,8 +111,15 @@ def main():
                 f"The specified working directory '{args.working_dir}'' does not exist.", file=sys.stderr)
             sys.exit(1)
 
-    # Find all the coding-standards.yml files, and convert them in place to coding-standards.xml
-    for path in args.working_dir.rglob('coding-standards.yml'):
+    # Verify that the coding standards deviations file exists
+    coding_standards_file = Path(args.coding_standards_file)
+    if not coding_standards_file.is_file():
+        print(
+            f"The specified coding standards deviations file '{args.coding_standards_file}' does not exist", file=sys.stderr)
+        sys.exit(1)
+
+    # Find all coding standards deviations files, and convert them in place to coding-standards.xml
+    for path in args.working_dir.rglob(args.coding_standards_file):
         convert_yaml_file_to_xml(path)
 
     if not args.skip_indexing:
