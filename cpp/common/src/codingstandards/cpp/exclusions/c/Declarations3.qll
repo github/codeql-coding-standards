@@ -3,7 +3,9 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Declarations3Query = TIdentifierHidingCQuery()
+newtype Declarations3Query =
+  TIdentifierHidingCQuery() or
+  TTypedefNameNotUniqueQuery()
 
 predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -13,6 +15,14 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `identifierHidingC` query
     "c/misra/identifier-hiding-c" and
   ruleId = "RULE-5-3"
+  or
+  query =
+    // `Query` instance for the `typedefNameNotUnique` query
+    Declarations3Package::typedefNameNotUniqueQuery() and
+  queryId =
+    // `@id` for the `typedefNameNotUnique` query
+    "c/misra/typedef-name-not-unique" and
+  ruleId = "RULE-5-6"
 }
 
 module Declarations3Package {
@@ -21,5 +31,12 @@ module Declarations3Package {
     result =
       // `Query` type for `identifierHidingC` query
       TQueryC(TDeclarations3PackageQuery(TIdentifierHidingCQuery()))
+  }
+
+  Query typedefNameNotUniqueQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `typedefNameNotUnique` query
+      TQueryC(TDeclarations3PackageQuery(TTypedefNameNotUniqueQuery()))
   }
 }

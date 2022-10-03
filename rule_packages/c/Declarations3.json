@@ -23,6 +23,26 @@
         }
       ],
       "title": "An identifier declared in an inner scope shall not hide an identifier declared in an outer scope."
+    },
+    "RULE-5-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing a typedef name compared to the name of any other identifier can cause confusion and make code harder to read.",
+          "kind": "problem",
+          "name": "A typedef name shall be a unique identifier",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TypedefNameNotUnique",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A typedef name shall be a unique identifier"
     }
   }
 }
