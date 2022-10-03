@@ -14,19 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
-
-//exception cases additional to rule description
-class InterestingIdentifiers extends Declaration {
-  InterestingIdentifiers() {
-    not this.isFromTemplateInstantiation(_) and
-    not this.isFromUninstantiatedTemplate(_) and
-    not this instanceof TemplateParameter and
-    not this.hasDeclaringType() and
-    not this instanceof Operator and
-    not this.hasName("main") and
-    exists(this.getADeclarationLocation())
-  }
-}
+import codingstandards.c.Identifiers
 
 from TypedefType t, InterestingIdentifiers d
 where

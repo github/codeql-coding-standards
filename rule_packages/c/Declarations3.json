@@ -43,6 +43,26 @@
         }
       ],
       "title": "A typedef name shall be a unique identifier"
+    },
+    "RULE-5-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing a tag name compared to the name of any tag can cause confusion and make code harder to read.",
+          "kind": "problem",
+          "name": "A tag name shall be a unique identifier",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TagNameNotUnique",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A tag name shall be a unique identifier"
     }
   }
 }

@@ -28,5 +28,3 @@ typedef struct {
   } s1;
   int i;
 } chain; // NON_COMPLIANT
-
-typedef void (*pointercase)(int i); // COMPLIANT
