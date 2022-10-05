@@ -7,7 +7,8 @@ newtype Declarations3Query =
   TIdentifierHidingCQuery() or
   TIdentifiersNotDistinctFromMacroNamesQuery() or
   TTypedefNameNotUniqueQuery() or
-  TTagNameNotUniqueQuery()
+  TTagNameNotUniqueQuery() or
+  TExplicitlyDeclareTypesQuery()
 
 predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -41,6 +42,14 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `tagNameNotUnique` query
     "c/misra/tag-name-not-unique" and
   ruleId = "RULE-5-7"
+  or
+  query =
+    // `Query` instance for the `explicitlyDeclareTypes` query
+    Declarations3Package::explicitlyDeclareTypesQuery() and
+  queryId =
+    // `@id` for the `explicitlyDeclareTypes` query
+    "c/misra/explicitly-declare-types" and
+  ruleId = "RULE-8-1"
 }
 
 module Declarations3Package {
@@ -70,5 +79,12 @@ module Declarations3Package {
     result =
       // `Query` type for `tagNameNotUnique` query
       TQueryC(TDeclarations3PackageQuery(TTagNameNotUniqueQuery()))
+  }
+
+  Query explicitlyDeclareTypesQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `explicitlyDeclareTypes` query
+      TQueryC(TDeclarations3PackageQuery(TExplicitlyDeclareTypesQuery()))
   }
 }

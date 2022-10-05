@@ -13,16 +13,10 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.cpp.rules.typeomitted.TypeOmitted
 
-from Declaration d
-where
-  not isExcluded(d, Declarations1Package::declareIdentifiersBeforeUsingThemQuery()) and
-  d.hasSpecifier("implicit_int") and
-  exists(Type t |
-    (d.(Variable).getType() = t or d.(Function).getType() = t) and
-    // Exclude "short" or "long", as opposed to "short int" or "long int".
-    t instanceof IntType and
-    // Exclude "signed" or "unsigned", as opposed to "signed int" or "unsigned int".
-    not exists(IntegralType it | it = t | it.isExplicitlySigned() or it.isExplicitlyUnsigned())
-  )
-select d, "Declaration " + d.getName() + " is missing a type specifier."
+class DeclareIdentifiersBeforeUsingThem extends TypeOmittedSharedQuery {
+  DeclareIdentifiersBeforeUsingThem() {
+    this = Declarations1Package::declareIdentifiersBeforeUsingThemQuery()
+  }
+}

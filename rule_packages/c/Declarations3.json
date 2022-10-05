@@ -83,6 +83,31 @@
         }
       ],
       "title": "A tag name shall be a unique identifier"
+    },
+    "RULE-8-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Omission of type specifiers may not be supported by some compilers.",
+          "kind": "problem",
+          "name": "Declare identifiers before using them",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExplicitlyDeclareTypes",
+          "shared_implementation_short_name": "TypeOmitted",
+          "tags": [
+            "correctness",
+            "readability" 
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for implicitly typed parameters, typedefs or member declarations as this is partially compiler checked.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Types shall be explicitly specified"
     }
   }
 }
