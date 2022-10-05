@@ -5,6 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations3Query =
   TIdentifierHidingCQuery() or
+  TIdentifiersNotDistinctFromMacroNamesQuery() or
   TTypedefNameNotUniqueQuery() or
   TTagNameNotUniqueQuery()
 
@@ -16,6 +17,14 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `identifierHidingC` query
     "c/misra/identifier-hiding-c" and
   ruleId = "RULE-5-3"
+  or
+  query =
+    // `Query` instance for the `identifiersNotDistinctFromMacroNames` query
+    Declarations3Package::identifiersNotDistinctFromMacroNamesQuery() and
+  queryId =
+    // `@id` for the `identifiersNotDistinctFromMacroNames` query
+    "c/misra/identifiers-not-distinct-from-macro-names" and
+  ruleId = "RULE-5-5"
   or
   query =
     // `Query` instance for the `typedefNameNotUnique` query
@@ -40,6 +49,13 @@ module Declarations3Package {
     result =
       // `Query` type for `identifierHidingC` query
       TQueryC(TDeclarations3PackageQuery(TIdentifierHidingCQuery()))
+  }
+
+  Query identifiersNotDistinctFromMacroNamesQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `identifiersNotDistinctFromMacroNames` query
+      TQueryC(TDeclarations3PackageQuery(TIdentifiersNotDistinctFromMacroNamesQuery()))
   }
 
   Query typedefNameNotUniqueQuery() {

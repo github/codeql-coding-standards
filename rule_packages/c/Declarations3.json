@@ -24,6 +24,26 @@
       ],
       "title": "An identifier declared in an inner scope shall not hide an identifier declared in an outer scope."
     },
+    "RULE-5-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing a macro name compared to the name of any other identifier can cause confusion and make code harder to read.",
+          "kind": "problem",
+          "name": "Identifiers shall be distinct from macro names",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifiersNotDistinctFromMacroNames",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Identifiers shall be distinct from macro names"
+    },
     "RULE-5-6": {
       "properties": {
         "obligation": "required"

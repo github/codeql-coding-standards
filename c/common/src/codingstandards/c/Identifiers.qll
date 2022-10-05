@@ -11,4 +11,6 @@ class InterestingIdentifiers extends Declaration {
     not this.hasName("main") and
     exists(this.getADeclarationLocation())
   }
+
+  string getSignificantName() { result = this.getName().prefix(31) }
 }
