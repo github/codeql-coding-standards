@@ -32,7 +32,11 @@ where
   not isExcluded(o2,
     NamingPackage::identifierNameOfANonMemberObjectWithExternalOrInternalLinkageIsReusedQuery()) and
   not o1 = o2 and
-  o1.getName() = o2.getName()
+  o1.getName() = o2.getName() and
+  // Only consider variables from uninstantiated templates, to avoid false positives where o1 and
+  // o2 are the same object across different template instantiations
+  not o1.isFromTemplateInstantiation(_) and
+  not o2.isFromTemplateInstantiation(_)
 select o2,
   "Identifier name of non-member object $@ reuses the identifier name of non-member object $@.", o2,
   o2.getName(), o1, o1.getName()
