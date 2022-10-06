@@ -1,0 +1,5 @@
+| test.c:5:3:5:8 | call to strtod | The value of `errno` may be different than `0` when this function is called. |
+| test.c:20:5:20:10 | call to strtod | The value of `errno` may be different than `0` when this function is called. |
+| test.c:24:5:24:10 | call to strtof | The value of `errno` may be different than `0` when this function is called. |
+| test.c:32:3:32:8 | call to strtod | The value of `errno` may be different than `0` when this function is called. |
+| test.c:41:5:41:10 | call to strtod | The value of `errno` may be different than `0` when this function is called. |
