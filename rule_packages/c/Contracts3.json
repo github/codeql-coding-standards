@@ -35,7 +35,7 @@
         "obligation": "required"
       },
       "queries": [{
-        "description": "The value of errno shall be tested against zero after calling an errno-setting-function. Not testing the value leads to undientified errors.",
+        "description": "The value of errno shall be tested against zero after calling an errno-setting-function. Not testing the value leads to unidentified errors.",
         "kind": "problem",
         "name": "The value of errno shall be tested against zero after calling an errno-setting-function",
         "precision": "very-high",
