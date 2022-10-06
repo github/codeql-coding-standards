@@ -5,7 +5,7 @@
         "obligation": "required"
       },
       "queries": [{
-        "description": "The value of errno shall only be tested when the last function to be called was an errno-setting-function.",
+        "description": "The value of errno shall only be tested when the last function to be called was an errno-setting-function. Testing the value in these conditions does not guarantee the absence of an errors.",
         "kind": "problem",
         "name": "The value of errno shall only be tested when the last called function is errno-setting",
         "precision": "high",
@@ -20,7 +20,7 @@
         "obligation": "required"
       },
       "queries": [{
-        "description": "The value of errno shall be set to zero prior to a call to an errno-setting-function.",
+        "description": "The value of errno shall be set to zero prior to a call to an errno-setting-function. Not setting the value leads to incorrectly identifying errors.",
         "kind": "problem",
         "name": "The value of errno shall be set to zero prior to a call to an errno-setting-function",
         "precision": "very-high",
@@ -35,7 +35,7 @@
         "obligation": "required"
       },
       "queries": [{
-        "description": "The value of errno shall be tested against zero after calling an errno-setting-function.",
+        "description": "The value of errno shall be tested against zero after calling an errno-setting-function. Not testing the value leads to undientified errors.",
         "kind": "problem",
         "name": "The value of errno shall be tested against zero after calling an errno-setting-function",
         "precision": "very-high",

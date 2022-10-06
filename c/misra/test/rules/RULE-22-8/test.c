@@ -31,3 +31,13 @@ void f3(void) {
   f3_helper();
   strtod("0", NULL); // NON_COMPLIANT
 }
+
+void f4(void) {
+  errno = 0;
+  switch (errno) {
+  case 0:
+    strtod("0", NULL); // COMPLIANT
+  case 1:
+    strtod("0", NULL); // NON_COMPLIANT
+  }
+}

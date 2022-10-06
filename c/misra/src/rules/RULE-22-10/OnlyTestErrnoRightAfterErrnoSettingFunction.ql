@@ -2,7 +2,8 @@
  * @id c/misra/only-test-errno-right-after-errno-setting-function
  * @name RULE-22-10: The value of errno shall only be tested when the last called function is errno-setting
  * @description The value of errno shall only be tested when the last function to be called was an
- *              errno-setting-function.
+ *              errno-setting-function. Testing the value in these conditions does not guarantee the
+ *              absence of an errors.
  * @kind problem
  * @precision high
  * @problem.severity warning
@@ -60,4 +61,4 @@ where
     // `errno` is not set after a non-errno-setting function call
     cause = any(MaySetErrnoCall c)
   )
-select eq, "The value of `errno` shell only be tested after an errno-setting function call."
+select eq, "Value of `errno` is tested but not after an errno-setting function call."

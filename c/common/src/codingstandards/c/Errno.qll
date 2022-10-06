@@ -47,36 +47,54 @@ class ErrnoZeroed extends AssignExpr {
  * A guard controlled by a errno comparison
  */
 
-class ErrnoGuard extends EqualityOperation {
-  ErrnoGuard() {
+abstract class ErrnoGuard extends StmtParent {
+  abstract ControlFlowNode getZeroedSuccessor();
+
+  abstract ControlFlowNode getNonZeroedSuccessor();
+}
+
+class ErrnoIfGuard extends EqualityOperation, ErrnoGuard {
+  ControlStructure i;
+
+  ErrnoIfGuard() {
     this.getAnOperand() = any(MacroInvocation ma | ma.getMacroName() = "errno").getExpr() and
     this.getAnOperand().getValue() = "0" and
-    exists(ControlStructure i | i.getControllingExpr() = this)
+    i.getControllingExpr() = this
   }
 
   Stmt getThenSuccessor() {
-    exists(ControlStructure i |
-      i.getControllingExpr() = this and
-      (result = i.(IfStmt).getThen() or result = i.(Loop).getStmt())
-    )
+    i.getControllingExpr() = this and
+    (result = i.(IfStmt).getThen() or result = i.(Loop).getStmt())
   }
 
   Stmt getElseSuccessor() {
-    exists(ControlStructure i |
-      i.getControllingExpr() = this and
-      (
-        i.(IfStmt).hasElse() and result = i.(IfStmt).getElse()
-        or
-        result = i.getFollowingStmt()
-      )
+    i.getControllingExpr() = this and
+    (
+      i.(IfStmt).hasElse() and result = i.(IfStmt).getElse()
+      or
+      result = i.getFollowingStmt()
     )
   }
 
-  ControlFlowNode getZeroedSuccessor() {
+  override ControlFlowNode getZeroedSuccessor() {
     if this instanceof EQExpr then result = this.getThenSuccessor() else result = getElseSuccessor()
   }
 
-  ControlFlowNode getNonZeroedSuccessor() {
-    if this instanceof EQExpr then result = this.getElseSuccessor() else result = getThenSuccessor()
+  override ControlFlowNode getNonZeroedSuccessor() {
+    if this instanceof NEExpr then result = this.getThenSuccessor() else result = getElseSuccessor()
+  }
+}
+
+class ErrnoSwitchGuard extends SwitchCase, ErrnoGuard {
+  ErrnoSwitchGuard() {
+    this.getSwitchStmt().getExpr() = any(MacroInvocation ma | ma.getMacroName() = "errno").getExpr()
+  }
+
+  override ControlFlowNode getZeroedSuccessor() {
+    result = this.getAStmt() and this.getExpr().getValue() = "0"
+  }
+
+  override ControlFlowNode getNonZeroedSuccessor() {
+    result = this.getAStmt() and this.getExpr().getValue() != "0"
   }
 }

@@ -2,7 +2,8 @@
  * @id c/misra/errno-set-to-zero-prior-to-call
  * @name RULE-22-8: The value of errno shall be set to zero prior to a call to an errno-setting-function
  * @description The value of errno shall be set to zero prior to a call to an
- *              errno-setting-function.
+ *              errno-setting-function. Not setting the value leads to incorrectly identifying
+ *              errors.
  * @kind problem
  * @precision very-high
  * @problem.severity error
@@ -56,4 +57,4 @@ where
     // `errno` value is known to be != 0
     cause = any(ErrnoGuard g).getNonZeroedSuccessor()
   )
-select fc, "The value of `errno` may be different then 0 when this function is called."
+select fc, "The value of `errno` may be different than `0` when this function is called."

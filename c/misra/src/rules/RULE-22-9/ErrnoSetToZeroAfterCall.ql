@@ -2,7 +2,7 @@
  * @id c/misra/errno-set-to-zero-after-call
  * @name RULE-22-9: The value of errno shall be tested against zero after calling an errno-setting-function
  * @description The value of errno shall be tested against zero after calling an
- *              errno-setting-function.
+ *              errno-setting-function. Not testing the value leads to undientified errors.
  * @kind problem
  * @precision very-high
  * @problem.severity error
