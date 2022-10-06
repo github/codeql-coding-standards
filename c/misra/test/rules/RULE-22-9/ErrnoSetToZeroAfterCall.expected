@@ -1,0 +1,2 @@
+| test.c:9:3:9:8 | call to strtod | The value of `errno` is not tested against `0` after the call. |
+| test.c:19:3:19:8 | call to strtod | The value of `errno` is not tested against `0` after the call. |

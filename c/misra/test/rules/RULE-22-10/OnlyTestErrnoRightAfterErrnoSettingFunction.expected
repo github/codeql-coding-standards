@@ -1,0 +1,3 @@
+| test.c:7:7:7:16 | ... == ... | Value of `errno` is tested but not after an errno-setting function call. |
+| test.c:16:7:16:21 | ... == ... | Value of `errno` is tested but not after an errno-setting function call. |
+| test.c:17:10:17:23 | ... == ... | Value of `errno` is tested but not after an errno-setting function call. |
