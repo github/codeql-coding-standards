@@ -119,7 +119,8 @@ def main():
         sys.exit(1)
 
     # Find all coding standards deviations files, and convert them in place to coding-standards.xml
-    for path in args.working_dir.rglob(args.coding_standards_file):
+    for config_file_name in ['coding-standards.yml', 'coding-standards.yaml']:
+      for path in args.working_dir.rglob(config_file_name):
         convert_yaml_file_to_xml(path)
 
     if not args.skip_indexing:
