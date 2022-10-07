@@ -111,13 +111,6 @@ def main():
                 f"The specified working directory '{args.working_dir}'' does not exist.", file=sys.stderr)
             sys.exit(1)
 
-    # Verify that the coding standards deviations file exists
-    coding_standards_file = Path(args.coding_standards_file)
-    if not coding_standards_file.is_file():
-        print(
-            f"The specified coding standards deviations file '{args.coding_standards_file}' does not exist", file=sys.stderr)
-        sys.exit(1)
-
     # Find all coding standards deviations files, and convert them in place to coding-standards.xml
     for config_file_name in ['coding-standards.yml', 'coding-standards.yaml']:
       for path in args.working_dir.rglob(config_file_name):
