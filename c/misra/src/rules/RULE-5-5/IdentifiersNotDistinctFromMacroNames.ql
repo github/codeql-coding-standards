@@ -22,10 +22,12 @@ where
   not isExcluded(i, Declarations3Package::identifiersNotDistinctFromMacroNamesQuery()) and
   mName = iName and
   (
-    //C99 states the first 31 characters of external identifiers are significant
-    //C90 states the first 6 characters of external identifiers are significant and case is not required to be significant
+    //C99 states the first 63 characters of macro identifiers are significant
+    //C90 states the first 31 characters of macro identifiers are significant
     //C90 is not currently considered by this rule
-    if m.getName().length() > 31 then mName = m.getName().prefix(31) else mName = m.getName()
+    if m.getName().length() > 63 then mName = m.getName().prefix(63) else mName = m.getName()
   ) and
-  if i.getName().length() > 31 then iName = i.getSignificantName() else iName = i.getName()
+  if i.getName().length() > 63
+  then iName = i.getSignificantNameComparedToMacro()
+  else iName = i.getName()
 select m, "Macro name is nonunique compared to $@.", i, i.getName()

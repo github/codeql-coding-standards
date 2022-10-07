@@ -12,5 +12,8 @@ class InterestingIdentifiers extends Declaration {
     exists(this.getADeclarationLocation())
   }
 
-  string getSignificantName() { result = this.getName().prefix(31) }
+  //this definition of significant relies on the number of significant characters for a macro name (C99)
+  //this is used on macro name comparisons only
+  //not necessarily against other types of identifiers
+  string getSignificantNameComparedToMacro() { result = this.getName().prefix(63) }
 }
