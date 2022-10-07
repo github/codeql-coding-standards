@@ -87,12 +87,6 @@ def main():
         action='store_true',
         help='Skip indexing the configurations and only convert them to XML. Should be used with --save-temps.'
     )
-    parser.add_argument(
-        '--coding-standards-file',
-        help='Filename and extension of coding standards deviations file.  Default is coding-standards.yml',
-        required=False,
-        default="coding-standards.yml"
-    )
     args = parser.parse_args()
 
     if not args.skip_indexing:
