@@ -39,6 +39,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "IdentifierHiding",
+          "shared_implementation_short_name": "IdentifierHidden",
           "tags": [
             "readability",
             "maintainability"

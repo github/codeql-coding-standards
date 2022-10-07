@@ -1,0 +1,113 @@
+{
+  "MISRA-C-2012": {
+    "RULE-5-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Use of an identifier declared in an inner scope with an identical name to an identifier in an outer scope can lead to inadvertent errors if the incorrect identifier is modified.",
+          "name": "An identifier declared in an inner scope shall not hide an identifier declared in an outer scope",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifierHidingC",
+          "shared_implementation_short_name": "IdentifierHidden",
+          "tags": [
+            "readability",
+            "maintainability"
+          ],
+          "implementation_scope": {
+            "description": "This query does not consider C90 or C99 definitions of significant name and instead uses full name matches only.",
+            "items": []
+          }
+        }
+      ],
+      "title": "An identifier declared in an inner scope shall not hide an identifier declared in an outer scope."
+    },
+    "RULE-5-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing a macro name compared to the name of any other identifier can cause confusion and make code harder to read.",
+          "kind": "problem",
+          "name": "Identifiers shall be distinct from macro names",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifiersNotDistinctFromMacroNames",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Identifiers shall be distinct from macro names"
+    },
+    "RULE-5-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing a typedef name compared to the name of any other identifier can cause confusion and make code harder to read.",
+          "kind": "problem",
+          "name": "A typedef name shall be a unique identifier",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TypedefNameNotUnique",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A typedef name shall be a unique identifier"
+    },
+    "RULE-5-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Reusing a tag name compared to the name of any tag can cause confusion and make code harder to read.",
+          "kind": "problem",
+          "name": "A tag name shall be a unique identifier",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TagNameNotUnique",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A tag name shall be a unique identifier"
+    },
+    "RULE-8-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Omission of type specifiers may not be supported by some compilers.",
+          "kind": "problem",
+          "name": "Declare identifiers before using them",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExplicitlyDeclareTypes",
+          "shared_implementation_short_name": "TypeOmitted",
+          "tags": [
+            "correctness",
+            "readability" 
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for implicitly typed parameters, typedefs or member declarations as this is partially compiler checked.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Types shall be explicitly specified"
+    }
+  }
+}
