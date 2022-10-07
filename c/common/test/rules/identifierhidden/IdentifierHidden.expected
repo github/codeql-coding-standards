@@ -1,0 +1,5 @@
+| test.c:4:7:4:9 | id1 | Variable is hiding variable $@. | test.c:1:5:1:7 | id1 | id1 |
+| test.c:7:13:7:15 | id1 | Variable is hiding variable $@. | test.c:1:5:1:7 | id1 | id1 |
+| test.c:10:12:10:14 | id1 | Variable is hiding variable $@. | test.c:1:5:1:7 | id1 | id1 |
+| test.c:11:14:11:16 | id1 | Variable is hiding variable $@. | test.c:10:12:10:14 | id1 | id1 |
+| test.c:24:24:24:26 | id2 | Variable is hiding variable $@. | test.c:22:5:22:7 | id2 | id2 |

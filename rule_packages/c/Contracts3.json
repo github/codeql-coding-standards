@@ -1,0 +1,49 @@
+{
+  "MISRA-C-2012": {
+    "RULE-22-10": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [{
+        "description": "The value of errno shall only be tested when the last function to be called was an errno-setting-function. Testing the value in these conditions does not guarantee the absence of an errors.",
+        "kind": "problem",
+        "name": "The value of errno shall only be tested when the last called function is errno-setting",
+        "precision": "high",
+        "severity": "warning",
+        "short_name": "OnlyTestErrnoRightAfterErrnoSettingFunction",
+        "tags": ["correctness"]
+      }],
+      "title": "The value of errno shall only be tested when the last function to be called was an errno-setting-function"
+    },
+    "RULE-22-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [{
+        "description": "The value of errno shall be set to zero prior to a call to an errno-setting-function. Not setting the value leads to incorrectly identifying errors.",
+        "kind": "problem",
+        "name": "The value of errno shall be set to zero prior to a call to an errno-setting-function",
+        "precision": "very-high",
+        "severity": "error",
+        "short_name": "ErrnoSetToZeroPriorToCall",
+        "tags": ["correctness"]
+      }],
+      "title": "The value of errno shall be set to zero prior to a call to an errno-setting-function"
+    },
+    "RULE-22-9": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [{
+        "description": "The value of errno shall be tested against zero after calling an errno-setting-function. Not testing the value leads to unidentified errors.",
+        "kind": "problem",
+        "name": "The value of errno shall be tested against zero after calling an errno-setting-function",
+        "precision": "very-high",
+        "severity": "error",
+        "short_name": "ErrnoSetToZeroAfterCall",
+        "tags": ["correctness"]
+      }],
+      "title": "The value of errno shall be tested against zero after calling an errno-setting-function"
+    }
+  }
+}
