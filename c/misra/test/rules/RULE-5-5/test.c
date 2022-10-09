@@ -3,5 +3,12 @@
 
 int Sum;
 
-#define iltiqzxgfqsgigwfuyntzghvzltueeaZ ;   // NON_COMPLIANT - length 32
-static int iltiqzxgfqsgigwfuyntzghvzltueeaQ; // NON_COMPLIANT - length 32
+#define iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyA // NON_COMPLIANT
+                                                                         // -
+                                                                         // length
+                                                                         // 64
+static int
+    iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyB; // NON_COMPLIANT
+                                                                      // -
+                                                                      // length
+                                                                      // 64
