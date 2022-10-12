@@ -12,12 +12,13 @@
             "precision": "very-high",
             "severity": "error",
             "short_name": "DeclareIdentifiersBeforeUsingThem",
+            "shared_implementation_short_name": "TypeOmitted",
             "tags": [
               "correctness",
               "readability" 
             ],
             "implementation_scope": {
-              "description": "This query does not check for implicit function declarations as this is partially compiler checked.",
+              "description": "This query does not check for implicitly typed parameters, typedefs or member declarations as this is partially compiler checked.",
               "items": []
             }
           }

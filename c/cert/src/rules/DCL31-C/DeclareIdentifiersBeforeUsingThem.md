@@ -153,7 +153,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-This query does not check for implicit function declarations as this is partially compiler checked.
+This query does not check for implicitly typed parameters, typedefs or member declarations as this is partially compiler checked.
 
 ## References
 
