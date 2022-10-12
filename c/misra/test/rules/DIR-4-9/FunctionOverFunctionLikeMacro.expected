@@ -1,0 +1,1 @@
+| test.c:19:12:19:20 | MACRO4(L) | Macro invocation used when function call would be preferred. |
