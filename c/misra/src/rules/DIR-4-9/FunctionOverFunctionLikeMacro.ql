@@ -7,7 +7,7 @@
  * @precision medium
  * @problem.severity recommendation
  * @tags external/misra/id/dir-4-9
- *       external/cert/audit
+ *       external/misra/audit
  *       maintainability
  *       readability
  *       external/misra/obligation/advisory
