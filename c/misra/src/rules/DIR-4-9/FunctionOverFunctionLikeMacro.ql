@@ -18,13 +18,7 @@ import codingstandards.c.misra
 import codingstandards.cpp.FunctionLikeMacro
 import codingstandards.cpp.Naming
 
-predicate isOperator(string possible) {
-  possible in [
-      "+", "-", "*", "/", "%", "^", "&", "|", "~", "!", "=", "<", ">", "+=", "-=", "*=", "/=", "%=",
-      "^=", "&=", "|=", "<<", ">>", ">>=", "<<=", "==", "!=", "<=", ">=", "<=>", "&&", "||", "++",
-      "--", "->*", "->", "()", "[]"
-    ]
-}
+predicate isOperator(string possible) { possible = any(Operation op).getOperator() }
 
 //cases where we trust the choice
 predicate omission(MacroInvocation i) {
@@ -61,6 +55,8 @@ where
   not exists(i.getUnexpandedArgument(1)) and
   //operator as arg omits function applicability
   not isOperator(i.getUnexpandedArgument(_)) and
+  not exists(Function f | i.getUnexpandedArgument(_) = f.getName()) and
+  exists(i.getUnexpandedArgument(0).toInt()) and
   //static storage duration can only be initialized with constant
   not exists(StaticStorageDurationVariable v | i.getExpr() = v.getAnAssignedValue()) and
   //function call not allowed in a constant expression (where constant expr is parent)
