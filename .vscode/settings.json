@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "atomic": "c",
+        "memory": "c"
+    }
+}
