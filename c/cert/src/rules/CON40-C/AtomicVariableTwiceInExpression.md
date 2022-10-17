@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON40-C:
 > Do not refer to an atomic variable twice in an expression
 
 
-
 ## Description
 
 A consistent locking policy guarantees that multiple threads cannot simultaneously access or modify shared data. Atomic variables eliminate the need for locks by guaranteeing thread safety when certain operations are performed on them. The thread-safe operations on atomic variables are specified in the C Standard, subclauses 7.17.7 and 7.17.8 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO%2FIEC9899-2011)\]. While atomic operations can be combined, combined operations do not provide the thread safety provided by individual atomic operations.

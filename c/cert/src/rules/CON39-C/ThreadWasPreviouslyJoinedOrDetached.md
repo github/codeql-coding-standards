@@ -5,7 +5,6 @@ This query implements the CERT-C rule CON39-C:
 > Do not join or detach a thread that was previously joined or detached
 
 
-
 ## Description
 
 The C Standard, 7.26.5.6 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], states that a thread shall not be joined once it was previously joined or detached. Similarly, subclause 7.26.5.3 states that a thread shall not be detached once it was previously joined or detached. Violating either of these subclauses results in [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior).
