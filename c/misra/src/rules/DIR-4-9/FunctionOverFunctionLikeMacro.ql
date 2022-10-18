@@ -18,22 +18,59 @@ import codingstandards.c.misra
 import codingstandards.cpp.FunctionLikeMacro
 import codingstandards.cpp.Naming
 
-predicate isOperator(string possible) { possible = any(Operation op).getOperator() }
+predicate omission(Macro i) { Naming::Cpp14::hasStandardLibraryMacroName(i.getName()) }
 
-//cases where we trust the choice
-predicate omission(MacroInvocation i) {
-  i.getFile() instanceof HeaderFile or
-  Naming::Cpp14::hasStandardLibraryMacroName(i.getMacroName())
+abstract class IrreplaceableFunctionLikeMacro extends FunctionLikeMacro { }
+
+private class AsmArgumentInvoked extends IrreplaceableFunctionLikeMacro {
+  AsmArgumentInvoked() {
+    any(AsmStmt s).getLocation().subsumes(this.getAnInvocation().getLocation())
+  }
 }
 
-class UnsafeMacro extends FunctionLikeMacro {
-  UnsafeMacro() {
+private class OnlyConstantNumericInvoked extends IrreplaceableFunctionLikeMacro {
+  OnlyConstantNumericInvoked() {
+    forex(MacroInvocation mi | mi = this.getAnInvocation() |
+      mi.getUnexpandedArgument(_).regexpMatch("\\d+")
+    )
+  }
+}
+
+private class KnownIrreplaceableFunctionLikeMacro extends IrreplaceableFunctionLikeMacro {
+  KnownIrreplaceableFunctionLikeMacro() {
+    this.getName() in ["UNUSED", "__has_builtin", "MIN", "MAX"]
+  }
+}
+
+private class UsedToStaticInitialize extends IrreplaceableFunctionLikeMacro {
+  UsedToStaticInitialize() {
+    any(StaticStorageDurationVariable v).getInitializer().getExpr() =
+      this.getAnInvocation().getExpr()
+  }
+}
+
+private class FunctionLikeMacroWithOperatorArgument extends IrreplaceableFunctionLikeMacro {
+  FunctionLikeMacroWithOperatorArgument() {
+    exists(MacroInvocation mi | mi.getMacro() = this |
+      mi.getUnexpandedArgument(_) = any(Operation op).getOperator()
+    )
+  }
+}
+
+abstract class UnsafeMacro extends FunctionLikeMacro { }
+
+class ParameterNotUsedMacro extends UnsafeMacro {
+  ParameterNotUsedMacro() {
     //parameter not used - has false positives on args that are not used but are substrings of other args
     exists(string p |
       p = this.getAParameter() and
-      not this.getBody().regexpMatch(".*(\\s*|\\(||\\))" + p + "(\\s*||\\)|\\().*")
+      not this.getBody().regexpMatch(".*(\\s*|\\(|\\)|\\##)" + p + "(\\s*||\\)|\\(|\\##).*")
     )
-    or
+  }
+}
+
+class ParameterMoreThanOnceMacro extends UnsafeMacro {
+  ParameterMoreThanOnceMacro() {
     //parameter used more than once
     exists(string p |
       p = this.getAParameter() and
@@ -46,24 +83,20 @@ class UnsafeMacro extends FunctionLikeMacro {
   }
 }
 
-from MacroInvocation i
-where
-  not isExcluded(i, Preprocessor6Package::functionOverFunctionLikeMacroQuery()) and
-  not omission(i) and
-  i.getMacro() instanceof UnsafeMacro and
-  //heuristic - macros with one arg only are easier to replace
-  not exists(i.getUnexpandedArgument(1)) and
-  //operator as arg omits function applicability
-  not isOperator(i.getUnexpandedArgument(_)) and
-  not exists(Function f | i.getUnexpandedArgument(_) = f.getName()) and
-  exists(i.getUnexpandedArgument(0).toInt()) and
-  //static storage duration can only be initialized with constant
-  not exists(StaticStorageDurationVariable v | i.getExpr() = v.getAnAssignedValue()) and
-  //function call not allowed in a constant expression (where constant expr is parent)
-  not exists(Expr e |
+predicate partOfConstantExpr(MacroInvocation i) {
+  exists(Expr e |
     e.isConstant() and
     not i.getExpr() = e and
     i.getExpr().getParent+() = e
-  ) and
-  forall(string arg | arg = i.getUnexpandedArgument(_) | exists(Expr e | arg = e.toString()))
-select i, "Macro invocation used when function call would be preferred."
+  )
+}
+
+from FunctionLikeMacro m
+where
+  not isExcluded(m, Preprocessor6Package::functionOverFunctionLikeMacroQuery()) and
+  not omission(m) and
+  m instanceof UnsafeMacro and
+  not m instanceof IrreplaceableFunctionLikeMacro and
+  //function call not allowed in a constant expression (where constant expr is parent)
+  forall(MacroInvocation i | i = m.getAnInvocation() | not partOfConstantExpr(i))
+select m, "Macro used when function call would be preferred."
