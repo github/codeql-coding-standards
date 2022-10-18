@@ -1,0 +1,23 @@
+{
+  "MISRA-C-2012": {
+    "RULE-8-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An identifier with multiple definitions in different translation units leads to undefined behavior.",
+          "kind": "problem",
+          "name": "An identifier with external linkage shall have exactly one external definition",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "IdentifierWithExternalLinkageOneDefinition",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An identifier with external linkage shall have exactly one external definition"
+    }
+  }
+}
