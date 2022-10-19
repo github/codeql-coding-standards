@@ -3,9 +3,7 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Language1Query =
-  TLanguageNotEncapsulatedAndIsolatedQuery() or
-  TLanguageExtensionsShouldNotBeUsedQuery()
+newtype Language1Query = TLanguageNotEncapsulatedAndIsolatedQuery()
 
 predicate isLanguage1QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -15,14 +13,6 @@ predicate isLanguage1QueryMetadata(Query query, string queryId, string ruleId) {
     // `@id` for the `languageNotEncapsulatedAndIsolated` query
     "c/misra/language-not-encapsulated-and-isolated" and
   ruleId = "DIR-4-3"
-  or
-  query =
-    // `Query` instance for the `languageExtensionsShouldNotBeUsed` query
-    Language1Package::languageExtensionsShouldNotBeUsedQuery() and
-  queryId =
-    // `@id` for the `languageExtensionsShouldNotBeUsed` query
-    "c/misra/language-extensions-should-not-be-used" and
-  ruleId = "RULE-1-2"
 }
 
 module Language1Package {
@@ -31,12 +21,5 @@ module Language1Package {
     result =
       // `Query` type for `languageNotEncapsulatedAndIsolated` query
       TQueryC(TLanguage1PackageQuery(TLanguageNotEncapsulatedAndIsolatedQuery()))
-  }
-
-  Query languageExtensionsShouldNotBeUsedQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `languageExtensionsShouldNotBeUsed` query
-      TQueryC(TLanguage1PackageQuery(TLanguageExtensionsShouldNotBeUsedQuery()))
   }
 }
