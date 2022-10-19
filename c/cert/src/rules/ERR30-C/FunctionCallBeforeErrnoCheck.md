@@ -1,4 +1,4 @@
-# ERR30-C: Do not call a function before checking errno.
+# ERR30-C: Do not call a function before checking errno
 
 This query implements the CERT-C rule ERR30-C:
 

@@ -1,6 +1,6 @@
 /**
  * @id c/cert/errno-read-before-return
- * @name ERR30-C: Do not check errno before the function return value.
+ * @name ERR30-C: Do not check errno before the function return value
  * @description Do not check errno before the function return value.
  * @kind problem
  * @precision high

@@ -1,11 +1,12 @@
 /**
  * @id c/cert/do-not-rely-on-indeterminate-values-of-errno
  * @name ERR32-C: Do not rely on indeterminate values of errno
- * @description 
+ * @description Do not rely on indeterminate values of errno.
  * @kind problem
  * @precision high
  * @problem.severity error
  * @tags external/cert/id/err32-c
+ *       correctness
  *       external/cert/obligation/rule
  */
 

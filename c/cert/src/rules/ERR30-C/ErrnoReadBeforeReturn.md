@@ -1,4 +1,4 @@
-# ERR30-C: Do not check errno before the function return value.
+# ERR30-C: Do not check errno before the function return value
 
 This query implements the CERT-C rule ERR30-C:
 

@@ -1,6 +1,6 @@
 /**
  * @id c/cert/function-call-before-errno-check
- * @name ERR30-C: Do not call a function before checking errno.
+ * @name ERR30-C: Do not call a function before checking errno
  * @description After calling an errno-setting function, check errno before calling any other
  *              function. Failing to do so might end in errno being overwritten.
  * @kind problem
