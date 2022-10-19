@@ -91,7 +91,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-It is use detach and join together in a multi-threaded program safely however to detect if it is done correctly in practice is very difficult. For this reason this query considers problematic usages of join and detach irrespective of the execution of the program and other synchronization and interprocess communication mechanisms that may be used.
+This query considers problematic usages of join and detach irrespective of the execution of the program and other synchronization and interprocess communication mechanisms that may be used.
 
 ## References
 
