@@ -19,7 +19,7 @@ from MacroInvocation mi, Variable v, Locatable whereFound
 where
   not isExcluded(whereFound, Concurrency5Package::atomicVariableTwiceInExpressionQuery()) and
   (
-    // There isn't a way to safely use this construct in a away that is also
+    // There isn't a way to safely use this construct in a way that is also
     // possible the reliably detect so advise against using it.
     (
       mi.getMacroName() = ["atomic_store", "atomic_store_explicit"]
