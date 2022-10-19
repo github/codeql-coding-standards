@@ -1,0 +1,8 @@
+| test.c:26:3:26:13 | call to thrd_create | Thread may call join or detach after the thread is joined or detached. |
+| test.c:32:3:32:13 | call to thrd_create | Thread may call join or detach after the thread is joined or detached. |
+| test.c:37:3:37:13 | call to thrd_create | Thread may call join or detach after the thread is joined or detached. |
+| test.c:58:3:58:13 | call to thrd_create | Thread may call join or detach after the thread is joined or detached. |
+| test.c:66:3:66:13 | call to thrd_create | Thread may call join or detach after the thread is joined or detached. |
+| test.c:73:3:73:13 | call to thrd_create | Thread may call join or detach after the thread is joined or detached. |
+| test.c:87:3:87:13 | call to thrd_create | Thread may call join or detach after the thread is joined or detached. |
+| test.c:94:3:94:13 | call to thrd_create | Thread may call join or detach after the thread is joined or detached. |
