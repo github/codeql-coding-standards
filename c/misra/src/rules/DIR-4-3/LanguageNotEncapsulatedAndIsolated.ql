@@ -15,7 +15,14 @@
 import cpp
 import codingstandards.c.misra
 
-from
+from AsmStmt asm
 where
-  not isExcluded(x, Language1Package::languageNotEncapsulatedAndIsolatedQuery()) and
-select
+  not isExcluded(asm, Language1Package::languageNotEncapsulatedAndIsolatedQuery()) and
+  not exists(asm.getEnclosingFunction())
+  or
+  // in concept statements within the body constitute intermingling assembly,
+  // rather than expressions and are more general.
+  exists(Stmt sp | sp = asm.getEnclosingFunction().getEntryPoint().getASuccessor*() |
+    not sp instanceof AsmStmt and not sp instanceof ReturnStmt and not sp instanceof BlockStmt
+  )
+select asm, "Usage of non-isolated and non-encapsulated assembly language."
