@@ -1,0 +1,1 @@
+| test.c:10:12:10:18 | call to strtoul | The value of `errno` may be different than `0` when this function is called. |

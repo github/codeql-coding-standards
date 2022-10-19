@@ -1,0 +1,73 @@
+{
+  "CERT-C": {
+    "ERR30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not check errno before the function return value.",
+          "kind": "problem",
+          "name": "Do not check errno before the function return value.",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ErrnoReadBeforeReturn",
+          "tags": ["correctness"]
+        },
+        {
+          "description": "After calling an errno-setting function, check errno before calling any other function. Failing to do so might end in errno being overwritten.",
+          "kind": "problem",
+          "name": "Do not call a function before checking errno.",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "FunctionCallBeforeErrnoCheck",
+          "tags": ["correctness"]
+        },
+        {
+          "description": "Set errno to zero prior to each call to an errno-setting function. Failing to do so might end in spurious errno values.",
+          "kind": "problem",
+          "name": "Errno is not set to zero prior to an errno-setting call",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ErrnoNotSetToZero",
+          "tags": ["correctness"]
+        }
+      ],
+      "title": "Take care when reading errno"
+    },
+    "ERR32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Do not rely on indeterminate values of errno",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotRelyOnIndeterminateValuesOfErrno",
+          "tags": []
+        }
+      ],
+      "title": "Do not rely on indeterminate values of errno"
+    },
+    "ERR33-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Detect and handle standard library errors",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DetectAndHandleStandardLibraryErrors",
+          "tags": []
+        }
+      ],
+      "title": "Detect and handle standard library errors"
+    }
+  }
+}

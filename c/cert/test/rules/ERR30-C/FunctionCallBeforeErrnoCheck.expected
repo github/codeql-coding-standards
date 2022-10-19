@@ -1,0 +1,1 @@
+| test.c:32:3:32:8 | call to helper | Call to a function happens before ERRNO check for function $@ | test.c:31:12:31:18 | call to strtoul | call to strtoul |

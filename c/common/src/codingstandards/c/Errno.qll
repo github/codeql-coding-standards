@@ -10,11 +10,26 @@ abstract class ErrnoSettingFunction extends Function { }
 
 /*
  * An errno-setting function that return out-of-band errors indicators
+ * as listed in the MISRA standard
  */
 
-class OutOfBandErrnoSettingFunction extends ErrnoSettingFunction {
-  OutOfBandErrnoSettingFunction() {
+class OutOfBandErrnoSettingFunctionMisra extends ErrnoSettingFunction {
+  OutOfBandErrnoSettingFunctionMisra() {
     this.hasGlobalName(["ftell", "fgetpos", "fsetpos", "mbrtowc", "wcrtomb", "wcsrtombs"])
+  }
+}
+
+/*
+ * An errno-setting function that return out-of-band errors indicators
+ * as listed in the CERT standard
+ */
+
+class OutOfBandErrnoSettingFunctionCert extends Function {
+  OutOfBandErrnoSettingFunctionCert() {
+    this.hasGlobalName([
+        "ftell", "fgetpos", "fsetpos", "mbrtowc", "mbsrtowcs", "signal", "wcrtomb", "wcsrtombs",
+        "mbrtoc16", "mbrtoc32", "c16rtomb", "c32rtomb"
+      ])
   }
 }
 
@@ -53,13 +68,13 @@ abstract class ErrnoGuard extends StmtParent {
   abstract ControlFlowNode getNonZeroedSuccessor();
 }
 
-class ErrnoIfGuard extends EqualityOperation, ErrnoGuard {
+class ErrnoIfGuard extends ErrnoGuard {
   ControlStructure i;
 
   ErrnoIfGuard() {
-    this.getAnOperand() = any(MacroInvocation ma | ma.getMacroName() = "errno").getExpr() and
-    this.getAnOperand().getValue() = "0" and
-    i.getControllingExpr() = this
+    i.getControllingExpr() = this and
+    this.(EqualityOperation).getAnOperand*() =
+      any(MacroInvocation ma | ma.getMacroName() = "errno").getExpr()
   }
 
   Stmt getThenSuccessor() {
@@ -77,11 +92,29 @@ class ErrnoIfGuard extends EqualityOperation, ErrnoGuard {
   }
 
   override ControlFlowNode getZeroedSuccessor() {
-    if this instanceof EQExpr then result = this.getThenSuccessor() else result = getElseSuccessor()
+    (
+      if this instanceof EQExpr
+      then result = this.getThenSuccessor()
+      else result = getElseSuccessor()
+    ) and
+    (
+      this.(EqualityOperation).getAnOperand().getValue() = "0"
+      or
+      this = any(MacroInvocation ma | ma.getMacroName() = "errno").getExpr()
+    )
   }
 
   override ControlFlowNode getNonZeroedSuccessor() {
-    if this instanceof NEExpr then result = this.getThenSuccessor() else result = getElseSuccessor()
+    (
+      if this instanceof NEExpr
+      then result = this.getThenSuccessor()
+      else result = getElseSuccessor()
+    ) and
+    (
+      this.(EqualityOperation).getAnOperand().getValue() = "0"
+      or
+      this = any(MacroInvocation ma | ma.getMacroName() = "errno").getExpr()
+    )
   }
 }
 
