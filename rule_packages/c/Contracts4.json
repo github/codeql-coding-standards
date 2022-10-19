@@ -8,7 +8,7 @@
         {
           "description": "Do not check errno before the function return value.",
           "kind": "problem",
-          "name": "Do not check errno before the function return value.",
+          "name": "Do not check errno before the function return value",
           "precision": "high",
           "severity": "error",
           "short_name": "ErrnoReadBeforeReturn",
