@@ -41,13 +41,13 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Do not rely on indeterminate values of errno.",
           "kind": "problem",
           "name": "Do not rely on indeterminate values of errno",
           "precision": "high",
           "severity": "error",
           "short_name": "DoNotRelyOnIndeterminateValuesOfErrno",
-          "tags": []
+          "tags": ["correctness"]
         }
       ],
       "title": "Do not rely on indeterminate values of errno"
@@ -58,13 +58,13 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Detect and handle standard library errors.",
           "kind": "problem",
           "name": "Detect and handle standard library errors",
           "precision": "high",
           "severity": "error",
           "short_name": "DetectAndHandleStandardLibraryErrors",
-          "tags": []
+          "tags": ["correctness"]
         }
       ],
       "title": "Detect and handle standard library errors"
