@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+script_path = Path(__file__)
+# Add the shared modules to the path so we can import them.
+sys.path.append(str(script_path.parent.parent / 'shared'))
+from codeql import CodeQL
+
 import diagnostics
 import deviations
 from pathlib import Path

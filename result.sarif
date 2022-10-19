@@ -1,0 +1,2226 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "CodeQL",
+        "organization" : "GitHub",
+        "semanticVersion" : "2.9.4",
+        "rules" : [ {
+          "id" : "c/misra/errno-set-to-zero-prior-to-call",
+          "name" : "c/misra/errno-set-to-zero-prior-to-call",
+          "shortDescription" : {
+            "text" : "RULE-22-8: The value of errno shall be set to zero prior to a call to an errno-setting-function"
+          },
+          "fullDescription" : {
+            "text" : "The value of errno shall be set to zero prior to a call to an errno-setting-function."
+          },
+          "defaultConfiguration" : {
+            "enabled" : true,
+            "level" : "error"
+          },
+          "properties" : {
+            "tags" : [ "external/misra/id/rule-22-8", "correctness", "external/misra/obligation/required" ],
+            "description" : "The value of errno shall be set to zero prior to a call to an\n              errno-setting-function.",
+            "id" : "c/misra/errno-set-to-zero-prior-to-call",
+            "kind" : "problem",
+            "name" : "RULE-22-8: The value of errno shall be set to zero prior to a call to an errno-setting-function",
+            "precision" : "very-high",
+            "problem.severity" : "error"
+          }
+        }, {
+          "id" : "c/misra/errno-set-to-zero-after-call",
+          "name" : "c/misra/errno-set-to-zero-after-call",
+          "shortDescription" : {
+            "text" : "RULE-22-9: The value of errno shall be tested against zero after calling an errno-setting-function"
+          },
+          "fullDescription" : {
+            "text" : "The value of errno shall be tested against zero after calling an errno-setting-function."
+          },
+          "defaultConfiguration" : {
+            "enabled" : true,
+            "level" : "error"
+          },
+          "properties" : {
+            "tags" : [ "external/misra/id/rule-22-9", "correctness", "external/misra/obligation/required" ],
+            "description" : "The value of errno shall be tested against zero after calling an\n              errno-setting-function.",
+            "id" : "c/misra/errno-set-to-zero-after-call",
+            "kind" : "problem",
+            "name" : "RULE-22-9: The value of errno shall be tested against zero after calling an errno-setting-function",
+            "precision" : "very-high",
+            "problem.severity" : "error"
+          }
+        }, {
+          "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+          "name" : "c/misra/only-test-errno-right-after-errno-setting-function",
+          "shortDescription" : {
+            "text" : "RULE-22-10: The value of errno shall only be tested when the last function to be called was an"
+          },
+          "fullDescription" : {
+            "text" : "The value of errno shall only be tested when the last function to be called was an errno-setting-function."
+          },
+          "defaultConfiguration" : {
+            "enabled" : true,
+            "level" : "error"
+          },
+          "properties" : {
+            "tags" : [ "external/misra/id/rule-22-10", "correctness", "external/misra/obligation/required" ],
+            "description" : "The value of errno shall only be tested when the last function to be called was an\n              errno-setting-function.",
+            "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+            "kind" : "problem",
+            "name" : "RULE-22-10: The value of errno shall only be tested when the last function to be called was an",
+            "precision" : "very-high",
+            "problem.severity" : "error"
+          }
+        } ]
+      },
+      "extensions" : [ {
+        "name" : "cert-c-coding-standards",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/cert/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/cert/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "legacy-libraries-javascript",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/javascript/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/javascript/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/csharp-solorigate-queries",
+        "semanticVersion" : "1.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/campaigns/Solorigate/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/campaigns/Solorigate/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/javascript-experimental-atm-lib",
+        "semanticVersion" : "0.2.1+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/javascript/ql/experimental/adaptivethreatmodeling/lib/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/javascript/ql/experimental/adaptivethreatmodeling/lib/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/javascript-queries",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/javascript-queries/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/javascript-queries/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/cpp-queries",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/cpp-queries/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/cpp-queries/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ruby-all",
+        "semanticVersion" : "0.2.3+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/ruby-all/0.2.3/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/ruby-all/0.2.3/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/go-queries",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/go-queries/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/go-queries/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/csharp-queries",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/csharp-queries/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/csharp-queries/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/javascript-experimental-atm-model-building",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/javascript/ql/experimental/adaptivethreatmodeling/modelbuilding/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/javascript/ql/experimental/adaptivethreatmodeling/modelbuilding/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/javascript-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/javascript/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/javascript/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "report-cpp-coding-standards",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/report/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/report/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "cert-cpp-coding-standards",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/cert/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/cert/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/go-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/go/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/go/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql-csharp-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "autosar-cpp-coding-standards",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/autosar/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/autosar/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "csharp-solorigate-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/campaigns/Solorigate/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/campaigns/Solorigate/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/java-examples",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/java-examples/0.0.0/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/java-examples/0.0.0/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/python-all",
+        "semanticVersion" : "0.4.1+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/python-all/0.4.1/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/python-all/0.4.1/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql-swift-tests",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/swift/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/swift/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/java-queries",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/java-queries/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/java-queries/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/csharp-solorigate-all",
+        "semanticVersion" : "1.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/campaigns/Solorigate/lib/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/campaigns/Solorigate/lib/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/javascript-examples",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/javascript-examples/0.0.0/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/javascript-examples/0.0.0/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "misra-c-coding-standards",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/misra/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/misra/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ql-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ql/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ql/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "legacy-libraries-java",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/java/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/java/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/python-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/python/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/python/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "misra-cpp-coding-standards-tests",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/misra/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/misra/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ruby-consistency-queries",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ruby/ql/consistency-queries/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ruby/ql/consistency-queries/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "legacy-upgrades",
+        "semanticVersion" : "0.0.0",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/legacy-upgrades/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/legacy-upgrades/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/cpp-tests-cwe-190-tainted",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/cpp/ql/test/query-tests/Security/CWE/CWE-190/semmle/tainted/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/cpp/ql/test/query-tests/Security/CWE/CWE-190/semmle/tainted/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "common-c-coding-standards-tests",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/common/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/common/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/go-examples",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/go-examples/0.0.0/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/go-examples/0.0.0/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "legacy-libraries-csharp",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/csharp/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/csharp/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/cpp-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/cpp/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/cpp/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ql-examples",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ql/ql/examples/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ql/ql/examples/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/go-all",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/go-all/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/go-all/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ql-consistency-queries",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ql/ql/consistency-queries/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ql/ql/consistency-queries/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/python-consistency-queries",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/python/ql/consistency-queries/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/python/ql/consistency-queries/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/java-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/java/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/java/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql-csharp-consistency-queries",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/consistency-queries/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/csharp/ql/consistency-queries/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "legacy-libraries-cpp",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/cpp/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/cpp/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ql",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ql/ql/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ql/ql/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/cpp-all",
+        "semanticVersion" : "0.2.3+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/cpp-all/0.2.3/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/cpp-all/0.2.3/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ruby-examples",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/ruby-examples/0.0.0/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/ruby-examples/0.0.0/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/csharp-examples",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/csharp-examples/0.0.0/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/csharp-examples/0.0.0/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "misra-cpp-coding-standards",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/misra/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/misra/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql-java-consistency-queries",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/java/ql/consistency-queries/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/java/ql/consistency-queries/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/cpp-examples",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/cpp-examples/0.0.0/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/cpp-examples/0.0.0/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/csharp-all",
+        "semanticVersion" : "0.2.3+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/csharp-all/0.2.3/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/csharp-all/0.2.3/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/javascript-all",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/javascript-all/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/javascript-all/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "common-cpp-coding-standards",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/common/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/common/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "autosar-cpp-coding-standards-tests",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/autosar/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/autosar/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/javascript-experimental-atm-queries",
+        "semanticVersion" : "0.2.1+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/javascript/ql/experimental/adaptivethreatmodeling/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/javascript/ql/experimental/adaptivethreatmodeling/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "common-c-coding-standards",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/common/src/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/common/src/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "cert-c-coding-standards-tests",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/cert/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/cert/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "common-cpp-coding-standards-tests",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/common/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/common/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ruby-queries",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/ruby-queries/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/ruby-queries/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "misra-c-coding-standards-tests",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/misra/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/c/misra/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/swift-all",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/swift/ql/lib/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/swift/ql/lib/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/python-examples",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/python-examples/0.0.0/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/python-examples/0.0.0/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/java-all",
+        "semanticVersion" : "0.2.3+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/java-all/0.2.3/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/java-all/0.2.3/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/ruby-tests",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ruby/ql/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/ruby/ql/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "legacy-libraries-python",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/python/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/misc/legacy-support/python/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "legacy-libraries-go",
+        "semanticVersion" : "0.0.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/go/ql/config/legacy-support/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql_modules/codeql/go/ql/config/legacy-support/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/python-queries",
+        "semanticVersion" : "0.1.4+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/python-queries/0.1.4/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/python-queries/0.1.4/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "codeql/suite-helpers",
+        "semanticVersion" : "0.1.0+28fe7a76603ab7ef884ca35115b63104ecb699a7",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/suite-helpers/0.1.0/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/codeql-bundle-20220615/qlpacks/codeql/suite-helpers/0.1.0/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      }, {
+        "name" : "cert-cpp-coding-standards-tests",
+        "semanticVersion" : "2.9.0-dev+92da2d1e3f11980ba56451ae91f7c963417c2e58",
+        "locations" : [ {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/cert/test/",
+          "description" : {
+            "text" : "The QL pack root directory."
+          }
+        }, {
+          "uri" : "file:///Users/mauro/GitHub/coding-standards/codeql-coding-standards-mbaluda-org/cpp/cert/test/qlpack.yml",
+          "description" : {
+            "text" : "The QL pack definition file."
+          }
+        } ]
+      } ]
+    },
+    "artifacts" : [ {
+      "location" : {
+        "uri" : "cereal/messaging/bridge.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 0
+      }
+    }, {
+      "location" : {
+        "uri" : "cereal/messaging/impl_msgq.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 1
+      }
+    }, {
+      "location" : {
+        "uri" : "cereal/messaging/msgq.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 2
+      }
+    }, {
+      "location" : {
+        "uri" : "selfdrive/common/util.h",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 3
+      }
+    }, {
+      "location" : {
+        "uri" : "selfdrive/common/params.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 4
+      }
+    }, {
+      "location" : {
+        "uri" : "selfdrive/common/util.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 5
+      }
+    }, {
+      "location" : {
+        "uri" : "phonelibs/json11/json11.cpp",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 6
+      }
+    }, {
+      "location" : {
+        "uri" : "phonelibs/nanovg/fontstash.h",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 7
+      }
+    }, {
+      "location" : {
+        "uri" : "phonelibs/nanovg/stb_image.h",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 8
+      }
+    }, {
+      "location" : {
+        "uri" : "cereal/messaging/messaging_pyx.cpp",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 9
+      }
+    }, {
+      "location" : {
+        "uri" : "cereal/visionipc/visionipc_server.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 10
+      }
+    }, {
+      "location" : {
+        "uri" : "selfdrive/boardd/boardd.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 11
+      }
+    }, {
+      "location" : {
+        "uri" : "selfdrive/locationd/ubloxd_main.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 12
+      }
+    }, {
+      "location" : {
+        "uri" : "selfdrive/loggerd/logger.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 13
+      }
+    }, {
+      "location" : {
+        "uri" : "selfdrive/modeld/runners/onnxmodel.cc",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 14
+      }
+    } ],
+    "results" : [ {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/bridge.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 33,
+            "startColumn" : 3,
+            "endColumn" : 9
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "636fef6e763c8095:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/impl_msgq.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 1
+          },
+          "region" : {
+            "startLine" : 104,
+            "startColumn" : 27,
+            "endColumn" : 38
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "5209dfcdf33ea521:1",
+        "primaryLocationStartColumnFingerprint" : "22"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/impl_msgq.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 1
+          },
+          "region" : {
+            "startLine" : 105,
+            "startColumn" : 28,
+            "endColumn" : 39
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "b3ef4771d071447b:1",
+        "primaryLocationStartColumnFingerprint" : "23"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/impl_msgq.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 1
+          },
+          "region" : {
+            "startLine" : 136,
+            "startColumn" : 5,
+            "endColumn" : 16
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "bf343d47751ba08:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/impl_msgq.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 1
+          },
+          "region" : {
+            "startLine" : 137,
+            "startColumn" : 5,
+            "endColumn" : 16
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "995721631a9fcca5:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/msgq.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 2
+          },
+          "region" : {
+            "startLine" : 87,
+            "startColumn" : 3,
+            "endColumn" : 14
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "c6ba4a9b4c1802aa:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/util.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 3
+          },
+          "region" : {
+            "startLine" : 104,
+            "startColumn" : 5,
+            "endColumn" : 16
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "31fff0889a23ba38:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/util.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 3
+          },
+          "region" : {
+            "startLine" : 105,
+            "startColumn" : 5,
+            "endColumn" : 16
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "68e943f59c4f7cc3:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/params.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 285,
+            "startColumn" : 38,
+            "endColumn" : 49
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "9e50946b9d91a32a:1",
+        "primaryLocationStartColumnFingerprint" : "35"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/params.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 286,
+            "startColumn" : 39,
+            "endColumn" : 50
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "e2161b7c89bfb33b:1",
+        "primaryLocationStartColumnFingerprint" : "36"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/params.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 297,
+            "startColumn" : 3,
+            "endColumn" : 14
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "34e7c162ad460993:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/params.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 298,
+            "startColumn" : 3,
+            "endColumn" : 14
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "6949bc1cdfcb8423:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/util.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 24,
+            "startColumn" : 16,
+            "endColumn" : 21
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "102cf1355e3789bb:1",
+        "primaryLocationStartColumnFingerprint" : "13"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/json11/json11.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 6
+          },
+          "region" : {
+            "startLine" : 617,
+            "startColumn" : 16,
+            "endColumn" : 27
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "fd4ef13113fac766:1",
+        "primaryLocationStartColumnFingerprint" : "7"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/json11/json11.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 6
+          },
+          "region" : {
+            "startLine" : 522,
+            "startColumn" : 34,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "211fc5ff585c062b:1",
+        "primaryLocationStartColumnFingerprint" : "17"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/fontstash.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 7
+          },
+          "region" : {
+            "startLine" : 883,
+            "startColumn" : 18,
+            "endColumn" : 23
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "5c92ed8cccc69c6c:1",
+        "primaryLocationStartColumnFingerprint" : "16"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6436,
+            "startColumn" : 15,
+            "endColumn" : 20
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "ff6e606241b4c788:1",
+        "primaryLocationStartColumnFingerprint" : "11"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6143,
+            "startColumn" : 15,
+            "endColumn" : 21
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "87b09b891eb52878:1",
+        "primaryLocationStartColumnFingerprint" : "11"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6150,
+            "startColumn" : 15,
+            "endColumn" : 21
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "2e7a68291d830b4b:1",
+        "primaryLocationStartColumnFingerprint" : "11"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6036,
+            "startColumn" : 19,
+            "endColumn" : 25
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "ffc8fdd17962e141:1",
+        "primaryLocationStartColumnFingerprint" : "15"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-prior-to-call",
+      "ruleIndex" : 0,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-prior-to-call",
+        "index" : 0
+      },
+      "message" : {
+        "text" : "The value of `errno` may be different then 0 when this function is called."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6040,
+            "startColumn" : 18,
+            "endColumn" : 24
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "ad042c8e45ced80c:1",
+        "primaryLocationStartColumnFingerprint" : "14"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-after-call",
+      "ruleIndex" : 1,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-after-call",
+        "index" : 1
+      },
+      "message" : {
+        "text" : "The value of `errno` is not tested against `0` after the call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/json11/json11.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 6
+          },
+          "region" : {
+            "startLine" : 617,
+            "startColumn" : 16,
+            "endColumn" : 27
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "fd4ef13113fac766:1",
+        "primaryLocationStartColumnFingerprint" : "7"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-after-call",
+      "ruleIndex" : 1,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-after-call",
+        "index" : 1
+      },
+      "message" : {
+        "text" : "The value of `errno` is not tested against `0` after the call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/json11/json11.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 6
+          },
+          "region" : {
+            "startLine" : 522,
+            "startColumn" : 34,
+            "endColumn" : 40
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "211fc5ff585c062b:1",
+        "primaryLocationStartColumnFingerprint" : "17"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-after-call",
+      "ruleIndex" : 1,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-after-call",
+        "index" : 1
+      },
+      "message" : {
+        "text" : "The value of `errno` is not tested against `0` after the call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6143,
+            "startColumn" : 15,
+            "endColumn" : 21
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "87b09b891eb52878:1",
+        "primaryLocationStartColumnFingerprint" : "11"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-after-call",
+      "ruleIndex" : 1,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-after-call",
+        "index" : 1
+      },
+      "message" : {
+        "text" : "The value of `errno` is not tested against `0` after the call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6150,
+            "startColumn" : 15,
+            "endColumn" : 21
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "2e7a68291d830b4b:1",
+        "primaryLocationStartColumnFingerprint" : "11"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-after-call",
+      "ruleIndex" : 1,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-after-call",
+        "index" : 1
+      },
+      "message" : {
+        "text" : "The value of `errno` is not tested against `0` after the call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6036,
+            "startColumn" : 19,
+            "endColumn" : 25
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "ffc8fdd17962e141:1",
+        "primaryLocationStartColumnFingerprint" : "15"
+      }
+    }, {
+      "ruleId" : "c/misra/errno-set-to-zero-after-call",
+      "ruleIndex" : 1,
+      "rule" : {
+        "id" : "c/misra/errno-set-to-zero-after-call",
+        "index" : 1
+      },
+      "message" : {
+        "text" : "The value of `errno` is not tested against `0` after the call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "phonelibs/nanovg/stb_image.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 6040,
+            "startColumn" : 18,
+            "endColumn" : 24
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "ad042c8e45ced80c:1",
+        "primaryLocationStartColumnFingerprint" : "14"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/messaging_pyx.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 3503,
+            "startColumn" : 19,
+            "endColumn" : 38
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "5abf3aa335e9391:1",
+        "primaryLocationStartColumnFingerprint" : "14"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/messaging_pyx.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 3345,
+            "startColumn" : 19,
+            "endColumn" : 38
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "39240f24eda1a81d:2",
+        "primaryLocationStartColumnFingerprint" : "14"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/messaging_pyx.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 2841,
+            "startColumn" : 19,
+            "endColumn" : 33
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "bf4ffc893a910f70:1",
+        "primaryLocationStartColumnFingerprint" : "14"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/messaging/messaging_pyx.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 2597,
+            "startColumn" : 19,
+            "endColumn" : 38
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "39240f24eda1a81d:1",
+        "primaryLocationStartColumnFingerprint" : "14"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/visionipc/visionipc_server.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 10
+          },
+          "region" : {
+            "startLine" : 90,
+            "startColumn" : 11,
+            "endColumn" : 25
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "e48df83beec45dfc:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "cereal/visionipc/visionipc_server.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 10
+          },
+          "region" : {
+            "startLine" : 90,
+            "startColumn" : 29,
+            "endColumn" : 44
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "e48df83beec45dfc:1",
+        "primaryLocationStartColumnFingerprint" : "22"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/params.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 63,
+            "startColumn" : 13,
+            "endColumn" : 28
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "cf6d53ba722fc622:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/common/params.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 69,
+            "startColumn" : 9,
+            "endColumn" : 24
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "720a0a9533199e56:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/boardd/boardd.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 11
+          },
+          "region" : {
+            "startLine" : 216,
+            "startColumn" : 11,
+            "endColumn" : 25
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "fa5062f4f2e43fcf:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/locationd/ubloxd_main.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 12
+          },
+          "region" : {
+            "startLine" : 39,
+            "startColumn" : 11,
+            "endColumn" : 25
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "fa5062f4f2e43fcf:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/loggerd/logger.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 13
+          },
+          "region" : {
+            "startLine" : 36,
+            "startColumn" : 11,
+            "endColumn" : 26
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "7ac482944c5230ec:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/modeld/runners/onnxmodel.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 14
+          },
+          "region" : {
+            "startLine" : 77,
+            "startColumn" : 5,
+            "endColumn" : 54
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "d5db5f87da23811e:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "c/misra/only-test-errno-right-after-errno-setting-function",
+      "ruleIndex" : 2,
+      "rule" : {
+        "id" : "c/misra/only-test-errno-right-after-errno-setting-function",
+        "index" : 2
+      },
+      "message" : {
+        "text" : "The value of `errno` shell only be tested after an errno-setting function call."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "selfdrive/modeld/runners/onnxmodel.cc",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 14
+          },
+          "region" : {
+            "startLine" : 80,
+            "startColumn" : 5,
+            "endColumn" : 52
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "1795e1ff0a7bd0a9:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    } ],
+    "columnKind" : "utf16CodeUnits",
+    "properties" : {
+      "semmle.formatSpecifier" : "sarifv2.1.0"
+    }
+  } ]
+}

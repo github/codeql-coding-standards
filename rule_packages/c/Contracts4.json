@@ -17,7 +17,7 @@
         {
           "description": "After calling an errno-setting function, check errno before calling any other function. Failing to do so might end in errno being overwritten.",
           "kind": "problem",
-          "name": "Do not call a function before checking errno.",
+          "name": "Do not call a function before checking errno",
           "precision": "high",
           "severity": "error",
           "short_name": "FunctionCallBeforeErrnoCheck",
