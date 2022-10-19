@@ -1,0 +1,43 @@
+{
+  "MISRA-C-2012": {
+    "DIR-4-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Failing to encapsulate assembly language limits the portability, reliability, and readability of programs.",
+          "kind": "problem",
+          "name": "Assembly language shall be encapsulated and isolated",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LanguageNotEncapsulatedAndIsolated",
+          "tags": [
+            "maintainability",
+            "readability" 
+          ]
+        }
+      ],
+      "title": "Assembly language shall be encapsulated and isolated"
+    },
+    "RULE-1-2": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The use of language extensions may reduce the portability and reliability of programs.",
+          "kind": "problem",
+          "name": "Language extensions should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LanguageExtensionsShouldNotBeUsed",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Language extensions should not be used"
+    }
+  }
+}
