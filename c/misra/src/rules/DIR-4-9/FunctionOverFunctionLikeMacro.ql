@@ -18,30 +18,39 @@ import codingstandards.c.misra
 import codingstandards.cpp.FunctionLikeMacro
 import codingstandards.cpp.Naming
 
-predicate omission(Macro i) { Naming::Cpp14::hasStandardLibraryMacroName(i.getName()) }
-
 abstract class IrreplaceableFunctionLikeMacro extends FunctionLikeMacro { }
 
+/** A standard library function like macro that contains the use of a stringize or tokenize operator should not be replaced by a function. */
+private class StringizeOrTokenizeMacro extends IrreplaceableFunctionLikeMacro {
+  StringizeOrTokenizeMacro() { this.getBody().regexpMatch(".*\\#{1,2}?.*") }
+}
+
+/** A standard library function like macro that should not be replaced by a function. */
+private class StandardLibraryFunctionLikeMacro extends IrreplaceableFunctionLikeMacro {
+  StandardLibraryFunctionLikeMacro() { Naming::Cpp14::hasStandardLibraryMacroName(this.getName()) }
+}
+
+/** A function like macro invocation as an `asm` argument cannot be replaced by a function. */
 private class AsmArgumentInvoked extends IrreplaceableFunctionLikeMacro {
   AsmArgumentInvoked() {
     any(AsmStmt s).getLocation().subsumes(this.getAnInvocation().getLocation())
   }
 }
 
+/** A macro that is only invoked with constant arguments is more likely to be compile-time evaluated than a function call so do not suggest replacement. */
 private class OnlyConstantNumericInvoked extends IrreplaceableFunctionLikeMacro {
   OnlyConstantNumericInvoked() {
     forex(MacroInvocation mi | mi = this.getAnInvocation() |
+      //int/float literals
       mi.getUnexpandedArgument(_).regexpMatch("\\d+")
+      or
+      //char/string literal
+      mi.getUnexpandedArgument(_).regexpMatch("(\\'|\")+.*")
     )
   }
 }
 
-private class KnownIrreplaceableFunctionLikeMacro extends IrreplaceableFunctionLikeMacro {
-  KnownIrreplaceableFunctionLikeMacro() {
-    this.getName() in ["UNUSED", "__has_builtin", "MIN", "MAX"]
-  }
-}
-
+/** A function like macro invoked to initialize an object with static storage that cannot be replaced with a function call. */
 private class UsedToStaticInitialize extends IrreplaceableFunctionLikeMacro {
   UsedToStaticInitialize() {
     any(StaticStorageDurationVariable v).getInitializer().getExpr() =
@@ -49,36 +58,11 @@ private class UsedToStaticInitialize extends IrreplaceableFunctionLikeMacro {
   }
 }
 
+/** A function like macro that is called with an argument that is an operator that cannot be replaced with a function call. */
 private class FunctionLikeMacroWithOperatorArgument extends IrreplaceableFunctionLikeMacro {
   FunctionLikeMacroWithOperatorArgument() {
     exists(MacroInvocation mi | mi.getMacro() = this |
       mi.getUnexpandedArgument(_) = any(Operation op).getOperator()
-    )
-  }
-}
-
-abstract class UnsafeMacro extends FunctionLikeMacro { }
-
-class ParameterNotUsedMacro extends UnsafeMacro {
-  ParameterNotUsedMacro() {
-    //parameter not used - has false positives on args that are not used but are substrings of other args
-    exists(string p |
-      p = this.getAParameter() and
-      not this.getBody().regexpMatch(".*(\\s*|\\(|\\)|\\##)" + p + "(\\s*||\\)|\\(|\\##).*")
-    )
-  }
-}
-
-class ParameterMoreThanOnceMacro extends UnsafeMacro {
-  ParameterMoreThanOnceMacro() {
-    //parameter used more than once
-    exists(string p |
-      p = this.getAParameter() and
-      exists(int i, string newstr |
-        newstr = this.getBody().replaceAll(p, "") and
-        i = ((this.getBody().length() - newstr.length()) / p.length()) and
-        i > 1
-      )
     )
   }
 }
@@ -94,8 +78,6 @@ predicate partOfConstantExpr(MacroInvocation i) {
 from FunctionLikeMacro m
 where
   not isExcluded(m, Preprocessor6Package::functionOverFunctionLikeMacroQuery()) and
-  not omission(m) and
-  m instanceof UnsafeMacro and
   not m instanceof IrreplaceableFunctionLikeMacro and
   //function call not allowed in a constant expression (where constant expr is parent)
   forall(MacroInvocation i | i = m.getAnInvocation() | not partOfConstantExpr(i))
