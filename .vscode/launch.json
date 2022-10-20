@@ -4,8 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {"name":"Python: Analysis","type":"python","request":"launch","program":"${file}","console":"integratedTerminal","justMyCode":true,
-    "args": ["/Users/mauro/Library/Application Support/Code/User/workspaceStorage/e57bbfb678c951b23e0ff4c95397626d/GitHub.vscode-codeql/commaai-openpilot-72d1744d830bc249d8761a1d843a98fb0ced49fe-cpp/commaai-openpilot-72d1744d830bc249d8761a1d843a98fb0ced49fe-cpp","result.sarif","mydir"]},
         {
             "name": "PowerShell Launch Current File",
             "type": "PowerShell",

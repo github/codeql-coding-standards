@@ -1,4 +1,0 @@
-{
-    "codeQL.runningQueries.autoSave": true,
-    "sarif-viewer.connectToGithubCodeScanning": "on"
-}

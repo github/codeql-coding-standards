@@ -20,6 +20,3 @@
 # C/C++ build artifacts
 *.o
 /databases/
-/codeql_modules/codeql/
-/codeql-bundle*/
-
