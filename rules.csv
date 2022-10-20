@@ -604,7 +604,7 @@ c,MISRA-C-2012,RULE-2-1,Yes,Required,,,All source files shall compile without an
 c,MISRA-C-2012,RULE-3-1,No,Required,,,All code shall be traceable to documented requirements,,,,
 c,MISRA-C-2012,RULE-4-1,No,Required,,,Run-time failures shall be minimized,,,,
 c,MISRA-C-2012,RULE-4-2,Yes,Advisory,,,All usage of assembly language should be documented,M7-4-1,Language,Import,
-c,MISRA-C-2012,RULE-4-3,Yes,Required,,,Assembly language shall be encapsulated and isolated,,Language,Medium,
+c,MISRA-C-2012,DIR-4-3,Yes,Required,,,Assembly language shall be encapsulated and isolated,,Language1,Medium,
 c,MISRA-C-2012,RULE-4-4,Yes,Advisory,,,Sections of code should not be commented out,A2-7-2,Syntax,Import,
 c,MISRA-C-2012,DIR-4-5,Yes,Advisory,,,Identifiers in the same name space with overlapping visibility should be typographically unambiguous,M2-10-1,Syntax,Easy,
 c,MISRA-C-2012,RULE-4-6,Yes,Advisory,,,typedefs that indicate size and signedness should be used in place of the basic numerical types,,Types,Hard,

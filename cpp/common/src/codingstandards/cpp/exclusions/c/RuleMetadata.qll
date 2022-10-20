@@ -7,6 +7,7 @@ import Concurrency1
 import Concurrency2
 import Concurrency3
 import Concurrency4
+import Concurrency5
 import Contracts1
 import Contracts3
 import Declarations1
@@ -17,6 +18,7 @@ import IO1
 import IO2
 import IO3
 import IO4
+import Language1
 import Misc
 import Pointers1
 import Pointers2
@@ -40,6 +42,7 @@ newtype TCQuery =
   TConcurrency2PackageQuery(Concurrency2Query q) or
   TConcurrency3PackageQuery(Concurrency3Query q) or
   TConcurrency4PackageQuery(Concurrency4Query q) or
+  TConcurrency5PackageQuery(Concurrency5Query q) or
   TContracts1PackageQuery(Contracts1Query q) or
   TContracts3PackageQuery(Contracts3Query q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
@@ -50,6 +53,7 @@ newtype TCQuery =
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
   TIO4PackageQuery(IO4Query q) or
+  TLanguage1PackageQuery(Language1Query q) or
   TMiscPackageQuery(MiscQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
@@ -73,6 +77,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isConcurrency2QueryMetadata(query, queryId, ruleId) or
   isConcurrency3QueryMetadata(query, queryId, ruleId) or
   isConcurrency4QueryMetadata(query, queryId, ruleId) or
+  isConcurrency5QueryMetadata(query, queryId, ruleId) or
   isContracts1QueryMetadata(query, queryId, ruleId) or
   isContracts3QueryMetadata(query, queryId, ruleId) or
   isDeclarations1QueryMetadata(query, queryId, ruleId) or
@@ -83,6 +88,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isIO2QueryMetadata(query, queryId, ruleId) or
   isIO3QueryMetadata(query, queryId, ruleId) or
   isIO4QueryMetadata(query, queryId, ruleId) or
+  isLanguage1QueryMetadata(query, queryId, ruleId) or
   isMiscQueryMetadata(query, queryId, ruleId) or
   isPointers1QueryMetadata(query, queryId, ruleId) or
   isPointers2QueryMetadata(query, queryId, ruleId) or
