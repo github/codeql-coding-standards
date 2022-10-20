@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "DIR-4-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Failing to encapsulate assembly language limits the portability, reliability, and readability of programs.",
+          "kind": "problem",
+          "name": "Assembly language shall be encapsulated and isolated",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LanguageNotEncapsulatedAndIsolated",
+          "tags": [
+            "maintainability",
+            "readability" 
+          ]
+        }
+      ],
+      "title": "Assembly language shall be encapsulated and isolated"
+    }
+  }
+}
