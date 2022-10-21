@@ -31,7 +31,7 @@ class RegisteredAtexit extends FunctionAccess {
   }
 }
 
-/*
+/**
  * Nodes of type Function, FunctionCall or FunctionAccess that \
  * are reachable from a redistered atexit handler and
  * can reach an exit function.
