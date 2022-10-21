@@ -26,10 +26,9 @@ class GetenvFunctionCall extends FunctionCall {
   GetenvFunctionCall() { this.getTarget() instanceof GetenvFunction }
 }
 
-/*
+/**
  * Indirect call to a `GetenvFunctionCall`
  */
-
 class GetenvIndirectCall extends FunctionCall {
   GetenvFunction f;
 
@@ -38,10 +37,9 @@ class GetenvIndirectCall extends FunctionCall {
   GetenvFunction getFunction() { result = f }
 }
 
-/*
+/**
  * The two called functions shall not be use subsequently
  */
-
 predicate incompatibleFunctions(GetenvFunction f1, GetenvFunction f2) {
   f1 = f2
   or
