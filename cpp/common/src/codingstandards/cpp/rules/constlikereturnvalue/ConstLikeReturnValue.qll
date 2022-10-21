@@ -15,7 +15,6 @@ Query getQuery() { result instanceof ConstLikeReturnValueSharedQuery }
 /**
  * Call to functions that return pointers to environment objects that should not be modified.
  */
-
 class NotModifiableCall extends FunctionCall {
   NotModifiableCall() {
     this.getTarget().hasGlobalName(["getenv", "setlocale", "localeconv", "asctime", "strerror"])
@@ -25,7 +24,6 @@ class NotModifiableCall extends FunctionCall {
 /**
  * An expression that modifies an object.
  */
-
 class ObjectWrite extends Expr {
   ObjectWrite() {
     // the pointed object is reassigned
