@@ -1,0 +1,47 @@
+{
+  "CERT-C": {
+    "CON39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Joining or detaching a previously joined or detached thread can lead to undefined program behavior.",
+          "kind": "problem",
+          "name": "Do not join or detach a thread that was previously joined or detached",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThreadWasPreviouslyJoinedOrDetached",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This query considers problematic usages of join and detach irrespective of the execution of the program and other synchronization and interprocess communication mechanisms that may be used."
+          }
+        }
+      ],
+      "title": "Do not join or detach a thread that was previously joined or detached"
+    },
+    "CON40-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Atomic variables that are referred to twice in the same expression can produce unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Do not refer to an atomic variable twice in an expression",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AtomicVariableTwiceInExpression",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Do not refer to an atomic variable twice in an expression"
+    }
+  }
+}
