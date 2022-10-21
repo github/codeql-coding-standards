@@ -12,7 +12,7 @@ abstract class ConstLikeReturnValueSharedQuery extends Query { }
 
 Query getQuery() { result instanceof ConstLikeReturnValueSharedQuery }
 
-/*
+/**
  * Call to functions that return pointers to environment objects that should not be modified.
  */
 
