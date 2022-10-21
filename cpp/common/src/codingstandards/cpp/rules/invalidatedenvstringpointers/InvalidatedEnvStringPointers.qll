@@ -12,7 +12,7 @@ abstract class InvalidatedEnvStringPointersSharedQuery extends Query { }
 
 Query getQuery() { result instanceof InvalidatedEnvStringPointersSharedQuery }
 
-/*
+/**
  * A model of environment functions that shall not be use subsequently
  */
 
