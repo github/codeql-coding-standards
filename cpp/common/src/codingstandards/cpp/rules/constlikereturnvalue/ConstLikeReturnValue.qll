@@ -22,7 +22,7 @@ class NotModifiableCall extends FunctionCall {
   }
 }
 
-/*
+/**
  * An expression that modifies an object.
  */
 
