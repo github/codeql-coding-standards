@@ -105,8 +105,9 @@ def main():
                 f"The specified working directory '{args.working_dir}'' does not exist.", file=sys.stderr)
             sys.exit(1)
 
-    # Find all the coding-standards.yml files, and convert them in place to coding-standards.xml
-    for path in args.working_dir.rglob('coding-standards.yml'):
+    # Find all coding standards deviations files, and convert them in place to coding-standards.xml
+    for config_file_name in ['coding-standards.yml', 'coding-standards.yaml']:
+      for path in args.working_dir.rglob(config_file_name):
         convert_yaml_file_to_xml(path)
 
     if not args.skip_indexing:

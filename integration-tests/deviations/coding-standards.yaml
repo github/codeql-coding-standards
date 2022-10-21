@@ -1,0 +1,11 @@
+deviations:
+  - rule-id: "A0-1-1"
+    query-id: "cpp/autosar/useless-assignment" 
+    justification: "This useless assignment is required."
+    background: |
+      ## Useless assignments
+
+      We don't want to use useless assignments because they are useless.
+  - rule-id: "A0-4-2"
+    justification: "long double is required for interaction with third-pary libraries."
+    code-identifier: "a0-4-2-deviation"
