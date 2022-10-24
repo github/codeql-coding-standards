@@ -1,5 +1,28 @@
 {
   "MISRA-C-2012": {
+    "RULE-8-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Omission of parameter types or names prevents the compiler from doing type checking when those functions are used and therefore may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "Function types shall be in prototype form with named parameters",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "FunctionTypesNotInPrototypeForm",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for implicitly typed parameters and checks function declarations and definitions but not function pointer types. This query cannot determine when the keyword void is used in place of no parameter.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Function types shall be in prototype form with named parameters"
+    },
     "RULE-8-6": {
       "properties": {
         "obligation": "required"

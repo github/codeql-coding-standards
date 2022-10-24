@@ -3,9 +3,19 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Declarations4Query = TIdentifierWithExternalLinkageOneDefinitionQuery()
+newtype Declarations4Query =
+  TFunctionTypesNotInPrototypeFormQuery() or
+  TIdentifierWithExternalLinkageOneDefinitionQuery()
 
 predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleId) {
+  query =
+    // `Query` instance for the `functionTypesNotInPrototypeForm` query
+    Declarations4Package::functionTypesNotInPrototypeFormQuery() and
+  queryId =
+    // `@id` for the `functionTypesNotInPrototypeForm` query
+    "c/misra/function-types-not-in-prototype-form" and
+  ruleId = "RULE-8-2"
+  or
   query =
     // `Query` instance for the `identifierWithExternalLinkageOneDefinition` query
     Declarations4Package::identifierWithExternalLinkageOneDefinitionQuery() and
@@ -16,6 +26,13 @@ predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Declarations4Package {
+  Query functionTypesNotInPrototypeFormQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `functionTypesNotInPrototypeForm` query
+      TQueryC(TDeclarations4PackageQuery(TFunctionTypesNotInPrototypeFormQuery()))
+  }
+
   Query identifierWithExternalLinkageOneDefinitionQuery() {
     //autogenerate `Query` type
     result =
