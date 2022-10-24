@@ -15,18 +15,9 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.Errno
 
-/*
- * A call to an `ErrnoSettingFunction`
- */
-
-class InBandErrnoSettingFunctionCall extends FunctionCall {
-  InBandErrnoSettingFunctionCall() { this.getTarget() instanceof InBandErrnoSettingFunction }
-}
-
-/*
+/**
  * CFG nodes following a `ErrnoSettingFunctionCall`
  */
-
 ControlFlowNode notTestedAfterErrnoSet(InBandErrnoSettingFunctionCall fc) {
   result = fc
   or
