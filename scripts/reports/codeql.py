@@ -21,3 +21,4 @@ class CodeQLValidationSummary():
         for supported_environment in supported_environments:
             if supported_environment["codeql_cli"] == self.codeql.version:
                 self.supported_cli = True
+                
