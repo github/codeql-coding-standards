@@ -1,16 +1,1 @@
-beautifulsoup4==4.9.3
-certifi==2020.11.8
-chardet==3.0.4
-gitdb==4.0.5
-GitPython==3.1.12
-idna==2.10
-Jinja2==2.11.3
-MarkupSafe==1.1.1
-requests==2.25.0
-smmap==3.0.5
-soupsieve==2.0.1
-urllib3==1.26.5
 pyyaml==5.4
-wheel==0.37.0
-jsonschema==4.9.1
-marko==1.2.1
