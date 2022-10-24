@@ -1,29 +1,27 @@
 /** Provides a library for errno-setting functions. */
 
 import cpp
+import semmle.code.cpp.dataflow.DataFlow
 
-/*
+/**
  * An errno-setting function
  */
-
 abstract class ErrnoSettingFunction extends Function { }
 
-/*
+/**
  * An errno-setting function that return out-of-band errors indicators
  * as listed in the MISRA standard
  */
-
 class OutOfBandErrnoSettingFunctionMisra extends ErrnoSettingFunction {
   OutOfBandErrnoSettingFunctionMisra() {
     this.hasGlobalName(["ftell", "fgetpos", "fsetpos", "mbrtowc", "wcrtomb", "wcsrtombs"])
   }
 }
 
-/*
+/**
  * An errno-setting function that return out-of-band errors indicators
  * as listed in the CERT standard
  */
-
 class OutOfBandErrnoSettingFunctionCert extends Function {
   OutOfBandErrnoSettingFunctionCert() {
     this.hasGlobalName([
@@ -33,10 +31,9 @@ class OutOfBandErrnoSettingFunctionCert extends Function {
   }
 }
 
-/*
+/**
  * An errno-setting function that return in-band errors indicators
  */
-
 class InBandErrnoSettingFunction extends ErrnoSettingFunction {
   InBandErrnoSettingFunction() {
     this.hasGlobalName([
@@ -47,10 +44,27 @@ class InBandErrnoSettingFunction extends ErrnoSettingFunction {
   }
 }
 
-/*
+/**
+ * A call to an `InBandErrnoSettingFunction`
+ */
+class InBandErrnoSettingFunctionCall extends FunctionCall {
+  InBandErrnoSettingFunctionCall() { this.getTarget() instanceof InBandErrnoSettingFunction }
+}
+
+/**
+ * An expression reading the value of `errno`
+ */
+class ErrnoRead extends Expr {
+  ErrnoRead() {
+    this = any(MacroInvocation ma | ma.getMacroName() = "errno").getAnExpandedElement()
+    or
+    this.(FunctionCall).getTarget().hasName(["perror", "strerror"])
+  }
+}
+
+/**
  * A assignment expression setting `errno` to 0
  */
-
 class ErrnoZeroed extends AssignExpr {
   ErrnoZeroed() {
     this.getLValue() = any(MacroInvocation ma | ma.getMacroName() = "errno").getExpr() and
@@ -58,10 +72,9 @@ class ErrnoZeroed extends AssignExpr {
   }
 }
 
-/*
+/**
  * A guard controlled by a errno comparison
  */
-
 abstract class ErrnoGuard extends StmtParent {
   abstract ControlFlowNode getZeroedSuccessor();
 

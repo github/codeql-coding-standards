@@ -16,18 +16,16 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.Errno
 
-/*
+/**
  * A call to an `ErrnoSettingFunction`
  */
-
 class ErrnoSettingFunctionCall extends FunctionCall {
   ErrnoSettingFunctionCall() { this.getTarget() instanceof ErrnoSettingFunction }
 }
 
-/*
+/**
  * CFG nodes preceding a `ErrnoSettingFunctionCall`
  */
-
 ControlFlowNode notZeroedPriorToErrnoSet(ErrnoSettingFunctionCall fc) {
   result = fc
   or

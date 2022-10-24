@@ -16,10 +16,9 @@ import codingstandards.c.cert
 import codingstandards.c.Errno
 import semmle.code.cpp.dataflow.DataFlow
 
-/*
+/**
  * A call to an `OutOfBandErrnoSettingFunction`
  */
-
 class ErrnoSettingFunctionCall extends FunctionCall {
   ErrnoSettingFunctionCall() { this.getTarget() instanceof InBandErrnoSettingFunction }
 }
@@ -32,19 +31,18 @@ class ErrnoCheck extends Expr {
   }
 }
 
-/*
+/**
  * A successor of an ErrnoSettingFunctionCall appearing
  * before a check of errno
  */
-
 ControlFlowNode errnoNotCheckedAfter(ErrnoSettingFunctionCall errnoSet) {
   result = errnoSet
   or
   exists(ControlFlowNode mid |
     result = mid.getASuccessor() and
     mid = errnoNotCheckedAfter(errnoSet) and
-    // stop recursion on a function call
-    not result = any(ErrnoCheck fc)
+    // stop recursion on an error check
+    not result instanceof ErrnoCheck
   )
 }
 
@@ -53,5 +51,5 @@ where
   not isExcluded(fc, Contracts4Package::functionCallBeforeErrnoCheckQuery()) and
   fc != errnoSet and
   fc = errnoNotCheckedAfter(errnoSet)
-select fc, "Call to a function happens before ERRNO check for function $@", errnoSet,
-  errnoSet.toString()
+select errnoSet,
+  "The value of `errno` is not checked after this call to `" + errnoSet.getTarget().getName() + "`."

@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <limits.h>
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -22,14 +23,42 @@ void f2(const char *c_str) {
   }
 }
 
+void f1a(const char *c_str) {
+  unsigned long number;
+  char *endptr;
+
+  number = strtoul(c_str, &endptr, 0); // NON_COMPLIANT
+  if (errno == ERANGE) {
+  }
+}
+
+void f2a(const char *c_str) {
+  unsigned long number;
+  char *endptr;
+
+  errno = 0;
+  number = strtoul(c_str, &endptr, 0); // COMPLIANT
+  if (errno == ERANGE) {
+  }
+}
+void f2b(const char *c_str) {
+  char *endptr;
+
+  errno = 0;
+  strtoul(c_str, &endptr, 0); // NON_COMPLIANT
+  strtoul(c_str, &endptr, 0); // NON_COMPLIANT
+  if (errno == ERANGE) {
+  }
+}
+
 void helper() {}
 void f2c(const char *c_str) {
   unsigned long number;
   char *endptr;
 
   errno = 0;
-  number = strtoul(c_str, &endptr, 0);
-  helper(); // NON_COMPLIANT
+  number = strtoul(c_str, &endptr, 0); // NON_COMPLIANT
+  helper();
   if (endptr == c_str || (number == ULONG_MAX && errno == ERANGE)) {
   }
 }
@@ -55,18 +84,33 @@ void f4b(FILE *fp) {
   }
 }
 
-void f5(const char *filename) {
-  FILE *fileptr;
+void f5() {
+  setlocale(LC_ALL, "en_US.UTF-8"); // COMPLIANT
+}
 
-  errno = 0;
-  fileptr = fopen(filename, "rb");
-  if (errno != 0) { // NON_COMPLIANT
-    /* Handle error */
+void f6() {
+  if (setlocale(LC_ALL, "en_US.UTF-8") == NULL) { // COMPLIANT
   }
 }
 
-void f6(const char *filename) {
-  FILE *fileptr = fopen(filename, "rb"); // COMPLIANT
-  if (fileptr == NULL) {
+void f7() {
+  errno = 0;
+  setlocale(LC_ALL, "en_US.UTF-8"); // NON_COMPLIANT
+  if (errno != 0) {
+  }
+}
+
+void f8() {
+  if (setlocale(LC_ALL, "en_US.UTF-8") == NULL) { // NON_COMPLIANT
+    if (errno != 0) {
+    }
+  }
+}
+
+void f9() {
+  errno = 0;
+  if (setlocale(LC_ALL, "en_US.UTF-8") == NULL) { // COMPLIANT
+    if (errno != 0) {
+    }
   }
 }

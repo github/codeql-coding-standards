@@ -4,13 +4,20 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Contracts4Query =
+  TSetlocaleMightSetErrnoQuery() or
   TErrnoReadBeforeReturnQuery() or
   TFunctionCallBeforeErrnoCheckQuery() or
-  TErrnoNotSetToZeroQuery() or
-  TDoNotRelyOnIndeterminateValuesOfErrnoQuery() or
-  TDetectAndHandleStandardLibraryErrorsQuery()
+  TErrnoNotSetToZeroQuery()
 
 predicate isContracts4QueryMetadata(Query query, string queryId, string ruleId) {
+  query =
+    // `Query` instance for the `setlocaleMightSetErrno` query
+    Contracts4Package::setlocaleMightSetErrnoQuery() and
+  queryId =
+    // `@id` for the `setlocaleMightSetErrno` query
+    "c/cert/setlocale-might-set-errno" and
+  ruleId = "ERR30-C"
+  or
   query =
     // `Query` instance for the `errnoReadBeforeReturn` query
     Contracts4Package::errnoReadBeforeReturnQuery() and
@@ -34,25 +41,16 @@ predicate isContracts4QueryMetadata(Query query, string queryId, string ruleId) 
     // `@id` for the `errnoNotSetToZero` query
     "c/cert/errno-not-set-to-zero" and
   ruleId = "ERR30-C"
-  or
-  query =
-    // `Query` instance for the `doNotRelyOnIndeterminateValuesOfErrno` query
-    Contracts4Package::doNotRelyOnIndeterminateValuesOfErrnoQuery() and
-  queryId =
-    // `@id` for the `doNotRelyOnIndeterminateValuesOfErrno` query
-    "c/cert/do-not-rely-on-indeterminate-values-of-errno" and
-  ruleId = "ERR32-C"
-  or
-  query =
-    // `Query` instance for the `detectAndHandleStandardLibraryErrors` query
-    Contracts4Package::detectAndHandleStandardLibraryErrorsQuery() and
-  queryId =
-    // `@id` for the `detectAndHandleStandardLibraryErrors` query
-    "c/cert/detect-and-handle-standard-library-errors" and
-  ruleId = "ERR33-C"
 }
 
 module Contracts4Package {
+  Query setlocaleMightSetErrnoQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `setlocaleMightSetErrno` query
+      TQueryC(TContracts4PackageQuery(TSetlocaleMightSetErrnoQuery()))
+  }
+
   Query errnoReadBeforeReturnQuery() {
     //autogenerate `Query` type
     result =
@@ -72,19 +70,5 @@ module Contracts4Package {
     result =
       // `Query` type for `errnoNotSetToZero` query
       TQueryC(TContracts4PackageQuery(TErrnoNotSetToZeroQuery()))
-  }
-
-  Query doNotRelyOnIndeterminateValuesOfErrnoQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `doNotRelyOnIndeterminateValuesOfErrno` query
-      TQueryC(TContracts4PackageQuery(TDoNotRelyOnIndeterminateValuesOfErrnoQuery()))
-  }
-
-  Query detectAndHandleStandardLibraryErrorsQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `detectAndHandleStandardLibraryErrors` query
-      TQueryC(TContracts4PackageQuery(TDetectAndHandleStandardLibraryErrorsQuery()))
   }
 }

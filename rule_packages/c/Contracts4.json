@@ -4,9 +4,16 @@
       "properties": {
         "obligation": "rule"
       },
-      "queries": [
-        {
-          "description": "Do not check errno before the function return value.",
+      "queries": [{
+          "description": "Do not rely solely on errno to determine if en error occurred in setlocale.",
+          "kind": "problem",
+          "name": "Do not rely solely on errno to determine if en error occurred in setlocale",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "SetlocaleMightSetErrno",
+          "tags": ["correctness"]
+        }, {
+          "description": "Do not check errno before the function return value. Failing to do so might invalidate the error detection.",
           "kind": "problem",
           "name": "Do not check errno before the function return value",
           "precision": "high",
@@ -34,40 +41,6 @@
         }
       ],
       "title": "Take care when reading errno"
-    },
-    "ERR32-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "Do not rely on indeterminate values of errno.",
-          "kind": "problem",
-          "name": "Do not rely on indeterminate values of errno",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "DoNotRelyOnIndeterminateValuesOfErrno",
-          "tags": ["correctness"]
-        }
-      ],
-      "title": "Do not rely on indeterminate values of errno"
-    },
-    "ERR33-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [
-        {
-          "description": "Detect and handle standard library errors.",
-          "kind": "problem",
-          "name": "Detect and handle standard library errors",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "DetectAndHandleStandardLibraryErrors",
-          "tags": ["correctness"]
-        }
-      ],
-      "title": "Detect and handle standard library errors"
     }
   }
 }

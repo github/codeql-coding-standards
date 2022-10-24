@@ -15,19 +15,10 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.c.Errno
 
-/*
- * A call to an `OutOfBandErrnoSettingFunction`
- */
-
-class ErrnoSettingFunctionCall extends FunctionCall {
-  ErrnoSettingFunctionCall() { this.getTarget() instanceof InBandErrnoSettingFunction }
-}
-
-/*
+/**
  * CFG nodes preceding a `ErrnoSettingFunctionCall`
  */
-
-ControlFlowNode notZeroedPriorToErrnoSet(ErrnoSettingFunctionCall fc) {
+ControlFlowNode notZeroedPriorToErrnoSet(InBandErrnoSettingFunctionCall fc) {
   result = fc
   or
   exists(ControlFlowNode mid |
@@ -39,7 +30,7 @@ ControlFlowNode notZeroedPriorToErrnoSet(ErrnoSettingFunctionCall fc) {
   )
 }
 
-from ErrnoSettingFunctionCall fc, ControlFlowNode cause
+from InBandErrnoSettingFunctionCall fc, ControlFlowNode cause
 where
   not isExcluded(cause, Contracts4Package::errnoNotSetToZeroQuery()) and
   cause = notZeroedPriorToErrnoSet(fc) and
@@ -48,7 +39,7 @@ where
     cause = fc.getEnclosingFunction().getBlock()
     or
     // `errno` is not reset after a call to an errno-setting function
-    cause = any(ErrnoSettingFunctionCall ec | ec != fc)
+    cause = any(InBandErrnoSettingFunctionCall ec | ec != fc)
     or
     // `errno` is not reset after a call to a function
     cause = any(FunctionCall fc2 | fc2 != fc)
