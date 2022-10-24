@@ -1,0 +1,5 @@
+| test.c:6:3:6:5 | asm statement | Usage of non-isolated and non-encapsulated assembly language. |
+| test.c:11:3:11:5 | asm statement | Usage of non-isolated and non-encapsulated assembly language. |
+| test.c:32:3:32:5 | asm statement | Usage of non-isolated and non-encapsulated assembly language. |
+| test.c:37:3:37:5 | asm statement | Usage of non-isolated and non-encapsulated assembly language. |
+| test.c:58:3:58:5 | asm statement | Usage of non-isolated and non-encapsulated assembly language. |
