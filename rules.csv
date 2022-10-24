@@ -510,7 +510,7 @@ c,CERT-C,ENV30-C,Yes,Rule,,,Do not modify the object referenced by the return va
 c,CERT-C,ENV31-C,Yes,Rule,,,Do not rely on an environment pointer following an operation that may invalidate it,RULE-21-20,Contracts1,Hard,
 c,CERT-C,ENV32-C,Yes,Rule,,,All exit handlers must return normally,,Contracts2,Medium,
 c,CERT-C,ENV33-C,Yes,Rule,,,Do not call system(),"RULE-21-21, M18-0-3",Banned,Easy,
-c,CERT-C,ENV34-C,Yes,Rule,,,Do not store pointers returned by certain functions,RULE-21-20,Contracts,Medium,
+c,CERT-C,ENV34-C,Yes,Rule,,,Do not store pointers returned by certain functions,RULE-21-20,Contracts2,Medium,
 c,CERT-C,ERR30-C,Yes,Rule,,,"Take care when reading errno",M19-3-1,Contracts4,Hard,
 c,CERT-C,ERR32-C,Yes,Rule,,,Do not rely on indeterminate values of errno,,Contracts,Hard,
 c,CERT-C,ERR33-C,Yes,Rule,,,Detect and handle standard library errors,MEM52-CPP,Contracts,Hard,

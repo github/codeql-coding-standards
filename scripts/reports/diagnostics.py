@@ -93,4 +93,3 @@ def generate_diagnostics_file(output_directory, diagnostics_summary):
                 print()
                 for successfully_extracted_file in diagnostics_summary.successfully_extracted_files:
                     print(f" - { successfully_extracted_file[0] }")
-                    
