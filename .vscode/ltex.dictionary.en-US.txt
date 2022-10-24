@@ -1,7 +1,0 @@
-CodeQL
-SARIF
-Cartey
-codeql-coding-standards
-Remco
-AUTOSAR
-MISRA

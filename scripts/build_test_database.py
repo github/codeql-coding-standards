@@ -12,7 +12,7 @@ LANGUAGE=sys.argv[1]
 STANDARD=sys.argv[2]
 RULE=sys.argv[3]
 
-if shutil.which("codeql-bundle-20220615/codeql") is None:
+if shutil.which("codeql") is None:
     print ("Please install codeql.", file=sys.stderr)
     exit(1)
 
@@ -47,7 +47,7 @@ if not os.path.exists(f"{LANGUAGE}/{STANDARD}/test/rules/{RULE}"):
     exit(1)
 
 # get the codeql version 
-res = subprocess.run(['codeql-bundle-20220615/codeql', 'version', '--format', 'json'], stdout=subprocess.PIPE)
+res = subprocess.run(['codeql', 'version', '--format', 'json'], stdout=subprocess.PIPE)
 res_json = json.loads(res.stdout) 
 CODEQL_VERSION=res_json["version"]
 
@@ -67,4 +67,4 @@ ITERATION=0
 while os.path.exists(f"databases/{RULE}+{ITERATION}@{CODEQL_VERSION}"):
     ITERATION = ITERATION + 1 
 
-os.system(f"codeql-bundle-20220615/codeql database create -l cpp -s {LANGUAGE}/{STANDARD}/test/rules/{RULE} --command=\"{BUILD_COMMAND}\" databases/{RULE}+{ITERATION}@{CODEQL_VERSION}")
+os.system(f"codeql database create -l cpp -s {LANGUAGE}/{STANDARD}/test/rules/{RULE} --command=\"{BUILD_COMMAND}\" databases/{RULE}+{ITERATION}@{CODEQL_VERSION}")

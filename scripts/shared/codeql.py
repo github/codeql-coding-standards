@@ -6,22 +6,7 @@ from pathlib import Path
 import csv
 import yaml
 from typing import *
-import utils
-import sys
 
-class CodeQLValidationSummary():
-    def __init__(self):
-        """Validate that a compatible version of the CodeQL CLI is on the path."""
-
-        self.codeql = CodeQL()
-
-        # Determine our supported environments
-        supported_environments = utils.load_supported_environments()
-
-        self.supported_cli = False
-        for supported_environment in supported_environments:
-            if supported_environment["codeql_cli"] == self.codeql.version:
-                self.supported_cli = True
 
 class CodeQLError(Exception):
     def __init__(self, reason, stdout=None, stderr=None, returncode=None):

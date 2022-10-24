@@ -1,14 +1,8 @@
 from contextlib import redirect_stdout
 from pathlib import Path
-from error import failure
-import utils
-import sys
-from pathlib import Path
-
-script_path = Path(__file__)
-# Add the shared modules to the path so we can import them.
-sys.path.append(script_path.parent.parent / 'shared')
 from codeql import CodeQLError, CodeQLValidationSummary
+from error import failure
+
 
 class DiagnosticsSummary:
     def __init__(self, database_path, repo_root):
