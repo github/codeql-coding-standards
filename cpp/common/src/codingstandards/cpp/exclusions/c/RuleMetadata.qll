@@ -9,6 +9,7 @@ import Concurrency3
 import Concurrency4
 import Concurrency5
 import Contracts1
+import Contracts2
 import Contracts3
 import Declarations1
 import Declarations2
@@ -44,6 +45,7 @@ newtype TCQuery =
   TConcurrency4PackageQuery(Concurrency4Query q) or
   TConcurrency5PackageQuery(Concurrency5Query q) or
   TContracts1PackageQuery(Contracts1Query q) or
+  TContracts2PackageQuery(Contracts2Query q) or
   TContracts3PackageQuery(Contracts3Query q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
@@ -79,6 +81,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isConcurrency4QueryMetadata(query, queryId, ruleId) or
   isConcurrency5QueryMetadata(query, queryId, ruleId) or
   isContracts1QueryMetadata(query, queryId, ruleId) or
+  isContracts2QueryMetadata(query, queryId, ruleId) or
   isContracts3QueryMetadata(query, queryId, ruleId) or
   isDeclarations1QueryMetadata(query, queryId, ruleId) or
   isDeclarations2QueryMetadata(query, queryId, ruleId) or
