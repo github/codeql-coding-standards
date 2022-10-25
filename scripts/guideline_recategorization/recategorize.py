@@ -1,7 +1,7 @@
 import argparse
 import sys
 from dataclasses import asdict, dataclass
-from typing import Any, Generator, Iterator, Mapping, Optional, TextIO, TypedDict, Union, cast
+from typing import Any, Generator, Iterator, List, Mapping, Optional, TextIO, TypedDict, Union, cast
 from pathlib import Path
 import jsonschema
 import json
@@ -74,14 +74,15 @@ def generate_json_patches_for_recategorization(recategorization: GuidelineRecate
     """
     Compute as set of JSON patches to apply the recategorization to the subject Sarif file.
     """
-    def to_jsonpatch(pointer:jsonpointer.JsonPointer):
-        standard = cast(str, pointer.get(subject)).split('/')[1]
-        return JsonPatch(
+    def to_jsonpatch(pointer:jsonpointer.JsonPointer) -> Iterator[JsonPatch]:
+        obligation_tag = cast(str, pointer.get(subject))
+        _, standard, _, category = obligation_tag.split('/')
+        yield JsonPatch(
                 op = 'replace',
                 path = pointer.path,
-                value = f'external/{standard}/obligation/{recategorization.category}'
-        )
-    return map(to_jsonpatch, json_path_to_pointer(recategorization_to_json_path_for_category(recategorization), subject))
+                value = f'external/{standard}/obligation/{recategorization.category}')
+        yield JsonPatch(op = 'add', path = pointer.path, value = f'external/{standard}/original-obligation/{category}')
+    return (patch for pointer in json_path_to_pointer(recategorization_to_json_path_for_category(recategorization), subject) for patch in to_jsonpatch(pointer))
       
 
 def get_guideline_recategorizations(coding_standards_config: Mapping[str, Any]) -> Generator[GuidelineRecategorization, None, None]:
