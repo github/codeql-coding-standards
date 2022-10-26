@@ -1,5 +1,5 @@
 void f(int x);    // COMPLIANT
-void f0(void);    // COMPLIANT[FALSE_POSITIVE]
+void f0(void);    // COMPLIANT
 void f1(int);     // NON_COMPLIANT
 void f2();        // NON_COMPLIANT
 void f3(x);       // NON_COMPLIANT

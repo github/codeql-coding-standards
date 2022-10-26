@@ -22,6 +22,20 @@ class UnnamedParameter extends Parameter {
   UnnamedParameter() { not this.isNamed() }
 }
 
+/*
+ * This is a copy of the private `hasZeroParamDecl` predicate from the standard set of
+ * queries as of the `codeql-cli/2.11.2` tag in `github/codeql`.
+ */
+
+predicate hasZeroParamDecl(Function f) {
+  exists(FunctionDeclarationEntry fde | fde = f.getADeclarationEntry() |
+    not fde.isImplicit() and
+    not fde.hasVoidParamList() and
+    fde.getNumberOfParameters() = 0 and
+    not fde.isDefinition()
+  )
+}
+
 from Function f, string msg
 where
   not isExcluded(f, Declarations4Package::functionTypesNotInPrototypeFormQuery()) and
@@ -30,11 +44,8 @@ where
     f.getAParameter() instanceof UnnamedParameter and
     msg = "Function " + f + " declares parameter that is unnamed."
     or
-    //void keyword not present in function signature, no way to tell which
-    not exists(f.getAParameter()) and
-    msg =
-      "Function " + f +
-        " may not specify all parameter types or may not specifiy void for no parameters present."
+    hasZeroParamDecl(f) and
+    msg = "Function " + f + " does not specifiy void for no parameters present."
     or
     exists(Parameter p |
       p.getFunction() = f and
