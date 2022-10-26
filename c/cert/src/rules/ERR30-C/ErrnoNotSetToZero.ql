@@ -1,32 +1,24 @@
 /**
- * @id c/misra/errno-set-to-zero-prior-to-call
- * @name RULE-22-8: The value of errno shall be set to zero prior to a call to an errno-setting-function
- * @description The value of errno shall be set to zero prior to a call to an
- *              errno-setting-function. Not setting the value leads to incorrectly identifying
- *              errors.
+ * @id c/cert/errno-not-set-to-zero
+ * @name ERR30-C: Errno is not set to zero prior to an errno-setting call
+ * @description Set errno to zero prior to each call to an errno-setting function. Failing to do so
+ *              might end in spurious errno values.
  * @kind problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
- * @tags external/misra/id/rule-22-8
+ * @tags external/cert/id/err30-c
  *       correctness
- *       external/misra/obligation/required
+ *       external/cert/obligation/rule
  */
 
 import cpp
-import codingstandards.c.misra
+import codingstandards.c.cert
 import codingstandards.c.Errno
-
-/**
- * A call to an `ErrnoSettingFunction`
- */
-class ErrnoSettingFunctionCall extends FunctionCall {
-  ErrnoSettingFunctionCall() { this.getTarget() instanceof ErrnoSettingFunction }
-}
 
 /**
  * CFG nodes preceding a `ErrnoSettingFunctionCall`
  */
-ControlFlowNode notZeroedPriorToErrnoSet(ErrnoSettingFunctionCall fc) {
+ControlFlowNode notZeroedPriorToErrnoSet(InBandErrnoSettingFunctionCall fc) {
   result = fc
   or
   exists(ControlFlowNode mid |
@@ -38,16 +30,16 @@ ControlFlowNode notZeroedPriorToErrnoSet(ErrnoSettingFunctionCall fc) {
   )
 }
 
-from ErrnoSettingFunctionCall fc, ControlFlowNode cause
+from InBandErrnoSettingFunctionCall fc, ControlFlowNode cause
 where
-  not isExcluded(fc, Contracts3Package::errnoSetToZeroAfterCallQuery()) and
+  not isExcluded(cause, Contracts4Package::errnoNotSetToZeroQuery()) and
   cause = notZeroedPriorToErrnoSet(fc) and
   (
     // `errno` is not reset anywhere in the function
     cause = fc.getEnclosingFunction().getBlock()
     or
     // `errno` is not reset after a call to an errno-setting function
-    cause = any(ErrnoSettingFunctionCall ec | ec != fc)
+    cause = any(InBandErrnoSettingFunctionCall ec | ec != fc)
     or
     // `errno` is not reset after a call to a function
     cause = any(FunctionCall fc2 | fc2 != fc)
