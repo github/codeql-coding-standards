@@ -15,14 +15,17 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.FunctionLikeMacro
 import codingstandards.cpp.Naming
+import codingstandards.cpp.Macro
 
 abstract class IrreplaceableFunctionLikeMacro extends FunctionLikeMacro { }
 
 /** A standard library function like macro that contains the use of a stringize or tokenize operator should not be replaced by a function. */
 private class StringizeOrTokenizeMacro extends IrreplaceableFunctionLikeMacro {
-  StringizeOrTokenizeMacro() { this.getBody().regexpMatch(".*\\#{1,2}?.*") }
+  StringizeOrTokenizeMacro() {
+    exists(TokenPastingOperator t | t.getMacro() = this) or
+    exists(StringizingOperator s | s.getMacro() = this)
+  }
 }
 
 /** A standard library function like macro that should not be replaced by a function. */
@@ -38,14 +41,14 @@ private class AsmArgumentInvoked extends IrreplaceableFunctionLikeMacro {
 }
 
 /** A macro that is only invoked with constant arguments is more likely to be compile-time evaluated than a function call so do not suggest replacement. */
-private class OnlyConstantNumericInvoked extends IrreplaceableFunctionLikeMacro {
-  OnlyConstantNumericInvoked() {
+private class OnlyConstantArgsInvoked extends IrreplaceableFunctionLikeMacro {
+  OnlyConstantArgsInvoked() {
     forex(MacroInvocation mi | mi = this.getAnInvocation() |
       //int/float literals
       mi.getUnexpandedArgument(_).regexpMatch("\\d+")
       or
-      //char/string literal
-      mi.getUnexpandedArgument(_).regexpMatch("(\\'|\")+.*")
+      //char literal or string literal, which is a literal surrounded by single quotes or double quotes
+      mi.getUnexpandedArgument(_).regexpMatch("('[^']*'|\"[^\"]*\")")
     )
   }
 }
@@ -79,6 +82,8 @@ from FunctionLikeMacro m
 where
   not isExcluded(m, Preprocessor6Package::functionOverFunctionLikeMacroQuery()) and
   not m instanceof IrreplaceableFunctionLikeMacro and
+  //macros can have empty body
+  not m.getBody().length() = 0 and
   //function call not allowed in a constant expression (where constant expr is parent)
   forall(MacroInvocation i | i = m.getAnInvocation() | not partOfConstantExpr(i))
-select m, "Macro used when function call would be preferred."
+select m, "Macro used when function call would be preferred.", m.getBody().length()

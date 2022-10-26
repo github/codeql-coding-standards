@@ -1,1 +1,2 @@
-| test.c:4:1:6:12 | #define MACRO4(L) (L" " "suffix") | Macro used when function call would be preferred. |
+| test.c:4:1:4:25 | #define MACRO4(x) (x + 1) | Macro used when function call would be preferred. | 7 |
+| test.c:9:1:9:48 | #define MACRO9() printf_custom("output = %d", 7) | Macro used when function call would be preferred. | 31 |
