@@ -1,3 +1,5 @@
+#include <assert.h>
+
 #define MACRO(OP, L, R) ((L)OP(R))                      // COMPLIANT
 #define MACRO2(L, R) (L + R)                            // COMPLIANT
 #define MACRO3(L, R) (L " " R " " L)                    // COMPLIANT
@@ -8,6 +10,7 @@
 #define MACRO8(x) "NOP"                                 // COMPLIANT
 #define MACRO9() printf_custom("output = %d", 7)        // NON_COMPLIANT
 #define MACRO10(x)                                      // COMPLIANT
+#define MY_ASSERT(X) assert(X) // NON_COMPLIANT[FALSE_NEGATIVE]
 
 const char a1[MACRO2(1, 1) + 6];
 extern printf_custom();
@@ -32,4 +35,6 @@ void f() {
   char *i10 = MACRO7("prefix");
 
   asm(MACRO8(1));
+
+  MY_ASSERT(1);
 }
