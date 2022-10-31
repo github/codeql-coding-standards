@@ -42,7 +42,7 @@ void f1() {
   c = c << s6; // COMPLIANT
   c = c << s7; // NON_COMPLIANT
   c = c << s8; // COMPLIANT
-
+ 
   d = d << -1; // NON_COMPLIANT
   d = d << 8;  // NON_COMPLIANT
   d = d << 7;  // COMPLIANT
