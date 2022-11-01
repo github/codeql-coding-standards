@@ -717,7 +717,7 @@ c,MISRA-C-2012,RULE-17-3,Yes,Mandatory,,,A function shall not be declared implic
 c,MISRA-C-2012,RULE-17-4,Yes,Mandatory,,,All exit paths from a function with non-void return type shall have an explicit return statement with an expression,MSC52-CPP,Statements,Medium,
 c,MISRA-C-2012,RULE-17-5,Yes,Advisory,,,The function argument corresponding to a parameter declared to have an array type shall have an appropriate number of elements,,Contracts5,Hard,
 c,MISRA-C-2012,RULE-17-6,No,Mandatory,,,The declaration of an array parameter shall not contain the static keyword between the [ ],,,,
-c,MISRA-C-2012,RULE-17-7,Yes,Required,,,The value returned by a function having non-void return type shall be used,A0-1-2,Contracts5,Import,
+c,MISRA-C-2012,RULE-17-7,Yes,Required,,,The value returned by a function having non-void return type shall be used,A0-1-2,Contracts6,Import,
 c,MISRA-C-2012,RULE-17-8,Yes,Advisory,,,A function parameter should not be modified,,SideEffects2,Medium,
 c,MISRA-C-2012,RULE-18-1,Yes,Required,,,A pointer resulting from arithmetic on a pointer operand shall address an element of the same array as that pointer operand,M5-0-16,Pointers1,Import,
 c,MISRA-C-2012,RULE-18-2,Yes,Required,,,Subtraction between pointers shall only be applied to pointers that address elements of the same array,M5-0-17,Pointers1,Import,
