@@ -523,7 +523,7 @@ c,CERT-C,EXP35-C,Yes,Rule,,,Do not modify objects with temporary lifetime,,Inval
 c,CERT-C,EXP36-C,Yes,Rule,,,Do not cast pointers into more strictly aligned pointer types,,Pointers3,Medium,
 c,CERT-C,EXP37-C,Yes,Rule,,,Call functions with the correct number and type of arguments,,Expressions,Easy,
 c,CERT-C,EXP39-C,Yes,Rule,,,Do not access a variable through a pointer of an incompatible type,,Pointers3,Medium,
-c,CERT-C,EXP40-C,Yes,Rule,,,Do not modify constant objects,,Contracts5,Medium,
+c,CERT-C,EXP40-C,Yes,Rule,,,Do not modify constant objects,,Contracts6,Medium,
 c,CERT-C,EXP42-C,Yes,Rule,,,Do not compare padding data,,Memory,Medium,
 c,CERT-C,EXP43-C,Yes,Rule,,,Avoid undefined behavior when using restrict-qualified pointers,,Pointers3,Medium,
 c,CERT-C,EXP44-C,Yes,Rule,,,"Do not rely on side effects in operands to sizeof, _Alignof, or _Generic",M5-3-4,SideEffects1,Medium,
