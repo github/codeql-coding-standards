@@ -715,7 +715,7 @@ c,MISRA-C-2012,RULE-17-1,Yes,Required,,,The features of <stdarg.h> shall not be 
 c,MISRA-C-2012,RULE-17-2,Yes,Required,,,"Functions shall not call themselves, either directly or indirectly",A7-5-2,Statements,Import,
 c,MISRA-C-2012,RULE-17-3,Yes,Mandatory,,,A function shall not be declared implicitly,,Declarations,Medium,
 c,MISRA-C-2012,RULE-17-4,Yes,Mandatory,,,All exit paths from a function with non-void return type shall have an explicit return statement with an expression,MSC52-CPP,Statements,Medium,
-c,MISRA-C-2012,RULE-17-5,Yes,Advisory,,,The function argument corresponding to a parameter declared to have an array type shall have an appropriate number of elements,,Contracts5,Hard,
+c,MISRA-C-2012,RULE-17-5,Yes,Advisory,,,The function argument corresponding to a parameter declared to have an array type shall have an appropriate number of elements,,Contracts6,Hard,
 c,MISRA-C-2012,RULE-17-6,No,Mandatory,,,The declaration of an array parameter shall not contain the static keyword between the [ ],,,,
 c,MISRA-C-2012,RULE-17-7,Yes,Required,,,The value returned by a function having non-void return type shall be used,A0-1-2,Contracts6,Import,
 c,MISRA-C-2012,RULE-17-8,Yes,Advisory,,,A function parameter should not be modified,,SideEffects2,Medium,
