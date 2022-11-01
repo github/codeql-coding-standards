@@ -1,7 +1,8 @@
 /**
  * @id c/cert/detect-and-handle-standard-library-errors
  * @name ERR33-C: Detect and handle standard library errors
- * @description Detect and handle standard library errors.
+ * @description Detect and handle standard library errors. Undetected failures can lead to
+ *              unexpected or undefined behavior.
  * @kind problem
  * @precision high
  * @problem.severity error
@@ -14,39 +15,54 @@ import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.commons.NULL
 import codingstandards.cpp.ReadErrorsAndEOF
-import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * Classifies error returning function calls based on the
  * type and value of the required checked
  */
-class ExpectedErrReturn extends FunctionCall {
+abstract class ExpectedErrReturn extends FunctionCall {
   Expr errValue;
-  string errOperator;
+  ComparisonOperation errOperator;
 
-  ExpectedErrReturn() {
-    errOperator = ["==", "!="] and
+  Expr getErrValue() { result = errValue }
+
+  ComparisonOperation getErrOperator() { result = errOperator }
+}
+
+class ExpectedErrReturnEqZero extends ExpectedErrReturn {
+  ExpectedErrReturnEqZero() {
+    errOperator instanceof EqualityOperation and
+    errValue.(Literal).getValue() = "0" and
+    this.getTarget()
+        .hasName([
+            "asctime_s", "at_quick_exit", "atexit", "ctime_s", "fgetpos", "fopen_s", "freopen_s",
+            "fseek", "fsetpos", "mbsrtowcs_s", "mbstowcs_s", "raise", "remove", "rename", "setvbuf",
+            "strerror_s", "strftime", "strtod", "strtof", "strtold", "timespec_get", "tmpfile_s",
+            "tmpnam_s", "tss_get", "wcsftime", "wcsrtombs_s", "wcstod", "wcstof", "wcstold",
+            "wcstombs_s", "wctrans", "wctype"
+          ])
+  }
+}
+
+class ExpectedErrReturnEqNull extends ExpectedErrReturn {
+  ExpectedErrReturnEqNull() {
+    errOperator instanceof EqualityOperation and
+    errValue instanceof NULL and
+    this.getTarget()
+        .hasName([
+            "aligned_alloc", "bsearch_s", "bsearch", "calloc", "fgets", "fopen", "freopen",
+            "getenv_s", "getenv", "gets_s", "gmtime_s", "gmtime", "localtime_s", "localtime",
+            "malloc", "memchr", "realloc", "setlocale", "strchr", "strpbrk", "strrchr", "strstr",
+            "strtok_s", "strtok", "tmpfile", "tmpnam", "wcschr", "wcspbrk", "wcsrchr", "wcsstr",
+            "wcstok_s", "wcstok", "wmemchr"
+          ])
+  }
+}
+
+class ExpectedErrReturnEqEofWeof extends ExpectedErrReturn {
+  ExpectedErrReturnEqEofWeof() {
+    errOperator instanceof EqualityOperation and
     (
-      errValue.(Literal).getValue() = "0" and
-      this.getTarget()
-          .hasName([
-              "asctime_s", "at_quick_exit", "atexit", "ctime_s", "fgetpos", "fopen_s", "freopen_s",
-              "fseek", "fsetpos", "mbsrtowcs_s", "mbstowcs_s", "raise", "remove", "rename",
-              "setvbuf", "strerror_s", "strftime", "strtod", "strtof", "strtold", "timespec_get",
-              "tmpfile_s", "tmpnam_s", "tss_get", "wcsftime", "wcsrtombs_s", "wcstod", "wcstof",
-              "wcstold", "wcstombs_s", "wctrans", "wctype"
-            ])
-      or
-      errValue instanceof NULL and
-      this.getTarget()
-          .hasName([
-              "aligned_alloc", "bsearch_s", "bsearch", "calloc", "fgets", "fopen", "freopen",
-              "getenv_s", "getenv", "gets_s", "gmtime_s", "gmtime", "localtime_s", "localtime",
-              "malloc", "memchr", "realloc", "setlocale", "strchr", "strpbrk", "strrchr", "strstr",
-              "strtok_s", "strtok", "tmpfile", "tmpnam", "wcschr", "wcspbrk", "wcsrchr", "wcsstr",
-              "wcstok_s", "wcstok", "wmemchr"
-            ])
-      or
       errValue = any(EOFInvocation i).getExpr() and
       this.getTarget()
           .hasName([
@@ -62,7 +78,14 @@ class ExpectedErrReturn extends FunctionCall {
           .hasName([
               "btowc", "fgetwc", "fputwc", "getwc", "getwchar", "putwc", "ungetwc", "putwchar"
             ])
-      or
+    )
+  }
+}
+
+class ExpectedErrReturnEqEnumConstant extends ExpectedErrReturn {
+  ExpectedErrReturnEqEnumConstant() {
+    errOperator instanceof EqualityOperation and
+    (
       errValue = any(EnumConstantAccess i | i.toString() = "thrd_error") and
       this.getTarget()
           .hasName([
@@ -79,7 +102,14 @@ class ExpectedErrReturn extends FunctionCall {
       or
       errValue = any(EnumConstantAccess i | i.toString() = "thrd_busy") and
       this.getTarget().hasName(["mtx_trylock"])
-      or
+    )
+  }
+}
+
+class ExpectedErrReturnEqMacroInvocation extends ExpectedErrReturn {
+  ExpectedErrReturnEqMacroInvocation() {
+    errOperator instanceof EqualityOperation and
+    (
       errValue = any(MacroInvocation i | i.getMacroName() = "UINTMAX_MAX").getExpr() and
       this.getTarget().hasName(["strtoumax", "wcstoumax"])
       or
@@ -100,7 +130,14 @@ class ExpectedErrReturn extends FunctionCall {
       or
       errValue = any(MacroInvocation i | i.getMacroName() = ["LLONG_MAX", "LLONG_MIN"]).getExpr() and
       this.getTarget().hasName(["strtoll", "wcstoll"])
-      or
+    )
+  }
+}
+
+class ExpectedErrReturnEqMinusOne extends ExpectedErrReturn {
+  ExpectedErrReturnEqMinusOne() {
+    errOperator instanceof EqualityOperation and
+    (
       errValue.(UnaryMinusExpr).getOperand().(Literal).getValue() = "1" and
       this.getTarget()
           .hasName([
@@ -108,47 +145,99 @@ class ExpectedErrReturn extends FunctionCall {
               "mbstowcs", "mktime", "time", "wcrtomb", "wcsrtombs", "wcstombs"
             ])
       or
+      // functions that behave differently when the first argument is NULL
       errValue.(UnaryMinusExpr).getOperand().(Literal).getValue() = "1" and
       not this.getArgument(0) instanceof NULL and
       this.getTarget().hasName(["mblen", "mbrlen", "mbrtowc", "mbtowc", "wctomb_s", "wctomb"])
-      or
-      errValue.getType() instanceof IntType and
-      this.getTarget().hasName(["fread", "fwrite"])
-    )
-    or
-    errOperator = ["<", ">="] and
-    (
-      errValue.(Literal).getValue() = "0" and
-      this.getTarget()
-          .hasName([
-              "fprintf_s", "fprintf", "fwprintf_s", "fwprintf", "printf_s", "snprintf_s",
-              "snprintf", "sprintf_s", "sprintf", "swprintf_s", "swprintf", "thrd_sleep",
-              "vfprintf_s", "vfprintf", "vfwprintf_s", "vfwprintf", "vprintf_s", "vsnprintf_s",
-              "vsnprintf", "vsprintf_s", "vsprintf", "vswprintf_s", "vswprintf", "vwprintf_s",
-              "wprintf_s", "printf", "vprintf", "wprintf", "vwprintf"
-            ])
-      or
-      errValue.getType() instanceof IntType and
-      this.getTarget().hasName(["strxfrm", "wcsxfrm"])
-    )
-    or
-    errOperator = "NA" and
-    (
-      errValue = any(Expr e) and
-      this.getTarget()
-          .hasName([
-              "kill_dependency", "memcpy", "wmemcpy", "memmove", "wmemmove", "strcpy", "wcscpy",
-              "strncpy", "wcsncpy", "strcat", "wcscat", "strncat", "wcsncat", "memset", "wmemset"
-            ])
     )
   }
-
-  Expr getErrValue() { result = errValue }
-
-  string getErrOperator() { result = errOperator }
 }
 
-// Nodes following a file write before a call to `ferror` is performed
+class ExpectedErrReturnEqInt extends ExpectedErrReturn {
+  ExpectedErrReturnEqInt() {
+    errOperator instanceof EqualityOperation and
+    errValue.getType() instanceof IntType and
+    this.getTarget().hasName(["fread", "fwrite"])
+  }
+}
+
+class ExpectedErrReturnLtZero extends ExpectedErrReturn {
+  ExpectedErrReturnLtZero() {
+    errOperator.getOperator() = ["<", ">="] and
+    errValue.(Literal).getValue() = "0" and
+    this.getTarget()
+        .hasName([
+            "fprintf_s", "fprintf", "fwprintf_s", "fwprintf", "printf_s", "snprintf_s", "snprintf",
+            "sprintf_s", "sprintf", "swprintf_s", "swprintf", "thrd_sleep", "vfprintf_s",
+            "vfprintf", "vfwprintf_s", "vfwprintf", "vprintf_s", "vsnprintf_s", "vsnprintf",
+            "vsprintf_s", "vsprintf", "vswprintf_s", "vswprintf", "vwprintf_s", "wprintf_s",
+            "printf", "vprintf", "wprintf", "vwprintf"
+          ])
+  }
+}
+
+class ExpectedErrReturnLtInt extends ExpectedErrReturn {
+  ExpectedErrReturnLtInt() {
+    errOperator.getOperator() = ["<", ">="] and
+    errValue.getType() instanceof IntType and
+    this.getTarget().hasName(["strxfrm", "wcsxfrm"])
+  }
+}
+
+class ExpectedErrReturnNA extends ExpectedErrReturn {
+  ExpectedErrReturnNA() {
+    errOperator.getOperator() = ["<", ">="] and
+    errValue = any(Expr e) and
+    this.getTarget()
+        .hasName([
+            "kill_dependency", "memcpy", "wmemcpy", "memmove", "wmemmove", "strcpy", "wcscpy",
+            "strncpy", "wcsncpy", "strcat", "wcscat", "strncat", "wcsncat", "memset", "wmemset"
+          ])
+  }
+}
+
+/**
+ *  calls that can be verified using ferror() && feof()
+ */
+class FerrorFeofException extends FunctionCall {
+  FerrorFeofException() {
+    this.getTarget().hasName(["fgetc", "fgetwc", "getc", "getchar"])
+    implies
+    missingFeofFerrorChecks(this)
+  }
+}
+
+/**
+ *  calls that can be verified using ferror()
+ */
+class FerrorException extends FunctionCall {
+  FerrorException() {
+    this.getTarget().hasName(["fputc", "putc"])
+    implies
+    this.getEnclosingFunction() = ferrorNotchecked(this)
+  }
+}
+
+/**
+ *  ERR33-C-EX1: calls that must not be verified if cast to `void`
+ */
+class VoidCastException extends FunctionCall {
+  VoidCastException() {
+    this.getTarget()
+        .hasName([
+            "putchar", "putwchar", "puts", "printf", "vprintf", "wprintf", "vwprintf",
+            "kill_dependency", "memcpy", "wmemcpy", "memmove", "wmemmove", "strcpy", "wcscpy",
+            "strncpy", "wcsncpy", "strcat", "wcscat", "strncat", "wcsncat", "memset", "wmemset"
+          ])
+    implies
+    not this.getExplicitlyConverted() instanceof VoidConversion
+  }
+}
+
+/**
+ * CFG search:
+ * Nodes following a file write before a call to `ferror` is performed
+ */
 ControlFlowNode ferrorNotchecked(FileWriteFunctionCall write) {
   result = write
   or
@@ -168,7 +257,7 @@ where
   // calls that must be verified using the return value
   not exists(ComparisonOperation op |
     DataFlow::localExprFlow(err, op.getAnOperand()) and
-    (err.getErrOperator() != "NA" implies op.getOperator() = err.getErrOperator()) and
+    op = err.getErrOperator() and
     op.getAnOperand() = err.getErrValue() and
     // special case for function `realloc` where the returned pointer
     // should not be invalidated
@@ -178,30 +267,9 @@ where
         err.getArgument(0).(VariableAccess).getTarget()
     )
   ) and
-  // EXCEPTIONS
-  (
-    // calls that can be verified using ferror() && feof()
-    err.getTarget().hasName(["fgetc", "fgetwc", "getc", "getchar"])
-    implies
-    missingFeofFerrorChecks(err)
-  ) and
-  (
-    // calls that can be verified using ferror()
-    err.getTarget().hasName(["fputc", "putc"])
-    implies
-    err.getEnclosingFunction() = ferrorNotchecked(err)
-  ) and
-  (
-    // ERR33-C-EX1: calls that can be ignored when cast to `void`
-    err.getTarget()
-        .hasName([
-            "putchar", "putwchar", "puts", "printf", "vprintf", "wprintf", "vwprintf",
-            "kill_dependency", "memcpy", "wmemcpy", "memmove", "wmemmove", "strcpy", "wcscpy",
-            "strncpy", "wcsncpy", "strcat", "wcscat", "strncat", "wcsncat", "memset", "wmemset"
-          ])
-    implies
-    not err.getExplicitlyConverted() instanceof VoidConversion
-  )
-select err,
-  "Missing error detection for the call to function `" + err.getTarget() +
-    "`. Undetected failures can lead to unexpected or undefined behavior."
+  // ERR33-C-EX1: calls for which it is acceptable
+  // to ignore the return value
+  err instanceof FerrorFeofException and
+  err instanceof FerrorException and
+  err instanceof VoidCastException
+select err, "Missing error detection for the call to function `" + err.getTarget() + "`."

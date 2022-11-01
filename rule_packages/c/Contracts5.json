@@ -23,7 +23,7 @@
       },
       "queries": [
         {
-          "description": "Detect and handle standard library errors.",
+          "description": "Detect and handle standard library errors. Undetected failures can lead to unexpected or undefined behavior.",
           "kind": "problem",
           "name": "Detect and handle standard library errors",
           "precision": "high",
