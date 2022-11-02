@@ -155,10 +155,18 @@ def main(args: argparse.Namespace):
         sys.exit(1)
 
     coding_standards_config = cast(Mapping[str, Any], coding_standards_config)
-    validate_against_schema(coding_standards_schema, coding_standards_config)
+    try:
+        validate_against_schema(coding_standards_schema, coding_standards_config)
+    except jsonschema.ValidationError as e:
+        print(f"Failed to validate the Coding Standards configuration file: {args.coding_standards_config_file} with the message: '{e.message}'!", file=sys.stderr)
+        sys.exit(1)
 
     sarif = json.load(args.sarif_in)
-    validate_against_schema(sarif_schema, sarif)
+    try:
+        validate_against_schema(sarif_schema, sarif)
+    except jsonschema.ValidationError as e:
+        print(f"Failed to validate the provided Sarif with the message: '{e.message}'!", file=sys.stderr)
+        sys.exit(1)
 
     recategorizations = get_guideline_recategorizations(coding_standards_config)
     patch = jsonpatch.JsonPatch([patch for r in recategorizations for patch in generate_json_patches_for_recategorization(r, sarif)])
