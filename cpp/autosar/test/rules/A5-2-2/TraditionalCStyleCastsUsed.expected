@@ -1,3 +1,7 @@
-| test.cpp:8:22:8:37 | (uint32_t)... | Use of explicit C-style Cast |
-| test.cpp:9:22:9:32 | (unsigned int)... | Use of explicit C-style Cast |
-| test.cpp:15:3:15:13 | (void)... | Use of explicit C-style Cast |
+| test.cpp:8:22:8:37 | (uint32_t)... | Use of explicit c-style cast | test.cpp:8:22:8:37 | (uint32_t)... |  |
+| test.cpp:9:22:9:32 | (unsigned int)... | Use of explicit c-style cast | test.cpp:9:22:9:32 | (unsigned int)... |  |
+| test.cpp:15:3:15:13 | (void)... | Use of explicit c-style cast | test.cpp:15:3:15:13 | (void)... |  |
+| test.cpp:77:3:77:11 | (int)... | Use of explicit c-style cast generated from macro $@ | test.cpp:70:1:70:31 | #define ADD_ONE(x) ((int)x) + 1 | ADD_ONE |
+| test.cpp:79:3:79:18 | (int)... | Use of explicit c-style cast generated from macro $@ | test.cpp:71:1:71:36 | #define NESTED_ADD_ONE(x) ADD_ONE(x) | NESTED_ADD_ONE |
+| test.cpp:85:19:85:26 | (int)... | Use of explicit c-style cast | test.cpp:85:19:85:26 | (int)... |  |
+| test.cpp:86:27:86:34 | (int)... | Use of explicit c-style cast | test.cpp:86:27:86:34 | (int)... |  |
