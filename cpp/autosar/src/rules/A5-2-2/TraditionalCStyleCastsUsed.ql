@@ -66,4 +66,5 @@ where
     l = c and
     supplementary = ""
   )
-select c, "Use of explicit c-style cast" + extraMessage, l, supplementary
+select c, "Use of explicit c-style cast to " + c.getType().getName() + extraMessage + ".", l,
+  supplementary
