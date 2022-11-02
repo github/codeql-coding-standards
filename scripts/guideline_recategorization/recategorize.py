@@ -9,6 +9,7 @@ from jsonpath_ng import jsonpath
 import jsonpath_ng.ext
 import jsonpointer
 import yaml
+import yaml.parser
 import re
 import jsonpatch
 from functools import reduce
@@ -111,14 +112,20 @@ def load_schema(path: Path, defaultname: str) -> Optional[Mapping[str, Any]]:
     resolved_schema_path = resolve_path(path.resolve())
     if resolved_schema_path:
         with resolved_schema_path.open(mode='r') as fp:
-            return json.load(fp)
+            try:
+                return json.load(fp)
+            except json.decoder.JSONDecodeError as e:
+                print_failure(f"Failed to load schema with error \"{e.msg}\" at {resolved_schema_path}:{e.lineno}:{e.colno}!")
     else:
         return None
 
 def load_config(path: Path) -> Optional[Mapping[str, Any]]:
     if path.is_file():
         with path.open('r') as fp:
-            return yaml.safe_load(fp)
+            try:
+                return yaml.safe_load(fp)
+            except yaml.parser.ParserError as e:
+                print_failure(f"Failed to load config with error \"{e.problem}\" at {path}:{e.problem_mark.line}:{e.problem_mark.column}!")
     else:
         return None
 
@@ -137,17 +144,23 @@ def main(args: argparse.Namespace):
     if not coding_standards_schema:
         print_failure("Failed to load Coding Standards schema!")
 
+    if not '$id' in coding_standards_schema:
+        print_failure(f"Missing id for Coding Standards schema: '{args.coding_standards_schema_file}'")
+
     if coding_standards_schema['$id'] != CODING_STANDARDS_SCHEMA_ID:
         print_failure(f"Unexpected id for Coding Standards schema, expecting '{CODING_STANDARDS_SCHEMA_ID}'!")
 
     sarif_schema = load_schema(args.sarif_schema_file, 'sarif-schema-2.1.0.json')
     if not sarif_schema:
-        print("Failed to load Sarif schema!", file=sys.stderr)
+        print(f"Failed to load Sarif schema: '{args.sarif_schema_file}'!", file=sys.stderr)
         sys.exit(1)
     sarif_schema = cast(Mapping[str, Any], sarif_schema)
 
+    if not '$id' in sarif_schema:
+        print_failure(f"Missing id for Sarif schema: '{args.sarif_schema_file}'")
+
     if sarif_schema['$id'] != SARIF_SCHEMA_ID:
-        print_failure(f"Unexpected id for Sarif schema, expecting '{SARIF_SCHEMA_ID}'!")
+        print_failure(f"Unexpected id for Sarif schema: '{args.sarif_schema_file}, expecting '{SARIF_SCHEMA_ID}'!")
 
     coding_standards_config = load_config(args.coding_standards_config_file)
     if not coding_standards_schema:
