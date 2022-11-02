@@ -1,5 +1,5 @@
 /** Test cases for `SingleUseLocalPODVariable.ql` */
-
+#include <array>
 class A {};
 
 class B {
@@ -31,3 +31,11 @@ void test_templates() {
   f1<C>(); // Does not trigger a NON_COMPLIANT case in f1(), because C is not a
            // POD type
 }
+
+class C1 {
+  static constexpr int unused{1}; // NON_COMPLIANT
+  static constexpr int used{2};   // COMPLIANT
+  int test_use() { return used; }
+  static constexpr int size{3};               // COMPLIANT[FALSE_POSITIVE]
+  std::array<bool, size> array{false, false}; // size is used here
+};
