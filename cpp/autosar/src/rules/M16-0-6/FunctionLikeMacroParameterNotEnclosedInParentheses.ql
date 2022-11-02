@@ -17,29 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.FunctionLikeMacro
+import codingstandards.cpp.rules.macroparameternotenclosedinparentheses.MacroParameterNotEnclosedInParentheses
 
-from FunctionLikeMacro m, string param, string squishedBody
-where
-  not isExcluded(m, MacrosPackage::functionLikeMacroParameterNotEnclosedInParenthesesQuery()) and
-  param = m.getAParameter() and
-  //chop out identifiers that contain a substring matching our parameter identifier (i.e., wrapped in other valid identifier characters)
-  squishedBody =
-    m.getBody()
-        .regexpReplaceAll("([\\w]*" + param + "[\\w]+)|([\\w]+" + param + "[\\w]*)", "")
-        .replaceAll(" ", "") and
-  (
-    squishedBody.regexpMatch(".*[^\\(]" + param + ".*") or
-    squishedBody.regexpMatch(".*" + param + "[^\\)].*") or
-    squishedBody.regexpMatch("^" + param + "$")
-  ) and
-  not (
-    //case where param is right hand side operand to either # or ## operator
-    squishedBody.regexpMatch(".*\\#{1,2}?" + param + ".*")
-    or
-    //case where param is left hand side operand to either # or ## operator
-    squishedBody.regexpMatch(".*" + param + "\\#{1,2}?.*")
-  )
-select m,
-  "Accesses of parameter '" + param + "' are not always enclosed in parentheses in the macro " +
-    m.getName() + "."
+class MacroParameterNotEnclosedInParenthesesCQueryQuery extends MacroParameterNotEnclosedInParenthesesSharedQuery {
+  MacroParameterNotEnclosedInParenthesesCQueryQuery() {
+    this = MacrosPackage::functionLikeMacroParameterNotEnclosedInParenthesesQuery()
+  }
+}

@@ -8,6 +8,7 @@
  * @tags external/autosar/id/a2-13-3
  *       correctness
  *       readability
+ *       scope/single-translation-unit
  *       external/autosar/allocated-target/architecture
  *       external/autosar/allocated-target/design
  *       external/autosar/allocated-target/implementation

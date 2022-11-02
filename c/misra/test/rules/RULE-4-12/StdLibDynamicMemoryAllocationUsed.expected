@@ -1,0 +1,5 @@
+| test.c:8:15:8:20 | call to malloc | Use of banned dynamic memory allocation. |
+| test.c:9:15:9:20 | call to calloc | Use of banned dynamic memory allocation. |
+| test.c:10:8:10:14 | call to realloc | Use of banned dynamic memory allocation. |
+| test.c:11:3:11:6 | call to free | Use of banned dynamic memory deallocation. |
+| test.c:12:3:12:6 | call to free | Use of banned dynamic memory deallocation. |

@@ -1,0 +1,1 @@
+| test.c:7:1:7:57 | #define FUNCTION_MACRO(FUNCTION_MACRO) FUNCTION_MACRO + 1 | Macro name matches parameter FUNCTION_MACRO . |

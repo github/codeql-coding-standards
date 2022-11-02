@@ -56,22 +56,43 @@ class Wint_t extends Type {
 }
 
 /**
- * A function call that opens a file
+ * A standard function call that opens a file
  */
 class FOpenCall extends FunctionCall {
-  FOpenCall() { this.getTarget().hasGlobalName(["fopen", "fopen_s", "freopen", "freopen_s"]) }
+  FOpenCall() {
+    this.getTarget().hasGlobalName(["fopen", "fdopen", "fopen_s", "freopen", "freopen_s", "open"])
+  }
 
   /** The expression corresponding to the accessed file */
-  Expr getFilenameExpr() { result = this.getArgument(getNumberOfArguments() - 2) }
+  Expr getFilenameExpr() {
+    this.getTarget().hasGlobalName("open") and result = this.getArgument(0)
+    or
+    result = this.getArgument(getNumberOfArguments() - 2)
+  }
 
-  Expr getMode() { result = this.getArgument(getNumberOfArguments() - 1) }
+  Expr getMode() {
+    this.getTarget().hasGlobalName("open") and result = this.getArgument(1)
+    or
+    result = this.getArgument(getNumberOfArguments() - 1)
+  }
 
   // make predicate
   predicate isReadMode() { this.getMode().getValue() = ["r", "r+", "w+", "a+"] }
 
   predicate isWriteMode() { this.getMode().getValue() = ["w", "a", "r+", "w+", "a+"] }
 
-  predicate isReadOnlyMode() { this.isReadMode() and not this.isWriteMode() }
+  predicate isReadOnlyMode() {
+    this.isReadMode() and not this.isWriteMode()
+    or
+    exists(MacroInvocation mi |
+      mi.getMacroName() = "O_RDONLY" and
+      (
+        this.getMode() = mi.getExpr()
+        or
+        this.getMode().(BitwiseOrExpr).getAnOperand*() = mi.getExpr()
+      )
+    )
+  }
 
   predicate isReadWriteMode() { this.isReadMode() and this.isWriteMode() }
 }
@@ -80,6 +101,7 @@ abstract class FileAccess extends FunctionCall {
   abstract Expr getFileExpr();
 }
 
+pragma[inline]
 predicate sameFileSource(FileAccess a, FileAccess b) {
   exists(Variable c |
     c.getAnAccess() = a.getFileExpr() and

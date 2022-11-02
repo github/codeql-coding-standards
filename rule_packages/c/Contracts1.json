@@ -1,0 +1,42 @@
+{
+  "CERT-C": {
+    "ENV30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [{
+        "description": "Modification of return values of getenv and similar functions results in undefined behaviour.",
+        "kind": "path-problem",
+        "name": "Do not modify the return value of certain functions",
+        "precision": "very-high",
+        "severity": "warning",
+        "short_name": "DoNotModifyTheReturnValueOfCertainFunctions",
+        "shared_implementation_short_name": "ConstLikeReturnValue",
+        "tags": [
+          "correctness"
+        ]
+      }],
+      "title": "Do not modify the object referenced by the return value of certain functions"
+    },
+    "ENV31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [{
+        "description": "Using the envp pointer after environment modifications can result in undefined behavior.",
+        "kind": "problem",
+        "name": "Do not rely on an env pointer following an operation that may invalidate it",
+        "precision": "high",
+        "severity": "error",
+        "short_name": "EnvPointerIsInvalidAfterCertainOperations",
+        "tags": [
+          "correctness"
+        ],
+        "implementation_scope": {
+          "description": "The rule is enforced in the context of a single function."
+        }
+      }],
+      "title": "Do not rely on an environment pointer following an operation that may invalidate it"
+    }
+  }
+}

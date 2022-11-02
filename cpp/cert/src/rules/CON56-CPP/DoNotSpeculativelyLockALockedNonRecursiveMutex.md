@@ -122,7 +122,7 @@ Speculatively locking a non-recursive mutex in a recursive manner is undefined b
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4986, C++4987</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-CON56-a</strong> </td> <td> Avoid double locking </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>CONCURRENCY.TL</strong> </td> <td> Try-lock that will never succeed </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4986, C++4987</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-CON56-a</strong> </td> <td> Avoid double locking </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

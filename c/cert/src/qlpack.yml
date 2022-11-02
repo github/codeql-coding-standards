@@ -1,5 +1,5 @@
 name: codeql/cert-c-coding-standards
-version: 2.6.0-dev
+version: 2.9.0
 suites: codeql-suites
 dependencies:
   codeql/common-c-coding-standards: '*'

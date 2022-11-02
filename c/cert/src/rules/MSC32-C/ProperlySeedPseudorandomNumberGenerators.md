@@ -7,11 +7,11 @@ This query implements the CERT-C rule MSC32-C:
 
 ## Description
 
-A pseudorandom number generator (PRNG) is a deterministic algorithm capable of generating sequences of numbers that approximate the properties of random numbers. Each sequence is completely determined by the initial state of the PRNG and the algorithm for changing the state. Most PRNGs make it possible to set the initial state, also called the *seed state*. Setting the initial state is called *seeding* the PRNG.
+A pseudorandom number generator (PRNG) is a deterministic algorithm capable of generating sequences of numbers that approximate the properties of random numbers. Each sequence is completely determined by the initial state of the PRNG and the algorithm for changing the state. Most PRNGs make it possible to set the initial state, also called the *seed state*. Setting the initial state is called *seeding* the PRNG.
 
-Calling a PRNG in the same initial state, either without seeding it explicitly or by seeding it with the same value, results in generating the same sequence of random numbers in different runs of the program. Consider a PRNG function that is seeded with some initial seed value and is consecutively called to produce a sequence of random numbers, `S`. If the PRNG is subsequently seeded with the same initial seed value, then it will generate the same sequence `S`.
+Calling a PRNG in the same initial state, either without seeding it explicitly or by seeding it with the same value, results in generating the same sequence of random numbers in different runs of the program. Consider a PRNG function that is seeded with some initial seed value and is consecutively called to produce a sequence of random numbers, `S`. If the PRNG is subsequently seeded with the same initial seed value, then it will generate the same sequence `S`.
 
-As a result, after the first run of an improperly seeded PRNG, an attacker can predict the sequence of random numbers that will be generated in the future runs. Improperly seeding or failing to seed the PRNG can lead to [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability), especially in security protocols.
+As a result, after the first run of an improperly seeded PRNG, an attacker can predict the sequence of random numbers that will be generated in the future runs. Improperly seeding or failing to seed the PRNG can lead to [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability), especially in security protocols.
 
 The solution is to ensure that the PRNG is always properly seeded. A properly seeded PRNG will generate a different sequence of random numbers each time it is run.
 
@@ -24,7 +24,7 @@ This noncompliant code example generates a sequence of 10 pseudorandom numbers u
 ```cpp
 #include <stdio.h>
 #include <stdlib.h>
- 
+ 
 void func(void) {
   for (unsigned int i = 0; i < 10; ++i) {
     /* Always generates the same sequence */
@@ -52,7 +52,7 @@ Call `srandom()` before invoking `random()` to seed the random sequence generate
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
- 
+ 
 void func(void) {
   struct timespec ts;
   if (timespec_get(&ts, TIME_UTC) == 0) {
@@ -61,7 +61,7 @@ void func(void) {
     srandom(ts.tv_nsec ^ ts.tv_sec);
     for (unsigned int i = 0; i < 10; ++i) {
       /* Generates different sequences at different runs */
-      printf("%ld, ", random());
+      printf("%ld, ", random());
     }
   }
 }
@@ -76,11 +76,11 @@ The output is as follows:
 3rd run: 2052868434, 1645663878, 731874735, 1624006793, 938447420, 1046134947, 1901136083, 418123888, 836428296,
          2017467418,
 ```
-This may not be sufficiently random for concurrent execution, which may lead to correlated generated series in different threads. Depending on the application and the desired level of security, a programmer may choose alternative ways to seed PRNGs. In general, hardware is more capable than software of generating real random numbers (for example, by sampling the thermal noise of a diode).
+This may not be sufficiently random for concurrent execution, which may lead to correlated generated series in different threads. Depending on the application and the desired level of security, a programmer may choose alternative ways to seed PRNGs. In general, hardware is more capable than software of generating real random numbers (for example, by sampling the thermal noise of a diode).
 
 ## Compliant Solution (Windows)
 
-The [BCryptGenRandom()](https://docs.microsoft.com/en-us/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgenrandom) function does not run the risk of not being properly seeded because its arguments serve as seeders:
+The [BCryptGenRandom()](https://docs.microsoft.com/en-us/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgenrandom) function does not run the risk of not being properly seeded because its arguments serve as seeders:
 
 ```cpp
 #include <stdio.h>
@@ -122,7 +122,7 @@ The output is as follows:
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 20.10 </td> <td> </td> <td> Supported, but no explicit checker </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-MSC32</strong> </td> <td> </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.1 </td> <td> <strong>C5031</strong> <strong>C++5036</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.1 </td> <td> <strong>CERT.MSC.SEED_RANDOM</strong> </td> <td> </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>2460, 2461, 2760</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2021a </td> <td> <a> CERT C: Rule MSC32-C </a> </td> <td> Checks for: Deterministic random output from constant seedeterministic random output from constant seed, predictable random output from predictable seedredictable random output from predictable seed. Rule fully covered. </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_C-MSC32-d</strong> </td> <td> Properly seed pseudorandom number generators </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>5031 </strong> </td> <td> </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> Astrée </a> </td> <td> 22.04 </td> <td> </td> <td> Supported, but no explicit checker </td> </tr> <tr> <td> <a> Axivion Bauhaus Suite </a> </td> <td> 7.2.0 </td> <td> <strong>CertC-MSC32</strong> </td> <td> </td> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>HARDCODED.SEED</strong> <strong>MISC.CRYPTO.TIMESEED</strong> </td> <td> Hardcoded Seed in PRNG Predictable Seed in PRNG </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C5031</strong> <strong>C++5036</strong> </td> <td> </td> </tr> <tr> <td> <a> Klocwork </a> </td> <td> 2022.2 </td> <td> <strong>CERT.MSC.SEED_RANDOM</strong> </td> <td> </td> </tr> <tr> <td> <a> PC-lint Plus </a> </td> <td> 1.4 </td> <td> <strong>2460, 2461, 2760</strong> </td> <td> Fully supported </td> </tr> <tr> <td> <a> Polyspace Bug Finder </a> </td> <td> R2022a </td> <td> <a> CERT C: Rule MSC32-C </a> </td> <td> Checks for: Deterministic random output from constant seedeterministic random output from constant seed, predictable random output from predictable seedredictable random output from predictable seed. Rule fully covered. </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_C-MSC32-d</strong> </td> <td> Properly seed pseudorandom number generators </td> </tr> <tr> <td> <a> PRQA QA-C </a> </td> <td> 9.7 </td> <td> <strong>5031 </strong> </td> <td> </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities
@@ -159,6 +159,10 @@ MSC30-C, MSC32-C and CON33-C are independent, they have no intersections. They e
 
 <table> <tbody> <tr> <td> \[ <a> MSDN </a> \] </td> <td> " <a> BCryptGenRandom() Function </a> " </td> </tr> </tbody> </table>
 
+
+## Implementation notes
+
+This rule will be checked by looking for calls to random that are no preceded by a call to srandom(). We perform a simple check for the argument to srandom() and verify it is not a literal (or a value easily deduced to be a literal).
 
 ## References
 

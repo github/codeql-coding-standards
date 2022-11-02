@@ -1,0 +1,142 @@
+{
+  "CERT-C": {
+    "DCL31-C": {
+        "properties": {
+          "obligation": "rule"
+        },
+        "queries": [
+          {
+            "description": "Omission of type specifiers may not be supported by some compilers.",
+            "kind": "problem",
+            "name": "Declare identifiers before using them",
+            "precision": "very-high",
+            "severity": "error",
+            "short_name": "DeclareIdentifiersBeforeUsingThem",
+            "shared_implementation_short_name": "TypeOmitted",
+            "tags": [
+              "correctness",
+              "readability" 
+            ],
+            "implementation_scope": {
+              "description": "This query does not check for implicitly typed parameters, typedefs or member declarations as this is partially compiler checked.",
+              "items": []
+            }
+          }
+        ],
+        "title": "Declare identifiers before using them"
+      },
+      "DCL37-C": {
+        "properties": {
+          "obligation": "rule"
+        },
+        "queries": [
+          {
+            "description": "Declaring a reserved identifier can lead to undefined behaviour.",
+            "kind": "problem",
+            "name": "Do not declare or define a reserved identifier",
+            "precision": "very-high",
+            "severity": "warning",
+            "short_name": "DoNotDeclareOrDefineAReservedIdentifier",
+            "shared_implementation_short_name": "DeclaredAReservedIdentifier",
+            "tags": [
+              "correctness",
+              "maintainability",
+              "readability"
+            ],
+            "implementation_scope": {
+              "description": "This query does not consider identifiers described in the future library directions section of the standard. This query also checks for any reserved identifier as declared regardless of whether its header file is included or not.",
+              "items": []
+            }
+          }
+        ],
+        "title": "Do not declare or define a reserved identifier"
+      }
+  },
+  "MISRA-C-2012": {
+    "RULE-21-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declaring a reserved identifier can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "A reserved identifier or reserved macro name shall not be declared",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DoNotDeclareAReservedIdentifier",
+          "shared_implementation_short_name": "DeclaredAReservedIdentifier",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A reserved identifier or reserved macro name shall not be declared"
+    },
+    "RULE-5-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using nondistinct external identifiers results in undefined behaviour.",
+          "kind": "problem",
+          "name": "External identifiers shall be distinct",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExternalIdentifiersNotDistinct",
+          "shared_implementation_short_name": "NotDistinctIdentifier",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query considers the first 31 characters of identifiers as significant, as per C99 and reports the case when names are longer than 31 characters and differ in those characters past the 31 first only. This query does not consider universal or extended source characters.",
+            "items": []
+          }
+        }
+      ],
+      "title": "External identifiers shall be distinct"
+    },
+    "RULE-5-4": {
+        "properties": {
+          "obligation": "required"
+        },
+        "queries": [
+          {
+            "description": "Declaring multiple macros with the same name leads to undefined behaviour.",
+            "kind": "problem",
+            "name": "Macro identifiers shall be distinct",
+            "precision": "very-high",
+            "severity": "warning",
+            "short_name": "MacroIdentifiersNotDistinct",
+            "tags": [
+              "correctness",
+              "maintainability",
+              "readability"
+            ],
+              "implementation_scope": {
+                "description": "This query checks the first 63 characters of macro identifiers as significant, as per C99. Distinctness of parameters within the same function like macro are checked by compiler and therefore not checked by this rule.",
+                "items": []
+              }
+          },
+          {
+              "description": "Macros with the same name as their parameters are less readable.",
+              "kind": "problem",
+              "name": "Macro identifiers shall be distinct from paramters",
+              "precision": "very-high",
+              "severity": "warning",
+              "short_name": "MacroIdentifierNotDistinctFromParameter",
+              "tags": [
+                "maintainability",
+                "readability"
+              ]
+            }
+        ],
+        "title": "Macro identifiers shall be distinct"
+      }
+  }
+}

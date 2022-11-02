@@ -14,10 +14,10 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.rules.wrapspuriousfunctioninloop.WrapSpuriousFunctionInLoop
 
-from ConditionalWait cw
-where
-  not isExcluded(cw, ConcurrencyPackage::wrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery()) and
-  not cw.getEnclosingStmt().getParentStmt*() instanceof Loop
-select cw, "Use of a function that may wake up spuriously without a controlling loop."
+class WrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery extends WrapSpuriousFunctionInLoopSharedQuery {
+  WrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery() {
+    this = ConcurrencyPackage::wrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery()
+  }
+}

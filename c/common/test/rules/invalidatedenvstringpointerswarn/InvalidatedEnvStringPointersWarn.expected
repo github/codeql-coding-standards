@@ -1,0 +1,2 @@
+| test.c:13:19:13:24 | call to getenv | The value of variable $@ might become invalid after a subsequent call to function `getenv`. | test.c:10:7:10:19 | tmpvar_global | tmpvar_global |
+| test.c:16:20:16:25 | call to getenv | The value of variable $@ might become invalid after a subsequent call to function `getenv`. | test.c:7:9:7:20 | tmpvar_field | tmpvar_field |

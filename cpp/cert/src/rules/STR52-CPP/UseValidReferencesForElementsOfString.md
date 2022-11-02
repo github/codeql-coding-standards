@@ -115,7 +115,7 @@ Using an invalid reference, pointer, or iterator to a string object could allow 
 
 ## Automated Detection
 
-<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 6.2p0 </td> <td> <strong>ALLOC.UAF</strong> </td> <td> Use After Free </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2021.2 </td> <td> <strong>C++4746, C++4747, C++4748, C++4749</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2021.2 </td> <td> <strong>CERT_CPP-STR52-a</strong> </td> <td> Use valid references, pointers, and iterators to reference elements of a basic_string </td> </tr> </tbody> </table>
+<table> <tbody> <tr> <th> Tool </th> <th> Version </th> <th> Checker </th> <th> Description </th> </tr> <tr> <td> <a> CodeSonar </a> </td> <td> 7.0p0 </td> <td> <strong>ALLOC.UAF</strong> </td> <td> Use After Free </td> </tr> <tr> <td> <a> Helix QAC </a> </td> <td> 2022.2 </td> <td> <strong>C++4746, C++4747, C++4748, C++4749</strong> </td> <td> </td> </tr> <tr> <td> <a> Parasoft C/C++test </a> </td> <td> 2022.1 </td> <td> <strong>CERT_CPP-STR52-a</strong> </td> <td> Use valid references, pointers, and iterators to reference elements of a basic_string </td> </tr> </tbody> </table>
 
 
 ## Related Vulnerabilities

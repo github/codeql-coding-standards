@@ -1,0 +1,2 @@
+| test.c:48:3:48:9 | call to strtoul | The value of `errno` is not checked after this call to `strtoul`. |
+| test.c:60:12:60:18 | call to strtoul | The value of `errno` is not checked after this call to `strtoul`. |

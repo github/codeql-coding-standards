@@ -1,0 +1,64 @@
+{
+  "CERT-C": {
+    "CON30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Failing to clean up thread-specific resources can lead to unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Clean up thread-specific storage",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "CleanUpThreadSpecificStorage",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This query does not attempt to ensure that the deallocation function in fact deallocates memory and instead assumes the contract is valid. Additionally, this query requires that all `tss_create` calls are bookended by calls to `tss_delete`, even if a thread is not created."
+          }
+   
+        }
+      ],
+      "title": "Clean up thread-specific storage"
+    },
+    "CON34-C": {
+      "properties": {
+        "obligation": "rule" 
+      },
+      "queries": [
+        {
+          "description": "Accessing thread-local variables with automatic storage durations can lead to unpredictable program behavior.",
+          "kind": "problem",
+          "name": "Declare objects shared between threads with appropriate storage durations",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "AppropriateThreadObjectStorageDurations",
+          "tags": [
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This query does not consider Windows implementations or OpenMP implementations. This query is primarily about excluding cases wherein the storage duration of a variable is appropriate. As such, this query is not concerned if the appropriate synchronization mechanisms are used, such as sequencing calls to `thrd_join` and `free`. An audit query is supplied to handle some of those cases."
+          }
+        },
+        {
+          "description": "Storage durations not correctly initialized can cause unpredictable program behavior.",
+          "kind": "problem",
+          "name": "(Audit) Declare objects shared between threads with appropriate storage durations",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThreadObjectStorageDurationsNotInitialized",
+          "tags": [
+            "external/cert/audit",
+            "correctness",
+            "concurrency"            
+          ]
+        }
+      ],
+      "title": "Declare objects shared between threads with appropriate storage durations"
+    }
+  }
+}

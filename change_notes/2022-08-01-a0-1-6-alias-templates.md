@@ -1,0 +1,1 @@
+- `A0-1-6`: alias templates are now appropriately handled, with alias templates considered used if there exists an instantiation that is used.

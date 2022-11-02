@@ -1,4 +1,4 @@
 name: codeql/common-cpp-coding-standards
-version: 2.6.0-dev
+version: 2.9.0
 dependencies:
   codeql/cpp-all: 0.4.0

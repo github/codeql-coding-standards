@@ -97,6 +97,28 @@
             "problemMatcher": []
         },
         {
+            "label": "📖 Standards Automation: Generate Help Files for CERT rules",
+            "type": "shell",
+            "windows": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}help${pathSeparator}cert-help-extraction.py ${input:rule}"
+            },
+            "linux": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}help${pathSeparator}cert-help-extraction.py ${input:rule}"
+            },
+            "osx": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}help${pathSeparator}cert-help-extraction.py ${input:rule}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "runOptions": {
+                "reevaluateOnRerun": false
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "🧪 Standards Automation: Build Case Test DB",
             "type": "shell",
             "windows": {
@@ -164,21 +186,25 @@
             "options": [
                 "Allocations",
                 "BannedFunctions",
+                "BannedLibraries",
                 "BannedSyntax",
                 "BannedTypes",
                 "Classes",
-                "Classes",
-                "Classes",
                 "Comments",
+                "Contracts1",
                 "Concurrency",
                 "Concurrency",
                 "Concurrency1",
                 "Concurrency2",
                 "Concurrency3",
+                "Concurrency4",                
+                "Concurrency5",                
                 "Conditionals",
                 "Const",
                 "DeadCode",
                 "Declarations",
+                "Declarations1",
+                "Declarations2",
                 "Exceptions1",
                 "Exceptions2",
                 "Expressions",
@@ -187,12 +213,14 @@
                 "IO1",
                 "IO2",
                 "IO3",
+                "IO4",
                 "Includes",
                 "Initialization",
                 "IntegerConversion",
                 "Invariants",
                 "Iterators",
                 "Lambdas",
+                "Language1",
                 "Literals",
                 "Loops",
                 "Macros",
@@ -223,6 +251,7 @@
                 "Preprocessor2",
                 "Preprocessor3",
                 "Preprocessor4",
+                "Preprocessor5",
                 "IntegerConversion",
                 "Expressions",
                 "DeadCode",

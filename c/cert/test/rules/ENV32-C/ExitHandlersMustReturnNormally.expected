@@ -1,0 +1,13 @@
+edges
+| test.c:8:6:8:13 | exit1bad | test.c:11:5:11:8 | call to exit |
+| test.c:20:14:20:21 | exit1bad | test.c:8:6:8:13 | exit1bad |
+| test.c:41:6:41:10 | exit2 | test.c:42:3:42:9 | call to longjmp |
+| test.c:46:21:46:25 | exit2 | test.c:41:6:41:10 | exit2 |
+| test.c:62:6:62:17 | exit3_helper | test.c:62:27:62:33 | call to longjmp |
+| test.c:64:6:64:10 | exit3 | test.c:65:3:65:14 | call to exit3_helper |
+| test.c:65:3:65:14 | call to exit3_helper | test.c:62:6:62:17 | exit3_helper |
+| test.c:69:14:69:18 | exit3 | test.c:64:6:64:10 | exit3 |
+#select
+| test.c:8:6:8:13 | exit1bad | test.c:20:14:20:21 | exit1bad | test.c:11:5:11:8 | call to exit | The function is $@ and $@. It must instead terminate by returning. | test.c:20:14:20:21 | exit1bad | registered as `exit handler` | test.c:11:5:11:8 | call to exit | calls an `exit function` |
+| test.c:41:6:41:10 | exit2 | test.c:46:21:46:25 | exit2 | test.c:42:3:42:9 | call to longjmp | The function is $@ and $@. It must instead terminate by returning. | test.c:46:21:46:25 | exit2 | registered as `exit handler` | test.c:42:3:42:9 | call to longjmp | calls an `exit function` |
+| test.c:64:6:64:10 | exit3 | test.c:69:14:69:18 | exit3 | test.c:62:27:62:33 | call to longjmp | The function is $@ and $@. It must instead terminate by returning. | test.c:69:14:69:18 | exit3 | registered as `exit handler` | test.c:62:27:62:33 | call to longjmp | calls an `exit function` |
