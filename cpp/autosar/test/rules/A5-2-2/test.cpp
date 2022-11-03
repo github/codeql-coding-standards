@@ -45,12 +45,12 @@ void test_cpp_style_cast() {
 class A5_2_2a {
 public:
   template <typename... As>
-  static void Foo(const std::string &name, As &&... rest) {
+  static void Foo(const std::string &name, As &&...rest) {
     Fun(Log(
         std::forward<As>(rest)...)); // COMPLIANT - reported as a false positive
   }
 
-  template <typename... As> static std::string Log(As &&... tail) {
+  template <typename... As> static std::string Log(As &&...tail) {
     return std::string();
   }
 
