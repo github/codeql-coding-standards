@@ -17,11 +17,12 @@ $rules = Get-RulesFromCSV -Language $Language
 $counter = @{} 
 
 foreach($rule in $rules){
-    if($counter.Contains($rule.ID)){
-        $counter[$rule.ID] += $rule
+    $key = "$($rule.Language):$($rule.Standard):$($rule.ID)"
+    if($counter.Contains($key)){
+        $counter[$key] += $rule
     }else{
-        $counter[$rule.ID] = @()
-        $counter[$rule.ID] += $rule
+        $counter[$key] = @()
+        $counter[$key] += $rule
     }
 }
 
