@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "RULE-1-2": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Language extensions can have inconsistent behavior and should not be used.",
+          "kind": "problem",
+          "name": "Language extensions should not be used",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "LanguageExtensionsShouldNotBeUsed",
+          "tags": [
+            "maintainability",
+            "readability" 
+          ]
+        }
+      ],
+      "title": "Language extensions should not be used"
+    }
+  }
+}
