@@ -8,7 +8,7 @@ param(
 
 )
 
-Import-Module -Name "$PSScriptRoot\..\PSCodingStandards\CodingStandards"
+Import-Module -Name "$PSScriptRoot/../PSCodingStandards\CodingStandards"
 
 # load the rules.
 $rules = Get-RulesFromCSV -Language $Language
