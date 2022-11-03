@@ -1,0 +1,28 @@
+name: ⚙️ Validate Rules CSV
+
+on:
+  push:
+    branches:
+      - main
+      - "rc/**"
+      - next
+  pull_request:
+    branches:
+      - main
+      - "rc/**"
+      - next
+
+
+jobs:
+  validate-rules-csv:
+    name: Validate Rules CSV 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check Rules 
+        shell: pwsh
+        run: scripts/util/Get-DuplicateRules.ps1 -Language 'all' -CIMode
+
+      
