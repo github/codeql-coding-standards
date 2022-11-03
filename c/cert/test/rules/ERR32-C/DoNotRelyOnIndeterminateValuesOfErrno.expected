@@ -1,0 +1,3 @@
+| test.c:12:5:12:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:32:21:32:26 | call to signal | call to signal |
+| test.c:26:3:26:8 | call to perror | `errno` has indeterminate value after this $@. | test.c:41:17:41:22 | call to signal | call to signal |
+| test.c:34:5:34:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:32:21:32:26 | call to signal | call to signal |
