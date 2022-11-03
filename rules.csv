@@ -600,7 +600,7 @@ c,CERT-C,STR37-C,Yes,Rule,,,Arguments to character-handling functions must be re
 c,CERT-C,STR38-C,Yes,Rule,,,Do not confuse narrow and wide character strings and functions,,Strings3,Medium,
 c,CERT-C,WIN30-C,OutOfScope,Rule,,,Properly pair allocation and deallocation functions,DCL54-CPP,,Easy,
 c,MISRA-C-2012,RULE-1-1,No,Required,,,Any implementation-defined behaviour on which the output of the program depends shall be documented and understood,,,,
-c,MISRA-C-2012,RULE-2-1,Yes,Required,,,All source files shall compile without any compilation errors,A1-4-3,Language,Medium,
+c,MISRA-C-2012,DIR-2-1,Yes,Required,,,All source files shall compile without any compilation errors,A1-4-3,Language,Medium,
 c,MISRA-C-2012,RULE-3-1,No,Required,,,All code shall be traceable to documented requirements,,,,
 c,MISRA-C-2012,RULE-4-1,No,Required,,,Run-time failures shall be minimized,,,,
 c,MISRA-C-2012,RULE-4-2,Yes,Advisory,,,All usage of assembly language should be documented,M7-4-1,Language,Import,
