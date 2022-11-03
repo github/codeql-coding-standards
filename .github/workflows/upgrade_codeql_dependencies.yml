@@ -20,7 +20,7 @@ jobs:
     env:
       CODEQL_CLI_VERSION: ${{ github.event.inputs.codeql_cli_version }}
       CODEQL_LIB_COMMIT: ${{ github.event.inputs.codeql_standard_library_commit }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
