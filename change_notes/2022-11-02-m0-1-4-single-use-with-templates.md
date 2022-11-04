@@ -1,0 +1,2 @@
+ - `M0-1-4` - `SingleUseMemberPODVariable.ql`
+   - Reduce false positives by excluding any constexpr variable whose constant value is used as an argument to a template.
