@@ -10,7 +10,7 @@ on:
 jobs:
 
   apply-version-bump:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-22.04
     name: Apply Version Bump
     steps:
         - name: Checkout 

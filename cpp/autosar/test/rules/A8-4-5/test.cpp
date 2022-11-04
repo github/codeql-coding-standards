@@ -48,7 +48,7 @@ public:
 
 // template type
 template <typename T, typename... X>
-T test_forward(X &&... f) {        // forward parameter
+T test_forward(X &&...f) {         // forward parameter
   return T{std::forward<X>(f)...}; // COMPLIANT
 }
 

@@ -40,6 +40,6 @@ void test_switchclause_termination2(int expression) {
       k = i;
     }
   default: // NON_COMPLIANT
-           ;
+      ;
   }
 }
