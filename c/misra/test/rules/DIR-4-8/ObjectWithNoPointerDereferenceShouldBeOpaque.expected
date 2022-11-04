@@ -1,0 +1,6 @@
+| test.c:10:8:10:9 | s4 | $@ is not opaque but no pointer to it is dereferenced within the translation unit $@. | test.c:10:8:10:9 | s4 | s4 | test.c:0:0:0:0 | test.c | test.c |
+| test.h:3:8:3:9 | s1 | $@ is not opaque but no pointer to it is dereferenced within the translation unit $@. | test.h:3:8:3:9 | s1 | s1 | test.c:0:0:0:0 | test.c | test.c |
+| test_2.c:7:8:7:9 | s2 | $@ is not opaque but no pointer to it is dereferenced within the translation unit $@. | test_2.c:7:8:7:9 | s2 | s2 | test_2.c:0:0:0:0 | test_2.c | test_2.c |
+| test_shared.h:15:8:15:20 | only_test2_s2 | $@ is not opaque but no pointer to it is dereferenced within the translation unit $@. | test_shared.h:15:8:15:20 | only_test2_s2 | only_test2_s2 | test_2.c:0:0:0:0 | test_2.c | test_2.c |
+| test_shared.h:19:7:19:15 | shared_u1 | $@ is not opaque but no pointer to it is dereferenced within the translation unit $@. | test_shared.h:19:7:19:15 | shared_u1 | shared_u1 | test.c:0:0:0:0 | test.c | test.c |
+| test_shared.h:19:7:19:15 | shared_u1 | $@ is not opaque but no pointer to it is dereferenced within the translation unit $@. | test_shared.h:19:7:19:15 | shared_u1 | shared_u1 | test_2.c:0:0:0:0 | test_2.c | test_2.c |
