@@ -40,7 +40,7 @@ predicate isPreprocessor2QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `precautionIncludeGuardsNotProvided` query
     "c/misra/precaution-include-guards-not-provided" and
-  ruleId = "RULE-4-10"
+  ruleId = "DIR-4-10"
 }
 
 module Preprocessor2Package {
