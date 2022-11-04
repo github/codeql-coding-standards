@@ -19,7 +19,7 @@ env:
 jobs:
   prepare-code-scanning-pack-matrix:
     name: Prepare CodeQL Code Scanning pack matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       matrix: ${{ steps.export-code-scanning-pack-matrix.outputs.matrix }}
     steps:

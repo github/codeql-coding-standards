@@ -86,16 +86,16 @@ void test_noncompliant() {
 #include <string>
 class Test_issue468 {
 public:
-  template <typename... As> static void LogInfo(const As &... rest) {
+  template <typename... As> static void LogInfo(const As &...rest) {
     [](const std::string &s) -> void { LogInfo(s); }; // COMPLIANT
   }
-  template <typename... As> static void LogWarn(const As &... rest) {
+  template <typename... As> static void LogWarn(const As &...rest) {
     [](const std::string &s) -> void { LogWarn(s); }; // COMPLIANT
   }
-  template <typename... As> static void LogError(const As &... rest) {
+  template <typename... As> static void LogError(const As &...rest) {
     [](const std::string &s) -> void { LogError(s); }; // NON_COMPLIANT
   }
-  template <typename... As> static void LogFatal(const As &... rest) {
+  template <typename... As> static void LogFatal(const As &...rest) {
     [](const std::string &s) -> void { LogError(s); }; // NON_COMPLIANT
   }
   void instantiate() {
