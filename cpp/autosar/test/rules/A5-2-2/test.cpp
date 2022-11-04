@@ -66,3 +66,24 @@ void a5_2_2_test() {
   A5_2_2 a;
   a.f("");
 }
+
+#define ADD_ONE(x) ((int)x) + 1
+#define NESTED_ADD_ONE(x) ADD_ONE(x)
+#define NO_CAST_ADD_ONE(x) x + 1
+
+#include "macro_c_style_casts.h"
+
+void test_macro_cast() {
+  ADD_ONE(1);         // NON_COMPLIANT - expansion of user-defined macro creates
+                      // c-style cast
+  NESTED_ADD_ONE(1);  // NON_COMPLIANT - expansion of user-defined macro creates
+                      // c-style cast
+  LIBRARY_ADD_TWO(1); // COMPLIANT - macro generating the cast is defined in a
+                      // library, and is not modifiable by the user
+  LIBRARY_NESTED_ADD_TWO(1); // COMPLIANT - macro generating the cast is defined
+                             // in a library, and is not modifiable by the user
+  NO_CAST_ADD_ONE((int)1.0); // NON_COMPLIANT - cast in argument to macro
+  LIBRARY_NO_CAST_ADD_TWO((int)1.0); // NON_COMPLIANT - library macro with
+                                     // c-style cast in argument, written by
+                                     // user so should be reported
+}
