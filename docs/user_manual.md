@@ -17,7 +17,8 @@
 | 0.9.0   | 2022-02-17 | Remco Vermeulen | Finalize scope deviation records                                                                                        |
 | 0.10.0  | 2022-02-28 | Remco Vermeulen | Describe database correctness in the Hazard and Risk Analysis (HARA).                                                   |
 | 0.11.0  | 2022-02-28 | Remco Vermeulen | Updated version to 1.1.0                                                                                                |
-| 0.11.0  | 2022-10-21 | Luke Cartey     | Updated version to 2.10.0                                                                                                |
+| 0.12.0  | 2022-10-21 | Luke Cartey     | Updated version to 2.10.0                                                                                               |
+| 0.13.0  | 2022-11-03 | Remco Vermeulen | Add missing deviation analysis report tables to section 'Producing an analysis report'.                                 |
 
 ## Release information
 
@@ -44,12 +45,12 @@ A _coding standard_ is a set of rules or guidelines which restrict or prohibit t
 
 The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying contraventions of rules in the following coding standards:
 
-| Standard                                                                                                               | Version | Total rules | Total supportable rules | Status      |
-| ---------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf)   | 20-11   | 397         | 375                     | Implemented |
-| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)     | 2016    | 83          | 83                      | Implemented |
-| [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)         | 2016    | 99          | 99                     | Under development |
-| [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                  | 2012    | 172          | 169                      | Under development |
+| Standard                                                                                                             | Version | Total rules | Total supportable rules | Status            |
+| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented       |
+| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented       |
+| [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 99                      | Under development |
+| [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 172         | 169                     | Under development |
 
 
 Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in the our representation of the codebase under analysis. For each rule we therefore identify whether it is supportable or not. Furthermore, a rule can be supported in two ways:
@@ -225,6 +226,21 @@ This will produce a directory (`<output_directory>`) containing the following re
      - A textual justification of the deviation.
      - A textual description of background information.
      - A textual description of the requirements which must be satisfied to use the deviation.
+   - A table of invalid deviation records for which we list:
+     - The location of the invalid deviation record in the database.
+     - The reason why it is considered invalid.
+   - A table of deviation permits for which we list:
+     - An identifier that identifies the permit.
+     - An identifier for the coding standards rule the deviation applies to.
+     - The query identifier that implements the guideline.
+     - An inferred scope that shows the files or code-identifier the deviation is applied to.
+     - A textual description of the scope when the deviation can be applied.
+     - A textual justification of the deviation.
+     - A textual description of background information.
+     - A textual description of the requirements which must be satisfied to use the deviation.
+   - A table of invalid deviation permits for which we list:
+     - The location of the invalid permit in the database.
+     - The reason why it is considered invalid.
 
 #### Applying deviations
 
