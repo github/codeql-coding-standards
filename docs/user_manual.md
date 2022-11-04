@@ -121,9 +121,11 @@ The environment used to generate these reports requires:
 
 - A Python interpreter version 3.9
 - A CodeQL CLI version documented in the release artifact `supported_codeql_configs.json`
+
 ## Operating manual
 
 This section describes how to operate the "CodeQL Coding Standards".
+
 ### Command line
 
 #### Pre-requisite: downloading the CodeQL CLI
