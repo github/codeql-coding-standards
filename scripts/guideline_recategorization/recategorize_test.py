@@ -1,7 +1,5 @@
 import pytest
-import difflib
 import recategorize
-import jsonschema
 from pathlib import Path
 import argparse
 import sys
