@@ -116,7 +116,7 @@ class CodeQL():
                 raise CodeQLError(
                     f"Could not read the output of the query {query_path}", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
             with open(temp_file) as tmp:
-                return csv.reader(tmp)
+                return list(csv.reader(tmp))
 
     def generate_query_help(self, query_help_path: Path, output: Path, format : str = "markdown", **options: str) -> None:
         command = ['codeql', 'generate', 'query-help']
