@@ -139,3 +139,18 @@ class CodeQL():
         if not result.returncode == 0:
                 raise CodeQLError(
                     f"Failed to format file {path}", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
+
+    def create_database(self, src_root: Path, language: str, database: Path, *build_commands : str, **options: str) -> None:
+        command = ['codeql', 'database', 'create']
+        options['source-root'] = str(src_root)
+        options['language'] = language
+
+        command_options = self.__build_command_options(**options)
+        command.extend(command_options)
+        command.extend([f'--command={build_command}' for build_command in build_commands])
+        command.append(str(database))
+
+        result = subprocess.run(command, capture_output=True)
+        if not result.returncode == 0:
+                raise CodeQLError(
+                    f"Failed to build database {database} from {src_root} with language {language} and commands [{','.join(build_commands)}]", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
