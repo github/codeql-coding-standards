@@ -1,4 +1,4 @@
-name: Tooling unit tests
+name: 🧰 Tooling unit tests
 
 on:
   push:
