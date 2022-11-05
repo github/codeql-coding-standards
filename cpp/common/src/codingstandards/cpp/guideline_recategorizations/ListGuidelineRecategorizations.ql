@@ -9,4 +9,4 @@ import cpp
 import GuidelineRecategorizations
 
 from GuidelineRecategorization gr
-select gr.getRuleId(), gr.getCategory()
+select gr.getRuleId(), gr.getQuery().getCategory(), gr.getCategory()
