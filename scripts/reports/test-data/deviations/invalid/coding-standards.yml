@@ -1,0 +1,58 @@
+deviations:
+  -
+  - rule-id: bad rule id
+  - query-id: bad rule id
+  - rule-id: A0-1-1
+  - query-id: cpp/autosar/useless-assignment
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+    raised-by:
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+    raised-by:
+      name: foo1
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+    raised-by:
+      name: foo2
+      date: 1970-01-01Z
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+    raised-by:
+      name: foo3
+      date: 1970-01-01Z
+    approved-by:
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+    raised-by:
+      name: foo4
+      date: 1970-01-01Z
+    approved-by:
+      name: bar1
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+    raised-by:
+      name: foo5
+      date: 1970-01-01Z
+    approved-by:
+      name: bar2
+      date: 1970-01-01Z
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+    permit-id: non-existing-permit
+  - permit-id: DP1
+  - permit-id: DP2
+  - rule-id: RULE-13-6
+    query-id: c/misra/sizeof-operand-with-side-effect
+deviation-permits:
+  - permit-id: DP1
+    justification: foo bar baz
+  - permit-id: DP2
+    rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+  - permit-id: DP3
+    invalid-property: invalid-property
