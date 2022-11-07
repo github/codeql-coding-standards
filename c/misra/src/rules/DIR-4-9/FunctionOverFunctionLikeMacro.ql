@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import IrreplaceableFunctionLikeMacro
+import codingstandards.c.IrreplaceableFunctionLikeMacro
 
 predicate partOfConstantExpr(MacroInvocation i) {
   exists(Expr e |
