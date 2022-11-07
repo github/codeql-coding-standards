@@ -79,3 +79,21 @@ void test_compatible_functions() {
   signed (*f1)(int) = &g;     // COMPLIANT
   int (*g1)(signed int) = &f; // COMPLIANT
 }
+
+struct S2 {
+  int a;
+  int b;
+};
+
+struct S3 {
+  int a;
+  int b;
+};
+
+void test_realloc() {
+  struct S2 *s2 = (struct S2 *)malloc(sizeof(struct S2));
+  struct S3 *s3 = (struct S3 *)realloc(s2, sizeof(struct S3));
+  s3->a; // NON_COMPLIANT
+  memset(s3, 0, sizeof(struct S3));
+  s3->a; // COMPLIANT
+}
