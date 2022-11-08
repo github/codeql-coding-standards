@@ -32,6 +32,7 @@
 | 0.24.0  | 2022-07-05 | Remco Vermeulen | Update release process to include steps for external help files.                                                                                                                                                                                                                          |
 | 0.25.0  | 2022-07-22 | Jeroen Ketema   | Document the existence and purpose of the `next` branch.                                                                                                                                                                                                                                  |
 | 0.26.0  | 2022-08-10 | Remco Vermeulen | Address incorrect package file generation command. This was missing the required language argument.                                                                                                                                                                                       |
+| 0.27.0  | 2022-11-08 | Luke Cartey | Update the versions of C we intend to support to exclude C90, which reflects the intended scope at the outset of the project.                                                                                                                                                                                       |
 
 ## Scope of work
 
