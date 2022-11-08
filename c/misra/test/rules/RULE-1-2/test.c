@@ -1,3 +1,7 @@
+// semmle-extractor-options:--clang -fhonor-infinity -std=c11 --edg --diag_error=implicit_func_decl -nostdinc -I../../../../common/test/includes/standard-library
+
+// do it on a translation unit -- flag first line 
+
 #include <stdbool.h>
 #include <stdio.h>
 // Note: Clang aims to support both clang and gcc extensions.
@@ -135,7 +139,7 @@ void gf14() {
 }
 
 void gf15() {
-  float f = 0x1.fp3; // NON_COMPLIANT
+  float f = 0x1.fp3; // NON_COMPLIANT 
 }
 
 void gf16() {
