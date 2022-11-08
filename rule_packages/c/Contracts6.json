@@ -1,0 +1,74 @@
+{
+  "CERT-C": {
+    "EXP40-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Do not modify constant objects",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotModifyConstantObjects",
+          "tags": []
+        }
+      ],
+      "title": "Do not modify constant objects"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-12-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The right hand operand of a shift operator shall lie in the range zero to one less than the width in bits of the essential type of the left hand operand",
+          "kind": "problem",
+          "name": "The right hand operand of a shift operator shall lie in the range zero to one less than the width in",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "RightHandOperandOfAShiftOperatorRange",
+          "tags": []
+        }
+      ],
+      "title": "The right hand operand of a shift operator shall lie in the range zero to one less than the width in bits of the essential type of the left hand operand"
+    },
+    "RULE-17-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The function argument corresponding to a parameter declared to have an array type shall have an appropriate number of elements",
+          "kind": "problem",
+          "name": "The function argument corresponding to a parameter declared to have an array type shall have an",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ArrayFunctionArgumentNumberOfElements",
+          "tags": []
+        }
+      ],
+      "title": "The function argument corresponding to a parameter declared to have an array type shall have an appropriate number of elements"
+    },
+    "RULE-17-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "The value returned by a function having non-void return type shall be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ValueReturnedByAFunctionNotUsed",
+          "tags": []
+        }
+      ],
+      "title": "The value returned by a function having non-void return type shall be used"
+    }
+  }
+}
