@@ -10,8 +10,8 @@ public:
   explicit TestClass2(const std::vector<int> &v);
 };
 // template type
-template <typename T, typename... X> T make(X &&... x) { // forward param
-  return T{std::forward<X>(x)...};                       // COMPLIANT
+template <typename T, typename... X> T make(X &&...x) { // forward param
+  return T{std::forward<X>(x)...};                      // COMPLIANT
 }
 // template type
 template <typename T, typename U> T make2(U &&x) { // forward param

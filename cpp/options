@@ -1,1 +1,1 @@
-semmle-extractor-options:--clang -std=c++14 -nostdinc++ -I../../../../common/test/includes/standard-library
+semmle-extractor-options:--clang -std=c++14 -nostdinc++ -I../../../../common/test/includes/standard-library -I../../../../common/test/includes/custom-library

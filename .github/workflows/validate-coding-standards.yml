@@ -18,7 +18,7 @@ env:
 jobs:
   validate-package-files:
     name: Validate Package Files
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -63,7 +63,7 @@ jobs:
 
   validate-codeql-format:
     name: "Validate CodeQL Format"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -94,7 +94,7 @@ jobs:
 
   validate-query-help-files:
     name: Validate Query Help Files
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -129,7 +129,7 @@ jobs:
 
   validate-cpp-test-files:
     name: Validate C++ Test Files
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -152,7 +152,7 @@ jobs:
 
   validate-c-test-files:
     name: Validate C Test Files
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
