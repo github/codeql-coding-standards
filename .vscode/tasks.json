@@ -185,6 +185,7 @@
             "type": "pickString",
             "options": [
                 "Allocations",
+                "Banned",
                 "BannedFunctions",
                 "BannedLibraries",
                 "BannedSyntax",
@@ -222,6 +223,7 @@
                 "Invariants",
                 "Iterators",
                 "Lambdas",
+                "Language1",
                 "Literals",
                 "Loops",
                 "Macros",

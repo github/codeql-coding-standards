@@ -1,0 +1,2 @@
+| test.c:98:3:98:11 | call to setlocale | Do not read `errno` before checking the return value of a call to `setlocale`. |
+| test.c:104:7:104:15 | call to setlocale | The value of `errno` may be different than `0` when `setlocale` is called. The following `errno` check might be invalid. |

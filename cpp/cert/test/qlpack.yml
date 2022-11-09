@@ -1,4 +1,4 @@
 name: cert-cpp-coding-standards-tests
-version: 2.9.0-dev
+version: 2.11.0-dev
 libraryPathDependencies: cert-cpp-coding-standards
 extractor: cpp

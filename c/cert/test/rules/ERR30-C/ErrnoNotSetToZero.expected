@@ -1,0 +1,3 @@
+| test.c:11:12:11:18 | call to strtoul | The value of `errno` may be different than `0` when this function is called. |
+| test.c:30:12:30:18 | call to strtoul | The value of `errno` may be different than `0` when this function is called. |
+| test.c:49:3:49:9 | call to strtoul | The value of `errno` may be different than `0` when this function is called. |

@@ -16,28 +16,25 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.Errno
 
-/*
+/**
  * A call to an `ErrnoSettingFunction`
  */
-
 class ErrnoSettingFunctionCall extends FunctionCall {
   ErrnoSettingFunctionCall() { this.getTarget() instanceof ErrnoSettingFunction }
 }
 
-/*
+/**
  * A function call that is not part of the `errno` macro expansion
  */
-
 class MaySetErrnoCall extends FunctionCall {
   MaySetErrnoCall() {
     not inmacroexpansion(this, any(MacroInvocation ma | ma.getMacroName() = "errno"))
   }
 }
 
-/*
+/**
  * CFG nodes preceding a `errno` test where `errno` is not set
  */
-
 ControlFlowNode notSetPriorToErrnoTest(EqualityOperation eg) {
   result = eg
   or

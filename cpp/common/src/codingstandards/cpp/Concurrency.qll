@@ -483,6 +483,20 @@ class C11ThreadWait extends ThreadWait {
   C11ThreadWait() { getTarget().getName() = "thrd_join" }
 }
 
+/**
+ * Models thread detach functions.
+ */
+abstract class ThreadDetach extends FunctionCall { }
+
+/**
+ * Models a call to `thrd_detach` in C11.
+ */
+class C11ThreadDetach extends ThreadWait {
+  VariableAccess var;
+
+  C11ThreadDetach() { getTarget().getName() = "thrd_detach" }
+}
+
 abstract class MutexSource extends FunctionCall { }
 
 /**
