@@ -8,6 +8,7 @@
  * @tags external/misra/id/rule-1-2
  *       maintainability
  *       readability
+ *       correctness
  *       external/misra/obligation/advisory
  */
 
