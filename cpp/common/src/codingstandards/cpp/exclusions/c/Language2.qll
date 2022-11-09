@@ -3,9 +3,21 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Language2Query = TLanguageExtensionsShouldNotBeUsedQuery()
+newtype Language2Query =
+  TUsageOfAssemblyLanguageShouldBeDocumentedQuery() or
+  TLanguageExtensionsShouldNotBeUsedQuery() or
+  TCriticalUnspecifiedBehaviourQuery() or
+  TEmergentLanguageFeaturesUsedQuery()
 
 predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId) {
+  query =
+    // `Query` instance for the `usageOfAssemblyLanguageShouldBeDocumented` query
+    Language2Package::usageOfAssemblyLanguageShouldBeDocumentedQuery() and
+  queryId =
+    // `@id` for the `usageOfAssemblyLanguageShouldBeDocumented` query
+    "c/misra/usage-of-assembly-language-should-be-documented" and
+  ruleId = "DIR-4-2"
+  or
   query =
     // `Query` instance for the `languageExtensionsShouldNotBeUsed` query
     Language2Package::languageExtensionsShouldNotBeUsedQuery() and
@@ -13,13 +25,50 @@ predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId) {
     // `@id` for the `languageExtensionsShouldNotBeUsed` query
     "c/misra/language-extensions-should-not-be-used" and
   ruleId = "RULE-1-2"
+  or
+  query =
+    // `Query` instance for the `criticalUnspecifiedBehaviour` query
+    Language2Package::criticalUnspecifiedBehaviourQuery() and
+  queryId =
+    // `@id` for the `criticalUnspecifiedBehaviour` query
+    "c/misra/critical-unspecified-behaviour" and
+  ruleId = "RULE-1-3"
+  or
+  query =
+    // `Query` instance for the `emergentLanguageFeaturesUsed` query
+    Language2Package::emergentLanguageFeaturesUsedQuery() and
+  queryId =
+    // `@id` for the `emergentLanguageFeaturesUsed` query
+    "c/misra/emergent-language-features-used" and
+  ruleId = "RULE-1-4"
 }
 
 module Language2Package {
+  Query usageOfAssemblyLanguageShouldBeDocumentedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `usageOfAssemblyLanguageShouldBeDocumented` query
+      TQueryC(TLanguage2PackageQuery(TUsageOfAssemblyLanguageShouldBeDocumentedQuery()))
+  }
+
   Query languageExtensionsShouldNotBeUsedQuery() {
     //autogenerate `Query` type
     result =
       // `Query` type for `languageExtensionsShouldNotBeUsed` query
       TQueryC(TLanguage2PackageQuery(TLanguageExtensionsShouldNotBeUsedQuery()))
+  }
+
+  Query criticalUnspecifiedBehaviourQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `criticalUnspecifiedBehaviour` query
+      TQueryC(TLanguage2PackageQuery(TCriticalUnspecifiedBehaviourQuery()))
+  }
+
+  Query emergentLanguageFeaturesUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `emergentLanguageFeaturesUsed` query
+      TQueryC(TLanguage2PackageQuery(TEmergentLanguageFeaturesUsedQuery()))
   }
 }
