@@ -5,6 +5,8 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations4Query =
   TFunctionTypesNotInPrototypeFormQuery() or
+  TDeclarationsOfAnObjectSameNameAndTypeQuery() or
+  TDeclarationsOfAFunctionSameNameAndTypeQuery() or
   TIdentifierWithExternalLinkageOneDefinitionQuery()
 
 predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleId) {
@@ -15,6 +17,22 @@ predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `functionTypesNotInPrototypeForm` query
     "c/misra/function-types-not-in-prototype-form" and
   ruleId = "RULE-8-2"
+  or
+  query =
+    // `Query` instance for the `declarationsOfAnObjectSameNameAndType` query
+    Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery() and
+  queryId =
+    // `@id` for the `declarationsOfAnObjectSameNameAndType` query
+    "c/misra/declarations-of-an-object-same-name-and-type" and
+  ruleId = "RULE-8-3"
+  or
+  query =
+    // `Query` instance for the `declarationsOfAFunctionSameNameAndType` query
+    Declarations4Package::declarationsOfAFunctionSameNameAndTypeQuery() and
+  queryId =
+    // `@id` for the `declarationsOfAFunctionSameNameAndType` query
+    "c/misra/declarations-of-a-function-same-name-and-type" and
+  ruleId = "RULE-8-3"
   or
   query =
     // `Query` instance for the `identifierWithExternalLinkageOneDefinition` query
@@ -31,6 +49,20 @@ module Declarations4Package {
     result =
       // `Query` type for `functionTypesNotInPrototypeForm` query
       TQueryC(TDeclarations4PackageQuery(TFunctionTypesNotInPrototypeFormQuery()))
+  }
+
+  Query declarationsOfAnObjectSameNameAndTypeQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `declarationsOfAnObjectSameNameAndType` query
+      TQueryC(TDeclarations4PackageQuery(TDeclarationsOfAnObjectSameNameAndTypeQuery()))
+  }
+
+  Query declarationsOfAFunctionSameNameAndTypeQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `declarationsOfAFunctionSameNameAndType` query
+      TQueryC(TDeclarations4PackageQuery(TDeclarationsOfAFunctionSameNameAndTypeQuery()))
   }
 
   Query identifierWithExternalLinkageOneDefinitionQuery() {

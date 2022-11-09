@@ -18,6 +18,7 @@ import IO1
 import IO2
 import IO3
 import IO4
+import Language2
 import Misc
 import Pointers1
 import Pointers2
@@ -51,6 +52,7 @@ newtype TCQuery =
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
   TIO4PackageQuery(IO4Query q) or
+  TLanguage2PackageQuery(Language2Query q) or
   TMiscPackageQuery(MiscQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
@@ -84,6 +86,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isIO2QueryMetadata(query, queryId, ruleId) or
   isIO3QueryMetadata(query, queryId, ruleId) or
   isIO4QueryMetadata(query, queryId, ruleId) or
+  isLanguage2QueryMetadata(query, queryId, ruleId) or
   isMiscQueryMetadata(query, queryId, ruleId) or
   isPointers1QueryMetadata(query, queryId, ruleId) or
   isPointers2QueryMetadata(query, queryId, ruleId) or

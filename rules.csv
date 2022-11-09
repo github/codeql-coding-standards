@@ -648,7 +648,7 @@ c,MISRA-C-2012,RULE-7-3,Yes,Required,,,The lowercase character �l� shall not
 c,MISRA-C-2012,RULE-7-4,Yes,Required,,,A string literal shall not be assigned to an object unless the object�s type is �pointer to const-qualified char�,A2-13-4,Types,Easy,
 c,MISRA-C-2012,RULE-8-1,Yes,Required,,,Types shall be explicitly specified,,Declarations3,Medium,
 c,MISRA-C-2012,RULE-8-2,Yes,Required,,,Function types shall be in prototype form with named parameters,,Declarations4,Medium,
-c,MISRA-C-2012,RULE-8-3,Yes,Required,,,All declarations of an object or function shall use the same names and type qualifiers,M3-2-1,Declarations,Medium,
+c,MISRA-C-2012,RULE-8-3,Yes,Required,,,All declarations of an object or function shall use the same names and type qualifiers,M3-2-1,Declarations4,Medium,
 c,MISRA-C-2012,RULE-8-4,Yes,Required,,,A compatible declaration shall be visible when an object or function with external linkage is defined,,Declarations,Medium,
 c,MISRA-C-2012,RULE-8-5,Yes,Required,,,An external object or function shall be declared once in one and only one file,,Declarations,Medium,
 c,MISRA-C-2012,RULE-8-6,Yes,Required,,,An identifier with external linkage shall have exactly one external definition,M3-2-4,Declarations4,Import,

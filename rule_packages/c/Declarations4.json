@@ -23,6 +23,36 @@
       ],
       "title": "Function types shall be in prototype form with named parameters"
     },
+    "RULE-8-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using different types across the same declarations disallows strong type checking and can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "All declarations of an object shall use the same names and type qualifiers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeclarationsOfAnObjectSameNameAndType",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Using different types across the same declarations disallows strong type checking and can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "All declarations of a function shall use the same names and type qualifiers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeclarationsOfAFunctionSameNameAndType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All declarations of an object or function shall use the same names and type qualifiers"
+    },
     "RULE-8-6": {
       "properties": {
         "obligation": "required"
