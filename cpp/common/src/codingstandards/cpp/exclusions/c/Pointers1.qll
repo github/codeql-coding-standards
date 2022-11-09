@@ -149,7 +149,7 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `objectWithNoPointerDereferenceShouldBeOpaque` query
     "c/misra/object-with-no-pointer-dereference-should-be-opaque" and
-  ruleId = "RULE-4-8"
+  ruleId = "DIR-4-8"
   or
   query =
     // `Query` instance for the `pointerShouldPointToConstTypeWhenPossible` query

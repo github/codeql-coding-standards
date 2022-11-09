@@ -43,7 +43,7 @@ predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `sectionsOfCodeShallNotBeCommentedOut` query
     "c/misra/sections-of-code-shall-not-be-commented-out" and
-  ruleId = "RULE-4-4"
+  ruleId = "DIR-4-4"
   or
   query =
     // `Query` instance for the `identifiersInTheSameNameSpaceUnambiguous` query

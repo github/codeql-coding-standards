@@ -1,4 +1,4 @@
 name: misra-cpp-coding-standards-tests
-version: 2.10.0
+version: 2.11.0-dev
 libraryPathDependencies: misra-cpp-coding-standards
 extractor: cpp

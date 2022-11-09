@@ -25,7 +25,7 @@ void test_function_identifier_f2() {
 
 template <typename F> static void Log(const F kF) {}
 
-template <typename... As> static void LogFatal(const As &... rest) {
+template <typename... As> static void LogFatal(const As &...rest) {
   Log([](const std::string &s) -> void {}); // COMPLIANT
 }
 
