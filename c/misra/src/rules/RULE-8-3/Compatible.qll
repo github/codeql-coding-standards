@@ -26,5 +26,5 @@ predicate typesCompatible(Type t1, Type t2) {
     arithTypesMatch(t1, t2)
   else
     //otherwise include type qualifiers and typedef names
-     t1 = t2
+    t1 = t2
 }
