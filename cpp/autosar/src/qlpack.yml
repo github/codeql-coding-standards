@@ -1,4 +1,4 @@
 name: autosar-cpp-coding-standards
-version: 2.11.0-dev
+version: 2.12.0-dev
 suites: codeql-suites
 libraryPathDependencies: common-cpp-coding-standards
