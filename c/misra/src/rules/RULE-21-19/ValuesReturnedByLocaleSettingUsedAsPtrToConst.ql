@@ -4,7 +4,7 @@
  * @description The pointers returned by the Standard Library functions localeconv, getenv,
  *              setlocale or, strerror shall only be used as if they have pointer to const-qualified
  *              type.
- * @kind problem
+ * @kind path-problem
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-21-19
