@@ -1,0 +1,2 @@
+ - `RULE-11-7` - `CastBetweenPointerToObjectAndNonIntArithmeticType.ql`
+   - Corrected the query output message to describe a cast involving a pointer to an object rather than a void pointer.
