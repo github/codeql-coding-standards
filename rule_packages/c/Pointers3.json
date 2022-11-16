@@ -1,0 +1,80 @@
+{
+  "CERT-C": {
+    "EXP32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "If an an object defined with a volatile-qualified type is referred to with an lvalue of a non-volatile-qualified type, the behavior is undefined.",
+          "kind": "problem",
+          "name": "Do not access a volatile object through a nonvolatile reference",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotAccessVolatileObjectWithNonVolatileReference",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not access a volatile object through a nonvolatile reference"
+    },
+    "EXP36-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Converting a pointer to a different type results in undefined behavior if the pointer is not correctly aligned for the new type.",
+          "kind": "path-problem",
+          "name": "Do not cast pointers into more strictly aligned pointer types",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotCastPointerToMoreStrictlyAlignedPointerType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not cast pointers into more strictly aligned pointer types"
+    },
+    "EXP39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Modifying underlying pointer data through a pointer of an incompatible type can lead to unpredictable results.",
+          "kind": "problem",
+          "name": "Do not access a variable through a pointer of an incompatible type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotAccessVariableViaPointerOfIncompatibleType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not access a variable through a pointer of an incompatible type"
+    },
+    "EXP43-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Avoid undefined behavior when using restrict-qualified pointers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UndefinedBehaviorWithRestrictQualifiedPointers",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Avoid undefined behavior when using restrict-qualified pointers"
+    }
+  }
+}
