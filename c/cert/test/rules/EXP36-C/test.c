@@ -169,13 +169,13 @@ void test_malloc_alignment_and_pointer_arithmetic() {
   cast_away(s1);    // COMPLIANT
 
   short *s2 = s1 + 1;
-  (size_t *)&s2; // NON_COMPLIANT[FALSE_NEGATIVE]
-  (char *)&s2;   // COMPLIANT
+  (char *)s2;    // COMPLIANT
+  (size_t *)s2;  // NON_COMPLIANT
   cast_away(s2); // NON_COMPLIANT
 
   short *s3 = &s1[1];
-  (size_t *)&s3; // NON_COMPLIANT[FALSE_NEGATIVE]
-  (char *)&s3;   // COMPLIANT
+  (char *)s3;    // COMPLIANT
+  (size_t *)s3;  // NON_COMPLIANT
   cast_away(s3); // NON_COMPLIANT
 }
 
@@ -226,4 +226,33 @@ void test_standalone_pointer_cast_alignment(void *p1, short *p2) {
   (float *)v1;  // NON_COMPLIANT
   (long *)v1;   // NON_COMPLIANT
   (double *)v1; // NON_COMPLIANT
+}
+
+void test_array_element_cast_alignment() {
+  char *acp[3];
+  int *aip[3];
+
+  int i = 0;
+  char c = ' ';
+  char *cp = &c; // COMPLIANT
+  int *ip = &i;  // COMPLIANT
+
+  char **cpp = &acp; // COMPLIANT
+  int **ipp = &aip;  // COMPLIANT
+
+  acp[0] = cp; // COMPLIANT
+  acp[1] = ip; // NON_COMPLIANT[FALSE_NEGATIVE]
+
+  cpp = &acp; // COMPLIANT
+  cpp = &ipp; // NON_COMPLIANT[FALSE_NEGATIVE]
+}
+
+void test_pointer_dereference_barrier() {
+  short s1 = 0;
+  short *ps1 = &s1;
+  *ps1 = 1;
+  (char *)ps1; // COMPLIANT
+  (char *)&s1; // COMPLIANT
+  (int *)ps1;  // NON_COMPLIANT
+  (int *)&s1;  // NON_COMPLIANT
 }

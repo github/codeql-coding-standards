@@ -35,32 +35,15 @@ edges
 | test.c:120:14:120:16 | & ... | test.c:124:12:124:13 | v6 |
 | test.c:120:14:120:16 | & ... | test.c:125:11:125:12 | v6 |
 | test.c:120:14:120:16 | & ... | test.c:126:13:126:14 | v6 |
-| test.c:129:22:129:22 | v | test.c:129:22:129:22 | v |
 | test.c:129:22:129:22 | v | test.c:130:17:130:17 | v |
 | test.c:135:21:135:23 | & ... | test.c:129:22:129:22 | v |
 | test.c:138:21:138:23 | & ... | test.c:129:22:129:22 | v |
 | test.c:166:24:166:29 | call to malloc | test.c:167:13:167:15 | & ... |
-| test.c:166:24:166:29 | call to malloc | test.c:167:14:167:15 | s1 |
 | test.c:166:24:166:29 | call to malloc | test.c:168:16:168:18 | & ... |
-| test.c:166:24:166:29 | call to malloc | test.c:168:17:168:18 | s1 |
 | test.c:166:24:166:29 | call to malloc | test.c:169:13:169:14 | s1 |
 | test.c:166:24:166:29 | call to malloc | test.c:169:13:169:14 | s1 |
-| test.c:166:24:166:29 | call to malloc | test.c:169:13:169:14 | s1 |
-| test.c:166:24:166:29 | call to malloc | test.c:169:13:169:14 | s1 |
-| test.c:166:24:166:29 | call to malloc | test.c:171:15:171:16 | s1 |
-| test.c:166:24:166:29 | call to malloc | test.c:176:16:176:17 | s1 |
-| test.c:167:14:167:15 | s1 | test.c:167:13:167:15 | & ... |
-| test.c:168:17:168:18 | s1 | test.c:168:16:168:18 | & ... |
-| test.c:169:13:169:14 | ref arg s1 | test.c:171:15:171:16 | s1 |
-| test.c:169:13:169:14 | ref arg s1 | test.c:176:16:176:17 | s1 |
 | test.c:169:13:169:14 | s1 | test.c:129:22:129:22 | v |
-| test.c:169:13:169:14 | s1 | test.c:129:22:129:22 | v |
-| test.c:169:13:169:14 | s1 | test.c:169:13:169:14 | ref arg s1 |
-| test.c:172:14:172:15 | s2 | test.c:172:13:172:15 | & ... |
-| test.c:173:12:173:13 | s2 | test.c:173:11:173:13 | & ... |
 | test.c:174:13:174:14 | s2 | test.c:129:22:129:22 | v |
-| test.c:177:14:177:15 | s3 | test.c:177:13:177:15 | & ... |
-| test.c:178:12:178:13 | s3 | test.c:178:11:178:13 | & ... |
 | test.c:179:13:179:14 | s3 | test.c:129:22:129:22 | v |
 | test.c:183:14:183:26 | call to aligned_alloc | test.c:184:11:184:12 | v1 |
 | test.c:183:14:183:26 | call to aligned_alloc | test.c:185:10:185:11 | v1 |
@@ -75,6 +58,10 @@ edges
 | test.c:222:8:222:9 | p2 | test.c:226:12:226:13 | v1 |
 | test.c:222:8:222:9 | p2 | test.c:227:11:227:12 | v1 |
 | test.c:222:8:222:9 | p2 | test.c:228:13:228:14 | v1 |
+| test.c:238:13:238:14 | & ... | test.c:244:12:244:13 | ip |
+| test.c:241:15:241:18 | & ... | test.c:247:9:247:12 | & ... |
+| test.c:252:16:252:18 | & ... | test.c:254:11:254:13 | ps1 |
+| test.c:252:16:252:18 | & ... | test.c:256:10:256:12 | ps1 |
 nodes
 | test.c:7:11:7:13 | & ... | semmle.label | & ... |
 | test.c:8:12:8:14 | & ... | semmle.label | & ... |
@@ -173,8 +160,6 @@ nodes
 | test.c:125:11:125:12 | v6 | semmle.label | v6 |
 | test.c:126:13:126:14 | v6 | semmle.label | v6 |
 | test.c:129:22:129:22 | v | semmle.label | v |
-| test.c:129:22:129:22 | v | semmle.label | v |
-| test.c:129:22:129:22 | v | semmle.label | v |
 | test.c:130:17:130:17 | v | semmle.label | v |
 | test.c:135:21:135:23 | & ... | semmle.label | & ... |
 | test.c:135:21:135:23 | & ... | semmle.label | & ... |
@@ -185,30 +170,16 @@ nodes
 | test.c:162:16:162:18 | & ... | semmle.label | & ... |
 | test.c:166:24:166:29 | call to malloc | semmle.label | call to malloc |
 | test.c:166:24:166:29 | call to malloc | semmle.label | call to malloc |
-| test.c:166:24:166:29 | call to malloc | semmle.label | call to malloc |
 | test.c:167:13:167:15 | & ... | semmle.label | & ... |
-| test.c:167:14:167:15 | s1 | semmle.label | s1 |
-| test.c:167:14:167:15 | s1 | semmle.label | s1 |
 | test.c:168:16:168:18 | & ... | semmle.label | & ... |
-| test.c:168:17:168:18 | s1 | semmle.label | s1 |
-| test.c:168:17:168:18 | s1 | semmle.label | s1 |
-| test.c:169:13:169:14 | ref arg s1 | semmle.label | ref arg s1 |
 | test.c:169:13:169:14 | s1 | semmle.label | s1 |
 | test.c:169:13:169:14 | s1 | semmle.label | s1 |
-| test.c:169:13:169:14 | s1 | semmle.label | s1 |
-| test.c:169:13:169:14 | s1 | semmle.label | s1 |
-| test.c:171:15:171:16 | s1 | semmle.label | s1 |
-| test.c:172:13:172:15 | & ... | semmle.label | & ... |
-| test.c:172:14:172:15 | s2 | semmle.label | s2 |
-| test.c:173:11:173:13 | & ... | semmle.label | & ... |
-| test.c:173:12:173:13 | s2 | semmle.label | s2 |
+| test.c:172:11:172:12 | s2 | semmle.label | s2 |
+| test.c:173:13:173:14 | s2 | semmle.label | s2 |
 | test.c:174:13:174:14 | s2 | semmle.label | s2 |
 | test.c:174:13:174:14 | s2 | semmle.label | s2 |
-| test.c:176:16:176:17 | s1 | semmle.label | s1 |
-| test.c:177:13:177:15 | & ... | semmle.label | & ... |
-| test.c:177:14:177:15 | s3 | semmle.label | s3 |
-| test.c:178:11:178:13 | & ... | semmle.label | & ... |
-| test.c:178:12:178:13 | s3 | semmle.label | s3 |
+| test.c:177:11:177:12 | s3 | semmle.label | s3 |
+| test.c:178:13:178:14 | s3 | semmle.label | s3 |
 | test.c:179:13:179:14 | s3 | semmle.label | s3 |
 | test.c:179:13:179:14 | s3 | semmle.label | s3 |
 | test.c:183:14:183:26 | call to aligned_alloc | semmle.label | call to aligned_alloc |
@@ -232,8 +203,19 @@ nodes
 | test.c:226:12:226:13 | v1 | semmle.label | v1 |
 | test.c:227:11:227:12 | v1 | semmle.label | v1 |
 | test.c:228:13:228:14 | v1 | semmle.label | v1 |
+| test.c:238:13:238:14 | & ... | semmle.label | & ... |
+| test.c:240:16:240:19 | & ... | semmle.label | & ... |
+| test.c:241:15:241:18 | & ... | semmle.label | & ... |
+| test.c:241:15:241:18 | & ... | semmle.label | & ... |
+| test.c:244:12:244:13 | ip | semmle.label | ip |
+| test.c:246:9:246:12 | & ... | semmle.label | & ... |
+| test.c:247:9:247:12 | & ... | semmle.label | & ... |
+| test.c:252:16:252:18 | & ... | semmle.label | & ... |
+| test.c:254:11:254:13 | ps1 | semmle.label | ps1 |
+| test.c:255:11:255:13 | & ... | semmle.label | & ... |
+| test.c:256:10:256:12 | ps1 | semmle.label | ps1 |
+| test.c:257:10:257:12 | & ... | semmle.label | & ... |
 subpaths
-| test.c:169:13:169:14 | s1 | test.c:129:22:129:22 | v | test.c:129:22:129:22 | v | test.c:169:13:169:14 | ref arg s1 |
 #select
 | test.c:8:12:8:14 | & ... | test.c:8:12:8:14 | & ... | test.c:8:12:8:14 | & ... | Cast from pointer with 1-byte alignment (defined by $@) to pointer with base type short with 2-byte alignment. | test.c:8:12:8:14 | & ... | address-of expression |
 | test.c:9:10:9:12 | & ... | test.c:9:10:9:12 | & ... | test.c:9:10:9:12 | & ... | Cast from pointer with 1-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:9:10:9:12 | & ... | address-of expression |
@@ -264,19 +246,23 @@ subpaths
 | test.c:107:11:107:12 | v4 | test.c:102:14:102:16 | & ... | test.c:107:11:107:12 | v4 | Cast from pointer with 4-byte alignment (defined by $@) to pointer with base type long with 8-byte alignment. | test.c:102:14:102:16 | & ... | address-of expression |
 | test.c:108:13:108:14 | v4 | test.c:102:14:102:16 | & ... | test.c:108:13:108:14 | v4 | Cast from pointer with 4-byte alignment (defined by $@) to pointer with base type double with 8-byte alignment. | test.c:102:14:102:16 | & ... | address-of expression |
 | test.c:130:17:130:17 | v | test.c:135:21:135:23 | & ... | test.c:130:17:130:17 | v | Cast from pointer with 1-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:135:21:135:23 | & ... | address-of expression |
-| test.c:130:17:130:17 | v | test.c:174:13:174:14 | s2 | test.c:130:17:130:17 | v | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:174:13:174:14 | s2 | pointer base type |
-| test.c:130:17:130:17 | v | test.c:179:13:179:14 | s3 | test.c:130:17:130:17 | v | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:179:13:179:14 | s3 | pointer base type |
+| test.c:130:17:130:17 | v | test.c:174:13:174:14 | s2 | test.c:130:17:130:17 | v | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:174:13:174:14 | s2 | pointer base type short |
+| test.c:130:17:130:17 | v | test.c:179:13:179:14 | s3 | test.c:130:17:130:17 | v | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:179:13:179:14 | s3 | pointer base type short |
 | test.c:130:17:130:17 | v | test.c:189:14:189:26 | call to aligned_alloc | test.c:130:17:130:17 | v | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:189:14:189:26 | call to aligned_alloc | call to aligned_alloc |
 | test.c:158:13:158:20 | & ... | test.c:158:13:158:20 | & ... | test.c:158:13:158:20 | & ... | Cast from pointer with 1-byte alignment (defined by $@) to pointer with base type unsigned long with 8-byte alignment. | test.c:158:13:158:20 | & ... | address-of expression |
 | test.c:162:16:162:18 | & ... | test.c:162:16:162:18 | & ... | test.c:162:16:162:18 | & ... | Cast from pointer with 8-byte alignment (defined by $@) to pointer with base type S3 with 64-byte alignment. | test.c:162:16:162:18 | & ... | address-of expression |
 | test.c:168:16:168:18 | & ... | test.c:166:24:166:29 | call to malloc | test.c:168:16:168:18 | & ... | Cast from pointer with 16-byte alignment (defined by $@) to pointer with base type S3 with 64-byte alignment. | test.c:166:24:166:29 | call to malloc | call to malloc |
 | test.c:168:16:168:18 | & ... | test.c:168:16:168:18 | & ... | test.c:168:16:168:18 | & ... | Cast from pointer with 8-byte alignment (defined by $@) to pointer with base type S3 with 64-byte alignment. | test.c:168:16:168:18 | & ... | address-of expression |
+| test.c:173:13:173:14 | s2 | test.c:173:13:173:14 | s2 | test.c:173:13:173:14 | s2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type unsigned long with 8-byte alignment. | test.c:173:13:173:14 | s2 | pointer base type short |
+| test.c:178:13:178:14 | s3 | test.c:178:13:178:14 | s3 | test.c:178:13:178:14 | s3 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type unsigned long with 8-byte alignment. | test.c:178:13:178:14 | s3 | pointer base type short |
 | test.c:186:13:186:14 | v1 | test.c:183:14:183:26 | call to aligned_alloc | test.c:186:13:186:14 | v1 | Cast from pointer with 4-byte alignment (defined by $@) to pointer with base type unsigned long with 8-byte alignment. | test.c:183:14:183:26 | call to aligned_alloc | call to aligned_alloc |
-| test.c:216:10:216:11 | p2 | test.c:216:10:216:11 | p2 | test.c:216:10:216:11 | p2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:216:10:216:11 | p2 | pointer base type |
-| test.c:217:11:217:12 | p2 | test.c:217:11:217:12 | p2 | test.c:217:11:217:12 | p2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type long with 8-byte alignment. | test.c:217:11:217:12 | p2 | pointer base type |
-| test.c:218:12:218:13 | p2 | test.c:218:12:218:13 | p2 | test.c:218:12:218:13 | p2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type float with 4-byte alignment. | test.c:218:12:218:13 | p2 | pointer base type |
-| test.c:219:13:219:14 | p2 | test.c:219:13:219:14 | p2 | test.c:219:13:219:14 | p2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type double with 8-byte alignment. | test.c:219:13:219:14 | p2 | pointer base type |
-| test.c:225:10:225:11 | v1 | test.c:222:8:222:9 | p2 | test.c:225:10:225:11 | v1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:222:8:222:9 | p2 | pointer base type |
-| test.c:226:12:226:13 | v1 | test.c:222:8:222:9 | p2 | test.c:226:12:226:13 | v1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type float with 4-byte alignment. | test.c:222:8:222:9 | p2 | pointer base type |
-| test.c:227:11:227:12 | v1 | test.c:222:8:222:9 | p2 | test.c:227:11:227:12 | v1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type long with 8-byte alignment. | test.c:222:8:222:9 | p2 | pointer base type |
-| test.c:228:13:228:14 | v1 | test.c:222:8:222:9 | p2 | test.c:228:13:228:14 | v1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type double with 8-byte alignment. | test.c:222:8:222:9 | p2 | pointer base type |
+| test.c:216:10:216:11 | p2 | test.c:216:10:216:11 | p2 | test.c:216:10:216:11 | p2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:216:10:216:11 | p2 | pointer base type short |
+| test.c:217:11:217:12 | p2 | test.c:217:11:217:12 | p2 | test.c:217:11:217:12 | p2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type long with 8-byte alignment. | test.c:217:11:217:12 | p2 | pointer base type short |
+| test.c:218:12:218:13 | p2 | test.c:218:12:218:13 | p2 | test.c:218:12:218:13 | p2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type float with 4-byte alignment. | test.c:218:12:218:13 | p2 | pointer base type short |
+| test.c:219:13:219:14 | p2 | test.c:219:13:219:14 | p2 | test.c:219:13:219:14 | p2 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type double with 8-byte alignment. | test.c:219:13:219:14 | p2 | pointer base type short |
+| test.c:225:10:225:11 | v1 | test.c:222:8:222:9 | p2 | test.c:225:10:225:11 | v1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:222:8:222:9 | p2 | pointer base type short |
+| test.c:226:12:226:13 | v1 | test.c:222:8:222:9 | p2 | test.c:226:12:226:13 | v1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type float with 4-byte alignment. | test.c:222:8:222:9 | p2 | pointer base type short |
+| test.c:227:11:227:12 | v1 | test.c:222:8:222:9 | p2 | test.c:227:11:227:12 | v1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type long with 8-byte alignment. | test.c:222:8:222:9 | p2 | pointer base type short |
+| test.c:228:13:228:14 | v1 | test.c:222:8:222:9 | p2 | test.c:228:13:228:14 | v1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type double with 8-byte alignment. | test.c:222:8:222:9 | p2 | pointer base type short |
+| test.c:256:10:256:12 | ps1 | test.c:252:16:252:18 | & ... | test.c:256:10:256:12 | ps1 | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:252:16:252:18 | & ... | address-of expression |
+| test.c:257:10:257:12 | & ... | test.c:257:10:257:12 | & ... | test.c:257:10:257:12 | & ... | Cast from pointer with 2-byte alignment (defined by $@) to pointer with base type int with 4-byte alignment. | test.c:257:10:257:12 | & ... | address-of expression |

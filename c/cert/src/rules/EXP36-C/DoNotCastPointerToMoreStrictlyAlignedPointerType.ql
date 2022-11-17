@@ -15,6 +15,7 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Alignment
 import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow2
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 import DataFlow::PathGraph
 
@@ -40,14 +41,14 @@ abstract class ExprWithAlignment extends Expr {
 class AddressOfAlignedVariableExpr extends AddressOfExpr, ExprWithAlignment {
   AddressOfAlignedVariableExpr() { this.getAddressable() instanceof Variable }
 
-  AlignAs alignAsAttribute() { result = this.getAddressable().(Variable).getAnAttribute() }
+  AlignAs getAlignAsAttribute() { result = this.getAddressable().(Variable).getAnAttribute() }
 
   override int getAlignment() {
-    result = alignAsAttribute().getArgument(0).getValueInt()
+    result = getAlignAsAttribute().getArgument(0).getValueInt()
     or
-    result = alignAsAttribute().getArgument(0).getValueType().getSize()
+    result = getAlignAsAttribute().getArgument(0).getValueType().getSize()
     or
-    not exists(alignAsAttribute()) and
+    not exists(getAlignAsAttribute()) and
     result = this.getAddressable().(Variable).getType().getAlignment()
   }
 
@@ -76,20 +77,60 @@ class DefinedAlignmentAllocationExpr extends FunctionCall, ExprWithAlignment {
 }
 
 /**
- * A class extending `VariableAccess` and `ExprWithAlignment` to reason about the
- * alignment of pointers accessed based solely on the pointers' base types.
+ * An `Expr` of type `PointerType` but not `VoidPointerType`
+ * which is the unique non-`Conversion` expression of a `Cast`.
  */
-class DefaultAlignedPointerAccessExpr extends VariableAccess, ExprWithAlignment {
-  DefaultAlignedPointerAccessExpr() {
-    this.getTarget().getUnspecifiedType() instanceof PointerType and
-    not this.getTarget().getUnspecifiedType() instanceof VoidPointerType
+class UnconvertedCastFromNonVoidPointerExpr extends Expr {
+  UnconvertedCastFromNonVoidPointerExpr() {
+    exists(CStyleCast cast |
+      cast.getUnconverted() = this and
+      this.getUnspecifiedType() instanceof PointerType and
+      not this.getUnspecifiedType() instanceof VoidPointerType
+    )
+  }
+}
+
+/**
+ * A class extending `UnconvertedCastFromNonVoidPointerExpr` and `ExprWithAlignment` to reason
+ * about the alignment of pointers accessed based solely on the pointers' base types.
+ */
+class DefaultAlignedPointerExpr extends UnconvertedCastFromNonVoidPointerExpr, ExprWithAlignment {
+  DefaultAlignedPointerExpr() {
+    not any(AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig config)
+        .hasFlowTo(DataFlow::exprNode(this))
   }
 
-  override int getAlignment() {
-    result = this.getTarget().getType().(PointerType).getBaseType().getAlignment()
+  override int getAlignment() { result = this.getType().(PointerType).getBaseType().getAlignment() }
+
+  override string getKind() {
+    result =
+      "pointer base type " +
+        this.getType().(PointerType).getBaseType().getUnspecifiedType().getName()
+  }
+}
+
+/**
+ * A data-flow configuration for tracking flow from `AddressOfExpr` which provide
+ * most reliable or explicitly defined alignment information to the less reliable
+ * `DefaultAlignedPointerAccessExpr` expressions.
+ *
+ * This data-flow configuration is used
+ * to exclude an `DefaultAlignedPointerAccessExpr` as a source if a preceding source
+ * defined by this configuration provides more accurate alignment information.
+ */
+class AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig extends DataFlow2::Configuration {
+  AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig() {
+    this = "AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig"
   }
 
-  override string getKind() { result = "pointer base type" }
+  override predicate isSource(DataFlow::Node source) {
+    source.asExpr() instanceof AddressOfAlignedVariableExpr or
+    source.asExpr() instanceof DefinedAlignmentAllocationExpr
+  }
+
+  override predicate isSink(DataFlow::Node sink) {
+    sink.asExpr() instanceof UnconvertedCastFromNonVoidPointerExpr
+  }
 }
 
 /**
@@ -111,29 +152,19 @@ class ExprWithAlignmentToCStyleCastConfiguration extends DataFlow::Configuration
       cast.getUnconverted() = sink.asExpr()
     )
   }
-}
 
-/**
- * A data-flow configuration for tracking flow from `AddressOfExpr` which provide
- * most reliable or explicitly defined alignment information to the less reliable
- * `DefaultAlignedPointerAccessExpr` expressions.
- *
- * This data-flow configuration is used
- * to exclude an `DefaultAlignedPointerAccessExpr` as a source if a preceding source
- * defined by this configuration provides more accurate alignment information.
- */
-class AllocationOrAddressOfExprToDefaultAlignedPointerAccessConfig extends DataFlow::Configuration {
-  AllocationOrAddressOfExprToDefaultAlignedPointerAccessConfig() {
-    this = "AllocationOrAddressOfExprToDefaultAlignedPointerAccessConfig"
-  }
-
-  override predicate isSource(DataFlow::Node source) {
-    source.asExpr() instanceof AddressOfAlignedVariableExpr or
-    source.asExpr() instanceof DefinedAlignmentAllocationExpr
-  }
-
-  override predicate isSink(DataFlow::Node sink) {
-    sink.asExpr() instanceof DefaultAlignedPointerAccessExpr
+  override predicate isBarrierOut(DataFlow::Node node) {
+    // the default interprocedural data-flow model flows through any array assignment expressions
+    // to the qualifier (array base or pointer dereferenced) instead of the individual element
+    // that the assignment modifies. this default behaviour causes false positives for any future
+    // cast of the array base, so remove the assignment edge at the expense of false-negatives.
+    exists(AssignExpr a |
+      node.asExpr() = a.getRValue() and
+      (
+        a.getLValue() instanceof ArrayExpr or
+        a.getLValue() instanceof PointerDereferenceExpr
+      )
+    )
   }
 }
 
@@ -145,24 +176,10 @@ where
   any(ExprWithAlignmentToCStyleCastConfiguration config).hasFlowPath(source, sink) and
   source.getNode().asExpr() = expr and
   sink.getNode().asExpr() = cast.getUnconverted() and
-  (
-    // possibility 1: the source node (ExprWithAlignment) is NOT a DefaultAlignedPointerAccessExpr
-    // meaning that its alignment info is accurate regardless of any preceding ExprWithAlignment nodes
-    expr instanceof DefaultAlignedPointerAccessExpr
-    implies
-    (
-      // possibility 2: the source node (ExprWithAlignment) IS a DefaultAlignedPointerAccessExpr
-      // meaning that its alignment info is only accurate if no preceding ExprWithAlignment nodes exist
-      not any(AllocationOrAddressOfExprToDefaultAlignedPointerAccessConfig config)
-          .hasFlowTo(source.getNode()) and
-      expr instanceof DefaultAlignedPointerAccessExpr and
-      cast.getUnconverted() instanceof VariableAccess
-    )
-  ) and
   toBaseType = cast.getActualType().(PointerType).getBaseType() and
   alignmentTo = toBaseType.getAlignment() and
   alignmentFrom = expr.getAlignment() and
-  // only flag cases where the cast's target type has stricter alignment requirements than the source
+  // flag cases where the cast's target type has stricter alignment requirements than the source
   alignmentFrom < alignmentTo
 select sink, source, sink,
   "Cast from pointer with " + alignmentFrom +
