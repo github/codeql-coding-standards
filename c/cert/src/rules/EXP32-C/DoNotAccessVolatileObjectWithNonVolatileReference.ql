@@ -14,7 +14,6 @@
 import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.controlflow.Dereferenced
-import semmle.code.cpp.controlflow.StackVariableReachability
 
 /**
  * An expression involving volatile-qualified types that results in undefined behavior.
@@ -62,9 +61,14 @@ class NonVolatileObjectAssignedToVolatilePointer extends AssignExpr, UndefinedVo
       not i = getAVolatileDepth(this.getRValue().getType()) and
       i = getAVolatileDepth(this.getLValue().(VariableAccess).getTarget().getType())
     ) and
+    // Checks for subsequent accesses to the underlying object via the original non-volatile 
+    // pointer assigned to the volatile pointer. This heuristic can cause false-positives 
+    // in certain instances which require more advanced reachability analysis, e.g. loops and scope 
+    // considerations that this simple forward traversal of the control-flow graph does not account for.
     exists(VariableAccess va |
       va = this.getRValue().getAChild*().(VariableAccess).getTarget().getAnAccess() and
-      this.getASuccessor+() = va
+      this.getASuccessor+() = va and
+      dereferenced(va)
     )
   }
 

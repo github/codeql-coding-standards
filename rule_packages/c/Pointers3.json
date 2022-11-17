@@ -14,7 +14,10 @@
           "short_name": "DoNotAccessVolatileObjectWithNonVolatileReference",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "In limited cases, this query can raise false-positives for assignment of volatile objects and subsequent accesses of those objects via non-volatile pointers."
+          }
         }
       ],
       "title": "Do not access a volatile object through a nonvolatile reference"
