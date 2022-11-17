@@ -33,6 +33,7 @@
 | 0.25.0  | 2022-07-14 | David Bartolomeo | Add section on installing QL dependencies and update CLI commands to account for the migration to CodeQL packs.                                                                                                                                                                           |
 | 0.25.0  | 2022-07-22 | Jeroen Ketema    | Document the existence and purpose of the `next` branch.                                                                                                                                                                                                                                  |
 | 0.26.0  | 2022-08-10 | Remco Vermeulen  | Address incorrect package file generation command. This was missing the required language argument.                                                                                                                                                                                       |
+| 0.27.0  | 2022-11-08 | Luke Cartey | Update the versions of C we intend to support to exclude C90, which reflects the intended scope at the outset of the project.                                                                                                                                                                                       |
 
 ## Scope of work
 
@@ -83,7 +84,7 @@ For each supported coding standard we will provide:
 These packs will be organized by supported language.
 The current supported languages are:
 - C++14 standardized by [ISO/IEC 14882:2014](https://www.iso.org/standard/64029.html) located in the directory `cpp`.
-- C90 standardized by [ISO/IEC 9899:1990](https://www.iso.org/standard/17782.html), [C99] standardized by [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html), and C11 standardized by [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html). All are located in the directory `c`.
+- [C99] standardized by [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html) and C11 standardized by [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html). All are located in the directory `c`.
 
 For each language, we will also include:
  1. A CodeQL query pack containing "common" libraries, which provide support.

@@ -1,13 +1,13 @@
 /**
  * @id c/misra/object-with-no-pointer-dereference-should-be-opaque
- * @name RULE-4-8: The implementation of an object shall be hidden if a pointer to its structure or union is never dereferenced within a translation unit
+ * @name DIR-4-8: The implementation of an object shall be hidden if a pointer to its structure or union is never dereferenced within a translation unit
  * @description If a pointer to a structure or union is never dereferenced within a translation
  *              unit, then the implementation of the object should be hidden to prevent
  *              unintentional changes.
  * @kind problem
  * @precision very-high
  * @problem.severity error
- * @tags external/misra/id/rule-4-8
+ * @tags external/misra/id/dir-4-8
  *       readability
  *       maintainability
  *       external/misra/obligation/advisory

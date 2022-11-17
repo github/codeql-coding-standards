@@ -17,16 +17,17 @@
 | 0.9.0   | 2022-02-17 | Remco Vermeulen | Finalize scope deviation records                                                                                        |
 | 0.10.0  | 2022-02-28 | Remco Vermeulen | Describe database correctness in the Hazard and Risk Analysis (HARA).                                                   |
 | 0.11.0  | 2022-02-28 | Remco Vermeulen | Updated version to 1.1.0                                                                                                |
+| 0.11.0  | 2022-10-21 | Luke Cartey     | Updated version to 2.10.0                                                                                                |
 
 ## Release information
 
-This user manual documents release `1.1.0 ` of the coding standards located at https://github.com/github/codeql-coding-standards/releases/tag/v1.1.0 .
+This user manual documents release `2.10.0` of the coding standards located at https://github.com/github/codeql-coding-standards/releases/tag/v2.10.0 .
 The release page documents the release notes and contains the following artifacts part of the release:
 
-- `code-scanning-cpp-query-pack-anon-1.1.0 .zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
-- `lgtm-cpp-query-pack-anon-v1.1.0.zip`: coding standard queries to be used with GitHub LGTM Enterprise as documented in the section _Operating manual_.
-- `supported_rules_list_1.1.0 .csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
-- `supported_rules_list_1.1.0 .md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
+- `code-scanning-cpp-query-pack-anon-2.10.0.zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
+- `lgtm-cpp-query-pack-anon-v2.10.0.zip`: coding standard queries to be used with GitHub LGTM Enterprise as documented in the section _Operating manual_.
+- `supported_rules_list_2.10.0.csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
+- `supported_rules_list_2.10.0 .md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
 - `user_manual.md`: This user manual.
 - `Source Code (zip)`: A zip archive containing the contents of https://github.com/github/codeql-coding-standards
 - `Source Code (tar.gz)`: A GZip compressed tar archive containing the contents of https://github.com/github/codeql-coding-standards
@@ -43,10 +44,13 @@ A _coding standard_ is a set of rules or guidelines which restrict or prohibit t
 
 The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying contraventions of rules in the following coding standards:
 
-| Standard                                                                                                             | Version | Total rules | Total supportable rules | Status      |
-| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented |
-| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented |
+| Standard                                                                                                               | Version | Total rules | Total supportable rules | Status      |
+| ---------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------- |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf)   | 20-11   | 397         | 375                     | Implemented |
+| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)     | 2016    | 83          | 83                      | Implemented |
+| [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)         | 2016    | 99          | 99                     | Under development |
+| [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                  | 2012    | 172          | 169                      | Under development |
+
 
 Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in the our representation of the codebase under analysis. For each rule we therefore identify whether it is supportable or not. Furthermore, a rule can be supported in two ways:
  
@@ -74,7 +78,13 @@ From a functional safety perspective, the use of these two components is only va
 
 ### Codebase requirements
 
-The codebase under analysis must:
+In all scenarios, the codebase must comply with the language, platform and compiler requirements listed on the [CodeQL: Supported languages and frameworks](https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks) in order to be successfully analyzed.
+
+In addition, the machine which performs the analysis must be able to complete a clean build of the codebase.
+
+#### C++
+
+For C++ the codebase under analysis must:
  * Comply with C++14
  * Use one of the following supported compilers:
    - Clang version 10
@@ -85,9 +95,18 @@ Use of the queries outside these scenarios is possible, but not validated for fu
    - When language features are used which have a differing interpretation from C++14.
  - Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL (e.g. gcc) is not tested or validated for functional safety.
 
-In all scenarios, the codebase must comply with the language, platform and compiler requirements listed on the [CodeQL: Supported languages and frameworks](https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks) in order to be successfully analyzed.
+#### C
 
-In addition, the machine which performs the analysis must be able to complete a clean build of the codebase.
+For C the codebase under analysis must:
+ * Comply with C99 or C11.
+ * Use one of the following supported compilers:
+   - Clang version 10
+
+Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
+ - Use of the queries against codebases written with more recent versions of C (as supported by CodeQL) are not validated in the following circumstances:
+   - When new language features are used
+   - When language features are used which have a differing interpretation from C11.
+ - Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL (e.g. gcc) is not tested or validated for functional safety.
 
 ### Analysis report requirements
 

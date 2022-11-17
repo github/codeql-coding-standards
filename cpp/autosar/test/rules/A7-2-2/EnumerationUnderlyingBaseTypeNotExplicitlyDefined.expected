@@ -1,2 +1,2 @@
 | test.cpp:1:6:1:6 | C | Base type of enumeration is not explicitly specified. |
-| test.cpp:3:12:3:12 | A | Base type of enumeration is not explicitly specified. |
+| test.cpp:5:12:5:12 | A | Base type of enumeration is not explicitly specified. |

@@ -1,5 +1,5 @@
 name: codeql/misra-c-coding-standards
-version: 2.9.0
+version: 2.12.0-dev
 suites: codeql-suites
 dependencies:
   codeql/common-c-coding-standards: '*'
