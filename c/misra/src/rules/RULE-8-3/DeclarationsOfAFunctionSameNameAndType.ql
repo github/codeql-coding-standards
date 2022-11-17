@@ -13,7 +13,25 @@
 
 import cpp
 import codingstandards.c.misra
-import Compatible
+import codingstandards.cpp.Compatible
+
+predicate parameterTypesIncompatible(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  exists(ParameterDeclarationEntry p1, ParameterDeclarationEntry p2, int i |
+    p1 = f1.getParameterDeclarationEntry(i) and
+    p2 = f2.getParameterDeclarationEntry(i)
+  |
+    not typesCompatible(p1.getType(), p2.getType())
+  )
+}
+
+predicate parameterNamesIncompatible(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  exists(ParameterDeclarationEntry p1, ParameterDeclarationEntry p2, int i |
+    p1 = f1.getParameterDeclarationEntry(i) and
+    p2 = f2.getParameterDeclarationEntry(i)
+  |
+    not p1.getName() = p2.getName()
+  )
+}
 
 from FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, string case
 where
@@ -27,21 +45,11 @@ where
     case = "return type"
     or
     //parameter type check
-    exists(ParameterDeclarationEntry p1, ParameterDeclarationEntry p2, int i |
-      p1 = f1.getParameterDeclarationEntry(i) and
-      p2 = f2.getParameterDeclarationEntry(i)
-    |
-      not typesCompatible(p1.getType(), p2.getType())
-    ) and
+    parameterTypesIncompatible(f1, f2) and
     case = "parameter types"
     or
     //parameter name check
-    exists(ParameterDeclarationEntry p1, ParameterDeclarationEntry p2, int i |
-      p1 = f1.getParameterDeclarationEntry(i) and
-      p2 = f2.getParameterDeclarationEntry(i)
-    |
-      not p1.getName() = p2.getName()
-    ) and
+    parameterNamesIncompatible(f1, f2) and
     case = "parameter names"
   )
 select f1, "The " + case + " of re-declaration of $@ is not compatible with declaration $@", f1,

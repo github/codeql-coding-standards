@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.misra
-import Compatible
+import codingstandards.cpp.Compatible
 
 from VariableDeclarationEntry decl1, VariableDeclarationEntry decl2
 where
