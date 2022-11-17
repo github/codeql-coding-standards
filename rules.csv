@@ -610,7 +610,7 @@ c,MISRA-C-2012,DIR-4-5,Yes,Advisory,,,Identifiers in the same name space with ov
 c,MISRA-C-2012,DIR-4-6,Yes,Advisory,,,typedefs that indicate size and signedness should be used in place of the basic numerical types,,Types,Hard,
 c,MISRA-C-2012,DIR-4-7,Yes,Required,,,"If a function returns error information, then that error information shall be tested",M0-3-2,Contracts,Import,
 c,MISRA-C-2012,DIR-4-8,Yes,Advisory,,,"If a pointer to a structure or union is never dereferenced within a translation unit, then the implementation of the object should be hidden",,Pointers1,Medium,
-c,MISRA-C-2012,DIR-4-9,Yes,Advisory,,,A function should be used in preference to a function-like macro where they are interchangeable,,Preprocessor,Medium,
+c,MISRA-C-2012,DIR-4-9,Yes,Advisory,,,A function should be used in preference to a function-like macro where they are interchangeable,,Preprocessor6,Medium,Audit
 c,MISRA-C-2012,DIR-4-10,Yes,Required,,,Precautions shall be taken in order to prevent the contents of a header file being included more than once,M16-2-3,Preprocessor2,Medium,
 c,MISRA-C-2012,DIR-4-11,Yes,Required,,,The validity of values passed to library functions shall be checked,,Contracts,Hard,
 c,MISRA-C-2012,DIR-4-12,Yes,Required,,,Dynamic memory allocation shall not be used,,Banned,Medium,
