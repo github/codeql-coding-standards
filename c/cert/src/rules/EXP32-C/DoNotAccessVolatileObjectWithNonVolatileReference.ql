@@ -16,7 +16,13 @@ import codingstandards.c.cert
 import semmle.code.cpp.controlflow.Dereferenced
 import semmle.code.cpp.controlflow.StackVariableReachability
 
+/**
+ * An expression involving volatile-qualified types that results in undefined behavior.
+ */
 abstract class UndefinedVolatilePointerExpr extends Expr {
+  /**
+   * Gets a descriptive string describing the type of expression and undefined behavior.
+   */
   abstract string getMessage();
 }
 
