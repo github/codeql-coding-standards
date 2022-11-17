@@ -53,6 +53,48 @@
       ],
       "title": "All declarations of an object or function shall use the same names and type qualifiers"
     },
+    "RULE-8-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A compatible declaration shall be visible when an object with external linkage is defined, otherwise program behaviour may be undefined.",
+          "kind": "problem",
+          "name": "A compatible declaration shall be visible when an object with external linkage is defined",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CompatibleDeclarationObjectDefined",
+          "tags": [
+            "readability",
+            "maintainability",
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for the recommendation of declarations in headers.",
+            "items": []
+          }
+        },
+        {
+          "description": "A compatible declaration shall be visible when a function with external linkage is defined, otherwise program behaviour may be undefined.",
+          "kind": "problem",
+          "name": "A compatible declaration shall be visible when a function with external linkage is defined",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CompatibleDeclarationFunctionDefined",
+          "tags": [
+            "readability",
+            "maintainability",
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for the recommendation of declarations in headers.",
+            "items": []
+          }
+        }
+      ],
+      "title": "A compatible declaration shall be visible when an object or function with external linkage is defined"
+    },
     "RULE-8-6": {
       "properties": {
         "obligation": "required"

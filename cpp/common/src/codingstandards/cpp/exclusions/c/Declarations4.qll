@@ -7,6 +7,8 @@ newtype Declarations4Query =
   TFunctionTypesNotInPrototypeFormQuery() or
   TDeclarationsOfAnObjectSameNameAndTypeQuery() or
   TDeclarationsOfAFunctionSameNameAndTypeQuery() or
+  TCompatibleDeclarationObjectDefinedQuery() or
+  TCompatibleDeclarationFunctionDefinedQuery() or
   TIdentifierWithExternalLinkageOneDefinitionQuery()
 
 predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleId) {
@@ -33,6 +35,22 @@ predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `declarationsOfAFunctionSameNameAndType` query
     "c/misra/declarations-of-a-function-same-name-and-type" and
   ruleId = "RULE-8-3"
+  or
+  query =
+    // `Query` instance for the `compatibleDeclarationObjectDefined` query
+    Declarations4Package::compatibleDeclarationObjectDefinedQuery() and
+  queryId =
+    // `@id` for the `compatibleDeclarationObjectDefined` query
+    "c/misra/compatible-declaration-object-defined" and
+  ruleId = "RULE-8-4"
+  or
+  query =
+    // `Query` instance for the `compatibleDeclarationFunctionDefined` query
+    Declarations4Package::compatibleDeclarationFunctionDefinedQuery() and
+  queryId =
+    // `@id` for the `compatibleDeclarationFunctionDefined` query
+    "c/misra/compatible-declaration-function-defined" and
+  ruleId = "RULE-8-4"
   or
   query =
     // `Query` instance for the `identifierWithExternalLinkageOneDefinition` query
@@ -63,6 +81,20 @@ module Declarations4Package {
     result =
       // `Query` type for `declarationsOfAFunctionSameNameAndType` query
       TQueryC(TDeclarations4PackageQuery(TDeclarationsOfAFunctionSameNameAndTypeQuery()))
+  }
+
+  Query compatibleDeclarationObjectDefinedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `compatibleDeclarationObjectDefined` query
+      TQueryC(TDeclarations4PackageQuery(TCompatibleDeclarationObjectDefinedQuery()))
+  }
+
+  Query compatibleDeclarationFunctionDefinedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `compatibleDeclarationFunctionDefined` query
+      TQueryC(TDeclarations4PackageQuery(TCompatibleDeclarationFunctionDefinedQuery()))
   }
 
   Query identifierWithExternalLinkageOneDefinitionQuery() {

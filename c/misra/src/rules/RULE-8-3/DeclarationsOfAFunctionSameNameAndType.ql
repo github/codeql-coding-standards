@@ -15,24 +15,6 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Compatible
 
-predicate parameterTypesIncompatible(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-  exists(ParameterDeclarationEntry p1, ParameterDeclarationEntry p2, int i |
-    p1 = f1.getParameterDeclarationEntry(i) and
-    p2 = f2.getParameterDeclarationEntry(i)
-  |
-    not typesCompatible(p1.getType(), p2.getType())
-  )
-}
-
-predicate parameterNamesIncompatible(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-  exists(ParameterDeclarationEntry p1, ParameterDeclarationEntry p2, int i |
-    p1 = f1.getParameterDeclarationEntry(i) and
-    p2 = f2.getParameterDeclarationEntry(i)
-  |
-    not p1.getName() = p2.getName()
-  )
-}
-
 from FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, string case
 where
   not isExcluded(f1, Declarations4Package::declarationsOfAFunctionSameNameAndTypeQuery()) and
