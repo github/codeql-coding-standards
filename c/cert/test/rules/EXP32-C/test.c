@@ -36,3 +36,10 @@ void test_volatile_not_lost_by_assignment_and_cast() {
   *compliant_pointer_to_pointer = &val;
   *compliant_pointer; // Volatile object is accessed through a volatile pointer
 }
+
+void test_volatile_lost_by_assignment_and_cast_2() {
+  volatile int *ptr = 0;
+  int *volatile ptr2 = (int *volatile)ptr; // NON_COMPLIANT
+  *ptr2; // Volatile object dereferenced through volatile pointer to
+         // non-volatile object
+}

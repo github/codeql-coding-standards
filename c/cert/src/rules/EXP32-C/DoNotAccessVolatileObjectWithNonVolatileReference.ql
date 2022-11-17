@@ -13,16 +13,36 @@
 
 import cpp
 import codingstandards.c.cert
+import semmle.code.cpp.controlflow.Dereferenced
+import semmle.code.cpp.controlflow.StackVariableReachability
+
+abstract class UndefinedVolatilePointerExpr extends Expr {
+  abstract string getMessage();
+}
+
+/**
+ * Gets the depth of a pointer's base type's volatile qualifier
+ */
+int getAVolatileDepth(PointerType pt) {
+  pt.getBaseType().isVolatile() and result = 1
+  or
+  result = getAVolatileDepth(pt.getBaseType()) + 1
+}
 
 /**
  * A `Cast` which converts from a pointer to a volatile-qualified type
  * to a pointer to a non-volatile-qualified type.
  */
-class CastFromVolatileToNonVolatileBaseType extends Cast {
+class CastFromVolatileToNonVolatileBaseType extends Cast, UndefinedVolatilePointerExpr {
   CastFromVolatileToNonVolatileBaseType() {
-    this.getExpr().getType().(PointerType).getBaseType*().isVolatile() and
-    this.getActualType() instanceof PointerType and
-    not this.getActualType().(PointerType).getBaseType*().isVolatile()
+    exists(int i |
+      i = getAVolatileDepth(this.getExpr().getType()) and
+      not i = getAVolatileDepth(this.getActualType())
+    )
+  }
+
+  override string getMessage() {
+    result = "Cast of object with a volatile-qualified type to a non-volatile-qualified type."
   }
 }
 
@@ -30,36 +50,24 @@ class CastFromVolatileToNonVolatileBaseType extends Cast {
  * An `AssignExpr` with an *lvalue* that is a pointer to a volatile base type and
  * and *rvalue* that is not also a pointer to a volatile base type.
  */
-class NonVolatileObjectAssignedToVolatilePointer extends AssignExpr {
+class NonVolatileObjectAssignedToVolatilePointer extends AssignExpr, UndefinedVolatilePointerExpr {
   NonVolatileObjectAssignedToVolatilePointer() {
-    this.getLValue().getType().(DerivedType).getBaseType*().isVolatile() and
-    not this.getRValue().getUnconverted().getType().(DerivedType).getBaseType*().isVolatile()
+    exists(int i |
+      not i = getAVolatileDepth(this.getRValue().getType()) and
+      i = getAVolatileDepth(this.getLValue().(VariableAccess).getTarget().getType())
+    ) and
+    exists(VariableAccess va |
+      va = this.getRValue().getAChild*().(VariableAccess).getTarget().getAnAccess() and
+      this.getASuccessor+() = va
+    )
   }
 
-  /**
-   * All `VariableAccess` expressions which are transitive successors of
-   * this `Expr` and which access the variable accessed in the *rvalue* of this `Expr`
-   */
-  Expr getASubsequentAccessOfAssignedObject() {
+  override string getMessage() {
     result =
-      any(VariableAccess va |
-        va = this.getRValue().getAChild*().(VariableAccess).getTarget().getAnAccess() and
-        this.getASuccessor+() = va
-      |
-        va
-      )
+      "Assignment indicates a volatile object, but a later access of the object occurs via a non-volatile pointer."
   }
 }
 
-from Expr e, string message
-where
-  not isExcluded(e, Pointers3Package::doNotAccessVolatileObjectWithNonVolatileReferenceQuery()) and
-  (
-    e instanceof CastFromVolatileToNonVolatileBaseType and
-    message = "Cast of object with a volatile-qualified type to a non-volatile-qualified type."
-    or
-    exists(e.(NonVolatileObjectAssignedToVolatilePointer).getASubsequentAccessOfAssignedObject()) and
-    message =
-      "Non-volatile object referenced via pointer to volatile type and later accessed via its original object of a non-volatile-qualified type."
-  )
-select e, message
+from UndefinedVolatilePointerExpr e
+where not isExcluded(e, Pointers3Package::doNotAccessVolatileObjectWithNonVolatileReferenceQuery())
+select e, e.getMessage()
