@@ -4,7 +4,7 @@
  * @description Modifying underlying pointer data through a pointer of an incompatible type can lead
  *              to unpredictable results.
  * @kind path-problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
  * @tags external/cert/id/exp39-c
  *       correctness
@@ -191,7 +191,8 @@ Type compatibleTypes(Type type) {
 
 from DataFlow::PathNode source, DataFlow::PathNode sink, Cast cast, Type fromType, Type toType
 where
-  not isExcluded(cast, Pointers3Package::doNotAccessVariableViaPointerOfIncompatibleTypeQuery()) and
+  not isExcluded(sink.getNode().asExpr(),
+    Pointers3Package::doNotAccessVariableViaPointerOfIncompatibleTypeQuery()) and
   cast.getFile().compiledAsC() and
   any(IndirectCastConfiguration config).hasFlowPath(source, sink) and
   // include only sinks which are not a compatible type to the associated source
