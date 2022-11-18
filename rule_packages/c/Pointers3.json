@@ -48,9 +48,9 @@
       "queries": [
         {
           "description": "Modifying underlying pointer data through a pointer of an incompatible type can lead to unpredictable results.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "Do not access a variable through a pointer of an incompatible type",
-          "precision": "very-high",
+          "precision": "high",
           "severity": "error",
           "short_name": "DoNotAccessVariableViaPointerOfIncompatibleType",
           "tags": [
