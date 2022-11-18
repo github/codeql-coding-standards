@@ -103,10 +103,11 @@
         {
           "description": "An identifier with multiple definitions in different translation units leads to undefined behavior.",
           "kind": "problem",
-          "name": "An identifier with external linkage shall have exactly one external definition",
+          "name": "An identifier with external linkage shall have exactly one definition",
           "precision": "high",
           "severity": "error",
           "short_name": "IdentifierWithExternalLinkageOneDefinition",
+          "shared_implementation_short_name": "IdentifierWithExternalLinkageOneDefinitionShared",
           "tags": [
             "correctness"
           ]
