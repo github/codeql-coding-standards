@@ -6,7 +6,6 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype Language2Query =
   TUsageOfAssemblyLanguageShouldBeDocumentedQuery() or
   TLanguageExtensionsShouldNotBeUsedQuery() or
-  TCriticalUnspecifiedBehaviourQuery() or
   TEmergentLanguageFeaturesUsedQuery()
 
 predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId) {
@@ -25,14 +24,6 @@ predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId) {
     // `@id` for the `languageExtensionsShouldNotBeUsed` query
     "c/misra/language-extensions-should-not-be-used" and
   ruleId = "RULE-1-2"
-  or
-  query =
-    // `Query` instance for the `criticalUnspecifiedBehaviour` query
-    Language2Package::criticalUnspecifiedBehaviourQuery() and
-  queryId =
-    // `@id` for the `criticalUnspecifiedBehaviour` query
-    "c/misra/critical-unspecified-behaviour" and
-  ruleId = "RULE-1-3"
   or
   query =
     // `Query` instance for the `emergentLanguageFeaturesUsed` query
@@ -56,13 +47,6 @@ module Language2Package {
     result =
       // `Query` type for `languageExtensionsShouldNotBeUsed` query
       TQueryC(TLanguage2PackageQuery(TLanguageExtensionsShouldNotBeUsedQuery()))
-  }
-
-  Query criticalUnspecifiedBehaviourQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `criticalUnspecifiedBehaviour` query
-      TQueryC(TLanguage2PackageQuery(TCriticalUnspecifiedBehaviourQuery()))
   }
 
   Query emergentLanguageFeaturesUsedQuery() {
