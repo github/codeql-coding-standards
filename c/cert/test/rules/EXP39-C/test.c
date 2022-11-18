@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <string.h>
+
 void test_incompatible_arithmetic() {
   float f = 0.0f;
   int *p = (int *)&f; // NON_COMPLIANT - arithmetic types are not compatible
@@ -14,8 +17,8 @@ void test_incompatible_arithmetic() {
   // char may be signed or unsigned, and so is not compatible with either
   char c1;
   (signed char *)&c1;   // NON_COMPLIANT
-  (unsigned char *)&c1; // NON_COMPLIANT
-  (char *)&c1;          // NON_COMPLIANT
+  (unsigned char *)&c1; // COMPLIANT - the underlying byte representation is always compatible
+  (char *)&c1;          // COMPLIANT - same type
 
   // int is defined as signed, so is compatible with all the signed versions
   // (long, short etc. are similar)
@@ -24,7 +27,7 @@ void test_incompatible_arithmetic() {
   (int *)&i1;          // COMPLIANT
   (signed *)&i1;       // COMPLIANT
   (unsigned int *)&i1; // NON_COMPLIANT
-  (const int *)&i1;    // NON_COMPLIANT
+  (const int *)&i1;    // COMPLIANT - adding a const specifier is permitted
 }
 
 struct {
