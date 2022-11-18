@@ -31,6 +31,7 @@ import Preprocessor4
 import Preprocessor5
 import SideEffects1
 import SideEffects2
+import Statements1
 import Strings1
 import Strings2
 import Strings3
@@ -67,6 +68,7 @@ newtype TCQuery =
   TPreprocessor5PackageQuery(Preprocessor5Query q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
+  TStatements1PackageQuery(Statements1Query q) or
   TStrings1PackageQuery(Strings1Query q) or
   TStrings2PackageQuery(Strings2Query q) or
   TStrings3PackageQuery(Strings3Query q) or
@@ -103,6 +105,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isPreprocessor5QueryMetadata(query, queryId, ruleId) or
   isSideEffects1QueryMetadata(query, queryId, ruleId) or
   isSideEffects2QueryMetadata(query, queryId, ruleId) or
+  isStatements1QueryMetadata(query, queryId, ruleId) or
   isStrings1QueryMetadata(query, queryId, ruleId) or
   isStrings2QueryMetadata(query, queryId, ruleId) or
   isStrings3QueryMetadata(query, queryId, ruleId) or
