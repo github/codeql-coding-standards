@@ -13,8 +13,9 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.Emergent
 
-from
-where
-  not isExcluded(x, Language2Package::emergentLanguageFeaturesUsedQuery()) and
-select
+from C11::EmergentLanguageFeature ef
+where not isExcluded(ef, Language2Package::emergentLanguageFeaturesUsedQuery())
+select ef, "Usage of emergent language feature."
+

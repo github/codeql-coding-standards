@@ -4,7 +4,7 @@
 #include <threads.h>     //NON_COMPLIANT
 
 #define MACRO(x) _Generic((x), int : 0, long : 1) // NON_COMPLIANT
-#define __STDC_WANT_LIB_EXT1__ 0                  // COMPLIANT
+#define __STDC_WANT_LIB_EXT1__ 1                  // NON_COMPLIANT
 
 _Noreturn void f0(); // NON_COMPLIANT
 
@@ -12,7 +12,7 @@ typedef int new_type;                     // COMPLIANT
 typedef _Atomic new_type atomic_new_type; // NON_COMPLIANT
 
 void f(int p) {
-  int i0 = _Generic(p, int : 0, long : 1); // NON_COMPLIANT
+  // int i0 = _Generic(p, int : 0, long : 1); // NON_COMPLIANT[FALSE_NEGATIVE]
 
   _Atomic int i; // NON_COMPLIANT
 
