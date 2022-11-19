@@ -24,7 +24,7 @@ void f1(int p1) {
     }
     break;
   default: // NON_COMPLIANT
-           ;
+    i++;
   }
 }
 
