@@ -159,7 +159,7 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `stdLibDynamicMemoryAllocationUsed` query
     "c/misra/std-lib-dynamic-memory-allocation-used" and
-  ruleId = "RULE-4-12"
+  ruleId = "DIR-4-12"
   or
   query =
     // `Query` instance for the `octalConstantsUsed` query
