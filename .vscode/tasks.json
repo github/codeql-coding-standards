@@ -254,6 +254,7 @@
                 "Preprocessor3",
                 "Preprocessor4",
                 "Preprocessor5",
+                "Preprocessor6",
                 "IntegerConversion",
                 "Expressions",
                 "DeadCode",
