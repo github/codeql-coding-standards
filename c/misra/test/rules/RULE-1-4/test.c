@@ -12,7 +12,7 @@ typedef int new_type;                     // COMPLIANT
 typedef _Atomic new_type atomic_new_type; // NON_COMPLIANT
 
 void f(int p) {
-  // int i0 = _Generic(p, int : 0, long : 1); // NON_COMPLIANT[FALSE_NEGATIVE]
+  int i0 = _Generic(p, int : 0, long : 1); // NON_COMPLIANT[FALSE_NEGATIVE]
 
   _Atomic int i; // NON_COMPLIANT
 
