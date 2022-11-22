@@ -1,0 +1,45 @@
+{
+  "MISRA-C-2012": {
+    "DIR-4-2": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Assembly language is not portable and should be documented.",
+          "kind": "problem",
+          "name": "All usage of assembly language should be documented",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UsageOfAssemblyLanguageShouldBeDocumented",
+          "shared_implementation_short_name": "UsageOfAssemblerNotDocumented",
+          "tags": [
+            "maintainability",
+            "readability" 
+          ]
+        }
+      ],
+      "title": "All usage of assembly language should be documented"
+    },
+    "RULE-1-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Emergent language features may have unpredictable behavior and should not be used.",
+          "kind": "problem",
+          "name": "Emergent language features shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "EmergentLanguageFeaturesUsed",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Emergent language features shall not be used"
+    }
+  }
+}
