@@ -1,0 +1,23 @@
+{
+  "MISRA-C-2012": {
+    "RULE-8-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declarations in multiple files can lead to unexpected program behaviour.",
+          "kind": "problem",
+          "name": "An external object or function shall be declared once in one and only one file",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExternalObjectOrFunctionNotDeclaredInOneFile",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An external object or function shall be declared once in one and only one file"
+    }
+  }
+}
