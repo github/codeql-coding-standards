@@ -3,9 +3,19 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Declarations5Query = TExternalObjectOrFunctionNotDeclaredInOneFileQuery()
+newtype Declarations5Query =
+  TIdentifiersDeclaredInTheSameScopeNotDistinctQuery() or
+  TExternalObjectOrFunctionNotDeclaredInOneFileQuery()
 
 predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleId) {
+  query =
+    // `Query` instance for the `identifiersDeclaredInTheSameScopeNotDistinct` query
+    Declarations5Package::identifiersDeclaredInTheSameScopeNotDistinctQuery() and
+  queryId =
+    // `@id` for the `identifiersDeclaredInTheSameScopeNotDistinct` query
+    "c/misra/identifiers-declared-in-the-same-scope-not-distinct" and
+  ruleId = "RULE-5-2"
+  or
   query =
     // `Query` instance for the `externalObjectOrFunctionNotDeclaredInOneFile` query
     Declarations5Package::externalObjectOrFunctionNotDeclaredInOneFileQuery() and
@@ -16,6 +26,13 @@ predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Declarations5Package {
+  Query identifiersDeclaredInTheSameScopeNotDistinctQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `identifiersDeclaredInTheSameScopeNotDistinct` query
+      TQueryC(TDeclarations5PackageQuery(TIdentifiersDeclaredInTheSameScopeNotDistinctQuery()))
+  }
+
   Query externalObjectOrFunctionNotDeclaredInOneFileQuery() {
     //autogenerate `Query` type
     result =

@@ -1,5 +1,30 @@
 {
   "MISRA-C-2012": {
+    "RULE-5-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using nondistinct identifiers results in undefined behaviour.",
+          "kind": "problem",
+          "name": "Identifiers declared in the same scope and name space shall be distinct",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifiersDeclaredInTheSameScopeNotDistinct",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query considers the first 63 characters of identifiers as significant, as per C99 for nonexternal identifiers and reports the case when names are longer than 63 characters and differ in those characters past the 63 first only. This query does not consider universal or extended source characters.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Identifiers declared in the same scope and name space shall be distinct"
+    },
     "RULE-8-5": {
       "properties": {
         "obligation": "required"
