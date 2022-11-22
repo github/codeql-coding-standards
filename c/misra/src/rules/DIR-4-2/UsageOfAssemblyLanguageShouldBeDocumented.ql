@@ -4,7 +4,7 @@
  * @description Assembly language is not portable and should be documented.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/dir-4-2
  *       maintainability
  *       readability

@@ -10,7 +10,7 @@
           "kind": "problem",
           "name": "All usage of assembly language should be documented",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "warning",
           "short_name": "UsageOfAssemblyLanguageShouldBeDocumented",
           "shared_implementation_short_name": "UsageOfAssemblerNotDocumented",
           "tags": [
