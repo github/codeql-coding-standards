@@ -179,6 +179,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "MissingStaticSpecifierOnFunctionRedeclaration",
+          "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
           "tags": [
             "readability"
           ]

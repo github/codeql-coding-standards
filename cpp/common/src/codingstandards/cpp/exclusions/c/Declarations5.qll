@@ -5,7 +5,9 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations5Query =
   TIdentifiersDeclaredInTheSameScopeNotDistinctQuery() or
-  TExternalObjectOrFunctionNotDeclaredInOneFileQuery()
+  TExternalObjectOrFunctionNotDeclaredInOneFileQuery() or
+  TMissingStaticSpecifierFunctionRedeclarationCQuery() or
+  TMissingStaticSpecifierObjectRedeclarationCQuery()
 
 predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -23,6 +25,22 @@ predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `externalObjectOrFunctionNotDeclaredInOneFile` query
     "c/misra/external-object-or-function-not-declared-in-one-file" and
   ruleId = "RULE-8-5"
+  or
+  query =
+    // `Query` instance for the `missingStaticSpecifierFunctionRedeclarationC` query
+    Declarations5Package::missingStaticSpecifierFunctionRedeclarationCQuery() and
+  queryId =
+    // `@id` for the `missingStaticSpecifierFunctionRedeclarationC` query
+    "c/misra/missing-static-specifier-function-redeclaration-c" and
+  ruleId = "RULE-8-8"
+  or
+  query =
+    // `Query` instance for the `missingStaticSpecifierObjectRedeclarationC` query
+    Declarations5Package::missingStaticSpecifierObjectRedeclarationCQuery() and
+  queryId =
+    // `@id` for the `missingStaticSpecifierObjectRedeclarationC` query
+    "c/misra/missing-static-specifier-object-redeclaration-c" and
+  ruleId = "RULE-8-8"
 }
 
 module Declarations5Package {
@@ -38,5 +56,19 @@ module Declarations5Package {
     result =
       // `Query` type for `externalObjectOrFunctionNotDeclaredInOneFile` query
       TQueryC(TDeclarations5PackageQuery(TExternalObjectOrFunctionNotDeclaredInOneFileQuery()))
+  }
+
+  Query missingStaticSpecifierFunctionRedeclarationCQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `missingStaticSpecifierFunctionRedeclarationC` query
+      TQueryC(TDeclarations5PackageQuery(TMissingStaticSpecifierFunctionRedeclarationCQuery()))
+  }
+
+  Query missingStaticSpecifierObjectRedeclarationCQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `missingStaticSpecifierObjectRedeclarationC` query
+      TQueryC(TDeclarations5PackageQuery(TMissingStaticSpecifierObjectRedeclarationCQuery()))
   }
 }

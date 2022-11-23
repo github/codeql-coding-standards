@@ -43,6 +43,37 @@
         }
       ],
       "title": "An external object or function shall be declared once in one and only one file"
+    },
+    "RULE-8-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a function has internal linkage then all re-declarations shall include the static storage class specifier to make the internal linkage explicit.",
+          "kind": "problem",
+          "name": "If a function has internal linkage then all re-declarations shall include the static storage class",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingStaticSpecifierFunctionRedeclarationC",
+          "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
+          "tags": [
+            "readability"
+          ]
+        },
+        {
+          "description": "If an object has internal linkage then all re-declarations shall include the static storage class specifier to make the internal linkage explicit.",
+          "kind": "problem",
+          "name": "If an object has internal linkage then all re-declarations shall include the static storage class",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingStaticSpecifierObjectRedeclarationC",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "The static storage class specifier shall be used in all declarations of objects and functions that have internal linkage"
     }
   }
 }
