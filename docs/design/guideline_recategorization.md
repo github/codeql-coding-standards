@@ -175,4 +175,4 @@ A new SARIF file is created by applying the JSON Patch to the processed SARIF fi
 ## Non-MISRA standards
 
 Guideline recategorization applies to rules adhering to the MISRA categorizations.
-For standards that deviate from these conventions we assume that the rules have a category equivalent to MISRA’s *required* category.
+For standards that deviate from these conventions we assume that the rules have an *effective category* equivalent to MISRA’s *required* category.
