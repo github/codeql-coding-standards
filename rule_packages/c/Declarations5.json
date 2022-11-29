@@ -74,6 +74,26 @@
         }
       ],
       "title": "The static storage class specifier shall be used in all declarations of objects and functions that have internal linkage"
+    },
+    "RULE-8-9": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "An identifier declared to be an object or type shall be defined in a block that minimizes its visibility to prevent any accidental use of the identifier.",
+          "kind": "problem",
+          "name": "An object should be defined at block scope if its identifier only appears in a single function",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UnnecessaryExposedIdentifierDeclarationC",
+          "shared_implementation_short_name": "UnnecessaryExposedIdentifierDeclarationShared",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An object should be defined at block scope if its identifier only appears in a single function"
     }
   }
 }

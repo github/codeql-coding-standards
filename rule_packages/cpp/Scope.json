@@ -203,6 +203,7 @@
           "precision": "high",
           "severity": "warning",
           "short_name": "UnnecessaryExposedIdentifierDeclaration",
+          "shared_implementation_short_name": "UnnecessaryExposedIdentifierDeclarationShared",
           "tags": [
             "correctness"
           ]

@@ -7,7 +7,8 @@ newtype Declarations5Query =
   TIdentifiersDeclaredInTheSameScopeNotDistinctQuery() or
   TExternalObjectOrFunctionNotDeclaredInOneFileQuery() or
   TMissingStaticSpecifierFunctionRedeclarationCQuery() or
-  TMissingStaticSpecifierObjectRedeclarationCQuery()
+  TMissingStaticSpecifierObjectRedeclarationCQuery() or
+  TUnnecessaryExposedIdentifierDeclarationCQuery()
 
 predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -41,6 +42,14 @@ predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `missingStaticSpecifierObjectRedeclarationC` query
     "c/misra/missing-static-specifier-object-redeclaration-c" and
   ruleId = "RULE-8-8"
+  or
+  query =
+    // `Query` instance for the `unnecessaryExposedIdentifierDeclarationC` query
+    Declarations5Package::unnecessaryExposedIdentifierDeclarationCQuery() and
+  queryId =
+    // `@id` for the `unnecessaryExposedIdentifierDeclarationC` query
+    "c/misra/unnecessary-exposed-identifier-declaration-c" and
+  ruleId = "RULE-8-9"
 }
 
 module Declarations5Package {
@@ -70,5 +79,12 @@ module Declarations5Package {
     result =
       // `Query` type for `missingStaticSpecifierObjectRedeclarationC` query
       TQueryC(TDeclarations5PackageQuery(TMissingStaticSpecifierObjectRedeclarationCQuery()))
+  }
+
+  Query unnecessaryExposedIdentifierDeclarationCQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `unnecessaryExposedIdentifierDeclarationC` query
+      TQueryC(TDeclarations5PackageQuery(TUnnecessaryExposedIdentifierDeclarationCQuery()))
   }
 }
