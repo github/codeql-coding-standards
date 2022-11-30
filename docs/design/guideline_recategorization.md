@@ -4,7 +4,7 @@
   - [Document management](#document-management)
   - [Introduction](#introduction)
   - [Design](#design)
-    - [Guideline Recategorization Plan specification](#guideline-recategorization-plan-specification)
+    - [Guideline Recategorization Plan](#guideline-recategorization-plan)
   - [Implementation](#implementation)
     - [Specification and deviation](#specification-and-deviation)
     - [Specification validation](#specification-validation)
