@@ -22,6 +22,7 @@ import IO2
 import IO3
 import IO4
 import Language1
+import Language2
 import Misc
 import Pointers1
 import Pointers2
@@ -30,6 +31,7 @@ import Preprocessor2
 import Preprocessor3
 import Preprocessor4
 import Preprocessor5
+import Preprocessor6
 import SideEffects1
 import SideEffects2
 import Strings1
@@ -59,6 +61,7 @@ newtype TCQuery =
   TIO3PackageQuery(IO3Query q) or
   TIO4PackageQuery(IO4Query q) or
   TLanguage1PackageQuery(Language1Query q) or
+  TLanguage2PackageQuery(Language2Query q) or
   TMiscPackageQuery(MiscQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
@@ -67,6 +70,7 @@ newtype TCQuery =
   TPreprocessor3PackageQuery(Preprocessor3Query q) or
   TPreprocessor4PackageQuery(Preprocessor4Query q) or
   TPreprocessor5PackageQuery(Preprocessor5Query q) or
+  TPreprocessor6PackageQuery(Preprocessor6Query q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
   TStrings1PackageQuery(Strings1Query q) or
@@ -96,6 +100,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isIO3QueryMetadata(query, queryId, ruleId) or
   isIO4QueryMetadata(query, queryId, ruleId) or
   isLanguage1QueryMetadata(query, queryId, ruleId) or
+  isLanguage2QueryMetadata(query, queryId, ruleId) or
   isMiscQueryMetadata(query, queryId, ruleId) or
   isPointers1QueryMetadata(query, queryId, ruleId) or
   isPointers2QueryMetadata(query, queryId, ruleId) or
@@ -104,6 +109,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId) {
   isPreprocessor3QueryMetadata(query, queryId, ruleId) or
   isPreprocessor4QueryMetadata(query, queryId, ruleId) or
   isPreprocessor5QueryMetadata(query, queryId, ruleId) or
+  isPreprocessor6QueryMetadata(query, queryId, ruleId) or
   isSideEffects1QueryMetadata(query, queryId, ruleId) or
   isSideEffects2QueryMetadata(query, queryId, ruleId) or
   isStrings1QueryMetadata(query, queryId, ruleId) or

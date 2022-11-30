@@ -22,5 +22,5 @@ from TypeMention tm, UserType ut
 where
   not isExcluded(tm, BannedLibrariesPackage::cstdioTypesUsedQuery()) and
   ut = tm.getMentionedType() and
-  ut.hasGlobalOrStdName(["FILE", "fpos_t", "size_t"])
+  ut.hasGlobalOrStdName(["FILE", "fpos_t"])
 select tm, "Use of <cstdio> type '" + ut.getQualifiedName() + "'."
