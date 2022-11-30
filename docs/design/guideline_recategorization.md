@@ -30,7 +30,7 @@ The document [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/0
 - Required guidelines - guidelines which can only be violated when supported by a deviation.
 - Advisory guidelines - recommendations for which violations are identified but are not required to be supported by a deviation.
 
-Guideline recategorization is possible by means of a Guideline Recategorization Plan (GRP). A GRP is a contract between the acquirer and supplier to determine how guidelines are applied.
+Guideline recategorization is possible by means of a guideline recategorization plan (GRP). A GRP is a contract between the acquirer and supplier to determine how guidelines are applied.
 The GRP defines the additional category Disapplied to be used for Advisory guidelines which are to be ignored. Any other category can be recategorized into stricter categories to ensure that a guideline adheres to the associated policy.
 The following table summarizes the possible recategorizations.
 
@@ -40,11 +40,11 @@ The following table summarizes the possible recategorizations.
 | Required  | Mandatory                       |
 | Advisory  | Disapplied, Required, Mandatory |
 
-Other recategorizations, from here on denoted as invalid recategorizations, are not applied and are to be reported to the user.
+Other recategorizations are invalid, not applied, and reported to the user.
 
 ## Design
 
-Our design includes a Guideline Recategorization Plan specification, logic to apply the category policy to associated guidelines, and a SARIF result rewriter to reflect the new category in the results.
+CodeQL Coding Standards includes a GRP, logic to apply the category policy to associated guidelines, and a SARIF result rewriter to reflect the new category in the results.
 The application of a policy will modify the behavior of a CodeQL queries implementing guidelines as follows:
 
 | Category   | Effect                                                               |
@@ -54,14 +54,14 @@ The application of a policy will modify the behavior of a CodeQL queries impleme
 | Advisory   | Violations are reported unless there exists an applicable deviation. |
 | Disapplied | Violations are not reported.                                         |
 
-The SARIF rewriting will update the category of a guideline in a SARIF result file by updating the necessary tag information of a query.
+The SARIF rewrite updates the guideline category  in a SARIF result file by updating the query's tag information.
 
-### Guideline Recategorization Plan specification
+### Guideline Recategorization Plan
 
-The Guideline Recategorization Plan specification will build upon the configuration specification introduced for deviations by adding the additional primary section `guideline-recategorizations` to the `codeql-standards.yml` configuration file.
+The GRE builds upon the configuration specification introduced for deviations by adding the additional primary section `guideline-recategorizations` to the `codeql-standards.yml` configuration file.
 The `guideline-recategorizations` section will be a series of compact mappings in YAML with the keys:
 
-- `rule-id` - the rule identifier that is recategorized.
+- `rule-id` - the recategorized rule identifier.
 - `category` - the category assigned to the rule identified by rule-id
 
 Note: We specify the recategorization based on the rule-id instead of the query-id. This can be revised if feedback requires more fine-grained recategorization.
@@ -80,9 +80,9 @@ This section discusses the implementation of the [design](#design).
 
 ### Specification and deviation
 
-The implementation will rely on the existing rule meta-data and query exclusion mechanisms to apply policies associated with a rule’s category.
+The implementation relies on the existing rule meta-data and query exclusion mechanisms to apply policies associated with a rule’s category.
 The rule meta-data already includes both the `query-id` and `rule-id` associated with a query and is available during query evaluation.
-The rule meta-data needs to be extended with a category that contains the guideline’s category.
+The rule meta-data must be extended with a category that contains the guideline’s category.
 
 For example:
 
@@ -97,17 +97,17 @@ For example:
   category = “required”
 ```
 
-The category defined by the rule meta-data and the category defined in the `guideline-recategorizations` of the applicable `codeql-standards.yml` configuration file is used to determine the *effective category* of a query.
+The category defined by the rule meta-data and the category defined in the `guideline-recategorizations` of the applicable `codeql-standards.yml` configuration file specifies the *effective category* of a query.
 The *effective category* is the category whose policy is applied during the evaluation of a query.
 The policy of a category dictates if a result can be deviated from and implements the effect described in the design section.
 The existing exclusion mechanism implemented in the predicate `isExcluded` defined in the `Exclusions.qll` library will be updated to consider the applicable policy of a guideline.
 
-Note: This will change the behavior of deviations which will no longer have an impact on Mandatory guidelines! This, however, will only impact MISRA C rules because there are no MISRA C++ Guidelines with a Mandatory category.
+Note: This changes the behavior of deviations which will no longer have an impact on Mandatory guidelines! However, this will only affect MISRA C rules because there are no MISRA C++ Guidelines with a Mandatory category.
 
 ### Specification validation
 
-To assist users with correctly specifying a Guideline Recategorization Plan (GRP) specification we can implement two validations mechanisms that validate the specification at two different points in a GRP life cycle.
-The first validation mechanism will perform syntax validation of the specification provided in the guideline-recategorizations section of a `codeql-standards.yml` configuration file and can provide feedback in any editor that supports JSON schemas published at the [JSON schema store](https://www.schemastore.org/json/).
+To assist users with correctly specifying a GRP specification we can implement two validations mechanisms that validate the specification at two different points in a GRP life cycle.
+The first validation mechanism performs syntax validation of the specification provided in the guideline-recategorizations section of a `codeql-standards.yml` configuration file and can provide feedback in any editor that supports JSON schemas published at the [JSON schema store](https://www.schemastore.org/json/).
 A schema for `codeql-standards.yml` can be extended with the definition of `guideline-category` and the property `guideline-recategorizations`:
 
 ```json
@@ -151,9 +151,9 @@ A schema for `codeql-standards.yml` can be extended with the definition of `guid
 
 The second validation mechanism is the generation of a `guideline-recategorization-plan-report.md` containing alerts on semantically incorrect recategorizations.
 That is, possible recategorizations that are not described as valid in the introduction.
-Semantically invalid recategorizations will be detected by looking at a query’s categorization and its effective categorization (i.e., its applied recategorization).
+Semantically invalid recategorizations are detected by examining a query’s categorization and its effective categorization (i.e., its applied recategorization).
 
-In addition, an update to the `deviations_report.md` report’s invalidate deviations table will provide feedback to users that apply deviations to guidelines with an effective category equal to `mandatory` which cannot be deviated from.
+In addition, an update to the `deviations_report.md` report’s invalidate deviations table provides feedback to users that apply deviations to guidelines with an effective category equal to `mandatory` which cannot be deviated from.
 The changes to generate the new report and update the existing report will be made in the report generation script `scripts/reports/analysis_report.py`.
 
 ### SARIF rewriting
