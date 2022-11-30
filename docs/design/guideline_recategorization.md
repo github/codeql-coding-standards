@@ -64,8 +64,6 @@ The `guideline-recategorizations` section will be a series of compact mappings i
 - `rule-id` - the recategorized rule identifier.
 - `category` - the category assigned to the rule identified by rule-id
 
-Note: We specify the recategorization based on the rule-id instead of the query-id. This can be revised if feedback requires more fine-grained recategorization.
-
 For example:
 
 ```yaml
