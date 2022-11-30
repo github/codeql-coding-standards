@@ -19,7 +19,8 @@
 | Version | Date       | Author(s)       | Reviewer (s) |
 | ------- | ---------- | --------------- | ------------ |
 | 0.1     | 08/10/2022 | Remco Vermeulen | \<redacted\> |
-| 0.2     | 10/25/2022 | Remco Vermeulen |              |
+| 0.2     | 10/25/2022 | Remco Vermeulen | Mauro Baludo, John Singleton |
+| 0.3     | 11/30/2022 | Remco Vermeulen | Robert C. Seacord |
 
 ## Introduction
 
