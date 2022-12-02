@@ -8,14 +8,15 @@ newtype NullQuery =
   TParameterNotPassedByReferenceQuery() or
   TDoNotAttemptToCreateAStringFromANullPointerQuery()
 
-predicate isNullQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isNullQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `nullPointersDereferenced` query
     NullPackage::nullPointersDereferencedQuery() and
   queryId =
     // `@id` for the `nullPointersDereferenced` query
     "cpp/autosar/null-pointers-dereferenced" and
-  ruleId = "A5-3-2"
+  ruleId = "A5-3-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `parameterNotPassedByReference` query
@@ -23,7 +24,8 @@ predicate isNullQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `parameterNotPassedByReference` query
     "cpp/autosar/parameter-not-passed-by-reference" and
-  ruleId = "A8-4-10"
+  ruleId = "A8-4-10" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotAttemptToCreateAStringFromANullPointer` query
@@ -31,7 +33,8 @@ predicate isNullQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotAttemptToCreateAStringFromANullPointer` query
     "cpp/cert/do-not-attempt-to-create-a-string-from-a-null-pointer" and
-  ruleId = "STR51-CPP"
+  ruleId = "STR51-CPP" and
+  category = "rule"
 }
 
 module NullPackage {

@@ -8,11 +8,14 @@ from marko.md_renderer import MarkdownRenderer
 import tempfile
 import sys
 
-
 # Add the shared module to the path
 script_path = Path(__file__)
 sys.path.append(str(script_path.parent.parent / 'shared'))
+from codeql import CodeQL, CodeQLError
 from markdown_helpers import HeadingFormatUpdateSpec, update_help_file, HeadingDiffUpdateSpec
+
+# Global holding an instance of CodeQL that can be shared too prevent repeated instantiation costs.
+codeql = None
 
 def split_camel_case(short_name : str) -> List[str]:
     """Split a camel case string to a list."""
@@ -56,7 +59,6 @@ def render_template(template: Type[Template], args: Dict[str, str], package_name
     output = template.render(args, package_name=package_name)
     file.write(output)
 
-
 def write_exclusion_template(template: Type[Template], args: Dict[str, str], package_name: str, language_name: str, file: TextIO):
     """Render the template with the given args, and write it to the file using \n newlines."""
     output = template.render(
@@ -65,7 +67,14 @@ def write_exclusion_template(template: Type[Template], args: Dict[str, str], pac
     with open(file, "w", newline="\n") as f:
         f.write(output)
 
-def extract_metadata_from_query(rule_id, title, q, rule_query_tags, language_name, ql_language_name, standard_name, standard_short_name, standard_metadata, anonymise):
+    global codeql
+    if codeql == None:
+        codeql = CodeQL()
+    # Format the generated exclusion file because we don't want to handle this in the template.
+    # The format relies on the length of the package name.
+    codeql.format(file)
+
+def extract_metadata_from_query(rule_id, title, rule_category, q, rule_query_tags, language_name, ql_language_name, standard_name, standard_short_name, standard_metadata, anonymise):
 
     metadata = q.copy()
 
@@ -92,6 +101,7 @@ def extract_metadata_from_query(rule_id, title, q, rule_query_tags, language_nam
     exclusion_model["queryname"] = metadata["short_name"]
     exclusion_model["queryname_camelcase"] = metadata["short_name"][0].lower(
     ) + metadata["short_name"][1:]
+    exclusion_model["category"] = rule_category
 
     if not "kind" in metadata:
         # default to problem if not specified

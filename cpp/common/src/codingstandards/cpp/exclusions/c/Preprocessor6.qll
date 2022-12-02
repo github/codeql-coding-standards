@@ -5,14 +5,15 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Preprocessor6Query = TFunctionOverFunctionLikeMacroQuery()
 
-predicate isPreprocessor6QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPreprocessor6QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `functionOverFunctionLikeMacro` query
     Preprocessor6Package::functionOverFunctionLikeMacroQuery() and
   queryId =
     // `@id` for the `functionOverFunctionLikeMacro` query
     "c/misra/function-over-function-like-macro" and
-  ruleId = "DIR-4-9"
+  ruleId = "DIR-4-9" and
+  category = "advisory"
 }
 
 module Preprocessor6Package {

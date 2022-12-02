@@ -77,40 +77,40 @@ newtype TCQuery =
   TSyntaxPackageQuery(SyntaxQuery q)
 
 /** The metadata predicate * */
-predicate isQueryMetadata(Query query, string queryId, string ruleId) {
-  isBannedQueryMetadata(query, queryId, ruleId) or
-  isConcurrency1QueryMetadata(query, queryId, ruleId) or
-  isConcurrency2QueryMetadata(query, queryId, ruleId) or
-  isConcurrency3QueryMetadata(query, queryId, ruleId) or
-  isConcurrency4QueryMetadata(query, queryId, ruleId) or
-  isConcurrency5QueryMetadata(query, queryId, ruleId) or
-  isContracts1QueryMetadata(query, queryId, ruleId) or
-  isContracts2QueryMetadata(query, queryId, ruleId) or
-  isContracts3QueryMetadata(query, queryId, ruleId) or
-  isContracts4QueryMetadata(query, queryId, ruleId) or
-  isDeclarations1QueryMetadata(query, queryId, ruleId) or
-  isDeclarations2QueryMetadata(query, queryId, ruleId) or
-  isDeclarations3QueryMetadata(query, queryId, ruleId) or
-  isExpressionsQueryMetadata(query, queryId, ruleId) or
-  isIO1QueryMetadata(query, queryId, ruleId) or
-  isIO2QueryMetadata(query, queryId, ruleId) or
-  isIO3QueryMetadata(query, queryId, ruleId) or
-  isIO4QueryMetadata(query, queryId, ruleId) or
-  isLanguage1QueryMetadata(query, queryId, ruleId) or
-  isLanguage2QueryMetadata(query, queryId, ruleId) or
-  isMiscQueryMetadata(query, queryId, ruleId) or
-  isPointers1QueryMetadata(query, queryId, ruleId) or
-  isPointers2QueryMetadata(query, queryId, ruleId) or
-  isPreprocessor1QueryMetadata(query, queryId, ruleId) or
-  isPreprocessor2QueryMetadata(query, queryId, ruleId) or
-  isPreprocessor3QueryMetadata(query, queryId, ruleId) or
-  isPreprocessor4QueryMetadata(query, queryId, ruleId) or
-  isPreprocessor5QueryMetadata(query, queryId, ruleId) or
-  isPreprocessor6QueryMetadata(query, queryId, ruleId) or
-  isSideEffects1QueryMetadata(query, queryId, ruleId) or
-  isSideEffects2QueryMetadata(query, queryId, ruleId) or
-  isStrings1QueryMetadata(query, queryId, ruleId) or
-  isStrings2QueryMetadata(query, queryId, ruleId) or
-  isStrings3QueryMetadata(query, queryId, ruleId) or
-  isSyntaxQueryMetadata(query, queryId, ruleId)
+predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
+  isBannedQueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency1QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency2QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency3QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency4QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency5QueryMetadata(query, queryId, ruleId, category) or
+  isContracts1QueryMetadata(query, queryId, ruleId, category) or
+  isContracts2QueryMetadata(query, queryId, ruleId, category) or
+  isContracts3QueryMetadata(query, queryId, ruleId, category) or
+  isContracts4QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
+  isExpressionsQueryMetadata(query, queryId, ruleId, category) or
+  isIO1QueryMetadata(query, queryId, ruleId, category) or
+  isIO2QueryMetadata(query, queryId, ruleId, category) or
+  isIO3QueryMetadata(query, queryId, ruleId, category) or
+  isIO4QueryMetadata(query, queryId, ruleId, category) or
+  isLanguage1QueryMetadata(query, queryId, ruleId, category) or
+  isLanguage2QueryMetadata(query, queryId, ruleId, category) or
+  isMiscQueryMetadata(query, queryId, ruleId, category) or
+  isPointers1QueryMetadata(query, queryId, ruleId, category) or
+  isPointers2QueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessor1QueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessor2QueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessor3QueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessor4QueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessor5QueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessor6QueryMetadata(query, queryId, ruleId, category) or
+  isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
+  isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
+  isStrings1QueryMetadata(query, queryId, ruleId, category) or
+  isStrings2QueryMetadata(query, queryId, ruleId, category) or
+  isStrings3QueryMetadata(query, queryId, ruleId, category) or
+  isSyntaxQueryMetadata(query, queryId, ruleId, category)
 }
