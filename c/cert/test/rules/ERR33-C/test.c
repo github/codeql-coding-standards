@@ -124,7 +124,8 @@ void f4() {
   char *endptr;
   if (strtoumax("", &endptr, 0) == UINTMAX_MAX) { // COMPLIANT
   }
-  if (strtoull("", &endptr, 0) == ULLONG_MAX) { // COMPLIANT
+  if (strtoull("", &endptr, 0) == ULONG_MAX) { // NON_COMPLIANT
+  // =ULLONG_MAX not present in the test DB
   }
   if (strtoul("", &endptr, 0) == ULONG_MAX) { // COMPLIANT
   }

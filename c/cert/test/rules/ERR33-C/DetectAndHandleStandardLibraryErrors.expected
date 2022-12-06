@@ -10,3 +10,4 @@
 | test.c:80:3:80:7 | call to mblen | Missing error detection for the call to function `mblen`. |
 | test.c:97:5:97:9 | call to fputc | Missing error detection for the call to function `fputc`. |
 | test.c:105:5:105:11 | call to getchar | Missing error detection for the call to function `getchar`. |
+| test.c:127:7:127:14 | call to strtoull | Missing error detection for the call to function `strtoull`. |

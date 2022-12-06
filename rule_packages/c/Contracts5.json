@@ -11,7 +11,10 @@
         "precision": "high",
         "severity": "error",
         "short_name": "DoNotRelyOnIndeterminateValuesOfErrno",
-        "tags": ["correctness"]
+        "tags": ["correctness"],
+        "implementation_scope": {
+          "description": "The rule is enforced in the context of a single function."
+        }
       }],
       "title": "Do not rely on indeterminate values of errno"
     },
@@ -26,7 +29,10 @@
         "precision": "high",
         "severity": "error",
         "short_name": "DetectAndHandleStandardLibraryErrors",
-        "tags": ["correctness"]
+        "tags": ["correctness"],
+        "implementation_scope": {
+          "description": "The rule is enforced in the context of a single function."
+        }
       }],
       "title": "Detect and handle standard library errors"
     }
