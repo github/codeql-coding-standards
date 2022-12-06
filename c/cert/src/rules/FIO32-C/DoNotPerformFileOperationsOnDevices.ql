@@ -12,6 +12,7 @@
  */
 
 import cpp
+import codingstandards.c.cert
 import semmle.code.cpp.security.FunctionWithWrappers
 import semmle.code.cpp.security.Security
 import semmle.code.cpp.ir.IR
@@ -126,6 +127,7 @@ from
   FileFunction fileFunction, Expr taintedArg, Expr taintSource, TaintedPathConfiguration cfg,
   DataFlow::PathNode sourceNode, DataFlow::PathNode sinkNode, string taintCause, string callChain
 where
+  not isExcluded(taintedArg, IO3Package::doNotPerformFileOperationsOnDevicesQuery()) and
   taintedArg = asSinkExpr(sinkNode.getNode()) and
   fileFunction.outermostWrapperFunctionCall(taintedArg, callChain) and
   cfg.hasFilteredFlowPath(sourceNode, sinkNode) and
