@@ -372,7 +372,7 @@ Independent( ERR33-C, POS54-C, FLP32-C, ERR34-C) Intersection( CWE-252, CWE-253)
 
 ## Implementation notes
 
-None
+The rule is enforced in the context of a single function.
 
 ## References
 

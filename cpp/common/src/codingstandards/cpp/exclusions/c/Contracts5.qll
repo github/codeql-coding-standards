@@ -7,14 +7,15 @@ newtype Contracts5Query =
   TDoNotRelyOnIndeterminateValuesOfErrnoQuery() or
   TDetectAndHandleStandardLibraryErrorsQuery()
 
-predicate isContracts5QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isContracts5QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotRelyOnIndeterminateValuesOfErrno` query
     Contracts5Package::doNotRelyOnIndeterminateValuesOfErrnoQuery() and
   queryId =
     // `@id` for the `doNotRelyOnIndeterminateValuesOfErrno` query
     "c/cert/do-not-rely-on-indeterminate-values-of-errno" and
-  ruleId = "ERR32-C"
+  ruleId = "ERR32-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `detectAndHandleStandardLibraryErrors` query
@@ -22,7 +23,8 @@ predicate isContracts5QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `detectAndHandleStandardLibraryErrors` query
     "c/cert/detect-and-handle-standard-library-errors" and
-  ruleId = "ERR33-C"
+  ruleId = "ERR33-C" and
+  category = "rule"
 }
 
 module Contracts5Package {

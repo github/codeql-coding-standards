@@ -90,7 +90,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isContracts2QueryMetadata(query, queryId, ruleId, category) or
   isContracts3QueryMetadata(query, queryId, ruleId, category) or
   isContracts4QueryMetadata(query, queryId, ruleId, category) or
-  isContracts5QueryMetadata(query, queryId, ruleId) or
+  isContracts5QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
