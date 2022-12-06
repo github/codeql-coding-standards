@@ -1,0 +1,8 @@
+| A0-1-1 | required | advisory |
+| A0-1-1 | required | mandatory |
+| A0-1-2 | required | disapplied |
+| A0-1-6 | advisory | disapplied |
+| A10-4-1 | advisory | required |
+| A11-0-1 | advisory | mandatory |
+| CON50-CPP | rule | required |
+| RULE-13-6 | mandatory | required |

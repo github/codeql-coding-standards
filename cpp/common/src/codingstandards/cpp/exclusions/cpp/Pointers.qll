@@ -28,14 +28,15 @@ newtype PointersQuery =
   TMemberAccessWithUninitializedStaticPointerToMemberQuery() or
   TUseOfPointerToMemberToAccessNonexistentMemberQuery()
 
-predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPointersQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `pointerToAnElementOfAnArrayPassedToASmartPointer` query
     PointersPackage::pointerToAnElementOfAnArrayPassedToASmartPointerQuery() and
   queryId =
     // `@id` for the `pointerToAnElementOfAnArrayPassedToASmartPointer` query
     "cpp/autosar/pointer-to-an-element-of-an-array-passed-to-a-smart-pointer" and
-  ruleId = "A18-1-4"
+  ruleId = "A18-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `declarationContainLessThanTwoLevelsOfIndirection` query
@@ -43,7 +44,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `declarationContainLessThanTwoLevelsOfIndirection` query
     "cpp/autosar/declaration-contain-less-than-two-levels-of-indirection" and
-  ruleId = "A5-0-3"
+  ruleId = "A5-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerArithmeticUsedWithPointersToNonFinalClasses` query
@@ -51,7 +53,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerArithmeticUsedWithPointersToNonFinalClasses` query
     "cpp/autosar/pointer-arithmetic-used-with-pointers-to-non-final-classes" and
-  ruleId = "A5-0-4"
+  ruleId = "A5-0-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerToMemberVirtualFunctionWithNullPointerConstant` query
@@ -59,7 +62,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerToMemberVirtualFunctionWithNullPointerConstant` query
     "cpp/autosar/pointer-to-member-virtual-function-with-null-pointer-constant" and
-  ruleId = "A5-10-1"
+  ruleId = "A5-10-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `deletingPointerToIncompleteType` query
@@ -67,7 +71,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `deletingPointerToIncompleteType` query
     "cpp/autosar/deleting-pointer-to-incomplete-type" and
-  ruleId = "A5-3-3"
+  ruleId = "A5-3-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerToMemberAccessNonExistentClassMembers` query
@@ -75,7 +80,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerToMemberAccessNonExistentClassMembers` query
     "cpp/autosar/pointer-to-member-access-non-existent-class-members" and
-  ruleId = "A5-5-1"
+  ruleId = "A5-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nullPointerToMemberAccessNonExistentClassMembers` query
@@ -83,7 +89,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nullPointerToMemberAccessNonExistentClassMembers` query
     "cpp/autosar/null-pointer-to-member-access-non-existent-class-members" and
-  ruleId = "A5-5-1"
+  ruleId = "A5-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `uninitializedStaticPointerToMemberUse` query
@@ -91,7 +98,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `uninitializedStaticPointerToMemberUse` query
     "cpp/autosar/uninitialized-static-pointer-to-member-use" and
-  ruleId = "A5-5-1"
+  ruleId = "A5-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `indexingNotTheOnlyFormOfPointerArithmetic` query
@@ -99,7 +107,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `indexingNotTheOnlyFormOfPointerArithmetic` query
     "cpp/autosar/indexing-not-the-only-form-of-pointer-arithmetic" and
-  ruleId = "M5-0-15"
+  ruleId = "M5-0-15" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerAndDerivedPointerAccessDifferentArray` query
@@ -107,7 +116,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerAndDerivedPointerAccessDifferentArray` query
     "cpp/autosar/pointer-and-derived-pointer-access-different-array" and
-  ruleId = "M5-0-16"
+  ruleId = "M5-0-16" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerSubtractionOnDifferentArrays` query
@@ -115,7 +125,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerSubtractionOnDifferentArrays` query
     "cpp/autosar/pointer-subtraction-on-different-arrays" and
-  ruleId = "M5-0-17"
+  ruleId = "M5-0-17" and
+  category = "required"
   or
   query =
     // `Query` instance for the `appliedToObjectsOfPointerType` query
@@ -123,7 +134,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `appliedToObjectsOfPointerType` query
     "cpp/autosar/applied-to-objects-of-pointer-type" and
-  ruleId = "M5-0-18"
+  ruleId = "M5-0-18" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointer` query
@@ -131,7 +143,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointer` query
     "cpp/autosar/identifier-with-array-type-passed-as-function-argument-decay-to-a-pointer" and
-  ruleId = "M5-2-12"
+  ruleId = "M5-2-12" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerToAVirtualBaseClassCastToAPointer` query
@@ -139,7 +152,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerToAVirtualBaseClassCastToAPointer` query
     "cpp/autosar/pointer-to-a-virtual-base-class-cast-to-a-pointer" and
-  ruleId = "M5-2-2"
+  ruleId = "M5-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `castNotConvertPointerToFunction` query
@@ -147,7 +161,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `castNotConvertPointerToFunction` query
     "cpp/autosar/cast-not-convert-pointer-to-function" and
-  ruleId = "M5-2-6"
+  ruleId = "M5-2-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `integerOrPointerToVoidConvertedToPointerType` query
@@ -155,7 +170,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `integerOrPointerToVoidConvertedToPointerType` query
     "cpp/autosar/integer-or-pointer-to-void-converted-to-pointer-type" and
-  ruleId = "M5-2-8"
+  ruleId = "M5-2-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `castConvertAPointerTypeToAnIntegralType` query
@@ -163,7 +179,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `castConvertAPointerTypeToAnIntegralType` query
     "cpp/autosar/cast-convert-a-pointer-type-to-an-integral-type" and
-  ruleId = "M5-2-9"
+  ruleId = "M5-2-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotUsePointerArithmeticOnPolymorphicObjects` query
@@ -171,7 +188,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotUsePointerArithmeticOnPolymorphicObjects` query
     "cpp/cert/do-not-use-pointer-arithmetic-on-polymorphic-objects" and
-  ruleId = "CTR56-CPP"
+  ruleId = "CTR56-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `deletingPointerToIncompleteClass` query
@@ -179,7 +197,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `deletingPointerToIncompleteClass` query
     "cpp/cert/deleting-pointer-to-incomplete-class" and
-  ruleId = "EXP57-CPP"
+  ruleId = "EXP57-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `castOfPointerToIncompleteClass` query
@@ -187,7 +206,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `castOfPointerToIncompleteClass` query
     "cpp/cert/cast-of-pointer-to-incomplete-class" and
-  ruleId = "EXP57-CPP"
+  ruleId = "EXP57-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useOfPointerToMemberToAccessUndefinedMember` query
@@ -195,7 +215,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useOfPointerToMemberToAccessUndefinedMember` query
     "cpp/cert/use-of-pointer-to-member-to-access-undefined-member" and
-  ruleId = "OOP55-CPP"
+  ruleId = "OOP55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `memberAccessWithUninitializedStaticPointerToMember` query
@@ -203,7 +224,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `memberAccessWithUninitializedStaticPointerToMember` query
     "cpp/cert/member-access-with-uninitialized-static-pointer-to-member" and
-  ruleId = "OOP55-CPP"
+  ruleId = "OOP55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useOfPointerToMemberToAccessNonexistentMember` query
@@ -211,7 +233,8 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useOfPointerToMemberToAccessNonexistentMember` query
     "cpp/cert/use-of-pointer-to-member-to-access-nonexistent-member" and
-  ruleId = "OOP55-CPP"
+  ruleId = "OOP55-CPP" and
+  category = "rule"
 }
 
 module PointersPackage {

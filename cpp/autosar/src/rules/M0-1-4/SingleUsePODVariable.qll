@@ -4,6 +4,12 @@ import cpp
 import codingstandards.cpp.TrivialType
 import codingstandards.cpp.deadcode.UnusedVariables
 
+/** Gets the constant value of a constexpr variable. */
+private string getConstExprValue(Variable v) {
+  result = v.getInitializer().getExpr().getValue() and
+  v.isConstexpr()
+}
+
 /** Gets a "use" count according to rule M0-1-4. */
 int getUseCount(Variable v) {
   exists(int initializers |
@@ -12,7 +18,14 @@ int getUseCount(Variable v) {
     result =
       initializers +
         count(VariableAccess access | access = v.getAnAccess() and not access.isCompilerGenerated())
-        + count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v)
+        + count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) +
+        // For constexpr variables used as template arguments, we don't see accesses (just the
+        // appropriate literals). We therefore take a conservative approach and count the number of
+        // template instantiations that use the given constant, and consider each one to be a use
+        // of the variable
+        count(ClassTemplateInstantiation cti |
+          cti.getTemplateArgument(_).(Expr).getValue() = getConstExprValue(v)
+        )
   )
 }
 

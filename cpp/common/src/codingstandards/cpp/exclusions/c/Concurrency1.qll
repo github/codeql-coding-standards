@@ -8,14 +8,15 @@ newtype Concurrency1Query =
   TRaceConditionsWhenUsingLibraryFunctionsQuery() or
   TDoNotCallSignalInMultithreadedProgramQuery()
 
-predicate isConcurrency1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isConcurrency1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `preventDataRacesWithMultipleThreads` query
     Concurrency1Package::preventDataRacesWithMultipleThreadsQuery() and
   queryId =
     // `@id` for the `preventDataRacesWithMultipleThreads` query
     "c/cert/prevent-data-races-with-multiple-threads" and
-  ruleId = "CON32-C"
+  ruleId = "CON32-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `raceConditionsWhenUsingLibraryFunctions` query
@@ -23,7 +24,8 @@ predicate isConcurrency1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `raceConditionsWhenUsingLibraryFunctions` query
     "c/cert/race-conditions-when-using-library-functions" and
-  ruleId = "CON33-C"
+  ruleId = "CON33-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotCallSignalInMultithreadedProgram` query
@@ -31,7 +33,8 @@ predicate isConcurrency1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotCallSignalInMultithreadedProgram` query
     "c/cert/do-not-call-signal-in-multithreaded-program" and
-  ruleId = "CON37-C"
+  ruleId = "CON37-C" and
+  category = "rule"
 }
 
 module Concurrency1Package {

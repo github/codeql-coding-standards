@@ -1,0 +1,5 @@
+| invalid/coding-standards.xml:5:7:8:43 | guideline-recategorizations-entry | guideline_recategorizations/invalid/coding-standards.xml: 'Invalid recategorization from 'required' to 'advisory'.' for rule A0-1-1. |
+| invalid/coding-standards.xml:9:7:12:43 | guideline-recategorizations-entry | guideline_recategorizations/invalid/coding-standards.xml: 'Invalid recategorization from 'required' to 'disapplied'.' for rule A0-1-2. |
+| invalid/coding-standards.xml:13:7:16:43 | guideline-recategorizations-entry | guideline_recategorizations/invalid/coding-standards.xml: 'Unknown rule id 'A1-4-3'.' for rule A1-4-3. |
+| invalid/coding-standards.xml:17:7:20:43 | guideline-recategorizations-entry | guideline_recategorizations/invalid/coding-standards.xml: 'Invalid recategorization from 'mandatory' to 'required'.' for rule RULE-13-6. |
+| invalid/coding-standards.xml:21:7:24:43 | guideline-recategorizations-entry | guideline_recategorizations/invalid/coding-standards.xml: 'Invalid recategorization from 'rule' to 'required'.' for rule CON50-CPP. |

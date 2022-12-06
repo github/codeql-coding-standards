@@ -304,7 +304,7 @@
       ],
       "title": "The Standard Library functions 'bsearch' and 'qsort' of 'stdlib.h' shall not be used"
     },
-    "RULE-4-12": {
+    "DIR-4-12": {
       "properties": {
         "obligation": "required"
       },
