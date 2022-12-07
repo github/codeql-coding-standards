@@ -15,8 +15,18 @@ import codingstandards.c.cert
 import codingstandards.c.Errno
 import semmle.code.cpp.controlflow.Guards
 
+/**
+ * A call to function `signal`
+ */
 class SignalCall extends FunctionCall {
   SignalCall() { this.getTarget().hasGlobalName("signal") }
+}
+
+/**
+ * A call to `abort` or `_Exit`
+ */
+class AbortCall extends FunctionCall {
+  AbortCall() { this.getTarget().hasGlobalName(["abort", "_Exit"]) }
 }
 
 /**
@@ -59,9 +69,8 @@ class SignalCallingHandler extends Function {
       DataFlow::localFlow(DataFlow::parameterNode(this.getParameter(0)),
         DataFlow::exprNode(sCall.getArgument(0))) and
       // does not abort on error
-      not exists(SignalCheckOperation sCheck, FunctionCall abort |
+      not exists(SignalCheckOperation sCheck, AbortCall abort |
         DataFlow::localExprFlow(sCall, sCheck.getAnOperand()) and
-        abort.getTarget().hasGlobalName(["abort", "_Exit"]) and
         abort.getEnclosingElement*() = sCheck.getErrorSuccessor()
       )
     )
@@ -80,7 +89,7 @@ ControlFlowNode preceedErrnoRead(ErrnoRead er) {
     result = mid.getAPredecessor() and
     mid = preceedErrnoRead(er) and
     // stop recursion on calls to `abort` and `_Exit`
-    not result.(FunctionCall).getTarget().hasGlobalName(["abort", "_Exit"]) and
+    not result instanceof AbortCall and
     // stop recursion on successful `SignalCheckOperation`
     not result = any(SignalCheckOperation o).getCheckedSuccessor()
   )
