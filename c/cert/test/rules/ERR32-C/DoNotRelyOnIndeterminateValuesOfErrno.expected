@@ -1,5 +1,5 @@
-| test.c:12:5:12:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:35:21:35:26 | call to signal | call to signal |
-| test.c:37:5:37:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:35:21:35:26 | call to signal | call to signal |
-| test.c:42:5:42:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:35:21:35:26 | call to signal | call to signal |
-| test.c:51:5:51:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:35:21:35:26 | call to signal | call to signal |
-| test.c:51:5:51:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:45:17:45:22 | call to signal | call to signal |
+| test.c:12:5:12:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:10:21:10:26 | call to signal | call to signal |
+| test.c:39:5:39:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:35:21:35:26 | call to signal | call to signal |
+| test.c:46:5:46:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:44:21:44:26 | call to signal | call to signal |
+| test.c:62:5:62:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:54:17:54:22 | call to signal | call to signal |
+| test.c:62:5:62:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:58:17:58:22 | call to signal | call to signal |

@@ -31,6 +31,15 @@ void handler4(int signum) {
   }
 }
 
+void handler5(int signum) {
+  pfv old_handler = signal(signum, SIG_DFL);
+  if (old_handler != SIG_ERR) {
+    perror(""); // COMPLIANT
+  } else {
+    perror(""); // NON_COMPLIANT
+  }
+}
+
 int main(void) {
   pfv old_handler = signal(SIGINT, handler1);
   if (old_handler == SIG_ERR) {
@@ -39,12 +48,14 @@ int main(void) {
 
   old_handler = signal(SIGINT, handler2);
   if (old_handler == SIG_ERR) {
-    perror(""); // NON_COMPLIANT
+    perror(""); // COMPLIANT
   }
 
   old_handler = signal(SIGINT, handler3);
 
   old_handler = signal(SIGINT, handler4);
+
+  old_handler = signal(SIGINT, handler5);
 
   FILE *fp = fopen("something", "r");
   if (fp == NULL) {

@@ -37,6 +37,10 @@ class SignalCheckOperation extends EqualityOperation, GuardCondition {
     )
   }
 
+  ControlFlowNode getCheckedSuccessor() {
+    result != errorSuccessor and result = this.getASuccessor()
+  }
+
   ControlFlowNode getErrorSuccessor() { result = errorSuccessor }
 }
 
@@ -44,11 +48,11 @@ class SignalCheckOperation extends EqualityOperation, GuardCondition {
  * Models signal handlers that call signal() and return
  */
 class SignalCallingHandler extends Function {
-  SignalCall sh;
+  SignalCall registration;
 
   SignalCallingHandler() {
     // is a signal handler
-    this = sh.getArgument(1).(FunctionAccess).getTarget() and
+    this = registration.getArgument(1).(FunctionAccess).getTarget() and
     // calls signal() on the handled signal
     exists(SignalCall sCall |
       sCall.getEnclosingFunction() = this and
@@ -63,18 +67,35 @@ class SignalCallingHandler extends Function {
     )
   }
 
-  SignalCall getHandler() { result = sh }
+  SignalCall getCall() { result = registration }
 }
 
-from ErrnoRead errno, SignalCall h
+/**
+ * CFG nodes preceeding `ErrnoRead`
+ */
+ControlFlowNode preceedErrnoRead(ErrnoRead er) {
+  result = er
+  or
+  exists(ControlFlowNode mid |
+    result = mid.getAPredecessor() and
+    mid = preceedErrnoRead(er) and
+    // stop recursion on calls to `abort` and `_Exit`
+    not result.(FunctionCall).getTarget().hasGlobalName(["abort", "_Exit"]) and
+    // stop recursion on successful `SignalCheckOperation`
+    not result = any(SignalCheckOperation o).getCheckedSuccessor()
+  )
+}
+
+from ErrnoRead errno, SignalCall signal
 where
   not isExcluded(errno, Contracts5Package::doNotRelyOnIndeterminateValuesOfErrnoQuery()) and
-  exists(SignalCallingHandler sc | sc.getHandler() = h |
-    // errno read in the handler
-    sc.calls*(errno.getEnclosingFunction())
+  exists(SignalCallingHandler handler |
+    // errno read after the handler returns
+    handler.getCall() = signal
     or
-    // errno is read after the handle returns
-    sc.getHandler() = h and
-    errno.getAPredecessor+() = h
+    // errno read inside the handler
+    signal.getEnclosingFunction() = handler
+  |
+    signal = preceedErrnoRead(errno)
   )
-select errno, "`errno` has indeterminate value after this $@.", h, h.toString()
+select errno, "`errno` has indeterminate value after this $@.", signal, signal.toString()
