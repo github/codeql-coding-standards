@@ -1,16 +1,12 @@
 edges
-| test.c:20:15:20:23 | file_name | test.c:21:8:21:16 | file_name indirection |
 | test.c:20:15:20:23 | scanf output argument | test.c:21:8:21:16 | file_name indirection |
-| test.c:45:15:45:23 | file_name | test.c:46:29:46:37 | file_name indirection |
 | test.c:45:15:45:23 | scanf output argument | test.c:46:29:46:37 | file_name indirection |
 nodes
-| test.c:20:15:20:23 | file_name | semmle.label | file_name |
 | test.c:20:15:20:23 | scanf output argument | semmle.label | scanf output argument |
 | test.c:21:8:21:16 | file_name indirection | semmle.label | file_name indirection |
-| test.c:45:15:45:23 | file_name | semmle.label | file_name |
 | test.c:45:15:45:23 | scanf output argument | semmle.label | scanf output argument |
 | test.c:46:29:46:37 | file_name indirection | semmle.label | file_name indirection |
 subpaths
 #select
-| test.c:21:8:21:16 | file_name | test.c:20:15:20:23 | file_name | test.c:21:8:21:16 | file_name indirection | This argument to a file access function is derived from $@ and then passed to func(file_name), which calls fopen((unnamed parameter 0)). | test.c:20:15:20:23 | file_name | user input (scanf) |
-| test.c:46:29:46:37 | file_name | test.c:45:15:45:23 | file_name | test.c:46:29:46:37 | file_name indirection | This argument to a file access function is derived from $@ and then passed to CreateFile(lpFileName). | test.c:45:15:45:23 | file_name | user input (scanf) |
+| test.c:21:8:21:16 | file_name | test.c:20:15:20:23 | scanf output argument | test.c:21:8:21:16 | file_name indirection | This argument to a file access function is derived from $@ and then passed to func(file_name), which calls fopen((unnamed parameter 0)). | test.c:20:15:20:23 | file_name | user input (scanf) |
+| test.c:46:29:46:37 | file_name | test.c:45:15:45:23 | scanf output argument | test.c:46:29:46:37 | file_name indirection | This argument to a file access function is derived from $@ and then passed to CreateFile(lpFileName). | test.c:45:15:45:23 | file_name | user input (scanf) |
