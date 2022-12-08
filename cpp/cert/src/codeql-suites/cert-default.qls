@@ -1,5 +1,5 @@
 - description: CERT C++ 2016 (Default)
-- qlpack: cert-cpp-coding-standards
+- qlpack: codeql/cert-cpp-coding-standards
 - include:
     kind:
     - problem
