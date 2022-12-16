@@ -1,5 +1,5 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library which includes a `problems` predicate for reporting missing static specifiers for redeclarations of functions with internal linkage.
  */
 
 import cpp

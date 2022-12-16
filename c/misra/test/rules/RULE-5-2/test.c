@@ -24,3 +24,24 @@ static int
     iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjy_C; // COMPLIANT length <63
 static int
     iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjy_D; // COMPLIANT length <63
+
+#define iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyA // COMPLIANT
+                                                                         // -
+                                                                         // this
+                                                                         // rule
+                                                                         // does
+                                                                         // not
+                                                                         // consider
+                                                                         // macros
+extern int
+    iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyA; // COMPLIANT
+                                                                      // - this
+                                                                      // rule
+                                                                      // does
+                                                                      // not
+                                                                      // consider
+                                                                      // when
+                                                                      // both
+                                                                      // identifiers
+                                                                      // are
+                                                                      // external

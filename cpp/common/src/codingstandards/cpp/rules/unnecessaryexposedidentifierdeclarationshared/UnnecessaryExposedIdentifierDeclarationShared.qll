@@ -1,5 +1,5 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library which includes a `problems` predicate for reporting unnecessarily exposed identifiers due to too broad of a scope.
  */
 
 import cpp

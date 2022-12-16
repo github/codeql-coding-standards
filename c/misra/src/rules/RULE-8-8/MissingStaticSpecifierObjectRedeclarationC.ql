@@ -18,10 +18,10 @@ from VariableDeclarationEntry redeclaration, VariableDeclarationEntry de
 where
   not isExcluded(redeclaration,
     Declarations5Package::missingStaticSpecifierObjectRedeclarationCQuery()) and
+  //following implies de != redeclaration
   de.hasSpecifier("static") and
-  de.getDeclaration().isTopLevel() and
-  redeclaration.getDeclaration() = de.getDeclaration() and
   not redeclaration.hasSpecifier("static") and
-  de != redeclaration
+  de.getDeclaration().isTopLevel() and
+  redeclaration.getDeclaration() = de.getDeclaration()
 select redeclaration, "The redeclaration of $@ with internal linkage misses the static specifier.",
   de, de.getName()

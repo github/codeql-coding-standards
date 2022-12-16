@@ -32,12 +32,7 @@ where
     kind = "variable"
   ) and
   // Apply an ordering based on location to enforce that (de1, de2) = (de2, de1) and we only report (de1, de2).
-  (
-    de.getFile().getAbsolutePath() < otherDeclaration.getFile().getAbsolutePath()
-    or
-    de.getFile().getAbsolutePath() = otherDeclaration.getFile().getAbsolutePath() and
-    de.getLocation().getStartLine() < otherDeclaration.getLocation().getStartLine()
-  )
+  de.getFile().getAbsolutePath() < otherDeclaration.getFile().getAbsolutePath()
 select de,
   "The " + kind + " declaration " + de.getName() +
     " is declared in multiple files and has an additional $@.", otherDeclaration, "declaration"
