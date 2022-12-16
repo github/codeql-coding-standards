@@ -4,7 +4,7 @@ from pathlib import Path
 
 script_path = Path(__file__)
 # Add the shared modules to the path so we can import them.
-sys.path.append(script_path.parent.parent / 'shared')
+sys.path.append(str(script_path.parent.parent / 'shared'))
 from codeql import CodeQL
 
 

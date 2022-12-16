@@ -1,0 +1,48 @@
+# Deviations report
+
+## Overview
+
+ - Report generated with supported CodeQL version $codeql-version$
+ - Database path: $database-path$
+ - 3 valid deviation records and 14 invalid deviation records found in the database
+ - 3 valid deviation permits and 2 invalid deviation permits found in the database
+
+## Deviation Records
+
+| Rule ID | Query ID | Automated Scope | Scope | Justification | Background | Requirements
+| --- | --- | --- | --- | --- | --- | --- |
+| A0-1-1 | cpp/autosar/useless-assignment | Applies to the following file paths: invalid |   |   |   |   | 
+| A0-1-1 | cpp/autosar/useless-assignment | Applies to the following file paths: valid |   |  This useless assignment is required. |   |   | 
+| A0-4-2 | cpp/autosar/type-long-double-used | Identified by the use of the code-identifier: a-0-4-2-deviation |   |  long double is required for interaction with third-party libraries. |   |   | 
+
+## Invalid Deviation Records
+| Path | Reason |
+| --- | --- |
+| invalid/coding-standards.xml:5:7:5:26 | No rule-id and query-id specified for this deviation record. |
+| invalid/coding-standards.xml:6:7:8:26 | The rule-id `bad rule id` for this deviation matches none of the available queries. |
+| invalid/coding-standards.xml:9:7:11:26 | A query-id of `bad rule id` is specified for this deviation, but not rule-id is specified. |
+| invalid/coding-standards.xml:15:7:17:26 | A query-id of `cpp/autosar/useless-assignment` is specified for this deviation, but not rule-id is specified. |
+| invalid/coding-standards.xml:22:7:26:26 | A deviation `raised-by` is specified without providing an `approved-by`. |
+| invalid/coding-standards.xml:22:7:26:26 | A deviation `raised-by` is specified without providing both a `name` and `date`. |
+| invalid/coding-standards.xml:27:7:33:26 | A deviation `raised-by` is specified without providing an `approved-by`. |
+| invalid/coding-standards.xml:27:7:33:26 | A deviation `raised-by` is specified without providing both a `name` and `date`. |
+| invalid/coding-standards.xml:34:7:41:26 | A deviation `raised-by` is specified without providing an `approved-by`. |
+| invalid/coding-standards.xml:42:7:50:26 | A deviation `approved-by` is specified without providing both a `name` and `date`. |
+| invalid/coding-standards.xml:51:7:61:26 | A deviation `approved-by` is specified without providing both a `name` and `date`. |
+| invalid/coding-standards.xml:74:7:78:26 | There is no deviation permit with id `non-existing-permit`. |
+| invalid/coding-standards.xml:79:7:81:26 | No rule-id and query-id specified for this deviation record. |
+| invalid/coding-standards.xml:85:7:88:26 | The deviation is applied to a query with the rule category 'mandatory' that does not permit a deviation. |
+
+## Deviation Permits
+
+| Permit ID | Rule ID | Query ID | Automated Scope | Scope | Justification | Background | Requirements
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| DP1 |  |  | Application depends on the associated deviation records |   |  foo bar baz |   |   | 
+| DP2 | A0-1-1 | cpp/autosar/useless-assignment | Application depends on the associated deviation records |   |   |   |   | 
+| DP3 |  |  | Application depends on the associated deviation records |   |   |   |   | 
+
+## Invalid Deviation Permits
+| Path | Reason |
+| --- | --- |
+| invalid/coding-standards.xml:100:7:103:33 | Deviation permit does not specify a permit identifier. |
+| invalid/coding-standards.xml:104:7:107:33 | Deviation permit specifies unknown property `invalid-property`. |

@@ -8,14 +8,15 @@ newtype Preprocessor5Query =
   TMacroOrFunctionArgsContainHashTokenQuery() or
   TMacroParameterNotEnclosedInParenthesesCQueryQuery()
 
-predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotTreatAPredefinedIdentifierAsObject` query
     Preprocessor5Package::doNotTreatAPredefinedIdentifierAsObjectQuery() and
   queryId =
     // `@id` for the `doNotTreatAPredefinedIdentifierAsObject` query
     "c/cert/do-not-treat-a-predefined-identifier-as-object" and
-  ruleId = "MSC38-C"
+  ruleId = "MSC38-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `macroOrFunctionArgsContainHashToken` query
@@ -23,7 +24,8 @@ predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `macroOrFunctionArgsContainHashToken` query
     "c/cert/macro-or-function-args-contain-hash-token" and
-  ruleId = "PRE32-C"
+  ruleId = "PRE32-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `macroParameterNotEnclosedInParenthesesCQuery` query
@@ -31,7 +33,8 @@ predicate isPreprocessor5QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `macroParameterNotEnclosedInParenthesesCQuery` query
     "c/misra/macro-parameter-not-enclosed-in-parentheses-c-query" and
-  ruleId = "RULE-20-7"
+  ruleId = "RULE-20-7" and
+  category = "required"
 }
 
 module Preprocessor5Package {

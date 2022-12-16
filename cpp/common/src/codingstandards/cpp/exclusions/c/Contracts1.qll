@@ -7,14 +7,15 @@ newtype Contracts1Query =
   TDoNotModifyTheReturnValueOfCertainFunctionsQuery() or
   TEnvPointerIsInvalidAfterCertainOperationsQuery()
 
-predicate isContracts1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isContracts1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotModifyTheReturnValueOfCertainFunctions` query
     Contracts1Package::doNotModifyTheReturnValueOfCertainFunctionsQuery() and
   queryId =
     // `@id` for the `doNotModifyTheReturnValueOfCertainFunctions` query
     "c/cert/do-not-modify-the-return-value-of-certain-functions" and
-  ruleId = "ENV30-C"
+  ruleId = "ENV30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `envPointerIsInvalidAfterCertainOperations` query
@@ -22,7 +23,8 @@ predicate isContracts1QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `envPointerIsInvalidAfterCertainOperations` query
     "c/cert/env-pointer-is-invalid-after-certain-operations" and
-  ruleId = "ENV31-C"
+  ruleId = "ENV31-C" and
+  category = "rule"
 }
 
 module Contracts1Package {

@@ -1,0 +1,7 @@
+guideline-recategorizations:
+  - rule-id: "A0-1-1"
+    category: "mandatory"
+  - rule-id: "A0-1-6"
+    category: "disapplied"
+  - rule-id: "A11-0-1"
+    category: "mandatory"

@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<!-- Dummy XML file in root of test to ensure the XML extractor is invoked on CLIs prior to v2.10.3. -->

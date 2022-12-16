@@ -15,14 +15,17 @@ newtype IntegerConversionQuery =
   TExplicitWideningConversionOfACValueExprQuery() or
   TExplicitSignednessConversionOfCValueQuery()
 
-predicate isIntegerConversionQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isIntegerConversionQueryMetadata(
+  Query query, string queryId, string ruleId, string category
+) {
   query =
     // `Query` instance for the `integerExpressionLeadToDataLoss` query
     IntegerConversionPackage::integerExpressionLeadToDataLossQuery() and
   queryId =
     // `@id` for the `integerExpressionLeadToDataLoss` query
     "cpp/autosar/integer-expression-lead-to-data-loss" and
-  ruleId = "A4-7-1"
+  ruleId = "A4-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `intMultToLong` query
@@ -30,7 +33,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `intMultToLong` query
     "cpp/autosar/int-mult-to-long" and
-  ruleId = "A4-7-1"
+  ruleId = "A4-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `implicitChangeOfTheSignednessOfTheUnderlyingType` query
@@ -38,7 +42,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `implicitChangeOfTheSignednessOfTheUnderlyingType` query
     "cpp/autosar/implicit-change-of-the-signedness-of-the-underlying-type" and
-  ruleId = "M5-0-4"
+  ruleId = "M5-0-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `implicitNonConstFloatingIntegralConversion` query
@@ -46,7 +51,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `implicitNonConstFloatingIntegralConversion` query
     "cpp/autosar/implicit-non-const-floating-integral-conversion" and
-  ruleId = "M5-0-5"
+  ruleId = "M5-0-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `implicitConstFloatingIntegralConversion` query
@@ -54,7 +60,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `implicitConstFloatingIntegralConversion` query
     "cpp/autosar/implicit-const-floating-integral-conversion" and
-  ruleId = "M5-0-5"
+  ruleId = "M5-0-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `implicitNonConstConversionToSmallerUnderlyingType` query
@@ -62,7 +69,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `implicitNonConstConversionToSmallerUnderlyingType` query
     "cpp/autosar/implicit-non-const-conversion-to-smaller-underlying-type" and
-  ruleId = "M5-0-6"
+  ruleId = "M5-0-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `implicitConstConversionToSmallerUnderlyingType` query
@@ -70,7 +78,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `implicitConstConversionToSmallerUnderlyingType` query
     "cpp/autosar/implicit-const-conversion-to-smaller-underlying-type" and
-  ruleId = "M5-0-6"
+  ruleId = "M5-0-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `explicitFloatingIntegralConversionOfACValueExpr` query
@@ -78,7 +87,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `explicitFloatingIntegralConversionOfACValueExpr` query
     "cpp/autosar/explicit-floating-integral-conversion-of-ac-value-expr" and
-  ruleId = "M5-0-7"
+  ruleId = "M5-0-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `explicitWideningConversionOfACValueExpr` query
@@ -86,7 +96,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `explicitWideningConversionOfACValueExpr` query
     "cpp/autosar/explicit-widening-conversion-of-ac-value-expr" and
-  ruleId = "M5-0-8"
+  ruleId = "M5-0-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `explicitSignednessConversionOfCValue` query
@@ -94,7 +105,8 @@ predicate isIntegerConversionQueryMetadata(Query query, string queryId, string r
   queryId =
     // `@id` for the `explicitSignednessConversionOfCValue` query
     "cpp/autosar/explicit-signedness-conversion-of-c-value" and
-  ruleId = "M5-0-9"
+  ruleId = "M5-0-9" and
+  category = "required"
 }
 
 module IntegerConversionPackage {

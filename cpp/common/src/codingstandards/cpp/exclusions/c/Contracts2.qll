@@ -11,14 +11,15 @@ newtype Contracts2Query =
   TCallToSetlocaleInvalidatesOldPointersQuery() or
   TCallToSetlocaleInvalidatesOldPointersWarnQuery()
 
-predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `exitHandlersMustReturnNormally` query
     Contracts2Package::exitHandlersMustReturnNormallyQuery() and
   queryId =
     // `@id` for the `exitHandlersMustReturnNormally` query
     "c/cert/exit-handlers-must-return-normally" and
-  ruleId = "ENV32-C"
+  ruleId = "ENV32-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotStorePointersReturnedByEnvFunctions` query
@@ -26,7 +27,8 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `doNotStorePointersReturnedByEnvFunctions` query
     "c/cert/do-not-store-pointers-returned-by-env-functions" and
-  ruleId = "ENV34-C"
+  ruleId = "ENV34-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotStorePointersReturnedByEnvironmentFunWarn` query
@@ -34,7 +36,8 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `doNotStorePointersReturnedByEnvironmentFunWarn` query
     "c/cert/do-not-store-pointers-returned-by-environment-fun-warn" and
-  ruleId = "ENV34-C"
+  ruleId = "ENV34-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `valuesReturnedByLocaleSettingUsedAsPtrToConst` query
@@ -42,7 +45,8 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `valuesReturnedByLocaleSettingUsedAsPtrToConst` query
     "c/misra/values-returned-by-locale-setting-used-as-ptr-to-const" and
-  ruleId = "RULE-21-19"
+  ruleId = "RULE-21-19" and
+  category = "mandatory"
   or
   query =
     // `Query` instance for the `callToSetlocaleInvalidatesOldPointers` query
@@ -50,7 +54,8 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `callToSetlocaleInvalidatesOldPointers` query
     "c/misra/call-to-setlocale-invalidates-old-pointers" and
-  ruleId = "RULE-21-20"
+  ruleId = "RULE-21-20" and
+  category = "mandatory"
   or
   query =
     // `Query` instance for the `callToSetlocaleInvalidatesOldPointersWarn` query
@@ -58,7 +63,8 @@ predicate isContracts2QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `callToSetlocaleInvalidatesOldPointersWarn` query
     "c/misra/call-to-setlocale-invalidates-old-pointers-warn" and
-  ruleId = "RULE-21-20"
+  ruleId = "RULE-21-20" and
+  category = "mandatory"
 }
 
 module Contracts2Package {

@@ -7,14 +7,15 @@ newtype Concurrency5Query =
   TThreadWasPreviouslyJoinedOrDetachedQuery() or
   TAtomicVariableTwiceInExpressionQuery()
 
-predicate isConcurrency5QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isConcurrency5QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `threadWasPreviouslyJoinedOrDetached` query
     Concurrency5Package::threadWasPreviouslyJoinedOrDetachedQuery() and
   queryId =
     // `@id` for the `threadWasPreviouslyJoinedOrDetached` query
     "c/cert/thread-was-previously-joined-or-detached" and
-  ruleId = "CON39-C"
+  ruleId = "CON39-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `atomicVariableTwiceInExpression` query
@@ -22,7 +23,8 @@ predicate isConcurrency5QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `atomicVariableTwiceInExpression` query
     "c/cert/atomic-variable-twice-in-expression" and
-  ruleId = "CON40-C"
+  ruleId = "CON40-C" and
+  category = "rule"
 }
 
 module Concurrency5Package {

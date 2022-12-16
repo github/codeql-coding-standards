@@ -16,14 +16,15 @@ newtype LambdasQuery =
   TReturningLambdaObjectWithCaptureByReferenceQuery() or
   TEscapingLambdaObjectWithCaptureByReferenceQuery()
 
-predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `implicitLambdaCapture` query
     LambdasPackage::implicitLambdaCaptureQuery() and
   queryId =
     // `@id` for the `implicitLambdaCapture` query
     "cpp/autosar/implicit-lambda-capture" and
-  ruleId = "A5-1-2"
+  ruleId = "A5-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `lambdaExpressionWithoutParameterList` query
@@ -31,7 +32,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `lambdaExpressionWithoutParameterList` query
     "cpp/autosar/lambda-expression-without-parameter-list" and
-  ruleId = "A5-1-3"
+  ruleId = "A5-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `returnedLambdaObjectOutlivesCaptureByReference` query
@@ -39,7 +41,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `returnedLambdaObjectOutlivesCaptureByReference` query
     "cpp/autosar/returned-lambda-object-outlives-capture-by-reference" and
-  ruleId = "A5-1-4"
+  ruleId = "A5-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `movedLambdaObjectOutlivesCaptureByReference` query
@@ -47,7 +50,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `movedLambdaObjectOutlivesCaptureByReference` query
     "cpp/autosar/moved-lambda-object-outlives-capture-by-reference" and
-  ruleId = "A5-1-4"
+  ruleId = "A5-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `lambdaWithImplicitNonVoidReturnType` query
@@ -55,7 +59,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `lambdaWithImplicitNonVoidReturnType` query
     "cpp/autosar/lambda-with-implicit-non-void-return-type" and
-  ruleId = "A5-1-6"
+  ruleId = "A5-1-6" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `lambdaPassedToDecltype` query
@@ -63,7 +68,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `lambdaPassedToDecltype` query
     "cpp/autosar/lambda-passed-to-decltype" and
-  ruleId = "A5-1-7"
+  ruleId = "A5-1-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `lambdaPassedToTypeid` query
@@ -71,7 +77,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `lambdaPassedToTypeid` query
     "cpp/autosar/lambda-passed-to-typeid" and
-  ruleId = "A5-1-7"
+  ruleId = "A5-1-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `lambdaExpressionInLambdaExpression` query
@@ -79,7 +86,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `lambdaExpressionInLambdaExpression` query
     "cpp/autosar/lambda-expression-in-lambda-expression" and
-  ruleId = "A5-1-8"
+  ruleId = "A5-1-8" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `identicalLambdaExpressions` query
@@ -87,7 +95,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identicalLambdaExpressions` query
     "cpp/autosar/identical-lambda-expressions" and
-  ruleId = "A5-1-9"
+  ruleId = "A5-1-9" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `returningLambdaObjectWithCaptureByReference` query
@@ -95,7 +104,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `returningLambdaObjectWithCaptureByReference` query
     "cpp/cert/returning-lambda-object-with-capture-by-reference" and
-  ruleId = "EXP61-CPP"
+  ruleId = "EXP61-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `escapingLambdaObjectWithCaptureByReference` query
@@ -103,7 +113,8 @@ predicate isLambdasQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `escapingLambdaObjectWithCaptureByReference` query
     "cpp/cert/escaping-lambda-object-with-capture-by-reference" and
-  ruleId = "EXP61-CPP"
+  ruleId = "EXP61-CPP" and
+  category = "rule"
 }
 
 module LambdasPackage {

@@ -9,14 +9,15 @@ newtype IO2Query =
   TDoNotCallGetcAndPutcWithSideEffectsQuery() or
   TOnlyUseValuesForFsetposThatAreReturnedFromFgetposQuery()
 
-predicate isIO2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isIO2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotCopyAFileObject` query
     IO2Package::doNotCopyAFileObjectQuery() and
   queryId =
     // `@id` for the `doNotCopyAFileObject` query
     "c/cert/do-not-copy-a-file-object" and
-  ruleId = "FIO38-C"
+  ruleId = "FIO38-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `resetStringsOnFgetsOrFgetwsFailure` query
@@ -24,7 +25,8 @@ predicate isIO2QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `resetStringsOnFgetsOrFgetwsFailure` query
     "c/cert/reset-strings-on-fgets-or-fgetws-failure" and
-  ruleId = "FIO40-C"
+  ruleId = "FIO40-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotCallGetcAndPutcWithSideEffects` query
@@ -32,7 +34,8 @@ predicate isIO2QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotCallGetcAndPutcWithSideEffects` query
     "c/cert/do-not-call-getc-and-putc-with-side-effects" and
-  ruleId = "FIO41-C"
+  ruleId = "FIO41-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `onlyUseValuesForFsetposThatAreReturnedFromFgetpos` query
@@ -40,7 +43,8 @@ predicate isIO2QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `onlyUseValuesForFsetposThatAreReturnedFromFgetpos` query
     "c/cert/only-use-values-for-fsetpos-that-are-returned-from-fgetpos" and
-  ruleId = "FIO44-C"
+  ruleId = "FIO44-C" and
+  category = "rule"
 }
 
 module IO2Package {

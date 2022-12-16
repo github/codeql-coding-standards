@@ -20,14 +20,15 @@ newtype OperatorsQuery =
   TUnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery() or
   TUnaryOperatorOverloadedQuery()
 
-predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `userDefinedAssignmentOperatorVirtual` query
     OperatorsPackage::userDefinedAssignmentOperatorVirtualQuery() and
   queryId =
     // `@id` for the `userDefinedAssignmentOperatorVirtual` query
     "cpp/autosar/user-defined-assignment-operator-virtual" and
-  ruleId = "A10-3-5"
+  ruleId = "A10-3-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `copyAndMoveNotDeclaredProtected` query
@@ -35,7 +36,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `copyAndMoveNotDeclaredProtected` query
     "cpp/autosar/copy-and-move-not-declared-protected" and
-  ruleId = "A12-8-6"
+  ruleId = "A12-8-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `operatorsShouldBeDeclaredWithTheRefQualifier` query
@@ -43,7 +45,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `operatorsShouldBeDeclaredWithTheRefQualifier` query
     "cpp/autosar/operators-should-be-declared-with-the-ref-qualifier" and
-  ruleId = "A12-8-7"
+  ruleId = "A12-8-7" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `relationalOperatorShallReturnABooleanValue` query
@@ -51,7 +54,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `relationalOperatorShallReturnABooleanValue` query
     "cpp/autosar/relational-operator-shall-return-a-boolean-value" and
-  ruleId = "A13-2-3"
+  ruleId = "A13-2-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionThatContainsForwardingReferenceAsItsArgumentOverloaded` query
@@ -59,7 +63,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionThatContainsForwardingReferenceAsItsArgumentOverloaded` query
     "cpp/autosar/function-that-contains-forwarding-reference-as-its-argument-overloaded" and
-  ruleId = "A13-3-1"
+  ruleId = "A13-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingConstOperatorSubscript` query
@@ -67,7 +72,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `missingConstOperatorSubscript` query
     "cpp/autosar/missing-const-operator-subscript" and
-  ruleId = "A13-5-1"
+  ruleId = "A13-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `userDefinedConversionOperatorsNotDefinedExplicit` query
@@ -75,7 +81,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `userDefinedConversionOperatorsNotDefinedExplicit` query
     "cpp/autosar/user-defined-conversion-operators-not-defined-explicit" and
-  ruleId = "A13-5-2"
+  ruleId = "A13-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `userDefinedConversionOperatorsShouldNotBeUsed` query
@@ -83,7 +90,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `userDefinedConversionOperatorsShouldNotBeUsed` query
     "cpp/autosar/user-defined-conversion-operators-should-not-be-used" and
-  ruleId = "A13-5-3"
+  ruleId = "A13-5-3" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `comparisonOperatorsNotNonMemberFunctionsWithIdenticalParameterTypesAndNoexcept` query
@@ -91,7 +99,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `comparisonOperatorsNotNonMemberFunctionsWithIdenticalParameterTypesAndNoexcept` query
     "cpp/autosar/comparison-operators-not-non-member-functions-with-identical-parameter-types-and-noexcept" and
-  ruleId = "A13-5-5"
+  ruleId = "A13-5-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonMemberGenericOperatorCondition` query
@@ -99,7 +108,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nonMemberGenericOperatorCondition` query
     "cpp/autosar/non-member-generic-operator-condition" and
-  ruleId = "A14-5-3"
+  ruleId = "A14-5-3" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `unsignedBitwiseOperatorWithoutCast` query
@@ -107,7 +117,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unsignedBitwiseOperatorWithoutCast` query
     "cpp/autosar/unsigned-bitwise-operator-without-cast" and
-  ruleId = "M5-0-10"
+  ruleId = "M5-0-10" and
+  category = "required"
   or
   query =
     // `Query` instance for the `commaOperatorAndOperatorAndTheOperatorOverloaded` query
@@ -115,7 +126,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `commaOperatorAndOperatorAndTheOperatorOverloaded` query
     "cpp/autosar/comma-operator-and-operator-and-the-operator-overloaded" and
-  ruleId = "M5-2-11"
+  ruleId = "M5-2-11" and
+  category = "required"
   or
   query =
     // `Query` instance for the `eachOperandOfTheOperatorTheLogicalAndOrTheLogicalOperatorsShallHaveTypeBool` query
@@ -123,7 +135,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `eachOperandOfTheOperatorTheLogicalAndOrTheLogicalOperatorsShallHaveTypeBool` query
     "cpp/autosar/each-operand-of-the-operator-the-logical-and-or-the-logical-operators-shall-have-type-bool" and
-  ruleId = "M5-3-1"
+  ruleId = "M5-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned` query
@@ -131,7 +144,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned` query
     "cpp/autosar/unary-minus-operator-applied-to-an-expression-whose-underlying-type-is-unsigned" and
-  ruleId = "M5-3-2"
+  ruleId = "M5-3-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unaryOperatorOverloaded` query
@@ -139,7 +153,8 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unaryOperatorOverloaded` query
     "cpp/autosar/unary-operator-overloaded" and
-  ruleId = "M5-3-3"
+  ruleId = "M5-3-3" and
+  category = "required"
 }
 
 module OperatorsPackage {
