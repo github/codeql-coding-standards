@@ -11,14 +11,15 @@ newtype Declarations4Query =
   TCompatibleDeclarationFunctionDefinedQuery() or
   TIdentifierWithExternalLinkageOneDefinitionQuery()
 
-predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `functionTypesNotInPrototypeForm` query
     Declarations4Package::functionTypesNotInPrototypeFormQuery() and
   queryId =
     // `@id` for the `functionTypesNotInPrototypeForm` query
     "c/misra/function-types-not-in-prototype-form" and
-  ruleId = "RULE-8-2"
+  ruleId = "RULE-8-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `declarationsOfAnObjectSameNameAndType` query
@@ -26,7 +27,8 @@ predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `declarationsOfAnObjectSameNameAndType` query
     "c/misra/declarations-of-an-object-same-name-and-type" and
-  ruleId = "RULE-8-3"
+  ruleId = "RULE-8-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `declarationsOfAFunctionSameNameAndType` query
@@ -34,7 +36,8 @@ predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `declarationsOfAFunctionSameNameAndType` query
     "c/misra/declarations-of-a-function-same-name-and-type" and
-  ruleId = "RULE-8-3"
+  ruleId = "RULE-8-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `compatibleDeclarationObjectDefined` query
@@ -42,7 +45,8 @@ predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `compatibleDeclarationObjectDefined` query
     "c/misra/compatible-declaration-object-defined" and
-  ruleId = "RULE-8-4"
+  ruleId = "RULE-8-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `compatibleDeclarationFunctionDefined` query
@@ -50,7 +54,8 @@ predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `compatibleDeclarationFunctionDefined` query
     "c/misra/compatible-declaration-function-defined" and
-  ruleId = "RULE-8-4"
+  ruleId = "RULE-8-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierWithExternalLinkageOneDefinition` query
@@ -58,7 +63,8 @@ predicate isDeclarations4QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `identifierWithExternalLinkageOneDefinition` query
     "c/misra/identifier-with-external-linkage-one-definition" and
-  ruleId = "RULE-8-6"
+  ruleId = "RULE-8-6" and
+  category = "required"
 }
 
 module Declarations4Package {
