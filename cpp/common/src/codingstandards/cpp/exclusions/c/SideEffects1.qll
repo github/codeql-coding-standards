@@ -15,14 +15,15 @@ newtype SideEffects1Query =
   TPossibleSuppressedSideEffectInLogicOperatorOperandQuery() or
   TSizeofOperandWithSideEffectQuery()
 
-predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `dependenceOnOrderOfScalarEvaluationForSideEffects` query
     SideEffects1Package::dependenceOnOrderOfScalarEvaluationForSideEffectsQuery() and
   queryId =
     // `@id` for the `dependenceOnOrderOfScalarEvaluationForSideEffects` query
     "c/cert/dependence-on-order-of-scalar-evaluation-for-side-effects" and
-  ruleId = "EXP30-C"
+  ruleId = "EXP30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `dependenceOnOrderOfFunctionArgumentsForSideEffects` query
@@ -30,7 +31,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `dependenceOnOrderOfFunctionArgumentsForSideEffects` query
     "c/cert/dependence-on-order-of-function-arguments-for-side-effects" and
-  ruleId = "EXP30-C"
+  ruleId = "EXP30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `unevaluatedOperandWithSideEffect` query
@@ -38,7 +40,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `unevaluatedOperandWithSideEffect` query
     "c/cert/unevaluated-operand-with-side-effect" and
-  ruleId = "EXP44-C"
+  ruleId = "EXP44-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `assignmentsInSelectionStatements` query
@@ -46,7 +49,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `assignmentsInSelectionStatements` query
     "c/cert/assignments-in-selection-statements" and
-  ruleId = "EXP45-C"
+  ruleId = "EXP45-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `unenclosedSizeofOperand` query
@@ -54,7 +58,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `unenclosedSizeofOperand` query
     "c/misra/unenclosed-sizeof-operand" and
-  ruleId = "RULE-12-1"
+  ruleId = "RULE-12-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `implicitPrecedenceOfOperatorsInExpression` query
@@ -62,7 +67,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `implicitPrecedenceOfOperatorsInExpression` query
     "c/misra/implicit-precedence-of-operators-in-expression" and
-  ruleId = "RULE-12-1"
+  ruleId = "RULE-12-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `initializerListsContainPersistentSideEffects` query
@@ -70,7 +76,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `initializerListsContainPersistentSideEffects` query
     "c/misra/initializer-lists-contain-persistent-side-effects" and
-  ruleId = "RULE-13-1"
+  ruleId = "RULE-13-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `resultOfAnAssignmentOperatorShouldNotBeUsed` query
@@ -78,7 +85,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `resultOfAnAssignmentOperatorShouldNotBeUsed` query
     "c/misra/result-of-an-assignment-operator-should-not-be-used" and
-  ruleId = "RULE-13-4"
+  ruleId = "RULE-13-4" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `possibleSuppressedSideEffectInLogicOperatorOperand` query
@@ -86,7 +94,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `possibleSuppressedSideEffectInLogicOperatorOperand` query
     "c/misra/possible-suppressed-side-effect-in-logic-operator-operand" and
-  ruleId = "RULE-13-5"
+  ruleId = "RULE-13-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `sizeofOperandWithSideEffect` query
@@ -94,7 +103,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `sizeofOperandWithSideEffect` query
     "c/misra/sizeof-operand-with-side-effect" and
-  ruleId = "RULE-13-6"
+  ruleId = "RULE-13-6" and
+  category = "mandatory"
 }
 
 module SideEffects1Package {

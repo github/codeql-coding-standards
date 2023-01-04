@@ -12,14 +12,15 @@ newtype IteratorsQuery =
   TDoNotUseAnAdditiveOperatorOnAnIteratorQuery() or
   TUseValidReferencesForElementsOfStringQuery()
 
-predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `iteratorImplicitlyConvertedToConstIterator` query
     IteratorsPackage::iteratorImplicitlyConvertedToConstIteratorQuery() and
   queryId =
     // `@id` for the `iteratorImplicitlyConvertedToConstIterator` query
     "cpp/autosar/iterator-implicitly-converted-to-const-iterator" and
-  ruleId = "A23-0-1"
+  ruleId = "A23-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `validContainerElementAccess` query
@@ -27,7 +28,8 @@ predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `validContainerElementAccess` query
     "cpp/autosar/valid-container-element-access" and
-  ruleId = "A23-0-2"
+  ruleId = "A23-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `usesValidContainerElementAccess` query
@@ -35,7 +37,8 @@ predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `usesValidContainerElementAccess` query
     "cpp/cert/uses-valid-container-element-access" and
-  ruleId = "CTR51-CPP"
+  ruleId = "CTR51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useValidIteratorRanges` query
@@ -43,7 +46,8 @@ predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useValidIteratorRanges` query
     "cpp/cert/use-valid-iterator-ranges" and
-  ruleId = "CTR53-CPP"
+  ruleId = "CTR53-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotSubtractIteratorsForDifferentContainers` query
@@ -51,7 +55,8 @@ predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotSubtractIteratorsForDifferentContainers` query
     "cpp/cert/do-not-subtract-iterators-for-different-containers" and
-  ruleId = "CTR54-CPP"
+  ruleId = "CTR54-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotUseAnAdditiveOperatorOnAnIterator` query
@@ -59,7 +64,8 @@ predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotUseAnAdditiveOperatorOnAnIterator` query
     "cpp/cert/do-not-use-an-additive-operator-on-an-iterator" and
-  ruleId = "CTR55-CPP"
+  ruleId = "CTR55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useValidReferencesForElementsOfString` query
@@ -67,7 +73,8 @@ predicate isIteratorsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useValidReferencesForElementsOfString` query
     "cpp/cert/use-valid-references-for-elements-of-string" and
-  ruleId = "STR52-CPP"
+  ruleId = "STR52-CPP" and
+  category = "rule"
 }
 
 module IteratorsPackage {

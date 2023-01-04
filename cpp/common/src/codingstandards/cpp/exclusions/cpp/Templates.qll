@@ -13,14 +13,15 @@ newtype TemplatesQuery =
   TNameNotReferredUsingAQualifiedIdOrThisQuery() or
   TNameNotReferredUsingAQualifiedIdOrThisAuditQuery()
 
-predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `templateShouldCheckArg` query
     TemplatesPackage::templateShouldCheckArgQuery() and
   queryId =
     // `@id` for the `templateShouldCheckArg` query
     "cpp/autosar/template-should-check-arg" and
-  ruleId = "A14-1-1"
+  ruleId = "A14-1-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `templateConstructorOverloadResolution` query
@@ -28,7 +29,8 @@ predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `templateConstructorOverloadResolution` query
     "cpp/autosar/template-constructor-overload-resolution" and
-  ruleId = "A14-5-1"
+  ruleId = "A14-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typeUsedAsTemplateArgShallProvideAllMembers` query
@@ -36,7 +38,8 @@ predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `typeUsedAsTemplateArgShallProvideAllMembers` query
     "cpp/autosar/type-used-as-template-arg-shall-provide-all-members" and
-  ruleId = "A14-7-1"
+  ruleId = "A14-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `templateSpecializationNotDeclaredInTheSameFile` query
@@ -44,7 +47,8 @@ predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `templateSpecializationNotDeclaredInTheSameFile` query
     "cpp/autosar/template-specialization-not-declared-in-the-same-file" and
-  ruleId = "A14-7-2"
+  ruleId = "A14-7-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `explicitSpecializationsOfFunctionTemplatesUsed` query
@@ -52,7 +56,8 @@ predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `explicitSpecializationsOfFunctionTemplatesUsed` query
     "cpp/autosar/explicit-specializations-of-function-templates-used" and
-  ruleId = "A14-8-2"
+  ruleId = "A14-8-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `copyAssignmentOperatorNotDeclared` query
@@ -60,7 +65,8 @@ predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `copyAssignmentOperatorNotDeclared` query
     "cpp/autosar/copy-assignment-operator-not-declared" and
-  ruleId = "M14-5-3"
+  ruleId = "M14-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nameNotReferredUsingAQualifiedIdOrThis` query
@@ -68,7 +74,8 @@ predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nameNotReferredUsingAQualifiedIdOrThis` query
     "cpp/autosar/name-not-referred-using-a-qualified-id-or-this" and
-  ruleId = "M14-6-1"
+  ruleId = "M14-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nameNotReferredUsingAQualifiedIdOrThisAudit` query
@@ -76,7 +83,8 @@ predicate isTemplatesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nameNotReferredUsingAQualifiedIdOrThisAudit` query
     "cpp/autosar/name-not-referred-using-a-qualified-id-or-this-audit" and
-  ruleId = "M14-6-1"
+  ruleId = "M14-6-1" and
+  category = "required"
 }
 
 module TemplatesPackage {

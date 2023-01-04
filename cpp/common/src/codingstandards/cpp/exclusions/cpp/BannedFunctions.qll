@@ -16,14 +16,15 @@ newtype BannedFunctionsQuery =
   TDoNotUseRandForGeneratingPseudorandomNumbersQuery() or
   TPreferSpecialMemberFunctionsAndOverloadedOperatorsToCStandardLibraryFunctionsQuery()
 
-predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `functionsMallocCallocReallocAndFreeUsed` query
     BannedFunctionsPackage::functionsMallocCallocReallocAndFreeUsedQuery() and
   queryId =
     // `@id` for the `functionsMallocCallocReallocAndFreeUsed` query
     "cpp/autosar/functions-malloc-calloc-realloc-and-free-used" and
-  ruleId = "A18-5-1"
+  ruleId = "A18-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `bindUsed` query
@@ -31,7 +32,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `bindUsed` query
     "cpp/autosar/bind-used" and
-  ruleId = "A18-9-1"
+  ruleId = "A18-9-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pseudorandomNumbersGeneratedUsingRand` query
@@ -39,7 +41,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `pseudorandomNumbersGeneratedUsingRand` query
     "cpp/autosar/pseudorandom-numbers-generated-using-rand" and
-  ruleId = "A26-5-1"
+  ruleId = "A26-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `setjmpMacroAndTheLongjmpFunctionUsed` query
@@ -47,7 +50,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `setjmpMacroAndTheLongjmpFunctionUsed` query
     "cpp/autosar/setjmp-macro-and-the-longjmp-function-used" and
-  ruleId = "M17-0-5"
+  ruleId = "M17-0-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `libraryFunctionsAbortExitGetenvAndSystemFromLibraryCstdlibUsed` query
@@ -55,7 +59,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `libraryFunctionsAbortExitGetenvAndSystemFromLibraryCstdlibUsed` query
     "cpp/autosar/library-functions-abort-exit-getenv-and-system-from-library-cstdlib-used" and
-  ruleId = "M18-0-3"
+  ruleId = "M18-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `timeHandlingFunctionsOfLibraryCtimeUsed` query
@@ -63,7 +68,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `timeHandlingFunctionsOfLibraryCtimeUsed` query
     "cpp/autosar/time-handling-functions-of-library-ctime-used" and
-  ruleId = "M18-0-4"
+  ruleId = "M18-0-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unboundedFunctionsOfLibraryCstringUsed` query
@@ -71,7 +77,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `unboundedFunctionsOfLibraryCstringUsed` query
     "cpp/autosar/unbounded-functions-of-library-cstring-used" and
-  ruleId = "M18-0-5"
+  ruleId = "M18-0-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `macroOffsetofUsed` query
@@ -79,7 +86,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `macroOffsetofUsed` query
     "cpp/autosar/macro-offsetof-used" and
-  ruleId = "M18-2-1"
+  ruleId = "M18-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotUseSetjmpOrLongjmp` query
@@ -87,7 +95,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `doNotUseSetjmpOrLongjmp` query
     "cpp/cert/do-not-use-setjmp-or-longjmp" and
-  ruleId = "ERR52-CPP"
+  ruleId = "ERR52-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotUseRandForGeneratingPseudorandomNumbers` query
@@ -95,7 +104,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `doNotUseRandForGeneratingPseudorandomNumbers` query
     "cpp/cert/do-not-use-rand-for-generating-pseudorandom-numbers" and
-  ruleId = "MSC50-CPP"
+  ruleId = "MSC50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `preferSpecialMemberFunctionsAndOverloadedOperatorsToCStandardLibraryFunctions` query
@@ -103,7 +113,8 @@ predicate isBannedFunctionsQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `preferSpecialMemberFunctionsAndOverloadedOperatorsToCStandardLibraryFunctions` query
     "cpp/cert/prefer-special-member-functions-and-overloaded-operators-to-c-standard-library-functions" and
-  ruleId = "OOP57-CPP"
+  ruleId = "OOP57-CPP" and
+  category = "rule"
 }
 
 module BannedFunctionsPackage {

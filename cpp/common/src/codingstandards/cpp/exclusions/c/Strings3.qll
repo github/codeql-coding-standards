@@ -7,14 +7,15 @@ newtype Strings3Query =
   TCastCharBeforeConvertingToLargerSizesQuery() or
   TDoNotConfuseNarrowAndWideFunctionsQuery()
 
-predicate isStrings3QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isStrings3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `castCharBeforeConvertingToLargerSizes` query
     Strings3Package::castCharBeforeConvertingToLargerSizesQuery() and
   queryId =
     // `@id` for the `castCharBeforeConvertingToLargerSizes` query
     "c/cert/cast-char-before-converting-to-larger-sizes" and
-  ruleId = "STR34-C"
+  ruleId = "STR34-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotConfuseNarrowAndWideFunctions` query
@@ -22,7 +23,8 @@ predicate isStrings3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotConfuseNarrowAndWideFunctions` query
     "c/cert/do-not-confuse-narrow-and-wide-functions" and
-  ruleId = "STR38-C"
+  ruleId = "STR38-C" and
+  category = "rule"
 }
 
 module Strings3Package {

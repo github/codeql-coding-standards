@@ -10,14 +10,15 @@ newtype ExceptionSafetyQuery =
   TGuaranteeExceptionSafetyQuery() or
   TDoNotLeakResourcesWhenHandlingExceptionsQuery()
 
-predicate isExceptionSafetyQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isExceptionSafetyQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `exceptionSafetyGuaranteesNotProvided` query
     ExceptionSafetyPackage::exceptionSafetyGuaranteesNotProvidedQuery() and
   queryId =
     // `@id` for the `exceptionSafetyGuaranteesNotProvided` query
     "cpp/autosar/exception-safety-guarantees-not-provided" and
-  ruleId = "A15-0-2"
+  ruleId = "A15-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `exceptionSafetyGuaranteeOfACalledFunction` query
@@ -25,7 +26,8 @@ predicate isExceptionSafetyQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `exceptionSafetyGuaranteeOfACalledFunction` query
     "cpp/autosar/exception-safety-guarantee-of-a-called-function" and
-  ruleId = "A15-0-3"
+  ruleId = "A15-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `validResourcesStateBeforeThrow` query
@@ -33,7 +35,8 @@ predicate isExceptionSafetyQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `validResourcesStateBeforeThrow` query
     "cpp/autosar/valid-resources-state-before-throw" and
-  ruleId = "A15-1-4"
+  ruleId = "A15-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `guaranteeExceptionSafety` query
@@ -41,7 +44,8 @@ predicate isExceptionSafetyQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `guaranteeExceptionSafety` query
     "cpp/cert/guarantee-exception-safety" and
-  ruleId = "ERR56-CPP"
+  ruleId = "ERR56-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotLeakResourcesWhenHandlingExceptions` query
@@ -49,7 +53,8 @@ predicate isExceptionSafetyQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `doNotLeakResourcesWhenHandlingExceptions` query
     "cpp/cert/do-not-leak-resources-when-handling-exceptions" and
-  ruleId = "ERR57-CPP"
+  ruleId = "ERR57-CPP" and
+  category = "rule"
 }
 
 module ExceptionSafetyPackage {

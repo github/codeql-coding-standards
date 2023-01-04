@@ -1,0 +1,115 @@
+{
+    "runs": [
+        {
+            "automationDetails": {
+                "id": ".github/workflows/codeql-analysis.yml:analyze/language:python/"
+            },
+            "conversion": {
+                "tool": {
+                    "driver": {
+                        "name": "GitHub Code Scanning"
+                    }
+                }
+            },
+            "tool": {
+                "driver": {
+                    "name": "CodeQL",
+                    "semanticVersion": "2.10.1",
+                    "rules": [
+                        {
+                            "id": "cpp/autosar/useless-assignment",
+                            "name": "cpp/autosar/useless-assignment",
+                            "shortDescription": {
+                                "text": "A0-1-1: Non-volatile variable assigned a value which is never used"
+                            },
+                            "fullDescription": {
+                                "text": "A project shall not contain instances of non-volatile variables being given values that are not subsequently used."
+                            },
+                            "defaultConfiguration": {
+                                "enabled": true,
+                                "level": "warning"
+                            },
+                            "properties": {
+                                "tags": [
+                                    "external/autosar/id/a0-1-1",
+                                    "readability",
+                                    "maintainability",
+                                    "external/autosar/allocated-target/implementation",
+                                    "external/autosar/enforcement/automated",
+                                    "external/autosar/obligation/required"
+                                ],
+                                "description": "A project shall not contain instances of non-volatile variables being given values\n              that are not subsequently used.",
+                                "id": "cpp/autosar/useless-assignment",
+                                "kind": "problem",
+                                "name": "A0-1-1: Non-volatile variable assigned a value which is never used",
+                                "precision": "very-high",
+                                "problem.severity": "warning"
+                            }
+                        },
+                        {
+                            "id": "cpp/autosar/unused-type-declarations",
+                            "name": "cpp/autosar/unused-type-declarations",
+                            "shortDescription": {
+                                "text": "A0-1-6: There should be no unused type declarations"
+                            },
+                            "fullDescription": {
+                                "text": "Unused type declarations are either redundant or indicate a possible mistake on the part of the programmer."
+                            },
+                            "defaultConfiguration": {
+                                "enabled": true,
+                                "level": "warning"
+                            },
+                            "properties": {
+                                "tags": [
+                                    "external/autosar/id/a0-1-6",
+                                    "readability",
+                                    "maintainability",
+                                    "external/autosar/allocated-target/implementation",
+                                    "external/autosar/enforcement/automated",
+                                    "external/autosar/obligation/advisory"
+                                ],
+                                "description": "Unused type declarations are either redundant or indicate a possible mistake on the\n              part of the programmer.",
+                                "id": "cpp/autosar/unused-type-declarations",
+                                "kind": "problem",
+                                "name": "A0-1-6: There should be no unused type declarations",
+                                "precision": "very-high",
+                                "problem.severity": "warning"
+                            }
+                        },
+                        {
+                            "id": "cpp/autosar/non-pod-type-should-be-defined-as-class",
+                            "name": "cpp/autosar/non-pod-type-should-be-defined-as-class",
+                            "shortDescription": {
+                                "text": "A11-0-1: A non-POD type should be defined as class"
+                            },
+                            "fullDescription": {
+                                "text": "The class specifier forces the type to provide private access control for all its members by default. This is consistent with developer expectations, because it is expected that a class has its invariant, interface and could provide custom-defined constructors."
+                            },
+                            "defaultConfiguration": {
+                                "enabled": true,
+                                "level": "note"
+                            },
+                            "properties": {
+                                "tags": [
+                                    "external/autosar/id/a11-0-1",
+                                    "maintainability",
+                                    "external/autosar/allocated-target/implementation",
+                                    "external/autosar/enforcement/automated",
+                                    "external/autosar/obligation/advisory"
+                                ],
+                                "description": "The class specifier forces the type to provide private access control for all its\n              members by default. This is consistent with developer expectations, because it is\n              expected that a class has its invariant, interface and could provide custom-defined\n              constructors.",
+                                "id": "cpp/autosar/non-pod-type-should-be-defined-as-class",
+                                "kind": "problem",
+                                "name": "A11-0-1: A non-POD type should be defined as class",
+                                "precision": "very-high",
+                                "problem.severity": "recommendation"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+    "version": "2.1.0"
+}
