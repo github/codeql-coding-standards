@@ -8,14 +8,15 @@ newtype Strings1Query =
   TStringsHasSufficientSpaceForTheNullTerminatorQuery() or
   TNonNullTerminatedToFunctionThatExpectsAStringQuery()
 
-predicate isStrings1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isStrings1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotAttemptToModifyStringLiterals` query
     Strings1Package::doNotAttemptToModifyStringLiteralsQuery() and
   queryId =
     // `@id` for the `doNotAttemptToModifyStringLiterals` query
     "c/cert/do-not-attempt-to-modify-string-literals" and
-  ruleId = "STR30-C"
+  ruleId = "STR30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `stringsHasSufficientSpaceForTheNullTerminator` query
@@ -23,7 +24,8 @@ predicate isStrings1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `stringsHasSufficientSpaceForTheNullTerminator` query
     "c/cert/strings-has-sufficient-space-for-the-null-terminator" and
-  ruleId = "STR31-C"
+  ruleId = "STR31-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `nonNullTerminatedToFunctionThatExpectsAString` query
@@ -31,7 +33,8 @@ predicate isStrings1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nonNullTerminatedToFunctionThatExpectsAString` query
     "c/cert/non-null-terminated-to-function-that-expects-a-string" and
-  ruleId = "STR32-C"
+  ruleId = "STR32-C" and
+  category = "rule"
 }
 
 module Strings1Package {

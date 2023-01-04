@@ -8,14 +8,15 @@ newtype IOQuery =
   TInterleavedInputOutputWithoutPositionQuery() or
   TCloseFilesWhenTheyAreNoLongerNeededQuery()
 
-predicate isIOQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isIOQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `interleavedInputOutputWithoutFlush` query
     IOPackage::interleavedInputOutputWithoutFlushQuery() and
   queryId =
     // `@id` for the `interleavedInputOutputWithoutFlush` query
     "cpp/autosar/interleaved-input-output-without-flush" and
-  ruleId = "A27-0-3"
+  ruleId = "A27-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `interleavedInputOutputWithoutPosition` query
@@ -23,7 +24,8 @@ predicate isIOQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `interleavedInputOutputWithoutPosition` query
     "cpp/cert/interleaved-input-output-without-position" and
-  ruleId = "FIO50-CPP"
+  ruleId = "FIO50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `closeFilesWhenTheyAreNoLongerNeeded` query
@@ -31,7 +33,8 @@ predicate isIOQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `closeFilesWhenTheyAreNoLongerNeeded` query
     "cpp/cert/close-files-when-they-are-no-longer-needed" and
-  ruleId = "FIO51-CPP"
+  ruleId = "FIO51-CPP" and
+  category = "rule"
 }
 
 module IOPackage {

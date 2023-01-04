@@ -9,14 +9,15 @@ newtype Contracts4Query =
   TFunctionCallBeforeErrnoCheckQuery() or
   TErrnoNotSetToZeroQuery()
 
-predicate isContracts4QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isContracts4QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `setlocaleMightSetErrno` query
     Contracts4Package::setlocaleMightSetErrnoQuery() and
   queryId =
     // `@id` for the `setlocaleMightSetErrno` query
     "c/cert/setlocale-might-set-errno" and
-  ruleId = "ERR30-C"
+  ruleId = "ERR30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `errnoReadBeforeReturn` query
@@ -24,7 +25,8 @@ predicate isContracts4QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `errnoReadBeforeReturn` query
     "c/cert/errno-read-before-return" and
-  ruleId = "ERR30-C"
+  ruleId = "ERR30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `functionCallBeforeErrnoCheck` query
@@ -32,7 +34,8 @@ predicate isContracts4QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `functionCallBeforeErrnoCheck` query
     "c/cert/function-call-before-errno-check" and
-  ruleId = "ERR30-C"
+  ruleId = "ERR30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `errnoNotSetToZero` query
@@ -40,7 +43,8 @@ predicate isContracts4QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `errnoNotSetToZero` query
     "c/cert/errno-not-set-to-zero" and
-  ruleId = "ERR30-C"
+  ruleId = "ERR30-C" and
+  category = "rule"
 }
 
 module Contracts4Package {

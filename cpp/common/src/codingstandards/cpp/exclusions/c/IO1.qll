@@ -12,14 +12,15 @@ newtype IO1Query =
   TUndefinedBehaviorAccessingAClosedFileQuery() or
   TFileUsedAfterClosedQuery()
 
-predicate isIO1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isIO1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `excludeUserInputFromFormatStrings` query
     IO1Package::excludeUserInputFromFormatStringsQuery() and
   queryId =
     // `@id` for the `excludeUserInputFromFormatStrings` query
     "c/cert/exclude-user-input-from-format-strings" and
-  ruleId = "FIO30-C"
+  ruleId = "FIO30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `distinguishBetweenCharReadFromAFileAndEofOrWeof` query
@@ -27,7 +28,8 @@ predicate isIO1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `distinguishBetweenCharReadFromAFileAndEofOrWeof` query
     "c/cert/distinguish-between-char-read-from-a-file-and-eof-or-weof" and
-  ruleId = "FIO34-C"
+  ruleId = "FIO34-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `endOfFileCheckPortability` query
@@ -35,7 +37,8 @@ predicate isIO1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `endOfFileCheckPortability` query
     "c/cert/end-of-file-check-portability" and
-  ruleId = "FIO34-C"
+  ruleId = "FIO34-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotAlternatelyIOFromAStreamWithoutPositioning` query
@@ -43,7 +46,8 @@ predicate isIO1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotAlternatelyIOFromAStreamWithoutPositioning` query
     "c/cert/do-not-alternately-io-from-a-stream-without-positioning" and
-  ruleId = "FIO39-C"
+  ruleId = "FIO39-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `closeFilesWhenTheyAreNoLongerNeeded` query
@@ -51,7 +55,8 @@ predicate isIO1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `closeFilesWhenTheyAreNoLongerNeeded` query
     "c/cert/close-files-when-they-are-no-longer-needed" and
-  ruleId = "FIO42-C"
+  ruleId = "FIO42-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `undefinedBehaviorAccessingAClosedFile` query
@@ -59,7 +64,8 @@ predicate isIO1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `undefinedBehaviorAccessingAClosedFile` query
     "c/cert/undefined-behavior-accessing-a-closed-file" and
-  ruleId = "FIO46-C"
+  ruleId = "FIO46-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `fileUsedAfterClosed` query
@@ -67,7 +73,8 @@ predicate isIO1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `fileUsedAfterClosed` query
     "c/misra/file-used-after-closed" and
-  ruleId = "RULE-22-6"
+  ruleId = "RULE-22-6" and
+  category = "mandatory"
 }
 
 module IO1Package {

@@ -10,14 +10,15 @@ newtype Declarations5Query =
   TMissingStaticSpecifierObjectRedeclarationCQuery() or
   TUnnecessaryExposedIdentifierDeclarationCQuery()
 
-predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `identifiersDeclaredInTheSameScopeNotDistinct` query
     Declarations5Package::identifiersDeclaredInTheSameScopeNotDistinctQuery() and
   queryId =
     // `@id` for the `identifiersDeclaredInTheSameScopeNotDistinct` query
     "c/misra/identifiers-declared-in-the-same-scope-not-distinct" and
-  ruleId = "RULE-5-2"
+  ruleId = "RULE-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `externalObjectOrFunctionNotDeclaredInOneFile` query
@@ -25,7 +26,8 @@ predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `externalObjectOrFunctionNotDeclaredInOneFile` query
     "c/misra/external-object-or-function-not-declared-in-one-file" and
-  ruleId = "RULE-8-5"
+  ruleId = "RULE-8-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingStaticSpecifierFunctionRedeclarationC` query
@@ -33,7 +35,8 @@ predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `missingStaticSpecifierFunctionRedeclarationC` query
     "c/misra/missing-static-specifier-function-redeclaration-c" and
-  ruleId = "RULE-8-8"
+  ruleId = "RULE-8-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingStaticSpecifierObjectRedeclarationC` query
@@ -41,7 +44,8 @@ predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `missingStaticSpecifierObjectRedeclarationC` query
     "c/misra/missing-static-specifier-object-redeclaration-c" and
-  ruleId = "RULE-8-8"
+  ruleId = "RULE-8-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unnecessaryExposedIdentifierDeclarationC` query
@@ -49,7 +53,8 @@ predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `unnecessaryExposedIdentifierDeclarationC` query
     "c/misra/unnecessary-exposed-identifier-declaration-c" and
-  ruleId = "RULE-8-9"
+  ruleId = "RULE-8-9" and
+  category = "advisory"
 }
 
 module Declarations5Package {

@@ -1,0 +1,7 @@
+deviations:
+  - rule-id: A0-1-1
+    query-id: cpp/autosar/useless-assignment
+    justification: This useless assignment is required.
+  - rule-id: A0-4-2
+    justification: long double is required for interaction with third-party libraries.
+    code-identifier: a-0-4-2-deviation
