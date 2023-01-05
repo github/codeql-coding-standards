@@ -713,7 +713,7 @@ c,MISRA-C-2012,RULE-16-6,Yes,Required,,,Every switch statement shall have at lea
 c,MISRA-C-2012,RULE-16-7,Yes,Required,,,A switch-expression shall not have essentially Boolean type,M6-4-7,Statements,Medium,
 c,MISRA-C-2012,RULE-17-1,Yes,Required,,,The features of <stdarg.h> shall not be used,,Banned,Easy,
 c,MISRA-C-2012,RULE-17-2,Yes,Required,,,"Functions shall not call themselves, either directly or indirectly",A7-5-2,Statements,Import,
-c,MISRA-C-2012,RULE-17-3,Yes,Mandatory,,,A function shall not be declared implicitly,,Declarations,Medium,
+c,MISRA-C-2012,RULE-17-3,Yes,Mandatory,,,A function shall not be declared implicitly,,Declarations6,Medium,
 c,MISRA-C-2012,RULE-17-4,Yes,Mandatory,,,All exit paths from a function with non-void return type shall have an explicit return statement with an expression,MSC52-CPP,Statements,Medium,
 c,MISRA-C-2012,RULE-17-5,Yes,Advisory,,,The function argument corresponding to a parameter declared to have an array type shall have an appropriate number of elements,,Contracts,Hard,
 c,MISRA-C-2012,RULE-17-6,No,Mandatory,,,The declaration of an array parameter shall not contain the static keyword between the [ ],,,,

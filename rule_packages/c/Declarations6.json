@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "RULE-17-3": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Omission of type specifiers may not be supported by some compilers. Additionally implicit typing can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "A function shall not be declared implicitly",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionDeclaredImplicitly",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A function shall not be declared implicitly"
+    }
+  }
+}
