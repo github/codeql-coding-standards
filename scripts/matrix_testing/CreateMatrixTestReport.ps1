@@ -123,6 +123,12 @@ param(
     [string]
     $ReportDir = (Get-Location),
 
+    # Skip summary report -- used for Linux hosts that don't support 
+    # the OLE database stuff. 
+    [Parameter(Mandatory = $false)] 
+    [switch]
+    $SkipSummaryReport,
+
     # Tells the script to use the sytem tmp directory instead of the rule
     # directory.
     [Parameter(Mandatory = $false)] 
@@ -244,6 +250,7 @@ if ($queriesToCheck.Count -eq 0) {
 else {
     Write-Host "Loaded $($queriesToCheck.Count) Queries."
 }
+
 
 #
 # Step 2: Verify All the Required CLI Tools are Installed
@@ -420,6 +427,8 @@ foreach ($r in $REPORT) {
     [PSCustomObject]$r | Export-CSV -Path $reportOutputFile -Append -NoTypeInformation
 }
 
-# write out a summary 
-Write-Host "Writing summary report to $summaryReportOutputFile"
-Create-Summary-Report -DataFile $reportOutputFile -OutputFile $summaryReportOutputFile
+if (-not $SkipSummaryReport){
+    # write out a summary 
+    Write-Host "Writing summary report to $summaryReportOutputFile"
+    Create-Summary-Report -DataFile $reportOutputFile -OutputFile $summaryReportOutputFile
+}
