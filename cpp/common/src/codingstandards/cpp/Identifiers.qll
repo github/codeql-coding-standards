@@ -1,4 +1,19 @@
 import cpp
+import codingstandards.cpp.Linkage
+
+class ExternalIdentifiers extends InterestingIdentifiers {
+  ExternalIdentifiers() {
+    hasExternalLinkage(this) and
+    getNamespace() instanceof GlobalNamespace
+  }
+
+  string getSignificantName() {
+    //C99 states the first 31 characters of external identifiers are significant
+    //C90 states the first 6 characters of external identifiers are significant and case is not required to be significant
+    //C90 is not currently considered by this rule
+    result = this.getName().prefix(31)
+  }
+}
 
 //Identifiers that are candidates for checking uniqueness
 class InterestingIdentifiers extends Declaration {
