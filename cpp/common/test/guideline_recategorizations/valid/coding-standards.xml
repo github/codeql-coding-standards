@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<codingstandards>
+   <!--GENERATED: DO NOT MODIFY. Changes should be made to coding-standards.yml instead.-->
+   <guideline-recategorizations>
+      <guideline-recategorizations-entry>
+         <rule-id>A0-1-1</rule-id>
+         <category>mandatory</category>
+      </guideline-recategorizations-entry>
+      <guideline-recategorizations-entry>
+         <rule-id>A0-1-6</rule-id>
+         <category>disapplied</category>
+      </guideline-recategorizations-entry>
+      <guideline-recategorizations-entry>
+         <rule-id>A10-4-1</rule-id>
+         <category>required</category>
+      </guideline-recategorizations-entry>
+      <guideline-recategorizations-entry>
+         <rule-id>A11-0-1</rule-id>
+         <category>mandatory</category>
+      </guideline-recategorizations-entry>
+   </guideline-recategorizations>
+</codingstandards>

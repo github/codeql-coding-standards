@@ -10,14 +10,15 @@ newtype Declarations2Query =
   TIncompatibleFunctionDeclarationsQuery() or
   TVariablesInsideSwitchStatementQuery()
 
-predicate isDeclarations2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isDeclarations2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `declaringAFlexibleArrayMember` query
     Declarations2Package::declaringAFlexibleArrayMemberQuery() and
   queryId =
     // `@id` for the `declaringAFlexibleArrayMember` query
     "c/cert/declaring-a-flexible-array-member" and
-  ruleId = "DCL38-C"
+  ruleId = "DCL38-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `excessLengthNamesIdentifiersNotDistinct` query
@@ -25,7 +26,8 @@ predicate isDeclarations2QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `excessLengthNamesIdentifiersNotDistinct` query
     "c/cert/excess-length-names-identifiers-not-distinct" and
-  ruleId = "DCL40-C"
+  ruleId = "DCL40-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `incompatibleObjectDeclarations` query
@@ -33,7 +35,8 @@ predicate isDeclarations2QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `incompatibleObjectDeclarations` query
     "c/cert/incompatible-object-declarations" and
-  ruleId = "DCL40-C"
+  ruleId = "DCL40-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `incompatibleFunctionDeclarations` query
@@ -41,7 +44,8 @@ predicate isDeclarations2QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `incompatibleFunctionDeclarations` query
     "c/cert/incompatible-function-declarations" and
-  ruleId = "DCL40-C"
+  ruleId = "DCL40-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `variablesInsideSwitchStatement` query
@@ -49,7 +53,8 @@ predicate isDeclarations2QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `variablesInsideSwitchStatement` query
     "c/cert/variables-inside-switch-statement" and
-  ruleId = "DCL41-C"
+  ruleId = "DCL41-C" and
+  category = "rule"
 }
 
 module Declarations2Package {

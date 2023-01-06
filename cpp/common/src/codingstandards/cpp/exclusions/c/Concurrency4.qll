@@ -8,14 +8,15 @@ newtype Concurrency4Query =
   TAppropriateThreadObjectStorageDurationsQuery() or
   TThreadObjectStorageDurationsNotInitializedQuery()
 
-predicate isConcurrency4QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isConcurrency4QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `cleanUpThreadSpecificStorage` query
     Concurrency4Package::cleanUpThreadSpecificStorageQuery() and
   queryId =
     // `@id` for the `cleanUpThreadSpecificStorage` query
     "c/cert/clean-up-thread-specific-storage" and
-  ruleId = "CON30-C"
+  ruleId = "CON30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `appropriateThreadObjectStorageDurations` query
@@ -23,7 +24,8 @@ predicate isConcurrency4QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `appropriateThreadObjectStorageDurations` query
     "c/cert/appropriate-thread-object-storage-durations" and
-  ruleId = "CON34-C"
+  ruleId = "CON34-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `threadObjectStorageDurationsNotInitialized` query
@@ -31,7 +33,8 @@ predicate isConcurrency4QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `threadObjectStorageDurationsNotInitialized` query
     "c/cert/thread-object-storage-durations-not-initialized" and
-  ruleId = "CON34-C"
+  ruleId = "CON34-C" and
+  category = "rule"
 }
 
 module Concurrency4Package {

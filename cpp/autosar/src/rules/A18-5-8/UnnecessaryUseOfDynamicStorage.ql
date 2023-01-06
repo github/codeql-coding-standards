@@ -64,13 +64,13 @@ class MakeSharedOrUnique extends FunctionCall, CandidateFunctionLocalHeapAllocat
  * An `AllocationExpr` that allocates heap memory, where the memory is freed on at least one path
  * through the enclosing function.
  */
-class AllocationExprFunctionLocal extends AllocationExpr, CandidateFunctionLocalHeapAllocationExpr {
+class AllocationExprFunctionLocal extends CandidateFunctionLocalHeapAllocationExpr instanceof AllocationExpr {
   AllocationExprFunctionLocal() {
     this.getSizeBytes() < 1024 and
     TaintTracking::localExprTaint(this, any(DeallocationExpr de).getFreedExpr())
   }
 
-  override int getHeapSizeBytes() { result = this.getSizeBytes() }
+  override int getHeapSizeBytes() { result = super.getSizeBytes() }
 
   DeallocationExpr getADeallocation() { TaintTracking::localExprTaint(this, result.getFreedExpr()) }
 

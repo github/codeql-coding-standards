@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Identifiers
+import codingstandards.cpp.Identifiers
 
 from Macro m, InterestingIdentifiers i, string mName, string iName
 where

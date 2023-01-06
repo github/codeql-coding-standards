@@ -229,6 +229,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "UsageOfAssemblerNotDocumented",
+          "shared_implementation_short_name": "UsageOfAssemblerNotDocumented",
           "tags": [
             "readability",
             "maintainability",

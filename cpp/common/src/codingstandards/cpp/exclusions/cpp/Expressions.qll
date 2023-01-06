@@ -21,14 +21,15 @@ newtype ExpressionsQuery =
   TPassReferenceTypeToVaStartQuery() or
   TPassNonTrivialObjectToVaStartQuery()
 
-predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `operationsAssumingMemoryLayoutPerformedOnObjects` query
     ExpressionsPackage::operationsAssumingMemoryLayoutPerformedOnObjectsQuery() and
   queryId =
     // `@id` for the `operationsAssumingMemoryLayoutPerformedOnObjects` query
     "cpp/autosar/operations-assuming-memory-layout-performed-on-objects" and
-  ruleId = "A12-0-2"
+  ruleId = "A12-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `enumUsedInArithmeticContexts` query
@@ -36,7 +37,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `enumUsedInArithmeticContexts` query
     "cpp/autosar/enum-used-in-arithmetic-contexts" and
-  ruleId = "A4-5-1"
+  ruleId = "A4-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `divisorEqualToZero` query
@@ -44,7 +46,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `divisorEqualToZero` query
     "cpp/autosar/divisor-equal-to-zero" and
-  ruleId = "A5-6-1"
+  ruleId = "A5-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionErroneousReturnValueNotTested` query
@@ -52,7 +55,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `functionErroneousReturnValueNotTested` query
     "cpp/autosar/function-erroneous-return-value-not-tested" and
-  ruleId = "M0-3-2"
+  ruleId = "M0-3-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `boolOperandsToDisallowedBuiltInOperators` query
@@ -60,7 +64,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `boolOperandsToDisallowedBuiltInOperators` query
     "cpp/autosar/bool-operands-to-disallowed-built-in-operators" and
-  ruleId = "M4-5-1"
+  ruleId = "M4-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `charUsedAsOperandsToDisallowedBuiltInOperators` query
@@ -68,7 +73,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `charUsedAsOperandsToDisallowedBuiltInOperators` query
     "cpp/autosar/char-used-as-operands-to-disallowed-built-in-operators" and
-  ruleId = "M4-5-3"
+  ruleId = "M4-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `ternaryOperatorConditionNotTypeBool` query
@@ -76,7 +82,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `ternaryOperatorConditionNotTypeBool` query
     "cpp/autosar/ternary-operator-condition-not-type-bool" and
-  ruleId = "M5-0-14"
+  ruleId = "M5-0-14" and
+  category = "required"
   or
   query =
     // `Query` instance for the `bitwiseOperatorOperandsHaveDifferentUnderlyingType` query
@@ -84,7 +91,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `bitwiseOperatorOperandsHaveDifferentUnderlyingType` query
     "cpp/autosar/bitwise-operator-operands-have-different-underlying-type" and
-  ruleId = "M5-0-20"
+  ruleId = "M5-0-20" and
+  category = "required"
   or
   query =
     // `Query` instance for the `bitwiseOperatorAppliedToSignedTypes` query
@@ -92,7 +100,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `bitwiseOperatorAppliedToSignedTypes` query
     "cpp/autosar/bitwise-operator-applied-to-signed-types" and
-  ruleId = "M5-0-21"
+  ruleId = "M5-0-21" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cvalueExpressionConvertedToDifferentUnderlyingType` query
@@ -100,7 +109,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `cvalueExpressionConvertedToDifferentUnderlyingType` query
     "cpp/autosar/cvalue-expression-converted-to-different-underlying-type" and
-  ruleId = "M5-0-3"
+  ruleId = "M5-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `constantUnsignedIntegerExpressionsWrapAround` query
@@ -108,7 +118,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `constantUnsignedIntegerExpressionsWrapAround` query
     "cpp/autosar/constant-unsigned-integer-expressions-wrap-around" and
-  ruleId = "M5-19-1"
+  ruleId = "M5-19-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `rightBitShiftOperandIsNegativeOrTooWide` query
@@ -116,7 +127,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `rightBitShiftOperandIsNegativeOrTooWide` query
     "cpp/autosar/right-bit-shift-operand-is-negative-or-too-wide" and
-  ruleId = "M5-8-1"
+  ruleId = "M5-8-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `floatsTestedForEquality` query
@@ -124,7 +136,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `floatsTestedForEquality` query
     "cpp/autosar/floats-tested-for-equality" and
-  ruleId = "M6-2-2"
+  ruleId = "M6-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `passPromotablePrimitiveTypeToVaStart` query
@@ -132,7 +145,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `passPromotablePrimitiveTypeToVaStart` query
     "cpp/cert/pass-promotable-primitive-type-to-va-start" and
-  ruleId = "EXP58-CPP"
+  ruleId = "EXP58-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `passReferenceTypeToVaStart` query
@@ -140,7 +154,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `passReferenceTypeToVaStart` query
     "cpp/cert/pass-reference-type-to-va-start" and
-  ruleId = "EXP58-CPP"
+  ruleId = "EXP58-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `passNonTrivialObjectToVaStart` query
@@ -148,7 +163,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `passNonTrivialObjectToVaStart` query
     "cpp/cert/pass-non-trivial-object-to-va-start" and
-  ruleId = "EXP58-CPP"
+  ruleId = "EXP58-CPP" and
+  category = "rule"
 }
 
 module ExpressionsPackage {

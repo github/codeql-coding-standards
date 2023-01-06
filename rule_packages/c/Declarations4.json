@@ -1,0 +1,119 @@
+{
+  "MISRA-C-2012": {
+    "RULE-8-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Omission of parameter types or names prevents the compiler from doing type checking when those functions are used and therefore may result in undefined behaviour.",
+          "kind": "problem",
+          "name": "Function types shall be in prototype form with named parameters",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "FunctionTypesNotInPrototypeForm",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for implicitly typed parameters and checks function declarations and definitions but not function pointer types. This query cannot determine when the keyword void is used in place of no parameter.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Function types shall be in prototype form with named parameters"
+    },
+    "RULE-8-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using different types across the same declarations disallows strong type checking and can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "All declarations of an object shall use the same names and type qualifiers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeclarationsOfAnObjectSameNameAndType",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Using different types across the same declarations disallows strong type checking and can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "All declarations of a function shall use the same names and type qualifiers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeclarationsOfAFunctionSameNameAndType",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All declarations of an object or function shall use the same names and type qualifiers"
+    },
+    "RULE-8-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A compatible declaration shall be visible when an object with external linkage is defined, otherwise program behaviour may be undefined.",
+          "kind": "problem",
+          "name": "A compatible declaration shall be visible when an object with external linkage is defined",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CompatibleDeclarationObjectDefined",
+          "tags": [
+            "readability",
+            "maintainability",
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for the recommendation of declarations in headers.",
+            "items": []
+          }
+        },
+        {
+          "description": "A compatible declaration shall be visible when a function with external linkage is defined, otherwise program behaviour may be undefined.",
+          "kind": "problem",
+          "name": "A compatible declaration shall be visible when a function with external linkage is defined",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CompatibleDeclarationFunctionDefined",
+          "tags": [
+            "readability",
+            "maintainability",
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for the recommendation of declarations in headers.",
+            "items": []
+          }
+        }
+      ],
+      "title": "A compatible declaration shall be visible when an object or function with external linkage is defined"
+    },
+    "RULE-8-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An identifier with multiple definitions in different translation units leads to undefined behavior.",
+          "kind": "problem",
+          "name": "An identifier with external linkage shall have exactly one definition",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "IdentifierWithExternalLinkageOneDefinition",
+          "shared_implementation_short_name": "IdentifierWithExternalLinkageOneDefinitionShared",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An identifier with external linkage shall have exactly one external definition"
+    }
+  }
+}

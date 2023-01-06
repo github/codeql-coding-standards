@@ -23,14 +23,15 @@ newtype ClassesQuery =
   TMemberDataInNonPodClassTypesNotPrivateQuery() or
   TOffsetUsedOnInvalidTypeOrMemberQuery()
 
-predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isClassesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `nonPodTypeShouldBeDefinedAsClass` query
     ClassesPackage::nonPodTypeShouldBeDefinedAsClassQuery() and
   queryId =
     // `@id` for the `nonPodTypeShouldBeDefinedAsClass` query
     "cpp/autosar/non-pod-type-should-be-defined-as-class" and
-  ruleId = "A11-0-1"
+  ruleId = "A11-0-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `typeDefinedAsStructHasOnlyPublicDataMembers` query
@@ -38,7 +39,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `typeDefinedAsStructHasOnlyPublicDataMembers` query
     "cpp/autosar/type-defined-as-struct-has-only-public-data-members" and
-  ruleId = "A11-0-2"
+  ruleId = "A11-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typeDefinedAsStructHasNoMethods` query
@@ -46,7 +48,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `typeDefinedAsStructHasNoMethods` query
     "cpp/autosar/type-defined-as-struct-has-no-methods" and
-  ruleId = "A11-0-2"
+  ruleId = "A11-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typeDefinedAsStructIsNotBaseOfOtherClassOrStruct` query
@@ -54,7 +57,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `typeDefinedAsStructIsNotBaseOfOtherClassOrStruct` query
     "cpp/autosar/type-defined-as-struct-is-not-base-of-other-class-or-struct" and
-  ruleId = "A11-0-2"
+  ruleId = "A11-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typeDefinedAsStructIsDoesNotInheritFromStructOrClass` query
@@ -62,7 +66,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `typeDefinedAsStructIsDoesNotInheritFromStructOrClass` query
     "cpp/autosar/type-defined-as-struct-is-does-not-inherit-from-struct-or-class" and
-  ruleId = "A11-0-2"
+  ruleId = "A11-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingSpecialMemberFunction` query
@@ -70,7 +75,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `missingSpecialMemberFunction` query
     "cpp/autosar/missing-special-member-function" and
-  ruleId = "A12-0-1"
+  ruleId = "A12-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `classDataMembersInitializationCondition` query
@@ -78,7 +84,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `classDataMembersInitializationCondition` query
     "cpp/autosar/class-data-members-initialization-condition" and
-  ruleId = "A12-6-1"
+  ruleId = "A12-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `redundantMemberFunctionsShouldBeDefaultedOrLeftUndefined` query
@@ -86,7 +93,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `redundantMemberFunctionsShouldBeDefaultedOrLeftUndefined` query
     "cpp/autosar/redundant-member-functions-should-be-defaulted-or-left-undefined" and
-  ruleId = "A12-7-1"
+  ruleId = "A12-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonTemplateMemberDefinedInTemplate` query
@@ -94,7 +102,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nonTemplateMemberDefinedInTemplate` query
     "cpp/autosar/non-template-member-defined-in-template" and
-  ruleId = "A14-5-2"
+  ruleId = "A14-5-2" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `trivialOrTemplateFunctionDefinedOutsideClassDefinition` query
@@ -102,7 +111,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `trivialOrTemplateFunctionDefinedOutsideClassDefinition` query
     "cpp/autosar/trivial-or-template-function-defined-outside-class-definition" and
-  ruleId = "A3-1-5"
+  ruleId = "A3-1-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonTrivialNonTemplateFunctionDefinedInsideClassDefinition` query
@@ -110,7 +120,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nonTrivialNonTemplateFunctionDefinedInsideClassDefinition` query
     "cpp/autosar/non-trivial-non-template-function-defined-inside-class-definition" and
-  ruleId = "A3-1-5"
+  ruleId = "A3-1-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `inParametersForNotCheapToCopyTypesNotPassedByReference` query
@@ -118,7 +129,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `inParametersForNotCheapToCopyTypesNotPassedByReference` query
     "cpp/autosar/in-parameters-for-not-cheap-to-copy-types-not-passed-by-reference" and
-  ruleId = "A8-4-7"
+  ruleId = "A8-4-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `inParametersForCheapToCopyTypesNotPassedByValue` query
@@ -126,7 +138,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `inParametersForCheapToCopyTypesNotPassedByValue` query
     "cpp/autosar/in-parameters-for-cheap-to-copy-types-not-passed-by-value" and
-  ruleId = "A8-4-7"
+  ruleId = "A8-4-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `returnsNonConstRawPointersOrReferencesToPrivateOrProtectedData` query
@@ -134,7 +147,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `returnsNonConstRawPointersOrReferencesToPrivateOrProtectedData` query
     "cpp/autosar/returns-non-const-raw-pointers-or-references-to-private-or-protected-data" and
-  ruleId = "A9-3-1"
+  ruleId = "A9-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `dataTypesUsedForInterfacingWithHardwareOrProtocolsMustBeTrivialAndStandardLayout` query
@@ -142,7 +156,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `dataTypesUsedForInterfacingWithHardwareOrProtocolsMustBeTrivialAndStandardLayout` query
     "cpp/autosar/data-types-used-for-interfacing-with-hardware-or-protocols-must-be-trivial-and-standard-layout" and
-  ruleId = "A9-6-1"
+  ruleId = "A9-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `dataTypesUsedForInterfacingWithHardwareOrProtocolsMustContainOnlyDefinedDataTypeSizes` query
@@ -150,7 +165,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `dataTypesUsedForInterfacingWithHardwareOrProtocolsMustContainOnlyDefinedDataTypeSizes` query
     "cpp/autosar/data-types-used-for-interfacing-with-hardware-or-protocols-must-contain-only-defined-data-type-sizes" and
-  ruleId = "A9-6-1"
+  ruleId = "A9-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `memberDataInNonPodClassTypesNotPrivate` query
@@ -158,7 +174,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `memberDataInNonPodClassTypesNotPrivate` query
     "cpp/autosar/member-data-in-non-pod-class-types-not-private" and
-  ruleId = "M11-0-1"
+  ruleId = "M11-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `offsetUsedOnInvalidTypeOrMember` query
@@ -166,7 +183,8 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `offsetUsedOnInvalidTypeOrMember` query
     "cpp/cert/offset-used-on-invalid-type-or-member" and
-  ruleId = "EXP59-CPP"
+  ruleId = "EXP59-CPP" and
+  category = "rule"
 }
 
 module ClassesPackage {
