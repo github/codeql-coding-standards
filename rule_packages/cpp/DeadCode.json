@@ -91,7 +91,8 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "shared_implementation_short_name": "UnusedParameter"
         }
       ],
       "title": "There shall be no unused named parameters in non-virtual functions."
@@ -139,7 +140,8 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "shared_implementation_short_name": "UnusedTypeDeclarations"
         }
       ],
       "title": "There should be no unused type declarations."
@@ -163,7 +165,8 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "shared_implementation_short_name": "UnreachableCode"
         }
       ],
       "title": "A project shall not contain unreachable code."
@@ -334,7 +337,8 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "shared_implementation_short_name": "DeadCode"
         }
       ],
       "title": "There shall be no dead code."
