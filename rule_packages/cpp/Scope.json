@@ -156,6 +156,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "IdentifierWithExternalLinkageShallHaveOneDefinition",
+          "shared_implementation_short_name": "IdentifierWithExternalLinkageOneDefinitionShared",
           "tags": [
             "correctness"
           ]
