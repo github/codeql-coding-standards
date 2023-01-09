@@ -19,6 +19,46 @@
         }
       ],
       "title": "A function shall not be declared implicitly"
+    },
+    "RULE-5-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using non-unique identifiers can lead to developer confusion.",
+          "kind": "problem",
+          "name": "Identifiers that define objects or functions with external linkage shall be unique",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifiersWithExternalLinkageNotUnique",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Identifiers that define objects or functions with external linkage shall be unique"
+    },
+    "RULE-5-9": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using non-unique identifiers can lead to developer confusion.",
+          "kind": "problem",
+          "name": "Identifiers that define objects or functions with internal linkage should be unique",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifiersWithInternalLinkageNotUnique",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Identifiers that define objects or functions with internal linkage should be unique"
     }
   }
 }

@@ -1,0 +1,2 @@
+| test1.c:1:13:1:13 | f | Identifier conflicts with external identifier $@ | test.c:3:6:3:6 | f | f |
+| test1.c:2:7:2:7 | g | Identifier conflicts with external identifier $@ | test.c:1:5:1:5 | g | g |

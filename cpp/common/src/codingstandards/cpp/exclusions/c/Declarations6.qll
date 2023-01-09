@@ -3,7 +3,10 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Declarations6Query = TFunctionDeclaredImplicitlyQuery()
+newtype Declarations6Query =
+  TFunctionDeclaredImplicitlyQuery() or
+  TIdentifiersWithExternalLinkageNotUniqueQuery() or
+  TIdentifiersWithInternalLinkageNotUniqueQuery()
 
 predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -14,6 +17,24 @@ predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleI
     "c/misra/function-declared-implicitly" and
   ruleId = "RULE-17-3" and
   category = "mandatory"
+  or
+  query =
+    // `Query` instance for the `identifiersWithExternalLinkageNotUnique` query
+    Declarations6Package::identifiersWithExternalLinkageNotUniqueQuery() and
+  queryId =
+    // `@id` for the `identifiersWithExternalLinkageNotUnique` query
+    "c/misra/identifiers-with-external-linkage-not-unique" and
+  ruleId = "RULE-5-8" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `identifiersWithInternalLinkageNotUnique` query
+    Declarations6Package::identifiersWithInternalLinkageNotUniqueQuery() and
+  queryId =
+    // `@id` for the `identifiersWithInternalLinkageNotUnique` query
+    "c/misra/identifiers-with-internal-linkage-not-unique" and
+  ruleId = "RULE-5-9" and
+  category = "advisory"
 }
 
 module Declarations6Package {
@@ -22,5 +43,19 @@ module Declarations6Package {
     result =
       // `Query` type for `functionDeclaredImplicitly` query
       TQueryC(TDeclarations6PackageQuery(TFunctionDeclaredImplicitlyQuery()))
+  }
+
+  Query identifiersWithExternalLinkageNotUniqueQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `identifiersWithExternalLinkageNotUnique` query
+      TQueryC(TDeclarations6PackageQuery(TIdentifiersWithExternalLinkageNotUniqueQuery()))
+  }
+
+  Query identifiersWithInternalLinkageNotUniqueQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `identifiersWithInternalLinkageNotUnique` query
+      TQueryC(TDeclarations6PackageQuery(TIdentifiersWithInternalLinkageNotUniqueQuery()))
   }
 }
