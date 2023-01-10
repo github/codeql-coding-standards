@@ -59,6 +59,26 @@
         }
       ],
       "title": "Identifiers that define objects or functions with internal linkage should be unique"
+    },
+    "RULE-8-11": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Declaring an array without an explicit size disallows the compiler and static checkers from doing array bounds analysis and can lead to less readable, unsafe code.",
+          "kind": "problem",
+          "name": "When an array with external linkage is declared, its size should be explicitly specified",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ArrayExternalLinkageSizeExplicitlySpecified",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "When an array with external linkage is declared, its size should be explicitly specified"
     }
   }
 }

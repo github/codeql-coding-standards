@@ -6,7 +6,8 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype Declarations6Query =
   TFunctionDeclaredImplicitlyQuery() or
   TIdentifiersWithExternalLinkageNotUniqueQuery() or
-  TIdentifiersWithInternalLinkageNotUniqueQuery()
+  TIdentifiersWithInternalLinkageNotUniqueQuery() or
+  TArrayExternalLinkageSizeExplicitlySpecifiedQuery()
 
 predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -35,6 +36,15 @@ predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleI
     "c/misra/identifiers-with-internal-linkage-not-unique" and
   ruleId = "RULE-5-9" and
   category = "advisory"
+  or
+  query =
+    // `Query` instance for the `arrayExternalLinkageSizeExplicitlySpecified` query
+    Declarations6Package::arrayExternalLinkageSizeExplicitlySpecifiedQuery() and
+  queryId =
+    // `@id` for the `arrayExternalLinkageSizeExplicitlySpecified` query
+    "c/misra/array-external-linkage-size-explicitly-specified" and
+  ruleId = "RULE-8-11" and
+  category = "advisory"
 }
 
 module Declarations6Package {
@@ -57,5 +67,12 @@ module Declarations6Package {
     result =
       // `Query` type for `identifiersWithInternalLinkageNotUnique` query
       TQueryC(TDeclarations6PackageQuery(TIdentifiersWithInternalLinkageNotUniqueQuery()))
+  }
+
+  Query arrayExternalLinkageSizeExplicitlySpecifiedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `arrayExternalLinkageSizeExplicitlySpecified` query
+      TQueryC(TDeclarations6PackageQuery(TArrayExternalLinkageSizeExplicitlySpecifiedQuery()))
   }
 }
