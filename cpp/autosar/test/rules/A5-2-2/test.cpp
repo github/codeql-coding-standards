@@ -123,3 +123,38 @@ void testFunctionalCastTemplateUse() {
   testFunctionalCastTemplate<int>();
   testFunctionalCastTemplateMulti<D>();
 }
+
+template <typename T> class E {
+public:
+  class F {
+  public:
+    F(int x) : fx(x), fy(0) {}
+    F(int x, int y) : fx(x), fy(y) {}
+
+  private:
+    int fx;
+    int fy;
+  };
+
+  F f() {
+    return F(1); // COMPLIANT
+  }
+
+  D d() {
+    return D(1); // COMPLIANT
+  }
+
+  int i() {
+    double f = 3.14;
+    return (unsigned int)f; // NON_COMPLIANT
+  }
+};
+
+class G {};
+
+void testE() {
+  E<G> e;
+  e.f();
+  e.d();
+  e.i();
+}
