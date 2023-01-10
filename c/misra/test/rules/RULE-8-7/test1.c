@@ -1,5 +1,5 @@
 #include "test.h"
-void f(){
-    i = 0;
-    f1();
+void f() {
+  i = 0;
+  f1();
 }
