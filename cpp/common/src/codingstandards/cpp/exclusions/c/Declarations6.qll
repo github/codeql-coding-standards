@@ -7,7 +7,8 @@ newtype Declarations6Query =
   TFunctionDeclaredImplicitlyQuery() or
   TIdentifiersWithExternalLinkageNotUniqueQuery() or
   TIdentifiersWithInternalLinkageNotUniqueQuery() or
-  TArrayExternalLinkageSizeExplicitlySpecifiedQuery()
+  TArrayExternalLinkageSizeExplicitlySpecifiedQuery() or
+  TShouldNotBeDefinedWithExternalLinkageQuery()
 
 predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -45,6 +46,15 @@ predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleI
     "c/misra/array-external-linkage-size-explicitly-specified" and
   ruleId = "RULE-8-11" and
   category = "advisory"
+  or
+  query =
+    // `Query` instance for the `shouldNotBeDefinedWithExternalLinkage` query
+    Declarations6Package::shouldNotBeDefinedWithExternalLinkageQuery() and
+  queryId =
+    // `@id` for the `shouldNotBeDefinedWithExternalLinkage` query
+    "c/misra/should-not-be-defined-with-external-linkage" and
+  ruleId = "RULE-8-7" and
+  category = "advisory"
 }
 
 module Declarations6Package {
@@ -74,5 +84,12 @@ module Declarations6Package {
     result =
       // `Query` type for `arrayExternalLinkageSizeExplicitlySpecified` query
       TQueryC(TDeclarations6PackageQuery(TArrayExternalLinkageSizeExplicitlySpecifiedQuery()))
+  }
+
+  Query shouldNotBeDefinedWithExternalLinkageQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `shouldNotBeDefinedWithExternalLinkage` query
+      TQueryC(TDeclarations6PackageQuery(TShouldNotBeDefinedWithExternalLinkageQuery()))
   }
 }
