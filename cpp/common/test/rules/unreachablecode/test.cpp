@@ -22,6 +22,9 @@ int test_constant_condition() {
   }
 }
 
+// NOTICE: THE TEST CASES ABOVE ARE ALSO INCLUDED IN THE C TEST CASE AND CHANGES
+//         SHOULD BE REFLECTED THERE AS WELL.
+
 template <class T> int f() {
   if (0) { // NON_COMPLIANT - block is unreachable in all instances
     return 3;
