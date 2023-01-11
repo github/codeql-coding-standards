@@ -1,9 +1,9 @@
-// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C++ TEST CASE AND CHANGES
-//         SHOULD BE REFLECTED THERE AS WELL.
+// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C++ TEST CASE AND
+// CHANGES SHOULD BE REFLECTED THERE AS WELL.
 
 struct A {}; // NON_COMPLIANT - unused
 
-struct C {};  // COMPLIANT - used in the type def
+struct C {};        // COMPLIANT - used in the type def
 typedef struct C D; // NON_COMPLIANT - typedef itself not used
 
 struct F {}; // COMPLIANT - used as a global function return type
@@ -17,17 +17,15 @@ struct G {}; // COMPLIANT - used as a global function parameter type
 
 void test_global_function(struct G g) {}
 
-enum M { C1, C2, C3 };       // COMPLIANT - used in an enum type access below
+enum M { C1, C2, C3 }; // COMPLIANT - used in an enum type access below
 
-void test_enum_access() {
-  int i = C1;
-}
+void test_enum_access() { int i = C1; }
 
 struct O {}; // COMPLIANT - used in typedef below
 
 typedef struct O P; // COMPLIANT - used in typedef below
-typedef P Q; // COMPLIANT - used in function below
-typedef Q R; // NON_COMPLIANT - never used
+typedef P Q;        // COMPLIANT - used in function below
+typedef Q R;        // NON_COMPLIANT - never used
 
 Q test_type_def() {}
 

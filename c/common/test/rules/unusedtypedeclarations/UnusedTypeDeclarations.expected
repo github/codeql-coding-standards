@@ -1,5 +1,5 @@
 | file://:0:0:0:0 | __va_list_tag | Type declaration __va_list_tag is not used. |
 | test.c:4:8:4:8 | A | Type declaration A is not used. |
 | test.c:7:18:7:18 | D | Type declaration D is not used. |
-| test.c:30:11:30:11 | R | Type declaration R is not used. |
-| test.c:43:12:43:12 | struct <unnamed> | Type declaration struct <unnamed> is not used. |
+| test.c:28:11:28:11 | R | Type declaration R is not used. |
+| test.c:41:12:41:12 | struct <unnamed> | Type declaration struct <unnamed> is not used. |
