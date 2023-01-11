@@ -5,6 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations6Query =
   TFunctionDeclaredImplicitlyQuery() or
+  TFlexibleArrayMembersDeclaredQuery() or
   TIdentifiersWithExternalLinkageNotUniqueQuery() or
   TIdentifiersWithInternalLinkageNotUniqueQuery() or
   TInlineFunctionNotDeclaredStaticStorageQuery() or
@@ -20,6 +21,15 @@ predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleI
     "c/misra/function-declared-implicitly" and
   ruleId = "RULE-17-3" and
   category = "mandatory"
+  or
+  query =
+    // `Query` instance for the `flexibleArrayMembersDeclared` query
+    Declarations6Package::flexibleArrayMembersDeclaredQuery() and
+  queryId =
+    // `@id` for the `flexibleArrayMembersDeclared` query
+    "c/misra/flexible-array-members-declared" and
+  ruleId = "RULE-18-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifiersWithExternalLinkageNotUnique` query
@@ -73,6 +83,13 @@ module Declarations6Package {
     result =
       // `Query` type for `functionDeclaredImplicitly` query
       TQueryC(TDeclarations6PackageQuery(TFunctionDeclaredImplicitlyQuery()))
+  }
+
+  Query flexibleArrayMembersDeclaredQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `flexibleArrayMembersDeclared` query
+      TQueryC(TDeclarations6PackageQuery(TFlexibleArrayMembersDeclaredQuery()))
   }
 
   Query identifiersWithExternalLinkageNotUniqueQuery() {

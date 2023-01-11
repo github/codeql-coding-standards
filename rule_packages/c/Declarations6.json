@@ -20,6 +20,25 @@
       ],
       "title": "A function shall not be declared implicitly"
     },
+    "RULE-18-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of flexible array members can lead to unexpected program behaviour.",
+          "kind": "problem",
+          "name": "Flexible array members shall not be declared",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FlexibleArrayMembersDeclared",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Flexible array members shall not be declared"
+    },
     "RULE-5-8": {
       "properties": {
         "obligation": "required"

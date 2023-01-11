@@ -725,7 +725,7 @@ c,MISRA-C-2012,RULE-18-3,Yes,Required,,,"The relational operators >, >=, < and <
 c,MISRA-C-2012,RULE-18-4,Yes,Advisory,,,"The +, -, += and -= operators should not be applied to an expression of pointer type",M5-0-15,Pointers1,Medium,
 c,MISRA-C-2012,RULE-18-5,Yes,Advisory,,,Declarations should contain no more than two levels of pointer nesting,A5-0-3,Pointers1,Import,
 c,MISRA-C-2012,RULE-18-6,Yes,Required,,,The address of an object with automatic storage shall not be copied to another object that persists after the first object has ceased to exist,M7-5-2,Pointers1,Import,
-c,MISRA-C-2012,RULE-18-7,Yes,Required,,,Flexible array members shall not be declared,,Declarations,Medium,
+c,MISRA-C-2012,RULE-18-7,Yes,Required,,,Flexible array members shall not be declared,,Declarations6,Medium,
 c,MISRA-C-2012,RULE-18-8,Yes,Required,,,Variable-length array types shall not be used,,Declarations,Medium,
 c,MISRA-C-2012,RULE-19-1,Yes,Mandatory,,,An object shall not be assigned or copied to an overlapping object,M0-2-1,Contracts,Hard,
 c,MISRA-C-2012,RULE-19-2,Yes,Advisory,,,The union keyword should not be used,A9-5-1,Banned,Import,
