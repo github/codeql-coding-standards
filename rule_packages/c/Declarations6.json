@@ -60,6 +60,25 @@
       ],
       "title": "Identifiers that define objects or functions with internal linkage should be unique"
     },
+    "RULE-8-10": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declaring an inline function with external linkage can lead to undefined or incorrect program behaviour.",
+          "kind": "problem",
+          "name": "An inline function shall be declared with the static storage class",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InlineFunctionNotDeclaredStaticStorage",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An inline function shall be declared with the static storage class"
+    },
     "RULE-8-11": {
       "properties": {
         "obligation": "advisory"

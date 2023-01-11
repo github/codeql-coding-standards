@@ -7,6 +7,7 @@ newtype Declarations6Query =
   TFunctionDeclaredImplicitlyQuery() or
   TIdentifiersWithExternalLinkageNotUniqueQuery() or
   TIdentifiersWithInternalLinkageNotUniqueQuery() or
+  TInlineFunctionNotDeclaredStaticStorageQuery() or
   TArrayExternalLinkageSizeExplicitlySpecifiedQuery() or
   TShouldNotBeDefinedWithExternalLinkageQuery()
 
@@ -37,6 +38,15 @@ predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleI
     "c/misra/identifiers-with-internal-linkage-not-unique" and
   ruleId = "RULE-5-9" and
   category = "advisory"
+  or
+  query =
+    // `Query` instance for the `inlineFunctionNotDeclaredStaticStorage` query
+    Declarations6Package::inlineFunctionNotDeclaredStaticStorageQuery() and
+  queryId =
+    // `@id` for the `inlineFunctionNotDeclaredStaticStorage` query
+    "c/misra/inline-function-not-declared-static-storage" and
+  ruleId = "RULE-8-10" and
+  category = "required"
   or
   query =
     // `Query` instance for the `arrayExternalLinkageSizeExplicitlySpecified` query
@@ -77,6 +87,13 @@ module Declarations6Package {
     result =
       // `Query` type for `identifiersWithInternalLinkageNotUnique` query
       TQueryC(TDeclarations6PackageQuery(TIdentifiersWithInternalLinkageNotUniqueQuery()))
+  }
+
+  Query inlineFunctionNotDeclaredStaticStorageQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `inlineFunctionNotDeclaredStaticStorage` query
+      TQueryC(TDeclarations6PackageQuery(TInlineFunctionNotDeclaredStaticStorageQuery()))
   }
 
   Query arrayExternalLinkageSizeExplicitlySpecifiedQuery() {

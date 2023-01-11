@@ -655,7 +655,7 @@ c,MISRA-C-2012,RULE-8-6,Yes,Required,,,An identifier with external linkage shall
 c,MISRA-C-2012,RULE-8-7,Yes,Advisory,,,Functions and objects should not be defined with external linkage if they are referenced in only one translation unit,,Declarations6,Medium,
 c,MISRA-C-2012,RULE-8-8,Yes,Required,,,The static storage class specifier shall be used in all declarations of objects and functions that have internal linkage,M3-3-2,Declarations,Medium,
 c,MISRA-C-2012,RULE-8-9,Yes,Advisory,,,An object should be defined at block scope if its identifier only appears in a single function,M3-4-1,Declarations,Medium,
-c,MISRA-C-2012,RULE-8-10,Yes,Required,,,An inline function shall be declared with the static storage class,,Declarations,Medium,
+c,MISRA-C-2012,RULE-8-10,Yes,Required,,,An inline function shall be declared with the static storage class,,Declarations6,Medium,
 c,MISRA-C-2012,RULE-8-11,Yes,Advisory,,,"When an array with external linkage is declared, its size should be explicitly specified",,Declarations6,Medium,
 c,MISRA-C-2012,RULE-8-12,Yes,Required,,,"Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique",,Declarations,Medium,
 c,MISRA-C-2012,RULE-8-13,Yes,Advisory,,,A pointer should point to a const-qualified type whenever possible,,Pointers1,Medium,
