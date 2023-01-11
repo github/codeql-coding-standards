@@ -16,6 +16,7 @@ import Contracts5
 import Declarations1
 import Declarations2
 import Declarations3
+import Declarations4
 import Expressions
 import IO1
 import IO2
@@ -55,6 +56,7 @@ newtype TCQuery =
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
+  TDeclarations4PackageQuery(Declarations4Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
@@ -94,6 +96,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations4QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
