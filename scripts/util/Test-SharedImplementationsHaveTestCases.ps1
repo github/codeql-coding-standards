@@ -62,6 +62,8 @@ foreach($q in $queriesToCheck){
 
     if(-not (Test-Path $testDirectory)){
         Write-Host "Test directory $testDirectory does not exist."
+        $REPORT += $row 
+
         continue 
     }
 
@@ -88,7 +90,6 @@ foreach($q in $queriesToCheck){
     }else{
         Write-Host "-QL $((Join-Path $testDirectory "$sharedName.ql")) missing"
     }
-
 
     $REPORT += $row 
 }
