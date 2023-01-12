@@ -45,9 +45,11 @@ jobs:
         with:
           name: missing-test-report.csv
           path: MissingTestReport*
+          if-no-files-found: error 
 
       - uses: actions/upload-artifact@v3
         with:
           name: test-report.csv
           path: TestReport*
+          if-no-files-found: error 
      
