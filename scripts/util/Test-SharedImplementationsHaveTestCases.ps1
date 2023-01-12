@@ -85,8 +85,6 @@ foreach($q in $queriesToCheck){
     $REPORT += $row 
 }
 
-
-
 # output a CSV containing the elements that do not contain 
 $fileTag = "$Language-$(Get-Date -Format "yyyy-MM-dd_HH-mm-ss")"
 $reportOutputFile = Join-Path $ReportDir "TestReport-$fileTag.csv"
