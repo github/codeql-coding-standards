@@ -41,12 +41,12 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: missing-test-report.csv
-          path: MissingTestReport*
+          path: codeql-coding-standards/MissingTestReport*.csv
           if-no-files-found: error 
 
       - uses: actions/upload-artifact@v3
         with:
           name: test-report.csv
-          path: TestReport*
+          path: codeql-coding-standards/TestReport*.csv
           if-no-files-found: error 
      
