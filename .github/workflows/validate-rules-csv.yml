@@ -25,4 +25,29 @@ jobs:
         shell: pwsh
         run: scripts/util/Get-DuplicateRules.ps1 -Language 'all' -CIMode
 
-      
+
+  validate-rules-structure:
+    name: Validate Rules Structure 
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Ensure CPP Shared Rules Have Valid Structure  
+        shell: pwsh
+        run: scripts/util/Test-SharedImplementationsHaveTestCases.ps1 -Language cpp -CIMode
+
+      - name: Ensure C Shared Rules Have Valid Structure  
+        shell: pwsh
+        run: scripts/util/Test-SharedImplementationsHaveTestCases.ps1 -Language c -CIMode
+        
+      - uses: actions/upload-artifact@v3
+        with:
+          name: missing-test-report.csv
+          path: MissingTestReport*
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test-report.csv
+          path: TestReport*
+     

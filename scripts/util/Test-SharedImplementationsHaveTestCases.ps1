@@ -97,7 +97,6 @@ foreach ($r in $REPORT) {
     if(($r["TEST_DIR_EXISTS"] -eq $false) -or ($r["SOURCE_CODE_EXISTS"] -eq $false) -or ($r["EXPECTED_EXISTS"] -eq $false) -or ($r["REFERENCE_EXISTS"] -eq $false)){
         $failCount += 1
         [PSCustomObject]$r | Export-CSV -Path $missingReportOutputFile -Append -NoTypeInformation
-
     }
     [PSCustomObject]$r | Export-CSV -Path $reportOutputFile -Append -NoTypeInformation
 }
