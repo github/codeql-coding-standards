@@ -43,13 +43,16 @@ jobs:
 
         
       - uses: actions/upload-artifact@v3
+        if: failure()
         with:
           name: missing-test-report.csv
           path: MissingTestReport*.csv
 
       - uses: actions/upload-artifact@v3
+        if: failure()
         with:
           name: test-report.csv
           path: TestReport*.csv
           if-no-files-found: error 
      
+
