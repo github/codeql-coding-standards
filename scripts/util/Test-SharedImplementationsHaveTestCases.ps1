@@ -67,6 +67,7 @@ foreach($q in $queriesToCheck){
 
     $dirName = (Get-Item $testDirectory).Basename 
     $dirNameLower = $dirName.ToLower()
+    $sharedName = $q.shared_implementation_short_name
 
     $row["TEST_DIR_EXISTS"] = $true 
 
@@ -76,16 +77,16 @@ foreach($q in $queriesToCheck){
         Write-Host "-SOURCE $((Join-Path $testDirectory "test.$Language")) missing"
     }
 
-    if((Test-Path (Join-Path $testDirectory "$dirNameLower.expected"))){
+    if((Test-Path (Join-Path $testDirectory "$sharedName.expected"))){
         $row["EXPECTED_EXISTS"] = $true 
     }else{
-        Write-Host "-EXPECTED $((Join-Path $testDirectory "$dirNameLower.expected")) missing"
+        Write-Host "-EXPECTED $((Join-Path $testDirectory "$sharedName.expected")) missing"
     }
 
-    if((Test-Path (Join-Path $testDirectory "$dirNameLower.ql"))){
+    if((Test-Path (Join-Path $testDirectory "$sharedName.ql"))){
         $row["REFERENCE_EXISTS"] = $true 
     }else{
-        Write-Host "-QL $((Join-Path $testDirectory "$dirNameLower.ql")) missing"
+        Write-Host "-QL $((Join-Path $testDirectory "$sharedName.ql")) missing"
     }
 
 
