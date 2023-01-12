@@ -1,4 +1,4 @@
-name: ⚙️ Validate Rules CSV
+name: ⚙️ Extra Fule Validation
 
 on:
   push:
@@ -26,8 +26,8 @@ jobs:
         run: scripts/util/Get-DuplicateRules.ps1 -Language 'all' -CIMode
 
 
-  validate-rules-structure:
-    name: Validate Rules Structure 
+  validate-shared-rules-test-structure:
+    name: Validate Rules Test Structure 
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
