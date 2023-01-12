@@ -6,7 +6,6 @@
  * - A block that contain only dead statements.
  * - A do loop whose condition is pure, and whose body contains only dead statements.
  * - An if statement whose condition is pure, and whose then and else clauses (where they exist) only contain dead statements.
- * - A label statement to which the code never jumps.
  * - A while loop whose condition is pure, and whose body contains only dead statements.
  * - Expression statements whose expressions are pure.
  * - Writes to a non-static stack variable that is never subsequently read in live code.
