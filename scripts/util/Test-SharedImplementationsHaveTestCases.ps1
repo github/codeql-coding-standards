@@ -71,14 +71,17 @@ foreach($q in $queriesToCheck){
     $row["TEST_DIR_EXISTS"] = $true 
 
     if((Test-Path (Join-Path $testDirectory "test.$Language"))){
+        Write-Host "Source Code Does not exist $((Join-Path $testDirectory "test.$Language"))"
         $row["SOURCE_CODE_EXISTS"] = $true 
     }
 
     if((Test-Path (Join-Path $testDirectory "$dirNameLower.expected"))){
+        Write-Host "expected $((Join-Path $testDirectory "$dirNameLower.expected"))"
         $row["EXPECTED_EXISTS"] = $true 
     }
 
     if((Test-Path (Join-Path $testDirectory "$dirNameLower.ql"))){
+        Write-Host "ql $((Join-Path $testDirectory "$dirNameLower.ql"))"
         $row["REFERENCE_EXISTS"] = $true 
     }
 
