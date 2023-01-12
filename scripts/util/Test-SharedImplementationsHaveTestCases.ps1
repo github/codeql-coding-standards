@@ -61,7 +61,7 @@ foreach($q in $queriesToCheck){
     # require a .ql 
 
     if(-not (Test-Path $testDirectory)){
-        Write-Host "Test directory $(Resolve-Path $testDirectory) does not exist."
+        Write-Host "Test directory $testDirectory does not exist."
         continue 
     }
 

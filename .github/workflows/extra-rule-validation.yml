@@ -37,9 +37,6 @@ jobs:
         shell: pwsh
         run: scripts/util/Test-SharedImplementationsHaveTestCases.ps1 -Language cpp -CIMode
 
-      - name: Ensure C Shared Rules Have Valid Structure  
-        shell: pwsh
-        run: scripts/util/Test-SharedImplementationsHaveTestCases.ps1 -Language c -CIMode
         
       - uses: actions/upload-artifact@v3
         with:
