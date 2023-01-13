@@ -1,6 +1,6 @@
 // NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C++ TEST CASE AND
 // CHANGES SHOULD BE REFLECTED THERE AS WELL.
-#include <cstdlib>
+#include <stdlib.h>
 int test_return_f1(int i) { // NON_COMPLIANT
   if (i > 100) {
     return i;
