@@ -1,3 +1,7 @@
+// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C++ TEST CASE AND
+// CHANGES SHOULD BE REFLECTED THERE AS WELL.
+#include <stdbool.h>
+
 int may_have_side_effects();
 int no_side_effects(int x) { return 1 + 2; }
 int no_side_effects_nondeterministic();
@@ -65,18 +69,6 @@ int test_dead_code(int x) {
   1 + 2;                   // NON_COMPLIANT
 
   no_side_effects(x); // NON_COMPLIANT
-
-  try {           // NON_COMPLIANT
-  } catch (...) { // NON_COMPLIANT
-  }
-
-  try {
-    may_have_side_effects();
-  } catch (int i) { // COMPLIANT
-  } catch (...) {   // NON_COMPLIANT
-  }
-
-  static_assert(1); // COMPLIANT
 
   return live5 + live6; // COMPLIANT
 }
