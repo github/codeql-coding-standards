@@ -1,0 +1,3 @@
+| test.c:2:1:2:13 | label ...: | Label dead_label_1 is unused. |
+| test.c:6:1:6:13 | label ...: | Label dead_label_2 is unused. |
+| test.c:8:1:8:13 | label ...: | Label dead_label_3 is unused. |

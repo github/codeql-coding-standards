@@ -1,3 +1,6 @@
+// NOTICE: SOME OF THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C TEST CASE AND
+// CHANGES SHOULD BE REFLECTED THERE AS WELL.
+
 void test_switch(int p1) {
   int l1 = 0;
   switch (p1) {
@@ -21,6 +24,9 @@ int test_constant_condition() {
     return 2;
   }
 }
+
+// NOTICE: THE TEST CASES ABOVE ARE ALSO INCLUDED IN THE C TEST CASE AND CHANGES
+//         SHOULD BE REFLECTED THERE AS WELL.
 
 template <class T> int f() {
   if (0) { // NON_COMPLIANT - block is unreachable in all instances
