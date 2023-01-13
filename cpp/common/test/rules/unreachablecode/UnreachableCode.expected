@@ -1,0 +1,5 @@
+| test.cpp:17:3:17:12 | declaration | This statement in function $@ is unreachable. | test.cpp:15:5:15:21 | test_after_return | test_after_return |
+| test.cpp:21:10:22:12 | { ... } | This statement in function $@ is unreachable. | test.cpp:20:5:20:27 | test_constant_condition | test_constant_condition |
+| test.cpp:32:10:33:12 | { ... } | This statement in function $@ is unreachable. | test.cpp:31:24:31:24 | f | f |
+| test.cpp:53:12:54:14 | { ... } | This statement in function $@ is unreachable. | test.cpp:52:7:52:8 | h1 | h1 |
+| test.cpp:58:12:59:14 | { ... } | This statement in function $@ is unreachable. | test.cpp:57:7:57:8 | h2 | h2 |
