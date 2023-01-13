@@ -1,8 +1,6 @@
 // NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C++ TEST CASE AND
 // CHANGES SHOULD BE REFLECTED THERE AS WELL.
-// Define true/false for compatibility with C++ test cases
-#define false 0
-#define true 1
+#include<stdbool.h>
 
 int may_have_side_effects();
 int no_side_effects(int x) { return 1 + 2; }
