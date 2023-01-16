@@ -1,0 +1,40 @@
+{
+  "CERT-C": {
+    "ERR32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [{
+        "description": "Do not rely on indeterminate values of errno. This may result in undefined behavior.",
+        "kind": "problem",
+        "name": "Do not rely on indeterminate values of errno",
+        "precision": "high",
+        "severity": "error",
+        "short_name": "DoNotRelyOnIndeterminateValuesOfErrno",
+        "tags": ["correctness"],
+        "implementation_scope": {
+          "description": "The rule is enforced in the context of a single function."
+        }
+      }],
+      "title": "Do not rely on indeterminate values of errno"
+    },
+    "ERR33-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [{
+        "description": "Detect and handle standard library errors. Undetected failures can lead to unexpected or undefined behavior.",
+        "kind": "problem",
+        "name": "Detect and handle standard library errors",
+        "precision": "high",
+        "severity": "error",
+        "short_name": "DetectAndHandleStandardLibraryErrors",
+        "tags": ["correctness"],
+        "implementation_scope": {
+          "description": "The rule is enforced in the context of a single function."
+        }
+      }],
+      "title": "Detect and handle standard library errors"
+    }
+  }
+}

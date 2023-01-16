@@ -23,14 +23,6 @@ class ErrnoSettingFunctionCall extends FunctionCall {
   ErrnoSettingFunctionCall() { this.getTarget() instanceof InBandErrnoSettingFunction }
 }
 
-class ErrnoCheck extends Expr {
-  ErrnoCheck() {
-    this = any(MacroInvocation ma | ma.getMacroName() = "errno").getAnExpandedElement()
-    or
-    this.(FunctionCall).getTarget().hasName(["perror", "strerror"])
-  }
-}
-
 /**
  * A successor of an ErrnoSettingFunctionCall appearing
  * before a check of errno
@@ -42,7 +34,7 @@ ControlFlowNode errnoNotCheckedAfter(ErrnoSettingFunctionCall errnoSet) {
     result = mid.getASuccessor() and
     mid = errnoNotCheckedAfter(errnoSet) and
     // stop recursion on an error check
-    not result instanceof ErrnoCheck
+    not result instanceof ErrnoRead
   )
 }
 
