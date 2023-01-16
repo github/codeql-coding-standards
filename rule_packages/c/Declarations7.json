@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "RULE-8-12": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using an implicitly specified enumeration constant that is not unique (with respect to an explicitly specified constant) can lead to unexpected program behaviour.",
+          "kind": "problem",
+          "name": "Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ValueImplicitEnumerationConstantNotUnique",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique"
+    }
+  }
+}
