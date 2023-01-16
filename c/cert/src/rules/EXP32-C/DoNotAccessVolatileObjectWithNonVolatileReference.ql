@@ -28,10 +28,10 @@ abstract class UndefinedVolatilePointerExpr extends Expr {
 /**
  * Gets the depth of a pointer's base type's volatile qualifier
  */
-int getAVolatileDepth(PointerType pt) {
-  pt.getBaseType().isVolatile() and result = 1
+int getAVolatileDepth(Type type) {
+  type.isVolatile() and result = 1
   or
-  result = getAVolatileDepth(pt.getBaseType()) + 1
+  result = getAVolatileDepth(type.(DerivedType).getBaseType()) + 1
 }
 
 /**
@@ -54,8 +54,9 @@ class CastFromVolatileToNonVolatileBaseType extends Cast, UndefinedVolatilePoint
 /**
  * Holds if `va` has a subsequent `VariableAccess` which is dereferenced after access
  */
+bindingset[va]
 predicate hasSubsequentDereference(VariableAccess va) {
-  dereferenced(va.getASuccessor+().(VariableAccess))
+  dereferenced(pragma[only_bind_out](va).getASuccessor+())
 }
 
 /**
@@ -68,9 +69,9 @@ class NonVolatileObjectAssignedToVolatilePointer extends AssignExpr, UndefinedVo
       not i = getAVolatileDepth(this.getRValue().getType()) and
       i = getAVolatileDepth(this.getLValue().(VariableAccess).getTarget().getType())
     ) and
-    // Checks for subsequent accesses to the underlying object via the original non-volatile 
-    // pointer assigned to the volatile pointer. This heuristic can cause false-positives 
-    // in certain instances which require more advanced reachability analysis, e.g. loops and scope 
+    // Checks for subsequent accesses to the underlying object via the original non-volatile
+    // pointer assigned to the volatile pointer. This heuristic can cause false-positives
+    // in certain instances which require more advanced reachability analysis, e.g. loops and scope
     // considerations that this simple forward traversal of the control-flow graph does not account for.
     exists(VariableAccess va |
       va = this.getRValue().getAChild*().(VariableAccess).getTarget().getAnAccess() and
