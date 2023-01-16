@@ -52,6 +52,13 @@ class CastFromVolatileToNonVolatileBaseType extends Cast, UndefinedVolatilePoint
 }
 
 /**
+ * Holds if `va` has a subsequent `VariableAccess` which is dereferenced after access
+ */
+predicate hasSubsequentDereference(VariableAccess va) {
+  dereferenced(va.getASuccessor+().(VariableAccess))
+}
+
+/**
  * An `AssignExpr` with an *lvalue* that is a pointer to a volatile base type and
  * and *rvalue* that is not also a pointer to a volatile base type.
  */
@@ -67,8 +74,7 @@ class NonVolatileObjectAssignedToVolatilePointer extends AssignExpr, UndefinedVo
     // considerations that this simple forward traversal of the control-flow graph does not account for.
     exists(VariableAccess va |
       va = this.getRValue().getAChild*().(VariableAccess).getTarget().getAnAccess() and
-      this.getASuccessor+() = va and
-      dereferenced(va)
+      hasSubsequentDereference(va)
     )
   }
 
