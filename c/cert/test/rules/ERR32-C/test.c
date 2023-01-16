@@ -13,11 +13,21 @@ void handler1(int signum) {
   }
 }
 
-void handler2(int signum) {
+void handler2a(int signum) {
   pfv old_handler = signal(signum, SIG_DFL);
   if (old_handler != SIG_ERR) {
     perror(""); // COMPLIANT
   } else {
+    abort(); // COMPLIANT
+  }
+}
+
+void handler2b(int signum) {
+  pfv old_handler = signal(signum, SIG_DFL);
+  if (old_handler != SIG_ERR) {
+    perror(""); // COMPLIANT
+  } else {
+    perror(""); // NON_COMPLIANT
     abort();
   }
 }
@@ -46,10 +56,12 @@ int main(void) {
     perror(""); // NON_COMPLIANT
   }
 
-  old_handler = signal(SIGINT, handler2);
+  old_handler = signal(SIGINT, handler2a);
   if (old_handler == SIG_ERR) {
     perror(""); // COMPLIANT
   }
+
+  old_handler = signal(SIGINT, handler2b);
 
   old_handler = signal(SIGINT, handler3);
 

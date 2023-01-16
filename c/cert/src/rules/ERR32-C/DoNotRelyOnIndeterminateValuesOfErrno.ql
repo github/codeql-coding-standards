@@ -34,7 +34,7 @@ class AbortCall extends FunctionCall {
  * `if (signal(SIGINT, handler) == SIG_ERR)`
  */
 class SignalCheckOperation extends EqualityOperation, GuardCondition {
-  ControlFlowNode errorSuccessor;
+  BasicBlock errorSuccessor;
 
   SignalCheckOperation() {
     this.getAnOperand() = any(MacroInvocation m | m.getMacroName() = "SIG_ERR").getExpr() and
@@ -47,11 +47,11 @@ class SignalCheckOperation extends EqualityOperation, GuardCondition {
     )
   }
 
-  ControlFlowNode getCheckedSuccessor() {
+  BasicBlock getCheckedSuccessor() {
     result != errorSuccessor and result = this.getASuccessor()
   }
 
-  ControlFlowNode getErrorSuccessor() { result = errorSuccessor }
+  BasicBlock getErrorSuccessor() { result = errorSuccessor }
 }
 
 /**
@@ -71,7 +71,7 @@ class SignalCallingHandler extends Function {
       // does not abort on error
       not exists(SignalCheckOperation sCheck, AbortCall abort |
         DataFlow::localExprFlow(sCall, sCheck.getAnOperand()) and
-        abort.getEnclosingElement*() = sCheck.getErrorSuccessor()
+        abort = sCheck.getErrorSuccessor().(BlockStmt).getStmt(0).(ExprStmt).getExpr()
       )
     )
   }
