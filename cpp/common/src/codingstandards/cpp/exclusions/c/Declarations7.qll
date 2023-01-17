@@ -3,9 +3,20 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Declarations7Query = TValueImplicitEnumerationConstantNotUniqueQuery()
+newtype Declarations7Query =
+  TVariableLengthArrayTypesUsedQuery() or
+  TValueImplicitEnumerationConstantNotUniqueQuery()
 
 predicate isDeclarations7QueryMetadata(Query query, string queryId, string ruleId, string category) {
+  query =
+    // `Query` instance for the `variableLengthArrayTypesUsed` query
+    Declarations7Package::variableLengthArrayTypesUsedQuery() and
+  queryId =
+    // `@id` for the `variableLengthArrayTypesUsed` query
+    "c/misra/variable-length-array-types-used" and
+  ruleId = "RULE-18-8" and
+  category = "required"
+  or
   query =
     // `Query` instance for the `valueImplicitEnumerationConstantNotUnique` query
     Declarations7Package::valueImplicitEnumerationConstantNotUniqueQuery() and
@@ -17,6 +28,13 @@ predicate isDeclarations7QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Declarations7Package {
+  Query variableLengthArrayTypesUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `variableLengthArrayTypesUsed` query
+      TQueryC(TDeclarations7PackageQuery(TVariableLengthArrayTypesUsedQuery()))
+  }
+
   Query valueImplicitEnumerationConstantNotUniqueQuery() {
     //autogenerate `Query` type
     result =
