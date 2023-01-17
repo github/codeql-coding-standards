@@ -1,0 +1,3 @@
+| test.c:8:1:8:1 | return ... | Function test_return_f1 should return a value of type int but does not return a value here |
+| test.c:18:27:18:28 | { ... } | Function test_return_f3 should return a value of type int but does not return a value here |
+| test.c:27:1:27:1 | return ... | Function test_return_f5 should return a value of type int but does not return a value here |

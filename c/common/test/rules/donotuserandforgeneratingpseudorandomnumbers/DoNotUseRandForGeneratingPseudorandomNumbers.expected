@@ -1,0 +1,1 @@
+| test.c:5:47:5:50 | call to rand | Use of banned function rand. |
