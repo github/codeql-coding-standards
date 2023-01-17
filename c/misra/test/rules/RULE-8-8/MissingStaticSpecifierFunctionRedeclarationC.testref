@@ -1,1 +1,1 @@
-cpp/common/test/rules/missingstaticspecifierfunctionredeclarationshared/MissingStaticSpecifierFunctionRedeclarationShared.ql
+c/common/test/rules/missingstaticspecifierfunctionredeclarationshared/MissingStaticSpecifierFunctionRedeclarationShared.ql
