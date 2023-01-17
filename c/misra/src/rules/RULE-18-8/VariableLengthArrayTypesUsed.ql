@@ -14,14 +14,6 @@
 import cpp
 import codingstandards.c.misra
 
-predicate partOfConstantExpr(MacroInvocation i) {
-  exists(Expr e |
-    e.isConstant() and
-    not i.getExpr() = e and
-    i.getExpr().getParent+() = e
-  )
-}
-
 /**
  * A variable length array (VLA)
  * ie an array where the size
