@@ -32,3 +32,15 @@ class InterestingIdentifiers extends Declaration {
   //not necessarily against other types of identifiers
   string getSignificantNameComparedToMacro() { result = this.getName().prefix(63) }
 }
+
+//Declarations that omit type - C90 compiler assumes int
+predicate isDeclaredImplicit(Declaration d) {
+  d.hasSpecifier("implicit_int") and
+  exists(Type t |
+    (d.(Variable).getType() = t or d.(Function).getType() = t) and
+    // Exclude "short" or "long", as opposed to "short int" or "long int".
+    t instanceof IntType and
+    // Exclude "signed" or "unsigned", as opposed to "signed int" or "unsigned int".
+    not exists(IntegralType it | it = t | it.isExplicitlySigned() or it.isExplicitlyUnsigned())
+  )
+}
