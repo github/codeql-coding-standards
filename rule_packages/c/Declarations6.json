@@ -74,7 +74,10 @@
           "tags": [
             "maintainability",
             "readability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This rule does not explicitly check for the exception of inline functions in header files across multiple translation units as the CodeQL database already represents these as the same entity."
+          }
         }
       ],
       "title": "Identifiers that define objects or functions with internal linkage should be unique"
