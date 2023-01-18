@@ -12,10 +12,13 @@ import Contracts1
 import Contracts2
 import Contracts3
 import Contracts4
+import Contracts5
+import DeadCode
 import Declarations1
 import Declarations2
 import Declarations3
 import Declarations4
+import Declarations5
 import Declarations6
 import Expressions
 import IO1
@@ -52,10 +55,13 @@ newtype TCQuery =
   TContracts2PackageQuery(Contracts2Query q) or
   TContracts3PackageQuery(Contracts3Query q) or
   TContracts4PackageQuery(Contracts4Query q) or
+  TContracts5PackageQuery(Contracts5Query q) or
+  TDeadCodePackageQuery(DeadCodeQuery q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
   TDeclarations4PackageQuery(Declarations4Query q) or
+  TDeclarations5PackageQuery(Declarations5Query q) or
   TDeclarations6PackageQuery(Declarations6Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TIO1PackageQuery(IO1Query q) or
@@ -92,10 +98,13 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isContracts2QueryMetadata(query, queryId, ruleId, category) or
   isContracts3QueryMetadata(query, queryId, ruleId, category) or
   isContracts4QueryMetadata(query, queryId, ruleId, category) or
+  isContracts5QueryMetadata(query, queryId, ruleId, category) or
+  isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations4QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations5QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or

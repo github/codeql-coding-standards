@@ -15,14 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.missingstaticspecifierfunctionredeclarationshared.MissingStaticSpecifierFunctionRedeclarationShared
 
-from FunctionDeclarationEntry fde, FunctionDeclarationEntry redeclaration
-where
-  not isExcluded(redeclaration) and
-  fde.hasSpecifier("static") and
-  fde.getDeclaration().isTopLevel() and
-  redeclaration.getDeclaration() = fde.getDeclaration() and
-  not redeclaration.hasSpecifier("static") and
-  fde != redeclaration
-select redeclaration, "The redeclaration of $@ with internal linkage misses the static specifier.",
-  fde, "function"
+class MissingStaticSpecifierOnFunctionRedeclarationQuery extends MissingStaticSpecifierFunctionRedeclarationSharedSharedQuery {
+  MissingStaticSpecifierOnFunctionRedeclarationQuery() {
+    this = ScopePackage::missingStaticSpecifierOnFunctionRedeclarationQuery()
+  }
+}

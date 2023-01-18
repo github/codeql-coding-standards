@@ -1,0 +1,4 @@
+| test.c:11:1:11:22 | #define MACROFIVE(X) #X | Macro definition uses the # or ## operator. |
+| test.c:13:1:13:26 | #define MACROSIX(X,Y) X ## Y | Macro definition uses the # or ## operator. |
+| test.c:15:1:15:29 | #define MACROSEVEN "##'" #"#" | Macro definition uses the # or ## operator. |
+| test.c:17:1:17:28 | #define MACROEIGHT '##' #"#" | Macro definition uses the # or ## operator. |

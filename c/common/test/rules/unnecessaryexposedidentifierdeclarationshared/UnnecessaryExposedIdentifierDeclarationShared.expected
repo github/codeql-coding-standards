@@ -1,0 +1,4 @@
+| test.c:4:12:4:13 | g2 | The declaration g2 should be moved from the global namespace scope$@ into the $@ too minimize its visibility. | file://:0:0:0:0 | (global namespace) | scope | test.c:59:11:59:25 | { ... } | scope |
+| test.c:7:7:7:7 | j | The declaration j should be moved from $@ into the $@ too minimize its visibility. | test.c:6:11:13:1 | { ... } | scope | test.c:8:13:12:3 | { ... } | scope |
+| test.c:62:7:62:7 | i | The declaration i should be moved from $@ into the $@ too minimize its visibility. | test.c:61:11:71:1 | { ... } | scope | test.c:64:13:70:3 | { ... } | scope |
+| test.c:73:8:73:9 | S1 | The declaration S1 should be moved from the global namespace scope$@ into the $@ too minimize its visibility. | file://:0:0:0:0 | (global namespace) | scope | test.c:77:12:77:28 | { ... } | scope |
