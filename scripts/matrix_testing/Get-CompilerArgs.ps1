@@ -1,4 +1,4 @@
-. "$PSScriptRoot\Config.ps1"
+. "$PSScriptRoot/Config.ps1"
 function Get-CompilerArgs {
     param([Parameter(Mandatory)] 
         [string]

@@ -1,6 +1,6 @@
-. "$PSScriptRoot\Get-CompilerExecutable.ps1"
-. "$PSScriptRoot\Get-CompilerArgs.ps1"
-. "$PSScriptRoot\GetNewDBName.ps1"
+. "$PSScriptRoot/Get-CompilerExecutable.ps1"
+. "$PSScriptRoot/Get-CompilerArgs.ps1"
+. "$PSScriptRoot/GetNewDBName.ps1"
 
 function New-Database-For-Rule {
 

@@ -208,11 +208,11 @@ param(
     $PackageName
 )
 
-Import-Module -Name "$PSScriptRoot\..\PSCodingStandards\CodingStandards"
+Import-Module -Name "$PSScriptRoot/../PSCodingStandards/CodingStandards"
 
-. "$PSScriptRoot\CreateSummaryReport.ps1"
-. "$PSScriptRoot\Get-CompilerExecutable.ps1"
-. "$PSScriptRoot\Config.ps1"
+. "$PSScriptRoot/CreateSummaryReport.ps1"
+. "$PSScriptRoot/Get-CompilerExecutable.ps1"
+. "$PSScriptRoot/Config.ps1"
 
 $REPORT = @() 
 $queriesToCheck = @()
