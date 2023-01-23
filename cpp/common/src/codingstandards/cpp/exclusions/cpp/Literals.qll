@@ -16,14 +16,15 @@ newtype LiteralsQuery =
   TNullUsedAsIntegerValueQuery() or
   TLiteralZeroUsedAsNullPointerConstantQuery()
 
-predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `useCorrectIntervalForDigitSequencesSeparators` query
     LiteralsPackage::useCorrectIntervalForDigitSequencesSeparatorsQuery() and
   queryId =
     // `@id` for the `useCorrectIntervalForDigitSequencesSeparators` query
     "cpp/autosar/use-correct-interval-for-digit-sequences-separators" and
-  ruleId = "A13-6-1"
+  ruleId = "A13-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `escapeSequenceOutsideISO` query
@@ -31,7 +32,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `escapeSequenceOutsideISO` query
     "cpp/autosar/escape-sequence-outside-iso" and
-  ruleId = "A2-13-1"
+  ruleId = "A2-13-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `hexadecimalConstantsShouldBeUpperCase` query
@@ -39,7 +41,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `hexadecimalConstantsShouldBeUpperCase` query
     "cpp/autosar/hexadecimal-constants-should-be-upper-case" and
-  ruleId = "A2-13-5"
+  ruleId = "A2-13-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `nullPointerConstantNotNullptr` query
@@ -47,7 +50,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nullPointerConstantNotNullptr` query
     "cpp/autosar/null-pointer-constant-not-nullptr" and
-  ruleId = "A4-10-1"
+  ruleId = "A4-10-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `literalValueUsedOutsideTypeInit` query
@@ -55,7 +59,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `literalValueUsedOutsideTypeInit` query
     "cpp/autosar/literal-value-used-outside-type-init" and
-  ruleId = "A5-1-1"
+  ruleId = "A5-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `useOfNonZeroOctalLiteral` query
@@ -63,7 +68,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useOfNonZeroOctalLiteral` query
     "cpp/autosar/use-of-non-zero-octal-literal" and
-  ruleId = "M2-13-2"
+  ruleId = "M2-13-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `useOfNonZeroOctalEscape` query
@@ -71,7 +77,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useOfNonZeroOctalEscape` query
     "cpp/autosar/use-of-non-zero-octal-escape" and
-  ruleId = "M2-13-2"
+  ruleId = "M2-13-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingUSuffix` query
@@ -79,7 +86,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `missingUSuffix` query
     "cpp/autosar/missing-u-suffix" and
-  ruleId = "M2-13-3"
+  ruleId = "M2-13-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `literalSuffixNotUpperCase` query
@@ -87,7 +95,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `literalSuffixNotUpperCase` query
     "cpp/autosar/literal-suffix-not-upper-case" and
-  ruleId = "M2-13-4"
+  ruleId = "M2-13-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nullUsedAsIntegerValue` query
@@ -95,7 +104,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nullUsedAsIntegerValue` query
     "cpp/autosar/null-used-as-integer-value" and
-  ruleId = "M4-10-1"
+  ruleId = "M4-10-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `literalZeroUsedAsNullPointerConstant` query
@@ -103,7 +113,8 @@ predicate isLiteralsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `literalZeroUsedAsNullPointerConstant` query
     "cpp/autosar/literal-zero-used-as-null-pointer-constant" and
-  ruleId = "M4-10-2"
+  ruleId = "M4-10-2" and
+  category = "required"
 }
 
 module LiteralsPackage {

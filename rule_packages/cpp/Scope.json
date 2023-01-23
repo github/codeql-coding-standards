@@ -156,6 +156,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "IdentifierWithExternalLinkageShallHaveOneDefinition",
+          "shared_implementation_short_name": "IdentifierWithExternalLinkageOneDefinitionShared",
           "tags": [
             "correctness"
           ]
@@ -179,6 +180,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "MissingStaticSpecifierOnFunctionRedeclaration",
+          "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
           "tags": [
             "readability"
           ]
@@ -202,6 +204,7 @@
           "precision": "high",
           "severity": "warning",
           "short_name": "UnnecessaryExposedIdentifierDeclaration",
+          "shared_implementation_short_name": "UnnecessaryExposedIdentifierDeclarationShared",
           "tags": [
             "correctness"
           ]

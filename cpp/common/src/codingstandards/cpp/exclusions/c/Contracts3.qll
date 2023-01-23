@@ -8,14 +8,15 @@ newtype Contracts3Query =
   TErrnoSetToZeroPriorToCallQuery() or
   TErrnoSetToZeroAfterCallQuery()
 
-predicate isContracts3QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isContracts3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `onlyTestErrnoRightAfterErrnoSettingFunction` query
     Contracts3Package::onlyTestErrnoRightAfterErrnoSettingFunctionQuery() and
   queryId =
     // `@id` for the `onlyTestErrnoRightAfterErrnoSettingFunction` query
     "c/misra/only-test-errno-right-after-errno-setting-function" and
-  ruleId = "RULE-22-10"
+  ruleId = "RULE-22-10" and
+  category = "required"
   or
   query =
     // `Query` instance for the `errnoSetToZeroPriorToCall` query
@@ -23,7 +24,8 @@ predicate isContracts3QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `errnoSetToZeroPriorToCall` query
     "c/misra/errno-set-to-zero-prior-to-call" and
-  ruleId = "RULE-22-8"
+  ruleId = "RULE-22-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `errnoSetToZeroAfterCall` query
@@ -31,7 +33,8 @@ predicate isContracts3QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `errnoSetToZeroAfterCall` query
     "c/misra/errno-set-to-zero-after-call" and
-  ruleId = "RULE-22-9"
+  ruleId = "RULE-22-9" and
+  category = "required"
 }
 
 module Contracts3Package {

@@ -9,14 +9,15 @@ newtype ExpressionsQuery =
   TCallPOSIXOpenWithCorrectArgumentCountQuery() or
   TDoNotUseABitwiseOperatorWithABooleanLikeOperandQuery()
 
-predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotCallFunctionPointerWithIncompatibleType` query
     ExpressionsPackage::doNotCallFunctionPointerWithIncompatibleTypeQuery() and
   queryId =
     // `@id` for the `doNotCallFunctionPointerWithIncompatibleType` query
     "c/cert/do-not-call-function-pointer-with-incompatible-type" and
-  ruleId = "EXP37-C"
+  ruleId = "EXP37-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotCallFunctionsWithIncompatibleArguments` query
@@ -24,7 +25,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotCallFunctionsWithIncompatibleArguments` query
     "c/cert/do-not-call-functions-with-incompatible-arguments" and
-  ruleId = "EXP37-C"
+  ruleId = "EXP37-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `callPOSIXOpenWithCorrectArgumentCount` query
@@ -32,7 +34,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `callPOSIXOpenWithCorrectArgumentCount` query
     "c/cert/call-posix-open-with-correct-argument-count" and
-  ruleId = "EXP37-C"
+  ruleId = "EXP37-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotUseABitwiseOperatorWithABooleanLikeOperand` query
@@ -40,7 +43,8 @@ predicate isExpressionsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotUseABitwiseOperatorWithABooleanLikeOperand` query
     "c/cert/do-not-use-a-bitwise-operator-with-a-boolean-like-operand" and
-  ruleId = "EXP46-C"
+  ruleId = "EXP46-C" and
+  category = "rule"
 }
 
 module ExpressionsPackage {

@@ -1,0 +1,99 @@
+{
+  "MISRA-C-2012": {
+    "RULE-5-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using nondistinct identifiers results in undefined behaviour.",
+          "kind": "problem",
+          "name": "Identifiers declared in the same scope and name space shall be distinct",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "IdentifiersDeclaredInTheSameScopeNotDistinct",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query considers the first 63 characters of identifiers as significant, as per C99 for nonexternal identifiers and reports the case when names are longer than 63 characters and differ in those characters past the 63 first only. This query does not consider universal or extended source characters.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Identifiers declared in the same scope and name space shall be distinct"
+    },
+    "RULE-8-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declarations in multiple files can lead to unexpected program behaviour.",
+          "kind": "problem",
+          "name": "An external object or function shall be declared once in one and only one file",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExternalObjectOrFunctionNotDeclaredInOneFile",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An external object or function shall be declared once in one and only one file"
+    },
+    "RULE-8-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a function has internal linkage then all re-declarations shall include the static storage class specifier to make the internal linkage explicit.",
+          "kind": "problem",
+          "name": "If a function has internal linkage then all re-declarations shall include the static storage class",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingStaticSpecifierFunctionRedeclarationC",
+          "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
+          "tags": [
+            "readability"
+          ]
+        },
+        {
+          "description": "If an object has internal linkage then all re-declarations shall include the static storage class specifier to make the internal linkage explicit.",
+          "kind": "problem",
+          "name": "If an object has internal linkage then all re-declarations shall include the static storage class",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingStaticSpecifierObjectRedeclarationC",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "The static storage class specifier shall be used in all declarations of objects and functions that have internal linkage"
+    },
+    "RULE-8-9": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "An identifier declared to be an object or type shall be defined in a block that minimizes its visibility to prevent any accidental use of the identifier.",
+          "kind": "problem",
+          "name": "An object should be defined at block scope if its identifier only appears in a single function",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UnnecessaryExposedIdentifierDeclarationC",
+          "shared_implementation_short_name": "UnnecessaryExposedIdentifierDeclarationShared",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An object should be defined at block scope if its identifier only appears in a single function"
+    }
+  }
+}

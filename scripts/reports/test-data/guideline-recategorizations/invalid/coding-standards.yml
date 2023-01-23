@@ -1,0 +1,11 @@
+guideline-recategorizations:
+  - rule-id: "A0-1-1"
+    category: "advisory"
+  - rule-id: "A0-1-2"
+    category: "disapplied"
+  - rule-id: "A1-4-3"
+    category: "mandatory"
+  - rule-id: "RULE-13-6"
+    category: "required"
+  - rule-id: "CON50-CPP"
+    category: "required"

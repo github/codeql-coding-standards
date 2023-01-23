@@ -1,3 +1,5 @@
+// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C TEST CASE AND
+// CHANGES SHOULD BE REFLECTED THERE AS WELL.
 /*
  * This sentence contains a semicolon;
  * however, this doesn't make it code.

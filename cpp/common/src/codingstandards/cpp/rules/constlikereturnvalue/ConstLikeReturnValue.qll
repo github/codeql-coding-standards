@@ -52,8 +52,7 @@ class DFConf extends DataFlow::Configuration {
 }
 
 query predicate problems(
-  Element e, string message, DataFlow::PathNode source, string sourcetext, DataFlow::PathNode sink,
-  string sinktext
+  Element e, DataFlow::PathNode source, DataFlow::PathNode sink, string message
 ) {
   not isExcluded(e, getQuery()) and
   // the modified object comes from a call to one of the ENV functions
@@ -61,7 +60,5 @@ query predicate problems(
   e = sink.getNode().asExpr() and
   message =
     "The object returned by the function " +
-      source.getNode().asExpr().(FunctionCall).getTarget().getName() + " should not be modified." and
-  sourcetext = source.toString() and
-  sinktext = sink.toString()
+      source.getNode().asExpr().(FunctionCall).getTarget().getName() + " should not be modified."
 }
