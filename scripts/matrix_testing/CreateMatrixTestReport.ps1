@@ -278,11 +278,11 @@ Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
 #
 $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel {
 
-    Import-Module -Name "$using:PSScriptRoot\..\PSCodingStandards\CodingStandards"
+    Import-Module -Name "$using:PSScriptRoot/../PSCodingStandards/CodingStandards"
 
-    #. "$using:PSScriptRoot\GetTestDirectory.ps1"
-    . "$using:PSScriptRoot\NewDatabaseForRule.ps1"
-    . "$using:PSScriptRoot\ExecuteQueryAndDecodeAsJson.ps1"
+    #. "$using:PSScriptRoot/GetTestDirectory.ps1"
+    . "$using:PSScriptRoot/NewDatabaseForRule.ps1"
+    . "$using:PSScriptRoot/ExecuteQueryAndDecodeAsJson.ps1"
 
     $q = $_ 
 
