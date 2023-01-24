@@ -39,6 +39,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "InformationLeakageAcrossTrustBoundaries",
+          "shared_implementation_short_name": "InformationLeakageAcrossBoundaries",
           "tags": [
             "security"
           ]

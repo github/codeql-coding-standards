@@ -1,4 +1,26 @@
 {
+  "CERT-C": {
+    "DCL39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Passing a structure with uninitialized fields or padding bytes can cause information to be unintentionally leaked.",
+          "kind": "problem",
+          "name": "Avoid information leakage when passing a structure across a trust boundary",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "InformationLeakageAcrossTrustBoundariesC",
+          "shared_implementation_short_name": "InformationLeakageAcrossBoundaries",
+          "tags": [
+            "security"
+          ]
+        }
+      ],
+      "title": "Avoid information leakage when passing a structure across a trust boundary"
+    }
+  },
   "MISRA-C-2012": {
     "RULE-18-8": {
       "properties": {

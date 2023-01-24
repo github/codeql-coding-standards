@@ -4,10 +4,20 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations7Query =
+  TInformationLeakageAcrossTrustBoundariesCQuery() or
   TVariableLengthArrayTypesUsedQuery() or
   TValueImplicitEnumerationConstantNotUniqueQuery()
 
 predicate isDeclarations7QueryMetadata(Query query, string queryId, string ruleId, string category) {
+  query =
+    // `Query` instance for the `informationLeakageAcrossTrustBoundariesC` query
+    Declarations7Package::informationLeakageAcrossTrustBoundariesCQuery() and
+  queryId =
+    // `@id` for the `informationLeakageAcrossTrustBoundariesC` query
+    "c/cert/information-leakage-across-trust-boundaries-c" and
+  ruleId = "DCL39-C" and
+  category = "rule"
+  or
   query =
     // `Query` instance for the `variableLengthArrayTypesUsed` query
     Declarations7Package::variableLengthArrayTypesUsedQuery() and
@@ -28,6 +38,13 @@ predicate isDeclarations7QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Declarations7Package {
+  Query informationLeakageAcrossTrustBoundariesCQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `informationLeakageAcrossTrustBoundariesC` query
+      TQueryC(TDeclarations7PackageQuery(TInformationLeakageAcrossTrustBoundariesCQuery()))
+  }
+
   Query variableLengthArrayTypesUsedQuery() {
     //autogenerate `Query` type
     result =
