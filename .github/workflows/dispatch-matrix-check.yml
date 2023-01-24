@@ -32,5 +32,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🤖 Beep Boop! Matrix Testing for this PR has been initiated. Please check back later for results. <br><br> :bulb: If you do not hear back from me please check my status! I will report even if this PR does not contain files eligible for matrix testing.'
+              body: '🤖 Beep Boop! Matrix Testing for this PR has been initiated. Please check back later for results. <br><br> :bulb: If you do not hear back from me please check my status! **I will report even if this PR does not contain files eligible for matrix testing.**'
             })
