@@ -21,12 +21,5 @@ query predicate problems(
   not redeclaration.hasSpecifier("static") and
   fde != redeclaration and
   message = "The redeclaration of $@ with internal linkage misses the static specifier." and
-  msgpiece = "function" 
-  and
-  (
-    fde.getFile().getAbsolutePath() < redeclaration.getFile().getAbsolutePath()
-    or
-    fde.getFile().getAbsolutePath() = redeclaration.getFile().getAbsolutePath() and
-    fde.getLocation().getStartLine() < redeclaration.getLocation().getStartLine()
-  )
+  msgpiece = "function"
 }
