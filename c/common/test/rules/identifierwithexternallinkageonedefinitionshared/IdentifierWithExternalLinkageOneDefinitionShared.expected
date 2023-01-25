@@ -1,0 +1,2 @@
+| test.c:1:5:1:6 | definition of g1 | The identifier g1 has external linkage and is redefined $@. | test1.c:1:5:1:6 | definition of g1 | here |
+| test.c:6:6:6:7 | definition of f2 | The identifier f2 has external linkage and is redefined $@. | test1.c:6:6:6:7 | definition of f2 | here |

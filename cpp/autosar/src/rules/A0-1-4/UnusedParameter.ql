@@ -16,11 +16,8 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedParameters
+import codingstandards.cpp.rules.unusedparameter.UnusedParameter
 
-from Function f, UnusedParameter p
-where
-  not isExcluded(p, DeadCodePackage::unusedParameterQuery()) and
-  f = p.getFunction() and
-  // Virtual functions are covered by a different rule
-  not f.isVirtual()
-select p, "Unused parameter '" + p.getName() + "' for function $@.", f, f.getQualifiedName()
+class UnusedParameterQuery extends UnusedParameterSharedQuery {
+  UnusedParameterQuery() { this = DeadCodePackage::unusedParameterQuery() }
+}

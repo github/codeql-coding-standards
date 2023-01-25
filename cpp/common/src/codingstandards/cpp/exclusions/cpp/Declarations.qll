@@ -22,14 +22,15 @@ newtype DeclarationsQuery =
   TTypesNotIdenticalInObjectDeclarationsQuery() or
   TTypesNotIdenticalInReturnDeclarationsQuery()
 
-predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `operatorNewAndOperatorDeleteNotDefinedLocally` query
     DeclarationsPackage::operatorNewAndOperatorDeleteNotDefinedLocallyQuery() and
   queryId =
     // `@id` for the `operatorNewAndOperatorDeleteNotDefinedLocally` query
     "cpp/autosar/operator-new-and-operator-delete-not-defined-locally" and
-  ruleId = "A18-5-11"
+  ruleId = "A18-5-11" and
+  category = "required"
   or
   query =
     // `Query` instance for the `operatorNewAndOperatorDeleteNotDefinedGlobally` query
@@ -37,7 +38,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `operatorNewAndOperatorDeleteNotDefinedGlobally` query
     "cpp/autosar/operator-new-and-operator-delete-not-defined-globally" and
-  ruleId = "A18-5-11"
+  ruleId = "A18-5-11" and
+  category = "required"
   or
   query =
     // `Query` instance for the `globalSizedOperatorDeleteNotDefined` query
@@ -45,7 +47,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `globalSizedOperatorDeleteNotDefined` query
     "cpp/autosar/global-sized-operator-delete-not-defined" and
-  ruleId = "A18-5-4"
+  ruleId = "A18-5-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `globalUnsizedOperatorDeleteNotDefined` query
@@ -53,7 +56,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `globalUnsizedOperatorDeleteNotDefined` query
     "cpp/autosar/global-unsized-operator-delete-not-defined" and
-  ruleId = "A18-5-4"
+  ruleId = "A18-5-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `variableWidthIntegerTypesUsed` query
@@ -61,7 +65,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `variableWidthIntegerTypesUsed` query
     "cpp/autosar/variable-width-integer-types-used" and
-  ruleId = "A3-9-1"
+  ruleId = "A3-9-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `autoSpecifierNotUsedAppropriatelyInFunctionDefinition` query
@@ -69,7 +74,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `autoSpecifierNotUsedAppropriatelyInFunctionDefinition` query
     "cpp/autosar/auto-specifier-not-used-appropriately-in-function-definition" and
-  ruleId = "A7-1-5"
+  ruleId = "A7-1-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `autoSpecifierNotUsedAppropriatelyInVariableDefinition` query
@@ -77,7 +83,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `autoSpecifierNotUsedAppropriatelyInVariableDefinition` query
     "cpp/autosar/auto-specifier-not-used-appropriately-in-variable-definition" and
-  ruleId = "A7-1-5"
+  ruleId = "A7-1-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierDeclarationAndInitializationNotOnSeparateLines` query
@@ -85,7 +92,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `identifierDeclarationAndInitializationNotOnSeparateLines` query
     "cpp/autosar/identifier-declaration-and-initialization-not-on-separate-lines" and
-  ruleId = "A7-1-7"
+  ruleId = "A7-1-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `classStructEnumDeclaredInDefinition` query
@@ -93,7 +101,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `classStructEnumDeclaredInDefinition` query
     "cpp/autosar/class-struct-enum-declared-in-definition" and
-  ruleId = "A7-1-9"
+  ruleId = "A7-1-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `enumerationUnderlyingBaseTypeNotExplicitlyDefined` query
@@ -101,7 +110,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `enumerationUnderlyingBaseTypeNotExplicitlyDefined` query
     "cpp/autosar/enumeration-underlying-base-type-not-explicitly-defined" and
-  ruleId = "A7-2-2"
+  ruleId = "A7-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `enumerationsNotDeclaredAsScopedEnumClasses` query
@@ -109,7 +119,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `enumerationsNotDeclaredAsScopedEnumClasses` query
     "cpp/autosar/enumerations-not-declared-as-scoped-enum-classes" and
-  ruleId = "A7-2-3"
+  ruleId = "A7-2-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `noneFirstOrAllEnumeratorsNotInitialized` query
@@ -117,7 +128,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `noneFirstOrAllEnumeratorsNotInitialized` query
     "cpp/autosar/none-first-or-all-enumerators-not-initialized" and
-  ruleId = "A7-2-4"
+  ruleId = "A7-2-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionsDeclaredAtBlockScope` query
@@ -125,7 +137,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `functionsDeclaredAtBlockScope` query
     "cpp/autosar/functions-declared-at-block-scope" and
-  ruleId = "M3-1-2"
+  ruleId = "M3-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `declarationsOfAnObjectShallHaveCompatibleTypes` query
@@ -133,7 +146,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `declarationsOfAnObjectShallHaveCompatibleTypes` query
     "cpp/autosar/declarations-of-an-object-shall-have-compatible-types" and
-  ruleId = "M3-2-1"
+  ruleId = "M3-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `declarationsOfAFunctionShallHaveCompatibleTypes` query
@@ -141,7 +155,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `declarationsOfAFunctionShallHaveCompatibleTypes` query
     "cpp/autosar/declarations-of-a-function-shall-have-compatible-types" and
-  ruleId = "M3-2-1"
+  ruleId = "M3-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typesNotIdenticalInObjectDeclarations` query
@@ -149,7 +164,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `typesNotIdenticalInObjectDeclarations` query
     "cpp/autosar/types-not-identical-in-object-declarations" and
-  ruleId = "M3-9-1"
+  ruleId = "M3-9-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typesNotIdenticalInReturnDeclarations` query
@@ -157,7 +173,8 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `typesNotIdenticalInReturnDeclarations` query
     "cpp/autosar/types-not-identical-in-return-declarations" and
-  ruleId = "M3-9-1"
+  ruleId = "M3-9-1" and
+  category = "required"
 }
 
 module DeclarationsPackage {

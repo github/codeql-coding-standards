@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Identifiers
+import codingstandards.cpp.Identifiers
 
 from TypedefType t, InterestingIdentifiers d
 where

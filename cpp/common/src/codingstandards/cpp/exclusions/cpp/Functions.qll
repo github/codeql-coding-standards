@@ -19,14 +19,15 @@ newtype FunctionsQuery =
   TNonVoidFunctionDoesNotReturnCertQuery() or
   TFunctionNoReturnAttributeConditionCertQuery()
 
-predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `cStandardLibraryFunctionCalls` query
     FunctionsPackage::cStandardLibraryFunctionCallsQuery() and
   queryId =
     // `@id` for the `cStandardLibraryFunctionCalls` query
     "cpp/autosar/c-standard-library-function-calls" and
-  ruleId = "A17-1-1"
+  ruleId = "A17-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `trivialAccessorAndMutatorFunctionsNotInlined` query
@@ -34,7 +35,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `trivialAccessorAndMutatorFunctionsNotInlined` query
     "cpp/autosar/trivial-accessor-and-mutator-functions-not-inlined" and
-  ruleId = "A3-1-6"
+  ruleId = "A3-1-6" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `invalidFunctionReturnType` query
@@ -42,7 +44,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `invalidFunctionReturnType` query
     "cpp/autosar/invalid-function-return-type" and
-  ruleId = "A7-5-1"
+  ruleId = "A7-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `recursiveFunctions` query
@@ -50,7 +53,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `recursiveFunctions` query
     "cpp/autosar/recursive-functions" and
-  ruleId = "A7-5-2"
+  ruleId = "A7-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionNoReturnAttributeConditionAutosar` query
@@ -58,7 +62,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionNoReturnAttributeConditionAutosar` query
     "cpp/autosar/function-no-return-attribute-condition-autosar" and
-  ruleId = "A7-6-1"
+  ruleId = "A7-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonVoidFunctionDoesNotReturnAutosar` query
@@ -66,7 +71,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nonVoidFunctionDoesNotReturnAutosar` query
     "cpp/autosar/non-void-function-does-not-return-autosar" and
-  ruleId = "A8-4-2"
+  ruleId = "A8-4-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionReturnMultipleValueCondition` query
@@ -74,7 +80,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionReturnMultipleValueCondition` query
     "cpp/autosar/function-return-multiple-value-condition" and
-  ruleId = "A8-4-4"
+  ruleId = "A8-4-4" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `assmemblerInstructionsCondition` query
@@ -82,7 +89,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `assmemblerInstructionsCondition` query
     "cpp/autosar/assmembler-instructions-condition" and
-  ruleId = "M7-4-2"
+  ruleId = "M7-4-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `assemblyLanguageCondition` query
@@ -90,7 +98,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `assemblyLanguageCondition` query
     "cpp/autosar/assembly-language-condition" and
-  ruleId = "M7-4-3"
+  ruleId = "M7-4-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionReturnAutomaticVarCondition` query
@@ -98,7 +107,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionReturnAutomaticVarCondition` query
     "cpp/autosar/function-return-automatic-var-condition" and
-  ruleId = "M7-5-1"
+  ruleId = "M7-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionIdentifierCondition` query
@@ -106,7 +116,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionIdentifierCondition` query
     "cpp/autosar/function-identifier-condition" and
-  ruleId = "M8-4-4"
+  ruleId = "M8-4-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionWithMismatchedLanguageLinkage` query
@@ -114,7 +125,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionWithMismatchedLanguageLinkage` query
     "cpp/cert/function-with-mismatched-language-linkage" and
-  ruleId = "EXP56-CPP"
+  ruleId = "EXP56-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `nonVoidFunctionDoesNotReturnCert` query
@@ -122,7 +134,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nonVoidFunctionDoesNotReturnCert` query
     "cpp/cert/non-void-function-does-not-return-cert" and
-  ruleId = "MSC52-CPP"
+  ruleId = "MSC52-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `functionNoReturnAttributeConditionCert` query
@@ -130,7 +143,8 @@ predicate isFunctionsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionNoReturnAttributeConditionCert` query
     "cpp/cert/function-no-return-attribute-condition-cert" and
-  ruleId = "MSC53-CPP"
+  ruleId = "MSC53-CPP" and
+  category = "rule"
 }
 
 module FunctionsPackage {

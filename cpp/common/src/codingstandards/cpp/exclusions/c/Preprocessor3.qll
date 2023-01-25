@@ -5,14 +5,15 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Preprocessor3Query = TControllingExpressionIfDirectiveQuery()
 
-predicate isPreprocessor3QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPreprocessor3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `controllingExpressionIfDirective` query
     Preprocessor3Package::controllingExpressionIfDirectiveQuery() and
   queryId =
     // `@id` for the `controllingExpressionIfDirective` query
     "c/misra/controlling-expression-if-directive" and
-  ruleId = "RULE-20-8"
+  ruleId = "RULE-20-8" and
+  category = "required"
 }
 
 module Preprocessor3Package {

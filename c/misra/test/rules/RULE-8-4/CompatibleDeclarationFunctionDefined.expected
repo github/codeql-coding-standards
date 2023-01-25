@@ -1,0 +1,2 @@
+| function2.c:5:6:5:7 | definition of f3 | No separate compatible declaration found for this definition. |
+| function2.c:7:6:7:7 | definition of f4 | No separate compatible declaration found for this definition. |

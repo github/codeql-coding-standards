@@ -1,4 +1,4 @@
-| test.cpp:6:1:6:1 | return ... | Function test_return_f1 should return a value of type int but does not return a value here |
-| test.cpp:16:27:16:28 | { ... } | Function test_return_f3 should return a value of type int but does not return a value here |
-| test.cpp:33:1:33:1 | return ... | Function test_return_f5 should return a value of type int but does not return a value here |
-| test.cpp:51:19:52:3 | { ... } | Function test_trycatch_f1 should return a value of type int but does not return a value here |
+| test.cpp:8:1:8:1 | return ... | Function test_return_f1 should return a value of type int but does not return a value here |
+| test.cpp:18:27:18:28 | { ... } | Function test_return_f3 should return a value of type int but does not return a value here |
+| test.cpp:35:1:35:1 | return ... | Function test_return_f5 should return a value of type int but does not return a value here |
+| test.cpp:53:19:54:3 | { ... } | Function test_trycatch_f1 should return a value of type int but does not return a value here |

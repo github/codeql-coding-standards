@@ -63,7 +63,7 @@
       ],
       "title": "#undef should not be used"
     },
-    "RULE-4-10": {
+    "DIR-4-10": {
       "properties": {
         "obligation": "required"
       },
