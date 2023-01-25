@@ -467,7 +467,7 @@
       },
       "queries": [
         {
-          "description": "Using types other than appropriate ones causes to implementation-specific or undefined behavior.",
+          "description": "Declaring bit-fields on types other than appropriate ones causes implementation-specific or undefined behavior.",
           "kind": "problem",
           "name": "Bit-fields shall only be declared with an appropriate type",
           "precision": "very-high",
