@@ -175,10 +175,10 @@ pip install -r scripts/requirements.txt
 To generate the rule package description file, run the following script from the root of the repository:
 
 ```
-python3.9 scripts/generate_rules/generate_package_description.py <rule_package_name>
+python3.9 scripts/generate_rules/generate_package_description.py <target_lang_name> <rule_package_name>
 ```
 
-This will produce a `.json` file in the `rule_packages` directory with the name of the rule package (e.g. `rule_packages/Literals.json`).
+This will produce a `.json` file in the `rule_packages` directory with the name of the rule package (e.g. `rule_packages/Literals.json`). For example, `python3.9 scripts/generate_rules/generate_package_description.py c Types` creates `rule_packages/c/Types.json`.
 
 #### Step 2: Review and update the rule package description file
 
