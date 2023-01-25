@@ -6,7 +6,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Prevent or detect domain and range errors in math functions",
           "precision": "very-high",
@@ -23,12 +23,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Ensure that floating-point conversions are within range of the new type",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "EnsureThatFloatingPointConversionsAreWithinRangeOfTheNewType",
+          "short_name": "FloatingPointConversionsNotWithinRangeOfNewType",
           "tags": []
         }
       ],
@@ -40,12 +40,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Preserve precision when converting integral values to floating-point type",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "PreservePrecisionWhenConvertingIntegralValuesToFloatingPointType",
+          "short_name": "FloatingPointOfIntegralValuesLosePrecision",
           "tags": []
         }
       ],
@@ -57,12 +57,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Do not use object representations to compare floating-point values",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "DoNotUseObjectRepresentationsToCompareFloatingPointValues",
+          "short_name": "ObjectReprUsedForComparingFloatingPointValues",
           "tags": []
         }
       ],
@@ -74,7 +74,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Ensure that unsigned integer operations do not wrap",
           "precision": "high",
@@ -91,12 +91,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Ensure that integer conversions do not result in lost or misinterpreted data",
           "precision": "high",
           "severity": "error",
-          "short_name": "EnsureThatIntegerConversionsDoNotResultInLostOrMisinterpretedData",
+          "short_name": "IntConversionCausesLostOrMisinterpretedData",
           "tags": []
         }
       ],
@@ -108,12 +108,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Ensure that operations on signed integers do not result in overflow",
           "precision": "high",
           "severity": "error",
-          "short_name": "EnsureThatOperationsOnSignedIntegersDoNotResultInOverflow",
+          "short_name": "OperationsOnSignedIntegersResultsInOverflow",
           "tags": []
         }
       ],
@@ -125,12 +125,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Ensure that division and remainder operations do not result in divide-by-zero errors",
           "precision": "high",
           "severity": "error",
-          "short_name": "EnsureThatDivisionAndRemainderOperationsDoNotResultInDivideByZeroErrors",
+          "short_name": "DivAndModOperationResultsInDivByZero",
           "tags": []
         }
       ],
@@ -142,12 +142,12 @@
       },
       "queries": [
         {
-          "description": "Do not shift an expression by a negative number of bits or by greater than or equal to the number of bits that exist in the operand",
+          "description": "Do not shift an expression by a negative number of bits or by greater than or equal to the number of bits that exist in the operand.",
           "kind": "problem",
           "name": "Do not shift an expression by a negative number of bits or by greater than or equal to the number of",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "DoNotShiftAnExpressionByANegativeNumberOfBitsOrByGreaterThanOrEqualToTheNumberOfBitsThatExistInTheOperand",
+          "short_name": "ExprShiftedByNegativeBitsOrGreaterThanOperand",
           "tags": []
         }
       ],
@@ -159,7 +159,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Use correct integer precisions",
           "precision": "high",
@@ -176,7 +176,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Converting a pointer to integer or integer to pointer",
           "precision": "very-high",
@@ -195,12 +195,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "typedefs that indicate size and signedness should be used in place of the basic numerical types",
           "precision": "high",
           "severity": "error",
-          "short_name": "TypedefsThatIndicateSizeAndSignednessShouldBeUsedInPlaceOfTheBasicNumericalTypes",
+          "short_name": "NumericTypedefsNotUsedInPlaceOfBasicNumericalTypes",
           "tags": []
         }
       ],
@@ -212,7 +212,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Operands shall not be of an inappropriate essential type",
           "precision": "high",
@@ -229,12 +229,12 @@
       },
       "queries": [
         {
-          "description": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations",
+          "description": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations.",
           "kind": "problem",
           "name": "Expressions of essentially character type shall not be used inappropriately in addition and",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "ExpressionsOfEssentiallyCharacterTypeUsedInappropriatelyInAdditionAndSubtractionOperations",
+          "short_name": "CharTypeExprsUsedInAddOrSub",
           "tags": []
         }
       ],
@@ -246,12 +246,12 @@
       },
       "queries": [
         {
-          "description": "The value of an expression shall not be assigned to an object with a narrower essential type or of a different essential type category",
+          "description": "The value of an expression shall not be assigned to an object with a narrower essential type or of a different essential type category.",
           "kind": "problem",
           "name": "The value of an expression shall not be assigned to an object with a narrower essential type or of a",
           "precision": "high",
           "severity": "error",
-          "short_name": "ValueOfAnExpressionAssignedToAnObjectWithANarrowerEssentialTypeOrOfADifferentEssentialTypeCategory",
+          "short_name": "AssignmentToIncompatibleEssentialType",
           "tags": []
         }
       ],
@@ -263,12 +263,12 @@
       },
       "queries": [
         {
-          "description": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the same essential type category",
+          "description": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the same essential type category.",
           "kind": "problem",
           "name": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "BothOperandsOfAnOperatorInWhichTheUsualArithmeticConversionsArePerformedShallHaveTheSameEssentialTypeCategory",
+	  "short_name": "ArithConversionOperandHasDifferentEssTypeCategory",
           "tags": []
         }
       ],
@@ -280,12 +280,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "The value of an expression should not be cast to an inappropriate essential type",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "ValueOfAnExpressionShouldNotBeCastToAnInappropriateEssentialType",
+          "short_name": "ValueCastToInappropriateEssentialType",
           "tags": []
         }
       ],
@@ -297,12 +297,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "The value of a composite expression shall not be assigned to an object with wider essential type",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "ValueOfACompositeExpressionAssignedToAnObjectWithWiderEssentialType",
+          "short_name": "CompositeExprValueAssignedToObjWithWiderEssType",
           "tags": []
         }
       ],
@@ -314,12 +314,12 @@
       },
       "queries": [
         {
-          "description": "If a composite expression is used as one operand of an operator in which the usual arithmetic conversions are performed then the other operand shall not have wider essential type",
+          "description": "If a composite expression is used as one operand of an operator in which the usual arithmetic conversions are performed then the other operand shall not have wider essential type.",
           "kind": "problem",
           "name": "If a composite expression is used as one operand of an operator in which the usual arithmetic",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "IfACompositeExpressionIsUsedAsOneOperandOfAnOperatorInWhichTheUsualArithmeticConversionsArePerformedThenTheOtherOperandHaveWiderEssentialType",
+          "short_name": "ConvertedCompExprOperandHasWiderEssTypeThanOther",
           "tags": []
         }
       ],
@@ -331,12 +331,12 @@
       },
       "queries": [
         {
-          "description": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type",
+          "description": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type.",
           "kind": "problem",
           "name": "The value of a composite expression shall not be cast to a different essential type category or a",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "ValueOfACompositeExpressionCastToADifferentEssentialTypeCategoryOrAWiderEssentialType",
+          "short_name": "CompExprValCastToIncompatEssType",
           "tags": []
         }
       ],
@@ -348,12 +348,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "Evaluation of constant expressions should not lead to unsigned integer wrap-around",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "EvaluationOfConstantExpressionsShouldNotLeadToUnsignedIntegerWrapAround",
+          "short_name": "ConstExprEvalCausesUnsignedIntWraparound",
           "tags": []
         }
       ],
@@ -365,16 +365,16 @@
       },
       "queries": [
         {
-          "description": "The sizeof operator shall not have an operand which is a function parameter declared as \ufffdarray of type\ufffd",
+          "description": "The sizeof operator shall not have an operand which is a function parameter declared as 'array of type'.",
           "kind": "problem",
-          "name": "The sizeof operator shall not have an operand which is a function parameter declared as \ufffdarray of",
+          "name": "The sizeof operator shall not have an operand which is a function parameter declared as 'array of",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "SizeofOperatorHaveAnOperandWhichIsAFunctionParameterDeclaredAsArrayOfType",
+          "short_name": "ArrayTypeParamAtSizeofOperand",
           "tags": []
         }
       ],
-      "title": "The sizeof operator shall not have an operand which is a function parameter declared as \ufffdarray of type\ufffd"
+      "title": "The sizeof operator shall not have an operand which is a function parameter declared as 'array of type'"
     },
     "RULE-14-1": {
       "properties": {
@@ -382,7 +382,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "A loop counter shall not have essentially floating type",
           "precision": "high",
@@ -399,12 +399,12 @@
       },
       "queries": [
         {
-          "description": "Any value passed to a function in <ctype.h> shall be representable as an unsigned char or be the value EOF",
+          "description": "Any value passed to a function in <ctype.h> shall be representable as an unsigned char or be the value EOF.",
           "kind": "problem",
           "name": "Any value passed to a function in <ctype.h> shall be representable as an unsigned char or be the",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "ValuePassedToAFunctionInCtypehNotRepresentableAsUnsignedCharOrBeTheValueEof",
+          "short_name": "CtypeFuncNeitherReprAsUnsignedCharNorEOF",
           "tags": []
         }
       ],
@@ -416,12 +416,12 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "TODO.",
           "kind": "problem",
           "name": "The Standard Library function memcmp shall not be used to compare null terminated strings",
           "precision": "high",
           "severity": "error",
-          "short_name": "StandardLibraryFunctionMemcmpUsedToCompareNullTerminatedStrings",
+          "short_name": "MemcmpUsedToCompareNullTerminatedStrings",
           "tags": []
         }
       ],
@@ -433,12 +433,12 @@
       },
       "queries": [
         {
-          "description": "The pointer arguments to the Standard Library functions memcpy, memmove and memcmp shall be pointers to qualified or unqualified versions of compatible types",
+          "description": "The pointer arguments to the Standard Library functions memcpy, memmove and memcmp shall be pointers to qualified or unqualified versions of compatible types.",
           "kind": "problem",
           "name": "The pointer arguments to the Standard Library functions memcpy, memmove and memcmp shall be pointers",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "PointerArgumentsToTheStandardLibraryFunctionsMemcpyMemmoveAndMemcmpNotPointersToQualifiedOrUnqualifiedVersionsOfCompatibleTypes",
+          "short_name": "MemcpyMemmoveMemcmpArgNotPointerToCompatTypes",
           "tags": []
         }
       ],
@@ -450,16 +450,16 @@
       },
       "queries": [
         {
-          "description": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type",
+          "description": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type.",
           "kind": "problem",
           "name": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type,",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "PointerArgumentsToTheStandardLibraryFunctionMemcmpShallPointToEitherAPointerTypeAnEssentiallySignedTypeAnEssentiallyUnsignedTypeAnEssentiallyBooleanTypeOrAnEssentiallyEnumType",
+          "short_name": "MemcmpArgNotPtsToSignedUnsignedBooleanEnumEssType",
           "tags": []
         }
       ],
-      "title": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type"
+      "title": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type."
     },
     "RULE-6-1": {
       "properties": {
@@ -501,16 +501,16 @@
       },
       "queries": [
         {
-          "description": "A string literal shall not be assigned to an object unless the object\ufffds type is \ufffdpointer to const-qualified char\ufffd",
+          "description": "A string literal shall not be assigned to an object unless the object's type is 'pointer to const-qualified char'.",
           "kind": "problem",
-          "name": "A string literal shall not be assigned to an object unless the object\ufffds type is \ufffdpointer to",
+          "name": "A string literal shall not be assigned to an object unless the object's type is 'pointer to",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "StringLiteralAssignedToAnObjectUnlessTheObjectsTypeIsPointerToConstQualifiedChar",
+          "short_name": "StringLiteralAssignedToObjPtrToConstQualifiedChar",
           "tags": []
         }
       ],
-      "title": "A string literal shall not be assigned to an object unless the object\ufffds type is \ufffdpointer to const-qualified char\ufffd"
+      "title": "A string literal shall not be assigned to an object unless the object's type is 'pointer to const-qualified char'"
     }
   }
 }
