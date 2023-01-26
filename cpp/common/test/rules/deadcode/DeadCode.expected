@@ -1,0 +1,14 @@
+| test.cpp:17:3:17:27 | declaration | This statement is dead code. |
+| test.cpp:18:3:18:12 | ExprStmt | This statement is dead code. |
+| test.cpp:19:3:19:12 | ExprStmt | This statement is dead code. |
+| test.cpp:21:3:23:3 | if (...) ...  | This statement is dead code. |
+| test.cpp:33:3:34:3 | if (...) ...  | This statement is dead code. |
+| test.cpp:36:3:36:4 | { ... } | This statement is dead code. |
+| test.cpp:37:3:39:3 | { ... } | This statement is dead code. |
+| test.cpp:53:6:54:3 | { ... } | This statement is dead code. |
+| test.cpp:64:46:65:3 | { ... } | This statement is dead code. |
+| test.cpp:68:3:68:8 | ExprStmt | This statement is dead code. |
+| test.cpp:70:3:70:21 | ExprStmt | This statement is dead code. |
+| test.cpp:72:3:73:3 | try { ... } | This statement is dead code. |
+| test.cpp:73:17:74:3 | { ... } | This statement is dead code. |
+| test.cpp:79:17:80:3 | { ... } | This statement is dead code. |

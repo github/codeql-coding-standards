@@ -1,0 +1,13 @@
+| test.c:18:3:18:11 | call to setlocale | Missing error detection for the call to function `setlocale`. |
+| test.c:24:23:24:31 | call to setlocale | Missing error detection for the call to function `setlocale`. |
+| test.c:29:22:29:27 | call to calloc | Missing error detection for the call to function `calloc`. |
+| test.c:35:7:35:13 | call to realloc | Missing error detection for the call to function `realloc`. |
+| test.c:46:3:46:7 | call to fseek | Missing error detection for the call to function `fseek`. |
+| test.c:52:3:52:10 | call to snprintf | Missing error detection for the call to function `snprintf`. |
+| test.c:60:3:60:9 | call to putchar | Missing error detection for the call to function `putchar`. |
+| test.c:63:3:63:8 | call to printf | Missing error detection for the call to function `printf`. |
+| test.c:74:22:74:30 | call to localtime | Missing error detection for the call to function `localtime`. |
+| test.c:80:3:80:7 | call to mblen | Missing error detection for the call to function `mblen`. |
+| test.c:97:5:97:9 | call to fputc | Missing error detection for the call to function `fputc`. |
+| test.c:105:5:105:11 | call to getchar | Missing error detection for the call to function `getchar`. |
+| test.c:127:7:127:14 | call to strtoull | Missing error detection for the call to function `strtoull`. |
