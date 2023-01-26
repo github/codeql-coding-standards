@@ -20,16 +20,19 @@ predicate isSignedOrUnsignedInt(Type type) {
 }
 
 predicate isAppropriatePrimitive(Type type) {
+    /* An appropriate primitive types to which a bit-field can be declared. */
     isSignedOrUnsignedInt(type) or type instanceof BoolType
 }
 
 predicate isAppropriateTypedef(Type type) {
     type instanceof TypedefType and
+    /* An appropriate typedef should be an alias to an appropriate primitive type. */
     isAppropriatePrimitive(type.(TypedefType).resolveTypedefs())
 }
 
 from BitField bitField
 where
 not isExcluded(bitField, TypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
+/* A violation would neither an appropriate primitive type nor an appropriate typedef. */
 not (isAppropriatePrimitive(bitField.getType()) or isAppropriateTypedef(bitField.getType()))
 select bitField, "Bit-field " + bitField + " is declared on type " + bitField + "."
