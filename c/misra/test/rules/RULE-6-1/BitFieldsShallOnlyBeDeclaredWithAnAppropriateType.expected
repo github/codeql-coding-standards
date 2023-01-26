@@ -1,1 +1,4 @@
-No expected results have yet been specified
+| test.c:8:7:8:8 | b3 | Type int should not have a bit-field declaration at b3. |
+| test.c:11:15:11:16 | b5 | Type signed long should not have a bit-field declaration at b5. |
+| test.c:13:15:13:16 | b6 | Type signed char should not have a bit-field declaration at b6. |
+| test.c:14:14:14:15 | b7 | Type Color should not have a bit-field declaration at b7. |

@@ -13,7 +13,27 @@
 import cpp
 import codingstandards.c.misra
 
-from
+predicate isSignedOrUnsignedInt(Type type) {
+    type instanceof IntType and
+    (type.(IntegralType).isExplicitlySigned() or
+    type.(IntegralType).isExplicitlyUnsigned())
+}
+
+predicate isAppropriatePrimitive(Type type) {
+    isSignedOrUnsignedInt(type) or type instanceof BoolType
+}
+
+predicate isAppropriateTypedef(Type type) {
+    type instanceof TypedefType and
+    isAppropriatePrimitive(type.(TypedefType).resolveTypedefs())
+}
+
+predicate isInappropriateType(Type type) {
+    not (isAppropriatePrimitive(type) or isAppropriateTypedef(type))
+}
+
+from BitField bitField
 where
-  not isExcluded(x, TypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
-select
+not isExcluded(bitField, TypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
+ isInappropriateType(bitField.getType()) 
+select bitField, "Type " + bitField.getType() + " should not have a bit-field declaration at " + bitField + "."
