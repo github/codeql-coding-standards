@@ -36,4 +36,4 @@ from BitField bitField
 where
 not isExcluded(bitField, TypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
  isInappropriateType(bitField.getType()) 
-select bitField, "Type " + bitField.getType() + " should not have a bit-field declaration at " + bitField + "."
+select bitField, "Bit-field " + bitField + " is declared on type " + bitField + "."
