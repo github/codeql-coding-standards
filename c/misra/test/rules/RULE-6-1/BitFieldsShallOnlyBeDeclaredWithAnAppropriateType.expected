@@ -1,4 +1,4 @@
-| test.c:8:7:8:8 | b3 | Type int should not have a bit-field declaration at b3. |
-| test.c:11:15:11:16 | b5 | Type signed long should not have a bit-field declaration at b5. |
-| test.c:13:15:13:16 | b6 | Type signed char should not have a bit-field declaration at b6. |
-| test.c:14:14:14:15 | b7 | Type Color should not have a bit-field declaration at b7. |
+| test.c:8:7:8:8 | b3 | Bit-field b3 is declared on type b3. |
+| test.c:11:15:11:16 | b5 | Bit-field b5 is declared on type b5. |
+| test.c:13:15:13:16 | b6 | Bit-field b6 is declared on type b6. |
+| test.c:14:14:14:15 | b7 | Bit-field b7 is declared on type b7. |

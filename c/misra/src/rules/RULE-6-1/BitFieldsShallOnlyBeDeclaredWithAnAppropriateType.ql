@@ -28,12 +28,8 @@ predicate isAppropriateTypedef(Type type) {
     isAppropriatePrimitive(type.(TypedefType).resolveTypedefs())
 }
 
-predicate isInappropriateType(Type type) {
-    not (isAppropriatePrimitive(type) or isAppropriateTypedef(type))
-}
-
 from BitField bitField
 where
 not isExcluded(bitField, TypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
- isInappropriateType(bitField.getType()) 
+not (isAppropriatePrimitive(bitField.getType()) or isAppropriateTypedef(bitField.getType()))
 select bitField, "Bit-field " + bitField + " is declared on type " + bitField + "."
