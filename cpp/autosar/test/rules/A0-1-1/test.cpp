@@ -1,5 +1,5 @@
 
-// A POD class...
+// A POD class..
 struct A {
   int f;
   int f2;
