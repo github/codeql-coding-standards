@@ -1,0 +1,2 @@
+| test.c:11:47:11:47 | p | Memory pointed to by 'p' accessed but may have been previously freed $@. | test.c:12:5:12:8 | call to free | here |
+| test.c:25:10:25:12 | buf | Memory pointed to by 'buf' accessed but may have been previously freed $@. | test.c:24:3:24:6 | call to free | here |
