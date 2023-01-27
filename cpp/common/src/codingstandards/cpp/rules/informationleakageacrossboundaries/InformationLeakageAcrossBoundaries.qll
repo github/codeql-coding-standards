@@ -1,5 +1,5 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library which includes a `problems` predicate for reporting potential information leakage across trust boundaries, relating to uninitialized memory in structs.
  */
 
 import cpp
