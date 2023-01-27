@@ -7,7 +7,8 @@ newtype Pointers3Query =
   TDoNotAccessVolatileObjectWithNonVolatileReferenceQuery() or
   TDoNotCastPointerToMoreStrictlyAlignedPointerTypeQuery() or
   TDoNotAccessVariableViaPointerOfIncompatibleTypeQuery() or
-  TUndefinedBehaviorWithRestrictQualifiedPointersQuery()
+  TDoNotPassAlisedPointerToRestrictQualifiedParameterQuery() or
+  TRestrictPointerReferencesOverlappingObjectQuery()
 
 predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId) {
   query =
@@ -35,11 +36,19 @@ predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId) {
   ruleId = "EXP39-C"
   or
   query =
-    // `Query` instance for the `undefinedBehaviorWithRestrictQualifiedPointers` query
-    Pointers3Package::undefinedBehaviorWithRestrictQualifiedPointersQuery() and
+    // `Query` instance for the `doNotPassAlisedPointerToRestrictQualifiedParameter` query
+    Pointers3Package::doNotPassAlisedPointerToRestrictQualifiedParameterQuery() and
   queryId =
-    // `@id` for the `undefinedBehaviorWithRestrictQualifiedPointers` query
-    "c/cert/undefined-behavior-with-restrict-qualified-pointers" and
+    // `@id` for the `doNotPassAlisedPointerToRestrictQualifiedParameter` query
+    "c/cert/do-not-pass-alised-pointer-to-restrict-qualified-parameter" and
+  ruleId = "EXP43-C"
+  or
+  query =
+    // `Query` instance for the `restrictPointerReferencesOverlappingObject` query
+    Pointers3Package::restrictPointerReferencesOverlappingObjectQuery() and
+  queryId =
+    // `@id` for the `restrictPointerReferencesOverlappingObject` query
+    "c/cert/restrict-pointer-references-overlapping-object" and
   ruleId = "EXP43-C"
 }
 
@@ -65,10 +74,17 @@ module Pointers3Package {
       TQueryC(TPointers3PackageQuery(TDoNotAccessVariableViaPointerOfIncompatibleTypeQuery()))
   }
 
-  Query undefinedBehaviorWithRestrictQualifiedPointersQuery() {
+  Query doNotPassAlisedPointerToRestrictQualifiedParameterQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `undefinedBehaviorWithRestrictQualifiedPointers` query
-      TQueryC(TPointers3PackageQuery(TUndefinedBehaviorWithRestrictQualifiedPointersQuery()))
+      // `Query` type for `doNotPassAlisedPointerToRestrictQualifiedParameter` query
+      TQueryC(TPointers3PackageQuery(TDoNotPassAlisedPointerToRestrictQualifiedParameterQuery()))
+  }
+
+  Query restrictPointerReferencesOverlappingObjectQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `restrictPointerReferencesOverlappingObject` query
+      TQueryC(TPointers3PackageQuery(TRestrictPointerReferencesOverlappingObjectQuery()))
   }
 }

@@ -66,12 +66,23 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Passing an aliased pointer to a restrict-qualified parameter is undefined behavior.",
           "kind": "problem",
-          "name": "Avoid undefined behavior when using restrict-qualified pointers",
-          "precision": "very-high",
+          "name": "Do not pass aliased pointers to restrict-qualified parameters",
+          "precision": "medium",
           "severity": "error",
-          "short_name": "UndefinedBehaviorWithRestrictQualifiedPointers",
+          "short_name": "DoNotPassAlisedPointerToRestrictQualifiedParameter",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Restrict qualified pointers referencing overlapping objects is undefined behavior.",
+          "kind": "problem",
+          "name": "Do not assign the value of a restrict-qualified pointer to another restrict-qualified pointer.",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "RestrictPointerReferencesOverlappingObject",
           "tags": [
             "correctness"
           ]

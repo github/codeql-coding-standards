@@ -1,8 +1,14 @@
 #include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 
 int *restrict g1;
 int *restrict g2;
+
+struct s1 {
+  int x, y, z;
+};
+struct s1 v1;
 
 void test_global_local() {
   int *restrict i1 = g1; // COMPLIANT
@@ -10,6 +16,29 @@ void test_global_local() {
   int *restrict i3 = i2; // NON_COMPLIANT
   g1 = g2;               // NON_COMPLIANT
   i1 = i2;               // NON_COMPLIANT
+  {
+    int *restrict i4;
+    int *restrict i5;
+    int *restrict i6;
+    i4 = g1;        // COMPLIANT
+    i4 = (void *)0; // COMPLIANT
+    i5 = g1;        // COMPLIANT
+    i4 = g1;        // NON_COMPLIANT
+    i6 = g2;        // COMPLIANT
+  }
+}
+
+void test_structs() {
+  struct s1 *restrict p1 = &v1;
+  int *restrict px = &v1.x; // NON_COMPLIANT
+  {
+    int *restrict py;
+    int *restrict pz;
+    py = &v1.y; // COMPLIANT
+    py = (int *)0;
+    pz = &v1.z; // COMPLIANT
+    py = &v1.y; // NON_COMPLIANT
+  }
 }
 
 void copy(int *restrict p1, int *restrict p2, size_t s) {
@@ -25,8 +54,8 @@ void test_restrict_params() {
   copy(&i1, &i2, 1); // COMPLIANT
 
   int x[10];
-  copy(x[0], x[1], 1); // COMPLIANT - non overlapping
-  copy(x[0], x[1], 2); // NON_COMPLIANT - overlapping
+  copy(&x[0], &x[1], 1); // COMPLIANT - non overlapping
+  copy(&x[0], &x[1], 2); // NON_COMPLIANT - overlapping
 }
 
 void test_strcpy() {
@@ -36,13 +65,6 @@ void test_strcpy() {
   strcpy(&s2, &s1);     // COMPLIANT
 }
 
-void test_strcpy_s() {
-  char s1[] = "my test string";
-  char s2[] = "my other string";
-  strcpy_s(&s1, &s1 + 3);         // NON_COMPLIANT
-  strcpy_s(&s2, sizeof(s2), &s1); // COMPLIANT
-}
-
 void test_memcpy() {
   char s1[] = "my test string";
   char s2[] = "my other string";
@@ -50,23 +72,16 @@ void test_memcpy() {
   memcpy(&s2, &s1 + 3, 5); // COMPLIANT
 }
 
-void test_memcpy_s() {
-  char s1[] = "my test string";
-  char s2[] = "my other string";
-  memcpy_s(&s1, sizeof(s1), &s1 + 3, 5); // NON_COMPLIANT
-  memcpy_s(&s2, sizeof(s2), &s1 + 3, 5); // COMPLIANT
-}
-
 void test_memmove() {
   char s1[] = "my test string";
   char s2[] = "my other string";
-  memmove(&s1, &s1 + 3, 5); // COMPLIANT
+  memmove(&s1, &s1 + 3, 5); // COMPLIANT - memmove is allowed to overlap
   memmove(&s2, &s1 + 3, 5); // COMPLIANT
 }
 
 void test_scanf() {
   char s1[200] = "%10s";
-  scanf(&s2, &s2 + 4); // NON_COMPLIANT
+  scanf(&s1, &s1 + 4); // NON_COMPLIANT
 }
 
 // TODO also consider the following:

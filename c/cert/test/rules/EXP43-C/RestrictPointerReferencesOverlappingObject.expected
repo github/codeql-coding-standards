@@ -1,0 +1,6 @@
+| test.c:16:22:16:23 | i2 | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
+| test.c:17:8:17:9 | g2 | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
+| test.c:18:8:18:9 | i2 | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
+| test.c:26:10:26:11 | g1 | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
+| test.c:33:22:33:26 | & ... | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
+| test.c:40:10:40:14 | & ... | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
