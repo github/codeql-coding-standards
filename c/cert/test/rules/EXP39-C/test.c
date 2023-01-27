@@ -33,13 +33,13 @@ void test_incompatible_arithmetic() {
 
 struct {
   int a;
-} *s1;
+} * s1;
 struct {
   int a;
-} *s2;
+} * s2;
 struct S1 {
   int a;
-} *s3;
+} * s3;
 struct S1 *s4;
 
 // TODO test across files
