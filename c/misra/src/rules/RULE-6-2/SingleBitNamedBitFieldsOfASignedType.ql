@@ -34,7 +34,7 @@ predicate isSingleBit(BitField bitField) {
 
 from BitField bitField
 where
-  not isExcluded(bitField, TypesPackage::singleBitNamedBitFieldsOfASignedTypeQuery()) and
+  not isExcluded(bitField, BitfieldTypesPackage::singleBitNamedBitFieldsOfASignedTypeQuery()) and
   isSingleBit(bitField) and // Single-bit,
   not bitField.isAnonymous() and // named,
   isSigned(bitField.getType()) // but its type is signed.
