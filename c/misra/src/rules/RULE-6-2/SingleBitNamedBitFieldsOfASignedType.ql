@@ -16,7 +16,7 @@ import codingstandards.c.misra
 predicate isSigned(Type type) {
   /* Check if it's a fixed number type, because declaring fixed number types like int8_t as 1 bit is obviously absurd */
   type instanceof FixedWidthIntegralType or 
-/* Check if it's EXPLICITLY signed, because according to Rule 6.1, 'int' may be either signed or unsigned depending on the implementation. In the latter case, the query would lead to false positives. */
+  /* Check if it's EXPLICITLY signed, because according to Rule 6.1, 'int' may be either signed or unsigned depending on the implementation. In the latter case, the query would lead to false positives. */
   type instanceof IntegralType and
   type.(IntegralType).isExplicitlySigned()
 }
