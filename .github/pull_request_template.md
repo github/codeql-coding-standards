@@ -32,6 +32,12 @@ _**Author:**_ Is a change note required?
   - [ ] Yes
   - [ ] No
 
+🚨🚨🚨
+_**Reviewer:**_ Confirm that format of *shared* queries (not the .qll file, the
+.ql file that imports it) is valid by running them within VS Code. 
+  - [ ] Confirmed
+
+
 _**Reviewer:**_ Confirm that either a change note is not required or the change note is required and has been added.
   - [ ] Confirmed
 

@@ -1,0 +1,2 @@
+| test.c:4:1:4:16 | #define MACRO3 3 | Macro MACRO3 is unused. |
+| test.h:3:1:3:21 | #define HEADER_MACRO3 | Macro HEADER_MACRO3 is unused. |

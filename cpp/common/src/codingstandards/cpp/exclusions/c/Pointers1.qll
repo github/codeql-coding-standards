@@ -22,14 +22,15 @@ newtype Pointers1Query =
   TObjectWithNoPointerDereferenceShouldBeOpaqueQuery() or
   TPointerShouldPointToConstTypeWhenPossibleQuery()
 
-predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `conversionBetweenFunctionPointerAndOtherType` query
     Pointers1Package::conversionBetweenFunctionPointerAndOtherTypeQuery() and
   queryId =
     // `@id` for the `conversionBetweenFunctionPointerAndOtherType` query
     "c/misra/conversion-between-function-pointer-and-other-type" and
-  ruleId = "RULE-11-1"
+  ruleId = "RULE-11-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `conversionBetweenIncompleteTypePointerAndOtherType` query
@@ -37,7 +38,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `conversionBetweenIncompleteTypePointerAndOtherType` query
     "c/misra/conversion-between-incomplete-type-pointer-and-other-type" and
-  ruleId = "RULE-11-2"
+  ruleId = "RULE-11-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `castBetweenObjectPointerAndDifferentObjectType` query
@@ -45,7 +47,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `castBetweenObjectPointerAndDifferentObjectType` query
     "c/misra/cast-between-object-pointer-and-different-object-type" and
-  ruleId = "RULE-11-3"
+  ruleId = "RULE-11-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `conversionBetweenPointerToObjectAndIntegerType` query
@@ -53,7 +56,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `conversionBetweenPointerToObjectAndIntegerType` query
     "c/misra/conversion-between-pointer-to-object-and-integer-type" and
-  ruleId = "RULE-11-4"
+  ruleId = "RULE-11-4" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `conversionFromPointerToVoidIntoPointerToObject` query
@@ -61,7 +65,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `conversionFromPointerToVoidIntoPointerToObject` query
     "c/misra/conversion-from-pointer-to-void-into-pointer-to-object" and
-  ruleId = "RULE-11-5"
+  ruleId = "RULE-11-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `castBetweenPointerToVoidAndArithmeticType` query
@@ -69,7 +74,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `castBetweenPointerToVoidAndArithmeticType` query
     "c/misra/cast-between-pointer-to-void-and-arithmetic-type" and
-  ruleId = "RULE-11-6"
+  ruleId = "RULE-11-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `castBetweenPointerToObjectAndNonIntArithmeticType` query
@@ -77,7 +83,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `castBetweenPointerToObjectAndNonIntArithmeticType` query
     "c/misra/cast-between-pointer-to-object-and-non-int-arithmetic-type" and
-  ruleId = "RULE-11-7"
+  ruleId = "RULE-11-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `castRemovesConstOrVolatileQualification` query
@@ -85,7 +92,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `castRemovesConstOrVolatileQualification` query
     "c/misra/cast-removes-const-or-volatile-qualification" and
-  ruleId = "RULE-11-8"
+  ruleId = "RULE-11-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `macroNullNotUsedAsIntegerNullPointerConstant` query
@@ -93,7 +101,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `macroNullNotUsedAsIntegerNullPointerConstant` query
     "c/misra/macro-null-not-used-as-integer-null-pointer-constant" and
-  ruleId = "RULE-11-9"
+  ruleId = "RULE-11-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerAndDerivedPointerMustAddressSameArray` query
@@ -101,7 +110,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerAndDerivedPointerMustAddressSameArray` query
     "c/misra/pointer-and-derived-pointer-must-address-same-array" and
-  ruleId = "RULE-18-1"
+  ruleId = "RULE-18-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `subtractionBetweenPointersMustAddressSameArray` query
@@ -109,7 +119,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `subtractionBetweenPointersMustAddressSameArray` query
     "c/misra/subtraction-between-pointers-must-address-same-array" and
-  ruleId = "RULE-18-2"
+  ruleId = "RULE-18-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `relationalOperatorComparesPointerToDifferentArray` query
@@ -117,7 +128,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `relationalOperatorComparesPointerToDifferentArray` query
     "c/misra/relational-operator-compares-pointer-to-different-array" and
-  ruleId = "RULE-18-3"
+  ruleId = "RULE-18-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotUseAdditionOrSubtractionOperatorsOnPointers` query
@@ -125,7 +137,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotUseAdditionOrSubtractionOperatorsOnPointers` query
     "c/misra/do-not-use-addition-or-subtraction-operators-on-pointers" and
-  ruleId = "RULE-18-4"
+  ruleId = "RULE-18-4" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `noMoreThanTwoLevelsOfPointerNestingInDeclarations` query
@@ -133,7 +146,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `noMoreThanTwoLevelsOfPointerNestingInDeclarations` query
     "c/misra/no-more-than-two-levels-of-pointer-nesting-in-declarations" and
-  ruleId = "RULE-18-5"
+  ruleId = "RULE-18-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `automaticStorageObjectAddressCopiedToOtherObject` query
@@ -141,7 +155,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `automaticStorageObjectAddressCopiedToOtherObject` query
     "c/misra/automatic-storage-object-address-copied-to-other-object" and
-  ruleId = "RULE-18-6"
+  ruleId = "RULE-18-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `objectWithNoPointerDereferenceShouldBeOpaque` query
@@ -149,7 +164,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `objectWithNoPointerDereferenceShouldBeOpaque` query
     "c/misra/object-with-no-pointer-dereference-should-be-opaque" and
-  ruleId = "RULE-4-8"
+  ruleId = "DIR-4-8" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `pointerShouldPointToConstTypeWhenPossible` query
@@ -157,7 +173,8 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerShouldPointToConstTypeWhenPossible` query
     "c/misra/pointer-should-point-to-const-type-when-possible" and
-  ruleId = "RULE-8-13"
+  ruleId = "RULE-8-13" and
+  category = "advisory"
 }
 
 module Pointers1Package {

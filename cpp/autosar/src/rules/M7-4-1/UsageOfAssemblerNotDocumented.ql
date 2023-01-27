@@ -17,10 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.usageofassemblernotdocumented.UsageOfAssemblerNotDocumented
 
-from AsmStmt a
-where
-  not isExcluded(a, BannedLibrariesPackage::usageOfAssemblerNotDocumentedQuery()) and
-  not exists(Comment c | c.getCommentedElement() = a) and
-  not a.isAffectedByMacro()
-select a, "Use of assembler is not documented."
+class UsageOfAssemblerNotDocumentedQuery extends UsageOfAssemblerNotDocumentedSharedQuery {
+  UsageOfAssemblerNotDocumentedQuery() {
+    this = BannedLibrariesPackage::usageOfAssemblerNotDocumentedQuery()
+  }
+}

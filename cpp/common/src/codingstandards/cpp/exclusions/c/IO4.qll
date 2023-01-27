@@ -9,14 +9,15 @@ newtype IO4Query =
   TWrongNumberOfFormatArgumentsQuery() or
   TWrongTypeFormatArgumentsQuery()
 
-predicate isIO4QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isIO4QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `toctouRaceConditionsWhileAccessingFiles` query
     IO4Package::toctouRaceConditionsWhileAccessingFilesQuery() and
   queryId =
     // `@id` for the `toctouRaceConditionsWhileAccessingFiles` query
     "c/cert/toctou-race-conditions-while-accessing-files" and
-  ruleId = "FIO45-C"
+  ruleId = "FIO45-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useValidSpecifiers` query
@@ -24,7 +25,8 @@ predicate isIO4QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useValidSpecifiers` query
     "c/cert/use-valid-specifiers" and
-  ruleId = "FIO47-C"
+  ruleId = "FIO47-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `wrongNumberOfFormatArguments` query
@@ -32,7 +34,8 @@ predicate isIO4QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `wrongNumberOfFormatArguments` query
     "c/cert/wrong-number-of-format-arguments" and
-  ruleId = "FIO47-C"
+  ruleId = "FIO47-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `wrongTypeFormatArguments` query
@@ -40,7 +43,8 @@ predicate isIO4QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `wrongTypeFormatArguments` query
     "c/cert/wrong-type-format-arguments" and
-  ruleId = "FIO47-C"
+  ruleId = "FIO47-C" and
+  category = "rule"
 }
 
 module IO4Package {

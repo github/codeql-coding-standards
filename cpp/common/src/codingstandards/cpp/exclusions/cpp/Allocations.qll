@@ -26,14 +26,15 @@ newtype AllocationsQuery =
   TOperatorDeleteMissingPartnerCertQuery() or
   TUsingDefaultOperatorNewForOverAlignedTypesQuery()
 
-predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `placementNewNotProperlyAlignedAutosar` query
     AllocationsPackage::placementNewNotProperlyAlignedAutosarQuery() and
   queryId =
     // `@id` for the `placementNewNotProperlyAlignedAutosar` query
     "cpp/autosar/placement-new-not-properly-aligned-autosar" and
-  ruleId = "A18-5-10"
+  ruleId = "A18-5-10" and
+  category = "required"
   or
   query =
     // `Query` instance for the `placementNewInsufficientStorageAutosar` query
@@ -41,7 +42,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `placementNewInsufficientStorageAutosar` query
     "cpp/autosar/placement-new-insufficient-storage-autosar" and
-  ruleId = "A18-5-10"
+  ruleId = "A18-5-10" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotUseNonPlacementNew` query
@@ -49,7 +51,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotUseNonPlacementNew` query
     "cpp/autosar/do-not-use-non-placement-new" and
-  ruleId = "A18-5-2"
+  ruleId = "A18-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotUseNonPlacementDelete` query
@@ -57,7 +60,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotUseNonPlacementDelete` query
     "cpp/autosar/do-not-use-non-placement-delete" and
-  ruleId = "A18-5-2"
+  ruleId = "A18-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `dynamicMemoryManagementFailureMode` query
@@ -65,7 +69,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `dynamicMemoryManagementFailureMode` query
     "cpp/autosar/dynamic-memory-management-failure-mode" and
-  ruleId = "A18-5-6"
+  ruleId = "A18-5-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unnecessaryUseOfDynamicStorage` query
@@ -73,7 +78,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `unnecessaryUseOfDynamicStorage` query
     "cpp/autosar/unnecessary-use-of-dynamic-storage" and
-  ruleId = "A18-5-8"
+  ruleId = "A18-5-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `throwingOperatorNewReturnsNullAutosar` query
@@ -81,7 +87,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `throwingOperatorNewReturnsNullAutosar` query
     "cpp/autosar/throwing-operator-new-returns-null-autosar" and
-  ruleId = "A18-5-9"
+  ruleId = "A18-5-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `throwingOperatorNewThrowsInvalidExceptionAutosar` query
@@ -89,7 +96,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `throwingOperatorNewThrowsInvalidExceptionAutosar` query
     "cpp/autosar/throwing-operator-new-throws-invalid-exception-autosar" and
-  ruleId = "A18-5-9"
+  ruleId = "A18-5-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `throwingNoThrowOperatorNewDeleteAutosar` query
@@ -97,7 +105,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `throwingNoThrowOperatorNewDeleteAutosar` query
     "cpp/autosar/throwing-no-throw-operator-new-delete-autosar" and
-  ruleId = "A18-5-9"
+  ruleId = "A18-5-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `operatorDeleteMissingPartnerAutosar` query
@@ -105,7 +114,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `operatorDeleteMissingPartnerAutosar` query
     "cpp/autosar/operator-delete-missing-partner-autosar" and
-  ruleId = "A18-5-9"
+  ruleId = "A18-5-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `properlyDeallocateDynamicallyAllocatedResources` query
@@ -113,7 +123,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `properlyDeallocateDynamicallyAllocatedResources` query
     "cpp/cert/properly-deallocate-dynamically-allocated-resources" and
-  ruleId = "MEM51-CPP"
+  ruleId = "MEM51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `detectAndHandleMemoryAllocationErrors` query
@@ -121,7 +132,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `detectAndHandleMemoryAllocationErrors` query
     "cpp/cert/detect-and-handle-memory-allocation-errors" and
-  ruleId = "MEM52-CPP"
+  ruleId = "MEM52-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `missingConstructorCallForManuallyManagedObject` query
@@ -129,7 +141,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `missingConstructorCallForManuallyManagedObject` query
     "cpp/cert/missing-constructor-call-for-manually-managed-object" and
-  ruleId = "MEM53-CPP"
+  ruleId = "MEM53-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `missingDestructorCallForManuallyManagedObject` query
@@ -137,7 +150,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `missingDestructorCallForManuallyManagedObject` query
     "cpp/cert/missing-destructor-call-for-manually-managed-object" and
-  ruleId = "MEM53-CPP"
+  ruleId = "MEM53-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `placementNewNotProperlyAlignedCert` query
@@ -145,7 +159,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `placementNewNotProperlyAlignedCert` query
     "cpp/cert/placement-new-not-properly-aligned-cert" and
-  ruleId = "MEM54-CPP"
+  ruleId = "MEM54-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `placementNewInsufficientStorageCert` query
@@ -153,7 +168,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `placementNewInsufficientStorageCert` query
     "cpp/cert/placement-new-insufficient-storage-cert" and
-  ruleId = "MEM54-CPP"
+  ruleId = "MEM54-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `throwingOperatorNewReturnsNullCert` query
@@ -161,7 +177,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `throwingOperatorNewReturnsNullCert` query
     "cpp/cert/throwing-operator-new-returns-null-cert" and
-  ruleId = "MEM55-CPP"
+  ruleId = "MEM55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `throwingOperatorNewThrowsInvalidExceptionCert` query
@@ -169,7 +186,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `throwingOperatorNewThrowsInvalidExceptionCert` query
     "cpp/cert/throwing-operator-new-throws-invalid-exception-cert" and
-  ruleId = "MEM55-CPP"
+  ruleId = "MEM55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `throwingNoThrowOperatorNewDeleteCert` query
@@ -177,7 +195,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `throwingNoThrowOperatorNewDeleteCert` query
     "cpp/cert/throwing-no-throw-operator-new-delete-cert" and
-  ruleId = "MEM55-CPP"
+  ruleId = "MEM55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `operatorDeleteMissingPartnerCert` query
@@ -185,7 +204,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `operatorDeleteMissingPartnerCert` query
     "cpp/cert/operator-delete-missing-partner-cert" and
-  ruleId = "MEM55-CPP"
+  ruleId = "MEM55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `usingDefaultOperatorNewForOverAlignedTypes` query
@@ -193,7 +213,8 @@ predicate isAllocationsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `usingDefaultOperatorNewForOverAlignedTypes` query
     "cpp/cert/using-default-operator-new-for-over-aligned-types" and
-  ruleId = "MEM57-CPP"
+  ruleId = "MEM57-CPP" and
+  category = "rule"
 }
 
 module AllocationsPackage {

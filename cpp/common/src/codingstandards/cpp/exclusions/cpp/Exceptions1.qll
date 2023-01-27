@@ -39,14 +39,15 @@ newtype Exceptions1Query =
   TExceptionObjectsMustBeNothrowCopyConstructibleQuery() or
   TCatchExceptionsByLvalueReferenceQuery()
 
-predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `exceptionThrownOnCompletion` query
     Exceptions1Package::exceptionThrownOnCompletionQuery() and
   queryId =
     // `@id` for the `exceptionThrownOnCompletion` query
     "cpp/autosar/exception-thrown-on-completion" and
-  ruleId = "A15-0-1"
+  ruleId = "A15-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `recoverableUncheckedExceptions` query
@@ -54,7 +55,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `recoverableUncheckedExceptions` query
     "cpp/autosar/recoverable-unchecked-exceptions" and
-  ruleId = "A15-0-4"
+  ruleId = "A15-0-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unrecoverableCheckedExceptions` query
@@ -62,7 +64,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `unrecoverableCheckedExceptions` query
     "cpp/autosar/unrecoverable-checked-exceptions" and
-  ruleId = "A15-0-5"
+  ruleId = "A15-0-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerExceptionObject` query
@@ -70,7 +73,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `pointerExceptionObject` query
     "cpp/autosar/pointer-exception-object" and
-  ruleId = "A15-1-2"
+  ruleId = "A15-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `thrownExceptionsShouldBeUnique` query
@@ -78,7 +82,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `thrownExceptionsShouldBeUnique` query
     "cpp/autosar/thrown-exceptions-should-be-unique" and
-  ruleId = "A15-1-3"
+  ruleId = "A15-1-3" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `constructorsThatAreNotNoexceptInvokedBeforeProgramStartup` query
@@ -86,7 +91,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `constructorsThatAreNotNoexceptInvokedBeforeProgramStartup` query
     "cpp/autosar/constructors-that-are-not-noexcept-invoked-before-program-startup" and
-  ruleId = "A15-2-1"
+  ruleId = "A15-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingCatchHandlerInMain` query
@@ -94,7 +100,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `missingCatchHandlerInMain` query
     "cpp/autosar/missing-catch-handler-in-main" and
-  ruleId = "A15-3-3"
+  ruleId = "A15-3-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `catchAllEllipsisUsedInNonMain` query
@@ -102,7 +109,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `catchAllEllipsisUsedInNonMain` query
     "cpp/autosar/catch-all-ellipsis-used-in-non-main" and
-  ruleId = "A15-3-4"
+  ruleId = "A15-3-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `useOfDynamicExceptionSpecification` query
@@ -110,7 +118,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `useOfDynamicExceptionSpecification` query
     "cpp/autosar/use-of-dynamic-exception-specification" and
-  ruleId = "A15-4-1"
+  ruleId = "A15-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `noExceptFunctionThrows` query
@@ -118,7 +127,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `noExceptFunctionThrows` query
     "cpp/autosar/no-except-function-throws" and
-  ruleId = "A15-4-2"
+  ruleId = "A15-4-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingNoExcept` query
@@ -126,7 +136,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `missingNoExcept` query
     "cpp/autosar/missing-no-except" and
-  ruleId = "A15-4-4"
+  ruleId = "A15-4-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `explicitAbruptTerminationAutosar` query
@@ -134,7 +145,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `explicitAbruptTerminationAutosar` query
     "cpp/autosar/explicit-abrupt-termination-autosar" and
-  ruleId = "A15-5-2"
+  ruleId = "A15-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `conditionVariablePostConditionFailedAutosar` query
@@ -142,7 +154,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `conditionVariablePostConditionFailedAutosar` query
     "cpp/autosar/condition-variable-post-condition-failed-autosar" and
-  ruleId = "A15-5-3"
+  ruleId = "A15-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `joinableThreadCopiedOrDestroyedAutosar` query
@@ -150,7 +163,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `joinableThreadCopiedOrDestroyedAutosar` query
     "cpp/autosar/joinable-thread-copied-or-destroyed-autosar" and
-  ruleId = "A15-5-3"
+  ruleId = "A15-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `rethrowNestedWithoutCaptureAutosar` query
@@ -158,7 +172,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `rethrowNestedWithoutCaptureAutosar` query
     "cpp/autosar/rethrow-nested-without-capture-autosar" and
-  ruleId = "A15-5-3"
+  ruleId = "A15-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `exitHandlerThrowsExceptionAutosar` query
@@ -166,7 +181,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `exitHandlerThrowsExceptionAutosar` query
     "cpp/autosar/exit-handler-throws-exception-autosar" and
-  ruleId = "A15-5-3"
+  ruleId = "A15-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `gotoToCatchBlock` query
@@ -174,7 +190,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `gotoToCatchBlock` query
     "cpp/autosar/goto-to-catch-block" and
-  ruleId = "M15-0-3"
+  ruleId = "M15-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `switchToCatchBlock` query
@@ -182,7 +199,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `switchToCatchBlock` query
     "cpp/autosar/switch-to-catch-block" and
-  ruleId = "M15-0-3"
+  ruleId = "M15-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `exceptionThrownDuringThrow` query
@@ -190,7 +208,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `exceptionThrownDuringThrow` query
     "cpp/autosar/exception-thrown-during-throw" and
-  ruleId = "M15-1-1"
+  ruleId = "M15-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nullThrownExplicitly` query
@@ -198,7 +217,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `nullThrownExplicitly` query
     "cpp/autosar/null-thrown-explicitly" and
-  ruleId = "M15-1-2"
+  ruleId = "M15-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `emptyThrowOutsideCatch` query
@@ -206,7 +226,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `emptyThrowOutsideCatch` query
     "cpp/autosar/empty-throw-outside-catch" and
-  ruleId = "M15-1-3"
+  ruleId = "M15-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `catchAllExplicitlyThrownExceptions` query
@@ -214,7 +235,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `catchAllExplicitlyThrownExceptions` query
     "cpp/autosar/catch-all-explicitly-thrown-exceptions" and
-  ruleId = "M15-3-4"
+  ruleId = "M15-3-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `catchAllHandlerLast` query
@@ -222,7 +244,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `catchAllHandlerLast` query
     "cpp/autosar/catch-all-handler-last" and
-  ruleId = "M15-3-7"
+  ruleId = "M15-3-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `conditionVariablePostConditionFailedCert` query
@@ -230,7 +253,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `conditionVariablePostConditionFailedCert` query
     "cpp/cert/condition-variable-post-condition-failed-cert" and
-  ruleId = "ERR50-CPP"
+  ruleId = "ERR50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `joinableThreadCopiedOrDestroyedCert` query
@@ -238,7 +262,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `joinableThreadCopiedOrDestroyedCert` query
     "cpp/cert/joinable-thread-copied-or-destroyed-cert" and
-  ruleId = "ERR50-CPP"
+  ruleId = "ERR50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `rethrowNestedWithoutCaptureCert` query
@@ -246,7 +271,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `rethrowNestedWithoutCaptureCert` query
     "cpp/cert/rethrow-nested-without-capture-cert" and
-  ruleId = "ERR50-CPP"
+  ruleId = "ERR50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `explicitAbruptTerminationCert` query
@@ -254,7 +280,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `explicitAbruptTerminationCert` query
     "cpp/cert/explicit-abrupt-termination-cert" and
-  ruleId = "ERR50-CPP"
+  ruleId = "ERR50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `exitHandlerThrowsExceptionCert` query
@@ -262,7 +289,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `exitHandlerThrowsExceptionCert` query
     "cpp/cert/exit-handler-throws-exception-cert" and
-  ruleId = "ERR50-CPP"
+  ruleId = "ERR50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `handleAllExceptions` query
@@ -270,7 +298,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `handleAllExceptions` query
     "cpp/cert/handle-all-exceptions" and
-  ruleId = "ERR51-CPP"
+  ruleId = "ERR51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `destroyedValueReferencedInConstructorDestructorCatchBlock` query
@@ -278,7 +307,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `destroyedValueReferencedInConstructorDestructorCatchBlock` query
     "cpp/cert/destroyed-value-referenced-in-constructor-destructor-catch-block" and
-  ruleId = "ERR53-CPP"
+  ruleId = "ERR53-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `honorExceptionSpecifications` query
@@ -286,7 +316,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `honorExceptionSpecifications` query
     "cpp/cert/honor-exception-specifications" and
-  ruleId = "ERR55-CPP"
+  ruleId = "ERR55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `handleAllExceptionsThrownBeforeMainBeginsExecuting` query
@@ -294,7 +325,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `handleAllExceptionsThrownBeforeMainBeginsExecuting` query
     "cpp/cert/handle-all-exceptions-thrown-before-main-begins-executing" and
-  ruleId = "ERR58-CPP"
+  ruleId = "ERR58-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `exceptionObjectsMustBeNothrowCopyConstructible` query
@@ -302,7 +334,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `exceptionObjectsMustBeNothrowCopyConstructible` query
     "cpp/cert/exception-objects-must-be-nothrow-copy-constructible" and
-  ruleId = "ERR60-CPP"
+  ruleId = "ERR60-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `catchExceptionsByLvalueReference` query
@@ -310,7 +343,8 @@ predicate isExceptions1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `catchExceptionsByLvalueReference` query
     "cpp/cert/catch-exceptions-by-lvalue-reference" and
-  ruleId = "ERR61-CPP"
+  ruleId = "ERR61-CPP" and
+  category = "rule"
 }
 
 module Exceptions1Package {

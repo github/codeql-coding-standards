@@ -1,0 +1,25 @@
+{
+  "MISRA-C-2012": {
+    "DIR-4-9": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using a function-like macro instead of a function can lead to unexpected program behaviour.",
+          "kind": "problem",
+          "name": "A function should be used in preference to a function-like macro where they are interchangeable",
+          "precision": "medium",
+          "severity": "recommendation",
+          "short_name": "FunctionOverFunctionLikeMacro",
+          "tags": [
+            "external/misra/audit",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A function should be used in preference to a function-like macro where they are interchangeable"
+    }
+  }
+}

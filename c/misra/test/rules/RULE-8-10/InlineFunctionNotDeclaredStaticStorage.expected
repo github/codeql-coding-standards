@@ -1,0 +1,3 @@
+| test.c:2:20:2:21 | declaration of f1 | Inline function not explicitly declared static. |
+| test.c:3:13:3:14 | declaration of f2 | Inline function not explicitly declared static. |
+| test.c:4:20:4:20 | declaration of f | Inline function not explicitly declared static. |

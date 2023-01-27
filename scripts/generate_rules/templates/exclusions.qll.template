@@ -13,7 +13,7 @@ newtype {{ package_name }}Query =
 
 {% endif %}
 
-predicate is{{package_name}}QueryMetadata(Query query, string queryId, string ruleId) {
+predicate is{{package_name}}QueryMetadata(Query query, string queryId, string ruleId, string category) {
   {% for item in data %}
   query =
     // `Query` instance for the `{{item['queryname_camelcase']}}` query
@@ -21,7 +21,8 @@ predicate is{{package_name}}QueryMetadata(Query query, string queryId, string ru
   queryId =
     // `@id` for the `{{item['queryname_camelcase']}}` query
     "{{ item['queryid'] }}" and
-  ruleId = "{{ item['ruleid'] }}"
+  ruleId = "{{ item['ruleid'] }}" and
+  category = "{{ item['category'] }}"
   {% if not loop.last %}
   or
   {% endif %}

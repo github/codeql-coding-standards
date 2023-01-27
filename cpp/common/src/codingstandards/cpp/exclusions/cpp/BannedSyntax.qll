@@ -22,14 +22,15 @@ newtype BannedSyntaxQuery =
   TUsingDeclarationsUsedInHeaderFilesQuery() or
   TDoNotDefineACStyleVariadicFunctionQuery()
 
-predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `friendDeclarationsUsed` query
     BannedSyntaxPackage::friendDeclarationsUsedQuery() and
   queryId =
     // `@id` for the `friendDeclarationsUsed` query
     "cpp/autosar/friend-declarations-used" and
-  ruleId = "A11-3-1"
+  ruleId = "A11-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cStyleArraysUsed` query
@@ -37,7 +38,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `cStyleArraysUsed` query
     "cpp/autosar/c-style-arrays-used" and
-  ruleId = "A18-1-1"
+  ruleId = "A18-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `volatileKeywordUsed` query
@@ -45,7 +47,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `volatileKeywordUsed` query
     "cpp/autosar/volatile-keyword-used" and
-  ruleId = "A2-11-1"
+  ruleId = "A2-11-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `ternaryConditionalOperatorUsedAsSubExpression` query
@@ -53,7 +56,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `ternaryConditionalOperatorUsedAsSubExpression` query
     "cpp/autosar/ternary-conditional-operator-used-as-sub-expression" and
-  ruleId = "A5-16-1"
+  ruleId = "A5-16-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `dynamicCastShouldNotBeUsed` query
@@ -61,7 +65,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `dynamicCastShouldNotBeUsed` query
     "cpp/autosar/dynamic-cast-should-not-be-used" and
-  ruleId = "A5-2-1"
+  ruleId = "A5-2-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `traditionalCStyleCastsUsed` query
@@ -69,7 +74,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `traditionalCStyleCastsUsed` query
     "cpp/autosar/traditional-c-style-casts-used" and
-  ruleId = "A5-2-2"
+  ruleId = "A5-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `reinterpretCastUsed` query
@@ -77,7 +83,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `reinterpretCastUsed` query
     "cpp/autosar/reinterpret-cast-used" and
-  ruleId = "A5-2-4"
+  ruleId = "A5-2-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `gotoStatementUsed` query
@@ -85,7 +92,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `gotoStatementUsed` query
     "cpp/autosar/goto-statement-used" and
-  ruleId = "A6-6-1"
+  ruleId = "A6-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `registerKeywordUsed` query
@@ -93,7 +101,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `registerKeywordUsed` query
     "cpp/autosar/register-keyword-used" and
-  ruleId = "A7-1-4"
+  ruleId = "A7-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typedefSpecifierUsed` query
@@ -101,7 +110,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `typedefSpecifierUsed` query
     "cpp/autosar/typedef-specifier-used" and
-  ruleId = "A7-1-6"
+  ruleId = "A7-1-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `asmDeclarationUsed` query
@@ -109,7 +119,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `asmDeclarationUsed` query
     "cpp/autosar/asm-declaration-used" and
-  ruleId = "A7-4-1"
+  ruleId = "A7-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionsDefinedUsingTheEllipsisNotation` query
@@ -117,7 +128,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `functionsDefinedUsingTheEllipsisNotation` query
     "cpp/autosar/functions-defined-using-the-ellipsis-notation" and
-  ruleId = "A8-4-1"
+  ruleId = "A8-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unionsUsed` query
@@ -125,7 +137,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `unionsUsed` query
     "cpp/autosar/unions-used" and
-  ruleId = "A9-5-1"
+  ruleId = "A9-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `commaOperatorUsed` query
@@ -133,7 +146,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `commaOperatorUsed` query
     "cpp/autosar/comma-operator-used" and
-  ruleId = "M5-18-1"
+  ruleId = "M5-18-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `usingDirectivesUsed` query
@@ -141,7 +155,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `usingDirectivesUsed` query
     "cpp/autosar/using-directives-used" and
-  ruleId = "M7-3-4"
+  ruleId = "M7-3-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `usingDeclarationsUsedInHeaderFiles` query
@@ -149,7 +164,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `usingDeclarationsUsedInHeaderFiles` query
     "cpp/autosar/using-declarations-used-in-header-files" and
-  ruleId = "M7-3-6"
+  ruleId = "M7-3-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotDefineACStyleVariadicFunction` query
@@ -157,7 +173,8 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotDefineACStyleVariadicFunction` query
     "cpp/cert/do-not-define-ac-style-variadic-function" and
-  ruleId = "DCL50-CPP"
+  ruleId = "DCL50-CPP" and
+  category = "rule"
 }
 
 module BannedSyntaxPackage {

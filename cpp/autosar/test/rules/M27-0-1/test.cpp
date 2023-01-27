@@ -57,5 +57,5 @@ void *test_cstdio_is_used() {
   printf("foo");     // NON_COMPLIANT
   puts("all done!"); // NON_COMPLIANT
 
-  return NULL; // NON_COMPLIANT
+  return NULL; // COMPLIANT - NULL is not uniquely defined by cstdio
 }

@@ -123,6 +123,12 @@ param(
     [string]
     $ReportDir = (Get-Location),
 
+    # Skip summary report -- used for Linux hosts that don't support 
+    # the OLE database stuff. 
+    [Parameter(Mandatory = $false)] 
+    [switch]
+    $SkipSummaryReport,
+
     # Tells the script to use the sytem tmp directory instead of the rule
     # directory.
     [Parameter(Mandatory = $false)] 
@@ -245,6 +251,7 @@ else {
     Write-Host "Loaded $($queriesToCheck.Count) Queries."
 }
 
+
 #
 # Step 2: Verify All the Required CLI Tools are Installed
 #
@@ -290,8 +297,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
         "RULE"              = $CurrentRuleName;
         "QUERY"             = $CurrentQueryName;
         "COMPILE_PASS"      = $false;
-        "EXTRACTOR_PASS"    = $false;
-        "EXTRACTOR_ERRORS"  = "";
+        "COMPILE_ERROR_OUTPUT"    = "";
         "TEST_PASS"         = $false ;
         "TEST_DIFFERENCE"   = "";
     }
@@ -316,6 +322,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     }
     catch {
         Write-Host -ForegroundColor ([ConsoleColor]4) "FAILED"
+        $row["COMPILE_ERROR_OUTPUT"] = $_
 
         return $row # although it is unlikely to succeed with the next rule skipping to the next rule
                     # ensures all of the rules will be reported in the
@@ -323,25 +330,11 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     }
 
     $row["COMPILE_PASS"] = $true
-    Write-Host "Validating extractor results..." -NoNewline
-
-    try {
-         $diagnostics = Execute-QueryAndDecodeAsJson -DatabasePath $db -QueryPath $diagnostic_query
-   }catch {
-        Write-Host -ForegroundColor ([ConsoleColor]4) $_Exception.Message
-        return $row
-   }
-
-    if ( $diagnostics.'#select'.tuples.Length -eq 0 ) {
-        $row["EXTRACTOR_PASS"] = $true
-        Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
-    } else {
-        Write-Host -ForegroundColor ([ConsoleColor]4) "FAILED"
-        $row["EXTRACTOR_ERRORS"] = $diagnostics | ConvertTo-Json -Depth 100
-    }
-
+    
     Write-Host "Checking expected output..."
 
+    # Dragons below 🐉🐉🐉
+    #  
     # Note this technique uses so-called "wizard" settings to make it possible
     # to compare hand compiled databases using qltest. The relative paths and
     # other options are required to be set as below (especially the detail about
@@ -381,7 +374,6 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     Write-Host "Standard Out Buffered to: $stdOut"
     Write-Host "Standard Error Buffered to: $stdErr"
     
-
     $procDetails = Start-Process -FilePath "codeql" -PassThru -NoNewWindow -Wait -ArgumentList "test run $qlRefFile --dataset=`"$datasetRelPath`"" -RedirectStandardOutput $stdOut -RedirectStandardError $stdErr
     
     if (-Not $procDetails.ExitCode -eq 0) {
@@ -420,6 +412,8 @@ foreach ($r in $REPORT) {
     [PSCustomObject]$r | Export-CSV -Path $reportOutputFile -Append -NoTypeInformation
 }
 
-# write out a summary 
-Write-Host "Writing summary report to $summaryReportOutputFile"
-Create-Summary-Report -DataFile $reportOutputFile -OutputFile $summaryReportOutputFile
+if (-not $SkipSummaryReport){
+    # write out a summary 
+    Write-Host "Writing summary report to $summaryReportOutputFile"
+    Create-Summary-Report -DataFile $reportOutputFile -OutputFile $summaryReportOutputFile
+}

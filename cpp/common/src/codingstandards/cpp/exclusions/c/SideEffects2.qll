@@ -7,14 +7,15 @@ newtype SideEffects2Query =
   TSideEffectAndCrementInFullExpressionQuery() or
   TModificationOfFunctionParameterQuery()
 
-predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `sideEffectAndCrementInFullExpression` query
     SideEffects2Package::sideEffectAndCrementInFullExpressionQuery() and
   queryId =
     // `@id` for the `sideEffectAndCrementInFullExpression` query
     "c/misra/side-effect-and-crement-in-full-expression" and
-  ruleId = "RULE-13-3"
+  ruleId = "RULE-13-3" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `modificationOfFunctionParameter` query
@@ -22,7 +23,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `modificationOfFunctionParameter` query
     "c/misra/modification-of-function-parameter" and
-  ruleId = "RULE-17-8"
+  ruleId = "RULE-17-8" and
+  category = "advisory"
 }
 
 module SideEffects2Package {
