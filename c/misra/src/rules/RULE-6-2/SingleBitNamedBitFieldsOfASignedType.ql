@@ -32,17 +32,10 @@ predicate isSingleBit(BitField bitField) {
   bitField.getDeclaredNumBits() = 1
 }
 
-// predicate isNamedBitField(BitField bitField) {
-//   bitField.getName().length() != 0
-//   bitField.hasName(_)
-//   bitField.hasDefinition()
-//   wat
-// }
-
 from BitField bitField
 where
   not isExcluded(bitField, TypesPackage::singleBitNamedBitFieldsOfASignedTypeQuery()) and
   isSingleBit(bitField) and // Single-bit,
-  // isNamedBitField(bitField) and // named,
+  not bitField.isAnonymous() and // named,
   isSigned(bitField.getType()) // but its type is signed.
 select bitField, "Single-bit bit-field named " + bitField.toString() + " has a signed type " + bitField.getType() + "."
