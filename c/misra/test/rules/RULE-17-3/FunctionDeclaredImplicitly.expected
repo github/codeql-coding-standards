@@ -1,0 +1,2 @@
+| test.c:4:1:4:2 | declaration of f2 | Function declaration is implicit. |
+| test.c:12:15:12:15 | declaration of f3 | Function declaration is implicit. |

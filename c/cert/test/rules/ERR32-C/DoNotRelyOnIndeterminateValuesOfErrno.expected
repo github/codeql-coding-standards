@@ -1,0 +1,7 @@
+| test.c:12:5:12:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:10:21:10:26 | call to signal | call to signal |
+| test.c:30:5:30:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:26:21:26:26 | call to signal | call to signal |
+| test.c:49:5:49:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:45:21:45:26 | call to signal | call to signal |
+| test.c:56:5:56:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:54:21:54:26 | call to signal | call to signal |
+| test.c:74:5:74:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:64:17:64:22 | call to signal | call to signal |
+| test.c:74:5:74:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:66:17:66:22 | call to signal | call to signal |
+| test.c:74:5:74:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:70:17:70:22 | call to signal | call to signal |

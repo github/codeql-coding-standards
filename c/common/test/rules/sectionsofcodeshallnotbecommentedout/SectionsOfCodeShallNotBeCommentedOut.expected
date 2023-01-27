@@ -1,0 +1,20 @@
+| test.c:39:1:39:39 | // int myFunction() { return myValue; } | This comment appears to contain commented-out code. |
+| test.c:41:1:41:45 | // int myFunction() const { return myValue; } | This comment appears to contain commented-out code. |
+| test.c:43:1:43:54 | // int myFunction() const noexcept { return myValue; } | This comment appears to contain commented-out code. |
+| test.c:45:1:45:18 | // #define MYMACRO | This comment appears to contain commented-out code. |
+| test.c:47:1:47:23 | // #include "include.h" | This comment appears to contain commented-out code. |
+| test.c:49:1:53:2 | /*\n#ifdef\nvoid myFunction();\n#endif\n*/ | This comment appears to contain commented-out code. |
+| test.c:61:1:61:24 | // #if(defined(MYMACRO)) | This comment appears to contain commented-out code. |
+| test.c:65:1:65:15 | // #pragma once | This comment appears to contain commented-out code. |
+| test.c:67:1:67:17 | //  # pragma once | This comment appears to contain commented-out code. |
+| test.c:69:1:69:19 | /*#error"myerror"*/ | This comment appears to contain commented-out code. |
+| test.c:93:1:97:2 | /*\n#ifdef MYMACRO\n        // ...\n#endif // #ifdef MYMACRO\n*/ | This comment appears to contain commented-out code. |
+| test.c:108:21:108:43 | // #include "config2.h" | This comment appears to contain commented-out code. |
+| test.c:114:16:114:35 | /* #ifdef MYMACRO */ | This comment appears to contain commented-out code. |
+| test.c:118:1:118:24 | // commented_out_code(); | This comment appears to contain commented-out code. |
+| test.c:121:2:121:25 | // commented_out_code(); | This comment appears to contain commented-out code. |
+| test.c:124:1:124:22 | // commented out code; | This comment appears to contain commented-out code. |
+| test.c:126:1:129:8 | // some; | This comment appears to contain commented-out code. |
+| test.c:131:1:135:8 | // also; | This comment appears to contain commented-out code. |
+| test.c:143:1:148:2 | /*\n    some;\n    commented;\n    out;\n    code;\n*/ | This comment appears to contain commented-out code. |
+| test.c:150:1:156:2 | /*\n    also;\n    this\n    is;\n    commented-out\n    code;\n*/ | This comment appears to contain commented-out code. |

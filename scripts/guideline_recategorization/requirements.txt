@@ -1,0 +1,7 @@
+jsonpath-ng==1.5.3
+jsonschema==4.9.1
+jsonpatch==1.32
+jsonpointer==2.3
+PyYAML==5.4
+pytest==7.2.0
+

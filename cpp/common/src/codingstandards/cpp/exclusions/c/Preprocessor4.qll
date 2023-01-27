@@ -8,14 +8,15 @@ newtype Preprocessor4Query =
   TFunctionLikeMacroArgsContainHashTokenCQueryQuery() or
   TDefineAndUndefUsedOnReservedIdentifierOrMacroNameQuery()
 
-predicate isPreprocessor4QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPreprocessor4QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `macroDefinedWithTheSameNameAsKeyword` query
     Preprocessor4Package::macroDefinedWithTheSameNameAsKeywordQuery() and
   queryId =
     // `@id` for the `macroDefinedWithTheSameNameAsKeyword` query
     "c/misra/macro-defined-with-the-same-name-as-keyword" and
-  ruleId = "RULE-20-4"
+  ruleId = "RULE-20-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionLikeMacroArgsContainHashTokenCQuery` query
@@ -23,7 +24,8 @@ predicate isPreprocessor4QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `functionLikeMacroArgsContainHashTokenCQuery` query
     "c/misra/function-like-macro-args-contain-hash-token-c-query" and
-  ruleId = "RULE-20-6"
+  ruleId = "RULE-20-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `defineAndUndefUsedOnReservedIdentifierOrMacroName` query
@@ -31,7 +33,8 @@ predicate isPreprocessor4QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `defineAndUndefUsedOnReservedIdentifierOrMacroName` query
     "c/misra/define-and-undef-used-on-reserved-identifier-or-macro-name" and
-  ruleId = "RULE-21-1"
+  ruleId = "RULE-21-1" and
+  category = "required"
 }
 
 module Preprocessor4Package {

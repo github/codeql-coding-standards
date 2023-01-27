@@ -10,14 +10,15 @@ newtype Declarations3Query =
   TTagNameNotUniqueQuery() or
   TExplicitlyDeclareTypesQuery()
 
-predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `identifierHidingC` query
     Declarations3Package::identifierHidingCQuery() and
   queryId =
     // `@id` for the `identifierHidingC` query
     "c/misra/identifier-hiding-c" and
-  ruleId = "RULE-5-3"
+  ruleId = "RULE-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifiersNotDistinctFromMacroNames` query
@@ -25,7 +26,8 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `identifiersNotDistinctFromMacroNames` query
     "c/misra/identifiers-not-distinct-from-macro-names" and
-  ruleId = "RULE-5-5"
+  ruleId = "RULE-5-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `typedefNameNotUnique` query
@@ -33,7 +35,8 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `typedefNameNotUnique` query
     "c/misra/typedef-name-not-unique" and
-  ruleId = "RULE-5-6"
+  ruleId = "RULE-5-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `tagNameNotUnique` query
@@ -41,7 +44,8 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `tagNameNotUnique` query
     "c/misra/tag-name-not-unique" and
-  ruleId = "RULE-5-7"
+  ruleId = "RULE-5-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `explicitlyDeclareTypes` query
@@ -49,7 +53,8 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `explicitlyDeclareTypes` query
     "c/misra/explicitly-declare-types" and
-  ruleId = "RULE-8-1"
+  ruleId = "RULE-8-1" and
+  category = "required"
 }
 
 module Declarations3Package {

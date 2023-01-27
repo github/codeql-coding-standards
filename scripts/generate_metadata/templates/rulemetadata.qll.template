@@ -18,9 +18,9 @@ newtype T{{ language_name.upper() }}Query =
 {% endif %}
 
 /** The metadata predicate * */
-predicate isQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
   {% for package in packages %}
-  is{{ package }}QueryMetadata(query, queryId, ruleId){% if not loop.last %} or
+  is{{ package }}QueryMetadata(query, queryId, ruleId, category){% if not loop.last %} or
   {% endif %}{% endfor %}
 
 }
