@@ -1,6 +1,6 @@
-| test.c:16:22:16:23 | i2 | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
-| test.c:17:8:17:9 | g2 | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
-| test.c:18:8:18:9 | i2 | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
-| test.c:26:10:26:11 | g1 | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
-| test.c:33:22:33:26 | & ... | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
-| test.c:40:10:40:14 | & ... | Restrict qualified pointers referencing overlapping objects is undefined behavior. |
+| test.c:16:22:16:23 | i2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:16:17:16:18 | i3 | i3 |
+| test.c:17:8:17:9 | g2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:5:15:5:16 | g1 | g1 |
+| test.c:18:8:18:9 | i2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:14:17:14:18 | i1 | i1 |
+| test.c:26:10:26:11 | g1 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:20:19:20:20 | i4 | i4 |
+| test.c:33:22:33:26 | & ... | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:33:17:33:18 | px | px |
+| test.c:40:10:40:14 | & ... | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:35:19:35:20 | py | py |

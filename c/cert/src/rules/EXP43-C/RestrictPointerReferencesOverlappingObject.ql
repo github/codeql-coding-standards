@@ -72,4 +72,5 @@ where
     expr.(VariableAccess).getTarget().getType().hasSpecifier("restrict") and
     expr.(VariableAccess).getTarget().getParentScope() = expr.getVariable().getParentScope()
   )
-select expr, "Restrict qualified pointers referencing overlapping objects is undefined behavior."
+select expr, "Assignment to restrict-qualified pointer $@ results in pointer aliasing.",
+  expr.getVariable(), expr.getVariable().getName()
