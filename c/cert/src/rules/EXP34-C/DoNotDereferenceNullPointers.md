@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP34-C:
 > Do not dereference null pointers
 
 
-
 ## Description
 
 Dereferencing a null pointer is [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior).

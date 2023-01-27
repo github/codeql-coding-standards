@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP33-C:
 > Do not read uninitialized memory
 
 
-
 ## Description
 
 Local, automatic variables assume unexpected values if they are read before they are initialized. The C Standard, 6.7.9, paragraph 10, specifies \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\]
