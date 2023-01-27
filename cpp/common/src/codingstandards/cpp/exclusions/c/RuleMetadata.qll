@@ -118,7 +118,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isMiscQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or
-  isPointers3QueryMetadata(query, queryId, ruleId) or
+  isPointers3QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessor1QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessor2QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessor3QueryMetadata(query, queryId, ruleId, category) or
