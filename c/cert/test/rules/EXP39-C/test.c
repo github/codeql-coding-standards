@@ -17,7 +17,8 @@ void test_incompatible_arithmetic() {
   // char may be signed or unsigned, and so is not compatible with either
   char c1;
   (signed char *)&c1;   // NON_COMPLIANT
-  (unsigned char *)&c1; // COMPLIANT - the underlying byte representation is always compatible
+  (unsigned char *)&c1; // COMPLIANT - the underlying byte representation is
+                        // always compatible
   (char *)&c1;          // COMPLIANT - same type
 
   // int is defined as signed, so is compatible with all the signed versions
@@ -32,13 +33,13 @@ void test_incompatible_arithmetic() {
 
 struct {
   int a;
-} * s1;
+} *s1;
 struct {
   int a;
-} * s2;
+} *s2;
 struct S1 {
   int a;
-} * s3;
+} *s3;
 struct S1 *s4;
 
 // TODO test across files
