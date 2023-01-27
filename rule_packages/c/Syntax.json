@@ -62,7 +62,7 @@
       ],
       "title": "Octal and hexadecimal escape sequences shall be terminated"
     },
-    "RULE-4-4": {
+    "DIR-4-4": {
       "properties": {
         "obligation": "advisory"
       },

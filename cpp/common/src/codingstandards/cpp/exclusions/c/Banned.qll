@@ -24,14 +24,15 @@ newtype BannedQuery =
   TOctalConstantsUsedQuery() or
   TRestrictTypeQualifierUsedQuery()
 
-predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isBannedQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotCallSystem` query
     BannedPackage::doNotCallSystemQuery() and
   queryId =
     // `@id` for the `doNotCallSystem` query
     "c/cert/do-not-call-system" and
-  ruleId = "ENV33-C"
+  ruleId = "ENV33-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `commaOperatorShouldNotBeUsed` query
@@ -39,7 +40,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `commaOperatorShouldNotBeUsed` query
     "c/misra/comma-operator-should-not-be-used" and
-  ruleId = "RULE-12-3"
+  ruleId = "RULE-12-3" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `featuresOfStdarghUsed` query
@@ -47,7 +49,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `featuresOfStdarghUsed` query
     "c/misra/features-of-stdargh-used" and
-  ruleId = "RULE-17-1"
+  ruleId = "RULE-17-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unionKeywordShouldNotBeUsed` query
@@ -55,7 +58,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unionKeywordShouldNotBeUsed` query
     "c/misra/union-keyword-should-not-be-used" and
-  ruleId = "RULE-19-2"
+  ruleId = "RULE-19-2" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `standardLibraryTimeAndDateFunctionsUsed` query
@@ -63,7 +67,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `standardLibraryTimeAndDateFunctionsUsed` query
     "c/misra/standard-library-time-and-date-functions-used" and
-  ruleId = "RULE-21-10"
+  ruleId = "RULE-21-10" and
+  category = "required"
   or
   query =
     // `Query` instance for the `standardHeaderFileTgmathhUsed` query
@@ -71,7 +76,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `standardHeaderFileTgmathhUsed` query
     "c/misra/standard-header-file-tgmathh-used" and
-  ruleId = "RULE-21-11"
+  ruleId = "RULE-21-11" and
+  category = "required"
   or
   query =
     // `Query` instance for the `exceptionHandlingFeaturesOfFenvhUsed` query
@@ -79,7 +85,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `exceptionHandlingFeaturesOfFenvhUsed` query
     "c/misra/exception-handling-features-of-fenvh-used" and
-  ruleId = "RULE-21-12"
+  ruleId = "RULE-21-12" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `systemOfStdlibhUsed` query
@@ -87,7 +94,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `systemOfStdlibhUsed` query
     "c/misra/system-of-stdlibh-used" and
-  ruleId = "RULE-21-21"
+  ruleId = "RULE-21-21" and
+  category = "required"
   or
   query =
     // `Query` instance for the `memoryAllocDeallocFunctionsOfStdlibhUsed` query
@@ -95,7 +103,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `memoryAllocDeallocFunctionsOfStdlibhUsed` query
     "c/misra/memory-alloc-dealloc-functions-of-stdlibh-used" and
-  ruleId = "RULE-21-3"
+  ruleId = "RULE-21-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `standardHeaderFileUsedSetjmph` query
@@ -103,7 +112,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `standardHeaderFileUsedSetjmph` query
     "c/misra/standard-header-file-used-setjmph" and
-  ruleId = "RULE-21-4"
+  ruleId = "RULE-21-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `standardHeaderFileUsedSignalh` query
@@ -111,7 +121,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `standardHeaderFileUsedSignalh` query
     "c/misra/standard-header-file-used-signalh" and
-  ruleId = "RULE-21-5"
+  ruleId = "RULE-21-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `standardLibraryInputoutputFunctionsUsed` query
@@ -119,7 +130,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `standardLibraryInputoutputFunctionsUsed` query
     "c/misra/standard-library-inputoutput-functions-used" and
-  ruleId = "RULE-21-6"
+  ruleId = "RULE-21-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `atofAtoiAtolAndAtollOfStdlibhUsed` query
@@ -127,7 +139,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `atofAtoiAtolAndAtollOfStdlibhUsed` query
     "c/misra/atof-atoi-atol-and-atoll-of-stdlibh-used" and
-  ruleId = "RULE-21-7"
+  ruleId = "RULE-21-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `terminationFunctionsOfStdlibhUsed` query
@@ -135,7 +148,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `terminationFunctionsOfStdlibhUsed` query
     "c/misra/termination-functions-of-stdlibh-used" and
-  ruleId = "RULE-21-8"
+  ruleId = "RULE-21-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `terminationMacrosOfStdlibhUsed` query
@@ -143,7 +157,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `terminationMacrosOfStdlibhUsed` query
     "c/misra/termination-macros-of-stdlibh-used" and
-  ruleId = "RULE-21-8"
+  ruleId = "RULE-21-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `bsearchAndQsortOfStdlibhUsed` query
@@ -151,7 +166,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `bsearchAndQsortOfStdlibhUsed` query
     "c/misra/bsearch-and-qsort-of-stdlibh-used" and
-  ruleId = "RULE-21-9"
+  ruleId = "RULE-21-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `stdLibDynamicMemoryAllocationUsed` query
@@ -159,7 +175,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `stdLibDynamicMemoryAllocationUsed` query
     "c/misra/std-lib-dynamic-memory-allocation-used" and
-  ruleId = "RULE-4-12"
+  ruleId = "DIR-4-12" and
+  category = "required"
   or
   query =
     // `Query` instance for the `octalConstantsUsed` query
@@ -167,7 +184,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `octalConstantsUsed` query
     "c/misra/octal-constants-used" and
-  ruleId = "RULE-7-1"
+  ruleId = "RULE-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `restrictTypeQualifierUsed` query
@@ -175,7 +193,8 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `restrictTypeQualifierUsed` query
     "c/misra/restrict-type-qualifier-used" and
-  ruleId = "RULE-8-14"
+  ruleId = "RULE-8-14" and
+  category = "required"
 }
 
 module BannedPackage {

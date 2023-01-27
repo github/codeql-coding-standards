@@ -22,14 +22,15 @@ newtype ConditionalsQuery =
   TGotoStatementJumpConditionQuery() or
   TContinueInForLoopConditionQuery()
 
-predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `nonBooleanIfCondition` query
     ConditionalsPackage::nonBooleanIfConditionQuery() and
   queryId =
     // `@id` for the `nonBooleanIfCondition` query
     "cpp/autosar/non-boolean-if-condition" and
-  ruleId = "A5-0-2"
+  ruleId = "A5-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonBooleanIterationCondition` query
@@ -37,7 +38,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `nonBooleanIterationCondition` query
     "cpp/autosar/non-boolean-iteration-condition" and
-  ruleId = "A5-0-2"
+  ruleId = "A5-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `switchLessThanTwoCases` query
@@ -45,7 +47,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `switchLessThanTwoCases` query
     "cpp/autosar/switch-less-than-two-cases" and
-  ruleId = "A6-4-1"
+  ruleId = "A6-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `switchCompoundCondition` query
@@ -53,7 +56,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `switchCompoundCondition` query
     "cpp/autosar/switch-compound-condition" and
-  ruleId = "M6-3-1"
+  ruleId = "M6-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `loopCompoundCondition` query
@@ -61,7 +65,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `loopCompoundCondition` query
     "cpp/autosar/loop-compound-condition" and
-  ruleId = "M6-3-1"
+  ruleId = "M6-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `ifCompoundCondition` query
@@ -69,7 +74,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `ifCompoundCondition` query
     "cpp/autosar/if-compound-condition" and
-  ruleId = "M6-4-1"
+  ruleId = "M6-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `ifElseTerminationCondition` query
@@ -77,7 +83,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `ifElseTerminationCondition` query
     "cpp/autosar/if-else-termination-condition" and
-  ruleId = "M6-4-2"
+  ruleId = "M6-4-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `switchDoesNotStartWithCase` query
@@ -85,7 +92,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `switchDoesNotStartWithCase` query
     "cpp/autosar/switch-does-not-start-with-case" and
-  ruleId = "M6-4-3"
+  ruleId = "M6-4-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `switchStatementNotWellFormed` query
@@ -93,7 +101,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `switchStatementNotWellFormed` query
     "cpp/autosar/switch-statement-not-well-formed" and
-  ruleId = "M6-4-3"
+  ruleId = "M6-4-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nestedCaseInSwitch` query
@@ -101,7 +110,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `nestedCaseInSwitch` query
     "cpp/autosar/nested-case-in-switch" and
-  ruleId = "M6-4-4"
+  ruleId = "M6-4-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonEmptySwitchClauseDoesNotTerminate` query
@@ -109,7 +119,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `nonEmptySwitchClauseDoesNotTerminate` query
     "cpp/autosar/non-empty-switch-clause-does-not-terminate" and
-  ruleId = "M6-4-5"
+  ruleId = "M6-4-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingDefaultInSwitch` query
@@ -117,7 +128,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `missingDefaultInSwitch` query
     "cpp/autosar/missing-default-in-switch" and
-  ruleId = "M6-4-6"
+  ruleId = "M6-4-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `switchFinalClauseNotDefault` query
@@ -125,7 +137,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `switchFinalClauseNotDefault` query
     "cpp/autosar/switch-final-clause-not-default" and
-  ruleId = "M6-4-6"
+  ruleId = "M6-4-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `booleanInSwitchCondition` query
@@ -133,7 +146,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `booleanInSwitchCondition` query
     "cpp/autosar/boolean-in-switch-condition" and
-  ruleId = "M6-4-7"
+  ruleId = "M6-4-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `gotoBlockCondition` query
@@ -141,7 +155,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `gotoBlockCondition` query
     "cpp/autosar/goto-block-condition" and
-  ruleId = "M6-6-1"
+  ruleId = "M6-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `gotoStatementJumpCondition` query
@@ -149,7 +164,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `gotoStatementJumpCondition` query
     "cpp/autosar/goto-statement-jump-condition" and
-  ruleId = "M6-6-2"
+  ruleId = "M6-6-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `continueInForLoopCondition` query
@@ -157,7 +173,8 @@ predicate isConditionalsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `continueInForLoopCondition` query
     "cpp/autosar/continue-in-for-loop-condition" and
-  ruleId = "M6-6-3"
+  ruleId = "M6-6-3" and
+  category = "required"
 }
 
 module ConditionalsPackage {

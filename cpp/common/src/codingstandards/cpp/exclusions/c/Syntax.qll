@@ -12,14 +12,15 @@ newtype SyntaxQuery =
   TUOrUSuffixRepresentedInUnsignedTypeQuery() or
   TLowercaseCharacterLUsedInLiteralSuffixQuery()
 
-predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `characterSequencesAndUsedWithinAComment` query
     SyntaxPackage::characterSequencesAndUsedWithinACommentQuery() and
   queryId =
     // `@id` for the `characterSequencesAndUsedWithinAComment` query
     "c/misra/character-sequences-and-used-within-a-comment" and
-  ruleId = "RULE-3-1"
+  ruleId = "RULE-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `lineSplicingUsedInComments` query
@@ -27,7 +28,8 @@ predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `lineSplicingUsedInComments` query
     "c/misra/line-splicing-used-in-comments" and
-  ruleId = "RULE-3-2"
+  ruleId = "RULE-3-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `octalAndHexadecimalEscapeSequencesNotTerminated` query
@@ -35,7 +37,8 @@ predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `octalAndHexadecimalEscapeSequencesNotTerminated` query
     "c/misra/octal-and-hexadecimal-escape-sequences-not-terminated" and
-  ruleId = "RULE-4-1"
+  ruleId = "RULE-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `sectionsOfCodeShallNotBeCommentedOut` query
@@ -43,7 +46,8 @@ predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `sectionsOfCodeShallNotBeCommentedOut` query
     "c/misra/sections-of-code-shall-not-be-commented-out" and
-  ruleId = "RULE-4-4"
+  ruleId = "DIR-4-4" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `identifiersInTheSameNameSpaceUnambiguous` query
@@ -51,7 +55,8 @@ predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifiersInTheSameNameSpaceUnambiguous` query
     "c/misra/identifiers-in-the-same-name-space-unambiguous" and
-  ruleId = "DIR-4-5"
+  ruleId = "DIR-4-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `uOrUSuffixRepresentedInUnsignedType` query
@@ -59,7 +64,8 @@ predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `uOrUSuffixRepresentedInUnsignedType` query
     "c/misra/u-or-u-suffix-represented-in-unsigned-type" and
-  ruleId = "RULE-7-2"
+  ruleId = "RULE-7-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `lowercaseCharacterLUsedInLiteralSuffix` query
@@ -67,7 +73,8 @@ predicate isSyntaxQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `lowercaseCharacterLUsedInLiteralSuffix` query
     "c/misra/lowercase-character-l-used-in-literal-suffix" and
-  ruleId = "RULE-7-3"
+  ruleId = "RULE-7-3" and
+  category = "required"
 }
 
 module SyntaxPackage {

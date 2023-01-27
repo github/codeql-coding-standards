@@ -1,5 +1,5 @@
 name: codeql/misra-cpp-coding-standards-tests
-version: 2.9.0-dev
+version: 2.13.0-dev
 extractor: cpp
 dependencies:
   codeql/misra-cpp-coding-standards: '*'

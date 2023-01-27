@@ -26,3 +26,12 @@ extern long a2; // NON_COMPLIANT
 extern int a9[100];  // COMPLIANT
 LI a10[100];         // COMPLIANT
 extern int a11[101]; // NON_COMPLIANT - different sizes
+
+template <class T> class ClassB {
+private:
+  T mA;   // Should be ignored, as not an object
+  int mB; // Should be ignored, as not an object
+};
+
+void testb_1() { ClassB<int> b; }
+void testb_2() { ClassB<long> b; }

@@ -1,0 +1,29 @@
+# Guideline recategorizations report
+
+## Overview
+
+ - Report generated with supported CodeQL version $codeql-version$
+ - Database path: $database-path$
+ - 8 applicable guideline recategorizations and 5 invalid guideline recategorizations found in the database
+
+## Guideline recategorizations
+
+| Rule ID | Category | Recategorized category
+| --- | --- | --- |
+| A0-1-1 | required | advisory | 
+| A0-1-1 | required | mandatory | 
+| A0-1-2 | required | disapplied | 
+| RULE-13-6 | mandatory | required | 
+| CON50-CPP | rule | required | 
+| A0-1-6 | advisory | disapplied | 
+| A10-4-1 | advisory | required | 
+| A11-0-1 | advisory | mandatory | 
+
+## Invalid guideline recategorizations
+| Path | Reason |
+| --- | --- |
+| invalid/coding-standards.xml:5:7:8:43 | 'Invalid recategorization from 'required' to 'advisory'.' for rule A0-1-1. |
+| invalid/coding-standards.xml:9:7:12:43 | 'Invalid recategorization from 'required' to 'disapplied'.' for rule A0-1-2. |
+| invalid/coding-standards.xml:13:7:16:43 | 'Unknown rule id 'A1-4-3'.' for rule A1-4-3. |
+| invalid/coding-standards.xml:17:7:20:43 | 'Invalid recategorization from 'mandatory' to 'required'.' for rule RULE-13-6. |
+| invalid/coding-standards.xml:21:7:24:43 | 'Invalid recategorization from 'rule' to 'required'.' for rule CON50-CPP. |

@@ -7,14 +7,15 @@ newtype Concurrency2Query =
   TDeadlockByLockingInPredefinedOrderQuery() or
   TWrapFunctionsThatCanSpuriouslyWakeUpInLoopQuery()
 
-predicate isConcurrency2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isConcurrency2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `deadlockByLockingInPredefinedOrder` query
     Concurrency2Package::deadlockByLockingInPredefinedOrderQuery() and
   queryId =
     // `@id` for the `deadlockByLockingInPredefinedOrder` query
     "c/cert/deadlock-by-locking-in-predefined-order" and
-  ruleId = "CON35-C"
+  ruleId = "CON35-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `wrapFunctionsThatCanSpuriouslyWakeUpInLoop` query
@@ -22,7 +23,8 @@ predicate isConcurrency2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `wrapFunctionsThatCanSpuriouslyWakeUpInLoop` query
     "c/cert/wrap-functions-that-can-spuriously-wake-up-in-loop" and
-  ruleId = "CON36-C"
+  ruleId = "CON36-C" and
+  category = "rule"
 }
 
 module Concurrency2Package {

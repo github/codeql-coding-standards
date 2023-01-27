@@ -1,0 +1,11 @@
+| test.c:27:3:27:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:49:3:49:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:71:3:71:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:87:3:87:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:95:3:95:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:135:3:135:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:139:3:139:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:143:3:143:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:147:3:147:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:151:3:151:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
+| test.c:155:3:155:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |

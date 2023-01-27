@@ -32,14 +32,15 @@ newtype NamingQuery =
   TFunctionReusesReservedNameQuery() or
   TEnumeratorReusesReservedNameQuery()
 
-predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isNamingQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `userDefinedLiteralOperatorSuffixViolation` query
     NamingPackage::userDefinedLiteralOperatorSuffixViolationQuery() and
   queryId =
     // `@id` for the `userDefinedLiteralOperatorSuffixViolation` query
     "cpp/autosar/user-defined-literal-operator-suffix-violation" and
-  ruleId = "A13-1-2"
+  ruleId = "A13-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierHiding` query
@@ -47,7 +48,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifierHiding` query
     "cpp/autosar/identifier-hiding" and
-  ruleId = "A2-10-1"
+  ruleId = "A2-10-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierNameOfStaticNonMemberObjectReusedInNamespace` query
@@ -55,7 +57,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifierNameOfStaticNonMemberObjectReusedInNamespace` query
     "cpp/autosar/identifier-name-of-static-non-member-object-reused-in-namespace" and
-  ruleId = "A2-10-4"
+  ruleId = "A2-10-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierNameOfStaticFunctionReusedInNamespace` query
@@ -63,7 +66,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifierNameOfStaticFunctionReusedInNamespace` query
     "cpp/autosar/identifier-name-of-static-function-reused-in-namespace" and
-  ruleId = "A2-10-4"
+  ruleId = "A2-10-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierNameOfAStaticFunctionIsReused` query
@@ -71,7 +75,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifierNameOfAStaticFunctionIsReused` query
     "cpp/autosar/identifier-name-of-a-static-function-is-reused" and
-  ruleId = "A2-10-5"
+  ruleId = "A2-10-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `identifierNameOfANonMemberObjectWithExternalOrInternalLinkageIsReused` query
@@ -79,7 +84,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifierNameOfANonMemberObjectWithExternalOrInternalLinkageIsReused` query
     "cpp/autosar/identifier-name-of-a-non-member-object-with-external-or-internal-linkage-is-reused" and
-  ruleId = "A2-10-5"
+  ruleId = "A2-10-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `classOrEnumerationNameHiddenByAVariableInTheSameScope` query
@@ -87,7 +93,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `classOrEnumerationNameHiddenByAVariableInTheSameScope` query
     "cpp/autosar/class-or-enumeration-name-hidden-by-a-variable-in-the-same-scope" and
-  ruleId = "A2-10-6"
+  ruleId = "A2-10-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `classOrEnumerationNameHiddenByAFunctionInTheSameScope` query
@@ -95,7 +102,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `classOrEnumerationNameHiddenByAFunctionInTheSameScope` query
     "cpp/autosar/class-or-enumeration-name-hidden-by-a-function-in-the-same-scope" and
-  ruleId = "A2-10-6"
+  ruleId = "A2-10-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `classOrEnumerationNameHiddenByAnEnumeratorInTheSameScope` query
@@ -103,7 +111,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `classOrEnumerationNameHiddenByAnEnumeratorInTheSameScope` query
     "cpp/autosar/class-or-enumeration-name-hidden-by-an-enumerator-in-the-same-scope" and
-  ruleId = "A2-10-6"
+  ruleId = "A2-10-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `universalCharacterNamesUsedOutsideCharacterOrStringLiterals` query
@@ -111,7 +120,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `universalCharacterNamesUsedOutsideCharacterOrStringLiterals` query
     "cpp/autosar/universal-character-names-used-outside-character-or-string-literals" and
-  ruleId = "A2-13-6"
+  ruleId = "A2-13-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `characterOutsideTheLanguageStandardBasicSourceCharacterSetUsedInTheSourceCode` query
@@ -119,7 +129,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `characterOutsideTheLanguageStandardBasicSourceCharacterSetUsedInTheSourceCode` query
     "cpp/autosar/character-outside-the-language-standard-basic-source-character-set-used-in-the-source-code" and
-  ruleId = "A2-3-1"
+  ruleId = "A2-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `invalidCharacterInStringLiteral` query
@@ -127,7 +138,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `invalidCharacterInStringLiteral` query
     "cpp/autosar/invalid-character-in-string-literal" and
-  ruleId = "A2-3-1"
+  ruleId = "A2-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `invalidCharacterInComment` query
@@ -135,7 +147,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `invalidCharacterInComment` query
     "cpp/autosar/invalid-character-in-comment" and
-  ruleId = "A2-3-1"
+  ruleId = "A2-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nameOfStandardLibraryMacroOrObjectReused` query
@@ -143,7 +156,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nameOfStandardLibraryMacroOrObjectReused` query
     "cpp/autosar/name-of-standard-library-macro-or-object-reused" and
-  ruleId = "M17-0-2"
+  ruleId = "M17-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nameOfStandardLibraryFunctionIsOverridden` query
@@ -151,7 +165,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nameOfStandardLibraryFunctionIsOverridden` query
     "cpp/autosar/name-of-standard-library-function-is-overridden" and
-  ruleId = "M17-0-3"
+  ruleId = "M17-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `differentIdentifiersNotTypographicallyUnambiguous` query
@@ -159,7 +174,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `differentIdentifiersNotTypographicallyUnambiguous` query
     "cpp/autosar/different-identifiers-not-typographically-unambiguous" and
-  ruleId = "M2-10-1"
+  ruleId = "M2-10-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain` query
@@ -167,7 +183,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain` query
     "cpp/autosar/identifier-main-used-for-a-function-other-than-the-global-function-main" and
-  ruleId = "M7-3-2"
+  ruleId = "M7-3-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unnamedNamespacesInHeaderFile` query
@@ -175,7 +192,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unnamedNamespacesInHeaderFile` query
     "cpp/autosar/unnamed-namespaces-in-header-file" and
-  ruleId = "M7-3-3"
+  ruleId = "M7-3-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonIdenticalIdentifierUsedForTheParameterInReDeclarationOfAFunction` query
@@ -183,7 +201,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nonIdenticalIdentifierUsedForTheParameterInReDeclarationOfAFunction` query
     "cpp/autosar/non-identical-identifier-used-for-the-parameter-in-re-declaration-of-a-function" and
-  ruleId = "M8-4-2"
+  ruleId = "M8-4-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `redefiningOfStandardLibraryName` query
@@ -191,7 +210,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `redefiningOfStandardLibraryName` query
     "cpp/cert/redefining-of-standard-library-name" and
-  ruleId = "DCL51-CPP"
+  ruleId = "DCL51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `reuseOfReservedIdentifier` query
@@ -199,7 +219,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `reuseOfReservedIdentifier` query
     "cpp/cert/reuse-of-reserved-identifier" and
-  ruleId = "DCL51-CPP"
+  ruleId = "DCL51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useOfSingleUnderscoreReservedPrefix` query
@@ -207,7 +228,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useOfSingleUnderscoreReservedPrefix` query
     "cpp/cert/use-of-single-underscore-reserved-prefix" and
-  ruleId = "DCL51-CPP"
+  ruleId = "DCL51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useOfDoubleUnderscoreReservedPrefix` query
@@ -215,7 +237,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useOfDoubleUnderscoreReservedPrefix` query
     "cpp/cert/use-of-double-underscore-reserved-prefix" and
-  ruleId = "DCL51-CPP"
+  ruleId = "DCL51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useOfReservedLiteralSuffixIdentifier` query
@@ -223,7 +246,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `useOfReservedLiteralSuffixIdentifier` query
     "cpp/cert/use-of-reserved-literal-suffix-identifier" and
-  ruleId = "DCL51-CPP"
+  ruleId = "DCL51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `objectReusesReservedName` query
@@ -231,7 +255,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `objectReusesReservedName` query
     "cpp/cert/object-reuses-reserved-name" and
-  ruleId = "DCL51-CPP"
+  ruleId = "DCL51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `functionReusesReservedName` query
@@ -239,7 +264,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionReusesReservedName` query
     "cpp/cert/function-reuses-reserved-name" and
-  ruleId = "DCL51-CPP"
+  ruleId = "DCL51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `enumeratorReusesReservedName` query
@@ -247,7 +273,8 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `enumeratorReusesReservedName` query
     "cpp/cert/enumerator-reuses-reserved-name" and
-  ruleId = "DCL51-CPP"
+  ruleId = "DCL51-CPP" and
+  category = "rule"
 }
 
 module NamingPackage {

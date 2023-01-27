@@ -1,5 +1,6 @@
 name: codeql/cert-c-coding-standards-tests
-version: 2.9.0-dev
+version: 2.13.0-dev
+libraryPathDependencies: cert-c-coding-standards
 extractor: cpp
 dependencies:
   codeql/cert-c-coding-standards: '*'

@@ -10,14 +10,15 @@ newtype CommentsQuery =
   TSlashStarUsedWithinACStyleCommentQuery() or
   TNullOnSharedLineQuery()
 
-predicate isCommentsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isCommentsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `singleLineCommentEndsWithSlash` query
     CommentsPackage::singleLineCommentEndsWithSlashQuery() and
   queryId =
     // `@id` for the `singleLineCommentEndsWithSlash` query
     "cpp/autosar/single-line-comment-ends-with-slash" and
-  ruleId = "A2-7-1"
+  ruleId = "A2-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `sectionsOfCodeCommentedOut` query
@@ -25,7 +26,8 @@ predicate isCommentsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `sectionsOfCodeCommentedOut` query
     "cpp/autosar/sections-of-code-commented-out" and
-  ruleId = "A2-7-2"
+  ruleId = "A2-7-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `undocumentedUserDefinedType` query
@@ -33,7 +35,8 @@ predicate isCommentsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `undocumentedUserDefinedType` query
     "cpp/autosar/undocumented-user-defined-type" and
-  ruleId = "A2-7-3"
+  ruleId = "A2-7-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `slashStarUsedWithinACStyleComment` query
@@ -41,7 +44,8 @@ predicate isCommentsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `slashStarUsedWithinACStyleComment` query
     "cpp/autosar/slash-star-used-within-ac-style-comment" and
-  ruleId = "M2-7-1"
+  ruleId = "M2-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nullOnSharedLine` query
@@ -49,7 +53,8 @@ predicate isCommentsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nullOnSharedLine` query
     "cpp/autosar/null-on-shared-line" and
-  ruleId = "M6-2-3"
+  ruleId = "M6-2-3" and
+  category = "required"
 }
 
 module CommentsPackage {

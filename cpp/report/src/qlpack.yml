@@ -1,4 +1,4 @@
 name: codeql/report-cpp-coding-standards
-version: 2.9.0-dev
+version: 2.13.0-dev
 dependencies:
   codeql/cpp-all: 0.2.3

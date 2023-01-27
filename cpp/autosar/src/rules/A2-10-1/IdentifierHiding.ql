@@ -19,11 +19,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Scope
+import codingstandards.cpp.rules.identifierhidden.IdentifierHidden
 
-from UserVariable v1, UserVariable v2
-where
-  not isExcluded(v1, NamingPackage::identifierHidingQuery()) and
-  not isExcluded(v2, NamingPackage::identifierHidingQuery()) and
-  hides(v1, v2)
-select v2, "Variable is hiding variable $@.", v1, v1.getName()
+class IdentifierHidingCQuery extends IdentifierHiddenSharedQuery {
+  IdentifierHidingCQuery() { this = NamingPackage::identifierHidingQuery() }
+}

@@ -1,0 +1,2 @@
+| test.c:1:1:1:23 | #define Sum(x,y) x + y | Macro name is nonunique compared to $@. | test.c:4:5:4:7 | Sum | Sum |
+| test.c:6:1:6:72 | #define iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyA | Macro name is nonunique compared to $@. | test.c:11:5:11:68 | iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyB | iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyB |

@@ -1,0 +1,4 @@
+| test.c:5:8:5:9 | s1 | Tag name is nonunique compared to $@. | test.c:12:10:12:11 | s1 | s1 |
+| test.c:5:8:5:9 | s1 | Tag name is nonunique compared to $@. | test.c:17:17:17:18 | s1 | s1 |
+| test.c:12:10:12:11 | s1 | Tag name is nonunique compared to $@. | test.c:5:8:5:9 | s1 | s1 |
+| test.c:12:10:12:11 | s1 | Tag name is nonunique compared to $@. | test.c:17:17:17:18 | s1 | s1 |

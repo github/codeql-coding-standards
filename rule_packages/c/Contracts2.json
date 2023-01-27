@@ -1,0 +1,109 @@
+{
+  "CERT-C": {
+    "ENV32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Exit handlers must terminate by returning, as a nested call to an exit function is undefined behavior.",
+          "kind": "path-problem",
+          "name": "All exit handlers must return normally",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExitHandlersMustReturnNormally",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "All exit handlers must return normally"
+    },
+    "ENV34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror may be invalid following a subsequent call to the same function.",
+          "kind": "problem",
+          "name": "Do not store pointers returned by environment functions",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotStorePointersReturnedByEnvFunctions",
+          "shared_implementation_short_name": "InvalidatedEnvStringPointers",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror may be invalid following a subsequent call to the same function.",
+          "kind": "problem",
+          "name": "Do not store pointers returned by environment functions warning",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DoNotStorePointersReturnedByEnvironmentFunWarn",
+          "shared_implementation_short_name": "InvalidatedEnvStringPointersWarn",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not store pointers returned by environment functions"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-21-19": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "The pointers returned by the Standard Library functions localeconv, getenv, setlocale or, strerror shall only be used as if they have pointer to const-qualified type.",
+          "kind": "path-problem",
+          "name": "The pointers returned by environment functions should be treated as const",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ValuesReturnedByLocaleSettingUsedAsPtrToConst",
+          "shared_implementation_short_name": "ConstLikeReturnValue",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The pointers returned by the Standard Library functions localeconv, getenv, setlocale or, strerror shall only be used as if they have pointer to const-qualified type"
+    },
+    "RULE-21-20": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror may be invalid following a subsequent call to the same function.",
+          "kind": "problem",
+          "name": "The pointer returned by the Standard Library env functions is invalid",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CallToSetlocaleInvalidatesOldPointers",
+          "shared_implementation_short_name": "InvalidatedEnvStringPointers",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror may be invalid following a subsequent call to the same function.",
+          "kind": "problem",
+          "name": "The pointer returned by the Standard Library env functions is invalid warning",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CallToSetlocaleInvalidatesOldPointersWarn",
+          "shared_implementation_short_name": "InvalidatedEnvStringPointersWarn",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror shall not be used following a subsequent call to the same function"
+    }
+  }
+}

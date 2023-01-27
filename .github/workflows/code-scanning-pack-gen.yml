@@ -19,7 +19,7 @@ env:
 jobs:
   prepare-code-scanning-pack-matrix:
     name: Prepare CodeQL Code Scanning pack matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       matrix: ${{ steps.export-code-scanning-pack-matrix.outputs.matrix }}
     steps:
@@ -91,7 +91,7 @@ jobs:
           codeql query compile --threads 0 c
 
           cd ..
-          zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/deviations codeql-coding-standards/scripts/reports
+          zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/schemas
 
       - name: Upload GHAS Query Pack
         uses: actions/upload-artifact@v2

@@ -8,14 +8,15 @@ newtype UninitializedQuery =
   TInformationLeakageAcrossTrustBoundariesQuery() or
   TDoNotReadUninitializedMemoryQuery()
 
-predicate isUninitializedQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isUninitializedQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `memoryNotInitializedBeforeItIsRead` query
     UninitializedPackage::memoryNotInitializedBeforeItIsReadQuery() and
   queryId =
     // `@id` for the `memoryNotInitializedBeforeItIsRead` query
     "cpp/autosar/memory-not-initialized-before-it-is-read" and
-  ruleId = "A8-5-0"
+  ruleId = "A8-5-0" and
+  category = "required"
   or
   query =
     // `Query` instance for the `informationLeakageAcrossTrustBoundaries` query
@@ -23,7 +24,8 @@ predicate isUninitializedQueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `informationLeakageAcrossTrustBoundaries` query
     "cpp/cert/information-leakage-across-trust-boundaries" and
-  ruleId = "DCL55-CPP"
+  ruleId = "DCL55-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotReadUninitializedMemory` query
@@ -31,7 +33,8 @@ predicate isUninitializedQueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `doNotReadUninitializedMemory` query
     "cpp/cert/do-not-read-uninitialized-memory" and
-  ruleId = "EXP53-CPP"
+  ruleId = "EXP53-CPP" and
+  category = "rule"
 }
 
 module UninitializedPackage {

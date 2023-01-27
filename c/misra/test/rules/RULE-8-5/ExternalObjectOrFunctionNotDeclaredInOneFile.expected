@@ -1,0 +1,2 @@
+| test.c:8:12:8:13 | declaration of g3 | The variable declaration g3 is declared in multiple files and has an additional $@. | test1.c:1:12:1:13 | declaration of g3 | declaration |
+| test.h:1:12:1:12 | declaration of g | The variable declaration g is declared in multiple files and has an additional $@. | test1.h:1:12:1:12 | declaration of g | declaration |

@@ -1,0 +1,20 @@
+problems
+| test.c:8:8:8:12 | c_str | test.c:15:16:15:21 | call to getenv | test.c:8:8:8:12 | c_str | The object returned by the function getenv should not be modified. |
+| test.c:64:5:64:9 | conv4 | test.c:61:11:61:20 | call to localeconv | test.c:64:5:64:9 | conv4 | The object returned by the function localeconv should not be modified. |
+| test.c:73:5:73:8 | conv | test.c:69:25:69:34 | call to localeconv | test.c:73:5:73:8 | conv | The object returned by the function localeconv should not be modified. |
+edges
+| test.c:5:18:5:22 | c_str | test.c:8:8:8:12 | c_str |
+| test.c:15:16:15:21 | call to getenv | test.c:21:9:21:12 | env1 |
+| test.c:21:9:21:12 | env1 | test.c:5:18:5:22 | c_str |
+| test.c:61:11:61:20 | call to localeconv | test.c:64:5:64:9 | conv4 |
+| test.c:69:25:69:34 | call to localeconv | test.c:73:5:73:8 | conv |
+nodes
+| test.c:5:18:5:22 | c_str | semmle.label | c_str |
+| test.c:8:8:8:12 | c_str | semmle.label | c_str |
+| test.c:15:16:15:21 | call to getenv | semmle.label | call to getenv |
+| test.c:21:9:21:12 | env1 | semmle.label | env1 |
+| test.c:61:11:61:20 | call to localeconv | semmle.label | call to localeconv |
+| test.c:64:5:64:9 | conv4 | semmle.label | conv4 |
+| test.c:69:25:69:34 | call to localeconv | semmle.label | call to localeconv |
+| test.c:73:5:73:8 | conv | semmle.label | conv |
+subpaths
