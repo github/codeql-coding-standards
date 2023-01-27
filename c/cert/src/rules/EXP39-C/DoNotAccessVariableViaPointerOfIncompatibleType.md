@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP39-C:
 > Do not access a variable through a pointer of an incompatible type
 
 
-
 ## Description
 
 Modifying a variable through a pointer of an incompatible type (other than `unsigned char`) can lead to unpredictable results. Subclause 6.2.7 of the C Standard states that two types may be distinct yet compatible and addresses precisely when two distinct types are compatible.

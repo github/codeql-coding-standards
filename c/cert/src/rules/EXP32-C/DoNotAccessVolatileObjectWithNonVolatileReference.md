@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP32-C:
 > Do not access a volatile object through a nonvolatile reference
 
 
-
 ## Description
 
 An object that has volatile-qualified type may be modified in ways unknown to the [implementation](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-implementation) or have other unknown [side effects](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-sideeffect). Referencing a volatile object by using a non-volatile lvalue is [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior). The C Standard, 6.7.3 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], states

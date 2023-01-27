@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP36-C:
 > Do not cast pointers into more strictly aligned pointer types
 
 
-
 ## Description
 
 Do not convert a pointer value to a pointer type that is more strictly aligned than the referenced type. Different alignments are possible for different types of objects. If the type-checking system is overridden by an explicit cast or the pointer is converted to a void pointer (`void *`) and then to a different type, the alignment of an object may be changed.
