@@ -10,14 +10,15 @@ newtype Pointers3Query =
   TDoNotPassAlisedPointerToRestrictQualifiedParameterQuery() or
   TRestrictPointerReferencesOverlappingObjectQuery()
 
-predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotAccessVolatileObjectWithNonVolatileReference` query
     Pointers3Package::doNotAccessVolatileObjectWithNonVolatileReferenceQuery() and
   queryId =
     // `@id` for the `doNotAccessVolatileObjectWithNonVolatileReference` query
     "c/cert/do-not-access-volatile-object-with-non-volatile-reference" and
-  ruleId = "EXP32-C"
+  ruleId = "EXP32-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotCastPointerToMoreStrictlyAlignedPointerType` query
@@ -25,7 +26,8 @@ predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotCastPointerToMoreStrictlyAlignedPointerType` query
     "c/cert/do-not-cast-pointer-to-more-strictly-aligned-pointer-type" and
-  ruleId = "EXP36-C"
+  ruleId = "EXP36-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotAccessVariableViaPointerOfIncompatibleType` query
@@ -33,7 +35,8 @@ predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotAccessVariableViaPointerOfIncompatibleType` query
     "c/cert/do-not-access-variable-via-pointer-of-incompatible-type" and
-  ruleId = "EXP39-C"
+  ruleId = "EXP39-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotPassAlisedPointerToRestrictQualifiedParameter` query
@@ -41,7 +44,8 @@ predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doNotPassAlisedPointerToRestrictQualifiedParameter` query
     "c/cert/do-not-pass-alised-pointer-to-restrict-qualified-parameter" and
-  ruleId = "EXP43-C"
+  ruleId = "EXP43-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `restrictPointerReferencesOverlappingObject` query
@@ -49,7 +53,8 @@ predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `restrictPointerReferencesOverlappingObject` query
     "c/cert/restrict-pointer-references-overlapping-object" and
-  ruleId = "EXP43-C"
+  ruleId = "EXP43-C" and
+  category = "rule"
 }
 
 module Pointers3Package {

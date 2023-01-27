@@ -1,6 +1,6 @@
 /**
  * @id c/cert/restrict-pointer-references-overlapping-object
- * @name EXP43-C: Do not assign the value of a restrict-qualified pointer to another restrict-qualified pointer.
+ * @name EXP43-C: Do not assign the value of a restrict-qualified pointer to another restrict-qualified pointer
  * @description Restrict qualified pointers referencing overlapping objects is undefined behavior.
  * @kind problem
  * @precision high

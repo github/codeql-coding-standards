@@ -79,7 +79,7 @@
         {
           "description": "Restrict qualified pointers referencing overlapping objects is undefined behavior.",
           "kind": "problem",
-          "name": "Do not assign the value of a restrict-qualified pointer to another restrict-qualified pointer.",
+          "name": "Do not assign the value of a restrict-qualified pointer to another restrict-qualified pointer",
           "precision": "high",
           "severity": "error",
           "short_name": "RestrictPointerReferencesOverlappingObject",

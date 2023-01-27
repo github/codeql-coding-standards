@@ -1,4 +1,4 @@
-# EXP43-C: Do not assign the value of a restrict-qualified pointer to another restrict-qualified pointer.
+# EXP43-C: Do not assign the value of a restrict-qualified pointer to another restrict-qualified pointer
 
 This query implements the CERT-C rule EXP43-C:
 
