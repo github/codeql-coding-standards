@@ -4,6 +4,8 @@
 
 int *restrict g1;
 int *restrict g2;
+int *restrict g1_1;
+int *g2_1;
 
 struct s1 {
   int x, y, z;
@@ -26,6 +28,10 @@ void test_global_local() {
     i4 = g1;        // NON_COMPLIANT
     i6 = g2;        // COMPLIANT
   }
+}
+
+void test_global_local_1() {
+  g1_1 = g2_1; // COMPLIANT
 }
 
 void test_structs() {

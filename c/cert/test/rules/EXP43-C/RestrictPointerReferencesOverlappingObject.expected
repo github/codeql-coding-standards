@@ -1,6 +1,6 @@
-| test.c:16:22:16:23 | i2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:16:17:16:18 | i3 | i3 |
-| test.c:17:8:17:9 | g2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:5:15:5:16 | g1 | g1 |
-| test.c:18:8:18:9 | i2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:14:17:14:18 | i1 | i1 |
-| test.c:26:10:26:11 | g1 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:20:19:20:20 | i4 | i4 |
-| test.c:33:22:33:26 | & ... | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:33:17:33:18 | px | px |
-| test.c:40:10:40:14 | & ... | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:35:19:35:20 | py | py |
+| test.c:18:22:18:23 | i2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:18:17:18:18 | i3 | i3 |
+| test.c:19:8:19:9 | g2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:5:15:5:16 | g1 | g1 |
+| test.c:20:8:20:9 | i2 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:16:17:16:18 | i1 | i1 |
+| test.c:28:10:28:11 | g1 | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:22:19:22:20 | i4 | i4 |
+| test.c:39:22:39:26 | & ... | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:39:17:39:18 | px | px |
+| test.c:46:10:46:14 | & ... | Assignment to restrict-qualified pointer $@ results in pointer aliasing. | test.c:41:19:41:20 | py | py |

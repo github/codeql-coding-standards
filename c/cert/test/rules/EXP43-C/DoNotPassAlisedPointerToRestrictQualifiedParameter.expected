@@ -1,5 +1,5 @@
-| test.c:53:3:53:6 | call to copy | Call to 'copy' passes an aliased pointer to a restrict-qualified parameter. |
-| test.c:58:3:58:6 | call to copy | Call to 'copy' passes an aliased pointer to a restrict-qualified parameter. |
-| test.c:64:3:64:8 | call to strcpy | Call to 'strcpy' passes an aliased pointer to a restrict-qualified parameter. |
-| test.c:71:3:71:8 | call to memcpy | Call to 'memcpy' passes an aliased pointer to a restrict-qualified parameter. |
-| test.c:84:3:84:7 | call to scanf | Call to 'scanf' passes an aliased pointer to a restrict-qualified parameter. |
+| test.c:59:3:59:6 | call to copy | Call to 'copy' passes an aliased pointer to a restrict-qualified parameter. |
+| test.c:64:3:64:6 | call to copy | Call to 'copy' passes an aliased pointer to a restrict-qualified parameter. |
+| test.c:70:3:70:8 | call to strcpy | Call to 'strcpy' passes an aliased pointer to a restrict-qualified parameter. |
+| test.c:77:3:77:8 | call to memcpy | Call to 'memcpy' passes an aliased pointer to a restrict-qualified parameter. |
+| test.c:90:3:90:7 | call to scanf | Call to 'scanf' passes an aliased pointer to a restrict-qualified parameter. |
