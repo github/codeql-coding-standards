@@ -68,7 +68,6 @@ where
     )
     or
     // Two restrict-qualified pointers in the same scope assigned to each other
-    expr.getVariable().getType().hasSpecifier("restrict") and
     expr.(VariableAccess).getTarget().getType().hasSpecifier("restrict") and
     expr.(VariableAccess).getTarget().getParentScope() = expr.getVariable().getParentScope()
   )
