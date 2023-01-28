@@ -6,6 +6,16 @@ import cpp
 import codingstandards.cpp.Type
 
 /**
+ * A type that is a pointer or array type.
+ */
+class PointerOrArrayType extends DerivedType {
+  PointerOrArrayType() {
+    this.stripTopLevelSpecifiers() instanceof PointerType or
+    this.stripTopLevelSpecifiers() instanceof ArrayType
+  }
+}
+
+/**
  * An expression which performs pointer arithmetic
  */
 abstract class PointerArithmeticExpr extends Expr {

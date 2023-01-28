@@ -18,16 +18,6 @@ import semmle.code.cpp.pointsto.PointsTo
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
 /**
- * A type that is a pointer or array type.
- */
-class PointerOrArrayType extends DerivedType {
-  PointerOrArrayType() {
-    this.stripTopLevelSpecifiers() instanceof PointerType or
-    this.stripTopLevelSpecifiers() instanceof ArrayType
-  }
-}
-
-/**
  * A function that has a parameter with a restrict-qualified pointer type.
  */
 class FunctionWithRestrictParameters extends Function {
