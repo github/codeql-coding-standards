@@ -1,6 +1,6 @@
 
 // A POD class.
-struct A {
+structA {
   int f;
   int f2;
 };
