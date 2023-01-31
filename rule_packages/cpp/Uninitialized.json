@@ -39,9 +39,13 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "InformationLeakageAcrossTrustBoundaries",
+          "shared_implementation_short_name": "InformationLeakageAcrossBoundaries",
           "tags": [
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule does not detect cases where fields may have uninitialized padding but are initialized via an initializer."
+          }
         }
       ],
       "title": "Avoid information leakage when passing a class object across a trust boundary"
