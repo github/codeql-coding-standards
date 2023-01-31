@@ -1,4 +1,4 @@
-| test.c:8:7:8:8 | b3 | Bit-field b3 is declared on type b3. |
-| test.c:11:15:11:16 | b5 | Bit-field b5 is declared on type b5. |
-| test.c:13:15:13:16 | b6 | Bit-field b6 is declared on type b6. |
-| test.c:14:14:14:15 | b7 | Bit-field b7 is declared on type b7. |
+| test.c:6:7:6:8 | x1 | Bit-field x1 is declared on type x1. |
+| test.c:10:15:10:16 | x5 | Bit-field x5 is declared on type x5. |
+| test.c:11:15:11:16 | x6 | Bit-field x6 is declared on type x6. |
+| test.c:12:14:12:15 | x7 | Bit-field x7 is declared on type x7. |
