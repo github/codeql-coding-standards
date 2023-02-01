@@ -28,9 +28,6 @@ from BitField bitField
 where
   not isExcluded(bitField,
     BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
-  /* A violation would neither an appropriate primitive type nor an appropriate typedef. */
-  not (
-    isAppropriatePrimitive(bitField.getType()) or
-    isAppropriatePrimitive(bitField.getType().resolveTypedefs())
-  )
+  /* A violation would neither be an appropriate primitive type nor an appropriate typedef. */
+  not isAppropriatePrimitive(bitField.getType().resolveTypedefs())
 select bitField, "Bit-field " + bitField + " is declared on type " + bitField.getType() + "."
