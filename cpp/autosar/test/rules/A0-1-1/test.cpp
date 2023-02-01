@@ -1,9 +1,10 @@
 
 // A POD class.
-structA {
+struct A {
   int f;
   int f2;
-}
+};
+
 // A non-POD class, with a trivial compiler generated constructor
 struct B {
   int f;
