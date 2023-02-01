@@ -21,7 +21,7 @@ function New-Database-For-Rule {
 
     Write-Host "Creating Database for Rule $RuleName..."
     
-    $cppFiles = Get-ChildItem $RuleTestDir/*.c*
+    $cppFiles = Get-ChildItem $RuleTestDir/*.$Language
     $cppFilesString = ([String]::Join(' ', $cppFiles))
     Write-Host "Found '.cpp' files $cppFilesString."
     

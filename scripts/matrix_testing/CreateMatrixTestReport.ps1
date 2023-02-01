@@ -322,7 +322,11 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
         ###########################################################
         # Push context 
         ###########################################################
-        $context = Push-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language -FileSet (Get-CompilerSpecificFiles -TestDirectory $testDirectory)
+        $fileSet = (Get-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language  -TestDirectory $testDirectory)
+        
+        if($fileSet){
+            $context = Push-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language -FileSet $fileSet
+        }
 
         Write-Host "Compiling database in $testDirectory..." -NoNewline
 
@@ -400,16 +404,15 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
         }
 
         return $row 
-    }catch {
-        Write-Host "Unknown error processing rule."
-        return $row
     }finally {
 
         ###########################################################
         ###########################################################
         # Context is restored here
         ###########################################################
-        Pop-CompilerSpecificFiles -Context $context 
+        if($context){
+           Pop-CompilerSpecificFiles -Context $context 
+        }
     }
 }
 

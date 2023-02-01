@@ -10,12 +10,8 @@ function Push-CompilerSpecificFiles {
         $Language 
     )
 
-    $context = @() 
-
-
     # for each file, move it to a temporary location
     foreach($f in $FileSet){
-
         # 
         # Convention is as follows:
         #
@@ -35,27 +31,30 @@ function Push-CompilerSpecificFiles {
         # file afterwards. 
 
         # transform the compiler specific file to the generic one
-        $originFile = Get-Item $f.FullName.Replace(".$Configuration", "")
+        $originFilePath = $f.FullName.Replace(".$Configuration", "")
 
         # IF it exists, copy the originFile to a temp location and replace it 
         # with the specific file. 
-        if($originFile.Exists){
+        if(Test-Path $originFilePath){
+
+            $originFile = Get-Item $originFilePath 
+
             Write-Host "Moving generic file $originFile to $tmp..."
             Move-Item -Force -Path $originFile -Destination $tmp 
             Write-Host "Copying $f to generic file $originFile"
-            Copy-Item -Path $f -Destination $originFile
+            Copy-Item -Path $f -Destination $originFile 
 
-            $context += @{"origin"=$originFile; "temp"=$tmp;}
+            @{"origin"=$originFile; "temp"=$tmp;}
         }else{
-            Write-Host "Copying $f to generic file $originFile"
-            Copy-Item -Path $f -Destination $originFile
 
-            # we set $temp to $null since we don't want to copy anything 
+            $originFile = New-Item $originFilePath
+
+            Write-Host "Copying $f to generic file $originFile"
+            Copy-Item -Path $f -Destination $originFile 
+
+            #we set $temp to $null since we don't want to copy anything 
             # back 
-            $context += @{"origin"=$originFile; "temp"=$null;}
+            @{"origin"=$originFile; "temp"=$null;}
         }
     }
-
-    return $context 
-
 }

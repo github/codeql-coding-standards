@@ -6,9 +6,11 @@ function Get-CompilerSpecificFiles {
         [Parameter(Mandatory)] 
         [ValidateSet('c', 'cpp')]
         [string]
+        $Language,
+        [Parameter(Mandatory)] 
+        [string]
         $TestDirectory
-    )
-
+        )
     #
     # Convention is as follows:
     #
@@ -19,9 +21,16 @@ function Get-CompilerSpecificFiles {
     #
     # file.expected is used for all compilers 
     # file.expected.<configuration> is used for <configuration> 
-    $sourceFiles = Get-ChildItem -Filter "*.$Language.$Configuration"
+    Write-Host "Scanning for compiler specific files in $TestDirectory"
 
-    $expectedFiles = Get-ChildItem -Filter "*.expected.$Configuration"
+    foreach($f in (Get-ChildItem -Filter "*.$Language.$Configuration" $TestDirectory)){
+        Write-Host "Found file $f..."
+        $f
+    }
 
-    return $sourceFiles + $expectedFiles
+    foreach($f in (Get-ChildItem -Filter "*.expected.$Configuration" $TestDirectory)){
+        Write-Host "Found file $f..."
+        $f 
+    }
+
 }

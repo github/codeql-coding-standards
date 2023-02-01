@@ -9,13 +9,13 @@ function Pop-CompilerSpecificFiles {
         $origin = $context.origin 
         $temp   = $context.temp 
 
-        if(-Not $temp -eq $null){
+        if($temp){
             Write-Host "Restoring $temp -> $origin"
-            Move-Item -Force -Path $temp $origin
+            Copy-Item -Force -Path $temp -Destination $origin
         }else {
             # otherwise we just need to delete the origin 
             Write-Host "Removing unneeded context item $origin"
-            Remove-Item -Force $origin
+            Remove-Item -Force $origin 
         }
     }
     
