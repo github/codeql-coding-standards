@@ -13,5 +13,5 @@ struct SampleStruct {
       x5 : 1; // COMPILANT: single-bit named field but with an unsigned type
   signed int x6 : 2; // COMPILANT: named field with a signed type but declared
                      // to carry more than 1 bit
-  signed char : 1; // COMPILANT: single-bit bit-field but unnamed
+  signed char : 1;   // COMPILANT: single-bit bit-field but unnamed
 } sample_struct;
