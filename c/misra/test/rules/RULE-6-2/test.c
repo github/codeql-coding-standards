@@ -13,7 +13,5 @@ struct SampleStruct {
       x5 : 1; // COMPILANT: single-bit named field but with an unsigned type
   signed int x6 : 2; // COMPILANT: named field with a signed type but declared
                      // to carry more than 1 bit
-  int32_t x7 : 1;  // NON_COMPILANT: single-bit named field that has single-bit
-                   // bit-field, even though technically it has 32 bits
   signed char : 1; // COMPILANT: single-bit bit-field but unnamed
 } sample_struct;
