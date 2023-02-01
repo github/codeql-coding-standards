@@ -1,24 +1,29 @@
 $COMPILER_MAPPINGS = @{
     "cpp" = @{
         "clang"      = "clang++";
+        "gcc"        = "g++";
         "armclang"   = "armclang";
         "tiarmclang" = "tiarmclang";
     };
 
     "c"   = @{
         "clang" = "clang";
+        "gcc"   = "gcc";
     };
 }
 
 $COMPILER_ARGS = @{
     "cpp" = @{
         "clang"      = "-std=c++14 -fsyntax-only";
+        "gcc"      = "-std=c++14 -fsyntax-only";
         "armclang"   = "-std=c++14 -fsyntax-only --target=arm-arm-none-eabi";
         "tiarmclang" = "-std=c++14 -fsyntax-only --target=arm-arm-none-eabi";
     };
 
     "c"   = @{
+        "gcc" = "-fsyntax-only";
         "clang" = "-fsyntax-only";
+        
     };
     
 }
