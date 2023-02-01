@@ -1,13 +1,14 @@
 . "$PSScriptRoot/Config.ps1"
 function Pop-CompilerSpecificFiles {
     param([Parameter(Mandatory)] 
+        [hashtable[]]    
         $Context
     )
 
     foreach($c in $Context){
 
-        $origin = $context.origin 
-        $temp   = $context.temp 
+        $origin = $c.origin 
+        $temp   = $c.temp 
 
         if($temp){
             Write-Host "Restoring $temp -> $origin"
