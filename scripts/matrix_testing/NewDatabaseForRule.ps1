@@ -26,8 +26,7 @@ function New-Database-For-Rule {
     Write-Host "Found '.cpp' files $cppFilesString."
     
     $CompilerExecutable = Get-CompilerExecutable -Configuration $Configuration -Language $Language
-    $CompilerArgs = Get-CompilerArgs -Configuration $Configuration -Language $Language
-
+    $CompilerArgs = Get-CompilerArgs -Configuration $Configuration -Language $Language -TestDirectory $RuleTestDir
     $BUILD_COMMAND = "$CompilerExecutable $CompilerArgs $cppFilesString"
 
     if ($UseTmpDir) {
