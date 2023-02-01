@@ -40,7 +40,7 @@ A _coding standard_ is a set of rules or guidelines which restrict or prohibit t
 
 | Standard                                                                                                             | Version | Total rules | Total supportable rules | Status         | Notes                                                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented    |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented    |
 | [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented    | AUTOSAR includes a sub-set of rules take from MISRA C++ 2008, which can be purchased for a small fee from [the MISRA website](https://misra.org.uk/shop). |
 | [CERT-C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 120         | 99                      | In development | The implementation excludes rules not part of 2016, but that are added to the [CERT-C wiki](https://wiki.sei.cmu.edu/confluence/display/c/)               |
 | [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/ )                               | 2012    | 172         | 172                     | In development | This includes the [MISRA C:2012 Amendment 2](https://www.misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf)                                          |
@@ -175,10 +175,10 @@ pip install -r scripts/requirements.txt
 To generate the rule package description file, run the following script from the root of the repository:
 
 ```
-python3.9 scripts/generate_rules/generate_package_description.py <rule_package_name>
+python3.9 scripts/generate_rules/generate_package_description.py <target_lang_name> <rule_package_name>
 ```
 
-This will produce a `.json` file in the `rule_packages` directory with the name of the rule package (e.g. `rule_packages/Literals.json`).
+This will produce a `.json` file in the `rule_packages` directory with the name of the rule package (e.g. `rule_packages/Literals.json`). For example, `python3.9 scripts/generate_rules/generate_package_description.py c Types` creates `rule_packages/c/Types.json`.
 
 #### Step 2: Review and update the rule package description file
 
