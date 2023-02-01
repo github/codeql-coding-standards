@@ -17,4 +17,5 @@ void test_return_val() {
   A a2;
   a1 + a2; // COMPLIANT - `+` is a call to operator+, but is permitted by the
            // rule
+  int y = (int)3;
 }
