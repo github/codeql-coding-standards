@@ -17,7 +17,7 @@ predicate applyDeviationsAtQueryLevel() {
 }
 
 /** An element which tells the analysis whether to report deviated results. */
-class CodingStandardsReportDeviatedAlerts extends XmlElement {
+class CodingStandardsReportDeviatedAlerts extends XMLElement {
   CodingStandardsReportDeviatedAlerts() {
     getParent() instanceof CodingStandardsConfig and
     hasName("report-deviated-alerts")
@@ -35,7 +35,7 @@ class DeviationPermits extends CodingStandardsConfigSection {
 }
 
 /** A deviation permit record, that is specified by a permit identifier */
-class DeviationPermit extends XmlElement {
+class DeviationPermit extends XMLElement {
   DeviationPermit() {
     getParent() instanceof DeviationPermits and
     hasName("deviation-permits-entry")
@@ -118,7 +118,7 @@ class DeviationPermit extends XmlElement {
 }
 
 /** A deviation record, that is a specified rule or query */
-class DeviationRecord extends XmlElement {
+class DeviationRecord extends XMLElement {
   DeviationRecord() {
     getParent() instanceof DeviationRecords and
     hasName("deviations-entry")
@@ -134,13 +134,13 @@ class DeviationRecord extends XmlElement {
 
   private string getRawPermitId() { result = getAChild("permit-id").getTextValue() }
 
-  private XmlElement getRawRaisedBy() { result = getAChild("raised-by") }
+  private XMLElement getRawRaisedBy() { result = getAChild("raised-by") }
 
   private string getRawRaisedByName() { result = getRawRaisedBy().getAChild("name").getTextValue() }
 
   private string getRawRaisedByDate() { result = getRawRaisedBy().getAChild("date").getTextValue() }
 
-  private XmlElement getRawApprovedBy() { result = getAChild("approved-by") }
+  private XMLElement getRawApprovedBy() { result = getAChild("approved-by") }
 
   private string getRawApprovedByName() {
     result = getRawApprovedBy().getAChild("name").getTextValue()
