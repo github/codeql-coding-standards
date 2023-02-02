@@ -1,4 +1,3 @@
-
 // A POD class.
 struct A {
   int f;
