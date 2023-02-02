@@ -20,15 +20,6 @@ predicate isContracts6QueryMetadata(Query query, string queryId, string ruleId, 
   category = "rule"
   or
   query =
-    // `Query` instance for the `rightHandOperandOfAShiftOperatorRange` query
-    Contracts6Package::rightHandOperandOfAShiftOperatorRangeQuery() and
-  queryId =
-    // `@id` for the `rightHandOperandOfAShiftOperatorRange` query
-    "c/misra/right-hand-operand-of-a-shift-operator-range" and
-  ruleId = "RULE-12-2" and
-  category = "required"
-  or
-  query =
     // `Query` instance for the `arrayFunctionArgumentNumberOfElements` query
     Contracts6Package::arrayFunctionArgumentNumberOfElementsQuery() and
   queryId =

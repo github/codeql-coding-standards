@@ -1,12 +1,13 @@
 /**
  * @id c/misra/array-function-argument-number-of-elements
- * @name RULE-17-5: The function argument corresponding to a parameter declared to have an array type shall have an
- * @description The function argument corresponding to a parameter declared to have an array type
- *              shall have an appropriate number of elements
+ * @name RULE-17-5: An array founction argument shall have an appropriate number of elements
+ * @description The function argument corresponding to an array parameter shall have an appropriate
+ *              number of elements
  * @kind problem
  * @precision high
  * @problem.severity error
  * @tags external/misra/id/rule-17-5
+ *       correctness
  *       external/misra/obligation/advisory
  */
 

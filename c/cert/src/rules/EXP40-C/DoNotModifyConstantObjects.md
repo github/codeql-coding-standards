@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP40-C:
 > Do not modify constant objects
 
 
-
 ## Description
 
 The C Standard, 6.7.3, paragraph 6 \[[IS](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)[O/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], states
@@ -89,7 +88,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-None
+The implementation does not consider pointer aliasing via multiple indirection.
 
 ## References
 
