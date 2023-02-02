@@ -1,0 +1,4 @@
+| test.c:33:11:33:12 | l1 | Local variable $@ is read here and may not be initialized on all paths. | test.c:32:7:32:8 | l1 | l1 |
+| test.c:35:15:35:16 | l2 | Local variable $@ is read here and may not be initialized on all paths. | test.c:34:8:34:9 | l2 | l2 |
+| test.c:37:20:37:21 | l3 | Local variable $@ is read here and may not be initialized on all paths. | test.c:36:13:36:14 | l3 | l3 |
+| test.c:84:17:84:24 | arrayPtr | Local variable $@ is read here and may not be initialized on all paths. | test.c:77:8:77:15 | arrayPtr | arrayPtr |

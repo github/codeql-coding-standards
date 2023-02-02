@@ -27,6 +27,7 @@ import IO1
 import IO2
 import IO3
 import IO4
+import InvalidMemory1
 import Language1
 import Language2
 import Misc
@@ -72,6 +73,7 @@ newtype TCQuery =
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
   TIO4PackageQuery(IO4Query q) or
+  TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TMiscPackageQuery(MiscQuery q) or
@@ -117,6 +119,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isIO2QueryMetadata(query, queryId, ruleId, category) or
   isIO3QueryMetadata(query, queryId, ruleId, category) or
   isIO4QueryMetadata(query, queryId, ruleId, category) or
+  isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isMiscQueryMetadata(query, queryId, ruleId, category) or
