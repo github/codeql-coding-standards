@@ -9,7 +9,7 @@ on:
       - next
     paths:
       - "supported_codeql_configs.json"
-      - "qlpack.yml"
+      - "**/qlpack.yml"
   workflow_dispatch:
 
 jobs:
