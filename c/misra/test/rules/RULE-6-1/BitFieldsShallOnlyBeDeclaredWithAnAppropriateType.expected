@@ -1,0 +1,4 @@
+| test.c:6:7:6:8 | x1 | Bit-field x1 is declared on type int. |
+| test.c:10:15:10:16 | x5 | Bit-field x5 is declared on type signed long. |
+| test.c:12:15:12:16 | x6 | Bit-field x6 is declared on type signed char. |
+| test.c:14:14:14:15 | x7 | Bit-field x7 is declared on type Color. |
