@@ -2,7 +2,7 @@
  * @id c/misra/value-returned-by-a-function-not-used
  * @name RULE-17-7: Return values should be used or cast to void
  * @description The value returned by a function having non-void return type shall be used or cast
- *              to void
+ *              to void.
  * @kind problem
  * @precision very-high
  * @problem.severity error

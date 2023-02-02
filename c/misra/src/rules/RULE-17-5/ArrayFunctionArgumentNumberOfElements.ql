@@ -2,7 +2,7 @@
  * @id c/misra/array-function-argument-number-of-elements
  * @name RULE-17-5: An array founction argument shall have an appropriate number of elements
  * @description The function argument corresponding to an array parameter shall have an appropriate
- *              number of elements
+ *              number of elements.
  * @kind problem
  * @precision high
  * @problem.severity error
