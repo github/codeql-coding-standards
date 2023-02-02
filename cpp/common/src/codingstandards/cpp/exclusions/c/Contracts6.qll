@@ -5,7 +5,6 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Contracts6Query =
   TDoNotModifyConstantObjectsQuery() or
-  TRightHandOperandOfAShiftOperatorRangeQuery() or
   TArrayFunctionArgumentNumberOfElementsQuery() or
   TValueReturnedByAFunctionNotUsedQuery()
 
@@ -44,13 +43,6 @@ module Contracts6Package {
     result =
       // `Query` type for `doNotModifyConstantObjects` query
       TQueryC(TContracts6PackageQuery(TDoNotModifyConstantObjectsQuery()))
-  }
-
-  Query rightHandOperandOfAShiftOperatorRangeQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `rightHandOperandOfAShiftOperatorRange` query
-      TQueryC(TContracts6PackageQuery(TRightHandOperandOfAShiftOperatorRangeQuery()))
   }
 
   Query arrayFunctionArgumentNumberOfElementsQuery() {
