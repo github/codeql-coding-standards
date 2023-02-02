@@ -21,9 +21,10 @@ predicate isFreeExpr(Expr e, StackVariable v) {
   exists(VariableAccess va | va.getTarget() = v and freeExprOrIndirect(e, va, _))
 }
 
-/** `e` is an expression that (may) dereference `v`. */
-predicate isDerefExpr(Expr e, StackVariable v) {
-  v.getAnAccess() = e and dereferenced(e)
+/** `e` is an expression that accesses `v` but is not the lvalue of an assignment. */
+predicate isAccessExpr(Expr e, StackVariable v) {
+  v.getAnAccess() = e and
+  not exists(Assignment a | a.getLValue() = e)
   or
   isDerefByCallExpr(_, _, e, v)
 }
@@ -38,7 +39,7 @@ predicate isDerefByCallExpr(Call c, int i, VariableAccess va, StackVariable v) {
   v.getAnAccess() = va and
   va = c.getAnArgumentSubExpr(i) and
   not c.passesByReference(i, va) and
-  (c.getTarget().hasEntryPoint() implies isDerefExpr(_, c.getTarget().getParameter(i)))
+  (c.getTarget().hasEntryPoint() implies isAccessExpr(_, c.getTarget().getParameter(i)))
 }
 
 class UseAfterFreeReachability extends StackVariableReachability {
@@ -46,7 +47,7 @@ class UseAfterFreeReachability extends StackVariableReachability {
 
   override predicate isSource(ControlFlowNode node, StackVariable v) { isFreeExpr(node, v) }
 
-  override predicate isSink(ControlFlowNode node, StackVariable v) { isDerefExpr(node, v) }
+  override predicate isSink(ControlFlowNode node, StackVariable v) { isAccessExpr(node, v) }
 
   override predicate isBarrier(ControlFlowNode node, StackVariable v) {
     definitionBarrier(v, node) or
@@ -54,10 +55,12 @@ class UseAfterFreeReachability extends StackVariableReachability {
   }
 }
 
+// This query is a modified version of the `UseAfterFree.ql`
+// (cpp/use-after-free) query from the CodeQL standard library.
 from UseAfterFreeReachability r, StackVariable v, Expr free, Expr e
 where
   not isExcluded(e, InvalidMemory1Package::doNotAccessFreedMemoryQuery()) and
   r.reaches(free, v, e)
 select e,
-  "Memory pointed to by '" + v.getName().toString() +
-    "' accessed but may have been previously freed $@.", free, "here"
+  "Pointer '" + v.getName().toString() + "' accessed but may have been previously freed $@.", free,
+  "here"
