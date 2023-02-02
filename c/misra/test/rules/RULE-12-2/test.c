@@ -1,4 +1,4 @@
-
+#include <stdint.h>
 
 const short int s1 = 15;
 const short int s2 = -1;
@@ -58,8 +58,21 @@ void f2() {
   int aa = 10;
   aa++;
 
-  a = a << aa;
-  b = b << aa;
-  c = c << aa;
-  d = d << aa;
+  a = a << aa; // COMPLIANT
+  b = b << aa; // COMPLIANT
+  c = c << aa; // NON_COMPLIANT
+  d = d << aa; // COMPLIANT
+}
+
+void f3() {
+  uint8_t u8;
+  uint16_t u16;
+  u8 = u8 << 7;            // COMPLIANT
+  u8 = u8 << 8;            // NON_COMPLIANT
+  u16 = (uint16_t)u8 << 9; // COMPLIANT
+// 0u is essentially unsigned char
+  0u << 10;          // NON_COMPLIANT[FALSE_NEGATIVE]
+  (uint16_t)0 << 20; // NON_COMPLIANT
+  0UL << 10;         // COMPLIANT
+  0UL >> 100;        // NON_COMPLIANT
 }

@@ -12,8 +12,15 @@
 
 import cpp
 import codingstandards.c.misra
+import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
-from
+from BinaryOperation x, int max_size
 where
   not isExcluded(x, Contracts6Package::rightHandOperandOfAShiftOperatorRangeQuery()) and
-select
+  (x instanceof LShiftExpr or x instanceof RShiftExpr) and
+  max_size = (8 * x.getLeftOperand().getExplicitlyConverted().getUnderlyingType().getSize()) - 1 and
+  exists(Expr rhs | rhs = x.getRightOperand().getFullyConverted() |
+    lowerBound(rhs) < 0 or
+    upperBound(rhs) > max_size
+  )
+select x, "The right hand operand of the shift operator is not in the range 0 to " + max_size + "."

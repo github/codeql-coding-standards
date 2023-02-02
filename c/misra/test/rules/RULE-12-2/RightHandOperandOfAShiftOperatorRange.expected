@@ -1,1 +1,21 @@
-No expected results have yet been specified
+| test.c:20:7:20:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 31. |
+| test.c:22:7:22:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 31. |
+| test.c:23:7:23:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 31. |
+| test.c:25:7:25:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 31. |
+| test.c:26:7:26:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 31. |
+| test.c:29:7:29:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 15. |
+| test.c:30:7:30:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 15. |
+| test.c:31:7:31:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 15. |
+| test.c:32:7:32:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 15. |
+| test.c:33:7:33:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 15. |
+| test.c:34:7:34:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 15. |
+| test.c:35:7:35:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 15. |
+| test.c:38:7:38:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 63. |
+| test.c:40:7:40:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 63. |
+| test.c:43:7:43:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 63. |
+| test.c:46:7:46:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 7. |
+| test.c:47:7:47:12 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 7. |
+| test.c:63:7:63:13 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 7. |
+| test.c:71:8:71:14 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 7. |
+| test.c:75:3:75:19 | ... << ... | The right hand operand of the shift operator is not in the range 0 to 15. |
+| test.c:77:3:77:12 | ... >> ... | The right hand operand of the shift operator is not in the range 0 to 63. |

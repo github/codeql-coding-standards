@@ -9,14 +9,15 @@ newtype Contracts6Query =
   TArrayFunctionArgumentNumberOfElementsQuery() or
   TValueReturnedByAFunctionNotUsedQuery()
 
-predicate isContracts6QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isContracts6QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotModifyConstantObjects` query
     Contracts6Package::doNotModifyConstantObjectsQuery() and
   queryId =
     // `@id` for the `doNotModifyConstantObjects` query
     "c/cert/do-not-modify-constant-objects" and
-  ruleId = "EXP40-C"
+  ruleId = "EXP40-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `rightHandOperandOfAShiftOperatorRange` query
@@ -24,7 +25,8 @@ predicate isContracts6QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `rightHandOperandOfAShiftOperatorRange` query
     "c/misra/right-hand-operand-of-a-shift-operator-range" and
-  ruleId = "RULE-12-2"
+  ruleId = "RULE-12-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `arrayFunctionArgumentNumberOfElements` query
@@ -32,7 +34,8 @@ predicate isContracts6QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `arrayFunctionArgumentNumberOfElements` query
     "c/misra/array-function-argument-number-of-elements" and
-  ruleId = "RULE-17-5"
+  ruleId = "RULE-17-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `valueReturnedByAFunctionNotUsed` query
@@ -40,7 +43,8 @@ predicate isContracts6QueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `valueReturnedByAFunctionNotUsed` query
     "c/misra/value-returned-by-a-function-not-used" and
-  ruleId = "RULE-17-7"
+  ruleId = "RULE-17-7" and
+  category = "required"
 }
 
 module Contracts6Package {
