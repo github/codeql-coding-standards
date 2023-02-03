@@ -15,12 +15,10 @@ query predicate isMaybeUnusedParameter(Parameter parameter) {
   parameter.getAnAttribute().toString() = "maybe_unused"
 }
 
-// query
 predicate isLambdaParameter(Parameter parameter) {
   exists(LambdaExpression lambda | lambda.getLambdaFunction().getParameter(_) = parameter)
 }
 
-// query
 predicate isLambdaMaybeUnusedParameter(Parameter parameter) {
   exists(LambdaExpression lambda | lambda.getLambdaFunction().getParameter(_) = parameter) and
   isMaybeUnusedParameter(parameter)

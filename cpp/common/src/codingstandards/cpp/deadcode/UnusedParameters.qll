@@ -1,56 +1,56 @@
 /**
-* A library for identifying parameters which may be unused.
-*/
+ * A library for identifying parameters which may be unused.
+ */
 
 import cpp
 
 /**
-* A `Parameter` which is "usable" within the function.
-*
-* For this to be the case, the `Function` must have a definition, and that definition must include
-* a body block, and the parameter must be a named parameter.
-*/
+ * A `Parameter` which is "usable" within the function.
+ *
+ * For this to be the case, the `Function` must have a definition, and that definition must include
+ * a body block, and the parameter must be a named parameter.
+ */
 class UsableParameter extends Parameter {
   UsableParameter() {
     (
       /* Regular Function */
       // Find the function associated with the parameter
-     exists(Function f | this = f.getAParameter() |
+      exists(Function f | this = f.getAParameter() |
         // Must have the definition of the function, not just the declaration
-       f.hasDefinition() and
+        f.hasDefinition() and
         // There must be a body block associated with the function, otherwise the parameter cannot
         // possibly be used
-       exists(f.getBlock())
-     )
-     or
+        exists(f.getBlock())
+      )
+      or
       /* Lambda Expression */
       // Find the function associated with the parameter
-     exists(LambdaExpression lambda, Function f |
-       this = lambda.getLambdaFunction().getParameter(_)
-       |
+      exists(LambdaExpression lambda, Function f |
+        this = lambda.getLambdaFunction().getParameter(_)
+      |
         // Must have the definition of the function, not just the declaration
-       lambda.getLambdaFunction() = f and
-       f.hasDefinition() and
+        lambda.getLambdaFunction() = f and
+        f.hasDefinition() and
         // There must be a body block associated with the function, otherwise the parameter cannot
         // possibly be used
-       exists(f.getBlock())
-     )
-     ) and
+        exists(f.getBlock())
+      )
+    ) and
     // Must be a named parameter, because unnamed parameters cannot be referenced
     isNamed()
   }
 }
 
 /**
-* A `Parameter` which is usable but not directly used in the local context.
-*/
+ * A `Parameter` which is usable but not directly used in the local context.
+ */
 class UnusedParameter extends UsableParameter {
   UnusedParameter() { not this instanceof UsedParameter }
 }
 
 /**
-* A `Parameter` which is used in the local context.
-*/
+ * A `Parameter` which is used in the local context.
+ */
 class UsedParameter extends UsableParameter {
   UsedParameter() {
     // An access to the parameter exists in the function body
