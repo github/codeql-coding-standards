@@ -19,9 +19,9 @@ class A {
 };
 
 void f(
-    int i,			// COMPLIANT
-    int j,			// COMPLIANT
-    int k,			// COMPLIANT
+    int i,                 // COMPLIANT
+    int j,                 // COMPLIANT
+    int k,                 // COMPLIANT
     [[maybe_unused]] int l // COMPLIANT: explicitly stated as [[maybe_unused]]
 ) {
   static_cast<void>(i); // COMPLIANT: explicitly ignored by static_cast to void
