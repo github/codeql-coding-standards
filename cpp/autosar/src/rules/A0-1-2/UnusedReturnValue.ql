@@ -26,7 +26,7 @@ predicate isStdIgnore(Element element) {
   )
 }
 
-/* The statement std::ignore = f() is not recognized an assignment; therefore, we do some painful acrobatics. */
+/* The statement std::ignore = f() is not recognized an assignment; therefore, we do some painful gymnastics. */
 predicate isAssignment(FunctionCall assignment) {
   exists(Operator operator |
     assignment.getTarget() = operator and
