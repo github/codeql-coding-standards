@@ -18,16 +18,29 @@ class A {
   virtual void d(int x, int y) {} // virtual, not covered by this rule
 };
 
- void f(
-   int i,
-   int j,
-   int k,
-   [[maybe_unused]]
-   int l                   // NON_COMPILANT: maybe_unused parameters should also be considered unused
- ) {
-    static_cast<void>(i);  // NON_COMPILANT: static_cast to void should also be considered unused
-    (void)j;               // NON_COMPILANT: C-style void casts should also be considered unused
-    std::ignore = k;       // NON_COMPILANT: Assignment to std::ignore should also be considered unused
- }
+void f(
+    int i,			// COMPLIANT
+    int j,			// COMPLIANT
+    int k,			// COMPLIANT
+    [[maybe_unused]] int l // COMPLIANT: explicitly stated as [[maybe_unused]]
+) {
+  static_cast<void>(i); // COMPLIANT: explicitly ignored by static_cast to void
+  (void)j;              // COMPLIANT: explicitly ignored by c-style cast to void
+  std::ignore = k; // COMPLIANT: explicitly ignored by assignment to std::ignore
+}
+
+void test_lambda_expr() {
+  auto lambda =
+      [](int x, // COMPLIANT: used
+         int y, // NON_COMPLIANT: unused without explicit notice
+         [[maybe_unused]] int z, // COMPLIANT: stdattribute [[maybe_unused]]
+         int w,                  // COMPLIANT: static_cast to void
+         int u,                  // COMPLIANT: c-style cast to void
+         int) {                  // COMPLIANT: unnamed parameter
+        static_cast<void>(w);
+        (void)u;
+        return x;
+      };
+}
 
 void test_no_def(int x); // COMPLIANT - no definition, so cannot be "unused"
