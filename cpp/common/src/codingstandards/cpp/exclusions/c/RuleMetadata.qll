@@ -3,6 +3,7 @@ import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
 import Banned
+import BitfieldTypes
 import Concurrency1
 import Concurrency2
 import Concurrency3
@@ -20,11 +21,13 @@ import Declarations3
 import Declarations4
 import Declarations5
 import Declarations6
+import Declarations7
 import Expressions
 import IO1
 import IO2
 import IO3
 import IO4
+import InvalidMemory1
 import Language1
 import Language2
 import Misc
@@ -46,6 +49,7 @@ import Syntax
 /** The TQuery type representing this language * */
 newtype TCQuery =
   TBannedPackageQuery(BannedQuery q) or
+  TBitfieldTypesPackageQuery(BitfieldTypesQuery q) or
   TConcurrency1PackageQuery(Concurrency1Query q) or
   TConcurrency2PackageQuery(Concurrency2Query q) or
   TConcurrency3PackageQuery(Concurrency3Query q) or
@@ -63,11 +67,13 @@ newtype TCQuery =
   TDeclarations4PackageQuery(Declarations4Query q) or
   TDeclarations5PackageQuery(Declarations5Query q) or
   TDeclarations6PackageQuery(Declarations6Query q) or
+  TDeclarations7PackageQuery(Declarations7Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
   TIO4PackageQuery(IO4Query q) or
+  TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TMiscPackageQuery(MiscQuery q) or
@@ -89,6 +95,7 @@ newtype TCQuery =
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
   isBannedQueryMetadata(query, queryId, ruleId, category) or
+  isBitfieldTypesQueryMetadata(query, queryId, ruleId, category) or
   isConcurrency1QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency2QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency3QueryMetadata(query, queryId, ruleId, category) or
@@ -106,11 +113,13 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations4QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations5QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
   isIO3QueryMetadata(query, queryId, ruleId, category) or
   isIO4QueryMetadata(query, queryId, ruleId, category) or
+  isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isMiscQueryMetadata(query, queryId, ruleId, category) or
