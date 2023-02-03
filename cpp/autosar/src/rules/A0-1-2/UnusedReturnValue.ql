@@ -73,7 +73,8 @@ where
     or
     exists(CStyleCast cast |
       not cast.isCompilerGenerated() and
-      cast.getExpr() = fc
+      cast.getExpr() = fc and
+      cast.getActualType() instanceof VoidType
     )
   ) and
   not returnValueIsAssignedToStdIgnore(fc)
