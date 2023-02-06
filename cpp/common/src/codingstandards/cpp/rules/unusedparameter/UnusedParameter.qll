@@ -21,20 +21,10 @@ predicate isLambdaParameter(Parameter parameter) {
 
 query predicate problems(UnusedParameter p, string message, Function f, string fName) {
   not isExcluded(p, getQuery()) and
-  if isLambdaParameter(p)
-  then (
-    not isMaybeUnusedParameter(p) and
-    f = p.getFunction() and
-    // Virtual functions are covered by a different rule
-    not f.isVirtual() and
-    message = "Unused parameter '" + p.getName() + "' for function $@." and
-    fName = "lambda expression"
-  ) else (
-    not isMaybeUnusedParameter(p) and
-    f = p.getFunction() and
-    // Virtual functions are covered by a different rule
-    not f.isVirtual() and
-    message = "Unused parameter '" + p.getName() + "' for function $@." and
-    fName = f.getQualifiedName()
-  )
+  not isMaybeUnusedParameter(p) and
+  (if isLambdaParameter(p) then fName = "lambda expression" else fName = f.getQualifiedName()) and
+  f = p.getFunction() and
+  // Virtual functions are covered by a different rule
+  not f.isVirtual() and
+  message = "Unused parameter '" + p.getName() + "' for function $@."
 }
