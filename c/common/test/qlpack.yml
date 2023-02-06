@@ -1,5 +1,6 @@
 name: codeql/common-c-coding-standards-tests
 version: 2.13.0-dev
 extractor: cpp
+license: MIT
 dependencies:
   codeql/common-c-coding-standards: '*'

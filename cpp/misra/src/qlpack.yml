@@ -1,5 +1,6 @@
 name: codeql/misra-cpp-coding-standards
 version: 2.13.0-dev
+license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
   codeql/cpp-all: 0.2.3
