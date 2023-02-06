@@ -24,7 +24,7 @@ void test_global_local() {
     int *restrict i6;
     i4 = g1;        // COMPLIANT
     i4 = (void *)0; // COMPLIANT
-    i5 = g1;        // COMPLIANT
+    i5 = g1;        // NON_COMPLIANT - block rather than statement scope matters
     i4 = g1;        // NON_COMPLIANT
     i6 = g2;        // COMPLIANT
   }
@@ -42,7 +42,7 @@ void test_structs() {
     int *restrict pz;
     py = &v1.y; // COMPLIANT
     py = (int *)0;
-    pz = &v1.z; // COMPLIANT
+    pz = &v1.z; // NON_COMPLIANT - block rather than statement scope matters
     py = &v1.y; // NON_COMPLIANT
   }
 }

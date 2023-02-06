@@ -39,8 +39,26 @@ Variable getAddressOfExprTargetBase(AddressOfExpr expr) {
   result = expr.getOperand().(VariableAccess).getTarget()
 }
 
+/**
+ * A data-flow configuration for tracking flow from an assignment or initialization to
+ * an assignment to an `AssignmentOrInitializationToRestrictPtrValueExpr`.
+ */
+class AssignedValueToRestrictPtrValueConfiguration extends DataFlow::Configuration {
+  AssignedValueToRestrictPtrValueConfiguration() {
+    this = "AssignmentOrInitializationToRestrictPtrValueConfiguration"
+  }
+
+  override predicate isSource(DataFlow::Node source) {
+    exists(Variable v | source.asExpr() = v.getAnAssignedValue())
+  }
+
+  override predicate isSink(DataFlow::Node sink) {
+    sink.asExpr() instanceof AssignmentOrInitializationToRestrictPtrValueExpr
+  }
+}
+
 from
-  AssignmentOrInitializationToRestrictPtrValueExpr source,
+  AssignedValueToRestrictPtrValueConfiguration config, DataFlow::Node sourceValue,
   AssignmentOrInitializationToRestrictPtrValueExpr expr,
   AssignmentOrInitializationToRestrictPtrValueExpr pre_expr
 where
@@ -49,23 +67,14 @@ where
     // If the same expressions flows to two unique `AssignmentOrInitializationToRestrictPtrValueExpr`
     // in the same block, then the two variables point to the same (overlapping) object
     expr.getEnclosingBlock() = pre_expr.getEnclosingBlock() and
-    strictlyDominates(pre_expr, expr) and
     (
-      dominates(source, pre_expr) and
-      DataFlow::localExprFlow(source, expr) and
-      DataFlow::localExprFlow(source, pre_expr)
+      config.hasFlow(sourceValue, DataFlow::exprNode(pre_expr)) and
+      config.hasFlow(sourceValue, DataFlow::exprNode(expr))
       or
       // Expressions referring to the address of the same variable can also result in aliasing
-      getAddressOfExprTargetBase(expr) = getAddressOfExprTargetBase(pre_expr) and
-      source =
-        any(AddressOfExpr ao | getAddressOfExprTargetBase(ao) = getAddressOfExprTargetBase(expr))
+      getAddressOfExprTargetBase(expr) = getAddressOfExprTargetBase(pre_expr)
     ) and
-    // But only if there is no intermediate assignment that could change the value of one of the variables
-    not exists(AssignmentOrInitializationToRestrictPtrValueExpr mid |
-      strictlyDominates(mid, expr) and
-      strictlyDominates(pre_expr, mid) and
-      not DataFlow::localExprFlow(source, mid)
-    )
+    strictlyDominates(pragma[only_bind_out](pre_expr), pragma[only_bind_out](expr))
     or
     // Two restrict-qualified pointers in the same scope assigned to each other
     expr.(VariableAccess).getTarget().getType().hasSpecifier("restrict") and
