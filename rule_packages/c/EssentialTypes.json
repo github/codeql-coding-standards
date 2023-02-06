@@ -1,0 +1,183 @@
+{
+  "MISRA-C-2012": {
+    "RULE-10-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Operands shall not be of an inappropriate essential type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OperandsOfAnInappropriateEssentialType",
+          "tags": []
+        },
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Logical operators should not be used with pointer types",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PointerTypeOnLogicalOperator",
+          "tags": []
+        }
+      ],
+      "title": "Operands shall not be of an inappropriate essential type"
+    },
+    "RULE-10-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations",
+          "kind": "problem",
+          "name": "Expressions of essentially character type shall not be used inappropriately in addition and",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AdditionSubtractionOnEssentiallyCharType",
+          "tags": []
+        }
+      ],
+      "title": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations"
+    },
+    "RULE-10-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value of an expression shall not be assigned to an object with a narrower essential type or of a different essential type category",
+          "kind": "problem",
+          "name": "The value of an expression shall not be assigned to an object with a narrower essential type or of a",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "AssignmentOfIncompatibleEssentialType",
+          "tags": []
+        }
+      ],
+      "title": "The value of an expression shall not be assigned to an object with a narrower essential type or of a different essential type category"
+    },
+    "RULE-10-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the same essential type category",
+          "kind": "problem",
+          "name": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OperandsWithMismatchedEssentialTypeCategory",
+          "tags": []
+        }
+      ],
+      "title": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the same essential type category"
+    },
+    "RULE-10-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "The value of an expression should not be cast to an inappropriate essential type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InappropriateEssentialTypeCast",
+          "tags": []
+        }
+      ],
+      "title": "The value of an expression should not be cast to an inappropriate essential type"
+    },
+    "RULE-10-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "The value of a composite expression shall not be assigned to an object with wider essential type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AssignmentToWiderEssentialType",
+          "tags": []
+        }
+      ],
+      "title": "The value of a composite expression shall not be assigned to an object with wider essential type"
+    },
+    "RULE-10-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a composite expression is used as one operand of an operator in which the usual arithmetic conversions are performed then the other operand shall not have wider essential type",
+          "kind": "problem",
+          "name": "If a composite expression is used as one operand of an operator in which the usual arithmetic",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ImplicitConversionOfCompositeExpression",
+          "tags": []
+        }
+      ],
+      "title": "If a composite expression is used as one operand of an operator in which the usual arithmetic conversions are performed then the other operand shall not have wider essential type"
+    },
+    "RULE-10-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type",
+          "kind": "problem",
+          "name": "The value of a composite expression shall not be cast to a different essential type category or a",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InappropriateCastOfCompositeExpression",
+          "tags": []
+        }
+      ],
+      "title": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type"
+    },
+    "RULE-14-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "A loop counter shall not have essentially floating type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "LoopOverEssentiallyFloatType",
+          "tags": []
+        }
+      ],
+      "title": "A loop counter shall not have essentially floating type"
+    },
+    "RULE-21-16": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type",
+          "kind": "problem",
+          "name": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type,",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemcmpOnInappropriateEssentialTypeArgs",
+          "tags": []
+        }
+      ],
+      "title": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type"
+    }
+  }
+}
