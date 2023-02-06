@@ -11,7 +11,7 @@ abstract class UnusedParameterSharedQuery extends Query { }
 
 Query getQuery() { result instanceof UnusedParameterSharedQuery }
 
-query predicate isMaybeUnusedParameter(Parameter parameter) {
+predicate isMaybeUnusedParameter(Parameter parameter) {
   parameter.getAnAttribute().toString() = "maybe_unused"
 }
 
@@ -19,24 +19,22 @@ predicate isLambdaParameter(Parameter parameter) {
   exists(LambdaExpression lambda | lambda.getLambdaFunction().getParameter(_) = parameter)
 }
 
-predicate isLambdaMaybeUnusedParameter(Parameter parameter) {
-  exists(LambdaExpression lambda | lambda.getLambdaFunction().getParameter(_) = parameter) and
-  isMaybeUnusedParameter(parameter)
-}
-
-query predicate lambdaExprParamHasAccess(Parameter parameter) {
-  exists(VariableAccess va | isLambdaParameter(parameter) and parameter.getAnAccess() = va)
-}
-
 query predicate problems(UnusedParameter p, string message, Function f, string fName) {
   not isExcluded(p, getQuery()) and
-  (
+  if isLambdaParameter(p)
+  then (
     not isMaybeUnusedParameter(p) and
     f = p.getFunction() and
     // Virtual functions are covered by a different rule
-    not f.isVirtual()
-  ) and
-  message = "Unused parameter '" + p.getName() + "' for function $@." and
-  // fName = f.getQualifiedName()
-  fName = "TODO."
+    not f.isVirtual() and
+    message = "Unused parameter '" + p.getName() + "' for function $@." and
+    fName = "lambda expression"
+  ) else (
+    not isMaybeUnusedParameter(p) and
+    f = p.getFunction() and
+    // Virtual functions are covered by a different rule
+    not f.isVirtual() and
+    message = "Unused parameter '" + p.getName() + "' for function $@." and
+    fName = f.getQualifiedName()
+  )
 }
