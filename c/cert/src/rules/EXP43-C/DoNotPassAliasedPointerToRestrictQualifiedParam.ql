@@ -1,5 +1,5 @@
 /**
- * @id c/cert/do-not-pass-alised-pointer-to-restrict-qualified-parameter
+ * @id c/cert/do-not-pass-aliased-pointer-to-restrict-qualified-param
  * @name EXP43-C: Do not pass aliased pointers to restrict-qualified parameters
  * @description Passing an aliased pointer to a restrict-qualified parameter is undefined behavior.
  * @kind problem
@@ -13,7 +13,8 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Pointers
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.c.Variable
+import semmle.code.cpp.ir.dataflow.DataFlow
 import semmle.code.cpp.pointsto.PointsTo
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
@@ -67,10 +68,9 @@ class CallToFunctionWithRestrictParameters extends FunctionCall {
 /**
  * A `PointsToExpr` that is an argument of a pointer-type in a `CallToFunctionWithRestrictParameters`
  */
-class ArgPointsToExpr extends PointsToExpr {
-  override predicate interesting() {
-    any(CallToFunctionWithRestrictParameters call).getAnArgument() = this and
-    pointerValue(this)
+class CallToFunctionWithRestrictParametersArgExpr extends Expr {
+  CallToFunctionWithRestrictParametersArgExpr() {
+    this = any(CallToFunctionWithRestrictParameters call).getAPtrArg()
   }
 }
 
@@ -82,7 +82,7 @@ int getStatedValue(Expr e) {
         .minimum(min(Expr source | DataFlow::localExprFlow(source, e) | source.getValue().toInt()))
 }
 
-int getPointerArithmeticOperandStatedValue(ArgPointsToExpr expr) {
+int getPointerArithmeticOperandStatedValue(CallToFunctionWithRestrictParametersArgExpr expr) {
   result = getStatedValue(expr.(PointerArithmeticExpr).getOperand())
   or
   // edge-case: &(array[index]) expressions
@@ -94,18 +94,37 @@ int getPointerArithmeticOperandStatedValue(ArgPointsToExpr expr) {
   result = 0
 }
 
+class PointerValueToRestrictArgConfig extends DataFlow::Configuration {
+  PointerValueToRestrictArgConfig() { this = "PointerValueToRestrictArgConfig" }
+
+  override predicate isSource(DataFlow::Node source) { pointerValue(source.asExpr()) }
+
+  override predicate isSink(DataFlow::Node sink) {
+    exists(CallToFunctionWithRestrictParameters call |
+      sink.asExpr() = call.getAPtrArg().getAChild*()
+    )
+  }
+}
+
 from
-  CallToFunctionWithRestrictParameters call, ArgPointsToExpr arg1, ArgPointsToExpr arg2,
-  int argOffset1, int argOffset2
+  CallToFunctionWithRestrictParameters call, CallToFunctionWithRestrictParametersArgExpr arg1,
+  CallToFunctionWithRestrictParametersArgExpr arg2, int argOffset1, int argOffset2
 where
-  not isExcluded(call, Pointers3Package::doNotPassAlisedPointerToRestrictQualifiedParameterQuery()) and
+  not isExcluded(call, Pointers3Package::doNotPassAliasedPointerToRestrictQualifiedParamQuery()) and
   arg1 = call.getARestrictPtrArg() and
   arg2 = call.getAPtrArg() and
-  // two arguments that point to the same object
   arg1 != arg2 and
-  arg1.pointsTo() = arg2.pointsTo() and
-  arg1.confidence() = 1.0 and
-  arg2.confidence() = 1.0 and
+  exists(PointerValueToRestrictArgConfig config, Expr source1, Expr source2 |
+    config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg1.getAChild*())) and
+    (
+      // one pointer value flows to both args
+      config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg2.getAChild*()))
+      or
+      // there are two separate values that flow from an AddressOfExpr of the same target
+      getAddressOfExprTargetBase(source1) = getAddressOfExprTargetBase(source2) and
+      config.hasFlow(DataFlow::exprNode(source2), DataFlow::exprNode(arg2.getAChild*()))
+    )
+  ) and
   // get the offset of the pointer arithmetic operand (or '0' if there is none)
   argOffset1 = getPointerArithmeticOperandStatedValue(arg1) and
   argOffset2 = getPointerArithmeticOperandStatedValue(arg2) and

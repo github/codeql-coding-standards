@@ -14,6 +14,7 @@ import cpp
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.controlflow.Dominance
 import codingstandards.c.cert
+import codingstandards.c.Variable
 
 /**
  * An `Expr` that is an assignment or initialization to a restrict-qualified pointer-type variable.
@@ -27,16 +28,6 @@ class AssignmentOrInitializationToRestrictPtrValueExpr extends Expr {
   }
 
   Variable getVariable() { result = v }
-}
-
-/**
- * Returns the target variable of a `VariableAccess`.
- * If the access is a field access, then the target is the `Variable` of the qualifier.
- */
-Variable getAddressOfExprTargetBase(AddressOfExpr expr) {
-  result = expr.getOperand().(ValueFieldAccess).getQualifier().(VariableAccess).getTarget()
-  or
-  result = expr.getOperand().(VariableAccess).getTarget()
 }
 
 /**

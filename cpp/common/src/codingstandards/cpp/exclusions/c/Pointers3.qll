@@ -7,7 +7,7 @@ newtype Pointers3Query =
   TDoNotAccessVolatileObjectWithNonVolatileReferenceQuery() or
   TDoNotCastPointerToMoreStrictlyAlignedPointerTypeQuery() or
   TDoNotAccessVariableViaPointerOfIncompatibleTypeQuery() or
-  TDoNotPassAlisedPointerToRestrictQualifiedParameterQuery() or
+  TDoNotPassAliasedPointerToRestrictQualifiedParamQuery() or
   TRestrictPointerReferencesOverlappingObjectQuery()
 
 predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId, string category) {
@@ -39,11 +39,11 @@ predicate isPointers3QueryMetadata(Query query, string queryId, string ruleId, s
   category = "rule"
   or
   query =
-    // `Query` instance for the `doNotPassAlisedPointerToRestrictQualifiedParameter` query
-    Pointers3Package::doNotPassAlisedPointerToRestrictQualifiedParameterQuery() and
+    // `Query` instance for the `doNotPassAliasedPointerToRestrictQualifiedParam` query
+    Pointers3Package::doNotPassAliasedPointerToRestrictQualifiedParamQuery() and
   queryId =
-    // `@id` for the `doNotPassAlisedPointerToRestrictQualifiedParameter` query
-    "c/cert/do-not-pass-alised-pointer-to-restrict-qualified-parameter" and
+    // `@id` for the `doNotPassAliasedPointerToRestrictQualifiedParam` query
+    "c/cert/do-not-pass-aliased-pointer-to-restrict-qualified-param" and
   ruleId = "EXP43-C" and
   category = "rule"
   or
@@ -79,11 +79,11 @@ module Pointers3Package {
       TQueryC(TPointers3PackageQuery(TDoNotAccessVariableViaPointerOfIncompatibleTypeQuery()))
   }
 
-  Query doNotPassAlisedPointerToRestrictQualifiedParameterQuery() {
+  Query doNotPassAliasedPointerToRestrictQualifiedParamQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `doNotPassAlisedPointerToRestrictQualifiedParameter` query
-      TQueryC(TPointers3PackageQuery(TDoNotPassAlisedPointerToRestrictQualifiedParameterQuery()))
+      // `Query` type for `doNotPassAliasedPointerToRestrictQualifiedParam` query
+      TQueryC(TPointers3PackageQuery(TDoNotPassAliasedPointerToRestrictQualifiedParamQuery()))
   }
 
   Query restrictPointerReferencesOverlappingObjectQuery() {

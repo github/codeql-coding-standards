@@ -71,7 +71,7 @@
           "name": "Do not pass aliased pointers to restrict-qualified parameters",
           "precision": "medium",
           "severity": "error",
-          "short_name": "DoNotPassAlisedPointerToRestrictQualifiedParameter",
+          "short_name": "DoNotPassAliasedPointerToRestrictQualifiedParam",
           "tags": [
             "correctness"
           ]
