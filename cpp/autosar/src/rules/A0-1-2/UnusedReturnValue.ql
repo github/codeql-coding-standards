@@ -16,32 +16,14 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.Operator
+import cpp
 
-predicate isStdIgnore(Element element) {
-  exists(NameQualifier nq |
-    nq.getQualifiedElement().toString() = "ignore" and
-    nq.toString() = "std::" and
-    element.toString() = "ignore"
-  )
-}
-
-/* The statement std::ignore = f() is not recognized an assignment; therefore, we do some painful gymnastics. */
-predicate isAssignment(FunctionCall assignment) {
-  exists(Operator operator |
-    assignment.getTarget() = operator and
-    operator.getName() = "operator=" and
-    // check if this is indeed an operator for assignment by checking if there are no overloads
-    not exists(operator.getAnOverload())
-  )
-}
-
-predicate isAssignmentOperand(Expr operand) {
-  exists(FunctionCall assignment | isAssignment(assignment) and operand = assignment.getAChild())
-}
-
-predicate returnValueIsAssignedToStdIgnore(FunctionCall fc) {
-  isAssignmentOperand(fc) and exists(Element stdIgnore | isStdIgnore(stdIgnore))
+class StdIgnoreVariable extends NamespaceVariable {
+  StdIgnoreVariable() {
+    this.hasName("ignore") and
+    this.getNamespace() instanceof StdNamespace
+  }
 }
 
 /*
@@ -77,5 +59,9 @@ where
       cast.getActualType() instanceof VoidType
     )
   ) and
-  not returnValueIsAssignedToStdIgnore(fc)
+  // Exclude assignments to std::ignore.
+  not (
+    fc.getTarget() instanceof AssignmentOperator and
+    fc.getAChild().(VariableAccess).getTarget() instanceof StdIgnoreVariable
+  )
 select fc, "Return value from call to $@ is unused.", f, f.getName()
