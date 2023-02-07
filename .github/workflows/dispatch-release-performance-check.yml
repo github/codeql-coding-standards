@@ -14,7 +14,7 @@ jobs:
     steps:
 
       - name: Dispatch Performance Testing Job
-        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') }}
+        if: ${{ contains(github.event.comment.body, 'test-performance') }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
@@ -24,7 +24,7 @@ jobs:
 
 
       - uses: actions/github-script@v6
-        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') }}
+        if: ${{ contains(github.event.comment.body, 'test-performance') }}
         with:
           script: |
             github.rest.issues.createComment({
