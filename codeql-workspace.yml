@@ -1,6 +1,0 @@
-provide:
-  - "cpp/*/src/qlpack.yml"
-  - "cpp/*/test/qlpack.yml"
-  - "c/*/src/qlpack.yml"
-  - "c/*/test/qlpack.yml"
-  - "scripts/generate_modules/queries/qlpack.yml"
