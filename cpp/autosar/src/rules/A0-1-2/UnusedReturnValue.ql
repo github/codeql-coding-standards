@@ -19,13 +19,6 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.Operator
 import cpp
 
-class StdIgnoreVariable extends NamespaceVariable {
-  StdIgnoreVariable() {
-    this.hasName("ignore") and
-    this.getNamespace() instanceof StdNamespace
-  }
-}
-
 /*
  * This query performs a simple syntactic check to ensure that the return value of the function is
  * not completely ignored. This matches the examples given in the rule, although the text itself is
@@ -58,10 +51,5 @@ where
       cast.getExpr() = fc and
       cast.getActualType() instanceof VoidType
     )
-  ) and
-  // Exclude assignments to std::ignore.
-  not (
-    fc.getTarget() instanceof AssignmentOperator and
-    fc.getAChild().(VariableAccess).getTarget() instanceof StdIgnoreVariable
   )
 select fc, "Return value from call to $@ is unused.", f, f.getName()
