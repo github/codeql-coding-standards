@@ -87,8 +87,8 @@ jobs:
         run: |
           PATH=$PATH:$CODEQL_HOME/codeql
 
-          find c -name qlpack.yml -exec codeql pack create --threads=0 {} \;
-          find cpp -name qlpack.yml -exec codeql pack create --threads=0 {} \;
+          codeql query compile --threads 0 cpp
+          codeql query compile --threads 0 c
 
           cd ..
           zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/schemas
