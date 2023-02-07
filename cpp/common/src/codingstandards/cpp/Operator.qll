@@ -124,7 +124,7 @@ class AssignmentOperator extends MemberFunction {
     // operator op, where op is =, +=, -=, *=, /=, %=, ^=, &=, |=, >>=
     exists(string op |
       "operator" + op = this.getName() and
-      op in ["=", "+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=", ">>="]
+      op in ["=", "+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=", ">>=", "<<="]
     )
   }
 }
