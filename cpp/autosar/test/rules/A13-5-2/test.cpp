@@ -10,34 +10,15 @@ private:
   float d;
 };
 
-void example() {
+void test_compiler_generated() {
+  int x = 0;
 
-  int ref_value{0};
-  int other_value{0};
-
-  // ok
-  auto dummy_lambda = [&ref_value]() noexcept -> void { ref_value = 42; };
-  dummy_lambda();
-
-  // ok
-  auto my_lambda_1 = [&ref_value](int param) noexcept -> void {
-    for (int i{0}; i < param; ++i) {
-      ++ref_value;
-    }
+  auto capture = [x]() -> int {
+    return x;
   };
-  my_lambda_1(other_value);
 
-  // error: user-defined-conversion-operators-not-defined-explicit
-  auto my_lambda_2 = [](int param) noexcept -> void {
-    for (int i{0}; i < param; ++i) {
-      //
-    }
+  auto no_capture = []() -> int {
+    int x = 1;
+    return x;
   };
-  my_lambda_2(other_value);
-
-  // ok
-  auto my_lambda_3 = [&ref_value](int param) noexcept -> void {
-    ref_value = param;
-  };
-  my_lambda_3(other_value);
 }
