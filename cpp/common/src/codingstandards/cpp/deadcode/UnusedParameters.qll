@@ -12,29 +12,14 @@ import cpp
  */
 class UsableParameter extends Parameter {
   UsableParameter() {
-    (
-      /* Regular Function */
-      // Find the function associated with the parameter
-      exists(Function f | this = f.getAParameter() |
-        // Must have the definition of the function, not just the declaration
-        f.hasDefinition() and
-        // There must be a body block associated with the function, otherwise the parameter cannot
-        // possibly be used
-        exists(f.getBlock())
-      )
-      or
-      /* Lambda Expression */
-      // Find the function associated with the parameter
-      exists(LambdaExpression lambda, Function f |
-        this = lambda.getLambdaFunction().getParameter(_)
-      |
-        // Must have the definition of the function, not just the declaration
-        lambda.getLambdaFunction() = f and
-        f.hasDefinition() and
-        // There must be a body block associated with the function, otherwise the parameter cannot
-        // possibly be used
-        exists(f.getBlock())
-      )
+    /* Regular Function */
+    // Find the function associated with the parameter
+    exists(Function f | this = f.getAParameter() |
+      // Must have the definition of the function, not just the declaration
+      f.hasDefinition() and
+      // There must be a body block associated with the function, otherwise the parameter cannot
+      // possibly be used
+      exists(f.getBlock())
     ) and
     // Must be a named parameter, because unnamed parameters cannot be referenced
     isNamed()
