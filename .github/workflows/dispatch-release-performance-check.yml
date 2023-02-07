@@ -1,15 +1,12 @@
 name: 🏁 Run Release Performance Check
 
 on:
-  push:
+  issue_comment:
+    types: [created]
     branches:
       - main
       - "rc/**"
       - next
-  pull_request:
-    branches:
-      - "**"
-  workflow_dispatch:
 
 jobs:
   dispatch-matrix-check:
@@ -17,6 +14,7 @@ jobs:
     steps:
 
       - name: Dispatch Performance Testing Job
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
@@ -26,11 +24,12 @@ jobs:
 
 
       - uses: actions/github-script@v6
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') }}
         with:
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🏁 Beep Boop! Performance testing for this PR has been initiated. Please check back later for results. Note that the query package generation step must complete before testing  will start so it might be a minute. <br><br> :bulb: If you do not hear back from me please check my status! **I will report even if this PR does not contain files eligible for matrix testing.**'
+              body: '🏁 Beep Boop! Performance testing for this PR has been initiated. Please check back later for results. Note that the query package generation step must complete before testing  will start so it might be a minute. <br><br> :bulb: If you do not hear back from me please check my status! **I will report even if I fail!**'
             })
