@@ -47,7 +47,7 @@ function Get-RuleForPath {
     }
 
     $modifiedPathWithReplacement = Join-Path (Resolve-Path . -Relative) $Path 
-    # repalce "src" with "test" to make it match up
+    # replace "src" with "test" to make it match up
     $sep = [IO.Path]::DirectorySeparatorChar
     $modifiedPathWithReplacement = $modifiedPathWithReplacement.Replace( ($sep + "src" + $sep + "rules"), ($sep + "test" + $sep + "rules"))    
     $modifiedPath = Join-Path (Resolve-Path . -Relative) $Path 
