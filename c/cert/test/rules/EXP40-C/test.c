@@ -24,7 +24,7 @@ void f2() {
 }
 
 void f4a(int *a) {
-  *a = 100; // NON_COMPLAINT
+  *a = 100; // NON_COMPLIANT
 }
 
 void f4b(int *a) {}

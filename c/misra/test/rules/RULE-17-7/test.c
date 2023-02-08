@@ -3,7 +3,7 @@ int f2() { return 0; }
 
 int t1() {
   f1();
-  f2();         // NON_COMPLAINT
+  f2();         // NON_COMPLIANT
   (void)f2();   // COMPLIANT
   int a = f2(); // COMPLIANT
   a = f2();     // COMPLIANT
