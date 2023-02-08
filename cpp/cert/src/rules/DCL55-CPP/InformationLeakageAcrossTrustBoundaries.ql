@@ -13,10 +13,10 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.trustboundary.UninitializedField
+import codingstandards.cpp.rules.informationleakageacrossboundaries.InformationLeakageAcrossBoundaries
 
-from Element e, string alertMessage
-where
-  not isExcluded(e, UninitializedPackage::informationLeakageAcrossTrustBoundariesQuery()) and
-  uninitializedFieldQuery(e, alertMessage)
-select e, alertMessage
+class InformationLeakageAcrossTrustBoundariesQuery extends InformationLeakageAcrossBoundariesSharedQuery {
+  InformationLeakageAcrossTrustBoundariesQuery() {
+    this = UninitializedPackage::informationLeakageAcrossTrustBoundariesQuery()
+  }
+}
