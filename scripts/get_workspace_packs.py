@@ -1,14 +1,14 @@
 import glob
-import json
+import yaml
 import os
 
 def get_workspace_packs(root):
-    # Find the packs by globbing using the 'provide' patterns in the manifest.
+    # Find the packs by globbing using the 'provide' patterns in the CodeQL workspace file.
     os.chdir(root)
-    with open('.codeqlmanifest.json') as manifest_file:
-        manifest = json.load(manifest_file)
+    with open('codeql-workspace.yml') as codeql_workspace_file:
+        codeql_workspace = yaml.load(codeql_workspace_file)
     packs = []
-    for pattern in manifest['provide']:
+    for pattern in codeql_workspace['provide']:
         packs.extend(glob.glob(pattern, recursive=True))
-
+    
     return packs
