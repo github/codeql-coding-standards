@@ -2,10 +2,6 @@ name: codeql/misra-cpp-coding-standards
 version: 2.13.0-dev
 description: MISRA C++ 2008
 suites: codeql-suites
-defaultSuite:
-  qlpack: codeql/autosar-cpp-coding-standards
-  include:
-    tags contains: /^external/autosar/id/m.*/
 license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
