@@ -1,3 +1,5 @@
+// semmle-extractor-options:--clang -std=c11 -nostdinc
+// -I../../../../common/test/includes/standard-library
 double f1(double x); // COMPLIANT
 f2(double x);        // NON_COMPLIANT
 
