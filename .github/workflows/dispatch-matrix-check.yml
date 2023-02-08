@@ -1,11 +1,6 @@
 name: 🤖 Run Matrix Check 
 
 on:
-  push:
-    branches:
-      - main
-      - "rc/**"
-      - next
   pull_request:
     branches:
       - "**"
