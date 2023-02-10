@@ -1,1 +1,2 @@
  - `A1-1-2`: Refactored this test case to support better cross-compiler testing. 
+ - `A1-1-3`: Added support for alternate spelling of compiler flag. 

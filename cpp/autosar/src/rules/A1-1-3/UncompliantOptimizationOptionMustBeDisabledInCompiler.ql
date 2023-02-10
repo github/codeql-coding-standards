@@ -26,7 +26,7 @@ where
     c.getAnArgument() = flag and
     flag =
       [
-        "-Ofast", "-ffast-math", "-fgnu-keywords", "-fno-signed-zeroes", "-menable-unsafe-fp-math",
+        "-Ofast", "-ffast-math", "-fgnu-keywords", "-fno-signed-zeroes", "-fno-signed-zeroes", "-menable-unsafe-fp-math",
         "-menable-no-nans", "-menable-no-infs", "-menable-unsafe-fp-math", "-ffinite-math-only",
         "-ffloat-store"
       ]
