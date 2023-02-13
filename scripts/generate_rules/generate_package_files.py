@@ -49,7 +49,7 @@ standard_metadata = {
     },
     "AUTOSAR" : {
         "standard_title" : "AUTOSAR: Guidelines for the use of the C++14 language in critical and safety-related systems",
-        "standard_url"   : "https://www.autosar.org/fileadmin/user_upload/standards/adaptive/19-11/AUTOSAR_RS_CPP14Guidelines.pdf"
+        "standard_url"   : "https://www.autosar.org/fileadmin/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf"
     },
     "CERT-C" : {
         "standard_title" : "CERT-C",
@@ -368,7 +368,7 @@ def generate_package_files(package_name: str) -> None:
                             query["standard_title"] = "AUTOSAR: Guidelines for the use of the C++14 language in critical and safety-related systems"
                             query[
                                 "standard_url"
-                            ] = "https://www.autosar.org/fileadmin/user_upload/standards/adaptive/19-11/AUTOSAR_RS_CPP14Guidelines.pdf"
+                            ] = "https://www.autosar.org/fileadmin/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf"
 
                         help_dir = None
                         if standard_name in external_help_file_standards:
