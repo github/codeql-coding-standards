@@ -59,19 +59,21 @@ function Get-RuleForPath {
     foreach($q in $allQueries){
 
         # get test directory
-        $testDirectory = (Get-TestDirectory -RuleObject $q -Language $Language)
-        # resolve path to be compatible 
-        $testPath = Join-Path (Resolve-Path . -Relative) $testDirectory
+        $testDirs = (Get-ATestDirectory -RuleObject $q -Language $Language)
+        foreach($testDirectory in $testDirs){
+            # resolve path to be compatible 
+            $testPath = Join-Path (Resolve-Path . -Relative) $testDirectory
 
-        # see if the TEST directory is a substring of the full path 
-        if($modifiedPath.StartsWith($testPath)){
-            $matchingRules += $q 
-            continue 
-        }
+            # see if the TEST directory is a substring of the full path 
+            if($modifiedPath.StartsWith($testPath)){
+                $matchingRules += $q 
+                continue 
+            }
 
-        if($modifiedPathWithReplacement.StartsWith($testPath)){
-            $matchingRules += $q 
-            continue 
+            if($modifiedPathWithReplacement.StartsWith($testPath)){
+                $matchingRules += $q 
+                continue 
+            }
         }
     }
 

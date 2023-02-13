@@ -22,8 +22,7 @@ $COMPILER_ARGS = @{
 
     "c"   = @{
         "gcc" = "-fsyntax-only";
-        "clang" = "-fsyntax-only";
-        
+        "clang" = "-fsyntax-only";        
     };
     
 }
