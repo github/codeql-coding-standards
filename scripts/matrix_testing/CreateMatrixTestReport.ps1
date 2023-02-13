@@ -375,7 +375,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
                 $qlRefFile = Join-Path $rulePath "$CurrentQueryName.qlref" 
             }
 
-            Write-Host "codeql test run $qlRefFile --search-path ../../../../../../ --dataset=`"$datasetRelPath`""
+            Write-Host "codeql test run $qlRefFile --search-path . --dataset=`"$datasetRelPath`""
 
             $stdOut = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid())
             $stdErr = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid())
@@ -384,7 +384,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             Write-Host "Standard Out Buffered to: $stdOut"
             Write-Host "Standard Error Buffered to: $stdErr"
             
-            $procDetails = Start-Process -FilePath "codeql" -PassThru -NoNewWindow -Wait -ArgumentList "test run $qlRefFile --search-path ../../../../ --dataset=`"$datasetRelPath`"" -RedirectStandardOutput $stdOut -RedirectStandardError $stdErr
+            $procDetails = Start-Process -FilePath "codeql" -PassThru -NoNewWindow -Wait -ArgumentList "test run $qlRefFile --search-path . --dataset=`"$datasetRelPath`"" -RedirectStandardOutput $stdOut -RedirectStandardError $stdErr
             
             if (-Not $procDetails.ExitCode -eq 0) {
 
