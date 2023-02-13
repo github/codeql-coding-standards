@@ -293,22 +293,25 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     $CurrentQueryName = $q.short_name
     $CurrentPackageName = $q.__memberof_package
 
-    # for the report 
-    $row = @{
-        "SUITE"             = $CurrentSuiteName;
-        "PACKAGE"           = $CurrentPackageName;
-        "RULE"              = $CurrentRuleName;
-        "QUERY"             = $CurrentQueryName;
-        "COMPILE_PASS"      = $false;
-        "COMPILE_ERROR_OUTPUT"    = "";
-        "TEST_PASS"         = $false ;
-        "TEST_DIFFERENCE"   = "";
-    }
 
     # all the test directories -- there may be more than one for a given rule 
     $testDirs = (Get-ATestDirectory -RuleObject $q -Language $using:Language)
 
     foreach($testDirectory in $testDirs){
+
+        # for the report 
+        $row = @{
+            "SUITE"             = $CurrentSuiteName;
+            "PACKAGE"           = $CurrentPackageName;
+            "RULE"              = $CurrentRuleName;
+            "QUERY"             = $CurrentQueryName;
+            "COMPILE_PASS"      = $false;
+            "COMPILE_ERROR_OUTPUT"    = "";
+            "TEST_PASS"         = $false ;
+            "TEST_DIFFERENCE"   = "";
+        }
+
+
 
         Write-Host "====================[Rule=$CurrentRuleName,Suite=$CurrentSuiteName/Query=$CurrentQueryName]====================" 
 
