@@ -5,7 +5,6 @@ This query implements the CERT-C rule DCL30-C:
 > Declare objects with appropriate storage durations
 
 
-
 ## Description
 
 Every object has a storage duration that determines its lifetime: *static*, *thread*, *automatic*, or *allocated*.
