@@ -74,25 +74,32 @@ private IntegralType stlr(Expr const) {
 }
 
 /**
- * Define the essential type category for an IntegralOrEnumType.
+ * Define the essential type category for an essentialType or a typedef of an essentialType.
  */
-EssentialTypeCategory getEssentialTypeCategory(Type at) {
-  result = EssentiallyBooleanType() and at instanceof MisraBoolType
-  or
-  result = EssentiallyCharacterType() and at instanceof PlainCharType
-  or
-  result = EssentiallySignedType() and
-  at.(IntegralType).isSigned() and
-  not at instanceof PlainCharType
-  or
-  result = EssentiallyUnsignedType() and
-  at.(IntegralType).isUnsigned() and
-  not at instanceof PlainCharType
-  or
-  result = EssentiallyEnumType() and at instanceof Enum and not at instanceof MisraBoolType
-  or
-  result = EssentiallyFloatingType() and
-  at instanceof FloatingPointType
+EssentialTypeCategory getEssentialTypeCategory(Type type) {
+  exists(Type essentialType |
+    // Resolve typedefs to ensure
+    essentialType = type.getUnderlyingType()
+  |
+    result = EssentiallyBooleanType() and essentialType instanceof MisraBoolType
+    or
+    result = EssentiallyCharacterType() and essentialType instanceof PlainCharType
+    or
+    result = EssentiallySignedType() and
+    essentialType.(IntegralType).isSigned() and
+    not essentialType instanceof PlainCharType
+    or
+    result = EssentiallyUnsignedType() and
+    essentialType.(IntegralType).isUnsigned() and
+    not essentialType instanceof PlainCharType
+    or
+    result = EssentiallyEnumType() and
+    essentialType instanceof Enum and
+    not essentialType instanceof MisraBoolType
+    or
+    result = EssentiallyFloatingType() and
+    essentialType instanceof FloatingPointType
+  )
 }
 
 /**
