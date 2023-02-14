@@ -2,7 +2,7 @@
  * @id c/misra/operands-with-mismatched-essential-type-category
  * @name RULE-10-4: Operator with usual arithmetic conversions shall have operands with the same essential type category
  * @description Both operands of an operator in which the usual arithmetic conversions are performed
- *              shall have the same essential type category
+ *              shall have the same essential type category.
  * @kind problem
  * @precision very-high
  * @problem.severity warning

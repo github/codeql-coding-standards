@@ -3,7 +3,7 @@
  * @name RULE-21-16: Do not use memcmp on pointers to characters or composite types such as structs and unions.
  * @description The pointer arguments to the Standard Library function memcmp shall point to either
  *              a pointer type, an essentially signed type, an essentially unsigned type, an
- *              essentially Boolean type or an essentially enum type
+ *              essentially Boolean type or an essentially enum type.
  * @kind problem
  * @precision very-high
  * @problem.severity error

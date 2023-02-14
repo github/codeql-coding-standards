@@ -36,7 +36,7 @@
       },
       "queries": [
         {
-          "description": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations",
+          "description": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations.",
           "kind": "problem",
           "name": "Inappropriate use of essentially character type operands in addition and subtraction operations",
           "precision": "very-high",
@@ -56,7 +56,7 @@
       },
       "queries": [
         {
-          "description": "The value of an expression shall not be assigned to an object with a narrower essential type or of a different essential type category",
+          "description": "The value of an expression shall not be assigned to an object with a narrower essential type or of a different essential type category.",
           "kind": "problem",
           "name": "Do not assign to an object with a different essential type category or narrower essential type",
           "precision": "very-high",
@@ -76,7 +76,7 @@
       },
       "queries": [
         {
-          "description": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the same essential type category",
+          "description": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the same essential type category.",
           "kind": "problem",
           "name": "Operator with usual arithmetic conversions shall have operands with the same essential type category",
           "precision": "very-high",
@@ -136,7 +136,7 @@
       },
       "queries": [
         {
-          "description": "If a composite expression is used as one operand of an operator in which the usual arithmetic conversions are performed then the other operand shall not have wider essential type",
+          "description": "If a composite expression is used as one operand of an operator in which the usual arithmetic conversions are performed then the other operand shall not have wider essential type.",
           "kind": "problem",
           "name": "Implicit conversion of composite expression operand to wider essential type",
           "precision": "very-high",
@@ -156,7 +156,7 @@
       },
       "queries": [
         {
-          "description": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type",
+          "description": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type.",
           "kind": "problem",
           "name": "Composite expression explicitly casted to wider or different essential type",
           "precision": "very-high",
@@ -196,7 +196,7 @@
       },
       "queries": [
         {
-          "description": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type",
+          "description": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type.",
           "kind": "problem",
           "name": "Do not use memcmp on pointers to characters or composite types such as structs and unions.",
           "precision": "very-high",
