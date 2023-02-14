@@ -1,12 +1,14 @@
 /**
  * @id c/misra/assignment-of-incompatible-essential-type
- * @name RULE-10-3: The value of an expression shall not be assigned to an object with a narrower essential type or of a
+ * @name RULE-10-3: Do not assign to an object with a different essential type category or narrower essential type
  * @description The value of an expression shall not be assigned to an object with a narrower
  *              essential type or of a different essential type category
  * @kind problem
- * @precision high
- * @problem.severity error
+ * @precision very-high
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-3
+ *       maintainability
+ *       correctness
  *       external/misra/obligation/required
  */
 

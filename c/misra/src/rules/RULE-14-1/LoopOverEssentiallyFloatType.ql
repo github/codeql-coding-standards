@@ -1,11 +1,13 @@
 /**
  * @id c/misra/loop-over-essentially-float-type
  * @name RULE-14-1: A loop counter shall not have essentially floating type
- * @description
+ * @description A floating point loop counter can cause confusing behavior when incremented.
  * @kind problem
- * @precision high
- * @problem.severity error
+ * @precision very-high
+ * @problem.severity warning
  * @tags external/misra/id/rule-14-1
+ *       maintainability
+ *       correctness
  *       external/misra/obligation/required
  */
 

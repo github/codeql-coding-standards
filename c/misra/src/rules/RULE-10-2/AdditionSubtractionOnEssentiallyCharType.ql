@@ -1,12 +1,14 @@
 /**
  * @id c/misra/addition-subtraction-on-essentially-char-type
- * @name RULE-10-2: Expressions of essentially character type shall not be used inappropriately in addition and
+ * @name RULE-10-2: Inappropriate use of essentially character type operands in addition and subtraction operations
  * @description Expressions of essentially character type shall not be used inappropriately in
  *              addition and subtraction operations
  * @kind problem
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-10-2
+ *       maintainability
+ *       correctness
  *       external/misra/obligation/required
  */
 

@@ -1,12 +1,14 @@
 /**
  * @id c/misra/inappropriate-cast-of-composite-expression
- * @name RULE-10-8: The value of a composite expression shall not be cast to a different essential type category or a
+ * @name RULE-10-8: Composite expression explicitly casted to wider or different essential type
  * @description The value of a composite expression shall not be cast to a different essential type
  *              category or a wider essential type
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-8
+ *       maintainability
+ *       correctness
  *       external/misra/obligation/required
  */
 

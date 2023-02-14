@@ -1,12 +1,14 @@
 /**
  * @id c/misra/operands-with-mismatched-essential-type-category
- * @name RULE-10-4: Both operands of an operator in which the usual arithmetic conversions are performed shall have the
+ * @name RULE-10-4: Operator with usual arithmetic conversions shall have operands with the same essential type category
  * @description Both operands of an operator in which the usual arithmetic conversions are performed
  *              shall have the same essential type category
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-4
+ *       maintainability
+ *       correctness
  *       external/misra/obligation/required
  */
 

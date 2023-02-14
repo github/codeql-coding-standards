@@ -1,13 +1,15 @@
 /**
  * @id c/misra/implicit-conversion-of-composite-expression
- * @name RULE-10-7: If a composite expression is used as one operand of an operator in which the usual arithmetic
+ * @name RULE-10-7: Implicit conversion of composite expression operand to wider essential type
  * @description If a composite expression is used as one operand of an operator in which the usual
  *              arithmetic conversions are performed then the other operand shall not have wider
  *              essential type
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-7
+ *       maintainability
+ *       correctness
  *       external/misra/obligation/required
  */
 

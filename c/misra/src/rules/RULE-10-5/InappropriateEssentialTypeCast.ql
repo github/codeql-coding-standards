@@ -1,11 +1,14 @@
 /**
  * @id c/misra/inappropriate-essential-type-cast
  * @name RULE-10-5: The value of an expression should not be cast to an inappropriate essential type
- * @description
+ * @description Casting the value of an expression to an inappropriate essential type may lead to
+ *              confusing or unexpected behavior in the way the value is converted.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-5
+ *       maintainability
+ *       correctness
  *       external/misra/obligation/advisory
  */
 

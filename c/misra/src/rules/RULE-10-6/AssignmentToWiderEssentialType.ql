@@ -1,11 +1,14 @@
 /**
  * @id c/misra/assignment-to-wider-essential-type
  * @name RULE-10-6: The value of a composite expression shall not be assigned to an object with wider essential type
- * @description
+ * @description Assigning a composite expression to an object with wider essential type can cause
+ *              some unexpected conversions.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-6
+ *       maintainability
+ *       correctness
  *       external/misra/obligation/required
  */
 

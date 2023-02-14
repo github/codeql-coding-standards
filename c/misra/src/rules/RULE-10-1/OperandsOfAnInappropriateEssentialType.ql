@@ -1,11 +1,13 @@
 /**
  * @id c/misra/operands-of-an-inappropriate-essential-type
  * @name RULE-10-1: Operands shall not be of an inappropriate essential type
- * @description
+ * @description Using an inappropriate essential type operand may lead to confusing or unexpected
+ *              behavior when the operand is converted.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-1
+ *       maintainability
  *       external/misra/obligation/required
  */
 

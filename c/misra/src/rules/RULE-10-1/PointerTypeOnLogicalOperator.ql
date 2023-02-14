@@ -1,11 +1,13 @@
 /**
  * @id c/misra/pointer-type-on-logical-operator
  * @name RULE-10-1: Logical operators should not be used with pointer types
- * @description
+ * @description Using pointer types with logical operators should be avoid because it can cause
+ *              confusing behavior.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-1
+ *       correctness
  *       external/misra/obligation/required
  */
 
