@@ -1,0 +1,26 @@
+{
+  "CERT-C": {
+    "DCL30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "When storage durations are not compatible between assigned pointers it can lead to referring to objects outside of their lifetime, which is undefined behaviour.",
+          "kind": "problem",
+          "name": "Declare objects with appropriate storage durations",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DeclareObjectsWithAppropriateStorageDurations",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "The rule checks specifically for pointers to objects with automatic storage duration with respect to the following cases: returned by functions, assigned to function output parameters and assigned to static storage duration variables."
+          }
+        }
+      ],
+      "title": "Declare objects with appropriate storage durations"
+    }
+  }
+}
