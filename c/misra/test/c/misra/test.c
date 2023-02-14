@@ -15,3 +15,15 @@ void testConditional() {
 
   b ? s : u; // unsigned int
 }
+
+void testCategoriesForComplexTypes() {
+  typedef float float32_t;
+  typedef const float cfloat32_t;
+  const float f;
+  const float32_t f32;
+  cfloat32_t cf32;
+
+  f;    // Should be essentially Floating type
+  f32;  // Should be essentially Floating type
+  cf32; // Should be essentially Floating type
+}
