@@ -48,7 +48,7 @@ The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying
 
 | Standard                                                                                                             | Version | Total rules | Total supportable rules | Status            |
 | -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented       |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented       |
 | [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented       |
 | [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 99                      | Under development |
 | [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 172         | 169                     | Under development |
