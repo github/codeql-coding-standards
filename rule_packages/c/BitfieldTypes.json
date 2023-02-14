@@ -1,0 +1,38 @@
+{
+  "MISRA-C-2012": {
+    "RULE-6-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declaring bit-fields on types other than appropriate ones causes implementation-specific or undefined behavior.",
+          "kind": "problem",
+          "name": "Bit-fields shall only be declared with an appropriate type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BitFieldsShallOnlyBeDeclaredWithAnAppropriateType",
+          "tags": []
+        }
+      ],
+      "title": "Bit-fields shall only be declared with an appropriate type"
+    },
+    "RULE-6-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Single-bit named bit fields carry no useful information and therefore should not be declared or used.",
+          "kind": "problem",
+          "name": "Single-bit named bit fields shall not be of a signed type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SingleBitNamedBitFieldsOfASignedType",
+          "tags": []
+        }
+      ],
+      "title": "Single-bit named bit fields shall not be of a signed type"
+    }
+  }
+}

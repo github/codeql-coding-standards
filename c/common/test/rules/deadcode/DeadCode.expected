@@ -1,0 +1,11 @@
+| test.c:18:3:18:27 | declaration | This statement is dead code. |
+| test.c:19:3:19:12 | ExprStmt | This statement is dead code. |
+| test.c:20:3:20:12 | ExprStmt | This statement is dead code. |
+| test.c:22:3:24:3 | if (...) ...  | This statement is dead code. |
+| test.c:34:3:35:3 | if (...) ...  | This statement is dead code. |
+| test.c:37:3:37:4 | { ... } | This statement is dead code. |
+| test.c:38:3:40:3 | { ... } | This statement is dead code. |
+| test.c:54:6:55:3 | { ... } | This statement is dead code. |
+| test.c:65:46:66:3 | { ... } | This statement is dead code. |
+| test.c:69:3:69:8 | ExprStmt | This statement is dead code. |
+| test.c:71:3:71:21 | ExprStmt | This statement is dead code. |
