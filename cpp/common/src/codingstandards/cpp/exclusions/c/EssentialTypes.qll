@@ -14,6 +14,7 @@ newtype EssentialTypesQuery =
   TImplicitConversionOfCompositeExpressionQuery() or
   TInappropriateCastOfCompositeExpressionQuery() or
   TLoopOverEssentiallyFloatTypeQuery() or
+  TMemcmpUsedToCompareNullTerminatedStringsQuery() or
   TMemcmpOnInappropriateEssentialTypeArgsQuery()
 
 predicate isEssentialTypesQueryMetadata(Query query, string queryId, string ruleId, string category) {
@@ -108,6 +109,15 @@ predicate isEssentialTypesQueryMetadata(Query query, string queryId, string rule
   category = "required"
   or
   query =
+    // `Query` instance for the `memcmpUsedToCompareNullTerminatedStrings` query
+    EssentialTypesPackage::memcmpUsedToCompareNullTerminatedStringsQuery() and
+  queryId =
+    // `@id` for the `memcmpUsedToCompareNullTerminatedStrings` query
+    "c/misra/memcmp-used-to-compare-null-terminated-strings" and
+  ruleId = "RULE-21-14" and
+  category = "required"
+  or
+  query =
     // `Query` instance for the `memcmpOnInappropriateEssentialTypeArgs` query
     EssentialTypesPackage::memcmpOnInappropriateEssentialTypeArgsQuery() and
   queryId =
@@ -186,6 +196,13 @@ module EssentialTypesPackage {
     result =
       // `Query` type for `loopOverEssentiallyFloatType` query
       TQueryC(TEssentialTypesPackageQuery(TLoopOverEssentiallyFloatTypeQuery()))
+  }
+
+  Query memcmpUsedToCompareNullTerminatedStringsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `memcmpUsedToCompareNullTerminatedStrings` query
+      TQueryC(TEssentialTypesPackageQuery(TMemcmpUsedToCompareNullTerminatedStringsQuery()))
   }
 
   Query memcmpOnInappropriateEssentialTypeArgsQuery() {

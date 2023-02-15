@@ -190,6 +190,26 @@
       ],
       "title": "A loop counter shall not have essentially floating type"
     },
+    "RULE-21-14": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using memcmp to compare null terminated strings may give unexpected results because memcmp compares by size with no consideration for the null terminator.",
+          "kind": "path-problem",
+          "name": "The Standard Library function memcmp shall not be used to compare null terminated strings",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemcmpUsedToCompareNullTerminatedStrings",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The Standard Library function memcmp shall not be used to compare null terminated strings"
+    },
     "RULE-21-16": {
       "properties": {
         "obligation": "required"
