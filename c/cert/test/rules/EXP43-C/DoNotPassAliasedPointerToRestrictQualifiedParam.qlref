@@ -1,0 +1,1 @@
+rules/EXP43-C/DoNotPassAliasedPointerToRestrictQualifiedParam.ql
