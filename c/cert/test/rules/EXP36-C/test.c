@@ -164,9 +164,9 @@ void test_struct_alignment() {
 
 void test_malloc_alignment_and_pointer_arithmetic() {
   short *s1 = (short *)malloc(64);
-  (size_t *)&s1;    // COMPLIANT
-  (struct S3 *)&s1; // NON_COMPLIANT - over-aligned struct
-  cast_away(s1);    // COMPLIANT
+  (size_t *)&s1;   // COMPLIANT
+  (struct S3 *)s1; // NON_COMPLIANT - over-aligned struct
+  cast_away(s1);   // COMPLIANT
 
   short *s2 = s1 + 1;
   (char *)s2;    // COMPLIANT

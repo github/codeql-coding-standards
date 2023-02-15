@@ -181,7 +181,7 @@ where
   alignmentFrom = expr.getAlignment() and
   // flag cases where the cast's target type has stricter alignment requirements than the source
   alignmentFrom < alignmentTo
-select sink, source, sink,
+select cast, source, sink,
   "Cast from pointer with " + alignmentFrom +
     "-byte alignment (defined by $@) to pointer with base type " + toBaseType.getUnderlyingType() +
     " with " + alignmentTo + "-byte alignment.", expr.getUnconverted(), expr.getKind()
