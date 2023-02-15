@@ -20,7 +20,7 @@ import codingstandards.c.misra.EssentialTypes
 from FunctionCall memcmp, Expr arg, Type argBaseType
 where
   not isExcluded(arg, EssentialTypesPackage::memcmpOnInappropriateEssentialTypeArgsQuery()) and
-  memcmp.getTarget().hasGlobalName("memcmp") and
+  memcmp.getTarget().hasGlobalOrStdName("memcmp") and
   // Pointer arguments
   arg = memcmp.getArgument([0, 1]) and
   exists(DerivedType pt |
