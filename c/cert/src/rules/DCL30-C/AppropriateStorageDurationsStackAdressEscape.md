@@ -183,7 +183,7 @@ DCL30-C = Union( CWE-562, list) where list =
 
 ## Implementation notes
 
-The rule checks specifically for pointers to objects with automatic storage duration with respect to the following cases: returned by functions, assigned to function output parameters and assigned to static storage duration variables.
+The rule checks specifically for pointers to objects with automatic storage duration that are assigned to static storage duration variables.
 
 ## References
 

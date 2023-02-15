@@ -39,20 +39,12 @@ class FunctionSink extends Sink {
   }
 }
 
-class StaticSink extends Sink {
-  StaticSink() {
-    exists(StaticStorageDurationVariable s |
-      this.(DataFlow::PostUpdateNode).getPreUpdateNode().asExpr() = s.getAnAccess() and
-      s.getUnderlyingType() instanceof PointerType
-    )
-  }
-}
-
 from DataFlow::Node src, DataFlow::Node sink
 where
   not isExcluded(sink.asExpr(),
-    Declarations8Package::declareObjectsWithAppropriateStorageDurationsQuery()) and
+    Declarations8Package::appropriateStorageDurationsFunctionReturnQuery()) and
   exists(Source s | src.asExpr() = s.getAnAccess()) and
   sink instanceof Sink and
   DataFlow::localFlow(src, sink)
-select sink, "$@ with automatic storage may be accessible outside of its lifetime.", src, src.toString()
+select sink, "$@ with automatic storage may be accessible outside of its lifetime.", src,
+  src.toString()
