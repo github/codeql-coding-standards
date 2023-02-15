@@ -1,0 +1,88 @@
+{
+  "CERT-C": {
+    "EXP33-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Using the value of an object with automatic storage duration while it is indeterminate is undefined behavior.",
+          "kind": "problem",
+          "name": "Do not read uninitialized memory",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "ReadOfUninitializedMemory",
+          "short_name": "DoNotReadUninitializedMemory",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not read uninitialized memory"
+    },
+    "EXP34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Dereferencing a null pointer leads to undefined behavior.",
+          "kind": "problem",
+          "name": "Do not dereference null pointers",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "DereferenceOfNullPointer",
+          "short_name": "DoNotDereferenceNullPointers",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not dereference null pointers"
+    },
+    "MEM30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Accessing memory that has been deallocated is undefined behavior.",
+          "kind": "problem",
+          "name": "Do not access freed memory",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotAccessFreedMemory",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not access freed memory"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-9-1": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Accessing an object before it has been initialized can lead to undefined behavior.",
+          "kind": "problem",
+          "name": "The value of an object with automatic storage duration shall not be read before it has been set",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "ReadOfUninitializedMemory",
+          "short_name": "ObjectWithAutoStorageDurationReadBeforeInit",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The value of an object with automatic storage duration shall not be read before it has been set"
+    }
+  }
+}
