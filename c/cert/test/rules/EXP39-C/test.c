@@ -42,7 +42,6 @@ struct S1 {
 } * s3;
 struct S1 *s4;
 
-// TODO test across files
 void test_incompatible_structs() {
   // s1 and s2 do not have tags, and are therefore not compatible
   s1 = s2; // NON_COMPLIANT

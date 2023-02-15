@@ -153,6 +153,7 @@ Type compatibleTypes(Type type) {
   ) and
   (
     (
+      // all types are compatible with void and explicitly-unsigned char types
       result instanceof UnsignedCharType or
       [result.stripTopLevelSpecifiers(), type.stripTopLevelSpecifiers()] instanceof VoidType
     )
