@@ -115,7 +115,8 @@ class PointerValueToRestrictArgConfig extends DataFlow::Configuration {
 }
 
 from
-  CallToFunctionWithRestrictParameters call, CallToFunctionWithRestrictParametersArgExpr arg1,
+  PointerValueToRestrictArgConfig config, CallToFunctionWithRestrictParameters call,
+  CallToFunctionWithRestrictParametersArgExpr arg1,
   CallToFunctionWithRestrictParametersArgExpr arg2, int argOffset1, int argOffset2, Expr source1,
   Expr source2, string sourceMessage1, string sourceMessage2
 where
@@ -124,8 +125,8 @@ where
   arg2 = call.getAPtrArg(_) and
   // enforce ordering to remove permutations if multiple restrict-qualified args exist
   (not arg2 = call.getARestrictPtrArg() or arg2.getParamIndex() > arg1.getParamIndex()) and
-  // check if two pointers address the same object
-  exists(PointerValueToRestrictArgConfig config |
+  (
+    // check if two pointers address the same object
     config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg1.getAChild*())) and
     (
       // one pointer value flows to both args

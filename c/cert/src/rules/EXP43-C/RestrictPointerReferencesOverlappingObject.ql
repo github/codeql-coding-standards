@@ -51,10 +51,6 @@ class AssignedValueToRestrictPtrValueConfiguration extends DataFlow::Configurati
   override predicate isSink(DataFlow::Node sink) {
     sink.asExpr() instanceof AssignmentOrInitializationToRestrictPtrValueExpr
   }
-
-  override predicate isBarrierIn(DataFlow::Node node) {
-    isSource(node)
-  }
 }
 
 from
