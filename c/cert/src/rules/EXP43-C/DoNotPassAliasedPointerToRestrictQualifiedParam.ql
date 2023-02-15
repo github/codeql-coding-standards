@@ -49,8 +49,8 @@ class CallToFunctionWithRestrictParameters extends FunctionCall {
             .getIndex())
   }
 
-  Expr getAPtrArg() {
-    result = this.getAnArgument() and
+  Expr getAPtrArg(int index) {
+    result = this.getArgument(index) and
     pointerValue(result)
   }
 
@@ -69,9 +69,13 @@ class CallToFunctionWithRestrictParameters extends FunctionCall {
  * A `PointsToExpr` that is an argument of a pointer-type in a `CallToFunctionWithRestrictParameters`
  */
 class CallToFunctionWithRestrictParametersArgExpr extends Expr {
+  int paramIndex;
+
   CallToFunctionWithRestrictParametersArgExpr() {
-    this = any(CallToFunctionWithRestrictParameters call).getAPtrArg()
+    this = any(CallToFunctionWithRestrictParameters call).getAPtrArg(paramIndex)
   }
+
+  int getParamIndex() { result = paramIndex }
 }
 
 int getStatedValue(Expr e) {
@@ -101,28 +105,41 @@ class PointerValueToRestrictArgConfig extends DataFlow::Configuration {
 
   override predicate isSink(DataFlow::Node sink) {
     exists(CallToFunctionWithRestrictParameters call |
-      sink.asExpr() = call.getAPtrArg().getAChild*()
+      sink.asExpr() = call.getAPtrArg(_).getAChild*()
     )
+  }
+
+  override predicate isBarrierIn(DataFlow::Node node) {
+    exists(AddressOfExpr a | node.asExpr() = a.getOperand().getAChild*())
   }
 }
 
 from
   CallToFunctionWithRestrictParameters call, CallToFunctionWithRestrictParametersArgExpr arg1,
-  CallToFunctionWithRestrictParametersArgExpr arg2, int argOffset1, int argOffset2
+  CallToFunctionWithRestrictParametersArgExpr arg2, int argOffset1, int argOffset2, Expr source1,
+  Expr source2, string sourceMessage1, string sourceMessage2
 where
   not isExcluded(call, Pointers3Package::doNotPassAliasedPointerToRestrictQualifiedParamQuery()) and
   arg1 = call.getARestrictPtrArg() and
-  arg2 = call.getAPtrArg() and
-  arg1 != arg2 and
-  exists(PointerValueToRestrictArgConfig config, Expr source1, Expr source2 |
+  arg2 = call.getAPtrArg(_) and
+  // enforce ordering to remove permutations if multiple restrict-qualified args exist
+  (not arg2 = call.getARestrictPtrArg() or arg2.getParamIndex() > arg1.getParamIndex()) and
+  // check if two pointers address the same object
+  exists(PointerValueToRestrictArgConfig config |
     config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg1.getAChild*())) and
     (
       // one pointer value flows to both args
-      config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg2.getAChild*()))
+      config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg2.getAChild*())) and
+      sourceMessage1 = "$@" and
+      sourceMessage2 = "source" and
+      source1 = source2
       or
       // there are two separate values that flow from an AddressOfExpr of the same target
       getAddressOfExprTargetBase(source1) = getAddressOfExprTargetBase(source2) and
-      config.hasFlow(DataFlow::exprNode(source2), DataFlow::exprNode(arg2.getAChild*()))
+      config.hasFlow(DataFlow::exprNode(source2), DataFlow::exprNode(arg2.getAChild*())) and
+      sourceMessage1 = "a pair of address-of expressions ($@, $@)" and
+      sourceMessage2 = "addressof1" and
+      not source1 = source2
     )
   ) and
   // get the offset of the pointer arithmetic operand (or '0' if there is none)
@@ -146,5 +163,6 @@ where
     not exists(call.getAPossibleSizeArg())
   )
 select call,
-  "Call to '" + call.getTarget().getName() +
-    "' passes an aliased pointer to a restrict-qualified parameter."
+  "Call to '" + call.getTarget().getName() + "' passes an $@ to a $@ (pointer value derived from " +
+    sourceMessage1 + ".", arg2, "aliased pointer", arg1, "restrict-qualified parameter", source1,
+  sourceMessage2, source2, "addressof2"

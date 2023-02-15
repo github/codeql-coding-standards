@@ -60,8 +60,11 @@ void test_restrict_params() {
   copy(&i1, &i2, 1); // COMPLIANT
 
   int x[10];
-  copy(&x[0], &x[1], 1); // COMPLIANT - non overlapping
-  copy(&x[0], &x[1], 2); // NON_COMPLIANT - overlapping
+  int *px = &x[0];
+  copy(&x[0], &x[1], 1);       // COMPLIANT - non overlapping
+  copy(&x[0], &x[1], 2);       // NON_COMPLIANT - overlapping
+  copy(&x[0], (int *)x[0], 1); // COMPLIANT - non overlapping
+  copy(&x[0], px, 1);          // NON_COMPLIANT - overlapping
 }
 
 void test_strcpy() {

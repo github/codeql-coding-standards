@@ -47,6 +47,7 @@ class FlexibleArrayMemberCandidate extends MemberVariable {
 Variable getAddressOfExprTargetBase(AddressOfExpr expr) {
   result = expr.getOperand().(ValueFieldAccess).getQualifier().(VariableAccess).getTarget()
   or
+  not expr.getOperand() instanceof ValueFieldAccess and
   result = expr.getOperand().(VariableAccess).getTarget()
   or
   result = expr.getOperand().(ArrayExpr).getArrayBase().(VariableAccess).getTarget()

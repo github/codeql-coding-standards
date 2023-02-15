@@ -28,6 +28,11 @@ class AssignmentOrInitializationToRestrictPtrValueExpr extends Expr {
   }
 
   Variable getVariable() { result = v }
+
+  predicate isTargetRestrictQualifiedAndInSameScope() {
+    this.(VariableAccess).getTarget().getType().hasSpecifier("restrict") and
+    this.(VariableAccess).getTarget().getParentScope() = this.getVariable().getParentScope()
+  }
 }
 
 /**
@@ -46,30 +51,41 @@ class AssignedValueToRestrictPtrValueConfiguration extends DataFlow::Configurati
   override predicate isSink(DataFlow::Node sink) {
     sink.asExpr() instanceof AssignmentOrInitializationToRestrictPtrValueExpr
   }
+
+  override predicate isBarrierIn(DataFlow::Node node) {
+    isSource(node)
+  }
 }
 
 from
-  AssignedValueToRestrictPtrValueConfiguration config, DataFlow::Node sourceValue,
-  AssignmentOrInitializationToRestrictPtrValueExpr expr,
-  AssignmentOrInitializationToRestrictPtrValueExpr pre_expr
+  AssignedValueToRestrictPtrValueConfiguration config,
+  AssignmentOrInitializationToRestrictPtrValueExpr expr, DataFlow::Node sourceValue,
+  string sourceMessage
 where
   not isExcluded(expr, Pointers3Package::restrictPointerReferencesOverlappingObjectQuery()) and
   (
+    // Two restrict-qualified pointers in the same scope assigned to each other
+    expr.isTargetRestrictQualifiedAndInSameScope() and
+    sourceValue.asExpr() = expr and
+    sourceMessage = "the object pointed to by " + expr.(VariableAccess).getTarget().getName()
+    or
     // If the same expressions flows to two unique `AssignmentOrInitializationToRestrictPtrValueExpr`
     // in the same block, then the two variables point to the same (overlapping) object
-    expr.getEnclosingBlock() = pre_expr.getEnclosingBlock() and
-    (
-      config.hasFlow(sourceValue, DataFlow::exprNode(pre_expr)) and
-      config.hasFlow(sourceValue, DataFlow::exprNode(expr))
-      or
-      // Expressions referring to the address of the same variable can also result in aliasing
-      getAddressOfExprTargetBase(expr) = getAddressOfExprTargetBase(pre_expr)
-    ) and
-    strictlyDominates(pragma[only_bind_out](pre_expr), pragma[only_bind_out](expr))
-    or
-    // Two restrict-qualified pointers in the same scope assigned to each other
-    expr.(VariableAccess).getTarget().getType().hasSpecifier("restrict") and
-    expr.(VariableAccess).getTarget().getParentScope() = expr.getVariable().getParentScope()
+    not expr.isTargetRestrictQualifiedAndInSameScope() and
+    exists(AssignmentOrInitializationToRestrictPtrValueExpr pre_expr |
+      expr.getEnclosingBlock() = pre_expr.getEnclosingBlock() and
+      (
+        config.hasFlow(sourceValue, DataFlow::exprNode(pre_expr)) and
+        config.hasFlow(sourceValue, DataFlow::exprNode(expr)) and
+        sourceMessage = "the same source value"
+        or
+        // Expressions referring to the address of the same variable can also result in aliasing
+        getAddressOfExprTargetBase(expr) = getAddressOfExprTargetBase(pre_expr) and
+        sourceValue.asExpr() = pre_expr and
+        sourceMessage = getAddressOfExprTargetBase(expr).getName() + " via address-of"
+      ) and
+      strictlyDominates(pragma[only_bind_out](pre_expr), pragma[only_bind_out](expr))
+    )
   )
-select expr, "Assignment to restrict-qualified pointer $@ results in pointer aliasing.",
-  expr.getVariable(), expr.getVariable().getName()
+select expr, "Assignment to restrict-qualified pointer $@ results in pointers aliasing $@.",
+  expr.getVariable(), expr.getVariable().getName(), sourceValue, sourceMessage
