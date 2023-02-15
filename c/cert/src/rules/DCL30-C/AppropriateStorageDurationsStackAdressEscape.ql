@@ -4,7 +4,7 @@
  * @description When storage durations are not compatible between assigned pointers it can lead to
  *              referring to objects outside of their lifetime, which is undefined behaviour.
  * @kind problem
- * @precision high
+ * @precision very-high
  * @problem.severity error
  * @tags external/cert/id/dcl30-c
  *       correctness
