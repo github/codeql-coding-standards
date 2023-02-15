@@ -1,8 +1,8 @@
 /**
- * @id c/cert/declare-objects-with-appropriate-storage-durations
+ * @id c/cert/appropriate-storage-durations-function-return
  * @name DCL30-C: Declare objects with appropriate storage durations
- * @description When storage durations are not compatible between assigned pointers it can lead to
- *              referring to objects outside of their lifetime, which is undefined behaviour.
+ * @description When pointers to local variables are returned by a function it can lead to referring
+ *              to objects outside of their lifetime, which is undefined behaviour.
  * @kind problem
  * @precision high
  * @problem.severity error
