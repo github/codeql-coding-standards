@@ -113,7 +113,7 @@ where
   not isExcluded(call, Pointers3Package::doNotPassAliasedPointerToRestrictQualifiedParamQuery()) and
   arg1 = call.getARestrictPtrArg() and
   arg2 = call.getAPtrArg() and
-  arg1 != arg2 and
+  not arg1 = arg2 and
   exists(PointerValueToRestrictArgConfig config, Expr source1, Expr source2 |
     config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg1.getAChild*())) and
     (
