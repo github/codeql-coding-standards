@@ -12,7 +12,6 @@ import cpp
  */
 class UsableParameter extends Parameter {
   UsableParameter() {
-    /* Regular Function */
     // Find the function associated with the parameter
     exists(Function f | this = f.getAParameter() |
       // Must have the definition of the function, not just the declaration
