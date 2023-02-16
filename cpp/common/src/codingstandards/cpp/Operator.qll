@@ -8,10 +8,10 @@ class AnyAssignOperation extends Expr {
   AnyAssignOperation() {
     this instanceof AssignOperation
     or
-    // operator op, where op is +=, -=, *=, /=, %=, ^=, &=, |=, >>=
+    // operator op, where op is +=, -=, *=, /=, %=, ^=, &=, |=, >>=, <<=
     exists(string op |
       "operator" + op = this.(FunctionCall).getTarget().getName() and
-      op in ["+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=", ">>="]
+      op in ["+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=", ">>=", "<<="]
     )
   }
 }
@@ -121,7 +121,7 @@ class UserAssignmentOperator extends AssignmentOperator {
 /** An assignment operator of any sort */
 class AssignmentOperator extends MemberFunction {
   AssignmentOperator() {
-    // operator op, where op is =, +=, -=, *=, /=, %=, ^=, &=, |=, >>=
+    // operator op, where op is =, +=, -=, *=, /=, %=, ^=, &=, |=, >>=, <<=
     exists(string op |
       "operator" + op = this.getName() and
       op in ["=", "+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=", ">>=", "<<="]
