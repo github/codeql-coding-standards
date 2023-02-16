@@ -43,13 +43,8 @@ where
   // not necessarily able to address those results
   not fc.isAffectedByMacro() and
   // Rule allows disabling this rule where a static_cast<void> or a C-style cast to void is applied
-  not (
-    fc.getExplicitlyConverted().(StaticCast).getActualType() instanceof VoidType
-    or
-    exists(CStyleCast cast |
-      not cast.isCompilerGenerated() and
-      cast.getExpr() = fc and
-      cast.getActualType() instanceof VoidType
-    )
+  not exists(Cast cast | cast instanceof StaticCast or cast instanceof CStyleCast |
+    fc.getExplicitlyConverted() = cast and
+    cast.getActualType() instanceof VoidType
   )
 select fc, "Return value from call to $@ is unused.", f, f.getName()
