@@ -35,14 +35,16 @@ from FunctionCall fc
 where
   not isExcluded(fc,
     StandardLibraryFunctionTypesPackage::memcpyMemmoveMemcmpArgNotPointersToCompatibleTypesQuery()) and
-  exists(MemCmpMoveCpy memfun | fc.getTarget() = memfun |
+  exists(MemCmpMoveCpy memfun, Type dstType, Type srcType | fc.getTarget() = memfun |
+    dstType = fc.getArgument(0).getUnspecifiedType() and
+    srcType = fc.getArgument(1).getUnspecifiedType() and
     (
-      fc.getArgument(0).getUnspecifiedType() instanceof PointerType and
-      fc.getArgument(1).getUnspecifiedType() instanceof PointerType
+      dstType instanceof PointerType and
+      srcType instanceof PointerType
       or
-      fc.getArgument(0).getUnspecifiedType() instanceof ArrayType and
-      fc.getArgument(1).getUnspecifiedType() instanceof ArrayType
+      dstType instanceof ArrayType and
+      srcType instanceof ArrayType
     ) and
-    fc.getArgument(0).getUnspecifiedType() = fc.getArgument(1).getUnspecifiedType()
+    dstType = srcType
   )
 select fc, fc.getArgument(0).getUnspecifiedType(), fc.getArgument(1).getUnspecifiedType()
