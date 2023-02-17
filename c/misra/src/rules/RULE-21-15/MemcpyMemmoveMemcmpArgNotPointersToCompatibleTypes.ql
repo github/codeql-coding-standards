@@ -12,9 +12,17 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.Pointers
 
-from Element x
+class MemCmpMoveCpy extends BuiltInFunction {
+  MemCmpMoveCpy() { this.getName().regexpMatch(".+mem(cmp|cpy|move).+") }
+}
+
+from FunctionCall fc
 where
-  not isExcluded(x, StandardLibraryFunctionTypesPackage::memcpyMemmoveMemcmpArgNotPointersToCompatibleTypesQuery()) and
-  any()
-select 1
+  not isExcluded(fc,
+    StandardLibraryFunctionTypesPackage::memcpyMemmoveMemcmpArgNotPointersToCompatibleTypesQuery()) and
+  exists(MemCmpMoveCpy memfun | fc.getTarget() = memfun |
+    fc.getArgument(0).getUnspecifiedType() = fc.getArgument(1).getUnspecifiedType()
+  )
+select fc, fc.getArgument(0).getUnspecifiedType(), fc.getArgument(1).getUnspecifiedType()
