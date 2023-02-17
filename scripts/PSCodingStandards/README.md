@@ -3,13 +3,13 @@
 To use this on the command line, do:
 
 ```
-Import-Module -Name .\scripts\PSCodingStandards\CodingStandards
+Import-Module -Name ./scripts/PSCodingStandards/CodingStandards
 ```
 
 To use this in your scripts you can do: 
 
 ```
-Import-Module -Name "$PSScriptRoot\..\PSCodingStandards\CodingStandards"
+Import-Module -Name "$PSScriptRoot/../PSCodingStandards/CodingStandards"
 ```
 
 # Summary of Available Commands
