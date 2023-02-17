@@ -16,10 +16,13 @@ import codingstandards.c.Pointers
 
 class MemCmpMoveCpy extends Function {
   // Couldn't extend BuiltInFunction because it misses `memcmp`
-  MemCmpMoveCpy() { this.getName().regexpMatch("mem(cmp|cpy|move)") }
+  MemCmpMoveCpy() {
+    this.getName().regexpMatch("mem(cmp|cpy|move)") and
+    this.getADeclaration().getAFile().(HeaderFile).getBaseName() = "string.h"
+  }
 }
 
-query predicate memfunArgTypes(FunctionCall fc, Type dstType, Type srcType) {
+predicate memfunArgTypes(FunctionCall fc, Type dstType, Type srcType) {
   (
     fc.getArgument(0).getUnspecifiedType() instanceof PointerType and
     fc.getArgument(1).getUnspecifiedType() instanceof PointerType
