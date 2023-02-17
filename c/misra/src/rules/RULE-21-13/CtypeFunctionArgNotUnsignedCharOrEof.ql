@@ -12,8 +12,37 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.ReadErrorsAndEOF
+import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
+import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
+import semmle.code.cpp.dataflow.DataFlow // TODO use this...
 
-from
+query predicate isCtypeFunction(Function function) {
+  function.getADeclaration().getAFile().(HeaderFile).getShortName() = "_ctype" // TODO: change it back to `ctype`
+}
+
+query predicate isInUnsignedCharRange(Expr var) {
+  // TODO: shouldn't be an Expr, instead get it as an argument from a FunctionCall that isCtypeFunction
+  exists(UnsignedCharType unsignedChar |
+    // Consider cases where the argument's value is cast to some smaller type, clipping the range.
+    typeLowerBound(unsignedChar) <= lowerBound(var.getFullyConverted()) and
+    upperBound(var.getFullyConverted()) <= typeUpperBound(unsignedChar)
+  )
+}
+
+// Uh oh, this is empty
+query predicate isEOFInvocation(EOFInvocation eof) {
+  any()
+}
+
+/* very early draft */
+query predicate equivToEOF(FunctionCall fc, EOFInvocation eof) {
+  // var is a param of ctypefunctioncall
+  isCtypeFunction(fc.getTarget()) and
+  DataFlow::localFlow(DataFlow::exprNode(eof.getExpr()), DataFlow::exprNode(fc.getArgument(0)))
+}
+from Element x
 where
   not isExcluded(x, StandardLibraryFunctionTypesPackage::ctypeFunctionArgNotUnsignedCharOrEofQuery()) and
-select
+  any()
+select 1

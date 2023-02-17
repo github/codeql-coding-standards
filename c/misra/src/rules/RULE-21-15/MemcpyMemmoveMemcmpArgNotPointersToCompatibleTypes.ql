@@ -13,7 +13,8 @@
 import cpp
 import codingstandards.c.misra
 
-from
+from Element x
 where
   not isExcluded(x, StandardLibraryFunctionTypesPackage::memcpyMemmoveMemcmpArgNotPointersToCompatibleTypesQuery()) and
-select
+  any()
+select 1
