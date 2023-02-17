@@ -14,8 +14,21 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.Pointers
 
-class MemCmpMoveCpy extends BuiltInFunction {
-  MemCmpMoveCpy() { this.getName().regexpMatch(".+mem(cmp|cpy|move).+") }
+class MemCmpMoveCpy extends Function {
+  // Couldn't extend BuiltInFunction because it misses `memcmp`
+  MemCmpMoveCpy() { this.getName().regexpMatch("mem(cmp|cpy|move)") }
+}
+
+query predicate memfunArgTypes(FunctionCall fc, Type dstType, Type srcType) {
+  (
+    fc.getArgument(0).getUnspecifiedType() instanceof PointerType and
+    fc.getArgument(1).getUnspecifiedType() instanceof PointerType
+    or
+    fc.getArgument(0).getUnspecifiedType() instanceof ArrayType and
+    fc.getArgument(1).getUnspecifiedType() instanceof ArrayType
+  ) and
+  dstType = fc.getArgument(0).getUnspecifiedType() and
+  srcType = fc.getArgument(1).getUnspecifiedType()
 }
 
 from FunctionCall fc
@@ -23,6 +36,13 @@ where
   not isExcluded(fc,
     StandardLibraryFunctionTypesPackage::memcpyMemmoveMemcmpArgNotPointersToCompatibleTypesQuery()) and
   exists(MemCmpMoveCpy memfun | fc.getTarget() = memfun |
+    (
+      fc.getArgument(0).getUnspecifiedType() instanceof PointerType and
+      fc.getArgument(1).getUnspecifiedType() instanceof PointerType
+      or
+      fc.getArgument(0).getUnspecifiedType() instanceof ArrayType and
+      fc.getArgument(1).getUnspecifiedType() instanceof ArrayType
+    ) and
     fc.getArgument(0).getUnspecifiedType() = fc.getArgument(1).getUnspecifiedType()
   )
 select fc, fc.getArgument(0).getUnspecifiedType(), fc.getArgument(1).getUnspecifiedType()

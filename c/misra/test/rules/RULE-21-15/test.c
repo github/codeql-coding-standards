@@ -10,8 +10,8 @@ void sample() {
   memcpy(&from2, &to2, 2); // COMPLIANT
 
   char from3[] = "string";
-  char to3[6];
-  memmove(from3, to3, 6); // COMPLIANT
+  char to3[7];
+  memmove(from3, to3, 7); // COMPLIANT
 
   char from4[] = "sstringg";
   int to4[2];
