@@ -1,0 +1,9 @@
+| test.c:18:22:18:23 | i2 | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:18:17:18:18 | i3 | i3 | test.c:18:22:18:23 | i2 | the object pointed to by i2 |
+| test.c:19:8:19:9 | g2 | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:5:15:5:16 | g1 | g1 | test.c:19:8:19:9 | g2 | the object pointed to by g2 |
+| test.c:20:8:20:9 | i2 | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:16:17:16:18 | i1 | i1 | test.c:20:8:20:9 | i2 | the object pointed to by i2 |
+| test.c:27:10:27:11 | g1 | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:23:19:23:20 | i5 | i5 | test.c:19:8:19:9 | g2 | the same source value |
+| test.c:28:10:28:11 | g1 | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:22:19:22:20 | i4 | i4 | test.c:19:8:19:9 | g2 | the same source value |
+| test.c:39:22:39:26 | & ... | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:39:17:39:18 | px | px | test.c:38:28:38:30 | & ... | v1 via address-of |
+| test.c:45:10:45:14 | & ... | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:42:19:42:20 | pz | pz | test.c:43:10:43:14 | & ... | v1 via address-of |
+| test.c:46:10:46:14 | & ... | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:41:19:41:20 | py | py | test.c:43:10:43:14 | & ... | v1 via address-of |
+| test.c:46:10:46:14 | & ... | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:41:19:41:20 | py | py | test.c:45:10:45:14 | & ... | v1 via address-of |
