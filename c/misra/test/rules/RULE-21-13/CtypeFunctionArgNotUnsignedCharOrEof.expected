@@ -1,2 +1,2 @@
-| test.c:15:12:15:22 | call to islower | The <ctype.h> function call to islower accepts an argument c3 that is not an unsigned char nor an EOF. |
-| test.c:20:12:20:22 | call to isdigit | The <ctype.h> function call to isdigit accepts an argument c4 that is not an unsigned char nor an EOF. |
+| test.c:17:7:17:17 | call to islower | The <ctype.h> function call to islower accepts an argument c3 that is not an unsigned char nor an EOF. |
+| test.c:23:7:23:17 | call to isdigit | The <ctype.h> function call to isdigit accepts an argument c4 that is not an unsigned char nor an EOF. |
