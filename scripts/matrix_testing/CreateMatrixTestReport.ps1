@@ -142,7 +142,7 @@ param(
 
     # The compiler to use. Valid values are 'clang' and 'arm-clang'.
     [Parameter(Mandatory)] 
-    [ValidateSet('clang', 'armclang', 'tiarmclang')]
+    [ValidateSet('clang', 'armclang', 'tiarmclang', 'gcc')]
     [string]
     $Configuration,
 
@@ -208,11 +208,11 @@ param(
     $PackageName
 )
 
-Import-Module -Name "$PSScriptRoot\..\PSCodingStandards\CodingStandards"
+Import-Module -Name "$PSScriptRoot/../PSCodingStandards/CodingStandards"
 
-. "$PSScriptRoot\CreateSummaryReport.ps1"
-. "$PSScriptRoot\Get-CompilerExecutable.ps1"
-. "$PSScriptRoot\Config.ps1"
+. "$PSScriptRoot/CreateSummaryReport.ps1"
+. "$PSScriptRoot/Get-CompilerExecutable.ps1"
+. "$PSScriptRoot/Config.ps1"
 
 $REPORT = @() 
 $queriesToCheck = @()
@@ -278,11 +278,13 @@ Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
 #
 $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel {
 
-    Import-Module -Name "$using:PSScriptRoot\..\PSCodingStandards\CodingStandards"
+    Import-Module -Name "$using:PSScriptRoot/../PSCodingStandards/CodingStandards"
 
-    #. "$using:PSScriptRoot\GetTestDirectory.ps1"
-    . "$using:PSScriptRoot\NewDatabaseForRule.ps1"
-    . "$using:PSScriptRoot\ExecuteQueryAndDecodeAsJson.ps1"
+    . "$using:PSScriptRoot/NewDatabaseForRule.ps1"
+    . "$using:PSScriptRoot/ExecuteQueryAndDecodeAsJson.ps1"
+    . "$using:PSScriptRoot/Get-CompilerSpecificFiles.ps1"
+    . "$using:PSScriptRoot/Pop-CompilerSpecificFiles.ps1"
+    . "$using:PSScriptRoot/Push-CompilerSpecificFiles.ps1"
 
     $q = $_ 
 
@@ -290,106 +292,131 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     $CurrentRuleName = $q.__memberof_rule
     $CurrentQueryName = $q.short_name
     $CurrentPackageName = $q.__memberof_package
-    # for the report 
-    $row = @{
-        "SUITE"             = $CurrentSuiteName;
-        "PACKAGE"           = $CurrentPackageName;
-        "RULE"              = $CurrentRuleName;
-        "QUERY"             = $CurrentQueryName;
-        "COMPILE_PASS"      = $false;
-        "COMPILE_ERROR_OUTPUT"    = "";
-        "TEST_PASS"         = $false ;
-        "TEST_DIFFERENCE"   = "";
+
+
+    # all the test directories -- there may be more than one for a given rule 
+    $testDirs = (Get-ATestDirectory -RuleObject $q -Language $using:Language)
+
+    foreach($testDirectory in $testDirs){
+
+        # for the report 
+        $row = @{
+            "SUITE"             = $CurrentSuiteName;
+            "PACKAGE"           = $CurrentPackageName;
+            "RULE"              = $CurrentRuleName;
+            "QUERY"             = $CurrentQueryName;
+            "COMPILE_PASS"      = $false;
+            "COMPILE_ERROR_OUTPUT"    = "";
+            "TEST_PASS"         = $false ;
+            "TEST_DIFFERENCE"   = "";
+        }
+
+
+
+        Write-Host "====================[Rule=$CurrentRuleName,Suite=$CurrentSuiteName/Query=$CurrentQueryName]====================" 
+
+
+        try {
+            ###########################################################
+            ###########################################################
+            # Push context 
+            ###########################################################
+            $fileSet = (Get-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language  -TestDirectory $testDirectory)
+            
+            if($fileSet){
+                $context = Push-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language -FileSet $fileSet
+            }
+
+            Write-Host "Compiling database in $testDirectory..." -NoNewline
+
+            try {
+                $db = New-Database-For-Rule -RuleName $CurrentRuleName -RuleTestDir $testDirectory -Configuration $using:Configuration -Language $using:Language
+                Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
+            }
+            catch {
+                Write-Host -ForegroundColor ([ConsoleColor]4) "FAILED"
+                $row["COMPILE_ERROR_OUTPUT"] = $_
+                                
+                continue    # although it is unlikely to succeed with the next rule skipping to the next rule
+                            # ensures all of the rules will be reported in the
+                            # output. 
+            }
+
+            $row["COMPILE_PASS"] = $true
+            
+            Write-Host "Checking expected output..."
+
+            # Dragons below 🐉🐉🐉
+            #  
+            # Note this technique uses so-called "wizard" settings to make it possible
+            # to compare hand compiled databases using qltest. The relative paths and
+            # other options are required to be set as below (especially the detail about
+            # the relative path of the dataset and the test).
+
+            # the "dataset" should be the `db-cpp` directory inside the database
+            # directory. HOWEVER. It should be the path relative to the test directory. 
+            
+            $rulePath = Resolve-Path $testDirectory
+            $dbPath = Resolve-Path $db 
+            
+            Write-Host "Resolving database $dbPath relative to test directory $rulePath"
+            $dataset = Resolve-Path (Join-Path $dbPath "db-cpp")
+
+            Push-Location $rulePath   
+            $datasetRelPath = Resolve-Path -Relative $dataset
+            Pop-Location 
+
+            Write-Host "Using relative path: $datasetRelPath"
+
+            # Actually do the qltest run. 
+            # codeql test run <qltest file> --dataset "relpath"
+
+            if ($q.shared_implementation_short_name) {      
+                $qlRefFile = Join-Path $rulePath "$($q.shared_implementation_short_name).ql"
+            }
+            else {
+                $qlRefFile = Join-Path $rulePath "$CurrentQueryName.qlref" 
+            }
+
+            Write-Host "codeql test run $qlRefFile --search-path . --dataset=`"$datasetRelPath`""
+
+            $stdOut = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid())
+            $stdErr = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid())
+            
+
+            Write-Host "Standard Out Buffered to: $stdOut"
+            Write-Host "Standard Error Buffered to: $stdErr"
+            
+            $procDetails = Start-Process -FilePath "codeql" -PassThru -NoNewWindow -Wait -ArgumentList "test run $qlRefFile --search-path . --dataset=`"$datasetRelPath`"" -RedirectStandardOutput $stdOut -RedirectStandardError $stdErr
+            
+            if (-Not $procDetails.ExitCode -eq 0) {
+
+                Write-Host -ForegroundColor ([ConsoleColor]4) "FAILED" 
+                Get-Content $stdOut | Out-String | Write-Host 
+
+                $row["TEST_DIFFERENCE"] = Get-Content $stdOut | Out-String 
+
+            }
+            else {
+                $row["TEST_PASS"] = $true 
+                Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
+            }         
+        }finally {
+
+            # output current row state 
+            $row 
+
+
+            ###########################################################
+            ###########################################################
+            # Context is restored here
+            ###########################################################
+            if($context){
+                Pop-CompilerSpecificFiles -Context $context 
+            }
+        }
     }
-
-    Write-Host "Resolving pack 'codeql/cpp-queries'...." -NoNewline
-    $CODEQL_CPP_QUERIES_PATH = (codeql resolve qlpacks --format json | ConvertFrom-Json)."codeql/cpp-queries"
-    if ( -Not (Test-Path -Path $CODEQL_CPP_QUERIES_PATH -PathType Container) ) {
-        Write-Host "Could not resolve pack 'codeql/cpp-queries'. Please install the pack 'codeql/cpp-queries'."
-        return $row
-    }
-    Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
-
-    Write-Host "====================[Rule=$CurrentRuleName,Suite=$CurrentSuiteName/Query=$CurrentQueryName]====================" 
-
-    $testDirectory = (Get-TestDirectory -RuleObject $q -Language $using:Language)
-
-    Write-Host "Compiling database in $testDirectory..." -NoNewline
-
-    try {
-        $db = New-Database-For-Rule -RuleName $CurrentRuleName -RuleTestDir $testDirectory -Configuration $using:Configuration -Language $using:Language
-        Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
-    }
-    catch {
-        Write-Host -ForegroundColor ([ConsoleColor]4) "FAILED"
-        $row["COMPILE_ERROR_OUTPUT"] = $_
-
-        return $row # although it is unlikely to succeed with the next rule skipping to the next rule
-                    # ensures all of the rules will be reported in the
-                    # output. 
-    }
-
-    $row["COMPILE_PASS"] = $true
-    
-    Write-Host "Checking expected output..."
-
-    # Dragons below 🐉🐉🐉
-    #  
-    # Note this technique uses so-called "wizard" settings to make it possible
-    # to compare hand compiled databases using qltest. The relative paths and
-    # other options are required to be set as below (especially the detail about
-    # the relative path of the dataset and the test).
-
-    # the "dataset" should be the `db-cpp` directory inside the database
-    # directory. HOWEVER. It should be the path relative to the test directory. 
-    
-    $rulePath = Resolve-Path $testDirectory
-    $dbPath = Resolve-Path $db 
-    
-    Write-Host "Resolving database $dbPath relative to test directory $rulePath"
-    $dataset = Resolve-Path (Join-Path $dbPath "db-cpp")
-
-    Push-Location $rulePath   
-    $datasetRelPath = Resolve-Path -Relative $dataset
-    Pop-Location 
-
-    Write-Host "Using relative path: $datasetRelPath"
-
-    # Actually do the qltest run. 
-    # codeql test run <qltest file> --dataset "relpath"
-
-    if ($q.shared_implementation_short_name) {      
-        $qlRefFile = Join-Path $rulePath "$($q.shared_implementation_short_name).ql"
-    }
-    else {
-        $qlRefFile = Join-Path $rulePath "$CurrentQueryName.qlref" 
-    }
-
-    Write-Host "codeql test run $qlRefFile --dataset=`"$datasetRelPath`""
-
-    $stdOut = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid())
-    $stdErr = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid())
-    
-
-    Write-Host "Standard Out Buffered to: $stdOut"
-    Write-Host "Standard Error Buffered to: $stdErr"
-    
-    $procDetails = Start-Process -FilePath "codeql" -PassThru -NoNewWindow -Wait -ArgumentList "test run $qlRefFile --dataset=`"$datasetRelPath`"" -RedirectStandardOutput $stdOut -RedirectStandardError $stdErr
-    
-    if (-Not $procDetails.ExitCode -eq 0) {
-
-        Write-Host -ForegroundColor ([ConsoleColor]4) "FAILED" 
-        Get-Content $stdOut | Out-String | Write-Host 
-
-        $row["TEST_DIFFERENCE"] = Get-Content $stdOut | Out-String 
-
-    }
-    else {
-        $row["TEST_PASS"] = $true 
-        Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
-    }
-
-    return $row 
+    # go to next row 
 }
 
 # combine the outputs 
