@@ -22,18 +22,6 @@ class MemCmpMoveCpy extends Function {
   }
 }
 
-predicate memfunArgTypes(FunctionCall fc, Type dstType, Type srcType) {
-  (
-    fc.getArgument(0).getUnspecifiedType() instanceof PointerType and
-    fc.getArgument(1).getUnspecifiedType() instanceof PointerType
-    or
-    fc.getArgument(0).getUnspecifiedType() instanceof ArrayType and
-    fc.getArgument(1).getUnspecifiedType() instanceof ArrayType
-  ) and
-  dstType = fc.getArgument(0).getUnspecifiedType() and
-  srcType = fc.getArgument(1).getUnspecifiedType()
-}
-
 from FunctionCall fc
 where
   not isExcluded(fc,
@@ -50,4 +38,7 @@ where
     ) and
     dstType = srcType
   )
-select fc, fc.getArgument(0).getUnspecifiedType(), fc.getArgument(1).getUnspecifiedType()
+select fc,
+  "The dest type " + fc.getArgument(0).getUnspecifiedType() + " and src type " +
+    fc.getArgument(1).getUnspecifiedType() + " of function " + fc.getTarget() +
+    " are not compatible."

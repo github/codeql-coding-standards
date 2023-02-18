@@ -17,7 +17,7 @@ import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
 
 class CtypeFunction extends Function {
-  CtypeFunction() { this.getADeclaration().getAFile().(HeaderFile).getShortName() = "_ctype" }
+  CtypeFunction() { this.getADeclaration().getAFile().(HeaderFile).getBaseName() = "ctype.h" }
 }
 
 from FunctionCall ctypeCall
@@ -38,5 +38,5 @@ where
     )
   )
 select ctypeCall,
-  "The <ctype.h> function $@ accepts an argument $@ that is not unsigned char nor an EOF.",
-  ctypeCall, ctypeCall.getTarget(), ctypeCall.getAnArgument(), ctypeCall.getAnArgument().toString()
+  "The <ctype.h> function " + ctypeCall + " accepts an argument " +
+    ctypeCall.getAnArgument().toString() + " that is not an unsigned char nor an EOF."
