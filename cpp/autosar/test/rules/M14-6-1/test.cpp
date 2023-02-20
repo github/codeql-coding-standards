@@ -36,3 +36,34 @@ void f() {
   a.m1();
   a.m2();
 }
+
+class D {
+public:
+  typedef int TYPE;
+  void g();
+  void g(int x);
+  static void sg();
+  static void sg(int x);
+  int m;
+};
+
+class C : D {
+public:
+  void m1() {
+    m = 0;      // COMPLIANT - does not apply to non-class templates
+    g();        // COMPLIANT - does not apply to non-class templates
+    sg();        // COMPLIANT - does not apply to non-class templates
+    TYPE t = 0; // COMPLIANT - does not apply to non-class templates
+    // void (*p)() = &g; // NON_COMPILABLE
+  }
+};
+
+template <typename t> class E : D {
+public:
+  void m1() {
+    m = 0;            // COMPLIANT - does not apply to non dependent base types
+    g();              // COMPLIANT - does not apply to non dependent base types
+    TYPE t = 0;       // COMPLIANT - does not apply to non dependent base types
+    void (*p)() = &g; // COMPLIANT - does not apply to non dependent base types
+  }
+};
