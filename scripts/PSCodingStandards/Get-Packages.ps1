@@ -4,5 +4,5 @@ function Get-Packages {
         [string]
         $Language)
 
-    return Get-ChildItem (Join-Path (Get-RepositoryRoot) "\rule_packages\$Language\*.json")
+    return Get-ChildItem (Join-Path (Get-RepositoryRoot) "/rule_packages/$Language/*.json")
 }
