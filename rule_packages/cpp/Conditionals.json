@@ -329,6 +329,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "GotoStatementJumpCondition",
+          "shared_implementation_short_name": "GotoStatementCondition",
           "tags": [
             "maintainability",
             "readability"
