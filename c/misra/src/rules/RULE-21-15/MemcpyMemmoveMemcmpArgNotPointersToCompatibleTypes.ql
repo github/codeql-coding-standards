@@ -30,9 +30,11 @@ where
     dstType = fc.getArgument(0).getUnspecifiedType() and
     srcType = fc.getArgument(1).getUnspecifiedType() and
     (
+      /* Case 1: dst and src are pointer types */
       dstType instanceof PointerType and
       srcType instanceof PointerType
       or
+      /* Case 2: dst and src are array types */
       dstType instanceof ArrayType and
       srcType instanceof ArrayType
     ) and

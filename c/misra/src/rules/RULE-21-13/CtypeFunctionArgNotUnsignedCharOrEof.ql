@@ -27,11 +27,11 @@ where
   not exists(CtypeFunction ctype, UnsignedCharType unsignedChar |
     ctypeCall = ctype.getACallToThisFunction()
   |
-    /* The argument's value should be in the `unsigned char` range. */
+    /* Case 1: The argument's value should be in the `unsigned char` range. */
     typeLowerBound(unsignedChar) <= lowerBound(ctypeCall.getAnArgument().getExplicitlyConverted()) and // consider casts
     upperBound(ctypeCall.getAnArgument().getExplicitlyConverted()) <= typeUpperBound(unsignedChar)
     or
-    /* The argument's value is reachable from EOF. */
+    /* Case 2: EOF flows to this argument without modifications. */
     exists(EOFInvocation eof |
       DataFlow::localFlow(DataFlow::exprNode(eof.getExpr()),
         DataFlow::exprNode(ctypeCall.getAnArgument()))
