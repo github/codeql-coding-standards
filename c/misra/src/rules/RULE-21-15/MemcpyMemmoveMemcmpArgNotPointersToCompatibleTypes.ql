@@ -38,7 +38,7 @@ where
       dstType instanceof ArrayType and
       srcType instanceof ArrayType
     ) and
-    dstType = srcType
+    not dstType = srcType
   )
 select fc,
   "The dest type " + fc.getArgument(0).getUnspecifiedType() + " and src type " +
