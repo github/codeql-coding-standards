@@ -28,7 +28,8 @@ where
     ctypeCall = ctype.getACallToThisFunction()
   |
     /* Case 1: The argument's value should be in the `unsigned char` range. */
-    typeLowerBound(unsignedChar) <= lowerBound(ctypeCall.getAnArgument().getExplicitlyConverted()) and // consider casts
+    // Use `.getExplicitlyConverted` to consider inline argument casts.
+    typeLowerBound(unsignedChar) <= lowerBound(ctypeCall.getAnArgument().getExplicitlyConverted()) and
     upperBound(ctypeCall.getAnArgument().getExplicitlyConverted()) <= typeUpperBound(unsignedChar)
     or
     /* Case 2: EOF flows to this argument without modifications. */
