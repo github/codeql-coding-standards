@@ -1,6 +1,6 @@
 /**
  * @id c/misra/nest-switch-label-in-switch-statement
- * @name RULE-16-2: Nested switch labels shall not be used.
+ * @name RULE-16-2: Nested switch labels shall not be used
  * @description Nested switch labels can lead to unstructured code.
  * @kind problem
  * @precision very-high

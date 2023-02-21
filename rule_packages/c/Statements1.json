@@ -8,7 +8,7 @@
         {
           "description": "Nested switch labels can lead to unstructured code.",
           "kind": "problem",
-          "name": "Nested switch labels shall not be used.",
+          "name": "Nested switch labels shall not be used",
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NestSwitchLabelInSwitchStatement",
