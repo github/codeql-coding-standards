@@ -138,6 +138,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isPreprocessor6QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
+  isStatements1QueryMetadata(query, queryId, ruleId, category) or
   isStrings1QueryMetadata(query, queryId, ruleId, category) or
   isStrings2QueryMetadata(query, queryId, ruleId, category) or
   isStrings3QueryMetadata(query, queryId, ruleId, category) or

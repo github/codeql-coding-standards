@@ -6,11 +6,11 @@
       },
       "queries": [
         {
-          "description": "Nested switch labels cause undefined behaviour.",
+          "description": "Nested switch labels can lead to unstructured code.",
           "kind": "problem",
-          "name": "A switch label shall only be used when the most closely-enclosing compound statement is the body of",
+          "name": "Nested switch labels shall not be used.",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "recommendation",
           "short_name": "NestSwitchLabelInSwitchStatement",
           "shared_implementation_short_name": "NestedLabelInSwitch",
           "tags": [

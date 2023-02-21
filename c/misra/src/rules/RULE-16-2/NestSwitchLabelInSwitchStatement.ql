@@ -1,10 +1,10 @@
 /**
  * @id c/misra/nest-switch-label-in-switch-statement
- * @name RULE-16-2: A switch label shall only be used when the most closely-enclosing compound statement is the body of
- * @description Nested switch labels cause undefined behaviour.
+ * @name RULE-16-2: Nested switch labels shall not be used.
+ * @description Nested switch labels can lead to unstructured code.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity recommendation
  * @tags external/misra/id/rule-16-2
  *       maintainability
  *       readability

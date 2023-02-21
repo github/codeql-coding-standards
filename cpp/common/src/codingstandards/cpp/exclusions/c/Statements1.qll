@@ -9,14 +9,15 @@ newtype Statements1Query =
   TEverySwitchShallHaveDefaultLabelQuery() or
   TDefaultNotFirstOrLastOfSwitchQuery()
 
-predicate isStatements1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isStatements1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `nestSwitchLabelInSwitchStatement` query
     Statements1Package::nestSwitchLabelInSwitchStatementQuery() and
   queryId =
     // `@id` for the `nestSwitchLabelInSwitchStatement` query
     "c/misra/nest-switch-label-in-switch-statement" and
-  ruleId = "RULE-16-2"
+  ruleId = "RULE-16-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `breakShallTerminateSwitchClause` query
@@ -24,7 +25,8 @@ predicate isStatements1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `breakShallTerminateSwitchClause` query
     "c/misra/break-shall-terminate-switch-clause" and
-  ruleId = "RULE-16-3"
+  ruleId = "RULE-16-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `everySwitchShallHaveDefaultLabel` query
@@ -32,7 +34,8 @@ predicate isStatements1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `everySwitchShallHaveDefaultLabel` query
     "c/misra/every-switch-shall-have-default-label" and
-  ruleId = "RULE-16-4"
+  ruleId = "RULE-16-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `defaultNotFirstOrLastOfSwitch` query
@@ -40,7 +43,8 @@ predicate isStatements1QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `defaultNotFirstOrLastOfSwitch` query
     "c/misra/default-not-first-or-last-of-switch" and
-  ruleId = "RULE-16-5"
+  ruleId = "RULE-16-5" and
+  category = "required"
 }
 
 module Statements1Package {

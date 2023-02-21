@@ -11,11 +11,11 @@ abstract class NestedLabelInSwitchSharedQuery extends Query { }
 Query getQuery() { result instanceof NestedLabelInSwitchSharedQuery }
 
 query predicate problems(
-  SwitchCase case, string message, Location caseLocation, string caseLabel, SwitchStmt switch,
+  SwitchCase nestedCase, string message, SwitchCase case, string caseLabel, SwitchStmt switch,
   string switchLabel
 ) {
   not isExcluded(nestedCase, getQuery()) and
-  switch.getASwitchCase() = nestedCase and
+  switch.getASwitchCase() = case and
   not nestedCase.getParentStmt() = switch.getChildStmt() and
   nestedCase = case and
   message =
