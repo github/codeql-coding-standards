@@ -69,9 +69,9 @@
         {
           "description": "Locating the default label is easy when it the first of last label.",
           "kind": "problem",
-          "name": "A default label shall appear as either the first or the last switch label of a switch statement",
+          "name": "A default label shall appear as either the first or the last switch label or a switch statement",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "recommendation",
           "short_name": "DefaultNotFirstOrLastOfSwitch",
           "tags": []
         }
