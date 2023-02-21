@@ -11,14 +11,15 @@ newtype Declarations1Query =
   TMacroIdentifiersNotDistinctQuery() or
   TMacroIdentifierNotDistinctFromParameterQuery()
 
-predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `declareIdentifiersBeforeUsingThem` query
     Declarations1Package::declareIdentifiersBeforeUsingThemQuery() and
   queryId =
     // `@id` for the `declareIdentifiersBeforeUsingThem` query
     "c/cert/declare-identifiers-before-using-them" and
-  ruleId = "DCL31-C"
+  ruleId = "DCL31-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotDeclareOrDefineAReservedIdentifier` query
@@ -26,7 +27,8 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `doNotDeclareOrDefineAReservedIdentifier` query
     "c/cert/do-not-declare-or-define-a-reserved-identifier" and
-  ruleId = "DCL37-C"
+  ruleId = "DCL37-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotDeclareAReservedIdentifier` query
@@ -34,7 +36,8 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `doNotDeclareAReservedIdentifier` query
     "c/misra/do-not-declare-a-reserved-identifier" and
-  ruleId = "RULE-21-2"
+  ruleId = "RULE-21-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `externalIdentifiersNotDistinct` query
@@ -42,7 +45,8 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `externalIdentifiersNotDistinct` query
     "c/misra/external-identifiers-not-distinct" and
-  ruleId = "RULE-5-1"
+  ruleId = "RULE-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `macroIdentifiersNotDistinct` query
@@ -50,7 +54,8 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `macroIdentifiersNotDistinct` query
     "c/misra/macro-identifiers-not-distinct" and
-  ruleId = "RULE-5-4"
+  ruleId = "RULE-5-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `macroIdentifierNotDistinctFromParameter` query
@@ -58,7 +63,8 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `macroIdentifierNotDistinctFromParameter` query
     "c/misra/macro-identifier-not-distinct-from-parameter" and
-  ruleId = "RULE-5-4"
+  ruleId = "RULE-5-4" and
+  category = "required"
 }
 
 module Declarations1Package {

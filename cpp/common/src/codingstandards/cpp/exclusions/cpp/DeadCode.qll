@@ -21,14 +21,15 @@ newtype DeadCodeQuery =
   TSingleUseMemberPODVariableQuery() or
   TDeadCodeQuery()
 
-predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `uselessAssignment` query
     DeadCodePackage::uselessAssignmentQuery() and
   queryId =
     // `@id` for the `uselessAssignment` query
     "cpp/autosar/useless-assignment" and
-  ruleId = "A0-1-1"
+  ruleId = "A0-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedReturnValue` query
@@ -36,7 +37,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedReturnValue` query
     "cpp/autosar/unused-return-value" and
-  ruleId = "A0-1-2"
+  ruleId = "A0-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedLocalFunction` query
@@ -44,7 +46,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedLocalFunction` query
     "cpp/autosar/unused-local-function" and
-  ruleId = "A0-1-3"
+  ruleId = "A0-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedParameter` query
@@ -52,7 +55,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedParameter` query
     "cpp/autosar/unused-parameter" and
-  ruleId = "A0-1-4"
+  ruleId = "A0-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedVirtualParameter` query
@@ -60,7 +64,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedVirtualParameter` query
     "cpp/autosar/unused-virtual-parameter" and
-  ruleId = "A0-1-5"
+  ruleId = "A0-1-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedTypeDeclarations` query
@@ -68,7 +73,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedTypeDeclarations` query
     "cpp/autosar/unused-type-declarations" and
-  ruleId = "A0-1-6"
+  ruleId = "A0-1-6" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `unreachableCode` query
@@ -76,7 +82,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unreachableCode` query
     "cpp/autosar/unreachable-code" and
-  ruleId = "M0-1-1"
+  ruleId = "M0-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedFunction` query
@@ -84,7 +91,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedFunction` query
     "cpp/autosar/unused-function" and
-  ruleId = "M0-1-10"
+  ruleId = "M0-1-10" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `infeasiblePath` query
@@ -92,7 +100,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `infeasiblePath` query
     "cpp/autosar/infeasible-path" and
-  ruleId = "M0-1-2"
+  ruleId = "M0-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedLocalVariable` query
@@ -100,7 +109,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedLocalVariable` query
     "cpp/autosar/unused-local-variable" and
-  ruleId = "M0-1-3"
+  ruleId = "M0-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedGlobalOrNamespaceVariable` query
@@ -108,7 +118,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedGlobalOrNamespaceVariable` query
     "cpp/autosar/unused-global-or-namespace-variable" and
-  ruleId = "M0-1-3"
+  ruleId = "M0-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unusedMemberVariable` query
@@ -116,7 +127,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unusedMemberVariable` query
     "cpp/autosar/unused-member-variable" and
-  ruleId = "M0-1-3"
+  ruleId = "M0-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `singleUseLocalPODVariable` query
@@ -124,7 +136,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `singleUseLocalPODVariable` query
     "cpp/autosar/single-use-local-pod-variable" and
-  ruleId = "M0-1-4"
+  ruleId = "M0-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `singleUseGlobalOrNamespacePODVariable` query
@@ -132,7 +145,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `singleUseGlobalOrNamespacePODVariable` query
     "cpp/autosar/single-use-global-or-namespace-pod-variable" and
-  ruleId = "M0-1-4"
+  ruleId = "M0-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `singleUseMemberPODVariable` query
@@ -140,7 +154,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `singleUseMemberPODVariable` query
     "cpp/autosar/single-use-member-pod-variable" and
-  ruleId = "M0-1-4"
+  ruleId = "M0-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `deadCode` query
@@ -148,7 +163,8 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `deadCode` query
     "cpp/autosar/dead-code" and
-  ruleId = "M0-1-9"
+  ruleId = "M0-1-9" and
+  category = "required"
 }
 
 module DeadCodePackage {

@@ -1,6 +1,6 @@
-. "$PSScriptRoot\Get-CompilerExecutable.ps1"
-. "$PSScriptRoot\Get-CompilerArgs.ps1"
-. "$PSScriptRoot\GetNewDBName.ps1"
+. "$PSScriptRoot/Get-CompilerExecutable.ps1"
+. "$PSScriptRoot/Get-CompilerArgs.ps1"
+. "$PSScriptRoot/GetNewDBName.ps1"
 
 function New-Database-For-Rule {
 
@@ -21,13 +21,12 @@ function New-Database-For-Rule {
 
     Write-Host "Creating Database for Rule $RuleName..."
     
-    $cppFiles = Get-ChildItem $RuleTestDir/*.c*
+    $cppFiles = Get-ChildItem $RuleTestDir/*.$Language
     $cppFilesString = ([String]::Join(' ', $cppFiles))
     Write-Host "Found '.cpp' files $cppFilesString."
     
     $CompilerExecutable = Get-CompilerExecutable -Configuration $Configuration -Language $Language
-    $CompilerArgs = Get-CompilerArgs -Configuration $Configuration -Language $Language
-
+    $CompilerArgs = Get-CompilerArgs -Configuration $Configuration -Language $Language -TestDirectory $RuleTestDir
     $BUILD_COMMAND = "$CompilerExecutable $CompilerArgs $cppFilesString"
 
     if ($UseTmpDir) {
@@ -39,10 +38,14 @@ function New-Database-For-Rule {
 
     Write-Host "codeql database create -l cpp -s $RuleTestDir --command='$BUILD_COMMAND' $DB_PATH"
 
-    $procDetails = Start-Process -FilePath "codeql" -PassThru -NoNewWindow -Wait -ArgumentList "database create -l cpp -s $RuleTestDir --command=`"$BUILD_COMMAND`" $DB_PATH"
+    $stdOut = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid())
+    
+    $procDetails = Start-Process -FilePath "codeql" -RedirectStandardOutput $stdOut -PassThru -NoNewWindow -Wait -ArgumentList "database create -l cpp -s $RuleTestDir --command=`"$BUILD_COMMAND`" $DB_PATH"
+
+    Get-Content $stdOut | Out-String | Write-Host 
 
     if (-Not $procDetails.ExitCode -eq 0) {
-        throw "Database creation failed."
+        throw   Get-Content $stdOut | Out-String 
     }
 
     return $DB_PATH

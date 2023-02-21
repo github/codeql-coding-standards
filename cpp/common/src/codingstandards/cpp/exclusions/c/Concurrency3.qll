@@ -9,14 +9,15 @@ newtype Concurrency3Query =
   TPreserveSafetyWhenUsingConditionVariablesQuery() or
   TWrapFunctionsThatCanFailSpuriouslyInLoopQuery()
 
-predicate isConcurrency3QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isConcurrency3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotAllowAMutexToGoOutOfScopeWhileLocked` query
     Concurrency3Package::doNotAllowAMutexToGoOutOfScopeWhileLockedQuery() and
   queryId =
     // `@id` for the `doNotAllowAMutexToGoOutOfScopeWhileLocked` query
     "c/cert/do-not-allow-a-mutex-to-go-out-of-scope-while-locked" and
-  ruleId = "CON31-C"
+  ruleId = "CON31-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotDestroyAMutexWhileItIsLocked` query
@@ -24,7 +25,8 @@ predicate isConcurrency3QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotDestroyAMutexWhileItIsLocked` query
     "c/cert/do-not-destroy-a-mutex-while-it-is-locked" and
-  ruleId = "CON31-C"
+  ruleId = "CON31-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `preserveSafetyWhenUsingConditionVariables` query
@@ -32,7 +34,8 @@ predicate isConcurrency3QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `preserveSafetyWhenUsingConditionVariables` query
     "c/cert/preserve-safety-when-using-condition-variables" and
-  ruleId = "CON38-C"
+  ruleId = "CON38-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `wrapFunctionsThatCanFailSpuriouslyInLoop` query
@@ -40,7 +43,8 @@ predicate isConcurrency3QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `wrapFunctionsThatCanFailSpuriouslyInLoop` query
     "c/cert/wrap-functions-that-can-fail-spuriously-in-loop" and
-  ruleId = "CON41-C"
+  ruleId = "CON41-C" and
+  category = "rule"
 }
 
 module Concurrency3Package {

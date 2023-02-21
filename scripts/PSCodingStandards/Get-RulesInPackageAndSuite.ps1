@@ -6,8 +6,12 @@ function Get-RulesInPackageAndSuite {
         $Package,
         [Parameter(Mandatory)] 
         [string]
-        $Suite
-    )
+        $Suite,
+        [Parameter(Mandatory)] 
+        [ValidateSet('c', 'cpp')]
+        [string]
+        $Language
+        )
 
     $rulesInPackage = @()
 
@@ -30,6 +34,7 @@ function Get-RulesInPackageAndSuite {
         $queries | Add-Member -NotePropertyName __memberof_suite -NotePropertyValue $Suite
         $queries | Add-Member -NotePropertyName __memberof_package -NotePropertyValue $Package.BaseName
         $queries | Add-Member -NotePropertyName __memberof_rule -NotePropertyValue $n.Name 
+        $queries | Add-Member -NotePropertyName __memberof_language -NotePropertyValue $Language 
         
         $rulesInPackage += $queries 
     }

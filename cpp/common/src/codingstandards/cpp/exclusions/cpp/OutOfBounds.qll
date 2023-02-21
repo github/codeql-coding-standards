@@ -9,14 +9,15 @@ newtype OutOfBoundsQuery =
   TGuaranteeGenericCppLibraryFunctionsDoNotOverflowQuery() or
   TRangeCheckStringElementAccessQuery()
 
-predicate isOutOfBoundsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isOutOfBoundsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `containerAccessWithoutRangeCheckAutosar` query
     OutOfBoundsPackage::containerAccessWithoutRangeCheckAutosarQuery() and
   queryId =
     // `@id` for the `containerAccessWithoutRangeCheckAutosar` query
     "cpp/autosar/container-access-without-range-check-autosar" and
-  ruleId = "A5-2-5"
+  ruleId = "A5-2-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `containerAccessWithoutRangeCheckCert` query
@@ -24,7 +25,8 @@ predicate isOutOfBoundsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `containerAccessWithoutRangeCheckCert` query
     "cpp/cert/container-access-without-range-check-cert" and
-  ruleId = "CTR50-CPP"
+  ruleId = "CTR50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `guaranteeGenericCppLibraryFunctionsDoNotOverflow` query
@@ -32,7 +34,8 @@ predicate isOutOfBoundsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `guaranteeGenericCppLibraryFunctionsDoNotOverflow` query
     "cpp/cert/guarantee-generic-cpp-library-functions-do-not-overflow" and
-  ruleId = "CTR52-CPP"
+  ruleId = "CTR52-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `rangeCheckStringElementAccess` query
@@ -40,7 +43,8 @@ predicate isOutOfBoundsQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `rangeCheckStringElementAccess` query
     "cpp/cert/range-check-string-element-access" and
-  ruleId = "STR53-CPP"
+  ruleId = "STR53-CPP" and
+  category = "rule"
 }
 
 module OutOfBoundsPackage {

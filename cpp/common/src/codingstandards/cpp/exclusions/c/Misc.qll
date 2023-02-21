@@ -8,14 +8,15 @@ newtype MiscQuery =
   TProperlySeedPseudorandomNumberGeneratorsQuery() or
   TControlFlowReachesTheEndOfANonVoidFunctionQuery()
 
-predicate isMiscQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isMiscQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `randUsedForGeneratingPseudorandomNumbers` query
     MiscPackage::randUsedForGeneratingPseudorandomNumbersQuery() and
   queryId =
     // `@id` for the `randUsedForGeneratingPseudorandomNumbers` query
     "c/cert/rand-used-for-generating-pseudorandom-numbers" and
-  ruleId = "MSC30-C"
+  ruleId = "MSC30-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `properlySeedPseudorandomNumberGenerators` query
@@ -23,7 +24,8 @@ predicate isMiscQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `properlySeedPseudorandomNumberGenerators` query
     "c/cert/properly-seed-pseudorandom-number-generators" and
-  ruleId = "MSC32-C"
+  ruleId = "MSC32-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `controlFlowReachesTheEndOfANonVoidFunction` query
@@ -31,7 +33,8 @@ predicate isMiscQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `controlFlowReachesTheEndOfANonVoidFunction` query
     "c/cert/control-flow-reaches-the-end-of-a-non-void-function" and
-  ruleId = "MSC37-C"
+  ruleId = "MSC37-C" and
+  category = "rule"
 }
 
 module MiscPackage {

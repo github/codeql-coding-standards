@@ -1,0 +1,69 @@
+{
+  "CERT-C": {
+    "DCL39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Passing a structure with uninitialized fields or padding bytes can cause information to be unintentionally leaked.",
+          "kind": "problem",
+          "name": "Avoid information leakage when passing a structure across a trust boundary",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "InformationLeakageAcrossTrustBoundariesC",
+          "shared_implementation_short_name": "InformationLeakageAcrossBoundaries",
+          "tags": [
+            "security"
+          ],
+          "implementation_scope": {
+            "description": "The rule does not detect cases where fields may have uninitialized padding but are initialized via an initializer."
+          }
+        }
+      ],
+      "title": "Avoid information leakage when passing a structure across a trust boundary"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-18-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using a variable length array can lead to unexpected or undefined program behaviour.",
+          "kind": "problem",
+          "name": "Variable-length array types shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VariableLengthArrayTypesUsed",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Variable-length array types shall not be used"
+    },
+    "RULE-8-12": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using an implicitly specified enumeration constant that is not unique (with respect to an explicitly specified constant) can lead to unexpected program behaviour.",
+          "kind": "problem",
+          "name": "Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ValueImplicitEnumerationConstantNotUnique",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique"
+    }
+  }
+}

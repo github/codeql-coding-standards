@@ -13,14 +13,15 @@ newtype StringsQuery =
   TBasicStringMayNotBeNullTerminatedCertQuery() or
   TOperationMayNotNullTerminateCStyleStringCertQuery()
 
-predicate isStringsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isStringsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `stringLiteralsAssignedToNonConstantPointers` query
     StringsPackage::stringLiteralsAssignedToNonConstantPointersQuery() and
   queryId =
     // `@id` for the `stringLiteralsAssignedToNonConstantPointers` query
     "cpp/autosar/string-literals-assigned-to-non-constant-pointers" and
-  ruleId = "A2-13-4"
+  ruleId = "A2-13-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `basicStringMayNotBeNullTerminatedAutosar` query
@@ -28,7 +29,8 @@ predicate isStringsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `basicStringMayNotBeNullTerminatedAutosar` query
     "cpp/autosar/basic-string-may-not-be-null-terminated-autosar" and
-  ruleId = "A27-0-2"
+  ruleId = "A27-0-2" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `operationMayNotNullTerminateCStyleStringAutosar` query
@@ -36,7 +38,8 @@ predicate isStringsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `operationMayNotNullTerminateCStyleStringAutosar` query
     "cpp/autosar/operation-may-not-null-terminate-c-style-string-autosar" and
-  ruleId = "A27-0-2"
+  ruleId = "A27-0-2" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `cStyleStringsUsed` query
@@ -44,7 +47,8 @@ predicate isStringsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `cStyleStringsUsed` query
     "cpp/autosar/c-style-strings-used" and
-  ruleId = "A27-0-4"
+  ruleId = "A27-0-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `plainCharTypeShallOnlyBeUsedForTheStorageAndUseOfCharacterValues` query
@@ -52,7 +56,8 @@ predicate isStringsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `plainCharTypeShallOnlyBeUsedForTheStorageAndUseOfCharacterValues` query
     "cpp/autosar/plain-char-type-shall-only-be-used-for-the-storage-and-use-of-character-values" and
-  ruleId = "M5-0-11"
+  ruleId = "M5-0-11" and
+  category = "required"
   or
   query =
     // `Query` instance for the `signedCharAndUnsignedCharTypeShallOnlyBeUsedForTheStorageAndUseOfNumericValues` query
@@ -60,7 +65,8 @@ predicate isStringsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `signedCharAndUnsignedCharTypeShallOnlyBeUsedForTheStorageAndUseOfNumericValues` query
     "cpp/autosar/signed-char-and-unsigned-char-type-shall-only-be-used-for-the-storage-and-use-of-numeric-values" and
-  ruleId = "M5-0-12"
+  ruleId = "M5-0-12" and
+  category = "required"
   or
   query =
     // `Query` instance for the `basicStringMayNotBeNullTerminatedCert` query
@@ -68,7 +74,8 @@ predicate isStringsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `basicStringMayNotBeNullTerminatedCert` query
     "cpp/cert/basic-string-may-not-be-null-terminated-cert" and
-  ruleId = "STR50-CPP"
+  ruleId = "STR50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `operationMayNotNullTerminateCStyleStringCert` query
@@ -76,7 +83,8 @@ predicate isStringsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `operationMayNotNullTerminateCStyleStringCert` query
     "cpp/cert/operation-may-not-null-terminate-c-style-string-cert" and
-  ruleId = "STR50-CPP"
+  ruleId = "STR50-CPP" and
+  category = "rule"
 }
 
 module StringsPackage {

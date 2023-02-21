@@ -9,14 +9,15 @@ newtype Preprocessor1Query =
   TForbiddenCharactersInHeaderFileNameQuery() or
   TIdentifiersUsedInPreprocessorExpressionQuery()
 
-predicate isPreprocessor1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPreprocessor1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `includeDirectivesPrecededByDirectivesOrComments` query
     Preprocessor1Package::includeDirectivesPrecededByDirectivesOrCommentsQuery() and
   queryId =
     // `@id` for the `includeDirectivesPrecededByDirectivesOrComments` query
     "c/misra/include-directives-preceded-by-directives-or-comments" and
-  ruleId = "RULE-20-1"
+  ruleId = "RULE-20-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `preprocessorHashOperatorsShouldNotBeUsed` query
@@ -24,7 +25,8 @@ predicate isPreprocessor1QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `preprocessorHashOperatorsShouldNotBeUsed` query
     "c/misra/preprocessor-hash-operators-should-not-be-used" and
-  ruleId = "RULE-20-10"
+  ruleId = "RULE-20-10" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `forbiddenCharactersInHeaderFileName` query
@@ -32,7 +34,8 @@ predicate isPreprocessor1QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `forbiddenCharactersInHeaderFileName` query
     "c/misra/forbidden-characters-in-header-file-name" and
-  ruleId = "RULE-20-2"
+  ruleId = "RULE-20-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifiersUsedInPreprocessorExpression` query
@@ -40,7 +43,8 @@ predicate isPreprocessor1QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `identifiersUsedInPreprocessorExpression` query
     "c/misra/identifiers-used-in-preprocessor-expression" and
-  ruleId = "RULE-20-9"
+  ruleId = "RULE-20-9" and
+  category = "required"
 }
 
 module Preprocessor1Package {

@@ -22,14 +22,15 @@ newtype Exceptions2Query =
   TDoNotLetExceptionsEscapeFromDestructorsOrDeallocationFunctionsQuery() or
   TCatchBlockShadowingCertQuery()
 
-predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `onlyThrowStdExceptionDerivedTypes` query
     Exceptions2Package::onlyThrowStdExceptionDerivedTypesQuery() and
   queryId =
     // `@id` for the `onlyThrowStdExceptionDerivedTypes` query
     "cpp/autosar/only-throw-std-exception-derived-types" and
-  ruleId = "A15-1-1"
+  ruleId = "A15-1-1" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `constructorErrorLeavesObjectInInvalidState` query
@@ -37,7 +38,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `constructorErrorLeavesObjectInInvalidState` query
     "cpp/autosar/constructor-error-leaves-object-in-invalid-state" and
-  ruleId = "A15-2-2"
+  ruleId = "A15-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `classTypeExceptionNotCaughtByReference` query
@@ -45,7 +47,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `classTypeExceptionNotCaughtByReference` query
     "cpp/autosar/class-type-exception-not-caught-by-reference" and
-  ruleId = "A15-3-5"
+  ruleId = "A15-3-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `incompatibleNoexceptSpecification` query
@@ -53,7 +56,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `incompatibleNoexceptSpecification` query
     "cpp/autosar/incompatible-noexcept-specification" and
-  ruleId = "A15-4-3"
+  ruleId = "A15-4-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `inconsistentNoexceptFalseSpecification` query
@@ -61,7 +65,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `inconsistentNoexceptFalseSpecification` query
     "cpp/autosar/inconsistent-noexcept-false-specification" and
-  ruleId = "A15-4-3"
+  ruleId = "A15-4-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `inconsistentNoexceptTrueSpecification` query
@@ -69,7 +74,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `inconsistentNoexceptTrueSpecification` query
     "cpp/autosar/inconsistent-noexcept-true-specification" and
-  ruleId = "A15-4-3"
+  ruleId = "A15-4-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `incompatibleNoexceptSpecificationForOverriders` query
@@ -77,7 +83,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `incompatibleNoexceptSpecificationForOverriders` query
     "cpp/autosar/incompatible-noexcept-specification-for-overriders" and
-  ruleId = "A15-4-3"
+  ruleId = "A15-4-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingCheckedExceptions` query
@@ -85,7 +92,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `missingCheckedExceptions` query
     "cpp/autosar/missing-checked-exceptions" and
-  ruleId = "A15-4-5"
+  ruleId = "A15-4-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `inconsistentCheckedExceptions` query
@@ -93,7 +101,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `inconsistentCheckedExceptions` query
     "cpp/autosar/inconsistent-checked-exceptions" and
-  ruleId = "A15-4-5"
+  ruleId = "A15-4-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `specialFunctionExitsWithException` query
@@ -101,7 +110,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `specialFunctionExitsWithException` query
     "cpp/autosar/special-function-exits-with-exception" and
-  ruleId = "A15-5-1"
+  ruleId = "A15-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `specialFunctionMissingNoExceptSpecification` query
@@ -109,7 +119,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `specialFunctionMissingNoExceptSpecification` query
     "cpp/autosar/special-function-missing-no-except-specification" and
-  ruleId = "A15-5-1"
+  ruleId = "A15-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `exceptionRaisedDuringStartup` query
@@ -117,7 +128,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `exceptionRaisedDuringStartup` query
     "cpp/autosar/exception-raised-during-startup" and
-  ruleId = "M15-3-1"
+  ruleId = "M15-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `exceptionRaisedDuringTermination` query
@@ -125,7 +137,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `exceptionRaisedDuringTermination` query
     "cpp/autosar/exception-raised-during-termination" and
-  ruleId = "M15-3-1"
+  ruleId = "M15-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `destroyedValueReferencedInDestructorCatchBlock` query
@@ -133,7 +146,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `destroyedValueReferencedInDestructorCatchBlock` query
     "cpp/autosar/destroyed-value-referenced-in-destructor-catch-block" and
-  ruleId = "M15-3-3"
+  ruleId = "M15-3-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `catchBlockShadowingMisra` query
@@ -141,7 +155,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `catchBlockShadowingMisra` query
     "cpp/autosar/catch-block-shadowing-misra" and
-  ruleId = "M15-3-6"
+  ruleId = "M15-3-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotLetExceptionsEscapeFromDestructorsOrDeallocationFunctions` query
@@ -149,7 +164,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotLetExceptionsEscapeFromDestructorsOrDeallocationFunctions` query
     "cpp/cert/do-not-let-exceptions-escape-from-destructors-or-deallocation-functions" and
-  ruleId = "DCL57-CPP"
+  ruleId = "DCL57-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `catchBlockShadowingCert` query
@@ -157,7 +173,8 @@ predicate isExceptions2QueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `catchBlockShadowingCert` query
     "cpp/cert/catch-block-shadowing-cert" and
-  ruleId = "ERR54-CPP"
+  ruleId = "ERR54-CPP" and
+  category = "rule"
 }
 
 module Exceptions2Package {

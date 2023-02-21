@@ -310,7 +310,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/cpluspl
 
 ## Implementation notes
 
-None
+The rule does not detect cases where fields may have uninitialized padding but are initialized via an initializer.
 
 ## References
 

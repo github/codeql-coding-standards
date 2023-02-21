@@ -18,14 +18,15 @@ newtype ConstQuery =
   TMemberFunctionConstIfPossibleQuery() or
   TRemoveConstOrVolatileQualificationCertQuery()
 
-predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isConstQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `removeConstOrVolatileQualificationAutosar` query
     ConstPackage::removeConstOrVolatileQualificationAutosarQuery() and
   queryId =
     // `@id` for the `removeConstOrVolatileQualificationAutosar` query
     "cpp/autosar/remove-const-or-volatile-qualification-autosar" and
-  ruleId = "A5-2-3"
+  ruleId = "A5-2-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `declarationUnmodifiedParamMissingConstSpecifier` query
@@ -33,7 +34,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `declarationUnmodifiedParamMissingConstSpecifier` query
     "cpp/autosar/declaration-unmodified-param-missing-const-specifier" and
-  ruleId = "A7-1-1"
+  ruleId = "A7-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `declarationUnmodifiedObjectMissingConstSpecifier` query
@@ -41,7 +43,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `declarationUnmodifiedObjectMissingConstSpecifier` query
     "cpp/autosar/declaration-unmodified-object-missing-const-specifier" and
-  ruleId = "A7-1-1"
+  ruleId = "A7-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `variableMissingConstexpr` query
@@ -49,7 +52,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `variableMissingConstexpr` query
     "cpp/autosar/variable-missing-constexpr" and
-  ruleId = "A7-1-2"
+  ruleId = "A7-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionMissingConstexpr` query
@@ -57,7 +61,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionMissingConstexpr` query
     "cpp/autosar/function-missing-constexpr" and
-  ruleId = "A7-1-2"
+  ruleId = "A7-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cvQualifiersNotPlacedOnTheRightHandSide` query
@@ -65,7 +70,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `cvQualifiersNotPlacedOnTheRightHandSide` query
     "cpp/autosar/cv-qualifiers-not-placed-on-the-right-hand-side" and
-  ruleId = "A7-1-3"
+  ruleId = "A7-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `outputParametersUsed` query
@@ -73,7 +79,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `outputParametersUsed` query
     "cpp/autosar/output-parameters-used" and
-  ruleId = "A8-4-8"
+  ruleId = "A8-4-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `inOutParametersDeclaredAsTNotModified` query
@@ -81,7 +88,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `inOutParametersDeclaredAsTNotModified` query
     "cpp/autosar/in-out-parameters-declared-as-t-not-modified" and
-  ruleId = "A8-4-9"
+  ruleId = "A8-4-9" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pointerOrReferenceParameterToConst` query
@@ -89,7 +97,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerOrReferenceParameterToConst` query
     "cpp/autosar/pointer-or-reference-parameter-to-const" and
-  ruleId = "M7-1-2"
+  ruleId = "M7-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `constMemberFunctionReturnsNonConstPointer` query
@@ -97,7 +106,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `constMemberFunctionReturnsNonConstPointer` query
     "cpp/autosar/const-member-function-returns-non-const-pointer" and
-  ruleId = "M9-3-1"
+  ruleId = "M9-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `memberFunctionStaticIfPossible` query
@@ -105,7 +115,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `memberFunctionStaticIfPossible` query
     "cpp/autosar/member-function-static-if-possible" and
-  ruleId = "M9-3-3"
+  ruleId = "M9-3-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `memberFunctionConstIfPossible` query
@@ -113,7 +124,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `memberFunctionConstIfPossible` query
     "cpp/autosar/member-function-const-if-possible" and
-  ruleId = "M9-3-3"
+  ruleId = "M9-3-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `removeConstOrVolatileQualificationCert` query
@@ -121,7 +133,8 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `removeConstOrVolatileQualificationCert` query
     "cpp/cert/remove-const-or-volatile-qualification-cert" and
-  ruleId = "EXP55-CPP"
+  ruleId = "EXP55-CPP" and
+  category = "rule"
 }
 
 module ConstPackage {

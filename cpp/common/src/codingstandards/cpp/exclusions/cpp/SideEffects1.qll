@@ -15,14 +15,15 @@ newtype SideEffects1Query =
   TDoNotRelyOnSideEffectsInDeclTypeOperandQuery() or
   TDoNotRelyOnSideEffectsInDeclValExpressionQuery()
 
-predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `evaluationOfTheOperandToTheTypeidOperatorContainSideEffects` query
     SideEffects1Package::evaluationOfTheOperandToTheTypeidOperatorContainSideEffectsQuery() and
   queryId =
     // `@id` for the `evaluationOfTheOperandToTheTypeidOperatorContainSideEffects` query
     "cpp/autosar/evaluation-of-the-operand-to-the-typeid-operator-contain-side-effects" and
-  ruleId = "A5-3-1"
+  ruleId = "A5-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `rightHandOperandOfALogicalAndOperatorsContainSideEffects` query
@@ -30,7 +31,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `rightHandOperandOfALogicalAndOperatorsContainSideEffects` query
     "cpp/autosar/right-hand-operand-of-a-logical-and-operators-contain-side-effects" and
-  ruleId = "M5-14-1"
+  ruleId = "M5-14-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `evaluationOfTheOperandToTheSizeofOperatorContainSideEffects` query
@@ -38,7 +40,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `evaluationOfTheOperandToTheSizeofOperatorContainSideEffects` query
     "cpp/autosar/evaluation-of-the-operand-to-the-sizeof-operator-contain-side-effects" and
-  ruleId = "M5-3-4"
+  ruleId = "M5-3-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects` query
@@ -46,7 +49,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects` query
     "cpp/cert/do-not-depend-on-the-order-of-scalar-object-evaluation-for-side-effects" and
-  ruleId = "EXP50-CPP"
+  ruleId = "EXP50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotDependOnTheOrderOfEvaluationForSideEffectsInFunctionCallsAsFunctionArguments` query
@@ -54,7 +58,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotDependOnTheOrderOfEvaluationForSideEffectsInFunctionCallsAsFunctionArguments` query
     "cpp/cert/do-not-depend-on-the-order-of-evaluation-for-side-effects-in-function-calls-as-function-arguments" and
-  ruleId = "EXP50-CPP"
+  ruleId = "EXP50-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotRelyOnSideEffectsInSizeOfOperand` query
@@ -62,7 +67,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotRelyOnSideEffectsInSizeOfOperand` query
     "cpp/cert/do-not-rely-on-side-effects-in-size-of-operand" and
-  ruleId = "EXP52-CPP"
+  ruleId = "EXP52-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotRelyOnSideEffectsInTypeIdOperand` query
@@ -70,7 +76,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotRelyOnSideEffectsInTypeIdOperand` query
     "cpp/cert/do-not-rely-on-side-effects-in-type-id-operand" and
-  ruleId = "EXP52-CPP"
+  ruleId = "EXP52-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotRelyOnSideEffectsInNoExceptOperand` query
@@ -78,7 +85,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotRelyOnSideEffectsInNoExceptOperand` query
     "cpp/cert/do-not-rely-on-side-effects-in-no-except-operand" and
-  ruleId = "EXP52-CPP"
+  ruleId = "EXP52-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotRelyOnSideEffectsInDeclTypeOperand` query
@@ -86,7 +94,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotRelyOnSideEffectsInDeclTypeOperand` query
     "cpp/cert/do-not-rely-on-side-effects-in-decl-type-operand" and
-  ruleId = "EXP52-CPP"
+  ruleId = "EXP52-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotRelyOnSideEffectsInDeclValExpression` query
@@ -94,7 +103,8 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `doNotRelyOnSideEffectsInDeclValExpression` query
     "cpp/cert/do-not-rely-on-side-effects-in-decl-val-expression" and
-  ruleId = "EXP52-CPP"
+  ruleId = "EXP52-CPP" and
+  category = "rule"
 }
 
 module SideEffects1Package {

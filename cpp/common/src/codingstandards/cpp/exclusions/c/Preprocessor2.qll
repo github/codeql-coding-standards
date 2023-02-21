@@ -9,14 +9,15 @@ newtype Preprocessor2Query =
   TUndefShouldNotBeUsedQuery() or
   TPrecautionIncludeGuardsNotProvidedQuery()
 
-predicate isPreprocessor2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isPreprocessor2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `moreThanOneHashOperatorInMacroDefinition` query
     Preprocessor2Package::moreThanOneHashOperatorInMacroDefinitionQuery() and
   queryId =
     // `@id` for the `moreThanOneHashOperatorInMacroDefinition` query
     "c/misra/more-than-one-hash-operator-in-macro-definition" and
-  ruleId = "RULE-20-11"
+  ruleId = "RULE-20-11" and
+  category = "required"
   or
   query =
     // `Query` instance for the `macroParameterUsedAsHashOperand` query
@@ -24,7 +25,8 @@ predicate isPreprocessor2QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `macroParameterUsedAsHashOperand` query
     "c/misra/macro-parameter-used-as-hash-operand" and
-  ruleId = "RULE-20-12"
+  ruleId = "RULE-20-12" and
+  category = "required"
   or
   query =
     // `Query` instance for the `undefShouldNotBeUsed` query
@@ -32,7 +34,8 @@ predicate isPreprocessor2QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `undefShouldNotBeUsed` query
     "c/misra/undef-should-not-be-used" and
-  ruleId = "RULE-20-5"
+  ruleId = "RULE-20-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `precautionIncludeGuardsNotProvided` query
@@ -40,7 +43,8 @@ predicate isPreprocessor2QueryMetadata(Query query, string queryId, string ruleI
   queryId =
     // `@id` for the `precautionIncludeGuardsNotProvided` query
     "c/misra/precaution-include-guards-not-provided" and
-  ruleId = "DIR-4-10"
+  ruleId = "DIR-4-10" and
+  category = "required"
 }
 
 module Preprocessor2Package {

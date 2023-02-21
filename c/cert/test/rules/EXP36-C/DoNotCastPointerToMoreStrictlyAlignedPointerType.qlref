@@ -1,0 +1,1 @@
+rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql

@@ -26,14 +26,15 @@ newtype InitializationQuery =
   TBadlySeededRandomNumberGeneratorQuery() or
   TUseCanonicalOrderForMemberInitQuery()
 
-predicate isInitializationQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isInitializationQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `explicitConstructorBaseClassInitialization` query
     InitializationPackage::explicitConstructorBaseClassInitializationQuery() and
   queryId =
     // `@id` for the `explicitConstructorBaseClassInitialization` query
     "cpp/autosar/explicit-constructor-base-class-initialization" and
-  ruleId = "A12-1-1"
+  ruleId = "A12-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonStaticMemberMultipleInit` query
@@ -41,7 +42,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `nonStaticMemberMultipleInit` query
     "cpp/autosar/non-static-member-multiple-init" and
-  ruleId = "A12-1-2"
+  ruleId = "A12-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missedNSDMIOpportunity` query
@@ -49,7 +51,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `missedNSDMIOpportunity` query
     "cpp/autosar/missed-nsdmi-opportunity" and
-  ruleId = "A12-1-3"
+  ruleId = "A12-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `constructorWithFundamentalArgMissingExplicit` query
@@ -57,7 +60,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `constructorWithFundamentalArgMissingExplicit` query
     "cpp/autosar/constructor-with-fundamental-arg-missing-explicit" and
-  ruleId = "A12-1-4"
+  ruleId = "A12-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `avoidDuplicationInConstructors` query
@@ -65,7 +69,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `avoidDuplicationInConstructors` query
     "cpp/autosar/avoid-duplication-in-constructors" and
-  ruleId = "A12-1-5"
+  ruleId = "A12-1-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `useInheritingConstructors` query
@@ -73,7 +78,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `useInheritingConstructors` query
     "cpp/autosar/use-inheriting-constructors" and
-  ruleId = "A12-1-6"
+  ruleId = "A12-1-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `moveConstructorUsesCopySemantics` query
@@ -81,7 +87,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `moveConstructorUsesCopySemantics` query
     "cpp/autosar/move-constructor-uses-copy-semantics" and
-  ruleId = "A12-8-4"
+  ruleId = "A12-8-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `randomNumberEnginesDefaultInitialized` query
@@ -89,7 +96,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `randomNumberEnginesDefaultInitialized` query
     "cpp/autosar/random-number-engines-default-initialized" and
-  ruleId = "A26-5-2"
+  ruleId = "A26-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `staticOrThreadLocalObjectsNonConstantInit` query
@@ -97,7 +105,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `staticOrThreadLocalObjectsNonConstantInit` query
     "cpp/autosar/static-or-thread-local-objects-non-constant-init" and
-  ruleId = "A3-3-2"
+  ruleId = "A3-3-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `initializationListOutOfOrder` query
@@ -105,7 +114,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `initializationListOutOfOrder` query
     "cpp/autosar/initialization-list-out-of-order" and
-  ruleId = "A8-5-1"
+  ruleId = "A8-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `useBracedVariableInitialization` query
@@ -113,7 +123,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `useBracedVariableInitialization` query
     "cpp/autosar/use-braced-variable-initialization" and
-  ruleId = "A8-5-2"
+  ruleId = "A8-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `avoidAutoWithBracedInitialization` query
@@ -121,7 +132,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `avoidAutoWithBracedInitialization` query
     "cpp/autosar/avoid-auto-with-braced-initialization" and
-  ruleId = "A8-5-3"
+  ruleId = "A8-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `confusingUseOfInitializerListConstructors` query
@@ -129,7 +141,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `confusingUseOfInitializerListConstructors` query
     "cpp/autosar/confusing-use-of-initializer-list-constructors" and
-  ruleId = "A8-5-4"
+  ruleId = "A8-5-4" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `multipleLocalDeclarators` query
@@ -137,7 +150,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `multipleLocalDeclarators` query
     "cpp/autosar/multiple-local-declarators" and
-  ruleId = "M8-0-1"
+  ruleId = "M8-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `multipleGlobalOrMemberDeclarators` query
@@ -145,7 +159,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `multipleGlobalOrMemberDeclarators` query
     "cpp/autosar/multiple-global-or-member-declarators" and
-  ruleId = "M8-0-1"
+  ruleId = "M8-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `useInitBracesToMatchTypeStructure` query
@@ -153,7 +168,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `useInitBracesToMatchTypeStructure` query
     "cpp/autosar/use-init-braces-to-match-type-structure" and
-  ruleId = "M8-5-2"
+  ruleId = "M8-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingExplicitInitializers` query
@@ -161,7 +177,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `missingExplicitInitializers` query
     "cpp/autosar/missing-explicit-initializers" and
-  ruleId = "M8-5-2"
+  ruleId = "M8-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nestedZeroValueInitialization` query
@@ -169,7 +186,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `nestedZeroValueInitialization` query
     "cpp/autosar/nested-zero-value-initialization" and
-  ruleId = "M8-5-2"
+  ruleId = "M8-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cyclesDuringStaticObjectInit` query
@@ -177,7 +195,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `cyclesDuringStaticObjectInit` query
     "cpp/cert/cycles-during-static-object-init" and
-  ruleId = "DCL56-CPP"
+  ruleId = "DCL56-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `badlySeededRandomNumberGenerator` query
@@ -185,7 +204,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `badlySeededRandomNumberGenerator` query
     "cpp/cert/badly-seeded-random-number-generator" and
-  ruleId = "MSC51-CPP"
+  ruleId = "MSC51-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `useCanonicalOrderForMemberInit` query
@@ -193,7 +213,8 @@ predicate isInitializationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `useCanonicalOrderForMemberInit` query
     "cpp/cert/use-canonical-order-for-member-init" and
-  ruleId = "OOP53-CPP"
+  ruleId = "OOP53-CPP" and
+  category = "rule"
 }
 
 module InitializationPackage {
