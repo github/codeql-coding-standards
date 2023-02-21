@@ -30,8 +30,8 @@
           "description": "An unterminated switch-clause occurring at the end of a switch statement may fall into switch clauses which are added later.",
           "kind": "problem",
           "name": "An unconditional break statement shall terminate every switch-clause",
-          "precision": "very-high",
-          "severity": "error",
+          "precision": "high",
+          "severity": "warning",
           "short_name": "BreakShallTerminateSwitchClause",
           "tags": [
             "maintainability",

@@ -4,8 +4,8 @@
  * @description An unterminated switch-clause occurring at the end of a switch statement may fall
  *              into switch clauses which are added later.
  * @kind problem
- * @precision very-high
- * @problem.severity error
+ * @precision high
+ * @problem.severity warning
  * @tags external/misra/id/rule-16-3
  *       maintainability
  *       readability
