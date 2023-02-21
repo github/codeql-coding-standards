@@ -39,3 +39,12 @@ void f2(int p1) {
     break;
   }
 }
+
+void f3(int p1) {
+  switch (p1) {
+  default: // NON_COMPLIANT
+   p1++;
+  case 1:  // COMPLIANT
+    break;
+  }
+}
