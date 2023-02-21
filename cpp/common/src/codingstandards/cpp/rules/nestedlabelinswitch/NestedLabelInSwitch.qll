@@ -1,5 +1,5 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library which includes a `problems` predicate for reporting nested labels in a switch statement.
  */
 
 import cpp
