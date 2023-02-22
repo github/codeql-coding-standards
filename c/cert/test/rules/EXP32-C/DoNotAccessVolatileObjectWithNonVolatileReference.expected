@@ -1,0 +1,5 @@
+| test.c:5:13:5:21 | (int *)... | Cast of object with a volatile-qualified type to a non-volatile-qualified type. |
+| test.c:6:13:6:31 | (int *)... | Cast of object with a volatile-qualified type to a non-volatile-qualified type. |
+| test.c:14:3:14:55 | ... = ... | Assignment indicates a volatile object, but a later access of the object occurs via a non-volatile pointer. |
+| test.c:24:3:25:36 | ... = ... | Assignment indicates a volatile object, but a later access of the object occurs via a non-volatile pointer. |
+| test.c:42:24:42:41 | (int *)... | Cast of object with a volatile-qualified type to a non-volatile-qualified type. |
