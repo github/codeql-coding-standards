@@ -13,19 +13,16 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.FunctionParameter
 import semmle.code.cpp.dataflow.DataFlow
 
 class Source extends StackVariable {
-  Source() { not this instanceof FunctionParameter }
+  Source() { not this instanceof Parameter }
 }
 
-abstract class Sink extends DataFlow::Node { }
-
-class FunctionSink extends Sink {
-  FunctionSink() {
+class Sink extends DataFlow::Node {
+  Sink() {
     //output parameter
-    exists(FunctionParameter f |
+    exists(Parameter f |
       f.getAnAccess() = this.(DataFlow::PostUpdateNode).getPreUpdateNode().asExpr() and
       f.getUnderlyingType() instanceof PointerType
     )
