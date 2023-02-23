@@ -152,6 +152,28 @@ private class CastEnumToIntegerSimpleRange extends SimpleRangeAnalysisExpr, Cast
 }
 
 /**
+ * <stdio.h> functions that reads a character from the STDIN,
+ * or returns EOF if it fails to do so.
+ * Their return type is `int` by their signatures, but
+ * they actually return either an unsigned char or the EOF.
+ */
+private class CtypeGetcharFunctionsRange extends SimpleRangeAnalysisExpr, FunctionCall {
+  CtypeGetcharFunctionsRange() {
+    this.getFile().(HeaderFile).getBaseName() = "stdio.h" and
+    this.getTarget().getName().regexpMatch("(fgetc|getc|getchar|)")
+  }
+
+  /* It can return an EOF, which is -1 on most implementations. */
+  override float getLowerBounds() { result = -1 }
+
+  /* Otherwise, it can return any unsigned char. */
+  override float getUpperBounds() { result = 255 }
+
+  /* No, its call does not depend on any of its child. */
+  override predicate dependsOnChild(Expr expr) { none() }
+}
+
+/**
  * Gets the value of the expression `e`, if it is a constant.
  *
  * This predicate also handles the case of constant variables initialized in different
