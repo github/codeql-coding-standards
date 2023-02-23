@@ -1,0 +1,31 @@
+name: 🤖 Run Matrix Check 
+
+on:
+  pull_request:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  dispatch-matrix-check:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Dispatch Matrix Testing Job
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          repository: github/codeql-coding-standards-release-engineering
+          event-type: matrix-test
+          client-payload: '{"pr": "${{ github.event.number  }}"}'
+
+
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🤖 Beep Boop! Matrix Testing for this PR has been initiated. Please check back later for results. <br><br> :bulb: If you do not hear back from me please check my status! **I will report even if this PR does not contain files eligible for matrix testing.**'
+            })

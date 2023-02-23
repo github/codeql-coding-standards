@@ -1,1 +1,1 @@
-| test.cpp:10:3:10:3 | call to f | Return value from call to $@ is unused. | test.cpp:1:5:1:5 | f | f |
+| test.cpp:12:3:12:3 | call to f | Return value from call to $@ is unused. | test.cpp:3:5:3:5 | f | f |
