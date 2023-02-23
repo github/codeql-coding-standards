@@ -15,7 +15,6 @@
 import cpp
 import codingstandards.cpp.autosar
 
-// import semmle.code.cpp.PrintAST
 class ExplicitConversionOperator extends ConversionOperator {
   ExplicitConversionOperator() {
     exists(Specifier spec |
@@ -31,4 +30,3 @@ where
   not op instanceof ExplicitConversionOperator and
   not op.isCompilerGenerated()
 select op, "User-defined conversion operator is not explicit."
-// select 1
