@@ -152,10 +152,10 @@ private class CastEnumToIntegerSimpleRange extends SimpleRangeAnalysisExpr, Cast
 }
 
 /**
- * <stdio.h> functions that reads a character from the STDIN,
- * or returns EOF if it fails to do so.
+ * <stdio.h> functions that read a character from the STDIN,
+ * or return EOF if it fails to do so.
  * Their return type is `int` by their signatures, but
- * they actually return either an unsigned char or the EOF.
+ * they actually return either an unsigned char or an EOF.
  */
 private class CtypeGetcharFunctionsRange extends SimpleRangeAnalysisExpr, FunctionCall {
   CtypeGetcharFunctionsRange() {
