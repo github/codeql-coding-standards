@@ -10,10 +10,13 @@
           "kind": "problem",
           "name": "The goto statement shall jump to a label declared later in the same function",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "recommendation",
           "short_name": "GotoLabelLocationCondition",
           "shared_implementation_short_name": "GotoStatementCondition",
-          "tags": []
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
         }
       ],
       "title": "The goto statement shall jump to a label declared later in the same function"

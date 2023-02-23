@@ -4,8 +4,10 @@
  * @description Unconstrained use of goto can lead to unstructured code
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity recommendation
  * @tags external/misra/id/rule-15-2
+ *       maintainability
+ *       readability
  *       external/misra/obligation/required
  */
 
