@@ -6,7 +6,7 @@
       },
       "queries": [
         {
-          "description": "Unconstrained use of goto can lead to unstructured code",
+          "description": "Unconstrained use of goto can lead to unstructured code.",
           "kind": "problem",
           "name": "The goto statement shall jump to a label declared later in the same function",
           "precision": "very-high",
