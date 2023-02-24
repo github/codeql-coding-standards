@@ -1,0 +1,41 @@
+{
+  "CERT-C": {
+    "DCL30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "When storage durations are not compatible between assigned pointers it can lead to referring to objects outside of their lifetime, which is undefined behaviour.",
+          "kind": "problem",
+          "name": "Declare objects with appropriate storage durations",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AppropriateStorageDurationsStackAdressEscape",
+          "shared_implementation_short_name": "DoNotCopyAddressOfAutoStorageObjectToOtherObject",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "The rule checks specifically for pointers to objects with automatic storage duration that are assigned to static storage duration variables."
+          }
+        },
+        {
+          "description": "When pointers to local variables are returned by a function it can lead to referring to objects outside of their lifetime, which is undefined behaviour.",
+          "kind": "problem",
+          "name": "Declare objects with appropriate storage durations",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "AppropriateStorageDurationsFunctionReturn",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "The rule checks specifically for pointers to objects with automatic storage duration that are returned by functions or assigned to function output parameters."
+          }
+        }
+      ],
+      "title": "Declare objects with appropriate storage durations"
+    }
+  }
+}
