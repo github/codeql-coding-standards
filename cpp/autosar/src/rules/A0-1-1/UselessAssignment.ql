@@ -22,4 +22,4 @@ from SsaDefinition ultimateDef, InterestingStackVariable v
 where
   not isExcluded(v, DeadCodePackage::uselessAssignmentQuery()) and
   isUselessSsaDefinition(ultimateDef, v)
-select ultimateDef, "Definition of $@ is unused.", v, v.getName()
+select ultimateDef, "Definition of $@ is unused???", v, v.getName()
