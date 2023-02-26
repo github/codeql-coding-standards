@@ -92,7 +92,9 @@ private VariableAccess helper_memberaccess(
   not target.getDeclaringType() = dependentBaseType and
   result = target.getAnAccess() and
   result.getEnclosingFunction() = t.getAMemberFunction() and
-  name = target.getName()
+  name = target.getName() and
+  // The target is not a local variable, which isn't subject to confusion
+  not target instanceof LocalScopeVariable
 }
 
 /**

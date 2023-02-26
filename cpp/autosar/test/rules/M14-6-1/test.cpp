@@ -29,12 +29,21 @@ public:
     typename B<T>::TYPE t2 = 0;   // COMPLIANT
     g1();                         // COMPLIANT, identifier not found in B
   }
+  void m3(int m) {
+    m = 0;            // COMPLIANT, hides member
+  }
+  void m4() {
+    int m = 0;
+    m = 0;            // COMPLIANT, hides member
+  }
 };
 
 void f() {
   A<int> a;
   a.m1();
   a.m2();
+  a.m3(1);
+  a.m4();
 }
 
 class D {

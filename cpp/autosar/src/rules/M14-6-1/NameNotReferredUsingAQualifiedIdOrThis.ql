@@ -31,7 +31,6 @@ where
     fn = getConfusingFunctionCall(c, targetName, actualTarget, dependentTypeMemberWithSameName) and
     not exists(Expr e | e = fn.(FunctionCall).getQualifier())
     or
-    not fn.(VariableAccess).getTarget() instanceof Parameter and
     fn =
       getConfusingMemberVariableAccess(c, targetName, actualTarget, dependentTypeMemberWithSameName) and
     not exists(Expr e | e = fn.(VariableAccess).getQualifier())
