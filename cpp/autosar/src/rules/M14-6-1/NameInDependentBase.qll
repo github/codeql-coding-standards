@@ -37,11 +37,10 @@ private FunctionCall helper_functioncall(
  * Gets a function call in `TemplateClass` `t` where the target function name exists in a dependent
  * base type and the call is to a function that is not declared in the dependent base type.
  */
-FunctionCall getConfusingFunctionCall(TemplateClass t) {
-  exists(
-    string name, TemplateClass dependentBaseType, MemberFunction dependentTypeFunction,
-    Function target
-  |
+FunctionCall getConfusingFunctionCall(
+  TemplateClass t, string name, Function target, MemberFunction dependentTypeFunction
+) {
+  exists(TemplateClass dependentBaseType |
     result = helper_functioncall(t, dependentBaseType, target, name) and
     // The dependentTypeFunction is declared on the dependent base type
     dependentBaseType.getAMember() = dependentTypeFunction and
@@ -70,11 +69,10 @@ private FunctionAccess helper_functionaccess(
  * Gets a function access in `TemplateClass` `t` where the target function name exists in a dependent
  * base type and the access is to a function declared outside the dependent base type.
  */
-FunctionAccess getConfusingFunctionAccess(TemplateClass t) {
-  exists(
-    string name, TemplateClass dependentBaseType, MemberFunction dependentTypeFunction,
-    Function target
-  |
+FunctionAccess getConfusingFunctionAccess(
+  TemplateClass t, string name, Function target, MemberFunction dependentTypeFunction
+) {
+  exists(TemplateClass dependentBaseType |
     result = helper_functionaccess(t, dependentBaseType, target, name) and
     dependentBaseType.getAMember() = dependentTypeFunction and
     name = dependentTypeFunction.getName()
@@ -101,11 +99,10 @@ private VariableAccess helper_memberaccess(
  * Gets a memmber access in `TemplateClass` `t` where the target member name exists in a dependent
  * base type and the access is to a variable declared outside the dependent base type.
  */
-VariableAccess getConfusingMemberVariableAccess(TemplateClass t) {
-  exists(
-    string name, TemplateClass dependentBaseType, MemberVariable dependentTypeMemberVariable,
-    Variable target
-  |
+VariableAccess getConfusingMemberVariableAccess(
+  TemplateClass t, string name, Variable target, MemberVariable dependentTypeMemberVariable
+) {
+  exists(TemplateClass dependentBaseType |
     result = helper_memberaccess(t, dependentBaseType, target, name) and
     dependentBaseType.getAMemberVariable() = dependentTypeMemberVariable and
     name = dependentTypeMemberVariable.getName()

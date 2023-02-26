@@ -18,19 +18,25 @@ import cpp
 import codingstandards.cpp.autosar
 import NameInDependentBase
 
-from TemplateClass c, NameQualifiableElement fn
+from
+  TemplateClass c, NameQualifiableElement fn, string targetName, Element actualTarget,
+  Element dependentTypeMemberWithSameName
 where
   not isExcluded(fn, TemplatesPackage::nameNotReferredUsingAQualifiedIdOrThisAuditQuery()) and
   not isCustomExcluded(fn) and
   missingNameQualifier(fn) and
   (
-    fn = getConfusingFunctionAccess(c)
+    fn = getConfusingFunctionAccess(c, targetName, actualTarget, dependentTypeMemberWithSameName)
     or
-    fn = getConfusingFunctionCall(c) and
+    fn = getConfusingFunctionCall(c, targetName, actualTarget, dependentTypeMemberWithSameName) and
     not exists(Expr e | e = fn.(FunctionCall).getQualifier())
     or
     not fn.(VariableAccess).getTarget() instanceof Parameter and
-    fn = getConfusingMemberVariableAccess(c) and
+    fn =
+      getConfusingMemberVariableAccess(c, targetName, actualTarget, dependentTypeMemberWithSameName) and
     not exists(Expr e | e = fn.(VariableAccess).getQualifier())
   )
-select fn, "Use of identifier that also exists in a base class that is not fully qualified."
+select fn,
+  "Use of unqualified identifier " + targetName +
+    " targets $@ but a member with the name also exists $@.", actualTarget, targetName,
+  dependentTypeMemberWithSameName, "in the dependent base class"
