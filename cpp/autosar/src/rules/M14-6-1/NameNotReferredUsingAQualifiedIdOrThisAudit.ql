@@ -18,23 +18,23 @@ import cpp
 import codingstandards.cpp.autosar
 import NameInDependentBase
 
-from Class c, Class p, NameQualifiableElement fn
+from TemplateClass c, TemplateClass dependentBaseType, NameQualifiableElement fn
 where
   not isExcluded(fn, TemplatesPackage::nameNotReferredUsingAQualifiedIdOrThisAuditQuery()) and
   not isCustomExcluded(fn) and
-  p = getParent(c) and
+  dependentBaseType = getADependentBaseType(c) and
   missingNameQualifier(fn) and
   (
     fn instanceof FunctionAccess and
-    fn = parentMemberFunctionAccess(c, p)
+    fn = parentMemberFunctionAccess(c, dependentBaseType)
     or
     fn instanceof FunctionCall and
-    fn = parentMemberFunctionCall(c, p) and
+    fn = parentMemberFunctionCall(c, dependentBaseType) and
     not exists(Expr e | e = fn.(FunctionCall).getQualifier())
     or
     fn instanceof VariableAccess and
     not fn.(VariableAccess).getTarget() instanceof Parameter and
-    fn = parentMemberAccess(c, p) and
+    fn = parentMemberAccess(c, dependentBaseType) and
     not exists(Expr e | e = fn.(VariableAccess).getQualifier())
   )
 select fn, "Use of identifier that also exists in a base class that is not fully qualified."

@@ -2,9 +2,20 @@ import cpp
 import codingstandards.cpp.autosar
 
 /**
- * Just the reverse of `Class.getABaseClass()`
+ * Gets a dependent base type of the given template class.
+ *
+ * This returns the `TemplateClass` for the base type, rather than the `ClassTemplateInstantiation`,
+ * as the instantiation does not appear to include any member declarations.
  */
-Class getParent(Class child) { child.getABaseClass() = result }
+TemplateClass getADependentBaseType(TemplateClass t) {
+  exists(ClassTemplateInstantiation baseType |
+    baseType = t.getABaseClass() and
+    // Base type depends on at least one of the template parameters of class t
+    baseType.getATemplateArgument() = t.getATemplateArgument() and
+    // Return the template itself
+    result = baseType.getTemplate()
+  )
+}
 
 /**
  * There is a `MemberFunction` in parent class with same name
