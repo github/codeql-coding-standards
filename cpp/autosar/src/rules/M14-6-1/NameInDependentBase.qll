@@ -18,19 +18,52 @@ TemplateClass getADependentBaseType(TemplateClass t) {
 }
 
 /**
+ * Helper predicate that ensures we do not join on function pairs by name early on, as that creates
+ * a large dataset on big databases with lots of name duplication.
+ */
+pragma[noinline, nomagic]
+private FunctionCall helper_functioncall(
+  TemplateClass t, TemplateClass dependentBaseType, Function target, string name
+) {
+  dependentBaseType = getADependentBaseType(t) and
+  // The target of the call is not declared in the dependent base type
+  not target.getDeclaringType() = dependentBaseType and
+  result = target.getACallToThisFunction() and
+  result.getEnclosingFunction() = t.getAMemberFunction() and
+  name = target.getName()
+}
+
+/**
  * Gets a function call in `TemplateClass` `t` where the target function name exists in a dependent
  * base type and the call is to a function that is not declared in the dependent base type.
  */
 FunctionCall parentMemberFunctionCall(TemplateClass t) {
-  exists(TemplateClass dependentBaseType, MemberFunction dependentTypeFunction, Function target |
-    dependentBaseType = getADependentBaseType(t) and
-    // The target of the call is not declared in the dependent base type
-    not target.getDeclaringType() = dependentBaseType and
+  exists(
+    string name, TemplateClass dependentBaseType, MemberFunction dependentTypeFunction,
+    Function target
+  |
+    result = helper_functioncall(t, dependentBaseType, target, name) and
+    // The dependentTypeFunction is declared on the dependent base type
     dependentBaseType.getAMember() = dependentTypeFunction and
-    target.getName() = dependentTypeFunction.getName() and
-    result = target.getACallToThisFunction() and
-    result.getEnclosingFunction() = t.getAMemberFunction()
+    // And has the same name as the target of the function call in the child
+    name = dependentTypeFunction.getName()
   )
+}
+
+/**
+ * Helper predicate that ensures we do not join on function pairs by name early on, as that creates
+ * a large dataset on big databases with lots of name duplication.
+ */
+pragma[noinline, nomagic]
+private FunctionAccess helper_functionaccess(
+  TemplateClass t, TemplateClass dependentBaseType, Function target, string name
+) {
+  dependentBaseType = getADependentBaseType(t) and
+  // The target of the access is not declared in the dependent base type
+  not target.getDeclaringType() = dependentBaseType and
+  result = target.getAnAccess() and
+  result.getEnclosingFunction() = t.getAMemberFunction() and
+  name = target.getName()
 }
 
 /**
@@ -38,32 +71,44 @@ FunctionCall parentMemberFunctionCall(TemplateClass t) {
  * base type and the access is to a function declared outside the dependent base type.
  */
 FunctionAccess parentMemberFunctionAccess(TemplateClass t) {
-  exists(TemplateClass dependentBaseType, MemberFunction dependentTypeFunction, Function target |
-    dependentBaseType = getADependentBaseType(t) and
-    // The target of the access is not declared in the dependent base type
-    not target.getDeclaringType() = dependentBaseType and
+  exists(
+    string name, TemplateClass dependentBaseType, MemberFunction dependentTypeFunction,
+    Function target
+  |
+    result = helper_functionaccess(t, dependentBaseType, target, name) and
     dependentBaseType.getAMember() = dependentTypeFunction and
-    target.getName() = dependentTypeFunction.getName() and
-    result = target.getAnAccess() and
-    result.getEnclosingFunction() = t.getAMemberFunction()
+    name = dependentTypeFunction.getName()
   )
+}
+
+/**
+ * Helper predicate that ensures we do not join on variable pairs by name early on, as that creates
+ * a large dataset on big databases with lots of name duplication.
+ */
+pragma[noinline, nomagic]
+private VariableAccess helper_memberaccess(
+  TemplateClass t, TemplateClass dependentBaseType, Variable target, string name
+) {
+  dependentBaseType = getADependentBaseType(t) and
+  // The target of the access is not declared in the dependent base type
+  not target.getDeclaringType() = dependentBaseType and
+  result = target.getAnAccess() and
+  result.getEnclosingFunction() = t.getAMemberFunction() and
+  name = target.getName()
 }
 
 /**
  * Gets a memmber access in `TemplateClass` `t` where the target member name exists in a dependent
  * base type and the access is to a variable declared outside the dependent base type.
  */
-Access parentMemberAccess(TemplateClass t) {
+VariableAccess parentMemberAccess(TemplateClass t) {
   exists(
-    TemplateClass dependentBaseType, MemberVariable dependentTypeMemberVariable, Variable target
+    string name, TemplateClass dependentBaseType, MemberVariable dependentTypeMemberVariable,
+    Variable target
   |
-    dependentBaseType = getADependentBaseType(t) and
-    // The target of the access is not declared in the dependent base type
-    not target.getDeclaringType() = dependentBaseType and
+    result = helper_memberaccess(t, dependentBaseType, target, name) and
     dependentBaseType.getAMemberVariable() = dependentTypeMemberVariable and
-    target.getName() = dependentTypeMemberVariable.getName() and
-    result = target.getAnAccess() and
-    result.getEnclosingFunction() = t.getAMemberFunction()
+    name = dependentTypeMemberVariable.getName()
   )
 }
 
