@@ -22,12 +22,12 @@ TemplateClass getADependentBaseType(TemplateClass t) {
  * base type and the function does not call that function.
  */
 FunctionCall parentMemberFunctionCall(TemplateClass t) {
-  exists(TemplateClass dependentBaseType, MemberFunction parentFunction, Function other |
+  exists(TemplateClass dependentBaseType, MemberFunction dependentTypeFunction, Function target |
     dependentBaseType = getADependentBaseType(t) and
-    not other = parentFunction and
-    dependentBaseType.getAMember() = parentFunction and
-    other.getName() = parentFunction.getName() and
-    result = other.getACallToThisFunction() and
+    not target = dependentTypeFunction and
+    dependentBaseType.getAMember() = dependentTypeFunction and
+    target.getName() = dependentTypeFunction.getName() and
+    result = target.getACallToThisFunction() and
     result.getEnclosingFunction() = t.getAMemberFunction()
   )
 }
@@ -37,12 +37,12 @@ FunctionCall parentMemberFunctionCall(TemplateClass t) {
  * as a `FunctionAccess` that exists in a child `MemberFunction`
  */
 FunctionAccess parentMemberFunctionAccess(TemplateClass t) {
-  exists(TemplateClass dependentBaseType, MemberFunction parentFunction, Function other |
+  exists(TemplateClass dependentBaseType, MemberFunction dependentTypeFunction, Function target |
     dependentBaseType = getADependentBaseType(t) and
-    not other = parentFunction and
-    dependentBaseType.getAMember() = parentFunction and
-    other.getName() = parentFunction.getName() and
-    result = other.getAnAccess() and
+    not target = dependentTypeFunction and
+    dependentBaseType.getAMember() = dependentTypeFunction and
+    target.getName() = dependentTypeFunction.getName() and
+    result = target.getAnAccess() and
     result.getEnclosingFunction() = t.getAMemberFunction()
   )
 }
@@ -52,12 +52,14 @@ FunctionAccess parentMemberFunctionAccess(TemplateClass t) {
  * as a `VariableAccess` that exists in a child `MemberFunction`
  */
 Access parentMemberAccess(TemplateClass t) {
-  exists(TemplateClass dependentBaseType, MemberVariable parentMember, Variable other |
+  exists(
+    TemplateClass dependentBaseType, MemberVariable dependentTypeMemberVariable, Variable target
+  |
     dependentBaseType = getADependentBaseType(t) and
-    not other = parentMember and
-    dependentBaseType.getAMemberVariable() = parentMember and
-    other.getName() = parentMember.getName() and
-    result = other.getAnAccess() and
+    not target = dependentTypeMemberVariable and
+    dependentBaseType.getAMemberVariable() = dependentTypeMemberVariable and
+    target.getName() = dependentTypeMemberVariable.getName() and
+    result = target.getAnAccess() and
     result.getEnclosingFunction() = t.getAMemberFunction()
   )
 }
