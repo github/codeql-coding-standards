@@ -18,23 +18,22 @@ import cpp
 import codingstandards.cpp.autosar
 import NameInDependentBase
 
-from TemplateClass c, TemplateClass dependentBaseType, NameQualifiableElement fn
+from TemplateClass c, NameQualifiableElement fn
 where
   not isExcluded(fn, TemplatesPackage::nameNotReferredUsingAQualifiedIdOrThisQuery()) and
   not isCustomExcluded(fn) and
-  dependentBaseType = getADependentBaseType(c) and
   missingNameQualifier(fn) and
   (
     fn instanceof FunctionAccess and
-    fn = parentMemberFunctionAccess(c, dependentBaseType)
+    fn = parentMemberFunctionAccess(c)
     or
     fn instanceof FunctionCall and
-    fn = parentMemberFunctionCall(c, dependentBaseType) and
+    fn = parentMemberFunctionCall(c) and
     not exists(Expr e | e = fn.(FunctionCall).getQualifier())
     or
     fn instanceof VariableAccess and
     not fn.(VariableAccess).getTarget() instanceof Parameter and
-    fn = parentMemberAccess(c, dependentBaseType) and
+    fn = parentMemberAccess(c) and
     not exists(Expr e | e = fn.(VariableAccess).getQualifier())
   ) and
   not fn.isAffectedByMacro()

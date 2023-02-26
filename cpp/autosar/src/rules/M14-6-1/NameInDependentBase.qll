@@ -18,16 +18,17 @@ TemplateClass getADependentBaseType(TemplateClass t) {
 }
 
 /**
- * There is a `MemberFunction` in parent class with same name
- * as a `FunctionCall` that exists in a child `MemberFunction`
+ * Gets a function call in `TemplateClass` `t` where the target function name exists in a dependent
+ * base type and the function does not call that function.
  */
-FunctionCall parentMemberFunctionCall(Class child, Class parent) {
-  exists(MemberFunction parentFunction, Function other |
+FunctionCall parentMemberFunctionCall(TemplateClass t) {
+  exists(TemplateClass dependentBaseType, MemberFunction parentFunction, Function other |
+    dependentBaseType = getADependentBaseType(t) and
     not other = parentFunction and
-    parent.getAMember() = parentFunction and
+    dependentBaseType.getAMember() = parentFunction and
     other.getName() = parentFunction.getName() and
     result = other.getACallToThisFunction() and
-    result.getEnclosingFunction() = child.getAMemberFunction()
+    result.getEnclosingFunction() = t.getAMemberFunction()
   )
 }
 
@@ -35,13 +36,14 @@ FunctionCall parentMemberFunctionCall(Class child, Class parent) {
  * There is a `MemberFunction` in parent class with same name
  * as a `FunctionAccess` that exists in a child `MemberFunction`
  */
-FunctionAccess parentMemberFunctionAccess(Class child, Class parent) {
-  exists(MemberFunction parentFunction, Function other |
+FunctionAccess parentMemberFunctionAccess(TemplateClass t) {
+  exists(TemplateClass dependentBaseType, MemberFunction parentFunction, Function other |
+    dependentBaseType = getADependentBaseType(t) and
     not other = parentFunction and
-    parent.getAMember() = parentFunction and
+    dependentBaseType.getAMember() = parentFunction and
     other.getName() = parentFunction.getName() and
     result = other.getAnAccess() and
-    result.getEnclosingFunction() = child.getAMemberFunction()
+    result.getEnclosingFunction() = t.getAMemberFunction()
   )
 }
 
@@ -49,13 +51,14 @@ FunctionAccess parentMemberFunctionAccess(Class child, Class parent) {
  * There is a `MemberVariable` in parent class with same name
  * as a `VariableAccess` that exists in a child `MemberFunction`
  */
-Access parentMemberAccess(Class child, Class parent) {
-  exists(MemberVariable parentMember, Variable other |
+Access parentMemberAccess(TemplateClass t) {
+  exists(TemplateClass dependentBaseType, MemberVariable parentMember, Variable other |
+    dependentBaseType = getADependentBaseType(t) and
     not other = parentMember and
-    parent.getAMemberVariable() = parentMember and
+    dependentBaseType.getAMemberVariable() = parentMember and
     other.getName() = parentMember.getName() and
     result = other.getAnAccess() and
-    result.getEnclosingFunction() = child.getAMemberFunction()
+    result.getEnclosingFunction() = t.getAMemberFunction()
   )
 }
 
