@@ -19,11 +19,12 @@ TemplateClass getADependentBaseType(TemplateClass t) {
 
 /**
  * Gets a function call in `TemplateClass` `t` where the target function name exists in a dependent
- * base type and the function does not call that function.
+ * base type and the call is to a function that is not declared in the dependent base type.
  */
 FunctionCall parentMemberFunctionCall(TemplateClass t) {
   exists(TemplateClass dependentBaseType, MemberFunction dependentTypeFunction, Function target |
     dependentBaseType = getADependentBaseType(t) and
+    // The target of the call is not declared in the dependent base type
     not target.getDeclaringType() = dependentBaseType and
     dependentBaseType.getAMember() = dependentTypeFunction and
     target.getName() = dependentTypeFunction.getName() and
@@ -33,12 +34,13 @@ FunctionCall parentMemberFunctionCall(TemplateClass t) {
 }
 
 /**
- * There is a `MemberFunction` in parent class with same name
- * as a `FunctionAccess` that exists in a child `MemberFunction`
+ * Gets a function access in `TemplateClass` `t` where the target function name exists in a dependent
+ * base type and the access is to a function declared outside the dependent base type.
  */
 FunctionAccess parentMemberFunctionAccess(TemplateClass t) {
   exists(TemplateClass dependentBaseType, MemberFunction dependentTypeFunction, Function target |
     dependentBaseType = getADependentBaseType(t) and
+    // The target of the access is not declared in the dependent base type
     not target.getDeclaringType() = dependentBaseType and
     dependentBaseType.getAMember() = dependentTypeFunction and
     target.getName() = dependentTypeFunction.getName() and
@@ -48,14 +50,15 @@ FunctionAccess parentMemberFunctionAccess(TemplateClass t) {
 }
 
 /**
- * There is a `MemberVariable` in parent class with same name
- * as a `VariableAccess` that exists in a child `MemberFunction`
+ * Gets a memmber access in `TemplateClass` `t` where the target member name exists in a dependent
+ * base type and the access is to a variable declared outside the dependent base type.
  */
 Access parentMemberAccess(TemplateClass t) {
   exists(
     TemplateClass dependentBaseType, MemberVariable dependentTypeMemberVariable, Variable target
   |
     dependentBaseType = getADependentBaseType(t) and
+    // The target of the access is not declared in the dependent base type
     not target.getDeclaringType() = dependentBaseType and
     dependentBaseType.getAMemberVariable() = dependentTypeMemberVariable and
     target.getName() = dependentTypeMemberVariable.getName() and
