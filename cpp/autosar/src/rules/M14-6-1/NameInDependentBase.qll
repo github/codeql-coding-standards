@@ -24,7 +24,7 @@ TemplateClass getADependentBaseType(TemplateClass t) {
 FunctionCall parentMemberFunctionCall(TemplateClass t) {
   exists(TemplateClass dependentBaseType, MemberFunction dependentTypeFunction, Function target |
     dependentBaseType = getADependentBaseType(t) and
-    not target = dependentTypeFunction and
+    not target.getDeclaringType() = dependentBaseType and
     dependentBaseType.getAMember() = dependentTypeFunction and
     target.getName() = dependentTypeFunction.getName() and
     result = target.getACallToThisFunction() and
@@ -39,7 +39,7 @@ FunctionCall parentMemberFunctionCall(TemplateClass t) {
 FunctionAccess parentMemberFunctionAccess(TemplateClass t) {
   exists(TemplateClass dependentBaseType, MemberFunction dependentTypeFunction, Function target |
     dependentBaseType = getADependentBaseType(t) and
-    not target = dependentTypeFunction and
+    not target.getDeclaringType() = dependentBaseType and
     dependentBaseType.getAMember() = dependentTypeFunction and
     target.getName() = dependentTypeFunction.getName() and
     result = target.getAnAccess() and
@@ -56,7 +56,7 @@ Access parentMemberAccess(TemplateClass t) {
     TemplateClass dependentBaseType, MemberVariable dependentTypeMemberVariable, Variable target
   |
     dependentBaseType = getADependentBaseType(t) and
-    not target = dependentTypeMemberVariable and
+    not target.getDeclaringType() = dependentBaseType and
     dependentBaseType.getAMemberVariable() = dependentTypeMemberVariable and
     target.getName() = dependentTypeMemberVariable.getName() and
     result = target.getAnAccess() and
