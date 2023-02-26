@@ -24,16 +24,13 @@ where
   not isCustomExcluded(fn) and
   missingNameQualifier(fn) and
   (
-    fn instanceof FunctionAccess and
-    fn = parentMemberFunctionAccess(c)
+    fn = getConfusingFunctionAccess(c)
     or
-    fn instanceof FunctionCall and
-    fn = parentMemberFunctionCall(c) and
+    fn = getConfusingFunctionCall(c) and
     not exists(Expr e | e = fn.(FunctionCall).getQualifier())
     or
-    fn instanceof VariableAccess and
     not fn.(VariableAccess).getTarget() instanceof Parameter and
-    fn = parentMemberAccess(c) and
+    fn = getConfusingMemberVariableAccess(c) and
     not exists(Expr e | e = fn.(VariableAccess).getQualifier())
   ) and
   not fn.isAffectedByMacro()

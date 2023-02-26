@@ -37,7 +37,7 @@ private FunctionCall helper_functioncall(
  * Gets a function call in `TemplateClass` `t` where the target function name exists in a dependent
  * base type and the call is to a function that is not declared in the dependent base type.
  */
-FunctionCall parentMemberFunctionCall(TemplateClass t) {
+FunctionCall getConfusingFunctionCall(TemplateClass t) {
   exists(
     string name, TemplateClass dependentBaseType, MemberFunction dependentTypeFunction,
     Function target
@@ -70,7 +70,7 @@ private FunctionAccess helper_functionaccess(
  * Gets a function access in `TemplateClass` `t` where the target function name exists in a dependent
  * base type and the access is to a function declared outside the dependent base type.
  */
-FunctionAccess parentMemberFunctionAccess(TemplateClass t) {
+FunctionAccess getConfusingFunctionAccess(TemplateClass t) {
   exists(
     string name, TemplateClass dependentBaseType, MemberFunction dependentTypeFunction,
     Function target
@@ -101,7 +101,7 @@ private VariableAccess helper_memberaccess(
  * Gets a memmber access in `TemplateClass` `t` where the target member name exists in a dependent
  * base type and the access is to a variable declared outside the dependent base type.
  */
-VariableAccess parentMemberAccess(TemplateClass t) {
+VariableAccess getConfusingMemberVariableAccess(TemplateClass t) {
   exists(
     string name, TemplateClass dependentBaseType, MemberVariable dependentTypeMemberVariable,
     Variable target
