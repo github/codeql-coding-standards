@@ -20,7 +20,7 @@ jobs:
 
           $actor = "${{github.actor}}"
 
-          $acl = @("mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine") 
+          $acl = @("jsinglet","mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine") 
 
           if(-not ($actor -in $acl)){
             throw "Refusing to run workflow for user not in acl."
