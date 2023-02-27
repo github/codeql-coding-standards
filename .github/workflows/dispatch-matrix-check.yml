@@ -17,8 +17,8 @@ jobs:
         run: |
           Write-Host "Actor is: ${{github.actor}}"
     
-    
       - name: Dispatch Matrix Testing Job
+        if: contains(["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"], github.actor) 
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
@@ -28,6 +28,7 @@ jobs:
 
 
       - uses: actions/github-script@v6
+        if: contains(["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"], github.actor) 
         with:
           script: |
             github.rest.issues.createComment({
