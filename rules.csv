@@ -498,7 +498,7 @@ c,CERT-C,CON39-C,Yes,Rule,,,Do not join or detach a thread that was previously j
 c,CERT-C,CON40-C,Yes,Rule,,,Do not refer to an atomic variable twice in an expression,,Concurrency5,Medium,
 c,CERT-C,CON41-C,Yes,Rule,,,Wrap functions that can fail spuriously in a loop,CON53-CPP,Concurrency3,Medium,
 c,CERT-C,CON43-C,OutOfScope,Rule,,,Do not allow data races in multithreaded code,,,,
-c,CERT-C,DCL30-C,Yes,Rule,,,Declare objects with appropriate storage durations,,Declarations,Hard,
+c,CERT-C,DCL30-C,Yes,Rule,,,Declare objects with appropriate storage durations,,Declarations8,Hard,
 c,CERT-C,DCL31-C,Yes,Rule,,,Declare identifiers before using them,,Declarations1,Medium,
 c,CERT-C,DCL36-C,No,Rule,,,Do not declare an identifier with conflicting linkage classifications,,,,
 c,CERT-C,DCL37-C,Yes,Rule,,,Do not declare or define a reserved identifier,,Declarations1,Easy,

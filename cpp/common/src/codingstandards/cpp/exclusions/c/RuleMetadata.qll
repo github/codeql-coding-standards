@@ -23,6 +23,7 @@ import Declarations4
 import Declarations5
 import Declarations6
 import Declarations7
+import Declarations8
 import Expressions
 import IO1
 import IO2
@@ -34,6 +35,7 @@ import Language2
 import Misc
 import Pointers1
 import Pointers2
+import Pointers3
 import Preprocessor1
 import Preprocessor2
 import Preprocessor3
@@ -70,6 +72,7 @@ newtype TCQuery =
   TDeclarations5PackageQuery(Declarations5Query q) or
   TDeclarations6PackageQuery(Declarations6Query q) or
   TDeclarations7PackageQuery(Declarations7Query q) or
+  TDeclarations8PackageQuery(Declarations8Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
@@ -81,6 +84,7 @@ newtype TCQuery =
   TMiscPackageQuery(MiscQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
+  TPointers3PackageQuery(Pointers3Query q) or
   TPreprocessor1PackageQuery(Preprocessor1Query q) or
   TPreprocessor2PackageQuery(Preprocessor2Query q) or
   TPreprocessor3PackageQuery(Preprocessor3Query q) or
@@ -117,6 +121,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations5QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations8QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
@@ -128,6 +133,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isMiscQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or
+  isPointers3QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessor1QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessor2QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessor3QueryMetadata(query, queryId, ruleId, category) or

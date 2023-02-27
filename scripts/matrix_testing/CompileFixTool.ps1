@@ -16,16 +16,16 @@ param(
 
     # The compiler to use. Valid values are 'clang' and 'arm-clang'.
     [Parameter(Mandatory)] 
-    [ValidateSet('clang', 'armclang', 'tiarmclang')]
+    [ValidateSet('clang', 'armclang', 'tiarmclang', 'gcc')]
     [string]
     $Configuration
 )
 
-Import-Module -Name "$PSScriptRoot\..\PSCodingStandards\CodingStandards"
+Import-Module -Name "$PSScriptRoot/../PSCodingStandards/CodingStandards"
 
-. "$PSScriptRoot\NewDatabaseForRule.ps1"
-. "$PSScriptRoot\Config.ps1"
-. "$PSScriptRoot\Get-CompilerExecutable.ps1"
+. "$PSScriptRoot/NewDatabaseForRule.ps1"
+. "$PSScriptRoot/Config.ps1"
+. "$PSScriptRoot/Get-CompilerExecutable.ps1"
 
 #
 # Verify All the Required CLI Tools are Installed

@@ -15,14 +15,8 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.Pointers
 import codingstandards.cpp.SideEffect
-
-class PointerOrArrayType extends DerivedType {
-  PointerOrArrayType() {
-    this.stripTopLevelSpecifiers() instanceof PointerType or
-    this.stripTopLevelSpecifiers() instanceof ArrayType
-  }
-}
 
 from Variable ptr, PointerOrArrayType type
 where

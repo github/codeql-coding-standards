@@ -1,4 +1,4 @@
-. "$PSScriptRoot\Config.ps1"
+. "$PSScriptRoot/Config.ps1"
 function Create-Summary-Report {
     param([Parameter(Mandatory)] 
         [string]
