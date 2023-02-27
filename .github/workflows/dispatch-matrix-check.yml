@@ -1,7 +1,8 @@
 name: 🤖 Run Matrix Check 
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [synchronize,opened]
     branches:
       - "**"
   workflow_dispatch:
@@ -11,7 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Test Variables
+        shell: pwsh
+        run: |          
+          Write-Host "Running as: ${{github.actor}}"    
+    
       - name: Dispatch Matrix Testing Job
+        if: ${{ contains(fromJSON('["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
@@ -21,6 +28,7 @@ jobs:
 
 
       - uses: actions/github-script@v6
+        if: ${{ contains(fromJSON('["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
         with:
           script: |
             github.rest.issues.createComment({
