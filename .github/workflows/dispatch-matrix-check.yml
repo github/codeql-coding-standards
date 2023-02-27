@@ -15,7 +15,7 @@ jobs:
       - name: Test Variables
         shell: pwsh
         run: |          
-          Write-Host "Running as: ${{github.actor}}"    
+          Write-Host "Running as: ${{github.actor}}-"    
     
       - name: Dispatch Matrix Testing Job
         if: ${{ contains(fromJSON('["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]')', github.actor) }}
