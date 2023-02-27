@@ -18,7 +18,7 @@ jobs:
           Write-Host "Running as: ${{github.actor}}"    
     
       - name: Dispatch Matrix Testing Job
-        if: ${{ contains(fromJSON('["jsinglet", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
+        if: ${{ contains(fromJSON('[ "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
@@ -28,7 +28,7 @@ jobs:
 
 
       - uses: actions/github-script@v6
-        if: ${{ contains(fromJSON('["jsinglet", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
+        if: ${{ contains(fromJSON('[ "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
         with:
           script: |
             github.rest.issues.createComment({
