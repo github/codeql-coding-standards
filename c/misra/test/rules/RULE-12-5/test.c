@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 
 void sample(int32_t nums[4], const char string[], int32_t x) {
   for (int i = 0;
@@ -15,21 +16,13 @@ void sample(int32_t nums[4], const char string[], int32_t x) {
     printf("%c", string[i]);
   }
 
-  printf("%d\n", sizeof(x)); // COMPLIANT: `x` not a array type parameter
+  printf("%lu\n", sizeof(x)); // COMPLIANT: `x` not a array type parameter
 
   char local_string[5] = "abcd";
   printf(
-      "%d\n",
+      "%lu\n",
       sizeof(
           local_string)); // COMPLIANT: `local_string` not a function parameter
-
-  const char *string = (const char *)string;
-
-  for (int i = 0;
-       i < sizeof(string) / // COMPLIANT: not a parameter access anymore, now a
-                            // const char* variable declared in the body
-               sizeof(char);
-       i++) {
-    printf("%c", string[i]);
-  }
 }
+
+int main() { return 0; }
