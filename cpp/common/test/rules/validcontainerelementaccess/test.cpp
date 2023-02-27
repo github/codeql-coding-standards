@@ -111,7 +111,7 @@ void f11(std::string cs) {
   const char *cp = cs.c_str();
   const char *cpe = cp + 2;
 
-  while (cp < cpe) {     // COMPLAINT
+  while (cp < cpe) {     // COMPLIANT
     std::string arg(cp); // COMPLIANT
     cp += arg.size() + 1;
   }
