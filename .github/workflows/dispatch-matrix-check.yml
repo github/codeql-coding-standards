@@ -2,7 +2,7 @@ name: 🤖 Run Matrix Check
 
 on:
   pull_request_target:
-    types: [synchronize,opened]
+    types: [synchronize,opened,edited]
     branches:
       - "**"
   workflow_dispatch:
