@@ -27,13 +27,12 @@ This user manual documents release `2.10.0` of the coding standards located at h
 The release page documents the release notes and contains the following artifacts part of the release:
 
 - `code-scanning-cpp-query-pack-anon-2.10.0.zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
-- `lgtm-cpp-query-pack-anon-v2.10.0.zip`: coding standard queries to be used with GitHub LGTM Enterprise as documented in the section _Operating manual_.
 - `supported_rules_list_2.10.0.csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
-- `supported_rules_list_2.10.0 .md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
-- `user_manual.md`: This user manual.
+- `supported_rules_list_2.10.0.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
+- `user_manual_2.10.0.md`: This user manual.
 - `Source Code (zip)`: A zip archive containing the contents of https://github.com/github/codeql-coding-standards
 - `Source Code (tar.gz)`: A GZip compressed tar archive containing the contents of https://github.com/github/codeql-coding-standards
-
+- `checksums.txt`: A text file containing sha256 checksums for the aforementioned artifacts. 
 ## Introduction
 
 ### Background
@@ -48,7 +47,7 @@ The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying
 
 | Standard                                                                                                             | Version | Total rules | Total supportable rules | Status            |
 | -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented       |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented       |
 | [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented       |
 | [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 99                      | Under development |
 | [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 172         | 169                     | Under development |

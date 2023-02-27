@@ -16,7 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.Operator
+import cpp
 
 /*
  * This query performs a simple syntactic check to ensure that the return value of the function is
@@ -39,8 +40,11 @@ where
   // so the rule does not require the use of the return value
   not f instanceof Operator and
   // Exclude cases where the function call is generated within a macro, as the user of the macro is
-  // not necessarily able to address thoes results
+  // not necessarily able to address those results
   not fc.isAffectedByMacro() and
-  // Rule allows disabling this rule where a static_cast<void> is applied
-  not fc.getExplicitlyConverted().(StaticCast).getActualType() instanceof VoidType
+  // Rule allows disabling this rule where a static_cast<void> or a C-style cast to void is applied
+  not exists(Cast cast | cast instanceof StaticCast or cast instanceof CStyleCast |
+    fc.getExplicitlyConverted() = cast and
+    cast.getActualType() instanceof VoidType
+  )
 select fc, "Return value from call to $@ is unused.", f, f.getName()

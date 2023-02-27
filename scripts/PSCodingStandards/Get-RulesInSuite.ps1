@@ -13,7 +13,7 @@ function Get-RulesInSuite {
 
     foreach ($p in Get-Packages -Language $Language) {
         Write-Host "Reading package: [$Language/$Suite/$($p.BaseName)]"        
-        $tmpQueries += Get-RulesInPackageAndSuite -Package $p -Suite $Suite 
+        $tmpQueries += Get-RulesInPackageAndSuite -Package $p -Suite $Suite -Language $Language
     }
 
     return $tmpQueries
