@@ -1,7 +1,8 @@
 name: 🤖 Run Matrix Check 
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [synchronize,opened]
     branches:
       - "**"
   workflow_dispatch:
@@ -11,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Test Variables
+        shell: pwsh
+        run: |
+          Write-Host "Actor is: ${{github.actor}}"
+    
+    
       - name: Dispatch Matrix Testing Job
         uses: peter-evans/repository-dispatch@v2
         with:
