@@ -13,6 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Test Variables
+        shell: pwsh
+        run: |          
+          Write-Host "Running as: ${{github.actor}}"    
+
+          $actor = "${{github.actor}}"
+
+          $acl = @("jsinglet","mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine") 
+
+          if(-not ($actor -in $acl)){
+            throw "Refusing to run workflow for user not in acl."
+          }
+
       - name: Dispatch Performance Testing Job
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') }}
         uses: peter-evans/repository-dispatch@v2
@@ -20,7 +33,7 @@ jobs:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
           repository: github/codeql-coding-standards-release-engineering
           event-type: performance-test
-          client-payload: '{"pr": "${{ github.event.number  }}"}'
+          client-payload: '{"pr": "${{ github.event.issue.number  }}"}'
 
 
       - uses: actions/github-script@v6
