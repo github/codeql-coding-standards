@@ -32,4 +32,4 @@ where
   [typeFrom, typeTo] instanceof MisraNonIntegerArithmeticType and
   [typeFrom, typeTo] instanceof PointerToObjectType
 select cast,
-  "Cast performed between a pointer to void type and a non-integer arithmetic type."
+  "Cast performed between a pointer to object type and a non-integer arithmetic type."
