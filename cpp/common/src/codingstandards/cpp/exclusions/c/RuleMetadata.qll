@@ -14,6 +14,7 @@ import Contracts2
 import Contracts3
 import Contracts4
 import Contracts5
+import Contracts6
 import DeadCode
 import Declarations1
 import Declarations2
@@ -22,6 +23,7 @@ import Declarations4
 import Declarations5
 import Declarations6
 import Declarations7
+import Declarations8
 import Expressions
 import IO1
 import IO2
@@ -61,6 +63,7 @@ newtype TCQuery =
   TContracts3PackageQuery(Contracts3Query q) or
   TContracts4PackageQuery(Contracts4Query q) or
   TContracts5PackageQuery(Contracts5Query q) or
+  TContracts6PackageQuery(Contracts6Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
@@ -69,6 +72,7 @@ newtype TCQuery =
   TDeclarations5PackageQuery(Declarations5Query q) or
   TDeclarations6PackageQuery(Declarations6Query q) or
   TDeclarations7PackageQuery(Declarations7Query q) or
+  TDeclarations8PackageQuery(Declarations8Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
@@ -108,6 +112,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isContracts3QueryMetadata(query, queryId, ruleId, category) or
   isContracts4QueryMetadata(query, queryId, ruleId, category) or
   isContracts5QueryMetadata(query, queryId, ruleId, category) or
+  isContracts6QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
@@ -116,6 +121,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations5QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations8QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or

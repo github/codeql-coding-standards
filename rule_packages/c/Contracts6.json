@@ -1,0 +1,60 @@
+{
+  "CERT-C": {
+    "EXP40-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not modify constant objects. This may result in undefined behavior.",
+          "kind": "path-problem",
+          "name": "Do not modify constant objects",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotModifyConstantObjects",
+          "tags": ["correctness"],
+          "implementation_scope": {
+            "description": "The implementation does not consider pointer aliasing via multiple indirection."
+          }
+        }
+      ],
+      "title": "Do not modify constant objects"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-17-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The function argument corresponding to an array parameter shall have an appropriate number of elements.",
+          "kind": "problem",
+          "name": "An array founction argument shall have an appropriate number of elements",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ArrayFunctionArgumentNumberOfElements",
+          "tags": ["correctness"]
+        }
+      ],
+      "title": "The function argument corresponding to an array parameter shall have an appropriate number of elements"
+    },
+    "RULE-17-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value returned by a function having non-void return type shall be used or cast to void.",
+          "kind": "problem",
+          "name": "Return values should be used or cast to void",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ValueReturnedByAFunctionNotUsed",
+          "tags": ["correctness"]
+        }
+      ],
+      "title": "The value returned by a function having non-void return type shall be used or cast to void"
+    }
+  }
+}
