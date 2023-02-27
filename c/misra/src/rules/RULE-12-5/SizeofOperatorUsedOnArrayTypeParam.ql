@@ -13,7 +13,12 @@
 import cpp
 import codingstandards.c.misra
 
-from
+from SizeofExprOperator sizeof
 where
-  not isExcluded(x, TypesPackage::sizeofOperatorUsedOnArrayTypeParamQuery()) and
-select
+  not isExcluded(sizeof, TypesPackage::sizeofOperatorUsedOnArrayTypeParamQuery()) and
+  exists(Parameter param |
+    sizeof.getExprOperand().(VariableAccess).getTarget() = param and
+    param.getType() instanceof ArrayType
+  )
+select sizeof,
+  "The sizeof operator is called on an array-type parameter " + sizeof.getExprOperand() + "."
