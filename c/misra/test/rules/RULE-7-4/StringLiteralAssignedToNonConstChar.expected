@@ -1,1 +1,4 @@
-No expected results have yet been specified
+| char* function sample3 is returning a string literal. |
+| char* parameter of sample4 is passed a string literal. |
+| char* variable s3 is assigned a string literal.  |
+| char* variable s3 is declared with a string literal. |
