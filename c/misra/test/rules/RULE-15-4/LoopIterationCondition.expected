@@ -1,1 +1,2 @@
-No expected results have yet been specified
+| test.c:24:3:32:3 | for(...;...;...) ... | $@ statement contains more than one break or goto statement | test.c:24:3:32:3 | for(...;...;...) ... | Iteration |
+| test.c:38:3:45:3 | while (...) ... | $@ statement contains more than one break or goto statement | test.c:38:3:45:3 | while (...) ... | Iteration |

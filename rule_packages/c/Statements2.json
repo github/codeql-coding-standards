@@ -47,13 +47,16 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "More than one break or goto statement in iteration conditions may lead to readability and maintainability issues.",
           "kind": "problem",
           "name": "There should be no more than one break or goto statement used to terminate any iteration statement",
           "precision": "very-high",
           "severity": "error",
           "short_name": "LoopIterationCondition",
-          "tags": []
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
         }
       ],
       "title": "There should be no more than one break or goto statement used to terminate any iteration statement"
