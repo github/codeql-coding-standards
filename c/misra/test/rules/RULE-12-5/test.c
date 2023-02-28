@@ -24,5 +24,3 @@ void sample(int32_t nums[4], const char string[], int32_t x) {
       sizeof(
           local_string)); // COMPLIANT: `local_string` not a function parameter
 }
-
-int main() { return 0; }
