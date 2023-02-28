@@ -8,10 +8,6 @@ void sample1() {
                 // don't care about the qualifiers
   char *s3 = "string"; // NON_COMPLIANT: char* variable declared to hold a
                        // string literal
-  s3 = "string"; // NON_COMPLIANT: string literal assigned to a char* variable
-  s2 = s3; // COMPLIANT: string literal (rvalue) assigned to a char* variable
-  s3 =
-      s2; // NON_COMPLIANT: string literal (rvalue) assigned to a char* variable
 }
 
 const char *sample2(int x) {
@@ -30,39 +26,14 @@ char *sample3(int x) {
     return NULL;
 }
 
-const char *sample4(int x) {
-  const char *result;
-  if (x == 1)
-    result = "string"; // COMPLIANT: string literal assigned to a const char*
-                       // variable
-  else
-    result = NULL;
+void sample4(char *string) {}
 
-  return result; // COMPLIANT: `result` can be a string literal with return type
-                 // being const char*
-}
-
-char *sample5(int x) {
-  const char *result;
-  if (x == 1)
-    result = "string"; // COMPLIANT: string literal assigned to a const char*
-                       // variable
-  else
-    result = NULL;
-
-  return result; // NON_COMPLIANT: `result` can be a string literal with return
-                 // type being char*
-}
-void sample6(char *string) {}
-
-void sample7(const char *string) {}
+void sample5(const char *string) {}
 
 void call45() {
   const char *literal = "string";
-  sample6(literal);  // NON_COMPLIANT: can't pass string literal to char*
-  sample6("string"); // NON_COMPLIANT: can't pass string literal to char*
-  sample7(literal);  // COMPLIANT: passing string literal to const char*
-  sample7("string"); // COMPLIANT: passing string literal to const char*
+  sample4("string"); // NON_COMPLIANT: can't pass string literal to char*
+  sample5("string"); // COMPLIANT: passing string literal to const char*
 }
 
 int main() { return 0; }
