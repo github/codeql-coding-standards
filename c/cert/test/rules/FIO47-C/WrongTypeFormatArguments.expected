@@ -1,4 +1,4 @@
-| test.c:376:17:376:30 | v_intmax_t_ptr | This argument should be of type 'int *' but is of type 'signed long *' |
+| test.c:376:17:376:30 | v_intmax_t_ptr | This argument should be of type 'int *' but is of type 'long *' |
 | test.c:378:17:378:28 | v_size_t_ptr | This argument should be of type 'int *' but is of type 'unsigned long *' |
 | test.c:380:17:380:31 | v_ptrdiff_t_ptr | This argument should be of type 'int *' but is of type 'long *' |
 | test.c:417:17:417:26 | v_char_ptr | This argument should be of type 'int' but is of type 'char *' |
@@ -8,6 +8,7 @@
 | test.c:427:18:427:27 | v_char_ptr | This argument should be of type 'int' but is of type 'char *' |
 | test.c:428:17:428:26 | v_char_ptr | This argument should be of type 'long' but is of type 'char *' |
 | test.c:429:18:429:27 | v_char_ptr | This argument should be of type 'long long' but is of type 'char *' |
+| test.c:430:17:430:26 | v_char_ptr | This argument should be of type 'intmax_t' but is of type 'char *' |
 | test.c:431:17:431:26 | v_char_ptr | This argument should be of type 'ssize_t' but is of type 'char *' |
 | test.c:432:17:432:26 | v_char_ptr | This argument should be of type 'ptrdiff_t' but is of type 'char *' |
 | test.c:434:16:434:25 | v_char_ptr | This argument should be of type 'int' but is of type 'char *' |
@@ -15,6 +16,7 @@
 | test.c:436:18:436:27 | v_char_ptr | This argument should be of type 'int' but is of type 'char *' |
 | test.c:437:17:437:26 | v_char_ptr | This argument should be of type 'long' but is of type 'char *' |
 | test.c:438:18:438:27 | v_char_ptr | This argument should be of type 'long long' but is of type 'char *' |
+| test.c:439:17:439:26 | v_char_ptr | This argument should be of type 'intmax_t' but is of type 'char *' |
 | test.c:440:17:440:26 | v_char_ptr | This argument should be of type 'ssize_t' but is of type 'char *' |
 | test.c:441:17:441:26 | v_char_ptr | This argument should be of type 'ptrdiff_t' but is of type 'char *' |
 | test.c:443:16:443:25 | v_char_ptr | This argument should be of type 'unsigned int' but is of type 'char *' |
@@ -82,7 +84,6 @@
 | test.c:536:17:536:21 | v_int | This argument should be of type 'short *' but is of type 'int' |
 | test.c:537:18:537:22 | v_int | This argument should be of type 'char *' but is of type 'int' |
 | test.c:538:17:538:21 | v_int | This argument should be of type 'long *' but is of type 'int' |
-| test.c:538:17:538:21 | v_int | This argument should be of type 'signed long *' but is of type 'int' |
 | test.c:539:18:539:22 | v_int | This argument should be of type 'long long *' but is of type 'int' |
 | test.c:540:17:540:21 | v_int | This argument should be of type 'int *' but is of type 'int' |
 | test.c:541:17:541:21 | v_int | This argument should be of type 'int *' but is of type 'int' |
