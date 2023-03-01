@@ -1,3 +1,5 @@
-name: report-cpp-coding-standards
+name: codeql/report-cpp-coding-standards
 version: 2.14.0-dev
-libraryPathDependencies: codeql-cpp
+license: MIT
+dependencies:
+  codeql/cpp-all: 0.2.3

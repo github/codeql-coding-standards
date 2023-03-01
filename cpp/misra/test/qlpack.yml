@@ -1,4 +1,6 @@
-name: misra-cpp-coding-standards-tests
+name: codeql/misra-cpp-coding-standards-tests
 version: 2.14.0-dev
-libraryPathDependencies: misra-cpp-coding-standards
 extractor: cpp
+license: MIT
+dependencies:
+  codeql/misra-cpp-coding-standards: '*'

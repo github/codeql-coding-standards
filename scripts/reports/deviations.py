@@ -42,7 +42,7 @@ class DeviationsSummary:
             # Get a list of deviations
             print("Running the deviation query...")
             self.codeql_summary.codeql.run_queries(
-                database_path, *query_paths,  search_path=str(repo_root), no_rerun=True)
+                database_path, *query_paths, no_rerun=True)
 
             print("Decoding deviation query results")
 
