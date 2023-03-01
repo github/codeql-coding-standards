@@ -30,11 +30,11 @@ public:
     g1();                         // COMPLIANT, identifier not found in B
   }
   void m3(int m) {
-    m = 0;            // COMPLIANT, hides member
+    m = 0; // COMPLIANT, hides member
   }
   void m4() {
     int m = 0;
-    m = 0;            // COMPLIANT, hides member
+    m = 0; // COMPLIANT, hides member
   }
 };
 
@@ -59,20 +59,21 @@ public:
 class C : D {
 public:
   void m1() {
-    m = 0;      // COMPLIANT - does not apply to non-class templates
-    g();        // COMPLIANT - does not apply to non-class templates
+    m = 0;       // COMPLIANT - does not apply to non-class templates
+    g();         // COMPLIANT - does not apply to non-class templates
     sg();        // COMPLIANT - does not apply to non-class templates
-    TYPE t = 0; // COMPLIANT - does not apply to non-class templates
+    TYPE t1 = 0; // COMPLIANT - does not apply to non-class templates
     // void (*p)() = &g; // NON_COMPILABLE
   }
 };
 
-template <typename t> class E : D {
+template <typename T> class E : D {
 public:
   void m1() {
-    m = 0;            // COMPLIANT - does not apply to non dependent base types
-    g();              // COMPLIANT - does not apply to non dependent base types
-    TYPE t = 0;       // COMPLIANT - does not apply to non dependent base types
-    void (*p)() = &g; // COMPLIANT - does not apply to non dependent base types
+    m = 0;       // COMPLIANT - does not apply to non dependent base types
+    g();         // COMPLIANT - does not apply to non dependent base types
+    TYPE t1 = 0; // COMPLIANT - does not apply to non dependent base types
+    void (D::*p)() =
+        &g; // COMPLIANT - does not apply to non dependent base types
   }
 };
