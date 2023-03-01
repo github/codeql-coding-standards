@@ -73,7 +73,6 @@ public:
     m = 0;       // COMPLIANT - does not apply to non dependent base types
     g();         // COMPLIANT - does not apply to non dependent base types
     TYPE t1 = 0; // COMPLIANT - does not apply to non dependent base types
-    void (D::*p)() =
-        &g; // COMPLIANT - does not apply to non dependent base types
+    // void (*p)() = &g; // NON_COMPILABLE - clang does not accept this
   }
 };
