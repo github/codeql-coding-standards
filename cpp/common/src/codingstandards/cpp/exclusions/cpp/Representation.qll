@@ -13,14 +13,15 @@ newtype RepresentationQuery =
   TMemcmpUsedToAccessObjectRepresentationQuery() or
   TMemcpyUsedToAccessObjectRepresentationQuery()
 
-predicate isRepresentationQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isRepresentationQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols` query
     RepresentationPackage::bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery() and
   queryId =
     // `@id` for the `bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols` query
     "cpp/autosar/bit-fields-shall-be-used-only-when-interfacing-to-hardware-or-conforming-to-communication-protocols" and
-  ruleId = "A9-6-2"
+  ruleId = "A9-6-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `auditPossibleHardwareInterfaceDueToBitFieldUsageInDataTypeDefinition` query
@@ -28,7 +29,8 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `auditPossibleHardwareInterfaceDueToBitFieldUsageInDataTypeDefinition` query
     "cpp/autosar/audit-possible-hardware-interface-due-to-bit-field-usage-in-data-type-definition" and
-  ruleId = "A9-6-2"
+  ruleId = "A9-6-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `objectAssignedToAnOverlappingObject` query
@@ -36,7 +38,8 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `objectAssignedToAnOverlappingObject` query
     "cpp/autosar/object-assigned-to-an-overlapping-object" and
-  ruleId = "M0-2-1"
+  ruleId = "M0-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `underlyingBitRepresentationsOfFloatingPointValuesUsed` query
@@ -44,7 +47,8 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `underlyingBitRepresentationsOfFloatingPointValuesUsed` query
     "cpp/autosar/underlying-bit-representations-of-floating-point-values-used" and
-  ruleId = "M3-9-3"
+  ruleId = "M3-9-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `namedBitFieldsWithSignedIntegerTypeShallHaveALengthOfMoreThanOneBit` query
@@ -52,7 +56,8 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `namedBitFieldsWithSignedIntegerTypeShallHaveALengthOfMoreThanOneBit` query
     "cpp/autosar/named-bit-fields-with-signed-integer-type-shall-have-a-length-of-more-than-one-bit" and
-  ruleId = "M9-6-4"
+  ruleId = "M9-6-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `memsetUsedToAccessObjectRepresentation` query
@@ -60,7 +65,8 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `memsetUsedToAccessObjectRepresentation` query
     "cpp/cert/memset-used-to-access-object-representation" and
-  ruleId = "EXP62-CPP"
+  ruleId = "EXP62-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `memcmpUsedToAccessObjectRepresentation` query
@@ -68,7 +74,8 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `memcmpUsedToAccessObjectRepresentation` query
     "cpp/cert/memcmp-used-to-access-object-representation" and
-  ruleId = "EXP62-CPP"
+  ruleId = "EXP62-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `memcpyUsedToAccessObjectRepresentation` query
@@ -76,7 +83,8 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `memcpyUsedToAccessObjectRepresentation` query
     "cpp/cert/memcpy-used-to-access-object-representation" and
-  ruleId = "EXP62-CPP"
+  ruleId = "EXP62-CPP" and
+  category = "rule"
 }
 
 module RepresentationPackage {

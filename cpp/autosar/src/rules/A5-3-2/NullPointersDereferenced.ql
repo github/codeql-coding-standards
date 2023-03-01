@@ -14,11 +14,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.lifetimes.lifetimeprofile.LifetimeProfile
+import codingstandards.cpp.rules.dereferenceofnullpointer.DereferenceOfNullPointer
 
-from NullDereference nd, NullReason nr, string message, Element explanation, string explanationDesc
-where
-  not isExcluded(nd, NullPackage::nullPointersDereferencedQuery()) and
-  nr = nd.getAnInvalidReason() and
-  nr.hasMessage(message, explanation, explanationDesc)
-select nd, "Null may be dereferenced here " + message, explanation, explanationDesc
+class NullPointersDereferencedQuery extends DereferenceOfNullPointerSharedQuery {
+  NullPointersDereferencedQuery() {
+    this = NullPackage::nullPointersDereferencedQuery()
+  }
+}

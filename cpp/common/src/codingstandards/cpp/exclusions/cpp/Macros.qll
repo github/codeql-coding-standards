@@ -17,14 +17,15 @@ newtype MacrosQuery =
   TMoreThanOneOccurrenceHashOperatorInMacroDefinitionQuery() or
   THashOperatorsShouldNotBeUsedQuery()
 
-predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `preProcessorShallOnlyBeUsedForCertainDirectivesPatterns` query
     MacrosPackage::preProcessorShallOnlyBeUsedForCertainDirectivesPatternsQuery() and
   queryId =
     // `@id` for the `preProcessorShallOnlyBeUsedForCertainDirectivesPatterns` query
     "cpp/autosar/pre-processor-shall-only-be-used-for-certain-directives-patterns" and
-  ruleId = "A16-0-1"
+  ruleId = "A16-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `charactersOccurInHeaderFileNameOrInIncludeDirective` query
@@ -32,7 +33,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `charactersOccurInHeaderFileNameOrInIncludeDirective` query
     "cpp/autosar/characters-occur-in-header-file-name-or-in-include-directive" and
-  ruleId = "A16-2-1"
+  ruleId = "A16-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `errorDirectiveUsed` query
@@ -40,7 +42,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `errorDirectiveUsed` query
     "cpp/autosar/error-directive-used" and
-  ruleId = "A16-6-1"
+  ruleId = "A16-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `pragmaDirectiveUsed` query
@@ -48,7 +51,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pragmaDirectiveUsed` query
     "cpp/autosar/pragma-directive-used" and
-  ruleId = "A16-7-1"
+  ruleId = "A16-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `includeDirectivesNotPrecededByDirectivesOrComments` query
@@ -56,7 +60,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `includeDirectivesNotPrecededByDirectivesOrComments` query
     "cpp/autosar/include-directives-not-preceded-by-directives-or-comments" and
-  ruleId = "M16-0-1"
+  ruleId = "M16-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `macrosShallOnlyBeDefinedOrUndefdInTheGlobalNamespace` query
@@ -64,7 +69,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `macrosShallOnlyBeDefinedOrUndefdInTheGlobalNamespace` query
     "cpp/autosar/macros-shall-only-be-defined-or-undefd-in-the-global-namespace" and
-  ruleId = "M16-0-2"
+  ruleId = "M16-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionLikeMacroArgsContainHashToken` query
@@ -72,7 +78,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionLikeMacroArgsContainHashToken` query
     "cpp/autosar/function-like-macro-args-contain-hash-token" and
-  ruleId = "M16-0-5"
+  ruleId = "M16-0-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionLikeMacroParameterNotEnclosedInParentheses` query
@@ -80,7 +87,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `functionLikeMacroParameterNotEnclosedInParentheses` query
     "cpp/autosar/function-like-macro-parameter-not-enclosed-in-parentheses" and
-  ruleId = "M16-0-6"
+  ruleId = "M16-0-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `undefinedMacroIdentifiersUsedIn` query
@@ -88,7 +96,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `undefinedMacroIdentifiersUsedIn` query
     "cpp/autosar/undefined-macro-identifiers-used-in" and
-  ruleId = "M16-0-7"
+  ruleId = "M16-0-7" and
+  category = "required"
   or
   query =
     // `Query` instance for the `definedPreProcessorOperatorInOneOfTheTwoStandardForms` query
@@ -96,7 +105,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `definedPreProcessorOperatorInOneOfTheTwoStandardForms` query
     "cpp/autosar/defined-pre-processor-operator-in-one-of-the-two-standard-forms" and
-  ruleId = "M16-1-1"
+  ruleId = "M16-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `moreThanOneOccurrenceHashOperatorInMacroDefinition` query
@@ -104,7 +114,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `moreThanOneOccurrenceHashOperatorInMacroDefinition` query
     "cpp/autosar/more-than-one-occurrence-hash-operator-in-macro-definition" and
-  ruleId = "M16-3-1"
+  ruleId = "M16-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `hashOperatorsShouldNotBeUsed` query
@@ -112,7 +123,8 @@ predicate isMacrosQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `hashOperatorsShouldNotBeUsed` query
     "cpp/autosar/hash-operators-should-not-be-used" and
-  ruleId = "M16-3-2"
+  ruleId = "M16-3-2" and
+  category = "advisory"
 }
 
 module MacrosPackage {

@@ -1,0 +1,4 @@
+| test1.c:2:12:2:13 | g1 | Identifier conflicts with identifier $@ with internal linkage. | test.c:1:12:1:13 | g1 | g1 |
+| test1.c:4:13:4:13 | f | Identifier conflicts with identifier $@ with internal linkage. | test.c:2:13:2:13 | f | f |
+| test1.c:5:7:5:7 | g | Identifier conflicts with identifier $@ with internal linkage. | test1.c:1:12:1:12 | g | g |
+| test1.c:10:7:10:7 | g | Identifier conflicts with identifier $@ with internal linkage. | test1.c:1:12:1:12 | g | g |

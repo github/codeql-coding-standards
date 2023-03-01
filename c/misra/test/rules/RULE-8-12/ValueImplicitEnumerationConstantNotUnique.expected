@@ -1,0 +1,1 @@
+| test.c:3:19:3:20 | c4 | Nonunique value of enum constant compared to $@ | test.c:3:23:3:24 | c5 | c5 |

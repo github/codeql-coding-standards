@@ -1,0 +1,146 @@
+{
+  "MISRA-C-2012": {
+    "RULE-17-3": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Omission of type specifiers may not be supported by some compilers. Additionally implicit typing can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "A function shall not be declared implicitly",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionDeclaredImplicitly",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A function shall not be declared implicitly"
+    },
+    "RULE-18-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The use of flexible array members can lead to unexpected program behaviour.",
+          "kind": "problem",
+          "name": "Flexible array members shall not be declared",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FlexibleArrayMembersDeclared",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Flexible array members shall not be declared"
+    },
+    "RULE-5-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using non-unique identifiers can lead to developer confusion.",
+          "kind": "problem",
+          "name": "Identifiers that define objects or functions with external linkage shall be unique",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifiersWithExternalLinkageNotUnique",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Identifiers that define objects or functions with external linkage shall be unique"
+    },
+    "RULE-5-9": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using non-unique identifiers can lead to developer confusion.",
+          "kind": "problem",
+          "name": "Identifiers that define objects or functions with internal linkage should be unique",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifiersWithInternalLinkageNotUnique",
+          "tags": [
+            "maintainability",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This rule does not explicitly check for the exception of inline functions in header files across multiple translation units as the CodeQL database already represents these as the same entity."
+          }
+        }
+      ],
+      "title": "Identifiers that define objects or functions with internal linkage should be unique"
+    },
+    "RULE-8-10": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declaring an inline function with external linkage can lead to undefined or incorrect program behaviour.",
+          "kind": "problem",
+          "name": "An inline function shall be declared with the static storage class",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InlineFunctionNotDeclaredStaticStorage",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An inline function shall be declared with the static storage class"
+    },
+    "RULE-8-11": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Declaring an array without an explicit size disallows the compiler and static checkers from doing array bounds analysis and can lead to less readable, unsafe code.",
+          "kind": "problem",
+          "name": "When an array with external linkage is declared, its size should be explicitly specified",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ArrayExternalLinkageSizeExplicitlySpecified",
+          "tags": [
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "When an array with external linkage is declared, its size should be explicitly specified"
+    },
+    "RULE-8-7": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Declarations with external linkage that are referenced in only one translation unit can indicate an intention to only have those identifiers accessible in that translation unit and accidental future accesses in other translation units can lead to confusing program behaviour.",
+          "kind": "problem",
+          "name": "Functions and objects should not be defined with external linkage if they are referenced in only one",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ShouldNotBeDefinedWithExternalLinkage",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Functions and objects should not be defined with external linkage if they are referenced in only one translation unit"
+    }
+  }
+}

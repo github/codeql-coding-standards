@@ -1,0 +1,3 @@
+| test.cpp:8:22:8:22 | x | Unused parameter 'x' for function $@. | test.cpp:8:6:8:16 | test_unused | test_unused |
+| test.cpp:16:14:16:14 | x | Unused parameter 'x' for function $@. | test.cpp:16:8:16:8 | b | A::b |
+| test.cpp:35:14:35:14 | y | Unused parameter 'y' for function $@. | test.cpp:34:9:34:9 | operator() | lambda expression |

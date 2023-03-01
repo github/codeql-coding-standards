@@ -1,3 +1,5 @@
+// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C TEST CASE AND
+// CHANGES SHOULD BE REFLECTED THERE AS WELL.
 // COMPLIANT
 void test_assembly_is_documented() {
   // This comment serves as documentation

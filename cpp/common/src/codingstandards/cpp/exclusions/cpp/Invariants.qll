@@ -11,14 +11,15 @@ newtype InvariantsQuery =
   THonorTerminationReplacementHandlerRequirementsQuery() or
   THonorNewReplacementHandlerRequirementsQuery()
 
-predicate isInvariantsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isInvariantsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `memoryManagementFunctionInvariants` query
     InvariantsPackage::memoryManagementFunctionInvariantsQuery() and
   queryId =
     // `@id` for the `memoryManagementFunctionInvariants` query
     "cpp/autosar/memory-management-function-invariants" and
-  ruleId = "A18-5-5"
+  ruleId = "A18-5-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `orderingPredicatesInvariants` query
@@ -26,7 +27,8 @@ predicate isInvariantsQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `orderingPredicatesInvariants` query
     "cpp/autosar/ordering-predicates-invariants" and
-  ruleId = "A25-4-1"
+  ruleId = "A25-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `provideAValidOrderingPredicate` query
@@ -34,7 +36,8 @@ predicate isInvariantsQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `provideAValidOrderingPredicate` query
     "cpp/cert/provide-a-valid-ordering-predicate" and
-  ruleId = "CTR57-CPP"
+  ruleId = "CTR57-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `signalHandlerMustBeAPlainOldFunction` query
@@ -42,7 +45,8 @@ predicate isInvariantsQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `signalHandlerMustBeAPlainOldFunction` query
     "cpp/cert/signal-handler-must-be-a-plain-old-function" and
-  ruleId = "MSC54-CPP"
+  ruleId = "MSC54-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `honorTerminationReplacementHandlerRequirements` query
@@ -50,7 +54,8 @@ predicate isInvariantsQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `honorTerminationReplacementHandlerRequirements` query
     "cpp/cert/honor-termination-replacement-handler-requirements" and
-  ruleId = "OOP56-CPP"
+  ruleId = "OOP56-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `honorNewReplacementHandlerRequirements` query
@@ -58,7 +63,8 @@ predicate isInvariantsQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `honorNewReplacementHandlerRequirements` query
     "cpp/cert/honor-new-replacement-handler-requirements" and
-  ruleId = "OOP56-CPP"
+  ruleId = "OOP56-CPP" and
+  category = "rule"
 }
 
 module InvariantsPackage {

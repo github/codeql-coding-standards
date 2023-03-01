@@ -11,14 +11,15 @@ newtype IO3Query =
   TPointerToAFileObjectDereferencedQuery() or
   TEofShallBeComparedWithUnmodifiedReturnValuesQuery()
 
-predicate isIO3QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isIO3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `doNotPerformFileOperationsOnDevices` query
     IO3Package::doNotPerformFileOperationsOnDevicesQuery() and
   queryId =
     // `@id` for the `doNotPerformFileOperationsOnDevices` query
     "c/cert/do-not-perform-file-operations-on-devices" and
-  ruleId = "FIO32-C"
+  ruleId = "FIO32-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `successfulFgetsOrFgetwsMayReturnAnEmptyString` query
@@ -26,7 +27,8 @@ predicate isIO3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `successfulFgetsOrFgetwsMayReturnAnEmptyString` query
     "c/cert/successful-fgets-or-fgetws-may-return-an-empty-string" and
-  ruleId = "FIO37-C"
+  ruleId = "FIO37-C" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `fileOpenForReadAndWriteOnDifferentStreams` query
@@ -34,7 +36,8 @@ predicate isIO3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `fileOpenForReadAndWriteOnDifferentStreams` query
     "c/misra/file-open-for-read-and-write-on-different-streams" and
-  ruleId = "RULE-22-3"
+  ruleId = "RULE-22-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `attemptToWriteToAReadOnlyStream` query
@@ -42,7 +45,8 @@ predicate isIO3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `attemptToWriteToAReadOnlyStream` query
     "c/misra/attempt-to-write-to-a-read-only-stream" and
-  ruleId = "RULE-22-4"
+  ruleId = "RULE-22-4" and
+  category = "mandatory"
   or
   query =
     // `Query` instance for the `pointerToAFileObjectDereferenced` query
@@ -50,7 +54,8 @@ predicate isIO3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `pointerToAFileObjectDereferenced` query
     "c/misra/pointer-to-a-file-object-dereferenced" and
-  ruleId = "RULE-22-5"
+  ruleId = "RULE-22-5" and
+  category = "mandatory"
   or
   query =
     // `Query` instance for the `eofShallBeComparedWithUnmodifiedReturnValues` query
@@ -58,7 +63,8 @@ predicate isIO3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `eofShallBeComparedWithUnmodifiedReturnValues` query
     "c/misra/eof-shall-be-compared-with-unmodified-return-values" and
-  ruleId = "RULE-22-7"
+  ruleId = "RULE-22-7" and
+  category = "required"
 }
 
 module IO3Package {

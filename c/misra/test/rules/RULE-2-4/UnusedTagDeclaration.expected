@@ -1,0 +1,7 @@
+| test.c:4:8:4:9 | S2 | struct S2 has an unused tag. |
+| test.c:7:16:7:17 | S3 | struct S3 has an unused tag. |
+| test.c:17:6:17:7 | E1 | struct E1 has an unused tag. |
+| test.c:31:10:31:11 | S7 | struct S7 has an unused tag. |
+| test.c:50:8:50:10 | S10 | struct S10 has an unused tag. |
+| test.c:66:3:66:14 | S13 | struct S13 has an unused tag. |
+| test.c:79:8:79:10 | s14 | struct s14 has an unused tag. |

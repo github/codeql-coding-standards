@@ -1,0 +1,1 @@
+| test.c:8:5:8:68 | iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyB | Identifer iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyB is nondistinct in characters at or over 63 limit, compared to $@ | test.c:2:5:2:68 | iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyA | iltiqzxgfqsgigwfuyntzghvzltueatcxqnqofnnvjyszmcsylyohvqaosjbqyyA |

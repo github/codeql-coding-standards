@@ -12,14 +12,15 @@ newtype MoveForwardQuery =
   TForwardForwardingReferencesQuery() or
   TDoNotRelyOnTheValueOfAMovedFromObjectQuery()
 
-predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `movedFromObjectReadAccessed` query
     MoveForwardPackage::movedFromObjectReadAccessedQuery() and
   queryId =
     // `@id` for the `movedFromObjectReadAccessed` query
     "cpp/autosar/moved-from-object-read-accessed" and
-  ruleId = "A12-8-3"
+  ruleId = "A12-8-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `forwardingValuesToOtherFunctions` query
@@ -27,7 +28,8 @@ predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `forwardingValuesToOtherFunctions` query
     "cpp/autosar/forwarding-values-to-other-functions" and
-  ruleId = "A18-9-2"
+  ruleId = "A18-9-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `moveUsedOnConstObjects` query
@@ -35,7 +37,8 @@ predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `moveUsedOnConstObjects` query
     "cpp/autosar/move-used-on-const-objects" and
-  ruleId = "A18-9-3"
+  ruleId = "A18-9-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `argumentToForwardSubsequentlyUsed` query
@@ -43,7 +46,8 @@ predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `argumentToForwardSubsequentlyUsed` query
     "cpp/autosar/argument-to-forward-subsequently-used" and
-  ruleId = "A18-9-4"
+  ruleId = "A18-9-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `moveFromConsumeParametersRvalRef` query
@@ -51,7 +55,8 @@ predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `moveFromConsumeParametersRvalRef` query
     "cpp/autosar/move-from-consume-parameters-rval-ref" and
-  ruleId = "A8-4-5"
+  ruleId = "A8-4-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `forwardForwardingReferences` query
@@ -59,7 +64,8 @@ predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `forwardForwardingReferences` query
     "cpp/autosar/forward-forwarding-references" and
-  ruleId = "A8-4-6"
+  ruleId = "A8-4-6" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotRelyOnTheValueOfAMovedFromObject` query
@@ -67,7 +73,8 @@ predicate isMoveForwardQueryMetadata(Query query, string queryId, string ruleId)
   queryId =
     // `@id` for the `doNotRelyOnTheValueOfAMovedFromObject` query
     "cpp/cert/do-not-rely-on-the-value-of-a-moved-from-object" and
-  ruleId = "EXP63-CPP"
+  ruleId = "EXP63-CPP" and
+  category = "rule"
 }
 
 module MoveForwardPackage {

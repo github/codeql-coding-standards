@@ -15,14 +15,15 @@ newtype TypeRangesQuery =
   TDetectErrorsWhenConvertingAStringToANumberQuery() or
   TDoNotCastToAnOutOfRangeEnumerationValueQuery()
 
-predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `uncheckedRangeDomainPoleErrors` query
     TypeRangesPackage::uncheckedRangeDomainPoleErrorsQuery() and
   queryId =
     // `@id` for the `uncheckedRangeDomainPoleErrors` query
     "cpp/autosar/unchecked-range-domain-pole-errors" and
-  ruleId = "A0-4-4"
+  ruleId = "A0-4-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `stringNumberConversionMissingErrorCheck` query
@@ -30,7 +31,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `stringNumberConversionMissingErrorCheck` query
     "cpp/autosar/string-number-conversion-missing-error-check" and
-  ruleId = "A18-0-2"
+  ruleId = "A18-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `useOfUnsafeCStringToNumberConversion` query
@@ -38,7 +40,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `useOfUnsafeCStringToNumberConversion` query
     "cpp/autosar/use-of-unsafe-c-string-to-number-conversion" and
-  ruleId = "A18-0-2"
+  ruleId = "A18-0-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `signedValPassedToChar` query
@@ -46,7 +49,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `signedValPassedToChar` query
     "cpp/autosar/signed-val-passed-to-char" and
-  ruleId = "A21-8-1"
+  ruleId = "A21-8-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `inputsFromIndependentComponentsNotValidated` query
@@ -54,7 +58,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `inputsFromIndependentComponentsNotValidated` query
     "cpp/autosar/inputs-from-independent-components-not-validated" and
-  ruleId = "A27-0-1"
+  ruleId = "A27-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonEnumeratorEnumValue` query
@@ -62,7 +67,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `nonEnumeratorEnumValue` query
     "cpp/autosar/non-enumerator-enum-value" and
-  ruleId = "A7-2-1"
+  ruleId = "A7-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `useOfEnumForRelatedConstants` query
@@ -70,7 +76,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `useOfEnumForRelatedConstants` query
     "cpp/autosar/use-of-enum-for-related-constants" and
-  ruleId = "A7-2-5"
+  ruleId = "A7-2-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `integerUsedForEnum` query
@@ -78,7 +85,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `integerUsedForEnum` query
     "cpp/autosar/integer-used-for-enum" and
-  ruleId = "A7-2-5"
+  ruleId = "A7-2-5" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `detectErrorsWhenConvertingAStringToANumber` query
@@ -86,7 +94,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `detectErrorsWhenConvertingAStringToANumber` query
     "cpp/cert/detect-errors-when-converting-a-string-to-a-number" and
-  ruleId = "ERR62-CPP"
+  ruleId = "ERR62-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotCastToAnOutOfRangeEnumerationValue` query
@@ -94,7 +103,8 @@ predicate isTypeRangesQueryMetadata(Query query, string queryId, string ruleId) 
   queryId =
     // `@id` for the `doNotCastToAnOutOfRangeEnumerationValue` query
     "cpp/cert/do-not-cast-to-an-out-of-range-enumeration-value" and
-  ruleId = "INT50-CPP"
+  ruleId = "INT50-CPP" and
+  category = "rule"
 }
 
 module TypeRangesPackage {

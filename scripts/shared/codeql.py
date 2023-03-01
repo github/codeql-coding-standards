@@ -20,7 +20,7 @@ class CodeQLError(Exception):
 
 
 class CodeQL():
-    def __init__(self) -> 'CodeQL':
+    def __init__(self) -> None:
         codeql_result = subprocess.run(
             ["codeql", "version", "--format=json"], capture_output=True)
         if not codeql_result.returncode == 0:
@@ -36,7 +36,7 @@ class CodeQL():
             raise CodeQLError(
                 f"Failed to retrieve codeql version information with error: {e.msg}")
 
-    def __build_command_options(self, **options: Dict[str, str]) -> List[str]:
+    def __build_command_options(self, **options: str) -> List[str]:
         command_options = []
         for key, value in options.items():
             command_options.append(f"--{key.replace('_', '-')}")
@@ -59,7 +59,7 @@ class CodeQL():
             raise CodeQLError(
                 f"Unable to cleanup database {database_path}", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
 
-    def run_queries(self, database_path: Path, *queries: List[Path], **options: Dict[str, str]) -> None:
+    def run_queries(self, database_path: Path, *queries: Path, **options: str) -> None:
         database_path = database_path.resolve()
 
         command_options = self.__build_command_options(**options)
@@ -91,7 +91,7 @@ class CodeQL():
         with qlpack_path.open() as f:
             return yaml.safe_load(f)
 
-    def decode_results(self, database_path: Path, query_path: Path, **options: Dict[str, str]) -> Iterator:
+    def decode_results(self, database_path: Path, query_path: Path, **options: str) -> List:
         qlpack_path = self.resolve_qlpack_path(query_path)
         qlpack = self.get_qlpack(qlpack_path)
         relative_query_path = query_path.relative_to(qlpack_path.parent)
@@ -116,9 +116,9 @@ class CodeQL():
                 raise CodeQLError(
                     f"Could not read the output of the query {query_path}", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
             with open(temp_file) as tmp:
-                return csv.reader(tmp)
+                return list(csv.reader(tmp))
 
-    def generate_query_help(self, query_help_path: Path, output: Path, format : str = "markdown", **options: Dict[str, str]) -> None:
+    def generate_query_help(self, query_help_path: Path, output: Path, format : str = "markdown", **options: str) -> None:
         command = ['codeql', 'generate', 'query-help']
         options['output'] = str(output)
         options['format'] = format
@@ -131,3 +131,26 @@ class CodeQL():
         if not result.returncode == 0:
                 raise CodeQLError(
                     f"Failed to generate query help file {query_help_path}", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
+
+    def format(self, path: Path) -> None:
+        command = ['codeql', 'query', 'format', '--in-place', str(path)]
+
+        result = subprocess.run(command, capture_output=True)
+        if not result.returncode == 0:
+                raise CodeQLError(
+                    f"Failed to format file {path}", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)
+
+    def create_database(self, src_root: Path, language: str, database: Path, *build_commands : str, **options: str) -> None:
+        command = ['codeql', 'database', 'create']
+        options['source-root'] = str(src_root)
+        options['language'] = language
+
+        command_options = self.__build_command_options(**options)
+        command.extend(command_options)
+        command.extend([f'--command={build_command}' for build_command in build_commands])
+        command.append(str(database))
+
+        result = subprocess.run(command, capture_output=True)
+        if not result.returncode == 0:
+                raise CodeQLError(
+                    f"Failed to build database {database} from {src_root} with language {language} and commands [{','.join(build_commands)}]", stdout=result.stdout, stderr=result.stderr, returncode=result.returncode)

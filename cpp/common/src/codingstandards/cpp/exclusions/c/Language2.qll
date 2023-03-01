@@ -7,14 +7,15 @@ newtype Language2Query =
   TUsageOfAssemblyLanguageShouldBeDocumentedQuery() or
   TEmergentLanguageFeaturesUsedQuery()
 
-predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `usageOfAssemblyLanguageShouldBeDocumented` query
     Language2Package::usageOfAssemblyLanguageShouldBeDocumentedQuery() and
   queryId =
     // `@id` for the `usageOfAssemblyLanguageShouldBeDocumented` query
     "c/misra/usage-of-assembly-language-should-be-documented" and
-  ruleId = "DIR-4-2"
+  ruleId = "DIR-4-2" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `emergentLanguageFeaturesUsed` query
@@ -22,7 +23,8 @@ predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `emergentLanguageFeaturesUsed` query
     "c/misra/emergent-language-features-used" and
-  ruleId = "RULE-1-4"
+  ruleId = "RULE-1-4" and
+  category = "required"
 }
 
 module Language2Package {

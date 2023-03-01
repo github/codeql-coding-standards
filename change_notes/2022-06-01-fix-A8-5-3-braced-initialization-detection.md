@@ -1,3 +1,0 @@
-- `A8-5-3` - `AvoidAutoWithBracedInitialization.ql`:
-  - Fix regression where `auto x{0}` was no longer detected as a braced initialization with type `auto` with the latest CodeQL versions.
-  - No longer falsely detect cases where braced initialization was not used, but where the inferred type would be `std::initializer_list`.

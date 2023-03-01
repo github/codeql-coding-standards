@@ -22,14 +22,15 @@ newtype ScopeQuery =
   TUnnamedNamespaceInHeaderFileQuery() or
   TOneDefinitionRuleNotObeyedQuery()
 
-predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isScopeQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `nonStandardEntitiesInStandardNamespaces` query
     ScopePackage::nonStandardEntitiesInStandardNamespacesQuery() and
   queryId =
     // `@id` for the `nonStandardEntitiesInStandardNamespaces` query
     "cpp/autosar/non-standard-entities-in-standard-namespaces" and
-  ruleId = "A17-6-1"
+  ruleId = "A17-6-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `externalLinkageArrayWithoutExplicitSize` query
@@ -37,7 +38,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `externalLinkageArrayWithoutExplicitSize` query
     "cpp/autosar/external-linkage-array-without-explicit-size" and
-  ruleId = "A3-1-4"
+  ruleId = "A3-1-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `hiddenInheritedNonOverridableMemberFunction` query
@@ -45,7 +47,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `hiddenInheritedNonOverridableMemberFunction` query
     "cpp/autosar/hidden-inherited-non-overridable-member-function" and
-  ruleId = "A7-3-1"
+  ruleId = "A7-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `hiddenInheritedOverridableMemberFunction` query
@@ -53,7 +56,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `hiddenInheritedOverridableMemberFunction` query
     "cpp/autosar/hidden-inherited-overridable-member-function" and
-  ruleId = "A7-3-1"
+  ruleId = "A7-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `definitionNotConsideredForUnqualifiedLookup` query
@@ -61,7 +65,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `definitionNotConsideredForUnqualifiedLookup` query
     "cpp/autosar/definition-not-considered-for-unqualified-lookup" and
-  ruleId = "A7-3-1"
+  ruleId = "A7-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `oneDefinitionRuleViolation` query
@@ -69,7 +74,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `oneDefinitionRuleViolation` query
     "cpp/autosar/one-definition-rule-violation" and
-  ruleId = "M3-2-2"
+  ruleId = "M3-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `multipleDeclarationViolation` query
@@ -77,7 +83,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `multipleDeclarationViolation` query
     "cpp/autosar/multiple-declaration-violation" and
-  ruleId = "M3-2-3"
+  ruleId = "M3-2-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `identifierWithExternalLinkageShallHaveOneDefinition` query
@@ -85,7 +92,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `identifierWithExternalLinkageShallHaveOneDefinition` query
     "cpp/autosar/identifier-with-external-linkage-shall-have-one-definition" and
-  ruleId = "M3-2-4"
+  ruleId = "M3-2-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `missingStaticSpecifierOnFunctionRedeclaration` query
@@ -93,7 +101,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `missingStaticSpecifierOnFunctionRedeclaration` query
     "cpp/autosar/missing-static-specifier-on-function-redeclaration" and
-  ruleId = "M3-3-2"
+  ruleId = "M3-3-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `unnecessaryExposedIdentifierDeclaration` query
@@ -101,7 +110,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unnecessaryExposedIdentifierDeclaration` query
     "cpp/autosar/unnecessary-exposed-identifier-declaration" and
-  ruleId = "M3-4-1"
+  ruleId = "M3-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `globalNamespaceMembershipViolation` query
@@ -109,7 +119,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `globalNamespaceMembershipViolation` query
     "cpp/autosar/global-namespace-membership-violation" and
-  ruleId = "M7-3-1"
+  ruleId = "M7-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `localFunctionDeclaration` query
@@ -117,7 +128,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `localFunctionDeclaration` query
     "cpp/cert/local-function-declaration" and
-  ruleId = "DCL53-CPP"
+  ruleId = "DCL53-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `localConstructorInitializedObjectHidesIdentifier` query
@@ -125,7 +137,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `localConstructorInitializedObjectHidesIdentifier` query
     "cpp/cert/local-constructor-initialized-object-hides-identifier" and
-  ruleId = "DCL53-CPP"
+  ruleId = "DCL53-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `singularOverloadOfMemoryFunction` query
@@ -133,7 +146,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `singularOverloadOfMemoryFunction` query
     "cpp/cert/singular-overload-of-memory-function" and
-  ruleId = "DCL54-CPP"
+  ruleId = "DCL54-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `modificationOfTheStandardNamespaces` query
@@ -141,7 +155,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `modificationOfTheStandardNamespaces` query
     "cpp/cert/modification-of-the-standard-namespaces" and
-  ruleId = "DCL58-CPP"
+  ruleId = "DCL58-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `unnamedNamespaceInHeaderFile` query
@@ -149,7 +164,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `unnamedNamespaceInHeaderFile` query
     "cpp/cert/unnamed-namespace-in-header-file" and
-  ruleId = "DCL59-CPP"
+  ruleId = "DCL59-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `oneDefinitionRuleNotObeyed` query
@@ -157,7 +173,8 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `oneDefinitionRuleNotObeyed` query
     "cpp/cert/one-definition-rule-not-obeyed" and
-  ruleId = "DCL60-CPP"
+  ruleId = "DCL60-CPP" and
+  category = "rule"
 }
 
 module ScopePackage {

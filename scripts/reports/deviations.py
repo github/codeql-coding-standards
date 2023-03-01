@@ -1,8 +1,15 @@
 from contextlib import redirect_stdout
 from pathlib import Path
-from codeql import CodeQLError, CodeQLValidationSummary
+from codeqlvalidation import CodeQLValidationSummary
 from error import failure
 import re
+import sys
+
+script_path = Path(__file__)
+# Add the shared modules to the path so we can import them.
+sys.path.append(str(script_path.parent.parent / 'shared'))
+from codeql import CodeQLError
+
 
 if __name__ == '__main__':
     failure("Error: this Python module does not support standalone execution!")
@@ -35,7 +42,7 @@ class DeviationsSummary:
             # Get a list of deviations
             print("Running the deviation query...")
             self.codeql_summary.codeql.run_queries(
-                database_path, *query_paths,  search_path=str(repo_root), no_rerun=True)
+                database_path, *query_paths, no_rerun=True)
 
             print("Decoding deviation query results")
 

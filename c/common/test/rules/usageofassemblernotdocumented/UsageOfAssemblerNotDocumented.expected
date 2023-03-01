@@ -1,0 +1,1 @@
+| test.c:10:42:10:58 | asm statement | Use of assembler is not documented. |

@@ -1,5 +1,6 @@
 import diagnostics
 import deviations
+import guideline_recategorizations
 from pathlib import Path
 import sys
 import utils
@@ -52,6 +53,8 @@ diagnostics.generate_diagnostics_file(output_directory, diagnostics_results)
 
 deviations.generate_deviations_report(
     database_path, repo_root, output_directory)
+
+guideline_recategorizations.generate_guideline_recategorizations_report(database_path, repo_root, output_directory)
 
 # Load the SARIF file and generate a results summary
 sarif_results_summary = utils.CodingStandardsResultSummary(

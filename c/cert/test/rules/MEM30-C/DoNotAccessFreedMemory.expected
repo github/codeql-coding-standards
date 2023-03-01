@@ -1,0 +1,5 @@
+| test.c:11:47:11:47 | p | Pointer 'p' accessed but may have been previously freed $@. | test.c:12:5:12:8 | call to free | here |
+| test.c:25:10:25:12 | buf | Pointer 'buf' accessed but may have been previously freed $@. | test.c:24:3:24:6 | call to free | here |
+| test.c:32:15:32:17 | buf | Pointer 'buf' accessed but may have been previously freed $@. | test.c:31:3:31:6 | call to free | here |
+| test.c:33:9:33:11 | buf | Pointer 'buf' accessed but may have been previously freed $@. | test.c:31:3:31:6 | call to free | here |
+| test.c:34:16:34:18 | buf | Pointer 'buf' accessed but may have been previously freed $@. | test.c:31:3:31:6 | call to free | here |

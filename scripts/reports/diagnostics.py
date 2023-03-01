@@ -1,8 +1,13 @@
 from contextlib import redirect_stdout
 from pathlib import Path
-from codeql import CodeQLError, CodeQLValidationSummary
+from codeqlvalidation import CodeQLValidationSummary
 from error import failure
+import sys
 
+script_path = Path(__file__)
+# Add the shared modules to the path so we can import them.
+sys.path.append(str(script_path.parent.parent / 'shared'))
+from codeql import CodeQLError
 
 class DiagnosticsSummary:
     def __init__(self, database_path, repo_root):
@@ -39,7 +44,7 @@ class DiagnosticsSummary:
             # Run all the diagnostics over the database
             print("Running the diagnostic queries...")
             self.codeql_summary.codeql.run_queries(
-                database_path, *queries, search_path=str(repo_root), no_rerun=True)
+                database_path, *queries, no_rerun=True)
 
             print("Decoding diagnostic query results")
             self.extraction_errors = self.codeql_summary.codeql.decode_results(

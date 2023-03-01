@@ -14,14 +14,15 @@ newtype SideEffects2Query =
   TFunctionsWithVoidReturnTypeShallHaveExternalSideEffectsQuery() or
   TPredicateFunctionObjectsShouldNotBeMutableQuery()
 
-predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `moveConstructorShallOnlyMoveObject` query
     SideEffects2Package::moveConstructorShallOnlyMoveObjectQuery() and
   queryId =
     // `@id` for the `moveConstructorShallOnlyMoveObject` query
     "cpp/autosar/move-constructor-shall-only-move-object" and
-  ruleId = "A12-8-1"
+  ruleId = "A12-8-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `copyConstructorShallOnlyCopyObject` query
@@ -29,7 +30,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `copyConstructorShallOnlyCopyObject` query
     "cpp/autosar/copy-constructor-shall-only-copy-object" and
-  ruleId = "A12-8-1"
+  ruleId = "A12-8-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `userDefinedLiteralsOperatorsShallOnlyPerformConversionOfPassedParameters` query
@@ -37,7 +39,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `userDefinedLiteralsOperatorsShallOnlyPerformConversionOfPassedParameters` query
     "cpp/autosar/user-defined-literals-operators-shall-only-perform-conversion-of-passed-parameters" and
-  ruleId = "A13-1-3"
+  ruleId = "A13-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `userDefinedLiteralsOperatorsShallNotHaveSideEffects` query
@@ -45,7 +48,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `userDefinedLiteralsOperatorsShallNotHaveSideEffects` query
     "cpp/autosar/user-defined-literals-operators-shall-not-have-side-effects" and
-  ruleId = "A13-1-3"
+  ruleId = "A13-1-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `stateRelatedToFunctionObjectIdentityShallNotBeCopied` query
@@ -53,7 +57,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `stateRelatedToFunctionObjectIdentityShallNotBeCopied` query
     "cpp/autosar/state-related-to-function-object-identity-shall-not-be-copied" and
-  ruleId = "A25-1-1"
+  ruleId = "A25-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `moveOperatorShallOnlyMoveObject` query
@@ -61,7 +66,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `moveOperatorShallOnlyMoveObject` query
     "cpp/autosar/move-operator-shall-only-move-object" and
-  ruleId = "A6-2-1"
+  ruleId = "A6-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `copyOperatorShallOnlyCopyObject` query
@@ -69,7 +75,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `copyOperatorShallOnlyCopyObject` query
     "cpp/autosar/copy-operator-shall-only-copy-object" and
-  ruleId = "A6-2-1"
+  ruleId = "A6-2-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `functionsWithVoidReturnTypeShallHaveExternalSideEffects` query
@@ -77,7 +84,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `functionsWithVoidReturnTypeShallHaveExternalSideEffects` query
     "cpp/autosar/functions-with-void-return-type-shall-have-external-side-effects" and
-  ruleId = "M0-1-8"
+  ruleId = "M0-1-8" and
+  category = "required"
   or
   query =
     // `Query` instance for the `predicateFunctionObjectsShouldNotBeMutable` query
@@ -85,7 +93,8 @@ predicate isSideEffects2QueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `predicateFunctionObjectsShouldNotBeMutable` query
     "cpp/cert/predicate-function-objects-should-not-be-mutable" and
-  ruleId = "CTR58-CPP"
+  ruleId = "CTR58-CPP" and
+  category = "rule"
 }
 
 module SideEffects2Package {
