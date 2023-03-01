@@ -44,8 +44,8 @@ public:
   C4() : m1(0) {}
   C4(C4 const &p1) : m1(p1.m1) {
     std::cout << "Copying class C4"
-              << std::endl; // NON_COMPLIANT - performance overhead affecting the
-                            // copying of th object?
+              << std::endl; // NON_COMPLIANT - performance overhead affecting
+                            // the copying of the object?
   }
 
 private:
