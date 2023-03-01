@@ -12,7 +12,7 @@ class GuidelineRecategorizations extends CodingStandardsConfigSection {
   GuidelineRecategorizations() { hasName("guideline-recategorizations") }
 }
 
-class GuidelineRecategorization extends XMLElement {
+class GuidelineRecategorization extends XmlElement {
   GuidelineRecategorization() {
     getParent() instanceof GuidelineRecategorizations and
     hasName("guideline-recategorizations-entry")

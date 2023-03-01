@@ -8,7 +8,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 import codingstandards.cpp.deviations.Deviations
 
 /** A `coding-standards.xml` configuration file (usually generated from an YAML configuration file). */
-class CodingStandardsFile extends XMLFile {
+class CodingStandardsFile extends XmlFile {
   CodingStandardsFile() {
     this.getBaseName() = "coding-standards.xml" and
     // Must be within the users source code.
@@ -16,12 +16,12 @@ class CodingStandardsFile extends XMLFile {
   }
 }
 
-class CodingStandardsConfigSection extends XMLElement {
+class CodingStandardsConfigSection extends XmlElement {
   CodingStandardsConfigSection() { getParent() instanceof CodingStandardsConfig }
 }
 
 /** A "Coding Standards" configuration file */
-class CodingStandardsConfig extends XMLElement {
+class CodingStandardsConfig extends XmlElement {
   CodingStandardsConfig() {
     any(CodingStandardsFile csf).getARootElement() = this and
     this.getName() = "codingstandards"
