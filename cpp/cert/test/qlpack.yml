@@ -1,4 +1,6 @@
-name: cert-cpp-coding-standards-tests
+name: codeql/cert-cpp-coding-standards-tests
 version: 2.14.0-dev
-libraryPathDependencies: cert-cpp-coding-standards
 extractor: cpp
+license: MIT
+dependencies:
+  codeql/cert-cpp-coding-standards: '*'
