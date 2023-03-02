@@ -21,7 +21,7 @@ TemplateClass getADependentBaseType(TemplateClass t) {
  * Helper predicate that ensures we do not join on function pairs by name early on, as that creates
  * a large dataset on big databases with lots of name duplication.
  */
-pragma[noinline, nomagic]
+pragma[nomagic]
 private FunctionCall helper_functioncall(
   TemplateClass t, TemplateClass dependentBaseType, Function target, string name
 ) {
@@ -53,7 +53,7 @@ FunctionCall getConfusingFunctionCall(
  * Helper predicate that ensures we do not join on function pairs by name early on, as that creates
  * a large dataset on big databases with lots of name duplication.
  */
-pragma[noinline, nomagic]
+pragma[nomagic]
 private FunctionAccess helper_functionaccess(
   TemplateClass t, TemplateClass dependentBaseType, Function target, string name
 ) {
@@ -83,7 +83,7 @@ FunctionAccess getConfusingFunctionAccess(
  * Helper predicate that ensures we do not join on variable pairs by name early on, as that creates
  * a large dataset on big databases with lots of name duplication.
  */
-pragma[noinline, nomagic]
+pragma[nomagic]
 private VariableAccess helper_memberaccess(
   TemplateClass t, TemplateClass dependentBaseType, Variable target, string name
 ) {
