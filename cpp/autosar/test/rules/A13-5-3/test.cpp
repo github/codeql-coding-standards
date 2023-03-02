@@ -35,7 +35,7 @@ int main() {
   bar(static_cast<A *>(b)); // NON_COMPLIANT--explicit
 
   A(*pa)[3] = b; //   NON_COMPLIANT - converting B to array of A (size 3)-
-  // decalartion of variable name pa, pointer to array of A , array size is 3
+  // declaration of variable name pa, pointer to array of A , array size is 3
 
   C c;
   bar(c); // NON_COMPLIANT - one pointer with bar
