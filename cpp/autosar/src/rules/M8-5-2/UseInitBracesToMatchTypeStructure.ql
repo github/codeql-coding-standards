@@ -16,48 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.enhancements.AggregateLiteralEnhancements
+import codingstandards.cpp.rules.useinitializerbracestomatchaggregatetypestructure.UseInitializerBracesToMatchAggregateTypeStructure
 
-from
-  InferredAggregateLiteral inferredAggregateLiteral, Type aggType, string parentDescription,
-  Element explanationElement, string explanationDescription
-where
-  not isExcluded(inferredAggregateLiteral,
-    InitializationPackage::useInitBracesToMatchTypeStructureQuery()) and
-  // Not an inferred aggregate literal that acts as a "leading zero" for the root aggregate
-  // e.g.
-  // ```
-  // int i[2][4] { 0 }
-  // ```
-  // Has an inferred aggregate literal (i.e. it's `{ { 0 } }`), but we shouldn't report it
-  not isLeadingZeroInitialized(getRootAggregate(inferredAggregateLiteral)) and
-  // Provide a good message, dependending on the type of the parent
-  (
-    // For class aggergate literal parents, report which field is being assigned to
-    exists(ClassAggregateLiteral cal, Field field |
-      cal.getFieldExpr(field) = inferredAggregateLiteral and
-      parentDescription = "to field $@" and
-      explanationElement = field
-    |
-      explanationDescription = field.getName()
-    )
-    or
-    // For array aggregate literal parents, report which index is being assigned to
-    exists(ArrayAggregateLiteral aal, int elementIndex |
-      aal.getElementExpr(elementIndex) = inferredAggregateLiteral and
-      parentDescription = "to index " + elementIndex + " in $@" and
-      explanationElement = aal and
-      explanationDescription = "array of type " + aal.getType().getName()
-    )
-    or
-    // In some cases, we seem to have missing link, so provide a basic message
-    not any(ArrayAggregateLiteral aal).getElementExpr(_) = inferredAggregateLiteral and
-    not any(ClassAggregateLiteral aal).getFieldExpr(_) = inferredAggregateLiteral and
-    parentDescription = "to an unnamed field of $@" and
-    explanationElement = inferredAggregateLiteral.getParent() and
-    explanationDescription = " " + explanationElement.(Expr).getType().getName()
-  )
-select inferredAggregateLiteral,
-  "Missing braces on aggregate literal of " +
-    getAggregateTypeDescription(inferredAggregateLiteral, aggType) + " which is assigned " +
-    parentDescription + ".", aggType, aggType.getName(), explanationElement, explanationDescription
+class UseInitBracesToMatchTypeStructureQuery extends UseInitializerBracesToMatchAggregateTypeStructureSharedQuery {
+  UseInitBracesToMatchTypeStructureQuery() {
+    this = InitializationPackage::useInitBracesToMatchTypeStructureQuery()
+  }
+}
