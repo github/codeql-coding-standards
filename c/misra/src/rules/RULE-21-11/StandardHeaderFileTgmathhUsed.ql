@@ -18,4 +18,4 @@ where
   not isExcluded(mi, BannedPackage::standardHeaderFileTgmathhUsedQuery()) and
   mi.getMacro() = m and
   m.getFile().getBaseName() = "tgmath.h"
-select mi, "Call to banned macro $@.", m, m.getName()
+select mi, "Call to banned macro " + m.getName() + "."

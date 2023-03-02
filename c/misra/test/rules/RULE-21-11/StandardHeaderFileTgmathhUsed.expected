@@ -1,74 +1,74 @@
-| test.c:5:3:5:9 | __DBLCX(x) | Call to banned macro $@. | tgmath.h:24:1:24:70 | #define __DBLCX(x) (__IS_CX(x) && sizeof(x) == sizeof(double complex)) | __DBLCX |
-| test.c:5:3:5:9 | __FLT(x) | Call to banned macro $@. | tgmath.h:20:1:20:61 | #define __FLT(x) (__IS_REAL(x) && sizeof(x) == sizeof(float)) | __FLT |
-| test.c:5:3:5:9 | __FLTCX(x) | Call to banned macro $@. | tgmath.h:23:1:23:69 | #define __FLTCX(x) (__IS_CX(x) && sizeof(x) == sizeof(float complex)) | __FLTCX |
-| test.c:5:3:5:9 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:5:3:5:9 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:5:3:5:9 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:5:3:5:9 | __IS_REAL(x) | Call to banned macro $@. | tgmath.h:18:1:18:65 | #define __IS_REAL(x) (__IS_FP(x) && 2*sizeof(x) == sizeof((x)+I)) | __IS_REAL |
-| test.c:5:3:5:9 | __IS_REAL(x) | Call to banned macro $@. | tgmath.h:18:1:18:65 | #define __IS_REAL(x) (__IS_FP(x) && 2*sizeof(x) == sizeof((x)+I)) | __IS_REAL |
-| test.c:5:3:5:9 | __LDBL(x) | Call to banned macro $@. | tgmath.h:21:1:21:109 | #define __LDBL(x) (__IS_REAL(x) && sizeof(x) == sizeof(long double) && sizeof(long double) != sizeof(double)) | __LDBL |
-| test.c:5:3:5:9 | __LDBLCX(x) | Call to banned macro $@. | tgmath.h:25:1:25:117 | #define __LDBLCX(x) (__IS_CX(x) && sizeof(x) == sizeof(long double complex) && sizeof(long double) != sizeof(double)) | __LDBLCX |
-| test.c:5:3:5:9 | __RETCAST(x) | Call to banned macro $@. | tgmath.h:71:1:71:20 | #define __RETCAST(x) | __RETCAST |
-| test.c:5:3:5:9 | __tg_real_complex(fun,x) | Call to banned macro $@. | tgmath.h:107:1:113:10 | #define __tg_real_complex(fun,x) (__RETCAST(x)( __FLTCX(x) ? c ## fun ## f (x) : __DBLCX(x) ? c ## fun (x) : __LDBLCX(x) ? c ## fun ## l (x) : __FLT(x) ? fun ## f (x) : __LDBL(x) ? fun ## l (x) : fun(x) )) | __tg_real_complex |
-| test.c:5:3:5:9 | sqrt(x) | Call to banned macro $@. | tgmath.h:264:1:264:52 | #define sqrt(x) __tg_real_complex(sqrt, (x)) | sqrt |
-| test.c:7:3:7:8 | __DBLCX(x) | Call to banned macro $@. | tgmath.h:24:1:24:70 | #define __DBLCX(x) (__IS_CX(x) && sizeof(x) == sizeof(double complex)) | __DBLCX |
-| test.c:7:3:7:8 | __FLT(x) | Call to banned macro $@. | tgmath.h:20:1:20:61 | #define __FLT(x) (__IS_REAL(x) && sizeof(x) == sizeof(float)) | __FLT |
-| test.c:7:3:7:8 | __FLTCX(x) | Call to banned macro $@. | tgmath.h:23:1:23:69 | #define __FLTCX(x) (__IS_CX(x) && sizeof(x) == sizeof(float complex)) | __FLTCX |
-| test.c:7:3:7:8 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:7:3:7:8 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:7:3:7:8 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:7:3:7:8 | __IS_REAL(x) | Call to banned macro $@. | tgmath.h:18:1:18:65 | #define __IS_REAL(x) (__IS_FP(x) && 2*sizeof(x) == sizeof((x)+I)) | __IS_REAL |
-| test.c:7:3:7:8 | __IS_REAL(x) | Call to banned macro $@. | tgmath.h:18:1:18:65 | #define __IS_REAL(x) (__IS_FP(x) && 2*sizeof(x) == sizeof((x)+I)) | __IS_REAL |
-| test.c:7:3:7:8 | __LDBL(x) | Call to banned macro $@. | tgmath.h:21:1:21:109 | #define __LDBL(x) (__IS_REAL(x) && sizeof(x) == sizeof(long double) && sizeof(long double) != sizeof(double)) | __LDBL |
-| test.c:7:3:7:8 | __LDBLCX(x) | Call to banned macro $@. | tgmath.h:25:1:25:117 | #define __LDBLCX(x) (__IS_CX(x) && sizeof(x) == sizeof(long double complex) && sizeof(long double) != sizeof(double)) | __LDBLCX |
-| test.c:7:3:7:8 | __RETCAST(x) | Call to banned macro $@. | tgmath.h:71:1:71:20 | #define __RETCAST(x) | __RETCAST |
-| test.c:7:3:7:8 | __tg_real_complex(fun,x) | Call to banned macro $@. | tgmath.h:107:1:113:10 | #define __tg_real_complex(fun,x) (__RETCAST(x)( __FLTCX(x) ? c ## fun ## f (x) : __DBLCX(x) ? c ## fun (x) : __LDBLCX(x) ? c ## fun ## l (x) : __FLT(x) ? fun ## f (x) : __LDBL(x) ? fun ## l (x) : fun(x) )) | __tg_real_complex |
-| test.c:7:3:7:8 | sin(x) | Call to banned macro $@. | tgmath.h:262:1:262:51 | #define sin(x) __tg_real_complex(sin, (x)) | sin |
-| test.c:10:21:10:28 | __DBLCX(x) | Call to banned macro $@. | tgmath.h:24:1:24:70 | #define __DBLCX(x) (__IS_CX(x) && sizeof(x) == sizeof(double complex)) | __DBLCX |
-| test.c:10:21:10:28 | __FLT(x) | Call to banned macro $@. | tgmath.h:20:1:20:61 | #define __FLT(x) (__IS_REAL(x) && sizeof(x) == sizeof(float)) | __FLT |
-| test.c:10:21:10:28 | __FLTCX(x) | Call to banned macro $@. | tgmath.h:23:1:23:69 | #define __FLTCX(x) (__IS_CX(x) && sizeof(x) == sizeof(float complex)) | __FLTCX |
-| test.c:10:21:10:28 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:10:21:10:28 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:10:21:10:28 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:10:21:10:28 | __IS_REAL(x) | Call to banned macro $@. | tgmath.h:18:1:18:65 | #define __IS_REAL(x) (__IS_FP(x) && 2*sizeof(x) == sizeof((x)+I)) | __IS_REAL |
-| test.c:10:21:10:28 | __IS_REAL(x) | Call to banned macro $@. | tgmath.h:18:1:18:65 | #define __IS_REAL(x) (__IS_FP(x) && 2*sizeof(x) == sizeof((x)+I)) | __IS_REAL |
-| test.c:10:21:10:28 | __LDBL(x) | Call to banned macro $@. | tgmath.h:21:1:21:109 | #define __LDBL(x) (__IS_REAL(x) && sizeof(x) == sizeof(long double) && sizeof(long double) != sizeof(double)) | __LDBL |
-| test.c:10:21:10:28 | __LDBLCX(x) | Call to banned macro $@. | tgmath.h:25:1:25:117 | #define __LDBLCX(x) (__IS_CX(x) && sizeof(x) == sizeof(long double complex) && sizeof(long double) != sizeof(double)) | __LDBLCX |
-| test.c:10:21:10:28 | __RETCAST(x) | Call to banned macro $@. | tgmath.h:71:1:71:20 | #define __RETCAST(x) | __RETCAST |
-| test.c:10:21:10:28 | __tg_real_complex(fun,x) | Call to banned macro $@. | tgmath.h:107:1:113:10 | #define __tg_real_complex(fun,x) (__RETCAST(x)( __FLTCX(x) ? c ## fun ## f (x) : __DBLCX(x) ? c ## fun (x) : __LDBLCX(x) ? c ## fun ## l (x) : __FLT(x) ? fun ## f (x) : __LDBL(x) ? fun ## l (x) : fun(x) )) | __tg_real_complex |
-| test.c:10:21:10:28 | sqrt(x) | Call to banned macro $@. | tgmath.h:264:1:264:52 | #define sqrt(x) __tg_real_complex(sqrt, (x)) | sqrt |
-| test.c:11:3:11:10 | __FLTCX(x) | Call to banned macro $@. | tgmath.h:23:1:23:69 | #define __FLTCX(x) (__IS_CX(x) && sizeof(x) == sizeof(float complex)) | __FLTCX |
-| test.c:11:3:11:10 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:11:3:11:10 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:11:3:11:10 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:11:3:11:10 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:11:3:11:10 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:11:3:11:10 | __LDBLCX(x) | Call to banned macro $@. | tgmath.h:25:1:25:117 | #define __LDBLCX(x) (__IS_CX(x) && sizeof(x) == sizeof(long double complex) && sizeof(long double) != sizeof(double)) | __LDBLCX |
-| test.c:11:3:11:10 | __RETCAST_REAL(x) | Call to banned macro $@. | tgmath.h:74:1:74:25 | #define __RETCAST_REAL(x) | __RETCAST_REAL |
-| test.c:11:3:11:10 | __tg_complex_retreal(fun,x) | Call to banned macro $@. | tgmath.h:102:1:105:10 | #define __tg_complex_retreal(fun,x) (__RETCAST_REAL(x)( __FLTCX((x)+I) && __IS_FP(x) ? fun ## f (x) : __LDBLCX((x)+I) ? fun ## l (x) : fun(x) )) | __tg_complex_retreal |
-| test.c:11:3:11:10 | creal(x) | Call to banned macro $@. | tgmath.h:225:1:225:56 | #define creal(x) __tg_complex_retreal(creal, (x)) | creal |
-| test.c:12:3:12:10 | __FLTCX(x) | Call to banned macro $@. | tgmath.h:23:1:23:69 | #define __FLTCX(x) (__IS_CX(x) && sizeof(x) == sizeof(float complex)) | __FLTCX |
-| test.c:12:3:12:10 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:12:3:12:10 | __IS_CX(x) | Call to banned macro $@. | tgmath.h:17:1:17:61 | #define __IS_CX(x) (__IS_FP(x) && sizeof(x) == sizeof((x)+I)) | __IS_CX |
-| test.c:12:3:12:10 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:12:3:12:10 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:12:3:12:10 | __IS_FP(x) | Call to banned macro $@. | tgmath.h:16:1:16:57 | #define __IS_FP(x) (sizeof((x)+1ULL) == sizeof((x)+1.0f)) | __IS_FP |
-| test.c:12:3:12:10 | __LDBLCX(x) | Call to banned macro $@. | tgmath.h:25:1:25:117 | #define __LDBLCX(x) (__IS_CX(x) && sizeof(x) == sizeof(long double complex) && sizeof(long double) != sizeof(double)) | __LDBLCX |
-| test.c:12:3:12:10 | __RETCAST_REAL(x) | Call to banned macro $@. | tgmath.h:74:1:74:25 | #define __RETCAST_REAL(x) | __RETCAST_REAL |
-| test.c:12:3:12:10 | __tg_complex_retreal(fun,x) | Call to banned macro $@. | tgmath.h:102:1:105:10 | #define __tg_complex_retreal(fun,x) (__RETCAST_REAL(x)( __FLTCX((x)+I) && __IS_FP(x) ? fun ## f (x) : __LDBLCX((x)+I) ? fun ## l (x) : fun(x) )) | __tg_complex_retreal |
-| test.c:12:3:12:10 | cimag(x) | Call to banned macro $@. | tgmath.h:219:1:219:56 | #define cimag(x) __tg_complex_retreal(cimag, (x)) | cimag |
+| test.c:5:3:5:9 | __DBLCX(x) | Call to banned macro __DBLCX. |
+| test.c:5:3:5:9 | __FLT(x) | Call to banned macro __FLT. |
+| test.c:5:3:5:9 | __FLTCX(x) | Call to banned macro __FLTCX. |
+| test.c:5:3:5:9 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:5:3:5:9 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:5:3:5:9 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:5:3:5:9 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:5:3:5:9 | __IS_REAL(x) | Call to banned macro __IS_REAL. |
+| test.c:5:3:5:9 | __IS_REAL(x) | Call to banned macro __IS_REAL. |
+| test.c:5:3:5:9 | __LDBL(x) | Call to banned macro __LDBL. |
+| test.c:5:3:5:9 | __LDBLCX(x) | Call to banned macro __LDBLCX. |
+| test.c:5:3:5:9 | __RETCAST(x) | Call to banned macro __RETCAST. |
+| test.c:5:3:5:9 | __tg_real_complex(fun,x) | Call to banned macro __tg_real_complex. |
+| test.c:5:3:5:9 | sqrt(x) | Call to banned macro sqrt. |
+| test.c:7:3:7:8 | __DBLCX(x) | Call to banned macro __DBLCX. |
+| test.c:7:3:7:8 | __FLT(x) | Call to banned macro __FLT. |
+| test.c:7:3:7:8 | __FLTCX(x) | Call to banned macro __FLTCX. |
+| test.c:7:3:7:8 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:7:3:7:8 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:7:3:7:8 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:7:3:7:8 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:7:3:7:8 | __IS_REAL(x) | Call to banned macro __IS_REAL. |
+| test.c:7:3:7:8 | __IS_REAL(x) | Call to banned macro __IS_REAL. |
+| test.c:7:3:7:8 | __LDBL(x) | Call to banned macro __LDBL. |
+| test.c:7:3:7:8 | __LDBLCX(x) | Call to banned macro __LDBLCX. |
+| test.c:7:3:7:8 | __RETCAST(x) | Call to banned macro __RETCAST. |
+| test.c:7:3:7:8 | __tg_real_complex(fun,x) | Call to banned macro __tg_real_complex. |
+| test.c:7:3:7:8 | sin(x) | Call to banned macro sin. |
+| test.c:10:21:10:28 | __DBLCX(x) | Call to banned macro __DBLCX. |
+| test.c:10:21:10:28 | __FLT(x) | Call to banned macro __FLT. |
+| test.c:10:21:10:28 | __FLTCX(x) | Call to banned macro __FLTCX. |
+| test.c:10:21:10:28 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:10:21:10:28 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:10:21:10:28 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:10:21:10:28 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:10:21:10:28 | __IS_REAL(x) | Call to banned macro __IS_REAL. |
+| test.c:10:21:10:28 | __IS_REAL(x) | Call to banned macro __IS_REAL. |
+| test.c:10:21:10:28 | __LDBL(x) | Call to banned macro __LDBL. |
+| test.c:10:21:10:28 | __LDBLCX(x) | Call to banned macro __LDBLCX. |
+| test.c:10:21:10:28 | __RETCAST(x) | Call to banned macro __RETCAST. |
+| test.c:10:21:10:28 | __tg_real_complex(fun,x) | Call to banned macro __tg_real_complex. |
+| test.c:10:21:10:28 | sqrt(x) | Call to banned macro sqrt. |
+| test.c:11:3:11:10 | __FLTCX(x) | Call to banned macro __FLTCX. |
+| test.c:11:3:11:10 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:11:3:11:10 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:11:3:11:10 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:11:3:11:10 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:11:3:11:10 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:11:3:11:10 | __LDBLCX(x) | Call to banned macro __LDBLCX. |
+| test.c:11:3:11:10 | __RETCAST_REAL(x) | Call to banned macro __RETCAST_REAL. |
+| test.c:11:3:11:10 | __tg_complex_retreal(fun,x) | Call to banned macro __tg_complex_retreal. |
+| test.c:11:3:11:10 | creal(x) | Call to banned macro creal. |
+| test.c:12:3:12:10 | __FLTCX(x) | Call to banned macro __FLTCX. |
+| test.c:12:3:12:10 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:12:3:12:10 | __IS_CX(x) | Call to banned macro __IS_CX. |
+| test.c:12:3:12:10 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:12:3:12:10 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:12:3:12:10 | __IS_FP(x) | Call to banned macro __IS_FP. |
+| test.c:12:3:12:10 | __LDBLCX(x) | Call to banned macro __LDBLCX. |
+| test.c:12:3:12:10 | __RETCAST_REAL(x) | Call to banned macro __RETCAST_REAL. |
+| test.c:12:3:12:10 | __tg_complex_retreal(fun,x) | Call to banned macro __tg_complex_retreal. |
+| test.c:12:3:12:10 | cimag(x) | Call to banned macro cimag. |
