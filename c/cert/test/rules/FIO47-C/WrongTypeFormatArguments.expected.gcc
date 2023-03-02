@@ -9,7 +9,6 @@
 | test.c:428:17:428:26 | v_char_ptr | This argument should be of type 'long' but is of type 'char *' |
 | test.c:429:18:429:27 | v_char_ptr | This argument should be of type 'long long' but is of type 'char *' |
 | test.c:430:17:430:26 | v_char_ptr | This argument should be of type 'intmax_t' but is of type 'char *' |
-| test.c:431:17:431:26 | v_char_ptr | This argument should be of type 'ssize_t' but is of type 'char *' |
 | test.c:432:17:432:26 | v_char_ptr | This argument should be of type 'ptrdiff_t' but is of type 'char *' |
 | test.c:434:16:434:25 | v_char_ptr | This argument should be of type 'int' but is of type 'char *' |
 | test.c:435:17:435:26 | v_char_ptr | This argument should be of type 'int' but is of type 'char *' |
@@ -17,7 +16,6 @@
 | test.c:437:17:437:26 | v_char_ptr | This argument should be of type 'long' but is of type 'char *' |
 | test.c:438:18:438:27 | v_char_ptr | This argument should be of type 'long long' but is of type 'char *' |
 | test.c:439:17:439:26 | v_char_ptr | This argument should be of type 'intmax_t' but is of type 'char *' |
-| test.c:440:17:440:26 | v_char_ptr | This argument should be of type 'ssize_t' but is of type 'char *' |
 | test.c:441:17:441:26 | v_char_ptr | This argument should be of type 'ptrdiff_t' but is of type 'char *' |
 | test.c:443:16:443:25 | v_char_ptr | This argument should be of type 'unsigned int' but is of type 'char *' |
 | test.c:444:17:444:26 | v_char_ptr | This argument should be of type 'unsigned int' but is of type 'char *' |
