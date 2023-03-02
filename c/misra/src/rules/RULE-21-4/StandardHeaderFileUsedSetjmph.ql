@@ -27,20 +27,18 @@ class LongJmp extends Function {
   }
 }
 
-from Locatable use, Locatable feature, string name
+from Locatable use, string name
 where
   not isExcluded(use, BannedPackage::standardHeaderFileUsedSetjmphQuery()) and
   (
     exists(SetJmp setjmp |
-      feature = setjmp and
       use = setjmp.getAnInvocation() and
       name = "setjmp"
     )
     or
     exists(LongJmp longjmp |
-      feature = longjmp and
       use = longjmp.getACallToThisFunction() and
       name = "longjmp"
     )
   )
-select use, "Use of $@.", feature, name
+select use, "Use of " + name + "."
