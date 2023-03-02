@@ -17,5 +17,6 @@ from Macro m, MacroInvocation mi
 where
   not isExcluded(mi, BannedPackage::standardHeaderFileTgmathhUsedQuery()) and
   mi.getMacro() = m and
-  m.getFile().getBaseName() = "tgmath.h"
+  m.getFile().getBaseName() = "tgmath.h" and
+  not mi.getParentInvocation().getMacro().getFile().getBaseName() = "tgmath.h"
 select mi, "Call to banned macro " + m.getName() + "."
