@@ -63,7 +63,8 @@ public:
     g();         // COMPLIANT - does not apply to non-class templates
     sg();        // COMPLIANT - does not apply to non-class templates
     TYPE t1 = 0; // COMPLIANT - does not apply to non-class templates
-    // void (*p)() = &g; // NON_COMPILABLE
+    // void (*p)() = &g; // NON_COMPILABLE - not valid to take address of member
+    // function without qualifier
   }
 };
 
@@ -73,6 +74,14 @@ public:
     m = 0;       // COMPLIANT - does not apply to non dependent base types
     g();         // COMPLIANT - does not apply to non dependent base types
     TYPE t1 = 0; // COMPLIANT - does not apply to non dependent base types
-    // void (*p)() = &g; // NON_COMPILABLE - clang does not accept this
+    // void (*p)() = &g; // NON_COMPILABLE - not valid to take address of member
+    // function without qualifier
   }
 };
+
+void f2() {
+  C c;
+  c.m1();
+  E<int> e;
+  e.m1();
+}
