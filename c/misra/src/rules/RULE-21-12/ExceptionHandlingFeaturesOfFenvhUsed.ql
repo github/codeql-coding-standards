@@ -32,22 +32,20 @@ class FPExceptionHandlingMacro extends Macro {
   }
 }
 
-from Locatable call, Locatable def, string name, string kind
+from Locatable call, string name, string kind
 where
   not isExcluded(call, BannedPackage::exceptionHandlingFeaturesOfFenvhUsedQuery()) and
   (
     exists(FPExceptionHandlingFunction f |
-      def = f and
       call = f.getACallToThisFunction() and
       name = f.getName() and
       kind = "function"
     )
     or
     exists(FPExceptionHandlingMacro m |
-      def = m and
       call = m.getAnInvocation() and
       name = m.getName() and
       kind = "macro"
     )
   )
-select call, "Call to banned " + kind + " $@.", def, name
+select call, "Call to banned " + kind + " " + name + "."
