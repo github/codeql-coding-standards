@@ -49,4 +49,4 @@ where
     f.getName() = wcharInputOutput() and
     f.getFile().getBaseName() = "wchar.h"
   )
-select fc, "Call to banned function $@.", f, f.getName()
+select fc, "Call to banned function " + f.getName() + "."
