@@ -1,6 +1,6 @@
 int g1 = 0;
 
-unsigned char g2[sizeof(g1++)]; // NOT_COMPLIANT
+unsigned char g2[sizeof(g1++)]; // NON_COMPLIANT
 
 void f1(int p);
 void f2(long long p);

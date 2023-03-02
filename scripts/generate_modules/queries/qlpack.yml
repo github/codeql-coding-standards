@@ -1,3 +1,5 @@
-name: standard-library-extraction-cpp-coding-standards
+name: codeql/standard-library-extraction-cpp-coding-standards
 version: 0.0.0
-libraryPathDependencies: codeql-cpp
+license: MIT
+dependencies:
+  codeql/cpp-all: 0.2.3

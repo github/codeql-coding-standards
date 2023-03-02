@@ -1,4 +1,8 @@
-name: cert-c-coding-standards
-version: 2.13.0-dev
+name: codeql/cert-c-coding-standards
+version: 2.14.0-dev
+description: CERT C 2016
 suites: codeql-suites
-libraryPathDependencies: common-c-coding-standards
+license: MIT
+dependencies:
+  codeql/common-c-coding-standards: '*'
+  codeql/cpp-all: 0.2.3

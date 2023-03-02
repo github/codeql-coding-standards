@@ -1,0 +1,25 @@
+name: Install CodeQL library pack dependencies
+description: |
+  Downloads any necessary CodeQL library packs needed by packs in the repo.
+inputs:
+  cli_path:
+    description: |
+      The path to the CodeQL CLI directory.
+    required: false
+
+  mode:
+    description: |
+      The `--mode` option to `codeql pack install`.
+    required: true
+    default: verify
+
+runs:
+  using: composite
+  steps:
+    - name: Install CodeQL library packs
+      shell: bash
+      env:
+        CODEQL_CLI: ${{ inputs.cli_path }}
+      run: |
+        PATH=$PATH:$CODEQL_CLI
+        python scripts/install-packs.py --mode ${{ inputs.mode }}
