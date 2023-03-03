@@ -37,7 +37,7 @@ Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
 $CODEQL_VERSION = (codeql version --format json | ConvertFrom-Json).version 
 
 Write-Host "Checking 'codeql' version = $REQUIRED_CODEQL_VERSION...." -NoNewline
-if (-Not $CODEQL_VERSION -eq $REQUIRED_CODEQL_VERSION) {
+if (-Not ($CODEQL_VERSION -eq $REQUIRED_CODEQL_VERSION)) {
     throw "Invalid CodeQL version $CODEQL_VERSION. Please install $REQUIRED_CODEQL_VERSION."
 }
 Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 
