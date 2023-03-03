@@ -13,7 +13,11 @@
 import cpp
 import codingstandards.c.cert
 
-/* Precision predicate based on a sample implementaion from https://wiki.sei.cmu.edu/confluence/display/c/INT35-C.+Use+correct+integer+precisions */
+/*
+ * Precision predicate based on a sample implementaion from
+ * https://wiki.sei.cmu.edu/confluence/display/c/INT35-C.+Use+correct+integer+precisions
+ */
+
 int getPrecision(BuiltInType type) {
   type.(CharType).isExplicitlyUnsigned() and result = 8
   or
@@ -36,6 +40,7 @@ int getPrecision(BuiltInType type) {
   type instanceof LongLongType and not type.(LongLongType).isExplicitlyUnsigned() and result = 63
 }
 
+/* The -1 number literal. */
 class MinusNumberLiteral extends UnaryMinusExpr {
   MinusNumberLiteral() { this.getOperand() instanceof Literal }
 
@@ -45,17 +50,18 @@ class MinusNumberLiteral extends UnaryMinusExpr {
 class ForbiddenShiftExpr extends BinaryBitwiseOperation {
   ForbiddenShiftExpr() {
     (
-      /* Precision mismatch between operands */
+      /* First Case: Precision mismatch between operands */
       getPrecision(this.(LShiftExpr).getLeftOperand().getUnderlyingType()) <=
         getPrecision(this.(LShiftExpr).getRightOperand().getUnderlyingType()) or
       getPrecision(this.(RShiftExpr).getLeftOperand().getUnderlyingType()) <=
         getPrecision(this.(RShiftExpr).getRightOperand().getUnderlyingType()) or
-      /* Shifting by a negative number literal */
+      /* Second Case: Shifting by a negative number literal */
       this.(LShiftExpr).getRightOperand() instanceof MinusNumberLiteral or
       this.(RShiftExpr).getRightOperand() instanceof MinusNumberLiteral
     )
   }
 
+  /* Second Case: Shifting by a negative number literal */
   predicate hasNegativeOperand() {
     this.(LShiftExpr).getRightOperand() instanceof MinusNumberLiteral or
     this.(RShiftExpr).getRightOperand() instanceof MinusNumberLiteral
