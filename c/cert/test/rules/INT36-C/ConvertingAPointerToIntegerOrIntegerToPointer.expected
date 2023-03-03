@@ -1,1 +1,11 @@
-No expected results have yet been specified
+| test.c:17:8:17:19 | int_pointer3 | Pointer variable int_pointer3 is declared as an expression 28036591, which is of integer type. |
+| test.c:19:3:20:16 | ... = ... | Pointer variable int_pointer3 is assigned an expression 28036591, which is of integer type. |
+| test.c:21:8:21:19 | int_pointer4 | Pointer variable int_pointer4 is declared as an expression integer1, which is of integer type. |
+| test.c:26:8:26:23 | integer_address5 | Pointer variable integer_address5 is declared as an expression 28036591, which is of integer type. |
+| test.c:27:7:27:23 | (int *)... | Integer expression 28036591 is cast to a pointer type. |
+| test.c:28:8:28:23 | integer_address6 | Pointer variable integer_address6 is declared as an expression integer1, which is of integer type. |
+| test.c:29:7:29:21 | (int *)... | Integer expression integer1 is cast to a pointer type. |
+| test.c:34:7:34:22 | integer_address8 | Integer variable integer_address8 is declared as an expression & ..., which is of a pointer type. |
+| test.c:36:3:36:30 | ... = ... | Integer variable integer_address8 is assigned an expression & ..., which is of a pointer type. |
+| test.c:38:7:38:21 | integer_address | Integer variable integer_address is declared as an expression & ..., which is of a pointer type. |
+| test.c:39:7:39:20 | (int)... | Pointer expression & ... is cast to integer type. |
