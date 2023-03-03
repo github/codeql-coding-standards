@@ -85,15 +85,14 @@ function Get-RuleForPath {
         $testDirs = (Get-ATestDirectory -RuleObject $q -Language $Language)
         foreach($testDirectory in $testDirs){
             # resolve path to be compatible 
-            $testPath = (Join-Path (Resolve-Path . -Relative) $testDirectory) + [IO.Path]::DirectorySeparatorChar
+            $testPath = (Join-Path (Resolve-Path . -Relative) $testDirectory)
 
-            # see if the TEST directory is a substring of the full path 
-            if($modifiedPath.StartsWith($testPath)){
+            if((Split-Path $modifiedPath -Parent) -eq $testPath){
                 $matchingRules += $q 
                 continue 
             }
 
-            if($modifiedPathWithReplacement.StartsWith($testPath)){
+            if((Split-Path $modifiedPathWithReplacement -Parent) -eq $testPath){
                 $matchingRules += $q 
                 continue 
             }
