@@ -1,0 +1,2 @@
+| test.c:6:3:6:4 | call to f2 | The value returned by this call shall be used or cast to `void`. |
+| test.c:15:3:15:9 | call to expression | The value returned by this call shall be used or cast to `void`. |
