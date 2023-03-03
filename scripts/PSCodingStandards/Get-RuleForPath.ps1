@@ -28,6 +28,9 @@
 # is a substring of the path once the substitution `/src/` -> `/test/` is
 # applied  
 
+$global:ruleCacheC = $null;
+$global:ruleCacheCPP = $null;
+$global:enableRuleCache = $false 
 function Get-RuleForPath {
     param([Parameter(Mandatory)] 
         [string]
@@ -41,9 +44,30 @@ function Get-RuleForPath {
     $allQueries = @()
     $queriesToCheck = @()
 
-    # load all the queries 
-    foreach ($s in $AVAILABLE_SUITES) {
-        $allQueries += Get-RulesInSuite -Suite $s -Language $Language
+    if($global:enableRuleCache){
+        # load all the queries 
+        if($Language -eq 'cpp'){
+            $ruleCache = $global:ruleCacheCPP
+        }else{
+            $ruleCache = $global:ruleCacheC
+        }
+    }
+
+    if(-not $ruleCache){
+
+        foreach ($s in $AVAILABLE_SUITES) {
+            $allQueries += Get-RulesInSuite -Suite $s -Language $Language
+        }
+
+        if($global:enableRuleCache){
+            if($Language -eq 'cpp'){
+                $global:ruleCacheCPP = $allQueries
+            }else{
+                $global:ruleCacheC = $allQueries
+            }
+        }    
+    }else{
+        $allQueries = $ruleCache
     }
 
     $modifiedPathWithReplacement = Join-Path (Resolve-Path . -Relative) $Path 
@@ -57,12 +81,11 @@ function Get-RuleForPath {
 
     # for each query, create the test directory 
     foreach($q in $allQueries){
-
         # get test directory
         $testDirs = (Get-ATestDirectory -RuleObject $q -Language $Language)
         foreach($testDirectory in $testDirs){
             # resolve path to be compatible 
-            $testPath = Join-Path (Resolve-Path . -Relative) $testDirectory
+            $testPath = (Join-Path (Resolve-Path . -Relative) $testDirectory) + [IO.Path]::DirectorySeparatorChar
 
             # see if the TEST directory is a substring of the full path 
             if($modifiedPath.StartsWith($testPath)){
