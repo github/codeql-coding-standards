@@ -28,9 +28,6 @@
 # is a substring of the path once the substitution `/src/` -> `/test/` is
 # applied  
 
-$global:ruleCacheC = $null;
-$global:ruleCacheCPP = $null;
-$global:enableRuleCache = $false 
 function Get-RuleForPath {
     param([Parameter(Mandatory)] 
         [string]
@@ -44,31 +41,11 @@ function Get-RuleForPath {
     $allQueries = @()
     $queriesToCheck = @()
 
-    if($global:enableRuleCache){
-        # load all the queries 
-        if($Language -eq 'cpp'){
-            $ruleCache = $global:ruleCacheCPP
-        }else{
-            $ruleCache = $global:ruleCacheC
-        }
+
+    foreach ($s in $AVAILABLE_SUITES) {
+        $allQueries += Get-RulesInSuite -Suite $s -Language $Language
     }
 
-    if(-not $ruleCache){
-
-        foreach ($s in $AVAILABLE_SUITES) {
-            $allQueries += Get-RulesInSuite -Suite $s -Language $Language
-        }
-
-        if($global:enableRuleCache){
-            if($Language -eq 'cpp'){
-                $global:ruleCacheCPP = $allQueries
-            }else{
-                $global:ruleCacheC = $allQueries
-            }
-        }    
-    }else{
-        $allQueries = $ruleCache
-    }
 
     $modifiedPathWithReplacement = Join-Path (Resolve-Path . -Relative) $Path 
     # replace "src" with "test" to make it match up
