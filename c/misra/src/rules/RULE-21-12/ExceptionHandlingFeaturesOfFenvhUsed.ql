@@ -45,7 +45,9 @@ where
     exists(FPExceptionHandlingMacro m |
       call = m.getAnInvocation() and
       name = m.getName() and
-      kind = "macro"
+      kind = "macro" and
+      // Exclude macro invocations expanded from other macro invocations from macros in fenv.h.
+      not call.(MacroInvocation).getParentInvocation().getMacro().getFile().getBaseName() = "fenv.h"
     )
   )
 select call, "Call to banned " + kind + " " + name + "."
