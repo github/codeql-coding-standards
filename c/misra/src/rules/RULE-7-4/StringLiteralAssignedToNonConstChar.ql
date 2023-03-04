@@ -72,4 +72,4 @@ where
     or
     returningNonConstCharVar(elem, message)
   )
-select message
+select elem, message
