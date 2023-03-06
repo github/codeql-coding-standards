@@ -15,6 +15,16 @@
 import cpp
 import codingstandards.c.misra
 
+int statementDepth(Stmt statement) {
+  statement.getParent() = statement.getEnclosingFunction().getBlock() and result = 1
+  or
+  statementDepth(statement.getParent()) + 1 = result
+}
+
+predicate test(GotoStmt goto, Stmt target, int m, int n) {
+  statementDepth(goto) = m and target = goto.getTarget() and statementDepth(target) = n
+}
+
 from GotoStmt goto
 where
   not isExcluded(goto, Statements2Package::gotoLabelBlockConditionQuery()) and
@@ -33,5 +43,5 @@ where
     ) and
     goto.getTarget().getLocation().getStartLine() > switch.getLocation().getStartLine()
   )
-select goto, "The $@ statement and its $@ are not declared or enclosed in the same block.", goto,
-  "goto", goto.getTarget(), "label"
+select goto, "The $@ statement and its $@ are not declared or enclosed in the same block. test",
+  goto, "goto", goto.getTarget(), "label"
