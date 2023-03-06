@@ -35,7 +35,7 @@ where
     not init.isCompilerGenerated()
   ) and
   // Must be a defined constructor
-  c.isDefined() and
+  c.hasDefinition() and
   // Not a compiler-generated constructor
   not c.isCompilerGenerated() and
   // Not a defaulted constructor
