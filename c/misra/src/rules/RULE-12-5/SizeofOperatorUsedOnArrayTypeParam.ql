@@ -1,6 +1,6 @@
 /**
  * @id c/misra/sizeof-operator-used-on-array-type-param
- * @name RULE-12-5: The sizeof operator should not be used on an array type function parameter.
+ * @name RULE-12-5: The sizeof operator should not be used on an array type function parameter
  * @description Using sizeof operator on an array type function parameter leads to unintended
  *              results.
  * @kind problem
