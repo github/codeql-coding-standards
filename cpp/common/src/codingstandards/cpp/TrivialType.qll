@@ -48,7 +48,7 @@ predicate hasTrivialMoveConstructor(Class c) {
   forall(Class baseClass | baseClass = c.getABaseClass() | hasTrivialMoveConstructor(baseClass)) and
   // The class has to be defined, otherwise we may not see the information required to deduce
   // whether it does or does not have a trivial move constructor
-  c.isDefined()
+  c.hasDefinition()
 }
 
 /** A trivial copy or move constructor (see [class.copy]/12). */
