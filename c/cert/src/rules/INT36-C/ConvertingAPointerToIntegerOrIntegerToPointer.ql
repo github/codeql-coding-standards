@@ -95,5 +95,6 @@ where
     assigningPointerValueToInteger(elem, message)
     or
     castingPointerToInteger(elem, message)
-  )
+  ) and
+  forall(IntType intType, PointerType ptrType | intType.getSize() != ptrType.getSize())
 select elem, message
