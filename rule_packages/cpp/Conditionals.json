@@ -136,6 +136,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "IfElseTerminationCondition",
+          "shared_implementation_short_name": "IfElseTerminationConstruct",
           "tags": [
             "maintainability",
             "readability"

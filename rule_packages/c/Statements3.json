@@ -50,7 +50,7 @@
       },
       "queries": [
         {
-          "description": "Terminating an `if...else`construct is a defensive programming technique.",
+          "description": "Terminating an `if...else` construct is a defensive programming technique.",
           "kind": "problem",
           "name": "All if / else if constructs shall be terminated with an else statement",
           "precision": "very-high",
