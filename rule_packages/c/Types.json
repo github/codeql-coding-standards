@@ -367,7 +367,7 @@
         {
           "description": "Using sizeof operator on an array type function parameter leads to unintended results.",
           "kind": "problem",
-          "name": "The sizeof operator should not be used on an array type function parameter.",
+          "name": "The sizeof operator should not be used on an array type function parameter",
           "precision": "very-high",
           "severity": "error",
           "short_name": "SizeofOperatorUsedOnArrayTypeParam",
@@ -469,7 +469,7 @@
         {
           "description": "Assigning string literal to a variable with type other than a pointer to const char and modifying it causes undefined behavior .",
           "kind": "problem",
-          "name": "A string literal shall only be assigned to a pointer to const char.",
+          "name": "A string literal shall only be assigned to a pointer to const char",
           "precision": "very-high",
           "severity": "error",
           "short_name": "StringLiteralAssignedToNonConstChar",

@@ -4,92 +4,92 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype TypesQuery =
-TExprShiftedbyNegativeOrGreaterPrecisionOperandQuery() or
-TConvertingAPointerToIntegerOrIntegerToPointerQuery() or
-TPlainNumericalTypeUsedOverExplicitTypedefQuery() or
-TSizeofOperatorUsedOnArrayTypeParamQuery() or
-TStringLiteralAssignedToNonConstCharQuery()
+  TExprShiftedbyNegativeOrGreaterPrecisionOperandQuery() or
+  TConvertingAPointerToIntegerOrIntegerToPointerQuery() or
+  TPlainNumericalTypeUsedOverExplicitTypedefQuery() or
+  TSizeofOperatorUsedOnArrayTypeParamQuery() or
+  TStringLiteralAssignedToNonConstCharQuery()
 
 predicate isTypesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `exprShiftedbyNegativeOrGreaterPrecisionOperand` query
-  TypesPackage::exprShiftedbyNegativeOrGreaterPrecisionOperandQuery() and
+    TypesPackage::exprShiftedbyNegativeOrGreaterPrecisionOperandQuery() and
   queryId =
     // `@id` for the `exprShiftedbyNegativeOrGreaterPrecisionOperand` query
-  "c/cert/expr-shiftedby-negative-or-greater-precision-operand" and
+    "c/cert/expr-shiftedby-negative-or-greater-precision-operand" and
   ruleId = "INT34-C" and
   category = "rule"
   or
   query =
     // `Query` instance for the `convertingAPointerToIntegerOrIntegerToPointer` query
-  TypesPackage::convertingAPointerToIntegerOrIntegerToPointerQuery() and
+    TypesPackage::convertingAPointerToIntegerOrIntegerToPointerQuery() and
   queryId =
     // `@id` for the `convertingAPointerToIntegerOrIntegerToPointer` query
-  "c/cert/converting-a-pointer-to-integer-or-integer-to-pointer" and
+    "c/cert/converting-a-pointer-to-integer-or-integer-to-pointer" and
   ruleId = "INT36-C" and
   category = "rule"
   or
   query =
     // `Query` instance for the `plainNumericalTypeUsedOverExplicitTypedef` query
-  TypesPackage::plainNumericalTypeUsedOverExplicitTypedefQuery() and
+    TypesPackage::plainNumericalTypeUsedOverExplicitTypedefQuery() and
   queryId =
     // `@id` for the `plainNumericalTypeUsedOverExplicitTypedef` query
-  "c/misra/plain-numerical-type-used-over-explicit-typedef" and
+    "c/misra/plain-numerical-type-used-over-explicit-typedef" and
   ruleId = "DIR-4-6" and
   category = "advisory"
   or
   query =
     // `Query` instance for the `sizeofOperatorUsedOnArrayTypeParam` query
-  TypesPackage::sizeofOperatorUsedOnArrayTypeParamQuery() and
+    TypesPackage::sizeofOperatorUsedOnArrayTypeParamQuery() and
   queryId =
     // `@id` for the `sizeofOperatorUsedOnArrayTypeParam` query
-  "c/misra/sizeof-operator-used-on-array-type-param" and
+    "c/misra/sizeof-operator-used-on-array-type-param" and
   ruleId = "RULE-12-5" and
   category = "mandatory"
   or
   query =
     // `Query` instance for the `stringLiteralAssignedToNonConstChar` query
-  TypesPackage::stringLiteralAssignedToNonConstCharQuery() and
+    TypesPackage::stringLiteralAssignedToNonConstCharQuery() and
   queryId =
     // `@id` for the `stringLiteralAssignedToNonConstChar` query
-  "c/misra/string-literal-assigned-to-non-const-char" and
+    "c/misra/string-literal-assigned-to-non-const-char" and
   ruleId = "RULE-7-4" and
   category = "required"
 }
 
 module TypesPackage {
-Query exprShiftedbyNegativeOrGreaterPrecisionOperandQuery() {
+  Query exprShiftedbyNegativeOrGreaterPrecisionOperandQuery() {
     //autogenerate `Query` type
-  result =
+    result =
       // `Query` type for `exprShiftedbyNegativeOrGreaterPrecisionOperand` query
-  TQueryC(TTypesPackageQuery(TExprShiftedbyNegativeOrGreaterPrecisionOperandQuery()))
-}
+      TQueryC(TTypesPackageQuery(TExprShiftedbyNegativeOrGreaterPrecisionOperandQuery()))
+  }
 
-Query convertingAPointerToIntegerOrIntegerToPointerQuery() {
+  Query convertingAPointerToIntegerOrIntegerToPointerQuery() {
     //autogenerate `Query` type
-  result =
+    result =
       // `Query` type for `convertingAPointerToIntegerOrIntegerToPointer` query
-  TQueryC(TTypesPackageQuery(TConvertingAPointerToIntegerOrIntegerToPointerQuery()))
-}
+      TQueryC(TTypesPackageQuery(TConvertingAPointerToIntegerOrIntegerToPointerQuery()))
+  }
 
-Query plainNumericalTypeUsedOverExplicitTypedefQuery() {
+  Query plainNumericalTypeUsedOverExplicitTypedefQuery() {
     //autogenerate `Query` type
-  result =
+    result =
       // `Query` type for `plainNumericalTypeUsedOverExplicitTypedef` query
-  TQueryC(TTypesPackageQuery(TPlainNumericalTypeUsedOverExplicitTypedefQuery()))
-}
+      TQueryC(TTypesPackageQuery(TPlainNumericalTypeUsedOverExplicitTypedefQuery()))
+  }
 
-Query sizeofOperatorUsedOnArrayTypeParamQuery() {
+  Query sizeofOperatorUsedOnArrayTypeParamQuery() {
     //autogenerate `Query` type
-  result =
+    result =
       // `Query` type for `sizeofOperatorUsedOnArrayTypeParam` query
-  TQueryC(TTypesPackageQuery(TSizeofOperatorUsedOnArrayTypeParamQuery()))
-}
+      TQueryC(TTypesPackageQuery(TSizeofOperatorUsedOnArrayTypeParamQuery()))
+  }
 
-Query stringLiteralAssignedToNonConstCharQuery() {
+  Query stringLiteralAssignedToNonConstCharQuery() {
     //autogenerate `Query` type
-  result =
+    result =
       // `Query` type for `stringLiteralAssignedToNonConstChar` query
-  TQueryC(TTypesPackageQuery(TStringLiteralAssignedToNonConstCharQuery()))
-}
+      TQueryC(TTypesPackageQuery(TStringLiteralAssignedToNonConstCharQuery()))
+  }
 }
