@@ -1,5 +1,4 @@
 | test.c:27:5:27:26 | _astronomical_number_t | The type _astronomical_number_t is not an alias to a fixed-width numeric type. |
-| test.c:30:10:30:13 | argc | The type int is not a fixed-width numeric type. |
 | test.c:34:15:34:16 | c2 | The type signed char is not a fixed-width numeric type. |
 | test.c:35:17:35:18 | c3 | The type unsigned char is not a fixed-width numeric type. |
 | test.c:38:9:38:10 | s1 | The type short is not a fixed-width numeric type. |
