@@ -161,6 +161,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "SwitchDoesNotStartWithCase",
+          "shared_implementation_short_name": "SwitchCasePositionCondition",
           "tags": [
             "maintainability",
             "readability"
@@ -173,6 +174,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "SwitchStatementNotWellFormed",
+          "shared_implementation_short_name": "SwitchNotWellFormed",
           "tags": [
             "maintainability",
             "readability"
