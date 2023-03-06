@@ -1,4 +1,4 @@
-| char* function sample3 is returning a string literal. |
-| char* parameter of sample4 is passed a string literal. |
-| char* variable s3 is assigned a string literal.  |
-| char* variable s3 is declared with a string literal. |
+| test.c:9:9:9:10 | s3 | char* variable s3 is declared with a string literal. |
+| test.c:11:3:12:15 | ... = ... | char* variable s3 is assigned a string literal.  |
+| test.c:26:5:26:21 | return ... | char* function sample3 is returning a string literal. |
+| test.c:38:3:38:9 | call to sample4 | char* parameter of sample4 is passed a string literal. |
