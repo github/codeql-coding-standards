@@ -96,5 +96,6 @@ where
     or
     castingPointerToInteger(elem, message)
   ) and
+  /* Ensure that `int` has different size than that of pointers */
   forall(IntType intType, PointerType ptrType | intType.getSize() != ptrType.getSize())
 select elem, message
