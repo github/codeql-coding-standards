@@ -1,4 +1,4 @@
-$Functions  = @( Get-ChildItem -Path $PSScriptRoot\*.ps1 -ErrorAction SilentlyContinue )
+$Functions  = @( Get-ChildItem -Path $PSScriptRoot/*.ps1 -ErrorAction SilentlyContinue )
 
 foreach($i in $Functions){
     . $i.FullName 

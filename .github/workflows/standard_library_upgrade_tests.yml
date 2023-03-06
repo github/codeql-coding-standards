@@ -116,7 +116,7 @@ jobs:
             stdlib_path = os.path.join(codeql_home, 'codeql-stdlib')
             cpp_test_root = Path(stdlib_path, 'cpp/ql/test')
             print(f"Executing tests found (recursively) in the directory '{cpp_test_root}'")
-            cp = subprocess.run([codeql_bin, "test", "run", "--format=json", f'--search-path={stdlib_path}', cpp_test_root], stdout=test_report_file, stderr=subprocess.PIPE)
+            cp = subprocess.run([codeql_bin, "test", "run", "--format=json", cpp_test_root], stdout=test_report_file, stderr=subprocess.PIPE)
             if cp.returncode != 0:
               print_error_and_fail(f"Failed to run tests with return code {cp.returncode} and error {cp.stderr}")
 

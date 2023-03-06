@@ -44,7 +44,7 @@ class DiagnosticsSummary:
             # Run all the diagnostics over the database
             print("Running the diagnostic queries...")
             self.codeql_summary.codeql.run_queries(
-                database_path, *queries, search_path=str(repo_root), no_rerun=True)
+                database_path, *queries, no_rerun=True)
 
             print("Decoding diagnostic query results")
             self.extraction_errors = self.codeql_summary.codeql.decode_results(
