@@ -13,9 +13,7 @@
 import cpp
 import codingstandards.c.misra
 
-abstract class ForbiddenType extends Type { }
-
-class BuiltinNumericType extends ForbiddenType {
+class BuiltinNumericType extends BuiltInType {
   BuiltinNumericType() {
     /* Exclude the plain char because it does not count as a numeric type */
     this.(CharType).isExplicitlySigned()
@@ -38,15 +36,22 @@ class BuiltinNumericType extends ForbiddenType {
   }
 }
 
-class ForbiddenTypedefType extends ForbiddenType, TypedefType {
-  ForbiddenTypedefType() {
-    this.(TypedefType).getBaseType() instanceof BuiltinNumericType and
-    not this.getName().regexpMatch("u?(int|float)(4|8|16|32|64|128)_t")
-  }
+predicate forbiddenBuiltinNumericUsedInDecl(Variable var, string message) {
+  var.getType() instanceof BuiltinNumericType and
+  message = "The type " + var.getType() + " is not a fixed-width numeric type."
 }
 
-/* TODO: BuiltinNumericType not being flagged */
-from ForbiddenType forbiddenType
-where not isExcluded(forbiddenType, TypesPackage::plainNumericalTypeUsedOverExplicitTypedefQuery())
-select forbiddenType,
-  "The type " + forbiddenType + " is not a fixed-width numeric type nor an alias to one."
+predicate forbiddenTypedef(TypedefType typedef, string message) {
+  typedef.getBaseType() instanceof BuiltinNumericType and
+  not typedef.getName().regexpMatch("u?(int|float)(4|8|16|32|64|128)_t") and
+  message = "The type " + typedef.getName() + " is not an alias to a fixed-width numeric type."
+}
+
+from Element elem, string message
+where
+  not isExcluded(elem, TypesPackage::plainNumericalTypeUsedOverExplicitTypedefQuery()) and
+  (
+    forbiddenBuiltinNumericUsedInDecl(elem, message) or
+    forbiddenTypedef(elem, message)
+  )
+select elem, message
