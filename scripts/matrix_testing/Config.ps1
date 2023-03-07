@@ -1,3 +1,5 @@
+Import-Module -Name "$PSScriptRoot/../PSCodingStandards/CodingStandards"
+
 $COMPILER_MAPPINGS = @{
     "cpp" = @{
         "clang"      = "clang++";
@@ -27,7 +29,7 @@ $COMPILER_ARGS = @{
     
 }
 
-$REQUIRED_CODEQL_VERSION = "2.9.4"
+$REQUIRED_CODEQL_VERSION = (Get-Content (Join-Path (Get-RepositoryRoot) "supported_codeql_configs.json") | ConvertFrom-Json).supported_environment.codeql_cli
 
 
 $REPORT_QUERY = @"
