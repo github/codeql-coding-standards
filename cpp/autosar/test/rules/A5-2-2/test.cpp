@@ -6,7 +6,7 @@ int foo() { return 1; }
 void test_c_style_cast() {
   double f = 3.14;
   std::uint32_t n1 = (std::uint32_t)f; // NON_COMPLIANT - C-style cast
-  std::uint32_t n2 = unsigned(f);      // NON_COMPLIANT - functional cast
+  std::uint32_t n2 = unsigned(f);      // COMPLIANT[FALSE_POSITIVE]
 
   std::uint8_t n3 = 1;
   std::uint8_t n4 = 1;
@@ -86,4 +86,75 @@ void test_macro_cast() {
   LIBRARY_NO_CAST_ADD_TWO((int)1.0); // NON_COMPLIANT - library macro with
                                      // c-style cast in argument, written by
                                      // user so should be reported
+}
+
+class D {
+public:
+  D(int x) : fx(x), fy(0) {}
+  D(int x, int y) : fx(x), fy(y) {}
+
+private:
+  int fx;
+  int fy;
+};
+
+D testNonFunctionalCast() {
+  return (D)1; // NON_COMPLIANT[FALSE_NEGATIVE]
+}
+
+D testFunctionalCast() {
+  return D(1); // COMPLIANT
+}
+
+D testFunctionalCastMulti() {
+  return D(1, 2); // COMPLIANT
+}
+
+template <typename T> T testFunctionalCastTemplate() {
+  return T(1); // COMPLIANT[FALSE_POSITIVE]
+}
+
+template <typename T> T testFunctionalCastTemplateMulti() {
+  return T(1, 2); // COMPLIANT
+}
+
+void testFunctionalCastTemplateUse() {
+  testFunctionalCastTemplate<D>();
+  testFunctionalCastTemplate<int>();
+  testFunctionalCastTemplateMulti<D>();
+}
+
+template <typename T> class E {
+public:
+  class F {
+  public:
+    F(int x) : fx(x), fy(0) {}
+    F(int x, int y) : fx(x), fy(y) {}
+
+  private:
+    int fx;
+    int fy;
+  };
+
+  F f() {
+    return F(1); // COMPLIANT
+  }
+
+  D d() {
+    return D(1); // COMPLIANT
+  }
+
+  int i() {
+    double f = 3.14;
+    return (unsigned int)f; // NON_COMPLIANT
+  }
+};
+
+class G {};
+
+void testE() {
+  E<G> e;
+  e.f();
+  e.d();
+  e.i();
 }

@@ -17,6 +17,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Operator
+import semmle.code.cpp.Print
 
 from Operator o
 where
@@ -30,5 +31,5 @@ where
     o.getType() instanceof ReferenceType
   )
 select o,
-  "User-defined bitwise or arithmetic operator " + o.getFullSignature() +
+  "User-defined bitwise or arithmetic operator " + getIdentityString(o) +
     " does not return a prvalue."
