@@ -1,0 +1,2 @@
+| test.c:3:3:4:3 | for(...;...;...) ... | Loop $@ has a floating-point type. | test.c:3:18:3:26 | ... < ... | counter |
+| test.c:5:3:6:3 | while (...) ... | Loop $@ has a floating-point type. | test.c:5:10:5:17 | ... - ... | counter |
