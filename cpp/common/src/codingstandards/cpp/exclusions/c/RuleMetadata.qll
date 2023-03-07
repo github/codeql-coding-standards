@@ -46,6 +46,7 @@ import Statements1
 import Statements2
 import Statements3
 import Statements4
+import Statements5
 import Strings1
 import Strings2
 import Strings3
@@ -97,6 +98,7 @@ newtype TCQuery =
   TStatements2PackageQuery(Statements2Query q) or
   TStatements3PackageQuery(Statements3Query q) or
   TStatements4PackageQuery(Statements4Query q) or
+  TStatements5PackageQuery(Statements5Query q) or
   TStrings1PackageQuery(Strings1Query q) or
   TStrings2PackageQuery(Strings2Query q) or
   TStrings3PackageQuery(Strings3Query q) or
@@ -148,6 +150,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStatements2QueryMetadata(query, queryId, ruleId, category) or
   isStatements3QueryMetadata(query, queryId, ruleId, category) or
   isStatements4QueryMetadata(query, queryId, ruleId, category) or
+  isStatements5QueryMetadata(query, queryId, ruleId, category) or
   isStrings1QueryMetadata(query, queryId, ruleId, category) or
   isStrings2QueryMetadata(query, queryId, ruleId, category) or
   isStrings3QueryMetadata(query, queryId, ruleId, category) or

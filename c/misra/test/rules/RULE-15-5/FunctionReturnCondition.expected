@@ -1,0 +1,4 @@
+| test.c:1:6:1:7 | f1 | Function has more than on return statement. |
+| test.c:14:6:14:7 | f3 | The last statement of the function is not a return statement. |
+| test.c:21:6:21:7 | f4 | Function has more than on return statement. |
+| test.c:21:6:21:7 | f4 | The last statement of the function is not a return statement. |
