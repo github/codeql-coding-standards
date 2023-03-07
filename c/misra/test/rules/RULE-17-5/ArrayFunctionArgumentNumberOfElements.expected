@@ -1,0 +1,9 @@
+| test.c:18:6:18:6 | 0 | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
+| test.c:19:6:19:7 | ar | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
+| test.c:21:6:21:9 | ar2p | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
+| test.c:26:9:26:9 | 0 | The function argument does not have a sufficient number or elements declared in the $@. | test.c:2:20:2:21 | ar | parameter |
+| test.c:27:9:27:10 | ar | The function argument does not have a sufficient number or elements declared in the $@. | test.c:2:20:2:21 | ar | parameter |
+| test.c:29:9:29:12 | ar2p | The function argument does not have a sufficient number or elements declared in the $@. | test.c:2:20:2:21 | ar | parameter |
+| test.c:61:6:61:8 | ar2 | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
+| test.c:62:6:62:9 | ar2b | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
+| test.c:63:6:63:9 | ar2p | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |

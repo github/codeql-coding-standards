@@ -1,7 +1,7 @@
 class A {
   class B *impl;
 
-  void test() { delete impl; } // NON_COMPLAINT
+  void test() { delete impl; } // NON_COMPLIANT
 };
 
 class D {};
@@ -9,5 +9,5 @@ class D {};
 class C {
   class D *impl1;
 
-  void test() { delete impl1; } // COMPLAINT
+  void test() { delete impl1; } // COMPLIANT
 };
