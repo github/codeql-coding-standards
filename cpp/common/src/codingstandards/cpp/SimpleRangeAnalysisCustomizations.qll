@@ -159,7 +159,7 @@ private class CastEnumToIntegerSimpleRange extends SimpleRangeAnalysisExpr, Cast
  */
 private class CtypeGetcharFunctionsRange extends SimpleRangeAnalysisExpr, FunctionCall {
   CtypeGetcharFunctionsRange() {
-    this.getFile().(HeaderFile).getBaseName() = "stdio.h" and
+    this.getTarget().getFile().(HeaderFile).getBaseName() = "stdio.h" and
     this.getTarget().getName().regexpMatch("(fgetc|getc|getchar|)")
   }
 
