@@ -19,7 +19,7 @@ import codingstandards.cpp.Macro
 
 from FunctionLikeMacro m, MacroInvocation mi, int i, string expanded, string param
 where
-  not isExcluded(m, Preprocessor2Package::macroParameterUsedAsHashOperandQuery()) and
+  not isExcluded(mi, Preprocessor2Package::macroParameterUsedAsHashOperandQuery()) and
   mi = m.getAnInvocation() and
   param = m.getParameter(i) and
   (
@@ -31,9 +31,6 @@ where
   // This check ensure there is an expansion that is used.
   expanded = mi.getExpandedArgument(i) and
   not expanded = "" and
-  exists(Macro furtherExpandedMacro |
-    mi.getUnexpandedArgument(i).matches(furtherExpandedMacro.getName() + "%")
-  )
+  not mi.getUnexpandedArgument(i) = mi.getExpandedArgument(i)
 select m,
-  "Macro " + m.getName() + " contains use of parameter " + m.getParameter(i) +
-    " used in multiple contexts."
+  "Macro " + m.getName() + " contains use of parameter " + param + " used in multiple contexts."
