@@ -1,1 +1,7 @@
-No expected results have yet been specified
+| test.c:7:3:8:3 | for(...;...;...) ... | For loop is not well formed. |
+| test.c:14:3:15:3 | for(...;...;...) ... | For loop is not well formed. |
+| test.c:20:3:21:3 | for(...;...;...) ... | For loop is not well formed. |
+| test.c:25:3:26:3 | for(...;...;...) ... | For loop is not well formed. |
+| test.c:38:3:39:3 | for(...;...;...) ... | For loop is not well formed. |
+| test.c:52:3:53:3 | for(...;...;...) ... | For loop is not well formed. |
+| test.c:64:3:67:3 | for(...;...;...) ... | For loop is not well formed. |
