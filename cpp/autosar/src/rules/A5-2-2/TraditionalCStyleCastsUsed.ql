@@ -44,11 +44,43 @@ class LibraryMacro extends Macro {
   LibraryMacro() { not this instanceof UserProvidedMacro }
 }
 
+/*
+ * In theory this query should exclude casts using the "functional notation" syntax, e.g.
+ * ```
+ * int(x);
+ * ```
+ * This is because this is not a C-style cast, as it is not legitimate C code. However, our database
+ * schema does not distinguish between C-style casts and functional casts, so we cannot exclude just
+ * those.
+ *
+ * In addition, we do not get `CStyleCasts` in cases where the cast is converted to a `ConstructorCall`.
+ * This holds for both the "functional notation" syntax and the "c-style" syntax, e.g. both of these
+ * are represented in our model as `ConstructorCall`s only:
+ * ```
+ * class A { public: A(int); };
+ * void create() {
+ *   (A)1;
+ *   A(1);
+ * }
+ * ```
+ *
+ * As a consequence this query:
+ *  - Produces false positives when primitive types are cast using the "functional notation" syntax.
+ *  - Produces false negatives when a C-style cast is converted to a `ConstructorCall` e.g. when the
+ *    argument type is compatible with a single-argument constructor.
+ */
+
 from CStyleCast c, string extraMessage, Locatable l, string supplementary
 where
   not isExcluded(c, BannedSyntaxPackage::traditionalCStyleCastsUsedQuery()) and
   not c.isImplicit() and
   not c.getType() instanceof UnknownType and
+  // For casts in templates that occur on types related to a template parameter, the copy of th
+  // cast in the uninstantiated template is represented as a `CStyleCast` even if in practice all
+  // the instantiations represent it as a `ConstructorCall`. To avoid the common false positive case
+  // of using the functional cast notation to call a constructor we exclude all `CStyleCast`s on
+  // uninstantiated templates, and instead rely on reporting results within instantiations.
+  not c.isFromUninstantiatedTemplate(_) and
   // Exclude casts created from macro invocations of macros defined by third parties
   not getGeneratedFrom(c) instanceof LibraryMacro and
   // If the cast was generated from a user-provided macro, then report the macro that generated the
