@@ -54,6 +54,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NonVoidFunctionReturnCondition",
+          "shared_implementation_short_name": "NonVoidFunctionDoesNotReturn",
           "tags": [
             "correctness",
             "maintainability",
