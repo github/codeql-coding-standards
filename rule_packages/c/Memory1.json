@@ -10,7 +10,7 @@
           "kind": "problem",
           "name": "The initializer for an aggregate or union shall be enclosed in braces",
           "precision": "high",
-          "severity": "warning",
+          "severity": "recommendation",
           "short_name": "InitializerForAggregateOrUnionNotEnclosedInBraces",
           "shared_implementation_short_name": "UseInitializerBracesToMatchAggregateTypeStructure",
           "tags": [

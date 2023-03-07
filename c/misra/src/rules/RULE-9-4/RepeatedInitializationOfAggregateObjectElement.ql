@@ -43,6 +43,8 @@ string getNestedArrayIndexString(Expr e) {
           |
             elementIndex
           ).toString() + "]"
+      order by
+        depth desc
     )
 }
 
@@ -95,8 +97,7 @@ predicate hasMultipleInitializerExprsForSameIndex(ArrayAggregateLiteral root, Ex
  * that initialize the same Field and are part of the same `ClassAggregateLiteral`.
  * This predicate is therefore unable to distinguish the individual duplicate expressions.
  */
-predicate hasMultipleInitializerExprsForSameField(ClassAggregateLiteral root, Expr expr, Field f) {
-  expr = root.getFieldExpr(f) and
+predicate hasMultipleInitializerExprsForSameField(ClassAggregateLiteral root, Field f) {
   count(root.getFieldExpr(f)) > 1
 }
 
@@ -116,7 +117,7 @@ where
       // we cannot distinguish between different aggregate field init expressions.
       // therefore, we only report the root aggregate rather than any child init expr.
       // see `hasMultipleInitializerExprsForSameField` documentation.
-      hasMultipleInitializerExprsForSameField(root, _, f) and
+      hasMultipleInitializerExprsForSameField(root, f) and
       e1 = root and
       e2 = root and
       elementDescription = f.getQualifiedName() and
