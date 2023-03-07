@@ -5,7 +5,7 @@
  *              clarifies intent.
  * @kind problem
  * @precision high
- * @problem.severity warning
+ * @problem.severity recommendation
  * @tags external/misra/id/rule-9-2
  *       maintainability
  *       readability
