@@ -1,5 +1,5 @@
 #include <assert.h>   // NON_COMPLIANT
-#include <complex.h>  // NON_COMPLAINT
+#include <complex.h>  // NON_COMPLIANT
 #include <ctype.h>    // NON_COMPLIANT
 #include <errno.h>    // NON_COMPLIANT
 #include <fenv.h>     // NON_COMPLIANT

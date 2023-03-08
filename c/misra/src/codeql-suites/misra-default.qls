@@ -1,5 +1,5 @@
 - description: MISRA C 2012 (Default)
-- qlpack: misra-c-coding-standards
+- qlpack: codeql/misra-c-coding-standards
 - include:
     kind:
     - problem

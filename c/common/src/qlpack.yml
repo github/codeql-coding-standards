@@ -1,3 +1,6 @@
-name: common-c-coding-standards
-version: 2.13.0-dev
-libraryPathDependencies: common-cpp-coding-standards
+name: codeql/common-c-coding-standards
+version: 2.14.0-dev
+license: MIT
+dependencies:
+  codeql/common-cpp-coding-standards: '*'
+  codeql/cpp-all: 0.2.3
