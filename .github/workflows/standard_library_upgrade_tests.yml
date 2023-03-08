@@ -2,6 +2,7 @@ name: CodeQL Standard Library Upgrade tests
 
 # Run this workflow every time the "supported_codeql_configs.json" file is changed
 on:
+  merge_group:
   pull_request:
     branches:
       - main
