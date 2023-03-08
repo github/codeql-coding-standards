@@ -1,0 +1,29 @@
+edges
+| test.c:5:8:5:9 | & ... | test.c:6:4:6:5 | aa |
+| test.c:26:15:26:15 | a | test.c:27:4:27:4 | a |
+| test.c:34:13:34:14 | & ... | test.c:39:7:39:8 | p1 |
+| test.c:39:7:39:8 | p1 | test.c:26:15:26:15 | a |
+| test.c:40:7:40:9 | * ... | test.c:26:15:26:15 | a |
+| test.c:59:7:59:8 | & ... | test.c:60:4:60:4 | p |
+| test.c:79:11:79:16 | call to strchr | test.c:81:6:81:12 | ... ++ |
+nodes
+| test.c:5:8:5:9 | & ... | semmle.label | & ... |
+| test.c:6:4:6:5 | aa | semmle.label | aa |
+| test.c:26:15:26:15 | a | semmle.label | a |
+| test.c:27:4:27:4 | a | semmle.label | a |
+| test.c:34:13:34:14 | & ... | semmle.label | & ... |
+| test.c:39:7:39:8 | p1 | semmle.label | p1 |
+| test.c:40:7:40:9 | * ... | semmle.label | * ... |
+| test.c:59:7:59:8 | & ... | semmle.label | & ... |
+| test.c:60:4:60:4 | p | semmle.label | p |
+| test.c:74:12:74:12 | s | semmle.label | s |
+| test.c:79:11:79:16 | call to strchr | semmle.label | call to strchr |
+| test.c:81:6:81:12 | ... ++ | semmle.label | ... ++ |
+subpaths
+#select
+| test.c:6:4:6:5 | aa | test.c:5:8:5:9 | & ... | test.c:6:4:6:5 | aa | Const variable assigned with non const-value. |
+| test.c:27:4:27:4 | a | test.c:34:13:34:14 | & ... | test.c:27:4:27:4 | a | Const variable assigned with non const-value. |
+| test.c:27:4:27:4 | a | test.c:40:7:40:9 | * ... | test.c:27:4:27:4 | a | Const variable assigned with non const-value. |
+| test.c:60:4:60:4 | p | test.c:59:7:59:8 | & ... | test.c:60:4:60:4 | p | Const variable assigned with non const-value. |
+| test.c:74:12:74:12 | s | test.c:74:12:74:12 | s | test.c:74:12:74:12 | s | Const variable assigned with non const-value. |
+| test.c:81:6:81:12 | ... ++ | test.c:79:11:79:16 | call to strchr | test.c:81:6:81:12 | ... ++ | Const variable assigned with non const-value. |

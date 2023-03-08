@@ -17,8 +17,8 @@ unsigned char v_unsigned_char = 42;
 unsigned long v_unsigned_long = 42;
 unsigned long long v_unsigned_long_long = 42;
 uintmax_t v_uintmax_t = 42;
-double v_double = 42;
-long double v_long_double = 42;
+double v_double = 42.0;
+long double v_long_double = 42.0;
 int v_int = 42;
 wint_t v_wint_t = 42;
 char *v_char_ptr = "42";
@@ -427,8 +427,8 @@ void test_wrong_arg_type() {
   printf("%hhd", v_char_ptr); // NON_COMPLIANT
   printf("%ld", v_char_ptr);  // NON_COMPLIANT
   printf("%lld", v_char_ptr); // NON_COMPLIANT
-  printf("%jd", v_char_ptr);  // NON_COMPLIANT
-  printf("%zd", v_char_ptr);  // NON_COMPLIANT
+  printf("%jd", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
+  printf("%zd", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
   printf("%td", v_char_ptr);  // NON_COMPLIANT
 
   printf("%i", v_char_ptr);   // NON_COMPLIANT
@@ -436,8 +436,8 @@ void test_wrong_arg_type() {
   printf("%hhi", v_char_ptr); // NON_COMPLIANT
   printf("%li", v_char_ptr);  // NON_COMPLIANT
   printf("%lli", v_char_ptr); // NON_COMPLIANT
-  printf("%ji", v_char_ptr);  // NON_COMPLIANT
-  printf("%zi", v_char_ptr);  // NON_COMPLIANT
+  printf("%ji", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
+  printf("%zi", v_char_ptr);  // NON_COMPLIANT[FALSE_NEGATIVE]
   printf("%ti", v_char_ptr);  // NON_COMPLIANT
 
   printf("%o", v_char_ptr);   // NON_COMPLIANT

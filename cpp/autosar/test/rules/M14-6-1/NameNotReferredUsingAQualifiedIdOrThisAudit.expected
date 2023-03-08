@@ -1,3 +1,3 @@
-| test.cpp:16:5:16:5 | m | Use of identifier that also exists in a base class that is not fully qualified. |
-| test.cpp:17:5:17:5 | call to g | Use of identifier that also exists in a base class that is not fully qualified. |
-| test.cpp:19:20:19:20 | g | Use of identifier that also exists in a base class that is not fully qualified. |
+| test.cpp:16:5:16:5 | m | Use of unqualified identifier m targets $@ but a member with the name also exists $@. | test.cpp:4:5:4:5 | m | m | test.cpp:10:7:10:7 | m | in the dependent base class |
+| test.cpp:17:5:17:5 | call to g | Use of unqualified identifier g targets $@ but a member with the name also exists $@. | test.cpp:2:6:2:6 | g | g | test.cpp:9:8:9:8 | g | in the dependent base class |
+| test.cpp:19:20:19:20 | g | Use of unqualified identifier g targets $@ but a member with the name also exists $@. | test.cpp:2:6:2:6 | g | g | test.cpp:9:8:9:8 | g | in the dependent base class |

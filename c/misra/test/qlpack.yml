@@ -1,4 +1,6 @@
-name: misra-c-coding-standards-tests
-version: 2.13.0-dev
-libraryPathDependencies: misra-c-coding-standards
+name: codeql/misra-c-coding-standards-tests
+version: 2.14.0-dev
 extractor: cpp
+license: MIT
+dependencies:
+  codeql/misra-c-coding-standards: '*'
