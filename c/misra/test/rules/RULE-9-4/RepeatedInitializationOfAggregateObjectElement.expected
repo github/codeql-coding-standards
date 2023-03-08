@@ -1,0 +1,4 @@
+| test.c:10:16:10:16 | 1 | $@ repeats initialization of element [0], which is already initialized $@. | test.c:9:14:10:26 | {...} | Array aggregate literal | test.c:10:7:10:7 | 0 | here |
+| test.c:12:28:12:28 | 1 | $@ repeats initialization of element [0][0], which is already initialized $@. | test.c:12:17:16:29 | {...} | Array aggregate literal | test.c:16:28:16:28 | 1 | here |
+| test.c:25:64:25:64 | 7 | $@ repeats initialization of element [1][1][0], which is already initialized $@. | test.c:24:20:26:35 | {...} | Array aggregate literal | test.c:26:34:26:34 | 1 | here |
+| test.c:36:17:37:25 | {...} | $@ repeats initialization of element s1::a. | test.c:36:17:37:25 | {...} | Structure aggregate literal | test.c:36:17:37:25 | {...} | here |

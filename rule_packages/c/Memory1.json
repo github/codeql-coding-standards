@@ -1,0 +1,66 @@
+{
+  "MISRA-C-2012": {
+    "RULE-9-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using braces in initializers of objects and subobjects improves code readability and clarifies intent.",
+          "kind": "problem",
+          "name": "The initializer for an aggregate or union shall be enclosed in braces",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "InitializerForAggregateOrUnionNotEnclosedInBraces",
+          "shared_implementation_short_name": "UseInitializerBracesToMatchAggregateTypeStructure",
+          "tags": [
+            "maintainability", 
+            "readability"
+          ]
+        }
+      ],
+      "title": "The initializer for an aggregate or union shall be enclosed in braces"
+    },
+    "RULE-9-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An array object or a subobject of an array shall be explicitly initialized if any other object in that array is explicitly initialized.",
+          "kind": "problem",
+          "name": "Arrays shall not be partially initialized",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "PartiallyInitializedArrayWithExplicitInitializers",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Arrays shall not be partially initialized"
+    },
+    "RULE-9-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Repeated initialization of an element in an object can lead to side-effects or may signal a logic error.",
+          "kind": "problem",
+          "name": "An element of an object shall not be initialized more than once",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "RepeatedInitializationOfAggregateObjectElement",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "An element of an object shall not be initialized more than once"
+    }
+  }
+}
