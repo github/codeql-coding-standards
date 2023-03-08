@@ -131,7 +131,7 @@ void testSwitchCase() {
   case A:                   // NON_COMPLIANT
   case 100:                 // NON_COMPLIANT
   case ((unsigned int)200): // NON_COMPLIANT
-                            // case 1.0f:                // NON_COMPILABLE
+    break;                  // case 1.0f:                // NON_COMPILABLE
   }
 
   switch (e1) {
@@ -139,7 +139,7 @@ void testSwitchCase() {
   case A:                   // COMPLIANT
   case 100:                 // NON_COMPLIANT
   case ((unsigned int)200): // NON_COMPLIANT
-                            // case 1.0f:                // NON_COMPILABLE
+    break;                  // case 1.0f:                // NON_COMPILABLE
   }
 
   switch (s) {
@@ -147,7 +147,7 @@ void testSwitchCase() {
   case A:                   // NON_COMPLIANT
   case 100:                 // COMPLIANT
   case ((unsigned int)200): // NON_COMPLIANT
-                            // case 1.0f:                // NON_COMPILABLE
+    break;                  // case 1.0f:                // NON_COMPILABLE
   }
 
   switch (u) {
@@ -155,7 +155,7 @@ void testSwitchCase() {
   case A:                   // NON_COMPLIANT
   case 100:                 // COMPLIANT - by exception 1
   case ((unsigned int)200): // COMPLIANT - by exception 1
-                            // case 1.0f:                // NON_COMPILABLE
+    break;                  // case 1.0f:                // NON_COMPILABLE
   }
 }
 
