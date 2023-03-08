@@ -14,6 +14,7 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.cpp.Concurrency
 
 from MacroInvocation mi, Variable v, Locatable whereFound
 where
@@ -22,13 +23,13 @@ where
     // There isn't a way to safely use this construct in a way that is also
     // possible the reliably detect so advise against using it.
     (
-      mi.getMacroName() = ["atomic_store", "atomic_store_explicit"]
+      mi instanceof AtomicStore
       or
       // This construct is generally safe, but must be used in a loop. To lower
       // the false positive rate we don't look at the conditions of the loop and
       // instead assume if it is found in a looping construct that it is likely
       // related to the safety property.
-      mi.getMacroName() = ["atomic_compare_exchange_weak", "atomic_compare_exchange_weak_explicit"] and
+      mi instanceof AtomicCompareExchange and
       not exists(Loop l | mi.getAGeneratedElement().(Expr).getParent*() = l)
     ) and
     whereFound = mi

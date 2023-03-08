@@ -1,4 +1,4 @@
-| test.cpp:16:9:16:17 | operator- | User-defined bitwise or arithmetic operator operator-(const A &, int) -> const A does not return a prvalue. |
-| test.cpp:20:4:20:12 | operator\| | User-defined bitwise or arithmetic operator operator\|(const A &, const A &) -> A * does not return a prvalue. |
-| test.cpp:24:9:24:18 | operator<< | User-defined bitwise or arithmetic operator operator<<(const A &, const A &) -> const A does not return a prvalue. |
-| test.cpp:34:6:34:14 | operator+ | User-defined bitwise or arithmetic operator NS_C::operator+(const C &, const C &) -> int & does not return a prvalue. |
+| test.cpp:16:9:16:17 | operator- | User-defined bitwise or arithmetic operator A const operator-(A const&, int) does not return a prvalue. |
+| test.cpp:20:4:20:12 | operator\| | User-defined bitwise or arithmetic operator A* operator\|(A const&, A const&) does not return a prvalue. |
+| test.cpp:24:9:24:18 | operator<< | User-defined bitwise or arithmetic operator A const operator<<(A const&, A const&) does not return a prvalue. |
+| test.cpp:34:6:34:14 | operator+ | User-defined bitwise or arithmetic operator int& NS_C::operator+(C const&, C const&) does not return a prvalue. |
