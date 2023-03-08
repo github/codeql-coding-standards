@@ -1,7 +1,8 @@
 #include "stdatomic.h"
 
 void f1() {
-  int a, b, c;
+  _Atomic int a;
+  int b, c;
   if (!atomic_compare_exchange_weak(&a, &b, c)) { // NON_COMPLIANT
     (void)0;                                      /* no-op */
   }
@@ -17,7 +18,8 @@ void f1() {
 }
 
 void f2() {
-  int a, b, c;
+  _Atomic int a;
+  int b, c;
   while (1 == 1) {
     if (!atomic_compare_exchange_weak(&a, &b, c)) { // COMPLIANT
       (void)0;                                      /* no-op */

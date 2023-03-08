@@ -141,7 +141,14 @@
           "tags": [
             "correctness",
             "scope/single-translation-unit"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query has the following limitations:",
+            "items": [
+              "It erroneously reports functional notation casts on primitive types (e.g. int(x)) as traditional C-style casts.",
+              "It will not report C-Style casts that result in a direct initialization via a constructor call with the given argument."
+            ]
+          }
         }
       ],
       "title": "Traditional C-style casts shall not be used."

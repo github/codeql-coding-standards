@@ -46,7 +46,7 @@ void f8(void) {
 void f9(void) {
   char name[50] = "tmp9";
   char ext[] = "txt";
-  char file[] = strcat(name, ext);
+  char *file = strcat(name, ext);
   FILE *fw = fopen(file, "r+");
   FILE *fr = fopen(strcat(name, ext), "r"); // NON_COMPLIANT[FALSE_NEGATIVE]
 }
