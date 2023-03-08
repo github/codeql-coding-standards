@@ -1,0 +1,4 @@
+| test.c:6:8:6:46 | atomic_compare_exchange_weak(PTR,VAL,DES) | Function that can spuriously fail not wrapped in a loop. |
+| test.c:10:3:10:41 | atomic_compare_exchange_weak(PTR,VAL,DES) | Function that can spuriously fail not wrapped in a loop. |
+| test.c:12:8:13:47 | atomic_compare_exchange_weak_explicit(PTR,VAL,DES,SUC,FAIL) | Function that can spuriously fail not wrapped in a loop. |
+| test.c:17:3:17:56 | atomic_compare_exchange_weak_explicit(PTR,VAL,DES,SUC,FAIL) | Function that can spuriously fail not wrapped in a loop. |
