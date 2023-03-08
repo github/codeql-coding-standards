@@ -78,8 +78,11 @@ private IntegralType stlr(Expr const) {
  */
 EssentialTypeCategory getEssentialTypeCategory(Type type) {
   exists(Type essentialType |
-    // Resolve typedefs to ensure
-    essentialType = type.getUnspecifiedType()
+    if type instanceof MisraBoolType
+    then essentialType = type
+    else
+      // If not a bool type, resolve the typedefs to determine the actual type
+      essentialType = type.getUnspecifiedType()
   |
     result = EssentiallyBooleanType() and essentialType instanceof MisraBoolType
     or
