@@ -1,6 +1,6 @@
 /**
  * @id c/misra/memcmp-on-inappropriate-essential-type-args
- * @name RULE-21-16: Do not use memcmp on pointers to characters or composite types such as structs and unions.
+ * @name RULE-21-16: Do not use memcmp on pointers to characters or composite types such as structs and unions
  * @description The pointer arguments to the Standard Library function memcmp shall point to either
  *              a pointer type, an essentially signed type, an essentially unsigned type, an
  *              essentially Boolean type or an essentially enum type.

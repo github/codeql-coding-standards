@@ -218,7 +218,7 @@
         {
           "description": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type.",
           "kind": "problem",
-          "name": "Do not use memcmp on pointers to characters or composite types such as structs and unions.",
+          "name": "Do not use memcmp on pointers to characters or composite types such as structs and unions",
           "precision": "very-high",
           "severity": "error",
           "short_name": "MemcmpOnInappropriateEssentialTypeArgs",
