@@ -67,3 +67,16 @@ L1: // COMPLIANT
     break;
   }
 }
+
+void f8(int p) {
+
+  switch (p) {
+  case 0:
+    goto L1;
+    ;
+  L1:; // COMPLIANT
+    break;
+  default:
+    break;
+  }
+}
