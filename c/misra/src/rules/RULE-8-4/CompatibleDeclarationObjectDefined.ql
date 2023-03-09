@@ -23,16 +23,10 @@ where
   not isExcluded(decl1, Declarations4Package::compatibleDeclarationObjectDefinedQuery()) and
   decl1.isDefinition() and
   decl1.getDeclaration() instanceof ExternalIdentifiers and
-  (
-    //no declaration matches exactly
-    not exists(VariableDeclarationEntry decl2 |
-      not decl2.isDefinition() and decl2.getDeclaration() = decl1.getDeclaration()
-    ) and
-    //and none is close enough
-    not exists(VariableDeclarationEntry decl2 |
-      not decl2.isDefinition() and
-      decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName() and
-      typesCompatible(decl1.getType(), decl2.getType())
-    )
+  // no declaration matches
+  not exists(VariableDeclarationEntry decl2 |
+    not decl2.isDefinition() and
+    decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName() and
+    typesCompatible(decl1.getType(), decl2.getType())
   )
 select decl1, "No separate compatible declaration found for this definition."
