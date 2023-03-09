@@ -27,9 +27,9 @@
       },
       "queries": [
         {
-          "description": "Any label referenced by a goto statement shall be declared in the same block, or in any block enclosing the goto statement",
+          "description": "Any label referenced by a goto statement shall be declared in the same block, or in any block enclosing the goto statement.",
           "kind": "problem",
-          "name": "The goto statement and any of its label shall be declared or enclosed in the same block. ",
+          "name": "The goto statement and any of its label shall be declared or enclosed in the same block",
           "precision": "high",
           "severity": "recommendation",
           "short_name": "GotoLabelBlockCondition",
@@ -87,13 +87,16 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "An `if-else` construct is more appropriate for boolean controlled expression.",
           "kind": "problem",
           "name": "A switch-expression shall not have essentially Boolean type",
           "precision": "very-high",
           "severity": "error",
           "short_name": "SwitchExpressionBoolCondition",
-          "tags": []
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
         }
       ],
       "title": "A switch-expression shall not have essentially Boolean type"
