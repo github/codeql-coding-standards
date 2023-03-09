@@ -5,7 +5,7 @@ on:
     inputs:
       release_version_tag:
         description: |
-          The tag for the new draft release, e.g. v0.5.1.
+          The tag for the new draft release, e.g. 0.5.1 - do not include the `v`.
         required: true
       codeql_analysis_threads:
         description: |

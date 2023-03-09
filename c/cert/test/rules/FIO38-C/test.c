@@ -1,4 +1,5 @@
 #include <stdio.h>
+// Workaround for the Musl implementing FILE as an incomplete type.
 #if !defined(__DEFINED_struct__IO_FILE)
 struct _IO_FILE {
   char __x;

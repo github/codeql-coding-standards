@@ -1,6 +1,7 @@
 name: Generate HTML documentation
 
 on:
+  merge_group:
   push:
     branches:
       - main
