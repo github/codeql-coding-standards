@@ -1,6 +1,7 @@
 name: 🧰 Tooling unit tests
 
 on:
+  merge_group:
   push:
     branches:
       - main

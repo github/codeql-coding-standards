@@ -2,6 +2,7 @@ name: Verify Standard Library Dependencies
 
 # Run this workflow every time the "supported_codeql_configs.json" file or a "qlpack.yml" file is changed
 on:
+  merge_group:
   pull_request:
     branches:
       - main

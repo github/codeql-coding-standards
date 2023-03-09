@@ -1,6 +1,7 @@
 name: ⚙️ Extra Rule Validation
 
 on:
+  merge_group:
   push:
     branches:
       - main
