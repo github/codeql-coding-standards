@@ -4,17 +4,17 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Statements5Query =
-  TControllingExpInvariantConditionQuery() or
+  TControllingExprInvariantQuery() or
   TFunctionReturnConditionQuery() or
   TNonVoidFunctionReturnConditionQuery()
 
 predicate isStatements5QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
-    // `Query` instance for the `controllingExpInvariantCondition` query
-    Statements5Package::controllingExpInvariantConditionQuery() and
+    // `Query` instance for the `controllingExprInvariant` query
+    Statements5Package::controllingExprInvariantQuery() and
   queryId =
-    // `@id` for the `controllingExpInvariantCondition` query
-    "c/misra/controlling-exp-invariant-condition" and
+    // `@id` for the `controllingExprInvariant` query
+    "c/misra/controlling-expr-invariant" and
   ruleId = "RULE-14-3" and
   category = "required"
   or
@@ -38,11 +38,11 @@ predicate isStatements5QueryMetadata(Query query, string queryId, string ruleId,
 }
 
 module Statements5Package {
-  Query controllingExpInvariantConditionQuery() {
+  Query controllingExprInvariantQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `controllingExpInvariantCondition` query
-      TQueryC(TStatements5PackageQuery(TControllingExpInvariantConditionQuery()))
+      // `Query` type for `controllingExprInvariant` query
+      TQueryC(TStatements5PackageQuery(TControllingExprInvariantQuery()))
   }
 
   Query functionReturnConditionQuery() {

@@ -11,7 +11,7 @@
           "name": "Controlling expressions shall not be invariant",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "ControllingExpInvariantCondition",
+          "short_name": "ControllingExprInvariant",
           "tags": [
             "correctness",
             "maintainability",

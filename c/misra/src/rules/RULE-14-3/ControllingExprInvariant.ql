@@ -1,5 +1,5 @@
 /**
- * @id c/misra/controlling-exp-invariant-condition
+ * @id c/misra/controlling-expr-invariant
  * @name RULE-14-3: Controlling expressions shall not be invariant
  * @description If a controlling expression has an invariant value then it is possible that there is
  *              a programming error.
@@ -15,10 +15,12 @@
 
 import cpp
 import codingstandards.c.misra
+import cpp
+import codingstandards.c.misra
 
 from ControlFlowNode expr, string message
 where
-  not isExcluded(expr, Statements5Package::controllingExpInvariantConditionQuery()) and
+  not isExcluded(expr, Statements5Package::controllingExprInvariantQuery()) and
   (
     exists(IfStmt ifStmt |
       (
