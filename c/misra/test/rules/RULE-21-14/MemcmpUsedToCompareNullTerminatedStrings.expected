@@ -1,0 +1,34 @@
+edges
+| test.c:12:13:12:15 | a | test.c:14:10:14:10 | a |
+| test.c:12:13:12:15 | a | test.c:23:13:23:13 | a |
+| test.c:12:13:12:15 | a | test.c:24:10:24:10 | a |
+| test.c:13:13:13:15 | b | test.c:14:13:14:13 | b |
+| test.c:18:15:18:28 | {...} | test.c:21:10:21:10 | e |
+| test.c:19:15:19:28 | {...} | test.c:21:13:21:13 | f |
+nodes
+| test.c:10:10:10:12 | a | semmle.label | a |
+| test.c:10:15:10:17 | b | semmle.label | b |
+| test.c:12:13:12:15 | a | semmle.label | a |
+| test.c:13:13:13:15 | b | semmle.label | b |
+| test.c:14:10:14:10 | a | semmle.label | a |
+| test.c:14:13:14:13 | b | semmle.label | b |
+| test.c:16:10:16:10 | c | semmle.label | c |
+| test.c:16:13:16:13 | d | semmle.label | d |
+| test.c:18:15:18:28 | {...} | semmle.label | {...} |
+| test.c:19:15:19:28 | {...} | semmle.label | {...} |
+| test.c:21:10:21:10 | e | semmle.label | e |
+| test.c:21:13:21:13 | f | semmle.label | f |
+| test.c:23:13:23:13 | a | semmle.label | a |
+| test.c:24:10:24:10 | a | semmle.label | a |
+| test.c:26:13:26:13 | c | semmle.label | c |
+| test.c:27:10:27:10 | c | semmle.label | c |
+subpaths
+#select
+| test.c:10:3:10:8 | call to memcmp | test.c:10:10:10:12 | a | test.c:10:10:10:12 | a | memcmp used to compare $@ with $@. | test.c:10:10:10:12 | a | null-terminated string | test.c:10:15:10:17 | b | null-terminated string |
+| test.c:10:3:10:8 | call to memcmp | test.c:10:15:10:17 | b | test.c:10:15:10:17 | b | memcmp used to compare $@ with $@. | test.c:10:10:10:12 | a | null-terminated string | test.c:10:15:10:17 | b | null-terminated string |
+| test.c:14:3:14:8 | call to memcmp | test.c:12:13:12:15 | a | test.c:14:10:14:10 | a | memcmp used to compare $@ with $@. | test.c:12:13:12:15 | a | null-terminated string | test.c:13:13:13:15 | b | null-terminated string |
+| test.c:14:3:14:8 | call to memcmp | test.c:13:13:13:15 | b | test.c:14:13:14:13 | b | memcmp used to compare $@ with $@. | test.c:12:13:12:15 | a | null-terminated string | test.c:13:13:13:15 | b | null-terminated string |
+| test.c:16:3:16:8 | call to memcmp | test.c:16:10:16:10 | c | test.c:16:10:16:10 | c | memcmp used to compare $@ with $@. | test.c:16:10:16:10 | c | null-terminated string | test.c:16:13:16:13 | d | null-terminated string |
+| test.c:16:3:16:8 | call to memcmp | test.c:16:13:16:13 | d | test.c:16:13:16:13 | d | memcmp used to compare $@ with $@. | test.c:16:10:16:10 | c | null-terminated string | test.c:16:13:16:13 | d | null-terminated string |
+| test.c:21:3:21:8 | call to memcmp | test.c:18:15:18:28 | {...} | test.c:21:10:21:10 | e | memcmp used to compare $@ with $@. | test.c:18:15:18:28 | {...} | null-terminated string | test.c:19:15:19:28 | {...} | null-terminated string |
+| test.c:21:3:21:8 | call to memcmp | test.c:19:15:19:28 | {...} | test.c:21:13:21:13 | f | memcmp used to compare $@ with $@. | test.c:18:15:18:28 | {...} | null-terminated string | test.c:19:15:19:28 | {...} | null-terminated string |

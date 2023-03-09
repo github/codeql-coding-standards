@@ -1,0 +1,15 @@
+| test.c:15:3:15:11 | ... + ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:16:3:16:9 | ... + ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:17:3:17:9 | ... + ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:18:3:18:9 | ... + ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:19:3:19:9 | ... + ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:20:3:20:10 | ... + ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:21:3:21:10 | ... + ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:27:3:27:9 | ... - ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:28:3:28:9 | ... - ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:29:3:29:9 | ... - ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:30:3:30:9 | ... - ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:31:3:31:9 | ... - ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:32:3:32:9 | ... - ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:33:3:33:10 | ... - ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
+| test.c:34:3:34:10 | ... - ... | Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations |
