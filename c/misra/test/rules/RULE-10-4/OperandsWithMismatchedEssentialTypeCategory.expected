@@ -1,0 +1,10 @@
+| test.c:14:3:14:9 | ... + ... | The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: essentially Unsigned type, right operand: essentially Signed type). |
+| test.c:15:3:15:9 | ... + ... | The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: essentially Signed type, right operand: essentially Unsigned type). |
+| test.c:16:3:16:10 | ... += ... | The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: essentially Signed type, right operand: essentially Unsigned type). |
+| test.c:17:3:17:9 | ... + ... | The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: essentially Floating type, right operand: essentially Signed type). |
+| test.c:18:3:18:9 | ... + ... | The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: essentially Signed type, right operand: essentially Floating type). |
+| test.c:19:3:19:10 | ... += ... | The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: essentially Signed type, right operand: essentially Floating type). |
+| test.c:27:3:27:9 | ... - ... | The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: essentially Signed type, right operand: essentially Character type). |
+| test.c:28:3:28:10 | ... -= ... | The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: essentially Signed type, right operand: essentially Character type). |
+| test.c:34:3:34:11 | ... < ... | The operands of this operator with usual arithmetic conversions have mismatched essentially Enum types (left operand: E1, right operand: E2). |
+| test.c:35:3:35:7 | ... < ... | The operands of this operator with usual arithmetic conversions have mismatched essentially Enum types (left operand: E1, right operand: E2). |

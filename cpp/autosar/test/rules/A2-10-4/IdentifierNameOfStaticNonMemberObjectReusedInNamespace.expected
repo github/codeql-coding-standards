@@ -1,0 +1,2 @@
+| test1a.cpp:2:12:2:13 | v1 | Non-member static object $@ reuses identifier name of non-member static object $@ | test1a.cpp:2:12:2:13 | v1 | v1 | test1b.cpp:2:12:2:13 | v1 | v1 |
+| test1b.cpp:2:12:2:13 | v1 | Non-member static object $@ reuses identifier name of non-member static object $@ | test1b.cpp:2:12:2:13 | v1 | v1 | test1a.cpp:2:12:2:13 | v1 | v1 |
