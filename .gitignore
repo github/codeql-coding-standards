@@ -20,3 +20,6 @@
 # C/C++ build artifacts
 *.o
 /databases/
+
+# CodeQL build artifacts
+**/.codeql/**

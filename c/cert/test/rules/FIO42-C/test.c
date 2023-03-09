@@ -1,8 +1,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include <unistd.h>
-
 int f1a(const char *filename) {
   FILE *f = fopen(filename, "r"); // NON_COMPLIANT
   if (NULL == f) {

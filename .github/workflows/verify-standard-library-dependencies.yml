@@ -1,0 +1,80 @@
+name: Verify Standard Library Dependencies
+
+# Run this workflow every time the "supported_codeql_configs.json" file or a "qlpack.yml" file is changed
+on:
+  merge_group:
+  pull_request:
+    branches:
+      - main
+      - "rc/**"
+      - next
+    paths:
+      - "supported_codeql_configs.json"
+      - "**/qlpack.yml"
+  workflow_dispatch:
+
+jobs:
+  prepare-matrix:
+    name: Prepare CodeQL configuration matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.export-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Export unit test matrix
+        id: export-matrix
+        run: |
+          echo "::set-output name=matrix::$(
+            jq --compact-output \
+            '.supported_environment | map([.+{os: "ubuntu-20.04-xl", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}' \
+            supported_codeql_configs.json
+          )"
+
+  verify-dependencies:
+    name: Verify dependencies
+    needs: prepare-matrix
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJSON(needs.prepare-matrix.outputs.matrix)}}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python 3
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Cache CodeQL
+        id: cache-codeql
+        uses: actions/cache@v2.1.3
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ${{github.workspace}}/codeql_home
+          # An explicit key for restoring and saving the cache
+          key: codeql-home-${{matrix.os}}-${{matrix.codeql_cli}}-${{matrix.codeql_standard_library}}
+
+      - name: Install CodeQL
+        if: steps.cache-codeql.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-codeql
+        with:
+          codeql-cli-version: ${{matrix.codeql_cli}}
+          codeql-stdlib-version: ${{matrix.codeql_standard_library}}
+          codeql-home: ${{ github.workspace }}/codeql_home
+
+      - name: Verify dependencies
+        shell: bash
+        env:
+          CLI_PATH: ${{ github.workspace }}/codeql_home/codeql
+          STDLIB_PATH: ${{ github.workspace }}/codeql_home/codeql-stdlib
+        run: |
+          PATH=$PATH:$CLI_PATH
+          ls $STDLIB_PATH
+          pip install -r scripts/requirements.txt
+          python3 scripts/verify-standard-library-version.py --codeql-repo $STDLIB_PATH --mode verify
+

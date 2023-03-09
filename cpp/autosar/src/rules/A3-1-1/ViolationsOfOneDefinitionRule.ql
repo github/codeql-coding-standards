@@ -65,7 +65,7 @@ where
     or
     //an non-const object defined in a header
     exists(GlobalOrNamespaceVariable object |
-      object.isDefined() and
+      object.hasDefinition() and
       not (
         object.isConstexpr()
         or

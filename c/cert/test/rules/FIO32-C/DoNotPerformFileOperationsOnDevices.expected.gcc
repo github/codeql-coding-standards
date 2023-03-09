@@ -1,0 +1,40 @@
+edges
+| test.c:20:15:20:23 | array to pointer conversion | test.c:21:8:21:16 | (const char *)... |
+| test.c:20:15:20:23 | array to pointer conversion | test.c:21:8:21:16 | file_name |
+| test.c:20:15:20:23 | array to pointer conversion | test.c:21:8:21:16 | file_name indirection |
+| test.c:20:15:20:23 | file_name | test.c:21:8:21:16 | (const char *)... |
+| test.c:20:15:20:23 | file_name | test.c:21:8:21:16 | file_name |
+| test.c:20:15:20:23 | file_name | test.c:21:8:21:16 | file_name indirection |
+| test.c:20:15:20:23 | scanf output argument | test.c:21:8:21:16 | (const char *)... |
+| test.c:20:15:20:23 | scanf output argument | test.c:21:8:21:16 | file_name |
+| test.c:20:15:20:23 | scanf output argument | test.c:21:8:21:16 | file_name indirection |
+| test.c:45:15:45:23 | array to pointer conversion | test.c:46:29:46:37 | (LPCTSTR)... |
+| test.c:45:15:45:23 | array to pointer conversion | test.c:46:29:46:37 | file_name |
+| test.c:45:15:45:23 | array to pointer conversion | test.c:46:29:46:37 | file_name indirection |
+| test.c:45:15:45:23 | file_name | test.c:46:29:46:37 | (LPCTSTR)... |
+| test.c:45:15:45:23 | file_name | test.c:46:29:46:37 | file_name |
+| test.c:45:15:45:23 | file_name | test.c:46:29:46:37 | file_name indirection |
+| test.c:45:15:45:23 | scanf output argument | test.c:46:29:46:37 | (LPCTSTR)... |
+| test.c:45:15:45:23 | scanf output argument | test.c:46:29:46:37 | file_name |
+| test.c:45:15:45:23 | scanf output argument | test.c:46:29:46:37 | file_name indirection |
+subpaths
+nodes
+| test.c:20:15:20:23 | array to pointer conversion | semmle.label | array to pointer conversion |
+| test.c:20:15:20:23 | file_name | semmle.label | file_name |
+| test.c:20:15:20:23 | scanf output argument | semmle.label | scanf output argument |
+| test.c:21:8:21:16 | (const char *)... | semmle.label | (const char *)... |
+| test.c:21:8:21:16 | (const char *)... | semmle.label | (const char *)... |
+| test.c:21:8:21:16 | file_name | semmle.label | file_name |
+| test.c:21:8:21:16 | file_name indirection | semmle.label | file_name indirection |
+| test.c:21:8:21:16 | file_name indirection | semmle.label | file_name indirection |
+| test.c:45:15:45:23 | array to pointer conversion | semmle.label | array to pointer conversion |
+| test.c:45:15:45:23 | file_name | semmle.label | file_name |
+| test.c:45:15:45:23 | scanf output argument | semmle.label | scanf output argument |
+| test.c:46:29:46:37 | (LPCTSTR)... | semmle.label | (LPCTSTR)... |
+| test.c:46:29:46:37 | (LPCTSTR)... | semmle.label | (LPCTSTR)... |
+| test.c:46:29:46:37 | file_name | semmle.label | file_name |
+| test.c:46:29:46:37 | file_name indirection | semmle.label | file_name indirection |
+| test.c:46:29:46:37 | file_name indirection | semmle.label | file_name indirection |
+#select
+| test.c:21:8:21:16 | file_name | test.c:20:15:20:23 | file_name | test.c:21:8:21:16 | file_name | This argument to a file access function is derived from $@ and then passed to func(file_name), which calls fopen(__filename) | test.c:20:15:20:23 | file_name | user input (scanf) |
+| test.c:46:29:46:37 | file_name | test.c:45:15:45:23 | file_name | test.c:46:29:46:37 | file_name | This argument to a file access function is derived from $@ and then passed to CreateFile(lpFileName) | test.c:45:15:45:23 | file_name | user input (scanf) |
