@@ -48,7 +48,7 @@ where
   exists(SwitchStmt switch |
     switch.getControllingExpr() = expr and
     (
-      conditionAlwaysFalse(expr) and
+      conditionAlwaysFalse(expr) or
       conditionAlwaysTrue(expr)
     )
   ) and
