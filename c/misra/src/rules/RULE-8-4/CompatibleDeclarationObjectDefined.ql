@@ -26,7 +26,7 @@ where
   // no declaration matches
   not exists(VariableDeclarationEntry decl2 |
     not decl2.isDefinition() and
-    decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName() and
+    decl1.getDeclaration() = decl2.getDeclaration() and
     typesCompatible(decl1.getType(), decl2.getType())
   )
 select decl1, "No separate compatible declaration found for this definition."
