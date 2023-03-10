@@ -27,8 +27,6 @@ Stmt getNextStmt(ControlFlowNode node) {
   )
 }
 
-Stmt getPreviousStmt(Stmt s) { s = getNextStmt(result) }
-
 SwitchCase getSwitchCase(Stmt stmt) {
   exists(int index, SwitchStmt switch |
     getStmtInSwitch(switch, stmt, index) and getStmtInSwitch(switch, result, index - 1)
@@ -50,15 +48,6 @@ int statementDepth(Stmt statement) {
   statement.getParent() = statement.getEnclosingFunction().getBlock() and result = 1
   or
   statementDepth(statement.getParent()) + 1 = result
-}
-
-predicate test(GotoStmt goto, Stmt target, int m, int n) {
-  statementDepth(goto) = m and
-  target = goto.getTarget() and
-  statementDepth(target) = n and
-  isPartOfSwitch(goto) and
-  getSwitchCase(goto) = getSwitchCase(target) and
-  m = n
 }
 
 from GotoStmt goto, Stmt target, int gotoDepth, int targetDepth

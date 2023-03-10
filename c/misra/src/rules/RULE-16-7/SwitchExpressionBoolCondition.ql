@@ -1,7 +1,7 @@
 /**
  * @id c/misra/switch-expression-bool-condition
  * @name RULE-16-7: A switch-expression shall not have essentially Boolean type
- * @description 
+ * @description
  * @kind problem
  * @precision very-high
  * @problem.severity error
@@ -11,8 +11,8 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.SwitchStatement
 
-from
-where
-  not isExcluded(x, Statements2Package::switchExpressionBoolConditionQuery()) and
-select
+from BooleanSwitchStmt switch
+where not isExcluded(switch, Statements2Package::switchExpressionBoolConditionQuery())
+select switch, "The condition of this $@ statement has boolean type", switch, "switch"
