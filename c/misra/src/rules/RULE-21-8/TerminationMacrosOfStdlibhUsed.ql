@@ -23,4 +23,4 @@ from MacroInvocation mi, BannedMacro m
 where
   not isExcluded(mi, BannedPackage::terminationMacrosOfStdlibhUsedQuery()) and
   m.getAnInvocation() = mi
-select mi, "Use of banned macro $@.", m, m.getName()
+select mi, "Use of banned macro " + m.getName() + "."
