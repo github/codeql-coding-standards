@@ -29,10 +29,10 @@ void test() {
   int x = state1; // enum access on E1
   enum E2 e2;
   struct S7 { // NON_COMPLIANT
-    int x
+    int x;
   } s7;
   struct S8 { // COMPLIANT
-    int x
+    int x;
   } s8;
   struct S8 s8_2;
 
@@ -55,7 +55,7 @@ struct S10 { // NON_COMPLIANT
 
 struct S12 { // COMPLIANT
   int x;
-} foo(struct S12 s);
+} foo2(struct S12 s);
 
 #define STRUCT_MACRO                                                           \
   struct S13 {                                                                 \
