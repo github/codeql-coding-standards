@@ -1,6 +1,6 @@
 ---
 dependencies:
   codeql/cpp-all:
-    version: 0.2.3
+    version: 0.3.5
 compiled: false
 lockVersion: 1.0.0
