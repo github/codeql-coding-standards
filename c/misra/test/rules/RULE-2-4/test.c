@@ -78,3 +78,7 @@ void testMacroNameNotUsed() {
 
 struct s14 PARTIAL; // NON_COMPLIANT - affected by macro, but not fully
                     // generated, so fair to report as unused
+
+typedef struct {
+  int x;
+} S15; // COMPLIANT - not a tag
