@@ -1,0 +1,9 @@
+void f(int x); // COMPLIANT
+void f0(void); // COMPLIANT
+void f1(int);  // NON_COMPLIANT
+void f2();     // NON_COMPLIANT
+// void f3(x);       // NON_COMPILABLE
+void f4(const x); // NON_COMPLIANT[FALSE_NEGATIVE]
+int f5(x)         // NON_COMPLIANT
+    int x;
+{ return 1; }
