@@ -19,4 +19,4 @@ where
   not isExcluded(call, BannedPackage::systemOfStdlibhUsedQuery()) and
   call.getTarget() = target and
   target.hasGlobalOrStdName("system")
-select call, "Call to banned function $@.", target, target.getName()
+select call, "Call to banned function " + target.getName() + "."

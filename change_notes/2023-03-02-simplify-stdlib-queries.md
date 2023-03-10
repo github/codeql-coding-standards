@@ -1,0 +1,11 @@
+ * Improved alert message to avoid reporting locations in standard header files, which cannot be viewed in Code Scanning, in the following queries:
+  - `Rule 21.4`
+  - `Rule 21.5`
+  - `Rule 21.6`
+  - `Rule 21.7`
+  - `Rule 21.8`
+  - `Rule 21.9`
+  - `Rule 21.10`
+  - `Rule 21.11`
+  - `Rule 21.12`
+  - `Rule 21.21`

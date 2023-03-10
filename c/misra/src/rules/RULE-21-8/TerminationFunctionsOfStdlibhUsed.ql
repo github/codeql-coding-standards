@@ -26,4 +26,4 @@ from FunctionCall fc, BannedFunction f
 where
   not isExcluded(fc, BannedPackage::terminationFunctionsOfStdlibhUsedQuery()) and
   f = fc.getTarget()
-select fc, "Call to banned function $@.", f, f.getName()
+select fc, "Call to banned function " + f.getName() + "."
