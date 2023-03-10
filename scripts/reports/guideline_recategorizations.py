@@ -40,7 +40,7 @@ class GuidelineRecategorizationsSummary:
             # Get a list of guideline recategorizations
             print("Running the guideline recategorizations queries...")
             self.codeql_summary.codeql.run_queries(
-                database_path, *query_paths,  search_path=str(repo_root), no_rerun=True)
+                database_path, *query_paths, no_rerun=True)
 
             print("Decoding guideline recategorizations queries results")
 

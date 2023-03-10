@@ -27,6 +27,5 @@ jobs:
             title: "Release Engineering: Version bump to ${{ github.event.inputs.new_version }}."
             body: "This PR updates codeql-coding-standards to version ${{ github.event.inputs.new_version }}."
             commit-message: "Version bump to ${{ github.event.inputs.new_version }}."
-            team-reviewers: github/codeql-coding-standards
             delete-branch: true
             branch: "automation/version-bump-${{ github.event.inputs.new_version }}"

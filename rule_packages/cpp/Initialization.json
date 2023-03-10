@@ -364,6 +364,7 @@
           "precision": "high",
           "severity": "recommendation",
           "short_name": "UseInitBracesToMatchTypeStructure",
+          "shared_implementation_short_name": "UseInitializerBracesToMatchAggregateTypeStructure",
           "tags": [
             "readability",
             "maintainability"

@@ -2,7 +2,7 @@
 #include <stdexcept>
 
 void test_exception1() {
-  throw "constant string"; // NOT_COMPLIANT - not used in type initialization
+  throw "constant string"; // NON_COMPLIANT - not used in type initialization
 }
 
 void test_exception2() {

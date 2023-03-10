@@ -9,9 +9,12 @@ void f1(int p1) {
   }
 }
 
-void f2(int p1) {
+void f2() {
   while (20 > 10) { // NON_COMPLIANT
     if (1 > 2) {
     } // NON_COMPLIANT
+  }
+
+  for (int i = 10; i < 5; i++) { // NON_COMPLIANT
   }
 }

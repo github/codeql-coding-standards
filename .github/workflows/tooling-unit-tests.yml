@@ -1,6 +1,7 @@
 name: 🧰 Tooling unit tests
 
 on:
+  merge_group:
   push:
     branches:
       - main
@@ -63,6 +64,11 @@ jobs:
           codeql-stdlib-version: ${{ matrix.codeql_standard_library }}
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
+
+      - name: Install CodeQL packs
+        uses: ./.github/actions/install-codeql-packs
+        with:
+          cli_path: ${{ github.workspace }}/codeql_home/codeql
 
       - name: Run PyTest
         env:
