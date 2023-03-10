@@ -1,0 +1,2 @@
+| test1a.cpp:13:13:13:14 | f1 | Static function $@ reuses identifier of $@ | test1a.cpp:13:13:13:14 | f1 | f1 | test1b.cpp:6:13:6:14 | f1 | f1 |
+| test1b.cpp:6:13:6:14 | f1 | Static function $@ reuses identifier of $@ | test1b.cpp:6:13:6:14 | f1 | f1 | test1a.cpp:13:13:13:14 | f1 | f1 |
