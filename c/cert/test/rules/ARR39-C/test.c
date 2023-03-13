@@ -28,3 +28,5 @@ void f1() {
   v4 += offset;                         // COMPLIANT
   f2(offset, 2);
 }
+
+//
