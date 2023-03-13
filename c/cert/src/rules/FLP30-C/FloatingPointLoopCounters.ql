@@ -16,15 +16,36 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Loops
 
-from Loop loop
+/*
+ *  A variable that is increased or decreased by a fixed amount on each iteration.
+ */
+
+class InductionVariable extends Variable {
+  Loop loop;
+  Expr update;
+
+  InductionVariable() {
+    update.getParent+() = loop and
+    (
+      update.(AssignArithmeticOperation).getRValue().isConstant() and
+      update.(AssignArithmeticOperation).getLValue() = this.getAnAccess()
+      or
+      exists(BinaryArithmeticOperation binop |
+        update.(Assignment).getLValue() = this.getAnAccess() and
+        update.(Assignment).getRValue() = binop and
+        binop.getAnOperand() = this.getAnAccess() and
+        binop.getAnOperand().isConstant()
+      )
+      or
+      update.(CrementOperation).getOperand() = this.getAnAccess()
+    )
+  }
+}
+
+from Loop loop, InductionVariable loopCounter, ComparisonOperation comparison
 where
   not isExcluded(loop, Statements4Package::floatingPointLoopCountersQuery()) and
-  exists(WhileStmt while |
-    while.getCondition().getType() instanceof FloatType and
-    loop = while
-  )
-  or
-  exists(ForStmt for, Variable counter |
-    isForLoopWithFloatingPointCounters(for, counter) and for = loop
-  )
-select loop, "Loop $@ has a floating-point type.", loop.getControllingExpr(), "counter"
+  loop.getControllingExpr() = comparison and
+  comparison.getAnOperand() = loopCounter.getAnAccess() and
+  loopCounter.getType() instanceof FloatingPointType
+select loop, "Loop using a $@ of type floating-point.", loopCounter, "loop counter"
