@@ -1,8 +1,8 @@
-#include <stddef.h>
-#include <stdint.h>
+#include <float.h>
 #include <limits.h>
 #include <math.h>
-#include <float.h>
+#include <stddef.h>
+#include <stdint.h>
 
 void test_no_guard(float f) {
   int i = f; // NON_COMPLIANT
@@ -28,11 +28,10 @@ size_t popcount(uintmax_t num) {
 #define PRECISION(umax_value) popcount(umax_value)
 
 void test_precision_check(float f) {
-  if (isnan(f) ||
-      PRECISION(INT_MAX) < log2f(fabsf(f)) ||
+  if (isnan(f) || PRECISION(INT_MAX) < log2f(fabsf(f)) ||
       (f != 0.0F && fabsf(f) < FLT_MIN)) {
     /* Handle error */
   } else {
-    int i= f; // COMPLIANT
+    int i = f; // COMPLIANT
   }
 }
