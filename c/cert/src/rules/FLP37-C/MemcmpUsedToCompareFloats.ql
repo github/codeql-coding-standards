@@ -1,7 +1,8 @@
 /**
  * @id c/cert/memcmp-used-to-compare-floats
  * @name FLP37-C: Do not use object representations to compare floating-point values
- * @description
+ * @description Comparing floating point values using the memcmp can lead to unexpected comparison
+ *              failures as equivalent floating-point values may not have the same bit pattern.
  * @kind problem
  * @precision very-high
  * @problem.severity error

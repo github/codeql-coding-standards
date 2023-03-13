@@ -1,9 +1,10 @@
 /**
  * @id c/cert/int-to-float-preserve-precision
  * @name FLP36-C: Preserve precision when converting integral values to floating-point type
- * @description
+ * @description Integer to floating-point conversions may lose precision if the floating-point type
+ *              is unable to fully represent the integer value.
  * @kind problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
  * @tags external/cert/id/flp36-c
  *       correctness

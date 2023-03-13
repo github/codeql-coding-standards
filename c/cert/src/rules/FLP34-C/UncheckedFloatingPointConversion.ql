@@ -1,9 +1,10 @@
 /**
  * @id c/cert/unchecked-floating-point-conversion
  * @name FLP34-C: Ensure that floating-point conversions are within range of the new type
- * @description
+ * @description Conversions of out-of-range floating-point values to integral types can lead to
+ *              undefined behavior.
  * @kind problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
  * @tags external/cert/id/flp34-c
  *       correctness

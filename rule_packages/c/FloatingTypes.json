@@ -26,10 +26,10 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Conversions of out-of-range floating-point values to integral types can lead to undefined behavior.",
           "kind": "problem",
           "name": "Ensure that floating-point conversions are within range of the new type",
-          "precision": "very-high",
+          "precision": "high",
           "severity": "error",
           "short_name": "UncheckedFloatingPointConversion",
           "tags": [
@@ -45,10 +45,10 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Integer to floating-point conversions may lose precision if the floating-point type is unable to fully represent the integer value.",
           "kind": "problem",
           "name": "Preserve precision when converting integral values to floating-point type",
-          "precision": "very-high",
+          "precision": "high",
           "severity": "error",
           "short_name": "IntToFloatPreservePrecision",
           "tags": [
@@ -64,7 +64,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Comparing floating point values using the memcmp can lead to unexpected comparison failures as equivalent floating-point values may not have the same bit pattern.",
           "kind": "problem",
           "name": "Do not use object representations to compare floating-point values",
           "precision": "very-high",
