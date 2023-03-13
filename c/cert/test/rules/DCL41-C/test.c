@@ -23,6 +23,8 @@ void f1(int expr) {
 void f2(int expr) {
   switch (expr) {
   case 0:
+    0; // Note: required because a "case" is a label, and not permitted on a
+       // declaration, so we need a no-op statement
     int i = 4; // COMPLIANT
   case 1:
     i = 6; // COMPLIANT
