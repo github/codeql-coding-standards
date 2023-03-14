@@ -17,11 +17,17 @@
 import cpp
 import codingstandards.cpp.autosar
 
-from BinaryLogicalOperation op, BinaryOperation binop
+from BinaryLogicalOperation op, Expr operand
 where
   not isExcluded(op, OrderOfEvaluationPackage::operandsOfALogicalAndOrNotParenthesizedQuery()) and
-  op.getAnOperand() = binop and
-  not exists(ParenthesisExpr p | p = binop.getFullyConverted()) and
-  // Exclude binary operations expanded by a macro.
-  not binop.isInMacroExpansion()
-select op, "Binary $@ operand of logical operation is not parenthesized.", binop, "operator"
+  operand = op.getAnOperand() and
+  /* The operand is a built-in arithmetic/logic binary operation */
+  if operand instanceof BinaryOperation
+  then
+    not exists(ParenthesisExpr p | p = operand.getFullyConverted()) and
+    // Exclude binary operations expanded by a macro.
+    not operand.isInMacroExpansion()
+  else
+    /* The operand should not be a field access operation */
+    not operand instanceof FieldAccess
+select op, "Binary $@ operand of logical operation is not parenthesized.", operand, "operator"

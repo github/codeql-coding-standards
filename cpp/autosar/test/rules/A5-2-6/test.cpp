@@ -1,4 +1,5 @@
-extern void f1();
+// TODO: remove function body
+extern void f1(){};
 void f2(int p1, int p2) {
   if (p1 > 0 && p1 < 10) { // NON_COMPLIANT
     f1();
@@ -20,15 +21,18 @@ void f2(int p1, int p2) {
     int x;
   } sample;
 
-  if ((p1 > 0 ||
-       sample.x)) { // COMPLIANT: struct member accessors (.) are excluded
+  if ((p1 > 0) ||
+      sample.x) { // COMPLIANT: struct member accessors (.) are excluded
     f1();
   }
 
   Sample *sample_ptr = &sample;
 
-  if ((p1 > 0 || sample_ptr->x)) { // COMPLIANT: struct member accessors with
+  if ((p1 > 0) || sample_ptr->x) { // COMPLIANT: struct member accessors with
                                    // dereference (->) are excluded
     f1();
   }
 }
+
+// TODO: remove this
+int main() { return 0; }
