@@ -29,5 +29,7 @@ where
   // expansions of the same macro.
   // Note: due to a bug in the CodeQL CLI version 2.9.4, this will currently have no effect, because
   // `isInMacroExpansion` is broken for `UserType`s.
-  not s.isInMacroExpansion()
+  not s.isInMacroExpansion() and
+  // Exclude template parameters, in case this is run on C++ code.
+  not s instanceof TemplateParameter
 select s, "struct " + s.getName() + " has an unused tag."
