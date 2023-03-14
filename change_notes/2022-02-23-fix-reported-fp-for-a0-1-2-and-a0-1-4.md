@@ -1,0 +1,4 @@
+- `A0-1-2`
+  - Addressed false positives where the return values are cast to `void` in C-style or assigned to `std::ignore`.
+- `A0-1-4`
+  - Addressed false positives where the parameters are marked with attribute `[[maybe_unused]]`, or either cast to `void` in C-style or assigned to `std::ignore` in the function body.

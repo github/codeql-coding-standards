@@ -17,7 +17,7 @@ import codingstandards.cpp.autosar
 
 class CandidateFunction extends Function {
   CandidateFunction() {
-    isDefined() and
+    hasDefinition() and
     isStatic() and
     not isMember() and
     not (
