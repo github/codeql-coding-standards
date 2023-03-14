@@ -1,8 +1,8 @@
-#include "stdio.h"
-#include "wchar.h"
 #include <errno.h>
 #include <locale.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <wchar.h>
 void f1() {
   int n;
   while (scanf("%d", &n) == 1) // NON_COMPLIANT
