@@ -22,4 +22,4 @@ where
   f = fc.getTarget() and
   f.getName() = atoi() and
   f.getFile().getBaseName() = "stdlib.h"
-select fc, "Call to banned function $@.", f, f.getName()
+select fc, "Call to banned function " + f.getName() + "."
