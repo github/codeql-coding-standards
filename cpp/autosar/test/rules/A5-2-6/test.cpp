@@ -1,5 +1,4 @@
-// TODO: remove function body
-extern void f1(){};
+extern void f1();
 void f2(int p1, int p2) {
   if (p1 > 0 && p1 < 10) { // NON_COMPLIANT
     f1();
@@ -33,6 +32,3 @@ void f2(int p1, int p2) {
     f1();
   }
 }
-
-// TODO: remove this
-int main() { return 0; }
