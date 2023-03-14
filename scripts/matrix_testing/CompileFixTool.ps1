@@ -14,7 +14,7 @@ param(
     [string]
     $Language,
 
-    # The compiler to use. Valid values are 'clang' and 'arm-clang'.
+    # The compiler to use.
     [Parameter(Mandatory)] 
     [ValidateSet('clang', 'armclang', 'tiarmclang', 'gcc', 'qcc')]
     [string]
