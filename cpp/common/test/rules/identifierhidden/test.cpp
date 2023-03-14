@@ -28,3 +28,9 @@ void f3() {
     } // NON_COMPLIANT
   }
 }
+
+template <typename T> constexpr bool foo = false; // COMPLIANT
+
+namespace {
+template <typename T> bool foo<T> = true; // COMPLIANT
+}
