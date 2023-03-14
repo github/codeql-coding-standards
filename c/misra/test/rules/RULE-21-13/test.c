@@ -20,8 +20,8 @@ void sample() {
       isalnum(c4); // NON_COMPLIANT: is outside unsigned char range of [0, 255]
 
   int c5 = getchar();
-  int r5 = isalnum(c5); // COMPLIANT[FALSE_POSITIVE]: library functions like
-                        // getchar needs to be modelled
+  int r5 = isalnum(
+      c5); // COMPLIANT: <stdio.h> source functions like getchar are modelled
 
   unsigned char x7;
   int c6;

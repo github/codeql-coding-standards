@@ -30,6 +30,7 @@ where
     /* The argument's value should be in the EOF + `unsigned char` range. */
     -1 <= lowerBound(ctypeCallArgument) and upperBound(ctypeCallArgument) <= 255
   ) and
+  /* Only report control flow that is feasible (to avoid <ctype.h> functions implemented as macro). */
   ctypeCall.getBasicBlock().isReachable()
 select ctypeCall,
   "The <ctype.h> function " + ctypeCall + " accepts an argument " +
