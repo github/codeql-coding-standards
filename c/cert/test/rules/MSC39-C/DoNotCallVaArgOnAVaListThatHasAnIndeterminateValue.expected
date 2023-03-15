@@ -1,1 +1,2 @@
-No expected results have yet been specified
+| test.c:23:32:23:33 | ap | The value of ap is indeterminate after the $@. | test.c:17:7:17:19 | call to contains_zero | call to contains_zero |
+| test.c:65:34:65:35 | ap | The value of ap is indeterminate after the $@. | test.c:58:7:58:19 | call to contains_zero | call to contains_zero |
