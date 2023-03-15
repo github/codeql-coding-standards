@@ -25,12 +25,12 @@ where
   not isExcluded(invariantControllingExpr, Statements5Package::controllingExprInvariantQuery()) and
   (
     any(IfStmt ifStmt).getControllingExpr() = invariantControllingExpr and
-    message = "Controlling expression in if statement has invariant value."
+    message = "Controlling expression in if statement has an invariant value."
     or
     any(Loop loop).getControllingExpr() = invariantControllingExpr and
-    message = "Controlling expression in loop statement has invariant value."
+    message = "Controlling expression in loop statement has an invariant value."
     or
     any(SwitchStmt switchStmt).getControllingExpr() = invariantControllingExpr and
-    message = "Controlling expression in switch statement has invariant value."
+    message = "Controlling expression in switch statement has an invariant value."
   )
 select invariantControllingExpr, message
