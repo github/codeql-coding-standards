@@ -32,5 +32,8 @@ where
     or
     any(SwitchStmt switchStmt).getControllingExpr() = invariantControllingExpr and
     message = "Controlling expression in switch statement has an invariant value."
+    or
+    any(ConditionalExpr conditionalExpr).getCondition() = invariantControllingExpr and
+    message = "The first operand of the conditional expression has an invariant value."
   )
 select invariantControllingExpr, message

@@ -2,3 +2,4 @@
 | test.c:13:10:13:16 | ... > ... | Controlling expression in loop statement has an invariant value. |
 | test.c:14:9:14:13 | ... > ... | Controlling expression in if statement has an invariant value. |
 | test.c:18:20:18:24 | ... < ... | Controlling expression in loop statement has an invariant value. |
+| test.c:23:11:23:15 | ... > ... | The first operand of the conditional expression has an invariant value. |

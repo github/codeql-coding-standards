@@ -18,3 +18,7 @@ void f2() {
   for (int i = 10; i < 5; i++) { // NON_COMPLIANT
   }
 }
+
+void f3() {
+  int i = 1 > 2 ? 1 : 2; // NON_COMPLIANT
+}
