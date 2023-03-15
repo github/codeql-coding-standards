@@ -19,12 +19,10 @@ from UseOfToOrIsChar ctypeCall
 where
   not isExcluded(ctypeCall,
     StandardLibraryFunctionTypesPackage::ctypeFunctionArgNotUnsignedCharOrEofQuery()) and
-  not exists(Expr ctypeCallArgument |
-    ctypeCallArgument = ctypeCall.getConvertedArgument().getExplicitlyConverted()
-  |
+  not exists(Expr ctypeCallArgument | ctypeCallArgument = ctypeCall.getConvertedArgument() |
     /* The argument's value should be in the EOF + `unsigned char` range. */
     -1 <= lowerBound(ctypeCallArgument) and upperBound(ctypeCallArgument) <= 255
   )
 select ctypeCall,
-  "The <ctype.h> function " + ctypeCall + " accepts an argument " +
-    ctypeCall.getConvertedArgument().toString() + " that is not an unsigned char nor an EOF."
+  "The <ctype.h> function " + ctypeCall + " accepts an argument " + ctypeCall.getConvertedArgument()
+    + " that is not an unsigned char nor an EOF."
