@@ -32,7 +32,9 @@
           "precision": "high",
           "severity": "error",
           "short_name": "DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness"
+          ]
         }
       ],
       "title": "Do not call va_arg() on a va_list that has an indeterminate value"
@@ -51,7 +53,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "RightHandOperandOfAShiftRange",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness"
+          ]
         }
       ],
       "title": "The right hand operand of a shift operator shall lie in the range zero to one less than the width in bits of the essential type of the left hand operand"
@@ -68,7 +72,9 @@
           "precision": "high",
           "severity": "error",
           "short_name": "ObjectAssignedOrCopiedToAnOverlappingObject",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness"
+          ]
         }
       ],
       "title": "An object shall not be assigned or copied to an overlapping object"
