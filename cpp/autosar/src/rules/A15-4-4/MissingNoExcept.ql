@@ -31,5 +31,7 @@ where
   // Not compiler generated
   not f.isCompilerGenerated() and
   // The function is defined in this database
-  f.hasDefinition()
+  f.hasDefinition() and
+  // This function is not an overriden call operator of lambda expression
+  not exists(LambdaExpression lambda | lambda.getLambdaFunction() = f)
 select f, "Function " + f.getName() + " could be declared noexcept(true)."
