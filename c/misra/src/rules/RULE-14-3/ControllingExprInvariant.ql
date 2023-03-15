@@ -18,39 +18,21 @@ import codingstandards.c.misra
 import cpp
 import codingstandards.c.misra
 
-from ControlFlowNode expr, string message
+class InvariantExpr extends Expr {
+  InvariantExpr() { conditionAlwaysFalse(this) or conditionAlwaysTrue(this) }
+}
+
+from InvariantExpr invariantControllingExpr, string message
 where
-  not isExcluded(expr, Statements5Package::controllingExprInvariantQuery()) and
+  not isExcluded(invariantControllingExpr, Statements5Package::controllingExprInvariantQuery()) and
   (
-    exists(IfStmt ifStmt |
-      (
-        ifStmt.getControllingExpr() = expr and
-        (
-          conditionAlwaysFalse(expr)
-          or
-          conditionAlwaysTrue(expr)
-        )
-      )
-    ) and
+    any(IfStmt ifStmt).getControllingExpr() = invariantControllingExpr and
     message = "Controlling expression in if statement has invariant value."
+    or
+    any(Loop loop).getControllingExpr() = invariantControllingExpr and
+    message = "Controlling expression in loop statement has invariant value."
+    or
+    any(SwitchStmt switchStmt).getControllingExpr() = invariantControllingExpr and
+    message = "Controlling expression in switch statement has invariant value."
   )
-  or
-  exists(Loop loop |
-    loop.getControllingExpr() = expr and
-    (
-      conditionAlwaysFalse(expr)
-      or
-      conditionAlwaysTrue(expr)
-    )
-  ) and
-  message = "Controlling expression in loop statement has invariant value."
-  or
-  exists(SwitchStmt switch |
-    switch.getControllingExpr() = expr and
-    (
-      conditionAlwaysFalse(expr) or
-      conditionAlwaysTrue(expr)
-    )
-  ) and
-  message = "Controlling expression in switch statement has invariant value."
-select expr, message
+select invariantControllingExpr, message
