@@ -15,8 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Loops
 
-from ForStmt for
+from ForStmt for, Element reasonLocation, string reason, string reasonLabel
 where
   not isExcluded(for, Statements4Package::forLoopNotWellFormedQuery()) and
-  isInvalidLoop(for)
-select for, "For loop is not well formed."
+  isInvalidLoop(for, reason, reasonLocation, reasonLabel)
+select for, "For loop is not well formed, " + reason + ".", reasonLocation, reasonLabel
