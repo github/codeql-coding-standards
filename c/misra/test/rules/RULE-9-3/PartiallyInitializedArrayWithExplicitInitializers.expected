@@ -1,0 +1,6 @@
+| test.c:7:15:7:21 | {...} | Aggregate literal for type int[4]$@ is missing an explicit initializer for $@. | file://:0:0:0:0 | int[4] | int[4] | test.c:7:15:7:21 | {...} | the elements in the index range 2 to 3 |
+| test.c:8:18:8:26 | {...} | Aggregate literal for type int[2][2]$@ is missing an explicit initializer for $@. | file://:0:0:0:0 | int[2][2] | int[2][2] | test.c:8:18:8:26 | {...} | the element at index 1 |
+| test.c:12:18:12:35 | {...} | Aggregate literal for type int[2][2]$@ is missing an explicit initializer for $@. | file://:0:0:0:0 | int[2][2] | int[2][2] | test.c:12:18:12:35 | {...} | the element at index 1 |
+| test.c:14:18:15:25 | {...} | Aggregate literal for type int[2][2]$@ is missing an explicit initializer for $@. | file://:0:0:0:0 | int[2][2] | int[2][2] | test.c:14:18:15:25 | {...} | the element at index 1 |
+| test.c:20:18:20:32 | {...} | Aggregate literal for type int[2][2]$@ is missing an explicit initializer for $@. | file://:0:0:0:0 | int[2][2] | int[2][2] | test.c:20:18:20:32 | {...} | the element at index 1 |
+| test.c:31:43:31:43 | {...} | Aggregate literal for type int[4]$@ is missing an explicit initializer for $@. | file://:0:0:0:0 | int[4] | int[4] | test.c:31:43:31:43 | {...} | the elements in the index range 1 to 3 |

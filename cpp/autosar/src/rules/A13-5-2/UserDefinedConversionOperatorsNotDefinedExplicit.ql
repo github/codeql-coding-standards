@@ -27,5 +27,6 @@ class ExplicitConversionOperator extends ConversionOperator {
 from ConversionOperator op
 where
   not isExcluded(op, OperatorsPackage::userDefinedConversionOperatorsNotDefinedExplicitQuery()) and
-  not op instanceof ExplicitConversionOperator
+  not op instanceof ExplicitConversionOperator and
+  not op.isCompilerGenerated()
 select op, "User-defined conversion operator is not explicit."

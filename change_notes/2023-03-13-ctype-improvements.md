@@ -1,0 +1,1 @@
+ * `STR37-C` - reduce false negatives by improving detection when the `<ctype>` functions are implemented using macros.

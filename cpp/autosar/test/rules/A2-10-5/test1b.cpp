@@ -1,6 +1,5 @@
 namespace n1 {
-static int g1 = 1; // NON_COMPLIANT[FALSE_NEGATIVE], considered the same as
-                   // n1::g1 in test1a.cpp.
+static int g1 = 1; // NON_COMPLIANT
 }
 
 namespace n2 {

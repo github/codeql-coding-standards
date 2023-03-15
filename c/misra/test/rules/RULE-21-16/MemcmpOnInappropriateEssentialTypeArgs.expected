@@ -1,0 +1,10 @@
+| test.c:23:10:23:10 | p | Argument is a pointer to float. |
+| test.c:23:13:23:13 | q | Argument is a pointer to float. |
+| test.c:35:10:35:10 | p | Argument is a pointer to S1. |
+| test.c:35:13:35:13 | q | Argument is a pointer to S1. |
+| test.c:41:10:41:10 | p | Argument is a pointer to U. |
+| test.c:41:13:41:13 | q | Argument is a pointer to U. |
+| test.c:45:10:45:10 | p | Argument is a pointer to char. |
+| test.c:45:13:45:13 | q | Argument is a pointer to char. |
+| test.c:49:10:49:10 | p | Argument is a pointer to char. |
+| test.c:49:13:49:13 | q | Argument is a pointer to char. |

@@ -1,14 +1,18 @@
+Import-Module -Name "$PSScriptRoot/../PSCodingStandards/CodingStandards"
+
 $COMPILER_MAPPINGS = @{
     "cpp" = @{
         "clang"      = "clang++";
         "gcc"        = "g++";
         "armclang"   = "armclang";
         "tiarmclang" = "tiarmclang";
+        "qcc"        = "qcc"; 
     };
 
     "c"   = @{
         "clang" = "clang";
         "gcc"   = "gcc";
+        "qcc"        = "qcc";  
     };
 }
 
@@ -18,16 +22,18 @@ $COMPILER_ARGS = @{
         "gcc"      = "-std=c++14 -fsyntax-only";
         "armclang"   = "-std=c++14 -fsyntax-only --target=arm-arm-none-eabi";
         "tiarmclang" = "-std=c++14 -fsyntax-only --target=arm-arm-none-eabi";
+        "qcc" = "-lang-c++ -V8.3.0 -Wc,-fsyntax-only -c -nopipe -std=c++14 -D_QNX_SOURCE -Vgcc_ntoaarch64le_cxx";
     };
 
     "c"   = @{
         "gcc" = "-fsyntax-only -std=c11";
         "clang" = "-fsyntax-only -std=c11";        
+        "qcc" = "-V8.3.0 -Wc,-fsyntax-only -c -nopipe -std=c11 -Vgcc_ntoaarch64le";        
     };
     
 }
 
-$REQUIRED_CODEQL_VERSION = "2.6.3"
+$REQUIRED_CODEQL_VERSION = (Get-Content (Join-Path (Get-RepositoryRoot) "supported_codeql_configs.json") | ConvertFrom-Json).supported_environment.codeql_cli
 
 
 $REPORT_QUERY = @"

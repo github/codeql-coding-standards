@@ -1,5 +1,5 @@
 namespace n1 {
-static int g1 = 0;
+static int g1 = 0; // NON_COMPLIANT
 }
 
 static int g2;      // COMPLIANT

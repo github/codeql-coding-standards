@@ -1,5 +1,5 @@
-#include "time.h"
-#include "wchar.h"
+#include <time.h>
+#include <wchar.h>
 void f1() {
   time_t current_time;
   char *c_time_string;
