@@ -12,26 +12,19 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.ReadErrorsAndEOF
+import codingstandards.cpp.CharFunctions
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
-class CtypeFunction extends Function {
-  CtypeFunction() { this.getADeclaration().getAFile().(HeaderFile).getBaseName() = "ctype.h" }
-}
-
-from FunctionCall ctypeCall
+from UseOfToOrIsChar ctypeCall
 where
   not isExcluded(ctypeCall,
     StandardLibraryFunctionTypesPackage::ctypeFunctionArgNotUnsignedCharOrEofQuery()) and
-  not exists(CtypeFunction ctype, Expr ctypeCallArgument |
-    ctype = ctypeCall.getTarget() and
-    ctypeCallArgument = ctypeCall.getAnArgument().getExplicitlyConverted()
+  not exists(Expr ctypeCallArgument |
+    ctypeCallArgument = ctypeCall.getConvertedArgument().getExplicitlyConverted()
   |
     /* The argument's value should be in the EOF + `unsigned char` range. */
     -1 <= lowerBound(ctypeCallArgument) and upperBound(ctypeCallArgument) <= 255
-  ) and
-  /* Only report control flow that is feasible (to avoid <ctype.h> functions implemented as macro). */
-  ctypeCall.getBasicBlock().isReachable()
+  )
 select ctypeCall,
   "The <ctype.h> function " + ctypeCall + " accepts an argument " +
-    ctypeCall.getAnArgument().toString() + " that is not an unsigned char nor an EOF."
+    ctypeCall.getConvertedArgument().toString() + " that is not an unsigned char nor an EOF."
