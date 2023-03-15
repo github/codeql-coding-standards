@@ -15,8 +15,6 @@
 
 import cpp
 import codingstandards.c.misra
-import cpp
-import codingstandards.c.misra
 
 class InvariantExpr extends Expr {
   InvariantExpr() { conditionAlwaysFalse(this) or conditionAlwaysTrue(this) }
