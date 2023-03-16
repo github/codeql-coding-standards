@@ -2,7 +2,7 @@
  * @id c/misra/right-hand-operand-of-a-shift-range
  * @name RULE-12-2: The right operand of a shift shall be smaller then the width in bits of the left operand
  * @description The right hand operand of a shift operator shall lie in the range zero to one less
- *              than the width in bits of the essential type of the left hand operand
+ *              than the width in bits of the essential type of the left hand operand.
  * @kind problem
  * @precision very-high
  * @problem.severity error
