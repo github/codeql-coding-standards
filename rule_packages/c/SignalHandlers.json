@@ -1,0 +1,72 @@
+{
+  "CERT-C": {
+    "SIG30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Call only asynchronous-safe functions within signal handlers.",
+          "kind": "problem",
+          "name": "Call only asynchronous-safe functions within signal handlers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CallOnlyAsyncSafeFunctionsWithinSignalHandlers",
+          "tags": []
+        }
+      ],
+      "title": "Call only asynchronous-safe functions within signal handlers"
+    },
+    "SIG31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not access shared objects in signal handlers.",
+          "kind": "problem",
+          "name": "Do not access shared objects in signal handlers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotAccessSharedObjectsInSignalHandlers",
+          "tags": []
+        }
+      ],
+      "title": "Do not access shared objects in signal handlers"
+    },
+    "SIG34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not call signal() from within interruptible signal handlers.",
+          "kind": "problem",
+          "name": "Do not call signal() from within interruptible signal handlers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotCallSignalFromInterruptibleSignalHandlers",
+          "tags": []
+        }
+      ],
+      "title": "Do not call signal() from within interruptible signal handlers"
+    },
+    "SIG35-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not return from a computational exception signal handler.",
+          "kind": "problem",
+          "name": "Do not return from a computational exception signal handler",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotReturnFromAComputationalExceptionHandler",
+          "tags": []
+        }
+      ],
+      "title": "Do not return from a computational exception signal handler"
+    }
+  }
+}
