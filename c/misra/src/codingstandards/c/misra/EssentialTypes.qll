@@ -146,6 +146,7 @@ EssentialTypeCategory getEssentialTypeCategory(Type type) {
 /**
  * Gets the essential type of the given expression `e`, considering any explicit conversions.
  */
+pragma[nomagic]
 Type getEssentialType(Expr e) {
   if e.hasExplicitConversion()
   then
