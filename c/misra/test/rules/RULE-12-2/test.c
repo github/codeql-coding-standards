@@ -21,9 +21,9 @@ void f1() {
   ul << 64; // NON_COMPLIANT
 
   // 1UL essential type is essentially unsigned char
-  1UL << 7;        // COMPLIANT
-  1UL << 8;        // NON_COMPLIANT
-  1UL << 64;       // NON_COMPLIANT
+  1UL << 7;  // COMPLIANT
+  1UL << 8;  // NON_COMPLIANT
+  1UL << 64; // NON_COMPLIANT
 
   // ULONG_MAX essential type is essentially unsigned long
   ULONG_MAX << 8;  // COMPLIANT

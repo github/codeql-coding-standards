@@ -7,7 +7,8 @@ newtype Contracts7Query =
   TDoNotPassInvalidDataToTheAsctimeFunctionQuery() or
   TDoNotCallVaArgOnAVaListThatHasAnIndeterminateValueQuery() or
   TRightHandOperandOfAShiftRangeQuery() or
-  TObjectAssignedOrCopiedToAnOverlappingObjectQuery()
+  TObjectAssignedToAnOverlappingObjectQuery() or
+  TObjectCopiedToAnOverlappingObjectQuery()
 
 predicate isContracts7QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -38,11 +39,20 @@ predicate isContracts7QueryMetadata(Query query, string queryId, string ruleId, 
   category = "required"
   or
   query =
-    // `Query` instance for the `objectAssignedOrCopiedToAnOverlappingObject` query
-    Contracts7Package::objectAssignedOrCopiedToAnOverlappingObjectQuery() and
+    // `Query` instance for the `objectAssignedToAnOverlappingObject` query
+    Contracts7Package::objectAssignedToAnOverlappingObjectQuery() and
   queryId =
-    // `@id` for the `objectAssignedOrCopiedToAnOverlappingObject` query
-    "c/misra/object-assigned-or-copied-to-an-overlapping-object" and
+    // `@id` for the `objectAssignedToAnOverlappingObject` query
+    "c/misra/object-assigned-to-an-overlapping-object" and
+  ruleId = "RULE-19-1" and
+  category = "mandatory"
+  or
+  query =
+    // `Query` instance for the `objectCopiedToAnOverlappingObject` query
+    Contracts7Package::objectCopiedToAnOverlappingObjectQuery() and
+  queryId =
+    // `@id` for the `objectCopiedToAnOverlappingObject` query
+    "c/misra/object-copied-to-an-overlapping-object" and
   ruleId = "RULE-19-1" and
   category = "mandatory"
 }
@@ -69,10 +79,17 @@ module Contracts7Package {
       TQueryC(TContracts7PackageQuery(TRightHandOperandOfAShiftRangeQuery()))
   }
 
-  Query objectAssignedOrCopiedToAnOverlappingObjectQuery() {
+  Query objectAssignedToAnOverlappingObjectQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `objectAssignedOrCopiedToAnOverlappingObject` query
-      TQueryC(TContracts7PackageQuery(TObjectAssignedOrCopiedToAnOverlappingObjectQuery()))
+      // `Query` type for `objectAssignedToAnOverlappingObject` query
+      TQueryC(TContracts7PackageQuery(TObjectAssignedToAnOverlappingObjectQuery()))
+  }
+
+  Query objectCopiedToAnOverlappingObjectQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `objectCopiedToAnOverlappingObject` query
+      TQueryC(TContracts7PackageQuery(TObjectCopiedToAnOverlappingObjectQuery()))
   }
 }

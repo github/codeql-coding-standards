@@ -66,12 +66,24 @@
       },
       "queries": [
         {
-          "description": "An object shall not be assigned or copied to an overlapping object.",
+          "description": "An object shall not be assigned to an overlapping object.",
           "kind": "problem",
-          "name": "An object shall not be assigned or copied to an overlapping object",
+          "name": "An object shall not be assigned to an overlapping object",
           "precision": "high",
           "severity": "error",
-          "short_name": "ObjectAssignedOrCopiedToAnOverlappingObject",
+          "short_name": "ObjectAssignedToAnOverlappingObject",
+          "shared_implementation_short_name": "OverlappingObjectAssignment",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An object shall not be copied to an overlapping object.",
+          "kind": "problem",
+          "name": "An object shall not be copied to an overlapping object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ObjectCopiedToAnOverlappingObject",
           "tags": [
             "correctness"
           ]

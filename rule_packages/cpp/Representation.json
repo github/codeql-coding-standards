@@ -50,6 +50,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "ObjectAssignedToAnOverlappingObject",
+          "shared_implementation_short_name": "OverlappingObjectAssignment",
           "tags": [
             "correctness"
           ]
