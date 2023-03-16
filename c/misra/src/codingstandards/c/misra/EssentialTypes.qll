@@ -32,23 +32,60 @@ class EssentialTypeCategory extends TEssentialTypeCategory {
 }
 
 /**
+ * An expression in the program that evaluates to a compile time constant signed or unsigned integer.
+ */
+private class ConstantIntegerExpr extends Expr {
+  pragma[noinline]
+  ConstantIntegerExpr() {
+    getEssentialTypeCategory(this.getType()) =
+      [
+        EssentiallyUnsignedType().(EssentialTypeCategory),
+        EssentiallySignedType().(EssentialTypeCategory)
+      ] and
+    exists(this.getValue().toFloat()) and
+    not this instanceof Conversion
+  }
+}
+
+/** A `float` which represents an integer constant in the program. */
+private class IntegerConstantAsFloat extends float {
+  IntegerConstantAsFloat() { exists(ConstantIntegerExpr ce | this = ce.getValue().toFloat()) }
+}
+
+/**
+ * Identifies which integral types from which type categories can represent a given integer constant
+ * in the program.
+ */
+pragma[nomagic]
+private predicate isCandidateIntegralType(
+  EssentialTypeCategory cat, IntegralType it, IntegerConstantAsFloat c
+) {
+  getEssentialTypeCategory(it) = cat and
+  c = any(ConstantIntegerExpr ce).getValue().toFloat() and
+  // As with range analysis, we assume two's complement representation
+  typeLowerBound(it) <= c and
+  typeUpperBound(it) >= c
+}
+
+/**
  * Gets the unsigned type of lowest rank that can represent the value of the given expression,
  * assuming that the expression is essentially unsigned.
  */
-private IntegralType utlr(Expr const) {
+pragma[nomagic]
+private IntegralType utlr(ConstantIntegerExpr const) {
   getEssentialTypeCategory(const.getType()) = EssentiallyUnsignedType() and
-  getEssentialTypeCategory(result) = EssentiallyUnsignedType() and
-  exists(float c | c = const.getValue().toFloat() |
-    // As with range analysis, we assume two's complement representation
-    typeLowerBound(result) <= c and
-    typeUpperBound(result) >= c and
-    forall(IntegralType it |
-      getEssentialTypeCategory(it) = EssentiallyUnsignedType() and
-      typeLowerBound(it) <= c and
-      typeUpperBound(it) >= c
-    |
-      result.getSize() <= it.getSize()
-    )
+  result = utlr_c(const.getValue().toFloat())
+}
+
+/**
+ * Given an integer constant that appears in the program, gets the unsigned type of lowest rank
+ * that can hold it.
+ */
+pragma[nomagic]
+private IntegralType utlr_c(IntegerConstantAsFloat c) {
+  isCandidateIntegralType(EssentiallyUnsignedType(), result, c) and
+  forall(IntegralType it | isCandidateIntegralType(EssentiallyUnsignedType(), it, c) |
+    result.getSize() <= it.getSize()
   )
 }
 
@@ -56,20 +93,21 @@ private IntegralType utlr(Expr const) {
  * Gets the signed type of lowest rank that can represent the value of the given expression,
  * assuming that the expression is essentially signed.
  */
-private IntegralType stlr(Expr const) {
+pragma[nomagic]
+private IntegralType stlr(ConstantIntegerExpr const) {
   getEssentialTypeCategory(const.getType()) = EssentiallySignedType() and
-  getEssentialTypeCategory(result) = EssentiallySignedType() and
-  exists(float c | c = const.getValue().toFloat() |
-    // As with range analysis, we assume two's complement representation
-    typeLowerBound(result) <= c and
-    typeUpperBound(result) >= c and
-    forall(IntegralType it |
-      getEssentialTypeCategory(it) = EssentiallySignedType() and
-      typeLowerBound(it) <= c and
-      typeUpperBound(it) >= c
-    |
-      result.getSize() <= it.getSize()
-    )
+  result = stlr_c(const.getValue().toFloat())
+}
+
+/**
+ * Given an integer constant that appears in the program, gets the signed type of lowest rank
+ * that can hold it.
+ */
+pragma[nomagic]
+private IntegralType stlr_c(IntegerConstantAsFloat c) {
+  isCandidateIntegralType(EssentiallySignedType(), result, c) and
+  forall(IntegralType it | isCandidateIntegralType(EssentiallySignedType(), it, c) |
+    result.getSize() <= it.getSize()
   )
 }
 
