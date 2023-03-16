@@ -20,6 +20,6 @@ void f1() {
   ul << 64; // NON_COMPLIANT
 
   // 1UL essential type is essentially unsigned long
-  1UL << 10; // COMPLIANT(FALSE_POSITIVE)
+  1UL << 10; // COMPLIANT[FALSE_POSITIVE]
   1UL << 64; // NON_COMPLIANT
 }
