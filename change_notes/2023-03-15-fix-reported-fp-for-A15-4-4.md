@@ -1,0 +1,2 @@
+- `A15-4-4` - `MissingNoExcept.ql`
+  - Exclude call operators embedded in a lambda expression from functions to be declared `noexcept` or `noexcept(false)`.
