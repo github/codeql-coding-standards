@@ -53,3 +53,25 @@ void test_assignment() {
   int x = 0; // COMPLIANT - used in type initialization
   x = 1;     // NON_COMPLIANT - used in assignment
 }
+
+void test_stream(std::ostream &os, const char *str) noexcept {
+  os << str << "logging string"; // COMPLIANT - literal used in stream write
+}
+
+#define WRAPPER_MACRO(X, Y) test_stream(X, Y)
+
+void test_wrapper_stream(std::ostream &os, const char *str) noexcept {
+  test_stream(os, "test");   // COMPLIANT - wrapper for stream write
+  WRAPPER_MACRO(os, "test"); // COMPLIANT - wrapper for stream write
+}
+
+void test_stream_two(std::ostream &os, const char *str,
+                     const char *alt) noexcept {
+  os << str << "logging string"; // COMPLIANT - literal used in stream write
+  throw alt;
+}
+
+void test_not_wrapper_stream(std::ostream &os, const char *str) noexcept {
+  test_stream_two(os, "test", "not okay"); // NON_COMPLIANT - test_stream_two is
+                                           // not actually exclusively a wrapper
+}
