@@ -29,4 +29,4 @@ where
     lowerBound(right) < 0 or
     upperBound(right) > max_val
   )
-select right, "The shift right hand operand shall lie in the range 0 to " + max_val + "."
+select right, "The right hand operand of the shift operator shall lie in the range 0 to " + max_val + "."
