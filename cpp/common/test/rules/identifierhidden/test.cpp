@@ -32,5 +32,12 @@ void f3() {
 template <typename T> constexpr bool foo = false; // COMPLIANT
 
 namespace {
-template <typename T> bool foo<T> = true; // COMPLIANT
+template <typename T> bool foo = true; // COMPLIANT - omit variable templates
+}
+
+template <class T> constexpr T foo1 = T(1.1L);
+
+template <class T, class R> T f(T r) {
+  T v = foo1<T> * r * r;  // COMPLIANT
+  T v1 = foo1<R> * r * r; // COMPLIANT
 }
