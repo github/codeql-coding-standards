@@ -1,5 +1,5 @@
 name: codeql/misra-cpp-coding-standards
-version: 2.15.0
+version: 2.15.1
 description: MISRA C++ 2008
 suites: codeql-suites
 license: MIT
