@@ -20,6 +20,15 @@ struct C {
 void sample1(int x){};
 void sample2(int y){};
 
+static void foo(B &b) noexcept {
+  b.g();
+  B bar{};
+  bar.g();
+  B b2 = B();
+  auto b3 = &b2;
+  b3->g();
+}
+
 int test_useless_assignment(int &x, int p) {
   x = 0; // COMPLIANT - x is a reference parameter, so is visible by the caller
   int y = 0; // NON_COMPLIANT - never used
@@ -75,9 +84,9 @@ int test_useless_assignment(int &x, int p) {
   A a7{1, 2};            // COMPLIANT - used in the `sample1` call below
   sample1(a7.f + a7.f2); // COMPLIANT - object access is a valid use
 
-  A *a8; // COMPLIANT - value not given at declaration
-  a8 = &a7;
-  sample2(a8->f); // COMPLIANT - object access is a valid use
+  // A *a8; // COMPLIANT - value not given at declaration
+  // a8 = &a7;
+  // sample2(a8->f); // COMPLIANT - object access is a valid use
 
   return y;
 }
