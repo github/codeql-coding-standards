@@ -21,4 +21,4 @@ where
   f = fc.getTarget() and
   f.getName() = ["qsort", "bsearch"] and
   f.getFile().getBaseName() = "stdlib.h"
-select fc, "Call to banned function $@.", f, f.getName()
+select fc, "Call to banned function " + f.getName() + "."

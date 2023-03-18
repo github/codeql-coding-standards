@@ -18,4 +18,4 @@ where
   not isExcluded(fc, BannedPackage::standardHeaderFileUsedSignalhQuery()) and
   fc.getTarget() = f and
   f.getFile().getBaseName() = "signal.h"
-select fc, "Call to banned function $@.", f, f.getName()
+select fc, "Call to banned function " + f.getName() + "."

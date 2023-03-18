@@ -1,1 +1,1 @@
-| test.cpp:9:3:9:9 | INT_MAX | The enumerator $@ reuses a reserved standard library name. | test.cpp:9:3:9:9 | INT_MAX | INT_MAX |
+| test.cpp:10:3:10:9 | INT_MAX | The enumerator $@ reuses a reserved standard library name. | test.cpp:10:3:10:9 | INT_MAX | INT_MAX |
