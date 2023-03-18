@@ -33,6 +33,24 @@ predicate isForLoopWithFloatingPointCounters(ForStmt forLoop, Variable v) {
   v.getType() instanceof FloatingPointType
 }
 
+class NCrementOperation extends Expr {
+  VariableAccess operand;
+
+  NCrementOperation() {
+    this.(CrementOperation).getOperand() = operand
+    or
+    this.(Call).getTarget() instanceof UserCrementOperator and
+    this.(Call).getQualifier() = operand
+    or
+    this.(AssignArithmeticOperation).getLValue() = operand
+    or
+    this.(Call).getTarget() instanceof UserAssignArithmeticOperator and
+    this.(Call).getQualifier() = operand
+  }
+
+  VariableAccess getOperand() { result = operand }
+}
+
 /**
  * Holds if for loop `forLoop` contains an invalid for loop incrementation.
  * M6-5-2
@@ -41,7 +59,7 @@ predicate isInvalidForLoopIncrementation(ForStmt forLoop, Variable v, VariableAc
   v = getAnIterationVariable(forLoop) and
   modification = v.getAnAccess() and
   modification = forLoop.getUpdate().getAChild*() and
-  modification.isModified() and
+  any(NCrementOperation cop).getOperand() = modification and
   not exists(CrementOperation cop | cop.getOperand() = modification) and
   not exists(Call c |
     c.getQualifier() = modification and c.getTarget() instanceof UserCrementOperator

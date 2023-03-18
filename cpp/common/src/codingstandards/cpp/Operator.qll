@@ -251,16 +251,22 @@ class UserEqualityOperator extends Operator {
   boolean getPolarity() { result = polarity }
 }
 
-class UserOverloadedOperator extends Function {
+class UserOverloadedOperator extends Operator {
+  string op;
+
   UserOverloadedOperator() {
-    exists(string op |
-      "operator" + op = this.getName() and
-      op in [
-          "+", "-", "*", "/", "%", "^", "&", "|", "~", "!", "=", "<", ">", "+=", "-=", "*=", "/=",
-          "%=", "^=", "&=", "|=", "<<", ">>", ">>=", "<<=", "==", "!=", "<=", ">=", "<=>", "&&",
-          "||", "++", "--", "->*", "->", "()", "[]"
-        ]
-    ) and
+    "operator" + op = this.getName() and
+    op in [
+        "+", "-", "*", "/", "%", "^", "&", "|", "~", "!", "=", "<", ">", "+=", "-=", "*=", "/=",
+        "%=", "^=", "&=", "|=", "<<", ">>", ">>=", "<<=", "==", "!=", "<=", ">=", "<=>", "&&", "||",
+        "++", "--", "->*", "->", "()", "[]"
+      ] and
     not this.isCompilerGenerated()
   }
+
+  string getOperator() { result = op }
+}
+
+class UserAssignArithmeticOperator extends UserOverloadedOperator {
+  UserAssignArithmeticOperator() { this.getOperator() = ["+=", "-=", "*=", "/=", "%="] }
 }
