@@ -9,7 +9,7 @@ template <typename T> constexpr T constexpr_max() {
   return std::numeric_limits<T>::max();
 }
 
-void test_signed_int() {
+void test_unsigned_int() {
   unsigned int a;
   a = 1 + 1;                                        // COMPLIANT
   a = 0 - 1;                                        // COMPLIANT
@@ -62,4 +62,10 @@ void test_long_long() {
   a = constexpr_max<unsigned long long>() - 1; // COMPLIANT
   a = constexpr_min<unsigned long long>() - 1; // NON_COMPLIANT
   a = constexpr_max<unsigned long long>() + 1; // NON_COMPLIANT
+}
+
+void test_conversion() {
+  signed int a =
+      (signed int)(UINT_MAX + 1); // NON_COMPLIANT - still an unsigned integer
+                                  // constant expression
 }

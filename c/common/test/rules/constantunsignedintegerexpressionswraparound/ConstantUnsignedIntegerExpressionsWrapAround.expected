@@ -14,3 +14,4 @@
 | test.c:47:7:47:18 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
 | test.c:48:7:48:17 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
 | test.c:48:7:48:17 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:53:20:53:31 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |

@@ -15,7 +15,7 @@ Query getQuery() { result instanceof ConstantUnsignedIntegerExpressionsWrapAroun
 query predicate problems(BinaryArithmeticOperation bao, string message) {
   not isExcluded(bao, getQuery()) and
   bao.isConstant() and
-  bao.getFullyConverted().getUnderlyingType().(IntegralType).isUnsigned() and
+  bao.getUnderlyingType().(IntegralType).isUnsigned() and
   convertedExprMightOverflow(bao) and
   message = "Use of a constant, unsigned, integer expression that over- or under-flows."
 }

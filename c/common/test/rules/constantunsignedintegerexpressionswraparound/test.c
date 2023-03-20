@@ -6,8 +6,8 @@
 
 void test_unsigned_int() {
   unsigned int a;
-  a = 1 + 1;        // COMPLIANT
-  a = 0 - 1;        // COMPLIANT
+  a = 1 + 1;        // COMPLIANT - signed integer
+  a = 0 - 1;        // COMPLIANT - signed integer
   a = UINT_MIN - 1; // NON_COMPLIANT
   a = UINT_MAX + 1; // NON_COMPLIANT
 
@@ -46,4 +46,10 @@ void test_long_long() {
   a = OVERFLOW(0);  // COMPLIANT
   a = UNDERFLOW(1); // NON_COMPLIANT
   a = OVERFLOW(1);  // NON_COMPLIANT
+}
+
+void test_conversion() {
+  signed int a =
+      (signed int)(UINT_MAX + 1); // NON_COMPLIANT - still an unsigned integer
+                                  // constant expression
 }
