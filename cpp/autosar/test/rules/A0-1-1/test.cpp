@@ -29,6 +29,18 @@ static void foo(B &b) noexcept {
   b3->g();
 }
 
+template <typename T> void test() {
+  T t;
+  t.g();
+}
+
+template <typename T> void call_test() {
+  // call it with type parameter B to trigger indexing
+  test<T>();
+}
+
+void call_call_test() { call_test<B>(); }
+
 int test_useless_assignment(int &x, int p) {
   x = 0; // COMPLIANT - x is a reference parameter, so is visible by the caller
   int y = 0; // NON_COMPLIANT - never used
