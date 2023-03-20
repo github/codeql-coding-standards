@@ -5,7 +5,6 @@ This query implements the CERT-C rule SIG34-C:
 > Do not call signal() from within interruptible signal handlers
 
 
-
 ## Description
 
 A signal handler should not reassert its desire to handle its own signal. This is often done on *nonpersistent* platforms—that is, platforms that, upon receiving a signal, reset the handler for the signal to SIG_DFL before calling the bound signal handler. Calling` signal()` under these conditions presents a race condition. (See [SIG01-C. Understand implementation-specific details regarding signal handler persistence](https://wiki.sei.cmu.edu/confluence/display/c/SIG01-C.+Understand+implementation-specific+details+regarding+signal+handler+persistence).)

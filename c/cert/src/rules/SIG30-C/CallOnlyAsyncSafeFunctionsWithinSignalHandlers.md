@@ -5,7 +5,6 @@ This query implements the CERT-C rule SIG30-C:
 > Call only asynchronous-safe functions within signal handlers
 
 
-
 ## Description
 
 Call only [asynchronous-safe functions](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-asynchronous-safefunction) within signal handlers. For [strictly conforming](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-strictlyconforming) programs, only the C standard library functions `abort()`, `_Exit()`, `quick_exit()`, and `signal()` can be safely called from within a signal handler.
