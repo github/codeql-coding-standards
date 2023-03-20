@@ -81,7 +81,7 @@ void int_handler(int signum) {
   if (raise(SIGINT) != 0) { // COMPLIANT
     // ...
   }
-    if (raise(signum) != 0) { // COMPLIANT
+  if (raise(signum) != 0) { // COMPLIANT
     // ...
   }
 }
