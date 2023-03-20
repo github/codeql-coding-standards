@@ -4,7 +4,7 @@
 #define UINT_MIN ((unsigned int)0)
 #define UULONG_MIN ((unsigned long long)0)
 
-void test_signed_int() {
+void test_unsigned_int() {
   unsigned int a;
   a = 1 + 1;        // COMPLIANT
   a = 0 - 1;        // COMPLIANT
