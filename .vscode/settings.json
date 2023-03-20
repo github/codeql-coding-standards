@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.jq": "json",
+        "*.py": "python",
+        "stdio.h": "c"
+    },
+    "sarif-viewer.connectToGithubCodeScanning": "off"
+}
