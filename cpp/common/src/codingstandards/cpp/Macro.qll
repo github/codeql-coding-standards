@@ -68,3 +68,13 @@ pragma[noinline]
 predicate isMacroInvocationLocation(MacroInvocation mi, File f, int startChar, int endChar) {
   mi.getActualLocation().charLoc(f, startChar, endChar)
 }
+
+/** A macro within the source location of this project. */
+class UserProvidedMacro extends Macro {
+  UserProvidedMacro() { exists(this.getFile().getRelativePath()) }
+}
+
+/** A macro defined within a library used by this project. */
+class LibraryMacro extends Macro {
+  LibraryMacro() { not this instanceof UserProvidedMacro }
+}
