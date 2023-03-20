@@ -71,7 +71,16 @@ predicate isMacroInvocationLocation(MacroInvocation mi, File f, int startChar, i
 
 /** A macro within the source location of this project. */
 class UserProvidedMacro extends Macro {
-  UserProvidedMacro() { exists(this.getFile().getRelativePath()) }
+  UserProvidedMacro() {
+    exists(this.getFile().getRelativePath()) and
+    // Exclude macros in our standard library header stubs for tests, because qltest sets the source
+    // root to the qlpack root, which means our stubs all look like source files.
+    //
+    // This may affect "real" code as well, if it happens to be at this path, but given the name
+    // I think it's likely that we'd want that to be the case anyway.
+    not this.getFile().getRelativePath().substring(0, "includes/standard-library".length()) =
+      "includes/standard-library"
+  }
 }
 
 /** A macro defined within a library used by this project. */
