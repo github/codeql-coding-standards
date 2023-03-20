@@ -27,6 +27,8 @@ static void foo(B &b) noexcept {
   B b2 = B();
   auto b3 = &b2;
   b3->g();
+  auto b2 = b;
+  b2.g();
 }
 
 template <typename T> void test() {
