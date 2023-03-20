@@ -29,7 +29,7 @@ where
   // Not guarded by a check, where the check is not an invalid overflow check
   not bop.getAGuardingGVN() = globalValueNumber(bop.getAChild*()) and
   // Is not checked after the operation
-  not bop.hasPostCheck()
+  not bop.hasValidPostCheck()
 select bop,
   "Binary expression ..." + bop.getOperator() + "... of type " + bop.getType().getUnderlyingType() +
     " may wrap."

@@ -42,19 +42,27 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
     )
   }
 
-  predicate hasPostCheck() {
-    exists(RelationalOperation ro |
-      DataFlow::localExprFlow(this, ro.getLesserOperand()) and
-      globalValueNumber(ro.getGreaterOperand()) = globalValueNumber(this.getAnOperand()) and
-      this instanceof AddExpr and
-      ro instanceof GuardCondition
-    )
-    or
-    exists(RelationalOperation ro |
-      DataFlow::localExprFlow(this, ro.getGreaterOperand()) and
-      globalValueNumber(ro.getLesserOperand()) = globalValueNumber(this.getAnOperand()) and
-      this instanceof SubExpr and
-      ro instanceof GuardCondition
+  /**
+   * Holds if there is a correct validity check after this expression which may overflow.
+   *
+   * Only holds for unsigned expressions, as signed overflow/underflow are undefined behavior.
+   */
+  predicate hasValidPostCheck() {
+    this.getType().(IntegralType).isUnsigned() and
+    (
+      exists(RelationalOperation ro |
+        DataFlow::localExprFlow(this, ro.getLesserOperand()) and
+        globalValueNumber(ro.getGreaterOperand()) = globalValueNumber(this.getAnOperand()) and
+        this instanceof AddExpr and
+        ro instanceof GuardCondition
+      )
+      or
+      exists(RelationalOperation ro |
+        DataFlow::localExprFlow(this, ro.getGreaterOperand()) and
+        globalValueNumber(ro.getLesserOperand()) = globalValueNumber(this.getAnOperand()) and
+        this instanceof SubExpr and
+        ro instanceof GuardCondition
+      )
     )
   }
 
