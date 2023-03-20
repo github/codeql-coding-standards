@@ -1,6 +1,6 @@
 /**
- * @id cpp/autosar/constant-unsigned-integer-expressions-wrap-around
- * @name M5-19-1: Evaluation of constant unsigned integer expressions shall not lead to wrap-around
+ * @id c/misra/constant-unsigned-integer-expressions-wrap-around
+ * @name RULE-12-4: Evaluation of constant expressions should not lead to unsigned integer wrap-around
  * @description Unsigned integer expressions do not strictly overflow, but instead wrap around in a
  *              modular way. Any constant unsigned integer expressions that in effect "overflow"
  *              will not be detected by the compiler. Although there may be good reasons at run-time
@@ -11,20 +11,18 @@
  * @kind problem
  * @precision very-high
  * @problem.severity error
- * @tags external/autosar/id/m5-19-1
+ * @tags external/misra/id/rule-12-4
  *       correctness
  *       security
- *       external/autosar/allocated-target/implementation
- *       external/autosar/enforcement/automated
- *       external/autosar/obligation/required
+ *       external/misra/obligation/advisory
  */
 
 import cpp
-import codingstandards.cpp.autosar
+import codingstandards.c.misra
 import codingstandards.cpp.rules.constantunsignedintegerexpressionswraparound.ConstantUnsignedIntegerExpressionsWrapAround
 
 class ConstantUnsignedIntegerExpressionsWrapAroundQuery extends ConstantUnsignedIntegerExpressionsWrapAroundSharedQuery {
   ConstantUnsignedIntegerExpressionsWrapAroundQuery() {
-    this = ExpressionsPackage::constantUnsignedIntegerExpressionsWrapAroundQuery()
+    this = IntegerOverflowPackage::constantUnsignedIntegerExpressionsWrapAroundQuery()
   }
 }
