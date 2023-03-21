@@ -26,10 +26,10 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Converting an integer value to another integer type with a different sign or size can lead to data loss or misinterpretation of the value.",
           "kind": "problem",
           "name": "Ensure that integer conversions do not result in lost or misinterpreted data",
-          "precision": "high",
+          "precision": "medium",
           "severity": "error",
           "short_name": "IntegerConversionCausesDataLoss",
           "tags": [
@@ -45,10 +45,10 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "The multiplication of two signed integers can lead to underflow or overflow and therefore undefined behavior.",
           "kind": "problem",
           "name": "Ensure that operations on signed integers do not result in overflow",
-          "precision": "high",
+          "precision": "medium",
           "severity": "error",
           "short_name": "SignedIntegerOverflow",
           "tags": [
@@ -68,7 +68,7 @@
           "description": "Dividing or taking the remainder by zero is undefined behavior.",
           "kind": "problem",
           "name": "Ensure that division and remainder operations do not result in divide-by-zero errors",
-          "precision": "high",
+          "precision": "medium",
           "severity": "error",
           "short_name": "DivOrRemByZero",
           "tags": [
@@ -84,7 +84,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "The precision of integer types in C cannot be deduced from the size of the type (due to padding and sign bits) otherwise a loss of data may occur.",
           "kind": "problem",
           "name": "Use correct integer precisions",
           "precision": "high",

@@ -3,7 +3,7 @@
  * @name INT33-C: Ensure that division and remainder operations do not result in divide-by-zero errors
  * @description Dividing or taking the remainder by zero is undefined behavior.
  * @kind problem
- * @precision high
+ * @precision medium
  * @problem.severity error
  * @tags external/cert/id/int33-c
  *       correctness

@@ -1,7 +1,8 @@
 /**
  * @id c/cert/use-correct-integer-precisions
  * @name INT35-C: Use correct integer precisions
- * @description
+ * @description The precision of integer types in C cannot be deduced from the size of the type (due
+ *              to padding and sign bits) otherwise a loss of data may occur.
  * @kind problem
  * @precision high
  * @problem.severity error

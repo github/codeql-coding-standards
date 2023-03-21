@@ -1,9 +1,10 @@
 /**
  * @id c/cert/signed-integer-overflow
  * @name INT32-C: Ensure that operations on signed integers do not result in overflow
- * @description
+ * @description The multiplication of two signed integers can lead to underflow or overflow and
+ *              therefore undefined behavior.
  * @kind problem
- * @precision high
+ * @precision medium
  * @problem.severity error
  * @tags external/cert/id/int32-c
  *       correctness

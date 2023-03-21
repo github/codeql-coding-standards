@@ -1,9 +1,10 @@
 /**
  * @id c/cert/integer-conversion-causes-data-loss
  * @name INT31-C: Ensure that integer conversions do not result in lost or misinterpreted data
- * @description
+ * @description Converting an integer value to another integer type with a different sign or size
+ *              can lead to data loss or misinterpretation of the value.
  * @kind problem
- * @precision high
+ * @precision medium
  * @problem.severity error
  * @tags external/cert/id/int31-c
  *       correctness
