@@ -44,6 +44,105 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
 
   /**
    * Holds if there is a correct validity check after this expression which may overflow.
+   */
+  predicate hasValidPreCheck() {
+    exists(GVN i1, GVN i2 |
+      i1 = globalValueNumber(this.getLeftOperand()) and
+      i2 = globalValueNumber(this.getRightOperand())
+      or
+      i2 = globalValueNumber(this.getLeftOperand()) and
+      i1 = globalValueNumber(this.getRightOperand())
+    |
+      // The CERT rule for signed integer overflow has a very specific pattern it recommends
+      // for checking for overflow. We try to match the pattern here.
+      //   ((i2 > 0 && i1 > (INT_MAX - i2)) || (i2 < 0 && i1 < (INT_MIN - i2)))
+      this instanceof AddExpr and
+      exists(LogicalOrExpr orExpr |
+        // GuardCondition doesn't work in this case, so just confirm that this check dominates the overflow
+        bbDominates(orExpr.getBasicBlock(), this.getBasicBlock()) and
+        exists(LogicalAndExpr andExpr |
+          andExpr = orExpr.getAnOperand() and
+          exists(StrictRelationalOperation gt |
+            gt = andExpr.getAnOperand() and
+            gt.getLesserOperand().getValue() = "0" and
+            globalValueNumber(gt.getGreaterOperand()) = i2
+          ) and
+          exists(StrictRelationalOperation gt |
+            gt = andExpr.getAnOperand() and
+            gt.getLesserOperand() =
+              any(SubExpr se |
+                se.getLeftOperand().getValue().toFloat() = typeUpperBound(getType()) and
+                globalValueNumber(se.getRightOperand()) = i2
+              ) and
+            globalValueNumber(gt.getGreaterOperand()) = i1
+          )
+        ) and
+        exists(LogicalAndExpr andExpr |
+          andExpr = orExpr.getAnOperand() and
+          exists(StrictRelationalOperation gt |
+            gt = andExpr.getAnOperand() and
+            gt.getGreaterOperand().getValue() = "0" and
+            globalValueNumber(gt.getLesserOperand()) = i2
+          ) and
+          exists(StrictRelationalOperation gt |
+            gt = andExpr.getAnOperand() and
+            gt.getGreaterOperand() =
+              any(SubExpr se |
+                se.getLeftOperand().getValue().toFloat() = typeLowerBound(getType()) and
+                globalValueNumber(se.getRightOperand()) = i2
+              ) and
+            globalValueNumber(gt.getLesserOperand()) = i1
+          )
+        )
+      )
+      or
+      // The CERT rule for signed integer overflow has a very specific pattern it recommends
+      // for checking for underflow. We try to match the pattern here.
+      //   ((i2 > 0 && i1 > (INT_MIN + i2)) || (i2 < 0 && i1 < (INT_MAX + i2)))
+      this instanceof SubExpr and
+      exists(LogicalOrExpr orExpr |
+        // GuardCondition doesn't work in this case, so just confirm that this check dominates the overflow
+        bbDominates(orExpr.getBasicBlock(), this.getBasicBlock()) and
+        exists(LogicalAndExpr andExpr |
+          andExpr = orExpr.getAnOperand() and
+          exists(StrictRelationalOperation gt |
+            gt = andExpr.getAnOperand() and
+            gt.getLesserOperand().getValue() = "0" and
+            globalValueNumber(gt.getGreaterOperand()) = i2
+          ) and
+          exists(StrictRelationalOperation gt |
+            gt = andExpr.getAnOperand() and
+            gt.getGreaterOperand() =
+              any(AddExpr se |
+                se.getLeftOperand().getValue().toFloat() = typeLowerBound(getType()) and
+                globalValueNumber(se.getRightOperand()) = i2
+              ) and
+            globalValueNumber(gt.getLesserOperand()) = i1
+          )
+        ) and
+        exists(LogicalAndExpr andExpr |
+          andExpr = orExpr.getAnOperand() and
+          exists(StrictRelationalOperation gt |
+            gt = andExpr.getAnOperand() and
+            gt.getGreaterOperand().getValue() = "0" and
+            globalValueNumber(gt.getLesserOperand()) = i2
+          ) and
+          exists(StrictRelationalOperation gt |
+            gt = andExpr.getAnOperand() and
+            gt.getLesserOperand() =
+              any(AddExpr se |
+                se.getLeftOperand().getValue().toFloat() = typeUpperBound(getType()) and
+                globalValueNumber(se.getRightOperand()) = i2
+              ) and
+            globalValueNumber(gt.getGreaterOperand()) = i1
+          )
+        )
+      )
+    )
+  }
+
+  /**
+   * Holds if there is a correct validity check after this expression which may overflow.
    *
    * Only holds for unsigned expressions, as signed overflow/underflow are undefined behavior.
    */
@@ -89,4 +188,8 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
       not ae.getExplicitlyConverted().getType().getSize() < any(IntType i).getSize()
     )
   }
+}
+
+private class StrictRelationalOperation extends RelationalOperation {
+  StrictRelationalOperation() { this.getOperator() = [">", "<"] }
 }
