@@ -1,4 +1,5 @@
 import cpp
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * A call to function `signal`
@@ -19,6 +20,17 @@ class SignalHandler extends Function {
   }
 
   SignalCall getRegistration() { result = registration }
+
+  FunctionCall getReassertingCall() {
+    result.getTarget().hasGlobalName("signal") and
+    this = result.getEnclosingFunction() and
+    (
+      this.getRegistration().getArgument(0).getValue() = result.getArgument(0).getValue()
+      or
+      DataFlow::localFlow(DataFlow::parameterNode(this.getParameter(0)),
+        DataFlow::exprNode(result.getArgument(0)))
+    )
+  }
 }
 
 /**

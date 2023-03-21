@@ -100,7 +100,8 @@ class ApplicationAsyncSafeFunction extends AsyncSafeFunction {
 class AsyncUnsafeRaiseCall extends FunctionCall {
   AsyncUnsafeRaiseCall() {
     this.getTarget().hasGlobalName("raise") and
-    exists(SignalHandler handler | handler = this.getEnclosingFunction() |
+    exists(SignalHandler handler |
+      handler = this.getEnclosingFunction() and
       not handler.getRegistration().getArgument(0).getValue() = this.getArgument(0).getValue() and
       not DataFlow::localFlow(DataFlow::parameterNode(handler.getParameter(0)),
         DataFlow::exprNode(this.getArgument(0)))

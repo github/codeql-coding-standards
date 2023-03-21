@@ -11,8 +11,11 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.c.Signal
 
-from
+from FunctionCall x
 where
   not isExcluded(x, SignalHandlersPackage::doNotCallSignalFromInterruptibleSignalHandlersQuery()) and
-select
+  x = any(SignalHandler handler).getReassertingCall()
+select x,
+  "Reasserting handler bindings introduces a race condition on nonpersistent platforms and is redundant otherwise."

@@ -1,1 +1,2 @@
-No expected results have yet been specified
+| test.c:4:7:4:12 | call to signal | Reasserting handler bindings introduces a race condition on nonpersistent platforms and is redundant otherwise. |
+| test.c:17:7:17:12 | call to signal | Reasserting handler bindings introduces a race condition on nonpersistent platforms and is redundant otherwise. |
