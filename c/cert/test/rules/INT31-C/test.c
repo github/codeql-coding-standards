@@ -1,8 +1,8 @@
 #include <limits.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
-
 void test_unsigned_to_signed(unsigned int x) {
   (signed int)x; // NON_COMPLIANT - not larger enough to represent all
 }
@@ -105,4 +105,8 @@ void test_funcs(int *a, size_t n) {
   // not supported in our stdlib, or in any of the compilers
   // memset_s(a, rn, 4096, n); // NON_COMPLIANT
   // memset_s(a, rn, 0, n);    // COMPLIANT
+}
+
+void test_bool(signed int s) {
+  (bool)s; // COMPLIANT
 }

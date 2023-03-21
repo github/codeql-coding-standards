@@ -82,7 +82,8 @@ where
     c.getType().getUnspecifiedType() instanceof UnsignedCharType and
     lowerBound(preConversionExpr) >= typeLowerBound(any(SignedCharType s)) and
     upperBound(preConversionExpr) <= typeUpperBound(any(UnsignedCharType s))
-  )
+  ) and
+  not c.getCastedToType() instanceof BoolType
 select c,
   "Conversion from " + c.getPreConversionExpr().getType() + " to " + c.getCastedToType() +
     " may cause data loss."
