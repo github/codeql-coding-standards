@@ -62,7 +62,8 @@ predicate withinIntegralRange(IntegralType typ, float value) {
 
 from
   IntegerConversion c, Expr preConversionExpr, Type castedToType, Type castedFromType,
-  IntegralType unspecifiedCastedFromType, string typeFromMessage
+  IntegralType unspecifiedCastedFromType, string typeFromMessage, float preConversionLowerBound,
+  float preConversionUpperBound, float typeLowerBound, float typeUpperBound
 where
   not isExcluded(c, IntegerOverflowPackage::integerConversionCausesDataLossQuery()) and
   preConversionExpr = c.getPreConversionExpr() and
@@ -71,10 +72,16 @@ where
   unspecifiedCastedFromType = castedFromType.getUnspecifiedType() and
   // Casting to an integral type
   castedToType = c.getCastedToType() and
+  // Get the upper/lower bound of the pre-conversion expression
+  preConversionLowerBound = lowerBound(preConversionExpr) and
+  preConversionUpperBound = upperBound(preConversionExpr) and
+  // Get the upper/lower bound of the target type
+  typeLowerBound = typeLowerBound(castedToType) and
+  typeUpperBound = typeUpperBound(castedToType) and
   // Where the result is not within the range of the target type
   (
-    not withinIntegralRange(castedToType, lowerBound(preConversionExpr)) or
-    not withinIntegralRange(castedToType, upperBound(preConversionExpr))
+    not withinIntegralRange(castedToType, preConversionLowerBound) or
+    not withinIntegralRange(castedToType, preConversionUpperBound)
   ) and
   // A conversion of `-1` to `time_t` is permitted by the standard
   not (
@@ -93,4 +100,7 @@ where
   if castedFromType = unspecifiedCastedFromType
   then typeFromMessage = castedFromType.toString()
   else typeFromMessage = castedFromType + " (" + unspecifiedCastedFromType + ")"
-select c, "Conversion from " + typeFromMessage + " to " + castedToType + " may cause data loss."
+select c,
+  "Conversion from " + typeFromMessage + " to " + castedToType +
+    " may cause data loss (casting from range " + preConversionLowerBound + "..." +
+    preConversionUpperBound + " to range " + typeLowerBound + "..." + typeUpperBound + ")."
