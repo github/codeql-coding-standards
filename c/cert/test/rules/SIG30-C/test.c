@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum { MAXLINE = 1024 };
 char *info = NULL;
 
 void log_local_unsafe(void) { fputs(info, stderr); }
