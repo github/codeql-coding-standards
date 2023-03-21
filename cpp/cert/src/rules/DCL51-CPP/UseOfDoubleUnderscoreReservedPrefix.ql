@@ -33,6 +33,8 @@ predicate isGeneratedByUserMacro(Declaration d) {
 from Locatable l, string s
 where
   not isExcluded(l, NamingPackage::useOfDoubleUnderscoreReservedPrefixQuery()) and
+  //exclude uses of __func__, which are modelled as LocalVariable declarations
+  not(l.(LocalVariable).getName() = "__func__") and
   (
     exists(Macro m | l = m and isReservedMacroPrefix(m) and s = m.getName())
     or

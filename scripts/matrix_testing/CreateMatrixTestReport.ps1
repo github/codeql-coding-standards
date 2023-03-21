@@ -53,7 +53,7 @@ All Parameters:
         Accept wildcard characters?  false
 
     -Configuration <String>
-        The compiler to use. Valid values are 'clang' and 'arm-clang'.
+        The compiler to use.
 
         Required?                    true
         Position?                    named
@@ -140,9 +140,9 @@ param(
     [string]
     $NumThreads = 10,
 
-    # The compiler to use. Valid values are 'clang' and 'arm-clang'.
+    # The compiler to use.
     [Parameter(Mandatory)] 
-    [ValidateSet('clang', 'armclang', 'tiarmclang', 'gcc')]
+    [ValidateSet('clang', 'armclang', 'tiarmclang', 'gcc', 'qcc')]
     [string]
     $Configuration,
 
