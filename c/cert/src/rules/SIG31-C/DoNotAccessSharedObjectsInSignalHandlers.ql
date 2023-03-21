@@ -27,10 +27,8 @@ class UnsafeSharedVariableAccess extends VariableAccess {
       this.getTarget().isThreadLocal()
     ) and
     // excluding `volatile sig_atomic_t` type
-    not (
-      this.getType().hasName("volatile sig_atomic_t") and // TODO search without "volatile"
-      this.getTarget().isVolatile()
-    ) and //excluding lock-free atomic objects
+    not this.getType().(SigAtomicType).isVolatile() and
+    // excluding lock-free atomic objects
     not exists(MacroInvocation mi, VariableAccess va |
       mi.getMacroName() = "atomic_is_lock_free" and
       mi.getExpr().getChild(0) = va.getEnclosingElement*() and

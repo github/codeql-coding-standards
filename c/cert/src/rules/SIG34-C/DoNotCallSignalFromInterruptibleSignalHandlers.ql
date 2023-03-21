@@ -6,6 +6,8 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/cert/id/sig34-c
+ *       correctness
+ *       security
  *       external/cert/obligation/rule
  */
 
@@ -13,9 +15,10 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.c.Signal
 
-from FunctionCall x
+from FunctionCall signal
 where
-  not isExcluded(x, SignalHandlersPackage::doNotCallSignalFromInterruptibleSignalHandlersQuery()) and
-  x = any(SignalHandler handler).getReassertingCall()
-select x,
+  not isExcluded(signal,
+    SignalHandlersPackage::doNotCallSignalFromInterruptibleSignalHandlersQuery()) and
+  signal = any(SignalHandler handler).getReassertingCall()
+select signal,
   "Reasserting handler bindings introduces a race condition on nonpersistent platforms and is redundant otherwise."

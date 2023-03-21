@@ -2,6 +2,13 @@ import cpp
 import semmle.code.cpp.dataflow.DataFlow
 
 /**
+ * A signal corresponding to a computational exception
+ */
+class ComputationalExceptionSignal extends MacroInvocation {
+  ComputationalExceptionSignal() { this.getMacroName() = ["SIGFPE", "SIGILL", "SIGSEGV", "SIGBUS"] }
+}
+
+/**
  * A call to function `signal`
  */
 class SignalCall extends FunctionCall {
@@ -38,4 +45,17 @@ class SignalHandler extends Function {
  */
 class AbortCall extends FunctionCall {
   AbortCall() { this.getTarget().hasGlobalName(["abort", "_Exit", "quick_exit"]) }
+}
+
+/**
+ * Models the type `sig_atomic_type`
+ */
+class SigAtomicType extends Type {
+  SigAtomicType() {
+    this.getName() = "sig_atomic_t"
+    or
+    this.(TypedefType).getBaseType() instanceof SigAtomicType
+    or
+    this.(SpecifiedType).getBaseType() instanceof SigAtomicType
+  }
 }

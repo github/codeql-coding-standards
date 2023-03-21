@@ -17,16 +17,15 @@ import codingstandards.c.Signal
 import semmle.code.cpp.dataflow.DataFlow
 
 /**
- * Does not an access an external variable except
- * to assign a value to a volatile static variable of sig_atomic_t type
+ * Does not access an external variable except
+ * to assign a value to a volatile static variable of `sig_atomic_t` type
  */
 class AsyncSafeVariableAccess extends VariableAccess {
   AsyncSafeVariableAccess() {
     this.getTarget() instanceof StackVariable
     or
-    this.getType().hasName("volatile sig_atomic_t") and // TODO search without "volatile"
-    this.isModified() and
-    this.getTarget().isVolatile()
+    this.getTarget().(StaticStorageDurationVariable).getType().(SigAtomicType).isVolatile() and
+    this.isModified()
   }
 }
 

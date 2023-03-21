@@ -55,7 +55,10 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotCallSignalFromInterruptibleSignalHandlers",
-          "tags": []
+          "tags": [
+            "correctness",
+            "security"
+          ]
         }
       ],
       "title": "Do not call signal() from within interruptible signal handlers"
@@ -72,7 +75,10 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotReturnFromAComputationalExceptionHandler",
-          "tags": []
+          "tags": [
+            "correctness",
+            "security"
+          ]
         }
       ],
       "title": "Do not return from a computational exception signal handler"
