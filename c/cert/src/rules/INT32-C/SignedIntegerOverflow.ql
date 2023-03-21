@@ -22,8 +22,6 @@ from InterestingBinaryOverflowingExpr bop
 where
   not isExcluded(bop, IntegerOverflowPackage::signedIntegerOverflowQuery()) and
   bop.getType().getUnderlyingType().(IntegralType).isSigned() and
-  // Not within a guard condition
-  not exists(GuardCondition gc | gc.getAChild*() = bop) and
   // Not checked before the operation
   not bop.hasValidPreCheck() and
   // Not guarded by a check, where the check is not an invalid overflow check

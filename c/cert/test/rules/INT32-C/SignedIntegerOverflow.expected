@@ -1,4 +1,5 @@
 | test.c:6:3:6:9 | ... + ... | Binary expression ...+... of type int may overflow or underflow. |
+| test.c:20:7:20:13 | ... + ... | Binary expression ...+... of type int may overflow or underflow. |
 | test.c:23:5:23:11 | ... + ... | Binary expression ...+... of type int may overflow or underflow. |
 | test.c:28:19:28:25 | ... + ... | Binary expression ...+... of type int may overflow or underflow. |
 | test.c:36:3:36:9 | ... - ... | Binary expression ...-... of type int may overflow or underflow. |
