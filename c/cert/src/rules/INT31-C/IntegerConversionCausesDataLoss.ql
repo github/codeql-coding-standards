@@ -19,7 +19,7 @@ class IntegerConversion extends Expr {
 
   IntegerConversion() {
     // This is an explicit cast
-    castedToType = this.(Cast).getActualType() and
+    castedToType = this.(Cast).getType().getUnspecifiedType() and
     preConversionExpr = this.(Cast).getExpr()
     or
     // Functions that internally cast an argument to unsigned char
@@ -60,16 +60,21 @@ predicate withinIntegralRange(IntegralType typ, float value) {
   )
 }
 
-from IntegerConversion c, Expr preConversionExpr
+from
+  IntegerConversion c, Expr preConversionExpr, Type castedToType, Type castedFromType,
+  IntegralType unspecifiedCastedFromType, string typeFromMessage
 where
   not isExcluded(c, IntegerOverflowPackage::integerConversionCausesDataLossQuery()) and
   preConversionExpr = c.getPreConversionExpr() and
+  castedFromType = preConversionExpr.getType() and
   // Casting from an integral type
-  preConversionExpr.getType().getUnspecifiedType() instanceof IntegralType and
+  unspecifiedCastedFromType = castedFromType.getUnspecifiedType() and
+  // Casting to an integral type
+  castedToType = c.getCastedToType() and
   // Where the result is not within the range of the target type
   (
-    not withinIntegralRange(c.getCastedToType(), lowerBound(preConversionExpr)) or
-    not withinIntegralRange(c.getCastedToType(), upperBound(preConversionExpr))
+    not withinIntegralRange(castedToType, lowerBound(preConversionExpr)) or
+    not withinIntegralRange(castedToType, upperBound(preConversionExpr))
   ) and
   // A conversion of `-1` to `time_t` is permitted by the standard
   not (
@@ -83,7 +88,9 @@ where
     lowerBound(preConversionExpr) >= typeLowerBound(any(SignedCharType s)) and
     upperBound(preConversionExpr) <= typeUpperBound(any(UnsignedCharType s))
   ) and
-  not c.getCastedToType() instanceof BoolType
-select c,
-  "Conversion from " + c.getPreConversionExpr().getType() + " to " + c.getCastedToType() +
-    " may cause data loss."
+  not castedToType instanceof BoolType and
+  // Create a helpful message
+  if castedFromType = unspecifiedCastedFromType
+  then typeFromMessage = castedFromType.toString()
+  else typeFromMessage = castedFromType + " (" + unspecifiedCastedFromType + ")"
+select c, "Conversion from " + typeFromMessage + " to " + castedToType + " may cause data loss."

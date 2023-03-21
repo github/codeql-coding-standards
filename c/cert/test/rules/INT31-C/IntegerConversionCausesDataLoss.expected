@@ -1,5 +1,3 @@
-WARNING: Unused predicate test (/home/luke/git/codeql-coding-standards/c/cert/src/rules/INT31-C/IntegerConversionCausesDataLoss.ql:63,11-15)
-WARNING: Unused predicate withinIntegralRange (/home/luke/git/codeql-coding-standards/c/cert/src/rules/INT31-C/IntegerConversionCausesDataLoss.ql:65,11-30)
 | test.c:7:3:7:15 | (signed int)... | Conversion from unsigned int to signed int may cause data loss. |
 | test.c:17:3:17:17 | (unsigned int)... | Conversion from signed int to unsigned int may cause data loss. |
 | test.c:34:3:34:17 | (signed short)... | Conversion from signed int to signed short may cause data loss. |
