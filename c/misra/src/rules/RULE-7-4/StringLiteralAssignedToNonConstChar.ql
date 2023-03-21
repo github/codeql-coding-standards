@@ -13,9 +13,32 @@
 import cpp
 import codingstandards.c.misra
 
+/** Pointer to Wide character type, i.e. `wchar_t*`. */
+class WideCharPointerType extends PointerType {
+  WideCharPointerType() { this.getBaseType() instanceof Wchar_t }
+
+  override string getAPrimaryQlClass() { result = "WideCharPointerType" }
+}
+
+class GenericCharPointerType extends PointerType {
+  GenericCharPointerType() {
+    /* This type resolves to wchar_t* (which is in turn a typedef depending on its implementation) */
+    this.resolveTypedefs*() instanceof WideCharPointerType
+    or
+    /* This type eventually resolves to char* */
+    this.resolveTypedefs*() instanceof CharPointerType
+  }
+
+  predicate isWideCharPointerType() { this.resolveTypedefs*() instanceof WideCharPointerType }
+
+  override string toString() {
+    if this.isWideCharPointerType() then result = "wchar_t*" else result = "char*"
+  }
+}
+
 class NonConstCharStarType extends Type {
   NonConstCharStarType() {
-    this instanceof CharPointerType and
+    this instanceof GenericCharPointerType and
     not this.isDeeplyConstBelow()
   }
 }
@@ -24,40 +47,48 @@ class NonConstCharStarType extends Type {
 predicate declaringNonConstCharVar(Variable decl, string message) {
   not decl instanceof Parameter and // exclude parameters
   /* It should be declaring a char* type variable */
-  decl.getUnspecifiedType() instanceof CharPointerType and
-  not decl.getUnderlyingType().isDeeplyConstBelow() and
-  /* But it's declared to hold a string literal.  */
+  decl.getType() instanceof GenericCharPointerType and
+  not decl.getType().isDeeplyConstBelow() and
+  /* But it's declared to hold a string literal. */
   decl.getInitializer().getExpr() instanceof StringLiteral and
-  message = "char* variable " + decl + " is declared with a string literal."
+  message =
+    decl.getType().(GenericCharPointerType) + " variable " + decl +
+      " is declared with a string literal."
 }
 
 /* String literal being assigned to a non-const-char* variable */
 predicate assignmentToNonConstCharVar(Assignment assign, string message) {
   /* The variable being assigned is char* */
-  assign.getLValue().getUnderlyingType() instanceof NonConstCharStarType and
+  assign.getLValue().getType() instanceof NonConstCharStarType and
   /* But the rvalue is a string literal */
-  exists(Expr rvalue | rvalue = assign.getRValue() | rvalue instanceof StringLiteral) and
-  message = "char* variable " + assign.getLValue() + " is assigned a string literal. "
+  assign.getRValue() instanceof StringLiteral and
+  message =
+    assign.getLValue().getType().(GenericCharPointerType) + " variable " + assign.getLValue() +
+      " is assigned a string literal. "
 }
 
 /* String literal being passed to a non-const-char* parameter */
 predicate assignmentToNonConstCharParam(FunctionCall call, string message) {
   exists(int index |
     /* Param at index is a char* */
-    call.getTarget().getParameter(index).getUnderlyingType() instanceof NonConstCharStarType and
+    call.getTarget().getParameter(index).getType() instanceof NonConstCharStarType and
     /* But a string literal is passed */
-    call.getArgument(index) instanceof StringLiteral
-  ) and
-  message = "char* parameter of " + call.getTarget() + " is passed a string literal."
+    call.getArgument(index) instanceof StringLiteral and
+    message =
+      call.getTarget().getParameter(index).getType().(GenericCharPointerType) + " parameter of " +
+        call.getTarget() + " is passed a string literal."
+  )
 }
 
 /* String literal being returned by a non-const-char* function */
 predicate returningNonConstCharVar(ReturnStmt return, string message) {
   /* The function is declared to return a char* */
-  return.getEnclosingFunction().getType().resolveTypedefs() instanceof NonConstCharStarType and
+  return.getEnclosingFunction().getType() instanceof NonConstCharStarType and
   /* But in reality it returns a string literal */
   return.getExpr() instanceof StringLiteral and
-  message = "char* function " + return.getEnclosingFunction() + " is returning a string literal."
+  message =
+    return.getEnclosingFunction().getType().(GenericCharPointerType) + " function " +
+      return.getEnclosingFunction() + " is returning a string literal."
 }
 
 from Element elem, string message
