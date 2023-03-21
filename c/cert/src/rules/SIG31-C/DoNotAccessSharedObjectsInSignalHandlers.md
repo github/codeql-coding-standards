@@ -176,7 +176,7 @@ CWE-828 = SIG31-C + non-async-safe things besides shared objects.
 
 ## Implementation notes
 
-None
+The implementation does not verify the correct usage of `atomic_is_lock_free`.
 
 ## References
 

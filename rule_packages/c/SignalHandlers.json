@@ -12,7 +12,10 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CallOnlyAsyncSafeFunctionsWithinSignalHandlers",
-          "tags": []
+          "tags": [
+            "correctness",
+            "security"
+          ]
         }
       ],
       "title": "Call only asynchronous-safe functions within signal handlers"
@@ -29,7 +32,13 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotAccessSharedObjectsInSignalHandlers",
-          "tags": []
+          "tags": [
+            "correctness",
+            "security"
+          ],
+          "implementation_scope": {
+            "description": "The implementation does not verify the correct usage of `atomic_is_lock_free`."
+          }
         }
       ],
       "title": "Do not access shared objects in signal handlers"

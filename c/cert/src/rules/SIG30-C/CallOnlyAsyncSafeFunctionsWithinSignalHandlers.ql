@@ -6,6 +6,8 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/cert/id/sig30-c
+ *       correctness
+ *       security
  *       external/cert/obligation/rule
  */
 
@@ -22,7 +24,7 @@ class AsyncSafeVariableAccess extends VariableAccess {
   AsyncSafeVariableAccess() {
     this.getTarget() instanceof StackVariable
     or
-    this.getTarget().getType().hasName("volatile sig_atomic_t") and // TODO search without "volatile"
+    this.getType().hasName("volatile sig_atomic_t") and // TODO search without "volatile"
     this.isModified() and
     this.getTarget().isVolatile()
   }
