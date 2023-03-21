@@ -21,11 +21,13 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
       or
       exprMightOverflowPositively(this)
     ) and
+    // Multiplication is not covered by the standard range analysis library, so implement our own
+    // mini analysis.
+    (this instanceof MulExpr implies MulExprAnalysis::overflows(this)) and
+    // Not within a macro
     not this.isAffectedByMacro() and
     // Ignore pointer arithmetic
     not this instanceof PointerArithmeticOperation and
-    // Covered by `IntMultToLong.ql` instead
-    not this instanceof MulExpr and
     // Not covered by this query - overflow/underflow in division is rare
     not this instanceof DivExpr
   }
@@ -138,6 +140,18 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
           )
         )
       )
+      or
+      // The CERT rule for signed integer overflow has a very specific pattern it recommends
+      // for checking for multiplication underflow/overflow. We just use a heuristic here,
+      // which determines if at least 4 checks of the sort `a < INT_MAX / b` are present in the code.
+      this instanceof MulExpr and
+      count(StrictRelationalOperation rel |
+        globalValueNumber(rel.getAnOperand()) = i1 and
+        globalValueNumber(rel.getAnOperand().(DivExpr).getRightOperand()) = i2
+        or
+        globalValueNumber(rel.getAnOperand()) = i2 and
+        globalValueNumber(rel.getAnOperand().(DivExpr).getRightOperand()) = i1
+      ) >= 4
     )
   }
 
@@ -192,4 +206,99 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
 
 private class StrictRelationalOperation extends RelationalOperation {
   StrictRelationalOperation() { this.getOperator() = [">", "<"] }
+}
+
+/**
+ * Module inspired by the IntMultToLong.ql query.
+ */
+private module MulExprAnalysis {
+  /**
+   * As SimpleRangeAnalysis does not support reasoning about multiplication
+   * we create a tiny abstract interpreter for handling multiplication, which
+   * we invoke only after weeding out of all of trivial cases that we do
+   * not care about. By default, the maximum and minimum values are computed
+   * using SimpleRangeAnalysis.
+   */
+  class AnalyzableExpr extends Expr {
+    AnalyzableExpr() {
+      // A integer multiplication, or an expression within an integral expression
+      this.(MulExpr).getType().getUnspecifiedType() instanceof IntegralType or
+      this.getParent() instanceof AnalyzableExpr or
+      this.(Conversion).getExpr() instanceof AnalyzableExpr
+    }
+
+    float maxValue() { result = upperBound(this.getFullyConverted()) }
+
+    float minValue() { result = lowerBound(this.getFullyConverted()) }
+  }
+
+  class ParenAnalyzableExpr extends AnalyzableExpr, ParenthesisExpr {
+    override float maxValue() { result = this.getExpr().(AnalyzableExpr).maxValue() }
+
+    override float minValue() { result = this.getExpr().(AnalyzableExpr).minValue() }
+  }
+
+  class MulAnalyzableExpr extends AnalyzableExpr, MulExpr {
+    override float maxValue() {
+      exists(float x1, float y1, float x2, float y2 |
+        x1 = this.getLeftOperand().getFullyConverted().(AnalyzableExpr).minValue() and
+        x2 = this.getLeftOperand().getFullyConverted().(AnalyzableExpr).maxValue() and
+        y1 = this.getRightOperand().getFullyConverted().(AnalyzableExpr).minValue() and
+        y2 = this.getRightOperand().getFullyConverted().(AnalyzableExpr).maxValue() and
+        result = (x1 * y1).maximum(x1 * y2).maximum(x2 * y1).maximum(x2 * y2)
+      )
+    }
+
+    override float minValue() {
+      exists(float x1, float x2, float y1, float y2 |
+        x1 = this.getLeftOperand().getFullyConverted().(AnalyzableExpr).minValue() and
+        x2 = this.getLeftOperand().getFullyConverted().(AnalyzableExpr).maxValue() and
+        y1 = this.getRightOperand().getFullyConverted().(AnalyzableExpr).minValue() and
+        y2 = this.getRightOperand().getFullyConverted().(AnalyzableExpr).maxValue() and
+        result = (x1 * y1).minimum(x1 * y2).minimum(x2 * y1).minimum(x2 * y2)
+      )
+    }
+  }
+
+  /**
+   * Analyze add expressions directly. This handles the case where an add expression is contributed to
+   * by a multiplication.
+   */
+  class AddAnalyzableExpr extends AnalyzableExpr, AddExpr {
+    override float maxValue() {
+      result =
+        this.getLeftOperand().getFullyConverted().(AnalyzableExpr).maxValue() +
+          this.getRightOperand().getFullyConverted().(AnalyzableExpr).maxValue()
+    }
+
+    override float minValue() {
+      result =
+        this.getLeftOperand().getFullyConverted().(AnalyzableExpr).minValue() +
+          this.getRightOperand().getFullyConverted().(AnalyzableExpr).minValue()
+    }
+  }
+
+  /**
+   * Analyze sub expressions directly. This handles the case where a sub expression is contributed to
+   * by a multiplication.
+   */
+  class SubAnalyzableExpr extends AnalyzableExpr, SubExpr {
+    override float maxValue() {
+      result =
+        this.getLeftOperand().getFullyConverted().(AnalyzableExpr).maxValue() -
+          this.getRightOperand().getFullyConverted().(AnalyzableExpr).minValue()
+    }
+
+    override float minValue() {
+      result =
+        this.getLeftOperand().getFullyConverted().(AnalyzableExpr).minValue() -
+          this.getRightOperand().getFullyConverted().(AnalyzableExpr).maxValue()
+    }
+  }
+
+  predicate overflows(MulExpr me) {
+    me.(MulAnalyzableExpr).maxValue() > exprMaxVal(me)
+    or
+    me.(MulAnalyzableExpr).minValue() < exprMinVal(me)
+  }
 }

@@ -17,7 +17,7 @@ void test_add_precheck(signed int i1, signed int i2) {
 }
 
 void test_add_precheck_2(signed int i1, signed int i2) {
-  if (i1 + i2 < i1) { // Bad overflow check - undefined behavior
+  if (i1 + i2 < i1) { // NON_COMPLIANT - bad overflow check - undefined behavior
     // handle error
   } else {
     i1 + i2; // NON_COMPLIANT
