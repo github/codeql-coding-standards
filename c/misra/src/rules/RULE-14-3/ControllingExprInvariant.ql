@@ -39,7 +39,9 @@ where
       (
         conditionAlwaysFalse(expr)
         or
-        conditionAlwaysTrue(expr)
+        conditionAlwaysTrue(expr) and
+        // Exception allows for infinite loops, but we only permit that for literals like `true`
+        not expr instanceof Literal
       )
     ) and
     message = "Controlling expression in loop statement has invariant value."
@@ -53,6 +55,7 @@ where
     ) and
     message = "Controlling expression in switch statement has invariant value."
   ) and
-  // Exclude macros, which may generate seemingly invariant expressions
+  // Exclude cases where the controlling expressions is affected by a macro, because they can appear
+  // invariant in a particular invocation, but be variant between invocations.
   not expr.isAffectedByMacro()
 select expr, message
