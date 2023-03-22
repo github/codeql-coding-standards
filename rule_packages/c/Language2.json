@@ -20,28 +20,7 @@
         }
       ],
       "title": "All usage of assembly language should be documented"
-    },
-    "RULE-1-2": {
-      "properties": {
-        "obligation": "advisory"
-      },
-      "queries": [
-        {
-          "description": "Language extensions can have inconsistent behavior and should not be used.",
-          "kind": "problem",
-          "name": "Language extensions should not be used",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "LanguageExtensionsShouldNotBeUsed",
-          "tags": [
-            "maintainability",
-            "readability",
-            "correctness"
-          ]
-        }
-      ],
-      "title": "Language extensions should not be used"
-    },   
+    },    
     "RULE-1-4": {
       "properties": {
         "obligation": "required"

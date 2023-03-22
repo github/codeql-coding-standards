@@ -14,8 +14,9 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.Extensions
 
-from
+from CCompilerExtension e
 where
-  not isExcluded(x, Language2Package::languageExtensionsShouldNotBeUsedQuery()) and
-select
+  not isExcluded(e, Language2Package::languageExtensionsShouldNotBeUsedQuery()) 
+select e, "Is a compiler extension and is not portable to other compilers." 
