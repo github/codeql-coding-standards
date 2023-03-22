@@ -20,7 +20,7 @@ int main() {
       0x01abcdef; // NON_COMPLIANT: assigning raw hex to pointer variable
   int *int_pointer4 =
       integer1; // NON_COMPLIANT: declaring pointer variable with integer value
-  *int_pointer4 =
+  int_pointer4 =
       integer1 +
       1; // NON_COMPLIANT: assigning integer rvalue to pointer variable
   int *integer_address5 =
