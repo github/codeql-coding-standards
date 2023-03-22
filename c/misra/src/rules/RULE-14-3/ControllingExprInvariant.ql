@@ -15,8 +15,6 @@
 
 import cpp
 import codingstandards.c.misra
-import cpp
-import codingstandards.c.misra
 
 from ControlFlowNode expr, string message
 where
