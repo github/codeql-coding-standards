@@ -13,8 +13,8 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.UndefinedBehavior
 
-from
-where
-  not isExcluded(x, Language3Package::occurrenceOfUndefinedBehaviorQuery()) and
-select
+from CUndefinedBehavior c
+where not isExcluded(c, Language3Package::occurrenceOfUndefinedBehaviorQuery())
+select c, "May result in undefined behavior."

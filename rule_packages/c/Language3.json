@@ -38,7 +38,10 @@
           "tags": [
             "maintainability",
             "readability" 
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This implementation only considers alternate forms of `main` and the undefined behavior that results. Additional cases from Appendix J of the C99 standard are not currently considered."
+          }
         }
       ],
       "title": "There shall be no occurrence of undefined or critical unspecified behavior"
