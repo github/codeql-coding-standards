@@ -22,8 +22,13 @@ void f2() {
 }
 
 void f3() {
-  while (true) { // Permitted by exception
+  while (true) { // COMPLIANT - permitted by exception 1
   }
   while (1 < 2) { // NON_COMPLIANT - likely an indication of a bug
   }
+}
+
+void f4() {
+  do {
+  } while (0u == 1u); // COMPLIANT - by exception 2
 }

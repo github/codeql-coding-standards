@@ -15,8 +15,9 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.misra.EssentialTypes
 
-from ControlFlowNode expr, string message
+from Expr expr, string message
 where
   not isExcluded(expr, Statements5Package::controllingExprInvariantQuery()) and
   (
@@ -35,7 +36,11 @@ where
     exists(Loop loop |
       loop.getControllingExpr() = expr and
       (
-        conditionAlwaysFalse(expr)
+        conditionAlwaysFalse(expr) and
+        not (
+          getEssentialTypeCategory(getEssentialType(expr)) instanceof EssentiallyBooleanType and
+          expr.getValue() = "0"
+        )
         or
         conditionAlwaysTrue(expr) and
         // Exception allows for infinite loops, but we only permit that for literals like `true`
