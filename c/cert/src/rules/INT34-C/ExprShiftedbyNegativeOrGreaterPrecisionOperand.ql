@@ -12,72 +12,134 @@
 
 import cpp
 import codingstandards.c.cert
+import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
+import semmle.code.cpp.controlflow.Guards
 
 /*
- * Precision predicate based on a sample implementaion from
+ * Precision predicate based on a sample implementation from
  * https://wiki.sei.cmu.edu/confluence/display/c/INT35-C.+Use+correct+integer+precisions
  */
 
+/**
+ * A function whose name is suggestive that it counts the number of bits set.
+ */
+class PopCount extends Function {
+  PopCount() { this.getName().toLowerCase().matches("%popc%nt%") }
+}
+
+/**
+ * A macro which is suggestive that it is used to determine the precision of an integer.
+ */
+class PrecisionMacro extends Macro {
+  PrecisionMacro() { this.getName().toLowerCase().matches("precision") }
+}
+
 int getPrecision(BuiltInType type) {
-  type.(CharType).isExplicitlyUnsigned() and result = 8
+  type.(CharType).isExplicitlyUnsigned() and result = type.(CharType).getSize() * 8
   or
-  type.(ShortType).isExplicitlyUnsigned() and result = 16
+  type.(ShortType).isExplicitlyUnsigned() and result = type.(ShortType).getSize() * 8
   or
-  type.(IntType).isExplicitlyUnsigned() and result = 32
+  type.(IntType).isExplicitlyUnsigned() and result = type.(IntType).getSize() * 8
   or
-  type.(LongType).isExplicitlyUnsigned() and result = 32
+  type.(LongType).isExplicitlyUnsigned() and result = type.(LongType).getSize() * 8
   or
-  type.(LongLongType).isExplicitlyUnsigned() and result = 64
+  type.(LongLongType).isExplicitlyUnsigned() and result = type.(LongLongType).getSize() * 8
   or
-  type instanceof CharType and not type.(CharType).isExplicitlyUnsigned() and result = 7
+  type instanceof CharType and
+  not type.(CharType).isExplicitlyUnsigned() and
+  result = type.(CharType).getSize() * 8 - 1
   or
-  type instanceof ShortType and not type.(ShortType).isExplicitlyUnsigned() and result = 15
+  type instanceof ShortType and
+  not type.(ShortType).isExplicitlyUnsigned() and
+  result = type.(ShortType).getSize() * 8 - 1
   or
-  type instanceof IntType and not type.(IntType).isExplicitlyUnsigned() and result = 31
+  type instanceof IntType and
+  not type.(IntType).isExplicitlyUnsigned() and
+  result = type.(IntType).getSize() * 8 - 1
   or
-  type instanceof LongType and not type.(LongType).isExplicitlyUnsigned() and result = 31
+  type instanceof LongType and
+  not type.(LongType).isExplicitlyUnsigned() and
+  result = type.(LongType).getSize() * 8 - 1
   or
-  type instanceof LongLongType and not type.(LongLongType).isExplicitlyUnsigned() and result = 63
+  type instanceof LongLongType and
+  not type.(LongLongType).isExplicitlyUnsigned() and
+  result = type.(LongLongType).getSize() * 8 - 1
 }
 
-/* The -1 number literal. */
-class MinusNumberLiteral extends UnaryMinusExpr {
-  MinusNumberLiteral() { this.getOperand() instanceof Literal }
-
-  override string toString() { result = "-" + this.getOperand().toString() }
-}
-
-class ForbiddenShiftExpr extends BinaryBitwiseOperation {
-  ForbiddenShiftExpr() {
+predicate isForbiddenLShiftExpr(LShiftExpr binbitop, string message) {
+  (
     (
-      /* First Case: Precision mismatch between operands */
-      getPrecision(this.(LShiftExpr).getLeftOperand().getUnderlyingType()) <=
-        getPrecision(this.(LShiftExpr).getRightOperand().getUnderlyingType()) or
-      getPrecision(this.(RShiftExpr).getLeftOperand().getUnderlyingType()) <=
-        getPrecision(this.(RShiftExpr).getRightOperand().getUnderlyingType()) or
-      /* Second Case: Shifting by a negative number literal */
-      this.(LShiftExpr).getRightOperand() instanceof MinusNumberLiteral or
-      this.(RShiftExpr).getRightOperand() instanceof MinusNumberLiteral
+      getPrecision(binbitop.getLeftOperand().getUnderlyingType()) <=
+        upperBound(binbitop.getRightOperand()) and
+      message =
+        "The operand " + binbitop.getLeftOperand() + " is left-shifted by an expression " +
+          binbitop.getRightOperand() + " which is greater than or equal to in precision."
+      or
+      lowerBound(binbitop.getRightOperand()) < 0 and
+      message =
+        "The operand " + binbitop.getLeftOperand() + " is left-shifted by a negative expression " +
+          binbitop.getRightOperand() + "."
     )
-  }
+    or
+    /* Check a guard condition protecting the shift statement: heuristic (not an iff query) */
+    exists(GuardCondition gc, BasicBlock block, Expr precisionCall |
+      block = binbitop.getBasicBlock() and
+      (
+        precisionCall.(FunctionCall).getTarget() instanceof PopCount
+        or
+        precisionCall = any(PrecisionMacro pm).getAnInvocation().getExpr()
+      )
+    |
+      /*
+       * Shift statement is at a basic block where
+       * `shift_rhs < PRECISION(...)` is ensured
+       */
 
-  /* Second Case: Shifting by a negative number literal */
-  predicate hasNegativeOperand() {
-    this.(LShiftExpr).getRightOperand() instanceof MinusNumberLiteral or
-    this.(RShiftExpr).getRightOperand() instanceof MinusNumberLiteral
-  }
+      not gc.ensuresLt(binbitop.getRightOperand(), precisionCall, 0, block, true)
+    ) and
+    message = "TODO"
+  )
 }
 
-from ForbiddenShiftExpr badShift, string message
+predicate isForbiddenRShiftExpr(RShiftExpr binbitop, string message) {
+  (
+    (
+      getPrecision(binbitop.getLeftOperand().getUnderlyingType()) <=
+        upperBound(binbitop.getRightOperand()) and
+      message =
+        "The operand " + binbitop.getLeftOperand() + " is right-shifted by an expression " +
+          binbitop.getRightOperand() + " which is greater than or equal to in precision."
+      or
+      lowerBound(binbitop.getRightOperand()) < 0 and
+      message =
+        "The operand " + binbitop.getLeftOperand() + " is right-shifted by a negative expression " +
+          binbitop.getRightOperand() + "."
+    )
+    or
+    /* Check a guard condition protecting the shift statement: heuristic (not an iff query) */
+    exists(GuardCondition gc, BasicBlock block, Expr precisionCall |
+      block = binbitop.getBasicBlock() and
+      (
+        precisionCall.(FunctionCall).getTarget() instanceof PopCount
+        or
+        precisionCall = any(PrecisionMacro pm).getAnInvocation().getExpr()
+      )
+    |
+      /*
+       * Shift statement is at a basic block where
+       * `shift_rhs < PRECISION(...)` is ensured
+       */
+
+      not gc.ensuresLt(binbitop.getRightOperand(), precisionCall, 0, block, true)
+    ) and
+    message = "TODO"
+  )
+}
+
+from BinaryBitwiseOperation badShift, string message
 where
   not isExcluded(badShift, TypesPackage::exprShiftedbyNegativeOrGreaterPrecisionOperandQuery()) and
-  if badShift.hasNegativeOperand()
-  then
-    message =
-      "The operand " + badShift.getLeftOperand() + " is shifted by a negative expression " +
-        badShift.getRightOperand() + "."
-  else
-    message =
-      "The operand " + badShift.getLeftOperand() + " is shifted by an expression " +
-        badShift.getRightOperand() + " which is greater than or equal to in precision."
+  isForbiddenLShiftExpr(badShift, message)
+  or
+  isForbiddenRShiftExpr(badShift, message)
 select badShift, message
