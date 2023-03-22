@@ -33,24 +33,24 @@ where
       )
     ) and
     message = "Controlling expression in if statement has invariant value."
+    or
+    exists(Loop loop |
+      loop.getControllingExpr() = expr and
+      (
+        conditionAlwaysFalse(expr)
+        or
+        conditionAlwaysTrue(expr)
+      )
+    ) and
+    message = "Controlling expression in loop statement has invariant value."
+    or
+    exists(SwitchStmt switch |
+      switch.getControllingExpr() = expr and
+      (
+        conditionAlwaysFalse(expr) or
+        conditionAlwaysTrue(expr)
+      )
+    ) and
+    message = "Controlling expression in switch statement has invariant value."
   )
-  or
-  exists(Loop loop |
-    loop.getControllingExpr() = expr and
-    (
-      conditionAlwaysFalse(expr)
-      or
-      conditionAlwaysTrue(expr)
-    )
-  ) and
-  message = "Controlling expression in loop statement has invariant value."
-  or
-  exists(SwitchStmt switch |
-    switch.getControllingExpr() = expr and
-    (
-      conditionAlwaysFalse(expr) or
-      conditionAlwaysTrue(expr)
-    )
-  ) and
-  message = "Controlling expression in switch statement has invariant value."
 select expr, message
