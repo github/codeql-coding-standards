@@ -5,7 +5,6 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Language2Query =
   TUsageOfAssemblyLanguageShouldBeDocumentedQuery() or
-  TLanguageExtensionsShouldNotBeUsedQuery() or
   TEmergentLanguageFeaturesUsedQuery()
 
 predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId) {
@@ -16,14 +15,6 @@ predicate isLanguage2QueryMetadata(Query query, string queryId, string ruleId) {
     // `@id` for the `usageOfAssemblyLanguageShouldBeDocumented` query
     "c/misra/usage-of-assembly-language-should-be-documented" and
   ruleId = "DIR-4-2"
-  or
-  query =
-    // `Query` instance for the `languageExtensionsShouldNotBeUsed` query
-    Language2Package::languageExtensionsShouldNotBeUsedQuery() and
-  queryId =
-    // `@id` for the `languageExtensionsShouldNotBeUsed` query
-    "c/misra/language-extensions-should-not-be-used" and
-  ruleId = "RULE-1-2"
   or
   query =
     // `Query` instance for the `emergentLanguageFeaturesUsed` query
@@ -40,13 +31,6 @@ module Language2Package {
     result =
       // `Query` type for `usageOfAssemblyLanguageShouldBeDocumented` query
       TQueryC(TLanguage2PackageQuery(TUsageOfAssemblyLanguageShouldBeDocumentedQuery()))
-  }
-
-  Query languageExtensionsShouldNotBeUsedQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `languageExtensionsShouldNotBeUsed` query
-      TQueryC(TLanguage2PackageQuery(TLanguageExtensionsShouldNotBeUsedQuery()))
   }
 
   Query emergentLanguageFeaturesUsedQuery() {
