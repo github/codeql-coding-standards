@@ -6,9 +6,9 @@ void f1() {
     f = f * 2.0F;
   }
 
-  do {
+  do { // NON_COMPLIANT
     f *= 2.0F;
-  } while (f < 10.0F); // NON_COMPLIANT
+  } while (f < 10.0F);
 }
 
 void f2() {
