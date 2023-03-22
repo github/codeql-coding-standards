@@ -7,6 +7,7 @@
 import cpp
 import semmle.code.cpp.XML
 import codingstandards.cpp.exclusions.RuleMetadata
+import codingstandards.cpp.Config
 
 predicate applyDeviationsAtQueryLevel() {
   not exists(CodingStandardsReportDeviatedAlerts reportDeviatedResults |
@@ -15,28 +16,8 @@ predicate applyDeviationsAtQueryLevel() {
   )
 }
 
-/** A `coding-standards.xml` configuration file (usually generated from an YAML configuration file). */
-class CodingStandardsFile extends XMLFile {
-  CodingStandardsFile() {
-    this.getBaseName() = "coding-standards.xml" and
-    // Must be within the users source code.
-    exists(this.getRelativePath())
-  }
-}
-
-/** A "Coding Standards" configuration file */
-class CodingStandardsConfig extends XMLElement {
-  CodingStandardsConfig() {
-    any(CodingStandardsFile csf).getARootElement() = this and
-    this.getName() = "codingstandards"
-  }
-
-  /** Gets a deviation record for this configuration. */
-  DeviationRecord getADeviationRecord() { result = getAChild().(DeviationRecords).getAChild() }
-}
-
 /** An element which tells the analysis whether to report deviated results. */
-class CodingStandardsReportDeviatedAlerts extends XMLElement {
+class CodingStandardsReportDeviatedAlerts extends XmlElement {
   CodingStandardsReportDeviatedAlerts() {
     getParent() instanceof CodingStandardsConfig and
     hasName("report-deviated-alerts")
@@ -44,23 +25,17 @@ class CodingStandardsReportDeviatedAlerts extends XMLElement {
 }
 
 /** A container of deviation records. */
-class DeviationRecords extends XMLElement {
-  DeviationRecords() {
-    getParent() instanceof CodingStandardsConfig and
-    hasName("deviations")
-  }
+class DeviationRecords extends CodingStandardsConfigSection {
+  DeviationRecords() { hasName("deviations") }
 }
 
 /** A container for the deviation permits records. */
-class DeviationPermits extends XMLElement {
-  DeviationPermits() {
-    getParent() instanceof CodingStandardsConfig and
-    hasName("deviation-permits")
-  }
+class DeviationPermits extends CodingStandardsConfigSection {
+  DeviationPermits() { hasName("deviation-permits") }
 }
 
 /** A deviation permit record, that is specified by a permit identifier */
-class DeviationPermit extends XMLElement {
+class DeviationPermit extends XmlElement {
   DeviationPermit() {
     getParent() instanceof DeviationPermits and
     hasName("deviation-permits-entry")
@@ -143,7 +118,7 @@ class DeviationPermit extends XMLElement {
 }
 
 /** A deviation record, that is a specified rule or query */
-class DeviationRecord extends XMLElement {
+class DeviationRecord extends XmlElement {
   DeviationRecord() {
     getParent() instanceof DeviationRecords and
     hasName("deviations-entry")
@@ -159,13 +134,13 @@ class DeviationRecord extends XMLElement {
 
   private string getRawPermitId() { result = getAChild("permit-id").getTextValue() }
 
-  private XMLElement getRawRaisedBy() { result = getAChild("raised-by") }
+  private XmlElement getRawRaisedBy() { result = getAChild("raised-by") }
 
   private string getRawRaisedByName() { result = getRawRaisedBy().getAChild("name").getTextValue() }
 
   private string getRawRaisedByDate() { result = getRawRaisedBy().getAChild("date").getTextValue() }
 
-  private XMLElement getRawApprovedBy() { result = getAChild("approved-by") }
+  private XmlElement getRawApprovedBy() { result = getAChild("approved-by") }
 
   private string getRawApprovedByName() {
     result = getRawApprovedBy().getAChild("name").getTextValue()
@@ -357,6 +332,13 @@ class DeviationRecord extends XMLElement {
     hasPermitId() and
     not hasADeviationPermit() and
     result = "There is no deviation permit with id `" + getPermitId() + "`."
+    or
+    exists(Query q | q.getQueryId() = getQueryId() |
+      not q.getEffectiveCategory().permitsDeviation() and
+      result =
+        "The deviation is applied to a query with the rule category '" +
+          q.getEffectiveCategory().toString() + "' that does not permit a deviation."
+    )
   }
 
   /** Holds if the deviation record is valid */

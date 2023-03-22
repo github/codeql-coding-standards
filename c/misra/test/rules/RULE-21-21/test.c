@@ -1,9 +1,5 @@
-typedef struct _FILE FILE;
-#define NULL (void *)0
-
-int system(const char *);
-void abort(void);
-FILE *popen(const char *, const char *);
+#include <stdio.h>
+#include <stdlib.h>
 
 void f1(const char *p1) {
   FILE *l1;

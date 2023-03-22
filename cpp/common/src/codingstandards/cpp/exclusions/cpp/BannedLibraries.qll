@@ -17,14 +17,15 @@ newtype BannedLibrariesQuery =
   TCstdioTypesUsedQuery() or
   TUsageOfAssemblerNotDocumentedQuery()
 
-predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `reservedIdentifiersMacrosAndFunctionsAreDefinedRedefinedOrUndefined` query
     BannedLibrariesPackage::reservedIdentifiersMacrosAndFunctionsAreDefinedRedefinedOrUndefinedQuery() and
   queryId =
     // `@id` for the `reservedIdentifiersMacrosAndFunctionsAreDefinedRedefinedOrUndefined` query
     "cpp/autosar/reserved-identifiers-macros-and-functions-are-defined-redefined-or-undefined" and
-  ruleId = "A17-0-1"
+  ruleId = "A17-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cLibraryFacilitiesNotAccessedThroughCPPLibraryHeaders` query
@@ -32,7 +33,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `cLibraryFacilitiesNotAccessedThroughCPPLibraryHeaders` query
     "cpp/autosar/c-library-facilities-not-accessed-through-cpp-library-headers" and
-  ruleId = "A18-0-1"
+  ruleId = "A18-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `localeFunctionsUsed` query
@@ -40,7 +42,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `localeFunctionsUsed` query
     "cpp/autosar/locale-functions-used" and
-  ruleId = "A18-0-3"
+  ruleId = "A18-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `localeMacrosUsed` query
@@ -48,7 +51,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `localeMacrosUsed` query
     "cpp/autosar/locale-macros-used" and
-  ruleId = "A18-0-3"
+  ruleId = "A18-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `localeTypeLConvUsed` query
@@ -56,7 +60,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `localeTypeLConvUsed` query
     "cpp/autosar/locale-type-l-conv-used" and
-  ruleId = "A18-0-3"
+  ruleId = "A18-0-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `csignalFunctionsUsed` query
@@ -64,7 +69,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `csignalFunctionsUsed` query
     "cpp/autosar/csignal-functions-used" and
-  ruleId = "M18-7-1"
+  ruleId = "M18-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `csignalTypesUsed` query
@@ -72,7 +78,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `csignalTypesUsed` query
     "cpp/autosar/csignal-types-used" and
-  ruleId = "M18-7-1"
+  ruleId = "M18-7-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `errnoUsed` query
@@ -80,7 +87,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `errnoUsed` query
     "cpp/autosar/errno-used" and
-  ruleId = "M19-3-1"
+  ruleId = "M19-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cstdioFunctionsUsed` query
@@ -88,7 +96,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `cstdioFunctionsUsed` query
     "cpp/autosar/cstdio-functions-used" and
-  ruleId = "M27-0-1"
+  ruleId = "M27-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cstdioMacrosUsed` query
@@ -96,7 +105,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `cstdioMacrosUsed` query
     "cpp/autosar/cstdio-macros-used" and
-  ruleId = "M27-0-1"
+  ruleId = "M27-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cstdioTypesUsed` query
@@ -104,7 +114,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `cstdioTypesUsed` query
     "cpp/autosar/cstdio-types-used" and
-  ruleId = "M27-0-1"
+  ruleId = "M27-0-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `usageOfAssemblerNotDocumented` query
@@ -112,7 +123,8 @@ predicate isBannedLibrariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `usageOfAssemblerNotDocumented` query
     "cpp/autosar/usage-of-assembler-not-documented" and
-  ruleId = "M7-4-1"
+  ruleId = "M7-4-1" and
+  category = "required"
 }
 
 module BannedLibrariesPackage {

@@ -4,7 +4,7 @@
  * @description Emergent language features may have unpredictable behavior and should not be used.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-1-4
  *       maintainability
  *       readability

@@ -1,0 +1,3 @@
+- `RULE-8-4` - `CompatibleDeclarationObjectDefined.ql`
+  - Update rule implementation based on changes in the CodeQL libraries.
+- Updated the CodeQL version to `2.10.5`.

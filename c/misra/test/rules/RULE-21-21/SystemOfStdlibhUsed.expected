@@ -1,5 +1,5 @@
-| test.c:10:3:10:8 | call to system | Call to banned function $@. | test.c:4:5:4:10 | system | system |
-| test.c:18:3:18:8 | call to system | Call to banned function $@. | test.c:4:5:4:10 | system | system |
-| test.c:19:3:19:8 | call to system | Call to banned function $@. | test.c:4:5:4:10 | system | system |
-| test.c:20:3:20:8 | call to system | Call to banned function $@. | test.c:4:5:4:10 | system | system |
-| test.c:21:3:21:8 | call to system | Call to banned function $@. | test.c:4:5:4:10 | system | system |
+| test.c:6:3:6:8 | call to system | Call to banned function system. |
+| test.c:14:3:14:8 | call to system | Call to banned function system. |
+| test.c:15:3:15:8 | call to system | Call to banned function system. |
+| test.c:16:3:16:8 | call to system | Call to banned function system. |
+| test.c:17:3:17:8 | call to system | Call to banned function system. |

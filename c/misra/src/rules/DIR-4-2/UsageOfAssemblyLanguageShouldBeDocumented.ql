@@ -1,10 +1,10 @@
 /**
  * @id c/misra/usage-of-assembly-language-should-be-documented
  * @name DIR-4-2: All usage of assembly language should be documented
- * @description 
+ * @description Assembly language is not portable and should be documented.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/dir-4-2
  *       maintainability
  *       readability

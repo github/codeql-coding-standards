@@ -11,14 +11,15 @@ newtype IncludesQuery =
   TExternalLinkageNotDeclaredInHeaderFileQuery() or
   TIncludeGuardsNotProvidedQuery()
 
-predicate isIncludesQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isIncludesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `unusedIncludeDirectives` query
     IncludesPackage::unusedIncludeDirectivesQuery() and
   queryId =
     // `@id` for the `unusedIncludeDirectives` query
     "cpp/autosar/unused-include-directives" and
-  ruleId = "A16-2-2"
+  ruleId = "A16-2-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `violationsOfOneDefinitionRule` query
@@ -26,7 +27,8 @@ predicate isIncludesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `violationsOfOneDefinitionRule` query
     "cpp/autosar/violations-of-one-definition-rule" and
-  ruleId = "A3-1-1"
+  ruleId = "A3-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `headerFileExpectedFileNameExtension` query
@@ -34,7 +36,8 @@ predicate isIncludesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `headerFileExpectedFileNameExtension` query
     "cpp/autosar/header-file-expected-file-name-extension" and
-  ruleId = "A3-1-2"
+  ruleId = "A3-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `fileNameExtensionCpp` query
@@ -42,7 +45,8 @@ predicate isIncludesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `fileNameExtensionCpp` query
     "cpp/autosar/file-name-extension-cpp" and
-  ruleId = "A3-1-3"
+  ruleId = "A3-1-3" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `externalLinkageNotDeclaredInHeaderFile` query
@@ -50,7 +54,8 @@ predicate isIncludesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `externalLinkageNotDeclaredInHeaderFile` query
     "cpp/autosar/external-linkage-not-declared-in-header-file" and
-  ruleId = "A3-3-1"
+  ruleId = "A3-3-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `includeGuardsNotProvided` query
@@ -58,7 +63,8 @@ predicate isIncludesQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `includeGuardsNotProvided` query
     "cpp/autosar/include-guards-not-provided" and
-  ruleId = "M16-2-3"
+  ruleId = "M16-2-3" and
+  category = "required"
 }
 
 module IncludesPackage {

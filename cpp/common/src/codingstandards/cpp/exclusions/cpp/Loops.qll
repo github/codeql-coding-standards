@@ -18,14 +18,15 @@ newtype LoopsQuery =
   TLoopControlVariableModifiedInLoopExpressionQuery() or
   TNonBooleanLoopControlVariableQuery()
 
-predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `unusedLoopCounterForContainerIteration` query
     LoopsPackage::unusedLoopCounterForContainerIterationQuery() and
   queryId =
     // `@id` for the `unusedLoopCounterForContainerIteration` query
     "cpp/autosar/unused-loop-counter-for-container-iteration" and
-  ruleId = "A6-5-1"
+  ruleId = "A6-5-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `multipleLoopCounters` query
@@ -33,7 +34,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `multipleLoopCounters` query
     "cpp/autosar/multiple-loop-counters" and
-  ruleId = "A6-5-2"
+  ruleId = "A6-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `floatingPointLoopCounter` query
@@ -41,7 +43,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `floatingPointLoopCounter` query
     "cpp/autosar/floating-point-loop-counter" and
-  ruleId = "A6-5-2"
+  ruleId = "A6-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doStatementsShouldNotBeUsed` query
@@ -49,7 +52,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `doStatementsShouldNotBeUsed` query
     "cpp/autosar/do-statements-should-not-be-used" and
-  ruleId = "A6-5-3"
+  ruleId = "A6-5-3" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `forLoopInitializesNonLoopCounter` query
@@ -57,7 +61,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `forLoopInitializesNonLoopCounter` query
     "cpp/autosar/for-loop-initializes-non-loop-counter" and
-  ruleId = "A6-5-4"
+  ruleId = "A6-5-4" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `forLoopModifiesNonLoopCounter` query
@@ -65,7 +70,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `forLoopModifiesNonLoopCounter` query
     "cpp/autosar/for-loop-modifies-non-loop-counter" and
-  ruleId = "A6-5-4"
+  ruleId = "A6-5-4" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `notEqualsInLoopCondition` query
@@ -73,7 +79,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `notEqualsInLoopCondition` query
     "cpp/autosar/not-equals-in-loop-condition" and
-  ruleId = "M6-5-2"
+  ruleId = "M6-5-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `loopCounterModifiedWithinCondition` query
@@ -81,7 +88,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `loopCounterModifiedWithinCondition` query
     "cpp/autosar/loop-counter-modified-within-condition" and
-  ruleId = "M6-5-3"
+  ruleId = "M6-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `loopCounterModifiedWithinStatement` query
@@ -89,7 +97,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `loopCounterModifiedWithinStatement` query
     "cpp/autosar/loop-counter-modified-within-statement" and
-  ruleId = "M6-5-3"
+  ruleId = "M6-5-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `irregularLoopCounterModification` query
@@ -97,7 +106,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `irregularLoopCounterModification` query
     "cpp/autosar/irregular-loop-counter-modification" and
-  ruleId = "M6-5-4"
+  ruleId = "M6-5-4" and
+  category = "required"
   or
   query =
     // `Query` instance for the `loopControlVariableModifiedInLoopCondition` query
@@ -105,7 +115,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `loopControlVariableModifiedInLoopCondition` query
     "cpp/autosar/loop-control-variable-modified-in-loop-condition" and
-  ruleId = "M6-5-5"
+  ruleId = "M6-5-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `loopControlVariableModifiedInLoopExpression` query
@@ -113,7 +124,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `loopControlVariableModifiedInLoopExpression` query
     "cpp/autosar/loop-control-variable-modified-in-loop-expression" and
-  ruleId = "M6-5-5"
+  ruleId = "M6-5-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `nonBooleanLoopControlVariable` query
@@ -121,7 +133,8 @@ predicate isLoopsQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `nonBooleanLoopControlVariable` query
     "cpp/autosar/non-boolean-loop-control-variable" and
-  ruleId = "M6-5-6"
+  ruleId = "M6-5-6" and
+  category = "required"
 }
 
 module LoopsPackage {

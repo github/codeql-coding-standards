@@ -14,18 +14,18 @@ param(
     [string]
     $Language,
 
-    # The compiler to use. Valid values are 'clang' and 'arm-clang'.
+    # The compiler to use.
     [Parameter(Mandatory)] 
-    [ValidateSet('clang', 'armclang', 'tiarmclang')]
+    [ValidateSet('clang', 'armclang', 'tiarmclang', 'gcc', 'qcc')]
     [string]
     $Configuration
 )
 
-Import-Module -Name "$PSScriptRoot\..\PSCodingStandards\CodingStandards"
+Import-Module -Name "$PSScriptRoot/../PSCodingStandards/CodingStandards"
 
-. "$PSScriptRoot\NewDatabaseForRule.ps1"
-. "$PSScriptRoot\Config.ps1"
-. "$PSScriptRoot\Get-CompilerExecutable.ps1"
+. "$PSScriptRoot/NewDatabaseForRule.ps1"
+. "$PSScriptRoot/Config.ps1"
+. "$PSScriptRoot/Get-CompilerExecutable.ps1"
 
 #
 # Verify All the Required CLI Tools are Installed
@@ -37,7 +37,7 @@ Write-Host -ForegroundColor ([ConsoleColor]2) "OK"
 $CODEQL_VERSION = (codeql version --format json | ConvertFrom-Json).version 
 
 Write-Host "Checking 'codeql' version = $REQUIRED_CODEQL_VERSION...." -NoNewline
-if (-Not $CODEQL_VERSION -eq $REQUIRED_CODEQL_VERSION) {
+if (-Not ($CODEQL_VERSION -eq $REQUIRED_CODEQL_VERSION)) {
     throw "Invalid CodeQL version $CODEQL_VERSION. Please install $REQUIRED_CODEQL_VERSION."
 }
 Write-Host -ForegroundColor ([ConsoleColor]2) "OK" 

@@ -1,0 +1,2 @@
+| test.c:17:3:17:12 | declaration | This statement in function $@ is unreachable. | test.c:15:5:15:21 | test_after_return | test_after_return |
+| test.c:21:10:22:12 | { ... } | This statement in function $@ is unreachable. | test.c:20:5:20:27 | test_constant_condition | test_constant_condition |

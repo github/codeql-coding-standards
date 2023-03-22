@@ -1,0 +1,97 @@
+name: 🧰 Tooling unit tests
+
+on:
+  merge_group:
+  push:
+    branches:
+      - main
+      - "rc/**"
+      - next
+  pull_request:
+    branches:
+      - main
+      - "rc/**"
+      - next
+
+jobs:
+  prepare-supported-codeql-env-matrix:
+    name: Prepare supported CodeQL environment matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.export-supported-codeql-env-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Export supported CodeQL environment matrix
+        id: export-supported-codeql-env-matrix
+        run: |
+          echo "::set-output name=matrix::$(
+            jq --compact-output '.supported_environment | {include: .}' supported_codeql_configs.json
+          )"
+
+  analysis-report-tests:
+    name: Run analysis report tests
+    needs: prepare-supported-codeql-env-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare-supported-codeql-env-matrix.outputs.matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/reports/requirements.txt
+
+      - name: Cache CodeQL
+        id: cache-codeql
+        uses: actions/cache@v2.1.3
+        with:
+          path: ${{ github.workspace }}/codeql_home
+          key: codeql-home-${{ matrix.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library }}
+
+      - name: Install CodeQL
+        if: steps.cache-codeql.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-codeql
+        with:
+          codeql-cli-version: ${{ matrix.codeql_cli }}
+          codeql-stdlib-version: ${{ matrix.codeql_standard_library }}
+          codeql-home: ${{ github.workspace }}/codeql_home
+          add-to-path: false
+
+      - name: Install CodeQL packs
+        uses: ./.github/actions/install-codeql-packs
+        with:
+          cli_path: ${{ github.workspace }}/codeql_home/codeql
+
+      - name: Run PyTest
+        env:
+          CODEQL_HOME: ${{ github.workspace }}/codeql_home
+        run: |
+          PATH=$PATH:$CODEQL_HOME/codeql
+          pytest scripts/reports/analysis_report_test.py
+
+  recategorization-tests:
+    name: Run Guideline Recategorization tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/guideline_recategorization/requirements.txt
+
+      - name: Run PyTest
+        run: |
+          pytest scripts/guideline_recategorization/recategorize_test.py

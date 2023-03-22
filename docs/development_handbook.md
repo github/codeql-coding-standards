@@ -31,8 +31,9 @@
 | 0.23.0  | 2022-07-05 | Remco Vermeulen | Update text to consider both the C++ and the C standards.                                                                                                                                                                                                                                 |
 | 0.24.0  | 2022-07-05 | Remco Vermeulen | Update release process to include steps for external help files.                                                                                                                                                                                                                          |
 | 0.25.0  | 2022-07-22 | Jeroen Ketema   | Document the existence and purpose of the `next` branch.                                                                                                                                                                                                                                  |
-| 0.26.0  | 2022-08-10 | Remco Vermeulen | Address incorrect package file generation command. This was missing the required language argument.                                                                                                                                                                                       |
-| 0.27.0  | 2022-11-08 | Luke Cartey | Update the versions of C we intend to support to exclude C90, which reflects the intended scope at the outset of the project.                                                                                                                                                                                       |
+| 0.26.0  | 2022-08-10 | Remco Vermeulen | Address incorrect package file generation command. This was missing the required language argument.            
+| 0.27.0  | 2022-11-08 | Luke Cartey | Update the versions of C we intend to support to exclude C90, which reflects the intended scope at the outset of the project.   
+| 0.28.0  | 2023-01-27 | David Bartolomeo | Add section on installing QL dependencies and update CLI commands to account for the migration to CodeQL packs. 
 
 ## Scope of work
 
@@ -40,7 +41,7 @@ A _coding standard_ is a set of rules or guidelines which restrict or prohibit t
 
 | Standard                                                                                                             | Version | Total rules | Total supportable rules | Status         | Notes                                                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented    |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented    |
 | [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented    | AUTOSAR includes a sub-set of rules take from MISRA C++ 2008, which can be purchased for a small fee from [the MISRA website](https://misra.org.uk/shop). |
 | [CERT-C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 120         | 99                      | In development | The implementation excludes rules not part of 2016, but that are added to the [CERT-C wiki](https://wiki.sei.cmu.edu/confluence/display/c/)               |
 | [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/ )                               | 2012    | 172         | 172                     | In development | This includes the [MISRA C:2012 Amendment 2](https://www.misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf)                                          |
@@ -175,10 +176,10 @@ pip install -r scripts/requirements.txt
 To generate the rule package description file, run the following script from the root of the repository:
 
 ```
-python3.9 scripts/generate_rules/generate_package_description.py <rule_package_name>
+python3.9 scripts/generate_rules/generate_package_description.py <target_lang_name> <rule_package_name>
 ```
 
-This will produce a `.json` file in the `rule_packages` directory with the name of the rule package (e.g. `rule_packages/Literals.json`).
+This will produce a `.json` file in the `rule_packages` directory with the name of the rule package (e.g. `rule_packages/Literals.json`). For example, `python3.9 scripts/generate_rules/generate_package_description.py c Types` creates `rule_packages/c/Types.json`.
 
 #### Step 2: Review and update the rule package description file
 
@@ -333,6 +334,12 @@ A query **must** include:
 
 All public predicates, classes, modules and files should be documented with QLDoc. All QLDoc should follow the [QLDoc style guide](https://github.com/github/codeql/blob/main/docs/qldoc-style-guide.md).
 
+### Installing QL dependencies
+
+All of our query and library packs depend on the standard CodeQL library for C++, `codeql/cpp-all`. This dependency is specified in the `qlpack.yml` file for each of our packs. Before compiling, running, or testing any of our queries or libraries, you must download the proper dependencies by running `python3 scripts/install-packs.py`. This will download the appropriate version of the standard library from the public package registry, installing it in a cache in your `~/.codeql` directory. When compiling queries or running tests, the QL compiler will pick up the appropriate dependencies from this cache without any need to specify an additional library search path on the command line.
+
+Because the downloaded packs are cached, it is only necessary to run `install-packs.py` once each time we upgrade to a new standard library version. It does not hurt to run it more often; if all necessary packs are already in the download cache, then it will complete quickly without trying to download anything.
+
 ### Unit testing
 
 Every query which implements a rule **must** include:
@@ -346,11 +353,10 @@ During query development in VS Code, the unit tests can be run using the [testin
 
 Unit tests can also be run on the command line using the CodeQL CLI. With an appropriate CodeQL CLI (as specified in the `supported_codeql_configs.json` at the root of the repository), you can run the following from the root of the repository:
 ```
-codeql test run --show-extractor-output --search-path . path/to/test/directory
+codeql test run --show-extractor-output path/to/test/directory
 ```
 
 * `--show-extractor-output` - this shows the output from the extractor. It is most useful when the test fails because the file is not valid C++, where the extractor output will include the compilation failure. This is not shown in VS Code.
-* `--search-path .` - this allows the CodeQL CLI to discover all the QL packs within our repository.
 * `path/to/test/directory` - this can be a qlref file (like `cpp/autosar/test/rules/A15-2-2/`), a rule directory (`cpp/autosar/test/rules/A15-2-2/`) or a test qlpack (`cpp/autosar/test/`).
 
 For more details on running unit tests with the CodeQL CLI see the [Testing custom queries](https://codeql.github.com/docs/codeql-cli/testing-custom-queries/) help topic.
@@ -669,7 +675,6 @@ ls cpp/cert/src/$(cat cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDecl
 # Run a test.  See
 # https://github.com/github/codeql-coding-standards/blob/main/development_handbook.md#unit-testing
 codeql test run --show-extractor-output \
-       --search-path . \
        cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.qlref 
 
 # Get a db error?  Applying  the recommended fix 
@@ -687,7 +692,7 @@ codeql test run --show-extractor-output \
 
 # If the expected output is not yet present, it is printed as a diff:
 mv cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.expected foo
-codeql test run --show-extractor-output --search-path .                         \
+codeql test run --show-extractor-output \
        cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.qlref
 
 # The actual output can be accepted via codeql test accept (which moves some files):

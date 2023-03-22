@@ -1,0 +1,6 @@
+- `A2-10-4` - `IdentifierNameOfStaticFunctionReusedInNamespace.ql`:
+  - Reuse of an identifier name of a static function in a namespace is now detected.
+- `A2-10-4` - `IdentifierNameOfStaticNonMemberObjectReusedInNamespace.ql`:
+  - Reuse of an identifier name of a static non-member object in a namespace is now detected.
+- `A2-10-5` - `IdentifierNameOfStaticNonMemberObjectWithExternalOrInternalLinkageIsReused.ql`:
+  - Reuse of an identifier name of a static non-member object with internal linkage in a namespace is now detected.

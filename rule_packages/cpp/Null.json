@@ -16,6 +16,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "NullPointersDereferenced",
+          "shared_implementation_short_name": "DereferenceOfNullPointer",
           "tags": [
             "correctness"
           ]

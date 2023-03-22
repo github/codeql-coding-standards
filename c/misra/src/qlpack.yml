@@ -1,4 +1,8 @@
-name: misra-c-coding-standards
-version: 2.11.0-dev
+name: codeql/misra-c-coding-standards
+version: 2.15.0-dev
+description: MISRA C 2012
 suites: codeql-suites
-libraryPathDependencies: common-c-coding-standards
+license: MIT
+dependencies:
+  codeql/common-c-coding-standards: '*'
+  codeql/cpp-all: 0.3.5

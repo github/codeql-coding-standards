@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/github/codeql-coding-standards/main/schemas/coding-standards-schema-0.0.1.json",
+    "additionalProperties": false,
+    "definitions": {
+        "guideline-category": {
+            "enum": [
+                "mandatory",
+                "required",
+                "advisory",
+                "disapplied"
+            ]
+        },
+        "guideline-recategorization": {
+            "type": "object",
+            "properties": {
+                "rule-id": {
+                    "type": "string"
+                },
+                "category": {
+                    "$ref": "#/definitions/guideline-category"
+                }
+            },
+            "required": [
+                "rule-id",
+                "category"
+            ]
+        }
+    },
+    "properties": {
+        "report-deviated-alerts": {
+            "description": "When true includes alerts with an applicable deviation. Used for report generation.",
+            "type": "boolean"
+        },
+        "deviations": {
+            "description": "A set of deviation records.",
+            "type": "array"
+        },
+        "deviation-permits": {
+            "description": "A set of deviation permits.",
+            "type": "array"
+        },
+        "guideline-recategorizations": {
+            "type": "array",
+            "minProperties": 1,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/guideline-recategorization"
+            }
+        }
+    },
+    "required": [],
+    "type": "object"
+}

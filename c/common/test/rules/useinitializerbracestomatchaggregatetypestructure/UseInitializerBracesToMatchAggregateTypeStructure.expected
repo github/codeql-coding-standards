@@ -1,0 +1,7 @@
+| test.c:35:20:35:23 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 0 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.c:35:18:35:42 | {...} | array of type int[4][2] |
+| test.c:35:26:35:29 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 1 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.c:35:18:35:42 | {...} | array of type int[4][2] |
+| test.c:35:32:35:35 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 2 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.c:35:18:35:42 | {...} | array of type int[4][2] |
+| test.c:35:38:35:41 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 3 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.c:35:18:35:42 | {...} | array of type int[4][2] |
+| test.c:41:34:41:34 | {...} | Missing braces on aggregate literal of type int[2]$@ which is assigned to index 1 in $@. | file://:0:0:0:0 | int[2] | int[2] | test.c:41:18:41:35 | {...} | array of type int[2][2] |
+| test.c:47:26:47:29 | {...} | Missing braces on aggregate literal of type $@ which is assigned to field $@. | test.c:4:10:4:10 | struct <unnamed> | struct <unnamed> | test.c:7:5:7:8 | m_s1 | m_s1 |
+| test.c:47:26:47:29 | {...} | Missing braces on aggregate literal of type $@ which is assigned to field $@. | test.c:11:10:11:10 | struct <unnamed> | struct <unnamed> | test.c:7:5:7:8 | m_s1 | m_s1 |

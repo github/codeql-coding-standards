@@ -1,6 +1,7 @@
 name: Code Scanning Query Pack Generation
 
 on:
+  merge_group:
   pull_request:
     branches:
       - main
@@ -59,6 +60,11 @@ jobs:
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
 
+      - name: Install CodeQL packs
+        uses: ./.github/actions/install-codeql-packs
+        with:
+          cli_path: ${{ github.workspace }}/codeql_home/codeql
+
       - name: Checkout external help files
         continue-on-error: true
         id: checkout-external-help-files
@@ -82,11 +88,11 @@ jobs:
         run: |
           PATH=$PATH:$CODEQL_HOME/codeql
 
-          codeql query compile --search-path cpp --threads 0 cpp
-          codeql query compile --search-path c --search-path cpp --threads 0 c
+          codeql query compile --threads 0 cpp
+          codeql query compile --threads 0 c
 
           cd ..
-          zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/deviations codeql-coding-standards/scripts/reports
+          zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/schemas
 
       - name: Upload GHAS Query Pack
         uses: actions/upload-artifact@v2

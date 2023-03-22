@@ -1,6 +1,7 @@
 name: Validating Coding Standards
 
 on:
+  merge_group:
   push:
     branches:
       - main
@@ -28,6 +29,15 @@ jobs:
         with:
           python-version: "3.9"
 
+      - name: Install CodeQL
+        run: |
+          VERSION="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
+          gh extensions install github/gh-codeql
+          gh codeql set-version "$VERSION"
+          gh codeql install-stub
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Install generate_package_files.py dependencies
         run: pip install -r scripts/requirements.txt
 
@@ -49,14 +59,14 @@ jobs:
 
       - name: Validate Package Files (CPP)
         run: |
-          find rule_packages/cpp -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python scripts/generate_rules/generate_package_files.py cpp
+          find rule_packages/cpp -name \*.json -exec basename {} .json \; | xargs python scripts/generate_rules/generate_package_files.py cpp
           git diff
           git diff --compact-summary
           git diff --quiet
 
       - name: Validate Package Files (C)
         run: |
-          find rule_packages/c -name \*.json -exec basename {} .json \; | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 python scripts/generate_rules/generate_package_files.py c
+          find rule_packages/c -name \*.json -exec basename {} .json \; | xargs python scripts/generate_rules/generate_package_files.py c
           git diff
           git diff --compact-summary
           git diff --quiet
@@ -68,17 +78,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Fetch CodeQL
+      - name: Install CodeQL
         run: |
-          TAG="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
-          gh release download $TAG --repo https://github.com/github/codeql-cli-binaries --pattern codeql-linux64.zip
-          unzip -q codeql-linux64.zip
+          VERSION="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
+          gh extensions install github/gh-codeql
+          gh codeql set-version "$VERSION"
+          gh codeql install-stub
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Validate CodeQL Format (CPP)
         run: |
-          find cpp -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql/codeql query format --in-place
+          find cpp -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
 
           git diff
           git diff --compact-summary
@@ -86,7 +97,7 @@ jobs:
 
       - name: Validate CodeQL Format (C)
         run: |
-          find c -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql/codeql query format --in-place
+          find c -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
 
           git diff
           git diff --compact-summary

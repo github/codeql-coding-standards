@@ -8,14 +8,15 @@ newtype TrustBoundariesQuery =
   TDoNotThrowAnExceptionAcrossExecutionBoundariesQuery() or
   TDoNotPassANonstandardObjectAcrossBoundariesQuery()
 
-predicate isTrustBoundariesQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isTrustBoundariesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `exceptionsThrownAcrossExecutionBoundaries` query
     TrustBoundariesPackage::exceptionsThrownAcrossExecutionBoundariesQuery() and
   queryId =
     // `@id` for the `exceptionsThrownAcrossExecutionBoundaries` query
     "cpp/autosar/exceptions-thrown-across-execution-boundaries" and
-  ruleId = "A15-1-5"
+  ruleId = "A15-1-5" and
+  category = "required"
   or
   query =
     // `Query` instance for the `doNotThrowAnExceptionAcrossExecutionBoundaries` query
@@ -23,7 +24,8 @@ predicate isTrustBoundariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `doNotThrowAnExceptionAcrossExecutionBoundaries` query
     "cpp/cert/do-not-throw-an-exception-across-execution-boundaries" and
-  ruleId = "ERR59-CPP"
+  ruleId = "ERR59-CPP" and
+  category = "rule"
   or
   query =
     // `Query` instance for the `doNotPassANonstandardObjectAcrossBoundaries` query
@@ -31,7 +33,8 @@ predicate isTrustBoundariesQueryMetadata(Query query, string queryId, string rul
   queryId =
     // `@id` for the `doNotPassANonstandardObjectAcrossBoundaries` query
     "cpp/cert/do-not-pass-a-nonstandard-object-across-boundaries" and
-  ruleId = "EXP60-CPP"
+  ruleId = "EXP60-CPP" and
+  category = "rule"
 }
 
 module TrustBoundariesPackage {

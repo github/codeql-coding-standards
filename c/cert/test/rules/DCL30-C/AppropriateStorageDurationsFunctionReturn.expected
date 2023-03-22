@@ -1,0 +1,2 @@
+| test.c:3:10:3:10 | a | $@ with automatic storage may be accessible outside of its lifetime. | test.c:3:10:3:10 | a | a |
+| test.c:15:4:15:8 | param [inner post update] | $@ with automatic storage may be accessible outside of its lifetime. | test.c:15:12:15:13 | a2 | a2 |

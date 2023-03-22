@@ -5,3 +5,5 @@
 | test.cpp:79:3:79:18 | (int)... | Use of explicit c-style cast to int generated from macro $@. | test.cpp:71:1:71:36 | #define NESTED_ADD_ONE(x) ADD_ONE(x) | NESTED_ADD_ONE |
 | test.cpp:85:19:85:26 | (int)... | Use of explicit c-style cast to int. | test.cpp:85:19:85:26 | (int)... |  |
 | test.cpp:86:27:86:34 | (int)... | Use of explicit c-style cast to int. | test.cpp:86:27:86:34 | (int)... |  |
+| test.cpp:114:10:114:13 | (int)... | Use of explicit c-style cast to int. | test.cpp:114:10:114:13 | (int)... |  |
+| test.cpp:149:12:149:26 | (unsigned int)... | Use of explicit c-style cast to unsigned int. | test.cpp:149:12:149:26 | (unsigned int)... |  |

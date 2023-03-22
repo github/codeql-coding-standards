@@ -1,0 +1,1 @@
+extern int g3; // NON_COMPLIANT

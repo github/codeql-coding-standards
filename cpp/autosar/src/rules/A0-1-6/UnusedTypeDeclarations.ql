@@ -16,13 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.TypeUses
+import codingstandards.cpp.rules.unusedtypedeclarations.UnusedTypeDeclarations
 
-from UserType ut
-where
-  not isExcluded(ut, DeadCodePackage::unusedTypeDeclarationsQuery()) and
-  not ut instanceof TemplateParameter and
-  not ut instanceof ProxyClass and
-  not exists(getATypeUse(ut)) and
-  not ut.isFromUninstantiatedTemplate(_)
-select ut, "Type declaration " + ut.getName() + " is not used."
+class UnusedTypeDeclarationsQuery extends UnusedTypeDeclarationsSharedQuery {
+  UnusedTypeDeclarationsQuery() { this = DeadCodePackage::unusedTypeDeclarationsQuery() }
+}

@@ -16,14 +16,15 @@ newtype ToolchainQuery =
   TCompilerWarningLevelNotInComplianceQuery() or
   TUncompliantOptimizationOptionMustBeDisabledInCompilerQuery()
 
-predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
+predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `floatingPointImplementationShallComplyWithIeeeStandard` query
     ToolchainPackage::floatingPointImplementationShallComplyWithIeeeStandardQuery() and
   queryId =
     // `@id` for the `floatingPointImplementationShallComplyWithIeeeStandard` query
     "cpp/autosar/floating-point-implementation-shall-comply-with-ieee-standard" and
-  ruleId = "A0-4-1"
+  ruleId = "A0-4-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `compilerImplementationShallComplyWithCPP14Standard` query
@@ -31,7 +32,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `compilerImplementationShallComplyWithCPP14Standard` query
     "cpp/autosar/compiler-implementation-shall-comply-with-cpp14standard" and
-  ruleId = "A0-4-3"
+  ruleId = "A0-4-3" and
+  category = "required"
   or
   query =
     // `Query` instance for the `incrementOperatorWithBoolOperandIsDeprecated` query
@@ -39,7 +41,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `incrementOperatorWithBoolOperandIsDeprecated` query
     "cpp/autosar/increment-operator-with-bool-operand-is-deprecated" and
-  ruleId = "A1-1-1"
+  ruleId = "A1-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `registerKeywordIsDeprecated` query
@@ -47,7 +50,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `registerKeywordIsDeprecated` query
     "cpp/autosar/register-keyword-is-deprecated" and
-  ruleId = "A1-1-1"
+  ruleId = "A1-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `implicitCopyConstructorIsDeprecated` query
@@ -55,7 +59,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `implicitCopyConstructorIsDeprecated` query
     "cpp/autosar/implicit-copy-constructor-is-deprecated" and
-  ruleId = "A1-1-1"
+  ruleId = "A1-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `implicitCopyAssignmentOperatorIsDeprecated` query
@@ -63,7 +68,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `implicitCopyAssignmentOperatorIsDeprecated` query
     "cpp/autosar/implicit-copy-assignment-operator-is-deprecated" and
-  ruleId = "A1-1-1"
+  ruleId = "A1-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `dynamicExceptionsAreDeprecated` query
@@ -71,7 +77,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `dynamicExceptionsAreDeprecated` query
     "cpp/autosar/dynamic-exceptions-are-deprecated" and
-  ruleId = "A1-1-1"
+  ruleId = "A1-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `cStandardLibraryHeadersAreDeprecated` query
@@ -79,7 +86,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `cStandardLibraryHeadersAreDeprecated` query
     "cpp/autosar/c-standard-library-headers-are-deprecated" and
-  ruleId = "A1-1-1"
+  ruleId = "A1-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `strstreamTypesAreDeprecated` query
@@ -87,7 +95,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `strstreamTypesAreDeprecated` query
     "cpp/autosar/strstream-types-are-deprecated" and
-  ruleId = "A1-1-1"
+  ruleId = "A1-1-1" and
+  category = "required"
   or
   query =
     // `Query` instance for the `compilerWarningLevelNotInCompliance` query
@@ -95,7 +104,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `compilerWarningLevelNotInCompliance` query
     "cpp/autosar/compiler-warning-level-not-in-compliance" and
-  ruleId = "A1-1-2"
+  ruleId = "A1-1-2" and
+  category = "required"
   or
   query =
     // `Query` instance for the `uncompliantOptimizationOptionMustBeDisabledInCompiler` query
@@ -103,7 +113,8 @@ predicate isToolchainQueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `uncompliantOptimizationOptionMustBeDisabledInCompiler` query
     "cpp/autosar/uncompliant-optimization-option-must-be-disabled-in-compiler" and
-  ruleId = "A1-1-3"
+  ruleId = "A1-1-3" and
+  category = "required"
 }
 
 module ToolchainPackage {

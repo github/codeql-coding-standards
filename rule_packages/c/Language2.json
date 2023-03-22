@@ -6,11 +6,11 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Assembly language is not portable and should be documented.",
           "kind": "problem",
           "name": "All usage of assembly language should be documented",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "warning",
           "short_name": "UsageOfAssemblyLanguageShouldBeDocumented",
           "shared_implementation_short_name": "UsageOfAssemblerNotDocumented",
           "tags": [
@@ -20,7 +20,7 @@
         }
       ],
       "title": "All usage of assembly language should be documented"
-    },    
+    },
     "RULE-1-4": {
       "properties": {
         "obligation": "required"
@@ -31,7 +31,7 @@
           "kind": "problem",
           "name": "Emergent language features shall not be used",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "warning",
           "short_name": "EmergentLanguageFeaturesUsed",
           "tags": [
             "maintainability",

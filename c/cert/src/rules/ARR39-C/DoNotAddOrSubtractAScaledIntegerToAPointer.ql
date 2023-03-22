@@ -13,49 +13,9 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.c.Pointers
 import semmle.code.cpp.dataflow.TaintTracking
 import DataFlow::PathGraph
-
-/**
- * An expression which performs pointer arithmetic
- */
-abstract class PointerArithmeticExpr extends Expr {
-  abstract Expr getPointer();
-
-  abstract Expr getOperand();
-}
-
-/**
- * A pointer arithmetic binary operation expression.
- */
-class SimplePointerArithmeticExpr extends PointerArithmeticExpr, PointerArithmeticOperation {
-  override Expr getPointer() { result = this.getLeftOperand() }
-
-  override Expr getOperand() { result = this.getRightOperand() }
-}
-
-/**
- * A pointer arithmetic assignment expression.
- */
-class AssignPointerArithmeticExpr extends PointerArithmeticExpr, AssignOperation {
-  AssignPointerArithmeticExpr() {
-    this instanceof AssignPointerAddExpr or
-    this instanceof AssignPointerSubExpr
-  }
-
-  override Expr getPointer() { result = this.getLValue() }
-
-  override Expr getOperand() { result = this.getRValue() }
-}
-
-/**
- * A pointer arithmetic array access expression.
- */
-class ArrayPointerArithmeticExpr extends PointerArithmeticExpr, ArrayExpr {
-  override Expr getPointer() { result = this.getArrayBase() }
-
-  override Expr getOperand() { result = this.getArrayOffset() }
-}
 
 /**
  * An expression which invokes the `offsetof` macro or `__builtin_offsetof` operation.
