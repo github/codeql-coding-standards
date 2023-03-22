@@ -1,4 +1,11 @@
-import cpp 
+import cpp
 
-abstract class CompilerExtension extends Locatable {}
-abstract class CPPCompilerExtension extends CompilerExtension {}
+/**
+ * Common base class for modeling compiler extensions.
+ */
+abstract class CompilerExtension extends Locatable { }
+
+/**
+ * Common base class for modeling compiler extensions in CPP.
+ */
+abstract class CPPCompilerExtension extends CompilerExtension { }

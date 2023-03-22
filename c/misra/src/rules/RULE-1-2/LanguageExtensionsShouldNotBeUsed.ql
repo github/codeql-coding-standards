@@ -10,12 +10,11 @@
  *       readability
  *       external/misra/obligation/advisory
  */
- import cpp
- import codingstandards.c.misra
- import codingstandards.c.Extensions
+
+import cpp
+import codingstandards.c.misra
+import codingstandards.c.Extensions
 
 from CCompilerExtension e
-where
-  not isExcluded(e, Language3Package::languageExtensionsShouldNotBeUsedQuery()) 
-  select e, "Is a compiler extension and is not portable to other compilers." 
-
+where not isExcluded(e, Language3Package::languageExtensionsShouldNotBeUsedQuery())
+select e, "Is a compiler extension and is not portable to other compilers."

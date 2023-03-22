@@ -2,7 +2,7 @@ import cpp
 import codingstandards.cpp.Extensions
 
 /**
- * Common base class for modeling compiler extensions. 
+ * Common base class for modeling compiler extensions.
  */
 abstract class CCompilerExtension extends CompilerExtension { }
 
@@ -69,7 +69,7 @@ class CFunctionLikeExtension extends CCompilerExtension, AlignofExprOperator {
 }
 
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html#Statement-Exprs
-class CStmtExprExtension extends CCompilerExtension, StmtExpr {}
+class CStmtExprExtension extends CCompilerExtension, StmtExpr { }
 
 // Use of ternary like the following: `int a = 0 ?: 0;` where the
 // one of the branches is omitted
@@ -88,8 +88,9 @@ class CRealTypeExtensionExtension extends CCompilerExtension, RealNumberType {
     this instanceof Float128Type
   }
 }
+
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fint128.html#g_t_005f_005fint128
-class CIntegerTypeExtension extends CCompilerExtension, Int128Type {}
+class CIntegerTypeExtension extends CCompilerExtension, Int128Type { }
 
 class CZeroLengthArraysExtension extends CCompilerExtension, DeclarationEntry {
   CZeroLengthArraysExtension() { getType().(ArrayType).getArraySize() = 0 }
