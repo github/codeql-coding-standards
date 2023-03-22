@@ -80,17 +80,24 @@ class CTerseTernaryExtension extends CCompilerExtension, ConditionalExpr {
 
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fint128.html#g_t_005f_005fint128
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/Decimal-Float.html#Decimal-Float
-class CRealTypeExtensionExtension extends CCompilerExtension, RealNumberType {
+class CRealTypeExtensionExtension extends CCompilerExtension, DeclarationEntry {
   CRealTypeExtensionExtension() {
-    this instanceof Decimal128Type or
-    this instanceof Decimal32Type or
-    this instanceof Decimal64Type or
-    this instanceof Float128Type
+    getType() instanceof Decimal128Type or
+    getType() instanceof Decimal32Type or
+    getType() instanceof Decimal64Type or
+    getType() instanceof Float128Type
   }
 }
 
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fint128.html#g_t_005f_005fint128
-class CIntegerTypeExtension extends CCompilerExtension, Int128Type { }
+class CIntegerTypeExtension extends CCompilerExtension, DeclarationEntry {
+  CIntegerTypeExtension() { getType() instanceof Int128Type }
+}
+
+// Reference: https://gcc.gnu.org/onlinedocs/gcc/Long-Long.html#Long-Long
+class CLongLongType extends CCompilerExtension, DeclarationEntry {
+  CLongLongType() { getType() instanceof LongLongType }
+}
 
 class CZeroLengthArraysExtension extends CCompilerExtension, DeclarationEntry {
   CZeroLengthArraysExtension() { getType().(ArrayType).getArraySize() = 0 }
@@ -103,5 +110,8 @@ class CEmptyStructExtension extends CCompilerExtension, Struct {
 
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html#Variable-Length
 class CVariableLengthArraysExtension extends CCompilerExtension, DeclarationEntry {
-  CVariableLengthArraysExtension() { not getType().(ArrayType).hasArraySize() }
+  CVariableLengthArraysExtension() {
+    getType() instanceof ArrayType and
+    not getType().(ArrayType).hasArraySize()
+  }
 }

@@ -15,7 +15,10 @@
           "tags": [
             "maintainability",
             "readability" 
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This implementation attempts to cover a broad section of the compiler specific extensions documented in: https://clang.llvm.org/docs/LanguageExtensions.html and https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html but is not comprehensive. The following topics are addressed in this query: Builtin macros, Variable Attributes, Function Attributes, Statement Expressions, Non-Local Gotos, Conditionals, Extended Integer / Numeric Types, Zero Length Structures, Zero Length Arrays, Variable Length Arrays, Case Attributes, Alignment, __sync and __fetch builtins. Other topics listed in the extension references are not covered by this query."
+          }
         }
       ],
       "title": "Language extensions should not be used"

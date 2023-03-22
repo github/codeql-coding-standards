@@ -1,0 +1,1 @@
+semmle-extractor-options:--clang -fhonor-infinity -std=c11 --edg --diag_error=implicit_func_decl -nostdinc -I../../../../common/test/includes/standard-library
