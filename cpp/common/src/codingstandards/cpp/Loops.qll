@@ -5,6 +5,88 @@
 import cpp
 import Operator
 
+// ******* COPIED FROM semmle.code.cpp.Iteration ******* //
+/**
+ * Holds if `child` is in the condition `forCondition` of a 'for'
+ * statement.
+ *
+ * For example, if a program includes
+ * ```
+ * for (i = 0; i < 10; i++) { j++; }
+ * ```
+ * then this predicate will hold with `forCondition` as `i < 10`,
+ * and `child` as any of `i`, `10` and `i < 10`.
+ */
+pragma[noopt]
+private predicate inForCondition(Expr forCondition, Expr child) {
+  exists(ForStmt for |
+    forCondition = for.getCondition() and
+    child = forCondition and
+    for instanceof ForStmt
+  )
+  or
+  exists(Expr mid |
+    inForCondition(forCondition, mid) and
+    child.getParent() = mid
+  )
+}
+
+// ******* COPIED FROM semmle.code.cpp.Iteration ******* //
+/**
+ * Holds if `child` is in the update `forUpdate` of a 'for' statement.
+ *
+ * For example, if a program includes
+ * ```
+ * for (i = 0; i < 10; i += 1) { j++; }
+ * ```
+ * then this predicate will hold with `forUpdate` as `i += 1`,
+ * and `child` as any of `i`, `1` and `i += 1`.
+ */
+pragma[noopt]
+private predicate inForUpdate(Expr forUpdate, Expr child) {
+  exists(ForStmt for | forUpdate = for.getUpdate() and child = forUpdate)
+  or
+  exists(Expr mid | inForUpdate(forUpdate, mid) and child.getParent() = mid)
+}
+
+/**
+ * Gets a LoopCounter for the given `ForStmt`.
+ *
+ * Equivalent to ForStmt.getAnIterationVariable(), but handles += and -= as well.
+ */
+pragma[noopt]
+Variable getALoopCounter(ForStmt fs) {
+  // check that it is assigned to, incremented or decremented in the update
+  exists(Expr updateOpRoot, Expr updateOp |
+    updateOpRoot = fs.getUpdate() and
+    inForUpdate(updateOpRoot, updateOp)
+  |
+    exists(CrementOperation op, VariableAccess va |
+      op = updateOp and
+      op instanceof CrementOperation and
+      op.getOperand() = va and
+      va = result.getAnAccess()
+    )
+    or
+    exists(AssignArithmeticOperation op, VariableAccess va |
+      op = updateOp and
+      op instanceof AssignArithmeticOperation and
+      op.getOperator() = ["+=", "-="] and
+      op.getLValue() = va and
+      va = result.getAnAccess()
+    )
+    or
+    updateOp = result.getAnAssignedValue()
+  ) and
+  result instanceof Variable and
+  // checked or used in the condition
+  exists(Expr e, VariableAccess va |
+    va = result.getAnAccess() and
+    inForCondition(e, va) and
+    e = fs.getCondition()
+  )
+}
+
 /**
  * Gets an iteration variable as identified by the initialization statement for the loop.
  */
@@ -148,7 +230,8 @@ predicate isLoopControlVarModifiedInLoopExpr(
   ForStmt forLoop, LoopControlVariable loopControlVariable, VariableAccess loopControlVariableAccess
 ) {
   loopControlVariableAccess = loopControlVariable.getVariableAccessInLoop(forLoop) and
-  not loopControlVariable = getAnIterationVariable(forLoop) and
+  // Not a standard loop counter for this loop
+  not loopControlVariable = getALoopCounter(forLoop) and
   loopControlVariableAccess = forLoop.getUpdate().getAChild() and
   (
     loopControlVariableAccess.isModified() or
