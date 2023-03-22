@@ -52,5 +52,7 @@ where
       )
     ) and
     message = "Controlling expression in switch statement has invariant value."
-  )
+  ) and
+  // Exclude macros, which may generate seemingly invariant expressions
+  not expr.isAffectedByMacro()
 select expr, message
