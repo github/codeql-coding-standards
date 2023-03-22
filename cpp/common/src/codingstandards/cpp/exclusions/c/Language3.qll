@@ -7,14 +7,15 @@ newtype Language3Query =
   TLanguageExtensionsShouldNotBeUsedQuery() or
   TOccurrenceOfUndefinedBehaviorQuery()
 
-predicate isLanguage3QueryMetadata(Query query, string queryId, string ruleId) {
+predicate isLanguage3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `languageExtensionsShouldNotBeUsed` query
     Language3Package::languageExtensionsShouldNotBeUsedQuery() and
   queryId =
     // `@id` for the `languageExtensionsShouldNotBeUsed` query
     "c/misra/language-extensions-should-not-be-used" and
-  ruleId = "RULE-1-2"
+  ruleId = "RULE-1-2" and
+  category = "advisory"
   or
   query =
     // `Query` instance for the `occurrenceOfUndefinedBehavior` query
@@ -22,7 +23,8 @@ predicate isLanguage3QueryMetadata(Query query, string queryId, string ruleId) {
   queryId =
     // `@id` for the `occurrenceOfUndefinedBehavior` query
     "c/misra/occurrence-of-undefined-behavior" and
-  ruleId = "RULE-1-3"
+  ruleId = "RULE-1-3" and
+  category = "required"
 }
 
 module Language3Package {
