@@ -14,14 +14,12 @@
 import cpp
 import codingstandards.c.misra
 
-from FunctionCall call, string msg, FunctionCall fc
+from FunctionCall fc, Function f, string msg
 where
   not isExcluded(fc, Statements3Package::recursiveFunctionConditionQuery()) and
-  fc.getTarget() = call.getTarget() and
-  call.getTarget().calls*(call.getEnclosingFunction()) and
-  if fc.getTarget() = fc.getEnclosingFunction()
+  fc.getEnclosingFunction() = f and
+  fc.getTarget().calls*(f) and
+  if fc.getTarget() = f
   then msg = "This call directly invokes its containing function $@."
-  else
-    msg =
-      "The function " + fc.getEnclosingFunction() + " is indirectly recursive via this call to $@."
+  else msg = "The function " + f + " is indirectly recursive via this call to $@."
 select fc, msg, fc.getTarget(), fc.getTarget().getName()
