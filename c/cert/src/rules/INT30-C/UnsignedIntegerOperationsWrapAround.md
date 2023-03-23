@@ -5,7 +5,6 @@ This query implements the CERT-C rule INT30-C:
 > Ensure that unsigned integer operations do not wrap
 
 
-
 ## Description
 
 The C Standard, 6.2.5, paragraph 9 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], states

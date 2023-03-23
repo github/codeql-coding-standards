@@ -5,7 +5,6 @@ This query implements the CERT-C rule INT31-C:
 > Ensure that integer conversions do not result in lost or misinterpreted data
 
 
-
 ## Description
 
 Integer conversions, both implicit and explicit (using a cast), must be guaranteed not to result in lost or misinterpreted data. This rule is particularly true for integer values that originate from untrusted sources and are used in any of the following ways:
