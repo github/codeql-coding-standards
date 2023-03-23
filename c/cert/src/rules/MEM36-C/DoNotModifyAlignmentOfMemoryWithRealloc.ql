@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.Allocations
+import codingstandards.cpp.Alignment
 import semmle.code.cpp.dataflow.DataFlow
 import DataFlow::PathGraph
 
