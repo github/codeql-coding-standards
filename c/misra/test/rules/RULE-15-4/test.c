@@ -43,4 +43,49 @@ L1:;
       goto L1;
     }
   }
+
+  while (k < 10) { // COMPLIANT - the nested goto
+                   // only applies to the nested loop
+    if (k > 5) {
+      break;
+    }
+    while (k < 3) { // COMPLIANT
+      break;
+    }
+  }
+}
+
+void f3(int k) {
+L3:
+  k++;
+  while (k < 10) { // NON_COMPLIANT - the nested goto
+                   // only applies to the switch
+    if (k > 5) {
+      break;
+    }
+    switch (k) {
+    case 1:
+      goto L3;
+    case 2:
+      break;
+    }
+  }
+}
+
+void f4(int k) {
+  k++;
+  while (k < 10) { // COMPLIANT
+    if (k > 5) {
+      break;
+    }
+    switch (k) {
+    case 1:
+      goto L4;
+    case 2:
+      k += 1;
+    L4:
+      k += 2;
+      break;
+    }
+  }
 }

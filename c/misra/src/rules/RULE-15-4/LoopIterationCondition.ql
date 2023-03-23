@@ -15,15 +15,41 @@
 import cpp
 import codingstandards.c.misra
 
-from Loop loop
+/**
+ * A breaking statement.
+ */
+class BreakOrGotoStmt extends JumpStmt {
+  BreakOrGotoStmt() {
+    this instanceof BreakStmt or
+    this instanceof GotoStmt
+  }
+
+  /**
+   * Gets a loop this breaks out of, if any.
+   *
+   * - This can produce no results if this is a `break` and the enclosing breakable is a switch statement.
+   * - This can produce no result if this is a `goto`, and the target is within the same nearest enclosing loop.
+   * - This can produce multiple results if this is a `goto`, and the target is outside multiple enclosing loops.
+   */
+  Loop getABrokenLoop() {
+    result = this.(BreakStmt).getBreakable()
+    or
+    exists(GotoStmt goto |
+      goto = this and
+      // Find any loop that encloses this goto
+      result.getChildStmt*() = goto and
+      // But does not enclose the target of the goto i.e. the goto breaks out of it
+      not result.getChildStmt*() = goto.getTarget()
+    )
+  }
+}
+
+from Loop loop, BreakOrGotoStmt breakOrGoto
 where
   not isExcluded(loop, Statements2Package::loopIterationConditionQuery()) and
-  count(Stmt terminationStmt |
-    loop.getChildStmt*() = terminationStmt and
-    (
-      terminationStmt instanceof BreakStmt
-      or
-      terminationStmt instanceof GotoStmt
-    )
-  ) > 1
-select loop, "$@ statement contains more than one break or goto statement", loop, "Iteration"
+  // More than one break or goto statement in the loop
+  count(BreakOrGotoStmt terminationStmt | terminationStmt.getABrokenLoop() = loop) > 1 and
+  // Report a break or goto statement
+  breakOrGoto.getABrokenLoop() = loop
+select loop, "Iteration statement contains more than one $@.", breakOrGoto,
+  "break or goto statement"
