@@ -5,7 +5,6 @@ This query implements the CERT-C rule MEM36-C:
 > Do not modify the alignment of objects by calling realloc
 
 
-
 ## Description
 
 Do not invoke `realloc()` to modify the size of allocated objects that have stricter alignment requirements than those guaranteed by `malloc()`. Storage allocated by a call to the standard `aligned_alloc()` function, for example, can have stricter than normal alignment requirements. The C standard requires only that a pointer returned by `realloc()` be suitably aligned so that it may be assigned to a pointer to any type of object with a fundamental alignment requirement.

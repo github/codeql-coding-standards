@@ -5,7 +5,6 @@ This query implements the CERT-C rule MEM34-C:
 > Only free memory allocated dynamically
 
 
-
 ## Description
 
 The C Standard, Annex J \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], states that the behavior of a program is [undefined ](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior) when

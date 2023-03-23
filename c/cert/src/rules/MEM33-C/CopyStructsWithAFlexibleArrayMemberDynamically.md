@@ -1,4 +1,4 @@
-# MEM33-C: Copy structures containing a flexible array member using memcpy or a similar function.
+# MEM33-C: Copy structures containing a flexible array member using memcpy or a similar function
 
 This query implements the CERT-C rule MEM33-C:
 

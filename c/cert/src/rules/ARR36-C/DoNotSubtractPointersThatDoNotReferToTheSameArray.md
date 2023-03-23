@@ -5,7 +5,6 @@ This query implements the CERT-C rule ARR36-C:
 > Do not subtract or compare two pointers that do not refer to the same array
 
 
-
 ## Description
 
 When two pointers are subtracted, both must point to elements of the same array object or just one past the last element of the array object (C Standard, 6.5.6 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\]); the result is the difference of the subscripts of the two array elements. Otherwise, the operation is [undefined behavior](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior). (See [undefined behavior 48](https://wiki.sei.cmu.edu/confluence/display/c/CC.+Undefined+Behavior#CC.UndefinedBehavior-ub_48).)

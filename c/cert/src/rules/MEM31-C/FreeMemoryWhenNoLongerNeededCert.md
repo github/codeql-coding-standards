@@ -5,7 +5,6 @@ This query implements the CERT-C rule MEM31-C:
 > Free dynamically allocated memory when no longer needed
 
 
-
 ## Description
 
 Before the lifetime of the last pointer that stores the return value of a call to a standard memory allocation function has ended, it must be matched by a call to `free()` with that pointer value.

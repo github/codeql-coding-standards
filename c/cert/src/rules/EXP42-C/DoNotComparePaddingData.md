@@ -5,7 +5,6 @@ This query implements the CERT-C rule EXP42-C:
 > Do not compare padding data
 
 
-
 ## Description
 
 The C Standard, 6.7.2.1 \[[ISO/IEC 9899:2011](https://wiki.sei.cmu.edu/confluence/display/c/AA.+Bibliography#AA.Bibliography-ISO-IEC9899-2011)\], states
