@@ -95,7 +95,7 @@
         {
           "description": "Copying a structure containing a flexbile array member by assignment ignores the flexible array member data.",
           "kind": "problem",
-          "name": "Copy structures containing a flexible array member using memcpy or a similar function.",
+          "name": "Copy structures containing a flexible array member using memcpy or a similar function",
           "precision": "very-high",
           "severity": "error",
           "short_name": "CopyStructsWithAFlexibleArrayMemberDynamically",

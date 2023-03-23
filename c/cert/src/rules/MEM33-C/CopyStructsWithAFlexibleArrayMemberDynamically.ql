@@ -1,6 +1,6 @@
 /**
  * @id c/cert/copy-structs-with-a-flexible-array-member-dynamically
- * @name MEM33-C: Copy structures containing a flexible array member using memcpy or a similar function.
+ * @name MEM33-C: Copy structures containing a flexible array member using memcpy or a similar function
  * @description Copying a structure containing a flexbile array member by assignment ignores the
  *              flexible array member data.
  * @kind problem
