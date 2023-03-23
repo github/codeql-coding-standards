@@ -20,3 +20,35 @@ void g(void) {
   // Exception 2
   memmove(&o[1], &o[0], 2u * sizeof(o[0])); // COMPLIANT
 }
+
+struct s1 {
+  int m1[10];
+};
+struct s2 {
+  int m1;
+  struct s1 m2;
+};
+union u {
+  struct s1 m1;
+  struct s2 m2;
+} u1;
+
+typedef struct {
+  char buf[8];
+} Union_t;
+union {
+  unsigned char uc[24];
+  struct {
+    Union_t prefix;
+    Union_t suffix;
+  } fnv;
+  struct {
+    unsigned char padding[16];
+    Union_t suffix;
+  } diff;
+} u2;
+
+void test_unions() {
+  memcpy(&u1.m2.m2, &u1.m1, sizeof(u1.m1)); // NON_COMPLIANT
+  memcpy(&u2.diff.suffix, &u2.fnv.suffix, sizeof(u2.fnv.suffix)); // COMPLIANT
+}

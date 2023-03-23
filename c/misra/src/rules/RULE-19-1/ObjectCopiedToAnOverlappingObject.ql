@@ -16,6 +16,15 @@ import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import semmle.code.cpp.dataflow.DataFlow
 
 /**
+ * Offset in bytes of a field access
+ */
+int getAccessByteOffset(FieldAccess fa) {
+  not fa.getQualifier() instanceof FieldAccess and result = fa.getTarget().getByteOffset()
+  or
+  result = fa.getTarget().getByteOffset() + getAccessByteOffset(fa.getQualifier())
+}
+
+/**
  * Models calls to memcpy on overlapping objects
  */
 class MemcpyCall extends Locatable {
@@ -40,7 +49,8 @@ class MemcpyCall extends Locatable {
     result =
       [
         e.(VariableAccess), e.(PointerAddExpr).getLeftOperand(),
-        e.(AddressOfExpr).getOperand().(ArrayExpr).getArrayBase()
+        e.(AddressOfExpr).getOperand().(ArrayExpr).getArrayBase+(),
+        e.(AddressOfExpr).getOperand().(ValueFieldAccess).getQualifier+()
       ]
   }
 
@@ -48,7 +58,8 @@ class MemcpyCall extends Locatable {
     result =
       [
         e.(PointerAddExpr).getRightOperand().getValue().toInt(),
-        e.(AddressOfExpr).getOperand().(ArrayExpr).getArrayOffset().getValue().toInt()
+        e.(AddressOfExpr).getOperand().(ArrayExpr).getArrayOffset().getValue().toInt(),
+        getAccessByteOffset(e.(AddressOfExpr).getOperand()),
       ]
     or
     e instanceof VariableAccess and result = 0
