@@ -40,7 +40,7 @@
             "readability" 
           ],
           "implementation_scope": {
-            "description": "This implementation only considers alternate forms of `main` and the undefined behavior that results. Additional cases from Appendix J of the C99 standard are not currently considered."
+            "description": "This implementation only considers alternate forms of `main` and the undefined behavior that results. Note that the current version of CodeQL is not able to detect this issue if a function is named `main` since it will assume the return type and formal parameters. Additional cases from Appendix J of the C99 standard are not currently considered."
           }
         }
       ],
