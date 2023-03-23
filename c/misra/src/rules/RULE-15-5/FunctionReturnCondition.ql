@@ -18,9 +18,13 @@ import codingstandards.c.misra
 from Function func, string message
 where
   not isExcluded(func, Statements5Package::functionReturnConditionQuery()) and
-  count(ReturnStmt return | return.getEnclosingFunction() = func) > 1 and
-  message = "Function has more than on return statement."
-  or
-  not func.getBlock().getLastStmt() instanceof ReturnStmt and
-  message = "The last statement of the function is not a return statement."
+  func.hasDefinition() and
+  not func.isCompilerGenerated() and
+  (
+    count(ReturnStmt return | return.getEnclosingFunction() = func) > 1 and
+    message = "Function has more than on return statement."
+    or
+    not func.getBlock().getLastStmt() instanceof ReturnStmt and
+    message = "The last statement of the function is not a return statement."
+  )
 select func, message

@@ -25,3 +25,5 @@ void f4(int p1) { // NON_COMPLIANT
   return;
   p1++;
 }
+
+void f5(); // Ignored - no body
