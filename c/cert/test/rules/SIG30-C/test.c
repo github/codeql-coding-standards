@@ -13,8 +13,7 @@ void handler1(int signum) {
 }
 
 int f1(void) {
-  if (signal(SIGINT, handler1) == SIG_ERR)
-  {
+  if (signal(SIGINT, handler1) == SIG_ERR) {
     //...
   }
 
@@ -113,8 +112,7 @@ int f6(void) {
     // ...
   }
 
-  if (raise(SIGINT) != 0)
-  {
+  if (raise(SIGINT) != 0) {
     // ...
   }
 
