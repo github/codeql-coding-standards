@@ -52,17 +52,14 @@ Variable getAddressOfExprTargetBase(AddressOfExpr expr) {
   or
   result = expr.getOperand().(ArrayExpr).getArrayBase().(VariableAccess).getTarget()
 }
- 
-  
+
 /**
  * A struct that contains a flexible array member
  */
 class FlexibleArrayStructType extends Struct {
   FlexibleArrayMember member;
 
-  FlexibleArrayStructType() {
-    this = member.getDeclaringType()
-  }
+  FlexibleArrayStructType() { this = member.getDeclaringType() }
 
   FlexibleArrayMember getFlexibleArrayMember() { result = member }
 }
