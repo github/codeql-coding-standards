@@ -13,12 +13,12 @@ void handler1(int signum) {
 }
 
 int f1(void) {
-  if (signal(SIGINT, handler1) == SIG_ERR) // COMPLIANT
+  if (signal(SIGINT, handler1) == SIG_ERR)
   {
     //...
   }
 
-  log_local_unsafe(); // COMPLIANT
+  log_local_unsafe();
 
   return 0;
 }
@@ -33,7 +33,7 @@ int f2(void) {
   }
 
   while (!eflag) {
-    log_local_unsafe(); // COMPLIANT
+    log_local_unsafe();
   }
 
   return 0;
@@ -113,7 +113,7 @@ int f6(void) {
     // ...
   }
 
-  if (raise(SIGINT) != 0) // COMPLIANT
+  if (raise(SIGINT) != 0)
   {
     // ...
   }

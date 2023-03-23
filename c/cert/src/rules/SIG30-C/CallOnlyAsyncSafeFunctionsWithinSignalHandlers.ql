@@ -86,7 +86,7 @@ class ApplicationAsyncSafeFunction extends AsyncSafeFunction {
 }
 
 /**
- * Call to function `raise` withing a signal handler with mismatching signals
+ * Call to function `raise` within a signal handler with mismatching signals
  * ```
  * void int_handler(int signum) {
  *   raise(SIGTERM);
