@@ -1,0 +1,4 @@
+| test.c:10:3:10:18 | call to log_local_unsafe | Asyncronous-unsafe function calls within a $@ can lead to undefined behavior. | test.c:16:7:16:12 | call to signal | signal handler |
+| test.c:11:3:11:6 | call to free | Asyncronous-unsafe function calls within a $@ can lead to undefined behavior. | test.c:16:7:16:12 | call to signal | signal handler |
+| test.c:46:3:46:17 | call to siglongjmp | Asyncronous-unsafe function calls within a $@ can lead to undefined behavior. | test.c:50:7:50:12 | call to signal | signal handler |
+| test.c:76:7:76:11 | call to raise | Asyncronous-unsafe function calls within a $@ can lead to undefined behavior. | test.c:91:7:91:12 | call to signal | signal handler |
