@@ -3,10 +3,6 @@ name: 🤖 Run Matrix Check (On Comment)
 on:
   issue_comment:
     types: [created]
-    branches:
-      - main
-      - "rc/**"
-      - next
 
 jobs:
   dispatch-matrix-check:
@@ -26,7 +22,7 @@ jobs:
             throw "Refusing to run workflow for user not in acl."
           }
 
-          
+
       - name: Dispatch Matrix Testing Job
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-matrix') }}
         uses: peter-evans/repository-dispatch@v2
