@@ -1,3 +1,0 @@
-| test.c:5:3:6:3 | for(...;...;...) ... | Iteration condition has non boolean type int. |
-| test.c:7:3:8:3 | while (...) ... | Iteration condition has non boolean type int. |
-| test.c:13:3:14:3 | for(...;...;...) ... | Iteration condition has non boolean type int. |

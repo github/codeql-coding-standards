@@ -1,4 +1,4 @@
-#include "stdbool.h"
+#include <stdbool.h>
 int f1();
 void *f2();
 
@@ -20,5 +20,11 @@ void f4() {
 
   int l2 = 1;
   if ((const bool)l2) { // COMPLIANT
+  }
+
+  if (l2 < 3) { // COMPLIANT
+  }
+
+  if (true) { // COMPLIANT
   }
 }

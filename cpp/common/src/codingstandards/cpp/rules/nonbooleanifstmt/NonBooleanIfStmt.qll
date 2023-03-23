@@ -1,5 +1,5 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library which includes a `problems` predicate for reporting if statements which have non boolean conditions.
  */
 
 import cpp

@@ -55,7 +55,6 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NonBooleanIfCondition",
-          "shared_implementation_short_name": "NonBooleanIfStmt",
           "tags": [
             "maintainability",
             "readability"
@@ -68,7 +67,6 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NonBooleanIterationCondition",
-          "shared_implementation_short_name": "NonBooleanIterationStmt",
           "tags": [
             "maintainability",
             "readability"

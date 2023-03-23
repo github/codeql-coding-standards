@@ -13,10 +13,24 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.nonbooleaniterationstmt.NonBooleanIterationStmt
+import codingstandards.c.misra.EssentialTypes
 
-class NonBooleanIterationConditionQuery extends NonBooleanIterationStmtSharedQuery {
-  NonBooleanIterationConditionQuery() {
-    this = Statements4Package::nonBooleanIterationConditionQuery()
-  }
+/** A macro within the source location of this project. */
+class UserProvidedMacro extends Macro {
+  UserProvidedMacro() { exists(this.getFile().getRelativePath()) }
 }
+
+/** A macro defined within a library used by this project. */
+class LibraryMacro extends Macro {
+  LibraryMacro() { not this instanceof UserProvidedMacro }
+}
+
+from Expr condition, Loop l, Type essentialType
+where
+  not isExcluded(condition, Statements4Package::nonBooleanIterationConditionQuery()) and
+  // Exclude loops generated from library macros
+  not l = any(LibraryMacro lm).getAnInvocation().getAGeneratedElement() and
+  condition = l.getCondition() and
+  essentialType = getEssentialType(condition) and
+  not getEssentialTypeCategory(essentialType) = EssentiallyBooleanType()
+select condition, "Iteration condition has non boolean type " + essentialType + "."

@@ -13,10 +13,15 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.nonbooleanifstmt.NonBooleanIfStmt
+import codingstandards.c.misra.EssentialTypes
 
-class NonBooleanIfConditionQuery extends NonBooleanIfStmtSharedQuery {
-  NonBooleanIfConditionQuery() {
-    this = Statements4Package::nonBooleanIfConditionQuery()
-  }
-}
+from Expr condition, Type essentialType
+where
+  not isExcluded(condition, Statements4Package::nonBooleanIfConditionQuery()) and
+  exists(IfStmt ifStmt |
+    not ifStmt.isFromUninstantiatedTemplate(_) and
+    condition = ifStmt.getCondition() and
+    essentialType = getEssentialType(ifStmt.getCondition()) and
+    not getEssentialTypeCategory(essentialType) = EssentiallyBooleanType()
+  )
+select condition, "If condition has non boolean essential type " + essentialType + "."
