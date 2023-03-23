@@ -5,7 +5,6 @@ This query implements the CERT-C rule INT33-C:
 > Ensure that division and remainder operations do not result in divide-by-zero errors
 
 
-
 ## Description
 
 The C Standard identifies the following condition under which division and remainder operations result in [undefined behavior (UB)](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-undefinedbehavior):
