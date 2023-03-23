@@ -15,7 +15,7 @@ int f1a(size_t count, ...) {
   va_start(ap, count);
 
   if (contains_zero(count, ap)) {
-    va_end(ap);
+    va_start(ap, count);
     return 1;
   }
 
@@ -23,7 +23,7 @@ int f1a(size_t count, ...) {
     printf("%f ", 1.0 / va_arg(ap, double)); // NON_COMPLIANT
   }
 
-  va_end(ap);
+  va_end(ap); // NON_COMPLIANT
   return 0;
 }
 
@@ -36,7 +36,7 @@ int f1b(size_t count, ...) {
     printf("0 in arguments!\n");
     status = 1;
   } else {
-    va_end(ap);
+    va_end(ap); // NON_COMPLIANT
     va_start(ap, count);
     for (size_t i = 0; i < count; i++) {
       printf("%f ", 1.0 / va_arg(ap, double)); // COMPLIANT
@@ -45,7 +45,7 @@ int f1b(size_t count, ...) {
     status = 0;
   }
 
-  va_end(ap);
+  va_end(ap); // NON_COMPLIANT
   return status;
 }
 
@@ -59,7 +59,7 @@ int f1c(size_t count, ...) {
     printf("0 in arguments!\n");
     status = 1;
   } else {
-    va_end(ap1); // ending the wrong va_list object
+    va_end(ap1); // COMPLIANT
     va_start(ap1, count);
     for (size_t i = 0; i < count; i++) {
       printf("%f ", 1.0 / va_arg(ap, double)); // NON_COMPLIANT
@@ -68,7 +68,7 @@ int f1c(size_t count, ...) {
     status = 0;
   }
 
-  va_end(ap);
+  va_end(ap); // NON_COMPLIANT
   return status;
 }
 
@@ -80,7 +80,7 @@ int contains_zero_ok(size_t count, va_list *ap) {
       return 1;
     }
   }
-  va_end(ap1);
+  va_end(ap1); // COMPLIANT
   return 0;
 }
 
@@ -100,6 +100,6 @@ int print_reciprocals_ok(size_t count, ...) {
     status = 0;
   }
 
-  va_end(ap);
+  va_end(ap); // COMPLIANT
   return status;
 }
