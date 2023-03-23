@@ -1,0 +1,6 @@
+| test.c:8:8:8:10 | g_p | Free expression frees non-dynamically allocated memory. | test.c:8:8:8:10 | g_p |  |
+| test.c:10:8:10:10 | g_p | Free expression frees $@ which was not dynamically allocated. | test.c:9:9:9:12 | & ... | memory |
+| test.c:15:33:15:35 | g_p | Free expression frees non-dynamically allocated memory. | test.c:15:33:15:35 | g_p |  |
+| test.c:17:36:17:38 | ptr | Free expression frees $@ which was not dynamically allocated. | test.c:24:7:24:8 | & ... | memory |
+| test.c:23:8:23:8 | p | Free expression frees $@ which was not dynamically allocated. | test.c:22:13:22:14 | & ... | memory |
+| test.c:42:10:42:10 | p | Free expression frees non-dynamically allocated memory. | test.c:42:10:42:10 | p |  |

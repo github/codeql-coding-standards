@@ -26,15 +26,15 @@ class FlexibleArrayMember extends FlexibleArrayMemberCandidate {
  * includes any sized array (either specified or not)
  */
 class FlexibleArrayMemberCandidate extends MemberVariable {
-  Struct s;
-
   FlexibleArrayMemberCandidate() {
     this.getType() instanceof ArrayType and
-    this.getDeclaringType() = s and
-    not exists(int i, int j |
-      s.getAMember(i) = this and
-      exists(s.getAMember(j)) and
-      j > i
+    exists(Struct s |
+      this.getDeclaringType() = s and
+      not exists(int i, int j |
+        s.getAMember(i) = this and
+        exists(s.getAMember(j)) and
+        j > i
+      )
     )
   }
 }
@@ -51,4 +51,18 @@ Variable getAddressOfExprTargetBase(AddressOfExpr expr) {
   result = expr.getOperand().(VariableAccess).getTarget()
   or
   result = expr.getOperand().(ArrayExpr).getArrayBase().(VariableAccess).getTarget()
+}
+ 
+  
+/**
+ * A struct that contains a flexible array member
+ */
+class FlexibleArrayStructType extends Struct {
+  FlexibleArrayMember member;
+
+  FlexibleArrayStructType() {
+    this = member.getDeclaringType()
+  }
+
+  FlexibleArrayMember getFlexibleArrayMember() { result = member }
 }
