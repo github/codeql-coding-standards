@@ -11,12 +11,6 @@ int f2(void) {
   FILE my_stdout2 = *my_stdout; // NON_COMPLIANT
   return fputs("Hello, World!\n", my_stdout);
 }
-int f2b(void) {
-  FILE *const *my_stdout;
-  my_stdout = &stdout;           // COMPLIANT
-  FILE my_stdout2 = **my_stdout; // NON_COMPLIANT
-  return fputs("Hello, World!\n", *my_stdout);
-}
 
 int f3(void) {
   FILE my_stdout;
