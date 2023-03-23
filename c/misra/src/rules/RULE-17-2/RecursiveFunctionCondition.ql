@@ -20,6 +20,6 @@ where
   fc.getEnclosingFunction() = f and
   fc.getTarget().calls*(f) and
   if fc.getTarget() = f
-  then msg = "This call directly invokes its containing function $@."
-  else msg = "The function " + f + " is indirectly recursive via this call to $@."
+  then msg = f + " calls itself directly."
+  else msg = f + " is indirectly recursive via this call to $@."
 select fc, msg, fc.getTarget(), fc.getTarget().getName()
