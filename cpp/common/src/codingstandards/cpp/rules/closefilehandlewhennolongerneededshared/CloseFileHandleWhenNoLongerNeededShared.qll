@@ -11,6 +11,14 @@ import codingstandards.cpp.standardlibrary.FileAccess
 import codingstandards.cpp.Allocations
 
 /**
+ * Extend the NullValue class used by Nullness.qll to include simple -1 as a 'null' value
+ * (for example 'open' returns -1 if there was an error)
+ */
+class MinusOne extends NullValue {
+  MinusOne() { this.(UnaryMinusExpr).getOperand().(Literal).getValue() = "1" }
+}
+
+/**
  * 'call' is either a direct call to f, or a possible call to f
  * via a function pointer.
  */
@@ -22,7 +30,7 @@ predicate mayCallFunction(Expr call, Function f) {
 
 predicate fopenCallOrIndirect(Expr e) {
   // direct allocation call
-  allocExpr(e, _) and
+  opened(e) and
   // We are only interested in allocation calls that are
   // actually freed somehow, as MemoryNeverFreed
   // will catch those that aren't.
