@@ -1,11 +1,12 @@
-name: 🤖 Run Matrix Check 
+name: 🤖 Run Matrix Check (On Comment)
 
 on:
-  pull_request_target:
-    types: [synchronize,opened]
+  issue_comment:
+    types: [created]
     branches:
-      - "matrix/**"
-  workflow_dispatch:
+      - main
+      - "rc/**"
+      - next
 
 jobs:
   dispatch-matrix-check:
@@ -16,9 +17,18 @@ jobs:
         shell: pwsh
         run: |          
           Write-Host "Running as: ${{github.actor}}"    
-    
+
+          $actor = "${{github.actor}}"
+
+          $acl = @("jsinglet","mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine") 
+
+          if(-not ($actor -in $acl)){
+            throw "Refusing to run workflow for user not in acl."
+          }
+
+          
       - name: Dispatch Matrix Testing Job
-        if: ${{ contains(fromJSON('["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-matrix') }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
@@ -26,9 +36,7 @@ jobs:
           event-type: matrix-test
           client-payload: '{"pr": "${{ github.event.number  }}"}'
 
-
       - uses: actions/github-script@v6
-        if: ${{ contains(fromJSON('["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
         with:
           script: |
             github.rest.issues.createComment({
