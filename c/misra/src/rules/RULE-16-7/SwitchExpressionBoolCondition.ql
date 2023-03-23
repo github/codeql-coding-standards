@@ -13,8 +13,11 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.SwitchStatement
+import codingstandards.c.misra.EssentialTypes
 
-from BooleanSwitchStmt switch
-where not isExcluded(switch, Statements2Package::switchExpressionBoolConditionQuery())
-select switch, "The condition of this $@ statement has boolean type", switch, "switch"
+from SwitchStmt switch, Expr controllingExpr
+where
+  not isExcluded(switch, Statements2Package::switchExpressionBoolConditionQuery()) and
+  controllingExpr = switch.getControllingExpr() and
+  getEssentialTypeCategory(getEssentialType(controllingExpr)) = EssentiallyBooleanType()
+select controllingExpr, "The condition of this $@ statement has boolean type", switch, "switch"
