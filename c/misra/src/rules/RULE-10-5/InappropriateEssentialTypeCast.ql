@@ -49,16 +49,23 @@ predicate isIncompatibleEssentialTypeCast(EssentialTypeCategory fromCat, Essenti
     ]
 }
 
+predicate isCastTypes(
+  Cast c, Type essentialFromType, Type essentialToType, EssentialTypeCategory fromCategory,
+  EssentialTypeCategory toCategory
+) {
+  essentialFromType = getEssentialTypeBeforeConversions(c.getExpr()) and
+  essentialToType = c.getType() and
+  fromCategory = getEssentialTypeCategory(essentialFromType) and
+  toCategory = getEssentialTypeCategory(essentialToType)
+}
+
 from
   Cast c, Type essentialFromType, Type essentialToType, EssentialTypeCategory fromCategory,
   EssentialTypeCategory toCategory, string message
 where
   not isExcluded(c, EssentialTypesPackage::inappropriateEssentialTypeCastQuery()) and
   not c.isImplicit() and
-  essentialFromType = getEssentialTypeBeforeConversions(c.getExpr()) and
-  essentialToType = c.getType() and
-  fromCategory = getEssentialTypeCategory(essentialFromType) and
-  toCategory = getEssentialTypeCategory(essentialToType) and
+  isCastTypes(c, essentialFromType, essentialToType, fromCategory, toCategory) and
   isIncompatibleEssentialTypeCast(fromCategory, toCategory) and
   (
     if fromCategory = EssentiallyEnumType() and toCategory = EssentiallyEnumType()
