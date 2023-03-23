@@ -1,5 +1,5 @@
-| test.c:6:18:6:21 | call to time | Call to banned function $@. | time.h:53:8:53:11 | time | time |
-| test.c:9:19:9:23 | call to ctime | Call to banned function $@. | time.h:60:7:60:11 | ctime | ctime |
-| test.c:17:3:17:6 | call to time | Call to banned function $@. | time.h:53:8:53:11 | time | time |
-| test.c:18:8:18:16 | call to localtime | Call to banned function $@. | time.h:58:12:58:20 | localtime | localtime |
-| test.c:19:3:19:10 | call to wcsftime | Call to banned function $@. | wchar.h:139:8:139:15 | wcsftime | wcsftime |
+| test.c:6:18:6:21 | call to time | Call to banned function time. |
+| test.c:9:19:9:23 | call to ctime | Call to banned function ctime. |
+| test.c:17:3:17:6 | call to time | Call to banned function time. |
+| test.c:18:8:18:16 | call to localtime | Call to banned function localtime. |
+| test.c:19:3:19:10 | call to wcsftime | Call to banned function wcsftime. |

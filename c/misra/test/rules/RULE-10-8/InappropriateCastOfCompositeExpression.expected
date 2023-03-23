@@ -1,0 +1,4 @@
+| test.c:4:16:4:20 | ... + ... | Cast from essentially Unsigned type to essentially Signed type changes type category. |
+| test.c:5:18:5:22 | ... + ... | Cast from essentially Signed type to essentially Unsigned type changes type category. |
+| test.c:14:18:14:24 | ... + ... | Cast from essentially Unsigned type to essentially Unsigned type widens type. |
+| test.c:20:16:20:22 | ... + ... | Cast from essentially Signed type to essentially Signed type widens type. |

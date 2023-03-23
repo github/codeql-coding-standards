@@ -1,0 +1,1 @@
+- `A13-5-2` - address a false positive where lambda expressions with empty captures were being flagged as having a non-compliant conversion operator.

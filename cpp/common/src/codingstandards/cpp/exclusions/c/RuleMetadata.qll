@@ -24,6 +24,7 @@ import Declarations5
 import Declarations6
 import Declarations7
 import Declarations8
+import EssentialTypes
 import Expressions
 import IO1
 import IO2
@@ -32,7 +33,11 @@ import IO4
 import InvalidMemory1
 import Language1
 import Language2
+<<<<<<< HEAD
 import Memory2
+=======
+import Memory1
+>>>>>>> upstream/main
 import Misc
 import Pointers1
 import Pointers2
@@ -74,6 +79,7 @@ newtype TCQuery =
   TDeclarations6PackageQuery(Declarations6Query q) or
   TDeclarations7PackageQuery(Declarations7Query q) or
   TDeclarations8PackageQuery(Declarations8Query q) or
+  TEssentialTypesPackageQuery(EssentialTypesQuery q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
@@ -82,7 +88,11 @@ newtype TCQuery =
   TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
+<<<<<<< HEAD
   TMemory2PackageQuery(Memory2Query q) or
+=======
+  TMemory1PackageQuery(Memory1Query q) or
+>>>>>>> upstream/main
   TMiscPackageQuery(MiscQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
@@ -124,6 +134,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations8QueryMetadata(query, queryId, ruleId, category) or
+  isEssentialTypesQueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
@@ -132,7 +143,11 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
+<<<<<<< HEAD
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
+=======
+  isMemory1QueryMetadata(query, queryId, ruleId, category) or
+>>>>>>> upstream/main
   isMiscQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or

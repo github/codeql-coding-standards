@@ -1,4 +1,4 @@
-| test.c:6:14:6:17 | call to atof | Call to banned function $@. | stdlib.h:24:8:24:11 | atof | atof |
-| test.c:7:12:7:15 | call to atoi | Call to banned function $@. | stdlib.h:21:5:21:8 | atoi | atoi |
-| test.c:8:13:8:16 | call to atol | Call to banned function $@. | stdlib.h:22:6:22:9 | atol | atol |
-| test.c:9:18:9:22 | call to atoll | Call to banned function $@. | stdlib.h:23:11:23:15 | atoll | atoll |
+| test.c:6:14:6:17 | call to atof | Call to banned function atof. |
+| test.c:7:12:7:15 | call to atoi | Call to banned function atoi. |
+| test.c:8:13:8:16 | call to atol | Call to banned function atol. |
+| test.c:9:18:9:22 | call to atoll | Call to banned function atoll. |

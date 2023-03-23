@@ -1,12 +1,12 @@
-| test.c:4:11:4:23 | call to feclearexcept | Call to banned function $@. | fenv.h:43:5:43:17 | feclearexcept | feclearexcept |
-| test.c:4:25:4:34 | FE_INVALID | Call to banned macro $@. | fenv.h:8:1:8:20 | #define FE_INVALID 1 | FE_INVALID |
-| test.c:6:3:6:17 | call to fegetexceptflag | Call to banned function $@. | fenv.h:44:5:44:19 | fegetexceptflag | fegetexceptflag |
-| test.c:6:24:6:36 | FE_ALL_EXCEPT | Call to banned macro $@. | fenv.h:15:1:15:24 | #define FE_ALL_EXCEPT 63 | FE_ALL_EXCEPT |
-| test.c:7:3:7:15 | call to feraiseexcept | Call to banned function $@. | fenv.h:45:5:45:17 | feraiseexcept | feraiseexcept |
-| test.c:7:17:7:28 | FE_DIVBYZERO | Call to banned macro $@. | fenv.h:10:1:10:22 | #define FE_DIVBYZERO 4 | FE_DIVBYZERO |
-| test.c:8:3:8:15 | call to feraiseexcept | Call to banned function $@. | fenv.h:45:5:45:17 | feraiseexcept | feraiseexcept |
-| test.c:8:17:8:27 | FE_OVERFLOW | Call to banned macro $@. | fenv.h:11:1:11:21 | #define FE_OVERFLOW 8 | FE_OVERFLOW |
-| test.c:9:3:9:17 | call to fesetexceptflag | Call to banned function $@. | fenv.h:46:5:46:19 | fesetexceptflag | fesetexceptflag |
-| test.c:9:24:9:36 | FE_ALL_EXCEPT | Call to banned macro $@. | fenv.h:15:1:15:24 | #define FE_ALL_EXCEPT 63 | FE_ALL_EXCEPT |
-| test.c:10:3:10:14 | call to fetestexcept | Call to banned function $@. | fenv.h:47:5:47:16 | fetestexcept | fetestexcept |
-| test.c:10:16:10:27 | FE_UNDERFLOW | Call to banned macro $@. | fenv.h:12:1:12:23 | #define FE_UNDERFLOW 16 | FE_UNDERFLOW |
+| test.c:4:11:4:23 | call to feclearexcept | Call to banned function feclearexcept. |
+| test.c:4:25:4:34 | FE_INVALID | Call to banned macro FE_INVALID. |
+| test.c:6:3:6:17 | call to fegetexceptflag | Call to banned function fegetexceptflag. |
+| test.c:6:24:6:36 | FE_ALL_EXCEPT | Call to banned macro FE_ALL_EXCEPT. |
+| test.c:7:3:7:15 | call to feraiseexcept | Call to banned function feraiseexcept. |
+| test.c:7:17:7:28 | FE_DIVBYZERO | Call to banned macro FE_DIVBYZERO. |
+| test.c:8:3:8:15 | call to feraiseexcept | Call to banned function feraiseexcept. |
+| test.c:8:17:8:27 | FE_OVERFLOW | Call to banned macro FE_OVERFLOW. |
+| test.c:9:3:9:17 | call to fesetexceptflag | Call to banned function fesetexceptflag. |
+| test.c:9:24:9:36 | FE_ALL_EXCEPT | Call to banned macro FE_ALL_EXCEPT. |
+| test.c:10:3:10:14 | call to fetestexcept | Call to banned function fetestexcept. |
+| test.c:10:16:10:27 | FE_UNDERFLOW | Call to banned macro FE_UNDERFLOW. |
