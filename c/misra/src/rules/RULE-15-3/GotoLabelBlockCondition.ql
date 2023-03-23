@@ -19,14 +19,6 @@ predicate isPartOfSwitch(Stmt goto) {
   exists(SwitchStmt switch | switch.getStmt() = goto.getParent())
 }
 
-Stmt getNextStmt(ControlFlowNode node) {
-  node.getASuccessor() = result
-  or
-  exists(ControlFlowNode other |
-    node.getASuccessor() = other and other != result and result = getNextStmt(other)
-  )
-}
-
 SwitchCase getSwitchCase(Stmt stmt) {
   exists(int index, SwitchStmt switch |
     getStmtInSwitch(switch, stmt, index) and getStmtInSwitch(switch, result, index - 1)
@@ -66,5 +58,5 @@ where
       isPartOfSwitch(goto) and not getSwitchCase(goto) = getSwitchCase(target)
     )
   )
-select goto, "The $@ statement and its $@ are not declared or enclosed in the same block. test",
-  goto, "goto", target, "label"
+select goto, "The $@ statement and its $@ are not declared or enclosed in the same block.", goto,
+  "goto", target, "label"
