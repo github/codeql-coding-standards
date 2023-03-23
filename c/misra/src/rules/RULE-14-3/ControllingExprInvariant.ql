@@ -57,8 +57,23 @@ where
       )
     ) and
     message = "Controlling expression in switch statement has invariant value."
+    or
+    exists(ConditionalExpr conditional |
+      conditional.getCondition() = expr and
+      (
+        conditionAlwaysFalse(expr) or
+        conditionAlwaysTrue(expr)
+      )
+    ) and
+    message = "Controlling expression in conditional statement has invariant value."
   ) and
   // Exclude cases where the controlling expressions is affected by a macro, because they can appear
   // invariant in a particular invocation, but be variant between invocations.
-  not expr.isAffectedByMacro()
+  not (
+    expr.isAffectedByMacro() and
+    // Permit boolean literal macros
+    not expr instanceof BooleanLiteral
+  ) and
+  // Exclude template variables, because they can be instantiated with different values.
+  not expr = any(TemplateVariable tv).getAnInstantiation().getAnAccess()
 select expr, message

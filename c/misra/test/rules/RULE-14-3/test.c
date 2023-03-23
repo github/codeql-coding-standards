@@ -32,3 +32,9 @@ void f4() {
   do {
   } while (0u == 1u); // COMPLIANT - by exception 2
 }
+
+void f5(bool b1) {
+  true ? 1 : 2; // NON_COMPLIANT
+  1 ? 1 : 2;    // NON_COMPLIANT
+  b1 ? 1 : 2;   // COMPLIANT
+}
