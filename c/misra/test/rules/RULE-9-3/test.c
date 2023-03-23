@@ -15,7 +15,7 @@ void test() {
       {0}, [1][0] = 0, 0}; // NON_COMPLIANT - not all elements
                            // initialized with designated initializer
 
-  int l15[2] = {[1] = 0};         // COMPILANT - sparse matrix initialized with
+  int l15[2] = {[1] = 0};         // COMPLIANT - sparse matrix initialized with
                                   // designated initializer
   int l16[2][2] = {[0] = {0, 1}}; // NON_COMPLIANT - sub-elements not
                                   // initialized with designated initializer
