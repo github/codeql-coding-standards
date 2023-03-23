@@ -5,6 +5,7 @@ This query implements the CERT-C rule INT35-C:
 > Use correct integer precisions
 
 
+
 ## Description
 
 Integer types in C have both a *size* and a *precision*. The size indicates the number of bytes used by an object and can be retrieved for any object or type using the `sizeof` operator. The precision of an integer type is the number of bits it uses to represent values, excluding any sign and padding bits.
