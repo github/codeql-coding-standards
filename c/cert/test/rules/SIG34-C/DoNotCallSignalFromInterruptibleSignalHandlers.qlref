@@ -1,0 +1,1 @@
+rules/SIG34-C/DoNotCallSignalFromInterruptibleSignalHandlers.ql
