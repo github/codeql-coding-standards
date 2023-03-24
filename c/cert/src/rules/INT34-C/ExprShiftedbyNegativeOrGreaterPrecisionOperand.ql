@@ -13,6 +13,7 @@
 import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
+import semmle.code.cpp.ir.internal.ASTValueNumbering
 import semmle.code.cpp.controlflow.Guards
 
 /*
@@ -32,6 +33,21 @@ class PopCount extends Function {
  */
 class PrecisionMacro extends Macro {
   PrecisionMacro() { this.getName().toLowerCase().matches("precision") }
+}
+
+class LiteralZero extends Literal {
+  LiteralZero() { this.getValue() = "0" }
+}
+
+class BitShiftExpr extends BinaryBitwiseOperation {
+  BitShiftExpr() {
+    this instanceof LShiftExpr or
+    this instanceof RShiftExpr
+  }
+
+  override string toString() {
+    if this instanceof LShiftExpr then result = "left-shift" else result = "right-shift"
+  }
 }
 
 int getPrecision(BuiltInType type) {
@@ -66,80 +82,53 @@ int getPrecision(BuiltInType type) {
   result = type.(LongLongType).getSize() * 8 - 1
 }
 
-predicate isForbiddenLShiftExpr(LShiftExpr binbitop, string message) {
+predicate isForbiddenShiftExpr(BitShiftExpr shift, string message) {
   (
     (
-      getPrecision(binbitop.getLeftOperand().getUnderlyingType()) <=
-        upperBound(binbitop.getRightOperand()) and
+      getPrecision(shift.getLeftOperand().getUnderlyingType()) <=
+        upperBound(shift.getRightOperand()) and
       message =
-        "The operand " + binbitop.getLeftOperand() + " is left-shifted by an expression " +
-          binbitop.getRightOperand() + " which is greater than or equal to in precision."
+        "The operand " + shift.getLeftOperand() + " is " + shift + "ed by an expression " +
+          shift.getRightOperand() + " which is greater than or equal to in precision."
       or
-      lowerBound(binbitop.getRightOperand()) < 0 and
+      lowerBound(shift.getRightOperand()) < 0 and
       message =
-        "The operand " + binbitop.getLeftOperand() + " is left-shifted by a negative expression " +
-          binbitop.getRightOperand() + "."
-    )
-    or
-    /* Check a guard condition protecting the shift statement: heuristic (not an iff query) */
-    exists(GuardCondition gc, BasicBlock block, Expr precisionCall |
-      block = binbitop.getBasicBlock() and
+        "The operand " + shift.getLeftOperand() + " is " + shift + "ed by a negative expression " +
+          shift.getRightOperand() + "."
+    ) and
+    /*
+     * Shift statement is not at a basic block where
+     * `shift_rhs < PRECISION(...)` is ensured
+     */
+
+    not exists(GuardCondition gc, BasicBlock block, Expr precisionCall, Expr lTLhs |
+      block = shift.getBasicBlock() and
       (
         precisionCall.(FunctionCall).getTarget() instanceof PopCount
         or
         precisionCall = any(PrecisionMacro pm).getAnInvocation().getExpr()
       )
     |
-      /*
-       * Shift statement is at a basic block where
-       * `shift_rhs < PRECISION(...)` is ensured
-       */
-
-      not gc.ensuresLt(binbitop.getRightOperand(), precisionCall, 0, block, true)
+      globalValueNumber(lTLhs) = globalValueNumber(shift.getRightOperand()) and
+      gc.ensuresLt(lTLhs, precisionCall, 0, block, true)
     ) and
-    message = "TODO"
-  )
-}
+    /*
+     * Shift statement is not at a basic block where
+     * `shift_rhs < 0` is ensured
+     */
 
-predicate isForbiddenRShiftExpr(RShiftExpr binbitop, string message) {
-  (
-    (
-      getPrecision(binbitop.getLeftOperand().getUnderlyingType()) <=
-        upperBound(binbitop.getRightOperand()) and
-      message =
-        "The operand " + binbitop.getLeftOperand() + " is right-shifted by an expression " +
-          binbitop.getRightOperand() + " which is greater than or equal to in precision."
-      or
-      lowerBound(binbitop.getRightOperand()) < 0 and
-      message =
-        "The operand " + binbitop.getLeftOperand() + " is right-shifted by a negative expression " +
-          binbitop.getRightOperand() + "."
-    )
-    or
-    /* Check a guard condition protecting the shift statement: heuristic (not an iff query) */
-    exists(GuardCondition gc, BasicBlock block, Expr precisionCall |
-      block = binbitop.getBasicBlock() and
-      (
-        precisionCall.(FunctionCall).getTarget() instanceof PopCount
-        or
-        precisionCall = any(PrecisionMacro pm).getAnInvocation().getExpr()
-      )
+    not exists(GuardCondition gc, BasicBlock block, Expr literalZero, Expr lTLhs |
+      block = shift.getBasicBlock() and
+      literalZero instanceof LiteralZero
     |
-      /*
-       * Shift statement is at a basic block where
-       * `shift_rhs < PRECISION(...)` is ensured
-       */
-
-      not gc.ensuresLt(binbitop.getRightOperand(), precisionCall, 0, block, true)
-    ) and
-    message = "TODO"
+      globalValueNumber(lTLhs) = globalValueNumber(shift.getRightOperand()) and
+      gc.ensuresLt(lTLhs, literalZero, 0, block, true)
+    )
   )
 }
 
 from BinaryBitwiseOperation badShift, string message
 where
   not isExcluded(badShift, TypesPackage::exprShiftedbyNegativeOrGreaterPrecisionOperandQuery()) and
-  isForbiddenLShiftExpr(badShift, message)
-  or
-  isForbiddenRShiftExpr(badShift, message)
+  isForbiddenShiftExpr(badShift, message)
 select badShift, message
