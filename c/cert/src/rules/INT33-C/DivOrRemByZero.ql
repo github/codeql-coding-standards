@@ -12,14 +12,14 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.cpp.Overflow
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
-from BinaryArithmeticOperation divOrMod, Expr divisor
+from DivOrRemOperation divOrMod, Expr divisor
 where
   not isExcluded(divOrMod, IntegerOverflowPackage::divOrRemByZeroQuery()) and
-  divOrMod.getOperator() = ["/", "%"] and
-  divisor = divOrMod.getRightOperand() and
+  divisor = divOrMod.getDivisor() and
   divisor.getType() instanceof IntegralType and
   // Range includes 0
   upperBound(divisor) >= 0 and
