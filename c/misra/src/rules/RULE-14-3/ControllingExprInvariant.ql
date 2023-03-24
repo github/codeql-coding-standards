@@ -31,7 +31,7 @@ where
         )
       )
     ) and
-    message = "Controlling expression in if statement has invariant value."
+    message = "Controlling expression in if statement has an invariant value."
     or
     exists(Loop loop |
       loop.getControllingExpr() = expr and
@@ -47,7 +47,7 @@ where
         not expr instanceof Literal
       )
     ) and
-    message = "Controlling expression in loop statement has invariant value."
+    message = "Controlling expression in loop statement has an invariant value."
     or
     exists(SwitchStmt switch |
       switch.getControllingExpr() = expr and
@@ -56,7 +56,7 @@ where
         conditionAlwaysTrue(expr)
       )
     ) and
-    message = "Controlling expression in switch statement has invariant value."
+    message = "Controlling expression in switch statement has an invariant value."
     or
     exists(ConditionalExpr conditional |
       conditional.getCondition() = expr and
@@ -65,7 +65,7 @@ where
         conditionAlwaysTrue(expr)
       )
     ) and
-    message = "Controlling expression in conditional statement has invariant value."
+    message = "Controlling expression in conditional statement has an invariant value."
   ) and
   // Exclude cases where the controlling expressions is affected by a macro, because they can appear
   // invariant in a particular invocation, but be variant between invocations.
