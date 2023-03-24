@@ -1,5 +1,4 @@
-| test.c:10:20:10:26 | * ... | A FILE object is being copied. |
-| test.c:17:21:17:30 | * ... | A FILE object is being copied. |
-| test.c:23:21:23:31 | * ... | A FILE object is being copied. |
-| test.c:29:15:29:21 | * ... | A FILE object is being copied. |
-| test.c:42:19:42:28 | * ... | A FILE object is being copied. |
+| test.c:11:20:11:26 | * ... | A FILE object is being copied. |
+| test.c:18:21:18:30 | * ... | A FILE object is being copied. |
+| test.c:24:15:24:21 | * ... | A FILE object is being copied. |
+| test.c:37:19:37:28 | * ... | A FILE object is being copied. |

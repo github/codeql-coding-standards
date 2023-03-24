@@ -41,10 +41,11 @@ function Get-RuleForPath {
     $allQueries = @()
     $queriesToCheck = @()
 
-    # load all the queries 
+
     foreach ($s in $AVAILABLE_SUITES) {
         $allQueries += Get-RulesInSuite -Suite $s -Language $Language
     }
+
 
     $modifiedPathWithReplacement = Join-Path (Resolve-Path . -Relative) $Path 
     # replace "src" with "test" to make it match up
@@ -57,20 +58,18 @@ function Get-RuleForPath {
 
     # for each query, create the test directory 
     foreach($q in $allQueries){
-
         # get test directory
         $testDirs = (Get-ATestDirectory -RuleObject $q -Language $Language)
         foreach($testDirectory in $testDirs){
             # resolve path to be compatible 
-            $testPath = Join-Path (Resolve-Path . -Relative) $testDirectory
+            $testPath = (Join-Path (Resolve-Path . -Relative) $testDirectory)
 
-            # see if the TEST directory is a substring of the full path 
-            if($modifiedPath.StartsWith($testPath)){
+            if((Split-Path $modifiedPath -Parent) -eq $testPath){
                 $matchingRules += $q 
                 continue 
             }
 
-            if($modifiedPathWithReplacement.StartsWith($testPath)){
+            if((Split-Path $modifiedPathWithReplacement -Parent) -eq $testPath){
                 $matchingRules += $q 
                 continue 
             }

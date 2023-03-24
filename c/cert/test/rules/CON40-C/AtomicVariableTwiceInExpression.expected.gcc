@@ -1,0 +1,6 @@
+| test.c:7:18:7:39 | ATOMIC_VAR_INIT(VALUE) | Atomic variable possibly referred to twice in an $@. | test.c:33:3:33:10 | ... += ... | expression |
+| test.c:7:18:7:39 | ATOMIC_VAR_INIT(VALUE) | Atomic variable possibly referred to twice in an $@. | test.c:34:3:34:13 | ... = ... | expression |
+| test.c:11:3:11:23 | atomic_store(PTR,VAL) | Atomic variable possibly referred to twice in an $@. | test.c:11:3:11:23 | atomic_store(PTR,VAL) | expression |
+| test.c:12:3:12:35 | atomic_store_explicit(PTR,VAL,MO) | Atomic variable possibly referred to twice in an $@. | test.c:12:3:12:35 | atomic_store_explicit(PTR,VAL,MO) | expression |
+| test.c:25:3:25:49 | atomic_compare_exchange_weak(PTR,VAL,DES) | Atomic variable possibly referred to twice in an $@. | test.c:25:3:25:49 | atomic_compare_exchange_weak(PTR,VAL,DES) | expression |
+| test.c:26:3:27:42 | atomic_compare_exchange_weak_explicit(PTR,VAL,DES,SUC,FAIL) | Atomic variable possibly referred to twice in an $@. | test.c:26:3:27:42 | atomic_compare_exchange_weak_explicit(PTR,VAL,DES,SUC,FAIL) | expression |

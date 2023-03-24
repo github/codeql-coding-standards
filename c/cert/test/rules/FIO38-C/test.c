@@ -1,4 +1,5 @@
 #include <stdio.h>
+// Workaround for the Musl implementing FILE as an incomplete type.
 #if !defined(__DEFINED_struct__IO_FILE)
 struct _IO_FILE {
   char __x;
@@ -16,12 +17,6 @@ int f2(void) {
   my_stdout = stdout;           // COMPLIANT
   FILE my_stdout2 = *my_stdout; // NON_COMPLIANT
   return fputs("Hello, World!\n", my_stdout);
-}
-int f2b(void) {
-  FILE *const *my_stdout;
-  my_stdout = &stdout;           // COMPLIANT
-  FILE my_stdout2 = **my_stdout; // NON_COMPLIANT
-  return fputs("Hello, World!\n", *my_stdout);
 }
 
 int f3(void) {

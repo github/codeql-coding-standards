@@ -1,0 +1,5 @@
+| test.c:5:3:5:9 | sqrt(__x) | Call to banned macro sqrt. |
+| test.c:7:3:7:8 | sin(__x) | Call to banned macro sin. |
+| test.c:10:21:10:28 | sqrt(__x) | Call to banned macro sqrt. |
+| test.c:11:3:11:10 | creal(__x) | Call to banned macro creal. |
+| test.c:12:3:12:10 | cimag(__x) | Call to banned macro cimag. |
