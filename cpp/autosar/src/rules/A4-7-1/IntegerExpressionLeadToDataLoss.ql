@@ -19,7 +19,7 @@ import codingstandards.cpp.Overflow
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
-from InterestingBinaryOverflowingExpr e
+from InterestingOverflowingOperation e
 where
   not isExcluded(e, IntegerConversionPackage::integerExpressionLeadToDataLossQuery()) and
   // Not within a guard condition
@@ -27,5 +27,7 @@ where
   // Not guarded by a check, where the check is not an invalid overflow check
   not e.getAGuardingGVN() = globalValueNumber(e.getAChild*()) and
   // Covered by `IntMultToLong.ql` instead
-  not e instanceof MulExpr
+  not e instanceof MulExpr and
+  // Not covered by this query - overflow/underflow in division is rare
+  not e instanceof DivExpr
 select e, "Binary expression ..." + e.getOperator() + "... may overflow."

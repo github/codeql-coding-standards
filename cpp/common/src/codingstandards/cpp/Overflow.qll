@@ -10,11 +10,10 @@ import semmle.code.cpp.dataflow.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /**
- * A `BinaryArithmeticOperation` which may overflow and is a potentially interesting case to review
- * that is not covered by other queries for this rule.
+ * An operation that may overflow or underflow.
  */
-class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
-  InterestingBinaryOverflowingExpr() {
+class InterestingOverflowingOperation extends Operation {
+  InterestingOverflowingOperation() {
     // Might overflow or underflow
     (
       exprMightOverflowNegatively(this)
@@ -27,9 +26,7 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
     // Not within a macro
     not this.isAffectedByMacro() and
     // Ignore pointer arithmetic
-    not this instanceof PointerArithmeticOperation and
-    // Not covered by this query - overflow/underflow in division is rare
-    not this instanceof DivExpr
+    not this instanceof PointerArithmeticOperation
   }
 
   /**
@@ -48,17 +45,18 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
    * Holds if there is a correct validity check after this expression which may overflow.
    */
   predicate hasValidPreCheck() {
-    exists(GVN i1, GVN i2 |
-      i1 = globalValueNumber(this.getLeftOperand()) and
-      i2 = globalValueNumber(this.getRightOperand())
-      or
-      i2 = globalValueNumber(this.getLeftOperand()) and
-      i1 = globalValueNumber(this.getRightOperand())
+    // For binary operations (both arithmetic operations and arithmetic assignment operations)
+    exists(GVN i1, GVN i2, Expr op1, Expr op2 |
+      op1 = getAnOperand() and
+      op2 = getAnOperand() and
+      not op1 = op2 and
+      i1 = globalValueNumber(op1) and
+      i2 = globalValueNumber(op2)
     |
       // The CERT rule for signed integer overflow has a very specific pattern it recommends
       // for checking for overflow. We try to match the pattern here.
       //   ((i2 > 0 && i1 > (INT_MAX - i2)) || (i2 < 0 && i1 < (INT_MIN - i2)))
-      this instanceof AddExpr and
+      (this instanceof AddExpr or this instanceof AssignAddExpr) and
       exists(LogicalOrExpr orExpr |
         // GuardCondition doesn't work in this case, so just confirm that this check dominates the overflow
         bbDominates(orExpr.getBasicBlock(), this.getBasicBlock()) and
@@ -101,7 +99,7 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
       // The CERT rule for signed integer overflow has a very specific pattern it recommends
       // for checking for underflow. We try to match the pattern here.
       //   ((i2 > 0 && i1 > (INT_MIN + i2)) || (i2 < 0 && i1 < (INT_MAX + i2)))
-      this instanceof SubExpr and
+      (this instanceof SubExpr or this instanceof AssignSubExpr) and
       exists(LogicalOrExpr orExpr |
         // GuardCondition doesn't work in this case, so just confirm that this check dominates the overflow
         bbDominates(orExpr.getBasicBlock(), this.getBasicBlock()) and
@@ -144,7 +142,7 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
       // The CERT rule for signed integer overflow has a very specific pattern it recommends
       // for checking for multiplication underflow/overflow. We just use a heuristic here,
       // which determines if at least 4 checks of the sort `a < INT_MAX / b` are present in the code.
-      this instanceof MulExpr and
+      (this instanceof MulExpr or this instanceof AssignMulExpr) and
       count(StrictRelationalOperation rel |
         globalValueNumber(rel.getAnOperand()) = i1 and
         globalValueNumber(rel.getAnOperand().(DivExpr).getRightOperand()) = i2
@@ -166,14 +164,14 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
       exists(RelationalOperation ro |
         DataFlow::localExprFlow(this, ro.getLesserOperand()) and
         globalValueNumber(ro.getGreaterOperand()) = globalValueNumber(this.getAnOperand()) and
-        this instanceof AddExpr and
+        (this instanceof AddExpr or this instanceof AssignAddExpr) and
         ro instanceof GuardCondition
       )
       or
       exists(RelationalOperation ro |
         DataFlow::localExprFlow(this, ro.getGreaterOperand()) and
         globalValueNumber(ro.getLesserOperand()) = globalValueNumber(this.getAnOperand()) and
-        this instanceof SubExpr and
+        (this instanceof SubExpr or this instanceof AssignSubExpr) and
         ro instanceof GuardCondition
       )
     )
@@ -183,23 +181,23 @@ class InterestingBinaryOverflowingExpr extends BinaryArithmeticOperation {
    * Identifies a bad overflow check for this overflow expression.
    */
   GuardCondition getABadOverflowCheck() {
-    exists(AddExpr ae, RelationalOperation relOp |
-      this = ae and
+    exists(RelationalOperation relOp |
+      (this instanceof AddExpr or this instanceof AssignAddExpr) and
       result = relOp and
       // Looking for this pattern:
       // if (x + y > x)
       //  use(x + y)
       //
-      globalValueNumber(relOp.getAnOperand()) = globalValueNumber(ae) and
-      globalValueNumber(relOp.getAnOperand()) = globalValueNumber(ae.getAnOperand())
+      globalValueNumber(relOp.getAnOperand()) = globalValueNumber(this) and
+      globalValueNumber(relOp.getAnOperand()) = globalValueNumber(this.getAnOperand())
     |
       // Signed overflow checks are insufficient
-      ae.getUnspecifiedType().(IntegralType).isSigned()
+      this.getUnspecifiedType().(IntegralType).isSigned()
       or
       // Unsigned overflow checks can still be bad, if the result is promoted.
-      forall(Expr op | op = ae.getAnOperand() | op.getType().getSize() < any(IntType i).getSize()) and
+      forall(Expr op | op = this.getAnOperand() | op.getType().getSize() < any(IntType i).getSize()) and
       // Not explicitly converted to a smaller type before the comparison
-      not ae.getExplicitlyConverted().getType().getSize() < any(IntType i).getSize()
+      not this.getExplicitlyConverted().getType().getSize() < any(IntType i).getSize()
     )
   }
 }

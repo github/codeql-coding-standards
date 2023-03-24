@@ -18,15 +18,14 @@ import codingstandards.cpp.Overflow
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
-/* TODO: review the table to restrict to only those operations that actually overflow */
-from InterestingBinaryOverflowingExpr bop
+from InterestingOverflowingOperation op
 where
-  not isExcluded(bop, IntegerOverflowPackage::signedIntegerOverflowQuery()) and
-  bop.getType().getUnderlyingType().(IntegralType).isSigned() and
+  not isExcluded(op, IntegerOverflowPackage::signedIntegerOverflowQuery()) and
+  op.getType().getUnderlyingType().(IntegralType).isSigned() and
   // Not checked before the operation
-  not bop.hasValidPreCheck() and
+  not op.hasValidPreCheck() and
   // Not guarded by a check, where the check is not an invalid overflow check
-  not bop.getAGuardingGVN() = globalValueNumber(bop.getAChild*())
-select bop,
-  "Binary expression ..." + bop.getOperator() + "... of type " + bop.getType().getUnderlyingType() +
+  not op.getAGuardingGVN() = globalValueNumber(op.getAChild*())
+select op,
+  "Operation " + op.getOperator() + " of type " + op.getType().getUnderlyingType() +
     " may overflow or underflow."

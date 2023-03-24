@@ -3,7 +3,8 @@
 #include <stdint.h>
 
 void test_add_simple(signed int i1, signed int i2) {
-  i1 + i2; // NON_COMPLIANT - not bounds checked
+  i1 + i2;  // NON_COMPLIANT - not bounds checked
+  i1 += i2; // NON_COMPLIANT - not bounds checked
 }
 
 void test_add_precheck(signed int i1, signed int i2) {
@@ -12,7 +13,8 @@ void test_add_precheck(signed int i1, signed int i2) {
       ((i2 < 0) && (i1 < (INT_MIN - i2)))) {
     // handle error
   } else {
-    i1 + i2; // COMPLIANT - bounds appropriately checked
+    i1 + i2;  // COMPLIANT - bounds appropriately checked
+    i1 += i2; // COMPLIANT - bounds appropriately checked
   }
 }
 
@@ -20,7 +22,8 @@ void test_add_precheck_2(signed int i1, signed int i2) {
   if (i1 + i2 < i1) { // NON_COMPLIANT - bad overflow check - undefined behavior
     // handle error
   } else {
-    i1 + i2; // NON_COMPLIANT
+    i1 + i2;  // NON_COMPLIANT
+    i1 += i2; // NON_COMPLIANT
   }
 }
 
@@ -30,10 +33,15 @@ void test_add_postcheck(signed int i1, signed int i2) {
   if (i3 < i1) {
     // handle error
   }
+  i1 += i2; // NON_COMPLIANT
+  if (i1 < i2) {
+    // handle error
+  }
 }
 
 void test_sub_simple(signed int i1, signed int i2) {
-  i1 - i2; // NON_COMPLIANT - not bounds checked
+  i1 - i2;  // NON_COMPLIANT - not bounds checked
+  i1 -= i2; // NON_COMPLIANT - not bounds checked
 }
 
 void test_sub_precheck(signed int i1, signed int i2) {
@@ -41,7 +49,8 @@ void test_sub_precheck(signed int i1, signed int i2) {
   if ((i2 > 0 && i1 < INT_MIN + i2) || (i2 < 0 && i1 > INT_MAX + i2)) {
     // handle error
   } else {
-    i1 - i2; // COMPLIANT - bounds checked
+    i1 - i2;  // COMPLIANT - bounds checked
+    i1 -= i2; // COMPLIANT - bounds checked
   }
 }
 
@@ -50,10 +59,15 @@ void test_sub_postcheck(signed int i1, signed int i2) {
   if (i3 > i1) {
     // handle error
   }
+  i1 -= i2; // NON_COMPLIANT - underflow is undefined behavior.
+  if (i1 > i2) {
+    // handle error
+  }
 }
 
 void test_mul_simple(signed int i1, signed int i2) {
-  i1 *i2; // NON_COMPLIANT
+  i1 *i2;   // NON_COMPLIANT
+  i1 *= i2; // NON_COMPLIANT
 }
 
 void test_mul_precheck(signed int i1, signed int i2) {
@@ -66,6 +80,7 @@ void test_mul_precheck(signed int i1, signed int i2) {
   } else {
     i1 *i2; // COMPLIANT - checked
     result = (signed int)tmp;
+    i1 *= i2; // COMPLIANT - checked
   }
 }
 
@@ -94,14 +109,16 @@ void test_mul_precheck_2(signed int i1, signed int i2) {
       }
     }
   }
-  i1 *i2; // COMPLIANT
+  i1 *i2;   // COMPLIANT
+  i1 *= i2; // COMPLIANT
 }
 
 void test_simple_div(signed int i1, signed int i2) {
   if (i2 == 0) {
     // handle error
   } else {
-    i1 / i2; // NON_COMPLIANT
+    i1 / i2;  // NON_COMPLIANT
+    i1 /= i2; // NON_COMPLIANT
   }
 }
 
@@ -109,7 +126,8 @@ void test_div_precheck(signed int i1, signed int i2) {
   if ((i2 == 0) || ((i1 == LONG_MIN) && (i2 == -1))) {
     /* Handle error */
   } else {
-    i1 / i2; // COMPLIANT
+    i1 / i2;  // COMPLIANT
+    i1 /= i2; // COMPLIANT
   }
 }
 
@@ -117,7 +135,8 @@ void test_simple_rem(signed int i1, signed int i2) {
   if (i2 == 0) {
     // handle error
   } else {
-    i1 % i2; // NON_COMPLIANT
+    i1 % i2;  // NON_COMPLIANT
+    i1 %= i2; // NON_COMPLIANT
   }
 }
 
@@ -125,12 +144,14 @@ void test_rem_precheck(signed int i1, signed int i2) {
   if ((i2 == 0) || ((i1 == LONG_MIN) && (i2 == -1))) {
     /* Handle error */
   } else {
-    i1 % i2; // COMPLIANT
+    i1 % i2;  // COMPLIANT
+    i1 %= i2; // COMPLIANT
   }
 }
 
 void test_simple_left_shift(signed int i1, signed int i2) {
-  i1 << i2; // NON_COMPLIANT
+  i1 << i2;  // NON_COMPLIANT
+  i1 <<= i2; // NON_COMPLIANT
 }
 
 /* Returns the number of set bits */
@@ -143,7 +164,8 @@ void test_left_shift_precheck(signed int i1, signed int i2) {
       (i1 > (INT_MAX >> i2))) {
     // handle error
   } else {
-    i1 << i2; // COMPLIANT
+    i1 << i2;  // COMPLIANT
+    i1 <<= i2; // COMPLIANT
   }
 }
 

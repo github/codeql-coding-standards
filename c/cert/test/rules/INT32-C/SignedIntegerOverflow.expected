@@ -1,7 +1,16 @@
-| test.c:6:3:6:9 | ... + ... | Binary expression ...+... of type int may overflow or underflow. |
-| test.c:20:7:20:13 | ... + ... | Binary expression ...+... of type int may overflow or underflow. |
-| test.c:23:5:23:11 | ... + ... | Binary expression ...+... of type int may overflow or underflow. |
-| test.c:28:19:28:25 | ... + ... | Binary expression ...+... of type int may overflow or underflow. |
-| test.c:36:3:36:9 | ... - ... | Binary expression ...-... of type int may overflow or underflow. |
-| test.c:49:19:49:25 | ... - ... | Binary expression ...-... of type int may overflow or underflow. |
-| test.c:56:3:56:8 | ... * ... | Binary expression ...*... of type int may overflow or underflow. |
+| test.c:6:3:6:9 | ... + ... | Operation + of type int may overflow or underflow. |
+| test.c:7:3:7:10 | ... += ... | Operation += of type signed int may overflow or underflow. |
+| test.c:22:7:22:13 | ... + ... | Operation + of type int may overflow or underflow. |
+| test.c:25:5:25:11 | ... + ... | Operation + of type int may overflow or underflow. |
+| test.c:26:5:26:12 | ... += ... | Operation += of type signed int may overflow or underflow. |
+| test.c:31:19:31:25 | ... + ... | Operation + of type int may overflow or underflow. |
+| test.c:36:3:36:10 | ... += ... | Operation += of type signed int may overflow or underflow. |
+| test.c:43:3:43:9 | ... - ... | Operation - of type int may overflow or underflow. |
+| test.c:44:3:44:10 | ... -= ... | Operation -= of type signed int may overflow or underflow. |
+| test.c:58:19:58:25 | ... - ... | Operation - of type int may overflow or underflow. |
+| test.c:62:3:62:10 | ... -= ... | Operation -= of type signed int may overflow or underflow. |
+| test.c:69:3:69:8 | ... * ... | Operation * of type int may overflow or underflow. |
+| test.c:70:3:70:10 | ... *= ... | Operation *= of type signed int may overflow or underflow. |
+| test.c:153:3:153:10 | ... << ... | Operation << of type signed int may overflow or underflow. |
+| test.c:154:3:154:11 | ... <<= ... | Operation <<= of type signed int may overflow or underflow. |
+| test.c:173:3:173:5 | - ... | Operation - of type signed int may overflow or underflow. |

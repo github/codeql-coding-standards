@@ -19,17 +19,19 @@ import codingstandards.cpp.Overflow
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
-/* TODO: review the table to restrict to only those operations that actually overflow */
-from InterestingBinaryOverflowingExpr bop
+from InterestingOverflowingOperation op
 where
-  not isExcluded(bop, IntegerOverflowPackage::unsignedIntegerOperationsWrapAroundQuery()) and
-  bop.getType().getUnderlyingType().(IntegralType).isUnsigned() and
+  not isExcluded(op, IntegerOverflowPackage::unsignedIntegerOperationsWrapAroundQuery()) and
+  op.getType().getUnderlyingType().(IntegralType).isUnsigned() and
   // Not within a guard condition
-  not exists(GuardCondition gc | gc.getAChild*() = bop) and
+  not exists(GuardCondition gc | gc.getAChild*() = op) and
   // Not guarded by a check, where the check is not an invalid overflow check
-  not bop.getAGuardingGVN() = globalValueNumber(bop.getAChild*()) and
+  not op.getAGuardingGVN() = globalValueNumber(op.getAChild*()) and
   // Is not checked after the operation
-  not bop.hasValidPostCheck()
-select bop,
-  "Binary expression ..." + bop.getOperator() + "... of type " + bop.getType().getUnderlyingType() +
-    " may wrap."
+  not op.hasValidPostCheck() and
+  // Permitted by exception 3
+  not op instanceof LShiftExpr and
+  // Permitted by exception 2 - zero case is handled in separate query
+  not op instanceof DivExpr
+select op,
+  "Operation " + op.getOperator() + " of type " + op.getType().getUnderlyingType() + " may wrap."
