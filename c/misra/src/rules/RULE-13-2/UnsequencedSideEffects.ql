@@ -27,7 +27,6 @@ class ConstituentExprOrdering extends Ordering::Configuration {
 
   override predicate isCandidate(Expr e1, Expr e2) {
     // Two different expressions part of the same full expression.
-    // Compute differerence using successor relation to break the symmetry of the candidate relation.
     isCandidatePair(_, e1, e2)
   }
 }
