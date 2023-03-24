@@ -1,0 +1,40 @@
+| test.c:4:20:4:20 | 1 | signed char | signed char | essentially Signed type |
+| test.c:4:20:4:20 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:5:23:5:23 | 1 | signed char | signed char | essentially Signed type |
+| test.c:5:23:5:23 | (unsigned short)... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:6:17:6:18 | 1 | signed char | signed char | essentially Signed type |
+| test.c:7:21:7:21 | 1 | signed char | signed char | essentially Signed type |
+| test.c:7:21:7:21 | (signed short)... | signed short | signed short | essentially Signed type |
+| test.c:8:13:8:16 | 1 | bool | bool | essentially Boolean type |
+| test.c:8:13:8:16 | (bool)... | bool | bool | essentially Boolean type |
+| test.c:10:3:10:3 | b | bool | bool | essentially Boolean type |
+| test.c:10:3:10:11 | ... ? ... : ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:10:7:10:7 | u | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:10:11:10:11 | u | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:11:3:11:3 | b | bool | bool | essentially Boolean type |
+| test.c:11:3:11:11 | ... ? ... : ... | signed int | signed int | essentially Signed type |
+| test.c:11:7:11:7 | s | signed int | signed int | essentially Signed type |
+| test.c:11:11:11:11 | s | signed int | signed int | essentially Signed type |
+| test.c:12:3:12:3 | b | bool | bool | essentially Boolean type |
+| test.c:12:3:12:12 | ... ? ... : ... | signed int | signed int | essentially Signed type |
+| test.c:12:7:12:7 | s | signed int | signed int | essentially Signed type |
+| test.c:12:11:12:12 | (int)... | int | int | essentially Signed type |
+| test.c:12:11:12:12 | ss | signed short | signed short | essentially Signed type |
+| test.c:13:3:13:3 | b | bool | bool | essentially Boolean type |
+| test.c:13:3:13:12 | ... ? ... : ... | signed int | signed int | essentially Signed type |
+| test.c:13:7:13:8 | (int)... | int | int | essentially Signed type |
+| test.c:13:7:13:8 | ss | signed short | signed short | essentially Signed type |
+| test.c:13:12:13:12 | s | signed int | signed int | essentially Signed type |
+| test.c:14:3:14:3 | b | bool | bool | essentially Boolean type |
+| test.c:14:3:14:12 | ... ? ... : ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:14:7:14:8 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:14:7:14:8 | us | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:14:12:14:12 | u | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:16:3:16:3 | b | bool | bool | essentially Boolean type |
+| test.c:16:3:16:11 | ... ? ... : ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:16:7:16:7 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:16:7:16:7 | s | signed int | signed int | essentially Signed type |
+| test.c:16:11:16:11 | u | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:26:3:26:3 | f | float | float | essentially Floating type |
+| test.c:27:3:27:5 | f32 | float32_t | float32_t | essentially Floating type |
+| test.c:28:3:28:6 | cf32 | float | float | essentially Floating type |

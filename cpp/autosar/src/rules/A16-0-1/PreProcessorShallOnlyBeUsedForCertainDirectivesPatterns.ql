@@ -80,11 +80,11 @@ class AcceptableWrapper extends PreprocessorBranch {
 
 from PreprocessorDirective directive, string message
 where
-  (
-    not directive instanceof PermittedDirectiveType and
-    not directive instanceof AcceptableWrapper and
-    message = "Preprocessor directive used for conditional compilation."
-  ) and
+  //special exception case - pragmas already reported by A16-7-1
+  not directive instanceof PreprocessorPragma and
+  not directive instanceof PermittedDirectiveType and
+  not directive instanceof AcceptableWrapper and
+  message = "Preprocessor directive used for conditional compilation." and
   not isExcluded(directive,
     MacrosPackage::preProcessorShallOnlyBeUsedForCertainDirectivesPatternsQuery())
 select directive, message

@@ -1,6 +1,7 @@
 name: Validating Coding Standards
 
 on:
+  merge_group:
   push:
     branches:
       - main

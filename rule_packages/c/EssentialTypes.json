@@ -1,0 +1,234 @@
+{
+  "MISRA-C-2012": {
+    "RULE-10-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using an inappropriate essential type operand may lead to confusing or unexpected behavior when the operand is converted.",
+          "kind": "problem",
+          "name": "Operands shall not be of an inappropriate essential type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "OperandsOfAnInappropriateEssentialType",
+          "tags": [
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Using pointer types with logical operators should be avoid because it can cause confusing behavior.",
+          "kind": "problem",
+          "name": "Logical operators should not be used with pointer types",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "PointerTypeOnLogicalOperator",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Operands shall not be of an inappropriate essential type"
+    },
+    "RULE-10-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations.",
+          "kind": "problem",
+          "name": "Inappropriate use of essentially character type operands in addition and subtraction operations",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AdditionSubtractionOnEssentiallyCharType",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations"
+    },
+    "RULE-10-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value of an expression shall not be assigned to an object with a narrower essential type or of a different essential type category.",
+          "kind": "problem",
+          "name": "Do not assign to an object with a different essential type category or narrower essential type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "AssignmentOfIncompatibleEssentialType",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value of an expression shall not be assigned to an object with a narrower essential type or of a different essential type category"
+    },
+    "RULE-10-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the same essential type category.",
+          "kind": "problem",
+          "name": "Operator with usual arithmetic conversions shall have operands with the same essential type category",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "OperandsWithMismatchedEssentialTypeCategory",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Both operands of an operator in which the usual arithmetic conversions are performed shall have the same essential type category"
+    },
+    "RULE-10-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Casting the value of an expression to an inappropriate essential type may lead to confusing or unexpected behavior in the way the value is converted.",
+          "kind": "problem",
+          "name": "The value of an expression should not be cast to an inappropriate essential type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "InappropriateEssentialTypeCast",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value of an expression should not be cast to an inappropriate essential type"
+    },
+    "RULE-10-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Assigning a composite expression to an object with wider essential type can cause some unexpected conversions.",
+          "kind": "problem",
+          "name": "The value of a composite expression shall not be assigned to an object with wider essential type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "AssignmentToWiderEssentialType",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value of a composite expression shall not be assigned to an object with wider essential type"
+    },
+    "RULE-10-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a composite expression is used as one operand of an operator in which the usual arithmetic conversions are performed then the other operand shall not have wider essential type.",
+          "kind": "problem",
+          "name": "Implicit conversion of composite expression operand to wider essential type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ImplicitConversionOfCompositeExpression",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "If a composite expression is used as one operand of an operator in which the usual arithmetic conversions are performed then the other operand shall not have wider essential type"
+    },
+    "RULE-10-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type.",
+          "kind": "problem",
+          "name": "Composite expression explicitly casted to wider or different essential type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "InappropriateCastOfCompositeExpression",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type"
+    },
+    "RULE-14-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A floating point loop counter can cause confusing behavior when incremented.",
+          "kind": "problem",
+          "name": "A loop counter shall not have essentially floating type",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LoopOverEssentiallyFloatType",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A loop counter shall not have essentially floating type"
+    },
+    "RULE-21-14": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using memcmp to compare null terminated strings may give unexpected results because memcmp compares by size with no consideration for the null terminator.",
+          "kind": "path-problem",
+          "name": "The Standard Library function memcmp shall not be used to compare null terminated strings",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemcmpUsedToCompareNullTerminatedStrings",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The Standard Library function memcmp shall not be used to compare null terminated strings"
+    },
+    "RULE-21-16": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type.",
+          "kind": "problem",
+          "name": "Do not use memcmp on pointers to characters or composite types such as structs and unions",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemcmpOnInappropriateEssentialTypeArgs",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The pointer arguments to the Standard Library function memcmp shall point to either a pointer type, an essentially signed type, an essentially unsigned type, an essentially Boolean type or an essentially enum type"
+    }
+  }
+}

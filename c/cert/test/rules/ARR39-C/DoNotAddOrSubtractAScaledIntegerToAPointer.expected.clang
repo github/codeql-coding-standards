@@ -1,0 +1,23 @@
+edges
+| test.c:7:13:7:14 | p1 | test.c:9:9:9:10 | p1 |
+| test.c:16:19:16:41 | __builtin_offsetof | test.c:18:26:18:31 | offset |
+| test.c:16:19:16:41 | __builtin_offsetof | test.c:29:6:29:11 | offset |
+| test.c:17:17:17:26 | sizeof(<expr>) | test.c:23:9:23:12 | size |
+| test.c:29:6:29:11 | offset | test.c:7:13:7:14 | p1 |
+nodes
+| test.c:7:13:7:14 | p1 | semmle.label | p1 |
+| test.c:9:9:9:10 | p1 | semmle.label | p1 |
+| test.c:16:19:16:41 | __builtin_offsetof | semmle.label | __builtin_offsetof |
+| test.c:17:17:17:26 | sizeof(<expr>) | semmle.label | sizeof(<expr>) |
+| test.c:18:26:18:31 | offset | semmle.label | offset |
+| test.c:23:9:23:12 | size | semmle.label | size |
+| test.c:25:9:25:18 | sizeof(<expr>) | semmle.label | sizeof(<expr>) |
+| test.c:27:17:27:26 | sizeof(<expr>) | semmle.label | sizeof(<expr>) |
+| test.c:29:6:29:11 | offset | semmle.label | offset |
+subpaths
+#select
+| test.c:9:9:9:10 | p1 | test.c:16:19:16:41 | __builtin_offsetof | test.c:9:9:9:10 | p1 | Scaled integer used in pointer arithmetic. |
+| test.c:18:26:18:31 | offset | test.c:16:19:16:41 | __builtin_offsetof | test.c:18:26:18:31 | offset | Scaled integer used in pointer arithmetic. |
+| test.c:23:9:23:12 | size | test.c:17:17:17:26 | sizeof(<expr>) | test.c:23:9:23:12 | size | Scaled integer used in pointer arithmetic. |
+| test.c:25:9:25:18 | sizeof(<expr>) | test.c:25:9:25:18 | sizeof(<expr>) | test.c:25:9:25:18 | sizeof(<expr>) | Scaled integer used in pointer arithmetic. |
+| test.c:27:17:27:26 | sizeof(<expr>) | test.c:27:17:27:26 | sizeof(<expr>) | test.c:27:17:27:26 | sizeof(<expr>) | Scaled integer used in pointer arithmetic. |
