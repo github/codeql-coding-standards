@@ -13,7 +13,6 @@ module Ordering {
     /**
      * Holds if `e1` is sequenced before `e2` as defined by Annex C in ISO/IEC 9899:2011
      * This limits to expression and we do not consider the sequence points that are not amenable to modelling:
-     * - after a full declarator as described in 6.7.6 point 3.
      * - before a library function returns (see 7.1.4 point 3).
      * - after the actions associated with each formatted I/O function conversion specifier (see 7.21.6 point 1 & 7.29.2 point 1).
      * - between the expr before and after a call to a comparison function,
@@ -68,6 +67,24 @@ module Ordering {
         // The side effect of updating the stored value of the left operand is sequenced after the value computations of the left and right operands.
         // See 6.5.16
         e2.(Assignment).getAnOperand().getAChild*() = e1
+        or
+        // There is a sequence point after a full declarator as described in 6.7.6 point 3.
+        exists(DeclStmt declStmt, int i, int j | i < j |
+          declStmt
+              .getDeclarationEntry(i)
+              .(VariableDeclarationEntry)
+              .getVariable()
+              .getInitializer()
+              .getExpr()
+              .getAChild*() = e1 and
+          declStmt
+              .getDeclarationEntry(j)
+              .(VariableDeclarationEntry)
+              .getVariable()
+              .getInitializer()
+              .getExpr()
+              .getAChild*() = e2
+        )
       )
     }
 
