@@ -5,7 +5,7 @@
  *              modular way. If the size of the type is not sufficient, this can happen
  *              unexpectedly.
  * @kind problem
- * @precision high
+ * @precision mdeium
  * @problem.severity error
  * @tags external/cert/id/int30-c
  *       correctness
