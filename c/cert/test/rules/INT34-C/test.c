@@ -2,7 +2,7 @@
 #include <limits.h>
 #include <stddef.h>
 
-extern size_t popcount(uintmax_t){};
+extern size_t popcount(uintmax_t x){};
 #define PRECISION(x) popcount(x)
 
 int main() {
