@@ -24,14 +24,11 @@ int getAccessByteOffset(FieldAccess fa) {
   result = fa.getTarget().getByteOffset() + getAccessByteOffset(fa.getQualifier())
 }
 
-/**
- * Models calls to memcpy on overlapping objects
- */
-class MemcpyCall extends Locatable {
+class OverlappingCopy extends Locatable {
   Expr src;
   Expr dst;
 
-  MemcpyCall() {
+  OverlappingCopy() {
     this.(MacroInvocation).getMacroName() = "memcpy" and
     src = this.(MacroInvocation).getExpr().getChild(1) and
     dst = this.(MacroInvocation).getExpr().getChild(0)
@@ -65,14 +62,13 @@ class MemcpyCall extends Locatable {
     e instanceof VariableAccess and result = 0
   }
 
-  // maximum amount of element copied
   int getCount() {
     result =
       upperBound([this.(MacroInvocation).getExpr().getChild(2), this.(FunctionCall).getArgument(2)])
   }
 
   // source and destination overlap
-  predicate overlap() {
+  predicate overlaps() {
     globalValueNumber(this.getBase(src)) = globalValueNumber(this.getBase(dst)) and
     exists(int dstStart, int dstEnd, int srcStart, int srcEnd |
       dstStart = this.getOffset(dst) and
@@ -96,9 +92,9 @@ class MemcpyCall extends Locatable {
   }
 }
 
-from MemcpyCall memcpy
+from OverlappingCopy copy
 where
-  not isExcluded(memcpy, Contracts7Package::objectCopiedToAnOverlappingObjectQuery()) and
-  memcpy.overlap()
-select memcpy, "The object to copy $@ overlaps the object to copy $@.", memcpy.getSrc(), "from",
-  memcpy.getDst(), "to"
+  not isExcluded(copy, Contracts7Package::objectCopiedToAnOverlappingObjectQuery()) and
+  copy.overlaps()
+select copy, "The object to copy $@ overlaps the object to copy $@.", copy.getSrc(), "from",
+  copy.getDst(), "to"

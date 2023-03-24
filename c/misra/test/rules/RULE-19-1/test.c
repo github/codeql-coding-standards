@@ -2,6 +2,9 @@
 
 int o[10];
 void g(void) {
+
+  o[2] = o[0]; // COMPLIANT
+
   memcpy(&o[1], &o[0], 2); // NON_COMPLIANT
   memcpy(&o[2], &o[0], 2); // COMPLIANT
   memcpy(&o[2], &o[1], 2); // NON_COMPLIANT
@@ -49,6 +52,8 @@ union {
 } u2;
 
 void test_unions() {
+  u1.m2.m2 = u1.m1; // NON_COMPLIANT
+
   memcpy(&u1.m2.m2, &u1.m1, sizeof(u1.m1)); // NON_COMPLIANT
   memcpy(&u2.diff.suffix, &u2.fnv.suffix, sizeof(u2.fnv.suffix)); // COMPLIANT
 }

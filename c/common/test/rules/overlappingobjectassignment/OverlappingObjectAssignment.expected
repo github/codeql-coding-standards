@@ -1,1 +1,0 @@
-| test.c:9:3:9:11 | ... = ... | An object $@ assigned to overlapping object $@. | test.c:9:5:9:5 | l | l | test.c:9:11:9:11 | i | i |
