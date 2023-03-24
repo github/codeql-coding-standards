@@ -37,7 +37,7 @@ module Ordering {
           call.getTarget() = e2.getEnclosingFunction()
         )
         or
-        // 6.5.13 point 4 & 6.5.14 point 4 - The operators guarantee left-to-righ evaluation and there is
+        // 6.5.13 point 4 & 6.5.14 point 4 - The operators guarantee left-to-right evaluation and there is
         // a sequence point between the first and second operand if the latter is evaluated.
         exists(BinaryLogicalOperation blop |
           blop instanceof LogicalAndExpr or blop instanceof LogicalOrExpr
@@ -45,7 +45,7 @@ module Ordering {
           blop.getLeftOperand().getAChild*() = e1 and blop.getRightOperand().getAChild*() = e2
         )
         or
-        // 6.5.17 point 2 - There is a sequence pointt between the left operand and the right operand.
+        // 6.5.17 point 2 - There is a sequence point between the left operand and the right operand.
         exists(CommaExpr ce, Expr lhs, Expr rhs |
           lhs = ce.getLeftOperand() and
           rhs = ce.getRightOperand()
