@@ -25,9 +25,10 @@ where
   // Not within a guard condition
   not exists(GuardCondition gc | gc.getAChild*() = e) and
   // Not guarded by a check, where the check is not an invalid overflow check
-  not e.getAGuardingGVN() = globalValueNumber(e.getAChild*()) and
+  not e.hasValidPreCheck() and
   // Covered by `IntMultToLong.ql` instead
   not e instanceof MulExpr and
   // Not covered by this query - overflow/underflow in division is rare
-  not e instanceof DivExpr
+  not e instanceof DivExpr and
+  not e instanceof RemExpr
 select e, "Binary expression ..." + e.getOperator() + "... may overflow."

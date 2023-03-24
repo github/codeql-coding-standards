@@ -21,20 +21,13 @@ class InterestingOverflowingOperation extends Operation {
       exprMightOverflowPositively(this)
       or
       // Division and remainder are not handled by the library
-      exists(Expr leftOperand, Expr rightOperand |
-        (this instanceof DivExpr or this instanceof RemExpr) and
-        leftOperand = this.(BinaryOperation).getLeftOperand() and
-        rightOperand = this.(BinaryOperation).getRightOperand()
-        or
-        (this instanceof AssignDivExpr or this instanceof AssignRemExpr) and
-        leftOperand = this.(AssignArithmeticOperation).getLValue() and
-        rightOperand = this.(AssignArithmeticOperation).getRValue()
-      |
+      exists(DivOrRemOperation divOrRem | divOrRem = this |
         // The right hand side could be -1
-        upperBound(rightOperand) >= -1.0 and
-        lowerBound(rightOperand) <= -1.0 and
+        upperBound(divOrRem.getDivisor()) >= -1.0 and
+        lowerBound(divOrRem.getDivisor()) <= -1.0 and
         // The left hand side could be the smallest possible integer value
-        lowerBound(leftOperand) <= typeLowerBound(leftOperand.getType().getUnderlyingType())
+        lowerBound(divOrRem.getDividend()) <=
+          typeLowerBound(divOrRem.getDividend().getType().getUnderlyingType())
       )
     ) and
     // Multiplication is not covered by the standard range analysis library, so implement our own
@@ -44,18 +37,6 @@ class InterestingOverflowingOperation extends Operation {
     not this.isAffectedByMacro() and
     // Ignore pointer arithmetic
     not this instanceof PointerArithmeticOperation
-  }
-
-  /**
-   * Get a `GVN` which guards this expression which may overflow.
-   */
-  GVN getAGuardingGVN() {
-    exists(GuardCondition gc, Expr e |
-      not gc = getABadOverflowCheck() and
-      TaintTracking::localTaint(DataFlow::exprNode(e), DataFlow::exprNode(gc.getAChild*())) and
-      gc.controls(this.getBasicBlock(), _) and
-      result = globalValueNumber(e)
-    )
   }
 
   /**
@@ -70,6 +51,27 @@ class InterestingOverflowingOperation extends Operation {
       i1 = globalValueNumber(op1) and
       i2 = globalValueNumber(op2)
     |
+      // For unsigned integer addition, look for this pattern:
+      // if (x + y > x)
+      //  use(x + y)
+      // Ensuring it is not a bad overflow check
+      (this instanceof AddExpr or this instanceof AssignAddExpr) and
+      this.getType().getUnspecifiedType().(IntegralType).isUnsigned() and
+      exists(AddExpr ae, RelationalOperation relOp |
+        globalValueNumber(relOp.getAnOperand()) = i1 and
+        relOp.getAnOperand() = ae and
+        globalValueNumber(ae.getAnOperand()) = i1 and
+        globalValueNumber(ae.getAnOperand()) = i2
+      |
+        // At least one operand is not smaller than int
+        exists(Expr op | op = ae.getAnOperand() |
+          op.getType().getSize() >= any(IntType i).getSize()
+        )
+        or
+        // The result of the addition is explicitly converted to a smaller type before the comparison
+        ae.getExplicitlyConverted().getType().getSize() < any(IntType i).getSize()
+      )
+      or
       // The CERT rule for signed integer overflow has a very specific pattern it recommends
       // for checking for overflow. We try to match the pattern here.
       //   ((i2 > 0 && i1 > (INT_MAX - i2)) || (i2 < 0 && i1 < (INT_MIN - i2)))
@@ -156,6 +158,20 @@ class InterestingOverflowingOperation extends Operation {
         )
       )
       or
+      // CERT recommends checking for divisor != -1 and dividor != INT_MIN
+      this instanceof DivOrRemOperation and
+      exists(EqualityOperation eop |
+        // GuardCondition doesn't work in this case, so just confirm that this check dominates the overflow
+        globalValueNumber(eop.getAnOperand()) = i1 and
+        eop.getAnOperand().getValue().toFloat() =
+          typeLowerBound(this.(DivOrRemOperation).getDividend().getType().getUnderlyingType())
+      ) and
+      exists(EqualityOperation eop |
+        // GuardCondition doesn't work in this case, so just confirm that this check dominates the overflow
+        globalValueNumber(eop.getAnOperand()) = i2 and
+        eop.getAnOperand().getValue().toInt() = -1
+      )
+      or
       // The CERT rule for signed integer overflow has a very specific pattern it recommends
       // for checking for multiplication underflow/overflow. We just use a heuristic here,
       // which determines if at least 4 checks of the sort `a < INT_MAX / b` are present in the code.
@@ -193,34 +209,29 @@ class InterestingOverflowingOperation extends Operation {
       )
     )
   }
-
-  /**
-   * Identifies a bad overflow check for this overflow expression.
-   */
-  GuardCondition getABadOverflowCheck() {
-    exists(RelationalOperation relOp |
-      (this instanceof AddExpr or this instanceof AssignAddExpr) and
-      result = relOp and
-      // Looking for this pattern:
-      // if (x + y > x)
-      //  use(x + y)
-      //
-      globalValueNumber(relOp.getAnOperand()) = globalValueNumber(this) and
-      globalValueNumber(relOp.getAnOperand()) = globalValueNumber(this.getAnOperand())
-    |
-      // Signed overflow checks are insufficient
-      this.getUnspecifiedType().(IntegralType).isSigned()
-      or
-      // Unsigned overflow checks can still be bad, if the result is promoted.
-      forall(Expr op | op = this.getAnOperand() | op.getType().getSize() < any(IntType i).getSize()) and
-      // Not explicitly converted to a smaller type before the comparison
-      not this.getExplicitlyConverted().getType().getSize() < any(IntType i).getSize()
-    )
-  }
 }
 
 private class StrictRelationalOperation extends RelationalOperation {
   StrictRelationalOperation() { this.getOperator() = [">", "<"] }
+}
+
+class DivOrRemOperation extends Operation {
+  DivOrRemOperation() {
+    this instanceof DivExpr or
+    this instanceof RemExpr or
+    this instanceof AssignDivExpr or
+    this instanceof AssignRemExpr
+  }
+
+  Expr getDividend() {
+    result = this.(BinaryOperation).getLeftOperand() or
+    result = this.(AssignArithmeticOperation).getLValue()
+  }
+
+  Expr getDivisor() {
+    result = this.(BinaryOperation).getRightOperand() or
+    result = this.(AssignArithmeticOperation).getRValue()
+  }
 }
 
 /**

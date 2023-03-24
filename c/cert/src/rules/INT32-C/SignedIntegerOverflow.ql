@@ -26,22 +26,12 @@ where
     op.getType().getUnderlyingType().(IntegralType).isSigned()
     or
     // The divide or rem expression on a signed integer
-    (op instanceof DivExpr or op instanceof RemExpr) and
-    op.(BinaryOperation).getLeftOperand().getType().getUnderlyingType().(IntegralType).isSigned()
-    or
-    // The assign divide or rem expression on a signed integer
-    (op instanceof AssignDivExpr or op instanceof AssignRemExpr) and
-    op.(AssignArithmeticOperation)
-        .getLValue()
-        .getType()
-        .getUnderlyingType()
-        .(IntegralType)
-        .isSigned()
+    op.(DivOrRemOperation).getDividend().getType().getUnderlyingType().(IntegralType).isSigned()
   ) and
   // Not checked before the operation
   not op.hasValidPreCheck() and
-  // Not guarded by a check, where the check is not an invalid overflow check
-  not op.getAGuardingGVN() = globalValueNumber(op.getAChild*())
+  // Covered by INT34-C
+  not op instanceof LShiftExpr
 select op,
   "Operation " + op.getOperator() + " of type " + op.getType().getUnderlyingType() +
     " may overflow or underflow."

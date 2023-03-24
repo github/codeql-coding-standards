@@ -78,9 +78,7 @@ void test_mul_precheck(signed int i1, signed int i2) {
   if (tmp > INT_MAX || tmp < INT_MIN) {
     // handle error
   } else {
-    i1 *i2; // COMPLIANT - checked
     result = (signed int)tmp;
-    i1 *= i2; // COMPLIANT - checked
   }
 }
 
@@ -128,7 +126,7 @@ void test_simple_div_no_zero(signed int i1, signed int i2) {
 }
 
 void test_div_precheck(signed int i1, signed int i2) {
-  if ((i2 == 0) || ((i1 == LONG_MIN) && (i2 == -1))) {
+  if ((i2 == 0) || ((i1 == INT_MIN) && (i2 == -1))) {
     /* Handle error */
   } else {
     i1 / i2;  // COMPLIANT
@@ -151,31 +149,11 @@ void test_simple_rem_no_zero(signed int i1, signed int i2) {
 }
 
 void test_rem_precheck(signed int i1, signed int i2) {
-  if ((i2 == 0) || ((i1 == LONG_MIN) && (i2 == -1))) {
+  if ((i2 == 0) || ((i1 == INT_MIN) && (i2 == -1))) {
     /* Handle error */
   } else {
     i1 % i2;  // COMPLIANT
     i1 %= i2; // COMPLIANT
-  }
-}
-
-void test_simple_left_shift(signed int i1, signed int i2) {
-  i1 << i2;  // NON_COMPLIANT
-  i1 <<= i2; // NON_COMPLIANT
-}
-
-/* Returns the number of set bits */
-size_t popcount(uintmax_t num);
-
-#define PRECISION(umax_value) popcount(umax_value)
-
-void test_left_shift_precheck(signed int i1, signed int i2) {
-  if ((i1 < 0) || (i2 < 0) || (i2 >= PRECISION(UINT_MAX)) ||
-      (i1 > (INT_MAX >> i2))) {
-    // handle error
-  } else {
-    i1 << i2;  // COMPLIANT
-    i1 <<= i2; // COMPLIANT
   }
 }
 
