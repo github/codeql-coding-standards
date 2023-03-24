@@ -1,0 +1,6 @@
+| test.c:5:3:5:11 | (float)... | The upper bound of this value (1234567890) cast from uint64_t to float is greater than the maximum value (16777216) that can be stored precisely. |
+| test.c:13:3:13:11 | (float)... | The upper bound of this value (16777217) cast from uint64_t to float is greater than the maximum value (16777216) that can be stored precisely. |
+| test.c:17:3:17:11 | (float)... | The upper bound of this value (9007199254740992) cast from uint64_t to float is greater than the maximum value (16777216) that can be stored precisely. |
+| test.c:21:3:21:11 | (float)... | The upper bound of this value (9007199254740992) cast from uint64_t to float is greater than the maximum value (16777216) that can be stored precisely. |
+| test.c:28:3:28:11 | (float)... | The upper bound of this value (9007199254740996) cast from uint64_t to float is greater than the maximum value (16777216) that can be stored precisely. |
+| test.c:29:3:29:12 | (double)... | The upper bound of this value (9007199254740996) cast from uint64_t to double is greater than the maximum value (9007199254740992) that can be stored precisely. |

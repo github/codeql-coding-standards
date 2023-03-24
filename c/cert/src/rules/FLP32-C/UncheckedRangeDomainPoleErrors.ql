@@ -1,24 +1,22 @@
 /**
- * @id cpp/autosar/unchecked-range-domain-pole-errors
- * @name A0-4-4: Range, domain and pole errors shall be checked when using math functions
+ * @id c/cert/unchecked-range-domain-pole-errors
+ * @name FLP32-C: Prevent or detect domain and range errors in math functions
  * @description Range, domain or pole errors in math functions may return unexpected values, trigger
  *              floating-point exceptions or set unexpected error modes.
  * @kind problem
  * @precision high
  * @problem.severity error
- * @tags external/autosar/id/a0-4-4
+ * @tags external/cert/id/flp32-c
  *       correctness
- *       external/autosar/allocated-target/implementation
- *       external/autosar/enforcement/partially-automated
- *       external/autosar/obligation/required
+ *       external/cert/obligation/rule
  */
 
 import cpp
-import codingstandards.cpp.autosar
+import codingstandards.c.cert
 import codingstandards.cpp.rules.uncheckedrangedomainpoleerrors.UncheckedRangeDomainPoleErrors
 
 class UncheckedRangeDomainPoleErrorsQuery extends UncheckedRangeDomainPoleErrorsSharedQuery {
   UncheckedRangeDomainPoleErrorsQuery() {
-    this = TypeRangesPackage::uncheckedRangeDomainPoleErrorsQuery()
+    this = FloatingTypesPackage::uncheckedRangeDomainPoleErrorsQuery()
   }
 }
