@@ -129,6 +129,6 @@ predicate isForbiddenShiftExpr(BitShiftExpr shift, string message) {
 
 from BinaryBitwiseOperation badShift, string message
 where
-  not isExcluded(badShift, TypesPackage::exprShiftedbyNegativeOrGreaterPrecisionOperandQuery()) and
+  not isExcluded(badShift, Types1Package::exprShiftedbyNegativeOrGreaterPrecisionOperandQuery()) and
   isForbiddenShiftExpr(badShift, message)
 select badShift, message

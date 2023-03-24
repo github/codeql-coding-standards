@@ -15,7 +15,7 @@ import codingstandards.c.misra
 
 from SizeofExprOperator sizeof
 where
-  not isExcluded(sizeof, TypesPackage::sizeofOperatorUsedOnArrayTypeParamQuery()) and
+  not isExcluded(sizeof, Types1Package::sizeofOperatorUsedOnArrayTypeParamQuery()) and
   exists(Parameter param |
     sizeof.getExprOperand().(VariableAccess).getTarget() = param and
     param.getType() instanceof ArrayType

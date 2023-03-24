@@ -45,7 +45,7 @@ predicate forbiddenTypedef(TypedefType typedef, string message) {
 
 from Element elem, string message
 where
-  not isExcluded(elem, TypesPackage::plainNumericalTypeUsedOverExplicitTypedefQuery()) and
+  not isExcluded(elem, Types1Package::plainNumericalTypeUsedOverExplicitTypedefQuery()) and
   (
     forbiddenBuiltinNumericUsedInDecl(elem, message) or
     forbiddenTypedef(elem, message)

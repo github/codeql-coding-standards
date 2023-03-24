@@ -70,6 +70,6 @@ predicate conversionBetweenPointerAndInteger(Cast cast, string message) {
 
 from Element elem, string message
 where
-  not isExcluded(elem, TypesPackage::convertingAPointerToIntegerOrIntegerToPointerQuery()) and
+  not isExcluded(elem, Types1Package::convertingAPointerToIntegerOrIntegerToPointerQuery()) and
   conversionBetweenPointerAndInteger(elem, message)
 select elem, message

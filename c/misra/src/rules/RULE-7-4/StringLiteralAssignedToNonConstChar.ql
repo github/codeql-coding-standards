@@ -93,7 +93,7 @@ predicate returningNonConstCharVar(ReturnStmt return, string message) {
 
 from Element elem, string message
 where
-  not isExcluded(elem, TypesPackage::stringLiteralAssignedToNonConstCharQuery()) and
+  not isExcluded(elem, Types1Package::stringLiteralAssignedToNonConstCharQuery()) and
   (
     declaringNonConstCharVar(elem, message)
     or
