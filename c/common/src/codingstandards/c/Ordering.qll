@@ -27,12 +27,12 @@ module Ordering {
         // before the actual call.
         exists(Call call |
           (
-            call.getAnArgument() = e1
+            call.getAnArgument().getAChild*() = e1
             or
             // Postfix expression designating the called function
             // We current only handle call through function pointers because the postfix expression
             // of regular function calls is not available. That is, identifying `f` in `f(...)`
-            call.(ExprCall).getExpr() = e1
+            call.(ExprCall).getExpr().getAChild*() = e1
           ) and
           call.getTarget() = e2.getEnclosingFunction()
         )
@@ -42,7 +42,7 @@ module Ordering {
         exists(BinaryLogicalOperation blop |
           blop instanceof LogicalAndExpr or blop instanceof LogicalOrExpr
         |
-          blop.getLeftOperand() = e1 and blop.getRightOperand() = e2
+          blop.getLeftOperand().getAChild*() = e1 and blop.getRightOperand().getAChild*() = e2
         )
         or
         // 6.5.17 point 2 - There is a sequence pointt between the left operand and the right operand.
@@ -50,13 +50,13 @@ module Ordering {
           lhs = ce.getLeftOperand() and
           rhs = ce.getRightOperand()
         |
-          lhs = e1.getParent*() and rhs = e2.getParent*()
+          lhs.getAChild*() = e1 and rhs.getAChild*() = e2
         )
         or
         // 6.5.15 point 4 - There is a sequence point between the first operand and the evaluation of the second or third.
         exists(ConditionalExpr cond |
-          cond.getCondition() = e1 and
-          (cond.getThen() = e2 or cond.getElse() = e2)
+          cond.getCondition().getAChild*() = e1 and
+          (cond.getThen().getAChild*() = e2 or cond.getElse().getAChild*() = e2)
         )
         or
         // Between the evaluation of a full expression and the next to be evaluated full expression.
