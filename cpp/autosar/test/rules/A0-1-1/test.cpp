@@ -31,8 +31,11 @@ static void foo(B &b) noexcept {
   b4.g();
   auto &b5 = *new B();
   b5.g();
-  auto &b5 = new B();
-  b5.g();
+  /* Below causes a compile error (non-const reference when initialized should
+   * hold an lvalue)
+   */
+  // auto &b6 = new B();
+  // b6.g();
 }
 
 template <typename T> void test() {
