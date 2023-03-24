@@ -75,18 +75,18 @@ where
     withinIntegralRange(underlyingTypeAfter, [upperBound(c.getExpr()), lowerBound(c.getExpr())])
     or
     // Heuristic - is there are guard the abs value of the float can fit in the precision of an int?
-    exists(GuardCondition gc, FunctionCall log2f, FunctionCall fabsf, Expr precision |
+    exists(GuardCondition gc, FunctionCall log2, FunctionCall fabs, Expr precision |
       // gc.controls(c, false) and
-      log2f.getTarget().hasGlobalOrStdName("log2f") and
-      fabsf.getTarget().hasGlobalOrStdName("fabsf") and
-      log2f.getArgument(0) = fabsf and
+      log2.getTarget().hasGlobalOrStdName("log2" + ["", "l", "f"]) and
+      fabs.getTarget().hasGlobalOrStdName("fabs" + ["", "l", "f"]) and
+      log2.getArgument(0) = fabs and
       // Precision is either a macro expansion or function call
       (
         precision.(FunctionCall).getTarget() instanceof PopCount
         or
         precision = any(PrecisionMacro pm).getAnInvocation().getExpr()
       ) and
-      gc.ensuresLt(precision, log2f, 0, c.getExpr().getBasicBlock(), false)
+      gc.ensuresLt(precision, log2, 0, c.getExpr().getBasicBlock(), false)
     )
   )
 select c, "Conversion of float to integer without appropriate guards avoiding undefined behavior."

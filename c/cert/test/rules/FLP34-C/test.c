@@ -28,8 +28,26 @@ size_t popcount(uintmax_t num) {
 #define PRECISION(umax_value) popcount(umax_value)
 
 void test_precision_check(float f) {
+  if (isnan(f) || PRECISION(INT_MAX) < log2(fabs(f)) ||
+      (f != 0.0F && fabs(f) < FLT_MIN)) {
+    /* Handle error */
+  } else {
+    int i = f; // COMPLIANT
+  }
+}
+
+void test_precision_check_double(double f) {
   if (isnan(f) || PRECISION(INT_MAX) < log2f(fabsf(f)) ||
       (f != 0.0F && fabsf(f) < FLT_MIN)) {
+    /* Handle error */
+  } else {
+    int i = f; // COMPLIANT
+  }
+}
+
+void test_precision_check_long_double(long double f) {
+  if (isnan(f) || PRECISION(INT_MAX) < log2l(fabsl(f)) ||
+      (f != 0.0F && fabsl(f) < FLT_MIN)) {
     /* Handle error */
   } else {
     int i = f; // COMPLIANT
