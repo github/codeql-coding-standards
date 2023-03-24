@@ -26,6 +26,7 @@ import Declarations7
 import Declarations8
 import EssentialTypes
 import Expressions
+import FloatingTypes
 import IO1
 import IO2
 import IO3
@@ -80,6 +81,7 @@ newtype TCQuery =
   TDeclarations8PackageQuery(Declarations8Query q) or
   TEssentialTypesPackageQuery(EssentialTypesQuery q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
+  TFloatingTypesPackageQuery(FloatingTypesQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
@@ -134,6 +136,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations8QueryMetadata(query, queryId, ruleId, category) or
   isEssentialTypesQueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
+  isFloatingTypesQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
   isIO3QueryMetadata(query, queryId, ruleId, category) or
