@@ -16,6 +16,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "UncheckedRangeDomainPoleErrors",
+          "shared_implementation_short_name": "UncheckedRangeDomainPoleErrors",
           "tags": [
             "correctness"
           ]
