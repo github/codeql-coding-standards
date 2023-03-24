@@ -4,19 +4,7 @@
       "properties": {
         "obligation": "rule"
       },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "Avoid side effects in arguments to unsafe macros",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "SideEffectsInArgumentsToUnsafeMacros",
-          "tags": [
-            "correctness"
-          ]
-        }
-      ],
+      "queries": [],
       "title": "Avoid side effects in arguments to unsafe macros"
     }
   },
@@ -33,17 +21,6 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnsequencedSideEffects",
-          "tags": [
-            "correctness"
-          ]
-        },
-        {
-          "description": "An object shall not be modified more than once between two adjacent sequence points or within any full expression.",
-          "kind": "problem",
-          "name": "No object shall be modified more than once",
-          "precision": "very-high",
-          "severity": "warning",
-          "short_name": "MultipleObjectModifications",
           "tags": [
             "correctness"
           ]
