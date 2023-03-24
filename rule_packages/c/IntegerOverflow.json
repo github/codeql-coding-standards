@@ -9,7 +9,7 @@
           "description": "Unsigned integer expressions do not strictly overflow, but instead wrap around in a modular way. If the size of the type is not sufficient, this can happen unexpectedly.",
           "kind": "problem",
           "name": "Ensure that unsigned integer operations do not wrap",
-          "precision": "mdeium",
+          "precision": "medium",
           "severity": "error",
           "short_name": "UnsignedIntegerOperationsWrapAround",
           "tags": [
