@@ -168,3 +168,35 @@ void test_negate_precheck(signed int i1) {
     -i1; // COMPLIANT
   }
 }
+
+void test_inc(signed int i1) {
+  i1++; // NON_COMPLIANT
+}
+
+void test_inc_guard(signed int i1) {
+  if (i1 < INT_MAX) {
+    i1++; // COMPLIANT
+  }
+}
+
+void test_inc_loop_guard() {
+  for (signed int i1 = 0; i1 < 10; i1++) { // COMPLIANT
+    // ...
+  }
+}
+
+void test_dec(signed int i1) {
+  i1--; // NON_COMPLIANT
+}
+
+void test_dec_guard(signed int i1) {
+  if (i1 > INT_MIN) {
+    i1--; // COMPLIANT
+  }
+}
+
+void test_dec_loop_guard() {
+  for (signed int i1 = 10; i1 > 0; i1--) { // COMPLIANT
+    // ...
+  }
+}
