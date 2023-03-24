@@ -114,6 +114,11 @@ void test_mul_precheck_2(signed int i1, signed int i2) {
 }
 
 void test_simple_div(signed int i1, signed int i2) {
+  i1 / i2;  // NON_COMPLIANT
+  i1 /= i2; // NON_COMPLIANT
+}
+
+void test_simple_div_no_zero(signed int i1, signed int i2) {
   if (i2 == 0) {
     // handle error
   } else {
@@ -132,6 +137,11 @@ void test_div_precheck(signed int i1, signed int i2) {
 }
 
 void test_simple_rem(signed int i1, signed int i2) {
+  i1 % i2;  // NON_COMPLIANT
+  i1 %= i2; // NON_COMPLIANT
+}
+
+void test_simple_rem_no_zero(signed int i1, signed int i2) {
   if (i2 == 0) {
     // handle error
   } else {

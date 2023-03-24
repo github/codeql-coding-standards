@@ -19,6 +19,23 @@ class InterestingOverflowingOperation extends Operation {
       exprMightOverflowNegatively(this)
       or
       exprMightOverflowPositively(this)
+      or
+      // Division and remainder are not handled by the library
+      exists(Expr leftOperand, Expr rightOperand |
+        (this instanceof DivExpr or this instanceof RemExpr) and
+        leftOperand = this.(BinaryOperation).getLeftOperand() and
+        rightOperand = this.(BinaryOperation).getRightOperand()
+        or
+        (this instanceof AssignDivExpr or this instanceof AssignRemExpr) and
+        leftOperand = this.(AssignArithmeticOperation).getLValue() and
+        rightOperand = this.(AssignArithmeticOperation).getRValue()
+      |
+        // The right hand side could be -1
+        upperBound(rightOperand) >= -1.0 and
+        lowerBound(rightOperand) <= -1.0 and
+        // The left hand side could be the smallest possible integer value
+        lowerBound(leftOperand) <= typeLowerBound(leftOperand.getType().getUnderlyingType())
+      )
     ) and
     // Multiplication is not covered by the standard range analysis library, so implement our own
     // mini analysis.
