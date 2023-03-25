@@ -62,9 +62,11 @@ where
   sameFullExpr(fullExpr, va1, va2) and
   effect(variableEffect1, va1, v1) and
   effect(variableEffect2, va2, v2) and
+  // Exclude the same effect applying to different objects.
+  // This occurs when on is a subject of the other.
+  // For example, foo.bar = 1; where both foo and bar are objects modified by the assignment.
   variableEffect1 != variableEffect2 and
-  // If the effect is local we can directly check if it is unsequenced.
-  // If the effect is not local (happens in a different function) we use the access as a proxy.
+  // If the effect is not local (happens in a different function) we use the call with the access as a proxy.
   (
     va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
     va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
