@@ -17,42 +17,85 @@ import codingstandards.c.Expr
 import codingstandards.c.SideEffects
 import codingstandards.c.Ordering
 
-predicate isCandidatePair(Expr parentExpr, Expr e1, Expr e2) {
-  parentExpr.getAChild+() = e1 and
-  parentExpr.getAChild+() = e2
+predicate isOrHasSideEffect(Expr e) {
+  e instanceof VariableEffect or
+  any(VariableEffect ve).getAnAccess() = e
+}
+
+predicate originatingInStatement(Expr e, FullExpr fe) {
+  isOrHasSideEffect(e) and
+  (
+    e.(VariableEffect).getAnAccess() = fe.getAChild+()
+    or
+    e.(VariableAccess) = fe.getAChild+()
+  )
 }
 
 class ConstituentExprOrdering extends Ordering::Configuration {
   ConstituentExprOrdering() { this = "ConstituentExprOrdering" }
 
   override predicate isCandidate(Expr e1, Expr e2) {
-    // Two different expressions part of the same full expression.
-    isCandidatePair(_, e1, e2)
+    exists(FullExpr fe |
+      originatingInStatement(e1, fe) and
+      originatingInStatement(e2, fe)
+    )
   }
+}
+
+pragma[noinline]
+predicate sameFullExpr(FullExpr fe, Expr e1, Expr e2) {
+  originatingInStatement(e1, fe) and
+  originatingInStatement(e2, fe)
+}
+
+predicate effect(VariableEffect ve, VariableAccess va, Variable v) {
+  ve.getAnAccess() = va and
+  va.getTarget() = v and
+  ve.getTarget() = v
 }
 
 from
   ConstituentExprOrdering orderingConfig, FullExpr fullExpr, VariableEffect variableEffect1,
-  VariableEffect variableEffect2
+  VariableEffect variableEffect2, VariableAccess va1, VariableAccess va2, Variable v1, Variable v2
 where
   not isExcluded(fullExpr, SideEffects3Package::unsequencedSideEffectsQuery()) and
+  sameFullExpr(fullExpr, va1, va2) and
+  effect(variableEffect1, va1, v1) and
+  effect(variableEffect2, va2, v2) and
+  variableEffect1 != variableEffect2 and
   // If the effect is local we can directly check if it is unsequenced.
   // If the effect is not local (happens in a different function) we use the access as a proxy.
-  orderingConfig.isUnsequenced(variableEffect1, variableEffect2) and
-  fullExpr.getAChild+() = variableEffect1 and
-  fullExpr.getAChild+() = variableEffect2 and
+  (
+    va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
+    va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
+    orderingConfig.isUnsequenced(variableEffect1, variableEffect2)
+    or
+    va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
+    not va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
+    exists(Call call |
+      call.getAnArgument() = va2 and call.getEnclosingStmt() = va1.getEnclosingStmt()
+    |
+      orderingConfig.isUnsequenced(variableEffect1, call)
+    )
+    or
+    not va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
+    va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
+    exists(Call call |
+      call.getAnArgument() = va1 and call.getEnclosingStmt() = va2.getEnclosingStmt()
+    |
+      orderingConfig.isUnsequenced(call, variableEffect2)
+    )
+  ) and
   // Both are evaluated
   not exists(ConditionalExpr ce |
-    ce.getThen().getAChild*() = variableEffect1 and ce.getElse().getAChild*() = variableEffect2
+    ce.getThen().getAChild*() = va1 and ce.getElse().getAChild*() = va2
   ) and
   // Break the symmetry of the ordering relation by requiring that the first expression is located before the second.
   // This builds upon the assumption that the expressions are part of the same full expression as specified in the ordering configuration.
   exists(int offset1, int offset2 |
-    variableEffect1.getLocation().charLoc(_, offset1, _) and
-    variableEffect2.getLocation().charLoc(_, offset2, _) and
+    va1.getLocation().charLoc(_, offset1, _) and
+    va2.getLocation().charLoc(_, offset2, _) and
     offset1 < offset2
   )
 select fullExpr, "The expression contains unsequenced $@ to $@ and $@ to $@.", variableEffect1,
-  "side effect", variableEffect1.getAnAccess(), variableEffect1.getTarget().getName(),
-  variableEffect2, "side effect", variableEffect2.getAnAccess(),
-  variableEffect2.getTarget().getName()
+  "side effect", va1, v1.getName(), variableEffect2, "side effect", va2, v2.getName()
