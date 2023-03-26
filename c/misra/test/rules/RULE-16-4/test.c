@@ -49,4 +49,13 @@ void f1(int p1) {
     i++;
     break;
   }
+
+  switch (p1) { // NON_COMPLIANT
+  case 1:
+    i++;
+    break;
+  default: {
+    break;
+  }
+  }
 }

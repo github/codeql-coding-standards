@@ -14,6 +14,20 @@
 import cpp
 import codingstandards.c.misra
 
+Stmt getFirstNonBlockStatement(BlockStmt bs) {
+  exists(Stmt nextStmt | nextStmt = bs.getStmt(0) |
+    if nextStmt instanceof BlockStmt
+    then result = getFirstNonBlockStatement(nextStmt)
+    else result = nextStmt
+  )
+}
+
+Stmt getFirstStatement(DefaultCase case) {
+  exists(Stmt next | next = case.getFollowingStmt() |
+    if next instanceof BlockStmt then result = getFirstNonBlockStatement(next) else result = next
+  )
+}
+
 from SwitchStmt switch, string message
 where
   not isExcluded(switch, Statements1Package::everySwitchShallHaveDefaultLabelQuery()) and
@@ -22,7 +36,7 @@ where
   or
   exists(SwitchCase case, BreakStmt break |
     switch.getDefaultCase() = case and
-    case.getFollowingStmt() = break and
+    getFirstStatement(case) = break and
     not exists(Comment comment | comment.getCommentedElement() = break) and
     message =
       "has default label that does not terminate in a statement or comment before break statement"
