@@ -59,7 +59,7 @@ void f3(int k) {
 L3:
   k++;
   while (k < 10) { // NON_COMPLIANT - the nested goto
-                   // only applies to the switch
+                   // is an additional exit point for the while loop
     if (k > 5) {
       break;
     }
