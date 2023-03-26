@@ -23,9 +23,7 @@ where
   exists(SwitchCase case, BreakStmt break |
     switch.getDefaultCase() = case and
     case.getFollowingStmt() = break and
-    not exists(Comment comment |
-      break.getLocation().getEndLine() - 1 = comment.getLocation().getEndLine()
-    ) and
+    not exists(Comment comment | comment.getCommentedElement() = break) and
     message =
       "has default label that does not terminate in a statement or comment before break statement"
   )
