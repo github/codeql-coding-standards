@@ -26,6 +26,7 @@ import Declarations7
 import Declarations8
 import EssentialTypes
 import Expressions
+import FloatingTypes
 import IO1
 import IO2
 import IO3
@@ -48,6 +49,7 @@ import Preprocessor6
 import SideEffects1
 import SideEffects2
 import SignalHandlers
+import StandardLibraryFunctionTypes
 import Statements1
 import Statements2
 import Statements3
@@ -85,6 +87,7 @@ newtype TCQuery =
   TDeclarations8PackageQuery(Declarations8Query q) or
   TEssentialTypesPackageQuery(EssentialTypesQuery q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
+  TFloatingTypesPackageQuery(FloatingTypesQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
@@ -107,6 +110,7 @@ newtype TCQuery =
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
   TSignalHandlersPackageQuery(SignalHandlersQuery q) or
+  TStandardLibraryFunctionTypesPackageQuery(StandardLibraryFunctionTypesQuery q) or
   TStatements1PackageQuery(Statements1Query q) or
   TStatements2PackageQuery(Statements2Query q) or
   TStatements3PackageQuery(Statements3Query q) or
@@ -144,6 +148,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations8QueryMetadata(query, queryId, ruleId, category) or
   isEssentialTypesQueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
+  isFloatingTypesQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
   isIO3QueryMetadata(query, queryId, ruleId, category) or
@@ -166,6 +171,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
   isSignalHandlersQueryMetadata(query, queryId, ruleId, category) or
+  isStandardLibraryFunctionTypesQueryMetadata(query, queryId, ruleId, category) or
   isStatements1QueryMetadata(query, queryId, ruleId, category) or
   isStatements2QueryMetadata(query, queryId, ruleId, category) or
   isStatements3QueryMetadata(query, queryId, ruleId, category) or
