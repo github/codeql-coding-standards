@@ -2,6 +2,7 @@ void f1() {
   goto L1;
   for (int i = 0; i < 100; i++) {
   L1: // NON_COMPLIANT
+    break;
   }
 }
 
@@ -13,6 +14,7 @@ void f2() {
     }
   }
 L2: // COMPLIANT
+  return;
 }
 
 void f3() {
@@ -21,6 +23,7 @@ void f3() {
     for (int j = 0; j < 10; j++) {
       goto L3;
     L3: // COMPLIANT
+      break;
     }
   }
 }
