@@ -49,6 +49,20 @@ private predicate inForUpdate(Expr forUpdate, Expr child) {
   exists(Expr mid | inForUpdate(forUpdate, mid) and child.getParent() = mid)
 }
 
+class MemberCrementOperation extends FunctionCall {
+  MemberCrementOperation() { this.getTarget() instanceof UserCrementOperator }
+
+  Expr getOperand() { result = this.getQualifier() }
+}
+
+class MemberAssignmentOperation extends FunctionCall {
+  MemberAssignmentOperation() { this.getTarget() instanceof AssignmentOperator }
+
+  Expr getLValue() { result = this.getQualifier() }
+
+  string getOperator() { result = this.getTarget().getName().regexpCapture("operator(.+)", 1) }
+}
+
 /**
  * Gets a LoopCounter for the given `ForStmt`.
  *
@@ -65,6 +79,21 @@ Variable getALoopCounter(ForStmt fs) {
       op = updateOp and
       op instanceof CrementOperation and
       op.getOperand() = va and
+      va = result.getAnAccess()
+    )
+    or
+    exists(MemberCrementOperation op, VariableAccess va |
+      op = updateOp and
+      op instanceof MemberCrementOperation and
+      op.getOperand() = va and
+      va = result.getAnAccess()
+    )
+    or
+    exists(MemberAssignmentOperation op, VariableAccess va |
+      op = updateOp and
+      op instanceof MemberAssignmentOperation and
+      op.getOperator() = ["+=", "-="] and
+      op.getLValue() = va and
       va = result.getAnAccess()
     )
     or
