@@ -3,6 +3,7 @@ void f1();
 void f2(int p1) {
   switch (p1) {
   case 1:
+    f1();
     int y = p1; // NON_COMPLIANT - `DeclStmt` whose parent
     // statement is the switch body
     f1();
