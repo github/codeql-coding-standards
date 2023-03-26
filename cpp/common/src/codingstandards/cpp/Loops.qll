@@ -123,7 +123,19 @@ predicate isInvalidForLoopIncrementation(ForStmt forLoop, Variable v, VariableAc
   v = getAnIterationVariable(forLoop) and
   modification = v.getAnAccess() and
   modification = forLoop.getUpdate().getAChild*() and
-  modification.isModified() and
+  // Is modified
+  (
+    // Variable directly modified
+    modification.isModified()
+    or
+    // Has a call to a member function on the variable, where the target is non-const,
+    // i.e. can modify the state of the object
+    exists(Call c |
+      c.getQualifier() = modification and
+      not c.getTarget() instanceof ConstMemberFunction
+    )
+  ) and
+  // And not by a call to a crement operator
   not exists(CrementOperation cop | cop.getOperand() = modification) and
   not exists(Call c |
     c.getQualifier() = modification and c.getTarget() instanceof UserCrementOperator
