@@ -1,10 +1,12 @@
 /**
  * @id c/misra/every-switch-shall-have-default-label
  * @name RULE-16-4: Every switch statement shall have a default label
- * @description The requirement for a default label is defensive programming.
+ * @description A default label that has no statements or a comment explaining why this is correct
+ *              indicates a missing implementation that may result in unexpected behavior when the
+ *              default case is executed.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-16-4
  *       maintainability
  *       readability
