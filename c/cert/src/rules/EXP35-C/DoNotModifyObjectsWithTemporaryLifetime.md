@@ -218,7 +218,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-This implementation does not cover modification or access of the result of a function call after the next sequence point, which is undefined behavior only pre-C11.
+This implementation also always reports non-modifying accesses of objects with temporary lifetime, which are only compliant in C11.
 
 ## References
 
