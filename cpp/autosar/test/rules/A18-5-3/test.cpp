@@ -41,7 +41,7 @@ void test_single_array_item(bool do_array_delete) {
   c_ptr_array[5] = new char;
 
   if (do_array_delete) {
-    delete[] c_ptr_array[5]; // NON_COMPLIANT [FALSE_NEGATIVE]
+    delete[] c_ptr_array[5]; // NON_COMPLIANT[FALSE_NEGATIVE]
   } else {
     delete c_ptr_array[5]; // COMPLIANT
   }
