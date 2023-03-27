@@ -1,0 +1,124 @@
+{
+  "CERT-C": {
+    "INT30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Unsigned integer expressions do not strictly overflow, but instead wrap around in a modular way. If the size of the type is not sufficient, this can happen unexpectedly.",
+          "kind": "problem",
+          "name": "Ensure that unsigned integer operations do not wrap",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "UnsignedIntegerOperationsWrapAround",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Ensure that unsigned integer operations do not wrap"
+    },
+    "INT31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Converting an integer value to another integer type with a different sign or size can lead to data loss or misinterpretation of the value.",
+          "kind": "problem",
+          "name": "Ensure that integer conversions do not result in lost or misinterpreted data",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "IntegerConversionCausesDataLoss",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Ensure that integer conversions do not result in lost or misinterpreted data"
+    },
+    "INT32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The multiplication of two signed integers can lead to underflow or overflow and therefore undefined behavior.",
+          "kind": "problem",
+          "name": "Ensure that operations on signed integers do not result in overflow",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "SignedIntegerOverflow",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Ensure that operations on signed integers do not result in overflow"
+    },
+    "INT33-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Dividing or taking the remainder by zero is undefined behavior.",
+          "kind": "problem",
+          "name": "Ensure that division and remainder operations do not result in divide-by-zero errors",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "DivOrRemByZero",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Ensure that division and remainder operations do not result in divide-by-zero errors"
+    },
+    "INT35-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The precision of integer types in C cannot be deduced from the size of the type (due to padding and sign bits) otherwise a loss of data may occur.",
+          "kind": "problem",
+          "name": "Use correct integer precisions",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UseCorrectIntegerPrecisions",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Use correct integer precisions"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-12-4": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Unsigned integer expressions do not strictly overflow, but instead wrap around in a modular way. Any constant unsigned integer expressions that in effect \"overflow\" will not be detected by the compiler. Although there may be good reasons at run-time to rely on the modular arithmetic provided by unsigned integer types, the reasons for using it at compile-time to evaluate a constant expression are less obvious. Any instance of an unsigned integer constant expression wrapping around is therefore likely to indicate a programming error.",
+          "kind": "problem",
+          "name": "Evaluation of constant expressions should not lead to unsigned integer wrap-around",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConstantUnsignedIntegerExpressionsWrapAround",
+          "shared_implementation_short_name": "ConstantUnsignedIntegerExpressionsWrapAround",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Evaluation of constant expressions should not lead to unsigned integer wrap-around"
+    }
+  }
+}

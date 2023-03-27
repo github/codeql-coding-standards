@@ -16,6 +16,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NonBooleanIfCondition",
+          "shared_implementation_short_name": "NonBooleanIfStmt",
           "tags": [
             "maintainability",
             "readability"
@@ -28,6 +29,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NonBooleanIterationCondition",
+          "shared_implementation_short_name": "NonBooleanIterationStmt",
           "tags": [
             "maintainability",
             "readability"
@@ -136,6 +138,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "IfElseTerminationCondition",
+          "shared_implementation_short_name": "IfElseTerminationConstruct",
           "tags": [
             "maintainability",
             "readability"
@@ -160,6 +163,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "SwitchDoesNotStartWithCase",
+          "shared_implementation_short_name": "SwitchCasePositionCondition",
           "tags": [
             "maintainability",
             "readability"
@@ -172,6 +176,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "SwitchStatementNotWellFormed",
+          "shared_implementation_short_name": "SwitchNotWellFormed",
           "tags": [
             "maintainability",
             "readability"
@@ -190,12 +195,13 @@
       },
       "queries": [
         {
-          "description": "By default in C++, the switch structure is weak, which may lead to switch labels being placed anywhere in the switch block. This can cause unspecified behaviour.",
+          "description": "Nested switch labels cause undefined behaviour.",
           "kind": "problem",
           "name": "A switch-label shall only be used when the most closely-enclosing compound statement is the body of a switch statement",
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NestedCaseInSwitch",
+          "shared_implementation_short_name": "NestedLabelInSwitch",
           "tags": [
             "maintainability",
             "readability"
@@ -328,6 +334,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "GotoStatementJumpCondition",
+          "shared_implementation_short_name": "GotoStatementCondition",
           "tags": [
             "maintainability",
             "readability"

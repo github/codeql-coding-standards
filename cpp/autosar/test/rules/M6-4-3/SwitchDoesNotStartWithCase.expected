@@ -1,1 +1,0 @@
-| test.cpp:6:3:28:3 | switch (...) ...  | $@ statement not well formed because the first statement in a well formed switch statement must be a case clause. | test.cpp:6:3:28:3 | switch (...) ...  | Switch |

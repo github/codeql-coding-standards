@@ -13,21 +13,9 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Errno
+import codingstandards.c.Signal
 import semmle.code.cpp.controlflow.Guards
 
-/**
- * A call to function `signal`
- */
-class SignalCall extends FunctionCall {
-  SignalCall() { this.getTarget().hasGlobalName("signal") }
-}
-
-/**
- * A call to `abort` or `_Exit`
- */
-class AbortCall extends FunctionCall {
-  AbortCall() { this.getTarget().hasGlobalName(["abort", "_Exit"]) }
-}
 
 /**
  * A check on `signal` call return value
@@ -47,9 +35,7 @@ class SignalCheckOperation extends EqualityOperation, GuardCondition {
     )
   }
 
-  BasicBlock getCheckedSuccessor() {
-    result != errorSuccessor and result = this.getASuccessor()
-  }
+  BasicBlock getCheckedSuccessor() { result != errorSuccessor and result = this.getASuccessor() }
 
   BasicBlock getErrorSuccessor() { result = errorSuccessor }
 }
@@ -57,12 +43,8 @@ class SignalCheckOperation extends EqualityOperation, GuardCondition {
 /**
  * Models signal handlers that call signal() and return
  */
-class SignalCallingHandler extends Function {
-  SignalCall registration;
-
+class SignalCallingHandler extends SignalHandler {
   SignalCallingHandler() {
-    // is a signal handler
-    this = registration.getArgument(1).(FunctionAccess).getTarget() and
     // calls signal() on the handled signal
     exists(SignalCall sCall |
       sCall.getEnclosingFunction() = this and
@@ -75,8 +57,6 @@ class SignalCallingHandler extends Function {
       )
     )
   }
-
-  SignalCall getCall() { result = registration }
 }
 
 /**
@@ -100,7 +80,7 @@ where
   not isExcluded(errno, Contracts5Package::doNotRelyOnIndeterminateValuesOfErrnoQuery()) and
   exists(SignalCallingHandler handler |
     // errno read after the handler returns
-    handler.getCall() = signal
+    handler.getRegistration() = signal
     or
     // errno read inside the handler
     signal.getEnclosingFunction() = handler
