@@ -33,6 +33,8 @@ class InterestingOverflowingOperation extends Operation {
     // Multiplication is not covered by the standard range analysis library, so implement our own
     // mini analysis.
     (this instanceof MulExpr implies MulExprAnalysis::overflows(this)) and
+    // This shouldn't be a "safe" crement operation
+    not LoopCounterAnalysis::isCrementSafeFromOverflow(this) and
     // Not within a macro
     not this.isAffectedByMacro() and
     // Ignore pointer arithmetic
@@ -326,5 +328,70 @@ private module MulExprAnalysis {
     me.(MulAnalyzableExpr).maxValue() > exprMaxVal(me)
     or
     me.(MulAnalyzableExpr).minValue() < exprMinVal(me)
+  }
+}
+
+/**
+ * An analysis on safe loop counters.
+ */
+module LoopCounterAnalysis {
+  newtype LoopBound =
+    LoopUpperBound() or
+    LoopLowerBound()
+
+  predicate isLoopBounded(
+    CrementOperation cop, ForStmt fs, Variable loopCounter, Expr initializer, Expr counterBound,
+    LoopBound boundKind, boolean equals
+  ) {
+    // Initialization sets the loop counter
+    (
+      loopCounter = fs.getInitialization().(DeclStmt).getADeclaration() and
+      initializer = loopCounter.getInitializer().getExpr()
+      or
+      loopCounter.getAnAssignment() = initializer and
+      initializer = fs.getInitialization().(ExprStmt).getExpr()
+    ) and
+    // Condition is a relation operation on the loop counter
+    exists(RelationalOperation relOp |
+      fs.getCondition() = relOp and
+      (if relOp.getOperator().charAt(1) = "=" then equals = true else equals = false)
+    |
+      relOp.getGreaterOperand() = loopCounter.getAnAccess() and
+      relOp.getLesserOperand() = counterBound and
+      cop instanceof DecrementOperation and
+      boundKind = LoopLowerBound()
+      or
+      relOp.getLesserOperand() = loopCounter.getAnAccess() and
+      relOp.getGreaterOperand() = counterBound and
+      cop instanceof IncrementOperation and
+      boundKind = LoopUpperBound()
+    ) and
+    // Update is a crement operation with the loop counter
+    fs.getUpdate() = cop and
+    cop.getOperand() = loopCounter.getAnAccess()
+  }
+
+  /**
+   * Holds if the crement operation is safe from under/overflow.
+   */
+  predicate isCrementSafeFromOverflow(CrementOperation op) {
+    exists(
+      Expr initializer, Expr counterBound, LoopBound boundKind, boolean equals, int equalsOffset
+    |
+      isLoopBounded(op, _, _, initializer, counterBound, boundKind, equals) and
+      (
+        equals = true and equalsOffset = 1
+        or
+        equals = false and equalsOffset = 0
+      )
+    |
+      boundKind = LoopUpperBound() and
+      // upper bound of the inccrement is smaller than the maximum value representable in the type
+      upperBound(counterBound) + equalsOffset <= typeUpperBound(op.getType().getUnspecifiedType())
+      or
+      // the lower bound of the decrement is larger than the smal
+      boundKind = LoopLowerBound() and
+      lowerBound(counterBound) - equalsOffset >= typeLowerBound(op.getType().getUnspecifiedType())
+    )
   }
 }
