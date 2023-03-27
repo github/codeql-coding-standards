@@ -193,21 +193,26 @@ class InterestingOverflowingOperation extends Operation {
    *
    * Only holds for unsigned expressions, as signed overflow/underflow are undefined behavior.
    */
-  predicate hasValidPostCheck() {
+  predicate hasValidPostCheck() { exists(getAValidPostCheck()) }
+
+  /**
+   * Gets a correct validity check, `gc`, after this expression which may overflow.
+   */
+  GuardCondition getAValidPostCheck() {
     this.getType().(IntegralType).isUnsigned() and
     (
       exists(RelationalOperation ro |
         DataFlow::localExprFlow(this, ro.getLesserOperand()) and
         globalValueNumber(ro.getGreaterOperand()) = globalValueNumber(this.getAnOperand()) and
         (this instanceof AddExpr or this instanceof AssignAddExpr) and
-        ro instanceof GuardCondition
+        result = ro
       )
       or
       exists(RelationalOperation ro |
         DataFlow::localExprFlow(this, ro.getGreaterOperand()) and
         globalValueNumber(ro.getLesserOperand()) = globalValueNumber(this.getAnOperand()) and
         (this instanceof SubExpr or this instanceof AssignSubExpr) and
-        ro instanceof GuardCondition
+        result = ro
       )
     )
   }
