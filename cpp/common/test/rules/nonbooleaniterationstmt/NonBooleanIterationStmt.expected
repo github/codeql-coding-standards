@@ -1,0 +1,2 @@
+| test.cpp:7:3:9:3 | for(...;...;...) ... | Iteration condition has non boolean type int. |
+| test.cpp:11:3:13:3 | while (...) ... | Iteration condition has non boolean type int. |

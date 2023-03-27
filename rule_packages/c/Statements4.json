@@ -1,0 +1,79 @@
+{
+  "CERT-C": {
+    "FLP30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Loop counters should not use floating-point variables to keep code portable.",
+          "kind": "problem",
+          "name": "Do not use floating-point variables as loop counters",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "FloatingPointLoopCounters",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not use floating-point variables as loop counters"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-14-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A well-formed for loop makes code easier to review.",
+          "kind": "problem",
+          "name": "A for loop shall be well-formed",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ForLoopNotWellFormed",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A for loop shall be well-formed"
+    },
+    "RULE-14-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Non boolean conditions can be confusing for developers.",
+          "kind": "problem",
+          "name": "The condition of an if-statement shall have type bool",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonBooleanIfCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "Non boolean conditions can be confusing for developers.",
+          "kind": "problem",
+          "name": "The condition of an iteration statement shall have type bool",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonBooleanIterationCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The controlling expression of an if statement and the controlling expression of an iteration-statement shall have essentially Boolean type"
+    }
+  }
+}
