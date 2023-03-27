@@ -8,4 +8,5 @@
 | IntMultToLongc.cpp:109:13:109:28 | ... + ... | Binary expression ...+... may overflow. |
 | test.cpp:2:10:2:14 | ... + ... | Binary expression ...+... may overflow. |
 | test.cpp:22:12:22:16 | ... + ... | Binary expression ...+... may overflow. |
-| test.cpp:52:7:52:14 | ... + ... | Binary expression ...+... may overflow. |
+| test.cpp:50:7:50:14 | ... + ... | Binary expression ...+... may overflow. |
+| test.cpp:62:8:62:10 | ... ++ | Binary expression ...++... may overflow. |

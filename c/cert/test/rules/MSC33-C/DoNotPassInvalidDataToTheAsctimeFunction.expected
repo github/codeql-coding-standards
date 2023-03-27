@@ -1,0 +1,1 @@
+| test.c:6:24:6:30 | time_tm | The function `asctime` and `asctime_r` should be discouraged. Unsanitized input can overflow the output buffer. |

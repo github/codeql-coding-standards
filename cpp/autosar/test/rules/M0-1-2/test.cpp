@@ -73,7 +73,7 @@ void test_break(int a) {
   return;
 }
 void test_infeasible_break(unsigned int a) {
-  while (true) { // NON_COMPLIANT(FALSE_NEGATIVE)
+  while (true) { // NON_COMPLIANT[FALSE_NEGATIVE]
     if (a < 0U)  // NON_COMPLIANT - the comparison is always false
       break;
 

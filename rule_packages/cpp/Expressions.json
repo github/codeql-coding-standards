@@ -249,6 +249,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ConstantUnsignedIntegerExpressionsWrapAround",
+          "shared_implementation_short_name": "ConstantUnsignedIntegerExpressionsWrapAround",
           "tags": [
             "correctness",
             "security"
