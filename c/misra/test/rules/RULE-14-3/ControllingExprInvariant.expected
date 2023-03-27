@@ -1,0 +1,7 @@
+| test.c:4:7:4:11 | ... > ... | Controlling expression in if statement has an invariant value. |
+| test.c:15:10:15:16 | ... > ... | Controlling expression in loop statement has an invariant value. |
+| test.c:16:9:16:13 | ... > ... | Controlling expression in if statement has an invariant value. |
+| test.c:20:20:20:24 | ... < ... | Controlling expression in loop statement has an invariant value. |
+| test.c:27:10:27:14 | ... < ... | Controlling expression in loop statement has an invariant value. |
+| test.c:37:3:37:6 | 1 | Controlling expression in conditional statement has an invariant value. |
+| test.c:38:3:38:3 | 1 | Controlling expression in conditional statement has an invariant value. |

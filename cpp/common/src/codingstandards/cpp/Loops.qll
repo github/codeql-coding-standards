@@ -5,6 +5,117 @@
 import cpp
 import Operator
 
+// ******* COPIED FROM semmle.code.cpp.Iteration ******* //
+/**
+ * Holds if `child` is in the condition `forCondition` of a 'for'
+ * statement.
+ *
+ * For example, if a program includes
+ * ```
+ * for (i = 0; i < 10; i++) { j++; }
+ * ```
+ * then this predicate will hold with `forCondition` as `i < 10`,
+ * and `child` as any of `i`, `10` and `i < 10`.
+ */
+pragma[noopt]
+private predicate inForCondition(Expr forCondition, Expr child) {
+  exists(ForStmt for |
+    forCondition = for.getCondition() and
+    child = forCondition and
+    for instanceof ForStmt
+  )
+  or
+  exists(Expr mid |
+    inForCondition(forCondition, mid) and
+    child.getParent() = mid
+  )
+}
+
+// ******* COPIED FROM semmle.code.cpp.Iteration ******* //
+/**
+ * Holds if `child` is in the update `forUpdate` of a 'for' statement.
+ *
+ * For example, if a program includes
+ * ```
+ * for (i = 0; i < 10; i += 1) { j++; }
+ * ```
+ * then this predicate will hold with `forUpdate` as `i += 1`,
+ * and `child` as any of `i`, `1` and `i += 1`.
+ */
+pragma[noopt]
+private predicate inForUpdate(Expr forUpdate, Expr child) {
+  exists(ForStmt for | forUpdate = for.getUpdate() and child = forUpdate)
+  or
+  exists(Expr mid | inForUpdate(forUpdate, mid) and child.getParent() = mid)
+}
+
+class MemberCrementOperation extends FunctionCall {
+  MemberCrementOperation() { this.getTarget() instanceof UserCrementOperator }
+
+  Expr getOperand() { result = this.getQualifier() }
+}
+
+class MemberAssignmentOperation extends FunctionCall {
+  MemberAssignmentOperation() { this.getTarget() instanceof AssignmentOperator }
+
+  Expr getLValue() { result = this.getQualifier() }
+
+  string getOperator() { result = this.getTarget().getName().regexpCapture("operator(.+)", 1) }
+}
+
+/**
+ * Gets a LoopCounter for the given `ForStmt`.
+ *
+ * Equivalent to ForStmt.getAnIterationVariable(), but handles += and -= as well.
+ */
+pragma[noopt]
+Variable getALoopCounter(ForStmt fs) {
+  // check that it is assigned to, incremented or decremented in the update
+  exists(Expr updateOpRoot, Expr updateOp |
+    updateOpRoot = fs.getUpdate() and
+    inForUpdate(updateOpRoot, updateOp)
+  |
+    exists(CrementOperation op, VariableAccess va |
+      op = updateOp and
+      op instanceof CrementOperation and
+      op.getOperand() = va and
+      va = result.getAnAccess()
+    )
+    or
+    exists(MemberCrementOperation op, VariableAccess va |
+      op = updateOp and
+      op instanceof MemberCrementOperation and
+      op.getOperand() = va and
+      va = result.getAnAccess()
+    )
+    or
+    exists(MemberAssignmentOperation op, VariableAccess va |
+      op = updateOp and
+      op instanceof MemberAssignmentOperation and
+      op.getOperator() = ["+=", "-="] and
+      op.getLValue() = va and
+      va = result.getAnAccess()
+    )
+    or
+    exists(AssignArithmeticOperation op, VariableAccess va |
+      op = updateOp and
+      op instanceof AssignArithmeticOperation and
+      op.getOperator() = ["+=", "-="] and
+      op.getLValue() = va and
+      va = result.getAnAccess()
+    )
+    or
+    updateOp = result.getAnAssignedValue()
+  ) and
+  result instanceof Variable and
+  // checked or used in the condition
+  exists(Expr e, VariableAccess va |
+    va = result.getAnAccess() and
+    inForCondition(e, va) and
+    e = fs.getCondition()
+  )
+}
+
 /**
  * Gets an iteration variable as identified by the initialization statement for the loop.
  */
@@ -37,13 +148,26 @@ predicate isForLoopWithFloatingPointCounters(ForStmt forLoop, Variable v) {
  * Holds if for loop `forLoop` contains an invalid for loop incrementation.
  * M6-5-2
  */
-predicate isInvalidForLoopIncrementation(ForStmt forLoop, LoopControlVariable v) {
-  v.getAnAccess() = forLoop.getCondition().getAChild*() and
-  exists(VariableAccess va |
-    va = v.getAnAccess() and
-    va = forLoop.getUpdate().getAChild*() and
-    not exists(CrementOperation cop | cop.getOperand() = va) and
-    not exists(Call c | c.getQualifier() = va and c.getTarget() instanceof UserCrementOperator)
+predicate isInvalidForLoopIncrementation(ForStmt forLoop, Variable v, VariableAccess modification) {
+  v = getAnIterationVariable(forLoop) and
+  modification = v.getAnAccess() and
+  modification = forLoop.getUpdate().getAChild*() and
+  // Is modified
+  (
+    // Variable directly modified
+    modification.isModified()
+    or
+    // Has a call to a member function on the variable, where the target is non-const,
+    // i.e. can modify the state of the object
+    exists(Call c |
+      c.getQualifier() = modification and
+      not c.getTarget() instanceof ConstMemberFunction
+    )
+  ) and
+  // And not by a call to a crement operator
+  not exists(CrementOperation cop | cop.getOperand() = modification) and
+  not exists(Call c |
+    c.getQualifier() = modification and c.getTarget() instanceof UserCrementOperator
   ) and
   exists(VariableAccess va | va = forLoop.getCondition().getAChild*() and va = v.getAnAccess() |
     exists(EqualityOperation eop | eop.getAnOperand() = va)
@@ -147,7 +271,8 @@ predicate isLoopControlVarModifiedInLoopExpr(
   ForStmt forLoop, LoopControlVariable loopControlVariable, VariableAccess loopControlVariableAccess
 ) {
   loopControlVariableAccess = loopControlVariable.getVariableAccessInLoop(forLoop) and
-  not loopControlVariable = getAnIterationVariable(forLoop) and
+  // Not a standard loop counter for this loop
+  not loopControlVariable = getALoopCounter(forLoop) and
   loopControlVariableAccess = forLoop.getUpdate().getAChild() and
   (
     loopControlVariableAccess.isModified() or
@@ -163,26 +288,72 @@ predicate isLoopControlVarModifiedInLoopExpr(
 predicate isNonBoolLoopControlVar(
   ForStmt forLoop, LoopControlVariable loopControlVariable, VariableAccess loopControlVariableAccess
 ) {
-  // get a loop control variable that is not a loop counter
-  loopControlVariableAccess = loopControlVariable.getVariableAccessInLoop(forLoop) and
-  not loopControlVariable = getAnIterationVariable(forLoop) and
-  loopControlVariableAccess.getEnclosingStmt() = forLoop.getStmt().getAChild*() and
-  // filter only loop control variables that are modified
-  (
-    loopControlVariableAccess.isModified() or
-    loopControlVariableAccess.isAddressOfAccess()
-  ) and
-  // check if the variable type is anything but bool
-  not loopControlVariable.getType() instanceof BoolType
+  exists(Variable loopCounter, ComparisonOperation terminationCheck |
+    loopCounter = getAnIterationVariable(forLoop) and
+    forLoop.getCondition() = terminationCheck.getParent*()
+  |
+    // get a loop control variable that is not a loop counter
+    loopControlVariableAccess = loopControlVariable.getVariableAccessInLoop(forLoop) and
+    not loopControlVariable = getAnIterationVariable(forLoop) and
+    // filter only loop control variables that are modified
+    (
+      loopControlVariableAccess.isModified() or
+      loopControlVariableAccess.isAddressOfAccess()
+    ) and
+    // check if the variable type is anything but bool
+    not loopControlVariable.getType() instanceof BoolType and
+    // check if the control variable is part of the termination check, but is not compared to the loop counter
+    terminationCheck.getAnOperand() = loopControlVariable.getAnAccess().getParent*() and
+    not terminationCheck.getAnOperand() = loopCounter.getAnAccess().getParent*()
+  )
 }
 
-predicate isInvalidLoop(ForStmt forLoop) {
-  isInvalidForLoopIncrementation(forLoop, _) or
-  isForLoopWithMulipleCounters(forLoop) or
-  isForLoopWithFloatingPointCounters(forLoop, _) or
-  isLoopCounterModifiedInCondition(forLoop, _) or
-  isLoopCounterModifiedInStatement(forLoop, _, _) or
-  isIrregularLoopCounterModification(forLoop, _, _) or
-  isLoopControlVarModifiedInLoopExpr(forLoop, _, _) or
-  isNonBoolLoopControlVar(forLoop, _, _)
+predicate isInvalidLoop(ForStmt forLoop) { isInvalidLoop(forLoop, _, _, _) }
+
+predicate isInvalidLoop(ForStmt forLoop, string reason, Locatable reasonLocation, string reasonLabel) {
+  exists(Variable loopCounter |
+    isInvalidForLoopIncrementation(forLoop, loopCounter, reasonLocation) and
+    reason =
+      "it $@ its loop counter '" + loopCounter.getName() +
+        "' with an operation that is not an increment or decrement" and
+    reasonLabel = "updates"
+  )
+  or
+  isForLoopWithMulipleCounters(forLoop) and
+  reason = "it uses multiple loop counters$@" and
+  reasonLabel = "" and
+  reasonLocation.getLocation() instanceof UnknownExprLocation
+  or
+  isForLoopWithFloatingPointCounters(forLoop, reasonLocation) and
+  reason = "it uses a loop counter '$@' of type floating-point" and
+  reasonLabel = reasonLocation.(Variable).getName()
+  or
+  isLoopCounterModifiedInCondition(forLoop, reasonLocation) and
+  reason =
+    "it $@ the loop counter '" + reasonLocation.(VariableAccess).getTarget().getName() +
+      "' in the condition" and
+  reasonLabel = "updates"
+  or
+  exists(Variable loopCounter |
+    isLoopCounterModifiedInStatement(forLoop, loopCounter, reasonLocation) and
+    reason = "it $@ the loop counter '" + loopCounter.getName() + "' in the body of the loop" and
+    reasonLabel = "updates"
+  )
+  or
+  exists(Variable loopCounter |
+    isIrregularLoopCounterModification(forLoop, loopCounter, reasonLocation) and
+    reason = "it $@ the loop counter '" + loopCounter.getName() + "' irregularly" and
+    reasonLabel = "updates"
+  )
+  or
+  exists(Variable loopControlVariable |
+    isLoopControlVarModifiedInLoopExpr(forLoop, loopControlVariable, reasonLocation) and
+    reason =
+      "it updates $@, a loop control variable other than the loop counter, in the update expression of the loop" and
+    reasonLabel = loopControlVariable.getName()
+  )
+  or
+  isNonBoolLoopControlVar(forLoop, reasonLocation, _) and
+  reason = "its $@ is not a boolean" and
+  reasonLabel = "loop control variable"
 }

@@ -1,0 +1,7 @@
+| test.c:7:3:8:3 | for(...;...;...) ... | For loop is not well formed, it uses a loop counter '$@' of type floating-point. | test.c:7:14:7:14 | f | f |
+| test.c:14:3:15:3 | for(...;...;...) ... | For loop is not well formed, it uses multiple loop counters$@. | file://:0:0:0:0 |  |  |
+| test.c:20:3:21:3 | for(...;...;...) ... | For loop is not well formed, it uses multiple loop counters$@. | file://:0:0:0:0 |  |  |
+| test.c:25:3:26:3 | for(...;...;...) ... | For loop is not well formed, it $@ its loop counter 'i' with an operation that is not an increment or decrement. | test.c:25:28:25:28 | i | updates |
+| test.c:38:3:39:3 | for(...;...;...) ... | For loop is not well formed, it $@ the loop counter 'x' irregularly. | test.c:38:26:38:26 | x | updates |
+| test.c:52:3:53:3 | for(...;...;...) ... | For loop is not well formed, it updates $@, a loop control variable other than the loop counter, in the update expression of the loop. | test.c:52:28:52:29 | p1 | p1 |
+| test.c:64:3:67:3 | for(...;...;...) ... | For loop is not well formed, it $@ the loop counter 'x' in the body of the loop. | test.c:65:5:65:5 | x | updates |

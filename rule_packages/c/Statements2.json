@@ -1,0 +1,105 @@
+{
+  "MISRA-C-2012": {
+    "RULE-15-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unconstrained use of goto can lead to unstructured code.",
+          "kind": "problem",
+          "name": "The goto statement shall jump to a label declared later in the same function",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "GotoLabelLocationCondition",
+          "shared_implementation_short_name": "GotoStatementCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The goto statement shall jump to a label declared later in the same function"
+    },
+    "RULE-15-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Any label referenced by a goto statement shall be declared in the same block, or in any block enclosing the goto statement.",
+          "kind": "problem",
+          "name": "The goto statement and any of its label shall be declared or enclosed in the same block",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "GotoLabelBlockCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Any label referenced by a goto statement shall be declared in the same block, or in any block enclosing the goto statement"
+    },
+    "RULE-15-4": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "More than one break or goto statement in iteration conditions may lead to readability and maintainability issues.",
+          "kind": "problem",
+          "name": "There should be no more than one break or goto statement used to terminate any iteration statement",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LoopIterationCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "There should be no more than one break or goto statement used to terminate any iteration statement"
+    },
+    "RULE-16-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Switch Statements with a single path are redundant and may cause programming errors.",
+          "kind": "problem",
+          "name": "Every switch statement shall have at least two switch-clauses",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SwitchClauseNumberCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Every switch statement shall have at least two switch-clauses"
+    },
+    "RULE-16-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An `if-else` construct is more appropriate for boolean controlled expression.",
+          "kind": "problem",
+          "name": "A switch-expression shall not have essentially Boolean type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SwitchExpressionBoolCondition",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A switch-expression shall not have essentially Boolean type"
+    }
+  }
+}

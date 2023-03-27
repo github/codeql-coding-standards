@@ -1,0 +1,2 @@
+| test.c:6:3:6:8 | call to memcpy | The dest type int * and src type char * of function memcpy are not compatible. |
+| test.c:18:3:18:9 | call to memmove | The dest type char[9] and src type int[2] of function memmove are not compatible. |

@@ -1,0 +1,3 @@
+| test.c:4:3:12:3 | switch (...) ...  | $@ statement has missing default clause. | test.c:4:3:12:3 | switch (...) ...  | Switch |
+| test.c:13:3:22:3 | switch (...) ...  | $@ statement has default label that does not terminate in a statement or comment before break statement | test.c:13:3:22:3 | switch (...) ...  | Switch |
+| test.c:53:3:60:3 | switch (...) ...  | $@ statement has default label that does not terminate in a statement or comment before break statement | test.c:53:3:60:3 | switch (...) ...  | Switch |

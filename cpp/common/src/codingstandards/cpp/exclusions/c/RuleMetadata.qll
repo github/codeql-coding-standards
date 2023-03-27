@@ -50,6 +50,13 @@ import Preprocessor6
 import SideEffects1
 import SideEffects2
 import SignalHandlers
+import StandardLibraryFunctionTypes
+import Statements1
+import Statements2
+import Statements3
+import Statements4
+import Statements5
+import Statements6
 import Strings1
 import Strings2
 import Strings3
@@ -105,6 +112,13 @@ newtype TCQuery =
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
   TSignalHandlersPackageQuery(SignalHandlersQuery q) or
+  TStandardLibraryFunctionTypesPackageQuery(StandardLibraryFunctionTypesQuery q) or
+  TStatements1PackageQuery(Statements1Query q) or
+  TStatements2PackageQuery(Statements2Query q) or
+  TStatements3PackageQuery(Statements3Query q) or
+  TStatements4PackageQuery(Statements4Query q) or
+  TStatements5PackageQuery(Statements5Query q) or
+  TStatements6PackageQuery(Statements6Query q) or
   TStrings1PackageQuery(Strings1Query q) or
   TStrings2PackageQuery(Strings2Query q) or
   TStrings3PackageQuery(Strings3Query q) or
@@ -160,6 +174,13 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
   isSignalHandlersQueryMetadata(query, queryId, ruleId, category) or
+  isStandardLibraryFunctionTypesQueryMetadata(query, queryId, ruleId, category) or
+  isStatements1QueryMetadata(query, queryId, ruleId, category) or
+  isStatements2QueryMetadata(query, queryId, ruleId, category) or
+  isStatements3QueryMetadata(query, queryId, ruleId, category) or
+  isStatements4QueryMetadata(query, queryId, ruleId, category) or
+  isStatements5QueryMetadata(query, queryId, ruleId, category) or
+  isStatements6QueryMetadata(query, queryId, ruleId, category) or
   isStrings1QueryMetadata(query, queryId, ruleId, category) or
   isStrings2QueryMetadata(query, queryId, ruleId, category) or
   isStrings3QueryMetadata(query, queryId, ruleId, category) or
