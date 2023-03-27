@@ -74,6 +74,26 @@ class InterestingOverflowingOperation extends Operation {
         ae.getExplicitlyConverted().getType().getSize() < any(IntType i).getSize()
       )
       or
+      // Match this pattern for checking for unsigned integer overflow on add
+      // if (UINT_MAX - i1 < i2)
+      (this instanceof AddExpr or this instanceof AssignAddExpr) and
+      this.getType().getUnspecifiedType().(IntegralType).isUnsigned() and
+      exists(SubExpr se, RelationalOperation relOp |
+        globalValueNumber(relOp.getGreaterOperand()) = i2 and
+        relOp.getAnOperand() = se and
+        globalValueNumber(se.getRightOperand()) = i1 and
+        se.getLeftOperand().getValue().toFloat() = typeUpperBound(getType())
+      )
+      or
+      // Match this pattern for checking for unsigned integer underflow on subtract
+      // if (i1 < i2)
+      (this instanceof SubExpr or this instanceof AssignSubExpr) and
+      this.getType().getUnspecifiedType().(IntegralType).isUnsigned() and
+      exists(RelationalOperation relOp |
+        globalValueNumber(relOp.getGreaterOperand()) = i2 and
+        globalValueNumber(relOp.getLesserOperand()) = i1
+      )
+      or
       // The CERT rule for signed integer overflow has a very specific pattern it recommends
       // for checking for overflow. We try to match the pattern here.
       //   ((i2 > 0 && i1 > (INT_MAX - i2)) || (i2 < 0 && i1 < (INT_MIN - i2)))
