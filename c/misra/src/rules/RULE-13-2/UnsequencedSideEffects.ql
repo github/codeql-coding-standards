@@ -22,7 +22,7 @@ predicate isOrHasSideEffect(Expr e) {
   any(VariableEffect ve).getAnAccess() = e
 }
 
-predicate originatingInStatement(Expr e, FullExpr fe) {
+predicate partOfFullExpr(Expr e, FullExpr fe) {
   isOrHasSideEffect(e) and
   (
     e.(VariableEffect).getAnAccess() = fe.getAChild+()
@@ -36,19 +36,19 @@ class ConstituentExprOrdering extends Ordering::Configuration {
 
   override predicate isCandidate(Expr e1, Expr e2) {
     exists(FullExpr fe |
-      originatingInStatement(e1, fe) and
-      originatingInStatement(e2, fe)
+      partOfFullExpr(e1, fe) and
+      partOfFullExpr(e2, fe)
     )
   }
 }
 
 pragma[noinline]
 predicate sameFullExpr(FullExpr fe, Expr e1, Expr e2) {
-  originatingInStatement(e1, fe) and
-  originatingInStatement(e2, fe)
+  partOfFullExpr(e1, fe) and
+  partOfFullExpr(e2, fe)
 }
 
-predicate effect(VariableEffect ve, VariableAccess va, Variable v) {
+predicate destructureEffect(VariableEffect ve, VariableAccess va, Variable v) {
   ve.getAnAccess() = va and
   va.getTarget() = v and
   ve.getTarget() = v
@@ -60,8 +60,8 @@ from
 where
   not isExcluded(fullExpr, SideEffects3Package::unsequencedSideEffectsQuery()) and
   sameFullExpr(fullExpr, va1, va2) and
-  effect(variableEffect1, va1, v1) and
-  effect(variableEffect2, va2, v2) and
+  destructureEffect(variableEffect1, va1, v1) and
+  destructureEffect(variableEffect2, va2, v2) and
   // Exclude the same effect applying to different objects.
   // This occurs when on is a subject of the other.
   // For example, foo.bar = 1; where both foo and bar are objects modified by the assignment.
