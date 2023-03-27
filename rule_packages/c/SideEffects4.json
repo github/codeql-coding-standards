@@ -1,0 +1,23 @@
+{
+  "CERT-C": {
+    "PRE31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Macro arguments can be expanded multiple times which can cause side-effects to be evaluated multiple times.",
+          "kind": "problem",
+          "name": "Avoid side effects in arguments to unsafe macros",
+          "precision": "low",
+          "severity": "error",
+          "short_name": "SideEffectsInArgumentsToUnsafeMacros",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Avoid side effects in arguments to unsafe macros"
+    }
+  }
+}
