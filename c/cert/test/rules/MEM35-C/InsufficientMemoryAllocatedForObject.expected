@@ -1,0 +1,9 @@
+| test.c:12:19:12:24 | call to malloc | Allocation size (32 bytes) is not a multiple of the size of 'S1' (36 bytes). | test.c:12:26:12:32 | 32 |  |
+| test.c:15:19:15:24 | call to malloc | Allocation size calculated from the size of a different type ($@). | test.c:15:26:15:35 | sizeof(<expr>) | sizeof(S1 *) |
+| test.c:20:19:20:24 | call to malloc | Allocation size (128 bytes) is not a multiple of the size of 'S1' (36 bytes). | test.c:20:26:20:36 | ... * ... |  |
+| test.c:21:19:21:24 | call to malloc | Allocation size (128 bytes) is not a multiple of the size of 'S1' (36 bytes). | test.c:21:26:21:36 | ... * ... |  |
+| test.c:25:14:25:19 | call to malloc | Allocation size calculated from the size of a different type ($@). | test.c:25:27:25:37 | sizeof(int) | sizeof(int) |
+| test.c:25:14:25:19 | call to malloc | Allocation size derived from potentially overflowing or wrapping $@. | test.c:25:21:25:37 | ... * ... | integer operation |
+| test.c:31:14:31:19 | call to malloc | Allocation size derived from potentially overflowing or wrapping $@. | test.c:31:21:31:38 | ... * ... | integer operation |
+| test.c:32:14:32:19 | call to malloc | Allocation size derived from potentially overflowing or wrapping $@. | test.c:29:17:29:34 | ... * ... | integer operation |
+| test.c:40:14:40:19 | call to malloc | Allocation size derived from potentially overflowing or wrapping $@. | test.c:29:17:29:34 | ... * ... | integer operation |
