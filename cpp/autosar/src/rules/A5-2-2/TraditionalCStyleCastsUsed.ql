@@ -15,6 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Macro
 
 /**
  * Gets the macro (if any) that generated the given `CStyleCast`.
@@ -32,16 +33,6 @@ Macro getGeneratedFrom(CStyleCast c) {
       child.getAGeneratedElement() = c
     )
   )
-}
-
-/** A macro within the source location of this project. */
-class UserProvidedMacro extends Macro {
-  UserProvidedMacro() { exists(this.getFile().getRelativePath()) }
-}
-
-/** A macro defined within a library used by this project. */
-class LibraryMacro extends Macro {
-  LibraryMacro() { not this instanceof UserProvidedMacro }
 }
 
 /*

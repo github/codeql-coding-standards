@@ -14,3 +14,4 @@
 | test.cpp:59:7:59:17 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
 | test.cpp:63:7:63:45 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
 | test.cpp:64:7:64:45 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:69:20:69:31 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
