@@ -1,3 +1,5 @@
+| test.c:14:5:14:10 | int4_t | The typedef type int4_t does not have its indicated size. |
+| test.c:16:5:16:11 | uint4_t | The typedef type uint4_t does not have its indicated size. |
 | test.c:27:5:27:26 | _astronomical_number_t | The type _astronomical_number_t is not an alias to a fixed-width numeric type. |
 | test.c:34:15:34:16 | c2 | The type signed char is not a fixed-width numeric type. |
 | test.c:35:17:35:18 | c3 | The type unsigned char is not a fixed-width numeric type. |

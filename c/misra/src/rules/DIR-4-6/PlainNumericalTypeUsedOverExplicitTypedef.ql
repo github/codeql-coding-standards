@@ -37,10 +37,23 @@ predicate forbiddenBuiltinNumericUsedInDecl(Variable var, string message) {
   message = "The type " + var.getType() + " is not a fixed-width numeric type."
 }
 
-predicate forbiddenTypedef(TypedefType typedef, string message) {
-  typedef.getBaseType() instanceof BuiltInNumericType and
-  not typedef.getName().regexpMatch("u?(int|float)(4|8|16|32|64|128)_t") and
-  message = "The type " + typedef.getName() + " is not an alias to a fixed-width numeric type."
+// TODO: add some inline comments
+predicate forbiddenTypedef(CTypedefType typedef, string message) {
+  /* If the typedef's name contains an explicit size */
+  (
+    if typedef.getName().regexpMatch("u?(int|float)(4|8|16|32|64|128)_t")
+    then (
+      /* Then the actual type size should match. */
+      not typedef.getSize() * 8 =
+        // times 8 because getSize() gets the size in bytes
+        typedef.getName().regexpCapture("u?(int|float)(4|8|16|32|64|128)_t", 2).toInt() and
+      message = "The typedef type " + typedef.getName() + " does not have its indicated size."
+    ) else (
+      /* Otherwise, the aliased type itself should have an explicit size in its name. */
+      not typedef.getBaseType().getName().regexpMatch("u?(int|float)(4|8|16|32|64|128)_t") and
+      message = "The type " + typedef.getName() + " is not an alias to a fixed-width numeric type."
+    )
+  )
 }
 
 from Element elem, string message
