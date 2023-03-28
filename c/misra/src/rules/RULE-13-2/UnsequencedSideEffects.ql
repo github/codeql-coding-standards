@@ -17,13 +17,15 @@ import codingstandards.c.Expr
 import codingstandards.c.SideEffects
 import codingstandards.c.Ordering
 
-predicate isOrHasSideEffect(Expr e) {
-  e instanceof VariableEffect or
-  any(VariableEffect ve).getAnAccess() = e
+class VariableEffectOrAccess extends Expr {
+  VariableEffectOrAccess() {
+    this instanceof VariableEffect or
+    this instanceof VariableAccess
+  }
 }
 
-predicate partOfFullExpr(Expr e, FullExpr fe) {
-  isOrHasSideEffect(e) and
+pragma[noinline]
+predicate partOfFullExpr(VariableEffectOrAccess e, FullExpr fe) {
   (
     e.(VariableEffect).getAnAccess() = fe.getAChild+()
     or
@@ -42,62 +44,92 @@ class ConstituentExprOrdering extends Ordering::Configuration {
   }
 }
 
-pragma[noinline]
-predicate sameFullExpr(FullExpr fe, Expr e1, Expr e2) {
-  partOfFullExpr(e1, fe) and
-  partOfFullExpr(e2, fe)
-}
-
-predicate destructureEffect(VariableEffect ve, VariableAccess va, Variable v) {
-  ve.getAnAccess() = va and
-  va.getTarget() = v and
-  ve.getTarget() = v
+predicate sameFullExpr(FullExpr fe, VariableAccess va1, VariableAccess va2) {
+  partOfFullExpr(va1, fe) and
+  partOfFullExpr(va2, fe) and
+  va1 != va2 and
+  exists(Variable v1, Variable v2 |
+    // Use `pragma[only_bind_into]` to prevent CP between variable accesses.
+    va1.getTarget() = pragma[only_bind_into](v1) and va2.getTarget() = pragma[only_bind_into](v2)
+  |
+    v1.isVolatile() and v2.isVolatile()
+    or
+    not (v1.isVolatile() and v2.isVolatile()) and
+    v1 = v2
+  )
 }
 
 from
   ConstituentExprOrdering orderingConfig, FullExpr fullExpr, VariableEffect variableEffect1,
-  VariableEffect variableEffect2, VariableAccess va1, VariableAccess va2, Variable v1, Variable v2
+  VariableAccess va1, VariableAccess va2, Locatable placeHolder, string label
 where
   not isExcluded(fullExpr, SideEffects3Package::unsequencedSideEffectsQuery()) and
+  // The two access are scoped to the same full expression.
   sameFullExpr(fullExpr, va1, va2) and
-  destructureEffect(variableEffect1, va1, v1) and
-  destructureEffect(variableEffect2, va2, v2) and
-  // Exclude the same effect applying to different objects.
-  // This occurs when on is a subject of the other.
-  // For example, foo.bar = 1; where both foo and bar are objects modified by the assignment.
-  variableEffect1 != variableEffect2 and
-  // If the effect is not local (happens in a different function) we use the call with the access as a proxy.
+  // We are only interested in effects that change an object,
+  // i.e., exclude patterns suchs as `b->data[b->cursor++]` where `b` is considered modified and read or `foo.bar = 1` where `=` modifies to both `foo` and `bar`.
+  not variableEffect1.isPartial() and
+  variableEffect1.getAnAccess() = va1 and
   (
-    va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
-    va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
-    orderingConfig.isUnsequenced(variableEffect1, variableEffect2)
-    or
-    va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
-    not va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
-    exists(Call call |
-      call.getAnArgument() = va2 and call.getEnclosingStmt() = va1.getEnclosingStmt()
-    |
-      orderingConfig.isUnsequenced(variableEffect1, call)
+    exists(VariableEffect variableEffect2 |
+      not variableEffect2.isPartial() and
+      variableEffect2.getAnAccess() = va2 and
+      // If the effect is not local (happens in a different function) we use the call with the access as a proxy.
+      (
+        va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
+        va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
+        orderingConfig.isUnsequenced(variableEffect1, variableEffect2)
+        or
+        va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
+        not va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
+        exists(Call call |
+          call.getAnArgument() = va2 and call.getEnclosingStmt() = va1.getEnclosingStmt()
+        |
+          orderingConfig.isUnsequenced(variableEffect1, call)
+        )
+        or
+        not va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
+        va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
+        exists(Call call |
+          call.getAnArgument() = va1 and call.getEnclosingStmt() = va2.getEnclosingStmt()
+        |
+          orderingConfig.isUnsequenced(call, variableEffect2)
+        )
+      ) and
+      // Break the symmetry of the ordering relation by requiring that the first expression is located before the second.
+      // This builds upon the assumption that the expressions are part of the same full expression as specified in the ordering configuration.
+      exists(int offset1, int offset2 |
+        va1.getLocation().charLoc(_, offset1, _) and
+        va2.getLocation().charLoc(_, offset2, _) and
+        offset1 < offset2
+      ) and
+      placeHolder = variableEffect2 and
+      label = "side effect"
     )
     or
-    not va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
-    va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
-    exists(Call call |
-      call.getAnArgument() = va1 and call.getEnclosingStmt() = va2.getEnclosingStmt()
-    |
-      orderingConfig.isUnsequenced(call, variableEffect2)
-    )
+    placeHolder = va2 and
+    label = "read" and
+    not exists(VariableEffect variableEffect2 | variableEffect1 != variableEffect2 |
+      variableEffect2.getAnAccess() = va2
+    ) and
+    (
+      va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
+      orderingConfig.isUnsequenced(variableEffect1, va2)
+      or
+      not va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
+      exists(Call call |
+        call.getAnArgument() = va1 and call.getEnclosingStmt() = va2.getEnclosingStmt()
+      |
+        orderingConfig.isUnsequenced(call, va2)
+      )
+    ) and
+    // The read is not used to compute the effect on the variable.
+    // E.g., exclude x = x + 1
+    not variableEffect1.getAChild+() = va2
   ) and
   // Both are evaluated
   not exists(ConditionalExpr ce |
     ce.getThen().getAChild*() = va1 and ce.getElse().getAChild*() = va2
-  ) and
-  // Break the symmetry of the ordering relation by requiring that the first expression is located before the second.
-  // This builds upon the assumption that the expressions are part of the same full expression as specified in the ordering configuration.
-  exists(int offset1, int offset2 |
-    va1.getLocation().charLoc(_, offset1, _) and
-    va2.getLocation().charLoc(_, offset2, _) and
-    offset1 < offset2
   )
 select fullExpr, "The expression contains unsequenced $@ to $@ and $@ to $@.", variableEffect1,
-  "side effect", va1, v1.getName(), variableEffect2, "side effect", va2, v2.getName()
+  "side effect", va1, va1.getTarget(), placeHolder, label, va2, va2.getTarget()

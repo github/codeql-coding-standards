@@ -21,8 +21,8 @@ void unsequenced_sideeffects() {
   l8 = l1;
   // Store value of volatile object in temporary non-volatile object.
   l9 = l2;
-  foo(l8, l9);     // COMPLIANT
-  foo(l8++, l9++); // NON_COMPLIANT
+  foo(l8, l9);   // COMPLIANT
+  foo(l8++, l8); // NON_COMPLIANT
 
   int l10 = l8++, l11 = l8++; // COMPLIANT
 }
