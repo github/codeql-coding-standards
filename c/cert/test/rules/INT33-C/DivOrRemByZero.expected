@@ -1,0 +1,4 @@
+| test.c:4:3:4:9 | ... / ... | Division or remainder expression with divisor that may be zero (divisor range -2147483648...2147483647). |
+| test.c:5:3:5:9 | ... % ... | Division or remainder expression with divisor that may be zero (divisor range -2147483648...2147483647). |
+| test.c:12:5:12:11 | ... / ... | Division or remainder expression with divisor that may be zero (divisor range -2147483648...2147483647). |
+| test.c:13:5:13:11 | ... % ... | Division or remainder expression with divisor that may be zero (divisor range -2147483648...2147483647). |

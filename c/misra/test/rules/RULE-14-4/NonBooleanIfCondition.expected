@@ -1,0 +1,3 @@
+| test.c:7:7:7:8 | l1 | If condition has non boolean essential type int. |
+| test.c:9:7:9:8 | call to f1 | If condition has non boolean essential type int. |
+| test.c:12:7:12:8 | l2 | If condition has non boolean essential type void *. |

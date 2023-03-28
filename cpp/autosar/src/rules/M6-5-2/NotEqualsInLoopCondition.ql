@@ -19,7 +19,7 @@ import codingstandards.cpp.Loops
 from ForStmt fs, LoopControlVariable v
 where
   not isExcluded(fs, LoopsPackage::notEqualsInLoopConditionQuery()) and
-  isInvalidForLoopIncrementation(fs, v)
+  isInvalidForLoopIncrementation(fs, v, _)
 select fs,
   "For-loop counter $@ is updated by an increment larger than 1 and tested in the condition using == or !=.",
   v, v.getName()

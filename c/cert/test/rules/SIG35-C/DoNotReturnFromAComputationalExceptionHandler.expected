@@ -1,0 +1,1 @@
+| test.c:10:1:10:1 | return ... | Do not return from a $@ signal handler. | test.c:13:10:13:15 | SIGFPE | computational exception |

@@ -1,0 +1,1 @@
+rules/MSC39-C/DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql

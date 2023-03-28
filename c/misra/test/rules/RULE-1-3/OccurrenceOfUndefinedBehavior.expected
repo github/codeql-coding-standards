@@ -1,0 +1,5 @@
+| test.c:8:6:8:35 | ____codeql_coding_standards_m2 | May result in undefined behavior. |
+| test.c:11:5:11:34 | ____codeql_coding_standards_m3 | May result in undefined behavior. |
+| test.c:15:5:15:34 | ____codeql_coding_standards_m4 | May result in undefined behavior. |
+| test.c:19:5:19:34 | ____codeql_coding_standards_m5 | May result in undefined behavior. |
+| test.c:23:5:23:34 | ____codeql_coding_standards_m6 | May result in undefined behavior. |

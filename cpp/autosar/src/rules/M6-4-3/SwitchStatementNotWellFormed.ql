@@ -16,13 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.SwitchStatement
+import codingstandards.cpp.rules.switchnotwellformed.SwitchNotWellFormed
 
-from SwitchStmt switch, SwitchCase case
-where
-  not isExcluded(switch, ConditionalsPackage::switchStatementNotWellFormedQuery()) and
-  case = switch.getASwitchCase() and
-  switchCaseNotWellFormed(case)
-select switch,
-  "$@ statement not well formed because this $@ block uses a statement that is not allowed.",
-  switch, "Switch", case, "case"
+class SwitchStatementNotWellFormedQuery extends SwitchNotWellFormedSharedQuery {
+  SwitchStatementNotWellFormedQuery() {
+    this = ConditionalsPackage::switchStatementNotWellFormedQuery()
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "MISRA-C-2012": {
+    "RULE-14-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a controlling expression has an invariant value then it is possible that there is a programming error.",
+          "kind": "problem",
+          "name": "Controlling expressions shall not be invariant",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ControllingExprInvariant",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Controlling expressions shall not be invariant"
+    },
+    "RULE-15-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Not having a single point of exit in a function can lead to unintentional behaviour.",
+          "kind": "problem",
+          "name": "A function should have a single point of exit at the end",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "FunctionReturnCondition",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A function should have a single point of exit at the end"
+    },
+    "RULE-17-4": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Not returning with an expression from a non-void function can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "All exit paths from a function with non-void return type shall have an explicit return statement",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonVoidFunctionReturnCondition",
+          "shared_implementation_short_name": "NonVoidFunctionDoesNotReturn",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "All exit paths from a function with non-void return type shall have an explicit return statement with an expression"
+    }
+  }
+}

@@ -82,7 +82,7 @@ int closing_helper(FILE *g) {
   return 0;
 }
 int f2inter(const char *filename) {
-  FILE *f = fopen(filename, "r"); // COMPLIANT (FALSE_POSITIVE)
+  FILE *f = fopen(filename, "r"); // COMPLIANT[FALSE_POSITIVE]
   if (NULL == f) {
     return -1;
   }
