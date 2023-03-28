@@ -1,13 +1,4 @@
 {
-  "CERT-C": {
-    "PRE31-C": {
-      "properties": {
-        "obligation": "rule"
-      },
-      "queries": [],
-      "title": "Avoid side effects in arguments to unsafe macros"
-    }
-  },
   "MISRA-C-2012": {
     "RULE-13-2": {
       "properties": {
