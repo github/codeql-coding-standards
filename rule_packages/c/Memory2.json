@@ -113,7 +113,7 @@
       "queries": [
         {
           "description": "Freeing memory that is not allocated dynamically can lead to heap corruption and undefined behavior.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "Only free memory allocated dynamically",
           "precision": "high",
           "severity": "error",
@@ -196,7 +196,7 @@
       "queries": [
         {
           "description": "Freeing memory that is not allocated dynamically can lead to heap corruption and undefined behavior.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "A block of memory shall only be freed if it was allocated by means of a Standard Library function",
           "precision": "high",
           "severity": "error",

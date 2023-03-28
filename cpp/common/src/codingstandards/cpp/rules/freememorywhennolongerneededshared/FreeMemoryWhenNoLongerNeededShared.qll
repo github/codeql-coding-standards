@@ -12,20 +12,11 @@ import semmle.code.cpp.pointsto.PointsTo
 
 predicate allocated(FunctionCall fc) { allocExpr(fc, _) }
 
-/** Holds if there exists a call to a function that might free the allocation specified by `e`. */
-predicate freed(Expr e) {
-  freeExpr(_, e, _) or
-  exists(ExprCall c |
-    // cautiously assume that any ExprCall could be a call to free.
-    c.getAnArgument() = e
-  )
-}
-
 /** An expression for which there exists a function call that might free it. */
 class FreedExpr extends PointsToExpr {
-  FreedExpr() { freed(this) }
+  FreedExpr() { freeExprOrIndirect(this, _, _) }
 
-  override predicate interesting() { freed(this) }
+  override predicate interesting() { freeExprOrIndirect(this, _, _) }
 }
 
 /**

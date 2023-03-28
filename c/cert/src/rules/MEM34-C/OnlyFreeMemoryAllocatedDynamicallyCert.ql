@@ -3,7 +3,7 @@
  * @name MEM34-C: Only free memory allocated dynamically
  * @description Freeing memory that is not allocated dynamically can lead to heap corruption and
  *              undefined behavior.
- * @kind problem
+ * @kind path-problem
  * @precision high
  * @problem.severity error
  * @tags external/cert/id/mem34-c

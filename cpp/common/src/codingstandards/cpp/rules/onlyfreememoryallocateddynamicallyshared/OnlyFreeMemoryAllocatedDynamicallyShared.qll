@@ -9,6 +9,7 @@ import codingstandards.cpp.Exclusions
 import codingstandards.cpp.Allocations
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.DataFlow2
+import DataFlow::PathGraph
 
 /**
  * A pointer to potentially dynamically allocated memory
@@ -38,41 +39,54 @@ class FreeExprSink extends DataFlow::Node {
 }
 
 /**
- * A data-flow configuration that tracks flow from an `AllocExprSource` to
- * the value assigned to a variable.
+ * An `Expr` that is an `AddressOfExpr` of a `Variable`.
+ *
+ * `Field`s of `PointerType` are not included in order to reduce false-positives,
+ * as the data-flow library sometimes equates pointers to their underlying data.
  */
-class AllocExprSourceToAssignedValueConfig extends DataFlow2::Configuration {
-  AllocExprSourceToAssignedValueConfig() { this = "AllocExprSourceToAssignedValueConfig" }
-
-  override predicate isSource(DataFlow::Node source) { source instanceof AllocExprSource }
-
-  override predicate isSink(DataFlow::Node sink) {
-    sink.asExpr() = any(Variable v).getAnAssignedValue()
-  }
-}
-
-/**
- * An assignment of a value that is not a dynamically allocated pointer to a variable.
- */
-class NonDynamicallyAllocatedVariableAssignment extends DataFlow::Node {
-  NonDynamicallyAllocatedVariableAssignment() {
-    exists(Variable v |
-      this.asExpr() = v.getAnAssignedValue() and
-      not this.asExpr() instanceof NullValue and
-      not any(AllocExprSourceToAssignedValueConfig cfg).hasFlowTo(this)
-    )
+class AddressOfExprSourceNode extends Expr {
+  AddressOfExprSourceNode() {
+    exists(VariableAccess va |
+      this.(AddressOfExpr).getOperand() = va and
+      (
+        va.getTarget() instanceof StackVariable or
+        va.getTarget() instanceof GlobalVariable or
+        // allow address-of field, but only if that field is not a pointer type,
+        // as there may be nested allocations assigned to fields of pointer types.
+        va.(FieldAccess).getTarget().getUnderlyingType() instanceof ArithmeticType
+      )
+      or
+      this = va and
+      exists(GlobalVariable gv |
+        gv = va.getTarget() and
+        (
+          gv.getUnderlyingType() instanceof ArithmeticType or
+          not exists(gv.getAnAssignedValue()) or
+          exists(AddressOfExprSourceNode other |
+            DataFlow::localExprFlow(other, gv.getAnAssignedValue())
+          )
+        )
+      )
+    ) and
+    // exclude alloc(&allocated_ptr) cases
+    not any(DynamicMemoryAllocationToAddressOfDefiningArgConfig cfg)
+        .hasFlowTo(DataFlow::definitionByReferenceNodeFromArgument(this))
   }
 }
 
 /**
  * A data-flow configuration that tracks flow from an `AllocExprSource` to a `FreeExprSink`.
  */
-class DynamicMemoryAllocationToFreeConfig extends DataFlow::Configuration {
-  DynamicMemoryAllocationToFreeConfig() { this = "DynamicMemoryAllocationToFreeConfig" }
+class DynamicMemoryAllocationToAddressOfDefiningArgConfig extends DataFlow2::Configuration {
+  DynamicMemoryAllocationToAddressOfDefiningArgConfig() {
+    this = "DynamicMemoryAllocationToAddressOfDefiningArgConfig"
+  }
 
   override predicate isSource(DataFlow::Node source) { source instanceof AllocExprSource }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof FreeExprSink }
+  override predicate isSink(DataFlow::Node sink) {
+    sink.asDefiningArgument() instanceof AddressOfExpr
+  }
 }
 
 /**
@@ -83,14 +97,14 @@ class NonDynamicPointerToFreeConfig extends DataFlow::Configuration {
   NonDynamicPointerToFreeConfig() { this = "NonDynamicPointerToFreeConfig" }
 
   override predicate isSource(DataFlow::Node source) {
-    source instanceof NonDynamicallyAllocatedVariableAssignment
+    source.asExpr() instanceof AddressOfExprSourceNode
   }
 
   override predicate isSink(DataFlow::Node sink) { sink instanceof FreeExprSink }
 
   override predicate isBarrierOut(DataFlow::Node node) {
     // the default interprocedural data-flow model flows through any field or array assignment
-    // expressionsto the qualifier (array base, pointer dereferenced, or qualifier) instead of the
+    // expressions to the qualifier (array base, pointer dereferenced, or qualifier) instead of the
     // individual element or field that the assignment modifies. this default behaviour causes
     // false positives for future frees of the object base, so we remove the edges
     // between those assignments from the graph with `isBarrierOut`.
@@ -103,6 +117,11 @@ class NonDynamicPointerToFreeConfig extends DataFlow::Configuration {
       )
     )
   }
+
+  override predicate isBarrierIn(DataFlow::Node node) {
+    // only the last source expression is relevant
+    isSource(node)
+  }
 }
 
 abstract class OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery extends Query { }
@@ -110,18 +129,10 @@ abstract class OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery extends Query
 Query getQuery() { result instanceof OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery }
 
 query predicate problems(
-  FreeExprSink free, string message, DataFlow::Node source, string sourceDescription
+  DataFlow::PathNode element, DataFlow::PathNode source, DataFlow::PathNode sink, string message
 ) {
-  not isExcluded(free.asExpr(), getQuery()) and
-  (
-    not any(DynamicMemoryAllocationToFreeConfig cfg).hasFlowTo(free) and
-    not any(NonDynamicPointerToFreeConfig cfg).hasFlowTo(free) and
-    message = "Free expression frees non-dynamically allocated memory." and
-    source = free and
-    sourceDescription = ""
-    or
-    any(NonDynamicPointerToFreeConfig cfg).hasFlow(source, free) and
-    message = "Free expression frees $@ which was not dynamically allocated." and
-    sourceDescription = "memory"
-  )
+  not isExcluded(element.getNode().asExpr(), getQuery()) and
+  element = sink and
+  any(NonDynamicPointerToFreeConfig cfg).hasFlowPath(source, sink) and
+  message = "Free expression frees memory which was not dynamically allocated."
 }
