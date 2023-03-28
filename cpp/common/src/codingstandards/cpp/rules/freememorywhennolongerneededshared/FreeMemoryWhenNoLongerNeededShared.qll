@@ -14,9 +14,9 @@ predicate allocated(FunctionCall fc) { allocExpr(fc, _) }
 
 /** An expression for which there exists a function call that might free it. */
 class FreedExpr extends PointsToExpr {
-  FreedExpr() { freeExprOrIndirect(this, _, _) }
+  FreedExpr() { freeExprOrIndirect(_, this, _) }
 
-  override predicate interesting() { freeExprOrIndirect(this, _, _) }
+  override predicate interesting() { freeExprOrIndirect(_, this, _) }
 }
 
 /**
@@ -59,19 +59,6 @@ predicate allocCallOrIndirect(Expr e) {
   )
 }
 
-predicate freeCallOrIndirect(FunctionCall fc, Variable v) {
-  // direct free call
-  v.getAnAccess() = fc.(DeallocationExpr).getFreedExpr()
-  or
-  // indirect free call
-  exists(FunctionCall midcall, Function mid, int arg |
-    fc.getArgument(arg) = v.getAnAccess() and
-    mayCallFunction(fc, mid) and
-    midcall.getEnclosingFunction() = mid and
-    freeCallOrIndirect(midcall, mid.getParameter(arg))
-  )
-}
-
 predicate allocDefinition(StackVariable v, ControlFlowNode def) {
   exists(Expr expr | exprDefinition(v, def, expr) and allocCallOrIndirect(expr))
 }
@@ -86,7 +73,7 @@ class MallocVariableReachability extends StackVariableReachabilityWithReassignme
   override predicate isSinkActual(ControlFlowNode node, StackVariable v) {
     // node may be used in allocReaches
     exists(node.(AnalysedExpr).getNullSuccessor(v)) or
-    freeCallOrIndirect(node, v) or
+    freeExprOrIndirect(node, v.getAnAccess(), _) or
     assignedToFieldOrGlobal(v, node) or
     // node may be used directly in query
     v.getFunction() = node.(ReturnStmt).getEnclosingFunction()
@@ -133,7 +120,7 @@ class MallocReachability extends StackVariableReachabilityExt {
     // assigned to a global at node, or NULL checked on the edge node -> next.
     exists(StackVariable v0 | mallocVariableReaches(v0, source, node) |
       node.(AnalysedExpr).getNullSuccessor(v0) = next or
-      freeCallOrIndirect(node, v0) or
+      freeExprOrIndirect(node, v0.getAnAccess(), _) or
       assignedToFieldOrGlobal(v0, node)
     )
   }
