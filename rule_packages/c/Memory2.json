@@ -7,7 +7,7 @@
       "queries": [
         {
           "description": "Subtraction between pointers referring to differing arrays results in undefined behavior.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "Do not subtract two pointers that do not refer to the same array",
           "precision": "high",
           "severity": "warning",
@@ -19,7 +19,7 @@
         },
         {
           "description": "Comparison using the >, >=, <, and <= operators between pointers referring to differing arrays results in undefined behavior.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "Do not subtract two pointers that do not refer to the same array",
           "precision": "high",
           "severity": "warning",
