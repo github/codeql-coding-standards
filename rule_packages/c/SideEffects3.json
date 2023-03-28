@@ -1,0 +1,55 @@
+{
+  "CERT-C": {
+    "PRE31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Avoid side effects in arguments to unsafe macros",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SideEffectsInArgumentsToUnsafeMacros",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Avoid side effects in arguments to unsafe macros"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-13-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value of an expression and its persistent side effects are depending on the evaluation order resulting in unpredictable behavior.",
+          "kind": "problem",
+          "name": "The value of an expression and its persistent side effects depend on its evaluation order",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnsequencedSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An object shall not be modified more than once between two adjacent sequence points or within any full expression.",
+          "kind": "problem",
+          "name": "No object shall be modified more than once",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MultipleObjectModifications",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value of an expression and its persistent side effects shall be the same under all permitted evaluation orders"
+    }
+  }
+}
