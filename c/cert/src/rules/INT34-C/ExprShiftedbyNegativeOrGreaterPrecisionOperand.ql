@@ -44,42 +44,12 @@ class BitShiftExpr extends BinaryBitwiseOperation {
     this instanceof LShiftExpr or
     this instanceof RShiftExpr
   }
-
-  override string toString() {
-    if this instanceof LShiftExpr then result = "left-shift" else result = "right-shift"
-  }
 }
 
-int getPrecision(BuiltInType type) {
-  type.(CharType).isExplicitlyUnsigned() and result = type.(CharType).getSize() * 8
+int getPrecision(IntegralType type) {
+  type.isExplicitlyUnsigned() and result = type.getSize() * 8
   or
-  type.(ShortType).isExplicitlyUnsigned() and result = type.(ShortType).getSize() * 8
-  or
-  type.(IntType).isExplicitlyUnsigned() and result = type.(IntType).getSize() * 8
-  or
-  type.(LongType).isExplicitlyUnsigned() and result = type.(LongType).getSize() * 8
-  or
-  type.(LongLongType).isExplicitlyUnsigned() and result = type.(LongLongType).getSize() * 8
-  or
-  type instanceof CharType and
-  not type.(CharType).isExplicitlyUnsigned() and
-  result = type.(CharType).getSize() * 8 - 1
-  or
-  type instanceof ShortType and
-  not type.(ShortType).isExplicitlyUnsigned() and
-  result = type.(ShortType).getSize() * 8 - 1
-  or
-  type instanceof IntType and
-  not type.(IntType).isExplicitlyUnsigned() and
-  result = type.(IntType).getSize() * 8 - 1
-  or
-  type instanceof LongType and
-  not type.(LongType).isExplicitlyUnsigned() and
-  result = type.(LongType).getSize() * 8 - 1
-  or
-  type instanceof LongLongType and
-  not type.(LongLongType).isExplicitlyUnsigned() and
-  result = type.(LongLongType).getSize() * 8 - 1
+  type.isExplicitlySigned() and result = type.getSize() * 8 - 1
 }
 
 predicate isForbiddenShiftExpr(BitShiftExpr shift, string message) {
@@ -88,12 +58,12 @@ predicate isForbiddenShiftExpr(BitShiftExpr shift, string message) {
       getPrecision(shift.getLeftOperand().getUnderlyingType()) <=
         upperBound(shift.getRightOperand()) and
       message =
-        "The operand " + shift.getLeftOperand() + " is " + shift + "ed by an expression " +
+        "The operand " + shift.getLeftOperand() + " is shifted by an expression " +
           shift.getRightOperand() + " which is greater than or equal to in precision."
       or
       lowerBound(shift.getRightOperand()) < 0 and
       message =
-        "The operand " + shift.getLeftOperand() + " is " + shift + "ed by a negative expression " +
+        "The operand " + shift.getLeftOperand() + " is shifted by a negative expression " +
           shift.getRightOperand() + "."
     ) and
     /*

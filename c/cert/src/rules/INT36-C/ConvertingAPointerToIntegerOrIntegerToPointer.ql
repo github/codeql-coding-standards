@@ -30,10 +30,6 @@ class StdIntIntPtrType extends Type {
       this.getName().regexpMatch("u?intptr_t")
     )
   }
-
-  override string toString() {
-    if this.getName() = "uintptr_t" then result = "uintptr_t" else result = "intptr_t"
-  }
 }
 
 /**

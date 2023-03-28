@@ -28,12 +28,6 @@ class GenericCharPointerType extends PointerType {
     /* This type eventually resolves to char* */
     this.resolveTypedefs*() instanceof CharPointerType
   }
-
-  predicate isWideCharPointerType() { this.resolveTypedefs*() instanceof WideCharPointerType }
-
-  override string toString() {
-    if this.isWideCharPointerType() then result = "wchar_t*" else result = "char*"
-  }
 }
 
 class NonConstCharStarType extends Type {
@@ -47,8 +41,7 @@ class NonConstCharStarType extends Type {
 predicate declaringNonConstCharVar(Variable decl, string message) {
   not decl instanceof Parameter and // exclude parameters
   /* It should be declaring a char* type variable */
-  decl.getType() instanceof GenericCharPointerType and
-  not decl.getType().isDeeplyConstBelow() and
+  decl.getType() instanceof NonConstCharStarType and
   /* But it's declared to hold a string literal. */
   decl.getInitializer().getExpr() instanceof StringLiteral and
   message =
