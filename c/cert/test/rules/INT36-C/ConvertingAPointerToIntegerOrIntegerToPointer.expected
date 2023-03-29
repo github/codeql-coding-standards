@@ -1,0 +1,9 @@
+| test.c:17:23:17:32 | (int *)... | Integer expression 28036591 is implicitly cast to a pointer type. |
+| test.c:20:7:20:16 | (int *)... | Integer expression 28036591 is implicitly cast to a pointer type. |
+| test.c:22:7:22:14 | (int *)... | Integer expression integer1 is implicitly cast to a pointer type. |
+| test.c:24:7:25:7 | (int *)... | Integer expression ... + ... is implicitly cast to a pointer type. |
+| test.c:27:7:27:23 | (int *)... | Integer expression 28036591 is cast to a pointer type. |
+| test.c:29:7:29:21 | (int *)... | Integer expression integer1 is cast to a pointer type. |
+| test.c:34:26:34:34 | (int)... | Pointer expression & ... is implicitly cast to an integer type. |
+| test.c:36:22:36:30 | (int)... | Pointer expression & ... is implicitly cast to an integer type. |
+| test.c:39:7:39:20 | (int)... | Pointer expression & ... is cast to an integer type. |
