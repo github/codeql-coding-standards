@@ -55,16 +55,17 @@ int getPrecision(IntegralType type) {
 predicate isForbiddenShiftExpr(BitShiftExpr shift, string message) {
   (
     (
-      getPrecision(shift.getLeftOperand().getFullyConverted().getUnderlyingType()) <=
+      getPrecision(shift.getLeftOperand().getExplicitlyConverted().getUnderlyingType()) <=
         upperBound(shift.getRightOperand()) and
       message =
         "The operand " + shift.getLeftOperand() + " is shifted by an expression " +
-          shift.getRightOperand() + " which is greater than or equal to in precision."
+          shift.getRightOperand() + " whose upper bound (" + upperBound(shift.getRightOperand()) +
+          ") is greater than or equal to the precision."
       or
       lowerBound(shift.getRightOperand()) < 0 and
       message =
-        "The operand " + shift.getLeftOperand() + " is shifted by a negative expression " +
-          shift.getRightOperand() + "."
+        "The operand " + shift.getLeftOperand() + " is shifted by an expression " +
+          shift.getRightOperand() + " which may be negative."
     ) and
     /*
      * Shift statement is not at a basic block where
