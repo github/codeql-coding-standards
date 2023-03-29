@@ -65,28 +65,49 @@ class UnsafeMacro extends FunctionLikeMacro {
   int getAnUnsafeArgumentIndex() { result = unsafeArgumentIndex }
 }
 
+/**
+ * An invocation of a potentially unsafe macro.
+ */
+class UnsafeMacroInvocation extends MacroInvocation {
+  UnsafeMacroInvocation() {
+    this.getMacro() instanceof UnsafeMacro and not exists(this.getParentInvocation())
+  }
+
+  /**
+   * Gets a side-effect for a potentially unsafe argument to the macro.
+   */
+  SideEffect getSideEffectForUnsafeArg(int index) {
+    index = this.getMacro().(UnsafeMacro).getAnUnsafeArgumentIndex() and
+    exists(Expr e, string arg |
+      arg = this.getExpandedArgument(index) and
+      e = this.getAnExpandedElement() and
+      result = getASideEffect(e) and
+      (
+        result instanceof CrementEffect and
+        exists(arg.indexOf(result.(CrementOperation).getOperator()))
+        or
+        result instanceof FunctionCallEffect and
+        exists(arg.indexOf(result.(FunctionCall).getTarget().getName() + "("))
+      )
+    )
+  }
+}
+
 from
-  UnsafeMacro flm, MacroInvocation mi, Expr e, SideEffect sideEffect, int i, string arg,
-  string sideEffectDesc
+  UnsafeMacroInvocation unsafeMacroInvocation, SideEffect sideEffect, int i, string sideEffectDesc
 where
-  not isExcluded(e, SideEffects4Package::sideEffectsInArgumentsToUnsafeMacrosQuery()) and
-  sideEffect = getASideEffect(e) and
-  flm.getAnInvocation() = mi and
-  not exists(mi.getParentInvocation()) and
-  mi.getAnExpandedElement() = e and
-  i = flm.getAnUnsafeArgumentIndex() and
-  arg = mi.getExpandedArgument(i) and
+  not isExcluded(sideEffect, SideEffects4Package::sideEffectsInArgumentsToUnsafeMacrosQuery()) and
+  sideEffect = unsafeMacroInvocation.getSideEffectForUnsafeArg(i) and
   (
     sideEffect instanceof CrementEffect and
-    exists(arg.indexOf(sideEffect.(CrementOperation).getOperator())) and
     sideEffectDesc = "the use of the " + sideEffect.(CrementOperation).getOperator() + " operator"
     or
     sideEffect instanceof FunctionCallEffect and
-    exists(arg.indexOf(sideEffect.(FunctionCall).getTarget().getName() + "(")) and
     sideEffectDesc =
       "a call to the function '" + sideEffect.(FunctionCall).getTarget().getName() + "'"
   )
 select sideEffect,
-  "Argument " + mi.getUnexpandedArgument(i) + " to unsafe macro '" + flm.getName() +
-    "' is expanded to '" + arg + "' multiple times and includes " + sideEffectDesc +
-    " as a side-effect."
+  "Argument " + unsafeMacroInvocation.getUnexpandedArgument(i) + " to unsafe macro '" +
+    unsafeMacroInvocation.getMacroName() + "' is expanded to '" +
+    unsafeMacroInvocation.getExpandedArgument(i) + "' multiple times and includes " + sideEffectDesc
+    + " as a side-effect."
