@@ -18,32 +18,16 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.EncapsulatingFunctions
-
-/**
- * any `Parameter` in a main function like:
- * int main(int argc, char *argv[])
- */
-class ExcludedVariable extends Parameter {
-  ExcludedVariable() { getFunction() instanceof MainFunction }
-}
+import codingstandards.cpp.BuiltInNumericTypes
 
 from Variable v
 where
   not isExcluded(v, DeclarationsPackage::variableWidthIntegerTypesUsedQuery()) and
   (
-    v.getType() instanceof PlainCharType
-    or
-    v.getType() instanceof UnsignedCharType
-    or
+    v.getType() instanceof BuiltInIntegerType or
+    v.getType() instanceof PlainCharType or
+    v.getType() instanceof UnsignedCharType or
     v.getType() instanceof SignedCharType
-    or
-    v.getType() instanceof ShortType
-    or
-    v.getType() instanceof IntType
-    or
-    v.getType() instanceof LongType
-    or
-    v.getType() instanceof LongLongType
   ) and
   not v instanceof ExcludedVariable
 select v, "Variable '" + v.getName() + "' has variable-width type."

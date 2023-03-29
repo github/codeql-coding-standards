@@ -1,1 +1,1 @@
-| test.cpp:59:3:59:13 | call to memset | call to memset accesses bits which are not part of the object's value representation. |
+| test.cpp:39:3:39:13 | call to memset | call to memset accesses bits which are not part of the object's value representation. |

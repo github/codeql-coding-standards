@@ -128,6 +128,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "MemcmpUsedToAccessObjectRepresentation",
+          "shared_implementation_short_name": "MemcmpUsedToComparePaddingData",
           "tags": [
             "correctness"
           ]
