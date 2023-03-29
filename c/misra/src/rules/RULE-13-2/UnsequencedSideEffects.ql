@@ -132,4 +132,4 @@ where
     ce.getThen().getAChild*() = va1 and ce.getElse().getAChild*() = va2
   )
 select fullExpr, "The expression contains unsequenced $@ to $@ and $@ to $@.", variableEffect1,
-  "side effect", va1, va1.getTarget(), placeHolder, label, va2, va2.getTarget()
+  "side effect", va1, va1.getTarget().getName(), placeHolder, label, va2, va2.getTarget().getName()
