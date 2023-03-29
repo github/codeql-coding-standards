@@ -479,7 +479,7 @@ cpp,CERT-C++,STR50-CPP,Yes,Rule,,,Guarantee that storage for strings has suffici
 cpp,CERT-C++,STR51-CPP,Yes,Rule,,,Do not attempt to create a std::string from a null pointer,,Null,Hard,
 cpp,CERT-C++,STR52-CPP,Yes,Rule,,,"Use valid references, pointers, and iterators to reference elements of a basic_string",,Iterators,Hard,
 cpp,CERT-C++,STR53-CPP,Yes,Rule,,,Range check element access,,OutOfBounds,Hard,
-c,CERT-C,ARR30-C,Yes,Rule,,,Do not form or use out-of-bounds pointers or array subscripts,,InvalidMemory2,Medium,
+c,CERT-C,ARR30-C,Yes,Rule,,,Do not form or use out-of-bounds pointers or array subscripts,,OutOfBounds,Hard,
 c,CERT-C,ARR32-C,Yes,Rule,,,Ensure size arguments for variable length arrays are in a valid range,,InvalidMemory2,Medium,
 c,CERT-C,ARR36-C,Yes,Rule,,,Do not subtract or compare two pointers that do not refer to the same array,,Memory2,Medium,
 c,CERT-C,ARR37-C,Yes,Rule,,,Do not add or subtract an integer to a pointer to a non-array object,,InvalidMemory2,Medium,
