@@ -46,8 +46,27 @@ class CrementEffect extends LocalSideEffect::Range {
   CrementEffect() { this instanceof CrementOperation }
 }
 
+/**
+ * A macro that is considered potentially "unsafe" because one or more arguments are expanded
+ * multiple times.
+ */
+class UnsafeMacro extends FunctionLikeMacro {
+  int unsafeArgumentIndex;
+
+  UnsafeMacro() {
+    exists(this.getAParameterUse(unsafeArgumentIndex)) and
+    // Only consider arguments that are expanded multiple times, and do not consider "stringified" arguments
+    count(int indexInBody |
+      indexInBody = this.getAParameterUse(unsafeArgumentIndex) and
+      not this.getBody().charAt(indexInBody) = "#"
+    ) > 1
+  }
+
+  int getAnUnsafeArgumentIndex() { result = unsafeArgumentIndex }
+}
+
 from
-  FunctionLikeMacro flm, MacroInvocation mi, Expr e, SideEffect sideEffect, int i, string arg,
+  UnsafeMacro flm, MacroInvocation mi, Expr e, SideEffect sideEffect, int i, string arg,
   string sideEffectDesc
 where
   not isExcluded(e, SideEffects4Package::sideEffectsInArgumentsToUnsafeMacrosQuery()) and
@@ -55,8 +74,7 @@ where
   flm.getAnInvocation() = mi and
   not exists(mi.getParentInvocation()) and
   mi.getAnExpandedElement() = e and
-  // Only consider arguments that are expanded multiple times, and do not consider "stringified" arguments
-  count(int index | index = flm.getAParameterUse(i) and not flm.getBody().charAt(index) = "#") > 1 and
+  i = flm.getAnUnsafeArgumentIndex() and
   arg = mi.getExpandedArgument(i) and
   (
     sideEffect instanceof CrementEffect and
