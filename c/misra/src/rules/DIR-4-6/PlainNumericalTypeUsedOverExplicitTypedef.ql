@@ -49,8 +49,9 @@ predicate forbiddenTypedef(CTypedefType typedef, string message) {
         typedef.getName().regexpCapture("u?(int|float)(4|8|16|32|64|128)_t", 2).toInt() and
       message = "The typedef type " + typedef.getName() + " does not have its indicated size."
     ) else (
-      /* Otherwise, the aliased type itself should have an explicit size in its name. */
-      not typedef.getBaseType().getName().regexpMatch("u?(int|float)(4|8|16|32|64|128)_t") and
+      /* Otherwise, if the type is an alias of a built in numeric type it should have an explicit size in its name. */
+      typedef.getUnspecifiedType() instanceof BuiltInNumericType and
+      not typedef.getBaseType+().getName().regexpMatch("u?(int|float)(4|8|16|32|64|128)_t") and
       message = "The type " + typedef.getName() + " is not an alias to a fixed-width numeric type."
     )
   )
