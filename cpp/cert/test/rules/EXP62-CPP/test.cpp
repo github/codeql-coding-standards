@@ -1,25 +1,5 @@
 #include <string>
 
-struct S {
-  unsigned char buffType;
-  int size;
-
-  friend bool operator==(const S &lhs, const S &rhs) {
-    return lhs.buffType == rhs.buffType && lhs.size == rhs.size;
-  }
-};
-
-void f(const S &s1, const S &s2) {
-  if (s1 == s2) {
-    // COMPLIANT S overloads operator==() to perform a comparison of the value
-    // representation of the object
-  }
-}
-void f1(const S &s1, const S &s2) {
-  if (!std::memcmp(&s1, &s2, sizeof(S))) { // NON_COMPLIANT
-  }
-}
-
 struct S1 {
   int i, j, k;
 

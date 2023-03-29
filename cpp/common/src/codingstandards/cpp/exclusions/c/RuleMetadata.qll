@@ -38,6 +38,7 @@ import Language1
 import Language2
 import Language3
 import Memory1
+import Memory2
 import Misc
 import Pointers1
 import Pointers2
@@ -102,6 +103,7 @@ newtype TCQuery =
   TLanguage2PackageQuery(Language2Query q) or
   TLanguage3PackageQuery(Language3Query q) or
   TMemory1PackageQuery(Memory1Query q) or
+  TMemory2PackageQuery(Memory2Query q) or
   TMiscPackageQuery(MiscQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
@@ -166,6 +168,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
   isMemory1QueryMetadata(query, queryId, ruleId, category) or
+  isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMiscQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or

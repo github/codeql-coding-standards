@@ -1,0 +1,4 @@
+| test.c:5:13:5:18 | call to malloc | The memory allocated here may not be freed at $@. | test.c:4:15:11:1 | { ... } | this location |
+| test.c:14:13:14:19 | call to realloc | The memory allocated here may not be freed at $@. | test.c:13:25:20:1 | { ... } | this location |
+| test.c:23:13:23:19 | call to realloc | The memory allocated here may not be freed at $@. | test.c:22:26:29:1 | { ... } | this location |
+| test.c:42:13:42:18 | call to malloc | The memory allocated here may not be freed at $@. | test.c:51:3:51:11 | return ... | this location |
