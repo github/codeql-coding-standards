@@ -55,7 +55,7 @@ int getPrecision(IntegralType type) {
 predicate isForbiddenShiftExpr(BitShiftExpr shift, string message) {
   (
     (
-      getPrecision(shift.getLeftOperand().getUnderlyingType()) <=
+      getPrecision(shift.getLeftOperand().getFullyConverted().getUnderlyingType()) <=
         upperBound(shift.getRightOperand()) and
       message =
         "The operand " + shift.getLeftOperand() + " is shifted by an expression " +
