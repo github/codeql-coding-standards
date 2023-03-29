@@ -2,7 +2,7 @@
  * @id c/cert/side-effects-in-arguments-to-unsafe-macros
  * @name PRE31-C: Avoid side effects in arguments to unsafe macros
  * @description Macro arguments can be expanded multiple times which can cause side-effects to be
- *              evaluated multiple times.
+ *              evaluated multiple times leading to unexpected program behavior.
  * @kind problem
  * @precision low
  * @problem.severity error
@@ -20,6 +20,9 @@ import codingstandards.cpp.sideeffect.DefaultEffects
 import codingstandards.cpp.sideeffect.Customizations
 import semmle.code.cpp.valuenumbering.HashCons
 
+/**
+ * Add side-effecting functions to the default set of side-effects.
+ */
 class FunctionCallEffect extends GlobalSideEffect::Range {
   FunctionCallEffect() {
     exists(Function f |
@@ -44,6 +47,9 @@ class FunctionCallEffect extends GlobalSideEffect::Range {
   }
 }
 
+/**
+ * Add crement operations to the default set of side-effects.
+ */
 class CrementEffect extends LocalSideEffect::Range {
   CrementEffect() { this instanceof CrementOperation }
 }

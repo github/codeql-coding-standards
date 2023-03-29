@@ -202,7 +202,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-None
+This implementation only considers ++ and function call side effects. Due to the textual nature of macro expansion it is not always possible to determine accurately whether a side-effect was produced by a particular argument, and this may cause both false positives and false negatives. The query does not consider the case where a macro argument including a side-effect is never evaluated.
 
 ## References
 
