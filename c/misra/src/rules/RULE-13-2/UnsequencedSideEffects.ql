@@ -59,6 +59,101 @@ predicate sameFullExpr(FullExpr fe, VariableAccess va1, VariableAccess va2) {
   )
 }
 
+int getLeafCount(LeftRightOperation bop) {
+  if
+    not bop.getLeftOperand() instanceof BinaryOperation and
+    not bop.getRightOperand() instanceof BinaryOperation
+  then result = 2
+  else
+    if
+      bop.getLeftOperand() instanceof BinaryOperation and
+      not bop.getRightOperand() instanceof BinaryOperation
+    then result = 1 + getLeafCount(bop.getLeftOperand())
+    else
+      if
+        not bop.getLeftOperand() instanceof BinaryOperation and
+        bop.getRightOperand() instanceof BinaryOperation
+      then result = 1 + getLeafCount(bop.getRightOperand())
+      else result = getLeafCount(bop.getLeftOperand()) + getLeafCount(bop.getRightOperand())
+}
+
+class LeftRightOperation extends Expr {
+  LeftRightOperation() {
+    this instanceof BinaryOperation or
+    this instanceof AssignOperation or
+    this instanceof AssignExpr
+  }
+
+  Expr getLeftOperand() {
+    result = this.(BinaryOperation).getLeftOperand()
+    or
+    result = this.(AssignOperation).getLValue()
+    or
+    result = this.(AssignExpr).getLValue()
+  }
+
+  Expr getRightOperand() {
+    result = this.(BinaryOperation).getRightOperand()
+    or
+    result = this.(AssignOperation).getRValue()
+    or
+    result = this.(AssignExpr).getRValue()
+  }
+
+  Expr getAnOperand() {
+    result = getLeftOperand() or
+    result = getRightOperand()
+  }
+}
+
+int getOperandIndexIn(FullExpr fullExpr, Expr operand) {
+  result = getOperandIndex(fullExpr, operand)
+  or
+  fullExpr.(Call).getArgument(result).getAChild*() = operand
+}
+
+int getOperandIndex(LeftRightOperation binop, Expr operand) {
+  if operand = binop.getAnOperand()
+  then
+    operand = binop.getLeftOperand() and
+    result = 0
+    or
+    operand = binop.getRightOperand() and
+    result = getLeafCount(binop.getLeftOperand()) + 1
+    or
+    operand = binop.getRightOperand() and
+    not binop.getLeftOperand() instanceof LeftRightOperation and
+    result = 1
+  else (
+    // Child of left operand that is a binary operation.
+    result = getOperandIndex(binop.getLeftOperand(), operand)
+    or
+    // Child of left operand that is not a binary operation.
+    result = 0 and
+    not binop.getLeftOperand() instanceof LeftRightOperation and
+    binop.getLeftOperand().getAChild+() = operand
+    or
+    // Child of right operand and both left and right operands are binary operations.
+    result =
+      getLeafCount(binop.getLeftOperand()) + getOperandIndex(binop.getRightOperand(), operand)
+    or
+    // Child of right operand and left operand is not a binary operation.
+    result = 1 + getOperandIndex(binop.getRightOperand(), operand) and
+    not binop.getLeftOperand() instanceof LeftRightOperation
+    or
+    // Child of right operand that is not a binary operation and the left operand is a binary operation.
+    result = getLeafCount(binop.getLeftOperand()) + 1 and
+    binop.getRightOperand().getAChild+() = operand and
+    not binop.getRightOperand() instanceof LeftRightOperation
+    or
+    // Child of right operand that is not a binary operation and the left operand is not a binary operation.
+    result = 1 and
+    not binop.getLeftOperand() instanceof LeftRightOperation and
+    not binop.getRightOperand() instanceof LeftRightOperation and
+    binop.getRightOperand().getAChild+() = operand
+  )
+}
+
 from
   ConstituentExprOrdering orderingConfig, FullExpr fullExpr, VariableEffect variableEffect1,
   VariableAccess va1, VariableAccess va2, Locatable placeHolder, string label
@@ -98,11 +193,7 @@ where
       ) and
       // Break the symmetry of the ordering relation by requiring that the first expression is located before the second.
       // This builds upon the assumption that the expressions are part of the same full expression as specified in the ordering configuration.
-      exists(int offset1, int offset2 |
-        va1.getLocation().charLoc(_, offset1, _) and
-        va2.getLocation().charLoc(_, offset2, _) and
-        offset1 < offset2
-      ) and
+      getOperandIndexIn(fullExpr, va1) < getOperandIndexIn(fullExpr, va2) and
       placeHolder = variableEffect2 and
       label = "side effect"
     )

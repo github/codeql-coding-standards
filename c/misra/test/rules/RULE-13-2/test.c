@@ -1,6 +1,6 @@
 void foo(int, int);
 
-void unsequenced_sideeffects() {
+void unsequenced_sideeffects1() {
   volatile int l1, l2;
 
   int l3 = l1 + l1; // NON_COMPLIANT
@@ -25,4 +25,13 @@ void unsequenced_sideeffects() {
   foo(l8++, l8); // NON_COMPLIANT
 
   int l10 = l8++, l11 = l8++; // COMPLIANT
+}
+
+int g1[], g2[];
+#define test(i) (g1[i] = g2[i])
+void unsequenced_sideeffects2() {
+  int i;
+  for (i = 0; i < 10; i++) {
+    test(i++); // NON_COMPLIANT
+  }
 }
