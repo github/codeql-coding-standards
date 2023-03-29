@@ -18,6 +18,7 @@ import codingstandards.cpp.SideEffect
 import codingstandards.cpp.StructuralEquivalence
 import codingstandards.cpp.sideeffect.DefaultEffects
 import codingstandards.cpp.sideeffect.Customizations
+import semmle.code.cpp.valuenumbering.HashCons
 
 class FunctionCallEffect extends GlobalSideEffect::Range {
   FunctionCallEffect() {
@@ -100,9 +101,20 @@ where
   sideEffect = unsafeMacroInvocation.getSideEffectForUnsafeArg(i) and
   (
     sideEffect instanceof CrementEffect and
+    // Do we observe the same side-effect multiple times?
+    count(SideEffect equivalentSideEffect |
+      equivalentSideEffect = unsafeMacroInvocation.getSideEffectForUnsafeArg(i) and
+      hashCons(equivalentSideEffect.(CrementOperation).getOperand()) =
+        hashCons(sideEffect.(CrementOperation).getOperand())
+    ) > 1 and
     sideEffectDesc = "the use of the " + sideEffect.(CrementOperation).getOperator() + " operator"
     or
     sideEffect instanceof FunctionCallEffect and
+    // Do we observe the same side-effect multiple times?
+    count(SideEffect equivalentSideEffect |
+      equivalentSideEffect = unsafeMacroInvocation.getSideEffectForUnsafeArg(i) and
+      equivalentSideEffect.(FunctionCall).getTarget() = sideEffect.(FunctionCall).getTarget()
+    ) > 1 and
     sideEffectDesc =
       "a call to the function '" + sideEffect.(FunctionCall).getTarget().getName() + "'"
   )
