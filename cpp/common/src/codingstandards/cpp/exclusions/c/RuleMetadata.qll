@@ -64,6 +64,7 @@ import Strings1
 import Strings2
 import Strings3
 import Syntax
+import Types1
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
@@ -128,7 +129,8 @@ newtype TCQuery =
   TStrings1PackageQuery(Strings1Query q) or
   TStrings2PackageQuery(Strings2Query q) or
   TStrings3PackageQuery(Strings3Query q) or
-  TSyntaxPackageQuery(SyntaxQuery q)
+  TSyntaxPackageQuery(SyntaxQuery q) or
+  TTypes1PackageQuery(Types1Query q)
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
@@ -193,5 +195,6 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStrings1QueryMetadata(query, queryId, ruleId, category) or
   isStrings2QueryMetadata(query, queryId, ruleId, category) or
   isStrings3QueryMetadata(query, queryId, ruleId, category) or
-  isSyntaxQueryMetadata(query, queryId, ruleId, category)
+  isSyntaxQueryMetadata(query, queryId, ruleId, category) or
+  isTypes1QueryMetadata(query, queryId, ruleId, category)
 }
