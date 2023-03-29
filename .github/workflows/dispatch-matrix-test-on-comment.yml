@@ -3,6 +3,11 @@ name: 🤖 Run Matrix Check (On Comment)
 on:
   issue_comment:
     types: [created]
+    branches:
+      - main
+      - "rc/**"
+      - next
+
 
 jobs:
   dispatch-matrix-check:
