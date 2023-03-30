@@ -1,0 +1,41 @@
+| test.c:14:8:14:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:15:8:15:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:16:8:16:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:18:8:18:8 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:20:8:20:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:25:8:25:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:27:8:27:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:28:8:28:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:29:8:29:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:30:8:30:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:33:10:33:10 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:35:10:35:10 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:41:10:41:10 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:50:10:50:10 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:51:10:51:10 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:56:7:56:7 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:57:7:57:7 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:58:7:58:7 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:61:9:61:9 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:63:9:63:9 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:67:9:67:9 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:68:9:68:9 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:69:9:69:9 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:73:9:73:9 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:74:9:74:9 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:75:9:75:9 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:79:11:79:11 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:86:9:86:9 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:93:9:93:9 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:100:7:100:7 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:104:15:104:15 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:112:9:112:9 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:117:9:117:9 | VLA declaration | Variable-length array total size may be excessively large. |
+| test.c:118:9:118:9 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:119:9:119:9 | VLA declaration | Variable-length array total size may be excessively large. |
+| test.c:120:9:120:9 | VLA declaration | Variable-length array total size may be excessively large. |
+| test.c:123:11:123:11 | VLA declaration | Variable-length array total size may be excessively large. |
+| test.c:124:11:124:11 | VLA declaration | Variable-length array total size may be excessively large. |
+| test.c:125:11:125:11 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
+| test.c:131:11:131:11 | VLA declaration | Variable-length array size derives from an overflowing or wrapping expression. |
+| test.c:135:11:135:11 | VLA declaration | Variable-length array total size may be excessively large. |

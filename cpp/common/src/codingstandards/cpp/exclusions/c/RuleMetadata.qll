@@ -34,10 +34,13 @@ import IO3
 import IO4
 import IntegerOverflow
 import InvalidMemory1
+import InvalidMemory2
 import Language1
 import Language2
 import Language3
 import Memory1
+import Memory2
+import Memory3
 import Misc
 import Pointers1
 import Pointers2
@@ -59,10 +62,12 @@ import Statements3
 import Statements4
 import Statements5
 import Statements6
+import Static
 import Strings1
 import Strings2
 import Strings3
 import Syntax
+import Types1
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
@@ -98,10 +103,13 @@ newtype TCQuery =
   TIO4PackageQuery(IO4Query q) or
   TIntegerOverflowPackageQuery(IntegerOverflowQuery q) or
   TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
+  TInvalidMemory2PackageQuery(InvalidMemory2Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TLanguage3PackageQuery(Language3Query q) or
   TMemory1PackageQuery(Memory1Query q) or
+  TMemory2PackageQuery(Memory2Query q) or
+  TMemory3PackageQuery(Memory3Query q) or
   TMiscPackageQuery(MiscQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
@@ -123,10 +131,12 @@ newtype TCQuery =
   TStatements4PackageQuery(Statements4Query q) or
   TStatements5PackageQuery(Statements5Query q) or
   TStatements6PackageQuery(Statements6Query q) or
+  TStaticPackageQuery(StaticQuery q) or
   TStrings1PackageQuery(Strings1Query q) or
   TStrings2PackageQuery(Strings2Query q) or
   TStrings3PackageQuery(Strings3Query q) or
-  TSyntaxPackageQuery(SyntaxQuery q)
+  TSyntaxPackageQuery(SyntaxQuery q) or
+  TTypes1PackageQuery(Types1Query q)
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
@@ -162,10 +172,13 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isIO4QueryMetadata(query, queryId, ruleId, category) or
   isIntegerOverflowQueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
+  isInvalidMemory2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
   isMemory1QueryMetadata(query, queryId, ruleId, category) or
+  isMemory2QueryMetadata(query, queryId, ruleId, category) or
+  isMemory3QueryMetadata(query, queryId, ruleId, category) or
   isMiscQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or
@@ -187,8 +200,10 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStatements4QueryMetadata(query, queryId, ruleId, category) or
   isStatements5QueryMetadata(query, queryId, ruleId, category) or
   isStatements6QueryMetadata(query, queryId, ruleId, category) or
+  isStaticQueryMetadata(query, queryId, ruleId, category) or
   isStrings1QueryMetadata(query, queryId, ruleId, category) or
   isStrings2QueryMetadata(query, queryId, ruleId, category) or
   isStrings3QueryMetadata(query, queryId, ruleId, category) or
-  isSyntaxQueryMetadata(query, queryId, ruleId, category)
+  isSyntaxQueryMetadata(query, queryId, ruleId, category) or
+  isTypes1QueryMetadata(query, queryId, ruleId, category)
 }

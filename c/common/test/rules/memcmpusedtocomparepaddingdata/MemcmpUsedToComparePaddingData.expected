@@ -1,0 +1,1 @@
+| test.c:13:8:13:13 | call to memcmp | memcmp accesses bits which are not part of the object's value representation. |

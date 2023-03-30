@@ -1,0 +1,159 @@
+| test.c:43:3:43:14 | ... << ... | The operand lhs0 is shifted by an expression rhs0 whose upper bound (8) is greater than or equal to the precision. |
+| test.c:47:3:47:14 | ... << ... | The operand lhs0 is shifted by an expression rhs3 whose upper bound (16) is greater than or equal to the precision. |
+| test.c:49:3:49:14 | ... << ... | The operand lhs0 is shifted by an expression rhs4 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:51:3:51:14 | ... << ... | The operand lhs0 is shifted by an expression rhs5 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:53:3:53:14 | ... << ... | The operand lhs0 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:55:3:55:14 | ... << ... | The operand lhs0 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:57:3:57:14 | ... << ... | The operand lhs0 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:59:3:59:14 | ... << ... | The operand lhs0 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:61:3:61:15 | ... << ... | The operand lhs0 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:63:3:63:15 | ... << ... | The operand lhs0 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:65:3:65:15 | ... << ... | The operand lhs0 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:67:3:67:15 | ... << ... | The operand lhs0 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:69:3:69:15 | ... << ... | The operand lhs0 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:71:3:71:14 | ... << ... | The operand lhs1 is shifted by an expression rhs0 whose upper bound (8) is greater than or equal to the precision. |
+| test.c:73:3:73:14 | ... << ... | The operand lhs1 is shifted by an expression rhs1 whose upper bound (7) is greater than or equal to the precision. |
+| test.c:75:3:75:14 | ... << ... | The operand lhs1 is shifted by an expression rhs2 whose upper bound (7) is greater than or equal to the precision. |
+| test.c:77:3:77:14 | ... << ... | The operand lhs1 is shifted by an expression rhs3 whose upper bound (16) is greater than or equal to the precision. |
+| test.c:79:3:79:14 | ... << ... | The operand lhs1 is shifted by an expression rhs4 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:81:3:81:14 | ... << ... | The operand lhs1 is shifted by an expression rhs5 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:83:3:83:14 | ... << ... | The operand lhs1 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:85:3:85:14 | ... << ... | The operand lhs1 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:87:3:87:14 | ... << ... | The operand lhs1 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:89:3:89:14 | ... << ... | The operand lhs1 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:91:3:91:15 | ... << ... | The operand lhs1 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:93:3:93:15 | ... << ... | The operand lhs1 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:95:3:95:15 | ... << ... | The operand lhs1 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:97:3:97:15 | ... << ... | The operand lhs1 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:99:3:99:15 | ... << ... | The operand lhs1 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:134:3:134:14 | ... << ... | The operand lhs3 is shifted by an expression rhs3 whose upper bound (16) is greater than or equal to the precision. |
+| test.c:138:3:138:14 | ... << ... | The operand lhs3 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:140:3:140:14 | ... << ... | The operand lhs3 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:142:3:142:14 | ... << ... | The operand lhs3 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:144:3:144:14 | ... << ... | The operand lhs3 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:146:3:146:15 | ... << ... | The operand lhs3 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:148:3:148:15 | ... << ... | The operand lhs3 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:150:3:150:15 | ... << ... | The operand lhs3 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:152:3:152:15 | ... << ... | The operand lhs3 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:154:3:154:15 | ... << ... | The operand lhs3 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:159:3:159:14 | ... << ... | The operand lhs4 is shifted by an expression rhs3 whose upper bound (16) is greater than or equal to the precision. |
+| test.c:161:3:161:14 | ... << ... | The operand lhs4 is shifted by an expression rhs4 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:163:3:163:14 | ... << ... | The operand lhs4 is shifted by an expression rhs5 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:165:3:165:14 | ... << ... | The operand lhs4 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:167:3:167:14 | ... << ... | The operand lhs4 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:169:3:169:14 | ... << ... | The operand lhs4 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:171:3:171:14 | ... << ... | The operand lhs4 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:173:3:173:15 | ... << ... | The operand lhs4 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:175:3:175:15 | ... << ... | The operand lhs4 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:177:3:177:15 | ... << ... | The operand lhs4 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:179:3:179:15 | ... << ... | The operand lhs4 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:181:3:181:15 | ... << ... | The operand lhs4 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:216:3:216:14 | ... << ... | The operand lhs6 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:220:3:220:14 | ... << ... | The operand lhs6 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:224:3:224:15 | ... << ... | The operand lhs6 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:226:3:226:15 | ... << ... | The operand lhs6 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:228:3:228:15 | ... << ... | The operand lhs6 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:236:3:236:14 | ... << ... | The operand lhs7 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:238:3:238:14 | ... << ... | The operand lhs7 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:240:3:240:14 | ... << ... | The operand lhs7 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:242:3:242:14 | ... << ... | The operand lhs7 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:244:3:244:15 | ... << ... | The operand lhs7 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:246:3:246:15 | ... << ... | The operand lhs7 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:248:3:248:15 | ... << ... | The operand lhs7 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:250:3:250:15 | ... << ... | The operand lhs7 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:252:3:252:15 | ... << ... | The operand lhs7 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:292:3:292:15 | ... << ... | The operand lhs9 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:316:3:316:16 | ... << ... | The operand lhs10 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:318:3:318:16 | ... << ... | The operand lhs10 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:320:3:320:16 | ... << ... | The operand lhs10 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:358:3:358:16 | ... << ... | The operand lhs12 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:374:3:374:16 | ... << ... | The operand lhs13 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:376:3:376:16 | ... << ... | The operand lhs13 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:378:3:378:16 | ... << ... | The operand lhs13 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1579:3:1580:10 | ... >> ... | The operand lhs0 is shifted by an expression rhs0 whose upper bound (8) is greater than or equal to the precision. |
+| test.c:1583:3:1584:10 | ... >> ... | The operand lhs0 is shifted by an expression rhs3 whose upper bound (16) is greater than or equal to the precision. |
+| test.c:1585:3:1586:10 | ... >> ... | The operand lhs0 is shifted by an expression rhs4 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:1587:3:1588:10 | ... >> ... | The operand lhs0 is shifted by an expression rhs5 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:1589:3:1590:10 | ... >> ... | The operand lhs0 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1591:3:1592:10 | ... >> ... | The operand lhs0 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1593:3:1594:10 | ... >> ... | The operand lhs0 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1595:3:1596:10 | ... >> ... | The operand lhs0 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1597:3:1597:15 | ... >> ... | The operand lhs0 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1599:3:1599:15 | ... >> ... | The operand lhs0 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1601:3:1601:15 | ... >> ... | The operand lhs0 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1603:3:1603:15 | ... >> ... | The operand lhs0 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1605:3:1605:15 | ... >> ... | The operand lhs0 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1607:3:1608:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs0 whose upper bound (8) is greater than or equal to the precision. |
+| test.c:1609:3:1610:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs1 whose upper bound (7) is greater than or equal to the precision. |
+| test.c:1611:3:1612:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs2 whose upper bound (7) is greater than or equal to the precision. |
+| test.c:1613:3:1614:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs3 whose upper bound (16) is greater than or equal to the precision. |
+| test.c:1615:3:1616:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs4 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:1617:3:1618:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs5 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:1619:3:1620:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1621:3:1622:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1623:3:1624:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1625:3:1626:10 | ... >> ... | The operand lhs1 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1627:3:1627:15 | ... >> ... | The operand lhs1 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1629:3:1629:15 | ... >> ... | The operand lhs1 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1631:3:1631:15 | ... >> ... | The operand lhs1 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1633:3:1633:15 | ... >> ... | The operand lhs1 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1635:3:1635:15 | ... >> ... | The operand lhs1 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1670:3:1671:10 | ... >> ... | The operand lhs3 is shifted by an expression rhs3 whose upper bound (16) is greater than or equal to the precision. |
+| test.c:1674:3:1675:10 | ... >> ... | The operand lhs3 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1676:3:1677:10 | ... >> ... | The operand lhs3 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1678:3:1679:10 | ... >> ... | The operand lhs3 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1680:3:1681:10 | ... >> ... | The operand lhs3 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1682:3:1682:15 | ... >> ... | The operand lhs3 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1684:3:1684:15 | ... >> ... | The operand lhs3 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1686:3:1686:15 | ... >> ... | The operand lhs3 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1688:3:1688:15 | ... >> ... | The operand lhs3 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1690:3:1690:15 | ... >> ... | The operand lhs3 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1695:3:1696:10 | ... >> ... | The operand lhs4 is shifted by an expression rhs3 whose upper bound (16) is greater than or equal to the precision. |
+| test.c:1697:3:1698:10 | ... >> ... | The operand lhs4 is shifted by an expression rhs4 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:1699:3:1700:10 | ... >> ... | The operand lhs4 is shifted by an expression rhs5 whose upper bound (15) is greater than or equal to the precision. |
+| test.c:1701:3:1702:10 | ... >> ... | The operand lhs4 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1703:3:1704:10 | ... >> ... | The operand lhs4 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1705:3:1706:10 | ... >> ... | The operand lhs4 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1707:3:1708:10 | ... >> ... | The operand lhs4 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1709:3:1709:15 | ... >> ... | The operand lhs4 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1711:3:1711:15 | ... >> ... | The operand lhs4 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1713:3:1713:15 | ... >> ... | The operand lhs4 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1715:3:1715:15 | ... >> ... | The operand lhs4 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1717:3:1717:15 | ... >> ... | The operand lhs4 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1752:3:1753:10 | ... >> ... | The operand lhs6 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1756:3:1757:10 | ... >> ... | The operand lhs6 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1760:3:1760:15 | ... >> ... | The operand lhs6 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1762:3:1762:15 | ... >> ... | The operand lhs6 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1764:3:1764:15 | ... >> ... | The operand lhs6 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1772:3:1773:10 | ... >> ... | The operand lhs7 is shifted by an expression rhs6 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1774:3:1775:10 | ... >> ... | The operand lhs7 is shifted by an expression rhs7 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1776:3:1777:10 | ... >> ... | The operand lhs7 is shifted by an expression rhs8 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1778:3:1779:10 | ... >> ... | The operand lhs7 is shifted by an expression rhs9 whose upper bound (32) is greater than or equal to the precision. |
+| test.c:1780:3:1780:15 | ... >> ... | The operand lhs7 is shifted by an expression rhs10 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1782:3:1782:15 | ... >> ... | The operand lhs7 is shifted by an expression rhs11 whose upper bound (31) is greater than or equal to the precision. |
+| test.c:1784:3:1784:15 | ... >> ... | The operand lhs7 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1786:3:1786:15 | ... >> ... | The operand lhs7 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1788:3:1788:15 | ... >> ... | The operand lhs7 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1828:3:1828:15 | ... >> ... | The operand lhs9 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1852:3:1852:16 | ... >> ... | The operand lhs10 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1854:3:1854:16 | ... >> ... | The operand lhs10 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1856:3:1856:16 | ... >> ... | The operand lhs10 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1894:3:1894:16 | ... >> ... | The operand lhs12 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1910:3:1910:16 | ... >> ... | The operand lhs13 is shifted by an expression rhs12 whose upper bound (64) is greater than or equal to the precision. |
+| test.c:1912:3:1912:16 | ... >> ... | The operand lhs13 is shifted by an expression rhs13 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:1914:3:1914:16 | ... >> ... | The operand lhs13 is shifted by an expression rhs14 whose upper bound (63) is greater than or equal to the precision. |
+| test.c:3115:3:3115:12 | ... << ... | The operand lhs0 is shifted by an expression - ... which may be negative. |
+| test.c:3116:3:3116:12 | ... << ... | The operand lhs1 is shifted by an expression - ... which may be negative. |
+| test.c:3117:3:3117:12 | ... << ... | The operand lhs2 is shifted by an expression - ... which may be negative. |
+| test.c:3118:3:3118:12 | ... << ... | The operand lhs3 is shifted by an expression - ... which may be negative. |
+| test.c:3119:3:3119:12 | ... << ... | The operand lhs4 is shifted by an expression - ... which may be negative. |
+| test.c:3120:3:3120:12 | ... << ... | The operand lhs5 is shifted by an expression - ... which may be negative. |
+| test.c:3121:3:3121:12 | ... << ... | The operand lhs6 is shifted by an expression - ... which may be negative. |
+| test.c:3122:3:3122:12 | ... << ... | The operand lhs7 is shifted by an expression - ... which may be negative. |
+| test.c:3123:3:3123:12 | ... << ... | The operand lhs8 is shifted by an expression - ... which may be negative. |
+| test.c:3124:3:3124:12 | ... << ... | The operand lhs9 is shifted by an expression - ... which may be negative. |
+| test.c:3125:3:3125:13 | ... << ... | The operand lhs10 is shifted by an expression - ... which may be negative. |
+| test.c:3126:3:3126:13 | ... << ... | The operand lhs11 is shifted by an expression - ... which may be negative. |
+| test.c:3127:3:3127:13 | ... << ... | The operand lhs12 is shifted by an expression - ... which may be negative. |
+| test.c:3128:3:3128:13 | ... << ... | The operand lhs13 is shifted by an expression - ... which may be negative. |
+| test.c:3129:3:3129:13 | ... << ... | The operand lhs14 is shifted by an expression - ... which may be negative. |
