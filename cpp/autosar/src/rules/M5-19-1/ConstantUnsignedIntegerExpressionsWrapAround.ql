@@ -21,12 +21,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
+import codingstandards.cpp.rules.constantunsignedintegerexpressionswraparound.ConstantUnsignedIntegerExpressionsWrapAround
 
-from BinaryArithmeticOperation bao
-where
-  not isExcluded(bao, ExpressionsPackage::constantUnsignedIntegerExpressionsWrapAroundQuery()) and
-  bao.isConstant() and
-  bao.getFullyConverted().getUnderlyingType().(IntegralType).isUnsigned() and
-  convertedExprMightOverflow(bao)
-select bao, "Use of a constant, unsigned, integer expression that over- or under-flows."
+class ConstantUnsignedIntegerExpressionsWrapAroundQuery extends ConstantUnsignedIntegerExpressionsWrapAroundSharedQuery {
+  ConstantUnsignedIntegerExpressionsWrapAroundQuery() {
+    this = ExpressionsPackage::constantUnsignedIntegerExpressionsWrapAroundQuery()
+  }
+}

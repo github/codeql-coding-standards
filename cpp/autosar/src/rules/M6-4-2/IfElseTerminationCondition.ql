@@ -15,10 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.ifelseterminationconstruct.IfElseTerminationConstruct
 
-from IfStmt ifStmt, IfStmt ifElse
-where
-  not isExcluded(ifStmt, ConditionalsPackage::ifElseTerminationConditionQuery()) and
-  ifStmt.getElse() = ifElse and
-  not ifElse.hasElse()
-select ifStmt, "The $@ if statement does not terminate with an else construct.", ifElse, "if...else"
+class IfElseTerminationConditionQuery extends IfElseTerminationConstructSharedQuery {
+  IfElseTerminationConditionQuery() {
+    this = ConditionalsPackage::ifElseTerminationConditionQuery()
+  }
+}

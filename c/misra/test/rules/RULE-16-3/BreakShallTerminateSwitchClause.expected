@@ -1,0 +1,4 @@
+| test.c:11:3:11:9 | case ...: | The switch $@ does not terminate with a break statement. | test.c:11:3:11:9 | case ...: | clause |
+| test.c:14:3:14:9 | case ...: | The switch $@ does not terminate with a break statement. | test.c:14:3:14:9 | case ...: | clause |
+| test.c:26:3:26:10 | default:  | The switch $@ does not terminate with a break statement. | test.c:26:3:26:10 | default:  | clause |
+| test.c:45:3:45:10 | default:  | The switch $@ does not terminate with a break statement. | test.c:45:3:45:10 | default:  | clause |

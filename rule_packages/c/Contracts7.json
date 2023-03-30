@@ -1,0 +1,94 @@
+{
+  "CERT-C": {
+    "MSC33-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The data passed to the asctime() function is invalid. This can lead to buffer overflow.",
+          "kind": "problem",
+          "name": "Do not pass invalid data to the asctime() function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotPassInvalidDataToTheAsctimeFunction",
+          "tags": [
+            "security",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not pass invalid data to the asctime() function"
+    },
+    "MSC39-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Do not call va_arg() on a va_list that has an indeterminate value.",
+          "kind": "problem",
+          "name": "Do not call va_arg() on a va_list that has an indeterminate value",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not call va_arg() on a va_list that has an indeterminate value"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-12-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The right hand operand of a shift operator shall lie in the range zero to one less than the width in bits of the essential type of the left hand operand.",
+          "kind": "problem",
+          "name": "The right operand of a shift shall be smaller then the width in bits of the left operand",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RightHandOperandOfAShiftRange",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The right hand operand of a shift operator shall lie in the range zero to one less than the width in bits of the essential type of the left hand operand"
+    },
+    "RULE-19-1": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "An object shall not be copied or assigned to an overlapping object.",
+          "kind": "problem",
+          "name": "An object shall not be assigned to an overlapping object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ObjectAssignedToAnOverlappingObject",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "An object shall not be copied to an overlapping object.",
+          "kind": "problem",
+          "name": "An object shall not be copied to an overlapping object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ObjectCopiedToAnOverlappingObject",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An object shall not be assigned or copied to an overlapping object"
+    }
+  }
+}

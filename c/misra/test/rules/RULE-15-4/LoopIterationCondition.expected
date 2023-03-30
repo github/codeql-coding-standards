@@ -1,0 +1,7 @@
+| test.c:24:3:32:3 | for(...;...;...) ... | Iteration statement contains more than one $@. | test.c:26:7:26:12 | break; | break or goto statement |
+| test.c:24:3:32:3 | for(...;...;...) ... | Iteration statement contains more than one $@. | test.c:29:7:29:12 | break; | break or goto statement |
+| test.c:24:3:32:3 | for(...;...;...) ... | Iteration statement contains more than one $@. | test.c:31:5:31:12 | goto ... | break or goto statement |
+| test.c:38:3:45:3 | while (...) ... | Iteration statement contains more than one $@. | test.c:40:7:40:12 | break; | break or goto statement |
+| test.c:38:3:45:3 | while (...) ... | Iteration statement contains more than one $@. | test.c:43:7:43:14 | goto ... | break or goto statement |
+| test.c:61:3:72:3 | while (...) ... | Iteration statement contains more than one $@. | test.c:64:7:64:12 | break; | break or goto statement |
+| test.c:61:3:72:3 | while (...) ... | Iteration statement contains more than one $@. | test.c:68:7:68:14 | goto ... | break or goto statement |

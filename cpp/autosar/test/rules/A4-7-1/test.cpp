@@ -35,21 +35,31 @@ short test_addition_invalid_overflow_check(short x, short y) {
   return 0;
 }
 
-void test_addition_loop_bound(unsigned int base, unsigned int size) {
-  if (size > 0) {
-    int n = size - 1;
-    for (int i = 0; i < n; i++) {
-      base + i; // COMPLIANT - `i` is bounded
+void test_addition_loop_bound(unsigned short base, unsigned int n) {
+  if (n < 1000) {
+    for (unsigned int i = 0; i < n; i++) { // COMPLIANT
+      base + i;                            // COMPLIANT - `i` is bounded
     }
   }
 }
 
-void test_addition_invalid_loop_bound(unsigned int base, unsigned int j,
-                                      unsigned int size) {
-  if (size > 0) {
-    int n = size - 1;
-    for (int i = 0; i < n; i++) {
+void test_addition_invalid_loop_bound(unsigned short base, unsigned int j,
+                                      unsigned int n) {
+  if (n < 1000) {
+    for (unsigned int i = 0; i < n; i++) { // COMPLIANT
       base + j; // NON_COMPLIANT - guards are not related
     }
+  }
+}
+
+void test_loop_bound(unsigned int n) {
+  for (unsigned int i = 0; i < n; i++) { // COMPLIANT
+  }
+}
+
+void test_loop_bound_bad(unsigned int n) {
+  for (unsigned short i = 0; i < n;
+       i++) { // NON_COMPLIANT - crement will overflow before loop bound is
+              // reached
   }
 }

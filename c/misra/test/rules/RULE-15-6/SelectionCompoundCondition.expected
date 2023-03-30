@@ -1,0 +1,4 @@
+| test.c:29:3:32:5 | if (...) ...  | If statement not enclosed within braces. |
+| test.c:34:3:41:7 | if (...) ...  | If statement not enclosed within braces. |
+| test.c:36:8:41:7 | if (...) ...  | If statement not enclosed within braces. |
+| test.c:37:5:41:7 | if (...) ...  | If statement not enclosed within braces. |

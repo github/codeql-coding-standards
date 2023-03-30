@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "RULE-15-1": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The goto statement shall not be used.",
+          "kind": "problem",
+          "name": "The goto statement should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GotoStatementUsed",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The goto statement should not be used"
+    }
+  }
+}

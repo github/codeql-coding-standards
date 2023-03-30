@@ -1,0 +1,1 @@
+| test.c:16:3:16:10 | default:  | $@ statement does not have $@ case as first or last switch label. | test.c:12:3:22:3 | switch (...) ...  | Switch | test.c:16:3:16:10 | default:  | default |

@@ -1,0 +1,2 @@
+| test_iteration.c:5:20:5:20 | i | Iteration condition has non boolean type int. |
+| test_iteration.c:7:10:7:11 | l1 | Iteration condition has non boolean type int. |

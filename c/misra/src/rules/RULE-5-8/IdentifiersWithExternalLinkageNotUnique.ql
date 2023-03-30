@@ -15,10 +15,39 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Identifiers
 
-from Declaration de, ExternalIdentifiers e
+/**
+ * Holds if the `identifierName` has conflicting declarations.
+ */
+predicate isExternalIdentifierNotUnique(string identifierName) {
+  // More than one declaration with this name
+  count(Declaration d | d.getName() = identifierName) > 1 and
+  // At least one declaration is an external identifier
+  exists(ExternalIdentifiers e | e.getName() = identifierName)
+}
+
+/**
+ * Holds if the `Declaration` `d` is conflicting with an external identifier.
+ */
+predicate isConflictingDeclaration(Declaration d, string name) {
+  isExternalIdentifierNotUnique(name) and
+  d.getName() = name
+}
+
+/**
+ * An external identifier which is not uniquely defined in the source code.
+ */
+class NotUniqueExternalIdentifier extends ExternalIdentifiers {
+  NotUniqueExternalIdentifier() { isExternalIdentifierNotUnique(getName()) }
+
+  Declaration getAConflictingDeclaration() {
+    not result = this and
+    isConflictingDeclaration(result, getName())
+  }
+}
+
+from NotUniqueExternalIdentifier e, Declaration de
 where
   not isExcluded(de, Declarations6Package::identifiersWithExternalLinkageNotUniqueQuery()) and
   not isExcluded(e, Declarations6Package::identifiersWithExternalLinkageNotUniqueQuery()) and
-  not de = e and
-  de.getName() = e.getName()
+  de = e.getAConflictingDeclaration()
 select de, "Identifier conflicts with external identifier $@", e, e.getName()
