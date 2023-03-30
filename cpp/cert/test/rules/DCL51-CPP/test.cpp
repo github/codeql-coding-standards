@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <string>
 
 #include "test.h"
 
@@ -36,3 +37,7 @@ F(i); // NON_COMPLIANT - user macro
 #define FD_SET(X)                                                              \
   int _##X // NON_COMPLIANT - redefinition of standard library macro
 FD_SET(j); // COMPLIANT - standard library macro
+
+void f() {
+  std::string x = __func__; // COMPLIANT
+}

@@ -1,0 +1,24 @@
+| test.c:6:3:6:9 | ... + ... | Operation + of type int may overflow or underflow. |
+| test.c:7:3:7:10 | ... += ... | Operation += of type signed int may overflow or underflow. |
+| test.c:22:7:22:13 | ... + ... | Operation + of type int may overflow or underflow. |
+| test.c:25:5:25:11 | ... + ... | Operation + of type int may overflow or underflow. |
+| test.c:26:5:26:12 | ... += ... | Operation += of type signed int may overflow or underflow. |
+| test.c:31:19:31:25 | ... + ... | Operation + of type int may overflow or underflow. |
+| test.c:36:3:36:10 | ... += ... | Operation += of type signed int may overflow or underflow. |
+| test.c:43:3:43:9 | ... - ... | Operation - of type int may overflow or underflow. |
+| test.c:44:3:44:10 | ... -= ... | Operation -= of type signed int may overflow or underflow. |
+| test.c:58:19:58:25 | ... - ... | Operation - of type int may overflow or underflow. |
+| test.c:62:3:62:10 | ... -= ... | Operation -= of type signed int may overflow or underflow. |
+| test.c:69:3:69:8 | ... * ... | Operation * of type int may overflow or underflow. |
+| test.c:70:3:70:10 | ... *= ... | Operation *= of type signed int may overflow or underflow. |
+| test.c:115:3:115:9 | ... / ... | Operation / of type int may overflow or underflow. |
+| test.c:116:3:116:10 | ... /= ... | Operation /= of type signed int may overflow or underflow. |
+| test.c:123:5:123:11 | ... / ... | Operation / of type int may overflow or underflow. |
+| test.c:124:5:124:12 | ... /= ... | Operation /= of type signed int may overflow or underflow. |
+| test.c:138:3:138:9 | ... % ... | Operation % of type int may overflow or underflow. |
+| test.c:139:3:139:10 | ... %= ... | Operation %= of type signed int may overflow or underflow. |
+| test.c:146:5:146:11 | ... % ... | Operation % of type int may overflow or underflow. |
+| test.c:147:5:147:12 | ... %= ... | Operation %= of type signed int may overflow or underflow. |
+| test.c:161:3:161:5 | - ... | Operation - of type signed int may overflow or underflow. |
+| test.c:173:3:173:6 | ... ++ | Operation ++ of type signed int may overflow or underflow. |
+| test.c:189:3:189:6 | ... -- | Operation -- of type signed int may overflow or underflow. |

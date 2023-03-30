@@ -1,3 +1,0 @@
-| test.cpp:22:3:26:3 | if (...) ...  | The $@ if statement does not terminate with an else construct. | test.cpp:24:10:26:3 | if (...) ...  | if...else |
-| test.cpp:42:5:46:5 | if (...) ...  | The $@ if statement does not terminate with an else construct. | test.cpp:44:12:46:5 | if (...) ...  | if...else |
-| test.cpp:56:3:66:3 | if (...) ...  | The $@ if statement does not terminate with an else construct. | test.cpp:58:10:66:3 | if (...) ...  | if...else |

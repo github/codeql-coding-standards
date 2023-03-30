@@ -1,0 +1,1 @@
+| test.c:8:11:8:11 | (int)... | Conversion of float to integer without appropriate guards avoiding undefined behavior. |

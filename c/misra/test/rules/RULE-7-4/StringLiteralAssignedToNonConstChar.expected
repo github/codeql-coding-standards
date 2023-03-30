@@ -1,0 +1,8 @@
+| test.c:11:9:11:10 | s3 | char * variable s3 is declared with a string literal. |
+| test.c:13:3:14:15 | ... = ... | char * variable s3 is assigned a string literal.  |
+| test.c:23:12:23:14 | ws3 | wchar_t * variable ws3 is declared with a string literal. |
+| test.c:25:3:25:23 | ... = ... | wchar_t * variable ws3 is assigned a string literal.  |
+| test.c:50:5:50:21 | return ... | char * function sample3 is returning a string literal. |
+| test.c:58:5:58:22 | return ... | wchar_t * function w_sample3 is returning a string literal. |
+| test.c:69:3:69:9 | call to sample4 | char * parameter of sample4 is passed a string literal. |
+| test.c:78:3:78:11 | call to w_sample4 | wchar_t * parameter of w_sample4 is passed a string literal. |

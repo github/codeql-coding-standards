@@ -1,0 +1,2 @@
+| test.c:14:7:14:17 | isalnum(c) | The <ctype.h> function isalnum(c) accepts an argument (...) that is not an unsigned char nor an EOF. |
+| test.c:20:7:20:17 | isalnum(c) | The <ctype.h> function isalnum(c) accepts an argument (...) that is not an unsigned char nor an EOF. |

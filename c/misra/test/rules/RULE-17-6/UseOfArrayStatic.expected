@@ -1,0 +1,3 @@
+| test.c:2:33:2:36 | arr2 | Parameter arr2 is declared as an array type using the static keyword. |
+| test.c:3:39:3:42 | arr3 | Parameter arr3 is declared as an array type using the static keyword. |
+| test.c:5:9:5:12 | arr4 | Parameter arr4 is declared as an array type using the static keyword. |

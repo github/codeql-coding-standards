@@ -1,0 +1,17 @@
+| test.cpp:16:7:16:50 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:17:7:17:18 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:23:7:23:19 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:24:7:24:19 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:30:7:30:18 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:31:7:31:17 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:35:7:35:39 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:36:7:36:39 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:43:7:43:56 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:44:7:44:20 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:51:7:51:19 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:52:7:52:19 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:58:7:58:18 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:59:7:59:17 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:63:7:63:45 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:64:7:64:45 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.cpp:69:20:69:31 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |

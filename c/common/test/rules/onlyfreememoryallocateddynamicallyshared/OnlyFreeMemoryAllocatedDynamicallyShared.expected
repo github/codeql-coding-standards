@@ -1,0 +1,24 @@
+problems
+| test.c:8:8:8:10 | g_p | test.c:8:8:8:10 | g_p | test.c:8:8:8:10 | g_p | Free expression frees memory which was not dynamically allocated. |
+| test.c:10:8:10:10 | g_p | test.c:10:8:10:10 | g_p | test.c:10:8:10:10 | g_p | Free expression frees memory which was not dynamically allocated. |
+| test.c:12:8:12:10 | g_p | test.c:12:8:12:10 | g_p | test.c:12:8:12:10 | g_p | Free expression frees memory which was not dynamically allocated. |
+| test.c:16:33:16:35 | g_p | test.c:16:33:16:35 | g_p | test.c:16:33:16:35 | g_p | Free expression frees memory which was not dynamically allocated. |
+| test.c:18:36:18:38 | ptr | test.c:27:7:27:8 | & ... | test.c:18:36:18:38 | ptr | Free expression frees memory which was not dynamically allocated. |
+| test.c:26:8:26:8 | p | test.c:25:13:25:14 | & ... | test.c:26:8:26:8 | p | Free expression frees memory which was not dynamically allocated. |
+edges
+| test.c:18:24:18:26 | ptr | test.c:18:36:18:38 | ptr |
+| test.c:25:13:25:14 | & ... | test.c:26:8:26:8 | p |
+| test.c:27:7:27:8 | & ... | test.c:28:15:28:15 | p |
+| test.c:28:15:28:15 | p | test.c:18:24:18:26 | ptr |
+nodes
+| test.c:8:8:8:10 | g_p | semmle.label | g_p |
+| test.c:10:8:10:10 | g_p | semmle.label | g_p |
+| test.c:12:8:12:10 | g_p | semmle.label | g_p |
+| test.c:16:33:16:35 | g_p | semmle.label | g_p |
+| test.c:18:24:18:26 | ptr | semmle.label | ptr |
+| test.c:18:36:18:38 | ptr | semmle.label | ptr |
+| test.c:25:13:25:14 | & ... | semmle.label | & ... |
+| test.c:26:8:26:8 | p | semmle.label | p |
+| test.c:27:7:27:8 | & ... | semmle.label | & ... |
+| test.c:28:15:28:15 | p | semmle.label | p |
+subpaths

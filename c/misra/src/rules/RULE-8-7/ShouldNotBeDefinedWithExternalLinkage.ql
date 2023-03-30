@@ -20,27 +20,36 @@ import codingstandards.c.misra
 import codingstandards.cpp.Identifiers
 import codingstandards.cpp.Scope
 
-/**
- * Re-introduce function calls into access description as
- * "any reference"
- */
-class Reference extends NameQualifiableElement {
-  Reference() {
-    this instanceof Access or
-    this instanceof FunctionCall
-  }
+ExternalIdentifiers getExternalIdentifierTarget(NameQualifiableElement nqe) {
+  result = nqe.(Access).getTarget()
+  or
+  result = nqe.(FunctionCall).getTarget()
 }
 
-from ExternalIdentifiers e, Reference a1, TranslationUnit t1
+/**
+ * A reference to an external identifier, either as an `Access` or a `FunctionCall`.
+ */
+class ExternalIdentifierReference extends NameQualifiableElement {
+  ExternalIdentifierReference() { exists(getExternalIdentifierTarget(this)) }
+
+  ExternalIdentifiers getExternalIdentifierTarget() { result = getExternalIdentifierTarget(this) }
+}
+
+predicate isReferencedInTranslationUnit(
+  ExternalIdentifiers e, ExternalIdentifierReference r, TranslationUnit t
+) {
+  r.getExternalIdentifierTarget() = e and
+  r.getFile() = t
+}
+
+from ExternalIdentifiers e, ExternalIdentifierReference a1, TranslationUnit t1
 where
   not isExcluded(e, Declarations6Package::shouldNotBeDefinedWithExternalLinkageQuery()) and
-  (a1.(Access).getTarget() = e or a1.(FunctionCall).getTarget() = e) and
-  a1.getFile() = t1 and
-  //not accessed in any other translation unit
-  not exists(TranslationUnit t2, Reference a2 |
-    not t1 = t2 and
-    (a2.(Access).getTarget() = e or a2.(FunctionCall).getTarget() = e) and
-    a2.getFile() = t2
+  isReferencedInTranslationUnit(e, a1, t1) and
+  // Not referenced in any other translation unit
+  not exists(TranslationUnit t2 |
+    isReferencedInTranslationUnit(e, _, t2) and
+    not t1 = t2
   )
 select e, "Declaration with external linkage is accessed in only one translation unit $@.", a1,
   a1.toString()
