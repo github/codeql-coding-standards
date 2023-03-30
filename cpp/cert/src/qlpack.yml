@@ -1,5 +1,5 @@
 name: codeql/cert-cpp-coding-standards
-version: 2.15.1
+version: 2.17.0-dev
 description: CERT C++ 2016
 suites: codeql-suites
 license: MIT
