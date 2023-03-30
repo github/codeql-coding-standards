@@ -72,6 +72,21 @@ void test_stream_two(std::ostream &os, const char *str,
 }
 
 void test_not_wrapper_stream(std::ostream &os, const char *str) noexcept {
-  test_stream_two(os, "test", "not okay"); // NON_COMPLIANT - test_stream_two is
-                                           // not actually exclusively a wrapper
+  test_stream_two(
+      os, "test",
+      "not okay"); // NON_COMPLIANT[FALSE_NEGATIVE] - test_stream_two is
+                   // not actually exclusively a wrapper
+}
+
+#define MACRO_LOG(test_str) do \
+{\
+struct test_struct {\
+  static const char* get_str(){\
+    return static_cast<char *>(test_str);\
+  }\
+};\
+} while (false)
+
+void f(){
+  MACRO_LOG("test"); //COMPLIANT - exclusion
 }

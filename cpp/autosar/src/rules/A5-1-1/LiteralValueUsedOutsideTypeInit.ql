@@ -18,25 +18,6 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.LoggingOperation
 import codingstandards.cpp.Literals
-import codingstandards.cpp.standardlibrary.FileStreams
-
-/**
- * In a wrapper `Function`, all accesses of all `Parameters`
- * are in located in logging or stream calls
- */
-class LoggerOrStreamWrapperFunction extends Function {
-  LoggerOrStreamWrapperFunction() {
-    forall(Parameter p | p.getFunction() = this |
-      forall(VariableAccess va | va = p.getAnAccess() |
-        (
-          any(FileStreamFunctionCall fc).getAnArgument().getAChild*() = va
-          or
-          any(LoggingOperation logOp).getALoggedExpr().getAChild*() = va
-        )
-      )
-    )
-  }
-}
 
 from Literal l
 where
@@ -45,11 +26,8 @@ where
   not exists(ConstructorCall cc | cc.getAnArgument() = l) and
   not exists(ConstructorFieldInit cf | cf.getExpr() = l) and
   not l = any(LoggingOperation logOp).getALoggedExpr().getAChild*() and
-  not l = any(FileStreamFunctionCall fsc).getAnArgument().getAChild*() and
-  // Exclude arguments to wrapper functions
-  not exists(FunctionCall fc, LoggerOrStreamWrapperFunction w |
-    fc.getAnArgument() = l and w.getACallToThisFunction() = fc
-  ) and
+  // Exclude Macros with names like *LOG
+  not exists(MacroInvocation m | m.getMacroName().matches("%LOG") and m.getAnAffectedElement() = l) and
   // Exclude literal 0
   not l.getValue() = "0" and
   // Exclude character literals

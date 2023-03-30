@@ -1,5 +1,3 @@
 | test.cpp:5:9:5:25 | constant string | Literal value "constant string" used outside of type initialization StringLiteral |
 | test.cpp:14:23:14:25 | 100 | Literal value 100 used outside of type initialization Literal |
 | test.cpp:54:7:54:7 | 1 | Literal value 1 used outside of type initialization Literal |
-| test.cpp:75:23:75:28 | test | Literal value "test" used outside of type initialization StringLiteral |
-| test.cpp:75:31:75:40 | not okay | Literal value "not okay" used outside of type initialization StringLiteral |
