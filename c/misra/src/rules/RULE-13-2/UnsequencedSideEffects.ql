@@ -172,11 +172,10 @@ predicate inConditionalElse(ConditionalExpr ce, Expr e) {
   )
 }
 
-from
+predicate isUnsequencedEffect(
   ConstituentExprOrdering orderingConfig, FullExpr fullExpr, VariableEffect variableEffect1,
   VariableAccess va1, VariableAccess va2, Locatable placeHolder, string label
-where
-  not isExcluded(fullExpr, SideEffects3Package::unsequencedSideEffectsQuery()) and
+) {
   // The two access are scoped to the same full expression.
   sameFullExpr(fullExpr, va1, va2) and
   // We are only interested in effects that change an object,
@@ -238,5 +237,13 @@ where
   ) and
   // Both are evaluated
   not exists(ConditionalExpr ce | inConditionalThen(ce, va1) and inConditionalElse(ce, va2))
+}
+
+from
+  ConstituentExprOrdering orderingConfig, FullExpr fullExpr, VariableEffect variableEffect1,
+  VariableAccess va1, VariableAccess va2, Locatable placeHolder, string label
+where
+  not isExcluded(fullExpr, SideEffects3Package::unsequencedSideEffectsQuery()) and
+  isUnsequencedEffect(orderingConfig, fullExpr, variableEffect1, va1, va2, placeHolder, label)
 select fullExpr, "The expression contains unsequenced $@ to $@ and $@ to $@.", variableEffect1,
   "side effect", va1, va1.getTarget().getName(), placeHolder, label, va2, va2.getTarget().getName()
