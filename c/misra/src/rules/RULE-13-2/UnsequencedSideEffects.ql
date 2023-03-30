@@ -27,7 +27,7 @@ class VariableEffectOrAccess extends Expr {
 pragma[noinline]
 predicate partOfFullExpr(VariableEffectOrAccess e, FullExpr fe) {
   (
-    e.(VariableEffect).getAnAccess() = fe.getAChild+()
+    exists(VariableEffect ve | e = ve and ve.getAnAccess() = fe.getAChild+() and not ve.isPartial())
     or
     e.(VariableAccess) = fe.getAChild+()
   )
@@ -154,6 +154,24 @@ int getOperandIndex(LeftRightOperation binop, Expr operand) {
   )
 }
 
+predicate inConditionalThen(ConditionalExpr ce, Expr e) {
+  e = ce.getThen()
+  or
+  exists(Expr parent |
+    inConditionalThen(ce, parent) and
+    parent.getAChild() = e
+  )
+}
+
+predicate inConditionalElse(ConditionalExpr ce, Expr e) {
+  e = ce.getElse()
+  or
+  exists(Expr parent |
+    inConditionalElse(ce, parent) and
+    parent.getAChild() = e
+  )
+}
+
 from
   ConstituentExprOrdering orderingConfig, FullExpr fullExpr, VariableEffect variableEffect1,
   VariableAccess va1, VariableAccess va2, Locatable placeHolder, string label
@@ -219,8 +237,6 @@ where
     not variableEffect1.getAChild+() = va2
   ) and
   // Both are evaluated
-  not exists(ConditionalExpr ce |
-    ce.getThen().getAChild*() = va1 and ce.getElse().getAChild*() = va2
-  )
+  not exists(ConditionalExpr ce | inConditionalThen(ce, va1) and inConditionalElse(ce, va2))
 select fullExpr, "The expression contains unsequenced $@ to $@ and $@ to $@.", variableEffect1,
   "side effect", va1, va1.getTarget().getName(), placeHolder, label, va2, va2.getTarget().getName()
