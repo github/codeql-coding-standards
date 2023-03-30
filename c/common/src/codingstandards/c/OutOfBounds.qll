@@ -176,14 +176,16 @@ module OOB {
       src_sz = 3 and
       dst_sz = -1
       or
-      name =
-        [
-          "memcpy", "wmemcpy", "memmove", "wmemmove", "strncpy", "wcsncpy", "memcmp", "wmemcmp",
-          "strncmp", "wcsncmp"
-        ] and
+      name = ["memcpy", "wmemcpy", "memmove", "wmemmove", "memcmp", "wmemcmp", "strncmp", "wcsncmp"] and
       dst = 0 and
       src = 1 and
       src_sz = 2 and
+      dst_sz = 2
+      or
+      name = ["strncpy", "wcsncpy"] and
+      dst = 0 and
+      src = 1 and
+      src_sz = -1 and
       dst_sz = 2
       or
       name = ["bsearch", "qsort"] and
@@ -359,7 +361,7 @@ module OOB {
     }
   }
 
-   /**
+  /**
    * A `BufferAccessLibraryFunction` modelling `strncmp`
    */
   class StrncmpLibraryFunction extends BufferAccessLibraryFunction {
@@ -662,13 +664,10 @@ module OOB {
 
     override Expr getSizeExpr() { none() }
 
-    override int getFixedSize() {
-      result = this.(StringLiteral).getOriginalLength()
-    }
+    override int getFixedSize() { result = this.(StringLiteral).getOriginalLength() }
 
     override predicate isNotNullTerminated() { none() }
   }
-
 
   class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration {
     PointerToObjectSourceOrSizeToBufferAccessFunctionConfig() {
@@ -838,11 +837,11 @@ module OOB {
    * from a pattern used for calculating the size of the buffer being accessed.
    */
   predicate isBufferSizeOffsetOfGVN(
-    Expr bufferArg, Expr bufferSizeArg,
-    int sourceSizeExprOffset, int sizeMult, int sizeArgOffset, int bufferArgOffset, 
-    BufferAccessLibraryFunctionCall fc) {
+    Expr bufferArg, Expr bufferSizeArg, int sourceSizeExprOffset, int sizeMult, int sizeArgOffset,
+    int bufferArgOffset, BufferAccessLibraryFunctionCall fc
+  ) {
     exists(DynamicAllocationSource source, Expr sourceSizeExpr, Expr sourceSizeExprBase |
-    (
+      (
         bufferArg = fc.getWriteArg() and
         bufferSizeArg = fc.getWriteSizeArg(sizeMult)
         or
@@ -917,34 +916,34 @@ module OOB {
     BufferAccessLibraryFunctionCall fc, string message, Expr bufferArg, string bufferArgStr,
     Expr sizeOrOtherBufferArg, string otherStr
   ) {
-      exists(int bufferArgSize, int sizeArgValue |
-        isSizeArgGreaterThanBufferSize(bufferArg, sizeOrOtherBufferArg, bufferArgSize, sizeArgValue,
-          fc) and
-        bufferArgStr = bufferArgType(fc, bufferArg) and
-        message =
-          "The size of the $@ passed to " + fc.getTarget().getName() + " is " + bufferArgSize +
-            " bytes, but the " + "$@ is " + sizeArgValue + " bytes." and
-        otherStr = "size argument"
-      )
-      or
-      isMandatoryBufferArgNull(bufferArg, fc) and
-      message = "The $@ passed to " + fc.getTarget().getName() + " is null." and
+    exists(int bufferArgSize, int sizeArgValue |
+      isSizeArgGreaterThanBufferSize(bufferArg, sizeOrOtherBufferArg, bufferArgSize, sizeArgValue,
+        fc) and
       bufferArgStr = bufferArgType(fc, bufferArg) and
-      otherStr = "" and
-      sizeOrOtherBufferArg = bufferArg
-      or
-      isNullTerminatorMissingFromBufferArg(bufferArg, _, fc) and
-      message = "The $@ passed to " + fc.getTarget().getName() + " is not null terminated." and
-      bufferArgStr = bufferArgType(fc, bufferArg) and
-      otherStr = "" and
-      sizeOrOtherBufferArg = bufferArg
-      or
-      isReadBufferSizeGreaterThanWriteBufferSize(bufferArg, sizeOrOtherBufferArg, fc) and
       message =
-        "The size of the $@ passed to " + fc.getTarget().getName() + " is greater than the " +
-          "size of the $@." and
-      bufferArgStr = "read buffer" and
-      otherStr = "write buffer"
-      // ADD IN GVN
-    }
+        "The size of the $@ passed to " + fc.getTarget().getName() + " is " + bufferArgSize +
+          " bytes, but the " + "$@ is " + sizeArgValue + " bytes." and
+      otherStr = "size argument"
+    )
+    or
+    isMandatoryBufferArgNull(bufferArg, fc) and
+    message = "The $@ passed to " + fc.getTarget().getName() + " is null." and
+    bufferArgStr = bufferArgType(fc, bufferArg) and
+    otherStr = "" and
+    sizeOrOtherBufferArg = bufferArg
+    or
+    isNullTerminatorMissingFromBufferArg(bufferArg, _, fc) and
+    message = "The $@ passed to " + fc.getTarget().getName() + " is not null terminated." and
+    bufferArgStr = bufferArgType(fc, bufferArg) and
+    otherStr = "" and
+    sizeOrOtherBufferArg = bufferArg
+    or
+    isReadBufferSizeGreaterThanWriteBufferSize(bufferArg, sizeOrOtherBufferArg, fc) and
+    message =
+      "The size of the $@ passed to " + fc.getTarget().getName() + " is greater than the " +
+        "size of the $@." and
+    bufferArgStr = "read buffer" and
+    otherStr = "write buffer"
+    // ADD IN GVN
+  }
 }
