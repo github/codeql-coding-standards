@@ -1,6 +1,6 @@
 #include <string> //COMPLIANT
 
-#pragma gcc testingpragma // NON_COMPLIANT
+#pragma gcc testingpragma // COMPLIANT - exception - already reported by A16-7-1
 
 #ifndef TESTHEADER // NON_COMPLIANT
 int g;

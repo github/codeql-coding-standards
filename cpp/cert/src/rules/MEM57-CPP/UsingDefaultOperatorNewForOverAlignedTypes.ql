@@ -15,6 +15,7 @@
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.Alignment
+import codingstandards.cpp.Allocations
 
 from NewOrNewArrayExpr newExpr, Type overAlignedType
 where

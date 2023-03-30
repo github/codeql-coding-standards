@@ -1,0 +1,1 @@
+| test.c:75:3:79:5 | switch (...) ...  | Switch body not enclosed within braces. |

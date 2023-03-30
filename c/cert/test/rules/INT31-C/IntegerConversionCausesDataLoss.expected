@@ -1,0 +1,11 @@
+| test.c:7:3:7:15 | (signed int)... | Conversion from unsigned int to signed int may cause data loss (casting from range 0...4294967295 to range -2147483648...2147483647). |
+| test.c:17:3:17:17 | (unsigned int)... | Conversion from signed int to unsigned int may cause data loss (casting from range -2147483648...2147483647 to range 0...4294967295). |
+| test.c:34:3:34:17 | (signed short)... | Conversion from signed int to signed short may cause data loss (casting from range -2147483648...2147483647 to range -32768...32767). |
+| test.c:51:3:51:19 | (unsigned short)... | Conversion from unsigned int to unsigned short may cause data loss (casting from range 0...4294967295 to range 0...65535). |
+| test.c:89:3:89:19 | (unsigned char)... | Conversion from signed int to unsigned char may cause data loss (casting from range 100000...100000 to range 0...255). |
+| test.c:92:3:92:19 | (unsigned char)... | Conversion from signed int to unsigned char may cause data loss (casting from range -129...-129 to range 0...255). |
+| test.c:93:3:93:19 | (unsigned char)... | Conversion from signed int to unsigned char may cause data loss (casting from range 256...256 to range 0...255). |
+| test.c:97:9:97:12 | 4096 | Conversion from int to unsigned char may cause data loss (casting from range 4096...4096 to range 0...255). |
+| test.c:99:10:99:13 | 4096 | Conversion from int to unsigned char may cause data loss (casting from range 4096...4096 to range 0...255). |
+| test.c:101:13:101:16 | 4096 | Conversion from int to unsigned char may cause data loss (casting from range 4096...4096 to range 0...255). |
+| test.c:103:13:103:16 | 4096 | Conversion from int to unsigned char may cause data loss (casting from range 4096...4096 to range 0...255). |
