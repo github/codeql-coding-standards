@@ -727,9 +727,19 @@ module OutOfBounds {
   }
 
   predicate problems(BufferAccessLibraryFunctionCall fc, string msg) {
-    exists(Expr bufferUse, Expr bufferSize, Expr sizeSource, PointerToObjectSource sourceBufferAllocation, int s1, int s2 |
-      isBufferSizeExprGreaterThanSourceSizeExpr(bufferUse, bufferSize, sizeSource, sourceBufferAllocation, s1, s2, fc) and
-      msg = "test"
+    exists(Expr bufferUse, PointerToObjectSource source |
+      exists(int bufSize, int size, Expr bufferSize, Expr sizeSource |
+        isBufferSizeExprGreaterThanSourceSizeExpr(bufferUse, bufferSize, sizeSource, source, bufSize, size, fc) and
+        msg = "Buffer size is smaller than size arg."
+      )
+      or
+      exists(int i |
+        fc.getTarget().(BufferAccessLibraryFunction).getANullTerminatedParameterIndex(i) and
+        fc.getArgument(i) = bufferUse and
+        source.isNotNullTerminated() and
+        hasFlowFromBufferOrSizeExprToUse(source, bufferUse.getAChild*()) and
+        msg = "Buffer " + bufferUse.toString() + " is not null-terminated."
+      )
     )
   }
 }
