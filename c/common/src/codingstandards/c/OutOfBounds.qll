@@ -13,8 +13,9 @@ import codingstandards.cpp.PossiblyUnsafeStringOperation
 import codingstandards.cpp.SimpleRangeAnalysisCustomizations
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
+import semmle.code.cpp.security.BufferWrite
 
-module OutOfBounds {
+module OOB {
   bindingset[name, result]
   private string getNameOrInternalName(string name) {
     result = name or
@@ -312,7 +313,7 @@ module OutOfBounds {
    */
   class SimpleStringLibraryFunction extends BufferAccessLibraryFunction {
     SimpleStringLibraryFunction() {
-      this = libraryFunctionNameParamTable(this.getName(), _, _, _, _)
+      this = libraryFunctionNameParamTableSimpleString(this.getName(), _, _, -1, -1)
     }
 
     override predicate getANullTerminatedParameterIndex(int i) {
@@ -405,9 +406,11 @@ module OutOfBounds {
     }
   }
 
+  class SimpleStringLibraryFunctionCall extends BufferAccessLibraryFunctionCall {
+    SimpleStringLibraryFunctionCall() { this.getTarget() instanceof SimpleStringLibraryFunction }
+  }
+
   int getStatedAllocValue(Expr e) {
-    // `upperBound(e)` defaults to `exprMaxVal(e)` when `e` isn't analyzable. So to get a meaningful
-    // result in this case we pick the minimum value obtainable from dataflow and range analysis.
     if upperBound(e) = exprMaxVal(e)
     then result = max(Expr source | DataFlow::localExprFlow(source, e) | source.getValue().toInt())
     else
@@ -620,6 +623,26 @@ module OutOfBounds {
         )
       )
     }
+
+    override predicate isBarrierOut(DataFlow::Node node) {
+      // the default interprocedural data-flow model flows through any array assignment expressions
+      // to the qualifier (array base or pointer dereferenced) instead of the individual element
+      // that the assignment modifies. this default behaviour causes false positives for any future
+      // access of the array base, so remove the assignment edge at the expense of false-negatives.
+      exists(AssignExpr a |
+        node.asExpr() = a.getRValue().getAChild*() and
+        (
+          a.getLValue() instanceof ArrayExpr or
+          a.getLValue() instanceof PointerDereferenceExpr
+        )
+      )
+      or
+      // remove flow from `src` to `dst` in memcpy
+      exists(FunctionCall fc |
+        fc.getTarget().getName() = getNameOrInternalName("memcpy") and
+        node.asExpr() = fc.getArgument(1).getAChild*()
+      )
+    }
   }
 
   predicate hasFlowFromBufferOrSizeExprToUse(Expr source, Expr use) {
@@ -695,31 +718,25 @@ module OutOfBounds {
     hasFlowFromBufferOrSizeExprToUse(allocSize, bufferSizeArg)
   }
 
-  predicate isBufferSizeExprGreaterThanSourceSizeExpr(
-    Expr bufferUse, Expr bufferSize, Expr sizeSource, PointerToObjectSource sourceBufferAllocation,
-    int bufSize, int size, BufferAccessLibraryFunctionCall fc, int offset, Expr base
+  predicate isSizeArgGreaterThanBufferSize(
+    Expr bufferArg, Expr sizeArg, PointerToObjectSource bufferSource, int bufferArgSize,
+    int sizeArgValue, BufferAccessLibraryFunctionCall fc
   ) {
     exists(float sizeMult |
       (
-        bufferUse = fc.getWriteArg() and
-        bufferSize = fc.getWriteSizeArg() and
+        bufferArg = fc.getWriteArg() and
+        sizeArg = fc.getWriteSizeArg() and
         sizeMult = fc.getWriteSizeArgMult()
         or
-        bufferUse = fc.getReadArg() and
-        bufferSize = fc.getReadSizeArg() and
+        bufferArg = fc.getReadArg() and
+        sizeArg = fc.getReadSizeArg() and
         sizeMult = fc.getReadSizeArgMult()
       ) and
       (
-        offset = 0 and
-        base = bufferSize and
-        bufferUseComputableBufferSize(bufferUse, sourceBufferAllocation, bufSize) and
-        sizeExprComputableSize(bufferSize, sizeSource, size) and
-        (
-          bufSize - getArithmeticOffsetValue(bufferUse) <
-            (sizeMult * (size + getArithmeticOffsetValue(bufferSize)).(float))
-          or
-          size = 0
-        )
+        bufferUseComputableBufferSize(bufferArg, bufferSource, bufferArgSize) and
+        sizeExprComputableSize(sizeArg, _, sizeArgValue) and
+        bufferArgSize - getArithmeticOffsetValue(bufferArg) <
+          sizeMult.(float) * (sizeArgValue + getArithmeticOffsetValue(sizeArg)).(float)
       )
     )
   }
@@ -741,32 +758,45 @@ module OutOfBounds {
     sourceSizeExpr = source.getSizeExprSource(sourceSizeExprBase, sourceSizeExprOffset) and
     bufferUseNonComputableSize(bufferUse, source) and
     not globalValueNumber(sourceSizeExpr) = globalValueNumber(bufferSize) and
-    exists(Expr offsetExpr |
-      offsetExpr = bufferSize.getAChild*() and
-      sizeArgOffset = getArithmeticOffsetValue(offsetExpr)
-    ) and
+    sizeArgOffset = getArithmeticOffsetValue(bufferSize.getAChild*()) and
     bufferArgOffset = getArithmeticOffsetValue(bufferUse) and
     sourceSizeExprOffset + bufferArgOffset < sizeArgOffset
   }
 
-  predicate problems(BufferAccessLibraryFunctionCall fc, string msg) {
-    exists(Expr bufferUse, PointerToObjectSource source |
-      exists(int bufSize, int size, Expr bufferSize, Expr sizeSource |
-        isBufferSizeExprGreaterThanSourceSizeExpr(bufferUse, bufferSize, sizeSource, source,
-          bufSize, size, fc, _, _) and
-        msg = "Buffer size is smaller than size arg."
-      )
-      or
-      exists(int i |
-        fc.getTarget().(BufferAccessLibraryFunction).getANullTerminatedParameterIndex(i) and
-        fc.getArgument(i) = bufferUse and
-        source.isNotNullTerminated() and
-        hasFlowFromBufferOrSizeExprToUse(source, bufferUse.getAChild*()) and
-        msg = "Buffer " + bufferUse.toString() + " is not null-terminated."
-      )
-      or
-      isBufferSizeOffsetOfGVN(fc, _, bufferUse, source, _, _, _, _, _, _) and
-      msg = "Buffer size is offset of GVN."
+  predicate isMandatoryBufferArgNull(Expr bufferArg, BufferAccessLibraryFunctionCall fc) {
+    exists(int i |
+      i =
+        [
+          fc.getTarget().(BufferAccessLibraryFunction).getReadParamIndex(),
+          fc.getTarget().(BufferAccessLibraryFunction).getWriteParamIndex()
+        ] and
+      not fc.getTarget().(BufferAccessLibraryFunction).getAPermissiblyNullParameterIndex(i) and
+      bufferArg = fc.getArgument(i) and
+      getStatedValue(bufferArg) = 0
+    )
+  }
+
+  predicate isNullTerminatorMissingFromBufferArg(
+    Expr bufferArg, PointerToObjectSource source, BufferAccessLibraryFunctionCall fc
+  ) {
+    exists(int i |
+      fc.getTarget().(BufferAccessLibraryFunction).getANullTerminatedParameterIndex(i) and
+      fc.getArgument(i) = bufferArg and
+      source.isNotNullTerminated() and
+      hasFlowFromBufferOrSizeExprToUse(source, bufferArg.getAChild*())
+    )
+  }
+
+  predicate isReadBufferSizeSmallerThanWriteBufferSize(
+    Expr readBuffer, Expr writeBuffer, SimpleStringLibraryFunctionCall fc
+  ) {
+    readBuffer = fc.getReadArg() and
+    writeBuffer = fc.getWriteArg() and
+    exists(int readBufferSize, int writeBufferSize |
+      bufferUseComputableBufferSize(readBuffer, _, readBufferSize) and
+      bufferUseComputableBufferSize(writeBuffer, _, writeBufferSize) and
+      readBufferSize - getArithmeticOffsetValue(readBuffer) <
+        writeBufferSize - getArithmeticOffsetValue(writeBuffer)
     )
   }
 }
