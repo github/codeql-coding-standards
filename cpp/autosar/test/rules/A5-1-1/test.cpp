@@ -78,15 +78,13 @@ void test_not_wrapper_stream(std::ostream &os, const char *str) noexcept {
                    // not actually exclusively a wrapper
 }
 
-#define MACRO_LOG(test_str) do \
-{\
-struct test_struct {\
-  static const char* get_str(){\
-    return static_cast<char *>(test_str);\
-  }\
-};\
-} while (false)
+#define MACRO_LOG(test_str)                                                    \
+  do {                                                                         \
+    struct test_struct {                                                       \
+      static const char *get_str() { return static_cast<char *>(test_str); }   \
+    };                                                                         \
+  } while (false)
 
-void f(){
-  MACRO_LOG("test"); //COMPLIANT - exclusion
+void f() {
+  MACRO_LOG("test"); // COMPLIANT - exclusion
 }
