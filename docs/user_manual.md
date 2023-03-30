@@ -23,7 +23,7 @@
 
 ## Release information
 
-This user manual documents release `2.10.0` of the coding standards located at https://github.com/github/codeql-coding-standards/releases/tag/v2.10.0 .
+This user manual documents release `2.17.0-dev` of the coding standards located at https://github.com/github/codeql-coding-standards.
 The release page documents the release notes and contains the following artifacts part of the release:
 
 - `code-scanning-cpp-query-pack-anon-2.17.0-dev.zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
