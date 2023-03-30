@@ -20,6 +20,7 @@
 | 0.12.0  | 2022-10-21 | Luke Cartey     | Updated version to 2.10.0                                                                                               |
 | 0.13.0  | 2022-11-03 | Remco Vermeulen | Add missing deviation analysis report tables to section 'Producing an analysis report'.                                 |
 | 0.14.0  | 2022-11-03 | Remco Vermeulen | Add guideline recategorization plan.                                                                                    |
+| 0.15.0  | 2023-03-30 | Luke Cartey     | Expand and clarify versions of the supported compilers.                                                                                    |
 
 ## Release information
 
@@ -101,7 +102,8 @@ Use of the queries outside these scenarios is possible, but not validated for fu
 For C the codebase under analysis must:
  * Comply with C99 or C11.
  * Use one of the following supported compilers:
-   - Clang version 10
+   - clang version 10.0.0
+   - gcc version 8.4.0
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
  - Use of the queries against codebases written with more recent versions of C (as supported by CodeQL) are not validated in the following circumstances:
