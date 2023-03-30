@@ -1,0 +1,4 @@
+| test.c:65:18:65:18 | a | Field access on $@ qualifier occurs after its temporary object lifetime. | test.c:65:9:65:14 | call to get_s1 | function call |
+| test.c:67:18:67:19 | s1 | Field access on $@ qualifier occurs after its temporary object lifetime. | test.c:67:9:67:14 | call to get_s3 | function call |
+| test.c:68:18:68:19 | i1 | Field access on $@ qualifier occurs after its temporary object lifetime. | test.c:68:9:68:14 | call to get_s3 | function call |
+| test.c:69:18:69:21 | af12 | Field access on $@ qualifier occurs after its temporary object lifetime. | test.c:69:9:69:14 | call to get_s4 | function call |

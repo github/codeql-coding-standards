@@ -94,6 +94,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CloseFilesWhenTheyAreNoLongerNeeded",
+          "shared_implementation_short_name": "CloseFileHandleWhenNoLongerNeededShared",
           "tags": [
             "correctness",
             "security"
