@@ -39,6 +39,7 @@ import Language2
 import Language3
 import Memory1
 import Misc
+import OutOfBounds
 import Pointers1
 import Pointers2
 import Pointers3
@@ -102,6 +103,7 @@ newtype TCQuery =
   TLanguage3PackageQuery(Language3Query q) or
   TMemory1PackageQuery(Memory1Query q) or
   TMiscPackageQuery(MiscQuery q) or
+  TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
   TPointers3PackageQuery(Pointers3Query q) or
@@ -165,6 +167,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
   isMemory1QueryMetadata(query, queryId, ruleId, category) or
   isMiscQueryMetadata(query, queryId, ruleId, category) or
+  isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or
   isPointers3QueryMetadata(query, queryId, ruleId, category) or
