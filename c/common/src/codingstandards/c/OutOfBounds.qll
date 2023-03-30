@@ -14,6 +14,7 @@ import codingstandards.cpp.SimpleRangeAnalysisCustomizations
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import semmle.code.cpp.security.BufferWrite
+import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
 module OOB {
   bindingset[name, result]
@@ -338,8 +339,7 @@ module OOB {
    * A `BufferAccessLibraryFunction` modelling `strcat`
    */
   class StrcatLibraryFunction extends StringConcatenationFunctionLibraryFunction,
-    SimpleStringLibraryFunction
-  {
+    SimpleStringLibraryFunction {
     StrcatLibraryFunction() { this.getName() = getNameOrInternalName("strcat") }
 
     override predicate getANullTerminatedParameterIndex(int i) {
@@ -373,11 +373,52 @@ module OOB {
   }
 
   /**
+   * An construction of a pointer to a buffer.
+   */
+  abstract class BufferAccess extends Expr {
+    abstract predicate hasABuffer(Expr buffer, Expr size, int sizeMult);
+
+    Expr getARelevantExpr() {
+      hasABuffer(result, _, _)
+      or
+      hasABuffer(_, result, _)
+    }
+  }
+
+  class PointerArithmeticBufferAccess extends BufferAccess instanceof PointerArithmeticExpr {
+    override predicate hasABuffer(Expr buffer, Expr size, int sizeMult) {
+      buffer = this.(PointerArithmeticExpr).getPointer() and
+      size = this.(PointerArithmeticExpr).getOperand() and
+      sizeMult =
+        buffer.getType().getUnspecifiedType().(DerivedType).getBaseType().getSize().maximum(1)
+    }
+  }
+
+  class ArrayBufferAccess extends BufferAccess, ArrayExpr {
+    override predicate hasABuffer(Expr buffer, Expr size, int sizeMult) {
+      buffer = this.getArrayBase() and
+      size = this.getArrayOffset() and
+      sizeMult =
+        buffer.getType().getUnspecifiedType().(DerivedType).getBaseType().getSize().maximum(1)
+    }
+  }
+
+  /**
    * A `FunctionCall` to a `BufferAccessLibraryFunction` that provides predicates for
    * reasoning about buffer overflow and other buffer access violations.
    */
-  class BufferAccessLibraryFunctionCall extends FunctionCall {
+  class BufferAccessLibraryFunctionCall extends FunctionCall, BufferAccess {
     BufferAccessLibraryFunctionCall() { this.getTarget() instanceof BufferAccessLibraryFunction }
+
+    override predicate hasABuffer(Expr buffer, Expr size, int sizeMult) {
+      buffer = this.getWriteArg() and
+      size = this.getWriteSizeArg() and
+      sizeMult = this.getWriteSizeArgMult()
+      or
+      buffer = this.getReadArg() and
+      size = this.getReadSizeArg() and
+      sizeMult = this.getReadSizeArgMult()
+    }
 
     Expr getReadArg() {
       result = this.getArgument(this.getTarget().(BufferAccessLibraryFunction).getReadParamIndex())
@@ -410,6 +451,9 @@ module OOB {
     SimpleStringLibraryFunctionCall() { this.getTarget() instanceof SimpleStringLibraryFunction }
   }
 
+  /**
+   * Holds only if `e` is a constant, or flows from a constant.
+   */
   int getStatedAllocValue(Expr e) {
     if upperBound(e) = exprMaxVal(e)
     then result = max(Expr source | DataFlow::localExprFlow(source, e) | source.getValue().toInt())
@@ -423,6 +467,9 @@ module OOB {
               ))
   }
 
+  /**
+   * Holds only if `e` is a constant, or flows from a constant.
+   */
   int getStatedValue(Expr e) {
     result =
       upperBound(e)
@@ -471,8 +518,7 @@ module OOB {
   }
 
   class DynamicAllocationSource extends PointerToObjectSource instanceof AllocationExpr,
-    FunctionCall
-  {
+    FunctionCall {
     DynamicAllocationSource() {
       // exclude OperatorNewAllocationFunction to only deal with raw malloc-style calls,
       // which do not apply a multiple to the size of the allocation passed to them.
@@ -613,8 +659,8 @@ module OOB {
     }
 
     override predicate isSink(DataFlow::Node sink) {
-      exists(BufferAccessLibraryFunctionCall call, Expr arg |
-        arg = call.getAnArgument() and
+      exists(BufferAccess bufferAccess, Expr arg |
+        arg = bufferAccess.getARelevantExpr() and
         (
           sink.asExpr() = arg
           or
@@ -712,7 +758,7 @@ module OOB {
   predicate sizeExprNonComputableSize(
     Expr bufferSizeArg, Expr alloc, Expr allocSize, Expr allocSizeBase, int offset
   ) {
-    bufferSizeArg = any(BufferAccessLibraryFunctionCall call).getAnArgument() and
+    bufferSizeArg = any(BufferAccess access).getARelevantExpr() and
     not sizeExprComputableSize(bufferSizeArg, alloc, _) and
     allocSize = alloc.(DynamicAllocationSource).getSizeExprSource(allocSizeBase, offset) and
     hasFlowFromBufferOrSizeExprToUse(allocSize, bufferSizeArg)
@@ -720,41 +766,70 @@ module OOB {
 
   predicate isSizeArgGreaterThanBufferSize(
     Expr bufferArg, Expr sizeArg, PointerToObjectSource bufferSource, int bufferArgSize,
-    int sizeArgValue, BufferAccessLibraryFunctionCall fc
+    int sizeArgValue, BufferAccess bufferAccess, int sizeMult
   ) {
-    exists(float sizeMult |
-      (
-        bufferArg = fc.getWriteArg() and
-        sizeArg = fc.getWriteSizeArg() and
-        sizeMult = fc.getWriteSizeArgMult()
-        or
-        bufferArg = fc.getReadArg() and
-        sizeArg = fc.getReadSizeArg() and
-        sizeMult = fc.getReadSizeArgMult()
-      ) and
-      (
-        bufferUseComputableBufferSize(bufferArg, bufferSource, bufferArgSize) and
-        sizeExprComputableSize(sizeArg, _, sizeArgValue) and
-        bufferArgSize - getArithmeticOffsetValue(bufferArg) <
-          sizeMult.(float) * (sizeArgValue + getArithmeticOffsetValue(sizeArg)).(float)
-      )
+    bufferAccess.hasABuffer(bufferArg, sizeArg, sizeMult) and
+    (
+      bufferUseComputableBufferSize(bufferArg, bufferSource, bufferArgSize) and
+      // If the bufferArg is an access of a static buffer, do not look for "long distant" sources
+      (bufferArg instanceof StaticBufferAccessSource implies bufferSource = bufferArg) and
+      sizeExprComputableSize(sizeArg, _, sizeArgValue) and
+      bufferArgSize - getArithmeticOffsetValue(bufferArg) <
+        sizeMult.(float) * (sizeArgValue + getArithmeticOffsetValue(sizeArg)).(float)
     )
   }
 
-  predicate isBufferSizeOffsetOfGVN(
-    BufferAccessLibraryFunctionCall fc, Expr bufferSize, Expr bufferUse,
-    DynamicAllocationSource source, Expr sourceSizeExpr, Expr sourceSizeExprBase,
-    int sourceSizeExprOffset, int sizeMult, int sizeArgOffset, int bufferArgOffset
+  predicate isSizeArgNotCheckedLessThanFixedBufferSize(
+    Expr bufferArg, Expr sizeArg, PointerToObjectSource bufferSource, int bufferArgSize,
+    BufferAccess bufferAccess, int sizeArgUpperBound, int sizeMult
   ) {
-    (
-      bufferUse = fc.getWriteArg() and
-      bufferSize = fc.getWriteSizeArg() and
-      sizeMult = fc.getWriteSizeArgMult()
-      or
-      bufferUse = fc.getReadArg() and
-      bufferSize = fc.getReadSizeArg() and
-      sizeMult = fc.getReadSizeArgMult()
-    ) and
+    bufferAccess.hasABuffer(bufferArg, sizeArg, sizeMult) and
+    bufferUseComputableBufferSize(bufferArg, bufferSource, bufferArgSize) and
+    // If the bufferArg is an access of a static buffer, do not look for "long distant" sources
+    (bufferArg instanceof StaticBufferAccessSource implies bufferSource = bufferArg) and
+    // Not a size expression for which we can compute a specific size
+    not sizeExprComputableSize(sizeArg, _, _) and
+    // Range analysis considers the upper bound to be larger than the buffer size
+    sizeArgUpperBound = upperBound(sizeArg) and
+    // Ignore bitwise & operations
+    not sizeArg instanceof BitwiseAndExpr and
+    sizeArgUpperBound * sizeMult > bufferArgSize and
+    // There isn't a relational operation guarding this access that seems to check the
+    // upper bound against a plausible terminal value
+    not exists(RelationalOperation relOp, Expr checkedUpperBound |
+      globalValueNumber(relOp.getLesserOperand()) = globalValueNumber(sizeArg) and
+      checkedUpperBound = relOp.getGreaterOperand() and
+      // There's no closer inferred bounds - otherwise we let range analysis check it
+      upperBound(checkedUpperBound) = exprMaxVal(checkedUpperBound)
+    )
+  }
+
+  predicate isSizeArgNotCheckedGreaterThanZero(
+    Expr bufferArg, Expr sizeArg, PointerToObjectSource bufferSource, BufferAccess bufferAccess
+  ) {
+    exists(float sizeMult |
+      bufferAccess.hasABuffer(bufferArg, sizeArg, sizeMult) and
+      (
+        bufferUseComputableBufferSize(bufferArg, bufferSource, _) or
+        bufferUseNonComputableSize(bufferArg, bufferSource)
+      ) and
+      // Not a size expression for which we can compute a specific size
+      not sizeExprComputableSize(sizeArg, _, _) and
+      // If the lower bound is less than zero, taking into account any offsets
+      lowerBound(sizeArg) + getArithmeticOffsetValue(bufferArg) < 0
+    )
+  }
+
+  /**
+   * Holds if the BufferAccess is accessed with a `base + accessOffset` on a buffer that was
+   * allocated a size of the form `base + allocationOffset`.
+   */
+  predicate isBufferSizeOffsetOfGVN(
+    BufferAccess bufferAccess, Expr bufferSize, Expr bufferUse, DynamicAllocationSource source,
+    Expr sourceSizeExpr, Expr sourceSizeExprBase, int sourceSizeExprOffset, int sizeMult,
+    int sizeArgOffset, int bufferArgOffset
+  ) {
+    bufferAccess.hasABuffer(bufferUse, bufferSize, sizeMult) and
     sourceSizeExpr = source.getSizeExprSource(sourceSizeExprBase, sourceSizeExprOffset) and
     bufferUseNonComputableSize(bufferUse, source) and
     not globalValueNumber(sourceSizeExpr) = globalValueNumber(bufferSize) and
