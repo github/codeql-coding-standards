@@ -716,7 +716,7 @@ c,MISRA-C-2012,RULE-17-2,Yes,Required,,,"Functions shall not call themselves, ei
 c,MISRA-C-2012,RULE-17-3,Yes,Mandatory,,,A function shall not be declared implicitly,,Declarations6,Medium,
 c,MISRA-C-2012,RULE-17-4,Yes,Mandatory,,,All exit paths from a function with non-void return type shall have an explicit return statement with an expression,MSC52-CPP,Statements5,Medium,
 c,MISRA-C-2012,RULE-17-5,Yes,Advisory,,,The function argument corresponding to a parameter declared to have an array type shall have an appropriate number of elements,,Contracts6,Hard,
-c,MISRA-C-2012,RULE-17-6,No,Mandatory,,,The declaration of an array parameter shall not contain the static keyword between the [ ],,,,
+c,MISRA-C-2012,RULE-17-6,Yes,Mandatory,,,The declaration of an array parameter shall not contain the static keyword between the [ ],,Static,Easy,
 c,MISRA-C-2012,RULE-17-7,Yes,Required,,,The value returned by a function having non-void return type shall be used,A0-1-2,Contracts6,Easy,
 c,MISRA-C-2012,RULE-17-8,Yes,Advisory,,,A function parameter should not be modified,,SideEffects2,Medium,
 c,MISRA-C-2012,RULE-18-1,Yes,Required,,,A pointer resulting from arithmetic on a pointer operand shall address an element of the same array as that pointer operand,M5-0-16,Pointers1,Import,
