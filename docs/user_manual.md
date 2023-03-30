@@ -23,7 +23,7 @@
 
 ## Release information
 
-This user manual documents release `2.16.0` of the coding standards located at https://github.com/github/codeql-coding-standards/releases/tag/v2.16.0 .
+This user manual documents release `2.16.0` of the coding standards located at [https://github.com/github/codeql-coding-standards/releases/tag/v2.16.0](https://github.com/github/codeql-coding-standards/releases/tag/v2.16.0).
 The release page documents the release notes and contains the following artifacts part of the release:
 
 - `code-scanning-cpp-query-pack-anon-2.16.0.zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
