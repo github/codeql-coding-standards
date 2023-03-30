@@ -1,0 +1,2 @@
+| test.c:11:12:11:31 | sizeof(unsigned int) | sizeof operator used to determine the precision of an integer type. |
+| test.c:27:25:27:42 | sizeof(signed int) | sizeof operator used to determine the precision of an integer type. |

@@ -1,0 +1,23 @@
+{
+  "MISRA-C-2012": {
+    "RULE-13-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The value of an expression and its persistent side effects are depending on the evaluation order resulting in unpredictable behavior.",
+          "kind": "problem",
+          "name": "The value of an expression and its persistent side effects depend on its evaluation order",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnsequencedSideEffects",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value of an expression and its persistent side effects shall be the same under all permitted evaluation orders"
+    }
+  }
+}

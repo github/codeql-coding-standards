@@ -1,0 +1,81 @@
+{
+  "CERT-C": {
+    "FLP32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Range, domain or pole errors in math functions may return unexpected values, trigger floating-point exceptions or set unexpected error modes.",
+          "kind": "problem",
+          "name": "Prevent or detect domain and range errors in math functions",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UncheckedRangeDomainPoleErrors",
+          "shared_implementation_short_name": "UncheckedRangeDomainPoleErrors",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Prevent or detect domain and range errors in math functions"
+    },
+    "FLP34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Conversions of out-of-range floating-point values to integral types can lead to undefined behavior.",
+          "kind": "problem",
+          "name": "Ensure that floating-point conversions are within range of the new type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UncheckedFloatingPointConversion",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Ensure that floating-point conversions are within range of the new type"
+    },
+    "FLP36-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Integer to floating-point conversions may lose precision if the floating-point type is unable to fully represent the integer value.",
+          "kind": "problem",
+          "name": "Preserve precision when converting integral values to floating-point type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "IntToFloatPreservePrecision",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Preserve precision when converting integral values to floating-point type"
+    },
+    "FLP37-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Comparing floating point values using the memcmp can lead to unexpected comparison failures as equivalent floating-point values may not have the same bit pattern.",
+          "kind": "problem",
+          "name": "Do not use object representations to compare floating-point values",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemcmpUsedToCompareFloats",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not use object representations to compare floating-point values"
+    }
+  }
+}

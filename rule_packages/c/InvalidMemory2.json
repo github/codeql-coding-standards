@@ -1,0 +1,65 @@
+{
+  "CERT-C": {
+    "ARR32-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A variable-length array size that is zero, negative, overflowed, wrapped around, or excessively large may lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "Ensure size arguments for variable length arrays are in a valid range",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "VariableLengthArraySizeNotInValidRange",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Ensure size arguments for variable length arrays are in a valid range"
+    },
+    "ARR37-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A pair of elements that are not elements in the same array are not guaranteed to be contiguous in memory and therefore should not be addressed using pointer arithmetic.",
+          "kind": "path-problem",
+          "name": "Do not add or subtract an integer to a pointer to a non-array object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotUsePointerArithmeticOnNonArrayObjectPointers",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not add or subtract an integer to a pointer to a non-array object"
+    },
+    "EXP35-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Attempting to modify an object with temporary lifetime results in undefined behavior.",
+          "kind": "problem",
+          "name": "Do not modify objects with temporary lifetime",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotModifyObjectsWithTemporaryLifetime",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This implementation also always reports non-modifying accesses of objects with temporary lifetime, which are only compliant in C11."
+          }
+        }
+      ],
+      "title": "Do not modify objects with temporary lifetime"
+    }
+  }
+}

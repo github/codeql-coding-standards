@@ -1,0 +1,18 @@
+edges
+| test.c:5:10:5:22 | call to aligned_alloc | test.c:15:8:15:28 | call to aligned_alloc_wrapper |
+| test.c:8:29:8:31 | ptr | test.c:8:64:8:66 | ptr |
+| test.c:15:8:15:28 | call to aligned_alloc_wrapper | test.c:16:24:16:25 | v1 |
+| test.c:16:24:16:25 | v1 | test.c:8:29:8:31 | ptr |
+| test.c:22:8:22:20 | call to aligned_alloc | test.c:23:16:23:17 | v3 |
+nodes
+| test.c:5:10:5:22 | call to aligned_alloc | semmle.label | call to aligned_alloc |
+| test.c:8:29:8:31 | ptr | semmle.label | ptr |
+| test.c:8:64:8:66 | ptr | semmle.label | ptr |
+| test.c:15:8:15:28 | call to aligned_alloc_wrapper | semmle.label | call to aligned_alloc_wrapper |
+| test.c:16:24:16:25 | v1 | semmle.label | v1 |
+| test.c:22:8:22:20 | call to aligned_alloc | semmle.label | call to aligned_alloc |
+| test.c:23:16:23:17 | v3 | semmle.label | v3 |
+subpaths
+#select
+| test.c:8:64:8:66 | ptr | test.c:5:10:5:22 | call to aligned_alloc | test.c:8:64:8:66 | ptr | Memory allocated with $@ but reallocated with realloc. | test.c:5:10:5:22 | call to aligned_alloc | aligned_alloc |
+| test.c:23:16:23:17 | v3 | test.c:22:8:22:20 | call to aligned_alloc | test.c:23:16:23:17 | v3 | Memory allocated with $@ but reallocated with realloc. | test.c:22:8:22:20 | call to aligned_alloc | aligned_alloc |

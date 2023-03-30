@@ -1,0 +1,123 @@
+{
+  "MISRA-C-2012": {
+    "RULE-15-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If the body of a switch is not enclosed in braces, then this can lead to incorrect execution, and is hard for developers to maintain.",
+          "kind": "problem",
+          "name": "The statement forming the body of a switch shall be a compound statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SwitchCompoundCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "if the body of a loop is not enclosed in braces, then this can lead to incorrect execution, and is hard for developers to maintain.",
+          "kind": "problem",
+          "name": "the statement forming the body of a loop shall be a compound statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "LoopCompoundCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "if the body of a selection statement is not enclosed in braces, then this can lead to incorrect execution, and is hard for developers to maintain.",
+          "kind": "problem",
+          "name": "the statement forming the body of a loop shall be a compound statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SelectionCompoundCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The body of an iteration-statement or a selection-statement shall be a compund-statement"
+    },
+    "RULE-15-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Terminating an `if...else` construct is a defensive programming technique.",
+          "kind": "problem",
+          "name": "All if / else if constructs shall be terminated with an else statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "shared_implementation_short_name": "IfElseTerminationConstruct",
+          "short_name": "IfElseEndCondition",
+          "tags": [
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "All if / else if constructs shall be terminated with an else statement"
+    },
+    "RULE-16-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The switch statement syntax is weak and may lead to unspecified behaviour.",
+          "kind": "problem",
+          "name": "A well formed switch statement must start with a case clause",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "shared_implementation_short_name": "SwitchCasePositionCondition",
+          "short_name": "SwitchCaseStartCondition",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "The switch statement syntax is weak and may lead to unspecified behaviour.",
+          "kind": "problem",
+          "name": "A well formed switch statement should only have expression, compound, selection, iteration or try statements within its body",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "shared_implementation_short_name": "SwitchNotWellFormed",
+          "short_name": "SwitchStmtNotWellFormed",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "All switch statements shall be well-formed"
+    },
+    "RULE-17-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Recursive function may cause memory and system failure issues.",
+          "kind": "problem",
+          "name": "Functions shall not call themselves, either directly or indirectly",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RecursiveFunctionCondition",
+          "tags": [
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Functions shall not call themselves, either directly or indirectly"
+    }
+  }
+}

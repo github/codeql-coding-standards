@@ -26,7 +26,7 @@ private class VolatileAccess extends GlobalSideEffect::Range, VariableAccess {
     this.getTarget().isVolatile() and
     // Exclude value computation of an lvalue expression soley used to determine the identity
     // of the object. As noted in the footnote of 6.5.16 point 3 it is implementation dependend
-    // whether the value of the assignment expression deterived from the left operand after the assignment
+    // whether the value of the assignment expression derived from the left operand after the assignment
     // is determined by reading the object. We assume it is not for assignments that are a child of an
     // expression statement because the value is not used and is required for the compliant MISRA-C:2012 case:
     // `extern volatile int v; v = v & 0x80;`

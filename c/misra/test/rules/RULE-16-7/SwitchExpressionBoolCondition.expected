@@ -1,0 +1,2 @@
+| test.c:16:11:16:17 | ... == ... | The condition of this $@ statement has boolean type | test.c:16:3:24:3 | switch (...) ...  | switch |
+| test.c:28:11:28:24 | ... == ... | The condition of this $@ statement has boolean type | test.c:28:3:36:3 | switch (...) ...  | switch |

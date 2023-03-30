@@ -18,7 +18,6 @@ private string getCToOrIsName() {
  * the structure of the macro, or
  */
 abstract class UseOfToOrIsChar extends Element {
-  /** */
   abstract Expr getConvertedArgument();
 }
 
