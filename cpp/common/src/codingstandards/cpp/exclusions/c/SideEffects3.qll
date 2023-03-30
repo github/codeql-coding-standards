@@ -3,21 +3,9 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype SideEffects3Query =
-  TSideEffectsInArgumentsToUnsafeMacrosQuery() or
-  TUnsequencedSideEffectsQuery() or
-  TMultipleObjectModificationsQuery()
+newtype SideEffects3Query = TUnsequencedSideEffectsQuery()
 
 predicate isSideEffects3QueryMetadata(Query query, string queryId, string ruleId, string category) {
-  query =
-    // `Query` instance for the `sideEffectsInArgumentsToUnsafeMacros` query
-    SideEffects3Package::sideEffectsInArgumentsToUnsafeMacrosQuery() and
-  queryId =
-    // `@id` for the `sideEffectsInArgumentsToUnsafeMacros` query
-    "c/cert/side-effects-in-arguments-to-unsafe-macros" and
-  ruleId = "PRE31-C" and
-  category = "rule"
-  or
   query =
     // `Query` instance for the `unsequencedSideEffects` query
     SideEffects3Package::unsequencedSideEffectsQuery() and
@@ -26,36 +14,13 @@ predicate isSideEffects3QueryMetadata(Query query, string queryId, string ruleId
     "c/misra/unsequenced-side-effects" and
   ruleId = "RULE-13-2" and
   category = "required"
-  or
-  query =
-    // `Query` instance for the `multipleObjectModifications` query
-    SideEffects3Package::multipleObjectModificationsQuery() and
-  queryId =
-    // `@id` for the `multipleObjectModifications` query
-    "c/misra/multiple-object-modifications" and
-  ruleId = "RULE-13-2" and
-  category = "required"
 }
 
 module SideEffects3Package {
-  Query sideEffectsInArgumentsToUnsafeMacrosQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `sideEffectsInArgumentsToUnsafeMacros` query
-      TQueryC(TSideEffects3PackageQuery(TSideEffectsInArgumentsToUnsafeMacrosQuery()))
-  }
-
   Query unsequencedSideEffectsQuery() {
     //autogenerate `Query` type
     result =
       // `Query` type for `unsequencedSideEffects` query
       TQueryC(TSideEffects3PackageQuery(TUnsequencedSideEffectsQuery()))
-  }
-
-  Query multipleObjectModificationsQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `multipleObjectModifications` query
-      TQueryC(TSideEffects3PackageQuery(TMultipleObjectModificationsQuery()))
   }
 }
