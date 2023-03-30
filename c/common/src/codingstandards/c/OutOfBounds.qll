@@ -18,13 +18,13 @@ module OutOfBounds {
   bindingset[name, result]
   private string getNameOrInternalName(string name) {
     result = name or
-    name.regexpMatch("__.*_+(?:" + result + ")")
+    result.regexpMatch("__.*_+" + name + "_.*")
   }
 
   /**
    * MISRA-C Rule 21.17 function table of names and parameter indices
    * which covers functions from <string.h> that rely on null-terminated strings.
-   * 
+   *
    * This table is a subset of `libraryFunctionNameParamTable`.
    *
    * Note: These functions do not share a common semantic pattern of source and destination
@@ -33,11 +33,11 @@ module OutOfBounds {
    * The `SimpleStringLibraryFunction` base class provides an appropriate
    * interface for analyzing the functions in the below table.
    */
-  private Function libraryFunctionNameParamTableSimpleString(string name, 
-    int dst, int src, int src_sz, int dst_sz) 
-  {
-    result.hasGlobalOrStdName(name) and
-    src_sz = -1 and 
+  private Function libraryFunctionNameParamTableSimpleString(
+    string name, int dst, int src, int src_sz, int dst_sz
+  ) {
+    result.getName() = getNameOrInternalName(name) and
+    src_sz = -1 and
     dst_sz = -1 and
     (
       name = "strcat" and
@@ -48,7 +48,7 @@ module OutOfBounds {
       dst = -1 and
       src = 0
       or
-      name = ["strcmp", "strcoll"]  and
+      name = ["strcmp", "strcoll"] and
       dst = -1 and
       src = [0, 1]
       or
@@ -87,18 +87,6 @@ module OutOfBounds {
   }
 
   /**
-   * An expansion of `libraryFunctionNameParamTableSimpleString` to include internal functions with
-   * prefixes/suffixes such as "__builtin_%"" or "%_chk" (e.g. `__builtin___strcpy_chk`)
-   */
-  bindingset[name]
-  Function libraryFunctionNameParamTableSimpleStringRegex(string name, int dst, int src, int src_sz, int dst_sz) {
-    exists(string stdName |
-      result = libraryFunctionNameParamTableSimpleString(stdName, dst,  src,  src_sz, dst_sz) and
-      getNameOrInternalName(name) = stdName
-    )
-  }
-
-  /**
    * A relation of the indices of buffer and size parameters of standard library functions
    * which are defined in rules CERT ARR38-C and MISRA-C rules 21.17 and 21.18.
    */
@@ -107,7 +95,7 @@ module OutOfBounds {
   ) {
     result = libraryFunctionNameParamTableSimpleString(name, dst, src, src_sz, dst_sz)
     or
-    result.hasGlobalOrStdName(name) and
+    result.getName() = getNameOrInternalName(name) and
     (
       name = ["fgets", "fgetws"] and
       dst = 0 and
@@ -218,30 +206,16 @@ module OutOfBounds {
   }
 
   /**
-   * An expansion of `libraryFunctionNameParamTable` to include internal functions with
-   * prefixes/suffixes such as "__builtin_%"" or "%_chk" (e.g. `__builtin___strncpy_chk`)
-   */
-  bindingset[name]
-  Function libraryFunctionNameParamTableRegex(string name, int dst, int src, int src_sz, int dst_sz) {
-    exists(string stdName |
-      result = libraryFunctionNameParamTable(stdName, dst, src, src_sz, dst_sz) and
-      getNameOrInternalName(name) = stdName
-    )
-  }
-  
-  /**
    * A library function that accesses one or more buffers supplied via arguments.
    */
   class BufferAccessLibraryFunction extends Function {
-    BufferAccessLibraryFunction() {
-      this = libraryFunctionNameParamTableRegex(this.getName(), _, _, _, _)
-    }
+    BufferAccessLibraryFunction() { this = libraryFunctionNameParamTable(_, _, _, _, _) }
 
     /**
      * Returns the indices of parameters that are a destination buffer.
      */
     int getWriteParamIndex() {
-      this = libraryFunctionNameParamTableRegex(this.getName(), result, _, _, _) and
+      this = libraryFunctionNameParamTable(_, result, _, _, _) and
       result >= 0
     }
 
@@ -249,7 +223,7 @@ module OutOfBounds {
      * Returns the indices of parameters that are a source buffer.
      */
     int getReadParamIndex() {
-      this = libraryFunctionNameParamTableRegex(this.getName(), _, result, _, _) and
+      this = libraryFunctionNameParamTable(_, _, result, _, _) and
       result >= 0
     }
 
@@ -257,7 +231,7 @@ module OutOfBounds {
      * Returns the index of the parameter that is the source buffer size.
      */
     int getReadSizeParamIndex() {
-      this = libraryFunctionNameParamTableRegex(this.getName(), _, _, result, _) and
+      this = libraryFunctionNameParamTable(_, _, _, result, _) and
       result >= 0
     }
 
@@ -265,7 +239,7 @@ module OutOfBounds {
      * Returns the index of the parameter that is the destination buffer size.
      */
     int getWriteCountParamIndex() {
-      this = libraryFunctionNameParamTableRegex(this.getName(), _, _, _, result) and
+      this = libraryFunctionNameParamTable(_, _, _, _, result) and
       result >= 0
     }
 
@@ -338,15 +312,19 @@ module OutOfBounds {
    */
   class SimpleStringLibraryFunction extends BufferAccessLibraryFunction {
     SimpleStringLibraryFunction() {
-      this = libraryFunctionNameParamTableSimpleStringRegex(this.getName(), _, _, _, _)
+      this = libraryFunctionNameParamTable(this.getName(), _, _, _, _)
     }
 
     override predicate getANullTerminatedParameterIndex(int i) {
       // by default, require null-terminated parameters for src but
       // only if the type of src is a plain char pointer.
       this.getReadParamIndex() = i and
-      this.getReadParam().getType().getUnspecifiedType().
-        (PointerType).getBaseType().getUnspecifiedType() instanceof PlainCharType
+      this.getReadParam()
+          .getType()
+          .getUnspecifiedType()
+          .(PointerType)
+          .getBaseType()
+          .getUnspecifiedType() instanceof PlainCharType
     }
   }
 
@@ -358,7 +336,8 @@ module OutOfBounds {
   /**
    * A `BufferAccessLibraryFunction` modelling `strcat`
    */
-  class StrcatLibraryFunction extends StringConcatenationFunctionLibraryFunction, SimpleStringLibraryFunction 
+  class StrcatLibraryFunction extends StringConcatenationFunctionLibraryFunction,
+    SimpleStringLibraryFunction
   {
     StrcatLibraryFunction() { this.getName() = getNameOrInternalName("strcat") }
 
@@ -377,6 +356,18 @@ module OutOfBounds {
     override predicate getANullTerminatedParameterIndex(int i) {
       // `strncat` requires null-terminated parameters for both src and dst
       i = [0, 1]
+    }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling `strncpy`
+   */
+  class StrncpyLibraryFunction extends BufferAccessLibraryFunction {
+    StrncpyLibraryFunction() { this.getName() = getNameOrInternalName("strncpy") }
+
+    override predicate getANullTerminatedParameterIndex(int i) {
+      // `strncpy` does not require null-terminated parameters
+      none()
     }
   }
 
@@ -417,15 +408,16 @@ module OutOfBounds {
   int getStatedAllocValue(Expr e) {
     // `upperBound(e)` defaults to `exprMaxVal(e)` when `e` isn't analyzable. So to get a meaningful
     // result in this case we pick the minimum value obtainable from dataflow and range analysis.
-    if upperBound(e) = exprMaxVal(e) 
-    then
-      result = max(Expr source | DataFlow::localExprFlow(source, e) | source.getValue().toInt())
+    if upperBound(e) = exprMaxVal(e)
+    then result = max(Expr source | DataFlow::localExprFlow(source, e) | source.getValue().toInt())
     else
-    result = 
-      upperBound(e)
-        .minimum(min(Expr source | DataFlow::localExprFlow(source, e) | source.getValue().toInt()))
-
-    
+      result =
+        upperBound(e)
+            .minimum(min(Expr source |
+                DataFlow::localExprFlow(source, e)
+              |
+                source.getValue().toInt()
+              ))
   }
 
   int getStatedValue(Expr e) {
@@ -475,8 +467,9 @@ module OutOfBounds {
     abstract predicate isNotNullTerminated();
   }
 
-  class DynamicAllocationSource extends PointerToObjectSource 
-    instanceof AllocationExpr, FunctionCall {
+  class DynamicAllocationSource extends PointerToObjectSource instanceof AllocationExpr,
+    FunctionCall
+  {
     DynamicAllocationSource() {
       // exclude OperatorNewAllocationFunction to only deal with raw malloc-style calls,
       // which do not apply a multiple to the size of the allocation passed to them.
@@ -509,23 +502,32 @@ module OutOfBounds {
      * 2. `size_t sz = strlen(src); malloc(sz + 1);`
      */
     Expr getSizeExprSource(Expr base, int offset) {
-      if
-        exists(Variable v, AddExpr ae |
-          // case 1: variable_access + const in the size expression
-          this.getSizeExpr() = ae and
-          result = v.getAnAssignedValue() and
-          base = ae.getLeftOperand() and
-          offset = constOrZero(ae.getRightOperand()) and
-          DataFlow::localExprFlow(result, base)
+      if this.getSizeExpr() instanceof AddExpr
+      then
+        exists(AddExpr ae |
+          exists(Variable v |
+            // case 1: variable access + const in the size expression
+            this.getSizeExpr() = ae and
+            result = v.getAnAssignedValue() and
+            base = ae.getLeftOperand() and
+            offset = constOrZero(ae.getRightOperand()) and
+            DataFlow::localExprFlow(result, base)
+            or
+            // case 2: expr + const in the variable assignment
+            v.getAnAssignedValue() = ae and
+            result = ae and
+            base = ae.getLeftOperand() and
+            offset = constOrZero(ae.getRightOperand()) and
+            DataFlow::localExprFlow(result, this.getSizeExpr())
+          )
           or
-          // case 2: expr + const in the variable assignment
-          v.getAnAssignedValue() = ae and
+          // case 3: function call + const
           result = ae and
-          base = ae.getLeftOperand() and
-          offset = constOrZero(ae.getRightOperand()) and
-          DataFlow::localExprFlow(result, this.getSizeExpr())
+          this.getSizeExpr() = ae and
+          ae.getLeftOperand() = base and
+          ae.getLeftOperand() instanceof FunctionCall and
+          offset = constOrZero(ae.getRightOperand())
         )
-      then any() // all logic handled in the `if` clause
       else (
         offset = 0 and
         // case 3: a variable is read in the size expression
@@ -608,9 +610,8 @@ module OutOfBounds {
     }
 
     override predicate isSink(DataFlow::Node sink) {
-      exists(BufferAccessLibraryFunctionCall call, Expr arg | 
-        arg = call.getAnArgument()
-        and
+      exists(BufferAccessLibraryFunctionCall call, Expr arg |
+        arg = call.getAnArgument() and
         (
           sink.asExpr() = arg
           or
@@ -627,9 +628,8 @@ module OutOfBounds {
         useOrChild = use
         or
         getArithmeticOffsetValue(use) > 0 and
-        useOrChild = use.getAChild*() 
-      )
-      and
+        useOrChild = use.getAChild*()
+      ) and
       config.hasFlow(DataFlow::exprNode(source), DataFlow::exprNode(useOrChild))
     )
   }
@@ -652,7 +652,8 @@ module OutOfBounds {
     or
     // computable source value that flows to the size expression
     size = source.(DynamicAllocationSource).getFixedSize() and
-    hasFlowFromBufferOrSizeExprToUse(source.(DynamicAllocationSource).getSizeExprSource(_, _), sizeExpr)
+    hasFlowFromBufferOrSizeExprToUse(source.(DynamicAllocationSource).getSizeExprSource(_, _),
+      sizeExpr)
   }
 
   int getArithmeticOffsetValue(Expr expr) {
@@ -694,42 +695,65 @@ module OutOfBounds {
     hasFlowFromBufferOrSizeExprToUse(allocSize, bufferSizeArg)
   }
 
-  predicate isBufferSizeExprGreaterThanSourceSizeExpr (
+  predicate isBufferSizeExprGreaterThanSourceSizeExpr(
     Expr bufferUse, Expr bufferSize, Expr sizeSource, PointerToObjectSource sourceBufferAllocation,
-    int bufSize, int size, BufferAccessLibraryFunctionCall fc
+    int bufSize, int size, BufferAccessLibraryFunctionCall fc, int offset, Expr base
   ) {
     exists(float sizeMult |
       (
-        bufferUse = fc.getWriteArg() and bufferSize = fc.getWriteSizeArg() and sizeMult = fc.getWriteSizeArgMult() or
-        bufferUse = fc.getReadArg() and bufferSize = fc.getReadSizeArg() and sizeMult = fc.getReadSizeArgMult()
-      )
-      and
+        bufferUse = fc.getWriteArg() and
+        bufferSize = fc.getWriteSizeArg() and
+        sizeMult = fc.getWriteSizeArgMult()
+        or
+        bufferUse = fc.getReadArg() and
+        bufferSize = fc.getReadSizeArg() and
+        sizeMult = fc.getReadSizeArgMult()
+      ) and
       (
+        offset = 0 and
+        base = bufferSize and
         bufferUseComputableBufferSize(bufferUse, sourceBufferAllocation, bufSize) and
         sizeExprComputableSize(bufferSize, sizeSource, size) and
-        ( 
-          bufSize - getArithmeticOffsetValue(bufferUse) < (sizeMult * (float)(size + getArithmeticOffsetValue(bufferSize)))
-          or 
+        (
+          bufSize - getArithmeticOffsetValue(bufferUse) <
+            (sizeMult * (size + getArithmeticOffsetValue(bufferSize)).(float))
+          or
           size = 0
         )
-        or
-          exists(int offset, Expr base |
-            sizeSource = sourceBufferAllocation.(DynamicAllocationSource).getSizeExprSource(base, offset) and
-            bufferUseNonComputableSize(bufferUse, sourceBufferAllocation) and
-            not globalValueNumber(sizeSource) = globalValueNumber(bufferSize) and
-            globalValueNumber(base) = globalValueNumber(bufferSize.getAChild*()) and
-            bufSize = getArithmeticOffsetValue(bufferUse) and 
-            size = getArithmeticOffsetValue(bufferSize) and
-            bufSize >= size - offset
-          )
       )
     )
+  }
+
+  predicate isBufferSizeOffsetOfGVN(
+    BufferAccessLibraryFunctionCall fc, Expr bufferSize, Expr bufferUse,
+    DynamicAllocationSource source, Expr sourceSizeExpr, Expr sourceSizeExprBase,
+    int sourceSizeExprOffset, int sizeMult, int sizeArgOffset, int bufferArgOffset
+  ) {
+    (
+      bufferUse = fc.getWriteArg() and
+      bufferSize = fc.getWriteSizeArg() and
+      sizeMult = fc.getWriteSizeArgMult()
+      or
+      bufferUse = fc.getReadArg() and
+      bufferSize = fc.getReadSizeArg() and
+      sizeMult = fc.getReadSizeArgMult()
+    ) and
+    sourceSizeExpr = source.getSizeExprSource(sourceSizeExprBase, sourceSizeExprOffset) and
+    bufferUseNonComputableSize(bufferUse, source) and
+    not globalValueNumber(sourceSizeExpr) = globalValueNumber(bufferSize) and
+    exists(Expr offsetExpr |
+      offsetExpr = bufferSize.getAChild*() and
+      sizeArgOffset = getArithmeticOffsetValue(offsetExpr)
+    ) and
+    bufferArgOffset = getArithmeticOffsetValue(bufferUse) and
+    sourceSizeExprOffset + bufferArgOffset < sizeArgOffset
   }
 
   predicate problems(BufferAccessLibraryFunctionCall fc, string msg) {
     exists(Expr bufferUse, PointerToObjectSource source |
       exists(int bufSize, int size, Expr bufferSize, Expr sizeSource |
-        isBufferSizeExprGreaterThanSourceSizeExpr(bufferUse, bufferSize, sizeSource, source, bufSize, size, fc) and
+        isBufferSizeExprGreaterThanSourceSizeExpr(bufferUse, bufferSize, sizeSource, source,
+          bufSize, size, fc, _, _) and
         msg = "Buffer size is smaller than size arg."
       )
       or
@@ -740,6 +764,9 @@ module OutOfBounds {
         hasFlowFromBufferOrSizeExprToUse(source, bufferUse.getAChild*()) and
         msg = "Buffer " + bufferUse.toString() + " is not null-terminated."
       )
+      or
+      isBufferSizeOffsetOfGVN(fc, _, bufferUse, source, _, _, _, _, _, _) and
+      msg = "Buffer size is offset of GVN."
     )
   }
 }
