@@ -688,7 +688,7 @@ c,MISRA-C-2012,RULE-12-3,Yes,Advisory,,,The comma operator should not be used,M5
 c,MISRA-C-2012,RULE-12-4,Yes,Advisory,,,Evaluation of constant expressions should not lead to unsigned integer wrap-around,INT30-C,IntegerOverflow,Easy,
 c,MISRA-C-2012,RULE-12-5,Yes,Mandatory,,,The sizeof operator shall not have an operand which is a function parameter declared as �array of type�,,Types1,Medium,
 c,MISRA-C-2012,RULE-13-1,Yes,Required,,,Initializer lists shall not contain persistent side effects,,SideEffects1,Medium,
-c,MISRA-C-2012,RULE-13-2,Yes,Required,,,The value of an expression and its persistent side effects shall be the same under all permitted evaluation orders,PRE31-C,SideEffects,Medium,
+c,MISRA-C-2012,RULE-13-2,Yes,Required,,,The value of an expression and its persistent side effects shall be the same under all permitted evaluation orders,PRE31-C,SideEffects3,Medium,
 c,MISRA-C-2012,RULE-13-3,Yes,Advisory,,,A full expression containing an increment (++) or decrement (--) operator should have no other potential side effects other than that caused by the increment or decrement operator,,SideEffects2,Medium,
 c,MISRA-C-2012,RULE-13-4,Yes,Advisory,,,The result of an assignment operator should not be used,M6-2-1,SideEffects1,Easy,
 c,MISRA-C-2012,RULE-13-5,Yes,Required,,,The right hand operand of a logical && or || operator shall not contain persistent side effects,M5-14-1,SideEffects1,Import,
