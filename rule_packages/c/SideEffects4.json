@@ -1,0 +1,26 @@
+{
+  "CERT-C": {
+    "PRE31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Macro arguments can be expanded multiple times which can cause side-effects to be evaluated multiple times leading to unexpected program behavior.",
+          "kind": "problem",
+          "name": "Avoid side effects in arguments to unsafe macros",
+          "precision": "low",
+          "severity": "error",
+          "short_name": "SideEffectsInArgumentsToUnsafeMacros",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This implementation only considers ++ and function call side effects. Due to the textual nature of macro expansion it is not always possible to determine accurately whether a side-effect was produced by a particular argument, and this may cause both false positives and false negatives. The query does not consider the case where a macro argument including a side-effect is never evaluated."
+          }
+        }
+      ],
+      "title": "Avoid side effects in arguments to unsafe macros"
+    }
+  }
+}
