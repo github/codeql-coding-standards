@@ -164,12 +164,6 @@ module OOB {
       src_sz = 2 and
       dst_sz = -1
       or
-      name = "wcsncat" and
-      dst = 0 and
-      src = 1 and
-      src_sz = 2 and
-      dst_sz = -1
-      or
       name = ["snprintf", "vsnprintf", "swprintf", "vswprintf"] and
       dst = 0 and
       src = -1 and
@@ -239,7 +233,7 @@ module OOB {
     /**
      * Returns the index of the parameter that is the destination buffer size.
      */
-    int getWriteCountParamIndex() {
+    int getWriteSizeParamIndex() {
       this = libraryFunctionNameParamTable(_, _, _, _, result) and
       result >= 0
     }
@@ -262,14 +256,14 @@ module OOB {
     /**
      * Gets a parameter than is a destination (write) buffer size.
      */
-    Parameter getWriteSizeParam() { result = this.getParameter(this.getWriteCountParamIndex()) }
+    Parameter getWriteSizeParam() { result = this.getParameter(this.getWriteSizeParamIndex()) }
 
     /**
      * Gets the size of an element in the destination buffer class
      */
     int getWriteParamElementSize(Parameter p) {
       p = this.getWriteParam() and
-      p.getType().stripType().getSize().maximum(1) = result
+      p.getType().getUnspecifiedType().(DerivedType).getBaseType().getSize().maximum(1) = result
     }
 
     /**
@@ -277,7 +271,7 @@ module OOB {
      */
     int getReadParamElementSize(Parameter p) {
       p = this.getReadParam() and
-      p.getType().stripType().getSize().maximum(1) = result
+      p.getType().getUnspecifiedType().(DerivedType).getBaseType().getSize().maximum(1) = result
     }
 
     predicate getANullTerminatedParameterIndex(int i) {
@@ -313,7 +307,7 @@ module OOB {
    */
   class SimpleStringLibraryFunction extends BufferAccessLibraryFunction {
     SimpleStringLibraryFunction() {
-      this = libraryFunctionNameParamTableSimpleString(this.getName(), _, _, -1, -1)
+      this = libraryFunctionNameParamTableSimpleString(_, _, _, -1, -1)
     }
 
     override predicate getANullTerminatedParameterIndex(int i) {
@@ -332,20 +326,18 @@ module OOB {
   /**
    * A `BufferAccessLibraryFunction` that performs string concatenation.
    */
-  abstract class StringConcatenationFunctionLibraryFunction extends BufferAccessLibraryFunction { }
+  abstract class StringConcatenationFunctionLibraryFunction extends BufferAccessLibraryFunction {
+    override predicate getANullTerminatedParameterIndex(int i) {
+      // `strcat` and variants require null-terminated params for both src and dst
+      i = [0, 1]
+    }
+  }
 
   /**
    * A `BufferAccessLibraryFunction` modelling `strcat`
    */
-  class StrcatLibraryFunction extends StringConcatenationFunctionLibraryFunction,
-    SimpleStringLibraryFunction
-  {
+  class StrcatLibraryFunction extends BufferAccessLibraryFunction {
     StrcatLibraryFunction() { this.getName() = getNameOrInternalName("strcat") }
-
-    override predicate getANullTerminatedParameterIndex(int i) {
-      // `strcat` requires null-terminated parameters for both src and dst
-      i = [0, 1]
-    }
   }
 
   /**
@@ -353,11 +345,6 @@ module OOB {
    */
   class StrncatLibraryFunction extends StringConcatenationFunctionLibraryFunction {
     StrncatLibraryFunction() { this.getName() = getNameOrInternalName(["strncat", "wcsncat"]) }
-
-    override predicate getANullTerminatedParameterIndex(int i) {
-      // `strncat` requires null-terminated parameters for both src and dst
-      i = [0, 1]
-    }
   }
 
   /**
@@ -370,6 +357,48 @@ module OOB {
       // `strncpy` does not require null-terminated parameters
       none()
     }
+  }
+
+   /**
+   * A `BufferAccessLibraryFunction` modelling `strncmp`
+   */
+  class StrncmpLibraryFunction extends BufferAccessLibraryFunction {
+    StrncmpLibraryFunction() { this.getName() = getNameOrInternalName("strncmp") }
+
+    override predicate getANullTerminatedParameterIndex(int i) {
+      // `strncmp` does not require null-terminated parameters
+      none()
+    }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling ["mbtowc", "mbrtowc"]
+   */
+  class MbtowcLibraryFunction extends BufferAccessLibraryFunction {
+    MbtowcLibraryFunction() { this.getName() = getNameOrInternalName(["mbtowc", "mbrtowc"]) }
+
+    override predicate getAPermissiblyNullParameterIndex(int i) {
+      // `mbtowc` requires null-terminated parameters for both src and dst
+      i = [0, 1]
+    }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling `mblen` and `mbrlen`
+   */
+  class MblenLibraryFunction extends BufferAccessLibraryFunction {
+    MblenLibraryFunction() { this.getName() = getNameOrInternalName(["mblen", "mbrlen"]) }
+
+    override predicate getAPermissiblyNullParameterIndex(int i) { i = 0 }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling `setvbuf`
+   */
+  class SetvbufLibraryFunction extends BufferAccessLibraryFunction {
+    SetvbufLibraryFunction() { this.getName() = getNameOrInternalName("setvbuf") }
+
+    override predicate getAPermissiblyNullParameterIndex(int i) { i = 1 }
   }
 
   /**
@@ -387,14 +416,16 @@ module OOB {
       result = this.getArgument(this.getTarget().(BufferAccessLibraryFunction).getWriteParamIndex())
     }
 
-    Expr getReadSizeArg() {
+    Expr getReadSizeArg(int mult) {
       result =
-        this.getArgument(this.getTarget().(BufferAccessLibraryFunction).getReadSizeParamIndex())
+        this.getArgument(this.getTarget().(BufferAccessLibraryFunction).getReadSizeParamIndex()) and
+      getReadSizeArgMult() = mult
     }
 
-    Expr getWriteSizeArg() {
+    Expr getWriteSizeArg(int mult) {
       result =
-        this.getArgument(this.getTarget().(BufferAccessLibraryFunction).getWriteCountParamIndex())
+        this.getArgument(this.getTarget().(BufferAccessLibraryFunction).getWriteSizeParamIndex()) and
+      getWriteSizeArgMult() = mult
     }
 
     int getReadSizeArgMult() {
@@ -406,6 +437,9 @@ module OOB {
     }
   }
 
+  /**
+   * A `FunctionCall` to a `SimpleStringLibraryFunction`
+   */
   class SimpleStringLibraryFunctionCall extends BufferAccessLibraryFunctionCall {
     SimpleStringLibraryFunctionCall() { this.getTarget() instanceof SimpleStringLibraryFunction }
   }
@@ -454,19 +488,31 @@ module OOB {
     result = 0
   }
 
-  int constOrZero(Expr e) {
+  private int constOrZero(Expr e) {
     result = e.getValue().toInt()
     or
     not exists(e.getValue().toInt()) and result = 0
   }
 
   abstract class PointerToObjectSource extends Expr {
+    /**
+     * Gets the expression that points to the object.
+     */
     abstract Expr getPointer();
 
+    /**
+     * Gets the expression, if any, that defines the size of the object.
+     */
     abstract Expr getSizeExpr();
 
+    /**
+     * Gets the size of the object, if it is statically known.
+     */
     abstract int getFixedSize();
 
+    /**
+     * Holds if the object is not null-terminated.
+     */
     abstract predicate isNotNullTerminated();
   }
 
@@ -558,6 +604,10 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
+  /**
+   * A `PointerToObjectSource` which is an `AddressOfExpr` to a variable
+   * that is not a field or pointer type.
+   */
   class AddressOfExprSource extends PointerToObjectSource, AddressOfExpr {
     AddressOfExprSource() {
       exists(Variable v |
@@ -576,6 +626,9 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
+  /**
+   * A `PointerToObjectSource` which is a `VariableAccess` to a static buffer
+   */
   class StaticBufferAccessSource extends PointerToObjectSource instanceof VariableAccess {
     StaticBufferAccessSource() {
       not this.getTarget() instanceof Field and
@@ -597,6 +650,25 @@ module OOB {
       )
     }
   }
+
+  /**
+   * A `PointerToObjectSource` which is a string literal that is not
+   * part of an variable initializer (to deduplicate `StaticBufferAccessSource`)
+   */
+  class StringLiteralSource extends PointerToObjectSource instanceof StringLiteral {
+    StringLiteralSource() { not this instanceof CharArrayInitializedWithStringLiteral }
+
+    override Expr getPointer() { result = this }
+
+    override Expr getSizeExpr() { none() }
+
+    override int getFixedSize() {
+      result = this.(StringLiteral).getOriginalLength()
+    }
+
+    override predicate isNotNullTerminated() { none() }
+  }
+
 
   class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration {
     PointerToObjectSourceOrSizeToBufferAccessFunctionConfig() {
@@ -674,7 +746,7 @@ module OOB {
     source = sizeExpr
     or
     // computable source value that flows to the size expression
-    size = source.(DynamicAllocationSource).getFixedSize() and
+    size = source.(DynamicAllocationSource).getFixedSize() + getArithmeticOffsetValue(sizeExpr) and
     hasFlowFromBufferOrSizeExprToUse(source.(DynamicAllocationSource).getSizeExprSource(_, _),
       sizeExpr)
   }
@@ -718,51 +790,78 @@ module OOB {
     hasFlowFromBufferOrSizeExprToUse(allocSize, bufferSizeArg)
   }
 
-  predicate isSizeArgGreaterThanBufferSize(
-    Expr bufferArg, Expr sizeArg, PointerToObjectSource bufferSource, int bufferArgSize,
-    int sizeArgValue, BufferAccessLibraryFunctionCall fc
-  ) {
-    exists(float sizeMult |
-      (
-        bufferArg = fc.getWriteArg() and
-        sizeArg = fc.getWriteSizeArg() and
-        sizeMult = fc.getWriteSizeArgMult()
-        or
-        bufferArg = fc.getReadArg() and
-        sizeArg = fc.getReadSizeArg() and
-        sizeMult = fc.getReadSizeArgMult()
-      ) and
-      (
-        bufferUseComputableBufferSize(bufferArg, bufferSource, bufferArgSize) and
-        sizeExprComputableSize(sizeArg, _, sizeArgValue) and
-        bufferArgSize - getArithmeticOffsetValue(bufferArg) <
-          sizeMult.(float) * (sizeArgValue + getArithmeticOffsetValue(sizeArg)).(float)
-      )
+  /**
+   * Holds if `arg` refers to the number of characters excluding a null terminator
+   */
+  private predicate isArgNumCharacters(BufferAccessLibraryFunctionCall fc, Expr arg) {
+    exists(int i |
+      arg = fc.getArgument(i) and
+      fc.getTarget().(BufferAccessLibraryFunction).getALengthParameterIndex(i)
     )
   }
 
-  predicate isBufferSizeOffsetOfGVN(
-    BufferAccessLibraryFunctionCall fc, Expr bufferSize, Expr bufferUse,
-    DynamicAllocationSource source, Expr sourceSizeExpr, Expr sourceSizeExprBase,
-    int sourceSizeExprOffset, int sizeMult, int sizeArgOffset, int bufferArgOffset
-  ) {
-    (
-      bufferUse = fc.getWriteArg() and
-      bufferSize = fc.getWriteSizeArg() and
-      sizeMult = fc.getWriteSizeArgMult()
-      or
-      bufferUse = fc.getReadArg() and
-      bufferSize = fc.getReadSizeArg() and
-      sizeMult = fc.getReadSizeArgMult()
-    ) and
-    sourceSizeExpr = source.getSizeExprSource(sourceSizeExprBase, sourceSizeExprOffset) and
-    bufferUseNonComputableSize(bufferUse, source) and
-    not globalValueNumber(sourceSizeExpr) = globalValueNumber(bufferSize) and
-    sizeArgOffset = getArithmeticOffsetValue(bufferSize.getAChild*()) and
-    bufferArgOffset = getArithmeticOffsetValue(bufferUse) and
-    sourceSizeExprOffset + bufferArgOffset < sizeArgOffset
+  /**
+   * Returns '1' if `arg` refers to the number of characters excluding a null terminator,
+   * otherwise '0' if `arg` refers to the number of characters including a null terminator.
+   */
+  private int argNumCharactersOffset(BufferAccessLibraryFunctionCall fc, Expr arg) {
+    if isArgNumCharacters(fc, arg) then result = 1 else result = 0
   }
 
+  /**
+   * Holds if the call `fc` results in a buffer overflow due to a size argument
+   * being greater in size than the buffer size being read from or written to.
+   */
+  predicate isSizeArgGreaterThanBufferSize(
+    Expr bufferArg, Expr sizeArg, int computedBufferSize, int computedSizeAccessed,
+    BufferAccessLibraryFunctionCall fc
+  ) {
+    exists(float sizeMult, int bufferArgSize, int sizeArgValue, PointerToObjectSource bufferSource |
+      (
+        bufferArg = fc.getWriteArg() and
+        sizeArg = fc.getWriteSizeArg(sizeMult)
+        or
+        bufferArg = fc.getReadArg() and
+        sizeArg = fc.getReadSizeArg(sizeMult)
+      ) and
+      bufferUseComputableBufferSize(bufferArg, bufferSource, bufferArgSize) and
+      sizeExprComputableSize(sizeArg, _, sizeArgValue) and
+      computedBufferSize = sizeMult.(float) * (bufferArgSize - getArithmeticOffsetValue(bufferArg)) and
+      computedSizeAccessed =
+        sizeMult.(float) * (sizeArgValue + argNumCharactersOffset(fc, sizeArg)).(float) and
+      computedBufferSize < computedSizeAccessed
+    )
+  }
+
+  /**
+   * Holds if the call `fc` may result in a buffer overflow due to a positive offset
+   * from a pattern used for calculating the size of the buffer being accessed.
+   */
+  predicate isBufferSizeOffsetOfGVN(
+    Expr bufferArg, Expr bufferSizeArg,
+    int sourceSizeExprOffset, int sizeMult, int sizeArgOffset, int bufferArgOffset, 
+    BufferAccessLibraryFunctionCall fc) {
+    exists(DynamicAllocationSource source, Expr sourceSizeExpr, Expr sourceSizeExprBase |
+    (
+        bufferArg = fc.getWriteArg() and
+        bufferSizeArg = fc.getWriteSizeArg(sizeMult)
+        or
+        bufferArg = fc.getReadArg() and
+        bufferSizeArg = fc.getReadSizeArg(sizeMult)
+      ) and
+      sourceSizeExpr = source.getSizeExprSource(sourceSizeExprBase, sourceSizeExprOffset) and
+      bufferUseNonComputableSize(bufferArg, source) and
+      not globalValueNumber(sourceSizeExpr) = globalValueNumber(bufferSizeArg) and
+      sizeArgOffset = getArithmeticOffsetValue(bufferSizeArg.getAChild*()) and
+      bufferArgOffset = getArithmeticOffsetValue(bufferArg) and
+      sourceSizeExprOffset + bufferArgOffset < sizeArgOffset
+    )
+  }
+
+  /**
+   * Holds if the call `fc` may result in an invalid buffer access due to a standard library
+   * function being called with a null pointer as a buffer argument while expecting only non-null input.
+   */
   predicate isMandatoryBufferArgNull(Expr bufferArg, BufferAccessLibraryFunctionCall fc) {
     exists(int i |
       i =
@@ -776,6 +875,10 @@ module OOB {
     )
   }
 
+  /**
+   * Holds if the call `fc` may result in an invalid buffer access due to a standard library function
+   * receiving a non-null terminated buffer as a buffer argument and reading past the end of the buffer.
+   */
   predicate isNullTerminatorMissingFromBufferArg(
     Expr bufferArg, PointerToObjectSource source, BufferAccessLibraryFunctionCall fc
   ) {
@@ -787,7 +890,11 @@ module OOB {
     )
   }
 
-  predicate isReadBufferSizeSmallerThanWriteBufferSize(
+  /**
+   * Holds if the call `fc` may result in an invalid buffer access due a read buffer being bigger
+   * than the write buffer. This heuristic is useful for cases such as strcpy(dst, src).
+   */
+  predicate isReadBufferSizeGreaterThanWriteBufferSize(
     Expr readBuffer, Expr writeBuffer, SimpleStringLibraryFunctionCall fc
   ) {
     readBuffer = fc.getReadArg() and
@@ -795,8 +902,49 @@ module OOB {
     exists(int readBufferSize, int writeBufferSize |
       bufferUseComputableBufferSize(readBuffer, _, readBufferSize) and
       bufferUseComputableBufferSize(writeBuffer, _, writeBufferSize) and
-      readBufferSize - getArithmeticOffsetValue(readBuffer) <
+      readBufferSize + getArithmeticOffsetValue(readBuffer) >
         writeBufferSize - getArithmeticOffsetValue(writeBuffer)
     )
   }
+
+  private string bufferArgType(BufferAccessLibraryFunctionCall fc, Expr bufferArg) {
+    fc.getReadArg() = bufferArg and result = "read buffer"
+    or
+    fc.getWriteArg() = bufferArg and result = "write buffer"
+  }
+
+  predicate problems(
+    BufferAccessLibraryFunctionCall fc, string message, Expr bufferArg, string bufferArgStr,
+    Expr sizeOrOtherBufferArg, string otherStr
+  ) {
+      exists(int bufferArgSize, int sizeArgValue |
+        isSizeArgGreaterThanBufferSize(bufferArg, sizeOrOtherBufferArg, bufferArgSize, sizeArgValue,
+          fc) and
+        bufferArgStr = bufferArgType(fc, bufferArg) and
+        message =
+          "The size of the $@ passed to " + fc.getTarget().getName() + " is " + bufferArgSize +
+            " bytes, but the " + "$@ is " + sizeArgValue + " bytes." and
+        otherStr = "size argument"
+      )
+      or
+      isMandatoryBufferArgNull(bufferArg, fc) and
+      message = "The $@ passed to " + fc.getTarget().getName() + " is null." and
+      bufferArgStr = bufferArgType(fc, bufferArg) and
+      otherStr = "" and
+      sizeOrOtherBufferArg = bufferArg
+      or
+      isNullTerminatorMissingFromBufferArg(bufferArg, _, fc) and
+      message = "The $@ passed to " + fc.getTarget().getName() + " is not null terminated." and
+      bufferArgStr = bufferArgType(fc, bufferArg) and
+      otherStr = "" and
+      sizeOrOtherBufferArg = bufferArg
+      or
+      isReadBufferSizeGreaterThanWriteBufferSize(bufferArg, sizeOrOtherBufferArg, fc) and
+      message =
+        "The size of the $@ passed to " + fc.getTarget().getName() + " is greater than the " +
+          "size of the $@." and
+      bufferArgStr = "read buffer" and
+      otherStr = "write buffer"
+      // ADD IN GVN
+    }
 }
