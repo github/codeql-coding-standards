@@ -20,13 +20,17 @@ class WideCharPointerType extends PointerType {
   override string getAPrimaryQlClass() { result = "WideCharPointerType" }
 }
 
-class GenericCharPointerType extends PointerType {
+class GenericCharPointerType extends Type {
   GenericCharPointerType() {
-    /* This type resolves to wchar_t* (which is in turn a typedef depending on its implementation) */
-    this.resolveTypedefs*() instanceof WideCharPointerType
+    // A wide char pointer type
+    this instanceof WideCharPointerType
     or
-    /* This type eventually resolves to char* */
-    this.resolveTypedefs*() instanceof CharPointerType
+    // A char pointer type
+    this.getUnspecifiedType() instanceof CharPointerType
+    or
+    // A typedef to any such type.
+    // Note: wchar_t is usually a typedef, so we cannot just use getUnspecifiedType() here.
+    this.(TypedefType).getBaseType() instanceof GenericCharPointerType
   }
 }
 
