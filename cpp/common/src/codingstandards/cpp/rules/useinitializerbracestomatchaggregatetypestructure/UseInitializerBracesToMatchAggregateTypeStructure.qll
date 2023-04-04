@@ -28,7 +28,7 @@ query predicate problems(
   exists(string parentDescription |
     // For class aggergate literal parents, report which field is being assigned to
     exists(ClassAggregateLiteral cal, Field field |
-      cal.getFieldExpr(field) = inferredAggregateLiteral and
+      cal.getAFieldExpr(field) = inferredAggregateLiteral and
       parentDescription = "to field $@" and
       explanationElement = field
     |
@@ -37,15 +37,15 @@ query predicate problems(
     or
     // For array aggregate literal parents, report which index is being assigned to
     exists(ArrayAggregateLiteral aal, int elementIndex |
-      aal.getElementExpr(elementIndex) = inferredAggregateLiteral and
+      aal.getAnElementExpr(elementIndex) = inferredAggregateLiteral and
       parentDescription = "to index " + elementIndex + " in $@" and
       explanationElement = aal and
       explanationDescription = "array of type " + aal.getType().getName()
     )
     or
     // In some cases, we seem to have missing link, so provide a basic message
-    not any(ArrayAggregateLiteral aal).getElementExpr(_) = inferredAggregateLiteral and
-    not any(ClassAggregateLiteral aal).getFieldExpr(_) = inferredAggregateLiteral and
+    not any(ArrayAggregateLiteral aal).getAnElementExpr(_) = inferredAggregateLiteral and
+    not any(ClassAggregateLiteral aal).getAFieldExpr(_) = inferredAggregateLiteral and
     parentDescription = "to an unnamed field of $@" and
     explanationElement = inferredAggregateLiteral.getParent() and
     explanationDescription = " " + explanationElement.(Expr).getType().getName()
