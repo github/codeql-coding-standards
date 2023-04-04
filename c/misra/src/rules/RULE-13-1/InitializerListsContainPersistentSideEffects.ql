@@ -25,8 +25,8 @@ from AggregateLiteral initList, SideEffect effect
 where
   not isExcluded(initList, SideEffects1Package::initializerListsContainPersistentSideEffectsQuery()) and
   (
-    initList.(ArrayOrVectorAggregateLiteral).getElementExpr(_) = effect
+    initList.(ArrayOrVectorAggregateLiteral).getAnElementExpr(_) = effect
     or
-    initList.(ClassAggregateLiteral).getFieldExpr(_) = effect
+    initList.(ClassAggregateLiteral).getAFieldExpr(_) = effect
   )
 select initList, "Initializer list constains persistent $@", effect, "side effect"
