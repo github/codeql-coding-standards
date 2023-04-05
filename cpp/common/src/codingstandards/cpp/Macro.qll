@@ -15,7 +15,8 @@ class FunctionLikeMacro extends Macro {
 
   int getAParameterUse(int index) {
     exists(string parameter | parameter = getParameter(index) |
-      result = this.getBody().indexOf(parameter)
+      // Find identifier tokens in the program that match the parameter name
+      exists(this.getBody().regexpFind("\\#?\\b" + parameter + "\\b", _, result))
     )
   }
 }

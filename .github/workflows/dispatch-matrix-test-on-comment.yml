@@ -3,6 +3,11 @@ name: 🤖 Run Matrix Check (On Comment)
 on:
   issue_comment:
     types: [created]
+    branches:
+      - main
+      - "rc/**"
+      - next
+
 
 jobs:
   dispatch-matrix-check:
@@ -33,6 +38,7 @@ jobs:
           client-payload: '{"pr": "${{ github.event.number  }}"}'
 
       - uses: actions/github-script@v6
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-matrix') }}
         with:
           script: |
             github.rest.issues.createComment({

@@ -1,0 +1,24 @@
+{
+  "CERT-C": {
+    "MEM35-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The size of memory allocated dynamically must be adequate to represent the type of object referenced by the allocated memory.",
+          "kind": "problem",
+          "name": "Allocate sufficient memory for an object",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "InsufficientMemoryAllocatedForObject",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Allocate sufficient memory for an object"
+    }
+  }
+}
