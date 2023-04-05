@@ -82,9 +82,10 @@ module OOB {
       dst = -1 and
       src = [0, 1]
       or
-      name = "strtok" and
-      dst = 0 and
-      src = 1
+      // do not specify a src and dst to avoid buffer size assumptions
+      name = ["strtok", "strtok_r"] and
+      dst = -1 and
+      src = [0, 1]
     )
   }
 
@@ -476,6 +477,18 @@ module OOB {
     override predicate getASizeMultParameterIndex(int i) {
       // `qsort` has a size multiplier parameter
       i = 2
+    }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling `strtok`
+   */
+  class StrtokLibraryFunction extends BufferAccessLibraryFunction {
+    StrtokLibraryFunction() { this.getName() = getNameOrInternalName(["strtok", "strtok_r"]) }
+
+    override predicate getAPermissiblyNullParameterIndex(int i) {
+      // `strtok` does not require a non-null `str` parameter
+      i = 0
     }
   }
 
