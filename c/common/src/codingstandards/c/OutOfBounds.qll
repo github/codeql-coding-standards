@@ -13,6 +13,7 @@ import codingstandards.cpp.PossiblyUnsafeStringOperation
 import codingstandards.cpp.SimpleRangeAnalysisCustomizations
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
+import semmle.code.cpp.security.BufferAccess
 import semmle.code.cpp.security.BufferWrite
 
 module OOB {
@@ -161,8 +162,8 @@ module OOB {
       name = ["strncat", "wcsncat"] and
       dst = 0 and
       src = 1 and
-      src_sz = 2 and
-      dst_sz = -1
+      src_sz = -1 and
+      dst_sz = 2
       or
       name = ["snprintf", "vsnprintf", "swprintf", "vswprintf"] and
       dst = 0 and
@@ -188,16 +189,28 @@ module OOB {
       src_sz = -1 and
       dst_sz = 2
       or
-      name = ["bsearch", "qsort"] and
-      dst = 1 and
-      src = -1 and
-      src_sz = -1 and
-      dst_sz = -1
-      or
-      name = ["fread", "fwrite"] and
+      name = "qsort" and
       dst = 0 and
       src = -1 and
       src_sz = -1 and
+      dst_sz = 1
+      or
+      name = "bsearch" and
+      dst = -1 and
+      src = 1 and
+      src_sz = -1 and
+      dst_sz = 2
+      or
+      name = "fread" and
+      dst = 0 and
+      src = -1 and
+      src_sz = -1 and
+      dst_sz = 2
+      or
+      name = "fwrite" and
+      dst = -1 and
+      src = 0 and
+      src_sz = 2 and
       dst_sz = -1
     )
   }
@@ -278,15 +291,21 @@ module OOB {
 
     predicate getANullTerminatedParameterIndex(int i) {
       // by default, require null-terminated parameters for src but
-      // only if the type of src is a plain char pointer or wchar_t
+      // only if the type of src is a plain char pointer or wchar_t.
       this.getReadParamIndex() = i and
       exists(Type baseType |
-        baseType = this.getReadParam().getType().(DerivedType).getBaseType*() and
+        baseType = this.getReadParam().getUnspecifiedType().(PointerType).getBaseType() and
         (
-          baseType instanceof CharType or
-          baseType instanceof Wchar_t
+          baseType.getUnspecifiedType() instanceof PlainCharType or
+          baseType.getUnspecifiedType() instanceof Wchar_t
         )
       )
+    }
+
+    predicate getASizeMultParameterIndex(int i) {
+      // by default, there is no size multiplier parameter
+      // exceptions: fread, fwrite, bsearch, qsort
+      none()
     }
 
     predicate getALengthParameterIndex(int i) {
@@ -316,12 +335,8 @@ module OOB {
       // by default, require null-terminated parameters for src but
       // only if the type of src is a plain char pointer.
       this.getReadParamIndex() = i and
-      this.getReadParam()
-          .getType()
-          .getUnspecifiedType()
-          .(PointerType)
-          .getBaseType()
-          .getUnspecifiedType() instanceof PlainCharType
+      this.getReadParam().getUnspecifiedType().(PointerType).getBaseType().getUnspecifiedType()
+        instanceof PlainCharType
     }
   }
 
@@ -338,7 +353,7 @@ module OOB {
   /**
    * A `BufferAccessLibraryFunction` modelling `strcat`
    */
-  class StrcatLibraryFunction extends BufferAccessLibraryFunction {
+  class StrcatLibraryFunction extends StringConcatenationFunctionLibraryFunction {
     StrcatLibraryFunction() { this.getName() = getNameOrInternalName("strcat") }
   }
 
@@ -352,7 +367,7 @@ module OOB {
   /**
    * A `BufferAccessLibraryFunction` modelling `strncpy`
    */
-  class StrncpyLibraryFunction extends BufferAccessLibraryFunction {
+  class StrncpyLibraryFunction extends StringConcatenationFunctionLibraryFunction {
     StrncpyLibraryFunction() { this.getName() = getNameOrInternalName("strncpy") }
 
     override predicate getANullTerminatedParameterIndex(int i) {
@@ -374,7 +389,7 @@ module OOB {
   }
 
   /**
-   * A `BufferAccessLibraryFunction` modelling ["mbtowc", "mbrtowc"]
+   * A `BufferAccessLibraryFunction` modelling `mbtowc` and `mbrtowc`
    */
   class MbtowcLibraryFunction extends BufferAccessLibraryFunction {
     MbtowcLibraryFunction() { this.getName() = getNameOrInternalName(["mbtowc", "mbrtowc"]) }
@@ -401,14 +416,109 @@ module OOB {
     SetvbufLibraryFunction() { this.getName() = getNameOrInternalName("setvbuf") }
 
     override predicate getAPermissiblyNullParameterIndex(int i) { i = 1 }
+
+    override predicate getANullTerminatedParameterIndex(int i) {
+      // `setvbuf` does not require a null-terminated buffer
+      none()
+    }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling `snprintf`, `vsnprintf`, `swprintf`, and `vswprintf`.
+   * This class overrides the `getANullTerminatedParameterIndex` predicate to include the `format` parameter.
+   */
+  class PrintfLibraryFunction extends BufferAccessLibraryFunction {
+    PrintfLibraryFunction() {
+      this.getName() = getNameOrInternalName(["snprintf", "vsnprintf", "swprintf", "vswprintf"])
+    }
+
+    override predicate getANullTerminatedParameterIndex(int i) {
+      // `snprintf` and variants require a null-terminated format string
+      i = 2
+    }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling `fread` and `fwrite`.
+   */
+  class FreadFwriteLibraryFunction extends BufferAccessLibraryFunction {
+    FreadFwriteLibraryFunction() { this.getName() = getNameOrInternalName(["fread", "fwrite"]) }
+
+    override predicate getASizeMultParameterIndex(int i) {
+      // `fread` and `fwrite` have a size multiplier parameter
+      i = 1
+    }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling `bsearch`
+   */
+  class BsearchLibraryFunction extends BufferAccessLibraryFunction {
+    BsearchLibraryFunction() { this.getName() = getNameOrInternalName("bsearch") }
+
+    override predicate getASizeMultParameterIndex(int i) {
+      // `bsearch` has a size multiplier parameter
+      i = 3
+    }
+  }
+
+  /**
+   * A `BufferAccessLibraryFunction` modelling `qsort`
+   */
+  class QsortLibraryFunction extends BufferAccessLibraryFunction {
+    QsortLibraryFunction() { this.getName() = getNameOrInternalName("qsort") }
+
+    override predicate getASizeMultParameterIndex(int i) {
+      // `qsort` has a size multiplier parameter
+      i = 2
+    }
+  }
+
+  /**
+   * An construction of a pointer to a buffer.
+   */
+  abstract class BufferAccess extends Expr {
+    abstract predicate hasABuffer(Expr buffer, Expr size, int sizeMult);
+
+    Expr getARelevantExpr() {
+      hasABuffer(result, _, _)
+      or
+      hasABuffer(_, result, _)
+    }
+  }
+
+  class PointerArithmeticBufferAccess extends BufferAccess instanceof PointerArithmeticExpr {
+    override predicate hasABuffer(Expr buffer, Expr size, int sizeMult) {
+      buffer = this.(PointerArithmeticExpr).getPointer() and
+      size = this.(PointerArithmeticExpr).getOperand() and
+      sizeMult =
+        buffer.getType().getUnspecifiedType().(DerivedType).getBaseType().getSize().maximum(1)
+    }
+  }
+
+  class ArrayBufferAccess extends BufferAccess, ArrayExpr {
+    override predicate hasABuffer(Expr buffer, Expr size, int sizeMult) {
+      buffer = this.getArrayBase() and
+      size = this.getArrayOffset() and
+      sizeMult =
+        buffer.getType().getUnspecifiedType().(DerivedType).getBaseType().getSize().maximum(1)
+    }
   }
 
   /**
    * A `FunctionCall` to a `BufferAccessLibraryFunction` that provides predicates for
    * reasoning about buffer overflow and other buffer access violations.
    */
-  class BufferAccessLibraryFunctionCall extends FunctionCall {
+  class BufferAccessLibraryFunctionCall extends FunctionCall, BufferAccess {
     BufferAccessLibraryFunctionCall() { this.getTarget() instanceof BufferAccessLibraryFunction }
+
+    override predicate hasABuffer(Expr buffer, Expr size, int sizeMult) {
+      buffer = this.getWriteArg() and
+      size = this.getWriteSizeArg(sizeMult)
+      or
+      buffer = this.getReadArg() and
+      size = this.getReadSizeArg(sizeMult)
+    }
 
     Expr getReadArg() {
       result = this.getArgument(this.getTarget().(BufferAccessLibraryFunction).getReadParamIndex())
@@ -431,11 +541,25 @@ module OOB {
     }
 
     int getReadSizeArgMult() {
-      result = this.getTarget().(BufferAccessLibraryFunction).getReadParamElementSize(_)
+      result =
+        this.getTarget().(BufferAccessLibraryFunction).getReadParamElementSize(_) *
+          getSizeMultArgValue()
     }
 
     int getWriteSizeArgMult() {
-      result = this.getTarget().(BufferAccessLibraryFunction).getWriteParamElementSize(_)
+      result =
+        this.getTarget().(BufferAccessLibraryFunction).getWriteParamElementSize(_) *
+          getSizeMultArgValue()
+    }
+
+    int getSizeMultArgValue() {
+      exists(int i |
+        this.getTarget().(BufferAccessLibraryFunction).getASizeMultParameterIndex(i) and
+        result = this.getArgument(i).getValue().toInt()
+      )
+      or
+      not this.getTarget().(BufferAccessLibraryFunction).getASizeMultParameterIndex(_) and
+      result = 1
     }
   }
 
@@ -610,7 +734,7 @@ module OOB {
    * A `PointerToObjectSource` which is an `AddressOfExpr` to a variable
    * that is not a field or pointer type.
    */
-  class AddressOfExprSource extends PointerToObjectSource, AddressOfExpr {
+  class AddressOfExprSource extends PointerToObjectSource instanceof AddressOfExpr {
     AddressOfExprSource() {
       exists(Variable v |
         v = this.getOperand().(VariableAccess).getTarget() and
@@ -623,7 +747,9 @@ module OOB {
 
     override Expr getSizeExpr() { none() }
 
-    override int getFixedSize() { result = min(this.getOperand().getType().getSize()) }
+    override int getFixedSize() {
+      result = min(this.(AddressOfExpr).getOperand().getType().getSize())
+    }
 
     override predicate isNotNullTerminated() { none() }
   }
@@ -634,6 +760,7 @@ module OOB {
   class StaticBufferAccessSource extends PointerToObjectSource instanceof VariableAccess {
     StaticBufferAccessSource() {
       not this.getTarget() instanceof Field and
+      not this.getTarget().getUnspecifiedType() instanceof PointerType and
       this.getTarget().getUnderlyingType().(ArrayType).getSize() > 0
     }
 
@@ -646,10 +773,54 @@ module OOB {
     }
 
     override predicate isNotNullTerminated() {
-      exists(CharArrayInitializedWithStringLiteral cl |
-        cl = this.(VariableAccess).getTarget().getInitializer().getExpr() and
-        cl.getContainerLength() <= cl.getStringLiteralLength()
+      // StringLiteral::getOriginalLength uses Expr::getValue, which implicitly truncates string literal
+      // values to the length fitting the buffer they are assigned to, thus breaking the 'obvious' check.
+      exists(CharArrayInitializedWithStringLiteral init |
+        init = this.(VariableAccess).getTarget().getInitializer().getExpr() and
+        init.getStringLiteralLength() + 1 > init.getContainerLength()
       )
+      or
+      // if the buffer is not initialized and does not have any memset call zeroing it, it is not null-terminated.
+      // note that this heuristic does not evaluate the order of the memset calls made and whether they dominate
+      // any use of the buffer by functions requiring it to be null-terminated.
+      (
+        this.(VariableAccess).getTarget().getUnspecifiedType().(ArrayType).getBaseType() instanceof
+          PlainCharType
+        or
+        this.(VariableAccess).getTarget().getUnspecifiedType().(ArrayType).getBaseType() instanceof
+          Wchar_t
+      ) and
+      not this.(VariableAccess).getTarget() instanceof GlobalVariable and
+      not exists(this.(VariableAccess).getTarget().getInitializer()) and
+      not exists(FunctionCall memset, Expr destBuffer |
+        (
+          destBuffer = memset.(MemsetBA).getBuffer(_, _)
+          or
+          memset.getTarget().getName() = getNameOrInternalName("memset") and
+          destBuffer = memset.getArgument(0)
+        ) and
+        memset.getArgument(1).getValue().toInt() = 0 and
+        this.(VariableAccess).getTarget().getAnAccess() = destBuffer
+      ) and
+      // exclude any BufferAccessLibraryFunction that writes to the buffer and does not require
+      // a null-terminated buffer argument for its write argument
+      not exists(
+        BufferAccessLibraryFunctionCall fc, BufferAccessLibraryFunction f, int writeParamIndex
+      |
+        f = fc.getTarget() and
+        writeParamIndex = f.getWriteParamIndex() and
+        not f.getANullTerminatedParameterIndex(writeParamIndex) and
+        fc.getArgument(writeParamIndex) = this.(VariableAccess).getTarget().getAnAccess()
+      ) and
+      // exclude any buffers that have an assignment, deref, or array expr with a zero constant
+      // note: heuristically implemented using getAChild*()
+      not exists(AssignExpr assign |
+        assign.getRValue().getValue().toInt() = 0 and
+        assign.getLValue().getAChild*() = this.(VariableAccess).getTarget().getAnAccess()
+      )
+      // note: the case of initializers that are not string literals and non-zero constants is not handled here.
+      // e.g. char buf[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; (not null-terminated)
+      //      char buf[10] = { 1 }; (not null-terminated)
     }
   }
 
@@ -664,7 +835,12 @@ module OOB {
 
     override Expr getSizeExpr() { none() }
 
-    override int getFixedSize() { result = this.(StringLiteral).getOriginalLength() }
+    override int getFixedSize() {
+      // (length of the string literal + null terminator) * (size of the base type)
+      result =
+        this.(StringLiteral).getOriginalLength() *
+          this.(StringLiteral).getUnderlyingType().(DerivedType).getBaseType().getSize()
+    }
 
     override predicate isNotNullTerminated() { none() }
   }
@@ -684,8 +860,11 @@ module OOB {
     }
 
     override predicate isSink(DataFlow::Node sink) {
-      exists(BufferAccessLibraryFunctionCall call, Expr arg |
-        arg = call.getAnArgument() and
+      exists(BufferAccess ba, Expr arg |
+        (
+          arg = ba.(BufferAccessLibraryFunctionCall).getAnArgument() or
+          arg = ba.getARelevantExpr()
+        ) and
         (
           sink.asExpr() = arg
           or
@@ -708,11 +887,9 @@ module OOB {
         )
       )
       or
-      // remove flow from `src` to `dst` in memcpy
-      exists(FunctionCall fc |
-        fc.getTarget().getName() = getNameOrInternalName("memcpy") and
-        node.asExpr() = fc.getArgument(1).getAChild*()
-      )
+      // remove flow from `src` to `dst` in a buffer access function call
+      // the standard library models such flow through functions such as memcpy, strcpy, etc.
+      exists(BufferAccessLibraryFunctionCall fc | node.asExpr() = fc.getReadArg().getAChild*())
     }
   }
 
@@ -783,7 +960,7 @@ module OOB {
   predicate sizeExprNonComputableSize(
     Expr bufferSizeArg, Expr alloc, Expr allocSize, Expr allocSizeBase, int offset
   ) {
-    bufferSizeArg = any(BufferAccessLibraryFunctionCall call).getAnArgument() and
+    bufferSizeArg = any(BufferAccess access).getARelevantExpr() and
     not sizeExprComputableSize(bufferSizeArg, alloc, _) and
     allocSize = alloc.(DynamicAllocationSource).getSizeExprSource(allocSizeBase, offset) and
     hasFlowFromBufferOrSizeExprToUse(allocSize, bufferSizeArg)
@@ -803,44 +980,99 @@ module OOB {
    * Returns '1' if `arg` refers to the number of characters excluding a null terminator,
    * otherwise '0' if `arg` refers to the number of characters including a null terminator.
    */
-  private int argNumCharactersOffset(BufferAccessLibraryFunctionCall fc, Expr arg) {
+  private int argNumCharactersOffset(BufferAccess fc, Expr arg) {
     if isArgNumCharacters(fc, arg) then result = 1 else result = 0
   }
 
   /**
-   * Holds if the call `fc` results in a buffer overflow due to a size argument
-   * being greater in size than the buffer size being read from or written to.
+   * Holds if the call `fc` may result in an invalid buffer access due a read buffer being bigger
+   * than the write buffer. This heuristic is useful for cases such as strcpy(dst, src).
    */
-  predicate isSizeArgGreaterThanBufferSize(
-    Expr bufferArg, Expr sizeArg, int computedBufferSize, int computedSizeAccessed,
+  predicate isReadBufferSizeGreaterThanWriteBufferSize(
+    Expr readBuffer, Expr writeBuffer, int readBufferSize, int writeBufferSize,
     BufferAccessLibraryFunctionCall fc
   ) {
-    exists(float sizeMult, int bufferArgSize, int sizeArgValue, PointerToObjectSource bufferSource |
+    readBuffer = fc.getReadArg() and
+    writeBuffer = fc.getWriteArg() and
+    exists(int readSizeMult, int writeSizeMult, int readBufferSizeBase, int writeBufferSizeBase |
+      bufferUseComputableBufferSize(readBuffer, _, readBufferSizeBase) and
+      bufferUseComputableBufferSize(writeBuffer, _, writeBufferSizeBase) and
+      readSizeMult = fc.getReadSizeArgMult() and
+      writeSizeMult = fc.getWriteSizeArgMult() and
+      readBufferSize = readBufferSizeBase - readSizeMult * getArithmeticOffsetValue(readBuffer) and
+      writeBufferSize = writeBufferSizeBase - writeSizeMult * getArithmeticOffsetValue(writeBuffer) and
+      readBufferSize > writeBufferSize and
       (
-        bufferArg = fc.getWriteArg() and
-        sizeArg = fc.getWriteSizeArg(sizeMult)
-        or
-        bufferArg = fc.getReadArg() and
-        sizeArg = fc.getReadSizeArg(sizeMult)
-      ) and
+        // if a size arg exists and it is computable, then it must be <= to the write buffer size
+        exists(fc.getWriteSizeArg(writeSizeMult))
+        implies
+        (
+          sizeExprComputableSize(fc.getWriteSizeArg(writeSizeMult), _, _) and
+          not exists(Expr writeSizeArg, int writeSizeArgValue |
+            writeSizeArg = fc.getWriteSizeArg(writeSizeMult) and
+            sizeExprComputableSize(writeSizeArg, _, writeSizeArgValue) and
+            writeSizeMult.(float) *
+              (writeSizeArgValue + argNumCharactersOffset(fc, writeSizeArg)).(float) <=
+              writeBufferSize
+          )
+        )
+      )
+    )
+  }
+
+  /**
+   * Holds if the BufferAccess `bufferAccess` results in a buffer overflow due to a size argument
+   * or buffer access offset being greater in size than the buffer size being accessed or written to.
+   */
+  predicate isSizeArgGreaterThanBufferSize(
+    Expr bufferArg, Expr sizeArg, PointerToObjectSource bufferSource, int computedBufferSize,
+    int computedSizeAccessed, BufferAccess bufferAccess
+  ) {
+    exists(float sizeMult, int bufferArgSize, int sizeArgValue |
+      bufferAccess.hasABuffer(bufferArg, sizeArg, sizeMult) and
       bufferUseComputableBufferSize(bufferArg, bufferSource, bufferArgSize) and
+      // If the bufferArg is an access of a static buffer, do not look for "long distance" sources
+      (bufferArg instanceof StaticBufferAccessSource implies bufferSource = bufferArg) and
       sizeExprComputableSize(sizeArg, _, sizeArgValue) and
-      computedBufferSize = sizeMult.(float) * (bufferArgSize - getArithmeticOffsetValue(bufferArg)) and
+      computedBufferSize = bufferArgSize - sizeMult.(float) * getArithmeticOffsetValue(bufferArg) and
       computedSizeAccessed =
-        sizeMult.(float) * (sizeArgValue + argNumCharactersOffset(fc, sizeArg)).(float) and
+        sizeMult.(float) * (sizeArgValue + argNumCharactersOffset(bufferAccess, sizeArg)).(float) and
       computedBufferSize < computedSizeAccessed
     )
   }
 
   /**
-   * Holds if the call `fc` may result in a buffer overflow due to a positive offset
-   * from a pattern used for calculating the size of the buffer being accessed.
+   * Holds if the call `fc` may result in an invalid buffer access due to a buffer argument
+   * being accessed at an offset that is greater than the size of the buffer.
    */
-  predicate isBufferSizeOffsetOfGVN(
-    Expr bufferArg, Expr bufferSizeArg, int sourceSizeExprOffset, int sizeMult, int sizeArgOffset,
-    int bufferArgOffset, BufferAccessLibraryFunctionCall fc
+  predicate isBufferOffsetGreaterThanBufferSize(
+    Expr bufferArg, int bufferArgOffset, int bufferSize, BufferAccessLibraryFunctionCall fc
   ) {
-    exists(DynamicAllocationSource source, Expr sourceSizeExpr, Expr sourceSizeExprBase |
+    exists(int bufferElementSize |
+      (
+        bufferArg = fc.getReadArg() and
+        bufferElementSize = fc.getReadSizeArgMult()
+        or
+        bufferArg = fc.getWriteArg() and
+        bufferElementSize = fc.getWriteSizeArgMult()
+      ) and
+      bufferUseComputableBufferSize(bufferArg, _, bufferSize) and
+      bufferArgOffset = getArithmeticOffsetValue(bufferArg) * bufferElementSize and
+      bufferArgOffset >= bufferSize
+    )
+  }
+
+  /**
+   * Holds if the BufferAccess is accessed with a `base + accessOffset` on a buffer that was
+   * allocated a size of the form `base + allocationOffset`.
+   */
+  predicate isGVNOffsetGreaterThanBufferSize(
+    Expr bufferArg, Expr bufferSizeArg, Expr sourceSizeExpr, int sourceSizeExprOffset,
+    int sizeArgOffset, BufferAccessLibraryFunctionCall fc
+  ) {
+    exists(
+      DynamicAllocationSource source, Expr sourceSizeExprBase, int bufferArgOffset, int sizeMult
+    |
       (
         bufferArg = fc.getWriteArg() and
         bufferSizeArg = fc.getWriteSizeArg(sizeMult)
@@ -876,40 +1108,72 @@ module OOB {
 
   /**
    * Holds if the call `fc` may result in an invalid buffer access due to a standard library function
-   * receiving a non-null terminated buffer as a buffer argument and reading past the end of the buffer.
+   * receiving a non-null terminated buffer as a buffer argument and accessing it.
    */
-  predicate isNullTerminatorMissingFromBufferArg(
-    Expr bufferArg, PointerToObjectSource source, BufferAccessLibraryFunctionCall fc
+  predicate isNullTerminatorMissingFromArg(
+    Expr arg, PointerToObjectSource source, BufferAccessLibraryFunctionCall fc
   ) {
-    exists(int i |
+    exists(int i, Expr argChild |
       fc.getTarget().(BufferAccessLibraryFunction).getANullTerminatedParameterIndex(i) and
-      fc.getArgument(i) = bufferArg and
+      fc.getArgument(i) = arg and
       source.isNotNullTerminated() and
-      hasFlowFromBufferOrSizeExprToUse(source, bufferArg.getAChild*())
+      argChild = arg.getAChild*() and
+      // ignore cases like strcpy(irrelevant_func(non_null_terminated_str, ...), src)
+      not exists(FunctionCall other |
+        not other = fc and
+        other.getAnArgument().getAChild*() = argChild
+      ) and
+      hasFlowFromBufferOrSizeExprToUse(source, argChild)
     )
   }
 
-  /**
-   * Holds if the call `fc` may result in an invalid buffer access due a read buffer being bigger
-   * than the write buffer. This heuristic is useful for cases such as strcpy(dst, src).
-   */
-  predicate isReadBufferSizeGreaterThanWriteBufferSize(
-    Expr readBuffer, Expr writeBuffer, SimpleStringLibraryFunctionCall fc
+  predicate isSizeArgNotCheckedLessThanFixedBufferSize(
+    Expr bufferArg, Expr sizeArg, PointerToObjectSource bufferSource, int bufferArgSize,
+    BufferAccess bufferAccess, int sizeArgUpperBound, int sizeMult
   ) {
-    readBuffer = fc.getReadArg() and
-    writeBuffer = fc.getWriteArg() and
-    exists(int readBufferSize, int writeBufferSize |
-      bufferUseComputableBufferSize(readBuffer, _, readBufferSize) and
-      bufferUseComputableBufferSize(writeBuffer, _, writeBufferSize) and
-      readBufferSize + getArithmeticOffsetValue(readBuffer) >
-        writeBufferSize - getArithmeticOffsetValue(writeBuffer)
+    bufferAccess.hasABuffer(bufferArg, sizeArg, sizeMult) and
+    bufferUseComputableBufferSize(bufferArg, bufferSource, bufferArgSize) and
+    // If the bufferArg is an access of a static buffer, do not look for "long distant" sources
+    (bufferArg instanceof StaticBufferAccessSource implies bufferSource = bufferArg) and
+    // Not a size expression for which we can compute a specific size
+    not sizeExprComputableSize(sizeArg, _, _) and
+    // Range analysis considers the upper bound to be larger than the buffer size
+    sizeArgUpperBound = upperBound(sizeArg) and
+    // Ignore bitwise & operations
+    not sizeArg instanceof BitwiseAndExpr and
+    sizeArgUpperBound * sizeMult > bufferArgSize and
+    // There isn't a relational operation guarding this access that seems to check the
+    // upper bound against a plausible terminal value
+    not exists(RelationalOperation relOp, Expr checkedUpperBound |
+      globalValueNumber(relOp.getLesserOperand()) = globalValueNumber(sizeArg) and
+      checkedUpperBound = relOp.getGreaterOperand() and
+      // There's no closer inferred bounds - otherwise we let range analysis check it
+      upperBound(checkedUpperBound) = exprMaxVal(checkedUpperBound)
+    )
+  }
+
+  predicate isSizeArgNotCheckedGreaterThanZero(
+    Expr bufferArg, Expr sizeArg, PointerToObjectSource bufferSource, BufferAccess bufferAccess
+  ) {
+    exists(float sizeMult |
+      bufferAccess.hasABuffer(bufferArg, sizeArg, sizeMult) and
+      (
+        bufferUseComputableBufferSize(bufferArg, bufferSource, _) or
+        bufferUseNonComputableSize(bufferArg, bufferSource)
+      ) and
+      // Not a size expression for which we can compute a specific size
+      not sizeExprComputableSize(sizeArg, _, _) and
+      // If the lower bound is less than zero, taking into account any offsets
+      lowerBound(sizeArg) + getArithmeticOffsetValue(bufferArg) < 0
     )
   }
 
   private string bufferArgType(BufferAccessLibraryFunctionCall fc, Expr bufferArg) {
-    fc.getReadArg() = bufferArg and result = "read buffer"
+    fc.getReadArg() = bufferArg and
+    result = "read buffer"
     or
-    fc.getWriteArg() = bufferArg and result = "write buffer"
+    fc.getWriteArg() = bufferArg and
+    result = "write buffer"
   }
 
   predicate problems(
@@ -917,33 +1181,53 @@ module OOB {
     Expr sizeOrOtherBufferArg, string otherStr
   ) {
     exists(int bufferArgSize, int sizeArgValue |
-      isSizeArgGreaterThanBufferSize(bufferArg, sizeOrOtherBufferArg, bufferArgSize, sizeArgValue,
-        fc) and
+      isSizeArgGreaterThanBufferSize(bufferArg, sizeOrOtherBufferArg, _, bufferArgSize,
+        sizeArgValue, fc) and
       bufferArgStr = bufferArgType(fc, bufferArg) and
       message =
         "The size of the $@ passed to " + fc.getTarget().getName() + " is " + bufferArgSize +
           " bytes, but the " + "$@ is " + sizeArgValue + " bytes." and
       otherStr = "size argument"
+      or
+      isBufferOffsetGreaterThanBufferSize(bufferArg, sizeArgValue, bufferArgSize, fc) and
+      bufferArgStr = bufferArgType(fc, bufferArg) and
+      message =
+        "The $@ passed to " + fc.getTarget().getName() + " is " + bufferArgSize +
+          " bytes, but an offset of " + sizeArgValue + " bytes is used to access it." and
+      otherStr = "" and
+      sizeOrOtherBufferArg = bufferArg
     )
     or
     isMandatoryBufferArgNull(bufferArg, fc) and
     message = "The $@ passed to " + fc.getTarget().getName() + " is null." and
-    bufferArgStr = bufferArgType(fc, bufferArg) and
+    bufferArgStr = "argument" and
     otherStr = "" and
     sizeOrOtherBufferArg = bufferArg
     or
-    isNullTerminatorMissingFromBufferArg(bufferArg, _, fc) and
-    message = "The $@ passed to " + fc.getTarget().getName() + " is not null terminated." and
-    bufferArgStr = bufferArgType(fc, bufferArg) and
+    isNullTerminatorMissingFromArg(bufferArg, _, fc) and
+    message = "The $@ passed to " + fc.getTarget().getName() + " might not be null-terminated." and
+    bufferArgStr = "argument" and
     otherStr = "" and
     sizeOrOtherBufferArg = bufferArg
     or
-    isReadBufferSizeGreaterThanWriteBufferSize(bufferArg, sizeOrOtherBufferArg, fc) and
-    message =
-      "The size of the $@ passed to " + fc.getTarget().getName() + " is greater than the " +
-        "size of the $@." and
-    bufferArgStr = "read buffer" and
-    otherStr = "write buffer"
-    // ADD IN GVN
+    exists(int readBufferSize, int writeBufferSize |
+      isReadBufferSizeGreaterThanWriteBufferSize(bufferArg, sizeOrOtherBufferArg, readBufferSize,
+        writeBufferSize, fc) and
+      message =
+        "The size of the $@ passed to " + fc.getTarget().getName() + " is " + readBufferSize +
+          " bytes, but the size of the $@ is only " + writeBufferSize + " bytes." and
+      bufferArgStr = "read buffer" and
+      otherStr = "write buffer"
+    )
+    or
+    exists(int accessOffset, Expr source |
+      isGVNOffsetGreaterThanBufferSize(bufferArg, _, source, _, accessOffset, fc) and
+      message =
+        "The $@ passed to " + fc.getTarget().getName() + " is accessed at an excessive offset of " +
+          accessOffset + " element(s) from the $@." and
+      bufferArgStr = bufferArgType(fc, bufferArg) and
+      sizeOrOtherBufferArg = source and
+      otherStr = "allocation size base"
+    )
   }
 }

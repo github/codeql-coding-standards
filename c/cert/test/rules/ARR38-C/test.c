@@ -1,16 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <wchar.h>
 
-char *get_ca_5(void) { return malloc(5 * sizeof(char)); }
-
-char *get_ca_5_zeroed(void) {
-  char *p = malloc(5 * sizeof(char));
-  memset(p, 0, 5 * sizeof(char));
+char *get_ca_5(void) {
+  void *ptr = malloc(5 * sizeof(char));
+  memset(ptr, 0, 5 * sizeof(char));
+  return (char *)ptr;
 }
 
-int compare(void *, void *) {}
+int compare(void *a, void *b) {}
+
+void test_strings_loop(void) {
+  char ca5[5] = "test"; // ok
+  char buf5[5] = {0};
+
+  for (int i = 0; i < 5; i++) {
+    strcpy(buf5, ca5);         // COMPLIANT
+    strcpy(buf5 + i, ca5);     // NON_COMPLIANT[FALSE_NEGATIVE]
+    strncpy(buf5, ca5, i);     // COMPLIANT
+    strncpy(buf5, ca5, i + 1); // NON_COMPLIANT[FALSE_NEGATIVE]
+  }
+}
 
 void test_strings(int flow, int unk_size) {
   char ca5_good[5] = "test";  // ok
@@ -95,7 +107,7 @@ void test_strings(int flow, int unk_size) {
   } // COMPLIANT
   if (flow) {
     strncpy(ca6_bad, ca5_good, 6);
-  } // NON_COMPLIANT[FALSE_POSITIVE]
+  } // COMPLIANT
   if (flow) {
     strncpy(ca5_good + 1, ca5_good + 2, 3);
   } // COMPLIANT
@@ -132,7 +144,7 @@ void test_strings(int flow, int unk_size) {
     char buf3[10] = {'\0'};
     char buf4[10] = "12345";
 
-    strcat(buf0, " "); // COMPLIANT[FALSE_NEGATIVE] - not null terminated at
+    strcat(buf0, " "); // NON_COMPLIANT[FALSE_NEGATIVE] - not null terminated at
                        // initialization
 
     memset(buf0, 0, sizeof(buf0)); // COMPLIANT
@@ -156,9 +168,9 @@ void test_strings(int flow, int unk_size) {
     wchar_t buf3[10] = {L'\0'};
     wchar_t buf4[10] = L"12345";
 
-    wcsncat(
-        buf0, L" ",
-        1); // COMPLIANT[FALSE_NEGATIVE] - not null terminated at initialization
+    wcsncat(buf0, L" ",
+            1); // NON_COMPLIANT[FALSE_NEGATIVE] - not null terminated at
+                // initialization
 
     memset(buf0, 0, sizeof(buf0)); // COMPLIANT
     memset(buf2, 0, sizeof(buf2)); // COMPLIANT
@@ -166,15 +178,12 @@ void test_strings(int flow, int unk_size) {
     wcsncat(buf1, L" ", 1);     // NON_COMPLIANT - not null terminated
     wcsncat(buf2, L" ", 1);     // COMPLIANT
     wcsncat(buf3, L" ", 1);     // COMPLIANT
-    wcsncat(buf4, L"12345", 5); // NON_COMPLIANT
+    wcsncat(buf4, L"12345", 5); // NON_COMPLIANT[FALSE_NEGATIVE]
 
-    wcsncat(get_ca_5_zeroed(), L"12345", 5);    // NON_COMPLIANT
-    wcsncat(get_ca_5_zeroed(), L"1234", 4);     // NON_COMPLIANT
-    wcsncat(get_ca_5_zeroed() + 1, L"1234", 4); // NON_COMPLIANT
-    wcsncat(get_ca_5_zeroed(), L"12",
-            2); // NON_COMPLIANT - 4 (bytes) + 2 (null term) copied
-    wcsncat(get_ca_5_zeroed() + 1, L"1",
-            1); // COMPLIANT - 2 (bytes) + 2 (null term) copied
+    wcsncat(get_ca_5(), L"12345", 5);    // NON_COMPLIANT
+    wcsncat(get_ca_5(), L"1234", 4);     // NON_COMPLIANT
+    wcsncat(get_ca_5() + 1, L"1234", 4); // NON_COMPLIANT
+    wcsncat(get_ca_5(), L"12", 2);       // NON_COMPLIANT
   }
 
   // strcmp
@@ -189,7 +198,8 @@ void test_strings(int flow, int unk_size) {
   // strncmp
   if (flow) {
     strncmp(ca5_good, ca5_bad, 4); // COMPLIANT
-    strncmp(ca5_good, ca5_bad, 5); // NON_COMPLIANT
+    strncmp(ca5_good, ca5_bad, 5); // COMPLIANT
+    strncmp(ca5_good, ca5_bad, 6); // NON_COMPLIANT
   }
 }
 
@@ -201,7 +211,7 @@ void test_wrong_buf_size(void) {
     fgets(buf, sizeof(buf), stdin);         // COMPLIANT
     fgets(buf, sizeof(buf) - 1, stdin);     // COMPLIANT
     fgets(buf, sizeof(buf) + 1, stdin);     // NON_COMPLIANT
-    fgets(buf, 0, stdin);                   // NON_COMPLIANT
+    fgets(buf, 0, stdin);                   // COMPLIANT
     fgets(buf + 1, sizeof(buf) - 1, stdin); // COMPLIANT
     fgets(buf + 1, sizeof(buf), stdin);     // NON_COMPLIANT
   }
@@ -213,8 +223,7 @@ void test_wrong_buf_size(void) {
     fgetws(wbuf, sizeof(wbuf) / sizeof(*wbuf), stdin);         // COMPLIANT
     fgetws(wbuf, sizeof(wbuf) / sizeof(*wbuf) - 1, stdin);     // COMPLIANT
     fgetws(wbuf, sizeof(wbuf) / sizeof(*wbuf) + 1, stdin);     // NON_COMPLIANT
-    fgetws(wbuf, 0, stdin);                                    // NON_COMPLIANT
-    fgetws(wbuf + 1, sizeof(wbuf) / sizeof(*wbuf) - 1, stdin); // NON_COMPLIANT
+    fgetws(wbuf, 0, stdin);                                    // COMPLIANT
     fgetws(wbuf + 1, sizeof(wbuf) / sizeof(*wbuf) - 2, stdin); // COMPLIANT
     fgetws(wbuf + 1, sizeof(wbuf) / sizeof(*wbuf), stdin);     // NON_COMPLIANT
   }
@@ -246,7 +255,7 @@ void test_wrong_buf_size(void) {
   // mbtowc
   {
     wchar_t c;
-    char buf[2];
+    char buf[2] = {0};
     mbtowc(&c, buf, sizeof(buf));     // COMPLIANT
     mbtowc(&c, buf, sizeof(buf) - 1); // COMPLIANT
     mbtowc(&c, buf, sizeof(buf) + 1); // NON_COMPLIANT
@@ -255,7 +264,7 @@ void test_wrong_buf_size(void) {
 
   // mblen
   {
-    char buf[3];
+    char buf[3] = {0};
     mblen(buf, sizeof(buf));                   // COMPLIANT
     mblen(buf, sizeof(buf) + 1);               // NON_COMPLIANT
     mblen((char *)malloc(5), sizeof(buf) * 2); // NON_COMPLIANT
@@ -302,10 +311,11 @@ void test_wrong_buf_size(void) {
   {
     char buf[64];
     char buf2[128];
-    strxfrm(buf, "abc", sizeof(buf));        // COMPLIANT
-    strxfrm(buf, "abc", sizeof(buf) + 1);    // NON_COMPLIANT
-    strxfrm(buf, "abc", sizeof(buf) - 1);    // COMPLIANT
-    strxfrm(buf + 1, buf2, sizeof(buf) - 1); // COMPLIANT
+    strxfrm(buf, "abc", sizeof(buf));     // COMPLIANT
+    strxfrm(buf, "abc", sizeof(buf) + 1); // NON_COMPLIANT
+    strxfrm(buf, "abc", sizeof(buf) - 1); // COMPLIANT
+    strxfrm(buf + 1, buf2,
+            sizeof(buf) - 1); // NON_COMPLIANT - not null terminated
   }
 
   // wcsxfrm

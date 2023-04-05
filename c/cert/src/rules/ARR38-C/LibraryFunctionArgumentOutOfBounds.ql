@@ -1,7 +1,7 @@
 /**
  * @id c/cert/library-function-argument-out-of-bounds
  * @name ARR38-C: Guarantee that library functions do not form invalid pointers
- * @description
+ * @description 
  * @kind problem
  * @precision high
  * @problem.severity error
