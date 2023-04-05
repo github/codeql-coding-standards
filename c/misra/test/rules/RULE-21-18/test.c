@@ -87,7 +87,6 @@ void test(void) {
     char ca5_good[5] = "test";      // ok
     char ca5_bad[5] = "test1";      // no null terminator
     char ca6_good[6] = "test1";     // ok
-    char ca6_bad[6] = "test12";     // no null terminator
     strncmp(ca5_good, ca5_bad, 4);  // COMPLIANT
     strncmp(ca5_good, ca5_bad, 5);  // COMPLIANT
     strncmp(ca6_good, ca5_bad, 5);  // COMPLIANT
