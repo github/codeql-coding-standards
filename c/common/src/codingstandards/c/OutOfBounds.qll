@@ -18,7 +18,7 @@ import semmle.code.cpp.security.BufferWrite
 
 module OOB {
   bindingset[name, result]
-  private string getNameOrInternalName(string name) {
+  string getNameOrInternalName(string name) {
     result = name or
     result.regexpMatch("__.*_+" + name + "_.*")
   }
@@ -162,8 +162,8 @@ module OOB {
       name = ["strncat", "wcsncat"] and
       dst = 0 and
       src = 1 and
-      src_sz = -1 and
-      dst_sz = 2
+      src_sz = 2 and
+      dst_sz = -1
       or
       name = ["snprintf", "vsnprintf", "swprintf", "vswprintf"] and
       dst = 0 and
@@ -362,6 +362,11 @@ module OOB {
    */
   class StrncatLibraryFunction extends StringConcatenationFunctionLibraryFunction {
     StrncatLibraryFunction() { this.getName() = getNameOrInternalName(["strncat", "wcsncat"]) }
+
+    override predicate getALengthParameterIndex(int i) {
+      // `strncat` and `wcsncat` exclude the size of a null terminator
+      i = 2
+    }
   }
 
   /**

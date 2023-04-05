@@ -26,7 +26,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Passing out-of-bounds pointers or erroneous size arguments to standard library functions can result in out-of-bounds accesses and other undefined behavior.",
           "kind": "problem",
           "name": "Guarantee that library functions do not form invalid pointers",
           "precision": "high",

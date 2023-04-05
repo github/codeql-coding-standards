@@ -1,7 +1,8 @@
 /**
  * @id c/cert/library-function-argument-out-of-bounds
  * @name ARR38-C: Guarantee that library functions do not form invalid pointers
- * @description 
+ * @description Passing out-of-bounds pointers or erroneous size arguments to standard library
+ *              functions can result in out-of-bounds accesses and other undefined behavior.
  * @kind problem
  * @precision high
  * @problem.severity error
