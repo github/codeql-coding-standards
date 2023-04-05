@@ -1,0 +1,43 @@
+edges
+| test.c:14:38:14:39 | p1 | test.c:18:10:18:11 | v1 |
+| test.c:14:38:14:39 | p1 | test.c:19:10:19:11 | v2 |
+| test.c:14:38:14:39 | p1 | test.c:20:10:20:11 | p1 |
+| test.c:14:38:14:39 | p1 | test.c:21:10:21:11 | p1 |
+| test.c:14:38:14:39 | p1 | test.c:22:9:22:10 | p1 |
+| test.c:14:38:14:39 | p1 | test.c:23:13:23:14 | p1 |
+| test.c:14:38:14:39 | p1 | test.c:24:9:24:10 | p1 |
+| test.c:14:38:14:39 | p1 | test.c:25:9:25:10 | p1 |
+| test.c:51:30:51:38 | & ... | test.c:14:38:14:39 | p1 |
+nodes
+| test.c:14:38:14:39 | p1 | semmle.label | p1 |
+| test.c:18:10:18:11 | v1 | semmle.label | v1 |
+| test.c:19:10:19:11 | v2 | semmle.label | v2 |
+| test.c:20:10:20:11 | p1 | semmle.label | p1 |
+| test.c:21:10:21:11 | p1 | semmle.label | p1 |
+| test.c:22:9:22:10 | p1 | semmle.label | p1 |
+| test.c:23:13:23:14 | p1 | semmle.label | p1 |
+| test.c:24:9:24:10 | p1 | semmle.label | p1 |
+| test.c:25:9:25:10 | p1 | semmle.label | p1 |
+| test.c:39:11:39:19 | & ... | semmle.label | & ... |
+| test.c:40:10:40:18 | & ... | semmle.label | & ... |
+| test.c:42:10:42:15 | & ... | semmle.label | & ... |
+| test.c:43:10:43:15 | & ... | semmle.label | & ... |
+| test.c:44:10:44:15 | & ... | semmle.label | & ... |
+| test.c:46:10:46:15 | & ... | semmle.label | & ... |
+| test.c:51:30:51:38 | & ... | semmle.label | & ... |
+subpaths
+#select
+| test.c:18:10:18:11 | v1 | test.c:51:30:51:38 | & ... | test.c:18:10:18:11 | v1 | Pointer arithmetic on non-array object pointer. |
+| test.c:19:10:19:11 | v2 | test.c:51:30:51:38 | & ... | test.c:19:10:19:11 | v2 | Pointer arithmetic on non-array object pointer. |
+| test.c:20:10:20:11 | p1 | test.c:51:30:51:38 | & ... | test.c:20:10:20:11 | p1 | Pointer arithmetic on non-array object pointer. |
+| test.c:21:10:21:11 | p1 | test.c:51:30:51:38 | & ... | test.c:21:10:21:11 | p1 | Pointer arithmetic on non-array object pointer. |
+| test.c:22:9:22:10 | p1 | test.c:51:30:51:38 | & ... | test.c:22:9:22:10 | p1 | Pointer arithmetic on non-array object pointer. |
+| test.c:23:13:23:14 | p1 | test.c:51:30:51:38 | & ... | test.c:23:13:23:14 | p1 | Pointer arithmetic on non-array object pointer. |
+| test.c:24:9:24:10 | p1 | test.c:51:30:51:38 | & ... | test.c:24:9:24:10 | p1 | Pointer arithmetic on non-array object pointer. |
+| test.c:25:9:25:10 | p1 | test.c:51:30:51:38 | & ... | test.c:25:9:25:10 | p1 | Pointer arithmetic on non-array object pointer. |
+| test.c:39:11:39:19 | & ... | test.c:39:11:39:19 | & ... | test.c:39:11:39:19 | & ... | Pointer arithmetic on non-array object pointer. |
+| test.c:40:10:40:18 | & ... | test.c:40:10:40:18 | & ... | test.c:40:10:40:18 | & ... | Pointer arithmetic on non-array object pointer. |
+| test.c:42:10:42:15 | & ... | test.c:42:10:42:15 | & ... | test.c:42:10:42:15 | & ... | Pointer arithmetic on non-array object pointer. |
+| test.c:43:10:43:15 | & ... | test.c:43:10:43:15 | & ... | test.c:43:10:43:15 | & ... | Pointer arithmetic on non-array object pointer. |
+| test.c:44:10:44:15 | & ... | test.c:44:10:44:15 | & ... | test.c:44:10:44:15 | & ... | Pointer arithmetic on non-array object pointer. |
+| test.c:46:10:46:15 | & ... | test.c:46:10:46:15 | & ... | test.c:46:10:46:15 | & ... | Pointer arithmetic on non-array object pointer. |

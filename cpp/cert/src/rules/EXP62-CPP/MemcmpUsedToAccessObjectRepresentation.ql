@@ -13,18 +13,10 @@
 
 import cpp
 import codingstandards.cpp.cert
-import semmle.code.cpp.padding.Padding
-import semmle.code.cpp.security.BufferAccess
-import VirtualTable
+import codingstandards.cpp.rules.memcmpusedtocomparepaddingdata.MemcmpUsedToComparePaddingData
 
-from MemcmpBA cmp
-where
-  not isExcluded(cmp, RepresentationPackage::memcmpUsedToAccessObjectRepresentationQuery()) and
-  cmp.getBuffer(_, _)
-      .getUnconverted()
-      .getUnspecifiedType()
-      .(PointerType)
-      .getBaseType()
-      .getUnspecifiedType() instanceof PaddedType
-select cmp,
-  cmp.getName() + " accesses bits which are not part of the object's value representation."
+class MemcmpUsedToAccessObjectRepresentationQuery extends MemcmpUsedToComparePaddingDataSharedQuery {
+  MemcmpUsedToAccessObjectRepresentationQuery() {
+    this = RepresentationPackage::memcmpUsedToAccessObjectRepresentationQuery()
+  }
+}
