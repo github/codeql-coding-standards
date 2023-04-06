@@ -4,11 +4,11 @@ enum { ARRAY_SIZE = 100 };
 
 static int arr[ARRAY_SIZE];
 
-void test_fixed_wrong() {
+void test_fixed_wrong(void) {
   arr + 101; // NON_COMPLIANT
 }
 
-void test_fixed_right() {
+void test_fixed_right(void) {
   arr + 2; // COMPLIANT
 }
 
@@ -48,4 +48,20 @@ void test_local_buffer_invalid_check(int index) {
   if (index >= 0 && index < ARRAY_SIZE) {
     char *ptr = buffer + index; // COMPLIANT
   }
+}
+
+void test_dereference_pointer_arithmetic_const(void) {
+  short ptr16[10];
+  *(ptr16 - 1);  // NON_COMPLIANT - offset is negative
+  *(ptr16 + 5);  // COMPLIANT
+  *(ptr16 + 11); // NON_COMPLIANT - offset is too large
+  *(ptr16 - 11); // NON_COMPLIANT - offset is negative
+}
+
+void test_array_expr_const(void) {
+  int arr[10];
+  arr[-1];  // NON_COMPLIANT - offset is negative
+  arr[5];   // COMPLIANT
+  arr[11];  // NON_COMPLIANT - offset is too large
+  arr[-11]; // NON_COMPLIANT - offset is negative
 }

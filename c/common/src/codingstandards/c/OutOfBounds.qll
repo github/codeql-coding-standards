@@ -15,6 +15,11 @@ import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 module OOB {
+  /**
+   * Holds if `result` is either `name` or a string matching a pattern such as
+   * `__builtin_*name*_chk` or similar. This predicate exists to model internal functions
+   * such as `__builtin___memcpy_chk` under a common `memcpy` name in the table.
+   */
   bindingset[name, result]
   string getNameOrInternalName(string name) {
     result = name or
@@ -288,6 +293,10 @@ module OOB {
       p.getType().getUnspecifiedType().(DerivedType).getBaseType().getSize().maximum(1) = result
     }
 
+    /**
+     * Holds if `i` is the index of a parameter of this function that requires arguments to be null-terminated.
+     * This predicate should be overriden by extending classes to specify null-terminated parameters, if necessary.
+     */
     predicate getANullTerminatedParameterIndex(int i) {
       // by default, require null-terminated parameters for src but
       // only if the type of src is a plain char pointer or wchar_t.
@@ -301,12 +310,20 @@ module OOB {
       )
     }
 
+    /**
+     * Holds if `i` is the index of a parameter of this function that is a size multiplier.
+     * This predicate should be overriden by extending classes to specify size multiplier parameters, if necessary.
+     */
     predicate getASizeMultParameterIndex(int i) {
       // by default, there is no size multiplier parameter
       // exceptions: fread, fwrite, bsearch, qsort
       none()
     }
 
+    /**
+     * Holds if `i` is the index of a parameter of this function that expects an element count rather than buffer size argument.
+     * This predicate should be overriden by extending classes to specify length parameters, if necessary.
+     */
     predicate getALengthParameterIndex(int i) {
       // by default, size parameters do not exclude the size of a null terminator
       none()
@@ -314,6 +331,7 @@ module OOB {
 
     /**
      * Holds if the read or write parameter at index `i` is allowed to be null.
+     * This predicate should be overriden by extending classes to specify permissibly null parameters, if necessary.
      */
     predicate getAPermissiblyNullParameterIndex(int i) {
       // by default, pointer parameters are not allowed to be null
@@ -569,6 +587,8 @@ module OOB {
     }
 
     int getSizeMultArgValue() {
+      // Note: This predicate currently expects the size multiplier argument to be a constant.
+      // This implementation could be improved with range-analysis or data-flow to determine the argument value.
       exists(int i |
         this.getTarget().(BufferAccessLibraryFunction).getASizeMultParameterIndex(i) and
         result = this.getArgument(i).getValue().toInt()
@@ -596,6 +616,12 @@ module OOB {
    * Because range-analysis can over-widen bounds, take the minimum of range analysis and data-flow sources.
    *
    * If there is no source value that flows to `e`, this predicate does not hold.
+   *
+   * This predicate, if `e` is the size argument to malloc, would return `20` for the following example:
+   * ```
+   * size_t sz = condition ? 10 : 20;
+   * malloc(sz);
+   * ```
    */
   private int getMaxStatedValue(Expr e) {
     result = upperBound(e).minimum(max(getSourceConstantExpr(e).getValue().toInt()))
@@ -606,6 +632,12 @@ module OOB {
    * Because range-analysis can over-widen bounds, take the minimum of range analysis and data-flow sources.
    *
    * If there is no source value that flows to `e`, this predicate does not hold.
+   *
+   * This predicate, if `e` is the size argument to malloc, would return `10` for the following example:
+   * ```
+   * size_t sz = condition ? 10 : 20;
+   * malloc(sz);
+   * ```
    */
   private int getMinStatedValue(Expr e) {
     result = upperBound(e).minimum(min(getSourceConstantExpr(e).getValue().toInt()))
@@ -809,6 +841,8 @@ module OOB {
     override predicate isNotNullTerminated() {
       // StringLiteral::getOriginalLength uses Expr::getValue, which implicitly truncates string literal
       // values to the length fitting the buffer they are assigned to, thus breaking the 'obvious' check.
+      // Note: `CharArrayInitializedWithStringLiteral` falsely reports the string literal length in certain cases
+      // (e.g. when the string literal contains escape characters or on certain compilers), resulting in false-negatives
       exists(CharArrayInitializedWithStringLiteral init |
         init = this.(VariableAccess).getTarget().getInitializer().getExpr() and
         init.getStringLiteralLength() + 1 > init.getContainerLength()
@@ -869,7 +903,8 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
-  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration {
+  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration
+  {
     PointerToObjectSourceOrSizeToBufferAccessFunctionConfig() {
       this = "PointerToObjectSourceOrSizeToBufferAccessFunctionConfig"
     }
@@ -922,9 +957,11 @@ module OOB {
     )
   }
 
-  private predicate bufferUseComputableBufferSize(Expr bufferUse, Expr source, int size) {
+  private predicate bufferUseComputableBufferSize(
+    Expr bufferUse, PointerToObjectSource source, int size
+  ) {
     // flow from a PointerToObjectSource for which we can compute the exact size
-    size = source.(PointerToObjectSource).getFixedSize() and
+    size = source.getFixedSize() and
     hasFlowFromBufferOrSizeExprToUse(source, bufferUse)
   }
 
@@ -933,12 +970,21 @@ module OOB {
     hasFlowFromBufferOrSizeExprToUse(source.(DynamicAllocationSource), bufferUse)
   }
 
+  /**
+   * Relates `sizeExpr`, a buffer access size expresion, to `source`, which is either `sizeExpr`
+   * if `sizeExpr` has a stated value, or a `DynamicAllocationSource::getSizeExprSource` for which
+   * we can compute the exact size and that has flow to `sizeExpr`.
+   */
   private predicate sizeExprComputableSize(Expr sizeExpr, Expr source, int size) {
-    // computable direct value
+    // computable direct value, e.g. array_base[10], where "10" is sizeExpr and source.
     size = getMinStatedValue(sizeExpr) and
     source = sizeExpr
     or
-    // computable source value that flows to the size expression
+    // computable source value that flows to the size expression, e.g. in cases such as the following:
+    // size_t sz = 10;
+    // malloc(sz);
+    // ... sz passed interprocedurally to another function ...
+    // use(p, sz + 1);
     size = source.(DynamicAllocationSource).getFixedSize() + getArithmeticOffsetValue(sizeExpr, _) and
     hasFlowFromBufferOrSizeExprToUse(source.(DynamicAllocationSource).getSizeExprSource(_, _),
       sizeExpr)
@@ -1026,6 +1072,13 @@ module OOB {
   }
 
   /**
+   * Holds if `sizeArg` is the right operand of a `PointerSubExpr`
+   */
+  predicate isSizeArgPointerSubExprRightOperand(Expr sizeArg) {
+    exists(PointerSubExpr subExpr | sizeArg = subExpr.getRightOperand())
+  }
+
+  /**
    * Holds if the BufferAccess `bufferAccess` results in a buffer overflow due to a size argument
    * or buffer access offset being greater in size than the buffer size being accessed or written to.
    */
@@ -1040,8 +1093,18 @@ module OOB {
       (bufferArg instanceof StaticBufferAccessSource implies bufferSource = bufferArg) and
       sizeExprComputableSize(sizeArg, _, sizeArgValue) and
       computedBufferSize = bufferArgSize - sizeMult.(float) * getArithmeticOffsetValue(bufferArg, _) and
-      computedSizeAccessed =
-        sizeMult.(float) * (sizeArgValue + argNumCharactersOffset(bufferAccess, sizeArg)).(float) and
+      // Handle cases such as *(ptr - 1)
+      (
+        if isSizeArgPointerSubExprRightOperand(sizeArg)
+        then
+          computedSizeAccessed =
+            sizeMult.(float) *
+              (-sizeArgValue + argNumCharactersOffset(bufferAccess, sizeArg)).(float)
+        else
+          computedSizeAccessed =
+            sizeMult.(float) *
+              (sizeArgValue + argNumCharactersOffset(bufferAccess, sizeArg)).(float)
+      ) and
       computedBufferSize < computedSizeAccessed
     )
   }
@@ -1166,10 +1229,20 @@ module OOB {
         bufferUseComputableBufferSize(bufferArg, bufferSource, _) or
         bufferUseNonComputableSize(bufferArg, bufferSource)
       ) and
-      // Not a size expression for which we can compute a specific size
-      not sizeExprComputableSize(sizeArg, _, _) and
-      // If the lower bound is less than zero, taking into account any offsets
-      lowerBound(sizeArg) + getArithmeticOffsetValue(bufferArg, _) < 0
+      (
+        // Not a size expression for which we can compute a specific size
+        // and with a lower bound that is less than zero, taking into account offsets
+        not sizeExprComputableSize(sizeArg, _, _) and
+        lowerBound(sizeArg) + getArithmeticOffsetValue(bufferArg, _) < 0
+        or
+        // A size expression for which we can compute a specific size and that size is less than zero
+        sizeExprComputableSize(sizeArg, _, _) and
+        (
+          if isSizeArgPointerSubExprRightOperand(sizeArg)
+          then -getMinStatedValue(sizeArg) + getArithmeticOffsetValue(bufferArg, _) < 0
+          else getMinStatedValue(sizeArg) + getArithmeticOffsetValue(bufferArg, _) < 0
+        )
+      )
     )
   }
 
