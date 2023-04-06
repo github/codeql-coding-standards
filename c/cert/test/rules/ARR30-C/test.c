@@ -33,3 +33,19 @@ void test_valid_check_by_type(unsigned int index) {
     arr + index; // COMPLIANT - `index` cannot be be negative
   }
 }
+
+void test_local_buffer_invalid_check(int index) {
+  char buffer[ARRAY_SIZE];
+
+  if (index < ARRAY_SIZE) {
+    char *ptr = buffer + index; // NON_COMPLIANT - `index` could be negative
+  }
+
+  if (index >= 0 && index < ARRAY_SIZE + 2) {
+    char *ptr = buffer + index; // NON_COMPLIANT - `index` could be too large
+  }
+
+  if (index >= 0 && index < ARRAY_SIZE) {
+    char *ptr = buffer + index; // COMPLIANT
+  }
+}
