@@ -1130,6 +1130,37 @@ module OOB {
   }
 
   /**
+   * Holds if `a` and `b` are function calls to the same target function and
+   * have identical arguments (determined by their global value number or `VariableAccess` targets).
+   */
+  bindingset[a, b]
+  private predicate areFunctionCallsSyntacticallySame(FunctionCall a, FunctionCall b) {
+    a.getTarget() = b.getTarget() and
+    (
+      exists(a.getAnArgument())
+      implies
+      not exists(int i, Expr argA, Expr argB |
+        i = [0 .. a.getTarget().getNumberOfParameters() - 1]
+      |
+        argA = a.getArgument(i) and
+        argB = b.getArgument(i) and
+        not globalValueNumber(argA) = globalValueNumber(argB) and
+        not argA.(VariableAccess).getTarget() = argB.(VariableAccess).getTarget()
+      )
+    )
+  }
+
+  /**
+   * Holds if `a` and `b` have the same global value number or are syntactically identical function calls
+   */
+  bindingset[a, b]
+  private predicate isGVNOrFunctionCallSame(Expr a, Expr b) {
+    globalValueNumber(a) = globalValueNumber(b)
+    or
+    areFunctionCallsSyntacticallySame(a, b)
+  }
+
+  /**
    * Holds if the BufferAccess is accessed with a `base + accessOffset` on a buffer that was
    * allocated a size of the form `base + allocationOffset`.
    */
@@ -1150,9 +1181,12 @@ module OOB {
       sourceSizeExpr = source.getSizeExprSource(sourceSizeExprBase, sourceSizeExprOffset) and
       bufferUseNonComputableSize(bufferArg, source) and
       not globalValueNumber(sourceSizeExpr) = globalValueNumber(bufferSizeArg) and
-      sizeArgOffset = getArithmeticOffsetValue(bufferSizeArg.getAChild*(), _) and
-      bufferArgOffset = getArithmeticOffsetValue(bufferArg, _) and
-      sourceSizeExprOffset + bufferArgOffset < sizeArgOffset
+      exists(Expr sizeArgBase |
+        sizeArgOffset = getArithmeticOffsetValue(bufferSizeArg.getAChild*(), sizeArgBase) and
+        isGVNOrFunctionCallSame(sizeArgBase, sourceSizeExprBase) and
+        bufferArgOffset = getArithmeticOffsetValue(bufferArg, _) and
+        sourceSizeExprOffset + bufferArgOffset < sizeArgOffset
+      )
     )
   }
 

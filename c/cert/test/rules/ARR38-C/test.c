@@ -458,9 +458,10 @@ void test_read_file(const char *file_name) {
   fclose(f);
 }
 
-void test_equivalent_expressions(void *in, int x, int y) {
+void test_equivalent_expressions(void *in, int x, int y, int a, int b) {
   short *p = malloc(x * y * sizeof(short));
   memcpy(p, in, x * y * sizeof(short));     // COMPLIANT
   memcpy(p, in, x * y * sizeof(short) + 1); // NON_COMPLIANT
   memcpy(p, in, x * y * sizeof(short) - 1); // COMPLIANT
+  memcpy(p, in, a * b * sizeof(short) + 1); // COMPLIANT - unknown
 }
