@@ -13,8 +13,6 @@ import codingstandards.cpp.PossiblyUnsafeStringOperation
 import codingstandards.cpp.SimpleRangeAnalysisCustomizations
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
-import semmle.code.cpp.security.BufferAccess
-import semmle.code.cpp.security.BufferWrite
 
 module OOB {
   bindingset[name, result]
@@ -588,47 +586,66 @@ module OOB {
     SimpleStringLibraryFunctionCall() { this.getTarget() instanceof SimpleStringLibraryFunction }
   }
 
-  int getStatedAllocValue(Expr e) {
-    if upperBound(e) = exprMaxVal(e)
-    then result = max(Expr source | DataFlow::localExprFlow(source, e) | source.getValue().toInt())
-    else
-      result =
-        upperBound(e)
-            .minimum(min(Expr source |
-                DataFlow::localExprFlow(source, e)
-              |
-                source.getValue().toInt()
-              ))
+  private Expr getSourceConstantExpr(Expr dest) {
+    exists(result.getValue().toInt()) and
+    DataFlow::localExprFlow(result, dest)
   }
 
-  int getStatedValue(Expr e) {
-    result =
-      upperBound(e)
-          .minimum(min(Expr source | DataFlow::localExprFlow(source, e) | source.getValue().toInt()))
+  /**
+   * Gets the smallest of the upper bound of `e` or the largest source value (i.e. "stated value") that flows to `e`.
+   * Because range-analysis can over-widen bounds, take the minimum of range analysis and data-flow sources.
+   *
+   * If there is no source value that flows to `e`, this predicate does not hold.
+   */
+  private int getMaxStatedValue(Expr e) {
+    result = upperBound(e).minimum(max(getSourceConstantExpr(e).getValue().toInt()))
+  }
+
+  /**
+   * Gets the smallest of the upper bound of `e` or the smallest source value (i.e. "stated value") that flows to `e`.
+   * Because range-analysis can over-widen bounds, take the minimum of range analysis and data-flow sources.
+   *
+   * If there is no source value that flows to `e`, this predicate does not hold.
+   */
+  private int getMinStatedValue(Expr e) {
+    result = upperBound(e).minimum(min(getSourceConstantExpr(e).getValue().toInt()))
   }
 
   /**
    * A class for reasoning about the offset of a variable from the original value flowing to it
    * as a result of arithmetic or pointer arithmetic expressions.
    */
-  int getArithmeticOperandStatedValue(Expr expr) {
-    result = getStatedValue(expr.(PointerArithmeticExpr).getOperand())
+  private int getArithmeticOffsetValue(Expr expr, Expr base) {
+    result = getMinStatedValue(expr.(PointerArithmeticExpr).getOperand()) and
+    base = expr.(PointerArithmeticExpr).getPointer()
     or
     // &(array[index]) expressions
-    result = getStatedValue(expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getOperand())
+    result =
+      getMinStatedValue(expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getOperand()) and
+    base = expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getPointer()
     or
-    result = getStatedValue(expr.(BinaryArithmeticOperation).getRightOperand())
+    result = getMinStatedValue(expr.(AddExpr).getRightOperand()) and
+    base = expr.(AddExpr).getLeftOperand()
     or
-    expr instanceof IncrementOperation and result = 1
+    result = -getMinStatedValue(expr.(SubExpr).getRightOperand()) and
+    base = expr.(SubExpr).getLeftOperand()
     or
-    expr instanceof DecrementOperation and result = -1
+    expr instanceof IncrementOperation and
+    result = 1 and
+    base = expr.(IncrementOperation).getOperand()
+    or
+    expr instanceof DecrementOperation and
+    result = -1 and
+    base = expr.(DecrementOperation).getOperand()
     or
     // fall-back if `expr` is not an arithmetic or pointer arithmetic expression
     not expr instanceof PointerArithmeticExpr and
     not expr.(AddressOfExpr).getOperand() instanceof PointerArithmeticExpr and
-    not expr instanceof BinaryArithmeticOperation and
+    not expr instanceof AddExpr and
+    not expr instanceof SubExpr and
     not expr instanceof IncrementOperation and
     not expr instanceof DecrementOperation and
+    base = expr and
     result = 0
   }
 
@@ -660,8 +677,9 @@ module OOB {
     abstract predicate isNotNullTerminated();
   }
 
-  class DynamicAllocationSource extends PointerToObjectSource instanceof AllocationExpr,
-    FunctionCall {
+  private class DynamicAllocationSource extends PointerToObjectSource instanceof AllocationExpr,
+    FunctionCall
+  {
     DynamicAllocationSource() {
       // exclude OperatorNewAllocationFunction to only deal with raw malloc-style calls,
       // which do not apply a multiple to the size of the allocation passed to them.
@@ -742,7 +760,7 @@ module OOB {
       )
     }
 
-    override int getFixedSize() { result = getStatedAllocValue(getSizeExpr()) }
+    override int getFixedSize() { result = getMaxStatedValue(getSizeExpr()) }
 
     override predicate isNotNullTerminated() { none() }
   }
@@ -751,7 +769,7 @@ module OOB {
    * A `PointerToObjectSource` which is an `AddressOfExpr` to a variable
    * that is not a field or pointer type.
    */
-  class AddressOfExprSource extends PointerToObjectSource instanceof AddressOfExpr {
+  private class AddressOfExprSource extends PointerToObjectSource instanceof AddressOfExpr {
     AddressOfExprSource() {
       exists(Variable v |
         v = this.getOperand().(VariableAccess).getTarget() and
@@ -774,7 +792,7 @@ module OOB {
   /**
    * A `PointerToObjectSource` which is a `VariableAccess` to a static buffer
    */
-  class StaticBufferAccessSource extends PointerToObjectSource instanceof VariableAccess {
+  private class StaticBufferAccessSource extends PointerToObjectSource instanceof VariableAccess {
     StaticBufferAccessSource() {
       not this.getTarget() instanceof Field and
       not this.getTarget().getUnspecifiedType() instanceof PointerType and
@@ -809,16 +827,6 @@ module OOB {
       ) and
       not this.(VariableAccess).getTarget() instanceof GlobalVariable and
       not exists(this.(VariableAccess).getTarget().getInitializer()) and
-      not exists(FunctionCall memset, Expr destBuffer |
-        (
-          destBuffer = memset.(MemsetBA).getBuffer(_, _)
-          or
-          memset.getTarget().getName() = getNameOrInternalName("memset") and
-          destBuffer = memset.getArgument(0)
-        ) and
-        memset.getArgument(1).getValue().toInt() = 0 and
-        this.(VariableAccess).getTarget().getAnAccess() = destBuffer
-      ) and
       // exclude any BufferAccessLibraryFunction that writes to the buffer and does not require
       // a null-terminated buffer argument for its write argument
       not exists(
@@ -845,7 +853,7 @@ module OOB {
    * A `PointerToObjectSource` which is a string literal that is not
    * part of an variable initializer (to deduplicate `StaticBufferAccessSource`)
    */
-  class StringLiteralSource extends PointerToObjectSource instanceof StringLiteral {
+  private class StringLiteralSource extends PointerToObjectSource instanceof StringLiteral {
     StringLiteralSource() { not this instanceof CharArrayInitializedWithStringLiteral }
 
     override Expr getPointer() { result = this }
@@ -862,7 +870,7 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
-  class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration {
+  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration {
     PointerToObjectSourceOrSizeToBufferAccessFunctionConfig() {
       this = "PointerToObjectSourceOrSizeToBufferAccessFunctionConfig"
     }
@@ -883,10 +891,8 @@ module OOB {
           arg = ba.getARelevantExpr()
         ) and
         (
-          sink.asExpr() = arg
-          or
-          getArithmeticOffsetValue(arg) > 0 and
-          sink.asExpr() = arg.getAChild*()
+          sink.asExpr() = arg or
+          exists(getArithmeticOffsetValue(arg, sink.asExpr()))
         )
       )
     }
@@ -910,56 +916,33 @@ module OOB {
     }
   }
 
-  predicate hasFlowFromBufferOrSizeExprToUse(Expr source, Expr use) {
+  private predicate hasFlowFromBufferOrSizeExprToUse(Expr source, Expr use) {
     exists(PointerToObjectSourceOrSizeToBufferAccessFunctionConfig config, Expr useOrChild |
-      (
-        useOrChild = use
-        or
-        getArithmeticOffsetValue(use) > 0 and
-        useOrChild = use.getAChild*()
-      ) and
+      exists(getArithmeticOffsetValue(use, useOrChild)) and
       config.hasFlow(DataFlow::exprNode(source), DataFlow::exprNode(useOrChild))
     )
   }
 
-  predicate bufferUseComputableBufferSize(Expr bufferUse, Expr source, int size) {
+  private predicate bufferUseComputableBufferSize(Expr bufferUse, Expr source, int size) {
     // flow from a PointerToObjectSource for which we can compute the exact size
     size = source.(PointerToObjectSource).getFixedSize() and
     hasFlowFromBufferOrSizeExprToUse(source, bufferUse)
   }
 
-  predicate bufferUseNonComputableSize(Expr bufferUse, Expr source) {
+  private predicate bufferUseNonComputableSize(Expr bufferUse, Expr source) {
     not bufferUseComputableBufferSize(bufferUse, source, _) and
     hasFlowFromBufferOrSizeExprToUse(source.(DynamicAllocationSource), bufferUse)
   }
 
-  predicate sizeExprComputableSize(Expr sizeExpr, Expr source, int size) {
+  private predicate sizeExprComputableSize(Expr sizeExpr, Expr source, int size) {
     // computable direct value
-    size = getStatedValue(sizeExpr) and
+    size = getMinStatedValue(sizeExpr) and
     source = sizeExpr
     or
     // computable source value that flows to the size expression
-    size = source.(DynamicAllocationSource).getFixedSize() + getArithmeticOffsetValue(sizeExpr) and
+    size = source.(DynamicAllocationSource).getFixedSize() + getArithmeticOffsetValue(sizeExpr, _) and
     hasFlowFromBufferOrSizeExprToUse(source.(DynamicAllocationSource).getSizeExprSource(_, _),
       sizeExpr)
-  }
-
-  int getArithmeticOffsetValue(Expr expr) {
-    result = getStatedValue(expr.(PointerArithmeticExpr).getOperand())
-    or
-    // edge-case: &(array[index]) expressions
-    result = getStatedValue(expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getOperand())
-    or
-    // AddExpr
-    result = getStatedValue(expr.(AddExpr).getAnOperand())
-    or
-    // SubExpr
-    result = -getStatedValue(expr.(SubExpr).getAnOperand())
-    or
-    // fall-back
-    not expr instanceof PointerArithmeticExpr and
-    not expr.(AddressOfExpr).getOperand() instanceof PointerArithmeticExpr and
-    result = 0
   }
 
   /**
@@ -1012,12 +995,16 @@ module OOB {
     readBuffer = fc.getReadArg() and
     writeBuffer = fc.getWriteArg() and
     exists(int readSizeMult, int writeSizeMult, int readBufferSizeBase, int writeBufferSizeBase |
+      // the read and write buffer sizes must be derived from computable constants
       bufferUseComputableBufferSize(readBuffer, _, readBufferSizeBase) and
       bufferUseComputableBufferSize(writeBuffer, _, writeBufferSizeBase) and
+      // calculate the buffer byte sizes (size base is the number of elements)
       readSizeMult = fc.getReadSizeArgMult() and
       writeSizeMult = fc.getWriteSizeArgMult() and
-      readBufferSize = readBufferSizeBase - readSizeMult * getArithmeticOffsetValue(readBuffer) and
-      writeBufferSize = writeBufferSizeBase - writeSizeMult * getArithmeticOffsetValue(writeBuffer) and
+      readBufferSize = readBufferSizeBase - readSizeMult * getArithmeticOffsetValue(readBuffer, _) and
+      writeBufferSize =
+        writeBufferSizeBase - writeSizeMult * getArithmeticOffsetValue(writeBuffer, _) and
+      // the read buffer size is larger than the write buffer size
       readBufferSize > writeBufferSize and
       (
         // if a size arg exists and it is computable, then it must be <= to the write buffer size
@@ -1051,7 +1038,7 @@ module OOB {
       // If the bufferArg is an access of a static buffer, do not look for "long distance" sources
       (bufferArg instanceof StaticBufferAccessSource implies bufferSource = bufferArg) and
       sizeExprComputableSize(sizeArg, _, sizeArgValue) and
-      computedBufferSize = bufferArgSize - sizeMult.(float) * getArithmeticOffsetValue(bufferArg) and
+      computedBufferSize = bufferArgSize - sizeMult.(float) * getArithmeticOffsetValue(bufferArg, _) and
       computedSizeAccessed =
         sizeMult.(float) * (sizeArgValue + argNumCharactersOffset(bufferAccess, sizeArg)).(float) and
       computedBufferSize < computedSizeAccessed
@@ -1074,7 +1061,7 @@ module OOB {
         bufferElementSize = fc.getWriteSizeArgMult()
       ) and
       bufferUseComputableBufferSize(bufferArg, _, bufferSize) and
-      bufferArgOffset = getArithmeticOffsetValue(bufferArg) * bufferElementSize and
+      bufferArgOffset = getArithmeticOffsetValue(bufferArg, _) * bufferElementSize and
       bufferArgOffset >= bufferSize
     )
   }
@@ -1100,8 +1087,8 @@ module OOB {
       sourceSizeExpr = source.getSizeExprSource(sourceSizeExprBase, sourceSizeExprOffset) and
       bufferUseNonComputableSize(bufferArg, source) and
       not globalValueNumber(sourceSizeExpr) = globalValueNumber(bufferSizeArg) and
-      sizeArgOffset = getArithmeticOffsetValue(bufferSizeArg.getAChild*()) and
-      bufferArgOffset = getArithmeticOffsetValue(bufferArg) and
+      sizeArgOffset = getArithmeticOffsetValue(bufferSizeArg.getAChild*(), _) and
+      bufferArgOffset = getArithmeticOffsetValue(bufferArg, _) and
       sourceSizeExprOffset + bufferArgOffset < sizeArgOffset
     )
   }
@@ -1119,7 +1106,7 @@ module OOB {
         ] and
       not fc.getTarget().(BufferAccessLibraryFunction).getAPermissiblyNullParameterIndex(i) and
       bufferArg = fc.getArgument(i) and
-      getStatedValue(bufferArg) = 0
+      getMinStatedValue(bufferArg) = 0
     )
   }
 
@@ -1181,7 +1168,7 @@ module OOB {
       // Not a size expression for which we can compute a specific size
       not sizeExprComputableSize(sizeArg, _, _) and
       // If the lower bound is less than zero, taking into account any offsets
-      lowerBound(sizeArg) + getArithmeticOffsetValue(bufferArg) < 0
+      lowerBound(sizeArg) + getArithmeticOffsetValue(bufferArg, _) < 0
     )
   }
 
