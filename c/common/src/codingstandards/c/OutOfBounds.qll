@@ -903,8 +903,7 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
-  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration
-  {
+  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration {
     PointerToObjectSourceOrSizeToBufferAccessFunctionConfig() {
       this = "PointerToObjectSourceOrSizeToBufferAccessFunctionConfig"
     }
