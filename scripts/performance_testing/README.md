@@ -1,6 +1,8 @@
 # Performance Testing 
 
-Performance testing may be accomplished by using the performance testing tool found in this directory, `Test-ReleasePerformance.ps1`. Note that this script depends on other files from this repository. It may be run on external builds of Coding Standards through the `-CodingStandardsPath` flag, but it should be run from a fresh checkout of this repository. 
+Performance testing may be accomplished by using the performance testing tool found in this directory, `Test-ReleasePerformance.ps1`. These results may be further processed to provide predicate level performance details by using the script `profile_predicates.py`, which is documented in the [Profiling Predicates section.](#profiling-predicates), below. 
+
+Note that this script depends on other files from this repository. It may be run on external builds of Coding Standards through the `-CodingStandardsPath` flag, but it should be run from a fresh checkout of this repository. 
 
 This script requires `pwsh` to be installed. Note that the Windows native Powershell is not sufficient and you should download PowerShell Core. 
 
@@ -169,7 +171,7 @@ Run the `cert` suite for `c` from within the Coding Standards repository.
 .\scripts\performance_testing\Test-ReleasePerformance.ps1 -RunTests -DatabaseArchive ..\codeql-coding-standards-release-engineering\data\commaai-openpilot-72d1744d830bc249d8761a1d843a98fb0ced49fe-cpp.zip -Suite cert -Language c
 ```
 
-Run the `cert` suite for `c` on an external release, specifying a `-ReleaseTag` as well. The `-ReleaseTag` parameter does not have to match the code you are testing, it is for organization purposes only. 
+Run the `cert` suite for `c` on an external release, specifying a `-ReleaseTag` as well. The `-ReleaseTag` parameter is used for configuring performance tool to generate files within subdirectories with the `-ReleaseTag` as a prefix. For example, specifying `-ReleaseTag "2.16.0"` will cause files to be generated in the `release=2.16.0` directory. 
 
 ```
 .\scripts\performance_testing\Test-ReleasePerformance.ps1 -RunTests -DatabaseArchive ..\codeql-coding-standards-release-engineering\data\commaai-openpilot-72d1744d830bc249d8761a1d843a98fb0ced49fe-cpp.zip -Suite cert -Language c -ReleaseTag "2.16.0" -CodingStandardsPath "Downloads\code-scanning-cpp-query-pack-2.16.0\codeql-coding-standards\"
