@@ -968,6 +968,7 @@ module OOB {
   /**
    * Holds if `arg` refers to the number of characters excluding a null terminator
    */
+  bindingset[fc, arg]
   private predicate isArgNumCharacters(BufferAccessLibraryFunctionCall fc, Expr arg) {
     exists(int i |
       arg = fc.getArgument(i) and
@@ -979,6 +980,7 @@ module OOB {
    * Returns '1' if `arg` refers to the number of characters excluding a null terminator,
    * otherwise '0' if `arg` refers to the number of characters including a null terminator.
    */
+  bindingset[fc, arg]
   private int argNumCharactersOffset(BufferAccess fc, Expr arg) {
     if isArgNumCharacters(fc, arg) then result = 1 else result = 0
   }
