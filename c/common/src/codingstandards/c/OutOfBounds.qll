@@ -22,8 +22,7 @@ module OOB {
    */
   bindingset[name, result]
   string getNameOrInternalName(string name) {
-    result = name or
-    result.regexpMatch("__.*_+" + name + "_.*")
+    result.regexpMatch("^(?:__.*_+)?" + name + "(?:_[^s].*)?$")
   }
 
   /**
