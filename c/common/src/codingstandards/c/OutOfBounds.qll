@@ -949,6 +949,8 @@ module OOB {
       // remove flow from `src` to `dst` in a buffer access function call
       // the standard library models such flow through functions such as memcpy, strcpy, etc.
       exists(BufferAccessLibraryFunctionCall fc | node.asExpr() = fc.getReadArg().getAChild*())
+      or
+      node.asDefiningArgument() instanceof AddressOfExpr
     }
   }
 
