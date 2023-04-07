@@ -4,7 +4,7 @@
  * @description Forming or using an out-of-bounds pointer is undefined behavior and can result in
  *              invalid memory accesses.
  * @kind problem
- * @precision high
+ * @precision medium
  * @problem.severity error
  * @tags external/cert/id/arr30-c
  *       correctness
