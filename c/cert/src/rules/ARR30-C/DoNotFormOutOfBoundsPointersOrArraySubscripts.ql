@@ -21,6 +21,15 @@
    string message
  where
    not isExcluded(ba, OutOfBoundsPackage::doNotFormOutOfBoundsPointersOrArraySubscriptsQuery()) and
+   // exclude loops
+   not exists(Loop loop | loop.getStmt().getChildStmt*() = ba.getEnclosingStmt()) and
+   // exclude size arguments that are of type ssize_t
+   not sizeArg.getAChild*().(VariableAccess).getTarget().getType() instanceof Ssize_t and
+   // exclude size arguments that are assigned the result of a function call e.g. ftell
+   not sizeArg.getAChild*().(VariableAccess).getTarget().getAnAssignedValue() instanceof FunctionCall and
+   // exclude field or array accesses for the size arguments
+   not sizeArg.getAChild*() instanceof FieldAccess and
+   not sizeArg.getAChild*() instanceof ArrayExpr and
    (
      exists(int sizeArgValue, int bufferArgSize |
       OOB::isSizeArgGreaterThanBufferSize(bufferArg, sizeArg, bufferSource, bufferArgSize, sizeArgValue, ba) and
@@ -33,7 +42,7 @@
        OOB::isSizeArgNotCheckedLessThanFixedBufferSize(bufferArg, sizeArg, bufferSource,
          bufferArgSize, ba, sizeArgUpperBound, sizeMult) and
        message =
-         "Buffer accesses may access up to offset " + sizeArgUpperBound + "*" + sizeMult +
+         "Buffer may access up to offset " + sizeArgUpperBound + "*" + sizeMult +
            " which is greater than the fixed size " + bufferArgSize + " of the $@."
      )
      or

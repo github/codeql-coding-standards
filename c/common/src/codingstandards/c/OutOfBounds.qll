@@ -606,6 +606,7 @@ module OOB {
     SimpleStringLibraryFunctionCall() { this.getTarget() instanceof SimpleStringLibraryFunction }
   }
 
+  bindingset[dest]
   private Expr getSourceConstantExpr(Expr dest) {
     exists(result.getValue().toInt()) and
     DataFlow::localExprFlow(result, dest)
@@ -639,6 +640,7 @@ module OOB {
    * malloc(sz);
    * ```
    */
+  bindingset[e]
   private int getMinStatedValue(Expr e) {
     result = upperBound(e).minimum(min(getSourceConstantExpr(e).getValue().toInt()))
   }
@@ -647,6 +649,7 @@ module OOB {
    * A class for reasoning about the offset of a variable from the original value flowing to it
    * as a result of arithmetic or pointer arithmetic expressions.
    */
+  bindingset[expr]
   private int getArithmeticOffsetValue(Expr expr, Expr base) {
     result = getMinStatedValue(expr.(PointerArithmeticExpr).getOperand()) and
     base = expr.(PointerArithmeticExpr).getPointer()
@@ -1264,16 +1267,16 @@ module OOB {
       ) and
       (
         // Not a size expression for which we can compute a specific size
-        // and with a lower bound that is less than zero, taking into account offsets
         not sizeExprComputableSize(sizeArg, _, _) and
+        // and with a lower bound that is less than zero, taking into account offsets
         lowerBound(sizeArg) + getArithmeticOffsetValue(bufferArg, _) < 0
         or
         // A size expression for which we can compute a specific size and that size is less than zero
         sizeExprComputableSize(sizeArg, _, _) and
         (
           if isSizeArgPointerSubExprRightOperand(sizeArg)
-          then -getMinStatedValue(sizeArg) + getArithmeticOffsetValue(bufferArg, _) < 0
-          else getMinStatedValue(sizeArg) + getArithmeticOffsetValue(bufferArg, _) < 0
+          then -sizeArg.getValue().toInt() + getArithmeticOffsetValue(bufferArg, _) < 0
+          else sizeArg.getValue().toInt() + getArithmeticOffsetValue(bufferArg, _) < 0
         )
       )
     )

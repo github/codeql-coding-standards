@@ -9,7 +9,7 @@
           "description": "Forming or using an out-of-bounds pointer is undefined behavior and can result in invalid memory accesses.",
           "kind": "problem",
           "name": "Do not form or use out-of-bounds pointers or array subscripts",
-          "precision": "high",
+          "precision": "medium",
           "severity": "error",
           "short_name": "DoNotFormOutOfBoundsPointersOrArraySubscripts",
           "tags": [
