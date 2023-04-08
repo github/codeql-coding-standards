@@ -1,0 +1,86 @@
+{
+  "CERT-C": {
+    "ARR30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Forming or using an out-of-bounds pointer is undefined behavior and can result in invalid memory accesses.",
+          "kind": "problem",
+          "name": "Do not form or use out-of-bounds pointers or array subscripts",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "DoNotFormOutOfBoundsPointersOrArraySubscripts",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not form or use out-of-bounds pointers or array subscripts"
+    },
+    "ARR38-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Passing out-of-bounds pointers or erroneous size arguments to standard library functions can result in out-of-bounds accesses and other undefined behavior.",
+          "kind": "problem",
+          "name": "Guarantee that library functions do not form invalid pointers",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "LibraryFunctionArgumentOutOfBounds",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Guarantee that library functions do not form invalid pointers"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-21-17": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Use of string manipulation functions from <string.h> with improper buffer sizes can result in out-of-bounds buffer accesses.",
+          "kind": "problem",
+          "name": "Use of the string handling functions from <string.h> shall not result in accesses beyond the bounds",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "StringFunctionPointerArgumentOutOfBounds",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Use of the string handling functions from <string.h> shall not result in accesses beyond the bounds of the objects referenced by their pointer parameters"
+    },
+    "RULE-21-18": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Passing a size_t argument that is non-positive or greater than the size of the smallest buffer argument to any function in <string.h> may result in out-of-bounds buffer accesses.",
+          "kind": "problem",
+          "name": "The size_t argument passed to any function in <string.h> shall have an appropriate value",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "StringLibrarySizeArgumentOutOfBounds",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "The size_t argument passed to any function in <string.h> shall have an appropriate value"
+    }
+  }
+}

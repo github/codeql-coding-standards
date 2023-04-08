@@ -1,0 +1,11 @@
+| test.c:8:3:8:11 | ... + ... | Buffer accesses offset 404 which is greater than the fixed size 400 of the $@. | test.c:8:3:8:5 | arr | buffer |
+| test.c:16:3:16:13 | ... + ... | Buffer access may be to a negative index in the buffer. | test.c:16:3:16:5 | arr | buffer |
+| test.c:21:5:21:15 | ... + ... | Buffer access may be to a negative index in the buffer. | test.c:21:5:21:7 | arr | buffer |
+| test.c:41:17:41:30 | ... + ... | Buffer access may be to a negative index in the buffer. | test.c:41:17:41:22 | buffer | buffer |
+| test.c:45:17:45:30 | ... + ... | Buffer may access up to offset 101*1 which is greater than the fixed size 100 of the $@. | test.c:45:17:45:22 | buffer | buffer |
+| test.c:55:5:55:13 | ... - ... | Buffer access may be to a negative index in the buffer. | test.c:55:5:55:9 | ptr16 | buffer |
+| test.c:57:5:57:14 | ... + ... | Buffer accesses offset 22 which is greater than the fixed size 20 of the $@. | test.c:57:5:57:9 | ptr16 | buffer |
+| test.c:58:5:58:14 | ... - ... | Buffer access may be to a negative index in the buffer. | test.c:58:5:58:9 | ptr16 | buffer |
+| test.c:63:3:63:9 | access to array | Buffer access may be to a negative index in the buffer. | test.c:63:3:63:5 | arr | buffer |
+| test.c:65:3:65:9 | access to array | Buffer accesses offset 44 which is greater than the fixed size 40 of the $@. | test.c:65:3:65:5 | arr | buffer |
+| test.c:66:3:66:10 | access to array | Buffer access may be to a negative index in the buffer. | test.c:66:3:66:5 | arr | buffer |
