@@ -10,32 +10,44 @@
  *       external/misra/obligation/required
  */
 
- import cpp
- import codingstandards.c.misra
- 
- class SetJmp extends Locatable {
-   string name;
- 
-   SetJmp() {
-     this.getFile().getAbsolutePath().matches("%setjmp.h") and
-     name = [this.(Macro).getName(), this.(Function).getName()] and
-     name = ["setjmp", "longjmp"]
-   }
- 
-   Locatable getAnInvocation() {
-     result = this.(Macro).getAnInvocation() or
-     result = this.(Function).getACallToThisFunction()
-   }
- 
-   string getName() { result = name }
- }
- 
- from Locatable use, string name
- where
-   not isExcluded(use, BannedPackage::standardHeaderFileUsedSetjmphQuery()) and
-   exists(SetJmp jmp |
-     use = jmp.getAnInvocation() and
-     name = jmp.getName()
-   )
- select use, "Use of " + name + "."
- 
+import cpp
+import codingstandards.c.misra
+
+abstract class Jmp extends Locatable {
+  string name;
+
+  Jmp() {
+    this.getFile().getAbsolutePath().matches("%setjmp.h") and
+    name = [this.(Macro).getName(), this.(Function).getName()]
+  }
+
+  Locatable getAnInvocation() {
+    result = this.(Macro).getAnInvocation() or
+    result = this.(Function).getACallToThisFunction()
+  }
+
+  string getName() { result = name }
+}
+
+class SetJmp extends Jmp {
+  SetJmp() {
+    name = "setjmp" and
+    this.(Macro).getName() = name
+  }
+}
+
+class LongJmp extends Jmp {
+  LongJmp() {
+    name = "longjmp" and
+    [this.(Macro).getName(), this.(Function).getName()] = name
+  }
+}
+
+from Locatable use, string name
+where
+  not isExcluded(use, BannedPackage::standardHeaderFileUsedSetjmphQuery()) and
+  exists(Jmp jmp |
+    use = jmp.getAnInvocation() and
+    name = jmp.getName()
+  )
+select use, "Use of " + name + "."
