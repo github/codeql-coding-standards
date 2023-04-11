@@ -87,3 +87,32 @@ class PointerToObjectType extends PointerType {
     )
   }
 }
+
+/**
+ * Gets the base type of a pointer or array type.  In the case of an array of
+ * arrays, the inner base type is returned.
+ *
+ * Copied from IncorrectPointerScalingCommon.qll.
+ */
+Type baseType(Type t) {
+  (
+    exists(PointerType dt |
+      dt = t.getUnspecifiedType() and
+      result = dt.getBaseType().getUnspecifiedType()
+    )
+    or
+    exists(ArrayType at |
+      at = t.getUnspecifiedType() and
+      not at.getBaseType().getUnspecifiedType() instanceof ArrayType and
+      result = at.getBaseType().getUnspecifiedType()
+    )
+    or
+    exists(ArrayType at, ArrayType at2 |
+      at = t.getUnspecifiedType() and
+      at2 = at.getBaseType().getUnspecifiedType() and
+      result = baseType(at2)
+    )
+  ) and
+  // Make sure that the type has a size and that it isn't ambiguous.
+  strictcount(result.getSize()) = 1
+}
