@@ -98,7 +98,7 @@ class FOpenCall extends FunctionCall {
 }
 
 abstract class FileAccess extends FunctionCall {
-  abstract VariableAccess getFileExpr();
+  abstract Expr getFileExpr();
 }
 
 pragma[inline]
@@ -124,7 +124,7 @@ class ImplicitFileAccess extends FileAccess {
   }
 
   /** The expression corresponding to the accessed file */
-  override VariableAccess getFileExpr() {
+  override Expr getFileExpr() {
     fileName = result.(VariableAccess).getTarget().(GlobalVariable).toString() or
     fileName = result.findRootCause().(Macro).getName()
   }
@@ -141,7 +141,7 @@ class InBandErrorReadFunctionCall extends FileAccess {
   }
 
   /** The expression corresponding to the accessed file */
-  override VariableAccess getFileExpr() {
+  override Expr getFileExpr() {
     if this instanceof ImplicitFileAccess
     then result = this.(ImplicitFileAccess).getFileExpr()
     else result = [this.getArgument(0), this.getArgument(0).(AddressOfExpr).getAnOperand()]
@@ -167,7 +167,7 @@ class FileReadFunctionCall extends FileAccess {
   }
 
   /** The expression corresponding to the accessed file */
-  override VariableAccess getFileExpr() {
+  override Expr getFileExpr() {
     if this instanceof ImplicitFileAccess
     then result = this.(ImplicitFileAccess).getFileExpr()
     else
@@ -196,7 +196,7 @@ class FileWriteFunctionCall extends FileAccess {
   }
 
   /** The expression corresponding to the accessed file */
-  override VariableAccess getFileExpr() {
+  override Expr getFileExpr() {
     if this instanceof ImplicitFileAccess
     then result = this.(ImplicitFileAccess).getFileExpr()
     else
@@ -225,7 +225,7 @@ class FilePositioningFunctionCall extends FileAccess {
   }
 
   /** The expression corresponding to the accessed file */
-  override VariableAccess getFileExpr() {
+  override Expr getFileExpr() {
     result = [this.getArgument(0), this.getArgument(0).(AddressOfExpr).getAnOperand()]
   }
 }
