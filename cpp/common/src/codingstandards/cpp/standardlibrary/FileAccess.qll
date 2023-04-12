@@ -114,18 +114,18 @@ class ImplicitFileAccess extends FileAccess {
   string fileName;
 
   ImplicitFileAccess() {
-    fileName = ["stdin", "_Stdin"] and
+    fileName = "stdin" and
     this.getTarget().hasGlobalName(["getchar", "getwchar", "scanf", "scanf_s"])
     or
-    fileName = ["stdout", "_Stdout"] and
+    fileName = "stdout" and
     this.getTarget().hasGlobalName(["printf", "printf_s", "puts", "putchar", "putwchar"])
     or
-    fileName = ["stderr", "_Stderr"] and this.getTarget().hasGlobalName("perror")
+    fileName = "stderr" and this.getTarget().hasGlobalName("perror")
   }
 
   /** The expression corresponding to the accessed file */
   override Expr getFileExpr() {
-    fileName = result.(VariableAccess).getTarget().(GlobalVariable).toString() or
+    result = any(MacroInvocation mi | mi.getMacroName() = fileName).getExpr() or
     fileName = result.findRootCause().(Macro).getName()
   }
 }
