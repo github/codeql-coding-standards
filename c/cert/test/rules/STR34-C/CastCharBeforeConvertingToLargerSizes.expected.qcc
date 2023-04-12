@@ -11,5 +11,5 @@
 | test.c:38:3:38:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
 | test.c:39:3:39:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
 | test.c:40:3:40:14 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
-| test.c:42:11:42:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
-| test.c:43:11:43:12 | * ... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:42:3:42:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.c:43:3:43:13 | (...) | Expression not converted to `unsigned char` before converting to a larger integer type. |
