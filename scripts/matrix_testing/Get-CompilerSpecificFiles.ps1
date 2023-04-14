@@ -31,7 +31,7 @@ function Get-CompilerSpecificFiles {
         $f
     }
 
-    foreach($f in (Get-ChildItem -Filter "*.expected.$Configuration" $TestDirectory)){
+    foreach($f in (Get-ChildItem -Filter "$Query.expected.$Configuration" $TestDirectory)){
         Write-Host "Found file $f..."
         $f 
     }
