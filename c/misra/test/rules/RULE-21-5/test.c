@@ -1,4 +1,4 @@
-#include "signal.h"
+#include <signal.h>
 static void catch_function(int p1) {}
 void f1(void) {
   if (signal(SIGINT, catch_function) == SIG_ERR) { // NON_COMPLIANT

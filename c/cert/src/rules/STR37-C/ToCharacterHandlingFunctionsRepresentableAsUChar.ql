@@ -16,14 +16,11 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.CharFunctions
 
-from FunctionCall fc, Expr arg
+from UseOfToOrIsChar useOfCharAPI, Expr arg
 where
-  not isExcluded(fc, Strings2Package::toCharacterHandlingFunctionsRepresentableAsUCharQuery()) and
-  // examine all impacted functions
-  fc.getTarget() instanceof CToOrIsCharFunction and
-  arg = fc.getArgument(0).getFullyConverted() and
-  // report on cases where either the explicit or implicit cast
-  // on the parameter type is not unsigned
-  not arg.(CStyleCast).getExpr().getType() instanceof UnsignedCharType
-select fc, "$@ to character-handling function may not be representable as an unsigned char.", arg,
-  "Argument"
+  not isExcluded(useOfCharAPI,
+    Strings2Package::toCharacterHandlingFunctionsRepresentableAsUCharQuery()) and
+  arg = useOfCharAPI.getConvertedArgument() and
+  not arg.getType() instanceof UnsignedCharType
+select useOfCharAPI,
+  "$@ to character-handling function may not be representable as an unsigned char.", arg, "Argument"

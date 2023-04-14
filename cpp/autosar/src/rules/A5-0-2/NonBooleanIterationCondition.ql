@@ -15,11 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.nonbooleaniterationstmt.NonBooleanIterationStmt
 
-from Loop loopStmt, Expr condition, Type explicitConversionType
-where
-  not isExcluded(loopStmt, ConditionalsPackage::nonBooleanIterationConditionQuery()) and
-  condition = loopStmt.getCondition() and
-  explicitConversionType = condition.getExplicitlyConverted().getType().getUnspecifiedType() and
-  not explicitConversionType instanceof BoolType
-select condition, "Iteration condition has non boolean type " + explicitConversionType + "."
+class NonBooleanIterationConditionQuery extends NonBooleanIterationStmtSharedQuery {
+  NonBooleanIterationConditionQuery() {
+    this = ConditionalsPackage::nonBooleanIterationConditionQuery()
+  }
+}

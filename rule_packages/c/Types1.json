@@ -1,0 +1,91 @@
+{
+  "CERT-C": {
+    "INT34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Shifting an expression by an operand that is negative or of precision greater or equal to that or the another causes representational error.",
+          "kind": "problem",
+          "name": "Bit shift should not be done by a negative operand or an operand of greater-or-equal precision than that of another",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExprShiftedbyNegativeOrGreaterPrecisionOperand",
+          "tags": []
+        }
+      ],
+      "title": "Do not shift an expression by a negative number of bits or by greater than or equal to the number of bits that exist in the operand"
+    },
+    "INT36-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Converting between pointers and integers is not portable and might cause invalid memory access.",
+          "kind": "problem",
+          "name": "Do not convert pointers to integers and back",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConvertingAPointerToIntegerOrIntegerToPointer",
+          "tags": []
+        }
+      ],
+      "title": "Converting a pointer to integer or integer to pointer"
+    }
+  },
+  "MISRA-C-2012": {
+    "DIR-4-6": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using plain numerical types over typedefs with explicit sign and bit counts may lead to confusion on how much bits are allocated for a value.",
+          "kind": "problem",
+          "name": "Do not use plain numerical types over typedefs named after their explicit bit layout",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PlainNumericalTypeUsedOverExplicitTypedef",
+          "tags": []
+        }
+      ],
+      "title": "typedefs that indicate size and signedness should be used in place of the basic numerical types"
+    },
+    "RULE-12-5": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Using sizeof operator on an array type function parameter leads to unintended results.",
+          "kind": "problem",
+          "name": "The sizeof operator should not be used on an array type function parameter",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SizeofOperatorUsedOnArrayTypeParam",
+          "tags": []
+        }
+      ],
+      "title": "The sizeof operator shall not have an operand which is a function parameter declared as 'array of type'"
+    },
+    "RULE-7-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Assigning string literal to a variable with type other than a pointer to const char and modifying it causes undefined behavior .",
+          "kind": "problem",
+          "name": "A string literal shall only be assigned to a pointer to const char",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "StringLiteralAssignedToNonConstChar",
+          "tags": []
+        }
+      ],
+      "title": "A string literal shall not be assigned to an object unless the object's type is 'pointer to const-qualified char'"
+    }
+  }
+}

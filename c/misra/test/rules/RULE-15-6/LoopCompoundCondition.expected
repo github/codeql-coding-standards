@@ -1,0 +1,4 @@
+| test.c:4:3:5:9 | while (...) ... | Loop body not enclosed within braces. |
+| test.c:7:3:8:5 | while (...) ... | Loop body not enclosed within braces. |
+| test.c:11:3:12:9 | for(...;...;...) ... | Loop body not enclosed within braces. |
+| test.c:14:3:15:5 | while (...) ... | Loop body not enclosed within braces. |

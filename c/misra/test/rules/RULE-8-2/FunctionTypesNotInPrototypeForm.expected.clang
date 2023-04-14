@@ -1,0 +1,3 @@
+| test.c:3:6:3:7 | f1 | Function f1 declares parameter that is unnamed. |
+| test.c:4:6:4:7 | f2 | Function f2 does not specifiy void for no parameters present. |
+| test.c:7:5:7:6 | f5 | Function f5 declares parameter in unsupported declaration list. |

@@ -1,0 +1,38 @@
+{
+  "MISRA-C-2012": {
+    "RULE-21-13": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Passing arguments to <ctype.h> functions outside the range of unsigned char or EOF causes undefined behavior.",
+          "kind": "problem",
+          "name": "<ctype.h> function arguments shall be represented as unsigned char",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CtypeFunctionArgNotUnsignedCharOrEof",
+          "tags": []
+        }
+      ],
+      "title": "Any value passed to a function in <ctype.h> shall be representable as an unsigned char or be the value EOF"
+    },
+    "RULE-21-15": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Passing pointers to incompatible types as arguments to memcpy, memmove and memcmp indicates programmers' confusion.",
+          "kind": "problem",
+          "name": "The pointer arguments to the Standard Library functions memcpy, memmove and memcmp shall be pointers",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemcpyMemmoveMemcmpArgNotPointersToCompatibleTypes",
+          "tags": []
+        }
+      ],
+      "title": "The pointer arguments to the Standard Library functions memcpy, memmove and memcmp shall be pointers to qualified or unqualified versions of compatible types"
+    }
+  }
+}
