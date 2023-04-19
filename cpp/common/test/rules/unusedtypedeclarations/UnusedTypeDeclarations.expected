@@ -3,5 +3,5 @@
 | test.cpp:6:7:6:7 | B | Type declaration B is not used. |
 | test.cpp:13:11:13:11 | D | Type declaration D is not used. |
 | test.cpp:77:11:77:11 | R | Type declaration R is not used. |
-| test.cpp:90:12:90:12 | struct <unnamed> | Type declaration struct <unnamed> is not used. |
+| test.cpp:90:12:90:12 | (unnamed class/struct/union) | Type declaration (unnamed class/struct/union) is not used. |
 | test.cpp:111:29:111:30 | AA | Type declaration AA is not used. |
