@@ -271,7 +271,7 @@ CWE-123 – STR31-C =
 
 ## Implementation notes
 
-None
+Wide character types are not handled correctly on the `aarch64le` architecture. This can lead to false negative alerts.
 
 ## References
 
