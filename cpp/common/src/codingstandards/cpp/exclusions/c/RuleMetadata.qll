@@ -15,6 +15,7 @@ import Contracts3
 import Contracts4
 import Contracts5
 import Contracts6
+import Contracts7
 import DeadCode
 import Declarations1
 import Declarations2
@@ -31,12 +32,17 @@ import IO1
 import IO2
 import IO3
 import IO4
+import IntegerOverflow
 import InvalidMemory1
+import InvalidMemory2
 import Language1
 import Language2
 import Language3
 import Memory1
+import Memory2
+import Memory3
 import Misc
+import OutOfBounds
 import Pointers1
 import Pointers2
 import Pointers3
@@ -48,11 +54,22 @@ import Preprocessor5
 import Preprocessor6
 import SideEffects1
 import SideEffects2
+import SideEffects3
+import SideEffects4
 import SignalHandlers
+import StandardLibraryFunctionTypes
+import Statements1
+import Statements2
+import Statements3
+import Statements4
+import Statements5
+import Statements6
+import Static
 import Strings1
 import Strings2
 import Strings3
 import Syntax
+import Types1
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
@@ -69,6 +86,7 @@ newtype TCQuery =
   TContracts4PackageQuery(Contracts4Query q) or
   TContracts5PackageQuery(Contracts5Query q) or
   TContracts6PackageQuery(Contracts6Query q) or
+  TContracts7PackageQuery(Contracts7Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
@@ -85,12 +103,17 @@ newtype TCQuery =
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
   TIO4PackageQuery(IO4Query q) or
+  TIntegerOverflowPackageQuery(IntegerOverflowQuery q) or
   TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
+  TInvalidMemory2PackageQuery(InvalidMemory2Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TLanguage3PackageQuery(Language3Query q) or
   TMemory1PackageQuery(Memory1Query q) or
+  TMemory2PackageQuery(Memory2Query q) or
+  TMemory3PackageQuery(Memory3Query q) or
   TMiscPackageQuery(MiscQuery q) or
+  TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
   TPointers3PackageQuery(Pointers3Query q) or
@@ -102,11 +125,22 @@ newtype TCQuery =
   TPreprocessor6PackageQuery(Preprocessor6Query q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
+  TSideEffects3PackageQuery(SideEffects3Query q) or
+  TSideEffects4PackageQuery(SideEffects4Query q) or
   TSignalHandlersPackageQuery(SignalHandlersQuery q) or
+  TStandardLibraryFunctionTypesPackageQuery(StandardLibraryFunctionTypesQuery q) or
+  TStatements1PackageQuery(Statements1Query q) or
+  TStatements2PackageQuery(Statements2Query q) or
+  TStatements3PackageQuery(Statements3Query q) or
+  TStatements4PackageQuery(Statements4Query q) or
+  TStatements5PackageQuery(Statements5Query q) or
+  TStatements6PackageQuery(Statements6Query q) or
+  TStaticPackageQuery(StaticQuery q) or
   TStrings1PackageQuery(Strings1Query q) or
   TStrings2PackageQuery(Strings2Query q) or
   TStrings3PackageQuery(Strings3Query q) or
-  TSyntaxPackageQuery(SyntaxQuery q)
+  TSyntaxPackageQuery(SyntaxQuery q) or
+  TTypes1PackageQuery(Types1Query q)
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
@@ -123,6 +157,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isContracts4QueryMetadata(query, queryId, ruleId, category) or
   isContracts5QueryMetadata(query, queryId, ruleId, category) or
   isContracts6QueryMetadata(query, queryId, ruleId, category) or
+  isContracts7QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
@@ -139,12 +174,17 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isIO2QueryMetadata(query, queryId, ruleId, category) or
   isIO3QueryMetadata(query, queryId, ruleId, category) or
   isIO4QueryMetadata(query, queryId, ruleId, category) or
+  isIntegerOverflowQueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
+  isInvalidMemory2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
   isMemory1QueryMetadata(query, queryId, ruleId, category) or
+  isMemory2QueryMetadata(query, queryId, ruleId, category) or
+  isMemory3QueryMetadata(query, queryId, ruleId, category) or
   isMiscQueryMetadata(query, queryId, ruleId, category) or
+  isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or
   isPointers3QueryMetadata(query, queryId, ruleId, category) or
@@ -156,9 +196,20 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isPreprocessor6QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
+  isSideEffects3QueryMetadata(query, queryId, ruleId, category) or
+  isSideEffects4QueryMetadata(query, queryId, ruleId, category) or
   isSignalHandlersQueryMetadata(query, queryId, ruleId, category) or
+  isStandardLibraryFunctionTypesQueryMetadata(query, queryId, ruleId, category) or
+  isStatements1QueryMetadata(query, queryId, ruleId, category) or
+  isStatements2QueryMetadata(query, queryId, ruleId, category) or
+  isStatements3QueryMetadata(query, queryId, ruleId, category) or
+  isStatements4QueryMetadata(query, queryId, ruleId, category) or
+  isStatements5QueryMetadata(query, queryId, ruleId, category) or
+  isStatements6QueryMetadata(query, queryId, ruleId, category) or
+  isStaticQueryMetadata(query, queryId, ruleId, category) or
   isStrings1QueryMetadata(query, queryId, ruleId, category) or
   isStrings2QueryMetadata(query, queryId, ruleId, category) or
   isStrings3QueryMetadata(query, queryId, ruleId, category) or
-  isSyntaxQueryMetadata(query, queryId, ruleId, category)
+  isSyntaxQueryMetadata(query, queryId, ruleId, category) or
+  isTypes1QueryMetadata(query, queryId, ruleId, category)
 }

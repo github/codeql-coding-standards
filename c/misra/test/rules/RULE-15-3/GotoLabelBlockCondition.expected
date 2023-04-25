@@ -1,0 +1,3 @@
+| test.c:2:3:2:10 | goto ... | The $@ statement and its $@ are not declared or enclosed in the same block. | test.c:2:3:2:10 | goto ... | goto | test.c:4:3:4:5 | label ...: | label |
+| test.c:40:3:40:10 | goto ... | The $@ statement and its $@ are not declared or enclosed in the same block. | test.c:40:3:40:10 | goto ... | goto | test.c:44:3:44:5 | label ...: | label |
+| test.c:55:5:55:12 | goto ... | The $@ statement and its $@ are not declared or enclosed in the same block. | test.c:55:5:55:12 | goto ... | goto | test.c:58:3:58:5 | label ...: | label |

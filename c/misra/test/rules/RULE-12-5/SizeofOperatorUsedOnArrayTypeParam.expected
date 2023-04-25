@@ -1,0 +1,2 @@
+| test.c:6:12:6:23 | sizeof(<expr>) | The sizeof operator is called on an array-type parameter nums. |
+| test.c:13:12:13:25 | sizeof(<expr>) | The sizeof operator is called on an array-type parameter string. |

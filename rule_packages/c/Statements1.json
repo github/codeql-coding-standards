@@ -1,0 +1,82 @@
+{
+  "MISRA-C-2012": {
+    "RULE-16-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Nested switch labels can lead to unstructured code.",
+          "kind": "problem",
+          "name": "Nested switch labels shall not be used",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NestSwitchLabelInSwitchStatement",
+          "shared_implementation_short_name": "NestedLabelInSwitch",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A switch label shall only be used when the most closely-enclosing compound statement is the body of a switch statement"
+    },
+    "RULE-16-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An unterminated switch-clause occurring at the end of a switch statement may fall into switch clauses which are added later.",
+          "kind": "problem",
+          "name": "An unconditional break statement shall terminate every switch-clause",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "BreakShallTerminateSwitchClause",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "An unconditional break statement shall terminate every switch-clause"
+    },
+    "RULE-16-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A default label that has no statements or a comment explaining why this is correct indicates a missing implementation that may result in unexpected behavior when the default case is executed.",
+          "kind": "problem",
+          "name": "Every switch statement shall have a default label",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "EverySwitchShallHaveDefaultLabel",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Every switch statement shall have a default label"
+    },
+    "RULE-16-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Locating the default label is easier when it is the first or last label.",
+          "kind": "problem",
+          "name": "A default label shall appear as either the first or the last switch label or a switch statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "DefaultNotFirstOrLastOfSwitch",
+          "tags": []
+        }
+      ],
+      "title": "A default label shall appear as either the first or the last switch label of a switch statement"
+    }
+  }
+}

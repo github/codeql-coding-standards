@@ -1,0 +1,10 @@
+| test.c:9:10:9:12 | ... ++ | Argument i++ to unsafe macro 'unsafe' is expanded to 'i++' multiple times and includes the use of the ++ operator as a side-effect. |
+| test.c:9:10:9:12 | ... ++ | Argument i++ to unsafe macro 'unsafe' is expanded to 'i++' multiple times and includes the use of the ++ operator as a side-effect. |
+| test.c:11:10:11:12 | ... -- | Argument i-- to unsafe macro 'unsafe' is expanded to 'i--' multiple times and includes the use of the -- operator as a side-effect. |
+| test.c:11:10:11:12 | ... -- | Argument i-- to unsafe macro 'unsafe' is expanded to 'i--' multiple times and includes the use of the -- operator as a side-effect. |
+| test.c:26:10:26:15 | call to addOne | Argument addOne(10) to unsafe macro 'unsafe' is expanded to 'addOne(10)' multiple times and includes a call to the function 'addOne' as a side-effect. |
+| test.c:26:10:26:15 | call to addOne | Argument addOne(10) to unsafe macro 'unsafe' is expanded to 'addOne(10)' multiple times and includes a call to the function 'addOne' as a side-effect. |
+| test.c:27:10:27:17 | call to external | Argument external() to unsafe macro 'unsafe' is expanded to 'external()' multiple times and includes a call to the function 'external' as a side-effect. |
+| test.c:27:10:27:17 | call to external | Argument external() to unsafe macro 'unsafe' is expanded to 'external()' multiple times and includes a call to the function 'external' as a side-effect. |
+| test.c:28:10:28:15 | call to writeX | Argument writeX(10) to unsafe macro 'unsafe' is expanded to 'writeX(10)' multiple times and includes a call to the function 'writeX' as a side-effect. |
+| test.c:28:10:28:15 | call to writeX | Argument writeX(10) to unsafe macro 'unsafe' is expanded to 'writeX(10)' multiple times and includes a call to the function 'writeX' as a side-effect. |

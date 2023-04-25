@@ -1,0 +1,26 @@
+{
+  "MISRA-C-2012": {
+    "RULE-17-6": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Using the static keyword in an array type is error prone, and relies on the programmer to adhere to the guarantees to avoid undefined behavior.",
+          "kind": "problem",
+          "name": "The declaration of an array parameter shall not contain the static keyword between the [ ]",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UseOfArrayStatic",
+          "tags": [
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "The static keyword is associated with particular array types in our model. This means we can get false positives when two parameter use the same array type and size, but only one of which uses the `static` keyword."
+          }
+        }
+      ],
+      "title": "The declaration of an array parameter shall not contain the static keyword between the [ ]"
+    }
+  }
+}

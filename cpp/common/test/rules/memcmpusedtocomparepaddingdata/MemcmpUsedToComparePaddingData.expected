@@ -1,0 +1,1 @@
+| test.cpp:23:8:23:18 | call to memcmp | memcmp accesses bits which are not part of the object's value representation. |
