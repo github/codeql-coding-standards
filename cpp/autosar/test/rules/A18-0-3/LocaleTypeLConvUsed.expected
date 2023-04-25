@@ -1,2 +1,2 @@
-| test.cpp:10:8:10:12 | type mention | Use of <clocale> type 'std::lconv'. |
+| test.cpp:10:8:10:12 | type mention | Use of <clocale> type 'lconv'. |
 | test.cpp:18:3:18:7 | type mention | Use of <clocale> type 'lconv'. |
