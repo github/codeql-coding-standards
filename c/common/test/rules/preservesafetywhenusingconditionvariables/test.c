@@ -29,7 +29,6 @@ void f1() {
   }
 
   mtx_destroy(&mxl);
-  return 0;
 }
 
 void f2() {
@@ -48,5 +47,4 @@ void f2() {
   }
 
   mtx_destroy(&mxl);
-  return 0;
 }
