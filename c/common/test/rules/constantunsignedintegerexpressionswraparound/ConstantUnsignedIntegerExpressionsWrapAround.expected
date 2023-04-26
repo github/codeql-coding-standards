@@ -1,0 +1,13 @@
+| test.c:11:7:11:18 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:12:7:12:18 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:18:7:18:19 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:19:7:19:19 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:25:7:25:18 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:26:7:26:17 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:33:7:33:20 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:34:7:34:20 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:40:7:40:19 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:41:7:41:19 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:47:7:47:18 | ... - ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:48:7:48:17 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |
+| test.c:53:20:53:31 | ... + ... | Use of a constant, unsigned, integer expression that over- or under-flows. |

@@ -3,8 +3,19 @@ import cpp
 /* A full expression as defined in ISO/IEC 9899:2011 6.8 point 4 and Annex C point 1 item 5. */
 class FullExpr extends Expr {
   FullExpr() {
-    not this.getParent() instanceof Expr and
-    not exists(Variable v | v.getInitializer().getExpr() = this)
+    exists(ExprStmt s | this = s.getExpr())
+    or
+    exists(Loop l | this = l.getControllingExpr())
+    or
+    exists(ConditionalStmt s | this = s.getControllingExpr())
+    or
+    exists(ForStmt s | this = s.getUpdate())
+    or
+    exists(ReturnStmt s | this = s.getExpr())
+    or
+    this instanceof AggregateLiteral
+    or
+    this = any(Variable v).getInitializer().getExpr()
   }
 }
 

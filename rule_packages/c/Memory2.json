@@ -1,0 +1,214 @@
+{
+  "CERT-C": {
+    "ARR36-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Subtraction between pointers referring to differing arrays results in undefined behavior.",
+          "kind": "path-problem",
+          "name": "Do not subtract two pointers that do not refer to the same array",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DoNotSubtractPointersThatDoNotReferToTheSameArray",
+          "shared_implementation_short_name": "DoNotSubtractPointersAddressingDifferentArrays",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Comparison using the >, >=, <, and <= operators between pointers referring to differing arrays results in undefined behavior.",
+          "kind": "path-problem",
+          "name": "Do not subtract two pointers that do not refer to the same array",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DoNotRelatePointersThatDoNotReferToTheSameArray",
+          "shared_implementation_short_name": "DoNotUseRelationalOperatorsWithDifferingArrays",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not subtract or compare two pointers that do not refer to the same array"
+    },
+    "EXP42-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Padding data values are unspecified and should not be included in comparisons.",
+          "kind": "problem",
+          "name": "Do not compare padding data",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotComparePaddingData",
+          "shared_implementation_short_name": "MemcmpUsedToComparePaddingData",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not compare padding data"
+    },
+    "MEM31-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Failing to free memory that is no longer needed can lead to a memory leak and resource exhaustion.",
+          "kind": "problem",
+          "name": "Free dynamically allocated memory when no longer needed",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FreeMemoryWhenNoLongerNeededCert",
+          "shared_implementation_short_name": "FreeMemoryWhenNoLongerNeededShared",
+          "tags": [
+            "correctness",
+            "security"
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
+        }
+      ],
+      "title": "Free dynamically allocated memory when no longer needed"
+    },
+    "MEM33-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "A structure containing a flexible array member must be allocated dynamically in order for subsequent accesses to the flexible array to point to valid memory.",
+          "kind": "problem",
+          "name": "Allocate structures containing a flexible array member dynamically",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AllocStructsWithAFlexibleArrayMemberDynamically",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Copying a structure containing a flexbile array member by assignment ignores the flexible array member data.",
+          "kind": "problem",
+          "name": "Copy structures containing a flexible array member using memcpy or a similar function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CopyStructsWithAFlexibleArrayMemberDynamically",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Allocate and copy structures containing a flexible array member dynamically"
+    },
+    "MEM34-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Freeing memory that is not allocated dynamically can lead to heap corruption and undefined behavior.",
+          "kind": "path-problem",
+          "name": "Only free memory allocated dynamically",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "OnlyFreeMemoryAllocatedDynamicallyCert",
+          "shared_implementation_short_name": "OnlyFreeMemoryAllocatedDynamicallyShared",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Only free memory allocated dynamically"
+    },
+    "MEM36-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Realloc does not preserve the alignment of memory allocated with aligned_alloc and can result in undefined behavior if reallocating more strictly aligned memory.",
+          "kind": "path-problem",
+          "name": "Do not modify the alignment of objects by calling realloc",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DoNotModifyAlignmentOfMemoryWithRealloc",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not modify the alignment of objects by calling realloc"
+    }
+  },
+  "MISRA-C-2012": {
+    "RULE-22-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Memory allocated dynamically with standard library functions should be freed to avoid memory leaks.",
+          "kind": "problem",
+          "name": "Memory allocated dynamically with Standard Library functions shall be explicitly released",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FreeMemoryWhenNoLongerNeededMisra",
+          "shared_implementation_short_name": "FreeMemoryWhenNoLongerNeededShared",
+          "tags": [
+            "correctness",
+            "security"
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
+        },
+        {
+          "description": "File handles acquired with standard library functions should be released to avoid resource exhaustion.",
+          "kind": "problem",
+          "name": "File handles acquired with Standard Library functions shall be explicitly closed",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CloseFileHandleWhenNoLongerNeededMisra",
+          "shared_implementation_short_name": "CloseFileHandleWhenNoLongerNeededShared",
+          "tags": [
+            "correctness",
+            "security"
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
+        }
+      ],
+      "title": "All resources obtained dynamically by means of Standard Library functions shall be explicitly released"
+    },
+    "RULE-22-2": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Freeing memory that is not allocated dynamically can lead to heap corruption and undefined behavior.",
+          "kind": "path-problem",
+          "name": "A block of memory shall only be freed if it was allocated by means of a Standard Library function",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "OnlyFreeMemoryAllocatedDynamicallyMisra",
+          "shared_implementation_short_name": "OnlyFreeMemoryAllocatedDynamicallyShared",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "A block of memory shall only be freed if it was allocated by means of a Standard Library function"
+    }
+  }
+}

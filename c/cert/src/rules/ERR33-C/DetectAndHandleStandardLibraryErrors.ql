@@ -441,7 +441,7 @@ ControlFlowNode ferrorNotchecked(FileWriteFunctionCall write) {
     not isShortCircuitedEdge(mid, result) and
     result = mid.getASuccessor() and
     //Stop recursion on call to ferror on the correct file
-    not accessSameTarget(result.(FerrorCall).getArgument(0), write.getFileExpr())
+    not sameFileSource(result.(FerrorCall), write)
   )
 }
 

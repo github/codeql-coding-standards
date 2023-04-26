@@ -1,0 +1,49 @@
+name: 🤖 Run Matrix Check (On Comment)
+
+on:
+  issue_comment:
+    types: [created]
+    branches:
+      - main
+      - "rc/**"
+      - next
+
+
+jobs:
+  dispatch-matrix-check:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Test Variables
+        shell: pwsh
+        run: |          
+          Write-Host "Running as: ${{github.actor}}"    
+
+          $actor = "${{github.actor}}"
+
+          $acl = @("jsinglet","mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine") 
+
+          if(-not ($actor -in $acl)){
+            throw "Refusing to run workflow for user not in acl."
+          }
+
+
+      - name: Dispatch Matrix Testing Job
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-matrix') }}
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          repository: github/codeql-coding-standards-release-engineering
+          event-type: matrix-test
+          client-payload: '{"pr": "${{ github.event.issue.number }}"}'
+
+      - uses: actions/github-script@v6
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-matrix') }}
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🤖 Beep Boop! Matrix Testing for this PR has been initiated. Please check back later for results. <br><br> :bulb: If you do not hear back from me please check my status! **I will report even if this PR does not contain files eligible for matrix testing.**'
+            })

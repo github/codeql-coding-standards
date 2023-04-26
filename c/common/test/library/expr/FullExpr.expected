@@ -1,4 +1,4 @@
-| fullexpr.c:8:18:11:37 | temporary object |
+| fullexpr.c:8:18:11:37 | {...} |
 | fullexpr.c:13:3:13:5 | ... ++ |
 | fullexpr.c:15:7:15:7 | i |
 | fullexpr.c:17:10:17:10 | i |

@@ -18,7 +18,6 @@ private string getCToOrIsName() {
  * the structure of the macro, or
  */
 abstract class UseOfToOrIsChar extends Element {
-  /** */
   abstract Expr getConvertedArgument();
 }
 
@@ -52,6 +51,12 @@ private class CToOrIsCharMacroInvocation extends MacroInvocation, UseOfToOrIsCha
     // array access on the left hand side of an &
     exists(ArrayExpr ae | ae = getExpr().(BitwiseAndExpr).getLeftOperand() |
       // Casted to an explicit (int), so we want unwind only a single conversion
+      result = ae.getArrayOffset().getFullyConverted().(Conversion).getExpr()
+    )
+    or
+    // For the "toupper/tolower" APIs, QNX expands to an array access
+    exists(ArrayExpr ae |
+      ae = getExpr() and
       result = ae.getArrayOffset().getFullyConverted().(Conversion).getExpr()
     )
     or

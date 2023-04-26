@@ -1,0 +1,5 @@
+| test.c:8:3:8:8 | call to memcpy | The object to copy $@ overlaps the object to copy $@. | test.c:8:17:8:21 | & ... | from | test.c:8:10:8:14 | & ... | to |
+| test.c:10:3:10:8 | call to memcpy | The object to copy $@ overlaps the object to copy $@. | test.c:10:17:10:21 | & ... | from | test.c:10:10:10:14 | & ... | to |
+| test.c:11:3:11:8 | call to memcpy | The object to copy $@ overlaps the object to copy $@. | test.c:11:17:11:17 | o | from | test.c:11:10:11:14 | ... + ... | to |
+| test.c:13:3:13:8 | call to memcpy | The object to copy $@ overlaps the object to copy $@. | test.c:13:17:13:21 | ... + ... | from | test.c:13:10:13:14 | ... + ... | to |
+| test.c:57:3:57:8 | call to memcpy | The object to copy $@ overlaps the object to copy $@. | test.c:57:21:57:26 | & ... | from | test.c:57:10:57:18 | & ... | to |

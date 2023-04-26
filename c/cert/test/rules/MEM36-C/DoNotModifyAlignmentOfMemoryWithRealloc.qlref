@@ -1,0 +1,1 @@
+rules/MEM36-C/DoNotModifyAlignmentOfMemoryWithRealloc.ql

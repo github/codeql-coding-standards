@@ -15,12 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.nonbooleanifstmt.NonBooleanIfStmt
 
-from IfStmt ifStmt, Expr condition, Type explicitConversionType
-where
-  not isExcluded(ifStmt, ConditionalsPackage::nonBooleanIfConditionQuery()) and
-  condition = ifStmt.getCondition() and
-  not ifStmt.isFromUninstantiatedTemplate(_) and
-  explicitConversionType = condition.getExplicitlyConverted().getType().getUnspecifiedType() and
-  not explicitConversionType instanceof BoolType
-select condition, "If condition has non boolean type " + explicitConversionType + "."
+class NonBooleanIfConditionQuery extends NonBooleanIfStmtSharedQuery {
+  NonBooleanIfConditionQuery() {
+    this = ConditionalsPackage::nonBooleanIfConditionQuery()
+  }
+}

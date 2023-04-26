@@ -125,7 +125,7 @@ class ImplicitFileAccess extends FileAccess {
 
   /** The expression corresponding to the accessed file */
   override Expr getFileExpr() {
-    fileName = result.(VariableAccess).getTarget().(GlobalVariable).toString() or
+    result = any(MacroInvocation mi | mi.getMacroName() = fileName).getExpr() or
     fileName = result.findRootCause().(Macro).getName()
   }
 }
@@ -144,7 +144,7 @@ class InBandErrorReadFunctionCall extends FileAccess {
   override Expr getFileExpr() {
     if this instanceof ImplicitFileAccess
     then result = this.(ImplicitFileAccess).getFileExpr()
-    else result = this.getArgument(0)
+    else result = [this.getArgument(0), this.getArgument(0).(AddressOfExpr).getAnOperand()]
   }
 }
 
@@ -170,7 +170,8 @@ class FileReadFunctionCall extends FileAccess {
   override Expr getFileExpr() {
     if this instanceof ImplicitFileAccess
     then result = this.(ImplicitFileAccess).getFileExpr()
-    else result = this.getArgument(filePos)
+    else
+      result = [this.getArgument(filePos), this.getArgument(filePos).(AddressOfExpr).getAnOperand()]
   }
 }
 
@@ -198,7 +199,8 @@ class FileWriteFunctionCall extends FileAccess {
   override Expr getFileExpr() {
     if this instanceof ImplicitFileAccess
     then result = this.(ImplicitFileAccess).getFileExpr()
-    else result = this.getArgument(filePos)
+    else
+      result = [this.getArgument(filePos), this.getArgument(filePos).(AddressOfExpr).getAnOperand()]
   }
 }
 
@@ -209,7 +211,9 @@ class FileCloseFunctionCall extends FileAccess {
   FileCloseFunctionCall() { this.getTarget().hasGlobalName("fclose") }
 
   /** The expression corresponding to the accessed file */
-  override Expr getFileExpr() { result = this.getArgument(0) }
+  override VariableAccess getFileExpr() {
+    result = [this.getArgument(0), this.getArgument(0).(AddressOfExpr).getAnOperand()]
+  }
 }
 
 /**
@@ -221,5 +225,7 @@ class FilePositioningFunctionCall extends FileAccess {
   }
 
   /** The expression corresponding to the accessed file */
-  override Expr getFileExpr() { result = this.getArgument(0) }
+  override Expr getFileExpr() {
+    result = [this.getArgument(0), this.getArgument(0).(AddressOfExpr).getAnOperand()]
+  }
 }
