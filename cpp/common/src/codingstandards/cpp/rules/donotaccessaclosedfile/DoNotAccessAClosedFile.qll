@@ -27,7 +27,7 @@ predicate accessSameVariable(VariableAccess va1, VariableAccess va2) {
   va1.getTarget() = va2.getTarget()
 }
 
-SubBasicBlock followsFileClose(SubBasicBlock source, VariableAccess closedFile) {
+SubBasicBlock followsFileClose(SubBasicBlock source, Expr closedFile) {
   result = source
   or
   exists(SubBasicBlock mid |

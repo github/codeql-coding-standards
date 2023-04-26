@@ -1,0 +1,3 @@
+| test.c:69:7:69:11 | * ... | Do not read `errno` before checking the return value of function $@. | test.c:68:3:68:7 | call to ftell | call to ftell |
+| test.c:69:7:69:11 | call to __get_errno_ptr | Do not read `errno` before checking the return value of function $@. | test.c:68:3:68:7 | call to ftell | call to ftell |
+| test.c:70:5:70:10 | call to perror | Do not read `errno` before checking the return value of function $@. | test.c:68:3:68:7 | call to ftell | call to ftell |
