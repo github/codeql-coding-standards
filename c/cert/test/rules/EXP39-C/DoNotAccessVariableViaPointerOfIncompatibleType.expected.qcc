@@ -1,0 +1,62 @@
+edges
+| test.c:49:8:49:9 | s3 | test.c:50:8:50:9 | s1 |
+| test.c:60:16:60:18 | E1A | test.c:61:16:61:17 | e1 |
+| test.c:60:16:60:18 | E1A | test.c:65:10:65:12 | & ... |
+| test.c:68:22:68:22 | v | test.c:68:41:68:41 | v |
+| test.c:72:13:72:15 | & ... | test.c:68:22:68:22 | v |
+| test.c:74:13:74:15 | & ... | test.c:68:22:68:22 | v |
+| test.c:97:32:97:37 | call to malloc | test.c:98:40:98:41 | s2 |
+| test.c:97:32:97:37 | call to malloc | test.c:98:40:98:41 | s2 |
+| test.c:98:32:98:38 | call to realloc | test.c:99:3:99:4 | s3 |
+| test.c:98:32:98:38 | call to realloc | test.c:100:10:100:11 | s3 |
+| test.c:98:40:98:41 | s2 | test.c:98:32:98:38 | call to realloc |
+nodes
+| file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/stdlib.h:98:42:98:47 | __func | semmle.label | __func |
+| file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/stdlib.h:98:50:98:53 | 0 | semmle.label | 0 |
+| test.c:6:19:6:20 | & ... | semmle.label | & ... |
+| test.c:11:10:11:11 | & ... | semmle.label | & ... |
+| test.c:13:17:13:19 | & ... | semmle.label | & ... |
+| test.c:15:17:15:19 | & ... | semmle.label | & ... |
+| test.c:19:18:19:20 | & ... | semmle.label | & ... |
+| test.c:20:20:20:22 | & ... | semmle.label | & ... |
+| test.c:22:11:22:13 | & ... | semmle.label | & ... |
+| test.c:27:17:27:19 | & ... | semmle.label | & ... |
+| test.c:28:10:28:12 | & ... | semmle.label | & ... |
+| test.c:29:13:29:15 | & ... | semmle.label | & ... |
+| test.c:30:19:30:21 | & ... | semmle.label | & ... |
+| test.c:31:16:31:18 | & ... | semmle.label | & ... |
+| test.c:47:8:47:9 | s2 | semmle.label | s2 |
+| test.c:49:8:49:9 | s3 | semmle.label | s3 |
+| test.c:49:8:49:9 | s3 | semmle.label | s3 |
+| test.c:50:8:50:9 | s1 | semmle.label | s1 |
+| test.c:60:16:60:18 | E1A | semmle.label | E1A |
+| test.c:60:16:60:18 | E1A | semmle.label | E1A |
+| test.c:61:16:61:17 | e1 | semmle.label | e1 |
+| test.c:65:10:65:12 | & ... | semmle.label | & ... |
+| test.c:68:22:68:22 | v | semmle.label | v |
+| test.c:68:41:68:41 | v | semmle.label | v |
+| test.c:72:13:72:15 | & ... | semmle.label | & ... |
+| test.c:72:13:72:15 | & ... | semmle.label | & ... |
+| test.c:74:13:74:15 | & ... | semmle.label | & ... |
+| test.c:74:13:74:15 | & ... | semmle.label | & ... |
+| test.c:97:32:97:37 | call to malloc | semmle.label | call to malloc |
+| test.c:97:32:97:37 | call to malloc | semmle.label | call to malloc |
+| test.c:98:32:98:38 | call to realloc | semmle.label | call to realloc |
+| test.c:98:32:98:38 | call to realloc | semmle.label | call to realloc |
+| test.c:98:32:98:38 | call to realloc | semmle.label | call to realloc |
+| test.c:98:40:98:41 | s2 | semmle.label | s2 |
+| test.c:98:40:98:41 | s2 | semmle.label | s2 |
+| test.c:99:3:99:4 | s3 | semmle.label | s3 |
+| test.c:100:10:100:11 | s3 | semmle.label | s3 |
+subpaths
+#select
+| test.c:6:19:6:20 | & ... | test.c:6:19:6:20 | & ... | test.c:6:19:6:20 | & ... | Cast from float to int results in an incompatible pointer base type. |
+| test.c:11:10:11:11 | & ... | test.c:11:10:11:11 | & ... | test.c:11:10:11:11 | & ... | Cast from short[2] to int results in an incompatible pointer base type. |
+| test.c:13:17:13:19 | & ... | test.c:13:17:13:19 | & ... | test.c:13:17:13:19 | & ... | Cast from short[2] to short[4] results in an incompatible pointer base type. |
+| test.c:19:18:19:20 | & ... | test.c:19:18:19:20 | & ... | test.c:19:18:19:20 | & ... | Cast from char to signed char results in an incompatible pointer base type. |
+| test.c:30:19:30:21 | & ... | test.c:30:19:30:21 | & ... | test.c:30:19:30:21 | & ... | Cast from int to unsigned int results in an incompatible pointer base type. |
+| test.c:47:8:47:9 | s2 | test.c:47:8:47:9 | s2 | test.c:47:8:47:9 | s2 | Cast from struct <unnamed> to struct <unnamed> results in an incompatible pointer base type. |
+| test.c:49:8:49:9 | s3 | test.c:49:8:49:9 | s3 | test.c:49:8:49:9 | s3 | Cast from S1 to struct <unnamed> results in an incompatible pointer base type. |
+| test.c:50:8:50:9 | s1 | test.c:50:8:50:9 | s1 | test.c:50:8:50:9 | s1 | Cast from struct <unnamed> to S1 results in an incompatible pointer base type. |
+| test.c:68:41:68:41 | v | test.c:72:13:72:15 | & ... | test.c:68:41:68:41 | v | Cast from float to int results in an incompatible pointer base type. |
+| test.c:99:3:99:4 | s3 | test.c:98:40:98:41 | s2 | test.c:99:3:99:4 | s3 | Cast from S2 to S3 results in an incompatible pointer base type. |

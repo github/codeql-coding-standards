@@ -54,6 +54,12 @@ private class CToOrIsCharMacroInvocation extends MacroInvocation, UseOfToOrIsCha
       result = ae.getArrayOffset().getFullyConverted().(Conversion).getExpr()
     )
     or
+    // For the "toupper/tolower" APIs, QNX expands to an array access
+    exists(ArrayExpr ae |
+      ae = getExpr() and
+      result = ae.getArrayOffset().getFullyConverted().(Conversion).getExpr()
+    )
+    or
     // For the tolower/toupper cases, a secondary macro is expanded
     exists(MacroInvocation mi |
       mi.getParentInvocation() = this and
