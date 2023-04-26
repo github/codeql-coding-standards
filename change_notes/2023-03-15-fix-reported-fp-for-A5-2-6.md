@@ -1,2 +1,0 @@
-- `A5-2-6` - `OperandsOfALogicalAndOrNotParenthesized.ql`:
-  - Exclude deferencing field accessor (`->`) and field accessor (`.`) from binary operators in question.

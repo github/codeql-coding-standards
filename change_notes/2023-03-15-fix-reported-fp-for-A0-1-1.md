@@ -1,2 +1,0 @@
-- `A0-1-1` - `UselessAssignment.ql`:
-  - Exclude cases where an access to a variable's field or member was not considered as a valid use of the variable.
