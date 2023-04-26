@@ -183,7 +183,7 @@ def generate_guideline_compliance_summary(output_directory, results_summary):
                 print(
                     "**Result**: " + ("Not compliant" if total_guidelines_violated > 0 else "Compliant"))
                 standard_pretty_name = {
-                    "cert": "CERT C++ 2016", "autosar": "AUTOSAR C++ 20-11"}
+                    "cert": "CERT C++ 2016", "autosar": "AUTOSAR C++  R19-11, R20-11 and R21-11"}
                 print("**Coding Standards applied**: " + ", ".join([standard_pretty_name[standard_short_name]
                       for standard_short_name in results_summary.guideline_violation_count.keys()]))
 
