@@ -58,4 +58,4 @@ where
   not spec.getFile() = spec.getPrimary().getFile() and
   not extraExclude(spec)
 select spec, "Specialization found in file $@ where primary template is outside that file.",
-  spec.getFile(), spec.getFile().getRelativePath()
+  spec.getFile(), spec.getFile().getBaseName()
