@@ -36,9 +36,7 @@ class DocumentableDeclaration extends Declaration {
     // Exclude instantiated template functions, which cannot reasonably be documented.
     not this.(Function).isFromTemplateInstantiation(_) and
     // Exclude anonymous lambda functions.
-    not exists(LambdaExpression lc |
-      lc.getLambdaFunction() = this and not lc.getEnclosingElement() instanceof Initializer
-    )
+    not exists(LambdaExpression lc | lc.getLambdaFunction() = this)
     or
     this instanceof MemberVariable and
     declarationType = "member variable" and

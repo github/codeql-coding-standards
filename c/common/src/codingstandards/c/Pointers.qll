@@ -68,6 +68,8 @@ predicate isNullPointerConstant(Expr e) {
     e instanceof Zero and
     c.getType() instanceof VoidPointerType
   )
+  or
+  isNullPointerConstant(e.(Conversion).getExpr())
 }
 
 predicate isCastNullPointerConstant(Cast c) {

@@ -131,7 +131,7 @@ Search for vulnerabilities resulting from the violation of this rule on the [CER
 
 ## Implementation notes
 
-None
+Wide character types are not handled correctly on the `aarch64le` architecture. This can lead to false negative alerts.
 
 ## References
 

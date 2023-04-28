@@ -114,8 +114,8 @@ void gf7() {
 }
 
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/Typeof.html#Typeof
-void gf8() {
-  typeof(int *); // NON_COMPLIANT[FALSE_NEGATIVE]
+void gf8() { // not supported by qcc gcc and clang
+  // typeof(int *); // NON_COMPLIANT[FALSE_NEGATIVE]
 }
 
 // Reference:

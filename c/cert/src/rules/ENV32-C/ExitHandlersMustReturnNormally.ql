@@ -14,14 +14,26 @@
 import cpp
 import codingstandards.c.cert
 
-class ExitFunction extends Function {
-  ExitFunction() { this.hasGlobalName(["_Exit", "exit", "quick_exit", "longjmp"]) }
+/**
+ * Exit function or macro.
+ */
+class Exit extends Locatable {
+  Exit() {
+    ["_Exit", "exit", "quick_exit", "longjmp"] = [this.(Function).getName(), this.(Macro).getName()]
+  }
 }
 
-class ExitFunctionCall extends FunctionCall {
-  ExitFunctionCall() { this.getTarget() instanceof ExitFunction }
+class ExitExpr extends Expr {
+  ExitExpr() {
+    this.(FunctionCall).getTarget() instanceof Exit
+    or
+    any(MacroInvocation m | this = m.getExpr()).getMacro() instanceof Exit
+  }
 }
 
+/**
+ * Functions that are registered as exit handlers.
+ */
 class RegisteredAtexit extends FunctionAccess {
   RegisteredAtexit() {
     exists(FunctionCall ae |
@@ -32,8 +44,8 @@ class RegisteredAtexit extends FunctionAccess {
 }
 
 /**
- * Nodes of type Function, FunctionCall or FunctionAccess that \
- * are reachable from a redistered atexit handler and
+ * Nodes of type Function, FunctionCall, FunctionAccess or ExitExpr
+ * that are reachable from a registered atexit handler and
  * can reach an exit function.
  */
 class InterestingNode extends ControlFlowNode {
@@ -41,15 +53,17 @@ class InterestingNode extends ControlFlowNode {
     exists(Function f |
       (
         this = f and
-        // exit functions are not part of edges
-        not this = any(ExitFunction ec)
+        // exit is not part of edges
+        not this instanceof Exit
         or
         this.(FunctionCall).getTarget() = f
         or
         this.(FunctionAccess).getTarget() = f
+        or
+        this.(ExitExpr).getEnclosingFunction() = f
       ) and
-      // reaches an exit function
-      f.calls*(any(ExitFunction e)) and
+      // reaches an `ExitExpr`
+      f.calls*(any(ExitExpr ee).getEnclosingFunction()) and
       // is reachable from a registered atexit function
       exists(RegisteredAtexit re | re.getTarget().calls*(f))
     )
@@ -62,14 +76,12 @@ class InterestingNode extends ControlFlowNode {
  * `Function` and `FunctionCall` in their body.
  */
 query predicate edges(InterestingNode a, InterestingNode b) {
-  a.(FunctionAccess).getTarget() = b
-  or
-  a.(FunctionCall).getTarget() = b
-  or
+  a.(FunctionAccess).getTarget() = b or
+  a.(FunctionCall).getTarget() = b or
   a.(Function).calls(_, b)
 }
 
-from RegisteredAtexit hr, Function f, ExitFunctionCall e
+from RegisteredAtexit hr, Function f, ExitExpr e
 where edges(hr, f) and edges+(f, e)
 select f, hr, e, "The function is $@ and $@. It must instead terminate by returning.", hr,
   "registered as `exit handler`", e, "calls an `exit function`"

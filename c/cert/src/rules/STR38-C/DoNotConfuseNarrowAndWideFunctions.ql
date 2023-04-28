@@ -63,6 +63,5 @@ where
     c instanceof WideToNarrowCast and actual = "wide" and expected = "narrow"
   )
 select call,
-  "Call to function $@ with a " + actual + " character string $@ where a " + expected +
-    " character string $@ is expected.", call.getTarget(), call.getTarget().getName(), arg,
-  "argument", p, "parameter"
+  "Call to function `" + call.getTarget().getName() + "` with a " + actual +
+    " character string $@ where a " + expected + " character string is expected.", arg, "argument"

@@ -58,7 +58,10 @@
           "tags": [
             "correctness",
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Wide character types are not handled correctly on the `aarch64le` architecture. This can lead to false negative alerts."
+          }
         }
       ],
       "title": "Do not pass a non-null-terminated character sequence to a library function that expects a string"

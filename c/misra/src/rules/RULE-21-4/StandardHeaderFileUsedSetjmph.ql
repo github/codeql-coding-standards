@@ -13,32 +13,41 @@
 import cpp
 import codingstandards.c.misra
 
-class SetJmp extends Macro {
+abstract class Jmp extends Locatable {
+  string name;
+
+  Jmp() {
+    this.getFile().getAbsolutePath().matches("%setjmp.h") and
+    name = [this.(Macro).getName(), this.(Function).getName()]
+  }
+
+  Locatable getAnInvocation() {
+    result = this.(Macro).getAnInvocation() or
+    result = this.(Function).getACallToThisFunction()
+  }
+
+  string getName() { result = name }
+}
+
+class SetJmp extends Jmp {
   SetJmp() {
-    this.hasName("setjmp") and
-    this.getFile().getAbsolutePath().matches("%setjmp.h")
+    name = "setjmp" and
+    this.(Macro).getName() = name
   }
 }
 
-class LongJmp extends Function {
+class LongJmp extends Jmp {
   LongJmp() {
-    this.hasName("longjmp") and
-    this.getFile().getAbsolutePath().matches("%setjmp.h")
+    name = "longjmp" and
+    [this.(Macro).getName(), this.(Function).getName()] = name
   }
 }
 
 from Locatable use, string name
 where
   not isExcluded(use, BannedPackage::standardHeaderFileUsedSetjmphQuery()) and
-  (
-    exists(SetJmp setjmp |
-      use = setjmp.getAnInvocation() and
-      name = "setjmp"
-    )
-    or
-    exists(LongJmp longjmp |
-      use = longjmp.getACallToThisFunction() and
-      name = "longjmp"
-    )
+  exists(Jmp jmp |
+    use = jmp.getAnInvocation() and
+    name = jmp.getName()
   )
 select use, "Use of " + name + "."

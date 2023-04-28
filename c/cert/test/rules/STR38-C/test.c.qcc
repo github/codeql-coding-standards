@@ -7,9 +7,9 @@ void f1() {
   wchar_t w2[] = L"codeql";
   char n1[] = "codeql";
   char n2[] = "codeql";
-
-  strncpy(w2, w1, 1); // NON_COMPLIANT (2x)
-  strncpy(w2, n1, 1); // NON_COMPLIANT (1x)
+  // FALSE_NEGATIVES due to https://github.com/github/codeql/issues/12914
+  strncpy(w2, w1, 1); // NON_COMPLIANT[FALSE_NEGATIVE] (2x)
+  strncpy(w2, n1, 1); // NON_COMPLIANT[FALSE_NEGATIVE] (1x)
   strncpy(n2, n1, 1); // COMPLIANT
 }
 

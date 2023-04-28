@@ -1,0 +1,11 @@
+| test.c:6:3:6:8 | call to printf | Access of closed file& ... which was closed at $@ | test.c:4:3:4:8 | call to fclose | this location. |
+| test.c:7:3:7:6 | call to puts | Access of closed file& ... which was closed at $@ | test.c:4:3:4:8 | call to fclose | this location. |
+| test.c:16:13:16:18 | _Stderr | Access of closed file& ... which was closed at $@ | test.c:13:3:13:8 | call to fclose | this location. |
+| test.c:17:3:17:8 | call to perror | Access of closed file& ... which was closed at $@ | test.c:13:3:13:8 | call to fclose | this location. |
+| test.c:24:8:24:12 | _Stdin | Access of closed file& ... which was closed at $@ | test.c:22:3:22:8 | call to fclose | this location. |
+| test.c:25:3:25:9 | call to getchar | Access of closed file& ... which was closed at $@ | test.c:22:3:22:8 | call to fclose | this location. |
+| test.c:34:18:34:18 | f | Access of closed filef which was closed at $@ | test.c:31:3:31:8 | call to fclose | this location. |
+| test.c:35:15:35:15 | f | Access of closed filef which was closed at $@ | test.c:31:3:31:8 | call to fclose | this location. |
+| test.c:70:11:70:12 | fp | Access of closed filefp which was closed at $@ | test.c:69:3:69:8 | call to fclose | this location. |
+| test.c:71:7:71:8 | fp | Access of closed filefp which was closed at $@ | test.c:69:3:69:8 | call to fclose | this location. |
+| test.c:81:17:81:17 | f | Access of closed filef which was closed at $@ | test.c:80:3:80:8 | call to fclose | this location. |

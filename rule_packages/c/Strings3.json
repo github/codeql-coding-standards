@@ -35,7 +35,10 @@
           "tags": [
             "correctness",
             "security"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Wide character types are not handled correctly on the `aarch64le` architecture. This can lead to false negative alerts."
+          }
         }
       ],
       "title": "Do not confuse narrow and wide character strings and functions"

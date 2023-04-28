@@ -1,0 +1,2 @@
+| test.c:7:7:7:17 | setjmp(__env) | Use of setjmp. |
+| test.c:8:3:8:17 | longjmp(__env,__val) | Use of longjmp. |
