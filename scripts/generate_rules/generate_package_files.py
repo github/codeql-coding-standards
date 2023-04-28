@@ -49,7 +49,7 @@ standard_metadata = {
     },
     "AUTOSAR" : {
         "standard_title" : "AUTOSAR: Guidelines for the use of the C++14 language in critical and safety-related systems",
-        "standard_url"   : "https://www.autosar.org/fileadmin/standards/R21-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf"
+        "standard_url"   : "https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf"
     },
     "CERT-C" : {
         "standard_title" : "CERT-C",
