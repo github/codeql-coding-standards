@@ -30,5 +30,7 @@ class StaticConstExprArrayDataMember extends MemberVariable {
 from Variable v
 where
   not isExcluded(v, BannedSyntaxPackage::cStyleArraysUsedQuery()) and
-  exists(ArrayType a | v.getType() = a | not v instanceof StaticConstExprArrayDataMember)
+  exists(ArrayType a | v.getType() = a | not v instanceof StaticConstExprArrayDataMember) and
+  // Exclude the compiler generated __func__ as it is the only way to access the function name information
+  not v.getName() = "__func__"
 select v, "Variable " + v.getName() + " declares a c-style array."
