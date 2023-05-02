@@ -1,7 +1,7 @@
-#include <cstdint>
-#include <string>
-
 #include "test.h"
+#include <cstdint>
+#include <functional>
+#include <string>
 
 #undef INT_MAX       // NON_COMPLIANT
 #define SIZE_MAX 256 // NON_COMPLIANT
@@ -40,4 +40,12 @@ FD_SET(j); // COMPLIANT - standard library macro
 
 void f() {
   std::string x = __func__; // COMPLIANT
+}
+
+void g(int (*l)(int)) {}
+
+void test_lambda(const int y) {
+  // Lambda generates a static function called `_FUN` when the lambda is
+  // converted to a function pointer
+  g([](int x) { return x; }); // COMPLIANT - compiler generated
 }
