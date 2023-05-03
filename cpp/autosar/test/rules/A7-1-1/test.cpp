@@ -66,8 +66,8 @@ class Issue18 {
 public:
   template <typename T> void F(const T &s) {
     // ignore uninstantiated templates
-    std::ostream ostr; // COMPLIANT
-    ostr << s;         // <= Modified here
+    std::ostream ostr(0); // COMPLIANT
+    ostr << s;            // <= Modified here
     return;
   }
 };
