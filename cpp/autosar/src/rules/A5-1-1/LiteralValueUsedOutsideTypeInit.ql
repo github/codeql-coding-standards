@@ -26,6 +26,10 @@ where
   not exists(ConstructorCall cc | cc.getAnArgument() = l) and
   not exists(ConstructorFieldInit cf | cf.getExpr() = l) and
   not l = any(LoggingOperation logOp).getALoggedExpr().getAChild*() and
+  // Exclude arguments to wrapper functions (depth 1)
+  not exists(FunctionCall fc, LoggerOrStreamWrapperFunction w |
+    fc.getAnArgument() = l and w.getACallToThisFunction() = fc
+  ) and
   // Exclude Macros with names like *LOG
   not exists(MacroInvocation m | m.getMacroName().matches("%LOG") and m.getAnAffectedElement() = l) and
   // Exclude literal 0
