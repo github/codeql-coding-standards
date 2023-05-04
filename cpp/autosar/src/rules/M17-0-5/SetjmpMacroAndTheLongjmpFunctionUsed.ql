@@ -16,7 +16,10 @@
 import cpp
 import codingstandards.cpp.autosar
 
-predicate isLongJumpCall(FunctionCall fc) { fc.getTarget().hasGlobalOrStdName("longjmp") }
+predicate isLongJumpCall(Locatable fc) {
+  fc.(FunctionCall).getTarget().hasGlobalOrStdName("longjmp") or
+  fc.(MacroInvocation).getMacroName() = "longjmp"
+}
 
 predicate isSetJumpCall(MacroInvocation mi) { mi.getMacroName() = "setjmp" }
 
