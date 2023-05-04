@@ -300,7 +300,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     foreach($testDirectory in $testDirs){
 
         Write-Host "Acquiring lock for $testDirectory"
-        $Mutex = New-Object -TypeName System.Threading.Mutex -ArgumentList $false, ("__Matrix_" + $testDirectory.Replace("\","_"));
+        $Mutex = New-Object -TypeName System.Threading.Mutex -ArgumentList $false, ("__Matrix_" + $testDirectory.Replace([IO.Path]::DirectorySeparatorChar,"_"));
         $Mutex.WaitOne() | Out-Null;
         Write-Host "Locked $testDirectory"        
 
