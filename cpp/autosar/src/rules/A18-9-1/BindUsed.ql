@@ -17,7 +17,10 @@ import cpp
 import codingstandards.cpp.autosar
 
 predicate isBind(FunctionCall fc) {
-  fc.getTarget().getQualifiedName() in ["std::bind", "std::bind1st", "std::bind2nd"]
+  fc.getTarget().getQualifiedName() in [
+      ["std::bind", "std::bind1st", "std::bind2nd",],
+      ["std::__1::bind", "std::__1::bind1st", "std::__1::bind2nd"]
+    ]
 }
 
 from FunctionCall fc
