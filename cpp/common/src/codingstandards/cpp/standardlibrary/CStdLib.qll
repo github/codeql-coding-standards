@@ -4,15 +4,15 @@ import cpp
 
 /** The function `std::quick_exit`. */
 class StdQuickExit extends Function {
-  StdQuickExit() { hasQualifiedName("std", "quick_exit") }
+  StdQuickExit() { this.hasGlobalOrStdName("quick_exit") }
 }
 
 /** The function `std::abort`. */
 class StdAbort extends Function {
-  StdAbort() { hasQualifiedName("std", "abort") }
+  StdAbort() { this.hasGlobalOrStdName("abort") }
 }
 
 /** The function `std::_Exit`. */
 class Std_Exit extends Function {
-  Std_Exit() { hasQualifiedName("std", "_Exit") }
+  Std_Exit() { this.hasGlobalOrStdName("_Exit") }
 }

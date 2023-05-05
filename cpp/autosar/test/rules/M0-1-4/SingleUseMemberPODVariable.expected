@@ -1,4 +1,3 @@
-| test.cpp:36:24:36:29 | unused | Member POD variable unused in C1 is only $@. | test.cpp:36:31:36:31 | initializer for unused | used once |
 | test_global_or_namespace.cpp:16:7:16:7 | x | Member POD variable x in GA is only $@. | test_global_or_namespace.cpp:38:6:38:6 | x | used once |
 | test_global_or_namespace.cpp:54:7:54:7 | x | Member POD variable x in N1A is only $@. | test_global_or_namespace.cpp:76:6:76:6 | x | used once |
 | test_member.cpp:5:7:5:8 | m2 | Member POD variable m2 in A is only $@. | test_member.cpp:9:21:9:25 | constructor init of field m2 | used once |

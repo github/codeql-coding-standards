@@ -6,6 +6,15 @@ import cpp
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
 
+class StdNS extends Namespace {
+  StdNS() {
+    this instanceof StdNamespace
+    or
+    this.isInline() and
+    this.getParentNamespace() instanceof StdNS
+  }
+}
+
 abstract class ContainerAccess extends VariableAccess {
   abstract Variable getOwningContainer();
 }
@@ -168,11 +177,7 @@ class ContainerInvalidationOperation extends FunctionCall {
             ]
         )
         or
-        exists(FunctionCall fc |
-          fc.getTarget().getNamespace().getName() = "std" and
-          fc.getTarget().getName() in ["swap", "operator>>", "getline"] and
-          this = fc
-        )
+        this.getTarget().hasGlobalOrStdName(["swap", "operator>>", "getline"])
       )
     )
   }
@@ -195,7 +200,7 @@ class ContainerInvalidationOperation extends FunctionCall {
 /** An iterator type in the `std` namespace. */
 class StdIteratorType extends UserType {
   StdIteratorType() {
-    getNamespace().getName() = "std" and
+    this.getNamespace() instanceof StdNS and
     getSimpleName().matches("%_iterator") and
     not getSimpleName().matches("const_%")
   }
@@ -247,16 +252,11 @@ class AdditiveOperatorFunctionCall extends FunctionCall {
  */
 class STLContainer extends Class {
   STLContainer() {
-    getNamespace().getName() = "std" and
-    getSimpleName() in [
+    this.hasGlobalOrStdName([
         "vector", "list", "deque", "set", "multiset", "map", "multimap", "stack", "queue",
         "priority_queue", "string", "forward_list", "unordered_set", "unordered_multiset",
         "unordered_map", "unordered_multimap", "valarray", "string", "basic_string"
-      ]
-    or
-    getSimpleName() = "string"
-    or
-    getSimpleName() = "basic_string"
+      ])
   }
 
   /**
@@ -291,7 +291,7 @@ class STLContainer extends Class {
   IteratorSource getAConstIteratorEndFunctionCall() { result = getACallTo("cend") }
 
   IteratorSource getANonConstIteratorFunctionCall() {
-    result = getACallToAFunction() and
+    //result = this.getACallToAFunction() and
     result.getTarget().getType() instanceof NonConstIteratorType
   }
 
@@ -343,24 +343,24 @@ class STLContainerVariable extends Variable {
  * to create this functionality.
  */
 class IteratorRangeModel extends Function {
-  IteratorRangeModel() { hasQualifiedName("std", "lexicographical_compare") }
+  IteratorRangeModel() { this.hasGlobalOrStdName("lexicographical_compare") }
 
   int getAnIndexOfAStartRange() {
-    (hasQualifiedName("std", "lexicographical_compare") and result = [0, 1])
+    (this.hasGlobalOrStdName("lexicographical_compare") and result = [0, 1])
   }
 
   int getAnIndexOfAEndRange() {
-    (hasQualifiedName("std", "lexicographical_compare") and result = [2, 3])
+    (this.hasGlobalOrStdName("lexicographical_compare") and result = [2, 3])
   }
 
   int getAnIteratorArgumentIndex() {
-    (hasQualifiedName("std", "lexicographical_compare") and result = [0, 1, 2, 3])
+    (this.hasGlobalOrStdName("lexicographical_compare") and result = [0, 1, 2, 3])
   }
 
   predicate getAPairOfStartEndIndexes(int start, int end) {
-    hasQualifiedName("std", "lexicographical_compare") and start = 0 and end = 1
+    this.hasGlobalOrStdName("lexicographical_compare") and start = 0 and end = 1
     or
-    hasQualifiedName("std", "lexicographical_compare") and start = 2 and end = 3
+    this.hasGlobalOrStdName("lexicographical_compare") and start = 2 and end = 3
   }
 }
 
@@ -378,7 +378,7 @@ class IteratorRangeFunctionCall extends FunctionCall {
     count(Expr e |
       e = getAnArgument() and
       e.getType() instanceof IteratorType and
-      getTarget().getNamespace().getName() = "std" and
+      getTarget().getNamespace() instanceof StdNS and
       not getTarget().getName() in ["operator==", "operator!="]
     ) > 1
   }

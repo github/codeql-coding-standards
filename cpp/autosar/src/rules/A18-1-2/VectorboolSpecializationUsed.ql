@@ -18,13 +18,17 @@
 import cpp
 import codingstandards.cpp.autosar
 
-predicate isVectorBool(ClassTemplateInstantiation c) {
-  (
-    c.getNamespace() instanceof StdNamespace
+class StdNS extends Namespace {
+  StdNS() {
+    this instanceof StdNamespace
     or
-    c.getNamespace().isInline() and
-    c.getNamespace().getParentNamespace() instanceof StdNamespace
-  ) and
+    this.isInline() and
+    this.getParentNamespace() instanceof StdNS
+  }
+}
+
+predicate isVectorBool(ClassTemplateInstantiation c) {
+  c.getNamespace() instanceof StdNS and
   c.getTemplateArgument(0) instanceof BoolType and
   c.getSimpleName() = "vector"
 }
