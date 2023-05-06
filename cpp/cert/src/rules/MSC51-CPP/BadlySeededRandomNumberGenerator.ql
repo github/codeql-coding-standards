@@ -33,7 +33,7 @@ where
     or
     // Initialized from a poor source of randomness
     exists(Call c |
-      c.getTarget().hasQualifiedName("std", "time") and
+      c.getTarget().hasGlobalOrStdName("time") and
       TaintTracking::localExprTaint(c, createRandomNumberEngine.getSeedArgument()) and
       seedSource = "initialized from std::time"
     )
