@@ -185,6 +185,11 @@ class StringContainerConstructorCall extends ContainerConstructorCall {
     c.getParameter(1).getType() = stringInstantiation.getConstAllocatorReferenceType() and
     result = getArgument(0).getValue().length()
     or
+    // from c-string copy constructor
+    c.getNumberOfParameters() = 1 and
+    c.getParameter(0).getType() = stringInstantiation.getValueType() and
+    result = getArgument(0).getValue().length()
+    or
     // Lower bound of an explicit size argument
     result = lowerBound(getInitialContainerSizeExpr().getFullyConverted())
   }

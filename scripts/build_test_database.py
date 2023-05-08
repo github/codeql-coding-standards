@@ -47,7 +47,7 @@ if not os.path.exists(f"{LANGUAGE}/{STANDARD}/test/rules/{RULE}"):
     exit(1)
 
 # get the codeql version 
-res = subprocess.run(['codeql', 'version', '--format', 'json'], stdout=subprocess.PIPE)
+res = subprocess.run(['/Users/mauro/GitHub/coding-standards/codeql-bundle-20220908/codeql', 'version', '--format', 'json'], stdout=subprocess.PIPE)
 res_json = json.loads(res.stdout) 
 CODEQL_VERSION=res_json["version"]
 
@@ -61,10 +61,10 @@ if LANGUAGE == "cpp":
 
 elif LANGUAGE == "c":
     FILES = ' '.join([f for f in all_files if f.endswith('.c')])
-    BUILD_COMMAND=f"clang -fsyntax-only {FILES}"
+    BUILD_COMMAND=f"clang -fsyntax-only -I../../../../common/test/includes/custom-library {FILES}"
 
 ITERATION=0
 while os.path.exists(f"databases/{RULE}+{ITERATION}@{CODEQL_VERSION}"):
     ITERATION = ITERATION + 1 
 
-os.system(f"codeql database create -l cpp -s {LANGUAGE}/{STANDARD}/test/rules/{RULE} --command=\"{BUILD_COMMAND}\" databases/{RULE}+{ITERATION}@{CODEQL_VERSION}")
+os.system(f"/Users/mauro/GitHub/coding-standards/codeql-bundle-20220908/codeql database create -l cpp -s {LANGUAGE}/{STANDARD}/test/rules/{RULE} --command=\"{BUILD_COMMAND}\" databases/{RULE}+{ITERATION}@{CODEQL_VERSION}")
