@@ -89,6 +89,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "SetjmpMacroAndTheLongjmpFunctionUsed",
+          "shared_implementation_short_name": "DoNotUseSetjmpOrLongjmpShared",
           "tags": [
             "correctness",
             "scope/single-translation-unit"
@@ -210,6 +211,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotUseSetjmpOrLongjmp",
+          "shared_implementation_short_name": "DoNotUseSetjmpOrLongjmpShared",
           "tags": [
             "correctness",
             "scope/single-translation-unit"
