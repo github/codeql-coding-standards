@@ -299,11 +299,6 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
 
     foreach($testDirectory in $testDirs){
 
-        Write-Host "Acquiring lock for $testDirectory"
-        $Mutex = New-Object -TypeName System.Threading.Mutex -ArgumentList $false, ("__Matrix_" + $testDirectory.Replace([IO.Path]::DirectorySeparatorChar,"_"));
-        $Mutex.WaitOne() | Out-Null;
-        Write-Host "Locked $testDirectory"        
-
         # for the report 
         $row = @{
             "SUITE"             = $CurrentSuiteName;
@@ -417,8 +412,6 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             # output current row state 
             $row 
 
-            # release any held mutexes            
-            $Mutex.ReleaseMutex();
 
             ###########################################################
             ###########################################################
@@ -430,8 +423,6 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
         }
     }
     # go to next row 
-
-   
 }
 
 # combine the outputs 
