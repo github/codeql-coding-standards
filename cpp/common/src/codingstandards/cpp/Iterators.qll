@@ -177,7 +177,10 @@ class ContainerInvalidationOperation extends FunctionCall {
             ]
         )
         or
-        this.getTarget().hasGlobalOrStdName(["swap", "operator>>", "getline"])
+        exists(FunctionCall fc |
+          fc.getTarget().getNamespace() instanceof StdNS and
+          this.getTarget().getName() in ["swap", "operator>>", "getline"]
+        )
       )
     )
   }
@@ -252,11 +255,16 @@ class AdditiveOperatorFunctionCall extends FunctionCall {
  */
 class STLContainer extends Class {
   STLContainer() {
-    this.hasGlobalOrStdName([
+    getNamespace() instanceof StdNS and
+    getSimpleName() in [
         "vector", "list", "deque", "set", "multiset", "map", "multimap", "stack", "queue",
         "priority_queue", "string", "forward_list", "unordered_set", "unordered_multiset",
         "unordered_map", "unordered_multimap", "valarray", "string", "basic_string"
-      ])
+      ]
+    or
+    getSimpleName() = "string"
+    or
+    getSimpleName() = "basic_string"
   }
 
   /**
@@ -291,7 +299,7 @@ class STLContainer extends Class {
   IteratorSource getAConstIteratorEndFunctionCall() { result = getACallTo("cend") }
 
   IteratorSource getANonConstIteratorFunctionCall() {
-    //result = this.getACallToAFunction() and
+    result = getACallToAFunction() and
     result.getTarget().getType() instanceof NonConstIteratorType
   }
 
@@ -343,24 +351,24 @@ class STLContainerVariable extends Variable {
  * to create this functionality.
  */
 class IteratorRangeModel extends Function {
-  IteratorRangeModel() { this.hasGlobalOrStdName("lexicographical_compare") }
+  IteratorRangeModel() { hasQualifiedName("std", "lexicographical_compare") }
 
   int getAnIndexOfAStartRange() {
-    (this.hasGlobalOrStdName("lexicographical_compare") and result = [0, 1])
+    (hasQualifiedName("std", "lexicographical_compare") and result = [0, 1])
   }
 
   int getAnIndexOfAEndRange() {
-    (this.hasGlobalOrStdName("lexicographical_compare") and result = [2, 3])
+    (hasQualifiedName("std", "lexicographical_compare") and result = [2, 3])
   }
 
   int getAnIteratorArgumentIndex() {
-    (this.hasGlobalOrStdName("lexicographical_compare") and result = [0, 1, 2, 3])
+    (hasQualifiedName("std", "lexicographical_compare") and result = [0, 1, 2, 3])
   }
 
   predicate getAPairOfStartEndIndexes(int start, int end) {
-    this.hasGlobalOrStdName("lexicographical_compare") and start = 0 and end = 1
+    hasQualifiedName("std", "lexicographical_compare") and start = 0 and end = 1
     or
-    this.hasGlobalOrStdName("lexicographical_compare") and start = 2 and end = 3
+    hasQualifiedName("std", "lexicographical_compare") and start = 2 and end = 3
   }
 }
 
