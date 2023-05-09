@@ -17,6 +17,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Naming
+import codingstandards.cpp.StdNamespace
 
 FunctionCall nonCompliantCStdlibCalls(File f) {
   result =
@@ -55,7 +56,7 @@ FunctionCall nonCompliantCStdlibCalls(File f) {
               nq = fc.getNameQualifier() and
               (
                 nq.getQualifyingElement() instanceof GlobalNamespace or
-                nq.getQualifyingElement() instanceof StdNamespace
+                nq.getQualifyingElement() instanceof StdNS
               )
             )
           )
