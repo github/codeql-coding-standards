@@ -1,0 +1,15 @@
+| test.cpp:9:33:9:33 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:10:30:10:31 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:11:21:11:22 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:12:20:12:21 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:13:16:13:17 | call to mersenne_twister_engine | Random number generator mersenne_twister_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:14:19:14:20 | call to mersenne_twister_engine | Random number generator mersenne_twister_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:15:22:15:23 | call to subtract_with_carry_engine | Random number generator subtract_with_carry_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:16:22:16:23 | call to subtract_with_carry_engine | Random number generator subtract_with_carry_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:17:17:17:19 | call to discard_block_engine | Random number generator discard_block_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:18:17:18:19 | call to discard_block_engine | Random number generator discard_block_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:19:16:19:18 | call to shuffle_order_engine | Random number generator shuffle_order_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:21:34:22:47 | call to linear_congruential_engine | Random number generator linear_congruential_engine is initialized from std::time and is therefore not properly seeded. |
+| test.cpp:23:34:23:36 | call to linear_congruential_engine | Random number generator linear_congruential_engine is is initialized to the constant value 2 and is therefore not properly seeded. |
+| test.cpp:29:30:29:35 | default initialization engine of type default_random_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |
+| test.cpp:36:23:36:23 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |

@@ -17,15 +17,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-
-class StdNS extends Namespace {
-  StdNS() {
-    this instanceof StdNamespace
-    or
-    this.isInline() and
-    this.getParentNamespace() instanceof StdNS
-  }
-}
+import codingstandards.cpp.StdNamespace
 
 predicate isVectorBool(ClassTemplateInstantiation c) {
   c.getNamespace() instanceof StdNS and

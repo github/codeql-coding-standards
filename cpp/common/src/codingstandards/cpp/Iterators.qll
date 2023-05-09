@@ -5,15 +5,7 @@
 import cpp
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
-
-class StdNS extends Namespace {
-  StdNS() {
-    this instanceof StdNamespace
-    or
-    this.isInline() and
-    this.getParentNamespace() instanceof StdNS
-  }
-}
+import codingstandards.cpp.StdNamespace
 
 abstract class ContainerAccess extends VariableAccess {
   abstract Variable getOwningContainer();

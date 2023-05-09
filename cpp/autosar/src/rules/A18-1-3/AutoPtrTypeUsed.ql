@@ -15,14 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.StdNamespace
 
 predicate isAutoPtr(ClassTemplateInstantiation c) {
-  (
-    c.getNamespace() instanceof StdNamespace
-    or
-    c.getNamespace().isInline() and
-    c.getNamespace().getParentNamespace() instanceof StdNamespace
-  ) and
+  c.getNamespace() instanceof StdNS and
   c.getSimpleName() = "auto_ptr"
 }
 
