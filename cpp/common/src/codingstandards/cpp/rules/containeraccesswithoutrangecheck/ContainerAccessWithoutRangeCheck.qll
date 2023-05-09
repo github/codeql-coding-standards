@@ -199,7 +199,6 @@ class StringContainerConstructorCall extends ContainerConstructorCall {
     c.getParameter(1).getType() = stringInstantiation.getConstAllocatorReferenceType() and
     result = getArgument(0).getValue().length()
     or
-
     // Lower bound of an explicit size argument
     result = lowerBound(getInitialContainerSizeExpr().getFullyConverted())
   }
