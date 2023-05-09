@@ -1,0 +1,6 @@
+#include "test.hpp" //NON_COMPLIANT
+#include <string>   //COMPLIANT
+#include <vector>   //COMPLIANT
+#include <vector>   //COMPLIANT
+
+std::string s = "A string";
