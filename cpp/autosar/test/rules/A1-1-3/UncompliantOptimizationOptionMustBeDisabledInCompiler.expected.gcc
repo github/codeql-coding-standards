@@ -3,3 +3,4 @@
 | test.cpp:0:0:0:0 | test.cpp | File compiled with uncompliant optimization flag '-ffinite-math-only'. |
 | test.cpp:0:0:0:0 | test.cpp | File compiled with uncompliant optimization flag '-ffloat-store'. |
 | test.cpp:0:0:0:0 | test.cpp | File compiled with uncompliant optimization flag '-fgnu-keywords'. |
+| test.cpp:0:0:0:0 | test.cpp | File compiled with uncompliant optimization flag '-fno-signed-zeroes'. |
