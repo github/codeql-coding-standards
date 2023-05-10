@@ -15,16 +15,15 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.StdNamespace
 
 predicate isBind(FunctionCall fc) {
-  fc.getTarget().getQualifiedName() in [
-      ["std::bind", "std::bind1st", "std::bind2nd",],
-      ["std::__1::bind", "std::__1::bind1st", "std::__1::bind2nd"]
-    ]
+  fc.getTarget().getNamespace() instanceof StdNS and
+  fc.getTarget().getName() in ["bind", "bind1st", "bind2nd"]
 }
 
 from FunctionCall fc
 where
   isBind(fc) and
   not isExcluded(fc, BannedFunctionsPackage::bindUsedQuery())
-select fc, "Prefer lambdas to using " + fc.getTarget().getQualifiedName() + "."
+select fc, "Prefer lambdas to using `" + fc.getTarget().getName() + "`."
