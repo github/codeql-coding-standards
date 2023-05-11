@@ -1,1 +1,1 @@
--Ofast -ffast-math -fgnu-keywords -fno-signed-zeroes -ffinite-math-only -ffloat-store
+-Ofast -ffast-math -fgnu-keywords -fno-signed-zeros -ffinite-math-only -ffloat-store
