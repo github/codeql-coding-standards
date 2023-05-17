@@ -23,3 +23,5 @@
 
 # CodeQL build artifacts
 **/.codeql/**
+cpp/autosar/test/rules/A2-3-1/test.cpp.gcc
+cpp/autosar/test/rules/A2-3-1/test.cpp.qcc

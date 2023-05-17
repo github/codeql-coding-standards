@@ -24,5 +24,5 @@
 #include <wchar.h>    // NON_COMPLIANT
 #include <wctype.h>   // NON_COMPLIANT
 
-#include <cassert>       // COMPLIANT
 #include <stdnoreturn.h> // COMPLIANT
+#include <threads.h>     // COMPLIANT
