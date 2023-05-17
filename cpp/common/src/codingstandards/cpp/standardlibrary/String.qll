@@ -13,7 +13,7 @@ class StdBasicString extends ClassTemplateInstantiation {
   Type getAllocator() { result = getTemplateArgument(2) }
 
   /** Gets the `const charT*` type for this `basic_string` instantiation. */
-  PointerType getValueType() {
+  PointerType getConstCharTPointer() {
     exists(SpecifiedType specType |
       specType = result.getBaseType() and
       specType.isConst() and

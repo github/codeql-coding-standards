@@ -159,7 +159,7 @@ class StringContainerConstructorCall extends ContainerConstructorCall {
   override Expr getInitialContainerSizeExpr() {
     // from buffer
     c.getNumberOfParameters() = 3 and
-    c.getParameter(0).getType() = stringInstantiation.getValueType() and
+    c.getParameter(0).getType() = stringInstantiation.getConstCharTPointer() and
     c.getParameter(1).getType() = stringInstantiation.getSizeType() and
     c.getParameter(2).getType() = stringInstantiation.getConstAllocatorReferenceType() and
     // copies `n` items from the buffer
@@ -181,11 +181,11 @@ class StringContainerConstructorCall extends ContainerConstructorCall {
     or
     // from c-string constructors
     c.getNumberOfParameters() = 1 and
-    c.getParameter(0).getType() = stringInstantiation.getValueType() and
+    c.getParameter(0).getType() = stringInstantiation.getConstCharTPointer() and
     result = getArgument(0).getValue().length()
     or
     c.getNumberOfParameters() = 2 and
-    c.getParameter(0).getType() = stringInstantiation.getValueType() and
+    c.getParameter(0).getType() = stringInstantiation.getConstCharTPointer() and
     c.getParameter(1).getType() = stringInstantiation.getSizeType() and
     result = getArgument(1).getValue().toFloat()
     or
@@ -195,7 +195,7 @@ class StringContainerConstructorCall extends ContainerConstructorCall {
     result = getArgument(0).getValue().toFloat()
     or
     c.getNumberOfParameters() = 2 and
-    c.getParameter(0).getType() = stringInstantiation.getValueType() and
+    c.getParameter(0).getType() = stringInstantiation.getConstCharTPointer() and
     c.getParameter(1).getType() = stringInstantiation.getConstAllocatorReferenceType() and
     result = getArgument(0).getValue().length()
     or

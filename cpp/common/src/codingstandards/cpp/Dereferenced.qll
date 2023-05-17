@@ -46,7 +46,7 @@ class BasicStringMemberFunctionDereferencedExpr extends BasicStringDereferencedE
       // basic_string::basic_string(const charT *, const Allocator &)
       f instanceof Constructor and
       f.getNumberOfParameters() <= 2 and
-      f.getParameter(0).getType() = stringType.getValueType() and
+      f.getParameter(0).getType() = stringType.getConstCharTPointer() and
       (
         f.getNumberOfParameters() = 2
         implies
@@ -58,14 +58,14 @@ class BasicStringMemberFunctionDereferencedExpr extends BasicStringDereferencedE
       // basic_string &basic_string::assign(const charT *)
       f.hasName(["append", "assign"]) and
       f.getNumberOfParameters() = 1 and
-      f.getParameter(0).getType() = stringType.getValueType() and
+      f.getParameter(0).getType() = stringType.getConstCharTPointer() and
       this = fc.getArgument(0)
       or
       // basic_string &basic_string::insert(size_type, const charT *)
       f.hasName("insert") and
       f.getNumberOfParameters() = 2 and
       f.getParameter(0).getType() = stringType.getSizeType() and
-      f.getParameter(1).getType() = stringType.getValueType() and
+      f.getParameter(1).getType() = stringType.getConstCharTPointer() and
       this = fc.getArgument(1)
       or
       // basic_string &basic_string::replace(size_type, size_type, const charT *)
@@ -74,7 +74,7 @@ class BasicStringMemberFunctionDereferencedExpr extends BasicStringDereferencedE
       f.getNumberOfParameters() = 3 and
       f.getParameter(0).getType() = [stringType.getSizeType(), stringType.getConstIteratorType()] and
       f.getParameter(1).getType() = [stringType.getSizeType(), stringType.getConstIteratorType()] and
-      f.getParameter(2).getType() = stringType.getValueType() and
+      f.getParameter(2).getType() = stringType.getConstCharTPointer() and
       this = fc.getArgument(2)
       or
       // size_type basic_string::find(const charT *, size_type)
@@ -87,7 +87,7 @@ class BasicStringMemberFunctionDereferencedExpr extends BasicStringDereferencedE
           "find", "rfind", "find_first_of", "find_last_of", "find_first_not_of", "find_last_not_of"
         ]) and
       f.getNumberOfParameters() = 2 and
-      f.getParameter(0).getType() = stringType.getValueType() and
+      f.getParameter(0).getType() = stringType.getConstCharTPointer() and
       f.getParameter(1).getType() = stringType.getSizeType() and
       this = fc.getArgument(0)
       or
@@ -96,7 +96,7 @@ class BasicStringMemberFunctionDereferencedExpr extends BasicStringDereferencedE
       // basic_string &basic_string::operator+=(const charT *)
       f.hasName(["compare", "operator=", "operator+="]) and
       f.getNumberOfParameters() = 1 and
-      f.getParameter(0).getType() = stringType.getValueType() and
+      f.getParameter(0).getType() = stringType.getConstCharTPointer() and
       this = fc.getArgument(0)
       or
       // int basic_string::compare(size_type, size_type, const charT *)
@@ -104,7 +104,7 @@ class BasicStringMemberFunctionDereferencedExpr extends BasicStringDereferencedE
       f.getNumberOfParameters() = 3 and
       f.getParameter(0).getType() = stringType.getSizeType() and
       f.getParameter(1).getType() = stringType.getSizeType() and
-      f.getParameter(2).getType() = stringType.getValueType() and
+      f.getParameter(2).getType() = stringType.getConstCharTPointer() and
       this = fc.getArgument(2)
     )
   }
@@ -136,7 +136,7 @@ class BasicStringNonMemberFunctionDereferencedExpr extends BasicStringDereferenc
         ]) and
       f.getAParameter().getType().(ReferenceType).getBaseType().getUnspecifiedType() = stringType and
       exists(int param |
-        f.getParameter(param).getType() = stringType.getValueType() and
+        f.getParameter(param).getType() = stringType.getConstCharTPointer() and
         this = fc.getArgument(param)
       )
     )
