@@ -1,5 +1,5 @@
-#include "test.hpp" //NON_COMPLIANT
-#include <string>   //COMPLIANT
-#include <vector>   //NON_COMPLIANT
+#include "test.hpp"  //NON_COMPLIANT
+#include <algorithm> //NON_COMPLIANT
+#include <vector>    //COMPLIANT
 
-std::string s = "A string";
+std::vector<int> v;
