@@ -17,7 +17,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.preprocessorincludesforbiddenheadernames.PreprocessorIncludesForbiddenHeaderNames
 
-class CharactersOccurInHeaderFileNameOrInIncludeDirectiveQuery extends PreprocessorIncludesForbiddenHeaderNamesQuery {
+class CharactersOccurInHeaderFileNameOrInIncludeDirectiveQuery extends PreprocessorIncludesForbiddenHeaderNamesSharedQuery {
   CharactersOccurInHeaderFileNameOrInIncludeDirectiveQuery() {
     this = MacrosPackage::charactersOccurInHeaderFileNameOrInIncludeDirectiveQuery()
   }

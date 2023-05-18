@@ -17,7 +17,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.catchexceptionsbylvaluereference.CatchExceptionsByLvalueReference
 
-class ClassTypeExceptionNotCaughtByReference extends CatchExceptionsByLValueReferenceSharedQuery {
+class ClassTypeExceptionNotCaughtByReference extends CatchExceptionsByLvalueReferenceSharedQuery {
   ClassTypeExceptionNotCaughtByReference() {
     this = Exceptions2Package::classTypeExceptionNotCaughtByReferenceQuery()
   }

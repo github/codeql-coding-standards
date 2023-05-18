@@ -17,7 +17,7 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.undefinedmacroidentifiers.UndefinedMacroIdentifiers
 
-class UndefinedMacroIdentifiersUsedInQuery extends UndefinedMacroIdentifiersQuery {
+class UndefinedMacroIdentifiersUsedInQuery extends UndefinedMacroIdentifiersSharedQuery {
   UndefinedMacroIdentifiersUsedInQuery() {
     this = Preprocessor1Package::identifiersUsedInPreprocessorExpressionQuery()
   }
