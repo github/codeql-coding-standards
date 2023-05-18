@@ -1,4 +1,3 @@
-| file://:0:0:0:0 | __va_list_tag | Type declaration __va_list_tag is not used. |
 | test.cpp:4:7:4:7 | A | Type declaration A is not used. |
 | test.cpp:6:7:6:7 | B | Type declaration B is not used. |
 | test.cpp:13:11:13:11 | D | Type declaration D is not used. |
