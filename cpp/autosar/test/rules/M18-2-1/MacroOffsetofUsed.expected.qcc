@@ -1,0 +1,1 @@
+| test.cpp:9:32:9:51 | offsetof(__typ,__id) | Use of banned macro offsetof. |

@@ -25,3 +25,9 @@ class A {
 public:
   A() = delete; // COMPLIANT - deleted functions imply `noexcept(true)`.
 };
+
+/* Added for testing FP of embedded operator inside lambdas being reported */
+void lambda_example() noexcept {
+  auto with_capture = [=]() {};
+  auto empty_capture = []() {};
+}

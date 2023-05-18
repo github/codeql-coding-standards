@@ -26,4 +26,4 @@ where
   // Assignment to a different type category is prohibited by Rule 10.3, so we only report cases
   // where the assignment is to the same type category.
   getEssentialTypeCategory(lValueType) = getEssentialTypeCategory(compositeEssentialType)
-select ce, "Assignment to wider essential type: $@."
+select ce, "Assignment to wider essential type `" + lValueType.getName() + "`."

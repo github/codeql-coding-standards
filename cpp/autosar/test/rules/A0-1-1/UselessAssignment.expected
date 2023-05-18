@@ -1,14 +1,14 @@
-| test.cpp:22:10:22:11 | 0 | Definition of $@ is unused. | test.cpp:22:7:22:7 | y | y |
-| test.cpp:25:3:25:5 | ... ++ | Definition of $@ is unused. | test.cpp:24:7:24:7 | z | z |
-| test.cpp:42:3:42:7 | ... = ... | Definition of $@ is unused. | test.cpp:20:41:20:41 | p | p |
-| test.cpp:44:10:44:11 | 0 | Definition of $@ is unused. | test.cpp:44:7:44:8 | l3 | l3 |
-| test.cpp:45:13:45:22 | new | Definition of $@ is unused. | test.cpp:45:8:45:9 | l4 | l4 |
-| test.cpp:48:8:48:8 | {...} | Definition of $@ is unused. | test.cpp:48:5:48:6 | a2 | a2 |
-| test.cpp:49:11:49:15 | new | Definition of $@ is unused. | test.cpp:49:6:49:7 | a3 | a3 |
-| test.cpp:50:11:50:17 | new | Definition of $@ is unused. | test.cpp:50:6:50:7 | a4 | a4 |
-| test.cpp:51:11:51:17 | 0 | Definition of $@ is unused. | test.cpp:51:6:51:7 | a5 | a5 |
-| test.cpp:55:3:55:10 | ... = ... | Definition of $@ is unused. | test.cpp:52:5:52:6 | a6 | a6 |
-| test.cpp:60:11:60:15 | new | Definition of $@ is unused. | test.cpp:60:6:60:7 | b3 | b3 |
-| test.cpp:61:11:61:17 | new | Definition of $@ is unused. | test.cpp:61:6:61:7 | b4 | b4 |
-| test.cpp:62:11:62:17 | 0 | Definition of $@ is unused. | test.cpp:62:6:62:7 | b5 | b5 |
-| test.cpp:70:11:70:17 | 0 | Definition of $@ is unused. | test.cpp:70:6:70:7 | c5 | c5 |
+| test.cpp:55:10:55:11 | 0 | Definition of $@ is unused. | test.cpp:55:7:55:7 | y | y |
+| test.cpp:58:3:58:5 | ... ++ | Definition of $@ is unused. | test.cpp:57:7:57:7 | z | z |
+| test.cpp:75:3:75:7 | ... = ... | Definition of $@ is unused. | test.cpp:53:41:53:41 | p | p |
+| test.cpp:77:10:77:11 | 0 | Definition of $@ is unused. | test.cpp:77:7:77:8 | l3 | l3 |
+| test.cpp:78:13:78:22 | new | Definition of $@ is unused. | test.cpp:78:8:78:9 | l4 | l4 |
+| test.cpp:81:8:81:8 | {...} | Definition of $@ is unused. | test.cpp:81:5:81:6 | a2 | a2 |
+| test.cpp:82:11:82:15 | new | Definition of $@ is unused. | test.cpp:82:6:82:7 | a3 | a3 |
+| test.cpp:83:11:83:17 | new | Definition of $@ is unused. | test.cpp:83:6:83:7 | a4 | a4 |
+| test.cpp:84:11:84:17 | 0 | Definition of $@ is unused. | test.cpp:84:6:84:7 | a5 | a5 |
+| test.cpp:88:3:88:10 | ... = ... | Definition of $@ is unused. | test.cpp:85:5:85:6 | a6 | a6 |
+| test.cpp:93:11:93:15 | new | Definition of $@ is unused. | test.cpp:93:6:93:7 | b3 | b3 |
+| test.cpp:94:11:94:17 | new | Definition of $@ is unused. | test.cpp:94:6:94:7 | b4 | b4 |
+| test.cpp:95:11:95:17 | 0 | Definition of $@ is unused. | test.cpp:95:6:95:7 | b5 | b5 |
+| test.cpp:103:11:103:17 | 0 | Definition of $@ is unused. | test.cpp:103:6:103:7 | c5 | c5 |

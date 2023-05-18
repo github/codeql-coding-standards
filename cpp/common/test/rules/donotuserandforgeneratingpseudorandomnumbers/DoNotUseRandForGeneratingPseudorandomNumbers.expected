@@ -1,1 +1,1 @@
-| test.cpp:5:47:5:55 | call to rand | Use of banned function std::rand. |
+| test.cpp:5:47:5:55 | call to rand | Use of banned function rand. |

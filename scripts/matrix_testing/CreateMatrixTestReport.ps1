@@ -299,6 +299,11 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
 
     foreach($testDirectory in $testDirs){
 
+        Write-Host "Acquiring lock for $testDirectory"
+        $Mutex = New-Object -TypeName System.Threading.Mutex -ArgumentList $false, ("__Matrix_" + $testDirectory.Replace([IO.Path]::DirectorySeparatorChar,"_"));
+        $Mutex.WaitOne() | Out-Null;
+        Write-Host "Locked $testDirectory"        
+
         # for the report 
         $row = @{
             "SUITE"             = $CurrentSuiteName;
@@ -321,7 +326,13 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             ###########################################################
             # Push context 
             ###########################################################
-            $fileSet = (Get-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language  -TestDirectory $testDirectory -Query $CurrentQueryName)
+
+            if ($q.shared_implementation_short_name) {      
+                $fileSet = (Get-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language  -TestDirectory $testDirectory -Query $q.shared_implementation_short_name)            
+            }
+            else {
+                $fileSet = (Get-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language  -TestDirectory $testDirectory -Query $CurrentQueryName)            
+            }
             
             if($fileSet){
                 $context = Push-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language -FileSet $fileSet
@@ -406,6 +417,8 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             # output current row state 
             $row 
 
+            # release any held mutexes            
+            $Mutex.ReleaseMutex();
 
             ###########################################################
             ###########################################################

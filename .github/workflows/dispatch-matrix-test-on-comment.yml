@@ -35,7 +35,7 @@ jobs:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
           repository: github/codeql-coding-standards-release-engineering
           event-type: matrix-test
-          client-payload: '{"pr": "${{ github.event.number  }}"}'
+          client-payload: '{"pr": "${{ github.event.issue.number }}"}'
 
       - uses: actions/github-script@v6
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-matrix') }}

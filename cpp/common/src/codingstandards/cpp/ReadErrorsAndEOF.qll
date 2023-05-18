@@ -5,7 +5,11 @@ import codingstandards.cpp.standardlibrary.FileAccess
 /**
  * any call to function `feof()` or `ferror()`
  */
-abstract class FeofFerrorCall extends FunctionCall { }
+abstract class FeofFerrorCall extends FileAccess {
+  override VariableAccess getFileExpr() {
+    result = [this.getArgument(0), this.getArgument(0).(AddressOfExpr).getAnOperand()]
+  }
+}
 
 class FeofCall extends FeofFerrorCall {
   FeofCall() { this.getTarget().hasGlobalName("feof") }
@@ -13,11 +17,6 @@ class FeofCall extends FeofFerrorCall {
 
 class FerrorCall extends FeofFerrorCall {
   FerrorCall() { this.getTarget().hasGlobalName("ferror") }
-}
-
-pragma[inline]
-predicate accessSameTarget(VariableAccess va1, VariableAccess va2) {
-  va1.getTarget() = va2.getTarget()
 }
 
 predicate isShortCircuitedEdge(ControlFlowNode fst, ControlFlowNode snd) {
@@ -36,7 +35,7 @@ ControlFlowNode feofUnchecked(InBandErrorReadFunctionCall read) {
     not isShortCircuitedEdge(mid, result) and
     result = mid.getASuccessor() and
     //Stop recursion on call to feof/ferror on the correct file
-    not accessSameTarget(result.(FeofCall).getArgument(0), read.getFileExpr())
+    not sameFileSource(result.(FeofCall), read)
   )
 }
 
@@ -50,7 +49,7 @@ ControlFlowNode ferrorUnchecked(InBandErrorReadFunctionCall read) {
     not isShortCircuitedEdge(mid, result) and
     result = mid.getASuccessor() and
     //Stop recursion on call to ferror on the correct file
-    not accessSameTarget(result.(FerrorCall).getArgument(0), read.getFileExpr())
+    not sameFileSource(result.(FerrorCall), read)
   )
 }
 
@@ -112,6 +111,6 @@ predicate missingEOFWEOFChecks(InBandErrorReadFunctionCall read) {
   // another char is read before the comparison to EOF
   exists(FileReadFunctionCall fc |
     macroUnchecked(read) = fc and
-    accessSameTarget(read.getFileExpr(), fc.getFileExpr())
+    sameFileSource(read, fc)
   )
 }

@@ -17,6 +17,39 @@ struct C {
   int m;
 };
 
+void sample1(int x){};
+void sample2(int y){};
+
+static void foo(B &b) noexcept {
+  b.g();
+  B bar{};
+  bar.g();
+  B b2 = B();
+  auto b3 = &b2;
+  b3->g();
+  B &b4 = b;
+  b4.g();
+  auto &b5 = *new B();
+  b5.g();
+  /* Below causes a compile error (non-const reference when initialized should
+   * hold an lvalue)
+   */
+  // auto &b6 = new B();
+  // b6.g();
+}
+
+template <typename T> void test() {
+  T t;
+  t.g();
+}
+
+template <typename T> void call_test() {
+  // call it with type parameter B to trigger indexing
+  test<T>();
+}
+
+void call_call_test() { call_test<B>(); }
+
 int test_useless_assignment(int &x, int p) {
   x = 0; // COMPLIANT - x is a reference parameter, so is visible by the caller
   int y = 0; // NON_COMPLIANT - never used
@@ -49,7 +82,7 @@ int test_useless_assignment(int &x, int p) {
   A *a3 = new A;   // NON_COMPLIANT - POD class, no constructor/destructor
   A *a4 = new A(); // NON_COMPLIANT - POD class, no constructor/destructor
   A *a5 = nullptr; // NON_COMPLIANT - null never read
-  A a6{};          // COMPLIANT - `m` assigned below
+  A a6{};          // COMPLIANT - `f` assigned below
   a6.f = 2; // COMPLIANT - we don't track the fields here, but we do track `a6`,
             // so we'd consider this used by the assignment below
   a6.f = 1; // NON_COMPLIANT - assignment into `f`, but `a6` is not used
@@ -69,5 +102,14 @@ int test_useless_assignment(int &x, int p) {
   C *c4 = new C(); // COMPLIANT - this will call a constructor??
   C *c5 = nullptr; // NON_COMPLIANT - null never read
 
+  A a7{1, 2};            // COMPLIANT - used in the `sample1` call below
+  sample1(a7.f + a7.f2); // COMPLIANT - object access is a valid use
+
+  // A *a8; // COMPLIANT - value not given at declaration
+  // a8 = &a7;
+  // sample2(a8->f); // COMPLIANT - object access is a valid use
+
   return y;
 }
+
+int main() { return 0; }
