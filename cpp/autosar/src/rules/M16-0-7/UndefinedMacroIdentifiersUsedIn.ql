@@ -19,7 +19,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.undefinedmacroidentifiers.UndefinedMacroIdentifiers
 
-class UndefinedMacroIdentifiersUsedInQuery extends UndefinedMacroIdentifiersQuery {
+class UndefinedMacroIdentifiersUsedInQuery extends UndefinedMacroIdentifiersSharedQuery {
   UndefinedMacroIdentifiersUsedInQuery() {
     this = MacrosPackage::charactersOccurInHeaderFileNameOrInIncludeDirectiveQuery()
   }

@@ -17,6 +17,6 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.hashoperatorsused.HashOperatorsUsed
 
-class HashOperatorsShallNotBeUsedInQuery extends HashOperatorsUsedQuery {
+class HashOperatorsShallNotBeUsedInQuery extends HashOperatorsUsedSharedQuery {
   HashOperatorsShallNotBeUsedInQuery() { this = MacrosPackage::hashOperatorsShouldNotBeUsedQuery() }
 }

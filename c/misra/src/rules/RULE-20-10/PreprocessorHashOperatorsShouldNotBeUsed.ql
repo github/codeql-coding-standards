@@ -15,7 +15,7 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.hashoperatorsused.HashOperatorsUsed
 
-class HashOperatorsUsedInQuery extends HashOperatorsUsedQuery {
+class HashOperatorsUsedInQuery extends HashOperatorsUsedSharedQuery {
   HashOperatorsUsedInQuery() {
     this = Preprocessor1Package::preprocessorHashOperatorsShouldNotBeUsedQuery()
   }
