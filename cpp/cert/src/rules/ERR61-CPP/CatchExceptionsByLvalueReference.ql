@@ -15,7 +15,7 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.catchexceptionsbylvaluereference.CatchExceptionsByLvalueReference
 
-class CatchExceptionsByLvalueReferenceQuery extends CatchExceptionsByLValueReferenceSharedQuery {
+class CatchExceptionsByLvalueReferenceQuery extends CatchExceptionsByLvalueReferenceSharedQuery {
   CatchExceptionsByLvalueReferenceQuery() {
     this = Exceptions1Package::catchExceptionsByLvalueReferenceQuery()
   }

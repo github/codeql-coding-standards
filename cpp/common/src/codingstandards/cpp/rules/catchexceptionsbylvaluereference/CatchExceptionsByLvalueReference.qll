@@ -9,9 +9,9 @@ import codingstandards.cpp.Exclusions
 import codingstandards.cpp.TrivialType
 import codingstandards.cpp.exceptions.ExceptionFlow
 
-abstract class CatchExceptionsByLValueReferenceSharedQuery extends Query { }
+abstract class CatchExceptionsByLvalueReferenceSharedQuery extends Query { }
 
-Query getQuery() { result instanceof CatchExceptionsByLValueReferenceSharedQuery }
+Query getQuery() { result instanceof CatchExceptionsByLvalueReferenceSharedQuery }
 
 query predicate problems(Parameter catchParameter, string message) {
   exists(CatchBlock cb, HandlerType catchType |
