@@ -1,0 +1,18 @@
+Fix issues emerged running the test suite when compiled with `qcc`:
+- Fix False Negatives issues
+  - `A1-1-1`: restrict alerts to mentioned types
+  - `A5-2-5`: get type for `value_type`
+  - `A18-1-2` `A18-1-3` `A18-9-1`: support std inline namespaces (`std::__1`)
+  - `A23-0-1` `A23-0-2`: functions in `std` might be defined in inline namespaces
+  - `M0-1-4`: removed test case
+  - `M6-5-2`: equality operator alternative implementations
+  - `M17-0-5`: `longjmp` might be a macro
+  - `CTR51-CPP` `CTR53-CPP` `ERR50-CPP` `ERR52-CPP` `STR52-CPP`: fixed by library changes
+  - `MSC51-CPP`: `time` can be in the global scope
+  - `STR51-CPP`: String constructor might have 1 parameter. 
+- Fix False Positives issues
+  - `STR53-CPP`: compute initial container size for copy constructor
+  - `A0-4-1`: numeric limits might be defined in `__libcpp_numeric_limits`
+  - `A0-4-3`: the rule now only checks the last `-std` compilation flag
+- Fix exclusion criteria using the `isExcluded()` predicate
+  - `A2-13-3` `A8-4-4`
