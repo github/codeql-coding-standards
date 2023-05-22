@@ -16,9 +16,9 @@ class StdBasicString extends ClassTemplateInstantiation {
   PointerType getConstCharTPointer() {
     exists(SpecifiedType specType |
       specType = result.getBaseType() and
-      specType.getBaseType() = getCharT() and
       specType.isConst() and
-      count(specType.getASpecifier()) = 1
+      count(specType.getASpecifier()) = 1 and
+      (specType.getBaseType() = getCharT() or specType.getBaseType().getName() = "value_type")
     )
   }
 

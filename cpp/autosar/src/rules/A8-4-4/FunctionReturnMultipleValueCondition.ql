@@ -50,6 +50,7 @@ OutputValue getAnOutputValue(Function f) {
 
 from Function f, int outputValues
 where
+  not isExcluded(f, FunctionsPackage::functionReturnMultipleValueConditionQuery()) and
   not f.isCompilerGenerated() and
   not f.isAffectedByMacro() and
   not f.isFromUninstantiatedTemplate(_) and

@@ -45,9 +45,13 @@ class BasicStringMemberFunctionDereferencedExpr extends BasicStringDereferencedE
     |
       // basic_string::basic_string(const charT *, const Allocator &)
       f instanceof Constructor and
-      f.getNumberOfParameters() = 2 and
+      f.getNumberOfParameters() <= 2 and
       f.getParameter(0).getType() = stringType.getConstCharTPointer() and
-      f.getParameter(1).getType() = stringType.getConstAllocatorReferenceType() and
+      (
+        f.getNumberOfParameters() = 2
+        implies
+        f.getParameter(1).getType() = stringType.getConstAllocatorReferenceType()
+      ) and
       this = fc.getArgument(0)
       or
       // basic_string &basic_string::append(const charT *)

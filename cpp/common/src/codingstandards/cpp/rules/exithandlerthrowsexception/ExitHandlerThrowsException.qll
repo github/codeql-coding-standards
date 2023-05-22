@@ -17,7 +17,7 @@ class ExitHandler extends ExceptionThrowingFunction {
   Call c;
 
   ExitHandler() {
-    c.getTarget().hasQualifiedName("std", ["atexit", "at_quick_exit"]) and
+    c.getTarget().hasGlobalOrStdName(["atexit", "at_quick_exit"]) and
     c.getArgument(0) = this.getAnAccess()
   }
 

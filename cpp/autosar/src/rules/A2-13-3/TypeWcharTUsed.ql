@@ -26,12 +26,14 @@ predicate isUsingWideCharType(ClassTemplateInstantiation c) {
 
 from Variable v
 where
-  v.getUnderlyingType() instanceof WideCharType and
-  not v.isFromTemplateInstantiation(_)
-  or
-  exists(ClassTemplateInstantiation c |
-    c = v.getType() and
-    isUsingWideCharType(c)
-  ) and
-  not isExcluded(v, BannedTypesPackage::typeWcharTUsedQuery())
+  not isExcluded(v, BannedTypesPackage::typeWcharTUsedQuery()) and
+  (
+    v.getUnderlyingType() instanceof WideCharType and
+    not v.isFromTemplateInstantiation(_)
+    or
+    exists(ClassTemplateInstantiation c |
+      c = v.getType() and
+      isUsingWideCharType(c)
+    )
+  )
 select v, "Use of wchar_t type."

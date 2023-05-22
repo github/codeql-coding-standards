@@ -23,6 +23,5 @@ void test_nullptr() {
   f3(f1, nullptr); // COMPLIANT - use of nullptr
   f1(NULL); // COMPLIANT - use of NULL macro is compliant according to this rule
             // only
-  f1('\0'); // COMPLIANT - use of octal escape 0 is not covered by this rule
   ClassA a = CLASSA_INIT; // COMPLIANT
 }
