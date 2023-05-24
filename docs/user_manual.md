@@ -20,6 +20,7 @@
 | 0.12.0  | 2022-10-21 | Luke Cartey     | Updated version to 2.10.0                                                                                               |
 | 0.13.0  | 2022-11-03 | Remco Vermeulen | Add missing deviation analysis report tables to section 'Producing an analysis report'.                                 |
 | 0.14.0  | 2022-11-03 | Remco Vermeulen | Add guideline recategorization plan.                                                                                    |
+| 0.15.0  | 2023-05-24 | Mauro Baluda | Clarify AUTOSAR C++ supported versions.                                                                                    |
 
 ## Release information
 
@@ -47,7 +48,7 @@ The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying
 
 | Standard                                                                                                             | Version | Total rules | Total supportable rules | Status            |
 | -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/adaptive/20-11/AUTOSAR_RS_CPP14Guidelines.pdf) | 20-11   | 397         | 375                     | Implemented       |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf) | [^1] R22-11, R21-11, R20-11, R19-11, R19-03 | 397         | 375                     | Implemented       |
 | [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented       |
 | [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 99                      | Under development |
 | [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 172         | 169                     | Under development |
@@ -61,6 +62,8 @@ Not all rules in these standards are amenable to static analysis by CodeQL - som
 Each supported rule is implemented as one or more CodeQL queries, with each query covering an aspect of the rule. In many coding standards, the rules cover non-trivial semantic properties of the codebase under analysis.
 
 The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each release, lists which rules are supported for that particular release, and the _scope of analysis_ for that rule.
+
+[^1]: AUTOSAR C++ versions R22-11, R21-11, R20-11, R19-11 and R19-03 are all identical as indicated in the document change history.
 
 ## Supported environment
 
