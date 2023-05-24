@@ -130,6 +130,18 @@ private UserVariable getPotentialScopeOfVariable_candidate(UserVariable v) {
   )
 }
 
+/** Gets a variable that is in the potential scope of variable `v`. */
+private UserVariable getOuterScopesOfVariable_candidate(UserVariable v) {
+  exists(Scope s |
+    result = s.getAVariable() and
+    (
+      // Variable in an ancestor scope, but only if there are less than 100 variables in this scope
+      v = s.getAnAncestor().getAVariable() and
+      s.getNumberOfVariables() < 100
+    )
+  )
+}
+
 /** Holds if there exists a translation unit that includes both `f1` and `f2`. */
 pragma[noinline]
 predicate inSameTranslationUnit(File f1, File f2) {
@@ -145,6 +157,15 @@ predicate inSameTranslationUnit(File f1, File f2) {
 cached
 UserVariable getPotentialScopeOfVariable(UserVariable v) {
   result = getPotentialScopeOfVariable_candidate(v) and
+  inSameTranslationUnit(v.getFile(), result.getFile())
+}
+
+/**
+ * Gets a user variable which occurs in the "outer scope" of variable `v`.
+ */
+cached
+UserVariable getPotentialScopeOfVariableStrict(UserVariable v) {
+  result = getOuterScopesOfVariable_candidate(v) and
   inSameTranslationUnit(v.getFile(), result.getFile())
 }
 
@@ -182,6 +203,15 @@ private predicate hides_candidate(UserVariable v1, UserVariable v2) {
   not (v1.isMember() or v2.isMember())
 }
 
+/** Holds if `v2` may hide `v1`. */
+private predicate hides_candidateStrict(UserVariable v1, UserVariable v2) {
+  not v1 = v2 and
+  v2 = getPotentialScopeOfVariableStrict(v1) and
+  v1.getName() = v2.getName() and
+  // Member variables cannot hide other variables nor be hidden because the can be referenced through their qualified name.
+  not (v1.isMember() or v2.isMember())
+}
+
 /** Holds if `v2` hides `v1`. */
 predicate hides(UserVariable v1, UserVariable v2) {
   hides_candidate(v1, v2) and
@@ -189,6 +219,16 @@ predicate hides(UserVariable v1, UserVariable v2) {
   not exists(UserVariable mid |
     hides_candidate(v1, mid) and
     hides_candidate(mid, v2)
+  )
+}
+
+/** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */
+predicate hidesStrict(UserVariable v1, UserVariable v2) {
+  hides_candidateStrict(v1, v2) and
+  // Confirm that there's no closer candidate variable which `v2` hides
+  not exists(UserVariable mid |
+    hides_candidateStrict(v1, mid) and
+    hides_candidateStrict(mid, v2)
   )
 }
 

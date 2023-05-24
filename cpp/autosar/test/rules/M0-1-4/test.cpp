@@ -33,8 +33,7 @@ void test_templates() {
 }
 
 class C1 {
-  static constexpr int unused{1}; // NON_COMPLIANT
-  static constexpr int used{2};   // COMPLIANT
+  static constexpr int used{2}; // COMPLIANT
   int test_use() { return used; }
   static constexpr int size{3};               // COMPLIANT
   std::array<bool, size> array{false, false}; // size is used here

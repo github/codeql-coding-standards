@@ -1,0 +1,1 @@
+| test.cpp:6:5:6:13 | l1_\\u00a8 | Declaration uses the character '\\u00a8' that is outside the language basic character set. |

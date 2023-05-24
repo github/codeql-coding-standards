@@ -1,0 +1,12 @@
+// It is valid to use @ in comments COMPLIANT
+
+// Invalid character α NON_COMPLIANT
+// U+03b1 - this is compiler checked
+// U+10185 - this is compiler checked
+int l1_\u00A8;          // COMPLIANT[FALSE_POSITIVE]
+const char *euro = "α"; // NON_COMPLIANT
+
+int valid;
+/*
+Invalid character ↦ NON_COMPLIANT
+*/
