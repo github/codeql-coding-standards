@@ -53,5 +53,8 @@ where
         isGeneratedByUserMacro(d)
       )
     )
-  )
+  ) and
+  // Ignore compiler generated functions and variables
+  not l.(Function).isCompilerGenerated() and
+  not l.(Variable).isCompilerGenerated()
 select l, "Name $@ uses the reserved prefix '_'.", l, s
