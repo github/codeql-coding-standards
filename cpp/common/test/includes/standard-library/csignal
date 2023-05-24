@@ -10,13 +10,10 @@
 #define SIG_IGN 7
 #define SIG_ERR 8
 
-namespace std {
-typedef int sig_atomic_t;
-void (*signal(int, void (*func)(int)))(int);
-int raise(int sig);
-} // namespace std
+#include <signal.h>
 
-// global namespace
-typedef int sig_atomic_t;
-void (*signal(int, void (*func)(int)))(int);
-int raise(int);
+namespace std {
+using ::raise;
+using ::sig_atomic_t;
+using ::signal;
+} // namespace std

@@ -5,6 +5,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
+import codingstandards.cpp.StdNamespace
 
 abstract class NonStandardEntitiesInStandardNamespacesSharedQuery extends Query { }
 
@@ -19,7 +20,7 @@ private class PosixNamespace extends Namespace {
 private Namespace getStandardNamespace(DeclarationEntry de) {
   result = de.getDeclaration().getNamespace().getParentNamespace*() and
   (
-    result instanceof StdNamespace
+    result instanceof StdNS
     or
     result instanceof PosixNamespace
   )

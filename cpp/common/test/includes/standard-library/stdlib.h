@@ -20,4 +20,6 @@ long int atol(const char *str);
 long long int atoll(const char *str);
 double atof(const char *str);
 
+int rand(void);
+
 #endif // _GHLIBCPP_STDLIB

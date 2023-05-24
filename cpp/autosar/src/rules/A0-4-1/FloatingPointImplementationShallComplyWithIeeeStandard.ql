@@ -21,7 +21,7 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.TypeUses
 
 class NumericLimits extends Class {
-  NumericLimits() { this.hasQualifiedName("std", "numeric_limits") }
+  NumericLimits() { this.hasQualifiedName("std", ["numeric_limits", "__libcpp_numeric_limits"]) }
 
   /**
    * Gets the template argument specified for this type.

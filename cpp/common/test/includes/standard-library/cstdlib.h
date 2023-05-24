@@ -7,10 +7,10 @@ namespace std {
 [[noreturn]] void quick_exit(int status) noexcept;
 extern "C++" int atexit(void (*f)(void)) noexcept;
 extern "C++" int at_quick_exit(void (*f)(void)) noexcept;
-extern "C++" long rand() noexcept;
 using ::atof;
 using ::atoi;
 using ::atol;
 using ::atoll;
+using ::rand;
 } // namespace std
 #endif // _GHLIBCPP_CSTDLIB

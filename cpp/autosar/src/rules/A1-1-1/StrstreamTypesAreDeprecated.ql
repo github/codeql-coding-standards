@@ -14,11 +14,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.TypeUses
 
-from Class c, Locatable l
+from TypeMention l, Class c
 where
   not isExcluded(l, ToolchainPackage::strstreamTypesAreDeprecatedQuery()) and
   c.hasQualifiedName("std", ["strstreambuf", "ostrstream", "istrstream"]) and
-  exists(Type t | t = c | l = getATypeUse(t))
-select l, "Use of <strstream> class '" + c.getQualifiedName() + "' is deprecated."
+  l.getMentionedType() = c
+select l, "Use of <strstream> class '" + c.getName() + "' is deprecated."

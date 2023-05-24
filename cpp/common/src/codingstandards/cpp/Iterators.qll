@@ -5,6 +5,7 @@
 import cpp
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.StdNamespace
 
 abstract class ContainerAccess extends VariableAccess {
   abstract Variable getOwningContainer();
@@ -169,9 +170,8 @@ class ContainerInvalidationOperation extends FunctionCall {
         )
         or
         exists(FunctionCall fc |
-          fc.getTarget().getNamespace().getName() = "std" and
-          fc.getTarget().getName() in ["swap", "operator>>", "getline"] and
-          this = fc
+          fc.getTarget().getNamespace() instanceof StdNS and
+          this.getTarget().getName() in ["swap", "operator>>", "getline"]
         )
       )
     )
@@ -195,7 +195,7 @@ class ContainerInvalidationOperation extends FunctionCall {
 /** An iterator type in the `std` namespace. */
 class StdIteratorType extends UserType {
   StdIteratorType() {
-    getNamespace().getName() = "std" and
+    this.getNamespace() instanceof StdNS and
     getSimpleName().matches("%_iterator") and
     not getSimpleName().matches("const_%")
   }
@@ -247,7 +247,7 @@ class AdditiveOperatorFunctionCall extends FunctionCall {
  */
 class STLContainer extends Class {
   STLContainer() {
-    getNamespace().getName() = "std" and
+    getNamespace() instanceof StdNS and
     getSimpleName() in [
         "vector", "list", "deque", "set", "multiset", "map", "multimap", "stack", "queue",
         "priority_queue", "string", "forward_list", "unordered_set", "unordered_multiset",
@@ -378,7 +378,7 @@ class IteratorRangeFunctionCall extends FunctionCall {
     count(Expr e |
       e = getAnArgument() and
       e.getType() instanceof IteratorType and
-      getTarget().getNamespace().getName() = "std" and
+      getTarget().getNamespace() instanceof StdNS and
       not getTarget().getName() in ["operator==", "operator!="]
     ) > 1
   }

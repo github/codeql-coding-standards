@@ -1,9 +1,9 @@
 import cpp
 import codingstandards.cpp.Exclusions
 
-abstract class UndefinedMacroIdentifiersQuery extends Query { }
+abstract class UndefinedMacroIdentifiersSharedQuery extends Query { }
 
-Query getQuery() { result instanceof UndefinedMacroIdentifiersQuery }
+Query getQuery() { result instanceof UndefinedMacroIdentifiersSharedQuery }
 
 pragma[noinline]
 predicate isMacroAccessFileAndLine(MacroAccess ma, string filepath, int startLine) {
