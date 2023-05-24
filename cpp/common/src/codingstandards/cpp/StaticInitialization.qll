@@ -27,6 +27,15 @@ module StaticInitializationGraph {
    *  - Create a `Node` instance for each injector type.
    */
 
+  /**
+   * Gets an Expr directly or indirectly included in an initializer.
+   */
+  private Expr getAnInitializerExpr(Initializer i) {
+    result = i.getExpr()
+    or
+    result = getAnInitializerExpr(i).getAChild()
+  }
+
   newtype TNode =
     TInitializerNode(Initializer i) {
       // This is the initializer of a static storage duration variable
@@ -48,7 +57,7 @@ module StaticInitializationGraph {
     } or
     TFunctionCallNode(FunctionCall fc) {
       // This is a function call that occurs in an initializer called during static initialization
-      exists(TInitializerNode(any(Initializer i | i.getExpr().getAChild*() = fc)))
+      exists(TInitializerNode(any(Initializer i | getAnInitializerExpr(i) = fc)))
       or
       // This is a function call that occurs in a function called during static initialization
       exists(
@@ -56,13 +65,13 @@ module StaticInitializationGraph {
             f = fc.getEnclosingFunction() and
             // Not in an initializer of a local variable, where the desired flow is instead:
             // function -> initializer -> fc
-            not exists(Initializer i | i.getExpr().getAChild*() = fc)
+            not exists(Initializer i | getAnInitializerExpr(i) = fc)
           ))
       )
     } or
     TVariableAccessNode(VariableAccess va) {
       // This is a variable that is accessed in an initializer called during static initialization
-      exists(TInitializerNode(any(Initializer i | i.getExpr().getAChild*() = va)))
+      exists(TInitializerNode(any(Initializer i | getAnInitializerExpr(i) = va)))
       or
       // This is a variable that is accessed in a function called during static initialization
       exists(
@@ -70,7 +79,7 @@ module StaticInitializationGraph {
             f = va.getEnclosingFunction() and
             // Not in an initializer of a local variable, where the desired flow is instead:
             // function -> initializer -> va
-            not exists(Initializer i | i.getExpr().getAChild*() = va)
+            not exists(Initializer i | getAnInitializerExpr(i) = va)
           ))
       )
     }
@@ -149,9 +158,7 @@ module StaticInitializationGraph {
     or
     // Initializer steps
     exists(Initializer i | i = n1.(InitializerNode).getInitializer() |
-      i.getExpr().getAChild*() = n2.(FunctionCallNode).getFunctionCall()
-      or
-      i.getExpr().getAChild*() = n2.(VariableAccessNode).getVariableAccess()
+      getAnInitializerExpr(i) = n2.getExpr()
     )
     or
     // FunctionCall steps
@@ -169,7 +176,7 @@ module StaticInitializationGraph {
       f = n2.getExpr().getEnclosingFunction() and
       // But not in an initializer of a local variable, where the desired flow is instead:
       // function -> initializer -> expression
-      not exists(Initializer i | i.getExpr().getAChild*() = n2.getExpr())
+      not exists(Initializer i | getAnInitializerExpr(i) = n2.getExpr())
       or
       // `n2` is an initializer of a local scope variable within function `f`
       n2.(InitializerNode).getInitializer().getDeclaration().(LocalScopeVariable).getFunction() = f
