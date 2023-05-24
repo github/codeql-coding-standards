@@ -10,5 +10,7 @@ int test_c_arrays() {
 
   int x[100];                 // NON_COMPLIANT
   constexpr int a[]{0, 1, 2}; // NON_COMPLIANT
+
+  __func__; // COMPLAINT
   return 0;
 }
