@@ -231,7 +231,7 @@ pragma[inline]
 ControlFlowNode getAThreadContextAwarePredecessor(ControlFlowNode start, ControlFlowNode end) {
   result = getAThreadContextAwareSuccessor(start) and
   not result = getAThreadContextAwareSuccessor(end) and
-  not result = end
+  not result = end 
 }
 
 /**
@@ -402,6 +402,13 @@ class LockProtectedControlFlowNode extends ThreadedCFN {
         unlock.(MutexFunctionCall).isUnlock()
         // note that we don't check that it's the same lock -- this is left
         // to the caller to enforce this condition.
+
+        // Because of the way that `getAThreadContextAwarePredecessor` works, it is possible
+        // for operations PAST it to be technically part of the predecessors. 
+        // Thus, we need to make sure that this lock (to be actually) 
+        // an unlock along the same path it must be the case that when we 
+        // supply it as the starting point of the search it hits the try lock     
+        and getAThreadContextAwareSuccessor(unlock) = this 
       ) and
       (lock instanceof MutexFunctionCall implies not this.(MutexFunctionCall).isUnlock())
     )
