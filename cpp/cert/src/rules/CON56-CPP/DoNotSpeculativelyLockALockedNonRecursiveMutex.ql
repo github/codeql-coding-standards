@@ -19,10 +19,8 @@ import codingstandards.cpp.Concurrency
 from LockProtectedControlFlowNode n
 where
   not isExcluded(n, ConcurrencyPackage::doNotSpeculativelyLockALockedNonRecursiveMutexQuery()) and
-  // problematic nodes are ones where a lock is active and there is an attempt to
-  // call a speculative locking function
-
-  
+  // problematic nodes are ones where a lock is active and there is an attempt
+  // to call a speculative locking function
   n.(MutexFunctionCall).isSpeculativeLock() and
   not n.(MutexFunctionCall).isRecursive() and
   n.getAProtectingLock() = n.(MutexFunctionCall).getLock()
