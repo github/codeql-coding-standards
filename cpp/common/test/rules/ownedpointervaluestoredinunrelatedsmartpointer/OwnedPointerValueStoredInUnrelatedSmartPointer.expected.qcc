@@ -51,7 +51,7 @@ edges
 | test.cpp:17:27:17:28 | v1 | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:3757:34:3757:36 | __p |
 | test.cpp:17:27:17:28 | v1 | test.cpp:17:27:17:28 | ref arg v1 |
 | test.cpp:19:6:19:7 | v1 | test.cpp:3:14:3:15 | v1 |
- nodes
+nodes
 | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:2469:31:2469:33 | __p | semmle.label | __p |
 | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:2469:31:2469:33 | __p | semmle.label | __p |
 | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:3611:30:3611:32 | __p | semmle.label | __p |
@@ -92,7 +92,7 @@ edges
 | test.cpp:17:27:17:28 | v1 | semmle.label | v1 |
 | test.cpp:17:27:17:28 | v1 | semmle.label | v1 |
 | test.cpp:19:6:19:7 | v1 | semmle.label | v1 |
- subpaths
+subpaths
 | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:4065:28:4065:30 | __p | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:2469:31:2469:33 | __p | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:2469:31:2469:33 | __p | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:4065:28:4065:30 | ref arg __p |
 | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:4068:30:4068:32 | __p | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:3611:30:3611:32 | __p | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:3611:30:3611:32 | __p | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:4068:30:4068:32 | ref arg __p |
 | test.cpp:5:27:5:28 | v1 | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:3757:34:3757:36 | __p | file:///opt/qcc/qnx-sdp/target/qnx7/usr/include/c++/v1/memory:4063:7:4063:17 | constructor init of field __ptr_ [post-this] [__ptr_] | test.cpp:5:27:5:29 | call to shared_ptr [__ptr_] |
