@@ -173,13 +173,7 @@ class ContainerComparatorUsage extends ComparatorUsage {
 query predicate problems(ComparatorUsage cu, string message) {
   not cu.isStrictlyWeakOrdering() and
   not isExcluded(cu, getQuery()) and
-  exists(string s |
-    if exists(cu.getComparator().getQualifiedName())
-    then s = cu.getComparator().getQualifiedName()
-    else s = cu.getComparator().getName()
-  |
-    message =
-      "Comparator '" + s +
-        "' used on container or sorting algorithm that is not strictly weakly ordered"
-  )
+  message =
+    "Comparator '" + cu.getComparator().getName() +
+      "' used on container or sorting algorithm that is not strictly weakly ordered"
 }

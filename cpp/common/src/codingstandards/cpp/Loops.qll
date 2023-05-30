@@ -173,7 +173,8 @@ predicate isInvalidForLoopIncrementation(ForStmt forLoop, Variable v, VariableAc
     exists(EqualityOperation eop | eop.getAnOperand() = va)
     or
     exists(Call call |
-      call.getTarget() instanceof UserEqualityOperator and call.getQualifier() = va
+      call.getTarget() instanceof UserEqualityOperator and
+      [call.getQualifier(), call.getArgument(0)] = va
     )
   )
 }

@@ -36,5 +36,6 @@ where
     e = any(FunctionCall fc).getArgument(_) and
     e.getUnspecifiedType().(PointerType).getBaseType*() instanceof CharType
   ) and
-  DataFlow::localFlow(DataFlow::exprNode(cs), DataFlow::exprNode(e))
+  DataFlow::localFlow(DataFlow::exprNode(cs), DataFlow::exprNode(e)) and
+  not cs = any(LocalVariable lv | lv.getName() = "__func__").getInitializer().getExpr()
 select cs, "Usage of C-style string in $@.", e, "expression"

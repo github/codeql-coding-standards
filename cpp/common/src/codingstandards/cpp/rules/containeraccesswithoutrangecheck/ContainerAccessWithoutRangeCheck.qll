@@ -179,7 +179,21 @@ class StringContainerConstructorCall extends ContainerConstructorCall {
     c.getNumberOfParameters() = 0 and
     result = 0
     or
-    // from c-string constructor
+    // from c-string constructors
+    c.getNumberOfParameters() = 1 and
+    c.getParameter(0).getType() = stringInstantiation.getConstCharTPointer() and
+    result = getArgument(0).getValue().length()
+    or
+    c.getNumberOfParameters() = 2 and
+    c.getParameter(0).getType() = stringInstantiation.getConstCharTPointer() and
+    c.getParameter(1).getType() = stringInstantiation.getSizeType() and
+    result = getArgument(1).getValue().toFloat()
+    or
+    c.getNumberOfParameters() = 2 and
+    c.getParameter(0).getType() = stringInstantiation.getSizeType() and
+    c.getParameter(1).getType() = stringInstantiation.getCharT() and
+    result = getArgument(0).getValue().toFloat()
+    or
     c.getNumberOfParameters() = 2 and
     c.getParameter(0).getType() = stringInstantiation.getConstCharTPointer() and
     c.getParameter(1).getType() = stringInstantiation.getConstAllocatorReferenceType() and

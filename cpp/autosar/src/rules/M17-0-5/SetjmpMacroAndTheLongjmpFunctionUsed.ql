@@ -15,17 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.donotusesetjmporlongjmpshared.DoNotUseSetjmpOrLongjmpShared
 
-predicate isLongJumpCall(FunctionCall fc) { fc.getTarget().hasGlobalOrStdName("longjmp") }
-
-predicate isSetJumpCall(MacroInvocation mi) { mi.getMacroName() = "setjmp" }
-
-from Element jmp, string callType
-where
-  not isExcluded(jmp, BannedFunctionsPackage::setjmpMacroAndTheLongjmpFunctionUsedQuery()) and
-  (
-    isLongJumpCall(jmp) and callType = "longjmp function"
-    or
-    isSetJumpCall(jmp) and callType = "setjmp macro"
-  )
-select jmp, "Use of banned " + callType + "."
+class SetjmpMacroAndTheLongjmpFunctionUsedQuery extends DoNotUseSetjmpOrLongjmpSharedSharedQuery {
+  SetjmpMacroAndTheLongjmpFunctionUsedQuery() {
+    this = BannedFunctionsPackage::setjmpMacroAndTheLongjmpFunctionUsedQuery()
+  }
+}
