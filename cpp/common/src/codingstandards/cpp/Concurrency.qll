@@ -404,7 +404,7 @@ class LockProtectedControlFlowNode extends ThreadedCFN {
         // to the caller to enforce this condition.
         // Because of the way that `getAThreadContextAwarePredecessor` works, it is possible
         // for operations PAST it to be technically part of the predecessors.
-        // Thus, we need to make sure that this node is a 
+        // Thus, we need to make sure that this node is a
         // successor of the unlock in the CFG
         getAThreadContextAwareSuccessor(unlock) = this
       ) and
