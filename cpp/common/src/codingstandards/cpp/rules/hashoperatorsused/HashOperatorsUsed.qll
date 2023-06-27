@@ -2,9 +2,9 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 
-abstract class HashOperatorsUsedQuery extends Query { }
+abstract class HashOperatorsUsedSharedQuery extends Query { }
 
-Query getQuery() { result instanceof HashOperatorsUsedQuery }
+Query getQuery() { result instanceof HashOperatorsUsedSharedQuery }
 
 query predicate problems(Macro m, string message) {
   exists(string body |

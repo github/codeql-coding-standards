@@ -110,7 +110,7 @@ std::string template_function_test() { // COMPLIANT
 
 /// @brief function assigned_lambda_test.
 int assigned_lambda_test() {
-  auto l = [](int x, int y) { return x + y; }; // NON_COMPLIANT
+  auto l = [](int x, int y) { return x + y; }; // COMPLIANT: We exclude lambdas.
   return l(2, 3);
 }
 

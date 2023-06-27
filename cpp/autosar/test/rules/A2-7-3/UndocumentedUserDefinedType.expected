@@ -6,5 +6,4 @@
 | test.cpp:78:6:78:6 | declaration of d | Declaration entry for function d is missing documentation. |
 | test.cpp:81:6:81:6 | definition of e | Declaration entry for function e is missing documentation. |
 | test.cpp:88:1:88:30 | definition of message_to_string_undocumented | Declaration entry for function message_to_string_undocumented is missing documentation. |
-| test.cpp:113:14:113:14 | definition of operator() | Declaration entry for function operator() is missing documentation. |
 | test.cpp:160:21:160:24 | definition of kBar | Declaration entry for member variable kBar is missing documentation. |

@@ -17,9 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.StdNamespace
 
 predicate isVectorBool(ClassTemplateInstantiation c) {
-  c.getNamespace() instanceof StdNamespace and
+  c.getNamespace() instanceof StdNS and
   c.getTemplateArgument(0) instanceof BoolType and
   c.getSimpleName() = "vector"
 }

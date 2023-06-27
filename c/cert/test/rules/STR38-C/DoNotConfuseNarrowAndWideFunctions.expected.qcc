@@ -1,0 +1,9 @@
+| test.c:22:3:22:9 | call to wcsncpy | Call to function `wcsncpy` with a narrow character string $@ where a wide character string is expected. | test.c:22:11:22:12 | n2 | argument |
+| test.c:22:3:22:9 | call to wcsncpy | Call to function `wcsncpy` with a narrow character string $@ where a wide character string is expected. | test.c:22:15:22:16 | n1 | argument |
+| test.c:23:3:23:9 | call to wcsncpy | Call to function `wcsncpy` with a narrow character string $@ where a wide character string is expected. | test.c:23:15:23:16 | n1 | argument |
+| test.c:28:3:28:9 | call to strncpy | Call to function `strncpy` with a wide character string $@ where a narrow character string is expected. | test.c:28:11:28:12 | w2 | argument |
+| test.c:28:3:28:9 | call to strncpy | Call to function `strncpy` with a wide character string $@ where a narrow character string is expected. | test.c:28:15:28:16 | w1 | argument |
+| test.c:29:3:29:9 | call to strncpy | Call to function `strncpy` with a wide character string $@ where a narrow character string is expected. | test.c:29:11:29:12 | w2 | argument |
+| test.c:32:3:32:9 | call to wcsncpy | Call to function `wcsncpy` with a narrow character string $@ where a wide character string is expected. | test.c:32:11:32:12 | n2 | argument |
+| test.c:32:3:32:9 | call to wcsncpy | Call to function `wcsncpy` with a narrow character string $@ where a wide character string is expected. | test.c:32:15:32:16 | n1 | argument |
+| test.c:33:3:33:9 | call to wcsncpy | Call to function `wcsncpy` with a narrow character string $@ where a wide character string is expected. | test.c:33:15:33:16 | n1 | argument |

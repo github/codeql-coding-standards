@@ -20,8 +20,14 @@ from File f, string flag
 where
   not isExcluded(f, ToolchainPackage::compilerImplementationShallComplyWithCPP14StandardQuery()) and
   exists(Compilation c | f = c.getAFileCompiled() |
-    c.getAnArgument() = flag and flag.regexpMatch("-std=(?!c\\+\\+14)[\\w+]+")
-  )
+    flag =
+      max(string std, int index |
+        c.getArgument(index) = std and std.matches("-std=%")
+      |
+        std order by index
+      )
+  ) and
+  flag != "-std=c++14"
 select f,
   "File '" + f.getBaseName() + "' compiled with flag '" + flag +
     "' which does not strictly comply with ISO C++14."

@@ -26,4 +26,5 @@ void f2() {
   f1(a1);
   f1(a2);
   f1(s.c_str()); // NON_COMPLIANT
+  __func__;
 }

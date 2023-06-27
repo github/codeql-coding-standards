@@ -15,4 +15,20 @@ void f2(int p1, int p2) {
   if ((p1 > 0) || (p2 > 0)) { // COMPLIANT
     f1();
   }
+
+  struct Sample {
+    int x;
+  } sample;
+
+  if ((p1 > 0) ||
+      sample.x) { // COMPLIANT: struct member accessors (.) are excluded
+    f1();
+  }
+
+  Sample *sample_ptr = &sample;
+
+  if ((p1 > 0) || sample_ptr->x) { // COMPLIANT: struct member accessors with
+                                   // dereference (->) are excluded
+    f1();
+  }
 }

@@ -25,9 +25,26 @@ class FunctionWithRestrictParameters extends Function {
   Parameter restrictPtrParam;
 
   FunctionWithRestrictParameters() {
-    restrictPtrParam = this.getAParameter() and
     restrictPtrParam.getUnspecifiedType() instanceof PointerOrArrayType and
-    restrictPtrParam.getType().hasSpecifier("restrict")
+    (
+      restrictPtrParam.getType().hasSpecifier(["restrict"]) and
+      restrictPtrParam = this.getAParameter()
+      or
+      this.hasGlobalName(["strcpy", "strncpy", "strcat", "strncat", "memcpy"]) and
+      restrictPtrParam = this.getParameter([0, 1])
+      or
+      this.hasGlobalName(["strcpy_s", "strncpy_s", "strcat_s", "strncat_s", "memcpy_s"]) and
+      restrictPtrParam = this.getParameter([0, 2])
+      or
+      this.hasGlobalName(["strtok_s"]) and
+      restrictPtrParam = this.getAParameter()
+      or
+      this.hasGlobalName(["printf", "printf_s", "scanf", "scanf_s"]) and
+      restrictPtrParam = this.getParameter(0)
+      or
+      this.hasGlobalName(["sprintf", "sprintf_s", "snprintf", "snprintf_s"]) and
+      restrictPtrParam = this.getParameter(3)
+    )
   }
 
   Parameter getARestrictPtrParam() { result = restrictPtrParam }

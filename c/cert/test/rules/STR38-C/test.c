@@ -1,10 +1,6 @@
 #include <stddef.h>
-
-// defined in <string.h> and <wchar.h> but we get absolute
-// paths using the current alert so they are defined here.
-// to prevent absolute paths from being generated.
-char *strncpy(char *__restrict, const char *__restrict, size_t);
-wchar_t *wcsncpy(wchar_t *__restrict, const wchar_t *__restrict, size_t);
+#include <string.h>
+#include <wchar.h>
 
 void f1() {
   wchar_t w1[] = L"codeql";
