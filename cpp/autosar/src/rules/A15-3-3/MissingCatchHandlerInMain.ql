@@ -22,24 +22,6 @@ import codingstandards.cpp.exceptions.ThirdPartyExceptions
 import codingstandards.cpp.standardlibrary.Exceptions
 import codingstandards.cpp.EncapsulatingFunctions
 
-/** A `TryStmt` which covers the full body of a function. */
-class FullFunctionBodyTryStmt extends TryStmt {
-  FullFunctionBodyTryStmt() {
-    this instanceof FunctionTryStmt
-    or
-    exists(Function f, BlockStmt functionBlock |
-      functionBlock = f.getBlock() and
-      this = functionBlock.getStmt(0) and
-      (
-        functionBlock.getNumStmt() = 1
-        or
-        functionBlock.getNumStmt() = 2 and
-        functionBlock.getStmt(1) instanceof ReturnStmt
-      )
-    )
-  }
-}
-
 /*
  * The strategy for this query is to find a Stmt in the root BlockStmt which can throw one of the
  * ExceptionTypes that should be handled.
