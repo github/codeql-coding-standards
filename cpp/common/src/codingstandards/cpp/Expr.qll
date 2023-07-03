@@ -1,5 +1,5 @@
 import cpp
-private import semmle.code.cpp.ir.internal.ASTValueNumbering
+private import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import codingstandards.cpp.AccessPath
 
 /** A full expression as defined in [intro.execution] of N3797. */

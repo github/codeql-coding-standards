@@ -1,6 +1,5 @@
 import cpp
 private import semmle.code.cpp.dataflow.DataFlow
-private import semmle.code.cpp.dataflow.internal.FlowVar
 private import semmle.code.cpp.controlflow.Nullness
 private import codingstandards.cpp.Dereferenced
 private import codingstandards.cpp.Expr

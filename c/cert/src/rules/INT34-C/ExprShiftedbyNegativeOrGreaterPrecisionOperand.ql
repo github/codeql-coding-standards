@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
-import semmle.code.cpp.ir.internal.ASTValueNumbering
+import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import semmle.code.cpp.controlflow.Guards
 
 /*
