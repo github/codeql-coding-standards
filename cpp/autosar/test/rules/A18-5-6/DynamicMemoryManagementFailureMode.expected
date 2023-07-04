@@ -1,4 +1,3 @@
 | test.cpp:5:7:5:13 | malloc1 | (Audit) Function may be a memory allocation function and an analysis should be performed to analyze the failure modes of dynamic memory management. |
 | test.cpp:8:7:8:13 | malloc3 | (Audit) Function may be a memory allocation function and an analysis should be performed to analyze the failure modes of dynamic memory management. |
 | test.cpp:10:6:10:7 | h1 | (Audit) Function may be a memory allocation function and an analysis should be performed to analyze the failure modes of dynamic memory management. |
-| test_msvc.cpp:3:29:3:35 | malloc5 | (Audit) Function may be a memory allocation function and an analysis should be performed to analyze the failure modes of dynamic memory management. |

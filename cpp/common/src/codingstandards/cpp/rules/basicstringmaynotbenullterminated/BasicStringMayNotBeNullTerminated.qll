@@ -10,7 +10,6 @@ import semmle.code.cpp.security.BufferWrite
 import semmle.code.cpp.commons.Buffer
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
-import semmle.code.cpp.dataflow.internal.TaintTrackingUtil
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 
 abstract class BasicStringMayNotBeNullTerminatedSharedQuery extends Query { }

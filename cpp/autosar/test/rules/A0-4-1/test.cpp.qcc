@@ -1,0 +1,8 @@
+#include <limits>
+
+void test() {
+  float f; // COMPLIANT
+
+  double d;       // COMPLIANT
+  long double ld; // COMPLIANT
+}

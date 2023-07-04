@@ -19,11 +19,6 @@
 import cpp
 import codingstandards.cpp.autosar
 
-// for readability we define a "fundamental" type
-class FundamentalType extends Type {
-  FundamentalType() { this instanceof BuiltInType }
-}
-
 from Variable v
 where
   not isExcluded(v,

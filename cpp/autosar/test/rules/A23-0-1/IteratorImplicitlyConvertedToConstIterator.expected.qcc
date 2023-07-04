@@ -1,0 +1,10 @@
+| test.cpp:10:39:10:48 | call to __wrap_iter | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:13:38:13:42 | call to begin | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:16:44:16:48 | call to begin | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:19:41:19:50 | call to __map_const_iterator | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:22:47:22:57 | call to __map_const_iterator | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:25:8:25:16 | call to __wrap_iter | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:27:10:27:14 | call to begin | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:29:11:29:15 | call to begin | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:31:8:31:16 | call to __map_const_iterator | Non-const version of container call immediately converted to a `const_iterator`. |
+| test.cpp:33:9:33:18 | call to __map_const_iterator | Non-const version of container call immediately converted to a `const_iterator`. |
