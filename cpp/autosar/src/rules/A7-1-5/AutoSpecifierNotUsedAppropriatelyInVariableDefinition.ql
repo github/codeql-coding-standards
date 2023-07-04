@@ -39,6 +39,8 @@ where
     v.getInitializer().getExpr() instanceof LambdaExpression
     or
     v.getInitializer().getExpr() instanceof ClassAggregateLiteral
-  )
+  ) and
+  // Exclude compiler generated variables
+  not v.isCompilerGenerated()
 select v,
   "Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer."
