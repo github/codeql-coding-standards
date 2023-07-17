@@ -1,3 +1,12 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:97,7-15)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:97,27-35)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:98,9-17)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:102,9-17)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:102,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:103,11-19)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:113,35-43)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:114,11-19)
+WARNING: Module TaintTracking has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/CTR52-CPP/GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:113,9-22)
 | test.cpp:8:42:8:46 | call to begin | Output iterator for $@ is not guaranteed to be large enough for the input iterator. | test.cpp:8:3:8:11 | call to copy | call to copy |
 | test.cpp:17:42:17:46 | call to begin | Output iterator for $@ is not guaranteed to be large enough for the input iterator. | test.cpp:17:3:17:11 | call to copy | call to copy |
 | test.cpp:55:42:55:46 | call to begin | Output iterator for $@ is not guaranteed to be large enough for the input iterator. | test.cpp:55:3:55:11 | call to copy | call to copy |

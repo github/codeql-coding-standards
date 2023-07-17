@@ -1,3 +1,17 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:42,68-76)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:47,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:68,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:102,11-19)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:102,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:102,55-63)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:107,11-19)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:107,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:107,57-65)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:140,11-19)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:140,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:140,55-63)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:151,18-26)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR30-C/DoNotAttemptToModifyStringLiterals.ql:151,47-55)
 | test.c:7:3:7:3 | a | This operation may write to a string that may be a string literal that was $@. | test.c:6:13:6:20 | codeql | created here |
 | test.c:30:3:30:3 | a | This operation may write to a string that may be a string literal that was $@. | test.c:29:13:29:18 | call to strchr | created here |
 | test.c:36:3:36:3 | b | This operation may write to a string that may be a string literal that was $@. | test.c:35:13:35:18 | call to strchr | created here |

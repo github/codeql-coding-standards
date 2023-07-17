@@ -1,3 +1,8 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/CON30-C/CleanUpThreadSpecificStorage.ql:21,57-65)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/CON30-C/CleanUpThreadSpecificStorage.ql:24,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/CON30-C/CleanUpThreadSpecificStorage.ql:33,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/CON30-C/CleanUpThreadSpecificStorage.ql:49,20-28)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/CON30-C/CleanUpThreadSpecificStorage.ql:51,20-28)
 | test.c:27:3:27:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
 | test.c:49:3:49:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
 | test.c:71:3:71:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |

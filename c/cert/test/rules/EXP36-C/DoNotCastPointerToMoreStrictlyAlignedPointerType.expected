@@ -1,3 +1,14 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:20,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:100,20-28)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:126,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:131,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:140,58-66)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:145,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:149,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:156,35-43)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:172,3-11)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:172,30-38)
+WARNING: Module DataFlow2 has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP36-C/DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:121,86-95)
 edges
 | test.c:75:14:75:16 | & ... | test.c:76:11:76:12 | v1 |
 | test.c:75:14:75:16 | & ... | test.c:77:12:77:13 | v1 |
