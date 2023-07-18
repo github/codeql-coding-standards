@@ -1,3 +1,12 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:47,12-20)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:48,30-38)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:48,57-65)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:71,5-13)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:71,25-33)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:72,7-15)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:116,5-13)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:116,25-33)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A15-2-2/ConstructorErrorLeavesObjectInInvalidState.ql:116,54-62)
 edges
 | test.cpp:12:16:12:27 | new [bad_alloc] | test.cpp:14:33:16:5 | { ... } [bad_alloc] |
 | test.cpp:13:7:13:28 | throw ... [exception] | test.cpp:14:33:16:5 | { ... } [exception] |

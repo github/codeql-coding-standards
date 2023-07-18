@@ -1,3 +1,6 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/MEM53-CPP/MissingConstructorCallForManuallyManagedObject.ql:18,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/MEM53-CPP/MissingConstructorCallForManuallyManagedObject.ql:25,38-46)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/cert/src/rules/MEM53-CPP/MissingConstructorCallForManuallyManagedObject.ql:25,65-73)
 edges
 nodes
 | test.cpp:16:26:16:31 | call to malloc | semmle.label | call to malloc |

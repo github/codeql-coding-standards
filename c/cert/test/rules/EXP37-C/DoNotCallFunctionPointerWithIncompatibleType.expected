@@ -1,3 +1,9 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP37-C/DoNotCallFunctionPointerWithIncompatibleType.ql:17,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP37-C/DoNotCallFunctionPointerWithIncompatibleType.ql:40,50-58)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP37-C/DoNotCallFunctionPointerWithIncompatibleType.ql:43,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP37-C/DoNotCallFunctionPointerWithIncompatibleType.ql:47,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP37-C/DoNotCallFunctionPointerWithIncompatibleType.ql:53,46-54)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/EXP37-C/DoNotCallFunctionPointerWithIncompatibleType.ql:53,70-78)
 edges
 | test.c:48:68:48:70 | fns [f1] | test.c:49:3:49:5 | fns [f1] |
 | test.c:49:3:49:5 | fns [f1] | test.c:49:8:49:9 | f1 |
