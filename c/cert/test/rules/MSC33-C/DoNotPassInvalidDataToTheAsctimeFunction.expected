@@ -1,4 +1,4 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/MSC33-C/DoNotPassInvalidDataToTheAsctimeFunction.ql:33,34-42)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/MSC33-C/DoNotPassInvalidDataToTheAsctimeFunction.ql:36,31-39)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/MSC33-C/DoNotPassInvalidDataToTheAsctimeFunction.ql:43,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/MSC33-C/DoNotPassInvalidDataToTheAsctimeFunction.ql:33,34-42)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/MSC33-C/DoNotPassInvalidDataToTheAsctimeFunction.ql:36,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/MSC33-C/DoNotPassInvalidDataToTheAsctimeFunction.ql:43,29-37)
 | test.c:6:24:6:30 | time_tm | The function `asctime` and `asctime_r` should be discouraged. Unsanitized input can overflow the output buffer. |

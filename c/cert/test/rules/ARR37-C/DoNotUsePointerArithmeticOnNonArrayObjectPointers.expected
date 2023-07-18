@@ -1,10 +1,10 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:17,8-16)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:23,56-64)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:26,31-39)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:38,29-37)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:46,35-43)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:104,6-14)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:104,33-41)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:17,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:23,56-64)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:26,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:38,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:46,35-43)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:104,6-14)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR37-C/DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:104,33-41)
 edges
 | test.c:14:38:14:39 | p1 | test.c:18:10:18:11 | v1 |
 | test.c:14:38:14:39 | p1 | test.c:19:10:19:11 | v2 |

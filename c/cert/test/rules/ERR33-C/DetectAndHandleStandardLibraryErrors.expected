@@ -1,4 +1,4 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/ERR33-C/DetectAndHandleStandardLibraryErrors.ql:453,5-13)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ERR33-C/DetectAndHandleStandardLibraryErrors.ql:453,5-13)
 | test.c:18:3:18:11 | call to setlocale | Missing error detection for the call to function `setlocale`. |
 | test.c:24:23:24:31 | call to setlocale | Missing error detection for the call to function `setlocale`. |
 | test.c:29:22:29:27 | call to calloc | Missing error detection for the call to function `calloc`. |

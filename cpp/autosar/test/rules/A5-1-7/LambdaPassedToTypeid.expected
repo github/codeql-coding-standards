@@ -1,9 +1,9 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:19,8-16)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:21,40-48)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:24,31-39)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:26,29-37)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:31,6-14)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:31,33-41)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:19,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:21,40-48)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:24,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:26,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:31,6-14)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToTypeid.ql:31,33-41)
 edges
 | test.cpp:5:13:5:30 | [...](...){...} | test.cpp:8:38:8:39 | l1 |
 | test.cpp:6:13:6:30 | [...](...){...} | test.cpp:9:38:9:39 | l2 |

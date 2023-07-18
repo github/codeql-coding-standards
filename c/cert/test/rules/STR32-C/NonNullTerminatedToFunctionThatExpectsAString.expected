@@ -1,12 +1,12 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:55,33-41)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:55,73-81)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:61,33-41)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:61,57-65)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:69,31-39)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:69,69-77)
-WARNING: Module TaintTracking has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:55,7-20)
-WARNING: Module TaintTracking has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:61,7-20)
-WARNING: Module TaintTracking has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:69,5-18)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:55,33-41)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:55,73-81)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:61,33-41)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:61,57-65)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:69,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:69,69-77)
+WARNING: Module TaintTracking has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:55,7-20)
+WARNING: Module TaintTracking has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:61,7-20)
+WARNING: Module TaintTracking has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR32-C/NonNullTerminatedToFunctionThatExpectsAString.ql:69,5-18)
 | test.c:19:3:19:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:7:20:7:24 | Co | this expression |
 | test.c:20:3:20:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:7:20:7:24 | Co | this expression |
 | test.c:22:3:22:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:13:3:13:9 | call to strncpy | this expression |

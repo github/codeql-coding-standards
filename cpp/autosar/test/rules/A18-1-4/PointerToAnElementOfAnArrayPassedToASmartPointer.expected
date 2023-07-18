@@ -1,9 +1,9 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:20,8-16)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:31,31-39)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:43,29-37)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:63,59-67)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:64,3-11)
-WARNING: Module TaintTracking has been deprecated and may be removed in future (/Users/mathias/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:26,63-76)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:20,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:31,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:43,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:63,59-67)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:64,3-11)
+WARNING: Module TaintTracking has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A18-1-4/PointerToAnElementOfAnArrayPassedToASmartPointer.ql:26,63-76)
 edges
 | test.cpp:3:36:3:45 | new[] | test.cpp:19:27:19:44 | call to allocate_int_array |
 | test.cpp:3:36:3:45 | new[] | test.cpp:23:12:23:29 | call to allocate_int_array |
