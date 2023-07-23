@@ -22,5 +22,5 @@ import codingstandards.cpp.Typehelpers
 from Struct s
 where
   not isExcluded(s, ClassesPackage::nonPodTypeShouldBeDefinedAsClassQuery()) and
-  not s.isPOD()
+  not s.isPod()
 select s, "Non-POD type defined as struct instead of class."

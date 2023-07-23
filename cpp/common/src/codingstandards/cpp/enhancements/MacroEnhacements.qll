@@ -29,7 +29,7 @@ module MacroEnhancements {
   /** A use of the NULL macro. */
   class NULL extends StandardLibrary::Literal {
     NULL() {
-      exists(StandardLibrary::NULLMacro nm | this = nm.getAnInvocation().getAnExpandedElement())
+      exists(StandardLibrary::NullMacro nm | this = nm.getAnInvocation().getAnExpandedElement())
     }
   }
 }
