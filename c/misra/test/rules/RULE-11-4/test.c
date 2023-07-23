@@ -11,3 +11,15 @@ void f1(void) {
   unsigned int *v5 = NULL;                   // COMPLIANT
   unsigned int *v6 = (unsigned int *)v2;     // NON_COMPLIANT
 }
+
+#define FOO (int *)0x200 // NON_COMPLIANT
+#define FOO_WRAPPER FOO;
+#define FOO_FUNCTIONAL(x) (int *)x
+#define FOO_INSERT(x) x
+
+void test_macros() {
+  FOO;                      // Issue is reported at the macro
+  FOO_WRAPPER;              // Issue is reported at the macro
+  FOO_FUNCTIONAL(0x200);    // NON_COMPLIANT
+  FOO_INSERT((int *)0x200); // NON_COMPLIANT
+}

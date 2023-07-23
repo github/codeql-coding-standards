@@ -1,3 +1,6 @@
-| test.c:6:21:6:37 | (unsigned int)... | Cast performed between a pointer to object type and a pointer to an integer type. |
-| test.c:8:8:8:24 | (unsigned int)... | Cast performed between a pointer to object type and a pointer to an integer type. |
-| test.c:12:22:12:39 | (unsigned int *)... | Cast performed between a pointer to object type and a pointer to an integer type. |
+| test.c:6:21:6:37 | (unsigned int)... | Cast from pointer to object type 'unsigned int *' to integer type 'unsigned int'. | test.c:6:21:6:37 | (unsigned int)... |  |
+| test.c:8:8:8:24 | (unsigned int)... | Cast from pointer to object type 'unsigned int *' to integer type 'unsigned int'. | test.c:8:8:8:24 | (unsigned int)... |  |
+| test.c:12:22:12:39 | (unsigned int *)... | Cast from integer type 'unsigned int' to pointer to object type 'unsigned int *'. | test.c:12:22:12:39 | (unsigned int *)... |  |
+| test.c:15:1:15:24 | #define FOO (int *)0x200 | Cast from integer type 'int' to pointer to object type 'int *'. | test.c:15:1:15:24 | #define FOO (int *)0x200 |  |
+| test.c:23:3:23:22 | (int *)... | Cast from integer type 'int' to pointer to object type 'int *' from expansion of macro $@. | test.c:17:1:17:34 | #define FOO_FUNCTIONAL(x) (int *)x | FOO_FUNCTIONAL |
+| test.c:24:14:24:25 | (int *)... | Cast from integer type 'int' to pointer to object type 'int *' from expansion of macro $@. | test.c:18:1:18:23 | #define FOO_INSERT(x) x | FOO_INSERT |
