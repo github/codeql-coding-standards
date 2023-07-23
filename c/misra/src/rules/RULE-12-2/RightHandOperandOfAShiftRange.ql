@@ -20,14 +20,51 @@ class ShiftExpr extends BinaryBitwiseOperation {
   ShiftExpr() { this instanceof LShiftExpr or this instanceof RShiftExpr }
 }
 
-from ShiftExpr e, Expr right, int max_val
+MacroInvocation getAMacroInvocation(ShiftExpr se) { result.getAnExpandedElement() = se }
+
+Macro getPrimaryMacro(ShiftExpr se) {
+  exists(MacroInvocation mi |
+    mi = getAMacroInvocation(se) and
+    not exists(MacroInvocation otherMi |
+      otherMi = getAMacroInvocation(se) and otherMi.getParentInvocation() = mi
+    ) and
+    result = mi.getMacro()
+  )
+}
+
+from
+  ShiftExpr e, Expr right, int max_val, float lowerBound, float upperBound, Type essentialType,
+  string extraMessage, Locatable optionalPlaceholderLocation, string optionalPlaceholderMessage
 where
   not isExcluded(right, Contracts7Package::rightHandOperandOfAShiftRangeQuery()) and
   right = e.getRightOperand().getFullyConverted() and
-  max_val = (8 * getEssentialType(e.getLeftOperand()).getSize()) - 1 and
+  essentialType = getEssentialType(e.getLeftOperand()) and
+  max_val = (8 * essentialType.getSize()) - 1 and
+  upperBound = upperBound(right) and
+  lowerBound = lowerBound(right) and
   (
-    lowerBound(right) < 0 or
-    upperBound(right) > max_val
+    lowerBound < 0 or
+    upperBound > max_val
+  ) and
+  // If this shift happens inside a macro, then report the macro as well
+  // for easier validation
+  (
+    if exists(getPrimaryMacro(e))
+    then
+      extraMessage = " from expansion of macro $@" and
+      exists(Macro m |
+        m = getPrimaryMacro(e) and
+        optionalPlaceholderLocation = m and
+        optionalPlaceholderMessage = m.getName()
+      )
+    else (
+      extraMessage = "" and
+      optionalPlaceholderLocation = e and
+      optionalPlaceholderMessage = ""
+    )
   )
 select right,
-  "The right hand operand of the shift operator shall lie in the range 0 to " + max_val + "."
+  "The possible range of the right operand of the shift operator (" + lowerBound + ".." + upperBound
+    + ") is outside the the valid shift range (0.." + max_val +
+    ") for the essential type of the left operand (" + essentialType + ")" + extraMessage + ".",
+  optionalPlaceholderLocation, optionalPlaceholderMessage
