@@ -8,3 +8,6 @@
 | test.c:25:10:25:10 | 8 | The right hand operand of the shift operator shall lie in the range 0 to 7. |
 | test.c:26:10:26:11 | 64 | The right hand operand of the shift operator shall lie in the range 0 to 7. |
 | test.c:30:16:30:17 | 64 | The right hand operand of the shift operator shall lie in the range 0 to 63. |
+| test.c:34:8:34:8 | y | The right hand operand of the shift operator shall lie in the range 0 to 31. |
+| test.c:40:8:40:8 | y | The right hand operand of the shift operator shall lie in the range 0 to 31. |
+| test.c:42:8:42:8 | y | The right hand operand of the shift operator shall lie in the range 0 to 31. |
