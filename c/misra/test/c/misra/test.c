@@ -27,3 +27,9 @@ void testCategoriesForComplexTypes() {
   f32;  // Should be essentially Floating type
   cf32; // Should be essentially Floating type
 }
+
+void testConstants() {
+  1;   // Essentially signed char
+  1U;  // Essentially unsigned char
+  1UL; // Essentially unsigned long
+}
