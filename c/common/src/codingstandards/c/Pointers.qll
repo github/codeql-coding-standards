@@ -62,12 +62,7 @@ class ArrayPointerArithmeticExpr extends PointerArithmeticExpr, ArrayExpr {
 predicate isNullPointerConstant(Expr e) {
   e.findRootCause() instanceof NULLMacro
   or
-  exists(CStyleCast c |
-    not c.isImplicit() and
-    c.getExpr() = e and
-    e instanceof Zero and
-    c.getType() instanceof VoidPointerType
-  )
+  e instanceof Zero
   or
   isNullPointerConstant(e.(Conversion).getExpr())
 }
