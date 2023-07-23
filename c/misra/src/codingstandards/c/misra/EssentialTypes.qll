@@ -355,13 +355,17 @@ class EssentialLiteral extends EssentialExpr, Literal {
     else (
       if this.(CharLiteral).getCharacter().length() = 1
       then result instanceof PlainCharType
-      else (
-        getStandardType().(IntegralType).isSigned() and
-        result = stlr(this)
-        or
-        not getStandardType().(IntegralType).isSigned() and
-        result = utlr(this)
-      )
+      else
+        exists(Type underlyingStandardType |
+          underlyingStandardType = getStandardType().getUnderlyingType()
+        |
+          if underlyingStandardType instanceof IntType
+          then
+            if underlyingStandardType.(IntType).isSigned()
+            then result = stlr(this)
+            else result = utlr(this)
+          else result = underlyingStandardType
+        )
     )
   }
 }
