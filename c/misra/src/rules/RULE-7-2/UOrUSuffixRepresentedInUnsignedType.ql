@@ -19,6 +19,10 @@ from Literal l
 where
   not isExcluded(l, SyntaxPackage::uOrUSuffixRepresentedInUnsignedTypeQuery()) and
   not l instanceof StringLiteral and
-  l.getImplicitlyConverted().getType().(IntegralType).isUnsigned() and
-  not exists(l.getValueText().toUpperCase().indexOf("U"))
-select l, "Unsigned literal does not explicitly express sign with a 'U' or 'u' suffix."
+  l.getType().(IntegralType).isUnsigned() and
+  not exists(l.getValueText().toUpperCase().indexOf("U")) and
+  // We exclude literals in macros, as they are often expanded during pre-processing
+  not l.isInMacroExpansion()
+select l,
+  "Unsigned literal " + l.getValueText() +
+    " does not explicitly express sign with a 'U' or 'u' suffix."
