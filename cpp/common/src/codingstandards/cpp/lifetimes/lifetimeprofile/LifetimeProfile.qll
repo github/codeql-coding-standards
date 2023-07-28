@@ -198,7 +198,7 @@ newtype TPSetEntry =
   PSetNull(NullReason nr) or
   /** An invalid pointer, for the given reason. */
   PSetInvalid(InvalidReason ir) or
-  /** An unkown pointer. */
+  /** An unknown pointer. */
   PSetUnknown()
 
 /**
