@@ -1,0 +1,4 @@
+ - `RULE-11-4`
+   - Reduce false positives by considering `0` a null pointer constant.
+   - Improve reporting of the order of the cast and the actual types involved.
+   - Improve reporting where the result is expanded from a macro by either reporting the macro itself (if it is not dependent on the context) or by including a link to the macro in the alert message.
