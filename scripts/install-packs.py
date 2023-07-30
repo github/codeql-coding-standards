@@ -18,6 +18,6 @@ packs = get_workspace_packs.get_workspace_packs(root)
 for pack in packs:
     pack_path = os.path.join(root, pack)
     # Run `codeql pack install` to install dependencies.
-    command = [args.codeql, 'pack', 'install', '--mode', args.mode, pack_path]
+    command = [args.codeql, 'pack', 'install', '--alow-prerelease', '--mode', args.mode, pack_path]
     print(f'Running `{" ".join(command)}`')
     subprocess.check_call(command)
