@@ -1,4 +1,4 @@
-name: codeql/codeql/cert-c-coding-standards
+name: codeql/cert-c-coding-standards
 version: 2.19.0-dev
 description: CERT C 2016
 suites: codeql-suites
