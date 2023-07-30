@@ -3,4 +3,4 @@ version: 2.19.0-dev
 license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
-  codeql/cpp-all: 0.4.0
+  codeql/cpp-all: 0.4.6
