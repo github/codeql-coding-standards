@@ -39,7 +39,7 @@ class DefinedSizeType extends Type {
 
 class DefinedSizeClass extends Class {
   DefinedSizeClass() {
-    this.isPOD() and
+    this.isPod() and
     forall(Field f | f = this.getAField() | f.getType() instanceof DefinedSizeType)
   }
 }
