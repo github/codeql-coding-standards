@@ -40,7 +40,7 @@ private string wcharInputOutput() {
 
 from FunctionCall fc, Function f
 where
-  not isExcluded(fc, BannedPackage::standardHeaderFileUsedSignalhQuery()) and
+  not isExcluded(fc, BannedPackage::standardLibraryInputoutputFunctionsUsedQuery()) and
   fc.getTarget() = f and
   (
     f.getName() = stdInputOutput() and
