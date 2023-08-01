@@ -1,4 +1,4 @@
-#include <string>
+#include <cstring>
 
 void test_unbounded_str_funs() {
   char str1[] = "Sample string";

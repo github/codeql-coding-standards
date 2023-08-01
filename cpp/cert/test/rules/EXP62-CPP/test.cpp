@@ -1,4 +1,4 @@
-#include <string>
+#include <cstring>
 
 struct S1 {
   int i, j, k;

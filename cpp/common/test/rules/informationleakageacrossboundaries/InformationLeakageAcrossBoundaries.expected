@@ -15,6 +15,6 @@
 | test.cpp:43:12:43:12 | s | 's' may leak information from {x (test.cpp:7)}. Path: s (test.cpp:43) --> & ... (test.cpp:47) |
 | test.cpp:58:12:58:12 | s | 's' may leak information from {x (test.cpp:7), y (test.cpp:8)}. Path: s (test.cpp:58) --> & ... (test.cpp:59) |
 | test.cpp:64:12:64:12 | s | 's' may leak information from {y (test.cpp:8)}. Path: s (test.cpp:64) --> & ... (test.cpp:66) |
-| test.cpp:112:16:112:16 | s | 's' may leak information from {buf (test.cpp:92)}. Path: s (test.cpp:112) --> & ... (test.cpp:115) |
-| test.cpp:128:12:128:12 | s | 's' may leak information from {x (test.cpp:7), y (test.cpp:8)}. Path: s (test.cpp:128) --> & ... (test.cpp:132) |
-| test.cpp:157:22:157:22 | s | 's' may leak information from {2 to 2 bytes of padding in has_padding (test.cpp:151)}. Path: s (test.cpp:157) --> & ... (test.cpp:160) |
+| test.cpp:110:16:110:16 | s | 's' may leak information from {buf (test.cpp:92)}. Path: s (test.cpp:110) --> & ... (test.cpp:113) |
+| test.cpp:126:12:126:12 | s | 's' may leak information from {x (test.cpp:7), y (test.cpp:8)}. Path: s (test.cpp:126) --> & ... (test.cpp:130) |
+| test.cpp:155:22:155:22 | s | 's' may leak information from {2 to 2 bytes of padding in has_padding (test.cpp:149)}. Path: s (test.cpp:155) --> & ... (test.cpp:158) |

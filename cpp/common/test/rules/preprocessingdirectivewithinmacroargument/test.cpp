@@ -1,4 +1,4 @@
-#include <string>
+#include <cstring>
 #define MACROFUNCTION(X) std::strlen(X)
 
 void f() {
