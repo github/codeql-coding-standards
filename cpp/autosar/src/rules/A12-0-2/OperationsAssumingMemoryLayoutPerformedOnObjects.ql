@@ -19,7 +19,7 @@ import cpp
 import codingstandards.cpp.autosar
 
 class Object extends Class {
-  Object() { not this.(Struct).isPOD() }
+  Object() { not this.(Struct).isPod() }
 }
 
 predicate isPointerToObject(Expr e) {

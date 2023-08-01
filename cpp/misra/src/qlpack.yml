@@ -5,4 +5,4 @@ suites: codeql-suites
 license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
-  codeql/cpp-all: 0.3.5
+  codeql/cpp-all: 0.4.6

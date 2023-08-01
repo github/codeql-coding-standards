@@ -60,7 +60,7 @@ class ArrayPointerArithmeticExpr extends PointerArithmeticExpr, ArrayExpr {
  * A null pointer constant, which is either in the form `NULL` or `(void *)0`.
  */
 predicate isNullPointerConstant(Expr e) {
-  e.findRootCause() instanceof NULLMacro
+  e.findRootCause() instanceof NullMacro
   or
   exists(CStyleCast c |
     not c.isImplicit() and
