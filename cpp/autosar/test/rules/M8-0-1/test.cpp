@@ -15,3 +15,10 @@ class ClassA {
   int m1, m2; // NON_COMPLIANT
   int m3;     // COMPLIANT
 };
+
+#include <vector>
+void test_loop(std::vector<ClassA> v) {
+  for (const auto b : v) { // COMPLIANT - DeclStmt is compiler generated
+    b;
+  }
+}
