@@ -1,1 +1,2 @@
- - `A8-4-13` - reduce false positives when using gcc/clang where a modifying operation was used on a shared_ptr.
+ - `A8-4-13`
+  - Address false positives caused by missing modelling of modifying operations for smart pointers for some standard libraries (such as libstdc++).
