@@ -29,6 +29,11 @@ abstract class AutosarSmartPointer extends Class {
       )
   }
 
+  FunctionCall getAGetCall() {
+    result.getTarget().hasName("get") and
+    result.getQualifier().getType().stripType() = this
+  }
+
   FunctionCall getAnInitializerExpr() {
     result =
       any(FunctionCall fc |

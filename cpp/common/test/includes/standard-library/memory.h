@@ -75,6 +75,9 @@ public:
   template <class Y> void reset(Y *p);
   template <class Y, class D> void reset(Y *p, D d);
   template <class Y, class D, class A> void reset(Y *p, D d, A a);
+
+  long use_count() const noexcept;
+  T *get() const noexcept;
 };
 
 template <typename T> class shared_ptr : public __shared_ptr<T> {
@@ -90,8 +93,6 @@ public:
   T &operator*() const noexcept;
   T *operator->() const noexcept;
 
-  long use_count() const noexcept { return 0; }
-  T *get() const noexcept { return ptr; }
   shared_ptr<T> &operator=(const shared_ptr &) {}
   shared_ptr<T> &operator=(shared_ptr &&) { return *this; }
   template <typename S> shared_ptr &operator=(shared_ptr<T> &&) {

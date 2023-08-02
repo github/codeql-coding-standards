@@ -29,6 +29,34 @@ private class PointerToSmartPointerConstructorFlowConfig extends TaintTracking::
       cc.getArgument(0) = sink.asExpr()
     )
   }
+
+  override predicate isAdditionalTaintStep(DataFlow::Node node1, DataFlow::Node node2) {
+    // Summarize flow through constructor calls
+    exists(AutosarSmartPointer sp, ConstructorCall cc |
+      sp.getAConstructorCall() = cc and
+      cc = node2.asExpr() and
+      cc.getArgument(0) = node1.asExpr()
+    )
+    or
+    // Summarize flow through get() calls
+    exists(AutosarSmartPointer sp, FunctionCall fc |
+      sp.getAGetCall() = fc and
+      fc = node2.asExpr() and
+      fc.getQualifier() = node1.asExpr()
+    )
+  }
+
+  override predicate isSanitizerIn(DataFlow::Node node) {
+    // Exclude flow into header files outside the source archive which are summarized by the
+    // additional taint steps above.
+    exists(AutosarSmartPointer sp |
+      sp.getAConstructorCall().getTarget().getAParameter() = node.asParameter()
+      or
+      sp.getAGetCall().getTarget().getAParameter() = node.asParameter()
+    |
+      not exists(node.getLocation().getFile().getRelativePath())
+    )
+  }
 }
 
 query predicate problems(
