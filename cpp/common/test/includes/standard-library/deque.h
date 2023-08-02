@@ -1,7 +1,7 @@
 #ifndef _GHLIBCPP_DEQUE
 #define _GHLIBCPP_DEQUE
-#include "iterator.h"
-#include "string.h"
+#include <iterator>
+#include <string>
 
 namespace std {
 template <class T, class Allocator = std::allocator<T>> class deque {
