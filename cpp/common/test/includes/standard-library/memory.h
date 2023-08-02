@@ -1,7 +1,7 @@
 #ifndef _GHLIBCPP_MEMORY
 #define _GHLIBCPP_MEMORY
-#include "stddef.h"
 #include "exception.h"
+#include "stddef.h"
 
 namespace std {
 
@@ -18,6 +18,7 @@ template <typename T> struct default_delete<T[]> {
 template <typename T, typename Deleter = std::default_delete<T>>
 class unique_ptr {
 public:
+  typedef T *pointer;
   unique_ptr() {}
   unique_ptr(T *ptr) {}
   unique_ptr(const unique_ptr<T> &t) = delete;
@@ -27,9 +28,7 @@ public:
   T *operator->() const noexcept { return ptr; }
   T *get() const noexcept { return ptr; }
   T *release() { return ptr; }
-  void reset() {}
-  void reset(T *ptr) {}
-  void reset(T ptr) {}
+  void reset(pointer __p = pointer()) {}
   T *get() { return ptr; }
   unique_ptr<T> &operator=(const unique_ptr &) = delete;
   unique_ptr<T> &operator=(unique_ptr &&) { return *this; }
@@ -70,23 +69,29 @@ public:
 template <class T, class... Args> unique_ptr<T> make_unique(Args &&...args);
 template <class T> unique_ptr<T> make_unique(size_t n);
 
-template <typename T> class shared_ptr {
+template <typename T> class __shared_ptr {
 public:
-  shared_ptr() {}
-  shared_ptr(T *ptr) {}
+  void reset() noexcept;
+  template <class Y> void reset(Y *p);
+  template <class Y, class D> void reset(Y *p, D d);
+  template <class Y, class D, class A> void reset(Y *p, D d, A a);
+};
+
+template <typename T> class shared_ptr : public __shared_ptr<T> {
+public:
+  shared_ptr();
+  shared_ptr(T *ptr);
   shared_ptr(const shared_ptr<T> &r) noexcept;
   template <class Y> shared_ptr(const shared_ptr<Y> &r) noexcept;
   shared_ptr(shared_ptr<T> &&r) noexcept;
   template <class Y> shared_ptr(shared_ptr<Y> &&r) noexcept;
   shared_ptr(unique_ptr<T> &&t) {}
   ~shared_ptr() {}
-  T &operator*() const { return *ptr; }
-  T *operator->() const noexcept { return ptr; }
-  void reset() {}
-  void reset(T *pt) {}
-  void reset(T pt) {}
+  T &operator*() const noexcept;
+  T *operator->() const noexcept;
+
   long use_count() const noexcept { return 0; }
-  T *get() { return ptr; }
+  T *get() const noexcept { return ptr; }
   shared_ptr<T> &operator=(const shared_ptr &) {}
   shared_ptr<T> &operator=(shared_ptr &&) { return *this; }
   template <typename S> shared_ptr &operator=(shared_ptr<T> &&) {

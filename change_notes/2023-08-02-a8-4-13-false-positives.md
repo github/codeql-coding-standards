@@ -1,0 +1,1 @@
+ - `A8-4-13` - reduce false positives when using gcc/clang where a modifying operation was used on a shared_ptr.
