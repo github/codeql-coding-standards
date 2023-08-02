@@ -46,14 +46,7 @@ class SingleObjectSmartPointerArrayConstructionConfig extends TaintTracking::Con
       (
         sp.getAConstructorCallWithExternalObjectConstruction().getAnArgument() = sink.asExpr()
         or
-        sink.asExpr() =
-          any(FunctionCall fc, MemberFunction mf |
-            mf = fc.getTarget() and
-            mf.getDeclaringType() = sp and
-            mf.getName() = "reset"
-          |
-            fc.getArgument(0)
-          )
+        sink.asExpr() = sp.getAResetCall().getArgument(0)
       )
     )
   }

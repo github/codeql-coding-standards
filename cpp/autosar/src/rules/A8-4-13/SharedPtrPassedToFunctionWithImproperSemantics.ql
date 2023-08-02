@@ -19,30 +19,20 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
 
-class AutosarSharedPointerOrDerived extends Type {
-  AutosarSharedPointerOrDerived() {
-    this.getUnspecifiedType() instanceof AutosarSharedPointer or
-    this.getUnspecifiedType().(DerivedType).getBaseType() instanceof AutosarSharedPointer
-  }
-}
-
-Expr underlyingObjectAffectingSharedPointerExpr(Function f) {
-  result =
-    any(VariableAccess va, FunctionCall fc |
-      va.getEnclosingFunction() = f and
-      // The type of the variable is either a shared_ptr, or a reference or pointer to a shared_ptr
-      va.getType() instanceof AutosarSharedPointerOrDerived and
-      fc.getQualifier() = va and
-      // include only calls to methods which modify the underlying object
-      fc.getTarget().hasName(["operator=", "reset", "swap"])
-    |
-      va
-    )
+VariableAccess underlyingObjectAffectingSharedPointerExpr(Function f) {
+  exists(FunctionCall fc |
+    // Find a call in the function
+    fc.getEnclosingFunction() = f and
+    // include only calls to methods which modify the underlying object
+    fc = any(AutosarSharedPointer s).getAModifyingCall() and
+    // Report the qualifier
+    fc.getQualifier() = result
+  )
 }
 
 predicate flowsToUnderlyingObjectAffectingExpr(Parameter p) {
   // check if a parameter flows locally to an expression which affects smart pointer lifetime
-  p.getType() instanceof AutosarSharedPointerOrDerived and
+  p.getType().stripType() instanceof AutosarSharedPointer and
   localExprFlow(p.getAnAccess(), underlyingObjectAffectingSharedPointerExpr(p.getFunction()))
   or
   // else handle nested cases, such as passing smart pointers as reference arguments
@@ -60,7 +50,7 @@ predicate flowsToUnderlyingObjectAffectingExpr(Parameter p) {
 from DefinedSmartPointerParameter p, string problem
 where
   not isExcluded(p, SmartPointers1Package::smartPointerAsParameterWithoutLifetimeSemanticsQuery()) and
-  p.getType() instanceof AutosarSharedPointerOrDerived and
+  p.getType().stripType() instanceof AutosarSharedPointer and
   (
     // handle the parameter depending on its derived type
     p.getType() instanceof RValueReferenceType and

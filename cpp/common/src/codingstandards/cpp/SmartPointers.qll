@@ -51,6 +51,16 @@ abstract class AutosarSmartPointer extends Class {
           AutosarSmartPointer
       )
   }
+
+  FunctionCall getAResetCall() {
+    result.getTarget().hasName("reset") and
+    result.getQualifier().getType().stripType() = this
+  }
+
+  FunctionCall getAModifyingCall() {
+    result.getTarget().hasName(["operator=", "reset", "swap"]) and
+    result.getQualifier().getType().stripType() = this
+  }
 }
 
 class AutosarUniquePointer extends AutosarSmartPointer {
