@@ -17,7 +17,7 @@ import codingstandards.c.misra
 
 from FunctionCall fc, Function f
 where
-  not isExcluded(fc, BannedPackage::terminationFunctionsOfStdlibhUsedQuery()) and
+  not isExcluded(fc, BannedPackage::bsearchAndQsortOfStdlibhUsedQuery()) and
   f = fc.getTarget() and
   f.getName() = ["qsort", "bsearch"] and
   f.getFile().getBaseName() = "stdlib.h"

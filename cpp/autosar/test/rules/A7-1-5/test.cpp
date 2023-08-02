@@ -106,3 +106,9 @@ void instantiate() {
   t381.test_381_1();
   t381.test_381_2();
 }
+
+void test_loop() {
+  for (const auto a : {8, 9, 10}) {
+    a;
+  }
+}

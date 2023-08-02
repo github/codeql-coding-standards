@@ -20,5 +20,7 @@ import codingstandards.cpp.autosar
 from DeclStmt ds
 where
   not isExcluded(ds, InitializationPackage::multipleLocalDeclaratorsQuery()) and
-  count(ds.getADeclaration()) > 1
+  count(Declaration d | d = ds.getADeclaration()) > 1 and
+  // Not a compiler generated `DeclStmt`, such as in the range-based for loop
+  not ds.isCompilerGenerated()
 select ds, "Declaration list contains more than one declaration."
