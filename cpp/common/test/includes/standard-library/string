@@ -48,7 +48,8 @@ public:
   size_type length() const noexcept;
 
   typedef __iterator<charT> iterator;
-  typedef __iterator<const charT> const_iterator;
+  typedef __iterator<const charT> __const_iterator;
+  typedef __const_iterator const_iterator;
 
   iterator begin();
   iterator end();
@@ -111,17 +112,17 @@ public:
                         size_type n2);
   basic_string &replace(size_type pos, size_type n1, const charT *s);
   basic_string &replace(size_type pos, size_type n1, size_type n2, charT c);
-  basic_string &replace(const_iterator i1, const_iterator i2,
+  basic_string &replace(__const_iterator i1, __const_iterator i2,
                         const basic_string &str);
-  basic_string &replace(const_iterator i1, const_iterator i2, const charT *s,
+  basic_string &replace(__const_iterator i1, __const_iterator i2, const charT *s,
                         size_type n);
-  basic_string &replace(const_iterator i1, const_iterator i2, const charT *s);
-  basic_string &replace(const_iterator i1, const_iterator i2, size_type n,
+  basic_string &replace(__const_iterator i1, __const_iterator i2, const charT *s);
+  basic_string &replace(__const_iterator i1, __const_iterator i2, size_type n,
                         charT c);
   template <class InputIterator>
-  basic_string &replace(const_iterator i1, const_iterator i2, InputIterator j1,
+  basic_string &replace(__const_iterator i1, __const_iterator i2, InputIterator j1,
                         InputIterator j2);
-  basic_string &replace(const_iterator, const_iterator,
+  basic_string &replace(__const_iterator, __const_iterator,
                         initializer_list<charT>);
 
   size_type copy(charT *s, size_type n, size_type pos = 0) const;
