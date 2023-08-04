@@ -1,11 +1,11 @@
-| test.cpp:5:3:5:9 | ~ClassA | ClassA::~ClassA should not be noexcept(false). |
-| test.cpp:9:3:9:9 | ~ClassB | ClassB::~ClassB should not be noexcept(false). |
-| test.cpp:38:6:38:20 | operator delete | operator delete is implicitly noexcept(false) and might throw. |
-| test.cpp:43:6:43:20 | operator delete | operator delete is implicitly noexcept(false) and might throw. |
-| test.cpp:53:11:53:19 | operator= | ClassF::operator= should not be noexcept(false). |
-| test.cpp:63:3:63:8 | ClassH | ClassH::ClassH should not be noexcept(false). |
-| test.cpp:68:6:68:9 | swap | swap is implicitly noexcept(false) and might throw. |
-| test.cpp:72:6:72:9 | swap | swap should not be noexcept(false). |
-| test.cpp:77:8:77:11 | swap | ClassI::swap is implicitly noexcept(false) and might throw. |
-| test.cpp:82:8:82:11 | swap | ClassJ::swap is implicitly noexcept(false) and might throw. |
-| test.cpp:88:6:88:6 | swap | swap is implicitly noexcept(false) and might throw. |
+| test.cpp:5:3:5:9 | ~ClassA | Special function ClassA::~ClassA has a noexcept(false) specification that permits exceptions. |
+| test.cpp:9:3:9:9 | ~ClassB | Special function ClassB::~ClassB has a noexcept(false) specification that permits exceptions. |
+| test.cpp:38:6:38:20 | operator delete | operator delete has an implicit noexcept(true) specification but should make that explicit. |
+| test.cpp:43:6:43:20 | operator delete | operator delete has an implicit noexcept(true) specification but should make that explicit. |
+| test.cpp:53:11:53:19 | operator= | Special function ClassF::operator= has a noexcept(false) specification that permits exceptions. |
+| test.cpp:63:3:63:8 | ClassH | Special function ClassH::ClassH has a noexcept(false) specification that permits exceptions. |
+| test.cpp:68:6:68:9 | swap | Special function swap has an implicit noexcept(false) specification that permits exceptions. |
+| test.cpp:72:6:72:9 | swap | Special function swap has a noexcept(false) specification that permits exceptions. |
+| test.cpp:77:8:77:11 | swap | Special function ClassI::swap has an implicit noexcept(false) specification that permits exceptions. |
+| test.cpp:82:8:82:11 | swap | Special function ClassJ::swap has an implicit noexcept(false) specification that permits exceptions. |
+| test.cpp:88:6:88:6 | swap | Special function swap has an implicit noexcept(false) specification that permits exceptions. |
