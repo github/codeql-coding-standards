@@ -78,11 +78,18 @@ class DeleteWrapperFunction extends Function {
 class ExceptionThrownInConstructor extends ExceptionThrowingExpr {
   Constructor c;
 
-  ExceptionThrownInConstructor() { exists(getAFunctionThrownType(c, this)) }
+  ExceptionThrownInConstructor() {
+    exists(getAFunctionThrownType(c, this)) and
+    // The constructor is within the users source code
+    exists(c.getFile().getRelativePath())
+  }
 
   Constructor getConstructor() { result = c }
 }
 
+/**
+ * Add the `nodes` predicate to ensure results with an empty path are still reported.
+ */
 query predicate nodes(ExceptionFlowNode node) { any() }
 
 from
