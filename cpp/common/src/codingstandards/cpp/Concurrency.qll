@@ -114,7 +114,10 @@ class CPPMutexFunctionCall extends MutexFunctionCall {
   /**
    * Holds if this `CPPMutexFunctionCall` is a lock.
    */
-  override predicate isLock() { getTarget().getName() = "lock" }
+  override predicate isLock() {
+    not isLockingOperationWithinLockingOperation(this) and
+    getTarget().getName() = "lock"
+  }
 
   /**
    * Holds if this `CPPMutexFunctionCall` is a speculative lock, defined as calling
@@ -172,6 +175,7 @@ class CMutexFunctionCall extends MutexFunctionCall {
    * Holds if this `CMutexFunctionCall` is a lock.
    */
   override predicate isLock() {
+    not isLockingOperationWithinLockingOperation(this) and
     getTarget().getName() = ["mtx_lock", "mtx_timedlock", "mtx_trylock"]
   }
 
@@ -296,6 +300,16 @@ abstract class LockingOperation extends FunctionCall {
    * Holds if this is an unlock operation
    */
   abstract predicate isUnlock();
+
+  /**
+   * Holds if this locking operation is really a locking operation within a
+   * designated locking operation. This library assumes the underlying locking
+   * operations are implemented correctly in that calling a `LockingOperation`
+   * results in the creation of a singular lock.
+   */
+  predicate isLockingOperationWithinLockingOperation(LockingOperation inner) {
+    exists(LockingOperation outer | outer.getTarget() = inner.getEnclosingFunction())
+  }
 }
 
 /**
@@ -317,6 +331,7 @@ class RAIIStyleLock extends LockingOperation {
    * Holds if this is a lock operation
    */
   override predicate isLock() {
+    not isLockingOperationWithinLockingOperation(this) and
     this instanceof ConstructorCall and
     lock = getArgument(0).getAChild*() and
     // defer_locks don't cause a lock
