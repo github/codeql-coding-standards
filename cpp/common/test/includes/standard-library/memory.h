@@ -57,13 +57,20 @@ public:
   pointer get() const noexcept;
   explicit operator bool() const noexcept;
 
-  pointer release() noexcept;
+  pointer release() noexcept {
+    pointer __p = get();
+    _M_p = pointer();
+    return __p;
+  }
   void reset(pointer p = pointer()) noexcept;
   void reset(nullptr_t) noexcept;
   template <class U> void reset(U) = delete;
   void swap(unique_ptr &u) noexcept;
   unique_ptr(const unique_ptr &) = delete;
   unique_ptr &operator=(const unique_ptr &) = delete;
+
+private:
+  pointer _M_p;
 };
 
 template <class T, class... Args> unique_ptr<T> make_unique(Args &&...args);

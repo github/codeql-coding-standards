@@ -50,6 +50,24 @@ class SingleObjectSmartPointerArrayConstructionConfig extends TaintTracking::Con
       )
     )
   }
+
+  override predicate isAdditionalTaintStep(DataFlow::Node source, DataFlow::Node sink) {
+    exists(AutosarUniquePointer sp, FunctionCall fc |
+      fc = sp.getAReleaseCall() and
+      source.asExpr() = fc.getQualifier() and
+      sink.asExpr() = fc
+    )
+  }
+
+  override predicate isSanitizerIn(DataFlow::Node node) {
+    // Exclude flow into header files outside the source archive which are summarized by the
+    // additional taint steps above.
+    exists(AutosarUniquePointer sp |
+      sp.getAReleaseCall().getTarget() = node.asExpr().(ThisExpr).getEnclosingFunction()
+    |
+      not exists(node.getLocation().getFile().getRelativePath())
+    )
+  }
 }
 
 from
