@@ -34,6 +34,7 @@
 | 0.25.0  | 2022-07-22 | Jeroen Ketema    | Document the existence and purpose of the `next` branch.                                                                                                                                                                                                                                  |
 | 0.26.0  | 2022-08-10 | Remco Vermeulen  | Address incorrect package file generation command. This was missing the required language argument.                                                                                                                                                                                       |
 | 0.27.0  | 2022-11-08 | Luke Cartey | Update the versions of C we intend to support to exclude C90, which reflects the intended scope at the outset of the project.                                                                                                                                                                                       |
+| 0.28.0  | 2023-08-14 | Luke Cartey | Remove references to LGTM which is now a legacy product.  |
 
 ## Scope of work
 
@@ -475,7 +476,7 @@ For the purpose of this repository, and any tool qualification, we consider thes
 To (a) clearly specify the supported versions of these external dependencies and to (b) enable automation around them, the repository contains a `supported_codeql_configs.json` which lists the sets of supported configurations. There are four fields:
 
  * `codeql_cli` - this is the plain version number of the supported CodeQL CLI, e.g. `2.6.3`.
- * `codeql_standard_library` - this is the name of a tag on the `github.com/github/codeql` repository. The tag should be compatible with the CodeQL CLI given above. For an enterprise release compatible with LGTM an `lgtm/v<version-number>` should be chosen. For CodeQL CLI releases which are not tied to an enterprise release we would typically use `codeql-cli/v<version-number>`, although any tag which is compatible is allowed.
+ * `codeql_standard_library` - this is the name of a tag on the `github.com/github/codeql` repository. The tag should be compatible with the CodeQL CLI given above. This would typically use the `codeql-cli/v<version-number>` tag for the release, although any tag which is compatible is allowed.
  * `codeql_cli_bundle` - (optional) - if present, describes the CodeQL CLI bundle version that is compatible. The bundle should include precisely the CodeQL CLI version and CodeQL Standard Library versions specified in the two mandatory fields.
  * `ghes` - (optional) - if present describes the GitHub Enterprise Server release whose integrated copy of the CodeQL Action points to the CodeQL CLI bundle specified in the `codeql_cli_bundle` field.
 
@@ -497,8 +498,8 @@ To upgrade the CodeQL external dependencies:
   - GHES <ghes>
   - CodeQL CLI Bundle <date_of_bundle>
 
-  <EITHER:This should match the versions of CodeQL deployed with LGTM <version> and GitHub Enterprise Server <ghes>>
-  <OR: This does not match any released version of LGTM or GitHub Enterprise Server.>
+  <EITHER:This should match the versions of CodeQL deployed with GitHub Enterprise Server <ghes>>
+  <OR: This does not match any released version of GitHub Enterprise Server.>
 
   ## CodeQL dependency upgrade checklist:
 
@@ -548,10 +549,9 @@ Ensure that the same release branch is created in the [codeql-coding-standards-h
 
 There is an automated CI/CD job ([Code Scanning Query Pack Generation](../.github/workflows/code-scanning-pack-gen.yml)) provided that generates the following release artifacts for Coding Standards:
 
- - LGTM query pack - generates a query pack that can be deployed to LGTM.
- - Code Scanning query pack - generates a zipped folder that can be used with the CodeQL CLI directly, or with GitHub Advanced Security.
+  - Code Scanning query pack - generates a zipped folder that can be used with the CodeQL CLI directly, or with GitHub Advanced Security.
 
-**Use of LGTM and GitHub Advanced Security is not in scope for ISO 26262 tool qualification. See [user_manual.md#github-advanced-security-and-lgtm](user_manual.md#github-advanced-security-and-lgtm) for more information**.
+**Use of Code Scanning within GitHub Advanced Security is not in scope for ISO 26262 tool qualification. See [user_manual.md#github-advanced-security](user_manual.md#github-advanced-security) for more information**.
 
 These run on every push to `main` and `rc/*`, and on every pull request, and are releasable without modification, assuming all other status checks succeed on the same commit.
 
