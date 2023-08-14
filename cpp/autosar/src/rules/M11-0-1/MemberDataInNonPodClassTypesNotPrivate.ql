@@ -17,7 +17,7 @@ import cpp
 import codingstandards.cpp.autosar
 
 class NonPODType extends Class {
-  NonPODType() { not this.isPOD() }
+  NonPODType() { not this.isPod() }
 }
 
 from NonPODType p, Field f

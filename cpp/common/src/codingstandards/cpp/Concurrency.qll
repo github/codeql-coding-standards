@@ -857,7 +857,7 @@ class TSSCreateFunctionCall extends ThreadSpecificStorageFunctionCall {
   TSSCreateFunctionCall() { getTarget().getName() = "tss_create" }
 
   predicate hasDeallocator() {
-    not exists(MacroInvocation mi, NULLMacro nm |
+    not exists(MacroInvocation mi, NullMacro nm |
       getArgument(1) = mi.getExpr() and
       mi = nm.getAnInvocation()
     )
