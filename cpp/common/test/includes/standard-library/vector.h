@@ -1,7 +1,7 @@
 #ifndef _GHLIBCPP_VECTOR
 #define _GHLIBCPP_VECTOR
-#include "iterator.h"
-#include "string.h"
+#include <iterator>
+#include <string>
 
 namespace std {
 

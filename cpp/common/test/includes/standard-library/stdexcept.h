@@ -1,7 +1,7 @@
 #ifndef _GHLIBCPP_STDEXCEPT
 #define _GHLIBCPP_STDEXCEPT
-#include "exception.h"
-#include "string.h"
+#include <exception>
+#include <string>
 
 namespace std {
 class logic_error : public exception {

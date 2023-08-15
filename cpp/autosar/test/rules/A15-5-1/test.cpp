@@ -1,6 +1,6 @@
 #include "stddef.h"
+#include <new>
 #include <stdexcept>
-
 class ClassA {
   ~ClassA() noexcept(false) { throw std::exception(); } // NON_COMPLIANT
 };
@@ -36,12 +36,12 @@ class ClassD {
 };
 
 void operator delete(void *ptr) { // NON_COMPLIANT
-  // NOTE: cannot be declared noexcept(false)
+  // NOTE: defaults to noexcept(true)
   throw std::exception();
 }
 
 void operator delete(void *ptr, size_t size) { // NON_COMPLIANT
-  // NOTE: cannot be declared noexcept(false)
+  // NOTE: defaults to noexcept(true)
   throw std::exception();
 }
 

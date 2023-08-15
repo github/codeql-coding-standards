@@ -19,19 +19,15 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
 
-Expr underlyingObjectAffectingSharedPointerExpr(Function f) {
-  result =
-    any(VariableAccess va, FunctionCall fc |
-      va.getEnclosingFunction() = f and
-      // strip the type so as to include reference parameter types
-      va.getType().stripType() instanceof AutosarSharedPointer and
-      fc.getTarget().getDeclaringType().stripType() instanceof AutosarSharedPointer and
-      fc.getQualifier() = va and
-      // include only calls to methods which modify the underlying object
-      fc.getTarget().hasName(["operator=", "reset", "swap"])
-    |
-      va
-    )
+VariableAccess underlyingObjectAffectingSharedPointerExpr(Function f) {
+  exists(FunctionCall fc |
+    // Find a call in the function
+    fc.getEnclosingFunction() = f and
+    // include only calls to methods which modify the underlying object
+    fc = any(AutosarSharedPointer s).getAModifyingCall() and
+    // Report the qualifier
+    fc.getQualifier() = result
+  )
 }
 
 predicate flowsToUnderlyingObjectAffectingExpr(Parameter p) {

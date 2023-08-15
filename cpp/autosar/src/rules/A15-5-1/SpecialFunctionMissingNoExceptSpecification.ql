@@ -22,15 +22,25 @@ import codingstandards.cpp.exceptions.ExceptionSpecifications
 from SpecialFunction f, string message
 where
   not isExcluded(f, Exceptions2Package::specialFunctionMissingNoExceptSpecificationQuery()) and
-  not isNoExceptTrue(f) and
+  not isFDENoExceptTrue(f.getDefinition()) and
   not f.isCompilerGenerated() and
   not f.isDeleted() and
   not f.isDefaulted() and
   (
     isNoExceptExplicitlyFalse(f) and
-    message = f.getQualifiedName() + " should not be noexcept(false)."
+    message =
+      "Special function " + f.getQualifiedName() +
+        " has a noexcept(false) specification that permits exceptions."
     or
+    isNoExceptTrue(f) and
+    message =
+      f.getQualifiedName() +
+        " has an implicit noexcept(true) specification but should make that explicit."
+    or
+    not isNoExceptTrue(f) and
     not isNoExceptExplicitlyFalse(f) and
-    message = f.getQualifiedName() + " is implicitly noexcept(false) and might throw."
+    message =
+      "Special function " + f.getQualifiedName() +
+        " has an implicit noexcept(false) specification that permits exceptions."
   )
 select f, message

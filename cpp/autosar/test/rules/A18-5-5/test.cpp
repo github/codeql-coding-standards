@@ -11,7 +11,7 @@ void *malloc1(int b) { // NON_COMPLIANT - recursion
   return malloc1(b - 1);
 }
 
-void *malloc2(int b) __attribute__((no_caller_saved_registers, __malloc__));
+void *malloc2(int b) __attribute__((__malloc__));
 void *malloc2(int b) { // NON_COMPLIANT - execution doesn't depend on b
 
   for (int i = 0; i < 10; i++) {

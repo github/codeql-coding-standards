@@ -1,8 +1,8 @@
 #ifndef _GHLIBCPP_ISTREAM
 #define _GHLIBCPP_ISTREAM
 
-#include "ios.h"
-#include "string.h"
+#include <ios>
+#include <string>
 
 namespace std {
 template <class charT, class traits>

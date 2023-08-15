@@ -29,6 +29,11 @@ abstract class AutosarSmartPointer extends Class {
       )
   }
 
+  FunctionCall getAGetCall() {
+    result.getTarget().hasName("get") and
+    result.getQualifier().getType().stripType() = this
+  }
+
   FunctionCall getAnInitializerExpr() {
     result =
       any(FunctionCall fc |
@@ -51,10 +56,25 @@ abstract class AutosarSmartPointer extends Class {
           AutosarSmartPointer
       )
   }
+
+  FunctionCall getAResetCall() {
+    result.getTarget().hasName("reset") and
+    result.getQualifier().getType().stripType() = this
+  }
+
+  FunctionCall getAModifyingCall() {
+    result.getTarget().hasName(["operator=", "reset", "swap"]) and
+    result.getQualifier().getType().stripType() = this
+  }
 }
 
 class AutosarUniquePointer extends AutosarSmartPointer {
   AutosarUniquePointer() { this.hasQualifiedName("std", "unique_ptr") }
+
+  FunctionCall getAReleaseCall() {
+    result.getTarget().hasName("release") and
+    result.getQualifier().getType().stripType() = this
+  }
 }
 
 class AutosarSharedPointer extends AutosarSmartPointer {
