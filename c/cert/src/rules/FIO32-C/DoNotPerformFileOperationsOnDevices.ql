@@ -14,10 +14,10 @@
 import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.security.FunctionWithWrappers
-import semmle.code.cpp.security.Security
+import semmle.code.cpp.security.FlowSources
 import semmle.code.cpp.ir.IR
 import semmle.code.cpp.ir.dataflow.TaintTracking
-import DataFlow::PathGraph
+import TaintedPath::PathGraph
 
 // Query TaintedPath.ql from the CodeQL standard library
 /**
@@ -46,22 +46,6 @@ class FileFunction extends FunctionWithWrappers {
   override predicate interestingArg(int arg) { arg = 0 }
 }
 
-Expr asSourceExpr(DataFlow::Node node) {
-  result = node.asConvertedExpr()
-  or
-  result = node.asDefiningArgument()
-}
-
-Expr asSinkExpr(DataFlow::Node node) {
-  result =
-    node.asOperand()
-        .(SideEffectOperand)
-        .getUse()
-        .(ReadSideEffectInstruction)
-        .getArgumentDef()
-        .getUnconvertedResultExpression()
-}
-
 /**
  * Holds for a variable that has any kind of upper-bound check anywhere in the program.
  * This is biased towards being inclusive and being a coarse overapproximation because
@@ -85,20 +69,16 @@ predicate hasUpperBoundsCheck(Variable var) {
   )
 }
 
-class TaintedPathConfiguration extends TaintTracking::Configuration {
-  TaintedPathConfiguration() { this = "TaintedPathConfiguration" }
+module TaintedPathConfiguration implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node node) { node instanceof FlowSource }
 
-  override predicate isSource(DataFlow::Node node) { isUserInput(asSourceExpr(node), _) }
-
-  override predicate isSink(DataFlow::Node node) {
+  predicate isSink(DataFlow::Node node) {
     exists(FileFunction fileFunction |
-      fileFunction.outermostWrapperFunctionCall(asSinkExpr(node), _)
+      fileFunction.outermostWrapperFunctionCall(node.asIndirectArgument(), _)
     )
   }
 
-  override predicate isSanitizerIn(DataFlow::Node node) { this.isSource(node) }
-
-  override predicate isSanitizer(DataFlow::Node node) {
+  predicate isBarrier(DataFlow::Node node) {
     node.asExpr().(Call).getTarget().getUnspecifiedType() instanceof ArithmeticType
     or
     exists(LoadInstruction load, Variable checkedVar |
@@ -107,32 +87,19 @@ class TaintedPathConfiguration extends TaintTracking::Configuration {
       hasUpperBoundsCheck(checkedVar)
     )
   }
-
-  predicate hasFilteredFlowPath(DataFlow::PathNode source, DataFlow::PathNode sink) {
-    this.hasFlowPath(source, sink) and
-    // The use of `isUserInput` in `isSink` in combination with `asSourceExpr` causes
-    // duplicate results. Filter these duplicates. The proper solution is to switch to
-    // using `LocalFlowSource` and `RemoteFlowSource`, but this currently only supports
-    // a subset of the cases supported by `isUserInput`.
-    not exists(DataFlow::PathNode source2 |
-      this.hasFlowPath(source2, sink) and
-      asSourceExpr(source.getNode()) = asSourceExpr(source2.getNode())
-    |
-      not exists(source.getNode().asConvertedExpr()) and exists(source2.getNode().asConvertedExpr())
-    )
-  }
 }
 
+module TaintedPath = TaintTracking::Make<TaintedPathConfiguration>;
+
 from
-  FileFunction fileFunction, Expr taintedArg, Expr taintSource, TaintedPathConfiguration cfg,
-  DataFlow::PathNode sourceNode, DataFlow::PathNode sinkNode, string taintCause, string callChain
+  FileFunction fileFunction, Expr taintedArg, FlowSource taintSource,
+  TaintedPath::PathNode sourceNode, TaintedPath::PathNode sinkNode, string callChain
 where
   not isExcluded(taintedArg, IO3Package::doNotPerformFileOperationsOnDevicesQuery()) and
-  taintedArg = asSinkExpr(sinkNode.getNode()) and
+  taintedArg = sinkNode.getNode().asIndirectArgument() and
   fileFunction.outermostWrapperFunctionCall(taintedArg, callChain) and
-  cfg.hasFilteredFlowPath(sourceNode, sinkNode) and
-  taintSource = asSourceExpr(sourceNode.getNode()) and
-  isUserInput(taintSource, taintCause)
+  TaintedPath::hasFlowPath(sourceNode, sinkNode) and
+  taintSource = sourceNode.getNode()
 select taintedArg, sourceNode, sinkNode,
   "This argument to a file access function is derived from $@ and then passed to " + callChain + ".",
-  taintSource, "user input (" + taintCause + ")"
+  taintSource, "user input (" + taintSource.getSourceType() + ")"
