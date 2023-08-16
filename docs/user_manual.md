@@ -30,7 +30,7 @@ The release page documents the release notes and contains the following artifact
 
 - `code-scanning-cpp-query-pack-2.22.0-dev.zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
 - `supported_rules_list_2.22.0-dev.csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
-- `upported_rules_list_2.22.0-dev.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
+- `supported_rules_list_2.22.0-dev.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
 - `user_manual_2.22.0-dev.md`: This user manual.
 - `Source Code (zip)`: A zip archive containing the contents of https://github.com/github/codeql-coding-standards
 - `Source Code (tar.gz)`: A GZip compressed tar archive containing the contents of https://github.com/github/codeql-coding-standards
