@@ -2,7 +2,9 @@
 lockVersion: 1.0.0
 dependencies:
   codeql/cpp-all:
-    version: 0.4.6
+    version: 0.6.1
   codeql/ssa:
+    version: 0.0.14
+  codeql/tutorial:
     version: 0.0.7
 compiled: false
