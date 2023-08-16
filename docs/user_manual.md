@@ -22,6 +22,7 @@
 | 0.14.0  | 2022-11-03 | Remco Vermeulen | Add guideline recategorization plan.                                                                                    |
 | 0.15.0  | 2023-05-24 | Mauro Baluda    | Clarify AUTOSAR C++ supported versions.                                                                                 |
 | 0.16.0  | 2023-07-03 | Luke Cartey     | Remove reference to LGTM, update the name of the query pack                                                             |
+| 0.17.0  | 2023-08-16 | Luke Cartey     | Update list of supported compiler configurations.                                                             |
 
 ## Release information
 
@@ -89,23 +90,29 @@ In addition, the machine which performs the analysis must be able to complete a 
 
 #### C++
 
-For C++ the codebase under analysis must:
- * Comply with C++14
- * Use one of the following supported compilers:
-   - Clang version 10
+For C++ the codebase under analysis must comply with C++14 and use one of the following supported compiler configurations:
+
+| Compiler | Version | Standard library    | Target architecture   | Required flags                   |
+| -------- | ------- | ------------------- | --------------------- | -------------------------------- |
+| clang    | 10.0.0  | libstdc++ (default) | x86_64-linux-gnu      | -std=c++14                       |
+| gcc      | 8.4.0   | libstdc++ (default) | x86_64-linux-gnu      | -std=c++14                       |
+| qcc      | 8.3.0   | libc++ (default)    | gcc_ntoaarch64le_cxx  | -std=c++14 -D_QNX_SOURCE -nopipe |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
  - Use of the queries against codebases written with more recent versions of C++ (as supported by CodeQL) are not validated in the following circumstances:
    - When new language features are used
    - When language features are used which have a differing interpretation from C++14.
- - Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL (e.g. gcc) is not tested or validated for functional safety.
+ - Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL is not tested or validated for functional safety.
 
 #### C
 
-For C the codebase under analysis must:
- * Comply with C99 or C11.
- * Use one of the following supported compilers:
-   - Clang version 10
+For C the codebase under analysis must comply with C99 or C11 and use one of the following supported compiler configurations:
+
+| Compiler | Version | Standard library    | Target architecture   | Required Flags             |
+| -------- | ------- | ------------------- | --------------------- | -------------------------- |
+| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | -std=c11                   |
+| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | -std=c11                   |
+| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | -std=c11 -nopipe           |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
  - Use of the queries against codebases written with more recent versions of C (as supported by CodeQL) are not validated in the following circumstances:
