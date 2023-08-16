@@ -20,16 +20,17 @@
 | 0.12.0  | 2022-10-21 | Luke Cartey     | Updated version to 2.10.0                                                                                               |
 | 0.13.0  | 2022-11-03 | Remco Vermeulen | Add missing deviation analysis report tables to section 'Producing an analysis report'.                                 |
 | 0.14.0  | 2022-11-03 | Remco Vermeulen | Add guideline recategorization plan.                                                                                    |
-| 0.15.0  | 2023-05-24 | Mauro Baluda | Clarify AUTOSAR C++ supported versions.                                                                                    |
+| 0.15.0  | 2023-05-24 | Mauro Baluda    | Clarify AUTOSAR C++ supported versions.                                                                                 |
+| 0.16.0  | 2023-07-03 | Luke Cartey     | Remove reference to LGTM, update the name of the query pack                                                             |
 
 ## Release information
 
 This user manual documents release `2.21.0-dev` of the coding standards located at [https://github.com/github/codeql-coding-standards](https://github.com/github/codeql-coding-standards).
 The release page documents the release notes and contains the following artifacts part of the release:
 
-- `code-scanning-cpp-query-pack-anon-2.21.0-dev.zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
+- `code-scanning-cpp-query-pack-2.21.0-dev.zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
 - `supported_rules_list_2.21.0-dev.csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
-- `upported_rules_list_2.18.0-dev.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
+- `supported_rules_list_2.21.0-dev.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
 - `user_manual_2.21.0-dev.md`: This user manual.
 - `Source Code (zip)`: A zip archive containing the contents of https://github.com/github/codeql-coding-standards
 - `Source Code (tar.gz)`: A GZip compressed tar archive containing the contents of https://github.com/github/codeql-coding-standards
@@ -426,13 +427,12 @@ and the schema files:
 
 The schema files **must** be available in the same directory as the `recategorize.py` file or in any ancestor directory.
 
-### GitHub Advanced Security and LGTM
+### GitHub Advanced Security
 
 The only use cases that will be certified under ISO 26262 are those listed above. CodeQL Coding Standards is also compatible with, but not certified for, the following use cases:
 
  - Creating databases and running the CodeQL Coding Standards queries with the [CodeQL Action](https://github.com/github/codeql-action) (for GitHub Actions CI/CD system).
  - Uploading the SARIF results files for a CodeQL Coding Standards analysis to the GitHub [Code Scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) feature.
- - Deployment of the default CodeQL Coding Standards queries as a custom query pack for [LGTM](https://semmle.com/lgtm).
 
 ### Hazard and risk analysis
 
