@@ -16,7 +16,7 @@ find . -name 'qlpack.yml' | grep -v './codeql_modules' | grep -v './scripts' | x
 
 find docs -name 'user_manual.md' | xargs sed -i "s/code-scanning-cpp-query-pack-.*\.zip\`/code-scanning-cpp-query-pack-${1}.zip\`/"
 find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.csv\`/supported_rules_list_${1}.csv\`/"
-find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.md\`/upported_rules_list_${1}.md\`/"
+find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.md\`/supported_rules_list_${1}.md\`/"
 find docs -name 'user_manual.md' | xargs sed -i "s/user_manual_.*\.md\`/user_manual_${1}.md\`/"
 find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`${1}\` of/"
 
