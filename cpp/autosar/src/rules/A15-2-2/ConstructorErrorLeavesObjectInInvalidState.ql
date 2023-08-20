@@ -53,10 +53,13 @@ class NewWrapperFunction extends Function {
 
 /** An expression on which `delete` is called, directly or indirectly. */
 class DeletedExpr extends Expr {
+  pragma[noinline, nomagic]
   DeletedExpr() {
-    this = any(DeleteExpr deleteExpr).getExpr() or
+    this = any(DeleteExpr deleteExpr).getExpr()
+    or
     exists(DeleteWrapperFunction dwf, FunctionCall call |
-      this = call.getArgument(dwf.getADeleteParameter().getIndex())
+      this = call.getArgument(dwf.getADeleteParameter().getIndex()) and
+      call.getTarget() = dwf
     )
   }
 }
