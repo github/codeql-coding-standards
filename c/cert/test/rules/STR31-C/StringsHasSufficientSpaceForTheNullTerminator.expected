@@ -4,7 +4,7 @@ WARNING: Module DataFlow has been deprecated and may be removed in future (/home
 WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR31-C/StringsHasSufficientSpaceForTheNullTerminator.ql:63,54-62)
 WARNING: Module TaintTracking has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR31-C/StringsHasSufficientSpaceForTheNullTerminator.ql:57,5-18)
 WARNING: Module TaintTracking has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/STR31-C/StringsHasSufficientSpaceForTheNullTerminator.ql:63,5-18)
-| test.c:10:20:10:24 | Co | Expression produces or consumes a string that may not have sufficient space for a null-terminator. |
+| test.c:10:20:10:24 | Cod | Expression produces or consumes a string that may not have sufficient space for a null-terminator. |
 | test.c:16:3:16:9 | call to strncpy | Expression produces or consumes a string that may not have sufficient space for a null-terminator. |
 | test.c:26:3:26:10 | call to snprintf | Expression produces or consumes a string that may not have sufficient space for a null-terminator. |
 | test.c:32:3:32:9 | call to strncat | Expression produces or consumes a string that may not have sufficient space for a null-terminator. |
