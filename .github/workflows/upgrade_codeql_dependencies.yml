@@ -7,10 +7,6 @@ on:
         description: |
           The version of the CodeQL CLI to be set as the default.
         required: true
-      codeql_standard_library_commit:
-        description: |
-          The tag or commit to use from the CodeQL Standard Library
-        required: true
 
 env:
   XARGS_MAX_PROCS: 4
@@ -19,20 +15,25 @@ jobs:
   say_hello:
     env:
       CODEQL_CLI_VERSION: ${{ github.event.inputs.codeql_cli_version }}
-      CODEQL_LIB_COMMIT: ${{ github.event.inputs.codeql_standard_library_commit }}
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install upgrade-codeql-dependencies.py dependencies
+        run: pip install -r scripts/upgrade-codeql-dependencies/requirements.txt
+
       - name: Update the supported environment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CODEQL_CLI_VERSION: ${{ github.event.inputs.codeql_cli_version }}
         run: |
-          jq \
-            --arg cli_version "$CODEQL_CLI_VERSION" \
-            --arg standard_library_commit "$CODEQL_LIB_COMMIT" \
-            --raw-output \
-            '.supported_environment | .[0] | .codeql_cli = $cli_version | .codeql_standard_library = $standard_library_commit' \
-            supported_codeql_configs.json
+          scripts/upgrade-codeql-dependencies/upgrade_codeql_dependencies.py --cli-version "$CODEQL_CLI_VERSION"
 
       - name: Fetch CodeQL
         env:
@@ -54,4 +55,4 @@ jobs:
           commit-message: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_standard_library_commit }}"
           team-reviewers: github/codeql-coding-standards
           delete-branch: true
-          branch: "codeql/upgrade-to-${{ github.event.inputs.codeql_standard_library_commit }}-${{ github.event.inputs.codeql_cli_version }}"
+          branch: "codeql/upgrade-to-${{ github.event.inputs.codeql_cli_version }}"
