@@ -45,3 +45,23 @@ void test_side_effect_init() {
   LC c; // COMPLIANT - constructor called which is considered to potentially
         // have side effects
 }
+
+#include <cstdio>
+template <int t>
+class CharBuffer
+{
+  public:
+  int member[t];
+  CharBuffer():member{0}{}
+};
+
+int foo()
+{
+  constexpr int line_length = 1024U;
+  CharBuffer<line_length> buffer{};
+  constexpr std::size_t max_stack_size_usage = 64 * 1024;
+  static_assert(
+      (sizeof(buffer) + sizeof(line_length)) <= max_stack_size_usage,
+        "assert");
+  return buffer.member[0];
+}

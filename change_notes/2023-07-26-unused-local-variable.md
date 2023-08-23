@@ -1,0 +1,1 @@
+ - Consider constexpr variables used in template instantiations as "used".
