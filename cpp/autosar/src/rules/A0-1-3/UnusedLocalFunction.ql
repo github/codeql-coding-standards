@@ -19,6 +19,44 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.DynamicCallGraph
 import codingstandards.cpp.deadcode.UnusedFunctions
 
+/** Checks if a function call exists to the function
+ * passed in the arguments.
+ */
+predicate isCalled(Function unusedFunction) {
+  exists (FunctionCall f | unusedFunction.getACallToThisFunction() = f)
+}
+
+/** Checks if an overloaded function of
+ * the function passed in the arguments, is called.
+ */
+predicate overloadedFunctionIsCalled(Function unusedFunction) {
+  exists (Function f | f = unusedFunction.getAnOverload*() and isCalled(f))
+  or
+  unusedFunction.getNamespace().isAnonymous() and
+    exists (TopLevelFunction overloadedFunction |
+      overloadedFunction != unusedFunction and
+      ((overloadedFunction.getName() = unusedFunction.getName()) or
+        (overloadedFunction.getQualifiedName() =
+          unusedFunction.getQualifiedName()))
+      )
+}
+
+/** Checks if a Function is part of an unevaluated context. */
+predicate partOfUnevalutedContexts(Function unusedFunction) {
+  exists (Expr e, FunctionCall f | ((e instanceof TypeidOperator or
+    e instanceof SizeofOperator or
+    e instanceof NoExceptExpr) and
+    e.getAChild*() = f and f.getTarget() = unusedFunction
+    )
+  )
+}
+
+/** Checks if a Function's address was taken. */
+predicate addressBeenTaken(Function unusedFunction)
+{
+  exists (FunctionAccess fa | fa.getTarget() = unusedFunction)
+}
+
 /** A `Function` nested in an anonymous namespace. */
 class AnonymousNamespaceFunction extends Function {
   AnonymousNamespaceFunction() { getNamespace().getParentNamespace*().isAnonymous() }
@@ -75,7 +113,22 @@ where
     // There exists an instantiation which is called
     functionFromInstantiatedTemplate.isConstructedFrom(functionFromUninstantiatedTemplate) and
     functionFromInstantiatedTemplate = getTarget(_)
-  ) and
+  )
+  and
+  // A function is defined as "used" if any one of the following holds true:
+  // - It's an explicitly deleted functions e.g. =delete
+  // - It's annotated as "[[maybe_unused]]"
+  // - It's part of an overloaded set and any one of the overloaded instance
+  //   is called.
+  // - It's an operand of an expression in an unevaluated context.
+  (
+    not unusedLocalFunction.isDeleted() and
+    not unusedLocalFunction.getAnAttribute().getName() = "maybe_unused" and
+    not overloadedFunctionIsCalled(unusedLocalFunction) and
+    not addressBeenTaken(unusedLocalFunction) and
+    not partOfUnevalutedContexts(unusedLocalFunction)
+  )
+  and
   // Get a printable name
   (
     if exists(unusedLocalFunction.getQualifiedName())

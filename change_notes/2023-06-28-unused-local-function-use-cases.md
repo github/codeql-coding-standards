@@ -1,0 +1,1 @@
+ - Considered use cases mentioned on issue [121](https://github.com/github/codeql-coding-standards/issues/121) while reporting a local function as "unused".

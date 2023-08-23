@@ -86,3 +86,65 @@ void h3() {} // NON_COMPLIANT
 } // namespace bar
 } // namespace foo
 } // namespace
+
+
+
+static int unevaluatedContextFn(int x) { x++; return x; } // COMPLIANT - called in an unevaluated context.
+#include <typeinfo>
+static int unevalContextCaller() // COMPLIANT - address taken
+{
+
+  typeid(unevaluatedContextFn(0));
+  sizeof(unevaluatedContextFn(1));
+  noexcept(unevaluatedContextFn(2));
+  decltype(unevaluatedContextFn(2)) n = 42;
+  return 0;
+}
+int (* ptr_unevalContextCaller)(void) = unevalContextCaller;
+
+
+class X {
+private:
+  [[maybe_unused]] void maybeUnused();
+  void deleted() = delete;  // COMPLIANT - Deleted Function
+};
+
+void X::maybeUnused() {} // COMPLIANT - [[maybe_unused]]
+
+static int overload1(int c) // COMPLIANT - called
+{
+  return ++c;
+}
+
+static int overload1(int c, int d) // COMPLAINT - overload1(int) is called.
+{
+  return c+d;
+}
+
+namespace
+{
+  float overload1(int c, float d) // COMPLAINT - overload1(int) is called.
+  {
+    return c+d;
+  }
+}
+
+int overload = overload1(5);
+
+class classWithOverloads
+{
+  public:
+    int caller(int x)
+    {
+      return overloadMember(x,0);
+    }
+  private:
+    int overloadMember(int c) // COMPLAINT - overloadMember(int, int) is called.
+    {
+      return ++c;
+    }
+    int overloadMember(int c, int d) // COMPLAINT - called.
+    {
+      return c+d;
+    }
+};
