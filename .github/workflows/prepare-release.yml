@@ -1,0 +1,61 @@
+name: "Prepare CodeQL Coding Standards release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: |
+          The version to release (MUST follow semantic versioning).
+        required: true
+      ref:
+        description: |
+          The git commit, branch, or tag to release from.
+        required: true
+
+env:
+  RELEASE_VERSION: ${{ github.event.inputs.version }}
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.ref }}
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Install release script dependencies
+        run: pip install -r scripts/release/requirements.txt
+
+      - name: Validate version
+        run: |
+          scripts/release/validate-version.py "$RELEASE_VERSION"
+      
+      - name: Create release branch
+        run: |
+          git switch -c rc/$RELEASE_VERSION
+          git push --set-upstream origin rc/$RELEASE_VERSION
+
+      - name: Update user manual version
+        run: |
+          find docs -name 'user_manual.md' | xargs sed -i "s/code-scanning-cpp-query-pack-.*\.zip\`/code-scanning-cpp-query-pack-$RELEASE_VERSION.zip\`/"
+          find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.csv\`/supported_rules_list_$RELEASE_VERSION.csv\`/"
+          find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.md\`/supported_rules_list_$RELEASE_VERSION.md\`/"
+          find docs -name 'user_manual.md' | xargs sed -i "s/user_manual_.*\.md\`/user_manual_$RELEASE_VERSION.md\`/"
+          find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`$RELEASE_VERSION\` of/"
+
+      - name: Create release PR
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: "Release $RELEASE_VERSION."
+          body: "This PR releases codeql-coding-standards version $RELEASE_VERSION."
+          commit-message: "Release $RELEASE_VERSION."
+          delete-branch: true
+          branch: "rc/$RELEASE_VERSION"
+  
+      
