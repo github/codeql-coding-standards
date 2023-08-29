@@ -22,7 +22,7 @@ env:
 jobs:
   prepare-release:
     name: "Prepare release"
-    if: github.event_name == "workflow_dispatch"
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest 
     steps:
       - name: Checkout 
