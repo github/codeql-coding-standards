@@ -11,6 +11,7 @@ on:
         description: |
           The git commit, branch, or tag to release from.
         required: true
+  # The following push event trigger is only used for testing purposes. Should be removed before merging!
   push:
     branches:
       - rvermeulen/release-process-improvements
