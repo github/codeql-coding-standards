@@ -38,7 +38,7 @@ jobs:
 
       - name: Validate version
         run: |
-          scripts/release/validate-version.py "$RELEASE_VERSION"
+          python scripts/release/validate-version.py "$RELEASE_VERSION"
       
       - name: Create release branch
         run: |
