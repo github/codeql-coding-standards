@@ -47,6 +47,11 @@ jobs:
           git switch -c rc/$RELEASE_VERSION
           git push --set-upstream origin rc/$RELEASE_VERSION
 
+      - name: Create feature branch for PR
+        run: |
+          git switch -c feature/update-user-manual-for-$RELEASE_VERSION
+          git push --set-upstream origin feature/update-user-manual-for-$RELEASE_VERSION
+
       - name: Update user manual version
         run: |
           find docs -name 'user_manual.md' | xargs sed -i "s/code-scanning-cpp-query-pack-.*\.zip\`/code-scanning-cpp-query-pack-$RELEASE_VERSION.zip\`/"
