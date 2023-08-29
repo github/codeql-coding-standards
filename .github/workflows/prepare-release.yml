@@ -11,6 +11,9 @@ on:
         description: |
           The git commit, branch, or tag to release from.
         required: true
+  push:
+    branches:
+      - rvermeulen/release-process-improvements
 
 env:
   RELEASE_VERSION: ${{ github.event.inputs.version }}
