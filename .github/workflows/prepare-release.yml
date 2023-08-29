@@ -58,10 +58,10 @@ jobs:
       - name: Create release PR
         uses: peter-evans/create-pull-request@v4
         with:
-          title: "Release $RELEASE_VERSION."
-          body: "This PR releases codeql-coding-standards version $RELEASE_VERSION."
-          commit-message: "Release $RELEASE_VERSION."
+          title: "Release ${{ github.event.inputs.version }}."
+          body: "This PR releases codeql-coding-standards version ${{ github.event.inputs.version }}."
+          commit-message: "Update user manual for release."
           delete-branch: true
-          branch: "rc/$RELEASE_VERSION"
+          branch: "rc/${{ github.event.inputs.version }}"
   
       
