@@ -65,7 +65,7 @@ jobs:
         with:
           title: "Release ${{ github.event.inputs.version }}."
           body: "This PR releases codeql-coding-standards version ${{ github.event.inputs.version }}."
-          commit-message: "Update user manual for release."
+          commit-message: "Update user manual for release ${{ github.event.inputs.version }}."
           delete-branch: true
           branch: "rc/${{ github.event.inputs.version }}"
   
