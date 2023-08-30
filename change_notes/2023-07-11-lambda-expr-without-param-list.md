@@ -1,1 +1,1 @@
- - Only consider lambdas that have zero arguments, since any lambda with non-zero arguments will have an explicit argument list. 
+ - `A5-1-3` - Only consider lambdas that have zero arguments, since any lambda with non-zero arguments will have an explicit argument list. 
