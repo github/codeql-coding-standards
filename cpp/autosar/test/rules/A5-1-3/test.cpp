@@ -29,3 +29,10 @@ void test() {
   };
   // clang-format on
 }
+
+#define PARAM_MACRO [](int i) { i; };
+
+int test_lambda_in_macro() {
+  PARAM_MACRO // COMPLIANT
+      return 0;
+}
