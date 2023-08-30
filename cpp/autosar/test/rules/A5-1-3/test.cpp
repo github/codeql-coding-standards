@@ -32,8 +32,7 @@ void test() {
 
 #define PARAM_MACRO [](int i) { i; };
 
-int test_lambda_in_macro()
-{
+int test_lambda_in_macro() {
   PARAM_MACRO // COMPLIANT
-  return 0;
+      return 0;
 }
