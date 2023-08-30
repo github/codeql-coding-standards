@@ -30,7 +30,7 @@ private string getConstExprValue(Variable v) {
 // - getUseCount()
 int getUseCountConservatively(Variable v) {
   result =
-        count(VariableAccess access | access = v.getAnAccess() and not access.isCompilerGenerated())
+        count(VariableAccess access | access = v.getAnAccess())
         + count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) +
         // For constexpr variables used as template arguments, we don't see accesses (just the
         // appropriate literals). We therefore take a conservative approach and count the number of
