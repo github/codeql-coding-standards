@@ -46,18 +46,15 @@ void test_side_effect_init() {
         // have side effects
 }
 
-#include <cstdio>
 #include <array>
-template <int t>
-class CharBuffer
-{
-  public:
+#include <cstdio>
+template <int t> class CharBuffer {
+public:
   int member[t];
-  CharBuffer():member{0}{}
+  CharBuffer() : member{0} {}
 };
 
-int test_constexpr_in_template_inst()
-{
+int test_constexpr_in_template_inst() {
   constexpr int line_length = 1024U; // COMPLIANT - used in template inst.
                                      // of buffer.
   CharBuffer<line_length> buffer{};
@@ -65,22 +62,19 @@ int test_constexpr_in_template_inst()
 }
 
 enum DataType : unsigned char {
-    int8,
-    int16,
+  int8,
+  int16,
 };
 
-template <typename... Types>
-int test_constexpr_in_static_assert()
-{
-  const std::array <DataType, sizeof...(Types)> lldts {int8};
-  const std::array <DataType, sizeof...(Types)> llams {int16};
+template <typename... Types> int test_constexpr_in_static_assert() {
+  const std::array<DataType, sizeof...(Types)> lldts{int8};
+  const std::array<DataType, sizeof...(Types)> llams{int16};
   constexpr std::size_t mssu = 64 * 1024; // COMPLIANT - used in static assert.
   static_assert((sizeof(lldts) + sizeof(llams)) <= mssu, "assert");
   return 0;
 }
 
-int baz()
-{
+int baz() {
   test_constexpr_in_static_assert<int>();
   return 0;
 }
