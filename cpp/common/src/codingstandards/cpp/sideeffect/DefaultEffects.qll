@@ -16,7 +16,8 @@ private class ResourceReleaseCall extends ExternalSideEffect::Range {
 }
 
 private class DirectStaticStorageDurationVariableModification extends VariableEffect,
-  GlobalSideEffect::Range {
+  GlobalSideEffect::Range
+{
   DirectStaticStorageDurationVariableModification() {
     this.getTarget() instanceof StaticStorageDurationVariable
   }

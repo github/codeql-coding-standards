@@ -712,7 +712,8 @@ module OOB {
   }
 
   private class DynamicAllocationSource extends PointerToObjectSource instanceof AllocationExpr,
-    FunctionCall {
+    FunctionCall
+  {
     DynamicAllocationSource() {
       // exclude OperatorNewAllocationFunction to only deal with raw malloc-style calls,
       // which do not apply a multiple to the size of the allocation passed to them.
@@ -905,7 +906,8 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
-  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration {
+  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration
+  {
     PointerToObjectSourceOrSizeToBufferAccessFunctionConfig() {
       this = "PointerToObjectSourceOrSizeToBufferAccessFunctionConfig"
     }
