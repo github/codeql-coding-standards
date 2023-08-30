@@ -190,33 +190,6 @@
           }
       ],
       "title": "In a class template with a dependent base, any name that may be found in that dependent base shall be referred to using a qualified-id or this->."
-    },
-    "M0-1-3": {
-      "properties": {
-        "allocated-target": [
-          "implementation"
-        ],
-        "enforcement": "automated",
-        "obligation": "required"
-      },
-      "queries": [
-        {
-          "description": "Unused variables complicate the program and can indicate a possible mistake on the part of the programmer.",
-          "kind": "problem",
-          "name": "A project shall not contain unused local variables",
-          "precision": "very-high",
-          "severity": "warning",
-          "short_name": "UnusedLocalVariable",
-          "tags": [
-            "maintainability",
-            "readability"
-          ],
-          "implementation_scope": {
-            "description": "In limited cases, this query can raise false-positives for variables that are defined as constexpr and used in an expression to instantiate a template."
-          }
-        }
-      ],
-      "title": "A project shall not contain unused local variables."
     }
   }
 }
