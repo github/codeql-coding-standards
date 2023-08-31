@@ -2,10 +2,6 @@ name: Validating Coding Standards
 
 on:
   merge_group:
-  push:
-    branches:
-      - main
-      - next
   pull_request:
     branches:
       - main
