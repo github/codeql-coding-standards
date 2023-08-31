@@ -1,9 +1,9 @@
 {
   "supported_environment": [
     {
-      "codeql_cli": "2.11.6",
-      "codeql_standard_library": "codeql-cli/v2.11.6",
-      "codeql_cli_bundle": "codeql-bundle-20221211"
+      "codeql_cli": "2.12.7",
+      "codeql_standard_library": "codeql-cli/v2.12.7",
+      "codeql_cli_bundle": "codeql-bundle-20230418"
     }
   ],
   "supported_language": [

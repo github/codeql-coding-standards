@@ -1,0 +1,2 @@
+ - `FIO32-C` - `DoNotPerformFileOperationsOnDevices.ql`:
+   - The query was updated to work with the latest version of the dataflow library.
