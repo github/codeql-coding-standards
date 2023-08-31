@@ -1,0 +1,42 @@
+name: Validate Query Help Files
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'The ref to validate. Defaults to the default branch.'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The ref to validate. Defaults to the default branch.'
+        required: true
+        type: string
+
+jobs:
+  validate-query-help-files:
+    strategy:
+      matrix:
+        language: [cpp, c]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Validate Query Help Files
+        env:
+          LANGUAGE: ${{ matrix.language }}
+        run: |
+          exit_code=0
+          for help_file in `find $LANGUAGE -name '*.md'`
+          do
+            if grep -F -q 'REPLACE THIS' "$help_file" > /dev/null
+            then
+              echo "Help file $help_file contains placeholders that are not replaced or removed!"
+              exit_code=1
+            fi
+          done
+
+          exit $exit_code

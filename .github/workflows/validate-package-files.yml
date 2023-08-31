@@ -1,0 +1,64 @@
+name: Validate Package Files
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'The ref to validate. Defaults to the default branch.'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The ref to validate. Defaults to the default branch.'
+        required: true
+        type: string
+
+jobs:
+  validate-package-files:
+    strategy:
+      matrix:
+        language: [cpp, c]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install CodeQL
+        run: |
+          VERSION="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
+          gh extensions install github/gh-codeql
+          gh codeql set-version "$VERSION"
+          gh codeql install-stub
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Install generate_package_files.py dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Validate Package Descriptions
+        env:
+          LANGUAGE: ${{ matrix.language }}
+        run: |
+          python scripts/validate-rule-package.py rule_packages/$LANGUAGE/*.json
+
+      - name: Validate Package Descriptions consistency
+        env:
+          LANGUAGE: ${{ matrix.language }}
+        run: |
+          python scripts/verify_rule_package_consistency.py $LANGUAGE
+
+      - name: Validate Current versus Expected Package Files
+        env:
+          LANGUAGE: ${{ matrix.language }}
+        run: |
+          find rule_packages/$LANGUAGE -name \*.json -exec basename {} .json \; | xargs python scripts/generate_rules/generate_package_files.py $LANGUAGE
+          git diff
+          git diff --compact-summary
+          git diff --quiet

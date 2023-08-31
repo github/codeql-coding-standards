@@ -5,181 +5,37 @@ on:
   push:
     branches:
       - main
-      - "rc/**"
       - next
   pull_request:
     branches:
       - main
-      - "rc/**"
       - next
 
-env:
-  XARGS_MAX_PROCS: 4
+permissions:
+  contents: read
+  actions: write
 
 jobs:
   validate-package-files:
     name: Validate Package Files
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    uses: ./.github/workflows/validate-package-files.yml
+    with:
+      ref: ${{ github.ref }}
 
-      - name: Install Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"
-
-      - name: Install CodeQL
-        run: |
-          VERSION="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
-          gh extensions install github/gh-codeql
-          gh codeql set-version "$VERSION"
-          gh codeql install-stub
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Install generate_package_files.py dependencies
-        run: pip install -r scripts/requirements.txt
-
-      - name: Validate Package Descriptions (CPP)
-        run: |
-          python scripts/validate-rule-package.py rule_packages/cpp/*.json
-
-      - name: Validate Package Descriptions (C)
-        run: |
-          python scripts/validate-rule-package.py rule_packages/c/*.json
-
-      - name: Validate Package Descriptions consistency (CPP)
-        run: |
-          python scripts/verify_rule_package_consistency.py cpp
-
-      - name: Validate Package Descriptions consistency (C)
-        run: |
-          python scripts/verify_rule_package_consistency.py c
-
-      - name: Validate Package Files (CPP)
-        run: |
-          find rule_packages/cpp -name \*.json -exec basename {} .json \; | xargs python scripts/generate_rules/generate_package_files.py cpp
-          git diff
-          git diff --compact-summary
-          git diff --quiet
-
-      - name: Validate Package Files (C)
-        run: |
-          find rule_packages/c -name \*.json -exec basename {} .json \; | xargs python scripts/generate_rules/generate_package_files.py c
-          git diff
-          git diff --compact-summary
-          git diff --quiet
-
-  validate-codeql-format:
-    name: "Validate CodeQL Format"
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Install CodeQL
-        run: |
-          VERSION="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
-          gh extensions install github/gh-codeql
-          gh codeql set-version "$VERSION"
-          gh codeql install-stub
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Validate CodeQL Format (CPP)
-        run: |
-          find cpp -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
-
-          git diff
-          git diff --compact-summary
-          git diff --quiet
-
-      - name: Validate CodeQL Format (C)
-        run: |
-          find c -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
-
-          git diff
-          git diff --compact-summary
-          git diff --quiet
+  validate-codeql-query-formatting:
+    name: "Validate CodeQL Query Formatting"
+    uses: ./.github/workflows/validate-query-formatting.yml
+    with:
+      ref: ${{ github.ref }}
 
   validate-query-help-files:
     name: Validate Query Help Files
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    uses: ./.github/workflows/validate-query-help.yml
+    with:
+      ref: ${{ github.ref }}
 
-      - name: Validate CPP Query Help Files
-        run: |
-          exit_code=0
-          for help_file in `find cpp -name '*.md'`
-          do
-            if grep -F -q 'REPLACE THIS' "$help_file" > /dev/null
-            then
-              echo "Help file $help_file contains placeholders that are not replaced or removed!"
-              exit_code=1
-            fi
-          done
-
-          exit $exit_code
-
-      - name: Validate C Query Help Files
-        run: |
-          exit_code=0
-          for help_file in `find c -name '*.md'`
-          do
-            if grep -F -q 'REPLACE THIS' "$help_file" > /dev/null
-            then
-              echo "Help file $help_file contains placeholders that are not replaced or removed!"
-              exit_code=1
-            fi
-          done
-
-          exit $exit_code
-
-  validate-cpp-test-files:
-    name: Validate C++ Test Files
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Install clang-format
-        run: |
-          sudo apt-get install --yes --quiet --no-install-recommends clang-format
-          echo "::debug::$(clang-format -version)"
-
-      - name: Validate C++ Test Files
-        run: |
-          if ! test -f .clang-format; then
-            echo "Cannot find .clang-format in '$PWD'. Exiting..."
-          fi
-
-          find cpp/*/test -name \*.cpp -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" clang-format --style=file -i --verbose
-          git diff
-          git diff --compact-summary
-          git diff --quiet
-
-  validate-c-test-files:
-    name: Validate C Test Files
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Install clang-format
-        run: |
-          sudo apt-get install --yes --quiet --no-install-recommends clang-format
-          echo "::debug::$(clang-format -version)"
-
-      - name: Validate C++ Test Files
-        run: |
-          if ! test -f .clang-format; then
-            echo "Cannot find .clang-format in '$PWD'. Exiting..."
-          fi
-
-          find c/*/test -name \*.c -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" clang-format --style=file -i --verbose
-          git diff
-          git diff --compact-summary
-          git diff --quiet
+  validate-test-case-formatting:
+    name: Validate Test
+    uses: ./.github/workflows/validate-query-test-case-formatting.yml
+    with:
+      ref: ${{ github.ref }}

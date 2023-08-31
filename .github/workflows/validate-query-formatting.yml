@@ -1,0 +1,58 @@
+name: "Validate Query Formatting"
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'The ref to validate. Defaults to the default branch.'
+        required: true
+        type: string
+      xargs-max-procs:
+        description: 'The maximum number of processes to use for xargs.'
+        required: false
+        type: number
+        default: 4
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The ref to validate. Defaults to the default branch.'
+        required: true
+        type: string
+      xargs-max-procs:
+        description: 'The maximum number of processes to use for xargs.'
+        required: false
+        type: number
+        default: 4
+
+env:
+    XARGS_MAX_PROCS: ${{ inputs.xargs-max-procs }}
+
+jobs:
+  validate-query-formatting:
+      strategy:
+        matrix:
+          language: [cpp, c]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            ref: ${{ inputs.ref }}
+
+        - name: Install CodeQL
+          run: |
+            VERSION="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
+            gh extensions install github/gh-codeql
+            gh codeql set-version "$VERSION"
+            gh codeql install-stub
+          env:
+            GITHUB_TOKEN: ${{ github.token }}
+
+        - name: Validate query format
+          env:
+            LANGUAGE: ${{ matrix.language }}
+          run: |
+            find $LANGUAGE -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
+
+            git diff
+            git diff --compact-summary
+            git diff --quiet

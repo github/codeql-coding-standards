@@ -1,0 +1,60 @@
+name: Validate Query Test Case Formatting
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'The ref to validate. Defaults to the default branch.'
+        required: true
+        type: string
+      xargs-max-procs:
+        description: 'The maximum number of processes to use for xargs.'
+        required: false
+        type: number
+        default: 4
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The ref to validate. Defaults to the default branch.'
+        required: true
+        type: string
+      xargs-max-procs:
+        description: 'The maximum number of processes to use for xargs.'
+        required: false
+        type: number
+        default: 4
+
+env:
+  XARGS_MAX_PROCS: ${{ inputs.xargs-max-procs }}
+
+jobs:
+  validate-test-case-files:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [cpp, c]
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get install --yes --quiet --no-install-recommends clang-format
+
+      - name: Validating Current versus Expected Test Case Formatting
+        env:
+          LANGUAGE: ${{ matrix.language }}
+        # IMPORTANT: This step current relies on the fact that a file extension is the same as the language name for simplicity.
+        run: |
+          if ! test -f .clang-format; then
+            echo "Cannot find .clang-format in '$PWD'. Exiting..."
+          fi
+
+          find $LANGUAGE/*/test -name \*.$LANGUAGE -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" clang-format --style=file -i --verbose
+          git diff
+          git diff --compact-summary
+          git diff --quiet
+
+      
