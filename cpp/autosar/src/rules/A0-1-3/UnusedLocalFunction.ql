@@ -23,14 +23,14 @@ import codingstandards.cpp.deadcode.UnusedFunctions
  * passed in the arguments.
  */
 predicate isCalled(Function unusedFunction) {
-  exists (FunctionCall f | unusedFunction.getACallToThisFunction() = f)
+  unusedFunction = getTarget(_)
 }
 
 /** Checks if an overloaded function of
  * the function passed in the arguments, is called.
  */
 predicate overloadedFunctionIsCalled(Function unusedFunction) {
-  exists (Function f | f = unusedFunction.getAnOverload*() and isCalled(f))
+  exists (Function f | f = unusedFunction.getAnOverload() and isCalled(f))
   or
   unusedFunction.getNamespace().isAnonymous() and
     exists (TopLevelFunction overloadedFunction |
