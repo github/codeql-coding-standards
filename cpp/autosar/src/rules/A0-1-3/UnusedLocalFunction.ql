@@ -41,15 +41,6 @@ predicate overloadedFunctionIsCalled(Function unusedFunction) {
       )
 }
 
-/** Checks if a Function is part of an unevaluated context. */
-predicate partOfUnevalutedContexts(Function unusedFunction) {
-  exists (Expr e, FunctionCall f | ((e instanceof TypeidOperator or
-    e instanceof SizeofOperator or
-    e instanceof NoExceptExpr) and
-    e.getAChild*() = f and f.getTarget() = unusedFunction
-    )
-  )
-}
 
 /** Checks if a Function's address was taken. */
 predicate addressBeenTaken(Function unusedFunction)
@@ -121,13 +112,10 @@ where
   // - It's part of an overloaded set and any one of the overloaded instance
   //   is called.
   // - It's an operand of an expression in an unevaluated context.
-  (
-    not unusedLocalFunction.isDeleted() and
-    not unusedLocalFunction.getAnAttribute().getName() = "maybe_unused" and
-    not overloadedFunctionIsCalled(unusedLocalFunction) and
-    not addressBeenTaken(unusedLocalFunction) and
-    not partOfUnevalutedContexts(unusedLocalFunction)
-  )
+  not unusedLocalFunction.isDeleted() and
+  not unusedLocalFunction.getAnAttribute().getName() = "maybe_unused" and
+  not overloadedFunctionIsCalled(unusedLocalFunction) and
+  not addressBeenTaken(unusedLocalFunction)
   and
   // Get a printable name
   (
