@@ -81,3 +81,6 @@ jobs:
     uses: ./.github/workflows/validate-release.yml
     with:
       version: ${{ inputs.version }}
+    secrets:
+      check-runs-token: ${{ secrets.CHECK_RUNS_TOKEN }}
+      release-engineering-token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}

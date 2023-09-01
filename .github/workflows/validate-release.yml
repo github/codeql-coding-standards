@@ -8,6 +8,12 @@ on:
           The version to release (MUST follow semantic versioning).
         required: true
         type: string
+    secrets:
+      check-runs-token:
+        required: true
+      release-engineering-token:
+        required: true
+
   push:
     branches:
       - rvermeulen/release-process-improvements # The following push event trigger is only used for testing purposes. Should be removed before merging!
@@ -54,7 +60,7 @@ jobs:
     steps:
       - name: Create check run
         env:
-          GH_TOKEN: ${{ secrets.CHECK_RUNS_TOKEN }}
+          GH_TOKEN: ${{ secrets.check-runs-token }}
         run: |
           # For debugging purposes
           echo https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs
@@ -73,6 +79,6 @@ jobs:
         env:
           CHECK_RUN_ID: ${{ env.check-run-id }}
           RELEASE_VERSION: ${{ needs.determine-release-version.outputs.release-version }}
-          GH_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          GH_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
           echo "{\"version\": \"$RELEASE_VERSION\", \"check-run-id\": \"$CHECK_RUN_ID\"}" | gh workflow run release-performance-testing.yml --json -R github/codeql-coding-standards-release-engineering --ref rvermeulen/release-process
