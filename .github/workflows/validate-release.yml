@@ -64,7 +64,7 @@ jobs:
           --field name="performance-test" \
           --field head_sha="$GITHUB_SHA" \
           --jq ".id" \
-          https://api.github.com/repos/github/codeql-coding-standards/check-runs)
+          https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs)
 
           echo "check-run-id=$check_run_id" >> "$GITHUB_ENV"
       - name: Invoke performance test
