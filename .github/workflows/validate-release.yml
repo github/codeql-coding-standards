@@ -9,8 +9,6 @@ on:
         required: true
         type: string
     secrets:
-      check-runs-token:
-        required: true
       release-engineering-token:
         required: true
 
@@ -24,6 +22,7 @@ on:
 permissions:
   contents: read
   actions: write
+  checks: write
 
 jobs:
 
@@ -60,7 +59,7 @@ jobs:
     steps:
       - name: Create check run
         env:
-          GH_TOKEN: ${{ secrets.check-runs-token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           # For debugging purposes
           echo https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs

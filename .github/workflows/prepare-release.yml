@@ -20,6 +20,7 @@ permissions:
   contents: write
   pull-requests: write
   actions: write
+  checks: write
 
 env:
   RELEASE_VERSION: ${{ inputs.version }}
@@ -82,5 +83,4 @@ jobs:
     with:
       version: ${{ inputs.version }}
     secrets:
-      check-runs-token: ${{ secrets.CHECK_RUNS_TOKEN }}
       release-engineering-token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
