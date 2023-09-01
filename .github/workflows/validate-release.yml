@@ -35,7 +35,7 @@ jobs:
     steps:
       - id: set-release-version
         run: |
-          if [[ "$EVENT_NAME" == "workflow_dispatch "]]; then
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             echo "release-version=$RELEASE_FROM_INPUT" >> "$GITHUB_OUTPUT"
           else 
             if [[ "$EVENT_NAME" == "pull_request" ]]; then
