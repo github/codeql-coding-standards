@@ -16,8 +16,13 @@ on:
     branches:
       - rvermeulen/release-process-improvements
 
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
 env:
-  RELEASE_VERSION: ${{ github.event.inputs.version }}
+  RELEASE_VERSION: ${{ inputs.version }}
 
 jobs:
   prepare-release:
@@ -26,9 +31,9 @@ jobs:
     runs-on: ubuntu-latest 
     steps:
       - name: Checkout 
-        uses: actions/checkout@v2
-        #with:
-          #ref: ${{ github.event.inputs.ref }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -61,12 +66,18 @@ jobs:
           find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`$RELEASE_VERSION\` of/"
 
       - name: Create release PR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
-          title: "Release ${{ github.event.inputs.version }}."
-          body: "This PR releases codeql-coding-standards version ${{ github.event.inputs.version }}."
-          commit-message: "Update user manual for release ${{ github.event.inputs.version }}."
+          title: "Release ${{ inputs.version }}."
+          body: "This PR releases codeql-coding-standards version ${{ inputs.version }}."
+          commit-message: "Update user manual for release ${{ inputs.version }}."
           delete-branch: true
-          branch: "rc/${{ github.event.inputs.version }}"
+          branch: "rc/${{ inputs.version }}"
   
-      
+  # Invoke release validation because our PRs created with a GitHub token do not trigger a `pull_request` event.
+  validate-release:
+    name: "Validate coding standards release"
+    needs: prepare-release
+    uses: .github/workflows/validate-release.yml
+    with:
+      version: ${{ inputs.version }}

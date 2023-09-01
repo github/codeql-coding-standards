@@ -1,0 +1,78 @@
+name: Validate release
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: |
+          The version to release (MUST follow semantic versioning).
+        required: true
+        type: string
+  push:
+    branches:
+      - rvermeulen/release-process-improvements # The following push event trigger is only used for testing purposes. Should be removed before merging!
+  pull_request:
+    branches:
+      - "rc/*"
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+
+jobs:
+
+  determine-release-version:
+    runs-on: ubuntu-latest
+    outputs:
+      release-version: ${{ steps.set-release-version.outputs.release-version }}
+    env:
+      RELEASE_FROM_INPUT: ${{ inputs.version }}
+      RELEASE_FROM_BRANCH: ${{ github.base_ref }}
+      EVENT_NAME: ${{ github.event_name }}
+    steps:
+      - id: set-release-version
+        run: |
+          if [[ "$EVENT_NAME" == "workflow_dispatch "]]; then
+            echo "release-version=$RELEASE_FROM_INPUT" >> "$GITHUB_OUTPUT"
+          else 
+            if [[ "$EVENT_NAME" == "pull_request" ]]; then
+              release_version=${RELEASE_FROM_BRANCH#"rc/"}
+              echo "release-version=$release_version" >> "$GITHUB_OUTPUT"
+            else
+              echo "Unexpected event name $EVENT_NAME!"
+              exit 1
+            fi
+          fi
+  
+  validate-coding-standards:
+    needs: determine-release-version
+    name: "Validate coding standards"
+    uses: ./.github/workflows/validate-package-files.yml
+    with:
+      version: ${{ needs.determine-release-version.outputs.release-version }}
+
+  validate-release-performance:
+    needs: determine-release-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create check run
+        run: |
+          check_run_id=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --field name="performance-test" \
+          --head-sha="$GITHUB_SHA" \
+          --jq ".id" \
+          https://api.github.com/repos/{owner}/{repo}/check-runs)
+
+          echo "check-run-id=$check_run_id" >> "$GITHUB_ENV"
+      - name: Invoke performance test
+        env:
+          CHECK_RUN_ID: ${{ env.check-run-id }}
+          RELEASE_VERSION: ${{ needs.determine-release-version.outputs.release-version }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+        run: |
+          echo "{\"version\": \"$RELEASE_VERSION\", \"check-run-id\": \"$CHECK_RUN_ID\"}" | gh workflow run release-performance-testing.yml --json -R github/codeql-coding-standards-release-engineering --ref rvermeulen/release-process
