@@ -48,11 +48,8 @@ jobs:
           fi
   
   validate-coding-standards:
-    needs: determine-release-version
     name: "Validate coding standards"
-    uses: ./.github/workflows/validate-package-files.yml
-    with:
-      version: ${{ needs.determine-release-version.outputs.release-version }}
+    uses: ./.github/workflows/validate-coding-standards.yml
 
   validate-release-performance:
     needs: determine-release-version
