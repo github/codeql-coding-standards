@@ -78,6 +78,6 @@ jobs:
   validate-release:
     name: "Validate coding standards release"
     needs: prepare-release
-    uses: .github/workflows/validate-release.yml
+    uses: ./.github/workflows/validate-release.yml
     with:
       version: ${{ inputs.version }}
