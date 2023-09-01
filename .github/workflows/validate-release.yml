@@ -58,6 +58,7 @@ jobs:
         run: |
           # For debugging purposes
           echo https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs
+          env
 
           check_run_id=$(gh api \
           --header "Accept: application/vnd.github+json" \
