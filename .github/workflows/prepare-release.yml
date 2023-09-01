@@ -20,7 +20,6 @@ permissions:
   contents: write
   pull-requests: write
   actions: write
-  statuses: write
 
 env:
   RELEASE_VERSION: ${{ inputs.version }}

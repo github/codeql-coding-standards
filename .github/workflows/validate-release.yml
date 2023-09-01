@@ -18,7 +18,6 @@ on:
 permissions:
   contents: read
   actions: write
-  statuses: write
 
 env:
   GITHUB_TOKEN: ${{ github.token }}
@@ -55,9 +54,14 @@ jobs:
   validate-release-performance:
     needs: determine-release-version
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.CHECK_RUNS_TOKEN }}
     steps:
       - name: Create check run
         run: |
+          # For debugging purposes
+          echo https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs
+
           check_run_id=$(gh api \
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
