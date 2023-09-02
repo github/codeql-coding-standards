@@ -3,18 +3,15 @@ name: Validate release
 on:
   workflow_call:
     inputs:
-      version:
+      ref:
         description: |
-          The version to release (MUST follow semantic versioning).
+          The ref that is released
         required: true
         type: string
     secrets:
       release-engineering-token:
         required: true
 
-  push:
-    branches:
-      - rvermeulen/release-process-improvements # The following push event trigger is only used for testing purposes. Should be removed before merging!
   pull_request:
     branches:
       - "rc/*"
@@ -26,23 +23,22 @@ permissions:
 
 jobs:
 
-  determine-release-version:
+  determine-ref:
     runs-on: ubuntu-latest
     outputs:
-      release-version: ${{ steps.set-release-version.outputs.release-version }}
+      release-ref: ${{ steps.set-ref.outputs.release-ref }}
     env:
-      RELEASE_FROM_INPUT: ${{ inputs.version }}
-      RELEASE_FROM_BRANCH: ${{ github.base_ref }}
+      REF_FROM_INPUT: ${{ inputs.ref }}
+      REF_FROM_PR: ${{ github.base_ref }}
       EVENT_NAME: ${{ github.event_name }}
     steps:
-      - id: set-release-version
+      - id: set-ref
         run: |
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
-            echo "release-version=$RELEASE_FROM_INPUT" >> "$GITHUB_OUTPUT"
+            echo "release-ref=$REF_FROM_INPUT" >> "$GITHUB_OUTPUT"
           else 
             if [[ "$EVENT_NAME" == "pull_request" ]]; then
-              release_version=${RELEASE_FROM_BRANCH#"rc/"}
-              echo "release-version=$release_version" >> "$GITHUB_OUTPUT"
+              echo "release-ref=$REF_FROM_PR" >> "$GITHUB_OUTPUT"
             else
               echo "Unexpected event name $EVENT_NAME!"
               exit 1
@@ -53,11 +49,13 @@ jobs:
     name: "Validate coding standards"
     uses: ./.github/workflows/validate-coding-standards.yml
 
-  validate-release-performance:
-    needs: determine-release-version
+  init-release-performance:
+    outputs:
+      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}}
     runs-on: ubuntu-latest
     steps:
       - name: Create check run
+        id: create-check-run
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -71,13 +69,34 @@ jobs:
           --field name="performance-test" \
           --field head_sha="$GITHUB_SHA" \
           --jq ".id" \
-          https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs)
+          /repos/$GITHUB_REPOSITORY/check-runs)
 
-          echo "check-run-id=$check_run_id" >> "$GITHUB_ENV"
+          echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
+
+  validate-release-performance:
+    needs: [init-release-performance, determine-ref]
+    runs-on: ubuntu-latest
+    steps:    
       - name: Invoke performance test
         env:
-          CHECK_RUN_ID: ${{ env.check-run-id }}
-          RELEASE_VERSION: ${{ needs.determine-release-version.outputs.release-version }}
+          RELEASE_REF: ${{ needs.determine-ref.outputs.release-ref }}
+          CHECK_RUN_ID: ${{ needs.init-release-performance.outputs.check-run-id }}
           GH_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
-          echo "{\"version\": \"$RELEASE_VERSION\", \"check-run-id\": \"$CHECK_RUN_ID\"}" | gh workflow run release-performance-testing.yml --json -R github/codeql-coding-standards-release-engineering --ref rvermeulen/release-process
+          echo "{\"ref\": \"$RELEASE_REF\", \"check-run-id\": \"$CHECK_RUN_ID\"}" | gh workflow run release-performance-testing.yml --json -R github/codeql-coding-standards-release-engineering --ref rvermeulen/release-process
+
+  on-failure-validate-release-performance:
+    needs: [init-release-performance, validate-release-performance]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail check run status
+        env:
+           CHECK_RUN_ID: ${{ needs.init-release-performance.outputs.check-run-id }}
+        run: |
+          echo "{\"status\": \"completed\", \"conclusion\": \"failed\"}" | gh api \
+            --method PATCH \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --json \
+            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
