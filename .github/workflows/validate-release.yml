@@ -24,30 +24,27 @@ permissions:
 jobs:
 
   determine-ref:
-    runs-on: ubuntu-latest
-    outputs:
-      release-ref: ${{ steps.set-ref.outputs.release-ref }}
-    env:
-      REF_FROM_INPUT: ${{ inputs.ref }}
-      REF_FROM_PR: ${{ github.base_ref }}
-      EVENT_NAME: ${{ github.event_name }}
-    steps:
-      - id: set-ref
-        run: |
-          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
-            echo "release-ref=$REF_FROM_INPUT" >> "$GITHUB_OUTPUT"
-          else 
-            if [[ "$EVENT_NAME" == "pull_request" ]]; then
-              echo "release-ref=$REF_FROM_PR" >> "$GITHUB_OUTPUT"
+      runs-on: ubuntu-latest
+      outputs:
+        release-ref: ${{ steps.set-ref.outputs.ref }}
+      env:
+        REF_FROM_INPUT: ${{ inputs.ref }}
+        EVENT_NAME: ${{ github.event_name }}
+      steps:
+        - id: set-ref
+          run: |
+            if [[ "$EVENT_NAME" == "workflow_call" ]]; then
+              echo "ref=$REF_FROM_INPUT" >> "$GITHUB_OUTPUT"
             else
-              echo "Unexpected event name $EVENT_NAME!"
-              exit 1
+              echo "ref=$GITHUB_REF" >> "$GITHUB_OUTPUT"
             fi
-          fi
   
   validate-coding-standards:
     name: "Validate coding standards"
+    needs: [determine-ref]
     uses: ./.github/workflows/validate-coding-standards.yml
+    with:
+      ref: ${{ needs.determine-ref.outputs.ref }}
 
   init-release-performance:
     outputs:
@@ -59,7 +56,7 @@ jobs:
         id: create-check-run
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_REF: ${{ needs.determine-ref.outputs.release-ref }}
+          RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
         run: |
           # For debugging purposes
           echo https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs
@@ -81,7 +78,7 @@ jobs:
     steps:    
       - name: Invoke performance test
         env:
-          RELEASE_REF: ${{ needs.determine-ref.outputs.release-ref }}
+          RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
           CHECK_RUN_ID: ${{ needs.init-release-performance.outputs.check-run-id }}
           GH_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
