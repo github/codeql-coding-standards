@@ -27,6 +27,8 @@ env:
 
 jobs:
   prepare-release:
+    outputs:
+      pull-request-head-sha: ${{ steps.create-release-pull-request.outputs.pull-request-head-sha }}
     name: "Prepare release"
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest 
@@ -67,6 +69,7 @@ jobs:
           find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`$RELEASE_VERSION\` of/"
 
       - name: Create release PR
+        id: create-release-pull-request
         uses: peter-evans/create-pull-request@v5
         with:
           title: "Release ${{ inputs.version }}."
@@ -81,6 +84,6 @@ jobs:
     needs: prepare-release
     uses: ./.github/workflows/validate-release.yml
     with:
-      ref: ${{ inputs.ref }}
+      ref: ${{ needs.prepare-release.outputs.pull-request-head-sha }}
     secrets:
       release-engineering-token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
