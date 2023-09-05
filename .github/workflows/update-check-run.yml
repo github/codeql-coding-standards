@@ -1,0 +1,53 @@
+name: Update check run
+
+on:
+  workflow_dispatch:
+    id:
+      description: |
+        The ID of the check run to update.
+      type: number
+      required: true
+    status:
+      description: |
+        The new status of the check run.
+      type: string
+      required: true
+    conclusion:
+      description: |
+        The conclusion of the check run when the status is 'completed'.
+      type: string
+    details_url:
+      description: |
+        The URL of the check run's details page.
+      type: string
+  push:
+    branches:
+      - "rvermeulen/release-process-improvements"
+
+permissions:
+  checks: write
+
+jobs:
+  update-check-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update check run
+        env:
+          CHECK_RUN_ID: ${{ inputs.id }}
+          CHECK_RUN_STATUS: ${{ inputs.status }}
+          CHECK_RUN_CONCLUSION: ${{ inputs.conclusion }}
+          CHECK_RUN_DETAILS_URL: ${{ inputs.details_url }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          CHECK_RUNS_UPDATE=$(jq -n \
+            --arg status "$CHECK_RUN_STATUS" \
+            --arg conclusion "$CHECK_RUN_CONCLUSION" \
+            --arg details_url "$CHECK_RUN_DETAILS_URL" \
+            '{status: $status, conclusion: $conclusion, details_url: $details_url} | to_entries | map(select(.value != "")) | from_entries)'
+          )
+          echo "$CHECK_RUNS_UPDATE" | gh api \
+            --method PATCH \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --input - \
+            /repos/rvermeulen/codeql-coding-standards/check-runs/$CHECK_RUN_ID
