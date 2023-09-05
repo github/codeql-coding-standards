@@ -2,24 +2,25 @@ name: Update check run
 
 on:
   workflow_dispatch:
-    id:
-      description: |
-        The ID of the check run to update.
-      type: number
-      required: true
-    status:
-      description: |
-        The new status of the check run.
-      type: string
-      required: true
-    conclusion:
-      description: |
-        The conclusion of the check run when the status is 'completed'.
-      type: string
-    details_url:
-      description: |
-        The URL of the check run's details page.
-      type: string
+    inputs:
+      id:
+        description: |
+          The ID of the check run to update.
+        type: number
+        required: true
+      status:
+        description: |
+          The new status of the check run.
+        type: string
+        required: true
+      conclusion:
+        description: |
+          The conclusion of the check run when the status is 'completed'.
+        type: string
+      details_url:
+        description: |
+          The URL of the check run's details page.
+        type: string
   push:
     branches:
       - "rvermeulen/release-process-improvements"
