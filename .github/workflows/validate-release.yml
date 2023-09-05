@@ -101,8 +101,14 @@ jobs:
       - name: Fail check run status
         env:
            CHECK_RUN_ID: ${{ needs.init-release-performance.outputs.check-run-id }}
+           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          echo "{\"status\": \"completed\", \"conclusion\": \"failed\"}" | gh api \
+          jq -n \
+          --arg status "completed" \
+          --arg conclusion "failed" \
+          '{status: $status, conclusion: $conclusion}' \
+          | \
+          gh api \
             --method PATCH \
             --header "Accept: application/vnd.github+json" \
             --header "X-GitHub-Api-Version: 2022-11-28" \
