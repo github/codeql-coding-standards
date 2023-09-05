@@ -83,7 +83,15 @@ jobs:
           CHECK_RUN_ID: ${{ needs.init-release-performance.outputs.check-run-id }}
           GH_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
-          echo "{\"ref\": \"$RELEASE_REF\", \"check-run-id\": \"$CHECK_RUN_ID\"}" | gh workflow run release-performance-testing.yml --json -R github/codeql-coding-standards-release-engineering --ref rvermeulen/release-process
+          jq -n \
+          --arg ref "$RELEASE_REF" \
+          --arg check_run_id "$CHECK_RUN_ID" \
+          '{ref: $ref, check-run-id: $check_run_id}' \
+          | \
+          gh workflow run release-performance-testing.yml \
+          --json \
+          -R github/codeql-coding-standards-release-engineering \
+          --ref rvermeulen/release-process
 
   on-failure-validate-release-performance:
     needs: [init-release-performance, validate-release-performance]
