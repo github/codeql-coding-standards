@@ -52,12 +52,14 @@ jobs:
   init-release-performance:
     outputs:
       check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}}
+    needs: [determine-ref]
     runs-on: ubuntu-latest
     steps:
       - name: Create check run
         id: create-check-run
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_REF: ${{ needs.determine-ref.outputs.release-ref }}
         run: |
           # For debugging purposes
           echo https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs
@@ -67,7 +69,7 @@ jobs:
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
           --field name="performance-test" \
-          --field head_sha="$GITHUB_SHA" \
+          --field head_sha="$RELEASE_REF" \
           --jq ".id" \
           /repos/$GITHUB_REPOSITORY/check-runs)
 
