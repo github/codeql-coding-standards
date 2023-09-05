@@ -86,7 +86,7 @@ jobs:
           jq -n \
           --arg ref "$RELEASE_REF" \
           --arg check_run_id "$CHECK_RUN_ID" \
-          '{ref: $ref, check-run-id: $check_run_id}' \
+          '{ref: $ref, "check-run-id": $check_run_id}' \
           | \
           gh workflow run release-performance-testing.yml \
           --json \
