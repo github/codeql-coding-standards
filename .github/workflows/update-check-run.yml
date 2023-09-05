@@ -40,13 +40,13 @@ jobs:
           CHECK_RUN_DETAILS_URL: ${{ inputs.details_url }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          CHECK_RUNS_UPDATE=$(jq -n \
+          jq -n \
             --arg status "$CHECK_RUN_STATUS" \
             --arg conclusion "$CHECK_RUN_CONCLUSION" \
             --arg details_url "$CHECK_RUN_DETAILS_URL" \
-            '{status: $status, conclusion: $conclusion, details_url: $details_url} | to_entries | map(select(.value != "")) | from_entries)'
-          )
-          echo "$CHECK_RUNS_UPDATE" | gh api \
+            '{status: $status, conclusion: $conclusion, details_url: $details_url} | to_entries | map(select(.value != "")) | from_entries' \
+          | \
+          gh api \
             --method PATCH \
             --header "Accept: application/vnd.github+json" \
             --header "X-GitHub-Api-Version: 2022-11-28" \
