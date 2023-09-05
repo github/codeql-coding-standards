@@ -1,0 +1,14 @@
+name: "Update release status"
+on:
+  issue_comment:
+    types: [created]
+    branches:
+      - "rc/**"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  update-validation-status:
+    name: "Update validation status"
