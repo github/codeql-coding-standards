@@ -19,33 +19,122 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.DynamicCallGraph
 import codingstandards.cpp.deadcode.UnusedFunctions
 
-/** Checks if a function call exists to the function
- * passed in the arguments.
- */
-predicate isCalled(Function unusedFunction) {
-  unusedFunction = getTarget(_)
+module Namespaces {
+  private int getNamespaceDepth(Namespace n) {
+    n instanceof GlobalNamespace and result = 0
+    or
+    result = getNamespaceDepth(n.getParentNamespace()) + 1
+  }
+
+  private Namespace getNamespaceIndex(Namespace n, int i) {
+    getNamespaceDepth(n) = i and result = n
+    or
+    getNamespaceDepth(n) > i and result = getNamespaceIndex(n.getParentNamespace(), i)
+  }
+
+  pragma[inline]
+  Namespace getCommonNamespace(Namespace n1, Namespace n2) {
+    exists(int i |
+      result = getNamespaceIndex(n1, i) and
+      result = getNamespaceIndex(n2, i) and
+      not getNamespaceIndex(n1, i + 1) = getNamespaceIndex(n2, i + 1)
+    )
+  }
+
+  /**
+   * Gets the enclosing namespace of a using directive.
+   *
+   * Using directives can only appear in block scope or namespace scope.
+   */
+  Namespace getEnclosingNamespace(UsingDirectiveEntry ude) {
+    exists(Element parentScope | parentScope = ude.getParentScope() |
+      result = parentScope
+      or
+      result = parentScope.(BlockStmt).getEnclosingFunction().getNamespace()
+    )
+  }
+
+  /**
+   * Gets the namespace under which the imported names will be visible.
+   *
+   * Names will be visible in the closest common namespace.
+   */
+  Namespace getVisibleNamespace(UsingDirectiveEntry ude) {
+    result = getCommonNamespace(ude.getNamespace(), getEnclosingNamespace(ude))
+  }
+
+  Namespace getAnAliasedNamespace(Namespace n) {
+    exists(UsingDirectiveEntry ude | result = getVisibleNamespace(ude) and n = ude.getNamespace())
+  }
 }
 
-/** Checks if an overloaded function of
+pragma[noinline]
+private predicate candGetAnOverloadNonMember(string name, Namespace namespace, Function f) {
+  f.getName() = name and
+  (
+    f.getNamespace() = namespace
+    or
+    Namespaces::getAnAliasedNamespace(f.getNamespace()) = namespace
+  ) and
+  not exists(f.getDeclaringType())
+}
+
+pragma[noinline]
+private predicate candGetAnOverloadMember(string name, Class declaringType, Function f) {
+  f.getName() = name and
+  f.getDeclaringType() = declaringType
+}
+
+/**
+ * Gets an approximation of the overload set for the function `f`.
+ */
+Function getAnOverload(Function f) {
+  (
+    // If this function is declared in a class, only consider other
+    // functions from the same class.
+    exists(string name, Class declaringType |
+      candGetAnOverloadMember(name, declaringType, f) and
+      candGetAnOverloadMember(name, declaringType, result)
+    )
+    or
+    // Conversely, if this function is not
+    // declared in a class, only consider other functions not declared in a
+    // class.
+    exists(string name, Namespace namespace |
+      candGetAnOverloadNonMember(name, namespace, f) and
+      candGetAnOverloadNonMember(name, namespace, result)
+    )
+  ) and
+  result != f and
+  // Instantiations and specializations don't participate in overload
+  // resolution.
+  not (
+    f instanceof FunctionTemplateInstantiation or
+    result instanceof FunctionTemplateInstantiation
+  ) and
+  not (
+    f instanceof FunctionTemplateSpecialization or
+    result instanceof FunctionTemplateSpecialization
+  )
+}
+
+/**
+ * Checks if a function call exists to the function
+ * passed in the arguments.
+ */
+predicate isCalled(Function unusedFunction) { unusedFunction = getTarget(_) }
+
+/**
+ * Checks if an overloaded function of
  * the function passed in the arguments, is called.
  */
 predicate overloadedFunctionIsCalled(Function unusedFunction) {
-  exists (Function f | f = unusedFunction.getAnOverload() and isCalled(f))
-  or
-  unusedFunction.getNamespace().isAnonymous() and
-    exists (TopLevelFunction overloadedFunction |
-      overloadedFunction != unusedFunction and
-      ((overloadedFunction.getName() = unusedFunction.getName()) or
-        (overloadedFunction.getQualifiedName() =
-          unusedFunction.getQualifiedName()))
-      )
+  exists(Function f | f = getAnOverload(unusedFunction) and isCalled(f))
 }
 
-
 /** Checks if a Function's address was taken. */
-predicate addressBeenTaken(Function unusedFunction)
-{
-  exists (FunctionAccess fa | fa.getTarget() = unusedFunction)
+predicate addressBeenTaken(Function unusedFunction) {
+  exists(FunctionAccess fa | fa.getTarget() = unusedFunction)
 }
 
 /** A `Function` nested in an anonymous namespace. */
@@ -104,8 +193,7 @@ where
     // There exists an instantiation which is called
     functionFromInstantiatedTemplate.isConstructedFrom(functionFromUninstantiatedTemplate) and
     functionFromInstantiatedTemplate = getTarget(_)
-  )
-  and
+  ) and
   // A function is defined as "used" if any one of the following holds true:
   // - It's an explicitly deleted functions e.g. =delete
   // - It's annotated as "[[maybe_unused]]"
@@ -115,8 +203,7 @@ where
   not unusedLocalFunction.isDeleted() and
   not unusedLocalFunction.getAnAttribute().getName() = "maybe_unused" and
   not overloadedFunctionIsCalled(unusedLocalFunction) and
-  not addressBeenTaken(unusedLocalFunction)
-  and
+  not addressBeenTaken(unusedLocalFunction) and
   // Get a printable name
   (
     if exists(unusedLocalFunction.getQualifiedName())
