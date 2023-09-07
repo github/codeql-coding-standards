@@ -116,7 +116,7 @@ static int overload1(int c) // COMPLIANT - called
   return ++c;
 }
 
-static int overload1(int c, int d) // COMPLAINT - overload1(int) is called.
+static int overload1(int c, int d) // COMPLIANT - overload1(int) is called.
 {
   return c + d;
 }
@@ -128,11 +128,11 @@ public:
   int caller(int x) { return overloadMember(x, 0); }
 
 private:
-  int overloadMember(int c) // COMPLAINT - overloadMember(int, int) is called.
+  int overloadMember(int c) // COMPLIANT - overloadMember(int, int) is called.
   {
     return ++c;
   }
-  int overloadMember(int c, int d) // COMPLAINT - called.
+  int overloadMember(int c, int d) // COMPLIANT - called.
   {
     return c + d;
   }
