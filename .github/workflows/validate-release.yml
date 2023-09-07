@@ -33,7 +33,7 @@ jobs:
       steps:
         - id: set-ref
           run: |
-            if [[ "$EVENT_NAME" == "workflow_call" ]]; then
+            if [[ "$EVENT_NAME" == "workflow_call" ]] || [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
               echo "ref=$REF_FROM_INPUT" >> "$GITHUB_OUTPUT"
             else
               echo "ref=$GITHUB_REF" >> "$GITHUB_OUTPUT"
