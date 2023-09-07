@@ -113,3 +113,24 @@ jobs:
             --header "X-GitHub-Api-Version: 2022-11-28" \
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
+
+  init-release-status:
+    name: "Initialize release status monitoring"
+    needs: [determine-ref, validate-release-performance]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create release status check run
+        env:
+          REF: ${{ needs.determine-ref.outputs.ref }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          CHECK_RUN_ID=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --field name="release-status" \
+          --field head_sha="$REF" \
+          --field status="in_progress" \
+          --jq ".id" \
+          /repos/$GITHUB_REPOSITORY/check-runs)
+
+          echo "Created release status check run with id $CHECK_RUN_ID"
