@@ -38,7 +38,7 @@ jobs:
   prepare-unit-test-matrix:
     name: Prepare CodeQL unit test matrix
     needs: [determine-ref]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.export-unit-test-matrix.outputs.matrix }}
     steps:
@@ -185,7 +185,7 @@ jobs:
   validate-test-results:
     name: Validate test results
     needs: [run-test-suites]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Collect test results
         uses: actions/download-artifact@v3
