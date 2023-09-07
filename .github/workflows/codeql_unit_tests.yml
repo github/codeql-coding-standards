@@ -52,9 +52,9 @@ jobs:
         run: |
           echo "Merging Result:"
           python scripts/create_language_matrix.py
-          echo "::set-output name=matrix::$(
+          echo "matrix=$(
             python scripts/create_language_matrix.py | \
-            jq --compact-output 'map([.+{os: "ubuntu-20.04-xl", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}')"
+            jq --compact-output 'map([.+{os: "ubuntu-20.04-xl", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}')" >> $GITHUB_OUTPUT
 
   run-test-suites:
     name: Run unit tests
