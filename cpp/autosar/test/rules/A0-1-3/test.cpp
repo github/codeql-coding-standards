@@ -121,13 +121,6 @@ static int overload1(int c, int d) // COMPLAINT - overload1(int) is called.
   return c + d;
 }
 
-namespace {
-int overload1(int c, float d) // COMPLAINT - overload1(int) is called.
-{
-  return c + d;
-}
-} // namespace
-
 int overload = overload1(5);
 
 class classWithOverloads {

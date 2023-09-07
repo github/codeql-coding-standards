@@ -67,7 +67,10 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Functions defined in anonymous (unnamed) namespaces and global namespaces are not considered to be part of the same overload set."
+          }
         }
       ],
       "title": "Every function defined in an anonymous namespace, or static function with internal linkage, or private member function shall be used."

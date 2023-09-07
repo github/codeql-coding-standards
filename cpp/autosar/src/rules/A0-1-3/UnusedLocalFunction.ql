@@ -19,28 +19,13 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.DynamicCallGraph
 import codingstandards.cpp.deadcode.UnusedFunctions
 
-/** Checks if a function call exists to the function
- * passed in the arguments.
- */
-predicate isCalled(Function unusedFunction) {
-  unusedFunction = getTarget(_)
-}
 
 /** Checks if an overloaded function of
  * the function passed in the arguments, is called.
  */
 predicate overloadedFunctionIsCalled(Function unusedFunction) {
-  exists (Function f | f = unusedFunction.getAnOverload() and isCalled(f))
-  or
-  unusedFunction.getNamespace().isAnonymous() and
-    exists (TopLevelFunction overloadedFunction |
-      overloadedFunction != unusedFunction and
-      ((overloadedFunction.getName() = unusedFunction.getName()) or
-        (overloadedFunction.getQualifiedName() =
-          unusedFunction.getQualifiedName()))
-      )
+  exists (Function f | f = unusedFunction.getAnOverload() and f = getTarget(_))
 }
-
 
 /** Checks if a Function's address was taken. */
 predicate addressBeenTaken(Function unusedFunction)
