@@ -26,7 +26,7 @@ jobs:
   determine-ref:
       runs-on: ubuntu-latest
       outputs:
-        release-ref: ${{ steps.set-ref.outputs.ref }}
+        ref: ${{ steps.set-ref.outputs.ref }}
       env:
         REF_FROM_INPUT: ${{ inputs.ref }}
         EVENT_NAME: ${{ github.event_name }}
