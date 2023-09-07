@@ -112,7 +112,7 @@ jobs:
 
   init-release-status:
     name: "Initialize release status monitoring"
-    needs: [determine-ref, validate-release-performance]
+    needs: [determine-ref]
     runs-on: ubuntu-latest
     steps:
       - name: Create release status check run
