@@ -92,7 +92,7 @@ jobs:
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
 
-  init-release-performance:
+  pre-validate-release-performance:
     outputs:
       check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}}
     needs: [determine-ref]
@@ -115,13 +115,13 @@ jobs:
           echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
 
   validate-release-performance:
-    needs: [init-release-performance, determine-ref]
+    needs: [pre-validate-release-performance, determine-ref]
     runs-on: ubuntu-latest
     steps:
       - name: Invoke performance test
         env:
           RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
-          CHECK_RUN_ID: ${{ needs.init-release-performance.outputs.check-run-id }}
+          CHECK_RUN_ID: ${{ needs.pre-validate-release-performance.outputs.check-run-id }}
           GH_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
           jq -n \
@@ -135,13 +135,13 @@ jobs:
           --ref rvermeulen/release-process
 
   on-failure-validate-release-performance:
-    needs: [init-release-performance, validate-release-performance]
+    needs: [pre-validate-release-performance, validate-release-performance]
     if: failure()
     runs-on: ubuntu-latest
     steps:
       - name: Fail check run status
         env:
-           CHECK_RUN_ID: ${{ needs.init-release-performance.outputs.check-run-id }}
+           CHECK_RUN_ID: ${{ needs.pre-validate-release-performance.outputs.check-run-id }}
            GITHUB_TOKEN: ${{ github.token }}
         run: |
           jq -n \
@@ -156,7 +156,7 @@ jobs:
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
 
-  init-release-status:
+  create-release-status-check-run:
     name: "Initialize release status monitoring"
     needs: [determine-ref]
     runs-on: ubuntu-latest
