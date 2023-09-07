@@ -238,7 +238,10 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "In limited cases, this query can raise false-positives for variables that are defined as constexpr and used in an expression to instantiate a template."
+          }
         },
         {
           "description": "Unused variables complicate the program and can indicate a possible mistake on the part of the programmer.",

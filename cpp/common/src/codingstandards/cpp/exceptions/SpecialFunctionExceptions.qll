@@ -36,7 +36,8 @@ class SpecialFunction extends Function {
 }
 
 /** A special function which throws an exception. */
-abstract class SpecialExceptionThrowingFunction extends ExceptionPathGraph::ExceptionThrowingFunction {
+abstract class SpecialExceptionThrowingFunction extends ExceptionPathGraph::ExceptionThrowingFunction
+{
   SpecialExceptionThrowingFunction() { exists(getAFunctionThrownType(this, _)) }
 
   /** Gets a description for this exception throwing. */
