@@ -58,10 +58,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
         run: |
-          # For debugging purposes
-          echo https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs
-          env
-
           check_run_id=$(gh api \
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
