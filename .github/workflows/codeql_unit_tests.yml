@@ -54,7 +54,7 @@ jobs:
           python scripts/create_language_matrix.py
           echo "matrix=$(
             python scripts/create_language_matrix.py | \
-            jq --compact-output 'map([.+{os: "ubuntu-20.04-xl", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}')" >> $GITHUB_OUTPUT
+            jq --compact-output 'map([.+{os: "ubuntu-latest", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}')" >> $GITHUB_OUTPUT
 
   run-test-suites:
     name: Run unit tests
