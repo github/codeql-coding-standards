@@ -66,6 +66,11 @@ jobs:
   run-codeql-unit-tests:
     name: Run CodeQL Unit Tests
     needs: [determine-ref]
-    uses: ./.github/workflows/codeql_unit_tests.yml
-    with:
-      ref: ${{ needs.determine-ref.outputs.ref }}
+    #uses: ./.github/workflows/codeql_unit_tests.yml
+    #with:
+    #  ref: ${{ needs.determine-ref.outputs.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail
+        run: |
+          exit 1
