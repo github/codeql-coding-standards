@@ -14,7 +14,7 @@ def get_compatible_stdlib(version: Version) -> Optional[str]:
     if response.status_code == 200:
         return tag
     return None
-    
+
 def get_compatible_bundle(version: Version, token: str) -> Optional[str]:
     tag = f"codeql-bundle-v{version}"
     response = requests.get(f"https://api.github.com/repos/github/codeql-action/releases/tags/{tag}", headers={
