@@ -19,6 +19,20 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.DynamicCallGraph
 import codingstandards.cpp.deadcode.UnusedFunctions
 
+
+/** Checks if an overloaded function of
+ * the function passed in the arguments, is called.
+ */
+predicate overloadedFunctionIsCalled(Function unusedFunction) {
+  exists (Function f | f = unusedFunction.getAnOverload() and f = getTarget(_))
+}
+
+/** Checks if a Function's address was taken. */
+predicate addressBeenTaken(Function unusedFunction)
+{
+  exists (FunctionAccess fa | fa.getTarget() = unusedFunction)
+}
+
 /** A `Function` nested in an anonymous namespace. */
 class AnonymousNamespaceFunction extends Function {
   AnonymousNamespaceFunction() { getNamespace().getParentNamespace*().isAnonymous() }
@@ -75,7 +89,19 @@ where
     // There exists an instantiation which is called
     functionFromInstantiatedTemplate.isConstructedFrom(functionFromUninstantiatedTemplate) and
     functionFromInstantiatedTemplate = getTarget(_)
-  ) and
+  )
+  and
+  // A function is defined as "used" if any one of the following holds true:
+  // - It's an explicitly deleted functions e.g. =delete
+  // - It's annotated as "[[maybe_unused]]"
+  // - It's part of an overloaded set and any one of the overloaded instance
+  //   is called.
+  // - It's an operand of an expression in an unevaluated context.
+  not unusedLocalFunction.isDeleted() and
+  not unusedLocalFunction.getAnAttribute().getName() = "maybe_unused" and
+  not overloadedFunctionIsCalled(unusedLocalFunction) and
+  not addressBeenTaken(unusedLocalFunction)
+  and
   // Get a printable name
   (
     if exists(unusedLocalFunction.getQualifiedName())
