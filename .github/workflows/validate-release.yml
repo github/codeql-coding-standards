@@ -50,6 +50,7 @@ jobs:
         id: create-check-run
         env:
           REF: ${{ needs.determine-ref.outputs.ref }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           check_run_id=$(gh api \
           --header "Accept: application/vnd.github+json" \
@@ -79,6 +80,7 @@ jobs:
         env:
           CHECK_RUN_ID: ${{ needs.validate-coding-standards.outputs.check-run-id }}
           CHECK_RUN_CONCLUSION: ${{ needs.validate-coding-standards.result }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           jq -n \
             --arg status "completed" \
