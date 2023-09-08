@@ -7,9 +7,7 @@ on:
     branches:
       - "rc/*"
 
-  push:
-    branches:
-      - "rvermeulen/release-process-improvements"
+  workflow_dispatch:
 
 permissions:
   actions: read
