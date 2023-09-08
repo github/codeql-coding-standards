@@ -78,7 +78,7 @@ jobs:
           done=$(gh api \
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
-          --jq '.check_runs | map(select(.name != "Update Release Status" and .status != "completed")) | length | if . == 0 then "true" else "false" end' \
+          --jq '.check_runs | map(select(.name != "release-status" and .status != "completed")) | length | if . == 0 then "true" else "false" end' \
           /repos/$GITHUB_REPOSITORY/commits/$CHECK_RUN_HEAD_SHA/check-runs)
 
           if [[ "$done" == "true" ]]; then
