@@ -36,7 +36,7 @@ jobs:
 
       - name: Get release status check run
         id: get-check-run
-        if: (github.event_name == 'check_run' && github.event.check_run.conclusion == 'success' && github.event.check_run.name != 'Update Release Status') || github.event_name == 'workflow_dispatch'
+        if: (github.event_name == 'check_run' && github.event.check_run.conclusion == 'success' && github.event.check_run.name != github.workflow) || github.event_name == 'workflow_dispatch'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
