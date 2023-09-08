@@ -23,12 +23,22 @@ jobs:
   validate-check-runs:
     runs-on: ubuntu-latest
     steps:
+      - name: Determine check run head SHA
+        env:
+          HEAD_SHA_FROM_EVENT: ${{ github.event.check_run.head_sha }}
+          HEAD_SHA_FROM_INPUTS: ${{ inputs.head-sha }}
+        run: |
+          if [[ $GITHUB_EVENT_NAME == "workflow_dispatch" ]]; then
+            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_INPUTS" >> "$GITHUB_ENV"
+          else
+            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_EVENT" >> "$GITHUB_ENV"
+          fi
+
       - name: Get release status check run
         id: get-check-run
-        if: github.event.check_run.conclusion == 'success' && github.event.check_run.name != 'Update Release Status'
+        if: (github.event_name == 'check_run' && github.event.check_run.conclusion == 'success' && github.event.check_run.name != 'Update Release Status') || github.event_name == 'workflow_dispatch'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          CHECK_RUN_HEAD_SHA: ${{ github.event.check_run.head_sha }}
         run: |
           check_run_info=$(gh api \
           --header "Accept: application/vnd.github+json" \
@@ -45,7 +55,7 @@ jobs:
           echo "CHECK_RUN_CONCLUSION=$check_run_conclusion" >> "$GITHUB_ENV"
 
       - name: Reset release status
-        if: env.CHECK_RUN_STATUS == 'completed' && github.event.action == 'rerequested'
+        if: github.event_name == 'check_run' && env.CHECK_RUN_STATUS == 'completed' && github.event.action == 'rerequested'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -58,17 +68,6 @@ jobs:
           /repos/$GITHUB_REPOSITORY/check-runs)
 
           echo "Created release status check run with id $CHECK_RUN_ID"
-
-      - name: Determine check run head SHA
-        env:
-          HEAD_SHA_FROM_EVENT: ${{ github.event.check_run.head_sha }}
-          HEAD_SHA_FROM_INPUTS: ${{ inputs.head-sha }}
-        run: |
-          if [[ $GITHUB_EVENT_NAME == "workflow_dispatch" ]]; then
-            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_INPUTS" >> "$GITHUB_ENV"
-          else
-            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_EVENT" >> "$GITHUB_ENV"
-          fi
 
       - name: Check all runs completed
         if: env.CHECK_RUN_STATUS != 'completed'
@@ -87,13 +86,13 @@ jobs:
             --arg status "completed" \
             --arg conclusion "success" \
             '{status: $status, conclusion: $conclusion}' \
-          | \
-          gh api \
-            --method PATCH \
-            --header "Accept: application/vnd.github+json" \
-            --header "X-GitHub-Api-Version: 2022-11-28" \
-            --input - \
-            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
+            | \
+            gh api \
+              --method PATCH \
+              --header "Accept: application/vnd.github+json" \
+              --header "X-GitHub-Api-Version: 2022-11-28" \
+              --input - \
+              /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
           else
             echo "Not all check runs completed"
           fi
