@@ -5,21 +5,25 @@ on:
     inputs:
       id:
         description: |
-          The ID of the check run to update.
+          The unique identifier of the check run.
         type: number
         required: true
       status:
         description: |
-          The new status of the check run.
+          The current status.
+
+          Can be one of: queued, in_progress, completed
         type: string
         required: true
       conclusion:
         description: |
-          The conclusion of the check run when the status is 'completed'.
+          The final conclusion of the check when completed.
+
+          Can be one of: action_required, cancelled, failure, neutral, success, skipped, stale, timed_out
         type: string
       details_url:
         description: |
-          The URL of the check run's details page.
+          The URL of the integrator's site that has the full details of the check.
         type: string
 
 permissions:
