@@ -65,7 +65,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Upgrade CodeQL dependencies')
 
     parser.add_argument('--cli-version', type=str, required=True, help='CodeQL CLI version')
-    parser.add_argument('--github-auth-stdin', action='store_true', help='CodeQL bundle version')
+    parser.add_argument('--github-auth-stdin', action='store_true', help='Authenticate to the GitHub API by providing a GitHub token via standard input.')
 
     args = parser.parse_args()
     if args.github_auth_stdin:
