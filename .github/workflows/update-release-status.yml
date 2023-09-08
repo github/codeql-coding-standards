@@ -43,7 +43,7 @@ jobs:
           check_run_info=$(gh api \
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
-          --jq '.check_runs[] | select(.name == "release-status") | {id: .id, status: .status, conclusion: .conclusion' \
+          --jq '.check_runs[] | select(.name == "release-status") | {id: .id, status: .status, conclusion: .conclusion}' \
           /repos/$GITHUB_REPOSITORY/commits/$CHECK_RUN_HEAD_SHA/check-runs)
 
           check_run_id=$(echo "$check_run_info" | jq -r '.id')
