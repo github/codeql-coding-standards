@@ -41,16 +41,17 @@ def main(cli_version : str, github_token: str) -> None:
 
         with SUPPORTED_VERSIONS_PATH.open("r") as f:
             supported_versions = json.load(f)
-        with SUPPORTED_VERSIONS_PATH.open("w") as f:
-            supported_envs: List[Dict[str, str]] = supported_versions["supported_environment"]
-            if len(supported_envs) != 1:
-                print("Expected exactly one supported environment, cannot upgrade!")
-                exit(1)
-            supported_env = supported_envs[0]
-            supported_env["codeql_cli"] = str(parsed_cli_version)
-            supported_env["codeql_cli_bundle"] = compatible_bundle
-            supported_env["codeql_standard_library"] = compatible_stdlib
 
+        supported_envs: List[Dict[str, str]] = supported_versions["supported_environment"]
+        if len(supported_envs) != 1:
+            print("Expected exactly one supported environment, cannot upgrade!")
+            exit(1)
+        supported_env = supported_envs[0]
+        supported_env["codeql_cli"] = str(parsed_cli_version)
+        supported_env["codeql_cli_bundle"] = compatible_bundle
+        supported_env["codeql_standard_library"] = compatible_stdlib
+
+        with SUPPORTED_VERSIONS_PATH.open("w") as f:
             json.dump(supported_versions, f, indent=2)
     except ValueError as e:
         print(e)
