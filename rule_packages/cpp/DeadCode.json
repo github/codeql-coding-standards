@@ -69,7 +69,7 @@
             "maintainability"
           ],
           "implementation_scope": {
-            "description": "Functions defined in anonymous (unnamed) namespaces and global namespaces are not considered to be part of the same overload set."
+            "description": "Use of any overload of a function in an overload set constitute a use of all members of the set. An overload set is a set of functions with the same name that differ in the number, type and/or qualifiers of their parameters, and, for the purpose of this query, are limited to functions which are declared in the same scope (namespace or class). Functions defined in anonymous (unnamed) namespaces and global namespaces are therefore not currently considered to be part of the same overload set."
           }
         }
       ],
