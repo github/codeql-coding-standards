@@ -7,9 +7,9 @@ on:
     branches:
       - "rc/*"
 
-    push:
-      branches:
-        - "rvermeulen/release-process-improvements"
+  push:
+    branches:
+      - "rvermeulen/release-process-improvements"
 
 permissions:
   actions: read
