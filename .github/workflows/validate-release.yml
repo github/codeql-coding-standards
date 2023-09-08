@@ -73,7 +73,7 @@ jobs:
 
   post-validate-coding-standards:
     needs: [validate-coding-standards]
-    if: github.event_name != 'pull_request'
+    if: always() && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Update check run
