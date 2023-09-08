@@ -8,6 +8,12 @@ on:
       - "rc/*"
 
   workflow_dispatch:
+    inputs:
+      head-sha:
+        description: |
+          The head SHA to use.
+        type: string
+        required: true
 
 permissions:
   actions: read
@@ -52,6 +58,17 @@ jobs:
           /repos/$GITHUB_REPOSITORY/check-runs)
 
           echo "Created release status check run with id $CHECK_RUN_ID"
+
+      - name: Determine check run head SHA
+        env:
+          HEAD_SHA_FROM_EVENT: ${{ github.event.check_run.head_sha }}
+          HEAD_SHA_FROM_INPUTS: ${{ inputs.head-sha }}
+        run: |
+          if [[ $GITHUB_EVENT_NAME == "workflow_dispatch" ]]; then
+            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_INPUTS" >> "$GITHUB_ENV"
+          else
+            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_EVENT" >> "$GITHUB_ENV"
+          fi
 
       - name: Check all runs completed
         if: env.CHECK_RUN_STATUS != 'completed'
