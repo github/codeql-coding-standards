@@ -72,13 +72,13 @@ jobs:
       ref: ${{ needs.determine-ref.outputs.ref }}
 
   post-validate-coding-standards:
-    needs: [validate-coding-standards]
+    needs: [pre-validate-coding-standards, validate-coding-standards]
     if: always() && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Update check run
         env:
-          CHECK_RUN_ID: ${{ needs.validate-coding-standards.outputs.check-run-id }}
+          CHECK_RUN_ID: ${{ needs.pre-validate-coding-standards.outputs.check-run-id }}
           CHECK_RUN_CONCLUSION: ${{ needs.validate-coding-standards.result }}
           GH_TOKEN: ${{ github.token }}
         run: |
