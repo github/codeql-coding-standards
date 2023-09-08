@@ -74,17 +74,31 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          done=$(gh api \
+          check_runs=$(gh api \
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
-          --jq '.check_runs | map(select(.name != "release-status" and .status != "completed")) | length | if . == 0 then "true" else "false" end' \
+          --jq '.check_runs | map(select(.name != "release-status"))' \
           /repos/$GITHUB_REPOSITORY/commits/$CHECK_RUN_HEAD_SHA/check-runs)
 
-          if [[ "$done" == "true" ]]; then
+          status_stats=$(echo "$check_runs" | jq -r '. | {failed: (map(select(.conclusion == "failure")) | length), pending: (map(select(.status != "completed")) | length) }')
+
+          failed=$(echo "$status_stats" | jq -r '.failed')
+          pending=$(echo "$status_stats" | jq -r '.pending')
+
+          if [[ "$pending" == "0" ]]; then
             echo "All check runs completed"
+
+            if [[ "$failed" == "0" ]]; then
+              echo "All check runs succeeded"
+              conclusion="success"
+            else
+              echo "Some check runs failed"
+              conclusion="failure"
+            fi
+
             jq -n \
             --arg status "completed" \
-            --arg conclusion "success" \
+            --arg conclusion "$conclusion" \
             '{status: $status, conclusion: $conclusion}' \
             | \
             gh api \
