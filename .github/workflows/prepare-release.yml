@@ -28,15 +28,58 @@ env:
 jobs:
   prepare-release:
     outputs:
-      pull-request-head-sha: ${{ steps.create-release-pull-request.outputs.pull-request-head-sha }}
+      pull-request-head-sha: ${{ steps.determine-pr-head-sha.outputs.pull-request-head-sha }}
     name: "Prepare release"
     if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
+
+      - name: Validate release precondition
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          read -r release type < <(gh release list | awk -v release="v$RELEASE_VERSION" '$1 ~ release { print $1,$2; ++n } END { if (n == 0) print "undefined", "undefined" }')
+          if [[ "$release" == "undefined" ]]; then
+            echo "Release v$RELEASE_VERSION does not exist. Proceeding"
+            echo "create_draft_release=true" >> "$GITHUB_ENV"
+          else
+            if [[ "$type" != "Draft" ]]; then
+              echo "Release '$release' already exists and is not a draft, but has release state '$type'. Cannot proceed"
+              exit 1
+            else
+              echo "Release '$release' already exists and is a draft. Proceeding"
+              echo "create_draft_release=false" >> "$GITHUB_ENV"
+            fi
+          fi
+
+          if [[ -z $(git ls-remote --heads origin rc/$RELEASE_VERSION) ]]; then
+            echo "Release branch rc/$RELEASE_VERSION does not exist."
+            echo "create_release_branch=true" >> "$GITHUB_ENV"
+            echo "create_release_pr=true" >> "$GITHUB_ENV"
+          else
+            echo "Release branch rc/$RELEASE_VERSION already exists."
+            echo "create_release_branch=false" >> "$GITHUB_ENV"
+
+            pr_state=$(gh pr view rc/$RELEASE_VERSION --json title,state)
+            pr_title=$(echo "$pr_state" | jq -r '.title')
+            pr_state=$(echo "$pr_state" | jq -r '.state')
+
+            echo "Found PR '$pr_title' with state '$pr_state'"
+
+            if [[ "$pr_title" == "Release v$RELEASE_VERSION" ]] && [[ "$pr_state" == "OPEN" ]]; then
+              echo "Release PR for rc/$RELEASE_VERSION already exists and is open."
+              echo "create_release_pr=false" >> "$GITHUB_ENV"
+            else
+              echo "Release PR for rc/$RELEASE_VERSION does not exist or is closed."
+              echo "create_release_pr=true" >> "$GITHUB_ENV"
+            fi
+
+          fi
 
       - name: Install Python
         uses: actions/setup-python@v4
@@ -49,16 +92,37 @@ jobs:
       - name: Validate version
         run: |
           python scripts/release/validate-version.py "$RELEASE_VERSION"
-      
+
       - name: Create release branch
+        if: env.create_release_branch == 'true'
         run: |
           git switch -c rc/$RELEASE_VERSION
           git push --set-upstream origin rc/$RELEASE_VERSION
 
+      - name: Create draft release
+        if: env.create_draft_release == 'true'
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh release create \
+          -R $GITHUB_REPOSITORY \
+          --title "v$RELEASE_VERSION" \
+          --draft \
+          --target rc/$RELEASE_VERSION \
+          $RELEASE_VERSION
+
       - name: Create feature branch for PR
+        if: env.create_release_pr == 'true'
         run: |
           git switch -c feature/update-user-manual-for-$RELEASE_VERSION
           git push --set-upstream origin feature/update-user-manual-for-$RELEASE_VERSION
+
+      - name: Get feature branch for PR
+        if: env.create_release_pr == 'false'
+        run: |
+          git switch feature/update-user-manual-for-$RELEASE_VERSION
+          git pull --rebase
 
       - name: Update user manual version
         run: |
@@ -68,16 +132,41 @@ jobs:
           find docs -name 'user_manual.md' | xargs sed -i "s/user_manual_.*\.md\`/user_manual_$RELEASE_VERSION.md\`/"
           find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`$RELEASE_VERSION\` of/"
 
+          if git diff --quiet; then
+            echo "update-release-pr=true" >> "$GITHUB_ENV"
+          else
+            echo "update-release-pr=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Update feature branch for PR
+        if: env.update-release-pr == 'true'
+        run: |
+          find docs -name 'user_manual.md' -exec git add {} \;
+          git commit -m "Update user manual for release $RELEASE_VERSION."
+          git push
+
       - name: Create release PR
-        id: create-release-pull-request
+        if: env.create_release_pr == 'true'
         uses: peter-evans/create-pull-request@v5
         with:
-          title: "Release ${{ inputs.version }}."
+          title: "Release v${{ inputs.version }}."
           body: "This PR releases codeql-coding-standards version ${{ inputs.version }}."
           commit-message: "Update user manual for release ${{ inputs.version }}."
           delete-branch: true
           branch: "rc/${{ inputs.version }}"
-  
+
+      - name: Determine pull request head SHA
+        id: determine-pr-head-sha
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          read -r pull_request_head_sha pr_state < <(gh pr view rc/$RELEASE_VERSION --json headRefOid,state --jq '.headRefOid + " " + .state')
+          if [[ "$pr_state" != "OPEN" ]]; then
+            echo "Release PR for rc/$RELEASE_VERSION is not open, but in state '$pr_state'. Cannot proceed!"
+            exit 1
+          fi
+          echo "pull-request-head-sha=$pull_request_head_sha" >> "$GITHUB_OUTPUT"
+
   # Invoke release validation because our PRs created with a GitHub token do not trigger a `pull_request` event.
   validate-release:
     name: "Validate coding standards release"
