@@ -184,7 +184,7 @@ jobs:
     needs: [pre-validate-compiler-compatibility, determine-ref]
     runs-on: ubuntu-latest
     steps:
-      - name: Invoke performance test
+      - name: Invoke compiler compatibility test
         env:
           RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
@@ -195,7 +195,7 @@ jobs:
           --arg check_run_id "$CHECK_RUN_ID" \
           '{ref: $ref, "check-run-id": $check_run_id}' \
           | \
-          gh workflow run release-performance-validation.yml \
+          gh workflow run release-compiler-validation.yml \
           --json \
           -R github/codeql-coding-standards-release-engineering \
           --ref rvermeulen/release-process
