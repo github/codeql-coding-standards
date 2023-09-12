@@ -149,7 +149,7 @@ jobs:
         if: env.create_release_pr == 'true'
         uses: peter-evans/create-pull-request@v5
         with:
-          title: "Release v${{ inputs.version }}."
+          title: "Release v${{ inputs.version }}"
           body: "This PR releases codeql-coding-standards version ${{ inputs.version }}."
           commit-message: "Update user manual for release ${{ inputs.version }}."
           delete-branch: true
