@@ -121,8 +121,9 @@ jobs:
       - name: Get feature branch for PR
         if: env.create_release_pr == 'false'
         run: |
+          git fetch origin feature/update-user-manual-for-$RELEASE_VERSION
           git switch feature/update-user-manual-for-$RELEASE_VERSION
-          git pull --rebase
+          git pull
 
       - name: Update user manual version
         run: |
