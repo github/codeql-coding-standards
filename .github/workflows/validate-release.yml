@@ -158,6 +158,70 @@ jobs:
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
 
+  pre-validate-compiler-compatibility:
+    outputs:
+      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}}
+    needs: [determine-ref]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create check run
+        id: create-check-run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
+        run: |
+          check_run_id=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --field name="compiler-compatibility-test" \
+          --field head_sha="$RELEASE_REF" \
+          --jq ".id" \
+          /repos/$GITHUB_REPOSITORY/check-runs)
+
+          echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
+
+  validate-compiler-compatibility:
+    needs: [pre-validate-compiler-compatibility, determine-ref]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Invoke performance test
+        env:
+          RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
+          CHECK_RUN_ID: ${{ needs.pre-validate-release-performance.outputs.check-run-id }}
+          GH_TOKEN: ${{ secrets.release-engineering-token }}
+        run: |
+          jq -n \
+          --arg ref "$RELEASE_REF" \
+          --arg check_run_id "$CHECK_RUN_ID" \
+          '{ref: $ref, "check-run-id": $check_run_id}' \
+          | \
+          gh workflow run release-performance-validation.yml \
+          --json \
+          -R github/codeql-coding-standards-release-engineering \
+          --ref rvermeulen/release-process
+
+  on-failure-validate-compiler-compatibility-dispatch:
+    needs: [pre-validate-compiler-compatibility, validate-compiler-compatibility]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail check run status
+        env:
+           CHECK_RUN_ID: ${{ needs.pre-validate-release-performance.outputs.check-run-id }}
+           GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          jq -n \
+          --arg status "completed" \
+          --arg conclusion "failed" \
+          '{status: $status, conclusion: $conclusion}' \
+          | \
+          gh api \
+            --method PATCH \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --input - \
+            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
+
   create-release-status-check-run:
     name: "Initialize release status monitoring"
     needs: [determine-ref]
