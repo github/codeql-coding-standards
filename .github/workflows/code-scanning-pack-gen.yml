@@ -5,27 +5,52 @@ on:
   pull_request:
     branches:
       - main
-      - "rc/**"
       - next
 
   push:
     branches:
       - main
-      - "rc/**"
       - next
+
+  workflow_call:
+    inputs:
+      ref:
+        description: |
+          The ref to run the tests on.
+        type: string
+        required: true
 
 env:
   XARGS_MAX_PROCS: 4
 
 jobs:
+  determine-ref:
+    runs-on: ubuntu-latest
+    outputs:
+      ref: ${{ steps.set-ref.outputs.ref }}
+    env:
+      REF_FROM_INPUT: ${{ inputs.ref }}
+      EVENT_NAME: ${{ github.event_name }}
+    steps:
+      - id: set-ref
+        run: |
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]] || [[ "$EVENT_NAME" == "workflow_call" ]]; then
+            echo "ref=$REF_FROM_INPUT" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=$GITHUB_REF" >> "$GITHUB_OUTPUT"
+          fi
+
   prepare-code-scanning-pack-matrix:
     name: Prepare CodeQL Code Scanning pack matrix
+    needs: [determine-ref]
     runs-on: ubuntu-22.04
     outputs:
       matrix: ${{ steps.export-code-scanning-pack-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.determine-ref.outputs.ref }}
 
       - name: Export Code Scanning pack matrix
         id: export-code-scanning-pack-matrix
@@ -36,13 +61,15 @@ jobs:
 
   create-code-scanning-pack:
     name: Create Code Scanning pack
-    needs: prepare-code-scanning-pack-matrix
+    needs: [prepare-code-scanning-pack-matrix, determine-ref]
     runs-on: ubuntu-20.04-xl
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare-code-scanning-pack-matrix.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.determine-ref.outputs.ref }}
 
       - name: Cache CodeQL
         id: cache-codeql
@@ -68,15 +95,15 @@ jobs:
       - name: Checkout external help files
         continue-on-error: true
         id: checkout-external-help-files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.CODEQL_CODING_STANDARDS_HELP_KEY }}
           repository: "github/codeql-coding-standards-help"
-          ref: ${{ github.head_ref }}
+          ref: ${{ needs.determine-ref.outputs.ref }}
           path: external-help-files
 
       - name: Include external help files
-        if: ${{ steps.checkout-external-help-files.outcome == 'success' }}
+        if: steps.checkout-external-help-files.outcome == 'success'
         run: |
           pushd external-help-files
           find . -name '*.md' -exec rsync -av --relative {} "$GITHUB_WORKSPACE" \;
