@@ -39,7 +39,7 @@ jobs:
       - name: Invoke performance test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
-          GITHUB_TOKEN: ${{ secrets.release-engineering-token }}
+          GH_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
           jq -n \
           --arg ref "$GITHUB_REF" \
@@ -101,7 +101,7 @@ jobs:
       - name: Invoke compiler compatibility test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
-          GITHUB_TOKEN: ${{ secrets.release-engineering-token }}
+          GH_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
           jq -n \
           --arg ref "$GITHUB_REF" \
