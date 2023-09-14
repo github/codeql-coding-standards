@@ -151,4 +151,4 @@ jobs:
           --jq ".id" \
           /repos/$GITHUB_REPOSITORY/check-runs)
 
-          echo "Created release status check run with id $CHECK_RUN_ID"
+          echo "Created release status check run with id $CHECK_RUN_ID for $GITHUB_SHA"
