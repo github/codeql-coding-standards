@@ -57,9 +57,18 @@ jobs:
             echo "Release branch rc/$RELEASE_VERSION does not exist."
             echo "create_release_branch=true" >> "$GITHUB_ENV"
             echo "create_release_pr=true" >> "$GITHUB_ENV"
+            echo "create_release_feature_branch=true" >> "$GITHUB_ENV"
           else
             echo "Release branch rc/$RELEASE_VERSION already exists."
             echo "create_release_branch=false" >> "$GITHUB_ENV"
+
+            if [[ -z $(git ls-remote --heads origin feature/update-user-manual-for-$RELEASE_VERSION) ]]; then
+              echo "Feature branch feature/update-user-manual-for-$RELEASE_VERSION does not exist."
+              echo "create_release_feature_branch=true" >> "$GITHUB_ENV"
+            else
+              echo "Feature branch feature/update-user-manual-for-$RELEASE_VERSION already exists."
+              echo "create_release_feature_branch=false" >> "$GITHUB_ENV"
+            fi
 
             pr_state=$(gh pr view rc/$RELEASE_VERSION --json title,state)
             pr_title=$(echo "$pr_state" | jq -r '.title')
@@ -76,6 +85,11 @@ jobs:
             fi
 
           fi
+
+      - name: Configure git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Python
         uses: actions/setup-python@v4
@@ -109,13 +123,13 @@ jobs:
           $RELEASE_VERSION
 
       - name: Create feature branch for PR
-        if: env.create_release_pr == 'true'
+        if: env.create_release_feature_branch == 'true'
         run: |
           git switch -c feature/update-user-manual-for-$RELEASE_VERSION
           git push --set-upstream origin feature/update-user-manual-for-$RELEASE_VERSION
 
       - name: Get feature branch for PR
-        if: env.create_release_pr == 'false'
+        if: env.create_release_feature_branch == 'false'
         run: |
           git fetch origin feature/update-user-manual-for-$RELEASE_VERSION
           git switch feature/update-user-manual-for-$RELEASE_VERSION
@@ -129,7 +143,7 @@ jobs:
           find docs -name 'user_manual.md' | xargs sed -i "s/user_manual_.*\.md\`/user_manual_$RELEASE_VERSION.md\`/"
           find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`$RELEASE_VERSION\` of/"
 
-          if git diff --quiet; then
+          if ! git diff --quiet; then
             git add -u .
             git commit -m "Update version"
             git push
@@ -147,15 +161,3 @@ jobs:
           --base rc/$RELEASE_VERSION \
           --head feature/update-user-manual-for-$RELEASE_VERSION \
           --draft
-  
-      - name: Determine pull request head SHA
-        id: determine-pr-head-sha
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          read -r pull_request_head_sha pr_state < <(gh pr view rc/$RELEASE_VERSION --json headRefOid,state --jq '.headRefOid + " " + .state')
-          if [[ "$pr_state" != "OPEN" ]]; then
-            echo "Release PR for rc/$RELEASE_VERSION is not open, but in state '$pr_state'. Cannot proceed!"
-            exit 1
-          fi
-          echo "pull-request-head-sha=$pull_request_head_sha" >> "$GITHUB_OUTPUT"
