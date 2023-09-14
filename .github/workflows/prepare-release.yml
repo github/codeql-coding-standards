@@ -53,37 +53,30 @@ jobs:
             fi
           fi
 
-          if [[ -z $(git ls-remote --heads origin rc/$RELEASE_VERSION) ]]; then
-            echo "Release branch rc/$RELEASE_VERSION does not exist."
-            echo "create_release_branch=true" >> "$GITHUB_ENV"
-            echo "create_release_pr=true" >> "$GITHUB_ENV"
-            echo "create_release_feature_branch=true" >> "$GITHUB_ENV"
-          else
-            echo "Release branch rc/$RELEASE_VERSION already exists."
-            echo "create_release_branch=false" >> "$GITHUB_ENV"
+          release_pr=$(gh pr view rc/$RELEASE_VERSION --json title,state,number)
 
-            if [[ -z $(git ls-remote --heads origin feature/update-user-manual-for-$RELEASE_VERSION) ]]; then
-              echo "Feature branch feature/update-user-manual-for-$RELEASE_VERSION does not exist."
-              echo "create_release_feature_branch=true" >> "$GITHUB_ENV"
-            else
-              echo "Feature branch feature/update-user-manual-for-$RELEASE_VERSION already exists."
-              echo "create_release_feature_branch=false" >> "$GITHUB_ENV"
-            fi
+          if [[ ! -z "$release_pr" ]]; then
 
-            pr_state=$(gh pr view rc/$RELEASE_VERSION --json title,state)
-            pr_title=$(echo "$pr_state" | jq -r '.title')
-            pr_state=$(echo "$pr_state" | jq -r '.state')
+            pr_title=$(echo "$release_pr" | jq -r '.title')
+            pr_state=$(echo "$release_pr" | jq -r '.state')
+            pr_number=$(echo "$release_pr" | jq -r '.number')
 
             echo "Found PR '$pr_title' with state '$pr_state'"
 
-            if [[ "$pr_title" == "Release v$RELEASE_VERSION" ]] && [[ "$pr_state" == "OPEN" ]]; then
-              echo "Release PR for rc/$RELEASE_VERSION already exists and is open."
-              echo "create_release_pr=false" >> "$GITHUB_ENV"
-            else
-              echo "Release PR for rc/$RELEASE_VERSION does not exist or is closed."
-              echo "create_release_pr=true" >> "$GITHUB_ENV"
+            if [[ "$pr_title" == "Release v$RELEASE_VERSION" ]] && [[ "$pr_state" != "CLOSED" ]]; then
+              echo "Release PR is not closed, deleting it to proceed"
+              gh pr close --delete-branch $pr_number
             fi
+          fi
 
+          if [[ ! -z $(git ls-remote --heads origin rc/$RELEASE_VERSION) ]]; then
+            echo "Deleting existing release branch"
+            git push origin --delete rc/$RELEASE_VERSION
+          fi
+
+          if [[ ! -z $(git ls-remote --heads origin feature/update-user-manual-for-$RELEASE_VERSION) ]]; then
+            echo "Deleting existing feature branch"
+            git push origin --delete feature/update-user-manual-for-$RELEASE_VERSION
           fi
 
       - name: Configure git
@@ -104,7 +97,6 @@ jobs:
           python scripts/release/validate-version.py "$RELEASE_VERSION"
 
       - name: Create release branch
-        if: env.create_release_branch == 'true'
         run: |
           git switch -c rc/$RELEASE_VERSION
           git push --set-upstream origin rc/$RELEASE_VERSION
@@ -123,36 +115,23 @@ jobs:
           $RELEASE_VERSION
 
       - name: Create feature branch for PR
-        if: env.create_release_feature_branch == 'true'
         run: |
           git switch -c feature/update-user-manual-for-$RELEASE_VERSION
           git push --set-upstream origin feature/update-user-manual-for-$RELEASE_VERSION
 
-      - name: Get feature branch for PR
-        if: env.create_release_feature_branch == 'false'
-        run: |
-          git fetch origin feature/update-user-manual-for-$RELEASE_VERSION
-          git switch feature/update-user-manual-for-$RELEASE_VERSION
-          git pull
-
-      - name: Update user manual version
-        run: |
           find docs -name 'user_manual.md' | xargs sed -i "s/code-scanning-cpp-query-pack-.*\.zip\`/code-scanning-cpp-query-pack-$RELEASE_VERSION.zip\`/"
           find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.csv\`/supported_rules_list_$RELEASE_VERSION.csv\`/"
           find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.md\`/supported_rules_list_$RELEASE_VERSION.md\`/"
           find docs -name 'user_manual.md' | xargs sed -i "s/user_manual_.*\.md\`/user_manual_$RELEASE_VERSION.md\`/"
           find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`$RELEASE_VERSION\` of/"
 
-          if ! git diff --quiet; then
-            git add -u .
-            git commit -m "Update version"
-            git push
-          fi
+          git add -u .
+          git commit -m "Update version"
+          git push
 
       - name: Create release PR
         env:
           GITHUB_TOKEN: ${{ secrets.ACTION_DISPATCH_TOKEN }}
-        if: env.create_release_pr == 'true'
         run: |
           gh pr create \
           -R $GITHUB_REPOSITORY \
