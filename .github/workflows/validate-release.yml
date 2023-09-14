@@ -63,7 +63,7 @@ jobs:
         run: |
           jq -n \
           --arg status "completed" \
-          --arg conclusion "failed" \
+          --arg conclusion "failure" \
           '{status: $status, conclusion: $conclusion}' \
           | \
           gh api \
@@ -125,7 +125,7 @@ jobs:
         run: |
           jq -n \
           --arg status "completed" \
-          --arg conclusion "failed" \
+          --arg conclusion "failure" \
           '{status: $status, conclusion: $conclusion}' \
           | \
           gh api \
