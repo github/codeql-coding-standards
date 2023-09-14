@@ -43,7 +43,7 @@ jobs:
   prepare-code-scanning-pack-matrix:
     name: Prepare CodeQL Code Scanning pack matrix
     needs: [determine-ref]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.export-code-scanning-pack-matrix.outputs.matrix }}
     steps:
@@ -62,7 +62,8 @@ jobs:
   create-code-scanning-pack:
     name: Create Code Scanning pack
     needs: [prepare-code-scanning-pack-matrix, determine-ref]
-    runs-on: ubuntu-20.04-xl
+    #runs-on: ubuntu-20.04-xl
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare-code-scanning-pack-matrix.outputs.matrix) }}
