@@ -39,7 +39,7 @@ jobs:
       - name: Invoke performance test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
-          GH_TOKEN: ${{ secrets.release-engineering-token }}
+          GH_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
         run: |
           jq -n \
           --arg ref "$GITHUB_REF" \
@@ -82,7 +82,6 @@ jobs:
         id: create-check-run
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
         run: |
           check_run_id=$(gh api \
           --header "Accept: application/vnd.github+json" \
@@ -101,7 +100,7 @@ jobs:
       - name: Invoke compiler compatibility test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
-          GH_TOKEN: ${{ secrets.release-engineering-token }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
         run: |
           jq -n \
           --arg ref "$GITHUB_REF" \
