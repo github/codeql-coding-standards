@@ -143,15 +143,18 @@ jobs:
           git push
 
       - name: Create release PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTION_DISPATCH_TOKEN }}
         if: env.create_release_pr == 'true'
-        uses: peter-evans/create-pull-request@v5
-        with:
-          title: "Release v${{ inputs.version }}"
-          body: "This PR releases codeql-coding-standards version ${{ inputs.version }}."
-          commit-message: "Update user manual for release ${{ inputs.version }}."
-          delete-branch: true
-          branch: "rc/${{ inputs.version }}"
-
+        run: |
+          gh pr create \
+          -R $GITHUB_REPOSITORY \
+          --title "Release v$RELEASE_VERSION" \
+          --body "This PR releases codeql-coding-standards version $RELEASE_VERSION." \
+          --base rc/$RELEASE_VERSION \
+          --head feature/update-user-manual-for-$RELEASE_VERSION \
+          --draft
+  
       - name: Determine pull request head SHA
         id: determine-pr-head-sha
         env:
@@ -163,13 +166,3 @@ jobs:
             exit 1
           fi
           echo "pull-request-head-sha=$pull_request_head_sha" >> "$GITHUB_OUTPUT"
-
-  # Invoke release validation because our PRs created with a GitHub token do not trigger a `pull_request` event.
-  validate-release:
-    name: "Validate coding standards release"
-    needs: prepare-release
-    uses: ./.github/workflows/validate-release.yml
-    with:
-      ref: ${{ needs.prepare-release.outputs.pull-request-head-sha }}
-    secrets:
-      release-engineering-token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}

@@ -1,20 +1,9 @@
 name: Validate release
 
 on:
-  workflow_call:
-    inputs:
-      ref:
-        description: |
-          The ref that is released
-        required: true
-        type: string
-    secrets:
-      release-engineering-token:
-        required: true
-
   pull_request:
     branches:
-      - "rc/*"
+      - "rc/**"
 
 permissions:
   contents: read
@@ -23,111 +12,37 @@ permissions:
 
 jobs:
 
-  determine-ref:
-      runs-on: ubuntu-latest
-      outputs:
-        ref: ${{ steps.set-ref.outputs.ref }}
-      env:
-        REF_FROM_INPUT: ${{ inputs.ref }}
-        EVENT_NAME: ${{ github.event_name }}
-      steps:
-        - id: set-ref
-          run: |
-            if [[ "$EVENT_NAME" == "workflow_call" ]] || [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
-              echo "ref=$REF_FROM_INPUT" >> "$GITHUB_OUTPUT"
-            else
-              echo "ref=$GITHUB_REF" >> "$GITHUB_OUTPUT"
-            fi
-
-  pre-validate-coding-standards:
-    needs: [determine-ref]
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
-    outputs:
-      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
-    steps:
-      - name: Create check run
-        id: create-check-run
-        env:
-          REF: ${{ needs.determine-ref.outputs.ref }}
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          check_run_id=$(gh api \
-          --header "Accept: application/vnd.github+json" \
-          --header "X-GitHub-Api-Version: 2022-11-28" \
-          --field name="Validating Coding Standards" \
-          --field head_sha="$REF" \
-          --field status="in_progress" \
-          --jq ".id" \
-          /repos/$GITHUB_REPOSITORY/check-runs)
-
-          echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
-
-  validate-coding-standards:
-    name: "Validate coding standards"
-    needs: [determine-ref, pre-validate-coding-standards]
-    if: needs.pre-validate-coding-standards.result != 'failure'
-    uses: ./.github/workflows/validate-coding-standards.yml
-    with:
-      ref: ${{ needs.determine-ref.outputs.ref }}
-
-  post-validate-coding-standards:
-    needs: [pre-validate-coding-standards, validate-coding-standards]
-    if: always() && github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Update check run
-        env:
-          CHECK_RUN_ID: ${{ needs.pre-validate-coding-standards.outputs.check-run-id }}
-          CHECK_RUN_CONCLUSION: ${{ needs.validate-coding-standards.result }}
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          jq -n \
-            --arg status "completed" \
-            --arg conclusion "$CHECK_RUN_CONCLUSION" \
-            '{status: $status, conclusion: $conclusion}' \
-          | \
-          gh api \
-            --method PATCH \
-            --header "Accept: application/vnd.github+json" \
-            --header "X-GitHub-Api-Version: 2022-11-28" \
-            --input - \
-            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
-
   pre-validate-performance:
     outputs:
       check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}}
-    needs: [determine-ref]
     runs-on: ubuntu-latest
     steps:
       - name: Create check run
         id: create-check-run
         env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           check_run_id=$(gh api \
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
           --field name="performance-test" \
-          --field head_sha="$RELEASE_REF" \
+          --field head_sha="$GITHUB_REF" \
           --jq ".id" \
           /repos/$GITHUB_REPOSITORY/check-runs)
 
           echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
 
   validate-performance:
-    needs: [pre-validate-performance, determine-ref]
+    needs: pre-validate-performance
     runs-on: ubuntu-latest
     steps:
       - name: Invoke performance test
         env:
-          RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
-          GH_TOKEN: ${{ secrets.release-engineering-token }}
+          GITHUB_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
           jq -n \
-          --arg ref "$RELEASE_REF" \
+          --arg ref "$GITHUB_REF" \
           --arg check_run_id "$CHECK_RUN_ID" \
           '{ref: $ref, "check-run-id": $check_run_id}' \
           | \
@@ -161,37 +76,35 @@ jobs:
   pre-validate-compiler-compatibility:
     outputs:
       check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}}
-    needs: [determine-ref]
     runs-on: ubuntu-latest
     steps:
       - name: Create check run
         id: create-check-run
         env:
-          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
           RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
         run: |
           check_run_id=$(gh api \
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
           --field name="compiler-compatibility-test" \
-          --field head_sha="$RELEASE_REF" \
+          --field head_sha="$GITHUB_REF" \
           --jq ".id" \
           /repos/$GITHUB_REPOSITORY/check-runs)
 
           echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
 
   validate-compiler-compatibility:
-    needs: [pre-validate-compiler-compatibility, determine-ref]
+    needs: pre-validate-compiler-compatibility
     runs-on: ubuntu-latest
     steps:
       - name: Invoke compiler compatibility test
         env:
-          RELEASE_REF: ${{ needs.determine-ref.outputs.ref }}
           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
-          GH_TOKEN: ${{ secrets.release-engineering-token }}
+          GITHUB_TOKEN: ${{ secrets.release-engineering-token }}
         run: |
           jq -n \
-          --arg ref "$RELEASE_REF" \
+          --arg ref "$GITHUB_REF" \
           --arg check_run_id "$CHECK_RUN_ID" \
           '{ref: $ref, "check-run-id": $check_run_id}' \
           | \
@@ -222,75 +135,19 @@ jobs:
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
 
-  pre-generate-packs:
-    needs: [determine-ref]
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
-    outputs:
-      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
-    steps:
-      - name: Create check run
-        id: create-check-run
-        env:
-          REF: ${{ needs.determine-ref.outputs.ref }}
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          check_run_id=$(gh api \
-          --header "Accept: application/vnd.github+json" \
-          --header "X-GitHub-Api-Version: 2022-11-28" \
-          --field name="Code Scanning Query Pack Generation" \
-          --field head_sha="$REF" \
-          --field status="in_progress" \
-          --jq ".id" \
-          /repos/$GITHUB_REPOSITORY/check-runs)
-
-          echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
-
-  generate-packs:
-    needs: [determine-ref, pre-generate-packs]
-    if: needs.pre-generate-packs.result != 'failure'
-    uses: ./.github/workflows/code-scanning-pack-gen.yml
-    with:
-      ref: ${{ needs.determine-ref.outputs.ref }}
-
-  post-generate-packs:
-    needs: [pre-generate-packs, generate-packs]
-    if: always() && github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Update check run
-        env:
-          CHECK_RUN_ID: ${{ needs.pre-generate-packs.outputs.check-run-id }}
-          CHECK_RUN_CONCLUSION: ${{ needs.generate-packs.result }}
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          jq -n \
-            --arg status "completed" \
-            --arg conclusion "$CHECK_RUN_CONCLUSION" \
-            '{status: $status, conclusion: $conclusion}' \
-          | \
-          gh api \
-            --method PATCH \
-            --header "Accept: application/vnd.github+json" \
-            --header "X-GitHub-Api-Version: 2022-11-28" \
-            --input - \
-            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
-
   create-release-status-check-run:
     name: "Initialize release status monitoring"
-    needs: [determine-ref]
     runs-on: ubuntu-latest
     steps:
       - name: Create release status check run
         env:
-          REF: ${{ needs.determine-ref.outputs.ref }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           CHECK_RUN_ID=$(gh api \
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
           --field name="release-status" \
-          --field head_sha="$REF" \
+          --field head_sha="$GITHUB_REF" \
           --field status="in_progress" \
           --jq ".id" \
           /repos/$GITHUB_REPOSITORY/check-runs)

@@ -6,46 +6,23 @@ on:
     branches:
       - main
       - next
+      - "rc/**"
   pull_request:
     branches:
       - main
       - next
-  workflow_call:
-    inputs:
-      ref:
-        description: |
-          The ref to run the tests on.
-        type: string
-        required: true
+      - "rc/**"
 
 jobs:
-  determine-ref:
-      runs-on: ubuntu-latest
-      outputs:
-        ref: ${{ steps.set-ref.outputs.ref }}
-      env:
-        REF_FROM_INPUT: ${{ inputs.ref }}
-        EVENT_NAME: ${{ github.event_name }}
-      steps:
-        - id: set-ref
-          run: |
-            if [[ "$EVENT_NAME" == "workflow_dispatch" ]] || [[ "$EVENT_NAME" == "workflow_call" ]]; then
-              echo "ref=$REF_FROM_INPUT" >> "$GITHUB_OUTPUT"
-            else
-              echo "ref=$GITHUB_REF" >> "$GITHUB_OUTPUT"
-            fi
-
+ 
   prepare-unit-test-matrix:
     name: Prepare CodeQL unit test matrix
-    needs: [determine-ref]
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.export-unit-test-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.determine-ref.outputs.ref }}
 
       - name: Export unit test matrix
         id: export-unit-test-matrix
@@ -58,7 +35,7 @@ jobs:
 
   run-test-suites:
     name: Run unit tests
-    needs: [prepare-unit-test-matrix, determine-ref]
+    needs: prepare-unit-test-matrix
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -68,8 +45,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.determine-ref.outputs.ref }}
 
       - name: Install Python
         uses: actions/setup-python@v4
@@ -184,7 +159,7 @@ jobs:
 
   validate-test-results:
     name: Validate test results
-    needs: [run-test-suites]
+    needs: run-test-suites
     runs-on: ubuntu-latest
     steps:
       - name: Collect test results

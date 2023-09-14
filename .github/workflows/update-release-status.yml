@@ -5,7 +5,7 @@ on:
       - completed
       - rerequested
     branches:
-      - "rc/*"
+      - "rc/**"
 
   workflow_dispatch:
     inputs:
@@ -85,28 +85,38 @@ jobs:
           failed=$(echo "$status_stats" | jq -r '.failed')
           pending=$(echo "$status_stats" | jq -r '.pending')
 
-          if [[ "$pending" == "0" ]]; then
-            echo "All check runs completed"
+          echo "CHECK_RUNS_FAILED=$failed" >> "$GITHUB_ENV"
+          echo "CHECK_RUNS_PENDING=$pending" >> "$GITHUB_ENV
 
-            if [[ "$failed" == "0" ]]; then
-              echo "All check runs succeeded"
-              conclusion="success"
-            else
-              echo "Some check runs failed"
-              conclusion="failure"
-            fi
+      - name: Finalize release
+        if: env.CHECK_RUNS_PENDING == '0' && env.CHECK_RUN_STATUS != 'completed'
+        uses: ./.github/workflows/post-release.yml
+        with:
+          ref: ${{ env.CHECK_RUN_HEAD_SHA }}
 
-            jq -n \
-            --arg status "completed" \
-            --arg conclusion "$conclusion" \
-            '{status: $status, conclusion: $conclusion}' \
-            | \
-            gh api \
-              --method PATCH \
-              --header "Accept: application/vnd.github+json" \
-              --header "X-GitHub-Api-Version: 2022-11-28" \
-              --input - \
-              /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
+      - name: Conclude release status
+        if: env.CHECK_RUNS_PENDING == '0' && env.CHECK_RUN_STATUS != 'completed'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CHECK_RUNS_FAILED: ${{ env.check-runs-failed }}
+        run: |
+          if [[ "$CHECK_RUNS_FAILED" == "0" ]]; then
+            echo "All check runs succeeded"
+            conclusion="success"
           else
-            echo "Not all check runs completed"
+            echo "Some check runs failed"
+            conclusion="failure"
           fi
+
+          jq -n \
+          --arg status "completed" \
+          --arg conclusion "$conclusion" \
+          '{status: $status, conclusion: $conclusion}' \
+          | \
+          gh api \
+            --method PATCH \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --input - \
+            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
+      

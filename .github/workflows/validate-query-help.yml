@@ -1,17 +1,11 @@
 name: Validate Query Help Files
 on:
-  workflow_call:
-    inputs:
-      ref:
-        description: 'The ref to validate. Defaults to the default branch.'
-        required: true
-        type: string
-  workflow_dispatch:
-    inputs:
-      ref:
-        description: 'The ref to validate. Defaults to the default branch.'
-        required: true
-        type: string
+  merge_group:
+  pull_request:
+    branches:
+      - main
+      - next
+      - "rc/**"
 
 jobs:
   validate-query-help-files:

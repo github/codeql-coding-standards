@@ -6,52 +6,27 @@ on:
     branches:
       - main
       - next
+      - "rc/**"
 
   push:
     branches:
       - main
       - next
-
-  workflow_call:
-    inputs:
-      ref:
-        description: |
-          The ref to run the tests on.
-        type: string
-        required: true
+      - "rc/**"
 
 env:
   XARGS_MAX_PROCS: 4
 
 jobs:
-  determine-ref:
-    runs-on: ubuntu-latest
-    outputs:
-      ref: ${{ steps.set-ref.outputs.ref }}
-    env:
-      REF_FROM_INPUT: ${{ inputs.ref }}
-      EVENT_NAME: ${{ github.event_name }}
-    steps:
-      - id: set-ref
-        run: |
-          if [[ "$EVENT_NAME" == "workflow_dispatch" ]] || [[ "$EVENT_NAME" == "workflow_call" ]]; then
-            echo "ref=$REF_FROM_INPUT" >> "$GITHUB_OUTPUT"
-          else
-            echo "ref=$GITHUB_REF" >> "$GITHUB_OUTPUT"
-          fi
 
   prepare-code-scanning-pack-matrix:
     name: Prepare CodeQL Code Scanning pack matrix
-    needs: [determine-ref]
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.export-code-scanning-pack-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.determine-ref.outputs.ref }}
-
       - name: Export Code Scanning pack matrix
         id: export-code-scanning-pack-matrix
         run: |
@@ -61,7 +36,7 @@ jobs:
 
   create-code-scanning-pack:
     name: Create Code Scanning pack
-    needs: [prepare-code-scanning-pack-matrix, determine-ref]
+    needs: prepare-code-scanning-pack-matrix
     #runs-on: ubuntu-20.04-xl
     runs-on: ubuntu-latest
     strategy:
@@ -69,8 +44,6 @@ jobs:
       matrix: ${{ fromJSON(needs.prepare-code-scanning-pack-matrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.determine-ref.outputs.ref }}
 
       - name: Cache CodeQL
         id: cache-codeql
