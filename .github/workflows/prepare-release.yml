@@ -130,17 +130,10 @@ jobs:
           find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`$RELEASE_VERSION\` of/"
 
           if git diff --quiet; then
-            echo "update-release-pr=true" >> "$GITHUB_ENV"
-          else
-            echo "update-release-pr=false" >> "$GITHUB_ENV"
+            git add -u .
+            git commit -m "Update version"
+            git push
           fi
-
-      - name: Update feature branch for PR
-        if: env.update-release-pr == 'true'
-        run: |
-          find docs -name 'user_manual.md' -exec git add {} \;
-          git commit -m "Update user manual for release $RELEASE_VERSION."
-          git push
 
       - name: Create release PR
         env:
