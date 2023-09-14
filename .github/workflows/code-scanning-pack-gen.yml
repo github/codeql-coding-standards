@@ -55,9 +55,9 @@ jobs:
       - name: Export Code Scanning pack matrix
         id: export-code-scanning-pack-matrix
         run: |
-          echo "::set-output name=matrix::$(
+          echo "matrix=$(
             jq --compact-output '.supported_environment | {include: .}' supported_codeql_configs.json
-          )"
+          )" >> $GITHUB_OUTPUT
 
   create-code-scanning-pack:
     name: Create Code Scanning pack
