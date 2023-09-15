@@ -417,9 +417,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             # output current row state 
             $row 
 
-            # release any held mutexes            
-            $Mutex.ReleaseMutex();
-
+            
             ###########################################################
             ###########################################################
             # Context is restored here
@@ -427,6 +425,10 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             if($context){
                 Pop-CompilerSpecificFiles -Context $context 
             }
+
+            # release any held mutexes            
+            $Mutex.ReleaseMutex();
+            Write-Host "Released $testDirectory"
         }
     }
     # go to next row 

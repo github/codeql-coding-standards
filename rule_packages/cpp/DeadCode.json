@@ -67,7 +67,10 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Use of any overload of a function in an overload set constitute a use of all members of the set. An overload set is a set of functions with the same name that differ in the number, type and/or qualifiers of their parameters, and, for the purpose of this query, are limited to functions which are declared in the same scope (namespace or class). Functions defined in anonymous (unnamed) namespaces and global namespaces are therefore not currently considered to be part of the same overload set."
+          }
         }
       ],
       "title": "Every function defined in an anonymous namespace, or static function with internal linkage, or private member function shall be used."
