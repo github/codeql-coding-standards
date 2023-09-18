@@ -7,11 +7,6 @@ on:
         description: |
           The version to release (MUST follow semantic versioning).
         required: true
-      ref:
-        description: |
-          The git commit, branch, or tag to release from.
-        required: true
-
 jobs:
   update-release:
     name: "Update release"
@@ -20,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
+          ref: rc/v${{ inputs.version }}
       - name: Install Python
         uses: actions/setup-python@v4
         with:
@@ -32,14 +27,12 @@ jobs:
       - name: Update release assets
         env:
           RELEASE_VERSION: ${{ inputs.version }}
-          RELEASE_REF: ${{ inputs.ref }}
           GITHUB_TOKEN: ${{ github.token }}
           RELEASE_ENGINEERING_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
         run: |
           python scripts/release/update-release-assets.py \
             --version $RELEASE_VERSION \
             --layout scripts/release/release-layout.yml \
-            --ref $RELEASE_REF \
             --repo "$GITHUB_REPOSITORY" \
             --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGINEERING_TOKEN" \
             --skip-checks

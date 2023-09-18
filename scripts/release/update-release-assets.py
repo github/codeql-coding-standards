@@ -252,13 +252,17 @@ def main(args: 'argparse.Namespace') -> int:
         return 1
     release = releases[0]
 
-    pull_candidates = [pr for pr in repo.get_pulls(state="open") if pr.head.sha == args.ref]
+    pull_candidates = [pr for pr in repo.get_pulls(state="open") if pr.title == f"Release v{args.version}"]
     if len(pull_candidates) != 1:
-        print(f"Error: expected exactly one PR with head {args.ref}, but found {len(pull_candidates)}", file=sys.stderr)
+        print(f"Error: expected exactly one PR for version {args.version}, but found {len(pull_candidates)}", file=sys.stderr)
         return 1
     
-    print(f"Collecting workflow runs for ref {args.ref}")
-    check_runs: List[CheckRun.CheckRun] = repo.get_check_runs(args.ref) # type: ignore
+    pull_request = pull_candidates[0]
+
+    head_sha = pull_request.head.sha
+
+    print(f"Collecting workflow runs for ref {head_sha}")
+    check_runs: List[CheckRun.CheckRun] = repo.get_check_runs(head_sha) # type: ignore
 
     action_workflow_run_url_regex = r"^https://(?P<github_url>[^/]+)/(?P<owner>[^/]+)/(?P<repo>[^/]+)/actions/runs/(?P<run_id>\d+)$"
     action_workflow_job_run_url_regex = r"^https://(?P<github_url>[^/]+)/(?P<owner>[^/]+)/(?P<repo>[^/]+)/actions/runs/(?P<run_id>\d+)/job/(?P<job_id>\d+)$"
@@ -294,7 +298,7 @@ def main(args: 'argparse.Namespace') -> int:
     latests_workflow_runs = list(workflow_runs_per_id.values())
 
     if not args.skip_checks:
-        print(f"Checking that all workflow runs for ref {args.ref} succeeded")
+        print(f"Checking that all workflow runs for ref {head_sha} succeeded")
         for workflow_run in latests_workflow_runs:
             if workflow_run.status != "completed":
                 print(f"Error: workflow run {workflow_run.name} with id {workflow_run.id} is not completed", file=sys.stderr)
@@ -329,7 +333,6 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--version', help="The version to release (MUST be a valid semantic version)", required=True)
-    parser.add_argument('--ref', help="The head sha for the release PR", required=True)
     parser.add_argument('--repo', help="The owner and repository name. For example, 'octocat/Hello-World'. Used when testing this script on a fork", required=True, default="github/codeql-coding-standards")
     parser.add_argument('--github-token', help="The github token to use for the release PR", required=True, nargs="+")
     parser.add_argument('--layout', help="The layout to use for the release", required=True)
