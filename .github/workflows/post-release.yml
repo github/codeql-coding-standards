@@ -31,7 +31,7 @@ jobs:
           python-version: "3.9"
 
       - name: Install dependencies
-        run: pip install -f scripts/release/requirements.txt
+        run: pip install -r scripts/release/requirements.txt
 
       - name: Update release assets
         env:
