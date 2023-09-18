@@ -36,10 +36,10 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           RELEASE_ENGINEERING_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
         run: |
-          python scripts/release/update-release-assets.py
-            --version $RELEASE_VERSION
-            --layout scripts/release/release-layout.yml
-            --ref $RELEASE_REF
-            --repo "$GITHUB_REPOSITORY"
-            --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGEERING_TOKEN"
+          python scripts/release/update-release-assets.py \
+            --version $RELEASE_VERSION \
+            --layout scripts/release/release-layout.yml \
+            --ref $RELEASE_REF \
+            --repo "$GITHUB_REPOSITORY" \
+            --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGINEERING_TOKEN" \
             --skip-checks
