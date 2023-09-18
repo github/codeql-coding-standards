@@ -259,6 +259,10 @@ def main(args: 'argparse.Namespace') -> int:
     
     pull_request = pull_candidates[0]
 
+    if pull_request.state != "open":
+        print(f"Error: PR for version {args.version} is not open", file=sys.stderr)
+        return 1
+
     head_sha = pull_request.head.sha
 
     print(f"Collecting workflow runs for ref {head_sha}")
