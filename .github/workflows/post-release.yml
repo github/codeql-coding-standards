@@ -34,7 +34,7 @@ jobs:
           RELEASE_VERSION: ${{ inputs.version }}
           RELEASE_REF: ${{ inputs.ref }}
           GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_ENGEERING_TOKEN: ${{ secrets.RELEASE_ENGEERING_TOKEN }}
+          RELEASE_ENGINEERING_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
         run: |
           python scripts/release/update-release-assets.py
             --version $RELEASE_VERSION
