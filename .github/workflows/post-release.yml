@@ -1,0 +1,48 @@
+name: Finalize Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: |
+          The version to release (MUST follow semantic versioning).
+        required: true
+      ref:
+        description: |
+          The git commit, branch, or tag to release from.
+        required: true
+
+  push:
+    branches:
+      - rvermeulen/release-process-improvements
+
+jobs:
+  update-release:
+    name: "Update release"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.ref }}
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: pip install -f scripts/release/requirements.txt
+
+      - name: Update release assets
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          RELEASE_REF: ${{ inputs.ref }}
+          GITHUB_TOKEN: ${{ github.token }}
+          RELEASE_ENGEERING_TOKEN: ${{ secrets.RELEASE_ENGEERING_TOKEN }}
+        run: |
+          python scripts/release/update-release-assets.py
+            --version $RELEASE_VERSION
+            --layout scripts/release/release-layout.yml
+            --ref $RELEASE_REF
+            --repo "$GITHUB_REPOSITORY"
+            --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGEERING_TOKEN"

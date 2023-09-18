@@ -1,0 +1,20 @@
+version: 0.1.0
+
+layout:
+  certification_kit.zip:
+    - workflow-log:
+        name: ".*"
+    - workflow-artifact:
+        not-name: "Code Scanning Query Pack Generation"
+  code-scanning-cpp-query-pack.zip:
+    - workflow-artifact:
+        name: "Code Scanning Query Pack Generation"
+        artifact: code-scanning-cpp-query-pack.zip
+  supported_rules_list.csv:
+    - shell: |
+        python ${{ coding-standards.root }}/scripts/release/create_supported_rules_list.py --csv > supported_rules_list.csv
+  supported_rules_list.md:
+    - shell: |
+        python ${{ coding-standards.root }}/scripts/release/create_supported_rules_list.py > supported_rules_list.md
+  user_manual.md:
+    - file: docs/user_manual.md
