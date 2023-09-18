@@ -46,3 +46,4 @@ jobs:
             --ref $RELEASE_REF
             --repo "$GITHUB_REPOSITORY"
             --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGEERING_TOKEN"
+            --skip-checks
