@@ -12,10 +12,6 @@ on:
           The git commit, branch, or tag to release from.
         required: true
 
-  push:
-    branches:
-      - rvermeulen/release-process-improvements
-
 jobs:
   update-release:
     name: "Update release"
