@@ -16,6 +16,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: rc/${{ inputs.version }}
+
+      - name: Checkout PR
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          pr_number=$(gh pr list --json number,title --jq "map(select(.title == \"Release v$RELEASE_VERSION\")) | .[].number")
+          gh pr checkout $pr_number
+
       - name: Install Python
         uses: actions/setup-python@v4
         with:
