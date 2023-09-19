@@ -47,7 +47,7 @@ jobs:
           echo "Creating release tag v$version"
 
           git tag -a v$version -m "Release v$version"
-          git push origin v$version
+          git push -f origin v$version
 
       - name: Finalize release
         env:
