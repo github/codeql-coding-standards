@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: rc/v${{ inputs.version }}
+          ref: rc/${{ inputs.version }}
       - name: Install Python
         uses: actions/setup-python@v4
         with:
