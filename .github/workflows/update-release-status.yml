@@ -34,6 +34,11 @@ jobs:
             echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_EVENT" >> "$GITHUB_ENV"
           fi
 
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CHECK_RUN_HEAD_SHA }}
+
       - name: Get release status check run
         id: get-check-run
         if: (github.event_name == 'check_run' && github.event.check_run.conclusion == 'success' && github.event.check_run.name != github.workflow) || github.event_name == 'workflow_dispatch'
