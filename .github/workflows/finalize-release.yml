@@ -56,8 +56,4 @@ jobs:
           version=${BASE_REF#rc/}
           echo "Finalizing release v$version"
 
-          gh release edit "v$version" \
-            --draft false \
-            --prerelease false \
-            --latest \
-            --tag v$version
+          gh release edit "v$version" --tag v$version
