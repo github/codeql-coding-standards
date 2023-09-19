@@ -3,10 +3,21 @@ name: Finalize Release
 on:
   workflow_dispatch:
     inputs:
-      version:
+      head-sha:
         description: |
-          The version to release (MUST follow semantic versioning).
+          The head SHA of the release PR to use for finalizing the release.
         required: true
+  workflow_call:
+    inputs:
+      head-sha:
+        type: string
+        description: |
+          The head SHA of the release PR to use for finalizing the release.
+        required: true
+
+env:
+  HEAD_SHA: ${{ inputs.head-sha }}
+
 jobs:
   update-release:
     name: "Update release"
@@ -15,15 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: rc/${{ inputs.version }}
-
-      - name: Checkout PR
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_VERSION: ${{ inputs.version }}
-        run: |
-          pr_number=$(gh pr list --json number,title --jq "map(select(.title == \"Release v$RELEASE_VERSION\")) | .[].number")
-          gh pr checkout $pr_number
+          ref: ${{ inputs.head-sha }}
 
       - name: Install Python
         uses: actions/setup-python@v4
@@ -35,12 +38,11 @@ jobs:
 
       - name: Update release assets
         env:
-          RELEASE_VERSION: ${{ inputs.version }}
           GITHUB_TOKEN: ${{ github.token }}
           RELEASE_ENGINEERING_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
         run: |
           python scripts/release/update-release-assets.py \
-            --version $RELEASE_VERSION \
+            --head-sha $HEAD_SHA \
             --layout scripts/release/release-layout.yml \
             --repo "$GITHUB_REPOSITORY" \
             --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGINEERING_TOKEN" \

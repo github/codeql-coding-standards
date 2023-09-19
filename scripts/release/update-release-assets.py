@@ -225,13 +225,6 @@ class ReleaseArtifact():
                 return Path(shutil.make_archive(str(directory / self.name.with_suffix("")), ext_format_map[extension], root_dir=temp_dir_path))
 
 def main(args: 'argparse.Namespace') -> int:
-
-    try:
-        semantic_version.Version.parse(args.version) # type: ignore
-    except ValueError as e:
-        print(f"Error: invalid version: {e}", file=sys.stderr)
-        return 1
-
     monkey_patch_github()
 
     import github
@@ -246,15 +239,10 @@ def main(args: 'argparse.Namespace') -> int:
             repos[nwo] = github.Github(auth=github.Auth.Token(token)).get_repo(nwo)
 
     repo = repos[args.repo]
-    releases = [release for release in repo.get_releases() if release.title == f"v{args.version}"]
-    if len(releases) != 1:
-        print(f"Error: expected exactly one release with title {args.version}, but found {len(releases)}", file=sys.stderr)
-        return 1
-    release = releases[0]
 
-    pull_candidates = [pr for pr in repo.get_pulls(state="open") if pr.title == f"Release v{args.version}"]
+    pull_candidates = [pr for pr in repo.get_pulls(state="open") if pr.head.sha == args.head_sha]
     if len(pull_candidates) != 1:
-        print(f"Error: expected exactly one PR for version {args.version}, but found {len(pull_candidates)}", file=sys.stderr)
+        print(f"Error: expected exactly one PR for SHA {args.head_sha}, but found {len(pull_candidates)}", file=sys.stderr)
         return 1
     
     pull_request = pull_candidates[0]
@@ -262,11 +250,29 @@ def main(args: 'argparse.Namespace') -> int:
     if pull_request.state != "open":
         print(f"Error: PR for version {args.version} is not open", file=sys.stderr)
         return 1
+    
+    rc_branch_regex = r"^rc/(?P<version>.*)$"
+    rc_branch_match = re.match(rc_branch_regex, pull_request.base.ref)
+    if not rc_branch_match:
+        print(f"Error: PR {pull_request.url} is not based on a release candidate branch", file=sys.stderr)
+        return 1
 
-    head_sha = pull_request.head.sha
+    release_version = rc_branch_match.group("version")
 
-    print(f"Collecting workflow runs for ref {head_sha}")
-    check_runs: List[CheckRun.CheckRun] = repo.get_check_runs(head_sha) # type: ignore
+    try:
+        semantic_version.Version.parse(release_version) # type: ignore
+    except ValueError as e:
+        print(f"Error: invalid version {release_version} use by release branch. Reason {e}", file=sys.stderr)
+        return 1
+
+    releases = [release for release in repo.get_releases() if release.title == f"v{release_version}"]
+    if len(releases) != 1:
+        print(f"Error: expected exactly one release with title {args.version}, but found {len(releases)}", file=sys.stderr)
+        return 1
+    release = releases[0]
+
+    print(f"Collecting workflow runs for ref {args.head_sha}")
+    check_runs: List[CheckRun.CheckRun] = repo.get_check_runs(args.head_sha) # type: ignore
 
     action_workflow_run_url_regex = r"^https://(?P<github_url>[^/]+)/(?P<owner>[^/]+)/(?P<repo>[^/]+)/actions/runs/(?P<run_id>\d+)$"
     action_workflow_job_run_url_regex = r"^https://(?P<github_url>[^/]+)/(?P<owner>[^/]+)/(?P<repo>[^/]+)/actions/runs/(?P<run_id>\d+)/job/(?P<job_id>\d+)$"
@@ -302,7 +308,7 @@ def main(args: 'argparse.Namespace') -> int:
     latests_workflow_runs = list(workflow_runs_per_id.values())
 
     if not args.skip_checks:
-        print(f"Checking that all workflow runs for ref {head_sha} succeeded")
+        print(f"Checking that all workflow runs for ref {args.head_sha} succeeded")
         for workflow_run in latests_workflow_runs:
             if workflow_run.status != "completed":
                 print(f"Error: workflow run {workflow_run.name} with id {workflow_run.id} is not completed", file=sys.stderr)
@@ -336,7 +342,7 @@ if __name__ == '__main__':
     from sys import exit
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--version', help="The version to release (MUST be a valid semantic version)", required=True)
+    parser.add_argument('--head-sha', help="The head SHA of the release PR for which we update it's corresponding release", required=True)
     parser.add_argument('--repo', help="The owner and repository name. For example, 'octocat/Hello-World'. Used when testing this script on a fork", required=True, default="github/codeql-coding-standards")
     parser.add_argument('--github-token', help="The github token to use for the release PR", required=True, nargs="+")
     parser.add_argument('--layout', help="The layout to use for the release", required=True)
