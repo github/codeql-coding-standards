@@ -169,8 +169,12 @@ class WorkflowArtifactAction():
             workflow_runs = [workflow_run for workflow_run in self.workflow_runs if not re.match(self.kwargs["not-name"], workflow_run.name)]
         print(f"Downloading the artifacts for {len(workflow_runs)} workflow runs")
         for workflow_run in workflow_runs:
-            print(f"Downloading artifacts for {workflow_run.name} to {self.temp_workdir.name}")
-            workflow_run.download_artifacts(Path(self.temp_workdir.name)) # type: ignore
+            if "artifact" in self.kwargs:
+                print(f"Downloading artifact {self.kwargs['artifact']} for {workflow_run.name} to {self.temp_workdir.name}")
+                workflow_run.download_artifact(self.kwargs["artifact"], Path(self.temp_workdir.name)) # type: ignore
+            else:
+                print(f"Downloading artifacts for {workflow_run.name} to {self.temp_workdir.name}")
+                workflow_run.download_artifacts(Path(self.temp_workdir.name)) # type: ignore
         return list(map(Path, Path(self.temp_workdir.name).glob("**/*")))
     
 class ShellAction():
