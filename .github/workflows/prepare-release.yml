@@ -112,7 +112,7 @@ jobs:
           --title "v$RELEASE_VERSION" \
           --draft \
           --target rc/$RELEASE_VERSION \
-          $RELEASE_VERSION
+          v$RELEASE_VERSION
 
       - name: Create feature branch for PR
         run: |
