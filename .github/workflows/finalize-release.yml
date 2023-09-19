@@ -11,9 +11,6 @@ on:
         description: |
           The branch for which the finalize the release.
         required: true
-  push:
-    branches:
-      - rvermeulen/release-process-improvements
 
 jobs:
   finalize-release:
