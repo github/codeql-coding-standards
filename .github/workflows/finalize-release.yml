@@ -1,0 +1,41 @@
+name: Finalize Release
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - "rc/**"
+
+jobs:
+  finalize-release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Create release tag
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          version=${BASE_REF#rc/}
+          echo "Creating release tag v$version"
+
+          git tag -a v$version -m "Release v$version"
+          git push origin v$version
+
+      - name: Finalize release
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          version=${BASE_REF#rc/}
+          echo "Finalizing release v$version"
+
+          gh release edit v$version \
+            --draft false \
+            --prerelease false \
+            --latest \
+            --tag v$version
