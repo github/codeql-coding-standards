@@ -5,20 +5,41 @@ on:
       - closed
     branches:
       - "rc/**"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: |
+          The branch for which the finalize the release.
+        required: true
+  push:
+    branches:
+      - rvermeulen/release-process-improvements
 
 jobs:
   finalize-release:
-    if: github.event.pull_request.merged == true
+    if: (github.event.name == "pull_request" && github.event.pull_request.merged == true) || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
+      - name: Determine ref
+        env:
+          REF_FROM_INPUT: ${{ inputs.ref }}
+          REF_FROM_PR: ${{ github.event.pull_request.merge_commit_sha  }}
+          BASE_REF_FROM_PR: ${{ github.event.pull_request.base.ref }}
+        run: |
+          if [[ $GITHUB_EVENT_NAME == "workflow_dispatch" ]]; then
+            echo "REF=$REF_FROM_INPUT" >> "$GITHUB_ENV"
+            echo "BASE_REF=$REF_FROM_INPUT" >> "$GITHUB_ENV
+          else
+            echo "REF=$REF_FROM_PR" >> "$GITHUB_ENV"
+            echo "BASE_REF=$BASE_REF_FROM_PR" >> "$GITHUB_ENV"
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          ref: ${{ env.REF }}
 
       - name: Create release tag
-        env:
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
         run: |
           version=${BASE_REF#rc/}
           echo "Creating release tag v$version"
