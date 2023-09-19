@@ -1,4 +1,4 @@
-name: Finalize Release
+name: Update Release
 
 on:
   workflow_dispatch:

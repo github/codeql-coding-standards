@@ -95,7 +95,7 @@ jobs:
 
       - name: Finalize release
         if: env.CHECK_RUNS_PENDING == '0' && env.CHECK_RUN_STATUS != 'completed'
-        uses: ./.github/workflows/post-release.yml
+        uses: ./.github/workflows/update-release.yml
         with:
           ref: ${{ env.CHECK_RUN_HEAD_SHA }}
 
