@@ -25,7 +25,7 @@ jobs:
         run: |
           if [[ $GITHUB_EVENT_NAME == "workflow_dispatch" ]]; then
             echo "REF=$REF_FROM_INPUT" >> "$GITHUB_ENV"
-            echo "BASE_REF=$REF_FROM_INPUT" >> "$GITHUB_ENV
+            echo "BASE_REF=$REF_FROM_INPUT" >> "$GITHUB_ENV"
           else
             echo "REF=$REF_FROM_PR" >> "$GITHUB_ENV"
             echo "BASE_REF=$BASE_REF_FROM_PR" >> "$GITHUB_ENV"
