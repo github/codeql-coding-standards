@@ -86,7 +86,7 @@ jobs:
           pending=$(echo "$status_stats" | jq -r '.pending')
 
           echo "CHECK_RUNS_FAILED=$failed" >> "$GITHUB_ENV"
-          echo "CHECK_RUNS_PENDING=$pending" >> "$GITHUB_ENV
+          echo "CHECK_RUNS_PENDING=$pending" >> "$GITHUB_ENV"
 
       - name: Finalize release
         if: env.CHECK_RUNS_PENDING == '0' && env.CHECK_RUN_STATUS != 'completed'
