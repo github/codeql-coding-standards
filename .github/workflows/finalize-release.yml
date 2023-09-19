@@ -36,6 +36,11 @@ jobs:
         with:
           ref: ${{ env.REF }}
 
+      - name: Configure git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
       - name: Create release tag
         run: |
           version=${BASE_REF#rc/}
