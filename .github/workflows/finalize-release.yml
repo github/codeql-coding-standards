@@ -51,7 +51,6 @@ jobs:
 
       - name: Finalize release
         env:
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           version=${BASE_REF#rc/}
