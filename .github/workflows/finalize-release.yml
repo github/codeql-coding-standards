@@ -41,7 +41,7 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Create release tag
+      - name: Update release tag
         run: |
           version=${BASE_REF#rc/}
           echo "Creating release tag v$version"
@@ -56,4 +56,4 @@ jobs:
           version=${BASE_REF#rc/}
           echo "Finalizing release v$version"
 
-          gh release edit "$version" --tag v$version
+          gh release edit "v$version" --draft=false --tag=v$version
