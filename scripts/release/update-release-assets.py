@@ -354,7 +354,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--head-sha', help="The head SHA of the release PR for which we update it's corresponding release", required=True)
     parser.add_argument('--repo', help="The owner and repository name. For example, 'octocat/Hello-World'. Used when testing this script on a fork", required=True, default="github/codeql-coding-standards")
-    parser.add_argument('--github-token', help="The github token to use for the release PR", required=True, nargs="+")
+    parser.add_argument('--github-token', help="The github token to access repo and the repositories provided as external ids in check runs. When multiple tokens are provided use the format 'owner/repo:token'", required=True, nargs="+")
     parser.add_argument('--layout', help="The layout to use for the release", required=True)
     parser.add_argument('--skip-checks', help="Skip the checks that ensure that the workflow runs succeeded", action="store_true")
     args = parser.parse_args()
