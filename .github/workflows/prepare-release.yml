@@ -107,6 +107,10 @@ jobs:
           RELEASE_VERSION: ${{ inputs.version }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
+          # Create lightweight tag to reference release
+          git tag v$RELEASE_VERSION
+          git push -f origin v$RELEASE_VERSION
+
           gh release create \
           -R $GITHUB_REPOSITORY \
           --title "v$RELEASE_VERSION" \
