@@ -252,7 +252,7 @@ def main(args: 'argparse.Namespace') -> int:
     pull_request = pull_candidates[0]
 
     if pull_request.state != "open":
-        print(f"Error: PR for version {args.version} is not open", file=sys.stderr)
+        print(f"Error: PR {pull_request.url} is not open", file=sys.stderr)
         return 1
     
     rc_branch_regex = r"^rc/(?P<version>.*)$"
@@ -271,7 +271,7 @@ def main(args: 'argparse.Namespace') -> int:
 
     releases = [release for release in repo.get_releases() if release.title == f"v{release_version}"]
     if len(releases) != 1:
-        print(f"Error: expected exactly one release with title {args.version}, but found {len(releases)}", file=sys.stderr)
+        print(f"Error: expected exactly one release for {release_version}, but found {len(releases)}", file=sys.stderr)
         return 1
     release = releases[0]
 
