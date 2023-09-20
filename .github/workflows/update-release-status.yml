@@ -63,7 +63,7 @@ jobs:
           echo "CHECK_RUN_CONCLUSION=$check_run_conclusion" >> "$GITHUB_ENV"
 
       - name: Reset release status
-        if: github.event_name == 'check_run' && env.CHECK_RUN_STATUS == 'completed' && github.event.action == 'rerequested'
+        if: env.CHECK_RUN_STATUS == 'completed' && ((github.event_name == 'check_run' && github.event.action == 'rerequested') || github.event_name == 'workflow_dispatch')
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
