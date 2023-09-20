@@ -271,7 +271,11 @@ def main(args: 'argparse.Namespace') -> int:
         print(f"Error: invalid version {release_version} use by release branch. Reason {e}", file=sys.stderr)
         return 1
 
-    releases = [release for release in repo.get_releases() if release.tag_name == f"v{release_version}"]
+    print(f"Looking for release with tag v{release_version} associated with the PR's base ref {pull_request.base.ref}")
+    all_releases = repo.get_releases()
+    for release in all_releases:
+        print(f"Found release {release.title} with tag {release.tag_name}")
+    releases = [release for release in all_releases if release.tag_name == f"v{release_version}"]
     if len(releases) != 1:
         print(f"Error: expected exactly one release for {release_version}, but found {len(releases)}", file=sys.stderr)
         return 1
