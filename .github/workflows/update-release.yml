@@ -14,7 +14,11 @@ on:
         description: |
           The head SHA of the release PR to use for finalizing the release.
         required: true
-
+    secrets:
+      RELEASE_ENGINEERING_TOKEN:
+        description: |
+          The token to use for accessing the release engineering repository.
+        required: true
 env:
   HEAD_SHA: ${{ inputs.head-sha }}
 

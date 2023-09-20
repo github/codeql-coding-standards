@@ -22,6 +22,9 @@ permissions:
 jobs:
   validate-check-runs:
     runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.set-output.outputs.status }}
+      check-run-head-sha: ${{ steps.set-output.outputs.check-run-head-sha }}
     steps:
       - name: Determine check run head SHA
         env:
@@ -93,12 +96,6 @@ jobs:
           echo "CHECK_RUNS_FAILED=$failed" >> "$GITHUB_ENV"
           echo "CHECK_RUNS_PENDING=$pending" >> "$GITHUB_ENV"
 
-      - name: Finalize release
-        if: env.CHECK_RUNS_PENDING == '0' && env.CHECK_RUN_STATUS != 'completed'
-        uses: ./.github/workflows/update-release.yml
-        with:
-          ref: ${{ env.CHECK_RUN_HEAD_SHA }}
-
       - name: Conclude release status
         if: env.CHECK_RUNS_PENDING == '0' && env.CHECK_RUN_STATUS != 'completed'
         env:
@@ -124,4 +121,23 @@ jobs:
             --header "X-GitHub-Api-Version: 2022-11-28" \
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
-      
+
+      - name: Set output
+        id: set-output
+        run: |
+          if [[ "$CHECK_RUNS_PENDING" == "0" ]]; then
+            echo "status=completed" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=in_progress" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "check-run-head-sha=$CHECK_RUN_HEAD_SHA" >> "$GITHUB_OUTPUT"
+
+  update-release:
+    needs: validate-check-runs
+    if: needs.validate-check-runs.outputs.status == 'completed'
+    uses: ./.github/workflows/update-release.yml
+    with:
+        head-sha: ${{ needs.validate-check-runs.outputs.check-run-head-sha }}
+    secrets:
+      RELEASE_ENGINEERING_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
