@@ -71,7 +71,7 @@ jobs:
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
           --field name="release-status" \
-          --field head_sha="$REF" \
+          --field head_sha="$CHECK_RUN_HEAD_SHA" \
           --jq ".id" \
           /repos/$GITHUB_REPOSITORY/check-runs)
 
