@@ -255,6 +255,8 @@ def main(args: 'argparse.Namespace') -> int:
         print(f"Error: PR {pull_request.url} is not open", file=sys.stderr)
         return 1
     
+    print(f"Found PR {pull_request.url} based on {pull_request.base.ref}")
+
     rc_branch_regex = r"^rc/(?P<version>.*)$"
     rc_branch_match = re.match(rc_branch_regex, pull_request.base.ref)
     if not rc_branch_match:
