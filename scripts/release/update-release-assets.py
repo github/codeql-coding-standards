@@ -271,7 +271,7 @@ def main(args: 'argparse.Namespace') -> int:
         print(f"Error: invalid version {release_version} use by release branch. Reason {e}", file=sys.stderr)
         return 1
 
-    releases = [release for release in repo.get_releases() if release.title == f"v{release_version}"]
+    releases = [release for release in repo.get_releases() if release.tag_name == f"v{release_version}"]
     if len(releases) != 1:
         print(f"Error: expected exactly one release for {release_version}, but found {len(releases)}", file=sys.stderr)
         return 1
