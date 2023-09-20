@@ -17,7 +17,7 @@ jobs:
 
   pre-validate-performance:
     outputs:
-      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}}
+      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
     runs-on: ubuntu-latest
     steps:
       - name: Create check run
@@ -78,7 +78,7 @@ jobs:
 
   pre-validate-compiler-compatibility:
     outputs:
-      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}}
+      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
     runs-on: ubuntu-latest
     steps:
       - name: Create check run
