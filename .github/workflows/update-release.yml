@@ -50,6 +50,7 @@ jobs:
             --layout scripts/release/release-layout.yml \
             --repo "$GITHUB_REPOSITORY" \
             --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGINEERING_TOKEN" \
+            --skip-checkrun "release-status" \
             --skip-checks
 
       - name: Update release notes

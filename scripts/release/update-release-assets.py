@@ -290,7 +290,8 @@ def main(args: 'argparse.Namespace') -> int:
     workflow_runs: List[WorkflowRun.WorkflowRun] = []
     for check_run in check_runs: # type: ignore
         check_run = cast(CheckRun.CheckRun, check_run)
-        if check_run.status != "completed" or check_run.conclusion == "skipped":
+        if check_run.name in args.skip_checkrun:
+            print(f"Skipping check run {check_run.name} with id {check_run.id} because it is on the skip list.")
             continue
         job_run_match = re.match(action_workflow_job_run_url_regex, check_run.details_url)
         if job_run_match:
@@ -356,6 +357,7 @@ if __name__ == '__main__':
     parser.add_argument('--repo', help="The owner and repository name. For example, 'octocat/Hello-World'. Used when testing this script on a fork", required=True, default="github/codeql-coding-standards")
     parser.add_argument('--github-token', help="The github token to access repo and the repositories provided as external ids in check runs. When multiple tokens are provided use the format 'owner/repo:token'", required=True, nargs="+")
     parser.add_argument('--layout', help="The layout to use for the release", required=True)
+    parser.add_argument('--skip-checkrun', help="Name of check run to exclude from consideration. Can be specified multiple times", nargs='+', default=["release-status"])
     parser.add_argument('--skip-checks', help="Skip the checks that ensure that the workflow runs succeeded", action="store_true")
     args = parser.parse_args()
     exit(main(args))
