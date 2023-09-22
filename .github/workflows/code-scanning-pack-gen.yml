@@ -37,8 +37,7 @@ jobs:
   create-code-scanning-pack:
     name: Create Code Scanning pack
     needs: prepare-code-scanning-pack-matrix
-    #runs-on: ubuntu-20.04-xl
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-xl
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare-code-scanning-pack-matrix.outputs.matrix) }}
