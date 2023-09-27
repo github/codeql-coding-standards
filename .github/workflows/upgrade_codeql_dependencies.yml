@@ -12,7 +12,7 @@ env:
   XARGS_MAX_PROCS: 4
 
 jobs:
-  upgrade_codeql_dependencies
+  upgrade_codeql_dependencies:
     env:
       CODEQL_CLI_VERSION: ${{ github.event.inputs.codeql_cli_version }}
     runs-on: ubuntu-22.04
