@@ -33,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           CODEQL_CLI_VERSION: ${{ github.event.inputs.codeql_cli_version }}
         run: |
-          scripts/upgrade-codeql-dependencies/upgrade-codeql-dependencies.py --cli-version "$CODEQL_CLI_VERSION"
+          python3 scripts/upgrade-codeql-dependencies/upgrade-codeql-dependencies.py --cli-version "$CODEQL_CLI_VERSION"
 
       - name: Fetch CodeQL
         env:
