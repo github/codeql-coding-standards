@@ -38,14 +38,18 @@ jobs:
       - name: Fetch CodeQL
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
+          cd $RUNNER_TEMP
           gh release download "v${CODEQL_CLI_VERSION}" --repo https://github.com/github/codeql-cli-binaries --pattern codeql-linux64.zip
           unzip -q codeql-linux64.zip
 
       - name: Update CodeQL formatting based on new CLI version
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          find cpp -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 codeql/codeql query format --in-place
-          find c -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 codeql/codeql query format --in-place
+          find cpp -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 $RUNNER_TEMP/codeql/codeql query format --in-place
+          find c -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 $RUNNER_TEMP/codeql/codeql query format --in-place
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
