@@ -34,8 +34,7 @@ where
   // Where the hidden member function isn't explicitly brought in scope through a using declaration.
   not exists(UsingDeclarationEntry ude |
     ude.getDeclaration() = hiddenDecl and
-    ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType() and
-    ude.getLocation().getStartLine() < overridingDecl.getLocation().getStartLine()
+    ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType()
   ) and
   // Exclude compiler generated member functions which include things like copy constructor that hide base class
   // copy constructors.
