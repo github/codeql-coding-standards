@@ -19,26 +19,36 @@ import codingstandards.cpp.autosar
 /**
  * Holds if the class has a non-virtual member function with the given name.
  */
+pragma[noinline, nomagic]
 predicate hasNonVirtualMemberFunction(Class clazz, MemberFunction mf, string name) {
   mf.getDeclaringType() = clazz and
   mf.getName() = name and
   not mf.isVirtual()
 }
 
-from FunctionDeclarationEntry overridingDecl, MemberFunction hiddenDecl
+/**
+ * Holds if the member function is in a class with the given base class, and has the given name.
+ */
+pragma[noinline, nomagic]
+predicate hasDeclarationBaseClass(MemberFunction mf, Class baseClass, string functionName) {
+  baseClass = mf.getDeclaringType().getABaseClass() and
+  functionName = mf.getName()
+}
+
+from MemberFunction overridingDecl, MemberFunction hiddenDecl, Class baseClass, string name
 where
   not isExcluded(overridingDecl, ScopePackage::hiddenInheritedNonOverridableMemberFunctionQuery()) and
   // Check if we are overriding a non-virtual inherited member function
-  hasNonVirtualMemberFunction(overridingDecl.getDeclaration().getDeclaringType().getABaseClass(),
-    hiddenDecl, overridingDecl.getName()) and
+  hasNonVirtualMemberFunction(baseClass, hiddenDecl, name) and
+  hasDeclarationBaseClass(overridingDecl, baseClass, name) and
   // Where the hidden member function isn't explicitly brought in scope through a using declaration.
   not exists(UsingDeclarationEntry ude |
     ude.getDeclaration() = hiddenDecl and
-    ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType()
+    ude.getEnclosingElement() = overridingDecl.getDeclaringType()
   ) and
   // Exclude compiler generated member functions which include things like copy constructor that hide base class
   // copy constructors.
-  not overridingDecl.getDeclaration().isCompilerGenerated()
+  not overridingDecl.isCompilerGenerated()
 select overridingDecl,
-  "Declaration for member '" + overridingDecl.getName() +
-    "' hides non-overridable inherited member function $@", hiddenDecl, hiddenDecl.getName()
+  "Declaration for member '" + name + "' hides non-overridable inherited member function $@",
+  hiddenDecl, hiddenDecl.getName()
