@@ -16,17 +16,24 @@
 import cpp
 import codingstandards.cpp.autosar
 
-from FunctionDeclarationEntry overridingDecl, FunctionDeclarationEntry hiddenDecl
+/**
+ * Holds if the class has a non-virtual member function with the given name.
+ */
+predicate hasNonVirtualMemberFunction(Class clazz, MemberFunction mf, string name) {
+  mf.getDeclaringType() = clazz and
+  mf.getName() = name and
+  not mf.isVirtual()
+}
+
+from FunctionDeclarationEntry overridingDecl, MemberFunction hiddenDecl
 where
   not isExcluded(overridingDecl, ScopePackage::hiddenInheritedNonOverridableMemberFunctionQuery()) and
   // Check if we are overriding a non-virtual inherited member function
-  overridingDecl.getName() = hiddenDecl.getName() and
-  overridingDecl.getDeclaration().getDeclaringType().getABaseClass() =
-    hiddenDecl.getDeclaration().getDeclaringType() and
-  not hiddenDecl.getDeclaration().isVirtual() and
+  hasNonVirtualMemberFunction(overridingDecl.getDeclaration().getDeclaringType().getABaseClass(),
+    hiddenDecl, overridingDecl.getName()) and
   // Where the hidden member function isn't explicitly brought in scope through a using declaration.
   not exists(UsingDeclarationEntry ude |
-    ude.getDeclaration() = hiddenDecl.getDeclaration() and
+    ude.getDeclaration() = hiddenDecl and
     ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType() and
     ude.getLocation().getStartLine() < overridingDecl.getLocation().getStartLine()
   ) and
