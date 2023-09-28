@@ -57,6 +57,5 @@ jobs:
           title: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_standard_library_commit }}"
           body: "This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }} and the `github/codeql` version to ${{ github.event.inputs.codeql_standard_library_commit }}."
           commit-message: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_standard_library_commit }}"
-          team-reviewers: github/codeql-coding-standards
           delete-branch: true
           branch: "codeql/upgrade-to-${{ github.event.inputs.codeql_cli_version }}"
