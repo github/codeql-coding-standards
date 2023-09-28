@@ -17,7 +17,7 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.notdistinctidentifier.NotDistinctIdentifier
 
 class ExternalIdentifiersNotDistinct extends NotDistinctIdentifierSharedQuery {
-    ExternalIdentifiersNotDistinct() {
+  ExternalIdentifiersNotDistinct() {
     this = Declarations1Package::externalIdentifiersNotDistinctQuery()
   }
 }

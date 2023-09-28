@@ -34,10 +34,12 @@ class NonDefaultedNoExceptUserDefinedSpecialMemberFunction extends UserDefinedSp
 abstract class RedundantSpecialMemberFunction extends UserDefinedSpecialMemberFunction { }
 
 abstract class RedundantNonDefaultNoExceptSpecialMemberFunction extends RedundantSpecialMemberFunction,
-  NonDefaultedNoExceptUserDefinedSpecialMemberFunction { }
+  NonDefaultedNoExceptUserDefinedSpecialMemberFunction
+{ }
 
 class RedundantCopySpecialMemberFunction extends RedundantNonDefaultNoExceptSpecialMemberFunction,
-  CopyConstructor {
+  CopyConstructor
+{
   RedundantCopySpecialMemberFunction() {
     // a copy function is redundant if
     // 1) it has a vacuous body
@@ -68,7 +70,8 @@ class RedundantCopySpecialMemberFunction extends RedundantNonDefaultNoExceptSpec
 }
 
 class RedundantMoveSpecialMemberFunction extends RedundantNonDefaultNoExceptSpecialMemberFunction,
-  MoveConstructor {
+  MoveConstructor
+{
   RedundantMoveSpecialMemberFunction() {
     // a move function is redundant if
     // 1) it has a vacuous body
@@ -97,7 +100,8 @@ class RedundantMoveSpecialMemberFunction extends RedundantNonDefaultNoExceptSpec
 }
 
 class RedundantConstructorSpecialMemberFunction extends RedundantNonDefaultNoExceptSpecialMemberFunction,
-  Constructor {
+  Constructor
+{
   RedundantConstructorSpecialMemberFunction() {
     // 1) The constructor should be not one of the other special types of
     //    constructors
@@ -131,7 +135,8 @@ class RedundantDestructorSpecialMemberFunction extends RedundantSpecialMemberFun
 }
 
 class RedundantCopyAssignmentOperatorSpecialMemberFunction extends RedundantNonDefaultNoExceptSpecialMemberFunction,
-  CopyAssignmentOperator {
+  CopyAssignmentOperator
+{
   RedundantCopyAssignmentOperatorSpecialMemberFunction() {
     // The copy (and move) assignment operator is especially hard to tell if it
     // is the same behavior as the default constructor. For our purposes we use
@@ -167,7 +172,8 @@ class RedundantCopyAssignmentOperatorSpecialMemberFunction extends RedundantNonD
 }
 
 class RedundantMoveAssignmentOperatorSpecialMemberFunction extends RedundantNonDefaultNoExceptSpecialMemberFunction,
-  MoveAssignmentOperator {
+  MoveAssignmentOperator
+{
   RedundantMoveAssignmentOperatorSpecialMemberFunction() {
     // The move (and copy) assignment operator is especially hard to tell if it
     // is the same behavior as the default constructor. For our purposes we use

@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.donotusepointerarithmetictoaddressdifferentarrays.DoNotUsePointerArithmeticToAddressDifferentArrays
 
-class PointerAndDerivedPointerAccessDifferentArrayQuery extends DoNotUsePointerArithmeticToAddressDifferentArraysSharedQuery {
+class PointerAndDerivedPointerAccessDifferentArrayQuery extends DoNotUsePointerArithmeticToAddressDifferentArraysSharedQuery
+{
   PointerAndDerivedPointerAccessDifferentArrayQuery() {
     this = PointersPackage::pointerAndDerivedPointerAccessDifferentArrayQuery()
   }

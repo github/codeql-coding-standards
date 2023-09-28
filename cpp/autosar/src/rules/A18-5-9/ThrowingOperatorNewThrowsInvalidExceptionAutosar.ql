@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.throwingoperatornewthrowsinvalidexception.ThrowingOperatorNewThrowsInvalidException
 
-class ThrowingOperatorNewThrowsInvalidExceptionAutosarQuery extends ThrowingOperatorNewThrowsInvalidExceptionSharedQuery {
+class ThrowingOperatorNewThrowsInvalidExceptionAutosarQuery extends ThrowingOperatorNewThrowsInvalidExceptionSharedQuery
+{
   ThrowingOperatorNewThrowsInvalidExceptionAutosarQuery() {
     this = AllocationsPackage::throwingOperatorNewThrowsInvalidExceptionAutosarQuery()
   }

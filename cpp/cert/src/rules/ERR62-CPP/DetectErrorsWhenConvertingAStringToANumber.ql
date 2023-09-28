@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.stringnumberconversionmissingerrorcheck.StringNumberConversionMissingErrorCheck
 
-class DetectErrorsWhenConvertingAStringToANumberQuery extends StringNumberConversionMissingErrorCheckSharedQuery {
+class DetectErrorsWhenConvertingAStringToANumberQuery extends StringNumberConversionMissingErrorCheckSharedQuery
+{
   DetectErrorsWhenConvertingAStringToANumberQuery() {
     this = TypeRangesPackage::detectErrorsWhenConvertingAStringToANumberQuery()
   }

@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.invalidatedenvstringpointerswarn.InvalidatedEnvStringPointersWarn
 
-class DoNotStorePointersReturnedByEnvironmentFunWarnQuery extends InvalidatedEnvStringPointersWarnSharedQuery {
+class DoNotStorePointersReturnedByEnvironmentFunWarnQuery extends InvalidatedEnvStringPointersWarnSharedQuery
+{
   DoNotStorePointersReturnedByEnvironmentFunWarnQuery() {
     this = Contracts2Package::doNotStorePointersReturnedByEnvironmentFunWarnQuery()
   }

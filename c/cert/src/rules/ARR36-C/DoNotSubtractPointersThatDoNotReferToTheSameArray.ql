@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.donotsubtractpointersaddressingdifferentarrays.DoNotSubtractPointersAddressingDifferentArrays
 
-class DoNotSubtractPointersThatDoNotReferToTheSameArrayQuery extends DoNotSubtractPointersAddressingDifferentArraysSharedQuery {
+class DoNotSubtractPointersThatDoNotReferToTheSameArrayQuery extends DoNotSubtractPointersAddressingDifferentArraysSharedQuery
+{
   DoNotSubtractPointersThatDoNotReferToTheSameArrayQuery() {
     this = Memory2Package::doNotSubtractPointersThatDoNotReferToTheSameArrayQuery()
   }

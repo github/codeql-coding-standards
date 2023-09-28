@@ -16,7 +16,6 @@ import codingstandards.c.Errno
 import codingstandards.c.Signal
 import semmle.code.cpp.controlflow.Guards
 
-
 /**
  * A check on `signal` call return value
  * `if (signal(SIGINT, handler) == SIG_ERR)`

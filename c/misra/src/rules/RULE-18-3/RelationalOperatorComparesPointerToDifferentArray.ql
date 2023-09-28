@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.donotuserelationaloperatorswithdifferingarrays.DoNotUseRelationalOperatorsWithDifferingArrays
 
-class RelationalOperatorComparesPointerToDifferentArrayQuery extends DoNotUseRelationalOperatorsWithDifferingArraysSharedQuery {
+class RelationalOperatorComparesPointerToDifferentArrayQuery extends DoNotUseRelationalOperatorsWithDifferingArraysSharedQuery
+{
   RelationalOperatorComparesPointerToDifferentArrayQuery() {
     this = Pointers1Package::relationalOperatorComparesPointerToDifferentArrayQuery()
   }

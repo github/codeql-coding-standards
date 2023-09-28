@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.predicatefunctionobjectsshouldnotbemutable.PredicateFunctionObjectsShouldNotBeMutable
 
-class StateRelatedToFunctionObjectIdentityShallNotBeCopiedQuery extends PredicateFunctionObjectsShouldNotBeMutableSharedQuery {
+class StateRelatedToFunctionObjectIdentityShallNotBeCopiedQuery extends PredicateFunctionObjectsShouldNotBeMutableSharedQuery
+{
   StateRelatedToFunctionObjectIdentityShallNotBeCopiedQuery() {
     this = SideEffects2Package::stateRelatedToFunctionObjectIdentityShallNotBeCopiedQuery()
   }
