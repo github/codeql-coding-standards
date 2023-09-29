@@ -15,6 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Class
 
 /**
  * Holds if the class has a non-virtual member function with the given name.
@@ -48,7 +49,9 @@ where
   ) and
   // Exclude compiler generated member functions which include things like copy constructor that hide base class
   // copy constructors.
-  not overridingDecl.isCompilerGenerated()
+  not overridingDecl.isCompilerGenerated() and
+  // Exclude special member functions, which cannot be inherited.
+  not overridingDecl instanceof SpecialMemberFunction
 select overridingDecl,
   "Declaration for member '" + name + "' hides non-overridable inherited member function $@",
   hiddenDecl, hiddenDecl.getName()

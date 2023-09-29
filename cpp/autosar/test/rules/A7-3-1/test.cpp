@@ -77,3 +77,8 @@ void f2() {
   c5.f2(0);   // calls C1::f2(int)
   c5.f2(0.0); // calls C5::f2(double)
 }
+
+class C6 : public C1 {
+public:
+  C6 &operator=(const C6 &); // COMPLIANT
+};
