@@ -1,4 +1,5 @@
 // GENERATED FILE - DO NOT MODIFY
 import codingstandards.cpp.rules.containeraccesswithoutrangecheck.ContainerAccessWithoutRangeCheck
 
-class TestFileQuery extends ContainerAccessWithoutRangeCheckSharedQuery, TestQuery { }
+class TestFileQuery extends ContainerAccessWithoutRangeCheckSharedQuery, TestQuery {
+}
