@@ -43,7 +43,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "readability"
+            "readability",
+            "external/autosar/default-disabled"
           ]
         },
         {

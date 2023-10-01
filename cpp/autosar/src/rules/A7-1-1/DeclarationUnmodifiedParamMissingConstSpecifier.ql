@@ -10,6 +10,7 @@
  *       correctness
  *       maintainability
  *       readability
+ *       external/autosar/default-disabled
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
@@ -18,6 +19,14 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.ConstHelpers
+
+/*
+ * This query is disable by default as A7-1-1 refers to the C++ Core Guidelines Con. 1 which
+ * includes this exception:
+ * >  Exception Function parameters passed by value are rarely mutated, but also rarely declared
+ * > const. To avoid confusion and lots of false positives, don’t enforce this rule for function
+ * > parameters.
+ */
 
 from FunctionParameter v, string cond
 where
