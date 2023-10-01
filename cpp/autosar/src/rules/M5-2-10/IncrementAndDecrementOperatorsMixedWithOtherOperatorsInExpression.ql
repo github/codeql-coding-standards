@@ -30,5 +30,7 @@ where
     cop instanceof DecrementOperation and
     name = "decrement (++)"
   ) and
+  // Exclude *iter++ as it is idiomatic
+  not op instanceof PointerDereferenceExpr and
   not cop.isInMacroExpansion()
 select op, "Mixed use of the $@ operator with the $@ operator.", cop, name, op, op.getOperator()

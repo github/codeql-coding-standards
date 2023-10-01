@@ -6,4 +6,6 @@ void f1() {
   ++l1;             // COMPLIANT
   --l2;             // COMPLIANT
   l3 = l1 * l2;
+  int *iter;
+  *iter++; // COMPLIANT - by exception
 }
