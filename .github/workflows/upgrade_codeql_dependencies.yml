@@ -48,14 +48,14 @@ jobs:
         env:
           RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          find cpp -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 $RUNNER_TEMP/codeql/codeql query format --in-place
-          find c -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 $RUNNER_TEMP/codeql/codeql query format --in-place
+          find cpp \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" $RUNNER_TEMP/codeql/codeql query format --in-place
+          find c \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" $RUNNER_TEMP/codeql/codeql query format --in-place
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_standard_library_commit }}"
-          body: "This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }} and the `github/codeql` version to ${{ github.event.inputs.codeql_standard_library_commit }}."
-          commit-message: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_standard_library_commit }}"
+          title: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
+          body: "This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }}."
+          commit-message: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
           delete-branch: true
           branch: "codeql/upgrade-to-${{ github.event.inputs.codeql_cli_version }}"
