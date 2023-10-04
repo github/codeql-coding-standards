@@ -20,7 +20,7 @@ from UserType s
 where
   not isExcluded(s, DeadCodePackage::unusedTagDeclarationQuery()) and
   // ignore structs without a tag name
-  not s.getName() = "struct <unnamed>" and
+  not s.isAnonymous() and
   // typedefs do not have a "tag" name, so this rule does not apply to them
   not s instanceof TypedefType and
   // Not mentioned anywhere

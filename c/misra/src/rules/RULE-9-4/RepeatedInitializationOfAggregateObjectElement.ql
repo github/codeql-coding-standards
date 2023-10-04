@@ -38,7 +38,7 @@ string getNestedArrayIndexString(Expr e) {
           any(int elementIndex |
             exists(ArrayAggregateLiteral parent |
               parent = getNthParent(e, pragma[only_bind_into](depth + 1)) and
-              parent.getElementExpr(elementIndex) = getNthParent(e, pragma[only_bind_into](depth))
+              parent.getAnElementExpr(elementIndex) = getNthParent(e, pragma[only_bind_into](depth))
             )
           |
             elementIndex
@@ -54,9 +54,9 @@ string getNestedArrayIndexString(Expr e) {
  */
 language[monotonicAggregates]
 int getMaxDepth(ArrayAggregateLiteral al) {
-  if not exists(al.getElementExpr(_).(ArrayAggregateLiteral))
+  if not exists(al.getAnElementExpr(_).(ArrayAggregateLiteral))
   then result = 0
-  else result = 1 + max(Expr child | child = al.getElementExpr(_) | getMaxDepth(child))
+  else result = 1 + max(Expr child | child = al.getAnElementExpr(_) | getMaxDepth(child))
 }
 
 // internal recursive predicate for `hasMultipleInitializerExprsForSameIndex`
@@ -66,8 +66,8 @@ predicate hasMultipleInitializerExprsForSameIndexInternal(
   exists(int shared_index, Expr al1_expr, Expr al2_expr |
     // an `Expr` initializing an element of the same index in both `al1` and `al2`
     shared_index = [0 .. al1.getArraySize() - 1] and
-    al1_expr = al1.getElementExpr(shared_index) and
-    al2_expr = al2.getElementExpr(shared_index) and
+    al1_expr = al1.getAnElementExpr(shared_index) and
+    al2_expr = al2.getAnElementExpr(shared_index) and
     // but not the same `Expr`
     not al1_expr = al2_expr and
     (
@@ -98,7 +98,7 @@ predicate hasMultipleInitializerExprsForSameIndex(ArrayAggregateLiteral root, Ex
  * This predicate is therefore unable to distinguish the individual duplicate expressions.
  */
 predicate hasMultipleInitializerExprsForSameField(ClassAggregateLiteral root, Field f) {
-  count(root.getFieldExpr(f)) > 1
+  count(root.getAFieldExpr(f)) > 1
 }
 
 from
