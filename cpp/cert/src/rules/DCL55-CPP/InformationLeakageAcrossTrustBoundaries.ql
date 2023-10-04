@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.informationleakageacrossboundaries.InformationLeakageAcrossBoundaries
 
-class InformationLeakageAcrossTrustBoundariesQuery extends InformationLeakageAcrossBoundariesSharedQuery {
+class InformationLeakageAcrossTrustBoundariesQuery extends InformationLeakageAcrossBoundariesSharedQuery
+{
   InformationLeakageAcrossTrustBoundariesQuery() {
     this = UninitializedPackage::informationLeakageAcrossTrustBoundariesQuery()
   }

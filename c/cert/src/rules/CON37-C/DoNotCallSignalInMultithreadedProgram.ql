@@ -24,5 +24,4 @@ where
   not isExcluded(fc, Concurrency1Package::doNotCallSignalInMultithreadedProgramQuery()) and
   fc.getTarget().getName() = "signal" and
   exists(ThreadedFunction f)
-select fc,
-  "Call to `signal()` in multithreaded programs."
+select fc, "Call to `signal()` in multithreaded programs."

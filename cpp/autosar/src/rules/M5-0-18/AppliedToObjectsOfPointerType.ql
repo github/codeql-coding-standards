@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.donotuserelationaloperatorswithdifferingarrays.DoNotUseRelationalOperatorsWithDifferingArrays
 
-class AppliedToObjectsOfPointerTypeQuery extends DoNotUseRelationalOperatorsWithDifferingArraysSharedQuery {
+class AppliedToObjectsOfPointerTypeQuery extends DoNotUseRelationalOperatorsWithDifferingArraysSharedQuery
+{
   AppliedToObjectsOfPointerTypeQuery() {
     this = PointersPackage::appliedToObjectsOfPointerTypeQuery()
   }

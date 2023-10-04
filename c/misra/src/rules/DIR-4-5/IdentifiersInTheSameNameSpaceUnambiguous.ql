@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.differentidentifiersnottypographicallyunambiguous.DifferentIdentifiersNotTypographicallyUnambiguous
 
-class IdentifiersInTheSameNameSpaceUnambiguousQuery extends DifferentIdentifiersNotTypographicallyUnambiguousSharedQuery {
+class IdentifiersInTheSameNameSpaceUnambiguousQuery extends DifferentIdentifiersNotTypographicallyUnambiguousSharedQuery
+{
   IdentifiersInTheSameNameSpaceUnambiguousQuery() {
     this = SyntaxPackage::identifiersInTheSameNameSpaceUnambiguousQuery()
   }

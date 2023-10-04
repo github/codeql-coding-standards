@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.conditionvariablepostconditionfailed.ConditionVariablePostConditionFailed
 
-class ConditionVariablePostConditionFailedCertQuery extends ConditionVariablePostConditionFailedSharedQuery {
+class ConditionVariablePostConditionFailedCertQuery extends ConditionVariablePostConditionFailedSharedQuery
+{
   ConditionVariablePostConditionFailedCertQuery() {
     this = Exceptions1Package::conditionVariablePostConditionFailedCertQuery()
   }

@@ -18,7 +18,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.commaoperatorused.CommaOperatorUsed
 
 class CommaOperatorUsedQuery extends CommaOperatorUsedSharedQuery {
-  CommaOperatorUsedQuery() {
-    this = BannedSyntaxPackage::commaOperatorUsedQuery()
-  }
+  CommaOperatorUsedQuery() { this = BannedSyntaxPackage::commaOperatorUsedQuery() }
 }

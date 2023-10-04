@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.ownedpointervaluestoredinunrelatedsmartpointer.OwnedPointerValueStoredInUnrelatedSmartPointer
 
-class OwnedPointerValueStoredInUnrelatedSmartPointerCertQuery extends OwnedPointerValueStoredInUnrelatedSmartPointerSharedQuery {
+class OwnedPointerValueStoredInUnrelatedSmartPointerCertQuery extends OwnedPointerValueStoredInUnrelatedSmartPointerSharedQuery
+{
   OwnedPointerValueStoredInUnrelatedSmartPointerCertQuery() {
     this = SmartPointers2Package::ownedPointerValueStoredInUnrelatedSmartPointerCertQuery()
   }

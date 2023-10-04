@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.unnecessaryexposedidentifierdeclarationshared.UnnecessaryExposedIdentifierDeclarationShared
 
-class UnnecessaryExposedIdentifierDeclarationQuery extends UnnecessaryExposedIdentifierDeclarationSharedSharedQuery {
+class UnnecessaryExposedIdentifierDeclarationQuery extends UnnecessaryExposedIdentifierDeclarationSharedSharedQuery
+{
   UnnecessaryExposedIdentifierDeclarationQuery() {
     this = ScopePackage::unnecessaryExposedIdentifierDeclarationQuery()
   }

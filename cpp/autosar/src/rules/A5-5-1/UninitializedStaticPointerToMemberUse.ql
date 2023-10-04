@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.accessofundefinedmemberthroughuninitializedstaticpointer.AccessOfUndefinedMemberThroughUninitializedStaticPointer
 
-class UninitializedStaticPointerToMemberUseQuery extends AccessOfUndefinedMemberThroughUninitializedStaticPointerSharedQuery {
+class UninitializedStaticPointerToMemberUseQuery extends AccessOfUndefinedMemberThroughUninitializedStaticPointerSharedQuery
+{
   UninitializedStaticPointerToMemberUseQuery() {
     this = PointersPackage::uninitializedStaticPointerToMemberUseQuery()
   }

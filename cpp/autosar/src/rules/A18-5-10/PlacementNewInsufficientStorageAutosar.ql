@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.placementnewinsufficientstorage.PlacementNewInsufficientStorage
 
-class PlacementNewInsufficientStorageAutosarQuery extends PlacementNewInsufficientStorageSharedQuery {
+class PlacementNewInsufficientStorageAutosarQuery extends PlacementNewInsufficientStorageSharedQuery
+{
   PlacementNewInsufficientStorageAutosarQuery() {
     this = AllocationsPackage::placementNewInsufficientStorageAutosarQuery()
   }

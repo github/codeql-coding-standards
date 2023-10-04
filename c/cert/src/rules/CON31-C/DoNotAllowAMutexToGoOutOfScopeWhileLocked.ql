@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.donotallowamutextogooutofscopewhilelocked.DoNotAllowAMutexToGoOutOfScopeWhileLocked
 
-class DoNotAllowAMutexToGoOutOfScopeWhileLockedQuery extends DoNotAllowAMutexToGoOutOfScopeWhileLockedSharedQuery {
+class DoNotAllowAMutexToGoOutOfScopeWhileLockedQuery extends DoNotAllowAMutexToGoOutOfScopeWhileLockedSharedQuery
+{
   DoNotAllowAMutexToGoOutOfScopeWhileLockedQuery() {
     this = Concurrency3Package::doNotAllowAMutexToGoOutOfScopeWhileLockedQuery()
   }

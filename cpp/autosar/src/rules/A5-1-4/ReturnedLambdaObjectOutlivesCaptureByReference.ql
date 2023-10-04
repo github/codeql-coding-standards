@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.danglingcapturewhenreturninglambdaobject.DanglingCaptureWhenReturningLambdaObject
 
-class ReturnedLambdaObjectOutlivesCaptureByReferenceQuery extends DanglingCaptureWhenReturningLambdaObjectSharedQuery {
+class ReturnedLambdaObjectOutlivesCaptureByReferenceQuery extends DanglingCaptureWhenReturningLambdaObjectSharedQuery
+{
   ReturnedLambdaObjectOutlivesCaptureByReferenceQuery() {
     this = LambdasPackage::returnedLambdaObjectOutlivesCaptureByReferenceQuery()
   }
