@@ -16,19 +16,14 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Bitwise
 
 predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess r) {
   exists(BinaryBitwiseOperation bbo | bbo = o |
     l = bbo.getLeftOperand() and r = bbo.getRightOperand()
   )
   or
-  exists(AssignBitwiseOperation abo |
-    abo = o and
-    // exclude += and -= on pointers, which seem to be erroneously included
-    // in the database schema
-    not abo instanceof AssignPointerAddExpr and
-    not abo instanceof AssignPointerSubExpr
-  |
+  exists(AssignBitwiseOperationFixed abo | abo = o |
     l = abo.getLValue() and
     r = abo.getRValue()
   )

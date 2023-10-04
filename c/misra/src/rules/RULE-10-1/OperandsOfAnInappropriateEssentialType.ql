@@ -14,6 +14,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.misra.EssentialTypes
+import codingstandards.cpp.Bitwise
 
 /**
  * Holds if the operator `operator` has an operand `child` that is of an inappropriate essential type
@@ -177,7 +178,7 @@ predicate isInappropriateEssentialType(
     child =
       [
         operator.(BinaryBitwiseOperation).getAnOperand(),
-        operator.(AssignBitwiseOperation).getAnOperand()
+        operator.(AssignBitwiseOperationFixed).getAnOperand()
       ] and
     not operator instanceof LShiftExpr and
     not operator instanceof RShiftExpr and

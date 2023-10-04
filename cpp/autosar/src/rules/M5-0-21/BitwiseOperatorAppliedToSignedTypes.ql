@@ -17,6 +17,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Bitwise
 
 from Operation o, VariableAccess va
 where
@@ -24,7 +25,7 @@ where
   (
     o instanceof UnaryBitwiseOperation or
     o instanceof BinaryBitwiseOperation or
-    o instanceof AssignBitwiseOperation
+    o instanceof AssignBitwiseOperationFixed
   ) and
   o.getAnOperand() = va and
   va.getTarget().getUnderlyingType().(IntegralType).isSigned()
