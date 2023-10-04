@@ -17,3 +17,9 @@ int g;
 #ifndef TESTHEADER // COMPLIANT
 #include <string>  //COMPLIANT
 #endif             // COMPLIANT
+
+#ifdef MACRO_ENABLED // COMPLIANT
+#include "test1.h"   //COMPLIANT
+#else
+#include "test2.h" //COMPLIANT
+#endif

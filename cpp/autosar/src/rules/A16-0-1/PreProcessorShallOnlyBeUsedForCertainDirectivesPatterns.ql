@@ -26,13 +26,14 @@ class PermittedDirectiveType extends PreprocessorDirective {
     //permissive listing in case directive types modelled in ql ever expands (example non valid directives)
     this instanceof MacroWrapper or
     this instanceof PreprocessorEndif or
+    this instanceof PreprocessorElse or
     this instanceof Include or
     this instanceof PermittedMacro
   }
 }
 
 pragma[noinline]
-predicate isPreprocFileAndLine(Element pd, string filepath, int startLine) {
+predicate isPreprocFileAndLine(Locatable pd, string filepath, int startLine) {
   pd.getLocation().hasLocationInfo(filepath, startLine, _, _, _)
 }
 
@@ -49,7 +50,7 @@ predicate isPreprocConditionalRange(
 /**
  * An optimised version of `PreprocessorBranchDirective.getAGuard()`.
  */
-private PreprocessorBranch getAGuard(Element guardedElement) {
+private PreprocessorBranch getAGuard(Locatable guardedElement) {
   exists(string filepath, int ifStartLine, int guardedElementStartLine, int endifStartLine |
     isPreprocConditionalRange(result, filepath, ifStartLine, endifStartLine) and
     isPreprocFileAndLine(guardedElement, filepath, guardedElementStartLine) and
@@ -72,8 +73,11 @@ class MacroWrapper extends PreprocessorIfndef {
 
 class AcceptableWrapper extends PreprocessorBranch {
   AcceptableWrapper() {
-    forall(Element inner | not inner instanceof Comment and this = getAGuard(inner) |
+    forall(Locatable inner | not inner instanceof Comment and this = getAGuard(inner) |
       inner instanceof PermittedDirectiveType
+      or
+      // Ignore elifs, as they will be considered separately
+      inner instanceof PreprocessorElif
     )
   }
 }
