@@ -492,6 +492,6 @@ void pointerType() {
   b || b; // COMPLIANT
   p || b; // NON_COMPLIANT
   b || p; // NON_COMPLIANT
-  p+=1; // COMPLIANT
-  p-=1; // COMPLIANT
+  p += 1; // COMPLIANT
+  p -= 1; // COMPLIANT
 }
