@@ -22,7 +22,16 @@ predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess
     l = bbo.getLeftOperand() and r = bbo.getRightOperand()
   )
   or
-  exists(AssignBitwiseOperation abo | abo = o | l = abo.getLValue() and r = abo.getRValue())
+  exists(AssignBitwiseOperation abo |
+    abo = o and
+    // exclude += and -= on pointers, which seem to be erroneously included
+    // in the database schema
+    not abo instanceof AssignPointerAddExpr and
+    not abo instanceof AssignPointerSubExpr
+  |
+    l = abo.getLValue() and
+    r = abo.getRValue()
+  )
 }
 
 from Operation o, Variable left, Variable right

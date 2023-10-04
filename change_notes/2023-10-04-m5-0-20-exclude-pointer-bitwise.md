@@ -1,0 +1,1 @@
+ * `M5-0-20` - exclude pointer assignment operators as bitwise operators.
