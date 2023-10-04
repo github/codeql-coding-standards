@@ -1,0 +1,1 @@
+ * `M8-5-2` - recognise aggregate literals initialized with parameters from variadic templates.
