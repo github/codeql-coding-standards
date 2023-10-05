@@ -15,7 +15,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.commaoperatorused.CommaOperatorUsed
 
 class CommaOperatorShouldNotBeUsedQuery extends CommaOperatorUsedSharedQuery {
-  CommaOperatorShouldNotBeUsedQuery() {
-    this = BannedPackage::commaOperatorShouldNotBeUsedQuery()
-  }
+  CommaOperatorShouldNotBeUsedQuery() { this = BannedPackage::commaOperatorShouldNotBeUsedQuery() }
 }

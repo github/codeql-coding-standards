@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.donotusepointerarithmetictoaddressdifferentarrays.DoNotUsePointerArithmeticToAddressDifferentArrays
 
-class PointerAndDerivedPointerMustAddressSameArrayQuery extends DoNotUsePointerArithmeticToAddressDifferentArraysSharedQuery {
+class PointerAndDerivedPointerMustAddressSameArrayQuery extends DoNotUsePointerArithmeticToAddressDifferentArraysSharedQuery
+{
   PointerAndDerivedPointerMustAddressSameArrayQuery() {
     this = Pointers1Package::pointerAndDerivedPointerMustAddressSameArrayQuery()
   }

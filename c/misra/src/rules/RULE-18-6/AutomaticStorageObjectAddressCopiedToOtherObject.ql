@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.donotcopyaddressofautostorageobjecttootherobject.DoNotCopyAddressOfAutoStorageObjectToOtherObject
 
-class AutomaticStorageObjectAddressCopiedToOtherObjectQuery extends DoNotCopyAddressOfAutoStorageObjectToOtherObjectSharedQuery {
+class AutomaticStorageObjectAddressCopiedToOtherObjectQuery extends DoNotCopyAddressOfAutoStorageObjectToOtherObjectSharedQuery
+{
   AutomaticStorageObjectAddressCopiedToOtherObjectQuery() {
     this = Pointers1Package::automaticStorageObjectAddressCopiedToOtherObjectQuery()
   }

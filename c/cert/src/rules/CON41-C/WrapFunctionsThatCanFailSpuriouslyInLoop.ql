@@ -12,18 +12,16 @@
  *       external/cert/obligation/rule
  */
 
- import cpp
- import codingstandards.c.cert
- import codingstandards.cpp.Concurrency
- 
+import cpp
+import codingstandards.c.cert
+import codingstandards.cpp.Concurrency
 
- from AtomicCompareExchange ace
- where
-   not isExcluded(ace, Concurrency3Package::wrapFunctionsThatCanFailSpuriouslyInLoopQuery()) and
-   (
-    forex(StmtParent sp | sp = ace.getStmt() | not sp.(Stmt).getParentStmt*() instanceof Loop) or
-    forex(Expr e | e = ace.getExpr() | not e.getEnclosingStmt().getParentStmt*()
-    instanceof Loop)
-   )
- select ace, "Function that can spuriously fail not wrapped in a loop."
- 
+from AtomicCompareExchange ace
+where
+  not isExcluded(ace, Concurrency3Package::wrapFunctionsThatCanFailSpuriouslyInLoopQuery()) and
+  (
+    forex(StmtParent sp | sp = ace.getStmt() | not sp.(Stmt).getParentStmt*() instanceof Loop)
+    or
+    forex(Expr e | e = ace.getExpr() | not e.getEnclosingStmt().getParentStmt*() instanceof Loop)
+  )
+select ace, "Function that can spuriously fail not wrapped in a loop."

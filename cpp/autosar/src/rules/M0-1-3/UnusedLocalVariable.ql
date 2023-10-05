@@ -30,25 +30,24 @@ private string getConstExprValue(Variable v) {
 // - getUseCount()
 int getUseCountConservatively(Variable v) {
   result =
-        count(VariableAccess access | access = v.getAnAccess())
-        + count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) +
-        // For constexpr variables used as template arguments, we don't see accesses (just the
-        // appropriate literals). We therefore take a conservative approach and count the number of
-        // template instantiations that use the given constant, and consider each one to be a use
-        // of the variable
-        count(ClassTemplateInstantiation cti |
-          cti.getTemplateArgument(_).(Expr).getValue() = getConstExprValue(v)
-        )
-        // For static asserts too, check if there is a child which has the same value
-        // as the constexpr variable.
-        + count(StaticAssert s |
-         s.getCondition().getAChild*().getValue() = getConstExprValue(v))
+    count(VariableAccess access | access = v.getAnAccess()) +
+      count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) +
+      // For constexpr variables used as template arguments, we don't see accesses (just the
+      // appropriate literals). We therefore take a conservative approach and count the number of
+      // template instantiations that use the given constant, and consider each one to be a use
+      // of the variable
+      count(ClassTemplateInstantiation cti |
+        cti.getTemplateArgument(_).(Expr).getValue() = getConstExprValue(v)
+      ) +
+      // For static asserts too, check if there is a child which has the same value
+      // as the constexpr variable.
+      count(StaticAssert s | s.getCondition().getAChild*().getValue() = getConstExprValue(v))
 }
 
 from PotentiallyUnusedLocalVariable v
 where
   not isExcluded(v, DeadCodePackage::unusedLocalVariableQuery()) and
   // Local variable is never accessed
-  not exists(v.getAnAccess())
-  and getUseCountConservatively(v) = 0
+  not exists(v.getAnAccess()) and
+  getUseCountConservatively(v) = 0
 select v, "Local variable " + v.getName() + " in " + v.getFunction().getName() + " is not used."

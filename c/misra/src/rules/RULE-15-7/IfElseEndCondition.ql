@@ -16,7 +16,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.ifelseterminationconstruct.IfElseTerminationConstruct
 
 class IfElseEndConditionQuery extends IfElseTerminationConstructSharedQuery {
-  IfElseEndConditionQuery() {
-    this = Statements3Package::ifElseEndConditionQuery()
-  }
+  IfElseEndConditionQuery() { this = Statements3Package::ifElseEndConditionQuery() }
 }

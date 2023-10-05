@@ -182,7 +182,8 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
                 + "\n"
             )
             f.write("\n");
-            f.write("class TestFileQuery extends " + str(query["shared_implementation_short_name"]) + "SharedQuery, TestQuery { }\n")
+            f.write("class TestFileQuery extends " + str(query["shared_implementation_short_name"]) + "SharedQuery, TestQuery {\n")
+            f.write("}\n")
 
         # Create an empty test file, if one doesn't already exist
         shared_impl_test_dir.joinpath(

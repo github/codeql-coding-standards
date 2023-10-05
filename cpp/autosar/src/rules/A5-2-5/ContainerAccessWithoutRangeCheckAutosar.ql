@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.containeraccesswithoutrangecheck.ContainerAccessWithoutRangeCheck
 
-class ContainerAccessWithoutRangeCheckAutosarQuery extends ContainerAccessWithoutRangeCheckSharedQuery {
+class ContainerAccessWithoutRangeCheckAutosarQuery extends ContainerAccessWithoutRangeCheckSharedQuery
+{
   ContainerAccessWithoutRangeCheckAutosarQuery() {
     this = OutOfBoundsPackage::containerAccessWithoutRangeCheckAutosarQuery()
   }
