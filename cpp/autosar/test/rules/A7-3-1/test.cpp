@@ -67,7 +67,7 @@ public:
   using C1::f1;    // order of using and f1 declaration is not relevant
 
   void f2(double) override; // COMPLIANT
-  using C1::f2;             // order of using and f1 declaration is not relevant
+  using C1::f2;             // order of using and f2 declaration is not relevant
 };
 
 void f2() {
