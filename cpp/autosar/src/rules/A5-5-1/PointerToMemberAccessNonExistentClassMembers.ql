@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.accessofnonexistingmemberthroughpointertomember.AccessOfNonExistingMemberThroughPointerToMember
 
-class PointerToMemberAccessNonExistentClassMembersQuery extends AccessOfNonExistingMemberThroughPointerToMemberSharedQuery {
+class PointerToMemberAccessNonExistentClassMembersQuery extends AccessOfNonExistingMemberThroughPointerToMemberSharedQuery
+{
   PointerToMemberAccessNonExistentClassMembersQuery() {
     this = PointersPackage::pointerToMemberAccessNonExistentClassMembersQuery()
   }

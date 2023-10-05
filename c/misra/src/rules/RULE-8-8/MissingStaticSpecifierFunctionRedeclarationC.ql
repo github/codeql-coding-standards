@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.missingstaticspecifierfunctionredeclarationshared.MissingStaticSpecifierFunctionRedeclarationShared
 
-class MissingStaticSpecifierFunctionRedeclarationCQuery extends MissingStaticSpecifierFunctionRedeclarationSharedSharedQuery {
+class MissingStaticSpecifierFunctionRedeclarationCQuery extends MissingStaticSpecifierFunctionRedeclarationSharedSharedQuery
+{
   MissingStaticSpecifierFunctionRedeclarationCQuery() {
     this = Declarations5Package::missingStaticSpecifierFunctionRedeclarationCQuery()
   }

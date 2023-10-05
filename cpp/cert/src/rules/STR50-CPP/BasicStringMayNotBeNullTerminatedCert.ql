@@ -14,7 +14,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.basicstringmaynotbenullterminated.BasicStringMayNotBeNullTerminated
 
-class BasicStringMayNotBeNullTerminatedCertQuery extends BasicStringMayNotBeNullTerminatedSharedQuery {
+class BasicStringMayNotBeNullTerminatedCertQuery extends BasicStringMayNotBeNullTerminatedSharedQuery
+{
   BasicStringMayNotBeNullTerminatedCertQuery() {
     this = StringsPackage::basicStringMayNotBeNullTerminatedCertQuery()
   }

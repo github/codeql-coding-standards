@@ -20,7 +20,7 @@ from LockProtectedControlFlowNode n
 where
   not isExcluded(n, ConcurrencyPackage::lockedALockedNonRecursiveMutexAuditQuery()) and
   // problematic nodes are ones where a lock is active and there is an attempt
-  // to call a speculative locking function  
+  // to call a speculative locking function
   n.(MutexFunctionCall).isSpeculativeLock() and
   not n.(MutexFunctionCall).isRecursive()
 select n, "(Audit) Attempt to speculatively lock a non-recursive mutex while it is $@.",

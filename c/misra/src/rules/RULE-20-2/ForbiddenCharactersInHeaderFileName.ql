@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.preprocessorincludesforbiddenheadernames.PreprocessorIncludesForbiddenHeaderNames
 
-class PreprocessorIncludesForbiddenHeaderNames extends PreprocessorIncludesForbiddenHeaderNamesSharedQuery {
+class PreprocessorIncludesForbiddenHeaderNames extends PreprocessorIncludesForbiddenHeaderNamesSharedQuery
+{
   PreprocessorIncludesForbiddenHeaderNames() {
     this = Preprocessor1Package::forbiddenCharactersInHeaderFileNameQuery()
   }

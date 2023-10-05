@@ -53,8 +53,8 @@ subpaths
 | test.c:13:17:13:19 | & ... | test.c:13:17:13:19 | & ... | test.c:13:17:13:19 | & ... | Cast from short[2] to short[4] results in an incompatible pointer base type. |
 | test.c:19:18:19:20 | & ... | test.c:19:18:19:20 | & ... | test.c:19:18:19:20 | & ... | Cast from char to signed char results in an incompatible pointer base type. |
 | test.c:30:19:30:21 | & ... | test.c:30:19:30:21 | & ... | test.c:30:19:30:21 | & ... | Cast from int to unsigned int results in an incompatible pointer base type. |
-| test.c:47:8:47:9 | s2 | test.c:47:8:47:9 | s2 | test.c:47:8:47:9 | s2 | Cast from struct <unnamed> to struct <unnamed> results in an incompatible pointer base type. |
-| test.c:49:8:49:9 | s3 | test.c:49:8:49:9 | s3 | test.c:49:8:49:9 | s3 | Cast from S1 to struct <unnamed> results in an incompatible pointer base type. |
-| test.c:50:8:50:9 | s1 | test.c:50:8:50:9 | s1 | test.c:50:8:50:9 | s1 | Cast from struct <unnamed> to S1 results in an incompatible pointer base type. |
+| test.c:47:8:47:9 | s2 | test.c:47:8:47:9 | s2 | test.c:47:8:47:9 | s2 | Cast from (unnamed class/struct/union) to (unnamed class/struct/union) results in an incompatible pointer base type. |
+| test.c:49:8:49:9 | s3 | test.c:49:8:49:9 | s3 | test.c:49:8:49:9 | s3 | Cast from S1 to (unnamed class/struct/union) results in an incompatible pointer base type. |
+| test.c:50:8:50:9 | s1 | test.c:50:8:50:9 | s1 | test.c:50:8:50:9 | s1 | Cast from (unnamed class/struct/union) to S1 results in an incompatible pointer base type. |
 | test.c:68:41:68:41 | v | test.c:72:13:72:15 | & ... | test.c:68:41:68:41 | v | Cast from float to int results in an incompatible pointer base type. |
 | test.c:99:3:99:4 | s3 | test.c:98:40:98:41 | s2 | test.c:99:3:99:4 | s3 | Cast from S2 to S3 results in an incompatible pointer base type. |

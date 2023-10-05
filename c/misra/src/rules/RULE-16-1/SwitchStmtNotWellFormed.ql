@@ -16,7 +16,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.switchnotwellformed.SwitchNotWellFormed
 
 class SwitchStmtNotWellFormedQuery extends SwitchNotWellFormedSharedQuery {
-  SwitchStmtNotWellFormedQuery() {
-    this = Statements3Package::switchStmtNotWellFormedQuery()
-  }
+  SwitchStmtNotWellFormedQuery() { this = Statements3Package::switchStmtNotWellFormedQuery() }
 }

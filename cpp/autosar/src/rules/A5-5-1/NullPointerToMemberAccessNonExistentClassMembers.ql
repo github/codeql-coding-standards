@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.accessofundefinedmemberthroughnullpointer.AccessOfUndefinedMemberThroughNullPointer
 
-class NullPointerToMemberAccessNonExistentClassMembersQuery extends AccessOfUndefinedMemberThroughNullPointerSharedQuery {
+class NullPointerToMemberAccessNonExistentClassMembersQuery extends AccessOfUndefinedMemberThroughNullPointerSharedQuery
+{
   NullPointerToMemberAccessNonExistentClassMembersQuery() {
     this = PointersPackage::nullPointerToMemberAccessNonExistentClassMembersQuery()
   }

@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.nonvoidfunctiondoesnotreturn.NonVoidFunctionDoesNotReturn
 
-class ControlFlowReachesTheEndOfANonVoidFunctionQuery extends NonVoidFunctionDoesNotReturnSharedQuery {
+class ControlFlowReachesTheEndOfANonVoidFunctionQuery extends NonVoidFunctionDoesNotReturnSharedQuery
+{
   ControlFlowReachesTheEndOfANonVoidFunctionQuery() {
     this = MiscPackage::controlFlowReachesTheEndOfANonVoidFunctionQuery()
   }

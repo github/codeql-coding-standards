@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.accessofnonexistingmemberthroughpointertomember.AccessOfNonExistingMemberThroughPointerToMember
 
-class UseOfPointerToMemberToAccessNonexistentMemberQuery extends AccessOfNonExistingMemberThroughPointerToMemberSharedQuery {
+class UseOfPointerToMemberToAccessNonexistentMemberQuery extends AccessOfNonExistingMemberThroughPointerToMemberSharedQuery
+{
   UseOfPointerToMemberToAccessNonexistentMemberQuery() {
     this = PointersPackage::useOfPointerToMemberToAccessNonexistentMemberQuery()
   }

@@ -18,7 +18,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.nestedlabelinswitch.NestedLabelInSwitch
 
 class NestedCaseInSwitchQuery extends NestedLabelInSwitchSharedQuery {
-  NestedCaseInSwitchQuery() {
-    this = ConditionalsPackage::nestedCaseInSwitchQuery()
-  }
+  NestedCaseInSwitchQuery() { this = ConditionalsPackage::nestedCaseInSwitchQuery() }
 }
