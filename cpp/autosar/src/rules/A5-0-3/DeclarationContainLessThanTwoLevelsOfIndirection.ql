@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.donotusemorethantwolevelsofpointerindirection.DoNotUseMoreThanTwoLevelsOfPointerIndirection
 
-class DeclarationContainLessThanTwoLevelsOfIndirectionQuery extends DoNotUseMoreThanTwoLevelsOfPointerIndirectionSharedQuery {
+class DeclarationContainLessThanTwoLevelsOfIndirectionQuery extends DoNotUseMoreThanTwoLevelsOfPointerIndirectionSharedQuery
+{
   DeclarationContainLessThanTwoLevelsOfIndirectionQuery() {
     this = PointersPackage::declarationContainLessThanTwoLevelsOfIndirectionQuery()
   }

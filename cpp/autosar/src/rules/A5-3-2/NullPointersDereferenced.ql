@@ -17,7 +17,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.dereferenceofnullpointer.DereferenceOfNullPointer
 
 class NullPointersDereferencedQuery extends DereferenceOfNullPointerSharedQuery {
-  NullPointersDereferencedQuery() {
-    this = NullPackage::nullPointersDereferencedQuery()
-  }
+  NullPointersDereferencedQuery() { this = NullPackage::nullPointersDereferencedQuery() }
 }

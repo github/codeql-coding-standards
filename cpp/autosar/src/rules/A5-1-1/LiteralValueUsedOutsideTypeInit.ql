@@ -49,7 +49,7 @@ where
   // Macro expansions are morally excluded
   not l = any(MacroInvocation mi).getAnExpandedElement() and
   // Aggregate literal
-  not l = any(ArrayOrVectorAggregateLiteral aal).getElementExpr(_).getAChild*() and
+  not l = any(ArrayOrVectorAggregateLiteral aal).getAnElementExpr(_).getAChild*() and
   // Ignore x - 1 expressions
   not exists(SubExpr se | se.getRightOperand() = l and l.getValue() = "1")
 select l,

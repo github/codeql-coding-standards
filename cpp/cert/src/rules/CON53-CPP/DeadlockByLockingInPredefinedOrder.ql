@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.preventdeadlockbylockinginpredefinedorder.PreventDeadlockByLockingInPredefinedOrder
 
-class DeadlockByLockingInPredefinedOrderQuery extends PreventDeadlockByLockingInPredefinedOrderSharedQuery {
+class DeadlockByLockingInPredefinedOrderQuery extends PreventDeadlockByLockingInPredefinedOrderSharedQuery
+{
   DeadlockByLockingInPredefinedOrderQuery() {
     this = ConcurrencyPackage::deadlockByLockingInPredefinedOrderQuery()
   }

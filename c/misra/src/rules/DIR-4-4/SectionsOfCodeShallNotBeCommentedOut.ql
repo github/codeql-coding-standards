@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.sectionsofcodeshallnotbecommentedout.SectionsOfCodeShallNotBeCommentedOut
 
-class SectionsOfCodeShallNotBeCommentedOutQuery extends SectionsOfCodeShallNotBeCommentedOutSharedQuery {
+class SectionsOfCodeShallNotBeCommentedOutQuery extends SectionsOfCodeShallNotBeCommentedOutSharedQuery
+{
   SectionsOfCodeShallNotBeCommentedOutQuery() {
     this = SyntaxPackage::sectionsOfCodeShallNotBeCommentedOutQuery()
   }

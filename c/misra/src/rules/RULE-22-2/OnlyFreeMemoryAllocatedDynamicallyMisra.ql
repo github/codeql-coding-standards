@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.onlyfreememoryallocateddynamicallyshared.OnlyFreeMemoryAllocatedDynamicallyShared
 
-class OnlyFreeMemoryAllocatedDynamicallyMisraQuery extends OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery {
+class OnlyFreeMemoryAllocatedDynamicallyMisraQuery extends OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery
+{
   OnlyFreeMemoryAllocatedDynamicallyMisraQuery() {
     this = Memory2Package::onlyFreeMemoryAllocatedDynamicallyMisraQuery()
   }

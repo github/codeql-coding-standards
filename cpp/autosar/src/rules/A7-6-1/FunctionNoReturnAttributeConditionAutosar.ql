@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.functionnoreturnattributecondition.FunctionNoReturnAttributeCondition
 
-class FunctionNoReturnAttributeConditionAutosarQuery extends FunctionNoReturnAttributeConditionSharedQuery {
+class FunctionNoReturnAttributeConditionAutosarQuery extends FunctionNoReturnAttributeConditionSharedQuery
+{
   FunctionNoReturnAttributeConditionAutosarQuery() {
     this = FunctionsPackage::functionNoReturnAttributeConditionAutosarQuery()
   }

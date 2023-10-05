@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.predicatefunctionobjectsshouldnotbemutable.PredicateFunctionObjectsShouldNotBeMutable
 
-class PredicateFunctionObjectsShouldNotBeMutableQuery extends PredicateFunctionObjectsShouldNotBeMutableSharedQuery {
+class PredicateFunctionObjectsShouldNotBeMutableQuery extends PredicateFunctionObjectsShouldNotBeMutableSharedQuery
+{
   PredicateFunctionObjectsShouldNotBeMutableQuery() {
     this = SideEffects2Package::predicateFunctionObjectsShouldNotBeMutableQuery()
   }

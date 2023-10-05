@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.preprocessingdirectivewithinmacroargument.PreprocessingDirectiveWithinMacroArgument
 
-class FunctionLikeMacroArgsContainHashTokenCQueryQuery extends PreprocessingDirectiveWithinMacroArgumentSharedQuery {
+class FunctionLikeMacroArgsContainHashTokenCQueryQuery extends PreprocessingDirectiveWithinMacroArgumentSharedQuery
+{
   FunctionLikeMacroArgsContainHashTokenCQueryQuery() {
     this = MacrosPackage::functionLikeMacroArgsContainHashTokenQuery()
   }

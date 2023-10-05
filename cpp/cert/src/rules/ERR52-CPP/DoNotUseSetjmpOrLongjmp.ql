@@ -16,7 +16,5 @@ import codingstandards.cpp.cert
 import codingstandards.cpp.rules.donotusesetjmporlongjmpshared.DoNotUseSetjmpOrLongjmpShared
 
 class DoNotUseSetjmpOrLongjmpQuery extends DoNotUseSetjmpOrLongjmpSharedSharedQuery {
-  DoNotUseSetjmpOrLongjmpQuery() {
-    this = BannedFunctionsPackage::doNotUseSetjmpOrLongjmpQuery()
-  }
+  DoNotUseSetjmpOrLongjmpQuery() { this = BannedFunctionsPackage::doNotUseSetjmpOrLongjmpQuery() }
 }

@@ -16,7 +16,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.switchcasepositioncondition.SwitchCasePositionCondition
 
 class SwitchCaseStartConditionQuery extends SwitchCasePositionConditionSharedQuery {
-  SwitchCaseStartConditionQuery() {
-    this = Statements3Package::switchCaseStartConditionQuery()
-  }
+  SwitchCaseStartConditionQuery() { this = Statements3Package::switchCaseStartConditionQuery() }
 }

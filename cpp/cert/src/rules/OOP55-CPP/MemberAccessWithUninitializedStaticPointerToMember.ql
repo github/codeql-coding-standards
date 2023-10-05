@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.accessofundefinedmemberthroughuninitializedstaticpointer.AccessOfUndefinedMemberThroughUninitializedStaticPointer
 
-class MemberAccessWithUninitializedStaticPointerToMemberQuery extends AccessOfUndefinedMemberThroughUninitializedStaticPointerSharedQuery {
+class MemberAccessWithUninitializedStaticPointerToMemberQuery extends AccessOfUndefinedMemberThroughUninitializedStaticPointerSharedQuery
+{
   MemberAccessWithUninitializedStaticPointerToMemberQuery() {
     this = PointersPackage::memberAccessWithUninitializedStaticPointerToMemberQuery()
   }

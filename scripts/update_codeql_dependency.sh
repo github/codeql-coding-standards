@@ -3,7 +3,7 @@
 # If there aren't two arguments, print usage and exit.
 if [[ -z $2 ]];
 then 
-    echo "Usage: bump_version.sh <dependency> <new_version>"
+    echo "Usage: update_codeql_dependencies.sh <dependency> <new_version>"
     exit
 fi
 
