@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.invalidatedenvstringpointerswarn.InvalidatedEnvStringPointersWarn
 
-class CallToSetlocaleInvalidatesOldPointersWarnQuery extends InvalidatedEnvStringPointersWarnSharedQuery {
+class CallToSetlocaleInvalidatesOldPointersWarnQuery extends InvalidatedEnvStringPointersWarnSharedQuery
+{
   CallToSetlocaleInvalidatesOldPointersWarnQuery() {
     this = Contracts2Package::callToSetlocaleInvalidatesOldPointersWarnQuery()
   }

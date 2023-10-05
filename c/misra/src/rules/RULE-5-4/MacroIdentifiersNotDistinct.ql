@@ -30,4 +30,6 @@ where
   ) and
   //reduce double report since both macros are in alert, arbitrary ordering
   m.getLocation().getStartLine() >= m2.getLocation().getStartLine()
-select m, "Macro identifer " + m.getName() + " is nondistinct in first 63 characters, compared to $@.", m2, m2.getName()
+select m,
+  "Macro identifer " + m.getName() + " is nondistinct in first 63 characters, compared to $@.", m2,
+  m2.getName()

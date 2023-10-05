@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.throwingnothrowoperatornewdelete.ThrowingNoThrowOperatorNewDelete
 
-class ThrowingNoThrowOperatorNewDeleteAutosarQuery extends ThrowingNoThrowOperatorNewDeleteSharedQuery {
+class ThrowingNoThrowOperatorNewDeleteAutosarQuery extends ThrowingNoThrowOperatorNewDeleteSharedQuery
+{
   ThrowingNoThrowOperatorNewDeleteAutosarQuery() {
     this = AllocationsPackage::throwingNoThrowOperatorNewDeleteAutosarQuery()
   }

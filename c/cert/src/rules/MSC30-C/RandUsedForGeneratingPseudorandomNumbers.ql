@@ -14,7 +14,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.donotuserandforgeneratingpseudorandomnumbers.DoNotUseRandForGeneratingPseudorandomNumbers
 
-class RandUsedForGeneratingPseudorandomNumbersQuery extends DoNotUseRandForGeneratingPseudorandomNumbersSharedQuery {
+class RandUsedForGeneratingPseudorandomNumbersQuery extends DoNotUseRandForGeneratingPseudorandomNumbersSharedQuery
+{
   RandUsedForGeneratingPseudorandomNumbersQuery() {
     this = MiscPackage::randUsedForGeneratingPseudorandomNumbersQuery()
   }

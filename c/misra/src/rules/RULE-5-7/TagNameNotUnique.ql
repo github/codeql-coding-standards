@@ -22,7 +22,6 @@ where
   not isExcluded(s2, Declarations3Package::tagNameNotUniqueQuery()) and
   not s = s2 and
   s.getName() = s2.getName() and
-  not s.getName() = "struct <unnamed>" and
-  not s.getName() = "union <unnamed>" and
+  not s.isAnonymous() and
   not s.getName() = s2.(TypedefType).getBaseType().toString()
 select s, "Tag name is nonunique compared to $@.", s2, s2.getName()

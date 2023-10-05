@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.closefilehandlewhennolongerneededshared.CloseFileHandleWhenNoLongerNeededShared
 
-class CloseFilesWhenTheyAreNoLongerNeededQuery extends CloseFileHandleWhenNoLongerNeededSharedSharedQuery {
+class CloseFilesWhenTheyAreNoLongerNeededQuery extends CloseFileHandleWhenNoLongerNeededSharedSharedQuery
+{
   CloseFilesWhenTheyAreNoLongerNeededQuery() {
     this = IO1Package::closeFilesWhenTheyAreNoLongerNeededQuery()
   }

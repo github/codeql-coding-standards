@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.identifierwithexternallinkageonedefinitionshared.IdentifierWithExternalLinkageOneDefinitionShared
 
-class IdentifierWithExternalLinkageShallHaveOneDefinitionQuery extends IdentifierWithExternalLinkageOneDefinitionSharedSharedQuery {
+class IdentifierWithExternalLinkageShallHaveOneDefinitionQuery extends IdentifierWithExternalLinkageOneDefinitionSharedSharedQuery
+{
   IdentifierWithExternalLinkageShallHaveOneDefinitionQuery() {
     this = Declarations4Package::identifierWithExternalLinkageOneDefinitionQuery()
   }

@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.useonlyarrayindexingforpointerarithmetic.UseOnlyArrayIndexingForPointerArithmetic
 
-class DoNotUseAdditionOrSubtractionOperatorsOnPointersQuery extends UseOnlyArrayIndexingForPointerArithmeticSharedQuery {
+class DoNotUseAdditionOrSubtractionOperatorsOnPointersQuery extends UseOnlyArrayIndexingForPointerArithmeticSharedQuery
+{
   DoNotUseAdditionOrSubtractionOperatorsOnPointersQuery() {
     this = Pointers1Package::doNotUseAdditionOrSubtractionOperatorsOnPointersQuery()
   }

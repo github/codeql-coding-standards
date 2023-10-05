@@ -1,4 +1,5 @@
 // GENERATED FILE - DO NOT MODIFY
 import codingstandards.cpp.rules.accessofundefinedmemberthroughuninitializedstaticpointer.AccessOfUndefinedMemberThroughUninitializedStaticPointer
 
-class TestFileQuery extends AccessOfUndefinedMemberThroughUninitializedStaticPointerSharedQuery, TestQuery { }
+class TestFileQuery extends AccessOfUndefinedMemberThroughUninitializedStaticPointerSharedQuery, TestQuery {
+}

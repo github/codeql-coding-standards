@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.missingstaticspecifierfunctionredeclarationshared.MissingStaticSpecifierFunctionRedeclarationShared
 
-class MissingStaticSpecifierOnFunctionRedeclarationQuery extends MissingStaticSpecifierFunctionRedeclarationSharedSharedQuery {
+class MissingStaticSpecifierOnFunctionRedeclarationQuery extends MissingStaticSpecifierFunctionRedeclarationSharedSharedQuery
+{
   MissingStaticSpecifierOnFunctionRedeclarationQuery() {
     this = ScopePackage::missingStaticSpecifierOnFunctionRedeclarationQuery()
   }

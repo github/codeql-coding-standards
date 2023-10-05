@@ -18,7 +18,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.nonbooleanifstmt.NonBooleanIfStmt
 
 class NonBooleanIfConditionQuery extends NonBooleanIfStmtSharedQuery {
-  NonBooleanIfConditionQuery() {
-    this = ConditionalsPackage::nonBooleanIfConditionQuery()
-  }
+  NonBooleanIfConditionQuery() { this = ConditionalsPackage::nonBooleanIfConditionQuery() }
 }

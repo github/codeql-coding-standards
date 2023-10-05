@@ -15,7 +15,5 @@ import codingstandards.c.cert
 import codingstandards.cpp.rules.memcmpusedtocomparepaddingdata.MemcmpUsedToComparePaddingData
 
 class DoNotComparePaddingDataQuery extends MemcmpUsedToComparePaddingDataSharedQuery {
-  DoNotComparePaddingDataQuery() {
-    this = Memory2Package::doNotComparePaddingDataQuery()
-  }
+  DoNotComparePaddingDataQuery() { this = Memory2Package::doNotComparePaddingDataQuery() }
 }
