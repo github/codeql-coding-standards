@@ -36,8 +36,7 @@ where
     // and the hidden declaration isn't explicitly brought in scope through a using declaration.
     not exists(UsingDeclarationEntry ude |
       ude.getDeclaration() = hiddenDecl.getDeclaration() and
-      ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType() and
-      ude.getLocation().getStartLine() < overridingDecl.getLocation().getStartLine()
+      ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType()
     )
     or
     // 2. if the overriding declaration doesn't override a base member function but has the same name
