@@ -27,7 +27,7 @@ jobs:
       pull-request-head-sha: ${{ steps.determine-pr-head-sha.outputs.pull-request-head-sha }}
     name: "Prepare release"
     if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3

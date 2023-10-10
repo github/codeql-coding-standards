@@ -18,7 +18,7 @@ jobs:
   pre-validate-performance:
     outputs:
       check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Create check run
         id: create-check-run
@@ -37,7 +37,7 @@ jobs:
 
   validate-performance:
     needs: pre-validate-performance
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Invoke performance test
         env:
@@ -57,7 +57,7 @@ jobs:
   on-failure-validate-performance-dispatch:
     needs: [pre-validate-performance, validate-performance]
     if: failure()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Fail check run status
         env:
@@ -79,7 +79,7 @@ jobs:
   pre-validate-compiler-compatibility:
     outputs:
       check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Create check run
         id: create-check-run
@@ -98,7 +98,7 @@ jobs:
 
   validate-compiler-compatibility:
     needs: pre-validate-compiler-compatibility
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Invoke compiler compatibility test
         env:
@@ -118,7 +118,7 @@ jobs:
   on-failure-validate-compiler-compatibility-dispatch:
     needs: [pre-validate-compiler-compatibility, validate-compiler-compatibility]
     if: failure()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Fail check run status
         env:
@@ -139,7 +139,7 @@ jobs:
 
   create-release-status-check-run:
     name: "Initialize release status monitoring"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Create release status check run
         env:

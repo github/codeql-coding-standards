@@ -16,7 +16,7 @@ on:
 jobs:
   prepare-matrix:
     name: Prepare CodeQL configuration matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       matrix: ${{ steps.export-matrix.outputs.matrix }}
     steps:
