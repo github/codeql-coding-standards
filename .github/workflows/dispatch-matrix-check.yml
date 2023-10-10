@@ -14,7 +14,7 @@ jobs:
 
       - name: Test Variables
         shell: pwsh
-        run: |          
+        run: |
           Write-Host "Running as: ${{github.actor}}"    
     
       - name: Dispatch Matrix Testing Job
