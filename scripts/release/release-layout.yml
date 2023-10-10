@@ -18,3 +18,6 @@ layout:
         python ${{ coding-standards.root }}/scripts/release/create_supported_rules_list.py > supported_rules_list.md
   user_manual.md:
     - file: docs/user_manual.md
+  checksums.txt:
+    - shell: |
+        sha256sum ./* > checksums.txt
