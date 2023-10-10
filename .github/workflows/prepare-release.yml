@@ -5,7 +5,7 @@ on:
     inputs:
       version:
         description: |
-          The version to release (MUST follow semantic versioning).
+          The version to release (MUST follow semantic versioning so NO 'v' prefix).
         required: true
       ref:
         description: |
