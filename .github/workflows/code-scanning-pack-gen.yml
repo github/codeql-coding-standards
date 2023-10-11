@@ -2,6 +2,7 @@ name: Code Scanning Query Pack Generation
 
 on:
   merge_group:
+    types: [checks_requested]
   pull_request:
     branches:
       - main
