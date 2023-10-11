@@ -68,7 +68,7 @@ jobs:
       - name: Determine ref for external help files
         id: determine-ref
         run: |
-          if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+          if [[ $GITHUB_EVENT_NAME == "pull_request" || $GITHUB_EVENT_NAME == "merge_group" ]]; then
             echo "EXTERNAL_HELP_REF=$GITHUB_HEAD_REF" >> "$GITHUB_ENV"
           else
             echo "EXTERNAL_HELP_REF=$GITHUB_REF" >> "$GITHUB_ENV"
