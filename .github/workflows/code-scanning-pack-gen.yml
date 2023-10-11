@@ -65,6 +65,16 @@ jobs:
         with:
           cli_path: ${{ github.workspace }}/codeql_home/codeql
 
+      - name: Determine ref for external help files
+        id: determine-ref
+        run: |
+          if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+            echo "EXTERNAL_HELP_REF=$GITHUB_HEAD_REF" >> "$GITHUB_ENV"
+          else
+            echo "EXTERNAL_HELP_REF=$GITHUB_REF" >> "$GITHUB_ENV"
+          fi
+          echo "Using ref $EXTERNAL_HELP_REF for external help files."
+
       - name: Checkout external help files
         continue-on-error: true
         id: checkout-external-help-files
@@ -72,7 +82,7 @@ jobs:
         with:
           ssh-key: ${{ secrets.CODEQL_CODING_STANDARDS_HELP_KEY }}
           repository: "github/codeql-coding-standards-help"
-          ref: ${{ needs.determine-ref.outputs.ref }}
+          ref: ${{ env.EXTERNAL_HELP_REF }}
           path: external-help-files
 
       - name: Include external help files
