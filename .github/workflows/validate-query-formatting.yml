@@ -36,6 +36,7 @@ jobs:
           env:
             LANGUAGE: ${{ matrix.language }}
           run: |
+            codeql version
             find $LANGUAGE \( -name \*.ql -or -name \*.qll \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
 
             git diff
