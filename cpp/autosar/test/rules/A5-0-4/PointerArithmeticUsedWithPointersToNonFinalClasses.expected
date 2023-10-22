@@ -1,3 +1,9 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-0-4/PointerArithmeticUsedWithPointersToNonFinalClasses.ql:21,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-0-4/PointerArithmeticUsedWithPointersToNonFinalClasses.ql:45,58-66)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-0-4/PointerArithmeticUsedWithPointersToNonFinalClasses.ql:50,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-0-4/PointerArithmeticUsedWithPointersToNonFinalClasses.ql:59,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-0-4/PointerArithmeticUsedWithPointersToNonFinalClasses.ql:65,55-63)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-0-4/PointerArithmeticUsedWithPointersToNonFinalClasses.ql:66,3-11)
 edges
 | test.cpp:10:18:10:20 | foo | test.cpp:11:23:11:25 | foo |
 | test.cpp:10:18:10:20 | foo | test.cpp:11:50:11:52 | foo |

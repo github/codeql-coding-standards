@@ -1,3 +1,9 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/CTR56-CPP/DoNotUsePointerArithmeticOnPolymorphicObjects.ql:17,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/CTR56-CPP/DoNotUsePointerArithmeticOnPolymorphicObjects.ql:41,58-66)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/CTR56-CPP/DoNotUsePointerArithmeticOnPolymorphicObjects.ql:46,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/CTR56-CPP/DoNotUsePointerArithmeticOnPolymorphicObjects.ql:55,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/CTR56-CPP/DoNotUsePointerArithmeticOnPolymorphicObjects.ql:61,55-63)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/CTR56-CPP/DoNotUsePointerArithmeticOnPolymorphicObjects.ql:62,3-11)
 edges
 | test.cpp:15:19:15:21 | foo | test.cpp:16:24:16:26 | foo |
 | test.cpp:15:19:15:21 | foo | test.cpp:16:51:16:53 | foo |

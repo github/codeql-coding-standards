@@ -1,3 +1,9 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR39-C/DoNotAddOrSubtractAScaledIntegerToAPointer.ql:18,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR39-C/DoNotAddOrSubtractAScaledIntegerToAPointer.ql:72,52-60)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR39-C/DoNotAddOrSubtractAScaledIntegerToAPointer.ql:75,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR39-C/DoNotAddOrSubtractAScaledIntegerToAPointer.ql:77,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR39-C/DoNotAddOrSubtractAScaledIntegerToAPointer.ql:86,51-59)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR39-C/DoNotAddOrSubtractAScaledIntegerToAPointer.ql:86,75-83)
 edges
 | test.c:7:13:7:14 | p1 | test.c:9:9:9:10 | p1 |
 | test.c:16:19:16:41 | ... - ... | test.c:18:26:18:31 | offset |

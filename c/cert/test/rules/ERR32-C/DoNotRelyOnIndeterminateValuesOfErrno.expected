@@ -1,3 +1,7 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ERR32-C/DoNotRelyOnIndeterminateValuesOfErrno.ql:51,7-15)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ERR32-C/DoNotRelyOnIndeterminateValuesOfErrno.ql:51,27-35)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ERR32-C/DoNotRelyOnIndeterminateValuesOfErrno.ql:52,9-17)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ERR32-C/DoNotRelyOnIndeterminateValuesOfErrno.ql:55,9-17)
 | test.c:12:5:12:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:10:21:10:26 | call to signal | call to signal |
 | test.c:30:5:30:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:26:21:26:26 | call to signal | call to signal |
 | test.c:49:5:49:10 | call to perror | `errno` has indeterminate value after this $@. | test.c:45:21:45:26 | call to signal | call to signal |

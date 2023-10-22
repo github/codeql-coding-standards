@@ -1,3 +1,8 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-17-5/ArrayFunctionArgumentNumberOfElements.ql:47,32-40)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-17-5/ArrayFunctionArgumentNumberOfElements.ql:50,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-17-5/ArrayFunctionArgumentNumberOfElements.ql:52,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-17-5/ArrayFunctionArgumentNumberOfElements.ql:70,22-30)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-17-5/ArrayFunctionArgumentNumberOfElements.ql:70,45-53)
 | test.c:18:6:18:6 | 0 | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
 | test.c:19:6:19:7 | ar | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
 | test.c:21:6:21:9 | ar2p | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |

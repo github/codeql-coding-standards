@@ -1,1 +1,6 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/CON34-C/ThreadObjectStorageDurationsNotInitialized.ql:28,38-46)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/CON34-C/ThreadObjectStorageDurationsNotInitialized.ql:31,5-13)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/CON34-C/ThreadObjectStorageDurationsNotInitialized.ql:31,30-38)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/CON34-C/ThreadObjectStorageDurationsNotInitialized.ql:32,5-13)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/CON34-C/ThreadObjectStorageDurationsNotInitialized.ql:32,30-38)
 | test.c:14:7:14:13 | call to tss_get | Call to a thread specific storage function from within a threaded context on an object that may not be owned by this thread. |

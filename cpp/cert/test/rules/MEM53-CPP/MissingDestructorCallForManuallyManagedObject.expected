@@ -1,3 +1,6 @@
+WARNING: Module DataFlow2 has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/MEM53-CPP/MissingDestructorCallForManuallyManagedObject.ql:17,8-17)
+WARNING: Module DataFlow2 has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/MEM53-CPP/MissingDestructorCallForManuallyManagedObject.ql:19,38-47)
+WARNING: Module DataFlow2 has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/MEM53-CPP/MissingDestructorCallForManuallyManagedObject.ql:19,66-75)
 edges
 | test.cpp:16:26:16:31 | call to malloc | test.cpp:22:8:22:9 | a1 |
 | test.cpp:17:38:17:43 | call to malloc | test.cpp:23:8:23:9 | a2 |

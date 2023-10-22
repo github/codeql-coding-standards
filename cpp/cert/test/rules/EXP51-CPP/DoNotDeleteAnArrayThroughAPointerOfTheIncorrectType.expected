@@ -1,3 +1,9 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/EXP51-CPP/DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:17,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/EXP51-CPP/DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:19,40-48)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/EXP51-CPP/DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:22,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/EXP51-CPP/DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:24,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/EXP51-CPP/DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:30,36-44)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/cert/src/rules/EXP51-CPP/DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:30,63-71)
 edges
 | test.cpp:6:19:6:37 | new[] | test.cpp:9:12:9:13 | l1 |
 | test.cpp:7:22:7:40 | new[] | test.cpp:10:12:10:13 | l2 |

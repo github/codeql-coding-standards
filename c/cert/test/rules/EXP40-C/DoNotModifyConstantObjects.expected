@@ -1,3 +1,9 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/EXP40-C/DoNotModifyConstantObjects.ql:16,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/EXP40-C/DoNotModifyConstantObjects.ql:35,34-42)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/EXP40-C/DoNotModifyConstantObjects.ql:38,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/EXP40-C/DoNotModifyConstantObjects.ql:44,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/EXP40-C/DoNotModifyConstantObjects.ql:49,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/EXP40-C/DoNotModifyConstantObjects.ql:49,55-63)
 edges
 | test.c:5:8:5:9 | & ... | test.c:6:4:6:5 | aa |
 | test.c:26:15:26:15 | a | test.c:27:4:27:4 | a |

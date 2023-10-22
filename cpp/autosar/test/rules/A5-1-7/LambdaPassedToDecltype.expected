@@ -1,1 +1,6 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToDecltype.ql:20,45-53)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToDecltype.ql:23,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToDecltype.ql:25,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToDecltype.ql:39,22-30)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/cpp/autosar/src/rules/A5-1-7/LambdaPassedToDecltype.ql:39,50-58)
 | test.cpp:14:23:14:24 | decltype(...) | Lambda $@ passed as operand to decltype. | test.cpp:5:13:5:30 | [...](...){...} | expression |

@@ -1,3 +1,13 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:19,8-16)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:25,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:51,29-37)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:60,24-32)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:60,51-59)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:61,3-11)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:61,31-39)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:61,56-64)
+WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:62,3-11)
+WARNING: Module TaintTracking has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-21-14/MemcmpUsedToCompareNullTerminatedStrings.ql:22,57-70)
 edges
 | test.c:12:13:12:15 | a | test.c:14:10:14:10 | a |
 | test.c:12:13:12:15 | a | test.c:23:13:23:13 | a |
