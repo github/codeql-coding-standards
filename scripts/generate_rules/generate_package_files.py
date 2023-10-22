@@ -181,9 +181,19 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
                 .replace("/", ".")
                 + "\n"
             )
-            f.write("\n");
-            f.write("class TestFileQuery extends " + str(query["shared_implementation_short_name"]) + "SharedQuery, TestQuery {\n")
-            f.write("}\n")
+            f.write("\n")
+            class_name = str(query["shared_implementation_short_name"]) + "SharedQuery"
+            f.write("class TestFileQuery extends " + class_name + ",")
+            # ql formatting of this line depends on the line length
+            if len(class_name) > 61:
+                # Line break required after comma
+                f.write("\n  TestQuery\n{ }\n")
+            elif len(class_name) > 57:
+                # Line break required after `{`
+                f.write(" TestQuery {\n}\n")
+            else:
+                # Under 100 characters, can be formatted on the same line
+                f.write(" TestQuery { }\n")
 
         # Create an empty test file, if one doesn't already exist
         shared_impl_test_dir.joinpath(
