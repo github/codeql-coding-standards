@@ -9,6 +9,10 @@ public:
   virtual void f2(int);
   virtual void f2(double);
   virtual void f2(S1);
+
+private:
+  void f3(int);
+  void f4(int);
 };
 
 class C2 : public C1 {
@@ -81,4 +85,10 @@ void f2() {
 class C6 : public C1 {
 public:
   C6 &operator=(const C6 &); // COMPLIANT
+};
+
+class C7 : public C1 {
+  void f3(int); // COMPLIANT
+
+  void f4(int); // COMPLIANT
 };

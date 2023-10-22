@@ -24,7 +24,9 @@ pragma[noinline, nomagic]
 predicate hasNonVirtualMemberFunction(Class clazz, MemberFunction mf, string name) {
   mf.getDeclaringType() = clazz and
   mf.getName() = name and
-  not mf.isVirtual()
+  not mf.isVirtual() and
+  // Exclude private member functions, which cannot be inherited.
+  not mf.isPrivate()
 }
 
 /**

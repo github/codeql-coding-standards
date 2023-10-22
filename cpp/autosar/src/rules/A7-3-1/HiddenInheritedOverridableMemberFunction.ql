@@ -21,6 +21,8 @@ where
   not isExcluded(overridingDecl, ScopePackage::hiddenInheritedOverridableMemberFunctionQuery()) and
   // Check if we are overriding a virtual inherited member function
   hiddenDecl.getDeclaration().isVirtual() and
+  // Exclude private member functions, which cannot be inherited.
+  not hiddenDecl.getDeclaration().(MemberFunction).isPrivate() and
   // The overriding declaration hides the hidden declaration if:
   (
     // 1. the overriding declaration overrides a function in a base class that is an overload of the hidden declaration
