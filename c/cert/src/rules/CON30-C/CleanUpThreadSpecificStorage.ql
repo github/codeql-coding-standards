@@ -15,8 +15,8 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Concurrency
-import semmle.code.cpp.dataflow.TaintTracking
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.DataFlow
 
 class TssCreateToTssDeleteDataFlowConfiguration extends DataFlow::Configuration {
   TssCreateToTssDeleteDataFlowConfiguration() { this = "TssCreateToTssDeleteDataFlowConfiguration" }

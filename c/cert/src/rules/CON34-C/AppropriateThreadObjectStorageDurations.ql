@@ -15,8 +15,8 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Concurrency
-import semmle.code.cpp.dataflow.TaintTracking
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.commons.Alloc
 
 from C11ThreadCreateCall tcc, StackVariable sv, Expr arg, Expr acc

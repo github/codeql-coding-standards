@@ -14,7 +14,7 @@
 import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.security.BufferWrite
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 /**
  * Class that includes into `BufferWrite` functions that will modify their

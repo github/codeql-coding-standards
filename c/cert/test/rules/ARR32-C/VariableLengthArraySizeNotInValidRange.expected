@@ -1,5 +1,3 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR32-C/VariableLengthArraySizeNotInValidRange.ql:104,11-19)
-WARNING: Module TaintTracking has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/ARR32-C/VariableLengthArraySizeNotInValidRange.ql:87,5-18)
 | test.c:14:8:14:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
 | test.c:15:8:15:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
 | test.c:16:8:16:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
