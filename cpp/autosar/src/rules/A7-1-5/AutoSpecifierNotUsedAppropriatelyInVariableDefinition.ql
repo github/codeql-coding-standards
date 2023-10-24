@@ -19,6 +19,10 @@
 import cpp
 import codingstandards.cpp.autosar
 
+class FundamentalType extends BuiltInType {
+  FundamentalType() { not this instanceof ErroneousType and not this instanceof UnknownType }
+}
+
 from Variable v
 where
   not isExcluded(v,
@@ -28,12 +32,14 @@ where
   // exclude uninstantiated templates and rely on the instantiated templates, because an uninstantiated template may not contain the information required to determine if the usage is allowed.
   not v.isFromUninstantiatedTemplate(_) and
   not (
-    // find ones where
+    // Initialized by function call
     v.getInitializer().getExpr() instanceof FunctionCall
     or
+    // Initialized by lambda expression
     v.getInitializer().getExpr() instanceof LambdaExpression
     or
-    v.getInitializer().getExpr() instanceof ClassAggregateLiteral
+    // Initialized by non-fundamental type
+    not v.getInitializer().getExpr().getType() instanceof FundamentalType
   ) and
   // Exclude compiler generated variables
   not v.isCompilerGenerated()

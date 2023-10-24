@@ -108,7 +108,13 @@ void instantiate() {
 }
 
 void test_loop() {
-  for (const auto a : {8, 9, 10}) {
+  for (const auto a : {8, 9, 10}) { // NON_COMPLIANT - a is initialized with a
+                                    // non-constant initializer
+    a;
+  }
+
+  std::vector<int> v = {1, 2, 3};
+  for (const auto a : v) { // COMPLIANT - a is intialized with a function call
     a;
   }
 }
