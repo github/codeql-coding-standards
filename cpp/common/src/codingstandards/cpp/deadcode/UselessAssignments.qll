@@ -43,7 +43,11 @@ class InterestingStackVariable extends StackVariable {
     // A reference parameter can have an affect outside the enclosing function
     not mayEscape(this) and
     // Not a loop control variable, explicitly excluded
-    not this instanceof LoopControlVariable
+    not this instanceof LoopControlVariable and
+    // Ignore variables in uninstantiated templates
+    not this.isFromUninstantiatedTemplate(_) and
+    // Ignore compiler generated variables, such as those generated for range based for loops
+    not this.isCompilerGenerated()
   }
 }
 
