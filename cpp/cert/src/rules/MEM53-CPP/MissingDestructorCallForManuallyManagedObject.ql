@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.cpp.cert
 import ManuallyManagedLifetime
-import semmle.code.cpp.dataflow.DataFlow2
+import codingstandards.cpp.dataflow.DataFlow2
 import DataFlow2::PathGraph
 
 from FreeWithoutDestructorConfig dc, DataFlow2::PathNode source, DataFlow2::PathNode sink

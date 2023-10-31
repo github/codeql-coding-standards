@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.controlflow.Dominance
 import DataFlow::PathGraph
 

@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 class LambdaExpressionToInitializer extends DataFlow::Configuration {
   LambdaExpressionToInitializer() { this = "LambdaExpressionToInitializer" }

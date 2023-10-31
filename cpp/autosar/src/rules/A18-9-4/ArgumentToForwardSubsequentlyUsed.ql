@@ -14,7 +14,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.standardlibrary.Utility
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 from StdForwardCall f, Access a
 where
