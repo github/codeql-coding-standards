@@ -72,6 +72,6 @@ void test_scope_order() {
 
   try {
 
-  } catch (int i) { // NON_COMPLIANT[FALSE_NEGATIVE]
+  } catch (int i) { // NON_COMPLIANT
   }
 }

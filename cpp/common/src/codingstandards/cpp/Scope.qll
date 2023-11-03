@@ -42,7 +42,16 @@ private Element getParentScope(Element e) {
   then result = e.getParentScope()
   else (
     // Statements do no have a parent scope, so return the enclosing block.
-    result = e.(Stmt).getEnclosingBlock() or result = e.(Expr).getEnclosingBlock()
+    result = e.(Stmt).getEnclosingBlock()
+    or
+    result = e.(Expr).getEnclosingBlock()
+    or
+    // Catch block parameters don't have an enclosing scope, so attach them to the
+    // the block itself
+    exists(CatchBlock cb |
+      e = cb.getParameter() and
+      result = cb
+    )
   )
 }
 
