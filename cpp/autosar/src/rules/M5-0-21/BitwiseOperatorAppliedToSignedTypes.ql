@@ -25,7 +25,7 @@ where
   (
     o instanceof UnaryBitwiseOperation or
     o instanceof BinaryBitwiseOperation or
-    o instanceof AssignBitwiseOperationFixed
+    o instanceof Bitwise::AssignBitwiseOperation
   ) and
   o.getAnOperand() = va and
   va.getTarget().getUnderlyingType().(IntegralType).isSigned()

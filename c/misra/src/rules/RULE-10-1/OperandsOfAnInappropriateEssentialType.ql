@@ -178,7 +178,7 @@ predicate isInappropriateEssentialType(
     child =
       [
         operator.(BinaryBitwiseOperation).getAnOperand(),
-        operator.(AssignBitwiseOperationFixed).getAnOperand()
+        operator.(Bitwise::AssignBitwiseOperation).getAnOperand()
       ] and
     not operator instanceof LShiftExpr and
     not operator instanceof RShiftExpr and

@@ -23,7 +23,7 @@ predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess
     l = bbo.getLeftOperand() and r = bbo.getRightOperand()
   )
   or
-  exists(AssignBitwiseOperationFixed abo | abo = o |
+  exists(Bitwise::AssignBitwiseOperation abo | abo = o |
     l = abo.getLValue() and
     r = abo.getRValue()
   )
