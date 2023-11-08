@@ -21,6 +21,8 @@ where
   not isExcluded(overridingDecl, ScopePackage::hiddenInheritedOverridableMemberFunctionQuery()) and
   // Check if we are overriding a virtual inherited member function
   hiddenDecl.getDeclaration().isVirtual() and
+  // Exclude private member functions, which cannot be inherited.
+  not hiddenDecl.getDeclaration().(MemberFunction).isPrivate() and
   // The overriding declaration hides the hidden declaration if:
   (
     // 1. the overriding declaration overrides a function in a base class that is an overload of the hidden declaration
@@ -36,8 +38,7 @@ where
     // and the hidden declaration isn't explicitly brought in scope through a using declaration.
     not exists(UsingDeclarationEntry ude |
       ude.getDeclaration() = hiddenDecl.getDeclaration() and
-      ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType() and
-      ude.getLocation().getStartLine() < overridingDecl.getLocation().getStartLine()
+      ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType()
     )
     or
     // 2. if the overriding declaration doesn't override a base member function but has the same name

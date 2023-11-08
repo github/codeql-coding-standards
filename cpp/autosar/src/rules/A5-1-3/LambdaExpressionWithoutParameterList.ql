@@ -24,7 +24,7 @@ where
   // If it has a parameter, then it will have an
   // explicit parameter list. Therefore, proceed to check only if the lambda
   // does not have any parameters.
-  not exists (lambdaFunction.getAParameter()) and
+  not exists(lambdaFunction.getAParameter()) and
   // The extractor doesn't store the syntactic information whether the parameter list
   // is enclosed in parenthesis. Therefore we cannot determine if the parameter list is
   // explicitly specified when the parameter list is empty.

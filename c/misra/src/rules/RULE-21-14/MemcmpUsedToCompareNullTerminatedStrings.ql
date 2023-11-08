@@ -15,7 +15,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.misra.EssentialTypes
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 import DataFlow::PathGraph
 
 // Data flow from a StringLiteral or from an array of characters, to a memcmp call
@@ -30,7 +30,7 @@ class NullTerminatedStringToMemcmpConfiguration extends TaintTracking::Configura
       // The array element type is an essentially character type
       getEssentialTypeCategory(aal.getElementType()) = EssentiallyCharacterType() and
       // Includes a null terminator somewhere in the array initializer
-      aal.getElementExpr(_).getValue().toInt() = 0
+      aal.getAnElementExpr(_).getValue().toInt() = 0
     |
       // For local variables, use the array aggregate literal as the source
       aal = source.asExpr()

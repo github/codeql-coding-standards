@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.closefilehandlewhennolongerneededshared.CloseFileHandleWhenNoLongerNeededShared
 
-class CloseFileHandleWhenNoLongerNeededMisraQuery extends CloseFileHandleWhenNoLongerNeededSharedSharedQuery {
+class CloseFileHandleWhenNoLongerNeededMisraQuery extends CloseFileHandleWhenNoLongerNeededSharedSharedQuery
+{
   CloseFileHandleWhenNoLongerNeededMisraQuery() {
     this = Memory2Package::closeFileHandleWhenNoLongerNeededMisraQuery()
   }

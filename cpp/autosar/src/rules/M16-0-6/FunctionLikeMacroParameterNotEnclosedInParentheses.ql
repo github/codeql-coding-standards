@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.macroparameternotenclosedinparentheses.MacroParameterNotEnclosedInParentheses
 
-class MacroParameterNotEnclosedInParenthesesCQueryQuery extends MacroParameterNotEnclosedInParenthesesSharedQuery {
+class MacroParameterNotEnclosedInParenthesesCQueryQuery extends MacroParameterNotEnclosedInParenthesesSharedQuery
+{
   MacroParameterNotEnclosedInParenthesesCQueryQuery() {
     this = MacrosPackage::functionLikeMacroParameterNotEnclosedInParenthesesQuery()
   }

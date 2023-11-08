@@ -5,7 +5,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import DataFlow::PathGraph
 
 abstract class ConstLikeReturnValueSharedQuery extends Query { }

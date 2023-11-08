@@ -2,14 +2,14 @@ beautifulsoup4==4.9.3
 certifi==2023.7.22
 chardet==3.0.4
 gitdb==4.0.5
-GitPython==3.1.30
+GitPython==3.1.37
 idna==2.10
 Jinja2==2.11.3
 MarkupSafe==1.1.1
 requests==2.31.0
 smmap==3.0.5
 soupsieve==2.0.1
-urllib3==1.26.5
+urllib3==1.26.18
 pyyaml==5.4
 wheel==0.38.1
 jsonschema==4.9.1

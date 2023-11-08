@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.removeconstorvolatilequalification.RemoveConstOrVolatileQualification
 
-class RemoveConstOrVolatileQualificationCertQuery extends RemoveConstOrVolatileQualificationSharedQuery {
+class RemoveConstOrVolatileQualificationCertQuery extends RemoveConstOrVolatileQualificationSharedQuery
+{
   RemoveConstOrVolatileQualificationCertQuery() {
     this = ConstPackage::removeConstOrVolatileQualificationCertQuery()
   }

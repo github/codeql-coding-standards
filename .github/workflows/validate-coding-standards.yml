@@ -89,7 +89,7 @@ jobs:
 
       - name: Validate CodeQL Format (CPP)
         run: |
-          find cpp -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
+          find cpp \( -name \*.ql -or -name \*.qll \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
 
           git diff
           git diff --compact-summary
@@ -97,7 +97,7 @@ jobs:
 
       - name: Validate CodeQL Format (C)
         run: |
-          find c -name \*.ql -or -name \*.qll -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
+          find c \( -name \*.ql -or -name \*.qll \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
 
           git diff
           git diff --compact-summary

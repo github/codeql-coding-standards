@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.functionnoreturnattributecondition.FunctionNoReturnAttributeCondition
 
-class FuntionNoReturnAttributeConditionCertQuery extends FunctionNoReturnAttributeConditionSharedQuery {
+class FuntionNoReturnAttributeConditionCertQuery extends FunctionNoReturnAttributeConditionSharedQuery
+{
   FuntionNoReturnAttributeConditionCertQuery() {
     this = FunctionsPackage::functionNoReturnAttributeConditionCertQuery()
   }

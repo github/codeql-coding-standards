@@ -404,12 +404,12 @@ predicate isAssignmentToEssentialType(Type lValueEssentialType, Expr rValue) {
   // Initializing an array
   exists(ArrayAggregateLiteral aal |
     lValueEssentialType = aal.getElementType() and
-    rValue = aal.getElementExpr(_)
+    rValue = aal.getAnElementExpr(_)
   )
   or
   // Initializing a struct or union
   exists(ClassAggregateLiteral cal, Field field |
     lValueEssentialType = field.getType() and
-    rValue = cal.getFieldExpr(field)
+    rValue = cal.getAFieldExpr(field)
   )
 }

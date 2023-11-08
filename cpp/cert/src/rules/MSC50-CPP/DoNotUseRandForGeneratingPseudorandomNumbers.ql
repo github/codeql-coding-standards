@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.donotuserandforgeneratingpseudorandomnumbers.DoNotUseRandForGeneratingPseudorandomNumbers
 
-class DoNotUseRandForGeneratingPseudorandomNumbersQuery extends DoNotUseRandForGeneratingPseudorandomNumbersSharedQuery {
+class DoNotUseRandForGeneratingPseudorandomNumbersQuery extends DoNotUseRandForGeneratingPseudorandomNumbersSharedQuery
+{
   DoNotUseRandForGeneratingPseudorandomNumbersQuery() {
     this = BannedFunctionsPackage::doNotUseRandForGeneratingPseudorandomNumbersQuery()
   }

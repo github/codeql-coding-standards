@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.operationmaynotnullterminatecstylestring.OperationMayNotNullTerminateCStyleString
 
-class OperationMayNotNullTerminateCStyleStringAutosarQuery extends OperationMayNotNullTerminateCStyleStringSharedQuery {
+class OperationMayNotNullTerminateCStyleStringAutosarQuery extends OperationMayNotNullTerminateCStyleStringSharedQuery
+{
   OperationMayNotNullTerminateCStyleStringAutosarQuery() {
     this = StringsPackage::operationMayNotNullTerminateCStyleStringAutosarQuery()
   }

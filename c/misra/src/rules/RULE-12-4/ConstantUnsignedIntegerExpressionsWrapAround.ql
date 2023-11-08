@@ -21,7 +21,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.constantunsignedintegerexpressionswraparound.ConstantUnsignedIntegerExpressionsWrapAround
 
-class ConstantUnsignedIntegerExpressionsWrapAroundQuery extends ConstantUnsignedIntegerExpressionsWrapAroundSharedQuery {
+class ConstantUnsignedIntegerExpressionsWrapAroundQuery extends ConstantUnsignedIntegerExpressionsWrapAroundSharedQuery
+{
   ConstantUnsignedIntegerExpressionsWrapAroundQuery() {
     this = IntegerOverflowPackage::constantUnsignedIntegerExpressionsWrapAroundQuery()
   }

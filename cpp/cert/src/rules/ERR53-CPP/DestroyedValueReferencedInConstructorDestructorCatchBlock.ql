@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.destroyedvaluereferencedindestructorcatchblock.DestroyedValueReferencedInDestructorCatchBlock
 
-class DestroyedValueReferencedInConstructorDestructorCatchBlockQuery extends DestroyedValueReferencedInDestructorCatchBlockSharedQuery {
+class DestroyedValueReferencedInConstructorDestructorCatchBlockQuery extends DestroyedValueReferencedInDestructorCatchBlockSharedQuery
+{
   DestroyedValueReferencedInConstructorDestructorCatchBlockQuery() {
     this = Exceptions2Package::destroyedValueReferencedInDestructorCatchBlockQuery()
   }

@@ -14,7 +14,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.movedfromobjectsunspecifiedstate.MovedFromObjectsUnspecifiedState
 
-class DoNotRelyOnTheValueOfAMovedFromObjectQuery extends MovedFromObjectsUnspecifiedStateSharedQuery {
+class DoNotRelyOnTheValueOfAMovedFromObjectQuery extends MovedFromObjectsUnspecifiedStateSharedQuery
+{
   DoNotRelyOnTheValueOfAMovedFromObjectQuery() {
     this = MoveForwardPackage::doNotRelyOnTheValueOfAMovedFromObjectQuery()
   }

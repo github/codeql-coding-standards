@@ -89,7 +89,7 @@ module TaintedPathConfiguration implements DataFlow::ConfigSig {
   }
 }
 
-module TaintedPath = TaintTracking::Make<TaintedPathConfiguration>;
+module TaintedPath = TaintTracking::Global<TaintedPathConfiguration>;
 
 from
   FileFunction fileFunction, Expr taintedArg, FlowSource taintSource,
@@ -98,7 +98,7 @@ where
   not isExcluded(taintedArg, IO3Package::doNotPerformFileOperationsOnDevicesQuery()) and
   taintedArg = sinkNode.getNode().asIndirectArgument() and
   fileFunction.outermostWrapperFunctionCall(taintedArg, callChain) and
-  TaintedPath::hasFlowPath(sourceNode, sinkNode) and
+  TaintedPath::flowPath(sourceNode, sinkNode) and
   taintSource = sourceNode.getNode()
 select taintedArg, sourceNode, sinkNode,
   "This argument to a file access function is derived from $@ and then passed to " + callChain + ".",

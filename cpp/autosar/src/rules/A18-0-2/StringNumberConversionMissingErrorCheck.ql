@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.stringnumberconversionmissingerrorcheck.StringNumberConversionMissingErrorCheck
 
-class StringNumberConversionMissingErrorCheckQuery extends StringNumberConversionMissingErrorCheckSharedQuery {
+class StringNumberConversionMissingErrorCheckQuery extends StringNumberConversionMissingErrorCheckSharedQuery
+{
   StringNumberConversionMissingErrorCheckQuery() {
     this = TypeRangesPackage::stringNumberConversionMissingErrorCheckQuery()
   }

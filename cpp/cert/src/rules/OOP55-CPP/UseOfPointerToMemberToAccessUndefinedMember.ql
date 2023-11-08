@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.accessofundefinedmemberthroughnullpointer.AccessOfUndefinedMemberThroughNullPointer
 
-class UseOfPointerToMemberToAccessUndefinedMemberQuery extends AccessOfUndefinedMemberThroughNullPointerSharedQuery {
+class UseOfPointerToMemberToAccessUndefinedMemberQuery extends AccessOfUndefinedMemberThroughNullPointerSharedQuery
+{
   UseOfPointerToMemberToAccessUndefinedMemberQuery() {
     this = PointersPackage::useOfPointerToMemberToAccessUndefinedMemberQuery()
   }

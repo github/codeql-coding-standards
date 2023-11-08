@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.danglingcapturewhenmovinglambdaobject.DanglingCaptureWhenMovingLambdaObject
 
-class MovedLambdaObjectOutlivesCaptureByReferenceQuery extends DanglingCaptureWhenMovingLambdaObjectSharedQuery {
+class MovedLambdaObjectOutlivesCaptureByReferenceQuery extends DanglingCaptureWhenMovingLambdaObjectSharedQuery
+{
   MovedLambdaObjectOutlivesCaptureByReferenceQuery() {
     this = LambdasPackage::movedLambdaObjectOutlivesCaptureByReferenceQuery()
   }

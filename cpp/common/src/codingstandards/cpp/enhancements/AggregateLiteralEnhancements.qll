@@ -114,7 +114,7 @@ module ClassAggregateLiterals {
       exists(Expr compilerGeneratedVal, int index, Expr previousExpr |
         // Identify the candidate expression which may be compiler generated
         compilerGeneratedVal = cal.getChild(index) and
-        compilerGeneratedVal = cal.getFieldExpr(f) and
+        compilerGeneratedVal = cal.getAFieldExpr(f) and
         // Find the previous expression for this aggregate literal
         previousExpr = getPreviousExpr(cal, index)
       |
@@ -201,7 +201,7 @@ class InferredAggregateLiteral extends AggregateLiteral {
 predicate isExprValueInitialized(AggregateLiteral al, Expr e) {
   // This expression is a value initialized field
   exists(Field f |
-    e = al.(ClassAggregateLiteral).getFieldExpr(f) and
+    e = al.(ClassAggregateLiteral).getAFieldExpr(f) and
     ClassAggregateLiterals::isValueInitialized(al, f)
   )
   or
@@ -236,7 +236,7 @@ predicate isLeadingZeroInitialized(AggregateLiteral a) {
     // Or because it's a class aggregate, and all other fields are value initialized
     forall(Field f |
       f = a.getType().(Class).getAField() and
-      not a.(ClassAggregateLiteral).getFieldExpr(f) = a.getChild(0)
+      not a.(ClassAggregateLiteral).getAFieldExpr(f) = a.getChild(0)
     |
       ClassAggregateLiterals::isValueInitialized(a, f)
     )

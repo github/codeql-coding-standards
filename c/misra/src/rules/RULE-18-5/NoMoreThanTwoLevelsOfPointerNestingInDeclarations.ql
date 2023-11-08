@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.donotusemorethantwolevelsofpointerindirection.DoNotUseMoreThanTwoLevelsOfPointerIndirection
 
-class NoMoreThanTwoLevelsOfPointerNestingInDeclarationsQuery extends DoNotUseMoreThanTwoLevelsOfPointerIndirectionSharedQuery {
+class NoMoreThanTwoLevelsOfPointerNestingInDeclarationsQuery extends DoNotUseMoreThanTwoLevelsOfPointerIndirectionSharedQuery
+{
   NoMoreThanTwoLevelsOfPointerNestingInDeclarationsQuery() {
     this = Pointers1Package::noMoreThanTwoLevelsOfPointerNestingInDeclarationsQuery()
   }

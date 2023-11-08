@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.donotcopyaddressofautostorageobjecttootherobject.DoNotCopyAddressOfAutoStorageObjectToOtherObject
 
-class AppropriateStorageDurationsStackAdressEscapeQuery extends DoNotCopyAddressOfAutoStorageObjectToOtherObjectSharedQuery {
+class AppropriateStorageDurationsStackAdressEscapeQuery extends DoNotCopyAddressOfAutoStorageObjectToOtherObjectSharedQuery
+{
   AppropriateStorageDurationsStackAdressEscapeQuery() {
     this = Declarations8Package::appropriateStorageDurationsStackAdressEscapeQuery()
   }

@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.nonstandardentitiesinstandardnamespaces.NonStandardEntitiesInStandardNamespaces
 
-class ModificationOfTheStandardNamespacesQuery extends NonStandardEntitiesInStandardNamespacesSharedQuery {
+class ModificationOfTheStandardNamespacesQuery extends NonStandardEntitiesInStandardNamespacesSharedQuery
+{
   ModificationOfTheStandardNamespacesQuery() {
     this = ScopePackage::modificationOfTheStandardNamespacesQuery()
   }

@@ -17,7 +17,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.unreachablecode.UnreachableCode
 
 class UnreachableCodeQuery extends UnreachableCodeSharedQuery {
-  UnreachableCodeQuery() {
-    this = DeadCodePackage::unreachableCodeQuery()
-  }
+  UnreachableCodeQuery() { this = DeadCodePackage::unreachableCodeQuery() }
 }
