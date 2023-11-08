@@ -14,7 +14,7 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.TrivialType
 import ManuallyManagedLifetime
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 import DataFlow::PathGraph
 
 /*
