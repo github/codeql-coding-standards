@@ -106,6 +106,15 @@ Variable getALoopCounter(ForStmt fs) {
     )
     or
     updateOp = result.getAnAssignedValue()
+    or
+    // updateOp is an access whose address is taken in a non-const way
+    exists(FunctionCall fc, VariableAccess va |
+      fc = updateOp and
+      fc instanceof FunctionCall and
+      fc.getAnArgument() = va and
+      va = result.getAnAccess() and
+      va.isAddressOfAccessNonConst()
+    )
   ) and
   result instanceof Variable and
   // checked or used in the condition
@@ -260,7 +269,7 @@ predicate isLoopControlVarModifiedInLoopCondition(
   loopControlVariableAccess = forLoop.getCondition().getAChild+() and
   (
     loopControlVariableAccess.isModified() or
-    loopControlVariableAccess.isAddressOfAccess()
+    loopControlVariableAccess.isAddressOfAccessNonConst()
   )
 }
 
@@ -277,7 +286,7 @@ predicate isLoopControlVarModifiedInLoopExpr(
   loopControlVariableAccess = forLoop.getUpdate().getAChild() and
   (
     loopControlVariableAccess.isModified() or
-    loopControlVariableAccess.isAddressOfAccess()
+    loopControlVariableAccess.isAddressOfAccessNonConst()
   )
 }
 
