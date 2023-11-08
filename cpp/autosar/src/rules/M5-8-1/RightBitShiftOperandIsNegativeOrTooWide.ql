@@ -34,7 +34,7 @@ class ShiftOperation extends Operation {
       rightOperand = o.getRightOperand()
     )
     or
-    exists(AssignBitwiseOperationFixed o | this = o |
+    exists(Bitwise::AssignBitwiseOperation o | this = o |
       (
         o instanceof AssignLShiftExpr
         or
