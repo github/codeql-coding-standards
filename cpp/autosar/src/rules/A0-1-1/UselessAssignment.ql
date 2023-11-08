@@ -21,6 +21,5 @@ import codingstandards.cpp.deadcode.UselessAssignments
 from SsaDefinition ultimateDef, InterestingStackVariable v
 where
   not isExcluded(ultimateDef, DeadCodePackage::uselessAssignmentQuery()) and
-  not isExcluded(v, DeadCodePackage::uselessAssignmentQuery()) and
   isUselessSsaDefinition(ultimateDef, v)
 select ultimateDef, "Definition of $@ is unused.", v, v.getName()
