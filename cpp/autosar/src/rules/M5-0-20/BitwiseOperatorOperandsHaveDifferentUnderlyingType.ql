@@ -29,10 +29,14 @@ predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess
   )
 }
 
-from Operation o, Variable left, Variable right
+from
+  Operation o, Variable left, Variable right, Type leftUnderlyingType, Type rightUnderlyingType
 where
   not isExcluded(o, ExpressionsPackage::bitwiseOperatorOperandsHaveDifferentUnderlyingTypeQuery()) and
   not o.isFromUninstantiatedTemplate(_) and
   isBinaryBitwiseOperation(o, left.getAnAccess(), right.getAnAccess()) and
-  left.getUnderlyingType() != right.getUnderlyingType()
-select o, "Operands of the '" + o.getOperator() + "' operation have different underlying types."
+  leftUnderlyingType = left.getUnderlyingType() and
+  rightUnderlyingType = right.getUnderlyingType() and
+  leftUnderlyingType != rightUnderlyingType
+select o,
+  "Operands of the '" + o.getOperator() + "' operation have different underlying types '" + leftUnderlyingType.getName() + "' and '" + rightUnderlyingType.getName() + "'."
