@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.useinitializerbracestomatchaggregatetypestructure.UseInitializerBracesToMatchAggregateTypeStructure
 
-class UseInitBracesToMatchTypeStructureQuery extends UseInitializerBracesToMatchAggregateTypeStructureSharedQuery {
+class UseInitBracesToMatchTypeStructureQuery extends UseInitializerBracesToMatchAggregateTypeStructureSharedQuery
+{
   UseInitBracesToMatchTypeStructureQuery() {
     this = InitializationPackage::useInitBracesToMatchTypeStructureQuery()
   }

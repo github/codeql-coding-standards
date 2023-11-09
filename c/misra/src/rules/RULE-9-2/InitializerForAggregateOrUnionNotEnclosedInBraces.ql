@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.useinitializerbracestomatchaggregatetypestructure.UseInitializerBracesToMatchAggregateTypeStructure
 
-class InitializerForAggregateOrUnionNotEnclosedInBracesQuery extends UseInitializerBracesToMatchAggregateTypeStructureSharedQuery {
+class InitializerForAggregateOrUnionNotEnclosedInBracesQuery extends UseInitializerBracesToMatchAggregateTypeStructureSharedQuery
+{
   InitializerForAggregateOrUnionNotEnclosedInBracesQuery() {
     this = Memory1Package::initializerForAggregateOrUnionNotEnclosedInBracesQuery()
   }

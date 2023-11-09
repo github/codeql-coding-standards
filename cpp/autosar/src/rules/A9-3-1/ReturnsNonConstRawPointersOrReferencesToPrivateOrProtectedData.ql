@@ -15,7 +15,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.CommonTypes as CommonTypes
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 class AccessAwareMemberFunction extends MemberFunction {
   Class c;

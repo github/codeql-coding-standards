@@ -11,6 +11,7 @@
 | 0.3.0   | 2021-09-08 | Luke Cartey     | Update the customer table.                                                               |
 | 0.4.0   | 2021-09-19 | Luke Cartey     | Add more detail on approach to V&V. Update section around increased confidence from use. |
 | 0.5.0   | 2021-11-29 | Remco Vermeulen | Add document management section.                                                         |
+| 0.6.0   | 2023-08-14 | Luke Cartey     | Update use and testing statement after LGTM.com deprecation. |
 
 ## Introduction
 
@@ -100,9 +101,9 @@ The CodeQL CLI and CodeQL Standard Library for C++ are extensively used by both 
 
 The versions of the CodeQL CLI and CodeQL Standard Library for C++ are identical to those shipped to both customers and open source users, and the use cases are comparable.
 
-In terms of breadth of use, between the 4th September 2021 and 7th September 2021 11,788 open source C/C++ repositories were successfully analyzed on [LGTM.com](https://lgtm.com), a platform provided by GitHub for performing analysis of open source repositories[^1] using CodeQL. Each version of the CodeQL CLI and CodeQL Standard Library for C++ version will undergo similarly broad testing on LGTM.com before being adopted by the CodeQL Coding Standards.
+In terms of breadth of use, between the 4th September 2021 and 7th September 2021 11,788 open source C/C++ repositories were successfully analyzed on [LGTM.com](https://lgtm.com), a platform provided by GitHub for performing analysis of open source repositories[^1] using CodeQL. In addition, at that time we also analyzed a further 748 C++ repos using CodeQL via the "Code Scanning" feature included in GitHub.com. This includes both private closed source and open source software.
 
-In addition to testing on LGTM.com, we have also analyzed a further 748 C++ repos using CodeQL via the "Code Scanning" feature included in GitHub.com. This includes both private closed source and open source software.
+Each version of the CodeQL CLI and CodeQL Standard Library for C++ version will undergo similarly broad testing on GitHub.com before being adopted by the CodeQL Coding Standards.
 
 In addition, the following companies have publicly described their use of CodeQL for C++:
 

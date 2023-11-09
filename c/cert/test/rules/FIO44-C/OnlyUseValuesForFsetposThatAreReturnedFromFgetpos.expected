@@ -1,6 +1,2 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/FIO44-C/OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:25,26-34)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/FIO44-C/OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:28,31-39)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/FIO44-C/OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:30,14-22)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/cert/src/rules/FIO44-C/OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:33,29-37)
 | test.c:7:24:7:30 | & ... | The position argument of a call to `fsetpos()` should be obtained from a call to `fgetpos()`. |
 | test.c:33:24:33:30 | & ... | The position argument of a call to `fsetpos()` should be obtained from a call to `fgetpos()`. |

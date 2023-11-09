@@ -7,7 +7,7 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.Expr
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 abstract class AccessOfNonExistingMemberThroughPointerToMemberSharedQuery extends Query { }
 

@@ -31,5 +31,4 @@ where
   typeTo = cast.getUnderlyingType() and
   [typeFrom, typeTo] instanceof MisraNonIntegerArithmeticType and
   [typeFrom, typeTo] instanceof PointerToObjectType
-select cast,
-  "Cast performed between a pointer to object type and a non-integer arithmetic type."
+select cast, "Cast performed between a pointer to object type and a non-integer arithmetic type."

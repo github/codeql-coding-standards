@@ -54,7 +54,8 @@ class RandomNumberEngineCreation extends TRandomNumberEngineCreation {
  * A `ConstructorCall` which targets a `RandomNumberEngine`.
  */
 class RandomNumberEngineConstructorCall extends TRandomNumberEngineConstructorCall,
-  RandomNumberEngineCreation {
+  RandomNumberEngineCreation
+{
   ConstructorCall getConstructorCall() { this = TRandomNumberEngineConstructorCall(result) }
 
   override Element getExclusionElement() { result = getConstructorCall() }
@@ -82,7 +83,8 @@ class RandomNumberEngineConstructorCall extends TRandomNumberEngineConstructorCa
  * This is because no `ConstructorCall`s are generated in this case.
  */
 class RandomNumberEngineMemberVariableDefaultInit extends TRandomNumberEngineMemberVariableDefaultInit,
-  RandomNumberEngineCreation {
+  RandomNumberEngineCreation
+{
   MemberVariable getMemberVariable() {
     this = TRandomNumberEngineMemberVariableDefaultInit(result, _)
   }

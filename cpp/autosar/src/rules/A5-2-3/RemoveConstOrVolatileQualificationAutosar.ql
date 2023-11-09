@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.removeconstorvolatilequalification.RemoveConstOrVolatileQualification
 
-class RemoveConstOrVolatileQualificationAutosarQuery extends RemoveConstOrVolatileQualificationSharedQuery {
+class RemoveConstOrVolatileQualificationAutosarQuery extends RemoveConstOrVolatileQualificationSharedQuery
+{
   RemoveConstOrVolatileQualificationAutosarQuery() {
     this = ConstPackage::removeConstOrVolatileQualificationAutosarQuery()
   }

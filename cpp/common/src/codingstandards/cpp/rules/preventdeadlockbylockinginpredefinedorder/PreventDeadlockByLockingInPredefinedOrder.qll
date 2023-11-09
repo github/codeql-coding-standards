@@ -24,7 +24,11 @@ predicate getAnOrderedLockPair(
   lock1 = node.coveredByLock() and
   lock2 = node.coveredByLock() and
   not lock1 = lock2 and
-  lock1.getEnclosingFunction() = lock2.getEnclosingFunction() and
+  exists(Function f |
+    lock1.getEnclosingFunction() = f and
+    lock2.getEnclosingFunction() = f and
+    node.getBasicBlock().getEnclosingFunction() = f
+  ) and
   exists(Location l1Loc, Location l2Loc |
     l1Loc = lock1.getLocation() and
     l2Loc = lock2.getLocation()

@@ -17,7 +17,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.macroparameternotenclosedinparentheses.MacroParameterNotEnclosedInParentheses
 
-class MacroParameterNotEnclosedInParenthesesCQueryQuery extends MacroParameterNotEnclosedInParenthesesSharedQuery {
+class MacroParameterNotEnclosedInParenthesesCQueryQuery extends MacroParameterNotEnclosedInParenthesesSharedQuery
+{
   MacroParameterNotEnclosedInParenthesesCQueryQuery() {
     this = Preprocessor5Package::macroParameterNotEnclosedInParenthesesCQueryQuery()
   }

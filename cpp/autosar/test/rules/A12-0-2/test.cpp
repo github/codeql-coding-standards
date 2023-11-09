@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include <string>
+#include <cstring>
 
 class A {
 public:

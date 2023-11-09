@@ -1,7 +1,7 @@
 #pragma clang diagnostic ignored "-Wfortify-source"
 #include <cstdio>
+#include <cstring>
 #include <iostream>
-#include <string>
 
 void f1() {
   char a1[7] = "CodeQL";

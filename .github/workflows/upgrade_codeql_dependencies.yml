@@ -7,51 +7,55 @@ on:
         description: |
           The version of the CodeQL CLI to be set as the default.
         required: true
-      codeql_standard_library_commit:
-        description: |
-          The tag or commit to use from the CodeQL Standard Library
-        required: true
 
 env:
   XARGS_MAX_PROCS: 4
 
 jobs:
-  say_hello:
+  upgrade_codeql_dependencies:
     env:
       CODEQL_CLI_VERSION: ${{ github.event.inputs.codeql_cli_version }}
-      CODEQL_LIB_COMMIT: ${{ github.event.inputs.codeql_standard_library_commit }}
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install upgrade-codeql-dependencies.py dependencies
+        run: pip install -r scripts/upgrade-codeql-dependencies/requirements.txt
+
       - name: Update the supported environment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CODEQL_CLI_VERSION: ${{ github.event.inputs.codeql_cli_version }}
         run: |
-          jq \
-            --arg cli_version "$CODEQL_CLI_VERSION" \
-            --arg standard_library_commit "$CODEQL_LIB_COMMIT" \
-            --raw-output \
-            '.supported_environment | .[0] | .codeql_cli = $cli_version | .codeql_standard_library = $standard_library_commit' \
-            supported_codeql_configs.json
+          python3 scripts/upgrade-codeql-dependencies/upgrade-codeql-dependencies.py --cli-version "$CODEQL_CLI_VERSION"
 
       - name: Fetch CodeQL
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
+          cd $RUNNER_TEMP
           gh release download "v${CODEQL_CLI_VERSION}" --repo https://github.com/github/codeql-cli-binaries --pattern codeql-linux64.zip
           unzip -q codeql-linux64.zip
 
       - name: Update CodeQL formatting based on new CLI version
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          find cpp -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 codeql/codeql query format --in-place
-          find c -name '*.ql' -or -name '*.qll' | xargs --max-procs "$XARGS_MAX_PROCS" --max-args 1 codeql/codeql query format --in-place
+          find cpp \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" $RUNNER_TEMP/codeql/codeql query format --in-place
+          find c \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" $RUNNER_TEMP/codeql/codeql query format --in-place
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_standard_library_commit }}"
-          body: "This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }} and the `github/codeql` version to ${{ github.event.inputs.codeql_standard_library_commit }}."
-          commit-message: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_standard_library_commit }}"
-          team-reviewers: github/codeql-coding-standards
+          title: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
+          body: "This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }}."
+          commit-message: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
           delete-branch: true
-          branch: "codeql/upgrade-to-${{ github.event.inputs.codeql_standard_library_commit }}-${{ github.event.inputs.codeql_cli_version }}"
+          branch: "codeql/upgrade-to-${{ github.event.inputs.codeql_cli_version }}"

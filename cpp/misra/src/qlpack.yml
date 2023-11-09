@@ -1,8 +1,8 @@
 name: codeql/misra-cpp-coding-standards
-version: 2.21.0-dev
+version: 2.22.0-dev
 description: MISRA C++ 2008
 suites: codeql-suites
 license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
-  codeql/cpp-all: 0.4.6
+  codeql/cpp-all: 0.9.3

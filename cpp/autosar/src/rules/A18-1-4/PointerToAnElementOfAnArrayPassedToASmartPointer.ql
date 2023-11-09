@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 import DataFlow::PathGraph
 
 class AutosarSmartPointerArraySpecialisation extends AutosarSmartPointer {
@@ -46,15 +46,26 @@ class SingleObjectSmartPointerArrayConstructionConfig extends TaintTracking::Con
       (
         sp.getAConstructorCallWithExternalObjectConstruction().getAnArgument() = sink.asExpr()
         or
-        sink.asExpr() =
-          any(FunctionCall fc, MemberFunction mf |
-            mf = fc.getTarget() and
-            mf.getDeclaringType() = sp and
-            mf.getName() = "reset"
-          |
-            fc.getArgument(0)
-          )
+        sink.asExpr() = sp.getAResetCall().getArgument(0)
       )
+    )
+  }
+
+  override predicate isAdditionalTaintStep(DataFlow::Node source, DataFlow::Node sink) {
+    exists(AutosarUniquePointer sp, FunctionCall fc |
+      fc = sp.getAReleaseCall() and
+      source.asExpr() = fc.getQualifier() and
+      sink.asExpr() = fc
+    )
+  }
+
+  override predicate isSanitizerIn(DataFlow::Node node) {
+    // Exclude flow into header files outside the source archive which are summarized by the
+    // additional taint steps above.
+    exists(AutosarUniquePointer sp |
+      sp.getAReleaseCall().getTarget() = node.asExpr().(ThisExpr).getEnclosingFunction()
+    |
+      not exists(node.getLocation().getFile().getRelativePath())
     )
   }
 }

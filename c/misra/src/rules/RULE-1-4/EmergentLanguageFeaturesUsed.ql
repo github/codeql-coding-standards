@@ -18,4 +18,3 @@ import codingstandards.cpp.Emergent
 from C11::EmergentLanguageFeature ef
 where not isExcluded(ef, Language2Package::emergentLanguageFeaturesUsedQuery())
 select ef, "Usage of emergent language feature."
-

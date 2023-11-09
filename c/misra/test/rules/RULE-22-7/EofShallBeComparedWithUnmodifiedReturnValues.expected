@@ -1,9 +1,2 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-22-7/EofShallBeComparedWithUnmodifiedReturnValues.ql:22,22-30)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-22-7/EofShallBeComparedWithUnmodifiedReturnValues.ql:25,31-39)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-22-7/EofShallBeComparedWithUnmodifiedReturnValues.ql:29,29-37)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-22-7/EofShallBeComparedWithUnmodifiedReturnValues.ql:38,32-40)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-22-7/EofShallBeComparedWithUnmodifiedReturnValues.ql:50,5-13)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-22-7/EofShallBeComparedWithUnmodifiedReturnValues.ql:58,22-30)
-WARNING: Module DataFlow has been deprecated and may be removed in future (/home/runner/work/semmle-code/semmle-code/codeql-coding-standards/c/misra/src/rules/RULE-22-7/EofShallBeComparedWithUnmodifiedReturnValues.ql:58,48-56)
 | test.c:6:7:6:20 | ... != ... | The check is not reliable as the type of the return value of $@ is converted. | test.c:5:14:5:20 | call to getchar | call to getchar |
 | test.c:13:7:13:15 | ... != ... | The check is not reliable as the type of the return value of $@ is converted. | test.c:12:14:12:20 | call to getchar | call to getchar |

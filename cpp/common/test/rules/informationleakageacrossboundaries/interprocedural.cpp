@@ -1,5 +1,5 @@
+#include <cstring>
 #include <stddef.h>
-#include <string>
 
 unsigned long copy_to_user(void *to, const void *from, unsigned long n);
 

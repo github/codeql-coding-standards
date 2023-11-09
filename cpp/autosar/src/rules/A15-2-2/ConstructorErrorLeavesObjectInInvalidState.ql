@@ -15,7 +15,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import codingstandards.cpp.autosar
 import codingstandards.cpp.exceptions.ExceptionFlow
 import codingstandards.cpp.exceptions.ExceptionSpecifications
@@ -53,10 +53,13 @@ class NewWrapperFunction extends Function {
 
 /** An expression on which `delete` is called, directly or indirectly. */
 class DeletedExpr extends Expr {
+  pragma[noinline, nomagic]
   DeletedExpr() {
-    this = any(DeleteExpr deleteExpr).getExpr() or
+    this = any(DeleteExpr deleteExpr).getExpr()
+    or
     exists(DeleteWrapperFunction dwf, FunctionCall call |
-      this = call.getArgument(dwf.getADeleteParameter().getIndex())
+      this = call.getArgument(dwf.getADeleteParameter().getIndex()) and
+      call.getTarget() = dwf
     )
   }
 }
@@ -75,29 +78,40 @@ class DeleteWrapperFunction extends Function {
   Parameter getADeleteParameter() { result = p }
 }
 
+class ExceptionThrowingConstructor extends ExceptionThrowingFunction, Constructor {
+  ExceptionThrowingConstructor() {
+    exists(getAFunctionThrownType(this, _)) and
+    // The constructor is within the users source code
+    exists(getFile().getRelativePath())
+  }
+}
+
 class ExceptionThrownInConstructor extends ExceptionThrowingExpr {
   Constructor c;
 
-  ExceptionThrownInConstructor() { exists(getAFunctionThrownType(c, this)) }
+  ExceptionThrownInConstructor() {
+    exists(getAFunctionThrownType(c, this)) and
+    // The constructor is within the users source code
+    exists(c.getFile().getRelativePath())
+  }
 
   Constructor getConstructor() { result = c }
 }
 
-query predicate nodes(ExceptionFlowNode node) { any() }
-
 from
-  Constructor c, ExceptionThrownInConstructor throwingExpr, NewAllocationExpr newExpr,
-  ExceptionFlowNode exceptionSource, ExceptionFlowNode functionNode
+  ExceptionThrowingConstructor c, ExceptionThrownInConstructor throwingExpr,
+  NewAllocationExpr newExpr, ExceptionFlowNode exceptionSource,
+  ExceptionFlowNode throwingExprFlowNode, ExceptionFlowNode reportingNode
 where
   not isExcluded(c, Exceptions2Package::constructorErrorLeavesObjectInInvalidStateQuery()) and
   not isNoExceptTrue(c) and
   // Constructor must exit with an exception
   c = throwingExpr.getConstructor() and
-  throwingExpr.hasExceptionFlowReflexive(exceptionSource, functionNode, _) and
+  throwingExpr.hasExceptionFlowReflexive(exceptionSource, throwingExprFlowNode, _) and
   exists(ExceptionFlowNode mid |
     edges*(exceptionSource, mid) and
     newExpr.getASuccessor+() = mid.asThrowingExpr() and
-    edges*(mid, functionNode) and
+    edges*(mid, throwingExprFlowNode) and
     not exists(ExceptionFlowNode prior | edges(prior, mid) |
       prior.asCatchBlock().getEnclosingFunction() = c
     )
@@ -116,7 +130,16 @@ where
     DataFlow::localFlow(DataFlow::exprNode(newExpr), DataFlow::exprNode(deletedExpr)) and
     newExpr.getASuccessor+() = deletedExpr and
     deletedExpr.getASuccessor+() = throwingExpr
-  )
-select c, exceptionSource, functionNode, "Constructor throws $@ and allocates memory at $@",
+  ) and
+  // In CodeQL CLI 2.12.7 there is a bug which causes an infinite loop during results interpretation
+  // when a result includes more than maxPaths paths and also includes a path with no edges i.e.
+  // where the source and sink node are the same.
+  // To avoid this edge case, if we report a path where the source and sink are the same (i.e the
+  // throwingExpr directly throws an exception), we adjust the sink node to report the constructor,
+  // which creates a one step path from the throwingExprFlowNode to the constructor node.
+  if throwingExprFlowNode = exceptionSource
+  then reportingNode.asFunction() = c and edges(throwingExprFlowNode, reportingNode)
+  else reportingNode = throwingExprFlowNode
+select c, exceptionSource, reportingNode, "Constructor throws $@ and allocates memory at $@",
   throwingExpr, throwingExpr.(ThrowingExpr).getAnExceptionType().getExceptionName(), newExpr,
   "alloc"

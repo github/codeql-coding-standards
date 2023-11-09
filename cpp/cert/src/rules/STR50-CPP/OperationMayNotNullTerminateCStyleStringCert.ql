@@ -14,7 +14,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.operationmaynotnullterminatecstylestring.OperationMayNotNullTerminateCStyleString
 
-class OperationMayNotNullTerminateCStyleStringCertQuery extends OperationMayNotNullTerminateCStyleStringSharedQuery {
+class OperationMayNotNullTerminateCStyleStringCertQuery extends OperationMayNotNullTerminateCStyleStringSharedQuery
+{
   OperationMayNotNullTerminateCStyleStringCertQuery() {
     this = StringsPackage::operationMayNotNullTerminateCStyleStringCertQuery()
   }

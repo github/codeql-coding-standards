@@ -1,5 +1,5 @@
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 newtype TFieldQualifier =
   ExplicitQualifier(VariableAccess v) or

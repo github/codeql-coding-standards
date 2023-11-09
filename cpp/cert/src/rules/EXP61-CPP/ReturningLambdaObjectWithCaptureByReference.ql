@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.danglingcapturewhenreturninglambdaobject.DanglingCaptureWhenReturningLambdaObject
 
-class ReturnedLambdaObjectOutlivesCaptureByReferenceQuery extends DanglingCaptureWhenReturningLambdaObjectSharedQuery {
+class ReturnedLambdaObjectOutlivesCaptureByReferenceQuery extends DanglingCaptureWhenReturningLambdaObjectSharedQuery
+{
   ReturnedLambdaObjectOutlivesCaptureByReferenceQuery() {
     this = LambdasPackage::returningLambdaObjectWithCaptureByReferenceQuery()
   }
