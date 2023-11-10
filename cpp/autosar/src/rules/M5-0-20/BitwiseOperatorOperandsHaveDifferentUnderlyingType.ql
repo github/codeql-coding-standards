@@ -17,6 +17,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Bitwise
+import codingstandards.cpp.Conversion
 
 predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess r) {
   exists(BinaryBitwiseOperation bbo | bbo = o |
@@ -30,13 +31,13 @@ predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess
 }
 
 from
-  Operation o, Variable left, Variable right, Type leftUnderlyingType, Type rightUnderlyingType
+  Operation o, VariableAccess left, VariableAccess right, Type leftUnderlyingType, Type rightUnderlyingType
 where
   not isExcluded(o, ExpressionsPackage::bitwiseOperatorOperandsHaveDifferentUnderlyingTypeQuery()) and
   not o.isFromUninstantiatedTemplate(_) and
-  isBinaryBitwiseOperation(o, left.getAnAccess(), right.getAnAccess()) and
-  leftUnderlyingType = left.getUnderlyingType() and
-  rightUnderlyingType = right.getUnderlyingType() and
+  isBinaryBitwiseOperation(o, left, right) and
+  leftUnderlyingType = MisraConversion::getUnderlyingType(left) and
+  rightUnderlyingType = MisraConversion::getUnderlyingType(right) and
   leftUnderlyingType != rightUnderlyingType
 select o,
   "Operands of the '" + o.getOperator() + "' operation have different underlying types '" + leftUnderlyingType.getName() + "' and '" + rightUnderlyingType.getName() + "'."
