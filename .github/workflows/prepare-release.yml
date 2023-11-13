@@ -123,11 +123,7 @@ jobs:
           git switch -c feature/update-user-manual-for-$RELEASE_VERSION
           git push --set-upstream origin feature/update-user-manual-for-$RELEASE_VERSION
 
-          find docs -name 'user_manual.md' | xargs sed -i "s/code-scanning-cpp-query-pack-.*\.zip\`/code-scanning-cpp-query-pack-$RELEASE_VERSION.zip\`/"
-          find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.csv\`/supported_rules_list_$RELEASE_VERSION.csv\`/"
-          find docs -name 'user_manual.md' | xargs sed -i "s/supported_rules_list_.*\.md\`/supported_rules_list_$RELEASE_VERSION.md\`/"
-          find docs -name 'user_manual.md' | xargs sed -i "s/user_manual_.*\.md\`/user_manual_$RELEASE_VERSION.md\`/"
-          find docs -name 'user_manual.md' | xargs sed -i "s/This user manual documents release \`.*\` of/This user manual documents release \`$RELEASE_VERSION\` of/"
+          scripts/bump_version.sh "$RELEASE_VERSION"
 
           git add -u .
           git commit -m "Update version"
