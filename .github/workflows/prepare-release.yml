@@ -50,11 +50,14 @@ jobs:
 
       - name: Validate version
         run: |
-          python scripts/release/validate-version.py "$RELEASE_VERSION"
+          if [[ "$HOTFIX_RELEASE" == "true" ]]; then
+            python scripts/release/validate-version.py --hotfix "$RELEASE_VERSION"
+          else
+            python scripts/release/validate-version.py "$RELEASE_VERSION"
+          fi
 
-      - name: Validate release precondition
+      - name: Check if release exists
         env:
-          RELEASE_VERSION: ${{ inputs.version }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           read -r release type < <(gh release list | awk -v release="v$RELEASE_VERSION" '$1 ~ release { print $1,$2; ++n } END { if (n == 0) print "undefined", "undefined" }')
@@ -71,27 +74,31 @@ jobs:
             fi
           fi
 
+      - name: Check if release PR exists
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
           release_pr=$(gh pr view rc/$RELEASE_VERSION --json title,state,number)
-
           if [[ ! -z "$release_pr" ]]; then
-
             pr_title=$(echo "$release_pr" | jq -r '.title')
             pr_state=$(echo "$release_pr" | jq -r '.state')
             pr_number=$(echo "$release_pr" | jq -r '.number')
-
             echo "Found PR '$pr_title' with state '$pr_state'"
-
             if [[ "$pr_title" == "Release v$RELEASE_VERSION" ]] && [[ "$pr_state" != "CLOSED" ]]; then
               echo "Release PR is not closed, deleting it to proceed"
               gh pr close --delete-branch $pr_number
             fi
           fi
 
+      - name: Delete existing release branch
+        run: |
           if [[ ! -z $(git ls-remote --heads origin rc/$RELEASE_VERSION) ]]; then
             echo "Deleting existing release branch"
             git push origin --delete rc/$RELEASE_VERSION
           fi
 
+      - name: Delete existing feature branch
+        run: |
           if [[ ! -z $(git ls-remote --heads origin feature/update-user-manual-for-$RELEASE_VERSION) ]]; then
             echo "Deleting existing feature branch"
             git push origin --delete feature/update-user-manual-for-$RELEASE_VERSION
