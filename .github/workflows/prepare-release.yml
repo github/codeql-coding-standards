@@ -60,16 +60,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          read -r release type < <(gh release list | awk -v release="v$RELEASE_VERSION" '$1 ~ release { print $1,$2; ++n } END { if (n == 0) print "undefined", "undefined" }')
-          if [[ "$release" == "undefined" ]]; then
+          release=$(gh release view v$RELEASE_VERSION --json name,isDraft)
+          if [[ -z "$release" ]]; then
             echo "Release v$RELEASE_VERSION does not exist. Proceeding"
             echo "create_draft_release=true" >> "$GITHUB_ENV"
           else
-            if [[ "$type" != "Draft" ]]; then
-              echo "Release '$release' already exists and is not a draft, but has release state '$type'. Cannot proceed"
+            isDraft=$(echo "$release" | jq -r '.isDraft')
+            if [[ "$isDraft" != "true" ]]; then
+              echo "Release 'v$RELEASE_VERSION' already exists and is not a draft. Cannot proceed"
               exit 1
             else
-              echo "Release '$release' already exists and is a draft. Proceeding"
+              echo "Release 'v$RELEASE_VERSION' already exists and is a draft. Proceeding"
               echo "create_draft_release=false" >> "$GITHUB_ENV"
             fi
           fi
