@@ -14,7 +14,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.standardlibrary.FileAccess
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /**

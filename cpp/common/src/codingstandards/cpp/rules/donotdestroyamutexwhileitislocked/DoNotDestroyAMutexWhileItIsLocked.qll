@@ -15,7 +15,7 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.Concurrency
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 
 abstract class DoNotDestroyAMutexWhileItIsLockedSharedQuery extends Query { }
 

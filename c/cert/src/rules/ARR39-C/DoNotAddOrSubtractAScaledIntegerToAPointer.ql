@@ -14,7 +14,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Pointers
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 import DataFlow::PathGraph
 
 /**
