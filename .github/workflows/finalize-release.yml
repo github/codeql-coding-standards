@@ -9,7 +9,7 @@ on:
     inputs:
       ref:
         description: |
-          The branch for which the finalize the release.
+          The release branch to finalize.
         required: true
 
 jobs:
