@@ -75,7 +75,7 @@ jobs:
 
           git switch -c release-automation/bump-version
 
-          python scripts/bump_version.sh "$next_version"
+          python scripts/release/bump-version.sh "$next_version"
 
           git add -u .
           git commit -m "Bump version to $next_version"

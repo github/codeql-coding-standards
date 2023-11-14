@@ -3,7 +3,7 @@
 
 if [[ -z $1 ]];
 then 
-    echo "Usage: bump_version.sh <new_version>"
+    echo "Usage: bump-version.sh <new_version>"
     exit
 fi
 
