@@ -65,6 +65,8 @@ jobs:
 
       - name: Bump main version
         if: env.HOTFIX_RELEASE == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           version=${BASE_REF#rc/}
           next_version="$version-dev"
