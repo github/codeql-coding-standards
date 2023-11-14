@@ -57,3 +57,28 @@ jobs:
           echo "Finalizing release v$version"
 
           gh release edit "v$version" --draft=false --tag=v$version
+
+      - name: Determine if release was a hotfix release
+        run: |
+          version=${BASE_REF#rc/}
+          echo "HOTFIX_RELEASE=$(python scripts/release/is-hotfix.py $version)" >> "$GITHUB_ENV"
+
+      - name: Bump main version
+        if: env.HOTFIX_RELEASE == 'false'
+        run: |
+          version=${BASE_REF#rc/}
+          next_version="$version-dev"
+          echo "Bumping main version to $next_version"
+
+          git switch main
+          git pull --ff-only origin main
+
+          git switch -c release-automation/bump-version
+
+          python scripts/bump_version.sh "$next_version"
+
+          git add -u .
+          git commit -m "Bump version to $next_version"
+          git push --set-upstream origin release-automation/bump-version
+
+          gh pr create --repo $GITHUB_REPOSITORY --base main --head release-automation/bump-version --body "Bump the version of main to the dev label of the just released version $next_version" --title "Bump version to $next_version"
