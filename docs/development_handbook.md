@@ -37,6 +37,7 @@
 | 0.28.0  | 2023-08-14 | Luke Cartey | Remove references to LGTM which is now a legacy product.  |
 | 0.29.0 | 2023-10-11 | Remco Vermeulen | Update release process. |
 | 0.29.1 | 2023-10-11 | Remco Vermeulen | Address Markdown linter problems. |
+| 0.30.0 | 2023-11-14 | Remco Vermeulen | Clarify release steps in case of a hotfix release. |
 
 ## Scope of work
 
@@ -606,16 +607,22 @@ Among the assets are:
 
 #### Creating a release
 
+**NOTE**: If this is a hotfix release, make sure to invoke `prepare-release.yml` with `hotfix` set to `true`.
+
 To create a new release:
 
  1. Determine the appropriate release version. Version numbers are generated
     according to the guidelines in the section "Version Numbering."
  2. Determine the appropriate [Git reference](https://git-scm.com/book/en/v2/Git-Internals-Git-References) to base the new release on. For new major or minor releases, this will be `main`. For patch releases this will be the release branch that is patched.
- 3. Trigger a [workflow dispatch event](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) for the [Prepare CodeQL Coding Standards release](../.github/workflows/prepare-release.yml) workflow, specifying the release version for the input `version` and the Git reference for the input `ref`.
- 4. Merge the PR that is created for the release, named `Release v<major>.<minor>.<patch>` where `<major>`, `<minor>`, and `<patch>` match with the input `version` of the workflow  [Prepare CodeQL Coding Standards release](../.github/workflows/prepare-release.yml) triggered in the previous step.
+ 3. Trigger a [workflow dispatch event](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) for the [Prepare CodeQL Coding Standards release](../.github/workflows/prepare-release.yml) workflow, specifying the release version for the input `version` and the Git reference for the input `ref`, and `hotfix` with the value `true` **if** it is a hotfix release.
+ 4. Validate the compiler and performance results linked from their respective check runs in the PR's checks overview.
+    1. Validate the performance results by ensuring the release performance doesn't regresses from the previous release by more than a factor of 2 without a good reason.
+    2. Validate the compiler results by ensuring there is an acceptable number of compatibility issues.
+ 5. Merge the PR that is created for the release, named `Release v<major>.<minor>.<patch>` where `<major>`, `<minor>`, and `<patch>` match with the input `version` of the workflow  [Prepare CodeQL Coding Standards release](../.github/workflows/prepare-release.yml) triggered in the previous step.
+ 6. Merge the PRs for the performance and compiler validation results on the release engineering repository.
 
 The release automation consists of many test and validation steps that can fail. These can be addressed and the release can be restarted from step 3.
-A restart of a release **WILL RECREATE THE EXISTING RELEASE BRANCH AND RELEASE PR**. Any additional changes added to the PR **MUST** be reapplied.
+A restart of a release (i.e., calling `prepare-release.yml`) **WILL RECREATE THE EXISTING RELEASE BRANCH AND RELEASE PR**. Any additional changes added to the PR **MUST** be reapplied.
 If a release has been marked public, the release can no longer be restarted or re-released without removing the release manually.
 
 ## False Positive Triage Rubric
