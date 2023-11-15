@@ -9,12 +9,12 @@ on:
 
 jobs:
   dispatch-matrix-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
 
       - name: Test Variables
         shell: pwsh
-        run: |          
+        run: |
           Write-Host "Running as: ${{github.actor}}"    
     
       - name: Dispatch Matrix Testing Job

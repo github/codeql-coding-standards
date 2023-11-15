@@ -12,9 +12,6 @@ A tool for producing a canonical list of rules supported by the Coding Standards
 When run without any arguments, the script iterates through each of the rule package description
 files stored in the `rule_packages` directory, and identifies which rules are supported by one or
 more queries.
-
-This script needs to be run with the codeql-coding-standards git repository as the current working
-directory.
 """
 
 if (len(sys.argv) == 2 and sys.argv[1] == "--help"):
