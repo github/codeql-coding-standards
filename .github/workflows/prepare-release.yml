@@ -60,6 +60,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
+          # Don't fail the step if gh fails to find the release
+          set +e
+
           release=$(gh release view v$RELEASE_VERSION --json name,isDraft)
           if [[ -z "$release" ]]; then
             echo "Release v$RELEASE_VERSION does not exist. Proceeding"
