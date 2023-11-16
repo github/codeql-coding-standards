@@ -15,16 +15,16 @@ env:
 
 jobs:
   generate-token:
-      runs-on: ubuntu-latest
-      outputs:
-        token: ${{ steps.generate-token.outputs.token }}
-      steps:
-        - name: Generate token
-          id: generate-token
-          uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
-          with:
-            app_id: ${{ vars.AUTOMATION_APP_ID }}
-            private_key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+    runs-on: ubuntu-latest
+    outputs:
+      token: ${{ steps.generate-token.outputs.token }}
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app_id: ${{ vars.AUTOMATION_APP_ID }}
+          private_key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
 
   pre-validate-performance:
     outputs:
@@ -72,8 +72,8 @@ jobs:
     steps:
       - name: Fail check run status
         env:
-           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
-           GITHUB_TOKEN: ${{ github.token }}
+          CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           jq -n \
           --arg status "completed" \
@@ -127,14 +127,15 @@ jobs:
           --ref rvermeulen/release-process
 
   on-failure-validate-compiler-compatibility-dispatch:
-    needs: [pre-validate-compiler-compatibility, validate-compiler-compatibility]
+    needs:
+      [pre-validate-compiler-compatibility, validate-compiler-compatibility]
     if: failure()
     runs-on: ubuntu-22.04
     steps:
       - name: Fail check run status
         env:
-           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
-           GITHUB_TOKEN: ${{ github.token }}
+          CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           jq -n \
           --arg status "completed" \
