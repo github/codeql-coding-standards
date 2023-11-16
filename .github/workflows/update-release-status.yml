@@ -134,11 +134,23 @@ jobs:
 
           echo "check-run-head-sha=$CHECK_RUN_HEAD_SHA" >> "$GITHUB_OUTPUT"
 
+  generate-token:
+    runs-on: ubuntu-latest
+    outputs:
+      token: ${{ steps.generate-token.outputs.token }}
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app_id: ${{ vars.AUTOMATION_APP_ID }}
+          private_key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+
   update-release:
-    needs: validate-check-runs
+    needs: [validate-check-runs, generate-token]
     if: needs.validate-check-runs.outputs.status == 'completed'
     uses: ./.github/workflows/update-release.yml
     with:
-        head-sha: ${{ needs.validate-check-runs.outputs.check-run-head-sha }}
+      head-sha: ${{ needs.validate-check-runs.outputs.check-run-head-sha }}
     secrets:
-      RELEASE_ENGINEERING_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+      RELEASE_ENGINEERING_TOKEN: ${{ generate-token.outputs.token }}
