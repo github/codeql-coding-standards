@@ -14,6 +14,17 @@ env:
   HEAD_SHA: ${{ github.event.pull_request.head.sha }}
 
 jobs:
+  generate-token:
+      runs-on: ubuntu-latest
+      outputs:
+        token: ${{ steps.generate-token.outputs.token }}
+      steps:
+        - name: Generate token
+          id: generate-token
+          uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+          with:
+            app_id: ${{ vars.AUTOMATION_APP_ID }}
+            private_key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
 
   pre-validate-performance:
     outputs:
@@ -36,13 +47,13 @@ jobs:
           echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
 
   validate-performance:
-    needs: pre-validate-performance
+    needs: [pre-validate-performance, generate-token]
     runs-on: ubuntu-22.04
     steps:
       - name: Invoke performance test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
-          GH_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          GH_TOKEN: ${{ generate-token.outputs.token }}
         run: |
           jq -n \
           --arg ref "$HEAD_SHA" \
@@ -97,13 +108,13 @@ jobs:
           echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
 
   validate-compiler-compatibility:
-    needs: pre-validate-compiler-compatibility
+    needs: [pre-validate-compiler-compatibility, generate-token]
     runs-on: ubuntu-22.04
     steps:
       - name: Invoke compiler compatibility test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
-          GITHUB_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          GITHUB_TOKEN: ${{ generate-token.outputs.token }}
         run: |
           jq -n \
           --arg ref "$HEAD_SHA" \
