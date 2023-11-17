@@ -16,6 +16,7 @@ on:
           Whether this is a hotfix release.
         required: false
         default: false
+        type: boolean
 
 permissions:
   contents: write
