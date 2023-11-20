@@ -45,7 +45,7 @@ jobs:
           app-id: ${{ vars.AUTOMATION_APP_ID }}
           private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-          repository: "codeql-coding-standards-release-engineering"
+          repositories: "codeql-coding-standards-release-engineering"
       - name: Invoke performance test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
@@ -114,7 +114,7 @@ jobs:
           app-id: ${{ vars.AUTOMATION_APP_ID }}
           private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-          repository: "codeql-coding-standards-release-engineering"
+          repositories: "codeql-coding-standards-release-engineering"
       - name: Invoke compiler compatibility test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
