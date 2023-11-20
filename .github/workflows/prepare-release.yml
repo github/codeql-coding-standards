@@ -30,8 +30,6 @@ env:
 
 jobs:
   prepare-release:
-    outputs:
-      pull-request-head-sha: ${{ steps.determine-pr-head-sha.outputs.pull-request-head-sha }}
     name: "Prepare release"
     runs-on: ubuntu-22.04
     steps:
