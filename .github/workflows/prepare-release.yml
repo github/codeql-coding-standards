@@ -152,6 +152,9 @@ jobs:
 
       - name: Create release PR
         env:
+          # Use the token from the `generate-token` step because we can't use the default workflow token
+          # to create a PR and generate PR events to trigger the next workflow because of recursive workflow
+          # trigger protection.
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           gh pr create \
