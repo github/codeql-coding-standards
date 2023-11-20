@@ -17,7 +17,7 @@ on:
     secrets:
       AUTOMATION_PRIVATE_KEY:
         description: |
-          The token to use for accessing the release engineering repository.
+          The private key to use to generate a token for accessing the release engineering repository.
         required: true
 env:
   HEAD_SHA: ${{ inputs.head-sha }}
