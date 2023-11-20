@@ -13,7 +13,7 @@ on:
         required: true
       hotfix:
         description: |
-          Whether this is a hotfix release.
+          Hotfix release.
         required: false
         default: false
         type: boolean
@@ -80,7 +80,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          release_pr=$(gh pr view rc/$RELEASE_VERSION --json title,state,number)
+          release_pr=$( { gh pr view "rc/$RELEASE_VERSION" --json title,state,number; } || echo "")
           if [[ ! -z "$release_pr" ]]; then
             pr_title=$(echo "$release_pr" | jq -r '.title')
             pr_state=$(echo "$release_pr" | jq -r '.state')
