@@ -15,29 +15,16 @@ on:
           The head SHA of the release PR to use for finalizing the release.
         required: true
     secrets:
-      RELEASE_ENGINEERING_TOKEN:
+      AUTOMATION_PRIVATE_KEY:
         description: |
-          The token to use for accessing the release engineering repository.
+          The private key to use to generate a token for accessing the release engineering repository.
         required: true
 env:
   HEAD_SHA: ${{ inputs.head-sha }}
 
 jobs:
-  generate-token:
-    runs-on: ubuntu-latest
-    outputs:
-      token: ${{ steps.generate-token.outputs.token }}
-    steps:
-      - name: Generate token
-        id: generate-token
-        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
-        with:
-          app_id: ${{ vars.AUTOMATION_APP_ID }}
-          private_key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
-
   update-release:
     name: "Update release"
-    needs: generate-token
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -53,10 +40,19 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/release/requirements.txt
 
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repository: "codeql-coding-standards-release-engineering"
+
       - name: Update release assets
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_ENGINEERING_TOKEN: ${{ generate-token.outputs.token }}
+          RELEASE_ENGINEERING_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           python scripts/release/update-release-assets.py \
             --head-sha $HEAD_SHA \
