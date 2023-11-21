@@ -1,0 +1,173 @@
+name: Validate release
+
+on:
+  pull_request:
+    branches:
+      - "rc/**"
+
+permissions:
+  contents: read
+  actions: write
+  checks: write
+
+env:
+  HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  pre-validate-performance:
+    outputs:
+      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Create check run
+        id: create-check-run
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          check_run_id=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --field name="performance-test" \
+          --field head_sha="$HEAD_SHA" \
+          --jq ".id" \
+          /repos/$GITHUB_REPOSITORY/check-runs)
+
+          echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
+
+  validate-performance:
+    needs: pre-validate-performance
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repository: "codeql-coding-standards-release-engineering"
+      - name: Invoke performance test
+        env:
+          CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          jq -n \
+          --arg ref "$HEAD_SHA" \
+          --arg check_run_id "$CHECK_RUN_ID" \
+          '{ref: $ref, "check-run-id": $check_run_id}' \
+          | \
+          gh workflow run release-performance-testing.yml \
+          --json \
+          -R github/codeql-coding-standards-release-engineering \
+          --ref rvermeulen/release-process
+
+  on-failure-validate-performance-dispatch:
+    needs: [pre-validate-performance, validate-performance]
+    if: failure()
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Fail check run status
+        env:
+          CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          jq -n \
+          --arg status "completed" \
+          --arg conclusion "failure" \
+          '{status: $status, conclusion: $conclusion}' \
+          | \
+          gh api \
+            --method PATCH \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --input - \
+            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
+
+  pre-validate-compiler-compatibility:
+    outputs:
+      check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Create check run
+        id: create-check-run
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          check_run_id=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --field name="compiler-compatibility-test" \
+          --field head_sha="$HEAD_SHA" \
+          --jq ".id" \
+          /repos/$GITHUB_REPOSITORY/check-runs)
+
+          echo "check-run-id=$check_run_id" >> "$GITHUB_OUTPUT"
+
+  validate-compiler-compatibility:
+    needs: pre-validate-compiler-compatibility
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repository: "codeql-coding-standards-release-engineering"
+      - name: Invoke compiler compatibility test
+        env:
+          CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          jq -n \
+          --arg ref "$HEAD_SHA" \
+          --arg check_run_id "$CHECK_RUN_ID" \
+          '{ref: $ref, "check-run-id": $check_run_id}' \
+          | \
+          gh workflow run release-compiler-validation.yml \
+          --json \
+          -R github/codeql-coding-standards-release-engineering \
+          --ref rvermeulen/release-process
+
+  on-failure-validate-compiler-compatibility-dispatch:
+    needs:
+      [pre-validate-compiler-compatibility, validate-compiler-compatibility]
+    if: failure()
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Fail check run status
+        env:
+          CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          jq -n \
+          --arg status "completed" \
+          --arg conclusion "failure" \
+          '{status: $status, conclusion: $conclusion}' \
+          | \
+          gh api \
+            --method PATCH \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --input - \
+            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
+
+  create-release-status-check-run:
+    name: "Initialize release status monitoring"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Create release status check run
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          CHECK_RUN_ID=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --field name="release-status" \
+          --field head_sha="$HEAD_SHA" \
+          --field status="in_progress" \
+          --jq ".id" \
+          /repos/$GITHUB_REPOSITORY/check-runs)
+
+          echo "Created release status check run with id $CHECK_RUN_ID for $GITHUB_SHA"

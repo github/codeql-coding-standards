@@ -1,0 +1,45 @@
+name: Validate Query Test Case Formatting
+on:
+  merge_group:
+    types: [checks_requested]
+  pull_request:
+    branches:
+      - main
+      - next
+      - "rc/**"
+
+env:
+  XARGS_MAX_PROCS: 4
+
+jobs:
+  validate-test-case-files:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        language: [cpp, c]
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get install --yes --quiet --no-install-recommends clang-format
+
+      - name: Validating Current versus Expected Test Case Formatting
+        env:
+          LANGUAGE: ${{ matrix.language }}
+        # IMPORTANT: This step current relies on the fact that a file extension is the same as the language name for simplicity.
+        run: |
+          if ! test -f .clang-format; then
+            echo "Cannot find .clang-format in '$PWD'. Exiting..."
+          fi
+
+          find $LANGUAGE/*/test -name \*.$LANGUAGE -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" clang-format --style=file -i --verbose
+          git diff
+          git diff --compact-summary
+          git diff --quiet
+
+      
