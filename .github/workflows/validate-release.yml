@@ -58,8 +58,7 @@ jobs:
           | \
           gh workflow run release-performance-testing.yml \
           --json \
-          -R github/codeql-coding-standards-release-engineering \
-          --ref rvermeulen/release-process
+          -R github/codeql-coding-standards-release-engineering
 
   on-failure-validate-performance-dispatch:
     needs: [pre-validate-performance, validate-performance]
@@ -127,8 +126,7 @@ jobs:
           | \
           gh workflow run release-compiler-validation.yml \
           --json \
-          -R github/codeql-coding-standards-release-engineering \
-          --ref rvermeulen/release-process
+          -R github/codeql-coding-standards-release-engineering
 
   on-failure-validate-compiler-compatibility-dispatch:
     needs:
