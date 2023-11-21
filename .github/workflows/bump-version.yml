@@ -18,8 +18,10 @@ jobs:
 
         - name: Apply Bump
           shell: bash
+          env:
+            NEW_VERSION: ${{ inputs.new_version }}
           run: |
-            bash ./scripts/bump_version.sh ${{ github.event.inputs.new_version }}
+            bash ./scripts/release/bump-version.sh "$NEW_VERSION"
 
         - name: Create Pull Request
           uses: peter-evans/create-pull-request@v4

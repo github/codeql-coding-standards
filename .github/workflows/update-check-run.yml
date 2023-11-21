@@ -1,0 +1,70 @@
+name: Update check run
+
+on:
+  workflow_dispatch:
+    inputs:
+      id:
+        description: |
+          The unique identifier of the check run.
+        type: number
+        required: true
+      status:
+        description: |
+          The current status.
+
+          Can be one of: queued, in_progress, completed
+        type: string
+        required: true
+      conclusion:
+        description: |
+          The final conclusion of the check when completed.
+
+          Can be one of: action_required, cancelled, failure, neutral, success, skipped, stale, timed_out
+        type: string
+      details_url:
+        description: |
+          The URL of the integrator's site that has the full details of the check.
+        type: string
+      external_id:
+        description: |
+          A reference for the run on the integrator's system.
+        type: string
+      output:
+        description: |
+          The output object for the check run.
+
+          See https://docs.github.com/en/rest/checks/runs?apiVersion=2022-11-28#update-a-check-run for more information.
+        type: string
+        default: '{}'
+
+permissions:
+  checks: write
+
+jobs:
+  update-check-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update check run
+        env:
+          CHECK_RUN_ID: ${{ inputs.id }}
+          CHECK_RUN_STATUS: ${{ inputs.status }}
+          CHECK_RUN_CONCLUSION: ${{ inputs.conclusion }}
+          CHECK_RUN_DETAILS_URL: ${{ inputs.details_url }}
+          CHECK_RUN_EXTERNAL_ID: ${{ inputs.external_id }}
+          CHECK_RUN_OUTPUT: ${{ inputs.output }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          jq -n \
+            --arg status "$CHECK_RUN_STATUS" \
+            --arg conclusion "$CHECK_RUN_CONCLUSION" \
+            --arg details_url "$CHECK_RUN_DETAILS_URL" \
+            --arg external_id "$CHECK_RUN_EXTERNAL_ID" \
+            --argjson output "$CHECK_RUN_OUTPUT" \
+            '{status: $status, conclusion: $conclusion, details_url: $details_url, external_id: $external_id, output: $output} | to_entries | map(select(.value != "" and .value != {})) | from_entries' \
+          | \
+          gh api \
+            --method PATCH \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --input - \
+            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
