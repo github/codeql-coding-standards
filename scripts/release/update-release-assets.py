@@ -1,5 +1,5 @@
 from __future__ import annotations # This enables postponed evaluation of type annotations. Required for typing.TYPE_CHECKING. See https://peps.python.org/pep-0563/
-from typing import TYPE_CHECKING, List, Union, cast, Dict, Any
+from typing import TYPE_CHECKING, List, Union, cast, Dict, Any, TypeVar, Callable, Sequence
 import shutil
 from tempfile import TemporaryDirectory
 import subprocess
@@ -124,7 +124,11 @@ class ReleaseLayout:
                 elif action_type == "workflow-artifact":
                     actions.append(WorkflowArtifactAction(workflow_runs, **cast(Dict[str, Any], action_args)))
                 elif action_type == "shell":
-                    actions.append(ShellAction(action_args))
+                    modifiers : List[Callable[[str], str]] = [
+                        lambda cmd: re.sub(pattern=r"\${{\s*coding-standards\.root\s*}}", repl=str(root_path), string=cmd),
+                        lambda cmd: re.sub(pattern=r"\${{\s*layout\.root\s*}}", repl=str(directory), string=cmd)
+                    ]
+                    actions.append(ShellAction(action_args, modifiers=modifiers))
                 elif action_type == "file":
                     actions.append(FileAction(action_args))
                 else:
@@ -178,12 +182,24 @@ class WorkflowArtifactAction():
         return list(map(Path, Path(self.temp_workdir.name).glob("**/*")))
     
 class ShellAction():
-    def __init__(self, command: str) -> None:
+    def __init__(self, command: str, **kwargs: Any) -> None:
         self.command = command.strip()
         self.temp_workdir = TemporaryDirectory()
+        self.options = kwargs
+
+    def _rewrite_command(self) -> str:
+        E = TypeVar("E")
+        R = TypeVar("R")
+        def lfold(fn: Callable[[R, E], R], lst: Sequence[E], init: R) -> R:
+            return lfold(fn, lst[1:], fn(init, lst[0])) if lst else init
+        if 'modifiers' in self.options:
+            return lfold(lambda acc, x: x(acc), self.options['modifiers'], self.command)
+        else:
+            return self.command
 
     def run(self) -> List[Path]:
-        concrete_command = re.sub(pattern=r"\${{\s*coding-standards\.root\s*}}", repl=str(root_path), string=self.command)
+        #concrete_command = re.sub(pattern=r"\${{\s*coding-standards\.root\s*}}", repl=str(root_path), string=self.command)
+        concrete_command = self._rewrite_command()
         subprocess.run(concrete_command, cwd=self.temp_workdir.name, check=True, shell=True)
         return list(map(Path, Path(self.temp_workdir.name).glob("**/*")))
         

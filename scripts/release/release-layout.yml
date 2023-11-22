@@ -20,4 +20,4 @@ layout:
     - file: docs/user_manual.md
   checksums.txt:
     - shell: |
-        sha256sum ./* > checksums.txt
+        sha256sum ${{ layout.root }}/* > checksums.txt
