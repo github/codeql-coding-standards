@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.nonstandardentitiesinstandardnamespaces.NonStandardEntitiesInStandardNamespaces
 
-class NonStandardEntitiesInStandardNamespacesQuery extends NonStandardEntitiesInStandardNamespacesSharedQuery {
+class NonStandardEntitiesInStandardNamespacesQuery extends NonStandardEntitiesInStandardNamespacesSharedQuery
+{
   NonStandardEntitiesInStandardNamespacesQuery() {
     this = ScopePackage::nonStandardEntitiesInStandardNamespacesQuery()
   }

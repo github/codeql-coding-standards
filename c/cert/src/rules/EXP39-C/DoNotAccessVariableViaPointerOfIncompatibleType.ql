@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.controlflow.Dominance
 import DataFlow::PathGraph
 
@@ -163,8 +163,8 @@ Type compatibleTypes(Type type) {
     (
       type.stripType() instanceof Struct and
       type.getUnspecifiedType() = result.getUnspecifiedType() and
-      not type.getName() = "struct <unnamed>" and
-      not result.getName() = "struct <unnamed>"
+      not type.(Struct).isAnonymous() and
+      not result.(Struct).isAnonymous()
       or
       not type.stripType() instanceof Struct and
       (

@@ -19,7 +19,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.sectionsofcodeshallnotbecommentedout.SectionsOfCodeShallNotBeCommentedOut
 
 class SectionsOfCodeCommentedOutQuery extends SectionsOfCodeShallNotBeCommentedOutSharedQuery {
-  SectionsOfCodeCommentedOutQuery() {
-    this = CommentsPackage::sectionsOfCodeCommentedOutQuery()
-  }
+  SectionsOfCodeCommentedOutQuery() { this = CommentsPackage::sectionsOfCodeCommentedOutQuery() }
 }

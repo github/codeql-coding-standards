@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.danglingcapturewhenmovinglambdaobject.DanglingCaptureWhenMovingLambdaObject
 
-class MovedLambdaObjectOutlivesCaptureByReferenceQuery extends DanglingCaptureWhenMovingLambdaObjectSharedQuery {
+class MovedLambdaObjectOutlivesCaptureByReferenceQuery extends DanglingCaptureWhenMovingLambdaObjectSharedQuery
+{
   MovedLambdaObjectOutlivesCaptureByReferenceQuery() {
     this = LambdasPackage::escapingLambdaObjectWithCaptureByReferenceQuery()
   }

@@ -46,7 +46,7 @@ class NonLocalUserDeclaration extends Declaration {
     not this.(Parameter).getFunction().isCompilerGenerated() and
     not this.isInMacroExpansion() and
     not exists(Struct s, TypedefType t |
-      s.getName() = "struct <unnamed>" and
+      s.isAnonymous() and
       t.getBaseType() = s and
       this = s.getAMemberVariable()
     )

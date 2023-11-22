@@ -14,8 +14,8 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Alignment
-import semmle.code.cpp.dataflow.DataFlow
-import semmle.code.cpp.dataflow.DataFlow2
+import codingstandards.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow2
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 import DataFlow::PathGraph
 
@@ -118,7 +118,8 @@ class DefaultAlignedPointerExpr extends UnconvertedCastFromNonVoidPointerExpr, E
  * to exclude an `DefaultAlignedPointerAccessExpr` as a source if a preceding source
  * defined by this configuration provides more accurate alignment information.
  */
-class AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig extends DataFlow2::Configuration {
+class AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig extends DataFlow2::Configuration
+{
   AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig() {
     this = "AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig"
   }

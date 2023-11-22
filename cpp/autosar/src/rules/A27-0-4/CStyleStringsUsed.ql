@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 class InstanceOfCStyleString extends Expr {
   InstanceOfCStyleString() {

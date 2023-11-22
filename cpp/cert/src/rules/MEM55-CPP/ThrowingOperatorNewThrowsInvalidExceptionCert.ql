@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.throwingoperatornewthrowsinvalidexception.ThrowingOperatorNewThrowsInvalidException
 
-class ThrowingOperatorNewThrowsInvalidExceptionCertQuery extends ThrowingOperatorNewThrowsInvalidExceptionSharedQuery {
+class ThrowingOperatorNewThrowsInvalidExceptionCertQuery extends ThrowingOperatorNewThrowsInvalidExceptionSharedQuery
+{
   ThrowingOperatorNewThrowsInvalidExceptionCertQuery() {
     this = AllocationsPackage::throwingOperatorNewThrowsInvalidExceptionCertQuery()
   }

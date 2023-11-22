@@ -14,7 +14,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import codingstandards.cpp.autosar
 import DataFlow::PathGraph
 

@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.onlyfreememoryallocateddynamicallyshared.OnlyFreeMemoryAllocatedDynamicallyShared
 
-class OnlyFreeMemoryAllocatedDynamicallyCertQuery extends OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery {
+class OnlyFreeMemoryAllocatedDynamicallyCertQuery extends OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery
+{
   OnlyFreeMemoryAllocatedDynamicallyCertQuery() {
     this = Memory2Package::onlyFreeMemoryAllocatedDynamicallyCertQuery()
   }

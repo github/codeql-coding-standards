@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.donotuserandforgeneratingpseudorandomnumbers.DoNotUseRandForGeneratingPseudorandomNumbers
 
-class PseudorandomNumbersGeneratedUsingRandQuery extends DoNotUseRandForGeneratingPseudorandomNumbersSharedQuery {
+class PseudorandomNumbersGeneratedUsingRandQuery extends DoNotUseRandForGeneratingPseudorandomNumbersSharedQuery
+{
   PseudorandomNumbersGeneratedUsingRandQuery() {
     this = BannedFunctionsPackage::pseudorandomNumbersGeneratedUsingRandQuery()
   }

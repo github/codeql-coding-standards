@@ -7,7 +7,7 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.allocations.PlacementNew
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import DataFlow::PathGraph
 
 abstract class PlacementNewInsufficientStorageSharedQuery extends Query { }

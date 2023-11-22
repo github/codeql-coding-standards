@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.misra
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 /**
  * Models a function parameter of type array with specified size
@@ -42,7 +42,7 @@ class ArrayParameter extends Parameter {
  * int arr2[2] = {1, 2, 3};
  * ```
  */
-int countElements(ArrayAggregateLiteral l) { result = count(l.getElementExpr(_)) }
+int countElements(ArrayAggregateLiteral l) { result = count(l.getAnElementExpr(_)) }
 
 class SmallArrayConfig extends DataFlow::Configuration {
   SmallArrayConfig() { this = "SmallArrayConfig" }

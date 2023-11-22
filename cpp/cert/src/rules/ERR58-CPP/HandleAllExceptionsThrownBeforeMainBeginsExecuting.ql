@@ -14,7 +14,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.handleallexceptionsduringstartup.HandleAllExceptionsDuringStartup
 
-class HandleAllExceptionsThrownBeforeMainBeginsExcecutingQuery extends HandleAllExceptionsDuringStartupSharedQuery {
+class HandleAllExceptionsThrownBeforeMainBeginsExcecutingQuery extends HandleAllExceptionsDuringStartupSharedQuery
+{
   HandleAllExceptionsThrownBeforeMainBeginsExcecutingQuery() {
     this = Exceptions1Package::handleAllExceptionsThrownBeforeMainBeginsExecutingQuery()
   }

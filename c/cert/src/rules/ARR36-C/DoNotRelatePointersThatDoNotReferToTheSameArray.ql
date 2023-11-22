@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.donotuserelationaloperatorswithdifferingarrays.DoNotUseRelationalOperatorsWithDifferingArrays
 
-class DoNotRelatePointersThatDoNotReferToTheSameArrayQuery extends DoNotUseRelationalOperatorsWithDifferingArraysSharedQuery {
+class DoNotRelatePointersThatDoNotReferToTheSameArrayQuery extends DoNotUseRelationalOperatorsWithDifferingArraysSharedQuery
+{
   DoNotRelatePointersThatDoNotReferToTheSameArrayQuery() {
     this = Memory2Package::doNotRelatePointersThatDoNotReferToTheSameArrayQuery()
   }

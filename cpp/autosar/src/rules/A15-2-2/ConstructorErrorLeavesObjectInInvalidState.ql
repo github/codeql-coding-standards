@@ -15,7 +15,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import codingstandards.cpp.autosar
 import codingstandards.cpp.exceptions.ExceptionFlow
 import codingstandards.cpp.exceptions.ExceptionSpecifications

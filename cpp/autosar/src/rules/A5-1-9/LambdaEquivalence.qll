@@ -989,7 +989,7 @@ private module HashCons {
     analyzableClassAggregateLiteral(cal) and
     cal.getUnspecifiedType() = c and
     exists(Expr e |
-      e = cal.getFieldExpr(f).getFullyConverted() and
+      e = cal.getAFieldExpr(f).getFullyConverted() and
       f.getInitializationOrder() = i and
       (
         hc = hashConsExpr(e) and
@@ -1005,9 +1005,9 @@ private module HashCons {
   private predicate analyzableClassAggregateLiteral(ClassAggregateLiteral cal) {
     forall(int i | exists(cal.getChild(i)) |
       strictcount(cal.getChild(i).getFullyConverted()) = 1 and
-      strictcount(Field f | cal.getChild(i) = cal.getFieldExpr(f)) = 1 and
+      strictcount(Field f | cal.getChild(i) = cal.getAFieldExpr(f)) = 1 and
       strictcount(Field f, int j |
-        cal.getFieldExpr(f) = cal.getChild(i) and j = f.getInitializationOrder()
+        cal.getAFieldExpr(f) = cal.getChild(i) and j = f.getInitializationOrder()
       ) = 1
     )
   }
