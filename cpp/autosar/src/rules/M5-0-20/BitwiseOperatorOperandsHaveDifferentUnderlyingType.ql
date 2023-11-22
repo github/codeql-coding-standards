@@ -31,7 +31,8 @@ predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess
 }
 
 from
-  Operation o, VariableAccess left, VariableAccess right, Type leftUnderlyingType, Type rightUnderlyingType
+  Operation o, VariableAccess left, VariableAccess right, Type leftUnderlyingType,
+  Type rightUnderlyingType
 where
   not isExcluded(o, ExpressionsPackage::bitwiseOperatorOperandsHaveDifferentUnderlyingTypeQuery()) and
   not o.isFromUninstantiatedTemplate(_) and
@@ -40,4 +41,5 @@ where
   rightUnderlyingType = MisraConversion::getUnderlyingType(right) and
   leftUnderlyingType != rightUnderlyingType
 select o,
-  "Operands of the '" + o.getOperator() + "' operation have different underlying types '" + leftUnderlyingType.getName() + "' and '" + rightUnderlyingType.getName() + "'."
+  "Operands of the '" + o.getOperator() + "' operation have different underlying types '" +
+    leftUnderlyingType.getName() + "' and '" + rightUnderlyingType.getName() + "'."
