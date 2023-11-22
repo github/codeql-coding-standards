@@ -1,0 +1,166 @@
+name: "Prepare CodeQL Coding Standards release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: |
+          The version to release (MUST follow semantic versioning so NO 'v' prefix).
+        required: true
+      ref:
+        description: |
+          The git commit, branch, or tag to release from.
+        required: true
+      hotfix:
+        description: |
+          Hotfix release.
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  checks: write
+
+env:
+  RELEASE_VERSION: ${{ inputs.version }}
+  HOTFIX_RELEASE: ${{ inputs.hotfix }}
+
+jobs:
+  prepare-release:
+    name: "Prepare release"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install release script dependencies
+        run: pip install -r scripts/release/requirements.txt
+
+      - name: Validate version
+        run: |
+          if [[ "$HOTFIX_RELEASE" == "true" ]]; then
+            python scripts/release/validate-version.py --hotfix "$RELEASE_VERSION"
+          else
+            python scripts/release/validate-version.py "$RELEASE_VERSION"
+          fi
+
+      - name: Check if release exists
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          release=$( { gh release view "v$RELEASE_VERSION" --json name,isDraft; } || echo "" )
+          if [[ -z "$release" ]]; then
+            echo "Release v$RELEASE_VERSION does not exist. Proceeding"
+            echo "create_draft_release=true" >> "$GITHUB_ENV"
+          else
+            isDraft=$(echo "$release" | jq -r '.isDraft')
+            if [[ "$isDraft" != "true" ]]; then
+              echo "Release 'v$RELEASE_VERSION' already exists and is not a draft. Cannot proceed"
+              exit 1
+            else
+              echo "Release 'v$RELEASE_VERSION' already exists and is a draft. Proceeding"
+              echo "create_draft_release=false" >> "$GITHUB_ENV"
+            fi
+          fi
+
+      - name: Check if release PR exists
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          release_pr=$( { gh pr view "rc/$RELEASE_VERSION" --json title,state,number; } || echo "")
+          if [[ ! -z "$release_pr" ]]; then
+            pr_title=$(echo "$release_pr" | jq -r '.title')
+            pr_state=$(echo "$release_pr" | jq -r '.state')
+            pr_number=$(echo "$release_pr" | jq -r '.number')
+            echo "Found PR '$pr_title' with state '$pr_state'"
+            if [[ "$pr_title" == "Release v$RELEASE_VERSION" ]] && [[ "$pr_state" != "CLOSED" ]]; then
+              echo "Release PR is not closed, deleting it to proceed"
+              gh pr close --delete-branch $pr_number
+            fi
+          fi
+
+      - name: Delete existing release branch
+        run: |
+          if [[ ! -z $(git ls-remote --heads origin rc/$RELEASE_VERSION) ]]; then
+            echo "Deleting existing release branch"
+            git push origin --delete rc/$RELEASE_VERSION
+          fi
+
+      - name: Delete existing feature branch
+        run: |
+          if [[ ! -z $(git ls-remote --heads origin feature/update-user-manual-for-$RELEASE_VERSION) ]]; then
+            echo "Deleting existing feature branch"
+            git push origin --delete feature/update-user-manual-for-$RELEASE_VERSION
+          fi
+
+      - name: Configure git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Create release branch
+        run: |
+          git switch -c rc/$RELEASE_VERSION
+          git push --set-upstream origin rc/$RELEASE_VERSION
+
+      - name: Create draft release
+        if: env.create_draft_release == 'true'
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          # Create lightweight tag to reference release
+          git tag v$RELEASE_VERSION
+          git push -f origin v$RELEASE_VERSION
+
+          gh release create \
+          -R $GITHUB_REPOSITORY \
+          --title "v$RELEASE_VERSION" \
+          --draft \
+          --target rc/$RELEASE_VERSION \
+          v$RELEASE_VERSION
+
+      - name: Create feature branch for PR
+        run: |
+          git switch -c feature/update-user-manual-for-$RELEASE_VERSION
+          git push --set-upstream origin feature/update-user-manual-for-$RELEASE_VERSION
+
+          scripts/release/bump-version.sh "$RELEASE_VERSION"
+
+          git add -u .
+          git commit -m "Update version"
+          git push
+
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards"
+
+      - name: Create release PR
+        env:
+          # Use the token from the `generate-token` step because we can't use the default workflow token
+          # to create a PR and generate PR events to trigger the next workflow because of recursive workflow
+          # trigger protection.
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          gh pr create \
+          -R $GITHUB_REPOSITORY \
+          --title "Release v$RELEASE_VERSION" \
+          --body "This PR releases codeql-coding-standards version $RELEASE_VERSION." \
+          --base rc/$RELEASE_VERSION \
+          --head feature/update-user-manual-for-$RELEASE_VERSION \
+          --draft
