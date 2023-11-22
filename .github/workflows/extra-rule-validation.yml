@@ -2,6 +2,7 @@ name: ⚙️ Extra Rule Validation
 
 on:
   merge_group:
+    types: [checks_requested]
   push:
     branches:
       - main
