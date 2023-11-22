@@ -14,8 +14,8 @@
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.SideEffect
-import semmle.code.cpp.dataflow.DataFlow
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /** Holds if the function's return value is derived from the `AliasParamter` p. */

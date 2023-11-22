@@ -1,0 +1,72 @@
+name: Update Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      head-sha:
+        description: |
+          The head SHA of the release PR to use for finalizing the release.
+        required: true
+  workflow_call:
+    inputs:
+      head-sha:
+        type: string
+        description: |
+          The head SHA of the release PR to use for finalizing the release.
+        required: true
+    secrets:
+      AUTOMATION_PRIVATE_KEY:
+        description: |
+          The private key to use to generate a token for accessing the release engineering repository.
+        required: true
+env:
+  HEAD_SHA: ${{ inputs.head-sha }}
+
+jobs:
+  update-release:
+    name: "Update release"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.head-sha }}
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: pip install -r scripts/release/requirements.txt
+
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards-release-engineering"
+
+      - name: Update release assets
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          RELEASE_ENGINEERING_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          python scripts/release/update-release-assets.py \
+            --head-sha $HEAD_SHA \
+            --layout scripts/release/release-layout.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGINEERING_TOKEN" \
+            --skip-checkrun "release-status" \
+            --skip-checks
+
+      - name: Update release notes
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/release/update-release-notes.py \
+            --head-sha $HEAD_SHA \
+            --repo "$GITHUB_REPOSITORY" \
+            --github-token "$GITHUB_TOKEN"

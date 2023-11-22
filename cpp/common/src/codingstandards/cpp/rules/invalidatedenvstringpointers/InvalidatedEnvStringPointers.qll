@@ -6,7 +6,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 abstract class InvalidatedEnvStringPointersSharedQuery extends Query { }
 

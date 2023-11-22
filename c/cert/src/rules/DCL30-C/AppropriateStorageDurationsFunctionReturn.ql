@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 class Source extends StackVariable {
   Source() { not this instanceof Parameter }

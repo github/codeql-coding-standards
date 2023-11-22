@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.standardlibrary.FileAccess
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 class FileDFConf extends DataFlow::Configuration {
   FileDFConf() { this = "FileDFConf" }
