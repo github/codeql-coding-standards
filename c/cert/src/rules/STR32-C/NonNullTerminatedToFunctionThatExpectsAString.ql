@@ -15,7 +15,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Naming
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 
 /**

@@ -2,6 +2,7 @@ name: 🧰 Tooling unit tests
 
 on:
   merge_group:
+    types: [checks_requested]
   push:
     branches:
       - main
@@ -16,7 +17,7 @@ on:
 jobs:
   prepare-supported-codeql-env-matrix:
     name: Prepare supported CodeQL environment matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       matrix: ${{ steps.export-supported-codeql-env-matrix.outputs.matrix }}
     steps:
@@ -33,7 +34,7 @@ jobs:
   analysis-report-tests:
     name: Run analysis report tests
     needs: prepare-supported-codeql-env-matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare-supported-codeql-env-matrix.outputs.matrix) }}
@@ -79,7 +80,7 @@ jobs:
 
   recategorization-tests:
     name: Run Guideline Recategorization tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2

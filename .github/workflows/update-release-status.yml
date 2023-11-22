@@ -1,0 +1,144 @@
+name: "Update Release Status"
+on:
+  check_run:
+    types:
+      - completed
+      - rerequested
+    branches:
+      - "rc/**"
+
+  workflow_dispatch:
+    inputs:
+      head-sha:
+        description: |
+          The head SHA to use.
+        type: string
+        required: true
+
+permissions:
+  actions: write
+  checks: write
+  contents: write
+
+jobs:
+  validate-check-runs:
+    runs-on: ubuntu-22.04
+    outputs:
+      status: ${{ steps.set-output.outputs.status }}
+      check-run-head-sha: ${{ steps.set-output.outputs.check-run-head-sha }}
+    steps:
+      - name: Determine check run head SHA
+        env:
+          HEAD_SHA_FROM_EVENT: ${{ github.event.check_run.head_sha }}
+          HEAD_SHA_FROM_INPUTS: ${{ inputs.head-sha }}
+        run: |
+          if [[ $GITHUB_EVENT_NAME == "workflow_dispatch" ]]; then
+            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_INPUTS" >> "$GITHUB_ENV"
+          else
+            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_EVENT" >> "$GITHUB_ENV"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CHECK_RUN_HEAD_SHA }}
+
+      - name: Get release status check run
+        id: get-check-run
+        if: (github.event_name == 'check_run' && github.event.check_run.conclusion == 'success' && github.event.check_run.name != github.workflow) || github.event_name == 'workflow_dispatch'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          check_run_info=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --jq '.check_runs[] | select(.name == "release-status") | {id: .id, status: .status, conclusion: .conclusion}' \
+          /repos/$GITHUB_REPOSITORY/commits/$CHECK_RUN_HEAD_SHA/check-runs)
+
+          check_run_id=$(echo "$check_run_info" | jq -r '.id')
+          check_run_status=$(echo "$check_run_info" | jq -r '.status')
+          check_run_conclusion=$(echo "$check_run_info" | jq -r '.conclusion')
+
+          echo "CHECK_RUN_ID=$check_run_id" >> "$GITHUB_ENV"
+          echo "CHECK_RUN_STATUS=$check_run_status" >> "$GITHUB_ENV"
+          echo "CHECK_RUN_CONCLUSION=$check_run_conclusion" >> "$GITHUB_ENV"
+
+      - name: Reset release status
+        if: env.CHECK_RUN_STATUS == 'completed' && ((github.event_name == 'check_run' && github.event.action == 'rerequested') || github.event_name == 'workflow_dispatch')
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          CHECK_RUN_ID=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --field name="release-status" \
+          --field head_sha="$CHECK_RUN_HEAD_SHA" \
+          --jq ".id" \
+          /repos/$GITHUB_REPOSITORY/check-runs)
+
+          echo "Created release status check run with id $CHECK_RUN_ID"
+
+      - name: Check all runs completed
+        if: env.CHECK_RUN_STATUS != 'completed'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          check_runs=$(gh api \
+          --header "Accept: application/vnd.github+json" \
+          --header "X-GitHub-Api-Version: 2022-11-28" \
+          --jq '.check_runs | map(select(.name != "release-status"))' \
+          /repos/$GITHUB_REPOSITORY/commits/$CHECK_RUN_HEAD_SHA/check-runs)
+
+          status_stats=$(echo "$check_runs" | jq -r '. | {failed: (map(select(.conclusion == "failure")) | length), pending: (map(select(.status != "completed")) | length) }')
+
+          failed=$(echo "$status_stats" | jq -r '.failed')
+          pending=$(echo "$status_stats" | jq -r '.pending')
+
+          echo "CHECK_RUNS_FAILED=$failed" >> "$GITHUB_ENV"
+          echo "CHECK_RUNS_PENDING=$pending" >> "$GITHUB_ENV"
+
+      - name: Conclude release status
+        if: env.CHECK_RUNS_PENDING == '0' && env.CHECK_RUN_STATUS != 'completed'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CHECK_RUNS_FAILED: ${{ env.check-runs-failed }}
+        run: |
+          if [[ "$CHECK_RUNS_FAILED" == "0" ]]; then
+            echo "All check runs succeeded"
+            conclusion="success"
+          else
+            echo "Some check runs failed"
+            conclusion="failure"
+          fi
+
+          jq -n \
+          --arg status "completed" \
+          --arg conclusion "$conclusion" \
+          '{status: $status, conclusion: $conclusion}' \
+          | \
+          gh api \
+            --method PATCH \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --input - \
+            /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
+
+      - name: Set output
+        id: set-output
+        run: |
+          if [[ "$CHECK_RUNS_PENDING" == "0" ]]; then
+            echo "status=completed" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=in_progress" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "check-run-head-sha=$CHECK_RUN_HEAD_SHA" >> "$GITHUB_OUTPUT"
+
+  update-release:
+    needs: validate-check-runs
+    if: needs.validate-check-runs.outputs.status == 'completed'
+    uses: ./.github/workflows/update-release.yml
+    with:
+      head-sha: ${{ needs.validate-check-runs.outputs.check-run-head-sha }}
+    secrets:
+      AUTOMATION_PRIVATE_KEY: ${{ secrets.AUTOMATION_PRIVATE_KEY }}

@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.cpp.cert
 import semmle.code.cpp.controlflow.Guards
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import codingstandards.cpp.exceptions.ExceptionSpecifications
 
 /**

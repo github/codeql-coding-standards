@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 predicate pointeeIsModified(PointerDereferenceExpr e, Expr m) {
   exists(Assignment a | a.getLValue() = e and m = a)
