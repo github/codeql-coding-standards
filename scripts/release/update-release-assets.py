@@ -1,5 +1,5 @@
 from __future__ import annotations # This enables postponed evaluation of type annotations. Required for typing.TYPE_CHECKING. See https://peps.python.org/pep-0563/
-from typing import TYPE_CHECKING, List, Union, cast, Dict, Any, TypeVar, Callable, Sequence
+from typing import TYPE_CHECKING, List, Union, cast, Dict, Any, TypeVar, Callable, Sequence, Optional
 import shutil
 from tempfile import TemporaryDirectory
 import subprocess
@@ -216,7 +216,7 @@ class ReleaseArtifact():
         self.actions = actions
         self.allow_no_files = allow_no_files
 
-    def make(self, directory: Path) -> Path:
+    def make(self, directory: Path) -> Optional[Path]:
         files: list[Path] = [file for action in self.actions for file in action.run()]
         if len(files) == 0:
             if not self.allow_no_files:
