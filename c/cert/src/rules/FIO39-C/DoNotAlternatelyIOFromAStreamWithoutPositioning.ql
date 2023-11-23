@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.rules.iofstreammissingpositioning.IOFstreamMissingPositioning
 
-class DoNotAlternatelyIOFromAStreamWithoutPositioningQuery extends IOFstreamMissingPositioningSharedQuery {
+class DoNotAlternatelyIOFromAStreamWithoutPositioningQuery extends IOFstreamMissingPositioningSharedQuery
+{
   DoNotAlternatelyIOFromAStreamWithoutPositioningQuery() {
     this = IO1Package::doNotAlternatelyIOFromAStreamWithoutPositioningQuery()
   }

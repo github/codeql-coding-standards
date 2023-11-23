@@ -18,7 +18,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.identifierhidden.IdentifierHidden
 
 class IdentifierHidingCQuery extends IdentifierHiddenSharedQuery {
-  IdentifierHidingCQuery() {
-    this = Declarations3Package::identifierHidingCQuery()
-  }
+  IdentifierHidingCQuery() { this = Declarations3Package::identifierHidingCQuery() }
 }

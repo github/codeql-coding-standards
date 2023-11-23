@@ -1,0 +1,44 @@
+name: "Validate Query Formatting"
+on:
+  merge_group:
+    types: [checks_requested]
+  pull_request:
+    branches:
+      - main
+      - next
+      - "rc/**"
+
+env:
+    XARGS_MAX_PROCS: 4
+
+jobs:
+  validate-query-formatting:
+      strategy:
+        matrix:
+          language: [cpp, c]
+      runs-on: ubuntu-22.04
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            ref: ${{ inputs.ref }}
+
+        - name: Install CodeQL
+          run: |
+            VERSION="v$( jq -r '.supported_environment | .[0] | .codeql_cli' supported_codeql_configs.json)"
+            gh extensions install github/gh-codeql
+            gh codeql set-version "$VERSION"
+            gh codeql install-stub
+          env:
+            GITHUB_TOKEN: ${{ github.token }}
+
+        - name: Validate query format
+          env:
+            LANGUAGE: ${{ matrix.language }}
+          run: |
+            codeql version
+            find $LANGUAGE \( -name \*.ql -or -name \*.qll \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
+
+            git diff
+            git diff --compact-summary
+            git diff --quiet

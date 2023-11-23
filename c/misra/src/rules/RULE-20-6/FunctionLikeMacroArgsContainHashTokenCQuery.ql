@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.preprocessingdirectivewithinmacroargument.PreprocessingDirectiveWithinMacroArgument
 
-class FunctionLikeMacroArgsContainHashTokenCQueryQuery extends PreprocessingDirectiveWithinMacroArgumentSharedQuery {
+class FunctionLikeMacroArgsContainHashTokenCQueryQuery extends PreprocessingDirectiveWithinMacroArgumentSharedQuery
+{
   FunctionLikeMacroArgsContainHashTokenCQueryQuery() {
     this = Preprocessor4Package::functionLikeMacroArgsContainHashTokenCQueryQuery()
   }

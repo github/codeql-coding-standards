@@ -24,5 +24,5 @@ where
       "setlocale", "atomic_init", "ATOMIC_VAR_INIT", "tmpnam", "mbrtoc16", "c16rtomb", "mbrtoc32",
       "c32rtomb"
     ]
-select node,
-  "Concurrent call to non-reeantrant function $@.", node.(FunctionCall).getTarget(), node.(FunctionCall).getTarget().getName()
+select node, "Concurrent call to non-reeantrant function $@.", node.(FunctionCall).getTarget(),
+  node.(FunctionCall).getTarget().getName()

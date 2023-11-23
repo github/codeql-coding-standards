@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.joinablethreadcopiedordestroyed.JoinableThreadCopiedOrDestroyed
 
-class JoinableThreadCopiedOrDestroyedAutosarQuery extends JoinableThreadCopiedOrDestroyedSharedQuery {
+class JoinableThreadCopiedOrDestroyedAutosarQuery extends JoinableThreadCopiedOrDestroyedSharedQuery
+{
   JoinableThreadCopiedOrDestroyedAutosarQuery() {
     this = Exceptions1Package::joinableThreadCopiedOrDestroyedAutosarQuery()
   }

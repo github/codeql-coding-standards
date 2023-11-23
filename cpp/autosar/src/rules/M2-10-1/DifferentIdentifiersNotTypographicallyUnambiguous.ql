@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.differentidentifiersnottypographicallyunambiguous.DifferentIdentifiersNotTypographicallyUnambiguous
 
-class DifferentIdentifiersNotTypographicallyUnambiguousQuery extends DifferentIdentifiersNotTypographicallyUnambiguousSharedQuery {
+class DifferentIdentifiersNotTypographicallyUnambiguousQuery extends DifferentIdentifiersNotTypographicallyUnambiguousSharedQuery
+{
   DifferentIdentifiersNotTypographicallyUnambiguousQuery() {
     this = NamingPackage::differentIdentifiersNotTypographicallyUnambiguousQuery()
   }

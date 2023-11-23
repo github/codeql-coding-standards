@@ -1,0 +1,2 @@
+- `M5-0-20` - `BitwiseOperatorOperandsHaveDifferentUnderlyingType.ql`:
+  - Use the Misra definition of underlying type.

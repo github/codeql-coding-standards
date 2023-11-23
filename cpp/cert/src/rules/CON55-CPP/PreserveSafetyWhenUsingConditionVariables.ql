@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.rules.preservesafetywhenusingconditionvariables.PreserveSafetyWhenUsingConditionVariables
 
-class PreserveSafetyWhenUsingConditionVariablesQuery extends PreserveSafetyWhenUsingConditionVariablesSharedQuery {
+class PreserveSafetyWhenUsingConditionVariablesQuery extends PreserveSafetyWhenUsingConditionVariablesSharedQuery
+{
   PreserveSafetyWhenUsingConditionVariablesQuery() {
     this = ConcurrencyPackage::preserveSafetyWhenUsingConditionVariablesQuery()
   }

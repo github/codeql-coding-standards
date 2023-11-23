@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.useonlyarrayindexingforpointerarithmetic.UseOnlyArrayIndexingForPointerArithmetic
 
-class IndexingNotTheOnlyFormOfPointerArithmeticQuery extends UseOnlyArrayIndexingForPointerArithmeticSharedQuery {
+class IndexingNotTheOnlyFormOfPointerArithmeticQuery extends UseOnlyArrayIndexingForPointerArithmeticSharedQuery
+{
   IndexingNotTheOnlyFormOfPointerArithmeticQuery() {
     this = PointersPackage::indexingNotTheOnlyFormOfPointerArithmeticQuery()
   }

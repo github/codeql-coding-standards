@@ -15,7 +15,6 @@ import codingstandards.c.misra
 import codingstandards.c.Pointers
 import codingstandards.cpp.Type
 
-
 from Zero zero, Expr e, string type
 where
   not isExcluded(zero, Pointers1Package::macroNullNotUsedAsIntegerNullPointerConstantQuery()) and

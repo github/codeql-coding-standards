@@ -1,0 +1,86 @@
+name: Finalize Release
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - "rc/**"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: |
+          The release branch to finalize.
+        required: true
+
+jobs:
+  finalize-release:
+    if: (github.event_name == 'pull_request' && github.event.pull_request.merged == true) || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Determine ref
+        env:
+          REF_FROM_INPUT: ${{ inputs.ref }}
+          REF_FROM_PR: ${{ github.event.pull_request.merge_commit_sha  }}
+          BASE_REF_FROM_PR: ${{ github.event.pull_request.base.ref }}
+        run: |
+          if [[ $GITHUB_EVENT_NAME == "workflow_dispatch" ]]; then
+            echo "REF=$REF_FROM_INPUT" >> "$GITHUB_ENV"
+            echo "BASE_REF=$REF_FROM_INPUT" >> "$GITHUB_ENV"
+          else
+            echo "REF=$REF_FROM_PR" >> "$GITHUB_ENV"
+            echo "BASE_REF=$BASE_REF_FROM_PR" >> "$GITHUB_ENV"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.REF }}
+
+      - name: Configure git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Update release tag
+        run: |
+          version=${BASE_REF#rc/}
+          echo "Creating release tag v$version"
+
+          git tag -a v$version -m "Release v$version"
+          git push -f origin v$version
+
+      - name: Finalize release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          version=${BASE_REF#rc/}
+          echo "Finalizing release v$version"
+
+          gh release edit "v$version" --draft=false --tag=v$version
+
+      - name: Determine if release was a hotfix release
+        run: |
+          version=${BASE_REF#rc/}
+          echo "HOTFIX_RELEASE=$(python scripts/release/is-hotfix.py $version)" >> "$GITHUB_ENV"
+
+      - name: Bump main version
+        if: env.HOTFIX_RELEASE == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=${BASE_REF#rc/}
+          next_version="$version-dev"
+          echo "Bumping main version to $next_version"
+
+          git switch main
+          git pull --ff-only origin main
+
+          git switch -c release-automation/bump-version
+
+          ./scripts/release/bump-version.sh "$next_version"
+
+          git add -u .
+          git commit -m "Bump version to $next_version"
+          git push --set-upstream origin release-automation/bump-version
+
+          gh pr create --repo $GITHUB_REPOSITORY --base main --head release-automation/bump-version --body "Bump the version of main to the dev label of the just released version $next_version" --title "Bump version to $next_version"

@@ -3,4 +3,4 @@ version: 2.22.0-dev
 license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
-  codeql/cpp-all: 0.6.1
+  codeql/cpp-all: 0.9.3

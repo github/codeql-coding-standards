@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.identifierwithexternallinkageonedefinitionshared.IdentifierWithExternalLinkageOneDefinitionShared
 
-class IdentifierWithExternalLinkageOneDefinitionQuery extends IdentifierWithExternalLinkageOneDefinitionSharedSharedQuery {
+class IdentifierWithExternalLinkageOneDefinitionQuery extends IdentifierWithExternalLinkageOneDefinitionSharedSharedQuery
+{
   IdentifierWithExternalLinkageOneDefinitionQuery() {
     this = ScopePackage::identifierWithExternalLinkageShallHaveOneDefinitionQuery()
   }

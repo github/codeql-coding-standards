@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.conditionvariablepostconditionfailed.ConditionVariablePostConditionFailed
 
-class ConditionVariablePostConditionFailedAutosarQuery extends ConditionVariablePostConditionFailedSharedQuery {
+class ConditionVariablePostConditionFailedAutosarQuery extends ConditionVariablePostConditionFailedSharedQuery
+{
   ConditionVariablePostConditionFailedAutosarQuery() {
     this = Exceptions1Package::conditionVariablePostConditionFailedAutosarQuery()
   }

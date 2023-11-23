@@ -1,5 +1,6 @@
 import re
 import yaml
+from pathlib import Path
 
 def get_query_short_names(rule_dict):
   """Gets a list of the query "short_name" properties for the given rule"""
@@ -18,7 +19,9 @@ def split_rule_id(rule_id):
 
 def get_standard_version(standard):
   """Gets the qlpack version for the given standard."""
-  qlpack_path = "cpp/" + standard.split("-")[0].lower() + "/src/qlpack.yml"
+  module_path = Path(__file__)
+  repo_root = module_path.parent.parent.parent
+  qlpack_path = repo_root / "cpp" / standard.split("-")[0].lower() /"src" / "qlpack.yml"
   with open(qlpack_path, 'r') as qlpack_file:
     try:
         qlpack = yaml.safe_load(qlpack_file)

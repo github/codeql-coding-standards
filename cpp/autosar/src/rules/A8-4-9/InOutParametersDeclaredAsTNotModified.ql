@@ -60,7 +60,7 @@ where
     //also not having a nonconst member accessed through the param
     notUsedAsQualifierForNonConst(p) and
     not exists(ClassAggregateLiteral l, Field f |
-      DataFlow::localExprFlow(p.getAnAccess(), l.getFieldExpr(f)) and
+      DataFlow::localExprFlow(p.getAnAccess(), l.getAFieldExpr(f)) and
       not f.isConst()
     ) and
     // Exclude parameters that are used to initialize member fields.
