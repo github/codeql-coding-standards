@@ -20,4 +20,6 @@ layout:
     - file: docs/user_manual.md
   checksums.txt:
     - shell: |
-        sha256sum ./* > checksums.txt
+        sha256sum ${{ layout.root }}/* > checksums.txt
+        # Remove the layout root from the paths in checksums.txt
+        sed -i -e "s|${{ layout.root }}/||g" checksums.txt

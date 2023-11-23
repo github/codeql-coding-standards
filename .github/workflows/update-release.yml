@@ -54,13 +54,12 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           RELEASE_ENGINEERING_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
-          python scripts/release/update-release-assets.py \
+          python scripts/release/update_release_assets.py \
             --head-sha $HEAD_SHA \
             --layout scripts/release/release-layout.yml \
             --repo "$GITHUB_REPOSITORY" \
             --github-token "$GITHUB_REPOSITORY:$GITHUB_TOKEN" "github/codeql-coding-standards-release-engineering:$RELEASE_ENGINEERING_TOKEN" \
-            --skip-checkrun "release-status" \
-            --skip-checks
+            --skip-checkrun "release-status"
 
       - name: Update release notes
         env:
