@@ -22,4 +22,4 @@ layout:
     - shell: |
         sha256sum ${{ layout.root }}/* > checksums.txt
         # Remove the layout root from the paths in checksums.txt
-        sed -i '' -e "s|${{ layout.root }}/||g" checksums.txt
+        sed -i -e "s|${{ layout.root }}/||g" checksums.txt
