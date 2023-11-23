@@ -139,6 +139,6 @@ jobs:
     if: needs.validate-check-runs.outputs.status == 'completed'
     uses: ./.github/workflows/update-release.yml
     with:
-        head-sha: ${{ needs.validate-check-runs.outputs.check-run-head-sha }}
+      head-sha: ${{ needs.validate-check-runs.outputs.check-run-head-sha }}
     secrets:
-      RELEASE_ENGINEERING_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+      AUTOMATION_PRIVATE_KEY: ${{ secrets.AUTOMATION_PRIVATE_KEY }}

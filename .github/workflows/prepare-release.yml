@@ -13,9 +13,10 @@ on:
         required: true
       hotfix:
         description: |
-          Whether this is a hotfix release.
+          Hotfix release.
         required: false
         default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -29,10 +30,7 @@ env:
 
 jobs:
   prepare-release:
-    outputs:
-      pull-request-head-sha: ${{ steps.determine-pr-head-sha.outputs.pull-request-head-sha }}
     name: "Prepare release"
-    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -60,7 +58,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          release=$(gh release view v$RELEASE_VERSION --json name,isDraft)
+          release=$( { gh release view "v$RELEASE_VERSION" --json name,isDraft; } || echo "" )
           if [[ -z "$release" ]]; then
             echo "Release v$RELEASE_VERSION does not exist. Proceeding"
             echo "create_draft_release=true" >> "$GITHUB_ENV"
@@ -79,7 +77,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          release_pr=$(gh pr view rc/$RELEASE_VERSION --json title,state,number)
+          release_pr=$( { gh pr view "rc/$RELEASE_VERSION" --json title,state,number; } || echo "")
           if [[ ! -z "$release_pr" ]]; then
             pr_title=$(echo "$release_pr" | jq -r '.title')
             pr_state=$(echo "$release_pr" | jq -r '.state')
@@ -143,9 +141,21 @@ jobs:
           git commit -m "Update version"
           git push
 
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards"
+
       - name: Create release PR
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTION_DISPATCH_TOKEN }}
+          # Use the token from the `generate-token` step because we can't use the default workflow token
+          # to create a PR and generate PR events to trigger the next workflow because of recursive workflow
+          # trigger protection.
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           gh pr create \
           -R $GITHUB_REPOSITORY \

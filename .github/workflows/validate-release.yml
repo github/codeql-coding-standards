@@ -14,7 +14,6 @@ env:
   HEAD_SHA: ${{ github.event.pull_request.head.sha }}
 
 jobs:
-
   pre-validate-performance:
     outputs:
       check-run-id: ${{ steps.create-check-run.outputs.check-run-id }}
@@ -39,10 +38,18 @@ jobs:
     needs: pre-validate-performance
     runs-on: ubuntu-22.04
     steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards-release-engineering"
       - name: Invoke performance test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
-          GH_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           jq -n \
           --arg ref "$HEAD_SHA" \
@@ -51,8 +58,7 @@ jobs:
           | \
           gh workflow run release-performance-testing.yml \
           --json \
-          -R github/codeql-coding-standards-release-engineering \
-          --ref rvermeulen/release-process
+          -R github/codeql-coding-standards-release-engineering
 
   on-failure-validate-performance-dispatch:
     needs: [pre-validate-performance, validate-performance]
@@ -61,8 +67,8 @@ jobs:
     steps:
       - name: Fail check run status
         env:
-           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
-           GITHUB_TOKEN: ${{ github.token }}
+          CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           jq -n \
           --arg status "completed" \
@@ -100,10 +106,18 @@ jobs:
     needs: pre-validate-compiler-compatibility
     runs-on: ubuntu-22.04
     steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards-release-engineering"
       - name: Invoke compiler compatibility test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
-          GITHUB_TOKEN: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           jq -n \
           --arg ref "$HEAD_SHA" \
@@ -112,18 +126,18 @@ jobs:
           | \
           gh workflow run release-compiler-validation.yml \
           --json \
-          -R github/codeql-coding-standards-release-engineering \
-          --ref rvermeulen/release-process
+          -R github/codeql-coding-standards-release-engineering
 
   on-failure-validate-compiler-compatibility-dispatch:
-    needs: [pre-validate-compiler-compatibility, validate-compiler-compatibility]
+    needs:
+      [pre-validate-compiler-compatibility, validate-compiler-compatibility]
     if: failure()
     runs-on: ubuntu-22.04
     steps:
       - name: Fail check run status
         env:
-           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
-           GITHUB_TOKEN: ${{ github.token }}
+          CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           jq -n \
           --arg status "completed" \
