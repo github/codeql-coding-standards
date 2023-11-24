@@ -1,12 +1,5 @@
 name: "Update Release Status"
 on:
-  check_run:
-    types:
-      - completed
-      - rerequested
-    branches:
-      - "rc/**"
-
   workflow_dispatch:
     inputs:
       head-sha:
@@ -20,32 +13,22 @@ permissions:
   checks: write
   contents: write
 
+env:
+  HEAD_SHA: ${{ inputs.head-sha }}
+
 jobs:
   validate-check-runs:
     runs-on: ubuntu-22.04
     outputs:
       status: ${{ steps.set-output.outputs.status }}
-      check-run-head-sha: ${{ steps.set-output.outputs.check-run-head-sha }}
     steps:
-      - name: Determine check run head SHA
-        env:
-          HEAD_SHA_FROM_EVENT: ${{ github.event.check_run.head_sha }}
-          HEAD_SHA_FROM_INPUTS: ${{ inputs.head-sha }}
-        run: |
-          if [[ $GITHUB_EVENT_NAME == "workflow_dispatch" ]]; then
-            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_INPUTS" >> "$GITHUB_ENV"
-          else
-            echo "CHECK_RUN_HEAD_SHA=$HEAD_SHA_FROM_EVENT" >> "$GITHUB_ENV"
-          fi
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ env.CHECK_RUN_HEAD_SHA }}
+          ref: ${{ inputs.head-sha }}
 
       - name: Get release status check run
         id: get-check-run
-        if: (github.event_name == 'check_run' && github.event.check_run.conclusion == 'success' && github.event.check_run.name != github.workflow) || github.event_name == 'workflow_dispatch'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -53,7 +36,7 @@ jobs:
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
           --jq '.check_runs[] | select(.name == "release-status") | {id: .id, status: .status, conclusion: .conclusion}' \
-          /repos/$GITHUB_REPOSITORY/commits/$CHECK_RUN_HEAD_SHA/check-runs)
+          /repos/$GITHUB_REPOSITORY/commits/$HEAD_SHA/check-runs)
 
           check_run_id=$(echo "$check_run_info" | jq -r '.id')
           check_run_status=$(echo "$check_run_info" | jq -r '.status')
@@ -64,7 +47,7 @@ jobs:
           echo "CHECK_RUN_CONCLUSION=$check_run_conclusion" >> "$GITHUB_ENV"
 
       - name: Reset release status
-        if: env.CHECK_RUN_STATUS == 'completed' && ((github.event_name == 'check_run' && github.event.action == 'rerequested') || github.event_name == 'workflow_dispatch')
+        if: env.CHECK_RUN_STATUS == 'completed'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -72,11 +55,13 @@ jobs:
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
           --field name="release-status" \
-          --field head_sha="$CHECK_RUN_HEAD_SHA" \
+          --field head_sha="$HEAD_SHA" \
           --jq ".id" \
           /repos/$GITHUB_REPOSITORY/check-runs)
 
           echo "Created release status check run with id $CHECK_RUN_ID"
+          // Reset the status to in progress.
+          echo "CHECK_RUN_STATUS=in_progress" >> "$GITHUB_ENV"
 
       - name: Check all runs completed
         if: env.CHECK_RUN_STATUS != 'completed'
@@ -87,7 +72,7 @@ jobs:
           --header "Accept: application/vnd.github+json" \
           --header "X-GitHub-Api-Version: 2022-11-28" \
           --jq '.check_runs | map(select(.name != "release-status"))' \
-          /repos/$GITHUB_REPOSITORY/commits/$CHECK_RUN_HEAD_SHA/check-runs)
+          /repos/$GITHUB_REPOSITORY/commits/$HEAD_SHA/check-runs)
 
           status_stats=$(echo "$check_runs" | jq -r '. | {failed: (map(select(.conclusion == "failure")) | length), pending: (map(select(.status != "completed")) | length) }')
 
@@ -132,13 +117,11 @@ jobs:
             echo "status=in_progress" >> "$GITHUB_OUTPUT"
           fi
 
-          echo "check-run-head-sha=$CHECK_RUN_HEAD_SHA" >> "$GITHUB_OUTPUT"
-
   update-release:
     needs: validate-check-runs
     if: needs.validate-check-runs.outputs.status == 'completed'
     uses: ./.github/workflows/update-release.yml
     with:
-      head-sha: ${{ needs.validate-check-runs.outputs.check-run-head-sha }}
+      head-sha: ${{ inputs.head-sha }}
     secrets:
       AUTOMATION_PRIVATE_KEY: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
