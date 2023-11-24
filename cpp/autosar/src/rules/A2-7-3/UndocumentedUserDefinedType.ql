@@ -17,6 +17,14 @@
 import cpp
 import codingstandards.cpp.autosar
 
+private predicate isInFunctionScope(Declaration d) {
+  // Type declared in function
+  exists(d.(UserType).getEnclosingFunction())
+  or
+  // Member declared in type which is in function scope
+  isInFunctionScope(d.getDeclaringType())
+}
+
 /**
  * A declaration which is required to be preceded by documentation by AUTOSAR A2-7-3.
  */
@@ -96,6 +104,7 @@ from DocumentableDeclaration d, DeclarationEntry de
 where
   not isExcluded(de, CommentsPackage::undocumentedUserDefinedTypeQuery()) and
   not isExcluded(d, CommentsPackage::undocumentedUserDefinedTypeQuery()) and
+  not isInFunctionScope(d) and
   d.getAnUndocumentedDeclarationEntry() = de
 select de,
   "Declaration entry for " + d.getDeclarationType() + " " + d.getName() +
