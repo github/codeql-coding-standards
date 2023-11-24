@@ -50,10 +50,8 @@ class DocumentableDeclaration extends Declaration {
     declarationType = "member variable" and
     // Exclude memeber variables in instantiated templates, which cannot reasonably be documented.
     not this.(MemberVariable).isFromTemplateInstantiation(_) and
-    // Exclude anonymous lambda functions.
-    // TODO: replace with the following when support is added.
-    // not this.(MemberVariable).isCompilerGenerated()
-    not exists(LambdaExpression lc | lc.getACapture().getField() = this)
+    // Exclude compiler generated variables, such as those for anonymous lambda functions
+    not this.(MemberVariable).isCompilerGenerated()
   }
 
   /** Gets a `DeclarationEntry` for this declaration that should be documented. */
