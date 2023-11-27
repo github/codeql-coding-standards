@@ -30,7 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-tags: true
+          fetch-depth: 0 # We need the full history to compute the changelog
 
       - name: Install Python
         uses: actions/setup-python@v4
