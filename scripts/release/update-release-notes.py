@@ -56,7 +56,7 @@ def main(args: Namespace) -> int:
         return 1
     release = candidate_releases[0]
 
-    # All the releases that are not draft and have a valid semantic version tag
+    # All the releases that are not draft and have a valid semantic version tag, our current release is assumed to be in draft (i.e. not yet released)
     previous_releases = [release for release in releases if semantic_version.validate(release.tag_name[1:]) and not release.draft] # type: ignore
     if len(previous_releases) == 0:
         print(f"Error: no previous releases found", file=sys.stderr)
