@@ -48,11 +48,12 @@ def main(args: Namespace) -> int:
         print(f"Error: invalid version {release_version} use by release branch. Reason {e}", file=sys.stderr)
         return 1
 
-    releases = [release for release in repo.get_releases() if release.title == f"v{release_version}"]
-    if len(releases) != 1:
-        print(f"Error: expected exactly one release with title {args.version}, but found {len(releases)}", file=sys.stderr)
+    releases = repo.get_releases()
+    candidate_releases= [release for release in releases if release.tag_name == f"v{release_version}"]
+    if len(candidate_releases) != 1:
+        print(f"Error: expected exactly one release with tag v{release_version}, but found {len(candidate_releases)}", file=sys.stderr)
         return 1
-    release = releases[0]
+    release = candidate_releases[0]
 
     release_notes = generate_release_notes()
 
