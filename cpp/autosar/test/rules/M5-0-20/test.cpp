@@ -71,3 +71,8 @@ void test463_2_instantiations() {
   char shift2 = 2;
   test463_2(val, shift2);
 }
+
+void test_add(char *val) {
+  int add = 2;
+  val += add; // COMPLIANT
+}

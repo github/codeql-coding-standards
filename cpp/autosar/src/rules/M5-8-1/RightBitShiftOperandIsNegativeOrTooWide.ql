@@ -17,6 +17,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Bitwise
 
 class ShiftOperation extends Operation {
   Expr leftOperand;
@@ -33,7 +34,7 @@ class ShiftOperation extends Operation {
       rightOperand = o.getRightOperand()
     )
     or
-    exists(AssignBitwiseOperation o | this = o |
+    exists(Bitwise::AssignBitwiseOperation o | this = o |
       (
         o instanceof AssignLShiftExpr
         or

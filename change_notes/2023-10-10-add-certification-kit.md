@@ -1,0 +1,1 @@
+- The release artifacts now include a certification kit used for ISO26262 certification.
