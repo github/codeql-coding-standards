@@ -48,11 +48,9 @@ where
     msg = "Function " + f + " does not specify void for no parameters present."
     or
     //parameters declared in declaration list (not in function signature)
-    //have placeholder file location associated only
-    exists(Parameter p |
-      p.getFunction() = f and
-      not p.getFile() = f.getFile() and
-      msg = "Function " + f + " declares parameter in unsupported declaration list."
-    )
+    //have no prototype
+    not f.isPrototyped() and
+    not hasZeroParamDecl(f) and
+    msg = "Function " + f + " declares parameter in unsupported declaration list."
   )
 select f, msg
