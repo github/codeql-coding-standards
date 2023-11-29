@@ -82,6 +82,8 @@ jobs:
 
           status_stats=$(echo "$check_runs" | jq -r '. | {failed: (map(select(.conclusion == "failure")) | length), pending: (map(select(.status != "completed")) | length) }')
 
+          echo "status_stats=$status_stats"
+
           failed=$(echo "$status_stats" | jq -r '.failed')
           pending=$(echo "$status_stats" | jq -r '.pending')
 
