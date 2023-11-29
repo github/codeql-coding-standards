@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-22.04
     outputs:
       status: ${{ steps.set-output.outputs.status }}
+      conclusion: ${{ steps.set-output.outputs.conclusion }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -113,6 +114,8 @@ jobs:
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
 
+          echo "conclusion=$conclusion" >> "$GITHUB_OUTPUT
+
       - name: Set output
         id: set-output
         run: |
@@ -124,7 +127,7 @@ jobs:
 
   update-release:
     needs: validate-check-runs
-    if: needs.validate-check-runs.outputs.status == 'completed'
+    if: needs.validate-check-runs.outputs.status == 'completed' && needs.validate-check-runs.outputs.conclusion == 'success'
     uses: ./.github/workflows/update-release.yml
     with:
       head-sha: ${{ inputs.head-sha }}
