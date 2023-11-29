@@ -22,7 +22,7 @@ function createJwtToken() {
     const claims = {
         // Issue 60 seconds in the past to account for clock drift.
         iat: Math.floor(Date.now() / 1000) - 60,
-        // The token is valid for 1 minutes
+        // The token is valid for 1 minute(s).
         exp: Math.floor(Date.now() / 1000) + (1 * 60),
         iss: process.env["GITHUB_APP_ID"]
     };
