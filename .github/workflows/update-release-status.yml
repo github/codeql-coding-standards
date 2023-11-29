@@ -116,7 +116,7 @@ jobs:
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
 
-          echo "conclusion=$conclusion" >> "$GITHUB_OUTPUT
+          echo "conclusion=$conclusion" >> "$GITHUB_OUTPUT"
 
       - name: Set output
         id: set-output
