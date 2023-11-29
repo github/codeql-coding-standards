@@ -60,7 +60,7 @@ jobs:
           /repos/$GITHUB_REPOSITORY/check-runs)
 
           echo "Created release status check run with id $CHECK_RUN_ID"
-          // Reset the status to in progress.
+          # Reset the status to in progress.
           echo "CHECK_RUN_STATUS=in_progress" >> "$GITHUB_ENV"
 
       - name: Check all runs completed
