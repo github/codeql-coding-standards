@@ -115,11 +115,12 @@ jobs:
             --input - \
             /repos/$GITHUB_REPOSITORY/check-runs/$CHECK_RUN_ID
 
-          echo "conclusion=$conclusion" >> "$GITHUB_OUTPUT"
+          echo "RELEASE_STATUS_CONCLUSION=$conclusion" >> "$GITHUB_ENV"
 
       - name: Set output
         id: set-output
         run: |
+          echo "conclusion=$RELEASE_STATUS_CONCLUSION" >> "$GITHUB_OUTPUT"
           if [[ "$CHECK_RUNS_PENDING" == "0" ]]; then
             echo "status=completed" >> "$GITHUB_OUTPUT"
           else
