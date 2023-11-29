@@ -94,7 +94,6 @@ jobs:
         if: env.CHECK_RUNS_PENDING == '0' && env.CHECK_RUN_STATUS != 'completed'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          CHECK_RUNS_FAILED: ${{ env.check-runs-failed }}
         run: |
           if [[ "$CHECK_RUNS_FAILED" == "0" ]]; then
             echo "All check runs succeeded"
