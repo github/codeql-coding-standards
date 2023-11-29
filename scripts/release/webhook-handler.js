@@ -1,5 +1,5 @@
 /**
- * This function is triggered by a GitHub webhook when a check run completes.
+ * This function should be installed as an Azure Function with a HTTP trigger and configured as a GitHub webhook.
  * It expects the following environment variables to be set:
  * - GITHUB_APP_ID: the ID of the GitHub App used to authenticate
  * - GITHUB_APP_INSTALLATION_ID: the ID of the GitHub App installation
