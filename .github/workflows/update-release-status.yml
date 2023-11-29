@@ -38,6 +38,11 @@ jobs:
           --jq '.check_runs[] | select(.name == "release-status") | {id: .id, status: .status, conclusion: .conclusion}' \
           /repos/$GITHUB_REPOSITORY/commits/$HEAD_SHA/check-runs)
 
+          if [[ -z "$check_run_info" ]]; then
+            echo "No release status check run found"
+            exit 1
+          fi
+
           check_run_id=$(echo "$check_run_info" | jq -r '.id')
           check_run_status=$(echo "$check_run_info" | jq -r '.status')
           check_run_conclusion=$(echo "$check_run_info" | jq -r '.conclusion')
