@@ -96,3 +96,22 @@ jobs:
       - name: Run PyTest
         run: |
           pytest scripts/guideline_recategorization/recategorize_test.py
+
+  release-tests:
+    name: Run release tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/release/requirements.txt
+
+      - name: Run PyTest
+        run: |
+          pytest scripts/release/update_release_assets_test.py
