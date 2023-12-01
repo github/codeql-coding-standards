@@ -19,14 +19,12 @@ import codingstandards.cpp.ReadErrorsAndEOF
  * The getchar() return value propagates directly to a check against EOF macro
  * type conversions are not allowed
  */
-class DFConf extends DataFlow::Configuration {
-  DFConf() { this = "DFConf" }
-
-  override predicate isSource(DataFlow::Node source) {
+module DFConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr() instanceof InBandErrorReadFunctionCall
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(EOFWEOFInvocation mi, EqualityOperation eq |
       // one operand is the sink
       sink.asExpr() = eq.getAnOperand() and
@@ -35,10 +33,12 @@ class DFConf extends DataFlow::Configuration {
     )
   }
 
-  override predicate isBarrier(DataFlow::Node barrier) {
+  predicate isBarrier(DataFlow::Node barrier) {
     barrier.asExpr() = any(IntegralConversion c).getExpr()
   }
 }
+
+module DFFlow = DataFlow::Global<DFConfig>;
 
 // The equality operation `eq` checks a char fetched from `read` against a macro
 predicate isWeakMacroCheck(EqualityOperation eq, InBandErrorReadFunctionCall read) {
@@ -51,10 +51,10 @@ predicate isWeakMacroCheck(EqualityOperation eq, InBandErrorReadFunctionCall rea
   )
 }
 
-from EqualityOperation eq, InBandErrorReadFunctionCall read, DFConf dfConf
+from EqualityOperation eq, InBandErrorReadFunctionCall read
 where
   not isExcluded(eq, IO3Package::eofShallBeComparedWithUnmodifiedReturnValuesQuery()) and
   isWeakMacroCheck(eq, read) and
-  not dfConf.hasFlow(DataFlow::exprNode(read), DataFlow::exprNode(eq.getAnOperand()))
+  not DFFlow::flow(DataFlow::exprNode(read), DataFlow::exprNode(eq.getAnOperand()))
 select eq, "The check is not reliable as the type of the return value of $@ is converted.", read,
   read.toString()
