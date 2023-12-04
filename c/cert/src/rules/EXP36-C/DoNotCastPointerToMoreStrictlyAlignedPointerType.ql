@@ -15,7 +15,6 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Alignment
 import codingstandards.cpp.dataflow.DataFlow
-import codingstandards.cpp.dataflow.DataFlow2
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 import ExprWithAlignmentToCStyleCastFlow::PathGraph
 
