@@ -57,7 +57,8 @@ class AccessAwareMemberFunction extends MemberFunction {
 
 from Class c, AccessAwareMemberFunction mf, FieldAccess a, ReturnStmt rs
 where
-  not isExcluded(c) and
+  not isExcluded(c,
+    ClassesPackage::returnsNonConstRawPointersOrReferencesToPrivateOrProtectedDataQuery()) and
   not isExcluded(mf,
     ClassesPackage::returnsNonConstRawPointersOrReferencesToPrivateOrProtectedDataQuery()) and
   // Find all of the methods within this class

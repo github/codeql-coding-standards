@@ -19,7 +19,8 @@ import codingstandards.cpp.autosar
 
 from CrementOperation cop, Operation op, string name
 where
-  not isExcluded(cop) and
+  not isExcluded(cop,
+    OrderOfEvaluationPackage::incrementAndDecrementOperatorsMixedWithOtherOperatorsInExpressionQuery()) and
   not isExcluded(op,
     OrderOfEvaluationPackage::incrementAndDecrementOperatorsMixedWithOtherOperatorsInExpressionQuery()) and
   op.getAnOperand() = cop and
