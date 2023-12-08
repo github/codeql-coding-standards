@@ -8,8 +8,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.Allocations
 import codingstandards.cpp.dataflow.DataFlow
-import codingstandards.cpp.dataflow.DataFlow2
-import DataFlow::PathGraph
+import NonDynamicPointerToFreeFlow::PathGraph
 
 /**
  * A pointer to potentially dynamically allocated memory
@@ -69,40 +68,32 @@ class AddressOfExprSourceNode extends Expr {
       )
     ) and
     // exclude alloc(&allocated_ptr) cases
-    not any(DynamicMemoryAllocationToAddressOfDefiningArgConfig cfg)
-        .hasFlowTo(DataFlow::definitionByReferenceNodeFromArgument(this))
+    not DynamicMemoryAllocationToAddressOfDefiningArgFlow::flowTo(DataFlow::definitionByReferenceNodeFromArgument(this))
   }
 }
 
 /**
  * A data-flow configuration that tracks flow from an `AllocExprSource` to a `FreeExprSink`.
  */
-class DynamicMemoryAllocationToAddressOfDefiningArgConfig extends DataFlow2::Configuration {
-  DynamicMemoryAllocationToAddressOfDefiningArgConfig() {
-    this = "DynamicMemoryAllocationToAddressOfDefiningArgConfig"
-  }
+module DynamicMemoryAllocationToAddressOfDefiningArgConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source instanceof AllocExprSource }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof AllocExprSource }
-
-  override predicate isSink(DataFlow::Node sink) {
-    sink.asDefiningArgument() instanceof AddressOfExpr
-  }
+  predicate isSink(DataFlow::Node sink) { sink.asDefiningArgument() instanceof AddressOfExpr }
 }
+
+module DynamicMemoryAllocationToAddressOfDefiningArgFlow =
+  DataFlow::Global<DynamicMemoryAllocationToAddressOfDefiningArgConfig>;
 
 /**
  * A data-flow configuration that tracks flow from a
  * `NonDynamicallyAllocatedVariableAssignment` to a `FreeExprSink`.
  */
-class NonDynamicPointerToFreeConfig extends DataFlow::Configuration {
-  NonDynamicPointerToFreeConfig() { this = "NonDynamicPointerToFreeConfig" }
+module NonDynamicPointerToFreeConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof AddressOfExprSourceNode }
 
-  override predicate isSource(DataFlow::Node source) {
-    source.asExpr() instanceof AddressOfExprSourceNode
-  }
+  predicate isSink(DataFlow::Node sink) { sink instanceof FreeExprSink }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof FreeExprSink }
-
-  override predicate isBarrierOut(DataFlow::Node node) {
+  predicate isBarrierOut(DataFlow::Node node) {
     // the default interprocedural data-flow model flows through any field or array assignment
     // expressions to the qualifier (array base, pointer dereferenced, or qualifier) instead of the
     // individual element or field that the assignment modifies. this default behaviour causes
@@ -118,21 +109,24 @@ class NonDynamicPointerToFreeConfig extends DataFlow::Configuration {
     )
   }
 
-  override predicate isBarrierIn(DataFlow::Node node) {
+  predicate isBarrierIn(DataFlow::Node node) {
     // only the last source expression is relevant
     isSource(node)
   }
 }
+
+module NonDynamicPointerToFreeFlow = DataFlow::Global<NonDynamicPointerToFreeConfig>;
 
 abstract class OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery extends Query { }
 
 Query getQuery() { result instanceof OnlyFreeMemoryAllocatedDynamicallySharedSharedQuery }
 
 query predicate problems(
-  DataFlow::PathNode element, DataFlow::PathNode source, DataFlow::PathNode sink, string message
+  NonDynamicPointerToFreeFlow::PathNode element, NonDynamicPointerToFreeFlow::PathNode source,
+  NonDynamicPointerToFreeFlow::PathNode sink, string message
 ) {
   not isExcluded(element.getNode().asExpr(), getQuery()) and
   element = sink and
-  any(NonDynamicPointerToFreeConfig cfg).hasFlowPath(source, sink) and
+  NonDynamicPointerToFreeFlow::flowPath(source, sink) and
   message = "Free expression frees memory which was not dynamically allocated."
 }

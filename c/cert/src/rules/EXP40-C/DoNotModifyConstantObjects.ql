@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.dataflow.DataFlow
-import DataFlow::PathGraph
+import CastFlow::PathGraph
 import codingstandards.cpp.SideEffect
 
 class ConstRemovingCast extends Cast {
@@ -32,23 +32,23 @@ class MaybeReturnsStringLiteralFunctionCall extends FunctionCall {
   }
 }
 
-class MyDataFlowConfCast extends DataFlow::Configuration {
-  MyDataFlowConfCast() { this = "MyDataFlowConfCast" }
-
-  override predicate isSource(DataFlow::Node source) {
+module CastConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr().getFullyConverted() instanceof ConstRemovingCast
     or
     source.asExpr().getFullyConverted() = any(MaybeReturnsStringLiteralFunctionCall c)
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     sink.asExpr() = any(Assignment a).getLValue().(PointerDereferenceExpr).getOperand()
   }
 }
 
-from MyDataFlowConfCast conf, DataFlow::PathNode src, DataFlow::PathNode sink
+module CastFlow = DataFlow::Global<CastConfig>;
+
+from CastFlow::PathNode src, CastFlow::PathNode sink
 where
-  conf.hasFlowPath(src, sink)
+  CastFlow::flowPath(src, sink)
   or
   sink.getNode()
       .asExpr()
