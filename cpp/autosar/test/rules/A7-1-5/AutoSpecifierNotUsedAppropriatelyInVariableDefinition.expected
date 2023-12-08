@@ -4,4 +4,4 @@
 | test.cpp:27:8:27:8 | a | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
 | test.cpp:28:8:28:8 | b | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
 | test.cpp:81:10:81:10 | a | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
-| test.cpp:111:19:111:19 | a | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |
+| test.cpp:111:13:111:13 | a | Use of auto in variable definition is not the result of a function call, lambda expression, or non-fundamental type initializer. |

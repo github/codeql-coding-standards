@@ -17,18 +17,14 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
 import codingstandards.cpp.dataflow.TaintTracking
-import DataFlow::PathGraph
+import SingleObjectSmartPointerArrayConstructionFlow::PathGraph
 
 class AutosarSmartPointerArraySpecialisation extends AutosarSmartPointer {
   AutosarSmartPointerArraySpecialisation() { this.getOwnedObjectType() instanceof ArrayType }
 }
 
-class SingleObjectSmartPointerArrayConstructionConfig extends TaintTracking::Configuration {
-  SingleObjectSmartPointerArrayConstructionConfig() {
-    this = "SingleObjectSmartPointerArrayConstructionConfig"
-  }
-
-  override predicate isSource(DataFlow::Node source) {
+module SingleObjectSmartPointerArrayConstructionConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr() instanceof NewArrayExpr or
     source.asExpr() =
       any(FunctionCall fc, MemberFunction mf |
@@ -40,7 +36,7 @@ class SingleObjectSmartPointerArrayConstructionConfig extends TaintTracking::Con
       )
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(AutosarSmartPointer sp |
       not sp instanceof AutosarSmartPointerArraySpecialisation and
       (
@@ -51,7 +47,7 @@ class SingleObjectSmartPointerArrayConstructionConfig extends TaintTracking::Con
     )
   }
 
-  override predicate isAdditionalTaintStep(DataFlow::Node source, DataFlow::Node sink) {
+  predicate isAdditionalFlowStep(DataFlow::Node source, DataFlow::Node sink) {
     exists(AutosarUniquePointer sp, FunctionCall fc |
       fc = sp.getAReleaseCall() and
       source.asExpr() = fc.getQualifier() and
@@ -59,7 +55,7 @@ class SingleObjectSmartPointerArrayConstructionConfig extends TaintTracking::Con
     )
   }
 
-  override predicate isSanitizerIn(DataFlow::Node node) {
+  predicate isBarrierIn(DataFlow::Node node) {
     // Exclude flow into header files outside the source archive which are summarized by the
     // additional taint steps above.
     exists(AutosarUniquePointer sp |
@@ -70,12 +66,15 @@ class SingleObjectSmartPointerArrayConstructionConfig extends TaintTracking::Con
   }
 }
 
+module SingleObjectSmartPointerArrayConstructionFlow =
+  TaintTracking::Global<SingleObjectSmartPointerArrayConstructionConfig>;
+
 from
-  SingleObjectSmartPointerArrayConstructionConfig config, DataFlow::PathNode source,
-  DataFlow::PathNode sink
+  SingleObjectSmartPointerArrayConstructionFlow::PathNode source,
+  SingleObjectSmartPointerArrayConstructionFlow::PathNode sink
 where
   not isExcluded(sink.getNode().asExpr(),
     PointersPackage::pointerToAnElementOfAnArrayPassedToASmartPointerQuery()) and
-  config.hasFlowPath(source, sink)
+  SingleObjectSmartPointerArrayConstructionFlow::flowPath(source, sink)
 select sink.getNode(), source, sink,
   "A pointer to an element of an array of objects flows to a smart pointer of a single object type."
