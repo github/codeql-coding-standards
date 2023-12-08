@@ -6,9 +6,9 @@ from pathlib import Path
 if TYPE_CHECKING:
     from argparse import Namespace
 
-def generate_release_notes() -> str:
+def generate_release_note(previous_release_tag: str) -> str:
     script_path = Path(__file__).parent / "generate_release_notes.py"
-    cp = subprocess.run(["python", str(script_path)], capture_output=True)
+    cp = subprocess.run(["python", str(script_path), previous_release_tag], capture_output=True)
 
     if cp.returncode != 0:
         raise Exception(f"Error generating release notes: {cp.stderr.decode('utf-8')}")
@@ -20,6 +20,7 @@ def main(args: Namespace) -> int:
     import semantic_version # type: ignore
     import re
     import sys
+    from functools import cmp_to_key
 
     repo = Github(auth=Auth.Token(args.github_token)).get_repo(args.repo)
 
@@ -48,16 +49,26 @@ def main(args: Namespace) -> int:
         print(f"Error: invalid version {release_version} use by release branch. Reason {e}", file=sys.stderr)
         return 1
 
-    releases = [release for release in repo.get_releases() if release.title == f"v{release_version}"]
-    if len(releases) != 1:
-        print(f"Error: expected exactly one release with title {args.version}, but found {len(releases)}", file=sys.stderr)
+    releases = repo.get_releases()
+    candidate_releases= [release for release in releases if release.tag_name == f"v{release_version}"]
+    if len(candidate_releases) != 1:
+        print(f"Error: expected exactly one release with tag v{release_version}, but found {len(candidate_releases)}", file=sys.stderr)
         return 1
-    release = releases[0]
+    release = candidate_releases[0]
 
-    release_notes = generate_release_notes()
+    # All the releases that are not draft and have a valid semantic version tag, our current release is assumed to be in draft (i.e. not yet released)
+    previous_releases = [release for release in releases if semantic_version.validate(release.tag_name[1:]) and not release.draft] # type: ignore
+    if len(previous_releases) == 0:
+        print(f"Error: no previous releases found", file=sys.stderr)
+        return 1
+    # Sort them based on their semantic version tags.
+    previous_releases.sort(key=cmp_to_key(lambda a,b: semantic_version.compare(a.tag_name[1:], b.tag_name[1:])), reverse=True) # type: ignore
+    previous_release = previous_releases[0].tag_name
+    print(f"Using previous release: {previous_release}")
+
+    release_notes = generate_release_note(previous_release)
 
     release.update_release(name=release.title, message=release_notes, draft=release.draft, prerelease=release.prerelease, tag_name=release.tag_name)
-
     return 0
 
 if __name__ == '__main__':
