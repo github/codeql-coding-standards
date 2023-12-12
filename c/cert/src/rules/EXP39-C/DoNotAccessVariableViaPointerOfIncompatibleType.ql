@@ -42,20 +42,16 @@ class ReallocationFunction extends AllocationFunction {
   ReallocationFunction() { exists(this.getReallocPtrArg()) }
 }
 
-/**
- * A data-flow state for a pointer which has not been reallocated.
- */
-class IndirectCastDefaultFlowState extends DataFlow::FlowState {
-  IndirectCastDefaultFlowState() { this = "IndirectCastDefaultFlowState" }
-}
-
-/**
- * A data-flow state for a pointer which has been reallocated but
- * has not yet been zeroed with a memset call.
- */
-class IndirectCastReallocatedFlowState extends DataFlow::FlowState {
-  IndirectCastReallocatedFlowState() { this = "IndirectCastReallocatedFlowState" }
-}
+newtype IndirectCastFlowState =
+  /**
+   * A data-flow state for a pointer which has not been reallocated.
+   */
+  IndirectCastDefaultFlowState() or
+  /**
+   * A data-flow state for a pointer which has been reallocated but
+   * has not yet been zeroed with a memset call.
+   */
+  IndirectCastReallocatedFlowState()
 
 /**
  * A data-flow configuration to track the flow from cast expressions to either
@@ -63,7 +59,7 @@ class IndirectCastReallocatedFlowState extends DataFlow::FlowState {
  * to `realloc` but not cleared via a function call to `memset`.
  */
 module IndirectCastConfig implements DataFlow::StateConfigSig {
-  class FlowState = DataFlow::FlowState;
+  class FlowState = IndirectCastFlowState;
 
   predicate isSource(DataFlow::Node source, FlowState state) {
     state instanceof IndirectCastDefaultFlowState and
