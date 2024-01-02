@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.UserDefinedLiteral
+import codingstandards.cpp.UserDefinedLiteral as udl
 
-from UserDefinedLiteral udl
+from udl::UserDefinedLiteral udl
 where
   not isExcluded(udl, NamingPackage::userDefinedLiteralOperatorSuffixViolationQuery()) and
   not udl.hasCompliantSuffix()
