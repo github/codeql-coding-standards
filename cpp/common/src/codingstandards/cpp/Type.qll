@@ -22,3 +22,12 @@ class FundamentalType extends BuiltInType {
 class IncompleteType extends Class {
   IncompleteType() { not hasDefinition() }
 }
+
+/**
+ * A type without `const` and `volatile` specifiers.
+ */
+Type stripSpecifiers(Type type) {
+  if type instanceof SpecifiedType
+  then result = stripSpecifiers(type.(SpecifiedType).getBaseType())
+  else result = type
+}
