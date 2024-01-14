@@ -1,0 +1,1 @@
+ * `M5-3-3` - exclude binary user defined `operator&` from this rule.

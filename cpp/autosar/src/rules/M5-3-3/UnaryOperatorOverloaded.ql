@@ -15,5 +15,12 @@ import cpp
 import codingstandards.cpp.autosar
 
 from Operator o
-where not isExcluded(o, OperatorsPackage::unaryOperatorOverloadedQuery()) and o.hasName("operator&")
+where
+  not isExcluded(o, OperatorsPackage::unaryOperatorOverloadedQuery()) and
+  o.hasName("operator&") and
+  (
+    if o instanceof MemberFunction
+    then o.getNumberOfParameters() = 0
+    else o.getNumberOfParameters() = 1
+  )
 select o, "The unary & operator overloaded."
