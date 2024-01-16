@@ -44,7 +44,7 @@ newtype TStaticMemberPointerAbstractValue =
   AssignedNullValue(StaticMemberPointer ptr, Expr val) {
     // A null value tracked via the data flow graph
     exists(ControlFlowNode n |
-      any(NullValueToAssignmentConfig config).hasFlow(_, DataFlow::exprNode(val)) and
+      NullValueToAssignmentFlow::flow(_, DataFlow::exprNode(val)) and
       n.(Assignment).getLValue() = ptr.getAnAccess() and
       n.(Assignment).getRValue() = val
     )
@@ -63,7 +63,7 @@ newtype TStaticMemberPointerAbstractValue =
   AssignedNonNullValue(StaticMemberPointer ptr, Expr val) {
     // A non-null value tracked via the data flow graph
     exists(ControlFlowNode n |
-      not any(NullValueToAssignmentConfig config).hasFlow(_, DataFlow::exprNode(val)) and
+      NullValueToAssignmentFlow::flow(_, DataFlow::exprNode(val)) and
       n.(Assignment).getLValue() = ptr.getAnAccess() and
       n.(Assignment).getRValue() = val
     )

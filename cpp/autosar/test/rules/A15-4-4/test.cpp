@@ -31,3 +31,16 @@ void lambda_example() noexcept {
   auto with_capture = [=]() {};
   auto empty_capture = []() {};
 }
+
+#include <utility>
+template <typename TypeA, typename TypeB>
+void swap_wrapper(TypeA lhs,
+                  TypeB rhs) noexcept(noexcept(std::swap(*lhs, *rhs))) {
+  std::swap(*lhs, *rhs);
+}
+
+void test_swap_wrapper() noexcept {
+  int a = 0;
+  int b = 1;
+  swap_wrapper(&a, &b);
+}

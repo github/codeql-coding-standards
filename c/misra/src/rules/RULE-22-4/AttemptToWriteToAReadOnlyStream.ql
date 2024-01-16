@@ -15,22 +15,22 @@ import codingstandards.c.misra
 import codingstandards.cpp.standardlibrary.FileAccess
 import codingstandards.cpp.dataflow.DataFlow
 
-class FileDFConf extends DataFlow::Configuration {
-  FileDFConf() { this = "FileDFConf" }
-
-  override predicate isSource(DataFlow::Node source) {
+module FileDFConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     // source is the return value of a call to fopen
     source.asExpr().(FOpenCall).isReadOnlyMode()
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     // sink must be the second parameter of a FsetposCall call
     sink.asExpr() = any(FileWriteFunctionCall write).getFileExpr()
   }
 }
 
-from FileDFConf dfConf, DataFlow::Node source, FileWriteFunctionCall sink
+module FileDFFlow = DataFlow::Global<FileDFConfig>;
+
+from DataFlow::Node source, FileWriteFunctionCall sink
 where
   not isExcluded(sink, IO3Package::attemptToWriteToAReadOnlyStreamQuery()) and
-  dfConf.hasFlow(source, DataFlow::exprNode(sink.getFileExpr()))
+  FileDFFlow::flow(source, DataFlow::exprNode(sink.getFileExpr()))
 select sink, "Attempt to write to a $@ opened as read-only.", source, "stream"

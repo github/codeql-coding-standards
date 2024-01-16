@@ -45,7 +45,7 @@ jobs:
           app-id: ${{ vars.AUTOMATION_APP_ID }}
           private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-          repository: "codeql-coding-standards-release-engineering"
+          repositories: "codeql-coding-standards-release-engineering"
       - name: Invoke performance test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-performance.outputs.check-run-id }}
@@ -58,8 +58,7 @@ jobs:
           | \
           gh workflow run release-performance-testing.yml \
           --json \
-          -R github/codeql-coding-standards-release-engineering \
-          --ref rvermeulen/release-process
+          -R github/codeql-coding-standards-release-engineering
 
   on-failure-validate-performance-dispatch:
     needs: [pre-validate-performance, validate-performance]
@@ -114,7 +113,7 @@ jobs:
           app-id: ${{ vars.AUTOMATION_APP_ID }}
           private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-          repository: "codeql-coding-standards-release-engineering"
+          repositories: "codeql-coding-standards-release-engineering"
       - name: Invoke compiler compatibility test
         env:
           CHECK_RUN_ID: ${{ needs.pre-validate-compiler-compatibility.outputs.check-run-id }}
@@ -127,8 +126,7 @@ jobs:
           | \
           gh workflow run release-compiler-validation.yml \
           --json \
-          -R github/codeql-coding-standards-release-engineering \
-          --ref rvermeulen/release-process
+          -R github/codeql-coding-standards-release-engineering
 
   on-failure-validate-compiler-compatibility-dispatch:
     needs:
