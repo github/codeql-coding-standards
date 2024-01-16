@@ -17,7 +17,13 @@
 import cpp
 import codingstandards.cpp.autosar
 
-from CrementOperation cop, Operation op, string name
+class ArithmeticOperation extends Operation {
+  ArithmeticOperation() {
+    this instanceof UnaryArithmeticOperation or this instanceof BinaryArithmeticOperation
+  }
+}
+
+from CrementOperation cop, ArithmeticOperation op, string name
 where
   not isExcluded(cop) and
   not isExcluded(op,
