@@ -21,7 +21,6 @@ import codingstandards.cpp.EncapsulatingFunctions
 import codingstandards.cpp.BuiltInNumericTypes
 import codingstandards.cpp.Type
 
-
 from Variable v, Type typeStrippedOfSpecifiers
 where
   not isExcluded(v, DeclarationsPackage::variableWidthIntegerTypesUsedQuery()) and
