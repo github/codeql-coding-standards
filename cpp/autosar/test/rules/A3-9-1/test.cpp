@@ -3,7 +3,7 @@
 void test_variable_width_type_variables() {
   char c;             // NON_COMPLIANT
   unsigned char uc;   // NON_COMPLIANT
-  signed char sc;     // NON_COMPLIANt
+  signed char sc;     // NON_COMPLIANT
 
   int i;              // NON_COMPLIANT
   unsigned int ui;    // NON_COMPLIANT
