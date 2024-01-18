@@ -1,0 +1,1 @@
+int x = false; // COMPLIANT - reported as FP in #319

@@ -1,0 +1,1 @@
+This test case was added to validate FP report [#319](https://github.com/github/codeql-coding-standards/issues/319) that occurs when this rule is run on a translation unit with language mode c++.
