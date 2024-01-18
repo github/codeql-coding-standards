@@ -14,25 +14,17 @@ string getTruncatedLiteralText(Literal l) {
 }
 
 class WideStringLiteral extends StringLiteral {
-  WideStringLiteral() {
-    this.getValueText().regexpMatch("(?s)\\s*L\".*")
-  } 
+  WideStringLiteral() { this.getValueText().regexpMatch("(?s)\\s*L\".*") }
 }
 
 class Utf8StringLiteral extends StringLiteral {
-  Utf8StringLiteral() {
-    this.getValueText().regexpMatch("(?s)\\s*u8\".*")
-  } 
+  Utf8StringLiteral() { this.getValueText().regexpMatch("(?s)\\s*u8\".*") }
 }
 
 class Utf16StringLiteral extends StringLiteral {
-  Utf16StringLiteral() {
-    this.getValueText().regexpMatch("(?s)\\s*u\".*")
-  } 
+  Utf16StringLiteral() { this.getValueText().regexpMatch("(?s)\\s*u\".*") }
 }
 
 class Utf32StringLiteral extends StringLiteral {
-  Utf32StringLiteral() {
-    this.getValueText().regexpMatch("(?s)\\s*U\".*")
-  } 
+  Utf32StringLiteral() { this.getValueText().regexpMatch("(?s)\\s*U\".*") }
 }
