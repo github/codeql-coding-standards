@@ -12,3 +12,7 @@ int valid;
 /*
 Invalid character ↦ NON_COMPLIANT
 */
+
+/*
+Valid character @ in comments COMPLIANT
+*/
