@@ -1,5 +1,5 @@
 /**
- * @id cpp/autosar/variable-width-plain-char-types-used
+ * @id cpp/autosar/variable-width-plain-char-type-used
  * @name A3-9-1: Use a fixed-width integer type instead of a char type
  * @description The basic numerical type char is not supposed to be used. The specific-length types
  *              from <cstdint> header need be used instead.
