@@ -4,6 +4,7 @@
 
 import cpp
 import codingstandards.cpp.standardlibrary.Exceptions
+import codingstandards.cpp.exceptions.ExceptionSpecifications
 import ThirdPartyExceptions
 
 /*
@@ -312,7 +313,21 @@ class ReThrowExprThrowingExpr extends ReThrowExpr, ThrowingExpr {
 
 /** An expression which calls a function which may throw an exception. */
 class FunctionCallThrowingExpr extends FunctionCall, ThrowingExpr {
-  override ExceptionType getAnExceptionType() { result = getAFunctionThrownType(getTarget(), _) }
+  override ExceptionType getAnExceptionType() {
+    exists(Function target |
+      target = getTarget() and
+      result = getAFunctionThrownType(target, _) and
+      // [expect.spec] states that throwing an exception type that is prohibited
+      // by the specification will result in the program terminating. We therefore
+      // do not propagate such exceptions to the call sites for the function.
+      not (
+        hasDynamicExceptionSpecification(target) and
+        not result = getAHandledExceptionType(target.getAThrownType())
+        or
+        isNoExceptTrue(target)
+      )
+    )
+  }
 }
 
 module ExceptionPathGraph {
