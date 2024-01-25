@@ -1,8 +1,8 @@
 /**
  * @id cpp/autosar/variable-width-integer-types-used
  * @name A3-9-1: Use fixed-width integer types instead of basic, variable-width, integer types
- * @description The basic numerical types of char, int, short, long are not supposed to be used. The
- *              specific-length types from <cstdint> header need be used instead.
+ * @description The basic numerical types of signed/unsigned char, int, short, long are not supposed
+ *              to be used. The specific-length types from <cstdint> header need be used instead.
  * @kind problem
  * @precision very-high
  * @problem.severity error
@@ -19,15 +19,16 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.EncapsulatingFunctions
 import codingstandards.cpp.BuiltInNumericTypes
+import codingstandards.cpp.Type
 
-from Variable v
+from Variable v, Type typeStrippedOfSpecifiers
 where
   not isExcluded(v, DeclarationsPackage::variableWidthIntegerTypesUsedQuery()) and
+  typeStrippedOfSpecifiers = stripSpecifiers(v.getType()) and
   (
-    v.getType() instanceof BuiltInIntegerType or
-    v.getType() instanceof PlainCharType or
-    v.getType() instanceof UnsignedCharType or
-    v.getType() instanceof SignedCharType
+    typeStrippedOfSpecifiers instanceof BuiltInIntegerType or
+    typeStrippedOfSpecifiers instanceof UnsignedCharType or
+    typeStrippedOfSpecifiers instanceof SignedCharType
   ) and
   not v instanceof ExcludedVariable
 select v, "Variable '" + v.getName() + "' has variable-width type."
