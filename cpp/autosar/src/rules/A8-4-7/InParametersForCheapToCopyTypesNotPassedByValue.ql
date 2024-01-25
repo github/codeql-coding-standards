@@ -17,6 +17,7 @@ import cpp
 import codingstandards.cpp.autosar
 import TriviallySmallType
 import codingstandards.cpp.CommonTypes as CommonTypes
+import codingstandards.cpp.Class
 
 /*
  * For the purposes of this rule, "cheap to copy" is defined as a trivially copyable type that is no
@@ -34,8 +35,7 @@ where
   ) and
   t.isConst() and
   not exists(CatchBlock cb | cb.getParameter() = v) and
-  not exists(CopyConstructor cc | cc.getAParameter() = v) and
-  not exists(MoveConstructor mc | mc.getAParameter() = v) and
+  not exists(SpecialMemberFunction cc | cc.getAParameter() = v) and
   not exists(Operator op | op.getAParameter() = v) and
   not v.isFromUninstantiatedTemplate(_)
 select v,
