@@ -35,6 +35,8 @@ where
   t.isConst() and
   not exists(CatchBlock cb | cb.getParameter() = v) and
   not exists(CopyConstructor cc | cc.getAParameter() = v) and
+  not exists(MoveConstructor mc | mc.getAParameter() = v) and
+  not exists(Operator op | op.getAParameter() = v) and
   not v.isFromUninstantiatedTemplate(_)
 select v,
   "Parameter " + v.getName() + " is the trivially copyable type " + t.getName() +
