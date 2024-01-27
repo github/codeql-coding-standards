@@ -20,7 +20,6 @@ stdenv.mkDerivation rec {
   installPhase = ''
     # codeql directory should not be top-level, otherwise,
     # it'll include /nix/store to resolve extractors.
-    env
     mkdir -p $out/{codeql/qlpacks,bin}
     cp -R * $out/codeql/
 
