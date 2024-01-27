@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
     for pack in $withPacks ; do
       # Copy the pack, because CodeQL doesn't follow symlinks.
-      cp -R $pack/ $out/codeql/qlpacks/
+      cp -R $pack/* $out/codeql/qlpacks/
     done
   '';
 
