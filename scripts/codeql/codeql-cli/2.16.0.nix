@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchzip, withQlExtractor ? null}:
+{ lib, stdenv, fetchzip, withExtractors ? [], withPacks ? [] }:
 
 stdenv.mkDerivation rec {
   pname = "codeql-cli";
@@ -11,25 +11,30 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/github/codeql-cli-binaries/releases/download/v${version}/codeql-${platform}.zip";
-    hash = "sha256-trWUSMOT7h7J5ejjp9PzhGgBS3DYsJxzcv6aYKuk8TI="; 
+    hash = "sha256-trWUSMOT7h7J5ejjp9PzhGgBS3DYsJxzcv6aYKuk8TI=";
   };
-  
-  buildInputs = if isNull withQlExtractor then [ ] else [ withQlExtractor ];
-  inherit withQlExtractor;
+
+  buildInputs = if (lib.length withExtractors)  == 0 then [ ] else withExtractors;
+  inherit withExtractors withPacks;
 
   installPhase = ''
     # codeql directory should not be top-level, otherwise,
     # it'll include /nix/store to resolve extractors.
     env
-    mkdir -p $out/{codeql,bin}
+    mkdir -p $out/{codeql/qlpacks,bin}
     cp -R * $out/codeql/
 
     ln -s $out/codeql/codeql $out/bin/
 
-    if [ -n "$withQlExtractor" ]; then
+    for extractor in $withExtractors; do
       # Copy the extractor, because CodeQL doesn't follow symlinks.
-      cp -R $withQlExtractor $out/codeql/ql
-    fi
+      cp -R $extractor $out/codeql/ql
+    done
+
+    for pack in $withPacks ; do
+      # Copy the pack, because CodeQL doesn't follow symlinks.
+      cp -R $pack/ $out/codeql/qlpacks/
+    done
   '';
 
 
