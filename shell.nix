@@ -8,8 +8,8 @@ pkgs.mkShell {
     clang-tools_14
     python39
     git
-    gh 
+    gh
     jq
-    codeql-cli_2_16_0_with_ql_extractor
+    codeql-cli-2_16_0-with-ql
   ];
 }
