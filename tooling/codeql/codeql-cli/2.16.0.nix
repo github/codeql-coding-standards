@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/github/codeql-cli-binaries/releases/download/v${version}/codeql-${platform}.zip";
-    hash = "sha256-trWUSMOT7h7J5ejjp9PzhGgBS3DYsJxzcv6aYKuk8TI=";
+    hash = if platform == "osx64" then "sha256-trWUSMOT7h7J5ejjp9PzhGgBS3DYsJxzcv6aYKuk8TI=" else "sha256-ztvKlNbqWcH93AB/Mum9jM81ssxiGcbkBROEANFGXis=";
   };
 
   buildInputs = if (lib.length withExtractors)  == 0 then [ ] else withExtractors;
