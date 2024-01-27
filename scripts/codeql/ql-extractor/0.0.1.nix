@@ -1,9 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, gh, libiconv, which, jq, codeql-cli_2_16_0}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, gh, libiconv, which, jq}:
 
-rustPlatform.buildRustPackage rec { 
+rustPlatform.buildRustPackage rec {
     pname = "codeql-ql-extractor";
     version = "0.0.1";
-  
+
     dontConfigure = true;
     dontStrip = true;
 
@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
         };
     };
 
-    nativeBuildInputs = [ gh libiconv which codeql-cli_2_16_0 jq]; 
+    nativeBuildInputs = [ gh libiconv which jq];
 
     platform = if stdenv.isLinux then "linux64" else "osx64";
 
@@ -33,7 +33,6 @@ rustPlatform.buildRustPackage rec {
         runHook preInstall
         mkdir -p $out/tools/$platform
         cargo run --profile release --bin codeql-extractor-ql -- generate --dbscheme ql/src/ql.dbscheme --library ql/src/codeql_ql/ast/internal/TreeSitter.qll
-        codeql query format -i ql/src/codeql_ql/ast/internal/TreeSitter.qll
         # For some reason the fixupPhase isn't working, so we do it manually
         patchShebangs tools/
         cp -r codeql-extractor.yml tools ql/src/ql.dbscheme ql/src/ql.dbscheme.stats $out/
