@@ -43,6 +43,8 @@ jobs:
           nix-shell --pure --command "codeql database analyze --output=$RUNNER_TEMP/ql.sarif --format=sarif-latest --sarif-category=ql4ql -- $RUNNER_TEMP/ql-db codeql/ql" tooling/shell.nix
 
       - name: Upload results
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           nix-shell --pure --keep GITHUB_TOKEN --command "codeql github upload-results --sarif=$RUNNER_TEMP/ql.sarif --repository=$GITHUB_REPOSITORY --ref=$GITHUB_REF --commit=$GITHUB_SHA" tooling/shell.nix
 
