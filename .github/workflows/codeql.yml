@@ -29,8 +29,8 @@ jobs:
         uses: actions/cache@v4
         id: cache
         with:
-          path: /nix/store
-          key: ${{ runner.os }}-${{ hashFiles('tooling/**') }}
+          path: ${{ runner.temp }}/nix
+          key: ${{ runner.os }}-${{ hashFiles('tooling/**') }}-${{ hashFiles('.github/workflows/codeql.yml')}}
 
       - name: Prepare Nix Store
         if: steps.cache.outputs.cache-hit != 'true'
