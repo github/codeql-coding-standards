@@ -1,1 +1,4 @@
-import codeql/default.nix
+let 
+    codeql = import codeql/default.nix;
+in 
+codeql
