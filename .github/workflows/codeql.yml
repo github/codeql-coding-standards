@@ -36,7 +36,7 @@ jobs:
 
       - name: Create database
         run: |
-          nix-shell --pure --command "codeql database create --language=ql --source=. $RUNNER_TEMP/ql-db" tooling/shell.nix
+          nix-shell --pure --command "codeql database create --language=ql --source-root=. $RUNNER_TEMP/ql-db" tooling/shell.nix
 
       - name: Analyze database
         run: |
