@@ -18,6 +18,12 @@ jobs:
     name: Analyze QL files
     runs-on: ubuntu-latest
     steps:
+      
+      - name: Nix install prerequisites 
+        run: |
+          mkdir "$RUNNER_TEMP/nix" 
+          sudo mkdir /nix
+          sudo mount --bind "$RUNNER_TEMP/nix" /nix
 
       - name: Install Nix
         uses: cachix/install-nix-action@6004951b182f8860210c8d6f0d808ec5b1a33d28
