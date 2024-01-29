@@ -44,7 +44,7 @@ jobs:
 
       - name: Upload results
         run: |
-          nix-shell --pure --command "codeql github upload-results --sarif=$RUNNER_TEMP/ql.sarif --repository=$GITHUB_REPOSITORY --ref=$GITHUB_REF --commit=$GITHUB_SHA" tooling/shell.nix
+          nix-shell --pure --keep GITHUB_TOKEN --command "codeql github upload-results --sarif=$RUNNER_TEMP/ql.sarif --repository=$GITHUB_REPOSITORY --ref=$GITHUB_REF --commit=$GITHUB_SHA" tooling/shell.nix
 
 
 
