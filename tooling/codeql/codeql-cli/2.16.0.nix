@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchzip, withExtractors ? [], withPacks ? [] }:
+{ lib, stdenv, fetchzip, jdk17, withExtractors ? [], withPacks ? [] }:
 
 stdenv.mkDerivation rec {
   pname = "codeql-cli";
@@ -17,11 +17,26 @@ stdenv.mkDerivation rec {
   buildInputs = if (lib.length withExtractors)  == 0 then [ ] else withExtractors;
   inherit withExtractors withPacks;
 
+  nativeBuildInputs = [ jdk17 ];
+
   installPhase = ''
     # codeql directory should not be top-level, otherwise,
     # it'll include /nix/store to resolve extractors.
     mkdir -p $out/{codeql/qlpacks,bin}
     cp -R * $out/codeql/
+
+
+    if [ "$platform" == "linux64" ]; then
+      ln -sf $out/codeql/tools/linux64/lib64trace.so $out/codeql/tools/linux64/libtrace.so
+    fi
+      
+    # many of the codeql extractors use CODEQL_DIST + CODEQL_PLATFORM to
+    # resolve java home, so to be able to create databases, we want to make
+    # sure that they point somewhere sane/usable since we can not autopatch
+    # the codeql packaged java dist, but we DO want to patch the extractors
+    # as well as the builders which are ELF binaries for the most part
+    rm -rf $out/codeql/tools/$platform/java
+    ln -s ${jdk17} $out/codeql/tools/$platform/java
 
     ln -s $out/codeql/codeql $out/bin/
 
