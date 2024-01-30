@@ -30,7 +30,7 @@ jobs:
         id: cache
         with:
           path: ${{ runner.temp }}/nix/store
-          key: ${{ runner.os }}-${{ hashFiles('tooling/**') }}-${{ hashFiles('.github/workflows/codeql.yml')}}
+          key: ${{ runner.os }}-${{ hashFiles('tooling/**', '.github/workflows/codeql.yml') }}
       
       - name: Copy Nix store from cache
         if: steps.cache.outputs.cache-hit == 'true'
