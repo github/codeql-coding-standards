@@ -203,7 +203,7 @@ Search for [vulnerabilities](https://wiki.sei.cmu.edu/confluence/display/c/BB.+D
 
 ## Implementation notes
 
-None
+This query only considers the constraints related to inline extern functions.
 
 ## References
 
