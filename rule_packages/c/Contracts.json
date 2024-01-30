@@ -1,0 +1,65 @@
+{
+  "CERT-C": {
+    "MSC40-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Inlined external functions are prohibited by the language standard from defining modifiable static or thread storage objects, or referencing identifiers with internal linkage.",
+          "kind": "problem",
+          "name": "Do not violate inline linkage constraints",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotViolateInLineLinkageConstraints",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Do not violate constraints"
+    }
+  },
+  "MISRA-C-2012": {
+    "DIR-4-11": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Range, domain or pole errors in math functions may return unexpected values, trigger floating-point exceptions or set unexpected error modes.",
+          "kind": "problem",
+          "name": "The validity of values passed to `math.h` library functions shall be checked",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "CheckMathLibraryFunctionParameters",
+          "shared_implementation_short_name": "UncheckedRangeDomainPoleErrors",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The validity of values passed to library functions shall be checked"
+    },
+    "DIR-4-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function (whether it is part of the standard library, a third party library or a user defined function) may provide some means of indicating the occurrence of an error. This may be via a global error flag, a parametric error flag, a special return value or some other means. Whenever such a mechanism is provided by a function the calling program shall check for the indication of an error as soon as the function returns.",
+          "kind": "problem",
+          "name": "If a function generates error information, then that error information shall be tested",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "FunctionErrorInformationUntested",
+          "shared_implementation_short_name": "FunctionErroneousReturnValueNotTested",
+          "tags": [
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "If a function returns error information, then that error information shall be tested"
+    }
+  }
+}

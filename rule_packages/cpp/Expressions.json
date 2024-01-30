@@ -86,6 +86,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "FunctionErroneousReturnValueNotTested",
+          "shared_implementation_short_name": "FunctionErroneousReturnValueNotTested",
           "tags": [
             "maintainability"
           ]
