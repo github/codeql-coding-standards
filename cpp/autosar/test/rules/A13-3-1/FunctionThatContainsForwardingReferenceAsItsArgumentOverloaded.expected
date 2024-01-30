@@ -3,3 +3,5 @@
 | test.cpp:50:3:50:3 | A | Function overloads a $@ with a forwarding reference parameter. | test.cpp:47:3:47:3 | A | function |
 | test.cpp:63:8:63:8 | B | Function overloads a $@ with a forwarding reference parameter. | test.cpp:66:3:66:3 | B | function |
 | test.cpp:63:8:63:8 | B | Function overloads a $@ with a forwarding reference parameter. | test.cpp:66:3:66:3 | B | function |
+| test.cpp:71:7:71:7 | C | Function overloads a $@ with a forwarding reference parameter. | test.cpp:74:25:74:25 | C | function |
+| test.cpp:71:7:71:7 | C | Function overloads a $@ with a forwarding reference parameter. | test.cpp:74:25:74:25 | C | function |

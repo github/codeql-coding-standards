@@ -26,5 +26,7 @@ where
   not isExcluded(f,
     OperatorsPackage::functionThatContainsForwardingReferenceAsItsArgumentOverloadedQuery()) and
   not f.isDeleted() and
-  f = c.getAnOverload()
+  f = c.getAnOverload() and
+  //allow for overloading with different number of parameters
+  f.getNumberOfParameters() = c.getNumberOfParameters()
 select f, "Function overloads a $@ with a forwarding reference parameter.", c, "function"

@@ -67,3 +67,9 @@ struct B {
 };
 
 int main() {}
+
+class C {
+public:
+  C() {} // COMPLIANT by exception
+  template <typename T> C(T &&) {}
+};
