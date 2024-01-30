@@ -14,7 +14,10 @@
           "short_name": "DoNotViolateInLineLinkageConstraints",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query only considers the constraints related to inline extern functions."
+          }
         }
       ],
       "title": "Do not violate constraints"
@@ -36,7 +39,10 @@
           "shared_implementation_short_name": "UncheckedRangeDomainPoleErrors",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query identifies possible domain, pole and range errors on a selection of C standard library fuctions from math.h."
+          }
         }
       ],
       "title": "The validity of values passed to library functions shall be checked"
@@ -56,7 +62,10 @@
           "shared_implementation_short_name": "FunctionErroneousReturnValueNotTested",
           "tags": [
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query enforces checking on some C standard library functions that may return error codes."
+          }
         }
       ],
       "title": "If a function returns error information, then that error information shall be tested"
