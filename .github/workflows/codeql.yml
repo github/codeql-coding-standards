@@ -19,29 +19,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       
-      - name: Nix install prerequisites 
-        run: |
-          mkdir "$RUNNER_TEMP/nix" 
-          sudo mkdir /nix
-          sudo mount --bind "$RUNNER_TEMP/nix" /nix
-
       - name: Install Nix
         uses: cachix/install-nix-action@6004951b182f8860210c8d6f0d808ec5b1a33d28
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache Nix Store
+      - name: Cache Nix store
         uses: actions/cache@v4
         id: cache
         with:
-          path: ${{ runner.temp }}/nix
+          path: ${{ runner.temp }}/nix/store
           key: ${{ runner.os }}-${{ hashFiles('tooling/**') }}-${{ hashFiles('.github/workflows/codeql.yml')}}
+      
+      - name: Copy Nix store from cache
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: |
+          nix copy --all --from "file://$RUNNER_TEMP/nix/store"
 
-      - name: Prepare Nix Store
+      - name: Prepare Nix store
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           nix-shell --pure --command "codeql version" tooling/shell.nix
+      
+      - name: Copy Nix store to cache location
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          nix copy --all --to "file://$RUNNER_TEMP/nix/store"
 
       - name: Create database
         run: |
