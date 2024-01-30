@@ -58,5 +58,5 @@ query predicate problems(FunctionCall fc, string message) {
   not exists(GuardCondition gc |
     DataFlow::localFlow(DataFlow::exprNode(fc), DataFlow::exprNode(gc.getAChild*()))
   ) and
-  message = "Return value is not tested for errors."
+  message = "Return value from " + fc.getTarget().getName() + " is not tested for errors."
 }
