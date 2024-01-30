@@ -1,4 +1,4 @@
-Language,Standard,ID,Queryable?,Obligation level,Enforcement level,Allocated target,Description,Similar,Package,Difficulty,Justification for querability level
+Language,Standard,ID,Supportable,Obligation level,Enforcement level,Allocated target,Description,Similar,Package,Difficulty,Justification for querability level
 cpp,AUTOSAR,A0-1-1,Yes,Required,Automated,Implementation,A project shall not contain instances of non-volatile variables being given values that are not subsequently used.,M0-1-6,DeadCode,Medium,
 cpp,AUTOSAR,A0-1-2,Yes,Required,Automated,Implementation,The value returned by a function having a non-void return type that is not an overloaded operator shall be used.,M0-1-7,DeadCode,Easy,
 cpp,AUTOSAR,A0-1-3,Yes,Required,Automated,Implementation,"Every function defined in an anonymous namespace, or static function with internal linkage, or private member function shall be used.",M0-1-10,DeadCode,Easy,
