@@ -1,5 +1,6 @@
 import cpp
 import Expr
+private import semmle.code.cpp.security.FileWrite
 
 /**
  * any assignment operator that also reads from the access
@@ -262,5 +263,53 @@ class UserOverloadedOperator extends Function {
         ]
     ) and
     not this.isCompilerGenerated()
+  }
+}
+
+/**
+ * A `std::basic_istream` class, or something that can be used
+ * as one. Based on the BasicOStreamClass.
+ */
+private class BasicIStreamClass extends Type {
+  BasicIStreamClass() {
+    this.(Class).getName().matches("basic\\_istream%")
+    or
+    this.getUnspecifiedType() instanceof BasicIStreamClass
+    or
+    this.(Class).getABaseClass() instanceof BasicIStreamClass
+    or
+    this.(ReferenceType).getBaseType() instanceof BasicIStreamClass
+  }
+}
+
+/** An implementation of a stream insertion operator. */
+class StreamInsertionOperator extends Function {
+  StreamInsertionOperator() {
+    this.hasName("operator<<") and
+    (
+      if this.isMember()
+      then this.getNumberOfParameters() = 1
+      else (
+        this.getNumberOfParameters() = 2 and
+        this.getParameter(0).getType() instanceof BasicOStreamClass
+      )
+    ) and
+    this.getType() instanceof BasicOStreamClass
+  }
+}
+
+/** An implementation of a stream extraction operator. */
+class StreamExtractionOperator extends Function {
+  StreamExtractionOperator() {
+    this.hasName("operator>>") and
+    (
+      if this.isMember()
+      then this.getNumberOfParameters() = 1
+      else (
+        this.getNumberOfParameters() = 2 and
+        this.getParameter(0).getType() instanceof BasicIStreamClass
+      )
+    ) and
+    this.getType() instanceof BasicIStreamClass
   }
 }
