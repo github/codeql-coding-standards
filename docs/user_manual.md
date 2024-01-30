@@ -114,9 +114,9 @@ For C the codebase under analysis must comply with C99 or C11 and use one of the
 
 | Compiler | Version | Standard library    | Target architecture   | Required Flags             |
 | -------- | ------- | ------------------- | --------------------- | -------------------------- |
-| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | -std=c11                   |
-| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | -std=c11                   |
-| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | -std=c11 -nopipe           |
+| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
+| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
+| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | `-std=c11 -nopipe` or `-std=c99 -nopipe` |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
  - Use of the queries against codebases written with more recent versions of C (as supported by CodeQL) are not validated in the following circumstances:
