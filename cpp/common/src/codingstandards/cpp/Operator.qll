@@ -119,7 +119,7 @@ class UserAssignmentOperator extends AssignmentOperator {
 }
 
 /** An assignment operator of any sort */
-class AssignmentOperator extends MemberFunction {
+class AssignmentOperator extends Function {
   AssignmentOperator() {
     // operator op, where op is =, +=, -=, *=, /=, %=, ^=, &=, |=, >>=, <<=
     exists(string op |
