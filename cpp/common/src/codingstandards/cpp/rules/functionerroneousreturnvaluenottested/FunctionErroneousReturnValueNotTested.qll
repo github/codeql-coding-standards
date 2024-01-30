@@ -55,8 +55,8 @@ query predicate problems(FunctionCall fc, string message) {
           "vwprintf", "vfwprintf", "vswprintf", "vwprintf_s", "vfwprintf_s", "vswprintf_s",
           "vsnwprintf_s"
         ]) and
-  forall(GuardCondition gc |
-    not DataFlow::localFlow(DataFlow::exprNode(fc), DataFlow::exprNode(gc.getAChild*()))
+  not exists(GuardCondition gc |
+    DataFlow::localFlow(DataFlow::exprNode(fc), DataFlow::exprNode(gc.getAChild*()))
   ) and
   message = "Return value is not tested for errors."
 }
