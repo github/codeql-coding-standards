@@ -19,7 +19,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.functionerroneousreturnvaluenottested.FunctionErroneousReturnValueNotTested
 
-class FunctionErrorInformationUntestedQuery extends FunctionErroneousReturnValueNotTestedSharedQuery {
+class FunctionErrorInformationUntestedQuery extends FunctionErroneousReturnValueNotTestedSharedQuery
+{
   FunctionErrorInformationUntestedQuery() {
     this = ContractsPackage::functionErrorInformationUntestedQuery()
   }
