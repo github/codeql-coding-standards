@@ -41,7 +41,7 @@ class NonConstMemberFunction extends MemberFunction {
  * `MemberFunction`s that are not const
  * and not `Constructor`s ect as const constructors are
  * not a thing in cpp
- * also not static because there is no `this` in
+ * also not static because there is no `this` in 
  * static `MemberFunction`
  */
 class ConstMemberFunctionCandidate extends NonConstMemberFunction {
