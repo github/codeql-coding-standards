@@ -63,3 +63,7 @@ void test_loop_bound_bad(unsigned int n) {
               // reached
   }
 }
+
+void test_assign_div(int i) { // COMPLIANT
+  i /= 2;
+}
