@@ -161,3 +161,29 @@ class Z22 : Z1 {
   void f2() final {}                   // COMPLIANT
   void f3() { this->a = 100; }         // COMPLIANT
 };
+
+template <class T> class Array {
+public:
+  T &back();
+
+private:
+  T data[128];
+  unsigned int size;
+};
+
+template <class T, template <class...> class U> class Stack {
+public:
+  T &Top() {
+    return this->data.back();
+  } // Likely NON_COMPLIANT, but cannot be determined until instantiation.
+private:
+  U<T> data;
+};
+
+using IntVectorStack = Stack<int, Array>;
+
+void test_template() {
+  IntVectorStack s;
+
+  int i = s.Top();
+}
