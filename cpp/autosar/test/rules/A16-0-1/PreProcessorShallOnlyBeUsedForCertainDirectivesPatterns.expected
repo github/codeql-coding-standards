@@ -2,3 +2,6 @@
 | test.cpp:9:1:9:26 | #define OBJECTLIKE_MACRO 1 | Preprocessor directive used for conditional compilation. |
 | test.cpp:10:1:10:35 | #define FUNCTIONLIKE_MACRO(X) X + 1 | Preprocessor directive used for conditional compilation. |
 | test.cpp:11:1:11:37 | #define FUNCTIONLIKE_MACROTWO() 1 + 1 | Preprocessor directive used for conditional compilation. |
+| test.cpp:33:1:33:26 | #ifdef OBJECTLIKE_MACRO_NO | Preprocessor directive used for conditional compilation. |
+| test.cpp:35:1:35:26 | #elif OBJECTLIKE_MACRO > 0 | Preprocessor directive used for conditional compilation. |
+| test.cpp:39:1:39:23 | #ifdef OBJECTLIKE_MACRO | Preprocessor directive used for conditional compilation. |
