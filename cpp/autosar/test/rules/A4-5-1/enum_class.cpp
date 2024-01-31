@@ -112,9 +112,8 @@ byte operator~(byte lhs) { return lhs; }
 byte operator&=(byte lhs, byte rhs) { return lhs; }
 byte operator|=(byte lhs, byte rhs) { return lhs; }
 
-void test_bitmasktype_enum_class() { // COMPLIANT[FALSE_POSITIVE] - Type
-                                     // implementing the BitmaskType trait
-                                     // should be excluded.
+void test_bitmasktype_enum_class() { // COMPLIANT - byte implements the
+                                     // BitmaskType trait.
   byte one, two;
 
   one &two;

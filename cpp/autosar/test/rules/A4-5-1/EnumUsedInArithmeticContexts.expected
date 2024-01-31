@@ -102,5 +102,3 @@
 | enum_class.cpp:102:3:102:3 | a | Enum $@ is used as an operand of arithmetic operation. | enum_class.cpp:1:12:1:25 | FunctionalLang | FunctionalLang |
 | enum_class.cpp:103:3:103:3 | a | Enum $@ is used as an operand of arithmetic operation. | enum_class.cpp:1:12:1:25 | FunctionalLang | FunctionalLang |
 | enum_class.cpp:103:6:103:6 | b | Enum $@ is used as an operand of arithmetic operation. | enum_class.cpp:1:12:1:25 | FunctionalLang | FunctionalLang |
-| enum_class.cpp:120:3:120:5 | one | Enum $@ is used as an operand of arithmetic operation. | enum_class.cpp:106:12:106:15 | byte | byte |
-| enum_class.cpp:120:8:120:10 | two | Enum $@ is used as an operand of arithmetic operation. | enum_class.cpp:106:12:106:15 | byte | byte |

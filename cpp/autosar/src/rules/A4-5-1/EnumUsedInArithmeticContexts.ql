@@ -19,6 +19,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Operator
+import codingstandards.cpp.Type
 
 class AllowedOperatorUse extends OperatorUse {
   AllowedOperatorUse() {
@@ -36,5 +37,7 @@ where
     access.(EnumConstantAccess).getTarget().getDeclaringEnum() = enum or
     access.(VariableAccess).getType() = enum 
   ) and
-  not operatorUse instanceof AllowedOperatorUse
+  not operatorUse instanceof AllowedOperatorUse and
+  // Enums that implement the BitmaskType trait are an exception.
+  not enum instanceof BitmaskType
 select access, "Enum $@ is used as an operand of arithmetic operation.", enum, enum.getName()
