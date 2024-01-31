@@ -54,7 +54,10 @@ class ConstMemberFunctionCandidate extends NonConstMemberFunction {
     not this instanceof Destructor and
     not this instanceof Operator and
     //less interested in MemberFunctions with no definition
-    this.hasDefinition()
+    this.hasDefinition() and
+    // For uninstantiated templates we have only partial information that prevents us from determining
+    // if the candidate calls non-const functions. Therefore we exclude these.
+    not this.isFromUninstantiatedTemplate(_)
   }
 
   /**
