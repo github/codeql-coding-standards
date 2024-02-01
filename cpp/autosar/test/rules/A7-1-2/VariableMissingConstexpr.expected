@@ -10,3 +10,4 @@
 | test.cpp:55:7:55:8 | m2 | Variable m2 could be marked 'constexpr'. |
 | test.cpp:130:7:130:8 | m1 | Variable m1 could be marked 'constexpr'. |
 | test.cpp:141:7:141:8 | m1 | Variable m1 could be marked 'constexpr'. |
+| test.cpp:215:7:215:7 | x | Variable x could be marked 'constexpr'. |

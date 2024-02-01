@@ -33,6 +33,15 @@ predicate isTypeZeroInitializable(Type t) {
   t.getUnderlyingType() instanceof ArrayType
 }
 
+predicate isCompileTimeEvaluated(Call call) {
+  call.getTarget().isConstexpr() and
+  forall(Expr arg | arg = call.getAnArgument() |
+    DataFlow::localExprFlow(any(Literal l), arg)
+    or
+    DataFlow::localExprFlow(any(Call c | isCompileTimeEvaluated(call)), arg)
+  )
+}
+
 from Variable v
 where
   not isExcluded(v, ConstPackage::variableMissingConstexprQuery()) and
@@ -46,7 +55,7 @@ where
   (
     v.getInitializer().getExpr().isConstant()
     or
-    v.getInitializer().getExpr().(Call).getTarget().isConstexpr()
+    any(Call call | isCompileTimeEvaluated(call)) = v.getInitializer().getExpr()
     or
     isZeroInitializable(v)
     or
