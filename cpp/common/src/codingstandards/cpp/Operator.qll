@@ -128,6 +128,8 @@ class AssignmentOperator extends Function {
       op in ["=", "+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=", ">>=", "<<="]
     )
   }
+
+  predicate isLValueRefQualified() { this.(MemberFunction).isLValueRefQualified() }
 }
 
 class UserComparisonOperator extends Function {
