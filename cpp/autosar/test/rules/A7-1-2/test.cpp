@@ -206,12 +206,9 @@ public:
   void operator=(ExcludedCases &&) {} // COMPLIANT
 };
 
-
-constexpr int add(int x, int y) {
-  return x + y;
-}
+constexpr int add(int x, int y) { return x + y; }
 
 void fp_reported_in_466(int p) {
-  int x = add(1,2); // NON_COMPLIANT
-  int y = add(1,p); // COMPLIANT
+  int x = add(1, 2); // NON_COMPLIANT
+  int y = add(1, p); // COMPLIANT
 }
