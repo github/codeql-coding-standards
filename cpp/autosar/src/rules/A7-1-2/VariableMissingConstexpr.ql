@@ -81,5 +81,7 @@ where
   // Not assigned by a user in a constructor
   not exists(ConstructorFieldInit cfi | cfi.getTarget() = v and not cfi.isCompilerGenerated()) and
   // Ignore union members
-  not v.getDeclaringType() instanceof Union
+  not v.getDeclaringType() instanceof Union and
+  // If it is a member, it must be static to be constexpr
+  (v instanceof MemberVariable implies v.isStatic())
 select v, "Variable " + v.getName() + " could be marked 'constexpr'."
