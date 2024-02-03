@@ -1,6 +1,7 @@
 import cpp
 import Expr
 private import semmle.code.cpp.security.FileWrite
+private import codingstandards.cpp.standardlibrary.FileStreams
 
 /**
  * any assignment operator that also reads from the access
@@ -268,22 +269,6 @@ class UserOverloadedOperator extends Function {
   }
 }
 
-/**
- * A `std::basic_istream` class, or something that can be used
- * as one. Based on the BasicOStreamClass.
- */
-private class BasicIStreamClass extends Type {
-  BasicIStreamClass() {
-    this.(Class).getName().matches("basic\\_istream%")
-    or
-    this.getUnspecifiedType() instanceof BasicIStreamClass
-    or
-    this.(Class).getABaseClass() instanceof BasicIStreamClass
-    or
-    this.(ReferenceType).getBaseType() instanceof BasicIStreamClass
-  }
-}
-
 /** An implementation of a stream insertion operator. */
 class StreamInsertionOperator extends Function {
   StreamInsertionOperator() {
@@ -309,9 +294,9 @@ class StreamExtractionOperator extends Function {
       then this.getNumberOfParameters() = 1
       else (
         this.getNumberOfParameters() = 2 and
-        this.getParameter(0).getType() instanceof BasicIStreamClass
+        this.getParameter(0).getType() instanceof IStream 
       )
     ) and
-    this.getType() instanceof BasicIStreamClass
+    this.getType() instanceof IStream 
   }
 }
