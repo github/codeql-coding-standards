@@ -206,9 +206,42 @@ public:
   void operator=(ExcludedCases &&) {} // COMPLIANT
 };
 
+extern int random();
 constexpr int add(int x, int y) { return x + y; }
+constexpr int add1(int x, int y = 1) { return x + y; }
+constexpr int add2(int x, int y = add(add1(1), 2)) { return x + y; }
+constexpr int add3(int x, int y = random()) { return x + y; }
+constexpr int add4(int x = 1, int y = 2) { return x + y; }
 
 constexpr void fp_reported_in_466(int p) {
   int x = add(1, 2); // NON_COMPLIANT
   int y = add(1, p); // COMPLIANT
+
+  int z = 0;
+  if (p > 0) {
+    z = 1;
+  } else {
+    z = p;
+  }
+
+  int u = add(z, 2);  // COMPLIANT
+  int v = add(x, 2);  // NON_COMPLIANT
+  int w = add1(x, 2); // NON_COMPLIANT
+  int a = add1(x);    // NON_COMPLIANT
+  int b = add1(1);    // NON_COMPLIANT
+  int c = add1(1, z); // COMPLIANT
+  int d = add1(1, z); // COMPLIANT
+  int e = add1(z);    // COMPLIANT
+  int f = add2(1);    // NON_COMPLIANT
+  int g = add2(1, 2); // NON_COMPLIANT
+  int h = add2(x, 2); // NON_COMPLIANT
+  int i = add2(x, 2); // NON_COMPLIANT
+  int j = add2(z);    // COMPLIANT
+  int k = add2(z, 1); // COMPLIANT
+  int l = add3(1, 1); // NON_COMPLIANT
+  int m = add3(1);    // COMPLIANT
+  int n = add3(1, z); // COMPLIANT
+  int o = add4();     // NON_COMPLIANT
+  int q = add4(1);    // NON_COMPLIANT
+  int r = add4(1, z); // COMPLIANT
 }

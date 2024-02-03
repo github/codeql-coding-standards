@@ -33,12 +33,24 @@ predicate isTypeZeroInitializable(Type t) {
   t.getUnderlyingType() instanceof ArrayType
 }
 
+/*
+  * Returns true if the given call may be evaluated at compile time and is compile time evaluated because
+  * all its arguments are compile time evaluated and its default values are compile time evaluated.
+  */
 predicate isCompileTimeEvaluated(Call call) {
+  // 1. The call may be evaluated at compile time, because it is constexpr, and
   call.getTarget().isConstexpr() and
-  forall(Expr arg | arg = call.getAnArgument() |
-    DataFlow::localExprFlow(any(Literal l), arg)
+  // 2. all its arguments are compile time evaluated, and
+  forall(DataFlow::Node ultimateArgSource | DataFlow::localFlow(ultimateArgSource, DataFlow::exprNode(call.getAnArgument())) and not DataFlow::localFlowStep(_, ultimateArgSource) |
+    ultimateArgSource.asExpr() instanceof Literal
     or
-    DataFlow::localExprFlow(any(Call c | isCompileTimeEvaluated(call)), arg)
+    any(Call c | isCompileTimeEvaluated(c)) = ultimateArgSource.asExpr()
+  ) and
+  // 3. all the default values used are compile time evaluated.
+  forall(Expr defaultValue, Parameter parameterUsingDefaultValue, int idx | parameterUsingDefaultValue = call.getTarget().getParameter(idx) and not exists(call.getArgument(idx)) and parameterUsingDefaultValue.getAnAssignedValue() = defaultValue |
+    defaultValue instanceof Literal
+    or
+    any(Call c | isCompileTimeEvaluated(c)) = defaultValue
   )
 }
 
