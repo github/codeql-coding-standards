@@ -46,7 +46,10 @@ constexpr A &operator|=(
 }
 
 enum class byte : unsigned char {};
-constexpr byte &operator|(const byte &lhs, const byte &rhs) noexcept {
+constexpr byte &
+operator|(const byte &lhs,
+          const byte &rhs) noexcept { // COMPLIANT - parameters are const
+                                      // qualified references
   return lhs | rhs;
 }
 constexpr byte &operator|=(
