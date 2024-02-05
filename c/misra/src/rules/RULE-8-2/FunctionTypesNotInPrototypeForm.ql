@@ -45,7 +45,7 @@ where
     msg = "Function " + f + " declares parameter that is unnamed."
     or
     hasZeroParamDecl(f) and
-    msg = "Function " + f + " does not specifiy void for no parameters present."
+    msg = "Function " + f + " does not specify void for no parameters present."
     or
     //parameters declared in declaration list (not in function signature)
     //have placeholder file location associated only

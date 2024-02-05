@@ -45,4 +45,8 @@ void test() {
   u ^= u;  // COMPLIANT
   u | 0;   // COMPLIANT
   u |= 0;  // COMPLIANT
+
+  int *p = 0;
+  p += 1; // COMPLIANT
+  p -= 1; // COMPLIANT
 }
