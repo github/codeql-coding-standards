@@ -37,7 +37,8 @@ where
   not exists(CatchBlock cb | cb.getParameter() = v) and
   not exists(SpecialMemberFunction cc | cc.getAParameter() = v) and
   not exists(Operator op | op.getAParameter() = v) and
-  not v.isFromUninstantiatedTemplate(_)
+  not v.isFromUninstantiatedTemplate(_) and
+  not v.isFromTemplateInstantiation(_)
 select v,
   "Parameter '" + v.getName() + "' is the trivially copyable type '" + t.getName() +
     "' but it is passed by reference instead of by value."
