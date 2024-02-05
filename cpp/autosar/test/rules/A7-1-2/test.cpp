@@ -208,9 +208,13 @@ public:
 
 extern int random();
 constexpr int add(int x, int y) { return x + y; }
+// Example with compile time constant literal value as default argument
 constexpr int add1(int x, int y = 1) { return x + y; }
+// Example with compile time constant function call as default argument
 constexpr int add2(int x, int y = add(add1(1), 2)) { return x + y; }
+// Example with non compile time constant function call as default argument
 constexpr int add3(int x, int y = random()) { return x + y; }
+// Example with compile time constant literal value as default arguments
 constexpr int add4(int x = 1, int y = 2) { return x + y; }
 
 constexpr void fp_reported_in_466(int p) {
@@ -224,24 +228,29 @@ constexpr void fp_reported_in_466(int p) {
     z = p;
   }
 
-  int u = add(z, 2);  // COMPLIANT
-  int v = add(x, 2);  // NON_COMPLIANT
-  int w = add1(x, 2); // NON_COMPLIANT
-  int a = add1(x);    // NON_COMPLIANT
-  int b = add1(1);    // NON_COMPLIANT
-  int c = add1(1, z); // COMPLIANT
-  int d = add1(1, z); // COMPLIANT
-  int e = add1(z);    // COMPLIANT
-  int f = add2(1);    // NON_COMPLIANT
-  int g = add2(1, 2); // NON_COMPLIANT
-  int h = add2(x, 2); // NON_COMPLIANT
-  int i = add2(x, 2); // NON_COMPLIANT
-  int j = add2(z);    // COMPLIANT
-  int k = add2(z, 1); // COMPLIANT
-  int l = add3(1, 1); // NON_COMPLIANT
-  int m = add3(1);    // COMPLIANT
-  int n = add3(1, z); // COMPLIANT
-  int o = add4();     // NON_COMPLIANT
-  int q = add4(1);    // NON_COMPLIANT
-  int r = add4(1, z); // COMPLIANT
+  constexpr int t = add(1, 2); //  COMPLIANT
+
+  int u = add(z, 2); // COMPLIANT - z is not compile time constant on all paths
+  int v = add(t, 2); // NON_COMPLIANT
+  int w =
+      add1(t, 2);  // NON_COMPLIANT - all arguments are compile time constants
+  int a = add1(t); // NON_COMPLIANT - s and the default value of the second
+                   // argument are compile time constants
+  int b = add1(1); // NON_COMPLIANT
+  int c = add1(1, z); // COMPLIANT - z is not compile time constant on all paths
+  int d = add1(z);    // COMPLIANT - z is not compile time constant on all paths
+  int e = add2(1);    // NON_COMPLIANT - provided argument and default value are
+                      // compile time constants
+  int f = add2(1, 2); // NON_COMPLIANT
+  int g = add2(t, 2); // NON_COMPLIANT
+  int h = add2(z);    // COMPLIANT - z is not compile time constant on all paths
+  int i = add2(z, 1); // COMPLIANT - z is not compile time constant on all paths
+  int j = add3(1, 1); // NON_COMPLIANT
+  int k = add3(1);    // COMPLIANT - default value for second argument is not a
+                      // compile time constant
+  int l = add3(1, z); // COMPLIANT - z is not compile time constant on all paths
+  int m = add4();  // NON_COMPLIANT - default values are compile time constants
+  int n = add4(1); // NON_COMPLIANT - default value for second argument is a
+                   // compile time constant
+  int o = add4(1, z); // COMPLIANT - z is not compile time constant on all paths
 }
