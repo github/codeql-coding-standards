@@ -189,3 +189,8 @@ void test_template() {
 
   int i = s.Top();
 }
+
+class Z3 {
+  void f(int) = delete; // COMPLIANT
+};
+

@@ -37,4 +37,12 @@ inline S1 Value(size_t n, const char *data) {} // COMPLIANT
 struct A {
   int n;
   A(const A &a) : n(a.n) {} // COMPLIANT user-defined copy ctor
+  A(const A &&other_a);     // COMPLIANT user-defined move ctor
+};
+
+class C1 {};
+
+class C2 : public C1 {
+public:
+  C2 &operator=(const C2 &); // COMPLIANT
 };
