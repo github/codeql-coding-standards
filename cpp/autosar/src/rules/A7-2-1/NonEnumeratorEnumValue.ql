@@ -47,7 +47,7 @@ where
     then
       description =
         "Cast to enum $@ with from expression with value " + c.getExpr().getValue().toFloat() +
-          "_+ which is not one of the enumerator values in function " +
+          " which is not one of the enumerator values in function " +
           c.getEnclosingFunction().getName() + "."
     else
       if exists(upperBound(c.getExpr()))
