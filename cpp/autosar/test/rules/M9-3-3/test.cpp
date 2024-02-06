@@ -175,7 +175,9 @@ template <class T, template <class...> class U> class Stack {
 public:
   T &Top() {
     return this->data.back();
-  } // Likely NON_COMPLIANT, but cannot be determined until instantiation.
+  } // COMPLIANT[FALSE_NEGATIVE|TRUE_NEGATIVE] - exception not specified in the
+    // standard, we opt to not raise an issue because the template can be both
+    // compliant and non-compliant depending on instantiations.
 private:
   U<T> data;
 };
