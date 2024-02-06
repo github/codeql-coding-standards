@@ -1,3 +1,3 @@
-`A8-4-7`: `InParametersForCheapToCopyTypesNotPassedByValue.ql`, `InParametersForNotCheapToCopyTypesNotPassedByReference.ql`
+`A8-4-7` - `InParametersForCheapToCopyTypesNotPassedByValue.ql`, `InParametersForNotCheapToCopyTypesNotPassedByReference.ql`:
     - Fixes #397. Exclude user defined operators and move constructors.`
     - Exclude parameters for instantiated templates because the declaration location of the function does not contain enough information about the type used in the instantiation to make an actionable alert. 
