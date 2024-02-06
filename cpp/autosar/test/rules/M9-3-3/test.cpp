@@ -161,3 +161,7 @@ class Z22 : Z1 {
   void f2() final {}                   // COMPLIANT
   void f3() { this->a = 100; }         // COMPLIANT
 };
+
+class Z3 {
+  void f(int) = delete; // COMPLIANT
+};
