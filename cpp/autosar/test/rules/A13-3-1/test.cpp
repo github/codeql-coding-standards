@@ -61,9 +61,11 @@ A b(a);
 void F1(int &) = delete; // COMPLIANT by exception
 
 struct B {
-  template <typename T,
-            std::enable_if_t<!std::is_same<T, B>::value> * = nullptr>
-  B(T &&value) {}
+  template <
+      typename T,
+      std::enable_if_t<!std::is_same<
+          std::remove_cv_t<std::remove_reference_t<T>>, A>::value> * = nullptr>
+  B(T &&value) {} // COMPLIANT by exception
 };
 
 int main() {}
