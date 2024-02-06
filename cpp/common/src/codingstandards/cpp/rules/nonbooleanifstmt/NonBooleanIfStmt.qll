@@ -14,6 +14,8 @@ query predicate problems(Expr condition, string message) {
   not isExcluded(condition, getQuery()) and
   exists(IfStmt ifStmt, Type explicitConversionType |
     condition = ifStmt.getCondition() and
+    //exclude any generated conditions
+    not condition.isCompilerGenerated() and
     not ifStmt.isFromUninstantiatedTemplate(_) and
     explicitConversionType = condition.getExplicitlyConverted().getUnderlyingType() and
     not explicitConversionType instanceof BoolType and
