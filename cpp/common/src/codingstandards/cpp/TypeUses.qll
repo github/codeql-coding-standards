@@ -132,6 +132,9 @@ private Locatable getATypeUse_i(Type type) {
       result = nq and
       type = nq.getQualifyingElement()
     )
+    // Temporary object creation of type `type`
+    or
+    exists(TemporaryObjectExpr toe | result = toe | type = toe.getType())
   )
   or
   // Recursive case - used by a used type
