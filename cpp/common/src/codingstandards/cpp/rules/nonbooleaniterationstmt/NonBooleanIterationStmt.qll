@@ -16,6 +16,8 @@ query predicate problems(Loop loopStmt, string message) {
     condition = loopStmt.getCondition() and
     explicitConversionType = condition.getExplicitlyConverted().getType().getUnspecifiedType() and
     not explicitConversionType instanceof BoolType and
+    //exclude any generated conditions
+    not condition.isCompilerGenerated() and
     message = "Iteration condition has non boolean type " + explicitConversionType + "."
   )
 }

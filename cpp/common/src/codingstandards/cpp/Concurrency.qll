@@ -610,7 +610,7 @@ abstract class ThreadDependentMutex extends DataFlow::Node {
 class FlowBasedThreadDependentMutex extends ThreadDependentMutex {
   FlowBasedThreadDependentMutex() {
     // some sort of dataflow, likely through parameter passing.
-    exists(ThreadDependentMutexTaintTrackingConfiguration config | config.hasFlow(this, sink))
+    ThreadDependentMutexFlow::flow(this, sink)
   }
 }
 
@@ -738,17 +738,15 @@ class DeclarationInitAccessBasedThreadDependentMutex extends ThreadDependentMute
   override DataFlow::Node getAUsage() { result = DataFlow::exprNode(variableSource.getAnAccess()) }
 }
 
-class ThreadDependentMutexTaintTrackingConfiguration extends TaintTracking::Configuration {
-  ThreadDependentMutexTaintTrackingConfiguration() {
-    this = "ThreadDependentMutexTaintTrackingConfiguration"
-  }
+module ThreadDependentMutexConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node node) { node.asExpr() instanceof MutexSource }
 
-  override predicate isSource(DataFlow::Node node) { node.asExpr() instanceof MutexSource }
-
-  override predicate isSink(DataFlow::Node node) {
+  predicate isSink(DataFlow::Node node) {
     exists(ThreadCreationFunction f | f.getAnArgument() = node.asExpr())
   }
 }
+
+module ThreadDependentMutexFlow = TaintTracking::Global<ThreadDependentMutexConfig>;
 
 /**
  * Models expressions that destroy mutexes.

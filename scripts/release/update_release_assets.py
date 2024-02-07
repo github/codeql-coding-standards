@@ -1,5 +1,5 @@
 from __future__ import annotations # This enables postponed evaluation of type annotations. Required for typing.TYPE_CHECKING. See https://peps.python.org/pep-0563/
-from typing import TYPE_CHECKING, List, Union, cast, Dict, Any
+from typing import TYPE_CHECKING, List, Union, cast, Dict, Any, TypeVar, Callable, Sequence, Optional
 import shutil
 from tempfile import TemporaryDirectory
 import subprocess
@@ -12,7 +12,7 @@ import yaml
 
 if TYPE_CHECKING:
     from github import WorkflowRun, Repository
-    
+
 
 script_path = Path(__file__).resolve()
 root_path = script_path.parent.parent.parent
@@ -30,7 +30,7 @@ def monkey_patch_github() -> None:
                 f"{self.url}/commits/{ref}/check-runs",
                 firstParams=None,
                 list_item="check_runs")
-    
+
     Repository.Repository = MyRepository
 
     from github import WorkflowRun, Artifact
@@ -51,7 +51,7 @@ def monkey_patch_github() -> None:
             if self._requester._Requester__auth is not None: # type: ignore
                 headers["Authorization"] = f"{self._requester._Requester__auth.token_type} {self._requester._Requester__auth.token}" # type: ignore
             headers["User-Agent"] = self._requester._Requester__userAgent # type: ignore
-           
+
             resp = requests.get(url, headers=headers, allow_redirects=True)
 
             if resp.status_code != 200:
@@ -70,7 +70,7 @@ def monkey_patch_github() -> None:
                 if self._requester._Requester__auth is not None: # type: ignore
                     headers["Authorization"] = f"{self._requester._Requester__auth.token_type} {self._requester._Requester__auth.token}" # type: ignore
                 headers["User-Agent"] = self._requester._Requester__userAgent # type: ignore
-            
+
                 resp = requests.get(artifact.archive_download_url, headers=headers, allow_redirects=True)
 
                 if resp.status_code != 200:
@@ -93,7 +93,7 @@ def monkey_patch_github() -> None:
             if self._requester._Requester__auth is not None: # type: ignore
                 headers["Authorization"] = f"{self._requester._Requester__auth.token_type} {self._requester._Requester__auth.token}" # type: ignore
             headers["User-Agent"] = self._requester._Requester__userAgent # type: ignore
-        
+
             resp = requests.get(artifact.archive_download_url, headers=headers, allow_redirects=True)
 
             if resp.status_code != 200:
@@ -101,7 +101,7 @@ def monkey_patch_github() -> None:
 
             with (path / f"{artifact.name}.zip").open("wb") as f:
                 f.write(resp.content)
-        
+
 
     WorkflowRun.WorkflowRun = MyWorkflowRun
 
@@ -124,12 +124,16 @@ class ReleaseLayout:
                 elif action_type == "workflow-artifact":
                     actions.append(WorkflowArtifactAction(workflow_runs, **cast(Dict[str, Any], action_args)))
                 elif action_type == "shell":
-                    actions.append(ShellAction(action_args))
+                    modifiers : List[Callable[[str], str]] = [
+                        lambda cmd: re.sub(pattern=r"\${{\s*coding-standards\.root\s*}}", repl=str(root_path), string=cmd),
+                        lambda cmd: re.sub(pattern=r"\${{\s*layout\.root\s*}}", repl=str(directory), string=cmd)
+                    ]
+                    actions.append(ShellAction(action_args, modifiers=modifiers))
                 elif action_type == "file":
                     actions.append(FileAction(action_args))
                 else:
                     raise Exception(f"Unknown action type {action_type}")
-            
+
             artifacts.append(ReleaseArtifact(artifact, actions, self.skip_checks))
 
         for artifact in artifacts:
@@ -153,7 +157,7 @@ class WorkflowLogAction():
             print(f"Downloading logs for {workflow_run.name}")
             workflow_run.download_logs(Path(self.temp_workdir.name)) # type: ignore
         return list(map(Path, Path(self.temp_workdir.name).glob("**/*")))
-    
+
 class WorkflowArtifactAction():
 
     def __init__(self, workflow_runs: List[WorkflowRun.WorkflowRun], **kwargs: str) -> None:
@@ -176,17 +180,29 @@ class WorkflowArtifactAction():
                 print(f"Downloading artifacts for {workflow_run.name} to {self.temp_workdir.name}")
                 workflow_run.download_artifacts(Path(self.temp_workdir.name)) # type: ignore
         return list(map(Path, Path(self.temp_workdir.name).glob("**/*")))
-    
+
 class ShellAction():
-    def __init__(self, command: str) -> None:
+    def __init__(self, command: str, **kwargs: Any) -> None:
         self.command = command.strip()
         self.temp_workdir = TemporaryDirectory()
+        self.options = kwargs
+
+    def _rewrite_command(self) -> str:
+        E = TypeVar("E")
+        R = TypeVar("R")
+        def lfold(fn: Callable[[R, E], R], lst: Sequence[E], init: R) -> R:
+            return lfold(fn, lst[1:], fn(init, lst[0])) if lst else init
+        if 'modifiers' in self.options:
+            return lfold(lambda acc, x: x(acc), self.options['modifiers'], self.command)
+        else:
+            return self.command
 
     def run(self) -> List[Path]:
-        concrete_command = re.sub(pattern=r"\${{\s*coding-standards\.root\s*}}", repl=str(root_path), string=self.command)
+        #concrete_command = re.sub(pattern=r"\${{\s*coding-standards\.root\s*}}", repl=str(root_path), string=self.command)
+        concrete_command = self._rewrite_command()
         subprocess.run(concrete_command, cwd=self.temp_workdir.name, check=True, shell=True)
         return list(map(Path, Path(self.temp_workdir.name).glob("**/*")))
-        
+
 class FileAction():
     def __init__(self, path: Path) -> None:
         self.path = path
@@ -200,7 +216,7 @@ class ReleaseArtifact():
         self.actions = actions
         self.allow_no_files = allow_no_files
 
-    def make(self, directory: Path) -> Path:
+    def make(self, directory: Path) -> Optional[Path]:
         files: list[Path] = [file for action in self.actions for file in action.run()]
         if len(files) == 0:
             if not self.allow_no_files:
@@ -212,8 +228,8 @@ class ReleaseArtifact():
             extension = "".join(self.name.suffixes)[1:]
             if not extension in ["zip", "tar", "tar.gz", "tar.bz2", "tar.xz"]:
                 raise Exception(f"Artifact {self.name} is not a support archive file, but has multiple files associated with it!")
-            
-            ext_format_map = {    
+
+            ext_format_map = {
                 "zip": "zip",
                 "tar": "tar",
                 "tar.gz": "gztar",
@@ -225,7 +241,7 @@ class ReleaseArtifact():
                 temp_dir_path = Path(temp_dir)
                 for file in files:
                     shutil.copy(file, temp_dir_path / file.name)
-            
+
                 return Path(shutil.make_archive(str(directory / self.name.with_suffix("")), ext_format_map[extension], root_dir=temp_dir_path))
 
 def main(args: 'argparse.Namespace') -> int:
@@ -248,13 +264,13 @@ def main(args: 'argparse.Namespace') -> int:
     if len(pull_candidates) != 1:
         print(f"Error: expected exactly one PR for SHA {args.head_sha}, but found {len(pull_candidates)}", file=sys.stderr)
         return 1
-    
+
     pull_request = pull_candidates[0]
 
     if pull_request.state != "open":
         print(f"Error: PR {pull_request.url} is not open", file=sys.stderr)
         return 1
-    
+
     print(f"Found PR {pull_request.url} based on {pull_request.base.ref}")
 
     rc_branch_regex = r"^rc/(?P<version>.*)$"
@@ -286,7 +302,7 @@ def main(args: 'argparse.Namespace') -> int:
 
     action_workflow_run_url_regex = r"^https://(?P<github_url>[^/]+)/(?P<owner>[^/]+)/(?P<repo>[^/]+)/actions/runs/(?P<run_id>\d+)$"
     action_workflow_job_run_url_regex = r"^https://(?P<github_url>[^/]+)/(?P<owner>[^/]+)/(?P<repo>[^/]+)/actions/runs/(?P<run_id>\d+)/job/(?P<job_id>\d+)$"
-    
+
     workflow_runs: List[WorkflowRun.WorkflowRun] = []
     for check_run in check_runs: # type: ignore
         check_run = cast(CheckRun.CheckRun, check_run)
@@ -306,7 +322,7 @@ def main(args: 'argparse.Namespace') -> int:
             else:
                 print(f"Unable to handle checkrun {check_run.name} with id {check_run.id} with {check_run.details_url}")
                 return 1
-    
+
     print("Filtering workflow runs to only include the latest run for each workflow.")
     workflow_runs_per_id: Dict[int, WorkflowRun.WorkflowRun] = {}
     for workflow_run in workflow_runs:
