@@ -193,4 +193,3 @@ void test_template() {
 class Z3 {
   void f(int) = delete; // COMPLIANT
 };
-
