@@ -39,5 +39,6 @@ from NonStaticMemberFunction nonstatic
 where
   not isExcluded(nonstatic, ConstPackage::memberFunctionStaticIfPossibleQuery()) and
   not exists(ThisExpr t | t.getEnclosingFunction() = nonstatic) and
-  not nonstatic.isVirtual()
+  not nonstatic.isVirtual() and
+  not nonstatic.isDeleted()
 select nonstatic, "Member function can be declared as static."

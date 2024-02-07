@@ -121,5 +121,6 @@ where
   not f.callsNonConstOwnMember() and
   not f.callsNonConstFromMemberVariable() and
   not f.isOverride() and
-  not f.isFinal()
+  not f.isFinal() and
+  not f.isDeleted()
 select f, "Member function can be declared as const."
