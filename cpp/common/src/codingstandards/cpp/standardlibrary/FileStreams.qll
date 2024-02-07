@@ -25,7 +25,7 @@ class FileStream extends ClassTemplateInstantiation {
  * A `basic_istream` like `std::istream`
  */
 class IStream extends Type {
-  IStream() { 
+  IStream() {
     this.(Class).getQualifiedName().matches("std::basic\\_istream%")
     or
     this.getUnspecifiedType() instanceof IStream
@@ -40,7 +40,7 @@ class IStream extends Type {
  * A `basic_ostream` like `std::ostream`
  */
 class OStream extends Type {
-  OStream() { 
+  OStream() {
     this.(Class).getQualifiedName().matches("std::basic\\_ostream%")
     or
     this.getUnspecifiedType() instanceof OStream

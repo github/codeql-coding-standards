@@ -294,9 +294,9 @@ class StreamExtractionOperator extends Function {
       then this.getNumberOfParameters() = 1
       else (
         this.getNumberOfParameters() = 2 and
-        this.getParameter(0).getType() instanceof IStream 
+        this.getParameter(0).getType() instanceof IStream
       )
     ) and
-    this.getType() instanceof IStream 
+    this.getType() instanceof IStream
   }
 }
