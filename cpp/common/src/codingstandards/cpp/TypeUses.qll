@@ -82,7 +82,8 @@ private Locatable getATypeUse_i(Type type, string reason) {
       // Ignore self referential variables and parameters
       not v.getDeclaringType().refersTo(type) and
       not type = v.(Parameter).getFunction().getDeclaringType()
-    ) and reason = "used as a variable type"
+    ) and
+    reason = "used as a variable type"
     or
     // Used a function return type
     exists(Function f |
@@ -93,7 +94,8 @@ private Locatable getATypeUse_i(Type type, string reason) {
       type = f.getType() and reason = "used as a function return type"
       or
       type = f.getATemplateArgument() and reason = "used as a function template argument"
-    )     or
+    )
+    or
     // Used either in a function call as a template argument, or as the declaring type
     // of the function
     exists(FunctionCall fc | result = fc |
@@ -115,10 +117,12 @@ private Locatable getATypeUse_i(Type type, string reason) {
     reason = "used in a sizeof expr"
     or
     // A use in a `Cast`
-    exists(Cast c | c = result | type = c.getType()) and reason = "used in a cast"
+    exists(Cast c | c = result | type = c.getType()) and
+    reason = "used in a cast"
     or
     // Use of the type name in source
-    exists(TypeName t | t = result | type = t.getType()) and reason = "used in a typename"
+    exists(TypeName t | t = result | type = t.getType()) and
+    reason = "used in a typename"
     or
     // Access of an enum constant
     exists(EnumConstantAccess eca | result = eca | type = eca.getTarget().getDeclaringEnum()) and
@@ -128,15 +132,17 @@ private Locatable getATypeUse_i(Type type, string reason) {
     exists(FieldAccess fa |
       result = fa and
       type = fa.getTarget().getDeclaringType()
-    ) and reason = "used in a field access"
+    ) and
+    reason = "used in a field access"
     or
     // Name qualifiers
     exists(NameQualifier nq |
       result = nq and
       type = nq.getQualifyingElement()
-    ) and reason = "used in name qualifier"
-    // Temporary object creation of type `type`
+    ) and
+    reason = "used in name qualifier"
     or
+    // Temporary object creation of type `type`
     exists(TemporaryObjectExpr toe | result = toe | type = toe.getType()) and
     reason = "used in temporary object expr"
   )
@@ -160,8 +166,8 @@ private Locatable getATypeUse_i(Type type, string reason) {
     reason = "used in template class instantiation"
     or
     // This is a TemplateClass where one of the specializations is used
-    type = used.(ClassTemplateSpecialization).getPrimaryTemplate()
-    and reason = "used in template class specialization"
+    type = used.(ClassTemplateSpecialization).getPrimaryTemplate() and
+    reason = "used in template class specialization"
     or
     // Alias templates - alias templates and instantiations are not properly captured by the
     // extractor (last verified in CodeQL CLI 2.7.6). The only distinguishing factor is that
@@ -176,6 +182,7 @@ private Locatable getATypeUse_i(Type type, string reason) {
       not exists(instantiation.getLocation()) and
       // Template and instantiation both have the same qualified name
       template.getQualifiedName() = instantiation.getQualifiedName()
-    ) and reason = "used in alias template instantiation"
+    ) and
+    reason = "used in alias template instantiation"
   )
 }
