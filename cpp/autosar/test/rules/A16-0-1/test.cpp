@@ -30,10 +30,10 @@ int g;
 #include <string>         // COMPLIANT
 #endif                    // COMPLIANT
 
-#ifdef OBJECTLIKE_MACRO_NO // NON_COMPLIANT
-int x = 0;                 // not present
+#ifdef OBJECTLIKE_MACRO_NO // COMPLIANT
+int x0 = 0;                // not present
 #elif OBJECTLIKE_MACRO > 0 // NON_COMPLIANT
-int x = 1;  // present
+int x0 = 1; // present
 #endif                     // COMPLIANT
 
 #ifdef OBJECTLIKE_MACRO // NON_COMPLIANT
