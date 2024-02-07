@@ -35,7 +35,7 @@ private TypedefType getAnEquivalentTypeDef(TypedefType type) {
  * is from within the function signature or field declaration of the type itself.
  */
 Locatable getATypeUse(Type type) {
-  result = getATypeUse_i(type)
+  result = getATypeUse_i(type, _)
   or
   // Identify `TypeMention`s of typedef types, where the underlying type is used.
   //
@@ -61,11 +61,11 @@ Locatable getATypeUse(Type type) {
     tm.getMentionedType() = typedefType
   |
     exists(tm.getFile().getRelativePath()) and
-    exists(getATypeUse_i(typedefType.getUnderlyingType()))
+    exists(getATypeUse_i(typedefType.getUnderlyingType(), _))
   )
 }
 
-private Locatable getATypeUse_i(Type type) {
+private Locatable getATypeUse_i(Type type, string reason) {
   (
     // Restrict to uses within the source checkout root
     exists(result.getFile().getRelativePath())
@@ -82,7 +82,7 @@ private Locatable getATypeUse_i(Type type) {
       // Ignore self referential variables and parameters
       not v.getDeclaringType().refersTo(type) and
       not type = v.(Parameter).getFunction().getDeclaringType()
-    )
+    ) and reason = "used as a variable type"
     or
     // Used a function return type
     exists(Function f |
@@ -90,69 +90,78 @@ private Locatable getATypeUse_i(Type type) {
       not f.isCompilerGenerated() and
       not type = f.getDeclaringType()
     |
-      type = f.getType()
+      type = f.getType() and reason = "used as a function return type"
       or
-      type = f.getATemplateArgument()
-    )
-    or
+      type = f.getATemplateArgument() and reason = "used as a function template argument"
+    )     or
     // Used either in a function call as a template argument, or as the declaring type
     // of the function
     exists(FunctionCall fc | result = fc |
-      type = fc.getTarget().getDeclaringType()
+      type = fc.getTarget().getDeclaringType() and reason = "used in call to member function"
       or
-      type = fc.getATemplateArgument()
+      type = fc.getATemplateArgument() and reason = "used in function call template argument"
     )
     or
     // Aliased in a user typedef
-    exists(TypedefType t | result = t | type = t.getBaseType())
+    exists(TypedefType t | result = t | type = t.getBaseType()) and
+    reason = "aliased in user typedef"
     or
     // A use in a `FunctionAccess`
-    exists(FunctionAccess fa | result = fa | type = fa.getTarget().getDeclaringType())
+    exists(FunctionAccess fa | result = fa | type = fa.getTarget().getDeclaringType()) and
+    reason = "used in a function accesses"
     or
     // A use in a `sizeof` expr
-    exists(SizeofTypeOperator soto | result = soto | type = soto.getTypeOperand())
+    exists(SizeofTypeOperator soto | result = soto | type = soto.getTypeOperand()) and
+    reason = "used in a sizeof expr"
     or
     // A use in a `Cast`
-    exists(Cast c | c = result | type = c.getType())
+    exists(Cast c | c = result | type = c.getType()) and reason = "used in a cast"
     or
     // Use of the type name in source
-    exists(TypeName t | t = result | type = t.getType())
+    exists(TypeName t | t = result | type = t.getType()) and reason = "used in a typename"
     or
     // Access of an enum constant
-    exists(EnumConstantAccess eca | result = eca | type = eca.getTarget().getDeclaringEnum())
+    exists(EnumConstantAccess eca | result = eca | type = eca.getTarget().getDeclaringEnum()) and
+    reason = "used in an enum constant access"
     or
     // Accessing a field on the type
     exists(FieldAccess fa |
       result = fa and
       type = fa.getTarget().getDeclaringType()
-    )
+    ) and reason = "used in a field access"
     or
     // Name qualifiers
     exists(NameQualifier nq |
       result = nq and
       type = nq.getQualifyingElement()
-    )
+    ) and reason = "used in name qualifier"
     // Temporary object creation of type `type`
     or
-    exists(TemporaryObjectExpr toe | result = toe | type = toe.getType())
+    exists(TemporaryObjectExpr toe | result = toe | type = toe.getType()) and
+    reason = "used in temporary object expr"
   )
   or
   // Recursive case - used by a used type
-  exists(Type used | result = getATypeUse_i(used) |
+  exists(Type used | result = getATypeUse_i(used, _) |
     // The `used` class has `type` as a base class
-    type = used.(DerivedType).getBaseType()
+    type = used.(DerivedType).getBaseType() and
+    reason = "used in derived type"
     or
     // The `used` class has `type` as a template argument
-    type = used.(Class).getATemplateArgument()
+    type = used.(Class).getATemplateArgument() and
+    reason = "used in class template argument"
     or
     // A used class is derived from the type class
-    type = used.(Class).getABaseClass()
+    type = used.(Class).getABaseClass() and
+    reason = "used in derived class"
     or
     // This is a TemplateClass where one of the instantiations is used
-    type.(TemplateClass).getAnInstantiation() = used
+    type.(TemplateClass).getAnInstantiation() = used and
+    reason = "used in template class instantiation"
     or
     // This is a TemplateClass where one of the specializations is used
     type = used.(ClassTemplateSpecialization).getPrimaryTemplate()
+    and reason = "used in template class specialization"
     or
     // Alias templates - alias templates and instantiations are not properly captured by the
     // extractor (last verified in CodeQL CLI 2.7.6). The only distinguishing factor is that
@@ -167,6 +176,6 @@ private Locatable getATypeUse_i(Type type) {
       not exists(instantiation.getLocation()) and
       // Template and instantiation both have the same qualified name
       template.getQualifiedName() = instantiation.getQualifiedName()
-    )
+    ) and reason = "used in alias template instantiation"
   )
 }
