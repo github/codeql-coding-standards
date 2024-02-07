@@ -21,7 +21,9 @@ class Candidate extends TemplateFunction {
   }
 }
 
-from Candidate c, Function f, Function overload, Function overloaded, string msg
+from
+  Candidate c, Function f, Function overload, Function overloaded, string msg,
+  string firstMsgSegment
 where
   not isExcluded(f,
     OperatorsPackage::functionThatContainsForwardingReferenceAsItsArgumentOverloadedQuery()) and
@@ -36,11 +38,13 @@ where
     f.isCompilerGenerated()
   then (
     msg = "implicit constructor" and
+    firstMsgSegment = " with a forwarding reference parameter " and
     overloaded = f and
     overload = c
   ) else (
-    msg = "function" and
+    msg = "function with a forwarding reference parameter" and
+    firstMsgSegment = " " and
     overloaded = c and
     overload = f
   )
-select overload, "Function overloads a $@ with a forwarding reference parameter.", overloaded, msg
+select overload, "Function" + firstMsgSegment + "overloads a $@.", overloaded, msg
