@@ -1,0 +1,1 @@
+semmle-extractor-options:--clang -std=c++14 --edg --diag_error=implicit_func_decl -nostdinc -I../../../../../cpp/common/test/includes/standard-library
