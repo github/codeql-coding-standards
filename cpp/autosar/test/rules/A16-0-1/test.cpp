@@ -24,11 +24,13 @@ int g;
 #include <string>    // COMPLIANT
 #endif               // COMPLIANT
 
-#ifdef MACRO_ENABLED_NON  // COMPLIANT
-#include <string>         // COMPLIANT
-#elif MACRO_ENABLED_OTHER // COMPLIANT
-#include <string>         // COMPLIANT
-#endif                    // COMPLIANT
+#ifdef MACRO_ENABLED_NON   // COMPLIANT
+#include <string>          // COMPLIANT
+#elif MACRO_ENABLED_OTHER  // COMPLIANT
+#include <string>          // COMPLIANT
+#elif OBJECTLIKE_MACRO > 0 // NON_COMPLIANT
+int x00 = 1; // present
+#endif                     // COMPLIANT
 
 #ifdef OBJECTLIKE_MACRO_NO // COMPLIANT
 int x0 = 0;                // not present

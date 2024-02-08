@@ -53,17 +53,12 @@ pragma[noinline]
 predicate isPreprocConditionalRange(
   PreprocessorBranch pb, string filepath, int startLine, int endLine
 ) {
-  //the range of an if with an elif ends at the elif to avoid reporting things twice
-  if exists(PreprocessorElif elif | elif.getIf() = pb)
-  then
-    exists(PreprocessorElif end | end.getIf() = pb |
-      isPreprocFileAndLine(pb, filepath, startLine) and
-      isPreprocFileAndLine(end, filepath, endLine)
-    )
-  else
-    exists(PreprocessorEndif end | pb.getEndIf() = end |
-      isPreprocFileAndLine(pb, filepath, startLine) and
-      isPreprocFileAndLine(end, filepath, endLine)
+  isPreprocFileAndLine(pb, filepath, startLine) and
+  endLine =
+    min(int elifEndLine, PreprocessorDirective end |
+      pb.getNext() = end and isPreprocFileAndLine(end, filepath, elifEndLine)
+    |
+      elifEndLine
     )
 }
 
