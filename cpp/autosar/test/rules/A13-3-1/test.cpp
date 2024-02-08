@@ -73,6 +73,6 @@ int main() {}
 
 class C {
 public:
-  C() {} 
+  C() {}
   template <typename T> C(T &&) {} // COMPLIANT by exception
 };
