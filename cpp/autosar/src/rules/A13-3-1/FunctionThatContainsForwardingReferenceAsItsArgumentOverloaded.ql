@@ -37,7 +37,13 @@ where
     (f instanceof CopyConstructor or f instanceof MoveConstructor) and
     f.isCompilerGenerated()
   then (
-    msg = "implicit constructor" and
+    (
+      f instanceof CopyConstructor and
+      msg = "implicit copy constructor"
+      or
+      f instanceof MoveConstructor and
+      msg = "implicit move constructor"
+    ) and
     firstMsgSegment = " with a forwarding reference parameter " and
     overloaded = f and
     overload = c
