@@ -74,5 +74,5 @@ int main() {}
 class C {
 public:
   C() {}
-  template <typename T> C(T &&) {} // COMPLIANT by exception
+  template <typename T> C(T &&) {} // NON_COMPLIANT
 };
