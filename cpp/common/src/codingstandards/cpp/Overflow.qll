@@ -14,6 +14,7 @@ import semmle.code.cpp.valuenumbering.GlobalValueNumbering
  */
 class InterestingOverflowingOperation extends Operation {
   InterestingOverflowingOperation() {
+    forex(Expr operand | operand = this.getAnOperand() | operand.getUnderlyingType() instanceof IntegralType) and
     // Might overflow or underflow
     (
       exprMightOverflowNegatively(this)
