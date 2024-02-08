@@ -31,7 +31,8 @@ where
   not v.getType() instanceof TriviallySmallType and
   not v.getType().getUnderlyingType() instanceof ReferenceType and
   not exists(CatchBlock cb | cb.getParameter() = v) and
-  not v.isFromUninstantiatedTemplate(_)
+  not v.isFromUninstantiatedTemplate(_) and
+  not v.isFromTemplateInstantiation(_)
 select v,
   "Parameter " + v.getName() +
     " is the trivially non-copyable type $@ but it is passed by value instead of by reference.",
