@@ -4,3 +4,4 @@
 | test.cpp:11:1:11:37 | #define FUNCTIONLIKE_MACROTWO() 1 + 1 | Preprocessor directive used for conditional compilation. |
 | test.cpp:35:1:35:26 | #elif OBJECTLIKE_MACRO > 0 | Preprocessor directive used for conditional compilation. |
 | test.cpp:39:1:39:23 | #ifdef OBJECTLIKE_MACRO | Preprocessor directive used for conditional compilation. |
+| test.cpp:56:1:56:27 | #elif MACRO_ENABLED_OTHER_1 | Preprocessor directive used for conditional compilation. |

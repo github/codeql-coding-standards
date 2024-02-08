@@ -36,9 +36,38 @@ int x0 = 0;                // not present
 int x0 = 1; // present
 #endif                     // COMPLIANT
 
-#ifdef OBJECTLIKE_MACRO // NON_COMPLIANT
-int x1 = 0;             // present
-#elif OBJECTLIKE_MACRO >                                                       \
-    -1 // COMPLIANT - by technicality of conditional compilation
+#ifdef OBJECTLIKE_MACRO     // NON_COMPLIANT
+int x1 = 0;                 // present
+#elif OBJECTLIKE_MACRO > -1 // NON_COMPLIANT[FALSE_NEGATIVE] - known due to
+                            // database not containing elements
 int x1 = 1; // not present
-#endif // COMPLIANT
+#endif                      // COMPLIANT
+
+// case 1 - first present only
+#ifdef MACRO_ENABLED_NON_1 // COMPLIANT
+#include <string>          //present
+#elif MACRO_ENABLED_OTHER  // NON_COMPLIANT[FALSE_NEGATIVE]
+int x = 1;  // not present
+#endif
+
+// case 2 - second present only
+#ifdef MACRO_ENABLED_NON    // COMPLIANT
+#include <string>           //not present
+#elif MACRO_ENABLED_OTHER_1 // NON_COMPLIANT
+int x = 1;  // present
+#endif
+
+// case 3 - neither present
+#ifdef MACRO_ENABLED_NON  // COMPLIANT
+#include <string>         //not present
+#elif MACRO_ENABLED_OTHER // NON_COMPLIANT[FALSE_NEGATIVE]
+int x = 1;  // not present
+#endif
+
+// case 4 - both look present but the second still not bc the condition is not
+// required to be evaluated
+#ifdef MACRO_ENABLED_NON_1  // COMPLIANT
+#include <string>           //present
+#elif MACRO_ENABLED_OTHER_1 // NON_COMPLIANT[FALSE_NEGATIVE]
+int x = 1;  // not present
+#endif
