@@ -162,6 +162,34 @@ class Z22 : Z1 {
   void f3() { this->a = 100; }         // COMPLIANT
 };
 
+template <class T> class Array {
+public:
+  T &back();
+
+private:
+  T data[128];
+  unsigned int size;
+};
+
+template <class T, template <class...> class U> class Stack {
+public:
+  T &Top() {
+    return this->data.back();
+  } // COMPLIANT[FALSE_NEGATIVE|TRUE_NEGATIVE] - exception not specified in the
+    // standard, we opt to not raise an issue because the template can be both
+    // compliant and non-compliant depending on instantiations.
+private:
+  U<T> data;
+};
+
+using IntVectorStack = Stack<int, Array>;
+
+void test_template() {
+  IntVectorStack s;
+
+  int i = s.Top();
+}
+
 class Z3 {
   void f(int) = delete; // COMPLIANT
 };
