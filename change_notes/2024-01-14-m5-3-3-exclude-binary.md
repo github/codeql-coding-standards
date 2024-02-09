@@ -1,1 +1,2 @@
- * `M5-3-3` - exclude binary user defined `operator&` from this rule.
+`M5-3-3` - `UnaryOperatorOverloaded.ql`:
+  - Exclude binary user defined `operator&` from this rule.
