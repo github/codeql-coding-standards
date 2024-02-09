@@ -39,12 +39,8 @@ class ModifiesFirstArgFunction extends BufferWrite, FunctionCall {
  * literal that is assigned to a non modifiable type or wherein the string
  * literal arises as a argument to a function that may modify its argument.
  */
-class ImplicitOrExplicitStringLiteralModifiedConfiguration extends DataFlow::Configuration {
-  ImplicitOrExplicitStringLiteralModifiedConfiguration() {
-    this = "ImplicitOrExplicitStringLiteralModifiedConfiguration"
-  }
-
-  override predicate isSource(DataFlow::Node node) {
+module ImplicitOrExplicitStringLiteralModifiedConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node node) {
     // usage through variables
     exists(Variable v |
       v.getAnAssignedValue() = node.asExpr() and
@@ -65,7 +61,7 @@ class ImplicitOrExplicitStringLiteralModifiedConfiguration extends DataFlow::Con
     )
   }
 
-  override predicate isSink(DataFlow::Node node) {
+  predicate isSink(DataFlow::Node node) {
     // it's either a buffer write of some kind that we
     // know about
     exists(BufferWrite bw | bw.getDest() = node.asExpr())
@@ -76,6 +72,9 @@ class ImplicitOrExplicitStringLiteralModifiedConfiguration extends DataFlow::Con
     exists(AssignExpr aexp | aexp.getLValue().(PointerDereferenceExpr).getOperand() = node.asExpr())
   }
 }
+
+module ImplicitOrExplicitStringLiteralModifiedFlow =
+  DataFlow::Global<ImplicitOrExplicitStringLiteralModifiedConfig>;
 
 class MaybeReturnsStringLiteralFunctionCall extends FunctionCall {
   MaybeReturnsStringLiteralFunctionCall() {
@@ -144,11 +143,12 @@ class ImplicitStringLiteralBase extends Expr {
   }
 }
 
-from Expr literal, Expr literalWrite, ImplicitOrExplicitStringLiteralModifiedConfiguration config
+from Expr literal, Expr literalWrite
 where
   not isExcluded(literal, Strings1Package::doNotAttemptToModifyStringLiteralsQuery()) and
   not isExcluded(literalWrite, Strings1Package::doNotAttemptToModifyStringLiteralsQuery()) and
-  config.hasFlow(DataFlow::exprNode(literal), DataFlow::exprNode(literalWrite))
+  ImplicitOrExplicitStringLiteralModifiedFlow::flow(DataFlow::exprNode(literal),
+    DataFlow::exprNode(literalWrite))
 select literalWrite,
   "This operation may write to a string that may be a string literal that was $@.", literal,
   "created here"

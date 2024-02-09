@@ -4,6 +4,7 @@
 
 import cpp
 import codingstandards.cpp.standardlibrary.Exceptions
+import codingstandards.cpp.exceptions.ExceptionSpecifications
 import ThirdPartyExceptions
 
 /*
@@ -312,7 +313,28 @@ class ReThrowExprThrowingExpr extends ReThrowExpr, ThrowingExpr {
 
 /** An expression which calls a function which may throw an exception. */
 class FunctionCallThrowingExpr extends FunctionCall, ThrowingExpr {
-  override ExceptionType getAnExceptionType() { result = getAFunctionThrownType(getTarget(), _) }
+  override ExceptionType getAnExceptionType() {
+    exists(Function target |
+      target = getTarget() and
+      result = getAFunctionThrownType(target, _) and
+      // [expect.spec] states that throwing an exception type that is prohibited
+      // by the specification will result in the program terminating, unless
+      // a custom `unexpected_handler` is registered that throws an exception type
+      // which is compatible with the dynamic exception specification, or the
+      // dynamic exception specification lists `std::bad_exception`, in which case
+      // a `std::bad_exception` is thrown.
+      // As dynamic exception specifications and the `unexpected_handler` are both
+      // deprecated in C++14 and removed in C++17, we assume a default
+      // `std::unexpected` handler that calls `std::terminate` and therefore
+      // do not propagate such exceptions to the call sites for the function.
+      not (
+        hasDynamicExceptionSpecification(target) and
+        not result = getAHandledExceptionType(target.getAThrownType())
+        or
+        isNoExceptTrue(target)
+      )
+    )
+  }
 }
 
 module ExceptionPathGraph {

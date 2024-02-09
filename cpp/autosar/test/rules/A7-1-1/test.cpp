@@ -4,7 +4,7 @@
 void f1(int *p) { // COMPLIANT
   *p += 2;
 }
-void f2(int *p) { // NON_COMPLIANT
+void f2(int *p) { // COMPLIANT - we ignore parameters for this rule
   int l4 = 1;     // NON_COMPLIANT
   int *p1 = p;    // NON_COMPLIANT
 }

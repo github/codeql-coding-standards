@@ -7,48 +7,47 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.dataflow.DataFlow
-import DataFlow::PathGraph
+import ArrayToPointerDiffOperandFlow::PathGraph
 
-class ArrayToPointerDiffOperandConfig extends DataFlow::Configuration {
-  ArrayToPointerDiffOperandConfig() { this = "ArrayToPointerDiffOperandConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module ArrayToPointerDiffOperandConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr().(VariableAccess).getType() instanceof ArrayType
     or
     // Consider array to pointer decay for parameters.
     source.asExpr().(VariableAccess).getTarget().(Parameter).getType() instanceof ArrayType
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(PointerDiffExpr e | e.getAnOperand() = sink.asExpr())
   }
 
-  override predicate isAdditionalFlowStep(DataFlow::Node pred, DataFlow::Node succ) {
+  predicate isAdditionalFlowStep(DataFlow::Node pred, DataFlow::Node succ) {
     // Add a flow step from the base to the array expression to track pointers to elements of the array.
     exists(ArrayExpr e | e.getArrayBase() = pred.asExpr() and e = succ.asExpr())
   }
 }
+
+module ArrayToPointerDiffOperandFlow = DataFlow::Global<ArrayToPointerDiffOperandConfig>;
 
 abstract class DoNotSubtractPointersAddressingDifferentArraysSharedQuery extends Query { }
 
 Query getQuery() { result instanceof DoNotSubtractPointersAddressingDifferentArraysSharedQuery }
 
 query predicate problems(
-  DataFlow::Node sinkNode, DataFlow::PathNode source, DataFlow::PathNode sink, string message,
-  Variable currentOperandPointee, string currentOperandPointeeName, Variable otherOperandPointee,
-  string otherOperandPointeeName
+  DataFlow::Node sinkNode, ArrayToPointerDiffOperandFlow::PathNode source,
+  ArrayToPointerDiffOperandFlow::PathNode sink, string message, Variable currentOperandPointee,
+  string currentOperandPointeeName, Variable otherOperandPointee, string otherOperandPointeeName
 ) {
   exists(
-    PointerDiffExpr pointerSubtraction, string side, ArrayToPointerDiffOperandConfig c,
-    Variable sourceLeft, Variable sourceRight
+    PointerDiffExpr pointerSubtraction, string side, Variable sourceLeft, Variable sourceRight
   |
     not isExcluded(pointerSubtraction, getQuery()) and
-    c.hasFlow(DataFlow::exprNode(sourceLeft.getAnAccess()),
+    ArrayToPointerDiffOperandFlow::flow(DataFlow::exprNode(sourceLeft.getAnAccess()),
       DataFlow::exprNode(pointerSubtraction.getLeftOperand())) and
-    c.hasFlow(DataFlow::exprNode(sourceRight.getAnAccess()),
+    ArrayToPointerDiffOperandFlow::flow(DataFlow::exprNode(sourceRight.getAnAccess()),
       DataFlow::exprNode(pointerSubtraction.getRightOperand())) and
     not sourceLeft = sourceRight and
-    c.hasFlowPath(source, sink) and
+    ArrayToPointerDiffOperandFlow::flowPath(source, sink) and
     (
       source.getNode().asExpr() = sourceLeft.getAnAccess() and
       sink.getNode().asExpr() = pointerSubtraction.getLeftOperand() and
