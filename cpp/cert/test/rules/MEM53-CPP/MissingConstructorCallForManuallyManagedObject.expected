@@ -1,5 +1,5 @@
 edges
-| test.cpp:65:21:65:34 | call to operator new | test.cpp:67:26:67:32 | call to realloc |
+| test.cpp:65:21:65:34 | call to operator new | test.cpp:67:26:67:32 | call to realloc | provenance |  |
 nodes
 | test.cpp:16:26:16:31 | call to malloc | semmle.label | call to malloc |
 | test.cpp:17:38:17:43 | call to malloc | semmle.label | call to malloc |
