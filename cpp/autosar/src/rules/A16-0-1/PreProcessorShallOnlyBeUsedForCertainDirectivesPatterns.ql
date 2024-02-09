@@ -54,12 +54,9 @@ predicate isPreprocConditionalRange(
   PreprocessorBranch pb, string filepath, int startLine, int endLine
 ) {
   isPreprocFileAndLine(pb, filepath, startLine) and
-  endLine =
-    min(int elifEndLine, PreprocessorDirective end |
-      pb.getNext() = end and isPreprocFileAndLine(end, filepath, elifEndLine)
-    |
-      elifEndLine
-    )
+  exists(PreprocessorDirective end |
+    pb.getNext() = end and isPreprocFileAndLine(end, filepath, endLine)
+  )
 }
 
 /**
