@@ -310,7 +310,7 @@ class OperatorUse extends TOperatorUse {
       result = call.getLocation()
     )
   }
-  
+
   string getOperator() {
     result = this.asBuiltin().getOperator()
     or
