@@ -25,17 +25,17 @@ class AllowedOperatorUse extends OperatorUse {
   AllowedOperatorUse() {
     this.getOperator() in ["[]", "=", "==", "!=", "<", "<=", ">", ">="]
     or
-    this.(UnaryOperatorUse).getOperator() = "&" 
+    this.(UnaryOperatorUse).getOperator() = "&"
   }
 }
 
-from OperatorUse operatorUse, Access access, Enum enum 
+from OperatorUse operatorUse, Access access, Enum enum
 where
   not isExcluded(access, ExpressionsPackage::enumUsedInArithmeticContextsQuery()) and
   operatorUse.getAnOperand() = access and
   (
     access.(EnumConstantAccess).getTarget().getDeclaringEnum() = enum or
-    access.(VariableAccess).getType() = enum 
+    access.(VariableAccess).getType() = enum
   ) and
   not operatorUse instanceof AllowedOperatorUse and
   // Enums that implement the BitmaskType trait are an exception.
