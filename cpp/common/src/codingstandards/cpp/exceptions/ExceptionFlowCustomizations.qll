@@ -1,8 +1,49 @@
+/*
+ * A library customize models that model the flow of exceptions through the program.
+ */
+
 import cpp
 private import codingstandards.cpp.exceptions.ExceptionFlow
 
 /** A `ThrowingExpr` which is the origin of a exceptions in the program. */
 abstract class OriginThrowingExpr extends ThrowingExpr { }
+
+/**
+ * A `FunctionCall` to an external function without an exception specification that *
+ *  may throw an exception.
+ */
+abstract class ExternalUnderspecifiedFunctionCallThrowingExpr extends FunctionCall, ThrowingExpr { }
+
+/**
+ * An extensible predicate that describes functions that when called may throw an exception.
+ */
+extensible predicate throwingFunctionModel(
+  string functionNamespaceQualifier, string functionTypeQualifier, string functionName,
+  string exceptionNamespaceQualifier, string exceptionType
+);
+
+/**
+ * A `FunctionCall` that may throw an exception of type `ExceptionType` as provded by
+ * the extensible predicate `throwingFunctionModel`.
+ */
+private class ExternalFunctionCallThrowingExpr extends FunctionCall, ThrowingExpr {
+  ExceptionType exceptionType;
+
+  ExternalFunctionCallThrowingExpr() {
+    exists(
+      string functionNamespaceQualifier, string functionTypeQualifier, string functionName,
+      string exceptionNamespaceQualifier, string exceptionTypeSpec
+    |
+      throwingFunctionModel(functionNamespaceQualifier, functionTypeQualifier, functionName,
+        exceptionNamespaceQualifier, exceptionTypeSpec) and
+      this.getTarget()
+          .hasQualifiedName(functionNamespaceQualifier, functionTypeQualifier, functionName) and
+      exceptionType.(Class).hasQualifiedName(exceptionNamespaceQualifier, exceptionTypeSpec)
+    )
+  }
+
+  override ExceptionType getAnExceptionType() { result = exceptionType }
+}
 
 /** An expression which directly throws. */
 class DirectThrowExprThrowingExpr extends DirectThrowExpr, OriginThrowingExpr {
@@ -46,6 +87,10 @@ class FunctionCallThrowingExpr extends FunctionCall, ThrowingExpr {
         isNoExceptTrue(target)
       )
     )
+    or
+    result = this.(ExternalUnderspecifiedFunctionCallThrowingExpr).getAnExceptionType()
+    or
+    result = this.(ExternalFunctionCallThrowingExpr).getAnExceptionType()
   }
 }
 
