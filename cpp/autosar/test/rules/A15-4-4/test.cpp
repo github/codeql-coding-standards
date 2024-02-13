@@ -44,3 +44,14 @@ void test_swap_wrapper() noexcept {
   int b = 1;
   swap_wrapper(&a, &b);
 }
+
+#include <string>
+#include <stdexcept>
+
+std::string test_fp_reported_in_424(const std::string &s1, const std::string &s2) {
+  std::string s3;
+  s3.reserve(s1.size() + s2.size());
+  s3.append(s1.c_str(), s1.size());
+  s3.append(s2.c_str(), s2.size());
+  return s3;
+}
