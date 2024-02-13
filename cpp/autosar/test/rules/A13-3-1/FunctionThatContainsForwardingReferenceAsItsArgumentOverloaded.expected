@@ -1,5 +1,7 @@
-| test.cpp:24:6:24:7 | F1 | Function overloads a $@ with a forwarding reference parameter. | test.cpp:27:25:27:26 | F1 | function |
-| test.cpp:49:3:49:3 | A | Function overloads a $@ with a forwarding reference parameter. | test.cpp:47:3:47:3 | A | function |
-| test.cpp:50:3:50:3 | A | Function overloads a $@ with a forwarding reference parameter. | test.cpp:47:3:47:3 | A | function |
-| test.cpp:63:8:63:8 | B | Function overloads a $@ with a forwarding reference parameter. | test.cpp:66:3:66:3 | B | function |
-| test.cpp:63:8:63:8 | B | Function overloads a $@ with a forwarding reference parameter. | test.cpp:66:3:66:3 | B | function |
+| test.cpp:24:6:24:7 | F1 | Function overloads a $@. | test.cpp:27:25:27:26 | F1 | function with a forwarding reference parameter |
+| test.cpp:50:3:50:3 | A | Function overloads a $@. | test.cpp:48:3:48:3 | A | function with a forwarding reference parameter |
+| test.cpp:51:3:51:3 | A | Function overloads a $@. | test.cpp:48:3:48:3 | A | function with a forwarding reference parameter |
+| test.cpp:69:3:69:3 | B | Function with a forwarding reference parameter overloads a $@. | test.cpp:64:8:64:8 | B | implicit copy constructor |
+| test.cpp:69:3:69:3 | B | Function with a forwarding reference parameter overloads a $@. | test.cpp:64:8:64:8 | B | implicit move constructor |
+| test.cpp:77:25:77:25 | C | Function with a forwarding reference parameter overloads a $@. | test.cpp:74:7:74:7 | C | implicit copy constructor |
+| test.cpp:77:25:77:25 | C | Function with a forwarding reference parameter overloads a $@. | test.cpp:74:7:74:7 | C | implicit move constructor |

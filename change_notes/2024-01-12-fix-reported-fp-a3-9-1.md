@@ -1,0 +1,5 @@
+- `A3-9-1` - `VariableWidthIntegerTypesUsed.ql`:
+    - Exclude the plain char type. Still includes `signed char` and `unsigned char`.
+    - Include CV-qualified variable width integer types.
+- `A3-9-1` - `VariableWidthPlainCharTypeUsed.ql`:
+    - New query to support fine grained deviation support for the plain char type.
