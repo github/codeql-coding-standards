@@ -67,3 +67,9 @@ void test_loop_bound_bad(unsigned int n) {
 void test_assign_div(int i) { // COMPLIANT
   i /= 2;
 }
+
+void test_pointer() {
+  int *p = nullptr;
+  p++; // COMPLIANT - not covered by this rule
+  p--; // COMPLIANT - not covered by this rule
+}
