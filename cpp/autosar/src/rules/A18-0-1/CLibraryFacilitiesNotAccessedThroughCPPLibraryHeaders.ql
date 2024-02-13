@@ -28,12 +28,13 @@ where
    *    not use any of 'signal.h's facilities, for example.
    */
 
-  filename = i.getIncludedFile().getBaseName() and
+  filename = i.getIncludeText().substring(1, i.getIncludeText().length() - 1) and
   filename in [
       "assert.h", "ctype.h", "errno.h", "fenv.h", "float.h", "inttypes.h", "limits.h", "locale.h",
       "math.h", "setjmp.h", "signal.h", "stdarg.h", "stddef.h", "stdint.h", "stdio.h", "stdlib.h",
       "string.h", "time.h", "uchar.h", "wchar.h", "wctype.h"
-    ]
+    ] and
+  not exists(i.getIncludedFile().getRelativePath())
 select i,
   "C library \"" + filename + "\" is included instead of the corresponding C++ library <c" +
     filename.prefix(filename.length() - 2) + ">."

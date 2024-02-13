@@ -40,3 +40,5 @@
 #include <cuchar>    // COMPLIANT
 #include <cwchar>    // COMPLIANT
 #include <cwctype>   // COMPLIANT
+
+#include "lib/assert.h" // COMPLIANT
