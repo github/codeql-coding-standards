@@ -906,13 +906,10 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
-  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration
+  private module PointerToObjectSourceOrSizeToBufferAccessFunctionConfig implements
+    DataFlow::ConfigSig
   {
-    PointerToObjectSourceOrSizeToBufferAccessFunctionConfig() {
-      this = "PointerToObjectSourceOrSizeToBufferAccessFunctionConfig"
-    }
-
-    override predicate isSource(DataFlow::Node source) {
+    predicate isSource(DataFlow::Node source) {
       source.asExpr() instanceof PointerToObjectSource
       or
       exists(PointerToObjectSource ptr |
@@ -921,7 +918,7 @@ module OOB {
       )
     }
 
-    override predicate isSink(DataFlow::Node sink) {
+    predicate isSink(DataFlow::Node sink) {
       exists(BufferAccess ba, Expr arg |
         (
           arg = ba.(BufferAccessLibraryFunctionCall).getAnArgument() or
@@ -934,7 +931,7 @@ module OOB {
       )
     }
 
-    override predicate isBarrierOut(DataFlow::Node node) {
+    predicate isBarrierOut(DataFlow::Node node) {
       // the default interprocedural data-flow model flows through any array assignment expressions
       // to the qualifier (array base or pointer dereferenced) instead of the individual element
       // that the assignment modifies. this default behaviour causes false positives for any future
@@ -955,10 +952,14 @@ module OOB {
     }
   }
 
+  private module PointerToObjectSourceOrSizeToBufferAccessFunctionFlow =
+    DataFlow::Global<PointerToObjectSourceOrSizeToBufferAccessFunctionConfig>;
+
   private predicate hasFlowFromBufferOrSizeExprToUse(Expr source, Expr use) {
-    exists(PointerToObjectSourceOrSizeToBufferAccessFunctionConfig config, Expr useOrChild |
+    exists(Expr useOrChild |
       exists(getArithmeticOffsetValue(use, useOrChild)) and
-      config.hasFlow(DataFlow::exprNode(source), DataFlow::exprNode(useOrChild))
+      PointerToObjectSourceOrSizeToBufferAccessFunctionFlow::flow(DataFlow::exprNode(source),
+        DataFlow::exprNode(useOrChild))
     )
   }
 

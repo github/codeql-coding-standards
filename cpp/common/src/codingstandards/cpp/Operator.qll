@@ -264,3 +264,64 @@ class UserOverloadedOperator extends Function {
     not this.isCompilerGenerated()
   }
 }
+
+private newtype TOperatorUse =
+  TBuiltinOperatorUse(Operation op) or
+  TOverloadedOperatorUse(FunctionCall call, Operator op) { op.getACallToThisFunction() = call }
+
+/**
+ * A class to reason about builtin operator and overloaded operator use.
+ */
+class OperatorUse extends TOperatorUse {
+  string toString() {
+    exists(Operation op | result = op.toString() and this = TBuiltinOperatorUse(op))
+    or
+    exists(Operator op | result = op.toString() and this = TOverloadedOperatorUse(_, op))
+  }
+
+  predicate isOverloaded() { this = TOverloadedOperatorUse(_, _) }
+
+  Operation asBuiltin() { this = TBuiltinOperatorUse(result) }
+
+  Operator asOverloaded(FunctionCall call) { this = TOverloadedOperatorUse(call, result) }
+
+  Type getType() {
+    result = this.asBuiltin().getType()
+    or
+    result = this.asOverloaded(_).getType()
+  }
+
+  Parameter getParameter(int index) { result = this.asOverloaded(_).getParameter(index) }
+
+  Parameter getAParameter() { result = this.asOverloaded(_).getParameter(_) }
+
+  Expr getAnOperand() {
+    result = this.asBuiltin().getAnOperand()
+    or
+    exists(FunctionCall call, Operator op | op = this.asOverloaded(call) |
+      result = call.getAnArgument()
+    )
+  }
+
+  Location getLocation() {
+    result = this.asBuiltin().getLocation()
+    or
+    exists(FunctionCall call, Operator op | op = this.asOverloaded(call) |
+      result = call.getLocation()
+    )
+  }
+
+  string getOperator() {
+    result = this.asBuiltin().getOperator()
+    or
+    result = this.asOverloaded(_).getName().regexpCapture("^operator(.*)$", 1)
+  }
+}
+
+class UnaryOperatorUse extends OperatorUse {
+  UnaryOperatorUse() {
+    this.asBuiltin() instanceof UnaryOperation
+    or
+    this.asOverloaded(_).getNumberOfParameters() = 0
+  }
+}

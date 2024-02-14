@@ -15,16 +15,16 @@ import codingstandards.cpp.cert
 import codingstandards.cpp.TrivialType
 import ManuallyManagedLifetime
 import codingstandards.cpp.dataflow.TaintTracking
-import DataFlow::PathGraph
+import AllocToStaticCastFlow::PathGraph
 
 /*
  * Find flow from a manual allocation returning void* to a static_cast (or c-style cast)
  * to a specific type.
  */
 
-from AllocToStaticCastConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
+from AllocToStaticCastFlow::PathNode source, AllocToStaticCastFlow::PathNode sink
 where
   not isExcluded(sink.getNode().asExpr(),
     AllocationsPackage::missingConstructorCallForManuallyManagedObjectQuery()) and
-  config.hasFlowPath(source, sink)
+  AllocToStaticCastFlow::flowPath(source, sink)
 select sink.getNode(), source, sink, "Allocation to cast without constructor call"

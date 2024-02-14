@@ -33,5 +33,7 @@ where
   // The function is defined in this database
   f.hasDefinition() and
   // This function is not an overriden call operator of a lambda expression
-  not exists(LambdaExpression lambda | lambda.getLambdaFunction() = f)
-select f, "Function " + f.getName() + " could be declared noexcept(true)."
+  not exists(LambdaExpression lambda | lambda.getLambdaFunction() = f) and
+  // Exclude results from uinstantiated templates
+  not f.isFromUninstantiatedTemplate(_)
+select f, "Function " + f.getQualifiedName() + " could be declared noexcept(true)."
