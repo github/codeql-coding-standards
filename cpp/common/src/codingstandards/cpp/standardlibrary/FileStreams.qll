@@ -144,8 +144,7 @@ class FileStreamConstructorCall extends FileStreamSource, Expr {
   }
 
   override Expr getAUse() {
-    any(FileStreamConstructorCallUseConfig c)
-        .hasFlow(DataFlow::exprNode(this), DataFlow::exprNode(result))
+    FileStreamConstructorCallUseFlow::flow(DataFlow::exprNode(this), DataFlow::exprNode(result))
   }
 }
 
@@ -164,18 +163,14 @@ class FileStreamExternGlobal extends FileStreamSource, GlobalOrNamespaceVariable
 /**
  * A global taint tracking configuration to track `FileStream` uses in the program.
  */
-private class FileStreamConstructorCallUseConfig extends TaintTracking::Configuration {
-  FileStreamConstructorCallUseConfig() { this = "FileStreamUse" }
+private module FileStreamConstructorCallUseConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof FileStreamConstructorCall }
 
-  override predicate isSource(DataFlow::Node source) {
-    source.asExpr() instanceof FileStreamConstructorCall
-  }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     sink.asExpr().getType().stripType() instanceof FileStream
   }
 
-  override predicate isAdditionalTaintStep(DataFlow::Node node1, DataFlow::Node node2) {
+  predicate isAdditionalFlowStep(DataFlow::Node node1, DataFlow::Node node2) {
     // By default we do not get flow from ConstructorFieldInit expressions to accesses
     // of the field in other member functions, so we add it explicitly here.
     exists(ConstructorFieldInit cfi, Field f |
@@ -186,3 +181,6 @@ private class FileStreamConstructorCallUseConfig extends TaintTracking::Configur
     )
   }
 }
+
+private module FileStreamConstructorCallUseFlow =
+  TaintTracking::Global<FileStreamConstructorCallUseConfig>;

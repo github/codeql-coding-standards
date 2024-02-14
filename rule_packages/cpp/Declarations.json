@@ -78,12 +78,28 @@
       },
       "queries": [
         {
-          "description": "The basic numerical types of char, int, short, long are not supposed to be used. The specific-length types from <cstdint> header need be used instead.",
+          "description": "The basic numerical types of signed/unsigned char, int, short, long are not supposed to be used. The specific-length types from <cstdint> header need be used instead.",
           "kind": "problem",
           "name": "Use fixed-width integer types instead of basic, variable-width, integer types",
           "precision": "very-high",
           "severity": "error",
           "short_name": "VariableWidthIntegerTypesUsed",
+          "tags": [
+            "correctness",
+            "security",
+            "maintainability"
+          ],
+          "implementation_scope": {
+            "description": "This implementation excludes the plain char type from consideration."
+          }
+        },
+        {
+          "description": "The basic numerical type char is not supposed to be used. The specific-length types from <cstdint> header need be used instead.",
+          "kind": "problem",
+          "name": "Use a fixed-width integer type instead of a char type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VariableWidthPlainCharTypeUsed",
           "tags": [
             "correctness",
             "security",
