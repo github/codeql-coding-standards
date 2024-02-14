@@ -24,7 +24,7 @@ module Cpp14Literal {
    * Octal literals must always start with the digit `0`.
    */
   class OctalLiteral extends IntegerLiteral {
-    OctalLiteral() { getValueText().regexpMatch("\\s*0[0-7']+[uUlL]*\\s*") }
+    OctalLiteral() { getValueText().regexpMatch("\\s*0[0-7']*[uUlL]*\\s*") }
 
     override string getAPrimaryQlClass() { result = "OctalLiteral" }
   }

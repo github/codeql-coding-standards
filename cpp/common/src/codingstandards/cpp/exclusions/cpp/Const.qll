@@ -5,7 +5,6 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype ConstQuery =
   TRemoveConstOrVolatileQualificationAutosarQuery() or
-  TDeclarationUnmodifiedParamMissingConstSpecifierQuery() or
   TDeclarationUnmodifiedObjectMissingConstSpecifierQuery() or
   TVariableMissingConstexprQuery() or
   TFunctionMissingConstexprQuery() or
@@ -26,15 +25,6 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId, strin
     // `@id` for the `removeConstOrVolatileQualificationAutosar` query
     "cpp/autosar/remove-const-or-volatile-qualification-autosar" and
   ruleId = "A5-2-3" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `declarationUnmodifiedParamMissingConstSpecifier` query
-    ConstPackage::declarationUnmodifiedParamMissingConstSpecifierQuery() and
-  queryId =
-    // `@id` for the `declarationUnmodifiedParamMissingConstSpecifier` query
-    "cpp/autosar/declaration-unmodified-param-missing-const-specifier" and
-  ruleId = "A7-1-1" and
   category = "required"
   or
   query =
@@ -143,13 +133,6 @@ module ConstPackage {
     result =
       // `Query` type for `removeConstOrVolatileQualificationAutosar` query
       TQueryCPP(TConstPackageQuery(TRemoveConstOrVolatileQualificationAutosarQuery()))
-  }
-
-  Query declarationUnmodifiedParamMissingConstSpecifierQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `declarationUnmodifiedParamMissingConstSpecifier` query
-      TQueryCPP(TConstPackageQuery(TDeclarationUnmodifiedParamMissingConstSpecifierQuery()))
   }
 
   Query declarationUnmodifiedObjectMissingConstSpecifierQuery() {

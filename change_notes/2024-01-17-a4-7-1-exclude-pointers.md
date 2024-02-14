@@ -1,0 +1,1 @@
+ * `A4-7-1` - exclude pointer increment and decrement operators from this rule.

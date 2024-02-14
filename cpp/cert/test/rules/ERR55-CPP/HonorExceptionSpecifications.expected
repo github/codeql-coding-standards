@@ -1,8 +1,35 @@
 edges
+| test_dynamic_specification.cpp:9:6:9:22 | throw_logic_error [logic_error] | test_dynamic_specification.cpp:34:3:34:19 | call to throw_logic_error [logic_error] |
+| test_dynamic_specification.cpp:9:6:9:22 | throw_logic_error [logic_error] | test_dynamic_specification.cpp:38:3:38:19 | call to throw_logic_error [logic_error] |
+| test_dynamic_specification.cpp:9:6:9:22 | throw_logic_error [logic_error] | test_dynamic_specification.cpp:43:3:43:19 | call to throw_logic_error [logic_error] |
+| test_dynamic_specification.cpp:9:28:9:58 | throw ... [logic_error] | test_dynamic_specification.cpp:9:6:9:22 | throw_logic_error [logic_error] |
 | test_dynamic_specification.cpp:22:3:22:24 | throw ... [exception] | test_dynamic_specification.cpp:20:6:20:49 | test_simple_exception_spec_covered_inherited [exception] |
 | test_dynamic_specification.cpp:29:3:29:24 | throw ... [exception] | test_dynamic_specification.cpp:28:6:28:30 | test_no_throw_contravened [exception] |
-| test_no_except.cpp:8:3:8:14 | throw ... [char *] | test_no_except.cpp:7:6:7:23 | test_noexcept_true [char *] |
+| test_dynamic_specification.cpp:33:6:33:31 | indirect_throw_logic_error [logic_error] | test_dynamic_specification.cpp:48:3:48:28 | call to indirect_throw_logic_error [logic_error] |
+| test_dynamic_specification.cpp:34:3:34:19 | call to throw_logic_error [logic_error] | test_dynamic_specification.cpp:33:6:33:31 | indirect_throw_logic_error [logic_error] |
+| test_dynamic_specification.cpp:38:3:38:19 | call to throw_logic_error [logic_error] | test_dynamic_specification.cpp:37:6:37:46 | indirect_throw_logic_error_but_terminates [logic_error] |
+| test_dynamic_specification.cpp:43:3:43:19 | call to throw_logic_error [logic_error] | test_dynamic_specification.cpp:41:6:41:48 | indirect_throw_logic_error_but_terminates_2 [logic_error] |
+| test_dynamic_specification.cpp:48:3:48:28 | call to indirect_throw_logic_error [logic_error] | test_dynamic_specification.cpp:47:6:47:25 | test_indirect_throws [logic_error] |
+| test_no_except.cpp:4:3:4:20 | throw ... [ExceptionA] | test_no_except.cpp:3:6:3:15 | test_throw [ExceptionA] |
+| test_no_except.cpp:7:6:7:11 | throwA [ExceptionA] | test_no_except.cpp:8:25:8:30 | call to throwA [ExceptionA] |
+| test_no_except.cpp:7:6:7:11 | throwA [ExceptionA] | test_no_except.cpp:9:42:9:47 | call to throwA [ExceptionA] |
+| test_no_except.cpp:7:6:7:11 | throwA [ExceptionA] | test_no_except.cpp:12:3:12:8 | call to throwA [ExceptionA] |
+| test_no_except.cpp:7:6:7:11 | throwA [ExceptionA] | test_no_except.cpp:16:3:16:8 | call to throwA [ExceptionA] |
+| test_no_except.cpp:7:17:7:34 | throw ... [ExceptionA] | test_no_except.cpp:7:6:7:11 | throwA [ExceptionA] |
+| test_no_except.cpp:8:6:8:19 | indirectThrowA [ExceptionA] | test_no_except.cpp:33:3:33:16 | call to indirectThrowA [ExceptionA] |
+| test_no_except.cpp:8:25:8:30 | call to throwA [ExceptionA] | test_no_except.cpp:8:6:8:19 | indirectThrowA [ExceptionA] |
+| test_no_except.cpp:9:42:9:47 | call to throwA [ExceptionA] | test_no_except.cpp:9:6:9:27 | noexceptIndirectThrowA [ExceptionA] |
+| test_no_except.cpp:12:3:12:8 | call to throwA [ExceptionA] | test_no_except.cpp:11:6:11:24 | test_indirect_throw [ExceptionA] |
+| test_no_except.cpp:16:3:16:8 | call to throwA [ExceptionA] | test_no_except.cpp:15:6:15:26 | test_indirect_throw_2 [ExceptionA] |
+| test_no_except.cpp:33:3:33:16 | call to indirectThrowA [ExceptionA] | test_no_except.cpp:32:6:32:26 | test_indirect_throw_6 [ExceptionA] |
 #select
 | test_dynamic_specification.cpp:20:6:20:49 | test_simple_exception_spec_covered_inherited | test_dynamic_specification.cpp:22:3:22:24 | throw ... [exception] | test_dynamic_specification.cpp:20:6:20:49 | test_simple_exception_spec_covered_inherited [exception] | test_simple_exception_spec_covered_inherited can throw an exception of type std::exception but has a dynamic exception specification that does not specify this type. |
 | test_dynamic_specification.cpp:28:6:28:30 | test_no_throw_contravened | test_dynamic_specification.cpp:29:3:29:24 | throw ... [exception] | test_dynamic_specification.cpp:28:6:28:30 | test_no_throw_contravened [exception] | test_no_throw_contravened can throw an exception of type std::exception but has a dynamic exception specification that does not specify this type. |
-| test_no_except.cpp:7:6:7:23 | test_noexcept_true | test_no_except.cpp:8:3:8:14 | throw ... [char *] | test_no_except.cpp:7:6:7:23 | test_noexcept_true [char *] | test_noexcept_true can throw an exception of type char * but is marked noexcept(true). |
+| test_dynamic_specification.cpp:37:6:37:46 | indirect_throw_logic_error_but_terminates | test_dynamic_specification.cpp:9:28:9:58 | throw ... [logic_error] | test_dynamic_specification.cpp:37:6:37:46 | indirect_throw_logic_error_but_terminates [logic_error] | indirect_throw_logic_error_but_terminates can throw an exception of type std::logic_error but has a dynamic exception specification that does not specify this type. |
+| test_dynamic_specification.cpp:41:6:41:48 | indirect_throw_logic_error_but_terminates_2 | test_dynamic_specification.cpp:9:28:9:58 | throw ... [logic_error] | test_dynamic_specification.cpp:41:6:41:48 | indirect_throw_logic_error_but_terminates_2 [logic_error] | indirect_throw_logic_error_but_terminates_2 can throw an exception of type std::logic_error but has a dynamic exception specification that does not specify this type. |
+| test_dynamic_specification.cpp:47:6:47:25 | test_indirect_throws | test_dynamic_specification.cpp:9:28:9:58 | throw ... [logic_error] | test_dynamic_specification.cpp:47:6:47:25 | test_indirect_throws [logic_error] | test_indirect_throws can throw an exception of type std::logic_error but has a dynamic exception specification that does not specify this type. |
+| test_no_except.cpp:3:6:3:15 | test_throw | test_no_except.cpp:4:3:4:20 | throw ... [ExceptionA] | test_no_except.cpp:3:6:3:15 | test_throw [ExceptionA] | test_throw can throw an exception of type ExceptionA but is marked noexcept(true). |
+| test_no_except.cpp:9:6:9:27 | noexceptIndirectThrowA | test_no_except.cpp:7:17:7:34 | throw ... [ExceptionA] | test_no_except.cpp:9:6:9:27 | noexceptIndirectThrowA [ExceptionA] | noexceptIndirectThrowA can throw an exception of type ExceptionA but is marked noexcept(true). |
+| test_no_except.cpp:11:6:11:24 | test_indirect_throw | test_no_except.cpp:7:17:7:34 | throw ... [ExceptionA] | test_no_except.cpp:11:6:11:24 | test_indirect_throw [ExceptionA] | test_indirect_throw can throw an exception of type ExceptionA but is marked noexcept(true). |
+| test_no_except.cpp:15:6:15:26 | test_indirect_throw_2 | test_no_except.cpp:7:17:7:34 | throw ... [ExceptionA] | test_no_except.cpp:15:6:15:26 | test_indirect_throw_2 [ExceptionA] | test_indirect_throw_2 can throw an exception of type ExceptionA but is marked noexcept(true). |
+| test_no_except.cpp:32:6:32:26 | test_indirect_throw_6 | test_no_except.cpp:7:17:7:34 | throw ... [ExceptionA] | test_no_except.cpp:32:6:32:26 | test_indirect_throw_6 [ExceptionA] | test_indirect_throw_6 can throw an exception of type ExceptionA but is marked noexcept(true). |
