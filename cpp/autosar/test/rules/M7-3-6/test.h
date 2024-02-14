@@ -7,11 +7,15 @@ namespace my_namespace {
 int MY_CONST = 0;
 };
 
-int f() {
+void f() {
 
   using my_namespace::MY_CONST; // COMPLIANT - function scope
 
   int x = MY_CONST;
 }
 
+void test_fn_reported_in_400() {
+  using namespace std; // NON_COMPLIANT - only using declarations are exempted
+                       // in function scope.
+}
 #endif

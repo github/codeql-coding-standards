@@ -9,16 +9,14 @@ import codingstandards.cpp.allocations.CustomOperatorNewDelete
 import codingstandards.cpp.exceptions.ExceptionSpecifications
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import DataFlow::PathGraph
+import NullFlow::PathGraph
 
 abstract class ThrowingOperatorNewReturnsNullSharedQuery extends Query { }
 
 Query getQuery() { result instanceof ThrowingOperatorNewReturnsNullSharedQuery }
 
-class NullConfig extends DataFlow::Configuration {
-  NullConfig() { this = "NullConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module NullConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr() instanceof NullValue
     or
     // Call to an allocation function that may return null
@@ -32,7 +30,7 @@ class NullConfig extends DataFlow::Configuration {
     )
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(CustomOperatorNew co, ReturnStmt rs |
       co.getNumberOfParameters() = 1 and
       rs.getEnclosingFunction() = co and
@@ -41,11 +39,13 @@ class NullConfig extends DataFlow::Configuration {
   }
 }
 
+module NullFlow = DataFlow::Global<NullConfig>;
+
 query predicate problems(
-  ReturnStmt e, DataFlow::PathNode source, DataFlow::PathNode sink, string message
+  ReturnStmt e, NullFlow::PathNode source, NullFlow::PathNode sink, string message
 ) {
   not isExcluded(e, getQuery()) and
-  any(NullConfig nc).hasFlowPath(source, sink) and
+  NullFlow::flowPath(source, sink) and
   sink.getNode().asExpr() = e.getExpr() and
   exists(CustomOperatorNew op |
     message =

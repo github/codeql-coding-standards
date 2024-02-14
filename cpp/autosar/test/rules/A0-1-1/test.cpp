@@ -113,3 +113,14 @@ int test_useless_assignment(int &x, int p) {
 }
 
 int main() { return 0; }
+
+#include <vector>
+template <typename T> void test_range_based_for_loop_template() {
+  std::vector<A> values_;
+  for (auto &elem : values_) { // COMPLIANT - should not report either elem or
+                               //             the compiler generated (__range)
+                               //             variable in the uninstantiated
+                               //             template
+    elem;
+  }
+}

@@ -205,3 +205,63 @@ public:
   void operator=(ExcludedCases &) {}  // COMPLIANT
   void operator=(ExcludedCases &&) {} // COMPLIANT
 };
+
+extern int random();
+constexpr int add(int x, int y) { return x + y; }
+// Example with compile time constant literal value as default argument
+constexpr int add1(int x, int y = 1) { return x + y; }
+// Example with compile time constant function call as default argument
+constexpr int add2(int x, int y = add(add1(1), 2)) { return x + y; }
+// Example with non compile time constant function call as default argument
+constexpr int add3(int x, int y = random()) { return x + y; }
+// Example with compile time constant literal value as default arguments
+constexpr int add4(int x = 1, int y = 2) { return x + y; }
+
+constexpr void fp_reported_in_466(int p) {
+  int l1 = add(1, 2); // NON_COMPLIANT
+  int l2 = add(1, p); // COMPLIANT
+
+  int l3 = 0;
+  if (p > 0) {
+    l3 = 1;
+  } else {
+    l3 = p;
+  }
+
+  constexpr int l4 = add(1, 2); //  COMPLIANT
+
+  int l5 =
+      add(l3, 2); // COMPLIANT - l3 is not compile time constant on all paths
+  int l6 = add(l4, 2); // NON_COMPLIANT
+  int l7 = add(l1, 2); // COMPLIANT - l1 is not constexpr
+  int l8 =
+      add1(l4, 2); // NON_COMPLIANT - all arguments are compile time constants
+  int l9 = add1(l1, 2); // COMPLIANT - l1 is not constexpr
+  int l10 = add1(l4);   // NON_COMPLIANT - argument and the default value of the
+                        // second argument are compile time constants
+  int l11 = add1(l1);   // COMPLIANT - l1 is not constexpr
+  int l12 = add1(1);    // NON_COMPLIANT
+  int l13 =
+      add1(1, l3); // COMPLIANT - l3 is not compile time constant on all paths
+  int l14 =
+      add1(l3);      // COMPLIANT - l3 is not compile time constant on all paths
+  int l15 = add2(1); // NON_COMPLIANT - provided argument and default value are
+                     // compile time constants
+  int l16 = add2(1, 2);  // NON_COMPLIANT
+  int l17 = add2(l4, 2); // NON_COMPLIANT
+  int l18 = add2(l1, 2); // COMPLIANT - l1 is not constexpr
+  int l19 =
+      add2(l3); // COMPLIANT - l3 is not compile time constant on all paths
+  int l20 =
+      add2(l3, 1); // COMPLIANT - l3 is not compile time constant on all paths
+  int l21 = add3(1, 1); // NON_COMPLIANT
+  int l22 = add3(1); // COMPLIANT - default value for second argument is not a
+                     // compile time constant
+  int l23 =
+      add3(1, l3);  // COMPLIANT - l3 is not compile time constant on all paths
+  int l24 = add4(); // NON_COMPLIANT - default values are compile time constants
+  int l25 = add4(1); // NON_COMPLIANT - default value for second argument is a
+                     // compile time constant
+  int l26 =
+      add4(1, l3); // COMPLIANT - l3 is not compile time constant on all paths
+}

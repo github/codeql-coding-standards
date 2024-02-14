@@ -9,6 +9,7 @@ newtype DeclarationsQuery =
   TGlobalSizedOperatorDeleteNotDefinedQuery() or
   TGlobalUnsizedOperatorDeleteNotDefinedQuery() or
   TVariableWidthIntegerTypesUsedQuery() or
+  TVariableWidthPlainCharTypeUsedQuery() or
   TAutoSpecifierNotUsedAppropriatelyInFunctionDefinitionQuery() or
   TAutoSpecifierNotUsedAppropriatelyInVariableDefinitionQuery() or
   TIdentifierDeclarationAndInitializationNotOnSeparateLinesQuery() or
@@ -65,6 +66,15 @@ predicate isDeclarationsQueryMetadata(Query query, string queryId, string ruleId
   queryId =
     // `@id` for the `variableWidthIntegerTypesUsed` query
     "cpp/autosar/variable-width-integer-types-used" and
+  ruleId = "A3-9-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `variableWidthPlainCharTypeUsed` query
+    DeclarationsPackage::variableWidthPlainCharTypeUsedQuery() and
+  queryId =
+    // `@id` for the `variableWidthPlainCharTypeUsed` query
+    "cpp/autosar/variable-width-plain-char-type-used" and
   ruleId = "A3-9-1" and
   category = "required"
   or
@@ -211,6 +221,13 @@ module DeclarationsPackage {
     result =
       // `Query` type for `variableWidthIntegerTypesUsed` query
       TQueryCPP(TDeclarationsPackageQuery(TVariableWidthIntegerTypesUsedQuery()))
+  }
+
+  Query variableWidthPlainCharTypeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `variableWidthPlainCharTypeUsed` query
+      TQueryCPP(TDeclarationsPackageQuery(TVariableWidthPlainCharTypeUsedQuery()))
   }
 
   Query autoSpecifierNotUsedAppropriatelyInFunctionDefinitionQuery() {

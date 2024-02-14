@@ -18,24 +18,22 @@ Query getQuery() { result instanceof DoNotUsePointerArithmeticToAddressDifferent
  * A data-flow configuration that tracks access to an array to type to an array index expression.
  * This is used to determine possible pointer to array creations.
  */
-class ArrayToArrayExprConfig extends DataFlow::Configuration {
-  ArrayToArrayExprConfig() { this = "ArrayToArrayIndexConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module ArrayToArrayExprConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr().(VariableAccess).getType() instanceof ArrayType
   }
 
-  override predicate isSink(DataFlow::Node sink) {
-    exists(ArrayExpr c | c.getArrayBase() = sink.asExpr())
-  }
+  predicate isSink(DataFlow::Node sink) { exists(ArrayExpr c | c.getArrayBase() = sink.asExpr()) }
 }
+
+module ArrayToArrayExprFlow = DataFlow::Global<ArrayToArrayExprConfig>;
 
 /** Holds if the address taken expression `addressOf` takes the address of an array element at `index` of `array` with size `arraySize`. */
 predicate pointerOperandCreation(AddressOfExpr addressOf, Variable array, int arraySize, int index) {
   arraySize = array.getType().(ArrayType).getArraySize() and
   exists(ArrayExpr ae |
-    any(ArrayToArrayExprConfig cfg)
-        .hasFlow(DataFlow::exprNode(array.getAnAccess()), DataFlow::exprNode(ae.getArrayBase())) and
+    ArrayToArrayExprFlow::flow(DataFlow::exprNode(array.getAnAccess()),
+      DataFlow::exprNode(ae.getArrayBase())) and
     index = lowerBound(ae.getArrayOffset().getFullyConverted()) and
     addressOf.getOperand() = ae
   )

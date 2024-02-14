@@ -14,16 +14,14 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.dataflow.DataFlow
-import DataFlow::PathGraph
+import NonArrayPointerToArrayIndexingExprFlow::PathGraph
 
 /**
  * A data-flow configuration that tracks flow from an `AddressOfExpr` of a variable
  * of `PointerType` that is not also an `ArrayType` to a `PointerArithmeticOrArrayExpr`
  */
-class NonArrayPointerToArrayIndexingExprConfig extends DataFlow::Configuration {
-  NonArrayPointerToArrayIndexingExprConfig() { this = "ArrayToArrayIndexConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module NonArrayPointerToArrayIndexingExprConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     exists(AddressOfExpr ao, Type t |
       source.asExpr() = ao and
       not ao.getOperand() instanceof ArrayExpr and
@@ -35,7 +33,7 @@ class NonArrayPointerToArrayIndexingExprConfig extends DataFlow::Configuration {
     )
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(PointerArithmeticOrArrayExpr ae |
       sink.asExpr() = ae.getPointerOperand() and
       not sink.asExpr() instanceof Literal and
@@ -43,7 +41,7 @@ class NonArrayPointerToArrayIndexingExprConfig extends DataFlow::Configuration {
     )
   }
 
-  override predicate isBarrierOut(DataFlow::Node node) {
+  predicate isBarrierOut(DataFlow::Node node) {
     // the default interprocedural data-flow model flows through any field or array assignment
     // expressions to the qualifier (array base, pointer dereferenced, or qualifier) instead of the
     // individual element or field that the assignment modifies. this default behaviour causes
@@ -62,6 +60,9 @@ class NonArrayPointerToArrayIndexingExprConfig extends DataFlow::Configuration {
     node.asDefiningArgument() instanceof AddressOfExpr
   }
 }
+
+module NonArrayPointerToArrayIndexingExprFlow =
+  DataFlow::Global<NonArrayPointerToArrayIndexingExprConfig>;
 
 class PointerArithmeticOrArrayExpr extends Expr {
   Expr operand;
@@ -101,9 +102,11 @@ class PointerArithmeticOrArrayExpr extends Expr {
   predicate isNonPointerOperandZero() { operand.(Literal).getValue().toInt() = 0 }
 }
 
-from DataFlow::PathNode source, DataFlow::PathNode sink
+from
+  NonArrayPointerToArrayIndexingExprFlow::PathNode source,
+  NonArrayPointerToArrayIndexingExprFlow::PathNode sink
 where
   not isExcluded(sink.getNode().asExpr(),
     InvalidMemory2Package::doNotUsePointerArithmeticOnNonArrayObjectPointersQuery()) and
-  any(NonArrayPointerToArrayIndexingExprConfig cfg).hasFlowPath(source, sink)
+  NonArrayPointerToArrayIndexingExprFlow::flowPath(source, sink)
 select sink, source, sink, "Pointer arithmetic on non-array object pointer."
