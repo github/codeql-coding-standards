@@ -12,21 +12,29 @@ private string getConstExprValue(Variable v) {
 
 /** Gets a "use" count according to rule M0-1-4. */
 int getUseCount(Variable v) {
-  exists(int initializers |
-    // We enforce that it's a POD type variable, so if it has an initializer it is explicit
-    (if v.hasInitializer() then initializers = 1 else initializers = 0) and
-    result =
-      initializers +
-        count(VariableAccess access | access = v.getAnAccess() and not access.isCompilerGenerated())
-        + count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) +
-        // For constexpr variables used as template arguments, we don't see accesses (just the
-        // appropriate literals). We therefore take a conservative approach and count the number of
-        // template instantiations that use the given constant, and consider each one to be a use
-        // of the variable
-        count(ClassTemplateInstantiation cti |
-          cti.getTemplateArgument(_).(Expr).getValue() = getConstExprValue(v)
-        )
-  )
+  // We enforce that it's a POD type variable, so if it has an initializer it is explicit
+  //v.getFile().getBaseName() = "test_member.cpp" and
+  result =
+    count(getAUserInitializedValue(v)) +
+      count(VariableAccess access | access = v.getAnAccess() and not access.isCompilerGenerated()) +
+      // For constexpr variables used as template arguments, we don't see accesses (just the
+      // appropriate literals). We therefore take a conservative approach and count the number of
+      // template instantiations that use the given constant, and consider each one to be a use
+      // of the variable
+      count(ClassTemplateInstantiation cti |
+        cti.getTemplateArgument(_).(Expr).getValue() = getConstExprValue(v)
+      )
+}
+
+Expr getAUserInitializedValue(Variable v) {
+  (
+    result = v.getInitializer().getExpr()
+    or
+    exists(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v and result = cfi.getExpr())
+    or
+    exists(ClassAggregateLiteral l | not l.isCompilerGenerated() | result = l.getAFieldExpr(v))
+  ) and
+  not result.isCompilerGenerated()
 }
 
 /** Gets a single use of `v`, if `isSingleUseNonVolatilePODVariable` holds. */
