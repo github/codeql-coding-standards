@@ -28,4 +28,4 @@ where
   not exists(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) and
   // Exclude members whose value is compile time and is potentially used to inintialize a template
   not maybeACompileTimeTemplateArgument(v)
-select v, "Member variable " + v.getName() + " is unused."
+select v, "Member variable '" + v.getName() + "' is unused."
