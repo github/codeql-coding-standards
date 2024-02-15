@@ -1,5 +1,6 @@
 import cpp
 import codingstandards.cpp.FunctionEquivalence
+import codingstandards.cpp.Scope
 
 /**
  * A type that contains a template parameter type (doesn't count pointers or references).
@@ -120,4 +121,18 @@ class UserProvidedConstructorFieldInit extends ConstructorFieldInit {
     not isCompilerGenerated() and
     not getEnclosingFunction().isCompilerGenerated()
   }
+}
+
+predicate maybeACompileTimeTemplateArgument(Variable v) {
+  v.isConstexpr() and
+  exists(ClassTemplateInstantiation cti, TranslationUnit tu |
+    cti.getATemplateArgument().(Expr).getValue() = v.getInitializer().getExpr().getValue() and
+    (
+      cti.getFile() = tu and
+      (
+        v.getADeclarationEntry().getFile() = tu or
+        tu.getATransitivelyIncludedFile() = v.getADeclarationEntry().getFile()
+      )
+    )
+  )
 }
