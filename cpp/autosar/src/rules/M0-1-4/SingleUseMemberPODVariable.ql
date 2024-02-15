@@ -24,5 +24,5 @@ where
   not isExcluded(v, DeadCodePackage::singleUseMemberPODVariableQuery()) and
   isSingleUseNonVolatilePODVariable(v)
 select v,
-  "Member POD variable '" + v.getName() + "' in '" + v.getDeclaringType().getName() + "' is only $@.",
-  getSingleUse(v), "used once"
+  "Member POD variable '" + v.getName() + "' in '" + v.getDeclaringType().getName() +
+    "' is only $@.", getSingleUse(v), "used once"
