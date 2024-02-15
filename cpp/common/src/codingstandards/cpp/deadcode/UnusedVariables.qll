@@ -123,6 +123,10 @@ class UserProvidedConstructorFieldInit extends ConstructorFieldInit {
   }
 }
 
+/**
+ * Holds if `v` may hold a compile time value and is accessible to a template instantiation that
+ * receives a constant value as an argument equal to the value of `v`.
+ */
 predicate maybeACompileTimeTemplateArgument(Variable v) {
   v.isConstexpr() and
   exists(ClassTemplateInstantiation cti, TranslationUnit tu |
