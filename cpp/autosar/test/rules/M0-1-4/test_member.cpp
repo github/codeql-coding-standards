@@ -72,4 +72,25 @@ void test_e() { // Ensure that the template E is fully instantiated
   e2.getT();
 }
 
+void test_fp_reported_in_388() {
+  struct s1 {
+    int m1; // COMPLIANT
+  };
+
+  s1 l1 = {1}; // m1 is used here
+  l1.m1;
+}
+
+void test_array_initialized_members() {
+  struct s1 {
+    int m1; // COMPLIANT
+  };
+
+  struct s1 l1[] = {
+      {.m1 = 1},
+      {.m1 = 2},
+  };
+
+  l1[0].m1;
+}
 } // namespace test
