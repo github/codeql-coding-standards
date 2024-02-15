@@ -92,7 +92,9 @@ class PotentiallyUnusedMemberVariable extends MemberVariable {
     // Must be in a fully defined class, otherwise one of the undefined functions may use the variable
     getDeclaringType() instanceof FullyDefinedClass and
     // Lambda captures are not "real" member variables - it's an implementation detail that they are represented that way
-    not this = any(LambdaCapture lc).getField()
+    not this = any(LambdaCapture lc).getField() and
+    // exclude uninstantiated template members
+    not this.isFromUninstantiatedTemplate(_)
   }
 }
 
