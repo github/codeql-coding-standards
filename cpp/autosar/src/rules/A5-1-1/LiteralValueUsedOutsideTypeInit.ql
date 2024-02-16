@@ -51,7 +51,8 @@ where
   // Aggregate literal
   not l = any(ArrayOrVectorAggregateLiteral aal).getAnElementExpr(_).getAChild*() and
   // Ignore x - 1 expressions
-  not exists(SubExpr se | se.getRightOperand() = l and l.getValue() = "1")
+  not exists(SubExpr se | se.getRightOperand() = l and l.getValue() = "1") and
+  not l instanceof CompileTimeComputedIntegralLiteral 
 select l,
   "Literal value " + getTruncatedLiteralText(l) + " used outside of type initialization " +
     l.getAPrimaryQlClass()

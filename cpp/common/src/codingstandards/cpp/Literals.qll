@@ -28,3 +28,22 @@ class Utf16StringLiteral extends StringLiteral {
 class Utf32StringLiteral extends StringLiteral {
   Utf32StringLiteral() { this.getValueText().regexpMatch("(?s)\\s*U\".*") }
 }
+
+/**
+ * A literal resulting from the use of a constexpr
+ * variable, or macro expansion.
+ */
+class CompileTimeComputedIntegralLiteral extends Literal {
+  CompileTimeComputedIntegralLiteral() {
+    this.getUnspecifiedType() instanceof IntegralType and
+    not this.getUnspecifiedType() instanceof BoolType and
+    not this.getUnspecifiedType() instanceof CharType and
+    // In some cases we still type char constants like '.' as int
+    not this.getValueText().trim().matches("'%'") and
+    not this.getValueText()
+        .trim()
+        .regexpMatch("([0-9][0-9']*|0[xX][0-9a-fA-F']+|0b[01']+)[uU]?([lL]{1,2}|[zZ])?") and
+    // Exclude class field initializers whose value text equals the initializer expression, e.g., `x(0)`
+    not any(ConstructorFieldInit cfi).getExpr() = this
+  }
+}

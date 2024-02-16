@@ -3,3 +3,7 @@
 | test.cpp:54:7:54:7 | 1 | Literal value 1 used outside of type initialization Literal |
 | test.cpp:75:23:75:28 | test | Literal value "test" used outside of type initialization StringLiteral |
 | test.cpp:76:19:76:28 | not okay | Literal value "not okay" used outside of type initialization StringLiteral |
+| test.cpp:104:8:104:8 | 4 | Literal value 4 used outside of type initialization Literal |
+| test.cpp:104:8:104:8 | 4 | Literal value 4 used outside of type initialization Literal |
+| test.cpp:104:8:104:8 | 4 | Literal value 4 used outside of type initialization Literal |
+| test.cpp:108:18:108:18 | 1 | Literal value 1 used outside of type initialization Literal |
