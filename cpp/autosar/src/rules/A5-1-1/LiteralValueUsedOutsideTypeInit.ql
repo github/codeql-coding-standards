@@ -56,6 +56,4 @@ where
   // Exclude literals to instantiate a class template per example in the standard
   // where an type of std::array is intialized with size 5.
   not l = any(ClassTemplateInstantiation cti).getATemplateArgument()
-select l,
-  "Literal value " + getTruncatedLiteralText(l) + " used outside of type initialization " +
-    l.getAPrimaryQlClass()
+select l, "Literal value '" + getTruncatedLiteralText(l) + "' used outside of type initialization."
