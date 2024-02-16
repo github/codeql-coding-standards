@@ -52,7 +52,10 @@ where
   not l = any(ArrayOrVectorAggregateLiteral aal).getAnElementExpr(_).getAChild*() and
   // Ignore x - 1 expressions
   not exists(SubExpr se | se.getRightOperand() = l and l.getValue() = "1") and
-  not l instanceof CompileTimeComputedIntegralLiteral 
+  not l instanceof CompileTimeComputedIntegralLiteral and
+  // Exclude literals to instantiate a class template per example in the standard
+  // where an type of std::array is intialized with size 5.
+  not l = any(ClassTemplateInstantiation cti).getATemplateArgument()
 select l,
   "Literal value " + getTruncatedLiteralText(l) + " used outside of type initialization " +
     l.getAPrimaryQlClass()

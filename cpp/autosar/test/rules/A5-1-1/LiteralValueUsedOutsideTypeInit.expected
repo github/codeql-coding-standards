@@ -6,4 +6,3 @@
 | test.cpp:104:8:104:8 | 4 | Literal value 4 used outside of type initialization Literal |
 | test.cpp:104:8:104:8 | 4 | Literal value 4 used outside of type initialization Literal |
 | test.cpp:104:8:104:8 | 4 | Literal value 4 used outside of type initialization Literal |
-| test.cpp:108:18:108:18 | 1 | Literal value 1 used outside of type initialization Literal |

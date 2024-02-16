@@ -105,7 +105,7 @@ template <typename T, int size> struct S2 {
 };
 
 void test_fp_reported_in_371() {
-  struct S2<int, 1> l1;    // COMPLIANT[FALSE_POSITIVE]
+  struct S2<int, 1> l1;    // COMPLIANT
   struct S2<int, g1> l2;   // COMPLIANT
   struct S2<int, f1()> l3; // COMPLIANT
 }
