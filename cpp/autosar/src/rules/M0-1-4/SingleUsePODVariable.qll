@@ -51,7 +51,6 @@ Expr getIndirectSubObjectAssignedValue(MemberVariable subobject) {
 /** Gets a "use" count according to rule M0-1-4. */
 int getUseCount(Variable v) {
   // We enforce that it's a POD type variable, so if it has an initializer it is explicit
-  //v.getFile().getBaseName() = "test_member.cpp" and
   result =
     count(getAUserInitializedValue(v)) +
       count(VariableAccess access | access = v.getAnAccess() and not access.isCompilerGenerated()) +
