@@ -10,3 +10,6 @@
 | test.cpp:22:12:22:16 | ... + ... | Binary expression ...+... may overflow. |
 | test.cpp:50:7:50:14 | ... + ... | Binary expression ...+... may overflow. |
 | test.cpp:62:8:62:10 | ... ++ | Binary expression ...++... may overflow. |
+| test.cpp:91:10:91:17 | ... << ... | Binary expression ...<<... may overflow. |
+| test.cpp:95:10:95:17 | ... << ... | Binary expression ...<<... may overflow. |
+| test.cpp:98:8:98:15 | ... << ... | Binary expression ...<<... may overflow. |
