@@ -265,6 +265,22 @@ class UserOverloadedOperator extends Function {
   }
 }
 
+/** A user defined operator address of operator (`&`). */
+class UnaryAddressOfOperator extends Operator {
+  UnaryAddressOfOperator() {
+    hasName("operator&") and
+    (
+      // If this is a member function, it needs to have zero arguments to be the unary addressof
+      // operator
+      if this instanceof MemberFunction
+      then getNumberOfParameters() = 0
+      else
+        // Otherwise it needs one argument to be unary
+        getNumberOfParameters() = 1
+    )
+  }
+}
+
 private newtype TOperatorUse =
   TBuiltinOperatorUse(Operation op) or
   TOverloadedOperatorUse(FunctionCall call, Operator op) { op.getACallToThisFunction() = call }
