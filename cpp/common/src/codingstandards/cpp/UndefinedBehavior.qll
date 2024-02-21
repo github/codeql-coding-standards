@@ -21,19 +21,12 @@ class ShiftByNegativeOrGreaterPrecisionOperand extends UndefinedBehavior, BitShi
   string reason;
 
   ShiftByNegativeOrGreaterPrecisionOperand() {
-    (
-      getPrecision(this.getLeftOperand().getExplicitlyConverted().getUnderlyingType()) <=
-        upperBound(this.getRightOperand()) and
-      reason =
-        "The operand " + this.getLeftOperand() + " is shifted by an expression " +
-          this.getRightOperand() + " whose upper bound (" + upperBound(this.getRightOperand()) +
-          ") is greater than or equal to the precision."
-      or
-      lowerBound(this.getRightOperand()) < 0 and
-      reason =
-        "The operand " + this.getLeftOperand() + " is shifted by an expression " +
-          this.getRightOperand() + " which may be negative."
-    ) and
+    getPrecision(this.getLeftOperand().getExplicitlyConverted().getUnderlyingType()) <=
+      upperBound(this.getRightOperand()) and
+    reason =
+      "The operand " + this.getLeftOperand() + " is shifted by an expression " +
+        this.getRightOperand() + " whose upper bound (" + upperBound(this.getRightOperand()) +
+        ") is greater than or equal to the precision." and
     /*
      * this statement is not at a basic block where
      * `this_rhs < PRECISION(...)` is ensured
@@ -49,18 +42,22 @@ class ShiftByNegativeOrGreaterPrecisionOperand extends UndefinedBehavior, BitShi
     |
       globalValueNumber(lTLhs) = globalValueNumber(this.getRightOperand()) and
       gc.ensuresLt(lTLhs, precisionCall, 0, block, true)
-    ) and
+    )
+    or
+    lowerBound(this.getRightOperand()) < 0 and
+    reason =
+      "The operand " + this.getLeftOperand() + " is shifted by an expression " +
+        this.getRightOperand() + " which may be negative." and
     /*
      * this statement is not at a basic block where
-     * `this_rhs < 0` is ensured
+     * `this_rhs > 0` is ensured
      */
 
     not exists(GuardCondition gc, BasicBlock block, Expr literalZero, Expr lTLhs |
       block = this.getBasicBlock() and
-      literalZero instanceof LiteralZero
-    |
+      literalZero instanceof LiteralZero and
       globalValueNumber(lTLhs) = globalValueNumber(this.getRightOperand()) and
-      gc.ensuresLt(lTLhs, literalZero, 0, block, true)
+      gc.ensuresLt(literalZero, lTLhs, 0, block, true)
     )
   }
 
