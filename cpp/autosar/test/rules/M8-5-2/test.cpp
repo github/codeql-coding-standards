@@ -61,7 +61,7 @@ void test() {
 template <class T> bool all_of(std::initializer_list<T>);
 
 template <typename... Args> constexpr bool all_of(Args... args) noexcept {
-  return all_of({args...});
+  return all_of({args...}); // COMPLIANT - explicitly initialized via varargs
 }
 
 void test_all_of() { all_of(true, false, false); }
