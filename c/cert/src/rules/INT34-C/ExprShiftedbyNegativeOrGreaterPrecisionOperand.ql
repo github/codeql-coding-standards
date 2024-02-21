@@ -18,6 +18,5 @@ import semmle.code.cpp.controlflow.Guards
 import codingstandards.cpp.UndefinedBehavior
 
 from ShiftByNegativeOrGreaterPrecisionOperand badShift
-where
-  not isExcluded(badShift, Types1Package::exprShiftedbyNegativeOrGreaterPrecisionOperandQuery())
+where not isExcluded(badShift, Types1Package::exprShiftedbyNegativeOrGreaterPrecisionOperandQuery())
 select badShift, badShift.getReason()
