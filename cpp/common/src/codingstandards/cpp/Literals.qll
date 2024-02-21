@@ -28,3 +28,7 @@ class Utf16StringLiteral extends StringLiteral {
 class Utf32StringLiteral extends StringLiteral {
   Utf32StringLiteral() { this.getValueText().regexpMatch("(?s)\\s*U\".*") }
 }
+
+class LiteralZero extends Literal {
+  LiteralZero() { this.getValue() = "0" }
+}

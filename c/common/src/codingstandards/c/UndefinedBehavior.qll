@@ -25,4 +25,9 @@ class CUndefinedMainDefinition extends CUndefinedBehavior, Function {
     (this.getName() = "main" or this.getName().indexOf("____codeql_coding_standards") = 0) and
     not this instanceof C99MainFunction
   }
+
+  override string getReason() {
+    result = "The behavior of the program is undefined because the main function is not defined according to the C standard."
+  }
+
 }

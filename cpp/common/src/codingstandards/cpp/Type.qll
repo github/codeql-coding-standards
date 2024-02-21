@@ -59,3 +59,14 @@ Type stripSpecifiers(Type type) {
   then result = stripSpecifiers(type.(SpecifiedType).getBaseType())
   else result = type
 }
+
+/**
+ * Get the precision of an integral type, where precision is defined as the number of bits
+ * that can be used to represent the numeric value.
+ * https://wiki.sei.cmu.edu/confluence/display/c/INT35-C.+Use+correct+integer+precisions
+ */
+int getPrecision(IntegralType type) {
+  type.isExplicitlyUnsigned() and result = type.getSize() * 8
+  or
+  type.isExplicitlySigned() and result = type.getSize() * 8 - 1
+}
