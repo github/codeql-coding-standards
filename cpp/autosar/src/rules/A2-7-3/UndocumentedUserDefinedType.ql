@@ -17,6 +17,14 @@
 import cpp
 import codingstandards.cpp.autosar
 
+private predicate isInFunctionScope(Declaration d) {
+  // Type declared in function
+  exists(d.(UserType).getEnclosingFunction())
+  or
+  // Member declared in type which is in function scope
+  isInFunctionScope(d.getDeclaringType())
+}
+
 /**
  * A declaration which is required to be preceded by documentation by AUTOSAR A2-7-3.
  */
@@ -42,10 +50,8 @@ class DocumentableDeclaration extends Declaration {
     declarationType = "member variable" and
     // Exclude memeber variables in instantiated templates, which cannot reasonably be documented.
     not this.(MemberVariable).isFromTemplateInstantiation(_) and
-    // Exclude anonymous lambda functions.
-    // TODO: replace with the following when support is added.
-    // not this.(MemberVariable).isCompilerGenerated()
-    not exists(LambdaExpression lc | lc.getACapture().getField() = this)
+    // Exclude compiler generated variables, such as those for anonymous lambda functions
+    not this.(MemberVariable).isCompilerGenerated()
   }
 
   /** Gets a `DeclarationEntry` for this declaration that should be documented. */
@@ -96,6 +102,7 @@ from DocumentableDeclaration d, DeclarationEntry de
 where
   not isExcluded(de, CommentsPackage::undocumentedUserDefinedTypeQuery()) and
   not isExcluded(d, CommentsPackage::undocumentedUserDefinedTypeQuery()) and
+  not isInFunctionScope(d) and
   d.getAnUndocumentedDeclarationEntry() = de
 select de,
   "Declaration entry for " + d.getDeclarationType() + " " + d.getName() +
