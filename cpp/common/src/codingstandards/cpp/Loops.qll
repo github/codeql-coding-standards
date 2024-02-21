@@ -70,6 +70,13 @@ class MemberAssignmentOperation extends FunctionCall {
  */
 pragma[noopt]
 Variable getALoopCounter(ForStmt fs) {
+  // ------------------------------------------------------------------------------------------------
+  // NOTE: This is an updated version of ForStmt.getAnIterationVariable(), handling additional cases.
+  //       The use of pragma[noopt] is retained from the original code, as we haven't determined
+  //       whether it's still necessary across a broad range of databases. As a noopt predicate, it
+  //       includes a degree of duplication as the join order is defined based on the order of the
+  //       conditions.
+  // ------------------------------------------------------------------------------------------------
   // check that it is assigned to, incremented or decremented in the update
   exists(Expr updateOpRoot, Expr updateOp |
     updateOpRoot = fs.getUpdate() and
