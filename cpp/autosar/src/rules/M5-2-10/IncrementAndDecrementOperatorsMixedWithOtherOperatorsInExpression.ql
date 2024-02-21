@@ -16,12 +16,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-
-class ArithmeticOperation extends Operation {
-  ArithmeticOperation() {
-    this instanceof UnaryArithmeticOperation or this instanceof BinaryArithmeticOperation
-  }
-}
+import codingstandards.cpp.Expr
 
 from CrementOperation cop, ArithmeticOperation op, string name
 where
