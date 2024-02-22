@@ -24,8 +24,8 @@ class ShiftByNegativeOrGreaterPrecisionOperand extends UndefinedBehavior, BitShi
     getPrecision(this.getLeftOperand().getExplicitlyConverted().getUnderlyingType()) <=
       upperBound(this.getRightOperand()) and
     reason =
-      "The operand " + this.getLeftOperand() + " is shifted by an expression " +
-        this.getRightOperand() + " whose upper bound (" + upperBound(this.getRightOperand()) +
+      "The operand  '" + this.getLeftOperand() + "' is shifted by an expression '" +
+        this.getRightOperand() + "' whose upper bound (" + upperBound(this.getRightOperand()) +
         ") is greater than or equal to the precision." and
     /*
      * this statement is not at a basic block where
@@ -46,8 +46,8 @@ class ShiftByNegativeOrGreaterPrecisionOperand extends UndefinedBehavior, BitShi
     or
     lowerBound(this.getRightOperand()) < 0 and
     reason =
-      "The operand " + this.getLeftOperand() + " is shifted by an expression " +
-        this.getRightOperand() + " which may be negative." and
+      "The operand '" + this.getLeftOperand() + "' is shifted by an expression '" +
+        this.getRightOperand() + "' which may be negative." and
     /*
      * this statement is not at a basic block where
      * `this_rhs > 0` is ensured

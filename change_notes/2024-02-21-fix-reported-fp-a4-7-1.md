@@ -1,2 +1,4 @@
 - `A4-7-1` -  `IntegerExpressionLeadToDataLoss.ql`:
     - Address reported FP in #396. Exclude shift operations guarded to prevent undefined behavior that could lead to dataloss. 
+- `INT34-C` - `ExprShiftedbyNegativeOrGreaterPrecisionOperand.ql`:
+  - Format the alert message according to the style-guide.
