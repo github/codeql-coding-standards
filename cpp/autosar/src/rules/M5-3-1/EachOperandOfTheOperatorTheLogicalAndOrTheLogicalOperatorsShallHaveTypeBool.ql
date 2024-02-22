@@ -29,4 +29,4 @@ where
     rt = t.getUnderlyingType().getUnspecifiedType() and rt.getBaseType() instanceof BoolType
   ) and
   not operand.isFromUninstantiatedTemplate(_)
-select operand, "bool operator called with a non-bool operand of type " + t.getName() + "."
+select operand, "Call to bool operator with a non-bool operand of type '" + t.getName() + "'."
