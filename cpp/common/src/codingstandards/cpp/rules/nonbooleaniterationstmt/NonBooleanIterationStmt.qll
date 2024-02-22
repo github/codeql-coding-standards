@@ -18,6 +18,8 @@ query predicate problems(Loop loopStmt, string message) {
     not explicitConversionType instanceof BoolType and
     //exclude any generated conditions
     not condition.isCompilerGenerated() and
+    // exclude any conditions in uninstantiated templates, because their type will be unknown.
+    not condition.isFromUninstantiatedTemplate(_) and
     message = "Iteration condition has non boolean type " + explicitConversionType + "."
   )
 }
