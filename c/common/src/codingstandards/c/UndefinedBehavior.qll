@@ -27,7 +27,7 @@ class CUndefinedMainDefinition extends CUndefinedBehavior, Function {
   }
 
   override string getReason() {
-    result = "The behavior of the program is undefined because the main function is not defined according to the C standard."
+    result =
+      "The behavior of the program is undefined because the main function is not defined according to the C standard."
   }
-
 }
