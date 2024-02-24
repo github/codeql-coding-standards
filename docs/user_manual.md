@@ -22,7 +22,8 @@
 | 0.14.0  | 2022-11-03 | Remco Vermeulen | Add guideline recategorization plan.                                                                                    |
 | 0.15.0  | 2023-05-24 | Mauro Baluda    | Clarify AUTOSAR C++ supported versions.                                                                                 |
 | 0.16.0  | 2023-07-03 | Luke Cartey     | Remove reference to LGTM, update the name of the query pack                                                             |
-| 0.17.0  | 2023-08-16 | Luke Cartey     | Update list of supported compiler configurations.                                                             |
+| 0.17.0  | 2023-08-16 | Luke Cartey     | Update list of supported compiler configurations.                                                                       |
+| 0.18.0  | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9                                                                          |
 
 ## Release information
 
@@ -220,8 +221,8 @@ In addition to producing a results file, an analysis report can be produced that
 
 To run this script, the CodeQL CLI part of a supported CodeQL Bundle and Python interpreter version 3.9 must be available on the system path.
 
-```
-python3 scripts/reports/analysis_report.py path/to/<output_database_name> <name-of-results-file>.sarif <output_directory>
+```bash
+python3.9 scripts/reports/analysis_report.py path/to/<output_database_name> <name-of-results-file>.sarif <output_directory>
 ```
 
 This will produce a directory (`<output_directory>`) containing the following report files in markdown format:
@@ -325,6 +326,7 @@ The example describes three ways of scoping a deviation:
 
 The activation of the deviation mechanism requires an extra step in the database creation process.
 This extra step is the invocation of the Python script `path/to/codeql-coding-standards/scripts/configuration/process_coding_standards_config.py` that is part of the coding standards code scanning pack.
+To run this script, a Python interpreter version 3.9 must be available on the system path.
 The script should be invoked as follows:
 
 ```bash
@@ -333,7 +335,7 @@ codeql database create --language cpp --command 'python3 path/to/codeql-coding-s
 
 The `process_coding_standards_config.py` has a dependency on the package `pyyaml` that can be installed using the provided PIP package manifest by running the following command:
 
-`pip install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
+`pip3 install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
 
 ##### Deviation permit
 
@@ -424,7 +426,7 @@ add the tag `external/<standard>/original-obligation/<category` to each query im
 The script should be invoked as follows:
 
 ```bash
-python3 path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py coding_standards_config_file <sarif_in> <sarif_out>
+python3.9 path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py coding_standards_config_file <sarif_in> <sarif_out>
 ```
 
 The `recategorize.py` scripts has a dependencies on the following Python packages that can be installed with the command `pip install -r path/to/codeql-coding-standards/scripts/guideline_recategorization/requirements.txt`:
