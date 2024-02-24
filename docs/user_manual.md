@@ -23,7 +23,8 @@
 | 0.15.0  | 2023-05-24 | Mauro Baluda    | Clarify AUTOSAR C++ supported versions.                                                                                 |
 | 0.16.0  | 2023-07-03 | Luke Cartey     | Remove reference to LGTM, update the name of the query pack                                                             |
 | 0.17.0  | 2023-08-16 | Luke Cartey     | Update list of supported compiler configurations.                                                                       |
-| 0.18.0  | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9                                                                          |
+| 0.18.0  | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9.                                                                          |
+| 0.19.0  | 2024-02-23 | Remco Vermeulen | Add table describing the permitted guideline re-categorizations.                                                        |
 
 ## Release information
 
@@ -269,7 +270,7 @@ The CodeQL Coding Standards supports the following features from the [MISRA Comp
 
 - _Deviation records_ - an entry that states a particular instance, or set of instances, of a rule should be considered permitted.
 - _Deviation permit_ - an entry that provides authorization to apply a deviation to a project.
-- _Guideline recategorization plan_ - an agreement on how the guidelines are applied. Whether a guideline may be violated, deviated from, or must always be applied.
+- _Guideline re-categorization plan_ - an agreement on how the guidelines are applied. Whether a guideline may be violated, deviated from, or must always be applied.
 
 ##### Deviation records
 
@@ -397,16 +398,28 @@ Unlike _deviation records_ their location in the source directory does not impac
 This means that _deviation permits_ can be made available at build time by any means available.
 An example of importing _deviation permits_ is through a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that contains a repository of allowed _deviation permits_.
 
-##### Guideline recategorization plan
+##### Guideline re-categorization plan
 
-The current implementation supports a _guideline recategorization plan_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _5 The guideline re-categorization plan_.
+The current implementation supports a _guideline re-categorization plan_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _5 The guideline re-categorization plan_.
 
-A recategorization plan provides a mechanism to adjust the policy associated with a guideline that determines whether it may be violated or not and if it may be violated whether a deviation is required.
-Each guideline recategorization **must** be specified in the `guideline-recategorizations` section of a  `coding-standards.yml` file that **must** be anywhere in the source repository.
+A re-categorization plan provides a mechanism to adjust the policy associated with a guideline that determines whether it may be violated or not and if it may be violated whether a deviation is required.
 
-A guideline recategorization specification **must** specify a `rule-id`, an identifier for the coding standards rule the recategorization applies to, and a `category`, a category that can be any of `disapplied`, `advisory`, `required`, or `mandatory`.
+The implementation follows the constraints on re-categorization as described in [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _5.1 Re-categorization_.
 
-An example guideline recategorization section is:
+The following tables described the re-categorizations are permitted.
+
+| Current Category | Revised Category | Revised Category | Revised Category | Revised Category |
+| --- | --- | --- | --- | --- |
+| | Mandatory | Required | Advisory | Disapplied |
+| Mandatory | Permitted |  | | |
+| Required | Permitted | Permitted | | |
+| Advisory | Permitted | Permitted | Permitted | Permitted |
+
+Each guideline re-categorization **must** be specified in the `guideline-recategorizations` section of a `coding-standards.yml` file that **must** be anywhere in the source repository.
+
+A guideline re-categorization specification **must** specify a `rule-id`, an identifier for the coding standards rule the re-categorization applies to, and a `category`, a category that can be any of `disapplied`, `advisory`, `required`, or `mandatory`.
+
+An example guideline re-categorization section is:
 
 ```yaml
 guideline-recategorizations:
@@ -418,7 +431,7 @@ guideline-recategorizations:
     category: "mandatory"
 ```
 
-Application of the guideline recategorization plan to the analysis results requires an additional post-processing step.
+Application of the guideline re-categorization plan to the analysis results requires an additional post-processing step.
 The post-processing step is implemented by the Python script `path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py`.
 The script will update the `external/<standard>/obligation/<category>` tag for each query implementing a recategorized guideline such that `<category>` is equal to the new category and
 add the tag `external/<standard>/original-obligation/<category` to each query implementing a recategorized guideline such that `<category>` reflects the orignal category.
