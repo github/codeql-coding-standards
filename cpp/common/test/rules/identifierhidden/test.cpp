@@ -41,3 +41,37 @@ template <class T, class R> T f(T r) {
   T v = foo1<T> * r * r;  // COMPLIANT
   T v1 = foo1<R> * r * r; // COMPLIANT
 }
+
+void test_scope_order() {
+  {
+    {
+      int i; // COMPLIANT
+    }
+    int i; // COMPLIANT
+  }
+
+  for (int i = 0; i < 10; i++) { // COMPLIANT
+  }
+
+  try {
+
+  } catch (int i) { // COMPLIANT
+  }
+
+  int i; // COMPLIANT
+
+  {
+    {
+      int i; // NON_COMPLIANT
+    }
+    int i; // NON_COMPLIANT
+  }
+
+  for (int i = 0; i < 10; i++) { // NON_COMPLIANT
+  }
+
+  try {
+
+  } catch (int i) { // NON_COMPLIANT
+  }
+}
