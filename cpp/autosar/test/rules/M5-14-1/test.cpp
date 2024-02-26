@@ -24,3 +24,13 @@ void f3(bool b) {
   if (b || f2()) { // COMPLIANT, f2 has local side-effects
   }
 }
+
+int g1 = 0;
+int f4() { return g1++; }
+int f5() { return 1; }
+
+void f6() {
+  if (noexcept(f5()) &&noexcept(
+          f4())) { // COMPLIANT  - noexcept operands not evaluated
+  }
+}

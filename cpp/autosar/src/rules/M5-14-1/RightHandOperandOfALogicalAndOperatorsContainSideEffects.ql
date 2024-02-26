@@ -19,10 +19,39 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.sideeffect.DefaultEffects
 
+/**
+ * an operator that does not evaluate its operand
+ * `decltype` also has a non evaluated operand but cannot be used in a `BinaryLogicalOperation`
+ */
+class UnevaluatedOperand extends Expr {
+  Expr operator;
+  UnevaluatedOperand() {
+    exists(SizeofExprOperator op | op.getExprOperand() = this |
+      not this.getUnderlyingType().(ArrayType).hasArraySize()
+      and operator = op
+    )
+    or
+    exists(NoExceptExpr e | e.getExpr() = this
+    and operator = e)
+    or 
+    exists(TypeidOperator t | t.getExpr() = this
+    and operator = t)
+    or 
+    exists(FunctionCall declval | declval.getTarget().hasQualifiedName("std", "declval")
+    and declval.getAChild() = this
+    and operator = declval)
+  }
+
+  Expr getOp(){
+    result = operator
+  }
+}
+
 from BinaryLogicalOperation op, Expr rhs
 where
   not isExcluded(op,
     SideEffects1Package::rightHandOperandOfALogicalAndOperatorsContainSideEffectsQuery()) and
   rhs = op.getRightOperand() and
   hasSideEffect(rhs)
+  and not exists(UnevaluatedOperand un | un.getOp() = rhs)
 select op, "The $@ may have a side effect that is not always evaluated.", rhs, "right-hand operand"
