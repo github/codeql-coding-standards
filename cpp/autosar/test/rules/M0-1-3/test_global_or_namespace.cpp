@@ -42,3 +42,21 @@ m1(); // ignore dead code in macros
 } // namespace N1
 
 int test_access_variable() { return N1::x5; }
+
+template <int t> struct C1 {
+  int array[t]; // COMPLIANT
+};
+
+constexpr int g5 = 1; // COMPLIANT - used as template parameter
+
+namespace ns1 {
+constexpr int m1 = 1; // COMPLIANT - used a template parameter
+}
+
+void test_fp_reported_in_384() {
+  struct C1<g5> l1;
+  struct C1<ns1::m1> l2;
+
+  l1.array[0] = 1;
+  l2.array[0] = 1;
+}
