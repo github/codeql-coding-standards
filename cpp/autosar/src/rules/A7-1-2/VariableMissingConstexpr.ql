@@ -17,6 +17,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.TrivialType
 import codingstandards.cpp.SideEffect
+import semmle.code.cpp.controlflow.SSA
 
 predicate isZeroInitializable(Variable v) {
   not exists(v.getInitializer().getExpr()) and
@@ -33,6 +34,78 @@ predicate isTypeZeroInitializable(Type t) {
   t.getUnderlyingType() instanceof ArrayType
 }
 
+/**
+ * An optimized set of expressions used to determine the flow through constexpr variables.
+ */
+class VariableAccessOrCallOrLiteral extends Expr {
+  VariableAccessOrCallOrLiteral() {
+    this instanceof VariableAccess or
+    this instanceof Call or
+    this instanceof Literal
+  }
+}
+
+/**
+ * Holds if the value of source flows through compile time evaluated variables to target.
+ */
+predicate flowsThroughConstExprVariables(
+  VariableAccessOrCallOrLiteral source, VariableAccessOrCallOrLiteral target
+) {
+  (
+    source = target
+    or
+    source != target and
+    exists(SsaDefinition intermediateDef, StackVariable intermediate |
+      intermediateDef.getAVariable().getFunction() = source.getEnclosingFunction() and
+      intermediateDef.getAVariable().getFunction() = target.getEnclosingFunction() and
+      intermediateDef.getAVariable() = intermediate and
+      intermediate.isConstexpr()
+    |
+      DataFlow::localExprFlow(source, intermediateDef.getDefiningValue(intermediate)) and
+      flowsThroughConstExprVariables(intermediateDef.getAUse(intermediate), target)
+    )
+  )
+}
+
+/*
+ * Returns true if the given call may be evaluated at compile time and is compile time evaluated because
+ * all its arguments are compile time evaluated and its default values are compile time evaluated.
+ */
+
+predicate isCompileTimeEvaluated(Call call) {
+  // 1. The call may be evaluated at compile time, because it is constexpr, and
+  call.getTarget().isConstexpr() and
+  // 2. all its arguments are compile time evaluated, and
+  forall(DataFlow::Node ultimateArgSource, DataFlow::Node argSource |
+    argSource = DataFlow::exprNode(call.getAnArgument()) and
+    DataFlow::localFlow(ultimateArgSource, argSource) and
+    not DataFlow::localFlowStep(_, ultimateArgSource)
+  |
+    (
+      ultimateArgSource.asExpr() instanceof Literal
+      or
+      any(Call c | isCompileTimeEvaluated(c)) = ultimateArgSource.asExpr()
+    ) and
+    // If the ultimate argument source is not the same as the argument source, then it must flow through
+    // constexpr variables.
+    (
+      ultimateArgSource != argSource
+      implies
+      flowsThroughConstExprVariables(ultimateArgSource.asExpr(), argSource.asExpr())
+    )
+  ) and
+  // 3. all the default values used are compile time evaluated.
+  forall(Expr defaultValue, Parameter parameterUsingDefaultValue, int idx |
+    parameterUsingDefaultValue = call.getTarget().getParameter(idx) and
+    not exists(call.getArgument(idx)) and
+    parameterUsingDefaultValue.getAnAssignedValue() = defaultValue
+  |
+    defaultValue instanceof Literal
+    or
+    any(Call c | isCompileTimeEvaluated(c)) = defaultValue
+  )
+}
+
 from Variable v
 where
   not isExcluded(v, ConstPackage::variableMissingConstexprQuery()) and
@@ -46,7 +119,7 @@ where
   (
     v.getInitializer().getExpr().isConstant()
     or
-    v.getInitializer().getExpr().(Call).getTarget().isConstexpr()
+    any(Call call | isCompileTimeEvaluated(call)) = v.getInitializer().getExpr()
     or
     isZeroInitializable(v)
     or

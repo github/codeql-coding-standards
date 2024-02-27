@@ -13,7 +13,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Operator
 
-from Operator o
-where not isExcluded(o, OperatorsPackage::unaryOperatorOverloadedQuery()) and o.hasName("operator&")
+from UnaryAddressOfOperator o
+where not isExcluded(o, OperatorsPackage::unaryOperatorOverloadedQuery())
 select o, "The unary & operator overloaded."

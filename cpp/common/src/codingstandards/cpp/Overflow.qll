@@ -1,5 +1,5 @@
 /**
- * This module provides predicates for checking whether an operation overflows or wraps.
+ * This module provides predicates for checking whether an integer operation overflows, underflows or wraps.
  */
 
 import cpp
@@ -10,10 +10,12 @@ import codingstandards.cpp.dataflow.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /**
- * An operation that may overflow or underflow.
+ * An integer operation that may overflow, underflow or wrap.
  */
 class InterestingOverflowingOperation extends Operation {
   InterestingOverflowingOperation() {
+    // We are only interested in integer experssions
+    this.getUnderlyingType() instanceof IntegralType and
     // Might overflow or underflow
     (
       exprMightOverflowNegatively(this)

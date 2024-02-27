@@ -24,6 +24,34 @@ class IncompleteType extends Class {
 }
 
 /**
+ * A type that implements the BitmaskType trait.
+ * https://en.cppreference.com/w/cpp/named_req/BitmaskType
+ */
+abstract class BitmaskType extends Type { }
+
+/**
+ * Holds if `enum` implements required overload `overload` to implement
+ * the BitmaskType trait.
+ */
+private predicate isRequiredEnumOverload(Enum enum, Function overload) {
+  overload.getName().regexpMatch("operator([&|^~]|&=|\\|=)") and
+  forex(Parameter p | p = overload.getAParameter() |
+    (
+      p.getType() = enum
+      or
+      p.getType().(ReferenceType).getBaseType() = enum
+    )
+  )
+}
+
+private class EnumBitmaskType extends BitmaskType, Enum {
+  EnumBitmaskType() {
+    // Implements all the required overload
+    count(Function overload | isRequiredEnumOverload(this, overload)) = 6
+  }
+}
+
+/**
  * A type without `const` and `volatile` specifiers.
  */
 Type stripSpecifiers(Type type) {

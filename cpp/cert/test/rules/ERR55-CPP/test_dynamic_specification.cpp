@@ -28,3 +28,27 @@ void test_no_throw() throw() { // COMPLIANT
 void test_no_throw_contravened() throw() { // NON_COMPLIANT
   throw std::exception();
 }
+
+class DummyException {};
+void indirect_throw_logic_error() throw(std::logic_error) {
+  throw_logic_error(); // Exception flows out of function as specification is
+                       // compatible
+}
+void indirect_throw_logic_error_but_terminates() throw() { // NON_COMPLIANT
+  throw_logic_error(); // Exception does not flow out of function due to
+                       // specification
+}
+void indirect_throw_logic_error_but_terminates_2() // NON_COMPLIANT
+    throw(DummyException) {
+  throw_logic_error(); // Exception does not flow out of function due to
+                       // specification
+}
+
+void test_indirect_throws() throw() { // NON_COMPLIANT
+  indirect_throw_logic_error();
+}
+
+void test_indirect_throws_but_terminated() throw() { // COMPLIANT
+  indirect_throw_logic_error_but_terminates();
+  indirect_throw_logic_error_but_terminates_2();
+}

@@ -70,6 +70,13 @@ class MemberAssignmentOperation extends FunctionCall {
  */
 pragma[noopt]
 Variable getALoopCounter(ForStmt fs) {
+  // ------------------------------------------------------------------------------------------------
+  // NOTE: This is an updated version of ForStmt.getAnIterationVariable(), handling additional cases.
+  //       The use of pragma[noopt] is retained from the original code, as we haven't determined
+  //       whether it's still necessary across a broad range of databases. As a noopt predicate, it
+  //       includes a degree of duplication as the join order is defined based on the order of the
+  //       conditions.
+  // ------------------------------------------------------------------------------------------------
   // check that it is assigned to, incremented or decremented in the update
   exists(Expr updateOpRoot, Expr updateOp |
     updateOpRoot = fs.getUpdate() and
@@ -106,6 +113,15 @@ Variable getALoopCounter(ForStmt fs) {
     )
     or
     updateOp = result.getAnAssignedValue()
+    or
+    // updateOp is an access whose address is taken in a non-const way
+    exists(FunctionCall fc, VariableAccess va |
+      fc = updateOp and
+      fc instanceof FunctionCall and
+      fc.getAnArgument() = va and
+      va = result.getAnAccess() and
+      va.isAddressOfAccessNonConst()
+    )
   ) and
   result instanceof Variable and
   // checked or used in the condition
@@ -260,7 +276,7 @@ predicate isLoopControlVarModifiedInLoopCondition(
   loopControlVariableAccess = forLoop.getCondition().getAChild+() and
   (
     loopControlVariableAccess.isModified() or
-    loopControlVariableAccess.isAddressOfAccess()
+    loopControlVariableAccess.isAddressOfAccessNonConst()
   )
 }
 
@@ -277,7 +293,7 @@ predicate isLoopControlVarModifiedInLoopExpr(
   loopControlVariableAccess = forLoop.getUpdate().getAChild() and
   (
     loopControlVariableAccess.isModified() or
-    loopControlVariableAccess.isAddressOfAccess()
+    loopControlVariableAccess.isAddressOfAccessNonConst()
   )
 }
 
