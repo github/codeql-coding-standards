@@ -15,8 +15,6 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import cpp
-import codingstandards.cpp.autosar
 
 from FunctionDeclarationEntry f1, FunctionDeclarationEntry f2
 where
