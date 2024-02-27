@@ -1,0 +1,3 @@
+ - `A2-10-1`, `RULE-5-3`:
+   - Reduce false positives by considering point of declaration for local variables.
+   - Reduce false negatives by considering catch block parameters to be in scope in the catch block.

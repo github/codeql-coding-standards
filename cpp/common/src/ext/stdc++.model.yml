@@ -1,0 +1,7 @@
+extensions:
+  - addsTo:
+      pack: codeql/common-cpp-coding-standards
+      extensible: throwingFunctionModel
+    data:
+      - ["std", "basic_string", "append", "std", "out_of_range"] 
+      - ["std", "basic_string", "reserve", "std", "length_error"] 

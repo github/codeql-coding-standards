@@ -16,8 +16,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Expr
 
-from CrementOperation cop, Operation op, string name
+from CrementOperation cop, ArithmeticOperation op, string name
 where
   not isExcluded(cop) and
   not isExcluded(op,

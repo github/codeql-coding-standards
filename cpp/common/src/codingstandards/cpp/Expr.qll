@@ -2,6 +2,15 @@ import cpp
 private import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import codingstandards.cpp.AccessPath
 
+/**
+ * A unary or binary arithmetic operation.
+ */
+class ArithmeticOperation extends Operation {
+  ArithmeticOperation() {
+    this instanceof UnaryArithmeticOperation or this instanceof BinaryArithmeticOperation
+  }
+}
+
 /** A full expression as defined in [intro.execution] of N3797. */
 class FullExpr extends Expr {
   FullExpr() {
