@@ -3,6 +3,7 @@
  */
 
 import cpp
+import codingstandards.cpp.Cpp14Literal
 
 /** Gets `Literal.getValueText()` truncated to at most 20 characters. */
 string getTruncatedLiteralText(Literal l) {
@@ -36,10 +37,12 @@ class Utf32StringLiteral extends StringLiteral {
 class CompileTimeComputedIntegralLiteral extends Literal {
   CompileTimeComputedIntegralLiteral() {
     this.getUnspecifiedType() instanceof IntegralType and
-    not this.getUnspecifiedType() instanceof BoolType and
-    not this.getUnspecifiedType() instanceof CharType and
-    // In some cases we still type char constants like '.' as int
-    not this.getValueText().trim().matches("'%'") and
+    // Exclude bool, whose value text is true or false, but the value itself
+    // is 1 or 0.
+    not this instanceof BoolLiteral and 
+    // Exclude character literals, whose value text is the quoted character, but the value
+    // is the numeric value of the character.
+    not this instanceof Cpp14Literal::CharLiteral and
     not this.getValueText()
         .trim()
         .regexpMatch("([0-9][0-9']*|0[xX][0-9a-fA-F']+|0b[01']+)[uU]?([lL]{1,2}|[zZ])?") and
