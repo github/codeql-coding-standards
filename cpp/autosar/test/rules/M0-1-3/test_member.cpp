@@ -47,4 +47,18 @@ void test_d() {
   d.getT();
 }
 
+template <int t> struct C1 {
+  int array[t]; // COMPLIANT
+};
+
+struct C2 {
+  static constexpr int m1 = 1; // COMPLIANT - used as template parameter
+};
+
+void test_fp_reported_in_384() {
+  struct C1<C2::m1> l1;
+
+  l1.array[0] = 1;
+}
+
 } // namespace test

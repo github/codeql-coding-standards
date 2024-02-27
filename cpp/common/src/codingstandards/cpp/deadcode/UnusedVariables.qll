@@ -1,5 +1,6 @@
 import cpp
 import codingstandards.cpp.FunctionEquivalence
+import codingstandards.cpp.Scope
 
 /**
  * A type that contains a template parameter type (doesn't count pointers or references).
@@ -92,7 +93,9 @@ class PotentiallyUnusedMemberVariable extends MemberVariable {
     // Must be in a fully defined class, otherwise one of the undefined functions may use the variable
     getDeclaringType() instanceof FullyDefinedClass and
     // Lambda captures are not "real" member variables - it's an implementation detail that they are represented that way
-    not this = any(LambdaCapture lc).getField()
+    not this = any(LambdaCapture lc).getField() and
+    // exclude uninstantiated template members
+    not this.isFromUninstantiatedTemplate(_)
   }
 }
 
@@ -118,4 +121,22 @@ class UserProvidedConstructorFieldInit extends ConstructorFieldInit {
     not isCompilerGenerated() and
     not getEnclosingFunction().isCompilerGenerated()
   }
+}
+
+/**
+ * Holds if `v` may hold a compile time value and is accessible to a template instantiation that
+ * receives a constant value as an argument equal to the value of `v`.
+ */
+predicate maybeACompileTimeTemplateArgument(Variable v) {
+  v.isConstexpr() and
+  exists(ClassTemplateInstantiation cti, TranslationUnit tu |
+    cti.getATemplateArgument().(Expr).getValue() = v.getInitializer().getExpr().getValue() and
+    (
+      cti.getFile() = tu and
+      (
+        v.getADeclarationEntry().getFile() = tu or
+        tu.getATransitivelyIncludedFile() = v.getADeclarationEntry().getFile()
+      )
+    )
+  )
 }
