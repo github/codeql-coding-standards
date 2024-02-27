@@ -82,4 +82,24 @@ module Cpp14Literal {
 
     override string getAPrimaryQlClass() { result = "FloatingLiteral" }
   }
+
+  /**
+   * A character literal.  For example:
+   * ```
+   * char c1 = 'a';
+   * char16_t c2 = u'a';
+   * char32_t c3 = U'a';
+   * wchar_t c4 = L'b';
+   * ```
+   */
+  class CharLiteral extends StandardLibrary::TextLiteral {
+    CharLiteral() { this.getValueText().regexpMatch("(?s)\\s*(L|u|U)?'.*") }
+
+    override string getAPrimaryQlClass() { result = "CharLiteral" }
+
+    /**
+     * Gets the character of this literal. For example `L'a'` has character `"a"`.
+     */
+    string getCharacter() { result = this.getValueText().regexpCapture("(?s)\\s*(L|u|U)?'(.*)'", 1) }
+  }
 }

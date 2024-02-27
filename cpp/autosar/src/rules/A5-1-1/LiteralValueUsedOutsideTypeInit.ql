@@ -18,6 +18,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.LoggingOperation
 import codingstandards.cpp.Literals
+import codingstandards.cpp.Cpp14Literal
 
 from Literal l
 where
@@ -35,7 +36,7 @@ where
   // Exclude literal 0
   not l.getValue() = "0" and
   // Exclude character literals
-  not l instanceof CharLiteral and
+  not l instanceof Cpp14Literal::CharLiteral and
   // Exclude `nullptr`
   not l.getType() instanceof NullPointerType and
   // Exclude boolean `true` and `false`
