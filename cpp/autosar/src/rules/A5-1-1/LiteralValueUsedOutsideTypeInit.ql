@@ -53,6 +53,10 @@ where
   not l = any(ArrayOrVectorAggregateLiteral aal).getAnElementExpr(_).getAChild*() and
   // Ignore x - 1 expressions
   not exists(SubExpr se | se.getRightOperand() = l and l.getValue() = "1") and
+  // Exclude compile time computed integral literals as they can appear as integral literals
+  // when used as non-type template arguments.
+  // We limit ourselves to integral literals, because floating point literals as non-type
+  // template arguments are not supported in C++ 14. Those are supported shince C++ 20.
   not l instanceof CompileTimeComputedIntegralLiteral and
   // Exclude literals to instantiate a class template per example in the standard
   // where an type of std::array is intialized with size 5.
