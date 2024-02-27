@@ -104,8 +104,22 @@ template <typename T, int size> struct S2 {
   T m2[4];    // NON_COMPLIANT
 };
 
+template <typename T, T val> struct S3 {
+  static constexpr T value = val; // COMPLIANT;
+};
+
 void test_fp_reported_in_371() {
   struct S2<int, 1> l1;    // COMPLIANT
   struct S2<int, g1> l2;   // COMPLIANT
   struct S2<int, f1()> l3; // COMPLIANT
+
+  S3<char16_t, u'\u03c0'> l4;                      // COMPLIANT
+  S3<char16_t, S3<char16_t, u'\u2286'>::value> l5; // COMPLIANT
+  S3<char32_t, U'🌌'> l6;                           // COMPLIANT
+  S3<char32_t, S3<char32_t, U'⭐'>::value> l7;      // COMPLIANT
+
+  constexpr float l8 = 3.14159f;
+#define delta 0.1f
+  for (float i = 0.0f; i < l8; i += delta) { // COMPLIANT
+  }
 }
