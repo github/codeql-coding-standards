@@ -75,3 +75,12 @@ void test_scope_order() {
   } catch (int i) { // NON_COMPLIANT
   }
 }
+
+int a;
+namespace b {
+int a() {} // NON_COMPLIANT
+} // namespace b
+
+namespace b1 {
+typedef int a; // NON_COMPLIANT
+}
