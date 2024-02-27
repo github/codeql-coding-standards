@@ -33,6 +33,8 @@ class Utf32StringLiteral extends StringLiteral {
 /**
  * A literal resulting from the use of a constexpr
  * variable, or macro expansion.
+ * We rely on the fact that the value text of a literal is equal to the
+ * `constexpr` variable or macro name.
  */
 class CompileTimeComputedIntegralLiteral extends Literal {
   CompileTimeComputedIntegralLiteral() {
