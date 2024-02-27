@@ -39,7 +39,7 @@ where
   // Exclude `nullptr`
   not l.getType() instanceof NullPointerType and
   // Exclude boolean `true` and `false`
-  not l.getType() instanceof BoolType and
+  not l instanceof BoolLiteral and
   // Exclude empty string
   not l.getValue() = "" and
   // Template functions use literals to represent calls which are unknown

@@ -47,3 +47,15 @@ class CompileTimeComputedIntegralLiteral extends Literal {
     not any(ConstructorFieldInit cfi).getExpr() = this
   }
 }
+
+class BoolLiteral extends Literal {
+  BoolLiteral() {
+    this.getType() instanceof BoolType
+    or
+    // When used as non-type template arguments, bool literals might
+    // have been converted to a non-bool type.
+    this.getValue() = "1" and this.getValueText() = "true"
+    or
+    this.getValue() = "0" and this.getValueText() = "false"
+  }
+}
