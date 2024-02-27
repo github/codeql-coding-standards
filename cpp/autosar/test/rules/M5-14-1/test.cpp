@@ -29,8 +29,14 @@ int g1 = 0;
 int f4() { return g1++; }
 int f5() { return 1; }
 
+#include <typeinfo>
+
 void f6() {
-  if (noexcept(f5()) &&noexcept(
-          f4())) { // COMPLIANT  - noexcept operands not evaluated
-  }
+  if (1 && sizeof(f4())) {
+  } // COMPLIANT  - sizeof operands not evaluated
+  if (1 &&noexcept(f4()) &&noexcept(f4())) {
+  } // COMPLIANT  - noexcept operands not evaluated
+
+  if (1 || (typeid(f5()) == typeid(f4()))) {
+  } // NON_COMPLIANT  - typeid operands not evaluated, but the ==operator is
 }
