@@ -23,7 +23,7 @@
 | 0.15.0  | 2023-05-24 | Mauro Baluda    | Clarify AUTOSAR C++ supported versions.                                                                                 |
 | 0.16.0  | 2023-07-03 | Luke Cartey     | Remove reference to LGTM, update the name of the query pack                                                             |
 | 0.17.0  | 2023-08-16 | Luke Cartey     | Update list of supported compiler configurations.                                                             |
-| 0.87.0  | 2024-01-30 | Luke Cartey     | Update product description and coverage table.                                                             |
+| 0.18.0  | 2024-01-30 | Luke Cartey     | Update product description and coverage table.                                                             |
 
 ## Release information
 
