@@ -80,6 +80,8 @@ class Scope extends Element {
 
   int getNumberOfVariables() { result = count(getAVariable()) }
 
+  int getNumberOfDeclarations() { result = count(getADeclaration()) }
+
   Scope getAnAncestor() { result = this.getStrictParent+() }
 
   Scope getStrictParent() { result = getParentScope(this) }
@@ -133,9 +135,9 @@ private UserDeclaration getPotentialScopeOfDeclaration_candidate(UserDeclaration
   exists(Scope s |
     result = s.getADeclaration() and
     (
-      // Declaration in an ancestor scope, but only if there are less than 100 variables in this scope
+      // Declaration in an ancestor scope, but only if there are less than 100 declarations in this scope
       v = s.getAnAncestor().getADeclaration() and
-      s.getNumberOfVariables() < 100
+      s.getNumberOfDeclarations() < 100
       or
       // In the same scope, but not the same Declaration, and choose just one to report
       v = s.getADeclaration() and
@@ -152,7 +154,7 @@ private UserDeclaration getOuterScopesOfDeclaration_candidate(UserDeclaration v)
     (
       // Declaration in an ancestor scope, but only if there are less than 100 variables in this scope
       v = s.getAnAncestor().getADeclaration() and
-      s.getNumberOfVariables() < 100
+      s.getNumberOfDeclarations() < 100
     )
   )
 }
