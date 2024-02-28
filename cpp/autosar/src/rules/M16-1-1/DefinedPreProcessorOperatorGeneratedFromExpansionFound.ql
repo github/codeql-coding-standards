@@ -14,17 +14,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.PreprocessorDirective
 import DefinedMacro
-
-/**
- * An `if` or `elif` preprocessor branch.
- */
-class PreprocessorIfOrElif extends PreprocessorBranch {
-  PreprocessorIfOrElif() {
-    this instanceof PreprocessorIf or
-    this instanceof PreprocessorElif
-  }
-}
 
 from PreprocessorIfOrElif e, MacroUsesDefined m
 where
