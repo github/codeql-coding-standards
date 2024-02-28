@@ -14,7 +14,6 @@ void test_enum() {
   Avenue <= Avenue;    // COMPLIANT
   Place > Road;        // COMPLIANT
   Boulevard >= Avenue; // COMPLIANT
-  Place &Avenue;       // COMPLIANT
   arr[Road] = 1;       // COMPLIANT
 
   // arithmetic
@@ -40,6 +39,7 @@ void test_enum() {
   Road ^= Road;          // NON_COMPLIANT
   Road >>= Road;         // NON_COMPLIANT
   Road <<= Road;         // NON_COMPLIANT
+  Road &Road;            // NON_COMPLIANT
 }
 
 void test_enum_var() {
@@ -51,7 +51,7 @@ void test_enum_var() {
   a <= b;          // COMPLIANT
   a > b;           // COMPLIANT
   a >= b;          // COMPLIANT
-  a &b;            // COMPLIANT
+  Street *c = &a;  // COMPLIANT
 
   // arithmetic
   a + a; // NON_COMPLIANT
@@ -76,4 +76,5 @@ void test_enum_var() {
   a ^= 1;  // NON_COMPLIANT
   a >>= 1; // NON_COMPLIANT
   a <<= 1; // NON_COMPLIANT
+  a &b;    // NON_COMPLIANT
 }

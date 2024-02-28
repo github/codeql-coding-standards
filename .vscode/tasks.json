@@ -141,6 +141,28 @@
             "problemMatcher": []
         },
         {
+            "label": "🧪 Standards Automation: Build Case Test DB from test file",
+            "type": "shell",
+            "windows": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}Scripts${pathSeparator}python.exe scripts${pathSeparator}build_test_database.py ${file}"
+            },
+            "linux": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}build_test_database.py ${file}"
+            },
+            "osx": {
+                "command": ".${pathSeparator}scripts${pathSeparator}.venv${pathSeparator}bin${pathSeparator}python3 scripts${pathSeparator}build_test_database.py ${file}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "runOptions": {
+                "reevaluateOnRerun": false
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "📝 Standards Automation: Format CodeQL",
             "type": "shell",
             "command": "${config:codeQL.cli.executablePath} query format -i ${file}",

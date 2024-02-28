@@ -14,18 +14,12 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.PreprocessorDirective
 import DefinedMacro
 
-from DefinedMacro m, PreprocessorBranch e
+from PreprocessorIfOrElif e, MacroUsesDefined m
 where
-  (
-    e instanceof PreprocessorIf or
-    e instanceof PreprocessorElif
-  ) and
-  (
-    e.getHead().regexpMatch(m.getAUse().getHead() + "\\s*\\(.*")
-    or
-    e.getHead().regexpMatch(m.getAUse().getHead().replaceAll("(", "\\(").replaceAll(")", "\\)"))
-  ) and
-  not isExcluded(e)
+  not isExcluded(e, MacrosPackage::definedPreProcessorOperatorInOneOfTheTwoStandardFormsQuery()) and
+  // A`#if` or `#elif` which uses a macro which uses `defined`
+  exists(e.getHead().regexpFind(m.getRegexForMatch(), _, _))
 select e, "The macro $@ expands to 'defined'", m, m.getName()

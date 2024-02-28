@@ -19,3 +19,4 @@
 | test.cpp:19:1:19:18 | #include <uchar.h> | C library "uchar.h" is included instead of the corresponding C++ library <cuchar>. |
 | test.cpp:20:1:20:18 | #include <wchar.h> | C library "wchar.h" is included instead of the corresponding C++ library <cwchar>. |
 | test.cpp:21:1:21:19 | #include <wctype.h> | C library "wctype.h" is included instead of the corresponding C++ library <cwctype>. |
+| test.cpp:45:1:45:17 | #include "time.h" | C library "time.h" is included instead of the corresponding C++ library <ctime>. |
