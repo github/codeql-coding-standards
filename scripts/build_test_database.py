@@ -3,14 +3,42 @@ import shutil
 import os 
 import subprocess
 import json 
+from pathlib import Path
 
-if len(sys.argv) < 4:
-    print ("Usage: build_test_database.py LANGUAGE STANDARD RULE", file=sys.stderr)
+if len(sys.argv) != 4 and len(sys.argv) != 2:
+    print ("Usage: build_test_database.py TEST_FILE | LANGUAGE STANDARD RULE", file=sys.stderr)
     exit(1)
 
-LANGUAGE=sys.argv[1]
-STANDARD=sys.argv[2]
-RULE=sys.argv[3]
+if len(sys.argv) == 4:
+    LANGUAGE=sys.argv[1]
+    STANDARD=sys.argv[2]
+    RULE=sys.argv[3]
+
+if len(sys.argv) == 2:
+    TEST_FILE_PATH=Path(sys.argv[1])
+    if not TEST_FILE_PATH.exists():
+        print(f"The test file {TEST_FILE_PATH} does not exist!", file=sys.stderr)
+        exit(1)
+    RULE_PATH=TEST_FILE_PATH.parent
+    while True:
+        if len(list(RULE_PATH.glob("*.expected"))) > 0:
+            break
+        if RULE_PATH.parent != RULE_PATH:
+            RULE_PATH = RULE_PATH.parent
+        else:
+            print(f"The test file {TEST_FILE_PATH} is not a test because we couldn't find an expected file!", file=sys.stderr)
+            exit(1)
+    RULE=RULE_PATH.name
+    TESTS_PATH=RULE_PATH.parent.parent
+    if TESTS_PATH.name != "test":
+        print(f"The test file {TEST_FILE_PATH} is not in the expected test layout, cannot determine standard or language!", file=sys.stderr)
+        exit(1)
+
+    STANDARD_PATH=TESTS_PATH.parent
+    STANDARD=STANDARD_PATH.name
+
+    LANGUAGE_PATH=STANDARD_PATH.parent
+    LANGUAGE=LANGUAGE_PATH.name
 
 if shutil.which("codeql") is None:
     print ("Please install codeql.", file=sys.stderr)

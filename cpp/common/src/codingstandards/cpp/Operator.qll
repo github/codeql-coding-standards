@@ -1,5 +1,7 @@
 import cpp
 import Expr
+private import semmle.code.cpp.security.FileWrite
+private import codingstandards.cpp.standardlibrary.FileStreams
 
 /**
  * any assignment operator that also reads from the access
@@ -119,7 +121,7 @@ class UserAssignmentOperator extends AssignmentOperator {
 }
 
 /** An assignment operator of any sort */
-class AssignmentOperator extends MemberFunction {
+class AssignmentOperator extends Function {
   AssignmentOperator() {
     // operator op, where op is =, +=, -=, *=, /=, %=, ^=, &=, |=, >>=, <<=
     exists(string op |
@@ -127,6 +129,8 @@ class AssignmentOperator extends MemberFunction {
       op in ["=", "+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=", ">>=", "<<="]
     )
   }
+
+  predicate isLValueRefQualified() { this.(MemberFunction).isLValueRefQualified() }
 }
 
 class UserComparisonOperator extends Function {
@@ -262,5 +266,114 @@ class UserOverloadedOperator extends Function {
         ]
     ) and
     not this.isCompilerGenerated()
+  }
+}
+
+/** An implementation of a stream insertion operator. */
+class StreamInsertionOperator extends Function {
+  StreamInsertionOperator() {
+    this.hasName("operator<<") and
+    (
+      if this.isMember()
+      then this.getNumberOfParameters() = 1
+      else (
+        this.getNumberOfParameters() = 2 and
+        this.getParameter(0).getType() instanceof BasicOStreamClass
+      )
+    ) and
+    this.getType() instanceof BasicOStreamClass
+  }
+}
+
+/** An implementation of a stream extraction operator. */
+class StreamExtractionOperator extends Function {
+  StreamExtractionOperator() {
+    this.hasName("operator>>") and
+    (
+      if this.isMember()
+      then this.getNumberOfParameters() = 1
+      else (
+        this.getNumberOfParameters() = 2 and
+        this.getParameter(0).getType() instanceof IStream
+      )
+    ) and
+    this.getType() instanceof IStream
+  }
+}
+
+/** A user defined operator address of operator (`&`). */
+class UnaryAddressOfOperator extends Operator {
+  UnaryAddressOfOperator() {
+    hasName("operator&") and
+    (
+      // If this is a member function, it needs to have zero arguments to be the unary addressof
+      // operator
+      if this instanceof MemberFunction
+      then getNumberOfParameters() = 0
+      else
+        // Otherwise it needs one argument to be unary
+        getNumberOfParameters() = 1
+    )
+  }
+}
+
+private newtype TOperatorUse =
+  TBuiltinOperatorUse(Operation op) or
+  TOverloadedOperatorUse(FunctionCall call, Operator op) { op.getACallToThisFunction() = call }
+
+/**
+ * A class to reason about builtin operator and overloaded operator use.
+ */
+class OperatorUse extends TOperatorUse {
+  string toString() {
+    exists(Operation op | result = op.toString() and this = TBuiltinOperatorUse(op))
+    or
+    exists(Operator op | result = op.toString() and this = TOverloadedOperatorUse(_, op))
+  }
+
+  predicate isOverloaded() { this = TOverloadedOperatorUse(_, _) }
+
+  Operation asBuiltin() { this = TBuiltinOperatorUse(result) }
+
+  Operator asOverloaded(FunctionCall call) { this = TOverloadedOperatorUse(call, result) }
+
+  Type getType() {
+    result = this.asBuiltin().getType()
+    or
+    result = this.asOverloaded(_).getType()
+  }
+
+  Parameter getParameter(int index) { result = this.asOverloaded(_).getParameter(index) }
+
+  Parameter getAParameter() { result = this.asOverloaded(_).getParameter(_) }
+
+  Expr getAnOperand() {
+    result = this.asBuiltin().getAnOperand()
+    or
+    exists(FunctionCall call, Operator op | op = this.asOverloaded(call) |
+      result = call.getAnArgument()
+    )
+  }
+
+  Location getLocation() {
+    result = this.asBuiltin().getLocation()
+    or
+    exists(FunctionCall call, Operator op | op = this.asOverloaded(call) |
+      result = call.getLocation()
+    )
+  }
+
+  string getOperator() {
+    result = this.asBuiltin().getOperator()
+    or
+    result = this.asOverloaded(_).getName().regexpCapture("^operator(.*)$", 1)
+  }
+}
+
+class UnaryOperatorUse extends OperatorUse {
+  UnaryOperatorUse() {
+    this.asBuiltin() instanceof UnaryOperation
+    or
+    this.asOverloaded(_).getNumberOfParameters() = 0
   }
 }

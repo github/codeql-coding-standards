@@ -26,10 +26,18 @@
 #if BADDEFTWO(X) // NON_COMPLIANT
 #endif
 
+#if BADDEFTWO(Y) // NON_COMPLIANT
+#endif
+
 // clang-format off
 #if defined (X) || (defined(_Y_)) // COMPLIANT
 // clang-format on
 #endif
 
 #if defined(X) || defined _Y_ + X && defined(Y) // NON_COMPLIANT
+#endif
+
+#define WRAPPER X < Y || defined(z)
+
+#if WRAPPER // NON_COMPLIANT
 #endif

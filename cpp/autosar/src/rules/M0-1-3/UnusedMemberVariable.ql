@@ -25,5 +25,7 @@ where
   // No variable access
   not exists(v.getAnAccess()) and
   // No explicit initialization in a constructor
-  not exists(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v)
-select v, "Member variable " + v.getName() + " is unused."
+  not exists(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) and
+  // Exclude members whose value is compile time and is potentially used to inintialize a template
+  not maybeACompileTimeTemplateArgument(v)
+select v, "Member variable '" + v.getName() + "' is unused."
