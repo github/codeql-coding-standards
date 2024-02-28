@@ -56,7 +56,7 @@ The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying
 | [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 97                      | 97 | Implemented |
 | [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 175         | 164                     | 162[^3] | Implemented |
 
-Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in the our representation of the codebase under analysis. In addition, some rules are natively enforced by our supported set of compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
+Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
 
 For each rule we therefore identify whether it is supportable or not. Furthermore, a rule can be supported in two ways:
 
