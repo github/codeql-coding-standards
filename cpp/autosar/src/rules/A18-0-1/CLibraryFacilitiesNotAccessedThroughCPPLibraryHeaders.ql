@@ -28,7 +28,7 @@ where
    *    not use any of 'signal.h's facilities, for example.
    */
 
-  filename = i.getIncludedFile().getBaseName() and
+  filename = i.getIncludeText().substring(1, i.getIncludeText().length() - 1) and
   filename in [
       "assert.h", "ctype.h", "errno.h", "fenv.h", "float.h", "inttypes.h", "limits.h", "locale.h",
       "math.h", "setjmp.h", "signal.h", "stdarg.h", "stddef.h", "stdint.h", "stdio.h", "stdlib.h",

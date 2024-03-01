@@ -50,4 +50,4 @@ where
   // Local variable is never accessed
   not exists(v.getAnAccess()) and
   getUseCountConservatively(v) = 0
-select v, "Local variable " + v.getName() + " in " + v.getFunction().getName() + " is not used."
+select v, "Local variable '" + v.getName() + "' in '" + v.getFunction().getName() + "' is not used."
