@@ -23,8 +23,9 @@
 | 0.15.0  | 2023-05-24 | Mauro Baluda    | Clarify AUTOSAR C++ supported versions.                                                                                 |
 | 0.16.0  | 2023-07-03 | Luke Cartey     | Remove reference to LGTM, update the name of the query pack                                                             |
 | 0.17.0  | 2023-08-16 | Luke Cartey     | Update list of supported compiler configurations.                                                                       |
-| 0.18.0  | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9.                                                                          |
-| 0.19.0  | 2024-02-23 | Remco Vermeulen | Add table describing the permitted guideline re-categorizations.                                                        |
+| 0.18.0  | 2024-01-30 | Luke Cartey     | Update product description and coverage table.                                                                          |
+| 0.19.0  | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9.                                                                         |
+| 0.20.0  | 2024-02-23 | Remco Vermeulen | Add table describing the permitted guideline re-categorizations.                                                        |
 
 ## Release information
 
@@ -51,14 +52,16 @@ A _coding standard_ is a set of rules or guidelines which restrict or prohibit t
 
 The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying contraventions of rules in the following coding standards:
 
-| Standard                                                                                                             | Version | Total rules | Total supportable rules | Status            |
-| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf) | [^1] R22-11, R21-11, R20-11, R19-11, R19-03 | 397         | 375                     | Implemented       |
-| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented       |
-| [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 99                      | Under development |
-| [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 172         | 169                     | Under development |
+| Standard                                                                                                             | Version | Rules | Supportable rules | Implemented rules | Status            |
+| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- | ------- |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf) | [^1] R22-11, R21-11, R20-11, R19-11, R19-03 | 397         | 372                     | 370[^2] | Implemented       |
+| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 82                      | 82 | Implemented       |
+| [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 97                      | 97 | Implemented |
+| [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 175         | 164                     | 162[^3] | Implemented |
 
-Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in the our representation of the codebase under analysis. For each rule we therefore identify whether it is supportable or not. Furthermore, a rule can be supported in two ways:
+Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
+
+For each rule we therefore identify whether it is supportable or not. Furthermore, a rule can be supported in two ways:
 
 - **Automated** - the queries for the rule find contraventions directly.
 - **Audit only** - the queries for the rule does not find contraventions directly, but instead report a list of _candidates_ that can be used as input into a manual audit. For example, `A10-0-1` (_Public inheritance shall be used to implement 'is-a' relationship_) is not directly amenable to static analysis, but CodeQL can be used to produce a list of all the locations that use public inheritance so they can be manually reviewed.
@@ -68,6 +71,8 @@ Each supported rule is implemented as one or more CodeQL queries, with each quer
 The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each release, lists which rules are supported for that particular release, and the _scope of analysis_ for that rule.
 
 [^1]: AUTOSAR C++ versions R22-11, R21-11, R20-11, R19-11 and R19-03 are all identical as indicated in the document change history.
+[^2]: The unimplemented supportable AUTOSAR rules are `A7-1-8` and `A8-2-1`. These rules require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules.
+[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5` and `Dir 4.14`. `Rule 9.5` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
 
 ## Supported environment
 
@@ -113,9 +118,9 @@ For C the codebase under analysis must comply with C99 or C11 and use one of the
 
 | Compiler | Version | Standard library    | Target architecture   | Required Flags             |
 | -------- | ------- | ------------------- | --------------------- | -------------------------- |
-| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | -std=c11                   |
-| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | -std=c11                   |
-| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | -std=c11 -nopipe           |
+| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
+| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
+| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | `-std=c11 -nopipe` or `-std=c99 -nopipe` |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
 
