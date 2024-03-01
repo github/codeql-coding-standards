@@ -1,1 +1,8 @@
-No expected results have yet been specified
+| test.cpp:40:8:40:13 | ... * ... | Dependence on operator precedence rules. |
+| test.cpp:41:19:41:24 | ... * ... | Dependence on operator precedence rules. |
+| test.cpp:42:8:42:13 | ... * ... | Dependence on operator precedence rules. |
+| test.cpp:42:17:42:22 | ... * ... | Dependence on operator precedence rules. |
+| test.cpp:48:8:48:15 | ... == ... | Dependence on operator precedence rules. |
+| test.cpp:49:26:49:32 | ... - ... | Dependence on operator precedence rules. |
+| test.cpp:50:8:50:15 | ... == ... | Dependence on operator precedence rules. |
+| test.cpp:50:24:50:30 | ... - ... | Dependence on operator precedence rules. |

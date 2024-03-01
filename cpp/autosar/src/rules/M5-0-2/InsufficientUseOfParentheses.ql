@@ -17,7 +17,21 @@
 import cpp
 import codingstandards.cpp.autosar
 
-from Expr e
-where
-  not isExcluded(e, OrderOfEvaluationPackage::insufficientUseOfParenthesesQuery())
-select e, "Insufficient use of parenthesis in expression."
+class InsufficientlyParenthesizedExpr extends Expr {
+  InsufficientlyParenthesizedExpr() {
+    exists(BinaryOperation root, BinaryOperation child | child = this |
+      root.getAnOperand() = child and
+      root.getOperator() != child.getOperator() and
+      not any(ParenthesisExpr pe).getExpr() = child
+    )
+    or
+    exists(ConditionalExpr root, BinaryOperation child | child = this |
+      root.getAnOperand() = child and
+      not any(ParenthesisExpr pe).getExpr() = child
+    )
+  }
+}
+
+from InsufficientlyParenthesizedExpr e
+where not isExcluded(e, OrderOfEvaluationPackage::insufficientUseOfParenthesesQuery())
+select e, "Dependence on operator precedence rules."
