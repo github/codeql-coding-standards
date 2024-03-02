@@ -5,27 +5,29 @@
 import cpp
 import codingstandards.cpp.Expr
 
-/**
- * Holds if we believe that `c` is used or intended to be used as a base class.
- */
-predicate isPossibleBaseClass(Class c, string reason) {
-  // There exists a derivation in this database
-  (
-    // We make a distinction between class template instantiations, regular classes and template classes.
-    // For template classes we do have derived classes, because derived classes would derive from a 
-    // class template instantiation. 
-    // Therefore, we check for derived classes for regular classes
-    not c instanceof ClassTemplateInstantiation and not c instanceof TemplateClass and exists(c.getADerivedClass())
+
+private Class getADerivedClass(Class c) {
+    not c instanceof ClassTemplateInstantiation and not c instanceof TemplateClass and result = c.getADerivedClass()
     or
-    // and use template instantiations to check for derived classes for template classes
     exists(ClassTemplateInstantiation instantiation |
-      exists(instantiation.getADerivedClass()) and c = instantiation.getTemplate()
+      instantiation.getADerivedClass() = result and c = instantiation.getTemplate()
     )
-  ) and
-  reason = "a derived class exists"
-  or
-  // The class must be extended at some point
-  c.isAbstract() and reason = "the class is abstract"
+}
+
+/**
+ * A class that is used or intended to be used as a base class.
+ */
+class BaseClass extends Class {
+  BaseClass() {
+    exists(getADerivedClass(this))
+    or
+    this.isAbstract()
+  }
+
+  // We don't override `getADerivedClass` because that introduces a non-monotonic recursion. 
+  Class getASubClass() {
+    result = getADerivedClass(this)
+  }
 }
 
 /**
