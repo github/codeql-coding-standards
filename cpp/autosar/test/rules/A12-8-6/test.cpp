@@ -78,3 +78,51 @@ public:
   BaseClass6 &operator=(BaseClass6 &&) = default;      // NON_COMPLIANT
   virtual void test() = 0; // pure virtual function, making this abstract
 };
+
+template <class T1> class BaseClass7 {
+public:
+  BaseClass7() {}
+  BaseClass7(BaseClass7 const &) = default;            // NON_COMPLIANT
+  BaseClass7(BaseClass7 &&) = default;                 // NON_COMPLIANT
+  BaseClass7 &operator=(BaseClass7 const &) = default; // NON_COMPLIANT
+  BaseClass7 &operator=(BaseClass7 &&) = default;      // NON_COMPLIANT
+  int operator=(int i); // COMPLIANT - not an assignment operator
+};                      // COMPLIANT
+
+template <class T>
+class DerivedClass7 // COMPLIANT - not a base class itself
+    : public BaseClass7<T> {
+public:
+  DerivedClass7() {}
+};
+
+class DerivedClass8 // COMPLIANT - not a base class itself
+    : public BaseClass7<int> {
+public:
+  DerivedClass8() {}
+};
+
+class BaseClass8 {
+public:
+  BaseClass8() {}
+  BaseClass8(BaseClass8 const &) = default;            // NON_COMPLIANT
+  BaseClass8(BaseClass8 &&) = default;                 // NON_COMPLIANT
+  BaseClass8 &operator=(BaseClass8 const &) = default; // NON_COMPLIANT
+  BaseClass8 &operator=(BaseClass8 &&) = default;      // NON_COMPLIANT
+};
+
+template <class T>
+class DerivedClass9 // COMPLIANT - not a base class itself
+    : public BaseClass8 {
+public:
+  DerivedClass9() {}
+
+private:
+  T t;
+};
+
+void test() {
+  BaseClass7<int> b;
+  DerivedClass7<int> d;
+  DerivedClass9<int> e;
+}

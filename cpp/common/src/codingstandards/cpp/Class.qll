@@ -10,7 +10,19 @@ import codingstandards.cpp.Expr
  */
 predicate isPossibleBaseClass(Class c, string reason) {
   // There exists a derivation in this database
-  exists(c.getADerivedClass()) and reason = "a derived class exists"
+  (
+    // We make a distinction between class template instantiations, regular classes and template classes.
+    // For template classes we do have derived classes, because derived classes would derive from a 
+    // class template instantiation. 
+    // Therefore, we check for derived classes for regular classes
+    not c instanceof ClassTemplateInstantiation and not c instanceof TemplateClass and exists(c.getADerivedClass())
+    or
+    // and use template instantiations to check for derived classes for template classes
+    exists(ClassTemplateInstantiation instantiation |
+      exists(instantiation.getADerivedClass()) and c = instantiation.getTemplate()
+    )
+  ) and
+  reason = "a derived class exists"
   or
   // The class must be extended at some point
   c.isAbstract() and reason = "the class is abstract"
