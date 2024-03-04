@@ -18,6 +18,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.sideeffect.DefaultEffects
+import codingstandards.cpp.Expr
 
 from BinaryLogicalOperation op, Expr rhs
 where
@@ -25,6 +26,5 @@ where
     SideEffects1Package::rightHandOperandOfALogicalAndOperatorsContainSideEffectsQuery()) and
   rhs = op.getRightOperand() and
   hasSideEffect(rhs) and
-  not rhs.(NoExceptExpr).getExpr().isUnevaluated() and
-  not rhs.(SizeofExprOperator).getExprOperand().isUnevaluated()
+  not rhs instanceof UnevaluatedExprExtension
 select op, "The $@ may have a side effect that is not always evaluated.", rhs, "right-hand operand"

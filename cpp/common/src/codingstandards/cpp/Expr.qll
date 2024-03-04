@@ -189,3 +189,17 @@ module MisraExpr {
     CValue() { isCValue(this) }
   }
 }
+
+/**
+ * an operator that does not evaluate its operand
+ */
+class UnevaluatedExprExtension extends Expr {
+  UnevaluatedExprExtension() {
+    this.getChild(_).isUnevaluated()
+    or
+    exists(FunctionCall declval |
+      declval.getTarget().hasQualifiedName("std", "declval") and
+      declval.getAChild() = this
+    )
+  }
+}
