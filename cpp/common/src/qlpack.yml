@@ -3,3 +3,5 @@ version: 2.22.0-dev
 license: MIT
 dependencies:
   codeql/cpp-all: 0.9.3
+dataExtensions:
+  - ext/*.model.yml

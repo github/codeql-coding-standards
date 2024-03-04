@@ -38,6 +38,7 @@
 | 0.29.0 | 2023-10-11 | Remco Vermeulen | Update release process. |
 | 0.29.1 | 2023-10-11 | Remco Vermeulen | Address Markdown linter problems. |
 | 0.30.0 | 2023-11-14 | Remco Vermeulen | Clarify release steps in case of a hotfix release. |
+| 0.31.0 | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9 |
 
 ## Scope of work
 
@@ -45,7 +46,7 @@ A *coding standard* is a set of rules or guidelines which restrict or prohibit t
 
 | Standard                                                                                                             | Version | Total rules | Total supportable rules | Status         | Notes                                                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf) | R22-11, R21-11, R20-11, R19-11, R19-03  | 397         | 375                     | Implemented    |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf) | R22-11, R21-11, R20-11, R19-11, R19-03  | 397         | 375                     | Implemented    | |
 | [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented    | AUTOSAR includes a sub-set of rules take from MISRA C++ 2008, which can be purchased for a small fee from [the MISRA website](https://misra.org.uk/shop). |
 | [CERT-C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 120         | 99                      | In development | The implementation excludes rules not part of 2016, but that are added to the [CERT-C wiki](https://wiki.sei.cmu.edu/confluence/display/c/)               |
 | [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/ )                               | 2012    | 172         | 172                     | In development | This includes the [MISRA C:2012 Amendment 2](https://www.misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf)                                          |
@@ -163,6 +164,7 @@ These files will be ready for query implementation.
 
 #### Step 0: Prepare the Python environment
 
+The tooling standardizes on Python 3.9 and requires the use of version 3.9 to run all tooling.
 The `scripts` directory contains the pip package specification file `requirements.txt` that contains the dependencies our generation scripts rely upon.
 
 The dependencies can be installed as follows:
@@ -171,12 +173,12 @@ The dependencies can be installed as follows:
 pip3.9 install -r scripts/requirements.txt
 ```
 
-It is advisable to use a Python virtual environment which needs to be created and activated before installing the dependencies. This can be done as follows:
+It is advisable to use a Python 3.9 virtual environment which needs to be created and activated before installing the dependencies. This can be done as follows:
 
 ```bash
 python3.9 -mvenv scripts/.venv
 . scripts/.venv/bin/activate
-pip install -r scripts/requirements.txt
+pip3.9 install -r scripts/requirements.txt
 ```
 
 #### Step 1: Generate rule package description file
@@ -265,7 +267,7 @@ The `generate_package_description.py` script provides a "best-effort" approach t
     - `performance` - if the query identifies an issue which has a negative impact on the performance of the code.
     - `concurrency` - if the query identifies a concurrency issue.
   - Validate the rule package description file using the `validate-rule-package.py` script that validates the rule package descriptions against the schema `rule-package.schema.json` located in the `schemas` directory.
-    - `python3 scripts/validate-rule-package.py <rule_package_name>`
+    - `python3.9 scripts/validate-rule-package.py <rule_package_name>`
 
 #### Step 3
 
@@ -350,7 +352,7 @@ All public predicates, classes, modules and files should be documented with QLDo
 
 ### Installing QL dependencies
 
-All of our query and library packs depend on the standard CodeQL library for C++, `codeql/cpp-all`. This dependency is specified in the `qlpack.yml` file for each of our packs. Before compiling, running, or testing any of our queries or libraries, you must download the proper dependencies by running `python3 scripts/install-packs.py`. This will download the appropriate version of the standard library from the public package registry, installing it in a cache in your `~/.codeql` directory. When compiling queries or running tests, the QL compiler will pick up the appropriate dependencies from this cache without any need to specify an additional library search path on the command line.
+All of our query and library packs depend on the standard CodeQL library for C++, `codeql/cpp-all`. This dependency is specified in the `qlpack.yml` file for each of our packs. Before compiling, running, or testing any of our queries or libraries, you must download the proper dependencies by running `python3.9 scripts/install-packs.py`. This will download the appropriate version of the standard library from the public package registry, installing it in a cache in your `~/.codeql` directory. When compiling queries or running tests, the QL compiler will pick up the appropriate dependencies from this cache without any need to specify an additional library search path on the command line.
 
 Because the downloaded packs are cached, it is only necessary to run `install-packs.py` once each time we upgrade to a new standard library version. It does not hurt to run it more often; if all necessary packs are already in the download cache, then it will complete quickly without trying to download anything.
 

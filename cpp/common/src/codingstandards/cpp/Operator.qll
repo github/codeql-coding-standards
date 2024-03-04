@@ -1,5 +1,7 @@
 import cpp
 import Expr
+private import semmle.code.cpp.security.FileWrite
+private import codingstandards.cpp.standardlibrary.FileStreams
 
 /**
  * any assignment operator that also reads from the access
@@ -119,7 +121,7 @@ class UserAssignmentOperator extends AssignmentOperator {
 }
 
 /** An assignment operator of any sort */
-class AssignmentOperator extends MemberFunction {
+class AssignmentOperator extends Function {
   AssignmentOperator() {
     // operator op, where op is =, +=, -=, *=, /=, %=, ^=, &=, |=, >>=, <<=
     exists(string op |
@@ -127,6 +129,8 @@ class AssignmentOperator extends MemberFunction {
       op in ["=", "+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=", ">>=", "<<="]
     )
   }
+
+  predicate isLValueRefQualified() { this.(MemberFunction).isLValueRefQualified() }
 }
 
 class UserComparisonOperator extends Function {
@@ -262,6 +266,38 @@ class UserOverloadedOperator extends Function {
         ]
     ) and
     not this.isCompilerGenerated()
+  }
+}
+
+/** An implementation of a stream insertion operator. */
+class StreamInsertionOperator extends Function {
+  StreamInsertionOperator() {
+    this.hasName("operator<<") and
+    (
+      if this.isMember()
+      then this.getNumberOfParameters() = 1
+      else (
+        this.getNumberOfParameters() = 2 and
+        this.getParameter(0).getType() instanceof BasicOStreamClass
+      )
+    ) and
+    this.getType() instanceof BasicOStreamClass
+  }
+}
+
+/** An implementation of a stream extraction operator. */
+class StreamExtractionOperator extends Function {
+  StreamExtractionOperator() {
+    this.hasName("operator>>") and
+    (
+      if this.isMember()
+      then this.getNumberOfParameters() = 1
+      else (
+        this.getNumberOfParameters() = 2 and
+        this.getParameter(0).getType() instanceof IStream
+      )
+    ) and
+    this.getType() instanceof IStream
   }
 }
 
