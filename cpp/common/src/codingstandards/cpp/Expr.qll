@@ -195,7 +195,7 @@ module MisraExpr {
  */
 class UnevaluatedExprExtension extends Expr {
   UnevaluatedExprExtension() {
-    this.getChild(_).isUnevaluated()
+    this.getAChild().isUnevaluated()
     or
     exists(FunctionCall declval |
       declval.getTarget().hasQualifiedName("std", "declval") and
