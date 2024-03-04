@@ -5,13 +5,14 @@
 import cpp
 import codingstandards.cpp.Expr
 
-
 private Class getADerivedClass(Class c) {
-    not c instanceof ClassTemplateInstantiation and not c instanceof TemplateClass and result = c.getADerivedClass()
-    or
-    exists(ClassTemplateInstantiation instantiation |
-      instantiation.getADerivedClass() = result and c = instantiation.getTemplate()
-    )
+  not c instanceof ClassTemplateInstantiation and
+  not c instanceof TemplateClass and
+  result = c.getADerivedClass()
+  or
+  exists(ClassTemplateInstantiation instantiation |
+    instantiation.getADerivedClass() = result and c = instantiation.getTemplate()
+  )
 }
 
 /**
@@ -24,10 +25,8 @@ class BaseClass extends Class {
     this.isAbstract()
   }
 
-  // We don't override `getADerivedClass` because that introduces a non-monotonic recursion. 
-  Class getASubClass() {
-    result = getADerivedClass(this)
-  }
+  // We don't override `getADerivedClass` because that introduces a non-monotonic recursion.
+  Class getASubClass() { result = getADerivedClass(this) }
 }
 
 /**
