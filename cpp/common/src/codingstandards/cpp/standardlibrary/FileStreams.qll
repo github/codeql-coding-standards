@@ -12,6 +12,7 @@
 import cpp
 import codingstandards.cpp.dataflow.DataFlow
 import codingstandards.cpp.dataflow.TaintTracking
+private import codingstandards.cpp.Operator
 
 /**
  * A `basic_fstream` like `std::fstream`
@@ -23,15 +24,31 @@ class FileStream extends ClassTemplateInstantiation {
 /**
  * A `basic_istream` like `std::istream`
  */
-class IStream extends ClassTemplateInstantiation {
-  IStream() { this.getTemplate().hasQualifiedName("std", "basic_istream") }
+class IStream extends Type {
+  IStream() {
+    this.(Class).getQualifiedName().matches("std::basic\\_istream%")
+    or
+    this.getUnspecifiedType() instanceof IStream
+    or
+    this.(Class).getABaseClass() instanceof IStream
+    or
+    this.(ReferenceType).getBaseType() instanceof IStream
+  }
 }
 
 /**
  * A `basic_ostream` like `std::ostream`
  */
-class OStream extends ClassTemplateInstantiation {
-  OStream() { this.getTemplate().hasQualifiedName("std", "basic_ostream") }
+class OStream extends Type {
+  OStream() {
+    this.(Class).getQualifiedName().matches("std::basic\\_ostream%")
+    or
+    this.getUnspecifiedType() instanceof OStream
+    or
+    this.(Class).getABaseClass() instanceof OStream
+    or
+    this.(ReferenceType).getBaseType() instanceof OStream
+  }
 }
 
 /**
@@ -53,7 +70,7 @@ predicate sameStreamSource(FileStreamFunctionCall a, FileStreamFunctionCall b) {
  * Insertion `operator<<` and Extraction `operator>>` operators.
  */
 class InsertionOperatorCall extends FileStreamFunctionCall {
-  InsertionOperatorCall() { this.getTarget().(Operator).hasQualifiedName("std", "operator<<") }
+  InsertionOperatorCall() { this.getTarget() instanceof StreamInsertionOperator }
 
   override Expr getFStream() {
     result = this.getQualifier()
@@ -63,7 +80,7 @@ class InsertionOperatorCall extends FileStreamFunctionCall {
 }
 
 class ExtractionOperatorCall extends FileStreamFunctionCall {
-  ExtractionOperatorCall() { this.getTarget().(Operator).hasQualifiedName("std", "operator>>") }
+  ExtractionOperatorCall() { this.getTarget() instanceof StreamExtractionOperator }
 
   override Expr getFStream() {
     result = this.getQualifier()
