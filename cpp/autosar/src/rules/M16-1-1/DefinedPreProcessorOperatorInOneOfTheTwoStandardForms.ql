@@ -15,6 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.PreprocessorDirective
 
 //get what comes after each 'defined' used with or without parenth
 string matchesDefinedOperator(PreprocessorBranch e) {
@@ -34,12 +35,8 @@ string matchesDefinedOperator(PreprocessorBranch e) {
   )
 }
 
-from PreprocessorBranch e, string arg
+from PreprocessorIfOrElif e, string arg
 where
-  (
-    e instanceof PreprocessorIf or
-    e instanceof PreprocessorElif
-  ) and
   arg = matchesDefinedOperator(e) and
   not arg.regexpMatch("^\\w*$") and
   not isExcluded(e, MacrosPackage::definedPreProcessorOperatorInOneOfTheTwoStandardFormsQuery())

@@ -30,3 +30,13 @@ PreprocessorDirective isLocatedInAMacroInvocation(MacroInvocation m) {
     result = p
   )
 }
+
+/**
+ * An `if` or `elif` preprocessor branch.
+ */
+class PreprocessorIfOrElif extends PreprocessorBranch {
+  PreprocessorIfOrElif() {
+    this instanceof PreprocessorIf or
+    this instanceof PreprocessorElif
+  }
+}
