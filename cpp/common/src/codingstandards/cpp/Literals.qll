@@ -41,7 +41,7 @@ class CompileTimeComputedIntegralLiteral extends Literal {
     this.getUnspecifiedType() instanceof IntegralType and
     // Exclude bool, whose value text is true or false, but the value itself
     // is 1 or 0.
-    not this instanceof BoolLiteral and 
+    not this instanceof BoolLiteral and
     // Exclude character literals, whose value text is the quoted character, but the value
     // is the numeric value of the character.
     not this instanceof Cpp14Literal::CharLiteral and
