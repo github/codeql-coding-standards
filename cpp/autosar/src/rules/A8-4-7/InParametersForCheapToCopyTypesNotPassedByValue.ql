@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import TriviallySmallType
+import TriviallyCopyableSmallType
 import codingstandards.cpp.CommonTypes as CommonTypes
 import codingstandards.cpp.Class
 
@@ -26,7 +26,7 @@ import codingstandards.cpp.Class
  * In this rule, we will look cases where a "cheap to copy" type is not passed by value.
  */
 
-from Parameter v, TriviallySmallType t
+from Parameter v, TriviallyCopyableSmallType t
 where
   not isExcluded(v, ClassesPackage::inParametersForCheapToCopyTypesNotPassedByValueQuery()) and
   exists(ReferenceType rt |
