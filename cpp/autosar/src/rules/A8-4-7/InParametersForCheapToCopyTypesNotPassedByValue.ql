@@ -40,5 +40,6 @@ where
   not v.isFromUninstantiatedTemplate(_) and
   not v.isFromTemplateInstantiation(_)
 select v,
-  "Parameter '" + v.getName() + "' is the trivially copyable type '" + t.getName() +
-    "' but it is passed by reference instead of by value."
+  "Parameter '" + v.getName() +
+    "' is the trivially copyable type $@ but it is passed by reference instead of by value.", t,
+  t.getName()
