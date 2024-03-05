@@ -158,6 +158,6 @@ predicate hasInfeasiblePath(
 
 from ConditionalControlFlowNode cond, boolean infeasiblePath, string explanation
 where
-  not isExcluded(cond) and
+  not isExcluded(cond, DeadCodePackage::infeasiblePathQuery()) and
   hasInfeasiblePath(cond, infeasiblePath, explanation)
 select cond, "The " + infeasiblePath + " path is infeasible because " + explanation + "."

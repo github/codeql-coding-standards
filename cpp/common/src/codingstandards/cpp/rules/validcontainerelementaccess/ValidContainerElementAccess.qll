@@ -36,7 +36,7 @@ query predicate problems(
   ContainerInvalidationOperation cio, string actionType
 ) {
   not isExcluded(cio, getQuery()) and
-  not isExcluded(ca) and
+  not isExcluded(ca, getQuery()) and
   // The definition of an invalidation is slightly different
   // for references vs iterators -- this check ensures that the conditions
   // under which a call should be an invalidator are considered correctly.

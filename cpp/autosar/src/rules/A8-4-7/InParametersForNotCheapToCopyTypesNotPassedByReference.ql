@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import TriviallySmallType
+import TriviallyCopyableSmallType
 import codingstandards.cpp.CommonTypes as CommonTypes
 
 /*
@@ -28,12 +28,12 @@ import codingstandards.cpp.CommonTypes as CommonTypes
 from Parameter v
 where
   not isExcluded(v, ClassesPackage::inParametersForNotCheapToCopyTypesNotPassedByReferenceQuery()) and
-  not v.getType() instanceof TriviallySmallType and
+  not v.getType() instanceof TriviallyCopyableSmallType and
   not v.getType().getUnderlyingType() instanceof ReferenceType and
   not exists(CatchBlock cb | cb.getParameter() = v) and
   not v.isFromUninstantiatedTemplate(_) and
   not v.isFromTemplateInstantiation(_)
 select v,
-  "Parameter " + v.getName() +
-    " is the trivially non-copyable type $@ but it is passed by value instead of by reference.",
+  "Parameter '" + v.getName() +
+    "' is the trivially non-copyable type $@ but it is passed by value instead of by reference.",
   v.getType(), v.getType().getName()

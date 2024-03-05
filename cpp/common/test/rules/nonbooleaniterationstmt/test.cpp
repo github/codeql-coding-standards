@@ -42,3 +42,16 @@ class ClassC {
     }
   }
 };
+
+#include <vector>
+template <typename T> void test_fp_reported_in_10a(std::vector<T> &p1) {
+  for (typename std::vector<T>::iterator it = p1.begin(); it != p1.end();
+       ++it) { // COMPLIANT
+    (*it)++;
+  }
+}
+
+void test_fp_reported_in_10b() {
+  std::vector<int> vl1;
+  test_fp_reported_in_10a(vl1);
+}
