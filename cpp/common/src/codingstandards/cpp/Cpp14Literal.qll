@@ -100,6 +100,8 @@ module Cpp14Literal {
     /**
      * Gets the character of this literal. For example `L'a'` has character `"a"`.
      */
-    string getCharacter() { result = this.getValueText().regexpCapture("(?s)\\s*(L|u|U)?'(.*)'", 1) }
+    string getCharacter() {
+      result = this.getValueText().regexpCapture("(?s)\\s*(L|u|U)?'(.*)'", 1)
+    }
   }
 }
