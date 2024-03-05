@@ -84,7 +84,7 @@ predicate isGratuitousUseOfParentheses(ParenthesisExpr pe) {
 
 from ParenthesisExpr p
 where
-  not isExcluded(p) and
+  not isExcluded(p, OrderOfEvaluationPackage::gratuitousUseOfParenthesesQuery()) and
   isGratuitousUseOfParentheses(p) and
   not p.isInMacroExpansion()
 select p, "Gratuitous use of parentheses around $@.", p.getExpr(), p.getExpr().toString()

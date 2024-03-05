@@ -1,0 +1,2 @@
+ - The following queries have been updated to address issues with applying deviations:
+   - `A18-5-11`, `A23-0-1`, `A9-3-1`, `M0-1-2`, `M3-1-2`, `M3-2-1`, `M3-2-3`, `M3-9-1`, `M4-5-3`, `M5-0-2`, `M5-2-10`, `A23-0-2`, `CTR51-CPP`, `STR52-CPP`
