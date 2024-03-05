@@ -47,7 +47,7 @@ else:
 
             standard = rule[1]
             rule_id = rule[2]
-            queryable = rule[3]
+            supportable = rule[3]
             obligation_level = rule[4]
             enforcement_level = rule[5]
             allocated_targets = rule[6]
@@ -57,9 +57,9 @@ else:
             difficulty = rule[10]
             # If the rule is associated with a package
             if package:
-                if not queryable == "Yes":
+                if not supportable == "Yes":
                     print(
-                        f"ERROR: {standard} {rule_id} is included as part of package {package} but is not marked as queryable.")
+                        f"ERROR: {standard} {rule_id} is included as part of package {package} but is not marked as supportable.")
                     failed = True
                 else:
                     package_rules_from_csv[package].add(rule_id)
@@ -98,7 +98,7 @@ for rule_package_file_name in os.listdir(rule_packages_file_path):
                         failed = True
                     if not rule_id in package_rules_from_csv[package_name]:
                         print(
-                            f" - ERROR: Rule {rule_id} included in {package_name}.json but not marked as queryable in rules.csv.")
+                            f" - ERROR: Rule {rule_id} included in {package_name}.json but not marked as supportable in rules.csv.")
                         failed = True
             rules_csv_rule_ids = package_rules_from_csv[package_name]
 
