@@ -11,7 +11,7 @@ private string getConstExprValue(Variable v) {
 }
 
 /**
- * Gets the number of uses of variable `v` in an opaque assignment, where an opaqua assignment for example a cast from one type to the other and `v` is assumed to be a member of the resulting type.
+ * Gets the number of uses of variable `v` in an opaque assignment, where an opaque assignment is a cast from one type to the other, and `v` is assumed to be a member of the resulting type.
  * e.g.,
  * struct foo {
  *  int bar;
@@ -42,7 +42,7 @@ Expr getIndirectSubObjectAssignedValue(MemberVariable subobject) {
       result = externalInitializerCall
     )
     or
-    // the object this subject is part of is initialized and we assumes this initializes the subobject.
+    // the object this subject is part of is initialized and we assume this initializes the subobject.
     instanceOfSomeStruct.getType() = someStruct and
     result = instanceOfSomeStruct.getInitializer().getExpr()
   )

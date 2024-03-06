@@ -203,3 +203,11 @@ class UnevaluatedExprExtension extends Expr {
     )
   }
 }
+
+/** A class representing left and right bitwise shift operations. */
+class BitShiftExpr extends BinaryBitwiseOperation {
+  BitShiftExpr() {
+    this instanceof LShiftExpr or
+    this instanceof RShiftExpr
+  }
+}

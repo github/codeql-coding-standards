@@ -8,6 +8,8 @@ import SimpleRangeAnalysisCustomizations
 import semmle.code.cpp.controlflow.Guards
 import codingstandards.cpp.dataflow.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
+import codingstandards.cpp.Expr
+import codingstandards.cpp.UndefinedBehavior
 
 /**
  * An integer operation that may overflow, underflow or wrap.
@@ -40,7 +42,9 @@ class InterestingOverflowingOperation extends Operation {
     // Not within a macro
     not this.isAffectedByMacro() and
     // Ignore pointer arithmetic
-    not this instanceof PointerArithmeticOperation
+    not this instanceof PointerArithmeticOperation and
+    // In case of the shift operation, it must cause undefined behavior
+    (this instanceof BitShiftExpr implies this instanceof ShiftByNegativeOrGreaterPrecisionOperand)
   }
 
   /**

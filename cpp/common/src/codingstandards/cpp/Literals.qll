@@ -30,6 +30,10 @@ class Utf32StringLiteral extends StringLiteral {
   Utf32StringLiteral() { this.getValueText().regexpMatch("(?s)\\s*U\".*") }
 }
 
+class LiteralZero extends Literal {
+  LiteralZero() { this.getValue() = "0" }
+}
+
 /**
  * A literal resulting from the use of a constexpr
  * variable, or macro expansion.
