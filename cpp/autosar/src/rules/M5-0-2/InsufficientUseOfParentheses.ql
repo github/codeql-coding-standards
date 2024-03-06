@@ -16,18 +16,24 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import semmle.code.cpp.commons.Assertions
 
 class InsufficientlyParenthesizedExpr extends Expr {
   InsufficientlyParenthesizedExpr() {
-    exists(BinaryOperation root, BinaryOperation child | child = this |
-      root.getAnOperand() = child and
-      root.getOperator() != child.getOperator() and
-      not any(ParenthesisExpr pe).getExpr() = child
-    )
-    or
-    exists(ConditionalExpr root, BinaryOperation child | child = this |
-      root.getAnOperand() = child and
-      not any(ParenthesisExpr pe).getExpr() = child
+    // Exclude assertions because if the child is the expression being asserted it
+    // is not necessary to add parenthesis.
+    not any(Assertion a).getAsserted() = this and
+    (
+      exists(BinaryOperation root, BinaryOperation child | child = this |
+        root.getAnOperand() = child and
+        root.getOperator() != child.getOperator() and
+        not any(ParenthesisExpr pe).getExpr() = child
+      )
+      or
+      exists(ConditionalExpr root, BinaryOperation child | child = this |
+        root.getAnOperand() = child and
+        not any(ParenthesisExpr pe).getExpr() = child
+      )
     )
   }
 }
