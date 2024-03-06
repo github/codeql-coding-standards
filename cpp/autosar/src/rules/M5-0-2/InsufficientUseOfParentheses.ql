@@ -20,9 +20,10 @@ import semmle.code.cpp.commons.Assertions
 
 class InsufficientlyParenthesizedExpr extends Expr {
   InsufficientlyParenthesizedExpr() {
-    // Exclude assertions because if the child is the expression being asserted it
-    // is not necessary to add parenthesis.
-    not any(Assertion a).getAsserted() = this and
+    // Exclude expressions affected by macros, including assertions, because
+    // it is unclear that the expression must be parenthesized since it seems
+    // to be the top-level expression instead of an operand of a binary or ternary operation.
+    not this.isAffectedByMacro() and
     (
       exists(BinaryOperation root, BinaryOperation child | child = this |
         root.getAnOperand() = child and
