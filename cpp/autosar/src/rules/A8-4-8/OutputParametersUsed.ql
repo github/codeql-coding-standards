@@ -23,31 +23,60 @@ import codingstandards.cpp.ConstHelpers
 import codingstandards.cpp.Operator
 
 /**
- * Non-const T& and T* `Parameter`s to `Function`s
+ * Holds if p is passed as a non-const reference or pointer and is modified.
+ * This holds for in-out or out-only parameters.
  */
-class NonConstReferenceOrPointerParameterCandidate extends FunctionParameter {
-  NonConstReferenceOrPointerParameterCandidate() {
-    this instanceof NonConstReferenceParameter
-    or
-    this instanceof NonConstPointerParameter
-  }
+predicate isOutParameter(NonConstPointerorReferenceParameter p) {
+  any(VariableEffect ve).getTarget() = p
 }
 
-pragma[inline]
-predicate isFirstAccess(VariableAccess va) {
-  not exists(VariableAccess otherVa |
-    otherVa.getTarget() = va.getTarget() or
-    otherVa.getQualifier().(VariableAccess).getTarget() = va.getTarget()
-  |
-    otherVa.getASuccessor() = va
+/**
+ * Holds if parameter `p` is a parameter to a user defined assignment operator that
+ * is defined outside of a class body.
+ * These require an in-out parameter as the first argument.
+ */
+predicate isNonMemberUserAssignmentParameter(NonConstPointerorReferenceParameter p) {
+  p.getFunction() instanceof UserAssignmentOperator and
+  not p.isMember()
+}
+
+/**
+ * Holds if parameter `p` is a parameter to a stream insertion operator that
+ * is defined outside of a class body.
+ * These require an in-out parameter as the first argument.
+ *
+ * e.g., `std::ostream& operator<<(std::ostream& os, const T& obj)`
+ */
+predicate isStreamInsertionStreamParameter(NonConstPointerorReferenceParameter p) {
+  exists(StreamInsertionOperator op | not op.isMember() | op.getParameter(0) = p)
+}
+
+/**
+ * Holds if parameter `p` is a parameter to a stream insertion operator that
+ * is defined outside of a class body.
+ * These require an in-out parameter as the first argument and an out parameter for the second.
+ *
+ * e.g., `std::istream& operator>>(std::istream& is, T& obj)`
+ */
+predicate isStreamExtractionParameter(NonConstPointerorReferenceParameter p) {
+  exists(StreamExtractionOperator op | not op.isMember() |
+    op.getParameter(0) = p
+    or
+    op.getParameter(1) = p
   )
 }
 
-from NonConstReferenceOrPointerParameterCandidate p, VariableEffect ve
+predicate isException(NonConstPointerorReferenceParameter p) {
+  isNonMemberUserAssignmentParameter(p) and p.getIndex() = 0
+  or
+  isStreamInsertionStreamParameter(p)
+  or
+  isStreamExtractionParameter(p)
+}
+
+from NonConstPointerorReferenceParameter p
 where
   not isExcluded(p, ConstPackage::outputParametersUsedQuery()) and
-  ve.getTarget() = p and
-  isFirstAccess(ve.getAnAccess()) and
-  not ve instanceof AnyAssignOperation and
-  not ve instanceof CrementOperation
-select p, "Out parameter " + p.getName() + " that is modified before being read."
+  isOutParameter(p) and
+  not isException(p)
+select p, "Out parameter '" + p.getName() + "' used."

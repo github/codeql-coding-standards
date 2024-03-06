@@ -223,10 +223,19 @@ private predicate firstReliableProvide(File f, File g, int line) {
 
 cached
 predicate mayProvideFirst(IncludeDepends i, File g) {
-  // i may provide g and does not come after a reliable include of g.
+  // i may provide g
   i.provides(g) and
-  not exists(int line | firstReliableProvide(i.getFile(), g, line) |
-    line < i.getLocation().getStartLine()
+  (
+    // and does not come after a reliable include of g.
+    not exists(int line | firstReliableProvide(i.getFile(), g, line) |
+      line < i.getLocation().getStartLine()
+    )
+    or
+    // or it comes after a reliable include of g, and although redundant,
+    // is not necessarily an issue e.g. in the case of libraries with
+    // public header forwards to an internal header.
+    // therefore, hold for transitive includes as well to exclude those results.
+    not i.getIncludedFile() = g
   )
 }
 
