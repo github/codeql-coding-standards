@@ -18,7 +18,7 @@ where
   not f.getName().matches("operator \"%") and
   // Restrict to declarations in `std` namespace as the global namespace in a real database
   // includes many functions outside the C/C++ standard library.
-  declInStdNamespace(f) and
+  declInVisibleStdNamespace(f) and
   // In practice there aren't any internal linkage functions specified by the C++ standard
   (if hasExternalLinkage(f) then linkage = "external" else linkage = "internal") and
   if f instanceof MemberFunction

@@ -13,15 +13,18 @@ string getStandard() {
   )
 }
 
-predicate declInStdNamespace(Declaration d) { inStdNamespace(d.getNamespace()) }
+predicate declInVisibleStdNamespace(Declaration d) { inVisibleStdNamespace(d.getNamespace()) }
 
 /**
- * Holds if the given namespace is inside a `std` namespace.
+ * Holds if the given namespace is inside a `std` namespace, and not in a `__detail` namespace.
  */
-predicate inStdNamespace(Namespace namespace) {
-  namespace instanceof StdNS
-  or
-  inStdNamespace(namespace.getParentNamespace())
+predicate inVisibleStdNamespace(Namespace namespace) {
+  not namespace.getName() = "__detail" and
+  (
+    namespace instanceof StdNS
+    or
+    inVisibleStdNamespace(namespace.getParentNamespace())
+  )
 }
 
 private string getParentName(Namespace namespace) {
