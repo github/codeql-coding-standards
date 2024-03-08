@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from pathlib import Path
 import re
 import yaml
 
@@ -18,14 +19,10 @@ parser.add_argument(
 parser.add_argument(
     "input_file", help="the input file containing the list of APIs copied from Appendix B of the C Standard Library document")
 
-parser.add_argument(
-    "output_file", help="the output file to write the models-as-data file to")
-
 args = parser.parse_args()
 
 input_file = args.input_file
 standard = args.standard
-output_file = args.output_file
 
 # Extract the header name from a header line
 header_regex = re.compile(r".*<(.+)>")
@@ -183,6 +180,11 @@ yaml_output = {
     ]
 }
 
+generate_standard_library_home = Path(__file__).resolve().parent
+root = generate_standard_library_home.parent.parent.parent
+common_codingstandards_ext_output = root.joinpath('cpp', 'common', 'src', 'ext',f"std{ standard.lower() }.generated.names.model.yml")
+
 # Write the models-as-data file to YAML
-with open(output_file, 'w') as file:
+with open(common_codingstandards_ext_output, 'w') as file:
     yaml.dump(yaml_output, file, default_flow_style=None, width=3000)
+    print("Wrote models-as-data file to " + str(common_codingstandards_ext_output) + " for " + standard + " C Standard Library.")
