@@ -20,7 +20,7 @@ import codingstandards.cpp.Scope
 
 from DeclarationEntry de, DeclarationEntry otherDeclaration, string kind
 where
-  not isExcluded(de) and
+  not isExcluded(de, ScopePackage::multipleDeclarationViolationQuery()) and
   exists(Declaration d |
     de.getDeclaration() = d and
     otherDeclaration.getDeclaration() = d and

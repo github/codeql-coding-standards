@@ -22,7 +22,10 @@
 | 0.14.0  | 2022-11-03 | Remco Vermeulen | Add guideline recategorization plan.                                                                                    |
 | 0.15.0  | 2023-05-24 | Mauro Baluda    | Clarify AUTOSAR C++ supported versions.                                                                                 |
 | 0.16.0  | 2023-07-03 | Luke Cartey     | Remove reference to LGTM, update the name of the query pack                                                             |
-| 0.17.0  | 2023-08-16 | Luke Cartey     | Update list of supported compiler configurations.                                                             |
+| 0.17.0  | 2023-08-16 | Luke Cartey     | Update list of supported compiler configurations.                                                                       |
+| 0.18.0  | 2024-01-30 | Luke Cartey     | Update product description and coverage table.                                                                          |
+| 0.19.0  | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9.                                                                         |
+| 0.20.0  | 2024-02-23 | Remco Vermeulen | Add table describing the permitted guideline re-categorizations.                                                        |
 
 ## Release information
 
@@ -35,7 +38,8 @@ The release page documents the release notes and contains the following artifact
 - `user_manual_2.22.0-dev.md`: This user manual.
 - `Source Code (zip)`: A zip archive containing the contents of https://github.com/github/codeql-coding-standards
 - `Source Code (tar.gz)`: A GZip compressed tar archive containing the contents of https://github.com/github/codeql-coding-standards
-- `checksums.txt`: A text file containing sha256 checksums for the aforementioned artifacts. 
+- `checksums.txt`: A text file containing sha256 checksums for the aforementioned artifacts.
+
 ## Introduction
 
 ### Background
@@ -48,24 +52,27 @@ A _coding standard_ is a set of rules or guidelines which restrict or prohibit t
 
 The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying contraventions of rules in the following coding standards:
 
-| Standard                                                                                                             | Version | Total rules | Total supportable rules | Status            |
-| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf) | [^1] R22-11, R21-11, R20-11, R19-11, R19-03 | 397         | 375                     | Implemented       |
-| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented       |
-| [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 99                      | Under development |
-| [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 172         | 169                     | Under development |
+| Standard                                                                                                             | Version | Rules | Supportable rules | Implemented rules | Status            |
+| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- | ------- |
+| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf) | [^1] R22-11, R21-11, R20-11, R19-11, R19-03 | 397         | 372                     | 370[^2] | Implemented       |
+| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 82                      | 82 | Implemented       |
+| [CERT C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 99          | 97                      | 97 | Implemented |
+| [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)                                | 2012    | 175         | 164                     | 162[^3] | Implemented |
 
+Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
 
-Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in the our representation of the codebase under analysis. For each rule we therefore identify whether it is supportable or not. Furthermore, a rule can be supported in two ways:
+For each rule we therefore identify whether it is supportable or not. Furthermore, a rule can be supported in two ways:
 
-   - **Automated** - the queries for the rule find contraventions directly.
-   - **Audit only** - the queries for the rule does not find contraventions directly, but instead report a list of _candidates_ that can be used as input into a manual audit. For example, `A10-0-1` (_Public inheritance shall be used to implement 'is-a' relationship_) is not directly amenable to static analysis, but CodeQL can be used to produce a list of all the locations that use public inheritance so they can be manually reviewed.
+- **Automated** - the queries for the rule find contraventions directly.
+- **Audit only** - the queries for the rule does not find contraventions directly, but instead report a list of _candidates_ that can be used as input into a manual audit. For example, `A10-0-1` (_Public inheritance shall be used to implement 'is-a' relationship_) is not directly amenable to static analysis, but CodeQL can be used to produce a list of all the locations that use public inheritance so they can be manually reviewed.
 
 Each supported rule is implemented as one or more CodeQL queries, with each query covering an aspect of the rule. In many coding standards, the rules cover non-trivial semantic properties of the codebase under analysis.
 
 The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each release, lists which rules are supported for that particular release, and the _scope of analysis_ for that rule.
 
 [^1]: AUTOSAR C++ versions R22-11, R21-11, R20-11, R19-11 and R19-03 are all identical as indicated in the document change history.
+[^2]: The unimplemented supportable AUTOSAR rules are `A7-1-8` and `A8-2-1`. These rules require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules.
+[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5` and `Dir 4.14`. `Rule 9.5` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
 
 ## Supported environment
 
@@ -75,8 +82,8 @@ This section describes the supported environment for the product.
 
 To run the "CodeQL Coding Standards" queries two additional components are required:
 
- - The CodeQL CLI - this is the command line tool for creating CodeQL databases and running CodeQL queries.
- - The CodeQL Standard Library for C++ - this provides the common CodeQL query libraries used in the implementation of the CodeQL Coding Standards queries.
+- The CodeQL CLI - this is the command line tool for creating CodeQL databases and running CodeQL queries.
+- The CodeQL Standard Library for C++ - this provides the common CodeQL query libraries used in the implementation of the CodeQL Coding Standards queries.
 
 Refer to the release notes for the selected release to determine which versions of these dependencies are supported or required.
 
@@ -99,10 +106,11 @@ For C++ the codebase under analysis must comply with C++14 and use one of the fo
 | qcc      | 8.3.0   | libc++ (default)    | gcc_ntoaarch64le_cxx  | -std=c++14 -D_QNX_SOURCE -nopipe |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
- - Use of the queries against codebases written with more recent versions of C++ (as supported by CodeQL) are not validated in the following circumstances:
-   - When new language features are used
-   - When language features are used which have a differing interpretation from C++14.
- - Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL is not tested or validated for functional safety.
+
+- Use of the queries against codebases written with more recent versions of C++ (as supported by CodeQL) are not validated in the following circumstances:
+  - When new language features are used
+  - When language features are used which have a differing interpretation from C++14.
+- Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL is not tested or validated for functional safety.
 
 #### C
 
@@ -110,23 +118,24 @@ For C the codebase under analysis must comply with C99 or C11 and use one of the
 
 | Compiler | Version | Standard library    | Target architecture   | Required Flags             |
 | -------- | ------- | ------------------- | --------------------- | -------------------------- |
-| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | -std=c11                   |
-| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | -std=c11                   |
-| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | -std=c11 -nopipe           |
+| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
+| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
+| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | `-std=c11 -nopipe` or `-std=c99 -nopipe` |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
- - Use of the queries against codebases written with more recent versions of C (as supported by CodeQL) are not validated in the following circumstances:
-   - When new language features are used
-   - When language features are used which have a differing interpretation from C11.
- - Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL (e.g. gcc) is not tested or validated for functional safety.
+
+- Use of the queries against codebases written with more recent versions of C (as supported by CodeQL) are not validated in the following circumstances:
+  - When new language features are used
+  - When language features are used which have a differing interpretation from C11.
+- Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL (e.g. gcc) is not tested or validated for functional safety.
 
 ### Analysis report requirements
 
 The Coding Standards ships with scripts to generate reports that summarizes:
 
- - The integrity and validity of the CodeQL database created for the project.
- - The findings reported by the default queries for the selected Coding Standards, grouped by categories as specified by MISRA Compliance 2020.
- - The CodeQL dependencies used for the analysis, and whether they comply with the stated requirements.
+- The integrity and validity of the CodeQL database created for the project.
+- The findings reported by the default queries for the selected Coding Standards, grouped by categories as specified by MISRA Compliance 2020.
+- The CodeQL dependencies used for the analysis, and whether they comply with the stated requirements.
 
 The environment used to generate these reports requires:
 
@@ -144,11 +153,13 @@ This section describes how to operate the "CodeQL Coding Standards".
 You must download a compatible version of the CodeQL CLI and CodeQL Standard Library for C++.
 
 **Option 1:** Use the CodeQL CLI bundle, which includes both required components:
+
  1. Download the CodeQL CLI bundle from the [`github/codeql-action` releases page](https://github.com/github/codeql-action/releases).
  2. Expand the compressed archive to a specified location on your machine.
  3. [Optional] Add the CodeQL CLI to your user or system path.
 
 **Option 2:** Fetch the components separately:
+
  1. Download the CodeQL CLI from the [`github/codeql-cli-binaries` releases page](https://github.com/github/codeql-cli-binaries/releases)
  2. Expand the compressed archive to a specified location on your machine.
  3. Using `git`, clone the [`github/codeql`](https://github.com/github/codeql) repository to a sibling directory of the CodeQL CLI. The `github/codeql` repository contains the CodeQL Standard Library for C++.
@@ -160,8 +171,8 @@ The release notes for the "CodeQL Coding Standards" pack you are using will spec
 
 In order to run the Coding Standards queries you must first build a CodeQL database representing the program. You will need the following pre-requisites:
 
- - A machine with the source code available locally.
- - A clean build command for the project, which compiles all relevant source code locally on the machine without failure. Incremental and distributed builds must be disabled. The build command must be tested prior to configuring the CodeQL CLI and confirmed to compile all relevant files and return a zero exit code to indicate success.
+- A machine with the source code available locally.
+- A clean build command for the project, which compiles all relevant source code locally on the machine without failure. Incremental and distributed builds must be disabled. The build command must be tested prior to configuring the CodeQL CLI and confirmed to compile all relevant files and return a zero exit code to indicate success.
 
 The database can be created using the CodeQL CLI like so:
 
@@ -179,9 +190,10 @@ Once you have a CodeQL database for your project, you can run the "default" quer
 
 The query suites can be run by using the `codeql database analyze` command:
 
-```
+```bash
 codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-default.qls...
 ```
+
 For each Coding Standard you want to run, add a trailing entry in the following format: `path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-default.qls`.
 
 The only supported SARIF version for use in a functional safety environment is version 2.1.0.
@@ -189,8 +201,9 @@ To select this SARIF version you **must** specify the flag `--format=sarifv2.1.0
 
 Running the default analysis for one or more Coding Standards may require further performance customizations for larger codebases.
 The following flags may be passed to the `database analyze` command to adjust the performance:
- - `--ram` - to specify the maximum amount of RAM to use during the analysis as [documented](https://codeql.github.com/docs/codeql-cli/manual/database-analyze/#options-to-control-ram-usage) in the CodeQL CLI manual.
- - `--thread` - to specify number of threads to use while evaluating as [documented](https://codeql.github.com/docs/codeql-cli/manual/database-analyze/#cmdoption-codeql-database-analyze-j) in the CodeQL CLI manual.
+
+- `--ram` - to specify the maximum amount of RAM to use during the analysis as [documented](https://codeql.github.com/docs/codeql-cli/manual/database-analyze/#options-to-control-ram-usage) in the CodeQL CLI manual.
+- `--thread` - to specify number of threads to use while evaluating as [documented](https://codeql.github.com/docs/codeql-cli/manual/database-analyze/#cmdoption-codeql-database-analyze-j) in the CodeQL CLI manual.
 
 The output of this command will be a [SARIF file](https://sarifweb.azurewebsites.net/) called `<name-of-results-file>.sarif`.
 
@@ -198,7 +211,7 @@ The output of this command will be a [SARIF file](https://sarifweb.azurewebsites
 
 Optionally, you may want to run the "audit" level queries. These queries produce lists of results that do not directly highlight contraventions of the rule. Instead, they identify locations in the code that can be manually audited to verify the absence of problems for that particular rule.
 
-```
+```bash
 codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-audit.qls...
 ```
 
@@ -207,60 +220,62 @@ For each Coding Standard you want to run, add a trailing entry in the following 
 #### Producing an analysis report
 
 In addition to producing a results file, an analysis report can be produced that summarizes:
- - The integrity and validity of the CodeQL database created for the project.
- - The findings reported by the default queries for the selected Coding Standards, grouped by categories as specified by MISRA Compliance 2020.
- - The CodeQL dependencies used for the analysis, and whether they comply with the stated requirements.
+
+- The integrity and validity of the CodeQL database created for the project.
+- The findings reported by the default queries for the selected Coding Standards, grouped by categories as specified by MISRA Compliance 2020.
+- The CodeQL dependencies used for the analysis, and whether they comply with the stated requirements.
 
 To run this script, the CodeQL CLI part of a supported CodeQL Bundle and Python interpreter version 3.9 must be available on the system path.
 
-```
-python3 scripts/reports/analysis_report.py path/to/<output_database_name> <name-of-results-file>.sarif <output_directory>
+```bash
+python3.9 scripts/reports/analysis_report.py path/to/<output_database_name> <name-of-results-file>.sarif <output_directory>
 ```
 
 This will produce a directory (`<output_directory>`) containing the following report files in markdown format:
 
- - A **Guideline Compliance Summary** (GCS) which meets the requirements specified by the [MISRA Compliance 2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) document, and providing a summary of:
-   - Whether the analysis reports that the project is "Compliance".
-   - Which Coding Standards were applied.
-   - The versions of the CodeQL CLI, CodeQL Standard Library for C/C++ and the CodeQL Coding Standards queries used to perform the analysis.
-   - Count of violations of guidelines by guideline category ("Required", "Advisory")
-   - A list of the guidelines checked, and the status of each guideline ("Compliant", "Violations", "Deviations").
-     - **Note:** The `Deviations` status is **only** shown when the database has been build with a configuration to *report deviated alerts* and analyzed with a *deviation alert suppression query*. The section on *Deviation records* outlines how this can be achieved.
- - An **Analysis Integrity Report** which summarizes any issues that were identified in the creation of the database, which can be reviewed to determine the extent to which these issues may have impacted the generated results. This includes:
-   - A list of recoverable errors, where a specific piece of syntax was not handled, but the error could be recovered from. These a further sub-divided into "user code" errors and "third-party" errors.
-   - A list of unrecoverable errors, which affect either entire files or entire compilations. These are also further sub-divided into "user code" errors and "third-party" errors.
-   - A list of the files analyzed.
- - A **Deviations Report** which reports the deviation records that where included during the creation of the database, which can be used to audit the applied deviations. The includes:
-   - A table of deviation records for which we list:
-     - An identifier for the coding standards rule the deviation applies to.
-     - The query identifier that implements the guideline.
-     - An inferred scope that shows the files or code-identifier the deviation is applied to.
-     - A textual description of the scope when the deviation can be applied.
-     - A textual justification of the deviation.
-     - A textual description of background information.
-     - A textual description of the requirements which must be satisfied to use the deviation.
-   - A table of invalid deviation records for which we list:
-     - The location of the invalid deviation record in the database.
-     - The reason why it is considered invalid.
-   - A table of deviation permits for which we list:
-     - An identifier that identifies the permit.
-     - An identifier for the coding standards rule the deviation applies to.
-     - The query identifier that implements the guideline.
-     - An inferred scope that shows the files or code-identifier the deviation is applied to.
-     - A textual description of the scope when the deviation can be applied.
-     - A textual justification of the deviation.
-     - A textual description of background information.
-     - A textual description of the requirements which must be satisfied to use the deviation.
-   - A table of invalid deviation permits for which we list:
-     - The location of the invalid permit in the database.
-     - The reason why it is considered invalid.
+- A **Guideline Compliance Summary** (GCS) which meets the requirements specified by the [MISRA Compliance 2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) document, and providing a summary of:
+  - Whether the analysis reports that the project is "Compliance".
+  - Which Coding Standards were applied.
+  - The versions of the CodeQL CLI, CodeQL Standard Library for C/C++ and the CodeQL Coding Standards queries used to perform the analysis.
+  - Count of violations of guidelines by guideline category ("Required", "Advisory")
+  - A list of the guidelines checked, and the status of each guideline ("Compliant", "Violations", "Deviations").
+    - **Note:** The `Deviations` status is **only** shown when the database has been build with a configuration to _report deviated alerts_ and analyzed with a _deviation alert suppression query_. The section on _Deviation records_ outlines how this can be achieved.
+- An **Analysis Integrity Report** which summarizes any issues that were identified in the creation of the database, which can be reviewed to determine the extent to which these issues may have impacted the generated results. This includes:
+  - A list of recoverable errors, where a specific piece of syntax was not handled, but the error could be recovered from. These a further sub-divided into "user code" errors and "third-party" errors.
+  - A list of unrecoverable errors, which affect either entire files or entire compilations. These are also further sub-divided into "user code" errors and "third-party" errors.
+  - A list of the files analyzed.
+- A **Deviations Report** which reports the deviation records that where included during the creation of the database, which can be used to audit the applied deviations. The includes:
+  - A table of deviation records for which we list:
+    - An identifier for the coding standards rule the deviation applies to.
+    - The query identifier that implements the guideline.
+    - An inferred scope that shows the files or code-identifier the deviation is applied to.
+    - A textual description of the scope when the deviation can be applied.
+    - A textual justification of the deviation.
+    - A textual description of background information.
+    - A textual description of the requirements which must be satisfied to use the deviation.
+  - A table of invalid deviation records for which we list:
+    - The location of the invalid deviation record in the database.
+    - The reason why it is considered invalid.
+  - A table of deviation permits for which we list:
+    - An identifier that identifies the permit.
+    - An identifier for the coding standards rule the deviation applies to.
+    - The query identifier that implements the guideline.
+    - An inferred scope that shows the files or code-identifier the deviation is applied to.
+    - A textual description of the scope when the deviation can be applied.
+    - A textual justification of the deviation.
+    - A textual description of background information.
+    - A textual description of the requirements which must be satisfied to use the deviation.
+  - A table of invalid deviation permits for which we list:
+    - The location of the invalid permit in the database.
+    - The reason why it is considered invalid.
 
 #### Applying deviations
 
 The CodeQL Coding Standards supports the following features from the [MISRA Compliance 2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) document:
- - _Deviation records_ - an entry that states a particular instance, or set of instances, of a rule should be considered permitted.
- - _Deviation permit_ - an entry that provides authorization to apply a deviation to a project.
- - _Guideline recategorization plan_ - an agreement on how the guidelines are applied. Whether a guideline may be violated, deviated from, or must always be applied.
+
+- _Deviation records_ - an entry that states a particular instance, or set of instances, of a rule should be considered permitted.
+- _Deviation permit_ - an entry that provides authorization to apply a deviation to a project.
+- _Guideline re-categorization plan_ - an agreement on how the guidelines are applied. Whether a guideline may be violated, deviated from, or must always be applied.
 
 ##### Deviation records
 
@@ -275,15 +290,16 @@ The rational for the default behavior is that GitHub Code Scanning does not supp
 **Note:** It is important to create a database with the property `report-deviated-alerts: true` set and analyzed with the alert suppression query `path/to/codeql-coding-standards/cpp/common/src/codingstandards/cpp/deviations/DeviationsSuppression.ql` when the **Guideline Compliance Summary Report** **must** include deviation statuses!
 
 The current implementation of the  `coding-standards.yml` specification supports the `deviations` section with the following keys:
+
 - `rule-id` - An identifier for the coding standards rule the deviation applies to. This matches the rule id format specified in the documentation (e.g., `A1-0-1`)
-- `query-id` - An identifier for the query (as specified by the `@id` property of the query) that can be used to specify a deviation for *sub-category* of rule (as defined by a query). If the `query-id` is specified , the `rule-id` property should also be specified.
+- `query-id` - An identifier for the query (as specified by the `@id` property of the query) that can be used to specify a deviation for _sub-category_ of rule (as defined by a query). If the `query-id` is specified , the `rule-id` property should also be specified.
 - `justification` - An short textual justification of the deviation.
-- `scope` - An *optional* short textual description of when this deviation can be applied. This will be combined with any automatically deduced scope for the deviation.
+- `scope` - An _optional_ short textual description of when this deviation can be applied. This will be combined with any automatically deduced scope for the deviation.
 - `background` - Any relevant background information.
-- `requirements` - One or more *requirements* which must be satisfied to use this deviation.
-- `paths` - An *optional* set of paths, relative to the deviations file, specify either a directory or file to which this deviation should be applied.
-- `code-identifier` - An *optional* identifier which can be placed in the source code at locations where this deviation should be applied.
-- `permit-id` - An *optional* identifier which links to a deviation permit, from which some of the properties can be inherited.
+- `requirements` - One or more _requirements_ which must be satisfied to use this deviation.
+- `paths` - An _optional_ set of paths, relative to the deviations file, specify either a directory or file to which this deviation should be applied.
+- `code-identifier` - An _optional_ identifier which can be placed in the source code at locations where this deviation should be applied.
+- `permit-id` - An _optional_ identifier which links to a deviation permit, from which some of the properties can be inherited.
 - `raised-by` - A compact mapping, if specified requires the specification of `approved-by`, that includes:
   - `name` - The name, handle or other identifier of the user who raised the request
   - `date` - The date on which they raised the request.
@@ -309,12 +325,14 @@ deviations:
 ```
 
 The example describes three ways of scoping a deviation:
+
 1. The deviation for `A18-1-1` applies to any source file in the same or a child directory of the directory containing the example `coding-standards.yml`.
 2. The deviation for `A18-5-1` applies to any source file in the directory `foo/bar` or a child directory of `foo/bar` relative to the directory containing the `coding-standards.yml`.
 3. The deviation for `A0-4-2` applies to any source element that has a comment residing on **the same line** containing the identifier specified in `code-identifier`.
 
 The activation of the deviation mechanism requires an extra step in the database creation process.
 This extra step is the invocation of the Python script `path/to/codeql-coding-standards/scripts/configuration/process_coding_standards_config.py` that is part of the coding standards code scanning pack.
+To run this script, a Python interpreter version 3.9 must be available on the system path.
 The script should be invoked as follows:
 
 ```bash
@@ -323,12 +341,11 @@ codeql database create --language cpp --command 'python3 path/to/codeql-coding-s
 
 The `process_coding_standards_config.py` has a dependency on the package `pyyaml` that can be installed using the provided PIP package manifest by running the following command:
 
-`pip install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
-
+`pip3 install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
 
 ##### Deviation permit
 
-The current implementation supports _deviation permits_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section *4.3 Deviation permits*.
+The current implementation supports _deviation permits_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _4.3 Deviation permits_.
 
 Deviation permits are a mechanism to simplify the documentation of many deviations by allowing _deviation records_ to inherit properties from a _deviation permit_. A _deviation record_ can inherit the following properties that are documented in the section on _Deviation records_:
 
@@ -386,16 +403,28 @@ Unlike _deviation records_ their location in the source directory does not impac
 This means that _deviation permits_ can be made available at build time by any means available.
 An example of importing _deviation permits_ is through a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that contains a repository of allowed _deviation permits_.
 
-##### Guideline recategorization plan
+##### Guideline re-categorization plan
 
-The current implementation supports a _guideline recategorization plan_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section *5 The guideline re-categorization plan*.
+The current implementation supports a _guideline re-categorization plan_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _5 The guideline re-categorization plan_.
 
-A recategorization plan provides a mechanism to adjust the policy associated with a guideline that determines whether it may be violated or not and if it may be violated whether a deviation is required.
-Each guideline recategorization **must** be specified in the `guideline-recategorizations` section of a  `coding-standards.yml` file that **must** be anywhere in the source repository.
+A re-categorization plan provides a mechanism to adjust the policy associated with a guideline that determines whether it may be violated or not and if it may be violated whether a deviation is required.
 
-A guideline recategorization specification **must** specify a `rule-id`, an identifier for the coding standards rule the recategorization applies to, and a `category`, a category that can be any of `disapplied`, `advisory`, `required`, or `mandatory`.
+The implementation follows the constraints on re-categorization as described in [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _5.1 Re-categorization_.
 
-An example guideline recategorization section is:
+The following tables described the re-categorizations are permitted.
+
+| Current Category | Revised Category | Revised Category | Revised Category | Revised Category |
+| --- | --- | --- | --- | --- |
+| | Mandatory | Required | Advisory | Disapplied |
+| Mandatory | Permitted |  | | |
+| Required | Permitted | Permitted | | |
+| Advisory | Permitted | Permitted | Permitted | Permitted |
+
+Each guideline re-categorization **must** be specified in the `guideline-recategorizations` section of a `coding-standards.yml` file that **must** be anywhere in the source repository.
+
+A guideline re-categorization specification **must** specify a `rule-id`, an identifier for the coding standards rule the re-categorization applies to, and a `category`, a category that can be any of `disapplied`, `advisory`, `required`, or `mandatory`.
+
+An example guideline re-categorization section is:
 
 ```yaml
 guideline-recategorizations:
@@ -407,7 +436,7 @@ guideline-recategorizations:
     category: "mandatory"
 ```
 
-Application of the guideline recategorization plan to the analysis results requires an additional post-processing step.
+Application of the guideline re-categorization plan to the analysis results requires an additional post-processing step.
 The post-processing step is implemented by the Python script `path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py`.
 The script will update the `external/<standard>/obligation/<category>` tag for each query implementing a recategorized guideline such that `<category>` is equal to the new category and
 add the tag `external/<standard>/original-obligation/<category` to each query implementing a recategorized guideline such that `<category>` reflects the orignal category.
@@ -415,7 +444,7 @@ add the tag `external/<standard>/original-obligation/<category` to each query im
 The script should be invoked as follows:
 
 ```bash
-python3 path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py coding_standards_config_file <sarif_in> <sarif_out>
+python3.9 path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py coding_standards_config_file <sarif_in> <sarif_out>
 ```
 
 The `recategorize.py` scripts has a dependencies on the following Python packages that can be installed with the command `pip install -r path/to/codeql-coding-standards/scripts/guideline_recategorization/requirements.txt`:
@@ -438,8 +467,8 @@ The schema files **must** be available in the same directory as the `recategoriz
 
 The only use cases that will be certified under ISO 26262 are those listed above. CodeQL Coding Standards is also compatible with, but not certified for, the following use cases:
 
- - Creating databases and running the CodeQL Coding Standards queries with the [CodeQL Action](https://github.com/github/codeql-action) (for GitHub Actions CI/CD system).
- - Uploading the SARIF results files for a CodeQL Coding Standards analysis to the GitHub [Code Scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) feature.
+- Creating databases and running the CodeQL Coding Standards queries with the [CodeQL Action](https://github.com/github/codeql-action) (for GitHub Actions CI/CD system).
+- Uploading the SARIF results files for a CodeQL Coding Standards analysis to the GitHub [Code Scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) feature.
 
 ### Hazard and risk analysis
 
@@ -472,7 +501,7 @@ This section describes known failure modes for "CodeQL Coding Standards" and des
 |                              | Incorrect deviation permit specification                                                                                                                           | More output. Results are reported for guidelines for which a deviation is assigned.                                                                       | Analysis integrity report lists all deviations and incorrectly specified deviation permits with a reason. Ensure that all deviation permits are correctly specified.                                                                                                                                                                 | Ensure that the deviation record is specified according to the specification in the user manual.                                                                                                                                                                                                                                                                           |
 |                              | Unapproved use of a deviation record                                                                                                                               | Less output. Results for guideline violations are not reported.                                                                                           | Validate that the deviation record use is approved by verifying the approved-by attribute of the deviation record specification.                                                                                                                                                                                                     | Ensure that each raised deviation record is approved by an independent approver through an auditable process.                                                                                                                                                                                                                                                              |
 |                              | Incorrect database. The information extracted by the CodeQL extractor deviates from what the compiler extracts resulting in an incorrect model of the source-code. | More or less output. Incorrect extraction can result in false positives or false negatives.                                                               | Combinations of supported compilers and CodeQL CLIs are tested against a [provided](https://github.com/github/codeql/tree/main/cpp/ql/test/library-tests) suite of test cases and a coding standards specific test suite to determine if the extracted information deviates from the expected information.                           | Report incorrect database issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                                                                  |
+
 ## Reporting bugs
 
 A bug tracker is provided on the [`github/codeql-coding-standards`](https://github.com/github/codeql-coding-standards) repository [issues page](https://github.com/github/codeql-coding-standards/issues). New issues can be filed on the [New Issues](https://github.com/github/codeql-coding-standards/issues/new/choose) page.
-

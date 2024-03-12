@@ -73,3 +73,28 @@ void test_pointer() {
   p++; // COMPLIANT - not covered by this rule
   p--; // COMPLIANT - not covered by this rule
 }
+
+extern unsigned int popcount(unsigned int);
+#define PRECISION(x) popcount(x)
+void test_guarded_shifts(unsigned int p1, int p2) {
+  unsigned int l1;
+
+  if (p2 < popcount(p1) && p2 > 0) {
+    l1 = p1 << p2; // COMPLIANT
+  }
+
+  if (p2 < PRECISION(p1) && p2 > 0) {
+    l1 = p1 << p2; // COMPLIANT
+  }
+
+  if (p2 < popcount(p1)) {
+    l1 = p1 << p2; // NON_COMPLIANT - p2 could be negative
+  }
+
+  if (p2 > 0) {
+    l1 = p1 << p2; // NON_COMPLIANT - p2 could have a higher precision
+  }
+
+  l1 = p1 << p2; // NON_COMPLIANT - p2 may have a higher precision or could be
+                 // negative
+}
