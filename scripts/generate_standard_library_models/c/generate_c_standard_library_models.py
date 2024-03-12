@@ -27,7 +27,7 @@ standard = args.standard
 # Extract the header name from a header line
 header_regex = re.compile(r".*<(.+)>")
 # Extract return signature, function name and parameter signature from a function line
-function_regex = re.compile(r"(?P<return_signature>.+) (?P<function_name>[^\s]+)(?P<parameter_signature>\(.+\));.*")
+function_regex = re.compile(r"(?P<return_signature>.+ \(?\*?)(?P<function_name>[^\s\(\)]+)(?P<parameter_signature>\(([^\(]|\([^\)]*\))+\))(?P<trailing_return>\)\(.*\))?;.*")
 # Extract macro name and parameter signature from a function-like-macro line
 function_like_macro_regex = re.compile(r"(?P<macro_name>[^\s]+)(?P<macro_parameters>\(.+\))")
 # Extract the prefix/postfix for a macro containing a `N` size replacement
@@ -80,6 +80,12 @@ for row in rows:
         if match:
           # This is a function
           components = match.groupdict()
+          if "trailing_return" in components and components["trailing_return"]:
+              # Function returns a function pointer, reconstruct from leading and trailing components
+              return_type = components["return_signature"] + components["function_name"] + components["trailing_return"]
+          else:
+              # Otherwise a non-function return type
+              return_type = components["return_signature"].strip()
           functions.append([
                 # standard
                 standard,
@@ -91,7 +97,7 @@ for row in rows:
                 "",
                 # name
                 components["function_name"],
-                components["return_signature"],
+                return_type,
                 components["parameter_signature"],
                 # linkage: C Standard specifies that all library functions have external linkage
                 "external"
