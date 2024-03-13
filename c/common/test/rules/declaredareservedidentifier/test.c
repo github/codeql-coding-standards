@@ -22,7 +22,7 @@ void *malloc(int bytes) { // NON_COMPLIANT
 }
 
 extern int
-    errno; // NON_COMPLIANT - eerno is reserved as both a macro and identifier
+    errno; // NON_COMPLIANT - errno is explicitly reserved for external linkage
 
 void output(int a, int b, int c);
 
@@ -35,7 +35,7 @@ void test() {
   __PRETTY_FUNCTION__; // COMPLIANT - use, not declaration of
                        // `__PRETTY_FUNCTION__`
 }
-
+#include <tgmath.h>
 void test2(int log); // NON_COMPLIANT - tgmath.h defines log as a reserved macro
 
 /* Test _[A-Z] */
@@ -92,22 +92,26 @@ struct _test_struct { // NON_COMPLIANT - _ is reserved in the tag name space
   x // NON_COMPLIANT - _ is reserved for for file scope names and so cannot be
     // used as a macro name
 
-/* Identify names reserved as a macro. */
-
-int NDEBUG;       // NON_COMPLIANT - NDEBUG is reserved as a macro name
-void EDOM(        // NON_COMPLIANT - EDOM is reserved as a macro name
-    int ERANGE) { // NON_COMPLIANT - ERANGE is reserved as a macro name
-  int NDEBUG;     // NON_COMPLIANT - NDEBUG is reserved as a macro name
-  struct NDEBUG { // NON_COMPLIANT - NDEBUG is reserved as a macro name
-    int NDEBUG;   // NON_COMPLIANT - NDEBUG is reserved as a macro name
+/* Identify names reserved as a macro when the relevant header is included. */
+int FE_INEXACT;    // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
+void FE_DIVBYZERO( // NON_COMPLIANT - FE_DIVBYZERO is reserved as a macro name
+    int FE_INEXACT) { // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
+  int FE_INVALID;     // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
+  struct FE_INEXACT { // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
+    int FE_INEXACT;   // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
   };
 }
-struct NDEBUG { // NON_COMPLIANT - NDEBUG is reserved as a macro name
-  int NDEBUG;   // NON_COMPLIANT - NDEBUG is reserved as a macro name
+struct FE_INEXACT { // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
+  int FE_INEXACT;   // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
 };
-#define NDEBUG                                                                 \
-  x // NON_COMPLIANT - NDEBUG is reserved as a macro name for the standard
+#define FE_INEXACT                                                             \
+  x // NON_COMPLIANT - FE_INEXACT is reserved as a macro name for the standard
     // library
+
+// We include the header after the declarations to avoid the inbuilt macros
+// expanding in the declarations above. The rule is not, however, sensitive
+// to location, so we should still report in this case.
+#include <fenv.h>
 
 /* Functions and objects with external linkage */
 

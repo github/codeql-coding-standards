@@ -3,7 +3,6 @@
 | test.c:11:8:11:9 | _s | Type '_s' declares a name beginning with _ which is reserved in the tag name space. |
 | test.c:15:6:15:7 | _f | Function '_f' declares a name beginning with _ which is reserved in the ordinary name space. |
 | test.c:19:7:19:12 | malloc | Function 'malloc' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
-| test.c:25:5:25:9 | errno | Global variable 'errno' declares a name reserved for a macro from the C11 standard library header 'errno.h'. |
 | test.c:25:5:25:9 | errno | Global variable 'errno' declares a name which is reserved for external linkage from the C11 standard library header 'errno.h'. |
 | test.c:39:16:39:18 | log | Parameter 'log' declares a name reserved for a macro from the C11 standard library header 'tgmath.h'. |
 | test.c:43:5:43:16 | _Test_global | Global variable '_Test_global' declares a reserved name beginning _ followed by an uppercase letter. |
@@ -28,16 +27,16 @@
 | test.c:79:6:79:21 | _test_lower_func | Function '_test_lower_func' declares a name beginning with _ which is reserved in the ordinary name space. |
 | test.c:88:8:88:19 | _test_struct | Type '_test_struct' declares a name beginning with _ which is reserved in the tag name space. |
 | test.c:91:1:92:3 | #define _test_macro x | Macro '_test_macro' declares a name beginning with _ which is reserved in the ordinary and tag namespaces. |
-| test.c:97:5:97:10 | NDEBUG | Global variable 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
-| test.c:98:6:98:9 | EDOM | Function 'EDOM' declares a name reserved for a macro from the C11 standard library header 'errno.h'. |
-| test.c:99:9:99:14 | ERANGE | Parameter 'ERANGE' declares a name reserved for a macro from the C11 standard library header 'errno.h'. |
-| test.c:100:7:100:12 | NDEBUG | Local variable 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
-| test.c:101:10:101:15 | NDEBUG | Type 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
-| test.c:102:9:102:14 | NDEBUG | Member variable 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
-| test.c:105:8:105:13 | NDEBUG | Type 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
-| test.c:106:7:106:12 | NDEBUG | Member variable 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
-| test.c:108:1:109:3 | #define NDEBUG x | Macro 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
-| test.c:114:5:114:8 | exit | Global variable 'exit' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
-| test.c:116:6:116:9 | free | Function 'free' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
-| test.c:126:1:126:16 | #define strlen 0 | Macro 'strlen' declares a reserved name from the C11 standard library header 'string.h' which is included directly or indirectly in this translation unit. |
-| test.c:136:1:136:16 | #define tm_sec 0 | Macro 'tm_sec' declares a reserved name from the C11 standard library header 'time.h' which is included directly or indirectly in this translation unit. |
+| test.c:96:5:96:14 | FE_INEXACT | Global variable 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:97:6:97:17 | FE_DIVBYZERO | Function 'FE_DIVBYZERO' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:98:9:98:18 | FE_INEXACT | Parameter 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:99:7:99:16 | FE_INVALID | Local variable 'FE_INVALID' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:100:10:100:19 | FE_INEXACT | Type 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:101:9:101:18 | FE_INEXACT | Member variable 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:104:8:104:17 | FE_INEXACT | Type 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:105:7:105:16 | FE_INEXACT | Member variable 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:107:1:108:3 | #define FE_INEXACT x | Macro 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:118:5:118:8 | exit | Global variable 'exit' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
+| test.c:120:6:120:9 | free | Function 'free' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
+| test.c:130:1:130:16 | #define strlen 0 | Macro 'strlen' declares a reserved name from the C11 standard library header 'string.h' which is included directly or indirectly in this translation unit. |
+| test.c:140:1:140:16 | #define tm_sec 0 | Macro 'tm_sec' declares a reserved name from the C11 standard library header 'time.h' which is included directly or indirectly in this translation unit. |

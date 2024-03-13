@@ -192,6 +192,8 @@ query predicate problems(Element m, string message) {
     // > unless explicitly stated otherwise (see 7.1.4).
     exists(string header |
       TargetedCLibrary::hasMacroName(header, name, _) and
+      // The relevant header is included directly or transitively by the file
+      m.getFile().getAnIncludedFile*().getBaseName() = header and
       reason =
         "declares a name reserved for a macro from the " + TargetedCLibrary::getName() +
           " standard library header '" + header + "'"
