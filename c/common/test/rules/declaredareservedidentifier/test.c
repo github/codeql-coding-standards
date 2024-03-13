@@ -169,3 +169,10 @@ tss_delete(        // COMPLIANT - threads.h not included, not external linkage
 struct thrd_yield { // COMPLIANT - threads.h not included
   int thrd_exit;    // COMPLIANT - threads.h not included
 };
+
+#include <sys/select.h>
+void test_macro() {
+  fd_set test_set;
+  FD_ZERO(&test_set); // COMPLIANT - macro expands to variables with `__`
+                      // prefixes, but should be excluded
+}

@@ -138,6 +138,19 @@ predicate isCIdentifier(
   )
 }
 
+Macro getGeneratedFrom(Element e) {
+  isCIdentifier(e, _, _, _, _) and
+  exists(MacroInvocation mi |
+    mi = result.getAnInvocation() and
+    mi.getAGeneratedElement() = e and
+    mi.getLocation().getStartColumn() = e.getLocation().getStartColumn() and
+    not exists(MacroInvocation child |
+      child.getParentInvocation() = mi and
+      child.getAGeneratedElement() = e
+    )
+  )
+}
+
 module TargetedCLibrary = CStandardLibrary::C11;
 
 query predicate problems(Element m, string message) {
@@ -146,6 +159,8 @@ query predicate problems(Element m, string message) {
     string name, Scope scope, CNameSpace cNameSpace, string reason, string identifierDescription
   |
     isCIdentifier(m, name, scope, cNameSpace, identifierDescription) and
+    // Exclude cases generated from library macros, because the user does not control them
+    not getGeneratedFrom(m) instanceof LibraryMacro and
     message = identifierDescription + " '" + name + "' " + reason + "."
   |
     // C11 7.1.3/1
