@@ -62,6 +62,12 @@ signature module StandardLibrary {
     libraryFunctionModel(getName(), header, namespace, declaringType, name, return_signature,
       parameter_signature, linkage)
   }
+
+  default predicate hasMemberVariableName(
+    string header, string namespace, string declaringType, string name, string type
+  ) {
+    libraryMemberVariableModel(getName(), header, namespace, declaringType, name, type)
+  }
 }
 
 module CStandardLibrary {
