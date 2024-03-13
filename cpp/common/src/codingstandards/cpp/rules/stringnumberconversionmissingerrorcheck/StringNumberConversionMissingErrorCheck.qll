@@ -7,7 +7,7 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.cpp.standardlibrary.CharStreams
 
 abstract class StringNumberConversionMissingErrorCheckSharedQuery extends Query { }

@@ -8,8 +8,8 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import semmle.code.cpp.security.BufferWrite
 import semmle.code.cpp.commons.Buffer
-import codingstandards.cpp.dataflow.DataFlow
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 
 abstract class BasicStringMayNotBeNullTerminatedSharedQuery extends Query { }

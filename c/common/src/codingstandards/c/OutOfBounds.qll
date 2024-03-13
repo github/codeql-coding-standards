@@ -11,7 +11,7 @@ import codingstandards.cpp.Allocations
 import codingstandards.cpp.Overflow
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 import codingstandards.cpp.SimpleRangeAnalysisCustomizations
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 module OOB {

@@ -14,7 +14,7 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.c.Pointers
 import codingstandards.c.Variable
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.pointsto.PointsTo
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
