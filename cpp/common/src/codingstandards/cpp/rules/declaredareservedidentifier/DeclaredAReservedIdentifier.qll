@@ -202,14 +202,16 @@ query predicate problems(Element m, string message) {
     |
       hasExternalLinkage(m) and
       reason =
-        "declares a reserved name from the " + TargetedCLibrary::getName() +
-          " standard library header '" + header + "'"
+        "declares a name which is reserved for external linkage from the " +
+          TargetedCLibrary::getName() + " standard library header '" + header + "'"
     )
     or
     // > Each identifier with file scope listed in any of the following subclauses (including the
     // > future library directions) is reserved for use as a macro name and as an identifier with
     // > file scope in the same name space if any of its associated headers is included
-    // Note: we do not consider the requirement of including the associated header
+    //
+    // Note: these cases are typically already rejected by the compiler, which prohibits redeclaration
+    //       of existing symbols. The macro cases are expected to work, though.
     exists(string header |
       TargetedCLibrary::hasObjectName(header, _, name, _, _) and
       (cNameSpace = OrdinaryNameSpace() or cNameSpace = MacroNameSpace())
@@ -220,17 +222,28 @@ query predicate problems(Element m, string message) {
       TargetedCLibrary::hasTypeName(header, _, name) and
       (cNameSpace = TagNameSpace() or cNameSpace = MacroNameSpace())
       or
-      TargetedCLibrary::hasMemberVariableName(header, _, _, name, _) and
-      (cNameSpace = OrdinaryNameSpace() or cNameSpace = MacroNameSpace())
+      exists(string declaringType, Class c |
+        TargetedCLibrary::hasMemberVariableName(header, _, declaringType, name, _)
+      |
+        // Each declaring type has its own namespace, so check that it's declared in the same
+        cNameSpace = MemberNameSpace() and
+        c.getAMember() = m and
+        c.getSimpleName() = declaringType
+        or
+        cNameSpace = MacroNameSpace()
+      )
     |
       (
         scope = FileScope()
         or
         scope = MacroScope()
       ) and
+      // The relevant header is included directly or transitively by the file
+      m.getFile().getAnIncludedFile*().getBaseName() = header and
       reason =
         "declares a reserved name from the " + TargetedCLibrary::getName() +
-          " standard library header '" + header + "'"
+          " standard library header '" + header +
+          "' which is included directly or indirectly in this translation unit"
     )
     or
     // C11 6.4.1/2

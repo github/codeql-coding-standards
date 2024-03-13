@@ -108,3 +108,64 @@ struct NDEBUG { // NON_COMPLIANT - NDEBUG is reserved as a macro name
 #define NDEBUG                                                                 \
   x // NON_COMPLIANT - NDEBUG is reserved as a macro name for the standard
     // library
+
+/* Functions and objects with external linkage */
+
+int exit; // NON_COMPLIANT - reserved for external linkage, even though header
+          // was not included
+void free() { // NON_COMPLIANT - reserved for external linkage, even though
+              // header was not included
+}
+static int rand; // COMPLIANT - only reserved for external linkage or if random
+                 // was included
+static int srand() { // COMPLIANT - only reserved for external linkage or if
+                     // random was included
+}
+
+#include <string.h>
+#define strlen 0 // NON_COMPLIANT - reserved when string.h is included
+
+// The examples below are non compliant, because those symbols are reserved in
+// file scope when string.h is included.  However, the compiler/edg rejects the
+// declaration cases, so we cannot test them.
+
+// static int strlen;
+// static void *memcpy(void *s1, const void *s2, size_t n) {}
+
+#include <time.h>
+#define tm_sec 0 // NON_COMPLIANT - reserved when time.h is included
+
+// The examples below are non compliant, because those symbols are reserved in
+// file scope when time.h is included.  However, the compiler/edg rejects the
+// declaration cases, so we cannot test them.
+
+// struct tm {
+//   int tm_sec;
+//   int tm_min;
+//   int tm_hour;
+//   int tm_mday;
+//   int tm_mon;
+//   int tm_year;
+//   int tm_wday;
+//   int tm_yday;
+//   int tm_isdst;
+//   long __tm_gmtoff;
+//   const char *__tm_zone;
+// };
+
+// Examples below are compliant because threads.h is not included
+
+#define tss_set 0   // COMPLIANT - threads.h not included
+static int tss_get; // COMPLIANT - threads.h not included, not external linkage
+static void
+tss_delete(        // COMPLIANT - threads.h not included, not external linkage
+    int tss_create // COMPLIANT - threads.h not included
+) {
+  int thrd_detach;   // COMPLIANT - threads.h not included
+  struct thrd_join { // COMPLIANT - threads.h not included
+    int thrd_equal;  // COMPLIANT - threads.h not included
+  };
+}
+struct thrd_yield { // COMPLIANT - threads.h not included
+  int thrd_exit;    // COMPLIANT - threads.h not included
+};

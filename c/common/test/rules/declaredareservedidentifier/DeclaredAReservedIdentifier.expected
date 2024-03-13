@@ -2,9 +2,9 @@
 | test.c:6:1:6:28 | #define _also_reserved_MACRO | Macro '_also_reserved_MACRO' declares a name beginning with _ which is reserved in the ordinary and tag namespaces. |
 | test.c:11:8:11:9 | _s | Type '_s' declares a name beginning with _ which is reserved in the tag name space. |
 | test.c:15:6:15:7 | _f | Function '_f' declares a name beginning with _ which is reserved in the ordinary name space. |
-| test.c:19:7:19:12 | malloc | Function 'malloc' declares a reserved name from the C11 standard library header 'stdlib.h'. |
+| test.c:19:7:19:12 | malloc | Function 'malloc' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
 | test.c:25:5:25:9 | errno | Global variable 'errno' declares a name reserved for a macro from the C11 standard library header 'errno.h'. |
-| test.c:25:5:25:9 | errno | Global variable 'errno' declares a reserved name from the C11 standard library header 'errno.h'. |
+| test.c:25:5:25:9 | errno | Global variable 'errno' declares a name which is reserved for external linkage from the C11 standard library header 'errno.h'. |
 | test.c:39:16:39:18 | log | Parameter 'log' declares a name reserved for a macro from the C11 standard library header 'tgmath.h'. |
 | test.c:43:5:43:16 | _Test_global | Global variable '_Test_global' declares a reserved name beginning _ followed by an uppercase letter. |
 | test.c:44:6:44:15 | _Test_func | Function '_Test_func' declares a reserved name beginning _ followed by an uppercase letter. |
@@ -37,3 +37,7 @@
 | test.c:105:8:105:13 | NDEBUG | Type 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
 | test.c:106:7:106:12 | NDEBUG | Member variable 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
 | test.c:108:1:109:3 | #define NDEBUG x | Macro 'NDEBUG' declares a name reserved for a macro from the C11 standard library header 'assert.h'. |
+| test.c:114:5:114:8 | exit | Global variable 'exit' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
+| test.c:116:6:116:9 | free | Function 'free' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
+| test.c:126:1:126:16 | #define strlen 0 | Macro 'strlen' declares a reserved name from the C11 standard library header 'string.h' which is included directly or indirectly in this translation unit. |
+| test.c:136:1:136:16 | #define tm_sec 0 | Macro 'tm_sec' declares a reserved name from the C11 standard library header 'time.h' which is included directly or indirectly in this translation unit. |
