@@ -61,7 +61,7 @@ jobs:
       - name: Determine if release was a hotfix release
         run: |
           version=${BASE_REF#rc/}
-          echo "HOTFIX_RELEASE=$(python scripts/release/is-hotfix.py $version)" >> "$GITHUB_ENV"
+          echo "HOTFIX_RELEASE=$(python scripts/release/is-hotfix-release.py $version)" >> "$GITHUB_ENV"
 
       - name: Bump main version
         if: env.HOTFIX_RELEASE == 'false'
