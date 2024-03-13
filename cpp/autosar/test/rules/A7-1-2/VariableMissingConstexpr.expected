@@ -1,3 +1,9 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (VariableMissingConstexpr.ql:64,7-15)
+WARNING: Module DataFlow has been deprecated and may be removed in future (VariableMissingConstexpr.ql:79,10-18)
+WARNING: Module DataFlow has been deprecated and may be removed in future (VariableMissingConstexpr.ql:79,44-52)
+WARNING: Module DataFlow has been deprecated and may be removed in future (VariableMissingConstexpr.ql:80,17-25)
+WARNING: Module DataFlow has been deprecated and may be removed in future (VariableMissingConstexpr.ql:81,5-13)
+WARNING: Module DataFlow has been deprecated and may be removed in future (VariableMissingConstexpr.ql:82,9-17)
 | test.cpp:4:5:4:6 | g1 | Variable g1 could be marked 'constexpr'. |
 | test.cpp:6:5:6:6 | g2 | Variable g2 could be marked 'constexpr'. |
 | test.cpp:13:14:13:15 | lc | Variable lc could be marked 'constexpr'. |
