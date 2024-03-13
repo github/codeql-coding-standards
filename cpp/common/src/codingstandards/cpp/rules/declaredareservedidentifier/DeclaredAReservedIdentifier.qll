@@ -100,7 +100,14 @@ predicate isCIdentifier(
     ) and
     (
       if e instanceof UserType
-      then cNameSpace = TagNameSpace()
+      then
+        if e instanceof TypedefType
+        then
+          // Typedef types are in the ordinary namespace
+          cNameSpace = OrdinaryNameSpace()
+        else
+          // Other user-defined types are in the tag namespace
+          cNameSpace = TagNameSpace()
       else
         if (e instanceof MemberVariable or e instanceof MemberFunction)
         then cNameSpace = MemberNameSpace()
@@ -219,8 +226,23 @@ query predicate problems(Element m, string message) {
       TargetedCLibrary::hasFunctionName(header, _, "", name, _, _, _) and
       (cNameSpace = OrdinaryNameSpace() or cNameSpace = MacroNameSpace())
       or
-      TargetedCLibrary::hasTypeName(header, _, name) and
-      (cNameSpace = TagNameSpace() or cNameSpace = MacroNameSpace())
+      exists(string typeName |
+        TargetedCLibrary::hasTypeName(header, _, typeName) and
+        // Strip struct/union/enum prefix
+        name = typeName.regexpReplaceAll("^(struct|union|enum) ", "")
+      |
+        (
+          if typeName.regexpMatch("^(struct|union|enum) ")
+          then
+            // struct, union and enum types are in the tag namespace
+            cNameSpace = TagNameSpace()
+          else
+            // typedef and therefore part of the ordinary namespace
+            cNameSpace = OrdinaryNameSpace()
+        )
+        or
+        cNameSpace = MacroNameSpace()
+      )
       or
       exists(string declaringType, Class c |
         TargetedCLibrary::hasMemberVariableName(header, _, declaringType, name, _)
