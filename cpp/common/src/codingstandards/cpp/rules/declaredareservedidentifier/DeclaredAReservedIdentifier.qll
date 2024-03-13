@@ -143,7 +143,6 @@ Macro getGeneratedFrom(Element e) {
   exists(MacroInvocation mi |
     mi = result.getAnInvocation() and
     mi.getAGeneratedElement() = e and
-    mi.getLocation().getStartColumn() = e.getLocation().getStartColumn() and
     not exists(MacroInvocation child |
       child.getParentInvocation() = mi and
       child.getAGeneratedElement() = e
