@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 from Call c
 where

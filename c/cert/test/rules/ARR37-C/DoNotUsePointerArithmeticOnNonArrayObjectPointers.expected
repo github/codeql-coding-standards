@@ -1,3 +1,8 @@
+WARNING: Module DataFlow has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:23,60-68)
+WARNING: Module DataFlow has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:24,22-30)
+WARNING: Module DataFlow has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:36,20-28)
+WARNING: Module DataFlow has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:44,26-34)
+WARNING: Module DataFlow has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:65,3-11)
 edges
 | test.c:14:38:14:39 | p1 | test.c:18:10:18:11 | v1 | provenance |  |
 | test.c:14:38:14:39 | p1 | test.c:19:10:19:11 | v2 | provenance |  |

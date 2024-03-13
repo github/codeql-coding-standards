@@ -12,7 +12,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import CastFlow::PathGraph
 import codingstandards.cpp.SideEffect
 

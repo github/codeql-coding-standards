@@ -1,7 +1,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 import semmle.code.cpp.commons.Printf
 
 abstract class NonConstantFormatSharedQuery extends Query { }
