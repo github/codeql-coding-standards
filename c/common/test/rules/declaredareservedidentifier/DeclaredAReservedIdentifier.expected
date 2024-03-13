@@ -1,5 +1,30 @@
-| test.c:2:1:2:23 | #define _RESERVED_MACRO | Reserved identifier '_RESERVED_MACRO' is declared. |
-| test.c:11:8:11:9 | _s | Reserved identifier '_s' is declared. |
-| test.c:15:6:15:7 | _f | Reserved identifier '_f' is declared. |
-| test.c:19:7:19:12 | malloc | Reserved identifier 'malloc' is declared. |
-| test.c:24:12:24:16 | errno | Reserved identifier 'errno' is declared. |
+| test.c:2:1:2:23 | #define _RESERVED_MACRO | Macro '_RESERVED_MACRO' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:6:1:6:27 | #define _not_reserved_MACRO | Macro '_not_reserved_MACRO' uses a name beginning with _ which is reserved in the ordinary and tag namespaces. |
+| test.c:11:8:11:9 | _s | Type '_s' uses a name beginning with _ which is reserved in the tag name space. |
+| test.c:15:6:15:7 | _f | Function '_f' uses a name beginning with _ which is reserved in the ordinary name space. |
+| test.c:19:7:19:12 | malloc | Function 'malloc' uses a reserved name from the C11 standard library header 'stdlib.h'. |
+| test.c:25:5:25:9 | errno | Global variable 'errno' uses a name reserved for a macro from the C11 standard library header 'errno.h'. |
+| test.c:25:5:25:9 | errno | Global variable 'errno' uses a reserved name from the C11 standard library header 'errno.h'. |
+| test.c:39:16:39:18 | log | Parameter 'log' uses a name reserved for a macro from the C11 standard library header 'tgmath.h'. |
+| test.c:43:5:43:16 | _Test_global | Global variable '_Test_global' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:44:6:44:15 | _Test_func | Function '_Test_func' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:45:9:45:19 | _Test_param | Parameter '_Test_param' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:46:7:46:17 | _Test_local | Local variable '_Test_local' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:47:10:47:27 | _Test_struct_local | Type '_Test_struct_local' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:49:9:49:20 | _Test_member | Member variable '_Test_member' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:52:8:52:19 | _Test_struct | Type '_Test_struct' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:53:7:53:18 | _Test_member | Member variable '_Test_member' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:55:1:56:3 | #define _TEST_MACRO x | Macro '_TEST_MACRO' uses a reserved name beginning _ followed by an uppercase letter. |
+| test.c:60:5:60:24 | __test_double_global | Global variable '__test_double_global' uses a reserved name beginning with __. |
+| test.c:61:6:61:23 | __test_double_func | Function '__test_double_func' uses a reserved name beginning with __. |
+| test.c:62:9:62:27 | __test_double_param | Parameter '__test_double_param' uses a reserved name beginning with __. |
+| test.c:63:7:63:25 | __test_double_local | Local variable '__test_double_local' uses a reserved name beginning with __. |
+| test.c:64:10:64:35 | __test_double_struct_local | Type '__test_double_struct_local' uses a reserved name beginning with __. |
+| test.c:65:9:65:28 | __test_double_member | Member variable '__test_double_member' uses a reserved name beginning with __. |
+| test.c:68:8:68:27 | __test_double_struct | Type '__test_double_struct' uses a reserved name beginning with __. |
+| test.c:69:7:69:26 | __test_double_member | Member variable '__test_double_member' uses a reserved name beginning with __. |
+| test.c:71:1:71:22 | #define __TEST_MACRO x | Macro '__TEST_MACRO' uses a reserved name beginning with __. |
+| test.c:78:5:78:22 | _test_lower_global | Global variable '_test_lower_global' uses a name beginning with _ which is reserved in the ordinary name space. |
+| test.c:79:6:79:21 | _test_lower_func | Function '_test_lower_func' uses a name beginning with _ which is reserved in the ordinary name space. |
+| test.c:88:8:88:19 | _test_struct | Type '_test_struct' uses a name beginning with _ which is reserved in the tag name space. |
+| test.c:91:1:92:3 | #define _test_macro x | Macro '_test_macro' uses a name beginning with _ which is reserved in the ordinary and tag namespaces. |
