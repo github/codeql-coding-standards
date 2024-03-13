@@ -147,22 +147,23 @@ query predicate problems(Element m, string message) {
     name.regexpMatch("__.*") and
     // Exclude this macro which is intended to be implemented by the user
     not name = "__STDC_WANT_LIB_EXT1__" and
-    reason = "uses a reserved name beginning with __"
+    reason = "declares a reserved name beginning with __"
     or
     name.regexpMatch("_[A-Z].*") and
-    reason = "uses a reserved name beginning _ followed by an uppercase letter"
+    reason = "declares a reserved name beginning _ followed by an uppercase letter"
     or
     //  > All identifiers that begin with an underscore are always reserved for use as identifiers
     //  > with file scope in both the ordinary and tag name spaces.
     name.regexpMatch("_([^A-Z_].*)?") and
     scope = FileScope() and
     cNameSpace = [OrdinaryNameSpace().(TCNameSpace), TagNameSpace()] and
-    reason = "uses a name beginning with _ which is reserved in the " + cNameSpace + " name space"
+    reason =
+      "declares a name beginning with _ which is reserved in the " + cNameSpace + " name space"
     or
     name.regexpMatch("_([^A-Z_].*)?") and
     scope = MacroScope() and
     cNameSpace = MacroNameSpace() and
-    reason = "uses a name beginning with _ which is reserved in the ordinary and tag namespaces"
+    reason = "declares a name beginning with _ which is reserved in the ordinary and tag namespaces"
     or
     // > Each macro name in any of the following subclauses (including the future library
     // > directions) is reserved for use as specified if any of its associated headers is included;
@@ -170,7 +171,7 @@ query predicate problems(Element m, string message) {
     exists(string header |
       TargetedCLibrary::hasMacroName(header, name, _) and
       reason =
-        "uses a name reserved for a macro from the " + TargetedCLibrary::getName() +
+        "declares a name reserved for a macro from the " + TargetedCLibrary::getName() +
           " standard library header '" + header + "'"
     )
     or
@@ -201,7 +202,7 @@ query predicate problems(Element m, string message) {
     |
       hasExternalLinkage(m) and
       reason =
-        "uses a reserved name from the " + TargetedCLibrary::getName() +
+        "declares a reserved name from the " + TargetedCLibrary::getName() +
           " standard library header '" + header + "'"
     )
     or
@@ -228,12 +229,12 @@ query predicate problems(Element m, string message) {
         scope = MacroScope()
       ) and
       reason =
-        "uses a reserved name from the " + TargetedCLibrary::getName() +
+        "declares a reserved name from the " + TargetedCLibrary::getName() +
           " standard library header '" + header + "'"
     )
     or
     // C11 6.4.1/2
     Keywords::isKeyword(name) and
-    reason = "it is a C11 keyword"
+    reason = "declares a reserved name which is a C11 keyword"
   )
 }

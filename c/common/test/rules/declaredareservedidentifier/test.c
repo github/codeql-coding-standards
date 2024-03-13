@@ -2,9 +2,9 @@
 #define _RESERVED_MACRO // NON_COMPLIANT
 #endif                  /* _RESERVED_MACRO */
 
-#ifndef _not_reserved_MACRO
-#define _not_reserved_MACRO // COMPLIANT
-#endif                      /* _not_reserved_MACRO */
+#ifndef _also_reserved_MACRO
+#define _also_reserved_MACRO // NON_COMPLIANT
+#endif                       /* _not_reserved_MACRO */
 
 static const int INT_LIMIT_MAX = 12000; // COMPLIANT future library directions
 
@@ -89,4 +89,22 @@ struct _test_struct { // NON_COMPLIANT - _ is reserved in the tag name space
   int _test;          // COMPLIANT - _ is not reserved in the member name space
 };
 #define _test_macro                                                            \
-  x // NON_COMPLIANT - _ is reserved for macro names (otherwise you couldn't )
+  x // NON_COMPLIANT - _ is reserved for for file scope names and so cannot be
+    // used as a macro name
+
+/* Identify names reserved as a macro. */
+
+int NDEBUG;       // NON_COMPLIANT - NDEBUG is reserved as a macro name
+void EDOM(        // NON_COMPLIANT - EDOM is reserved as a macro name
+    int ERANGE) { // NON_COMPLIANT - ERANGE is reserved as a macro name
+  int NDEBUG;     // NON_COMPLIANT - NDEBUG is reserved as a macro name
+  struct NDEBUG { // NON_COMPLIANT - NDEBUG is reserved as a macro name
+    int NDEBUG;   // NON_COMPLIANT - NDEBUG is reserved as a macro name
+  };
+}
+struct NDEBUG { // NON_COMPLIANT - NDEBUG is reserved as a macro name
+  int NDEBUG;   // NON_COMPLIANT - NDEBUG is reserved as a macro name
+};
+#define NDEBUG                                                                 \
+  x // NON_COMPLIANT - NDEBUG is reserved as a macro name for the standard
+    // library
