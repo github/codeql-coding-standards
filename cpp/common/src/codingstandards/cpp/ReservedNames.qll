@@ -131,6 +131,11 @@ module ReservedNames {
         scope = MacroScope() and
         cNameSpace = MacroNameSpace() and
         identifierDescription = "Macro parameter"
+        or
+        e.(PreprocessorUndef).getName() = identifierName and
+        scope = MacroScope() and
+        cNameSpace = MacroNameSpace() and
+        identifierDescription = "Undef"
       )
     }
 
@@ -148,7 +153,13 @@ module ReservedNames {
 
     module TargetedCLibrary = CStandardLibrary::C11;
 
-    predicate isAReservedIdentifier(Element m, string message) {
+    /**
+     * Holds if the given C program element is a reserved identifier according to the C11 standard or MISRA.
+     *
+     * @param requireHeaderIncluded false if we don't require
+     */
+    predicate isAReservedIdentifier(Element m, string message, boolean requireHeaderIncluded) {
+      requireHeaderIncluded = [true, false] and
       exists(
         string name, Scope scope, CNameSpace cNameSpace, string reason, string identifierDescription
       |
@@ -187,8 +198,8 @@ module ReservedNames {
         // > unless explicitly stated otherwise (see 7.1.4).
         exists(string header |
           TargetedCLibrary::hasMacroName(header, name, _) and
-          // The relevant header is included directly or transitively by the file
-          m.getFile().getAnIncludedFile*().getBaseName() = header and
+          // The relevant header is included directly or transitively by the file, or we don't apply that requirement
+          (m.getFile().getAnIncludedFile*().getBaseName() = header or requireHeaderIncluded = false) and
           reason =
             "declares a name reserved for a macro from the " + TargetedCLibrary::getName() +
               " standard library header '" + header + "'"
@@ -272,8 +283,8 @@ module ReservedNames {
             or
             scope = MacroScope()
           ) and
-          // The relevant header is included directly or transitively by the file
-          m.getFile().getAnIncludedFile*().getBaseName() = header and
+          // The relevant header is included directly or transitively by the file, or we don't apply that requirement
+          (m.getFile().getAnIncludedFile*().getBaseName() = header or requireHeaderIncluded = false) and
           reason =
             "declares a reserved name from the " + TargetedCLibrary::getName() +
               " standard library header '" + header +
