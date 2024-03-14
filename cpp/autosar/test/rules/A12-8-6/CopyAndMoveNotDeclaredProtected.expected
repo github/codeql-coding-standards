@@ -1,26 +1,26 @@
-| test.cpp:4:3:4:12 | declaration of BaseClass1 | Copy constructor for base class 'BaseClass1' is not declared protected or deleted. |
-| test.cpp:5:3:5:12 | declaration of BaseClass1 | Move constructor for base class 'BaseClass1' is not declared protected or deleted. |
-| test.cpp:6:15:6:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass1' is not declared protected or deleted. |
-| test.cpp:7:15:7:23 | declaration of operator= | Move constructor for base class 'BaseClass1' is not declared protected or deleted. |
-| test.cpp:15:7:15:7 | declaration of operator= | Implicit copy assignment operator for base class 'BaseClass2' is not declared protected or deleted. |
-| test.cpp:15:7:15:7 | declaration of operator= | Implicit move assignment operator for base class 'BaseClass2' is not declared protected or deleted. |
-| test.cpp:55:3:55:12 | declaration of BaseClass5 | Copy constructor for base class 'BaseClass5' is not declared protected or deleted. |
-| test.cpp:56:3:56:12 | declaration of BaseClass5 | Move constructor for base class 'BaseClass5' is not declared protected or deleted. |
-| test.cpp:57:15:57:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass5' is not declared protected or deleted. |
-| test.cpp:58:15:58:23 | declaration of operator= | Move constructor for base class 'BaseClass5' is not declared protected or deleted. |
-| test.cpp:75:3:75:12 | declaration of BaseClass6 | Copy constructor for base class 'BaseClass6' is not declared protected or deleted. |
-| test.cpp:76:3:76:12 | declaration of BaseClass6 | Move constructor for base class 'BaseClass6' is not declared protected or deleted. |
-| test.cpp:77:15:77:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass6' is not declared protected or deleted. |
-| test.cpp:78:15:78:23 | declaration of operator= | Move constructor for base class 'BaseClass6' is not declared protected or deleted. |
-| test.cpp:85:3:85:12 | declaration of BaseClass7 | Copy constructor for base class 'BaseClass7<T1>' is not declared protected or deleted. |
-| test.cpp:86:3:86:12 | declaration of BaseClass7 | Move constructor for base class 'BaseClass7<T1>' is not declared protected or deleted. |
-| test.cpp:87:15:87:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass7<T1>' is not declared protected or deleted. |
-| test.cpp:88:15:88:23 | declaration of operator= | Move constructor for base class 'BaseClass7<T1>' is not declared protected or deleted. |
-| test.cpp:108:3:108:12 | declaration of BaseClass8 | Copy constructor for base class 'BaseClass8' is not declared protected or deleted. |
-| test.cpp:109:3:109:12 | declaration of BaseClass8 | Move constructor for base class 'BaseClass8' is not declared protected or deleted. |
-| test.cpp:110:15:110:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass8' is not declared protected or deleted. |
-| test.cpp:111:15:111:23 | declaration of operator= | Move constructor for base class 'BaseClass8' is not declared protected or deleted. |
-| test.cpp:124:26:124:26 | declaration of BaseClass9 | Implicit copy constructor for base class 'BaseClass9<int>' is not declared protected or deleted. |
-| test.cpp:124:26:124:26 | declaration of BaseClass9 | Implicit move constructor for base class 'BaseClass9<int>' is not declared protected or deleted. |
-| test.cpp:124:26:124:26 | declaration of operator= | Implicit copy assignment operator for base class 'BaseClass9<int>' is not declared protected or deleted. |
-| test.cpp:124:26:124:26 | declaration of operator= | Implicit move assignment operator for base class 'BaseClass9<int>' is not declared protected or deleted. |
+| test.cpp:4:3:4:12 | declaration of BaseClass1 | Copy constructor for base class 'BaseClass1' is not declared protected. |
+| test.cpp:5:3:5:12 | declaration of BaseClass1 | Move constructor for base class 'BaseClass1' is not declared protected. |
+| test.cpp:6:15:6:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass1' is not declared protected. |
+| test.cpp:7:15:7:23 | declaration of operator= | Move assignment operator for base class 'BaseClass1' is not declared protected. |
+| test.cpp:15:7:15:7 | declaration of operator= | Implicit copy assignment operator for base class 'BaseClass2' is not declared deleted. |
+| test.cpp:15:7:15:7 | declaration of operator= | Implicit move assignment operator for base class 'BaseClass2' is not declared deleted. |
+| test.cpp:55:3:55:12 | declaration of BaseClass5 | Copy constructor for base class 'BaseClass5' is not declared protected. |
+| test.cpp:56:3:56:12 | declaration of BaseClass5 | Move constructor for base class 'BaseClass5' is not declared protected. |
+| test.cpp:57:15:57:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass5' is not declared protected. |
+| test.cpp:58:15:58:23 | declaration of operator= | Move assignment operator for base class 'BaseClass5' is not declared protected. |
+| test.cpp:75:3:75:12 | declaration of BaseClass6 | Copy constructor for base class 'BaseClass6' is not declared protected. |
+| test.cpp:76:3:76:12 | declaration of BaseClass6 | Move constructor for base class 'BaseClass6' is not declared protected. |
+| test.cpp:77:15:77:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass6' is not declared protected. |
+| test.cpp:78:15:78:23 | declaration of operator= | Move assignment operator for base class 'BaseClass6' is not declared protected. |
+| test.cpp:85:3:85:12 | declaration of BaseClass7 | Copy constructor for base class 'BaseClass7<T1>' is not declared protected. |
+| test.cpp:86:3:86:12 | declaration of BaseClass7 | Move constructor for base class 'BaseClass7<T1>' is not declared protected. |
+| test.cpp:87:15:87:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass7<T1>' is not declared protected. |
+| test.cpp:88:15:88:23 | declaration of operator= | Move assignment operator for base class 'BaseClass7<T1>' is not declared protected. |
+| test.cpp:108:3:108:12 | declaration of BaseClass8 | Copy constructor for base class 'BaseClass8' is not declared protected. |
+| test.cpp:109:3:109:12 | declaration of BaseClass8 | Move constructor for base class 'BaseClass8' is not declared protected. |
+| test.cpp:110:15:110:23 | declaration of operator= | Copy assignment operator for base class 'BaseClass8' is not declared protected. |
+| test.cpp:111:15:111:23 | declaration of operator= | Move assignment operator for base class 'BaseClass8' is not declared protected. |
+| test.cpp:124:26:124:26 | declaration of BaseClass9 | Implicit copy constructor for base class 'BaseClass9<int>' is not declared deleted. |
+| test.cpp:124:26:124:26 | declaration of BaseClass9 | Implicit move constructor for base class 'BaseClass9<int>' is not declared deleted. |
+| test.cpp:124:26:124:26 | declaration of operator= | Implicit copy assignment operator for base class 'BaseClass9<int>' is not declared deleted. |
+| test.cpp:124:26:124:26 | declaration of operator= | Implicit move assignment operator for base class 'BaseClass9<int>' is not declared deleted. |
