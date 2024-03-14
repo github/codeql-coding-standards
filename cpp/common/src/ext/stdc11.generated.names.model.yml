@@ -1,7 +1,6 @@
 extensions:
 - addsTo: {extensible: libraryMacroModel, pack: codeql/common-cpp-coding-standards}
   data:
-  - [C11, assert.h, NDEBUG, '']
   - [C11, assert.h, static_assert, '']
   - [C11, complex.h, __STDC_NO_COMPLEX__, '']
   - [C11, complex.h, complex, '']

@@ -140,6 +140,11 @@ for row in rows:
                         mapped_name.replace("struct-","struct "),
                     ])
                 else:
+                    if mapped_name == "NDEBUG":
+                        # Ignore NDEBUG
+                        print("Note: skipping NDEBUG, not part of a header")
+                        continue
+
                     # Assume anything remaining is a macro
                     macros.append([
                         # standard
