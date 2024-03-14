@@ -55,8 +55,8 @@ jobs:
           version=${BASE_REF#rc/}
           echo "Creating release tag v$version"
 
-          git tag -a v$version -m "Release v$version"
-          git push -f origin v$version
+          git tag -f -a v$version -m "Release v$version"
+          git push --force-with-lease origin v$version
 
       - name: Finalize release
         env:
