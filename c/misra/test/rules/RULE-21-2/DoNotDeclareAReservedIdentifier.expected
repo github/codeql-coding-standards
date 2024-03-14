@@ -1,0 +1,34 @@
+| test.c:11:8:11:9 | _s | Type '_s' declares a name beginning with _ which is reserved in the tag name space. |
+| test.c:15:6:15:7 | _f | Function '_f' declares a name beginning with _ which is reserved in the ordinary name space. |
+| test.c:19:7:19:12 | malloc | Function 'malloc' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
+| test.c:25:5:25:9 | errno | Global variable 'errno' declares a name which is reserved for external linkage from the C11 standard library header 'errno.h'. |
+| test.c:39:16:39:18 | log | Parameter 'log' declares a name reserved for a macro from the C11 standard library header 'tgmath.h'. |
+| test.c:43:5:43:16 | _Test_global | Global variable '_Test_global' declares a reserved name beginning _ followed by an uppercase letter. |
+| test.c:44:6:44:15 | _Test_func | Function '_Test_func' declares a reserved name beginning _ followed by an uppercase letter. |
+| test.c:45:9:45:19 | _Test_param | Parameter '_Test_param' declares a reserved name beginning _ followed by an uppercase letter. |
+| test.c:46:7:46:17 | _Test_local | Local variable '_Test_local' declares a reserved name beginning _ followed by an uppercase letter. |
+| test.c:47:10:47:27 | _Test_struct_local | Type '_Test_struct_local' declares a reserved name beginning _ followed by an uppercase letter. |
+| test.c:49:9:49:20 | _Test_member | Member variable '_Test_member' declares a reserved name beginning _ followed by an uppercase letter. |
+| test.c:52:8:52:19 | _Test_struct | Type '_Test_struct' declares a reserved name beginning _ followed by an uppercase letter. |
+| test.c:53:7:53:18 | _Test_member | Member variable '_Test_member' declares a reserved name beginning _ followed by an uppercase letter. |
+| test.c:59:5:59:24 | __test_double_global | Global variable '__test_double_global' declares a reserved name beginning with __. |
+| test.c:60:6:60:23 | __test_double_func | Function '__test_double_func' declares a reserved name beginning with __. |
+| test.c:61:9:61:27 | __test_double_param | Parameter '__test_double_param' declares a reserved name beginning with __. |
+| test.c:62:7:62:25 | __test_double_local | Local variable '__test_double_local' declares a reserved name beginning with __. |
+| test.c:63:10:63:35 | __test_double_struct_local | Type '__test_double_struct_local' declares a reserved name beginning with __. |
+| test.c:64:9:64:28 | __test_double_member | Member variable '__test_double_member' declares a reserved name beginning with __. |
+| test.c:67:8:67:27 | __test_double_struct | Type '__test_double_struct' declares a reserved name beginning with __. |
+| test.c:68:7:68:26 | __test_double_member | Member variable '__test_double_member' declares a reserved name beginning with __. |
+| test.c:77:5:77:22 | _test_lower_global | Global variable '_test_lower_global' declares a name beginning with _ which is reserved in the ordinary name space. |
+| test.c:78:6:78:21 | _test_lower_func | Function '_test_lower_func' declares a name beginning with _ which is reserved in the ordinary name space. |
+| test.c:87:8:87:19 | _test_struct | Type '_test_struct' declares a name beginning with _ which is reserved in the tag name space. |
+| test.c:93:5:93:14 | FE_INEXACT | Global variable 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:94:6:94:17 | FE_DIVBYZERO | Function 'FE_DIVBYZERO' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:95:9:95:18 | FE_INEXACT | Parameter 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:96:7:96:16 | FE_INVALID | Local variable 'FE_INVALID' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:97:10:97:19 | FE_INEXACT | Type 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:98:9:98:18 | FE_INEXACT | Member variable 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:101:8:101:17 | FE_INEXACT | Type 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:102:7:102:16 | FE_INEXACT | Member variable 'FE_INEXACT' declares a name reserved for a macro from the C11 standard library header 'fenv.h'. |
+| test.c:113:5:113:8 | exit | Global variable 'exit' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
+| test.c:115:6:115:9 | free | Function 'free' declares a name which is reserved for external linkage from the C11 standard library header 'stdlib.h'. |
