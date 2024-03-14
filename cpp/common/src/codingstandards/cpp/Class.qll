@@ -6,8 +6,6 @@ import cpp
 import codingstandards.cpp.Expr
 
 private Class getADerivedClass(Class c) {
-  not c instanceof ClassTemplateInstantiation and
-  not c instanceof TemplateClass and
   result = c.getADerivedClass()
   or
   exists(ClassTemplateInstantiation instantiation |

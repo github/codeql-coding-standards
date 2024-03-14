@@ -121,8 +121,23 @@ private:
   T t;
 };
 
+template <class T> class BaseClass9 { // NON_COMPLIANT
+
+public:
+  BaseClass9() {}
+};
+
+template <class T>
+class DerivedClass10 // COMPLIANT - not a base class itself
+    : public BaseClass9<T> {
+public:
+  DerivedClass10() {}
+};
+
 void test() {
   BaseClass7<int> b;
   DerivedClass7<int> d;
   DerivedClass9<int> e;
+  BaseClass9<int> f;
+  DerivedClass10<int> g;
 }
