@@ -78,7 +78,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           version=${BASE_REF#rc/}
-          next_version="$version-dev"
+          next_version=$(python scripts/release/next-version.py --component minor --pre-release dev -- $version)
           echo "Bumping main version to $next_version"
 
           git switch main
