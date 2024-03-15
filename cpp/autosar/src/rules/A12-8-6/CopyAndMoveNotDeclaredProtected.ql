@@ -23,12 +23,16 @@ predicate isInvalidConstructor(Constructor f, string constructorType, string mis
     f instanceof MoveConstructor and
     if f.isCompilerGenerated()
     then constructorType = "Implicit move constructor" and missingAction = "deleted"
-    else (constructorType = "Move constructor" and missingAction = "protected")
+    else (
+      constructorType = "Move constructor" and missingAction = "protected"
+    )
     or
     f instanceof CopyConstructor and
     if f.isCompilerGenerated()
     then constructorType = "Implicit copy constructor" and missingAction = "deleted"
-    else (constructorType = "Copy constructor" and missingAction = "protected")
+    else (
+      constructorType = "Copy constructor" and missingAction = "protected"
+    )
   )
 }
 
@@ -38,12 +42,16 @@ predicate isInvalidAssignment(Operator f, string operatorType, string missingAct
     f instanceof MoveAssignmentOperator and
     if f.isCompilerGenerated()
     then operatorType = "Implicit move assignment operator" and missingAction = "deleted"
-    else (operatorType = "Move assignment operator" and missingAction = "protected")
+    else (
+      operatorType = "Move assignment operator" and missingAction = "protected"
+    )
     or
     f instanceof CopyAssignmentOperator and
     if f.isCompilerGenerated()
     then operatorType = "Implicit copy assignment operator" and missingAction = "deleted"
-    else (operatorType = "Copy assignment operator" and missingAction = "protected")
+    else (
+      operatorType = "Copy assignment operator" and missingAction = "protected"
+    )
   ) and
   not f.hasSpecifier("protected")
 }
@@ -60,5 +68,5 @@ where
 // To avoid duplicate alerts due to inaccurate location information in the database we don't use the location of the base class.
 // This for example happens if multiple copies of the same header file are present in the database.
 select getDeclarationEntryInClassDeclaration(mf),
-  type + " for base class '" + baseClass.getQualifiedName() +
-    "' is not declared "+ missingAction +"."
+  type + " for base class '" + baseClass.getQualifiedName() + "' is not declared " + missingAction +
+    "."
