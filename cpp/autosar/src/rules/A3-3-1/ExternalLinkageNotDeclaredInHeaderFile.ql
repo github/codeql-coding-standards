@@ -38,4 +38,4 @@ where
   // Main functions are an exception to the rule
   not de.getDeclaration() instanceof MainFunction and
   if de.getDeclaration() instanceof Function then kind = "function" else kind = "object"
-select de, "Externally linked " + kind + " " + de.getName() + " not declared in header file."
+select de, "Externally linked " + kind + " '" + de.getName() + "' not declared in header file."

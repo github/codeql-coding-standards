@@ -1,0 +1,2 @@
+- `A3-3-1` - `ExternalLinkageNotDeclaredInHeaderFile.ql`:
+  - Adjust the alert message to comply with the style guide.

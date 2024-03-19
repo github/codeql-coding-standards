@@ -36,3 +36,7 @@ void f5() { // COMPLIANT
   int i = 0;
 }
 } // namespace n
+
+const int c = 1;                // COMPLIANT - internal linkage
+const char *const str2 = "foo"; // COMPLIANT - internal linkage
+constexpr int k = 1;            // COMPLIANT - internal linkage
