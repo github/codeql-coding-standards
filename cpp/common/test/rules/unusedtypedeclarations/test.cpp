@@ -111,3 +111,14 @@ template <typename T> using Z = Y<T>;  // COMPLIANT - used below
 template <typename T> using AA = Y<T>; // NON_COMPLIANT - never instantiated
 
 void test_alias_template() { Z<int> v; }
+
+void test_temporary_object_creation() {
+  auto l1 = [](const auto &p1) noexcept {
+    class C1 { // COMPLIANT - used in temporary object construction
+    public:
+      constexpr static const char *m1() noexcept { return "foo"; }
+    };
+
+    return C1{p1};
+  };
+}
