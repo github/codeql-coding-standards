@@ -1,0 +1,2 @@
+- `CTR55-CPP` - `DoNotUseAnAdditiveOperatorOnAnIterator.ql`:
+  - Address reported FP in #374. Improve logic on valid end checks on iterators.

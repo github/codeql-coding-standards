@@ -27,3 +27,18 @@ void f1(std::vector<int> &v) {
   for (auto i = v.begin();; ++i) { // NON_COMPLIANT
   }
 }
+
+void test_fp_reported_in_374(std::vector<int> &v) {
+  {
+    auto end = v.end();
+    for (auto i = v.begin(); i != end; ++i) { // COMPLIANT
+    }
+  }
+
+  {
+    auto end2 = v.end();
+    end2++;                                    // NON_COMPLIANT[FALSE_NEGATIVE]
+    for (auto i = v.begin(); i != end2; ++i) { // NON_COMPLIANT[FALSE_NEGATIVE]
+    }
+  }
+}
