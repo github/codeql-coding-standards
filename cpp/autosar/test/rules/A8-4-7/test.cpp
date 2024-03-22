@@ -69,3 +69,13 @@ struct S5 {
 void f15(S3 f15a) {} // COMPLIANT
 void f17(S4 f17a) {} // NON_COMPLIANT (S4 has a non-trivial destructor)
 void f18(S5 f18a) {} // COMPLIANT
+
+#include <iostream>
+class A8_4_7 {
+public:
+  std::array<char, 20UL> values;
+};
+void fp_reported_in_82(
+    const A8_4_7 &a847) noexcept { // COMPLIANT - larger than 2 words
+  std::cout << a847.values[0] << std::endl;
+}

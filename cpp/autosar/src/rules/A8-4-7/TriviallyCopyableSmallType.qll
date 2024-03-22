@@ -12,7 +12,7 @@ int wordSize() { result = max(VoidPointerType v | | v.getSize()) }
  * Converts bytes to words
  */
 bindingset[bytes]
-int bytesToWords(int bytes) { result = bytes / wordSize() }
+float bytesToWords(float bytes) { result = bytes / wordSize() }
 
 class TriviallyCopyableSmallType extends Type {
   TriviallyCopyableSmallType() {
