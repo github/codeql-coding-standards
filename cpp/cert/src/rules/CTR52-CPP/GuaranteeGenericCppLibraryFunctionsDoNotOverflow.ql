@@ -80,7 +80,7 @@ where
     iteratorCreationCall = outputContainer.getAnIteratorFunctionCall() and
     iteratorCreationCall = c.getOutputIteratorSource()
   |
-    size_compare_bounds_checked(iteratorCreationCall, c)
+    sizeCompareBoundsChecked(iteratorCreationCall, c)
     or
     // Container created with sufficient size for the input
     exists(ContainerAccessWithoutRangeCheck::ContainerConstructorCall outputIteratorConstructor |

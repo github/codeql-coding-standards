@@ -472,7 +472,7 @@ ControlFlowNode getANonInvalidatedSuccessor(ContainerInvalidationOperation op) {
 /**
  * Guarded by a bounds check that ensures our destination is larger than "some" value
  */
-predicate size_compare_bounds_checked(IteratorSource iteratorCreationCall, Expr guarded) {
+predicate sizeCompareBoundsChecked(IteratorSource iteratorCreationCall, Expr guarded) {
   exists(
     GuardCondition guard, ContainerAccessWithoutRangeCheck::ContainerSizeCall sizeCall,
     boolean branch
