@@ -35,10 +35,9 @@ predicate sizeCheckedAbove(ContainerIteratorAccess it, IteratorSource source) {
  */
 predicate validEndBoundCheck(ContainerIteratorAccess it, IteratorSource source) {
   exists(
-    STLContainer c, BasicBlock b, GuardCondition l, ContainerIteratorAccess otherAccess,
-    IteratorSource end
+    ContainerAccessWithoutRangeCheck::ContainerEndCall end, BasicBlock b, GuardCondition l,
+    ContainerIteratorAccess otherAccess
   |
-    end = c.getAnIteratorEndFunctionCall() and
     //guard controls the access
     l.controls(b, _) and
     b.contains(it) and
