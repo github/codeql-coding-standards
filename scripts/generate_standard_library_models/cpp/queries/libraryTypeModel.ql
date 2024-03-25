@@ -10,5 +10,5 @@ where
   declInVisibleStdNamespace(t) and
   // Do not report types from template instantiations - instead report the uninstantiated template
   not t.isFromTemplateInstantiation(_)
-select getStandard(), t.getFile().getBaseName(), getVisibleNamespaceString(t.getNamespace()),
-  t.getSimpleName()
+select getStandard(), getAClosestStandardLibraryHeader(t.getFile()).getBaseName(),
+  getVisibleNamespaceString(t.getNamespace()), t.getSimpleName()

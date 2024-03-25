@@ -11,4 +11,5 @@ where
   // includes many objects outside the C/C++ standard library.
   declInVisibleStdNamespace(v) and
   if hasExternalLinkage(v) then linkage = "external" else linkage = "internal"
-select getStandard(), v.getFile().getBaseName(), "std", v.getName(), v.getType().toString(), linkage
+select getStandard(), getAClosestStandardLibraryHeader(v.getFile()).getBaseName(), "std",
+  v.getName(), v.getType().toString(), linkage

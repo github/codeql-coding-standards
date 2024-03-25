@@ -24,5 +24,6 @@ where
   if f instanceof MemberFunction
   then f.getDeclaringType().getSimpleName() = declaringType and not f.(MemberFunction).isPrivate()
   else declaringType = ""
-select getStandard(), f.getFile().getBaseName(), getVisibleNamespaceString(f.getNamespace()),
-  declaringType, f.getName(), f.getType().toString(), f.getParameterString(), linkage
+select getStandard(), getAClosestStandardLibraryHeader(f.getFile()).getBaseName(),
+  getVisibleNamespaceString(f.getNamespace()), declaringType, f.getName(), f.getType().toString(),
+  f.getParameterString(), linkage

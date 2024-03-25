@@ -11,5 +11,6 @@ where
   // Restrict to declarations in `std` namespace as the global namespace in a real database
   // includes many member variables outside the C/C++ standard library.
   declInVisibleStdNamespace(v)
-select getStandard(), v.getFile().getBaseName(), getVisibleNamespaceString(v.getNamespace()),
-  v.getDeclaringType().getSimpleName(), v.getName(), v.getType().toString()
+select getStandard(), getAClosestStandardLibraryHeader(v.getFile()).getBaseName(),
+  getVisibleNamespaceString(v.getNamespace()), v.getDeclaringType().getSimpleName(), v.getName(),
+  v.getType().toString()
