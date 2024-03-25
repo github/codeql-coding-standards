@@ -9,6 +9,8 @@ where
   not f.isCompilerGenerated() and
   // exclude user defined operators
   not f instanceof Operator and
+  // exclude "operator bool", which doesn't seem to be considered as an Operator
+  not f.getName() = "operator bool" and
   not f.isFromTemplateInstantiation(_) and
   not f instanceof Constructor and
   not f instanceof Destructor and
