@@ -12,11 +12,11 @@ int wordSize() { result = max(VoidPointerType v | | v.getSize()) }
  * Converts bytes to words
  */
 bindingset[bytes]
-int bytesToWords(int bytes) { result = bytes / wordSize() }
+int minWordsRequiredToRepresentBytes(int bytes) { result = (1.0 * bytes / wordSize()).ceil() }
 
 class TriviallyCopyableSmallType extends Type {
   TriviallyCopyableSmallType() {
     isTriviallyCopyableType(this) and
-    exists(int size | size = this.getSize() | bytesToWords(size) <= 2)
+    exists(int size | size = this.getSize() | minWordsRequiredToRepresentBytes(size) <= 2)
   }
 }
