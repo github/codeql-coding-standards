@@ -20,8 +20,9 @@ void f1(std::vector<int> &v) {
   }
   for (auto i = v.begin(),
             l = (i + std::min(static_cast<std::vector<int>::size_type>(10),
-                              v.size()));
-       i != l; ++i) { // COMPLIANT
+                              v.size())); // NON_COMPLIANT - technically in the
+                                          // calculation
+       i != l; ++i) {                     // COMPLIANT
   }
 
   for (auto i = v.begin();; ++i) { // NON_COMPLIANT
@@ -37,7 +38,7 @@ void test_fp_reported_in_374(std::vector<int> &v) {
 
   {
     auto end2 = v.end();
-    end2++;                                    // NON_COMPLIANT[FALSE_NEGATIVE]
+    end2++;                                    // NON_COMPLIANT
     for (auto i = v.begin(); i != end2; ++i) { // NON_COMPLIANT[FALSE_NEGATIVE]
     }
   }

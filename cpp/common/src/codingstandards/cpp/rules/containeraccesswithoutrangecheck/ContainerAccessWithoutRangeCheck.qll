@@ -86,6 +86,16 @@ class ContainerEmptyCall extends FunctionCall {
 }
 
 /**
+ * A call to either `begin()` on a container.
+ */
+class ContainerBeginCall extends FunctionCall {
+  ContainerBeginCall() {
+    getTarget().getDeclaringType() instanceof ContainerType and
+    getTarget().getName() = "begin"
+  }
+}
+
+/**
  * A call to either `end()` on a container.
  */
 class ContainerEndCall extends FunctionCall {
