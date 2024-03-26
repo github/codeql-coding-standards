@@ -27,6 +27,41 @@ predicate inVisibleStdNamespace(Namespace namespace) {
   )
 }
 
+/**
+ * Gets a type which contains all the members of `t` and is visible in the `std` namespace, if any.
+ */
+UserType getAVisibleTypeInStdNamespace(UserType t) {
+  declInVisibleStdNamespace(t) and
+  // If the name starts with an _ it is an internal implementation deteail
+  // However, it can be visible if that type is aliased or extended
+  if t.getName().matches("\\_%")
+  then
+    // The user type is typedef'd to another type which is visible (possibly transitively)
+    exists(TypedefType typeDefType |
+      typeDefType.getBaseType() = t and result = getAVisibleTypeInStdNamespace(typeDefType)
+    )
+    or
+    // There is a visible sub-type of the base class (possibly transitively)
+    exists(Class subType |
+      subType.getABaseClass+() = t and result = getAVisibleTypeInStdNamespace(subType)
+    )
+    or
+    // There is a class template specialization of the base class that is visible (possibly transitively)
+    exists(ClassTemplateSpecialization pcts |
+      pcts.getPrimaryTemplate() = t and result = getAVisibleTypeInStdNamespace(pcts)
+    )
+    or
+    // There is a class template instantiation of this template class that is visibile (possibly transitively)
+    exists(ClassTemplateInstantiation instantiation |
+      instantiation.getTemplate() = t and result = getAVisibleTypeInStdNamespace(instantiation)
+    )
+  else (
+    // A namespace declared type without an _ prefix is always visible
+    not exists(t.getDeclaringType()) and
+    result = t
+  )
+}
+
 private string getParentName(Namespace namespace) {
   result = namespace.getParentNamespace().getName() and
   result != ""

@@ -24,7 +24,9 @@ where
   // In practice there aren't any internal linkage functions specified by the C++ standard
   (if hasExternalLinkage(f) then linkage = "external" else linkage = "internal") and
   if f instanceof MemberFunction
-  then f.getDeclaringType().getSimpleName() = declaringType and not f.(MemberFunction).isPrivate()
+  then
+    getAVisibleTypeInStdNamespace(f.getDeclaringType()).getSimpleName() = declaringType and
+    not f.(MemberFunction).isPrivate()
   else declaringType = ""
 select getStandard(), getAClosestStandardLibraryHeader(f.getFile()).getBaseName(),
   getVisibleNamespaceString(f.getNamespace()), declaringType, f.getName(), f.getType().toString(),

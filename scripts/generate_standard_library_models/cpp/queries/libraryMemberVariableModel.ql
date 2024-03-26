@@ -10,7 +10,10 @@ where
   not v.getName().matches("\\_%") and
   // Restrict to declarations in `std` namespace as the global namespace in a real database
   // includes many member variables outside the C/C++ standard library.
-  declInVisibleStdNamespace(v)
+  declInVisibleStdNamespace(v) and
+  // Exclude private member variables
+  not v.isPrivate()
 select getStandard(), getAClosestStandardLibraryHeader(v.getFile()).getBaseName(),
-  getVisibleNamespaceString(v.getNamespace()), v.getDeclaringType().getSimpleName(), v.getName(),
+  getVisibleNamespaceString(v.getNamespace()),
+  getAVisibleTypeInStdNamespace(v.getDeclaringType()).getSimpleName(), v.getName(),
   v.getType().toString()
