@@ -18,6 +18,7 @@ query predicate problems(UserDeclaration v2, string message, UserDeclaration v1,
   not v1 instanceof TemplateVariable and
   not v2 instanceof TemplateVariable and
   hidesStrict(v1, v2) and
+  not excludedViaNestedNamespaces(v2, v1) and
   varName = v1.getName() and
   message = "Declaration is hiding declaration $@."
 }

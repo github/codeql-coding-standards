@@ -84,3 +84,22 @@ int a() {} // NON_COMPLIANT
 namespace b1 {
 typedef int a; // NON_COMPLIANT
 }
+
+namespace ns_exception1_outer {
+int a1; // COMPLIANT - exception
+namespace ns_exception1_inner {
+void a1(); // COMPLIANT - exception
+}
+} // namespace ns_exception1_outer
+
+void f4() {
+  int a1, b;
+  auto lambda1 = [a1]() {
+    int b = 10; // COMPLIANT - exception - non captured variable b
+  };
+
+  auto lambda2 = [b]() {
+    int b = 10; // NON_COMPLIANT[FALSE_NEGATIVE] - not an exception - captured
+                // variable b
+  };
+}

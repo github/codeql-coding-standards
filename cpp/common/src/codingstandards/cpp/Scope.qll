@@ -295,3 +295,18 @@ predicate hasClassScope(Declaration decl) { exists(decl.getDeclaringType()) }
 
 /** Holds if `decl` has block scope. */
 predicate hasBlockScope(Declaration decl) { exists(BlockStmt b | b.getADeclaration() = decl) }
+
+/**
+ * identifiers in nested (named/nonglobal) namespaces are exceptions to hiding due to being able access via fully qualified ids
+ */
+predicate excludedViaNestedNamespaces(UserDeclaration v2, UserDeclaration v1) {
+  exists(Namespace inner, Namespace outer |
+    outer.getAChildNamespace+() = inner and
+    //outer is not global
+    not outer instanceof GlobalNamespace and
+    not outer.isAnonymous() and
+    not inner.isAnonymous() and
+    v2.getNamespace() = inner and
+    v1.getNamespace() = outer
+  )
+}
