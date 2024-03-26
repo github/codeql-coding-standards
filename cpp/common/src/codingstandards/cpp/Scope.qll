@@ -67,6 +67,8 @@ class UserDeclaration extends Declaration {
     not this.(Variable).isCompilerGenerated() and
     not this.(Function).isCompilerGenerated() and
     not this.(Parameter).getFunction().isCompilerGenerated() and
+    // will falsely conflict
+    not this instanceof ClassTemplateInstantiation and
     // compiler inferred parameters have name of p#0
     not this.(Parameter).getName() = "p#0"
   }
