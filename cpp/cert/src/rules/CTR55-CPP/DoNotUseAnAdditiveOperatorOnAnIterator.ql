@@ -57,7 +57,6 @@ where
   it.isAdditiveOperation() and
   not exists(RangeBasedForStmt fs | fs.getUpdate().getAChild*() = it) and
   source = it.getANearbyAssigningIteratorCall() and
-  not sizeCompareBoundsChecked(source, it) and
   not validEndBoundCheck(it, source) and
   not sizeCheckedAbove(it, source)
 select it, "Increment of iterator may overflow since its bounds are not checked."
