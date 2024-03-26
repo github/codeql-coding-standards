@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 def get_merge_base_of_ref() -> str:
     cp = run(["git", "merge-base", "HEAD", "origin/main"], capture_output=True, text=True)
     if cp.returncode != 0:
-        raise RuntimeError("Failed to get merge base")
+        raise RuntimeError(f"Failed to get merge base with reason '{cp.stderr.strip()}'")
     return cp.stdout.strip()
 
 def get_release_branches_containing(commit: str) -> List[Version]:
