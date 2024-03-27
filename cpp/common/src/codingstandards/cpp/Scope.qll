@@ -71,6 +71,7 @@ class UserDeclaration extends Declaration {
     not this instanceof ClassTemplateInstantiation and
     // compiler inferred parameters have name of p#0
     not this.(Parameter).getName() = "p#0"
+    and not this instanceof Type
   }
 }
 

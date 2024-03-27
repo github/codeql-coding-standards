@@ -82,7 +82,7 @@ int a() {} // NON_COMPLIANT
 } // namespace b
 
 namespace b1 {
-typedef int a; // NON_COMPLIANT
+typedef int a; // COMPLIANT - do not consider types
 }
 
 namespace ns_exception1_outer {
