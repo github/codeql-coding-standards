@@ -1,2 +1,3 @@
 - `A2-10-1`, `RULE-5-3` - `IdentifierHiding.ql`, `IdentifierHidingC.ql`:
-  - Address FN reported in #118. Rule was missing detection of functions and types.
+  - Address FN reported in #118. Rule was missing detection of functions. Additionally omitted class template instantiations.
+  - Fix FP for identifiers in nested namespaces.

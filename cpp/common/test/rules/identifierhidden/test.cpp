@@ -103,3 +103,6 @@ void f4() {
                 // variable b
   };
 }
+
+void f5(int i) {}    // COMPLIANT - exception - assume purposefully overloaded
+void f5(double d) {} // COMPLIANT - exception - assume purposefully overloaded
