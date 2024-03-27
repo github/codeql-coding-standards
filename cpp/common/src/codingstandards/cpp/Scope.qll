@@ -273,9 +273,9 @@ predicate hides(UserDeclaration v1, UserDeclaration v2) {
   not exists(UserDeclaration mid |
     hides_candidate(v1, mid) and
     hides_candidate(mid, v2)
-  )
+  ) and
   //ignore intentional overloads
-  and not v1.(Function).getAnOverload() = v2
+  not v1.(Function).getAnOverload() = v2
 }
 
 /** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */
