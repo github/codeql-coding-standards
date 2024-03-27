@@ -71,7 +71,6 @@ class UserDeclaration extends Declaration {
     not this instanceof ClassTemplateInstantiation and
     // compiler inferred parameters have name of p#0
     not this.(Parameter).getName() = "p#0"
-    and not this instanceof Type
   }
 }
 
@@ -275,6 +274,8 @@ predicate hides(UserDeclaration v1, UserDeclaration v2) {
     hides_candidate(v1, mid) and
     hides_candidate(mid, v2)
   )
+  //ignore intentional overloads
+  and not v1.(Function).getAnOverload() = v2
 }
 
 /** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */

@@ -17,6 +17,9 @@ query predicate problems(UserDeclaration v2, string message, UserDeclaration v1,
   //ignore template variables for this rule
   not v1 instanceof TemplateVariable and
   not v2 instanceof TemplateVariable and
+  //ignore types for this rule
+  not v2 instanceof Type and
+  not v1 instanceof Type and
   hidesStrict(v1, v2) and
   not excludedViaNestedNamespaces(v2, v1) and
   varName = v1.getName() and
