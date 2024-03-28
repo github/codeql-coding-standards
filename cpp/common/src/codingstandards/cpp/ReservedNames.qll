@@ -6,6 +6,7 @@ import codingstandards.cpp.CKeywords
 import codingstandards.cpp.Linkage
 import codingstandards.cpp.Macro
 import codingstandards.cpp.StandardLibraryNames
+import codingstandards.cpp.StdNamespace
 
 module ReservedNames {
   module C11 {
@@ -294,6 +295,232 @@ module ReservedNames {
         // C11 6.4.1/2
         Keywords::isKeyword(name) and
         reason = "declares a reserved name which is a C11 keyword"
+      )
+    }
+  }
+
+  module Cpp14 {
+    private import codingstandards.cpp.Lex
+
+    module TargetedCppLibrary = CppStandardLibrary::Cpp14;
+
+    module TargetedCLibrary = CStandardLibrary::C99;
+
+    predicate isMacroUsingReservedIdentifier(PreprocessorDirective pd, string reason) {
+      exists(string name, string identifierDescription |
+        pd.(Macro).getName() = name and identifierDescription = "#define"
+        or
+        pd.(PreprocessorUndef).getName() = name and
+        identifierDescription = "#undef"
+      |
+        // [macro.names] precludes the use of any name declared in any standard library header
+        exists(string header, string standard |
+          TargetedCLibrary::hasName(header, name) and
+          standard = TargetedCLibrary::getName()
+          or
+          TargetedCppLibrary::hasName(header, name) and
+          standard = TargetedCppLibrary::getName()
+        |
+          // Includes at least one standard library header
+          pd.getFile().getAnIncludedFile*().getBaseName() =
+            [TargetedCLibrary::getAHeader(), TargetedCppLibrary::getAHeader()] and
+          reason =
+            "'" + identifierDescription + " " + name + "' uses a reserved name from the " + standard
+              + " standard library header <" + header + ">."
+        )
+        or
+        // [macro.names] precludes the use of keywords, special identifiers or reserved attribute tokens
+        exists(string kind |
+          name = Lex::Cpp14::keyword() and kind = " keyword"
+          or
+          name = Lex::Cpp14::specialIdentfier() and kind = "special identifier"
+          or
+          name = Lex::Cpp14::reservedAttributeToken() and kind = "reserved attribute token"
+        |
+          reason =
+            "'" + identifierDescription + " " + name + "' uses a name lexically identical to a " +
+              kind + "."
+        )
+        or
+        // [global.names] Reserves unconditionally all names containing __ or prefixed with _[A-Z].
+        // In addition _ prefixed names are reserved to the implementation in the global namespace.
+        // As macros are not limited in effect to a given namespace, we also consider all names
+        // starting with _ as reserved when considering macros, as well as those with __ in the name.
+        name.regexpMatch("(_.*|.*__.*)") and
+        reason =
+          "'" + identifierDescription + " " + name + "' uses a name reserved for the " +
+            TargetedCppLibrary::getName() + " implementation."
+      )
+    }
+
+    class GlobalFunction extends TopLevelFunction {
+      GlobalFunction() { getNamespace() instanceof GlobalNamespace }
+    }
+
+    private Macro getGeneratedFrom(Element e) {
+      isCppIdentifier(e, _, _, _) and
+      exists(MacroInvocation mi |
+        mi = result.getAnInvocation() and
+        mi.getAGeneratedElement() = e and
+        not exists(MacroInvocation child |
+          child.getParentInvocation() = mi and
+          child.getAGeneratedElement() = e
+        )
+      )
+    }
+
+    newtype IdentifierScope =
+      StdNamespaceScope() or
+      GlobalNamespaceScope() or
+      OtherNamespaceScope()
+
+    /**
+     * An declaration whose name can be reserved.
+     */
+    private predicate isCppIdentifier(
+      Declaration m, string name, string identifierDescription, IdentifierScope scope
+    ) {
+      m.(GlobalFunction).getName() = name and
+      identifierDescription = "Function" and
+      scope = GlobalNamespaceScope()
+      or
+      m.(GlobalVariable).getName() = name and
+      identifierDescription = "Variable" and
+      scope = GlobalNamespaceScope()
+      or
+      m.(UserType).getName() = name and
+      m.(UserType).getNamespace() instanceof GlobalNamespace and
+      identifierDescription = "Type" and
+      scope = GlobalNamespaceScope()
+      or
+      hasExternalLinkage(m) and
+      m.(Declaration).getName() = name and
+      identifierDescription = "Declaration with external linkage" and
+      exists(Namespace n | n = m.(Declaration).getNamespace() |
+        if n instanceof StdNS
+        then scope = StdNamespaceScope()
+        else
+          if n instanceof GlobalNamespace
+          then scope = GlobalNamespaceScope()
+          else scope = OtherNamespaceScope()
+      )
+    }
+
+    predicate isAReservedIdentifier(Declaration m, string message) {
+      exists(string name, string identifierDescription, IdentifierScope scope, string reason |
+        isCppIdentifier(m, name, identifierDescription, scope) and
+        // Exclude cases generated from library macros, because the user does not control them
+        not getGeneratedFrom(m) instanceof LibraryMacro and
+        message = identifierDescription + " '" + name + "' " + reason + "."
+      |
+        // [global.names] reserves unconditionally all names containing __ or prefixed with _[A-Z].
+        // In addition _ prefixed names are reserved to the implementation in the global namespace.
+        name.regexpMatch("(_[A-Z].*|.*__.*)") and
+        reason =
+          " uses a name reserved for the " + TargetedCppLibrary::getName() + " implementation."
+        or
+        // [global.names] reserves all _ prefixed names to the implementation in the global namespace.
+        name.regexpMatch("_([^A-Z_].*)?") and
+        scope = GlobalNamespaceScope() and
+        reason =
+          " uses a name reserved for the " + TargetedCppLibrary::getName() + " implementation."
+        or
+        // [extern.names]/1:
+        //   Each name declared as an object with external linkage in a header is reserved to the implementation to
+        //   designate that library object with external linkage,182 both in namespace std and in the global namespace.
+        exists(string header |
+          header =
+            max(string candidate_header |
+              TargetedCppLibrary::hasObjectName(candidate_header, _, name, _, "external")
+            )
+          or
+          header = "errno" and
+          name = "cerrno"
+        |
+          not scope = OtherNamespaceScope() and
+          reason =
+            "declares a reserved object name from the " + TargetedCppLibrary::getName() +
+              " standard library header <" + header + ">"
+        )
+        or
+        // [extern.names]/2:
+        //   Each global function signature declared with external linkage in a header is reserved to the implementation
+        //   to designate that function signature with external linkage.
+        exists(string header |
+          header =
+            max(string candidate_header |
+              // Global functions are in the global namespace ("") and have no declaring type
+              TargetedCppLibrary::hasFunctionName(candidate_header, "", "", name, _, _, "external")
+            )
+          or
+          header = "csetjmp" and
+          name = "setjmp"
+          or
+          header = "cstdarg" and
+          name = "va_end"
+        |
+          // Only report against elements with external linkage
+          hasExternalLinkage(m) and
+          reason =
+            "declares a name which is reserved for a function from the " +
+              TargetedCppLibrary::getName() + " standard library header <" + header + ">"
+        )
+        or
+        // [extern.names]/3:
+        //   Each name from the Standard C library declared with external linkage is reserved to the implementation
+        //   for use as a name with extern "C" linkage, both in namespace std and in the global namespace.
+        exists(string header |
+          header =
+            max(string candidate_header |
+              TargetedCLibrary::hasObjectName(candidate_header, _, name, _, "external")
+            )
+        |
+          // Only global and std
+          not scope = OtherNamespaceScope() and
+          reason =
+            "declares a name which is reserved for the " + TargetedCLibrary::getName() +
+              " standard library header <" + header + ">"
+        )
+        or
+        exists(string header |
+          // [extern.names]/4:
+          //   Each function signature from the Standard C library declared with external linkage is reserved to the
+          //   implementation for use as a function signature with both extern "C" and extern "C++" linkage, 184 or as
+          //   a name of namespace scope in the global namespace.
+          header =
+            max(string candidate_header |
+              TargetedCLibrary::hasFunctionName(candidate_header, _, _, name, _, _, "external")
+            ) and
+          reason =
+            "declares a name which is reserved for a function from the " +
+              TargetedCLibrary::getName() + " standard library header <" + header + ">"
+          or
+          header = ["cuchar", "cwchar", "cwctype"] and
+          TargetedCppLibrary::hasFunctionName(header, _, "", name, _, _, "external") and
+          reason =
+            "declares a name which is reserved for a function from the " +
+              TargetedCppLibrary::getName() + " standard library header <" + header + ">"
+        |
+          // Only reserved as a name in the global scope
+          scope = GlobalNamespaceScope()
+          or
+          // Not a function, but has external linkage
+          hasExternalLinkage(m) and
+          not m instanceof Function
+        )
+        or
+        exists(string header |
+          // [extern.types]:
+          //   For each type T from the Standard C library,185 the types ::T and std::T are reserved to the implementation
+          // and, when defined, ::T shall be identical to std::T.
+          header =
+            max(string candidate_header | TargetedCLibrary::hasTypeName(candidate_header, _, name)) and
+          // Only restricted in std and global namespace
+          not scope = OtherNamespaceScope() and
+          reason =
+            "declares a name which is reserved for a type from the " + TargetedCLibrary::getName() +
+              " standard library header <" + header + ">"
+        )
       )
     }
   }
