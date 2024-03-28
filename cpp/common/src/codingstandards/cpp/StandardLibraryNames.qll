@@ -41,6 +41,17 @@ extensible predicate libraryMemberVariableModel(
 signature module StandardLibrary {
   string getName();
 
+  /**
+   * Holds if this standard declares `name` in `header`.
+   */
+  default predicate hasName(string header, string name) {
+    hasMacroName(header, name, _) or
+    hasTypeName(header, _, name) or
+    hasObjectName(header, _, name, _, _) or
+    hasFunctionName(header, _, _, name, _, _, _) or
+    hasMemberVariableName(header, _, _, name, _)
+  }
+
   default predicate hasMacroName(string header, string name, string parameters) {
     libraryMacroModel(getName(), header, name, parameters)
   }
@@ -68,6 +79,8 @@ signature module StandardLibrary {
   ) {
     libraryMemberVariableModel(getName(), header, namespace, declaringType, name, type)
   }
+
+  default string getAHeader() { hasName(result, _) }
 }
 
 module CStandardLibrary {
