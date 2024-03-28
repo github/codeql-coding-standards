@@ -1,26 +1,26 @@
-| test.cpp:1:1:1:12 | #undef errno | Reserved identifier 'errno' has been undefined or redefined. |
-| test.cpp:2:1:2:15 | #define errno 0 | Reserved identifier 'errno' has been undefined or redefined. |
-| test.cpp:4:1:4:13 | #undef assert | Reserved identifier 'assert' has been undefined or redefined. |
-| test.cpp:5:1:5:27 | #define assert(condition) 0 | Reserved identifier 'assert' has been undefined or redefined. |
-| test.cpp:7:1:7:15 | #undef __LINE__ | Reserved identifier '__LINE__' has been undefined or redefined. |
-| test.cpp:8:1:8:18 | #define __LINE__ 0 | Reserved identifier '__LINE__' has been undefined or redefined. |
-| test.cpp:10:1:10:15 | #undef __FILE__ | Reserved identifier '__FILE__' has been undefined or redefined. |
-| test.cpp:11:1:11:18 | #define __FILE__ 0 | Reserved identifier '__FILE__' has been undefined or redefined. |
-| test.cpp:13:1:13:15 | #undef __DATE__ | Reserved identifier '__DATE__' has been undefined or redefined. |
-| test.cpp:14:1:14:18 | #define __DATE__ 0 | Reserved identifier '__DATE__' has been undefined or redefined. |
-| test.cpp:16:1:16:15 | #undef __TIME__ | Reserved identifier '__TIME__' has been undefined or redefined. |
-| test.cpp:17:1:17:18 | #define __TIME__ 0 | Reserved identifier '__TIME__' has been undefined or redefined. |
-| test.cpp:19:1:19:15 | #undef __STDC__ | Reserved identifier '__STDC__' has been undefined or redefined. |
-| test.cpp:20:1:20:18 | #define __STDC__ 0 | Reserved identifier '__STDC__' has been undefined or redefined. |
-| test.cpp:22:1:22:22 | #undef __STDC_HOSTED__ | Reserved identifier '__STDC_HOSTED__' has been undefined or redefined. |
-| test.cpp:23:1:23:25 | #define __STDC_HOSTED__ 0 | Reserved identifier '__STDC_HOSTED__' has been undefined or redefined. |
-| test.cpp:25:1:25:18 | #undef __cplusplus | Reserved identifier '__cplusplus' has been undefined or redefined. |
-| test.cpp:26:1:26:21 | #define __cplusplus 0 | Reserved identifier '__cplusplus' has been undefined or redefined. |
-| test.cpp:28:1:28:25 | #undef __STDCPP_THREADS__ | Reserved identifier '__STDCPP_THREADS__' has been undefined or redefined. |
-| test.cpp:29:1:29:28 | #define __STDCPP_THREADS__ 0 | Reserved identifier '__STDCPP_THREADS__' has been undefined or redefined. |
-| test.cpp:31:1:31:19 | #undef __FUNCTION__ | Reserved identifier '__FUNCTION__' has been undefined or redefined. |
-| test.cpp:32:1:32:22 | #define __FUNCTION__ 0 | Reserved identifier '__FUNCTION__' has been undefined or redefined. |
-| test.cpp:34:1:34:11 | #undef _Foo | Reserved identifier '_Foo' has been undefined or redefined. |
-| test.cpp:35:1:35:12 | #define _Foo | Reserved identifier '_Foo' has been undefined or redefined. |
-| test.cpp:37:1:37:11 | #undef _foo | Reserved identifier '_foo' has been undefined or redefined. |
-| test.cpp:38:1:38:12 | #define _foo | Reserved identifier '_foo' has been undefined or redefined. |
+| test.cpp:2:1:2:12 | #undef errno | '#undef errno' uses a reserved name from the C99 standard library header <errno.h>. |
+| test.cpp:3:1:3:15 | #define errno 0 | '#define errno' uses a reserved name from the C99 standard library header <errno.h>. |
+| test.cpp:4:1:4:13 | #undef assert | '#undef assert' uses a reserved name from the C99 standard library header <assert.h>. |
+| test.cpp:5:1:5:27 | #define assert(condition) 0 | '#define assert' uses a reserved name from the C99 standard library header <assert.h>. |
+| test.cpp:7:1:7:15 | #undef __LINE__ | '#undef __LINE__' uses a name reserved for the C++14 implementation. |
+| test.cpp:8:1:8:18 | #define __LINE__ 0 | '#define __LINE__' uses a name reserved for the C++14 implementation. |
+| test.cpp:10:1:10:15 | #undef __FILE__ | '#undef __FILE__' uses a name reserved for the C++14 implementation. |
+| test.cpp:11:1:11:18 | #define __FILE__ 0 | '#define __FILE__' uses a name reserved for the C++14 implementation. |
+| test.cpp:13:1:13:15 | #undef __DATE__ | '#undef __DATE__' uses a name reserved for the C++14 implementation. |
+| test.cpp:14:1:14:18 | #define __DATE__ 0 | '#define __DATE__' uses a name reserved for the C++14 implementation. |
+| test.cpp:16:1:16:15 | #undef __TIME__ | '#undef __TIME__' uses a name reserved for the C++14 implementation. |
+| test.cpp:17:1:17:18 | #define __TIME__ 0 | '#define __TIME__' uses a name reserved for the C++14 implementation. |
+| test.cpp:19:1:19:15 | #undef __STDC__ | '#undef __STDC__' uses a name reserved for the C++14 implementation. |
+| test.cpp:20:1:20:18 | #define __STDC__ 0 | '#define __STDC__' uses a name reserved for the C++14 implementation. |
+| test.cpp:22:1:22:22 | #undef __STDC_HOSTED__ | '#undef __STDC_HOSTED__' uses a name reserved for the C++14 implementation. |
+| test.cpp:23:1:23:25 | #define __STDC_HOSTED__ 0 | '#define __STDC_HOSTED__' uses a name reserved for the C++14 implementation. |
+| test.cpp:25:1:25:18 | #undef __cplusplus | '#undef __cplusplus' uses a name reserved for the C++14 implementation. |
+| test.cpp:26:1:26:21 | #define __cplusplus 0 | '#define __cplusplus' uses a name reserved for the C++14 implementation. |
+| test.cpp:28:1:28:25 | #undef __STDCPP_THREADS__ | '#undef __STDCPP_THREADS__' uses a name reserved for the C++14 implementation. |
+| test.cpp:29:1:29:28 | #define __STDCPP_THREADS__ 0 | '#define __STDCPP_THREADS__' uses a name reserved for the C++14 implementation. |
+| test.cpp:31:1:31:19 | #undef __FUNCTION__ | '#undef __FUNCTION__' uses a name reserved for the C++14 implementation. |
+| test.cpp:32:1:32:22 | #define __FUNCTION__ 0 | '#define __FUNCTION__' uses a name reserved for the C++14 implementation. |
+| test.cpp:34:1:34:11 | #undef _Foo | '#undef _Foo' uses a name reserved for the C++14 implementation. |
+| test.cpp:35:1:35:12 | #define _Foo | '#define _Foo' uses a name reserved for the C++14 implementation. |
+| test.cpp:37:1:37:11 | #undef _foo | '#undef _foo' uses a name reserved for the C++14 implementation. |
+| test.cpp:38:1:38:12 | #define _foo | '#define _foo' uses a name reserved for the C++14 implementation. |

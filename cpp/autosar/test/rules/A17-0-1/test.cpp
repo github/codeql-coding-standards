@@ -1,6 +1,6 @@
-#undef errno    // NON_COMPLIANT
-#define errno 0 // NON_COMPLIANT
-
+#include <errno.h>
+#undef errno                // NON_COMPLIANT
+#define errno 0             // NON_COMPLIANT
 #undef assert               // NON_COMPLIANT
 #define assert(condition) 0 // NON_COMPLIANT
 
@@ -55,3 +55,5 @@ void test_macros_are_invoked() {
   __STDC_HOSTED__; // COMPLIANT
   __FUNCTION__;    // COMPLIANT
 }
+
+#define str(x) 0 // NON_COMPLIANT
