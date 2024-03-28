@@ -99,7 +99,7 @@ void f4() {
   };
 
   auto lambda2 = [b]() {
-    int b = 10; // NON_COMPLIANT[FALSE_NEGATIVE] - not an exception - captured
+    int b = 10; // NON_COMPLIANT - not an exception - captured
                 // variable b
   };
 }

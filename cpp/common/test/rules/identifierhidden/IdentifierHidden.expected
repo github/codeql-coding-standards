@@ -9,3 +9,4 @@
 | test.cpp:70:12:70:12 | i | Declaration is hiding declaration $@. | test.cpp:61:7:61:7 | i | i |
 | test.cpp:75:16:75:16 | i | Declaration is hiding declaration $@. | test.cpp:61:7:61:7 | i | i |
 | test.cpp:81:5:81:5 | a | Declaration is hiding declaration $@. | test.cpp:79:5:79:5 | a | a |
+| test.cpp:102:9:102:9 | b | Declaration is hiding declaration $@. | test.cpp:96:11:96:11 | b | b |
