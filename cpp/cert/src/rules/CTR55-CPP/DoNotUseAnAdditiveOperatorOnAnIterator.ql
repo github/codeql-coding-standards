@@ -17,8 +17,9 @@ import codingstandards.cpp.Iterators
 import semmle.code.cpp.controlflow.Dominance
 
 /**
- * something like:
- * `end = begin() + size()`
+ *  Get a derived one passed the end element for `containerReference`.
+ *  An example derivation is:
+ *     `end = begin() + size()`
  */
 Expr calculatedEndCheck(AdditiveOperatorFunctionCall calc) {
   exists(
