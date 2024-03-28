@@ -75,3 +75,34 @@ void test_scope_order() {
   } catch (int i) { // NON_COMPLIANT
   }
 }
+
+int a;
+namespace b {
+int a() {} // NON_COMPLIANT
+} // namespace b
+
+namespace b1 {
+typedef int a; // COMPLIANT - do not consider types
+}
+
+namespace ns_exception1_outer {
+int a1; // COMPLIANT - exception
+namespace ns_exception1_inner {
+void a1(); // COMPLIANT - exception
+}
+} // namespace ns_exception1_outer
+
+void f4() {
+  int a1, b;
+  auto lambda1 = [a1]() {
+    int b = 10; // COMPLIANT - exception - non captured variable b
+  };
+
+  auto lambda2 = [b]() {
+    int b = 10; // NON_COMPLIANT - not an exception - captured
+                // variable b
+  };
+}
+
+void f5(int i) {}    // COMPLIANT - exception - assume purposefully overloaded
+void f5(double d) {} // COMPLIANT - exception - assume purposefully overloaded
