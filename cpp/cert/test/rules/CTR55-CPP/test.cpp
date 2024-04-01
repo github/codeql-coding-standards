@@ -43,3 +43,11 @@ void test_fp_reported_in_374(std::vector<int> &v) {
     }
   }
 }
+
+void test(std::vector<int> &v, std::vector<int> &v2) {
+  {
+    auto end = v2.end();
+    for (auto i = v.begin(); i != end; ++i) { // NON_COMPLIANT - wrong check
+    }
+  }
+}
