@@ -60,16 +60,19 @@ Expr getReferenceToOnePassedTheEndElement(Expr containerReference) {
  */
 predicate isUpperBoundEndCheckedIteratorAccess(IteratorSource source, ContainerIteratorAccess it) {
   exists(
-    Expr referenceToOnePassedTheEndElement, BasicBlock basicBlockOfIteratorAccess, GuardCondition upperBoundCheck,
-    ContainerIteratorAccess checkedIteratorAccess, Expr containerReferenceFromEndGuard
+    Expr referenceToOnePassedTheEndElement, BasicBlock basicBlockOfIteratorAccess,
+    GuardCondition upperBoundCheck, ContainerIteratorAccess checkedIteratorAccess,
+    Expr containerReferenceFromEndGuard
   |
     //sufficient end guard
-    referenceToOnePassedTheEndElement = getReferenceToOnePassedTheEndElement(containerReferenceFromEndGuard) and
+    referenceToOnePassedTheEndElement =
+      getReferenceToOnePassedTheEndElement(containerReferenceFromEndGuard) and
     //guard controls the access
     upperBoundCheck.controls(basicBlockOfIteratorAccess, _) and
     basicBlockOfIteratorAccess.contains(it) and
     //guard is comprised of end check and an iterator access
-    DataFlow::localFlow(DataFlow::exprNode(referenceToOnePassedTheEndElement), DataFlow::exprNode(upperBoundCheck.getChild(_))) and
+    DataFlow::localFlow(DataFlow::exprNode(referenceToOnePassedTheEndElement),
+      DataFlow::exprNode(upperBoundCheck.getChild(_))) and
     upperBoundCheck.getChild(_) = checkedIteratorAccess and
     //make sure its the same iterator being checked in the guard as accessed
     checkedIteratorAccess.getOwningContainer() = it.getOwningContainer() and
