@@ -38,8 +38,11 @@ void test_fp_reported_in_374(std::vector<int> &v) {
 
   {
     auto end2 = v.end();
-    end2++;                                    // NON_COMPLIANT
-    for (auto i = v.begin(); i != end2; ++i) { // NON_COMPLIANT[FALSE_NEGATIVE]
+    end2++; // NON_COMPLIANT
+    for (auto i = v.begin(); i != end2;
+         ++i) { // NON_COMPLIANT[FALSE_NEGATIVE] - case of invalidations to
+                // check before use expected to be less frequent, can model in
+                // future if need be
     }
   }
 }
