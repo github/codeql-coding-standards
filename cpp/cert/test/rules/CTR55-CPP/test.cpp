@@ -54,3 +54,13 @@ void test(std::vector<int> &v, std::vector<int> &v2) {
     }
   }
 }
+
+void test2(std::vector<int> &v) {
+  auto i = v.begin();
+  while (1) {
+    auto i2 = ((i != v.end()) != 0);
+    if (!i2)
+      break;
+    (void)((++i)); // COMPLIANT[FALSE_POSITIVE]
+  }
+}
