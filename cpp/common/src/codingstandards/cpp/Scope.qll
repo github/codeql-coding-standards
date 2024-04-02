@@ -67,7 +67,7 @@ class UserDeclaration extends Declaration {
     not this.(Variable).isCompilerGenerated() and
     not this.(Function).isCompilerGenerated() and
     not this.(Parameter).getFunction().isCompilerGenerated() and
-    // will falsely conflict
+    // Class template instantiations are compiler generated instances that share the same parent scope. This will result in a cross-product on class template instantiations because they have the same name and same parent scope. We therefore exclude these from consideration like we do with other compiler generated identifiers of interest.
     not this instanceof ClassTemplateInstantiation and
     // compiler inferred parameters have name of p#0
     not this.(Parameter).getName() = "p#0"
