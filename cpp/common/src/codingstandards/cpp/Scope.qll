@@ -274,7 +274,7 @@ predicate hides(UserDeclaration v1, UserDeclaration v2) {
     hides_candidate(v1, mid) and
     hides_candidate(mid, v2)
   ) and
-  //ignore intentional overloads
+  // Unlike `hidesStrict`, that requires a different scope, `hides` considers declarations in the same scope. This will include function overloads based on their name. To remove overloads from consideration, we exclude them.
   not v1.(Function).getAnOverload() = v2
 }
 
