@@ -303,14 +303,14 @@ predicate hasBlockScope(Declaration decl) { exists(BlockStmt b | b.getADeclarati
 /**
  * identifiers in nested (named/nonglobal) namespaces are exceptions to hiding due to being able access via fully qualified ids
  */
-predicate excludedViaNestedNamespaces(UserDeclaration v2, UserDeclaration v1) {
+predicate excludedViaNestedNamespaces(UserDeclaration outerDecl, UserDeclaration innerDecl) {
   exists(Namespace inner, Namespace outer |
     outer.getAChildNamespace+() = inner and
     //outer is not global
     not outer instanceof GlobalNamespace and
     not outer.isAnonymous() and
     not inner.isAnonymous() and
-    v2.getNamespace() = inner and
-    v1.getNamespace() = outer
+    innerDecl.getNamespace() = inner and
+    outerDecl.getNamespace() = outer
   )
 }
