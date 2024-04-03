@@ -67,7 +67,7 @@ class UserDeclaration extends Declaration {
     not this.(Variable).isCompilerGenerated() and
     not this.(Function).isCompilerGenerated() and
     not this.(Parameter).getFunction().isCompilerGenerated() and
-    // will falsely conflict
+    // Class template instantiations are compiler generated instances that share the same parent scope. This will result in a cross-product on class template instantiations because they have the same name and same parent scope. We therefore exclude these from consideration like we do with other compiler generated identifiers of interest.
     not this instanceof ClassTemplateInstantiation and
     // compiler inferred parameters have name of p#0
     not this.(Parameter).getName() = "p#0"
@@ -274,7 +274,7 @@ predicate hides(UserDeclaration v1, UserDeclaration v2) {
     hides_candidate(v1, mid) and
     hides_candidate(mid, v2)
   ) and
-  //ignore intentional overloads
+  // Unlike `hidesStrict`, that requires a different scope, `hides` considers declarations in the same scope. This will include function overloads based on their name. To remove overloads from consideration, we exclude them.
   not v1.(Function).getAnOverload() = v2
 }
 
