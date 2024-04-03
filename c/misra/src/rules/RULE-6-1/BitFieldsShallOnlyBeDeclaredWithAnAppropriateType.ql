@@ -41,4 +41,4 @@ where
   /* A violation would neither be an appropriate primitive type nor an appropriate typedef. */
   not getSupportedBitFieldType(getCompiler(bitField.getFile())) =
     bitField.getType().resolveTypedefs()
-select bitField, "Bit-field " + bitField + " is declared on type " + bitField.getType() + "."
+select bitField, "Bit-field '" + bitField + "' is declared on type '" + bitField.getType() + "'."
