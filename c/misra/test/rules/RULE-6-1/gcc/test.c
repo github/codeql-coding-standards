@@ -10,4 +10,6 @@ struct SampleStruct {
   signed long x5 : 2;  // COMPLIANT
   signed char x6 : 2;  // COMPLIANT
   enum Color x7 : 3;   // COMPLIANT
+  //_Atomic(int) x8 : 2;   // NON_COMPLIANT[COMPILER_CHECKED] - atomic types are
+  //not permitted for bit-fields.
 } sample_struct;
