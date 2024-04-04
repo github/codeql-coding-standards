@@ -23,43 +23,52 @@ class NonVolatileConstIntegralOrEnumType extends IntegralOrEnumType {
 }
 
 /**
- * Holds if declaration `innerDecl`, declared in a lambda, hides a declaration `outerDecl` captured by the lambda.
+ * Holds if declaration `innerDecl`, declared in a lambda, hides a declaration `outerDecl` by the lambda.
  */
 predicate hiddenInLambda(UserVariable outerDecl, UserVariable innerDecl) {
-  exists(Scope s, Closure le |
-    //innerDecl declared inside of the lambda
-    s.getADeclaration() = innerDecl and
-    s.getAnAncestor() = le and
-    //a variable can be accessed (therefore hide) another when:
-    //it is explicitly captured
+  exists(
+    Scope innerScope, LambdaExpression lambdaExpr, Scope lambdaExprScope, Scope outerScope,
+    Closure lambdaClosure
+  |
+    // The variable `innerDecl` is declared inside of the lambda.
+    innerScope.getADeclaration() = innerDecl and
+    // Because a lambda is compiled down to a closure, we need to use the closure to determine if the declaration
+    // is part of the lambda.
+    innerScope.getAnAncestor() = lambdaClosure and
+    // Next we determine the scope of the lambda expression to determine if `outerDecl` is visible in the scope of the lambda.
+    lambdaClosure.getLambdaExpression() = lambdaExpr and
+    lambdaExprScope.getAnExpr() = lambdaExpr and
+    outerScope.getADeclaration() = outerDecl and
+    lambdaExprScope.getStrictParent*() = outerScope and
     (
+      // A definition can be hidden if it is in scope and it iscaptured by the lambda,
       exists(LambdaCapture cap |
-        outerDecl.getAnAccess() = cap.getInitializer().(VariableAccess) and
-        le.getLambdaExpression().getACapture() = cap and
-        //captured variable (outerDecl) is in the same (function) scope as the lambda itself
-        outerDecl.getParentScope() = le.getEnclosingFunction().getBasicBlock().(Scope)
+        lambdaExpr.getACapture() = cap and
+        // The outer declaration is captured by the lambda
+        outerDecl.getAnAccess() = cap.getInitializer()
       )
       or
-      //is non-local
+      // it is is non-local,
       outerDecl instanceof GlobalVariable
       or
-      //has static or thread local storage duration
+      // it has static or thread local storage duration,
       (outerDecl.isThreadLocal() or outerDecl.isStatic())
       or
-      //is a reference that has been initialized with a constant expression.
+      //it is a reference that has been initialized with a constant expression.
       outerDecl.getType().stripTopLevelSpecifiers() instanceof ReferenceType and
       exists(outerDecl.getInitializer().getExpr().getValue())
       or
-      //const non-volatile integral or enumeration type and has been initialized with a constant expression
+      //it const non-volatile integral or enumeration type and has been initialized with a constant expression
       outerDecl.getType() instanceof NonVolatileConstIntegralOrEnumType and
       exists(outerDecl.getInitializer().getExpr().getValue())
       or
-      //is constexpr and has no mutable members
+      //it is constexpr and has no mutable members
       outerDecl.isConstexpr() and
       not exists(Class c |
         c = outerDecl.getType() and not c.getAMember() instanceof MutableVariable
       )
     ) and
+    // Finally, the variables must have the same names.
     innerDecl.getName() = outerDecl.getName()
   )
 }
