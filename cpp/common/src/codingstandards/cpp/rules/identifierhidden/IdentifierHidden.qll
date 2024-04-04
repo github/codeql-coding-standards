@@ -41,7 +41,7 @@ predicate hiddenInLambda(UserVariable outerDecl, UserVariable innerDecl) {
     outerScope.getADeclaration() = outerDecl and
     lambdaExprScope.getStrictParent*() = outerScope and
     (
-      // A definition can be hidden if it is in scope and it iscaptured by the lambda,
+      // A definition can be hidden if it is in scope and it is captured by the lambda,
       exists(LambdaCapture cap |
         lambdaExpr.getACapture() = cap and
         // The outer declaration is captured by the lambda
