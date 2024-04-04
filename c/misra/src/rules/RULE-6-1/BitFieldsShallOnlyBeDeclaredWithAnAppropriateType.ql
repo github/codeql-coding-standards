@@ -12,16 +12,26 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.Compiler
 
-predicate isAppropriatePrimitive(Type type) {
-  /* An appropriate primitive types to which a bit-field can be declared. */
-  type instanceof IntType and
+Type getSupportedBitFieldType(Compiler compiler) {
+  compiler instanceof UnsupportedCompiler and
   (
-    type.(IntegralType).isExplicitlySigned() or
-    type.(IntegralType).isExplicitlyUnsigned()
+    result instanceof IntType and
+    (
+      result.(IntegralType).isExplicitlySigned() or
+      result.(IntegralType).isExplicitlyUnsigned()
+    )
+    or
+    result instanceof BoolType
   )
   or
-  type instanceof BoolType
+  (compiler instanceof Gcc or compiler instanceof Clang) and
+  (
+    result instanceof IntegralOrEnumType
+    or
+    result instanceof BoolType
+  )
 }
 
 from BitField bitField
@@ -29,5 +39,6 @@ where
   not isExcluded(bitField,
     BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
   /* A violation would neither be an appropriate primitive type nor an appropriate typedef. */
-  not isAppropriatePrimitive(bitField.getType().resolveTypedefs())
-select bitField, "Bit-field " + bitField + " is declared on type " + bitField.getType() + "."
+  not getSupportedBitFieldType(getCompiler(bitField.getFile())) =
+    bitField.getType().resolveTypedefs()
+select bitField, "Bit-field '" + bitField + "' is declared on type '" + bitField.getType() + "'."
