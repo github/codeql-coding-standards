@@ -109,14 +109,14 @@ jobs:
           git switch main
           git pull --ff-only origin main
 
-          git switch -c release-automation/bump-version
+          git switch -c "release-automation/bump-version-to-$NEXT_VERSION"
 
           # We are running the script in the tooling directory with the release directory as the working directory
           ../tooling/scripts/release/bump-version.sh "$NEXT_VERSION"
 
           git add -u .
           git commit -m "Bump version to $NEXT_VERSION"
-          git push --set-upstream origin release-automation/bump-version
+          git push --set-upstream origin "release-automation/bump-version-to-$NEXT_VERSION"
 
-          gh pr create --repo $GITHUB_REPOSITORY --base main --head release-automation/bump-version --body "Bump the version of main to $NEXT_VERSION" --title "Bump version to $NEXT_VERSION"
+          gh pr create --repo $GITHUB_REPOSITORY --base main --head "release-automation/bump-version-to-$NEXT_VERSION" --body "Bump the version of main to $NEXT_VERSION" --title "Bump version to $NEXT_VERSION"
         working-directory: release 
