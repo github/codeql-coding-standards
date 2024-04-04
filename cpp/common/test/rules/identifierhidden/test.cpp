@@ -106,3 +106,17 @@ void f4() {
 
 void f5(int i) {}    // COMPLIANT - exception - assume purposefully overloaded
 void f5(double d) {} // COMPLIANT - exception - assume purposefully overloaded
+
+int globalvar = 0;
+
+int f6() {
+  auto lambda_with_shadowing = []() {
+    int globalvar = 1; // NON_COMPLIANT - not an exception - not captured but
+                       // still accessible
+    return globalvar + globalvar;
+  };
+
+  auto lambda_without_shadowing = []() { return globalvar + globalvar; };
+
+  return lambda_with_shadowing();
+}
