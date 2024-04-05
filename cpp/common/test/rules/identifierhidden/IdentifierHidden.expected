@@ -15,3 +15,4 @@
 | test.cpp:142:9:142:10 | a1 | Declaration is hiding declaration $@. | test.cpp:140:14:140:15 | a1 | a1 |
 | test.cpp:147:9:147:10 | a2 | Declaration is hiding declaration $@. | test.cpp:145:20:145:21 | a2 | a2 |
 | test.cpp:152:9:152:10 | a3 | Declaration is hiding declaration $@. | test.cpp:150:17:150:18 | a3 | a3 |
+| test.cpp:164:9:164:10 | a5 | Declaration is hiding declaration $@. | test.cpp:162:13:162:14 | a5 | a5 |

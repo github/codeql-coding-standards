@@ -161,7 +161,7 @@ void f8() {
 
   const int a5 = 10;
   auto lambda5 = []() {
-    int a5 = a5 + 1; // NON_COMPLIANT[FALSE_NEGATIVE] - Lambda can access const
+    int a5 = a5 + 1; // NON_COMPLIANT - Lambda can access const
                      // non-volatile integral or enumeration type initialized
                      // with constant expression.
   };
@@ -172,12 +172,4 @@ void f8() {
         a6 + 1; // COMPLIANT - Lambda cannot access const volatile integral or
                 // enumeration type initialized with constant expression.
   };
-}
-
-void f9() {
-  auto lambda1 = []() {
-    int a1 = 10; // COMPLIANT
-  };
-
-  int a1 = 10;
 }

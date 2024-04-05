@@ -13,12 +13,14 @@ abstract class IdentifierHiddenSharedQuery extends Query { }
 Query getQuery() { result instanceof IdentifierHiddenSharedQuery }
 
 /**
- * a `IntegralOrEnumType` that is nonvolatile and const
+ * a `Variable` that is nonvolatile and const
+ * and of type `IntegralOrEnumType`
  */
-class NonVolatileConstIntegralOrEnumType extends IntegralOrEnumType {
-  NonVolatileConstIntegralOrEnumType() {
+class NonVolatileConstIntegralOrEnumVariable extends Variable {
+  NonVolatileConstIntegralOrEnumVariable() {
     not this.isVolatile() and
-    this.isConst()
+    this.isConst() and
+    this.getUnspecifiedType() instanceof IntegralOrEnumType
   }
 }
 
@@ -59,7 +61,7 @@ predicate hiddenInLambda(UserVariable outerDecl, UserVariable innerDecl) {
       exists(outerDecl.getInitializer().getExpr().getValue())
       or
       //it const non-volatile integral or enumeration type and has been initialized with a constant expression
-      outerDecl.getType() instanceof NonVolatileConstIntegralOrEnumType and
+      outerDecl instanceof NonVolatileConstIntegralOrEnumVariable and
       exists(outerDecl.getInitializer().getExpr().getValue())
       or
       //it is constexpr and has no mutable members
