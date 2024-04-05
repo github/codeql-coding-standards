@@ -11,3 +11,7 @@
 | test.cpp:81:5:81:5 | a | Declaration is hiding declaration $@. | test.cpp:79:5:79:5 | a | a |
 | test.cpp:102:9:102:9 | b | Declaration is hiding declaration $@. | test.cpp:96:11:96:11 | b | b |
 | test.cpp:114:9:114:17 | globalvar | Declaration is hiding declaration $@. | test.cpp:110:5:110:13 | globalvar | globalvar |
+| test.cpp:133:11:133:11 | b | Declaration is hiding declaration $@. | test.cpp:127:13:127:13 | b | b |
+| test.cpp:142:9:142:10 | a1 | Declaration is hiding declaration $@. | test.cpp:140:14:140:15 | a1 | a1 |
+| test.cpp:147:9:147:10 | a2 | Declaration is hiding declaration $@. | test.cpp:145:20:145:21 | a2 | a2 |
+| test.cpp:152:9:152:10 | a3 | Declaration is hiding declaration $@. | test.cpp:150:17:150:18 | a3 | a3 |
