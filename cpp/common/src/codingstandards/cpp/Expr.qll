@@ -268,9 +268,12 @@ predicate isCompileTimeEvaluatedCall(Call call) {
   |
     isDirectCompileTimeEvaluatedExpression(defaultValue)
   )
+}
 
+/*
  * an operator that does not evaluate its operand
  */
+
 class UnevaluatedExprExtension extends Expr {
   UnevaluatedExprExtension() {
     this.getAChild().isUnevaluated()
