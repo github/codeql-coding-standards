@@ -7,6 +7,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.Scope
 import codingstandards.cpp.ConstHelpers
+import codingstandards.cpp.Expr
 
 abstract class IdentifierHiddenSharedQuery extends Query { }
 
@@ -58,11 +59,11 @@ predicate hiddenInLambda(UserVariable outerDecl, UserVariable innerDecl) {
       or
       //it is a reference that has been initialized with a constant expression.
       outerDecl.getType().stripTopLevelSpecifiers() instanceof ReferenceType and
-      exists(outerDecl.getInitializer().getExpr().getValue())
+      isCompileTimeEvaluatedExpression(outerDecl.getInitializer().getExpr())
       or
       //it const non-volatile integral or enumeration type and has been initialized with a constant expression
       outerDecl instanceof NonVolatileConstIntegralOrEnumVariable and
-      exists(outerDecl.getInitializer().getExpr().getValue())
+      isCompileTimeEvaluatedExpression(outerDecl.getInitializer().getExpr())
       or
       //it is constexpr and has no mutable members
       outerDecl.isConstexpr() and

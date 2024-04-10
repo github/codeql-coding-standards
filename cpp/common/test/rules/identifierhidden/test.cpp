@@ -155,7 +155,7 @@ void f8() {
 
   const int &a4 = a3;
   auto lambda4 = []() {
-    int a4 = a4 + 1; // NON_COMPLIANT[FALSE_NEGATIVE] - Lambda can access
+    int a4 = a4 + 1; // NON_COMPLIANT - Lambda can access
                      // reference initialized with constant expression.
   };
 
