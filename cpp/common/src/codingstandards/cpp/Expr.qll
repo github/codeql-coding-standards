@@ -189,3 +189,83 @@ module MisraExpr {
     CValue() { isCValue(this) }
   }
 }
+
+/**
+ * An optimized set of expressions used to determine the flow through constexpr variables.
+ */
+class VariableAccessOrCallOrLiteral extends Expr {
+  VariableAccessOrCallOrLiteral() {
+    this instanceof VariableAccess and this.(VariableAccess).getTarget().isConstexpr()
+    or
+    this instanceof Call
+    or
+    this instanceof Literal
+  }
+}
+
+/**
+ * Holds if the value of source flows through compile time evaluated variables to target.
+ */
+predicate flowsThroughConstExprVariables(
+  VariableAccessOrCallOrLiteral source, VariableAccessOrCallOrLiteral target
+) {
+  (
+    source = target
+    or
+    source != target and
+    exists(SsaDefinition intermediateDef, StackVariable intermediate |
+      intermediateDef.getAVariable().getFunction() = source.getEnclosingFunction() and
+      intermediateDef.getAVariable().getFunction() = target.getEnclosingFunction() and
+      intermediateDef.getAVariable() = intermediate and
+      intermediate.isConstexpr()
+    |
+      DataFlow::localExprFlow(source, intermediateDef.getDefiningValue(intermediate)) and
+      flowsThroughConstExprVariables(intermediateDef.getAUse(intermediate), target)
+    )
+  )
+}
+
+predicate isCompileTimeEvaluatedExpression(Expr expression) {
+  forall(DataFlow::Node ultimateSource, DataFlow::Node source |
+    source = DataFlow::exprNode(expression) and
+    DataFlow::localFlow(ultimateSource, source) and
+    not DataFlow::localFlowStep(_, ultimateSource)
+  |
+    isDirectCompileTimeEvaluatedExpression(ultimateSource.asExpr()) and
+    // If the ultimate source is not the same as the source, then it must flow through
+    // constexpr variables.
+    (
+      ultimateSource != source
+      implies
+      flowsThroughConstExprVariables(ultimateSource.asExpr(), source.asExpr())
+    )
+  )
+}
+
+predicate isDirectCompileTimeEvaluatedExpression(Expr expression) {
+  expression instanceof Literal
+  or
+  any(Call c | isCompileTimeEvaluatedCall(c)) = expression
+}
+
+/*
+ * Returns true if the given call may be evaluated at compile time and is compile time evaluated because
+ * all its arguments are compile time evaluated and its default values are compile time evaluated.
+ */
+
+predicate isCompileTimeEvaluatedCall(Call call) {
+  // 1. The call may be evaluated at compile time, because it is constexpr, and
+  call.getTarget().isConstexpr() and
+  // 2. all its arguments are compile time evaluated, and
+  forall(Expr argSource | argSource = call.getAnArgument() |
+    isCompileTimeEvaluatedExpression(argSource)
+  ) and
+  // 3. all the default values used are compile time evaluated.
+  forall(Expr defaultValue, Parameter parameterUsingDefaultValue, int idx |
+    parameterUsingDefaultValue = call.getTarget().getParameter(idx) and
+    not exists(call.getArgument(idx)) and
+    parameterUsingDefaultValue.getAnAssignedValue() = defaultValue
+  |
+    isDirectCompileTimeEvaluatedExpression(defaultValue)
+  )
+}
