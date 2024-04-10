@@ -38,8 +38,10 @@ predicate filebufAccess(ControlFlowNode node, FileStreamSource fss) {
   //insertion or extraction operator calls
   node.(InsertionOperatorCall).getFStream() = fss.getAUse() or
   node.(ExtractionOperatorCall).getFStream() = fss.getAUse() or
-  //methods inherited from istream or ostream
-  node.(IOStreamFunctionCall).getFStream() = fss.getAUse()
+  // Methods inherited from istream or ostream that access the file stream.
+  // Exclude is_open as it is not a filebuf access
+  any(IOStreamFunctionCall call | node = call and not call.getTarget().hasName("is_open"))
+      .getFStream() = fss.getAUse()
 }
 
 /**

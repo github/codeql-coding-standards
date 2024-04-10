@@ -268,4 +268,24 @@ predicate isCompileTimeEvaluatedCall(Call call) {
   |
     isDirectCompileTimeEvaluatedExpression(defaultValue)
   )
+
+ * an operator that does not evaluate its operand
+ */
+class UnevaluatedExprExtension extends Expr {
+  UnevaluatedExprExtension() {
+    this.getAChild().isUnevaluated()
+    or
+    exists(FunctionCall declval |
+      declval.getTarget().hasQualifiedName("std", "declval") and
+      declval.getAChild() = this
+    )
+  }
+}
+
+/** A class representing left and right bitwise shift operations. */
+class BitShiftExpr extends BinaryBitwiseOperation {
+  BitShiftExpr() {
+    this instanceof LShiftExpr or
+    this instanceof RShiftExpr
+  }
 }

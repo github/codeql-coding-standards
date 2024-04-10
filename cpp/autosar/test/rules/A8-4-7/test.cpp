@@ -1,5 +1,7 @@
+#include <array>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 void f1(std::uint8_t f1a) {}  // COMPLIANT
 void f2(std::uint16_t f2a) {} // COMPLIANT
@@ -46,3 +48,34 @@ class C2 : public C1 {
 public:
   C2 &operator=(const C2 &); // COMPLIANT
 };
+
+void f13(double f13a) {}       // COMPLIANT
+void f14(const double f14a) {} // COMPLIANT
+
+struct S3 {
+  int x;
+  S3() : x(0) {} // COMPLIANT
+};
+
+struct S4 {
+  ~S4() {} // non-trivial destructor
+};
+
+struct S5 {
+  const int y;
+  S5(int value) : y(value) {}
+};
+
+void f15(S3 f15a) {} // COMPLIANT
+void f17(S4 f17a) {} // NON_COMPLIANT (S4 has a non-trivial destructor)
+void f18(S5 f18a) {} // COMPLIANT
+
+#include <iostream>
+class A8_4_7 {
+public:
+  std::array<char, 20UL> values;
+};
+void fp_reported_in_82(
+    const A8_4_7 &a847) noexcept { // COMPLIANT - larger than 2 words
+  std::cout << a847.values[0] << std::endl;
+}
