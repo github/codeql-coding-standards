@@ -38,6 +38,13 @@ class NonConstMemberFunction extends MemberFunction {
 }
 
 /**
+ * References that are not const
+ */
+class NonConstReferenceType extends ReferenceType {
+  NonConstReferenceType() { not this.isConst() }
+}
+
+/**
  * `MemberFunction`s that are not const
  * and not `Constructor`s ect as const constructors are
  * not a thing in cpp
@@ -57,7 +64,9 @@ class ConstMemberFunctionCandidate extends NonConstMemberFunction {
     this.hasDefinition() and
     // For uninstantiated templates we have only partial information that prevents us from determining
     // if the candidate calls non-const functions. Therefore we exclude these.
-    not this.isFromUninstantiatedTemplate(_)
+    not this.isFromUninstantiatedTemplate(_) and
+    //cannot recommend const if it returns a nonconst reference
+    not this.getType() instanceof NonConstReferenceType
   }
 
   /**
