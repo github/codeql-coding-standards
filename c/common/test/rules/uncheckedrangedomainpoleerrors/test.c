@@ -1,5 +1,5 @@
-#include <math.h>
 #include <limits.h>
+#include <math.h>
 #include <stdlib.h>
 
 void test_domain_errors() {
