@@ -1,7 +1,7 @@
 #ifndef _GHLIBCPP_MATH
 #define _GHLIBCPP_MATH
-int abs(int);
-long abs(long);
+int abs(int x);
+long abs(long x);
 double acos(double x);
 float acosf(float x);
 long double acosl(long double x);
@@ -17,18 +17,18 @@ long double acoshl(long double x);
 double atanh(double x);
 float atanhf(float x);
 long double atanhl(long double x);
-double fmod(double, double);
-float fmodf(float, float);
-long double fmodl(long double, long double);
-double frexp(double, int *);
-float frexpf(float, int *);
+double fmod(double x, double y);
+float fmodf(float x, float y);
+long double fmodl(long double x, long double y);
+double frexp(double x, int *y);
+float frexpf(float x, int *y);
 long double frexpl(long double, int *);
 int ilogb(double x);
 int ilogbf(float x);
 int ilogbl(long double x);
-double lgamma(double);
-float lgammaf(float);
-long double lgammal(long double);
+double lgamma(double x);
+float lgammaf(float x);
+long double lgammal(long double x);
 double log(double x);
 float logf(float x);
 long double logl(long double x);
