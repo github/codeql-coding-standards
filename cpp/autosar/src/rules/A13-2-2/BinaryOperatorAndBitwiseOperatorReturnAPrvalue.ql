@@ -14,21 +14,21 @@
  *       external/autosar/obligation/required
  */
 
- import cpp
- import codingstandards.cpp.autosar
- import codingstandards.cpp.Operator
- import semmle.code.cpp.Print
+import cpp
+import codingstandards.cpp.autosar
+import codingstandards.cpp.Operator
+import semmle.code.cpp.Print
 
- from Operator o
- where
-   not isExcluded(o, OperatorInvariantsPackage::binaryOperatorAndBitwiseOperatorReturnAPrvalueQuery()) and
-   (o instanceof UserBitwiseOperator or o instanceof UserArithmeticOperator) and
-   (
-     o.getType().isDeeplyConst()
-     or
-     o.getType() instanceof PointerType
-     or
-     o.getType() instanceof ReferenceType
-   )
- select o,
-   "User-defined bitwise or arithmetic operator " + o.toString() + " does not return a prvalue."
+from Operator o
+where
+  not isExcluded(o, OperatorInvariantsPackage::binaryOperatorAndBitwiseOperatorReturnAPrvalueQuery()) and
+  (o instanceof UserBitwiseOperator or o instanceof UserArithmeticOperator) and
+  (
+    o.getType().isDeeplyConst()
+    or
+    o.getType() instanceof PointerType
+    or
+    o.getType() instanceof ReferenceType
+  )
+select o,
+  "User-defined bitwise or arithmetic operator " + o.toString() + " does not return a prvalue."
