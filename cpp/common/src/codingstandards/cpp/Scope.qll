@@ -149,8 +149,8 @@ private UserDeclaration getPotentialScopeOfDeclaration_candidate(UserDeclaration
   )
 }
 
-/** Gets a Declarationthat is in the potential scope of Declaration `v`. */
-private UserDeclaration getOuterScopesOfDeclaration_candidate(UserDeclaration v) {
+/** Gets a Declaration that is in the potential scope of Declaration `v`. */
+private UserDeclaration getPotentialScopeOfDeclarationStrict_candidate(UserDeclaration v) {
   exists(Scope s |
     result = s.getADeclaration() and
     (
@@ -175,7 +175,7 @@ predicate inSameTranslationUnit(File f1, File f2) {
  */
 cached
 UserDeclaration getPotentialScopeOfDeclarationStrict(UserDeclaration v) {
-  result = getOuterScopesOfDeclaration_candidate(v) and
+  result = getPotentialScopeOfDeclarationStrict_candidate(v) and
   inSameTranslationUnit(v.getFile(), result.getFile())
 }
 
