@@ -1,5 +1,5 @@
 name: codeql/autosar-cpp-coding-standards-tests
-version: 2.27.0
+version: 2.27.1
 extractor: cpp
 license: MIT
 dependencies:
