@@ -65,7 +65,7 @@ class ConstMemberFunctionCandidate extends NonConstMemberFunction {
     // For uninstantiated templates we have only partial information that prevents us from determining
     // if the candidate calls non-const functions. Therefore we exclude these.
     not this.isFromUninstantiatedTemplate(_) and
-    //cannot recommend const if it returns a nonconst reference
+    // Cannot recommend const if it returns a non-const reference.
     not this.getType() instanceof NonConstReferenceType
   }
 
