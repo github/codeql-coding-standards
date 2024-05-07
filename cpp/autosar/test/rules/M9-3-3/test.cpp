@@ -210,6 +210,7 @@ public:
 };
 
 void fp_reported_in_381() {
+  // added to test template initialization effects/lack thereof
   Z4 z;
   int i = z.front();
   z.fill(i);
