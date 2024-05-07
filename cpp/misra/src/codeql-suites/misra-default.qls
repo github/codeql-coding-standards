@@ -1,0 +1,10 @@
+- description: MISRA C++ 2023 (Default)
+- qlpack: codeql/misra-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+- exclude:
+    tags contain:
+    - external/misra/audit
+    - external/misra/default-disabled
