@@ -99,10 +99,21 @@ jobs:
           next_version=$(python scripts/release/next-version.py --component minor --pre-release dev -- $version)
           echo "NEXT_VERSION=$next_version" >> "$GITHUB_ENV"
         working-directory: tooling 
+      
+      - name: Generate token
+        if: env.HOTFIX_RELEASE == 'false'
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards"
 
       - name: Bump main version
+        if: env.HOTFIX_RELEASE == 'false'
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           echo "Bumping main version to $NEXT_VERSION"
 
