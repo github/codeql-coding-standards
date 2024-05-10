@@ -774,7 +774,7 @@ c,MISRA-C-2012,RULE-22-7,Yes,Required,,,The macro EOF shall only be compared wit
 c,MISRA-C-2012,RULE-22-8,Yes,Required,,,The value of errno shall be set to zero prior to a call to an errno-setting-function,ERR30-C,Contracts3,Medium,
 c,MISRA-C-2012,RULE-22-9,Yes,Required,,,The value of errno shall be tested against zero after calling an errno-setting-function,,Contracts3,Medium,
 c,MISRA-C-2012,RULE-22-10,Yes,Required,,,The value of errno shall only be tested when the last function to be called was an errno-setting-function,,Contracts3,Medium,
-cpp,MISRA-C++-2023,RULE-0-0-1,Yes,Required,Decidable,Single Translation Unit,A function shall not contain unreachable statements,,,Medium,
+cpp,MISRA-C++-2023,RULE-0-0-1,Yes,Required,Decidable,Single Translation Unit,A function shall not contain unreachable statements,,DeadCode,Medium,
 cpp,MISRA-C++-2023,RULE-0-0-2,Yes,Advisory,Undecidable,System,Controlling expressions should not be invariant,,,Easy,
 cpp,MISRA-C++-2023,RULE-0-1-1,Yes,Advisory,Undecidable,System,A value should not be unnecessarily written to a local object,,,Medium,
 cpp,MISRA-C++-2023,RULE-0-1-2,Yes,Required,Decidable,Single Translation Unit,The value returned by a function shall be used,,,Easy,
