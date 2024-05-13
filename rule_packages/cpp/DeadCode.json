@@ -349,5 +349,29 @@
       ],
       "title": "There shall be no dead code."
     }
+  },
+  "MISRA-C++-2023": {
+    "RULE-0-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unreachable statements can indicate a mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "A function shall not contain unreachable statements",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "FunctionContainUnreachableStatements",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A function shall not contain unreachable statements"
+    }
   }
 }
