@@ -6,7 +6,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Commented out code may become out of date leading to developer confusion.",
           "kind": "problem",
           "name": "Sections of code should not be \u201ccommented out\u201d",
           "precision": "very-high",
@@ -29,7 +29,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "The one-definition rule specifies when there should be a single definition of an element and a violation of that rule leads to undefined behavior.",
           "kind": "problem",
           "name": "The one-definition rule shall not be violated",
           "precision": "very-high",
@@ -51,7 +51,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Use of an identifier declared in an inner scope with an identical name to an identifier in an outer scope can lead to inadvertent errors if the incorrect identifier is modified.",
           "kind": "problem",
           "name": "A variable declared in an inner scope shall not hide a variable declared in an outer scope",
           "precision": "very-high",
@@ -109,7 +109,7 @@
       },
       "queries": [
         {
-          "description": "A cast shall not remove any const or volatile qualification from the type accessed via a pointer or by reference",
+          "description": "A cast shall not remove any const or volatile qualification from the type accessed via a pointer or by reference.",
           "kind": "problem",
           "name": "A cast shall not remove any const or volatile qualification from the type accessed via a pointer or",
           "precision": "very-high",
@@ -131,7 +131,7 @@
       },
       "queries": [
         {
-          "description": "All if ... else if constructs shall be terminated with an else statement",
+          "description": "All if ... else if constructs shall be terminated with an else statement.",
           "kind": "problem",
           "name": "All if ",
           "precision": "very-high",
@@ -154,7 +154,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Jumping back to an earlier section in the code can lead to accidental iterations.",
           "kind": "problem",
           "name": "The goto statement shall jump to a label declared later in the function body",
           "precision": "very-high",
@@ -177,7 +177,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "A function with the [[noreturn]] attribute that returns leads to undefined behaviour.",
           "kind": "problem",
           "name": "A function declared with the [[noreturn]] attribute shall not return",
           "precision": "very-high",
@@ -199,7 +199,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "A function with non-void return type that does not exit via a return statement can result in undefined behaviour. An exception to this rule is exiting via exception handling.",
           "kind": "problem",
           "name": "A function with non-void return type shall return a value on all paths",
           "precision": "very-high",
@@ -221,7 +221,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Declarations with more than two levels of pointer nesting can result in code that is difficult to read and understand.",
           "kind": "problem",
           "name": "The declaration of an object should contain no more than two levels of pointer indirection",
           "precision": "very-high",
@@ -244,7 +244,7 @@
       },
       "queries": [
         {
-          "description": "Handlers for a function-try-block of a constructor or destructor shall not refer to non-static members from their class or its bases",
+          "description": "Handlers for a function-try-block of a constructor or destructor shall not refer to non-static members from their class or its bases.",
           "kind": "problem",
           "name": "Handlers for a function-try-block of a constructor or destructor shall not refer to non-static",
           "precision": "very-high",
@@ -266,7 +266,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Using anything other than other pre-processor directives or comments before an '#include' directive makes the code more difficult to read.",
           "kind": "problem",
           "name": "#include directives should only be preceded by preprocessor directives or comments",
           "precision": "very-high",
@@ -288,7 +288,7 @@
       },
       "queries": [
         {
-          "description": "All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be defined prior to evaluation",
+          "description": "All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be defined prior to evaluation.",
           "kind": "problem",
           "name": "All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be",
           "precision": "very-high",
@@ -311,7 +311,7 @@
       },
       "queries": [
         {
-          "description": "The ' or \" or \\ characters and the /* or // character sequences shall not occur in a header file name",
+          "description": "The ' or \" or \\ characters and the /* or // character sequences shall not occur in a header file name.",
           "kind": "problem",
           "name": "The ' or \" or \\ characters and the /* or // character sequences shall not occur in a header file",
           "precision": "very-high",
@@ -337,7 +337,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "The order of evaluation for the '#' and '##' operators may differ between compilers, which can cause unexpected behaviour.",
           "kind": "problem",
           "name": "The # and ## preprocessor operators should not be used",
           "precision": "very-high",
@@ -359,7 +359,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Arguments to a function-like macro shall not contain tokens that look like pre-processing directives or else behaviour after macro expansion is unpredictable.",
           "kind": "problem",
           "name": "Tokens that look like a preprocessing directive shall not occur within a macro argument",
           "precision": "very-high",
@@ -382,7 +382,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Do not delete pointers to incomplete classes to prevent undefined behavior.",
           "kind": "problem",
           "name": "A pointer to an incomplete class type shall not be deleted",
           "precision": "very-high",
@@ -404,7 +404,7 @@
       },
       "queries": [
         {
-          "description": "The pointers returned by the C++ Standard Library functions localeconv, getenv, setlocale or strerror must only be used as if they have pointer to const-qualified type",
+          "description": "The pointers returned by the C++ Standard Library functions localeconv, getenv, setlocale or strerror must only be used as if they have pointer to const-qualified type.",
           "kind": "problem",
           "name": "The pointers returned by environment functions should be treated as const",
           "precision": "very-high",
@@ -461,7 +461,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Moved-from object shall not be read-accessed.",
           "kind": "problem",
           "name": "An object shall not be used while in a potentially moved-from state",
           "precision": "very-high",
@@ -483,7 +483,7 @@
       },
       "queries": [
         {
-          "description": "",
+          "description": "Alternate input and output operations on a file stream shall not be used without an intervening flush or positioning call.",
           "kind": "problem",
           "name": "Reads and writes on the same file stream shall be separated by a positioning operation",
           "precision": "very-high",
