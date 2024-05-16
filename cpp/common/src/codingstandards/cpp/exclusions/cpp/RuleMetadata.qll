@@ -21,7 +21,6 @@ import Expressions
 import Freed
 import Functions
 import IO
-import ImportMisra23
 import Includes
 import Inheritance
 import Initialization
@@ -75,7 +74,6 @@ newtype TCPPQuery =
   TFreedPackageQuery(FreedQuery q) or
   TFunctionsPackageQuery(FunctionsQuery q) or
   TIOPackageQuery(IOQuery q) or
-  TImportMisra23PackageQuery(ImportMisra23Query q) or
   TIncludesPackageQuery(IncludesQuery q) or
   TInheritancePackageQuery(InheritanceQuery q) or
   TInitializationPackageQuery(InitializationQuery q) or
@@ -129,7 +127,6 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isFreedQueryMetadata(query, queryId, ruleId, category) or
   isFunctionsQueryMetadata(query, queryId, ruleId, category) or
   isIOQueryMetadata(query, queryId, ruleId, category) or
-  isImportMisra23QueryMetadata(query, queryId, ruleId, category) or
   isIncludesQueryMetadata(query, queryId, ruleId, category) or
   isInheritanceQueryMetadata(query, queryId, ruleId, category) or
   isInitializationQueryMetadata(query, queryId, ruleId, category) or
