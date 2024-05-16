@@ -1,6 +1,6 @@
 /**
  * @id cpp/misra/if-else-if-end-condition
- * @name RULE-9-4-1: All if 
+ * @name RULE-9-4-1: All if
  * @description All if ... else if constructs shall be terminated with an else statement.
  * @kind problem
  * @precision very-high
@@ -18,7 +18,5 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.rules.ifelseterminationconstruct.IfElseTerminationConstruct
 
 class IfElseIfEndConditionQuery extends IfElseTerminationConstructSharedQuery {
-  IfElseIfEndConditionQuery() {
-    this = ImportMisra23Package::ifElseIfEndConditionQuery()
-  }
+  IfElseIfEndConditionQuery() { this = ImportMisra23Package::ifElseIfEndConditionQuery() }
 }

@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.functionnoreturnattributecondition.FunctionNoReturnAttributeCondition
 
-class FunctionDeclaredWithTheNoreturnAttributeReturnQuery extends FunctionNoReturnAttributeConditionSharedQuery {
+class FunctionDeclaredWithTheNoreturnAttributeReturnQuery extends FunctionNoReturnAttributeConditionSharedQuery
+{
   FunctionDeclaredWithTheNoreturnAttributeReturnQuery() {
     this = ImportMisra23Package::functionDeclaredWithTheNoreturnAttributeReturnQuery()
   }

@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.iofstreammissingpositioning.IOFstreamMissingPositioning
 
-class ReadsAndWritesOnStreamNotSeparatedByPositioningQuery extends IOFstreamMissingPositioningSharedQuery {
+class ReadsAndWritesOnStreamNotSeparatedByPositioningQuery extends IOFstreamMissingPositioningSharedQuery
+{
   ReadsAndWritesOnStreamNotSeparatedByPositioningQuery() {
     this = ImportMisra23Package::readsAndWritesOnStreamNotSeparatedByPositioningQuery()
   }

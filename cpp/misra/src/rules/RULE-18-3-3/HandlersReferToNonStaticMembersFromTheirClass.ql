@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.destroyedvaluereferencedindestructorcatchblock.DestroyedValueReferencedInDestructorCatchBlock
 
-class HandlersReferToNonStaticMembersFromTheirClassQuery extends DestroyedValueReferencedInDestructorCatchBlockSharedQuery {
+class HandlersReferToNonStaticMembersFromTheirClassQuery extends DestroyedValueReferencedInDestructorCatchBlockSharedQuery
+{
   HandlersReferToNonStaticMembersFromTheirClassQuery() {
     this = ImportMisra23Package::handlersReferToNonStaticMembersFromTheirClassQuery()
   }

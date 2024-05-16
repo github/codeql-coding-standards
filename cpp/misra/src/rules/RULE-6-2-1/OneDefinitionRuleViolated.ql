@@ -18,7 +18,5 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.rules.onedefinitionruleviolation.OneDefinitionRuleViolation
 
 class OneDefinitionRuleViolatedQuery extends OneDefinitionRuleViolationSharedQuery {
-  OneDefinitionRuleViolatedQuery() {
-    this = ImportMisra23Package::oneDefinitionRuleViolatedQuery()
-  }
+  OneDefinitionRuleViolatedQuery() { this = ImportMisra23Package::oneDefinitionRuleViolatedQuery() }
 }

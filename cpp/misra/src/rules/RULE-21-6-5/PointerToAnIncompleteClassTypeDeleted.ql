@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.deleteofpointertoincompleteclass.DeleteOfPointerToIncompleteClass
 
-class PointerToAnIncompleteClassTypeDeletedQuery extends DeleteOfPointerToIncompleteClassSharedQuery {
+class PointerToAnIncompleteClassTypeDeletedQuery extends DeleteOfPointerToIncompleteClassSharedQuery
+{
   PointerToAnIncompleteClassTypeDeletedQuery() {
     this = ImportMisra23Package::pointerToAnIncompleteClassTypeDeletedQuery()
   }

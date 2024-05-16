@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.preprocessorincludespreceded.PreprocessorIncludesPreceded
 
-class IncludeDirectivesPrecededByPreprocessorDirectivesQuery extends PreprocessorIncludesPrecededSharedQuery {
+class IncludeDirectivesPrecededByPreprocessorDirectivesQuery extends PreprocessorIncludesPrecededSharedQuery
+{
   IncludeDirectivesPrecededByPreprocessorDirectivesQuery() {
     this = ImportMisra23Package::includeDirectivesPrecededByPreprocessorDirectivesQuery()
   }

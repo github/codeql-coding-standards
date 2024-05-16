@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.removeconstorvolatilequalification.RemoveConstOrVolatileQualification
 
-class CastRemovesConstOrVolatileFromPointerOrReferenceQuery extends RemoveConstOrVolatileQualificationSharedQuery {
+class CastRemovesConstOrVolatileFromPointerOrReferenceQuery extends RemoveConstOrVolatileQualificationSharedQuery
+{
   CastRemovesConstOrVolatileFromPointerOrReferenceQuery() {
     this = ImportMisra23Package::castRemovesConstOrVolatileFromPointerOrReferenceQuery()
   }

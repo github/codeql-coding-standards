@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.donotusemorethantwolevelsofpointerindirection.DoNotUseMoreThanTwoLevelsOfPointerIndirection
 
-class DeclarationOfAnObjectIndirectionsLevelQuery extends DoNotUseMoreThanTwoLevelsOfPointerIndirectionSharedQuery {
+class DeclarationOfAnObjectIndirectionsLevelQuery extends DoNotUseMoreThanTwoLevelsOfPointerIndirectionSharedQuery
+{
   DeclarationOfAnObjectIndirectionsLevelQuery() {
     this = ImportMisra23Package::declarationOfAnObjectIndirectionsLevelQuery()
   }

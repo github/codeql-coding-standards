@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.preprocessingdirectivewithinmacroargument.PreprocessingDirectiveWithinMacroArgument
 
-class TokensThatLookLikeDirectivesInAMacroArgumentQuery extends PreprocessingDirectiveWithinMacroArgumentSharedQuery {
+class TokensThatLookLikeDirectivesInAMacroArgumentQuery extends PreprocessingDirectiveWithinMacroArgumentSharedQuery
+{
   TokensThatLookLikeDirectivesInAMacroArgumentQuery() {
     this = ImportMisra23Package::tokensThatLookLikeDirectivesInAMacroArgumentQuery()
   }

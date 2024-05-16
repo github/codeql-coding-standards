@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.nonvoidfunctiondoesnotreturn.NonVoidFunctionDoesNotReturn
 
-class NonVoidFunctionShallReturnAValueOnAllPathsQuery extends NonVoidFunctionDoesNotReturnSharedQuery {
+class NonVoidFunctionShallReturnAValueOnAllPathsQuery extends NonVoidFunctionDoesNotReturnSharedQuery
+{
   NonVoidFunctionShallReturnAValueOnAllPathsQuery() {
     this = ImportMisra23Package::nonVoidFunctionShallReturnAValueOnAllPathsQuery()
   }

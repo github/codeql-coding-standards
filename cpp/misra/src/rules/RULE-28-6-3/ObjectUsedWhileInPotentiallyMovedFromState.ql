@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.movedfromobjectsunspecifiedstate.MovedFromObjectsUnspecifiedState
 
-class ObjectUsedWhileInPotentiallyMovedFromStateQuery extends MovedFromObjectsUnspecifiedStateSharedQuery {
+class ObjectUsedWhileInPotentiallyMovedFromStateQuery extends MovedFromObjectsUnspecifiedStateSharedQuery
+{
   ObjectUsedWhileInPotentiallyMovedFromStateQuery() {
     this = ImportMisra23Package::objectUsedWhileInPotentiallyMovedFromStateQuery()
   }
