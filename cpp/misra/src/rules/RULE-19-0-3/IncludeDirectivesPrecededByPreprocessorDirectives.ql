@@ -1,7 +1,8 @@
 /**
  * @id cpp/misra/include-directives-preceded-by-preprocessor-directives
  * @name RULE-19-0-3: #include directives should only be preceded by preprocessor directives or comments
- * @description 
+ * @description Using anything other than other pre-processor directives or comments before an
+ *              '#include' directive makes the code more difficult to read.
  * @kind problem
  * @precision very-high
  * @problem.severity error

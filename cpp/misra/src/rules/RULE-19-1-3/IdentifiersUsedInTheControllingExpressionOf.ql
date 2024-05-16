@@ -2,7 +2,7 @@
  * @id cpp/misra/identifiers-used-in-the-controlling-expression-of
  * @name RULE-19-1-3: All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be
  * @description All identifiers used in the controlling expression of #if or #elif preprocessing
- *              directives shall be defined prior to evaluation
+ *              directives shall be defined prior to evaluation.
  * @kind problem
  * @precision very-high
  * @problem.severity error

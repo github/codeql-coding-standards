@@ -1,7 +1,8 @@
 /**
  * @id cpp/misra/reads-and-writes-on-stream-not-separated-by-positioning
  * @name RULE-30-0-2: Reads and writes on the same file stream shall be separated by a positioning operation
- * @description 
+ * @description Alternate input and output operations on a file stream shall not be used without an
+ *              intervening flush or positioning call.
  * @kind problem
  * @precision very-high
  * @problem.severity error

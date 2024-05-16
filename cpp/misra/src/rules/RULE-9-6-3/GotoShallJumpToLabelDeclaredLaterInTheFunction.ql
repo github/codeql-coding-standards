@@ -1,7 +1,7 @@
 /**
  * @id cpp/misra/goto-shall-jump-to-label-declared-later-in-the-function
  * @name RULE-9-6-3: The goto statement shall jump to a label declared later in the function body
- * @description 
+ * @description Jumping back to an earlier section in the code can lead to accidental iterations.
  * @kind problem
  * @precision very-high
  * @problem.severity error

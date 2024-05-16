@@ -1,7 +1,7 @@
 /**
  * @id cpp/misra/object-used-while-in-potentially-moved-from-state
  * @name RULE-28-6-3: An object shall not be used while in a potentially moved-from state
- * @description 
+ * @description Moved-from object shall not be read-accessed.
  * @kind problem
  * @precision very-high
  * @problem.severity error

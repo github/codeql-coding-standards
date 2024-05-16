@@ -3,8 +3,8 @@
  * @name RULE-25-5-2: The pointers returned by environment functions should be treated as const
  * @description The pointers returned by the C++ Standard Library functions localeconv, getenv,
  *              setlocale or strerror must only be used as if they have pointer to const-qualified
- *              type
- * @kind path-problem
+ *              type.
+ * @kind problem
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-25-5-2

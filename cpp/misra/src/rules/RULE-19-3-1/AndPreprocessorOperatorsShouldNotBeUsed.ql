@@ -1,7 +1,8 @@
 /**
  * @id cpp/misra/and-preprocessor-operators-should-not-be-used
  * @name RULE-19-3-1: The # and ## preprocessor operators should not be used
- * @description 
+ * @description The order of evaluation for the '#' and '##' operators may differ between compilers,
+ *              which can cause unexpected behaviour.
  * @kind problem
  * @precision very-high
  * @problem.severity error

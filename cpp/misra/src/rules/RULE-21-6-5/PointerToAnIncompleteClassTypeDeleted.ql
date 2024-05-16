@@ -1,7 +1,7 @@
 /**
  * @id cpp/misra/pointer-to-an-incomplete-class-type-deleted
  * @name RULE-21-6-5: A pointer to an incomplete class type shall not be deleted
- * @description 
+ * @description Do not delete pointers to incomplete classes to prevent undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error

@@ -1,7 +1,8 @@
 /**
  * @id cpp/misra/function-declared-with-the-noreturn-attribute-return
  * @name RULE-9-6-4: A function declared with the [[noreturn]] attribute shall not return
- * @description 
+ * @description A function with the [[noreturn]] attribute that returns leads to undefined
+ *              behaviour.
  * @kind problem
  * @precision very-high
  * @problem.severity error

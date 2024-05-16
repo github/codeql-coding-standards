@@ -2,7 +2,7 @@
  * @id cpp/misra/chars-that-should-not-occur-in-header-file-name
  * @name RULE-19-2-3: The ' or " or \ characters and the /* or // character sequences shall not occur in a header file
  * @description The ' or " or \ characters and the /* or // character sequences shall not occur in a
- *              header file name
+ *              header file name.
  * @kind problem
  * @precision very-high
  * @problem.severity error

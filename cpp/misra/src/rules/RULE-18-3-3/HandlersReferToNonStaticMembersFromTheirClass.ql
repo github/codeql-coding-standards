@@ -2,7 +2,7 @@
  * @id cpp/misra/handlers-refer-to-non-static-members-from-their-class
  * @name RULE-18-3-3: Handlers for a function-try-block of a constructor or destructor shall not refer to non-static
  * @description Handlers for a function-try-block of a constructor or destructor shall not refer to
- *              non-static members from their class or its bases
+ *              non-static members from their class or its bases.
  * @kind problem
  * @precision very-high
  * @problem.severity error

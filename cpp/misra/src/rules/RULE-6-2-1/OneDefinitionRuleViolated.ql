@@ -1,7 +1,8 @@
 /**
  * @id cpp/misra/one-definition-rule-violated
  * @name RULE-6-2-1: The one-definition rule shall not be violated
- * @description 
+ * @description The one-definition rule specifies when there should be a single definition of an
+ *              element and a violation of that rule leads to undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error
