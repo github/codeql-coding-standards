@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.invalidatedenvstringpointers.InvalidatedEnvStringPointers
 
-class CallToSetlocaleInvalidatesOldPointersMisraQuery extends InvalidatedEnvStringPointersSharedQuery {
+class CallToSetlocaleInvalidatesOldPointersMisraQuery extends InvalidatedEnvStringPointersSharedQuery
+{
   CallToSetlocaleInvalidatesOldPointersMisraQuery() {
     this = ImportMisra23Package::callToSetlocaleInvalidatesOldPointersMisraQuery()
   }
