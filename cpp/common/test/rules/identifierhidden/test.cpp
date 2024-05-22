@@ -76,22 +76,6 @@ void test_scope_order() {
   }
 }
 
-int a;
-namespace b {
-int a() {} // NON_COMPLIANT
-} // namespace b
-
-namespace b1 {
-typedef int a; // COMPLIANT - do not consider types
-}
-
-namespace ns_exception1_outer {
-int a1; // COMPLIANT - exception
-namespace ns_exception1_inner {
-void a1(); // COMPLIANT - exception
-}
-} // namespace ns_exception1_outer
-
 void f4() {
   int a1, b;
   auto lambda1 = [a1]() {
@@ -104,12 +88,8 @@ void f4() {
   };
 }
 
-void f5(int i) {}    // COMPLIANT - exception - assume purposefully overloaded
-void f5(double d) {} // COMPLIANT - exception - assume purposefully overloaded
-
 int globalvar = 0;
-
-int f6() {
+int f5() {
   auto lambda_with_shadowing = []() {
     int globalvar = 1; // NON_COMPLIANT - not an exception - not captured but
                        // still accessible
@@ -121,7 +101,7 @@ int f6() {
   return lambda_with_shadowing();
 }
 
-void f7(int p) {
+void f6(int p) {
   // Introduce a nested scope to test scope comparison.
   if (p != 0) {
     int a1, b;
@@ -136,7 +116,7 @@ void f7(int p) {
   }
 }
 
-void f8() {
+void f7() {
   static int a1;
   auto lambda1 = []() {
     int a1 = 10; // NON_COMPLIANT - Lambda can access static variable.

@@ -57,18 +57,10 @@ private Element getParentScope(Element e) {
 
 /** A variable which is defined by the user, rather than being from a third party or compiler generated. */
 class UserVariable extends Variable {
-  UserVariable() { this instanceof UserDeclaration }
-}
-
-/** A construct which is defined by the user, rather than being from a third party or compiler generated. */
-class UserDeclaration extends Declaration {
-  UserDeclaration() {
+  UserVariable() {
     exists(getFile().getRelativePath()) and
-    not this.(Variable).isCompilerGenerated() and
-    not this.(Function).isCompilerGenerated() and
+    not isCompilerGenerated() and
     not this.(Parameter).getFunction().isCompilerGenerated() and
-    // Class template instantiations are compiler generated instances that share the same parent scope. This will result in a cross-product on class template instantiations because they have the same name and same parent scope. We therefore exclude these from consideration like we do with other compiler generated identifiers of interest.
-    not this instanceof ClassTemplateInstantiation and
     // compiler inferred parameters have name of p#0
     not this.(Parameter).getName() = "p#0"
   }
@@ -82,13 +74,11 @@ class Scope extends Element {
 
   int getNumberOfVariables() { result = count(getAVariable()) }
 
-  int getNumberOfDeclarations() { result = count(getADeclaration()) }
-
   Scope getAnAncestor() { result = this.getStrictParent+() }
 
   Scope getStrictParent() { result = getParentScope(this) }
 
-  UserDeclaration getADeclaration() { getParentScope(result) = this }
+  Declaration getADeclaration() { getParentScope(result) = this }
 
   Expr getAnExpr() { this = getParentScope(result) }
 
@@ -132,31 +122,31 @@ class GeneratedBlockStmt extends BlockStmt {
   GeneratedBlockStmt() { this.getLocation() instanceof UnknownLocation }
 }
 
-/** Gets a Declaration that is in the potential scope of Declaration `v`. */
-private UserDeclaration getPotentialScopeOfDeclaration_candidate(UserDeclaration v) {
+/** Gets a variable that is in the potential scope of variable `v`. */
+private UserVariable getPotentialScopeOfVariable_candidate(UserVariable v) {
   exists(Scope s |
-    result = s.getADeclaration() and
+    result = s.getAVariable() and
     (
-      // Declaration in an ancestor scope, but only if there are less than 100 declarations in this scope
-      v = s.getAnAncestor().getADeclaration() and
-      s.getNumberOfDeclarations() < 100
+      // Variable in an ancestor scope, but only if there are less than 100 variables in this scope
+      v = s.getAnAncestor().getAVariable() and
+      s.getNumberOfVariables() < 100
       or
-      // In the same scope, but not the same Declaration, and choose just one to report
-      v = s.getADeclaration() and
+      // In the same scope, but not the same variable, and choose just one to report
+      v = s.getAVariable() and
       not result = v and
       v.getName() <= result.getName()
     )
   )
 }
 
-/** Gets a Declaration that is in the potential scope of Declaration `v`. */
-private UserDeclaration getPotentialScopeOfDeclarationStrict_candidate(UserDeclaration v) {
+/** Gets a variable that is in the potential scope of variable `v`. */
+private UserVariable getOuterScopesOfVariable_candidate(UserVariable v) {
   exists(Scope s |
-    result = s.getADeclaration() and
+    result = s.getAVariable() and
     (
-      // Declaration in an ancestor scope, but only if there are less than 100 variables in this scope
-      v = s.getAnAncestor().getADeclaration() and
-      s.getNumberOfDeclarations() < 100
+      // Variable in an ancestor scope, but only if there are less than 100 variables in this scope
+      v = s.getAnAncestor().getAVariable() and
+      s.getNumberOfVariables() < 100
     )
   )
 }
@@ -171,20 +161,20 @@ predicate inSameTranslationUnit(File f1, File f2) {
 }
 
 /**
- * Gets a user Declaration which occurs in the "outer scope" of Declaration `v`.
+ * Gets a user variable which occurs in the "potential scope" of variable `v`.
  */
 cached
-UserDeclaration getPotentialScopeOfDeclarationStrict(UserDeclaration v) {
-  result = getPotentialScopeOfDeclarationStrict_candidate(v) and
+UserVariable getPotentialScopeOfVariable(UserVariable v) {
+  result = getPotentialScopeOfVariable_candidate(v) and
   inSameTranslationUnit(v.getFile(), result.getFile())
 }
 
 /**
- * Gets a user variable which occurs in the "potential scope" of variable `v`.
+ * Gets a user variable which occurs in the "outer scope" of variable `v`.
  */
 cached
-UserDeclaration getPotentialScopeOfDeclaration(UserDeclaration v) {
-  result = getPotentialScopeOfDeclaration_candidate(v) and
+UserVariable getPotentialScopeOfVariableStrict(UserVariable v) {
+  result = getOuterScopesOfVariable_candidate(v) and
   inSameTranslationUnit(v.getFile(), result.getFile())
 }
 
@@ -214,9 +204,18 @@ class TranslationUnit extends SourceFile {
 }
 
 /** Holds if `v2` may hide `v1`. */
-private predicate hides_candidateStrict(UserDeclaration v1, UserDeclaration v2) {
+private predicate hides_candidate(UserVariable v1, UserVariable v2) {
   not v1 = v2 and
-  v2 = getPotentialScopeOfDeclarationStrict(v1) and
+  v2 = getPotentialScopeOfVariable(v1) and
+  v1.getName() = v2.getName() and
+  // Member variables cannot hide other variables nor be hidden because the can be referenced through their qualified name.
+  not (v1.isMember() or v2.isMember())
+}
+
+/** Holds if `v2` may hide `v1`. */
+private predicate hides_candidateStrict(UserVariable v1, UserVariable v2) {
+  not v1 = v2 and
+  v2 = getPotentialScopeOfVariableStrict(v1) and
   v1.getName() = v2.getName() and
   // Member variables cannot hide other variables nor be hidden because the can be referenced through their qualified name.
   not (v1.isMember() or v2.isMember()) and
@@ -240,15 +239,6 @@ private predicate hides_candidateStrict(UserDeclaration v1, UserDeclaration v2) 
   )
 }
 
-/** Holds if `v2` may hide `v1`. */
-private predicate hides_candidate(UserDeclaration v1, UserDeclaration v2) {
-  not v1 = v2 and
-  v2 = getPotentialScopeOfDeclaration(v1) and
-  v1.getName() = v2.getName() and
-  // Member variables cannot hide other variables nor be hidden because the can be referenced through their qualified name.
-  not (v1.isMember() or v2.isMember())
-}
-
 /**
  * Gets the enclosing statement of the given variable, if any.
  */
@@ -267,22 +257,20 @@ private Stmt getEnclosingStmt(LocalScopeVariable v) {
 }
 
 /** Holds if `v2` hides `v1`. */
-predicate hides(UserDeclaration v1, UserDeclaration v2) {
+predicate hides(UserVariable v1, UserVariable v2) {
   hides_candidate(v1, v2) and
   // Confirm that there's no closer candidate variable which `v2` hides
-  not exists(UserDeclaration mid |
+  not exists(UserVariable mid |
     hides_candidate(v1, mid) and
     hides_candidate(mid, v2)
-  ) and
-  // Unlike `hidesStrict`, that requires a different scope, `hides` considers declarations in the same scope. This will include function overloads based on their name. To remove overloads from consideration, we exclude them.
-  not v1.(Function).getAnOverload() = v2
+  )
 }
 
 /** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */
-predicate hidesStrict(UserDeclaration v1, UserDeclaration v2) {
+predicate hidesStrict(UserVariable v1, UserVariable v2) {
   hides_candidateStrict(v1, v2) and
   // Confirm that there's no closer candidate variable which `v2` hides
-  not exists(UserDeclaration mid |
+  not exists(UserVariable mid |
     hides_candidateStrict(v1, mid) and
     hides_candidateStrict(mid, v2)
   )
@@ -303,7 +291,7 @@ predicate hasBlockScope(Declaration decl) { exists(BlockStmt b | b.getADeclarati
 /**
  * identifiers in nested (named/nonglobal) namespaces are exceptions to hiding due to being able access via fully qualified ids
  */
-predicate excludedViaNestedNamespaces(UserDeclaration outerDecl, UserDeclaration innerDecl) {
+predicate excludedViaNestedNamespaces(UserVariable outerDecl, UserVariable innerDecl) {
   exists(Namespace inner, Namespace outer |
     outer.getAChildNamespace+() = inner and
     //outer is not global
