@@ -29,9 +29,9 @@ predicate isProtectedNonVirtual(Destructor d) { d.isProtected() and not d.isVirt
 from Destructor d
 where
   not isExcluded(d, VirtualFunctionsPackage::destructorOfABaseClassNotPublicVirtualQuery()) and
-  isPossibleBaseClass(d.getDeclaringType(), _) and
+  d.getDeclaringType() instanceof BaseClass and
   (not isPublicOverride(d) and not isProtectedNonVirtual(d) and not isPublicVirtual(d))
 // Report the declaration entry in the class body, as that is where the access specifier should be set
 select getDeclarationEntryInClassDeclaration(d),
-  "Destructor of base class " + d.getDeclaringType() +
-    " is not declared as public virtual, public override, or protected non-virtual."
+  "Destructor of base class '" + d.getDeclaringType().getQualifiedName() +
+    "' is not declared as public virtual, public override, or protected non-virtual."

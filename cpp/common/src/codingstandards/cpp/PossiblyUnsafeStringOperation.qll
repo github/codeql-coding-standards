@@ -37,18 +37,25 @@ class PossiblyUnsafeStringOperation extends FunctionCall {
         bwc.getTarget() instanceof StrcatFunction
         or
         // Case 2: Consider the `strncpy(dest, src, n)` function. We do not
-        // consider `strcpy` since it is a banned function. The behavior of
-        // strncpy(dest, src, n) is that it will copy null terminators only if n
-        // > sizeof(src). If `src` is null-terminated then it will be null
-        // terminated if n >= sizeof(src). We take the conservative approach and
-        // use strictly greater. Thus this can be violated under the condition
-        // that n <  strlen(src). Note that a buffer overflow is possible if
+        // consider `strcpy` since it is a banned function.
+        // We cannot know if the string is already null terminated or not and thus
+        // the conservative assumption is that it is not
+        // The behavior of strncpy(dest, src, n) is that  if sizeof(src) < n
+        // then it will fill remainder of dst with ‘\0’ characters
+        // ie it is only in this case that it is guaranteed to null terminate
+        // Otherwise, dst is not terminated
+        // If `src` is already null-terminated then it will be null
+        // terminated if n >= sizeof(src). but we do not assume on this.
+        // Note that a buffer overflow is possible if
         // `n` is greater than sizeof(dest). The point of this query is not to
         // check for buffer overflows but we would certainly want to indicate
         // this would be a case where a string will not be null terminated.
         bwc.getTarget() instanceof StrcpyFunction and
         (
-          (bwc.getExplicitLimit() / bwc.getCharSize()) < getBufferSize(src, _) or
+          // n <= sizeof(src) might not null terminate
+          (bwc.getExplicitLimit() / bwc.getCharSize()) <= getBufferSize(src, _)
+          or
+          // sizeof(dest) < n might not null terminate
           getBufferSize(dest, _) < (bwc.getExplicitLimit() / bwc.getCharSize())
         )
         or

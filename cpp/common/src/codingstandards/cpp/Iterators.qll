@@ -6,6 +6,10 @@ import cpp
 import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.cpp.StdNamespace
+import codingstandards.cpp.rules.containeraccesswithoutrangecheck.ContainerAccessWithoutRangeCheck as ContainerAccessWithoutRangeCheck
+import semmle.code.cpp.controlflow.Guards
+import semmle.code.cpp.valuenumbering.GlobalValueNumbering
+import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
 
 abstract class ContainerAccess extends VariableAccess {
   abstract Variable getOwningContainer();
@@ -63,9 +67,11 @@ class ContainerIteratorAccess extends ContainerAccess {
     )
   }
 
-  // get a function call to cbegin/begin that
-  // assigns its value to the iterator represented by this
-  // access
+  /**
+   * gets a function call to cbegin/begin that
+   * assigns its value to the iterator represented by this
+   * access
+   */
   FunctionCall getANearbyAssigningIteratorCall() {
     // the underlying container for this variable is one wherein
     // there is an assigned value of cbegin/cend
@@ -460,5 +466,20 @@ ControlFlowNode getANonInvalidatedSuccessor(ContainerInvalidationOperation op) {
     mid = getANonInvalidatedSuccessor(op) and
     result = mid.getASuccessor() and
     not result instanceof ContainerInvalidationOperation
+  )
+}
+
+/**
+ * Guarded by a bounds check that ensures our destination is larger than "some" value
+ */
+predicate sizeCompareBoundsChecked(IteratorSource iteratorCreationCall, Expr guarded) {
+  exists(
+    GuardCondition guard, ContainerAccessWithoutRangeCheck::ContainerSizeCall sizeCall,
+    boolean branch
+  |
+    globalValueNumber(sizeCall.getQualifier()) =
+      globalValueNumber(iteratorCreationCall.getQualifier()) and
+    guard.controls(guarded.getBasicBlock(), branch) and
+    relOpWithSwapAndNegate(guard, sizeCall, _, Greater(), _, branch)
   )
 }
