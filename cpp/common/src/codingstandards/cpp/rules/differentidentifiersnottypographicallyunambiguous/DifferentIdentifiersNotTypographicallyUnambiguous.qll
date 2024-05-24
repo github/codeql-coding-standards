@@ -47,7 +47,7 @@ string step1(string s) {
 string step2(string s) { s = "m_" and result = "rn" }
 
 predicate violation(UserVariable v1, UserVariable v2) {
-  v2 = getPotentialScopeOfDeclaration(v1) and
+  v2 = getPotentialScopeOfVariable(v1) and
   exists(string s1, string s2 |
     // over-approximate a match, because it is cheaper to compute
     getCanon(v1) = getCanon(v2) and
