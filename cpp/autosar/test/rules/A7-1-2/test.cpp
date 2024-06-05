@@ -266,14 +266,12 @@ constexpr void fp_reported_in_466(int p) {
       add4(1, l3); // COMPLIANT - l3 is not compile time constant on all paths
 }
 
-template <typename T> T* init(T** t) { }
+template <typename T> T *init(T **t) {}
 
-template <typename T> T* init() {
- T* t = nullptr; // COMPLIANT - initialized below
- init(&t); // Init is ignored in uninitialized template
- return t;
+template <typename T> T *init() {
+  T *t = nullptr; // COMPLIANT - initialized below
+  init(&t);       // Init is ignored in uninitialized template
+  return t;
 }
 
-void test_template_instantiation() {
-  int* t = init<int>();
-}
+void test_template_instantiation() { int *t = init<int>(); }

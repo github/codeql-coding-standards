@@ -67,4 +67,4 @@ where
   not v.isFromUninstantiatedTemplate(_) and
   // Exclude compiler generated variables, which are not user controllable
   not v.isCompilerGenerated()
-select v, "Variable " + v.getName() + " could be marked 'constexpr'."
+select v, "Variable '" + v.getName() + "' could be marked 'constexpr'."

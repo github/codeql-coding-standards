@@ -1,3 +1,2 @@
  - `A7-1-2` - `VariableMissingConstexpr.ql`:
-   - Remove false positives for compiler generated variables
-   - Remove results in uninstantiated templates that cause false positives
+   - Fixes #607. Remove false positives for compiler generated variables and in uninstantiated templates
