@@ -10,3 +10,7 @@
 | test.cpp:162:3:162:26 | VariantMemberInitialized | VariantMemberInitialized function could be marked as 'constexpr'. |
 | test.cpp:163:3:163:26 | VariantMemberInitialized | VariantMemberInitialized function could be marked as 'constexpr'. |
 | test.cpp:190:3:190:22 | VariantMemberNotInit | VariantMemberNotInit function could be marked as 'constexpr'. |
+| test.cpp:269:26:269:26 | init | init function could be marked as 'constexpr'. |
+| test.cpp:269:26:269:29 | init | init function could be marked as 'constexpr'. |
+| test.cpp:271:26:271:26 | init | init function could be marked as 'constexpr'. |
+| test.cpp:277:6:277:32 | test_template_instantiation | test_template_instantiation function could be marked as 'constexpr'. |
