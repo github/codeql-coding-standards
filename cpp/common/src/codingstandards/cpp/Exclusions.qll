@@ -19,6 +19,12 @@ predicate isExcluded(Element e, Query query) { isExcluded(e, query, _) }
 
 bindingset[e, query]
 predicate isExcluded(Element e, Query query, string reason) {
+  e.isFromUninstantiatedTemplate(_) and reason = "Element is from an uninstantiated template."
+  or
+  e.(Variable).isCompilerGenerated() and reason = "Element is compiler generated."
+  or
+  e.(Function).isCompilerGenerated() and reason = "Element is compiler generated."
+  or
   e instanceof ExcludedElement and reason = "Element is an excluded element."
   or
   e.getFile() instanceof ExcludedFile and reason = "Element is part of an excluded file."
