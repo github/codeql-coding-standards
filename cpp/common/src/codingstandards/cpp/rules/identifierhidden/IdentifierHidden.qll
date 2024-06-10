@@ -76,18 +76,15 @@ predicate hiddenInLambda(UserVariable outerDecl, UserVariable innerDecl) {
 }
 
 query predicate problems(
-  UserDeclaration innerDecl, string message, UserDeclaration outerDecl, string varName
+  UserVariable innerDecl, string message, UserVariable outerDecl, string varName
 ) {
   not isExcluded(outerDecl, getQuery()) and
   not isExcluded(innerDecl, getQuery()) and
   //ignore template variables for this rule
   not outerDecl instanceof TemplateVariable and
   not innerDecl instanceof TemplateVariable and
-  //ignore types for this rule as the Misra C/C++ 23 version of this rule (rule 6.4.1 and 6.4.2) focuses solely on variables and functions
-  not innerDecl instanceof Type and
-  not outerDecl instanceof Type and
   (hidesStrict(outerDecl, innerDecl) or hiddenInLambda(outerDecl, innerDecl)) and
   not excludedViaNestedNamespaces(outerDecl, innerDecl) and
   varName = outerDecl.getName() and
-  message = "Declaration is hiding declaration $@."
+  message = "Variable is hiding variable $@."
 }

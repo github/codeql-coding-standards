@@ -69,3 +69,12 @@ StructA *test_failure() {
   }
   return a;
 }
+
+#include <string>
+std::unique_ptr<StructA>
+test_for_fp_reported_in_20(const std::string &s) noexcept {
+  // make_unique performs heap allocation
+  // but this outlives the function due to copy elision
+  // (specifically NRVO)
+  return std::make_unique<StructA>(s); // COMPLIANT
+}
