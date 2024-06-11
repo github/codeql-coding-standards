@@ -3,7 +3,7 @@
  * @name M0-1-2: A project shall not contain infeasible paths
  * @description Infeasible paths complicate the program and can indicate a possible mistake on the
  *              part of the programmer.
- * @ kind problem
+ * @kind problem
  * @precision high
  * @problem.severity warning
  * @tags external/autosar/id/m0-1-2
