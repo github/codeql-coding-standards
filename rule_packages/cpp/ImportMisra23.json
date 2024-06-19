@@ -133,7 +133,7 @@
         {
           "description": "All if ... else if constructs shall be terminated with an else statement.",
           "kind": "problem",
-          "name": "All if ",
+          "name": "All if ... else if constructs shall be terminated with an else statement.",
           "precision": "very-high",
           "severity": "error",
           "short_name": "IfElseIfEndCondition",
@@ -405,7 +405,7 @@
       "queries": [
         {
           "description": "The pointers returned by the C++ Standard Library functions localeconv, getenv, setlocale or strerror must only be used as if they have pointer to const-qualified type.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "The pointers returned by environment functions should be treated as const",
           "precision": "very-high",
           "severity": "error",
