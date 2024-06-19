@@ -17,6 +17,8 @@
 import cpp
 import codingstandards.cpp.autosar
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
+import codingstandards.cpp.deadcode.UnreachableCode
+import semmle.code.cpp.controlflow.Guards
 
 /**
  * A "conditional" node in the control flow graph, i.e. one that can potentially have a true and false path.
@@ -44,6 +46,7 @@ class BreakingLoop extends Loop {
 predicate hasCFGDeducedInfeasiblePath(
   ConditionalControlFlowNode cond, boolean infeasiblePath, string explanation
 ) {
+  not cond.isFromTemplateInstantiation(_) and
   // No true successor, so the true path has already been deduced as infeasible
   not exists(cond.getATrueSuccessor()) and
   infeasiblePath = true and
@@ -147,17 +150,189 @@ predicate isConstantRelationalOperation(
 /**
  * Holds if the `ConditionalNode` has an infeasible `path` for the reason given in `explanation`.
  */
-predicate hasInfeasiblePath(
-  ConditionalControlFlowNode node, boolean infeasiblePath, string explanation
-) {
-  hasCFGDeducedInfeasiblePath(node, infeasiblePath, explanation) and
-  not isConstantRelationalOperation(node, infeasiblePath, _)
+predicate hasInfeasiblePath(ConditionalControlFlowNode node, string message) {
+  //deal with the infeasible in all uninstantiated templates separately
+  node.isFromUninstantiatedTemplate(_) and
+  node instanceof ConditionControllingUnreachable and
+  message = "The path is unreachable in a template."
   or
-  isConstantRelationalOperation(node, infeasiblePath, explanation)
+  exists(boolean infeasiblePath, string explanation |
+    (
+      not node.isFromUninstantiatedTemplate(_) and
+      not node.isFromTemplateInstantiation(_) and
+      message = "The " + infeasiblePath + " path is infeasible because " + explanation + "."
+    ) and
+    (
+      hasCFGDeducedInfeasiblePath(node, infeasiblePath, explanation) and
+      not isConstantRelationalOperation(node, infeasiblePath, _)
+      or
+      isConstantRelationalOperation(node, infeasiblePath, explanation)
+    )
+  )
 }
 
-from ConditionalControlFlowNode cond, boolean infeasiblePath, string explanation
+/**
+ * A newtype representing "unreachable" blocks in the program. We use a newtype here to avoid
+ * reporting the same block in multiple `Function` instances created from one function in a template.
+ */
+private newtype TUnreachableBasicBlock =
+  TUnreachableNonTemplateBlock(BasicBlock bb) {
+    bb.isUnreachable() and
+    // Exclude anything template related from this case
+    not bb.getEnclosingFunction().isFromTemplateInstantiation(_) and
+    not bb.getEnclosingFunction().isFromUninstantiatedTemplate(_) and
+    // Exclude compiler generated basic blocks
+    not isCompilerGenerated(bb)
+  } or
+  /**
+   * A `BasicBlock` that occurs in at least one `Function` instance for a template. `BasicBlock`s
+   * are matched up across templates by location.
+   */
+  TUnreachableTemplateBlock(
+    string filepath, int startline, int startcolumn, int endline, int endcolumn,
+    GuardCondition uninstantiatedGuardCondition
+  ) {
+    exists(BasicBlock bb |
+      // BasicBlock occurs in this location
+      bb.hasLocationInfo(filepath, startline, startcolumn, endline, endcolumn) and
+      // And is contained in the `uninstantiatedFunction` only
+      // not from anything constructed from it
+      // because we want infeasible paths independent of parameters
+      exists(Function enclosing | enclosing = bb.getEnclosingFunction() |
+        //guard is in the template function
+        (
+          enclosing.getBlock().getAChild*() = uninstantiatedGuardCondition and
+          //function template
+          enclosing.isFromUninstantiatedTemplate(_) and
+          uninstantiatedGuardCondition.isFromUninstantiatedTemplate(_) and
+          //true condition is unreachable: basic block starts on same line as guard
+          (
+            not exists(uninstantiatedGuardCondition.getATrueSuccessor()) and
+            bb.hasLocationInfo(filepath, uninstantiatedGuardCondition.getLocation().getStartLine(),
+              startcolumn, endline, endcolumn)
+            or
+            //false condition is unreachable: false basic block starts on one line after its true basic block
+            not exists(uninstantiatedGuardCondition.getAFalseSuccessor()) and
+            bb.hasLocationInfo(filepath,
+              uninstantiatedGuardCondition.getATrueSuccessor().getLocation().getEndLine() + 1,
+              startcolumn, endline, endcolumn)
+          )
+        )
+      ) and
+      // And is unreachable
+      bb.isUnreachable() and
+      // //Exclude compiler generated control flow nodes
+      not isCompilerGenerated(bb) and
+      //Exclude nodes affected by macros, because our find-the-same-basic-block-by-location doesn't
+      //work in that case
+      not bb.(ControlFlowNode).isAffectedByMacro()
+    )
+  }
+
+/**
+ * An unreachable basic block.
+ */
+class UnreachableBasicBlock extends TUnreachableBasicBlock {
+  /** Gets a `BasicBlock` which is represented by this set of unreachable basic blocks. */
+  BasicBlock getABasicBlock() { none() }
+
+  /** Gets a `GuardCondition` instance which we treat as the original GuardCondition. */
+  GuardCondition getGuardCondition() { none() }
+
+  predicate hasLocationInfo(
+    string filepath, int startline, int startcolumn, int endline, int endcolumn
+  ) {
+    none()
+  }
+
+  string toString() { result = "default" }
+}
+
+/**
+ * A non-templated unreachable basic block.
+ */
+class UnreachableNonTemplateBlock extends UnreachableBasicBlock, TUnreachableNonTemplateBlock {
+  BasicBlock getBasicBlock() { this = TUnreachableNonTemplateBlock(result) }
+
+  override BasicBlock getABasicBlock() { result = getBasicBlock() }
+
+  override GuardCondition getGuardCondition() { result.controls(getBasicBlock(), true) }
+
+  override predicate hasLocationInfo(
+    string filepath, int startline, int startcolumn, int endline, int endcolumn
+  ) {
+    getBasicBlock().hasLocationInfo(filepath, startline, startcolumn, endline, endcolumn)
+  }
+
+  override string toString() { result = getBasicBlock().toString() }
+}
+
+/**
+ * A templated unreachable basic block.
+ */
+class UnreachableTemplateBlock extends UnreachableBasicBlock, TUnreachableTemplateBlock {
+  override BasicBlock getABasicBlock() {
+    exists(
+      string filepath, int startline, int startcolumn, int endline, int endcolumn,
+      GuardCondition uninstantiatedGuardCondition
+    |
+      this =
+        TUnreachableTemplateBlock(filepath, startline, startcolumn, endline, endcolumn,
+          uninstantiatedGuardCondition) and
+      result.hasLocationInfo(filepath, startline, startcolumn, endline, endcolumn) and
+      exists(Function enclosing |
+        //guard is in the template function
+        (
+          enclosing.getBlock().getAChild*() = uninstantiatedGuardCondition and
+          //function template
+          enclosing.isFromUninstantiatedTemplate(_) and
+          uninstantiatedGuardCondition.isFromUninstantiatedTemplate(_) and
+          //true condition is unreachable: basic block starts on same line as guard
+          (
+            not exists(uninstantiatedGuardCondition.getATrueSuccessor()) and
+            this.hasLocationInfo(filepath,
+              uninstantiatedGuardCondition.getLocation().getStartLine(), startcolumn, endline,
+              endcolumn)
+            or
+            //false condition is unreachable: false basic block starts on one line after its true basic block
+            not exists(uninstantiatedGuardCondition.getAFalseSuccessor()) and
+            this.hasLocationInfo(filepath,
+              uninstantiatedGuardCondition.getATrueSuccessor().getLocation().getEndLine() + 1,
+              startcolumn, endline, endcolumn)
+          )
+        )
+      )
+    |
+      result.isUnreachable() and
+      // Exclude compiler generated control flow nodes
+      not isCompilerGenerated(result) and
+      // Exclude nodes affected by macros, because our find-the-same-basic-block-by-location doesn't
+      // work in that case
+      not result.(ControlFlowNode).isAffectedByMacro()
+    )
+  }
+
+  override GuardCondition getGuardCondition() {
+    this = TUnreachableTemplateBlock(_, _, _, _, _, result)
+  }
+
+  override predicate hasLocationInfo(
+    string filepath, int startline, int startcolumn, int endline, int endcolumn
+  ) {
+    this = TUnreachableTemplateBlock(filepath, startline, startcolumn, endline, endcolumn, _)
+  }
+
+  override string toString() { result = getABasicBlock().toString() }
+}
+
+class ConditionControllingUnreachable extends GuardCondition {
+  ConditionControllingUnreachable() {
+    exists(UnreachableTemplateBlock b | this = b.getGuardCondition())
+  }
+}
+
+from ConditionalControlFlowNode cond, string explanation
 where
   not isExcluded(cond, DeadCodePackage::infeasiblePathQuery()) and
-  hasInfeasiblePath(cond, infeasiblePath, explanation)
-select cond, "The " + infeasiblePath + " path is infeasible because " + explanation + "."
+  hasInfeasiblePath(cond, explanation)
+select cond, explanation
