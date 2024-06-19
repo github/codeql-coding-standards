@@ -133,7 +133,7 @@
         {
           "description": "All if ... else if constructs shall be terminated with an else statement.",
           "kind": "problem",
-          "name": "All if ... else if constructs shall be terminated with an else statement.",
+          "name": "All if ... else if constructs shall be terminated with an else statement",
           "precision": "very-high",
           "severity": "error",
           "short_name": "IfElseIfEndCondition",
