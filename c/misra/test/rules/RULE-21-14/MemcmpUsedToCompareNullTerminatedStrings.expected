@@ -1,7 +1,7 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (MemcmpUsedToCompareNullTerminatedStrings.ql:22,54-62)
-WARNING: Module DataFlow has been deprecated and may be removed in future (MemcmpUsedToCompareNullTerminatedStrings.ql:23,22-30)
-WARNING: Module DataFlow has been deprecated and may be removed in future (MemcmpUsedToCompareNullTerminatedStrings.ql:49,20-28)
-WARNING: Module TaintTracking has been deprecated and may be removed in future (MemcmpUsedToCompareNullTerminatedStrings.ql:57,43-56)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (MemcmpUsedToCompareNullTerminatedStrings.ql:22,54-62)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (MemcmpUsedToCompareNullTerminatedStrings.ql:23,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (MemcmpUsedToCompareNullTerminatedStrings.ql:49,20-28)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (MemcmpUsedToCompareNullTerminatedStrings.ql:57,43-56)
 edges
 | test.c:12:13:12:15 | a | test.c:14:10:14:10 | a | provenance |  |
 | test.c:12:13:12:15 | a | test.c:23:13:23:13 | a | provenance |  |
