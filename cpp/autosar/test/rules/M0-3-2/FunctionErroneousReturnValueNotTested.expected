@@ -1,4 +1,4 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (FunctionErroneousReturnValueNotTested.ql:70,9-17)
-WARNING: Module DataFlow has been deprecated and may be removed in future (FunctionErroneousReturnValueNotTested.ql:70,29-37)
-WARNING: Module DataFlow has been deprecated and may be removed in future (FunctionErroneousReturnValueNotTested.ql:70,53-61)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (FunctionErroneousReturnValueNotTested.ql:70,9-17)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (FunctionErroneousReturnValueNotTested.ql:70,29-37)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (FunctionErroneousReturnValueNotTested.ql:70,53-61)
 | test.cpp:16:3:16:8 | call to remove | Return value is not tested for errors. |

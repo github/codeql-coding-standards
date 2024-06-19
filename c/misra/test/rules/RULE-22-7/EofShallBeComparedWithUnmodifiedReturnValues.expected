@@ -1,10 +1,10 @@
-WARNING: Module DataFlow has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:22,28-36)
-WARNING: Module DataFlow has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:23,22-30)
-WARNING: Module DataFlow has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:27,20-28)
-WARNING: Module DataFlow has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:36,23-31)
-WARNING: Module DataFlow has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:41,17-25)
-WARNING: Module DataFlow has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:50,5-13)
-WARNING: Module DataFlow has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:58,20-28)
-WARNING: Module DataFlow has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:58,46-54)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:22,28-36)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:23,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:27,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:36,23-31)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:41,17-25)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:50,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:58,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:58,46-54)
 | test.c:6:7:6:20 | ... != ... | The check is not reliable as the type of the return value of $@ is converted. | test.c:5:14:5:20 | call to getchar | call to getchar |
 | test.c:13:7:13:15 | ... != ... | The check is not reliable as the type of the return value of $@ is converted. | test.c:12:14:12:20 | call to getchar | call to getchar |
