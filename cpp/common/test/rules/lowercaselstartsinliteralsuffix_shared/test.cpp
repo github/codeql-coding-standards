@@ -1,15 +1,15 @@
 // NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C TEST CASE AND
 // CHANGES SHOULD BE REFLECTED THERE AS WELL.
 int x = false; // COMPLIANT - reported as FP in #319
-int a1 = 0L;  // COMPLIANT
-int a2 = 0l;  // NON_COMPLIANT
-int a3 = 0ll; // NON_COMPLIANT
-int a4 = 0LL; // COMPLIANT
-int a5 = 0uL; // COMPLIANT
-int a6 = 0ul; // NON_COMPLIANT
-int a7 = 0lu; // NON_COMPLIANT
-int a8 = 0Lu; // COMPLIANT
-int a9 = 0LU; // COMPLIANT
+int a1 = 0L;   // COMPLIANT
+int a2 = 0l;   // NON_COMPLIANT
+int a3 = 0ll;  // NON_COMPLIANT
+int a4 = 0LL;  // COMPLIANT
+int a5 = 0uL;  // COMPLIANT
+int a6 = 0ul;  // NON_COMPLIANT
+int a7 = 0lu;  // NON_COMPLIANT
+int a8 = 0Lu;  // COMPLIANT
+int a9 = 0LU;  // COMPLIANT
 
 long b1 = 0L;  // COMPLIANT
 long b2 = 0l;  // NON_COMPLIANT

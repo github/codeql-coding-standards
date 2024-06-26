@@ -15,7 +15,7 @@
 #define MY_ASSERT(X) assert(X) // NON_COMPLIANT[FALSE_NEGATIVE]
 
 char a1[MACRO2(1, 1) + 6];
-extern int printf_custom(char*, int);
+extern int printf_custom(char *, int);
 int test1;
 
 void f() {
