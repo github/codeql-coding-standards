@@ -1,0 +1,5 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.unsignedoperationwithconstantoperandswraps_shared.UnsignedOperationWithConstantOperandsWraps_shared
+
+class TestFileQuery extends UnsignedOperationWithConstantOperandsWraps_sharedSharedQuery, TestQuery {
+}

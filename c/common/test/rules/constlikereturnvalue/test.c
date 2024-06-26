@@ -1,6 +1,9 @@
+// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C++ TEST CASE AND
+// CHANGES SHOULD BE REFLECTED THERE AS WELL.
 #include <locale.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stddef.h>
 
 void trstr(char *c_str, char orig, char rep) {
   while (*c_str != '\0') {

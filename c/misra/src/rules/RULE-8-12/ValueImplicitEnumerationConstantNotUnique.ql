@@ -14,25 +14,10 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.rules.nonuniqueenumerationconstant_shared.NonUniqueEnumerationConstant_shared
 
-/**
- * An `EnumConstant` that has an implicitly specified value:
- * `enum e { explicit = 1, implicit }`
- */
-class ImplicitlySpecifiedEnumConstant extends EnumConstant {
-  ImplicitlySpecifiedEnumConstant() {
-    //implicitly specified have an initializer with location: `file://:0:0:0:0`
-    not this.getInitializer().getLocation().getFile() = this.getFile()
+class ValueImplicitEnumerationConstantNotUniqueQuery extends NonUniqueEnumerationConstant_sharedSharedQuery {
+  ValueImplicitEnumerationConstantNotUniqueQuery() {
+    this = Declarations7Package::valueImplicitEnumerationConstantNotUniqueQuery()
   }
 }
-
-from EnumConstant exp, ImplicitlySpecifiedEnumConstant imp
-where
-  not isExcluded(exp, Declarations7Package::valueImplicitEnumerationConstantNotUniqueQuery()) and
-  not isExcluded(imp, Declarations7Package::valueImplicitEnumerationConstantNotUniqueQuery()) and
-  not exp = imp and
-  imp.getValue() = exp.getValue() and
-  imp.getDeclaringEnum() = exp.getDeclaringEnum() and
-  //can technically be the same declared enum across multiple headers but those are not relevant to this rule
-  imp.getFile() = exp.getFile()
-select imp, "Nonunique value of enum constant compared to $@", exp, exp.getName()

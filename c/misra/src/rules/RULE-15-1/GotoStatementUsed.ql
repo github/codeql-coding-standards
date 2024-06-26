@@ -13,9 +13,10 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.rules.gotostatementshouldnotbeused_shared.GotoStatementShouldNotBeUsed_shared
 
-from Stmt s
-where
-  not isExcluded(s, Statements6Package::gotoStatementUsedQuery()) and
-  (s instanceof GotoStmt or s instanceof ComputedGotoStmt)
-select s, "Use of goto."
+class GotoStatementUsedQuery extends GotoStatementShouldNotBeUsed_sharedSharedQuery {
+  GotoStatementUsedQuery() {
+    this = Statements6Package::gotoStatementUsedQuery()
+  }
+}

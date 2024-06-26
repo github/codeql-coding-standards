@@ -15,10 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.exceptionobjecthavepointertype_shared.ExceptionObjectHavePointerType_shared
 
-from Expr thrownExpr
-where
-  not isExcluded(thrownExpr, Exceptions1Package::pointerExceptionObjectQuery()) and
-  thrownExpr = any(ThrowExpr te).getExpr() and
-  thrownExpr.getType().getUnspecifiedType() instanceof PointerType
-select thrownExpr, "Exception object with pointer type " + thrownExpr.getType() + " is thrown here."
+class PointerExceptionObjectQuery extends ExceptionObjectHavePointerType_sharedSharedQuery {
+  PointerExceptionObjectQuery() {
+    this = Exceptions1Package::pointerExceptionObjectQuery()
+  }
+}

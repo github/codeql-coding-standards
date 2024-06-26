@@ -15,9 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.emptythrowonlywithinacatchhandler_shared.EmptyThrowOnlyWithinACatchHandler_shared
 
-from ReThrowExpr re
-where
-  not isExcluded(re, Exceptions1Package::emptyThrowOutsideCatchQuery()) and
-  not re.getEnclosingElement+() instanceof CatchBlock
-select re, "Rethrow outside catch block"
+class EmptyThrowOutsideCatchQuery extends EmptyThrowOnlyWithinACatchHandler_sharedSharedQuery {
+  EmptyThrowOutsideCatchQuery() {
+    this = Exceptions1Package::emptyThrowOutsideCatchQuery()
+  }
+}

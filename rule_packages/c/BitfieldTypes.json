@@ -12,6 +12,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "BitFieldsShallOnlyBeDeclaredWithAnAppropriateType",
+          "shared_implementation_short_name": "BitFieldShallHaveAnAppropriateType_shared",
           "tags": []
         }
       ],
@@ -29,6 +30,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "SingleBitNamedBitFieldsOfASignedType",
+          "shared_implementation_short_name": "NamedBitFieldsWithSignedIntegerType_shared",
           "tags": []
         }
       ],

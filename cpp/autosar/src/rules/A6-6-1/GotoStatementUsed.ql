@@ -16,9 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.gotostatementshouldnotbeused_shared.GotoStatementShouldNotBeUsed_shared
 
-from Stmt s
-where
-  not isExcluded(s, BannedSyntaxPackage::gotoStatementUsedQuery()) and
-  (s instanceof GotoStmt or s instanceof ComputedGotoStmt)
-select s, "Use of goto."
+class GotoStatementUsedQuery extends GotoStatementShouldNotBeUsed_sharedSharedQuery {
+  GotoStatementUsedQuery() {
+    this = BannedSyntaxPackage::gotoStatementUsedQuery()
+  }
+}

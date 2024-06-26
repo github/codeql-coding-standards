@@ -16,10 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.csignaltypesused_shared.CsignalTypesUsed_shared
 
-from TypeMention tm, UserType ut
-where
-  not isExcluded(tm, BannedLibrariesPackage::csignalTypesUsedQuery()) and
-  ut = tm.getMentionedType() and
-  ut.hasGlobalOrStdName("sig_atomic_t")
-select tm, "Use of <csignal> type '" + ut.getQualifiedName() + "'."
+class CsignalTypesUsedQuery extends CsignalTypesUsed_sharedSharedQuery {
+  CsignalTypesUsedQuery() {
+    this = BannedLibrariesPackage::csignalTypesUsedQuery()
+  }
+}

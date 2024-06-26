@@ -144,7 +144,8 @@
           "name": "An accessible base class shall not be both virtual and non-virtual in the same hierarchy",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "AccessibleBaseClassBothVirtualAndNonVirtualInHierarchy",
+          "short_name": "AccessibleBaseClassBothVirtualAndNonVirtual",
+          "shared_implementation_short_name": "VirtualAndNonVirtualClassInTheHierarchy_shared",
           "tags": []
         }
       ],
@@ -187,6 +188,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DynamicTypeOfThisUsedFromConstructorOrDestructor",
+          "shared_implementation_short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor_shared",
           "tags": []
         }
       ],

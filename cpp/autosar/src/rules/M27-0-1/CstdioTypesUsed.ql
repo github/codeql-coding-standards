@@ -17,10 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.cstdiotypesused_shared.CstdioTypesUsed_shared
 
-from TypeMention tm, UserType ut
-where
-  not isExcluded(tm, BannedLibrariesPackage::cstdioTypesUsedQuery()) and
-  ut = tm.getMentionedType() and
-  ut.hasGlobalOrStdName(["FILE", "fpos_t"])
-select tm, "Use of <cstdio> type '" + ut.getQualifiedName() + "'."
+class CstdioTypesUsedQuery extends CstdioTypesUsed_sharedSharedQuery {
+  CstdioTypesUsedQuery() {
+    this = BannedLibrariesPackage::cstdioTypesUsedQuery()
+  }
+}

@@ -17,12 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.cstdiomacrosused_shared.CstdioMacrosUsed_shared
 
-from MacroInvocation mi
-where
-  not isExcluded(mi, BannedLibrariesPackage::cstdioMacrosUsedQuery()) and
-  mi.getMacroName() in [
-      "BUFSIZ", "EOF", "FILENAME_MAX", "FOPEN_MAX", "L_tmpnam", "TMP_MAX", "_IOFBF", "IOLBF",
-      "_IONBF", "SEEK_CUR", "SEEK_END", "SEEK_SET"
-    ]
-select mi, "Use of <cstdio> macro '" + mi.getMacroName() + "'."
+class CstdioMacrosUsedQuery extends CstdioMacrosUsed_sharedSharedQuery {
+  CstdioMacrosUsedQuery() {
+    this = BannedLibrariesPackage::cstdioMacrosUsedQuery()
+  }
+}

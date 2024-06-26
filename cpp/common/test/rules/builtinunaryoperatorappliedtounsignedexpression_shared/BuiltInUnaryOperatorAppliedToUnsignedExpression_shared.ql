@@ -1,0 +1,6 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.builtinunaryoperatorappliedtounsignedexpression_shared.BuiltInUnaryOperatorAppliedToUnsignedExpression_shared
+
+class TestFileQuery extends BuiltInUnaryOperatorAppliedToUnsignedExpression_sharedSharedQuery,
+  TestQuery
+{ }

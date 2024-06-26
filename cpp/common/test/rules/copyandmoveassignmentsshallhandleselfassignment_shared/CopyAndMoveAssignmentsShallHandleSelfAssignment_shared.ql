@@ -1,0 +1,6 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.copyandmoveassignmentsshallhandleselfassignment_shared.CopyAndMoveAssignmentsShallHandleSelfAssignment_shared
+
+class TestFileQuery extends CopyAndMoveAssignmentsShallHandleSelfAssignment_sharedSharedQuery,
+  TestQuery
+{ }

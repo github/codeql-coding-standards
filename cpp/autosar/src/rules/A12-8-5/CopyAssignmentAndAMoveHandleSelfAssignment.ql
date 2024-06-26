@@ -17,43 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Operator
+import codingstandards.cpp.rules.copyandmoveassignmentsshallhandleselfassignment_shared.CopyAndMoveAssignmentsShallHandleSelfAssignment_shared
 
-predicate isUserCopyOrUserMove(Operator o) {
-  o instanceof UserCopyOperator or
-  o instanceof UserMoveOperator
+class CopyAssignmentAndAMoveHandleSelfAssignmentQuery extends CopyAndMoveAssignmentsShallHandleSelfAssignment_sharedSharedQuery {
+  CopyAssignmentAndAMoveHandleSelfAssignmentQuery() {
+    this = OperatorInvariantsPackage::copyAssignmentAndAMoveHandleSelfAssignmentQuery()
+  }
 }
-
-predicate callsStdSwap(Function f) {
-  exists(FunctionCall fc |
-    fc.getTarget().hasGlobalOrStdName("swap") and
-    fc.getEnclosingFunction() = f
-  )
-}
-
-predicate callsNoExceptSwap(Operator o) {
-  exists(Function f, FunctionCall fc |
-    callsStdSwap(f) and
-    fc.getEnclosingFunction() = o and
-    fc.getTarget() = f
-  )
-}
-
-predicate checksForSelfAssignment(Operator o) {
-  exists(IfStmt i, ComparisonOperation c |
-    i.getEnclosingFunction() = o and
-    i.getCondition() = c and
-    (
-      c.getLeftOperand().toString() = "this" or
-      c.getRightOperand().toString() = "this"
-    )
-  )
-}
-
-from Operator o
-where
-  not isExcluded(o, OperatorInvariantsPackage::copyAssignmentAndAMoveHandleSelfAssignmentQuery()) and
-  isUserCopyOrUserMove(o) and
-  not callsNoExceptSwap(o) and
-  not checksForSelfAssignment(o)
-select o, "User defined copy or user defined move does not handle self-assignment correctly."

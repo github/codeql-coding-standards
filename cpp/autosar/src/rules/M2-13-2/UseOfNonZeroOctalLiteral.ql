@@ -16,10 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Cpp14Literal
+import codingstandards.cpp.rules.useofnonzerooctalliteral_shared.UseOfNonZeroOctalLiteral_shared
 
-from Cpp14Literal::OctalLiteral octalLiteral
-where
-  not isExcluded(octalLiteral, LiteralsPackage::useOfNonZeroOctalLiteralQuery()) and
-  not octalLiteral.getValue() = "0"
-select octalLiteral, "Non zero octal literal " + octalLiteral.getValueText() + "."
+class UseOfNonZeroOctalLiteralQuery extends UseOfNonZeroOctalLiteral_sharedSharedQuery {
+  UseOfNonZeroOctalLiteralQuery() {
+    this = LiteralsPackage::useOfNonZeroOctalLiteralQuery()
+  }
+}

@@ -16,29 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Constructor
+import codingstandards.cpp.rules.initializeallvirtualbaseclasses_shared.InitializeAllVirtualBaseClasses_shared
 
-from Constructor c, Class declaringType, Class baseClass, string type
-where
-  not isExcluded(c, InitializationPackage::explicitConstructorBaseClassInitializationQuery()) and
-  declaringType = c.getDeclaringType() and
-  (
-    declaringType.getABaseClass() = baseClass and type = ""
-    or
-    baseClass.(VirtualBaseClass).getAVirtuallyDerivedClass().getADerivedClass+() = declaringType and
-    type = " virtual"
-  ) and
-  // There is not an initializer on the constructor for this particular base class
-  not exists(ConstructorBaseClassInit init |
-    c.getAnInitializer() = init and
-    init.getInitializedClass() = baseClass and
-    not init.isCompilerGenerated()
-  ) and
-  // Must be a defined constructor
-  c.hasDefinition() and
-  // Not a compiler-generated constructor
-  not c.isCompilerGenerated() and
-  // Not a defaulted constructor
-  not c.isDefaulted()
-select c, "Constructor for $@ does not explicitly call constructor for" + type + " base class $@.",
-  declaringType, declaringType.getSimpleName(), baseClass, baseClass.getSimpleName()
+class ExplicitConstructorBaseClassInitializationQuery extends InitializeAllVirtualBaseClasses_sharedSharedQuery {
+  ExplicitConstructorBaseClassInitializationQuery() {
+    this = InitializationPackage::explicitConstructorBaseClassInitializationQuery()
+  }
+}

@@ -17,5 +17,11 @@ using size_t = decltype(sizeof(char));
 
 #define offsetof(t, d) __builtin_offsetof(t, d) /*implementation-defined*/
 
+#ifdef __cplusplus
+#define NULL 0L
+#else
+#define NULL ((void*)0)
+#endif
+
 // namespace std
 #endif // _GHLIBCPP_STDDEF

@@ -13,13 +13,10 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.rules.atofatoiatolandatollused_shared.AtofAtoiAtolAndAtollUsed_shared
 
-private string atoi() { result = ["atof", "atoi", "atol", "atoll"] }
-
-from FunctionCall fc, Function f
-where
-  not isExcluded(fc, BannedPackage::atofAtoiAtolAndAtollOfStdlibhUsedQuery()) and
-  f = fc.getTarget() and
-  f.getName() = atoi() and
-  f.getFile().getBaseName() = "stdlib.h"
-select fc, "Call to banned function " + f.getName() + "."
+class AtofAtoiAtolAndAtollOfStdlibhUsedQuery extends AtofAtoiAtolAndAtollUsed_sharedSharedQuery {
+  AtofAtoiAtolAndAtollOfStdlibhUsedQuery() {
+    this = BannedPackage::atofAtoiAtolAndAtollOfStdlibhUsedQuery()
+  }
+}

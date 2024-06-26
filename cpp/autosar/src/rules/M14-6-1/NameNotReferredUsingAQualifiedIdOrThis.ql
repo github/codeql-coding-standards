@@ -16,27 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import NameInDependentBase
+import codingstandards.cpp.rules.namenotreferredusingaqualifiedidorthis_shared.NameNotReferredUsingAQualifiedIdOrThis_shared
 
-from
-  TemplateClass c, NameQualifiableElement fn, string targetName, Element actualTarget,
-  Element dependentTypeMemberWithSameName
-where
-  not isExcluded(fn, TemplatesPackage::nameNotReferredUsingAQualifiedIdOrThisQuery()) and
-  not isCustomExcluded(fn) and
-  missingNameQualifier(fn) and
-  (
-    fn = getConfusingFunctionAccess(c, targetName, actualTarget, dependentTypeMemberWithSameName)
-    or
-    fn = getConfusingFunctionCall(c, targetName, actualTarget, dependentTypeMemberWithSameName) and
-    not exists(Expr e | e = fn.(FunctionCall).getQualifier())
-    or
-    fn =
-      getConfusingMemberVariableAccess(c, targetName, actualTarget, dependentTypeMemberWithSameName) and
-    not exists(Expr e | e = fn.(VariableAccess).getQualifier())
-  ) and
-  not fn.isAffectedByMacro()
-select fn,
-  "Use of unqualified identifier " + targetName +
-    " targets $@ but a member with the name also exists $@.", actualTarget, targetName,
-  dependentTypeMemberWithSameName, "in the dependent base class"
+class NameNotReferredUsingAQualifiedIdOrThisQuery extends NameNotReferredUsingAQualifiedIdOrThis_sharedSharedQuery {
+  NameNotReferredUsingAQualifiedIdOrThisQuery() {
+    this = TemplatesPackage::nameNotReferredUsingAQualifiedIdOrThisQuery()
+  }
+}

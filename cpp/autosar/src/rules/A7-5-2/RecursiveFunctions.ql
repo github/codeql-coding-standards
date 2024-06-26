@@ -16,21 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.functionscallthemselveseitherdirectlyorindirectly_shared.FunctionsCallThemselvesEitherDirectlyOrIndirectly_shared
 
-class RecursiveCall extends FunctionCall {
-  RecursiveCall() {
-    this.getTarget().calls*(this.getEnclosingFunction()) and
-    not this.getTarget().hasSpecifier("is_constexpr")
+class RecursiveFunctionsQuery extends FunctionsCallThemselvesEitherDirectlyOrIndirectly_sharedSharedQuery {
+  RecursiveFunctionsQuery() {
+    this = FunctionsPackage::recursiveFunctionsQuery()
   }
 }
-
-from RecursiveCall call, string msg, FunctionCall fc
-where
-  not isExcluded(fc, FunctionsPackage::recursiveFunctionsQuery()) and
-  fc.getTarget() = call.getTarget() and
-  if fc.getTarget() = fc.getEnclosingFunction()
-  then msg = "This call directly invokes its containing function $@."
-  else
-    msg =
-      "The function " + fc.getEnclosingFunction() + " is indirectly recursive via this call to $@."
-select fc, msg, fc.getTarget(), fc.getTarget().getName()

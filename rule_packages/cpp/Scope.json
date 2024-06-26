@@ -64,6 +64,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "HiddenInheritedNonOverridableMemberFunction",
+          "shared_implementation_short_name": "HiddenInheritedNonOverridableMemberFunction_shared",
           "tags": [
             "correctness"
           ]
@@ -75,6 +76,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "HiddenInheritedOverridableMemberFunction",
+          "shared_implementation_short_name": "HiddenInheritedOverridableMemberFunction_shared",
           "tags": [
             "correctness"
           ]
@@ -86,6 +88,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DefinitionNotConsideredForUnqualifiedLookup",
+          "shared_implementation_short_name": "DefinitionNotConsideredForUnqualifiedLookup_shared",
           "tags": [
             "correctness"
           ]
@@ -228,6 +231,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "GlobalNamespaceMembershipViolation",
+          "shared_implementation_short_name": "GlobalNamespaceDeclarations_shared",
           "tags": [
             "readability"
           ]

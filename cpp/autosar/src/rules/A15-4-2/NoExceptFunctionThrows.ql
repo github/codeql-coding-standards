@@ -15,25 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.exceptions.ExceptionFlow
-import ExceptionPathGraph
-import codingstandards.cpp.exceptions.ExceptionSpecifications
+import codingstandards.cpp.rules.noexceptfunctionshouldnotpropagatetothecaller_shared.NoexceptFunctionShouldNotPropagateToTheCaller_shared
 
-class NoExceptThrowingFunction extends ExceptionThrowingFunction {
-  NoExceptThrowingFunction() {
-    // Can exit with an exception
-    exists(getAFunctionThrownType(_, _)) and
-    // But is marked noexcept(true) or equivalent
-    isNoExceptTrue(this)
+class NoExceptFunctionThrowsQuery extends NoexceptFunctionShouldNotPropagateToTheCaller_sharedSharedQuery {
+  NoExceptFunctionThrowsQuery() {
+    this = Exceptions1Package::noExceptFunctionThrowsQuery()
   }
 }
-
-from
-  NoExceptThrowingFunction f, ExceptionFlowNode exceptionSource, ExceptionFlowNode functionNode,
-  ExceptionType exceptionType
-where
-  not isExcluded(f, Exceptions1Package::noExceptFunctionThrowsQuery()) and
-  f.hasExceptionFlow(exceptionSource, functionNode, exceptionType)
-select f, exceptionSource, functionNode,
-  "Function " + f.getName() + " is declared noexcept(true) but can throw exceptions of type " +
-    exceptionType.getExceptionName() + "."

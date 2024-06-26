@@ -1,0 +1,5 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.resultofanassignmentoperatorshouldnotbeused_shared.ResultOfAnAssignmentOperatorShouldNotBeUsed_shared
+
+class TestFileQuery extends ResultOfAnAssignmentOperatorShouldNotBeUsed_sharedSharedQuery, TestQuery {
+}

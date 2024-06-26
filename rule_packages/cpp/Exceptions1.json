@@ -90,6 +90,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "PointerExceptionObject",
+          "shared_implementation_short_name": "ExceptionObjectHavePointerType_shared",
           "tags": [
             "correctness"
           ]
@@ -224,6 +225,7 @@
           "severity": "error",
           "kind": "path-problem",
           "short_name": "NoExceptFunctionThrows",
+          "shared_implementation_short_name": "NoexceptFunctionShouldNotPropagateToTheCaller_shared",
           "tags": [
             "correctness"
           ]
@@ -428,6 +430,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "EmptyThrowOutsideCatch",
+          "shared_implementation_short_name": "EmptyThrowOnlyWithinACatchHandler_shared",
           "tags": [
             "correctness"
           ]

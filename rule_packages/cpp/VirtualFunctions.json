@@ -176,7 +176,8 @@
           "name": "Parameters in an overriding virtual function shall have the same default arguments or no default arguments",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "VirtualFunctionParametersUseTheSameDefaultArguments",
+          "short_name": "VirtualFunctionParametersUseSameDefaultArguments",
+          "shared_implementation_short_name": "OverridingShallSpecifyDifferentDefaultArguments_shared",
           "tags": [
             "correctness"
           ]

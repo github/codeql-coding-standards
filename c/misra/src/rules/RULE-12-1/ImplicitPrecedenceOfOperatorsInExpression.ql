@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Expr
+import codingstandards.cpp.CExpr
 
 int getPrecedence(Expr e) {
   e instanceof PrimaryExpr and result = 16

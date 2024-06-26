@@ -12,33 +12,10 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Compiler
+import codingstandards.cpp.rules.bitfieldshallhaveanappropriatetype_shared.BitFieldShallHaveAnAppropriateType_shared
 
-Type getSupportedBitFieldType(Compiler compiler) {
-  compiler instanceof UnsupportedCompiler and
-  (
-    result instanceof IntType and
-    (
-      result.(IntegralType).isExplicitlySigned() or
-      result.(IntegralType).isExplicitlyUnsigned()
-    )
-    or
-    result instanceof BoolType
-  )
-  or
-  (compiler instanceof Gcc or compiler instanceof Clang) and
-  (
-    result instanceof IntegralOrEnumType
-    or
-    result instanceof BoolType
-  )
+class BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery extends BitFieldShallHaveAnAppropriateType_sharedSharedQuery {
+  BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery() {
+    this = BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()
+  }
 }
-
-from BitField bitField
-where
-  not isExcluded(bitField,
-    BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
-  /* A violation would neither be an appropriate primitive type nor an appropriate typedef. */
-  not getSupportedBitFieldType(getCompiler(bitField.getFile())) =
-    bitField.getType().resolveTypedefs()
-select bitField, "Bit-field '" + bitField + "' is declared on type '" + bitField.getType() + "'."

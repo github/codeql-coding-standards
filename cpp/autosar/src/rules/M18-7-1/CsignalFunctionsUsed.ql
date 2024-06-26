@@ -16,10 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.csignalfunctionsused_shared.CsignalFunctionsUsed_shared
 
-from FunctionCall fc, Function f
-where
-  not isExcluded(fc, BannedLibrariesPackage::csignalFunctionsUsedQuery()) and
-  f = fc.getTarget() and
-  f.hasGlobalOrStdName(["signal", "raise"])
-select fc, "Use of <csignal> function '" + f.getQualifiedName() + "'."
+class CsignalFunctionsUsedQuery extends CsignalFunctionsUsed_sharedSharedQuery {
+  CsignalFunctionsUsedQuery() {
+    this = BannedLibrariesPackage::csignalFunctionsUsedQuery()
+  }
+}

@@ -245,6 +245,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "AtofAtoiAtolAndAtollOfStdlibhUsed",
+          "shared_implementation_short_name": "AtofAtoiAtolAndAtollUsed_shared",
           "tags": [
             "correctness"
           ]

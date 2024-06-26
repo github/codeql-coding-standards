@@ -16,11 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.backslashcharactermisuse_shared.BackslashCharacterMisuse_shared
 
-from StringLiteral l, string es
-where
-  not isExcluded(l, LiteralsPackage::escapeSequenceOutsideISOQuery()) and
-  es = l.getANonStandardEscapeSequence(_, _) and
-  // Exclude universal-character-names, which begin with \u or \U
-  not es.toLowerCase().matches("\\u")
-select l, "This literal contains the non-standard escape sequence " + es + "."
+class EscapeSequenceOutsideISOQuery extends BackslashCharacterMisuse_sharedSharedQuery {
+  EscapeSequenceOutsideISOQuery() {
+    this = LiteralsPackage::escapeSequenceOutsideISOQuery()
+  }
+}
