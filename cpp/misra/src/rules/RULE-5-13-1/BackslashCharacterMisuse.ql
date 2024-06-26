@@ -17,7 +17,5 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.rules.backslashcharactermisuse_shared.BackslashCharacterMisuse_shared
 
 class BackslashCharacterMisuseQuery extends BackslashCharacterMisuse_sharedSharedQuery {
-  BackslashCharacterMisuseQuery() {
-    this = ImportMisra23Package::backslashCharacterMisuseQuery()
-  }
+  BackslashCharacterMisuseQuery() { this = ImportMisra23Package::backslashCharacterMisuseQuery() }
 }

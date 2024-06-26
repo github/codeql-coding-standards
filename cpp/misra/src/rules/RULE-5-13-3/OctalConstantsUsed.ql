@@ -16,7 +16,5 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.rules.useofnonzerooctalliteral_shared.UseOfNonZeroOctalLiteral_shared
 
 class OctalConstantsUsedQuery extends UseOfNonZeroOctalLiteral_sharedSharedQuery {
-  OctalConstantsUsedQuery() {
-    this = ImportMisra23Package::octalConstantsUsedQuery()
-  }
+  OctalConstantsUsedQuery() { this = ImportMisra23Package::octalConstantsUsedQuery() }
 }

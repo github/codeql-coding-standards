@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.lowercaselstartsinliteralsuffix_shared.LowercaseLStartsInLiteralSuffix_shared
 
-class LowercaseLStartsInLiteralSuffixQuery extends LowercaseLStartsInLiteralSuffix_sharedSharedQuery {
+class LowercaseLStartsInLiteralSuffixQuery extends LowercaseLStartsInLiteralSuffix_sharedSharedQuery
+{
   LowercaseLStartsInLiteralSuffixQuery() {
     this = ImportMisra23Package::lowercaseLStartsInLiteralSuffixQuery()
   }

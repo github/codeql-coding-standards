@@ -18,8 +18,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.functionscallthemselveseitherdirectlyorindirectly_shared.FunctionsCallThemselvesEitherDirectlyOrIndirectly_shared
 
-class RecursiveFunctionsQuery extends FunctionsCallThemselvesEitherDirectlyOrIndirectly_sharedSharedQuery {
-  RecursiveFunctionsQuery() {
-    this = FunctionsPackage::recursiveFunctionsQuery()
-  }
+class RecursiveFunctionsQuery extends FunctionsCallThemselvesEitherDirectlyOrIndirectly_sharedSharedQuery
+{
+  RecursiveFunctionsQuery() { this = FunctionsPackage::recursiveFunctionsQuery() }
 }

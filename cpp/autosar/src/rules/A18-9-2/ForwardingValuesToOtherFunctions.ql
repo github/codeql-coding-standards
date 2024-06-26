@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.forwardingreferencesandforwardnotusedtogether_shared.ForwardingReferencesAndForwardNotUsedTogether_shared
 
-class ForwardingValuesToOtherFunctionsQuery extends ForwardingReferencesAndForwardNotUsedTogether_sharedSharedQuery {
+class ForwardingValuesToOtherFunctionsQuery extends ForwardingReferencesAndForwardNotUsedTogether_sharedSharedQuery
+{
   ForwardingValuesToOtherFunctionsQuery() {
     this = MoveForwardPackage::forwardingValuesToOtherFunctionsQuery()
   }

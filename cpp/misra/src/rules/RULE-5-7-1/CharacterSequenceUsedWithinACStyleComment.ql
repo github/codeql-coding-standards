@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.charactersequenceusedwithinacstylecomment_shared.CharacterSequenceUsedWithinACStyleComment_shared
 
-class CharacterSequenceUsedWithinACStyleCommentQuery extends CharacterSequenceUsedWithinACStyleComment_sharedSharedQuery {
+class CharacterSequenceUsedWithinACStyleCommentQuery extends CharacterSequenceUsedWithinACStyleComment_sharedSharedQuery
+{
   CharacterSequenceUsedWithinACStyleCommentQuery() {
     this = ImportMisra23Package::characterSequenceUsedWithinACStyleCommentQuery()
   }

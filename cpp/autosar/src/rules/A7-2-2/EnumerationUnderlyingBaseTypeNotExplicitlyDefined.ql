@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.enumerationnotdefinedwithanexplicitunderlyingtype_shared.EnumerationNotDefinedWithAnExplicitUnderlyingType_shared
 
-class EnumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery extends EnumerationNotDefinedWithAnExplicitUnderlyingType_sharedSharedQuery {
+class EnumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery extends EnumerationNotDefinedWithAnExplicitUnderlyingType_sharedSharedQuery
+{
   EnumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery() {
     this = DeclarationsPackage::enumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery()
   }

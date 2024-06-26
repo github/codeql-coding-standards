@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.unsignedintegerliteralsnotappropriatelysuffixed_shared.UnsignedIntegerLiteralsNotAppropriatelySuffixed_shared
 
-class UnsignedIntegerLiteralsNotAppropriatelySuffixedQuery extends UnsignedIntegerLiteralsNotAppropriatelySuffixed_sharedSharedQuery {
+class UnsignedIntegerLiteralsNotAppropriatelySuffixedQuery extends UnsignedIntegerLiteralsNotAppropriatelySuffixed_sharedSharedQuery
+{
   UnsignedIntegerLiteralsNotAppropriatelySuffixedQuery() {
     this = ImportMisra23Package::unsignedIntegerLiteralsNotAppropriatelySuffixedQuery()
   }

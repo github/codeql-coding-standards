@@ -19,7 +19,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.switchcompoundcondition_shared.SwitchCompoundCondition_shared
 
 class SwitchCompoundConditionQuery extends SwitchCompoundCondition_sharedSharedQuery {
-  SwitchCompoundConditionQuery() {
-    this = ConditionalsPackage::switchCompoundConditionQuery()
-  }
+  SwitchCompoundConditionQuery() { this = ConditionalsPackage::switchCompoundConditionQuery() }
 }

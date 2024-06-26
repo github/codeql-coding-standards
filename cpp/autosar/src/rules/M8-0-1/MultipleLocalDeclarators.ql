@@ -19,7 +19,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.multiplelocaldeclarators_shared.MultipleLocalDeclarators_shared
 
 class MultipleLocalDeclaratorsQuery extends MultipleLocalDeclarators_sharedSharedQuery {
-  MultipleLocalDeclaratorsQuery() {
-    this = InitializationPackage::multipleLocalDeclaratorsQuery()
-  }
+  MultipleLocalDeclaratorsQuery() { this = InitializationPackage::multipleLocalDeclaratorsQuery() }
 }

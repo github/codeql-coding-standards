@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.unsignedoperationwithconstantoperandswraps_shared.UnsignedOperationWithConstantOperandsWraps_shared
 
-class UnsignedOperationWithConstantOperandsWrapsQuery extends UnsignedOperationWithConstantOperandsWraps_sharedSharedQuery {
+class UnsignedOperationWithConstantOperandsWrapsQuery extends UnsignedOperationWithConstantOperandsWraps_sharedSharedQuery
+{
   UnsignedOperationWithConstantOperandsWrapsQuery() {
     this = ImportMisra23Package::unsignedOperationWithConstantOperandsWrapsQuery()
   }

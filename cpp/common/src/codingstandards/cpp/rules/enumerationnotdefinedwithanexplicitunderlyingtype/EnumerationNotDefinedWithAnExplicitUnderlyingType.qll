@@ -11,5 +11,5 @@ abstract class EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery exte
 Query getQuery() { result instanceof EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery }
 
 query predicate problems(Element e, string message) {
-not isExcluded(e, getQuery()) and message = "<replace with problem alert message for >"
+  not isExcluded(e, getQuery()) and message = "<replace with problem alert message for >"
 }

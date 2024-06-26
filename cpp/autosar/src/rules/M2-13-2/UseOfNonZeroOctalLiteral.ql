@@ -19,7 +19,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.useofnonzerooctalliteral_shared.UseOfNonZeroOctalLiteral_shared
 
 class UseOfNonZeroOctalLiteralQuery extends UseOfNonZeroOctalLiteral_sharedSharedQuery {
-  UseOfNonZeroOctalLiteralQuery() {
-    this = LiteralsPackage::useOfNonZeroOctalLiteralQuery()
-  }
+  UseOfNonZeroOctalLiteralQuery() { this = LiteralsPackage::useOfNonZeroOctalLiteralQuery() }
 }

@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.copyandmoveassignmentsshallhandleselfassignment_shared.CopyAndMoveAssignmentsShallHandleSelfAssignment_shared
 
-class CopyAssignmentAndAMoveHandleSelfAssignmentQuery extends CopyAndMoveAssignmentsShallHandleSelfAssignment_sharedSharedQuery {
+class CopyAssignmentAndAMoveHandleSelfAssignmentQuery extends CopyAndMoveAssignmentsShallHandleSelfAssignment_sharedSharedQuery
+{
   CopyAssignmentAndAMoveHandleSelfAssignmentQuery() {
     this = OperatorInvariantsPackage::copyAssignmentAndAMoveHandleSelfAssignmentQuery()
   }

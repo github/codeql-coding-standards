@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.namenotreferredusingaqualifiedidorthisaudit_shared.NameNotReferredUsingAQualifiedIdOrThisAudit_shared
 
-class NameNotReferredUsingAQualifiedIdOrThisAuditQuery extends NameNotReferredUsingAQualifiedIdOrThisAudit_sharedSharedQuery {
+class NameNotReferredUsingAQualifiedIdOrThisAuditQuery extends NameNotReferredUsingAQualifiedIdOrThisAudit_sharedSharedQuery
+{
   NameNotReferredUsingAQualifiedIdOrThisAuditQuery() {
     this = TemplatesPackage::nameNotReferredUsingAQualifiedIdOrThisAuditQuery()
   }

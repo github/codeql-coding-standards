@@ -17,7 +17,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.amixedusemacroargumentsubjecttoexpansion_shared.AMixedUseMacroArgumentSubjectToExpansion_shared
 
-class MacroParameterUsedAsHashOperandQuery extends AMixedUseMacroArgumentSubjectToExpansion_sharedSharedQuery {
+class MacroParameterUsedAsHashOperandQuery extends AMixedUseMacroArgumentSubjectToExpansion_sharedSharedQuery
+{
   MacroParameterUsedAsHashOperandQuery() {
     this = Preprocessor2Package::macroParameterUsedAsHashOperandQuery()
   }

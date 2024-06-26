@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.hiddeninheritednonoverridablememberfunction_shared.HiddenInheritedNonOverridableMemberFunction_shared
 
-class InheritedNonOverridableMemberFunctionQuery extends HiddenInheritedNonOverridableMemberFunction_sharedSharedQuery {
+class InheritedNonOverridableMemberFunctionQuery extends HiddenInheritedNonOverridableMemberFunction_sharedSharedQuery
+{
   InheritedNonOverridableMemberFunctionQuery() {
     this = ImportMisra23Package::inheritedNonOverridableMemberFunctionQuery()
   }

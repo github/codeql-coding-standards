@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.builtinunaryoperatorappliedtounsignedexpression_shared.BuiltInUnaryOperatorAppliedToUnsignedExpression_shared
 
-class BuiltInUnaryOperatorAppliedToUnsignedExpressionQuery extends BuiltInUnaryOperatorAppliedToUnsignedExpression_sharedSharedQuery {
+class BuiltInUnaryOperatorAppliedToUnsignedExpressionQuery extends BuiltInUnaryOperatorAppliedToUnsignedExpression_sharedSharedQuery
+{
   BuiltInUnaryOperatorAppliedToUnsignedExpressionQuery() {
     this = ImportMisra23Package::builtInUnaryOperatorAppliedToUnsignedExpressionQuery()
   }

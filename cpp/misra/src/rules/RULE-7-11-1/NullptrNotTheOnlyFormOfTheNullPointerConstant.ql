@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.nullptrnottheonlyformofthenullpointerconstant_shared.NullptrNotTheOnlyFormOfTheNullPointerConstant_shared
 
-class NullptrNotTheOnlyFormOfTheNullPointerConstantQuery extends NullptrNotTheOnlyFormOfTheNullPointerConstant_sharedSharedQuery {
+class NullptrNotTheOnlyFormOfTheNullPointerConstantQuery extends NullptrNotTheOnlyFormOfTheNullPointerConstant_sharedSharedQuery
+{
   NullptrNotTheOnlyFormOfTheNullPointerConstantQuery() {
     this = ImportMisra23Package::nullptrNotTheOnlyFormOfTheNullPointerConstantQuery()
   }

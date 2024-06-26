@@ -16,7 +16,5 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.rules.atofatoiatolandatollused_shared.AtofAtoiAtolAndAtollUsed_shared
 
 class AtofAtoiAtolAndAtollUsedQuery extends AtofAtoiAtolAndAtollUsed_sharedSharedQuery {
-  AtofAtoiAtolAndAtollUsedQuery() {
-    this = ImportMisra23Package::atofAtoiAtolAndAtollUsedQuery()
-  }
+  AtofAtoiAtolAndAtollUsedQuery() { this = ImportMisra23Package::atofAtoiAtolAndAtollUsedQuery() }
 }

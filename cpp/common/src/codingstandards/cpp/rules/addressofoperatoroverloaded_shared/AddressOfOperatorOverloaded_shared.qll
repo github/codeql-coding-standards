@@ -12,5 +12,5 @@ abstract class AddressOfOperatorOverloaded_sharedSharedQuery extends Query { }
 Query getQuery() { result instanceof AddressOfOperatorOverloaded_sharedSharedQuery }
 
 query predicate problems(UnaryAddressOfOperator e, string message) {
-not isExcluded(e, getQuery()) and message = "The unary & operator overloaded."
+  not isExcluded(e, getQuery()) and message = "The unary & operator overloaded."
 }

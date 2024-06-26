@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.returnreferenceorpointertoautomaticlocalvariable_shared.ReturnReferenceOrPointerToAutomaticLocalVariable_shared
 
-class FunctionReturnAutomaticVarConditionQuery extends ReturnReferenceOrPointerToAutomaticLocalVariable_sharedSharedQuery {
+class FunctionReturnAutomaticVarConditionQuery extends ReturnReferenceOrPointerToAutomaticLocalVariable_sharedSharedQuery
+{
   FunctionReturnAutomaticVarConditionQuery() {
     this = FunctionsPackage::functionReturnAutomaticVarConditionQuery()
   }

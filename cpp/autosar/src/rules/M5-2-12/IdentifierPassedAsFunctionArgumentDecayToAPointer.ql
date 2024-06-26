@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.arraypassedasfunctionargumentdecaytoapointer_shared.ArrayPassedAsFunctionArgumentDecayToAPointer_shared
 
-class IdentifierPassedAsFunctionArgumentDecayToAPointerQuery extends ArrayPassedAsFunctionArgumentDecayToAPointer_sharedSharedQuery {
+class IdentifierPassedAsFunctionArgumentDecayToAPointerQuery extends ArrayPassedAsFunctionArgumentDecayToAPointer_sharedSharedQuery
+{
   IdentifierPassedAsFunctionArgumentDecayToAPointerQuery() {
     this = PointersPackage::identifierPassedAsFunctionArgumentDecayToAPointerQuery()
   }

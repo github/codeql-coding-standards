@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.copyandmoveassignmentsshallhandleselfassignment_shared.CopyAndMoveAssignmentsShallHandleSelfAssignment_shared
 
-class CopyAndMoveAssignmentsShallHandleSelfAssignmentQuery extends CopyAndMoveAssignmentsShallHandleSelfAssignment_sharedSharedQuery {
+class CopyAndMoveAssignmentsShallHandleSelfAssignmentQuery extends CopyAndMoveAssignmentsShallHandleSelfAssignment_sharedSharedQuery
+{
   CopyAndMoveAssignmentsShallHandleSelfAssignmentQuery() {
     this = ImportMisra23Package::copyAndMoveAssignmentsShallHandleSelfAssignmentQuery()
   }

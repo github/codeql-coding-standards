@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.enumerationnotdefinedwithanexplicitunderlyingtype_shared.EnumerationNotDefinedWithAnExplicitUnderlyingType_shared
 
-class EnumerationNotDefinedWithAnExplicitUnderlyingTypeQuery extends EnumerationNotDefinedWithAnExplicitUnderlyingType_sharedSharedQuery {
+class EnumerationNotDefinedWithAnExplicitUnderlyingTypeQuery extends EnumerationNotDefinedWithAnExplicitUnderlyingType_sharedSharedQuery
+{
   EnumerationNotDefinedWithAnExplicitUnderlyingTypeQuery() {
     this = ImportMisra23Package::enumerationNotDefinedWithAnExplicitUnderlyingTypeQuery()
   }

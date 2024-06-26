@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.functiontemplatesexplicitlyspecialized_shared.FunctionTemplatesExplicitlySpecialized_shared
 
-class ExplicitSpecializationsOfFunctionTemplatesUsedQuery extends FunctionTemplatesExplicitlySpecialized_sharedSharedQuery {
+class ExplicitSpecializationsOfFunctionTemplatesUsedQuery extends FunctionTemplatesExplicitlySpecialized_sharedSharedQuery
+{
   ExplicitSpecializationsOfFunctionTemplatesUsedQuery() {
     this = TemplatesPackage::explicitSpecializationsOfFunctionTemplatesUsedQuery()
   }

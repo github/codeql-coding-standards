@@ -16,7 +16,5 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.rules.functionlikemacrosdefined_shared.FunctionLikeMacrosDefined_shared
 
 class FunctionLikeMacrosDefinedQuery extends FunctionLikeMacrosDefined_sharedSharedQuery {
-  FunctionLikeMacrosDefinedQuery() {
-    this = ImportMisra23Package::functionLikeMacrosDefinedQuery()
-  }
+  FunctionLikeMacrosDefinedQuery() { this = ImportMisra23Package::functionLikeMacrosDefinedQuery() }
 }

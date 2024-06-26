@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.arraypassedasfunctionargumentdecaytoapointer_shared.ArrayPassedAsFunctionArgumentDecayToAPointer_shared
 
-class ArrayPassedAsFunctionArgumentDecayToAPointerQuery extends ArrayPassedAsFunctionArgumentDecayToAPointer_sharedSharedQuery {
+class ArrayPassedAsFunctionArgumentDecayToAPointerQuery extends ArrayPassedAsFunctionArgumentDecayToAPointer_sharedSharedQuery
+{
   ArrayPassedAsFunctionArgumentDecayToAPointerQuery() {
     this = ImportMisra23Package::arrayPassedAsFunctionArgumentDecayToAPointerQuery()
   }

@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.hiddeninheritednonoverridablememberfunction_shared.HiddenInheritedNonOverridableMemberFunction_shared
 
-class HiddenInheritedNonOverridableMemberFunctionQuery extends HiddenInheritedNonOverridableMemberFunction_sharedSharedQuery {
+class HiddenInheritedNonOverridableMemberFunctionQuery extends HiddenInheritedNonOverridableMemberFunction_sharedSharedQuery
+{
   HiddenInheritedNonOverridableMemberFunctionQuery() {
     this = ScopePackage::hiddenInheritedNonOverridableMemberFunctionQuery()
   }

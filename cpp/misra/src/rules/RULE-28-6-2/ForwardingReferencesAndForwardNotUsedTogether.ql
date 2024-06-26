@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.forwardingreferencesandforwardnotusedtogether_shared.ForwardingReferencesAndForwardNotUsedTogether_shared
 
-class ForwardingReferencesAndForwardNotUsedTogetherQuery extends ForwardingReferencesAndForwardNotUsedTogether_sharedSharedQuery {
+class ForwardingReferencesAndForwardNotUsedTogetherQuery extends ForwardingReferencesAndForwardNotUsedTogether_sharedSharedQuery
+{
   ForwardingReferencesAndForwardNotUsedTogetherQuery() {
     this = ImportMisra23Package::forwardingReferencesAndForwardNotUsedTogetherQuery()
   }

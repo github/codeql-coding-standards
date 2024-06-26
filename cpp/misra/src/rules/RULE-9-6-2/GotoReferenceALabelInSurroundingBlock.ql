@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.gotoreferencealabelinsurroundingblock_shared.GotoReferenceALabelInSurroundingBlock_shared
 
-class GotoReferenceALabelInSurroundingBlockQuery extends GotoReferenceALabelInSurroundingBlock_sharedSharedQuery {
+class GotoReferenceALabelInSurroundingBlockQuery extends GotoReferenceALabelInSurroundingBlock_sharedSharedQuery
+{
   GotoReferenceALabelInSurroundingBlockQuery() {
     this = ImportMisra23Package::gotoReferenceALabelInSurroundingBlockQuery()
   }

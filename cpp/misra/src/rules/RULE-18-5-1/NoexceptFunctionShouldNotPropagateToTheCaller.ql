@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.noexceptfunctionshouldnotpropagatetothecaller_shared.NoexceptFunctionShouldNotPropagateToTheCaller_shared
 
-class NoexceptFunctionShouldNotPropagateToTheCallerQuery extends NoexceptFunctionShouldNotPropagateToTheCaller_sharedSharedQuery {
+class NoexceptFunctionShouldNotPropagateToTheCallerQuery extends NoexceptFunctionShouldNotPropagateToTheCaller_sharedSharedQuery
+{
   NoexceptFunctionShouldNotPropagateToTheCallerQuery() {
     this = ImportMisra23Package::noexceptFunctionShouldNotPropagateToTheCallerQuery()
   }

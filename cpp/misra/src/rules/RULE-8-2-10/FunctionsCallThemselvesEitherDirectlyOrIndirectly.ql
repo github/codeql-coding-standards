@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.functionscallthemselveseitherdirectlyorindirectly_shared.FunctionsCallThemselvesEitherDirectlyOrIndirectly_shared
 
-class FunctionsCallThemselvesEitherDirectlyOrIndirectlyQuery extends FunctionsCallThemselvesEitherDirectlyOrIndirectly_sharedSharedQuery {
+class FunctionsCallThemselvesEitherDirectlyOrIndirectlyQuery extends FunctionsCallThemselvesEitherDirectlyOrIndirectly_sharedSharedQuery
+{
   FunctionsCallThemselvesEitherDirectlyOrIndirectlyQuery() {
     this = ImportMisra23Package::functionsCallThemselvesEitherDirectlyOrIndirectlyQuery()
   }

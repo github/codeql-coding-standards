@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.objectsdynamictypeusedfromconstructorordestructor_shared.ObjectsDynamicTypeUsedFromConstructorOrDestructor_shared
 
-class ObjectsDynamicTypeUsedFromConstructorOrDestructorQuery extends ObjectsDynamicTypeUsedFromConstructorOrDestructor_sharedSharedQuery {
+class ObjectsDynamicTypeUsedFromConstructorOrDestructorQuery extends ObjectsDynamicTypeUsedFromConstructorOrDestructor_sharedSharedQuery
+{
   ObjectsDynamicTypeUsedFromConstructorOrDestructorQuery() {
     this = ImportMisra23Package::objectsDynamicTypeUsedFromConstructorOrDestructorQuery()
   }

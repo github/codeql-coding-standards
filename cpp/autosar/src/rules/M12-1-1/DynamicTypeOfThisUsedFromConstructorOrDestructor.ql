@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.objectsdynamictypeusedfromconstructorordestructor_shared.ObjectsDynamicTypeUsedFromConstructorOrDestructor_shared
 
-class DynamicTypeOfThisUsedFromConstructorOrDestructorQuery extends ObjectsDynamicTypeUsedFromConstructorOrDestructor_sharedSharedQuery {
+class DynamicTypeOfThisUsedFromConstructorOrDestructorQuery extends ObjectsDynamicTypeUsedFromConstructorOrDestructor_sharedSharedQuery
+{
   DynamicTypeOfThisUsedFromConstructorOrDestructorQuery() {
     this = InheritancePackage::dynamicTypeOfThisUsedFromConstructorOrDestructorQuery()
   }

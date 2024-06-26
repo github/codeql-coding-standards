@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.namedbitfieldswithsignedintegertype_shared.NamedBitFieldsWithSignedIntegerType_shared
 
-class SignedIntegerNamedBitFieldHaveALengthOfOneBitQuery extends NamedBitFieldsWithSignedIntegerType_sharedSharedQuery {
+class SignedIntegerNamedBitFieldHaveALengthOfOneBitQuery extends NamedBitFieldsWithSignedIntegerType_sharedSharedQuery
+{
   SignedIntegerNamedBitFieldHaveALengthOfOneBitQuery() {
     this = ImportMisra23Package::signedIntegerNamedBitFieldHaveALengthOfOneBitQuery()
   }

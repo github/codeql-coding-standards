@@ -18,7 +18,5 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.rules.csignalfunctionsused_shared.CsignalFunctionsUsed_shared
 
 class CsignalFacilitiesUsedQuery extends CsignalFunctionsUsed_sharedSharedQuery {
-  CsignalFacilitiesUsedQuery() {
-    this = ImportMisra23Package::csignalFacilitiesUsedQuery()
-  }
+  CsignalFacilitiesUsedQuery() { this = ImportMisra23Package::csignalFacilitiesUsedQuery() }
 }

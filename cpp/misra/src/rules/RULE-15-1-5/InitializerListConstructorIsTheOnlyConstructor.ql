@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.initializerlistconstructoristheonlyconstructor_shared.InitializerListConstructorIsTheOnlyConstructor_shared
 
-class InitializerListConstructorIsTheOnlyConstructorQuery extends InitializerListConstructorIsTheOnlyConstructor_sharedSharedQuery {
+class InitializerListConstructorIsTheOnlyConstructorQuery extends InitializerListConstructorIsTheOnlyConstructor_sharedSharedQuery
+{
   InitializerListConstructorIsTheOnlyConstructorQuery() {
     this = ImportMisra23Package::initializerListConstructorIsTheOnlyConstructorQuery()
   }

@@ -1,5 +1,5 @@
 // GENERATED FILE - DO NOT MODIFY
 import codingstandards.cpp.rules.namenotreferredusingaqualifiedidorthisaudit_shared.NameNotReferredUsingAQualifiedIdOrThisAudit_shared
 
-class TestFileQuery extends NameNotReferredUsingAQualifiedIdOrThisAudit_sharedSharedQuery, TestQuery {
-}
+class TestFileQuery extends NameNotReferredUsingAQualifiedIdOrThisAudit_sharedSharedQuery, TestQuery
+{ }

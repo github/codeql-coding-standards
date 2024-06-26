@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.overridingshallspecifydifferentdefaultarguments_shared.OverridingShallSpecifyDifferentDefaultArguments_shared
 
-class OverridingShallSpecifyDifferentDefaultArgumentsQuery extends OverridingShallSpecifyDifferentDefaultArguments_sharedSharedQuery {
+class OverridingShallSpecifyDifferentDefaultArgumentsQuery extends OverridingShallSpecifyDifferentDefaultArguments_sharedSharedQuery
+{
   OverridingShallSpecifyDifferentDefaultArgumentsQuery() {
     this = ImportMisra23Package::overridingShallSpecifyDifferentDefaultArgumentsQuery()
   }

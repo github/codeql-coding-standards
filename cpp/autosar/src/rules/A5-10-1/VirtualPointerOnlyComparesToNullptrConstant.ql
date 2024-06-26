@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.potentiallyvirtualpointeronlycomparestonullptr_shared.PotentiallyVirtualPointerOnlyComparesToNullptr_shared
 
-class VirtualPointerOnlyComparesToNullptrConstantQuery extends PotentiallyVirtualPointerOnlyComparesToNullptr_sharedSharedQuery {
+class VirtualPointerOnlyComparesToNullptrConstantQuery extends PotentiallyVirtualPointerOnlyComparesToNullptr_sharedSharedQuery
+{
   VirtualPointerOnlyComparesToNullptrConstantQuery() {
     this = PointersPackage::virtualPointerOnlyComparesToNullptrConstantQuery()
   }

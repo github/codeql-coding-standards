@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.initializerlistconstructoristheonlyconstructor_shared.InitializerListConstructorIsTheOnlyConstructor_shared
 
-class ConfusingUseOfInitializerListConstructorsQuery extends InitializerListConstructorIsTheOnlyConstructor_sharedSharedQuery {
+class ConfusingUseOfInitializerListConstructorsQuery extends InitializerListConstructorIsTheOnlyConstructor_sharedSharedQuery
+{
   ConfusingUseOfInitializerListConstructorsQuery() {
     this = InitializationPackage::confusingUseOfInitializerListConstructorsQuery()
   }

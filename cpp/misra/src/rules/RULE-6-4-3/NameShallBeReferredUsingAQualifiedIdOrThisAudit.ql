@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.namenotreferredusingaqualifiedidorthisaudit_shared.NameNotReferredUsingAQualifiedIdOrThisAudit_shared
 
-class NameShallBeReferredUsingAQualifiedIdOrThisAuditQuery extends NameNotReferredUsingAQualifiedIdOrThisAudit_sharedSharedQuery {
+class NameShallBeReferredUsingAQualifiedIdOrThisAuditQuery extends NameNotReferredUsingAQualifiedIdOrThisAudit_sharedSharedQuery
+{
   NameShallBeReferredUsingAQualifiedIdOrThisAuditQuery() {
     this = ImportMisra23Package::nameShallBeReferredUsingAQualifiedIdOrThisAuditQuery()
   }

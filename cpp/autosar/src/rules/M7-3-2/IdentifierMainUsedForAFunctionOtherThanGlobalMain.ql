@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.nonglobalfunctionmain_shared.NonGlobalFunctionMain_shared
 
-class IdentifierMainUsedForAFunctionOtherThanGlobalMainQuery extends NonGlobalFunctionMain_sharedSharedQuery {
+class IdentifierMainUsedForAFunctionOtherThanGlobalMainQuery extends NonGlobalFunctionMain_sharedSharedQuery
+{
   IdentifierMainUsedForAFunctionOtherThanGlobalMainQuery() {
     this = NamingPackage::identifierMainUsedForAFunctionOtherThanGlobalMainQuery()
   }

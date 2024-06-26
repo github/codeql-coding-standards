@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.castsbetweenapointertofunctionandanyothertype_shared.CastsBetweenAPointerToFunctionAndAnyOtherType_shared
 
-class CastsBetweenAPointerToFunctionAndAnyOtherTypeQuery extends CastsBetweenAPointerToFunctionAndAnyOtherType_sharedSharedQuery {
+class CastsBetweenAPointerToFunctionAndAnyOtherTypeQuery extends CastsBetweenAPointerToFunctionAndAnyOtherType_sharedSharedQuery
+{
   CastsBetweenAPointerToFunctionAndAnyOtherTypeQuery() {
     this = ImportMisra23Package::castsBetweenAPointerToFunctionAndAnyOtherTypeQuery()
   }

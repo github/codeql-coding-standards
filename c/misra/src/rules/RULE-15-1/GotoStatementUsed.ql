@@ -16,7 +16,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.gotostatementshouldnotbeused_shared.GotoStatementShouldNotBeUsed_shared
 
 class GotoStatementUsedQuery extends GotoStatementShouldNotBeUsed_sharedSharedQuery {
-  GotoStatementUsedQuery() {
-    this = Statements6Package::gotoStatementUsedQuery()
-  }
+  GotoStatementUsedQuery() { this = Statements6Package::gotoStatementUsedQuery() }
 }

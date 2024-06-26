@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.potentiallyvirtualpointeronlycomparestonullptr_shared.PotentiallyVirtualPointerOnlyComparesToNullptr_shared
 
-class PotentiallyVirtualPointerOnlyComparesToNullptrQuery extends PotentiallyVirtualPointerOnlyComparesToNullptr_sharedSharedQuery {
+class PotentiallyVirtualPointerOnlyComparesToNullptrQuery extends PotentiallyVirtualPointerOnlyComparesToNullptr_sharedSharedQuery
+{
   PotentiallyVirtualPointerOnlyComparesToNullptrQuery() {
     this = ImportMisra23Package::potentiallyVirtualPointerOnlyComparesToNullptrQuery()
   }

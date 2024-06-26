@@ -20,7 +20,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.cstdiotypesused_shared.CstdioTypesUsed_shared
 
 class CstdioTypesUsedQuery extends CstdioTypesUsed_sharedSharedQuery {
-  CstdioTypesUsedQuery() {
-    this = BannedLibrariesPackage::cstdioTypesUsedQuery()
-  }
+  CstdioTypesUsedQuery() { this = BannedLibrariesPackage::cstdioTypesUsedQuery() }
 }

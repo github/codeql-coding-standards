@@ -17,7 +17,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.gotoreferencealabelinsurroundingblock_shared.GotoReferenceALabelInSurroundingBlock_shared
 
 class GotoLabelBlockConditionQuery extends GotoReferenceALabelInSurroundingBlock_sharedSharedQuery {
-  GotoLabelBlockConditionQuery() {
-    this = Statements2Package::gotoLabelBlockConditionQuery()
-  }
+  GotoLabelBlockConditionQuery() { this = Statements2Package::gotoLabelBlockConditionQuery() }
 }

@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.functiontemplatesexplicitlyspecialized_shared.FunctionTemplatesExplicitlySpecialized_shared
 
-class FunctionTemplatesExplicitlySpecializedQuery extends FunctionTemplatesExplicitlySpecialized_sharedSharedQuery {
+class FunctionTemplatesExplicitlySpecializedQuery extends FunctionTemplatesExplicitlySpecialized_sharedSharedQuery
+{
   FunctionTemplatesExplicitlySpecializedQuery() {
     this = ImportMisra23Package::functionTemplatesExplicitlySpecializedQuery()
   }

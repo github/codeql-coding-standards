@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.returnreferenceorpointertoautomaticlocalvariable_shared.ReturnReferenceOrPointerToAutomaticLocalVariable_shared
 
-class ReturnReferenceOrPointerToAutomaticLocalVariableQuery extends ReturnReferenceOrPointerToAutomaticLocalVariable_sharedSharedQuery {
+class ReturnReferenceOrPointerToAutomaticLocalVariableQuery extends ReturnReferenceOrPointerToAutomaticLocalVariable_sharedSharedQuery
+{
   ReturnReferenceOrPointerToAutomaticLocalVariableQuery() {
     this = ImportMisra23Package::returnReferenceOrPointerToAutomaticLocalVariableQuery()
   }

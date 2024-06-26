@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.overridingshallspecifydifferentdefaultarguments_shared.OverridingShallSpecifyDifferentDefaultArguments_shared
 
-class VirtualFunctionParametersUseSameDefaultArgumentsQuery extends OverridingShallSpecifyDifferentDefaultArguments_sharedSharedQuery {
+class VirtualFunctionParametersUseSameDefaultArgumentsQuery extends OverridingShallSpecifyDifferentDefaultArguments_sharedSharedQuery
+{
   VirtualFunctionParametersUseSameDefaultArgumentsQuery() {
     this = VirtualFunctionsPackage::virtualFunctionParametersUseSameDefaultArgumentsQuery()
   }

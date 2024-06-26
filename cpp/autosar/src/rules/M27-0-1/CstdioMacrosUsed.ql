@@ -20,7 +20,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.cstdiomacrosused_shared.CstdioMacrosUsed_shared
 
 class CstdioMacrosUsedQuery extends CstdioMacrosUsed_sharedSharedQuery {
-  CstdioMacrosUsedQuery() {
-    this = BannedLibrariesPackage::cstdioMacrosUsedQuery()
-  }
+  CstdioMacrosUsedQuery() { this = BannedLibrariesPackage::cstdioMacrosUsedQuery() }
 }

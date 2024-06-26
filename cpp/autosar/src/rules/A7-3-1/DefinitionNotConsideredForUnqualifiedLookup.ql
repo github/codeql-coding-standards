@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.definitionnotconsideredforunqualifiedlookup_shared.DefinitionNotConsideredForUnqualifiedLookup_shared
 
-class DefinitionNotConsideredForUnqualifiedLookupQuery extends DefinitionNotConsideredForUnqualifiedLookup_sharedSharedQuery {
+class DefinitionNotConsideredForUnqualifiedLookupQuery extends DefinitionNotConsideredForUnqualifiedLookup_sharedSharedQuery
+{
   DefinitionNotConsideredForUnqualifiedLookupQuery() {
     this = ScopePackage::definitionNotConsideredForUnqualifiedLookupQuery()
   }

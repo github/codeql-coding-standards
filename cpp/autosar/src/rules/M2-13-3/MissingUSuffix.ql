@@ -21,7 +21,5 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.unsignedintegerliteralsnotappropriatelysuffixed_shared.UnsignedIntegerLiteralsNotAppropriatelySuffixed_shared
 
 class MissingUSuffixQuery extends UnsignedIntegerLiteralsNotAppropriatelySuffixed_sharedSharedQuery {
-  MissingUSuffixQuery() {
-    this = LiteralsPackage::missingUSuffixQuery()
-  }
+  MissingUSuffixQuery() { this = LiteralsPackage::missingUSuffixQuery() }
 }
