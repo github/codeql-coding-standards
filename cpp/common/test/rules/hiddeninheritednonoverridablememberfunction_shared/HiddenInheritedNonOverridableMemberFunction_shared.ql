@@ -1,5 +1,5 @@
 // GENERATED FILE - DO NOT MODIFY
 import codingstandards.cpp.rules.hiddeninheritednonoverridablememberfunction_shared.HiddenInheritedNonOverridableMemberFunction_shared
 
-class TestFileQuery extends HiddenInheritedNonOverridableMemberFunction_sharedSharedQuery, TestQuery {
-}
+class TestFileQuery extends HiddenInheritedNonOverridableMemberFunction_sharedSharedQuery, TestQuery
+{ }
