@@ -1,7 +1,17 @@
 #ifndef _GHLIBCPP_CTIME
 #define _GHLIBCPP_CTIME
-#include "time.h"
+#include <time.h>
 namespace std {
-    
+using ::clock_t;
+using ::clock;
+using ::time_t;
+using ::time;
+using ::tm;
+using ::difftime;
+using ::asctime;
+using ::ctime;
+using ::localtime;
+using ::gmtime;
+using ::mktime;
 } // namespace std
 #endif // _GHLIBCPP_CTIME

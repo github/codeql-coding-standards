@@ -338,6 +338,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "OctalConstantsUsed",
+          "shared_implementation_short_name": "UseOfNonZeroOctalLiteral_shared",
           "tags": [
             "readability",
             "correctness",

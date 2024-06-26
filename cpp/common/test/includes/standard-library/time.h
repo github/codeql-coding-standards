@@ -1,5 +1,5 @@
-#ifndef _GHLIBCPP_CTIME
-#define _GHLIBCPP_CTIME
+#ifndef _GHLIBCPP_TIME
+#define _GHLIBCPP_TIME
 
 typedef unsigned long clock_t;
 typedef unsigned long time_t;
@@ -29,4 +29,4 @@ struct tm *localtime(const time_t *timer);
 size_t strftime(char *ptr, size_t maxsize, const char *format,
                 const struct tm *timeptr);
 
-#endif
+#endif // _GHLIBCPP_TIME
