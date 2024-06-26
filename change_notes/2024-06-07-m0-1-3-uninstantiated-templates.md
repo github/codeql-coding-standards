@@ -1,0 +1,2 @@
+ - `M0-1-3` - `UnusedGlobalOrNamespaceVariable.ql`
+   - Reduces false positives by excluding compiler generated variables, and variables in uninstantiated templates.

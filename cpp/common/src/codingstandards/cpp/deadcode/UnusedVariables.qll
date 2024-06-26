@@ -48,12 +48,11 @@ class PotentiallyUnusedLocalVariable extends LocalVariable {
       not exists(AsmStmt s | f = s.getEnclosingFunction()) and
       // Ignore functions with error expressions as they indicate expressions that the extractor couldn't process
       not any(ErrorExpr e).getEnclosingFunction() = f
-    )
-    // ) and
-    // // exclude uninstantiated template members
-    // not this.isFromUninstantiatedTemplate(_) and
-    // // Do not report compiler generated variables
-    // not this.isCompilerGenerated()
+    ) and
+    // exclude uninstantiated template members
+    not this.isFromUninstantiatedTemplate(_) and
+    // Do not report compiler generated variables
+    not this.isCompilerGenerated()
   }
 }
 
