@@ -1,0 +1,2 @@
+- `MISRA C++ 2023`: 
+  - Adds support for `MISRA C++ 2023` rules that are already implemented by existing queries.
