@@ -19,7 +19,8 @@ newtype DeadCodeQuery =
   TSingleUseLocalPODVariableQuery() or
   TSingleUseGlobalOrNamespacePODVariableQuery() or
   TSingleUseMemberPODVariableQuery() or
-  TDeadCodeQuery()
+  TDeadCodeQuery() or
+  TFunctionContainUnreachableStatementsQuery()
 
 predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -165,6 +166,15 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId, st
     "cpp/autosar/dead-code" and
   ruleId = "M0-1-9" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `functionContainUnreachableStatements` query
+    DeadCodePackage::functionContainUnreachableStatementsQuery() and
+  queryId =
+    // `@id` for the `functionContainUnreachableStatements` query
+    "cpp/misra/function-contain-unreachable-statements" and
+  ruleId = "RULE-0-0-1" and
+  category = "required"
 }
 
 module DeadCodePackage {
@@ -278,5 +288,12 @@ module DeadCodePackage {
     result =
       // `Query` type for `deadCode` query
       TQueryCPP(TDeadCodePackageQuery(TDeadCodeQuery()))
+  }
+
+  Query functionContainUnreachableStatementsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `functionContainUnreachableStatements` query
+      TQueryCPP(TDeadCodePackageQuery(TFunctionContainUnreachableStatementsQuery()))
   }
 }
