@@ -58,11 +58,15 @@ standard_metadata = {
     "MISRA-C-2012" : {
         "standard_title" : "MISRA-C:2012 Guidelines for the use of the C language in critical systems",
         "standard_url"   : "https://www.misra.org.uk/"
+    },
+    "MISRA-C++-2023" : {
+        "standard_title" : "MISRA C++:2023 Guidelines for the use C++:17 in critical systems",
+        "standard_url"   : "https://misra.org.uk/product/misra-cpp2023/"
     }
 }
 
 # The help files of these standards cannot be distributed in our repository.
-external_help_file_standards = ["AUTOSAR", "MISRA-C-2012"]
+external_help_file_standards = ["AUTOSAR", "MISRA-C-2012", "MISRA-C++-2023"]
 
 # Mapping from the QL language to source file extension used to generate a help example file.
 ql_language_ext_mappings = {
