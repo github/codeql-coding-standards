@@ -1,0 +1,5 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.charactersequenceusedwithinacstylecomment_shared.CharacterSequenceUsedWithinACStyleComment_shared
+
+class TestFileQuery extends CharacterSequenceUsedWithinACStyleComment_sharedSharedQuery, TestQuery {
+}

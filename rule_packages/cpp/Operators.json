@@ -296,7 +296,8 @@
           "name": "The unary minus operator shall not be applied to an expression whose underlying type is unsigned",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned",
+          "short_name": "UnaryMinusOperatorAppliedToAnUnsignedExpression",
+          "shared_implementation_short_name": "BuiltInUnaryOperatorAppliedToUnsignedExpression_shared",
           "tags": []
         }
       ],
@@ -318,6 +319,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnaryOperatorOverloaded",
+          "shared_implementation_short_name": "AddressOfOperatorOverloaded_shared",
           "tags": []
         }
       ],

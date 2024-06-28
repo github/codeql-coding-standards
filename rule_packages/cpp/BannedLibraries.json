@@ -114,6 +114,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CsignalFunctionsUsed",
+          "shared_implementation_short_name": "CsignalFunctionsUsed_shared",
           "tags": [
             "maintainability",
             "correctness",
@@ -127,6 +128,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CsignalTypesUsed",
+          "shared_implementation_short_name": "CsignalTypesUsed_shared",
           "tags": [
             "maintainability",
             "correctness",
@@ -177,6 +179,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CstdioFunctionsUsed",
+          "shared_implementation_short_name": "CstdioFunctionsUsed_shared",
           "tags": [
             "maintainability",
             "correctness",
@@ -190,6 +193,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CstdioMacrosUsed",
+          "shared_implementation_short_name": "CstdioMacrosUsed_shared",
           "tags": [
             "maintainability",
             "correctness",
@@ -203,6 +207,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CstdioTypesUsed",
+          "shared_implementation_short_name": "CstdioTypesUsed_shared",
           "tags": [
             "maintainability",
             "correctness",

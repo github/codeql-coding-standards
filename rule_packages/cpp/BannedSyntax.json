@@ -169,6 +169,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ReinterpretCastUsed",
+          "shared_implementation_short_name": "ReinterpretCastUsed_shared",
           "tags": [
             "correctness",
             "security",
@@ -194,6 +195,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GotoStatementUsed",
+          "shared_implementation_short_name": "GotoStatementShouldNotBeUsed_shared",
           "tags": [
             "correctness",
             "security",
@@ -266,6 +268,7 @@
           "name": "The asm declaration shall not be used",
           "precision": "very-high",
           "severity": "error",
+          "shared_implementation_short_name": "AsmDeclarationUsed_shared",
           "short_name": "AsmDeclarationUsed",
           "tags": [
             "correctness",

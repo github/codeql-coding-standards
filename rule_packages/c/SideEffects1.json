@@ -131,6 +131,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed",
+          "shared_implementation_short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed_shared",
           "tags": [
             "correctness",
             "readability"

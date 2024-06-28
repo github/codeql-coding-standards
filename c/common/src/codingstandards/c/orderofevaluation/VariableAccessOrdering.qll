@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.c.Ordering
+import codingstandards.cpp.COrdering
 
 class VariableAccessInFullExpressionOrdering extends Ordering::Configuration {
   VariableAccessInFullExpressionOrdering() { this = "VariableAccessInFullExpressionOrdering" }

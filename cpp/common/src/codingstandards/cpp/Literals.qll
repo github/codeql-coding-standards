@@ -5,6 +5,8 @@
 import cpp
 import codingstandards.cpp.Cpp14Literal
 
+class IntegerLiteral = Cpp14Literal::IntegerLiteral;
+
 /** Gets `Literal.getValueText()` truncated to at most 20 characters. */
 string getTruncatedLiteralText(Literal l) {
   exists(string text | text = l.getValueText() |

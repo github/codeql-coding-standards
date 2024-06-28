@@ -15,14 +15,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import OperatorDelete
+import codingstandards.cpp.rules.globalsizedoperatordeletenotdefined_shared.GlobalSizedOperatorDeleteNotDefined_shared
 
-from OperatorDelete unsized_delete
-where
-  not isExcluded(unsized_delete, DeclarationsPackage::globalSizedOperatorDeleteNotDefinedQuery()) and
-  not unsized_delete.isSizeDelete() and
-  not exists(OperatorDelete od | unsized_delete.isNoThrowDelete() = od.isNoThrowDelete() |
-    od.isSizeDelete()
-  )
-select unsized_delete,
-  "Unsized function '" + unsized_delete.getName() + "' defined globally without sized version."
+class GlobalSizedOperatorDeleteNotDefinedQuery extends GlobalSizedOperatorDeleteNotDefined_sharedSharedQuery
+{
+  GlobalSizedOperatorDeleteNotDefinedQuery() {
+    this = DeclarationsPackage::globalSizedOperatorDeleteNotDefinedQuery()
+  }
+}

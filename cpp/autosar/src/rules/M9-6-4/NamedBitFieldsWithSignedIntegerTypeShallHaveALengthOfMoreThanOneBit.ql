@@ -22,4 +22,4 @@ where
   bf.getType().getUnderlyingType().(IntegralType).isSigned() and
   bf.getNumBits() < 2 and
   bf.getName() != "(unnamed bitfield)"
-select bf, "A named bit-field with signed integral type should have at least 2 bits of storage "
+select bf, "A named bit-field with signed integral type should have at least 2 bits of storage."

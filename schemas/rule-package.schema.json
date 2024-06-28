@@ -220,6 +220,55 @@
                     "minProperties": 1
                 }
             }
+        },
+        {
+            "properties": {
+                "MISRA-C++-2023": {
+                    "description": "Rules part of the MISRA C++ 2023 standard",
+                    "type": "object",
+                    "patternProperties": {
+                        "^RULE-\\d+-\\d+-\\d+": {
+                            "description": "A coding standard rule",
+                            "type": "object",
+                            "properties": {
+                                "properties": {
+                                    "type": "object",
+                                    "properties": {
+                                        "obligation": {
+                                            "type": "string",
+                                            "enum": [
+                                                "required",
+                                                "advisory",
+                                                "mandatory"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "obligation"
+                                    ]
+                                },
+                                "queries": {
+                                    "type": "array",
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "$ref": "#/$defs/query"
+                                    }
+                                },
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "properties",
+                                "queries",
+                                "title"
+                            ],
+                            "additionalProperties": false
+                        }
+                    },
+                    "minProperties": 1
+                }
+            }
         }
     ],
     "minProperties": 1,

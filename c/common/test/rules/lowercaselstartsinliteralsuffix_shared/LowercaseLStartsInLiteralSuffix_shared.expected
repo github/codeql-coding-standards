@@ -1,0 +1,16 @@
+| test.c:5:10:5:11 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.c:6:10:6:12 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.c:9:10:9:12 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.c:10:10:10:12 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.c:15:11:15:12 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.c:16:11:16:13 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.c:19:11:19:13 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.c:20:11:20:13 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.c:25:10:25:14 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.c:26:10:26:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.c:29:10:29:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.c:30:10:30:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.c:35:11:35:14 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.c:36:11:36:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.c:39:11:39:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.c:40:11:40:15 | 1 | Lowercase 'l' used as a literal suffix. |

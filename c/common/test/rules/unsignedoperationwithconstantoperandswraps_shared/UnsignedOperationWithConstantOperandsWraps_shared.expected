@@ -1,0 +1,4 @@
+| test.c:7:3:7:9 | ... + ... | Operation + of type unsigned int may wrap. |
+| test.c:8:3:8:10 | ... += ... | Operation += of type unsigned int may wrap. |
+| test.c:61:3:61:9 | ... - ... | Operation - of type unsigned int may wrap. |
+| test.c:62:3:62:10 | ... -= ... | Operation -= of type unsigned int may wrap. |

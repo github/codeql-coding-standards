@@ -290,7 +290,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "DifferentIdentifiersNotTypographicallyUnambiguous",
-          "shared_implementation_short_name" : "DifferentIdentifiersNotTypographicallyUnambiguous",
+          "shared_implementation_short_name": "DifferentIdentifiersNotTypographicallyUnambiguous",
           "tags": [
             "readability",
             "maintainability"
@@ -313,7 +313,8 @@
           "name": "The identifier main shall not be used for a function other than the global function main",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain",
+          "short_name": "IdentifierMainUsedForAFunctionOtherThanGlobalMain",
+          "shared_implementation_short_name": "NonGlobalFunctionMain_shared",
           "tags": [
             "maintainability",
             "readability"

@@ -1,0 +1,4 @@
+| test.cpp:7:3:7:9 | ... + ... | Operation + of type unsigned int may wrap. |
+| test.cpp:8:3:8:10 | ... += ... | Operation += of type unsigned int may wrap. |
+| test.cpp:61:3:61:9 | ... - ... | Operation - of type unsigned int may wrap. |
+| test.cpp:62:3:62:10 | ... -= ... | Operation -= of type unsigned int may wrap. |

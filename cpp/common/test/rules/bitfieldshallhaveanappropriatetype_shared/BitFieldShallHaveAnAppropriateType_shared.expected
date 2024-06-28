@@ -1,0 +1,4 @@
+| test.cpp:9:7:9:8 | x1 | Bit-field 'x1' is declared on type 'int'. |
+| test.cpp:13:15:13:16 | x5 | Bit-field 'x5' is declared on type 'signed long'. |
+| test.cpp:15:15:15:16 | x6 | Bit-field 'x6' is declared on type 'signed char'. |
+| test.cpp:17:14:17:15 | x7 | Bit-field 'x7' is declared on type 'Color'. |

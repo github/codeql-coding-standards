@@ -15,22 +15,10 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.IrreplaceableFunctionLikeMacro
+import codingstandards.cpp.rules.functionlikemacrosdefined_shared.FunctionLikeMacrosDefined_shared
 
-predicate partOfConstantExpr(MacroInvocation i) {
-  exists(Expr e |
-    e.isConstant() and
-    not i.getExpr() = e and
-    i.getExpr().getParent+() = e
-  )
+class FunctionOverFunctionLikeMacroQuery extends FunctionLikeMacrosDefined_sharedSharedQuery {
+  FunctionOverFunctionLikeMacroQuery() {
+    this = Preprocessor6Package::functionOverFunctionLikeMacroQuery()
+  }
 }
-
-from FunctionLikeMacro m
-where
-  not isExcluded(m, Preprocessor6Package::functionOverFunctionLikeMacroQuery()) and
-  not m instanceof IrreplaceableFunctionLikeMacro and
-  //macros can have empty body
-  not m.getBody().length() = 0 and
-  //function call not allowed in a constant expression (where constant expr is parent)
-  forall(MacroInvocation i | i = m.getAnInvocation() | not partOfConstantExpr(i))
-select m, "Macro used instead of a function."

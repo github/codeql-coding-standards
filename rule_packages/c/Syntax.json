@@ -53,6 +53,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "OctalAndHexadecimalEscapeSequencesNotTerminated",
+          "shared_implementation_short_name": "NonTerminatedEscapeSequences_shared",
           "tags": [
             "maintainability",
             "readability",
@@ -79,7 +80,7 @@
             "maintainability",
             "readability",
             "correctness"
-          ]        
+          ]
         }
       ],
       "title": "Sections of code should not be commented out"
@@ -96,7 +97,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "IdentifiersInTheSameNameSpaceUnambiguous",
-          "shared_implementation_short_name" : "DifferentIdentifiersNotTypographicallyUnambiguous",
+          "shared_implementation_short_name": "DifferentIdentifiersNotTypographicallyUnambiguous",
           "tags": [
             "readability",
             "maintainability"
@@ -137,6 +138,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "LowercaseCharacterLUsedInLiteralSuffix",
+          "shared_implementation_short_name": "LowercaseLStartsInLiteralSuffix_shared",
           "tags": [
             "maintainability",
             "readability"

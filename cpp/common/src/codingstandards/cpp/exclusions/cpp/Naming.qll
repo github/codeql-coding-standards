@@ -20,7 +20,7 @@ newtype NamingQuery =
   TNameOfStandardLibraryMacroOrObjectReusedQuery() or
   TNameOfStandardLibraryFunctionIsOverriddenQuery() or
   TDifferentIdentifiersNotTypographicallyUnambiguousQuery() or
-  TIdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery() or
+  TIdentifierMainUsedForAFunctionOtherThanGlobalMainQuery() or
   TUnnamedNamespacesInHeaderFileQuery() or
   TNonIdenticalIdentifierUsedForTheParameterInReDeclarationOfAFunctionQuery() or
   TRedefiningOfStandardLibraryNameQuery() or
@@ -178,11 +178,11 @@ predicate isNamingQueryMetadata(Query query, string queryId, string ruleId, stri
   category = "required"
   or
   query =
-    // `Query` instance for the `identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain` query
-    NamingPackage::identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery() and
+    // `Query` instance for the `identifierMainUsedForAFunctionOtherThanGlobalMain` query
+    NamingPackage::identifierMainUsedForAFunctionOtherThanGlobalMainQuery() and
   queryId =
-    // `@id` for the `identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain` query
-    "cpp/autosar/identifier-main-used-for-a-function-other-than-the-global-function-main" and
+    // `@id` for the `identifierMainUsedForAFunctionOtherThanGlobalMain` query
+    "cpp/autosar/identifier-main-used-for-a-function-other-than-global-main" and
   ruleId = "M7-3-2" and
   category = "required"
   or
@@ -390,11 +390,11 @@ module NamingPackage {
       TQueryCPP(TNamingPackageQuery(TDifferentIdentifiersNotTypographicallyUnambiguousQuery()))
   }
 
-  Query identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery() {
+  Query identifierMainUsedForAFunctionOtherThanGlobalMainQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain` query
-      TQueryCPP(TNamingPackageQuery(TIdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery()))
+      // `Query` type for `identifierMainUsedForAFunctionOtherThanGlobalMain` query
+      TQueryCPP(TNamingPackageQuery(TIdentifierMainUsedForAFunctionOtherThanGlobalMainQuery()))
   }
 
   Query unnamedNamespacesInHeaderFileQuery() {

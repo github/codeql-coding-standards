@@ -1,0 +1,2 @@
+| test.cpp:5:3:5:5 | 10 | Non zero octal literal 012. |
+| test.cpp:6:3:6:5 | 44 | Non zero octal literal 054. |

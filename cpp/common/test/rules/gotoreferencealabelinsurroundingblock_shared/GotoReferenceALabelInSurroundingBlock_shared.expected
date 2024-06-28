@@ -1,0 +1,2 @@
+| test.cpp:42:3:42:10 | goto ... | The goto statement and its $@ are not declared or enclosed in the same block. | test.cpp:46:3:46:5 | label ...: | label |
+| test.cpp:57:5:57:12 | goto ... | The goto statement and its $@ are not declared or enclosed in the same block. | test.cpp:60:3:60:5 | label ...: | label |

@@ -1,0 +1,6 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.functionscallthemselveseitherdirectlyorindirectly_shared.FunctionsCallThemselvesEitherDirectlyOrIndirectly_shared
+
+class TestFileQuery extends FunctionsCallThemselvesEitherDirectlyOrIndirectly_sharedSharedQuery,
+  TestQuery
+{ }

@@ -1,0 +1,4 @@
+| test.c:8:14:8:17 | call to atof | Call to banned function atof. |
+| test.c:9:12:9:15 | call to atoi | Call to banned function atoi. |
+| test.c:10:13:10:16 | call to atol | Call to banned function atol. |
+| test.c:11:18:11:22 | call to atoll | Call to banned function atoll. |

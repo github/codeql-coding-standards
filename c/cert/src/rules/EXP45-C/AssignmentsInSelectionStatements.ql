@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.c.Expr
+import codingstandards.cpp.CExpr
 
 Expr getRightMostOperand(CommaExpr e) {
   result = e.getRightOperand() and not result instanceof CommaExpr
