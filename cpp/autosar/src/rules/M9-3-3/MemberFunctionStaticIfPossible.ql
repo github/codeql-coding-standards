@@ -31,7 +31,8 @@ class NonStaticMemberFunction extends MemberFunction {
     not this instanceof Constructor and
     not this instanceof Destructor and
     not this instanceof Operator and
-    this.hasDefinition()
+    this.hasDefinition() and
+    not this.isFromUninstantiatedTemplate(_)
   }
 }
 
