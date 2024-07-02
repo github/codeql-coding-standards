@@ -1,18 +1,30 @@
-| test.cpp:4:3:4:6 | call to acos | Domain error in call to acos: the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
-| test.cpp:8:3:8:6 | call to acos | Domain error in call to acos: the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
-| test.cpp:9:3:9:6 | call to asin | Domain error in call to asin: the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
-| test.cpp:13:3:13:6 | call to asin | Domain error in call to asin: the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
-| test.cpp:14:3:14:7 | call to atanh | Domain error in call to atanh: the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
-| test.cpp:18:3:18:7 | call to atanh | Domain error in call to atanh: the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
-| test.cpp:19:3:19:7 | call to atan2 | Domain error in call to atan2: both arguments are equal to zero. |
-| test.cpp:23:3:23:5 | call to pow | Domain error in call to pow: both arguments are equal to zero. |
-| test.cpp:27:3:27:5 | call to pow | Domain error in call to pow: both arguments are less than zero. |
-| test.cpp:33:3:33:7 | call to acosh | Domain error in call to acosh: argument is less than 1. |
-| test.cpp:34:3:34:7 | call to ilogb | Domain error in call to ilogb: argument is equal to zero. |
-| test.cpp:37:3:37:5 | call to log | Domain error in call to log: argument is negative. |
-| test.cpp:40:3:40:7 | call to log10 | Domain error in call to log10: argument is negative. |
-| test.cpp:43:3:43:6 | call to log2 | Domain error in call to log2: argument is negative. |
-| test.cpp:46:3:46:6 | call to sqrt | Domain error in call to sqrt: argument is negative. |
-| test.cpp:49:3:49:7 | call to log1p | Domain error in call to log1p: argument is less than 1. |
-| test.cpp:52:3:52:6 | call to logb | Domain error in call to logb: argument is equal to zero. |
-| test.cpp:55:3:55:8 | call to tgamma | Domain error in call to tgamma: argument is equal to zero. |
+| test.cpp:5:3:5:6 | call to acos | Domain error in call to 'acos': the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:9:3:9:6 | call to acos | Domain error in call to 'acos': the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:10:3:10:6 | call to asin | Domain error in call to 'asin': the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:14:3:14:6 | call to asin | Domain error in call to 'asin': the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:15:3:15:7 | call to atanh | Domain error in call to 'atanh': the argument has a range -1.1...-1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:17:3:17:7 | call to atanh | Domain error in call to 'atanh': the argument has a range 1.1...1.1 which is outside the domain of this function (-1.0...1.0). |
+| test.cpp:18:3:18:7 | call to atan2 | Domain error in call to 'atan2': both arguments are equal to zero. |
+| test.cpp:22:3:22:5 | call to pow | Domain error in call to 'pow': both arguments are equal to zero. |
+| test.cpp:26:3:26:5 | call to pow | Domain error in call to 'pow': both arguments are less than zero. |
+| test.cpp:31:3:31:7 | call to acosh | Domain error in call to 'acosh': argument is less than 1. |
+| test.cpp:32:3:32:7 | call to ilogb | Domain error in call to 'ilogb': argument is equal to zero. |
+| test.cpp:35:3:35:5 | call to log | Domain error in call to 'log': argument is negative. |
+| test.cpp:37:3:37:7 | call to log10 | Domain error in call to 'log10': argument is negative. |
+| test.cpp:39:3:39:6 | call to log2 | Domain error in call to 'log2': argument is negative. |
+| test.cpp:41:3:41:6 | call to sqrt | Domain error in call to 'sqrt': argument is negative. |
+| test.cpp:44:3:44:7 | call to log1p | Domain error in call to 'log1p': argument is less than 1. |
+| test.cpp:46:3:46:6 | call to logb | Domain error in call to 'logb': argument is equal to zero. |
+| test.cpp:49:3:49:8 | call to tgamma | Domain error in call to 'tgamma': argument is equal to zero. |
+| test.cpp:55:3:55:5 | call to abs | Range error in call to 'abs': argument is most negative number. |
+| test.cpp:56:3:56:6 | call to fmod | Domain error in call to 'fmod': y is 0. |
+| test.cpp:58:3:58:7 | call to frexp | Unspecified error in call to 'frexp': Arg is Nan or infinity and exp is unspecified as a result. |
+| test.cpp:59:3:59:7 | call to frexp | Unspecified error in call to 'frexp': Arg is Nan or infinity and exp is unspecified as a result. |
+| test.cpp:63:3:63:7 | call to atanh | Pole error in call to 'atanh': argument is plus or minus 1. |
+| test.cpp:64:3:64:7 | call to atanh | Pole error in call to 'atanh': argument is plus or minus 1. |
+| test.cpp:65:3:65:5 | call to log | Pole error in call to 'log': argument is equal to zero. |
+| test.cpp:66:3:66:7 | call to log10 | Pole error in call to 'log10': argument is equal to zero. |
+| test.cpp:67:3:67:6 | call to log2 | Pole error in call to 'log2': argument is equal to zero. |
+| test.cpp:68:3:68:7 | call to log1p | Pole error in call to 'log1p': argument is equal to negative one. |
+| test.cpp:70:3:70:5 | call to pow | Pole error in call to 'pow': base is zero and exp is negative. |
+| test.cpp:71:3:71:8 | call to lgamma | Pole error in call to 'lgamma': argument is equal to zero. |
