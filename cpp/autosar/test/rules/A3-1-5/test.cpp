@@ -9,7 +9,7 @@ public:
 
   int getABar() { return 9; }
 
-  int trivial() { // NON_COMPLIANT
+  int not_trivial() { // COMPLIANT - with threshold of 10 loc
     ;
     ;
     ;
