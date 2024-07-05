@@ -149,9 +149,7 @@ class IntrospectedMemberFunction extends MemberFunction {
   }
 
   predicate hasTrivialLength() {
-    this.getBlock().getLastStmt().getLocation().getStartLine() -
-      this.getBlock().getStmt(0).getLocation().getStartLine() <= 10 and
-    not exists(this.getBlock().getStmt(_).getChildStmt())
+    this.getBlock().getLocation().getEndLine() - this.getBlock().getLocation().getStartLine() <= 10
   }
 
   predicate isSetter() {

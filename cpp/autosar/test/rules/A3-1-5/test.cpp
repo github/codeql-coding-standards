@@ -28,6 +28,13 @@ public:
       return a;
     int result = gcd(b, (a % b));
     ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
     return result;
   }
 
@@ -130,6 +137,13 @@ int FooBar::f1(int a, int b) { // COMPLIANT not a trivial function
     if (b == 0)
       return a;
     int result = FooBar::f1(b, (a % b));
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
     ;
   }
 }
