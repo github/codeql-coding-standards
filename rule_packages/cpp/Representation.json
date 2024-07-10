@@ -53,6 +53,18 @@
           "tags": [
             "correctness"
           ]
+        },
+        {
+          "description": "Passing an aliased pointer to a conceptually restrict-qualified parameter is undefined behavior.",
+          "kind": "problem",
+          "name": "Do not pass aliased pointers as parameters of functions where it is undefined behaviour for those pointers to overlap",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "DoNotPassAliasedPointerToRestrictQualifiedParam",
+          "shared_implementation_short_name": "DoNotPassAliasedPointerToRestrictQualifiedParam_Shared",
+          "tags": [
+            "correctness"
+          ]
         }
       ],
       "title": "An object shall not be assigned to an overlapping object."
