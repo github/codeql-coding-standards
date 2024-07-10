@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.donotpassaliasedpointertorestrictqualifiedparam_shared.DoNotPassAliasedPointerToRestrictQualifiedParam_Shared
 
-class DoNotPassAliasedPointerToRestrictQualifiedParamQuery extends DoNotPassAliasedPointerToRestrictQualifiedParam_SharedSharedQuery {
+class DoNotPassAliasedPointerToRestrictQualifiedParamQuery extends DoNotPassAliasedPointerToRestrictQualifiedParam_SharedSharedQuery
+{
   DoNotPassAliasedPointerToRestrictQualifiedParamQuery() {
     this = RepresentationPackage::doNotPassAliasedPointerToRestrictQualifiedParamQuery()
   }
