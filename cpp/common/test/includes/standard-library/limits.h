@@ -23,6 +23,8 @@
 #define LLONG_MAX 9223372036854775807
 #define ULLONG_MIN 0ULL
 #define ULLONG_MAX 0xffffffffffffffff
+#define NAN (0.0f / 0.0f)
+#define INFINITY 1e5000f
 
 namespace std {
 template <class T> class numeric_limits;
