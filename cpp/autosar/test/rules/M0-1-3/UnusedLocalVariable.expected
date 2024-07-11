@@ -4,3 +4,4 @@
 | test.cpp:23:5:23:5 | t | Local variable 't' in 'f1' is not used. |
 | test.cpp:23:5:23:5 | t | Local variable 't' in 'f1' is not used. |
 | test.cpp:44:6:44:6 | a | Local variable 'a' in 'test_side_effect_init' is not used. |
+| test.cpp:91:5:91:5 | t | Local variable 't' in 'template_function' is not used. |

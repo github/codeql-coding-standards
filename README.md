@@ -10,10 +10,15 @@ This repository contains CodeQL queries and libraries which support various Codi
 
 The following coding standards are supported:
 - [AUTOSAR - Guidelines for the use of C++14 language in critical and safety-related systems (Releases R22-11, R20-11, R19-11 and R19-03)](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf). 
-- [MISRA C++:2008](https://www.misra.org.uk) (support limited to the rules specified in AUTOSAR).
 - [SEI CERT C++ Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932)
 - [SEI CERT C Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)
-- [MISRA C 2012](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/).
+- [MISRA C 2012, 3rd Edition, 1st revision](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/) (incoporating Amendment 1 & Technical Corrigendum 1). In addition, we support the following additional amendments and technical corrigendums:
+   - [MISRA C 2012 Amendment 2](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf)
+   - [MISRA C 2012 Technical Corrigendum 2](https://misra.org.uk/app/uploads/2022/04/MISRA-C-2012-TC2.pdf)
+
+## :construction: Standards under development :construction:
+
+- [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development _scheduled for release 2024 Q4_.
 
 ## How do I use the CodeQL Coding Standards Queries?
 
