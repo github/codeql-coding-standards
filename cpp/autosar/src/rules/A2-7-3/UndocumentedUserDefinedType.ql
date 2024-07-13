@@ -31,6 +31,7 @@ private string doxygenCommentGroupStrings(boolean opening) {
   opening = false and result = ["///@}", "/**@}*/"]
 }
 
+pragma[inline]
 private predicate isBetweenDoxygenCommentGroup(
   Location loc, Comment opening, Comment body, Comment closing
 ) {
@@ -115,6 +116,7 @@ class DocumentableDeclaration extends Declaration {
  * A `DeclarationEntry` is considered documented if it has an associated `Comment`, the `Comment`
  * precedes the `DeclarationEntry`, and the `Comment` is not a doxygen comment group prefix.
  */
+cached
 predicate isDocumented(DeclarationEntry de) {
   exists(Comment c | c.getCommentedElement() = de |
     not c.getContents() = doxygenCommentGroupStrings(true) and
