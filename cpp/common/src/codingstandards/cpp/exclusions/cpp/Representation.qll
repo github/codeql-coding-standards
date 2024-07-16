@@ -7,7 +7,7 @@ newtype RepresentationQuery =
   TBitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery() or
   TAuditPossibleHardwareInterfaceDueToBitFieldUsageInDataTypeDefinitionQuery() or
   TObjectAssignedToAnOverlappingObjectQuery() or
-  TDoNotPassAliasedPointerToRestrictQualifiedParamQuery() or
+  TDoNotPassAliasedPointerToParamQuery() or
   TUnderlyingBitRepresentationsOfFloatingPointValuesUsedQuery() or
   TNamedBitFieldsWithSignedIntegerTypeShallHaveALengthOfMoreThanOneBitQuery() or
   TMemsetUsedToAccessObjectRepresentationQuery() or
@@ -43,11 +43,11 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   category = "required"
   or
   query =
-    // `Query` instance for the `doNotPassAliasedPointerToRestrictQualifiedParam` query
-    RepresentationPackage::doNotPassAliasedPointerToRestrictQualifiedParamQuery() and
+    // `Query` instance for the `doNotPassAliasedPointerToParam` query
+    RepresentationPackage::doNotPassAliasedPointerToParamQuery() and
   queryId =
-    // `@id` for the `doNotPassAliasedPointerToRestrictQualifiedParam` query
-    "cpp/autosar/do-not-pass-aliased-pointer-to-restrict-qualified-param" and
+    // `@id` for the `doNotPassAliasedPointerToParam` query
+    "cpp/autosar/do-not-pass-aliased-pointer-to-param" and
   ruleId = "M0-2-1" and
   category = "required"
   or
@@ -119,11 +119,11 @@ module RepresentationPackage {
       TQueryCPP(TRepresentationPackageQuery(TObjectAssignedToAnOverlappingObjectQuery()))
   }
 
-  Query doNotPassAliasedPointerToRestrictQualifiedParamQuery() {
+  Query doNotPassAliasedPointerToParamQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `doNotPassAliasedPointerToRestrictQualifiedParam` query
-      TQueryCPP(TRepresentationPackageQuery(TDoNotPassAliasedPointerToRestrictQualifiedParamQuery()))
+      // `Query` type for `doNotPassAliasedPointerToParam` query
+      TQueryCPP(TRepresentationPackageQuery(TDoNotPassAliasedPointerToParamQuery()))
   }
 
   Query underlyingBitRepresentationsOfFloatingPointValuesUsedQuery() {

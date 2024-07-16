@@ -72,7 +72,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "DoNotPassAliasedPointerToRestrictQualifiedParam",
-          "shared_implementation_short_name": "DoNotPassAliasedPointerToRestrictQualifiedParam_Shared",
+          "shared_implementation_short_name": "DoNotPassAliasedPointerToRestrictQualifiedParamShared",
           "tags": [
             "correctness"
           ]
