@@ -3,7 +3,7 @@
  * @name A2-7-3: Declarations of 'user-defined' types, member variables and functions should be documented
  * @description All declarations of 'user-defined' types, static and non-static data members,
  *              functions and methods shall be preceded by documentation.
- * @ kind problem
+ * @kind problem
  * @precision very-high
  * @problem.severity recommendation
  * @tags external/autosar/id/a2-7-3
