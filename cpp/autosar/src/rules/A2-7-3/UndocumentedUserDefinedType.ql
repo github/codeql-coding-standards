@@ -3,7 +3,7 @@
  * @name A2-7-3: Declarations of 'user-defined' types, member variables and functions should be documented
  * @description All declarations of 'user-defined' types, static and non-static data members,
  *              functions and methods shall be preceded by documentation.
- * @kind problem
+ * @ kind problem
  * @precision very-high
  * @problem.severity recommendation
  * @tags external/autosar/id/a2-7-3
@@ -44,7 +44,11 @@ class DocumentableDeclaration extends Declaration {
     // Exclude instantiated template functions, which cannot reasonably be documented.
     not this.(Function).isFromTemplateInstantiation(_) and
     // Exclude anonymous lambda functions.
-    not exists(LambdaExpression lc | lc.getLambdaFunction() = this)
+    not exists(LambdaExpression lc | lc.getLambdaFunction() = this) and
+    //Exclude friend functions (because they have 2 entries in the database), and only one shows documented truly
+    not exists(FriendDecl d |
+      d.getFriend().(Function).getDefinition() = this.getADeclarationEntry()
+    )
     or
     this instanceof MemberVariable and
     declarationType = "member variable" and
