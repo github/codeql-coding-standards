@@ -1,8 +1,7 @@
 /**
- * @id cpp/autosar/do-not-pass-aliased-pointer-to-restrict-qualified-param
+ * @id cpp/autosar/do-not-pass-aliased-pointer-to-param
  * @name M0-2-1: Do not pass aliased pointers as parameters of functions where it is undefined behaviour for those pointers to overlap
- * @description Passing an aliased pointer to a conceptually restrict-qualified parameter is
- *              undefined behavior.
+ * @description Passing a aliased pointers as parameters of certain functions is undefined behavior.
  * @kind problem
  * @precision medium
  * @problem.severity error
@@ -15,11 +14,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.donotpassaliasedpointertorestrictqualifiedparam_shared.DoNotPassAliasedPointerToRestrictQualifiedParam_Shared
+import codingstandards.cpp.rules.donotpassaliasedpointertorestrictqualifiedparamshared.DoNotPassAliasedPointerToRestrictQualifiedParamShared
 
-class DoNotPassAliasedPointerToRestrictQualifiedParamQuery extends DoNotPassAliasedPointerToRestrictQualifiedParam_SharedSharedQuery
+class DoNotPassAliasedPointerToRestrictQualifiedParamQuery extends DoNotPassAliasedPointerToRestrictQualifiedParamSharedSharedQuery
 {
   DoNotPassAliasedPointerToRestrictQualifiedParamQuery() {
-    this = RepresentationPackage::doNotPassAliasedPointerToRestrictQualifiedParamQuery()
+    this = RepresentationPackage::doNotPassAliasedPointerToParamQuery()
   }
 }
