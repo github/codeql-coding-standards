@@ -1,6 +1,6 @@
 // GENERATED FILE - DO NOT MODIFY
-import codingstandards.cpp.rules.donotpassaliasedpointertorestrictqualifiedparam_shared.DoNotPassAliasedPointerToRestrictQualifiedParam_Shared
+import codingstandards.cpp.rules.donotpassaliasedpointertorestrictqualifiedparamshared.DoNotPassAliasedPointerToRestrictQualifiedParamShared
 
-class TestFileQuery extends DoNotPassAliasedPointerToRestrictQualifiedParam_SharedSharedQuery,
+class TestFileQuery extends DoNotPassAliasedPointerToRestrictQualifiedParamSharedSharedQuery,
   TestQuery
 { }
