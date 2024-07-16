@@ -124,10 +124,10 @@ module PointerValueToRestrictArgConfig implements DataFlow::ConfigSig {
 
 module PointerValueToRestrictArgFlow = DataFlow::Global<PointerValueToRestrictArgConfig>;
 
-abstract class DoNotPassAliasedPointerToRestrictQualifiedParam_SharedSharedQuery extends Query { }
+abstract class DoNotPassAliasedPointerToRestrictQualifiedParamSharedSharedQuery extends Query { }
 
 Query getQuery() {
-  result instanceof DoNotPassAliasedPointerToRestrictQualifiedParam_SharedSharedQuery
+  result instanceof DoNotPassAliasedPointerToRestrictQualifiedParamSharedSharedQuery
 }
 
 query predicate problems(
