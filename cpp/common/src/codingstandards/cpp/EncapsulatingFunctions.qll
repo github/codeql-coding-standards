@@ -14,7 +14,10 @@ abstract class EncapsulatingFunction extends Function { }
 class MainFunction extends MainLikeFunction {
   MainFunction() {
     hasGlobalName("main") and
-    getType() instanceof IntType
+    (
+      getType() instanceof IntType or
+      getType() instanceof Int32_t
+    )
   }
 }
 
