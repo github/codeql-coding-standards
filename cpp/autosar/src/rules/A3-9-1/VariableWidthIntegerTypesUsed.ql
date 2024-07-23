@@ -20,6 +20,7 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.EncapsulatingFunctions
 import codingstandards.cpp.BuiltInNumericTypes
 import codingstandards.cpp.Type
+import codingstandards.cpp.Operator
 
 from Variable v, Type typeStrippedOfSpecifiers
 where
@@ -30,5 +31,8 @@ where
     typeStrippedOfSpecifiers instanceof UnsignedCharType or
     typeStrippedOfSpecifiers instanceof SignedCharType
   ) and
-  not v instanceof ExcludedVariable
+  not v instanceof ExcludedVariable and
+  //post-increment/post-decrement operators are required by the standard to have a dummy int parameter
+  not v.(Parameter).getFunction() instanceof PostIncrementOperator and
+  not v.(Parameter).getFunction() instanceof PostDecrementOperator
 select v, "Variable '" + v.getName() + "' has variable-width type."
