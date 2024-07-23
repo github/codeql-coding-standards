@@ -78,3 +78,24 @@ int baz() {
   test_constexpr_in_static_assert<int>();
   return 0;
 }
+
+template <bool... Args> extern constexpr bool all_of_v = true; // COMPLIANT
+
+template <bool B1, bool... Args>
+extern constexpr bool all_of_v<B1, Args...> =
+    B1 &&all_of_v<Args...>; // COMPLIANT
+
+void test_template_variable() { all_of_v<true, true, true>; }
+
+template <typename T> void template_function() {
+  T t;       // NON_COMPLIANT - t is never used
+  T t2;      // COMPLIANT - t is used
+  t2.test(); // Call may not be resolved in uninstantiated template
+}
+
+class ClassT {
+public:
+  void test() {}
+};
+
+void test_template_function() { template_function<ClassT>(); }
