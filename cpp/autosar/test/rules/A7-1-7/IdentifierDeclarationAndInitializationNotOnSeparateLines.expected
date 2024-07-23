@@ -26,3 +26,4 @@
 | test.cpp:66:12:66:12 | definition of g | Expression statement and identifier are on the same line. |
 | test.cpp:82:7:82:10 | definition of S3_a | Expression statement and identifier are on the same line. |
 | test.cpp:82:17:82:20 | definition of S3_b | Expression statement and identifier are on the same line. |
+| test.cpp:154:24:154:24 | definition of y | Expression statement and identifier are on the same line. |

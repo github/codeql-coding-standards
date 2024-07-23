@@ -20,6 +20,7 @@ where
   not isExcluded(decl1, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
   not isExcluded(decl2, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
   not decl1 = decl2 and
+  not decl1.getVariable().getDeclaringType().isAnonymous() and
   decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName() and
   not typesCompatible(decl1.getType(), decl2.getType())
 select decl1,

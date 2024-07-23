@@ -23,12 +23,10 @@ class UniqueLineStmt extends Locatable {
       this = d.getADeclarationEntry() and
       not d instanceof Parameter and
       not d instanceof TemplateParameter and
-      not d instanceof FunctionTemplateSpecialization and
       // TODO - Needs to be enhanced to solve issues with
       // templated inner classes.
-      not d instanceof MemberFunction and
+      not d instanceof Function and
       not d.isFromTemplateInstantiation(_) and
-      not d.(Function).isCompilerGenerated() and
       not d.(Variable).isCompilerGenerated() and
       not exists(RangeBasedForStmt f | f.getADeclaration() = d) and
       not exists(DeclStmt declStmt, ForStmt f |
@@ -52,6 +50,9 @@ where
     DeclarationsPackage::identifierDeclarationAndInitializationNotOnSeparateLinesQuery()) and
   not e1 = e2 and
   not e1.(DeclarationEntry) = e2 and
+  //omit the cases where there is one struct identifier on a struct var line used with typedef
+  not exists(Struct s | s.getADeclarationEntry() = e1 and e1 instanceof TypeDeclarationEntry) and
+  not exists(Struct s | s.getATypeNameUse() = e1 and e1 instanceof TypeDeclarationEntry) and
   exists(Location l1, Location l2 |
     e1.getLocation() = l1 and
     e2.getLocation() = l2 and
