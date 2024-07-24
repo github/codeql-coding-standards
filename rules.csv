@@ -614,7 +614,7 @@ c,MISRA-C-2012,DIR-4-9,Yes,Advisory,,,A function should be used in preference to
 c,MISRA-C-2012,DIR-4-10,Yes,Required,,,Precautions shall be taken in order to prevent the contents of a header file being included more than once,M16-2-3,Preprocessor2,Medium,
 c,MISRA-C-2012,DIR-4-11,Yes,Required,,,The validity of values passed to library functions shall be checked,,Contracts,Hard,
 c,MISRA-C-2012,DIR-4-12,Yes,Required,,,Dynamic memory allocation shall not be used,,Banned,Medium,
-c,MISRA-C-2012,DIR-4-13,No,Advisory,,,Functions which are designed to provide operations on a resource should be called in an appropriate sequence,,,,Rule 22.1, 22.2 and 22.6 cover aspects of this rule. In other cases this is a design issue and needs to be checked manually.
+c,MISRA-C-2012,DIR-4-13,No,Advisory,,,Functions which are designed to provide operations on a resource should be called in an appropriate sequence,,,,"Rule 22.1, 22.2 and 22.6 cover aspects of this rule. In other cases this is a design issue and needs to be checked manually."
 c,MISRA-C-2012,DIR-4-14,Yes,Required,,,The validity of values received from external sources shall be checked,,Contracts,Hard,This is supported by CodeQLs default C security queries.
 c,MISRA-C-2012,RULE-1-1,No,Required,,,"The program shall contain no violations of the standard C syntax and constraints, and shall not exceed the implementation's translation limits",,,Easy,"This should be checked via the compiler output, rather than CodeQL, which adds unnecessary steps."
 c,MISRA-C-2012,RULE-1-2,Yes,Advisory,,,Language extensions should not be used,,Language3,Hard,
@@ -643,9 +643,9 @@ c,MISRA-C-2012,RULE-5-9,Yes,Advisory,,,Identifiers that define objects or functi
 c,MISRA-C-2012,RULE-6-1,Yes,Required,,,Bit-fields shall only be declared with an appropriate type,M9-6-4,BitfieldTypes,Medium,
 c,MISRA-C-2012,RULE-6-2,Yes,Required,,,Single-bit named bit fields shall not be of a signed type,M9-6-4,BitfieldTypes,Import,
 c,MISRA-C-2012,RULE-7-1,Yes,Required,,,Octal constants shall not be used,M2-13-2,Banned,Import,
-c,MISRA-C-2012,RULE-7-2,Yes,Required,,,A �u� or �U� suffix shall be applied to all integer constants that are represented in an unsigned type,M2-13-3,Syntax,Easy,
-c,MISRA-C-2012,RULE-7-3,Yes,Required,,,The lowercase character �l� shall not be used in a literal suffix,M2-13-4,Syntax,Easy,
-c,MISRA-C-2012,RULE-7-4,Yes,Required,,,A string literal shall not be assigned to an object unless the object�s type is �pointer to const-qualified char�,A2-13-4,Types1,Easy,
+c,MISRA-C-2012,RULE-7-2,Yes,Required,,,A 'u' or 'U' suffix shall be applied to all integer constants that are represented in an unsigned type,M2-13-3,Syntax,Easy,
+c,MISRA-C-2012,RULE-7-3,Yes,Required,,,The lowercase character 'l' shall not be used in a literal suffix,M2-13-4,Syntax,Easy,
+c,MISRA-C-2012,RULE-7-4,Yes,Required,,,A string literal shall not be assigned to an object unless the object's type is 'pointer to const-qualified char',A2-13-4,Types1,Easy,
 c,MISRA-C-2012,RULE-8-1,Yes,Required,,,Types shall be explicitly specified,,Declarations3,Medium,
 c,MISRA-C-2012,RULE-8-2,Yes,Required,,,Function types shall be in prototype form with named parameters,,Declarations4,Medium,
 c,MISRA-C-2012,RULE-8-3,Yes,Required,,,All declarations of an object or function shall use the same names and type qualifiers,M3-2-1,Declarations4,Medium,
@@ -686,7 +686,7 @@ c,MISRA-C-2012,RULE-12-1,Yes,Advisory,,,The precedence of operators within expre
 c,MISRA-C-2012,RULE-12-2,Yes,Required,,,The right hand operand of a shift operator shall lie in the range zero to one less than the width in bits of the essential type of the left hand operand,,Contracts7,Medium,
 c,MISRA-C-2012,RULE-12-3,Yes,Advisory,,,The comma operator should not be used,M5-18-1,Banned,Import,
 c,MISRA-C-2012,RULE-12-4,Yes,Advisory,,,Evaluation of constant expressions should not lead to unsigned integer wrap-around,INT30-C,IntegerOverflow,Easy,
-c,MISRA-C-2012,RULE-12-5,Yes,Mandatory,,,The sizeof operator shall not have an operand which is a function parameter declared as �array of type�,,Types1,Medium,
+c,MISRA-C-2012,RULE-12-5,Yes,Mandatory,,,The sizeof operator shall not have an operand which is a function parameter declared as 'array of type',,Types1,Medium,
 c,MISRA-C-2012,RULE-13-1,Yes,Required,,,Initializer lists shall not contain persistent side effects,,SideEffects1,Medium,
 c,MISRA-C-2012,RULE-13-2,Yes,Required,,,The value of an expression and its persistent side effects shall be the same under all permitted evaluation orders,PRE31-C,SideEffects3,Medium,
 c,MISRA-C-2012,RULE-13-3,Yes,Advisory,,,A full expression containing an increment (++) or decrement (--) operator should have no other potential side effects other than that caused by the increment or decrement operator,,SideEffects2,Medium,
