@@ -16,9 +16,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.multipleglobalormemberdeclarators_shared.MultipleGlobalOrMemberDeclarators_shared
+import codingstandards.cpp.rules.multipleglobalormemberdeclarators.MultipleGlobalOrMemberDeclarators
 
-class MultipleGlobalOrMemberDeclaratorsQuery extends MultipleGlobalOrMemberDeclarators_sharedSharedQuery
+class MultipleGlobalOrMemberDeclaratorsQuery extends MultipleGlobalOrMemberDeclaratorsSharedQuery
 {
   MultipleGlobalOrMemberDeclaratorsQuery() {
     this = InitializationPackage::multipleGlobalOrMemberDeclaratorsQuery()

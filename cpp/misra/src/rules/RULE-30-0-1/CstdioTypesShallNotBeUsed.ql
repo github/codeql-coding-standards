@@ -15,8 +15,8 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.cstdiotypesused_shared.CstdioTypesUsed_shared
+import codingstandards.cpp.rules.cstdiotypesused.CstdioTypesUsed
 
-class CstdioTypesShallNotBeUsedQuery extends CstdioTypesUsed_sharedSharedQuery {
+class CstdioTypesShallNotBeUsedQuery extends CstdioTypesUsedSharedQuery {
   CstdioTypesShallNotBeUsedQuery() { this = ImportMisra23Package::cstdioTypesShallNotBeUsedQuery() }
 }

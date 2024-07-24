@@ -17,9 +17,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.linesplicingusedincomments_shared.LineSplicingUsedInComments_shared
+import codingstandards.cpp.rules.linesplicingusedincomments.LineSplicingUsedInComments
 
-class SingleLineCommentEndsWithSlashQuery extends LineSplicingUsedInComments_sharedSharedQuery {
+class SingleLineCommentEndsWithSlashQuery extends LineSplicingUsedInCommentsSharedQuery {
   SingleLineCommentEndsWithSlashQuery() {
     this = CommentsPackage::singleLineCommentEndsWithSlashQuery()
   }

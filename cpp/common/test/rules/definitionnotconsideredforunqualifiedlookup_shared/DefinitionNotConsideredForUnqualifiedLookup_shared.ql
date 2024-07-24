@@ -1,5 +1,0 @@
-// GENERATED FILE - DO NOT MODIFY
-import codingstandards.cpp.rules.definitionnotconsideredforunqualifiedlookup_shared.DefinitionNotConsideredForUnqualifiedLookup_shared
-
-class TestFileQuery extends DefinitionNotConsideredForUnqualifiedLookup_sharedSharedQuery, TestQuery
-{ }

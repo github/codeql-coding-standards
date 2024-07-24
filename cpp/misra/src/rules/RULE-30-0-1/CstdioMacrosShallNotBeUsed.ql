@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.cstdiomacrosused_shared.CstdioMacrosUsed_shared
+import codingstandards.cpp.rules.cstdiomacrosused.CstdioMacrosUsed
 
-class CstdioMacrosShallNotBeUsedQuery extends CstdioMacrosUsed_sharedSharedQuery {
+class CstdioMacrosShallNotBeUsedQuery extends CstdioMacrosUsedSharedQuery {
   CstdioMacrosShallNotBeUsedQuery() {
     this = ImportMisra23Package::cstdioMacrosShallNotBeUsedQuery()
   }

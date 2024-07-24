@@ -16,7 +16,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "ExplicitConstructorBaseClassInitialization",
-          "shared_implementation_short_name": "InitializeAllVirtualBaseClasses_shared",
+          "shared_implementation_short_name": "InitializeAllVirtualBaseClasses",
           "tags": [
             "maintainability",
             "correctness"
@@ -305,7 +305,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "ConfusingUseOfInitializerListConstructors",
-          "shared_implementation_short_name": "InitializerListConstructorIsTheOnlyConstructor_shared",
+          "shared_implementation_short_name": "InitializerListConstructorIsTheOnlyConstructor",
           "tags": [
             "readability",
             "maintainability"
@@ -330,7 +330,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "MultipleLocalDeclarators",
-          "shared_implementation_short_name": "MultipleLocalDeclarators_shared",
+          "shared_implementation_short_name": "MultipleLocalDeclarators",
           "tags": [
             "readability",
             "maintainability"
@@ -343,7 +343,7 @@
           "precision": "medium",
           "severity": "recommendation",
           "short_name": "MultipleGlobalOrMemberDeclarators",
-          "shared_implementation_short_name": "MultipleGlobalOrMemberDeclarators_shared",
+          "shared_implementation_short_name": "MultipleGlobalOrMemberDeclarators",
           "tags": [
             "readability",
             "maintainability"

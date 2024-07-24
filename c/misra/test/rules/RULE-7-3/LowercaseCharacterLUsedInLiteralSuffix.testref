@@ -1,1 +1,1 @@
-c/common/test/rules/lowercaselstartsinliteralsuffix_shared/LowercaseLStartsInLiteralSuffix_shared.ql
+c/common/test/rules/lowercaselstartsinliteralsuffix/LowercaseLStartsInLiteralSuffix.ql

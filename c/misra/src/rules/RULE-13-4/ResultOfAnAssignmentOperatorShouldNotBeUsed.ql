@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.resultofanassignmentoperatorshouldnotbeused_shared.ResultOfAnAssignmentOperatorShouldNotBeUsed_shared
+import codingstandards.cpp.rules.resultofanassignmentoperatorshouldnotbeused.ResultOfAnAssignmentOperatorShouldNotBeUsed
 
-class ResultOfAnAssignmentOperatorShouldNotBeUsedQuery extends ResultOfAnAssignmentOperatorShouldNotBeUsed_sharedSharedQuery
+class ResultOfAnAssignmentOperatorShouldNotBeUsedQuery extends ResultOfAnAssignmentOperatorShouldNotBeUsedSharedQuery
 {
   ResultOfAnAssignmentOperatorShouldNotBeUsedQuery() {
     this = SideEffects1Package::resultOfAnAssignmentOperatorShouldNotBeUsedQuery()

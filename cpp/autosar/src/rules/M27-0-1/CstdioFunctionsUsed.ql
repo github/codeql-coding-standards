@@ -17,8 +17,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.cstdiofunctionsused_shared.CstdioFunctionsUsed_shared
+import codingstandards.cpp.rules.cstdiofunctionsused.CstdioFunctionsUsed
 
-class CstdioFunctionsUsedQuery extends CstdioFunctionsUsed_sharedSharedQuery {
+class CstdioFunctionsUsedQuery extends CstdioFunctionsUsedSharedQuery {
   CstdioFunctionsUsedQuery() { this = BannedLibrariesPackage::cstdioFunctionsUsedQuery() }
 }

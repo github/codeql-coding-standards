@@ -1,1 +1,1 @@
-cpp/common/test/rules/virtualandnonvirtualclassinthehierarchy_shared/VirtualAndNonVirtualClassInTheHierarchy_shared.ql
+cpp/common/test/rules/virtualandnonvirtualclassinthehierarchy/VirtualAndNonVirtualClassInTheHierarchy.ql

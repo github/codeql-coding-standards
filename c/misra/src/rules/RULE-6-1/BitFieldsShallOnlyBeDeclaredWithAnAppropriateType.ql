@@ -12,9 +12,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.bitfieldshallhaveanappropriatetype_shared.BitFieldShallHaveAnAppropriateType_shared
+import codingstandards.cpp.rules.bitfieldshallhaveanappropriatetype.BitFieldShallHaveAnAppropriateType
 
-class BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery extends BitFieldShallHaveAnAppropriateType_sharedSharedQuery
+class BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery extends BitFieldShallHaveAnAppropriateTypeSharedQuery
 {
   BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery() {
     this = BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()

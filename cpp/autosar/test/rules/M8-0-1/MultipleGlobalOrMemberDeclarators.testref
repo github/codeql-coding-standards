@@ -1,1 +1,1 @@
-cpp/common/test/rules/multipleglobalormemberdeclarators_shared/MultipleGlobalOrMemberDeclarators_shared.ql
+cpp/common/test/rules/multipleglobalormemberdeclarators/MultipleGlobalOrMemberDeclarators.ql

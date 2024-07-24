@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.globalnamespacedeclarations_shared.GlobalNamespaceDeclarations_shared
+import codingstandards.cpp.rules.globalnamespacedeclarations.GlobalNamespaceDeclarations
 
-class GlobalNamespaceDeclarationsQuery extends GlobalNamespaceDeclarations_sharedSharedQuery {
+class GlobalNamespaceDeclarationsQuery extends GlobalNamespaceDeclarationsSharedQuery {
   GlobalNamespaceDeclarationsQuery() {
     this = ImportMisra23Package::globalNamespaceDeclarationsQuery()
   }

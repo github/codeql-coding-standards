@@ -16,8 +16,8 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.loopcompoundcondition_shared.LoopCompoundCondition_shared
+import codingstandards.cpp.rules.loopcompoundcondition.LoopCompoundCondition
 
-class LoopBodyCompoundConditionQuery extends LoopCompoundCondition_sharedSharedQuery {
+class LoopBodyCompoundConditionQuery extends LoopCompoundConditionSharedQuery {
   LoopBodyCompoundConditionQuery() { this = ImportMisra23Package::loopBodyCompoundConditionQuery() }
 }

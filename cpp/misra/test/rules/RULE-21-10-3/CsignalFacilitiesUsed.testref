@@ -1,1 +1,1 @@
-cpp/common/test/rules/csignalfacilitiesused_shared/CsignalFacilitiesUsed_shared.ql
+cpp/common/test/rules/csignalfacilitiesused/CsignalFacilitiesUsed.ql

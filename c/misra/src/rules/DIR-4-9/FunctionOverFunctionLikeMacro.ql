@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.functionlikemacrosdefined_shared.FunctionLikeMacrosDefined_shared
+import codingstandards.cpp.rules.functionlikemacrosdefined.FunctionLikeMacrosDefined
 
-class FunctionOverFunctionLikeMacroQuery extends FunctionLikeMacrosDefined_sharedSharedQuery {
+class FunctionOverFunctionLikeMacroQuery extends FunctionLikeMacrosDefinedSharedQuery {
   FunctionOverFunctionLikeMacroQuery() {
     this = Preprocessor6Package::functionOverFunctionLikeMacroQuery()
   }

@@ -1,6 +1,0 @@
-// GENERATED FILE - DO NOT MODIFY
-import codingstandards.cpp.rules.unsignedintegerliteralsnotappropriatelysuffixed_shared.UnsignedIntegerLiteralsNotAppropriatelySuffixed_shared
-
-class TestFileQuery extends UnsignedIntegerLiteralsNotAppropriatelySuffixed_sharedSharedQuery,
-  TestQuery
-{ }

@@ -1,1 +1,1 @@
-cpp/common/test/rules/nonglobalfunctionmain_shared/NonGlobalFunctionMain_shared.ql
+cpp/common/test/rules/nonglobalfunctionmain/NonGlobalFunctionMain.ql

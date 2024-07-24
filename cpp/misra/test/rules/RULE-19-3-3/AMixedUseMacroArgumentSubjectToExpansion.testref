@@ -1,1 +1,1 @@
-cpp/common/test/rules/amixedusemacroargumentsubjecttoexpansion_shared/AMixedUseMacroArgumentSubjectToExpansion_shared.ql
+cpp/common/test/rules/amixedusemacroargumentsubjecttoexpansion/AMixedUseMacroArgumentSubjectToExpansion.ql

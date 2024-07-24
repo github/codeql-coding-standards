@@ -53,7 +53,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "OctalAndHexadecimalEscapeSequencesNotTerminated",
-          "shared_implementation_short_name": "NonTerminatedEscapeSequences_shared",
+          "shared_implementation_short_name": "NonTerminatedEscapeSequences",
           "tags": [
             "maintainability",
             "readability",
@@ -138,7 +138,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "LowercaseCharacterLUsedInLiteralSuffix",
-          "shared_implementation_short_name": "LowercaseLStartsInLiteralSuffix_shared",
+          "shared_implementation_short_name": "LowercaseLStartsInLiteralSuffix",
           "tags": [
             "maintainability",
             "readability"

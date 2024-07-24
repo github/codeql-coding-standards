@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.macroparameterfollowinghash_shared.MacroParameterFollowingHash_shared
+import codingstandards.cpp.rules.macroparameterfollowinghash.MacroParameterFollowingHash
 
-class MacroParameterFollowingHashQuery extends MacroParameterFollowingHash_sharedSharedQuery {
+class MacroParameterFollowingHashQuery extends MacroParameterFollowingHashSharedQuery {
   MacroParameterFollowingHashQuery() {
     this = ImportMisra23Package::macroParameterFollowingHashQuery()
   }

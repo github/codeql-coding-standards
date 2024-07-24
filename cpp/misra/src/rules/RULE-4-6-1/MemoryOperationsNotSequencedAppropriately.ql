@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.memoryoperationsnotsequencedappropriately_shared.MemoryOperationsNotSequencedAppropriately_shared
+import codingstandards.cpp.rules.memoryoperationsnotsequencedappropriately.MemoryOperationsNotSequencedAppropriately
 
-class MemoryOperationsNotSequencedAppropriatelyQuery extends MemoryOperationsNotSequencedAppropriately_sharedSharedQuery
+class MemoryOperationsNotSequencedAppropriatelyQuery extends MemoryOperationsNotSequencedAppropriatelySharedQuery
 {
   MemoryOperationsNotSequencedAppropriatelyQuery() {
     this = ImportMisra23Package::memoryOperationsNotSequencedAppropriatelyQuery()

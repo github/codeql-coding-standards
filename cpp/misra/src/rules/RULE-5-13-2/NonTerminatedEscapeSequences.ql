@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.nonterminatedescapesequences_shared.NonTerminatedEscapeSequences_shared
+import codingstandards.cpp.rules.nonterminatedescapesequences.NonTerminatedEscapeSequences
 
-class NonTerminatedEscapeSequencesQuery extends NonTerminatedEscapeSequences_sharedSharedQuery {
+class NonTerminatedEscapeSequencesQuery extends NonTerminatedEscapeSequencesSharedQuery {
   NonTerminatedEscapeSequencesQuery() {
     this = ImportMisra23Package::nonTerminatedEscapeSequencesQuery()
   }

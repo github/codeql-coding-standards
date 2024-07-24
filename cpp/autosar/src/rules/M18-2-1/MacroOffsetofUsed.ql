@@ -15,8 +15,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.macrooffsetofused_shared.MacroOffsetofUsed_shared
+import codingstandards.cpp.rules.macrooffsetofused.MacroOffsetofUsed
 
-class MacroOffsetofUsedQuery extends MacroOffsetofUsed_sharedSharedQuery {
+class MacroOffsetofUsedQuery extends MacroOffsetofUsedSharedQuery {
   MacroOffsetofUsedQuery() { this = BannedFunctionsPackage::macroOffsetofUsedQuery() }
 }

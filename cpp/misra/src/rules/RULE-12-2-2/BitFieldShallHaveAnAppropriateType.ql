@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.bitfieldshallhaveanappropriatetype_shared.BitFieldShallHaveAnAppropriateType_shared
+import codingstandards.cpp.rules.bitfieldshallhaveanappropriatetype.BitFieldShallHaveAnAppropriateType
 
-class BitFieldShallHaveAnAppropriateTypeQuery extends BitFieldShallHaveAnAppropriateType_sharedSharedQuery
+class BitFieldShallHaveAnAppropriateTypeQuery extends BitFieldShallHaveAnAppropriateTypeSharedQuery
 {
   BitFieldShallHaveAnAppropriateTypeQuery() {
     this = ImportMisra23Package::bitFieldShallHaveAnAppropriateTypeQuery()

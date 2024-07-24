@@ -1,1 +1,1 @@
-cpp/common/test/rules/castsbetweenapointertofunctionandanyothertype_shared/CastsBetweenAPointerToFunctionAndAnyOtherType_shared.ql
+cpp/common/test/rules/castsbetweenapointertofunctionandanyothertype/CastsBetweenAPointerToFunctionAndAnyOtherType.ql

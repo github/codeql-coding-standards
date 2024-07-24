@@ -16,8 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.reinterpretcastused_shared.ReinterpretCastUsed_shared
+import codingstandards.cpp.rules.reinterpretcastused.ReinterpretCastUsed
 
-class ReinterpretCastUsedQuery extends ReinterpretCastUsed_sharedSharedQuery {
+class ReinterpretCastUsedQuery extends ReinterpretCastUsedSharedQuery {
   ReinterpretCastUsedQuery() { this = BannedSyntaxPackage::reinterpretCastUsedQuery() }
 }

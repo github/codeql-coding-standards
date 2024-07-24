@@ -1,1 +1,1 @@
-c/common/test/rules/gotostatementshouldnotbeused_shared/GotoStatementShouldNotBeUsed_shared.ql
+c/common/test/rules/gotostatementshouldnotbeused/GotoStatementShouldNotBeUsed.ql

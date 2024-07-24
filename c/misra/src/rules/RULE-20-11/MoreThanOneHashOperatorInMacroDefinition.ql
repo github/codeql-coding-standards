@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.macroparameterfollowinghash_shared.MacroParameterFollowingHash_shared
+import codingstandards.cpp.rules.macroparameterfollowinghash.MacroParameterFollowingHash
 
-class MoreThanOneHashOperatorInMacroDefinitionQuery extends MacroParameterFollowingHash_sharedSharedQuery
+class MoreThanOneHashOperatorInMacroDefinitionQuery extends MacroParameterFollowingHashSharedQuery
 {
   MoreThanOneHashOperatorInMacroDefinitionQuery() {
     this = Preprocessor2Package::moreThanOneHashOperatorInMacroDefinitionQuery()

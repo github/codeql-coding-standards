@@ -1,1 +1,1 @@
-cpp/common/test/rules/nonterminatedescapesequences_shared/NonTerminatedEscapeSequences_shared.ql
+cpp/common/test/rules/nonterminatedescapesequences/NonTerminatedEscapeSequences.ql

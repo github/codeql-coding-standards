@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.linesplicingusedincomments_shared.LineSplicingUsedInComments_shared
+import codingstandards.cpp.rules.linesplicingusedincomments.LineSplicingUsedInComments
 
-class LineSplicingUsedInCommentsQuery extends LineSplicingUsedInComments_sharedSharedQuery {
+class LineSplicingUsedInCommentsQuery extends LineSplicingUsedInCommentsSharedQuery {
   LineSplicingUsedInCommentsQuery() {
     this = ImportMisra23Package::lineSplicingUsedInCommentsQuery()
   }

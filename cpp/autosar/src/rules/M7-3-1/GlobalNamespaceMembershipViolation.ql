@@ -16,9 +16,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.globalnamespacedeclarations_shared.GlobalNamespaceDeclarations_shared
+import codingstandards.cpp.rules.globalnamespacedeclarations.GlobalNamespaceDeclarations
 
-class GlobalNamespaceMembershipViolationQuery extends GlobalNamespaceDeclarations_sharedSharedQuery {
+class GlobalNamespaceMembershipViolationQuery extends GlobalNamespaceDeclarationsSharedQuery {
   GlobalNamespaceMembershipViolationQuery() {
     this = ScopePackage::globalNamespaceMembershipViolationQuery()
   }

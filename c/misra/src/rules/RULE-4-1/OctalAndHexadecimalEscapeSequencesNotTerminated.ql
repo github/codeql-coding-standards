@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.nonterminatedescapesequences_shared.NonTerminatedEscapeSequences_shared
+import codingstandards.cpp.rules.nonterminatedescapesequences.NonTerminatedEscapeSequences
 
-class OctalAndHexadecimalEscapeSequencesNotTerminatedQuery extends NonTerminatedEscapeSequences_sharedSharedQuery
+class OctalAndHexadecimalEscapeSequencesNotTerminatedQuery extends NonTerminatedEscapeSequencesSharedQuery
 {
   OctalAndHexadecimalEscapeSequencesNotTerminatedQuery() {
     this = SyntaxPackage::octalAndHexadecimalEscapeSequencesNotTerminatedQuery()

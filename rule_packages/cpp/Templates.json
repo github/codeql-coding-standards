@@ -112,7 +112,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "ExplicitSpecializationsOfFunctionTemplatesUsed",
-          "shared_implementation_short_name": "FunctionTemplatesExplicitlySpecialized_shared",
+          "shared_implementation_short_name": "FunctionTemplatesExplicitlySpecialized",
           "tags": [
             "maintainability",
             "readability"
@@ -172,7 +172,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "NameNotReferredUsingAQualifiedIdOrThis",
-          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThis_shared",
+          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThis",
           "tags": [
             "maintainability",
             "readability"
@@ -185,7 +185,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit",
-          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit_shared",
+          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit",
           "tags": [
             "maintainability",
             "readability"

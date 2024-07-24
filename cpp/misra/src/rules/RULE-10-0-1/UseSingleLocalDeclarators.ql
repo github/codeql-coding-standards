@@ -15,8 +15,8 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.multiplelocaldeclarators_shared.MultipleLocalDeclarators_shared
+import codingstandards.cpp.rules.multiplelocaldeclarators.MultipleLocalDeclarators
 
-class UseSingleLocalDeclaratorsQuery extends MultipleLocalDeclarators_sharedSharedQuery {
+class UseSingleLocalDeclaratorsQuery extends MultipleLocalDeclaratorsSharedQuery {
   UseSingleLocalDeclaratorsQuery() { this = ImportMisra23Package::useSingleLocalDeclaratorsQuery() }
 }

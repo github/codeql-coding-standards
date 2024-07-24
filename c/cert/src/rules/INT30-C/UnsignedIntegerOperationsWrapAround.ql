@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.rules.unsignedoperationwithconstantoperandswraps_shared.UnsignedOperationWithConstantOperandsWraps_shared
+import codingstandards.cpp.rules.unsignedoperationwithconstantoperandswraps.UnsignedOperationWithConstantOperandsWraps
 
-class UnsignedIntegerOperationsWrapAroundQuery extends UnsignedOperationWithConstantOperandsWraps_sharedSharedQuery
+class UnsignedIntegerOperationsWrapAroundQuery extends UnsignedOperationWithConstantOperandsWrapsSharedQuery
 {
   UnsignedIntegerOperationsWrapAroundQuery() {
     this = IntegerOverflowPackage::unsignedIntegerOperationsWrapAroundQuery()

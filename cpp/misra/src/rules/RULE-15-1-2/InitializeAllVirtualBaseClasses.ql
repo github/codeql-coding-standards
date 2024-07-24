@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.initializeallvirtualbaseclasses_shared.InitializeAllVirtualBaseClasses_shared
+import codingstandards.cpp.rules.initializeallvirtualbaseclasses.InitializeAllVirtualBaseClasses
 
-class InitializeAllVirtualBaseClassesQuery extends InitializeAllVirtualBaseClasses_sharedSharedQuery
+class InitializeAllVirtualBaseClassesQuery extends InitializeAllVirtualBaseClassesSharedQuery
 {
   InitializeAllVirtualBaseClassesQuery() {
     this = ImportMisra23Package::initializeAllVirtualBaseClassesQuery()

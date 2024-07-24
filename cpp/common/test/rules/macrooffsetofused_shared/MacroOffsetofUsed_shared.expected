@@ -1,1 +1,0 @@
-| test.cpp:9:32:9:51 | offsetof(t,d) | Use of banned macro offsetof. |

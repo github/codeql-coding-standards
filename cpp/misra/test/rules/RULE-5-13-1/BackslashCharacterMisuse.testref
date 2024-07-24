@@ -1,1 +1,1 @@
-cpp/common/test/rules/backslashcharactermisuse_shared/BackslashCharacterMisuse_shared.ql
+cpp/common/test/rules/backslashcharactermisuse/BackslashCharacterMisuse.ql

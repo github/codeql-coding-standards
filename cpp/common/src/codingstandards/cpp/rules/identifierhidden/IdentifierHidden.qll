@@ -1,5 +1,8 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library with a `problems` predicate for the following issue:
+ * Use of an identifier declared in an inner scope with an identical name to an
+ * identifier in an outer scope can lead to inadvertent errors if the incorrect
+ * identifier is modified.
  */
 
 import cpp

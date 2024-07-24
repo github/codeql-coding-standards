@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.nonuniqueenumerationconstant_shared.NonUniqueEnumerationConstant_shared
+import codingstandards.cpp.rules.nonuniqueenumerationconstant.NonUniqueEnumerationConstant
 
-class NonUniqueEnumerationConstantQuery extends NonUniqueEnumerationConstant_sharedSharedQuery {
+class NonUniqueEnumerationConstantQuery extends NonUniqueEnumerationConstantSharedQuery {
   NonUniqueEnumerationConstantQuery() {
     this = ImportMisra23Package::nonUniqueEnumerationConstantQuery()
   }

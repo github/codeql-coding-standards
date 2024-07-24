@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.globalsizedoperatordeletenotdefined_shared.GlobalSizedOperatorDeleteNotDefined_shared
+import codingstandards.cpp.rules.globalsizedoperatordeletenotdefined.GlobalSizedOperatorDeleteNotDefined
 
-class GlobalSizedOperatorDeleteShallBeDefinedQuery extends GlobalSizedOperatorDeleteNotDefined_sharedSharedQuery
+class GlobalSizedOperatorDeleteShallBeDefinedQuery extends GlobalSizedOperatorDeleteNotDefinedSharedQuery
 {
   GlobalSizedOperatorDeleteShallBeDefinedQuery() {
     this = ImportMisra23Package::globalSizedOperatorDeleteShallBeDefinedQuery()

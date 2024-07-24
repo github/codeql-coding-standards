@@ -13,8 +13,8 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.atofatoiatolandatollused_shared.AtofAtoiAtolAndAtollUsed_shared
+import codingstandards.cpp.rules.atofatoiatolandatollused.AtofAtoiAtolAndAtollUsed
 
-class AtofAtoiAtolAndAtollUsedQuery extends AtofAtoiAtolAndAtollUsed_sharedSharedQuery {
+class AtofAtoiAtolAndAtollUsedQuery extends AtofAtoiAtolAndAtollUsedSharedQuery {
   AtofAtoiAtolAndAtollUsedQuery() { this = ImportMisra23Package::atofAtoiAtolAndAtollUsedQuery() }
 }

@@ -538,7 +538,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CopyAndMoveAssignmentsShallHandleSelfAssignment",
-          "shared_implementation_short_name": "CopyAndMoveAssignmentsShallHandleSelfAssignment_shared",
+          "shared_implementation_short_name": "CopyAndMoveAssignmentsShallHandleSelfAssignment",
           "tags": []
         }
       ],
@@ -557,7 +557,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "UseSingleLocalDeclarators",
-          "shared_implementation_short_name": "MultipleLocalDeclarators_shared",
+          "shared_implementation_short_name": "MultipleLocalDeclarators",
           "tags": [
             "readability",
             "maintainability",
@@ -571,7 +571,7 @@
           "precision": "medium",
           "severity": "recommendation",
           "short_name": "UseSingleGlobalOrMemberDeclarators",
-          "shared_implementation_short_name": "MultipleGlobalOrMemberDeclarators_shared",
+          "shared_implementation_short_name": "MultipleGlobalOrMemberDeclarators",
           "tags": [
             "readability",
             "maintainability",
@@ -594,7 +594,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "EnumerationNotDefinedWithAnExplicitUnderlyingType",
-          "shared_implementation_short_name": "EnumerationNotDefinedWithAnExplicitUnderlyingType_shared",
+          "shared_implementation_short_name": "EnumerationNotDefinedWithAnExplicitUnderlyingType",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -615,7 +615,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "AsmDeclarationShallNotBeUsed",
-          "shared_implementation_short_name": "AsmDeclarationUsed_shared",
+          "shared_implementation_short_name": "AsmDeclarationUsed",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -636,7 +636,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NonUniqueEnumerationConstant",
-          "shared_implementation_short_name": "NonUniqueEnumerationConstant_shared",
+          "shared_implementation_short_name": "NonUniqueEnumerationConstant",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -657,7 +657,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "BitFieldShallHaveAnAppropriateType",
-          "shared_implementation_short_name": "BitFieldShallHaveAnAppropriateType_shared",
+          "shared_implementation_short_name": "BitFieldShallHaveAnAppropriateType",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -678,7 +678,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "SignedIntegerNamedBitFieldHaveALengthOfOneBit",
-          "shared_implementation_short_name": "NamedBitFieldsWithSignedIntegerType_shared",
+          "shared_implementation_short_name": "NamedBitFieldsWithSignedIntegerType",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -699,7 +699,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "VirtualAndNonVirtualClassInTheHierarchy",
-          "shared_implementation_short_name": "VirtualAndNonVirtualClassInTheHierarchy_shared",
+          "shared_implementation_short_name": "VirtualAndNonVirtualClassInTheHierarchy",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -720,7 +720,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "OverridingShallSpecifyDifferentDefaultArguments",
-          "shared_implementation_short_name": "OverridingShallSpecifyDifferentDefaultArguments_shared",
+          "shared_implementation_short_name": "OverridingShallSpecifyDifferentDefaultArguments",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -741,7 +741,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr",
-          "shared_implementation_short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr_shared",
+          "shared_implementation_short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -762,7 +762,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor",
-          "shared_implementation_short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor_shared",
+          "shared_implementation_short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor",
           "tags": [
             "scope/system"
           ]
@@ -783,7 +783,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "InitializeAllVirtualBaseClasses",
-          "shared_implementation_short_name": "InitializeAllVirtualBaseClasses_shared",
+          "shared_implementation_short_name": "InitializeAllVirtualBaseClasses",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -804,7 +804,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "InitializerListConstructorIsTheOnlyConstructor",
-          "shared_implementation_short_name": "InitializerListConstructorIsTheOnlyConstructor_shared",
+          "shared_implementation_short_name": "InitializerListConstructorIsTheOnlyConstructor",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -825,7 +825,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "AddressOfOperatorOverloaded",
-          "shared_implementation_short_name": "AddressOfOperatorOverloaded_shared",
+          "shared_implementation_short_name": "AddressOfOperatorOverloaded",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -846,7 +846,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "FunctionTemplatesExplicitlySpecialized",
-          "shared_implementation_short_name": "FunctionTemplatesExplicitlySpecialized_shared",
+          "shared_implementation_short_name": "FunctionTemplatesExplicitlySpecialized",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -867,7 +867,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ExceptionObjectHavePointerType",
-          "shared_implementation_short_name": "ExceptionObjectHavePointerType_shared",
+          "shared_implementation_short_name": "ExceptionObjectHavePointerType",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -888,7 +888,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "EmptyThrowOnlyWithinACatchHandler",
-          "shared_implementation_short_name": "EmptyThrowOnlyWithinACatchHandler_shared",
+          "shared_implementation_short_name": "EmptyThrowOnlyWithinACatchHandler",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -909,7 +909,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NoexceptFunctionShouldNotPropagateToTheCaller",
-          "shared_implementation_short_name": "NoexceptFunctionShouldNotPropagateToTheCaller_shared",
+          "shared_implementation_short_name": "NoexceptFunctionShouldNotPropagateToTheCaller",
           "tags": [
             "scope/system"
           ]
@@ -930,7 +930,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "FunctionLikeMacrosDefined",
-          "shared_implementation_short_name": "FunctionLikeMacrosDefined_shared",
+          "shared_implementation_short_name": "FunctionLikeMacrosDefined",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -951,7 +951,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "MacroParameterFollowingHash",
-          "shared_implementation_short_name": "MacroParameterFollowingHash_shared",
+          "shared_implementation_short_name": "MacroParameterFollowingHash",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -972,7 +972,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "AMixedUseMacroArgumentSubjectToExpansion",
-          "shared_implementation_short_name": "AMixedUseMacroArgumentSubjectToExpansion_shared",
+          "shared_implementation_short_name": "AMixedUseMacroArgumentSubjectToExpansion",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -993,7 +993,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CsignalFacilitiesUsed",
-          "shared_implementation_short_name": "CsignalFunctionsUsed_shared",
+          "shared_implementation_short_name": "CsignalFunctionsUsed",
           "tags": [
             "maintainability",
             "correctness",
@@ -1007,7 +1007,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CsignalTypesShallNotBeUsed",
-          "shared_implementation_short_name": "CsignalTypesUsed_shared",
+          "shared_implementation_short_name": "CsignalTypesUsed",
           "tags": [
             "maintainability",
             "correctness",
@@ -1030,7 +1030,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "AtofAtoiAtolAndAtollUsed",
-          "shared_implementation_short_name": "AtofAtoiAtolAndAtollUsed_shared",
+          "shared_implementation_short_name": "AtofAtoiAtolAndAtollUsed",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1051,7 +1051,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "MacroOffsetofShallNotBeUsed",
-          "shared_implementation_short_name": "MacroOffsetofUsed_shared",
+          "shared_implementation_short_name": "MacroOffsetofUsed",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1072,7 +1072,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GlobalSizedOperatorDeleteShallBeDefined",
-          "shared_implementation_short_name": "GlobalSizedOperatorDeleteNotDefined_shared",
+          "shared_implementation_short_name": "GlobalSizedOperatorDeleteNotDefined",
           "tags": [
             "maintainability",
             "scope/system"
@@ -1085,7 +1085,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GlobalUnsizedOperatorDeleteShallBeDefined",
-          "shared_implementation_short_name": "GlobalUnsizedOperatorDeleteNotDefined_shared",
+          "shared_implementation_short_name": "GlobalUnsizedOperatorDeleteNotDefined",
           "tags": [
             "maintainability",
             "scope/system"
@@ -1107,7 +1107,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "VectorShouldNotBeSpecializedWithBool",
-          "shared_implementation_short_name": "VectorShouldNotBeSpecializedWithBool_shared",
+          "shared_implementation_short_name": "VectorShouldNotBeSpecializedWithBool",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1128,7 +1128,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ForwardingReferencesAndForwardNotUsedTogether",
-          "shared_implementation_short_name": "ForwardingReferencesAndForwardNotUsedTogether_shared",
+          "shared_implementation_short_name": "ForwardingReferencesAndForwardNotUsedTogether",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1149,7 +1149,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CstdioFunctionsShallNotBeUsed",
-          "shared_implementation_short_name": "CstdioFunctionsUsed_shared",
+          "shared_implementation_short_name": "CstdioFunctionsUsed",
           "tags": [
             "maintainability",
             "correctness",
@@ -1163,7 +1163,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CstdioMacrosShallNotBeUsed",
-          "shared_implementation_short_name": "CstdioMacrosUsed_shared",
+          "shared_implementation_short_name": "CstdioMacrosUsed",
           "tags": [
             "maintainability",
             "correctness",
@@ -1177,7 +1177,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "CstdioTypesShallNotBeUsed",
-          "shared_implementation_short_name": "CstdioTypesUsed_shared",
+          "shared_implementation_short_name": "CstdioTypesUsed",
           "tags": [
             "maintainability",
             "correctness",
@@ -1200,7 +1200,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "MemoryOperationsNotSequencedAppropriately",
-          "shared_implementation_short_name": "MemoryOperationsNotSequencedAppropriately_shared",
+          "shared_implementation_short_name": "MemoryOperationsNotSequencedAppropriately",
           "tags": [
             "scope/system"
           ]
@@ -1221,7 +1221,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "BackslashCharacterMisuse",
-          "shared_implementation_short_name": "BackslashCharacterMisuse_shared",
+          "shared_implementation_short_name": "BackslashCharacterMisuse",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1242,7 +1242,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NonTerminatedEscapeSequences",
-          "shared_implementation_short_name": "NonTerminatedEscapeSequences_shared",
+          "shared_implementation_short_name": "NonTerminatedEscapeSequences",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1263,7 +1263,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "OctalConstantsUsed",
-          "shared_implementation_short_name": "UseOfNonZeroOctalLiteral_shared",
+          "shared_implementation_short_name": "UseOfNonZeroOctalLiteral",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1284,7 +1284,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnsignedIntegerLiteralsNotAppropriatelySuffixed",
-          "shared_implementation_short_name": "UnsignedIntegerLiteralsNotAppropriatelySuffixed_shared",
+          "shared_implementation_short_name": "UnsignedIntegerLiteralsNotAppropriatelySuffixed",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1305,7 +1305,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "LowercaseLStartsInLiteralSuffix",
-          "shared_implementation_short_name": "LowercaseLStartsInLiteralSuffix_shared",
+          "shared_implementation_short_name": "LowercaseLStartsInLiteralSuffix",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1326,7 +1326,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CharacterSequenceUsedWithinACStyleComment",
-          "shared_implementation_short_name": "CharacterSequenceUsedWithinACStyleComment_shared",
+          "shared_implementation_short_name": "CharacterSequenceUsedWithinACStyleComment",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1347,7 +1347,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "LineSplicingUsedInComments",
-          "shared_implementation_short_name": "LineSplicingUsedInComments_shared",
+          "shared_implementation_short_name": "LineSplicingUsedInComments",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1368,7 +1368,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GlobalNamespaceDeclarations",
-          "shared_implementation_short_name": "GlobalNamespaceDeclarations_shared",
+          "shared_implementation_short_name": "GlobalNamespaceDeclarations",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1389,7 +1389,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NonGlobalFunctionMain",
-          "shared_implementation_short_name": "NonGlobalFunctionMain_shared",
+          "shared_implementation_short_name": "NonGlobalFunctionMain",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1410,7 +1410,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "InheritedNonOverridableMemberFunction",
-          "shared_implementation_short_name": "HiddenInheritedNonOverridableMemberFunction_shared",
+          "shared_implementation_short_name": "HiddenInheritedNonOverridableMemberFunction",
           "tags": [
             "correctness",
             "scope/single-translation-unit"
@@ -1423,7 +1423,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "InheritedOverridableMemberFunction",
-          "shared_implementation_short_name": "HiddenInheritedOverridableMemberFunction_shared",
+          "shared_implementation_short_name": "HiddenInheritedOverridableMemberFunction",
           "tags": [
             "correctness",
             "scope/single-translation-unit"
@@ -1436,7 +1436,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DefinitionShallBeConsideredForUnqualifiedLookup",
-          "shared_implementation_short_name": "DefinitionNotConsideredForUnqualifiedLookup_shared",
+          "shared_implementation_short_name": "DefinitionNotConsideredForUnqualifiedLookup",
           "tags": [
             "correctness",
             "scope/single-translation-unit"
@@ -1458,7 +1458,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "NameShallBeReferredUsingAQualifiedIdOrThis",
-          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThis_shared",
+          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThis",
           "tags": [
             "maintainability",
             "readability",
@@ -1472,7 +1472,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "NameShallBeReferredUsingAQualifiedIdOrThisAudit",
-          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit_shared",
+          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit",
           "tags": [
             "maintainability",
             "readability",
@@ -1495,7 +1495,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ReturnReferenceOrPointerToAutomaticLocalVariable",
-          "shared_implementation_short_name": "ReturnReferenceOrPointerToAutomaticLocalVariable_shared",
+          "shared_implementation_short_name": "ReturnReferenceOrPointerToAutomaticLocalVariable",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1516,7 +1516,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NullptrNotTheOnlyFormOfTheNullPointerConstant",
-          "shared_implementation_short_name": "NullptrNotTheOnlyFormOfTheNullPointerConstant_shared",
+          "shared_implementation_short_name": "NullptrNotTheOnlyFormOfTheNullPointerConstant",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1537,7 +1537,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ArrayPassedAsFunctionArgumentDecayToAPointer",
-          "shared_implementation_short_name": "ArrayPassedAsFunctionArgumentDecayToAPointer_shared",
+          "shared_implementation_short_name": "ArrayPassedAsFunctionArgumentDecayToAPointer",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1558,7 +1558,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed",
-          "shared_implementation_short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed_shared",
+          "shared_implementation_short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1579,7 +1579,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "FunctionsCallThemselvesEitherDirectlyOrIndirectly",
-          "shared_implementation_short_name": "FunctionsCallThemselvesEitherDirectlyOrIndirectly_shared",
+          "shared_implementation_short_name": "FunctionsCallThemselvesEitherDirectlyOrIndirectly",
           "tags": [
             "scope/system"
           ]
@@ -1600,7 +1600,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType",
-          "shared_implementation_short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType_shared",
+          "shared_implementation_short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1621,7 +1621,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ReinterpretCastShallNotBeUsed",
-          "shared_implementation_short_name": "ReinterpretCastUsed_shared",
+          "shared_implementation_short_name": "ReinterpretCastUsed",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1642,7 +1642,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnsignedOperationWithConstantOperandsWraps",
-          "shared_implementation_short_name": "UnsignedOperationWithConstantOperandsWraps_shared",
+          "shared_implementation_short_name": "UnsignedOperationWithConstantOperandsWraps",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1663,7 +1663,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "BuiltInUnaryOperatorAppliedToUnsignedExpression",
-          "shared_implementation_short_name": "BuiltInUnaryOperatorAppliedToUnsignedExpression_shared",
+          "shared_implementation_short_name": "BuiltInUnaryOperatorAppliedToUnsignedExpression",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1684,7 +1684,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "SwitchBodyCompoundCondition",
-          "shared_implementation_short_name": "SwitchCompoundCondition_shared",
+          "shared_implementation_short_name": "SwitchCompoundCondition",
           "tags": [
             "maintainability",
             "readability",
@@ -1698,7 +1698,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "LoopBodyCompoundCondition",
-          "shared_implementation_short_name": "LoopCompoundCondition_shared",
+          "shared_implementation_short_name": "LoopCompoundCondition",
           "tags": [
             "maintainability",
             "readability",
@@ -1721,7 +1721,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GotoStatementShouldNotBeUsed",
-          "shared_implementation_short_name": "GotoStatementShouldNotBeUsed_shared",
+          "shared_implementation_short_name": "GotoStatementShouldNotBeUsed",
           "tags": [
             "scope/single-translation-unit"
           ]
@@ -1742,7 +1742,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GotoReferenceALabelInSurroundingBlock",
-          "shared_implementation_short_name": "GotoReferenceALabelInSurroundingBlock_shared",
+          "shared_implementation_short_name": "GotoReferenceALabelInSurroundingBlock",
           "tags": [
             "scope/single-translation-unit"
           ]

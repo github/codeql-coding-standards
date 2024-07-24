@@ -16,9 +16,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.nullptrnottheonlyformofthenullpointerconstant_shared.NullptrNotTheOnlyFormOfTheNullPointerConstant_shared
+import codingstandards.cpp.rules.nullptrnottheonlyformofthenullpointerconstant.NullptrNotTheOnlyFormOfTheNullPointerConstant
 
-class NullPointerConstantNotNullptrQuery extends NullptrNotTheOnlyFormOfTheNullPointerConstant_sharedSharedQuery
+class NullPointerConstantNotNullptrQuery extends NullptrNotTheOnlyFormOfTheNullPointerConstantSharedQuery
 {
   NullPointerConstantNotNullptrQuery() {
     this = LiteralsPackage::nullPointerConstantNotNullptrQuery()

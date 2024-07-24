@@ -245,7 +245,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "AtofAtoiAtolAndAtollOfStdlibhUsed",
-          "shared_implementation_short_name": "AtofAtoiAtolAndAtollUsed_shared",
+          "shared_implementation_short_name": "AtofAtoiAtolAndAtollUsed",
           "tags": [
             "correctness"
           ]
@@ -338,7 +338,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "OctalConstantsUsed",
-          "shared_implementation_short_name": "UseOfNonZeroOctalLiteral_shared",
+          "shared_implementation_short_name": "UseOfNonZeroOctalLiteral",
           "tags": [
             "readability",
             "correctness",

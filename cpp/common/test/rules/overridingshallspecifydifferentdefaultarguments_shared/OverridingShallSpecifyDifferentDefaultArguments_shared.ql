@@ -1,6 +1,0 @@
-// GENERATED FILE - DO NOT MODIFY
-import codingstandards.cpp.rules.overridingshallspecifydifferentdefaultarguments_shared.OverridingShallSpecifyDifferentDefaultArguments_shared
-
-class TestFileQuery extends OverridingShallSpecifyDifferentDefaultArguments_sharedSharedQuery,
-  TestQuery
-{ }

@@ -1,1 +1,1 @@
-cpp/common/test/rules/reinterpretcastused_shared/ReinterpretCastUsed_shared.ql
+cpp/common/test/rules/reinterpretcastused/ReinterpretCastUsed.ql

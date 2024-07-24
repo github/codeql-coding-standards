@@ -15,8 +15,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.asmdeclarationused_shared.AsmDeclarationUsed_shared
+import codingstandards.cpp.rules.asmdeclarationused.AsmDeclarationUsed
 
-class AsmDeclarationUsedQuery extends AsmDeclarationUsed_sharedSharedQuery {
+class AsmDeclarationUsedQuery extends AsmDeclarationUsedSharedQuery {
   AsmDeclarationUsedQuery() { this = BannedSyntaxPackage::asmDeclarationUsedQuery() }
 }

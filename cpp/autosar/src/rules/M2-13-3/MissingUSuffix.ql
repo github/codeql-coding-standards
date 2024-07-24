@@ -18,8 +18,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.unsignedintegerliteralsnotappropriatelysuffixed_shared.UnsignedIntegerLiteralsNotAppropriatelySuffixed_shared
+import codingstandards.cpp.rules.unsignedintegerliteralsnotappropriatelysuffixed.UnsignedIntegerLiteralsNotAppropriatelySuffixed
 
-class MissingUSuffixQuery extends UnsignedIntegerLiteralsNotAppropriatelySuffixed_sharedSharedQuery {
+class MissingUSuffixQuery extends UnsignedIntegerLiteralsNotAppropriatelySuffixedSharedQuery {
   MissingUSuffixQuery() { this = LiteralsPackage::missingUSuffixQuery() }
 }

@@ -1,1 +1,1 @@
-cpp/common/test/rules/loopcompoundcondition_shared/LoopCompoundCondition_shared.ql
+cpp/common/test/rules/loopcompoundcondition/LoopCompoundCondition.ql

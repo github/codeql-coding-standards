@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.amixedusemacroargumentsubjecttoexpansion_shared.AMixedUseMacroArgumentSubjectToExpansion_shared
+import codingstandards.cpp.rules.amixedusemacroargumentsubjecttoexpansion.AMixedUseMacroArgumentSubjectToExpansion
 
-class AMixedUseMacroArgumentSubjectToExpansionQuery extends AMixedUseMacroArgumentSubjectToExpansion_sharedSharedQuery
+class AMixedUseMacroArgumentSubjectToExpansionQuery extends AMixedUseMacroArgumentSubjectToExpansionSharedQuery
 {
   AMixedUseMacroArgumentSubjectToExpansionQuery() {
     this = ImportMisra23Package::aMixedUseMacroArgumentSubjectToExpansionQuery()

@@ -1,1 +1,1 @@
-cpp/common/test/rules/functiontemplatesexplicitlyspecialized_shared/FunctionTemplatesExplicitlySpecialized_shared.ql
+cpp/common/test/rules/functiontemplatesexplicitlyspecialized/FunctionTemplatesExplicitlySpecialized.ql

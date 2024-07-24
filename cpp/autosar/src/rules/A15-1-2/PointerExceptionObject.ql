@@ -15,8 +15,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.exceptionobjecthavepointertype_shared.ExceptionObjectHavePointerType_shared
+import codingstandards.cpp.rules.exceptionobjecthavepointertype.ExceptionObjectHavePointerType
 
-class PointerExceptionObjectQuery extends ExceptionObjectHavePointerType_sharedSharedQuery {
+class PointerExceptionObjectQuery extends ExceptionObjectHavePointerTypeSharedQuery {
   PointerExceptionObjectQuery() { this = Exceptions1Package::pointerExceptionObjectQuery() }
 }

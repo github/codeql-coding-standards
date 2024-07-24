@@ -16,7 +16,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "SingleLineCommentEndsWithSlash",
-          "shared_implementation_short_name": "LineSplicingUsedInComments_shared",
+          "shared_implementation_short_name": "LineSplicingUsedInComments",
           "tags": [
             "correctness",
             "readability",
@@ -95,7 +95,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "SlashStarUsedWithinACStyleComment",
-          "shared_implementation_short_name": "CharacterSequenceUsedWithinACStyleComment_shared",
+          "shared_implementation_short_name": "CharacterSequenceUsedWithinACStyleComment",
           "tags": [
             "maintainability",
             "readability",

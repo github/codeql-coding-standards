@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.atofatoiatolandatollused_shared.AtofAtoiAtolAndAtollUsed_shared
+import codingstandards.cpp.rules.atofatoiatolandatollused.AtofAtoiAtolAndAtollUsed
 
-class AtofAtoiAtolAndAtollOfStdlibhUsedQuery extends AtofAtoiAtolAndAtollUsed_sharedSharedQuery {
+class AtofAtoiAtolAndAtollOfStdlibhUsedQuery extends AtofAtoiAtolAndAtollUsedSharedQuery {
   AtofAtoiAtolAndAtollOfStdlibhUsedQuery() {
     this = BannedPackage::atofAtoiAtolAndAtollOfStdlibhUsedQuery()
   }

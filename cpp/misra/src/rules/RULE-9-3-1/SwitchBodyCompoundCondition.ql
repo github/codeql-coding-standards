@@ -16,9 +16,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.switchcompoundcondition_shared.SwitchCompoundCondition_shared
+import codingstandards.cpp.rules.switchcompoundcondition.SwitchCompoundCondition
 
-class SwitchBodyCompoundConditionQuery extends SwitchCompoundCondition_sharedSharedQuery {
+class SwitchBodyCompoundConditionQuery extends SwitchCompoundConditionSharedQuery {
   SwitchBodyCompoundConditionQuery() {
     this = ImportMisra23Package::switchBodyCompoundConditionQuery()
   }

@@ -1,1 +1,1 @@
-cpp/common/test/rules/macroparameterfollowinghash_shared/MacroParameterFollowingHash_shared.ql
+cpp/common/test/rules/macroparameterfollowinghash/MacroParameterFollowingHash.ql

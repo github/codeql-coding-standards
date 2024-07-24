@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.addressofoperatoroverloaded_shared.AddressOfOperatorOverloaded_shared
+import codingstandards.cpp.rules.addressofoperatoroverloaded.AddressOfOperatorOverloaded
 
-class AddressOfOperatorOverloadedQuery extends AddressOfOperatorOverloaded_sharedSharedQuery {
+class AddressOfOperatorOverloadedQuery extends AddressOfOperatorOverloadedSharedQuery {
   AddressOfOperatorOverloadedQuery() {
     this = ImportMisra23Package::addressOfOperatorOverloadedQuery()
   }

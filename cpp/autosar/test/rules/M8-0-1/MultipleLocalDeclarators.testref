@@ -1,1 +1,1 @@
-cpp/common/test/rules/multiplelocaldeclarators_shared/MultipleLocalDeclarators_shared.ql
+cpp/common/test/rules/multiplelocaldeclarators/MultipleLocalDeclarators.ql

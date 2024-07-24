@@ -12,7 +12,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GotoStatementUsed",
-          "shared_implementation_short_name": "GotoStatementShouldNotBeUsed_shared",
+          "shared_implementation_short_name": "GotoStatementShouldNotBeUsed",
           "tags": [
             "correctness",
             "security"

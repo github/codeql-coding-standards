@@ -13,8 +13,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.addressofoperatoroverloaded_shared.AddressOfOperatorOverloaded_shared
+import codingstandards.cpp.rules.addressofoperatoroverloaded.AddressOfOperatorOverloaded
 
-class UnaryOperatorOverloadedQuery extends AddressOfOperatorOverloaded_sharedSharedQuery {
+class UnaryOperatorOverloadedQuery extends AddressOfOperatorOverloadedSharedQuery {
   UnaryOperatorOverloadedQuery() { this = OperatorsPackage::unaryOperatorOverloadedQuery() }
 }

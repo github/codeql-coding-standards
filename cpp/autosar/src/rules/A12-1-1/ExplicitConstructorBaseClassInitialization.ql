@@ -16,9 +16,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.initializeallvirtualbaseclasses_shared.InitializeAllVirtualBaseClasses_shared
+import codingstandards.cpp.rules.initializeallvirtualbaseclasses.InitializeAllVirtualBaseClasses
 
-class ExplicitConstructorBaseClassInitializationQuery extends InitializeAllVirtualBaseClasses_sharedSharedQuery
+class ExplicitConstructorBaseClassInitializationQuery extends InitializeAllVirtualBaseClassesSharedQuery
 {
   ExplicitConstructorBaseClassInitializationQuery() {
     this = InitializationPackage::explicitConstructorBaseClassInitializationQuery()

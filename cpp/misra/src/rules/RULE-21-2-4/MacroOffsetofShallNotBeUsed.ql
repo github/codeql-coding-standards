@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.macrooffsetofused_shared.MacroOffsetofUsed_shared
+import codingstandards.cpp.rules.macrooffsetofused.MacroOffsetofUsed
 
-class MacroOffsetofShallNotBeUsedQuery extends MacroOffsetofUsed_sharedSharedQuery {
+class MacroOffsetofShallNotBeUsedQuery extends MacroOffsetofUsedSharedQuery {
   MacroOffsetofShallNotBeUsedQuery() {
     this = ImportMisra23Package::macroOffsetofShallNotBeUsedQuery()
   }

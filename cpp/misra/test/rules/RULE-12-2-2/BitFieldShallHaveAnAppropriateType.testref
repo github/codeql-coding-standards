@@ -1,1 +1,1 @@
-cpp/common/test/rules/bitfieldshallhaveanappropriatetype_shared/BitFieldShallHaveAnAppropriateType_shared.ql
+cpp/common/test/rules/bitfieldshallhaveanappropriatetype/BitFieldShallHaveAnAppropriateType.ql

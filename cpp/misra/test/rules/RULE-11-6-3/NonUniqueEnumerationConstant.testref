@@ -1,1 +1,1 @@
-cpp/common/test/rules/nonuniqueenumerationconstant_shared/NonUniqueEnumerationConstant_shared.ql
+cpp/common/test/rules/nonuniqueenumerationconstant/NonUniqueEnumerationConstant.ql

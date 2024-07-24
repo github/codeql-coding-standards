@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.csignaltypesused_shared.CsignalTypesUsed_shared
+import codingstandards.cpp.rules.csignaltypesused.CsignalTypesUsed
 
-class CsignalTypesShallNotBeUsedQuery extends CsignalTypesUsed_sharedSharedQuery {
+class CsignalTypesShallNotBeUsedQuery extends CsignalTypesUsedSharedQuery {
   CsignalTypesShallNotBeUsedQuery() {
     this = ImportMisra23Package::csignalTypesShallNotBeUsedQuery()
   }

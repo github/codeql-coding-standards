@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.globalsizedoperatordeletenotdefined_shared.GlobalSizedOperatorDeleteNotDefined_shared
+import codingstandards.cpp.rules.globalsizedoperatordeletenotdefined.GlobalSizedOperatorDeleteNotDefined
 
-class GlobalSizedOperatorDeleteNotDefinedQuery extends GlobalSizedOperatorDeleteNotDefined_sharedSharedQuery
+class GlobalSizedOperatorDeleteNotDefinedQuery extends GlobalSizedOperatorDeleteNotDefinedSharedQuery
 {
   GlobalSizedOperatorDeleteNotDefinedQuery() {
     this = DeclarationsPackage::globalSizedOperatorDeleteNotDefinedQuery()

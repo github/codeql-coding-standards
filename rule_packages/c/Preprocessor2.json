@@ -12,7 +12,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "MoreThanOneHashOperatorInMacroDefinition",
-          "shared_implementation_short_name": "MacroParameterFollowingHash_shared",
+          "shared_implementation_short_name": "MacroParameterFollowingHash",
           "tags": [
             "correctness"
           ],
@@ -36,7 +36,7 @@
           "precision": "high",
           "severity": "warning",
           "short_name": "MacroParameterUsedAsHashOperand",
-          "shared_implementation_short_name": "AMixedUseMacroArgumentSubjectToExpansion_shared",
+          "shared_implementation_short_name": "AMixedUseMacroArgumentSubjectToExpansion",
           "tags": [
             "maintainability",
             "readability"

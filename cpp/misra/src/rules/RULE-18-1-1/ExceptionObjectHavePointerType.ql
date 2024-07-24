@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.exceptionobjecthavepointertype_shared.ExceptionObjectHavePointerType_shared
+import codingstandards.cpp.rules.exceptionobjecthavepointertype.ExceptionObjectHavePointerType
 
-class ExceptionObjectHavePointerTypeQuery extends ExceptionObjectHavePointerType_sharedSharedQuery {
+class ExceptionObjectHavePointerTypeQuery extends ExceptionObjectHavePointerTypeSharedQuery {
   ExceptionObjectHavePointerTypeQuery() {
     this = ImportMisra23Package::exceptionObjectHavePointerTypeQuery()
   }

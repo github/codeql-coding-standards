@@ -12,7 +12,7 @@
           "precision": "medium",
           "severity": "recommendation",
           "short_name": "FunctionOverFunctionLikeMacro",
-          "shared_implementation_short_name": "FunctionLikeMacrosDefined_shared",
+          "shared_implementation_short_name": "FunctionLikeMacrosDefined",
           "tags": [
             "external/misra/audit",
             "maintainability",

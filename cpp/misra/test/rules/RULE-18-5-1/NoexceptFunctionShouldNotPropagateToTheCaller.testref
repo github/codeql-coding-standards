@@ -1,1 +1,1 @@
-cpp/common/test/rules/noexceptfunctionshouldnotpropagatetothecaller_shared/NoexceptFunctionShouldNotPropagateToTheCaller_shared.ql
+cpp/common/test/rules/noexceptfunctionshouldnotpropagatetothecaller/NoexceptFunctionShouldNotPropagateToTheCaller.ql

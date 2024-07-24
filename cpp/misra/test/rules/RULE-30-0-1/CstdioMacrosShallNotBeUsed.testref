@@ -1,1 +1,1 @@
-cpp/common/test/rules/cstdiomacrosused_shared/CstdioMacrosUsed_shared.ql
+cpp/common/test/rules/cstdiomacrosused/CstdioMacrosUsed.ql

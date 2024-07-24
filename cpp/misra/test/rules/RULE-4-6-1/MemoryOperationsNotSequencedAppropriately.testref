@@ -1,1 +1,1 @@
-cpp/common/test/rules/memoryoperationsnotsequencedappropriately_shared/MemoryOperationsNotSequencedAppropriately_shared.ql
+cpp/common/test/rules/memoryoperationsnotsequencedappropriately/MemoryOperationsNotSequencedAppropriately.ql

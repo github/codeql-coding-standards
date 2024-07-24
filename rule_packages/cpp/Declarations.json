@@ -50,7 +50,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GlobalSizedOperatorDeleteNotDefined",
-          "shared_implementation_short_name": "GlobalSizedOperatorDeleteNotDefined_shared",
+          "shared_implementation_short_name": "GlobalSizedOperatorDeleteNotDefined",
           "tags": [
             "maintainability"
           ]
@@ -62,7 +62,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "GlobalUnsizedOperatorDeleteNotDefined",
-          "shared_implementation_short_name": "GlobalUnsizedOperatorDeleteNotDefined_shared",
+          "shared_implementation_short_name": "GlobalUnsizedOperatorDeleteNotDefined",
           "tags": [
             "maintainability"
           ]
@@ -218,7 +218,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "EnumerationUnderlyingBaseTypeNotExplicitlyDefined",
-          "shared_implementation_short_name": "EnumerationNotDefinedWithAnExplicitUnderlyingType_shared",
+          "shared_implementation_short_name": "EnumerationNotDefinedWithAnExplicitUnderlyingType",
           "tags": [
             "readability",
             "maintainability"

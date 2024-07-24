@@ -1,1 +1,1 @@
-cpp/common/test/rules/macrooffsetofused_shared/MacroOffsetofUsed_shared.ql
+cpp/common/test/rules/macrooffsetofused/MacroOffsetofUsed.ql

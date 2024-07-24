@@ -1,1 +1,1 @@
-cpp/common/test/rules/globalnamespacedeclarations_shared/GlobalNamespaceDeclarations_shared.ql
+cpp/common/test/rules/globalnamespacedeclarations/GlobalNamespaceDeclarations.ql

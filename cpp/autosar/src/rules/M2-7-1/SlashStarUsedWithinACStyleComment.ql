@@ -16,9 +16,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.charactersequenceusedwithinacstylecomment_shared.CharacterSequenceUsedWithinACStyleComment_shared
+import codingstandards.cpp.rules.charactersequenceusedwithinacstylecomment.CharacterSequenceUsedWithinACStyleComment
 
-class SlashStarUsedWithinACStyleCommentQuery extends CharacterSequenceUsedWithinACStyleComment_sharedSharedQuery
+class SlashStarUsedWithinACStyleCommentQuery extends CharacterSequenceUsedWithinACStyleCommentSharedQuery
 {
   SlashStarUsedWithinACStyleCommentQuery() {
     this = CommentsPackage::slashStarUsedWithinACStyleCommentQuery()

@@ -1,1 +1,1 @@
-cpp/common/test/rules/returnreferenceorpointertoautomaticlocalvariable_shared/ReturnReferenceOrPointerToAutomaticLocalVariable_shared.ql
+cpp/common/test/rules/returnreferenceorpointertoautomaticlocalvariable/ReturnReferenceOrPointerToAutomaticLocalVariable.ql

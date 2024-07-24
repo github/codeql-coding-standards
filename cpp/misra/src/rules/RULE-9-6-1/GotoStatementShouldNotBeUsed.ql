@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.gotostatementshouldnotbeused_shared.GotoStatementShouldNotBeUsed_shared
+import codingstandards.cpp.rules.gotostatementshouldnotbeused.GotoStatementShouldNotBeUsed
 
-class GotoStatementShouldNotBeUsedQuery extends GotoStatementShouldNotBeUsed_sharedSharedQuery {
+class GotoStatementShouldNotBeUsedQuery extends GotoStatementShouldNotBeUsedSharedQuery {
   GotoStatementShouldNotBeUsedQuery() {
     this = ImportMisra23Package::gotoStatementShouldNotBeUsedQuery()
   }

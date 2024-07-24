@@ -14,8 +14,8 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.nonglobalfunctionmain_shared.NonGlobalFunctionMain_shared
+import codingstandards.cpp.rules.nonglobalfunctionmain.NonGlobalFunctionMain
 
-class NonGlobalFunctionMainQuery extends NonGlobalFunctionMain_sharedSharedQuery {
+class NonGlobalFunctionMainQuery extends NonGlobalFunctionMainSharedQuery {
   NonGlobalFunctionMainQuery() { this = ImportMisra23Package::nonGlobalFunctionMainQuery() }
 }

@@ -15,8 +15,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.emptythrowonlywithinacatchhandler_shared.EmptyThrowOnlyWithinACatchHandler_shared
+import codingstandards.cpp.rules.emptythrowonlywithinacatchhandler.EmptyThrowOnlyWithinACatchHandler
 
-class EmptyThrowOutsideCatchQuery extends EmptyThrowOnlyWithinACatchHandler_sharedSharedQuery {
+class EmptyThrowOutsideCatchQuery extends EmptyThrowOnlyWithinACatchHandlerSharedQuery {
   EmptyThrowOutsideCatchQuery() { this = Exceptions1Package::emptyThrowOutsideCatchQuery() }
 }

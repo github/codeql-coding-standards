@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.memoryoperationsnotsequencedappropriately_shared.MemoryOperationsNotSequencedAppropriately_shared
+import codingstandards.cpp.rules.memoryoperationsnotsequencedappropriately.MemoryOperationsNotSequencedAppropriately
 
-class UnsequencedSideEffectsQuery extends MemoryOperationsNotSequencedAppropriately_sharedSharedQuery
+class UnsequencedSideEffectsQuery extends MemoryOperationsNotSequencedAppropriatelySharedQuery
 {
   UnsequencedSideEffectsQuery() { this = SideEffects3Package::unsequencedSideEffectsQuery() }
 }

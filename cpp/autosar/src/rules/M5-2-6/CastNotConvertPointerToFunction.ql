@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.castsbetweenapointertofunctionandanyothertype_shared.CastsBetweenAPointerToFunctionAndAnyOtherType_shared
+import codingstandards.cpp.rules.castsbetweenapointertofunctionandanyothertype.CastsBetweenAPointerToFunctionAndAnyOtherType
 
-class CastNotConvertPointerToFunctionQuery extends CastsBetweenAPointerToFunctionAndAnyOtherType_sharedSharedQuery
+class CastNotConvertPointerToFunctionQuery extends CastsBetweenAPointerToFunctionAndAnyOtherTypeSharedQuery
 {
   CastNotConvertPointerToFunctionQuery() {
     this = PointersPackage::castNotConvertPointerToFunctionQuery()

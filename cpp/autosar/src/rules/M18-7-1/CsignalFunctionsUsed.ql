@@ -16,8 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.csignalfunctionsused_shared.CsignalFunctionsUsed_shared
+import codingstandards.cpp.rules.csignalfunctionsused.CsignalFunctionsUsed
 
-class CsignalFunctionsUsedQuery extends CsignalFunctionsUsed_sharedSharedQuery {
+class CsignalFunctionsUsedQuery extends CsignalFunctionsUsedSharedQuery {
   CsignalFunctionsUsedQuery() { this = BannedLibrariesPackage::csignalFunctionsUsedQuery() }
 }

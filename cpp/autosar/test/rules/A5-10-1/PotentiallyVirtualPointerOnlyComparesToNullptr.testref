@@ -1,1 +1,1 @@
-cpp/common/test/rules/potentiallyvirtualpointeronlycomparestonullptr_shared/PotentiallyVirtualPointerOnlyComparesToNullptr_shared.ql
+cpp/common/test/rules/potentiallyvirtualpointeronlycomparestonullptr/PotentiallyVirtualPointerOnlyComparesToNullptr.ql

@@ -13,8 +13,8 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.useofnonzerooctalliteral_shared.UseOfNonZeroOctalLiteral_shared
+import codingstandards.cpp.rules.useofnonzerooctalliteral.UseOfNonZeroOctalLiteral
 
-class OctalConstantsUsedQuery extends UseOfNonZeroOctalLiteral_sharedSharedQuery {
+class OctalConstantsUsedQuery extends UseOfNonZeroOctalLiteralSharedQuery {
   OctalConstantsUsedQuery() { this = ImportMisra23Package::octalConstantsUsedQuery() }
 }

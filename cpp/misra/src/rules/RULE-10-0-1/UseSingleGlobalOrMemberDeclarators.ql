@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.multipleglobalormemberdeclarators_shared.MultipleGlobalOrMemberDeclarators_shared
+import codingstandards.cpp.rules.multipleglobalormemberdeclarators.MultipleGlobalOrMemberDeclarators
 
-class UseSingleGlobalOrMemberDeclaratorsQuery extends MultipleGlobalOrMemberDeclarators_sharedSharedQuery
+class UseSingleGlobalOrMemberDeclaratorsQuery extends MultipleGlobalOrMemberDeclaratorsSharedQuery
 {
   UseSingleGlobalOrMemberDeclaratorsQuery() {
     this = ImportMisra23Package::useSingleGlobalOrMemberDeclaratorsQuery()

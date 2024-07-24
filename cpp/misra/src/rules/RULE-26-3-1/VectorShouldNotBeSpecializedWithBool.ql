@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.vectorshouldnotbespecializedwithbool_shared.VectorShouldNotBeSpecializedWithBool_shared
+import codingstandards.cpp.rules.vectorshouldnotbespecializedwithbool.VectorShouldNotBeSpecializedWithBool
 
-class VectorShouldNotBeSpecializedWithBoolQuery extends VectorShouldNotBeSpecializedWithBool_sharedSharedQuery
+class VectorShouldNotBeSpecializedWithBoolQuery extends VectorShouldNotBeSpecializedWithBoolSharedQuery
 {
   VectorShouldNotBeSpecializedWithBoolQuery() {
     this = ImportMisra23Package::vectorShouldNotBeSpecializedWithBoolQuery()

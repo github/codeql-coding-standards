@@ -12,7 +12,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "UnsignedIntegerOperationsWrapAround",
-          "shared_implementation_short_name": "UnsignedOperationWithConstantOperandsWraps_shared",
+          "shared_implementation_short_name": "UnsignedOperationWithConstantOperandsWraps",
           "tags": [
             "correctness",
             "security"

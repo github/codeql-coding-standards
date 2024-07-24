@@ -16,8 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.loopcompoundcondition_shared.LoopCompoundCondition_shared
+import codingstandards.cpp.rules.loopcompoundcondition.LoopCompoundCondition
 
-class LoopCompoundConditionQuery extends LoopCompoundCondition_sharedSharedQuery {
+class LoopCompoundConditionQuery extends LoopCompoundConditionSharedQuery {
   LoopCompoundConditionQuery() { this = ConditionalsPackage::loopCompoundConditionQuery() }
 }

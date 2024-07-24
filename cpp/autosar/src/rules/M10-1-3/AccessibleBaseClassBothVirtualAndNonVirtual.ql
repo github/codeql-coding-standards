@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.virtualandnonvirtualclassinthehierarchy_shared.VirtualAndNonVirtualClassInTheHierarchy_shared
+import codingstandards.cpp.rules.virtualandnonvirtualclassinthehierarchy.VirtualAndNonVirtualClassInTheHierarchy
 
-class AccessibleBaseClassBothVirtualAndNonVirtualQuery extends VirtualAndNonVirtualClassInTheHierarchy_sharedSharedQuery
+class AccessibleBaseClassBothVirtualAndNonVirtualQuery extends VirtualAndNonVirtualClassInTheHierarchySharedQuery
 {
   AccessibleBaseClassBothVirtualAndNonVirtualQuery() {
     this = InheritancePackage::accessibleBaseClassBothVirtualAndNonVirtualQuery()

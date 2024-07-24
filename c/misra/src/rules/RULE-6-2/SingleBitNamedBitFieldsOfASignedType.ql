@@ -12,9 +12,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.namedbitfieldswithsignedintegertype_shared.NamedBitFieldsWithSignedIntegerType_shared
+import codingstandards.cpp.rules.namedbitfieldswithsignedintegertype.NamedBitFieldsWithSignedIntegerType
 
-class SingleBitNamedBitFieldsOfASignedTypeQuery extends NamedBitFieldsWithSignedIntegerType_sharedSharedQuery
+class SingleBitNamedBitFieldsOfASignedTypeQuery extends NamedBitFieldsWithSignedIntegerTypeSharedQuery
 {
   SingleBitNamedBitFieldsOfASignedTypeQuery() {
     this = BitfieldTypesPackage::singleBitNamedBitFieldsOfASignedTypeQuery()

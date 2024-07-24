@@ -87,7 +87,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "VirtualPointerOnlyComparesToNullptrConstant",
-          "shared_implementation_short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr_shared",
+          "shared_implementation_short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr",
           "tags": [
             "correctness"
           ]
@@ -280,7 +280,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "IdentifierPassedAsFunctionArgumentDecayToAPointer",
-          "shared_implementation_short_name": "ArrayPassedAsFunctionArgumentDecayToAPointer_shared",
+          "shared_implementation_short_name": "ArrayPassedAsFunctionArgumentDecayToAPointer",
           "tags": [
             "correctness"
           ]
@@ -327,7 +327,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CastNotConvertPointerToFunction",
-          "shared_implementation_short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType_shared",
+          "shared_implementation_short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType",
           "tags": [
             "correctness"
           ]

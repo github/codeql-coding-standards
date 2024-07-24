@@ -1,1 +1,1 @@
-c/common/test/rules/unsignedoperationwithconstantoperandswraps_shared/UnsignedOperationWithConstantOperandsWraps_shared.ql
+c/common/test/rules/unsignedoperationwithconstantoperandswraps/UnsignedOperationWithConstantOperandsWraps.ql

@@ -16,8 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.backslashcharactermisuse_shared.BackslashCharacterMisuse_shared
+import codingstandards.cpp.rules.backslashcharactermisuse.BackslashCharacterMisuse
 
-class EscapeSequenceOutsideISOQuery extends BackslashCharacterMisuse_sharedSharedQuery {
+class EscapeSequenceOutsideISOQuery extends BackslashCharacterMisuseSharedQuery {
   EscapeSequenceOutsideISOQuery() { this = LiteralsPackage::escapeSequenceOutsideISOQuery() }
 }

@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.asmdeclarationused_shared.AsmDeclarationUsed_shared
+import codingstandards.cpp.rules.asmdeclarationused.AsmDeclarationUsed
 
-class AsmDeclarationShallNotBeUsedQuery extends AsmDeclarationUsed_sharedSharedQuery {
+class AsmDeclarationShallNotBeUsedQuery extends AsmDeclarationUsedSharedQuery {
   AsmDeclarationShallNotBeUsedQuery() {
     this = ImportMisra23Package::asmDeclarationShallNotBeUsedQuery()
   }

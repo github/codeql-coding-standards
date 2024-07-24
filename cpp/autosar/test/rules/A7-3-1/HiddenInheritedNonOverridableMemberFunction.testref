@@ -1,1 +1,1 @@
-cpp/common/test/rules/hiddeninheritednonoverridablememberfunction_shared/HiddenInheritedNonOverridableMemberFunction_shared.ql
+cpp/common/test/rules/hiddeninheritednonoverridablememberfunction/HiddenInheritedNonOverridableMemberFunction.ql

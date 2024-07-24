@@ -16,8 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.switchcompoundcondition_shared.SwitchCompoundCondition_shared
+import codingstandards.cpp.rules.switchcompoundcondition.SwitchCompoundCondition
 
-class SwitchCompoundConditionQuery extends SwitchCompoundCondition_sharedSharedQuery {
+class SwitchCompoundConditionQuery extends SwitchCompoundConditionSharedQuery {
   SwitchCompoundConditionQuery() { this = ConditionalsPackage::switchCompoundConditionQuery() }
 }

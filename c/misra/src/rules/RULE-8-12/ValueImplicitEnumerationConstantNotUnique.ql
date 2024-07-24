@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.nonuniqueenumerationconstant_shared.NonUniqueEnumerationConstant_shared
+import codingstandards.cpp.rules.nonuniqueenumerationconstant.NonUniqueEnumerationConstant
 
-class ValueImplicitEnumerationConstantNotUniqueQuery extends NonUniqueEnumerationConstant_sharedSharedQuery
+class ValueImplicitEnumerationConstantNotUniqueQuery extends NonUniqueEnumerationConstantSharedQuery
 {
   ValueImplicitEnumerationConstantNotUniqueQuery() {
     this = Declarations7Package::valueImplicitEnumerationConstantNotUniqueQuery()

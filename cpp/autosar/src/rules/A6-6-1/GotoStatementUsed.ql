@@ -16,8 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.gotostatementshouldnotbeused_shared.GotoStatementShouldNotBeUsed_shared
+import codingstandards.cpp.rules.gotostatementshouldnotbeused.GotoStatementShouldNotBeUsed
 
-class GotoStatementUsedQuery extends GotoStatementShouldNotBeUsed_sharedSharedQuery {
+class GotoStatementUsedQuery extends GotoStatementShouldNotBeUsedSharedQuery {
   GotoStatementUsedQuery() { this = BannedSyntaxPackage::gotoStatementUsedQuery() }
 }

@@ -1,1 +1,1 @@
-cpp/common/test/rules/namenotreferredusingaqualifiedidorthis_shared/NameNotReferredUsingAQualifiedIdOrThis_shared.ql
+cpp/common/test/rules/namenotreferredusingaqualifiedidorthis/NameNotReferredUsingAQualifiedIdOrThis.ql

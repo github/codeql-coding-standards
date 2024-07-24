@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.virtualandnonvirtualclassinthehierarchy_shared.VirtualAndNonVirtualClassInTheHierarchy_shared
+import codingstandards.cpp.rules.virtualandnonvirtualclassinthehierarchy.VirtualAndNonVirtualClassInTheHierarchy
 
-class VirtualAndNonVirtualClassInTheHierarchyQuery extends VirtualAndNonVirtualClassInTheHierarchy_sharedSharedQuery
+class VirtualAndNonVirtualClassInTheHierarchyQuery extends VirtualAndNonVirtualClassInTheHierarchySharedQuery
 {
   VirtualAndNonVirtualClassInTheHierarchyQuery() {
     this = ImportMisra23Package::virtualAndNonVirtualClassInTheHierarchyQuery()

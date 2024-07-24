@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.reinterpretcastused_shared.ReinterpretCastUsed_shared
+import codingstandards.cpp.rules.reinterpretcastused.ReinterpretCastUsed
 
-class ReinterpretCastShallNotBeUsedQuery extends ReinterpretCastUsed_sharedSharedQuery {
+class ReinterpretCastShallNotBeUsedQuery extends ReinterpretCastUsedSharedQuery {
   ReinterpretCastShallNotBeUsedQuery() {
     this = ImportMisra23Package::reinterpretCastShallNotBeUsedQuery()
   }

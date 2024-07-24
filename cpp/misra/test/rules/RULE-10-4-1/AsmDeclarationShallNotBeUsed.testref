@@ -1,1 +1,1 @@
-cpp/common/test/rules/asmdeclarationused_shared/AsmDeclarationUsed_shared.ql
+cpp/common/test/rules/asmdeclarationused/AsmDeclarationUsed.ql

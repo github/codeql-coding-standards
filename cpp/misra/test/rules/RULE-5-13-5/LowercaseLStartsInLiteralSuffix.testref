@@ -1,1 +1,1 @@
-cpp/common/test/rules/lowercaselstartsinliteralsuffix_shared/LowercaseLStartsInLiteralSuffix_shared.ql
+cpp/common/test/rules/lowercaselstartsinliteralsuffix/LowercaseLStartsInLiteralSuffix.ql

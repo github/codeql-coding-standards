@@ -1,1 +1,1 @@
-cpp/common/test/rules/copyandmoveassignmentsshallhandleselfassignment_shared/CopyAndMoveAssignmentsShallHandleSelfAssignment_shared.ql
+cpp/common/test/rules/copyandmoveassignmentsshallhandleselfassignment/CopyAndMoveAssignmentsShallHandleSelfAssignment.ql

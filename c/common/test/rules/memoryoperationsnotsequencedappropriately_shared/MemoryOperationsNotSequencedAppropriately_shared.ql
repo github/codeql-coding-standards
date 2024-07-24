@@ -1,5 +1,0 @@
-// GENERATED FILE - DO NOT MODIFY
-import codingstandards.cpp.rules.memoryoperationsnotsequencedappropriately_shared.MemoryOperationsNotSequencedAppropriately_shared
-
-class TestFileQuery extends MemoryOperationsNotSequencedAppropriately_sharedSharedQuery, TestQuery {
-}
