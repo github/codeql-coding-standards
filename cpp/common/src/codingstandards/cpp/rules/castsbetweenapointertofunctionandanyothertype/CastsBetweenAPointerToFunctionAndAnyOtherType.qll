@@ -9,9 +9,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class CastsBetweenAPointerToFunctionAndAnyOtherTypeSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof CastsBetweenAPointerToFunctionAndAnyOtherTypeSharedQuery
-}
+Query getQuery() { result instanceof CastsBetweenAPointerToFunctionAndAnyOtherTypeSharedQuery }
 
 query predicate problems(Cast c, string message) {
   not isExcluded(c, getQuery()) and

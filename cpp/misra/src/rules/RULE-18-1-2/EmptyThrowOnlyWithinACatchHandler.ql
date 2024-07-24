@@ -15,8 +15,7 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.emptythrowonlywithinacatchhandler.EmptyThrowOnlyWithinACatchHandler
 
-class EmptyThrowOnlyWithinACatchHandlerQuery extends EmptyThrowOnlyWithinACatchHandlerSharedQuery
-{
+class EmptyThrowOnlyWithinACatchHandlerQuery extends EmptyThrowOnlyWithinACatchHandlerSharedQuery {
   EmptyThrowOnlyWithinACatchHandlerQuery() {
     this = ImportMisra23Package::emptyThrowOnlyWithinACatchHandlerQuery()
   }

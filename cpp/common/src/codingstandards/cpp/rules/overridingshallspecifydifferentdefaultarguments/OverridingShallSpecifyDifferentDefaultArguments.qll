@@ -10,9 +10,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class OverridingShallSpecifyDifferentDefaultArgumentsSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof OverridingShallSpecifyDifferentDefaultArgumentsSharedQuery
-}
+Query getQuery() { result instanceof OverridingShallSpecifyDifferentDefaultArgumentsSharedQuery }
 
 query predicate problems(VirtualFunction f2, string message, VirtualFunction f1, string f1_string) {
   not isExcluded(f2, getQuery()) and

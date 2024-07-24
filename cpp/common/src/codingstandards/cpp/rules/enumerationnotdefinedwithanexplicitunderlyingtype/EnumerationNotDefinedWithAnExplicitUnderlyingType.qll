@@ -9,9 +9,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery
-}
+Query getQuery() { result instanceof EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery }
 
 query predicate problems(Enum e, string message) {
   not isExcluded(e, getQuery()) and

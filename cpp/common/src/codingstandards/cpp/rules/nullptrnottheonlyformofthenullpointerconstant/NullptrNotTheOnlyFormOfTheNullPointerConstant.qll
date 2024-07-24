@@ -10,9 +10,7 @@ import semmle.code.cpp.commons.NULL
 
 abstract class NullptrNotTheOnlyFormOfTheNullPointerConstantSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof NullptrNotTheOnlyFormOfTheNullPointerConstantSharedQuery
-}
+Query getQuery() { result instanceof NullptrNotTheOnlyFormOfTheNullPointerConstantSharedQuery }
 
 query predicate problems(Literal l, string message) {
   not isExcluded(l, getQuery()) and // Not the type of the nullptr literal

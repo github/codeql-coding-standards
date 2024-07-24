@@ -10,9 +10,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class InitializerListConstructorIsTheOnlyConstructorSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof InitializerListConstructorIsTheOnlyConstructorSharedQuery
-}
+Query getQuery() { result instanceof InitializerListConstructorIsTheOnlyConstructorSharedQuery }
 
 class StdInitializerList extends Class {
   StdInitializerList() { hasQualifiedName("std", "initializer_list") }

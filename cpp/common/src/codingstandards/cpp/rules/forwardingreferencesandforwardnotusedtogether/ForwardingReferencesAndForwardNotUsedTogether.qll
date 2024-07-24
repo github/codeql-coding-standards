@@ -10,9 +10,7 @@ import codingstandards.cpp.standardlibrary.Utility
 
 abstract class ForwardingReferencesAndForwardNotUsedTogetherSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof ForwardingReferencesAndForwardNotUsedTogetherSharedQuery
-}
+Query getQuery() { result instanceof ForwardingReferencesAndForwardNotUsedTogetherSharedQuery }
 
 query predicate problems(FunctionCall c, string message, Parameter a, string a_string) {
   not isExcluded(c, getQuery()) and

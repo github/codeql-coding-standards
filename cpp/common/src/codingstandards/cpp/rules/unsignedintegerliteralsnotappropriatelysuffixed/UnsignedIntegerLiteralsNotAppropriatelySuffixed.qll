@@ -10,9 +10,7 @@ import codingstandards.cpp.Cpp14Literal
 
 abstract class UnsignedIntegerLiteralsNotAppropriatelySuffixedSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof UnsignedIntegerLiteralsNotAppropriatelySuffixedSharedQuery
-}
+Query getQuery() { result instanceof UnsignedIntegerLiteralsNotAppropriatelySuffixedSharedQuery }
 
 query predicate problems(Cpp14Literal::NumericLiteral nl, string message) {
   exists(string literalKind |

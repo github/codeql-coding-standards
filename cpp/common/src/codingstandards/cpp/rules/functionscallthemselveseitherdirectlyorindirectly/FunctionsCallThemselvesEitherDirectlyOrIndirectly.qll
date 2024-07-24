@@ -10,9 +10,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class FunctionsCallThemselvesEitherDirectlyOrIndirectlySharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof FunctionsCallThemselvesEitherDirectlyOrIndirectlySharedQuery
-}
+Query getQuery() { result instanceof FunctionsCallThemselvesEitherDirectlyOrIndirectlySharedQuery }
 
 class RecursiveCall extends FunctionCall {
   RecursiveCall() {

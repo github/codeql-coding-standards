@@ -10,9 +10,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class ObjectsDynamicTypeUsedFromConstructorOrDestructorSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof ObjectsDynamicTypeUsedFromConstructorOrDestructorSharedQuery
-}
+Query getQuery() { result instanceof ObjectsDynamicTypeUsedFromConstructorOrDestructorSharedQuery }
 
 predicate thisCall(FunctionCall c) {
   c.getQualifier() instanceof ThisExpr or

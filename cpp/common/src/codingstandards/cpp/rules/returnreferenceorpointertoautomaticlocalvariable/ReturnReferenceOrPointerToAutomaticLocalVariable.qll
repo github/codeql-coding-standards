@@ -10,9 +10,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class ReturnReferenceOrPointerToAutomaticLocalVariableSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof ReturnReferenceOrPointerToAutomaticLocalVariableSharedQuery
-}
+Query getQuery() { result instanceof ReturnReferenceOrPointerToAutomaticLocalVariableSharedQuery }
 
 query predicate problems(
   ReturnStmt rs, string message, Function f, string f_string, Variable auto, string auto_string

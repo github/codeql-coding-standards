@@ -9,9 +9,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class ArrayPassedAsFunctionArgumentDecayToAPointerSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof ArrayPassedAsFunctionArgumentDecayToAPointerSharedQuery
-}
+Query getQuery() { result instanceof ArrayPassedAsFunctionArgumentDecayToAPointerSharedQuery }
 
 predicate arrayToPointerDecay(Access ae, Parameter p) {
   (

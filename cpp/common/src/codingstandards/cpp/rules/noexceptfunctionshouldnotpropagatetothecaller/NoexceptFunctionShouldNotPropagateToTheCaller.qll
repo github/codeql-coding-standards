@@ -13,9 +13,7 @@ import codingstandards.cpp.exceptions.ExceptionSpecifications
 
 abstract class NoexceptFunctionShouldNotPropagateToTheCallerSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof NoexceptFunctionShouldNotPropagateToTheCallerSharedQuery
-}
+Query getQuery() { result instanceof NoexceptFunctionShouldNotPropagateToTheCallerSharedQuery }
 
 class NoExceptThrowingFunction extends ExceptionThrowingFunction {
   NoExceptThrowingFunction() {

@@ -11,9 +11,7 @@ import codingstandards.cpp.Operator
 
 abstract class CopyAndMoveAssignmentsShallHandleSelfAssignmentSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof CopyAndMoveAssignmentsShallHandleSelfAssignmentSharedQuery
-}
+Query getQuery() { result instanceof CopyAndMoveAssignmentsShallHandleSelfAssignmentSharedQuery }
 
 predicate isUserCopyOrUserMove(Operator o) {
   o instanceof UserCopyOperator or

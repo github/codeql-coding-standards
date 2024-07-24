@@ -10,9 +10,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class BuiltInUnaryOperatorAppliedToUnsignedExpressionSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof BuiltInUnaryOperatorAppliedToUnsignedExpressionSharedQuery
-}
+Query getQuery() { result instanceof BuiltInUnaryOperatorAppliedToUnsignedExpressionSharedQuery }
 
 query predicate problems(Element e, string message) {
   exists(UnaryMinusExpr ex, IntegralType t |

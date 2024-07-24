@@ -10,9 +10,7 @@ import codingstandards.cpp.Exclusions
 
 abstract class PotentiallyVirtualPointerOnlyComparesToNullptrSharedQuery extends Query { }
 
-Query getQuery() {
-  result instanceof PotentiallyVirtualPointerOnlyComparesToNullptrSharedQuery
-}
+Query getQuery() { result instanceof PotentiallyVirtualPointerOnlyComparesToNullptrSharedQuery }
 
 query predicate problems(
   EqualityOperation equalityComparison, string message, MemberFunction virtualFunction,

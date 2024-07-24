@@ -19,8 +19,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.vectorshouldnotbespecializedwithbool.VectorShouldNotBeSpecializedWithBool
 
-class VectorboolSpecializationUsedQuery extends VectorShouldNotBeSpecializedWithBoolSharedQuery
-{
+class VectorboolSpecializationUsedQuery extends VectorShouldNotBeSpecializedWithBoolSharedQuery {
   VectorboolSpecializationUsedQuery() {
     this = BannedTypesPackage::vectorboolSpecializationUsedQuery()
   }

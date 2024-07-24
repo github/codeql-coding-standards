@@ -17,7 +17,6 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.noexceptfunctionshouldnotpropagatetothecaller.NoexceptFunctionShouldNotPropagateToTheCaller
 
-class NoExceptFunctionThrowsQuery extends NoexceptFunctionShouldNotPropagateToTheCallerSharedQuery
-{
+class NoExceptFunctionThrowsQuery extends NoexceptFunctionShouldNotPropagateToTheCallerSharedQuery {
   NoExceptFunctionThrowsQuery() { this = Exceptions1Package::noExceptFunctionThrowsQuery() }
 }
