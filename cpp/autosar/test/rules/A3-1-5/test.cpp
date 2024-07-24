@@ -172,7 +172,6 @@ void test_FooBar() {
   foobar.complexCalculation<int>();
 }
 
-
 FooBar::~FooBar() {} // COMPLIANT want to ignore pImpl uses of destructors
 
 int FooBar::f1(int a, int b) { // COMPLIANT not a trivial function
