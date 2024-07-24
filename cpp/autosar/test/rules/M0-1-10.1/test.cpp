@@ -16,7 +16,7 @@ std::int32_t func2() // COMPLIANT: Called from func1
   return mains::var + 20;
 }
 
-std::int32_t func1() { // COMPLIANT: Called from main
+std::int32_t func1() {         // COMPLIANT: Called from main
   return mains::var + func2(); // func2 called here.
 }
 
