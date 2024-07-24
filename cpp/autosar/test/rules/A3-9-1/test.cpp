@@ -71,3 +71,8 @@ void test_variable_width_type_qualified_variables() {
   volatile unsigned long ul2; // NON_COMPLIANT
   volatile signed long sl2;   // NON_COMPLIANT
 }
+
+struct test_fix_fp_614 {
+  test_fix_fp_614 operator++(int); // COMPLIANT
+  test_fix_fp_614 operator--(int); // COMPLIANT
+};

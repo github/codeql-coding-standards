@@ -215,6 +215,20 @@ class IncrementOperator extends Operator {
   }
 }
 
+class PostIncrementOperator extends Operator {
+  PostIncrementOperator() {
+    hasName("operator++") and
+    getNumberOfParameters() = 1
+  }
+}
+
+class PostDecrementOperator extends Operator {
+  PostDecrementOperator() {
+    hasName("operator--") and
+    getNumberOfParameters() = 1
+  }
+}
+
 class StructureDerefOperator extends Operator {
   StructureDerefOperator() {
     hasName("operator->") and

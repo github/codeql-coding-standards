@@ -11,7 +11,8 @@
 | 0.3.0   | 2021-09-08 | Luke Cartey     | Update the customer table.                                                               |
 | 0.4.0   | 2021-09-19 | Luke Cartey     | Add more detail on approach to V&V. Update section around increased confidence from use. |
 | 0.5.0   | 2021-11-29 | Remco Vermeulen | Add document management section.                                                         |
-| 0.6.0   | 2023-08-14 | Luke Cartey     | Update use and testing statement after LGTM.com deprecation. |
+| 0.6.0   | 2023-08-14 | Luke Cartey     | Update use and testing statement after LGTM.com deprecation.                             |
+| 0.7.0   | 2024-07-23 | Luke Cartey     | Fix development handbook link                                                            |
 
 ## Introduction
 
@@ -60,7 +61,7 @@ For the CodeQL Coding Standard queries, we intend to apply the following qualifi
 
 #### 1b. Evaluation of the tool development process in accordance with 11.4.8
 
-The development process is described in the [development handbook](../development_handbook.md).
+The development process is described in the [development handbook](development_handbook.md).
 
 The project planning and requirements processes are described in our internal repository.
 
@@ -80,7 +81,7 @@ In combination, these techniques ensure that the tool complies with the requirem
  - Rule review with subject matter experts ensures our interpretation of the rule is appropriate in uncertain cases.
  - Real world testing and external feedback ensures the interpretation of the rule is producing appropriate and reasonable results on real world code.
 
-The development processes related to validation and verification are described in detail the [development handbook](../development_handbook.md).
+The development processes related to validation and verification are described in detail the [development handbook](development_handbook.md).
 
 ### Qualification methods for CodeQL CLI and the CodeQL Standard Library for C++
 
