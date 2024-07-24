@@ -16,10 +16,10 @@
  */
 
 import cpp
+import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.enumerationnotdefinedwithanexplicitunderlyingtype.EnumerationNotDefinedWithAnExplicitUnderlyingType
 
-class EnumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery extends EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery
-{
+class EnumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery extends EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery {
   EnumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery() {
     this = DeclarationsPackage::enumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery()
   }
