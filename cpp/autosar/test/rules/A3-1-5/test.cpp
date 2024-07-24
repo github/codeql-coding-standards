@@ -9,7 +9,7 @@ public:
 
   int getABar() { return 9; }
 
-  int trivial() { // NON_COMPLIANT
+  int not_trivial() { // COMPLIANT - with threshold of 10 loc
     ;
     ;
     ;
@@ -27,6 +27,13 @@ public:
     if (b == 0)
       return a;
     int result = gcd(b, (a % b));
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
     ;
     return result;
   }
@@ -173,6 +180,13 @@ int FooBar::f1(int a, int b) { // COMPLIANT not a trivial function
     if (b == 0)
       return a;
     int result = FooBar::f1(b, (a % b));
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
     ;
   }
 }

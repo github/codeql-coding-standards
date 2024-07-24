@@ -215,3 +215,10 @@ void fp_reported_in_381() {
   int i = z.front();
   z.fill(i);
 }
+
+class ZZ {
+public:
+  template <typename T>
+  void fp_616(const T &val) {
+  } // COMPLIANT - ignore uninstantiated templates for static also
+};

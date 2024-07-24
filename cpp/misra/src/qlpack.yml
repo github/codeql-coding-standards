@@ -1,6 +1,6 @@
 name: codeql/misra-cpp-coding-standards
-version: 2.29.0-dev
-description: MISRA C++ 2008
+version: 2.33.0-dev
+description: MISRA C++ 2023
 suites: codeql-suites
 license: MIT
 dependencies:
