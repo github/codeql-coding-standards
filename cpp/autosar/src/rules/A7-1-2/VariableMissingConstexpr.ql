@@ -17,6 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.TrivialType
 import codingstandards.cpp.SideEffect
+import semmle.code.cpp.controlflow.SSA
+import codingstandards.cpp.Expr
 
 predicate isZeroInitializable(Variable v) {
   not exists(v.getInitializer().getExpr()) and
@@ -46,7 +48,7 @@ where
   (
     v.getInitializer().getExpr().isConstant()
     or
-    v.getInitializer().getExpr().(Call).getTarget().isConstexpr()
+    any(Call call | isCompileTimeEvaluatedCall(call)) = v.getInitializer().getExpr()
     or
     isZeroInitializable(v)
     or
@@ -60,5 +62,9 @@ where
   // Not assigned by a user in a constructor
   not exists(ConstructorFieldInit cfi | cfi.getTarget() = v and not cfi.isCompilerGenerated()) and
   // Ignore union members
-  not v.getDeclaringType() instanceof Union
-select v, "Variable " + v.getName() + " could be marked 'constexpr'."
+  not v.getDeclaringType() instanceof Union and
+  // Exclude variables in uninstantiated templates, as they may be incomplete
+  not v.isFromUninstantiatedTemplate(_) and
+  // Exclude compiler generated variables, which are not user controllable
+  not v.isCompilerGenerated()
+select v, "Variable '" + v.getName() + "' could be marked 'constexpr'."

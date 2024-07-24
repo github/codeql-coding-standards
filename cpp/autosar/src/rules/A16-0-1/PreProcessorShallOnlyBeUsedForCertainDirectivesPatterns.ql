@@ -21,13 +21,26 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.FunctionLikeMacro
 
+class PermittedInnerDirectiveType extends PreprocessorDirective {
+  PermittedInnerDirectiveType() {
+    //permissive listing for directives that can be used in a valid wrapper
+    this instanceof MacroWrapper or
+    this instanceof PreprocessorEndif or
+    this instanceof Include or
+    this instanceof PermittedMacro or
+    this instanceof PreprocessorElif or
+    this instanceof PreprocessorElse
+  }
+}
+
 class PermittedDirectiveType extends PreprocessorDirective {
   PermittedDirectiveType() {
     //permissive listing in case directive types modelled in ql ever expands (example non valid directives)
     this instanceof MacroWrapper or
     this instanceof PreprocessorEndif or
     this instanceof Include or
-    this instanceof PermittedMacro
+    this instanceof PermittedMacro or
+    this instanceof PreprocessorElse
   }
 }
 
@@ -40,9 +53,9 @@ pragma[noinline]
 predicate isPreprocConditionalRange(
   PreprocessorBranch pb, string filepath, int startLine, int endLine
 ) {
-  exists(PreprocessorEndif end | pb.getEndIf() = end |
-    isPreprocFileAndLine(pb, filepath, startLine) and
-    isPreprocFileAndLine(end, filepath, endLine)
+  isPreprocFileAndLine(pb, filepath, startLine) and
+  exists(PreprocessorDirective end |
+    pb.getNext() = end and isPreprocFileAndLine(end, filepath, endLine)
   )
 }
 
@@ -73,7 +86,7 @@ class MacroWrapper extends PreprocessorIfndef {
 class AcceptableWrapper extends PreprocessorBranch {
   AcceptableWrapper() {
     forall(Element inner | not inner instanceof Comment and this = getAGuard(inner) |
-      inner instanceof PermittedDirectiveType
+      inner instanceof PermittedInnerDirectiveType
     )
   }
 }

@@ -5,15 +5,26 @@
 import cpp
 import codingstandards.cpp.Expr
 
-/**
- * Holds if we believe that `c` is used or intended to be used as a base class.
- */
-predicate isPossibleBaseClass(Class c, string reason) {
-  // There exists a derivation in this database
-  exists(c.getADerivedClass()) and reason = "a derived class exists"
+private Class getADerivedClass(Class c) {
+  result = c.getADerivedClass()
   or
-  // The class must be extended at some point
-  c.isAbstract() and reason = "the class is abstract"
+  exists(ClassTemplateInstantiation instantiation |
+    instantiation.getADerivedClass() = result and c = instantiation.getTemplate()
+  )
+}
+
+/**
+ * A class that is used or intended to be used as a base class.
+ */
+class BaseClass extends Class {
+  BaseClass() {
+    exists(getADerivedClass(this))
+    or
+    this.isAbstract()
+  }
+
+  // We don't override `getADerivedClass` because that introduces a non-monotonic recursion.
+  Class getASubClass() { result = getADerivedClass(this) }
 }
 
 /**
@@ -138,8 +149,7 @@ class IntrospectedMemberFunction extends MemberFunction {
   }
 
   predicate hasTrivialLength() {
-    this.getBlock().getNumStmt() <= 3 and
-    not exists(this.getBlock().getStmt(_).getChildStmt())
+    this.getBlock().getLocation().getEndLine() - this.getBlock().getLocation().getStartLine() <= 10
   }
 
   predicate isSetter() {

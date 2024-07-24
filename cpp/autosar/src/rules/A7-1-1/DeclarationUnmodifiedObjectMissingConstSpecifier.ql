@@ -36,5 +36,8 @@ where
     else cond = " is used for an object"
   ) and
   not exists(LambdaExpression lc | lc.getACapture().getField() = v) and
-  not v.isFromUninstantiatedTemplate(_)
+  not v.isFromUninstantiatedTemplate(_) and
+  not v.isCompilerGenerated() and
+  //if the instantiation is not constexpr but the template is, still exclude it as a candidate
+  not exists(TemplateVariable b | b.getAnInstantiation() = v and b.isConstexpr())
 select v, "Non-constant variable " + v.getName() + cond + " and is not modified."

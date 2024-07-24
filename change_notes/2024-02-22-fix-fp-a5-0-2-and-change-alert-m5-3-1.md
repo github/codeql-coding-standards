@@ -1,0 +1,4 @@
+- `A5-0-2` - `NonBooleanIterationCondition.ql`:
+  - Address FP reported in #10. Exclude conditions in uninstantiated templates.
+- `M5-3-1` - `EachOperandOfTheOperatorTheLogicalAndOrTheLogicalOperatorsShallHaveTypeBool.ql`:
+  - Adjust the alert message to comply with the style guide.

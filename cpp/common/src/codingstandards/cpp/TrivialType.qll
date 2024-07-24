@@ -281,6 +281,17 @@ predicate isTrivialType(Type t) {
   isTrivialType(t.getUnspecifiedType())
 }
 
+/** Holds if `t` is a trivially copyable type. */
+predicate isTriviallyCopyableType(Type t) {
+  isScalarType(t)
+  or
+  t instanceof TriviallyCopyableClass
+  or
+  isTriviallyCopyableType(t.(ArrayType).getBaseType())
+  or
+  isTriviallyCopyableType(t.getUnspecifiedType())
+}
+
 /** A POD type as defined by [basic.types]/9. */
 class PODType extends Type {
   PODType() {

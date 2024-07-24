@@ -17,6 +17,7 @@ import codingstandards.c.cert
 import codingstandards.cpp.Naming
 import codingstandards.cpp.dataflow.TaintTracking
 import codingstandards.cpp.PossiblyUnsafeStringOperation
+import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /**
  * Models a function that is part of the standard library that expects a
@@ -43,32 +44,90 @@ class ExpectsNullTerminatedStringAsArgumentFunctionCall extends FunctionCall {
   Expr getAnExpectingExpr() { result = e }
 }
 
-from ExpectsNullTerminatedStringAsArgumentFunctionCall fc, Expr e, Expr target
-where
-  target = fc.getAnExpectingExpr() and
-  not isExcluded(fc, Strings1Package::nonNullTerminatedToFunctionThatExpectsAStringQuery()) and
-  (
-    exists(PossiblyUnsafeStringOperation op |
-      // don't report violations of the same function call.
-      not op = fc and
-      e = op and
-      TaintTracking::localTaint(DataFlow::exprNode(op.getAnArgument()), DataFlow::exprNode(target))
+class PossiblyUnsafeStringOperationSource extends Source {
+  PossiblyUnsafeStringOperation op;
+
+  PossiblyUnsafeStringOperationSource() { this.asExpr() = op.getAnArgument() }
+
+  PossiblyUnsafeStringOperation getOp() { result = op }
+}
+
+class CharArraySource extends Source {
+  CharArrayInitializedWithStringLiteral op;
+
+  CharArraySource() {
+    op.getContainerLength() <= op.getStringLiteralLength() and
+    this.asExpr() = op
+  }
+}
+
+abstract class Source extends DataFlow::Node { }
+
+class Sink extends DataFlow::Node {
+  Sink() {
+    exists(ExpectsNullTerminatedStringAsArgumentFunctionCall fc |
+      fc.getAnExpectingExpr() = this.asExpr()
     )
-    or
-    exists(CharArrayInitializedWithStringLiteral op |
-      e = op and
-      op.getContainerLength() <= op.getStringLiteralLength() and
-      TaintTracking::localTaint(DataFlow::exprNode(op), DataFlow::exprNode(target))
+  }
+}
+
+module MyFlowConfiguration implements DataFlow::ConfigSig {
+  predicate isSink(DataFlow::Node sink) {
+    sink instanceof Sink and
+    //don't report violations of the same function call
+    not sink instanceof Source
+  }
+
+  predicate isSource(DataFlow::Node source) { source instanceof Source }
+
+  predicate isAdditionalFlowStep(DataFlow::Node innode, DataFlow::Node outnode) {
+    exists(FunctionCall realloc, ReallocFunction fn |
+      fn.getACallToThisFunction() = realloc and
+      realloc.getArgument(0) = innode.asExpr() and
+      realloc = outnode.asExpr()
     )
-  ) and
-  // don't report cases flowing to this node where there is a flow from a
-  // literal assignment of a null terminator
-  not exists(AssignExpr aexp |
+  }
+}
+
+class ReallocFunction extends AllocationFunction {
+  ReallocFunction() { exists(this.getReallocPtrArg()) }
+}
+
+/**
+ * Determines if the string is acceptably null terminated
+ * The only condition we accept as a guarantee to null terminate is:
+ * `str[size_expr] = '\0';`
+ * where we do not check the value of the `size_expr` used
+ */
+predicate isGuarded(Expr guarded, Expr source) {
+  exists(AssignExpr aexp |
     aexp.getLValue() instanceof ArrayExpr and
     aexp.getRValue() instanceof Zero and
-    TaintTracking::localTaint(DataFlow::exprNode(aexp.getRValue()), DataFlow::exprNode(target)) and
-    // this must be AFTER the operation causing the non-null termination to be valid.
-    aexp.getAPredecessor*() = e
+    // this must be AFTER the operation causing the non-null termination
+    aexp.getAPredecessor+() = source and
+    //this guards anything after it
+    aexp.getASuccessor+() = guarded and
+    // no reallocs exist after this because they will be conservatively assumed to make the buffer smaller and remove the likliehood of this properly terminating
+    not exists(ReallocFunction realloc, FunctionCall fn |
+      fn = realloc.getACallToThisFunction() and
+      globalValueNumber(aexp.getLValue().(ArrayExpr).getArrayBase()) =
+        globalValueNumber(fn.getArgument(0)) and
+      aexp.getASuccessor+() = fn
+    )
   )
+}
+
+module MyFlow = TaintTracking::Global<MyFlowConfiguration>;
+
+from
+  DataFlow::Node source, DataFlow::Node sink, ExpectsNullTerminatedStringAsArgumentFunctionCall fc,
+  Expr e
+where
+  MyFlow::flow(source, sink) and
+  sink.asExpr() = fc.getAnExpectingExpr() and
+  not isGuarded(sink.asExpr(), source.asExpr()) and
+  if source instanceof PossiblyUnsafeStringOperationSource
+  then e = source.(PossiblyUnsafeStringOperationSource).getOp()
+  else e = source.asExpr()
 select fc, "String modified by $@ is passed to function expecting a null-terminated string.", e,
   "this expression"

@@ -33,3 +33,8 @@ private:
 
 void test3() { ClassB<int> b; }
 void test4() { ClassB<long> b; }
+
+namespace {
+int a12; // COMPLIANT
+int a13; // NON_COMPLIANT
+} // anonymous namespace

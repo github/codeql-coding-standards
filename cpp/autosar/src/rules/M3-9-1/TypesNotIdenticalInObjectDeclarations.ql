@@ -18,7 +18,7 @@ import codingstandards.cpp.autosar
 
 from VariableDeclarationEntry decl1, VariableDeclarationEntry decl2
 where
-  not isExcluded(decl1) and
+  not isExcluded(decl1, DeclarationsPackage::typesNotIdenticalInObjectDeclarationsQuery()) and
   not isExcluded(decl2, DeclarationsPackage::typesNotIdenticalInObjectDeclarationsQuery()) and
   decl1.getDeclaration() = decl2.getDeclaration() and
   not decl1.getType() = decl2.getType()
