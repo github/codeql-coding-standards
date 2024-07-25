@@ -16,8 +16,10 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.builtinunaryoperatorappliedtounsignedexpression.BuiltInUnaryOperatorAppliedToUnsignedExpression
 
-class UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery extends BuiltInUnaryOperatorAppliedToUnsignedExpressionSharedQuery {
+class UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery extends BuiltInUnaryOperatorAppliedToUnsignedExpressionSharedQuery
+{
   UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery() {
-    this = OperatorsPackage::unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery()
+    this =
+      OperatorsPackage::unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery()
   }
 }
