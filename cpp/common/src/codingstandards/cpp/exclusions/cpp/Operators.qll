@@ -17,7 +17,7 @@ newtype OperatorsQuery =
   TUnsignedBitwiseOperatorWithoutCastQuery() or
   TCommaOperatorAndOperatorAndTheOperatorOverloadedQuery() or
   TEachOperandOfTheOperatorTheLogicalAndOrTheLogicalOperatorsShallHaveTypeBoolQuery() or
-  TUnaryMinusOperatorAppliedToAnUnsignedExpressionQuery() or
+  TUnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery() or
   TUnaryOperatorOverloadedQuery()
 
 predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId, string category) {
@@ -139,11 +139,11 @@ predicate isOperatorsQueryMetadata(Query query, string queryId, string ruleId, s
   category = "required"
   or
   query =
-    // `Query` instance for the `unaryMinusOperatorAppliedToAnUnsignedExpression` query
-    OperatorsPackage::unaryMinusOperatorAppliedToAnUnsignedExpressionQuery() and
+    // `Query` instance for the `unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned` query
+    OperatorsPackage::unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery() and
   queryId =
-    // `@id` for the `unaryMinusOperatorAppliedToAnUnsignedExpression` query
-    "cpp/autosar/unary-minus-operator-applied-to-an-unsigned-expression" and
+    // `@id` for the `unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned` query
+    "cpp/autosar/unary-minus-operator-applied-to-an-expression-whose-underlying-type-is-unsigned" and
   ruleId = "M5-3-2" and
   category = "required"
   or
@@ -249,11 +249,11 @@ module OperatorsPackage {
       TQueryCPP(TOperatorsPackageQuery(TEachOperandOfTheOperatorTheLogicalAndOrTheLogicalOperatorsShallHaveTypeBoolQuery()))
   }
 
-  Query unaryMinusOperatorAppliedToAnUnsignedExpressionQuery() {
+  Query unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `unaryMinusOperatorAppliedToAnUnsignedExpression` query
-      TQueryCPP(TOperatorsPackageQuery(TUnaryMinusOperatorAppliedToAnUnsignedExpressionQuery()))
+      // `Query` type for `unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned` query
+      TQueryCPP(TOperatorsPackageQuery(TUnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery()))
   }
 
   Query unaryOperatorOverloadedQuery() {

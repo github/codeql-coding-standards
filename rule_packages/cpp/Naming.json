@@ -313,7 +313,7 @@
           "name": "The identifier main shall not be used for a function other than the global function main",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "IdentifierMainUsedForAFunctionOtherThanGlobalMain",
+          "short_name": "IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain",
           "shared_implementation_short_name": "NonGlobalFunctionMain",
           "tags": [
             "maintainability",

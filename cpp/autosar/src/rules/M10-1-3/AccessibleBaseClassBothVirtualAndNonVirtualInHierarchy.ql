@@ -1,5 +1,5 @@
 /**
- * @id cpp/autosar/accessible-base-class-both-virtual-and-non-virtual
+ * @id cpp/autosar/accessible-base-class-both-virtual-and-non-virtual-in-hierarchy
  * @name M10-1-3: An accessible base class shall not be both virtual and non-virtual in the same hierarchy
  * @description A base class must not be virtual and non-virtual in the same hierarchy to avoid
  *              copies of the object and confusing behavior.
@@ -16,8 +16,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.virtualandnonvirtualclassinthehierarchy.VirtualAndNonVirtualClassInTheHierarchy
 
-class AccessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery extends VirtualAndNonVirtualClassInTheHierarchySharedQuery
-{
+class AccessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery extends VirtualAndNonVirtualClassInTheHierarchySharedQuery {
   AccessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery() {
     this = InheritancePackage::accessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery()
   }

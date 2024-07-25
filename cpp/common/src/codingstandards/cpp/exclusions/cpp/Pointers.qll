@@ -7,7 +7,7 @@ newtype PointersQuery =
   TPointerToAnElementOfAnArrayPassedToASmartPointerQuery() or
   TDeclarationContainLessThanTwoLevelsOfIndirectionQuery() or
   TPointerArithmeticUsedWithPointersToNonFinalClassesQuery() or
-  TVirtualPointerOnlyComparesToNullptrConstantQuery() or
+  TPointerToMemberVirtualFunctionWithNullPointerConstantQuery() or
   TDeletingPointerToIncompleteTypeQuery() or
   TPointerToMemberAccessNonExistentClassMembersQuery() or
   TNullPointerToMemberAccessNonExistentClassMembersQuery() or
@@ -16,7 +16,7 @@ newtype PointersQuery =
   TPointerAndDerivedPointerAccessDifferentArrayQuery() or
   TPointerSubtractionOnDifferentArraysQuery() or
   TAppliedToObjectsOfPointerTypeQuery() or
-  TIdentifierPassedAsFunctionArgumentDecayToAPointerQuery() or
+  TIdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery() or
   TPointerToAVirtualBaseClassCastToAPointerQuery() or
   TCastNotConvertPointerToFunctionQuery() or
   TIntegerOrPointerToVoidConvertedToPointerTypeQuery() or
@@ -57,11 +57,11 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId, st
   category = "required"
   or
   query =
-    // `Query` instance for the `virtualPointerOnlyComparesToNullptrConstant` query
-    PointersPackage::virtualPointerOnlyComparesToNullptrConstantQuery() and
+    // `Query` instance for the `pointerToMemberVirtualFunctionWithNullPointerConstant` query
+    PointersPackage::pointerToMemberVirtualFunctionWithNullPointerConstantQuery() and
   queryId =
-    // `@id` for the `virtualPointerOnlyComparesToNullptrConstant` query
-    "cpp/autosar/virtual-pointer-only-compares-to-nullptr-constant" and
+    // `@id` for the `pointerToMemberVirtualFunctionWithNullPointerConstant` query
+    "cpp/autosar/pointer-to-member-virtual-function-with-null-pointer-constant" and
   ruleId = "A5-10-1" and
   category = "required"
   or
@@ -138,11 +138,11 @@ predicate isPointersQueryMetadata(Query query, string queryId, string ruleId, st
   category = "required"
   or
   query =
-    // `Query` instance for the `identifierPassedAsFunctionArgumentDecayToAPointer` query
-    PointersPackage::identifierPassedAsFunctionArgumentDecayToAPointerQuery() and
+    // `Query` instance for the `identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointer` query
+    PointersPackage::identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery() and
   queryId =
-    // `@id` for the `identifierPassedAsFunctionArgumentDecayToAPointer` query
-    "cpp/autosar/identifier-passed-as-function-argument-decay-to-a-pointer" and
+    // `@id` for the `identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointer` query
+    "cpp/autosar/identifier-with-array-type-passed-as-function-argument-decay-to-a-pointer" and
   ruleId = "M5-2-12" and
   category = "required"
   or
@@ -259,11 +259,11 @@ module PointersPackage {
       TQueryCPP(TPointersPackageQuery(TPointerArithmeticUsedWithPointersToNonFinalClassesQuery()))
   }
 
-  Query virtualPointerOnlyComparesToNullptrConstantQuery() {
+  Query pointerToMemberVirtualFunctionWithNullPointerConstantQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `virtualPointerOnlyComparesToNullptrConstant` query
-      TQueryCPP(TPointersPackageQuery(TVirtualPointerOnlyComparesToNullptrConstantQuery()))
+      // `Query` type for `pointerToMemberVirtualFunctionWithNullPointerConstant` query
+      TQueryCPP(TPointersPackageQuery(TPointerToMemberVirtualFunctionWithNullPointerConstantQuery()))
   }
 
   Query deletingPointerToIncompleteTypeQuery() {
@@ -322,11 +322,11 @@ module PointersPackage {
       TQueryCPP(TPointersPackageQuery(TAppliedToObjectsOfPointerTypeQuery()))
   }
 
-  Query identifierPassedAsFunctionArgumentDecayToAPointerQuery() {
+  Query identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `identifierPassedAsFunctionArgumentDecayToAPointer` query
-      TQueryCPP(TPointersPackageQuery(TIdentifierPassedAsFunctionArgumentDecayToAPointerQuery()))
+      // `Query` type for `identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointer` query
+      TQueryCPP(TPointersPackageQuery(TIdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery()))
   }
 
   Query pointerToAVirtualBaseClassCastToAPointerQuery() {

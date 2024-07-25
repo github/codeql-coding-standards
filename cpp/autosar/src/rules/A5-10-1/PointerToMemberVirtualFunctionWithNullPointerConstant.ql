@@ -1,5 +1,5 @@
 /**
- * @id cpp/autosar/virtual-pointer-only-compares-to-nullptr-constant
+ * @id cpp/autosar/pointer-to-member-virtual-function-with-null-pointer-constant
  * @name A5-10-1: A pointer to member virtual function shall only be tested for equality with null-pointer-constant
  * @description A pointer to member virtual function shall only be tested for equality with
  *              null-pointer-constant, because an equality comparison with anything other than a
@@ -18,9 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.potentiallyvirtualpointeronlycomparestonullptr.PotentiallyVirtualPointerOnlyComparesToNullptr
 
-class PointerToMemberVirtualFunctionWithNullPointerConstantQuery extends PotentiallyVirtualPointerOnlyComparesToNullptrSharedQuery
-{
+class PointerToMemberVirtualFunctionWithNullPointerConstantQuery extends PotentiallyVirtualPointerOnlyComparesToNullptrSharedQuery {
   PointerToMemberVirtualFunctionWithNullPointerConstantQuery() {
-    this = PointersPackage::pointerToMemberVirtualFunctionWithNullPointerConstantQuery()
+    this = pointersPackage::pointerToMemberVirtualFunctionWithNullPointerConstantQuery()
   }
 }

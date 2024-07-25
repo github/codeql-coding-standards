@@ -144,7 +144,7 @@
           "name": "An accessible base class shall not be both virtual and non-virtual in the same hierarchy",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "AccessibleBaseClassBothVirtualAndNonVirtual",
+          "short_name": "AccessibleBaseClassBothVirtualAndNonVirtualInHierarchy",
           "shared_implementation_short_name": "VirtualAndNonVirtualClassInTheHierarchy",
           "tags": []
         }

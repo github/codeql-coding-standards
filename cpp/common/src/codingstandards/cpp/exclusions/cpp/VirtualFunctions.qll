@@ -11,7 +11,7 @@ newtype VirtualFunctionsQuery =
   TDestructorOfABaseClassNotPublicVirtualQuery() or
   TNonVirtualPublicDestructorInNonFinalClassQuery() or
   TVirtualFunctionOverriddenByAPureVirtualFunctionQuery() or
-  TVirtualFunctionParametersUseSameDefaultArgumentsQuery()
+  TVirtualFunctionParametersUseTheSameDefaultArgumentsQuery()
 
 predicate isVirtualFunctionsQueryMetadata(
   Query query, string queryId, string ruleId, string category
@@ -80,11 +80,11 @@ predicate isVirtualFunctionsQueryMetadata(
   category = "required"
   or
   query =
-    // `Query` instance for the `virtualFunctionParametersUseSameDefaultArguments` query
-    VirtualFunctionsPackage::virtualFunctionParametersUseSameDefaultArgumentsQuery() and
+    // `Query` instance for the `virtualFunctionParametersUseTheSameDefaultArguments` query
+    VirtualFunctionsPackage::virtualFunctionParametersUseTheSameDefaultArgumentsQuery() and
   queryId =
-    // `@id` for the `virtualFunctionParametersUseSameDefaultArguments` query
-    "cpp/autosar/virtual-function-parameters-use-same-default-arguments" and
+    // `@id` for the `virtualFunctionParametersUseTheSameDefaultArguments` query
+    "cpp/autosar/virtual-function-parameters-use-the-same-default-arguments" and
   ruleId = "M8-3-1" and
   category = "required"
 }
@@ -139,10 +139,10 @@ module VirtualFunctionsPackage {
       TQueryCPP(TVirtualFunctionsPackageQuery(TVirtualFunctionOverriddenByAPureVirtualFunctionQuery()))
   }
 
-  Query virtualFunctionParametersUseSameDefaultArgumentsQuery() {
+  Query virtualFunctionParametersUseTheSameDefaultArgumentsQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `virtualFunctionParametersUseSameDefaultArguments` query
-      TQueryCPP(TVirtualFunctionsPackageQuery(TVirtualFunctionParametersUseSameDefaultArgumentsQuery()))
+      // `Query` type for `virtualFunctionParametersUseTheSameDefaultArguments` query
+      TQueryCPP(TVirtualFunctionsPackageQuery(TVirtualFunctionParametersUseTheSameDefaultArgumentsQuery()))
   }
 }

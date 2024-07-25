@@ -1,5 +1,5 @@
 /**
- * @id cpp/autosar/identifier-main-used-for-a-function-other-than-global-main
+ * @id cpp/autosar/identifier-main-used-for-a-function-other-than-the-global-function-main
  * @name M7-3-2: The identifier main shall not be used for a function other than the global function main
  * @description Reusing the name main in non-main contexts can lead to developer confusion.
  * @kind problem
@@ -17,8 +17,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.nonglobalfunctionmain.NonGlobalFunctionMain
 
-class IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery extends NonGlobalFunctionMainSharedQuery
-{
+class IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery extends NonGlobalFunctionMainSharedQuery {
   IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery() {
     this = NamingPackage::identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery()
   }

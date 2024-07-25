@@ -10,7 +10,7 @@ newtype InheritanceQuery =
   THierarchiesShouldBeBasedOnInterfaceClassesQuery() or
   TClassesShouldNotBeDerivedFromVirtualBasesQuery() or
   TBaseClassCanBeVirtualOnlyInDiamondHierarchyQuery() or
-  TAccessibleBaseClassBothVirtualAndNonVirtualQuery() or
+  TAccessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery() or
   TUniqueAccessibleEntityNamesInMultipleInheritanceQuery() or
   TDynamicTypeOfThisUsedFromConstructorOrDestructorQuery() or
   TDowncastingShouldNotBePerformedOnPolymorphicTypesQuery() or
@@ -74,11 +74,11 @@ predicate isInheritanceQueryMetadata(Query query, string queryId, string ruleId,
   category = "required"
   or
   query =
-    // `Query` instance for the `accessibleBaseClassBothVirtualAndNonVirtual` query
-    InheritancePackage::accessibleBaseClassBothVirtualAndNonVirtualQuery() and
+    // `Query` instance for the `accessibleBaseClassBothVirtualAndNonVirtualInHierarchy` query
+    InheritancePackage::accessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery() and
   queryId =
-    // `@id` for the `accessibleBaseClassBothVirtualAndNonVirtual` query
-    "cpp/autosar/accessible-base-class-both-virtual-and-non-virtual" and
+    // `@id` for the `accessibleBaseClassBothVirtualAndNonVirtualInHierarchy` query
+    "cpp/autosar/accessible-base-class-both-virtual-and-non-virtual-in-hierarchy" and
   ruleId = "M10-1-3" and
   category = "required"
   or
@@ -180,11 +180,11 @@ module InheritancePackage {
       TQueryCPP(TInheritancePackageQuery(TBaseClassCanBeVirtualOnlyInDiamondHierarchyQuery()))
   }
 
-  Query accessibleBaseClassBothVirtualAndNonVirtualQuery() {
+  Query accessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `accessibleBaseClassBothVirtualAndNonVirtual` query
-      TQueryCPP(TInheritancePackageQuery(TAccessibleBaseClassBothVirtualAndNonVirtualQuery()))
+      // `Query` type for `accessibleBaseClassBothVirtualAndNonVirtualInHierarchy` query
+      TQueryCPP(TInheritancePackageQuery(TAccessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery()))
   }
 
   Query uniqueAccessibleEntityNamesInMultipleInheritanceQuery() {

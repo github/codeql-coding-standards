@@ -86,7 +86,7 @@
           "name": "A pointer to member virtual function shall only be tested for equality with null-pointer-constant",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "VirtualPointerOnlyComparesToNullptrConstant",
+          "short_name": "PointerToMemberVirtualFunctionWithNullPointerConstant",
           "shared_implementation_short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr",
           "tags": [
             "correctness"
@@ -279,7 +279,7 @@
           "name": "An identifier with array type passed as a function argument shall not decay to a pointer",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "IdentifierPassedAsFunctionArgumentDecayToAPointer",
+          "short_name": "IdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointer",
           "shared_implementation_short_name": "ArrayPassedAsFunctionArgumentDecayToAPointer",
           "tags": [
             "correctness"

@@ -1,5 +1,5 @@
 /**
- * @id cpp/autosar/unary-minus-operator-applied-to-an-unsigned-expression
+ * @id cpp/autosar/unary-minus-operator-applied-to-an-expression-whose-underlying-type-is-unsigned
  * @name M5-3-2: The unary minus operator shall not be applied to an expression whose underlying type is unsigned
  * @description The unary minus operator shall not be applied to an expression whose underlying type
  *              is unsigned.
@@ -16,8 +16,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.builtinunaryoperatorappliedtounsignedexpression.BuiltInUnaryOperatorAppliedToUnsignedExpression
 
-class UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery extends BuiltInUnaryOperatorAppliedToUnsignedExpressionSharedQuery
-{
+class UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery extends BuiltInUnaryOperatorAppliedToUnsignedExpressionSharedQuery {
   UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery() {
     this = OperatorsPackage::unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery()
   }

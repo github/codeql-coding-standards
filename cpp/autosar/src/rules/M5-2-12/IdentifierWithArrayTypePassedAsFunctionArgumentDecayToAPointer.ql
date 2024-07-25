@@ -1,5 +1,5 @@
 /**
- * @id cpp/autosar/identifier-passed-as-function-argument-decay-to-a-pointer
+ * @id cpp/autosar/identifier-with-array-type-passed-as-function-argument-decay-to-a-pointer
  * @name M5-2-12: An identifier with array type passed as a function argument shall not decay to a pointer
  * @description An identifier with array type passed as a function argument shall not decay to a
  *              pointer to prevent loss of its bounds.
@@ -17,9 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.arraypassedasfunctionargumentdecaytoapointer.ArrayPassedAsFunctionArgumentDecayToAPointer
 
-class IdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery extends ArrayPassedAsFunctionArgumentDecayToAPointerSharedQuery
-{
+class IdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery extends ArrayPassedAsFunctionArgumentDecayToAPointerSharedQuery {
   IdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery() {
-    this = PointersPackage::identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery()
+    this = pointersPackage::identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery()
   }
 }
