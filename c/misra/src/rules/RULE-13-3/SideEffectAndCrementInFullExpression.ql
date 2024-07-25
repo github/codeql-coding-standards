@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.CExpr
+import codingstandards.c.Expr
 import codingstandards.cpp.SideEffects
 
 from FullExpr e, SideEffect se, CrementOperation op

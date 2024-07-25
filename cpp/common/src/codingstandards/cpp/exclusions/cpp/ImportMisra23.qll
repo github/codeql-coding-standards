@@ -61,7 +61,6 @@ newtype ImportMisra23Query =
   TCstdioFunctionsShallNotBeUsedQuery() or
   TCstdioMacrosShallNotBeUsedQuery() or
   TCstdioTypesShallNotBeUsedQuery() or
-  TMemoryOperationsNotSequencedAppropriatelyQuery() or
   TBackslashCharacterMisuseQuery() or
   TNonTerminatedEscapeSequencesQuery() or
   TOctalConstantsUsedQuery() or
@@ -602,15 +601,6 @@ predicate isImportMisra23QueryMetadata(Query query, string queryId, string ruleI
     // `@id` for the `cstdioTypesShallNotBeUsed` query
     "cpp/misra/cstdio-types-shall-not-be-used" and
   ruleId = "RULE-30-0-1" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `memoryOperationsNotSequencedAppropriately` query
-    ImportMisra23Package::memoryOperationsNotSequencedAppropriatelyQuery() and
-  queryId =
-    // `@id` for the `memoryOperationsNotSequencedAppropriately` query
-    "cpp/misra/memory-operations-not-sequenced-appropriately" and
-  ruleId = "RULE-4-6-1" and
   category = "required"
   or
   query =
@@ -1255,13 +1245,6 @@ module ImportMisra23Package {
     result =
       // `Query` type for `cstdioTypesShallNotBeUsed` query
       TQueryCPP(TImportMisra23PackageQuery(TCstdioTypesShallNotBeUsedQuery()))
-  }
-
-  Query memoryOperationsNotSequencedAppropriatelyQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `memoryOperationsNotSequencedAppropriately` query
-      TQueryCPP(TImportMisra23PackageQuery(TMemoryOperationsNotSequencedAppropriatelyQuery()))
   }
 
   Query backslashCharacterMisuseQuery() {

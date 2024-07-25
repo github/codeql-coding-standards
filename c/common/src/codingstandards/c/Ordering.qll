@@ -1,6 +1,6 @@
 import cpp
 import codingstandards.cpp.SideEffect
-import codingstandards.cpp.CExpr
+import codingstandards.c.Expr
 import codingstandards.cpp.Variable
 
 module Ordering {

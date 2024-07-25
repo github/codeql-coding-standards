@@ -1187,27 +1187,6 @@
       ],
       "title": "The C Library input/output functions shall not be used"
     },
-    "RULE-4-6-1": {
-      "properties": {
-        "enforcement": "undecidable",
-        "obligation": "required"
-      },
-      "queries": [
-        {
-          "description": "Operations on a memory location shall be sequenced appropriately.",
-          "kind": "problem",
-          "name": "Operations on a memory location shall be sequenced appropriately",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "MemoryOperationsNotSequencedAppropriately",
-          "shared_implementation_short_name": "MemoryOperationsNotSequencedAppropriately",
-          "tags": [
-            "scope/system"
-          ]
-        }
-      ],
-      "title": "Operations on a memory location shall be sequenced appropriately"
-    },
     "RULE-5-13-1": {
       "properties": {
         "enforcement": "decidable",

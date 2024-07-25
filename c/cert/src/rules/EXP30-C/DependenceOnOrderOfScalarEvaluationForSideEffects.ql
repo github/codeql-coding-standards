@@ -14,7 +14,6 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.SideEffect
-import codingstandards.cpp.COrdering
 import codingstandards.c.orderofevaluation.VariableAccessOrdering
 
 from

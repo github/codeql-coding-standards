@@ -12,7 +12,6 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnsequencedSideEffects",
-          "shared_implementation_short_name": "MemoryOperationsNotSequencedAppropriately",
           "tags": [
             "correctness"
           ]

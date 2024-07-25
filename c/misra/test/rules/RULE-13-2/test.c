@@ -1,5 +1,3 @@
-// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C TEST CASE AND
-// CHANGES SHOULD BE REFLECTED THERE AS WELL.
 void foo(int, int);
 
 void unsequenced_sideeffects1() {
@@ -29,7 +27,7 @@ void unsequenced_sideeffects1() {
   int l10 = l8++, l11 = l8++; // COMPLIANT
 }
 
-int g1[10], g2[10];
+int g1[], g2[];
 #define test(i) (g1[i] = g2[i])
 void unsequenced_sideeffects2() {
   int i;
