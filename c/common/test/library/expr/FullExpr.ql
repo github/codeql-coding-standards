@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.cpp.CExpr
+import codingstandards.c.Expr
 
 from FullExpr e
 select e
