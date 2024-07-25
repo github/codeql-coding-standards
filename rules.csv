@@ -614,7 +614,7 @@ c,MISRA-C-2012,DIR-4-9,Yes,Advisory,,,A function should be used in preference to
 c,MISRA-C-2012,DIR-4-10,Yes,Required,,,Precautions shall be taken in order to prevent the contents of a header file being included more than once,M16-2-3,Preprocessor2,Medium,
 c,MISRA-C-2012,DIR-4-11,Yes,Required,,,The validity of values passed to library functions shall be checked,,Contracts,Hard,
 c,MISRA-C-2012,DIR-4-12,Yes,Required,,,Dynamic memory allocation shall not be used,,Banned,Medium,
-c,MISRA-C-2012,DIR-4-13,No,Advisory,,,Functions which are designed to provide operations on a resource should be called in an appropriate sequence,,,,Rule 22.1, 22.2 and 22.6 cover aspects of this rule. In other cases this is a design issue and needs to be checked manually.
+c,MISRA-C-2012,DIR-4-13,No,Advisory,,,Functions which are designed to provide operations on a resource should be called in an appropriate sequence,,,,"Rule 22.1, 22.2 and 22.6 cover aspects of this rule. In other cases this is a design issue and needs to be checked manually."
 c,MISRA-C-2012,DIR-4-14,Yes,Required,,,The validity of values received from external sources shall be checked,,Contracts,Hard,This is supported by CodeQLs default C security queries.
 c,MISRA-C-2012,RULE-1-1,No,Required,,,"The program shall contain no violations of the standard C syntax and constraints, and shall not exceed the implementation's translation limits",,,Easy,"This should be checked via the compiler output, rather than CodeQL, which adds unnecessary steps."
 c,MISRA-C-2012,RULE-1-2,Yes,Advisory,,,Language extensions should not be used,,Language3,Hard,
