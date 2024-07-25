@@ -19,6 +19,6 @@ import codingstandards.cpp.rules.arraypassedasfunctionargumentdecaytoapointer.Ar
 
 class IdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery extends ArrayPassedAsFunctionArgumentDecayToAPointerSharedQuery {
   IdentifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery() {
-    this = pointersPackage::identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery()
+    this = PointersPackage::identifierWithArrayTypePassedAsFunctionArgumentDecayToAPointerQuery()
   }
 }

@@ -20,6 +20,6 @@ import codingstandards.cpp.rules.potentiallyvirtualpointeronlycomparestonullptr.
 
 class PointerToMemberVirtualFunctionWithNullPointerConstantQuery extends PotentiallyVirtualPointerOnlyComparesToNullptrSharedQuery {
   PointerToMemberVirtualFunctionWithNullPointerConstantQuery() {
-    this = pointersPackage::pointerToMemberVirtualFunctionWithNullPointerConstantQuery()
+    this = PointersPackage::pointerToMemberVirtualFunctionWithNullPointerConstantQuery()
   }
 }
