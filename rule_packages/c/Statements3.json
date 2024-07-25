@@ -32,7 +32,7 @@
         {
           "description": "if the body of a selection statement is not enclosed in braces, then this can lead to incorrect execution, and is hard for developers to maintain.",
           "kind": "problem",
-          "name": "the statement forming the body of a slection statement shall be a compound statement",
+          "name": "The statement forming the body of a slection statement shall be a compound statement",
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "SelectionCompoundCondition",
