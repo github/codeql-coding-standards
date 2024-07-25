@@ -12,7 +12,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CastCharBeforeConvertingToLargerSizes",
-          "shared_implementation_short_name": "CastCharBeforeConvertingToLargerSizes_shared",
+          "shared_implementation_short_name": "CastCharBeforeConvertingToLargerSizes",
           "tags": [
             "correctness",
             "security"

@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.rules.castcharbeforeconvertingtolargersizes_shared.CastCharBeforeConvertingToLargerSizes_shared
+import codingstandards.cpp.rules.castcharbeforeconvertingtolargersizes.CastCharBeforeConvertingToLargerSizes
 
-class CastCharBeforeConvertingToLargerSizesQuery extends CastCharBeforeConvertingToLargerSizes_sharedSharedQuery
+class CastCharBeforeConvertingToLargerSizesQuery extends CastCharBeforeConvertingToLargerSizesSharedQuery
 {
   CastCharBeforeConvertingToLargerSizesQuery() {
     this = Strings3Package::castCharBeforeConvertingToLargerSizesQuery()
