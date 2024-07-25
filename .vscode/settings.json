@@ -1,5 +1,0 @@
-{
-    "codeQL.cli.executablePath": "/Users/mauro/Desktop/CodeQL/bundles/codeql-2.14.6/codeql",
-    "codeQL.runningQueries.numberOfThreads": 0,
-    "codeQL.runningTests.numberOfThreads": 0
-}
