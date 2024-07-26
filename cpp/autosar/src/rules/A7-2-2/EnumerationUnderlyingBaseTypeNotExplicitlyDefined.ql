@@ -17,9 +17,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.enumerationnotdefinedwithanexplicitunderlyingtype.EnumerationNotDefinedWithAnExplicitUnderlyingType
 
-from Enum e
-where
-  not isExcluded(e, DeclarationsPackage::enumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery()) and
-  not e.hasExplicitUnderlyingType()
-select e, "Base type of enumeration is not explicitly specified."
+class EnumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery extends EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery
+{
+  EnumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery() {
+    this = DeclarationsPackage::enumerationUnderlyingBaseTypeNotExplicitlyDefinedQuery()
+  }
+}

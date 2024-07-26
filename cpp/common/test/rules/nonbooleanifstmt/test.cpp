@@ -46,3 +46,16 @@ void test_boolean_conditions() {
   if (a) { // COMPLIANT - a has an explicit operator bool()
   }
 }
+
+template <typename T> bool test_fp_reported_in_10a(T &p1) {
+  if (p1.length() > 10) { // COMPLIANT
+    return true;
+  }
+  return false;
+}
+
+#include <string>
+void test_fp_reported_in_10b() {
+  std::string s;
+  test_fp_reported_in_10a(s);
+}

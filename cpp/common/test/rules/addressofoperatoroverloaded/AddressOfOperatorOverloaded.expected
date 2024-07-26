@@ -1,0 +1,2 @@
+| test.cpp:2:5:2:13 | operator& | The unary & operator overloaded. |
+| test.cpp:8:3:8:11 | operator& | The unary & operator overloaded. |

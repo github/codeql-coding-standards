@@ -17,6 +17,47 @@
 import cpp
 import codingstandards.cpp.autosar
 
+private predicate isInFunctionScope(Declaration d) {
+  // Type declared in function
+  exists(d.(UserType).getEnclosingFunction())
+  or
+  // Member declared in type which is in function scope
+  isInFunctionScope(d.getDeclaringType())
+}
+
+private string doxygenCommentGroupStrings(boolean opening) {
+  opening = true and result = ["///@{", "/**@{*/"]
+  or
+  opening = false and result = ["///@}", "/**@}*/"]
+}
+
+pragma[inline]
+private predicate isBetweenDoxygenCommentGroup(
+  Location loc, Comment opening, Comment body, Comment closing
+) {
+  // All in the same file
+  loc.getFile() = opening.getLocation().getFile() and
+  loc.getFile() = closing.getLocation().getFile() and
+  loc.getFile() = body.getLocation().getFile() and
+  // The comments are doxygen comments
+  opening.getContents().matches(doxygenCommentGroupStrings(true)) and
+  closing.getContents().matches(doxygenCommentGroupStrings(false)) and
+  // The closing comment is after the opening comment
+  opening.getLocation().getStartLine() < closing.getLocation().getStartLine() and
+  // The `body` comment directly precedes the opening comment
+  body.getLocation().getEndLine() = opening.getLocation().getStartLine() - 1 and
+  // There are no other opening/closing comment pairs between the opening and closing comments
+  not exists(Comment c |
+    c.getContents().matches(doxygenCommentGroupStrings(_)) and
+    c.getLocation().getStartLine() > opening.getLocation().getStartLine() and
+    c.getLocation().getStartLine() < closing.getLocation().getStartLine()
+  ) and
+  // `loc` is between the opening and closing comments and after the body comment
+  loc.getStartLine() > opening.getLocation().getStartLine() and
+  loc.getStartLine() < closing.getLocation().getStartLine() and
+  loc.getStartLine() > body.getLocation().getEndLine()
+}
+
 /**
  * A declaration which is required to be preceded by documentation by AUTOSAR A2-7-3.
  */
@@ -42,10 +83,8 @@ class DocumentableDeclaration extends Declaration {
     declarationType = "member variable" and
     // Exclude memeber variables in instantiated templates, which cannot reasonably be documented.
     not this.(MemberVariable).isFromTemplateInstantiation(_) and
-    // Exclude anonymous lambda functions.
-    // TODO: replace with the following when support is added.
-    // not this.(MemberVariable).isCompilerGenerated()
-    not exists(LambdaExpression lc | lc.getACapture().getField() = this)
+    // Exclude compiler generated variables, such as those for anonymous lambda functions
+    not this.(MemberVariable).isCompilerGenerated()
   }
 
   /** Gets a `DeclarationEntry` for this declaration that should be documented. */
@@ -74,11 +113,13 @@ class DocumentableDeclaration extends Declaration {
 }
 
 /**
- * A `DeclarationEntry` is considered documented if it has an associated `Comment`, and the `Comment`
- * precedes the `DeclarationEntry`.
+ * A `DeclarationEntry` is considered documented if it has an associated `Comment`, the `Comment`
+ * precedes the `DeclarationEntry`, and the `Comment` is not a doxygen comment group prefix.
  */
+cached
 predicate isDocumented(DeclarationEntry de) {
   exists(Comment c | c.getCommentedElement() = de |
+    not c.getContents() = doxygenCommentGroupStrings(true) and
     exists(Location commentLoc, Location deLoc |
       commentLoc = c.getLocation() and deLoc = de.getLocation()
     |
@@ -90,12 +131,16 @@ predicate isDocumented(DeclarationEntry de) {
       commentLoc.getStartColumn() < deLoc.getStartColumn()
     )
   )
+  or
+  // The declaration entry is between a doxygen comment group
+  isBetweenDoxygenCommentGroup(de.getLocation(), _, _, _)
 }
 
 from DocumentableDeclaration d, DeclarationEntry de
 where
   not isExcluded(de, CommentsPackage::undocumentedUserDefinedTypeQuery()) and
   not isExcluded(d, CommentsPackage::undocumentedUserDefinedTypeQuery()) and
+  not isInFunctionScope(d) and
   d.getAnUndocumentedDeclarationEntry() = de
 select de,
   "Declaration entry for " + d.getDeclarationType() + " " + d.getName() +

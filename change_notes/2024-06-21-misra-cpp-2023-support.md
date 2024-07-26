@@ -1,0 +1,2 @@
+- `MISRA C++ 2023`: 
+  - Extend the project structure and provide initial support for query writing.

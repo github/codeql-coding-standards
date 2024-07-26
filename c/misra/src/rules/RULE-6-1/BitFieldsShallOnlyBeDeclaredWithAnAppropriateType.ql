@@ -12,22 +12,11 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.rules.bitfieldshallhaveanappropriatetype.BitFieldShallHaveAnAppropriateType
 
-predicate isAppropriatePrimitive(Type type) {
-  /* An appropriate primitive types to which a bit-field can be declared. */
-  type instanceof IntType and
-  (
-    type.(IntegralType).isExplicitlySigned() or
-    type.(IntegralType).isExplicitlyUnsigned()
-  )
-  or
-  type instanceof BoolType
+class BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery extends BitFieldShallHaveAnAppropriateTypeSharedQuery
+{
+  BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery() {
+    this = BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()
+  }
 }
-
-from BitField bitField
-where
-  not isExcluded(bitField,
-    BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
-  /* A violation would neither be an appropriate primitive type nor an appropriate typedef. */
-  not isAppropriatePrimitive(bitField.getType().resolveTypedefs())
-select bitField, "Bit-field " + bitField + " is declared on type " + bitField.getType() + "."

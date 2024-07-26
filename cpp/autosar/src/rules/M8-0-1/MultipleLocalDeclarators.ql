@@ -16,11 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.multiplelocaldeclarators.MultipleLocalDeclarators
 
-from DeclStmt ds
-where
-  not isExcluded(ds, InitializationPackage::multipleLocalDeclaratorsQuery()) and
-  count(Declaration d | d = ds.getADeclaration()) > 1 and
-  // Not a compiler generated `DeclStmt`, such as in the range-based for loop
-  not ds.isCompilerGenerated()
-select ds, "Declaration list contains more than one declaration."
+class MultipleLocalDeclaratorsQuery extends MultipleLocalDeclaratorsSharedQuery {
+  MultipleLocalDeclaratorsQuery() { this = InitializationPackage::multipleLocalDeclaratorsQuery() }
+}

@@ -30,5 +30,7 @@ where
   not e instanceof MulExpr and
   // Not covered by this query - overflow/underflow in division is rare
   not e instanceof DivExpr and
-  not e instanceof RemExpr
+  not e instanceof AssignDivExpr and
+  not e instanceof RemExpr and
+  not e instanceof AssignRemExpr
 select e, "Binary expression ..." + e.getOperator() + "... may overflow."

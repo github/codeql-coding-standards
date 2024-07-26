@@ -16,19 +16,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.potentiallyvirtualpointeronlycomparestonullptr.PotentiallyVirtualPointerOnlyComparesToNullptr
 
-from
-  EqualityOperation equalityComparison, MemberFunction virtualFunction,
-  FunctionAccess accessOperand, Expr otherOperand
-where
-  not isExcluded(equalityComparison,
-    PointersPackage::pointerToMemberVirtualFunctionWithNullPointerConstantQuery()) and
-  virtualFunction.isVirtual() and
-  equalityComparison.getAnOperand() = accessOperand and
-  accessOperand.getTarget() = virtualFunction and
-  otherOperand = equalityComparison.getAnOperand() and
-  not otherOperand = accessOperand and
-  not otherOperand.getType() instanceof NullPointerType
-select equalityComparison,
-  "A pointer to member virtual function $@ is tested for equality with non-null-pointer-constant $@. ",
-  virtualFunction, virtualFunction.getName(), otherOperand, otherOperand.toString()
+class PointerToMemberVirtualFunctionWithNullPointerConstantQuery extends PotentiallyVirtualPointerOnlyComparesToNullptrSharedQuery
+{
+  PointerToMemberVirtualFunctionWithNullPointerConstantQuery() {
+    this = PointersPackage::pointerToMemberVirtualFunctionWithNullPointerConstantQuery()
+  }
+}
