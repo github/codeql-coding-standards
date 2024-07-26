@@ -17,9 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.linesplicingusedincomments.LineSplicingUsedInComments
 
-from CppStyleComment c
-where
-  not isExcluded(c, CommentsPackage::singleLineCommentEndsWithSlashQuery()) and
-  exists(c.getContents().regexpFind("\\\n", _, _))
-select c, "C++ comment includes \\ as the last character of a line"
+class SingleLineCommentEndsWithSlashQuery extends LineSplicingUsedInCommentsSharedQuery {
+  SingleLineCommentEndsWithSlashQuery() {
+    this = CommentsPackage::singleLineCommentEndsWithSlashQuery()
+  }
+}

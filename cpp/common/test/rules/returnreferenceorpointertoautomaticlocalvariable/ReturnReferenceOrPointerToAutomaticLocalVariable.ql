@@ -1,0 +1,5 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.returnreferenceorpointertoautomaticlocalvariable.ReturnReferenceOrPointerToAutomaticLocalVariable
+
+class TestFileQuery extends ReturnReferenceOrPointerToAutomaticLocalVariableSharedQuery, TestQuery {
+}

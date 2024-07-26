@@ -192,6 +192,9 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
             if len(class_name) > 61:
                 # Line break required after comma
                 f.write("\n  TestQuery\n{ }\n")
+            elif len(class_name) == 61:
+                # Line break required before `{`
+                f.write(" TestQuery\n{ }\n")
             elif len(class_name) > 57:
                 # Line break required after `{`
                 f.write(" TestQuery {\n}\n")

@@ -41,6 +41,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "VectorboolSpecializationUsed",
+          "shared_implementation_short_name": "VectorShouldNotBeSpecializedWithBool",
           "tags": [
             "correctness",
             "scope/single-translation-unit"

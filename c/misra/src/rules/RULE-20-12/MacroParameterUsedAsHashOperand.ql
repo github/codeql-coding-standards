@@ -15,22 +15,11 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Macro
+import codingstandards.cpp.rules.amixedusemacroargumentsubjecttoexpansion.AMixedUseMacroArgumentSubjectToExpansion
 
-from FunctionLikeMacro m, MacroInvocation mi, int i, string expanded, string param
-where
-  not isExcluded(mi, Preprocessor2Package::macroParameterUsedAsHashOperandQuery()) and
-  mi = m.getAnInvocation() and
-  param = m.getParameter(i) and
-  (
-    exists(TokenPastingOperator op | op.getMacro() = m and op.getOperand() = param)
-    or
-    exists(StringizingOperator op | op.getMacro() = m and op.getOperand() = param)
-  ) and
-  // An expansion that is equal to "" means the expansion is not used and is optimized away by EDG. This happens when the expanded argument is an operand to `#` or `##`.
-  // This check ensure there is an expansion that is used.
-  expanded = mi.getExpandedArgument(i) and
-  not expanded = "" and
-  not mi.getUnexpandedArgument(i) = mi.getExpandedArgument(i)
-select m,
-  "Macro " + m.getName() + " contains use of parameter " + param + " used in multiple contexts."
+class MacroParameterUsedAsHashOperandQuery extends AMixedUseMacroArgumentSubjectToExpansionSharedQuery
+{
+  MacroParameterUsedAsHashOperandQuery() {
+    this = Preprocessor2Package::macroParameterUsedAsHashOperandQuery()
+  }
+}

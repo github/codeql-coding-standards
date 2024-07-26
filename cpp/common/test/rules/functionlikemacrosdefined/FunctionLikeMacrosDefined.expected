@@ -1,0 +1,2 @@
+| test.cpp:8:1:8:25 | #define MACRO4(x) (x + 1) | Macro used instead of a function. |
+| test.cpp:13:1:13:48 | #define MACRO9() printf_custom("output = %d", 7) | Macro used instead of a function. |
