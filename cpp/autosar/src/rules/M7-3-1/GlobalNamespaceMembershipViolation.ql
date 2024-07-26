@@ -16,13 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.globalnamespacedeclarations.GlobalNamespaceDeclarations
 
-from DeclarationEntry de
-where
-  not isExcluded(de, ScopePackage::globalNamespaceMembershipViolationQuery()) and
-  de.getDeclaration().getNamespace() instanceof GlobalNamespace and
-  de.getDeclaration().isTopLevel() and
-  not exists(Function f | f = de.getDeclaration() | f.hasGlobalName("main") or f.hasCLinkage())
-select de,
-  "Declaration " + de.getName() +
-    " is in the global namespace and is not a main, a namespace, or an extern \"C\" declaration."
+class GlobalNamespaceMembershipViolationQuery extends GlobalNamespaceDeclarationsSharedQuery {
+  GlobalNamespaceMembershipViolationQuery() {
+    this = ScopePackage::globalNamespaceMembershipViolationQuery()
+  }
+}

@@ -88,3 +88,10 @@ class UserProvidedMacro extends Macro {
 class LibraryMacro extends Macro {
   LibraryMacro() { not this instanceof UserProvidedMacro }
 }
+
+/**
+ * A macro which is suggestive that it is used to determine the precision of an integer.
+ */
+class PrecisionMacro extends Macro {
+  PrecisionMacro() { this.getName().toLowerCase().matches("precision") }
+}

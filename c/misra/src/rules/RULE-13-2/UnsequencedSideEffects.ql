@@ -13,9 +13,8 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Expr
-import codingstandards.c.SideEffects
 import codingstandards.c.Ordering
+import codingstandards.c.SideEffects
 
 class VariableEffectOrAccess extends Expr {
   VariableEffectOrAccess() {

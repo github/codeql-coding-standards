@@ -14,9 +14,11 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.rules.resultofanassignmentoperatorshouldnotbeused.ResultOfAnAssignmentOperatorShouldNotBeUsed
 
-from AssignExpr e
-where
-  not isExcluded(e, SideEffects1Package::resultOfAnAssignmentOperatorShouldNotBeUsedQuery()) and
-  not exists(ExprStmt s | s.getExpr() = e)
-select e, "Use of an assignment operator's result."
+class ResultOfAnAssignmentOperatorShouldNotBeUsedQuery extends ResultOfAnAssignmentOperatorShouldNotBeUsedSharedQuery
+{
+  ResultOfAnAssignmentOperatorShouldNotBeUsedQuery() {
+    this = SideEffects1Package::resultOfAnAssignmentOperatorShouldNotBeUsedQuery()
+  }
+}

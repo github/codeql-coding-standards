@@ -85,6 +85,9 @@ module ArrayAggregateLiterals {
         // The aggregate itself not be compiler generated, or in a macro expansion, otherwise our line numbers will be off
         not cal.isCompilerGenerated() and
         not cal.isInMacroExpansion() and
+        // Ignore cases where the compilerGenerated value is a variable access targeting
+        // a parameter, as these are generated from variadic templates
+        not compilerGeneratedVal.(VariableAccess).getTarget() instanceof Parameter and
         exists(string filepath, int startline, int startcolumn, int endline, int endcolumn |
           compilerGeneratedVal.getLocation().hasLocationInfo(filepath, _, _, endline, endcolumn) and
           previousExpr

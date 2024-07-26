@@ -18,10 +18,8 @@ import codingstandards.cpp.Concurrency
 import codingstandards.cpp.dataflow.TaintTracking
 import codingstandards.cpp.dataflow.DataFlow
 
-class TssCreateToTssDeleteDataFlowConfiguration extends DataFlow::Configuration {
-  TssCreateToTssDeleteDataFlowConfiguration() { this = "TssCreateToTssDeleteDataFlowConfiguration" }
-
-  override predicate isSource(DataFlow::Node node) {
+module TssCreateToTssDeleteConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node node) {
     exists(TSSCreateFunctionCall tsc, Expr e |
       // the only requirement of the source is that at some point
       // it refers to the key of a create statement
@@ -30,7 +28,7 @@ class TssCreateToTssDeleteDataFlowConfiguration extends DataFlow::Configuration 
     )
   }
 
-  override predicate isSink(DataFlow::Node node) {
+  predicate isSink(DataFlow::Node node) {
     exists(TSSDeleteFunctionCall tsd, Expr e |
       // the only requirement of a sink is that at some point
       // it references the key of a delete call.
@@ -40,15 +38,17 @@ class TssCreateToTssDeleteDataFlowConfiguration extends DataFlow::Configuration 
   }
 }
 
+module TssCreateToTssDeleteFlow = DataFlow::Global<TssCreateToTssDeleteConfig>;
+
 from TSSCreateFunctionCall tcfc
 where
   not isExcluded(tcfc, Concurrency4Package::cleanUpThreadSpecificStorageQuery()) and
   // all calls to `tss_create` must be bookended by calls to tss_delete
   // even if a thread is not created.
-  not exists(TssCreateToTssDeleteDataFlowConfiguration config |
-    config.hasFlow(DataFlow::definitionByReferenceNodeFromArgument(tcfc.getKey()), _)
+  not (
+    TssCreateToTssDeleteFlow::flow(DataFlow::definitionByReferenceNodeFromArgument(tcfc.getKey()), _)
     or
-    config.hasFlow(DataFlow::exprNode(tcfc.getKey()), _)
+    TssCreateToTssDeleteFlow::flow(DataFlow::exprNode(tcfc.getKey()), _)
   )
   or
   // if a thread is created, we must check additional items

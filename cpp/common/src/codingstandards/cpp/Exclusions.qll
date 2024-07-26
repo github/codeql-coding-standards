@@ -14,16 +14,6 @@ private class ExcludeOutsideSourceLocation extends ExcludedFile {
   ExcludeOutsideSourceLocation() { not exists(getRelativePath()) }
 }
 
-/** Holds if the element should be excluded. */
-predicate isExcluded(Element e) {
-  e instanceof ExcludedElement
-  or
-  e.getFile() instanceof ExcludedFile
-  or
-  // Compiler generated
-  not exists(e.getFile())
-}
-
 bindingset[e, query]
 predicate isExcluded(Element e, Query query) { isExcluded(e, query, _) }
 

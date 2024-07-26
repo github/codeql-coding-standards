@@ -1,0 +1,5 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.objectsdynamictypeusedfromconstructorordestructor.ObjectsDynamicTypeUsedFromConstructorOrDestructor
+
+class TestFileQuery extends ObjectsDynamicTypeUsedFromConstructorOrDestructorSharedQuery, TestQuery {
+}

@@ -31,7 +31,8 @@ class NonStaticMemberFunction extends MemberFunction {
     not this instanceof Constructor and
     not this instanceof Destructor and
     not this instanceof Operator and
-    this.hasDefinition()
+    this.hasDefinition() and
+    not this.isFromUninstantiatedTemplate(_)
   }
 }
 
@@ -39,5 +40,6 @@ from NonStaticMemberFunction nonstatic
 where
   not isExcluded(nonstatic, ConstPackage::memberFunctionStaticIfPossibleQuery()) and
   not exists(ThisExpr t | t.getEnclosingFunction() = nonstatic) and
-  not nonstatic.isVirtual()
+  not nonstatic.isVirtual() and
+  not nonstatic.isDeleted()
 select nonstatic, "Member function can be declared as static."

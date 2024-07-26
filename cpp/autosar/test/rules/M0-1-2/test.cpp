@@ -33,14 +33,14 @@ template <class T> int f() {
   if (0) { // NON_COMPLIANT - true path is infeasible in all circumstances
     return 3;
   }
-  if (T::isVal()) { // COMPLIANT[FALSE_POSITIVE] - `isVal` is `true` for all
+  if (T::isVal()) { // COMPLIANT - `isVal` is `true` for all
                     // visible instantiations, but in the uninstantiated
                     // template both paths are feasible. This represents that
                     // this is template dependent, so we consider it compliant
     return 2;
   }
 
-  if (T::isVal2()) { // COMPLIANT[FALSE_POSITIVE] - `isVal2` is either true or
+  if (T::isVal2()) { // COMPLIANT - `isVal2` is either true or
                      // false
     return 2;
   }
@@ -98,4 +98,37 @@ void test_loop(int a) {
   for (int i = a; i < 10; i++) { // COMPLIANT
     a++;
   }
+}
+
+template <bool x> int foo() {
+  if (x) { // COMPLIANT - block is reachable in the one of the instantiated
+           // template
+    return 1;
+  }
+  return 0; // COMPLIANT - block is reachable in the uninstantiated template
+}
+
+void test() {
+  foo<true>();
+  foo<false>();
+}
+
+template <class T> int template_infeasible_true_path() {
+  if (0) { // NON_COMPLIANT - true path is infeasible in all circumstances
+    return 3;
+  }
+}
+
+template <class T> int template_infeasible_false_path() {
+  if (!0) {
+    return 3;
+  }
+  return 1; // NON_COMPLIANT - false path is infeasible in all circumstances
+}
+
+void test_infeasible_instantiates() {
+  template_infeasible_true_path<A>();
+  template_infeasible_true_path<B>();
+  template_infeasible_false_path<A>();
+  template_infeasible_false_path<B>();
 }

@@ -13,12 +13,12 @@
 import cpp
 import codingstandards.cpp.cert
 import ManuallyManagedLifetime
-import codingstandards.cpp.dataflow.DataFlow2
-import DataFlow2::PathGraph
+import codingstandards.cpp.dataflow.DataFlow
+import FreeWithoutDestructorFlow::PathGraph
 
-from FreeWithoutDestructorConfig dc, DataFlow2::PathNode source, DataFlow2::PathNode sink
+from FreeWithoutDestructorFlow::PathNode source, FreeWithoutDestructorFlow::PathNode sink
 where
   not isExcluded(sink.getNode().asExpr(),
     AllocationsPackage::missingDestructorCallForManuallyManagedObjectQuery()) and
-  dc.hasFlowPath(source, sink)
+  FreeWithoutDestructorFlow::flowPath(source, sink)
 select sink.getNode(), source, sink, "Memory freed without an appropriate destructor called."

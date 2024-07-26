@@ -35,3 +35,8 @@ private:
 
 void testb_1() { ClassB<int> b; }
 void testb_2() { ClassB<long> b; }
+
+namespace {
+extern int a12;  // COMPLIANT
+extern long a13; // NON_COMPLIANT
+} // anonymous namespace

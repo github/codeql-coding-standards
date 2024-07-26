@@ -18,18 +18,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Cpp14Literal
+import codingstandards.cpp.rules.unsignedintegerliteralsnotappropriatelysuffixed.UnsignedIntegerLiteralsNotAppropriatelySuffixed
 
-from Cpp14Literal::NumericLiteral nl, string literalKind
-where
-  not isExcluded(nl, LiteralsPackage::missingUSuffixQuery()) and
-  (
-    nl instanceof Cpp14Literal::OctalLiteral and literalKind = "Octal"
-    or
-    nl instanceof Cpp14Literal::HexLiteral and literalKind = "Hex"
-  ) and
-  // This either directly has an unsigned integer type, or it is converted to an unsigned integer type
-  nl.getType().getUnspecifiedType().(IntegralType).isUnsigned() and
-  // The literal already has a `u` or `U` suffix.
-  not nl.getValueText().regexpMatch(".*[lL]*[uU][lL]*")
-select nl, literalKind + " literal is an unsigned integer but does not include a 'U' suffix."
+class MissingUSuffixQuery extends UnsignedIntegerLiteralsNotAppropriatelySuffixedSharedQuery {
+  MissingUSuffixQuery() { this = LiteralsPackage::missingUSuffixQuery() }
+}

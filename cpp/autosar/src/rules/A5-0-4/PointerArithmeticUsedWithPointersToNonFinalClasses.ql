@@ -18,7 +18,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Type
 import codingstandards.cpp.dataflow.DataFlow
-import DataFlow::PathGraph
+import NonFinalClassToPointerArithmeticExprFlow::PathGraph
 
 class ArrayAccessOrPointerArith extends Expr {
   ArrayAccessOrPointerArith() {
@@ -42,12 +42,8 @@ class AddressOfPointerCreation extends ClassPointerCreation, AddressOfExpr {
   AddressOfPointerCreation() { this.getAnOperand().getUnderlyingType() instanceof Class }
 }
 
-class NonFinalClassToPointerArithmeticExprConfig extends DataFlow::Configuration {
-  NonFinalClassToPointerArithmeticExprConfig() {
-    this = "NonFinalClassToPointerArithmeticExprConfig"
-  }
-
-  override predicate isSource(DataFlow::Node source) {
+module NonFinalClassToPointerArithmeticExprConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     exists(Class c |
       source.asExpr() instanceof ClassPointerCreation and
       source.asExpr().getUnderlyingType().(PointerType).getBaseType() = c
@@ -56,17 +52,21 @@ class NonFinalClassToPointerArithmeticExprConfig extends DataFlow::Configuration
     )
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(ArrayAccessOrPointerArith e | e.getAnOperand() = sink.asExpr())
   }
 }
 
+module NonFinalClassToPointerArithmeticExprFlow =
+  DataFlow::Global<NonFinalClassToPointerArithmeticExprConfig>;
+
 from
-  ArrayAccessOrPointerArith e, Class clz, Variable v, DataFlow::PathNode source,
-  DataFlow::PathNode sink
+  ArrayAccessOrPointerArith e, Class clz, Variable v,
+  NonFinalClassToPointerArithmeticExprFlow::PathNode source,
+  NonFinalClassToPointerArithmeticExprFlow::PathNode sink
 where
   not isExcluded(e, PointersPackage::pointerArithmeticUsedWithPointersToNonFinalClassesQuery()) and
-  any(NonFinalClassToPointerArithmeticExprConfig c).hasFlowPath(source, sink) and
+  NonFinalClassToPointerArithmeticExprFlow::flowPath(source, sink) and
   v.getAnAssignedValue() = source.getNode().asExpr() and
   (
     e.(PointerArithmeticOperation).getAnOperand() = sink.getNode().asExpr()

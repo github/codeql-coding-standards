@@ -115,25 +115,24 @@ int getPointerArithmeticOperandStatedValue(CallToFunctionWithRestrictParametersA
   result = 0
 }
 
-class PointerValueToRestrictArgConfig extends DataFlow::Configuration {
-  PointerValueToRestrictArgConfig() { this = "PointerValueToRestrictArgConfig" }
+module PointerValueToRestrictArgConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { pointerValue(source.asExpr()) }
 
-  override predicate isSource(DataFlow::Node source) { pointerValue(source.asExpr()) }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(CallToFunctionWithRestrictParameters call |
       sink.asExpr() = call.getAPtrArg(_).getAChild*()
     )
   }
 
-  override predicate isBarrierIn(DataFlow::Node node) {
+  predicate isBarrierIn(DataFlow::Node node) {
     exists(AddressOfExpr a | node.asExpr() = a.getOperand().getAChild*())
   }
 }
 
+module PointerValueToRestrictArgFlow = DataFlow::Global<PointerValueToRestrictArgConfig>;
+
 from
-  PointerValueToRestrictArgConfig config, CallToFunctionWithRestrictParameters call,
-  CallToFunctionWithRestrictParametersArgExpr arg1,
+  CallToFunctionWithRestrictParameters call, CallToFunctionWithRestrictParametersArgExpr arg1,
   CallToFunctionWithRestrictParametersArgExpr arg2, int argOffset1, int argOffset2, Expr source1,
   Expr source2, string sourceMessage1, string sourceMessage2
 where
@@ -144,17 +143,20 @@ where
   (not arg2 = call.getARestrictPtrArg() or arg2.getParamIndex() > arg1.getParamIndex()) and
   (
     // check if two pointers address the same object
-    config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg1.getAChild*())) and
+    PointerValueToRestrictArgFlow::flow(DataFlow::exprNode(source1),
+      DataFlow::exprNode(arg1.getAChild*())) and
     (
       // one pointer value flows to both args
-      config.hasFlow(DataFlow::exprNode(source1), DataFlow::exprNode(arg2.getAChild*())) and
+      PointerValueToRestrictArgFlow::flow(DataFlow::exprNode(source1),
+        DataFlow::exprNode(arg2.getAChild*())) and
       sourceMessage1 = "$@" and
       sourceMessage2 = "source" and
       source1 = source2
       or
       // there are two separate values that flow from an AddressOfExpr of the same target
       getAddressOfExprTargetBase(source1) = getAddressOfExprTargetBase(source2) and
-      config.hasFlow(DataFlow::exprNode(source2), DataFlow::exprNode(arg2.getAChild*())) and
+      PointerValueToRestrictArgFlow::flow(DataFlow::exprNode(source2),
+        DataFlow::exprNode(arg2.getAChild*())) and
       sourceMessage1 = "a pair of address-of expressions ($@, $@)" and
       sourceMessage2 = "addressof1" and
       not source1 = source2

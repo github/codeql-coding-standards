@@ -80,10 +80,46 @@ void test_not_wrapper_stream(std::ostream &os, const char *str) noexcept {
 #define MACRO_LOG(test_str)                                                    \
   do {                                                                         \
     struct test_struct {                                                       \
-      static const char *get_str() { return static_cast<char *>(test_str); }   \
+      static const char *get_str() {                                           \
+        return static_cast<const char *>(test_str);                            \
+      }                                                                        \
     };                                                                         \
   } while (false)
 
 void f() {
   MACRO_LOG("test"); // COMPLIANT - exclusion
+}
+
+template <typename T> struct S1 { static constexpr size_t value(); };
+
+template <> struct S1<int> {
+  static constexpr size_t value() { return sizeof(int); };
+};
+
+constexpr size_t g1 = S1<int>::value();
+constexpr size_t f1() { return sizeof(int); }
+
+template <typename T, int size> struct S2 {
+  T m1[size]; // COMPLIANT
+  T m2[4];    // NON_COMPLIANT
+};
+
+template <typename T, T val> struct S3 {
+  static constexpr T value = val; // COMPLIANT;
+};
+
+void test_fp_reported_in_371() {
+  struct S2<int, 1> l1;    // COMPLIANT
+  struct S2<int, g1> l2;   // COMPLIANT
+  struct S2<int, f1()> l3; // COMPLIANT
+
+  S3<char16_t, u'\u03c0'> l4;                      // COMPLIANT
+  S3<char16_t, S3<char16_t, u'\u2286'>::value> l5; // COMPLIANT
+  S3<char32_t, U'🌌'> l6;                           // COMPLIANT
+  S3<char32_t, S3<char32_t, U'⭐'>::value> l7;      // COMPLIANT
+
+  constexpr float l8 = 3.14159f;
+#define delta 0.1f
+  for (float i = 0.0f; i < l8; i += delta) { // COMPLIANT
+  }
 }

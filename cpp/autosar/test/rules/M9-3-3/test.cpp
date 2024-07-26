@@ -161,3 +161,64 @@ class Z22 : Z1 {
   void f2() final {}                   // COMPLIANT
   void f3() { this->a = 100; }         // COMPLIANT
 };
+
+template <class T> class Array {
+public:
+  T &back();
+
+private:
+  T data[128];
+  unsigned int size;
+};
+
+template <class T, template <class...> class U> class Stack {
+public:
+  T &Top() {
+    return this->data.back();
+  } // COMPLIANT[FALSE_NEGATIVE|TRUE_NEGATIVE] - exception not specified in the
+    // standard, we opt to not raise an issue because the template can be both
+    // compliant and non-compliant depending on instantiations.
+private:
+  U<T> data;
+};
+
+using IntVectorStack = Stack<int, Array>;
+
+void test_template() {
+  IntVectorStack s;
+
+  int i = s.Top();
+}
+
+class Z3 {
+  void f(int) = delete; // COMPLIANT
+};
+
+class Z4 {
+public:
+  int values[128];
+  template <typename T>
+  void fill(const T &val) { // COMPLIANT[FALSE_NEGATIVE|TRUE_NEGATIVE] -
+                            // exception not specified in the
+    // standard, we opt to not raise an issue because the template can be both
+    // compliant and non-compliant depending on instantiations.
+    for (auto &elem : values) {
+      elem = val;
+    }
+  }
+  constexpr int &front() noexcept { return values[0]; } // COMPLIANT
+};
+
+void fp_reported_in_381() {
+  // added to test template initialization effects/lack thereof
+  Z4 z;
+  int i = z.front();
+  z.fill(i);
+}
+
+class ZZ {
+public:
+  template <typename T>
+  void fp_616(const T &val) {
+  } // COMPLIANT - ignore uninstantiated templates for static also
+};

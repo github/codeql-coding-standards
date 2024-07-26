@@ -39,22 +39,20 @@ class AssignmentOrInitializationToRestrictPtrValueExpr extends Expr {
  * A data-flow configuration for tracking flow from an assignment or initialization to
  * an assignment to an `AssignmentOrInitializationToRestrictPtrValueExpr`.
  */
-class AssignedValueToRestrictPtrValueConfiguration extends DataFlow::Configuration {
-  AssignedValueToRestrictPtrValueConfiguration() {
-    this = "AssignmentOrInitializationToRestrictPtrValueConfiguration"
-  }
-
-  override predicate isSource(DataFlow::Node source) {
+module AssignedValueToRestrictPtrValueConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     exists(Variable v | source.asExpr() = v.getAnAssignedValue())
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     sink.asExpr() instanceof AssignmentOrInitializationToRestrictPtrValueExpr
   }
 }
 
+module AssignedValueToRestrictPtrValueFlow =
+  DataFlow::Global<AssignedValueToRestrictPtrValueConfig>;
+
 from
-  AssignedValueToRestrictPtrValueConfiguration config,
   AssignmentOrInitializationToRestrictPtrValueExpr expr, DataFlow::Node sourceValue,
   string sourceMessage
 where
@@ -71,8 +69,8 @@ where
     exists(AssignmentOrInitializationToRestrictPtrValueExpr pre_expr |
       expr.getEnclosingBlock() = pre_expr.getEnclosingBlock() and
       (
-        config.hasFlow(sourceValue, DataFlow::exprNode(pre_expr)) and
-        config.hasFlow(sourceValue, DataFlow::exprNode(expr)) and
+        AssignedValueToRestrictPtrValueFlow::flow(sourceValue, DataFlow::exprNode(pre_expr)) and
+        AssignedValueToRestrictPtrValueFlow::flow(sourceValue, DataFlow::exprNode(expr)) and
         sourceMessage = "the same source value"
         or
         // Expressions referring to the address of the same variable can also result in aliasing

@@ -16,35 +16,57 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Class
 
-predicate isInvalidConstructor(Constructor f, string constructorType) {
+predicate isInvalidConstructor(Constructor f, string constructorType, string missingAction) {
   not f.isDeleted() and
   not f.isProtected() and
   (
-    f instanceof MoveConstructor and constructorType = "Move constructor"
+    f instanceof MoveConstructor and
+    if f.isCompilerGenerated()
+    then constructorType = "Implicit move constructor" and missingAction = "deleted"
+    else (
+      constructorType = "Move constructor" and missingAction = "protected"
+    )
     or
-    f instanceof CopyConstructor and constructorType = "Copy constructor"
+    f instanceof CopyConstructor and
+    if f.isCompilerGenerated()
+    then constructorType = "Implicit copy constructor" and missingAction = "deleted"
+    else (
+      constructorType = "Copy constructor" and missingAction = "protected"
+    )
   )
 }
 
-predicate isInvalidAssignment(Operator f, string operatorType) {
+predicate isInvalidAssignment(Operator f, string operatorType, string missingAction) {
   not f.isDeleted() and
   (
-    f instanceof CopyAssignmentOperator and operatorType = "Copy assignment operator"
+    f instanceof MoveAssignmentOperator and
+    if f.isCompilerGenerated()
+    then operatorType = "Implicit move assignment operator" and missingAction = "deleted"
+    else (
+      operatorType = "Move assignment operator" and missingAction = "protected"
+    )
     or
-    f instanceof MoveAssignmentOperator and operatorType = "Move assignment operator"
+    f instanceof CopyAssignmentOperator and
+    if f.isCompilerGenerated()
+    then operatorType = "Implicit copy assignment operator" and missingAction = "deleted"
+    else (
+      operatorType = "Copy assignment operator" and missingAction = "protected"
+    )
   ) and
   not f.hasSpecifier("protected")
 }
 
-from MemberFunction mf, string type, string baseReason
+from BaseClass baseClass, MemberFunction mf, string type, string missingAction
 where
   not isExcluded(mf, OperatorsPackage::copyAndMoveNotDeclaredProtectedQuery()) and
   (
-    isInvalidConstructor(mf, type)
+    isInvalidConstructor(mf, type, missingAction)
     or
-    isInvalidAssignment(mf, type)
+    isInvalidAssignment(mf, type, missingAction)
   ) and
-  isPossibleBaseClass(mf.getDeclaringType(), baseReason)
+  baseClass = mf.getDeclaringType()
+// To avoid duplicate alerts due to inaccurate location information in the database we don't use the location of the base class.
+// This for example happens if multiple copies of the same header file are present in the database.
 select getDeclarationEntryInClassDeclaration(mf),
-  type + " for base class " + mf.getDeclaringType().getQualifiedName() + " (" + baseReason +
-    ") is not declared protected or deleted."
+  type + " for base class '" + baseClass.getQualifiedName() + "' is not declared " + missingAction +
+    "."

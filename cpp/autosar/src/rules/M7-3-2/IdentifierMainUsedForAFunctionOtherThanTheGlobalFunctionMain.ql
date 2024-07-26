@@ -15,11 +15,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.nonglobalfunctionmain.NonGlobalFunctionMain
 
-from Function f
-where
-  not isExcluded(f,
-    NamingPackage::identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery()) and
-  f.hasName("main") and
-  not f.hasGlobalName("main")
-select f, "Identifier main used for a function other than the global function main."
+class IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery extends NonGlobalFunctionMainSharedQuery
+{
+  IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery() {
+    this = NamingPackage::identifierMainUsedForAFunctionOtherThanTheGlobalFunctionMainQuery()
+  }
+}

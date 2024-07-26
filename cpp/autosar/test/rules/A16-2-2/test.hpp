@@ -1,1 +1,3 @@
-void f();
+#include "z.h"
+
+void g() { f(); }
