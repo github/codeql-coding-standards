@@ -13,14 +13,10 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Macro
+import codingstandards.cpp.rules.macroparameterfollowinghash.MacroParameterFollowingHash
 
-from Macro m
-where
-  not isExcluded(m, Preprocessor2Package::moreThanOneHashOperatorInMacroDefinitionQuery()) and
-  exists(StringizingOperator one, TokenPastingOperator two |
-    one.getMacro() = m and
-    two.getMacro() = m and
-    one.getOffset() < two.getOffset()
-  )
-select m, "Macro definition uses an # operator followed by a ## operator."
+class MoreThanOneHashOperatorInMacroDefinitionQuery extends MacroParameterFollowingHashSharedQuery {
+  MoreThanOneHashOperatorInMacroDefinitionQuery() {
+    this = Preprocessor2Package::moreThanOneHashOperatorInMacroDefinitionQuery()
+  }
+}

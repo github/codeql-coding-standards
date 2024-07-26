@@ -15,8 +15,9 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import TriviallySmallType
+import TriviallyCopyableSmallType
 import codingstandards.cpp.CommonTypes as CommonTypes
+import codingstandards.cpp.Class
 
 /*
  * For the purposes of this rule, "cheap to copy" is defined as a trivially copyable type that is no
@@ -25,7 +26,7 @@ import codingstandards.cpp.CommonTypes as CommonTypes
  * In this rule, we will look cases where a "cheap to copy" type is not passed by value.
  */
 
-from Parameter v, TriviallySmallType t
+from Parameter v, TriviallyCopyableSmallType t
 where
   not isExcluded(v, ClassesPackage::inParametersForCheapToCopyTypesNotPassedByValueQuery()) and
   exists(ReferenceType rt |
@@ -34,8 +35,11 @@ where
   ) and
   t.isConst() and
   not exists(CatchBlock cb | cb.getParameter() = v) and
-  not exists(CopyConstructor cc | cc.getAParameter() = v) and
-  not v.isFromUninstantiatedTemplate(_)
+  not exists(SpecialMemberFunction cc | cc.getAParameter() = v) and
+  not exists(Operator op | op.getAParameter() = v) and
+  not v.isFromUninstantiatedTemplate(_) and
+  not v.isFromTemplateInstantiation(_)
 select v,
-  "Parameter " + v.getName() + " is the trivially copyable type " + t.getName() +
-    " but it is passed by reference instead of by value."
+  "Parameter '" + v.getName() +
+    "' is the trivially copyable type $@ but it is passed by reference instead of by value.", t,
+  t.getName()

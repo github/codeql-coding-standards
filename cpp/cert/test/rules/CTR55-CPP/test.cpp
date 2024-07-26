@@ -20,10 +20,47 @@ void f1(std::vector<int> &v) {
   }
   for (auto i = v.begin(),
             l = (i + std::min(static_cast<std::vector<int>::size_type>(10),
-                              v.size()));
-       i != l; ++i) { // COMPLIANT
+                              v.size())); // NON_COMPLIANT - technically in the
+                                          // calculation
+       i != l; ++i) {                     // COMPLIANT
   }
 
   for (auto i = v.begin();; ++i) { // NON_COMPLIANT
+  }
+}
+
+void test_fp_reported_in_374(std::vector<int> &v) {
+  {
+    auto end = v.end();
+    for (auto i = v.begin(); i != end; ++i) { // COMPLIANT
+    }
+  }
+
+  {
+    auto end2 = v.end();
+    end2++; // NON_COMPLIANT
+    for (auto i = v.begin(); i != end2;
+         ++i) { // NON_COMPLIANT[FALSE_NEGATIVE] - case of invalidations to
+                // check before use expected to be less frequent, can model in
+                // future if need be
+    }
+  }
+}
+
+void test(std::vector<int> &v, std::vector<int> &v2) {
+  {
+    auto end = v2.end();
+    for (auto i = v.begin(); i != end; ++i) { // NON_COMPLIANT - wrong check
+    }
+  }
+}
+
+void test2(std::vector<int> &v) {
+  auto i = v.begin();
+  while (1) {
+    auto i2 = ((i != v.end()) != 0);
+    if (!i2)
+      break;
+    (void)((++i)); // COMPLIANT[FALSE_POSITIVE]
   }
 }

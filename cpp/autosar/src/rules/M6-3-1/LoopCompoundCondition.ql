@@ -16,9 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.loopcompoundcondition.LoopCompoundCondition
 
-from Loop loop
-where
-  not isExcluded(loop, ConditionalsPackage::loopCompoundConditionQuery()) and
-  not loop.getStmt() instanceof BlockStmt
-select loop, "Loop body not enclosed within braces."
+class LoopCompoundConditionQuery extends LoopCompoundConditionSharedQuery {
+  LoopCompoundConditionQuery() { this = ConditionalsPackage::loopCompoundConditionQuery() }
+}

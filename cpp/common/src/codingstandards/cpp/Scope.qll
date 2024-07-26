@@ -42,7 +42,16 @@ private Element getParentScope(Element e) {
   then result = e.getParentScope()
   else (
     // Statements do no have a parent scope, so return the enclosing block.
-    result = e.(Stmt).getEnclosingBlock() or result = e.(Expr).getEnclosingBlock()
+    result = e.(Stmt).getEnclosingBlock()
+    or
+    result = e.(Expr).getEnclosingBlock()
+    or
+    // Catch block parameters don't have an enclosing scope, so attach them to the
+    // the block itself
+    exists(CatchBlock cb |
+      e = cb.getParameter() and
+      result = cb
+    )
   )
 }
 
@@ -209,7 +218,42 @@ private predicate hides_candidateStrict(UserVariable v1, UserVariable v2) {
   v2 = getPotentialScopeOfVariableStrict(v1) and
   v1.getName() = v2.getName() and
   // Member variables cannot hide other variables nor be hidden because the can be referenced through their qualified name.
-  not (v1.isMember() or v2.isMember())
+  not (v1.isMember() or v2.isMember()) and
+  (
+    // If v1 is a local variable, ensure that v1 is declared before v2
+    (
+      v1 instanceof LocalVariable and
+      // Ignore variables declared in conditional expressions, as they apply to
+      // the nested scope
+      not v1 = any(ConditionDeclExpr cde).getVariable() and
+      // Ignore variables declared in loops
+      not exists(Loop l | l.getADeclaration() = v1)
+    )
+    implies
+    exists(BlockStmt bs, DeclStmt v1Stmt, Stmt v2Stmt |
+      v1 = v1Stmt.getADeclaration() and
+      getEnclosingStmt(v2).getParentStmt*() = v2Stmt
+    |
+      bs.getIndexOfStmt(v1Stmt) <= bs.getIndexOfStmt(v2Stmt)
+    )
+  )
+}
+
+/**
+ * Gets the enclosing statement of the given variable, if any.
+ */
+private Stmt getEnclosingStmt(LocalScopeVariable v) {
+  result.(DeclStmt).getADeclaration() = v
+  or
+  exists(ConditionDeclExpr cde |
+    cde.getVariable() = v and
+    result = cde.getEnclosingStmt()
+  )
+  or
+  exists(CatchBlock cb |
+    cb.getParameter() = v and
+    result = cb.getEnclosingStmt()
+  )
 }
 
 /** Holds if `v2` hides `v1`. */
@@ -243,3 +287,18 @@ predicate hasClassScope(Declaration decl) { exists(decl.getDeclaringType()) }
 
 /** Holds if `decl` has block scope. */
 predicate hasBlockScope(Declaration decl) { exists(BlockStmt b | b.getADeclaration() = decl) }
+
+/**
+ * identifiers in nested (named/nonglobal) namespaces are exceptions to hiding due to being able access via fully qualified ids
+ */
+predicate excludedViaNestedNamespaces(UserVariable outerDecl, UserVariable innerDecl) {
+  exists(Namespace inner, Namespace outer |
+    outer.getAChildNamespace+() = inner and
+    //outer is not global
+    not outer instanceof GlobalNamespace and
+    not outer.isAnonymous() and
+    not inner.isAnonymous() and
+    innerDecl.getNamespace() = inner and
+    outerDecl.getNamespace() = outer
+  )
+}

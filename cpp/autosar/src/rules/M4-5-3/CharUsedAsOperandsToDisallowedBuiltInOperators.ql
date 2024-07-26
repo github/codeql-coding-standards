@@ -22,7 +22,7 @@ import codingstandards.cpp.autosar
 
 from Operation o
 where
-  not isExcluded(o) and
+  not isExcluded(o, ExpressionsPackage::charUsedAsOperandsToDisallowedBuiltInOperatorsQuery()) and
   not (
     o instanceof EqualityOperation or
     o instanceof BitwiseAndExpr or

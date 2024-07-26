@@ -18,6 +18,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.LoggingOperation
 import codingstandards.cpp.Literals
+import codingstandards.cpp.Cpp14Literal
 
 from Literal l
 where
@@ -35,11 +36,11 @@ where
   // Exclude literal 0
   not l.getValue() = "0" and
   // Exclude character literals
-  not l instanceof CharLiteral and
+  not l instanceof Cpp14Literal::CharLiteral and
   // Exclude `nullptr`
   not l.getType() instanceof NullPointerType and
   // Exclude boolean `true` and `false`
-  not l.getType() instanceof BoolType and
+  not l instanceof BoolLiteral and
   // Exclude empty string
   not l.getValue() = "" and
   // Template functions use literals to represent calls which are unknown
@@ -51,7 +52,14 @@ where
   // Aggregate literal
   not l = any(ArrayOrVectorAggregateLiteral aal).getAnElementExpr(_).getAChild*() and
   // Ignore x - 1 expressions
-  not exists(SubExpr se | se.getRightOperand() = l and l.getValue() = "1")
-select l,
-  "Literal value " + getTruncatedLiteralText(l) + " used outside of type initialization " +
-    l.getAPrimaryQlClass()
+  not exists(SubExpr se | se.getRightOperand() = l and l.getValue() = "1") and
+  // Exclude compile time computed integral literals as they can appear as integral literals
+  // when used as non-type template arguments.
+  // We limit ourselves to integral literals, because floating point literals as non-type
+  // template arguments are not supported in C++ 14. Those are supported shince C++ 20.
+  not l instanceof CompileTimeComputedIntegralLiteral and
+  // Exclude literals to instantiate a class template per example in the standard
+  // where an type of std::array is intialized with size 5.
+  not l = any(ClassTemplateInstantiation cti).getATemplateArgument() and
+  not l = any(ClassAggregateLiteral cal).getAFieldExpr(_)
+select l, "Literal value '" + getTruncatedLiteralText(l) + "' used outside of type initialization."

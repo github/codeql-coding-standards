@@ -1,5 +1,7 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library with a `problems` predicate for the following issue:
+ * An identifier with multiple definitions in different translation units
+ * leads to undefined behavior.
  */
 
 import cpp

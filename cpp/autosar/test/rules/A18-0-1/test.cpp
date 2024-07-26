@@ -40,3 +40,6 @@
 #include <cuchar>    // COMPLIANT
 #include <cwchar>    // COMPLIANT
 #include <cwctype>   // COMPLIANT
+
+#include "lib/example.h" // COMPLIANT
+#include "time.h"        // NON_COMPLIANT

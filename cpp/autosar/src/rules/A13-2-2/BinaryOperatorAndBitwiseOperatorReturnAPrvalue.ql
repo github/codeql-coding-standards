@@ -31,5 +31,4 @@ where
     o.getType() instanceof ReferenceType
   )
 select o,
-  "User-defined bitwise or arithmetic operator " + getIdentityString(o) +
-    " does not return a prvalue."
+  "User-defined bitwise or arithmetic operator " + o.toString() + " does not return a prvalue."

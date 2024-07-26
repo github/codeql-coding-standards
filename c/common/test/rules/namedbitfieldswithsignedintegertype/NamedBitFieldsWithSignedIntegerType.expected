@@ -1,0 +1,5 @@
+| test.c:6:7:6:8 | x1 | A named bit-field with signed integral type should have at least 2 bits of storage. |
+| test.c:9:14:9:15 | x2 | A named bit-field with signed integral type should have at least 2 bits of storage. |
+| test.c:11:7:11:8 | x3 | A named bit-field with signed integral type should have at least 2 bits of storage. |
+| test.c:13:7:13:8 | x4 | A named bit-field with signed integral type should have at least 2 bits of storage. |
+| test.c:22:14:22:14 | x | A named bit-field with signed integral type should have at least 2 bits of storage. |
