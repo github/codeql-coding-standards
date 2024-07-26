@@ -96,6 +96,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NamedBitFieldsWithSignedIntegerTypeShallHaveALengthOfMoreThanOneBit",
+          "shared_implementation_short_name": "NamedBitFieldsWithSignedIntegerType",
           "tags": [
             "correctness"
           ]

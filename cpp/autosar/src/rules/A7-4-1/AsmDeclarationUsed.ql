@@ -15,7 +15,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.asmdeclarationused.AsmDeclarationUsed
 
-from AsmStmt a
-where not isExcluded(a, BannedSyntaxPackage::asmDeclarationUsedQuery())
-select a, "Use of asm declaration"
+class AsmDeclarationUsedQuery extends AsmDeclarationUsedSharedQuery {
+  AsmDeclarationUsedQuery() { this = BannedSyntaxPackage::asmDeclarationUsedQuery() }
+}

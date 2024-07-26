@@ -40,6 +40,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ForwardingValuesToOtherFunctions",
+          "shared_implementation_short_name": "ForwardingReferencesAndForwardNotUsedTogether",
           "tags": [
             "correctness"
           ]

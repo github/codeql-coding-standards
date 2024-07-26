@@ -1,5 +1,6 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library with a `problems` predicate for the following issue:
+ * Omission of type specifiers may not be supported by some compilers.
  */
 
 import cpp

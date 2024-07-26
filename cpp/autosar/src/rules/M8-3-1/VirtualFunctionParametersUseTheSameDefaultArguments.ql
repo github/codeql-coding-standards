@@ -16,29 +16,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.overridingshallspecifydifferentdefaultarguments.OverridingShallSpecifyDifferentDefaultArguments
 
-from VirtualFunction f1, VirtualFunction f2
-where
-  not isExcluded(f1,
-    VirtualFunctionsPackage::virtualFunctionParametersUseTheSameDefaultArgumentsQuery()) and
-  not isExcluded(f2,
-    VirtualFunctionsPackage::virtualFunctionParametersUseTheSameDefaultArgumentsQuery()) and
-  f2 = f1.getAnOverridingFunction() and
-  exists(Parameter p1, Parameter p2 |
-    p1 = f1.getAParameter() and
-    p2 = f2.getParameter(p1.getIndex())
-  |
-    if p1.hasInitializer()
-    then
-      // if there is no initializer
-      not p2.hasInitializer()
-      or
-      // if there is one and it doesn't match
-      not p1.getInitializer().getExpr().getValueText() =
-        p2.getInitializer().getExpr().getValueText()
-    else
-      // if p1 doesn't have an initializer p2 shouldn't either
-      p2.hasInitializer()
-  )
-select f2, "$@ does not have the same default parameters as $@", f2, "overriding function", f1,
-  "overridden function"
+class VirtualFunctionParametersUseTheSameDefaultArgumentsQuery extends OverridingShallSpecifyDifferentDefaultArgumentsSharedQuery
+{
+  VirtualFunctionParametersUseTheSameDefaultArgumentsQuery() {
+    this = VirtualFunctionsPackage::virtualFunctionParametersUseTheSameDefaultArgumentsQuery()
+  }
+}
