@@ -20,7 +20,7 @@ std::int32_t func1() {         // COMPLIANT: Called from main
   return mains::var + func2(); // func2 called here.
 }
 
-std::int32_t uncalled_func() // NON COMPLIANT: Not called.
+std::int32_t uncalled_func() // NON_COMPLIANT: Not called.
 {
   return mains::var + func1(); // func1 called here.
 }
