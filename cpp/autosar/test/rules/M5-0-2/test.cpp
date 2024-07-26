@@ -32,3 +32,20 @@ void f1() {
   l1 = (*l7)[l2];           // NON_COMPLIANT[FALSE_NEGATIVE]
   char l8 = (char)(l1 + 1); // NON_COMPLIANT[FALSE_NEGATIVE]
 }
+
+void test_insufficient_parentheses() {
+  int l1, l2, l3;
+
+  l1 = (2 * l2) + (3 * l3);  // COMPLIANT
+  l1 = 2 * l2 + (3 * l3);    // NON_COMPLIANT
+  l1 = (2 * l2) + 3 * l3;    // NON_COMPLIANT
+  l1 = 2 * l2 + 3 * l3;      // NON_COMPLIANT
+  l1 = (2 * l2) + l3 + 1;    // COMPLIANT
+  l1 = (l2 + 1) - (l2 + l3); // COMPLIANT
+  l1 = l2 + l3 + 1;          // COMPLIANT
+
+  l1 = (l2 == l3) ? l2 : (l2 - l3); // COMPLIANT
+  l1 = l2 == l3 ? l2 : (l2 - l3);   // NON_COMPLIANT
+  l1 = (l2 == l3) ? l2 : l2 - l3;   // NON_COMPLIANT
+  l1 = l2 == l3 ? l2 : l2 - l3;     // NON_COMPLIANT
+}

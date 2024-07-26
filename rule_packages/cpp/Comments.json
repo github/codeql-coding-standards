@@ -16,6 +16,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "SingleLineCommentEndsWithSlash",
+          "shared_implementation_short_name": "LineSplicingUsedInComments",
           "tags": [
             "correctness",
             "readability",
@@ -70,7 +71,10 @@
           "tags": [
             "maintainability",
             "readability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Function scope declarations are excluded from this rule as they are restricted in scope to only a single function."
+          }
         }
       ],
       "title": "All declarations of 'user-defined' types, static and non-static data members, functions and methods shall be preceded by documentation."
@@ -91,6 +95,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "SlashStarUsedWithinACStyleComment",
+          "shared_implementation_short_name": "CharacterSequenceUsedWithinACStyleComment",
           "tags": [
             "maintainability",
             "readability",

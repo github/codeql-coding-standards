@@ -1,0 +1,16 @@
+| test.cpp:5:10:5:11 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:6:10:6:12 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:9:10:9:12 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:10:10:10:12 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:15:11:15:12 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:16:11:16:13 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:19:11:19:13 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:20:11:20:13 | 0 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:25:10:25:14 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:26:10:26:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:29:10:29:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:30:10:30:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:35:11:35:14 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:36:11:36:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:39:11:39:15 | 1 | Lowercase 'l' used as a literal suffix. |
+| test.cpp:40:11:40:15 | 1 | Lowercase 'l' used as a literal suffix. |

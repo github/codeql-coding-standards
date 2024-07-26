@@ -20,7 +20,7 @@ import codingstandards.cpp.autosar
 
 from DeclStmt decl, Function f
 where
-  not isExcluded(decl) and
+  not isExcluded(decl, DeclarationsPackage::functionsDeclaredAtBlockScopeQuery()) and
   not isExcluded(f, DeclarationsPackage::functionsDeclaredAtBlockScopeQuery()) and
   decl.getADeclaration() = f
 select f, "Function " + f.getName() + " is declared at block scope."

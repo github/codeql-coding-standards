@@ -1,0 +1,2 @@
+- `A2-10-1`, `RULE-5-3` - `IdentifierHiding.ql`, `IdentifierHidingC.ql`:
+  - Revert some changes previously made in PR #546 (addressing issue #118). Revert expansion to function identifiers.

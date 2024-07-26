@@ -1,0 +1,1733 @@
+{
+  "MISRA-C++-2023": {
+    "DIR-5-7-2": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Commented out code may become out of date leading to developer confusion.",
+          "kind": "problem",
+          "name": "Sections of code should not be \u201ccommented out\u201d",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SectionsOfCodeShouldNotBeCommentedOut",
+          "shared_implementation_short_name": "SectionsOfCodeShallNotBeCommentedOut",
+          "tags": [
+            "maintainability",
+            "readability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Sections of code should not be \u201ccommented out\u201d"
+    },
+    "RULE-6-2-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The one-definition rule specifies when there should be a single definition of an element and a violation of that rule leads to undefined behavior.",
+          "kind": "problem",
+          "name": "The one-definition rule shall not be violated",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OneDefinitionRuleViolated",
+          "shared_implementation_short_name": "OneDefinitionRuleViolation",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "The one-definition rule shall not be violated"
+    },
+    "RULE-6-4-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Use of an identifier declared in an inner scope with an identical name to an identifier in an outer scope can lead to inadvertent errors if the incorrect identifier is modified.",
+          "kind": "problem",
+          "name": "A variable declared in an inner scope shall not hide a variable declared in an outer scope",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VariableDeclaredInInnerScopeHidesOuterScope",
+          "shared_implementation_short_name": "IdentifierHidden",
+          "tags": [
+            "readability",
+            "maintainability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A variable declared in an inner scope shall not hide a variable declared in an outer scope"
+    },
+    "RULE-6-8-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Accessing an object before its lifetime can result in undefined behavior.",
+          "kind": "problem",
+          "name": "Access of uninitialized object",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "ObjectAccessedBeforeLifetime",
+          "short_name": "ObjectAccessedBeforeLifetimeMisra",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "Accessing an object after its lifetime results in undefined behavior.",
+          "kind": "problem",
+          "name": "Access of object after lifetime (use-after-free)",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "ObjectAccessedAfterLifetime",
+          "short_name": "ObjectAccessedAfterLifetimeMisra",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "An object shall not be accessed outside of its lifetime"
+    },
+    "RULE-8-2-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A cast shall not remove any const or volatile qualification from the type accessed via a pointer or by reference.",
+          "kind": "problem",
+          "name": "A cast shall not remove any const or volatile qualification from the type accessed via a pointer or",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastRemovesConstOrVolatileFromPointerOrReference",
+          "shared_implementation_short_name": "RemoveConstOrVolatileQualification",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A cast shall not remove any const or volatile qualification from the type accessed via a pointer or by reference"
+    },
+    "RULE-9-4-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "All if ... else if constructs shall be terminated with an else statement.",
+          "kind": "problem",
+          "name": "All if ... else if constructs shall be terminated with an else statement",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IfElseIfEndCondition",
+          "shared_implementation_short_name": "IfElseTerminationConstruct",
+          "tags": [
+            "readability",
+            "maintainability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "All if ... else if constructs shall be terminated with an else statement"
+    },
+    "RULE-9-6-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Jumping back to an earlier section in the code can lead to accidental iterations.",
+          "kind": "problem",
+          "name": "The goto statement shall jump to a label declared later in the function body",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GotoShallJumpToLabelDeclaredLaterInTheFunction",
+          "shared_implementation_short_name": "GotoStatementCondition",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The goto statement shall jump to a label declared later in the function body"
+    },
+    "RULE-9-6-4": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function with the [[noreturn]] attribute that returns leads to undefined behaviour.",
+          "kind": "problem",
+          "name": "A function declared with the [[noreturn]] attribute shall not return",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionDeclaredWithTheNoreturnAttributeReturn",
+          "shared_implementation_short_name": "FunctionNoReturnAttributeCondition",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "A function declared with the [[noreturn]] attribute shall not return"
+    },
+    "RULE-9-6-5": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function with non-void return type that does not exit via a return statement can result in undefined behaviour. An exception to this rule is exiting via exception handling.",
+          "kind": "problem",
+          "name": "A function with non-void return type shall return a value on all paths",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonVoidFunctionShallReturnAValueOnAllPaths",
+          "shared_implementation_short_name": "NonVoidFunctionDoesNotReturn",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A function with non-void return type shall return a value on all paths"
+    },
+    "RULE-11-3-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Declarations with more than two levels of pointer nesting can result in code that is difficult to read and understand.",
+          "kind": "problem",
+          "name": "The declaration of an object should contain no more than two levels of pointer indirection",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeclarationOfAnObjectIndirectionsLevel",
+          "shared_implementation_short_name": "DoNotUseMoreThanTwoLevelsOfPointerIndirection",
+          "tags": [
+            "readability",
+            "maintainability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The declaration of an object should contain no more than two levels of pointer indirection"
+    },
+    "RULE-18-3-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Handlers for a function-try-block of a constructor or destructor shall not refer to non-static members from their class or its bases.",
+          "kind": "problem",
+          "name": "Handlers for a function-try-block of a constructor or destructor shall not refer to non-static",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "HandlersReferToNonStaticMembersFromTheirClass",
+          "shared_implementation_short_name": "DestroyedValueReferencedInDestructorCatchBlock",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Handlers for a function-try-block of a constructor or destructor shall not refer to non-static members from their class or its bases"
+    },
+    "RULE-19-0-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using anything other than other pre-processor directives or comments before an '#include' directive makes the code more difficult to read.",
+          "kind": "problem",
+          "name": "#include directives should only be preceded by preprocessor directives or comments",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IncludeDirectivesPrecededByPreprocessorDirectives",
+          "shared_implementation_short_name": "PreprocessorIncludesPreceded",
+          "tags": [
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "#include directives should only be preceded by preprocessor directives or comments"
+    },
+    "RULE-19-1-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be defined prior to evaluation.",
+          "kind": "problem",
+          "name": "All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IdentifiersUsedInTheControllingExpressionOf",
+          "shared_implementation_short_name": "UndefinedMacroIdentifiers",
+          "tags": [
+            "correctness",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "All identifiers used in the controlling expression of #if or #elif preprocessing directives shall be defined prior to evaluation"
+    },
+    "RULE-19-2-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The ' or \" or \\ characters and the /* or // character sequences shall not occur in a header file name.",
+          "kind": "problem",
+          "name": "The ' or \" or \\ characters and the /* or // character sequences shall not occur in a header file",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CharsThatShouldNotOccurInHeaderFileName",
+          "shared_implementation_short_name": "PreprocessorIncludesForbiddenHeaderNames",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "This query identifies the use of the ', \\, /*, // characters in header file names. The query is not able to detect the use of the \" character in header file names.",
+            "items": []
+          }
+        }
+      ],
+      "title": "The ' or \" or \\ characters and the /* or // character sequences shall not occur in a header file name"
+    },
+    "RULE-19-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The order of evaluation for the '#' and '##' operators may differ between compilers, which can cause unexpected behaviour.",
+          "kind": "problem",
+          "name": "The # and ## preprocessor operators should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AndPreprocessorOperatorsShouldNotBeUsed",
+          "shared_implementation_short_name": "HashOperatorsUsed",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The # and ## preprocessor operators should not be used"
+    },
+    "RULE-19-3-5": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Arguments to a function-like macro shall not contain tokens that look like pre-processing directives or else behaviour after macro expansion is unpredictable.",
+          "kind": "problem",
+          "name": "Tokens that look like a preprocessing directive shall not occur within a macro argument",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TokensThatLookLikeDirectivesInAMacroArgument",
+          "shared_implementation_short_name": "PreprocessingDirectiveWithinMacroArgument",
+          "tags": [
+            "readability",
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Tokens that look like a preprocessing directive shall not occur within a macro argument"
+    },
+    "RULE-21-6-5": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Do not delete pointers to incomplete classes to prevent undefined behavior.",
+          "kind": "problem",
+          "name": "A pointer to an incomplete class type shall not be deleted",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PointerToAnIncompleteClassTypeDeleted",
+          "shared_implementation_short_name": "DeleteOfPointerToIncompleteClass",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A pointer to an incomplete class type shall not be deleted"
+    },
+    "RULE-25-5-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "The pointers returned by the C++ Standard Library functions localeconv, getenv, setlocale or strerror must only be used as if they have pointer to const-qualified type.",
+          "kind": "path-problem",
+          "name": "The pointers returned by environment functions should be treated as const",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PointersReturnedByLocaleFunctionsMustBeUsedAsConst",
+          "shared_implementation_short_name": "ConstLikeReturnValue",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The pointers returned by the C++ Standard Library functions localeconv, getenv, setlocale or strerror must only be used as if they have pointer to const-qualified type"
+    },
+    "RULE-25-5-3": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror may be invalid following a subsequent call to the same function.",
+          "kind": "problem",
+          "name": "The pointer returned by the Standard Library env functions is invalid",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CallToSetlocaleInvalidatesOldPointersMisra",
+          "shared_implementation_short_name": "InvalidatedEnvStringPointers",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "The pointer returned by the Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror may be invalid following a subsequent call to the same function.",
+          "kind": "problem",
+          "name": "The pointer returned by the Standard Library env functions is invalid warning",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CallToSetlocaleInvalidatesOldPointersWarnMisra",
+          "shared_implementation_short_name": "InvalidatedEnvStringPointersWarn",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "The pointer returned by the C++ Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror must not be used following a subsequent call to the same function"
+    },
+    "RULE-28-6-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Moved-from object shall not be read-accessed.",
+          "kind": "problem",
+          "name": "An object shall not be used while in a potentially moved-from state",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ObjectUsedWhileInPotentiallyMovedFromState",
+          "shared_implementation_short_name": "MovedFromObjectsUnspecifiedState",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "An object shall not be used while in a potentially moved-from state"
+    },
+    "RULE-30-0-2": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Alternate input and output operations on a file stream shall not be used without an intervening flush or positioning call.",
+          "kind": "problem",
+          "name": "Reads and writes on the same file stream shall be separated by a positioning operation",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ReadsAndWritesOnStreamNotSeparatedByPositioning",
+          "shared_implementation_short_name": "IOFstreamMissingPositioning",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ],
+          "implementation_scope": {
+            "description": "The rule is enforced in the context of a single function."
+          }
+        }
+      ],
+      "title": "Reads and writes on the same file stream shall be separated by a positioning operation"
+    },
+    "RULE-8-19-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The comma operator should not be used.",
+          "kind": "problem",
+          "name": "The comma operator should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CommaOperatorShouldNotBeUsed",
+          "shared_implementation_short_name": "CommaOperatorUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The comma operator should not be used"
+    },
+    "DIR-15-8-1": {
+      "properties": {
+        "allocated-target": [
+          "implementation"
+        ],
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "User-provided copy assignment operators and move assignment operators shall handle self-assignment.",
+          "kind": "problem",
+          "name": "User-provided copy assignment operators and move assignment operators shall handle self-assignment",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CopyAndMoveAssignmentsShallHandleSelfAssignment",
+          "shared_implementation_short_name": "CopyAndMoveAssignmentsShallHandleSelfAssignment",
+          "tags": []
+        }
+      ],
+      "title": "User-provided copy assignment operators and move assignment operators shall handle self-assignment"
+    },
+    "RULE-10-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A declaration should not declare more than one variable or member variable.",
+          "kind": "problem",
+          "name": "Multiple declarations in the same local statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UseSingleLocalDeclarators",
+          "shared_implementation_short_name": "MultipleLocalDeclarators",
+          "tags": [
+            "readability",
+            "maintainability",
+            "scope/single-translation-unit"
+          ]
+        },
+        {
+          "description": "A declaration should not declare more than one variable or member variable.",
+          "kind": "problem",
+          "name": "Multiple declarations in the same global or member declaration sequence",
+          "precision": "medium",
+          "severity": "recommendation",
+          "short_name": "UseSingleGlobalOrMemberDeclarators",
+          "shared_implementation_short_name": "MultipleGlobalOrMemberDeclarators",
+          "tags": [
+            "readability",
+            "maintainability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A declaration should not declare more than one variable or member variable"
+    },
+    "RULE-10-2-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An enumeration shall be defined with an explicit underlying type.",
+          "kind": "problem",
+          "name": "An enumeration shall be defined with an explicit underlying type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "EnumerationNotDefinedWithAnExplicitUnderlyingType",
+          "shared_implementation_short_name": "EnumerationNotDefinedWithAnExplicitUnderlyingType",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "An enumeration shall be defined with an explicit underlying type"
+    },
+    "RULE-10-4-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The asm declaration shall not be used.",
+          "kind": "problem",
+          "name": "The asm declaration shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AsmDeclarationShallNotBeUsed",
+          "shared_implementation_short_name": "AsmDeclarationUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The asm declaration shall not be used"
+    },
+    "RULE-11-6-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique.",
+          "kind": "problem",
+          "name": "Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonUniqueEnumerationConstant",
+          "shared_implementation_short_name": "NonUniqueEnumerationConstant",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique"
+    },
+    "RULE-12-2-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A bit-field shall have an appropriate type.",
+          "kind": "problem",
+          "name": "A bit-field shall have an appropriate type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BitFieldShallHaveAnAppropriateType",
+          "shared_implementation_short_name": "BitFieldShallHaveAnAppropriateType",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A bit-field shall have an appropriate type"
+    },
+    "RULE-12-2-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A named bit-field with signed integer type shall not have a length of one bit.",
+          "kind": "problem",
+          "name": "A named bit-field with signed integer type shall not have a length of one bit",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SignedIntegerNamedBitFieldHaveALengthOfOneBit",
+          "shared_implementation_short_name": "NamedBitFieldsWithSignedIntegerType",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A named bit-field with signed integer type shall not have a length of one bit"
+    },
+    "RULE-13-1-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An accessible base class shall not be both virtual and non-virtual in the same hierarchy.",
+          "kind": "problem",
+          "name": "An accessible base class shall not be both virtual and non-virtual in the same hierarchy",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VirtualAndNonVirtualClassInTheHierarchy",
+          "shared_implementation_short_name": "VirtualAndNonVirtualClassInTheHierarchy",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "An accessible base class shall not be both virtual and non-virtual in the same hierarchy"
+    },
+    "RULE-13-3-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Parameters in an overriding virtual function shall not specify different default arguments.",
+          "kind": "problem",
+          "name": "Parameters in an overriding virtual function shall not specify different default arguments",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OverridingShallSpecifyDifferentDefaultArguments",
+          "shared_implementation_short_name": "OverridingShallSpecifyDifferentDefaultArguments",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Parameters in an overriding virtual function shall not specify different default arguments"
+    },
+    "RULE-13-3-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A comparison of a potentially virtual pointer to member function shall only be with nullptr.",
+          "kind": "problem",
+          "name": "A comparison of a potentially virtual pointer to member function shall only be with nullptr",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr",
+          "shared_implementation_short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A comparison of a potentially virtual pointer to member function shall only be with nullptr"
+    },
+    "RULE-15-1-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An object\u2019s dynamic type shall not be used from within its constructor or destructor.",
+          "kind": "problem",
+          "name": "An object\u2019s dynamic type shall not be used from within its constructor or destructor",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor",
+          "shared_implementation_short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor",
+          "tags": [
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "An object\u2019s dynamic type shall not be used from within its constructor or destructor"
+    },
+    "RULE-15-1-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "All constructors of a class should explicitly initialize all of its virtual base classes and immediate base classes.",
+          "kind": "problem",
+          "name": "All constructors of a class should explicitly initialize all of its virtual base classes and",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InitializeAllVirtualBaseClasses",
+          "shared_implementation_short_name": "InitializeAllVirtualBaseClasses",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "All constructors of a class should explicitly initialize all of its virtual base classes and immediate base classes"
+    },
+    "RULE-15-1-5": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A class shall only define an initializer-list constructor when it is the only constructor.",
+          "kind": "problem",
+          "name": "A class shall only define an initializer-list constructor when it is the only constructor",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InitializerListConstructorIsTheOnlyConstructor",
+          "shared_implementation_short_name": "InitializerListConstructorIsTheOnlyConstructor",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A class shall only define an initializer-list constructor when it is the only constructor"
+    },
+    "RULE-16-5-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The address-of operator shall not be overloaded.",
+          "kind": "problem",
+          "name": "The address-of operator shall not be overloaded",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AddressOfOperatorOverloaded",
+          "shared_implementation_short_name": "AddressOfOperatorOverloaded",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The address-of operator shall not be overloaded"
+    },
+    "RULE-17-8-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Function templates shall not be explicitly specialized.",
+          "kind": "problem",
+          "name": "Function templates shall not be explicitly specialized",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionTemplatesExplicitlySpecialized",
+          "shared_implementation_short_name": "FunctionTemplatesExplicitlySpecialized",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Function templates shall not be explicitly specialized"
+    },
+    "RULE-18-1-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An exception object shall not have pointer type.",
+          "kind": "problem",
+          "name": "An exception object shall not have pointer type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExceptionObjectHavePointerType",
+          "shared_implementation_short_name": "ExceptionObjectHavePointerType",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "An exception object shall not have pointer type"
+    },
+    "RULE-18-1-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An empty throw shall only occur within the compound-statement of a catch handler.",
+          "kind": "problem",
+          "name": "An empty throw shall only occur within the compound-statement of a catch handler",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "EmptyThrowOnlyWithinACatchHandler",
+          "shared_implementation_short_name": "EmptyThrowOnlyWithinACatchHandler",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "An empty throw shall only occur within the compound-statement of a catch handler"
+    },
+    "RULE-18-5-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A noexcept function should not attempt to propagate an exception to the calling function.",
+          "kind": "path-problem",
+          "name": "A noexcept function should not attempt to propagate an exception to the calling function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoexceptFunctionShouldNotPropagateToTheCaller",
+          "shared_implementation_short_name": "NoexceptFunctionShouldNotPropagateToTheCaller",
+          "tags": [
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "A noexcept function should not attempt to propagate an exception to the calling function"
+    },
+    "RULE-19-0-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Function-like macros shall not be defined.",
+          "kind": "problem",
+          "name": "Function-like macros shall not be defined",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionLikeMacrosDefined",
+          "shared_implementation_short_name": "FunctionLikeMacrosDefined",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Function-like macros shall not be defined"
+    },
+    "RULE-19-3-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A macro parameter immediately following a # operator shall not be immediately followed by a ## operator.",
+          "kind": "problem",
+          "name": "A macro parameter immediately following a # operator shall not be immediately followed by a ##",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MacroParameterFollowingHash",
+          "shared_implementation_short_name": "MacroParameterFollowingHash",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A macro parameter immediately following a # operator shall not be immediately followed by a ## operator"
+    },
+    "RULE-19-3-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The argument to a mixed-use macro parameter shall not be subject to further expansion.",
+          "kind": "problem",
+          "name": "The argument to a mixed-use macro parameter shall not be subject to further expansion",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AMixedUseMacroArgumentSubjectToExpansion",
+          "shared_implementation_short_name": "AMixedUseMacroArgumentSubjectToExpansion",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The argument to a mixed-use macro parameter shall not be subject to further expansion"
+    },
+    "RULE-21-10-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Signal handling contains implementation-defined and undefined behaviour.",
+          "kind": "problem",
+          "name": "The facilities provided by the standard header file <csignal> shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CsignalFacilitiesUsed",
+          "shared_implementation_short_name": "CsignalFunctionsUsed",
+          "tags": [
+            "maintainability",
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        },
+        {
+          "description": "The types provided by the standard header file <csignal> shall not be used.",
+          "kind": "problem",
+          "name": "The signal-handling types of <csignal> shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CsignalTypesShallNotBeUsed",
+          "shared_implementation_short_name": "CsignalTypesUsed",
+          "tags": [
+            "maintainability",
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The facilities provided by the standard header file <csignal> shall not be used"
+    },
+    "RULE-21-2-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The library functions atof, atoi, atol and atoll from <cstdlib> shall not be used.",
+          "kind": "problem",
+          "name": "The library functions atof, atoi, atol and atoll from <cstdlib> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AtofAtoiAtolAndAtollUsed",
+          "shared_implementation_short_name": "AtofAtoiAtolAndAtollUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The library functions atof, atoi, atol and atoll from <cstdlib> shall not be used"
+    },
+    "RULE-21-2-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The macro offsetof shall not be used.",
+          "kind": "problem",
+          "name": "The macro offsetof shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MacroOffsetofShallNotBeUsed",
+          "shared_implementation_short_name": "MacroOffsetofUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The macro offsetof shall not be used"
+    },
+    "RULE-21-6-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If a project defines the unsized version of a global operator delete, then the sized version shall be defined.",
+          "kind": "problem",
+          "name": "Sized 'operator delete' must be defined globally if unsized 'operator delete' is defined globally",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GlobalSizedOperatorDeleteShallBeDefined",
+          "shared_implementation_short_name": "GlobalSizedOperatorDeleteNotDefined",
+          "tags": [
+            "maintainability",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "If a project defines the sized version of a global operator delete, then the unsized version shall be defined.",
+          "kind": "problem",
+          "name": "Unsized 'operator delete' must be defined globally if sized 'operator delete' is defined globally",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GlobalUnsizedOperatorDeleteShallBeDefined",
+          "shared_implementation_short_name": "GlobalUnsizedOperatorDeleteNotDefined",
+          "tags": [
+            "maintainability",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "If a project defines either a sized or unsized version of a global operator delete, then both shall be defined"
+    },
+    "RULE-26-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "std::vector should not be specialized with bool.",
+          "kind": "problem",
+          "name": "std::vector should not be specialized with bool",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VectorShouldNotBeSpecializedWithBool",
+          "shared_implementation_short_name": "VectorShouldNotBeSpecializedWithBool",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "std::vector should not be specialized with bool"
+    },
+    "RULE-28-6-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Forwarding references and std::forward shall be used together.",
+          "kind": "problem",
+          "name": "Forwarding references and std::forward shall be used together",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ForwardingReferencesAndForwardNotUsedTogether",
+          "shared_implementation_short_name": "ForwardingReferencesAndForwardNotUsedTogether",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Forwarding references and std::forward shall be used together"
+    },
+    "RULE-30-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The C Library input/output functions shall not be used.",
+          "kind": "problem",
+          "name": "The stream input/output library <cstdio> functions shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CstdioFunctionsShallNotBeUsed",
+          "shared_implementation_short_name": "CstdioFunctionsUsed",
+          "tags": [
+            "maintainability",
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        },
+        {
+          "description": "The C Library input/output functions shall not be used.",
+          "kind": "problem",
+          "name": "The stream input/output library <cstdio> macros shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CstdioMacrosShallNotBeUsed",
+          "shared_implementation_short_name": "CstdioMacrosUsed",
+          "tags": [
+            "maintainability",
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        },
+        {
+          "description": "The C Library input/output functions shall not be used.",
+          "kind": "problem",
+          "name": "The stream input/output library <cstdio> types shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CstdioTypesShallNotBeUsed",
+          "shared_implementation_short_name": "CstdioTypesUsed",
+          "tags": [
+            "maintainability",
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The C Library input/output functions shall not be used"
+    },
+    "RULE-5-13-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "In character literals and non-raw string literals, \\ shall only be used to form a defined escape sequence or universal character name.",
+          "kind": "problem",
+          "name": "In character literals and non-raw string literals, \\ shall only be used to form a defined escape",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BackslashCharacterMisuse",
+          "shared_implementation_short_name": "BackslashCharacterMisuse",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "In character literals and non-raw string literals, \\ shall only be used to form a defined escape sequence or universal character name"
+    },
+    "RULE-5-13-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Octal escape sequences, hexadecimal escape sequences, and universal character names shall be terminated.",
+          "kind": "problem",
+          "name": "Octal escape sequences, hexadecimal escape sequences, and universal character names shall be",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonTerminatedEscapeSequences",
+          "shared_implementation_short_name": "NonTerminatedEscapeSequences",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Octal escape sequences, hexadecimal escape sequences, and universal character names shall be terminated"
+    },
+    "RULE-5-13-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Octal constants shall not be used.",
+          "kind": "problem",
+          "name": "Octal constants shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "OctalConstantsUsed",
+          "shared_implementation_short_name": "UseOfNonZeroOctalLiteral",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Octal constants shall not be used"
+    },
+    "RULE-5-13-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Unsigned integer literals shall be appropriately suffixed.",
+          "kind": "problem",
+          "name": "Unsigned integer literals shall be appropriately suffixed",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnsignedIntegerLiteralsNotAppropriatelySuffixed",
+          "shared_implementation_short_name": "UnsignedIntegerLiteralsNotAppropriatelySuffixed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Unsigned integer literals shall be appropriately suffixed"
+    },
+    "RULE-5-13-5": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The lowercase form of L shall not be used as the first character in a literal suffix.",
+          "kind": "problem",
+          "name": "The lowercase form of L shall not be used as the first character in a literal suffix",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LowercaseLStartsInLiteralSuffix",
+          "shared_implementation_short_name": "LowercaseLStartsInLiteralSuffix",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The lowercase form of L shall not be used as the first character in a literal suffix"
+    },
+    "RULE-5-7-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The character sequence /* shall not be used within a C-style comment.",
+          "kind": "problem",
+          "name": "The character sequence /* shall not be used within a C-style comment",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CharacterSequenceUsedWithinACStyleComment",
+          "shared_implementation_short_name": "CharacterSequenceUsedWithinACStyleComment",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The character sequence /* shall not be used within a C-style comment"
+    },
+    "RULE-5-7-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Line-splicing shall not be used in // comments.",
+          "kind": "problem",
+          "name": "Line-splicing shall not be used in // comments",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LineSplicingUsedInComments",
+          "shared_implementation_short_name": "LineSplicingUsedInComments",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Line-splicing shall not be used in // comments"
+    },
+    "RULE-6-0-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The only declarations in the global namespace should be main, namespace declarations and extern \"C\" declarations.",
+          "kind": "problem",
+          "name": "The only declarations in the global namespace should be main, namespace declarations and extern \"C\"",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GlobalNamespaceDeclarations",
+          "shared_implementation_short_name": "GlobalNamespaceDeclarations",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The only declarations in the global namespace should be main, namespace declarations and extern \"C\" declarations"
+    },
+    "RULE-6-0-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The identifier main shall not be used for a function other than the global function main.",
+          "kind": "problem",
+          "name": "The identifier main shall not be used for a function other than the global function main",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonGlobalFunctionMain",
+          "shared_implementation_short_name": "NonGlobalFunctionMain",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The identifier main shall not be used for a function other than the global function main"
+    },
+    "RULE-6-4-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A non-overriding member function definition that hides an inherited member function can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Member function hides inherited member function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InheritedNonOverridableMemberFunction",
+          "shared_implementation_short_name": "HiddenInheritedNonOverridableMemberFunction",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        },
+        {
+          "description": "An overriding member function definition thats hides an overload of the overridden inherited member function can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Member function hides inherited member function",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InheritedOverridableMemberFunction",
+          "shared_implementation_short_name": "HiddenInheritedOverridableMemberFunction",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        },
+        {
+          "description": "A using declaration that makes a symbol available for unqualified lookup does not included definitions defined after the using declaration which can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "Using declaration followed by new definition",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DefinitionShallBeConsideredForUnqualifiedLookup",
+          "shared_implementation_short_name": "DefinitionNotConsideredForUnqualifiedLookup",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Derived classes shall not conceal functions that are inherited from their bases"
+    },
+    "RULE-6-4-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Not using a qualified-id or `this->` syntax for identifiers used in a class template makes the code more difficult to understand.",
+          "kind": "problem",
+          "name": "In a class template with a dependent base, any name that may be found in that dependent base shall shall be referred to using a qualified-id or this->",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "NameShallBeReferredUsingAQualifiedIdOrThis",
+          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThis",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        },
+        {
+          "description": "Not using a qualified-id or `this->` syntax for identifiers used in a class template makes the code more difficult to understand.",
+          "kind": "problem",
+          "name": "(Audit) In a class template with a dependent base, any name that may be found in that dependent base shall shall be referred to using a qualified-id or this->",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "NameShallBeReferredUsingAQualifiedIdOrThisAudit",
+          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A name that is present in a dependent base shall not be resolved by unqualified lookup"
+    },
+    "RULE-6-8-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "A function must not return a reference or a pointer to a local variable with automatic storage duration.",
+          "kind": "problem",
+          "name": "A function must not return a reference or a pointer to a local variable with automatic storage",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ReturnReferenceOrPointerToAutomaticLocalVariable",
+          "shared_implementation_short_name": "ReturnReferenceOrPointerToAutomaticLocalVariable",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A function must not return a reference or a pointer to a local variable with automatic storage duration"
+    },
+    "RULE-7-11-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "nullptr shall be the only form of the null-pointer-constant.",
+          "kind": "problem",
+          "name": "nullptr shall be the only form of the null-pointer-constant",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NullptrNotTheOnlyFormOfTheNullPointerConstant",
+          "shared_implementation_short_name": "NullptrNotTheOnlyFormOfTheNullPointerConstant",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "nullptr shall be the only form of the null-pointer-constant"
+    },
+    "RULE-7-11-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An array passed as a function argument shall not decay to a pointer.",
+          "kind": "problem",
+          "name": "An array passed as a function argument shall not decay to a pointer",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ArrayPassedAsFunctionArgumentDecayToAPointer",
+          "shared_implementation_short_name": "ArrayPassedAsFunctionArgumentDecayToAPointer",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "An array passed as a function argument shall not decay to a pointer"
+    },
+    "RULE-8-18-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The result of an assignment operator should not be used.",
+          "kind": "problem",
+          "name": "The result of an assignment operator should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed",
+          "shared_implementation_short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The result of an assignment operator should not be used"
+    },
+    "RULE-8-2-10": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Functions shall not call themselves, either directly or indirectly.",
+          "kind": "problem",
+          "name": "Functions shall not call themselves, either directly or indirectly",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionsCallThemselvesEitherDirectlyOrIndirectly",
+          "shared_implementation_short_name": "FunctionsCallThemselvesEitherDirectlyOrIndirectly",
+          "tags": [
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "Functions shall not call themselves, either directly or indirectly"
+    },
+    "RULE-8-2-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Casts shall not be performed between a pointer to function and any other type.",
+          "kind": "problem",
+          "name": "Casts shall not be performed between a pointer to function and any other type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType",
+          "shared_implementation_short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Casts shall not be performed between a pointer to function and any other type"
+    },
+    "RULE-8-2-5": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "reinterpret_cast shall not be used.",
+          "kind": "problem",
+          "name": "reinterpret_cast shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ReinterpretCastShallNotBeUsed",
+          "shared_implementation_short_name": "ReinterpretCastUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "reinterpret_cast shall not be used"
+    },
+    "RULE-8-20-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "An unsigned arithmetic operation with constant operands should not wrap.",
+          "kind": "problem",
+          "name": "An unsigned arithmetic operation with constant operands should not wrap",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnsignedOperationWithConstantOperandsWraps",
+          "shared_implementation_short_name": "UnsignedOperationWithConstantOperandsWraps",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "An unsigned arithmetic operation with constant operands should not wrap"
+    },
+    "RULE-8-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The built-in unary - operator should not be applied to an expression of unsigned type.",
+          "kind": "problem",
+          "name": "The built-in unary - operator should not be applied to an expression of unsigned type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BuiltInUnaryOperatorAppliedToUnsignedExpression",
+          "shared_implementation_short_name": "BuiltInUnaryOperatorAppliedToUnsignedExpression",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The built-in unary - operator should not be applied to an expression of unsigned type"
+    },
+    "RULE-9-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "If the body of a switch is not enclosed in braces, then this can lead to incorrect execution, and hard for developers to maintain.",
+          "kind": "problem",
+          "name": "The statement forming the body of a switch shall be a compound statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SwitchBodyCompoundCondition",
+          "shared_implementation_short_name": "SwitchCompoundCondition",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        },
+        {
+          "description": "If the body of a loop is not enclosed in braces, then this can lead to incorrect execution, and hard for developers to maintain.",
+          "kind": "problem",
+          "name": "The statement forming the body of a loop shall be a compound statement",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "LoopBodyCompoundCondition",
+          "shared_implementation_short_name": "LoopCompoundCondition",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The body of an iteration-statement or a selection-statement shall be a compound-statement"
+    },
+    "RULE-9-6-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The goto statement should not be used.",
+          "kind": "problem",
+          "name": "The goto statement should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GotoStatementShouldNotBeUsed",
+          "shared_implementation_short_name": "GotoStatementShouldNotBeUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The goto statement should not be used"
+    },
+    "RULE-9-6-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A goto statement shall reference a label in a surrounding block.",
+          "kind": "problem",
+          "name": "A goto statement shall reference a label in a surrounding block",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GotoReferenceALabelInSurroundingBlock",
+          "shared_implementation_short_name": "GotoReferenceALabelInSurroundingBlock",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A goto statement shall reference a label in a surrounding block"
+    }
+  }
+}

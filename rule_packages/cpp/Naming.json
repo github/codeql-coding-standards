@@ -290,7 +290,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "DifferentIdentifiersNotTypographicallyUnambiguous",
-          "shared_implementation_short_name" : "DifferentIdentifiersNotTypographicallyUnambiguous",
+          "shared_implementation_short_name": "DifferentIdentifiersNotTypographicallyUnambiguous",
           "tags": [
             "readability",
             "maintainability"
@@ -314,6 +314,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "IdentifierMainUsedForAFunctionOtherThanTheGlobalFunctionMain",
+          "shared_implementation_short_name": "NonGlobalFunctionMain",
           "tags": [
             "maintainability",
             "readability"

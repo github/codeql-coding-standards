@@ -40,8 +40,8 @@ import codingstandards.cpp.Iterators
 
 from ConstIteratorVariable v, STLContainer c, Expr e
 where
-  not isExcluded(v) and
-  not isExcluded(e) and
+  not isExcluded(v, IteratorsPackage::iteratorImplicitlyConvertedToConstIteratorQuery()) and
+  not isExcluded(e, IteratorsPackage::iteratorImplicitlyConvertedToConstIteratorQuery()) and
   e = v.getAnAssignedValue() and
   e.getAChild*() = /* see note at top of query */ c.getANonConstIteratorFunctionCall()
 select e, "Non-const version of container call immediately converted to a `const_iterator`."

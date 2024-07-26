@@ -14,10 +14,10 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.Literals
 
-from Literal l
+from IntegerLiteral l
 where
   not isExcluded(l, SyntaxPackage::lowercaseCharacterLUsedInLiteralSuffixQuery()) and
-  not l instanceof StringLiteral and
   exists(l.getValueText().indexOf("l"))
 select l, "Lowercase 'l' used as a literal suffix."

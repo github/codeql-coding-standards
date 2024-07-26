@@ -4,7 +4,7 @@
 void f1(int *p) { // COMPLIANT
   *p += 2;
 }
-void f2(int *p) { // NON_COMPLIANT
+void f2(int *p) { // COMPLIANT - we ignore parameters for this rule
   int l4 = 1;     // NON_COMPLIANT
   int *p1 = p;    // NON_COMPLIANT
 }
@@ -77,3 +77,10 @@ int main(int, char **) noexcept {
 
   (new Issue18)->F(0);
 }
+
+template <bool... Args> extern constexpr bool recurse_var = true; // COMPLIANT
+
+template <bool B1, bool... Args>
+extern constexpr bool recurse_var<B1, Args...> = B1 &&recurse_var<Args...>;
+
+void fp_621() { recurse_var<true, true, true>; }

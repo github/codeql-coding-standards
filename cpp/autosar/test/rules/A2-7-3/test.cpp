@@ -60,10 +60,30 @@ public:
   /// @param i an integer.
   /// @throw std::runtime_error
   void f(int i); // COMPLIANT
+
+  /** Same documentation for all members
+   * This is a multiline comment.
+   */
+  ///@{
+  void g(); // COMPLIANT
+  void h(); // COMPLIANT
+  void i(); // COMPLIANT
+  ///@}
+
+  ///@{
+  void j(); // NON_COMPLIANT
+  void k(); // NON_COMPLIANT
+  /** Member-specific documentation */
+  void l(); // COMPLIANT
+  ///@}
+
 private:
   /// @brief A Doxygen comment.
   int c; // COMPLIANT
 };
+void ClassC::i() { // not flagged, as we will only flag the non-definition
+                   // declaration
+}
 /// A Doxygen comment.
 void c(); // COMPLIANT
 
@@ -161,3 +181,18 @@ public:
 };
 /// @brief This is the instantiateA2_7_3 documentation
 void instantiateA2_7_3() { A2_7_3<int> instance; }
+
+/// Test documentation
+void testFunctionScope() {
+  using my_float = float;
+  class ClassF { // COMPLIANT - in function scope
+  public:
+    int m_x;      // COMPLIANT - in function scope
+    void fTest(); // COMPLIANT - in function scope
+    class ClassFNested {
+    public:
+      int m_nested_x;     // COMPLIANT - in function scope
+      void fNestedTest(); // COMPLIANT - in function scope
+    };
+  };
+}

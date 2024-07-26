@@ -101,7 +101,7 @@ The *effective category* is the category whose policy is applied during the eval
 The policy of a category dictates if a result can be deviated from and implements the effect described in the design section.
 The existing exclusion mechanism implemented in the predicate `isExcluded` defined in the `Exclusions.qll` library will be updated to consider the applicable policy of a guideline.
 
-Note: This changes the behavior of deviations which will no longer have an impact on Mandatory guidelines! However, this will only affect MISRA C rules because there are no MISRA C++ Guidelines with a Mandatory category.
+Note: This changes the behavior of deviations which will no longer have an impact on Mandatory MISRA guidelines!
 
 ### Specification validation
 
