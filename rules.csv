@@ -792,7 +792,7 @@ cpp,MISRA-C++-2023,RULE-5-0-1,Yes,Advisory,Decidable,Single Translation Unit,Tri
 cpp,MISRA-C++-2023,RULE-5-7-1,Yes,Required,Decidable,Single Translation Unit,The character sequence /* shall not be used within a C-style comment,M2-7-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,DIR-5-7-2,Yes,Advisory,,,Sections of code should not be “commented out”,A2-7-2,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-5-7-3,Yes,Required,Decidable,Single Translation Unit,Line-splicing shall not be used in // comments,A2-7-1,ImportMisra23,Import,
-cpp,MISRA-C++-2023,RULE-5-10-1,Yes,Required,Decidable,Single Translation Unit,User-defined identifiers shall have an appropriate form,,Naming,Easy,
+cpp,MISRA-C++-2023,RULE-5-10-1,Yes,Required,Decidable,Single Translation Unit,User-defined identifiers shall have an appropriate form,,Naming2,Easy,
 cpp,MISRA-C++-2023,RULE-5-13-1,Yes,Required,Decidable,Single Translation Unit,"In character literals and non-raw string literals, \ shall only be used to form a defined escape sequence or universal character name",A2-13-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-5-13-2,Yes,Required,Decidable,Single Translation Unit,"Octal escape sequences, hexadecimal escape sequences, and universal character names shall be terminated",RULE-4-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-5-13-3,Yes,Required,Decidable,Single Translation Unit,Octal constants shall not be used,M2-13-2,ImportMisra23,Import,
