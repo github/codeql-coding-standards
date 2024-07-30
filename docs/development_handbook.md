@@ -1,4 +1,4 @@
-# Coding Standards: Developer handbookA
+# Coding Standards: Developer handbook
 
 ## Document management
 
