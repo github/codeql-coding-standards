@@ -53,6 +53,18 @@
           "tags": [
             "correctness"
           ]
+        },
+        {
+          "description": "Passing a aliased pointers as parameters of certain functions is undefined behavior.",
+          "kind": "problem",
+          "name": "Do not pass aliased pointers as parameters of functions where it is undefined behaviour for those pointers to overlap",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "DoNotPassAliasedPointerToParam",
+          "shared_implementation_short_name": "DoNotPassAliasedPointerToRestrictQualifiedParamShared",
+          "tags": [
+            "correctness"
+          ]
         }
       ],
       "title": "An object shall not be assigned to an overlapping object."

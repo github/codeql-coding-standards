@@ -12,7 +12,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Pointers
+import codingstandards.cpp.Pointers
 import codingstandards.cpp.Type
 
 from Zero zero, Expr e, string type
