@@ -1,5 +1,7 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library with a `problems` predicate for the following issue:
+ * Arguments to a function-like macro shall not contain tokens that look like
+ * pre-processing directives or else behaviour after macro expansion is unpredictable.
  */
 
 import cpp

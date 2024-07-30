@@ -16,7 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.reinterpretcastused.ReinterpretCastUsed
 
-from ReinterpretCast rc
-where not isExcluded(rc, BannedSyntaxPackage::reinterpretCastUsedQuery())
-select rc, "Use of reinterpret_cast."
+class ReinterpretCastUsedQuery extends ReinterpretCastUsedSharedQuery {
+  ReinterpretCastUsedQuery() { this = BannedSyntaxPackage::reinterpretCastUsedQuery() }
+}

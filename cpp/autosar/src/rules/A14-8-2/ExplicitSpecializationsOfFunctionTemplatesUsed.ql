@@ -16,8 +16,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.functiontemplatesexplicitlyspecialized.FunctionTemplatesExplicitlySpecialized
 
-from FunctionTemplateSpecialization f
-where not isExcluded(f, TemplatesPackage::explicitSpecializationsOfFunctionTemplatesUsedQuery())
-select f, "Specialization of function template from primary template located in $@.",
-  f.getPrimaryTemplate(), f.getPrimaryTemplate().getFile().getBaseName()
+class ExplicitSpecializationsOfFunctionTemplatesUsedQuery extends FunctionTemplatesExplicitlySpecializedSharedQuery
+{
+  ExplicitSpecializationsOfFunctionTemplatesUsedQuery() {
+    this = TemplatesPackage::explicitSpecializationsOfFunctionTemplatesUsedQuery()
+  }
+}

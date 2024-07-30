@@ -1,0 +1,11 @@
+// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C++ TEST CASE AND
+// CHANGES SHOULD BE REFLECTED THERE AS WELL.
+void test_goto() {
+  int x = 1;
+
+  goto label1; // NON_COMPLIANT
+
+label1:
+
+  x = 2;
+}
