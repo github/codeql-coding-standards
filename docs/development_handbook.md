@@ -39,7 +39,8 @@
 | 0.29.1 | 2023-10-11 | Remco Vermeulen | Address Markdown linter problems. |
 | 0.30.0 | 2023-11-14 | Remco Vermeulen | Clarify release steps in case of a hotfix release. |
 | 0.31.0 | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9 |
-| 0.32.0 | 2024-05-01 | Luke Cartey | Refer to the user manual for the list of supported standards. | 0.33.0 | 2024-07-30 | Kristen Newbury | Remove out dated references to codeql modules directory usage. |
+| 0.32.0 | 2024-05-01 | Luke Cartey | Refer to the user manual for the list of supported standards. |
+| 0.33.0 | 2024-07-30 | Kristen Newbury | Remove out dated references to codeql modules directory usage. |
 
 ## Scope of work
 
