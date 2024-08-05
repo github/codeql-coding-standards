@@ -23,7 +23,7 @@ jobs:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
           repository: github/codeql-coding-standards-release-engineering
           event-type: matrix-test
-          client-payload: '{"pr": "${{ github.event.number  }}"}'
+          client-payload: '{"pr": "${{ github.event.number }}"}'
 
       - uses: actions/github-script@v6
         if: ${{ contains(fromJSON('["mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "nicolaswill"]'), github.actor) }}
