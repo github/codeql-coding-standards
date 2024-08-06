@@ -11,9 +11,7 @@ int test_simple() {
 
 int test_const() {
   const int x = 1; // COMPLIANT - used below
-  const int y = 2; // COMPLIANT[FALSE_POSITIVE] - used in array initialization,
-                   // but the database does not contain sufficient information
-                   // for this case
+  const int y = 2; // COMPLIANT - used in array initialization,
   int z[y];        // NON_COMPLIANT - never used
   return x;
 }
@@ -99,3 +97,19 @@ public:
 };
 
 void test_template_function() { template_function<ClassT>(); }
+
+int foo() {
+  constexpr int arrayDim = 10; // COMPLIANT - used in array size below
+  static int array[arrayDim]{};
+  return array[4];
+}
+
+template <typename T> static T another_templ_function() { return T(); }
+
+template <typename T, typename First, typename... Rest>
+static T another_templ_function(const First &first, const Rest &... rest) {
+  return first +
+         another_templ_function<T>(rest...); // COMPLIANT - 'rest' is used here
+}
+
+static int templ_fnc2() { return another_templ_function<int>(1, 2, 3, 4, 5); }
