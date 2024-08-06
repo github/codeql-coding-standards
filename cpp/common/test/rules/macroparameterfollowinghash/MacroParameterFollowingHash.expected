@@ -1,0 +1,1 @@
+| test.cpp:27:1:27:29 | #define MACROTHIRTEEN(X) #X ## X | Macro definition uses an # operator followed by a ## operator. |
