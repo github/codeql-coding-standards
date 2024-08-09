@@ -52,7 +52,12 @@ class PotentiallyUnusedLocalVariable extends LocalVariable {
     // exclude uninstantiated template members
     not this.isFromUninstantiatedTemplate(_) and
     // Do not report compiler generated variables
-    not this.isCompilerGenerated()
+    not this.isCompilerGenerated() and
+    not exists(LocalScopeVariable another |
+      another.getDefinitionLocation() = this.getDefinitionLocation() and
+      another.hasName(this.getName()) and
+      exists(another.getAnAccess())
+    )
   }
 }
 
