@@ -40,6 +40,7 @@
 | 0.30.0 | 2023-11-14 | Remco Vermeulen | Clarify release steps in case of a hotfix release. |
 | 0.31.0 | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9 |
 | 0.32.0 | 2024-05-01 | Luke Cartey | Refer to the user manual for the list of supported standards. |
+| 0.33.0 | 2024-07-30 | Kristen Newbury | Remove out dated references to codeql modules directory usage. |
 
 ## Scope of work
 
@@ -509,8 +510,7 @@ To upgrade the CodeQL external dependencies:
 2. Determine if there is a compatible CodeQL CLI bundle version by looking at the releases specified at [CodeQL Action releases](https://github.com/github/codeql-action/releases). The bundle always includes the standard library at the version specified by the `codeql-cli/v<version-number>` tag in the `github/codeql` repository.
 3. If you find a compatible CodeQL CLI bundle, determine whether that bundle was released in a GitHub Enterprise server release, by inspecting the `defaults.json` file at https://github.com/github/codeql-action/blob/main/lib/defaults.json#L2 for the CodeQL Action submitted with
 4. Populated the `supported_codeql_configs.json` file with the given values, ensuring to delete the optional fields if they are not populated.
-5. Update the `codeql_modules/codeql` submodule pointer to the `codeql_standard_library` tag identified.
-6. Submit a Pull Request to the `github/codeql-coding-standards` repository with the title `Upgrade `github/codeql` dependency to <insert codeql_standard_library value>`. Use this template for the description, filling :
+5. Submit a Pull Request to the `github/codeql-coding-standards` repository with the title `Upgrade `github/codeql` dependency to <insert codeql_standard_library value>`. Use this template for the description, filling :
 
     ```md
     This PR updates the `supported_codeql_configs.json` file to target:
@@ -532,9 +532,9 @@ To upgrade the CodeQL external dependencies:
     - [ ] Validate performance vs pre-upgrade
     ```
 
-7. Follow the dependency upgrade checklist, confirming each step. The `.github/workflows/standard_library_upgrade_tests.yml` will trigger automation for running the `github/codeql` unit tests with the appropriate CLI version.
-8. Once all the automate tests have passed, and the checklist is complete, the PR can be merged.
-9. An internal notification should be shared with the development team.
+6. Follow the dependency upgrade checklist, confirming each step. The `.github/workflows/standard_library_upgrade_tests.yml` will trigger automation for running the `github/codeql` unit tests with the appropriate CLI version.
+7. Once all the automate tests have passed, and the checklist is complete, the PR can be merged.
+8. An internal notification should be shared with the development team.
 
 ### Release process
 
