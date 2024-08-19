@@ -16,19 +16,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.returnreferenceorpointertoautomaticlocalvariable.ReturnReferenceOrPointerToAutomaticLocalVariable
 
-from ReturnStmt rs, StackVariable auto, Function f, VariableAccess va, string returnType
-where
-  f = rs.getEnclosingFunction() and
-  (
-    f.getType() instanceof ReferenceType and va = rs.getExpr() and returnType = "reference"
-    or
-    f.getType() instanceof PointerType and
-    va = rs.getExpr().(AddressOfExpr).getOperand() and
-    returnType = "pointer"
-  ) and
-  auto = va.getTarget() and
-  not auto.isStatic() and
-  not f.isCompilerGenerated() and
-  not auto.getType() instanceof ReferenceType
-select rs, "The $@ returns a " + returnType + "to an $@ variable", f, f.getName(), auto, "automatic"
+class FunctionReturnAutomaticVarConditionQuery extends ReturnReferenceOrPointerToAutomaticLocalVariableSharedQuery
+{
+  FunctionReturnAutomaticVarConditionQuery() {
+    this = FunctionsPackage::functionReturnAutomaticVarConditionQuery()
+  }
+}

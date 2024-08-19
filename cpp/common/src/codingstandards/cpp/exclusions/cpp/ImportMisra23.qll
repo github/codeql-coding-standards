@@ -26,7 +26,68 @@ newtype ImportMisra23Query =
   TCallToSetlocaleInvalidatesOldPointersMisraQuery() or
   TCallToSetlocaleInvalidatesOldPointersWarnMisraQuery() or
   TObjectUsedWhileInPotentiallyMovedFromStateQuery() or
-  TReadsAndWritesOnStreamNotSeparatedByPositioningQuery()
+  TReadsAndWritesOnStreamNotSeparatedByPositioningQuery() or
+  TCommaOperatorShouldNotBeUsedQuery() or
+  TCopyAndMoveAssignmentsShallHandleSelfAssignmentQuery() or
+  TUseSingleLocalDeclaratorsQuery() or
+  TUseSingleGlobalOrMemberDeclaratorsQuery() or
+  TEnumerationNotDefinedWithAnExplicitUnderlyingTypeQuery() or
+  TAsmDeclarationShallNotBeUsedQuery() or
+  TNonUniqueEnumerationConstantQuery() or
+  TBitFieldShallHaveAnAppropriateTypeQuery() or
+  TSignedIntegerNamedBitFieldHaveALengthOfOneBitQuery() or
+  TVirtualAndNonVirtualClassInTheHierarchyQuery() or
+  TOverridingShallSpecifyDifferentDefaultArgumentsQuery() or
+  TPotentiallyVirtualPointerOnlyComparesToNullptrQuery() or
+  TObjectsDynamicTypeUsedFromConstructorOrDestructorQuery() or
+  TInitializeAllVirtualBaseClassesQuery() or
+  TInitializerListConstructorIsTheOnlyConstructorQuery() or
+  TAddressOfOperatorOverloadedQuery() or
+  TFunctionTemplatesExplicitlySpecializedQuery() or
+  TExceptionObjectHavePointerTypeQuery() or
+  TEmptyThrowOnlyWithinACatchHandlerQuery() or
+  TNoexceptFunctionShouldNotPropagateToTheCallerQuery() or
+  TFunctionLikeMacrosDefinedQuery() or
+  TMacroParameterFollowingHashQuery() or
+  TAMixedUseMacroArgumentSubjectToExpansionQuery() or
+  TCsignalFacilitiesUsedQuery() or
+  TCsignalTypesShallNotBeUsedQuery() or
+  TAtofAtoiAtolAndAtollUsedQuery() or
+  TMacroOffsetofShallNotBeUsedQuery() or
+  TGlobalSizedOperatorDeleteShallBeDefinedQuery() or
+  TGlobalUnsizedOperatorDeleteShallBeDefinedQuery() or
+  TVectorShouldNotBeSpecializedWithBoolQuery() or
+  TForwardingReferencesAndForwardNotUsedTogetherQuery() or
+  TCstdioFunctionsShallNotBeUsedQuery() or
+  TCstdioMacrosShallNotBeUsedQuery() or
+  TCstdioTypesShallNotBeUsedQuery() or
+  TBackslashCharacterMisuseQuery() or
+  TNonTerminatedEscapeSequencesQuery() or
+  TOctalConstantsUsedQuery() or
+  TUnsignedIntegerLiteralsNotAppropriatelySuffixedQuery() or
+  TLowercaseLStartsInLiteralSuffixQuery() or
+  TCharacterSequenceUsedWithinACStyleCommentQuery() or
+  TLineSplicingUsedInCommentsQuery() or
+  TGlobalNamespaceDeclarationsQuery() or
+  TNonGlobalFunctionMainQuery() or
+  TInheritedNonOverridableMemberFunctionQuery() or
+  TInheritedOverridableMemberFunctionQuery() or
+  TDefinitionShallBeConsideredForUnqualifiedLookupQuery() or
+  TNameShallBeReferredUsingAQualifiedIdOrThisQuery() or
+  TNameShallBeReferredUsingAQualifiedIdOrThisAuditQuery() or
+  TReturnReferenceOrPointerToAutomaticLocalVariableQuery() or
+  TNullptrNotTheOnlyFormOfTheNullPointerConstantQuery() or
+  TArrayPassedAsFunctionArgumentDecayToAPointerQuery() or
+  TResultOfAnAssignmentOperatorShouldNotBeUsedQuery() or
+  TFunctionsCallThemselvesEitherDirectlyOrIndirectlyQuery() or
+  TCastsBetweenAPointerToFunctionAndAnyOtherTypeQuery() or
+  TReinterpretCastShallNotBeUsedQuery() or
+  TUnsignedOperationWithConstantOperandsWrapsQuery() or
+  TBuiltInUnaryOperatorAppliedToUnsignedExpressionQuery() or
+  TSwitchBodyCompoundConditionQuery() or
+  TLoopBodyCompoundConditionQuery() or
+  TGotoStatementShouldNotBeUsedQuery() or
+  TGotoReferenceALabelInSurroundingBlockQuery()
 
 predicate isImportMisra23QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -235,6 +296,555 @@ predicate isImportMisra23QueryMetadata(Query query, string queryId, string ruleI
     "cpp/misra/reads-and-writes-on-stream-not-separated-by-positioning" and
   ruleId = "RULE-30-0-2" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `commaOperatorShouldNotBeUsed` query
+    ImportMisra23Package::commaOperatorShouldNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `commaOperatorShouldNotBeUsed` query
+    "cpp/misra/comma-operator-should-not-be-used" and
+  ruleId = "RULE-8-19-1" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `copyAndMoveAssignmentsShallHandleSelfAssignment` query
+    ImportMisra23Package::copyAndMoveAssignmentsShallHandleSelfAssignmentQuery() and
+  queryId =
+    // `@id` for the `copyAndMoveAssignmentsShallHandleSelfAssignment` query
+    "cpp/misra/copy-and-move-assignments-shall-handle-self-assignment" and
+  ruleId = "DIR-15-8-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `useSingleLocalDeclarators` query
+    ImportMisra23Package::useSingleLocalDeclaratorsQuery() and
+  queryId =
+    // `@id` for the `useSingleLocalDeclarators` query
+    "cpp/misra/use-single-local-declarators" and
+  ruleId = "RULE-10-0-1" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `useSingleGlobalOrMemberDeclarators` query
+    ImportMisra23Package::useSingleGlobalOrMemberDeclaratorsQuery() and
+  queryId =
+    // `@id` for the `useSingleGlobalOrMemberDeclarators` query
+    "cpp/misra/use-single-global-or-member-declarators" and
+  ruleId = "RULE-10-0-1" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `enumerationNotDefinedWithAnExplicitUnderlyingType` query
+    ImportMisra23Package::enumerationNotDefinedWithAnExplicitUnderlyingTypeQuery() and
+  queryId =
+    // `@id` for the `enumerationNotDefinedWithAnExplicitUnderlyingType` query
+    "cpp/misra/enumeration-not-defined-with-an-explicit-underlying-type" and
+  ruleId = "RULE-10-2-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `asmDeclarationShallNotBeUsed` query
+    ImportMisra23Package::asmDeclarationShallNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `asmDeclarationShallNotBeUsed` query
+    "cpp/misra/asm-declaration-shall-not-be-used" and
+  ruleId = "RULE-10-4-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `nonUniqueEnumerationConstant` query
+    ImportMisra23Package::nonUniqueEnumerationConstantQuery() and
+  queryId =
+    // `@id` for the `nonUniqueEnumerationConstant` query
+    "cpp/misra/non-unique-enumeration-constant" and
+  ruleId = "RULE-11-6-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `bitFieldShallHaveAnAppropriateType` query
+    ImportMisra23Package::bitFieldShallHaveAnAppropriateTypeQuery() and
+  queryId =
+    // `@id` for the `bitFieldShallHaveAnAppropriateType` query
+    "cpp/misra/bit-field-shall-have-an-appropriate-type" and
+  ruleId = "RULE-12-2-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `signedIntegerNamedBitFieldHaveALengthOfOneBit` query
+    ImportMisra23Package::signedIntegerNamedBitFieldHaveALengthOfOneBitQuery() and
+  queryId =
+    // `@id` for the `signedIntegerNamedBitFieldHaveALengthOfOneBit` query
+    "cpp/misra/signed-integer-named-bit-field-have-a-length-of-one-bit" and
+  ruleId = "RULE-12-2-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `virtualAndNonVirtualClassInTheHierarchy` query
+    ImportMisra23Package::virtualAndNonVirtualClassInTheHierarchyQuery() and
+  queryId =
+    // `@id` for the `virtualAndNonVirtualClassInTheHierarchy` query
+    "cpp/misra/virtual-and-non-virtual-class-in-the-hierarchy" and
+  ruleId = "RULE-13-1-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `overridingShallSpecifyDifferentDefaultArguments` query
+    ImportMisra23Package::overridingShallSpecifyDifferentDefaultArgumentsQuery() and
+  queryId =
+    // `@id` for the `overridingShallSpecifyDifferentDefaultArguments` query
+    "cpp/misra/overriding-shall-specify-different-default-arguments" and
+  ruleId = "RULE-13-3-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `potentiallyVirtualPointerOnlyComparesToNullptr` query
+    ImportMisra23Package::potentiallyVirtualPointerOnlyComparesToNullptrQuery() and
+  queryId =
+    // `@id` for the `potentiallyVirtualPointerOnlyComparesToNullptr` query
+    "cpp/misra/potentially-virtual-pointer-only-compares-to-nullptr" and
+  ruleId = "RULE-13-3-4" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `objectsDynamicTypeUsedFromConstructorOrDestructor` query
+    ImportMisra23Package::objectsDynamicTypeUsedFromConstructorOrDestructorQuery() and
+  queryId =
+    // `@id` for the `objectsDynamicTypeUsedFromConstructorOrDestructor` query
+    "cpp/misra/objects-dynamic-type-used-from-constructor-or-destructor" and
+  ruleId = "RULE-15-1-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `initializeAllVirtualBaseClasses` query
+    ImportMisra23Package::initializeAllVirtualBaseClassesQuery() and
+  queryId =
+    // `@id` for the `initializeAllVirtualBaseClasses` query
+    "cpp/misra/initialize-all-virtual-base-classes" and
+  ruleId = "RULE-15-1-2" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `initializerListConstructorIsTheOnlyConstructor` query
+    ImportMisra23Package::initializerListConstructorIsTheOnlyConstructorQuery() and
+  queryId =
+    // `@id` for the `initializerListConstructorIsTheOnlyConstructor` query
+    "cpp/misra/initializer-list-constructor-is-the-only-constructor" and
+  ruleId = "RULE-15-1-5" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `addressOfOperatorOverloaded` query
+    ImportMisra23Package::addressOfOperatorOverloadedQuery() and
+  queryId =
+    // `@id` for the `addressOfOperatorOverloaded` query
+    "cpp/misra/address-of-operator-overloaded" and
+  ruleId = "RULE-16-5-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `functionTemplatesExplicitlySpecialized` query
+    ImportMisra23Package::functionTemplatesExplicitlySpecializedQuery() and
+  queryId =
+    // `@id` for the `functionTemplatesExplicitlySpecialized` query
+    "cpp/misra/function-templates-explicitly-specialized" and
+  ruleId = "RULE-17-8-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `exceptionObjectHavePointerType` query
+    ImportMisra23Package::exceptionObjectHavePointerTypeQuery() and
+  queryId =
+    // `@id` for the `exceptionObjectHavePointerType` query
+    "cpp/misra/exception-object-have-pointer-type" and
+  ruleId = "RULE-18-1-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `emptyThrowOnlyWithinACatchHandler` query
+    ImportMisra23Package::emptyThrowOnlyWithinACatchHandlerQuery() and
+  queryId =
+    // `@id` for the `emptyThrowOnlyWithinACatchHandler` query
+    "cpp/misra/empty-throw-only-within-a-catch-handler" and
+  ruleId = "RULE-18-1-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `noexceptFunctionShouldNotPropagateToTheCaller` query
+    ImportMisra23Package::noexceptFunctionShouldNotPropagateToTheCallerQuery() and
+  queryId =
+    // `@id` for the `noexceptFunctionShouldNotPropagateToTheCaller` query
+    "cpp/misra/noexcept-function-should-not-propagate-to-the-caller" and
+  ruleId = "RULE-18-5-1" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `functionLikeMacrosDefined` query
+    ImportMisra23Package::functionLikeMacrosDefinedQuery() and
+  queryId =
+    // `@id` for the `functionLikeMacrosDefined` query
+    "cpp/misra/function-like-macros-defined" and
+  ruleId = "RULE-19-0-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `macroParameterFollowingHash` query
+    ImportMisra23Package::macroParameterFollowingHashQuery() and
+  queryId =
+    // `@id` for the `macroParameterFollowingHash` query
+    "cpp/misra/macro-parameter-following-hash" and
+  ruleId = "RULE-19-3-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `aMixedUseMacroArgumentSubjectToExpansion` query
+    ImportMisra23Package::aMixedUseMacroArgumentSubjectToExpansionQuery() and
+  queryId =
+    // `@id` for the `aMixedUseMacroArgumentSubjectToExpansion` query
+    "cpp/misra/a-mixed-use-macro-argument-subject-to-expansion" and
+  ruleId = "RULE-19-3-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `csignalFacilitiesUsed` query
+    ImportMisra23Package::csignalFacilitiesUsedQuery() and
+  queryId =
+    // `@id` for the `csignalFacilitiesUsed` query
+    "cpp/misra/csignal-facilities-used" and
+  ruleId = "RULE-21-10-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `csignalTypesShallNotBeUsed` query
+    ImportMisra23Package::csignalTypesShallNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `csignalTypesShallNotBeUsed` query
+    "cpp/misra/csignal-types-shall-not-be-used" and
+  ruleId = "RULE-21-10-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `atofAtoiAtolAndAtollUsed` query
+    ImportMisra23Package::atofAtoiAtolAndAtollUsedQuery() and
+  queryId =
+    // `@id` for the `atofAtoiAtolAndAtollUsed` query
+    "cpp/misra/atof-atoi-atol-and-atoll-used" and
+  ruleId = "RULE-21-2-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `macroOffsetofShallNotBeUsed` query
+    ImportMisra23Package::macroOffsetofShallNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `macroOffsetofShallNotBeUsed` query
+    "cpp/misra/macro-offsetof-shall-not-be-used" and
+  ruleId = "RULE-21-2-4" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `globalSizedOperatorDeleteShallBeDefined` query
+    ImportMisra23Package::globalSizedOperatorDeleteShallBeDefinedQuery() and
+  queryId =
+    // `@id` for the `globalSizedOperatorDeleteShallBeDefined` query
+    "cpp/misra/global-sized-operator-delete-shall-be-defined" and
+  ruleId = "RULE-21-6-4" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `globalUnsizedOperatorDeleteShallBeDefined` query
+    ImportMisra23Package::globalUnsizedOperatorDeleteShallBeDefinedQuery() and
+  queryId =
+    // `@id` for the `globalUnsizedOperatorDeleteShallBeDefined` query
+    "cpp/misra/global-unsized-operator-delete-shall-be-defined" and
+  ruleId = "RULE-21-6-4" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `vectorShouldNotBeSpecializedWithBool` query
+    ImportMisra23Package::vectorShouldNotBeSpecializedWithBoolQuery() and
+  queryId =
+    // `@id` for the `vectorShouldNotBeSpecializedWithBool` query
+    "cpp/misra/vector-should-not-be-specialized-with-bool" and
+  ruleId = "RULE-26-3-1" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `forwardingReferencesAndForwardNotUsedTogether` query
+    ImportMisra23Package::forwardingReferencesAndForwardNotUsedTogetherQuery() and
+  queryId =
+    // `@id` for the `forwardingReferencesAndForwardNotUsedTogether` query
+    "cpp/misra/forwarding-references-and-forward-not-used-together" and
+  ruleId = "RULE-28-6-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `cstdioFunctionsShallNotBeUsed` query
+    ImportMisra23Package::cstdioFunctionsShallNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `cstdioFunctionsShallNotBeUsed` query
+    "cpp/misra/cstdio-functions-shall-not-be-used" and
+  ruleId = "RULE-30-0-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `cstdioMacrosShallNotBeUsed` query
+    ImportMisra23Package::cstdioMacrosShallNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `cstdioMacrosShallNotBeUsed` query
+    "cpp/misra/cstdio-macros-shall-not-be-used" and
+  ruleId = "RULE-30-0-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `cstdioTypesShallNotBeUsed` query
+    ImportMisra23Package::cstdioTypesShallNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `cstdioTypesShallNotBeUsed` query
+    "cpp/misra/cstdio-types-shall-not-be-used" and
+  ruleId = "RULE-30-0-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `backslashCharacterMisuse` query
+    ImportMisra23Package::backslashCharacterMisuseQuery() and
+  queryId =
+    // `@id` for the `backslashCharacterMisuse` query
+    "cpp/misra/backslash-character-misuse" and
+  ruleId = "RULE-5-13-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `nonTerminatedEscapeSequences` query
+    ImportMisra23Package::nonTerminatedEscapeSequencesQuery() and
+  queryId =
+    // `@id` for the `nonTerminatedEscapeSequences` query
+    "cpp/misra/non-terminated-escape-sequences" and
+  ruleId = "RULE-5-13-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `octalConstantsUsed` query
+    ImportMisra23Package::octalConstantsUsedQuery() and
+  queryId =
+    // `@id` for the `octalConstantsUsed` query
+    "cpp/misra/octal-constants-used" and
+  ruleId = "RULE-5-13-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `unsignedIntegerLiteralsNotAppropriatelySuffixed` query
+    ImportMisra23Package::unsignedIntegerLiteralsNotAppropriatelySuffixedQuery() and
+  queryId =
+    // `@id` for the `unsignedIntegerLiteralsNotAppropriatelySuffixed` query
+    "cpp/misra/unsigned-integer-literals-not-appropriately-suffixed" and
+  ruleId = "RULE-5-13-4" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `lowercaseLStartsInLiteralSuffix` query
+    ImportMisra23Package::lowercaseLStartsInLiteralSuffixQuery() and
+  queryId =
+    // `@id` for the `lowercaseLStartsInLiteralSuffix` query
+    "cpp/misra/lowercase-l-starts-in-literal-suffix" and
+  ruleId = "RULE-5-13-5" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `characterSequenceUsedWithinACStyleComment` query
+    ImportMisra23Package::characterSequenceUsedWithinACStyleCommentQuery() and
+  queryId =
+    // `@id` for the `characterSequenceUsedWithinACStyleComment` query
+    "cpp/misra/character-sequence-used-within-ac-style-comment" and
+  ruleId = "RULE-5-7-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `lineSplicingUsedInComments` query
+    ImportMisra23Package::lineSplicingUsedInCommentsQuery() and
+  queryId =
+    // `@id` for the `lineSplicingUsedInComments` query
+    "cpp/misra/line-splicing-used-in-comments" and
+  ruleId = "RULE-5-7-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `globalNamespaceDeclarations` query
+    ImportMisra23Package::globalNamespaceDeclarationsQuery() and
+  queryId =
+    // `@id` for the `globalNamespaceDeclarations` query
+    "cpp/misra/global-namespace-declarations" and
+  ruleId = "RULE-6-0-3" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `nonGlobalFunctionMain` query
+    ImportMisra23Package::nonGlobalFunctionMainQuery() and
+  queryId =
+    // `@id` for the `nonGlobalFunctionMain` query
+    "cpp/misra/non-global-function-main" and
+  ruleId = "RULE-6-0-4" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `inheritedNonOverridableMemberFunction` query
+    ImportMisra23Package::inheritedNonOverridableMemberFunctionQuery() and
+  queryId =
+    // `@id` for the `inheritedNonOverridableMemberFunction` query
+    "cpp/misra/inherited-non-overridable-member-function" and
+  ruleId = "RULE-6-4-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `inheritedOverridableMemberFunction` query
+    ImportMisra23Package::inheritedOverridableMemberFunctionQuery() and
+  queryId =
+    // `@id` for the `inheritedOverridableMemberFunction` query
+    "cpp/misra/inherited-overridable-member-function" and
+  ruleId = "RULE-6-4-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `definitionShallBeConsideredForUnqualifiedLookup` query
+    ImportMisra23Package::definitionShallBeConsideredForUnqualifiedLookupQuery() and
+  queryId =
+    // `@id` for the `definitionShallBeConsideredForUnqualifiedLookup` query
+    "cpp/misra/definition-shall-be-considered-for-unqualified-lookup" and
+  ruleId = "RULE-6-4-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `nameShallBeReferredUsingAQualifiedIdOrThis` query
+    ImportMisra23Package::nameShallBeReferredUsingAQualifiedIdOrThisQuery() and
+  queryId =
+    // `@id` for the `nameShallBeReferredUsingAQualifiedIdOrThis` query
+    "cpp/misra/name-shall-be-referred-using-a-qualified-id-or-this" and
+  ruleId = "RULE-6-4-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `nameShallBeReferredUsingAQualifiedIdOrThisAudit` query
+    ImportMisra23Package::nameShallBeReferredUsingAQualifiedIdOrThisAuditQuery() and
+  queryId =
+    // `@id` for the `nameShallBeReferredUsingAQualifiedIdOrThisAudit` query
+    "cpp/misra/name-shall-be-referred-using-a-qualified-id-or-this-audit" and
+  ruleId = "RULE-6-4-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `returnReferenceOrPointerToAutomaticLocalVariable` query
+    ImportMisra23Package::returnReferenceOrPointerToAutomaticLocalVariableQuery() and
+  queryId =
+    // `@id` for the `returnReferenceOrPointerToAutomaticLocalVariable` query
+    "cpp/misra/return-reference-or-pointer-to-automatic-local-variable" and
+  ruleId = "RULE-6-8-2" and
+  category = "mandatory"
+  or
+  query =
+    // `Query` instance for the `nullptrNotTheOnlyFormOfTheNullPointerConstant` query
+    ImportMisra23Package::nullptrNotTheOnlyFormOfTheNullPointerConstantQuery() and
+  queryId =
+    // `@id` for the `nullptrNotTheOnlyFormOfTheNullPointerConstant` query
+    "cpp/misra/nullptr-not-the-only-form-of-the-null-pointer-constant" and
+  ruleId = "RULE-7-11-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `arrayPassedAsFunctionArgumentDecayToAPointer` query
+    ImportMisra23Package::arrayPassedAsFunctionArgumentDecayToAPointerQuery() and
+  queryId =
+    // `@id` for the `arrayPassedAsFunctionArgumentDecayToAPointer` query
+    "cpp/misra/array-passed-as-function-argument-decay-to-a-pointer" and
+  ruleId = "RULE-7-11-2" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `resultOfAnAssignmentOperatorShouldNotBeUsed` query
+    ImportMisra23Package::resultOfAnAssignmentOperatorShouldNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `resultOfAnAssignmentOperatorShouldNotBeUsed` query
+    "cpp/misra/result-of-an-assignment-operator-should-not-be-used" and
+  ruleId = "RULE-8-18-2" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `functionsCallThemselvesEitherDirectlyOrIndirectly` query
+    ImportMisra23Package::functionsCallThemselvesEitherDirectlyOrIndirectlyQuery() and
+  queryId =
+    // `@id` for the `functionsCallThemselvesEitherDirectlyOrIndirectly` query
+    "cpp/misra/functions-call-themselves-either-directly-or-indirectly" and
+  ruleId = "RULE-8-2-10" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `castsBetweenAPointerToFunctionAndAnyOtherType` query
+    ImportMisra23Package::castsBetweenAPointerToFunctionAndAnyOtherTypeQuery() and
+  queryId =
+    // `@id` for the `castsBetweenAPointerToFunctionAndAnyOtherType` query
+    "cpp/misra/casts-between-a-pointer-to-function-and-any-other-type" and
+  ruleId = "RULE-8-2-4" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `reinterpretCastShallNotBeUsed` query
+    ImportMisra23Package::reinterpretCastShallNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `reinterpretCastShallNotBeUsed` query
+    "cpp/misra/reinterpret-cast-shall-not-be-used" and
+  ruleId = "RULE-8-2-5" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `unsignedOperationWithConstantOperandsWraps` query
+    ImportMisra23Package::unsignedOperationWithConstantOperandsWrapsQuery() and
+  queryId =
+    // `@id` for the `unsignedOperationWithConstantOperandsWraps` query
+    "cpp/misra/unsigned-operation-with-constant-operands-wraps" and
+  ruleId = "RULE-8-20-1" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `builtInUnaryOperatorAppliedToUnsignedExpression` query
+    ImportMisra23Package::builtInUnaryOperatorAppliedToUnsignedExpressionQuery() and
+  queryId =
+    // `@id` for the `builtInUnaryOperatorAppliedToUnsignedExpression` query
+    "cpp/misra/built-in-unary-operator-applied-to-unsigned-expression" and
+  ruleId = "RULE-8-3-1" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `switchBodyCompoundCondition` query
+    ImportMisra23Package::switchBodyCompoundConditionQuery() and
+  queryId =
+    // `@id` for the `switchBodyCompoundCondition` query
+    "cpp/misra/switch-body-compound-condition" and
+  ruleId = "RULE-9-3-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `loopBodyCompoundCondition` query
+    ImportMisra23Package::loopBodyCompoundConditionQuery() and
+  queryId =
+    // `@id` for the `loopBodyCompoundCondition` query
+    "cpp/misra/loop-body-compound-condition" and
+  ruleId = "RULE-9-3-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `gotoStatementShouldNotBeUsed` query
+    ImportMisra23Package::gotoStatementShouldNotBeUsedQuery() and
+  queryId =
+    // `@id` for the `gotoStatementShouldNotBeUsed` query
+    "cpp/misra/goto-statement-should-not-be-used" and
+  ruleId = "RULE-9-6-1" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `gotoReferenceALabelInSurroundingBlock` query
+    ImportMisra23Package::gotoReferenceALabelInSurroundingBlockQuery() and
+  queryId =
+    // `@id` for the `gotoReferenceALabelInSurroundingBlock` query
+    "cpp/misra/goto-reference-a-label-in-surrounding-block" and
+  ruleId = "RULE-9-6-2" and
+  category = "required"
 }
 
 module ImportMisra23Package {
@@ -397,5 +1007,432 @@ module ImportMisra23Package {
     result =
       // `Query` type for `readsAndWritesOnStreamNotSeparatedByPositioning` query
       TQueryCPP(TImportMisra23PackageQuery(TReadsAndWritesOnStreamNotSeparatedByPositioningQuery()))
+  }
+
+  Query commaOperatorShouldNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `commaOperatorShouldNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TCommaOperatorShouldNotBeUsedQuery()))
+  }
+
+  Query copyAndMoveAssignmentsShallHandleSelfAssignmentQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `copyAndMoveAssignmentsShallHandleSelfAssignment` query
+      TQueryCPP(TImportMisra23PackageQuery(TCopyAndMoveAssignmentsShallHandleSelfAssignmentQuery()))
+  }
+
+  Query useSingleLocalDeclaratorsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `useSingleLocalDeclarators` query
+      TQueryCPP(TImportMisra23PackageQuery(TUseSingleLocalDeclaratorsQuery()))
+  }
+
+  Query useSingleGlobalOrMemberDeclaratorsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `useSingleGlobalOrMemberDeclarators` query
+      TQueryCPP(TImportMisra23PackageQuery(TUseSingleGlobalOrMemberDeclaratorsQuery()))
+  }
+
+  Query enumerationNotDefinedWithAnExplicitUnderlyingTypeQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `enumerationNotDefinedWithAnExplicitUnderlyingType` query
+      TQueryCPP(TImportMisra23PackageQuery(TEnumerationNotDefinedWithAnExplicitUnderlyingTypeQuery()))
+  }
+
+  Query asmDeclarationShallNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `asmDeclarationShallNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TAsmDeclarationShallNotBeUsedQuery()))
+  }
+
+  Query nonUniqueEnumerationConstantQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `nonUniqueEnumerationConstant` query
+      TQueryCPP(TImportMisra23PackageQuery(TNonUniqueEnumerationConstantQuery()))
+  }
+
+  Query bitFieldShallHaveAnAppropriateTypeQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `bitFieldShallHaveAnAppropriateType` query
+      TQueryCPP(TImportMisra23PackageQuery(TBitFieldShallHaveAnAppropriateTypeQuery()))
+  }
+
+  Query signedIntegerNamedBitFieldHaveALengthOfOneBitQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `signedIntegerNamedBitFieldHaveALengthOfOneBit` query
+      TQueryCPP(TImportMisra23PackageQuery(TSignedIntegerNamedBitFieldHaveALengthOfOneBitQuery()))
+  }
+
+  Query virtualAndNonVirtualClassInTheHierarchyQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `virtualAndNonVirtualClassInTheHierarchy` query
+      TQueryCPP(TImportMisra23PackageQuery(TVirtualAndNonVirtualClassInTheHierarchyQuery()))
+  }
+
+  Query overridingShallSpecifyDifferentDefaultArgumentsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `overridingShallSpecifyDifferentDefaultArguments` query
+      TQueryCPP(TImportMisra23PackageQuery(TOverridingShallSpecifyDifferentDefaultArgumentsQuery()))
+  }
+
+  Query potentiallyVirtualPointerOnlyComparesToNullptrQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `potentiallyVirtualPointerOnlyComparesToNullptr` query
+      TQueryCPP(TImportMisra23PackageQuery(TPotentiallyVirtualPointerOnlyComparesToNullptrQuery()))
+  }
+
+  Query objectsDynamicTypeUsedFromConstructorOrDestructorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `objectsDynamicTypeUsedFromConstructorOrDestructor` query
+      TQueryCPP(TImportMisra23PackageQuery(TObjectsDynamicTypeUsedFromConstructorOrDestructorQuery()))
+  }
+
+  Query initializeAllVirtualBaseClassesQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `initializeAllVirtualBaseClasses` query
+      TQueryCPP(TImportMisra23PackageQuery(TInitializeAllVirtualBaseClassesQuery()))
+  }
+
+  Query initializerListConstructorIsTheOnlyConstructorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `initializerListConstructorIsTheOnlyConstructor` query
+      TQueryCPP(TImportMisra23PackageQuery(TInitializerListConstructorIsTheOnlyConstructorQuery()))
+  }
+
+  Query addressOfOperatorOverloadedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `addressOfOperatorOverloaded` query
+      TQueryCPP(TImportMisra23PackageQuery(TAddressOfOperatorOverloadedQuery()))
+  }
+
+  Query functionTemplatesExplicitlySpecializedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `functionTemplatesExplicitlySpecialized` query
+      TQueryCPP(TImportMisra23PackageQuery(TFunctionTemplatesExplicitlySpecializedQuery()))
+  }
+
+  Query exceptionObjectHavePointerTypeQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `exceptionObjectHavePointerType` query
+      TQueryCPP(TImportMisra23PackageQuery(TExceptionObjectHavePointerTypeQuery()))
+  }
+
+  Query emptyThrowOnlyWithinACatchHandlerQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `emptyThrowOnlyWithinACatchHandler` query
+      TQueryCPP(TImportMisra23PackageQuery(TEmptyThrowOnlyWithinACatchHandlerQuery()))
+  }
+
+  Query noexceptFunctionShouldNotPropagateToTheCallerQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `noexceptFunctionShouldNotPropagateToTheCaller` query
+      TQueryCPP(TImportMisra23PackageQuery(TNoexceptFunctionShouldNotPropagateToTheCallerQuery()))
+  }
+
+  Query functionLikeMacrosDefinedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `functionLikeMacrosDefined` query
+      TQueryCPP(TImportMisra23PackageQuery(TFunctionLikeMacrosDefinedQuery()))
+  }
+
+  Query macroParameterFollowingHashQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `macroParameterFollowingHash` query
+      TQueryCPP(TImportMisra23PackageQuery(TMacroParameterFollowingHashQuery()))
+  }
+
+  Query aMixedUseMacroArgumentSubjectToExpansionQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `aMixedUseMacroArgumentSubjectToExpansion` query
+      TQueryCPP(TImportMisra23PackageQuery(TAMixedUseMacroArgumentSubjectToExpansionQuery()))
+  }
+
+  Query csignalFacilitiesUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `csignalFacilitiesUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TCsignalFacilitiesUsedQuery()))
+  }
+
+  Query csignalTypesShallNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `csignalTypesShallNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TCsignalTypesShallNotBeUsedQuery()))
+  }
+
+  Query atofAtoiAtolAndAtollUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `atofAtoiAtolAndAtollUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TAtofAtoiAtolAndAtollUsedQuery()))
+  }
+
+  Query macroOffsetofShallNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `macroOffsetofShallNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TMacroOffsetofShallNotBeUsedQuery()))
+  }
+
+  Query globalSizedOperatorDeleteShallBeDefinedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `globalSizedOperatorDeleteShallBeDefined` query
+      TQueryCPP(TImportMisra23PackageQuery(TGlobalSizedOperatorDeleteShallBeDefinedQuery()))
+  }
+
+  Query globalUnsizedOperatorDeleteShallBeDefinedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `globalUnsizedOperatorDeleteShallBeDefined` query
+      TQueryCPP(TImportMisra23PackageQuery(TGlobalUnsizedOperatorDeleteShallBeDefinedQuery()))
+  }
+
+  Query vectorShouldNotBeSpecializedWithBoolQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `vectorShouldNotBeSpecializedWithBool` query
+      TQueryCPP(TImportMisra23PackageQuery(TVectorShouldNotBeSpecializedWithBoolQuery()))
+  }
+
+  Query forwardingReferencesAndForwardNotUsedTogetherQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `forwardingReferencesAndForwardNotUsedTogether` query
+      TQueryCPP(TImportMisra23PackageQuery(TForwardingReferencesAndForwardNotUsedTogetherQuery()))
+  }
+
+  Query cstdioFunctionsShallNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `cstdioFunctionsShallNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TCstdioFunctionsShallNotBeUsedQuery()))
+  }
+
+  Query cstdioMacrosShallNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `cstdioMacrosShallNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TCstdioMacrosShallNotBeUsedQuery()))
+  }
+
+  Query cstdioTypesShallNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `cstdioTypesShallNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TCstdioTypesShallNotBeUsedQuery()))
+  }
+
+  Query backslashCharacterMisuseQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `backslashCharacterMisuse` query
+      TQueryCPP(TImportMisra23PackageQuery(TBackslashCharacterMisuseQuery()))
+  }
+
+  Query nonTerminatedEscapeSequencesQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `nonTerminatedEscapeSequences` query
+      TQueryCPP(TImportMisra23PackageQuery(TNonTerminatedEscapeSequencesQuery()))
+  }
+
+  Query octalConstantsUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `octalConstantsUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TOctalConstantsUsedQuery()))
+  }
+
+  Query unsignedIntegerLiteralsNotAppropriatelySuffixedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `unsignedIntegerLiteralsNotAppropriatelySuffixed` query
+      TQueryCPP(TImportMisra23PackageQuery(TUnsignedIntegerLiteralsNotAppropriatelySuffixedQuery()))
+  }
+
+  Query lowercaseLStartsInLiteralSuffixQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `lowercaseLStartsInLiteralSuffix` query
+      TQueryCPP(TImportMisra23PackageQuery(TLowercaseLStartsInLiteralSuffixQuery()))
+  }
+
+  Query characterSequenceUsedWithinACStyleCommentQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `characterSequenceUsedWithinACStyleComment` query
+      TQueryCPP(TImportMisra23PackageQuery(TCharacterSequenceUsedWithinACStyleCommentQuery()))
+  }
+
+  Query lineSplicingUsedInCommentsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `lineSplicingUsedInComments` query
+      TQueryCPP(TImportMisra23PackageQuery(TLineSplicingUsedInCommentsQuery()))
+  }
+
+  Query globalNamespaceDeclarationsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `globalNamespaceDeclarations` query
+      TQueryCPP(TImportMisra23PackageQuery(TGlobalNamespaceDeclarationsQuery()))
+  }
+
+  Query nonGlobalFunctionMainQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `nonGlobalFunctionMain` query
+      TQueryCPP(TImportMisra23PackageQuery(TNonGlobalFunctionMainQuery()))
+  }
+
+  Query inheritedNonOverridableMemberFunctionQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `inheritedNonOverridableMemberFunction` query
+      TQueryCPP(TImportMisra23PackageQuery(TInheritedNonOverridableMemberFunctionQuery()))
+  }
+
+  Query inheritedOverridableMemberFunctionQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `inheritedOverridableMemberFunction` query
+      TQueryCPP(TImportMisra23PackageQuery(TInheritedOverridableMemberFunctionQuery()))
+  }
+
+  Query definitionShallBeConsideredForUnqualifiedLookupQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `definitionShallBeConsideredForUnqualifiedLookup` query
+      TQueryCPP(TImportMisra23PackageQuery(TDefinitionShallBeConsideredForUnqualifiedLookupQuery()))
+  }
+
+  Query nameShallBeReferredUsingAQualifiedIdOrThisQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `nameShallBeReferredUsingAQualifiedIdOrThis` query
+      TQueryCPP(TImportMisra23PackageQuery(TNameShallBeReferredUsingAQualifiedIdOrThisQuery()))
+  }
+
+  Query nameShallBeReferredUsingAQualifiedIdOrThisAuditQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `nameShallBeReferredUsingAQualifiedIdOrThisAudit` query
+      TQueryCPP(TImportMisra23PackageQuery(TNameShallBeReferredUsingAQualifiedIdOrThisAuditQuery()))
+  }
+
+  Query returnReferenceOrPointerToAutomaticLocalVariableQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `returnReferenceOrPointerToAutomaticLocalVariable` query
+      TQueryCPP(TImportMisra23PackageQuery(TReturnReferenceOrPointerToAutomaticLocalVariableQuery()))
+  }
+
+  Query nullptrNotTheOnlyFormOfTheNullPointerConstantQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `nullptrNotTheOnlyFormOfTheNullPointerConstant` query
+      TQueryCPP(TImportMisra23PackageQuery(TNullptrNotTheOnlyFormOfTheNullPointerConstantQuery()))
+  }
+
+  Query arrayPassedAsFunctionArgumentDecayToAPointerQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `arrayPassedAsFunctionArgumentDecayToAPointer` query
+      TQueryCPP(TImportMisra23PackageQuery(TArrayPassedAsFunctionArgumentDecayToAPointerQuery()))
+  }
+
+  Query resultOfAnAssignmentOperatorShouldNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `resultOfAnAssignmentOperatorShouldNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TResultOfAnAssignmentOperatorShouldNotBeUsedQuery()))
+  }
+
+  Query functionsCallThemselvesEitherDirectlyOrIndirectlyQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `functionsCallThemselvesEitherDirectlyOrIndirectly` query
+      TQueryCPP(TImportMisra23PackageQuery(TFunctionsCallThemselvesEitherDirectlyOrIndirectlyQuery()))
+  }
+
+  Query castsBetweenAPointerToFunctionAndAnyOtherTypeQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `castsBetweenAPointerToFunctionAndAnyOtherType` query
+      TQueryCPP(TImportMisra23PackageQuery(TCastsBetweenAPointerToFunctionAndAnyOtherTypeQuery()))
+  }
+
+  Query reinterpretCastShallNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `reinterpretCastShallNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TReinterpretCastShallNotBeUsedQuery()))
+  }
+
+  Query unsignedOperationWithConstantOperandsWrapsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `unsignedOperationWithConstantOperandsWraps` query
+      TQueryCPP(TImportMisra23PackageQuery(TUnsignedOperationWithConstantOperandsWrapsQuery()))
+  }
+
+  Query builtInUnaryOperatorAppliedToUnsignedExpressionQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `builtInUnaryOperatorAppliedToUnsignedExpression` query
+      TQueryCPP(TImportMisra23PackageQuery(TBuiltInUnaryOperatorAppliedToUnsignedExpressionQuery()))
+  }
+
+  Query switchBodyCompoundConditionQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `switchBodyCompoundCondition` query
+      TQueryCPP(TImportMisra23PackageQuery(TSwitchBodyCompoundConditionQuery()))
+  }
+
+  Query loopBodyCompoundConditionQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `loopBodyCompoundCondition` query
+      TQueryCPP(TImportMisra23PackageQuery(TLoopBodyCompoundConditionQuery()))
+  }
+
+  Query gotoStatementShouldNotBeUsedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `gotoStatementShouldNotBeUsed` query
+      TQueryCPP(TImportMisra23PackageQuery(TGotoStatementShouldNotBeUsedQuery()))
+  }
+
+  Query gotoReferenceALabelInSurroundingBlockQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `gotoReferenceALabelInSurroundingBlock` query
+      TQueryCPP(TImportMisra23PackageQuery(TGotoReferenceALabelInSurroundingBlockQuery()))
   }
 }

@@ -39,6 +39,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CopyAssignmentAndAMoveHandleSelfAssignment",
+          "shared_implementation_short_name": "CopyAndMoveAssignmentsShallHandleSelfAssignment",
           "tags": [
             "correctness"
           ]

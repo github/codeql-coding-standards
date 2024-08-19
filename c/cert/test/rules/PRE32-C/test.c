@@ -24,6 +24,6 @@ void func(const char *src) {
 #endif // NON_COMPLIANT
   );
 
-#if TEST // COMPLIANT[FALSE_POSITIVE]
-#endif   // COMPLIANT[FALSE_POSITIVE]
+#if TEST // COMPLIANT
+#endif   // COMPLIANT
 }
