@@ -736,6 +736,3 @@ codeql test run --show-extractor-output \
 # The actual output can be accepted via codeql test accept (which moves some files):
 codeql test accept \
        cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.qlref
-
-
-```
