@@ -1,3 +1,4 @@
-| test.c:5:3:5:10 | goto ... | The $@ statement jumps to a $@ that is not declared later in the same function. | test.c:5:3:5:10 | goto ... | L1 | test.c:2:1:2:3 | label ...: | label ...: |
-| test.c:14:3:14:10 | goto ... | The $@ statement jumps to a $@ that is not declared later in the same function. | test.c:14:3:14:10 | goto ... | L2 | test.c:12:1:12:3 | label ...: | label ...: |
-| test.c:16:3:16:10 | goto ... | The $@ statement jumps to a $@ that is not declared later in the same function. | test.c:16:3:16:10 | goto ... | L1 | test.c:11:1:11:3 | label ...: | label ...: |
+| test.c:9:3:9:10 | goto ... | The $@ statement jumps to a $@ that is not declared later in the same function. | test.c:9:3:9:10 | goto ... | l1 | test.c:5:1:5:3 | label ...: | label ...: |
+| test.c:21:3:21:10 | goto ... | The $@ statement jumps to a $@ that is not declared later in the same function. | test.c:21:3:21:10 | goto ... | l2 | test.c:17:1:17:3 | label ...: | label ...: |
+| test.c:23:3:23:10 | goto ... | The $@ statement jumps to a $@ that is not declared later in the same function. | test.c:23:3:23:10 | goto ... | l1 | test.c:16:1:16:3 | label ...: | label ...: |
+| test.c:28:3:28:10 | goto ... | The $@ statement jumps to a $@ that is not declared later in the same function. | test.c:28:3:28:10 | goto ... | l1 | test.c:27:1:27:3 | label ...: | label ...: |

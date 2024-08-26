@@ -60,10 +60,30 @@ public:
   /// @param i an integer.
   /// @throw std::runtime_error
   void f(int i); // COMPLIANT
+
+  /** Same documentation for all members
+   * This is a multiline comment.
+   */
+  ///@{
+  void g(); // COMPLIANT
+  void h(); // COMPLIANT
+  void i(); // COMPLIANT
+  ///@}
+
+  ///@{
+  void j(); // NON_COMPLIANT
+  void k(); // NON_COMPLIANT
+  /** Member-specific documentation */
+  void l(); // COMPLIANT
+  ///@}
+
 private:
   /// @brief A Doxygen comment.
   int c; // COMPLIANT
 };
+void ClassC::i() { // not flagged, as we will only flag the non-definition
+                   // declaration
+}
 /// A Doxygen comment.
 void c(); // COMPLIANT
 

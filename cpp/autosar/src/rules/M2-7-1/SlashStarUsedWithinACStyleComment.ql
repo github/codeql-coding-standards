@@ -16,9 +16,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.charactersequenceusedwithinacstylecomment.CharacterSequenceUsedWithinACStyleComment
 
-from CStyleComment c
-where
-  not isExcluded(c, CommentsPackage::slashStarUsedWithinACStyleCommentQuery()) and
-  exists(c.getContents().regexpFind("./\\*", _, _))
-select c, "C-style /* comment includes nested /*."
+class SlashStarUsedWithinACStyleCommentQuery extends CharacterSequenceUsedWithinACStyleCommentSharedQuery
+{
+  SlashStarUsedWithinACStyleCommentQuery() {
+    this = CommentsPackage::slashStarUsedWithinACStyleCommentQuery()
+  }
+}

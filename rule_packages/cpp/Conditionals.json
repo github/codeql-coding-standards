@@ -78,6 +78,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "SwitchCompoundCondition",
+          "shared_implementation_short_name": "SwitchCompoundCondition",
           "tags": [
             "maintainability",
             "readability"
@@ -90,6 +91,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "LoopCompoundCondition",
+          "shared_implementation_short_name": "LoopCompoundCondition",
           "tags": [
             "maintainability",
             "readability"
