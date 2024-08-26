@@ -7,6 +7,7 @@ newtype RepresentationQuery =
   TBitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery() or
   TAuditPossibleHardwareInterfaceDueToBitFieldUsageInDataTypeDefinitionQuery() or
   TObjectAssignedToAnOverlappingObjectQuery() or
+  TDoNotPassAliasedPointerToParamQuery() or
   TUnderlyingBitRepresentationsOfFloatingPointValuesUsedQuery() or
   TNamedBitFieldsWithSignedIntegerTypeShallHaveALengthOfMoreThanOneBitQuery() or
   TMemsetUsedToAccessObjectRepresentationQuery() or
@@ -38,6 +39,15 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   queryId =
     // `@id` for the `objectAssignedToAnOverlappingObject` query
     "cpp/autosar/object-assigned-to-an-overlapping-object" and
+  ruleId = "M0-2-1" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `doNotPassAliasedPointerToParam` query
+    RepresentationPackage::doNotPassAliasedPointerToParamQuery() and
+  queryId =
+    // `@id` for the `doNotPassAliasedPointerToParam` query
+    "cpp/autosar/do-not-pass-aliased-pointer-to-param" and
   ruleId = "M0-2-1" and
   category = "required"
   or
@@ -107,6 +117,13 @@ module RepresentationPackage {
     result =
       // `Query` type for `objectAssignedToAnOverlappingObject` query
       TQueryCPP(TRepresentationPackageQuery(TObjectAssignedToAnOverlappingObjectQuery()))
+  }
+
+  Query doNotPassAliasedPointerToParamQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `doNotPassAliasedPointerToParam` query
+      TQueryCPP(TRepresentationPackageQuery(TDoNotPassAliasedPointerToParamQuery()))
   }
 
   Query underlyingBitRepresentationsOfFloatingPointValuesUsedQuery() {

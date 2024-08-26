@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Pointers
+import codingstandards.cpp.Pointers
 import codingstandards.cpp.SideEffect
 
 from Variable ptr, PointerOrArrayType type
