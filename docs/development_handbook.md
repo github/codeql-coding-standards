@@ -41,6 +41,7 @@
 | 0.31.0 | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9 |
 | 0.32.0 | 2024-05-01 | Luke Cartey | Refer to the user manual for the list of supported standards. |
 | 0.33.0 | 2024-07-30 | Kristen Newbury | Remove out dated references to codeql modules directory usage. |
+| 0.34.0 | 2024-08-22 | Kristen Newbury | Remove out dated references to git submodules usage. |
 
 ## Scope of work
 
@@ -735,14 +736,3 @@ codeql test run --show-extractor-output \
 # The actual output can be accepted via codeql test accept (which moves some files):
 codeql test accept \
        cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.qlref
-
-
-```
-
-### Troubleshooting: Unrecoverable mismatch between extractor and library dbschemes
-
-The following error could be indicative of the Git submodule *codeql-coding-standards/github_modules* being out-of-date:
-
->Could not upgrade the dataset in /path/to/codeql-coding-standards/cpp/autosar/test/rules/...: Unrecoverable mismatch between extractor and library dbschemes.
-
-To resolve the problem, update the submodule by executing `git submodule update`.
