@@ -107,7 +107,7 @@ int foo() {
 template <typename T> static T another_templ_function() { return T(); }
 
 template <typename T, typename First, typename... Rest>
-static T another_templ_function(const First &first, const Rest &... rest) {
+static T another_templ_function(const First &first, const Rest &...rest) {
   return first +
          another_templ_function<T>(rest...); // COMPLIANT - 'rest' is used here
 }
