@@ -56,5 +56,13 @@ where
   not isExcluded(v, DeadCodePackage::unusedLocalVariableQuery()) and
   // Local variable is never accessed
   not exists(v.getAnAccess()) and
+  // Sometimes multiple objects representing the same entities are created in
+  // the AST. Check if those are not accessed as well. Refer issue #658
+  not exists(LocalScopeVariable another |
+    another.getDefinitionLocation() = v.getDefinitionLocation() and
+    another.hasName(v.getName()) and
+    exists(another.getAnAccess()) and
+    another != v
+  ) and
   getUseCountConservatively(v) = 0
 select v, "Local variable '" + v.getName() + "' in '" + v.getFunction().getName() + "' is not used."
