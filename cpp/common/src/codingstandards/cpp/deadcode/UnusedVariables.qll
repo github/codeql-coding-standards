@@ -48,7 +48,11 @@ class PotentiallyUnusedLocalVariable extends LocalVariable {
       not exists(AsmStmt s | f = s.getEnclosingFunction()) and
       // Ignore functions with error expressions as they indicate expressions that the extractor couldn't process
       not any(ErrorExpr e).getEnclosingFunction() = f
-    )
+    ) and
+    // exclude uninstantiated template members
+    not this.isFromUninstantiatedTemplate(_) and
+    // Do not report compiler generated variables
+    not this.isCompilerGenerated()
   }
 }
 
@@ -95,7 +99,9 @@ class PotentiallyUnusedMemberVariable extends MemberVariable {
     // Lambda captures are not "real" member variables - it's an implementation detail that they are represented that way
     not this = any(LambdaCapture lc).getField() and
     // exclude uninstantiated template members
-    not this.isFromUninstantiatedTemplate(_)
+    not this.isFromUninstantiatedTemplate(_) and
+    // Do not report compiler generated variables
+    not this.isCompilerGenerated()
   }
 }
 
@@ -107,7 +113,11 @@ class PotentiallyUnusedGlobalOrNamespaceVariable extends GlobalOrNamespaceVariab
     // Not declared in a macro expansion
     not isInMacroExpansion() and
     // No side-effects from declaration
-    not declarationHasSideEffects(this)
+    not declarationHasSideEffects(this) and
+    // exclude uninstantiated template members
+    not this.isFromUninstantiatedTemplate(_) and
+    // Do not report compiler generated variables
+    not this.isCompilerGenerated()
   }
 }
 

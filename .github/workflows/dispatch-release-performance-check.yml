@@ -12,7 +12,6 @@ jobs:
   dispatch-matrix-check:
     runs-on: ubuntu-22.04
     steps:
-
       - name: Test Variables
         shell: pwsh
         run: |
@@ -20,7 +19,7 @@ jobs:
 
           $actor = "${{github.actor}}"
 
-          $acl = @("jsinglet","mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine") 
+          $acl = @("mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "nicolaswill") 
 
           if(-not ($actor -in $acl)){
             throw "Refusing to run workflow for user not in acl."
@@ -33,8 +32,7 @@ jobs:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
           repository: github/codeql-coding-standards-release-engineering
           event-type: performance-test
-          client-payload: '{"pr": "${{ github.event.issue.number  }}"}'
-
+          client-payload: '{"pr": "${{ github.event.issue.number }}"}'
 
       - uses: actions/github-script@v6
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') }}

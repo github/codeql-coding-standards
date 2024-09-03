@@ -87,6 +87,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "RecursiveFunctions",
+          "shared_implementation_short_name": "FunctionsCallThemselvesEitherDirectlyOrIndirectly",
           "tags": [
             "correctness",
             "maintainability"
@@ -232,6 +233,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "FunctionReturnAutomaticVarCondition",
+          "shared_implementation_short_name": "ReturnReferenceOrPointerToAutomaticLocalVariable",
           "tags": [
             "correctness",
             "security"

@@ -1,0 +1,2 @@
+- `A2-7-3` - `UndocumentedUserDefinedType.ql`:
+  - Fixes #391. Declarations for which a Doxygen comment group provides documentation will no longer produce results.

@@ -110,6 +110,8 @@ else:
           print("Error: " + standard + " " + rule_id + " is marked as part of package " + package_name + " but is not marked as supportable.")
           sys.exit(1)
 
+        tags = []
+
         # Add the AUTOSAR obligation, enforcement and allocated target as query properties.
         properties = {}
         if obligation_level:
@@ -117,7 +119,15 @@ else:
         if enforcement_level:
           properties["enforcement"] = enforcement_level.lower()
         if allocated_targets:
-          properties["allocated-target"] = [target.strip(' ').lower() for target in allocated_targets.split("/")]
+          if allocated_targets == "Single Translation Unit":
+            # MISRA C++ 2023 uses the allocated targets field for scope
+            tags.append("scope/single-translation-unit")
+          elif allocated_targets == "System":
+            # MISRA C++ 2023 uses the allocated targets field for scope
+            tags.append("scope/system")
+          else:
+            properties["allocated-target"] = [target.strip(' ').lower() for target in allocated_targets.split("/")]
+
         if difficulty == "Audit":
           properties["audit"] = ""
 
@@ -164,7 +174,7 @@ else:
               "severity" : severity,
               "description" : description,
               "kind" : "problem",
-              "tags" : []
+              "tags" : tags
             }
           ]
         }

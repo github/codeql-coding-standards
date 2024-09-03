@@ -32,11 +32,38 @@ predicate isFunctionSuccessorLocation(ControlFlowNode node, File f, int endline)
 PreprocessorDirective isLocatedInAFunctionInvocation(FunctionCall c) {
   exists(PreprocessorDirective p, File f, int startCall, int endCall |
     isFunctionInvocationLocation(c, f, startCall, endCall) and
-    exists(int startLine, int endLine | isPreprocDirectiveLine(p, f, startLine, endLine) |
-      startCall < startLine and
-      startCall < endLine and
-      endLine <= endCall and
-      endLine <= endCall
+    exists(Expr arg, int preprocStartLine, int preprocEndLine |
+      c.getAnArgument() = arg and
+      isPreprocDirectiveLine(p, f, preprocStartLine, preprocEndLine) and
+      // function call begins before preprocessor directive
+      startCall < preprocStartLine and
+      (
+        // argument's location is after the preprocessor directive
+        arg.getLocation().getStartLine() > preprocStartLine
+        or
+        // arg's location is before an endif token that is part of a
+        // preprocessor directive defined before the argument.
+        // E.g.
+        // memcpy(dest, src,
+        // #ifdef SOMEMACRO
+        // 12
+        // #else
+        // 24 // 'arg' exists here
+        // #endif // endif after 'arg', but part of a preproc. branch before 'arg'
+        // );
+        p instanceof PreprocessorEndif and
+        // exists a preprocessor branch of which this is the endif
+        // and that preprocessor directive exists before
+        // the argument and after the function call begins.
+        exists(PreprocessorBranchDirective another |
+          another.getEndIf() = p and
+          another.getLocation().getFile() = f and
+          startCall < another.getLocation().getStartLine() and
+          arg.getLocation().getStartLine() > another.getLocation().getStartLine()
+        )
+      ) and
+      // function call ends after preprocessor directive
+      endCall > preprocEndLine
     ) and
     result = p
   )

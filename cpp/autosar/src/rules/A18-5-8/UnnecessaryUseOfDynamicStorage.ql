@@ -53,6 +53,9 @@ class MakeSharedOrUnique extends FunctionCall, CandidateFunctionLocalHeapAllocat
     // This includes the case where a result of `make_shared` or `make_unique` is return by a function
     // because the compiler will call the appropriate constructor.
     not exists(FunctionCall fc | DataFlow::localExprFlow(this, fc.getAnArgument())) and
+    // The flow to a return statement is explicitly modelled for the case where
+    // the copy/move constructor is elided and therefore there is no actual function call in the database
+    not exists(ReturnStmt ret | DataFlow::localExprFlow(this, ret.getExpr())) and
     // Not assigned to a field
     not exists(Field f | DataFlow::localExprFlow(this, f.getAnAssignedValue()))
   }

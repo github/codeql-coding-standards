@@ -77,3 +77,10 @@ int main(int, char **) noexcept {
 
   (new Issue18)->F(0);
 }
+
+template <bool... Args> extern constexpr bool recurse_var = true; // COMPLIANT
+
+template <bool B1, bool... Args>
+extern constexpr bool recurse_var<B1, Args...> = B1 &&recurse_var<Args...>;
+
+void fp_621() { recurse_var<true, true, true>; }

@@ -39,17 +39,13 @@
 | 0.29.1 | 2023-10-11 | Remco Vermeulen | Address Markdown linter problems. |
 | 0.30.0 | 2023-11-14 | Remco Vermeulen | Clarify release steps in case of a hotfix release. |
 | 0.31.0 | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9 |
+| 0.32.0 | 2024-05-01 | Luke Cartey | Refer to the user manual for the list of supported standards. |
+| 0.33.0 | 2024-07-30 | Kristen Newbury | Remove out dated references to codeql modules directory usage. |
+| 0.34.0 | 2024-08-22 | Kristen Newbury | Remove out dated references to git submodules usage. |
 
 ## Scope of work
 
-A *coding standard* is a set of rules or guidelines which restrict or prohibit the use of certain dangerous or confusing coding patterns or language features. This repository contains CodeQL queries (and supporting processes) which implement a number of different coding standards. The currently supported standards are:
-
-| Standard                                                                                                             | Version | Total rules | Total supportable rules | Status         | Notes                                                                                                                                                     |
-| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [AUTOSAR C++](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf) | R22-11, R21-11, R20-11, R19-11, R19-03  | 397         | 375                     | Implemented    | |
-| [CERT-C++](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)   | 2016    | 83          | 83                      | Implemented    | AUTOSAR includes a sub-set of rules take from MISRA C++ 2008, which can be purchased for a small fee from [the MISRA website](https://misra.org.uk/shop). |
-| [CERT-C](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)       | 2016    | 120         | 99                      | In development | The implementation excludes rules not part of 2016, but that are added to the [CERT-C wiki](https://wiki.sei.cmu.edu/confluence/display/c/)               |
-| [MISRA C](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/ )                               | 2012    | 172         | 172                     | In development | This includes the [MISRA C:2012 Amendment 2](https://www.misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf)                                          |
+A *coding standard* is a set of rules or guidelines which restrict or prohibit the use of certain dangerous or confusing coding patterns or language features. This repository contains CodeQL queries (and supporting processes) which implement a number of different coding standards. The currently supported standards are documented in the [user manual](user_manual.md).
 
 Each coding standard consists of a list of "guidelines", however not all the guidelines in all the standards will be amenable to automated static analysis. The AUTOSAR C++ standard categorizes the guidelines according to enforcement by static analysis tools in section *5.1.3 Rule classification according to enforcement by static analysis* of the standard. The CERT-C++ standard does not provide such categorization, but frequently has a [documented](https://wiki.sei.cmu.edu/confluence/display/cplusplus/How+this+Coding+Standard+Is+Organized#HowthisCodingStandardIsOrganized-AutomatedDetection) automated detection section for guidelines that documents tools, including their limitations, that can verify the guidelines in question. We have therefore carefully reviewed each supported standard. For each guidelines that is not categorized as automatic enforceable we have determined,in conjunction with end users, what parts of the guideline can be supported in which capacity with CodeQL.
 
@@ -515,8 +511,7 @@ To upgrade the CodeQL external dependencies:
 2. Determine if there is a compatible CodeQL CLI bundle version by looking at the releases specified at [CodeQL Action releases](https://github.com/github/codeql-action/releases). The bundle always includes the standard library at the version specified by the `codeql-cli/v<version-number>` tag in the `github/codeql` repository.
 3. If you find a compatible CodeQL CLI bundle, determine whether that bundle was released in a GitHub Enterprise server release, by inspecting the `defaults.json` file at https://github.com/github/codeql-action/blob/main/lib/defaults.json#L2 for the CodeQL Action submitted with
 4. Populated the `supported_codeql_configs.json` file with the given values, ensuring to delete the optional fields if they are not populated.
-5. Update the `codeql_modules/codeql` submodule pointer to the `codeql_standard_library` tag identified.
-6. Submit a Pull Request to the `github/codeql-coding-standards` repository with the title `Upgrade `github/codeql` dependency to <insert codeql_standard_library value>`. Use this template for the description, filling :
+5. Submit a Pull Request to the `github/codeql-coding-standards` repository with the title `Upgrade `github/codeql` dependency to <insert codeql_standard_library value>`. Use this template for the description, filling :
 
     ```md
     This PR updates the `supported_codeql_configs.json` file to target:
@@ -538,9 +533,9 @@ To upgrade the CodeQL external dependencies:
     - [ ] Validate performance vs pre-upgrade
     ```
 
-7. Follow the dependency upgrade checklist, confirming each step. The `.github/workflows/standard_library_upgrade_tests.yml` will trigger automation for running the `github/codeql` unit tests with the appropriate CLI version.
-8. Once all the automate tests have passed, and the checklist is complete, the PR can be merged.
-9. An internal notification should be shared with the development team.
+6. Follow the dependency upgrade checklist, confirming each step. The `.github/workflows/standard_library_upgrade_tests.yml` will trigger automation for running the `github/codeql` unit tests with the appropriate CLI version.
+7. Once all the automate tests have passed, and the checklist is complete, the PR can be merged.
+8. An internal notification should be shared with the development team.
 
 ### Release process
 
@@ -741,14 +736,3 @@ codeql test run --show-extractor-output \
 # The actual output can be accepted via codeql test accept (which moves some files):
 codeql test accept \
        cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.qlref
-
-
-```
-
-### Troubleshooting: Unrecoverable mismatch between extractor and library dbschemes
-
-The following error could be indicative of the Git submodule *codeql-coding-standards/github_modules* being out-of-date:
-
->Could not upgrade the dataset in /path/to/codeql-coding-standards/cpp/autosar/test/rules/...: Unrecoverable mismatch between extractor and library dbschemes.
-
-To resolve the problem, update the submodule by executing `git submodule update`.

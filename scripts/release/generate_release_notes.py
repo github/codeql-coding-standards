@@ -79,7 +79,7 @@ latest_release_commit = repo.commit("v" + previous_release_tag)
 diff_from_last_release = latest_release_commit.diff(head_commit)
 
 # Store a mapping from standard -> rules with new queries -> new queries for those rules
-new_rules = {"AUTOSAR" : {}, "CERT-C++" : {}, "MISRA-C-2012" : {}, "CERT-C" : {}}
+new_rules = {"AUTOSAR" : {}, "CERT-C++" : {}, "MISRA-C-2012" : {}, "CERT-C" : {}, "MISRA-C++-2023" : {}}
 # Store the text of the newly added change notes
 change_notes = []
 # Store the names of the rule packages with new queries
