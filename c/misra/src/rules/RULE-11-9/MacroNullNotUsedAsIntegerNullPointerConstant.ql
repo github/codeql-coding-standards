@@ -18,8 +18,18 @@ import codingstandards.cpp.Type
 from Zero zero, Expr e, string type
 where
   not isExcluded(zero, Pointers1Package::macroNullNotUsedAsIntegerNullPointerConstantQuery()) and
-  // exclude the base-case (NULL macros and void pointer casts)
-  not isNullPointerConstant(zero) and
+  // Exclude the base-case (NULL macros and void pointer casts)
+  // Note: we cannot use the isNullPointerConstant predicate here because it permits
+  //       the use of `0` without casting, which is prohibited here.
+  not (
+    zero.findRootCause() instanceof NullMacro
+    or
+    // integer constant `0` explicitly cast to void pointer
+    exists(Conversion c | c = zero.getConversion() |
+      not c.isImplicit() and
+      c.getUnderlyingType() instanceof VoidPointerType
+    )
+  ) and
   (
     // ?: operator
     exists(ConditionalExpr parent |

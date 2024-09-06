@@ -62,6 +62,8 @@ class ArrayPointerArithmeticExpr extends PointerArithmeticExpr, ArrayExpr {
 predicate isNullPointerConstant(Expr e) {
   e.findRootCause() instanceof NullMacro
   or
+  // 8.11 Pointer type conversions states:
+  // A null pointer constant, i.e. the value 0, optionally cast to void *.
   e instanceof Zero
   or
   isNullPointerConstant(e.(Conversion).getExpr())
