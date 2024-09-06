@@ -2,3 +2,4 @@
 | test.c:17:8:17:8 | 0 | $@ uses zero-value integer constant expression as null pointer constant. | test.c:17:3:17:8 | ... = ... | Assignment to pointer |
 | test.c:23:13:23:13 | 0 | $@ uses zero-value integer constant expression as null pointer constant. | test.c:23:3:23:13 | ... ? ... : ... | Ternary operator |
 | test.c:24:8:24:8 | 0 | $@ uses zero-value integer constant expression as null pointer constant. | test.c:24:3:24:13 | ... ? ... : ... | Ternary operator |
+| test.c:31:14:31:14 | 0 | $@ uses zero-value integer constant expression as null pointer constant. | test.c:31:9:31:14 | ... = ... | Assignment to pointer |

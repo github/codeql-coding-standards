@@ -34,9 +34,9 @@ where
     // ?: operator
     exists(ConditionalExpr parent |
       (
-        parent.getThen().getAChild*() = zero and parent.getElse().getType() instanceof PointerType
+        parent.getThen() = zero and parent.getElse().getType() instanceof PointerType
         or
-        parent.getElse().getAChild*() = zero and parent.getThen().getType() instanceof PointerType
+        parent.getElse() = zero and parent.getThen().getType() instanceof PointerType
       ) and
       // exclude a common conditional pattern used in macros such as 'assert'
       not parent.isInMacroExpansion() and

@@ -8,3 +8,5 @@
     - Fixed issue #331 - consider `0` a null pointer constant.
  - `RULE-11-6` - `CastBetweenPointerToVoidAndArithmeticType.ql`:
     - Fixed issue #331 - accept integer constant expressions with value `0` instead of null pointer constants.
+ - `RULE-11-9` - `MacroNullNotUsedAsIntegerNullPointerConstant.ql`:
+    - Remove false positives in branches of ternary expressions, where `0` was used correctly.
