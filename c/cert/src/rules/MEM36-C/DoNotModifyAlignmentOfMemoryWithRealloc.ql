@@ -15,8 +15,8 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Alignment
-import semmle.code.cpp.dataflow.DataFlow
-import DataFlow::PathGraph
+import codingstandards.cpp.dataflow.DataFlow
+import AlignedAllocToReallocFlow::PathGraph
 
 int getStatedValue(Expr e) {
   // `upperBound(e)` defaults to `exprMaxVal(e)` when `e` isn't analyzable. So to get a meaningful
@@ -37,22 +37,22 @@ class ReallocCall extends FunctionCall {
   ReallocCall() { this.getTarget().hasName("realloc") }
 }
 
-class AlignedAllocToReallocConfig extends DataFlow::Configuration {
-  AlignedAllocToReallocConfig() { this = "AlignedAllocToReallocConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module AlignedAllocToReallocConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr() instanceof NonDefaultAlignedAllocCall
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(ReallocCall realloc | sink.asExpr() = realloc.getArgument(0))
   }
 }
 
-from AlignedAllocToReallocConfig cfg, DataFlow::PathNode source, DataFlow::PathNode sink
+module AlignedAllocToReallocFlow = DataFlow::Global<AlignedAllocToReallocConfig>;
+
+from AlignedAllocToReallocFlow::PathNode source, AlignedAllocToReallocFlow::PathNode sink
 where
   not isExcluded(sink.getNode().asExpr(),
     Memory2Package::doNotModifyAlignmentOfMemoryWithReallocQuery()) and
-  cfg.hasFlowPath(source, sink)
+  AlignedAllocToReallocFlow::flowPath(source, sink)
 select sink, source, sink, "Memory allocated with $@ but reallocated with realloc.",
   source.getNode().asExpr(), "aligned_alloc"

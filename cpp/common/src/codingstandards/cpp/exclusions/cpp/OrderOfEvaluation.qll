@@ -8,6 +8,7 @@ newtype OrderOfEvaluationQuery =
   TOperandsOfALogicalAndOrNotParenthesizedQuery() or
   TExplicitConstructionOfUnnamedTemporaryQuery() or
   TGratuitousUseOfParenthesesQuery() or
+  TInsufficientUseOfParenthesesQuery() or
   TIncrementAndDecrementOperatorsMixedWithOtherOperatorsInExpressionQuery() or
   TAssignmentInSubExpressionQuery()
 
@@ -47,6 +48,15 @@ predicate isOrderOfEvaluationQueryMetadata(
   queryId =
     // `@id` for the `gratuitousUseOfParentheses` query
     "cpp/autosar/gratuitous-use-of-parentheses" and
+  ruleId = "M5-0-2" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `insufficientUseOfParentheses` query
+    OrderOfEvaluationPackage::insufficientUseOfParenthesesQuery() and
+  queryId =
+    // `@id` for the `insufficientUseOfParentheses` query
+    "cpp/autosar/insufficient-use-of-parentheses" and
   ruleId = "M5-0-2" and
   category = "advisory"
   or
@@ -96,6 +106,13 @@ module OrderOfEvaluationPackage {
     result =
       // `Query` type for `gratuitousUseOfParentheses` query
       TQueryCPP(TOrderOfEvaluationPackageQuery(TGratuitousUseOfParenthesesQuery()))
+  }
+
+  Query insufficientUseOfParenthesesQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `insufficientUseOfParentheses` query
+      TQueryCPP(TOrderOfEvaluationPackageQuery(TInsufficientUseOfParenthesesQuery()))
   }
 
   Query incrementAndDecrementOperatorsMixedWithOtherOperatorsInExpressionQuery() {

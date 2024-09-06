@@ -1,19 +1,14 @@
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
-import semmle.code.cpp.dataflow.DataFlow2
+import codingstandards.cpp.dataflow.DataFlow
 
 private class PointerToMember extends Variable {
   PointerToMember() { this.getType() instanceof PointerToMemberType }
 }
 
-class NullPointerToPointerMemberExpressionConfig extends DataFlow::Configuration {
-  NullPointerToPointerMemberExpressionConfig() {
-    this = "NullPointerToPointerMemberExpressionConfig"
-  }
+module NullPointerToPointerMemberExpressionConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof NullValue }
 
-  override predicate isSource(DataFlow::Node source) { source.asExpr() instanceof NullValue }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     // The null value can flow to a pointer-to-member expressions that points to a function
     exists(VariableCall call, VariableAccess va | call.getQualifier() = va and va = sink.asExpr() |
       va.getTarget() instanceof PointerToMember
@@ -24,12 +19,13 @@ class NullPointerToPointerMemberExpressionConfig extends DataFlow::Configuration
   }
 }
 
-class NullValueToAssignmentConfig extends DataFlow2::Configuration {
-  NullValueToAssignmentConfig() { this = "NullValueToAssignmentConfig" }
+module NullPointerToPointerMemberExpressionFlow =
+  DataFlow::Global<NullPointerToPointerMemberExpressionConfig>;
 
-  override predicate isSource(DataFlow::Node source) { source.asExpr() instanceof NullValue }
+module NullValueToAssignmentConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof NullValue }
 
-  override predicate isSink(DataFlow::Node sink) {
-    exists(Assignment a | a.getRValue() = sink.asExpr())
-  }
+  predicate isSink(DataFlow::Node sink) { exists(Assignment a | a.getRValue() = sink.asExpr()) }
 }
+
+module NullValueToAssignmentFlow = DataFlow::Global<NullValueToAssignmentConfig>;

@@ -106,3 +106,30 @@ void instantiate() {
   t381.test_381_1();
   t381.test_381_2();
 }
+class Foo {};
+void test_loop() {
+  for (auto a : {8, 9, 10}) { // NON_COMPLIANT - a is initialized with a
+                              //                 non-constant initializer
+    a;
+  }
+
+  std::vector<int> v = {1, 2, 3};
+  for (auto &a : v) { // COMPLIANT - a is intialized with a function call
+    a;
+  }
+
+  Foo f1;
+  Foo f2;
+  for (auto &a : {f1, f2}) { // COMPLIANT - initialized with a non-fundamental
+                             //             type
+    a;
+  }
+}
+
+template <typename T> void test_template(std::vector<T> v2) {
+  for (auto &a : v2) { // COMPLIANT - a is intialized with a function call
+    a;
+  }
+}
+
+void test_template_instantiation() { test_template<int>({1, 2, 3}); }

@@ -147,9 +147,9 @@ param(
     $Configuration,
 
     # For a suite, the suites we support. Valid values are 'CERT-C++' and
-    # 'AUTOSAR' and MISRA-C-2012 and CERT-C
+    # 'AUTOSAR' and MISRA-C-2012, MISRA-C++-2023 and CERT-C
     [Parameter(Mandatory, ParameterSetName = 'Suite')] 
-    [ValidateSet("CERT-C++", "AUTOSAR", "MISRA-C-2012", "CERT-C")]
+    [ValidateSet("CERT-C++", "AUTOSAR", "MISRA-C-2012", "CERT-C", "MISRA-C++-2023")]
     [string]
     $SuiteName,
 
@@ -417,9 +417,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             # output current row state 
             $row 
 
-            # release any held mutexes            
-            $Mutex.ReleaseMutex();
-
+            
             ###########################################################
             ###########################################################
             # Context is restored here
@@ -427,6 +425,10 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             if($context){
                 Pop-CompilerSpecificFiles -Context $context 
             }
+
+            # release any held mutexes            
+            $Mutex.ReleaseMutex();
+            Write-Host "Released $testDirectory"
         }
     }
     # go to next row 

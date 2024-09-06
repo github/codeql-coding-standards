@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 /**
  * The argument of a call to `asctime`
@@ -30,22 +30,22 @@ class AsctimeArg extends Expr {
  * Dataflow configuration for flow from a library function
  * to a call of function `asctime`
  */
-class TmStructSafeConfig extends DataFlow::Configuration {
-  TmStructSafeConfig() { this = "TmStructSafeConfig" }
-
-  override predicate isSource(DataFlow::Node src) {
+module TmStructSafeConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node src) {
     src.asExpr()
         .(FunctionCall)
         .getTarget()
         .hasGlobalName(["localtime", "localtime_r", "localtime_s", "gmtime", "gmtime_r", "gmtime_s"])
   }
 
-  override predicate isSink(DataFlow::Node sink) { sink.asExpr() instanceof AsctimeArg }
+  predicate isSink(DataFlow::Node sink) { sink.asExpr() instanceof AsctimeArg }
 }
 
-from AsctimeArg fc, TmStructSafeConfig config
+module TmStructSafeFlow = DataFlow::Global<TmStructSafeConfig>;
+
+from AsctimeArg fc
 where
   not isExcluded(fc, Contracts7Package::doNotPassInvalidDataToTheAsctimeFunctionQuery()) and
-  not config.hasFlowToExpr(fc)
+  not TmStructSafeFlow::flowToExpr(fc)
 select fc,
   "The function `asctime` and `asctime_r` should be discouraged. Unsanitized input can overflow the output buffer."

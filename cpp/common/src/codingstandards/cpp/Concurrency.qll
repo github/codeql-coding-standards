@@ -1,5 +1,5 @@
 import cpp
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 
 /**
  * Models CFG nodes which should be added to a thread context.
@@ -114,7 +114,10 @@ class CPPMutexFunctionCall extends MutexFunctionCall {
   /**
    * Holds if this `CPPMutexFunctionCall` is a lock.
    */
-  override predicate isLock() { getTarget().getName() = "lock" }
+  override predicate isLock() {
+    not isLockingOperationWithinLockingOperation(this) and
+    getTarget().getName() = "lock"
+  }
 
   /**
    * Holds if this `CPPMutexFunctionCall` is a speculative lock, defined as calling
@@ -172,6 +175,7 @@ class CMutexFunctionCall extends MutexFunctionCall {
    * Holds if this `CMutexFunctionCall` is a lock.
    */
   override predicate isLock() {
+    not isLockingOperationWithinLockingOperation(this) and
     getTarget().getName() = ["mtx_lock", "mtx_timedlock", "mtx_trylock"]
   }
 
@@ -296,6 +300,16 @@ abstract class LockingOperation extends FunctionCall {
    * Holds if this is an unlock operation
    */
   abstract predicate isUnlock();
+
+  /**
+   * Holds if this locking operation is really a locking operation within a
+   * designated locking operation. This library assumes the underlying locking
+   * operations are implemented correctly in that calling a `LockingOperation`
+   * results in the creation of a singular lock.
+   */
+  predicate isLockingOperationWithinLockingOperation(LockingOperation inner) {
+    exists(LockingOperation outer | outer.getTarget() = inner.getEnclosingFunction())
+  }
 }
 
 /**
@@ -317,6 +331,7 @@ class RAIIStyleLock extends LockingOperation {
    * Holds if this is a lock operation
    */
   override predicate isLock() {
+    not isLockingOperationWithinLockingOperation(this) and
     this instanceof ConstructorCall and
     lock = getArgument(0).getAChild*() and
     // defer_locks don't cause a lock
@@ -595,7 +610,7 @@ abstract class ThreadDependentMutex extends DataFlow::Node {
 class FlowBasedThreadDependentMutex extends ThreadDependentMutex {
   FlowBasedThreadDependentMutex() {
     // some sort of dataflow, likely through parameter passing.
-    exists(ThreadDependentMutexTaintTrackingConfiguration config | config.hasFlow(this, sink))
+    ThreadDependentMutexFlow::flow(this, sink)
   }
 }
 
@@ -723,17 +738,15 @@ class DeclarationInitAccessBasedThreadDependentMutex extends ThreadDependentMute
   override DataFlow::Node getAUsage() { result = DataFlow::exprNode(variableSource.getAnAccess()) }
 }
 
-class ThreadDependentMutexTaintTrackingConfiguration extends TaintTracking::Configuration {
-  ThreadDependentMutexTaintTrackingConfiguration() {
-    this = "ThreadDependentMutexTaintTrackingConfiguration"
-  }
+module ThreadDependentMutexConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node node) { node.asExpr() instanceof MutexSource }
 
-  override predicate isSource(DataFlow::Node node) { node.asExpr() instanceof MutexSource }
-
-  override predicate isSink(DataFlow::Node node) {
+  predicate isSink(DataFlow::Node node) {
     exists(ThreadCreationFunction f | f.getAnArgument() = node.asExpr())
   }
 }
+
+module ThreadDependentMutexFlow = TaintTracking::Global<ThreadDependentMutexConfig>;
 
 /**
  * Models expressions that destroy mutexes.
@@ -857,7 +870,7 @@ class TSSCreateFunctionCall extends ThreadSpecificStorageFunctionCall {
   TSSCreateFunctionCall() { getTarget().getName() = "tss_create" }
 
   predicate hasDeallocator() {
-    not exists(MacroInvocation mi, NULLMacro nm |
+    not exists(MacroInvocation mi, NullMacro nm |
       getArgument(1) = mi.getExpr() and
       mi = nm.getAnInvocation()
     )

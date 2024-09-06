@@ -16,7 +16,5 @@ import codingstandards.c.misra
 import codingstandards.cpp.rules.gotostatementcondition.GotoStatementCondition
 
 class GotoLabelLocationConditionQuery extends GotoStatementConditionSharedQuery {
-  GotoLabelLocationConditionQuery() {
-    this = Statements2Package::gotoLabelLocationConditionQuery()
-  }
+  GotoLabelLocationConditionQuery() { this = Statements2Package::gotoLabelLocationConditionQuery() }
 }

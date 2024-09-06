@@ -14,23 +14,21 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import codingstandards.cpp.autosar
-import DataFlow::PathGraph
+import LambdaExpressionToTypeidFlow::PathGraph
 
-class LambdaExpressionToTypeid extends DataFlow::Configuration {
-  LambdaExpressionToTypeid() { this = "LambdaExpressionToTypeid" }
+module LambdaExpressionToTypeidConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof LambdaExpression }
 
-  override predicate isSource(DataFlow::Node source) { source.asExpr() instanceof LambdaExpression }
-
-  override predicate isSink(DataFlow::Node sink) {
-    exists(TypeidOperator op | op.getExpr() = sink.asExpr())
-  }
+  predicate isSink(DataFlow::Node sink) { exists(TypeidOperator op | op.getExpr() = sink.asExpr()) }
 }
 
-from DataFlow::PathNode source, DataFlow::PathNode sink
+module LambdaExpressionToTypeidFlow = DataFlow::Global<LambdaExpressionToTypeidConfig>;
+
+from LambdaExpressionToTypeidFlow::PathNode source, LambdaExpressionToTypeidFlow::PathNode sink
 where
   not isExcluded(source.getNode().asExpr(), LambdasPackage::lambdaPassedToTypeidQuery()) and
-  any(LambdaExpressionToTypeid config).hasFlowPath(source, sink)
+  LambdaExpressionToTypeidFlow::flowPath(source, sink)
 select sink.getNode(), source, sink, "Lambda $@ passed as operand to typeid operator.",
   source.getNode(), "expression"

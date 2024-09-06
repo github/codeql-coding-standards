@@ -5,13 +5,13 @@
  */
 
 import cpp
-import codingstandards.c.Pointers
+import codingstandards.cpp.Pointers
 import codingstandards.c.Variable
 import codingstandards.cpp.Allocations
 import codingstandards.cpp.Overflow
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 import codingstandards.cpp.SimpleRangeAnalysisCustomizations
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 module OOB {
@@ -712,7 +712,8 @@ module OOB {
   }
 
   private class DynamicAllocationSource extends PointerToObjectSource instanceof AllocationExpr,
-    FunctionCall {
+    FunctionCall
+  {
     DynamicAllocationSource() {
       // exclude OperatorNewAllocationFunction to only deal with raw malloc-style calls,
       // which do not apply a multiple to the size of the allocation passed to them.
@@ -905,12 +906,10 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
-  private class PointerToObjectSourceOrSizeToBufferAccessFunctionConfig extends DataFlow::Configuration {
-    PointerToObjectSourceOrSizeToBufferAccessFunctionConfig() {
-      this = "PointerToObjectSourceOrSizeToBufferAccessFunctionConfig"
-    }
-
-    override predicate isSource(DataFlow::Node source) {
+  private module PointerToObjectSourceOrSizeToBufferAccessFunctionConfig implements
+    DataFlow::ConfigSig
+  {
+    predicate isSource(DataFlow::Node source) {
       source.asExpr() instanceof PointerToObjectSource
       or
       exists(PointerToObjectSource ptr |
@@ -919,7 +918,7 @@ module OOB {
       )
     }
 
-    override predicate isSink(DataFlow::Node sink) {
+    predicate isSink(DataFlow::Node sink) {
       exists(BufferAccess ba, Expr arg |
         (
           arg = ba.(BufferAccessLibraryFunctionCall).getAnArgument() or
@@ -932,7 +931,7 @@ module OOB {
       )
     }
 
-    override predicate isBarrierOut(DataFlow::Node node) {
+    predicate isBarrierOut(DataFlow::Node node) {
       // the default interprocedural data-flow model flows through any array assignment expressions
       // to the qualifier (array base or pointer dereferenced) instead of the individual element
       // that the assignment modifies. this default behaviour causes false positives for any future
@@ -953,10 +952,14 @@ module OOB {
     }
   }
 
+  private module PointerToObjectSourceOrSizeToBufferAccessFunctionFlow =
+    DataFlow::Global<PointerToObjectSourceOrSizeToBufferAccessFunctionConfig>;
+
   private predicate hasFlowFromBufferOrSizeExprToUse(Expr source, Expr use) {
-    exists(PointerToObjectSourceOrSizeToBufferAccessFunctionConfig config, Expr useOrChild |
+    exists(Expr useOrChild |
       exists(getArithmeticOffsetValue(use, useOrChild)) and
-      config.hasFlow(DataFlow::exprNode(source), DataFlow::exprNode(useOrChild))
+      PointerToObjectSourceOrSizeToBufferAccessFunctionFlow::flow(DataFlow::exprNode(source),
+        DataFlow::exprNode(useOrChild))
     )
   }
 

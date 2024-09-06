@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.misra
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 /**
  * Models a function parameter of type array with specified size
@@ -42,23 +42,24 @@ class ArrayParameter extends Parameter {
  * int arr2[2] = {1, 2, 3};
  * ```
  */
-int countElements(ArrayAggregateLiteral l) { result = count(l.getElementExpr(_)) }
+int countElements(ArrayAggregateLiteral l) { result = count(l.getAnElementExpr(_)) }
 
-class SmallArrayConfig extends DataFlow::Configuration {
-  SmallArrayConfig() { this = "SmallArrayConfig" }
+module SmallArrayConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node src) { src.asExpr() instanceof ArrayAggregateLiteral }
 
-  override predicate isSource(DataFlow::Node src) { src.asExpr() instanceof ArrayAggregateLiteral }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     sink.asExpr() = any(ArrayParameter p).getAMatchingArgument()
   }
 }
 
+module SmallArrayFlow = DataFlow::Global<SmallArrayConfig>;
+
 from Expr arg, ArrayParameter p
 where
   not isExcluded(arg, Contracts6Package::arrayFunctionArgumentNumberOfElementsQuery()) and
-  exists(SmallArrayConfig config | arg = p.getAMatchingArgument() |
-    // the argument is a value and not an arrey
+  arg = p.getAMatchingArgument() and
+  (
+    // the argument is a value and not an array
     not arg.getType() instanceof DerivedType
     or
     // the argument is an array too small
@@ -67,7 +68,7 @@ where
     // the argument is a pointer and its value does not come from a literal of the correct
     arg.getType() instanceof PointerType and
     not exists(ArrayAggregateLiteral l |
-      config.hasFlow(DataFlow::exprNode(l), DataFlow::exprNode(arg)) and
+      SmallArrayFlow::flow(DataFlow::exprNode(l), DataFlow::exprNode(arg)) and
       countElements(l) >= p.getArraySize()
     )
   )

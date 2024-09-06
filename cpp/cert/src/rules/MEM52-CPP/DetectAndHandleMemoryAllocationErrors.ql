@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.cpp.cert
 import semmle.code.cpp.controlflow.Guards
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import codingstandards.cpp.exceptions.ExceptionSpecifications
 
 /**
@@ -74,22 +74,20 @@ class NotWrappedNoThrowAllocExpr extends NoThrowAllocExpr {
 /**
  * A data flow configuration for finding nothrow allocation calls which are checked in some kind of guard.
  */
-class NoThrowNewErrorCheckConfig extends DataFlow::Configuration {
-  NoThrowNewErrorCheckConfig() { this = "NoThrowNewErrorCheckConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module NoThrowNewErrorCheckConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr() instanceof NotWrappedNoThrowAllocExpr
   }
 
-  override predicate isSink(DataFlow::Node sink) {
-    sink.asExpr() = any(GuardCondition gc).getAChild*()
-  }
+  predicate isSink(DataFlow::Node sink) { sink.asExpr() = any(GuardCondition gc).getAChild*() }
 }
+
+module NoThrowNewErrorCheckFlow = DataFlow::Global<NoThrowNewErrorCheckConfig>;
 
 from NotWrappedNoThrowAllocExpr ae
 where
   not isExcluded(ae, AllocationsPackage::detectAndHandleMemoryAllocationErrorsQuery()) and
-  not any(NoThrowNewErrorCheckConfig nt).hasFlow(DataFlow::exprNode(ae), _)
+  not NoThrowNewErrorCheckFlow::flow(DataFlow::exprNode(ae), _)
 select ae,
   "nothrow new allocation of $@ returns here without a subsequent check to see whether the pointer is valid.",
   ae.getUnderlyingAlloc() as underlying, underlying.getType().getName()

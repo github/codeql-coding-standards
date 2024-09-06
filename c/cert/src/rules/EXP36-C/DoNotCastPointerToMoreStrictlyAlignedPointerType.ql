@@ -14,10 +14,9 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Alignment
-import semmle.code.cpp.dataflow.DataFlow
-import semmle.code.cpp.dataflow.DataFlow2
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
-import DataFlow::PathGraph
+import ExprWithAlignmentToCStyleCastFlow::PathGraph
 
 /**
  * An expression with a type that has defined alignment requirements
@@ -96,8 +95,7 @@ class UnconvertedCastFromNonVoidPointerExpr extends Expr {
  */
 class DefaultAlignedPointerExpr extends UnconvertedCastFromNonVoidPointerExpr, ExprWithAlignment {
   DefaultAlignedPointerExpr() {
-    not any(AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig config)
-        .hasFlowTo(DataFlow::exprNode(this))
+    not AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprFlow::flowTo(DataFlow::exprNode(this))
   }
 
   override int getAlignment() { result = this.getType().(PointerType).getBaseType().getAlignment() }
@@ -118,42 +116,37 @@ class DefaultAlignedPointerExpr extends UnconvertedCastFromNonVoidPointerExpr, E
  * to exclude an `DefaultAlignedPointerAccessExpr` as a source if a preceding source
  * defined by this configuration provides more accurate alignment information.
  */
-class AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig extends DataFlow2::Configuration {
-  AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig() {
-    this = "AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig"
-  }
-
-  override predicate isSource(DataFlow::Node source) {
+module AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig implements
+  DataFlow::ConfigSig
+{
+  predicate isSource(DataFlow::Node source) {
     source.asExpr() instanceof AddressOfAlignedVariableExpr or
     source.asExpr() instanceof DefinedAlignmentAllocationExpr
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     sink.asExpr() instanceof UnconvertedCastFromNonVoidPointerExpr
   }
 }
+
+module AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprFlow =
+  DataFlow::Global<AllocationOrAddressOfExprToUnconvertedCastFromNonVoidPointerExprConfig>;
 
 /**
  * A data-flow configuration for analysing the flow of `ExprWithAlignment` pointer expressions
  * to casts which perform pointer type conversions and potentially create pointer alignment issues.
  */
-class ExprWithAlignmentToCStyleCastConfiguration extends DataFlow::Configuration {
-  ExprWithAlignmentToCStyleCastConfiguration() {
-    this = "ExprWithAlignmentToCStyleCastConfiguration"
-  }
+module ExprWithAlignmentToCStyleCastConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof ExprWithAlignment }
 
-  override predicate isSource(DataFlow::Node source) {
-    source.asExpr() instanceof ExprWithAlignment
-  }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(CStyleCast cast |
       cast.getUnderlyingType() instanceof PointerType and
       cast.getUnconverted() = sink.asExpr()
     )
   }
 
-  override predicate isBarrierOut(DataFlow::Node node) {
+  predicate isBarrierOut(DataFlow::Node node) {
     // the default interprocedural data-flow model flows through any array assignment expressions
     // to the qualifier (array base or pointer dereferenced) instead of the individual element
     // that the assignment modifies. this default behaviour causes false positives for any future
@@ -168,12 +161,15 @@ class ExprWithAlignmentToCStyleCastConfiguration extends DataFlow::Configuration
   }
 }
 
+module ExprWithAlignmentToCStyleCastFlow = DataFlow::Global<ExprWithAlignmentToCStyleCastConfig>;
+
 from
-  DataFlow::PathNode source, DataFlow::PathNode sink, ExprWithAlignment expr, CStyleCast cast,
+  ExprWithAlignmentToCStyleCastFlow::PathNode source,
+  ExprWithAlignmentToCStyleCastFlow::PathNode sink, ExprWithAlignment expr, CStyleCast cast,
   Type toBaseType, int alignmentFrom, int alignmentTo
 where
   not isExcluded(cast, Pointers3Package::doNotCastPointerToMoreStrictlyAlignedPointerTypeQuery()) and
-  any(ExprWithAlignmentToCStyleCastConfiguration config).hasFlowPath(source, sink) and
+  ExprWithAlignmentToCStyleCastFlow::flowPath(source, sink) and
   source.getNode().asExpr() = expr and
   sink.getNode().asExpr() = cast.getUnconverted() and
   toBaseType = cast.getActualType().(PointerType).getBaseType() and

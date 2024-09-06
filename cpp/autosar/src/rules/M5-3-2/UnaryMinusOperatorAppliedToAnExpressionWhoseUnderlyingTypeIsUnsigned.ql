@@ -14,13 +14,12 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.builtinunaryoperatorappliedtounsignedexpression.BuiltInUnaryOperatorAppliedToUnsignedExpression
 
-from UnaryMinusExpr e, IntegralType t
-where
-  not isExcluded(e,
-    OperatorsPackage::unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery()) and
-  t = e.getOperand().getExplicitlyConverted().getType().getUnderlyingType() and
-  t.isUnsigned() and
-  not e.isAffectedByMacro()
-select e.getOperand(),
-  "The unary minus operator shall not be applied to an expression whose underlying type is unsigned."
+class UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery extends BuiltInUnaryOperatorAppliedToUnsignedExpressionSharedQuery
+{
+  UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery() {
+    this =
+      OperatorsPackage::unaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsignedQuery()
+  }
+}

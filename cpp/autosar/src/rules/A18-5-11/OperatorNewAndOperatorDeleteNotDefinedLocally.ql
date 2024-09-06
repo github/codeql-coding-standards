@@ -19,7 +19,8 @@ import codingstandards.cpp.autosar
 
 from MemberFunction operator_new, Class c
 where
-  not isExcluded(operator_new) and
+  not isExcluded(operator_new,
+    DeclarationsPackage::operatorNewAndOperatorDeleteNotDefinedLocallyQuery()) and
   not isExcluded(c, DeclarationsPackage::operatorNewAndOperatorDeleteNotDefinedLocallyQuery()) and
   operator_new.hasName("operator new") and
   operator_new.getDeclaringType() = c and

@@ -1,7 +1,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 import semmle.code.cpp.commons.Printf
 
 abstract class NonConstantFormatSharedQuery extends Query { }
@@ -106,28 +106,28 @@ predicate isSanitizerNode(DataFlow::Node node) {
   cannotContainString(node.getType())
 }
 
-class NonConstFlow extends TaintTracking::Configuration {
-  NonConstFlow() { this = "NonConstFlow" }
-
-  override predicate isSource(DataFlow::Node source) {
+module NonConstConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     isNonConst(source) and
     not cannotContainString(source.getType())
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(FormattingFunctionCall fc | sink.asExpr() = fc.getArgument(fc.getFormatParameterIndex()))
   }
 
-  override predicate isSanitizer(DataFlow::Node node) { isSanitizerNode(node) }
+  predicate isBarrier(DataFlow::Node node) { isSanitizerNode(node) }
 }
+
+module NonConstFlow = TaintTracking::Global<NonConstConfig>;
 
 query predicate problems(
   Expr formatString, string message, FormattingFunctionCall call, string formatStringDescription
 ) {
   not isExcluded(formatString, getQuery()) and
   call.getArgument(call.getFormatParameterIndex()) = formatString and
-  exists(NonConstFlow cf, DataFlow::Node source, DataFlow::Node sink |
-    cf.hasFlow(source, sink) and
+  exists(DataFlow::Node source, DataFlow::Node sink |
+    NonConstFlow::flow(source, sink) and
     sink.asExpr() = formatString
   ) and
   message =

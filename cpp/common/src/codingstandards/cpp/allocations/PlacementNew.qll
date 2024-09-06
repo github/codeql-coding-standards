@@ -22,7 +22,7 @@
 
 import cpp
 import codingstandards.cpp.Conversion
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 /*
  * TODO You can also have alignas on types
@@ -158,20 +158,20 @@ class AllocationExprPlacementNewOrigin extends PlacementNewMemoryOrigin {
  * A data flow configuration that identifies the origin of the placement argument to a placement
  * new expression.
  */
-class PlacementNewOriginConfig extends DataFlow::Configuration {
-  PlacementNewOriginConfig() { this = "PlacementNewOrigin" }
+module PlacementNewOriginConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source instanceof PlacementNewMemoryOrigin }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof PlacementNewMemoryOrigin }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     sink.asExpr() = any(PlacementNewExpr pne).getPlacementExpr()
     // TODO direct calls to placement operator new?
   }
 
-  override predicate isAdditionalFlowStep(DataFlow::Node stepFrom, DataFlow::Node stepTo) {
+  predicate isAdditionalFlowStep(DataFlow::Node stepFrom, DataFlow::Node stepTo) {
     // Slightly surprisingly, we can't see the `StaticOrCStyleCast`s as a source out-of-the-box with data
     // flow - it's only reported under taint tracking. We therefore add a step through static
     // casts so that we can see them as sources.
     stepTo.asExpr().(StaticOrCStyleCast).getExpr() = stepFrom.asExpr()
   }
 }
+
+module PlacementNewOriginFlow = DataFlow::Global<PlacementNewOriginConfig>;

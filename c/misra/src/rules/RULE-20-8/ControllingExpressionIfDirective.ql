@@ -14,24 +14,19 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.PreprocessorDirective
 
 /*  A controlling expression is evaluated if it is not excluded (guarded by another controlling expression that is not taken). This translates to it either being taken or not taken.  */
 predicate isEvaluated(PreprocessorBranch b) { b.wasTaken() or b.wasNotTaken() }
 
-class IfOrElifPreprocessorBranch extends PreprocessorBranch {
-  IfOrElifPreprocessorBranch() {
-    this instanceof PreprocessorIf or this instanceof PreprocessorElif
-  }
-}
-
 /**
  * Looks like it contains a single macro, which may be undefined
  */
-class SimpleMacroPreprocessorBranch extends IfOrElifPreprocessorBranch {
+class SimpleMacroPreprocessorBranch extends PreprocessorIfOrElif {
   SimpleMacroPreprocessorBranch() { this.getHead().regexpMatch("[a-zA-Z_][a-zA-Z0-9_]+") }
 }
 
-class SimpleNumericPreprocessorBranch extends IfOrElifPreprocessorBranch {
+class SimpleNumericPreprocessorBranch extends PreprocessorIfOrElif {
   SimpleNumericPreprocessorBranch() { this.getHead().regexpMatch("[0-9]+") }
 }
 
@@ -39,7 +34,7 @@ class ZeroOrOnePreprocessorBranch extends SimpleNumericPreprocessorBranch {
   ZeroOrOnePreprocessorBranch() { this.getHead().regexpMatch("[0|1]") }
 }
 
-predicate containsOnlySafeOperators(IfOrElifPreprocessorBranch b) {
+predicate containsOnlySafeOperators(PreprocessorIfOrElif b) {
   containsOnlyDefinedOperator(b)
   or
   //logic: comparison operators eval last, so they make it safe?
@@ -47,7 +42,7 @@ predicate containsOnlySafeOperators(IfOrElifPreprocessorBranch b) {
 }
 
 //all defined operators is definitely safe
-predicate containsOnlyDefinedOperator(IfOrElifPreprocessorBranch b) {
+predicate containsOnlyDefinedOperator(PreprocessorIfOrElif b) {
   forall(string portion |
     portion =
       b.getHead()
@@ -65,7 +60,7 @@ class BinaryValuedMacro extends Macro {
   BinaryValuedMacro() { this.getBody().regexpMatch("\\(?(0|1)\\)?") }
 }
 
-from IfOrElifPreprocessorBranch b, string msg
+from PreprocessorIfOrElif b, string msg
 where
   not isExcluded(b, Preprocessor3Package::controllingExpressionIfDirectiveQuery()) and
   isEvaluated(b) and

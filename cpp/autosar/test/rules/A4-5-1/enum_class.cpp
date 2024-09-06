@@ -43,7 +43,6 @@ void test_enum_class() {
   FunctionalLang::Elm <= FunctionalLang::Haskell;   // COMPLIANT
   FunctionalLang::Idris > FunctionalLang::SML;      // COMPLIANT
   FunctionalLang::Haskell >= FunctionalLang::Idris; // COMPLIANT
-  FunctionalLang::FSharp &FunctionalLang::OCaml;    // COMPLIANT
 
   // arithmetic
   FunctionalLang::ML + 1;                   // NON_COMPLIANT
@@ -59,15 +58,16 @@ void test_enum_class() {
   !FunctionalLang::Scheme;                        // NON_COMPLIANT
 
   // bitwise
-  FunctionalLang::Elm | FunctionalLang::Racket; // NON_COMPLIANT
-  ~FunctionalLang::Idris;                       // NON_COMPLIANT
-  FunctionalLang::ML ^ FunctionalLang::OCaml;   // NON_COMPLIANT
-  FunctionalLang::OCaml >> 1;                   // NON_COMPLIANT
-  FunctionalLang::Lisp << 1;                    // NON_COMPLIANT
-  l &= FunctionalLang::OCaml;                   // NON_COMPLIANT
-  l ^= 1;                                       // NON_COMPLIANT
-  l >>= 1;                                      // NON_COMPLIANT
-  l <<= 1;                                      // NON_COMPLIANT
+  FunctionalLang::Elm | FunctionalLang::Racket;  // NON_COMPLIANT
+  ~FunctionalLang::Idris;                        // NON_COMPLIANT
+  FunctionalLang::ML ^ FunctionalLang::OCaml;    // NON_COMPLIANT
+  FunctionalLang::OCaml >> 1;                    // NON_COMPLIANT
+  FunctionalLang::Lisp << 1;                     // NON_COMPLIANT
+  l &= FunctionalLang::OCaml;                    // NON_COMPLIANT
+  l ^= 1;                                        // NON_COMPLIANT
+  l >>= 1;                                       // NON_COMPLIANT
+  l <<= 1;                                       // NON_COMPLIANT
+  FunctionalLang::FSharp &FunctionalLang::OCaml; // NON_COMPLIANT
 }
 
 void test_enum_class_vars() {
@@ -79,7 +79,7 @@ void test_enum_class_vars() {
   a <= b;                                    // COMPLIANT
   a > a;                                     // COMPLIANT
   a >= a;                                    // COMPLIANT
-  a &b;                                      // COMPLIANT
+  FunctionalLang *c = &a;                    // COMPLIANT
 
   // arithmetic
   a + 1; // NON_COMPLIANT
@@ -100,4 +100,21 @@ void test_enum_class_vars() {
   a ^ b;  // NON_COMPLIANT
   a >> 1; // NON_COMPLIANT
   a << 1; // NON_COMPLIANT
+  a &b;   // NON_COMPLIANT
+}
+
+enum class byte : unsigned char {};
+
+byte operator&(byte lhs, byte rhs) { return lhs; }
+byte operator|(byte lhs, byte rhs) { return lhs; }
+byte operator^(byte lhs, byte rhs) { return lhs; }
+byte operator~(byte lhs) { return lhs; }
+byte operator&=(byte lhs, byte rhs) { return lhs; }
+byte operator|=(byte lhs, byte rhs) { return lhs; }
+
+void test_bitmasktype_enum_class() { // COMPLIANT - byte implements the
+                                     // BitmaskType trait.
+  byte one, two;
+
+  one &two;
 }

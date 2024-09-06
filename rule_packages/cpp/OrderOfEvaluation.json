@@ -90,6 +90,18 @@
             "external/autosar/audit",
             "readability"
           ]
+        },
+        {
+          "description": "The use of parentheses can be used to emphasize precedence and increase code readability.",
+          "kind": "problem",
+          "name": "Limited dependence should be placed on C++ operator precedence rules in expressions",
+          "precision": "medium",
+          "severity": "recommendation",
+          "short_name": "InsufficientUseOfParentheses",
+          "tags": [
+            "external/autosar/audit",
+            "readability"
+          ]
         }
       ],
       "title": "Limited dependence should be placed on C++ operator precedence rules in expressions."

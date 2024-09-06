@@ -28,5 +28,13 @@ predicate isInClassScope(UsingEntry u) { exists(Class c | u.getEnclosingElement(
 from UsingEntry u
 where
   not isExcluded(u, BannedSyntaxPackage::usingDeclarationsUsedInHeaderFilesQuery()) and
-  (isInHeaderFile(u) and not isInFunctionScope(u) and not isInClassScope(u))
+  isInHeaderFile(u) and
+  (
+    u instanceof UsingDeclarationEntry
+    implies
+    (
+      not isInFunctionScope(u) and
+      not isInClassScope(u)
+    )
+  )
 select u, "Using directive or declaration used in a header file " + u.getFile() + "."

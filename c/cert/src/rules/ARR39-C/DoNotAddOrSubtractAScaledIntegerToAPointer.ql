@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.c.Pointers
-import semmle.code.cpp.dataflow.TaintTracking
-import DataFlow::PathGraph
+import codingstandards.cpp.Pointers
+import codingstandards.cpp.dataflow.TaintTracking
+import ScaledIntegerPointerArithmeticFlow::PathGraph
 
 /**
  * An expression which invokes the `offsetof` macro or `__builtin_offsetof` operation.
@@ -69,12 +69,10 @@ class ScaledIntegerExpr extends Expr {
  * A data-flow configuration modeling data-flow from a `ScaledIntegerExpr` to a
  * `PointerArithmeticExpr` where the pointer does not point to a 1-byte type.
  */
-class ScaledIntegerPointerArithmeticConfig extends DataFlow::Configuration {
-  ScaledIntegerPointerArithmeticConfig() { this = "ScaledIntegerPointerArithmeticConfig" }
+module ScaledIntegerPointerArithmeticConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node src) { src.asExpr() instanceof ScaledIntegerExpr }
 
-  override predicate isSource(DataFlow::Node src) { src.asExpr() instanceof ScaledIntegerExpr }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(PointerArithmeticExpr pa |
       // exclude pointers to 1-byte types as they do not scale
       pa.getPointer().getFullyConverted().getType().(DerivedType).getBaseType().getSize() != 1 and
@@ -83,9 +81,13 @@ class ScaledIntegerPointerArithmeticConfig extends DataFlow::Configuration {
   }
 }
 
-from ScaledIntegerPointerArithmeticConfig config, DataFlow::PathNode src, DataFlow::PathNode sink
+module ScaledIntegerPointerArithmeticFlow = DataFlow::Global<ScaledIntegerPointerArithmeticConfig>;
+
+from
+  ScaledIntegerPointerArithmeticFlow::PathNode src,
+  ScaledIntegerPointerArithmeticFlow::PathNode sink
 where
   not isExcluded(sink.getNode().asExpr(),
     Pointers2Package::doNotAddOrSubtractAScaledIntegerToAPointerQuery()) and
-  config.hasFlowPath(src, sink)
+  ScaledIntegerPointerArithmeticFlow::flowPath(src, sink)
 select sink, src, sink, "Scaled integer used in pointer arithmetic."

@@ -12,7 +12,7 @@ import codingstandards.cpp.Operator
 import semmle.code.cpp.controlflow.Guards
 private import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 abstract class ContainerAccessWithoutRangeCheckSharedQuery extends Query { }
@@ -82,6 +82,26 @@ class ContainerEmptyCall extends FunctionCall {
   ContainerEmptyCall() {
     getTarget().getDeclaringType() instanceof ContainerType and
     getTarget().getName() = "empty"
+  }
+}
+
+/**
+ * A call to either `begin()` on a container.
+ */
+class ContainerBeginCall extends FunctionCall {
+  ContainerBeginCall() {
+    getTarget().getDeclaringType() instanceof ContainerType and
+    getTarget().getName() = "begin"
+  }
+}
+
+/**
+ * A call to either `end()` on a container.
+ */
+class ContainerEndCall extends FunctionCall {
+  ContainerEndCall() {
+    getTarget().getDeclaringType() instanceof ContainerType and
+    getTarget().getName() = "end"
   }
 }
 

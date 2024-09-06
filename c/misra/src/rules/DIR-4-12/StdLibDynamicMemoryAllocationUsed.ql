@@ -23,7 +23,7 @@ import semmle.code.cpp.models.interfaces.Deallocation
 
 from Expr e, string type
 where
-  not isExcluded(e, BannedPackage::memoryAllocDeallocFunctionsOfStdlibhUsedQuery()) and
+  not isExcluded(e, BannedPackage::stdLibDynamicMemoryAllocationUsedQuery()) and
   (
     e.(FunctionCall).getTarget().(AllocationFunction).requiresDealloc() and
     type = "allocation"

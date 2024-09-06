@@ -6,24 +6,22 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 abstract class UseOnlyArrayIndexingForPointerArithmeticSharedQuery extends Query { }
 
-class ArrayToArrayBaseConfig extends DataFlow::Configuration {
-  ArrayToArrayBaseConfig() { this = "ArrayToArrayBaseConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module ArrayToArrayBaseConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr().(VariableAccess).getType() instanceof ArrayType
     or
     // Consider array to pointer decay for parameters.
     source.asExpr().(VariableAccess).getTarget().(Parameter).getType() instanceof ArrayType
   }
 
-  override predicate isSink(DataFlow::Node sink) {
-    exists(ArrayExpr e | e.getArrayBase() = sink.asExpr())
-  }
+  predicate isSink(DataFlow::Node sink) { exists(ArrayExpr e | e.getArrayBase() = sink.asExpr()) }
 }
+
+module ArrayToArrayBaseFlow = DataFlow::Global<ArrayToArrayBaseConfig>;
 
 predicate hasPointerResult(PointerArithmeticOperation op) {
   op instanceof PointerAddExpr
@@ -34,8 +32,7 @@ predicate hasPointerResult(PointerArithmeticOperation op) {
 predicate shouldBeArray(ArrayExpr arrayExpr) {
   arrayExpr.getArrayBase().getUnspecifiedType() instanceof PointerType and
   not exists(VariableAccess va |
-    any(ArrayToArrayBaseConfig config)
-        .hasFlow(DataFlow::exprNode(va), DataFlow::exprNode(arrayExpr.getArrayBase()))
+    ArrayToArrayBaseFlow::flow(DataFlow::exprNode(va), DataFlow::exprNode(arrayExpr.getArrayBase()))
   ) and
   not exists(Variable v |
     v.getAnAssignedValue().getType() instanceof ArrayType and

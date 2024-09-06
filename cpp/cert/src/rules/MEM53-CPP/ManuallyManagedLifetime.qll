@@ -3,18 +3,15 @@ import codingstandards.cpp.Conversion
 import codingstandards.cpp.TrivialType
 import ManuallyManagedLifetime
 import semmle.code.cpp.controlflow.Dominance
-import semmle.code.cpp.dataflow.DataFlow2
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 
 /**
  * A taint-tracking configuration from allocation expressions to casts to a specific pointer type.
  *
  * We use a taint-tracking configuration because we also want to track sub-sections
  */
-class AllocToStaticCastConfig extends TaintTracking::Configuration {
-  AllocToStaticCastConfig() { this = "AllocToStaticCastConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module AllocToStaticCastConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     exists(AllocationExpr ae |
       ae.getType().getUnspecifiedType() instanceof VoidPointerType and
       source.asExpr() = ae and
@@ -23,7 +20,7 @@ class AllocToStaticCastConfig extends TaintTracking::Configuration {
     )
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(StaticOrCStyleCast sc, Class nonTrivialClass |
       sc.getExpr() = sink.asExpr() and
       nonTrivialClass = sc.getType().getUnspecifiedType().(PointerType).getBaseType() and
@@ -32,12 +29,14 @@ class AllocToStaticCastConfig extends TaintTracking::Configuration {
   }
 }
 
+module AllocToStaticCastFlow = TaintTracking::Global<AllocToStaticCastConfig>;
+
 /**
  * A cast of some existing memory, where we believe the resulting pointer has not been properly
  * constructed.
  */
 class CastWithoutConstruction extends StaticOrCStyleCast {
-  CastWithoutConstruction() { any(AllocToStaticCastConfig c).hasFlowToExpr(getExpr()) }
+  CastWithoutConstruction() { AllocToStaticCastFlow::flowToExpr(getExpr()) }
 }
 
 /*
@@ -96,18 +95,16 @@ class NonDestructingDeallocationCall extends Expr {
  * A data flow configuration from a `CastWithoutConstruction` to a free call on the memory without
  * an intervening destructor invocation.
  */
-class FreeWithoutDestructorConfig extends DataFlow2::Configuration {
-  FreeWithoutDestructorConfig() { this = "FreeWithoutDestructorConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+module FreeWithoutDestructorConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     source.asExpr() = any(CastWithoutConstruction c).getExpr()
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     sink.asExpr() = any(NonDestructingDeallocationCall de).getFreedExpr()
   }
 
-  override predicate isBarrier(DataFlow::Node barrier) {
+  predicate isBarrier(DataFlow::Node barrier) {
     // Consider any expression which later has a destructor called upon it to be safe.
     exists(DirectOrIndirectDestructorCall dc |
       DataFlow::localFlow(barrier, DataFlow::exprNode(dc.getDestructedArgument()))
@@ -122,7 +119,9 @@ class FreeWithoutDestructorConfig extends DataFlow2::Configuration {
     )
   }
 
-  override predicate isAdditionalFlowStep(DataFlow::Node stepFrom, DataFlow::Node stepTo) {
+  predicate isAdditionalFlowStep(DataFlow::Node stepFrom, DataFlow::Node stepTo) {
     stepTo.asExpr().(StaticOrCStyleCast).getExpr() = stepFrom.asExpr()
   }
 }
+
+module FreeWithoutDestructorFlow = DataFlow::Global<FreeWithoutDestructorConfig>;

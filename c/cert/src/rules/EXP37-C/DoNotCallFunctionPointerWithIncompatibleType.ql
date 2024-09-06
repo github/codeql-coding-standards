@@ -13,8 +13,8 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
-import DataFlow::PathGraph
+import codingstandards.cpp.dataflow.DataFlow
+import SuspectFunctionPointerToCallFlow::PathGraph
 
 /**
  * An expression of type `FunctionPointer` which is the unconverted expression of a cast
@@ -37,26 +37,26 @@ class SuspiciousFunctionPointerCastExpr extends Expr {
  * Data-flow configuration for flow from a `SuspiciousFunctionPointerCastExpr`
  * to a call of the function pointer resulting from the function pointer cast
  */
-class SuspectFunctionPointerToCallConfig extends DataFlow::Configuration {
-  SuspectFunctionPointerToCallConfig() { this = "SuspectFunctionPointerToCallConfig" }
-
-  override predicate isSource(DataFlow::Node src) {
+module SuspectFunctionPointerToCallConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node src) {
     src.asExpr() instanceof SuspiciousFunctionPointerCastExpr
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(VariableCall call | sink.asExpr() = call.getExpr().(VariableAccess))
   }
 }
 
+module SuspectFunctionPointerToCallFlow = DataFlow::Global<SuspectFunctionPointerToCallConfig>;
+
 from
-  SuspectFunctionPointerToCallConfig config, DataFlow::PathNode src, DataFlow::PathNode sink,
+  SuspectFunctionPointerToCallFlow::PathNode src, SuspectFunctionPointerToCallFlow::PathNode sink,
   Access access
 where
   not isExcluded(src.getNode().asExpr(),
     ExpressionsPackage::doNotCallFunctionPointerWithIncompatibleTypeQuery()) and
   access = src.getNode().asExpr() and
-  config.hasFlowPath(src, sink)
+  SuspectFunctionPointerToCallFlow::flowPath(src, sink)
 select src, src, sink,
   "Incompatible function $@ assigned to function pointer is eventually called through the pointer.",
   access.getTarget(), access.getTarget().getName()

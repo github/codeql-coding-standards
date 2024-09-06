@@ -1,0 +1,19 @@
+version: 0.1.0
+
+layout:
+  hello-world.txt:
+    - shell: |
+        echo "hello world!" > hello-world.txt
+  hello-world.zip:
+    - shell: |
+        echo "hello!" > hello.txt
+        echo "world!" > world.txt
+        # reset the creation and modification times to a fixed value
+        touch -a -m -t 197001010000.00 hello.txt world.txt
+  checksums.txt:
+    - shell: |
+        shasum -a 256 ${{ layout.root }}/* > checksums.txt
+        # Remove the layout root from the checksums.txt
+        # We don't use inplace because of BSD vs GNU shenanigans
+        sed -e "s|${{ layout.root }}/||g" checksums.txt > checksums-rewritten.txt
+        mv checksums-rewritten.txt checksums.txt

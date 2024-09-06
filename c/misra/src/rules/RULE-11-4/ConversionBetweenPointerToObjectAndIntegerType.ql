@@ -14,7 +14,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Macro
-import codingstandards.c.Pointers
+import codingstandards.cpp.Pointers
 
 MacroInvocation getAMacroInvocation(CStyleCast cast) { result.getAnExpandedElement() = cast }
 
@@ -37,7 +37,7 @@ from
   Locatable primaryLocation, CStyleCast cast, Type typeFrom, Type typeTo, string message,
   string extraMessage, Locatable optionalPlaceholderLocation, string optionalPlaceholderMessage
 where
-  not isExcluded(cast, Pointers1Package::castBetweenObjectPointerAndDifferentObjectTypeQuery()) and
+  not isExcluded(cast, Pointers1Package::conversionBetweenPointerToObjectAndIntegerTypeQuery()) and
   typeFrom = cast.getExpr().getUnderlyingType() and
   typeTo = cast.getUnderlyingType() and
   (

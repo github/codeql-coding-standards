@@ -1,4 +1,5 @@
 // GENERATED FILE - DO NOT MODIFY
 import codingstandards.cpp.rules.identifierwithexternallinkageonedefinitionshared.IdentifierWithExternalLinkageOneDefinitionShared
 
-class TestFileQuery extends IdentifierWithExternalLinkageOneDefinitionSharedSharedQuery, TestQuery { }
+class TestFileQuery extends IdentifierWithExternalLinkageOneDefinitionSharedSharedQuery, TestQuery {
+}

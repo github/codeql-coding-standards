@@ -1,5 +1,5 @@
 import cpp
-private import semmle.code.cpp.dataflow.DataFlow
+private import codingstandards.cpp.dataflow.DataFlow
 private import semmle.code.cpp.controlflow.Nullness
 private import codingstandards.cpp.Dereferenced
 private import codingstandards.cpp.Expr
@@ -198,7 +198,7 @@ newtype TPSetEntry =
   PSetNull(NullReason nr) or
   /** An invalid pointer, for the given reason. */
   PSetInvalid(InvalidReason ir) or
-  /** An unkown pointer. */
+  /** An unknown pointer. */
   PSetUnknown()
 
 /**

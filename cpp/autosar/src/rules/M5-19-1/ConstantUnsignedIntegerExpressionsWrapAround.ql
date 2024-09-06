@@ -23,7 +23,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.constantunsignedintegerexpressionswraparound.ConstantUnsignedIntegerExpressionsWrapAround
 
-class ConstantUnsignedIntegerExpressionsWrapAroundQuery extends ConstantUnsignedIntegerExpressionsWrapAroundSharedQuery {
+class ConstantUnsignedIntegerExpressionsWrapAroundQuery extends ConstantUnsignedIntegerExpressionsWrapAroundSharedQuery
+{
   ConstantUnsignedIntegerExpressionsWrapAroundQuery() {
     this = ExpressionsPackage::constantUnsignedIntegerExpressionsWrapAroundQuery()
   }

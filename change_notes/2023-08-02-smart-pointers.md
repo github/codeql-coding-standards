@@ -1,0 +1,5 @@
+ - `A20-8-1`/`MEM56-CPP`
+    - Address false negatives caused by lack of modelling of flow through smart pointers.
+    - Reduce flow paths through standard library headers to simplify results.
+ - `A18-1-4`
+    - Address false positives caused by missing modelling of modifying operations for smart pointers for some standard libraries (such as libstdc++).

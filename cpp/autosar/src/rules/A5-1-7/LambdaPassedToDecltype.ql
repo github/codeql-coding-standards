@@ -15,17 +15,17 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
-class LambdaExpressionToInitializer extends DataFlow::Configuration {
-  LambdaExpressionToInitializer() { this = "LambdaExpressionToInitializer" }
+module LambdaExpressionToInitializerConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof LambdaExpression }
 
-  override predicate isSource(DataFlow::Node source) { source.asExpr() instanceof LambdaExpression }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(Variable v | v.getInitializer().getExpr() = sink.asExpr())
   }
 }
+
+module LambdaExpressionToInitializerFlow = DataFlow::Global<LambdaExpressionToInitializerConfig>;
 
 from Decltype dt, LambdaExpression lambda
 where
@@ -33,10 +33,11 @@ where
   (
     dt.getExpr() = lambda
     or
-    exists(LambdaExpressionToInitializer config, VariableAccess va, Variable v |
+    exists(VariableAccess va, Variable v |
       dt.getExpr() = va and
       v = va.getTarget() and
-      config.hasFlow(DataFlow::exprNode(lambda), DataFlow::exprNode(v.getInitializer().getExpr()))
+      LambdaExpressionToInitializerFlow::flow(DataFlow::exprNode(lambda),
+        DataFlow::exprNode(v.getInitializer().getExpr()))
     )
   )
 select dt, "Lambda $@ passed as operand to decltype.", lambda, "expression"

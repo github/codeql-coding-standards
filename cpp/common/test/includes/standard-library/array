@@ -1,7 +1,7 @@
 #ifndef _GHLIBCPP_ARRAY
 #define _GHLIBCPP_ARRAY
-#include "iterator.h"
-#include "string.h"
+#include <iterator>
+#include <string>
 
 // Note: a few features currently unused by tests are commented out
 namespace std {

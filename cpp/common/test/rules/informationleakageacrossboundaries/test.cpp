@@ -1,5 +1,5 @@
+#include <cstring>
 #include <stddef.h>
-#include <string>
 
 unsigned long copy_to_user(void *to, const void *from, unsigned long n);
 
@@ -105,8 +105,6 @@ void zero_array_by_ref() {
   s.length = 0;
   copy_to_user(0, &s, sizeof s); // COMPLIANT
 }
-
-char *strcpy(char *dst, const char *src);
 
 void use_strcpy() {
   PascalString s;

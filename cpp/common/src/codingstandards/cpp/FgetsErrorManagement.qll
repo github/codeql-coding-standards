@@ -4,7 +4,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.controlflow.Guards
 
 /*

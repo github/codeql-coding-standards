@@ -145,6 +145,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "AccessibleBaseClassBothVirtualAndNonVirtualInHierarchy",
+          "shared_implementation_short_name": "VirtualAndNonVirtualClassInTheHierarchy",
           "tags": []
         }
       ],
@@ -187,6 +188,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DynamicTypeOfThisUsedFromConstructorOrDestructor",
+          "shared_implementation_short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor",
           "tags": []
         }
       ],

@@ -16,9 +16,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.multiplelocaldeclarators.MultipleLocalDeclarators
 
-from DeclStmt ds
-where
-  not isExcluded(ds, InitializationPackage::multipleLocalDeclaratorsQuery()) and
-  count(ds.getADeclaration()) > 1
-select ds, "Declaration list contains more than one declaration."
+class MultipleLocalDeclaratorsQuery extends MultipleLocalDeclaratorsSharedQuery {
+  MultipleLocalDeclaratorsQuery() { this = InitializationPackage::multipleLocalDeclaratorsQuery() }
+}

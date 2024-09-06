@@ -1,7 +1,7 @@
 #ifndef _GHLIBCPP_STDEXCEPT
 #define _GHLIBCPP_STDEXCEPT
-#include "exception.h"
-#include "string.h"
+#include <exception>
+#include <string>
 
 namespace std {
 class logic_error : public exception {
@@ -28,5 +28,7 @@ public:
 template <typename T> [[noreturn]] void throw_with_nested(T &&t);
 template <typename E> void rethrow_if_nested(E const &e);
 
+class length_error : public logic_error{};
+class out_of_range: public logic_error{};
 } // namespace std
 #endif // _GHLIBCPP_STDEXCEPT

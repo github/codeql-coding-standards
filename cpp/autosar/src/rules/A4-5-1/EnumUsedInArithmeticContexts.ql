@@ -18,44 +18,26 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.Operator
+import codingstandards.cpp.Type
 
-/*
- * Get an operand to all overloaded operator member functions, except:
- *   operator[]
- *   operator=
- *   operator==
- *   operator!=
- *   operator&
- *   operator<
- *   operator<=
- *   operator>
- *   operator>=
- */
-
-Expr getAnOperandOfAllowedOverloadedOperator(FunctionCall fc) {
-  fc.getAnArgument() = result and
-  fc.getTarget().getName().regexpMatch("operator(?!\\[]$|=$|==$|!=$|&$|<$|<=$|>$|>=$).+")
-}
-
-Expr getAnOperandOfAllowedOperation(Operation o) {
-  o.getAnOperand() = result and
-  not (
-    o instanceof AssignExpr or
-    o instanceof BitwiseAndExpr or
-    o instanceof ComparisonOperation
-  )
-}
-
-from Expr e, Expr operand
-where
-  not isExcluded(e, ExpressionsPackage::enumUsedInArithmeticContextsQuery()) and
-  (
-    operand = getAnOperandOfAllowedOverloadedOperator(e)
+class AllowedOperatorUse extends OperatorUse {
+  AllowedOperatorUse() {
+    this.getOperator() in ["[]", "=", "==", "!=", "<", "<=", ">", ">="]
     or
-    operand = getAnOperandOfAllowedOperation(e)
-  ) and
+    this.(UnaryOperatorUse).getOperator() = "&"
+  }
+}
+
+from OperatorUse operatorUse, Access access, Enum enum
+where
+  not isExcluded(access, ExpressionsPackage::enumUsedInArithmeticContextsQuery()) and
+  operatorUse.getAnOperand() = access and
   (
-    operand instanceof EnumConstantAccess or
-    operand.(VariableAccess).getType() instanceof Enum
-  )
-select e, "Enum $@ is used as an operand of arithmetic operation.", operand, "expression"
+    access.(EnumConstantAccess).getTarget().getDeclaringEnum() = enum or
+    access.(VariableAccess).getType() = enum
+  ) and
+  not operatorUse instanceof AllowedOperatorUse and
+  // Enums that implement the BitmaskType trait are an exception.
+  not enum instanceof BitmaskType
+select access, "Enum $@ is used as an operand of arithmetic operation.", enum, enum.getName()

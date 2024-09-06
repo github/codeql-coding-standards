@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.donotcopyaddressofautostorageobjecttootherobject.DoNotCopyAddressOfAutoStorageObjectToOtherObject
 
-class AssignmentOfEscapingAutoStorageQuery extends DoNotCopyAddressOfAutoStorageObjectToOtherObjectSharedQuery {
+class AssignmentOfEscapingAutoStorageQuery extends DoNotCopyAddressOfAutoStorageObjectToOtherObjectSharedQuery
+{
   AssignmentOfEscapingAutoStorageQuery() {
     this = FreedPackage::assignmentOfEscapingAutoStorageQuery()
   }

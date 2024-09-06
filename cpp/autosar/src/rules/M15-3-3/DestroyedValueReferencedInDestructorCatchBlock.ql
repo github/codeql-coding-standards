@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.destroyedvaluereferencedindestructorcatchblock.DestroyedValueReferencedInDestructorCatchBlock
 
-class DestroyedValueReferencedInDestructorCatchBlockQuery extends DestroyedValueReferencedInDestructorCatchBlockSharedQuery {
+class DestroyedValueReferencedInDestructorCatchBlockQuery extends DestroyedValueReferencedInDestructorCatchBlockSharedQuery
+{
   DestroyedValueReferencedInDestructorCatchBlockQuery() {
     this = Exceptions2Package::destroyedValueReferencedInDestructorCatchBlockQuery()
   }

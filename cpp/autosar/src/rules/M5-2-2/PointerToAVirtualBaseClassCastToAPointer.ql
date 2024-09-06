@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 from Cast cast, VirtualBaseClass castFrom, Class castTo
 where

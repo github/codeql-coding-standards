@@ -1,5 +1,6 @@
 import cpp
 import codingstandards.cpp.Exclusions
+import codingstandards.cpp.PreprocessorDirective
 
 abstract class UndefinedMacroIdentifiersSharedQuery extends Query { }
 
@@ -76,17 +77,10 @@ string getAnIfDefdMacroIdentifier(PreprocessorBranch pb) {
   )
 }
 
-class IfAndElifs extends PreprocessorBranch {
-  IfAndElifs() {
-    this instanceof PreprocessorIf or
-    this instanceof PreprocessorElif
-  }
-}
-
-class BadIfAndElifs extends IfAndElifs {
+class UndefinedIdIfOrElif extends PreprocessorIfOrElif {
   string undefinedMacroIdentifier;
 
-  BadIfAndElifs() {
+  UndefinedIdIfOrElif() {
     exists(string defRM |
       defRM =
         this.getHead()
@@ -113,7 +107,7 @@ class BadIfAndElifs extends IfAndElifs {
   string getAnUndefinedMacroIdentifier() { result = undefinedMacroIdentifier }
 }
 
-query predicate problems(BadIfAndElifs b, string message) {
+query predicate problems(UndefinedIdIfOrElif b, string message) {
   not isExcluded(b, getQuery()) and
   message =
     "#if/#elif that uses a macro identifier " + b.getAnUndefinedMacroIdentifier() +

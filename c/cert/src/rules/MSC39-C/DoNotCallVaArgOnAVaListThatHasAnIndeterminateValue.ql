@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Macro
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 abstract class VaAccess extends Expr { }
 
@@ -35,16 +35,16 @@ class VaEndArg extends VaAccess {
  * Dataflow configuration for flow from a library function
  * to a call of function `asctime`
  */
-class VaArgConfig extends DataFlow::Configuration {
-  VaArgConfig() { this = "VaArgConfig" }
-
-  override predicate isSource(DataFlow::Node src) {
+module VaArgConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node src) {
     src.asUninitialized() =
       any(VariableDeclarationEntry m | m.getType().hasName("va_list")).getVariable()
   }
 
-  override predicate isSink(DataFlow::Node sink) { sink.asExpr() instanceof VaAccess }
+  predicate isSink(DataFlow::Node sink) { sink.asExpr() instanceof VaAccess }
 }
+
+module VaArgFlow = DataFlow::Global<VaArgConfig>;
 
 /**
  * Controlflow nodes preceeding a call to `va_arg`
@@ -65,9 +65,9 @@ ControlFlowNode preceedsFC(VaAccess va_arg) {
 }
 
 predicate sameSource(VaAccess e1, VaAccess e2) {
-  exists(VaArgConfig config, DataFlow::Node source |
-    config.hasFlow(source, DataFlow::exprNode(e1)) and
-    config.hasFlow(source, DataFlow::exprNode(e2))
+  exists(DataFlow::Node source |
+    VaArgFlow::flow(source, DataFlow::exprNode(e1)) and
+    VaArgFlow::flow(source, DataFlow::exprNode(e2))
   )
 }
 

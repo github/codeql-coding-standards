@@ -13,26 +13,26 @@
 
 import cpp
 import codingstandards.cpp.cert
-import semmle.code.cpp.dataflow.DataFlow
-import DataFlow::PathGraph
+import codingstandards.cpp.dataflow.DataFlow
+import AllocationToDeleteFlow::PathGraph
 
-class AllocationToDeleteConfig extends DataFlow::Configuration {
-  AllocationToDeleteConfig() { this = "AllocationToDelete" }
+module AllocationToDeleteConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof NewArrayExpr }
 
-  override predicate isSource(DataFlow::Node source) { source.asExpr() instanceof NewArrayExpr }
-
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     exists(DeleteArrayExpr dae | dae.getExpr() = sink.asExpr())
   }
 }
 
+module AllocationToDeleteFlow = DataFlow::Global<AllocationToDeleteConfig>;
+
 from
-  AllocationToDeleteConfig config, DataFlow::PathNode source, DataFlow::PathNode sink,
+  AllocationToDeleteFlow::PathNode source, AllocationToDeleteFlow::PathNode sink,
   NewArrayExpr newArray, DeleteArrayExpr deleteArray
 where
   not isExcluded(deleteArray.getExpr(),
     FreedPackage::doNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeQuery()) and
-  config.hasFlowPath(source, sink) and
+  AllocationToDeleteFlow::flowPath(source, sink) and
   newArray = source.getNode().asExpr() and
   deleteArray.getExpr() = sink.getNode().asExpr() and
   not newArray.getType().getUnspecifiedType() = deleteArray.getExpr().getType().getUnspecifiedType()

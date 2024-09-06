@@ -2,7 +2,7 @@
 #define _GHLIBCPP_RANDOM
 #include "cstdint.h"
 #include "stddef.h"
-#include "string.h"
+#include <string>
 
 namespace std {
 template <class UIntType, UIntType a, UIntType c, UIntType m>

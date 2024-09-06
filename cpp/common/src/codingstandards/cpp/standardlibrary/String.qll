@@ -45,7 +45,8 @@ class StdBasicString extends ClassTemplateInstantiation {
   Type getConstIteratorType() {
     exists(TypedefType t |
       t.getDeclaringType() = this and
-      t.getName() = "const_iterator" and
+      // Certain compilers user __const_iterator instead of const_iterator.
+      t.getName() = ["const_iterator", "__const_iterator"] and
       result = t
     )
   }

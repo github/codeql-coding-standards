@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.donotsubtractpointersaddressingdifferentarrays.DoNotSubtractPointersAddressingDifferentArrays
 
-class SubtractionBetweenPointersMustAddressSameArrayQuery extends DoNotSubtractPointersAddressingDifferentArraysSharedQuery {
+class SubtractionBetweenPointersMustAddressSameArrayQuery extends DoNotSubtractPointersAddressingDifferentArraysSharedQuery
+{
   SubtractionBetweenPointersMustAddressSameArrayQuery() {
     this = Pointers1Package::subtractionBetweenPointersMustAddressSameArrayQuery()
   }

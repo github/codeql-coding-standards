@@ -16,7 +16,7 @@ import codingstandards.cpp.cert
 import codingstandards.cpp.Iterators
 import codingstandards.cpp.rules.containeraccesswithoutrangecheck.ContainerAccessWithoutRangeCheck as ContainerAccessWithoutRangeCheck
 import semmle.code.cpp.controlflow.Guards
-import semmle.code.cpp.dataflow.TaintTracking
+import codingstandards.cpp.dataflow.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /**
@@ -80,16 +80,7 @@ where
     iteratorCreationCall = outputContainer.getAnIteratorFunctionCall() and
     iteratorCreationCall = c.getOutputIteratorSource()
   |
-    // Guarded by a bounds check that ensures our destination is larger than "some" value
-    exists(
-      GuardCondition guard, ContainerAccessWithoutRangeCheck::ContainerSizeCall sizeCall,
-      boolean branch
-    |
-      globalValueNumber(sizeCall.getQualifier()) =
-        globalValueNumber(iteratorCreationCall.getQualifier()) and
-      guard.controls(c.getBasicBlock(), branch) and
-      relOpWithSwapAndNegate(guard, sizeCall, _, Greater(), _, branch)
-    )
+    sizeCompareBoundsChecked(iteratorCreationCall, c)
     or
     // Container created with sufficient size for the input
     exists(ContainerAccessWithoutRangeCheck::ContainerConstructorCall outputIteratorConstructor |

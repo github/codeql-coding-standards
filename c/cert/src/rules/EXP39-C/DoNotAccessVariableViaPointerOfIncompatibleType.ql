@@ -13,9 +13,9 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.controlflow.Dominance
-import DataFlow::PathGraph
+import IndirectCastFlow::PathGraph
 
 /**
  * The standard function `memset` and its assorted variants
@@ -42,35 +42,31 @@ class ReallocationFunction extends AllocationFunction {
   ReallocationFunction() { exists(this.getReallocPtrArg()) }
 }
 
-/**
- * A data-flow state for a pointer which has not been reallocated.
- */
-class IndirectCastDefaultFlowState extends DataFlow::FlowState {
-  IndirectCastDefaultFlowState() { this = "IndirectCastDefaultFlowState" }
-}
-
-/**
- * A data-flow state for a pointer which has been reallocated but
- * has not yet been zeroed with a memset call.
- */
-class IndirectCastReallocatedFlowState extends DataFlow::FlowState {
-  IndirectCastReallocatedFlowState() { this = "IndirectCastReallocatedFlowState" }
-}
+newtype IndirectCastFlowState =
+  /**
+   * A data-flow state for a pointer which has not been reallocated.
+   */
+  IndirectCastDefaultFlowState() or
+  /**
+   * A data-flow state for a pointer which has been reallocated but
+   * has not yet been zeroed with a memset call.
+   */
+  IndirectCastReallocatedFlowState()
 
 /**
  * A data-flow configuration to track the flow from cast expressions to either
  * other cast expressions or to dereferences of pointers reallocated with a call
  * to `realloc` but not cleared via a function call to `memset`.
  */
-class IndirectCastConfiguration extends DataFlow::Configuration {
-  IndirectCastConfiguration() { this = "CastToIncompatibleTypeConfiguration" }
+module IndirectCastConfig implements DataFlow::StateConfigSig {
+  class FlowState = IndirectCastFlowState;
 
-  override predicate isSource(DataFlow::Node source, DataFlow::FlowState state) {
+  predicate isSource(DataFlow::Node source, FlowState state) {
     state instanceof IndirectCastDefaultFlowState and
     source.asExpr() instanceof IndirectCastAnalysisUnconvertedCastExpr
   }
 
-  override predicate isSink(DataFlow::Node sink, DataFlow::FlowState state) {
+  predicate isSink(DataFlow::Node sink, FlowState state) {
     sink.asExpr() instanceof IndirectCastAnalysisUnconvertedCastExpr and
     state instanceof IndirectCastDefaultFlowState
     or
@@ -103,7 +99,7 @@ class IndirectCastConfiguration extends DataFlow::Configuration {
     )
   }
 
-  override predicate isBarrier(DataFlow::Node node, DataFlow::FlowState state) {
+  predicate isBarrier(DataFlow::Node node, FlowState state) {
     state instanceof IndirectCastReallocatedFlowState and
     exists(FunctionCall fc |
       fc.getTarget() instanceof MemsetFunction and
@@ -111,9 +107,8 @@ class IndirectCastConfiguration extends DataFlow::Configuration {
     )
   }
 
-  override predicate isAdditionalFlowStep(
-    DataFlow::Node node1, DataFlow::FlowState state1, DataFlow::Node node2,
-    DataFlow::FlowState state2
+  predicate isAdditionalFlowStep(
+    DataFlow::Node node1, FlowState state1, DataFlow::Node node2, FlowState state2
   ) {
     // track pointer flow through realloc calls and update state to `IndirectCastReallocatedFlowState`
     state1 instanceof IndirectCastDefaultFlowState and
@@ -134,6 +129,8 @@ class IndirectCastConfiguration extends DataFlow::Configuration {
     )
   }
 }
+
+module IndirectCastFlow = DataFlow::GlobalWithState<IndirectCastConfig>;
 
 pragma[inline]
 predicate areTypesSameExceptForConstSpecifiers(Type a, Type b) {
@@ -163,8 +160,8 @@ Type compatibleTypes(Type type) {
     (
       type.stripType() instanceof Struct and
       type.getUnspecifiedType() = result.getUnspecifiedType() and
-      not type.getName() = "struct <unnamed>" and
-      not result.getName() = "struct <unnamed>"
+      not type.(Struct).isAnonymous() and
+      not result.(Struct).isAnonymous()
       or
       not type.stripType() instanceof Struct and
       (
@@ -190,12 +187,14 @@ Type compatibleTypes(Type type) {
   )
 }
 
-from DataFlow::PathNode source, DataFlow::PathNode sink, Cast cast, Type fromType, Type toType
+from
+  IndirectCastFlow::PathNode source, IndirectCastFlow::PathNode sink, Cast cast, Type fromType,
+  Type toType
 where
   not isExcluded(sink.getNode().asExpr(),
     Pointers3Package::doNotAccessVariableViaPointerOfIncompatibleTypeQuery()) and
   cast.getFile().compiledAsC() and
-  any(IndirectCastConfiguration config).hasFlowPath(source, sink) and
+  IndirectCastFlow::flowPath(source, sink) and
   // include only sinks which are not a compatible type to the associated source
   source.getNode().asExpr() = cast.getUnconverted() and
   fromType = cast.getUnconverted().getType().(PointerType).getBaseType() and

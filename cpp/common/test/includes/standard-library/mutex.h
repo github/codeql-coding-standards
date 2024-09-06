@@ -23,7 +23,7 @@ constexpr try_to_lock_t try_to_lock{};
 class mutex {
 public:
   constexpr mutex() noexcept;
-  ~mutex();
+  ~mutex() = default;
   mutex(const mutex &) = delete;
   mutex &operator=(const mutex &) = delete;
   void lock();
@@ -62,15 +62,19 @@ template <class Mutex>
 void swap(unique_lock<Mutex> &x, unique_lock<Mutex> &y) noexcept;
 
 template <class _Lock0, class _Lock1, class... _LockN>
-void lock(_Lock0 &_Lk0, _Lock1 &_Lk1, _LockN &..._LkN) { }
+void lock(_Lock0 &_Lk0, _Lock1 &_Lk1, _LockN &..._LkN) {}
 
 template <typename Mutex> class lock_guard {
 public:
   typedef Mutex mutex_type;
 
-  explicit lock_guard(mutex_type &__m);
+  explicit lock_guard(mutex_type &__m) : _m(__m) { _m.lock(); }
   lock_guard(const lock_guard &) = delete;
   lock_guard &operator=(const lock_guard &) = delete;
+  ~lock_guard() { _m.unlock(); }
+
+private:
+  mutex_type &_m;
 };
 
 } // namespace std

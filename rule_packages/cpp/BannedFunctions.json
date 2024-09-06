@@ -189,6 +189,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "MacroOffsetofUsed",
+          "shared_implementation_short_name": "MacroOffsetofUsed",
           "tags": [
             "security",
             "scope/single-translation-unit"

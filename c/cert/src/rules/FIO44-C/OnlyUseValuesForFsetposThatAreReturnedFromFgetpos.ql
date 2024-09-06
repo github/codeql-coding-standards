@@ -12,7 +12,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 class FgetposCall extends FunctionCall {
   FgetposCall() { this.getTarget().hasGlobalOrStdName("fgetpos") }
@@ -22,24 +22,24 @@ class FsetposCall extends FunctionCall {
   FsetposCall() { this.getTarget().hasGlobalOrStdName("fsetpos") }
 }
 
-class FposDFConf extends DataFlow::Configuration {
-  FposDFConf() { this = "FposDFConf" }
-
-  override predicate isSource(DataFlow::Node source) {
+module FposDFConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) {
     // source must be the second parameter of a FgetposCall call
     source = DataFlow::definitionByReferenceNodeFromArgument(any(FgetposCall c).getArgument(1))
   }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     // sink must be the second parameter of a FsetposCall call
     sink.asExpr() = any(FsetposCall c).getArgument(1)
   }
 }
 
+module FposDFFlow = DataFlow::Global<FposDFConfig>;
+
 from FsetposCall fsetpos
 where
   not isExcluded(fsetpos.getArgument(1),
     IO2Package::onlyUseValuesForFsetposThatAreReturnedFromFgetposQuery()) and
-  not any(FposDFConf dfConf).hasFlowToExpr(fsetpos.getArgument(1))
+  not FposDFFlow::flowToExpr(fsetpos.getArgument(1))
 select fsetpos.getArgument(1),
   "The position argument of a call to `fsetpos()` should be obtained from a call to `fgetpos()`."

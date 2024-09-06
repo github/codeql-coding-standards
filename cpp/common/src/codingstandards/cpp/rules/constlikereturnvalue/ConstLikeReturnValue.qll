@@ -1,12 +1,15 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library with a `problems` predicate for the following issue:
+ * The pointers returned by the Standard Library functions localeconv, getenv,
+ * setlocale or, strerror shall only be used as if they have pointer to
+ * const-qualified type.
  */
 
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
-import DataFlow::PathGraph
+import codingstandards.cpp.dataflow.DataFlow
+import DFFlow::PathGraph
 
 abstract class ConstLikeReturnValueSharedQuery extends Query { }
 
@@ -41,22 +44,18 @@ class ObjectWrite extends Expr {
 /**
  * DF configuration for flows from a `NotModifiableCall` to a object modifications.
  */
-class DFConf extends DataFlow::Configuration {
-  DFConf() { this = "DFConf" }
+module DFConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof NotModifiableCall }
 
-  override predicate isSource(DataFlow::Node source) {
-    source.asExpr() instanceof NotModifiableCall
-  }
-
-  override predicate isSink(DataFlow::Node sink) { sink.asExpr() instanceof ObjectWrite }
+  predicate isSink(DataFlow::Node sink) { sink.asExpr() instanceof ObjectWrite }
 }
 
-query predicate problems(
-  Element e, DataFlow::PathNode source, DataFlow::PathNode sink, string message
-) {
+module DFFlow = DataFlow::Global<DFConfig>;
+
+query predicate problems(Element e, DFFlow::PathNode source, DFFlow::PathNode sink, string message) {
   not isExcluded(e, getQuery()) and
   // the modified object comes from a call to one of the ENV functions
-  any(DFConf d).hasFlowPath(source, sink) and
+  DFFlow::flowPath(source, sink) and
   e = sink.getNode().asExpr() and
   message =
     "The object returned by the function " +

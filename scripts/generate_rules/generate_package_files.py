@@ -58,11 +58,15 @@ standard_metadata = {
     "MISRA-C-2012" : {
         "standard_title" : "MISRA-C:2012 Guidelines for the use of the C language in critical systems",
         "standard_url"   : "https://www.misra.org.uk/"
+    },
+    "MISRA-C++-2023" : {
+        "standard_title" : "MISRA C++:2023 Guidelines for the use C++:17 in critical systems",
+        "standard_url"   : "https://misra.org.uk/product/misra-cpp2023/"
     }
 }
 
 # The help files of these standards cannot be distributed in our repository.
-external_help_file_standards = ["AUTOSAR", "MISRA-C-2012"]
+external_help_file_standards = ["AUTOSAR", "MISRA-C-2012", "MISRA-C++-2023"]
 
 # Mapping from the QL language to source file extension used to generate a help example file.
 ql_language_ext_mappings = {
@@ -181,8 +185,22 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
                 .replace("/", ".")
                 + "\n"
             )
-            f.write("\n");
-            f.write("class TestFileQuery extends " + str(query["shared_implementation_short_name"]) + "SharedQuery, TestQuery { }\n")
+            f.write("\n")
+            class_name = str(query["shared_implementation_short_name"]) + "SharedQuery"
+            f.write("class TestFileQuery extends " + class_name + ",")
+            # ql formatting of this line depends on the line length
+            if len(class_name) > 61:
+                # Line break required after comma
+                f.write("\n  TestQuery\n{ }\n")
+            elif len(class_name) == 61:
+                # Line break required before `{`
+                f.write(" TestQuery\n{ }\n")
+            elif len(class_name) > 57:
+                # Line break required after `{`
+                f.write(" TestQuery {\n}\n")
+            else:
+                # Under 100 characters, can be formatted on the same line
+                f.write(" TestQuery { }\n")
 
         # Create an empty test file, if one doesn't already exist
         shared_impl_test_dir.joinpath(

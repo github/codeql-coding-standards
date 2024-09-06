@@ -1,1 +1,1 @@
-| test.c:2:9:2:9 | union <unnamed> | Use of banned 'union' keyword. |
+| test.c:2:9:2:9 | (unnamed class/struct/union) | Use of banned 'union' keyword. |

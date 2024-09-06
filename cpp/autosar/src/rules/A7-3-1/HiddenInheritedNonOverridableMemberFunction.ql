@@ -15,24 +15,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.hiddeninheritednonoverridablememberfunction.HiddenInheritedNonOverridableMemberFunction
 
-from FunctionDeclarationEntry overridingDecl, FunctionDeclarationEntry hiddenDecl
-where
-  not isExcluded(overridingDecl, ScopePackage::hiddenInheritedNonOverridableMemberFunctionQuery()) and
-  // Check if we are overriding a non-virtual inherited member function
-  overridingDecl.getName() = hiddenDecl.getName() and
-  overridingDecl.getDeclaration().getDeclaringType().getABaseClass() =
-    hiddenDecl.getDeclaration().getDeclaringType() and
-  not hiddenDecl.getDeclaration().isVirtual() and
-  // Where the hidden member function isn't explicitly brought in scope through a using declaration.
-  not exists(UsingDeclarationEntry ude |
-    ude.getDeclaration() = hiddenDecl.getDeclaration() and
-    ude.getEnclosingElement() = overridingDecl.getDeclaration().getDeclaringType() and
-    ude.getLocation().getStartLine() < overridingDecl.getLocation().getStartLine()
-  ) and
-  // Exclude compiler generated member functions which include things like copy constructor that hide base class
-  // copy constructors.
-  not overridingDecl.getDeclaration().isCompilerGenerated()
-select overridingDecl,
-  "Declaration for member '" + overridingDecl.getName() +
-    "' hides non-overridable inherited member function $@", hiddenDecl, hiddenDecl.getName()
+class HiddenInheritedNonOverridableMemberFunctionQuery extends HiddenInheritedNonOverridableMemberFunctionSharedQuery
+{
+  HiddenInheritedNonOverridableMemberFunctionQuery() {
+    this = ScopePackage::hiddenInheritedNonOverridableMemberFunctionQuery()
+  }
+}

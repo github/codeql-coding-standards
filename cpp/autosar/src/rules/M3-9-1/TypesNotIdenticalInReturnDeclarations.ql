@@ -15,12 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import cpp
-import codingstandards.cpp.autosar
 
 from FunctionDeclarationEntry f1, FunctionDeclarationEntry f2
 where
-  not isExcluded(f1) and
+  not isExcluded(f1, DeclarationsPackage::typesNotIdenticalInReturnDeclarationsQuery()) and
   not isExcluded(f2, DeclarationsPackage::typesNotIdenticalInReturnDeclarationsQuery()) and
   f1.getDeclaration() = f2.getDeclaration() and
   not f1.getType() = f2.getType()

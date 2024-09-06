@@ -15,7 +15,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.CommonTypes as CommonTypes
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.dataflow.DataFlow
 
 class AccessAwareMemberFunction extends MemberFunction {
   Class c;
@@ -57,7 +57,8 @@ class AccessAwareMemberFunction extends MemberFunction {
 
 from Class c, AccessAwareMemberFunction mf, FieldAccess a, ReturnStmt rs
 where
-  not isExcluded(c) and
+  not isExcluded(c,
+    ClassesPackage::returnsNonConstRawPointersOrReferencesToPrivateOrProtectedDataQuery()) and
   not isExcluded(mf,
     ClassesPackage::returnsNonConstRawPointersOrReferencesToPrivateOrProtectedDataQuery()) and
   // Find all of the methods within this class

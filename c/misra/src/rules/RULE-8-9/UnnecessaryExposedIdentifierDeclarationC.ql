@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.unnecessaryexposedidentifierdeclarationshared.UnnecessaryExposedIdentifierDeclarationShared
 
-class UnnecessaryExposedIdentifierDeclarationCQuery extends UnnecessaryExposedIdentifierDeclarationSharedSharedQuery {
+class UnnecessaryExposedIdentifierDeclarationCQuery extends UnnecessaryExposedIdentifierDeclarationSharedSharedQuery
+{
   UnnecessaryExposedIdentifierDeclarationCQuery() {
     this = Declarations5Package::unnecessaryExposedIdentifierDeclarationCQuery()
   }

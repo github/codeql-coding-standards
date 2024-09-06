@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.ownedpointervaluestoredinunrelatedsmartpointer.OwnedPointerValueStoredInUnrelatedSmartPointer
 
-class OwnedPointerValueStoredInUnrelatedSmartPointerAsarQuery extends OwnedPointerValueStoredInUnrelatedSmartPointerSharedQuery {
+class OwnedPointerValueStoredInUnrelatedSmartPointerAsarQuery extends OwnedPointerValueStoredInUnrelatedSmartPointerSharedQuery
+{
   OwnedPointerValueStoredInUnrelatedSmartPointerAsarQuery() {
     this = SmartPointers1Package::ownedPointerValueStoredInUnrelatedSmartPointerAsarQuery()
   }

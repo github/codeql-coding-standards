@@ -39,7 +39,8 @@ template <class T> void F1(T &&x) {} //
 
 class A {
 public:
-  // COMPLIANT by exception, constrained to not match copy/move ctors
+  // COMPLIANT[FALSE_POSITIVE] - by exception, constrained to not match
+  // copy/move ctors
   template <
       typename T,
       std::enable_if_t<!std::is_same<
@@ -61,9 +62,17 @@ A b(a);
 void F1(int &) = delete; // COMPLIANT by exception
 
 struct B {
-  template <typename T,
-            std::enable_if_t<!std::is_same<T, B>::value> * = nullptr>
-  B(T &&value) {}
+  template <
+      typename T,
+      std::enable_if_t<!std::is_same<
+          std::remove_cv_t<std::remove_reference_t<T>>, A>::value> * = nullptr>
+  B(T &&value) {} // COMPLIANT[FALSE_POSITIVE] - by exception
 };
 
 int main() {}
+
+class C {
+public:
+  C() {}
+  template <typename T> C(T &&) {} // NON_COMPLIANT
+};

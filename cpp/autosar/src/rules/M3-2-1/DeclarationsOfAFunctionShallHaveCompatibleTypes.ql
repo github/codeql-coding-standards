@@ -22,7 +22,7 @@ import codingstandards.cpp.Typehelpers
 
 from FunctionDeclarationEntry f1, FunctionDeclarationEntry f2
 where
-  not isExcluded(f1) and
+  not isExcluded(f1, DeclarationsPackage::declarationsOfAFunctionShallHaveCompatibleTypesQuery()) and
   not isExcluded(f2, DeclarationsPackage::declarationsOfAFunctionShallHaveCompatibleTypesQuery()) and
   not f1 = f2 and
   f1.getDeclaration() = f2.getDeclaration() and

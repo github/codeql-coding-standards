@@ -26,7 +26,7 @@ predicate matching(string allocKind, string deleteKind) {
 
 from Expr alloc, Expr free, Expr freed, string allocKind, string deleteKind
 where
-  not isExcluded(freed, FreedPackage::newDeleteArrayMismatchQuery()) and
+  not isExcluded(freed, AllocationsPackage::properlyDeallocateDynamicallyAllocatedResourcesQuery()) and
   allocReaches(freed, alloc, allocKind) and
   freeExprOrIndirect(free, freed, deleteKind) and
   not matching(allocKind, deleteKind)
