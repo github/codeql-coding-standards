@@ -15,6 +15,12 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.Extensions
 
+string getIfDef(PreprocessorIfdef e) { result = e.getHead() }
+
+string isMacroAccess(Element ma) {
+  ma.getLocation().getStartLine() = 58 and result = ma.getAPrimaryQlClass()
+}
+
 from CCompilerExtension e
 where not isExcluded(e, Language3Package::languageExtensionsShouldNotBeUsedQuery())
 select e, "Is a compiler extension and is not portable to other compilers."

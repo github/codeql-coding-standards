@@ -23,12 +23,31 @@ abstract class CConditionalDefineExtension extends CCompilerExtension, Preproces
 }
 
 // Reference: https://clang.llvm.org/docs/LanguageExtensions.html#builtin-macros
-class CMacroBasedExtension extends CCompilerExtension, Macro {
+class CMacroBasedExtension extends CCompilerExtension, MacroAccess {
   CMacroBasedExtension() {
-    getBody() in [
-        "__BASE_FILE__", "__FILE_NAME__", "__COUNTER__", "__INCLUDE_LEVEL__", "_TIMESTAMP__",
+    getMacroName() in [
         "__clang__", "__clang_major__", "__clang_minor__", "__clang_patchlevel__",
-        "__clang_version__", "__clang_literal_encoding__", "__clang_wide_literal_encoding__"
+        "__clang_version__"
+      ]
+  }
+}
+
+class BuiltInMaskeradingAsMacro extends CCompilerExtension, GlobalVariable {
+  BuiltInMaskeradingAsMacro() {
+    getName() in [
+        "__BASE_FILE__", "__FILE_NAME__", "__COUNTER__", "__INCLUDE_LEVEL__", "_TIMESTAMP__",
+        "__clang_literal_encoding__", "__clang_wide_literal_encoding__"
+      ]
+  }
+}
+
+class BuiltInMaskeradingAsMacroInPreprocessorDirective extends CCompilerExtension,
+  PreprocessorDirective
+{
+  BuiltInMaskeradingAsMacroInPreprocessorDirective() {
+    getHead() in [
+        "__BASE_FILE__", "__FILE_NAME__", "__COUNTER__", "__INCLUDE_LEVEL__", "_TIMESTAMP__",
+        "__clang_literal_encoding__", "__clang_wide_literal_encoding__"
       ]
   }
 }
@@ -111,6 +130,7 @@ class CEmptyStructExtension extends CCompilerExtension, Struct {
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html#Variable-Length
 class CVariableLengthArraysExtension extends CCompilerExtension, DeclarationEntry {
   CVariableLengthArraysExtension() {
+    // TODO depends on language version (e.g. C90?) and whether in a structure
     getType() instanceof ArrayType and
     not getType().(ArrayType).hasArraySize()
   }

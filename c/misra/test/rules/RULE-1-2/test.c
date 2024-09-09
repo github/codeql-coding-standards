@@ -31,18 +31,40 @@
 #endif
 
 // Reference: https://clang.llvm.org/docs/LanguageExtensions.html#builtin-macros
-#define A __BASE_FILE__                   // NON_COMPLIANT
-#define B __FILE_NAME__                   // NON_COMPLIANT
-#define C __COUNTER__                     // NON_COMPLIANT
-#define D __INCLUDE_LEVEL__               // NON_COMPLIANT
-#define E__TIMESTAMP__                    // NON_COMPLIANT
-#define F __clang__                       // NON_COMPLIANT
-#define G __clang_major__                 // NON_COMPLIANT
-#define H __clang_minor__                 // NON_COMPLIANT
-#define I __clang_patchlevel__            // NON_COMPLIANT
-#define J __clang_version__               // NON_COMPLIANT
-#define K __clang_literal_encoding__      // NON_COMPLIANT
-#define L __clang_wide_literal_encoding__ // NON_COMPLIANT
+#ifdef __BASE_FILE__                   // NON_COMPLIANT
+#endif
+#ifdef __FILE_NAME__                   // NON_COMPLIANT
+#endif
+#ifdef __COUNTER__                     // NON_COMPLIANT
+#endif
+#ifdef __INCLUDE_LEVEL__               // NON_COMPLIANT
+#endif
+#ifdef __TIMESTAMP__                    // NON_COMPLIANT
+#endif
+#ifdef __clang__                       // NON_COMPLIANT
+#endif
+#ifdef __clang_major__                 // NON_COMPLIANT
+#endif
+#ifdef __clang_minor__                 // NON_COMPLIANT
+#endif
+#ifdef __clang_patchlevel__            // NON_COMPLIANT
+#endif
+#ifdef __clang_version__               // NON_COMPLIANT
+#endif
+#ifdef __clang_literal_encoding__      // NON_COMPLIANT
+#endif
+#ifdef __clang_wide_literal_encoding__ // NON_COMPLIANT
+#endif
+
+void testExpansions() {
+  __BASE_FILE__; // NON_COMPLIANT
+  __FILE_NAME__; // NON_COMPLIANT
+  __COUNTER__; // NON_COMPLIANT
+  __INCLUDE_LEVEL__; // NON_COMPLIANT
+  __TIMESTAMP__; // NON_COMPLIANT
+  __clang_literal_encoding__; // NON_COMPLIANT
+  __clang_wide_literal_encoding__; // NON_COMPLIANT
+}
 
 // Requires additional compiler flags to change the architecture
 // typedef __attribute__((neon_vector_type(8))) int8_t int8x8_t;
