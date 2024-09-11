@@ -161,7 +161,7 @@ private class RemAssignSimpleRange extends SimpleRangeAnalysisExpr, AssignRemExp
       maxDivisorNegated = (getFullyConvertedUpperBounds(getRValue()).abs() - 1) * -1 and
       // Find the lower bounds of the dividend
       dividendLowerBounds = getFullyConvertedLowerBounds(getLValue()) and
-      // The lower bound is caluclated in two steps:
+      // The lower bound is calculated in two steps:
       // 1. Determine the maximum of the dividend lower bound and maxDivisorNegated.
       //    When the dividend is negative this will result in a negative result
       // 2. Find the minimum with 0. If the divided is always >0 this will produce 0
@@ -172,7 +172,6 @@ private class RemAssignSimpleRange extends SimpleRangeAnalysisExpr, AssignRemExp
   }
 
   override float getUpperBounds() {
-    // TODO rem zero?
     exists(float maxDivisor, float maxDividend |
       // The maximum divisor value is the absolute value of the divisor minus 1
       maxDivisor = getFullyConvertedUpperBounds(getRValue()).abs() - 1 and
