@@ -297,6 +297,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned",
+          "shared_implementation_short_name": "BuiltInUnaryOperatorAppliedToUnsignedExpression",
           "tags": []
         }
       ],
@@ -318,6 +319,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnaryOperatorOverloaded",
+          "shared_implementation_short_name": "AddressOfOperatorOverloaded",
           "tags": []
         }
       ],

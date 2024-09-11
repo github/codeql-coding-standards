@@ -27,7 +27,7 @@ is_csv = len(sys.argv) == 2 and sys.argv[1] == "--csv"
 
 repo_root = Path(__file__).parent.parent.parent
 
-rules_covered = {"AUTOSAR" : {}, "CERT-C++" : {}, "MISRA-C-2012" : {}, "CERT-C" : {}}
+rules_covered = {"AUTOSAR" : {}, "CERT-C++" : {}, "MISRA-C-2012" : {}, "CERT-C" : {}, "MISRA-C++-2023" : {},}
 
 # Iterate over rule packages
 for language_name in ["cpp", "c"]:

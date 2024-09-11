@@ -1,8 +1,8 @@
-name: 🤖 Run Matrix Check 
+name: 🤖 Run Matrix Check
 
 on:
   pull_request_target:
-    types: [synchronize,opened]
+    types: [synchronize, opened]
     branches:
       - "matrix/**"
   workflow_dispatch:
@@ -11,24 +11,23 @@ jobs:
   dispatch-matrix-check:
     runs-on: ubuntu-22.04
     steps:
+      - name: Check permission
+        id: check-write-permission
+        uses: ./.github/actions/check-permissions
+        with:
+          minimum-permission: "write"
 
-      - name: Test Variables
-        shell: pwsh
-        run: |
-          Write-Host "Running as: ${{github.actor}}"    
-    
       - name: Dispatch Matrix Testing Job
-        if: ${{ contains(fromJSON('["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
+        if: steps.check-write-permission.outputs.has-permission
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
           repository: github/codeql-coding-standards-release-engineering
           event-type: matrix-test
-          client-payload: '{"pr": "${{ github.event.number  }}"}'
-
+          client-payload: '{"pr": "${{ github.event.number }}"}'
 
       - uses: actions/github-script@v6
-        if: ${{ contains(fromJSON('["jsinglet", "mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine"]'), github.actor) }}
+        if: steps.check-write-permission.outputs.has-permission
         with:
           script: |
             github.rest.issues.createComment({

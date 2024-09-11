@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Literals
+import codingstandards.cpp.Literals
 
 from IntegerLiteral l
 where

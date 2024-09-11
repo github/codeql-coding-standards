@@ -27,6 +27,9 @@ function Get-TestDirectory {
         elseif ($RuleObject.__memberof_suite -eq "MISRA-C-2012") {
             $standardString = "misra"
         }
+        elseif ($RuleObject.__memberof_suite -eq "MISRA-C++-2023") {
+            $standardString = "misra"
+        }
         else {
             throw "Unknown standard $($RuleObject.__memberof_suite)"
         }

@@ -18,10 +18,10 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedVariables
 
-/** Gets the constant value of a constexpr variable. */
+/** Gets the constant value of a constexpr/const variable. */
 private string getConstExprValue(Variable v) {
   result = v.getInitializer().getExpr().getValue() and
-  v.isConstexpr()
+  (v.isConst() or v.isConstexpr())
 }
 
 // This predicate is similar to getUseCount for M0-1-4 except that it also
@@ -41,7 +41,14 @@ int getUseCountConservatively(Variable v) {
       ) +
       // For static asserts too, check if there is a child which has the same value
       // as the constexpr variable.
-      count(StaticAssert s | s.getCondition().getAChild*().getValue() = getConstExprValue(v))
+      count(StaticAssert s | s.getCondition().getAChild*().getValue() = getConstExprValue(v)) +
+      // In case an array type uses a constant in the same scope as the constexpr variable,
+      // consider it as used.
+      count(ArrayType at, LocalVariable arrayVariable |
+        arrayVariable.getType().resolveTypedefs() = at and
+        v.(PotentiallyUnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
+        at.getArraySize().toString() = getConstExprValue(v)
+      )
 }
 
 from PotentiallyUnusedLocalVariable v
@@ -49,5 +56,13 @@ where
   not isExcluded(v, DeadCodePackage::unusedLocalVariableQuery()) and
   // Local variable is never accessed
   not exists(v.getAnAccess()) and
+  // Sometimes multiple objects representing the same entities are created in
+  // the AST. Check if those are not accessed as well. Refer issue #658
+  not exists(LocalScopeVariable another |
+    another.getDefinitionLocation() = v.getDefinitionLocation() and
+    another.hasName(v.getName()) and
+    exists(another.getAnAccess()) and
+    another != v
+  ) and
   getUseCountConservatively(v) = 0
 select v, "Local variable '" + v.getName() + "' in '" + v.getFunction().getName() + "' is not used."

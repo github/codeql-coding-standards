@@ -14,20 +14,12 @@
  */
 
 import cpp
-import codingstandards.cpp.standardlibrary.Utility
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.forwardingreferencesandforwardnotusedtogether.ForwardingReferencesAndForwardNotUsedTogether
 
-from FunctionCall c, Parameter a, string message
-where
-  not isExcluded(c, MoveForwardPackage::forwardingValuesToOtherFunctionsQuery()) and
-  a.getAnAccess() = c.getAnArgument() and
-  (
-    c instanceof StdMoveCall and
-    a instanceof ForwardParameter and
-    message = "Function `std::forward` should be used for forwarding the forward reference $@."
-    or
-    c instanceof StdForwardCall and
-    a instanceof ConsumeParameter and
-    message = "Function `std::move` should be used for forwarding rvalue reference $@."
-  )
-select c, message, a, a.getName()
+class ForwardingValuesToOtherFunctionsQuery extends ForwardingReferencesAndForwardNotUsedTogetherSharedQuery
+{
+  ForwardingValuesToOtherFunctionsQuery() {
+    this = MoveForwardPackage::forwardingValuesToOtherFunctionsQuery()
+  }
+}

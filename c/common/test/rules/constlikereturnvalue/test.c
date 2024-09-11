@@ -1,4 +1,7 @@
+// NOTICE: THE TEST CASES BELOW ARE ALSO INCLUDED IN THE C++ TEST CASE AND
+// CHANGES SHOULD BE REFLECTED THERE AS WELL.
 #include <locale.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 

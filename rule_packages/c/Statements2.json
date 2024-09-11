@@ -33,6 +33,7 @@
           "precision": "high",
           "severity": "recommendation",
           "short_name": "GotoLabelBlockCondition",
+          "shared_implementation_short_name": "GotoReferenceALabelInSurroundingBlock",
           "tags": [
             "maintainability",
             "readability"
