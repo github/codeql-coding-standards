@@ -1,10 +1,12 @@
-| test.cpp:70:7:70:12 | definition of ClassD | Declaration entry for user-defined type ClassD is missing documentation. |
-| test.cpp:72:7:72:7 | definition of a | Declaration entry for member variable a is missing documentation. |
-| test.cpp:73:14:73:14 | declaration of b | Declaration entry for member variable b is missing documentation. |
-| test.cpp:74:8:74:8 | declaration of f | Declaration entry for function f is missing documentation. |
-| test.cpp:76:7:76:7 | definition of c | Declaration entry for member variable c is missing documentation. |
-| test.cpp:78:6:78:6 | declaration of d | Declaration entry for function d is missing documentation. |
-| test.cpp:81:6:81:6 | definition of e | Declaration entry for function e is missing documentation. |
-| test.cpp:88:1:88:30 | definition of message_to_string_undocumented | Declaration entry for function message_to_string_undocumented is missing documentation. |
-| test.cpp:160:21:160:24 | definition of kBar | Declaration entry for member variable kBar is missing documentation. |
-| test.cpp:207:14:207:17 | definition of foo3 | Declaration entry for function foo3 is missing documentation. |
+| test.cpp:74:8:74:8 | declaration of j | Declaration entry for function j is missing documentation. |
+| test.cpp:75:8:75:8 | declaration of k | Declaration entry for function k is missing documentation. |
+| test.cpp:90:7:90:12 | definition of ClassD | Declaration entry for user-defined type ClassD is missing documentation. |
+| test.cpp:92:7:92:7 | definition of a | Declaration entry for member variable a is missing documentation. |
+| test.cpp:93:14:93:14 | declaration of b | Declaration entry for member variable b is missing documentation. |
+| test.cpp:94:8:94:8 | declaration of f | Declaration entry for function f is missing documentation. |
+| test.cpp:96:7:96:7 | definition of c | Declaration entry for member variable c is missing documentation. |
+| test.cpp:98:6:98:6 | declaration of d | Declaration entry for function d is missing documentation. |
+| test.cpp:101:6:101:6 | definition of e | Declaration entry for function e is missing documentation. |
+| test.cpp:108:1:108:30 | definition of message_to_string_undocumented | Declaration entry for function message_to_string_undocumented is missing documentation. |
+| test.cpp:180:21:180:24 | definition of kBar | Declaration entry for member variable kBar is missing documentation. |
+| test.cpp:227:14:227:17 | definition of foo3 | Declaration entry for function foo3 is missing documentation. |
