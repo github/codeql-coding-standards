@@ -18,7 +18,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 class ReferenceTypeWithNonConstBaseType extends ReferenceType {
   ReferenceTypeWithNonConstBaseType() { not this.getBaseType().isConst() }

@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Macro
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 abstract class VaAccess extends Expr { }
 

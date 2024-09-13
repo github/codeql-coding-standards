@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 abstract class OutputValue extends Element {
   abstract string getOutputName();

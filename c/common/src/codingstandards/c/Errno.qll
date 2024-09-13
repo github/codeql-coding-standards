@@ -1,7 +1,7 @@
 /** Provides a library for errno-setting functions. */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /**
  * An errno-setting function

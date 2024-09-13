@@ -3,8 +3,8 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.DataFlow
+import semmle.code.cpp.dataflow.new.TaintTracking
 import codingstandards.cpp.StdNamespace
 import codingstandards.cpp.rules.containeraccesswithoutrangecheck.ContainerAccessWithoutRangeCheck as ContainerAccessWithoutRangeCheck
 import semmle.code.cpp.controlflow.Guards

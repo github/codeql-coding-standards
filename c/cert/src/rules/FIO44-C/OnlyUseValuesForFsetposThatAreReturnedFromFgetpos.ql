@@ -12,7 +12,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 class FgetposCall extends FunctionCall {
   FgetposCall() { this.getTarget().hasGlobalOrStdName("fgetpos") }

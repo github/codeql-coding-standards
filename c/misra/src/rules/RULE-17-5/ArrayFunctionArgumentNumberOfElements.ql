@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.misra
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /**
  * Models a function parameter of type array with specified size

@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.cpp.CodingStandards
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.exclusions.cpp.RuleMetadata
 
 /* This is a copy of an AUTOSAR rule, which we are using for testing purposes. */
