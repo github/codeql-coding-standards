@@ -1,26 +1,22 @@
 edges
-| test.cpp:65:21:65:34 | call to operator new | test.cpp:67:26:67:32 | call to realloc | provenance |  |
 nodes
-| test.cpp:16:26:16:31 | call to malloc | semmle.label | call to malloc |
-| test.cpp:17:38:17:43 | call to malloc | semmle.label | call to malloc |
-| test.cpp:18:26:18:39 | call to operator new | semmle.label | call to operator new |
-| test.cpp:20:29:20:42 | call to operator new | semmle.label | call to operator new |
-| test.cpp:45:26:45:31 | call to malloc | semmle.label | call to malloc |
-| test.cpp:46:38:46:43 | call to malloc | semmle.label | call to malloc |
-| test.cpp:47:26:47:39 | call to operator new | semmle.label | call to operator new |
-| test.cpp:49:29:49:42 | call to operator new | semmle.label | call to operator new |
-| test.cpp:51:29:51:42 | call to operator new | semmle.label | call to operator new |
-| test.cpp:65:21:65:34 | call to operator new | semmle.label | call to operator new |
-| test.cpp:67:26:67:32 | call to realloc | semmle.label | call to realloc |
+| test.cpp:16:16:16:47 | call to malloc | semmle.label | call to malloc |
+| test.cpp:17:16:17:60 | call to malloc | semmle.label | call to malloc |
+| test.cpp:18:16:18:55 | call to operator new | semmle.label | call to operator new |
+| test.cpp:20:7:20:59 | call to operator new | semmle.label | call to operator new |
+| test.cpp:45:16:45:47 | call to malloc | semmle.label | call to malloc |
+| test.cpp:46:16:46:60 | call to malloc | semmle.label | call to malloc |
+| test.cpp:47:16:47:55 | call to operator new | semmle.label | call to operator new |
+| test.cpp:49:7:49:59 | call to operator new | semmle.label | call to operator new |
+| test.cpp:51:7:51:59 | call to operator new | semmle.label | call to operator new |
 subpaths
 #select
-| test.cpp:16:26:16:31 | call to malloc | test.cpp:16:26:16:31 | call to malloc | test.cpp:16:26:16:31 | call to malloc | Allocation to cast without constructor call |
-| test.cpp:17:38:17:43 | call to malloc | test.cpp:17:38:17:43 | call to malloc | test.cpp:17:38:17:43 | call to malloc | Allocation to cast without constructor call |
-| test.cpp:18:26:18:39 | call to operator new | test.cpp:18:26:18:39 | call to operator new | test.cpp:18:26:18:39 | call to operator new | Allocation to cast without constructor call |
-| test.cpp:20:29:20:42 | call to operator new | test.cpp:20:29:20:42 | call to operator new | test.cpp:20:29:20:42 | call to operator new | Allocation to cast without constructor call |
-| test.cpp:45:26:45:31 | call to malloc | test.cpp:45:26:45:31 | call to malloc | test.cpp:45:26:45:31 | call to malloc | Allocation to cast without constructor call |
-| test.cpp:46:38:46:43 | call to malloc | test.cpp:46:38:46:43 | call to malloc | test.cpp:46:38:46:43 | call to malloc | Allocation to cast without constructor call |
-| test.cpp:47:26:47:39 | call to operator new | test.cpp:47:26:47:39 | call to operator new | test.cpp:47:26:47:39 | call to operator new | Allocation to cast without constructor call |
-| test.cpp:49:29:49:42 | call to operator new | test.cpp:49:29:49:42 | call to operator new | test.cpp:49:29:49:42 | call to operator new | Allocation to cast without constructor call |
-| test.cpp:51:29:51:42 | call to operator new | test.cpp:51:29:51:42 | call to operator new | test.cpp:51:29:51:42 | call to operator new | Allocation to cast without constructor call |
-| test.cpp:67:26:67:32 | call to realloc | test.cpp:65:21:65:34 | call to operator new | test.cpp:67:26:67:32 | call to realloc | Allocation to cast without constructor call |
+| test.cpp:16:16:16:47 | call to malloc | test.cpp:16:16:16:47 | call to malloc | test.cpp:16:16:16:47 | call to malloc | Allocation to cast without constructor call |
+| test.cpp:17:16:17:60 | call to malloc | test.cpp:17:16:17:60 | call to malloc | test.cpp:17:16:17:60 | call to malloc | Allocation to cast without constructor call |
+| test.cpp:18:16:18:55 | call to operator new | test.cpp:18:16:18:55 | call to operator new | test.cpp:18:16:18:55 | call to operator new | Allocation to cast without constructor call |
+| test.cpp:20:7:20:59 | call to operator new | test.cpp:20:7:20:59 | call to operator new | test.cpp:20:7:20:59 | call to operator new | Allocation to cast without constructor call |
+| test.cpp:45:16:45:47 | call to malloc | test.cpp:45:16:45:47 | call to malloc | test.cpp:45:16:45:47 | call to malloc | Allocation to cast without constructor call |
+| test.cpp:46:16:46:60 | call to malloc | test.cpp:46:16:46:60 | call to malloc | test.cpp:46:16:46:60 | call to malloc | Allocation to cast without constructor call |
+| test.cpp:47:16:47:55 | call to operator new | test.cpp:47:16:47:55 | call to operator new | test.cpp:47:16:47:55 | call to operator new | Allocation to cast without constructor call |
+| test.cpp:49:7:49:59 | call to operator new | test.cpp:49:7:49:59 | call to operator new | test.cpp:49:7:49:59 | call to operator new | Allocation to cast without constructor call |
+| test.cpp:51:7:51:59 | call to operator new | test.cpp:51:7:51:59 | call to operator new | test.cpp:51:7:51:59 | call to operator new | Allocation to cast without constructor call |

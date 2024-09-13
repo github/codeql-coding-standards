@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.c.misra
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /**
  * Offset in bytes of a field access

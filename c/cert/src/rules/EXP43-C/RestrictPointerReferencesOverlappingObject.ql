@@ -11,7 +11,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.controlflow.Dominance
 import codingstandards.c.cert
 import codingstandards.cpp.Variable

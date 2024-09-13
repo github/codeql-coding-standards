@@ -3,7 +3,7 @@ import codingstandards.cpp.Conversion
 import codingstandards.cpp.TrivialType
 import ManuallyManagedLifetime
 import semmle.code.cpp.controlflow.Dominance
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 
 /**
  * A taint-tracking configuration from allocation expressions to casts to a specific pointer type.

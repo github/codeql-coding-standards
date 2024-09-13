@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import SingleObjectSmartPointerArrayConstructionFlow::PathGraph
 
 class AutosarSmartPointerArraySpecialisation extends AutosarSmartPointer {

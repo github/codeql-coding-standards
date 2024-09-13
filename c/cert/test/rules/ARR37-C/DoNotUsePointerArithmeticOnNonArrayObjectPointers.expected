@@ -1,11 +1,4 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:23,60-68)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:24,22-30)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:36,20-28)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:44,26-34)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnNonArrayObjectPointers.ql:65,3-11)
 edges
-| test.c:14:38:14:39 | p1 | test.c:18:10:18:11 | v1 | provenance |  |
-| test.c:14:38:14:39 | p1 | test.c:19:10:19:11 | v2 | provenance |  |
 | test.c:14:38:14:39 | p1 | test.c:20:10:20:11 | p1 | provenance |  |
 | test.c:14:38:14:39 | p1 | test.c:21:10:21:11 | p1 | provenance |  |
 | test.c:14:38:14:39 | p1 | test.c:22:9:22:10 | p1 | provenance |  |
@@ -15,8 +8,6 @@ edges
 | test.c:51:30:51:38 | & ... | test.c:14:38:14:39 | p1 | provenance |  |
 nodes
 | test.c:14:38:14:39 | p1 | semmle.label | p1 |
-| test.c:18:10:18:11 | v1 | semmle.label | v1 |
-| test.c:19:10:19:11 | v2 | semmle.label | v2 |
 | test.c:20:10:20:11 | p1 | semmle.label | p1 |
 | test.c:21:10:21:11 | p1 | semmle.label | p1 |
 | test.c:22:9:22:10 | p1 | semmle.label | p1 |
@@ -32,8 +23,6 @@ nodes
 | test.c:51:30:51:38 | & ... | semmle.label | & ... |
 subpaths
 #select
-| test.c:18:10:18:11 | v1 | test.c:51:30:51:38 | & ... | test.c:18:10:18:11 | v1 | Pointer arithmetic on non-array object pointer. |
-| test.c:19:10:19:11 | v2 | test.c:51:30:51:38 | & ... | test.c:19:10:19:11 | v2 | Pointer arithmetic on non-array object pointer. |
 | test.c:20:10:20:11 | p1 | test.c:51:30:51:38 | & ... | test.c:20:10:20:11 | p1 | Pointer arithmetic on non-array object pointer. |
 | test.c:21:10:21:11 | p1 | test.c:51:30:51:38 | & ... | test.c:21:10:21:11 | p1 | Pointer arithmetic on non-array object pointer. |
 | test.c:22:9:22:10 | p1 | test.c:51:30:51:38 | & ... | test.c:22:9:22:10 | p1 | Pointer arithmetic on non-array object pointer. |

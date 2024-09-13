@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.cpp.cert
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import AllocationToDeleteFlow::PathGraph
 
 module AllocationToDeleteConfig implements DataFlow::ConfigSig {

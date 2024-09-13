@@ -16,7 +16,7 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Overflow
 import semmle.code.cpp.controlflow.Guards
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import semmle.code.cpp.models.Models
 
 /**

@@ -14,7 +14,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Pointers
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import ScaledIntegerPointerArithmeticFlow::PathGraph
 
 /**

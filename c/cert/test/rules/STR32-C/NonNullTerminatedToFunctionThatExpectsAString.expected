@@ -1,13 +1,4 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:64,31-39)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:66,20-28)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:74,39-47)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:75,20-28)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:81,22-30)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:83,34-42)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:83,57-65)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:123,3-11)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:123,26-34)
-WARNING: module 'TaintTracking' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:120,17-30)
+| test.c:15:3:15:9 | call to strncpy | String modified by $@ is passed to function expecting a null-terminated string. | test.c:14:3:14:9 | call to strncpy | this expression |
 | test.c:20:3:20:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:8:20:8:24 | Cod | this expression |
 | test.c:21:3:21:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:8:20:8:24 | Cod | this expression |
 | test.c:23:3:23:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:14:3:14:9 | call to strncpy | this expression |
@@ -24,9 +15,6 @@ WARNING: module 'TaintTracking' has been deprecated and may be removed in future
 | test.c:77:3:77:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:73:20:73:24 | Cod | this expression |
 | test.c:86:3:86:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:84:3:84:9 | call to strncpy | this expression |
 | test.c:87:3:87:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:84:3:84:9 | call to strncpy | this expression |
-| test.c:95:3:95:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:93:17:93:21 | Cod | this expression |
 | test.c:95:3:95:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:94:3:94:9 | call to strncpy | this expression |
-| test.c:98:3:98:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:93:17:93:21 | Cod | this expression |
 | test.c:98:3:98:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:94:3:94:9 | call to strncpy | this expression |
-| test.c:122:3:122:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:117:17:117:21 | Cod | this expression |
 | test.c:122:3:122:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:118:3:118:9 | call to strncpy | this expression |

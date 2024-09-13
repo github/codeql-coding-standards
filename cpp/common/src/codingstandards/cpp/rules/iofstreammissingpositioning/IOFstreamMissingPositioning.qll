@@ -5,7 +5,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.standardlibrary.FileStreams
 import codingstandards.cpp.standardlibrary.FileAccess

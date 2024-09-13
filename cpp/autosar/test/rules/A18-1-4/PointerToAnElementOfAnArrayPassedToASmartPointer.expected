@@ -1,30 +1,73 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:26,67-75)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:27,22-30)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:39,20-28)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:50,34-42)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:50,57-65)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:58,25-33)
-WARNING: module 'TaintTracking' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:70,3-16)
 edges
-| test.cpp:3:36:3:45 | new[] | test.cpp:19:27:19:44 | call to allocate_int_array | provenance |  |
-| test.cpp:3:36:3:45 | new[] | test.cpp:23:12:23:29 | call to allocate_int_array | provenance |  |
-| test.cpp:3:36:3:45 | new[] | test.cpp:27:20:27:37 | call to allocate_int_array | provenance |  |
-| test.cpp:11:29:11:41 | call to unique_ptr | test.cpp:12:27:12:28 | v2 | provenance |  |
-| test.cpp:12:27:12:28 | v2 | test.cpp:12:30:12:36 | call to release | provenance |  |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | ***this | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | provenance | DataFlowFunction |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | **this | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | provenance | TaintFunction |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *this | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | provenance | DataFlowFunction |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | provenance |  |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | provenance |  |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | provenance |  |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | provenance |  |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | provenance |  |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | provenance |  |
+| test.cpp:3:6:3:23 | *allocate_int_array | test.cpp:19:27:19:44 | call to allocate_int_array | provenance |  |
+| test.cpp:3:6:3:23 | *allocate_int_array | test.cpp:23:12:23:29 | call to allocate_int_array | provenance |  |
+| test.cpp:3:6:3:23 | *allocate_int_array | test.cpp:27:20:27:37 | call to allocate_int_array | provenance |  |
+| test.cpp:3:36:3:45 | new[] | test.cpp:3:6:3:23 | *allocate_int_array | provenance |  |
+| test.cpp:3:36:3:45 | new[] | test.cpp:3:36:3:45 | new[] | provenance |  |
+| test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:27:12:28 | ***v2 | provenance |  |
+| test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:27:12:28 | **v2 | provenance |  |
+| test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:27:12:28 | *v2 | provenance |  |
+| test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:27:12:28 | v2 | provenance |  |
+| test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:30:12:36 | call to release | provenance | TaintFunction |
+| test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:30:12:36 | call to release | provenance | TaintFunction |
+| test.cpp:12:27:12:28 | ***v2 | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | ***this | provenance |  |
+| test.cpp:12:27:12:28 | ***v2 | test.cpp:12:30:12:36 | call to release | provenance | DataFlowFunction |
+| test.cpp:12:27:12:28 | **v2 | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | **this | provenance |  |
+| test.cpp:12:27:12:28 | **v2 | test.cpp:12:30:12:36 | call to release | provenance | TaintFunction |
+| test.cpp:12:27:12:28 | *v2 | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *this | provenance |  |
+| test.cpp:12:27:12:28 | *v2 | test.cpp:12:30:12:36 | call to release | provenance | DataFlowFunction |
 | test.cpp:12:27:12:28 | v2 | test.cpp:12:30:12:36 | call to release | provenance | Config |
+| test.cpp:12:27:12:28 | v2 | test.cpp:12:30:12:36 | call to release | provenance | TaintFunction |
+| test.cpp:27:20:27:37 | call to allocate_int_array | test.cpp:27:20:27:37 | call to allocate_int_array | provenance |  |
 | test.cpp:27:20:27:37 | call to allocate_int_array | test.cpp:32:12:32:20 | int_array | provenance |  |
 nodes
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | ***this | semmle.label | ***this |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | **this | semmle.label | **this |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | semmle.label | *release |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | semmle.label | *release |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | semmle.label | *release |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *this | semmle.label | *this |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | semmle.label | call to get |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | semmle.label | call to get |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:61:19:61:21 | call to get | semmle.label | call to get |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | semmle.label | __p |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | semmle.label | __p |
+| file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:63:12:63:14 | __p | semmle.label | __p |
+| test.cpp:3:6:3:23 | *allocate_int_array | semmle.label | *allocate_int_array |
 | test.cpp:3:36:3:45 | new[] | semmle.label | new[] |
-| test.cpp:11:29:11:41 | call to unique_ptr | semmle.label | call to unique_ptr |
+| test.cpp:3:36:3:45 | new[] | semmle.label | new[] |
+| test.cpp:11:26:11:27 | call to unique_ptr | semmle.label | call to unique_ptr |
+| test.cpp:11:26:11:27 | call to unique_ptr | semmle.label | call to unique_ptr |
+| test.cpp:11:26:11:27 | call to unique_ptr | semmle.label | call to unique_ptr |
+| test.cpp:11:26:11:27 | call to unique_ptr | semmle.label | call to unique_ptr |
+| test.cpp:12:27:12:28 | ***v2 | semmle.label | ***v2 |
+| test.cpp:12:27:12:28 | **v2 | semmle.label | **v2 |
+| test.cpp:12:27:12:28 | *v2 | semmle.label | *v2 |
 | test.cpp:12:27:12:28 | v2 | semmle.label | v2 |
 | test.cpp:12:30:12:36 | call to release | semmle.label | call to release |
 | test.cpp:19:27:19:44 | call to allocate_int_array | semmle.label | call to allocate_int_array |
 | test.cpp:23:12:23:29 | call to allocate_int_array | semmle.label | call to allocate_int_array |
 | test.cpp:27:20:27:37 | call to allocate_int_array | semmle.label | call to allocate_int_array |
+| test.cpp:27:20:27:37 | call to allocate_int_array | semmle.label | call to allocate_int_array |
 | test.cpp:32:12:32:20 | int_array | semmle.label | int_array |
 subpaths
+| test.cpp:12:27:12:28 | ***v2 | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | ***this | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | test.cpp:12:30:12:36 | call to release |
+| test.cpp:12:27:12:28 | **v2 | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | **this | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | test.cpp:12:30:12:36 | call to release |
+| test.cpp:12:27:12:28 | *v2 | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *this | file:///Users/jketema/development/codeql-coding-standards/cpp/common/test/includes/standard-library/memory.h:60:11:60:11 | *release | test.cpp:12:30:12:36 | call to release |
 #select
-| test.cpp:12:30:12:36 | call to release | test.cpp:11:29:11:41 | call to unique_ptr | test.cpp:12:30:12:36 | call to release | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
+| test.cpp:12:30:12:36 | call to release | test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:30:12:36 | call to release | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
+| test.cpp:12:30:12:36 | call to release | test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:30:12:36 | call to release | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
+| test.cpp:12:30:12:36 | call to release | test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:30:12:36 | call to release | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
+| test.cpp:12:30:12:36 | call to release | test.cpp:11:26:11:27 | call to unique_ptr | test.cpp:12:30:12:36 | call to release | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
 | test.cpp:19:27:19:44 | call to allocate_int_array | test.cpp:3:36:3:45 | new[] | test.cpp:19:27:19:44 | call to allocate_int_array | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
 | test.cpp:23:12:23:29 | call to allocate_int_array | test.cpp:3:36:3:45 | new[] | test.cpp:23:12:23:29 | call to allocate_int_array | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |
 | test.cpp:32:12:32:20 | int_array | test.cpp:3:36:3:45 | new[] | test.cpp:32:12:32:20 | int_array | A pointer to an element of an array of objects flows to a smart pointer of a single object type. |

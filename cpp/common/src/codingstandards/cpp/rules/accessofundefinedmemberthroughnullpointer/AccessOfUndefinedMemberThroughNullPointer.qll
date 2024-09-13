@@ -7,7 +7,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.Nullness
 import codingstandards.cpp.Expr
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import NullPointerToPointerMemberExpressionFlow::PathGraph
 
 abstract class AccessOfUndefinedMemberThroughNullPointerSharedQuery extends Query { }
