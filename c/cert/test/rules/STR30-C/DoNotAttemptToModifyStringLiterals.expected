@@ -1,22 +1,8 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:42,65-73)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:43,22-30)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:64,20-28)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:77,3-11)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:101,11-19)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:101,31-39)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:101,55-63)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:106,11-19)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:106,31-39)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:106,57-65)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:139,11-19)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:139,31-39)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:139,55-63)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:150,53-61)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:151,5-13)
 | test.c:7:3:7:3 | a | This operation may write to a string that may be a string literal that was $@. | test.c:6:13:6:20 | codeql | created here |
 | test.c:30:3:30:3 | a | This operation may write to a string that may be a string literal that was $@. | test.c:29:13:29:18 | call to strchr | created here |
 | test.c:36:3:36:3 | b | This operation may write to a string that may be a string literal that was $@. | test.c:35:13:35:18 | call to strchr | created here |
 | test.c:58:3:58:3 | b | This operation may write to a string that may be a string literal that was $@. | test.c:56:13:56:18 | call to strchr | created here |
+| test.c:65:5:65:6 | * ... | This operation may write to a string that may be a string literal that was $@. | test.c:63:7:63:13 | call to strrchr | created here |
 | test.c:65:6:65:6 | b | This operation may write to a string that may be a string literal that was $@. | test.c:63:7:63:13 | call to strrchr | created here |
 | test.c:87:13:87:20 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:87:13:87:20 | codeql | created here |
 | test.c:88:12:88:19 | codeql | This operation may write to a string that may be a string literal that was $@. | test.c:88:12:88:19 | codeql | created here |
@@ -43,12 +29,40 @@ WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoN
 | test.c:119:12:119:12 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
 | test.c:120:13:120:13 | a | This operation may write to a string that may be a string literal that was $@. | test.c:112:15:112:20 | call to strchr | created here |
 | test.c:125:13:125:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
+| test.c:126:12:126:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
 | test.c:126:12:126:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:126:12:126:13 | aa | created here |
+| test.c:127:12:127:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
+| test.c:127:12:127:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:126:12:126:13 | aa | created here |
 | test.c:127:12:127:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:127:12:127:13 | aa | created here |
+| test.c:128:13:128:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
+| test.c:128:13:128:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:126:12:126:13 | aa | created here |
+| test.c:128:13:128:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:127:12:127:13 | aa | created here |
 | test.c:128:13:128:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:128:13:128:14 | aa | created here |
+| test.c:129:12:129:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
+| test.c:129:12:129:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:126:12:126:13 | aa | created here |
+| test.c:129:12:129:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:127:12:127:13 | aa | created here |
+| test.c:129:12:129:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:128:13:128:14 | aa | created here |
 | test.c:129:12:129:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:129:12:129:13 | aa | created here |
+| test.c:130:13:130:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
+| test.c:130:13:130:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:126:12:126:13 | aa | created here |
+| test.c:130:13:130:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:127:12:127:13 | aa | created here |
+| test.c:130:13:130:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:128:13:128:14 | aa | created here |
+| test.c:130:13:130:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:129:12:129:13 | aa | created here |
 | test.c:130:13:130:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:130:13:130:14 | aa | created here |
+| test.c:131:12:131:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
+| test.c:131:12:131:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:126:12:126:13 | aa | created here |
+| test.c:131:12:131:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:127:12:127:13 | aa | created here |
+| test.c:131:12:131:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:128:13:128:14 | aa | created here |
+| test.c:131:12:131:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:129:12:129:13 | aa | created here |
+| test.c:131:12:131:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:130:13:130:14 | aa | created here |
 | test.c:131:12:131:13 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:131:12:131:13 | aa | created here |
+| test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:125:13:125:14 | aa | created here |
+| test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:126:12:126:13 | aa | created here |
+| test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:127:12:127:13 | aa | created here |
+| test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:128:13:128:14 | aa | created here |
+| test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:129:12:129:13 | aa | created here |
+| test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:130:13:130:14 | aa | created here |
+| test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:131:12:131:13 | aa | created here |
 | test.c:132:13:132:14 | aa | This operation may write to a string that may be a string literal that was $@. | test.c:132:13:132:14 | aa | created here |
 | test.c:137:11:137:11 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |
 | test.c:138:10:138:10 | a | This operation may write to a string that may be a string literal that was $@. | test.c:148:13:148:20 | codeql | created here |

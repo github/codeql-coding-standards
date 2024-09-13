@@ -14,10 +14,8 @@
 | test.c:127:5:127:10 | call to memcpy | The $@ passed to memcpy is accessed at an excessive offset of 1 element(s) from the $@. | test.c:127:12:127:13 | p2 | write buffer | test.c:120:21:120:26 | call to strlen | allocation size base |
 | test.c:153:5:153:10 | call to strcat | The $@ passed to strcat might not be null-terminated. | test.c:153:12:153:15 | buf1 | argument | test.c:153:12:153:15 | buf1 |  |
 | test.c:158:5:158:10 | call to strcat | The size of the $@ passed to strcat is 6 bytes, but the size of the $@ is only 5 bytes. | test.c:158:24:158:30 | 12345 | read buffer | test.c:158:12:158:19 | call to get_ca_5 | write buffer |
-| test.c:160:5:160:10 | call to strcat | The size of the $@ passed to strcat is 5 bytes, but the size of the $@ is only 4 bytes. | test.c:160:28:160:33 | 1234 | read buffer | test.c:160:12:160:25 | ... + ... | write buffer |
 | test.c:183:5:183:11 | call to wcsncat | The size of the $@ passed to wcsncat is 24 bytes, but the size of the $@ is only 5 bytes. | test.c:183:25:183:32 | 12345 | read buffer | test.c:183:13:183:20 | call to get_ca_5 | write buffer |
 | test.c:184:5:184:11 | call to wcsncat | The size of the $@ passed to wcsncat is 20 bytes, but the size of the $@ is only 5 bytes. | test.c:184:25:184:31 | 1234 | read buffer | test.c:184:13:184:20 | call to get_ca_5 | write buffer |
-| test.c:185:5:185:11 | call to wcsncat | The size of the $@ passed to wcsncat is 20 bytes, but the size of the $@ is only 1 bytes. | test.c:185:29:185:35 | 1234 | read buffer | test.c:185:13:185:26 | ... + ... | write buffer |
 | test.c:186:5:186:11 | call to wcsncat | The size of the $@ passed to wcsncat is 12 bytes, but the size of the $@ is only 5 bytes. | test.c:186:25:186:29 | 12 | read buffer | test.c:186:13:186:20 | call to get_ca_5 | write buffer |
 | test.c:191:5:191:10 | call to strcmp | The $@ passed to strcmp might not be null-terminated. | test.c:191:22:191:28 | ca5_bad | argument | test.c:191:22:191:28 | ca5_bad |  |
 | test.c:193:5:193:10 | call to strcmp | The $@ passed to strcmp might not be null-terminated. | test.c:193:12:193:18 | ca5_bad | argument | test.c:193:12:193:18 | ca5_bad |  |
