@@ -16,11 +16,17 @@ runs:
   steps:
   - uses: actions/github-script@v7
     id: check-permission
+    env:
+      INPUT_MINIMUM-PERMISSION: ${{ inputs.minimum-permission }}
     with:
       script: |
         // Valid permissions are none, read, write, admin (legacy base permissions)
         const permissionsRanking = ["none", "read", "write", "admin"];
 
+        // Note: core.getInput doesn't work by default in a composite action - in this case
+        //       it would try to fetch the input to the github-script instead of the action
+        //       itself. Instead, we set the appropriate magic env var with the actions input.
+        //       See: https://github.com/actions/runner/issues/665
         const minimumPermission = core.getInput('minimum-permission');
         if (!permissionsRanking.includes(minimumPermission)) {
           core.setFailed(`Invalid minimum permission: ${minimumPermission}`);
@@ -30,14 +36,14 @@ runs:
         const { data : { permission : actorPermission } } = await github.rest.repos.getCollaboratorPermissionLevel({
           owner: context.repo.owner,
           repo: context.repo.repo,
-          username: tools.context.actor
+          username: context.actor
         });
 
         // Confirm whether the actor permission is at least the selected permission
         const hasPermission = permissionsRanking.indexOf(minimumPermission) <= permissionsRanking.indexOf(actorPermission) ? "1" : "";
         core.setOutput('has-permission', hasPermission);
         if (!hasPermission) {
-          core.info(`Current actor (${tools.context.actor}) does not have the minimum required permission '${minimumPermission}' (has '${actorPermission}')`);
+          core.info(`Current actor (${context.actor}) does not have the minimum required permission '${minimumPermission}' (has '${actorPermission}')`);
         } else {
-          core.info(`Current actor (${tools.context.actor}) has the minimum required permission '${minimumPermission}' (has '${actorPermission}')`);
+          core.info(`Current actor (${context.actor}) has the minimum required permission '${minimumPermission}' (has '${actorPermission}')`);
         }
