@@ -18,12 +18,6 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedVariables
 
-/** Gets the constant value of a constexpr/const variable. */
-private string getConstExprValue(Variable v) {
-  result = v.getInitializer().getExpr().getValue() and
-  (v.isConst() or v.isConstexpr())
-}
-
 // This predicate is similar to getUseCount for M0-1-4 except that it also
 // considers static_asserts. This was created to cater for M0-1-3 specifically
 // and hence, doesn't attempt to reuse the M0-1-4 specific predicate

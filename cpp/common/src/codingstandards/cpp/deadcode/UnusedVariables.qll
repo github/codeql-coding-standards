@@ -152,7 +152,7 @@ predicate maybeACompileTimeTemplateArgument(Variable v) {
 }
 
 /** Gets the constant value of a constexpr/const variable. */
-private string getConstExprValue(Variable v) {
+string getConstExprValue(Variable v) {
   result = v.getInitializer().getExpr().getValue() and
   (v.isConst() or v.isConstexpr())
 }
