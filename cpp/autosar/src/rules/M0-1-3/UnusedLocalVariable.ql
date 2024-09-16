@@ -44,11 +44,7 @@ int getUseCountConservatively(Variable v) {
       count(StaticAssert s | s.getCondition().getAChild*().getValue() = getConstExprValue(v)) +
       // In case an array type uses a constant in the same scope as the constexpr variable,
       // consider it as used.
-      count(ArrayType at, LocalVariable arrayVariable |
-        arrayVariable.getType().resolveTypedefs() = at and
-        v.(PotentiallyUnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
-        at.getArraySize().toString() = getConstExprValue(v)
-      )
+      countUsesInLocalArraySize(v)
 }
 
 from PotentiallyUnusedLocalVariable v

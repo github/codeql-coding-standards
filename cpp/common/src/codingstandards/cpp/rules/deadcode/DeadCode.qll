@@ -23,25 +23,6 @@ abstract class DeadCodeSharedQuery extends Query { }
 Query getQuery() { result instanceof DeadCodeSharedQuery }
 
 /**
- * Returns integer value of a constexpr variable
- */
-int getConstexprValue(Variable v) {
-  result = v.getInitializer().getExpr().getValue().toInt() and v.isConstexpr()
-}
-
-/**
- * Holds if `Variable` v is used for a local array size with value `n`
- */
-bindingset[n]
-predicate isUsedInLocalArraySize(Variable v, int n) {
-  // Cf. https://github.com/github/codeql-coding-standards/pull/660/files.
-  count(ArrayType at, LocalVariable arrayVariable |
-        arrayVariable.getType().resolveTypedefs() = at and
-        v.(PotentiallyUnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
-        at.getArraySize() = n) > 0
-}
-
-/**
  * Holds if the `Stmt` `s` is either dead or unreachable.
  */
 predicate isDeadOrUnreachableStmt(Stmt s) {
@@ -72,7 +53,7 @@ predicate isDeadStmt(Stmt s) {
           va.getTarget() = v and
           not isDeadOrUnreachableStmt(va.getEnclosingStmt())
         ) and
-        not isUsedInLocalArraySize(v, getConstexprValue(v))
+        not (countUsesInLocalArraySize(v) > 0)
       )
     )
   )
