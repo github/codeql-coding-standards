@@ -1,10 +1,12 @@
-| test.c:8:10:8:10 | 8 | The right hand operand of the shift operator shall lie in the range 0 to 7. |
-| test.c:9:10:9:11 | - ... | The right hand operand of the shift operator shall lie in the range 0 to 7. |
-| test.c:10:10:10:14 | ... + ... | The right hand operand of the shift operator shall lie in the range 0 to 7. |
-| test.c:11:10:11:14 | ... + ... | The right hand operand of the shift operator shall lie in the range 0 to 7. |
-| test.c:13:21:13:22 | 16 | The right hand operand of the shift operator shall lie in the range 0 to 15. |
-| test.c:16:9:16:9 | 8 | The right hand operand of the shift operator shall lie in the range 0 to 7. |
-| test.c:21:9:21:10 | 64 | The right hand operand of the shift operator shall lie in the range 0 to 63. |
-| test.c:25:10:25:10 | 8 | The right hand operand of the shift operator shall lie in the range 0 to 7. |
-| test.c:26:10:26:11 | 64 | The right hand operand of the shift operator shall lie in the range 0 to 7. |
-| test.c:30:16:30:17 | 64 | The right hand operand of the shift operator shall lie in the range 0 to 63. |
+| test.c:8:10:8:10 | 8 | The possible range of the right operand of the shift operator (8..8) is outside the the valid shift range (0..7) for the essential type of the left operand (uint8_t). | test.c:8:3:8:10 | ... >> ... |  |
+| test.c:9:10:9:11 | - ... | The possible range of the right operand of the shift operator (-1..-1) is outside the the valid shift range (0..7) for the essential type of the left operand (uint8_t). | test.c:9:3:9:11 | ... >> ... |  |
+| test.c:10:10:10:14 | ... + ... | The possible range of the right operand of the shift operator (8..8) is outside the the valid shift range (0..7) for the essential type of the left operand (uint8_t). | test.c:10:3:10:14 | ... >> ... |  |
+| test.c:11:10:11:14 | ... + ... | The possible range of the right operand of the shift operator (8..8) is outside the the valid shift range (0..7) for the essential type of the left operand (uint8_t). | test.c:11:3:11:14 | ... << ... |  |
+| test.c:13:21:13:22 | 16 | The possible range of the right operand of the shift operator (16..16) is outside the the valid shift range (0..15) for the essential type of the left operand (uint16_t). | test.c:13:3:13:22 | ... << ... |  |
+| test.c:16:9:16:9 | 8 | The possible range of the right operand of the shift operator (8..8) is outside the the valid shift range (0..7) for the essential type of the left operand (unsigned char). | test.c:16:3:16:9 | ... << ... |  |
+| test.c:21:9:21:10 | 64 | The possible range of the right operand of the shift operator (64..64) is outside the the valid shift range (0..63) for the essential type of the left operand (unsigned long). | test.c:21:3:21:10 | ... << ... |  |
+| test.c:26:10:26:11 | 64 | The possible range of the right operand of the shift operator (64..64) is outside the the valid shift range (0..63) for the essential type of the left operand (unsigned long). | test.c:26:3:26:11 | ... << ... |  |
+| test.c:30:16:30:17 | 64 | The possible range of the right operand of the shift operator (64..64) is outside the the valid shift range (0..63) for the essential type of the left operand (unsigned long). | test.c:30:3:30:17 | ... << ... |  |
+| test.c:34:8:34:8 | y | The possible range of the right operand of the shift operator (0..4294967295) is outside the the valid shift range (0..31) for the essential type of the left operand (unsigned int). | test.c:34:3:34:8 | ... >> ... |  |
+| test.c:40:8:40:8 | y | The possible range of the right operand of the shift operator (-2147483648..2147483647) is outside the the valid shift range (0..31) for the essential type of the left operand (signed int). | test.c:40:3:40:8 | ... >> ... |  |
+| test.c:42:8:42:8 | y | The possible range of the right operand of the shift operator (-31..31) is outside the the valid shift range (0..31) for the essential type of the left operand (signed int). | test.c:42:3:42:8 | ... >> ... |  |
