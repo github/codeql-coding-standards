@@ -1,1 +1,1 @@
-| test.cpp:18:7:18:12 | tzname | The variable $@ reuses a reserved standard library name. | test.cpp:18:7:18:12 | tzname | tzname |
+| test.cpp:18:20:18:25 | tzname | The variable $@ reuses a reserved standard library name. | test.cpp:18:20:18:25 | tzname | tzname |

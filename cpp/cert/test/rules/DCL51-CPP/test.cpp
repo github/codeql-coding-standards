@@ -15,7 +15,7 @@ enum {
 
 // int NULL = 0; // NON_COMPLIANT, but not supported by compilers in practice
 
-char *tzname[2]; // NON_COMPLIANT
+namespace ns { int tzname = 0; } // NON_COMPLIANT
 
 void min() {} // NON_COMPLIANT
 
