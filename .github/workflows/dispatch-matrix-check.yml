@@ -11,13 +11,17 @@ jobs:
   dispatch-matrix-check:
     runs-on: ubuntu-22.04
     steps:
-      - name: Test Variables
-        shell: pwsh
-        run: |
-          Write-Host "Running as: ${{github.actor}}"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check permission
+        id: check-write-permission
+        uses: ./.github/actions/check-permissions
+        with:
+          minimum-permission: "write"
 
       - name: Dispatch Matrix Testing Job
-        if: ${{ contains(fromJSON('["mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "nicolaswill"]'), github.actor) }}
+        if: steps.check-write-permission.outputs.has-permission
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
@@ -26,7 +30,7 @@ jobs:
           client-payload: '{"pr": "${{ github.event.number }}"}'
 
       - uses: actions/github-script@v6
-        if: ${{ contains(fromJSON('["mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "nicolaswill"]'), github.actor) }}
+        if: steps.check-write-permission.outputs.has-permission
         with:
           script: |
             github.rest.issues.createComment({
