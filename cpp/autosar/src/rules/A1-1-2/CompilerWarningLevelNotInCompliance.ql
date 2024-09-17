@@ -20,8 +20,8 @@ import codingstandards.cpp.autosar
 
 class CompilationWithNoWarnings extends Compilation {
   CompilationWithNoWarnings() {
-    getAnArgument() = "-w"
-    or not getAnArgument().regexpMatch("-W[\\w=-]+")
+    getAnArgument() = "-w" or
+    not getAnArgument().regexpMatch("-W[\\w=-]+")
   }
 }
 
@@ -30,7 +30,5 @@ predicate hasResponseFileArgument(Compilation c) { c.getAnArgument().matches("@%
 from File f
 where
   not isExcluded(f, ToolchainPackage::compilerWarningLevelNotInComplianceQuery()) and
-  exists(CompilationWithNoWarnings c | f = c.getAFileCompiled() |
-    not hasResponseFileArgument(c)
-  )
+  exists(CompilationWithNoWarnings c | f = c.getAFileCompiled() | not hasResponseFileArgument(c))
 select f, "No warning-level options were used in the compilation of '" + f.getBaseName() + "'."
