@@ -81,12 +81,12 @@ int test_dead_code(int x) {
 
   static_assert(1); // COMPLIANT
 
-  constexpr int constexpr_array_size{6};     // COMPLIANT
-  int unused_array[constexpr_array_size] {}; // NON_COMPLIANT
+  constexpr int constexpr_array_size{6};    // COMPLIANT
+  int unused_array[constexpr_array_size]{}; // NON_COMPLIANT
 
   constexpr int unused_int{2}; // NON_COMPLIANT
 
-  constexpr int   constexpr_used_array[]{3, 4, 5}; // COMPLIANT
+  constexpr int constexpr_used_array[]{3, 4, 5};   // COMPLIANT
   constexpr int constexpr_unused_array[]{0, 1, 2}; // NON_COMPLIANT
 
   return live5 + live6 + constexpr_used_array[1]; // COMPLIANT

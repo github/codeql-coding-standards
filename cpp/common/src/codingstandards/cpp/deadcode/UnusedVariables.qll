@@ -161,8 +161,10 @@ string getConstExprValue(Variable v) {
  * Counts uses of `Variable` v in a local array of size `n`
  */
 int countUsesInLocalArraySize(Variable v) {
-  result = count(ArrayType at, LocalVariable arrayVariable |
-		 arrayVariable.getType().resolveTypedefs() = at and
-		 v.(PotentiallyUnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
-		 at.getArraySize().toString() = getConstExprValue(v))
+  result =
+    count(ArrayType at, LocalVariable arrayVariable |
+      arrayVariable.getType().resolveTypedefs() = at and
+      v.(PotentiallyUnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
+      at.getArraySize().toString() = getConstExprValue(v)
+    )
 }

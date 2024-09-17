@@ -12,6 +12,6 @@
 | test.cpp:72:3:73:3 | try { ... } | This statement is dead code. |
 | test.cpp:73:17:74:3 | { ... } | This statement is dead code. |
 | test.cpp:79:17:80:3 | { ... } | This statement is dead code. |
-| test.cpp:85:3:85:44 | declaration | This statement is dead code. |
+| test.cpp:85:3:85:43 | declaration | This statement is dead code. |
 | test.cpp:87:3:87:30 | declaration | This statement is dead code. |
 | test.cpp:90:3:90:50 | declaration | This statement is dead code. |
