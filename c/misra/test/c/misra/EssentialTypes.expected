@@ -38,3 +38,6 @@
 | test.c:26:3:26:3 | f | float | float | essentially Floating type |
 | test.c:27:3:27:5 | f32 | float32_t | float32_t | essentially Floating type |
 | test.c:28:3:28:6 | cf32 | float | float | essentially Floating type |
+| test.c:32:3:32:3 | 1 | signed char | signed char | essentially Signed type |
+| test.c:33:3:33:4 | 1 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:34:3:34:5 | 1 | unsigned long | unsigned long | essentially Unsigned type |
