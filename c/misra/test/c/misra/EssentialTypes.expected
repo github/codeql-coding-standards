@@ -41,3 +41,35 @@
 | test.c:32:3:32:3 | 1 | signed char | signed char | essentially Signed type |
 | test.c:33:3:33:4 | 1 | unsigned char | unsigned char | essentially Unsigned type |
 | test.c:34:3:34:5 | 1 | unsigned long | unsigned long | essentially Unsigned type |
+| test.c:38:13:38:16 | 1 | bool | bool | essentially Boolean type |
+| test.c:38:13:38:16 | (bool)... | bool | bool | essentially Boolean type |
+| test.c:39:20:39:20 | 1 | signed char | signed char | essentially Signed type |
+| test.c:39:20:39:20 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:40:23:40:23 | 1 | signed char | signed char | essentially Signed type |
+| test.c:40:23:40:23 | (unsigned short)... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:41:17:41:18 | 1 | signed char | signed char | essentially Signed type |
+| test.c:42:21:42:21 | 1 | signed char | signed char | essentially Signed type |
+| test.c:42:21:42:21 | (signed short)... | signed short | signed short | essentially Signed type |
+| test.c:44:3:44:4 | ! ... | bool | bool | essentially Boolean type |
+| test.c:44:4:44:4 | b | bool | bool | essentially Boolean type |
+| test.c:45:3:45:4 | ! ... | bool | bool | essentially Boolean type |
+| test.c:45:4:45:4 | u | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:46:3:46:5 | ! ... | bool | bool | essentially Boolean type |
+| test.c:46:4:46:5 | us | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:47:3:47:4 | ! ... | bool | bool | essentially Boolean type |
+| test.c:47:4:47:4 | s | signed int | signed int | essentially Signed type |
+| test.c:48:3:48:5 | ! ... | bool | bool | essentially Boolean type |
+| test.c:48:4:48:5 | ss | signed short | signed short | essentially Signed type |
+| test.c:50:3:50:4 | ~ ... | int | int | essentially Signed type |
+| test.c:50:4:50:4 | (int)... | int | int | essentially Signed type |
+| test.c:50:4:50:4 | b | bool | bool | essentially Boolean type |
+| test.c:51:3:51:4 | ~ ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:51:4:51:4 | u | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:52:3:52:5 | ~ ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:52:4:52:5 | (int)... | int | int | essentially Signed type |
+| test.c:52:4:52:5 | us | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:53:3:53:4 | ~ ... | signed int | signed int | essentially Signed type |
+| test.c:53:4:53:4 | s | signed int | signed int | essentially Signed type |
+| test.c:54:3:54:5 | ~ ... | int | int | essentially Signed type |
+| test.c:54:4:54:5 | (int)... | int | int | essentially Signed type |
+| test.c:54:4:54:5 | ss | signed short | signed short | essentially Signed type |
