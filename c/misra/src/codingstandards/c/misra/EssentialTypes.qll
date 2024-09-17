@@ -179,6 +179,10 @@ class EssentialBinaryLogicalOperationExpr extends EssentialExpr, BinaryLogicalOp
   override Type getEssentialType() { result instanceof BoolType }
 }
 
+class EssentialUnaryLogicalOperationExpr extends EssentialExpr, UnaryLogicalOperation {
+  override Type getEssentialType() { result instanceof BoolType }
+}
+
 class EssentialEqualityOperationExpr extends EssentialExpr, EqualityOperation {
   override Type getEssentialType() { result instanceof BoolType }
 }
