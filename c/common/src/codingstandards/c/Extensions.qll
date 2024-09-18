@@ -169,10 +169,16 @@ class CEmptyStructExtension extends CCompilerExtension, Struct {
 }
 
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html#Variable-Length
-class CVariableLengthArraysExtension extends CCompilerExtension, DeclarationEntry {
+class CVariableLengthArraysExtension extends CCompilerExtension, Field {
   CVariableLengthArraysExtension() {
     getType() instanceof ArrayType and
-    not getType().(ArrayType).hasArraySize()
+    not getType().(ArrayType).hasArraySize() and
+    // Not the final member of the struct, which is allowed to be variably sized
+    not exists(int lastIndex, Class declaringStruct |
+      declaringStruct = getDeclaringType() and
+      lastIndex = count(declaringStruct.getACanonicalMember()) - 1 and
+      this = declaringStruct.getCanonicalMember(lastIndex)
+    )
   }
 
   override string getMessage() {
