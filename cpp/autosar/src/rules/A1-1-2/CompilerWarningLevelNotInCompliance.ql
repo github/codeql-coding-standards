@@ -36,9 +36,7 @@ class CompilationWithNoWarnings extends Compilation {
 class CompilationArgument extends string {
   Compilation compilation;
 
-  CompilationArgument() {
-    this = compilation.getAnArgument()
-  }
+  CompilationArgument() { this = compilation.getAnArgument() }
 }
 
 /**
@@ -48,13 +46,11 @@ class EnableWarningFlag extends CompilationArgument {
   string warningType;
 
   EnableWarningFlag() {
-    warningType = regexpCapture("^-W([\\w-]+)(=.*)?$", 1)
-    and not this instanceof DisableWarningFlag
+    warningType = regexpCapture("^-W([\\w-]+)(=.*)?$", 1) and
+    not this instanceof DisableWarningFlag
   }
 
-  string getWarningType() {
-    result = warningType
-  }
+  string getWarningType() { result = warningType }
 }
 
 /**
@@ -69,9 +65,7 @@ class DisableWarningFlag extends CompilationArgument {
     warningType = regexpCapture("^-W([\\w-]+)=0", 1)
   }
 
-  string getWarningType() {
-    result = warningType
-  }
+  string getWarningType() { result = warningType }
 }
 
 from File f
