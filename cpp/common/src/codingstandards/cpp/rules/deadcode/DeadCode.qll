@@ -53,7 +53,7 @@ predicate isDeadStmt(Stmt s) {
           va.getTarget() = v and
           not isDeadOrUnreachableStmt(va.getEnclosingStmt())
         ) and
-        not (countUsesInLocalArraySize(v) > 0)
+        not countUsesInLocalArraySize(v) > 0
       )
     )
   )
