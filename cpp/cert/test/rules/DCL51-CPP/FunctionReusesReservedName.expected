@@ -1,1 +1,1 @@
-| test.cpp:20:6:20:8 | min | The function $@ reuses a reserved standard library name. | test.cpp:20:6:20:8 | min | min |
+| test.cpp:22:6:22:8 | min | The function $@ reuses a reserved standard library name. | test.cpp:22:6:22:8 | min | min |
