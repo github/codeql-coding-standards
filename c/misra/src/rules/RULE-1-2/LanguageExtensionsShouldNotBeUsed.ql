@@ -17,4 +17,4 @@ import codingstandards.c.Extensions
 
 from CCompilerExtension e
 where not isExcluded(e, Language3Package::languageExtensionsShouldNotBeUsedQuery())
-select e, "Is a compiler extension and is not portable to other compilers."
+select e, e.getMessage()
