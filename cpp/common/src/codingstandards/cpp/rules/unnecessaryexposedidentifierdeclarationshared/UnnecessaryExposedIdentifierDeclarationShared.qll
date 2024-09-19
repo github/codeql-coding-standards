@@ -120,7 +120,10 @@ private predicate isTypeUse(Type t1, Type t2) {
 }
 
 newtype TDeclarationAccess =
-  ObjectAccess(Variable v, VariableAccess va) { va = v.getAnAccess() } or
+  ObjectAccess(Variable v, VariableAccess va) {
+    va = v.getAnAccess() or
+    v.(TemplateVariable).getAnInstantiation().getAnAccess() = va
+  } or
   /* Type access can be done in a declaration or an expression (e.g., static member function call) */
   TypeAccess(Type t, Element access) {
     isTypeUse(access.(Variable).getUnspecifiedType(), t)
@@ -205,9 +208,13 @@ class DeclarationAccess extends TDeclarationAccess {
 
 class CandidateDeclaration extends Declaration {
   CandidateDeclaration() {
-    this instanceof LocalVariable
+    this instanceof LocalVariable and
+    not this.(LocalVariable).isConstexpr() and
+    not this.isFromTemplateInstantiation(_)
     or
-    this instanceof GlobalOrNamespaceVariable
+    this instanceof GlobalOrNamespaceVariable and
+    not this.isFromTemplateInstantiation(_) and
+    not this.(GlobalOrNamespaceVariable).isConstexpr()
     or
     this instanceof Type and
     not this instanceof ClassTemplateInstantiation and
@@ -229,7 +236,13 @@ Scope possibleScopesForDeclaration(CandidateDeclaration d) {
     result = scope.getStrictParent*()
   ) and
   // Limit the best scope to block statements and namespaces or control structures
-  (result instanceof BlockStmt or result instanceof Namespace)
+  (
+    result instanceof BlockStmt and
+    // Template variables cannot be in block scope
+    not d instanceof TemplateVariable
+    or
+    result instanceof Namespace
+  )
 }
 
 /* Gets the smallest scope that includes all the declaration accesses of declaration `d`. */
