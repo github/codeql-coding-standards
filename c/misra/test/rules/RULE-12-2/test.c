@@ -29,3 +29,15 @@ void f1() {
   ULONG_MAX << 8;  // COMPLIANT
   ULONG_MAX << 64; // NON_COMPLIANT
 }
+
+void unsignedRemAssign(unsigned int y, unsigned int x) {
+  x >> y; // NON_COMPLIANT
+  y %= 32;
+  x >> y; // COMPLIANT
+}
+
+void signedRemAssign(signed int y, signed int x) {
+  x >> y; // NON_COMPLIANT
+  y %= 32;
+  x >> y; // NON_COMPLIANT - may be negative
+}

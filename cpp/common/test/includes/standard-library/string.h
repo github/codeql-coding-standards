@@ -36,6 +36,8 @@ char *strstr(char *str1, const char *str2);
 
 char *strtok(char *str, const char *delimiters);
 
+char *strdup (const char *);
+
 void *memcpy(void *dest, const void *src, size_t count);
 void *memset(void *dest, int ch, size_t count);
 void *memmove(void *dest, const void *src, size_t count);

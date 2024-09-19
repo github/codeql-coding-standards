@@ -16,17 +16,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.commons.NULL
+import codingstandards.cpp.rules.nullptrnottheonlyformofthenullpointerconstant.NullptrNotTheOnlyFormOfTheNullPointerConstant
 
-from Literal l
-where
-  not isExcluded(l, LiteralsPackage::nullPointerConstantNotNullptrQuery()) and
-  // Not the type of the nullptr literal
-  not l.getType() instanceof NullPointerType and
-  // Converted to a pointer type
-  l.getConversion().getType().getUnspecifiedType() instanceof PointerType and
-  // Value of zero
-  l.getValue() = "0" and
-  // Not the StringLiteral "0"
-  not l instanceof StringLiteral
-select l, l.getValueText() + " is used as the null-pointer-constant but is not nullptr."
+class NullPointerConstantNotNullptrQuery extends NullptrNotTheOnlyFormOfTheNullPointerConstantSharedQuery
+{
+  NullPointerConstantNotNullptrQuery() {
+    this = LiteralsPackage::nullPointerConstantNotNullptrQuery()
+  }
+}

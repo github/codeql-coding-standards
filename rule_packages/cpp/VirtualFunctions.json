@@ -177,6 +177,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "VirtualFunctionParametersUseTheSameDefaultArguments",
+          "shared_implementation_short_name": "OverridingShallSpecifyDifferentDefaultArguments",
           "tags": [
             "correctness"
           ]
