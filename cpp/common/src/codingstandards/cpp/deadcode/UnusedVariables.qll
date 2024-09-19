@@ -150,3 +150,21 @@ predicate maybeACompileTimeTemplateArgument(Variable v) {
     )
   )
 }
+
+/** Gets the constant value of a constexpr/const variable. */
+string getConstExprValue(Variable v) {
+  result = v.getInitializer().getExpr().getValue() and
+  (v.isConst() or v.isConstexpr())
+}
+
+/**
+ * Counts uses of `Variable` v in a local array of size `n`
+ */
+int countUsesInLocalArraySize(Variable v) {
+  result =
+    count(ArrayType at, LocalVariable arrayVariable |
+      arrayVariable.getType().resolveTypedefs() = at and
+      v.(PotentiallyUnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
+      at.getArraySize().toString() = getConstExprValue(v)
+    )
+}
