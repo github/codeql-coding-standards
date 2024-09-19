@@ -48,3 +48,4 @@
 | test.c:376:3:376:26 | call to __sync_lock_test_and_set_4 | Call to builtin function '__sync_lock_test_and_set_4' is a compiler extension and is not portable to other compilers. |
 | test.c:377:3:377:21 | call to __sync_lock_release_4 | Call to builtin function '__sync_lock_release_4' is a compiler extension and is not portable to other compilers. |
 | test.c:405:3:405:18 | call to __builtin_alloca | Call to builtin function '__builtin_alloca' is a compiler extension and is not portable to other compilers. |
+| test.c:409:1:411:8 | #define BUILTIN __builtin_alloca( 0) | Call to builtin function '__builtin_alloca' is a compiler extension and is not portable to other compilers. |

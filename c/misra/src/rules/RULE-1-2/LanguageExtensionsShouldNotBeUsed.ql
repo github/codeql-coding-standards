@@ -13,8 +13,9 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.AlertReporting
 import codingstandards.c.Extensions
 
 from CCompilerExtension e
 where not isExcluded(e, Language3Package::languageExtensionsShouldNotBeUsedQuery())
-select e, e.getMessage()
+select MacroUnwrapper<CCompilerExtension>::unwrapElement(e), e.getMessage()

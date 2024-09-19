@@ -405,3 +405,9 @@ void gf48() {
   __builtin_alloca(
       0); // NON_COMPLIANT (all __builtin functions are non-compliant.)
 }
+
+#define BUILTIN                                                                \
+  __builtin_alloca(                                                            \
+      0) // NON_COMPLIANT (all __builtin functions are non-compliant.)
+
+void gf49() { BUILTIN; }
