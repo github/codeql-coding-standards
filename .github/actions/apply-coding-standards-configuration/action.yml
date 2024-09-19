@@ -11,7 +11,7 @@ runs:
         python-version: 3.9
     - name: Install dependencies
       shell: bash
-      run: python -m pip install -r ${{ github.action_path }}/scripts/configuration/requirements.txt
+      run: cd ../../../; python -m pip install -r ${{ github.action_path }}/scripts/configuration/requirements.txt
     - name: Process files
       shell: bash
-      run: python ${{ github.action_path }}/scripts/configuration/process_coding_standards_config.py
+      run: cd ../../../; python ${{ github.action_path }}/scripts/configuration/process_coding_standards_config.py
