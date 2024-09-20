@@ -18,5 +18,6 @@ from BitField field, Union u
 where
   not isExcluded(field, BitfieldTypes2Package::bitFieldDeclaredAsMemberOfAUnionQuery()) and
   u.getAField() = field
-select
-  field, "Union member " + field.getName() + " is declared as a bit field which relies on implementation-specific behavior."
+select field,
+  "Union member " + field.getName() +
+    " is declared as a bit field which relies on implementation-specific behavior."
