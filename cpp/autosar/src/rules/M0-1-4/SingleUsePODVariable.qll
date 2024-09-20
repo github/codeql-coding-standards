@@ -4,12 +4,6 @@ import cpp
 import codingstandards.cpp.TrivialType
 import codingstandards.cpp.deadcode.UnusedVariables
 
-/** Gets the constant value of a constexpr variable. */
-private string getConstExprValue(Variable v) {
-  result = v.getInitializer().getExpr().getValue() and
-  v.isConstexpr()
-}
-
 /**
  * Gets the number of uses of variable `v` in an opaque assignment, where an opaque assignment is a cast from one type to the other, and `v` is assumed to be a member of the resulting type.
  * e.g.,
