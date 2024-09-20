@@ -62,4 +62,4 @@ jobs:
         env:
           LANGUAGE: ${{ matrix.language }}
         run: |
-          python scripts/verify_amendments-csv.py $LANGUAGE
+          python scripts/validate-amendments-csv.py $LANGUAGE
