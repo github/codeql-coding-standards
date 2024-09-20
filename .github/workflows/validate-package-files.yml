@@ -57,3 +57,9 @@ jobs:
           git diff
           git diff --compact-summary
           git diff --quiet
+
+      - name: Validate Amendments
+        env:
+          LANGUAGE: ${{ matrix.language }}
+        run: |
+          python scripts/verify_amendments-csv.py $LANGUAGE
