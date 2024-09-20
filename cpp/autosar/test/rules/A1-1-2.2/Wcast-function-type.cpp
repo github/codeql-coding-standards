@@ -1,5 +1,5 @@
 // semmle-extractor-options: --clang -std=c++14 -Wcast-function-type
-// COMPLIAN
+// COMPLIANT
 
 // NOTE: When tested with `codeql test run`, the test extractor provides `-w`
 // which overrides `-Wcast-function-type` and causes this test case to be
