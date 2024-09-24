@@ -8,7 +8,6 @@ void test_noreturn_f2(int i) { // NON_COMPLIANT
   abort();
 }
 
-
 _Noreturn void test_noreturn_f3(int i) { // COMPLIANT
   if (i > 0) {
     abort();
@@ -77,4 +76,16 @@ _Noreturn void test_noreturn_f11(int i) { // COMPLIANT
   while (1) {
     i = 5;
   }
+}
+
+void test_noreturn_f12(); // COMPLIANT
+
+__attribute__((noreturn)) void test_noreturn_f13(int i) { // COMPLIANT
+  abort();
+}
+
+// Allowed by exception. It is undefined behavior for main() to be declared with
+// noreturn.
+int main(char **argv, int argc) { // COMPLIANT
+  abort();
 }

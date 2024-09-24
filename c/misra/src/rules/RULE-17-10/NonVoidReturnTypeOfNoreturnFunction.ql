@@ -12,12 +12,13 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.Noreturn
 
-from Function f, Type returnType
+from NoreturnFunction f, Type returnType
 where
   not isExcluded(f, NoReturnPackage::nonVoidReturnTypeOfNoreturnFunctionQuery()) and
-  f.getASpecifier().getName() = "noreturn" and
   returnType = f.getType() and
   not returnType instanceof VoidType
-select
-  f, "The function " + f.getName() + " is declared _noreturn but has a return type of " + returnType.toString() + "."
+select f,
+  "The function " + f.getName() + " is declared _noreturn but has a return type of " +
+    returnType.toString() + "."

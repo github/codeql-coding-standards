@@ -11,14 +11,14 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.Noreturn
 
 from Function f
 where
   not isExcluded(f, NoReturnPackage::returnStatementInNoreturnFunctionQuery()) and
-  not f.getASpecifier().getName() = "noreturn" and
-  not exists(ReturnStmt s |
-    f = s.getEnclosingFunction() and
-    s.getBasicBlock().isReachable()
-  )
-select
-  f, "The function " + f.getName() + " cannot return and should be declared attribute _Noreturn."
+  not f instanceof NoreturnFunction and
+  not mayReturn(f) and
+  f.hasDefinition() and
+  f.getName() != "main" // Allowed exception; _Noreturn main() is undefined behavior.
+select f,
+  "The function " + f.getName() + " cannot return and should be declared attribute _Noreturn."

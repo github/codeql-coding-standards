@@ -1,9 +1,9 @@
 #include "stdlib.h"
 
-void f1(); // COMPLIANT
-int f2(); // COMPLIANT
+void f1();           // COMPLIANT
+int f2();            // COMPLIANT
 _Noreturn void f3(); // COMPLIANT
-_Noreturn int f4(); // NON-COMPLIANT
+_Noreturn int f4();  // NON-COMPLIANT
 
 void f5() { // COMPLIANT
 }
@@ -21,4 +21,6 @@ _Noreturn int f8() { // NON-COMPLIANT
   return 0;
 }
 
-_Noreturn void* f9(); // NON-COMPLIANT
+_Noreturn void *f9(); // NON-COMPLIANT
+
+__attribute__((noreturn)) int f10(); // NON-COMPLIANT

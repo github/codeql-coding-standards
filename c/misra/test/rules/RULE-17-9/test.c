@@ -43,3 +43,13 @@ _Noreturn void test_noreturn_f6(int i) { // COMPLIANT
     i = 5;
   }
 }
+
+__attribute__((noreturn)) void test_noreturn_f7(int i) { // NON_COMPLIANT
+  if (i > 0) {
+    abort();
+  }
+}
+
+__attribute__((noreturn)) void test_noreturn_f8(int i) { // COMPLIANT
+  abort();
+}

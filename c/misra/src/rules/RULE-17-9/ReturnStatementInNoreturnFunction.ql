@@ -11,14 +11,10 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.Noreturn
 
-from Function f
+from NoreturnFunction f
 where
   not isExcluded(f, NoReturnPackage::returnStatementInNoreturnFunctionQuery()) and
-  f.getASpecifier().getName() = "noreturn" and
-  exists(ReturnStmt s |
-    f = s.getEnclosingFunction() and
-    s.getBasicBlock().isReachable()
-  )
-select
-  f, "The function " + f.getName() + " declared with attribute _Noreturn returns a value."
+  mayReturn(f)
+select f, "The function " + f.getName() + " declared with attribute _Noreturn returns a value."
