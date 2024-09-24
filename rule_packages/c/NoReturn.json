@@ -1,0 +1,55 @@
+{
+  "MISRA-C-2012": {
+    "RULE-17-10": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Function declared with _noreturn will by definition not return a value, and should be declared to return void.",
+          "kind": "problem",
+          "name": "A function declared with _noreturn shall have a return type of void",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "NonVoidReturnTypeOfNoreturnFunction",
+          "tags": []
+        }
+      ],
+      "title": "A function declared with _noreturn shall have a return type of void"
+    },
+    "RULE-17-11": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Functions which cannot return should be declared with _Noreturn.",
+          "kind": "problem",
+          "name": "A function without a branch that returns shall be declared with _Noreturn",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "FunctionWithNoReturningBranchShouldBeNoreturn",
+          "tags": []
+        }
+      ],
+      "title": "A function without a branch that returns shall be declared with _Noreturn"
+    },
+    "RULE-17-9": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Returning inside a function declared with _Noreturn is undefined behavior.",
+          "kind": "problem",
+          "name": "Verify that a function declared with _Noreturn does not return",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ReturnStatementInNoreturnFunction",
+          "tags": []
+        }
+      ],
+      "title": "Verify that a function declared with _Noreturn does not return"
+    }
+  }
+}
