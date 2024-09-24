@@ -1,0 +1,42 @@
+{
+  "MISRA-C-2012": {
+    "RULE-17-12": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A function identifier should only be called with a parenthesized parameter list or used with a & (address-of).",
+          "kind": "problem",
+          "name": "A function identifier should only be called with a parenthesized parameter list or used with a &",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionAddressesShouldAddressOperator",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "A function identifier should only be called with a parenthesized parameter list or used with a & (address-of)"
+    },
+    "RULE-17-13": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The behavior of type qualifiers on a function type is undefined.",
+          "kind": "problem",
+          "name": "A function type shall not include any type qualifiers (const, volatile, restrict, or _Atomic)",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DisallowedFunctionTypeQualifier",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "A function type shall not include any type qualifiers (const, volatile, restrict, or _Atomic)"
+    }
+  }
+}
