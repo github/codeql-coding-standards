@@ -39,6 +39,7 @@ jobs:
     needs: prepare-unit-test-matrix
 
     runs-on: ${{ matrix.os }}
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare-unit-test-matrix.outputs.matrix) }}
@@ -163,6 +164,12 @@ jobs:
     needs: run-test-suites
     runs-on: ubuntu-22.04
     steps:
+      - name: Check if a dependent job failed to complete
+        if: ${{ failure() }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Test run job failed')
       - name: Collect test results
         uses: actions/download-artifact@v3
 
