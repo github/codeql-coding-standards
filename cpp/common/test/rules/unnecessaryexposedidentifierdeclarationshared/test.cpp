@@ -137,3 +137,95 @@ void f17() {
   }
   *ptr = 1;
 }
+
+namespace a_namespace {
+
+constexpr static unsigned int a_constexpr_var{
+    10U}; // COMPLIANT; used in
+          // a_namespace and
+          // another_namespace_function
+static unsigned int
+    a_namespace_var[a_constexpr_var]{}; // COMPLIANT; used in
+                                        // a_namespace_function and
+                                        // another_namespace_function
+
+constexpr static unsigned int a_namespace_function(void) noexcept {
+  unsigned int a_return_value{0U};
+
+  for (auto loop_var : a_namespace_var) { // usage of a_namespace_var
+    a_return_value += loop_var;
+  }
+  return a_return_value;
+}
+
+constexpr static unsigned int another_namespace_function(void) noexcept {
+  unsigned int a_return_value{0U};
+
+  for (unsigned int i{0U}; i < a_constexpr_var;
+       i++) {                             // usage of a_constexpr_var
+    a_return_value += a_namespace_var[i]; // usage of a_namespace_var
+  }
+  return a_return_value;
+}
+} // namespace a_namespace
+
+namespace parent_namespace {
+namespace child_namespace {
+template <typename From> class a_class_in_child_namespace {
+public:
+  template <typename To> constexpr auto &&operator()(To &&val) const noexcept {
+    return static_cast<To>(val);
+  }
+}; // a_class_in_child_namespace end
+
+template <typename From>
+extern constexpr a_class_in_child_namespace<From>
+    a_class_in_child_namespace_impl{};
+
+} // namespace child_namespace
+
+template <typename From>
+static constexpr auto const &a_parent_namespace_variable =
+    child_namespace::a_class_in_child_namespace_impl<
+        From>; // COMPLIANT; used in child_namespace2::a_class::bar() and
+               // parent_namespace::another_class::foo()
+
+namespace child_namespace2 {
+class a_class {
+public:
+  int func(...) { return 0; }
+  void foo(int x) { x++; }
+  template <typename F> constexpr auto bar(F(*func), int b) {
+    foo(func(a_parent_namespace_variable<F>(
+        b))); // usage of a_parent_namespace_variable
+  }
+}; // a_class
+} // namespace child_namespace2
+
+class another_class {
+  int a;
+  int b;
+  void bar(int param) { param++; }
+
+  bool has_value() { return a == b; }
+
+public:
+  template <typename F> int foo(F(*func), int b) {
+    if (has_value()) {
+      bar(func(a_parent_namespace_variable<F>(
+          b))); // usage of a_parent_namespace_variable
+    }
+    return 0;
+  }
+}; // another_class
+} // namespace parent_namespace
+
+template <typename T> T a_func(T v) { return v++; }
+
+int main() {
+  parent_namespace::child_namespace2::a_class a_class_obj;
+  a_class_obj.bar(a_func<int>, 10);
+  parent_namespace::another_class another_class_obj;
+  another_class_obj.foo(a_func<int>, 10);
+  return 0;
+}
