@@ -102,10 +102,27 @@ public:
   void bar() {} // No side effects
 };
 
+#define FULL_STMT_NO_SIDE_EFFECTS no_side_effects(1);
+#define PART_STMT_NO_SIDE_EFFECTS no_side_effects(1)
+#define BLOCK_SOME_SIDE_EFFECTS                                                \
+  {                                                                            \
+    may_have_side_effects();                                                   \
+    no_side_effects(1);                                                        \
+  }
+
 template <typename T> void test_template() {
   T t;
-  t.bar();            // COMPLIANT
-  no_side_effects(1); // NON_COMPLIANT
+  t.bar();                       // COMPLIANT
+  no_side_effects(1);            // NON_COMPLIANT
+  FULL_STMT_NO_SIDE_EFFECTS      // NON_COMPLIANT
+      PART_STMT_NO_SIDE_EFFECTS; // NON_COMPLIANT
+  BLOCK_SOME_SIDE_EFFECTS;       // COMPLIANT - cannot determine loc for
+                                 // no_side_effects(1)
+}
+
+template <typename T> void test_variant_side_effects() {
+  T t;
+  t.bar(); // COMPLIANT - not dead in at least one instance
 }
 
 template <typename T> void test_unused_template() {
@@ -117,5 +134,8 @@ template <typename T> void test_unused_template() {
 
 void test() {
   test_template<Foo>();
-  test_template<Baz>(); // NON_COMPLIANT - template call has no affect
+  test_template<Baz>();
+  test_variant_side_effects<Foo>(); // COMPLIANT
+  test_variant_side_effects<Baz>(); // NON_COMPLIANT - no effect in this
+                                    // instantiation
 }
