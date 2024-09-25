@@ -91,3 +91,31 @@ int test_dead_code(int x) {
 
   return live5 + live6 + constexpr_used_array[1]; // COMPLIANT
 }
+
+class Foo {
+public:
+  void bar() { may_have_side_effects(); }
+};
+
+class Baz {
+public:
+  void bar() {} // No side effects
+};
+
+template <typename T> void test_template() {
+  T t;
+  t.bar();            // COMPLIANT
+  no_side_effects(1); // NON_COMPLIANT
+}
+
+template <typename T> void test_unused_template() {
+  T t;
+  t.bar(); // COMPLIANT
+  no_side_effects(
+      1); // NON_COMPLIANT[FALSE_NEGATIVE] - unused templates are not extracted
+}
+
+void test() {
+  test_template<Foo>();
+  test_template<Baz>(); // NON_COMPLIANT - template call has no affect
+}
