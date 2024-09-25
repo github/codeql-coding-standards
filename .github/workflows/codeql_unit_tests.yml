@@ -39,7 +39,6 @@ jobs:
     needs: prepare-unit-test-matrix
 
     runs-on: ${{ matrix.os }}
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare-unit-test-matrix.outputs.matrix) }}
@@ -161,6 +160,7 @@ jobs:
 
   validate-test-results:
     name: Validate test results
+    if: ${{ always() }}
     needs: run-test-suites
     runs-on: ubuntu-22.04
     steps:
