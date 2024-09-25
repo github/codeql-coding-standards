@@ -1,0 +1,7 @@
+| test.c:15:3:15:11 | ... = ... | Assignment to dead1 is unused and has no side effects. |
+| test.c:16:3:16:11 | ... = ... | Assignment to dead2 is unused and has no side effects. |
+| test.c:19:3:19:7 | ... + ... | Result of operation is unused and has no side effects. |
+| test.c:21:3:21:17 | call to no_side_effects | Result of operation is unused and has no side effects. |
+| test.c:23:3:23:30 | (int)... | Cast operation is unused. |
+| test.c:24:3:24:25 | (int)... | Cast operation is unused. |
+| test.c:27:4:27:18 | call to no_side_effects | Result of operation is unused and has no side effects. |
