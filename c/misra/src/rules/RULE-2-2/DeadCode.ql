@@ -76,6 +76,21 @@ class DeadOperationInstance extends Expr {
 
 class DeadOperation = HoldsForAllInstances<DeadOperationInstance, Expr>::LogicalResultElement;
 
-from DeadOperation deadOperation
-where not isExcluded(deadOperation.getAnElementInstance(), DeadCodePackage::deadCodeQuery())
-select deadOperation, deadOperation.getAnElementInstance().getDescription() + "."
+from
+  DeadOperation deadOperation, DeadOperationInstance instance, string message, Element explainer,
+  string explainerDescription
+where
+  not isExcluded(instance, DeadCodePackage::deadCodeQuery()) and
+  instance = deadOperation.getAnElementInstance() and
+  if instance instanceof FunctionCall
+  then
+    message = instance.getDescription() + " from call to function $@" and
+    explainer = instance.(FunctionCall).getTarget() and
+    explainerDescription = explainer.(Function).getName()
+  else (
+    message = instance.getDescription() and
+    // Ignore the explainer
+    explainer = instance and
+    explainerDescription = ""
+  )
+select deadOperation, message + ".", explainer, explainerDescription
