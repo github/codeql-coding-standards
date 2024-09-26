@@ -5,3 +5,5 @@
 | test.c:23:3:23:30 | (int)... | Cast operation is unused. |
 | test.c:24:3:24:25 | (int)... | Cast operation is unused. |
 | test.c:27:4:27:18 | call to no_side_effects | Result of operation is unused and has no side effects. |
+| test.c:37:3:37:27 | call to no_side_effects | Result of operation is unused and has no side effects. |
+| test.c:38:7:38:31 | call to no_side_effects | Result of operation is unused and has no side effects. |

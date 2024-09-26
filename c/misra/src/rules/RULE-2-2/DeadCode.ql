@@ -14,6 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.alertreporting.HoldsForAllInstances
 import codingstandards.cpp.deadcode.UselessAssignments
 
 /**
@@ -39,6 +40,9 @@ class DeadOperation extends Expr {
   string description;
 
   DeadOperation() {
+    // Exclude cases nested within macro expansions, because the code may be "live" in other
+    // expansions
+    isNotWithinMacroExpansion(this) and
     exists(ExprStmtExpr e |
       if exists(getExplicitCast(e))
       then

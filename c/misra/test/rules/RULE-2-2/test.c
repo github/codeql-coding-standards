@@ -26,5 +26,17 @@ int test_dead_code(int x) {
   (may_have_side_effects());    // COMPLIANT
   (no_side_effects(x));         // NON_COMPLIANT
 
+#define FULL_STMT_NO_SIDE_EFFECTS no_side_effects(1);
+#define PART_STMT_NO_SIDE_EFFECTS no_side_effects(1)
+#define BLOCK_SOME_SIDE_EFFECTS                                                \
+  {                                                                            \
+    may_have_side_effects();                                                   \
+    no_side_effects(1);                                                        \
+  }
+
+  FULL_STMT_NO_SIDE_EFFECTS      // NON_COMPLIANT
+      PART_STMT_NO_SIDE_EFFECTS; // NON_COMPLIANT
+  BLOCK_SOME_SIDE_EFFECTS;       // COMPLIANT
+
   return live5 + live6; // COMPLIANT
 }
