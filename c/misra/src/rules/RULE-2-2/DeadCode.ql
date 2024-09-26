@@ -36,10 +36,10 @@ class ExprStmtExpr extends Expr {
  * An "operation" as defined by MISRA C Rule 2.2 that is dead, i.e. it's removal has no effect on
  * the behaviour of the program.
  */
-class DeadOperation extends Expr {
+class DeadOperationInstance extends Expr {
   string description;
 
-  DeadOperation() {
+  DeadOperationInstance() {
     // Exclude cases nested within macro expansions, because the code may be "live" in other
     // expansions
     isNotWithinMacroExpansion(this) and
@@ -74,6 +74,8 @@ class DeadOperation extends Expr {
   string getDescription() { result = description }
 }
 
+class DeadOperation = HoldsForAllInstances<DeadOperationInstance, Expr>::LogicalResultElement;
+
 from DeadOperation deadOperation
-where not isExcluded(deadOperation, DeadCodePackage::deadCodeQuery())
-select deadOperation, deadOperation.getDescription() + "."
+where not isExcluded(deadOperation.getAnElementInstance(), DeadCodePackage::deadCodeQuery())
+select deadOperation, deadOperation.getAnElementInstance().getDescription() + "."

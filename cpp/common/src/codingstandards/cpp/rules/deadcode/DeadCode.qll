@@ -122,16 +122,16 @@ class DeadStmtInstance extends Stmt {
   }
 }
 
-class DeadStmt = HoldsForAllInstances<DeadStmtInstance>::LogicalResultStmt;
+class DeadStmt = HoldsForAllInstances<DeadStmtInstance, Stmt>::LogicalResultElement;
 
 query predicate problems(DeadStmt s, string message) {
-  not isExcluded(s.getAStmtInstance(), getQuery()) and
+  not isExcluded(s.getAnElementInstance(), getQuery()) and
   message = "This statement is dead code." and
   // Report only the highest level dead statement, to avoid over reporting
   not exists(DeadStmt parent |
     // All instances must share a dead statement parent for us to report the parent instead
-    forall(Stmt instance | instance = s.getAStmtInstance() |
-      parent.getAStmtInstance() = instance.getParentStmt()
+    forall(Stmt instance | instance = s.getAnElementInstance() |
+      parent.getAnElementInstance() = instance.getParentStmt()
     )
   )
 }
