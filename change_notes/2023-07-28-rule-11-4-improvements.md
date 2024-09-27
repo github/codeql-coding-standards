@@ -1,0 +1,12 @@
+ - `RULE-11-1` - `ConversionBetweenFunctionPointerAndOtherType.ql`:
+    - Fixed issue #331 - consider `0` a null pointer constant.
+ - `RULE-11-4` - `ConversionBetweenPointerToObjectAndIntegerType.ql`:
+   - Fixed issue #331 - consider `0` a null pointer constant. 
+   - Improve reporting of the order of the cast and the actual types involved.
+   - Improve reporting where the result is expanded from a macro by either reporting the macro itself (if it is not dependent on the context) or by including a link to the macro in the alert message.
+ - `RULE-11-5` - `ConversionFromPointerToVoidIntoPointerToObject.ql`:
+    - Fixed issue #331 - consider `0` a null pointer constant.
+ - `RULE-11-6` - `CastBetweenPointerToVoidAndArithmeticType.ql`:
+    - Fixed issue #331 - accept integer constant expressions with value `0` instead of null pointer constants.
+ - `RULE-11-9` - `MacroNullNotUsedAsIntegerNullPointerConstant.ql`:
+    - Remove false positives in branches of ternary expressions, where `0` was used correctly.
