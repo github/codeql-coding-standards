@@ -30,6 +30,7 @@ func_ptr_t1 returns_func(int x) {
 #define MACRO_IDENTITY(f) (f)
 #define MACRO_INVOKE_RISKY(f) (f())
 #define MACRO_INVOKE_IMPROVED(f) ((f)())
+#define MACRO_INVOKE_AND_USE_AS_TOKEN(f) f(0, #f)
 
 void test() {
     func1();     // COMPLIANT
@@ -69,13 +70,15 @@ void test() {
     ((void*) func1);     // NON-COMPLIANT 
 
     MACRO_IDENTITY(func1); // NON-COMPLIANT
-    MACRO_IDENTITY(func1)(); // NON-COMPLIANT
+    MACRO_IDENTITY(func1)(); // NON-COMPLIANT[FALSE NEGATIVE]
     MACRO_IDENTITY(&func1); // COMPLIANT
     MACRO_IDENTITY(&func1)(); // COMPLIANT
 
-    MACRO_INVOKE_RISKY(func3); // NON-COMPLIANT
-    MACRO_INVOKE_IMPROVED(func3); // NON-COMPLIANT
+    MACRO_INVOKE_RISKY(func3); // NON-COMPLIANT[FALSE NEGATIVE]
+    MACRO_INVOKE_IMPROVED(func3); // NON-COMPLIANT[FALSE NEGATIVE]
     MACRO_INVOKE_IMPROVED(&func3); // COMPLIANT
+
+    MACRO_INVOKE_AND_USE_AS_TOKEN(func1); // COMPLIANT
 
     // Function pointers are exempt from this rule.
     func_ptr1(); // COMPLIANT

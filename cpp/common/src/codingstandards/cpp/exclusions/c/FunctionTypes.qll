@@ -3,9 +3,7 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype FunctionTypesQuery =
-  TFunctionAddressesShouldAddressOperatorQuery() or
-  TDisallowedFunctionTypeQualifierQuery()
+newtype FunctionTypesQuery = TFunctionAddressesShouldAddressOperatorQuery()
 
 predicate isFunctionTypesQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -16,15 +14,6 @@ predicate isFunctionTypesQueryMetadata(Query query, string queryId, string ruleI
     "c/misra/function-addresses-should-address-operator" and
   ruleId = "RULE-17-12" and
   category = "advisory"
-  or
-  query =
-    // `Query` instance for the `disallowedFunctionTypeQualifier` query
-    FunctionTypesPackage::disallowedFunctionTypeQualifierQuery() and
-  queryId =
-    // `@id` for the `disallowedFunctionTypeQualifier` query
-    "c/misra/disallowed-function-type-qualifier" and
-  ruleId = "RULE-17-13" and
-  category = "required"
 }
 
 module FunctionTypesPackage {
@@ -33,12 +22,5 @@ module FunctionTypesPackage {
     result =
       // `Query` type for `functionAddressesShouldAddressOperator` query
       TQueryC(TFunctionTypesPackageQuery(TFunctionAddressesShouldAddressOperatorQuery()))
-  }
-
-  Query disallowedFunctionTypeQualifierQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `disallowedFunctionTypeQualifier` query
-      TQueryC(TFunctionTypesPackageQuery(TDisallowedFunctionTypeQualifierQuery()))
   }
 }

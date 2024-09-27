@@ -23,19 +23,7 @@
       "properties": {
         "obligation": "required"
       },
-      "queries": [
-        {
-          "description": "The behavior of type qualifiers on a function type is undefined.",
-          "kind": "problem",
-          "name": "A function type shall not include any type qualifiers (const, volatile, restrict, or _Atomic)",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "DisallowedFunctionTypeQualifier",
-          "tags": [
-            "correctness"
-          ]
-        }
-      ],
+      "queries": [],
       "title": "A function type shall not include any type qualifiers (const, volatile, restrict, or _Atomic)"
     }
   }
