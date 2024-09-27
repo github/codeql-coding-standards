@@ -165,7 +165,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Check if run-test-suites job failed to complete, if so fail
-        if: ${{ needs.run-test-suites.result == 'failure }}
+        if: ${{ needs.run-test-suites.result == 'failure' }}
         uses: actions/github-script@v3
         with:
           script: |
