@@ -29,5 +29,6 @@ query predicate problems(NoreturnFunction f, string message) {
   mayReturn(f) and
   not f.isCompilerGenerated() and
   message =
-    "The function " + f.getName() + " declared with attribute " + describeNoreturn(f) + " returns a value."
+    "The function " + f.getName() + " declared with attribute " + describeNoreturn(f) +
+      " returns a value."
 }

@@ -1,6 +1,6 @@
+#include "setjmp.h"
 #include "stdlib.h"
 #include "threads.h"
-#include "setjmp.h"
 
 _Noreturn void test_noreturn_f1(int i) { // COMPLIANT
   abort();
@@ -61,20 +61,25 @@ _Noreturn void test_noreturn_f9(int i) { // COMPLIANT
 }
 
 _Noreturn void test_noreturn_f10(int i) { // COMPLIANT
-  switch(i) {
-    case 0:
-      abort(); break;
-    case 1:
-      exit(0); break;
-    case 2:
-      _Exit(0); break;
-    case 3:
-      quick_exit(0); break;
-    case 4:
-      thrd_exit(0); break;
-    default:
-      jmp_buf jb;
-      longjmp(jb, 0);
+  switch (i) {
+  case 0:
+    abort();
+    break;
+  case 1:
+    exit(0);
+    break;
+  case 2:
+    _Exit(0);
+    break;
+  case 3:
+    quick_exit(0);
+    break;
+  case 4:
+    thrd_exit(0);
+    break;
+  default:
+    jmp_buf jb;
+    longjmp(jb, 0);
   }
 }
 
