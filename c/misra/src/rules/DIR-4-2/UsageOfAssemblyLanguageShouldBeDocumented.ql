@@ -15,7 +15,7 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.usageofassemblernotdocumented.UsageOfAssemblerNotDocumented
 
-class UsageOfAssemblyLanguageShouldBeDocumentedQuery  UsageOfAssemblerNotDocumentedSharedQuery
+class UsageOfAssemblyLanguageShouldBeDocumentedQuery extends UsageOfAssemblerNotDocumentedSharedQuery
 {
   UsageOfAssemblyLanguageShouldBeDocumentedQuery() {
     this = Language2Package::usageOfAssemblyLanguageShouldBeDocumentedQuery()
