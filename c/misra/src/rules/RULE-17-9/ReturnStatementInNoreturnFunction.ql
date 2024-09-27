@@ -6,15 +6,16 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-17-9
+ *       correctness
  *       external/misra/obligation/mandatory
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Noreturn
+import codingstandards.cpp.rules.functionnoreturnattributecondition.FunctionNoReturnAttributeCondition
 
-from NoreturnFunction f
-where
-  not isExcluded(f, NoReturnPackage::returnStatementInNoreturnFunctionQuery()) and
-  mayReturn(f)
-select f, "The function " + f.getName() + " declared with attribute _Noreturn returns a value."
+class ReturnStatementInNoreturnFunctionQuery extends FunctionNoReturnAttributeConditionSharedQuery {
+  ReturnStatementInNoreturnFunctionQuery() {
+    this = NoReturnPackage::returnStatementInNoreturnFunctionQuery()
+  }
+}

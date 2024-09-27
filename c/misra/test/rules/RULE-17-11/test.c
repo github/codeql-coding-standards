@@ -89,3 +89,16 @@ __attribute__((noreturn)) void test_noreturn_f13(int i) { // COMPLIANT
 int main(char **argv, int argc) { // COMPLIANT
   abort();
 }
+
+_Noreturn void test_noreturn_f14(int i) { // COMPLIANT
+  test_noreturn_f1(i);
+}
+
+void test_noreturn_f15(int i) { // NON_COMPLIANT
+  test_noreturn_f1(i);
+}
+
+void test_noreturn_f16(int i) { // NON_COMPLIANT
+  // Infinite tail recursion
+  test_noreturn_f16(i);
+}

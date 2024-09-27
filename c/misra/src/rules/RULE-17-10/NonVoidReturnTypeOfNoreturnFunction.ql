@@ -7,18 +7,20 @@
  * @precision very-high
  * @problem.severity recommendation
  * @tags external/misra/id/rule-17-10
+ *       correctness
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Noreturn
+import codingstandards.cpp.Noreturn
 
 from NoreturnFunction f, Type returnType
 where
   not isExcluded(f, NoReturnPackage::nonVoidReturnTypeOfNoreturnFunctionQuery()) and
   returnType = f.getType() and
-  not returnType instanceof VoidType
+  not returnType instanceof VoidType and
+  not f.isCompilerGenerated()
 select f,
   "The function " + f.getName() + " is declared _noreturn but has a return type of " +
     returnType.toString() + "."

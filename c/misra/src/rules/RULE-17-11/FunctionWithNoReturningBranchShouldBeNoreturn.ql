@@ -6,12 +6,13 @@
  * @precision high
  * @problem.severity recommendation
  * @tags external/misra/id/rule-17-11
+ *       correctness
  *       external/misra/obligation/advisory
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Noreturn
+import codingstandards.cpp.Noreturn
 
 from Function f
 where
@@ -19,6 +20,7 @@ where
   not f instanceof NoreturnFunction and
   not mayReturn(f) and
   f.hasDefinition() and
-  f.getName() != "main" // Allowed exception; _Noreturn main() is undefined behavior.
+  not f.getName() = "main" and // Allowed exception; _Noreturn main() is undefined behavior.
+  not f.isCompilerGenerated()
 select f,
   "The function " + f.getName() + " cannot return and should be declared attribute _Noreturn."

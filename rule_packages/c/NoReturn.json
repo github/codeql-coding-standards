@@ -12,7 +12,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NonVoidReturnTypeOfNoreturnFunction",
-          "tags": []
+          "tags": ["correctness"]
         }
       ],
       "title": "A function declared with _noreturn shall have a return type of void"
@@ -29,7 +29,7 @@
           "precision": "high",
           "severity": "recommendation",
           "short_name": "FunctionWithNoReturningBranchShouldBeNoreturn",
-          "tags": []
+          "tags": ["correctness"]
         }
       ],
       "title": "A function without a branch that returns shall be declared with _Noreturn"
@@ -46,7 +46,8 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ReturnStatementInNoreturnFunction",
-          "tags": []
+          "tags": ["correctness"],
+          "shared_implementation_short_name": "FunctionNoReturnAttributeCondition"
         }
       ],
       "title": "Verify that a function declared with _Noreturn does not return"
