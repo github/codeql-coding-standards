@@ -1,0 +1,42 @@
+{
+  "MISRA-C-2012": {
+    "RULE-7-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Integer constant macros should be given appropriate values for the size of the integer type.",
+          "kind": "problem",
+          "name": "The argument of an integer constant macro shall have an appropriate form",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InvalidIntegerConstantMacroArgument",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The argument of an integer constant macro shall have an appropriate form"
+    },
+    "RULE-7-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Small integer constant macros expression are promoted to type int, which can lead to unexpected results.",
+          "kind": "problem",
+          "name": "The small integer variants of the minimum-width integer constant macros shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UseOfBannedSmallIntegerConstantMacro",
+          "tags": [
+            "readability"
+          ]
+        }
+      ],
+      "title": "The small integer variants of the minimum-width integer constant macros shall not be used"
+    }
+  }
+}
