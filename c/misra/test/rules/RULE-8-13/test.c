@@ -111,3 +111,7 @@ void test_asm(int *p1) { // COMPLIANT - ignored due to ASM
 }
 
 void test_no_definition(int *p1); // COMPLIANT - no definition
+
+void test_increment(int *x) { // COMPLIANT - modified
+  *x++ = 10;
+}

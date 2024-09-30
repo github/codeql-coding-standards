@@ -185,8 +185,6 @@ Expr getAnEffect(Expr base) {
     getObjectModified(a.getLValue()) = base
   )
   or
-  exists(CrementOperation c | c.getOperand() = base and result = c)
-  or
   exists(FunctionCall c |
     c.getQualifier() = base and
     (modifyingOperator(c.getTarget()) or c instanceof DestructorCall) and
@@ -194,6 +192,14 @@ Expr getAnEffect(Expr base) {
   )
   or
   // recursive cases
+  exists(CrementOperation c | c.getOperand() = base |
+    // Direct effect of the crement
+    result = c
+    or
+    // Use of the result of the crement
+    result = getAnEffect(c)
+  )
+  or
   exists(ArrayExpr e | e.getArrayBase() = base | result = getAnEffect(e))
   or
   exists(VariableAccess va | va.getQualifier() = base | result = getAnEffect(va))
