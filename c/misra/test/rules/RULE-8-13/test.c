@@ -102,3 +102,10 @@ void test_fields3() {
   s2->a;
   non_modified(&s2);
 }
+
+void test_asm(int *p1) { // COMPLIANT - ignored due to ASM
+  struct S3 {
+    int *a; // COMPLIANT - ignored due to asm
+  } s3;
+  asm("mov %0, %1" : "=r"(s3.a) : "r"(p1));
+}

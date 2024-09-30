@@ -18,6 +18,12 @@ import codingstandards.c.misra
 import codingstandards.cpp.Pointers
 import codingstandards.cpp.SideEffect
 
+Function getEnclosingFunction(Variable v) {
+  result = v.(LocalScopeVariable).getFunction()
+  or
+  result = v.(Field).getDeclaringType().getEnclosingFunction()
+}
+
 from Variable ptr, PointerOrArrayType type
 where
   not isExcluded(ptr, Pointers1Package::pointerShouldPointToConstTypeWhenPossibleQuery()) and
@@ -41,5 +47,7 @@ where
   not exists(Variable a |
     a.getAnAssignedValue() = ptr.getAnAccess() and
     not a.getType().(PointerOrArrayType).isDeeplyConstBelow()
-  )
+  ) and
+  // Do not report variables declared in functions which use assembler
+  not exists(AsmStmt asm | asm.getEnclosingFunction() = getEnclosingFunction(ptr))
 select ptr, "$@ points to a non-const-qualified type.", ptr, ptr.getName()
