@@ -15,11 +15,9 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.IntegerConstantMacro
 
-
 from MacroInvocation macroInvoke, IntegerConstantMacro macro
 where
   not isExcluded(macroInvoke, Types2Package::useOfBannedSmallIntegerConstantMacroQuery()) and
-  macroInvoke.getMacro() = macro
-  and macro.isSmall()
-select
-  macroInvoke, "Usage of small integer constant macro " + macro.getName() + " is not allowed."
+  macroInvoke.getMacro() = macro and
+  macro.isSmall()
+select macroInvoke, "Usage of small integer constant macro " + macro.getName() + " is not allowed."
