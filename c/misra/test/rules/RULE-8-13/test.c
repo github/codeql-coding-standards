@@ -109,3 +109,5 @@ void test_asm(int *p1) { // COMPLIANT - ignored due to ASM
   } s3;
   asm("mov %0, %1" : "=r"(s3.a) : "r"(p1));
 }
+
+void test_no_definition(int *p1); // COMPLIANT - no definition

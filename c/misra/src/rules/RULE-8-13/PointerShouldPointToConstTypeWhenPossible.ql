@@ -49,5 +49,7 @@ where
     not a.getType().(PointerOrArrayType).isDeeplyConstBelow()
   ) and
   // Do not report variables declared in functions which use assembler
-  not exists(AsmStmt asm | asm.getEnclosingFunction() = getEnclosingFunction(ptr))
+  not exists(AsmStmt asm | asm.getEnclosingFunction() = getEnclosingFunction(ptr)) and
+  // If ptr is a parameter, the function must be defined
+  (ptr instanceof Parameter implies ptr.(Parameter).getFunction().hasDefinition())
 select ptr, "$@ points to a non-const-qualified type.", ptr, ptr.getName()
