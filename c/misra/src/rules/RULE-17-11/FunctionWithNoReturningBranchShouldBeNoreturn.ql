@@ -25,5 +25,4 @@ where
   not f.isFromUninstantiatedTemplate(_) and
   not f.isDeleted() and
   not f.isCompilerGenerated()
-select f,
-  "The function " + f.getName() + " cannot return and should be declared as _Noreturn."
+select f, "The function " + f.getName() + " cannot return and should be declared as _Noreturn."
