@@ -1,6 +1,6 @@
-| test.c:7:6:7:21 | test_noreturn_f2 | The function test_noreturn_f2 cannot return and should be declared attribute _Noreturn. |
-| test.c:18:6:18:21 | test_noreturn_f4 | The function test_noreturn_f4 cannot return and should be declared attribute _Noreturn. |
-| test.c:47:6:47:21 | test_noreturn_f8 | The function test_noreturn_f8 cannot return and should be declared attribute _Noreturn. |
-| test.c:63:6:63:22 | test_noreturn_f10 | The function test_noreturn_f10 cannot return and should be declared attribute _Noreturn. |
-| test.c:97:6:97:22 | test_noreturn_f15 | The function test_noreturn_f15 cannot return and should be declared attribute _Noreturn. |
-| test.c:101:6:101:22 | test_noreturn_f16 | The function test_noreturn_f16 cannot return and should be declared attribute _Noreturn. |
+| test.c:7:6:7:21 | test_noreturn_f2 | The function test_noreturn_f2 cannot return and should be declared as _Noreturn. |
+| test.c:18:6:18:21 | test_noreturn_f4 | The function test_noreturn_f4 cannot return and should be declared as _Noreturn. |
+| test.c:47:6:47:21 | test_noreturn_f8 | The function test_noreturn_f8 cannot return and should be declared as _Noreturn. |
+| test.c:63:6:63:22 | test_noreturn_f10 | The function test_noreturn_f10 cannot return and should be declared as _Noreturn. |
+| test.c:97:6:97:22 | test_noreturn_f15 | The function test_noreturn_f15 cannot return and should be declared as _Noreturn. |
+| test.c:101:6:101:22 | test_noreturn_f16 | The function test_noreturn_f16 cannot return and should be declared as _Noreturn. |
