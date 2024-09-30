@@ -1,0 +1,28 @@
+| test.c:26:13:26:15 | 256 | Integer constant macro value is too large for the specified type |
+| test.c:27:13:27:16 | 256 | Integer constant macro value is too large for the specified type |
+| test.c:28:13:28:17 | 256 | Integer constant macro value is too large for the specified type |
+| test.c:31:13:31:14 | - ... | Integer constant macro value cannot be negative |
+| test.c:32:13:32:15 | - ... | Integer constant macro value cannot be negative |
+| test.c:33:13:33:15 | - ... | Integer constant macro value cannot be negative |
+| test.c:34:13:34:17 | - ... | Integer constant macro value cannot be negative |
+| test.c:55:12:55:14 | 128 | Integer constant macro value is too large for the specified type |
+| test.c:56:12:56:15 | 128 | Integer constant macro value is too large for the specified type |
+| test.c:57:12:57:15 | 128 | Integer constant macro value is too large for the specified type |
+| test.c:61:12:61:15 | - ... | Integer constant macro value is too large for the specified type |
+| test.c:62:12:62:16 | - ... | Integer constant macro value is too large for the specified type |
+| test.c:63:12:63:16 | - ... | Integer constant macro value is too large for the specified type |
+| test.c:76:14:76:18 | 65536 | Integer constant macro value is too large for the specified type |
+| test.c:77:14:77:20 | 65536 | Integer constant macro value is too large for the specified type |
+| test.c:78:14:78:20 | 65536 | Integer constant macro value is too large for the specified type |
+| test.c:91:13:91:17 | 32768 | Integer constant macro value is too large for the specified type |
+| test.c:92:13:92:19 | 32768 | Integer constant macro value is too large for the specified type |
+| test.c:93:13:93:18 | 32768 | Integer constant macro value is too large for the specified type |
+| test.c:97:13:97:18 | - ... | Integer constant macro value is too large for the specified type |
+| test.c:98:13:98:20 | - ... | Integer constant macro value is too large for the specified type |
+| test.c:99:13:99:19 | - ... | Integer constant macro value is too large for the specified type |
+| test.c:109:14:109:24 | 4294967296 | Integer constant macro value is too large for the specified type |
+| test.c:110:14:110:25 | 4294967296 | Integer constant macro value is too large for the specified type |
+| test.c:120:13:120:22 | 2147483648 | Integer constant macro value is too large for the specified type |
+| test.c:121:13:121:22 | 2147483648 | Integer constant macro value is too large for the specified type |
+| test.c:124:13:124:23 | - ... | Integer constant macro value is too large for the specified type |
+| test.c:125:13:125:23 | - ... | Integer constant macro value is too large for the specified type |

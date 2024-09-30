@@ -4,6 +4,7 @@
 
 import cpp
 import codingstandards.cpp.Cpp14Literal
+import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
 class IntegerLiteral = Cpp14Literal::IntegerLiteral;
 
@@ -69,4 +70,47 @@ class BoolLiteral extends Literal {
     or
     this.getValue() = "0" and this.getValueText() = "false"
   }
+}
+
+/**
+ * Abstract case to handle positive and negative "literal" expressions.
+ *
+ * All numeric literals in c/cpp are positive. To create a negative constant
+ * value in a program means applying the unary- operator to a positive literal.
+ * This class effectively describes positive or negative literals.
+ */
+abstract class PossiblyNegativeLiteral extends Expr {
+  /* The syntactic literal, stripped of potential negation */
+  abstract Cpp14Literal::NumericLiteral getBaseLiteral();
+
+  /* The value as a literal reads, without potential underflows from negation */
+  abstract float getRawValue();
+
+  predicate isNegative() { this instanceof NegativeLiteral }
+}
+
+/**
+ * A negation of a positive literal, creating what can be thought of as a
+ * "negative literal."
+ */
+class NegativeLiteral extends PossiblyNegativeLiteral, UnaryMinusExpr {
+  Cpp14Literal::NumericLiteral literal;
+
+  NegativeLiteral() { literal = getOperand() }
+
+  override Cpp14Literal::NumericLiteral getBaseLiteral() { result = literal }
+
+  override float getRawValue() { result = -lowerBound(literal) }
+}
+
+/**
+ * A literal which is not immediately negated by a parent unary- expression,
+ * which can be thought of as a "positive literal."
+ */
+class PositiveLiteral extends PossiblyNegativeLiteral, Cpp14Literal::NumericLiteral {
+  PositiveLiteral() { not exists(UnaryMinusExpr l | l.getOperand() = this) }
+
+  override Cpp14Literal::NumericLiteral getBaseLiteral() { result = this }
+
+  override float getRawValue() { result = lowerBound(this) }
 }

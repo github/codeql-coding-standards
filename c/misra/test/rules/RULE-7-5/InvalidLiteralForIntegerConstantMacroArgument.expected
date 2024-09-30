@@ -1,0 +1,2 @@
+| test.c:12:13:12:15 | 1.0 | Integer constant macro arguments must be a decimal, octal, or hex integer literal. |
+| test.c:13:13:13:17 | 7 | Integer constant macro arguments must be a decimal, octal, or hex integer literal. |

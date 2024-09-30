@@ -1,0 +1,5 @@
+| test.c:16:13:16:14 | 1 | Integer constant macro arguments should not have 'u'/'l' suffix. |
+| test.c:17:13:17:14 | 2 | Integer constant macro arguments should not have 'u'/'l' suffix. |
+| test.c:18:13:18:14 | 3 | Integer constant macro arguments should not have 'u'/'l' suffix. |
+| test.c:19:13:19:14 | 4 | Integer constant macro arguments should not have 'u'/'l' suffix. |
+| test.c:20:13:20:15 | 5 | Integer constant macro arguments should not have 'u'/'l' suffix. |
