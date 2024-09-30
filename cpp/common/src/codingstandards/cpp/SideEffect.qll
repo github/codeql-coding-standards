@@ -167,13 +167,23 @@ private predicate modifyingOperator(Function op) {
     ]
 }
 
+private VariableAccess getObjectModified(VariableAccess access) {
+  if access instanceof FieldAccess
+  then result = getObjectModified(access.getQualifier())
+  else result = access
+}
+
 /** Gets an effect directly applied to expression `base` or indirectly but changes the identity of `base`. */
 Expr getAnEffect(Expr base) {
   // base cases
   result = base and
   base instanceof SideEffect
   or
-  exists(Assignment a | a.getLValue() = base and result = a)
+  exists(Assignment a | result = a |
+    a.getLValue() = base
+    or
+    getObjectModified(a.getLValue()) = base
+  )
   or
   exists(CrementOperation c | c.getOperand() = base and result = c)
   or
