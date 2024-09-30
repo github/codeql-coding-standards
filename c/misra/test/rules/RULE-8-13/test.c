@@ -76,3 +76,13 @@ int f17(char *p1) { // NON_COMPLIANT
   p1++;
   return 0;
 }
+
+typedef struct S {
+  int a;
+} S;
+
+void test_fields() {
+  S s1;
+  S *s2 = &s1; // COMPLIANT - modified, not const
+  s2->a = 10;
+}
