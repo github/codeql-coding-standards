@@ -202,13 +202,18 @@ Expr getAnEffect(Expr base) {
   or
   // local alias analysis, assume alias when data flows to derived type (pointer/reference)
   // auto ptr = &base;
-  exists(VariableAccess va, AddressOfExpr addressOf |
-    not base = va and
-    addressOf.getOperand() = base and
-    DataFlow::localFlow(DataFlow::exprNode(addressOf), DataFlow::exprNode(va)) and
-    va.getTarget().getUnspecifiedType() instanceof DerivedType
-  |
-    result = getAnEffect(va)
+  exists(AddressOfExpr addressOf | addressOf.getOperand() = base |
+    exists(VariableAccess va |
+      // Address of expression flows to a variable access that has an affect
+      DataFlow::localFlow(DataFlow::exprNode(addressOf), DataFlow::exprNode(va)) and
+      va.getTarget().getUnspecifiedType() instanceof DerivedType and
+      result = getAnEffect(va) and
+      not base = va
+    )
+    or
+    // Address of directly has a side effect, e.g. being passed as the argument to
+    // a function call
+    result = getAnEffect(addressOf)
   )
   or
   // local alias analysis, initializing a reference variable with a base, potentially through a cast, such as `T* ptr = (T*)base`

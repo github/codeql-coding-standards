@@ -12,3 +12,5 @@
 | test.c:66:23:66:24 | p1 | $@ points to a non-const-qualified type. | test.c:66:23:66:24 | p1 | p1 |
 | test.c:71:17:71:18 | p1 | $@ points to a non-const-qualified type. | test.c:71:17:71:18 | p1 | p1 |
 | test.c:75:15:75:16 | p1 | $@ points to a non-const-qualified type. | test.c:75:15:75:16 | p1 | p1 |
+| test.c:97:22:97:22 | s | $@ points to a non-const-qualified type. | test.c:97:22:97:22 | s | s |
+| test.c:101:6:101:7 | s2 | $@ points to a non-const-qualified type. | test.c:101:6:101:7 | s2 | s2 |

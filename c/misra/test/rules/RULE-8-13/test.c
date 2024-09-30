@@ -86,3 +86,19 @@ void test_fields() {
   S *s2 = &s1; // COMPLIANT - modified, not const
   s2->a = 10;
 }
+
+void modifies(S *s) { s->a = 10; }
+
+void test_fields2() {
+  S s1;
+  S *s2 = &s1; // COMPLIANT - modified, not const
+  modifies(&s2);
+}
+void non_modified(S *s) { s->a; } // NON_COMPLIANT
+
+void test_fields3() {
+  S s1 = {10};
+  S *s2 = &s1; // NON_COMPLIANT
+  s2->a;
+  non_modified(&s2);
+}
