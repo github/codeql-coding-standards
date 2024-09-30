@@ -1,7 +1,7 @@
 /**
  * @id c/misra/invalid-literal-for-integer-constant-macro-argument
  * @name RULE-7-5: The argument of an integer constant macro shall be a decimal, hex, or octal literal
- * @description Integer constant macro arguments should be a decimal, hex, or octal literal
+ * @description Integer constant macro arguments should be a decimal, hex, or octal literal.
  * @kind problem
  * @precision very-high
  * @problem.severity error

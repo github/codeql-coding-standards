@@ -1,7 +1,7 @@
 /**
  * @id c/misra/invalid-integer-constant-macro-argument
  * @name RULE-7-5: The argument of an integer constant macro shall be a literal
- * @description Integer constant macros should be given a literal value as an argument
+ * @description Integer constant macros should be given a literal value as an argument.
  * @kind problem
  * @precision very-high
  * @problem.severity error

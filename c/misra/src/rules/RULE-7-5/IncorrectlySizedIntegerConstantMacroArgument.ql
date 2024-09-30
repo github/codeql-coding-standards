@@ -1,7 +1,7 @@
 /**
  * @id c/misra/incorrectly-sized-integer-constant-macro-argument
  * @name RULE-7-5: The argument of an integer constant macro shall have an appropriate size
- * @description Integer constant macros argument values should be values of a compatible size
+ * @description Integer constant macros argument values should be values of a compatible size.
  * @kind problem
  * @precision very-high
  * @problem.severity error
