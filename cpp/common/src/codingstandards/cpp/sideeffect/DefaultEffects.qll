@@ -19,14 +19,14 @@ private class DirectStaticStorageDurationVariableModification extends VariableEf
   GlobalSideEffect::Range
 {
   DirectStaticStorageDurationVariableModification() {
-    this.getTarget() instanceof StaticStorageDurationVariable
+    this.getATarget() instanceof StaticStorageDurationVariable
   }
 }
 
 private class ConstructorFieldInitEffect extends GlobalSideEffect::Range, ConstructorFieldInit { }
 
 private class AliasVariableModification extends VariableEffect, GlobalSideEffect::Range {
-  AliasVariableModification() { this.getTarget() instanceof AliasParameter }
+  AliasVariableModification() { this.getATarget() instanceof AliasParameter }
 }
 
 private class ViolatileAccess extends ExternalSideEffect::Range, VariableAccess {

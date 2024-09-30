@@ -236,15 +236,15 @@ class VariableEffect extends Expr {
 
   VariableEffect() { this = getAnEffect(va) and v = va.getTarget() }
 
-  Variable getTarget() { result = v }
+  Variable getATarget() { result = v }
 
-  VariableAccess getAnAccess() { result = va }
+  VariableAccess getAnAccess(Variable var) { var = v and result = va }
 
   // Holds if an effect modifies the identity of an object and not the entire object.
-  predicate isPartial() {
-    exists(VariableAccess qualifiedAccess | qualifiedAccess.getQualifier() = getAnAccess())
+  predicate isPartial(Variable target) {
+    exists(VariableAccess qualifiedAccess | qualifiedAccess.getQualifier() = getAnAccess(target))
     or
-    exists(ArrayExpr array | array.getArrayBase() = getAnAccess())
+    exists(ArrayExpr array | array.getArrayBase() = getAnAccess(target))
   }
 }
 
@@ -256,7 +256,7 @@ class MemberVariableEffect extends Expr {
   }
 
   Variable getTarget() {
-    result = this.(VariableEffect).getTarget()
+    result = this.(VariableEffect).getATarget()
     or
     result = this.(ConstructorFieldInit).getTarget()
   }

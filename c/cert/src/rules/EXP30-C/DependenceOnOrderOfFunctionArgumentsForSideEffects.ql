@@ -105,8 +105,8 @@ where
       v2 = v and
       returnValueDependsOnGlobalVariable(f1, v) and
       returnValueDependsOnGlobalVariable(f2, v) and
-      ve1.getTarget() = v and
-      ve2.getTarget() = v
+      ve1.getATarget() = v and
+      ve2.getATarget() = v
     )
     or
     // - member variables that can be modified in both functions

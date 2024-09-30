@@ -53,7 +53,7 @@ where
   sink.getNode()
       .asExpr()
       .(VariableEffect)
-      .getTarget()
+      .getATarget()
       .getType()
       .(DerivedType)
       .getBaseType*()

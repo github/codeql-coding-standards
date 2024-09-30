@@ -26,7 +26,9 @@ class VariableEffectOrAccess extends Expr {
 pragma[noinline]
 predicate partOfFullExpr(VariableEffectOrAccess e, FullExpr fe) {
   (
-    exists(VariableEffect ve | e = ve and ve.getAnAccess() = fe.getAChild+() and not ve.isPartial())
+    exists(VariableEffect ve, Variable v |
+      e = ve and v = ve.getATarget() and ve.getAnAccess(v) = fe.getAChild+() and not ve.isPartial(v)
+    )
     or
     e.(VariableAccess) = fe.getAChild+()
   )
@@ -179,12 +181,12 @@ predicate isUnsequencedEffect(
   sameFullExpr(fullExpr, va1, va2) and
   // We are only interested in effects that change an object,
   // i.e., exclude patterns suchs as `b->data[b->cursor++]` where `b` is considered modified and read or `foo.bar = 1` where `=` modifies to both `foo` and `bar`.
-  not variableEffect1.isPartial() and
-  variableEffect1.getAnAccess() = va1 and
+  not variableEffect1.isPartial(_) and
+  variableEffect1.getAnAccess(_) = va1 and
   (
     exists(VariableEffect variableEffect2 |
-      not variableEffect2.isPartial() and
-      variableEffect2.getAnAccess() = va2 and
+      not variableEffect2.isPartial(_) and
+      variableEffect2.getAnAccess(_) = va2 and
       // If the effect is not local (happens in a different function) we use the call with the access as a proxy.
       (
         va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
@@ -217,7 +219,7 @@ predicate isUnsequencedEffect(
     placeHolder = va2 and
     label = "read" and
     not exists(VariableEffect variableEffect2 | variableEffect1 != variableEffect2 |
-      variableEffect2.getAnAccess() = va2
+      variableEffect2.getAnAccess(_) = va2
     ) and
     (
       va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and

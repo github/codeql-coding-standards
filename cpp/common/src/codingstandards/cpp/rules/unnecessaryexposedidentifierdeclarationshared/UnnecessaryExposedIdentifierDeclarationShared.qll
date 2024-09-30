@@ -77,7 +77,7 @@ predicate isTempVariable(LocalVariable v) {
     |
       (
         (
-          sideEffect.(VariableEffect).getTarget() = dependentVariable and
+          sideEffect.(VariableEffect).getATarget() = dependentVariable and
           if not sideEffect.getEnclosingFunction() = va.getEnclosingFunction()
           then
             exists(FunctionCall call |

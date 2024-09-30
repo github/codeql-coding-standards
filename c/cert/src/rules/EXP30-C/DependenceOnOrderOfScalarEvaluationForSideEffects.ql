@@ -23,7 +23,7 @@ from
 where
   not isExcluded(e, SideEffects1Package::dependenceOnOrderOfScalarEvaluationForSideEffectsQuery()) and
   e = va1.(ConstituentExpr).getFullExpr() and
-  va1 = ve.getAnAccess() and
+  va1 = ve.getAnAccess(v) and
   config.isUnsequenced(va1, va2) and
   v = va1.getTarget()
 select e, "Scalar object referenced by $@ has a $@ that is unsequenced in relative to another $@.",

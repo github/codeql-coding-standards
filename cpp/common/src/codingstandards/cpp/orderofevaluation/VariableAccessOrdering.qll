@@ -32,11 +32,11 @@ predicate isCandidatePair(
 predicate isCandidate(FullExpr e, VariableAccess va1, VariableAccess va2) {
   exists(Variable v, VariableEffect ve |
     isCandidatePair(e, va1, va2, v, v) and
-    ve.getAnAccess() = va1 and
+    ve.getAnAccess(v) = va1 and
     not e = ve and
     // Exclude partial effects, such as changing a value of a field or an array entry, because we currently cannot properly
     // match those to determine an unsequenced value computation and side-effects.
-    not ve.isPartial() and
+    not ve.isPartial(v) and
     (
       e instanceof Operation and
       // Prevent side-effects that are sequenced after the value computation and side-effects of the candidates.

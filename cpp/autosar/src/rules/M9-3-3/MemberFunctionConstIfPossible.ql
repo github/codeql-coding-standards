@@ -75,7 +75,7 @@ class ConstMemberFunctionCandidate extends NonConstMemberFunction {
    */
   predicate modifiesMemberData() {
     exists(VariableEffect e, NonStaticMemberVariable v |
-      e.getTarget() = v and
+      e.getATarget() = v and
       this = e.getEnclosingFunction() and
       belongsToClass(v, this.getDeclaringType())
     )

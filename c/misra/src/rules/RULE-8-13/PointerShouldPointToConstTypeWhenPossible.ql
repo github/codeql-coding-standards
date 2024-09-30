@@ -32,10 +32,10 @@ where
   ) and
   // exclude any pointers which have their underlying data modified
   not exists(VariableEffect effect |
-    effect.getTarget() = ptr and
+    effect.getATarget() = ptr and
     // but not pointers that are only themselves modified
-    not effect.(AssignExpr).getLValue() = effect.getAnAccess() and
-    not effect.(CrementOperation).getOperand() = effect.getAnAccess()
+    not effect.(AssignExpr).getLValue() = effect.getAnAccess(ptr) and
+    not effect.(CrementOperation).getOperand() = effect.getAnAccess(ptr)
   ) and
   // exclude pointers assigned to another pointer to a non-const-qualified type
   not exists(Variable a |

@@ -72,7 +72,7 @@ class NonConstPointerParameter extends Parameter {
 }
 
 //direct and indirect modification via VariableEffect
-predicate isNotDirectlyModified(Variable v) { not exists(VariableEffect e | e.getTarget() = v) }
+predicate isNotDirectlyModified(Variable v) { not exists(VariableEffect e | e.getATarget() = v) }
 
 class FunctionCallToNonConst extends FunctionCall {
   FunctionCallToNonConst() { not this.getTarget().hasSpecifier("const") }

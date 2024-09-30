@@ -26,7 +26,7 @@ from
 where
   not isExcluded(e, OrderOfEvaluationPackage::expressionShouldNotRelyOnOrderOfEvaluationQuery()) and
   e = va1.(ConstituentExpr).getFullExpr() and
-  va1 = ve.getAnAccess() and
+  va1 = ve.getAnAccess(v) and
   config.isUnsequenced(va1, va2) and
   v = va1.getTarget()
 select e,

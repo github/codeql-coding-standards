@@ -56,7 +56,7 @@ where
     v.getInitializer().getExpr().(AggregateLiteral).getNumChild() = 0
   ) and
   // Not modified directly
-  not exists(VariableEffect e | e.getTarget() = v) and
+  not exists(VariableEffect e | e.getATarget() = v) and
   // No address taken in a non-const way
   not v.getAnAccess().isAddressOfAccessNonConst() and
   // Not assigned by a user in a constructor

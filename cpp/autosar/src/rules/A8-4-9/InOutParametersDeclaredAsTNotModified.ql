@@ -43,7 +43,7 @@ where
   (
     //read and not written
     exists(p.getAnAccess()) and
-    not exists(VariableEffect ve | ve.getTarget() = p) and
+    not exists(VariableEffect ve | ve.getATarget() = p) and
     // Exclusion that we cannot track with `VariableEffect`.
     not exists(ConstructorCall call, Parameter parameter, int index |
       DataFlow::localExprFlow(p.getAnAccess(), call.getArgument(index)) and
@@ -70,7 +70,7 @@ where
     //written and not read
     forex(VariableAccess va | va.getTarget() = p |
       exists(VariableEffect ve |
-        ve.getAnAccess() = va and
+        ve.getAnAccess(p) = va and
         // exclude assign operations, because the arguable also read the variable
         not ve instanceof AnyAssignOperation and
         not ve instanceof CrementOperation
