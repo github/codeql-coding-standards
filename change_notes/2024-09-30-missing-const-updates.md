@@ -1,0 +1,6 @@
+ - `RULE-8-13` - `PointerShouldPointToConstTypeWhenPossible.ql`:
+   - Remove false positives for parameters for functions without definitions.
+   - Remove false positives for variables involved in ASM.
+   - Remove false positives for variables modified via function calls where the variables address is provided directly as an argument.
+   - Remove false positives where the fields of a class is modified.
+   - Remove false positives where the output of a crement operation is used as an l value.
