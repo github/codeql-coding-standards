@@ -16,11 +16,14 @@ import codingstandards.cpp.Noreturn
 
 from Function f
 where
-  not isExcluded(f, NoReturnPackage::returnStatementInNoreturnFunctionQuery()) and
+  not isExcluded(f, NoReturnPackage::functionWithNoReturningBranchShouldBeNoreturnQuery()) and
   not f instanceof NoreturnFunction and
   not mayReturn(f) and
   f.hasDefinition() and
   not f.getName() = "main" and // Allowed exception; _Noreturn main() is undefined behavior.
+  // Harden against c++ cases.
+  not f.isFromUninstantiatedTemplate(_) and
+  not f.isDeleted() and
   not f.isCompilerGenerated()
 select f,
-  "The function " + f.getName() + " cannot return and should be declared attribute _Noreturn."
+  "The function " + f.getName() + " cannot return and should be declared as _Noreturn."
