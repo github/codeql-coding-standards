@@ -9,6 +9,9 @@ module Cpp14Literal {
   /** An numeric literal. */
   abstract class NumericLiteral extends StandardLibrary::Literal { }
 
+  /** Convenience for implementing class `UnrecognizedNumericLiteral` */
+  abstract private class RecognizedNumericLiteral extends StandardLibrary::Literal { }
+
   /** An integer literal. */
   abstract class IntegerLiteral extends NumericLiteral {
     predicate isSigned() { not isUnsigned() }
@@ -23,7 +26,7 @@ module Cpp14Literal {
    * ```
    * Octal literals must always start with the digit `0`.
    */
-  class OctalLiteral extends IntegerLiteral {
+  class OctalLiteral extends IntegerLiteral, RecognizedNumericLiteral {
     OctalLiteral() { getValueText().regexpMatch("\\s*0[0-7']*[uUlL]*\\s*") }
 
     override string getAPrimaryQlClass() { result = "OctalLiteral" }
@@ -35,7 +38,7 @@ module Cpp14Literal {
    * unsigned int32_t minus2 = 0xfffffffe;
    * ```
    */
-  class HexLiteral extends IntegerLiteral {
+  class HexLiteral extends IntegerLiteral, RecognizedNumericLiteral {
     HexLiteral() { getValueText().regexpMatch("\\s*0[xX][0-9a-fA-F']+[uUlL]*\\s*") }
 
     override string getAPrimaryQlClass() { result = "HexLiteral" }
@@ -47,7 +50,7 @@ module Cpp14Literal {
    * unsigned int32_t binary = 0b101010;
    * ```
    */
-  class BinaryLiteral extends IntegerLiteral {
+  class BinaryLiteral extends IntegerLiteral, RecognizedNumericLiteral {
     BinaryLiteral() { getValueText().regexpMatch("\\s*0[bB][0-1']*[uUlL]*\\s*") }
 
     override string getAPrimaryQlClass() { result = "BinaryLiteral" }
@@ -59,7 +62,7 @@ module Cpp14Literal {
    * unsigned int32_t decimal = 10340923;
    * ```
    */
-  class DecimalLiteral extends IntegerLiteral {
+  class DecimalLiteral extends IntegerLiteral, RecognizedNumericLiteral {
     DecimalLiteral() { getValueText().regexpMatch("\\s*[1-9][0-9']*[uUlL]*\\s*") }
 
     override string getAPrimaryQlClass() { result = "DecimalLiteral" }
@@ -71,7 +74,7 @@ module Cpp14Literal {
    * double floating = 1.340923e-19;
    * ```
    */
-  class FloatingLiteral extends NumericLiteral {
+  class FloatingLiteral extends RecognizedNumericLiteral {
     FloatingLiteral() {
       getValueText().regexpMatch("\\s*[0-9][0-9']*(\\.[0-9']+)?([eE][\\+\\-]?[0-9']+)?[flFL]?\\s*") and
       // A decimal literal takes precedent
@@ -82,6 +85,23 @@ module Cpp14Literal {
 
     override string getAPrimaryQlClass() { result = "FloatingLiteral" }
   }
+
+  /**
+   * Literal values with conversions and macros cannot always be trivially
+   * parsed from `Literal.getValueText()`, and have loss of required
+   * information in `Literal.getValue()`. This class covers cases that appear
+   * to be `NumericLiteral`s but cannot be determined to be a hex, decimal,
+   * octal, binary, or float literal, but still are parsed as a Literal with a
+   * number value.
+   */
+  class UnrecognizedNumericLiteral extends NumericLiteral {
+    UnrecognizedNumericLiteral() {
+      this.getValue().regexpMatch("[0-9.e]+") and
+      not this instanceof RecognizedNumericLiteral
+    }
+  }
+
+  predicate test(RecognizedNumericLiteral r, string valueText) { valueText = r.getValueText() }
 
   /**
    * A character literal.  For example:

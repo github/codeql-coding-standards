@@ -23,7 +23,9 @@ import codingstandards.cpp.Literals
 predicate validLiteralType(PossiblyNegativeLiteral literal) {
   literal.getBaseLiteral() instanceof Cpp14Literal::DecimalLiteral or
   literal.getBaseLiteral() instanceof Cpp14Literal::OctalLiteral or
-  literal.getBaseLiteral() instanceof Cpp14Literal::HexLiteral
+  literal.getBaseLiteral() instanceof Cpp14Literal::HexLiteral or
+  // Ignore cases where the AST/extractor don't give us enough information:
+  literal.getBaseLiteral() instanceof Cpp14Literal::UnrecognizedNumericLiteral
 }
 
 /**

@@ -158,3 +158,10 @@ int_least64_t g8[] = {
     INT64_C(-0x8000000000000001), // NON-COMPLIANT[FALSE NEGATIVE]
     INT64_C(-0x8001000000000000), // NON-COMPLIANT
 };
+
+// Other edge cases:
+void f(void) {
+  uint32_t l1 = 1;
+  // `UnrecognizedNumericLiteral` case:
+  int64_t l2 = ((int32_t)UINT64_C(0x1b2) * (l1)); // COMPLIANT
+}
