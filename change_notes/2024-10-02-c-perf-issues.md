@@ -1,4 +1,4 @@
- - `RULE-10-7` - `.ql`:
+ - `RULE-10-7` - `ImplicitConversionOfCompositeExpression.ql`:
    - Improved performance on larger codebases.
  - `SIG31-C` - `DoNotAccessSharedObjectsInSignalHandlers.ql`:
    - Improved performance on larger codebases.
