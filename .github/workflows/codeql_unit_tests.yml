@@ -151,7 +151,7 @@ jobs:
               file.close()
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.language }}-test-results-${{ runner.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library_ident }}
           path: |
