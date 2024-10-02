@@ -18,7 +18,10 @@ The following coding standards are supported:
 
 ## :construction: Standards under development :construction:
 
-- [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development _scheduled for release 2024 Q4_.
+The following standards are under active development:
+
+- [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development - _scheduled for release 2025 Q1_
+- [MISRA C 2023](https://misra.org.uk/product/misra-c2023/) - under development - _scheduled for release 2025 Q1_
 
 ## How do I use the CodeQL Coding Standards Queries?
 
