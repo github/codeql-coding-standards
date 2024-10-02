@@ -75,7 +75,9 @@ module UnusedFunctions {
    */
 
   private class MainLikeFunctionEntryPoint extends EntryPoint, MainLikeFunction {
-    MainLikeFunctionEntryPoint() { this instanceof MainLikeFunction }
+    MainLikeFunctionEntryPoint() {
+      this instanceof MainLikeFunction or this instanceof GTestFunction
+    }
 
     override Function getAReachableFunction() { reachable*(this, result) }
   }
@@ -112,6 +114,26 @@ module UnusedFunctions {
   }
 
   /**
+   * A `MemberFunction` which is either a Default constructor, Destructor
+   * CopyConstructor, CopyAssingmentOperator, MoveConstructor or a
+   * MoveAssignmentOperator
+   */
+  predicate isASpecialMemberFunction(MemberFunction f) {
+    // Default constructor
+    f instanceof NoArgConstructor
+    or
+    f instanceof Destructor
+    or
+    f instanceof CopyConstructor
+    or
+    f instanceof CopyAssignmentOperator
+    or
+    f instanceof MoveConstructor
+    or
+    f instanceof MoveAssignmentOperator
+  }
+
+  /**
    * A `Function` which is not used from an `EntryPoint`.
    *
    * This class over-approximates "use", to avoid reporting false positives.
@@ -119,7 +141,12 @@ module UnusedFunctions {
   class UnusedFunction extends UsableFunction {
     UnusedFunction() {
       // This function, or an equivalent function, is not reachable from any entry point
-      not exists(EntryPoint ep | getAnEquivalentFunction(this) = ep.getAReachableFunction())
+      not exists(EntryPoint ep | getAnEquivalentFunction(this) = ep.getAReachableFunction()) and
+      // and it is not a constexpr. Refer issue #646.
+      // The usages of constexpr is not well tracked and hence
+      // to avoid false positives, this is added. In case there is an improvement in
+      // handling constexpr in CodeQL, we can consider removing it.
+      not this.isConstexpr()
     }
 
     string getDeadCodeType() {
@@ -127,5 +154,14 @@ module UnusedFunctions {
       then result = "never called from a main function or entry point."
       else result = "never called."
     }
+  }
+
+  /**
+   * A Special `MemberFunction` which is an `UnusedFunction`.
+   *
+   * Refer isASpecialMemberFunction predicate.
+   */
+  class UnusedSplMemberFunction extends UnusedFunction {
+    UnusedSplMemberFunction() { isASpecialMemberFunction(this) }
   }
 }

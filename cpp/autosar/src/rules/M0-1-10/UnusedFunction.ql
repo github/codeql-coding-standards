@@ -26,5 +26,6 @@ where
     then name = unusedFunction.getQualifiedName()
     else name = unusedFunction.getName()
   ) and
-  not unusedFunction.isDeleted()
+  not unusedFunction.isDeleted() and
+  not UnusedFunctions::isASpecialMemberFunction(unusedFunction)
 select unusedFunction, "Function " + name + " is " + unusedFunction.getDeadCodeType()
