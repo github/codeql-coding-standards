@@ -26,7 +26,7 @@
           "description": "Functions which cannot return should be declared with _Noreturn.",
           "kind": "problem",
           "name": "A function without a branch that returns shall be declared with _Noreturn",
-          "precision": "high",
+          "precision": "very-high",
           "severity": "recommendation",
           "short_name": "FunctionWithNoReturningBranchShouldBeNoreturn",
           "tags": ["correctness"]
