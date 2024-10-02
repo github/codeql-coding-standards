@@ -10,7 +10,7 @@
           "kind": "problem",
           "name": "The argument of an integer constant macro shall be a literal",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "warning",
           "short_name": "InvalidIntegerConstantMacroArgument",
           "tags": [
             "correctness"
