@@ -1,5 +1,7 @@
-| test.c:16:13:16:14 | 1 | Integer constant macro arguments should not have 'u'/'l' suffix. |
-| test.c:17:13:17:14 | 2 | Integer constant macro arguments should not have 'u'/'l' suffix. |
-| test.c:18:13:18:14 | 3 | Integer constant macro arguments should not have 'u'/'l' suffix. |
-| test.c:19:13:19:14 | 4 | Integer constant macro arguments should not have 'u'/'l' suffix. |
-| test.c:20:13:20:15 | 5 | Integer constant macro arguments should not have 'u'/'l' suffix. |
+| test.c:18:13:18:14 | 1 | Value suffix 'u' is not allowed on provided argument to integer constant macro UINT8_C. |
+| test.c:19:13:19:14 | 2 | Value suffix 'U' is not allowed on provided argument to integer constant macro UINT8_C. |
+| test.c:20:13:20:14 | 3 | Value suffix 'l' is not allowed on provided argument to integer constant macro UINT8_C. |
+| test.c:21:13:21:14 | 4 | Value suffix 'L' is not allowed on provided argument to integer constant macro UINT8_C. |
+| test.c:22:13:22:15 | 5 | Value suffix 'ul' is not allowed on provided argument to integer constant macro UINT8_C. |
+| test.c:23:13:23:15 | 5 | Value suffix 'll' is not allowed on provided argument to integer constant macro UINT8_C. |
+| test.c:24:13:24:16 | 5 | Value suffix 'ull' is not allowed on provided argument to integer constant macro UINT8_C. |

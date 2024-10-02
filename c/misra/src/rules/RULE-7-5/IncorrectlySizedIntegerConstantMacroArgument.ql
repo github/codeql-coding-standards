@@ -37,8 +37,9 @@ where
   invoke.getMacro() = macro and
   literal = invoke.getExpr() and
   (
-    not matchesSign(macro, invoke.getExpr()) and explanation = "cannot be negative"
+    not matchesSign(macro, invoke.getExpr()) and explanation = " cannot be negative"
     or
-    not matchesSize(macro, invoke.getExpr()) and explanation = "is too large for the specified type"
+    not matchesSize(macro, invoke.getExpr()) and
+    explanation = " is outside of the allowed range " + macro.getRangeString()
   )
-select invoke.getExpr(), "Integer constant macro value " + explanation
+select invoke.getExpr(), "Value provided to integer constant macro " + macro.getName() + explanation

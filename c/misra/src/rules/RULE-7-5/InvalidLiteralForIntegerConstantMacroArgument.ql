@@ -37,6 +37,18 @@ predicate seemsBinaryLiteral(MacroInvocation invoke) {
   invoke.getUnexpandedArgument(0).regexpMatch("0[bB][01]+")
 }
 
+string explainIncorrectArgument(MacroInvocation invoke) {
+  if seemsBinaryLiteral(invoke)
+  then result = "binary literal"
+  else
+    exists(PossiblyNegativeLiteral literal |
+      literal = invoke.getExpr() and
+      if literal.getBaseLiteral() instanceof Cpp14Literal::FloatingLiteral
+      then result = "floating point literal"
+      else result = "invalid literal"
+    )
+}
+
 from MacroInvocation invoke, PossiblyNegativeLiteral literal
 where
   not isExcluded(invoke, Types2Package::invalidLiteralForIntegerConstantMacroArgumentQuery()) and
@@ -46,4 +58,7 @@ where
     not validLiteralType(literal) or
     seemsBinaryLiteral(invoke)
   )
-select literal, "Integer constant macro arguments must be a decimal, octal, or hex integer literal."
+select literal,
+  "Integer constant macro " + invoke.getMacroName() + " used with " +
+    explainIncorrectArgument(invoke) +
+    " argument, only decimal, octal, or hex integer literal allowed."

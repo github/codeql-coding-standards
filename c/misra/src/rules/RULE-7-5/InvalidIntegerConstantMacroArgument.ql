@@ -38,4 +38,5 @@ where
   invoke.getMacro() = macro and
   not invoke.getExpr() instanceof PossiblyNegativeLiteral and
   not specialMaxNegative64Exception(macro, invoke.getExpr())
-select invoke.getExpr(), "Integer constant macro argument must be an integer literal."
+select invoke.getExpr(),
+  "Argument to integer constant macro " + macro.getName() + " must be an integer literal."

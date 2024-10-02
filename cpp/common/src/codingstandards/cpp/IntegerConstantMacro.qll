@@ -32,4 +32,8 @@ class IntegerConstantMacro extends Macro {
     or
     signed = false and result = 0
   }
+
+  string getRangeString() {
+    result = minValue().toString() + ".." + maxValue().toString()
+  }
 }

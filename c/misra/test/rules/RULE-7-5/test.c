@@ -9,15 +9,19 @@ uint_least8_t g1[] = {
     UINT8_C(034),  // COMPLIANT
 
     // Incorrect literal types
-    UINT8_C(1.0),   // NON-COMPLIANT
-    UINT8_C(0b111), // NON-COMPLIANT
+    UINT8_C(1.0),    // NON-COMPLIANT
+    UINT8_C(-1.0),   // NON-COMPLIANT
+    UINT8_C(0b111),  // NON-COMPLIANT
+    UINT8_C(-0b111), // NON-COMPLIANT
 
     // Suffixes disallowed
-    UINT8_C(1u),  // NON-COMPLIANT
-    UINT8_C(2U),  // NON-COMPLIANT
-    UINT8_C(3l),  // NON-COMPLIANT
-    UINT8_C(4L),  // NON-COMPLIANT
-    UINT8_C(5ul), // NON-COMPLIANT
+    UINT8_C(1u),   // NON-COMPLIANT
+    UINT8_C(2U),   // NON-COMPLIANT
+    UINT8_C(3l),   // NON-COMPLIANT
+    UINT8_C(4L),   // NON-COMPLIANT
+    UINT8_C(5ul),  // NON-COMPLIANT
+    UINT8_C(5ll),  // NON-COMPLIANT
+    UINT8_C(5ull), // NON-COMPLIANT
 
     // Range tests
     UINT8_C(255),   // COMPLIANT

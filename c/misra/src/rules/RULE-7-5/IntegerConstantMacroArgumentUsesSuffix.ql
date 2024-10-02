@@ -16,14 +16,16 @@ import codingstandards.c.misra
 import codingstandards.cpp.IntegerConstantMacro
 import codingstandards.cpp.Literals
 
-predicate usesSuffix(MacroInvocation invoke) {
-  invoke.getUnexpandedArgument(0).regexpMatch(".*[uUlL]")
+string argumentSuffix(MacroInvocation invoke) {
+  result = invoke.getUnexpandedArgument(0).regexpCapture(".*[^uUlL]([uUlL]+)$", 1)
 }
 
-from MacroInvocation invoke, PossiblyNegativeLiteral argument
+from MacroInvocation invoke, PossiblyNegativeLiteral argument, string suffix
 where
   not isExcluded(invoke, Types2Package::integerConstantMacroArgumentUsesSuffixQuery()) and
   invoke.getMacro() instanceof IntegerConstantMacro and
   invoke.getExpr() = argument and
-  usesSuffix(invoke)
-select invoke.getExpr(), "Integer constant macro arguments should not have 'u'/'l' suffix."
+  suffix = argumentSuffix(invoke)
+select invoke.getExpr(),
+  "Value suffix '" + suffix + "' is not allowed on provided argument to integer constant macro " +
+    invoke.getMacroName() + "."
