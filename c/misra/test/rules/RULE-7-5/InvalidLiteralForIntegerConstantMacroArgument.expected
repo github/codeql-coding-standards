@@ -1,3 +1,7 @@
-| test.c:12:13:12:15 | 1.0 | Integer constant macro UINT8_C used with floating point literal argument, only decimal, octal, or hex integer literal allowed. |
-| test.c:13:13:13:16 | - ... | Integer constant macro UINT8_C used with floating point literal argument, only decimal, octal, or hex integer literal allowed. |
-| test.c:14:13:14:17 | 7 | Integer constant macro UINT8_C used with binary literal argument, only decimal, octal, or hex integer literal allowed. |
+| test.c:16:13:16:15 | 1.0 | Integer constant macro UINT8_C used with floating point literal argument, only decimal, octal, or hex integer literal allowed. |
+| test.c:17:13:17:16 | - ... | Integer constant macro UINT8_C used with floating point literal argument, only decimal, octal, or hex integer literal allowed. |
+| test.c:18:13:18:17 | 7 | Integer constant macro UINT8_C used with binary literal argument, only decimal, octal, or hex integer literal allowed. |
+| test.c:19:13:19:18 | - ... | Integer constant macro UINT8_C used with binary literal argument, only decimal, octal, or hex integer literal allowed. |
+| test.c:20:13:20:15 | 97 | Integer constant macro UINT8_C used with char literal argument, only decimal, octal, or hex integer literal allowed. |
+| test.c:21:13:21:16 | - ... | Integer constant macro UINT8_C used with char literal argument, only decimal, octal, or hex integer literal allowed. |
+| test.c:22:13:22:16 | 10 | Integer constant macro UINT8_C used with char literal argument, only decimal, octal, or hex integer literal allowed. |

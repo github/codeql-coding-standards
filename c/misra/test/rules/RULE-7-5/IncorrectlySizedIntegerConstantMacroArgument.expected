@@ -1,30 +1,31 @@
-| test.c:13:13:13:16 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
-| test.c:15:13:15:18 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
-| test.c:30:13:30:15 | 256 | Value provided to integer constant macro UINT8_C is outside of the allowed range 0..255 |
-| test.c:31:13:31:16 | 256 | Value provided to integer constant macro UINT8_C is outside of the allowed range 0..255 |
-| test.c:32:13:32:17 | 256 | Value provided to integer constant macro UINT8_C is outside of the allowed range 0..255 |
-| test.c:35:13:35:14 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
-| test.c:36:13:36:15 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
-| test.c:37:13:37:15 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
-| test.c:38:13:38:17 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
-| test.c:59:12:59:14 | 128 | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
-| test.c:60:12:60:15 | 128 | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
-| test.c:61:12:61:15 | 128 | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
-| test.c:65:12:65:15 | - ... | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
-| test.c:66:12:66:16 | - ... | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
-| test.c:67:12:67:16 | - ... | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
-| test.c:80:14:80:18 | 65536 | Value provided to integer constant macro UINT16_C is outside of the allowed range 0..65535 |
-| test.c:81:14:81:20 | 65536 | Value provided to integer constant macro UINT16_C is outside of the allowed range 0..65535 |
-| test.c:82:14:82:20 | 65536 | Value provided to integer constant macro UINT16_C is outside of the allowed range 0..65535 |
-| test.c:95:13:95:17 | 32768 | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
-| test.c:96:13:96:19 | 32768 | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
-| test.c:97:13:97:18 | 32768 | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
-| test.c:101:13:101:18 | - ... | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
-| test.c:102:13:102:20 | - ... | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
-| test.c:103:13:103:19 | - ... | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
-| test.c:113:14:113:24 | 4294967296 | Value provided to integer constant macro UINT32_C is outside of the allowed range 0..4294967295 |
-| test.c:114:14:114:25 | 4294967296 | Value provided to integer constant macro UINT32_C is outside of the allowed range 0..4294967295 |
-| test.c:124:13:124:22 | 2147483648 | Value provided to integer constant macro INT32_C is outside of the allowed range -2147483648..2147483647 |
-| test.c:125:13:125:22 | 2147483648 | Value provided to integer constant macro INT32_C is outside of the allowed range -2147483648..2147483647 |
-| test.c:128:13:128:23 | - ... | Value provided to integer constant macro INT32_C is outside of the allowed range -2147483648..2147483647 |
-| test.c:129:13:129:23 | - ... | Value provided to integer constant macro INT32_C is outside of the allowed range -2147483648..2147483647 |
+| test.c:17:13:17:16 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
+| test.c:19:13:19:18 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
+| test.c:21:13:21:16 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
+| test.c:37:13:37:15 | 256 | Value provided to integer constant macro UINT8_C is outside of the allowed range 0..255 |
+| test.c:38:13:38:16 | 256 | Value provided to integer constant macro UINT8_C is outside of the allowed range 0..255 |
+| test.c:39:13:39:17 | 256 | Value provided to integer constant macro UINT8_C is outside of the allowed range 0..255 |
+| test.c:42:13:42:14 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
+| test.c:43:13:43:15 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
+| test.c:44:13:44:15 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
+| test.c:45:13:45:17 | - ... | Value provided to integer constant macro UINT8_C cannot be negative |
+| test.c:70:12:70:14 | 128 | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
+| test.c:71:12:71:15 | 128 | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
+| test.c:72:12:72:15 | 128 | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
+| test.c:76:12:76:15 | - ... | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
+| test.c:77:12:77:16 | - ... | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
+| test.c:78:12:78:16 | - ... | Value provided to integer constant macro INT8_C is outside of the allowed range -128..127 |
+| test.c:91:14:91:18 | 65536 | Value provided to integer constant macro UINT16_C is outside of the allowed range 0..65535 |
+| test.c:92:14:92:20 | 65536 | Value provided to integer constant macro UINT16_C is outside of the allowed range 0..65535 |
+| test.c:93:14:93:20 | 65536 | Value provided to integer constant macro UINT16_C is outside of the allowed range 0..65535 |
+| test.c:106:13:106:17 | 32768 | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
+| test.c:107:13:107:19 | 32768 | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
+| test.c:108:13:108:18 | 32768 | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
+| test.c:112:13:112:18 | - ... | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
+| test.c:113:13:113:20 | - ... | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
+| test.c:114:13:114:19 | - ... | Value provided to integer constant macro INT16_C is outside of the allowed range -32768..32767 |
+| test.c:124:14:124:24 | 4294967296 | Value provided to integer constant macro UINT32_C is outside of the allowed range 0..4294967295 |
+| test.c:125:14:125:25 | 4294967296 | Value provided to integer constant macro UINT32_C is outside of the allowed range 0..4294967295 |
+| test.c:135:13:135:22 | 2147483648 | Value provided to integer constant macro INT32_C is outside of the allowed range -2147483648..2147483647 |
+| test.c:136:13:136:22 | 2147483648 | Value provided to integer constant macro INT32_C is outside of the allowed range -2147483648..2147483647 |
+| test.c:139:13:139:23 | - ... | Value provided to integer constant macro INT32_C is outside of the allowed range -2147483648..2147483647 |
+| test.c:140:13:140:23 | - ... | Value provided to integer constant macro INT32_C is outside of the allowed range -2147483648..2147483647 |

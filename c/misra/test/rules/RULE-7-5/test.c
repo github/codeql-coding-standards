@@ -1,4 +1,8 @@
+#include "stdbool.h"
 #include "stdint.h"
+
+#define NULL 0
+#define NULLPTR ((void *)NULL)
 
 uint_least8_t g1[] = {
     // Basic valid
@@ -13,6 +17,9 @@ uint_least8_t g1[] = {
     UINT8_C(-1.0),   // NON-COMPLIANT
     UINT8_C(0b111),  // NON-COMPLIANT
     UINT8_C(-0b111), // NON-COMPLIANT
+    UINT8_C('a'),    // NON-COMPLIANT
+    UINT8_C(-'$'),   // NON-COMPLIANT
+    UINT8_C('\n'),    // NON-COMPLIANT
 
     // Suffixes disallowed
     UINT8_C(1u),   // NON-COMPLIANT
@@ -42,6 +49,10 @@ uint_least8_t g1[] = {
     UINT8_C("a"[0]),    // NON-COMPLIANT
     UINT8_C(0 ["a"]),   // NON-COMPLIANT
     UINT8_C(UINT8_MAX), // COMPLIANT
+    UINT8_C(true),      // NON-COMPLIANT[False Negative]
+    UINT8_C(false),     // NON-COMPLIANT[False Negative]
+    UINT8_C(NULL),      // NON-COMPLIANT[False Negative]
+    UINT8_C(NULLPTR),   // NON-COMPLIANT[False Negative]
 };
 
 int_least8_t g2[] = {

@@ -4,7 +4,7 @@
  * @description Integer constant macros should be given a literal value as an argument.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-7-5
  *       correctness
  *       external/misra/obligation/required

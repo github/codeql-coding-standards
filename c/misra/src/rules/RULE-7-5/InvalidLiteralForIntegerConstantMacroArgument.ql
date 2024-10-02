@@ -34,19 +34,30 @@ predicate validLiteralType(PossiblyNegativeLiteral literal) {
  * Detect this pattern before macro expansion.
  */
 predicate seemsBinaryLiteral(MacroInvocation invoke) {
-  invoke.getUnexpandedArgument(0).regexpMatch("0[bB][01]+")
+  invoke.getUnexpandedArgument(0).regexpMatch("-?0[bB][01]+")
+}
+
+/**
+ * Extractor converts `xINTsize_C('a')` to a decimal literal. Therefore, detect
+ * this pattern before macro expansion.
+ */
+predicate seemsCharLiteral(MacroInvocation invoke) {
+  invoke.getUnexpandedArgument(0).regexpMatch("-?'\\\\?.'")
 }
 
 string explainIncorrectArgument(MacroInvocation invoke) {
   if seemsBinaryLiteral(invoke)
   then result = "binary literal"
   else
-    exists(PossiblyNegativeLiteral literal |
-      literal = invoke.getExpr() and
-      if literal.getBaseLiteral() instanceof Cpp14Literal::FloatingLiteral
-      then result = "floating point literal"
-      else result = "invalid literal"
-    )
+    if seemsCharLiteral(invoke)
+    then result = "char literal"
+    else
+      exists(PossiblyNegativeLiteral literal |
+        literal = invoke.getExpr() and
+        if literal.getBaseLiteral() instanceof Cpp14Literal::FloatingLiteral
+        then result = "floating point literal"
+        else result = "invalid literal"
+      )
 }
 
 from MacroInvocation invoke, PossiblyNegativeLiteral literal
@@ -56,7 +67,8 @@ where
   literal = invoke.getExpr() and
   (
     not validLiteralType(literal) or
-    seemsBinaryLiteral(invoke)
+    seemsBinaryLiteral(invoke) or
+    seemsCharLiteral(invoke)
   )
 select literal,
   "Integer constant macro " + invoke.getMacroName() + " used with " +

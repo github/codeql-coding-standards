@@ -1,5 +1,5 @@
-| test.c:41:13:41:17 | ... + ... | Argument to integer constant macro UINT8_C must be an integer literal. |
-| test.c:42:13:42:18 | access to array | Argument to integer constant macro UINT8_C must be an integer literal. |
-| test.c:43:13:43:19 | access to array | Argument to integer constant macro UINT8_C must be an integer literal. |
-| test.c:156:13:156:37 | ... - ... | Argument to integer constant macro INT64_C must be an integer literal. |
-| test.c:157:13:157:47 | ... - ... | Argument to integer constant macro INT64_C must be an integer literal. |
+| test.c:48:13:48:17 | ... + ... | Argument to integer constant macro UINT8_C must be an integer literal. |
+| test.c:49:13:49:18 | access to array | Argument to integer constant macro UINT8_C must be an integer literal. |
+| test.c:50:13:50:19 | access to array | Argument to integer constant macro UINT8_C must be an integer literal. |
+| test.c:167:13:167:37 | ... - ... | Argument to integer constant macro INT64_C must be an integer literal. |
+| test.c:168:13:168:47 | ... - ... | Argument to integer constant macro INT64_C must be an integer literal. |
