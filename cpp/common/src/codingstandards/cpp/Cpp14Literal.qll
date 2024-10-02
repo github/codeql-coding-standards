@@ -74,7 +74,7 @@ module Cpp14Literal {
    * double floating = 1.340923e-19;
    * ```
    */
-  class FloatingLiteral extends RecognizedNumericLiteral {
+  class FloatingLiteral extends NumericLiteral, RecognizedNumericLiteral {
     FloatingLiteral() {
       getValueText().regexpMatch("\\s*[0-9][0-9']*(\\.[0-9']+)?([eE][\\+\\-]?[0-9']+)?[flFL]?\\s*") and
       // A decimal literal takes precedent
@@ -100,8 +100,6 @@ module Cpp14Literal {
       not this instanceof RecognizedNumericLiteral
     }
   }
-
-  predicate test(RecognizedNumericLiteral r, string valueText) { valueText = r.getValueText() }
 
   /**
    * A character literal.  For example:
