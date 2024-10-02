@@ -196,3 +196,33 @@ void testFunctionScope() {
     };
   };
 }
+
+/// Test documentation
+template <typename T> class ClassG { // COMPLIANT
+private:
+  /// Test documentation
+  int x; // COMPLIANT
+
+public:
+  /// Test documentation
+  friend int foo(ClassG<T> g) { return g.x; } // COMPLIANT
+};
+
+/// Test documentation
+void test() { // COMPLIANT
+  ClassG<int> g;
+  foo(g);
+}
+
+/// Test documentation
+class ClassG2 { // COMPLIANT
+public:
+  /// Test documentation
+  friend int foo2() { return 1; } // COMPLIANT
+};
+
+/// Test documentation
+class ClassG3 { // COMPLIANT
+public:
+  friend int foo3() { return 1; } // NON_COMPLIANT
+};

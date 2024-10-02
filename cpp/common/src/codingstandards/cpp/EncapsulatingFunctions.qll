@@ -14,7 +14,7 @@ abstract class EncapsulatingFunction extends Function { }
 class MainFunction extends MainLikeFunction {
   MainFunction() {
     hasGlobalName("main") and
-    getType() instanceof IntType
+    getType().resolveTypedefs() instanceof IntType
   }
 }
 

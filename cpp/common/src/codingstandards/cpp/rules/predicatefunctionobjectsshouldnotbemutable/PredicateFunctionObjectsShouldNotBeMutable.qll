@@ -1,5 +1,7 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library with a `problems` predicate for the following issue:
+ * "Non-static data members or captured values of predicate function objects
+ * that are state related to this object's identity shall not be copied.
  */
 
 import cpp

@@ -1,5 +1,8 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library with a `problems` predicate for the following issue:
+ * In the definition of a function-like macro, each instance of a parameter
+ * shall be enclosed in parentheses, otherwise the result of preprocessor macro
+ * substitition may not be as expected.
  */
 
 import cpp

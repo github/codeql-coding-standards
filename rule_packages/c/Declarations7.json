@@ -57,6 +57,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ValueImplicitEnumerationConstantNotUnique",
+          "shared_implementation_short_name": "NonUniqueEnumerationConstant",
           "tags": [
             "correctness",
             "readability"

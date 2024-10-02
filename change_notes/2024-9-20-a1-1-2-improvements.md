@@ -1,0 +1,2 @@
+- `A1-1-2` - `CompilerWarningLevelNotInCompliance.ql`:
+    - Report non-compliance for compilations that use the error-suppressing `-w` flag.
