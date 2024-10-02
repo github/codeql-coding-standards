@@ -31,8 +31,8 @@
           "description": "Integer constant macros should be used integer literal values with no u/l suffix.",
           "kind": "problem",
           "name": "The argument of an integer constant macro shall not use literal suffixes u, l, or ul",
-          "precision": "very-high",
-          "severity": "error",
+          "precision": "high",
+          "severity": "warning",
           "short_name": "IntegerConstantMacroArgumentUsesSuffix",
           "tags": [
             "readability",
