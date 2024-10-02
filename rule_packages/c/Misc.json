@@ -12,7 +12,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "RandUsedForGeneratingPseudorandomNumbers",
-          "shared_implementation_short_name" : "DoNotUseRandForGeneratingPseudorandomNumbers",
+          "shared_implementation_short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
           "tags": [
             "security"
           ]

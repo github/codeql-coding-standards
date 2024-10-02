@@ -10,6 +10,7 @@
  * @tags external/misra/id/dir-4-8
  *       readability
  *       maintainability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/advisory
  */
 

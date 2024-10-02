@@ -10,6 +10,7 @@
  * @tags external/misra/id/rule-10-7
  *       maintainability
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 

@@ -12,7 +12,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "DoNotAddOrSubtractAScaledIntegerToAPointer",
-          "tags":[
+          "tags": [
             "correctness"
           ]
         }

@@ -14,7 +14,8 @@
           "short_name": "IncludeDirectivesPrecededByDirectivesOrComments",
           "shared_implementation_short_name": "PreprocessorIncludesPreceded",
           "tags": [
-              "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -34,10 +35,10 @@
           "short_name": "PreprocessorHashOperatorsShouldNotBeUsed",
           "shared_implementation_short_name": "HashOperatorsUsed",
           "tags": [
-              "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
-        
       ],
       "title": "The # and ## preprocessor operators should not be used"
     },
@@ -55,7 +56,8 @@
           "short_name": "ForbiddenCharactersInHeaderFileName",
           "shared_implementation_short_name": "PreprocessorIncludesForbiddenHeaderNames",
           "tags": [
-              "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query identifies the use of the ', \\, /*, // characters in header file names. The query is not able to detect the use of the \" character in header file names.",
@@ -79,8 +81,9 @@
           "short_name": "IdentifiersUsedInPreprocessorExpression",
           "shared_implementation_short_name": "UndefinedMacroIdentifiers",
           "tags": [
-              "correctness",
-              "readability"
+            "correctness",
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query does not detect the case where an undefined character is used but not actually evaluated, for example, as a result of the inclusion of a logical AND operator in the #if expression.",

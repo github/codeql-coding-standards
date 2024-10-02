@@ -10,6 +10,7 @@
  * @tags external/misra/id/rule-13-3
  *       readability
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/advisory
  */
 

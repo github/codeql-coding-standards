@@ -78,7 +78,8 @@
           "short_name": "ObjectWithAutoStorageDurationReadBeforeInit",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

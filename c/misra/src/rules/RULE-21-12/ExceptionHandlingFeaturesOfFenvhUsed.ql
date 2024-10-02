@@ -8,6 +8,7 @@
  * @problem.severity warning
  * @tags external/misra/id/rule-21-12
  *       correctness
+ *       external/misra/c/2012/amendment2
  *       external/misra/obligation/advisory
  */
 
