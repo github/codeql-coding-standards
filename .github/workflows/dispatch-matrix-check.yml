@@ -20,11 +20,20 @@ jobs:
         with:
           minimum-permission: "write"
 
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@eaddb9eb7e4226c68cf4b39f167c83e5bd132b3e
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards-release-engineering"
+
       - name: Dispatch Matrix Testing Job
         if: steps.check-write-permission.outputs.has-permission
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
           repository: github/codeql-coding-standards-release-engineering
           event-type: matrix-test
           client-payload: '{"pr": "${{ github.event.number }}"}'
