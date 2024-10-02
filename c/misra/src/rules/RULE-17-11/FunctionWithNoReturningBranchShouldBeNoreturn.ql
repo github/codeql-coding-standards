@@ -3,7 +3,7 @@
  * @name RULE-17-11: A function without a branch that returns shall be declared with _Noreturn
  * @description Functions which cannot return should be declared with _Noreturn.
  * @kind problem
- * @precision high
+ * @precision very-high
  * @problem.severity recommendation
  * @tags external/misra/id/rule-17-11
  *       correctness
