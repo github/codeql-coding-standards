@@ -22,8 +22,9 @@ predicate hasResponseFileArgument(Compilation c) { c.getAnArgument().matches("@%
 
 class CompilationWithNoWarnings extends Compilation {
   CompilationWithNoWarnings() {
-    getAnArgument() = "-w" or
-    not exists(EnableWarningFlag enableFlag | 
+    getAnArgument() = "-w"
+    or
+    not exists(EnableWarningFlag enableFlag |
       this.getAnArgument() = enableFlag and
       not exists(DisableWarningFlag disableFlag |
         this.getAnArgument() = disableFlag and
