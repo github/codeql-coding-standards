@@ -21,18 +21,19 @@ import codingstandards.c.Signal
  */
 class UnsafeSharedVariableAccess extends VariableAccess {
   UnsafeSharedVariableAccess() {
-    // static or thread local storage duration
-    (
-      this.getTarget() instanceof StaticStorageDurationVariable or
-      this.getTarget().isThreadLocal()
-    ) and
     // excluding `volatile sig_atomic_t` type
     not this.getType().(SigAtomicType).isVolatile() and
-    // excluding lock-free atomic objects
-    not exists(MacroInvocation mi, VariableAccess va |
-      mi.getMacroName() = "atomic_is_lock_free" and
-      mi.getExpr().getChild(0) = va.getEnclosingElement*() and
-      va.getTarget() = this.getTarget()
+    exists(Variable target | target = this.getTarget() |
+      // static or thread local storage duration
+      (
+        target instanceof StaticStorageDurationVariable or
+        target.isThreadLocal()
+      ) and
+      // excluding lock-free atomic objects
+      not exists(MacroInvocation mi, VariableAccess va | va.getTarget() = target |
+        mi.getMacroName() = "atomic_is_lock_free" and
+        mi.getExpr().getChild(0) = va.getEnclosingElement*()
+      )
     )
   }
 }

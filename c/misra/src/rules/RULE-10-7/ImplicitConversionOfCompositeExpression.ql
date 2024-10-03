@@ -18,6 +18,12 @@ import codingstandards.c.misra
 import codingstandards.c.misra.EssentialTypes
 import codingstandards.c.misra.MisraExpressions
 
+bindingset[essentialTypeLeft, essentialTypeRight]
+pragma[inline_late]
+predicate isSameEssentialTypeCategory(Type essentialTypeLeft, Type essentialTypeRight) {
+  getEssentialTypeCategory(essentialTypeLeft) = getEssentialTypeCategory(essentialTypeRight)
+}
+
 from
   OperationWithUsualArithmeticConversions arith, CompositeExpression compositeOp, Expr otherOp,
   Type compositeEssentialType, Type otherOpEssentialType
@@ -32,7 +38,7 @@ where
   // Operands of a different type category in an operation with the usual arithmetic conversions is
   // prohibited by Rule 10.4, so we only report cases here where the essential type categories are
   // the same
-  getEssentialTypeCategory(compositeEssentialType) = getEssentialTypeCategory(otherOpEssentialType)
+  isSameEssentialTypeCategory(compositeEssentialType, otherOpEssentialType)
 select arith,
   "Implicit conversion of $@ from " + compositeEssentialType + " to " + otherOpEssentialType,
   compositeOp, "composite op"
