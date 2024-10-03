@@ -28,4 +28,4 @@ where
     macroName = directive.(PreprocessorUndef).getName() and
     opString = "undefine"
   )
-select directive, "Invalid " + opString + " of boolean standard macro " + macroName
+select directive, "Invalid " + opString + " of boolean standard macro '" + macroName + "'."

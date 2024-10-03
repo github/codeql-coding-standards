@@ -1,6 +1,6 @@
-| test.c:23:1:23:14 | #define true 3 | Invalid define of boolean standard macro true |
-| test.c:24:1:24:15 | #define false 3 | Invalid define of boolean standard macro false |
-| test.c:25:1:25:18 | #define bool int * | Invalid define of boolean standard macro bool |
-| test.c:26:1:26:11 | #undef true | Invalid undefine of boolean standard macro true |
-| test.c:27:1:27:12 | #undef false | Invalid undefine of boolean standard macro false |
-| test.c:28:1:28:11 | #undef bool | Invalid undefine of boolean standard macro bool |
+| test.c:23:1:23:14 | #define true 3 | Invalid define of boolean standard macro 'true'. |
+| test.c:24:1:24:15 | #define false 3 | Invalid define of boolean standard macro 'false'. |
+| test.c:25:1:25:18 | #define bool int * | Invalid define of boolean standard macro 'bool'. |
+| test.c:26:1:26:11 | #undef true | Invalid undefine of boolean standard macro 'true'. |
+| test.c:27:1:27:12 | #undef false | Invalid undefine of boolean standard macro 'false'. |
+| test.c:28:1:28:11 | #undef bool | Invalid undefine of boolean standard macro 'bool'. |

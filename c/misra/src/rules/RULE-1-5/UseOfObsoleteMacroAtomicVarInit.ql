@@ -21,4 +21,5 @@ where
   invoke.getMacroName() = "ATOMIC_VAR_INIT" and
   flag = c.getAnArgument() and
   flag.regexpMatch("-std=c1[78]")
-select invoke, "Usage of macro ATOMIC_VAR_INIT() is considered obsolete for c version " + flag
+select invoke,
+  "Usage of macro ATOMIC_VAR_INIT() is considered obsolete for c version '" + flag + "'."
