@@ -26,27 +26,21 @@ class MainFunction extends MainLikeFunction {
  * such functions, however, they have certain features that can be used for
  * identification. This can be refined based on experiments/real-world use.
  */
-class GTestFunction extends MainLikeFunction {
-  GTestFunction() {
+class GoogleTestFunction extends MainLikeFunction {
+  GoogleTestFunction() {
     // A GoogleTest function is named "TestBody" and
     this.hasName("TestBody") and
-    // is enclosed by a class that inherits from a base class
-    this.getEnclosingAccessHolder() instanceof Class and
+    // it's parent class inherits a base class
     exists(Class base |
-      base = this.getEnclosingAccessHolder().(Class).getABaseClass() and
+      base = this.getEnclosingAccessHolder().(Class).getABaseClass+() and
+      // with a name "Test" inside a namespace called "testing"
       (
-        // called "Test" or
-        exists(Class c | base.getABaseClass() = c and c.hasName("Test"))
-        or
-        // defined under a namespace called "testing" or
-        exists(Namespace n | n = base.getNamespace() | n.hasName("testing"))
-        or
-        // is templatized by a parameter called "gtest_TypeParam_"
-        exists(TemplateParameter tp |
-          tp = base.getATemplateArgument() and
-          tp.hasName("gtest_TypeParam_")
-        )
+        base.hasName("Test") and
+        base.getNamespace().hasName("testing")
       )
+      or
+      // or at a location in a file called "gtest.h".
+      base.getDefinitionLocation().getFile().getBaseName() = "gtest.h"
     )
   }
 }
