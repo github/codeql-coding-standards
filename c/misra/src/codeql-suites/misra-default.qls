@@ -1,10 +1,2 @@
-- description: MISRA C 2012 (Default)
-- qlpack: codeql/misra-c-coding-standards
-- include:
-    kind:
-    - problem
-    - path-problem
-- exclude:
-    tags contain:
-    - external/misra/audit
-    - external/misra/default-disabled
+- description: "DEPRECATED - MISRA C  2012 - use misra-c-default.qls instead"
+- import: codeql-suites/misra-c-default.qls
