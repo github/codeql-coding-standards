@@ -75,7 +75,7 @@ def main(cli_version : str, github_token: str) -> None:
             if "codeql/cpp-all" in qlpack["dependencies"]:
                 qlpack["dependencies"]["codeql/cpp-all"] = compatible_stdlib_version
                 with qlpack_file.open("w") as f:
-                    yaml.safe_dump(qlpack, f)
+                    yaml.safe_dump(qlpack, f, sort_keys=False)
                 updated_qlpacks.append(qlpack_file.parent)
 
         # Call CodeQL to update the lock files by running codeql pack upgrade
