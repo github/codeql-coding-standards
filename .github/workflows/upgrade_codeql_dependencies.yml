@@ -55,8 +55,17 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
-          body: "This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }}."
+          title: "Upgrade `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
+          body: |
+            This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }}.
+
+            ## CodeQL dependency upgrade checklist:
+
+            - [ ] Confirm the code has been correctly reformatted according to the new CodeQL CLI.
+            - [ ] Identify any CodeQL compiler warnings and errors, and update queries as required.
+            - [ ] Validate that the `github/codeql` test cases succeed.
+            - [ ] Address any CodeQL test failures in the `github/codeql-coding-standards` repository.
+            - [ ] Validate performance vs pre-upgrade, using /test-performance
           commit-message: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
           delete-branch: true
           branch: "codeql/upgrade-to-${{ github.event.inputs.codeql_cli_version }}"

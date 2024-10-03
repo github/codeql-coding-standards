@@ -514,23 +514,15 @@ To upgrade the CodeQL external dependencies:
 5. Submit a Pull Request to the `github/codeql-coding-standards` repository with the title `Upgrade `github/codeql` dependency to <insert codeql_standard_library value>`. Use this template for the description, filling :
 
     ```md
-    This PR updates the `supported_codeql_configs.json` file to target:
-
-    - CodeQL CLI <codeql_cli>
-    - CodeQL Standard Library <codeql_standard_library>
-    - GHES <ghes>
-    - CodeQL CLI Bundle <date_of_bundle>
-
-    <EITHER:This should match the versions of CodeQL deployed with GitHub Enterprise Server <ghes>>
-    <OR: This does not match any released version of GitHub Enterprise Server.>
+    This PR updates the `supported_codeql_configs.json` file to target CodeQL CLI <codeql_cli>.
 
     ## CodeQL dependency upgrade checklist:
 
-    - [ ] Reformat our CodeQL using the latest version (if required)
+    - [ ] Confirm the code has been correctly reformatted according to the new CodeQL CLI.
     - [ ] Identify any CodeQL compiler warnings and errors, and update queries as required.
     - [ ] Validate that the `github/codeql` test cases succeed.
     - [ ] Address any CodeQL test failures in the `github/codeql-coding-standards` repository.
-    - [ ] Validate performance vs pre-upgrade
+    - [ ] Validate performance vs pre-upgrade, using /test-performance
     ```
 
 6. Follow the dependency upgrade checklist, confirming each step. The `.github/workflows/standard_library_upgrade_tests.yml` will trigger automation for running the `github/codeql` unit tests with the appropriate CLI version.
