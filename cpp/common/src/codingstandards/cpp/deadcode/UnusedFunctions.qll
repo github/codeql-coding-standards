@@ -13,6 +13,7 @@ import cpp
 import codingstandards.cpp.DynamicCallGraph
 import codingstandards.cpp.EncapsulatingFunctions
 import codingstandards.cpp.FunctionEquivalence
+import codingstandards.cpp.Class
 
 module UnusedFunctions {
   /**
@@ -75,9 +76,7 @@ module UnusedFunctions {
    */
 
   private class MainLikeFunctionEntryPoint extends EntryPoint, MainLikeFunction {
-    MainLikeFunctionEntryPoint() {
-      this instanceof MainLikeFunction or this instanceof GTestFunction
-    }
+    MainLikeFunctionEntryPoint() { this instanceof MainLikeFunction }
 
     override Function getAReachableFunction() { reachable*(this, result) }
   }
@@ -114,26 +113,6 @@ module UnusedFunctions {
   }
 
   /**
-   * A `MemberFunction` which is either a Default constructor, Destructor
-   * CopyConstructor, CopyAssingmentOperator, MoveConstructor or a
-   * MoveAssignmentOperator
-   */
-  predicate isASpecialMemberFunction(MemberFunction f) {
-    // Default constructor
-    f instanceof NoArgConstructor
-    or
-    f instanceof Destructor
-    or
-    f instanceof CopyConstructor
-    or
-    f instanceof CopyAssignmentOperator
-    or
-    f instanceof MoveConstructor
-    or
-    f instanceof MoveAssignmentOperator
-  }
-
-  /**
    * A `Function` which is not used from an `EntryPoint`.
    *
    * This class over-approximates "use", to avoid reporting false positives.
@@ -156,12 +135,6 @@ module UnusedFunctions {
     }
   }
 
-  /**
-   * A Special `MemberFunction` which is an `UnusedFunction`.
-   *
-   * Refer isASpecialMemberFunction predicate.
-   */
-  class UnusedSplMemberFunction extends UnusedFunction {
-    UnusedSplMemberFunction() { isASpecialMemberFunction(this) }
-  }
+  /** A `SpecialMemberFunction` which is an `UnusedFunction`. */
+  class UnusedSplMemberFunction extends UnusedFunction, SpecialMemberFunction { }
 }
