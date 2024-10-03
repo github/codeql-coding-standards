@@ -22,6 +22,7 @@ The following standards are under active development:
 
 - [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development - _scheduled for release 2025 Q1_
 - [MISRA C 2023](https://misra.org.uk/product/misra-c2023/) - under development - _scheduled for release 2025 Q1_
+  - This includes the development of [MISRA C 2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf) and [MISRA C 2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf), which are incorporated into MISRA C 2023.
 
 ## How do I use the CodeQL Coding Standards Queries?
 
