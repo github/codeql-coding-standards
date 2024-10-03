@@ -40,12 +40,10 @@ extern int g5;     // NON-COMPLIANT
 void f2();     // NON-COMPLIANT
 void f3(void); // COMPLIANT
 
-void f4(int p1) {}; // COMPLIANT
-int f5(x)           // NON_COMPLIANT
+void f4(int p1){}; // COMPLIANT
+int f5(x)          // NON_COMPLIANT
 int x;
-{
-  return 1;
-}
+{ return 1; }
 
 // Rule 21.6 covers the below cases:
 void f6(void) {
