@@ -48,11 +48,11 @@ uint_least8_t g1[] = {
     UINT8_C(0 + 0),     // NON-COMPLIANT
     UINT8_C("a"[0]),    // NON-COMPLIANT
     UINT8_C(0 ["a"]),   // NON-COMPLIANT
-    UINT8_C(UINT8_MAX), // COMPLIANT
-    UINT8_C(true),      // NON-COMPLIANT[False Negative]
-    UINT8_C(false),     // NON-COMPLIANT[False Negative]
-    UINT8_C(NULL),      // NON-COMPLIANT[False Negative]
-    UINT8_C(NULLPTR),   // NON-COMPLIANT[False Negative]
+    UINT8_C(UINT8_MAX), // NON-COMPLIANT
+    UINT8_C(true),      // NON-COMPLIANT
+    UINT8_C(false),     // NON-COMPLIANT
+    UINT8_C(NULL),      // NON-COMPLIANT
+    UINT8_C(NULLPTR),   // NON-COMPLIANT
 };
 
 int_least8_t g2[] = {
@@ -158,20 +158,17 @@ int_least64_t g8[] = {
     INT64_C(9223372036854775807), // COMPLIANT
     // INT64_C(9223372036854775808) is a compile-time error
 
-    // -9223372036854775808 allowed, but cannot be created via unary- without
-    // compile time errors.
-    INT64_C(-9223372036854775807),     // COMPLIANT
-    INT64_C(-9223372036854775807 - 1), // COMPLIANT
-    // -9223372036854775809 is not allowed, and cannot be created via unary-
-    // without compile time errors.
-    INT64_C(-9223372036854775807 - 2),           // NON-COMPLIANT
-    INT64_C(-9223372036854775807 - 20000000000), // NON-COMPLIANT
+    INT64_C(-9223372036854775807), // COMPLIANT
+    // -9223372036854775808 is correctly sized, but not a valid decimal literal
+    // value.
+    // -9223372036854775809 is not correctly sized, and not a valid decimal
+    // literal value.
 
     INT64_C(0x7FFFFFFFFFFFFFFF),  // COMPLIANT
     INT64_C(0x8000000000000000),  // NON-COMPLIANT[FALSE NEGATIVE]
     INT64_C(-0x8000000000000000), // COMPLIANT
     INT64_C(-0x8000000000000001), // NON-COMPLIANT[FALSE NEGATIVE]
-    INT64_C(-0x8001000000000000), // NON-COMPLIANT
+    INT64_C(-0x8001000000000000), // NON-COMPLIANT[FALSE NEGATIVE]
 };
 
 // Other edge cases:

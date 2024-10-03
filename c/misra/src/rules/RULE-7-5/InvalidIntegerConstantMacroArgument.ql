@@ -16,27 +16,19 @@ import codingstandards.cpp.IntegerConstantMacro
 import codingstandards.cpp.Literals
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
-/**
- * The max negative 64 bit signed integer is one less than the negative of the
- * max positive signed 64 bit integer. The only way to create a "negative"
- * literal is to use unary- negation of a positive literal. Therefore, clang
- * (and likely other compilers) rejects `INT64_C(-92233...808)` but accepts
- * `INT64_C(-92233...807 - 1)`. Therefore, in this case allow non-literal
- * expressions.
- */
-predicate specialMaxNegative64Exception(IntegerConstantMacro macro, Expr expr) {
-  macro.getSize() = 64 and
-  macro.isSigned() and
-  // Set a cutoff with precision, fix once BigInt library is available.
-  upperBound(expr) < macro.minValue() * 0.999999999 and
-  upperBound(expr) > macro.minValue() * 1.000000001
+predicate containsMacroInvocation(MacroInvocation outer, MacroInvocation inner) {
+  outer.getExpr() = inner.getExpr() and
+  exists(outer.getUnexpandedArgument(0).indexOf(inner.getMacroName()))
 }
 
 from MacroInvocation invoke, IntegerConstantMacro macro
 where
   not isExcluded(invoke, Types2Package::invalidIntegerConstantMacroArgumentQuery()) and
   invoke.getMacro() = macro and
-  not invoke.getExpr() instanceof PossiblyNegativeLiteral and
-  not specialMaxNegative64Exception(macro, invoke.getExpr())
+  (
+    not invoke.getExpr() instanceof PossiblyNegativeLiteral
+    or
+    containsMacroInvocation(invoke, _)
+  )
 select invoke.getExpr(),
   "Argument to integer constant macro " + macro.getName() + " must be an integer literal."
