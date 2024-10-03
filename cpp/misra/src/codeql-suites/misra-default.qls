@@ -1,10 +1,2 @@
-- description: MISRA C++ 2023 (Default)
-- qlpack: codeql/misra-cpp-coding-standards
-- include:
-    kind:
-    - problem
-    - path-problem
-- exclude:
-    tags contain:
-    - external/misra/audit
-    - external/misra/default-disabled
+- description: "DEPRECATED - MISRA C++ 2023 - use misra-cpp-default.qls instead"
+- import: codeql-suites/misra-cpp-default.qls
