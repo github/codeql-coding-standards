@@ -1,0 +1,2 @@
+| test.c:40:6:40:7 | f2 | Function f2 does not specify void for no parameters present. |
+| test.c:44:5:44:6 | f5 | Function f5 declares parameter in unsupported declaration list. |

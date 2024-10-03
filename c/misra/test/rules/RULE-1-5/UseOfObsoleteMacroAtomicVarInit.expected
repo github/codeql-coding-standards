@@ -1,0 +1,1 @@
+| test.c:30:18:30:36 | ATOMIC_VAR_INIT(value) | Usage of macro ATOMIC_VAR_INIT() is considered obsolete for c version -std=c17 |

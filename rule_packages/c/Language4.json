@@ -1,0 +1,47 @@
+{
+  "MISRA-C-2012": {
+    "RULE-1-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The macro ATOMIC_VAR_INIT is has been declared an obsolescent language feature since C18.",
+          "kind": "problem",
+          "name": "Disallowed usage of obsolete macro ATOMIC_VAR_INIT compiled as C18",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UseOfObsoleteMacroAtomicVarInit",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "Directives that undefine and/or redefine the standard boolean macros has been declared an obsolescent language feature since C99.",
+          "kind": "problem",
+          "name": "Programs may not undefine or redefine the macros bool, true, or false",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "InvalidDefineOrUndefOfStdBoolMacro",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        },
+        {
+          "description": "Invoking realloc with a size argument set to zero is implementation-defined behavior and declared as an obsolete feature in C18.",
+          "kind": "problem",
+          "name": "Disallowed size argument value equal to zero in call to realloc",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CallToReallocWithSizeZero",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Obsolencent language features shall not be used"
+    }
+  }
+}
