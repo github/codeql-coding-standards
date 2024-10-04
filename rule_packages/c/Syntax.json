@@ -121,7 +121,10 @@
           "tags": [
             "maintainability",
             "readability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This implementation does not consider constants defined in macro bodies."
+          }
         }
       ],
       "title": "A 'U' or 'u' suffix shall be applied to all integer constants that are represented in an unsigned type"
