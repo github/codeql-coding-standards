@@ -207,6 +207,18 @@
                                 },
                                 "title": {
                                     "type": "string"
+                                },
+                                "implementation_scope": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "description"
+                                    ],
+                                    "additionalProperties": false
                                 }
                             },
                             "required": [

@@ -44,7 +44,10 @@
           ]
         }
       ],
-      "title": "Obsolencent language features shall not be used"
+      "title": "Obsolencent language features shall not be used",
+      "implementation_scope": {
+        "description": "Usage of obsolescent language features that are already disallowed by Rule 8.2, Rule 8.8, and 21.6 are not redundantly checked by this rule."
+      }
     }
   }
 }
