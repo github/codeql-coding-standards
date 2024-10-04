@@ -43,6 +43,7 @@ import Memory1
 import Memory2
 import Memory3
 import Misc
+import NoReturn
 import OutOfBounds
 import Pointers1
 import Pointers2
@@ -115,6 +116,7 @@ newtype TCQuery =
   TMemory2PackageQuery(Memory2Query q) or
   TMemory3PackageQuery(Memory3Query q) or
   TMiscPackageQuery(MiscQuery q) or
+  TNoReturnPackageQuery(NoReturnQuery q) or
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
@@ -187,6 +189,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMemory3QueryMetadata(query, queryId, ruleId, category) or
   isMiscQueryMetadata(query, queryId, ruleId, category) or
+  isNoReturnQueryMetadata(query, queryId, ruleId, category) or
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or
