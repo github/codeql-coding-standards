@@ -23,7 +23,7 @@
 | test.c:182:8:182:11 | gf19 | Empty structures are a compiler extension and are not portable to other compilers. |
 | test.c:216:9:216:10 | definition of x1 | Zero length arrays are a compiler extension and are not portable to other compilers. |
 | test.c:266:16:266:21 | access | Use of attribute  'access' is a compiler extension and is not portable to other compilers. |
-| test.c:270:5:270:9 | alias | Use of attribute  'alias' is a compiler extension and is not portable to other compilers. |
+| test.c:269:27:269:31 | alias | Use of attribute  'alias' is a compiler extension and is not portable to other compilers. |
 | test.c:272:23:272:29 | aligned | Use of attribute  'aligned' is a compiler extension and is not portable to other compilers. |
 | test.c:283:25:283:34 | deprecated | Use of attribute  'deprecated' is a compiler extension and is not portable to other compilers. |
 | test.c:295:20:295:30 | fallthrough | Use of attribute  'fallthrough' is a compiler extension and is not portable to other compilers. |
