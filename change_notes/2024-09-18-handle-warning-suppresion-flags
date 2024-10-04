@@ -1,0 +1,2 @@
+- `A1-1-2` - `CompilerWarningLevelNotInCompliance.ql`:
+  - Fixes #689 false negatives where '-Wno-foo' was treated as enabling, rather than disabling warnings.
