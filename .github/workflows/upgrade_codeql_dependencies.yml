@@ -53,7 +53,7 @@ jobs:
           find c \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
         with:
           title: "Upgrade `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
           body: |
