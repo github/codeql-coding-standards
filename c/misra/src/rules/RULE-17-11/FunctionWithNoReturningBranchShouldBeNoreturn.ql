@@ -7,6 +7,7 @@
  * @problem.severity recommendation
  * @tags external/misra/id/rule-17-11
  *       correctness
+ *       external/misra/c/2012/amendment3
  *       external/misra/obligation/advisory
  */
 
