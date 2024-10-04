@@ -103,7 +103,11 @@ for rule_package_file_name in os.listdir(rule_packages_file_path):
                     for query in rule_details["queries"]:
                         if standard_name == "MISRA-C-2012" and not any(tag for tag in query["tags"] if tag.startswith("external/misra/c/2012/")):
                             print(
-                                f" - ERROR: MISRA C 2012 query {query["name"]} for Rule {rule_id} in {package_name}.json is missing a `external/misra/c/2012/...` tag.")
+                                f" - ERROR: MISRA C 2012 query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json is missing a `external/misra/c/2012/...` tag.")
+                            failed = True
+                        if not standard_name == "MISRA-C-2012" and any(tag for tag in query["tags"] if tag.startswith("external/misra/c/2012/")):
+                            print(
+                                f" - ERROR: {standard_name} query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json has a spurious `external/misra/c/2012/...` tag.")
                             failed = True
             rules_csv_rule_ids = package_rules_from_csv[package_name]
 
