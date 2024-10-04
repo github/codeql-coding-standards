@@ -67,7 +67,6 @@ def main(cli_version : str, github_token: str) -> None:
         qlpack_files = [f for f in qlpack_files if not any(part for part in f.parts if part.startswith("."))]
 
         # Update the "codeql/cpp-all" entries in the "dependencies" property in every qlpack.yml file
-        updated_qlpacks = []
         for qlpack_file in qlpack_files:
             with qlpack_file.open("r") as f:
                 qlpack = yaml.safe_load(f)
@@ -76,12 +75,14 @@ def main(cli_version : str, github_token: str) -> None:
                 qlpack["dependencies"]["codeql/cpp-all"] = compatible_stdlib_version
                 with qlpack_file.open("w") as f:
                     yaml.safe_dump(qlpack, f, sort_keys=False)
-                updated_qlpacks.append(qlpack_file.parent)
 
         # Call CodeQL to update the lock files by running codeql pack upgrade
         # Note: we need to do this after updating all the qlpack files,
         #       otherwise we may get dependency resolution errors
-        for qlpack in updated_qlpacks:
+        # Note: we need to update all qlpack files, because they may
+        #       transitively depend on the packs we changed
+        for qlpack_file in qlpack_files:
+            qlpack = qlpack.parent
             print("Updating lock files for " + str(qlpack))
             os.system(f"codeql pack upgrade {qlpack}")
 
