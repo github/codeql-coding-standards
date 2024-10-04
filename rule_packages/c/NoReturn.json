@@ -12,7 +12,10 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NonVoidReturnTypeOfNoreturnFunction",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
         }
       ],
       "title": "A function declared with _noreturn shall have a return type of void"
@@ -29,7 +32,10 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "FunctionWithNoReturningBranchShouldBeNoreturn",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
         }
       ],
       "title": "A function without a branch that returns shall be declared with _Noreturn"
@@ -46,7 +52,10 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ReturnStatementInNoreturnFunction",
-          "tags": ["correctness"],
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ],
           "shared_implementation_short_name": "FunctionNoReturnAttributeCondition"
         }
       ],
