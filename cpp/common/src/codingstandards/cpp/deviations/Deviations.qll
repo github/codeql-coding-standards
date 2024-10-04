@@ -365,17 +365,19 @@ class DeviationRecord extends XmlElement {
 
   /** Gets a path to which this deviation applies. */
   string getADeviationPath() {
-    (
+    exists(string res |
       if exists(getPathAContainer())
       then
         // Use the path, which will be relative to this file, if specified
-        result = getPathAContainer().getRelativePath()
+        res = getPathAContainer().getRelativePath()
       else (
         // Otherwise, if no code identifier was supplied, it applies to the parent container of the
         // file itself
         not exists(getCodeIdentifier()) and
-        result = this.getFile().getParentContainer().getRelativePath()
+        res = this.getFile().getParentContainer().getRelativePath()
       )
+    |
+      if res = "" then result = "(root)" else result = res
     )
   }
 
