@@ -46,7 +46,17 @@
       ],
       "title": "Obsolencent language features shall not be used",
       "implementation_scope": {
-        "description": "Usage of obsolescent language features that are already disallowed by Rule 8.2, Rule 8.8, and 21.6 are not redundantly checked by this rule."
+        "description": "Not all items from Appendix F are covered by this rule. Some are not supportable and some are covered already by other rules.",
+        "items": [
+          "Appendix F, item ID 1 is covered by Rule 8.8 and not reported as part of this implementation of Rule 1.5.",
+          "Appendix F, item ID 2 refers to compiler behavior which cannot be statically analyzed.",
+          "Appendix F, item ID 3, which states that storage-class specifiers may not be used except in the beginning of a declaration, is not supportable without additional changes to the CodeQL CLI.",
+          "Appendix F, item ID 6 is reported for all C versions, though the macro ATOMIC_VAR_INIT was not officially declared obsolescent until C18.",
+          "Appendix F, item IDs 4 and 5 are covered by Rule 8.2 and not reported as part of this implementation of Rule 1.5.",
+          "Appendix F, item IDs 8 and 9 is covered by Rule 21.6 and not reported as part of this implementation of Rule 1.5.",
+          "Appendix F, item ID 10 is checked by this implementation of 1.5, though it is a redundant subset of cases reported by Rule 21.3.",
+          "Appendix F, item ID 10 is reported for all C versions, as realloc() with a size argument of zero was implementation-defined behavior in C99 and C11."
+        ]
       }
     }
   }
