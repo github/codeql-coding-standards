@@ -9,6 +9,7 @@
  * @tags external/misra/id/rule-1-5
  *       maintainability
  *       readability
+ *       external/misra/c/2012/amendment3
  *       external/misra/obligation/required
  */
 

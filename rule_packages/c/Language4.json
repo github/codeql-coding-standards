@@ -14,7 +14,8 @@
           "short_name": "UseOfObsoleteMacroAtomicVarInit",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/amendment3"
           ]
         },
         {
@@ -26,7 +27,8 @@
           "short_name": "InvalidDefineOrUndefOfStdBoolMacro",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/amendment3"
           ]
         },
         {
@@ -37,7 +39,8 @@
           "severity": "error",
           "short_name": "CallToReallocWithSizeZero",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/amendment3"
           ]
         }
       ],
