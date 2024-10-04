@@ -4,22 +4,28 @@
       "properties": {
         "obligation": "rule"
       },
-      "queries": [{
+      "queries": [
+        {
           "description": "Do not rely solely on errno to determine if en error occurred in setlocale.",
           "kind": "problem",
           "name": "Do not rely solely on errno to determine if en error occurred in setlocale",
           "precision": "high",
           "severity": "error",
           "short_name": "SetlocaleMightSetErrno",
-          "tags": ["correctness"]
-        }, {
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
           "description": "Do not check errno before the function return value. Failing to do so might invalidate the error detection.",
           "kind": "problem",
           "name": "Do not check errno before the function return value",
           "precision": "high",
           "severity": "error",
           "short_name": "ErrnoReadBeforeReturn",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness"
+          ]
         },
         {
           "description": "After calling an errno-setting function, check errno before calling any other function. Failing to do so might end in errno being overwritten.",
@@ -28,7 +34,9 @@
           "precision": "high",
           "severity": "error",
           "short_name": "FunctionCallBeforeErrnoCheck",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness"
+          ]
         },
         {
           "description": "Set errno to zero prior to each call to an errno-setting function. Failing to do so might end in spurious errno values.",
@@ -37,7 +45,9 @@
           "precision": "high",
           "severity": "error",
           "short_name": "ErrnoNotSetToZero",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness"
+          ]
         }
       ],
       "title": "Take care when reading errno"

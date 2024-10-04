@@ -10,6 +10,7 @@
  *       correctness
  *       readability
  *       maintainability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
