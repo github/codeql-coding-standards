@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Fetch CodeQL
         env:
@@ -31,7 +31,7 @@ jobs:
           echo "$RUNNER_TEMP/codeql/" >> $GITHUB_PATH
 
       - name: Install Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.9"
 
@@ -53,7 +53,7 @@ jobs:
           find c \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "Upgrade `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
           body: |
