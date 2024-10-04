@@ -1,0 +1,5 @@
+ - `M0-1-9` - `DeadCode.ql`
+   - Remove false positives for statements where the enclosing function is compiled multiple times, either as part of different targets or a different template instantiations. Previously we would see false positives where a statement was dead in one instance of the code, but not other instances. We now only consider a statement dead if it is dead in all instances of that code.
+- `RULE-2-2` - `DeadCode.ql`:
+   - Query has been rewritten to report only _operations_ that are considered dead, not statements. This should reduce false positives.
+   - Remove false positives for operations where the enclosing function is compiled multiple times, either as part of different targets or a different template instantiations. Previously we would see false positives where a operation was dead in one instance of the code, but not other instances. We now only consider a operation dead if it is dead in all instances of that code.

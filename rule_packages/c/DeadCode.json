@@ -39,21 +39,7 @@
           "tags": [
             "readability",
             "maintainability"
-          ],
-          "implementation_scope": {
-            "description": "This query identifies dead statements in the program of the following kinds:",
-            "items": [
-              "Declarations of a non-static stack variable whose initializing expression is pure (i.e. has no side-effects) and that is never subsequently accessed in live code.",
-              "Blocks that contain only dead statements.",
-              "Do loops whose condition is pure, and whose body contains only dead statements.",
-              "If statements whose condition is pure, and whose then and else clauses (where they exist) only contain dead statements.",
-              "Label statements to which the code never jumps.",
-              "While loops whose condition is pure, and whose body contains only dead statements.",
-              "Expression statements whose expressions are pure.",
-              "Writes to a non-static stack variable that is never subsequently read in live code."
-            ]
-          },
-          "shared_implementation_short_name": "DeadCode"
+          ]
         }
       ],
       "title": "There shall be no dead code"
