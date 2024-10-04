@@ -17,11 +17,20 @@ jobs:
         with:
           minimum-permission: "write"
 
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards-release-engineering"
+
       - name: Dispatch Performance Testing Job
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') && steps.check-write-permission.outputs.has-permission }}
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
           repository: github/codeql-coding-standards-release-engineering
           event-type: performance-test
           client-payload: '{"pr": "${{ github.event.issue.number }}"}'
