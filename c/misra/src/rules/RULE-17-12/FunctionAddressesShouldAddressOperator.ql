@@ -15,13 +15,7 @@ import cpp
 import codingstandards.c.misra
 
 predicate isImplicitlyAddressed(FunctionAccess access) {
-  (
-    not access.getParent() instanceof AddressOfExpr
-    or
-    // This catches "&(foo)", which could be considered to be somewhat less
-    // readable than "(&foo)".
-    exists(ParenthesisExpr parens | parens.getExpr() = access)
-  ) and
+  not access.getParent() instanceof AddressOfExpr and
   // Note: the following *seems* to only exist in c++ codebases, for instance,
   // when calling a member. In c, this syntax should always extract as a
   // [FunctionCall] rather than a [ExprCall] of a [FunctionAccess]. Still, this

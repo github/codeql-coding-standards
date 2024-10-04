@@ -10,9 +10,9 @@ typedef void (*func_ptr_t1)();
 typedef void (*func_ptr_t2)(int x, char *y);
 typedef s (*func_ptr_t3)();
 
-func_ptr_t1 func_ptr1 = &func1;   // COMPLIANT
-func_ptr_t2 func_ptr2 = func2;    // NON-COMPLIANT
-func_ptr_t3 func_ptr3 = &(func3); // NON-COMPLIANT
+func_ptr_t1 func_ptr1 = &func1;    // COMPLIANT
+func_ptr_t2 func_ptr2 = func2;     // NON-COMPLIANT
+func_ptr_t3 func_ptr3 = func3 + 0; // NON-COMPLIANT
 
 void take_func(func_ptr_t1 f1, func_ptr_t2 f2);
 
@@ -44,8 +44,8 @@ void test() {
   (func1)();           // COMPLIANT
   (func2)(1, "hello"); // COMPLIANT
 
-  &(func1); // NON-COMPLIANT
-  &(func2); // NON-COMPLIANT
+  &(func1); // COMPLIANT
+  &(func2); // COMPLIANT
 
   (&func1)();           // COMPLIANT
   (&func2)(1, "hello"); // COMPLIANT
