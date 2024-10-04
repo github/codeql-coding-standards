@@ -1,1 +1,1 @@
-| test.c:37:12:37:13 | declaration of g5 | The redeclaration of $@ with internal linkage misses the static specifier. | test.c:36:12:36:13 | definition of g5 | g5 |
+| test.c:35:12:35:13 | declaration of g5 | The redeclaration of $@ with internal linkage misses the static specifier. | test.c:34:12:34:13 | definition of g5 | g5 |

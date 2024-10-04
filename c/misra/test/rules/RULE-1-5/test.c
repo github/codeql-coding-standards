@@ -1,5 +1,3 @@
-// Compiled with -std=c17
-
 #include "stdatomic.h"
 #include "stdbool.h"
 #include "stdio.h"

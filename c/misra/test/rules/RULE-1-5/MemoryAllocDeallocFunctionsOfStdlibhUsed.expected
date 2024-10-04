@@ -1,3 +1,3 @@
-| test.c:10:12:10:17 | call to malloc | Use of banned dynamic memory allocation. |
-| test.c:13:3:13:9 | call to realloc | Use of banned dynamic memory allocation. |
-| test.c:16:3:16:9 | call to realloc | Use of banned dynamic memory allocation. |
+| test.c:8:12:8:17 | call to malloc | Use of banned dynamic memory allocation. |
+| test.c:11:3:11:9 | call to realloc | Use of banned dynamic memory allocation. |
+| test.c:14:3:14:9 | call to realloc | Use of banned dynamic memory allocation. |

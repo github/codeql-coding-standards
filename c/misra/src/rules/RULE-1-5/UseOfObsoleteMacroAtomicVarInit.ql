@@ -16,11 +16,9 @@
 import cpp
 import codingstandards.c.misra
 
-from MacroInvocation invoke, Compilation c, string flag
+from MacroInvocation invoke
 where
   not isExcluded(invoke, Language4Package::useOfObsoleteMacroAtomicVarInitQuery()) and
-  invoke.getMacroName() = "ATOMIC_VAR_INIT" and
-  flag = c.getAnArgument() and
-  flag.regexpMatch("-std=c1[78]")
+  invoke.getMacroName() = "ATOMIC_VAR_INIT"
 select invoke,
-  "Usage of macro ATOMIC_VAR_INIT() is considered obsolete for c version '" + flag + "'."
+  "Usage of macro ATOMIC_VAR_INIT() is declared obscelescent in C18, and discouraged in earlier C versions."

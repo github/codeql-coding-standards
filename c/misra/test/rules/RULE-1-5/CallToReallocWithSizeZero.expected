@@ -1,1 +1,1 @@
-| test.c:13:14:13:14 | 0 | Calling realloc with size zero results in implementation-defined behavior. |
+| test.c:11:14:11:14 | 0 | Calling realloc with size zero results in implementation-defined behavior. |
