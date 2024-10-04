@@ -82,7 +82,7 @@ def main(cli_version : str, github_token: str) -> None:
         # Note: we need to update all qlpack files, because they may
         #       transitively depend on the packs we changed
         for qlpack_file in qlpack_files:
-            qlpack = qlpack.parent
+            qlpack = qlpack_file.parent
             print("Updating lock files for " + str(qlpack))
             os.system(f"codeql pack upgrade {qlpack}")
 
