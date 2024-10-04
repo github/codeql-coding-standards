@@ -351,7 +351,7 @@
                     "minLength": 1
                 },
                 "implementation_scope": {
-                    "$ref": "#/$defs/implementation_scope"
+                    "$ref": "/schemas/implementation_scope"
                 }
             },
             "required": [
@@ -363,24 +363,24 @@
                 "tags"
             ]
         },
-                "implementation_scope": {
+        "implementation_scope": {
             "$id": "/schemas/implementation_scope",
-                    "type": "object",
-                    "properties": {
-                        "description": {
-                            "kind": "string"
-                        },
-                        "items": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "required": [
-                        "description"
-                    ],
-                    "additionalProperties": false
+            "type": "object",
+            "properties": {
+                "description": {
+                    "kind": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
+            },
+            "required": [
+                "description"
+            ],
+            "additionalProperties": false
+        }
     }
 }
