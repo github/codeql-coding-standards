@@ -13,18 +13,12 @@
           "severity": "error",
           "short_name": "FunctionAddressesShouldAddressOperator",
           "tags": [
-            "readability"
+            "readability",
+            "external/misra/c/2012/amendment3"
           ]
         }
       ],
       "title": "A function identifier should only be called with a parenthesized parameter list or used with a & (address-of)"
-    },
-    "RULE-17-13": {
-      "properties": {
-        "obligation": "required"
-      },
-      "queries": [],
-      "title": "A function type shall not include any type qualifiers (const, volatile, restrict, or _Atomic)"
     }
   }
 }
