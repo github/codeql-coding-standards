@@ -8,6 +8,7 @@
  * @problem.severity warning
  * @tags external/misra/id/rule-7-6
  *       readability
+ *       external/misra/c/2012/amendment3
  *       external/misra/obligation/required
  */
 
