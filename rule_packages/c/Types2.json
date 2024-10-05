@@ -13,7 +13,8 @@
           "severity": "warning",
           "short_name": "InvalidIntegerConstantMacroArgument",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/amendment3"
           ]
         },
         {
@@ -24,7 +25,8 @@
           "severity": "error",
           "short_name": "InvalidLiteralForIntegerConstantMacroArgument",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/amendment3"
           ]
         },
         {
@@ -36,7 +38,8 @@
           "short_name": "IntegerConstantMacroArgumentUsesSuffix",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/amendment3"
           ]
         },
         {
@@ -47,7 +50,8 @@
           "severity": "error",
           "short_name": "IncorrectlySizedIntegerConstantMacroArgument",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/amendment3"
           ],
           "implementation_scope": {
             "description": "This rule can validate integers sized 32 or smaller. When the CodeQL runtime supports big ints, this will be expanded to include 64 bit integer types."
@@ -69,7 +73,8 @@
           "severity": "warning",
           "short_name": "UseOfBannedSmallIntegerConstantMacro",
           "tags": [
-            "readability"
+            "readability",
+            "external/misra/c/2012/amendment3"
           ]
         }
       ],
