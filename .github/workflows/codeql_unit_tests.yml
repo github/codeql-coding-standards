@@ -151,7 +151,7 @@ jobs:
               file.close()
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.language }}-test-results-${{ runner.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library_ident }}
           path: |
@@ -171,7 +171,7 @@ jobs:
           script: |
             core.setFailed('Test run job failed')
       - name: Collect test results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
 
       - name: Validate test results
         run: |
