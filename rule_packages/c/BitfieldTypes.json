@@ -13,7 +13,9 @@
           "severity": "error",
           "short_name": "BitFieldsShallOnlyBeDeclaredWithAnAppropriateType",
           "shared_implementation_short_name": "BitFieldShallHaveAnAppropriateType",
-          "tags": []
+          "tags": [
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "Bit-fields shall only be declared with an appropriate type"
@@ -31,7 +33,9 @@
           "severity": "error",
           "short_name": "SingleBitNamedBitFieldsOfASignedType",
           "shared_implementation_short_name": "NamedBitFieldsWithSignedIntegerType",
-          "tags": []
+          "tags": [
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "Single-bit named bit fields shall not be of a signed type"

@@ -1,0 +1,4 @@
+| test.c:6:15:6:16 | f4 | The function f4 is declared _noreturn but has a return type of int. |
+| test.c:19:15:19:16 | f8 | The function f8 is declared _noreturn but has a return type of int. |
+| test.c:24:17:24:18 | f9 | The function f9 is declared _noreturn but has a return type of void *. |
+| test.c:26:31:26:33 | f10 | The function f10 is declared _noreturn but has a return type of int. |

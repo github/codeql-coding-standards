@@ -1,0 +1,12 @@
+- description: MISRA C 2012 (Required)
+- qlpack: codeql/misra-c-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - external/misra/obligation/required
+- exclude:
+    tags contain:
+    - external/misra/audit
+    - external/misra/default-disabled

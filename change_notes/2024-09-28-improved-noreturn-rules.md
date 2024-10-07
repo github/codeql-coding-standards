@@ -1,0 +1,3 @@
+ - `A7-6-1`, `MSC53-CPP`, `RULE-9-6-4` - `FunctionNoReturnAttbrituteCondition.qll`
+   - Analysis expanded from functions with "noreturn" attribute, now includes the "noreturn" specifier as well to handle new c rules. No difference in C++ results expected.
+   - Exclude compiler generated functions from being reported.

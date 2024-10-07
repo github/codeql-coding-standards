@@ -8,13 +8,15 @@
  * @tags external/misra/id/rule-1-2
  *       maintainability
  *       readability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/advisory
  */
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.AlertReporting
 import codingstandards.c.Extensions
 
 from CCompilerExtension e
 where not isExcluded(e, Language3Package::languageExtensionsShouldNotBeUsedQuery())
-select e, "Is a compiler extension and is not portable to other compilers."
+select MacroUnwrapper<CCompilerExtension>::unwrapElement(e), e.getMessage()

@@ -48,7 +48,9 @@
           "precision": "high",
           "severity": "error",
           "short_name": "PlainNumericalTypeUsedOverExplicitTypedef",
-          "tags": []
+          "tags": [
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "typedefs that indicate size and signedness should be used in place of the basic numerical types"
@@ -65,7 +67,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "SizeofOperatorUsedOnArrayTypeParam",
-          "tags": []
+          "tags": [
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "The sizeof operator shall not have an operand which is a function parameter declared as 'array of type'"
@@ -82,7 +86,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "StringLiteralAssignedToNonConstChar",
-          "tags": []
+          "tags": [
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "A string literal shall not be assigned to an object unless the object's type is 'pointer to const-qualified char'"
