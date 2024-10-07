@@ -142,3 +142,22 @@ class M {
 public:
   M(const M &) = delete; // COMPLIANT - ignore if deleted
 };
+
+#include <gtest/gtest.h>
+int called_from_google_test_function(
+    int a_param) // COMPLIANT - called from TEST
+{
+  int something = a_param;
+  something++;
+  return something;
+}
+
+TEST(
+    sample_test,
+    called_from_google_test_function) // COMPLIANT - False positive!
+                                      // ~sample_test_called_from_google_test_function_Test
+{
+  bool pass = false;
+  if (called_from_google_test_function(0) >= 10)
+    pass = true;
+}

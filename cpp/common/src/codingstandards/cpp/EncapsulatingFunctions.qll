@@ -39,8 +39,9 @@ class GoogleTestFunction extends MainLikeFunction {
         base.getNamespace().hasName("testing")
       )
       or
-      // or at a location in a file called "gtest.h".
-      base.getDefinitionLocation().getFile().getBaseName() = "gtest.h"
+      // or at a location in a file called gtest.h (or gtest-internal.h,
+      // gtest-typed-test.h etc).
+      base.getDefinitionLocation().getFile().getBaseName().regexpMatch("gtest*.h")
     )
   }
 }
