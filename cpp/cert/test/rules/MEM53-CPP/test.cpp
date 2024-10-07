@@ -63,7 +63,6 @@ void test_no_constructor_but_has_destructor() {
 
 void test_realloc() {
   void *goodAlloc = ::operator new(sizeof(ClassA));
-  ClassA *a1 = new (goodAlloc) ClassA{1}; // COMPLIANT
-  ClassA *a2 = (ClassA *)realloc(
-      goodAlloc, sizeof(ClassA) * 2); // COMPLIANT [FALSE_POSITIVE]
+  ClassA *a1 = new (goodAlloc) ClassA{1};                        // COMPLIANT
+  ClassA *a2 = (ClassA *)realloc(goodAlloc, sizeof(ClassA) * 2); // COMPLIANT
 }
