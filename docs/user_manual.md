@@ -78,7 +78,7 @@ The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each r
 
 [^1]: AUTOSAR C++ versions R22-11, R21-11, R20-11, R19-11 and R19-03 are all identical as indicated in the document change history.
 [^2]: The unimplemented supportable AUTOSAR rules are `A7-1-8` and `A8-2-1`. These rules require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules.
-[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5` and `Dir 4.14`. `Rule 9.5` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
+[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5`, `Rule 17.13`, and `Dir 4.14`. `Rule 9.5` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
 [^4]: The rules 5.13.7, 19.0.1 and 19.1.2 are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
 
 ## Supported environment
