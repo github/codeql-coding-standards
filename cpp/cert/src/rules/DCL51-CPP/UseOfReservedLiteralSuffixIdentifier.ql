@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.UserDefinedLiteral
+import codingstandards.cpp.UserDefinedLiteral as udl
 
-from UserDefinedLiteral udl
+from udl::UserDefinedLiteral udl
 where
   not isExcluded(udl, NamingPackage::useOfReservedLiteralSuffixIdentifierQuery()) and
   not udl.hasCompliantSuffix()
