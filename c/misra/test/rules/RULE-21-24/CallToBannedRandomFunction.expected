@@ -1,0 +1,2 @@
+| test.c:5:3:5:7 | call to srand | Call to banned random number generation function 'srand'. |
+| test.c:6:11:6:14 | call to rand | Call to banned random number generation function 'rand'. |
