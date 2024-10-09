@@ -65,7 +65,8 @@
           "shared_implementation_short_name": "MacroParameterNotEnclosedInParentheses",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query checks for every instance of a parameter to be enclosed in parentheses regardless of whether the expansion of that parameter forms an expression or not.",

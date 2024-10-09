@@ -56,7 +56,8 @@
           "short_name": "StringFunctionPointerArgumentOutOfBounds",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -76,7 +77,8 @@
           "short_name": "StringLibrarySizeArgumentOutOfBounds",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

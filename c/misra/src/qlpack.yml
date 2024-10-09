@@ -3,6 +3,7 @@ version: 2.36.0-dev
 description: MISRA C 2012
 suites: codeql-suites
 license: MIT
+default-suite-file: codeql-suites/misra-c-default.qls
 dependencies:
   codeql/common-c-coding-standards: '*'
-  codeql/cpp-all: 0.9.3
+  codeql/cpp-all: 0.12.2

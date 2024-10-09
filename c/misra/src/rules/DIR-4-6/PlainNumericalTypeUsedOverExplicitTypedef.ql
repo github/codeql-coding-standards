@@ -7,6 +7,7 @@
  * @precision high
  * @problem.severity error
  * @tags external/misra/id/dir-4-6
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/advisory
  */
 

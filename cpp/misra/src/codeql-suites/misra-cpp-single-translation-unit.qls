@@ -1,0 +1,12 @@
+- description: MISRA C++ 2023 (Single Translation Unit)
+- qlpack: codeql/misra-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - scope/single-translation-unit
+- exclude:
+    tags contain:
+    - external/misra/audit
+    - external/misra/default-disabled

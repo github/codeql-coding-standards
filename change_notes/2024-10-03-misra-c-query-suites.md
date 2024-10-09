@@ -1,0 +1,10 @@
+ - The following query suites have been added or modified for MISRA C:
+   - A new query suite has been created `misra-c-default.qls` to avoid confusion with the MISRA C++ query suites. The `misra-default.qls` suite has been deprecated, and will be removed in a future releases, and is replaced by the `misra-c-default.qls` suite.
+     - The `misra-c-default.qls` suite has been specified as the default for the pack, and will include our most up-to-date coverage for MISRA C.
+   - A new query suite `misra-c-2012-third-edition-with-amendment-2.qls` has been created to represent our previous MISRA C coverage. Note: this query suite will run the rules that were present in MISRA C 2012, Third Edition, First Revision and Amendment 2. The interpretation of those rules may be updated to reflect changes in more recent MISRA standards.
+   - Three new query suites, `misra-c-mandatory.qls`, `misra-c-required.qls` and `misra-c-advisory.qls`, have been added to enable running mandatory, required or advisory queries.
+ - The following query suites have been added or modified for MISRA C++:
+   - A new query suite has been created `misra-cpp-default.qls` to avoid confusion with the MISRA C query suites. The `misra-default.qls` suite has been deprecated, and will be removed in a future releases, and is replaced by the `misra-cpp-default.qls` suite.
+     - The `misra-cpp-default.qls` suite has been specified as the default for the pack, and will include our most up-to-date coverage for MISRA C.
+   - A new query suite has been created `misra-cpp-single-translation-unit.qls` to avoid confusion with the MISRA C query suites. The `misra-single-translation-unit.qls` suite has been deprecated, and will be removed in a future releases, and is replaced by the `misra-cpp-single-translation-unit.qls` suite.
+   - Three new query suites, `misra-cpp-mandatory.qls`, `misra-c-required.qls` and `misra-c-advisory.qls`, have been added to enable running mandatory, required or advisory queries.
