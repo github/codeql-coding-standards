@@ -15,7 +15,7 @@ class IntegerConstantMacro extends Macro {
     signed = false and size = getName().regexpCapture("UINT(8|16|32|64)_C", 1).toInt()
   }
 
-  predicate isSmall() { size < 32 }
+  predicate isSmall() { size < any(IntType it | it.isSigned()).getSize() }
 
   int getSize() { result = size }
 

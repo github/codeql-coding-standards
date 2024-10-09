@@ -4,7 +4,6 @@
 
 import cpp
 import codingstandards.cpp.Cpp14Literal
-import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
 class IntegerLiteral = Cpp14Literal::IntegerLiteral;
 
@@ -100,7 +99,7 @@ class NegativeLiteral extends PossiblyNegativeLiteral, UnaryMinusExpr {
 
   override Cpp14Literal::NumericLiteral getBaseLiteral() { result = literal }
 
-  override float getRawValue() { result = -lowerBound(literal) }
+  override float getRawValue() { result = -literal.getValue().toFloat() }
 }
 
 /**
@@ -112,5 +111,5 @@ class PositiveLiteral extends PossiblyNegativeLiteral, Cpp14Literal::NumericLite
 
   override Cpp14Literal::NumericLiteral getBaseLiteral() { result = this }
 
-  override float getRawValue() { result = lowerBound(this) }
+  override float getRawValue() { result = getValue().toFloat() }
 }

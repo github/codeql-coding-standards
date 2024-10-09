@@ -21,13 +21,8 @@ predicate matchesSign(IntegerConstantMacro macro, PossiblyNegativeLiteral litera
 }
 
 predicate matchesSize(IntegerConstantMacro macro, PossiblyNegativeLiteral literal) {
-  // Wait for BigInt support to check 64 bit macro types.
-  (macro.getSize() < 64 and matchesSign(macro, literal))
-  implies
-  (
-    literal.getRawValue() <= macro.maxValue() and
-    literal.getRawValue() >= macro.minValue()
-  )
+  literal.getRawValue() <= macro.maxValue() and
+  literal.getRawValue() >= macro.minValue()
 }
 
 from
@@ -38,9 +33,13 @@ where
   invoke.getMacro() = macro and
   literal = invoke.getExpr() and
   (
-    not matchesSign(macro, invoke.getExpr()) and explanation = " cannot be negative"
+    not matchesSign(macro, literal) and
+    explanation = " cannot be negative"
     or
-    not matchesSize(macro, invoke.getExpr()) and
+    matchesSign(macro, literal) and
+    // Wait for BigInt support to check 64 bit macro types.
+    macro.getSize() < 64 and
+    not matchesSize(macro, literal) and
     explanation = " is outside of the allowed range " + macro.getRangeString()
   )
-select invoke.getExpr(), "Value provided to integer constant macro " + macro.getName() + explanation
+select literal, "Value provided to integer constant macro " + macro.getName() + explanation

@@ -17,11 +17,6 @@ import codingstandards.cpp.IntegerConstantMacro
 import codingstandards.cpp.Literals
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
-predicate containsMacroInvocation(MacroInvocation outer, MacroInvocation inner) {
-  outer.getExpr() = inner.getExpr() and
-  exists(outer.getUnexpandedArgument(0).indexOf(inner.getMacroName()))
-}
-
 from MacroInvocation invoke, IntegerConstantMacro macro
 where
   not isExcluded(invoke, Types2Package::invalidIntegerConstantMacroArgumentQuery()) and
@@ -29,7 +24,7 @@ where
   (
     not invoke.getExpr() instanceof PossiblyNegativeLiteral
     or
-    containsMacroInvocation(invoke, _)
+    any(MacroInvocation inner).getParentInvocation() = invoke
   )
 select invoke.getExpr(),
   "Argument to integer constant macro " + macro.getName() + " must be an integer literal."
