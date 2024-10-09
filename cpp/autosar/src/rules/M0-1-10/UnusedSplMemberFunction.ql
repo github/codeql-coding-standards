@@ -20,7 +20,7 @@ import codingstandards.cpp.deadcode.UnusedFunctions
 
 from UnusedFunctions::UnusedSplMemberFunction unusedSplMemFunction, string name
 where
-  not isExcluded(DeadCodePackage::unusedSplMemberFunctionQuery(), DeadCodePackage::unusedFunctionQuery()) and
+  not isExcluded(unusedSplMemFunction, DeadCodePackage::unusedFunctionQuery()) and
   (
     if exists(unusedSplMemFunction.getQualifiedName())
     then name = unusedSplMemFunction.getQualifiedName()
