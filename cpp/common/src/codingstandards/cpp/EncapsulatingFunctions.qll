@@ -3,6 +3,7 @@
  */
 
 import cpp
+import codingstandards.cpp.Class
 
 /** A function which represents the entry point into a specific thread of execution in the program. */
 abstract class MainLikeFunction extends Function { }
@@ -29,19 +30,22 @@ class MainFunction extends MainLikeFunction {
 class GoogleTestFunction extends MainLikeFunction {
   GoogleTestFunction() {
     // A GoogleTest function is named "TestBody" and
-    this.hasName("TestBody") and
+    (
+      this.hasName("TestBody") or
+      this instanceof SpecialMemberFunction
+    ) and
     // it's parent class inherits a base class
     exists(Class base |
       base = this.getEnclosingAccessHolder().(Class).getABaseClass+() and
-      // with a name "Test" inside a namespace called "testing"
       (
+        // with a name "Test" inside a namespace called "testing"
         base.hasName("Test") and
         base.getNamespace().hasName("testing")
+        or
+        // or at a location in a file called gtest.h (or gtest-internal.h,
+        // gtest-typed-test.h etc).
+        base.getDefinitionLocation().getFile().getBaseName().regexpMatch("gtest*.h")
       )
-      or
-      // or at a location in a file called gtest.h (or gtest-internal.h,
-      // gtest-typed-test.h etc).
-      base.getDefinitionLocation().getFile().getBaseName().regexpMatch("gtest*.h")
     )
   }
 }

@@ -152,10 +152,8 @@ int called_from_google_test_function(
   return something;
 }
 
-TEST(
-    sample_test,
-    called_from_google_test_function) // COMPLIANT - False positive!
-                                      // ~sample_test_called_from_google_test_function_Test
+TEST(sample_test,
+     called_from_google_test_function) // COMPLIANT - Google Test function
 {
   bool pass = false;
   if (called_from_google_test_function(0) >= 10)
