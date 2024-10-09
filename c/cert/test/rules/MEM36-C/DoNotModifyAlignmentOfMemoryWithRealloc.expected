@@ -1,9 +1,9 @@
 edges
-| test.c:5:10:5:22 | call to aligned_alloc | test.c:15:8:15:28 | call to aligned_alloc_wrapper |
-| test.c:8:29:8:31 | ptr | test.c:8:64:8:66 | ptr |
-| test.c:15:8:15:28 | call to aligned_alloc_wrapper | test.c:16:24:16:25 | v1 |
-| test.c:16:24:16:25 | v1 | test.c:8:29:8:31 | ptr |
-| test.c:22:8:22:20 | call to aligned_alloc | test.c:23:16:23:17 | v3 |
+| test.c:5:10:5:22 | call to aligned_alloc | test.c:15:8:15:28 | call to aligned_alloc_wrapper | provenance |  |
+| test.c:8:29:8:31 | ptr | test.c:8:64:8:66 | ptr | provenance |  |
+| test.c:15:8:15:28 | call to aligned_alloc_wrapper | test.c:16:24:16:25 | v1 | provenance |  |
+| test.c:16:24:16:25 | v1 | test.c:8:29:8:31 | ptr | provenance |  |
+| test.c:22:8:22:20 | call to aligned_alloc | test.c:23:16:23:17 | v3 | provenance |  |
 nodes
 | test.c:5:10:5:22 | call to aligned_alloc | semmle.label | call to aligned_alloc |
 | test.c:8:29:8:31 | ptr | semmle.label | ptr |

@@ -1,6 +1,6 @@
 edges
-| test.cpp:5:13:5:30 | [...](...){...} | test.cpp:8:38:8:39 | l1 |
-| test.cpp:6:13:6:30 | [...](...){...} | test.cpp:9:38:9:39 | l2 |
+| test.cpp:5:13:5:30 | [...](...){...} | test.cpp:8:38:8:39 | l1 | provenance |  |
+| test.cpp:6:13:6:30 | [...](...){...} | test.cpp:9:38:9:39 | l2 | provenance |  |
 nodes
 | test.cpp:5:13:5:30 | [...](...){...} | semmle.label | [...](...){...} |
 | test.cpp:6:13:6:30 | [...](...){...} | semmle.label | [...](...){...} |
