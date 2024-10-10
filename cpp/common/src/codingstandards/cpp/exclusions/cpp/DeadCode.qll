@@ -12,6 +12,7 @@ newtype DeadCodeQuery =
   TUnusedTypeDeclarationsQuery() or
   TUnreachableCodeQuery() or
   TUnusedFunctionQuery() or
+  TUnusedSplMemberFunctionQuery() or
   TInfeasiblePathQuery() or
   TUnusedLocalVariableQuery() or
   TUnusedGlobalOrNamespaceVariableQuery() or
@@ -91,6 +92,15 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId, st
   queryId =
     // `@id` for the `unusedFunction` query
     "cpp/autosar/unused-function" and
+  ruleId = "M0-1-10" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `unusedSplMemberFunction` query
+    DeadCodePackage::unusedSplMemberFunctionQuery() and
+  queryId =
+    // `@id` for the `unusedSplMemberFunction` query
+    "cpp/autosar/unused-spl-member-function" and
   ruleId = "M0-1-10" and
   category = "advisory"
   or
@@ -222,6 +232,13 @@ module DeadCodePackage {
     result =
       // `Query` type for `unusedFunction` query
       TQueryCPP(TDeadCodePackageQuery(TUnusedFunctionQuery()))
+  }
+
+  Query unusedSplMemberFunctionQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `unusedSplMemberFunction` query
+      TQueryCPP(TDeadCodePackageQuery(TUnusedSplMemberFunctionQuery()))
   }
 
   Query infeasiblePathQuery() {

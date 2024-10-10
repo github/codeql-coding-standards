@@ -1,10 +1,10 @@
 /**
- * @id cpp/autosar/unused-function
+ * @id cpp/autosar/unused-spl-member-function
  * @name M0-1-10: Every defined function should be called at least once
  * @description Uncalled functions complicate the program and can indicate a possible mistake on the
  *              part of the programmer.
  * @kind problem
- * @precision very-high
+ * @precision medium
  * @problem.severity warning
  * @tags external/autosar/id/m0-1-10
  *       readability
@@ -18,14 +18,14 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedFunctions
 
-from UnusedFunctions::UnusedFunction unusedFunction, string name
+from UnusedFunctions::UnusedSplMemberFunction unusedSplMemFunction, string name
 where
-  not isExcluded(unusedFunction, DeadCodePackage::unusedFunctionQuery()) and
+  not isExcluded(unusedSplMemFunction, DeadCodePackage::unusedFunctionQuery()) and
   (
-    if exists(unusedFunction.getQualifiedName())
-    then name = unusedFunction.getQualifiedName()
-    else name = unusedFunction.getName()
+    if exists(unusedSplMemFunction.getQualifiedName())
+    then name = unusedSplMemFunction.getQualifiedName()
+    else name = unusedSplMemFunction.getName()
   ) and
-  not unusedFunction.isDeleted() and
-  not unusedFunction instanceof SpecialMemberFunction
-select unusedFunction, "Function " + name + " is " + unusedFunction.getDeadCodeType()
+  not unusedSplMemFunction.isDeleted()
+select unusedSplMemFunction,
+  "Special member function " + name + " is " + unusedSplMemFunction.getDeadCodeType()
