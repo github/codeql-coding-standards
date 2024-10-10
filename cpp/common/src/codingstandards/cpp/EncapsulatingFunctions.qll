@@ -36,7 +36,7 @@ class GoogleTestFunction extends MainLikeFunction {
     ) and
     // it's parent class inherits a base class
     exists(Class base |
-      base = this.getEnclosingAccessHolder().(Class).getABaseClass+() and
+      base = this.getEnclosingAccessHolder+().(Class).getABaseClass+() and
       (
         // with a name "Test" inside a namespace called "testing"
         base.hasName("Test") and

@@ -158,4 +158,11 @@ TEST(sample_test,
   bool pass = false;
   if (called_from_google_test_function(0) >= 10)
     pass = true;
+  struct a_nested_class_in_gtest {
+    a_nested_class_in_gtest() noexcept(false) {
+      static_cast<void>(0);
+    } // COMPLIANT
+  };
+  static_assert(std::is_trivially_copy_constructible<a_nested_class_in_gtest>(),
+                "assert");
 }
