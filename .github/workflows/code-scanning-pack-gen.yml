@@ -115,7 +115,8 @@ jobs:
           name: code-scanning-cpp-query-pack.zip
           path: code-scanning-cpp-query-pack.zip
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload qlpacks
+        uses: actions/upload-artifact@v4
         with:
           name: coding-standards-qlpacks
-          path: *-cp?p?-coding-standards.tgz
+          path: '*-cp?p?-coding-standards.tgz'
