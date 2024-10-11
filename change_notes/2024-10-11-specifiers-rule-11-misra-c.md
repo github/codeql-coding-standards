@@ -1,2 +1,4 @@
 - `RULE-11-3`, `RULE-11-4`, `RULE-11-5`, `RULE-11-7` - `CastBetweenObjectPointerAndDifferentObjectType.ql`, `ConversionBetweenPointerToObjectAndIntegerType.ql`, `ConversionFromPointerToVoidIntoPointerToObject.ql`, `CastBetweenPointerToObjectAndNonIntArithmeticType.ql`:
-  - Removed false positives where casts involved a specified void type pointer, e.g. `const void*`, which should not be considered as a pointer to object, but should be considered a pointer-to-void.
+  - Removed false positives where casts involved a specified void type pointer, e.g. `const void*`, which should not be considered as a pointer to object.
+- `RULE-11-5` - `ConversionFromPointerToVoidIntoPointerToObject.ql`:
+  - Addressed false negatives where the pointer-to-void was specified.
