@@ -98,8 +98,7 @@ jobs:
         run: |
           PATH=$PATH:$CODEQL_HOME/codeql
 
-          codeql query compile --precompile --threads 0 cpp
-          codeql query compile --precompile --threads 0 c
+          codeql query compile --precompile --threads 0 cpp c
 
           cd ..
           zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/schemas
@@ -120,7 +119,7 @@ jobs:
           codeql pack bundle --output=common-c-coding-standards.tgz c/common/src
           codeql pack bundle --output=misra-c-coding-standards.tgz c/misra/src
           codeql pack bundle --output=cert-c-coding-standards.tgz c/cert/src
-          codeql pack bundle --output=cert-cpp-coding-standards.tgz cpp/cert/src
+          codeql pack bundle --output=cert-cpp-coding-standards.tgz -vvv cpp/cert/src
           codeql pack bundle --output=autosar-cpp-coding-standards.tgz -vvv cpp/autosar/src
           codeql pack bundle --output=report-cpp-coding-standards.tgz cpp/report/src
 
@@ -128,4 +127,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coding-standards-qlpacks
-          path: '*-cp?p?-coding-standards.tgz'
+          path: '*-coding-standards.tgz'
