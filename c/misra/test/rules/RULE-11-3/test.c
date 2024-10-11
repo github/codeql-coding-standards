@@ -17,4 +17,8 @@ void f1(void) {
   const void *v9 = v1;        // COMPLIANT
   (int *)v9;                  // COMPLIANT - cast from void*
   (const void *)v2;           // COMPLIANT
+  (const int *)v2;            // NON_COMPLIANT
+  (int *const)v2;             // NON_COMPLIANT
+  int *const v10 = v2;        // NON_COMPLIANT
+  (long long *)v10;           // NON_COMPLIANT
 }
