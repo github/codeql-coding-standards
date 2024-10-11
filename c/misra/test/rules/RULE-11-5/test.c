@@ -8,7 +8,7 @@ void f1(void) {
   void *v3 = (void *)v1; // COMPLIANT
   v3 = (void *)v2;       // COMPLIANT
   const void *v4 = 0;
-  (int *)v4; // NON_COMPLIANT[FALSE_NEGATIVE] - const in type is irrelevant
+  (int *)v4;        // NON_COMPLIANT - const in type is irrelevant
   (const void *)v1; // COMPLIANT - casting is from void to void, const addition
                     // should be irrelevant
 }
