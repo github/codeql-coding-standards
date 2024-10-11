@@ -10,6 +10,9 @@ void f1(void) {
   unsigned int *v4 = 0;                      // COMPLIANT
   unsigned int *v5 = NULL;                   // COMPLIANT
   unsigned int *v6 = (unsigned int *)v2;     // NON_COMPLIANT
+  const void *v7 = 0;
+  (unsigned int)v7; // COMPLIANT - cast const void to int
+  (const void *)v1; // COMPLIANT - casting int to const void
 }
 
 #define FOO (int *)0x200 // NON_COMPLIANT
