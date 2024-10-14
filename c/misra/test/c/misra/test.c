@@ -53,3 +53,24 @@ void testUnary() {
   ~s;  // Should be essentially signed
   ~ss; // Should be essentially signed
 }
+
+enum { EC1 };
+enum E1 { EC2 };
+typedef enum { EC3 } E2;
+
+enum { EC4 } g;
+
+enum { EC5 } test() { return EC5; }
+
+struct S1 {
+  enum { EC6 } m;
+};
+
+void testEnums() {
+  EC1; // Should be essentially signed
+  EC2; // Should be essentially enum
+  EC3; // Should be essentially enum
+  EC4; // Should be essentially enum
+  EC5; // Should be essentially enum
+  EC6; // Should be essentially enum
+}
