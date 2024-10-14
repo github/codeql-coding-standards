@@ -87,3 +87,6 @@
 | test.c:73:3:73:5 | EC4 | (unnamed enum) | (unnamed enum) | essentially Enum Type |
 | test.c:74:3:74:5 | EC5 | (unnamed enum) | (unnamed enum) | essentially Enum Type |
 | test.c:75:3:75:5 | EC6 | (unnamed enum) | (unnamed enum) | essentially Enum Type |
+| test.c:79:3:79:5 | 97 | char | char | essentially Character type |
+| test.c:80:3:80:6 | 10 | char | char | essentially Character type |
+| test.c:81:3:81:6 | 0 | char | char | essentially Character type |

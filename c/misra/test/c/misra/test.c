@@ -74,3 +74,9 @@ void testEnums() {
   EC5; // Should be essentially enum
   EC6; // Should be essentially enum
 }
+
+void testControlChar() {
+  'a';  // Essentially char
+  '\n'; // Essentially char
+  '\0'; // Essentially char
+}

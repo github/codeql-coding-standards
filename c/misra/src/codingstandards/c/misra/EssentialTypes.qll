@@ -393,9 +393,11 @@ class EssentialEnumConstantAccess extends EssentialExpr, EnumConstantAccess {
 class EssentialLiteral extends EssentialExpr, Literal {
   override Type getEssentialType() {
     if this instanceof BooleanLiteral
-    then result instanceof MisraBoolType
+    then
+      // This returns a multitude of types - not sure if we really want that
+      result instanceof MisraBoolType
     else (
-      if this.(CharLiteral).getCharacter().length() = 1
+      if this instanceof CharLiteral
       then result instanceof PlainCharType
       else
         exists(Type underlyingStandardType |
