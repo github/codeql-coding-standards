@@ -37,4 +37,9 @@ void testOps() {
   enum { G };
   s32 + G;   // COMPLIANT
   c == '\n'; // COMPLIANT
+
+  typedef enum { H } E3;
+
+  E3 e3a = H;
+  e3a < H; // COMPLIANT
 }
