@@ -167,7 +167,9 @@ where
         mf = c.getAMemberFunction() and not mf.isCompilerGenerated() and not exists(mf.getBlock())
       )
     )
-  )
+  ) and
+  // Omit using alias (cf. https://github.com/github/codeql-coding-standards/issues/739)
+  not d instanceof UsingAliasTypedefType
 select d,
   "Member " + d.getName() + " template class does not use any of template arguments of its $@.",
   d.getDeclaringType(), "declaring type"

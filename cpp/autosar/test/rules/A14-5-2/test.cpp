@@ -7,8 +7,8 @@ template <typename T> class C1 {
 public:
   enum E1 : T { e1, e2 }; // COMPLIANT
 
-  using T1 = typename template_base<T>::type;   // COMPLIANT[FALSE_POSITIVE]
-  using T2 = typename template_base<int>::type; // NON_COMPLIANT
+  using T1 = typename template_base<T>::type;   // COMPLIANT
+  using T2 = typename template_base<int>::type; // NON_COMPLIANT[FALSE_NEGATIVE]
 
   class C11 { // COMPLIANT
     enum E2 {
