@@ -6,7 +6,7 @@
       },
       "queries": [
         {
-          "description": "The standard functions rand() and srand() will not give high quality random results in all implementations and is thus banned.",
+          "description": "The standard functions rand() and srand() will not give high quality random results in all implementations and are therefore banned.",
           "kind": "problem",
           "name": "The random number generator functions of <stdlib.h> shall not be used",
           "precision": "very-high",
