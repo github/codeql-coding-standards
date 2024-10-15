@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.alertreporting.HoldsForAllInstances
+import codingstandards.cpp.alertreporting.HoldsForAllCopies
 import codingstandards.cpp.deadcode.UselessAssignments
 
 /**
@@ -75,7 +75,7 @@ class DeadOperationInstance extends Expr {
   string getDescription() { result = description }
 }
 
-class DeadOperation = HoldsForAllInstances<DeadOperationInstance, Expr>::LogicalResultElement;
+class DeadOperation = HoldsForAllCopies<DeadOperationInstance, Expr>::LogicalResultElement;
 
 from
   DeadOperation deadOperation, DeadOperationInstance instance, string message, Element explainer,

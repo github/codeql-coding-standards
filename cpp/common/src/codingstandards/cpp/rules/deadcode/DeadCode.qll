@@ -12,7 +12,7 @@
  */
 
 import cpp
-import codingstandards.cpp.alertreporting.HoldsForAllInstances
+import codingstandards.cpp.alertreporting.HoldsForAllCopies
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.deadcode.UselessAssignments
@@ -122,7 +122,7 @@ class DeadStmtInstance extends Stmt {
   }
 }
 
-class DeadStmt = HoldsForAllInstances<DeadStmtInstance, Stmt>::LogicalResultElement;
+class DeadStmt = HoldsForAllCopies<DeadStmtInstance, Stmt>::LogicalResultElement;
 
 query predicate problems(DeadStmt s, string message) {
   not isExcluded(s.getAnElementInstance(), getQuery()) and

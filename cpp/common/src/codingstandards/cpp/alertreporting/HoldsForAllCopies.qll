@@ -1,8 +1,7 @@
 /**
- * A module for considering whether a result occurs in all instances (e.g. copies) of the code at a
- * given location.
+ * A module for considering whether a result occurs in all copies of the code at a given location.
  *
- * Multiple instances of an element at the same location can occur for two main reasons:
+ * Multiple copies of an element at the same location can occur for two main reasons:
  *  1. Instantiations of a template
  *  2. Re-compilation of a file under a different context
  * This module helps ensure that a particular condition holds for all copies of a particular logical
@@ -37,17 +36,21 @@ predicate isNotWithinMacroExpansion(Element e) {
   )
 }
 
-/** A candidate set of elements. */
+/**
+ * A type representing a set of Element's in the program that satisfy some condition.
+ *
+ * `HoldsForAllCopies<T>::LogicalResultElement` will represent an element in this set
+ * iff all copies of that element satisfy the condition.
+ */
 signature class CandidateElementSig extends Element;
 
 /** The super set of relevant elements. */
 signature class ElementSetSig extends Element;
 
 /**
- * A module for considering whether a result occurs in all instances (e.g. copies) of the code at a
- * given location.
+ * A module for considering whether a result occurs in all copies of the code at a given location.
  */
-module HoldsForAllInstances<CandidateElementSig CandidateElement, ElementSetSig ElementSet> {
+module HoldsForAllCopies<CandidateElementSig CandidateElement, ElementSetSig ElementSet> {
   private predicate hasLocation(
     ElementSet s, string filepath, int startline, int startcolumn, int endline, int endcolumn
   ) {
@@ -93,8 +96,8 @@ module HoldsForAllInstances<CandidateElementSig CandidateElement, ElementSetSig 
     }
 
   /**
-   * A logical result element, representing all instances of a element that occur at the same
-   * location.
+   * A logical result element representing all copies of an element that occur at the same
+   * location, iff they all belong to the `CandidateElement` set.
    */
   class LogicalResultElement extends TLogicalResultElement {
     predicate hasLocationInfo(
@@ -103,7 +106,7 @@ module HoldsForAllInstances<CandidateElementSig CandidateElement, ElementSetSig 
       this = TLogicalResultElement(filepath, startline, startcolumn, endline, endcolumn)
     }
 
-    /** Gets an instance of this logical result element. */
+    /** Gets a copy instance of this logical result element. */
     CandidateElement getAnElementInstance() {
       exists(string filepath, int startline, int startcolumn, int endline, int endcolumn |
         this = TLogicalResultElement(filepath, startline, startcolumn, endline, endcolumn) and
