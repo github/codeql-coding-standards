@@ -31,7 +31,9 @@ Type unwrapIndirection(Type type) {
 // DeclStmts that have a TypedefType name use (ie TypeMention) in them
 //AND TypeMention.getStartColumn() - DeclStmt.getStartColumn() > len(const)
 //AND the declared thing contains one of these "extra" specifiers in the DeclarationEntry Location
-from VariableDeclarationEntry e, TypedefType t, TypeMention tm
+from
+  VariableDeclarationEntry e, TypedefType t, TypeMention tm, string message, Element explainer,
+  string explainerMessage
 where
   not isExcluded(e, ConstPackage::cvQualifiersNotPlacedOnTheRightHandSideQuery()) and
   // Variable type is specified, and has the typedef type as a base type
@@ -48,7 +50,20 @@ where
       // TypeMention occurs after the start of the StmtDecl, with enough space for const/volatile
       tm.getLocation().getStartColumn() - s.getLocation().getStartColumn() > 5
     )
+  ) and
+  if exists(t.getFile().getRelativePath())
+  then
+    message =
+      "There is possibly a const or volatile specifier on the left hand side of typedef name $@." and
+    explainer = t and
+    explainerMessage = t.getName()
+  else (
+    // Type occurs outside source root, so don't link
+    message =
+      "There is possibly a const or volatile specifier on the left hand side of typedef name " +
+        t.getName() + "." and
+    // explainer not used in this case
+    explainer = e and
+    explainerMessage = ""
   )
-select e,
-  "There is possibly a const or volatile specifier on the left hand side of typedef name $@.", t,
-  t.getName()
+select e, message, explainer, explainerMessage
