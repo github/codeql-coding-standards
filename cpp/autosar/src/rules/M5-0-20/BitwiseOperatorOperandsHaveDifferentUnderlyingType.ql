@@ -16,7 +16,6 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Bitwise
 import codingstandards.cpp.Conversion
 
 predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess r) {
@@ -24,7 +23,7 @@ predicate isBinaryBitwiseOperation(Operation o, VariableAccess l, VariableAccess
     l = bbo.getLeftOperand() and r = bbo.getRightOperand()
   )
   or
-  exists(Bitwise::AssignBitwiseOperation abo | abo = o |
+  exists(AssignBitwiseOperation abo | abo = o |
     l = abo.getLValue() and
     r = abo.getRValue()
   )

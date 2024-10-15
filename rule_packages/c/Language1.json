@@ -14,7 +14,8 @@
           "short_name": "LanguageNotEncapsulatedAndIsolated",
           "tags": [
             "maintainability",
-            "readability" 
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

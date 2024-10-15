@@ -3,6 +3,7 @@
  */
 
 import cpp
+import codingstandards.cpp.deadcode.UnusedVariables
 import codingstandards.cpp.enhancements.ControlFlowGraphEnhancements
 
 /** If a variable may escape from the local context */
@@ -47,7 +48,9 @@ class InterestingStackVariable extends StackVariable {
     // Ignore variables in uninstantiated templates
     not this.isFromUninstantiatedTemplate(_) and
     // Ignore compiler generated variables, such as those generated for range based for loops
-    not this.isCompilerGenerated()
+    not this.isCompilerGenerated() and
+    // Explicitly ignore (propagated) constants that may be used to define sizes of local arrays
+    not countUsesInLocalArraySize(this) > 0
   }
 }
 

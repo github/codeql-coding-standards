@@ -211,14 +211,12 @@ void gf24(int f, int g) {
 
 // Reference:
 // https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html#Variable-Length
-void gf25t(int N, int M, double out[M][N], // NON_COMPLIANT
-           const double in[N][M]);         // NON_COMPLIANT
-void gf25() {
-  double x[3][2];
-  double y[2][3];
-  gf25t(3, 2, y,
-        x); // in ISO C the const qualifier is formally attached
-            // to the element type of the array and not the array itself
+void gf25(int n) {
+  struct S1 {
+    int x1[n]; // NON_COMPLIANT
+    int x2[5]; // COMPLIANT
+    int x3[];  // COMPLIANT
+  };
 }
 
 // Reference:
@@ -407,3 +405,9 @@ void gf48() {
   __builtin_alloca(
       0); // NON_COMPLIANT (all __builtin functions are non-compliant.)
 }
+
+#define BUILTIN                                                                \
+  __builtin_alloca(                                                            \
+      0) // NON_COMPLIANT (all __builtin functions are non-compliant.)
+
+void gf49() { BUILTIN; }

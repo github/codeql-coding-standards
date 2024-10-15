@@ -12,7 +12,9 @@
           "precision": "high",
           "severity": "error",
           "short_name": "DoNotModifyConstantObjects",
-          "tags": ["correctness"],
+          "tags": [
+            "correctness"
+          ],
           "implementation_scope": {
             "description": "The implementation does not consider pointer aliasing via multiple indirection."
           }
@@ -34,7 +36,10 @@
           "precision": "high",
           "severity": "error",
           "short_name": "ArrayFunctionArgumentNumberOfElements",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "The function argument corresponding to an array parameter shall have an appropriate number of elements"
@@ -51,7 +56,10 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ValueReturnedByAFunctionNotUsed",
-          "tags": ["correctness"]
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "The value returned by a function having non-void return type shall be used or cast to void"

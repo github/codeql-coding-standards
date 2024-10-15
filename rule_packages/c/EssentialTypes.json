@@ -13,7 +13,8 @@
           "severity": "warning",
           "short_name": "OperandsOfAnInappropriateEssentialType",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
@@ -24,7 +25,8 @@
           "severity": "warning",
           "short_name": "PointerTypeOnLogicalOperator",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -44,7 +46,8 @@
           "short_name": "AdditionSubtractionOnEssentiallyCharType",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -64,7 +67,8 @@
           "short_name": "AssignmentOfIncompatibleEssentialType",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -84,7 +88,8 @@
           "short_name": "OperandsWithMismatchedEssentialTypeCategory",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -104,7 +109,8 @@
           "short_name": "InappropriateEssentialTypeCast",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -124,7 +130,8 @@
           "short_name": "AssignmentToWiderEssentialType",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -144,7 +151,8 @@
           "short_name": "ImplicitConversionOfCompositeExpression",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -164,7 +172,8 @@
           "short_name": "InappropriateCastOfCompositeExpression",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -184,7 +193,8 @@
           "short_name": "LoopOverEssentiallyFloatType",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -204,7 +214,8 @@
           "short_name": "MemcmpUsedToCompareNullTerminatedStrings",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -224,7 +235,8 @@
           "short_name": "MemcmpOnInappropriateEssentialTypeArgs",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

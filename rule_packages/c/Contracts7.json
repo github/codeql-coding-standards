@@ -54,7 +54,8 @@
           "severity": "error",
           "short_name": "RightHandOperandOfAShiftRange",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -73,7 +74,8 @@
           "severity": "error",
           "short_name": "ObjectAssignedToAnOverlappingObject",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
@@ -84,7 +86,8 @@
           "severity": "error",
           "short_name": "ObjectCopiedToAnOverlappingObject",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

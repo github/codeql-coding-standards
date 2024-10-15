@@ -9,6 +9,7 @@
  * @tags external/misra/id/rule-17-3
  *       correctness
  *       readability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/mandatory
  */
 

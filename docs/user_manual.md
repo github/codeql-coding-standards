@@ -27,6 +27,7 @@
 | 0.19.0  | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9.                                                                         |
 | 0.20.0  | 2024-02-23 | Remco Vermeulen | Add table describing the permitted guideline re-categorizations.                                                        |
 | 0.21.0  | 2024-05-01 | Luke Cartey | Add MISRA C++ 2023 as under development, and clarify MISRA C 2012 coverage.                                                        |
+| 0.22.0  | 2024-10-02 | Luke Cartey | Add MISRA C 2023 as under development, and clarify MISRA C 2012 coverage.
 
 ## Release information
 
@@ -58,8 +59,11 @@ The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying
 | AUTOSAR C++ | [^1] [R22-11](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf), R21-11, R20-11, R19-11, R19-03 | 397         | 372                     | 370[^2] | Implemented       |
 | CERT-C++   | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)    | 83          | 82                      | 82 | Implemented       |
 | CERT C       | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)    | 99          | 97                      | 97 | Implemented |
-| MISRA C                                | [2012 Third Edition, First Revision](](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/)), and [Amendment 2](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf) and TC2  | 175         | 164                     | 162[^3] | Implemented |
-| MISRA C++                                | [2023](https://misra.org.uk/product/misra-cpp2023/)  | 179         | 176[^4]                     | 0 | Under development |
+| MISRA C                                | [2012 Third Edition, First Revision](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/), [Amendment 2](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf) and TC2  | 175         | 164                     | 162[^3] | Implemented |
+|                                | [MISRA C 2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)   | 24         | 24                     | - | Under development |
+|                                 | [MISRA C 2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)   | 22         | 22                     | - | Under development |
+|                                 | [2023 Third Edition, Second Revision](https://misra.org.uk/product/misra-c2023/)  | 221         | 210                     | - | Under development |
+| MISRA C++                                | [2023](https://misra.org.uk/product/misra-cpp2023/)  | 179         | 176[^4]                     | - | Under development |
 
 Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
 
@@ -74,7 +78,7 @@ The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each r
 
 [^1]: AUTOSAR C++ versions R22-11, R21-11, R20-11, R19-11 and R19-03 are all identical as indicated in the document change history.
 [^2]: The unimplemented supportable AUTOSAR rules are `A7-1-8` and `A8-2-1`. These rules require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules.
-[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5` and `Dir 4.14`. `Rule 9.5` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
+[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5`, `Rule 17.13`, and `Dir 4.14`. `Rule 9.5` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
 [^4]: The rules 5.13.7, 19.0.1 and 19.1.2 are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
 
 ## Supported environment

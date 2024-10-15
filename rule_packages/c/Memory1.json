@@ -14,8 +14,9 @@
           "short_name": "InitializerForAggregateOrUnionNotEnclosedInBraces",
           "shared_implementation_short_name": "UseInitializerBracesToMatchAggregateTypeStructure",
           "tags": [
-            "maintainability", 
-            "readability"
+            "maintainability",
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -35,7 +36,8 @@
           "short_name": "PartiallyInitializedArrayWithExplicitInitializers",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -56,7 +58,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

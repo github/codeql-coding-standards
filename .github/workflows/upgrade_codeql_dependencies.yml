@@ -18,10 +18,20 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Fetch CodeQL
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          RUNNER_TEMP: ${{ runner.temp }}
+        run: |
+          cd $RUNNER_TEMP
+          gh release download "v${CODEQL_CLI_VERSION}" --repo https://github.com/github/codeql-cli-binaries --pattern codeql-linux64.zip
+          unzip -q codeql-linux64.zip
+          echo "$RUNNER_TEMP/codeql/" >> $GITHUB_PATH
 
       - name: Install Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.9"
 
@@ -35,27 +45,27 @@ jobs:
         run: |
           python3 scripts/upgrade-codeql-dependencies/upgrade-codeql-dependencies.py --cli-version "$CODEQL_CLI_VERSION"
 
-      - name: Fetch CodeQL
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          RUNNER_TEMP: ${{ runner.temp }}
-        run: |
-          cd $RUNNER_TEMP
-          gh release download "v${CODEQL_CLI_VERSION}" --repo https://github.com/github/codeql-cli-binaries --pattern codeql-linux64.zip
-          unzip -q codeql-linux64.zip
-
       - name: Update CodeQL formatting based on new CLI version
         env:
           RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          find cpp \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" $RUNNER_TEMP/codeql/codeql query format --in-place
-          find c \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" $RUNNER_TEMP/codeql/codeql query format --in-place
+          find cpp \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
+          find c \( -name '*.ql' -or -name '*.qll' \) -print0 | xargs -0 --max-procs "$XARGS_MAX_PROCS" codeql query format --in-place
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
         with:
-          title: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
-          body: "This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }}."
+          title: "Upgrade `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
+          body: |
+            This PR upgrades the CodeQL CLI version to ${{ github.event.inputs.codeql_cli_version }}.
+
+            ## CodeQL dependency upgrade checklist:
+
+            - [ ] Confirm the code has been correctly reformatted according to the new CodeQL CLI.
+            - [ ] Identify any CodeQL compiler warnings and errors, and update queries as required.
+            - [ ] Validate that the `github/codeql` test cases succeed.
+            - [ ] Address any CodeQL test failures in the `github/codeql-coding-standards` repository.
+            - [ ] Validate performance vs pre-upgrade, using /test-performance
           commit-message: "Upgrading `github/codeql` dependency to ${{ github.event.inputs.codeql_cli_version }}"
           delete-branch: true
           branch: "codeql/upgrade-to-${{ github.event.inputs.codeql_cli_version }}"

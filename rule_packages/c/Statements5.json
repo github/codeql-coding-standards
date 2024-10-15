@@ -15,7 +15,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -36,7 +37,8 @@
           "tags": [
             "maintainability",
             "readability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -58,7 +60,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
