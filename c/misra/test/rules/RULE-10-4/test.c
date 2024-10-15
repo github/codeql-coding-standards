@@ -33,4 +33,13 @@ void testOps() {
   A < A;     // COMPLIANT
   e1a < e2a; // NON_COMPLIANT
   A < D;     // NON_COMPLIANT
+
+  enum { G };
+  s32 + G;   // COMPLIANT
+  c == '\n'; // COMPLIANT
+
+  typedef enum { H } E3;
+
+  E3 e3a = H;
+  e3a < H; // COMPLIANT
 }
