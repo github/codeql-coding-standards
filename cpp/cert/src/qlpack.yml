@@ -4,5 +4,5 @@ description: CERT C++ 2016
 suites: codeql-suites
 license: MIT
 dependencies:
-  codeql/cpp-all: 0.9.3
+  codeql/cpp-all: 0.12.2
   codeql/common-cpp-coding-standards: '*'

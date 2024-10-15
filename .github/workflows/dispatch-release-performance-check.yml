@@ -26,14 +26,19 @@ jobs:
           owner: ${{ github.repository_owner }}
           repositories: "codeql-coding-standards-release-engineering"
 
-      - name: Dispatch Performance Testing Job
+      - name: Invoke performance test
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') && steps.check-write-permission.outputs.has-permission }}
-        uses: peter-evans/repository-dispatch@v2
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          repository: github/codeql-coding-standards-release-engineering
-          event-type: performance-test
-          client-payload: '{"pr": "${{ github.event.issue.number }}"}'
+        env:
+          ISSUE_NR: ${{ github.event.issue.number }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          jq -n \
+          --arg issue_nr "$ISSUE_NR" \
+          '{"issue-nr": $issue_nr}' \
+          | \
+          gh workflow run pr-performance-testing.yml \
+          --json \
+          -R github/codeql-coding-standards-release-engineering
 
       - uses: actions/github-script@v6
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') && steps.check-write-permission.outputs.has-permission }}

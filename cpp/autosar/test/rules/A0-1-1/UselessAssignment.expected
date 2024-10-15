@@ -12,3 +12,5 @@
 | test.cpp:94:11:94:17 | new | Definition of $@ is unused. | test.cpp:94:6:94:7 | b4 | b4 |
 | test.cpp:95:11:95:17 | 0 | Definition of $@ is unused. | test.cpp:95:6:95:7 | b5 | b5 |
 | test.cpp:103:11:103:17 | 0 | Definition of $@ is unused. | test.cpp:103:6:103:7 | c5 | c5 |
+| test.cpp:132:43:132:45 | {...} | Definition of $@ is unused. | test.cpp:132:7:132:18 | unused_array | unused_array |
+| test.cpp:134:29:134:31 | 0 | Definition of $@ is unused. | test.cpp:134:17:134:26 | unused_int | unused_int |

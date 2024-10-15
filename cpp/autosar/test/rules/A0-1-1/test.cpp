@@ -124,3 +124,15 @@ template <typename T> void test_range_based_for_loop_template() {
     elem;
   }
 }
+
+#include <cstdint>
+
+std::int32_t test_constexpr_array_size() {
+  constexpr int constexpr_array_size = 7;      // COMPLIANT
+  int unused_array[constexpr_array_size] = {}; // NON_COMPLIANT
+
+  constexpr int unused_int = {}; // NON_COMPLIANT
+
+  std::int32_t used_array[] = {-1, 0, 1}; // COMPLIANT
+  return used_array[1];
+}
