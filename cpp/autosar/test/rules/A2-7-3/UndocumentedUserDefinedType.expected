@@ -9,3 +9,4 @@
 | test.cpp:101:6:101:6 | definition of e | Declaration entry for function e is missing documentation. |
 | test.cpp:108:1:108:30 | definition of message_to_string_undocumented | Declaration entry for function message_to_string_undocumented is missing documentation. |
 | test.cpp:180:21:180:24 | definition of kBar | Declaration entry for member variable kBar is missing documentation. |
+| test.cpp:227:14:227:17 | definition of foo3 | Declaration entry for function foo3 is missing documentation. |

@@ -15,7 +15,8 @@
           "tags": [
             "correctness",
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -36,7 +37,8 @@
           "shared_implementation_short_name": "PreprocessingDirectiveWithinMacroArgument",
           "tags": [
             "readability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -57,7 +59,8 @@
           "tags": [
             "correctness",
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

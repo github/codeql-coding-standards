@@ -62,12 +62,9 @@ class ArrayPointerArithmeticExpr extends PointerArithmeticExpr, ArrayExpr {
 predicate isNullPointerConstant(Expr e) {
   e.findRootCause() instanceof NullMacro
   or
-  exists(CStyleCast c |
-    not c.isImplicit() and
-    c.getExpr() = e and
-    e instanceof Zero and
-    c.getType() instanceof VoidPointerType
-  )
+  // 8.11 Pointer type conversions states:
+  // A null pointer constant, i.e. the value 0, optionally cast to void *.
+  e instanceof Zero
   or
   isNullPointerConstant(e.(Conversion).getExpr())
 }
@@ -83,9 +80,9 @@ predicate isCastNullPointerConstant(Cast c) {
 class PointerToObjectType extends PointerType {
   PointerToObjectType() {
     not (
-      this.getUnderlyingType() instanceof FunctionPointerType or
-      this.getUnderlyingType() instanceof VoidPointerType or
-      this.getBaseType().getUnderlyingType() instanceof IncompleteType
+      this.getUnspecifiedType() instanceof FunctionPointerType or
+      this.getUnspecifiedType() instanceof VoidPointerType or
+      this.getBaseType().getUnspecifiedType() instanceof IncompleteType
     )
   }
 }

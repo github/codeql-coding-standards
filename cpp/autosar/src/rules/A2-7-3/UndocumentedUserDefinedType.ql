@@ -77,7 +77,11 @@ class DocumentableDeclaration extends Declaration {
     // Exclude instantiated template functions, which cannot reasonably be documented.
     not this.(Function).isFromTemplateInstantiation(_) and
     // Exclude anonymous lambda functions.
-    not exists(LambdaExpression lc | lc.getLambdaFunction() = this)
+    not exists(LambdaExpression lc | lc.getLambdaFunction() = this) and
+    //Exclude friend functions (because they have 2 entries in the database), and only one shows documented truly
+    not exists(FriendDecl d |
+      d.getFriend().(Function).getDefinition() = this.getADeclarationEntry()
+    )
     or
     this instanceof MemberVariable and
     declarationType = "member variable" and

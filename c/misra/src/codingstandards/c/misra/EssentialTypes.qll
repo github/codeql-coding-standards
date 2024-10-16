@@ -130,12 +130,17 @@ EssentialTypeCategory getEssentialTypeCategory(Type type) {
     essentialType.(IntegralType).isSigned() and
     not essentialType instanceof PlainCharType
     or
+    // Anonymous enums are considered to be signed
+    result = EssentiallySignedType() and
+    essentialType instanceof AnonymousEnumType and
+    not essentialType instanceof MisraBoolType
+    or
     result = EssentiallyUnsignedType() and
     essentialType.(IntegralType).isUnsigned() and
     not essentialType instanceof PlainCharType
     or
     result = EssentiallyEnumType() and
-    essentialType instanceof Enum and
+    essentialType instanceof NamedEnumType and
     not essentialType instanceof MisraBoolType
     or
     result = EssentiallyFloatingType() and
@@ -176,6 +181,10 @@ class EssentialRelationalOperationExpr extends EssentialExpr, RelationalOperatio
 }
 
 class EssentialBinaryLogicalOperationExpr extends EssentialExpr, BinaryLogicalOperation {
+  override Type getEssentialType() { result instanceof BoolType }
+}
+
+class EssentialUnaryLogicalOperationExpr extends EssentialExpr, UnaryLogicalOperation {
   override Type getEssentialType() { result instanceof BoolType }
 }
 
@@ -344,24 +353,63 @@ class EssentialBinaryArithmeticExpr extends EssentialExpr, BinaryArithmeticOpera
   }
 }
 
+/**
+ * A named Enum type, as per D.5.
+ */
+class NamedEnumType extends Enum {
+  NamedEnumType() {
+    not isAnonymous()
+    or
+    exists(Type useOfEnum | this = useOfEnum.stripType() |
+      exists(TypedefType t | t.getBaseType() = useOfEnum)
+      or
+      exists(Function f | f.getType() = useOfEnum or f.getAParameter().getType() = useOfEnum)
+      or
+      exists(Struct s | s.getAField().getType() = useOfEnum)
+      or
+      exists(Variable v | v.getType() = useOfEnum)
+    )
+  }
+}
+
+/**
+ * An anonymous Enum type, as per D.5.
+ */
+class AnonymousEnumType extends Enum {
+  AnonymousEnumType() { not this instanceof NamedEnumType }
+}
+
+/**
+ * The EssentialType of an EnumConstantAccess, which may be essentially enum or essentially signed.
+ */
 class EssentialEnumConstantAccess extends EssentialExpr, EnumConstantAccess {
-  override Type getEssentialType() { result = getTarget().getDeclaringEnum() }
+  override Type getEssentialType() {
+    exists(Enum e | e = getTarget().getDeclaringEnum() |
+      if e instanceof NamedEnumType then result = e else result = stlr(this)
+    )
+  }
 }
 
 class EssentialLiteral extends EssentialExpr, Literal {
   override Type getEssentialType() {
     if this instanceof BooleanLiteral
-    then result instanceof MisraBoolType
+    then
+      // This returns a multitude of types - not sure if we really want that
+      result instanceof MisraBoolType
     else (
-      if this.(CharLiteral).getCharacter().length() = 1
+      if this instanceof CharLiteral
       then result instanceof PlainCharType
-      else (
-        getStandardType().(IntegralType).isSigned() and
-        result = stlr(this)
-        or
-        not getStandardType().(IntegralType).isSigned() and
-        result = utlr(this)
-      )
+      else
+        exists(Type underlyingStandardType |
+          underlyingStandardType = getStandardType().getUnderlyingType()
+        |
+          if underlyingStandardType instanceof IntType
+          then
+            if underlyingStandardType.(IntType).isSigned()
+            then result = stlr(this)
+            else result = utlr(this)
+          else result = underlyingStandardType
+        )
     )
   }
 }

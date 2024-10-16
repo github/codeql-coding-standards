@@ -1,5 +1,4 @@
 edges
-| test.cpp:65:21:65:34 | call to operator new | test.cpp:67:26:67:32 | call to realloc | provenance |  |
 nodes
 | test.cpp:16:26:16:31 | call to malloc | semmle.label | call to malloc |
 | test.cpp:17:38:17:43 | call to malloc | semmle.label | call to malloc |
@@ -10,8 +9,6 @@ nodes
 | test.cpp:47:26:47:39 | call to operator new | semmle.label | call to operator new |
 | test.cpp:49:29:49:42 | call to operator new | semmle.label | call to operator new |
 | test.cpp:51:29:51:42 | call to operator new | semmle.label | call to operator new |
-| test.cpp:65:21:65:34 | call to operator new | semmle.label | call to operator new |
-| test.cpp:67:26:67:32 | call to realloc | semmle.label | call to realloc |
 subpaths
 #select
 | test.cpp:16:26:16:31 | call to malloc | test.cpp:16:26:16:31 | call to malloc | test.cpp:16:26:16:31 | call to malloc | Allocation to cast without constructor call |
@@ -23,4 +20,3 @@ subpaths
 | test.cpp:47:26:47:39 | call to operator new | test.cpp:47:26:47:39 | call to operator new | test.cpp:47:26:47:39 | call to operator new | Allocation to cast without constructor call |
 | test.cpp:49:29:49:42 | call to operator new | test.cpp:49:29:49:42 | call to operator new | test.cpp:49:29:49:42 | call to operator new | Allocation to cast without constructor call |
 | test.cpp:51:29:51:42 | call to operator new | test.cpp:51:29:51:42 | call to operator new | test.cpp:51:29:51:42 | call to operator new | Allocation to cast without constructor call |
-| test.cpp:67:26:67:32 | call to realloc | test.cpp:65:21:65:34 | call to operator new | test.cpp:67:26:67:32 | call to realloc | Allocation to cast without constructor call |

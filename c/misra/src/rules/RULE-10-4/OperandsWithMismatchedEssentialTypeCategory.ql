@@ -9,6 +9,7 @@
  * @tags external/misra/id/rule-10-4
  *       maintainability
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
@@ -37,7 +38,7 @@ where
     // be reported as non-compliant.
     leftOpTypeCategory = EssentiallyEnumType() and
     rightOpTypeCategory = EssentiallyEnumType() and
-    not leftOpEssentialType = rightOpEssentialType and
+    not leftOpEssentialType.getUnspecifiedType() = rightOpEssentialType.getUnspecifiedType() and
     message =
       "The operands of this operator with usual arithmetic conversions have mismatched essentially Enum types (left operand: "
         + leftOpEssentialType + ", right operand: " + rightOpEssentialType + ")."

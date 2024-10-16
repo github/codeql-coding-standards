@@ -14,10 +14,13 @@ module AllocToStaticCastConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node source) {
     exists(AllocationExpr ae |
       ae.getType().getUnspecifiedType() instanceof VoidPointerType and
-      source.asExpr() = ae and
-      // Ignore realloc, as that memory may already be partially constructed
-      not ae.(FunctionCall).getTarget().getName().toLowerCase().matches("%realloc%")
+      source.asExpr() = ae
     )
+  }
+
+  predicate isBarrier(DataFlow::Node sanitizer) {
+    // Ignore realloc, as that memory may already be partially constructed
+    sanitizer.asExpr().(FunctionCall).getTarget().getName().toLowerCase().matches("%realloc%")
   }
 
   predicate isSink(DataFlow::Node sink) {
