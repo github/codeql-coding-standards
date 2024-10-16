@@ -19,7 +19,7 @@ import codingstandards.cpp.Pointers
 from Cast cast, VoidPointerType type, PointerToObjectType newType
 where
   not isExcluded(cast, Pointers1Package::conversionFromPointerToVoidIntoPointerToObjectQuery()) and
-  type = cast.getExpr().getUnderlyingType() and
+  type = cast.getExpr().getUnspecifiedType() and
   newType = cast.getUnderlyingType() and
   not isNullPointerConstant(cast.getExpr())
 select cast,

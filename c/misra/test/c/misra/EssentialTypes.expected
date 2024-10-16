@@ -1,3 +1,9 @@
+| file://:0:0:0:0 | 0 | signed char | signed char | essentially Signed type |
+| file://:0:0:0:0 | 0 | signed char | signed char | essentially Signed type |
+| file://:0:0:0:0 | 0 | signed char | signed char | essentially Signed type |
+| file://:0:0:0:0 | 0 | signed char | signed char | essentially Signed type |
+| file://:0:0:0:0 | 0 | signed char | signed char | essentially Signed type |
+| file://:0:0:0:0 | 0 | signed char | signed char | essentially Signed type |
 | test.c:4:20:4:20 | 1 | signed char | signed char | essentially Signed type |
 | test.c:4:20:4:20 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
 | test.c:5:23:5:23 | 1 | signed char | signed char | essentially Signed type |
@@ -73,3 +79,14 @@
 | test.c:54:3:54:5 | ~ ... | int | int | essentially Signed type |
 | test.c:54:4:54:5 | (int)... | int | int | essentially Signed type |
 | test.c:54:4:54:5 | ss | signed short | signed short | essentially Signed type |
+| test.c:63:30:63:32 | ((unnamed enum))... | (unnamed enum) | (unnamed enum) | essentially Enum Type |
+| test.c:63:30:63:32 | EC5 | (unnamed enum) | (unnamed enum) | essentially Enum Type |
+| test.c:70:3:70:5 | EC1 | signed char | signed char | essentially Signed type |
+| test.c:71:3:71:5 | EC2 | E1 | E1 | essentially Enum Type |
+| test.c:72:3:72:5 | EC3 | (unnamed enum) | (unnamed enum) | essentially Enum Type |
+| test.c:73:3:73:5 | EC4 | (unnamed enum) | (unnamed enum) | essentially Enum Type |
+| test.c:74:3:74:5 | EC5 | (unnamed enum) | (unnamed enum) | essentially Enum Type |
+| test.c:75:3:75:5 | EC6 | (unnamed enum) | (unnamed enum) | essentially Enum Type |
+| test.c:79:3:79:5 | 97 | char | char | essentially Character type |
+| test.c:80:3:80:6 | 10 | char | char | essentially Character type |
+| test.c:81:3:81:6 | 0 | char | char | essentially Character type |

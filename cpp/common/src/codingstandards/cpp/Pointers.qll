@@ -80,9 +80,9 @@ predicate isCastNullPointerConstant(Cast c) {
 class PointerToObjectType extends PointerType {
   PointerToObjectType() {
     not (
-      this.getUnderlyingType() instanceof FunctionPointerType or
-      this.getUnderlyingType() instanceof VoidPointerType or
-      this.getBaseType().getUnderlyingType() instanceof IncompleteType
+      this.getUnspecifiedType() instanceof FunctionPointerType or
+      this.getUnspecifiedType() instanceof VoidPointerType or
+      this.getBaseType().getUnspecifiedType() instanceof IncompleteType
     )
   }
 }
