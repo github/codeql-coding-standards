@@ -21,6 +21,8 @@ from BinaryLogicalOperation op, BinaryOperation binop
 where
   not isExcluded(op, OrderOfEvaluationPackage::operandsOfALogicalAndOrNotParenthesizedQuery()) and
   op.getAnOperand() = binop and
+  // Ignore cases with the same operator
+  not op.getOperator() = binop.getOperator() and
   not exists(ParenthesisExpr p | p = binop.getFullyConverted()) and
   // Exclude binary operations expanded by a macro.
   not binop.isInMacroExpansion()

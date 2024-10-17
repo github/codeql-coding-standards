@@ -1,0 +1,2 @@
+ - `A5-2-6` - `OperandsOfAlogicalAndOrNotParenthesized.ql`:
+   - Remove false positives where the operator is identical.
