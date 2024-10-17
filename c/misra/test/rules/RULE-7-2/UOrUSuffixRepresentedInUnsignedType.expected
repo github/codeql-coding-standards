@@ -8,5 +8,5 @@
 | test.c:232:3:232:25 | 9223372036854775808 | Unsigned literal 01000000000000000000000 does not explicitly express sign with a 'U' or 'u' suffix. |
 | test.c:249:3:249:26 | 9223372036854775808 | Unsigned literal 01000000000000000000000l does not explicitly express sign with a 'U' or 'u' suffix. |
 | test.c:266:3:266:26 | 9223372036854775808 | Unsigned literal 01000000000000000000000L does not explicitly express sign with a 'U' or 'u' suffix. |
-| test.c:283:3:283:26 | 9223372036854775808 | Unsigned literal 01000000000000000000000l does not explicitly express sign with a 'U' or 'u' suffix. |
-| test.c:300:3:300:26 | 9223372036854775808 | Unsigned literal 01000000000000000000000L does not explicitly express sign with a 'U' or 'u' suffix. |
+| test.c:283:3:283:27 | 9223372036854775808 | Unsigned literal 01000000000000000000000ll does not explicitly express sign with a 'U' or 'u' suffix. |
+| test.c:300:3:300:27 | 9223372036854775808 | Unsigned literal 01000000000000000000000LL does not explicitly express sign with a 'U' or 'u' suffix. |
