@@ -1,1 +1,12 @@
-| test.cpp:3:3:3:12 | 4294967295 | Hex literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:111:3:111:12 | 2147483648 | Hex literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:116:3:116:20 | 9223372036854775808 | Hex literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:139:3:139:21 | 9223372036854775808 | Hex literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:162:3:162:21 | 9223372036854775808 | Hex literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:185:3:185:22 | 9223372036854775808 | Hex literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:208:3:208:22 | 9223372036854775808 | Hex literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:227:3:227:14 | 2147483648 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:232:3:232:25 | 9223372036854775808 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:249:3:249:26 | 9223372036854775808 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:266:3:266:26 | 9223372036854775808 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:283:3:283:26 | 9223372036854775808 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:300:3:300:26 | 9223372036854775808 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
