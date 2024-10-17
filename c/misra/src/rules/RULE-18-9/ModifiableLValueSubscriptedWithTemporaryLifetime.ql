@@ -45,7 +45,6 @@ predicate usedAsModifiableLvalue(Expr expr) {
   exists(AddressOfExpr parent | parent.getOperand() = expr)
   or
   exists(FieldAccess parent | parent.getQualifier() = expr and usedAsModifiableLvalue(parent))
-
 }
 
 from TemporaryLifetimeArrayExpr expr, TemporaryLifetimeArrayAccess member

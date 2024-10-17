@@ -22,14 +22,14 @@ import codingstandards.cpp.VariablyModifiedTypes
  * Check that the declaration entry, which may be a parameter or a variable
  * etc., seems to subsume the location of `inner`, including the declaration
  * type text.
- * 
+ *
  * The location of the `DeclarationEntry` itself points to the _identifier_
  * that is declared. This range will not include the type of the declaration.
- * 
+ *
  * For parameters, the `before` and `end` `Location` objects will be
  * constrained to the closest earlier element (parameter or function body),
  * these values can therefore be captured and inspected for debugging.
- * 
+ *
  * For declarations which occur in statements, the `before` and `end`
  * `Location` objects will be both constrained to be equal, and equal to,
  * the `Location` of the containing `DeclStmt`.
@@ -71,7 +71,6 @@ predicate declarationSubsumes(
 class InvalidDeclaration extends DeclarationEntry {
   Expr sizeExpr;
   CandidateVlaType vlaType;
-
   // `before` and `after` are captured for debugging, see doc comment for
   // `declarationSubsumes`.
   Location before;
@@ -84,9 +83,9 @@ class InvalidDeclaration extends DeclarationEntry {
       if this instanceof ParameterDeclarationEntry
       then vlaType = this.getType().(VariablyModifiedTypeIfAdjusted).getInnerVlaType()
       else vlaType = this.getType().(VariablyModifiedTypeIfUnadjusted).getInnerVlaType()
-    )
+    ) and
     // Capture only pointers to VLA types, not raw VLA types.
-    and not vlaType = this.getType()
+    not vlaType = this.getType()
   }
 
   Expr getSizeExpr() { result = sizeExpr }
