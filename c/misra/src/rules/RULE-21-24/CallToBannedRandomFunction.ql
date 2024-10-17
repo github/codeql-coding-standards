@@ -2,7 +2,7 @@
  * @id c/misra/call-to-banned-random-function
  * @name RULE-21-24: The random number generator functions of <stdlib.h> shall not be used
  * @description The standard functions rand() and srand() will not give high quality random results
- *              in all implementations and is thus banned.
+ *              in all implementations and are therefore banned.
  * @kind problem
  * @precision very-high
  * @problem.severity warning
