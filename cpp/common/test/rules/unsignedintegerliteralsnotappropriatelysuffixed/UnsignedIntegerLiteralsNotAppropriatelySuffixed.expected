@@ -10,3 +10,9 @@
 | test.cpp:266:3:266:26 | 9223372036854775808 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
 | test.cpp:283:3:283:27 | 9223372036854775808 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
 | test.cpp:300:3:300:27 | 9223372036854775808 | Octal literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:315:3:315:36 | 2147483648 | Binary literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:322:3:322:68 | 9223372036854775808 | Binary literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:365:3:365:69 | 9223372036854775808 | Binary literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:412:3:412:69 | 9223372036854775808 | Binary literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:457:3:457:70 | 9223372036854775808 | Binary literal is an unsigned integer but does not include a 'U' suffix. |
+| test.cpp:502:3:502:70 | 9223372036854775808 | Binary literal is an unsigned integer but does not include a 'U' suffix. |

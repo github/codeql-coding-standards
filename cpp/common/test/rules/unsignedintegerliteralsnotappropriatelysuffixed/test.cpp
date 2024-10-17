@@ -309,6 +309,233 @@ void test_octal_constants() {
                               // correctly
 }
 
+void test_binary_constants() {
+  0b0;                               // COMPLIANT - uses signed int
+  0b1111111111111111111111111111111; // COMPLIANT - max value held by signed int
+  0b10000000000000000000000000000000;  // NON_COMPLIANT - larger than max signed
+                                       // int, so will be unsigned int
+  0b100000000000000000000000000000000; // COMPLIANT - larger than unsigned int,
+                                       // but smaller than long int
+  0b111111111111111111111111111111111111111111111111111111111111111; // COMPLIANT
+                                                                     // - max
+                                                                     // long int
+  0b1000000000000000000000000000000000000000000000000000000000000000; // NON_COMPLIANT
+                                                                      // -
+                                                                      // larger
+                                                                      // than
+                                                                      // long
+                                                                      // int, so
+                                                                      // will be
+                                                                      // unsigned
+                                                                      // long
+                                                                      // int
+  0b0U; // COMPLIANT - unsigned, but uses the suffix correctly
+  0b1111111111111111111111111111111U;   // COMPLIANT - unsigned, but uses the
+                                        // suffix correctly
+  0b10000000000000000000000000000000U;  // COMPLIANT - unsigned, but uses the
+                                        // suffix correctly
+  0b100000000000000000000000000000000U; // COMPLIANT - unsigned, but uses the
+                                        // suffix correctly
+  0b111111111111111111111111111111111111111111111111111111111111111U; // COMPLIANT
+                                                                      // -
+                                                                      // unsigned,
+                                                                      // but
+                                                                      // uses
+                                                                      // the
+                                                                      // suffix
+                                                                      // correctly
+  0b1000000000000000000000000000000000000000000000000000000000000000U; // COMPLIANT
+                                                                       // -
+                                                                       // unsigned,
+                                                                       // but
+                                                                       // uses
+                                                                       // the
+                                                                       // suffix
+                                                                       // correctly
+
+  // Use of the `l` suffix
+  0b0l;                                 // COMPLIANT - uses signed long
+  0b1111111111111111111111111111111l;   // COMPLIANT - uses signed long
+  0b10000000000000000000000000000000l;  // COMPLIANT - uses signed long
+  0b100000000000000000000000000000000l; // COMPLIANT - uses signed long
+  0b111111111111111111111111111111111111111111111111111111111111111l; // COMPLIANT
+                                                                      // - max
+                                                                      // long
+                                                                      // int
+  0b1000000000000000000000000000000000000000000000000000000000000000l; // NON_COMPLIANT
+                                                                       // -
+                                                                       // larger
+                                                                       // than
+                                                                       // long
+                                                                       // int,
+                                                                       // so
+                                                                       // will
+                                                                       // be
+                                                                       // unsigned
+                                                                       // long
+                                                                       // int
+  0b0Ul; // COMPLIANT - unsigned, but uses the suffix correctly
+  0b1111111111111111111111111111111Ul;   // COMPLIANT - unsigned, but uses the
+                                         // suffix correctly
+  0b10000000000000000000000000000000Ul;  // COMPLIANT - unsigned, but uses the
+                                         // suffix correctly
+  0b100000000000000000000000000000000Ul; // COMPLIANT - unsigned, but uses the
+                                         // suffix correctly
+  0b111111111111111111111111111111111111111111111111111111111111111Ul; // COMPLIANT
+                                                                       // -
+                                                                       // unsigned,
+                                                                       // but
+                                                                       // uses
+                                                                       // the
+                                                                       // suffix
+                                                                       // correctly
+  0b1000000000000000000000000000000000000000000000000000000000000000Ul; // COMPLIANT
+                                                                        // -
+                                                                        // unsigned,
+                                                                        // but
+                                                                        // uses
+                                                                        // the
+                                                                        // suffix
+                                                                        // correctly
+
+  // Use of the `L` suffix
+  0b0L;                                 // COMPLIANT - uses signed long
+  0b1111111111111111111111111111111L;   // COMPLIANT - uses signed long
+  0b10000000000000000000000000000000L;  // COMPLIANT - uses signed long
+  0b100000000000000000000000000000000L; // COMPLIANT - uses signed long
+  0b111111111111111111111111111111111111111111111111111111111111111L; // COMPLIANT
+                                                                      // -
+                                                                      // COMPLIANT
+                                                                      // - uses
+                                                                      // signed
+                                                                      // long
+  0b1000000000000000000000000000000000000000000000000000000000000000L; // NON_COMPLIANT
+                                                                       // -
+                                                                       // larger
+                                                                       // than
+                                                                       // long
+                                                                       // int,
+                                                                       // so
+                                                                       // will
+                                                                       // be
+                                                                       // unsigned
+                                                                       // long
+                                                                       // int
+  0b0UL; // COMPLIANT - unsigned, but uses the suffix correctly
+  0b1111111111111111111111111111111UL;   // COMPLIANT - unsigned, but uses the
+                                         // suffix correctly
+  0b10000000000000000000000000000000UL;  // COMPLIANT - unsigned, but uses the
+                                         // suffix correctly
+  0b100000000000000000000000000000000UL; // COMPLIANT - unsigned, but uses the
+                                         // suffix correctly
+  0b111111111111111111111111111111111111111111111111111111111111111UL; // COMPLIANT
+                                                                       // -
+                                                                       // unsigned,
+                                                                       // but
+                                                                       // uses
+                                                                       // the
+                                                                       // suffix
+                                                                       // correctly
+  0b1000000000000000000000000000000000000000000000000000000000000000UL; // COMPLIANT
+                                                                        // -
+                                                                        // unsigned,
+                                                                        // but
+                                                                        // uses
+                                                                        // the
+                                                                        // suffix
+                                                                        // correctly
+
+  // Use of the `ll` suffix
+  0b0ll;                                 // COMPLIANT - uses signed long long
+  0b1111111111111111111111111111111ll;   // COMPLIANT - uses signed long long
+  0b10000000000000000000000000000000ll;  // COMPLIANT - uses signed long long
+  0b100000000000000000000000000000000ll; // COMPLIANT - uses signed long long
+  0b111111111111111111111111111111111111111111111111111111111111111ll; // COMPLIANT
+                                                                       // - max
+                                                                       // long
+                                                                       // int
+  0b1000000000000000000000000000000000000000000000000000000000000000ll; // NON_COMPLIANT
+                                                                        // -
+                                                                        // larger
+                                                                        // than
+                                                                        // long
+                                                                        // int,
+                                                                        // so
+                                                                        // will
+                                                                        // be
+                                                                        // unsigned
+                                                                        // long
+                                                                        // int
+  0b0Ull; // COMPLIANT - unsigned, but uses the suffix correctly
+  0b1111111111111111111111111111111Ull;   // COMPLIANT - unsigned, but uses the
+                                          // suffix correctly
+  0b10000000000000000000000000000000Ull;  // COMPLIANT - unsigned, but uses the
+                                          // suffix correctly
+  0b100000000000000000000000000000000Ull; // COMPLIANT - unsigned, but uses the
+                                          // suffix correctly
+  0b111111111111111111111111111111111111111111111111111111111111111Ull; // COMPLIANT
+                                                                        // -
+                                                                        // unsigned,
+                                                                        // but
+                                                                        // uses
+                                                                        // the
+                                                                        // suffix
+                                                                        // correctly
+  0b1000000000000000000000000000000000000000000000000000000000000000Ull; // COMPLIANT
+                                                                         // -
+                                                                         // unsigned,
+                                                                         // but
+                                                                         // uses
+                                                                         // the
+                                                                         // suffix
+                                                                         // correctly
+
+  // Use of the `LL` suffix
+  00LL;                                  // COMPLIANT - uses signed long long
+  0b1111111111111111111111111111111LL;   // COMPLIANT - uses signed long long
+  0b10000000000000000000000000000000LL;  // COMPLIANT - uses signed long long
+  0b100000000000000000000000000000000LL; // COMPLIANT - uses signed long long
+  0b111111111111111111111111111111111111111111111111111111111111111LL; // COMPLIANT
+                                                                       // - max
+                                                                       // long
+                                                                       // int
+  0b1000000000000000000000000000000000000000000000000000000000000000LL; // NON_COMPLIANT
+                                                                        // -
+                                                                        // larger
+                                                                        // than
+                                                                        // long
+                                                                        // int,
+                                                                        // so
+                                                                        // will
+                                                                        // be
+                                                                        // unsigned
+                                                                        // long
+                                                                        // int
+  00ULL; // COMPLIANT - unsigned, but uses the suffix correctly
+  0b1111111111111111111111111111111ULL;   // COMPLIANT - unsigned, but uses the
+                                          // suffix correctly
+  0b10000000000000000000000000000000ULL;  // COMPLIANT - unsigned, but uses the
+                                          // suffix correctly
+  0b100000000000000000000000000000000ULL; // COMPLIANT - unsigned, but uses the
+                                          // suffix correctly
+  0b111111111111111111111111111111111111111111111111111111111111111ULL; // COMPLIANT
+                                                                        // -
+                                                                        // unsigned,
+                                                                        // but
+                                                                        // uses
+                                                                        // the
+                                                                        // suffix
+                                                                        // correctly
+  0b1000000000000000000000000000000000000000000000000000000000000000ULL; // COMPLIANT
+                                                                         // -
+                                                                         // unsigned,
+                                                                         // but
+                                                                         // uses
+                                                                         // the
+                                                                         // suffix
+                                                                         // correctly
+}
+
 #define COMPLIANT_VAL 0x80000000U
 #define NON_COMPLIANT_VAL 0x80000000
 
