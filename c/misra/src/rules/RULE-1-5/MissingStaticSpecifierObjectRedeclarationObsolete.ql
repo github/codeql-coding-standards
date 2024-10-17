@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.missingstaticspecifierobjectredeclarationshared.MissingStaticSpecifierObjectRedeclarationShared
 
-class MissingStaticSpecifierObjectRedeclarationObsoleteQuery extends MissingStaticSpecifierObjectRedeclarationSharedSharedQuery {
+class MissingStaticSpecifierObjectRedeclarationObsoleteQuery extends MissingStaticSpecifierObjectRedeclarationSharedSharedQuery
+{
   MissingStaticSpecifierObjectRedeclarationObsoleteQuery() {
     this = Language4Package::missingStaticSpecifierObjectRedeclarationObsoleteQuery()
   }

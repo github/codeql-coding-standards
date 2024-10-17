@@ -29,7 +29,7 @@ _Atomic int g3 = ATOMIC_VAR_INIT(18); // NON-COMPLIANT
 _Atomic int g4 = 18;                  // COMPLIANT
 
 // `gets` was removed from C11.
-extern char* gets(FILE *stream);
+extern char *gets(FILE *stream);
 
 // Rule 21.6 covers the below cases:
 void f6(void) {
@@ -41,6 +41,7 @@ void f6(void) {
 
   char buf[10];
   fread(buf, sizeof(buf), 10, file);
-  // This is not an obsolete usage of ungetc, though ungetc isn't allowed by 21-3.
+  // This is not an obsolete usage of ungetc, though ungetc isn't allowed by
+  // 21-3.
   ungetc('c', file); // COMPLIANT
 }

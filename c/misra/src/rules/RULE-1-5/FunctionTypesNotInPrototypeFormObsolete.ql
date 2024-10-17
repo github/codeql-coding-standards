@@ -16,7 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.functiontypesnotinprototypeformshared.FunctionTypesNotInPrototypeFormShared
 
-class FunctionTypesNotInPrototypeFormObsoleteQuery extends FunctionTypesNotInPrototypeFormSharedSharedQuery {
+class FunctionTypesNotInPrototypeFormObsoleteQuery extends FunctionTypesNotInPrototypeFormSharedSharedQuery
+{
   FunctionTypesNotInPrototypeFormObsoleteQuery() {
     this = Language4Package::functionTypesNotInPrototypeFormObsoleteQuery()
   }
