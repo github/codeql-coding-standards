@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "RULE-21-24": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The standard functions rand() and srand() will not give high quality random results in all implementations and are therefore banned.",
+          "kind": "problem",
+          "name": "The random number generator functions of <stdlib.h> shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "CallToBannedRandomFunction",
+          "tags": [
+            "security",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "The random number generator functions of <stdlib.h> shall not be used"
+    }
+  }
+}

@@ -22,6 +22,7 @@ class UnnamedParameter extends Parameter {
  * This is a copy of the private `hasZeroParamDecl` predicate from the standard set of
  * queries as of the `codeql-cli/2.11.2` tag in `github/codeql`.
  */
+
 predicate hasZeroParamDecl(Function f) {
   exists(FunctionDeclarationEntry fde | fde = f.getADeclarationEntry() |
     not fde.isImplicit() and
@@ -34,7 +35,7 @@ predicate hasZeroParamDecl(Function f) {
 Query getQuery() { result instanceof FunctionTypesNotInPrototypeFormSharedSharedQuery }
 
 query predicate problems(Function f, string msg) {
-not isExcluded(f, getQuery()) and
+  not isExcluded(f, getQuery()) and
   f instanceof InterestingIdentifiers and
   (
     f.getAParameter() instanceof UnnamedParameter and
@@ -44,11 +45,9 @@ not isExcluded(f, getQuery()) and
     msg = "Function " + f + " does not specify void for no parameters present."
     or
     //parameters declared in declaration list (not in function signature)
-    //have placeholder file location associated only
-    exists(Parameter p |
-      p.getFunction() = f and
-      not p.getFile() = f.getFile() and
-      msg = "Function " + f + " declares parameter in unsupported declaration list."
-    )
+    //have no prototype
+    not f.isPrototyped() and
+    not hasZeroParamDecl(f) and
+    msg = "Function " + f + " declares parameter in unsupported declaration list."
   )
 }
