@@ -14,11 +14,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.UserDefinedLiteral
+import codingstandards.cpp.UserDefinedLiteral as udl
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.sideeffect.DefaultEffects
 
-from UserDefinedLiteral udl, SideEffect e
+from udl::UserDefinedLiteral udl, SideEffect e
 where
   not isExcluded(udl,
     SideEffects2Package::userDefinedLiteralsOperatorsShallNotHaveSideEffectsQuery()) and

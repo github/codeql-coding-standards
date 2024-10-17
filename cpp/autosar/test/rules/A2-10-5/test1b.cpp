@@ -8,8 +8,8 @@ static int g3 = 0; // NON_COMPLIANT
 
 static void f1() {} // NON_COMPLIANT
 
-template <class T> constexpr T number_two = T(1); // NON_COMPLIANT
+template <class T> static constexpr T number_two = T(1); // NON_COMPLIANT
 
-int test3() { return number_two<int>; }
+int test5() { return number_two<int>; }
 
-long test4() { return number_two<long>; }
+long test6() { return number_two<long>; }

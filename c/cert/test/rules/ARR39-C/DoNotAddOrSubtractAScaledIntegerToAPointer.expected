@@ -1,9 +1,9 @@
 edges
-| test.c:7:13:7:14 | p1 | test.c:9:9:9:10 | p1 |
-| test.c:16:19:16:41 | ... - ... | test.c:18:26:18:31 | offset |
-| test.c:16:19:16:41 | ... - ... | test.c:29:6:29:11 | offset |
-| test.c:17:17:17:26 | sizeof(<expr>) | test.c:23:9:23:12 | size |
-| test.c:29:6:29:11 | offset | test.c:7:13:7:14 | p1 |
+| test.c:7:13:7:14 | p1 | test.c:9:9:9:10 | p1 | provenance |  |
+| test.c:16:19:16:41 | ... - ... | test.c:18:26:18:31 | offset | provenance |  |
+| test.c:16:19:16:41 | ... - ... | test.c:29:6:29:11 | offset | provenance |  |
+| test.c:17:17:17:26 | sizeof(<expr>) | test.c:23:9:23:12 | size | provenance |  |
+| test.c:29:6:29:11 | offset | test.c:7:13:7:14 | p1 | provenance |  |
 nodes
 | test.c:7:13:7:14 | p1 | semmle.label | p1 |
 | test.c:9:9:9:10 | p1 | semmle.label | p1 |
