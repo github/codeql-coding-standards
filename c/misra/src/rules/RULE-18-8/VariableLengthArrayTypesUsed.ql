@@ -15,34 +15,15 @@
 import cpp
 import codingstandards.c.misra
 
-/**
- * A variable length array (VLA)
- * ie an array where the size
- * is not an integer constant expression
- */
-class VariableLengthArray extends VariableDeclarationEntry {
-  VariableLengthArray() {
-    //VLAs will not have: static/extern specifiers (compilation error)
-    not this.hasSpecifier("static") and
-    not this.hasSpecifier("extern") and
-    //VLAs are not allowed to be initialized
-    not this.getDeclaration().hasInitializer() and
-    exists(ArrayType a |
-      //a.hasArraySize() does not catch multidimensional VLAs like a[1][]
-      a.toString().matches("%[]%") and
-      this.getUnspecifiedType() = a and
-      //variable length array is one declared in block or function prototype
-      (
-        this.getDeclaration().getParentScope() instanceof Function or
-        this.getDeclaration().getParentScope() instanceof BlockStmt
-      )
-    )
-  }
-}
-
-from VariableLengthArray v
+from VlaDeclStmt v, Expr size, ArrayType arrayType, string typeStr
 where
   not isExcluded(v, Declarations7Package::variableLengthArrayTypesUsedQuery()) and
-  //an exception, argv in : int main(int argc, char *argv[])
-  not v.getDeclaration().getParentScope().(Function).hasName("main")
-select v, "Variable length array declared."
+  size = v.getVlaDimensionStmt(0).getDimensionExpr() and
+  (
+    arrayType = v.getVariable().getType()
+    or
+    arrayType = v.getType().getUnspecifiedType()
+  ) and
+  typeStr = arrayType.getBaseType().toString()
+select v, "Variable length array of element type '" + typeStr + "' with non-constant size $@.",
+  size, size.toString()

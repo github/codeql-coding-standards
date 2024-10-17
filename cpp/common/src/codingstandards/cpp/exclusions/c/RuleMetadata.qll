@@ -38,6 +38,7 @@ import IO4
 import IntegerOverflow
 import InvalidMemory1
 import InvalidMemory2
+import InvalidMemory3
 import Language1
 import Language2
 import Language3
@@ -114,6 +115,7 @@ newtype TCQuery =
   TIntegerOverflowPackageQuery(IntegerOverflowQuery q) or
   TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
   TInvalidMemory2PackageQuery(InvalidMemory2Query q) or
+  TInvalidMemory3PackageQuery(InvalidMemory3Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TLanguage3PackageQuery(Language3Query q) or
@@ -190,6 +192,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isIntegerOverflowQueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory2QueryMetadata(query, queryId, ruleId, category) or
+  isInvalidMemory3QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
