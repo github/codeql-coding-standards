@@ -3,6 +3,7 @@ import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
 import Banned
+import Banned2
 import BitfieldTypes
 import BitfieldTypes2
 import Concurrency1
@@ -78,6 +79,7 @@ import Types2
 /** The TQuery type representing this language * */
 newtype TCQuery =
   TBannedPackageQuery(BannedQuery q) or
+  TBanned2PackageQuery(Banned2Query q) or
   TBitfieldTypesPackageQuery(BitfieldTypesQuery q) or
   TBitfieldTypes2PackageQuery(BitfieldTypes2Query q) or
   TConcurrency1PackageQuery(Concurrency1Query q) or
@@ -153,6 +155,7 @@ newtype TCQuery =
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
   isBannedQueryMetadata(query, queryId, ruleId, category) or
+  isBanned2QueryMetadata(query, queryId, ruleId, category) or
   isBitfieldTypesQueryMetadata(query, queryId, ruleId, category) or
   isBitfieldTypes2QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency1QueryMetadata(query, queryId, ruleId, category) or
