@@ -4,11 +4,43 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Language4Query =
+  TMissingStaticSpecifierFuncRedeclarationObsoleteQuery() or
+  TMissingStaticSpecifierObjectRedeclarationObsoleteQuery() or
+  TFunctionTypesNotInPrototypeFormObsoleteQuery() or
   TUseOfObsoleteMacroAtomicVarInitQuery() or
   TInvalidDefineOrUndefOfStdBoolMacroQuery() or
+  TCallToObsolescentFunctionGetsQuery() or
+  TUngetcCallOnStreamPositionZeroQuery() or
   TCallToReallocWithSizeZeroQuery()
 
 predicate isLanguage4QueryMetadata(Query query, string queryId, string ruleId, string category) {
+  query =
+    // `Query` instance for the `missingStaticSpecifierFuncRedeclarationObsolete` query
+    Language4Package::missingStaticSpecifierFuncRedeclarationObsoleteQuery() and
+  queryId =
+    // `@id` for the `missingStaticSpecifierFuncRedeclarationObsolete` query
+    "c/misra/missing-static-specifier-func-redeclaration-obsolete" and
+  ruleId = "RULE-1-5" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `missingStaticSpecifierObjectRedeclarationObsolete` query
+    Language4Package::missingStaticSpecifierObjectRedeclarationObsoleteQuery() and
+  queryId =
+    // `@id` for the `missingStaticSpecifierObjectRedeclarationObsolete` query
+    "c/misra/missing-static-specifier-object-redeclaration-obsolete" and
+  ruleId = "RULE-1-5" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `functionTypesNotInPrototypeFormObsolete` query
+    Language4Package::functionTypesNotInPrototypeFormObsoleteQuery() and
+  queryId =
+    // `@id` for the `functionTypesNotInPrototypeFormObsolete` query
+    "c/misra/function-types-not-in-prototype-form-obsolete" and
+  ruleId = "RULE-1-5" and
+  category = "required"
+  or
   query =
     // `Query` instance for the `useOfObsoleteMacroAtomicVarInit` query
     Language4Package::useOfObsoleteMacroAtomicVarInitQuery() and
@@ -28,6 +60,24 @@ predicate isLanguage4QueryMetadata(Query query, string queryId, string ruleId, s
   category = "required"
   or
   query =
+    // `Query` instance for the `callToObsolescentFunctionGets` query
+    Language4Package::callToObsolescentFunctionGetsQuery() and
+  queryId =
+    // `@id` for the `callToObsolescentFunctionGets` query
+    "c/misra/call-to-obsolescent-function-gets" and
+  ruleId = "RULE-1-5" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `ungetcCallOnStreamPositionZero` query
+    Language4Package::ungetcCallOnStreamPositionZeroQuery() and
+  queryId =
+    // `@id` for the `ungetcCallOnStreamPositionZero` query
+    "c/misra/ungetc-call-on-stream-position-zero" and
+  ruleId = "RULE-1-5" and
+  category = "required"
+  or
+  query =
     // `Query` instance for the `callToReallocWithSizeZero` query
     Language4Package::callToReallocWithSizeZeroQuery() and
   queryId =
@@ -38,6 +88,27 @@ predicate isLanguage4QueryMetadata(Query query, string queryId, string ruleId, s
 }
 
 module Language4Package {
+  Query missingStaticSpecifierFuncRedeclarationObsoleteQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `missingStaticSpecifierFuncRedeclarationObsolete` query
+      TQueryC(TLanguage4PackageQuery(TMissingStaticSpecifierFuncRedeclarationObsoleteQuery()))
+  }
+
+  Query missingStaticSpecifierObjectRedeclarationObsoleteQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `missingStaticSpecifierObjectRedeclarationObsolete` query
+      TQueryC(TLanguage4PackageQuery(TMissingStaticSpecifierObjectRedeclarationObsoleteQuery()))
+  }
+
+  Query functionTypesNotInPrototypeFormObsoleteQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `functionTypesNotInPrototypeFormObsolete` query
+      TQueryC(TLanguage4PackageQuery(TFunctionTypesNotInPrototypeFormObsoleteQuery()))
+  }
+
   Query useOfObsoleteMacroAtomicVarInitQuery() {
     //autogenerate `Query` type
     result =
@@ -50,6 +121,20 @@ module Language4Package {
     result =
       // `Query` type for `invalidDefineOrUndefOfStdBoolMacro` query
       TQueryC(TLanguage4PackageQuery(TInvalidDefineOrUndefOfStdBoolMacroQuery()))
+  }
+
+  Query callToObsolescentFunctionGetsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `callToObsolescentFunctionGets` query
+      TQueryC(TLanguage4PackageQuery(TCallToObsolescentFunctionGetsQuery()))
+  }
+
+  Query ungetcCallOnStreamPositionZeroQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `ungetcCallOnStreamPositionZero` query
+      TQueryC(TLanguage4PackageQuery(TUngetcCallOnStreamPositionZeroQuery()))
   }
 
   Query callToReallocWithSizeZeroQuery() {

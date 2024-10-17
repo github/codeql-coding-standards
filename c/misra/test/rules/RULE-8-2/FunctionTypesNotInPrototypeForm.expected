@@ -1,4 +1,0 @@
-| test.c:8:6:8:7 | f1 | Function f1 declares parameter that is unnamed. |
-| test.c:9:6:9:7 | f2 | Function f2 does not specify void for no parameters present. |
-| test.c:10:6:10:7 | f3 | Function f3 does not specify void for no parameters present. |
-| test.c:12:5:12:6 | f5 | Function f5 declares parameter in unsupported declaration list. |

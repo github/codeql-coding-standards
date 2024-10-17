@@ -1,1 +1,0 @@
-| test.c:7:12:7:12 | declaration of g | The redeclaration of $@ with internal linkage misses the static specifier. | test.c:6:12:6:12 | definition of g | g |

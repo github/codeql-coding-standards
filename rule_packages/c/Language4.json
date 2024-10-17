@@ -6,6 +6,48 @@
       },
       "queries": [
         {
+          "description": "Declaring a function with internal linkage without the static storage class specifier is an obselescent feature.",
+          "kind": "problem",
+          "name": "If a function has internal linkage then all re-declarations shall include the static storage class",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingStaticSpecifierFuncRedeclarationObsolete",
+          "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
+          "tags": [
+            "readability",
+            "external/misra/c/2012/amendment3"
+          ]
+        },
+        {
+          "description": "Declaring an identifier with internal linkage without the static storage class specifier is an obselescent feature.",
+          "kind": "problem",
+          "name": "If an object has internal linkage then all re-declarations shall include the static storage class",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MissingStaticSpecifierObjectRedeclarationObsolete",
+          "shared_implementation_short_name": "MissingStaticSpecifierObjectRedeclarationShared",
+          "tags": [
+            "readability",
+            "external/misra/c/2012/amendment3"
+          ]
+        },
+        {
+          "description": "The use of non-prototype format parameter type declarators is an obsolescent language feature.",
+          "kind": "problem",
+          "name": "Function types shall be in prototype form with named parameters",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "FunctionTypesNotInPrototypeFormObsolete",
+          "shared_implementation_short_name": "FunctionTypesNotInPrototypeFormShared",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ],
+          "implementation_scope": {
+            "description": "This query does not check for implicitly typed parameters and checks function declarations and definitions but not function pointer types."
+          }
+        },
+        {
           "description": "The macro ATOMIC_VAR_INIT is has been declared an obsolescent language feature since C18.",
           "kind": "problem",
           "name": "Disallowed usage of obsolete macro ATOMIC_VAR_INIT compiled as C18",
@@ -32,6 +74,32 @@
           ]
         },
         {
+          "description": "The function 'gets' is an obsolescent language feature which was removed in C11.",
+          "kind": "problem",
+          "name": "Disallowed usage of obsolescent function 'gets'",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CallToObsolescentFunctionGets",
+          "tags": [
+            "external/misra/c/2012/amendment3",
+            "security",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Calling the function 'ungetc' on a file stream with a position of zero is an obsolescent language feature.",
+          "kind": "problem",
+          "name": "Disallowed obsolescent usage of 'ungetc' on a file stream at position zero",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "UngetcCallOnStreamPositionZero",
+          "tags": [
+            "external/misra/c/2012/amendment3",
+            "security",
+            "maintainability"
+          ]
+        },
+        {
           "description": "Invoking realloc with a size argument set to zero is implementation-defined behavior and declared as an obsolete feature in C18.",
           "kind": "problem",
           "name": "Disallowed size argument value equal to zero in call to realloc",
@@ -48,13 +116,14 @@
       "implementation_scope": {
         "description": "Not all items from Appendix F are covered by this rule. Some are not supportable and some are covered already by other rules.",
         "items": [
-          "Appendix F, item ID 1 is covered by Rule 8.8 and not reported as part of this implementation of Rule 1.5.",
+          "Appendix F, item ID 1 is reported by both Rule 8.8 and by this implementation of Rule 1.5.",
           "Appendix F, item ID 2 refers to compiler behavior which cannot be statically analyzed.",
           "Appendix F, item ID 3, which states that storage-class specifiers may not be used except in the beginning of a declaration, is not supportable without additional changes to the CodeQL CLI.",
+          "Appendix F, item IDs 4 and 5 are reported by both Rule 8.2 and by this implementation of Rule 1.5.",
           "Appendix F, item ID 6 is reported for all C versions, though the macro ATOMIC_VAR_INIT was not officially declared obsolescent until C18.",
-          "Appendix F, item IDs 4 and 5 are covered by Rule 8.2 and not reported as part of this implementation of Rule 1.5.",
-          "Appendix F, item IDs 8 and 9 is covered by Rule 21.6 and not reported as part of this implementation of Rule 1.5.",
-          "Appendix F, item ID 10 is checked by this implementation of 1.5, though it is a redundant subset of cases reported by Rule 21.3.",
+          "Appendix F, item ID 8 is reported by both Rule 21.6 and by this implementation of Rule 1.5.",
+          "Appendix F, item ID 9 is reported by this implementation of 1.5, though all uses of ungetc() are also reported by Rule 21.3.",
+          "Appendix F, item ID 10 is reported by this implementation of 1.5, though all uses of realloc() are also reported by Rule 21.3.",
           "Appendix F, item ID 10 is reported for all C versions, as realloc() with a size argument of zero was implementation-defined behavior in C99 and C11."
         ]
       }
