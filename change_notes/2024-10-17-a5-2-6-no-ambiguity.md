@@ -1,0 +1,3 @@
+ - `A5-2-6` - `OperandsOfAlogicalAndOrNotParenthesized.ql`:
+   - Remove false positives where the operator is identical.
+   - Improve alert message to clarify which expression needs to be parenthesized.

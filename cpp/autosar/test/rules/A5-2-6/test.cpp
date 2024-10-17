@@ -25,6 +25,8 @@ void f2(int p1, int p2) {
     f1();
   }
 
+  (p1 > 0) && (p2 > 0) && (p1 > p2); // COMPLIANT - no ambiguity
+
   Sample *sample_ptr = &sample;
 
   if ((p1 > 0) || sample_ptr->x) { // COMPLIANT: struct member accessors with
