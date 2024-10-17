@@ -12,6 +12,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "FunctionTypesNotInPrototypeForm",
+          "shared_implementation_short_name": "FunctionTypesNotInPrototypeFormShared",
           "tags": [
             "correctness",
             "external/misra/c/2012/third-edition-first-revision"
