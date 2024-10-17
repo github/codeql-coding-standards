@@ -19,6 +19,8 @@ query predicate problems(Cpp14Literal::NumericLiteral nl, string message) {
       nl instanceof Cpp14Literal::OctalLiteral and literalKind = "Octal"
       or
       nl instanceof Cpp14Literal::HexLiteral and literalKind = "Hex"
+      or
+      nl instanceof Cpp14Literal::BinaryLiteral and literalKind = "Binary"
     ) and
     // This either directly has an unsigned integer type, or it is converted to an unsigned integer type
     nl.getType().getUnspecifiedType().(IntegralType).isUnsigned() and
