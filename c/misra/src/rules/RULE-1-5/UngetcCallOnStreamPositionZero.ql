@@ -3,7 +3,7 @@
  * @name RULE-1-5: Disallowed obsolescent usage of 'ungetc' on a file stream at position zero
  * @description Calling the function 'ungetc' on a file stream with a position of zero is an
  *              obsolescent language feature.
- * @kind problem
+ * @kind path-problem
  * @precision medium
  * @problem.severity error
  * @tags external/misra/id/rule-1-5
@@ -52,18 +52,30 @@ class MoveStreamPositionCall extends FunctionCall {
   Expr getStreamArgument() { result = streamArgument }
 }
 
-from FunctionCall ungetc, DataFlow::Node file
+module FilePositionZeroFlowConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node node) {
+    node.asIndirectExpr().(FunctionCall).getTarget().hasGlobalOrStdName("fopen")
+  }
+
+  predicate isSink(DataFlow::Node node) {
+    exists(FunctionCall fc |
+      fc.getTarget().hasGlobalOrStdName("ungetc") and
+      node.asIndirectExpr() = fc.getArgument(1)
+    )
+  }
+
+  predicate isBarrierIn(DataFlow::Node node) {
+    exists(MoveStreamPositionCall fc | node.asIndirectExpr() = fc.getStreamArgument())
+  }
+}
+
+module FilePositionZeroFlow = DataFlow::Global<FilePositionZeroFlowConfig>;
+
+import FilePositionZeroFlow::PathGraph
+
+from FilePositionZeroFlow::PathNode sink, FilePositionZeroFlow::PathNode source
 where
-  not isExcluded(ungetc, Language4Package::ungetcCallOnStreamPositionZeroQuery()) and
-  // ungetc() called on file stream
-  ungetc.getTarget().hasGlobalOrStdName("ungetc") and
-  DataFlow::localFlow(file, DataFlow::exprNode(ungetc.getArgument(1))) and
-  // ungetc() is not dominated by a fread() etc to that file stream
-  not exists(MoveStreamPositionCall moveStreamCall |
-    DataFlow::localFlow(file, DataFlow::exprNode(moveStreamCall.getStreamArgument())) and
-    dominates(moveStreamCall, ungetc)
-  )
-  // the file stream is the root of the local data flow
-  and not DataFlow::localFlow(any(DataFlow::Node n | not n = file), file)
-select ungetc, "Obsolescent call to ungetc on file stream $@ at position zero.", file,
-  file.toString()
+  not isExcluded(sink.getNode().asExpr(), Language4Package::ungetcCallOnStreamPositionZeroQuery()) and
+  FilePositionZeroFlow::flowPath(source, sink)
+select sink.getNode(), source, sink,
+  "Obsolescent call to ungetc on file stream $@ at position zero.", source, source.toString()
