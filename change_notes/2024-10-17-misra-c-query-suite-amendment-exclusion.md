@@ -1,0 +1,4 @@
+ - The following query suites for MISRA C 2012 / 2023 have been altered or created:
+   - The `misra-c-default.qls` suite has been temporarily altered to not include ongoing work around new rules from MISRA C 2012 amendments 3 & 4.
+   - The `misra-c-2023.qls` suite has been created to include new rules being added to support MISRA C 2012 Amendments 3 and 4, or equivalently, to support MISRA C 2023.
+   - The `misra-c-2012-third-edition-with-amendment-2.qls` has not been altered and should still be used by projects which do not wish to enable MISRA C 2023 support at the future date in which MISRA C 2023 compliance is made the default.
