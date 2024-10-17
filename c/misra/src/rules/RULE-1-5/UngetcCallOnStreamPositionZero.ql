@@ -4,7 +4,7 @@
  * @description Calling the function 'ungetc' on a file stream with a position of zero is an
  *              obsolescent language feature.
  * @kind path-problem
- * @precision medium
+ * @precision high
  * @problem.severity error
  * @tags external/misra/id/rule-1-5
  *       external/misra/c/2012/amendment3

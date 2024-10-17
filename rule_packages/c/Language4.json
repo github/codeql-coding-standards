@@ -88,9 +88,9 @@
         },
         {
           "description": "Calling the function 'ungetc' on a file stream with a position of zero is an obsolescent language feature.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "Disallowed obsolescent usage of 'ungetc' on a file stream at position zero",
-          "precision": "medium",
+          "precision": "high",
           "severity": "error",
           "short_name": "UngetcCallOnStreamPositionZero",
           "tags": [
