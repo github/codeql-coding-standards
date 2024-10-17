@@ -2,3 +2,7 @@
 | test.c:14:8:14:9 | (int *)... | Cast performed between a pointer to object type (char) and a pointer to a different object type (int). |
 | test.c:15:8:15:25 | (int *)... | Cast performed between a pointer to object type (short) and a pointer to a different object type (int). |
 | test.c:15:15:15:25 | (short *)... | Cast performed between a pointer to object type (char) and a pointer to a different object type (short). |
+| test.c:20:3:20:17 | (const int *)... | Cast performed between a pointer to object type (char) and a pointer to a different object type (const int). |
+| test.c:21:3:21:16 | (int *)... | Cast performed between a pointer to object type (char) and a pointer to a different object type (int). |
+| test.c:22:20:22:21 | (int *)... | Cast performed between a pointer to object type (char) and a pointer to a different object type (int). |
+| test.c:23:3:23:18 | (long long *)... | Cast performed between a pointer to object type (int) and a pointer to a different object type (long long). |
