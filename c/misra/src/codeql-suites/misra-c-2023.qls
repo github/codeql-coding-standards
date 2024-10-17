@@ -1,12 +1,9 @@
-- description: MISRA C 2012 (Default)
+- description: MISRA C 2023 / MISRA C 2012 - Third Edition, First Revision including Amendments 2, 3, and 4 (In progress)
 - qlpack: codeql/misra-c-coding-standards
 - include:
     kind:
     - problem
     - path-problem
-    tags contain:
-    - external/misra/c/2012/third-edition-first-revision
-    - external/misra/c/2012/amendment2
 - exclude:
     tags contain:
     - external/misra/audit
