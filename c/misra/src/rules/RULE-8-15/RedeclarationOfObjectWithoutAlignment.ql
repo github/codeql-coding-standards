@@ -19,13 +19,11 @@ import codingstandards.c.misra
 /**
  * Performance optimization; start query by joining attributes to declarations
  * rather than locations.
- * 
+ *
  * Including the entry location also speeds up search.
  */
 newtype TAttributeDeclLocation =
-  TAttributeDeclLocationInfo(
-    Attribute attribute, DeclarationEntry entry, Location entryLocation
-  ) {
+  TAttributeDeclLocationInfo(Attribute attribute, DeclarationEntry entry, Location entryLocation) {
     entry.getDeclaration().(Variable).getAnAttribute() = attribute and
     entryLocation = entry.getLocation()
   }
