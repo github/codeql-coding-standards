@@ -7,7 +7,7 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-8-17
- *       extern/misra/c/2012/amendment3
+ *       external/misra/c/2012/amendment3
  *       readability
  *       external/misra/obligation/advisory
  */
