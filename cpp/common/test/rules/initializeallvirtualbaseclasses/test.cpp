@@ -62,3 +62,12 @@ public:
 private:
   Base2 b;
 };
+
+class Base3 {};
+
+class Derived7 final : public Base3 {
+public:
+  Derived7() = delete;                 // COMPLIANT
+  Derived7(const Derived7 &) = delete; // COMPLIANT
+  Derived7(Derived7 &&) = delete;      // COMPLIANT
+};

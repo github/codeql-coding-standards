@@ -1,0 +1,2 @@
+- `A12-1-1`, `RULE-15-1-2` - `InitializeAllVirtualBaseClasses.ql`, `ExplicitConstructorBaseClassInitialization.ql`:
+  - Remove false positives for deleted member functions.
