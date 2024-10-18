@@ -13,7 +13,7 @@
           "severity": "error",
           "short_name": "RedeclarationOfObjectWithoutAlignment",
           "tags": [
-            "extern/misra/c/2012/amendment3",
+            "external/misra/c/2012/amendment3",
             "readability",
             "maintainability"
           ]
@@ -26,7 +26,7 @@
           "severity": "error",
           "short_name": "RedeclarationOfObjectWithUnmatchedAlignment",
           "tags": [
-            "extern/misra/c/2012/amendment3",
+            "external/misra/c/2012/amendment3",
             "readability",
             "maintainability"
           ]
@@ -47,7 +47,7 @@
           "severity": "error",
           "short_name": "AlignmentWithSizeZero",
           "tags": [
-            "extern/misra/c/2012/amendment3",
+            "external/misra/c/2012/amendment3",
             "readability",
             "maintainability"
           ]
@@ -68,7 +68,7 @@
           "severity": "error",
           "short_name": "MoreThanOneAlignmentSpecifierOnDeclaration",
           "tags": [
-            "extern/misra/c/2012/amendment3",
+            "external/misra/c/2012/amendment3",
             "readability"
           ]
         }
