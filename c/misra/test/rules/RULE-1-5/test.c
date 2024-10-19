@@ -3,15 +3,16 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-void f1(void) {
+void f1(int p0) {
   // malloc() is not obsolete, though it is banned by Rule 21.3
   int *t = malloc(10); // COMPLIANT
 
-  // Obsolete usage of realloc.
-  realloc(t, 0); // NON-COMPLIANT
-
   // Valid usage of realloc, but all use of realloc is banned by Rule 21.3
   realloc(t, 20); // NON-COMPLIANT
+
+  // Obsolete usage of realloc.
+  realloc(t, 0);  // NON-COMPLIANT
+  realloc(t, p0); // NON-COMPLIANT
 }
 
 extern const int g1; // COMPLIANT

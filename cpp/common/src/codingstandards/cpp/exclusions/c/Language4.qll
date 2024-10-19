@@ -11,7 +11,8 @@ newtype Language4Query =
   TInvalidDefineOrUndefOfStdBoolMacroQuery() or
   TCallToObsolescentFunctionGetsQuery() or
   TUngetcCallOnStreamPositionZeroQuery() or
-  TCallToReallocWithSizeZeroQuery()
+  TSizeInReallocCallMayBeZeroQuery() or
+  TSizeInReallocCallIsZeroQuery()
 
 predicate isLanguage4QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -78,11 +79,20 @@ predicate isLanguage4QueryMetadata(Query query, string queryId, string ruleId, s
   category = "required"
   or
   query =
-    // `Query` instance for the `callToReallocWithSizeZero` query
-    Language4Package::callToReallocWithSizeZeroQuery() and
+    // `Query` instance for the `sizeInReallocCallMayBeZero` query
+    Language4Package::sizeInReallocCallMayBeZeroQuery() and
   queryId =
-    // `@id` for the `callToReallocWithSizeZero` query
-    "c/misra/call-to-realloc-with-size-zero" and
+    // `@id` for the `sizeInReallocCallMayBeZero` query
+    "c/misra/size-in-realloc-call-may-be-zero" and
+  ruleId = "RULE-1-5" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `sizeInReallocCallIsZero` query
+    Language4Package::sizeInReallocCallIsZeroQuery() and
+  queryId =
+    // `@id` for the `sizeInReallocCallIsZero` query
+    "c/misra/size-in-realloc-call-is-zero" and
   ruleId = "RULE-1-5" and
   category = "required"
 }
@@ -137,10 +147,17 @@ module Language4Package {
       TQueryC(TLanguage4PackageQuery(TUngetcCallOnStreamPositionZeroQuery()))
   }
 
-  Query callToReallocWithSizeZeroQuery() {
+  Query sizeInReallocCallMayBeZeroQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `callToReallocWithSizeZero` query
-      TQueryC(TLanguage4PackageQuery(TCallToReallocWithSizeZeroQuery()))
+      // `Query` type for `sizeInReallocCallMayBeZero` query
+      TQueryC(TLanguage4PackageQuery(TSizeInReallocCallMayBeZeroQuery()))
+  }
+
+  Query sizeInReallocCallIsZeroQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `sizeInReallocCallIsZero` query
+      TQueryC(TLanguage4PackageQuery(TSizeInReallocCallIsZeroQuery()))
   }
 }

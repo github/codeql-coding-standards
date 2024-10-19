@@ -1,6 +1,6 @@
 /**
- * @id c/misra/call-to-realloc-with-size-zero
- * @name RULE-1-5: Disallowed size argument value equal to zero in call to realloc
+ * @id c/misra/size-in-realloc-call-is-zero
+ * @name RULE-1-5: Size argument value in realloc call is equal zero
  * @description Invoking realloc with a size argument set to zero is implementation-defined behavior
  *              and declared as an obsolete feature in C18.
  * @kind problem
@@ -15,11 +15,12 @@
 import cpp
 import codingstandards.c.misra
 import semmle.code.cpp.rangeanalysis.new.RangeAnalysis
+import codingstandards.cpp.Realloc
 
-from FunctionCall call, Expr arg
+from ReallocCall call
 where
-  not isExcluded(call, Language4Package::callToReallocWithSizeZeroQuery()) and
-  call.getTarget().hasGlobalOrStdName("realloc") and
-  arg = call.getArgument(1) and
-  upperBound(arg) = 0
-select arg, "Calling realloc with size zero results in implementation-defined behavior."
+  not isExcluded(call, Language4Package::sizeInReallocCallIsZeroQuery()) and
+  call.sizeIsExactlyZero()
+select call,
+  "Size argument '$@' may equal zero in realloc call, resulting in obsolescent and/or implementation-defined behavior.",
+  call.getSizeArgument(), call.getSizeArgument().toString()

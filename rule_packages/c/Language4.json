@@ -102,10 +102,22 @@
         {
           "description": "Invoking realloc with a size argument set to zero is implementation-defined behavior and declared as an obsolete feature in C18.",
           "kind": "problem",
-          "name": "Disallowed size argument value equal to zero in call to realloc",
+          "name": "Size argument value in realloc call may equal zero",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "SizeInReallocCallMayBeZero",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        },
+        {
+          "description": "Invoking realloc with a size argument set to zero is implementation-defined behavior and declared as an obsolete feature in C18.",
+          "kind": "problem",
+          "name": "Size argument value in realloc call is equal zero",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "CallToReallocWithSizeZero",
+          "short_name": "SizeInReallocCallIsZero",
           "tags": [
             "correctness",
             "external/misra/c/2012/amendment3"
