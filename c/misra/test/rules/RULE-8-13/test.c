@@ -106,3 +106,7 @@ void test_struct_2(struct S *s) { // NON_COMPLIANT - could be const
 
 void test_no_body(int *p); // COMPLIANT - no body, so cannot evaluate whether it
                            // should be const
+
+void increment(int *p) { // COMPLIANT
+  *p++ = 1;
+}
