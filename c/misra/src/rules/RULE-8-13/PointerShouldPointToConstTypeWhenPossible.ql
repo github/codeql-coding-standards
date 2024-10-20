@@ -22,6 +22,8 @@ import codingstandards.cpp.alertreporting.HoldsForAllCopies
 
 class NonConstPointerVariableCandidate extends Variable {
   NonConstPointerVariableCandidate() {
+    // Ignore parameters in functions without bodies
+    (this instanceof Parameter implies exists(this.(Parameter).getFunction().getBlock())) and
     // Ignore variables in functions that use ASM commands
     not exists(AsmStmt a | a.getEnclosingFunction() = this.(LocalScopeVariable).getFunction()) and
     // Avoid elements in macro expansions, as they cannot be equated across copies
