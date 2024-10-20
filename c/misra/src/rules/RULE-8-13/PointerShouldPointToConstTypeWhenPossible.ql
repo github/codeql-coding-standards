@@ -41,8 +41,8 @@ class NonConstPointerVariableCandidate extends Variable {
     not exists(VariableEffect effect |
       effect.getTarget() = this and
       // but not pointers that are only themselves modified
-      not effect.(AssignExpr).getLValue() = effect.getAnAccess() and
-      not effect.(CrementOperation).getOperand() = effect.getAnAccess()
+      not effect.(AssignExpr).getLValue() = this.getAnAccess() and
+      not effect.(CrementOperation).getOperand() = this.getAnAccess()
     ) and
     // exclude pointers assigned to another pointer to a non-const-qualified type
     not exists(Variable a |

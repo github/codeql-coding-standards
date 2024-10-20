@@ -85,3 +85,15 @@ test_r(int16_t *value) { // COMPLIANT - ignored because of the use of ASM
   __asm__("movb %bh (%eax)");
   return result;
 }
+
+struct S {
+  int x;
+};
+
+void test_struct(struct S *s) { // COMPLIANT
+  s->x = 1;
+}
+
+void test_struct_2(struct S *s) { // NON_COMPLIANT - could be const
+  s = 0;
+}
