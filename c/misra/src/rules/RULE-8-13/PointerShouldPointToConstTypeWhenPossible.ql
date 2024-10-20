@@ -25,7 +25,12 @@ class NonConstPointerVariableCandidate extends Variable {
     // Ignore parameters in functions without bodies
     (this instanceof Parameter implies exists(this.(Parameter).getFunction().getBlock())) and
     // Ignore variables in functions that use ASM commands
-    not exists(AsmStmt a | a.getEnclosingFunction() = this.(LocalScopeVariable).getFunction()) and
+    not exists(AsmStmt a |
+      a.getEnclosingFunction() = this.(LocalScopeVariable).getFunction()
+      or
+      // In a type declared locally
+      this.(Field).getDeclaringType+().getEnclosingFunction() = a.getEnclosingFunction()
+    ) and
     // Avoid elements in macro expansions, as they cannot be equated across copies
     not this.isInMacroExpansion() and
     exists(PointerOrArrayType type |

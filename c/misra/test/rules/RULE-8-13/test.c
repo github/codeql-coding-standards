@@ -82,6 +82,12 @@ int f17(char *p1) { // NON_COMPLIANT
 int16_t
 test_r(int16_t *value) { // COMPLIANT - ignored because of the use of ASM
   int16_t result;
+  struct S {
+    int *x; // COMPLIANT - ignored because of the use of ASM
+    struct S2 {
+      int *y; // COMPLIANT - ignored because of the use of ASM
+    } s2;
+  };
   __asm__("movb %bh (%eax)");
   return result;
 }
