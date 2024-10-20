@@ -76,3 +76,12 @@ int f17(char *p1) { // NON_COMPLIANT
   p1++;
   return 0;
 }
+
+#include <stdint.h>
+
+int16_t
+test_r(int16_t *value) { // COMPLIANT - ignored because of the use of ASM
+  int16_t result;
+  __asm__("movb %bh (%eax)");
+  return result;
+}
