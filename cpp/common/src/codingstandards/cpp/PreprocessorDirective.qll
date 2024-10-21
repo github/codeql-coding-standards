@@ -44,7 +44,8 @@ class PreprocessorIfOrElif extends PreprocessorBranch {
 /**
  * Holds if the preprocessor directive `m` is located at `filepath` and `startline`.
  */
-private predicate hasPreprocessorLocation(PreprocessorDirective m, string filepath, int startline) {
+pragma[noinline]
+predicate hasPreprocessorLocation(PreprocessorDirective m, string filepath, int startline) {
   m.getLocation().hasLocationInfo(filepath, startline, _, _, _)
 }
 
