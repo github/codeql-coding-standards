@@ -40,3 +40,70 @@ class PreprocessorIfOrElif extends PreprocessorBranch {
     this instanceof PreprocessorElif
   }
 }
+
+/**
+ * Holds if the preprocessor directive `m` is located at `filepath` and `startline`.
+ */
+private predicate hasPreprocessorLocation(PreprocessorDirective m, string filepath, int startline) {
+  m.getLocation().hasLocationInfo(filepath, startline, _, _, _)
+}
+
+/**
+ * Holds if `first` and `second` are a pair of branch directives in the same file, such that they
+ * share the same root if condition.
+ */
+pragma[noinline]
+private predicate isBranchDirectivePair(
+  PreprocessorBranchDirective first, PreprocessorBranchDirective second, string filepath,
+  int b1StartLocation, int b2StartLocation
+) {
+  first.getIf() = second.getIf() and
+  not first = second and
+  hasPreprocessorLocation(first, filepath, b1StartLocation) and
+  hasPreprocessorLocation(second, filepath, b2StartLocation) and
+  b1StartLocation < b2StartLocation
+}
+
+/**
+ * Holds if `bd` is a branch directive in the range `filepath`, `startline`, `endline`.
+ */
+pragma[noinline]
+predicate isBranchDirectiveRange(
+  PreprocessorBranchDirective bd, string filepath, int startline, int endline
+) {
+  hasPreprocessorLocation(bd, filepath, startline) and
+  exists(PreprocessorBranchDirective next |
+    next = bd.getNext() and
+    // Avoid referencing filepath here, otherwise the optimiser will try to join
+    // on it
+    hasPreprocessorLocation(next, _, endline)
+  )
+}
+
+/**
+ * Holds if the macro `m` is defined within the branch directive `bd`.
+ */
+pragma[noinline]
+predicate isMacroDefinedWithinBranch(PreprocessorBranchDirective bd, Macro m) {
+  exists(string filepath, int startline, int endline, int macroline |
+    isBranchDirectiveRange(bd, filepath, startline, endline) and
+    hasPreprocessorLocation(m, filepath, macroline) and
+    startline < macroline and
+    endline > macroline
+  )
+}
+
+/**
+ * Holds if the pair of macros are "conditional" i.e. only one of the macros is followed in any
+ * particular compilation of the containing file.
+ */
+predicate mutuallyExclusiveMacros(Macro firstMacro, Macro secondMacro) {
+  exists(
+    PreprocessorBranchDirective b1, PreprocessorBranchDirective b2, string filepath,
+    int b1StartLocation, int b2StartLocation
+  |
+    isBranchDirectivePair(b1, b2, filepath, b1StartLocation, b2StartLocation) and
+    isMacroDefinedWithinBranch(b1, firstMacro) and
+    isMacroDefinedWithinBranch(b2, secondMacro)
+  )
+}
