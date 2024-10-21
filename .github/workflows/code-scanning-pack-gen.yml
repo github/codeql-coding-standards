@@ -97,8 +97,9 @@ jobs:
           CODEQL_HOME: ${{ github.workspace }}/codeql_home
         run: |
           PATH=$PATH:$CODEQL_HOME/codeql
-
-          codeql query compile --precompile --threads 0 cpp c
+          # Precompile all queries, and use a compilation cache larger than default
+          # to ensure we cache all the queries for later steps
+          codeql query compile --precompile --threads 0 --compilation-cache-size=1024 cpp c
 
           cd ..
           zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/schemas
