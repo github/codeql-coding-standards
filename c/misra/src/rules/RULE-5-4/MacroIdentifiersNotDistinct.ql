@@ -15,6 +15,25 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.Macro
+import codingstandards.cpp.Includes
+import codingstandards.cpp.PreprocessorDirective
+
+/**
+ * Gets a link target that this macro is expanded in.
+ */
+LinkTarget getALinkTarget(Macro m) {
+  exists(Element e | e = m.getAnInvocation().getAnAffectedElement() |
+    result = e.(Expr).getEnclosingFunction().getALinkTarget()
+    or
+    result = e.(Stmt).getEnclosingFunction().getALinkTarget()
+    or
+    exists(GlobalOrNamespaceVariable g |
+      result = g.getALinkTarget() and
+      g.getInitializer().getExpr().getAChild*() = e
+    )
+  )
+}
 
 from Macro m, Macro m2
 where
@@ -30,7 +49,31 @@ where
     else m.getName() = m2.getName()
   ) and
   //reduce double report since both macros are in alert, arbitrary ordering
-  m.getLocation().getStartLine() >= m2.getLocation().getStartLine()
+  m.getLocation().getStartLine() >= m2.getLocation().getStartLine() and
+  // Not within an #ifndef MACRO_NAME
+  not exists(PreprocessorIfndef ifBranch |
+    m.getAGuard() = ifBranch or
+    m2.getAGuard() = ifBranch
+  |
+    ifBranch.getHead() = m.getName()
+  ) and
+  // Must be included unconditionally from the same file, otherwise m1 may not be defined
+  // when m2 is defined
+  exists(File f |
+    getAnUnconditionallyIncludedFile*(f) = m.getFile() and
+    getAnUnconditionallyIncludedFile*(f) = m2.getFile()
+  ) and
+  // Macros can't be mutually exclusive
+  not mutuallyExclusiveMacros(m, m2) and
+  not mutuallyExclusiveMacros(m2, m) and
+  // If at least one invocation exists for at least one of the macros, then they must share a link
+  // target - i.e. must both be expanded in the same context
+  (
+    (exists(m.getAnInvocation()) and exists(m2.getAnInvocation()))
+    implies
+    // Must share a link target - e.g. must both be expanded in the same context
+    getALinkTarget(m) = getALinkTarget(m2)
+  )
 select m,
   "Macro identifer " + m.getName() + " is nondistinct in first 63 characters, compared to $@.", m2,
   m2.getName()
