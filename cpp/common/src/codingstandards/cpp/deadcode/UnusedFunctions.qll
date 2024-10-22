@@ -13,6 +13,7 @@ import cpp
 import codingstandards.cpp.DynamicCallGraph
 import codingstandards.cpp.EncapsulatingFunctions
 import codingstandards.cpp.FunctionEquivalence
+import codingstandards.cpp.Class
 
 module UnusedFunctions {
   /**
@@ -119,7 +120,12 @@ module UnusedFunctions {
   class UnusedFunction extends UsableFunction {
     UnusedFunction() {
       // This function, or an equivalent function, is not reachable from any entry point
-      not exists(EntryPoint ep | getAnEquivalentFunction(this) = ep.getAReachableFunction())
+      not exists(EntryPoint ep | getAnEquivalentFunction(this) = ep.getAReachableFunction()) and
+      // and it is not a constexpr. Refer issue #646.
+      // The usages of constexpr is not well tracked and hence
+      // to avoid false positives, this is added. In case there is an improvement in
+      // handling constexpr in CodeQL, we can consider removing it.
+      not this.isConstexpr()
     }
 
     string getDeadCodeType() {
@@ -128,4 +134,7 @@ module UnusedFunctions {
       else result = "never called."
     }
   }
+
+  /** A `SpecialMemberFunction` which is an `UnusedFunction`. */
+  class UnusedSplMemberFunction extends UnusedFunction, SpecialMemberFunction { }
 }

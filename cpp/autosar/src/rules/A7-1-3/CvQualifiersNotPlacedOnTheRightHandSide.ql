@@ -20,37 +20,50 @@ import cpp
 import codingstandards.cpp.autosar
 
 /**
- * Holds if declaration `e` using a `TypedefType` is CV-qualified
- *
- * For example, given `using intconstptr = int * const`:
- * the predicate holds for `const/volatile intconstptr ptr1`, but not for `intconstptr ptr2`
+ * Unwrap layers of indirection that occur on the right side of the type.
  */
-predicate containsExtraSpecifiers(VariableDeclarationEntry e) {
-  e.getType().toString().matches("const %") or
-  e.getType().toString().matches("volatile %")
+Type unwrapIndirection(Type type) {
+  if type instanceof DerivedType and not type instanceof SpecifiedType
+  then result = unwrapIndirection(type.(DerivedType).getBaseType())
+  else result = type
 }
 
 // DeclStmts that have a TypedefType name use (ie TypeMention) in them
 //AND TypeMention.getStartColumn() - DeclStmt.getStartColumn() > len(const)
 //AND the declared thing contains one of these "extra" specifiers in the DeclarationEntry Location
-from VariableDeclarationEntry e, TypedefType t, TypeMention tm
+from
+  VariableDeclarationEntry e, TypedefType t, TypeMention tm, string message, Element explainer,
+  string explainerMessage
 where
   not isExcluded(e, ConstPackage::cvQualifiersNotPlacedOnTheRightHandSideQuery()) and
-  containsExtraSpecifiers(e) and
+  // Variable type is specified, and has the typedef type as a base type
+  unwrapIndirection(e.getType()).(SpecifiedType).getBaseType() = t and
   exists(string filepath, int startline |
     e.getLocation().hasLocationInfo(filepath, startline, _, _, _) and
     tm.getLocation().hasLocationInfo(filepath, startline, _, _, _) and
     e = t.getATypeNameUse() and
     tm.getMentionedType() = t and
+    // TypeMention occurs before the variable declaration
+    tm.getLocation().getStartColumn() < e.getLocation().getStartColumn() and
     exists(DeclStmt s |
       s.getDeclarationEntry(_) = e and
-      //const could fit in there
+      // TypeMention occurs after the start of the StmtDecl, with enough space for const/volatile
       tm.getLocation().getStartColumn() - s.getLocation().getStartColumn() > 5
-      //volatile could fit in there
-      //but the above condition subsumes this one
-      //l.getStartColumn() - tm.getLocation().getStartColumn() > 8
     )
+  ) and
+  if exists(t.getFile().getRelativePath())
+  then
+    message =
+      "There is possibly a const or volatile specifier on the left hand side of typedef name $@." and
+    explainer = t and
+    explainerMessage = t.getName()
+  else (
+    // Type occurs outside source root, so don't link
+    message =
+      "There is possibly a const or volatile specifier on the left hand side of typedef name " +
+        t.getName() + "." and
+    // explainer not used in this case
+    explainer = e and
+    explainerMessage = ""
   )
-select e,
-  "There is possibly a const or volatile specifier on the left hand side of typedef name $@.", t,
-  t.getName()
+select e, message, explainer, explainerMessage

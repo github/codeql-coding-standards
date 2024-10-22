@@ -3,6 +3,7 @@ import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
 import Banned
+import Banned2
 import BitfieldTypes
 import BitfieldTypes2
 import Concurrency1
@@ -73,10 +74,12 @@ import Strings2
 import Strings3
 import Syntax
 import Types1
+import Types2
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
   TBannedPackageQuery(BannedQuery q) or
+  TBanned2PackageQuery(Banned2Query q) or
   TBitfieldTypesPackageQuery(BitfieldTypesQuery q) or
   TBitfieldTypes2PackageQuery(BitfieldTypes2Query q) or
   TConcurrency1PackageQuery(Concurrency1Query q) or
@@ -146,11 +149,13 @@ newtype TCQuery =
   TStrings2PackageQuery(Strings2Query q) or
   TStrings3PackageQuery(Strings3Query q) or
   TSyntaxPackageQuery(SyntaxQuery q) or
-  TTypes1PackageQuery(Types1Query q)
+  TTypes1PackageQuery(Types1Query q) or
+  TTypes2PackageQuery(Types2Query q)
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
   isBannedQueryMetadata(query, queryId, ruleId, category) or
+  isBanned2QueryMetadata(query, queryId, ruleId, category) or
   isBitfieldTypesQueryMetadata(query, queryId, ruleId, category) or
   isBitfieldTypes2QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency1QueryMetadata(query, queryId, ruleId, category) or
@@ -220,5 +225,6 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStrings2QueryMetadata(query, queryId, ruleId, category) or
   isStrings3QueryMetadata(query, queryId, ruleId, category) or
   isSyntaxQueryMetadata(query, queryId, ruleId, category) or
-  isTypes1QueryMetadata(query, queryId, ruleId, category)
+  isTypes1QueryMetadata(query, queryId, ruleId, category) or
+  isTypes2QueryMetadata(query, queryId, ruleId, category)
 }

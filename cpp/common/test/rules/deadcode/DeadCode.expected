@@ -15,3 +15,7 @@
 | test.cpp:85:3:85:43 | declaration | This statement is dead code. |
 | test.cpp:87:3:87:30 | declaration | This statement is dead code. |
 | test.cpp:90:3:90:50 | declaration | This statement is dead code. |
+| test.cpp:116:3:116:21 | ExprStmt | This statement is dead code. |
+| test.cpp:117:3:117:27 | ExprStmt | This statement is dead code. |
+| test.cpp:118:7:118:32 | ExprStmt | This statement is dead code. |
+| test.cpp:139:3:139:35 | ExprStmt | This statement is dead code. |
