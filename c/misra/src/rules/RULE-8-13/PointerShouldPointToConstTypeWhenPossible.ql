@@ -31,8 +31,6 @@ class NonConstPointerVariableCandidate extends Variable {
       // In a type declared locally
       this.(Field).getDeclaringType+().getEnclosingFunction() = a.getEnclosingFunction()
     ) and
-    // Avoid elements in macro expansions, as they cannot be equated across copies
-    not this.isInMacroExpansion() and
     exists(PointerOrArrayType type |
       // include only pointers which point to a const-qualified type
       this.getType() = type and
