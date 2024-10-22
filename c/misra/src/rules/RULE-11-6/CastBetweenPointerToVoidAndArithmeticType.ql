@@ -8,6 +8,7 @@
  * @problem.severity error
  * @tags external/misra/id/rule-11-6
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
@@ -22,5 +23,5 @@ where
   typeTo = cast.getUnderlyingType() and
   [typeFrom, typeTo] instanceof ArithmeticType and
   [typeFrom, typeTo] instanceof VoidPointerType and
-  not isNullPointerConstant(cast.getExpr())
+  not cast.getExpr() instanceof Zero
 select cast, "Cast performed between a pointer to void type and an arithmetic type."

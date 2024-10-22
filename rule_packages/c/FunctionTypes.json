@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "RULE-17-12": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A function identifier should only be called with a parenthesized parameter list or used with a & (address-of).",
+          "kind": "problem",
+          "name": "A function identifier should only be called with a parenthesized parameter list or used with a &",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionAddressesShouldAddressOperator",
+          "tags": [
+            "readability",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "A function identifier should only be called with a parenthesized parameter list or used with a & (address-of)"
+    }
+  }
+}

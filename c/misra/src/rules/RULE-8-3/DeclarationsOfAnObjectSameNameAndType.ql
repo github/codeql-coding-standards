@@ -8,6 +8,7 @@
  * @problem.severity error
  * @tags external/misra/id/rule-8-3
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
@@ -21,7 +22,19 @@ where
   not isExcluded(decl2, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
   not decl1 = decl2 and
   not decl1.getVariable().getDeclaringType().isAnonymous() and
+  // Declarations are for the same qualified name
+  // Note: decl1.getVariable() = decl2.getVariable() does not work for common cases where an aliased
+  //       type is used.
   decl1.getVariable().getQualifiedName() = decl2.getVariable().getQualifiedName() and
+  // As we use qualified name, require that they share a common link target to ensure they are
+  // for the same object
+  (
+    decl1.getVariable().(GlobalVariable).getALinkTarget() =
+      decl2.getVariable().(GlobalVariable).getALinkTarget()
+    or
+    decl1.getVariable().(Field).getDeclaringType().(Class).getALinkTarget() =
+      decl2.getVariable().(Field).getDeclaringType().(Class).getALinkTarget()
+  ) and
   not typesCompatible(decl1.getType(), decl2.getType())
 select decl1,
   "The object $@ of type " + decl1.getType().toString() +

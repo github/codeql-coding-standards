@@ -52,6 +52,50 @@ public:
   inline void i5() {}     // NON_COMPLIANT - never used in any instantiation
 };
 
+#include "test.hpp"
+#include <type_traits>
+
+template <typename T1, typename T2>
+constexpr bool aConstExprFunc() noexcept { // COMPLIANT
+  static_assert(std::is_trivially_copy_constructible<T1>() &&
+                    std::is_trivially_copy_constructible<T2>(),
+                "assert");
+  return true;
+}
+
+template <typename T, int val> class AClass { T anArr[val]; };
+
+void aCalledFunc1() // COMPLIANT
+{
+  struct ANestedClass {
+    ANestedClass() noexcept(false) { // COMPLIANT: False Positive!
+      static_cast<void>(0);
+    }
+  };
+  static_assert(std::is_trivially_copy_constructible<AClass<ANestedClass, 5>>(),
+                "Must be trivially copy constructible");
+}
+
+void anUnusedFunction() // NON_COMPLIANT
+{
+  struct AnotherNestedClass {
+    AnotherNestedClass() noexcept(false) { // NON_COMPLAINT
+      static_cast<void>(0);
+    }
+  };
+  AnotherNestedClass d;
+}
+
+void aCalledFunc2() // COMPLIANT
+{
+  struct YetAnotherNestedClass {
+    YetAnotherNestedClass() noexcept(false) {
+      static_cast<void>(0);
+    } // COMPLIANT
+  };
+  YetAnotherNestedClass d;
+};
+
 int main() { // COMPLIANT - this is a main like function which acts as an entry
              // point
   f3();
@@ -88,8 +132,37 @@ int main() { // COMPLIANT - this is a main like function which acts as an entry
   c1.getAT();
   S s;
   c2.i1(s);
+
+  int aVar;
+  aConstExprFunc<decltype(aCalledFuncInHeader(aVar)), int>();
+  aCalledFunc1();
+  aCalledFunc2();
 }
 class M {
 public:
   M(const M &) = delete; // COMPLIANT - ignore if deleted
 };
+
+#include <gtest/gtest.h>
+int called_from_google_test_function(
+    int a_param) // COMPLIANT - called from TEST
+{
+  int something = a_param;
+  something++;
+  return something;
+}
+
+TEST(sample_test,
+     called_from_google_test_function) // COMPLIANT - Google Test function
+{
+  bool pass = false;
+  if (called_from_google_test_function(0) >= 10)
+    pass = true;
+  struct a_nested_class_in_gtest {
+    a_nested_class_in_gtest() noexcept(false) {
+      static_cast<void>(0);
+    } // COMPLIANT
+  };
+  static_assert(std::is_trivially_copy_constructible<a_nested_class_in_gtest>(),
+                "assert");
+}

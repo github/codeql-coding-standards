@@ -1,0 +1,2 @@
+- `A0-1-1` - `UselessAssignments.qll`:
+  - Remove (dead code) useless assignment false positive when integer constant expression is used to define the size of an array.
