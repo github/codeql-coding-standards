@@ -204,7 +204,7 @@ predicate isLoopCounterModifiedInCondition(ForStmt forLoop, VariableAccess loopC
   loopCounterAccess = getAnIterationVariable(forLoop).getAnAccess() and
   (
     loopCounterAccess.isModified() or
-    loopCounterAccess.isAddressOfAccess()
+    loopCounterAccess.isAddressOfAccessNonConst()
   )
 }
 
@@ -219,7 +219,7 @@ predicate isLoopCounterModifiedInStatement(
   loopCounterAccess = loopCounter.getAnAccess() and
   (
     loopCounterAccess.isModified() or
-    loopCounterAccess.isAddressOfAccess()
+    loopCounterAccess.isAddressOfAccessNonConst()
   ) and
   forLoop.getStmt().getChildStmt*() = loopCounterAccess.getEnclosingStmt()
 }
