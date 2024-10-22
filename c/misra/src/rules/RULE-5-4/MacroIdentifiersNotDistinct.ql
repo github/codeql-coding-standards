@@ -99,8 +99,8 @@ where
   // when m2 is defined
   isIncludedUnconditionallyFromCommonFile(m, m2) and
   // Macros can't be mutually exclusive
-  not mutuallyExclusiveMacros(m, m2) and
-  not mutuallyExclusiveMacros(m2, m) and
+  not mutuallyExclusiveBranchDirectiveMacros(m, m2) and
+  not mutuallyExclusiveBranchDirectiveMacros(m2, m) and
   // If at least one invocation exists for at least one of the macros, then they must share a link
   // target - i.e. must both be expanded in the same context
   (

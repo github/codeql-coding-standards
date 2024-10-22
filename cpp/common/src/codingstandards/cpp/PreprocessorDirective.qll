@@ -98,12 +98,9 @@ predicate isMacroDefinedWithinBranch(PreprocessorBranchDirective bd, Macro m) {
  * Holds if the pair of macros are "conditional" i.e. only one of the macros is followed in any
  * particular compilation of the containing file.
  */
-predicate mutuallyExclusiveMacros(Macro firstMacro, Macro secondMacro) {
-  exists(
-    PreprocessorBranchDirective b1, PreprocessorBranchDirective b2, string filepath,
-    int b1StartLocation, int b2StartLocation
-  |
-    isBranchDirectivePair(b1, b2, filepath, b1StartLocation, b2StartLocation) and
+predicate mutuallyExclusiveBranchDirectiveMacros(Macro firstMacro, Macro secondMacro) {
+  exists(PreprocessorBranchDirective b1, PreprocessorBranchDirective b2 |
+    isBranchDirectivePair(b1, b2, _, _, _) and
     isMacroDefinedWithinBranch(b1, firstMacro) and
     isMacroDefinedWithinBranch(b2, secondMacro)
   )
