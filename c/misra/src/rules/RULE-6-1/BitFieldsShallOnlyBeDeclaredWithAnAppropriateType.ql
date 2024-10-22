@@ -7,38 +7,17 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-6-1
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Compiler
+import codingstandards.cpp.rules.bitfieldshallhaveanappropriatetype.BitFieldShallHaveAnAppropriateType
 
-Type getSupportedBitFieldType(Compiler compiler) {
-  compiler instanceof UnsupportedCompiler and
-  (
-    result instanceof IntType and
-    (
-      result.(IntegralType).isExplicitlySigned() or
-      result.(IntegralType).isExplicitlyUnsigned()
-    )
-    or
-    result instanceof BoolType
-  )
-  or
-  (compiler instanceof Gcc or compiler instanceof Clang) and
-  (
-    result instanceof IntegralOrEnumType
-    or
-    result instanceof BoolType
-  )
+class BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery extends BitFieldShallHaveAnAppropriateTypeSharedQuery
+{
+  BitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery() {
+    this = BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()
+  }
 }
-
-from BitField bitField
-where
-  not isExcluded(bitField,
-    BitfieldTypesPackage::bitFieldsShallOnlyBeDeclaredWithAnAppropriateTypeQuery()) and
-  /* A violation would neither be an appropriate primitive type nor an appropriate typedef. */
-  not getSupportedBitFieldType(getCompiler(bitField.getFile())) =
-    bitField.getType().resolveTypedefs()
-select bitField, "Bit-field '" + bitField + "' is declared on type '" + bitField.getType() + "'."

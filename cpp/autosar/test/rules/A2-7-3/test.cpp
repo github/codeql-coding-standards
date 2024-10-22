@@ -60,10 +60,30 @@ public:
   /// @param i an integer.
   /// @throw std::runtime_error
   void f(int i); // COMPLIANT
+
+  /** Same documentation for all members
+   * This is a multiline comment.
+   */
+  ///@{
+  void g(); // COMPLIANT
+  void h(); // COMPLIANT
+  void i(); // COMPLIANT
+  ///@}
+
+  ///@{
+  void j(); // NON_COMPLIANT
+  void k(); // NON_COMPLIANT
+  /** Member-specific documentation */
+  void l(); // COMPLIANT
+  ///@}
+
 private:
   /// @brief A Doxygen comment.
   int c; // COMPLIANT
 };
+void ClassC::i() { // not flagged, as we will only flag the non-definition
+                   // declaration
+}
 /// A Doxygen comment.
 void c(); // COMPLIANT
 
@@ -176,3 +196,33 @@ void testFunctionScope() {
     };
   };
 }
+
+/// Test documentation
+template <typename T> class ClassG { // COMPLIANT
+private:
+  /// Test documentation
+  int x; // COMPLIANT
+
+public:
+  /// Test documentation
+  friend int foo(ClassG<T> g) { return g.x; } // COMPLIANT
+};
+
+/// Test documentation
+void test() { // COMPLIANT
+  ClassG<int> g;
+  foo(g);
+}
+
+/// Test documentation
+class ClassG2 { // COMPLIANT
+public:
+  /// Test documentation
+  friend int foo2() { return 1; } // COMPLIANT
+};
+
+/// Test documentation
+class ClassG3 { // COMPLIANT
+public:
+  friend int foo3() { return 1; } // NON_COMPLIANT
+};

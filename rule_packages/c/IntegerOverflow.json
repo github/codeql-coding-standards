@@ -12,6 +12,7 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "UnsignedIntegerOperationsWrapAround",
+          "shared_implementation_short_name": "UnsignedOperationWithConstantOperandsWraps",
           "tags": [
             "correctness",
             "security"
@@ -114,7 +115,8 @@
           "shared_implementation_short_name": "ConstantUnsignedIntegerExpressionsWrapAround",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

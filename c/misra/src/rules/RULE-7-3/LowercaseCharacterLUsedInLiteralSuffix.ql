@@ -9,12 +9,13 @@
  * @tags external/misra/id/rule-7-3
  *       maintainability
  *       readability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Literals
+import codingstandards.cpp.Literals
 
 from IntegerLiteral l
 where

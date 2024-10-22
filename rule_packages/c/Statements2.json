@@ -15,7 +15,8 @@
           "shared_implementation_short_name": "GotoStatementCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -33,9 +34,11 @@
           "precision": "high",
           "severity": "recommendation",
           "short_name": "GotoLabelBlockCondition",
+          "shared_implementation_short_name": "GotoReferenceALabelInSurroundingBlock",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -55,7 +58,8 @@
           "short_name": "LoopIterationCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -75,7 +79,8 @@
           "short_name": "SwitchClauseNumberCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -95,7 +100,8 @@
           "short_name": "SwitchExpressionBoolCondition",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

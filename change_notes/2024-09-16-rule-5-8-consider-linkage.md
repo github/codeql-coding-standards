@@ -1,0 +1,2 @@
+ - `RULE-5-8` - `IdentifiersWithExternalLinkageNotUnique.ql`
+   - Remove false positives where conflicting declarations do not appear in the same link target.

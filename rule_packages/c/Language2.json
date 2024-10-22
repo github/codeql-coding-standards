@@ -15,7 +15,8 @@
           "shared_implementation_short_name": "UsageOfAssemblerNotDocumented",
           "tags": [
             "maintainability",
-            "readability" 
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -35,7 +36,8 @@
           "short_name": "EmergentLanguageFeaturesUsed",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/amendment2"
           ]
         }
       ],

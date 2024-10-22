@@ -8,13 +8,13 @@
  * @problem.severity warning
  * @tags external/misra/id/rule-10-1
  *       maintainability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.misra.EssentialTypes
-import codingstandards.cpp.Bitwise
 
 /**
  * Holds if the operator `operator` has an operand `child` that is of an inappropriate essential type
@@ -178,7 +178,7 @@ predicate isInappropriateEssentialType(
     child =
       [
         operator.(BinaryBitwiseOperation).getAnOperand(),
-        operator.(Bitwise::AssignBitwiseOperation).getAnOperand()
+        operator.(AssignBitwiseOperation).getAnOperand(), operator.(ComplementExpr).getAnOperand()
       ] and
     not operator instanceof LShiftExpr and
     not operator instanceof RShiftExpr and
@@ -240,7 +240,7 @@ string getRationaleMessage(int rationaleId, EssentialTypeCategory etc) {
   result = "Bitwise operator applied to operand of " + etc + " and not essentially unsigned."
   or
   rationaleId = 7 and
-  result = "Right hand operatand of shift operator is " + etc + " and not not essentially unsigned."
+  result = "Right hand operand of shift operator is " + etc + " and not not essentially unsigned."
   or
   rationaleId = 8 and
   result =
@@ -251,4 +251,4 @@ from Expr operator, Expr child, int rationaleId, EssentialTypeCategory etc
 where
   not isExcluded(operator, EssentialTypesPackage::operandsOfAnInappropriateEssentialTypeQuery()) and
   isInappropriateEssentialType(operator, child, etc, rationaleId)
-select operator, getRationaleMessage(rationaleId, etc)
+select child, getRationaleMessage(rationaleId, etc)

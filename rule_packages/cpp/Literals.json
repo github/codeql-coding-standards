@@ -39,6 +39,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "EscapeSequenceOutsideISO",
+          "shared_implementation_short_name": "BackslashCharacterMisuse",
           "tags": [
             "correctness"
           ]
@@ -85,6 +86,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NullPointerConstantNotNullptr",
+          "shared_implementation_short_name": "NullptrNotTheOnlyFormOfTheNullPointerConstant",
           "tags": [
             "readability"
           ]
@@ -132,6 +134,7 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "UseOfNonZeroOctalLiteral",
+          "shared_implementation_short_name": "UseOfNonZeroOctalLiteral",
           "tags": [
             "readability"
           ]
@@ -166,6 +169,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "MissingUSuffix",
+          "shared_implementation_short_name": "UnsignedIntegerLiteralsNotAppropriatelySuffixed",
           "tags": [
             "correctness",
             "readability"

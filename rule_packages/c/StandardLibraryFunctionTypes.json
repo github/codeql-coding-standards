@@ -12,7 +12,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CtypeFunctionArgNotUnsignedCharOrEof",
-          "tags": []
+          "tags": [
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "Any value passed to a function in <ctype.h> shall be representable as an unsigned char or be the value EOF"
@@ -29,7 +31,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "MemcpyMemmoveMemcmpArgNotPointersToCompatibleTypes",
-          "tags": []
+          "tags": [
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "The pointer arguments to the Standard Library functions memcpy, memmove and memcmp shall be pointers to qualified or unqualified versions of compatible types"

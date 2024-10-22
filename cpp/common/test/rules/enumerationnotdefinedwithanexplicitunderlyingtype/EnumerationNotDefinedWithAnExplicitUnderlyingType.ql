@@ -1,0 +1,5 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.cpp.rules.enumerationnotdefinedwithanexplicitunderlyingtype.EnumerationNotDefinedWithAnExplicitUnderlyingType
+
+class TestFileQuery extends EnumerationNotDefinedWithAnExplicitUnderlyingTypeSharedQuery, TestQuery {
+}

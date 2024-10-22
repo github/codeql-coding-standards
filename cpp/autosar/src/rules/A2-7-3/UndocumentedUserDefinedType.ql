@@ -25,6 +25,39 @@ private predicate isInFunctionScope(Declaration d) {
   isInFunctionScope(d.getDeclaringType())
 }
 
+private string doxygenCommentGroupStrings(boolean opening) {
+  opening = true and result = ["///@{", "/**@{*/"]
+  or
+  opening = false and result = ["///@}", "/**@}*/"]
+}
+
+pragma[inline]
+private predicate isBetweenDoxygenCommentGroup(
+  Location loc, Comment opening, Comment body, Comment closing
+) {
+  // All in the same file
+  loc.getFile() = opening.getLocation().getFile() and
+  loc.getFile() = closing.getLocation().getFile() and
+  loc.getFile() = body.getLocation().getFile() and
+  // The comments are doxygen comments
+  opening.getContents().matches(doxygenCommentGroupStrings(true)) and
+  closing.getContents().matches(doxygenCommentGroupStrings(false)) and
+  // The closing comment is after the opening comment
+  opening.getLocation().getStartLine() < closing.getLocation().getStartLine() and
+  // The `body` comment directly precedes the opening comment
+  body.getLocation().getEndLine() = opening.getLocation().getStartLine() - 1 and
+  // There are no other opening/closing comment pairs between the opening and closing comments
+  not exists(Comment c |
+    c.getContents().matches(doxygenCommentGroupStrings(_)) and
+    c.getLocation().getStartLine() > opening.getLocation().getStartLine() and
+    c.getLocation().getStartLine() < closing.getLocation().getStartLine()
+  ) and
+  // `loc` is between the opening and closing comments and after the body comment
+  loc.getStartLine() > opening.getLocation().getStartLine() and
+  loc.getStartLine() < closing.getLocation().getStartLine() and
+  loc.getStartLine() > body.getLocation().getEndLine()
+}
+
 /**
  * A declaration which is required to be preceded by documentation by AUTOSAR A2-7-3.
  */
@@ -44,7 +77,11 @@ class DocumentableDeclaration extends Declaration {
     // Exclude instantiated template functions, which cannot reasonably be documented.
     not this.(Function).isFromTemplateInstantiation(_) and
     // Exclude anonymous lambda functions.
-    not exists(LambdaExpression lc | lc.getLambdaFunction() = this)
+    not exists(LambdaExpression lc | lc.getLambdaFunction() = this) and
+    //Exclude friend functions (because they have 2 entries in the database), and only one shows documented truly
+    not exists(FriendDecl d |
+      d.getFriend().(Function).getDefinition() = this.getADeclarationEntry()
+    )
     or
     this instanceof MemberVariable and
     declarationType = "member variable" and
@@ -80,11 +117,13 @@ class DocumentableDeclaration extends Declaration {
 }
 
 /**
- * A `DeclarationEntry` is considered documented if it has an associated `Comment`, and the `Comment`
- * precedes the `DeclarationEntry`.
+ * A `DeclarationEntry` is considered documented if it has an associated `Comment`, the `Comment`
+ * precedes the `DeclarationEntry`, and the `Comment` is not a doxygen comment group prefix.
  */
+cached
 predicate isDocumented(DeclarationEntry de) {
   exists(Comment c | c.getCommentedElement() = de |
+    not c.getContents() = doxygenCommentGroupStrings(true) and
     exists(Location commentLoc, Location deLoc |
       commentLoc = c.getLocation() and deLoc = de.getLocation()
     |
@@ -96,6 +135,9 @@ predicate isDocumented(DeclarationEntry de) {
       commentLoc.getStartColumn() < deLoc.getStartColumn()
     )
   )
+  or
+  // The declaration entry is between a doxygen comment group
+  isBetweenDoxygenCommentGroup(de.getLocation(), _, _, _)
 }
 
 from DocumentableDeclaration d, DeclarationEntry de

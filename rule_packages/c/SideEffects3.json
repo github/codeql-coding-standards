@@ -13,7 +13,8 @@
           "severity": "error",
           "short_name": "UnsequencedSideEffects",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

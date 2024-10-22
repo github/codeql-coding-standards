@@ -39,7 +39,8 @@
           "short_name": "VariableLengthArrayTypesUsed",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -57,9 +58,11 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ValueImplicitEnumerationConstantNotUnique",
+          "shared_implementation_short_name": "NonUniqueEnumerationConstant",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

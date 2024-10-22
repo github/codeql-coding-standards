@@ -20,13 +20,57 @@ import codingstandards.cpp.autosar
 
 predicate hasResponseFileArgument(Compilation c) { c.getAnArgument().matches("@%") }
 
-predicate hasWarningOption(Compilation c) { c.getAnArgument().regexpMatch("-W[\\w=-]+") }
+class CompilationWithNoWarnings extends Compilation {
+  CompilationWithNoWarnings() {
+    getAnArgument() = "-w"
+    or
+    not exists(EnableWarningFlag enableFlag |
+      this.getAnArgument() = enableFlag and
+      not exists(DisableWarningFlag disableFlag |
+        this.getAnArgument() = disableFlag and
+        enableFlag.getWarningType() = disableFlag.getWarningType()
+      )
+    )
+  }
+}
+
+class CompilationArgument extends string {
+  Compilation compilation;
+
+  CompilationArgument() { this = compilation.getAnArgument() }
+}
+
+/**
+ * Compiler flags of type -Wfoo or -Wfoo=bar, which enables the `foo` warning.
+ */
+class EnableWarningFlag extends CompilationArgument {
+  string warningType;
+
+  EnableWarningFlag() {
+    warningType = regexpCapture("^-W([\\w-]+)(=.*)?$", 1) and
+    not this instanceof DisableWarningFlag
+  }
+
+  string getWarningType() { result = warningType }
+}
+
+/**
+ * Compiler flags of type -Wno-foo or -Wfoo=0, which disables the `foo` warning
+ * and overrules -Wfoo.
+ */
+class DisableWarningFlag extends CompilationArgument {
+  string warningType;
+
+  DisableWarningFlag() {
+    warningType = regexpCapture("^-Wno-([\\w-]+)", 1) or
+    warningType = regexpCapture("^-W([\\w-]+)=0", 1)
+  }
+
+  string getWarningType() { result = warningType }
+}
 
 from File f
 where
   not isExcluded(f, ToolchainPackage::compilerWarningLevelNotInComplianceQuery()) and
-  exists(Compilation c | f = c.getAFileCompiled() |
-    not hasResponseFileArgument(c) and
-    not hasWarningOption(c)
-  )
+  exists(CompilationWithNoWarnings c | f = c.getAFileCompiled() | not hasResponseFileArgument(c))
 select f, "No warning-level options were used in the compilation of '" + f.getBaseName() + "'."

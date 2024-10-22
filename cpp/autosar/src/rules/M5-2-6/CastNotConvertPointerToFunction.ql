@@ -15,11 +15,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.castsbetweenapointertofunctionandanyothertype.CastsBetweenAPointerToFunctionAndAnyOtherType
 
-from Cast c
-where
-  not isExcluded(c, PointersPackage::castNotConvertPointerToFunctionQuery()) and
-  not c.isImplicit() and
-  not c.isAffectedByMacro() and
-  c.getExpr().getType() instanceof FunctionPointerType
-select c, "Cast converting a pointer to function."
+class CastNotConvertPointerToFunctionQuery extends CastsBetweenAPointerToFunctionAndAnyOtherTypeSharedQuery
+{
+  CastNotConvertPointerToFunctionQuery() {
+    this = PointersPackage::castNotConvertPointerToFunctionQuery()
+  }
+}

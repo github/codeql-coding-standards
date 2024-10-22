@@ -14,7 +14,8 @@
           "shared_implementation_short_name": "IdentifierHidden",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query does not consider C90 or C99 definitions of significant name and instead uses full name matches only.",
@@ -38,7 +39,8 @@
           "short_name": "IdentifiersNotDistinctFromMacroNames",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -58,7 +60,8 @@
           "short_name": "TypedefNameNotUnique",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -78,7 +81,8 @@
           "short_name": "TagNameNotUnique",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -99,7 +103,8 @@
           "shared_implementation_short_name": "TypeOmitted",
           "tags": [
             "correctness",
-            "readability" 
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query does not check for implicitly typed parameters, typedefs or member declarations as this is partially compiler checked.",

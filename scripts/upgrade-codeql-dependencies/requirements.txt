@@ -4,3 +4,4 @@ idna==3.4
 requests==2.31.0
 semantic-version==2.10.0
 urllib3==1.26.18
+pyyaml==6.0.1
