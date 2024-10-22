@@ -10,10 +10,10 @@ layout:
     - workflow-artifact:
         name: "Code Scanning Query Pack Generation"
         artifact: code-scanning-cpp-query-pack.zip
-  coding-standards-qlpacks.zip:
+  coding-standards-codeql-packs.zip:
     - workflow-artifact:
         name: "Code Scanning Query Pack Generation"
-        artifact: coding-standards-qlpacks
+        artifact: coding-standards-codeql-packs
   supported_rules_list.csv:
     - shell: |
         python ${{ coding-standards.root }}/scripts/release/create_supported_rules_list.py --csv > supported_rules_list.csv
