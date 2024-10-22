@@ -1,25 +1,11 @@
 import cpp
+import codingstandards.cpp.Pointers
 import codingstandards.cpp.UndefinedBehavior
 
 /**
  * Library for modeling undefined behavior.
  */
 abstract class CUndefinedBehavior extends UndefinedBehavior { }
-
-class PointerOrArrayType extends DerivedType {
-  PointerOrArrayType() {
-    this instanceof PointerType or
-    this instanceof ArrayType
-  }
-}
-
-Type get(Function main) {
-  main.getName() = "main" and
-  main.getNumberOfParameters() = 2 and
-  main.getType().getUnderlyingType() instanceof IntType and
-  main.getParameter(0).getType().getUnderlyingType() instanceof IntType and
-  result = main.getParameter(1).getType().getUnderlyingType().(PointerOrArrayType).getBaseType()
-}
 
 /**
  * A function which has the signature - but not the name - of a main function.
@@ -32,9 +18,9 @@ class C99MainFunction extends Function {
     this.getParameter(1)
         .getType()
         .getUnderlyingType()
-        .(PointerOrArrayType)
+        .(UnspecifiedPointerOrArrayType)
         .getBaseType()
-        .(PointerOrArrayType)
+        .(UnspecifiedPointerOrArrayType)
         .getBaseType() instanceof CharType
     or
     this.getNumberOfParameters() = 0 and
