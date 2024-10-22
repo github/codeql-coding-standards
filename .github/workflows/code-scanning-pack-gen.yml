@@ -122,7 +122,7 @@ jobs:
           codeql pack bundle --output=cert-c-coding-standards.tgz c/cert/src
           codeql pack bundle --output=cert-cpp-coding-standards.tgz cpp/cert/src
           codeql pack bundle --output=autosar-cpp-coding-standards.tgz cpp/autosar/src
-          codeql pack bundle --output=report-cpp-coding-standards.tgz cpp/report/src
+          codeql pack bundle --output=report-coding-standards.tgz cpp/report/src
 
       - name: Upload qlpack bundles
         uses: actions/upload-artifact@v4
