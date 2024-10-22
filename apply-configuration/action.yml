@@ -11,7 +11,7 @@ runs:
       with:
         python-version: 3.9
         update-environment: false
-    - name: Install dependencies
+    - name: Install dependencies and process files
       shell: bash
       run: |
         install_dir=$(dirname $(dirname "${{ steps.cs-install-python.outputs.python-path }}"))
@@ -21,6 +21,4 @@ runs:
           export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$install_dir/lib"
         fi
         ${{ steps.cs-install-python.outputs.python-path }} -m pip install -r ${GITHUB_ACTION_PATH}/../scripts/configuration/requirements.txt
-    - name: Process files
-      shell: bash
-      run: ${{ steps.cs-install-python.outputs.python-path }} ${GITHUB_ACTION_PATH}/../scripts/configuration/process_coding_standards_config.py
+        ${{ steps.cs-install-python.outputs.python-path }} ${GITHUB_ACTION_PATH}/../scripts/configuration/process_coding_standards_config.py
