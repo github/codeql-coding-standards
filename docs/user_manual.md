@@ -168,7 +168,7 @@ You must download a compatible version of the CodeQL CLI, as specified in the re
  2. Expand the compressed archive to a specified location on your machine.
  3. [Optional] Add the CodeQL CLI to your user or system path.
 
-This approach is suitable if you wish to use the default queries provided by GitHub in addition to the Coding Standards queries.
+This approach is recommended if you wish to use the default queries provided by GitHub in addition to the Coding Standards queries.
 
 **Option 2:** Use the CodeQL CLI binary:
 
