@@ -85,11 +85,9 @@ module HoldsForAllCopies<CandidateElementSig CandidateElement, ElementSetSig Ele
       string filepath, int startline, int startcolumn, int endline, int endcolumn
     ) {
       exists(CandidateElement s |
-        // Only consider candidates where we can match up the location
-        isNotWithinMacroExpansion(s) and
         hasLocation(s, filepath, startline, startcolumn, endline, endcolumn) and
         // All relevant elements that occur at the same location are candidates
-        forex(RelevantElement relevantElement | s = relevantElement.getCandidateElement() |
+        forall(RelevantElement relevantElement | s = relevantElement.getCandidateElement() |
           relevantElement instanceof CandidateElement
         )
       )
