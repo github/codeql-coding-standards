@@ -42,6 +42,18 @@ void test() {
 #if defined(CHECKED_MACRO_BEFORE_3)
 #endif
 
+#if defined(CHECKED_MACRO_BEFORE_4)
+#endif
+
+#if defined(CHECKED_MACRO_BEFORE_5)
+#endif
+
+#if defined(CHECKED_MACRO_BEFORE_6)
+#endif
+
 #define CHECKED_MACRO_BEFORE_1 // COMPLIANT - used in branch
 #define CHECKED_MACRO_BEFORE_2 // COMPLIANT - used in branch
 #define CHECKED_MACRO_BEFORE_3 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_4 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_5 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_6 // COMPLIANT - used in branch

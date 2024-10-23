@@ -29,7 +29,7 @@ where
     bd.getHead() = m.getName()
     or
     // Covers the use of defined() to check if a macro is defined
-    m.getName() = bd.getHead().regexpCapture(".*defined\\((.*)\\).*", 1)
+    m.getName() = bd.getHead().regexpCapture(".*defined *\\(? *([^\\s()]+) *\\)?\\.*", 1)
   ) and
   // We consider a macro "used" if the name is undef-ed at some point in the same file, or a file
   // that includes the file defining the macro. This will over approximate use in the case of a
