@@ -190,6 +190,8 @@ Expr getAnEffect(Expr base) {
   or
   exists(PointerDereferenceExpr e | e.getOperand() = base | result = getAnEffect(e))
   or
+  exists(CrementOperation c | c.getOperand() = base | result = getAnEffect(c))
+  or
   // local alias analysis, assume alias when data flows to derived type (pointer/reference)
   // auto ptr = &base;
   exists(VariableAccess va, AddressOfExpr addressOf |
