@@ -132,3 +132,14 @@ void test_infeasible_instantiates() {
   template_infeasible_false_path<A>();
   template_infeasible_false_path<B>();
 }
+
+template <unsigned int i> int template_infeasible_relation() {
+  if (i > -1) { // NON_COMPLIANT - true path is infeasible in all circumstances
+    return 3;
+  }
+}
+
+void test_infeasible_relation() {
+  template_infeasible_relation<0>();
+  template_infeasible_relation<1>();
+}
