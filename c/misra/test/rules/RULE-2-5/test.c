@@ -42,14 +42,21 @@ void test() {
 #if defined(CHECKED_MACRO_BEFORE_3)
 #endif
 
-#if defined(CHECKED_MACRO_BEFORE_4)
+// clang-format off
+
+#if defined (CHECKED_MACRO_BEFORE_4)
 #endif
 
-#if defined(CHECKED_MACRO_BEFORE_5)
+#if defined( CHECKED_MACRO_BEFORE_5 )
 #endif
 
-#if defined(CHECKED_MACRO_BEFORE_6)
+#if defined ( CHECKED_MACRO_BEFORE_6 )
 #endif
+
+#if defined CHECKED_MACRO_BEFORE_7
+#endif
+
+// clang-format on
 
 #define CHECKED_MACRO_BEFORE_1 // COMPLIANT - used in branch
 #define CHECKED_MACRO_BEFORE_2 // COMPLIANT - used in branch
@@ -57,3 +64,4 @@ void test() {
 #define CHECKED_MACRO_BEFORE_4 // COMPLIANT - used in branch
 #define CHECKED_MACRO_BEFORE_5 // COMPLIANT - used in branch
 #define CHECKED_MACRO_BEFORE_6 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_7 // COMPLIANT - used in branch
