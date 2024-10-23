@@ -41,6 +41,7 @@ import InvalidMemory2
 import Language1
 import Language2
 import Language3
+import Language4
 import Memory1
 import Memory2
 import Memory3
@@ -117,6 +118,7 @@ newtype TCQuery =
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TLanguage3PackageQuery(Language3Query q) or
+  TLanguage4PackageQuery(Language4Query q) or
   TMemory1PackageQuery(Memory1Query q) or
   TMemory2PackageQuery(Memory2Query q) or
   TMemory3PackageQuery(Memory3Query q) or
@@ -193,6 +195,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
+  isLanguage4QueryMetadata(query, queryId, ruleId, category) or
   isMemory1QueryMetadata(query, queryId, ruleId, category) or
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMemory3QueryMetadata(query, queryId, ruleId, category) or

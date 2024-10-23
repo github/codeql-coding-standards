@@ -1,7 +1,7 @@
-| test.c:8:10:8:14 | call to scanf | Call to banned function scanf. |
-| test.c:9:5:9:10 | call to printf | Call to banned function printf. |
-| test.c:16:16:16:21 | call to fgetwc | Call to banned function fgetwc. |
-| test.c:17:5:17:12 | call to putwchar | Call to banned function putwchar. |
-| test.c:22:7:22:10 | call to puts | Call to banned function puts. |
-| test.c:24:7:24:10 | call to puts | Call to banned function puts. |
-| test.c:26:5:26:8 | call to puts | Call to banned function puts. |
+| test.c:13:10:13:14 | call to scanf | Call to banned function scanf. |
+| test.c:14:5:14:10 | call to printf | Call to banned function printf. |
+| test.c:21:16:21:21 | call to fgetwc | Call to banned function fgetwc. |
+| test.c:22:5:22:12 | call to putwchar | Call to banned function putwchar. |
+| test.c:27:7:27:10 | call to puts | Call to banned function puts. |
+| test.c:29:7:29:10 | call to puts | Call to banned function puts. |
+| test.c:31:5:31:8 | call to puts | Call to banned function puts. |
