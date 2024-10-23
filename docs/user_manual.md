@@ -271,8 +271,8 @@ To select this SARIF version you **must** specify the flag `--format=sarifv2.1.0
 
 Running the default analysis for one or more Coding Standards may require further performance customizations for larger codebases. The following flags may be passed to the `database analyze` command to adjust the performance:
 
-- `--ram` - to specify the maximum amount of RAM to use during the analysis as [documented](https://codeql.github.com/docs/codeql-cli/manual/database-analyze/#options-to-control-ram-usage) in the CodeQL CLI manual.
-- `--thread` - to specify number of threads to use while evaluating as [documented](https://codeql.github.com/docs/codeql-cli/manual/database-analyze/#cmdoption-codeql-database-analyze-j) in the CodeQL CLI manual.
+- `--ram` - to specify the maximum amount of RAM to use during the analysis as [documented](https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-analyze#options-to-control-ram-usage) in the CodeQL CLI manual.
+- `--thread` - to specify number of threads to use while evaluating as [documented](https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-analyze#-j---threadsnum) in the CodeQL CLI manual.
 
 ##### Legacy approach
 
