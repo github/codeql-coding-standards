@@ -13,7 +13,6 @@ newtype ClassesQuery =
   TClassDataMembersInitializationConditionQuery() or
   TRedundantMemberFunctionsShouldBeDefaultedOrLeftUndefinedQuery() or
   TNonTemplateMemberDefinedInTemplateQuery() or
-  TTrivialOrTemplateFunctionDefinedOutsideClassDefinitionQuery() or
   TNonTrivialNonTemplateFunctionDefinedInsideClassDefinitionQuery() or
   TInParametersForNotCheapToCopyTypesNotPassedByReferenceQuery() or
   TInParametersForCheapToCopyTypesNotPassedByValueQuery() or
@@ -104,15 +103,6 @@ predicate isClassesQueryMetadata(Query query, string queryId, string ruleId, str
     "cpp/autosar/non-template-member-defined-in-template" and
   ruleId = "A14-5-2" and
   category = "advisory"
-  or
-  query =
-    // `Query` instance for the `trivialOrTemplateFunctionDefinedOutsideClassDefinition` query
-    ClassesPackage::trivialOrTemplateFunctionDefinedOutsideClassDefinitionQuery() and
-  queryId =
-    // `@id` for the `trivialOrTemplateFunctionDefinedOutsideClassDefinition` query
-    "cpp/autosar/trivial-or-template-function-defined-outside-class-definition" and
-  ruleId = "A3-1-5" and
-  category = "required"
   or
   query =
     // `Query` instance for the `nonTrivialNonTemplateFunctionDefinedInsideClassDefinition` query
@@ -249,13 +239,6 @@ module ClassesPackage {
     result =
       // `Query` type for `nonTemplateMemberDefinedInTemplate` query
       TQueryCPP(TClassesPackageQuery(TNonTemplateMemberDefinedInTemplateQuery()))
-  }
-
-  Query trivialOrTemplateFunctionDefinedOutsideClassDefinitionQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `trivialOrTemplateFunctionDefinedOutsideClassDefinition` query
-      TQueryCPP(TClassesPackageQuery(TTrivialOrTemplateFunctionDefinedOutsideClassDefinitionQuery()))
   }
 
   Query nonTrivialNonTemplateFunctionDefinedInsideClassDefinitionQuery() {
