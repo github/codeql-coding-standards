@@ -1,0 +1,2 @@
+ - `DCL40-C` - `IncompatibleFunctionDeclarations.ql`:
+   - Reduce false positives by identifying compatible integer arithmetic types (e.g. "signed int" and "int").

@@ -1,5 +1,7 @@
 import cpp
 
+pragma[noinline]
+pragma[nomagic]
 predicate typesCompatible(Type t1, Type t2) {
   t1 = t2
   or
@@ -8,6 +10,7 @@ predicate typesCompatible(Type t1, Type t2) {
 }
 
 predicate parameterTypesIncompatible(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  f1.getDeclaration() = f2.getDeclaration() and
   exists(ParameterDeclarationEntry p1, ParameterDeclarationEntry p2, int i |
     p1 = f1.getParameterDeclarationEntry(i) and
     p2 = f2.getParameterDeclarationEntry(i)
@@ -17,6 +20,7 @@ predicate parameterTypesIncompatible(FunctionDeclarationEntry f1, FunctionDeclar
 }
 
 predicate parameterNamesIncompatible(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  f1.getDeclaration() = f2.getDeclaration() and
   exists(ParameterDeclarationEntry p1, ParameterDeclarationEntry p2, int i |
     p1 = f1.getParameterDeclarationEntry(i) and
     p2 = f2.getParameterDeclarationEntry(i)
