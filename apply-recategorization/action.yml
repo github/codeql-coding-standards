@@ -1,0 +1,36 @@
+name: Applies Coding Standard recategorization to a SARIF file
+description: |
+  Installs Python and processes the recategorization of rules.
+inputs:
+  input:
+    description: |
+      The input SARIF file
+    required: true
+
+  output:
+    description: |
+      The output SARIF file
+    required: true
+
+  add-to-path:
+
+runs:
+  using: composite
+  steps:
+    - name: Install Python
+      id: cs-install-python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.9
+        update-environment: false
+    - name: Install dependencies and process files
+      shell: bash
+      run: |
+        install_dir=$(dirname $(dirname "${{ steps.cs-install-python.outputs.python-path }}"))
+        if [[ -z "$LD_LIBRARY_PATH" ]]; then
+          export LD_LIBRARY_PATH="$install_dir/lib"
+        else
+          export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$install_dir/lib"
+        fi
+        ${{ steps.cs-install-python.outputs.python-path }} -m pip install -r ${GITHUB_ACTION_PATH}/../scripts/recategorization/requirements.txt
+        ${{ steps.cs-install-python.outputs.python-path }} ${GITHUB_ACTION_PATH}/../scripts/recategorization/recategorize.py coding-standards.yml --coding-standards-schema-file ${GITHUB_ACTION_PATH}/.. --sarif-schema-file ${GITHUB_ACTION_PATH}/..  ${{ inputs.input }} ${{ inputs.output }}
