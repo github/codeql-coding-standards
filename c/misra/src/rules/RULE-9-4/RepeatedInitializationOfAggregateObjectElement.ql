@@ -60,6 +60,7 @@ int getMaxDepth(ArrayAggregateLiteral al) {
   else result = 1 + max(Expr child | child = al.getAnElementExpr(_) | getMaxDepth(child))
 }
 
+// internal recursive predicate for `hasMultipleInitializerExprsForSameIndex`
 predicate hasMultipleInitializerExprsForSameIndexInternal(
   ArrayAggregateLiteral root, Expr e1, Expr e2
 ) {
@@ -73,29 +74,6 @@ predicate hasMultipleInitializerExprsForSameIndexInternal(
   )
 }
 
-// // internal recursive predicate for `hasMultipleInitializerExprsForSameIndex`
-// predicate hasMultipleInitializerExprsForSameIndexInternal(
-//   ArrayAggregateLiteral al1, ArrayAggregateLiteral al2, Expr out_al1_expr, Expr out_al2_expr
-// ) {
-//   exists(int shared_index, Expr al1_expr, Expr al2_expr |
-//     // an `Expr` initializing an element of the same index in both `al1` and `al2`
-//     shared_index = [0 .. al1.getArraySize() - 1] and
-//     al1_expr = al1.getAnElementExpr(shared_index) and
-//     al2_expr = al2.getAnElementExpr(shared_index) and
-//     // but not the same `Expr`
-//     not al1_expr = al2_expr and
-//     (
-//       // case A - the children are not aggregate literals
-//       // holds if `al1` and `al2` both hold for .getElement[sharedIndex]
-//       not al1_expr instanceof ArrayAggregateLiteral and
-//       out_al1_expr = al1_expr and
-//       out_al2_expr = al2_expr
-//       or
-//       // case B - `al1` and `al2` both have an aggregate literal child at the same index, so recurse
-//       hasMultipleInitializerExprsForSameIndexInternal(al1_expr, al2_expr, out_al1_expr, out_al2_expr)
-//     )
-//   )
-// }
 /**
  * Holds if `expr1` and `expr2` both initialize the same array element of `root`.
  */
