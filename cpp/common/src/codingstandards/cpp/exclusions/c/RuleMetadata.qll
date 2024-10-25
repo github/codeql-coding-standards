@@ -19,6 +19,7 @@ import Contracts5
 import Contracts6
 import Contracts7
 import DeadCode
+import DeadCode2
 import Declarations1
 import Declarations2
 import Declarations3
@@ -95,6 +96,7 @@ newtype TCQuery =
   TContracts6PackageQuery(Contracts6Query q) or
   TContracts7PackageQuery(Contracts7Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode2PackageQuery(DeadCode2Query q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
@@ -171,6 +173,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isContracts6QueryMetadata(query, queryId, ruleId, category) or
   isContracts7QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or

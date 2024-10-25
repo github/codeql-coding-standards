@@ -1,0 +1,2 @@
+| test.c:87:29:87:30 | definition of g8 | Unused object definition 'g8'. | test.c:87:29:87:30 | test.c:87:29:87:30 |  |
+| test.c:90:3:90:30 | ONLY_DEF_ATTR_UNUSED_VAR(x) | Unused object definition 'l2' from macro '$@'. | test.c:88:1:88:70 | test.c:88:1:88:70 | ONLY_DEF_ATTR_UNUSED_VAR |

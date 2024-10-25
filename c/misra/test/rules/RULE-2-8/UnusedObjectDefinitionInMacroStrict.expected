@@ -1,0 +1,2 @@
+| test.c:94:1:97:5 | #define ALSO_DEF_ATTR_UNUSED_VAR(x) __attribute__((unused)) int x = 0; while (1) ; | Macro 'ALSO_DEF_ATTR_UNUSED_VAR' defines unused object of varied names, for example, '$@'. | test.c:99:28:99:29 | test.c:99:28:99:29 | l1 |
+| test.c:104:1:109:3 | #define DEF_ATTR_UNUSED_INNER_VAR() { __attribute__((unused)) int _v = 0; while (1) ; } | Macro 'DEF_ATTR_UNUSED_INNER_VAR' defines unused object '_v'. | test.c:104:1:109:3 | test.c:104:1:109:3 | (ignored) |
