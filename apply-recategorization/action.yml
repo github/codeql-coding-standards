@@ -30,5 +30,5 @@ runs:
         else
           export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$install_dir/lib"
         fi
-        ${{ steps.cs-install-python.outputs.python-path }} -m pip install -r ${GITHUB_ACTION_PATH}/../scripts/recategorization/requirements.txt
-        ${{ steps.cs-install-python.outputs.python-path }} ${GITHUB_ACTION_PATH}/../scripts/recategorization/recategorize.py coding-standards.yml --coding-standards-schema-file ${GITHUB_ACTION_PATH}/.. --sarif-schema-file ${GITHUB_ACTION_PATH}/..  ${{ inputs.input }} ${{ inputs.output }}
+        ${{ steps.cs-install-python.outputs.python-path }} -m pip install -r ${GITHUB_ACTION_PATH}/../scripts/guideline_recategorization/requirements.txt
+        ${{ steps.cs-install-python.outputs.python-path }} ${GITHUB_ACTION_PATH}/../scripts/guideline_recategorization/recategorize.py coding-standards.yml --coding-standards-schema-file ${GITHUB_ACTION_PATH}/.. --sarif-schema-file ${GITHUB_ACTION_PATH}/..  ${{ inputs.input }} ${{ inputs.output }}
