@@ -1,5 +1,5 @@
 name: codeql/misra-c-coding-standards
-version: 2.37.0
+version: 2.37.1
 description: MISRA C 2012
 suites: codeql-suites
 license: MIT
