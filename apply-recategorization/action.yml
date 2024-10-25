@@ -12,8 +12,6 @@ inputs:
       The output SARIF file
     required: true
 
-  add-to-path:
-
 runs:
   using: composite
   steps:
