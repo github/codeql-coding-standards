@@ -80,3 +80,83 @@ void testControlChar() {
   '\n'; // Essentially char
   '\0'; // Essentially char
 }
+
+#include <stdint.h>
+
+void testBitwise() {
+  uint8_t u8 = 0;
+  uint16_t u16 = 0;
+  uint32_t u32 = 0;
+  int8_t s8 = 0;
+  int16_t s16 = 0;
+  int32_t s32 = 0;
+
+  u8 & u8;   // Essentially unsigned, char
+  u16 & u8;  // Essentially unsigned, short
+  u8 & u16;  // Essentially unsigned, short
+  u32 & u8;  // Essentially unsigned, int
+  u8 & u32;  // Essentially unsigned, int
+  u32 & u16; // Essentially unsigned, int
+  u16 & u32; // Essentially unsigned, int
+
+  u8 | u8;   // Essentially unsigned, char
+  u16 | u8;  // Essentially unsigned, short
+  u8 | u16;  // Essentially unsigned, short
+  u32 | u8;  // Essentially unsigned, int
+  u8 | u32;  // Essentially unsigned, int
+  u32 | u16; // Essentially unsigned, int
+  u16 | u32; // Essentially unsigned, int
+
+  u8 ^ u8;   // Essentially unsigned, char
+  u16 ^ u8;  // Essentially unsigned, short
+  u8 ^ u16;  // Essentially unsigned, short
+  u32 ^ u8;  // Essentially unsigned, int
+  u8 ^ u32;  // Essentially unsigned, int
+  u32 ^ u16; // Essentially unsigned, int
+  u16 ^ u32; // Essentially unsigned, int
+
+  s8 & s8;   // Essentially signed, char
+  s16 & s8;  // Essentially signed, short
+  s8 & s16;  // Essentially signed, short
+  s32 & s8;  // Essentially signed, int
+  s8 & s32;  // Essentially signed, int
+  s32 & s16; // Essentially signed, int
+  s16 & s32; // Essentially signed, int
+
+  s8 | s8;   // Essentially signed, char
+  s16 | s8;  // Essentially signed, short
+  s8 | s16;  // Essentially signed, short
+  s32 | s8;  // Essentially signed, int
+  s8 | s32;  // Essentially signed, int
+  s32 | s16; // Essentially signed, int
+  s16 | s32; // Essentially signed, int
+
+  s8 ^ s8;   // Essentially signed, char
+  s16 ^ s8;  // Essentially signed, short
+  s8 ^ s16;  // Essentially signed, short
+  s32 ^ s8;  // Essentially signed, int
+  s8 ^ s32;  // Essentially signed, int
+  s32 ^ s16; // Essentially signed, int
+  s16 ^ s32; // Essentially signed, int
+
+  u32 & s32; // Essentially signed, int
+  s32 & u32; // Essentially signed, int
+  u8 & s32;  // Essentially signed, int
+  s32 & u8;  // Essentially signed, int
+  u8 & s8;   // Essentially signed, int
+  s8 & u8;   // Essentially signed, int
+
+  u32 | s32; // Essentially signed, int
+  s32 | u32; // Essentially signed, int
+  u8 | s32;  // Essentially signed, int
+  s32 | u8;  // Essentially signed, int
+  u8 | s8;   // Essentially signed, int
+  s8 | u8;   // Essentially signed, int
+
+  u32 ^ s32; // Essentially signed, int
+  s32 ^ u32; // Essentially signed, int
+  u8 ^ s32;  // Essentially signed, int
+  s32 ^ u8;  // Essentially signed, int
+  u8 ^ s8;   // Essentially signed, int
+  s8 ^ u8;   // Essentially signed, int
+}

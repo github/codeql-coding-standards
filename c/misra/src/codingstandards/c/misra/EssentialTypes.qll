@@ -192,8 +192,8 @@ class EssentialEqualityOperationExpr extends EssentialExpr, EqualityOperation {
   override Type getEssentialType() { result instanceof BoolType }
 }
 
-class EssentialBinaryBitwiseOperationExpr extends EssentialExpr, BinaryBitwiseOperation {
-  EssentialBinaryBitwiseOperationExpr() {
+class EssentialShiftOperationExpr extends EssentialExpr, BinaryBitwiseOperation {
+  EssentialShiftOperationExpr() {
     this instanceof LShiftExpr or
     this instanceof RShiftExpr
   }
@@ -349,6 +349,51 @@ class EssentialBinaryArithmeticExpr extends EssentialExpr, BinaryArithmeticOpera
               [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
           then result instanceof PlainCharType
           else result = this.getStandardType()
+    )
+  }
+}
+
+class EssentialBinaryBitwiseExpr extends EssentialExpr, BinaryBitwiseOperation {
+  EssentialBinaryBitwiseExpr() {
+    not this instanceof LShiftExpr and
+    not this instanceof RShiftExpr
+  }
+
+  override Type getEssentialType() {
+    exists(
+      Type leftEssentialType, Type rightEssentialType,
+      EssentialTypeCategory leftEssentialTypeCategory,
+      EssentialTypeCategory rightEssentialTypeCategory
+    |
+      leftEssentialType = getEssentialType(getLeftOperand()) and
+      rightEssentialType = getEssentialType(getRightOperand()) and
+      leftEssentialTypeCategory = getEssentialTypeCategory(leftEssentialType) and
+      rightEssentialTypeCategory = getEssentialTypeCategory(rightEssentialType)
+    |
+      if
+        leftEssentialTypeCategory = EssentiallySignedType() and
+        rightEssentialTypeCategory = EssentiallySignedType()
+      then
+        if exists(getValue())
+        then result = stlr(this)
+        else (
+          if leftEssentialType.getSize() > rightEssentialType.getSize()
+          then result = leftEssentialType
+          else result = rightEssentialType
+        )
+      else
+        if
+          leftEssentialTypeCategory = EssentiallyUnsignedType() and
+          rightEssentialTypeCategory = EssentiallyUnsignedType()
+        then
+          if exists(getValue())
+          then result = utlr(this)
+          else (
+            if leftEssentialType.getSize() > rightEssentialType.getSize()
+            then result = leftEssentialType
+            else result = rightEssentialType
+          )
+        else result = this.getStandardType()
     )
   }
 }
