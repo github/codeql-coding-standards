@@ -365,3 +365,76 @@
 | test.c:161:3:161:9 | ... ^ ... | int | int | essentially Signed type |
 | test.c:161:8:161:9 | (int)... | int | int | essentially Signed type |
 | test.c:161:8:161:9 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:165:16:165:17 | 1 | signed char | signed char | essentially Signed type |
+| test.c:170:3:170:4 | 1 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:170:3:170:9 | ... << ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:170:9:170:9 | 1 | signed char | signed char | essentially Signed type |
+| test.c:171:3:171:6 | 256 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:171:3:171:11 | ... << ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:171:11:171:11 | 1 | signed char | signed char | essentially Signed type |
+| test.c:172:3:172:8 | 65536 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:172:3:172:13 | ... << ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:172:13:172:13 | 1 | signed char | signed char | essentially Signed type |
+| test.c:173:3:173:4 | 2 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:173:3:173:9 | ... >> ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:173:9:173:9 | 1 | signed char | signed char | essentially Signed type |
+| test.c:174:3:174:8 | 32768 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:174:3:174:13 | ... >> ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:174:13:174:13 | 1 | signed char | signed char | essentially Signed type |
+| test.c:175:3:175:13 | 2147483648 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:175:3:175:18 | ... >> ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:175:18:175:18 | 1 | signed char | signed char | essentially Signed type |
+| test.c:176:3:176:14 | 4294967295 | unsigned long | unsigned long | essentially Unsigned type |
+| test.c:176:3:176:19 | ... << ... | unsigned long | unsigned long | essentially Unsigned type |
+| test.c:176:3:176:19 | ... << ... | unsigned long | unsigned long long | essentially Unsigned type |
+| test.c:176:3:176:19 | ... << ... | unsigned long long | unsigned long | essentially Unsigned type |
+| test.c:176:3:176:19 | ... << ... | unsigned long long | unsigned long long | essentially Unsigned type |
+| test.c:176:19:176:19 | 1 | signed char | signed char | essentially Signed type |
+| test.c:181:3:181:6 | 256 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:181:3:181:11 | ... >> ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:181:11:181:11 | 1 | signed char | signed char | essentially Signed type |
+| test.c:182:3:182:8 | 65536 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:182:3:182:13 | ... >> ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:182:13:182:13 | 1 | signed char | signed char | essentially Signed type |
+| test.c:183:3:183:13 | 4294967296 | unsigned long | unsigned long | essentially Unsigned type |
+| test.c:183:3:183:18 | ... >> ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:183:18:183:18 | 1 | signed char | signed char | essentially Signed type |
+| test.c:184:3:184:6 | 255 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:184:3:184:11 | ... << ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:184:11:184:11 | 1 | signed char | signed char | essentially Signed type |
+| test.c:185:3:185:8 | 65535 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:185:3:185:13 | ... << ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:185:13:185:13 | 1 | signed char | signed char | essentially Signed type |
+| test.c:189:3:189:6 | 255 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:189:3:189:13 | ... >> ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:189:11:189:13 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:190:3:190:8 | 65535 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:190:3:190:15 | ... >> ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:190:13:190:15 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:191:3:191:13 | 4294967295 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:191:3:191:20 | ... >> ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:191:18:191:20 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:192:3:192:6 | 255 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:192:3:192:13 | ... << ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:192:11:192:13 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:193:3:193:8 | 65535 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:193:3:193:15 | ... << ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:193:13:193:15 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:194:3:194:13 | 4294967295 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:194:3:194:20 | ... << ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:194:18:194:20 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:197:3:197:5 | 257 | short | short | essentially Signed type |
+| test.c:197:3:197:5 | 257 | short | signed short | essentially Signed type |
+| test.c:197:3:197:5 | 257 | signed short | short | essentially Signed type |
+| test.c:197:3:197:5 | 257 | signed short | signed short | essentially Signed type |
+| test.c:197:3:197:10 | ... >> ... | int | int | essentially Signed type |
+| test.c:197:10:197:10 | 1 | signed char | signed char | essentially Signed type |
+| test.c:198:3:198:7 | 65537 | int | int | essentially Signed type |
+| test.c:198:3:198:7 | 65537 | int | signed int | essentially Signed type |
+| test.c:198:3:198:7 | 65537 | signed int | int | essentially Signed type |
+| test.c:198:3:198:7 | 65537 | signed int | signed int | essentially Signed type |
+| test.c:198:3:198:12 | ... >> ... | int | int | essentially Signed type |
+| test.c:198:12:198:12 | 1 | signed char | signed char | essentially Signed type |
+| test.c:199:3:199:12 | 4294967297 | long | long | essentially Signed type |
+| test.c:199:3:199:17 | ... >> ... | long | long | essentially Signed type |
+| test.c:199:17:199:17 | 1 | signed char | signed char | essentially Signed type |

@@ -160,3 +160,41 @@ void testBitwise() {
   u8 ^ s8;   // Essentially signed, int
   s8 ^ u8;   // Essentially signed, int
 }
+
+void testShifts() {
+  int32_t s32 = 1;
+
+  // Left hand is unsigned and both are constants, so UTLR
+  // In these cases the UTLR is the same as the essential type of
+  // the left operand
+  1U << 1;           // Essentially unsigned char
+  256U << 1;         // Essentially unsigned short
+  65536U << 1;       // Essentially unsigned int
+  2U >> 1;           // Essentially unsigned char
+  32768U >> 1;       // Essentially unsigned short - 2^15 >> 1 = 2^14
+  2147483648U >> 1;  // Essentially unsigned int - 2^31 >> 1 = 2^30
+  4294967295LU << 1; // Essentially unsigned long
+
+  // Left hand is unsigned and both are constants, so UTLR
+  // In these cases the UTLR is not the same as the essential type of
+  // the left operand
+  256U >> 1;        // Essentially unsigned char
+  65536U >> 1;      // Essentially unsigned short
+  4294967296U >> 1; // Essentially unsigned int
+  255U << 1;        // Essentially unsigned short
+  65535U << 1;      // Essentially unsigned int
+
+  // Left hand is unsigned, but left isn't a constant, so essential type of left
+  // operand
+  255U >> s32;        // Essentially unsigned char
+  65535U >> s32;      // Essentially unsigned short
+  4294967295U >> s32; // Essentially unsigned int
+  255U << s32;        // Essentially unsigned char
+  65535U << s32;      // Essentially unsigned short
+  4294967295U << s32; // Essentially unsigned int
+
+  // Left hand operand signed int, so result is standard type
+  257 >> 1;        // Essentially signed int
+  65537 >> 1;      // Essentially signed int
+  4294967297 >> 1; // Essentially signed long
+}
