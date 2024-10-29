@@ -1,0 +1,63 @@
+edges
+| test.c:27:14:27:20 | ... / ... | test.c:27:14:27:20 | ... / ... | provenance |  |
+| test.c:27:14:27:20 | ... / ... | test.c:36:3:36:9 | l5 | provenance |  |
+| test.c:27:14:27:20 | ... / ... | test.c:46:3:46:4 | l5 | provenance |  |
+| test.c:27:14:27:20 | ... / ... | test.c:47:3:47:4 | l5 | provenance |  |
+| test.c:27:14:27:20 | ... / ... | test.c:48:3:48:4 | l5 | provenance |  |
+| test.c:27:14:27:20 | ... / ... | test.c:49:3:49:4 | l5 | provenance |  |
+| test.c:27:14:27:20 | ... / ... | test.c:50:3:50:4 | l5 | provenance |  |
+| test.c:27:14:27:20 | ... / ... | test.c:51:3:51:4 | l5 | provenance |  |
+| test.c:28:14:28:20 | ... / ... | test.c:28:14:28:20 | ... / ... | provenance |  |
+| test.c:28:14:28:20 | ... / ... | test.c:37:3:37:9 | l6 | provenance |  |
+| test.c:28:14:28:20 | ... / ... | test.c:52:3:52:4 | l6 | provenance |  |
+| test.c:31:14:32:15 | ... / ... | test.c:31:14:32:15 | ... / ... | provenance |  |
+| test.c:31:14:32:15 | ... / ... | test.c:38:3:38:9 | l7 | provenance |  |
+| test.c:31:14:32:15 | ... / ... | test.c:53:3:53:4 | l7 | provenance |  |
+| test.c:33:14:33:22 | ... / ... | test.c:33:14:33:22 | ... / ... | provenance |  |
+| test.c:33:14:33:22 | ... / ... | test.c:39:3:39:9 | l8 | provenance |  |
+| test.c:33:14:33:22 | ... / ... | test.c:54:3:54:4 | l8 | provenance |  |
+nodes
+| test.c:27:14:27:20 | ... / ... | semmle.label | ... / ... |
+| test.c:27:14:27:20 | ... / ... | semmle.label | ... / ... |
+| test.c:28:14:28:20 | ... / ... | semmle.label | ... / ... |
+| test.c:28:14:28:20 | ... / ... | semmle.label | ... / ... |
+| test.c:31:14:32:15 | ... / ... | semmle.label | ... / ... |
+| test.c:31:14:32:15 | ... / ... | semmle.label | ... / ... |
+| test.c:33:14:33:22 | ... / ... | semmle.label | ... / ... |
+| test.c:33:14:33:22 | ... / ... | semmle.label | ... / ... |
+| test.c:36:3:36:9 | l5 | semmle.label | l5 |
+| test.c:37:3:37:9 | l6 | semmle.label | l6 |
+| test.c:38:3:38:9 | l7 | semmle.label | l7 |
+| test.c:39:3:39:9 | l8 | semmle.label | l8 |
+| test.c:46:3:46:4 | l5 | semmle.label | l5 |
+| test.c:47:3:47:4 | l5 | semmle.label | l5 |
+| test.c:48:3:48:4 | l5 | semmle.label | l5 |
+| test.c:49:3:49:4 | l5 | semmle.label | l5 |
+| test.c:50:3:50:4 | l5 | semmle.label | l5 |
+| test.c:51:3:51:4 | l5 | semmle.label | l5 |
+| test.c:52:3:52:4 | l6 | semmle.label | l6 |
+| test.c:53:3:53:4 | l7 | semmle.label | l7 |
+| test.c:54:3:54:4 | l8 | semmle.label | l8 |
+| test.c:61:5:61:19 | ... / ... | semmle.label | ... / ... |
+| test.c:66:5:66:21 | ... / ... | semmle.label | ... / ... |
+| test.c:72:14:72:30 | ... / ... | semmle.label | ... / ... |
+| test.c:75:18:75:34 | ... / ... | semmle.label | ... / ... |
+subpaths
+#select
+| test.c:36:8:36:9 | l5 | test.c:27:14:27:20 | ... / ... | test.c:36:3:36:9 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:37:8:37:9 | l6 | test.c:28:14:28:20 | ... / ... | test.c:37:3:37:9 | l6 | Invalid usage of possible $@. | test.c:28:14:28:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:38:8:38:9 | l7 | test.c:31:14:32:15 | ... / ... | test.c:38:3:38:9 | l7 | Invalid usage of possible $@. | test.c:31:14:32:15 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:39:8:39:9 | l8 | test.c:33:14:33:22 | ... / ... | test.c:39:3:39:9 | l8 | Invalid usage of possible $@. | test.c:33:14:33:22 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:46:3:46:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:46:3:46:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:47:3:47:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:47:3:47:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:48:3:48:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:48:3:48:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:49:3:49:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:49:3:49:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:50:3:50:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:50:3:50:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:51:3:51:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:51:3:51:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:52:3:52:4 | l6 | test.c:28:14:28:20 | ... / ... | test.c:52:3:52:4 | l6 | Invalid usage of possible $@. | test.c:28:14:28:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
+| test.c:53:3:53:4 | l7 | test.c:31:14:32:15 | ... / ... | test.c:53:3:53:4 | l7 | Invalid usage of possible $@. | test.c:31:14:32:15 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:54:3:54:4 | l8 | test.c:33:14:33:22 | ... / ... | test.c:54:3:54:4 | l8 | Invalid usage of possible $@. | test.c:33:14:33:22 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:61:12:61:18 | ... / ... | test.c:61:5:61:19 | ... / ... | test.c:61:5:61:19 | ... / ... | Invalid usage of possible $@. | test.c:61:5:61:19 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:66:12:66:20 | ... / ... | test.c:66:5:66:21 | ... / ... | test.c:66:5:66:21 | ... / ... | Invalid usage of possible $@. | test.c:66:5:66:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:72:21:72:29 | ... / ... | test.c:72:14:72:30 | ... / ... | test.c:72:14:72:30 | ... / ... | Invalid usage of possible $@. | test.c:72:14:72:30 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:75:25:75:33 | ... / ... | test.c:75:18:75:34 | ... / ... | test.c:75:18:75:34 | ... / ... | Invalid usage of possible $@. | test.c:75:18:75:34 | ... / ... | NaN resulting from possible division of zero by zero |

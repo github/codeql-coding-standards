@@ -14,6 +14,45 @@ import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
 import experimental.semmle.code.cpp.rangeanalysis.extensions.ConstantBitwiseAndExprRange
 private import experimental.semmle.code.cpp.models.interfaces.SimpleRangeAnalysisExpr
 
+// Disabled, causing performance issues in grpc:
+/*
+private class DivByConstantExpr extends SimpleRangeAnalysisExpr, DivExpr {
+  float quotient;
+
+  DivByConstantExpr() {
+    quotient = evaluateConstantExpr(getRightOperand())
+  }
+
+  override predicate dependsOnChild(Expr e) {
+    e = getLeftOperand()
+  }
+
+  override float getLowerBounds() {
+    exists(float numerator |
+      result = numerator / quotient and
+      if (quotient > 0) then
+        // x / y where and y is positive scales the UB/LB.
+        numerator = getFullyConvertedLowerBounds(getLeftOperand())
+      else
+        // x / -y where and -y is negative will invert and scale the UB/LB.
+        numerator = getFullyConvertedUpperBounds(getLeftOperand())
+    )
+  }
+
+  override float getUpperBounds() {
+    exists(float numerator |
+      result = numerator / quotient and
+      if (quotient > 0) then
+        // x / y where and y is positive scales the UB/LB.
+        numerator = getFullyConvertedUpperBounds(getLeftOperand())
+      else
+        // x / -y where and -y is negative will invert and scale the UB/LB.
+        numerator = getFullyConvertedLowerBounds(getLeftOperand())
+    )
+  }
+}
+  */
+
 /**
  * A range analysis extension that support bitwise `|` and `|=` where at least one operand is a
  * non-negative constant.
