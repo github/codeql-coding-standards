@@ -19,7 +19,7 @@ import codingstandards.cpp.autosar
 class UniqueLineStmt extends Locatable {
   UniqueLineStmt() {
     not isAffectedByMacro() and
-    exists(Declaration d |
+    (exists(Declaration d |
       this = d.getADeclarationEntry() and
       not d instanceof Parameter and
       not d instanceof TemplateParameter and
@@ -38,7 +38,7 @@ class UniqueLineStmt extends Locatable {
     or
     this instanceof ExprStmt and
     not exists(ForStmt f | f.getInitialization().getAChild*() = this) and
-    not exists(LambdaExpression l | l.getLambdaFunction().getBlock().getAChild*() = this)
+    not exists(LambdaExpression l | l.getLambdaFunction().getBlock().getAChild*() = this))
   }
 }
 
