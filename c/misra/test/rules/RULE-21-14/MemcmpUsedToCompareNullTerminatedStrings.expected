@@ -1,10 +1,10 @@
 edges
-| test.c:12:13:12:15 | a | test.c:14:10:14:10 | a |
-| test.c:12:13:12:15 | a | test.c:23:13:23:13 | a |
-| test.c:12:13:12:15 | a | test.c:24:10:24:10 | a |
-| test.c:13:13:13:15 | b | test.c:14:13:14:13 | b |
-| test.c:18:15:18:28 | {...} | test.c:21:10:21:10 | e |
-| test.c:19:15:19:28 | {...} | test.c:21:13:21:13 | f |
+| test.c:12:13:12:15 | a | test.c:14:10:14:10 | a | provenance |  |
+| test.c:12:13:12:15 | a | test.c:23:13:23:13 | a | provenance |  |
+| test.c:12:13:12:15 | a | test.c:24:10:24:10 | a | provenance |  |
+| test.c:13:13:13:15 | b | test.c:14:13:14:13 | b | provenance |  |
+| test.c:18:15:18:28 | {...} | test.c:21:10:21:10 | e | provenance |  |
+| test.c:19:15:19:28 | {...} | test.c:21:13:21:13 | f | provenance |  |
 nodes
 | test.c:10:10:10:12 | a | semmle.label | a |
 | test.c:10:15:10:17 | b | semmle.label | b |

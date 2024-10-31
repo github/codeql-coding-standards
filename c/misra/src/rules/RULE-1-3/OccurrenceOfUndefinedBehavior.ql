@@ -18,4 +18,4 @@ import codingstandards.c.UndefinedBehavior
 
 from CUndefinedBehavior c
 where not isExcluded(c, Language3Package::occurrenceOfUndefinedBehaviorQuery())
-select c, "May result in undefined behavior."
+select c, c.getReason()

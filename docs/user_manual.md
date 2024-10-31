@@ -26,18 +26,21 @@
 | 0.18.0  | 2024-01-30 | Luke Cartey     | Update product description and coverage table.                                                                          |
 | 0.19.0  | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9.                                                                         |
 | 0.20.0  | 2024-02-23 | Remco Vermeulen | Add table describing the permitted guideline re-categorizations.                                                        |
-| 0.21.0  | 2024-05-01 | Luke Cartey | Add MISRA C++ 2023 as under development, and clarify MISRA C 2012 coverage.                                                        |
-| 0.22.0  | 2024-10-02 | Luke Cartey | Add MISRA C 2023 as under development, and clarify MISRA C 2012 coverage.
+| 0.21.0  | 2024-05-01 | Luke Cartey     | Add MISRA C++ 2023 as under development, and clarify MISRA C 2012 coverage.                                             |
+| 0.22.0  | 2024-10-02 | Luke Cartey     | Add MISRA C 2023 as under development, and clarify MISRA C 2012 coverage.                                               |
+| 0.23.0  | 2024-10-21 | Luke Cartey     | Add assembly as a hazard.                                                                                               |
+| 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                                                               |
 
 ## Release information
 
-This user manual documents release `2.36.0-dev` of the coding standards located at [https://github.com/github/codeql-coding-standards](https://github.com/github/codeql-coding-standards).
+This user manual documents release `2.38.0-dev` of the coding standards located at [https://github.com/github/codeql-coding-standards](https://github.com/github/codeql-coding-standards).
 The release page documents the release notes and contains the following artifacts part of the release:
 
-- `code-scanning-cpp-query-pack-2.36.0-dev.zip`: coding standard queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
-- `supported_rules_list_2.36.0-dev.csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
-- `supported_rules_list_2.36.0-dev.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
-- `user_manual_2.36.0-dev.md`: This user manual.
+- `coding-standards-codeql-packs-2.37.0-dev.zip`: CodeQL packs that can be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
+- `code-scanning-cpp-query-pack-2.38.0-dev.zip`: Legacy packaging for the queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
+- `supported_rules_list_2.38.0-dev.csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
+- `supported_rules_list_2.38.0-dev.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
+- `user_manual_2.38.0-dev.md`: This user manual.
 - `Source Code (zip)`: A zip archive containing the contents of https://github.com/github/codeql-coding-standards
 - `Source Code (tar.gz)`: A GZip compressed tar archive containing the contents of https://github.com/github/codeql-coding-standards
 - `checksums.txt`: A text file containing sha256 checksums for the aforementioned artifacts.
@@ -157,22 +160,52 @@ This section describes how to operate the "CodeQL Coding Standards".
 
 #### Pre-requisite: downloading the CodeQL CLI
 
-You must download a compatible version of the CodeQL CLI and CodeQL Standard Library for C++.
+You must download a compatible version of the CodeQL CLI, as specified in the release notes for the release you are using.
 
-**Option 1:** Use the CodeQL CLI bundle, which includes both required components:
+**Option 1:** Use the CodeQL CLI bundle, which includes both the CodeQL CLI and GitHub's default security queries:
 
  1. Download the CodeQL CLI bundle from the [`github/codeql-action` releases page](https://github.com/github/codeql-action/releases).
  2. Expand the compressed archive to a specified location on your machine.
  3. [Optional] Add the CodeQL CLI to your user or system path.
 
-**Option 2:** Fetch the components separately:
+This approach is recommended if you wish to use the default queries provided by GitHub in addition to the Coding Standards queries.
+
+**Option 2:** Use the CodeQL CLI binary:
 
  1. Download the CodeQL CLI from the [`github/codeql-cli-binaries` releases page](https://github.com/github/codeql-cli-binaries/releases)
  2. Expand the compressed archive to a specified location on your machine.
- 3. Using `git`, clone the [`github/codeql`](https://github.com/github/codeql) repository to a sibling directory of the CodeQL CLI. The `github/codeql` repository contains the CodeQL Standard Library for C++.
- 4. [Optional] Add the CodeQL CLI to your user or system path.
+3. [Optional] Add the CodeQL CLI to your user or system path.
 
-The release notes for the "CodeQL Coding Standards" pack you are using will specify the appropriate versions to use.
+#### Pre-requisite: downloading the Coding Standards queries
+
+The Coding Standards packs can be downloaded into the local CodeQL package cache using the following command:
+
+```bash
+codeql pack download codeql/<standard>-<language>-coding-standards@<version>
+```
+
+The supported standards and languages are:
+ * `codeql/misra-c-coding-standards` - a CodeQL query pack for reporting violations of MISRA C.
+ * `codeql/cert-c-coding-standards` - a CodeQL query pack for reporting violations of CERT C.
+ * `codeql/misra-cpp-coding-standards` - a CodeQL query pack for reporting violations of MISRA C++.
+ * `codeql/cert-cpp-coding-standards` - a CodeQL query pack for reporting violations of CERT C++.
+ * `codeql/autosar-cpp-coding-standards` - - a CodeQL query pack for reporting violations of AUTOSAR for C++.
+
+Ensure that the `@<version>` string matches the desired Coding Standards version.
+
+Alternatively, the packs can be downloaded directly from a release on the `github/codeql-coding-standards` repository by choosing the `coding-standards-codeql-packs.zip`, which contains the following files:
+
+  * `misra-c-coding-standards.tgz` - a CodeQL query pack for reporting violations of MISRA C.
+  * `cert-c-coding-standards.tgz` - a CodeQL query pack for reporting violations of CERT C.
+  * `cert-cpp-coding-standards.tgz`  - a CodeQL query pack for reporting violations of CERT C++.
+  * `autosar-cpp-coding-standards.tgz` - a CodeQL query pack for reporting violations of AUTOSAR for C++.
+  * `common-cpp-coding-standards.tgz` - a CodeQL library pack, used if you are writing your own C++ queries against Coding Standards.
+  * `common-c-coding-standards.tgz` - a CodeQL library pack, used if you are writing your own C queries against Coding Standards.
+  * `report-coding-standards.tgz` - a CodeQL query pack for running diagnostics on databases.
+
+Each pack will need to be decompressed using the `tar` program, and placed in a known location.
+
+Finally, we provide a legacy single zip containing all the artifacts from a release, named `code-scanning-cpp-query-pack.zip`. This also contains the CodeQL packs listed above.
 
 #### Creating a CodeQL database
 
@@ -193,26 +226,65 @@ Reference: [CodeQL CLI: Creating a CodeQL database](https://codeql.github.com/do
 
 #### Running the default analysis for one or more Coding Standards
 
-Once you have a CodeQL database for your project, you can run the "default" query suite. This will run all the "automated" queries for each implemented rule in the specified Coding Standards.
-
-The query suites can be run by using the `codeql database analyze` command:
+Once you have a CodeQL database for your project you can run the default analysis for a specified Coding Standard using the `codeql database analyze` command by specifying the names of the QL packs which you want to run as arguments, along with a version specifier:
 
 ```bash
-codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-default.qls...
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standard@version
 ```
 
-For each Coding Standard you want to run, add a trailing entry in the following format: `path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-default.qls`.
+For example, this command would run MISRA C and CERT C with the default query sets:
+
+```bash
+codeql database analyze --format=sarifv2.1.0 --output=results.sarif path/to/<output_database_name> codeql/misra-c-coding-standard@version codeql/cert-c-coding-standard@version
+```
+The output of this command will be a [SARIF file](https://sarifweb.azurewebsites.net/) called `<name-of-results-file>.sarif`.
+
+##### Locating the Coding Standards CodeQL packs
+
+If you have downloaded a release artifact containing the packs, you will need to provide the `--search-path` parameter, pointing to each of the uncompressed query packs.
+```
+--search-path path/to/pack1:path/to/pack2
+```
+
+Alternatively, the packs can be made available to CodeQL without specification on the comamnd line by placing them inside the distribution under the `qlpacks/codeql/` directory, or placed inside a directory adjacent to the folder containing the distribution.
+
+##### Alternative query sets
+
+Each supported standard includes a variety of query suites, which enable the running of different sets of queries based on specified properties. In addition, a custom query suite can be defined as specified by the CodeQL CLI documentation, in order to select any arbitrary sets of queries in this repository. To run
+
+```bash
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standard@version:codeql-suites/<alternative-suite>.qls
+```
+
+If modifying the query suite, ensure that all Rules you expect to be covered by CodeQL in your Guideline Enforcement Plan (or similar) are included in the query suite, by running:
+
+```bash
+codeql resolve queries codeql/<standard>-<language>-coding-standard@version:codeql-suites/<alternative-suite>.qls
+```
+
+##### Supported SARIF versions
 
 The only supported SARIF version for use in a functional safety environment is version 2.1.0.
 To select this SARIF version you **must** specify the flag `--format=sarifv2.1.0` when invoking the database analyze command `codeql database analyze ...` as shown in the above example.
 
-Running the default analysis for one or more Coding Standards may require further performance customizations for larger codebases.
-The following flags may be passed to the `database analyze` command to adjust the performance:
+##### Performance optimizations
 
-- `--ram` - to specify the maximum amount of RAM to use during the analysis as [documented](https://codeql.github.com/docs/codeql-cli/manual/database-analyze/#options-to-control-ram-usage) in the CodeQL CLI manual.
-- `--thread` - to specify number of threads to use while evaluating as [documented](https://codeql.github.com/docs/codeql-cli/manual/database-analyze/#cmdoption-codeql-database-analyze-j) in the CodeQL CLI manual.
+Running the default analysis for one or more Coding Standards may require further performance customizations for larger codebases. The following flags may be passed to the `database analyze` command to adjust the performance:
 
-The output of this command will be a [SARIF file](https://sarifweb.azurewebsites.net/) called `<name-of-results-file>.sarif`.
+- `--ram` - to specify the maximum amount of RAM to use during the analysis as [documented](https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-analyze#options-to-control-ram-usage) in the CodeQL CLI manual.
+- `--thread` - to specify number of threads to use while evaluating as [documented](https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-analyze#-j---threadsnum) in the CodeQL CLI manual.
+
+##### Legacy approach
+
+If you have downloaded the legacy release artifact `code-scanning-query-pack.zip`, you can run the default query suite using the `codeql database analyze` command as follows:
+
+```bash
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/<language>/<coding-standard>/src/codeql-suites/<coding-standard>-default.qls...
+```
+
+For each Coding Standard you want to run, add a trailing entry in the following format: `path/to/codeql-coding-standards/<language>/<coding-standard>/src/codeql-suites/<coding-standard>-default.qls`. Custom query suites can be run by specifying the appropriate paths.
+
+All other options discussed above are valid.
 
 #### Running the analysis for audit level queries
 
@@ -221,8 +293,6 @@ Optionally, you may want to run the "audit" level queries. These queries produce
 ```bash
 codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-audit.qls...
 ```
-
-For each Coding Standard you want to run, add a trailing entry in the following format: `path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-default.qls`.
 
 #### Producing an analysis report
 
@@ -500,14 +570,15 @@ This section describes known failure modes for "CodeQL Coding Standards" and des
 |                              | Use of incorrect build command                                                                                                                                     | Less output. Some files may be only be partially analyzed, or not analyzed at all.                                                                        | Analysis integrity report lists all analyzed files, and must be crossed referenced with the list of files that are expected to be analyzed.                                                                                                                                                                                          | Ensure the build command corresponds to the build command that is used to build the release artifacts.                                                                                                                                                                                                                                                                     |
 |                              | Incorrect build environment (e.g., concurrent builds writing to same file, overwriting translation unit/object file with different content)                        | Less or more output. Results are reported that are not violations of the guidelines or guideline violations are not reported                              | All reported results must be reviewed.                                                                                                                                                                                                                                                                                               | Ensure the build environment is configured to not use shared resources such as caches or artifact providers that can introduce race conditions. Report inconsistent results via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                       |
 |                              | Source root misspecification                                                                                                                                       | Less output. The results cannot be correctly correlated to source files when viewing the resulting Sarif file in a Sarif viewer.                          | Verify that the reported results are display on the correct files in the Sarif viewer                                                                                                                                                                                                                                                | Ensure the CodeQL CLI configured to use the correct source root that correspond to the root of the repository under consideration.                                                                                                                                                                                                                                         |
-|                              | Ouf of space                                                                                                                                                       | Less output. Some files may be only be partially analyzed, or not analyzed at all.                                                                        | Error reported on the command line.                                                                                                                                                                                                                                                                                                  | Increase space. If it remains an issue report space consumption issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                            |
+|                              | Out of space                                                                                                                                                       | Less output. Some files may be only be partially analyzed, or not analyzed at all.                                                                        | Error reported on the command line.                                                                                                                                                                                                                                                                                                  | Increase space. If it remains an issue report space consumption issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                            |
 |                              | False positives                                                                                                                                                    | More output. Results are reported which are not violations of the guidelines.                                                                             | All reported results must be reviewed.                                                                                                                                                                                                                                                                                               | Report false positive issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                                                                      |
 |                              | False negatives                                                                                                                                                    | Less output. Violations of the guidelines are not reported.                                                                                               | Other validation and verification processes during software development should be used to complement the analysis performed by CodeQL Coding Standards.                                                                                                                                                                              | Report false negative issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                                                                      |
-|                              | Modifying coding standard suite                                                                                                                                    | More or less output. If queries are added to the query set more result can be reported. If queries are removed less results might be reported.            | All queries supported by the CodeQL Coding Standards are listed in the release artifacts `supported_rules_list_2.36.0-dev.csv` where VERSION is replaced with the used release. The rules in the resulting Sarif file must be cross-referenced with the expected rules in this list to determine the validity of the used CodeQL suite. | Ensure that the CodeQL Coding Standards are not modified in ways that are not documented as supported modifications.                                                                                                                                                                                                                                                    |
+|                              | Modifying coding standard suite                                                                                                                                    | More or less output. If queries are added to the query set more result can be reported. If queries are removed less results might be reported.            | All queries supported by the CodeQL Coding Standards are listed in the release artifacts `supported_rules_list_2.38.0-dev.csv` where VERSION is replaced with the used release. The rules in the resulting Sarif file must be cross-referenced with the expected rules in this list to determine the validity of the used CodeQL suite. | Ensure that the CodeQL Coding Standards are not modified in ways that are not documented as supported modifications.                                                                                                                                                                                                                                                    |
 |                              | Incorrect deviation record specification                                                                                                                           | More output. Results are reported for guidelines for which a deviation is assigned.                                                                       | Analysis integrity report lists all deviations and incorrectly specified deviation records with a reason. Ensure that all deviation records are correctly specified.                                                                                                                                                                 | Ensure that the deviation record is specified according to the specification in the user manual.                                                                                                                                                                                                                                                                           |
 |                              | Incorrect deviation permit specification                                                                                                                           | More output. Results are reported for guidelines for which a deviation is assigned.                                                                       | Analysis integrity report lists all deviations and incorrectly specified deviation permits with a reason. Ensure that all deviation permits are correctly specified.                                                                                                                                                                 | Ensure that the deviation record is specified according to the specification in the user manual.                                                                                                                                                                                                                                                                           |
 |                              | Unapproved use of a deviation record                                                                                                                               | Less output. Results for guideline violations are not reported.                                                                                           | Validate that the deviation record use is approved by verifying the approved-by attribute of the deviation record specification.                                                                                                                                                                                                     | Ensure that each raised deviation record is approved by an independent approver through an auditable process.                                                                                                                                                                                                                                                              |
 |                              | Incorrect database. The information extracted by the CodeQL extractor deviates from what the compiler extracts resulting in an incorrect model of the source-code. | More or less output. Incorrect extraction can result in false positives or false negatives.                                                               | Combinations of supported compilers and CodeQL CLIs are tested against a [provided](https://github.com/github/codeql/tree/main/cpp/ql/test/library-tests) suite of test cases and a coding standards specific test suite to determine if the extracted information deviates from the expected information.                           | Report incorrect database issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                                                                  |
+|                              | Use of assembly language instructions, which are not inspected by CodeQL. | More or less output. Can result in false positives or false negatives.                                                               | Avoid the use of assembly language instructions where possible. Where unavoidable, encapasulate and isolate the use of assembly language in separate functions to limit impact. Careful manual review of all functions that use assembly language. | Ensure that all functions which use assembly language instructions are manually reviewed for compliance.                                                                                                                                                                                                                                  |
 
 ## Reporting bugs
 
