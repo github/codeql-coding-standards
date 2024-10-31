@@ -19,26 +19,28 @@ import codingstandards.cpp.autosar
 class UniqueLineStmt extends Locatable {
   UniqueLineStmt() {
     not isAffectedByMacro() and
-    (exists(Declaration d |
-      this = d.getADeclarationEntry() and
-      not d instanceof Parameter and
-      not d instanceof TemplateParameter and
-      // TODO - Needs to be enhanced to solve issues with
-      // templated inner classes.
-      not d instanceof Function and
-      not d.isFromTemplateInstantiation(_) and
-      not d.(Variable).isCompilerGenerated() and
-      not exists(RangeBasedForStmt f | f.getADeclaration() = d) and
-      not exists(DeclStmt declStmt, ForStmt f |
-        f.getInitialization() = declStmt and
-        declStmt.getADeclaration() = d
-      ) and
-      not exists(LambdaCapture lc | lc.getField().getADeclarationEntry() = this)
+    (
+      exists(Declaration d |
+        this = d.getADeclarationEntry() and
+        not d instanceof Parameter and
+        not d instanceof TemplateParameter and
+        // TODO - Needs to be enhanced to solve issues with
+        // templated inner classes.
+        not d instanceof Function and
+        not d.isFromTemplateInstantiation(_) and
+        not d.(Variable).isCompilerGenerated() and
+        not exists(RangeBasedForStmt f | f.getADeclaration() = d) and
+        not exists(DeclStmt declStmt, ForStmt f |
+          f.getInitialization() = declStmt and
+          declStmt.getADeclaration() = d
+        ) and
+        not exists(LambdaCapture lc | lc.getField().getADeclarationEntry() = this)
+      )
+      or
+      this instanceof ExprStmt and
+      not exists(ForStmt f | f.getInitialization().getAChild*() = this) and
+      not exists(LambdaExpression l | l.getLambdaFunction().getBlock().getAChild*() = this)
     )
-    or
-    this instanceof ExprStmt and
-    not exists(ForStmt f | f.getInitialization().getAChild*() = this) and
-    not exists(LambdaExpression l | l.getLambdaFunction().getBlock().getAChild*() = this))
   }
 }
 
