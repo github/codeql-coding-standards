@@ -79,7 +79,6 @@ jobs:
           echo "Using ref $EXTERNAL_HELP_REF for external help files."
 
       - name: Checkout external help files
-        continue-on-error: true
         id: checkout-external-help-files
         uses: actions/checkout@v4
         with:
