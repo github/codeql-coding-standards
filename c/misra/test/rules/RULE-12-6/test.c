@@ -1,7 +1,7 @@
 #include "stdatomic.h"
 #include "string.h"
 
-typedef struct s2 {
+typedef struct s1 {
   int x;
 } s1;
 
@@ -16,14 +16,16 @@ _Atomic int g3;
 void takeCopy(s1 p1);
 
 void f1() {
-  s1 *l1;
+  s1 l1;
+  s1 *l2;
   l1 = atomic_load(&atomic_s1);     // COMPLIANT
   l1 = atomic_load(ptr_atomic_s1);  // COMPLIANT
-  l1 = atomic_load(&s1_atomic_ptr); // COMPLIANT
-  l1->x = 4;                        // COMPLIANT
+  l2 = atomic_load(&s1_atomic_ptr); // COMPLIANT
+  l1.x = 4;                         // COMPLIANT
+  l2->x = 4;                        // COMPLIANT
   atomic_store(&atomic_s1, l1);     // COMPLIANT
   atomic_store(ptr_atomic_s1, l1);  // COMPLIANT
-  atomic_store(&s1_atomic_ptr, l1); // COMPLIANT
+  atomic_store(&s1_atomic_ptr, l2); // COMPLIANT
 
   // Undefined behavior, but not banned by this rule.
   memset(&atomic_s1, sizeof(atomic_s1), 0);         // COMPLIANT
@@ -34,8 +36,8 @@ void f1() {
   takeCopy(*ptr_atomic_s1); // COMPLIANT
   atomic_s1 = (s1){0};      // COMPLIANT
   *ptr_atomic_s1 = (s1){0}; // COMPLIANT
-  atomic_s1 = *l1;          // COMPLIANT
-  ptr_atomic_s1 = l1;       // COMPLIANT
+  atomic_s1 = *l2;          // COMPLIANT
+  ptr_atomic_s1 = l2;       // COMPLIANT
 
   // Banned: circumvents data-race protection, results in UB.
   atomic_s1.x;          // NON-COMPLIANT
@@ -54,6 +56,6 @@ void f1() {
   memset(s1_atomic_ptr, sizeof(*s1_atomic_ptr), 0); // COMPLIANT
   takeCopy(*s1_atomic_ptr);                         // COMPLIANT
   *s1_atomic_ptr = (s1){0};                         // COMPLIANT
-  s1_atomic_ptr = l1;                               // COMPLIANT
+  s1_atomic_ptr = l2;                               // COMPLIANT
   s1_atomic_ptr->x;                                 // COMPLIANT
 }
