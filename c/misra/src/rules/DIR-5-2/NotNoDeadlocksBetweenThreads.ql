@@ -17,7 +17,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.preventdeadlockbylockinginpredefinedorder.PreventDeadlockByLockingInPredefinedOrder
 
-class NotNoDeadlocksBetweenThreadsQuery extends PreventDeadlockByLockingInPredefinedOrderSharedQuery {
+class NotNoDeadlocksBetweenThreadsQuery extends PreventDeadlockByLockingInPredefinedOrderSharedQuery
+{
   NotNoDeadlocksBetweenThreadsQuery() {
     this = Concurrency6Package::notNoDeadlocksBetweenThreadsQuery()
   }

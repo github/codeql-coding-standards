@@ -40,18 +40,13 @@ class MemoryOrderConstantExpr extends Expr {
   MemoryOrder ord;
 
   MemoryOrderConstantExpr() {
-    if
-    this instanceof MemoryOrderConstantAccess
-    then
-    ord = this.(MemoryOrderConstantAccess).getTarget()
-    else
-    ord.getIntValue() = getValue().toInt()
+    if this instanceof MemoryOrderConstantAccess
+    then ord = this.(MemoryOrderConstantAccess).getTarget()
+    else ord.getIntValue() = getValue().toInt()
   }
 
   /* Get the name of the `MemoryOrder` this expression is valued as. */
-  string getMemoryOrderString() {
-    result = ord.toString()
-  }
+  string getMemoryOrderString() { result = ord.toString() }
 }
 
 /**
@@ -75,7 +70,8 @@ class MemoryOrderedStdAtomicFunction extends Function {
         baseParamIdx = 1 and
         baseParams = 2
         or
-        getName().regexpMatch(prefix + ["atomic_store", "atomic_fetch_.*", "atomic_exchange"] + suffix) and
+        getName()
+            .regexpMatch(prefix + ["atomic_store", "atomic_fetch_.*", "atomic_exchange"] + suffix) and
         baseParamIdx = 2 and
         baseParams = 3
         or
