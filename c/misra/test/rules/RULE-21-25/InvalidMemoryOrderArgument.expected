@@ -1,0 +1,99 @@
+edges
+| test.c:4:5:4:6 | *g2 | test.c:53:33:53:34 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:54:29:54:30 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:55:42:55:43 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:56:35:56:36 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:57:36:57:37 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:58:54:58:55 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:59:58:59:59 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:60:52:60:53 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:61:56:61:57 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:62:37:62:38 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:63:37:63:38 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:64:36:64:37 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:65:37:65:38 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:66:37:66:38 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:67:23:67:24 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:68:23:68:24 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:71:23:71:24 | g2 | provenance |  |
+| test.c:4:10:4:29 | memory_order_relaxed | test.c:4:5:4:6 | *g2 | provenance |  |
+| test.c:5:5:5:6 | *g3 | test.c:72:23:72:24 | g3 | provenance |  |
+| test.c:5:10:5:29 | memory_order_acquire | test.c:5:5:5:6 | *g3 | provenance |  |
+| test.c:6:5:6:6 | *g4 | test.c:73:23:73:24 | g4 | provenance |  |
+| test.c:6:10:6:29 | memory_order_consume | test.c:6:5:6:6 | *g4 | provenance |  |
+| test.c:7:5:7:6 | *g5 | test.c:74:23:74:24 | g5 | provenance |  |
+| test.c:7:10:7:29 | memory_order_acq_rel | test.c:7:5:7:6 | *g5 | provenance |  |
+| test.c:8:5:8:6 | *g6 | test.c:75:23:75:24 | g6 | provenance |  |
+| test.c:8:10:8:29 | memory_order_release | test.c:8:5:8:6 | *g6 | provenance |  |
+nodes
+| test.c:4:5:4:6 | *g2 | semmle.label | *g2 |
+| test.c:4:10:4:29 | memory_order_relaxed | semmle.label | memory_order_relaxed |
+| test.c:5:5:5:6 | *g3 | semmle.label | *g3 |
+| test.c:5:10:5:29 | memory_order_acquire | semmle.label | memory_order_acquire |
+| test.c:6:5:6:6 | *g4 | semmle.label | *g4 |
+| test.c:6:10:6:29 | memory_order_consume | semmle.label | memory_order_consume |
+| test.c:7:5:7:6 | *g5 | semmle.label | *g5 |
+| test.c:7:10:7:29 | memory_order_acq_rel | semmle.label | memory_order_acq_rel |
+| test.c:8:5:8:6 | *g6 | semmle.label | *g6 |
+| test.c:8:10:8:29 | memory_order_release | semmle.label | memory_order_release |
+| test.c:16:29:16:48 | memory_order_relaxed | semmle.label | memory_order_relaxed |
+| test.c:17:29:17:48 | memory_order_acquire | semmle.label | memory_order_acquire |
+| test.c:18:29:18:48 | memory_order_consume | semmle.label | memory_order_consume |
+| test.c:19:29:19:48 | memory_order_acq_rel | semmle.label | memory_order_acq_rel |
+| test.c:20:29:20:48 | memory_order_release | semmle.label | memory_order_release |
+| test.c:53:33:53:34 | g2 | semmle.label | g2 |
+| test.c:54:29:54:30 | g2 | semmle.label | g2 |
+| test.c:55:42:55:43 | g2 | semmle.label | g2 |
+| test.c:56:35:56:36 | g2 | semmle.label | g2 |
+| test.c:57:36:57:37 | g2 | semmle.label | g2 |
+| test.c:58:54:58:55 | g2 | semmle.label | g2 |
+| test.c:59:58:59:59 | g2 | semmle.label | g2 |
+| test.c:60:52:60:53 | g2 | semmle.label | g2 |
+| test.c:61:56:61:57 | g2 | semmle.label | g2 |
+| test.c:62:37:62:38 | g2 | semmle.label | g2 |
+| test.c:63:37:63:38 | g2 | semmle.label | g2 |
+| test.c:64:36:64:37 | g2 | semmle.label | g2 |
+| test.c:65:37:65:38 | g2 | semmle.label | g2 |
+| test.c:66:37:66:38 | g2 | semmle.label | g2 |
+| test.c:67:23:67:24 | g2 | semmle.label | g2 |
+| test.c:68:23:68:24 | g2 | semmle.label | g2 |
+| test.c:71:23:71:24 | g2 | semmle.label | g2 |
+| test.c:72:23:72:24 | g3 | semmle.label | g3 |
+| test.c:73:23:73:24 | g4 | semmle.label | g4 |
+| test.c:74:23:74:24 | g5 | semmle.label | g5 |
+| test.c:75:23:75:24 | g6 | semmle.label | g6 |
+| test.c:78:23:78:46 | ... * ... | semmle.label | ... * ... |
+| test.c:79:23:79:23 | 1 | semmle.label | 1 |
+| test.c:80:23:80:25 | 100 | semmle.label | 100 |
+| test.c:81:23:81:28 | ... + ... | semmle.label | ... + ... |
+subpaths
+#select
+| test.c:16:29:16:48 | memory_order_relaxed | test.c:16:29:16:48 | memory_order_relaxed | test.c:16:29:16:48 | memory_order_relaxed | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_load | __c11_atomic_load |
+| test.c:17:29:17:48 | memory_order_acquire | test.c:17:29:17:48 | memory_order_acquire | test.c:17:29:17:48 | memory_order_acquire | Invalid memory order '$@' in call to function '$@'. | memory_order_acquire | memory_order_acquire | file://:0:0:0:0 | __c11_atomic_load | __c11_atomic_load |
+| test.c:18:29:18:48 | memory_order_consume | test.c:18:29:18:48 | memory_order_consume | test.c:18:29:18:48 | memory_order_consume | Invalid memory order '$@' in call to function '$@'. | memory_order_consume | memory_order_consume | file://:0:0:0:0 | __c11_atomic_load | __c11_atomic_load |
+| test.c:19:29:19:48 | memory_order_acq_rel | test.c:19:29:19:48 | memory_order_acq_rel | test.c:19:29:19:48 | memory_order_acq_rel | Invalid memory order '$@' in call to function '$@'. | memory_order_acq_rel | memory_order_acq_rel | file://:0:0:0:0 | __c11_atomic_load | __c11_atomic_load |
+| test.c:20:29:20:48 | memory_order_release | test.c:20:29:20:48 | memory_order_release | test.c:20:29:20:48 | memory_order_release | Invalid memory order '$@' in call to function '$@'. | memory_order_release | memory_order_release | file://:0:0:0:0 | __c11_atomic_load | __c11_atomic_load |
+| test.c:53:33:53:34 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:53:33:53:34 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_store | __c11_atomic_store |
+| test.c:54:29:54:30 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:54:29:54:30 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_load | __c11_atomic_load |
+| test.c:55:42:55:43 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:55:42:55:43 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_exchange | __c11_atomic_exchange |
+| test.c:56:35:56:36 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:56:35:56:36 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_store | __c11_atomic_store |
+| test.c:57:36:57:37 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:57:36:57:37 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_exchange | __c11_atomic_exchange |
+| test.c:58:54:58:55 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:58:54:58:55 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_compare_exchange_strong | __c11_atomic_compare_exchange_strong |
+| test.c:59:58:59:59 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:59:58:59:59 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_compare_exchange_strong | __c11_atomic_compare_exchange_strong |
+| test.c:60:52:60:53 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:60:52:60:53 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_compare_exchange_weak | __c11_atomic_compare_exchange_weak |
+| test.c:61:56:61:57 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:61:56:61:57 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_compare_exchange_weak | __c11_atomic_compare_exchange_weak |
+| test.c:62:37:62:38 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:62:37:62:38 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_fetch_add | __c11_atomic_fetch_add |
+| test.c:63:37:63:38 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:63:37:63:38 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_fetch_sub | __c11_atomic_fetch_sub |
+| test.c:64:36:64:37 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:64:36:64:37 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_fetch_or | __c11_atomic_fetch_or |
+| test.c:65:37:65:38 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:65:37:65:38 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_fetch_xor | __c11_atomic_fetch_xor |
+| test.c:66:37:66:38 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:66:37:66:38 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_fetch_and | __c11_atomic_fetch_and |
+| test.c:67:23:67:24 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:67:23:67:24 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
+| test.c:68:23:68:24 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:68:23:68:24 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_signal_fence | __c11_atomic_signal_fence |
+| test.c:71:23:71:24 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:71:23:71:24 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
+| test.c:72:23:72:24 | g3 | test.c:5:10:5:29 | memory_order_acquire | test.c:72:23:72:24 | g3 | Invalid memory order '$@' in call to function '$@'. | memory_order_acquire | memory_order_acquire | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
+| test.c:73:23:73:24 | g4 | test.c:6:10:6:29 | memory_order_consume | test.c:73:23:73:24 | g4 | Invalid memory order '$@' in call to function '$@'. | memory_order_consume | memory_order_consume | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
+| test.c:74:23:74:24 | g5 | test.c:7:10:7:29 | memory_order_acq_rel | test.c:74:23:74:24 | g5 | Invalid memory order '$@' in call to function '$@'. | memory_order_acq_rel | memory_order_acq_rel | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
+| test.c:75:23:75:24 | g6 | test.c:8:10:8:29 | memory_order_release | test.c:75:23:75:24 | g6 | Invalid memory order '$@' in call to function '$@'. | memory_order_release | memory_order_release | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
+| test.c:79:23:79:23 | 1 | test.c:79:23:79:23 | 1 | test.c:79:23:79:23 | 1 | Invalid memory order '$@' in call to function '$@'. | memory_order_consume | memory_order_consume | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
+| test.c:80:23:80:25 | 100 | test.c:80:23:80:25 | 100 | test.c:80:23:80:25 | 100 | Invalid memory order '$@' in call to function '$@'. | 100 | 100 | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
+| test.c:81:23:81:28 | ... + ... | test.c:81:23:81:28 | ... + ... | test.c:81:23:81:28 | ... + ... | Invalid memory order '$@' in call to function '$@'. | ... + ... | ... + ... | file://:0:0:0:0 | __c11_atomic_thread_fence | __c11_atomic_thread_fence |
