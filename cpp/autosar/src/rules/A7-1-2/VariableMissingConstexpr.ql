@@ -42,6 +42,12 @@ where
   not v.isConstexpr() and
   not v instanceof Parameter and
   not v.isAffectedByMacro() and
+  // Don't consider non-static member variables.
+  (
+    not v instanceof MemberVariable
+    or
+    v.isStatic()
+  ) and
   isLiteralType(v.getType()) and
   // Unfortunately, `isConstant` is not sufficient here because it doesn't include calls to
   // constexpr constructors, and does not take into account zero initialization

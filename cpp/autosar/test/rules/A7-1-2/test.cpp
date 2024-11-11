@@ -51,9 +51,9 @@ public:
   MemberConstExpr(int p3) : m3(p3) {}
 
 private:
-  int m1;     // COMPLIANT - is not always zero initialized
-  int m2 = 0; // NON_COMPLIANT
-  int m3 = 0; // COMPLIANT - can be set by constructor
+  int m1;                  // COMPLIANT - is not always zero initialized
+  static const int m2 = 0; // NON_COMPLIANT
+  int m3 = 0;              // COMPLIANT - can be set by constructor
 };
 
 int h1(int x, int y) { // NON_COMPLIANT
@@ -127,7 +127,7 @@ public:
   MissingConstexprClass(int i) = delete;           // NON_COMPLIANT
   MissingConstexprClass(int i, LiteralClass lc) {} // NON_COMPLIANT
 private:
-  int m1 = 0;
+  int m1 = 0; // COMPLIANT - non-static member variable
 };
 
 class VirtualBaseClass {};
@@ -138,9 +138,9 @@ public:
   DerivedClass(int i) = delete;           // COMPLIANT
   DerivedClass(int i, LiteralClass lc) {} // COMPLIANT
 private:
-  int m1 = 0;
+  static int m1; // NON_COMPLAINT - static member variable can be constexpr
 };
-
+int DerivedClass::m1 = 0;
 class NotAllMembersInitializedClass {
 public:
   NotAllMembersInitializedClass() = default;               // COMPLIANT
@@ -275,3 +275,14 @@ template <typename T> T *init() {
 }
 
 void test_template_instantiation() { int *t = init<int>(); }
+
+#include <memory>
+#include <vector>
+void a_function() {
+  auto origin = std::vector<int>{1, 2, 3, 4, 5, 6, 7, 8, 9};
+  auto values = std::vector<std::unique_ptr<int>>{};
+  for (auto &value :
+       origin) { // Sometimes, CodeQL reports "value" should be constexpr
+    values.emplace_back(std::make_unique<int>(value));
+  }
+}

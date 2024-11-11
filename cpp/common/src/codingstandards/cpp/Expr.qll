@@ -267,7 +267,9 @@ predicate isCompileTimeEvaluatedCall(Call call) {
     parameterUsingDefaultValue.getAnAssignedValue() = defaultValue
   |
     isDirectCompileTimeEvaluatedExpression(defaultValue)
-  )
+  ) and
+  // 4. the call's qualifier is compile time evaluated.
+  (not call.hasQualifier() or isCompileTimeEvaluatedExpression(call.getQualifier()))
 }
 
 /*
