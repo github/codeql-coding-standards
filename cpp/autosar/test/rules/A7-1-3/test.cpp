@@ -19,3 +19,15 @@ void f() {
   const constintptr ptr8 = &l; // NON_COMPLIANT
   inttypedef ptr9 = l;         // COMPLIANT
 }
+
+#include <cstdint>
+
+void false_positive() {
+  std::uint8_t u8{0};
+
+  auto const u32 = static_cast<std::uint32_t>(u8); // COMPLIANT - auto ignored
+  std::uint32_t const u32b = static_cast<std::uint32_t>(u8); // COMPLIANT
+
+  const auto u32c = static_cast<std::uint32_t>(u8); // COMPLIANT - auto ignored
+  const std::uint32_t u32d = static_cast<std::uint32_t>(u8); // NON_COMPLIANT
+}

@@ -149,7 +149,7 @@ class CodingStandardsResultSummary:
                 if standard_rule_id in self.guideline_obligation_level[standard_short_name]:
                     if not self.guideline_obligation_level[standard_short_name][standard_rule_id] == obligation_level:
                         print(
-                            f"WARNING: Rule { rule['id'] } specifies a conflicting obligation level of { obligation_level }, was previously specified as { guideline_obligation_level[standard_short_name][standard_rule_id] }.")
+                            f"WARNING: Rule { rule['id'] } specifies a conflicting obligation level of { obligation_level }, was previously specified as { self.guideline_obligation_level[standard_short_name][standard_rule_id] }.")
                 else:
                     self.guideline_obligation_level[standard_short_name][standard_rule_id] = obligation_level
                 # Add deviation counts for the rule

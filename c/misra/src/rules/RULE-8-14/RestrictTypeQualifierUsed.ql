@@ -8,6 +8,7 @@
  * @tags external/misra/id/rule-8-14
  *       correctness
  *       security
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 

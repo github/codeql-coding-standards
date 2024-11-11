@@ -22,7 +22,7 @@
             "readability"
           ]
         }
-    ],
+      ],
       "title": "A template should check if a specific template argument is suitable for this template."
     },
     "A14-5-1": {
@@ -112,6 +112,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "ExplicitSpecializationsOfFunctionTemplatesUsed",
+          "shared_implementation_short_name": "FunctionTemplatesExplicitlySpecialized",
           "tags": [
             "maintainability",
             "readability"
@@ -171,23 +172,25 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "NameNotReferredUsingAQualifiedIdOrThis",
+          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThis",
           "tags": [
             "maintainability",
             "readability"
           ]
         },
         {
-            "description": "Not using a qualified-id or `this->` syntax for identifiers used in a class template makes the code more difficult to understand.",
-            "kind": "problem",
-            "name": "(Audit) In a class template with a dependent base, any name that may be found in that dependent base shall shall be referred to using a qualified-id or this->",
-            "precision": "very-high",
-            "severity": "warning",
-            "short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit",
-            "tags": [
-              "maintainability",
-              "readability"
-            ]
-          }
+          "description": "Not using a qualified-id or `this->` syntax for identifiers used in a class template makes the code more difficult to understand.",
+          "kind": "problem",
+          "name": "(Audit) In a class template with a dependent base, any name that may be found in that dependent base shall shall be referred to using a qualified-id or this->",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit",
+          "shared_implementation_short_name": "NameNotReferredUsingAQualifiedIdOrThisAudit",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
       ],
       "title": "In a class template with a dependent base, any name that may be found in that dependent base shall be referred to using a qualified-id or this->."
     }

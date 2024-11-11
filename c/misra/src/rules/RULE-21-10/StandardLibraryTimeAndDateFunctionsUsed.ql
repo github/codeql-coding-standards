@@ -7,6 +7,7 @@
  * @problem.severity error
  * @tags external/misra/id/rule-21-10
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 

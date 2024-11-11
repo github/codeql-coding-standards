@@ -17,23 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.StdNamespace
+import codingstandards.cpp.rules.vectorshouldnotbespecializedwithbool.VectorShouldNotBeSpecializedWithBool
 
-predicate isVectorBool(ClassTemplateInstantiation c) {
-  c.getNamespace() instanceof StdNS and
-  c.getTemplateArgument(0) instanceof BoolType and
-  c.getSimpleName() = "vector"
+class VectorboolSpecializationUsedQuery extends VectorShouldNotBeSpecializedWithBoolSharedQuery {
+  VectorboolSpecializationUsedQuery() {
+    this = BannedTypesPackage::vectorboolSpecializationUsedQuery()
+  }
 }
-
-predicate isUsingVectorBool(ClassTemplateInstantiation c) {
-  isVectorBool(c) or
-  isUsingVectorBool(c.getTemplateArgument(_))
-}
-
-from Variable v, ClassTemplateInstantiation c
-where
-  v.getUnderlyingType() = c and
-  not v.isFromTemplateInstantiation(_) and
-  isUsingVectorBool(c) and
-  not isExcluded(v, BannedTypesPackage::vectorboolSpecializationUsedQuery())
-select v, "Use of std::vector<bool> specialization."

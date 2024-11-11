@@ -1,0 +1,2 @@
+- description: "DEPRECATED - MISRA C++ 2023 - use misra-cpp-default.qls instead"
+- import: codeql-suites/misra-cpp-default.qls

@@ -1,0 +1,84 @@
+{
+  "MISRA-C-2012": {
+    "RULE-7-5": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Integer constant macros should be given a literal value as an argument.",
+          "kind": "problem",
+          "name": "The argument of an integer constant macro shall be a literal",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "InvalidIntegerConstantMacroArgument",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        },
+        {
+          "description": "Integer constant macro arguments should be a decimal, hex, or octal literal.",
+          "kind": "problem",
+          "name": "The argument of an integer constant macro shall be a decimal, hex, or octal literal",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InvalidLiteralForIntegerConstantMacroArgument",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        },
+        {
+          "description": "Integer constant macros should be used integer literal values with no u/l suffix.",
+          "kind": "problem",
+          "name": "The argument of an integer constant macro shall not use literal suffixes u, l, or ul",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "IntegerConstantMacroArgumentUsesSuffix",
+          "tags": [
+            "readability",
+            "maintainability",
+            "external/misra/c/2012/amendment3"
+          ]
+        },
+        {
+          "description": "Integer constant macros argument values should be values of a compatible size.",
+          "kind": "problem",
+          "name": "The argument of an integer constant macro shall have an appropriate size",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IncorrectlySizedIntegerConstantMacroArgument",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ],
+          "implementation_scope": {
+            "description": "This rule can validate integers sized 32 or smaller. When the CodeQL runtime supports big ints, this will be expanded to include 64 bit integer types."
+          }
+        }
+      ],
+      "title": "The argument of an integer constant macro shall have an appropriate form"
+    },
+    "RULE-7-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Small integer constant macros expression are promoted to type int, which can lead to unexpected results.",
+          "kind": "problem",
+          "name": "The small integer variants of the minimum-width integer constant macros shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UseOfBannedSmallIntegerConstantMacro",
+          "tags": [
+            "readability",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "The small integer variants of the minimum-width integer constant macros shall not be used"
+    }
+  }
+}

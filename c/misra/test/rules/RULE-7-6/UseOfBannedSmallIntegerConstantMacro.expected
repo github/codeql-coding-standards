@@ -1,0 +1,4 @@
+| test.c:3:13:3:24 | INT8_C(c) | Usage of small integer constant macro INT8_C is not allowed. |
+| test.c:4:14:4:26 | UINT8_C(c) | Usage of small integer constant macro UINT8_C is not allowed. |
+| test.c:5:14:5:28 | INT16_C(c) | Usage of small integer constant macro INT16_C is not allowed. |
+| test.c:6:15:6:30 | UINT16_C(c) | Usage of small integer constant macro UINT16_C is not allowed. |

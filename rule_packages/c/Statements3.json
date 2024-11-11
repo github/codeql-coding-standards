@@ -14,31 +14,34 @@
           "short_name": "SwitchCompoundCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
           "description": "if the body of a loop is not enclosed in braces, then this can lead to incorrect execution, and is hard for developers to maintain.",
           "kind": "problem",
-          "name": "the statement forming the body of a loop shall be a compound statement",
+          "name": "The statement forming the body of a loop shall be a compound statement",
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "LoopCompoundCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
           "description": "if the body of a selection statement is not enclosed in braces, then this can lead to incorrect execution, and is hard for developers to maintain.",
           "kind": "problem",
-          "name": "the statement forming the body of a loop shall be a compound statement",
+          "name": "The statement forming the body of a slection statement shall be a compound statement",
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "SelectionCompoundCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -59,7 +62,8 @@
           "short_name": "IfElseEndCondition",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -80,7 +84,8 @@
           "short_name": "SwitchCaseStartCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
@@ -93,7 +98,8 @@
           "short_name": "SwitchStmtNotWellFormed",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -113,7 +119,8 @@
           "short_name": "RecursiveFunctionCondition",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

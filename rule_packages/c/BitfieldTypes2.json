@@ -1,0 +1,24 @@
+{
+  "MISRA-C-2012": {
+    "RULE-6-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Type punning on a union with bit fields relies on implementation-specific alignment behavior.",
+          "kind": "problem",
+          "name": "A bit field shall not be declared as a member of a union",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "BitFieldDeclaredAsMemberOfAUnion",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "A bit field shall not be declared as a member of a union"
+    }
+  }
+}

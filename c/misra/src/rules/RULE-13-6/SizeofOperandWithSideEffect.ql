@@ -8,6 +8,7 @@
  * @problem.severity error
  * @tags external/misra/id/rule-13-6
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/mandatory
  */
 

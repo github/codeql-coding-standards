@@ -1,0 +1,2 @@
+| test.cpp:71:5:71:16 | ANestedClass | Special member function ANestedClass is never called. |
+| test.cpp:82:5:82:22 | AnotherNestedClass | Special member function AnotherNestedClass is never called from a main function or entry point. |

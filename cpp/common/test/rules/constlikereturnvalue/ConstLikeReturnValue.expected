@@ -1,0 +1,20 @@
+problems
+| test.cpp:11:8:11:12 | c_str | test.cpp:18:16:18:21 | call to getenv | test.cpp:11:8:11:12 | c_str | The object returned by the function getenv should not be modified. |
+| test.cpp:67:5:67:9 | conv4 | test.cpp:64:11:64:20 | call to localeconv | test.cpp:67:5:67:9 | conv4 | The object returned by the function localeconv should not be modified. |
+| test.cpp:76:5:76:8 | conv | test.cpp:72:25:72:34 | call to localeconv | test.cpp:76:5:76:8 | conv | The object returned by the function localeconv should not be modified. |
+edges
+| test.cpp:8:18:8:22 | c_str | test.cpp:11:8:11:12 | c_str | provenance |  |
+| test.cpp:18:16:18:21 | call to getenv | test.cpp:24:9:24:12 | env1 | provenance |  |
+| test.cpp:24:9:24:12 | env1 | test.cpp:8:18:8:22 | c_str | provenance |  |
+| test.cpp:64:11:64:20 | call to localeconv | test.cpp:67:5:67:9 | conv4 | provenance |  |
+| test.cpp:72:25:72:34 | call to localeconv | test.cpp:76:5:76:8 | conv | provenance |  |
+nodes
+| test.cpp:8:18:8:22 | c_str | semmle.label | c_str |
+| test.cpp:11:8:11:12 | c_str | semmle.label | c_str |
+| test.cpp:18:16:18:21 | call to getenv | semmle.label | call to getenv |
+| test.cpp:24:9:24:12 | env1 | semmle.label | env1 |
+| test.cpp:64:11:64:20 | call to localeconv | semmle.label | call to localeconv |
+| test.cpp:67:5:67:9 | conv4 | semmle.label | conv4 |
+| test.cpp:72:25:72:34 | call to localeconv | semmle.label | call to localeconv |
+| test.cpp:76:5:76:8 | conv | semmle.label | conv |
+subpaths

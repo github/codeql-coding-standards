@@ -1,0 +1,2 @@
+- description: "DEPRECATED - MISRA C++ 2023 (Single Translation Unit) - use misra-cpp-single-translation-unit.qls instead"
+- import: codeql-suites/misra-cpp-single-translation-unit.qls

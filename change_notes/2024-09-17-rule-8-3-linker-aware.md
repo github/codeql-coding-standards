@@ -1,0 +1,2 @@
+ - `RULE-8-3` - `DeclarationsOfAnObjectSameNameAndType.ql`
+   - Remove false positives where two conflicting declarations are never linked together.

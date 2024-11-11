@@ -8,19 +8,16 @@
  * @problem.severity warning
  * @tags external/misra/id/rule-20-11
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Macro
+import codingstandards.cpp.rules.macroparameterfollowinghash.MacroParameterFollowingHash
 
-from Macro m
-where
-  not isExcluded(m, Preprocessor2Package::moreThanOneHashOperatorInMacroDefinitionQuery()) and
-  exists(StringizingOperator one, TokenPastingOperator two |
-    one.getMacro() = m and
-    two.getMacro() = m and
-    one.getOffset() < two.getOffset()
-  )
-select m, "Macro definition uses an # operator followed by a ## operator."
+class MoreThanOneHashOperatorInMacroDefinitionQuery extends MacroParameterFollowingHashSharedQuery {
+  MoreThanOneHashOperatorInMacroDefinitionQuery() {
+    this = Preprocessor2Package::moreThanOneHashOperatorInMacroDefinitionQuery()
+  }
+}

@@ -1,0 +1,1 @@
+| test.cpp:9:32:9:51 | offsetof(TYPE,MEMBER) | Use of banned macro offsetof. |
