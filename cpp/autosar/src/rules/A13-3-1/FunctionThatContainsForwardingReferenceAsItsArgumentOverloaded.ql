@@ -29,6 +29,9 @@ where
     OperatorsPackage::functionThatContainsForwardingReferenceAsItsArgumentOverloadedQuery()) and
   not f.isDeleted() and
   f = c.getAnOverload() and
+  // CodeQL sometimes fetches an overloaded function at the same location.
+  // Thus, a check is added explicitly (refer #796).
+  f.getLocation() != c.getLocation() and
   // allow for overloading with different number of parameters, because there is no
   // confusion on what function will be called.
   f.getNumberOfParameters() = c.getNumberOfParameters() and
