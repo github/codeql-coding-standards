@@ -1,8 +1,8 @@
 name: codeql/cert-cpp-coding-standards
-version: 2.36.0-dev
+version: 2.38.0-dev
 description: CERT C++ 2016
 suites: codeql-suites
 license: MIT
 dependencies:
-  codeql/cpp-all: 0.12.2
+  codeql/cpp-all: 0.12.9
   codeql/common-cpp-coding-standards: '*'

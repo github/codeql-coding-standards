@@ -76,3 +76,37 @@ int f17(char *p1) { // NON_COMPLIANT
   p1++;
   return 0;
 }
+
+#include <stdint.h>
+
+int16_t
+test_r(int16_t *value) { // COMPLIANT - ignored because of the use of ASM
+  int16_t result;
+  struct S {
+    int *x; // COMPLIANT - ignored because of the use of ASM
+    struct S2 {
+      int *y; // COMPLIANT - ignored because of the use of ASM
+    } s2;
+  };
+  __asm__("movb %bh (%eax)");
+  return result;
+}
+
+struct S {
+  int x;
+};
+
+void test_struct(struct S *s) { // COMPLIANT
+  s->x = 1;
+}
+
+void test_struct_2(struct S *s) { // NON_COMPLIANT - could be const
+  s = 0;
+}
+
+void test_no_body(int *p); // COMPLIANT - no body, so cannot evaluate whether it
+                           // should be const
+
+void increment(int *p) { // COMPLIANT
+  *p++ = 1;
+}

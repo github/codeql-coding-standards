@@ -1,0 +1,3 @@
+ - `RULE-5-4` - `MacroIdentifiersNotDistinct.ql`:
+   - Exclude false positives related to conditional compilation, where a macro may be defined twice, but not within the same compilation.
+   - Improve alert message in the case the 63 char limit is not relevant by using the form "Definition of macro `<MACRO_NAME>` is not distinct from alternative definition of `<MACRO_NAME>` in `<relative_file_path>`.
