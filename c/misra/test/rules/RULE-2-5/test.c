@@ -14,3 +14,54 @@ void test() {
   MACRO2;
   HEADER_MACRO2;
 }
+
+#define CHECKED_MACRO_1 // COMPLIANT - used in branch
+#define CHECKED_MACRO_2 // COMPLIANT - used in branch
+#define CHECKED_MACRO_3 // COMPLIANT - used in branch
+
+#ifdef CHECKED_MACRO_1
+#endif
+
+#ifndef CHECKED_MACRO_2
+#endif
+
+#if defined(CHECKED_MACRO_3)
+#endif
+
+// In the case above, the extractor will identify macro accesses with each use
+// of the macro. In the case above, the extractor does not tie them together,
+// but the standard considers this acceptable usage. Notably, this type of
+// pattern occurs for header guards.
+
+#ifdef CHECKED_MACRO_BEFORE_1
+#endif
+
+#ifndef CHECKED_MACRO_BEFORE_2
+#endif
+
+#if defined(CHECKED_MACRO_BEFORE_3)
+#endif
+
+// clang-format off
+
+#if defined (CHECKED_MACRO_BEFORE_4)
+#endif
+
+#if defined( CHECKED_MACRO_BEFORE_5 )
+#endif
+
+#if defined ( CHECKED_MACRO_BEFORE_6 )
+#endif
+
+#if defined CHECKED_MACRO_BEFORE_7
+#endif
+
+// clang-format on
+
+#define CHECKED_MACRO_BEFORE_1 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_2 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_3 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_4 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_5 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_6 // COMPLIANT - used in branch
+#define CHECKED_MACRO_BEFORE_7 // COMPLIANT - used in branch

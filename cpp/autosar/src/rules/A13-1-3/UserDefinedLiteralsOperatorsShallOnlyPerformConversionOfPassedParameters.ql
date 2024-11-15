@@ -16,10 +16,10 @@
 import cpp
 import codingstandards.cpp.dataflow.TaintTracking
 import codingstandards.cpp.autosar
-import codingstandards.cpp.UserDefinedLiteral
+import codingstandards.cpp.UserDefinedLiteral as udl
 import codingstandards.cpp.SideEffect
 
-from UserDefinedLiteral udl, Expr retExpr
+from udl::UserDefinedLiteral udl, Expr retExpr
 where
   not isExcluded(udl,
     SideEffects2Package::userDefinedLiteralsOperatorsShallOnlyPerformConversionOfPassedParametersQuery()) and
