@@ -14,7 +14,7 @@ int test() { return number_one<int>; }
 
 long test2() { return number_one<long>; }
 
-template <class T> constexpr T number_two = T(1); // NON_COMPLIANT
+template <class T> static constexpr T number_two = T(1); // NON_COMPLIANT
 
 int test3() { return number_two<int>; }
 

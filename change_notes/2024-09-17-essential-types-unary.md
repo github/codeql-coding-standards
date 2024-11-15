@@ -1,0 +1,4 @@
+ - `RULE-10-1` - `OperandsOfAnInappropriateEssentialType.ql`
+   - Reduce false negatives by supporting operands to the `~` operator with the incorrect essential type.
+   - Reduce false positives by identifying the essential type of `!<expr>` as essentially boolean type.
+   - Improve clarity reporting by reporting the violating operand, instead of the operator, and addressing message typos.

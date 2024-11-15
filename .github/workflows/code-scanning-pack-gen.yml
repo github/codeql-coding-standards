@@ -8,7 +8,6 @@ on:
       - main
       - next
       - "rc/**"
-
   push:
     branches:
       - main
@@ -47,7 +46,7 @@ jobs:
 
       - name: Cache CodeQL
         id: cache-codeql
-        uses: actions/cache@v2.1.3
+        uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/codeql_home
           key: codeql-home-${{ matrix.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library }}
@@ -98,15 +97,36 @@ jobs:
           CODEQL_HOME: ${{ github.workspace }}/codeql_home
         run: |
           PATH=$PATH:$CODEQL_HOME/codeql
-
-          codeql query compile --precompile --threads 0 cpp
-          codeql query compile --precompile --threads 0 c
+          # Precompile all queries, and use a compilation cache larger than default
+          # to ensure we cache all the queries for later steps
+          codeql query compile --precompile --threads 0 --compilation-cache-size=1024 cpp c
 
           cd ..
-          zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/schemas
+          zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/schemas
 
       - name: Upload GHAS Query Pack
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: code-scanning-cpp-query-pack.zip
           path: code-scanning-cpp-query-pack.zip
+
+      - name: Create qlpack bundles
+        env:
+          CODEQL_HOME: ${{ github.workspace }}/codeql_home
+        run: |
+          PATH=$PATH:$CODEQL_HOME/codeql
+
+          codeql pack bundle --output=common-cpp-coding-standards.tgz cpp/common/src
+          codeql pack bundle --output=common-c-coding-standards.tgz c/common/src
+          codeql pack bundle --output=misra-c-coding-standards.tgz c/misra/src
+          codeql pack bundle --output=cert-c-coding-standards.tgz c/cert/src
+          codeql pack bundle --output=cert-cpp-coding-standards.tgz cpp/cert/src
+          codeql pack bundle --output=autosar-cpp-coding-standards.tgz cpp/autosar/src
+          codeql pack bundle --output=misra-cpp-coding-standards.tgz cpp/misra/src
+          codeql pack bundle --output=report-coding-standards.tgz cpp/report/src
+
+      - name: Upload qlpack bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: coding-standards-codeql-packs
+          path: '*-coding-standards.tgz'

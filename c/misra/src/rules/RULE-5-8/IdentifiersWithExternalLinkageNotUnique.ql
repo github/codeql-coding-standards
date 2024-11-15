@@ -8,6 +8,7 @@
  * @tags external/misra/id/rule-5-8
  *       maintainability
  *       readability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
@@ -41,7 +42,25 @@ class NotUniqueExternalIdentifier extends ExternalIdentifiers {
 
   Declaration getAConflictingDeclaration() {
     not result = this and
-    isConflictingDeclaration(result, getName())
+    isConflictingDeclaration(result, getName()) and
+    // We only consider a declaration to be conflicting if it shares a link target with the external
+    // identifier. This avoids reporting false positives where multiple binaries or libraries are
+    // built in the same CodeQL database, but are not intended to be linked together.
+    exists(LinkTarget lt |
+      // External declaration can only be a function or global variable
+      lt = this.(Function).getALinkTarget() or
+      lt = this.(GlobalVariable).getALinkTarget()
+    |
+      lt = result.(Function).getALinkTarget()
+      or
+      lt = result.(GlobalVariable).getALinkTarget()
+      or
+      exists(Class c | c.getAMember() = result and c.getALinkTarget() = lt)
+      or
+      result.(LocalVariable).getFunction().getALinkTarget() = lt
+      or
+      result.(Class).getALinkTarget() = lt
+    )
   }
 }
 

@@ -17,11 +17,20 @@
 import cpp
 import codingstandards.cpp.autosar
 
-from BinaryLogicalOperation op, BinaryOperation binop
+from BinaryLogicalOperation op, BinaryOperation binop, string leftOrRight
 where
   not isExcluded(op, OrderOfEvaluationPackage::operandsOfALogicalAndOrNotParenthesizedQuery()) and
-  op.getAnOperand() = binop and
+  (
+    op.getLeftOperand() = binop and
+    leftOrRight = "Left"
+    or
+    op.getRightOperand() = binop and
+    leftOrRight = "Right"
+  ) and
+  // Ignore cases with the same operator
+  not op.getOperator() = binop.getOperator() and
   not exists(ParenthesisExpr p | p = binop.getFullyConverted()) and
   // Exclude binary operations expanded by a macro.
   not binop.isInMacroExpansion()
-select op, "Binary $@ operand of logical operation is not parenthesized.", binop, "operator"
+select op, "$@ of logical operation " + op.getOperator() + " is not parenthesized.", binop,
+  leftOrRight + " operand " + binop.getOperator()

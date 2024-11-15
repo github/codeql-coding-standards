@@ -15,7 +15,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query considers the first 63 characters of identifiers as significant, as per C99 for nonexternal identifiers and reports the case when names are longer than 63 characters and differ in those characters past the 63 first only. This query does not consider universal or extended source characters.",
@@ -38,7 +39,8 @@
           "severity": "warning",
           "short_name": "ExternalObjectOrFunctionNotDeclaredInOneFile",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -58,7 +60,8 @@
           "short_name": "MissingStaticSpecifierFunctionRedeclarationC",
           "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
           "tags": [
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
@@ -68,8 +71,10 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "MissingStaticSpecifierObjectRedeclarationC",
+          "shared_implementation_short_name": "MissingStaticSpecifierObjectRedeclarationShared",
           "tags": [
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -89,7 +94,8 @@
           "short_name": "UnnecessaryExposedIdentifierDeclarationC",
           "shared_implementation_short_name": "UnnecessaryExposedIdentifierDeclarationShared",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

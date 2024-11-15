@@ -37,7 +37,8 @@
           "short_name": "ForLoopNotWellFormed",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -57,7 +58,8 @@
           "short_name": "NonBooleanIfCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
@@ -69,7 +71,8 @@
           "short_name": "NonBooleanIterationCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

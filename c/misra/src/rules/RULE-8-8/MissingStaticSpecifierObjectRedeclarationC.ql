@@ -8,20 +8,17 @@
  * @problem.severity warning
  * @tags external/misra/id/rule-8-8
  *       readability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.rules.missingstaticspecifierobjectredeclarationshared.MissingStaticSpecifierObjectRedeclarationShared
 
-from VariableDeclarationEntry redeclaration, VariableDeclarationEntry de
-where
-  not isExcluded(redeclaration,
-    Declarations5Package::missingStaticSpecifierObjectRedeclarationCQuery()) and
-  //following implies de != redeclaration
-  de.hasSpecifier("static") and
-  not redeclaration.hasSpecifier("static") and
-  de.getDeclaration().isTopLevel() and
-  redeclaration.getDeclaration() = de.getDeclaration()
-select redeclaration, "The redeclaration of $@ with internal linkage misses the static specifier.",
-  de, de.getName()
+class MissingStaticSpecifierObjectRedeclarationCQuery extends MissingStaticSpecifierObjectRedeclarationSharedSharedQuery
+{
+  MissingStaticSpecifierObjectRedeclarationCQuery() {
+    this = Declarations5Package::missingStaticSpecifierObjectRedeclarationCQuery()
+  }
+}

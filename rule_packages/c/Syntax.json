@@ -14,7 +14,8 @@
           "short_name": "CharacterSequencesAndUsedWithinAComment",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -35,7 +36,8 @@
           "tags": [
             "maintainability",
             "readability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -57,7 +59,8 @@
           "tags": [
             "maintainability",
             "readability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -79,7 +82,8 @@
           "tags": [
             "maintainability",
             "readability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -100,7 +104,8 @@
           "shared_implementation_short_name": "DifferentIdentifiersNotTypographicallyUnambiguous",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -120,8 +125,12 @@
           "short_name": "UOrUSuffixRepresentedInUnsignedType",
           "tags": [
             "maintainability",
-            "readability"
-          ]
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
+          ],
+          "implementation_scope": {
+            "description": "This implementation does not consider constants defined in macro bodies."
+          }
         }
       ],
       "title": "A 'U' or 'u' suffix shall be applied to all integer constants that are represented in an unsigned type"
@@ -141,7 +150,8 @@
           "shared_implementation_short_name": "LowercaseLStartsInLiteralSuffix",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

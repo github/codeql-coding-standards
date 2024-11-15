@@ -15,7 +15,8 @@
           "shared_implementation_short_name": "GotoStatementShouldNotBeUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
