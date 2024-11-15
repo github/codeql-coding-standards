@@ -1,8 +1,8 @@
 edges
-| test.c:39:16:39:20 | call to fopen indirection | test.c:41:15:41:18 | file indirection |
+| test.c:39:16:39:20 | *call to fopen | test.c:41:15:41:18 | *file | provenance |  |
 nodes
-| test.c:39:16:39:20 | call to fopen indirection | semmle.label | call to fopen indirection |
-| test.c:41:15:41:18 | file indirection | semmle.label | file indirection |
+| test.c:39:16:39:20 | *call to fopen | semmle.label | *call to fopen |
+| test.c:41:15:41:18 | *file | semmle.label | *file |
 subpaths
 #select
-| test.c:41:15:41:18 | file indirection | test.c:39:16:39:20 | call to fopen indirection | test.c:41:15:41:18 | file indirection | Obsolescent call to ungetc on file stream $@ at position zero. | test.c:39:16:39:20 | call to fopen indirection | call to fopen indirection |
+| test.c:41:15:41:18 | *file | test.c:39:16:39:20 | *call to fopen | test.c:41:15:41:18 | *file | Obsolescent call to ungetc on file stream $@ at position zero. | test.c:39:16:39:20 | *call to fopen | *call to fopen |
