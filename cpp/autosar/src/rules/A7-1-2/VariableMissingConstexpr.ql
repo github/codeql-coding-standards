@@ -35,18 +35,24 @@ predicate isTypeZeroInitializable(Type t) {
   t.getUnderlyingType() instanceof ArrayType
 }
 
-from Variable v
+from Variable v, string msg
 where
   not isExcluded(v, ConstPackage::variableMissingConstexprQuery()) and
   v.hasDefinition() and
   not v.isConstexpr() and
   not v instanceof Parameter and
   not v.isAffectedByMacro() and
-  // Don't consider non-static member variables.
   (
     not v instanceof MemberVariable
     or
-    v.isStatic()
+    // In case member functions are left un-instantiated, it is possible
+    // the member variable could be modified in them.
+    // Hence, don't raise an alert in case this member variable's class
+    // has a member function that doesn't have a definition.
+    not exists(MemberFunction mf |
+      mf.getDeclaringType() = v.getDeclaringType() and
+      mf.isFromUninstantiatedTemplate(_)
+    )
   ) and
   isLiteralType(v.getType()) and
   // Unfortunately, `isConstant` is not sufficient here because it doesn't include calls to
@@ -72,5 +78,6 @@ where
   // Exclude variables in uninstantiated templates, as they may be incomplete
   not v.isFromUninstantiatedTemplate(_) and
   // Exclude compiler generated variables, which are not user controllable
-  not v.isCompilerGenerated()
-select v, "Variable '" + v.getName() + "' could be marked 'constexpr'."
+  not v.isCompilerGenerated() and
+  if v instanceof MemberVariable and not v.isStatic() then msg = " and static." else msg = "."
+select v, "Variable '" + v.getName() + "' could be marked 'constexpr'" + msg
