@@ -20,9 +20,11 @@ where
   not isExcluded(v, Declarations7Package::variableLengthArrayTypesUsedQuery()) and
   size = v.getVlaDimensionStmt(0).getDimensionExpr() and
   (
-    arrayType = v.getVariable().getType()
+    // Holds is if v is a variable declaration:
+    arrayType = v.getVariable().getType().stripTopLevelSpecifiers()
     or
-    arrayType = v.getType().getUnspecifiedType()
+    // Holds is if v is a typedef declaration:
+    arrayType = v.getType().stripTopLevelSpecifiers()
   ) and
   typeStr = arrayType.getBaseType().toString()
 select v, "Variable length array of element type '" + typeStr + "' with non-constant size $@.",

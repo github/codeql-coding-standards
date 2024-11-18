@@ -1,6 +1,83 @@
 import cpp
 
 /**
+ * A declaration involving a variably-modified type.
+ */
+class VmtDeclarationEntry extends DeclarationEntry {
+  Expr sizeExpr;
+  CandidateVlaType vlaType;
+  // `before` and `after` are captured for debugging, see doc comment for
+  // `declarationSubsumes`.
+  Location before;
+  Location after;
+
+  VmtDeclarationEntry() {
+    // Most of this library looks for candidate VLA types, by looking for arrays
+    // without a size. These may or may not be VLA types. To confirm an a
+    // candidate type is really a VLA type, we check that the location of the
+    // declaration subsumes a `VlaDimensionStmt` which indicates a real VLA.
+    sizeExpr = any(VlaDimensionStmt vla).getDimensionExpr() and
+    declarationSubsumes(this, sizeExpr.getLocation(), before, after) and
+    (
+      if this instanceof ParameterDeclarationEntry
+      then vlaType = this.getType().(VariablyModifiedTypeIfAdjusted).getInnerVlaType()
+      else vlaType = this.getType().(VariablyModifiedTypeIfUnadjusted).getInnerVlaType()
+    )
+  }
+
+  Expr getSizeExpr() { result = sizeExpr }
+
+  CandidateVlaType getVlaType() { result = vlaType }
+}
+
+/**
+ * Check that the declaration entry, which may be a parameter or a variable
+ * etc., seems to subsume the location of `inner`, including the declaration
+ * type text.
+ *
+ * The location of the `DeclarationEntry` itself points to the _identifier_
+ * that is declared. This range will not include the type of the declaration.
+ *
+ * For parameters, the `before` and `end` `Location` objects will be
+ * constrained to the closest earlier element (parameter or function body),
+ * these values can therefore be captured and inspected for debugging.
+ *
+ * For declarations which occur in statements, the `before` and `end`
+ * `Location` objects will be both constrained to be equal, and equal to,
+ * the `Location` of the containing `DeclStmt`.
+ */
+private predicate declarationSubsumes(
+  DeclarationEntry entry, Location inner, Location before, Location after
+) {
+  inner.getFile() = entry.getLocation().getFile() and
+  (
+    exists(ParameterDeclarationEntry param, FunctionDeclarationEntry func, int i |
+      param = entry and
+      func = param.getFunctionDeclarationEntry() and
+      func.getParameterDeclarationEntry(i) = param and
+      before = entry.getLocation() and
+      (
+        after = func.getParameterDeclarationEntry(i + 1).getLocation()
+        or
+        not exists(ParameterDeclarationEntry afterParam |
+          afterParam = func.getParameterDeclarationEntry(i + 1)
+        ) and
+        after = func.getBlock().getLocation()
+      )
+    ) and
+    before.isBefore(inner, _) and
+    inner.isBefore(after, _)
+    or
+    exists(DeclStmt s |
+      s.getADeclaration() = entry.getDeclaration() and
+      before = s.getLocation() and
+      after = before and
+      before.subsumes(inner)
+    )
+  )
+}
+
+/**
  * A candidate to be a variably length array type (VLA).
  *
  * This class represents a candidate only, for a few reasons.
@@ -90,19 +167,13 @@ class NoAdjustmentVariablyModifiedType extends Type {
   NoAdjustmentVariablyModifiedType() {
     exists(Type innerType |
       (
-        innerType = this.(PointerType).getBaseType()
-        or
-        innerType = this.(ArrayType).getBaseType()
+        innerType = this.(DerivedType).getBaseType()
         or
         innerType = this.(RoutineType).getReturnType()
-        or
-        innerType = this.(RoutineType).getAParameterType()
         or
         innerType = this.(FunctionPointerType).getReturnType()
         or
         innerType = this.(TypedefType).getBaseType()
-        or
-        innerType = this.(SpecifiedType).getBaseType()
       ) and
       vlaType = innerType.(VariablyModifiedTypeIfUnadjusted).getInnerVlaType()
     )

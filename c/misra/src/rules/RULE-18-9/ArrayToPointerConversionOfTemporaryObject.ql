@@ -18,32 +18,20 @@ import codingstandards.c.misra
 import codingstandards.cpp.lifetimes.CLifetimes
 
 /**
- * Get the expression(s) whose value is "used" by this expression.
+ * Holds if the value of an expression is used or stored.
  *
  * For instance, `(x)` does not use any values, but `x + y` uses `x` and `y`.
  *
  * A pointer-to-array conversion does not need to be flagged if the result of
  * that conversion is not used or stored.
  */
-Expr usedValuesOf(Expr expr) {
-  result = expr.(BinaryOperation).getLeftOperand()
+predicate isUsedOrStored(Expr e) {
+  e = any(Operation o).getAnOperand()
   or
-  result = expr.(BinaryOperation).getRightOperand()
+  e = any(ConditionalExpr c).getCondition()
   or
-  result = expr.(UnaryOperation).getOperand()
+  e = any(Call c).getAnArgument()
   or
-  result = expr.(ConditionalExpr).getCondition()
-  or
-  result = expr.(Call).getAnArgument()
-}
-
-/**
- * Get the expression(s) whose value is stored by this declaration.
- *
- * A pointer-to-array conversion does not need to be flagged if the result of
- * that conversion is not used or stored.
- */
-predicate isStored(Expr e) {
   e = any(VariableDeclarationEntry d).getDeclaration().getInitializer().getExpr()
   or
   e = any(ClassAggregateLiteral l).getAFieldExpr(_)
@@ -77,10 +65,6 @@ where
   not isExcluded(conversion, InvalidMemory3Package::arrayToPointerConversionOfTemporaryObjectQuery()) and
   fa.getTemporary() = temporary and
   conversion.getExpr() = fa and
-  (
-    temporaryObjectFlowStep*(conversion.getExpr()) = usedValuesOf(any(Expr e))
-    or
-    isStored(temporaryObjectFlowStep*(conversion.getExpr()))
-  )
+  isUsedOrStored(temporaryObjectFlowStep*(conversion.getExpr()))
 select conversion, "Array to pointer conversion of array $@ from temporary object $@",
   fa.getTarget(), fa.getTarget().getName(), temporary, temporary.toString()

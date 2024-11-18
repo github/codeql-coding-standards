@@ -25,7 +25,7 @@ class TemporaryLifetimeExpr extends Expr {
     getUnconverted().getUnspecifiedType() instanceof StructOrUnionTypeWithArrayField and
     not isCLValue(this)
     or
-    this.(ArrayExpr).getArrayBase() instanceof TemporaryLifetimeArrayAccess
+    this.getUnconverted().(ArrayExpr).getArrayBase() instanceof TemporaryLifetimeArrayAccess
   }
 }
 
