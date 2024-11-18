@@ -791,7 +791,7 @@ c,MISRA-C-2012,RULE-21-22,Yes,Mandatory,,,All operand arguments to any type-gene
 c,MISRA-C-2012,RULE-21-23,Yes,Required,,,All operand arguments to any multi-argument type-generic macros in <tgmath.h> shall have the same standard type,Rule-21-22,EssentialTypes2,Easy,
 c,MISRA-C-2012,RULE-21-24,Yes,Required,,,The random number generator functions of <stdlib.h> shall not be used,MSC30-C,Banned2,Easy,
 c,MISRA-C-2012,RULE-21-25,Yes,Required,,,All memory synchronization operations shall be executed in sequentially consistent order,,Concurrency6,Medium,
-c,MISRA-C-2012,RULE-21-26,Yes,Required,,,The Standard Library function mtx_timedlock() shall only be invoked on mutex objects of appropriate mutex type,,Concurrency8,Hard,
+c,MISRA-C-2012,RULE-21-26,Yes,Required,,,The Standard Library function mtx_timedlock() shall only be invoked on mutex objects of appropriate mutex type,,Concurrency7,Hard,
 c,MISRA-C-2012,RULE-22-1,Yes,Required,,,All resources obtained dynamically by means of Standard Library functions shall be explicitly released,,Memory2,Hard,
 c,MISRA-C-2012,RULE-22-2,Yes,Mandatory,,,A block of memory shall only be freed if it was allocated by means of a Standard Library function,,Memory2,Hard,
 c,MISRA-C-2012,RULE-22-3,Yes,Required,,,The same file shall not be open for read and write access at the same time on different streams,,IO3,Hard,
