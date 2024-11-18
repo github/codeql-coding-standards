@@ -18,7 +18,7 @@ import codingstandards.c.misra
 import semmle.code.cpp.valuenumbering.HashCons
 
 predicate lexicallyEqual(AttributeArgument a, AttributeArgument b) {
-  hashCons(a.getValueConstant()) =  hashCons(b.getValueConstant()) or
+  hashCons(a.getValueConstant()) = hashCons(b.getValueConstant()) or
   a.getValueType() = b.getValueType()
 }
 
