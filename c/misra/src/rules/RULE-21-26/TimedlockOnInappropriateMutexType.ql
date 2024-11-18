@@ -2,7 +2,7 @@
  * @id c/misra/timedlock-on-inappropriate-mutex-type
  * @name RULE-21-26: The Standard Library function mtx_timedlock() shall only be invoked on mutexes of type mtx_timed
  * @description The Standard Library function mtx_timedlock() shall only be invoked on mutex objects
- *              of appropriate mutex type
+ *              of appropriate mutex type.
  * @kind path-problem
  * @precision high
  * @problem.severity error

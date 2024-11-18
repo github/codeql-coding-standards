@@ -26,7 +26,7 @@
       },
       "queries": [
         {
-          "description": "The Standard Library function mtx_timedlock() shall only be invoked on mutex objects of appropriate mutex type",
+          "description": "The Standard Library function mtx_timedlock() shall only be invoked on mutex objects of appropriate mutex type.",
           "kind": "path-problem",
           "name": "The Standard Library function mtx_timedlock() shall only be invoked on mutexes of type mtx_timed",
           "precision": "high",

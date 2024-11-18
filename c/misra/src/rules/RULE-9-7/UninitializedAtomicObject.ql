@@ -18,11 +18,14 @@ import semmle.code.cpp.controlflow.Dominance
 
 class ThreadSpawningFunction extends Function {
   ThreadSpawningFunction() {
-    this.hasName("pthread_create") or
-    this.hasName("thrd_create") or
+    this.hasName("pthread_create")
+    or
+    this.hasName("thrd_create")
+    or
     exists(FunctionCall fc |
       fc.getTarget() instanceof ThreadSpawningFunction and
-      fc.getEnclosingFunction() = this)
+      fc.getEnclosingFunction() = this
+    )
   }
 }
 
@@ -37,9 +40,7 @@ class AtomicInitAddressOfExpr extends FunctionCall {
     )
   }
 
-  Expr getAddressedExpr() {
-    result = addressedExpr
-  }
+  Expr getAddressedExpr() { result = addressedExpr }
 }
 
 ControlFlowNode getARequiredInitializationPoint(LocalScopeVariable v) {
@@ -47,11 +48,12 @@ ControlFlowNode getARequiredInitializationPoint(LocalScopeVariable v) {
   or
   exists(DeclStmt decl |
     decl.getADeclaration() = v and
-    result = any(FunctionCall fc
-      | fc.getTarget() instanceof ThreadSpawningFunction and
-      fc.getEnclosingBlock().getEnclosingBlock*() = v.getParentScope() and
-      fc.getAPredecessor*() = decl
-    )
+    result =
+      any(FunctionCall fc |
+        fc.getTarget() instanceof ThreadSpawningFunction and
+        fc.getEnclosingBlock().getEnclosingBlock*() = v.getParentScope() and
+        fc.getAPredecessor*() = decl
+      )
   )
 }
 
@@ -63,8 +65,8 @@ where
   not v.isTopLevel() and
   not exists(v.getInitializer()) and
   exists(ControlFlowNode missingInitPoint |
-    missingInitPoint = getARequiredInitializationPoint(v)
-    and not exists(AtomicInitAddressOfExpr initialization |
+    missingInitPoint = getARequiredInitializationPoint(v) and
+    not exists(AtomicInitAddressOfExpr initialization |
       initialization.getAddressedExpr().(VariableAccess).getTarget() = v and
       dominates(initialization, missingInitPoint)
     )
