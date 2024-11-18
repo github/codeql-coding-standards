@@ -15,21 +15,10 @@
 
 import cpp
 import codingstandards.c.misra
-
-predicate lexicallyEqualExpr(Expr a, Expr b) {
-  a.toString() = b.toString() and
-  a.getNumChild() = b.getNumChild() and
-  forall(Expr aChild, Expr bChild, int i |
-    aChild = a.getChild(i) and
-    bChild = b.getChild(i) and
-    i < a.getNumChild()
-  |
-    lexicallyEqualExpr(aChild, bChild)
-  )
-}
+import semmle.code.cpp.valuenumbering.HashCons
 
 predicate lexicallyEqual(AttributeArgument a, AttributeArgument b) {
-  lexicallyEqualExpr(a.getValueConstant(), b.getValueConstant()) or
+  hashCons(a.getValueConstant()) =  hashCons(b.getValueConstant()) or
   a.getValueType() = b.getValueType()
 }
 

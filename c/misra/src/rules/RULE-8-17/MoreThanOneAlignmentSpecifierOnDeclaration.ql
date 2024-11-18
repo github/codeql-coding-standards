@@ -20,9 +20,12 @@ where
   not isExcluded(v, AlignmentPackage::moreThanOneAlignmentSpecifierOnDeclarationQuery()) and
   first = v.getAnAttribute() and
   last = v.getAnAttribute() and
-  first != last and
+  not first = last and
   first.hasName("_Alignas") and
   last.hasName("_Alignas") and
+  // Handle double reporting: the first Attribute should really be first, and the last Attribute
+  // should really be last. This implies the first is before the last. This approach also ensures
+  // a single result for variables that have more than two alignment specifiers.
   not exists(Attribute beforeFirst |
     beforeFirst.getLocation().isBefore(first.getLocation(), _) and
     v.getAnAttribute() = beforeFirst

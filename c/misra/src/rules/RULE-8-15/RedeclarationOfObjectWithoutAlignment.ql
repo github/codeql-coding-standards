@@ -46,10 +46,9 @@ newtype TAttributeDeclLocation =
  * This should give us a highly reliable means of finding which attributes are
  * associated with which `DeclarationEntry`s.
  *
- * One note of caution: the associated `Variable` must be treated with caution,
- * as there are multiple instances of that `Variable` if it is declared
- * multiple times, they equal each other, and `getLocation()` on each variable
- * returns every location result. This class must act on `DeclarationEntry`s to
+ * One note of caution: the location of the associated `Variable` must be
+ * treated with caution, as calls to `getLocation()` on a redeclared `Variable`
+ * can return multiple results. This class must act on `DeclarationEntry`s to
  * deliver reliable results.
  */
 class DeclarationEntryAttribute extends Attribute {
