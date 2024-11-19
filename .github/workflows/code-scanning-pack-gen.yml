@@ -68,15 +68,17 @@ jobs:
       - name: Determine ref for external help files
         id: determine-ref
         run: |
-          if [[ $GITHUB_EVENT_NAME == "pull_request" || $GITHUB_EVENT_NAME == "merge_group" ]]; then
-            echo "EXTERNAL_HELP_REF=$GITHUB_HEAD_REF" >> "$GITHUB_ENV"
+          if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+            EXTERNAL_HELP_REF="${{ github.event.pull_request.base.ref }}"
+          elif [[ $GITHUB_EVENT_NAME == "merge_group" ]]; then
+            EXTERNAL_HELP_REF="${{ github.event.merge_group.base_ref }}"
           else
-            echo "EXTERNAL_HELP_REF=$GITHUB_REF" >> "$GITHUB_ENV"
+            EXTERNAL_HELP_REF="$GITHUB_REF"
           fi
+          echo "EXTERNAL_HELP_REF=$EXTERNAL_HELP_REF" >> "$GITHUB_ENV"
           echo "Using ref $EXTERNAL_HELP_REF for external help files."
 
       - name: Checkout external help files
-        continue-on-error: true
         id: checkout-external-help-files
         uses: actions/checkout@v4
         with:
