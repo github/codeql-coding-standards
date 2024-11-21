@@ -207,6 +207,9 @@
                                 },
                                 "title": {
                                     "type": "string"
+                                },
+                                "implementation_scope": {
+                                    "$ref": "#/$defs/implementation_scope"
                                 }
                             },
                             "required": [
@@ -348,21 +351,7 @@
                     "minLength": 1
                 },
                 "implementation_scope": {
-                    "type": "object",
-                    "properties": {
-                        "description": {
-                            "kind": "string"
-                        },
-                        "items": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "required": [
-                        "description"
-                    ]
+                    "$ref": "/schemas/implementation_scope"
                 }
             },
             "required": [
@@ -373,6 +362,25 @@
                 "short_name",
                 "tags"
             ]
+        },
+        "implementation_scope": {
+            "$id": "/schemas/implementation_scope",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "kind": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "description"
+            ],
+            "additionalProperties": false
         }
     }
 }
