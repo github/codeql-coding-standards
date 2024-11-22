@@ -43,3 +43,54 @@ void test_loop_counter_mod_in_side_effect() {
     inc(i); // NON_COMPLIANT - modifies `i`
   }
 }
+
+void test_loop_counter_reference_mod_in_condition() {
+  auto loop = [](int &i) {
+    for (; (i++ < 10); i++) { // NON_COMPLIANT
+    }
+  };
+  int i = 0;
+  loop(i);
+}
+
+void test_loop_counter_reference_mod() {
+  auto loop = [](int &i) {
+    for (; i < 10; i++) { // COMPLIANT
+    }
+  };
+  int i = 0;
+  loop(i);
+}
+
+void test_loop_const_reference() {
+  auto loop = []([[maybe_unused]] int const &i) {
+    for (int i = 0; i < 10; i++) { // COMPLIANT
+    }
+  };
+  int i = 0;
+  loop(i);
+}
+
+void test_loop_counter_reference_mod_in_statement() {
+  auto loop = [](int &i) {
+    for (; (i < 10); i++) {
+      i++; // NON_COMPLIANT
+    }
+  };
+  int i = 0;
+  loop(i);
+}
+
+int const_reference(int const &i) { return i; }
+
+int reference(int &i) { return i; }
+
+int copy(int i) { return i; }
+
+void test_pass_argument_by() {
+  for (int i = 0; i < 10; i++) {
+    const_reference(i); // COMPLIANT
+    reference(i);       // NON_COMPLIANT
+    copy(i);            // COMPLIANT
+  }
+}
