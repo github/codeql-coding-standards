@@ -31,16 +31,14 @@ class VlaTypedefType extends Type {
     vlaDecl.getType() instanceof TypedefType and
     arrayType = vlaDecl.getType().stripTopLevelSpecifiers()
     or
-    // Holds for adding a constant dimension to a VLA typedef type:
-    arrayType = this.stripTopLevelSpecifiers() and
-    vlaDecl = arrayType.getBaseType().(VlaTypedefType).getVlaDeclStmt()
-    or
-    // Carefully ignore specifiers, `stripTopLevelSpecifiers()` resolves past the typedef
-    exists(SpecifiedType st, VlaTypedefType inner |
-      st = this and
-      st.getBaseType() = inner and
-      arrayType = inner.getArrayType() and
-      vlaDecl = inner.getVlaDeclStmt()
+    // Handle arrays of VLA typedefs, and carefully handle specified VLA typedef types, as
+    // `stripTopLevelSpecifiers` resolves past the VLA typedef type.
+    exists(DerivedType dt, VlaTypedefType vlaType |
+      (dt instanceof ArrayType or dt instanceof SpecifiedType) and
+      this = dt and
+      vlaType = dt.getBaseType() and
+      vlaDecl = vlaType.getVlaDeclStmt() and
+      arrayType = vlaType.getArrayType()
     )
   }
 
