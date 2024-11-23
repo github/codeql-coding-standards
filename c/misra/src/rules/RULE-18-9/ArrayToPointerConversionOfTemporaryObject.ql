@@ -66,5 +66,5 @@ where
   fa.getTemporary() = temporary and
   conversion.getExpr() = fa and
   isUsedOrStored(temporaryObjectFlowStep*(conversion.getExpr()))
-select conversion, "Array to pointer conversion of array $@ from temporary object $@",
+select conversion, "Array to pointer conversion of array $@ from temporary object $@.",
   fa.getTarget(), fa.getTarget().getName(), temporary, temporary.toString()

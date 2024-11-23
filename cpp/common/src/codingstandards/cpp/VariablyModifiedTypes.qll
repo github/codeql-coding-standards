@@ -2,6 +2,8 @@ import cpp
 
 /**
  * A declaration involving a variably-modified type.
+ *
+ * Note, this holds for both VLA variable and VLA typedefs.
  */
 class VmtDeclarationEntry extends DeclarationEntry {
   Expr sizeExpr;
@@ -28,6 +30,14 @@ class VmtDeclarationEntry extends DeclarationEntry {
   Expr getSizeExpr() { result = sizeExpr }
 
   CandidateVlaType getVlaType() { result = vlaType }
+
+  /* VLAs may occur in macros, and result in duplication that messes up our analysis. */
+  predicate appearsDuplicated() {
+    exists(VmtDeclarationEntry other |
+      other != this and
+      other.getSizeExpr() = getSizeExpr()
+    )
+  }
 }
 
 /**

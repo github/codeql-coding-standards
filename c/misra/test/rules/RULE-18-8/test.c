@@ -14,9 +14,13 @@ void f(int n) {
 
   extern int e1[]; // COMPLIANT
 
-  // A typedef is not a VLA. However, `VlaDeclStmt`s match the typedef.
-  typedef int vlaTypedef[n]; // COMPLIANT[FALSE_POSITIVE]
-  vlaTypedef t1;             // NON_COMPLIANT[FALSE_NEGATIVE]
+  // A typedef is not a VLA.
+  typedef int vlaTypedef[n]; // COMPLIANT
+  // The declarations using the typedef may or may not be VLAs.
+  vlaTypedef t1;    // NON_COMPLIANT
+  vlaTypedef t2[1]; // NON_COMPLIANT
+  vlaTypedef t3[x]; // NON_COMPLIANT
+  vlaTypedef *t4;   // COMPLIANT
 }
 
 void f1(int n,

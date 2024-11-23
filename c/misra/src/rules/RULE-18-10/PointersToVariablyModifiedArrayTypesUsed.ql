@@ -42,7 +42,9 @@ where
     if v.getType().(PointerType).getBaseType() instanceof CandidateVlaType
     then relationstr = "pointer to"
     else relationstr = "with inner"
-  )
+  ) and
+  // Remove results that appear to be unreliable, potentially from a macro.
+  not v.appearsDuplicated()
 select v,
   declstr + v.getName() + " is " + adjuststr + " variably-modified type, " + relationstr +
     " variable length array of non constant size $@ and element type '" +

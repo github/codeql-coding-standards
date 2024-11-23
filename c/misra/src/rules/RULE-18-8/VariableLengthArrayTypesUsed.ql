@@ -15,16 +15,55 @@
 import cpp
 import codingstandards.c.misra
 
-from VlaDeclStmt v, Expr size, ArrayType arrayType, string typeStr
+/**
+ * Typedefs may be declared as VLAs, eg, `typedef int vla[x];`. This query finds types that refer to
+ * such typedef types, for instance `vla foo;` or adding a dimension via `vla bar[10];`.
+ *
+ * Consts and other specifiers may be added, but `vla *ptr;` is not a VLA any more, and is excluded.
+ */
+class VlaTypedefType extends Type {
+  VlaDeclStmt vlaDecl;
+  ArrayType arrayType;
+
+  VlaTypedefType() {
+    // Holds for direct references to the typedef type:
+    this = vlaDecl.getType() and
+    vlaDecl.getType() instanceof TypedefType and
+    arrayType = vlaDecl.getType().stripTopLevelSpecifiers()
+    or
+    // Holds for adding a constant dimension to a VLA typedef type:
+    arrayType = this.stripTopLevelSpecifiers() and
+    vlaDecl = arrayType.getBaseType().(VlaTypedefType).getVlaDeclStmt()
+    or
+    // Carefully ignore specifiers, `stripTopLevelSpecifiers()` resolves past the typedef
+    exists(SpecifiedType st, VlaTypedefType inner |
+      st = this and
+      st.getBaseType() = inner and
+      arrayType = inner.getArrayType() and
+      vlaDecl = inner.getVlaDeclStmt()
+    )
+  }
+
+  VlaDeclStmt getVlaDeclStmt() { result = vlaDecl }
+
+  ArrayType getArrayType() { result = arrayType }
+}
+
+from Variable v, Expr size, ArrayType arrayType, VlaDeclStmt vlaDecl, string typeStr
 where
   not isExcluded(v, Declarations7Package::variableLengthArrayTypesUsedQuery()) and
-  size = v.getVlaDimensionStmt(0).getDimensionExpr() and
+  size = vlaDecl.getVlaDimensionStmt(0).getDimensionExpr() and
   (
     // Holds is if v is a variable declaration:
-    arrayType = v.getVariable().getType().stripTopLevelSpecifiers()
+    v = vlaDecl.getVariable() and
+    arrayType = v.getType().stripTopLevelSpecifiers()
     or
     // Holds is if v is a typedef declaration:
-    arrayType = v.getType().stripTopLevelSpecifiers()
+    exists(VlaTypedefType typedef |
+      v.getType() = typedef and
+      arrayType = typedef.getArrayType() and
+      vlaDecl = typedef.getVlaDeclStmt()
+    )
   ) and
   typeStr = arrayType.getBaseType().toString()
 select v, "Variable length array of element type '" + typeStr + "' with non-constant size $@.",
