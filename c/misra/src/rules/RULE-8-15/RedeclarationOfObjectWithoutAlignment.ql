@@ -92,5 +92,5 @@ where
   )
 select unaligned,
   "Variable " + unaligned.getName() +
-    " declared without explicit alignment to match $@ with alignment $@", aligned,
+    " declared without explicit alignment to match $@ with alignment $@.", aligned,
   "other definition", attribute, attribute.toString()

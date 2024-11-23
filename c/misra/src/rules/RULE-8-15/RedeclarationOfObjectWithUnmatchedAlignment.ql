@@ -32,5 +32,5 @@ where
   ) and
   not lexicallyEqual(alignment.getArgument(0), mismatched.getArgument(0))
 select alignment,
-  "Variable " + variable + " declared with lexically different _Alignof() values '$@' and '$@'",
+  "Variable " + variable + " declared with lexically different _Alignof() values '$@' and '$@'.",
   alignment, alignment.getArgument(0).toString(), mismatched, mismatched.getArgument(0).toString()
