@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.lifetimes.CLifetimes
+import codingstandards.c.Objects
 
 /**
  * Holds if the value of an expression is used or stored.
@@ -59,11 +59,11 @@ Expr temporaryObjectFlowStep(Expr e) {
 }
 
 from
-  TemporaryLifetimeArrayAccess fa, TemporaryLifetimeExpr temporary,
+  FieldAccess fa, TemporaryObjectIdentity temporary,
   ArrayToPointerConversion conversion
 where
   not isExcluded(conversion, InvalidMemory3Package::arrayToPointerConversionOfTemporaryObjectQuery()) and
-  fa.getTemporary() = temporary and
+  fa = temporary.getASubobjectAccess() and
   conversion.getExpr() = fa and
   isUsedOrStored(temporaryObjectFlowStep*(conversion.getExpr()))
 select conversion, "Array to pointer conversion of array $@ from temporary object $@.",

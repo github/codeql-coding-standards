@@ -69,6 +69,42 @@ class C11ThreadCreateCall extends ThreadCreationFunction {
   override ControlFlowNode getNext() { result = getFunction().getEntryPoint() }
 }
 
+class C11MutexType extends TypedefType {
+  C11MutexType() {
+    this.hasName("mtx_t")
+  }
+}
+
+class C11ThreadType extends TypedefType {
+  C11ThreadType() {
+    this.hasName("thrd_t")
+  }
+}
+
+class C11ConditionType extends TypedefType {
+  C11ConditionType() {
+    this.hasName("cnd_t")
+  }
+}
+
+class C11ThreadStorageType extends TypedefType {
+  C11ThreadStorageType() {
+    this.hasName("tss_t")
+  }
+}
+
+class C11ThreadingObjectType extends TypedefType {
+  C11ThreadingObjectType() {
+    this instanceof C11MutexType
+    or
+    this instanceof C11ThreadType
+    or
+    this instanceof C11ConditionType
+    or 
+    this instanceof C11ThreadStorageType
+  }
+}
+
 /**
  * Common base class providing an interface into function call
  * based mutex locks.
@@ -317,14 +353,14 @@ abstract class LockingOperation extends FunctionCall {
  */
 class RAIIStyleLock extends LockingOperation {
   VariableAccess lock;
-  Element e;
 
   RAIIStyleLock() {
     (
       getTarget().getDeclaringType().hasQualifiedName("std", "lock_guard") or
       getTarget().getDeclaringType().hasQualifiedName("std", "unique_lock") or
       getTarget().getDeclaringType().hasQualifiedName("std", "scoped_lock")
-    )
+    ) and
+    lock = getArgument(0).getAChild*()
   }
 
   /**
@@ -333,7 +369,6 @@ class RAIIStyleLock extends LockingOperation {
   override predicate isLock() {
     not isLockingOperationWithinLockingOperation(this) and
     this instanceof ConstructorCall and
-    lock = getArgument(0).getAChild*() and
     // defer_locks don't cause a lock
     not exists(Expr exp |
       exp = getArgument(1) and
@@ -464,6 +499,28 @@ class CConditionalWait extends ConditionalWait {
 }
 
 /**
+ * Models a function which uses a c condition variable. Not integrated into the thread aware CFG.
+ */
+class CConditionOperation extends FunctionCall {
+  CConditionOperation() {
+    getTarget().hasName(["cnd_broadcast", "cnd_signal", "cnd_timedwait", "cnd_wait", "cnd_init"])
+  }
+
+  predicate isInit() {
+    getTarget().hasName("cnd_init")
+  }
+
+  predicate isUse() {
+    not isInit()
+  }
+
+  Expr getConditionExpr() { result = getArgument(0) }
+
+  /* Note: only holds for `cnd_wait()` and `cnd_timedwait()` */
+  Expr getMutexExpr() { result = getArgument(1) }
+}
+
+/**
  * Models a call to a `std::thread` constructor that depends on a mutex.
  */
 class MutexDependentThreadConstructor extends ThreadConstructorCall {
@@ -531,6 +588,10 @@ class CPPMutexSource extends MutexSource, ConstructorCall {
  */
 class C11MutexSource extends MutexSource, FunctionCall {
   C11MutexSource() { getTarget().hasName("mtx_init") }
+
+  Expr getMutexExpr() { result = getArgument(0) }
+
+  Expr getMutexTypeExpr() { result = getArgument(1) }
 }
 
 /**

@@ -14,30 +14,39 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.c.Objects
 import codingstandards.cpp.Concurrency
 import codingstandards.cpp.dataflow.TaintTracking
 import codingstandards.cpp.dataflow.DataFlow
 import semmle.code.cpp.commons.Alloc
 
-from C11ThreadCreateCall tcc, StackVariable sv, Expr arg, Expr acc
+from C11ThreadCreateCall tcc, Expr arg
 where
   not isExcluded(tcc, Concurrency4Package::appropriateThreadObjectStorageDurationsQuery()) and
   tcc.getArgument(2) = arg and
-  sv.getAnAccess() = acc and
-  // a stack variable that is given as an argument to a thread
-  TaintTracking::localTaint(DataFlow::exprNode(acc), DataFlow::exprNode(arg)) and
-  // or isn't one of the allowed usage patterns
-  not exists(Expr mfc |
-    isAllocationExpr(mfc) and
-    sv.getAnAssignedValue() = mfc and
-    acc.getAPredecessor*() = mfc
-  ) and
-  not exists(TSSGetFunctionCall tsg, TSSSetFunctionCall tss, DataFlow::Node src |
-    sv.getAnAssignedValue() = tsg and
-    acc.getAPredecessor*() = tsg and
-    // there should be dataflow from somewhere (the same somewhere)
-    // into each of the first arguments
-    DataFlow::localFlow(src, DataFlow::exprNode(tsg.getArgument(0))) and
-    DataFlow::localFlow(src, DataFlow::exprNode(tss.getArgument(0)))
+  (
+    exists(ObjectIdentity obj, Expr acc |
+      obj.getASubobjectAccess() = acc and
+      obj.getStorageDuration().isAutomatic() and
+      exists(DataFlow::Node addrNode |
+        (
+          addrNode = DataFlow::exprNode(any(AddressOfExpr e | e.getOperand() = acc))
+          or
+          addrNode = DataFlow::exprNode(acc) and exists(ArrayToPointerConversion c | c.getExpr() = acc)
+        ) and
+        TaintTracking::localTaint(addrNode, DataFlow::exprNode(arg))
+      )
+    )
+    or
+    // TODO: Remove/replace with tss_t type check, see #801.
+    exists(TSSGetFunctionCall tsg |
+      TaintTracking::localTaint(DataFlow::exprNode(tsg), DataFlow::exprNode(arg)) and
+      not exists(TSSSetFunctionCall tss, DataFlow::Node src |
+        // there should be dataflow from somewhere (the same somewhere)
+        // into each of the first arguments
+        DataFlow::localFlow(src, DataFlow::exprNode(tsg.getArgument(0))) and
+        DataFlow::localFlow(src, DataFlow::exprNode(tss.getArgument(0)))
+      )
+    )
   )
 select tcc, "$@ not declared with appropriate storage duration", arg, "Shared object"
