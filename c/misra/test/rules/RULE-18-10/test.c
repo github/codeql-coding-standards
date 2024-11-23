@@ -94,12 +94,13 @@ void f2(int (*p1)[3],    // COMPLIANT
         int (*p5)[*][*]  // NON-COMPLIANT[FALSE_NEGATIVE]
 );
 
-#define CONFUSING_MACRO() \
-  int x; \
-  int (*vla)[x]; \
-  int (*not_vla)[];
+#define CONFUSING_MACRO()                                                      \
+  int x;                                                                       \
+  int(*vla)[x];                                                                \
+  int(*not_vla)[];
 
 void f3() {
-  // We cannot report `vla` in this macro without a false positive for `not_vla`.
+  // We cannot report `vla` in this macro without a false positive for
+  // `not_vla`.
   CONFUSING_MACRO() // COMPLIANT
 }
