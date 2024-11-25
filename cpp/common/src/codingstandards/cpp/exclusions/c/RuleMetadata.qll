@@ -2,6 +2,7 @@
 import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
+import Alignment
 import Banned
 import Banned2
 import BitfieldTypes
@@ -79,6 +80,7 @@ import Types2
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
+  TAlignmentPackageQuery(AlignmentQuery q) or
   TBannedPackageQuery(BannedQuery q) or
   TBanned2PackageQuery(Banned2Query q) or
   TBitfieldTypesPackageQuery(BitfieldTypesQuery q) or
@@ -156,6 +158,7 @@ newtype TCQuery =
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
+  isAlignmentQueryMetadata(query, queryId, ruleId, category) or
   isBannedQueryMetadata(query, queryId, ruleId, category) or
   isBanned2QueryMetadata(query, queryId, ruleId, category) or
   isBitfieldTypesQueryMetadata(query, queryId, ruleId, category) or
