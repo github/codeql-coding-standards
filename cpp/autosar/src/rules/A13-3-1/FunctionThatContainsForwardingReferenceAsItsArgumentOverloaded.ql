@@ -14,6 +14,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.FunctionEquivalence
 
 class Candidate extends TemplateFunction {
   Candidate() {
@@ -29,6 +30,8 @@ where
     OperatorsPackage::functionThatContainsForwardingReferenceAsItsArgumentOverloadedQuery()) and
   not f.isDeleted() and
   f = c.getAnOverload() and
+  // Ensure the functions are not equivalent to each other (refer #796).
+  not f = getAnEquivalentFunction(c) and
   // allow for overloading with different number of parameters, because there is no
   // confusion on what function will be called.
   f.getNumberOfParameters() = c.getNumberOfParameters() and
