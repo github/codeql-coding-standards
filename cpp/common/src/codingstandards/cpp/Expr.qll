@@ -148,17 +148,9 @@ module MisraExpr {
   private predicate isCValue(Expr e) {
     not e.isConstant() and
     (
-      exists(ReturnStmt return |
-        e = return.getExpr() and
-        // Only return statements which are not explicitly casted are considered
-        not exists(Cast c | not c.isImplicit() and c.getExpr() = e)
-      )
+      exists(ReturnStmt return | e = return.getExpr().getExplicitlyConverted())
       or
-      exists(FunctionCall call |
-        e = call.getAnArgument() and
-        // // Only function arguments which are not explicitly casted are considered
-        not exists(Cast c | not c.isImplicit() and c.getExpr() = e)
-      )
+      exists(FunctionCall call | e = call.getAnArgument().getExplicitlyConverted())
     )
     or
     isCValue(e.(ParenthesisExpr).getExpr())

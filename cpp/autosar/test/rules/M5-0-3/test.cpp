@@ -22,12 +22,15 @@ void test_func_call() {
   std::int8_t l1;
   int16_arg(l1 + l1);                            // NON_COMPLIANT
   int16_arg(static_cast<std::int16_t>(l1 + l1)); // COMPLIANT
+  int16_arg(static_cast<std::int8_t>(l1 + l1));  // NON_COMPLIANT
 }
 
 std::int16_t test_return(int test) {
   std::int8_t l1;
   if (test > 0) {
     return l1 + l1; // NON_COMPLIANT
+  } else if (test < 0) {
+    return static_cast<std::int8_t>(l1 + l1); // NON_COMPLIANT
   } else {
     return static_cast<std::int16_t>(l1 + l1); // COMPLIANT
   }
