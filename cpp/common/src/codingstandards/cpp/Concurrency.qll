@@ -352,7 +352,15 @@ class RAIIStyleLock extends LockingOperation {
       getTarget().getDeclaringType().hasQualifiedName("std", "unique_lock") or
       getTarget().getDeclaringType().hasQualifiedName("std", "scoped_lock")
     ) and
-    lock = getArgument(0).getAChild*()
+    (
+      lock = getArgument(0).getAChild*()
+      or
+      this instanceof DestructorCall and
+      exists(RAIIStyleLock constructor |
+        constructor = getQualifier().(VariableAccess).getTarget().getInitializer().getExpr() and
+        lock = constructor.getArgument(0).getAChild*()
+      )
+    )
   }
 
   /**
@@ -361,6 +369,7 @@ class RAIIStyleLock extends LockingOperation {
   override predicate isLock() {
     not isLockingOperationWithinLockingOperation(this) and
     this instanceof ConstructorCall and
+    lock = getArgument(0).getAChild*() and
     // defer_locks don't cause a lock
     not exists(Expr exp |
       exp = getArgument(1) and
