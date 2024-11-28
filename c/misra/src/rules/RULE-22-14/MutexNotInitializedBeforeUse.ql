@@ -50,6 +50,7 @@ class ThreadObjectInitialization extends FunctionCall {
 class ThreadObjectUse extends Expr {
   ObjectIdentity owningObject;
   string typeString;
+
   ThreadObjectUse() {
     owningObject.getASubobjectAddressExpr() = this and
     (
@@ -77,7 +78,6 @@ class ThreadObjectUse extends Expr {
     else result = typeString + " in object"
   }
 }
-
 
 predicate requiresInitializedMutexObject(
   Function func, ThreadObjectUse mutexUse, ObjectIdentity owningObject

@@ -22,6 +22,5 @@ from C11MutexSource mutexCreate, ThreadedFunction thread
 where
   not isExcluded(mutexCreate, Concurrency8Package::mutexInitializedInsideThreadQuery()) and
   thread.calls*(mutexCreate.getEnclosingFunction())
-select
-mutexCreate, "Mutex initialization reachable from threaded function '$@'.",
-thread, thread.getName()
+select mutexCreate, "Mutex initialization reachable from threaded function '$@'.", thread,
+  thread.getName()

@@ -32,7 +32,8 @@ where
         (
           addrNode = DataFlow::exprNode(any(AddressOfExpr e | e.getOperand() = acc))
           or
-          addrNode = DataFlow::exprNode(acc) and exists(ArrayToPointerConversion c | c.getExpr() = acc)
+          addrNode = DataFlow::exprNode(acc) and
+          exists(ArrayToPointerConversion c | c.getExpr() = acc)
         ) and
         TaintTracking::localTaint(addrNode, DataFlow::exprNode(arg))
       )

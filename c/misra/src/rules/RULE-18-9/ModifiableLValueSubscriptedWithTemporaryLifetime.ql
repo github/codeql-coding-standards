@@ -26,7 +26,9 @@ predicate usedAsModifiableLvalue(Expr expr, Boolean allowArrayAccess) {
   exists(AddressOfExpr parent | parent.getOperand() = expr)
   or
   // Don't report `x.y[0].m[0]++` twice. Recurse with `allowArrayAccess` set to false.
-  exists(FieldAccess parent | parent.getQualifier() = expr and usedAsModifiableLvalue(parent, false))
+  exists(FieldAccess parent |
+    parent.getQualifier() = expr and usedAsModifiableLvalue(parent, false)
+  )
   or
   allowArrayAccess = true and
   exists(ArrayExpr parent | parent.getArrayBase() = expr and usedAsModifiableLvalue(parent, true))

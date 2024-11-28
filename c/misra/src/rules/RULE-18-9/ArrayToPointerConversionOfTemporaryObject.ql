@@ -58,9 +58,7 @@ Expr temporaryObjectFlowStep(Expr e) {
   e = result.(ConditionalExpr).getElse()
 }
 
-from
-  FieldAccess fa, TemporaryObjectIdentity temporary,
-  ArrayToPointerConversion conversion
+from FieldAccess fa, TemporaryObjectIdentity temporary, ArrayToPointerConversion conversion
 where
   not isExcluded(conversion, InvalidMemory3Package::arrayToPointerConversionOfTemporaryObjectQuery()) and
   fa = temporary.getASubobjectAccess() and

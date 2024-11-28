@@ -18,9 +18,10 @@ import codingstandards.cpp.dataflow.DataFlow
 
 class Source extends Expr {
   ObjectIdentity rootObject;
+
   Source() {
-    rootObject.getStorageDuration().isAutomatic()
-    and this = rootObject.getASubobjectAddressExpr()
+    rootObject.getStorageDuration().isAutomatic() and
+    this = rootObject.getASubobjectAddressExpr()
   }
 }
 

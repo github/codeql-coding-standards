@@ -62,14 +62,15 @@ class FlexibleArrayStructDynamicAlloc extends FlexibleArrayAlloc, FunctionCall {
  */
 class FlexibleArrayNonDynamicAlloc extends FlexibleArrayAlloc {
   ObjectIdentity object;
+
   FlexibleArrayNonDynamicAlloc() {
     this = object and
     not object.getStorageDuration().isAllocated() and
     // Exclude temporaries. Though they should violate this rule, in practice these results are
     // often spurious and redundant, such as (*x = *x) which creates an unused temporary object.
     not object.hasTemporaryLifetime() and
-    object.getType().getUnspecifiedType() instanceof FlexibleArrayStructType
-    and not exists(Variable v | v.getInitializer().getExpr() = this)
+    object.getType().getUnspecifiedType() instanceof FlexibleArrayStructType and
+    not exists(Variable v | v.getInitializer().getExpr() = this)
   }
 
   override Element getReportElement() { result = object }
