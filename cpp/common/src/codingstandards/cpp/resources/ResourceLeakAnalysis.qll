@@ -6,32 +6,32 @@ import codeql.util.Boolean
 
 /**
  * A library for detecting leaked resources.
- * 
+ *
  * To use this library, implement `ResourceLeakConfigSig`:
- * 
+ *
  * ```
  * class UnjoinedThreadConfig implements ResourceLeakConfigSig {
  *   predicate isResource(DataFlow::Node node) {
  *     node.asExpr().isThreadCreate()
  *   }
- * 
+ *
  *   predicate isFree(ControlFlowNode node, DataFlow::Node resource) {
  *     node.asExpr().isThreadJoin(resource.asExpr())
  *   }
  * }
  * ```
- * 
+ *
  * You can now check if a resource is leaked through the module predicate
  * `ResourceLeak<UnjoinedThreadConfig>::isLeaked(resource)`.
- * 
+ *
  * The leak analysis finds the exit point of the function in which the resource is is declared, and
  * then reverses execution from there using `getAPredecessor()`. When this backwards walk discovers
  * a control flow node that frees the resource, that exploration stops. If any exploration reaches
  * a resource, that resource may be leaked via that path.
- * 
+ *
  * Uses `DataFlow::Node` in order to track aliases of the resource to better detect when the
  * resource is freed.
- * 
+ *
  * This library by default assumes that resources are expression nodes. To use it with other kinds
  * of nodes requires overriding `resourceInitPoint`.
  */
@@ -41,7 +41,8 @@ signature module ResourceLeakConfigSig {
   predicate isFree(ControlFlowNode node, DataFlow::Node resource);
 
   default DataFlow::Node getAnAlias(DataFlow::Node node) {
-    DataFlow::localFlow(node, result) or
+    DataFlow::localFlow(node, result)
+    or
     exists(Expr current, Expr after |
       current in [node.asExpr(), node.asDefiningArgument()] and
       after in [result.asExpr(), result.asDefiningArgument()] and
@@ -57,9 +58,10 @@ signature module ResourceLeakConfigSig {
 }
 
 module ResourceLeak<ResourceLeakConfigSig Config> {
-  private newtype TResource = TJustResource(DataFlow::Node resource, ControlFlowNode cfgNode) {
-    Config::isAllocate(cfgNode, resource)
-  }
+  private newtype TResource =
+    TJustResource(DataFlow::Node resource, ControlFlowNode cfgNode) {
+      Config::isAllocate(cfgNode, resource)
+    }
 
   /**
    * Get an alias of a resource, and aliases of nodes that are aliased by a resource.

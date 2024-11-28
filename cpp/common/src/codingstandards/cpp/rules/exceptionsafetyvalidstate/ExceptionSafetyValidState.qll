@@ -15,7 +15,6 @@ abstract class ExceptionSafetyValidStateSharedQuery extends Query { }
 
 Query getQuery() { result instanceof ExceptionSafetyValidStateSharedQuery }
 
-
 /**
  * `UncaughtThrowExpr` models a `throw` expression that is not handled
  */
@@ -24,18 +23,11 @@ class UncaughtThrowExpr extends ThrowExpr {
 }
 
 module ThrowLeakConfig implements ResourceLeakConfigSig {
-
   predicate isAllocate(ControlFlowNode node, DataFlow::Node resource) {
-    //exists(ResourceAcquisitionExpr rae |
-    //  node = rae and resource.asExpr() = rae
-    //)
     ResourceLeakConfig::isAllocate(node, resource)
   }
 
   predicate isFree(ControlFlowNode node, DataFlow::Node resource) {
-    //exists(ResourceAcquisitionExpr rae |
-    //  node = rae.getReleaseExpr() and resource.asExpr() = rae
-    //)
     ResourceLeakConfig::isFree(node, resource)
   }
 
@@ -43,19 +35,11 @@ module ThrowLeakConfig implements ResourceLeakConfigSig {
     result.(UncaughtThrowExpr).getEnclosingFunction() = allocPoint.(Expr).getEnclosingFunction()
   }
 
-  DataFlow::Node getAnAlias(DataFlow::Node node) {
-    DataFlow::localFlow(node, result)
-  }
+  DataFlow::Node getAnAlias(DataFlow::Node node) { DataFlow::localFlow(node, result) }
 }
 
-query predicate problems(
-  UncaughtThrowExpr te, string message, Element e, string eDescription
-) {
+query predicate problems(UncaughtThrowExpr te, string message, Element e, string eDescription) {
   not isExcluded(te, getQuery()) and
-  //exists(SubBasicBlock sbb |
-  //  sbb.getANode() = e and
-  //  te = followsInitialized(sbb)
-  //) and
   te = ResourceLeak<ThrowLeakConfig>::getALeak(e) and
   message = "The $@ is not released explicitly before throwing an exception." and
   eDescription = "allocated resource"

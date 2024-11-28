@@ -61,7 +61,7 @@
           ]
         },
         {
-          "description": "Mutex and condition objects initialized inside of threads may result in indeterministic state",
+          "description": "Mutex and condition objects initialized inside of threads may result in indeterministic state.",
           "kind": "problem",
           "name": "Thread synchronization objects shall be initialized deterministically",
           "precision": "high",

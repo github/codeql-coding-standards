@@ -47,7 +47,7 @@ void f1(void) {
   has_ptr_mtx_t l12; // COMPLIANT
   has_mtx_t l13[10]; // NON-COMPLIANT
 
-  l10 = &g1; // COMPLIANT
-  l10 = malloc(sizeof(mtx_t)); // NON-COMPLIANT
+  l10 = &g1;                       // COMPLIANT
+  l10 = malloc(sizeof(mtx_t));     // NON-COMPLIANT
   l10 = malloc(sizeof(mtx_t) * 4); // NON-COMPLIANT
 }

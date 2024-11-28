@@ -41,7 +41,7 @@ void f6(int p) {
     goto skipped;
   }
   mtx_unlock(&m);
-  skipped:
+skipped:
 }
 
 void f7(int p) {
@@ -84,24 +84,24 @@ void f13() {
     mtx_t m;
   } s;
   mtx_lock(&s.m); // COMPLIANT
-  mtx_unlock(&s.m); 
+  mtx_unlock(&s.m);
 }
 
 void f14() {
-  for(;;) {
+  for (;;) {
     mtx_t m;
     mtx_lock(&m); // COMPLIANT
-    mtx_unlock(&m); 
+    mtx_unlock(&m);
   }
 }
 
 void f15(int p) {
-  for(;;) {
+  for (;;) {
     mtx_t m;
     mtx_lock(&m); // NON-COMPLIANT
     if (p) {
       break;
     }
-    mtx_unlock(&m); 
+    mtx_unlock(&m);
   }
 }

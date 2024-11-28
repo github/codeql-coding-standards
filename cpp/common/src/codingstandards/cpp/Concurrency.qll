@@ -70,27 +70,19 @@ class C11ThreadCreateCall extends ThreadCreationFunction {
 }
 
 class C11MutexType extends TypedefType {
-  C11MutexType() {
-    this.hasName("mtx_t")
-  }
+  C11MutexType() { this.hasName("mtx_t") }
 }
 
 class C11ThreadType extends TypedefType {
-  C11ThreadType() {
-    this.hasName("thrd_t")
-  }
+  C11ThreadType() { this.hasName("thrd_t") }
 }
 
 class C11ConditionType extends TypedefType {
-  C11ConditionType() {
-    this.hasName("cnd_t")
-  }
+  C11ConditionType() { this.hasName("cnd_t") }
 }
 
 class C11ThreadStorageType extends TypedefType {
-  C11ThreadStorageType() {
-    this.hasName("tss_t")
-  }
+  C11ThreadStorageType() { this.hasName("tss_t") }
 }
 
 class C11ThreadingObjectType extends TypedefType {
@@ -100,7 +92,7 @@ class C11ThreadingObjectType extends TypedefType {
     this instanceof C11ThreadType
     or
     this instanceof C11ConditionType
-    or 
+    or
     this instanceof C11ThreadStorageType
   }
 }
@@ -506,13 +498,9 @@ class CConditionOperation extends FunctionCall {
     getTarget().hasName(["cnd_broadcast", "cnd_signal", "cnd_timedwait", "cnd_wait", "cnd_init"])
   }
 
-  predicate isInit() {
-    getTarget().hasName("cnd_init")
-  }
+  predicate isInit() { getTarget().hasName("cnd_init") }
 
-  predicate isUse() {
-    not isInit()
-  }
+  predicate isUse() { not isInit() }
 
   Expr getConditionExpr() { result = getArgument(0) }
 

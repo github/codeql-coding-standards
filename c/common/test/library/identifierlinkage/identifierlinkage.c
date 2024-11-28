@@ -25,6 +25,4 @@ struct s {
 };
 
 // Enums and enum constants are not variables and have no linkage.
-enum e {
-  E1
-};
+enum e { E1 };

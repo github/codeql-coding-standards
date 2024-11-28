@@ -2,7 +2,7 @@
  * @id c/misra/mutex-initialized-inside-thread
  * @name RULE-22-14: Thread synchronization objects shall be initialized deterministically
  * @description Mutex and condition objects initialized inside of threads may result in
- *              indeterministic state
+ *              indeterministic state.
  * @kind problem
  * @precision high
  * @problem.severity recommendation
