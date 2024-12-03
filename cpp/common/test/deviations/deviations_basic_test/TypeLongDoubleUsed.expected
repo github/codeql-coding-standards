@@ -1,1 +1,5 @@
 | main.cpp:13:15:13:16 | d1 | Use of long double type. |
+| main.cpp:18:15:18:16 | d4 | Use of long double type. |
+| main.cpp:21:15:21:16 | d6 | Use of long double type. |
+| main.cpp:30:15:30:17 | d10 | Use of long double type. |
+| main.cpp:38:15:38:17 | d14 | Use of long double type. |
