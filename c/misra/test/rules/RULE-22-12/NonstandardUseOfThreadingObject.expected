@@ -1,0 +1,27 @@
+| test.c:37:3:37:7 | mutex | Invalid usage of standard thread object type 'mtx_t'. |
+| test.c:37:11:37:21 | * ... | Invalid usage of standard thread object type 'mtx_t'. |
+| test.c:38:3:38:8 | thread | Invalid usage of standard thread object type 'thrd_t'. |
+| test.c:38:12:38:23 | * ... | Invalid usage of standard thread object type 'thrd_t'. |
+| test.c:39:3:39:13 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:39:17:39:27 | * ... | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:40:3:40:11 | condition | Invalid usage of standard thread object type 'cnd_t'. |
+| test.c:40:15:40:25 | * ... | Invalid usage of standard thread object type 'cnd_t'. |
+| test.c:43:10:43:15 | & ... | Invalid usage of standard thread object type 'mtx_t *'. |
+| test.c:44:10:44:16 | & ... | Invalid usage of standard thread object type 'thrd_t *'. |
+| test.c:45:10:45:21 | & ... | Invalid usage of standard thread object type 'tss_t *'. |
+| test.c:46:10:46:19 | & ... | Invalid usage of standard thread object type 'cnd_t *'. |
+| test.c:48:3:48:13 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:49:3:49:13 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:50:3:50:13 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:54:3:54:8 | thread | Invalid usage of standard thread object type 'thrd_t'. |
+| test.c:54:13:54:18 | thread | Invalid usage of standard thread object type 'thrd_t'. |
+| test.c:55:3:55:8 | thread | Invalid usage of standard thread object type 'thrd_t'. |
+| test.c:55:13:55:18 | thread | Invalid usage of standard thread object type 'thrd_t'. |
+| test.c:56:3:56:13 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:56:18:56:28 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:57:3:57:13 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:57:18:57:28 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:61:14:61:18 | mutex | Invalid usage of standard thread object type 'mtx_t'. |
+| test.c:62:15:62:20 | thread | Invalid usage of standard thread object type 'thrd_t'. |
+| test.c:63:20:63:30 | threadlocal | Invalid usage of standard thread object type 'tss_t'. |
+| test.c:64:18:64:26 | condition | Invalid usage of standard thread object type 'cnd_t'. |

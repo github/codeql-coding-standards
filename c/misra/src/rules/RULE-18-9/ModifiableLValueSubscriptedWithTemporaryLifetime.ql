@@ -15,45 +15,33 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.lifetimes.CLifetimes
+import codingstandards.c.Objects
+import codeql.util.Boolean
 
-class TemporaryLifetimeArrayExpr extends ArrayExpr {
-  TemporaryLifetimeArrayAccess member;
-  Type elementType;
-
-  TemporaryLifetimeArrayExpr() {
-    member = getArrayBase() and
-    elementType = member.getType().(ArrayType).getBaseType()
-    or
-    exists(TemporaryLifetimeArrayExpr inner |
-      inner = getArrayBase() and
-      member = inner.getMember() and
-      elementType = inner.getElementType().(ArrayType).getBaseType()
-    )
-  }
-
-  TemporaryLifetimeArrayAccess getMember() { result = member }
-
-  Type getElementType() { result = elementType }
-}
-
-predicate usedAsModifiableLvalue(Expr expr) {
+predicate usedAsModifiableLvalue(Expr expr, Boolean allowArrayAccess) {
   exists(Assignment parent | parent.getLValue() = expr)
   or
   exists(CrementOperation parent | parent.getOperand() = expr)
   or
   exists(AddressOfExpr parent | parent.getOperand() = expr)
   or
-  exists(FieldAccess parent | parent.getQualifier() = expr and usedAsModifiableLvalue(parent))
+  // Don't report `x.y[0].m[0]++` twice. Recurse with `allowArrayAccess` set to false.
+  exists(FieldAccess parent |
+    parent.getQualifier() = expr and usedAsModifiableLvalue(parent, false)
+  )
+  or
+  allowArrayAccess = true and
+  exists(ArrayExpr parent | parent.getArrayBase() = expr and usedAsModifiableLvalue(parent, true))
 }
 
-from TemporaryLifetimeArrayExpr expr, TemporaryLifetimeArrayAccess member
+from ArrayExpr expr, FieldAccess fieldAccess, TemporaryObjectIdentity tempObject
 where
   not isExcluded(expr,
     InvalidMemory3Package::modifiableLValueSubscriptedWithTemporaryLifetimeQuery()) and
-  member = expr.getMember() and
+  expr = tempObject.getASubobjectAccess() and
+  fieldAccess = expr.getArrayBase() and
   not expr.isUnevaluated() and
-  usedAsModifiableLvalue(expr)
+  usedAsModifiableLvalue(expr, true)
 select expr,
   "Modifiable lvalue produced by subscripting array member $@ of temporary lifetime object $@ ",
-  member, member.getTarget().getName(), member.getTemporary(), member.getTemporary().toString()
+  fieldAccess, fieldAccess.getTarget().getName(), tempObject, tempObject.toString()

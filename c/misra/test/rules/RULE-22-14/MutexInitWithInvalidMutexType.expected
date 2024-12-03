@@ -1,0 +1,5 @@
+| test.c:140:3:140:10 | call to mtx_init | Mutex initialized with incorrect type expression. |
+| test.c:141:3:141:10 | call to mtx_init | Mutex initialized with incorrect type expression. |
+| test.c:142:3:142:10 | call to mtx_init | Mutex initialized with incorrect type expression. |
+| test.c:144:3:144:10 | call to mtx_init | Mutex initialized with incorrect type expression. |
+| test.c:145:3:145:10 | call to mtx_init | Mutex initialized with incorrect type expression. |

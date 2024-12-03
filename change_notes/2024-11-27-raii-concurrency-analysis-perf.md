@@ -1,0 +1,2 @@
+ - `Concurrency` - for all queries related to RAII-style mutexes
+   - These types of locks have been refactored to improve performance in some queries. No change in query results expected.

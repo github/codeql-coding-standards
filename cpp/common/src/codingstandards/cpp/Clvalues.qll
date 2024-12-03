@@ -14,4 +14,7 @@ predicate isCLValue(Expr expr) {
   not expr instanceof AssignExpr and
   not expr instanceof CommaExpr and
   not exists(Cast c | c = expr.getConversion*())
+  or
+  // 6.5.2.5.4: Compound literals are always lvalues.
+  expr instanceof AggregateLiteral
 }
