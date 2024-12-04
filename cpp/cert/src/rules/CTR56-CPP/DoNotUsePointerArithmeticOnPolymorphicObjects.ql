@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import NonFinalClassToPointerArithmeticExprFlow::PathGraph
 
 class ArrayAccessOrPointerArith extends Expr {

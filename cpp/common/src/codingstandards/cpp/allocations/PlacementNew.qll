@@ -22,7 +22,7 @@
 
 import cpp
 import codingstandards.cpp.Conversion
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /*
  * TODO You can also have alignas on types

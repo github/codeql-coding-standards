@@ -12,7 +12,7 @@ import codingstandards.cpp.Operator
 import semmle.code.cpp.controlflow.Guards
 private import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 abstract class ContainerAccessWithoutRangeCheckSharedQuery extends Query { }

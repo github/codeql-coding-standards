@@ -6,7 +6,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import codingstandards.cpp.standardlibrary.FileAccess
 import semmle.code.cpp.controlflow.SubBasicBlocks
 
