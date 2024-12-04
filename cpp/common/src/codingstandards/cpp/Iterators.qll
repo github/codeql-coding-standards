@@ -37,7 +37,9 @@ class ContainerPointerOrReferenceAccess extends ContainerAccess {
       ) and
       localTaint(DataFlow::exprNode(fc), DataFlow::exprNode(this)) and
       (getUnderlyingType() instanceof ReferenceType or getUnderlyingType() instanceof PointerType) and
-      fc.getQualifier().(VariableAccess).getTarget() = owningContainer
+      fc.getQualifier().(VariableAccess).getTarget() = owningContainer and
+      // Exclude cases where we see taint into the owning container
+      not this = owningContainer.getAnAccess()
     )
   }
 
