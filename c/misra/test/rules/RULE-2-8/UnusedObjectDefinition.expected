@@ -1,0 +1,8 @@
+| test.c:6:5:6:6 | definition of g2 | Unused object definition 'g2'. | test.c:6:5:6:6 | test.c:6:5:6:6 |  |
+| test.c:9:5:9:6 | definition of g3 | Unused object definition 'g3'. | test.c:9:5:9:6 | test.c:9:5:9:6 |  |
+| test.c:20:7:20:8 | definition of l2 | Unused object definition 'l2'. | test.c:20:7:20:8 | test.c:20:7:20:8 |  |
+| test.c:27:7:27:8 | definition of l5 | Unused object definition 'l5'. | test.c:27:7:27:8 | test.c:27:7:27:8 |  |
+| test.c:37:10:37:11 | definition of g5 | Unused object definition 'g5'. | test.c:37:10:37:11 | test.c:37:10:37:11 |  |
+| test.c:45:9:45:10 | definition of g6 | Unused object definition 'g6'. | test.c:45:9:45:10 | test.c:45:9:45:10 |  |
+| test.c:51:5:51:6 | definition of g7 | Unused object definition 'g7'. | test.c:51:5:51:6 | test.c:51:5:51:6 |  |
+| test.c:64:3:64:18 | ONLY_DEF_VAR(x) | Unused object definition 'l2' from macro '$@'. | test.c:60:1:60:34 | test.c:60:1:60:34 | ONLY_DEF_VAR |

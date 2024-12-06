@@ -1,0 +1,66 @@
+{
+  "MISRA-C-2012": {
+    "RULE-2-8": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Object definitions which are unused should be removed.",
+          "kind": "problem",
+          "name": "A project should not contain unused object definitions",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UnusedObjectDefinition",
+          "tags": [
+            "maintainability",
+            "performance",
+            "external/misra/c/2012/amendment4"
+          ]
+        },
+        {
+          "description": "Macros should not have unused object definitions.",
+          "kind": "problem",
+          "name": "Project macros should not include unused object definitions",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UnusedObjectDefinitionInMacro",
+          "tags": [
+            "maintainability",
+            "performance",
+            "external/misra/c/2012/amendment4"
+          ]
+        },
+        {
+          "description": "A strict query which reports all unused object definitions with '__attribute__((unused))'.",
+          "kind": "problem",
+          "name": "A project should not contain '__attribute__((unused))' object definitions",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UnusedObjectDefinitionStrict",
+          "tags": [
+            "maintainability",
+            "performance",
+            "external/misra/c/2012/amendment4",
+            "external/misra/c/strict"
+          ]
+        },
+        {
+          "description": "A strict query which reports all unused object definitions in macros with '__attribute__((unused))'.",
+          "kind": "problem",
+          "name": "Project macros should not include '__attribute__((unused))' object definitions",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "UnusedObjectDefinitionInMacroStrict",
+          "tags": [
+            "maintainability",
+            "performance",
+            "external/misra/c/2012/amendment4",
+            "external/misra/c/strict"
+          ]
+        }
+      ],
+      "title": "A project should not contain unused object definitions"
+    }
+  }
+}
