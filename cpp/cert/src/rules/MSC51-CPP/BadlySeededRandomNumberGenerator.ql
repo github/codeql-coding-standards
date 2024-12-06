@@ -15,7 +15,7 @@
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.standardlibrary.Random
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 
 from RandomNumberEngineCreation createRandomNumberEngine, string seedSource
 where

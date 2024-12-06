@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 // Local cached version of localExprFlow to avoid bad magic
 cached

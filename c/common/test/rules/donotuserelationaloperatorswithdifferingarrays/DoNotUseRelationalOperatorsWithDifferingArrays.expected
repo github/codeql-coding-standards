@@ -11,17 +11,17 @@ problems
 | test.c:25:7:25:14 | ... >= ... | test.c:25:13:25:14 | l3 | test.c:25:13:25:14 | l3 | Compare operation >= comparing right operand pointing to array $@ and other operand pointing to array $@. | test.c:4:7:4:8 | l3 | l3 | test.c:2:7:2:8 | l1 | l1 |
 edges
 | test.c:6:13:6:14 | l1 | test.c:13:12:13:13 | p0 | provenance |  |
-| test.c:7:14:7:15 | l1 | test.c:7:14:7:18 | access to array | provenance |  |
+| test.c:7:14:7:15 | l1 | test.c:7:14:7:18 | access to array | provenance | Config |
 | test.c:7:14:7:18 | access to array | test.c:11:7:11:8 | p1 | provenance |  |
 | test.c:7:14:7:18 | access to array | test.c:13:7:13:8 | p1 | provenance |  |
 | test.c:7:14:7:18 | access to array | test.c:15:13:15:14 | p1 | provenance |  |
 | test.c:7:14:7:18 | access to array | test.c:17:7:17:8 | p1 | provenance |  |
 | test.c:7:14:7:18 | access to array | test.c:23:13:23:14 | p1 | provenance |  |
 | test.c:7:14:7:18 | access to array | test.c:25:7:25:8 | p1 | provenance |  |
-| test.c:8:14:8:15 | l1 | test.c:8:14:8:18 | access to array | provenance |  |
+| test.c:8:14:8:15 | l1 | test.c:8:14:8:18 | access to array | provenance | Config |
 | test.c:8:14:8:18 | access to array | test.c:11:12:11:13 | p2 | provenance |  |
 | test.c:8:14:8:18 | access to array | test.c:21:7:21:8 | p2 | provenance |  |
-| test.c:9:14:9:15 | l2 | test.c:9:14:9:18 | access to array | provenance |  |
+| test.c:9:14:9:15 | l2 | test.c:9:14:9:18 | access to array | provenance | Config |
 | test.c:9:14:9:18 | access to array | test.c:21:12:21:13 | p3 | provenance |  |
 nodes
 | test.c:6:13:6:14 | l1 | semmle.label | l1 |

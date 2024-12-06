@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * A signal corresponding to a computational exception
