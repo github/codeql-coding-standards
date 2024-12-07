@@ -12,6 +12,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "ThreadWasPreviouslyJoinedOrDetached",
+          "shared_implementation_short_name": "JoinOrDetachThreadOnlyOnce",
           "tags": [
             "correctness",
             "concurrency"
