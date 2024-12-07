@@ -122,39 +122,77 @@ class Scope extends Element {
     or
     not exists(Internal::getParentScope(this)) and result = 0
   }
+
+  /**
+   * Holds if `name` is declared in this scope, or in a nested scope.
+   */
+  private predicate isNameDeclaredInThisOrNestedScope(string name) {
+    name = getAVariable().getName()
+    or
+    isNameDeclaredInNestedScope(name)
+  }
+
+  /**
+   * Holds if `name` is declared in a nested scope.
+   */
+  private predicate isNameDeclaredInNestedScope(string name) {
+    exists(Scope child |
+      child.getStrictParent() = this and
+      child.isNameDeclaredInThisOrNestedScope(name)
+    )
+  }
+
+  /**
+   * Holds if `name` is declared in this scope and is hidden in a child scope.
+   */
+  private predicate isDeclaredNameHiddenByChild(string name) {
+    isNameDeclaredInNestedScope(name) and
+    name = getAVariable().getName()
+  }
+
+  /**
+   * Gets a variable with `name` which is hidden in at least one nested scope.
+   */
+  UserVariable getAHiddenVariable(string name) {
+    result = getAVariable() and
+    result.getName() = name and
+    isDeclaredNameHiddenByChild(name)
+  }
+
+  /**
+   * Holds if `name` is declared above this scope and hidden by this or a nested scope.
+   */
+  private predicate isNameDeclaredAboveHiddenByThisOrNested(string name) {
+    (
+      this.getStrictParent().isDeclaredNameHiddenByChild(name) or
+      this.getStrictParent().isNameDeclaredAboveHiddenByThisOrNested(name)
+    ) and
+    isNameDeclaredInThisOrNestedScope(name)
+  }
+
+  /**
+   * Gets a variable with `name` which is declared above and hidden by a variable in this or a nested scope.
+   */
+  UserVariable getAHidingVariable(string name) {
+    isNameDeclaredAboveHiddenByThisOrNested(name) and
+    (
+      // Declared in this scope
+      getAVariable().getName() = name and
+      result = getAVariable() and
+      result.getName() = name
+      or
+      // Declared in a child scope
+      exists(Scope child |
+        child.getStrictParent() = this and
+        child.isNameDeclaredInThisOrNestedScope(name) and
+        result = child.getAHidingVariable(name)
+      )
+    )
+  }
 }
 
 class GeneratedBlockStmt extends BlockStmt {
   GeneratedBlockStmt() { this.getLocation() instanceof UnknownLocation }
-}
-
-/** Gets a variable that is in the potential scope of variable `v`. */
-private UserVariable getPotentialScopeOfVariable_candidate(UserVariable v) {
-  exists(Scope s |
-    result = s.getAVariable() and
-    (
-      // Variable in an ancestor scope, but only if there are less than 100 variables in this scope
-      v = s.getAnAncestor().getAVariable() and
-      s.getNumberOfVariables() < 100
-      or
-      // In the same scope, but not the same variable, and choose just one to report
-      v = s.getAVariable() and
-      not result = v and
-      v.getName() <= result.getName()
-    )
-  )
-}
-
-/** Gets a variable that is in the potential scope of variable `v`. */
-private UserVariable getOuterScopesOfVariable_candidate(UserVariable v) {
-  exists(Scope s |
-    result = s.getAVariable() and
-    (
-      // Variable in an ancestor scope, but only if there are less than 100 variables in this scope
-      v = s.getAnAncestor().getAVariable() and
-      s.getNumberOfVariables() < 100
-    )
-  )
 }
 
 /** Holds if there exists a translation unit that includes both `f1` and `f2`. */
@@ -167,12 +205,17 @@ predicate inSameTranslationUnit(File f1, File f2) {
 }
 
 /**
- * Gets a user variable which occurs in the "outer scope" of variable `v`.
+ * Holds if there exists a translation unit that includes both `f1` and `f2`.
+ *
+ * This version is late bound.
  */
-cached
-UserVariable getPotentialScopeOfVariableStrict(UserVariable v) {
-  result = getOuterScopesOfVariable_candidate(v) and
-  inSameTranslationUnit(v.getFile(), result.getFile())
+bindingset[f1, f2]
+pragma[inline_late]
+predicate inSameTranslationUnitLate(File f1, File f2) {
+  exists(TranslationUnit c |
+    c.getAUserFile() = f1 and
+    c.getAUserFile() = f2
+  )
 }
 
 /** A file that is a C/C++ source file */
@@ -200,12 +243,14 @@ class TranslationUnit extends SourceFile {
   }
 }
 
-/** Holds if `v2` may hide `v1`. */
-private predicate hides_candidateStrict(UserVariable v1, UserVariable v2) {
-  not v1 = v2 and
-  v2 = getPotentialScopeOfVariableStrict(v1) and
-  v1.getName() = v2.getName() and
-  // Member variables cannot hide other variables nor be hidden because the can be referenced through their qualified name.
+/** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */
+predicate hides_candidateStrict(UserVariable v1, UserVariable v2) {
+  exists(Scope s, string name |
+    v1 = s.getStrictParent().getAHiddenVariable(name) and
+    v2 = s.getAHidingVariable(name) and
+    not v1 = v2
+  ) and
+  inSameTranslationUnitLate(v1.getFile(), v2.getFile()) and
   not (v1.isMember() or v2.isMember()) and
   (
     // If v1 is a local variable, ensure that v1 is declared before v2
