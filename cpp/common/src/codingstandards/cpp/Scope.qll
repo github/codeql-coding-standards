@@ -161,15 +161,6 @@ predicate inSameTranslationUnit(File f1, File f2) {
 }
 
 /**
- * Gets a user variable which occurs in the "potential scope" of variable `v`.
- */
-cached
-UserVariable getPotentialScopeOfVariable(UserVariable v) {
-  result = getPotentialScopeOfVariable_candidate(v) and
-  inSameTranslationUnit(v.getFile(), result.getFile())
-}
-
-/**
  * Gets a user variable which occurs in the "outer scope" of variable `v`.
  */
 cached
@@ -201,15 +192,6 @@ class TranslationUnit extends SourceFile {
     result = getATransitivelyIncludedFile() and
     exists(result.getRelativePath())
   }
-}
-
-/** Holds if `v2` may hide `v1`. */
-private predicate hides_candidate(UserVariable v1, UserVariable v2) {
-  not v1 = v2 and
-  v2 = getPotentialScopeOfVariable(v1) and
-  v1.getName() = v2.getName() and
-  // Member variables cannot hide other variables nor be hidden because the can be referenced through their qualified name.
-  not (v1.isMember() or v2.isMember())
 }
 
 /** Holds if `v2` may hide `v1`. */
@@ -253,16 +235,6 @@ private Stmt getEnclosingStmt(LocalScopeVariable v) {
   exists(CatchBlock cb |
     cb.getParameter() = v and
     result = cb.getEnclosingStmt()
-  )
-}
-
-/** Holds if `v2` hides `v1`. */
-predicate hides(UserVariable v1, UserVariable v2) {
-  hides_candidate(v1, v2) and
-  // Confirm that there's no closer candidate variable which `v2` hides
-  not exists(UserVariable mid |
-    hides_candidate(v1, mid) and
-    hides_candidate(mid, v2)
   )
 }
 
