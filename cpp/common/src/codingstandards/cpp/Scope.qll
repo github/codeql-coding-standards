@@ -38,23 +38,25 @@ module Internal {
     or
     exists(SwitchStmt switchStmt | switchStmt.getStmt() = e and result = switchStmt)
     or
+    // A catch-block parameter, whose parent is the `Handler`
+    exists(CatchBlock c | c.getParameter() = e and result = c.getParent())
+    or
+    // A catch-block `Handler`, whose parent is the `TryStmt`
+    e.(Handler).getParent() = result
+    or
     not exists(Loop loop | loop.getAChild() = e) and
     not exists(IfStmt ifStmt | ifStmt.getThen() = e or ifStmt.getElse() = e) and
     not exists(SwitchStmt switchStmt | switchStmt.getStmt() = e) and
+    not exists(CatchBlock c | c.getParameter() = e) and
+    not e instanceof Handler and
     if exists(e.getParentScope())
     then result = e.getParentScope()
     else (
-      // Statements do no have a parent scope, so return the enclosing block.
+      // Statements do not have a parent scope, so return the enclosing block.
       result = e.(Stmt).getEnclosingBlock()
       or
+      // Expressions do not have a parent scope, so return the enclosing block.
       result = e.(Expr).getEnclosingBlock()
-      or
-      // Catch block parameters don't have an enclosing scope, so attach them to the
-      // the block itself
-      exists(CatchBlock cb |
-        e = cb.getParameter() and
-        result = cb
-      )
     )
   }
 }

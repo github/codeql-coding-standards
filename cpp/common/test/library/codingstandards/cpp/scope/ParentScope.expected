@@ -83,8 +83,8 @@
 | test.cpp:27:42:27:44 | id1 | test.cpp:27:36:27:52 | { ... } |
 | test.cpp:27:47:27:49 | 10 | test.cpp:27:36:27:52 | { ... } |
 | test.cpp:27:52:27:52 | return ... | test.cpp:27:36:27:52 | { ... } |
-| test.cpp:28:24:28:26 | id1 | test.cpp:28:29:30:11 | { ... } |
-| test.cpp:28:29:30:11 | <handler> | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:28:24:28:26 | id1 | test.cpp:28:29:30:11 | <handler> |
+| test.cpp:28:29:30:11 | <handler> | test.cpp:26:11:28:11 | try { ... } |
 | test.cpp:28:29:30:11 | { ... } | test.cpp:13:9:31:9 | { ... } |
 | test.cpp:29:13:29:20 | declaration | test.cpp:28:29:30:11 | { ... } |
 | test.cpp:29:17:29:19 | id1 | test.cpp:28:29:30:11 | { ... } |
