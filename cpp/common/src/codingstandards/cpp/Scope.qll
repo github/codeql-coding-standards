@@ -269,6 +269,8 @@ predicate hasBlockScope(Declaration decl) { exists(BlockStmt b | b.getADeclarati
 /**
  * identifiers in nested (named/nonglobal) namespaces are exceptions to hiding due to being able access via fully qualified ids
  */
+bindingset[outerDecl, innerDecl]
+pragma[inline_late]
 predicate excludedViaNestedNamespaces(UserVariable outerDecl, UserVariable innerDecl) {
   exists(Namespace inner, Namespace outer |
     outer.getAChildNamespace+() = inner and
