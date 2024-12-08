@@ -38,10 +38,9 @@ module Internal {
     or
     exists(SwitchStmt switchStmt | switchStmt.getStmt() = e and result = switchStmt)
     or
-    not result.(Loop).getStmt() = e and
-    not result.(IfStmt).getThen() = e and
-    not result.(IfStmt).getElse() = e and
-    not result.(SwitchStmt).getStmt() = e and
+    not exists(Loop loop | loop.getStmt() = e) and
+    not exists(IfStmt ifStmt | ifStmt.getThen() = e or ifStmt.getElse() = e) and
+    not exists(SwitchStmt switchStmt | switchStmt.getStmt() = e) and
     if exists(e.getParentScope())
     then result = e.getParentScope()
     else (
