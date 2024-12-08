@@ -247,48 +247,30 @@ class TranslationUnit extends SourceFile {
 
 /** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */
 predicate hides_candidateStrict(UserVariable v1, UserVariable v2) {
-  exists(Scope s, string name |
-    v1 = s.getAHiddenVariable(name) and
-    v2 = s.getAChildScope().getAHidingVariable(name) and
+  exists(Scope parentScope, Scope childScope, string name |
+    v1 = parentScope.getAHiddenVariable(name) and
+    childScope = parentScope.getAChildScope() and
+    v2 = childScope.getAHidingVariable(name) and
     not v1 = v2
-  ) and
-  inSameTranslationUnitLate(v1.getFile(), v2.getFile()) and
-  not (v1.isMember() or v2.isMember()) and
-  (
-    // If v1 is a local variable, ensure that v1 is declared before v2
+  |
+    // If v1 is a local variable defined in a `DeclStmt` ensure that it is declared before `v2`,
+    // otherwise it would not be hidden
     (
-      v1 instanceof LocalVariable and
-      // Ignore variables declared in conditional expressions, as they apply to
-      // the nested scope
-      not v1 = any(ConditionDeclExpr cde).getVariable() and
-      // Ignore variables declared in loops
-      not exists(Loop l | l.getADeclaration() = v1)
+      parentScope instanceof BlockStmt and
+      exists(DeclStmt ds | ds.getADeclaration() = v1) and
+      exists(parentScope.(BlockStmt).getIndexOfStmt(childScope))
     )
     implies
     exists(BlockStmt bs, DeclStmt v1Stmt, Stmt v2Stmt |
-      v1 = v1Stmt.getADeclaration() and
-      getEnclosingStmt(v2).getParentStmt*() = v2Stmt
+      bs = parentScope and
+      v2Stmt = childScope and
+      v1Stmt.getADeclaration() = v1
     |
       bs.getIndexOfStmt(v1Stmt) <= bs.getIndexOfStmt(v2Stmt)
     )
-  )
-}
-
-/**
- * Gets the enclosing statement of the given variable, if any.
- */
-private Stmt getEnclosingStmt(LocalScopeVariable v) {
-  result.(DeclStmt).getADeclaration() = v
-  or
-  exists(ConditionDeclExpr cde |
-    cde.getVariable() = v and
-    result = cde.getEnclosingStmt()
-  )
-  or
-  exists(CatchBlock cb |
-    cb.getParameter() = v and
-    result = cb.getEnclosingStmt()
-  )
+  ) and
+  inSameTranslationUnitLate(v1.getFile(), v2.getFile()) and
+  not (v1.isMember() or v2.isMember())
 }
 
 /** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */
