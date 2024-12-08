@@ -5,54 +5,59 @@
 import cpp
 
 /**
- * Gets the parent scope of this `Element`, if any.
- * A scope is a `Type` (`Class` / `Enum`), a `Namespace`, a `Block`, a `Function`,
- * or certain kinds of `Statement`.
- * Differs from `Element::getParentScope` when `e` is a `LoopControlVariable`
+ * Internal module, exposed for testing.
  */
-private Element getParentScope(Element e) {
-  /*
-   * A `Block` cannot have a `ForStmt` as its parent scope so we have to special case
-   * for loop bodies to ensure that identifiers inside the loop bodies have the for stmt as a parent scope.
-   * If this is not the case then `i2` in the following example cannot be in `i1`'s potential scope, because
-   * the parent scope of `i1` is the `ForStmt` while the transitive closure of the parent scope for `i2` doesn't include
-   * outer scope. Blocks can only have blocks as parent scopes.
-   * void f() {
-   *  for( int i1; ... ) {
-   *    for (int i2; ...) {
-   *    }
-   *  }
-   * }
+module Internal {
+  /**
+   * Gets the parent scope of this `Element`, if any.
+   * A scope is a `Type` (`Class` / `Enum`), a `Namespace`, a `Block`, a `Function`,
+   * or certain kinds of `Statement`.
+   * Differs from `Element::getParentScope` when `e` is a `LoopControlVariable`
    */
+  Element getParentScope(Element e) {
+    /*
+     * A `Block` cannot have a `ForStmt` as its parent scope so we have to special case
+     * for loop bodies to ensure that identifiers inside the loop bodies have the for stmt as a parent scope.
+     * If this is not the case then `i2` in the following example cannot be in `i1`'s potential scope, because
+     * the parent scope of `i1` is the `ForStmt` while the transitive closure of the parent scope for `i2` doesn't include
+     * outer scope. Blocks can only have blocks as parent scopes.
+     * void f() {
+     *  for( int i1; ... ) {
+     *    for (int i2; ...) {
+     *    }
+     *  }
+     * }
+     */
 
-  exists(Loop loop | loop.getStmt() = e and result = loop)
-  or
-  exists(IfStmt ifStmt |
-    (ifStmt.getThen() = e or ifStmt.getElse() = e) and
-    result = ifStmt
-  )
-  or
-  exists(SwitchStmt switchStmt | switchStmt.getStmt() = e and result = switchStmt)
-  or
-  not result.(Loop).getStmt() = e and
-  not result.(IfStmt).getThen() = e and
-  not result.(IfStmt).getElse() = e and
-  not result.(SwitchStmt).getStmt() = e and
-  if exists(e.getParentScope())
-  then result = e.getParentScope()
-  else (
-    // Statements do no have a parent scope, so return the enclosing block.
-    result = e.(Stmt).getEnclosingBlock()
+    exists(Loop loop | loop.getStmt() = e and result = loop)
     or
-    result = e.(Expr).getEnclosingBlock()
-    or
-    // Catch block parameters don't have an enclosing scope, so attach them to the
-    // the block itself
-    exists(CatchBlock cb |
-      e = cb.getParameter() and
-      result = cb
+    exists(IfStmt ifStmt |
+      (ifStmt.getThen() = e or ifStmt.getElse() = e) and
+      result = ifStmt
     )
-  )
+    or
+    exists(SwitchStmt switchStmt | switchStmt.getStmt() = e and result = switchStmt)
+    or
+    not result.(Loop).getStmt() = e and
+    not result.(IfStmt).getThen() = e and
+    not result.(IfStmt).getElse() = e and
+    not result.(SwitchStmt).getStmt() = e and
+    if exists(e.getParentScope())
+    then result = e.getParentScope()
+    else (
+      // Statements do no have a parent scope, so return the enclosing block.
+      result = e.(Stmt).getEnclosingBlock()
+      or
+      result = e.(Expr).getEnclosingBlock()
+      or
+      // Catch block parameters don't have an enclosing scope, so attach them to the
+      // the block itself
+      exists(CatchBlock cb |
+        e = cb.getParameter() and
+        result = cb
+      )
+    )
+  }
 }
 
 /** A variable which is defined by the user, rather than being from a third party or compiler generated. */
@@ -68,19 +73,19 @@ class UserVariable extends Variable {
 
 /** An element which is the parent scope of at least one other element in the program. */
 class Scope extends Element {
-  Scope() { this = getParentScope(_) }
+  Scope() { this = Internal::getParentScope(_) }
 
-  UserVariable getAVariable() { getParentScope(result) = this }
+  UserVariable getAVariable() { Internal::getParentScope(result) = this }
 
   int getNumberOfVariables() { result = count(getAVariable()) }
 
   Scope getAnAncestor() { result = this.getStrictParent+() }
 
-  Scope getStrictParent() { result = getParentScope(this) }
+  Scope getStrictParent() { result = Internal::getParentScope(this) }
 
-  Declaration getADeclaration() { getParentScope(result) = this }
+  Declaration getADeclaration() { Internal::getParentScope(result) = this }
 
-  Expr getAnExpr() { this = getParentScope(result) }
+  Expr getAnExpr() { this = Internal::getParentScope(result) }
 
   private predicate getLocationInfo(
     PreprocessorBranchDirective pbd, string file1, string file2, int startline1, int startline2
@@ -112,9 +117,11 @@ class Scope extends Element {
   predicate isGenerated() { this instanceof GeneratedBlockStmt }
 
   int getDepth() {
-    exists(Scope parent | parent = getParentScope(this) and result = 1 + parent.getDepth())
+    exists(Scope parent |
+      parent = Internal::getParentScope(this) and result = 1 + parent.getDepth()
+    )
     or
-    not exists(getParentScope(this)) and result = 0
+    not exists(Internal::getParentScope(this)) and result = 0
   }
 }
 
