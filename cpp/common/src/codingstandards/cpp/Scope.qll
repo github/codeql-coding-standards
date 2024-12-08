@@ -29,7 +29,7 @@ module Internal {
      * }
      */
 
-    exists(Loop loop | loop.getStmt() = e and result = loop)
+    exists(Loop loop | loop.getAChild() = e and result = loop)
     or
     exists(IfStmt ifStmt |
       (ifStmt.getThen() = e or ifStmt.getElse() = e) and
@@ -38,7 +38,7 @@ module Internal {
     or
     exists(SwitchStmt switchStmt | switchStmt.getStmt() = e and result = switchStmt)
     or
-    not exists(Loop loop | loop.getStmt() = e) and
+    not exists(Loop loop | loop.getAChild() = e) and
     not exists(IfStmt ifStmt | ifStmt.getThen() = e or ifStmt.getElse() = e) and
     not exists(SwitchStmt switchStmt | switchStmt.getStmt() = e) and
     if exists(e.getParentScope())
