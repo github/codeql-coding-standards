@@ -138,10 +138,7 @@ class Scope extends Element {
    * Holds if `name` is declared in a nested scope.
    */
   private predicate isNameDeclaredInNestedScope(string name) {
-    exists(Scope child |
-      child.getStrictParent() = this and
-      child.isNameDeclaredInThisOrNestedScope(name)
-    )
+    this.getAChildScope().isNameDeclaredInThisOrNestedScope(name)
   }
 
   /**
@@ -173,7 +170,8 @@ class Scope extends Element {
   }
 
   /**
-   * Gets a variable with `name` which is declared above and hidden by a variable in this or a nested scope.
+   * Gets a variable with `name` which is declared in a scope above this one, and hidden by a variable in this or a
+   * nested scope.
    */
   UserVariable getAHidingVariable(string name) {
     isNameDeclaredAboveHiddenByThisOrNested(name) and
@@ -185,7 +183,7 @@ class Scope extends Element {
       or
       // Declared in a child scope
       exists(Scope child |
-        child.getStrictParent() = this and
+        getAChildScope() = child and
         child.isNameDeclaredInThisOrNestedScope(name) and
         result = child.getAHidingVariable(name)
       )
@@ -248,8 +246,8 @@ class TranslationUnit extends SourceFile {
 /** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */
 predicate hides_candidateStrict(UserVariable v1, UserVariable v2) {
   exists(Scope s, string name |
-    v1 = s.getStrictParent().getAHiddenVariable(name) and
-    v2 = s.getAHidingVariable(name) and
+    v1 = s.getAHiddenVariable(name) and
+    v2 = s.getAChildScope().getAHidingVariable(name) and
     not v1 = v2
   ) and
   inSameTranslationUnitLate(v1.getFile(), v2.getFile()) and
