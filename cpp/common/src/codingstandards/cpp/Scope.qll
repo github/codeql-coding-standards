@@ -80,6 +80,8 @@ class Scope extends Element {
 
   Scope getAnAncestor() { result = this.getStrictParent+() }
 
+  Scope getAChildScope() { result.getStrictParent() = this }
+
   Scope getStrictParent() { result = Internal::getParentScope(this) }
 
   Declaration getADeclaration() { Internal::getParentScope(result) = this }
