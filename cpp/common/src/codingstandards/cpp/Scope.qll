@@ -78,6 +78,14 @@ class Scope extends Element {
 
   UserVariable getAVariable() { Internal::getParentScope(result) = this }
 
+  /**
+   * Gets the `Variable` with the given `name` that is declared in this scope.
+   */
+  UserVariable getVariable(string name) {
+    result = getAVariable() and
+    result.getName() = name
+  }
+
   int getNumberOfVariables() { result = count(getAVariable()) }
 
   Scope getAnAncestor() { result = this.getStrictParent+() }
@@ -152,9 +160,9 @@ class Scope extends Element {
   }
 
   /**
-   * Gets a variable with `name` which is hidden in at least one nested scope.
+   * Gets a variable with `name` which is potentially hidden in at least one nested scope.
    */
-  UserVariable getAHiddenVariable(string name) {
+  private UserVariable getAPotentiallyHiddenVariable(string name) {
     result = getAVariable() and
     result.getName() = name and
     isDeclaredNameHiddenByChild(name)
@@ -163,32 +171,41 @@ class Scope extends Element {
   /**
    * Holds if `name` is declared above this scope and hidden by this or a nested scope.
    */
-  private predicate isNameDeclaredAboveHiddenByThisOrNested(string name) {
-    (
-      this.getStrictParent().isDeclaredNameHiddenByChild(name) or
-      this.getStrictParent().isNameDeclaredAboveHiddenByThisOrNested(name)
+  UserVariable getAVariableHiddenByThisOrNestedScope(string name) {
+    exists(Scope parent | parent = this.getStrictParent() |
+      result = parent.getAPotentiallyHiddenVariable(name) or
+      result = parent.getAVariableHiddenByThisOrNestedScope(name)
     ) and
     isNameDeclaredInThisOrNestedScope(name)
   }
 
   /**
-   * Gets a variable with `name` which is declared in a scope above this one, and hidden by a variable in this or a
-   * nested scope.
+   * Holds if `hiddenVariable` and `hidingVariable` are a candidate hiding pair at this scope.
    */
-  UserVariable getAHidingVariable(string name) {
-    isNameDeclaredAboveHiddenByThisOrNested(name) and
+  private predicate hidesCandidate(
+    UserVariable hiddenVariable, UserVariable hidingVariable, string name
+  ) {
     (
       // Declared in this scope
-      getAVariable().getName() = name and
-      result = getAVariable() and
-      result.getName() = name
+      hidingVariable = getVariable(name) and
+      hiddenVariable = getAVariableHiddenByThisOrNestedScope(name)
       or
       // Declared in a child scope
       exists(Scope child |
         getAChildScope() = child and
-        child.isNameDeclaredInThisOrNestedScope(name) and
-        result = child.getAHidingVariable(name)
+        child.hidesCandidate(hiddenVariable, hidingVariable, name)
       )
+    )
+  }
+
+  /**
+   * Holds if `hiddenVariable` is declared in this scope and hidden by `hidingVariable`.
+   */
+  predicate hides(UserVariable hiddenVariable, UserVariable hidingVariable, Scope childScope) {
+    exists(string name |
+      hiddenVariable = getAPotentiallyHiddenVariable(name) and
+      childScope = getAChildScope() and
+      childScope.hidesCandidate(hiddenVariable, hidingVariable, name)
     )
   }
 }
@@ -247,12 +264,7 @@ class TranslationUnit extends SourceFile {
 
 /** Holds if `v2` strictly (`v2` is in an inner scope compared to `v1`) hides `v1`. */
 predicate hides_candidateStrict(UserVariable v1, UserVariable v2) {
-  exists(Scope parentScope, Scope childScope, string name |
-    v1 = parentScope.getAHiddenVariable(name) and
-    childScope = parentScope.getAChildScope() and
-    v2 = childScope.getAHidingVariable(name) and
-    not v1 = v2
-  |
+  exists(Scope parentScope, Scope childScope | parentScope.hides(v1, v2, childScope) |
     // If v1 is a local variable defined in a `DeclStmt` ensure that it is declared before `v2`,
     // otherwise it would not be hidden
     (
