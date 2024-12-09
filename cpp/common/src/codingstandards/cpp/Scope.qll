@@ -3,6 +3,19 @@
  */
 
 import cpp
+import codingstandards.cpp.ConstHelpers
+
+/**
+ * a `Variable` that is nonvolatile and const
+ * and of type `IntegralOrEnumType`
+ */
+class NonVolatileConstIntegralOrEnumVariable extends Variable {
+  NonVolatileConstIntegralOrEnumVariable() {
+    not this.isVolatile() and
+    this.isConst() and
+    this.getUnspecifiedType() instanceof IntegralOrEnumType
+  }
+}
 
 /**
  * Internal module, exposed for testing.
@@ -206,6 +219,52 @@ class Scope extends Element {
       hiddenVariable = getAPotentiallyHiddenVariable(name) and
       childScope = getAChildScope() and
       childScope.hidesCandidate(hiddenVariable, hidingVariable, name)
+    )
+  }
+}
+
+/**
+ * A scope representing the generated `operator()` of a lambda function.
+ */
+class LambdaScope extends Scope {
+  Closure closure;
+
+  LambdaScope() { this = closure.getLambdaFunction() }
+
+  override UserVariable getAVariableHiddenByThisOrNestedScope(string name) {
+    // Handle special cases for lambdas
+    exists(UserVariable hiddenVariable, LambdaExpression lambdaExpr |
+      // Find the variable that is potentially hidden inside the lambda
+      hiddenVariable = super.getAVariableHiddenByThisOrNestedScope(name) and
+      result = hiddenVariable and
+      lambdaExpr = closure.getLambdaExpression()
+    |
+      // A definition can be hidden if it is in scope and it is captured by the lambda,
+      exists(LambdaCapture cap |
+        lambdaExpr.getACapture() = cap and
+        // The outer declaration is captured by the lambda
+        hiddenVariable.getAnAccess() = cap.getInitializer()
+      )
+      or
+      // it is is non-local,
+      hiddenVariable instanceof GlobalVariable
+      or
+      // it has static or thread local storage duration,
+      (hiddenVariable.isThreadLocal() or hiddenVariable.isStatic())
+      or
+      //it is a reference that has been initialized with a constant expression.
+      hiddenVariable.getType().stripTopLevelSpecifiers() instanceof ReferenceType and
+      hiddenVariable.getInitializer().getExpr() instanceof Literal
+      or
+      // //it const non-volatile integral or enumeration type and has been initialized with a constant expression
+      hiddenVariable instanceof NonVolatileConstIntegralOrEnumVariable and
+      hiddenVariable.getInitializer().getExpr() instanceof Literal
+      or
+      //it is constexpr and has no mutable members
+      hiddenVariable.isConstexpr() and
+      not exists(Class c |
+        c = hiddenVariable.getType() and not c.getAMember() instanceof MutableVariable
+      )
     )
   }
 }
