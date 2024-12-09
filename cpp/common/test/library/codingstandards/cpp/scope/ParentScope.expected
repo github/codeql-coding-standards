@@ -77,7 +77,7 @@
 | test.cpp:27:28:27:28 | operator= | file://:0:0:0:0 | decltype([...](...){...}) |
 | test.cpp:27:29:27:29 | id1 | file://:0:0:0:0 | decltype([...](...){...}) |
 | test.cpp:27:29:27:31 | id1 | test.cpp:26:15:28:11 | { ... } |
-| test.cpp:27:33:27:33 | operator() | file://:0:0:0:0 | decltype([...](...){...}) |
+| test.cpp:27:33:27:33 | operator() | test.cpp:27:13:27:53 | declaration |
 | test.cpp:27:36:27:52 | { ... } | test.cpp:27:33:27:33 | operator() |
 | test.cpp:27:38:27:50 | declaration | test.cpp:27:36:27:52 | { ... } |
 | test.cpp:27:42:27:44 | id1 | test.cpp:27:36:27:52 | { ... } |

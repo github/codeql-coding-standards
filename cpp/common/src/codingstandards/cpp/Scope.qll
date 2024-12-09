@@ -57,11 +57,22 @@ module Internal {
     // A catch-block `Handler`, whose parent is the `TryStmt`
     e.(Handler).getParent() = result
     or
+    // The parent scope of a lambda is the scope in which the lambda expression is defined.
+    //
+    // Lambda functions are defined in a generated `Closure` class, as the `operator()` function. We choose the
+    // enclosing statement of the lambda expression as the parent scope of the lambda function. This is so we can
+    // determine the order of definition if a variable is defined in the same scope as the lambda expression.
+    exists(Closure lambdaClosure |
+      lambdaClosure.getLambdaFunction() = e and
+      lambdaClosure.getLambdaExpression().getEnclosingStmt() = result
+    )
+    or
     not exists(Loop loop | loop.getAChild() = e) and
     not exists(IfStmt ifStmt | ifStmt.getThen() = e or ifStmt.getElse() = e) and
     not exists(SwitchStmt switchStmt | switchStmt.getStmt() = e) and
     not exists(CatchBlock c | c.getParameter() = e) and
     not e instanceof Handler and
+    not exists(Closure lambdaClosure | lambdaClosure.getLambdaFunction() = e) and
     if exists(e.getParentScope())
     then result = e.getParentScope()
     else (
