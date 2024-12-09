@@ -1,0 +1,2 @@
+| test.c:19:3:19:10 | call to mtx_lock | Non-recursive mutex nonrec locked after it is $@. | test.c:18:3:18:10 | call to mtx_lock | already locked |
+| test.c:22:3:22:10 | call to mtx_lock | Non-recursive mutex s.m locked after it is $@. | test.c:21:3:21:10 | call to mtx_lock | already locked |
