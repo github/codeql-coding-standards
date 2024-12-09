@@ -1,0 +1,12 @@
+| test.c:16:3:16:13 | call to mtx_destroy | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:3:7:3:8 | g1 | g1 | test.c:64:3:64:13 | call to thrd_create | t2_use_all |
+| test.c:16:3:16:13 | call to mtx_destroy | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:3:7:3:8 | g1 | g1 | test.c:72:3:72:13 | call to thrd_create | t2_use_all |
+| test.c:16:3:16:13 | call to mtx_destroy | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:3:7:3:8 | g1 | g1 | test.c:91:3:91:10 | call to mtx_lock | main thread |
+| test.c:17:3:17:12 | call to tss_delete | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:4:7:4:8 | g2 | g2 | test.c:64:3:64:13 | call to thrd_create | t2_use_all |
+| test.c:17:3:17:12 | call to tss_delete | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:4:7:4:8 | g2 | g2 | test.c:72:3:72:13 | call to thrd_create | t2_use_all |
+| test.c:17:3:17:12 | call to tss_delete | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:4:7:4:8 | g2 | g2 | test.c:92:3:92:9 | call to tss_get | main thread |
+| test.c:18:3:18:13 | call to cnd_destroy | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:5:7:5:8 | g3 | g3 | test.c:64:3:64:13 | call to thrd_create | t2_use_all |
+| test.c:18:3:18:13 | call to cnd_destroy | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:5:7:5:8 | g3 | g3 | test.c:72:3:72:13 | call to thrd_create | t2_use_all |
+| test.c:18:3:18:13 | call to cnd_destroy | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:5:7:5:8 | g3 | g3 | test.c:93:3:93:10 | call to cnd_wait | main thread |
+| test.c:42:3:42:13 | call to mtx_destroy | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:3:7:3:8 | g1 | g1 | test.c:41:3:41:13 | call to thrd_create | t2_use_all |
+| test.c:43:3:43:12 | call to tss_delete | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:4:7:4:8 | g2 | g2 | test.c:41:3:41:13 | call to thrd_create | t2_use_all |
+| test.c:44:3:44:13 | call to cnd_destroy | Thread resource $@ disposed before joining thread $@ which uses it. | test.c:5:7:5:8 | g3 | g3 | test.c:41:3:41:13 | call to thrd_create | t2_use_all |
