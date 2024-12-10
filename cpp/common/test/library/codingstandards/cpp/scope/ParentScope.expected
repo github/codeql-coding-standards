@@ -1,0 +1,91 @@
+| file://:0:0:0:0 | (unnamed parameter 0) | file://:0:0:0:0 | operator= |
+| file://:0:0:0:0 | (unnamed parameter 0) | file://:0:0:0:0 | operator= |
+| file://:0:0:0:0 | (unnamed parameter 0) | test.cpp:8:7:8:7 | operator= |
+| file://:0:0:0:0 | (unnamed parameter 0) | test.cpp:8:7:8:7 | operator= |
+| file://:0:0:0:0 | (unnamed parameter 0) | test.cpp:27:28:27:28 | (unnamed constructor) |
+| file://:0:0:0:0 | (unnamed parameter 0) | test.cpp:27:28:27:28 | (unnamed constructor) |
+| file://:0:0:0:0 | (unnamed parameter 0) | test.cpp:27:28:27:28 | operator= |
+| file://:0:0:0:0 | __va_list_tag | file://:0:0:0:0 | (global namespace) |
+| file://:0:0:0:0 | fp_offset | file://:0:0:0:0 | __va_list_tag |
+| file://:0:0:0:0 | gp_offset | file://:0:0:0:0 | __va_list_tag |
+| file://:0:0:0:0 | operator= | file://:0:0:0:0 | __va_list_tag |
+| file://:0:0:0:0 | operator= | file://:0:0:0:0 | __va_list_tag |
+| file://:0:0:0:0 | overflow_arg_area | file://:0:0:0:0 | __va_list_tag |
+| file://:0:0:0:0 | reg_save_area | file://:0:0:0:0 | __va_list_tag |
+| test.cpp:1:5:1:7 | id1 | file://:0:0:0:0 | (global namespace) |
+| test.cpp:3:11:3:13 | ns1 | file://:0:0:0:0 | (global namespace) |
+| test.cpp:4:5:4:7 | id1 | test.cpp:3:11:3:13 | ns1 |
+| test.cpp:6:11:6:13 | ns1::ns2 | test.cpp:3:11:3:13 | ns1 |
+| test.cpp:7:5:7:7 | id1 | test.cpp:6:11:6:13 | ns1::ns2 |
+| test.cpp:8:7:8:7 | C1 | test.cpp:8:7:8:8 | C1 |
+| test.cpp:8:7:8:7 | operator= | test.cpp:8:7:8:8 | C1 |
+| test.cpp:8:7:8:7 | operator= | test.cpp:8:7:8:8 | C1 |
+| test.cpp:8:7:8:8 | C1 | test.cpp:6:11:6:13 | ns1::ns2 |
+| test.cpp:9:7:9:9 | id1 | test.cpp:8:7:8:8 | C1 |
+| test.cpp:10:8:10:17 | test_scope | test.cpp:8:7:8:8 | C1 |
+| test.cpp:10:23:10:25 | id1 | test.cpp:10:8:10:17 | test_scope |
+| test.cpp:10:28:34:3 | { ... } | test.cpp:10:8:10:17 | test_scope |
+| test.cpp:11:5:33:5 | for(...;...;...) ... | test.cpp:10:28:34:3 | { ... } |
+| test.cpp:11:10:11:17 | declaration | test.cpp:11:5:33:5 | for(...;...;...) ... |
+| test.cpp:11:14:11:16 | id1 | test.cpp:11:5:33:5 | for(...;...;...) ... |
+| test.cpp:11:19:11:21 | id1 | test.cpp:10:28:34:3 | { ... } |
+| test.cpp:11:19:11:25 | ... < ... | test.cpp:11:5:33:5 | for(...;...;...) ... |
+| test.cpp:11:25:11:25 | 1 | test.cpp:10:28:34:3 | { ... } |
+| test.cpp:11:28:11:30 | id1 | test.cpp:10:28:34:3 | { ... } |
+| test.cpp:11:28:11:32 | ... ++ | test.cpp:11:5:33:5 | for(...;...;...) ... |
+| test.cpp:11:35:33:5 | { ... } | test.cpp:11:5:33:5 | for(...;...;...) ... |
+| test.cpp:12:7:32:7 | for(...;...;...) ... | test.cpp:11:35:33:5 | { ... } |
+| test.cpp:12:12:12:19 | declaration | test.cpp:12:7:32:7 | for(...;...;...) ... |
+| test.cpp:12:16:12:18 | id1 | test.cpp:12:7:32:7 | for(...;...;...) ... |
+| test.cpp:12:21:12:23 | id1 | test.cpp:11:35:33:5 | { ... } |
+| test.cpp:12:21:12:27 | ... < ... | test.cpp:12:7:32:7 | for(...;...;...) ... |
+| test.cpp:12:27:12:27 | 1 | test.cpp:11:35:33:5 | { ... } |
+| test.cpp:12:30:12:32 | id1 | test.cpp:11:35:33:5 | { ... } |
+| test.cpp:12:30:12:34 | ... ++ | test.cpp:12:7:32:7 | for(...;...;...) ... |
+| test.cpp:12:37:32:7 | { ... } | test.cpp:12:7:32:7 | for(...;...;...) ... |
+| test.cpp:13:9:31:9 | { ... } | test.cpp:12:37:32:7 | { ... } |
+| test.cpp:14:11:14:18 | declaration | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:14:15:14:17 | id1 | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:16:11:20:11 | if (...) ...  | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:16:15:16:17 | id1 | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:16:15:16:22 | ... == ... | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:16:22:16:22 | 0 | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:16:25:18:11 | { ... } | test.cpp:16:11:20:11 | if (...) ...  |
+| test.cpp:17:13:17:20 | declaration | test.cpp:16:25:18:11 | { ... } |
+| test.cpp:17:17:17:19 | id1 | test.cpp:16:25:18:11 | { ... } |
+| test.cpp:18:18:20:11 | { ... } | test.cpp:16:11:20:11 | if (...) ...  |
+| test.cpp:19:13:19:20 | declaration | test.cpp:18:18:20:11 | { ... } |
+| test.cpp:19:17:19:19 | id1 | test.cpp:18:18:20:11 | { ... } |
+| test.cpp:21:11:25:11 | switch (...) ...  | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:21:19:21:21 | id1 | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:21:24:25:11 | { ... } | test.cpp:21:11:25:11 | switch (...) ...  |
+| test.cpp:22:11:22:17 | case ...: | test.cpp:21:24:25:11 | { ... } |
+| test.cpp:22:16:22:16 | 0 | test.cpp:21:24:25:11 | { ... } |
+| test.cpp:23:13:23:20 | declaration | test.cpp:21:24:25:11 | { ... } |
+| test.cpp:23:17:23:19 | id1 | test.cpp:21:24:25:11 | { ... } |
+| test.cpp:24:13:24:18 | break; | test.cpp:21:24:25:11 | { ... } |
+| test.cpp:25:11:25:11 | label ...: | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:26:11:28:11 | try { ... } | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:26:15:28:11 | { ... } | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:27:13:27:53 | declaration | test.cpp:26:15:28:11 | { ... } |
+| test.cpp:27:18:27:24 | lambda1 | test.cpp:26:15:28:11 | { ... } |
+| test.cpp:27:27:27:52 | [...](...){...} | test.cpp:26:15:28:11 | { ... } |
+| test.cpp:27:27:27:52 | {...} | test.cpp:26:15:28:11 | { ... } |
+| test.cpp:27:28:27:28 | (unnamed constructor) | file://:0:0:0:0 | decltype([...](...){...}) |
+| test.cpp:27:28:27:28 | (unnamed constructor) | file://:0:0:0:0 | decltype([...](...){...}) |
+| test.cpp:27:28:27:28 | (unnamed constructor) | file://:0:0:0:0 | decltype([...](...){...}) |
+| test.cpp:27:28:27:28 | operator= | file://:0:0:0:0 | decltype([...](...){...}) |
+| test.cpp:27:29:27:29 | id1 | file://:0:0:0:0 | decltype([...](...){...}) |
+| test.cpp:27:29:27:31 | id1 | test.cpp:26:15:28:11 | { ... } |
+| test.cpp:27:33:27:33 | operator() | test.cpp:27:13:27:53 | declaration |
+| test.cpp:27:36:27:52 | { ... } | test.cpp:27:33:27:33 | operator() |
+| test.cpp:27:38:27:50 | declaration | test.cpp:27:36:27:52 | { ... } |
+| test.cpp:27:42:27:44 | id1 | test.cpp:27:36:27:52 | { ... } |
+| test.cpp:27:47:27:49 | 10 | test.cpp:27:36:27:52 | { ... } |
+| test.cpp:27:52:27:52 | return ... | test.cpp:27:36:27:52 | { ... } |
+| test.cpp:28:24:28:26 | id1 | test.cpp:28:29:30:11 | <handler> |
+| test.cpp:28:29:30:11 | <handler> | test.cpp:26:11:28:11 | try { ... } |
+| test.cpp:28:29:30:11 | { ... } | test.cpp:13:9:31:9 | { ... } |
+| test.cpp:29:13:29:20 | declaration | test.cpp:28:29:30:11 | { ... } |
+| test.cpp:29:17:29:19 | id1 | test.cpp:28:29:30:11 | { ... } |
+| test.cpp:34:3:34:3 | return ... | test.cpp:10:28:34:3 | { ... } |

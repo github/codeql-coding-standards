@@ -13,7 +13,6 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.Scope
 
 class LocalUserFunctionDeclarationEntry extends FunctionDeclarationEntry {
   DeclStmt ds;
