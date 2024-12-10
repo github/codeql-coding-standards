@@ -57,3 +57,11 @@ std::string test_fp_reported_in_424(
   s3.append(s2.c_str(), s2.size());
   return s3;
 }
+
+void test_no_except_deviated_decl(); // a-15-4-4-deviation
+
+void test_no_except_deviated_decl() {}
+
+void test_no_except_deviated_defn();
+
+void test_no_except_deviated_defn() {} // a-15-4-4-deviation
