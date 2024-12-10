@@ -20,6 +20,6 @@ from UserVariable v, UserVariable hidden
 where
   not isExcluded(v, ScopePackage::localConstructorInitializedObjectHidesIdentifierQuery()) and
   v.getInitializer().getExpr() instanceof ConstructorCall and
-  hides(hidden, v)
+  hidesStrict(hidden, v)
 select v, "The declaration declares variable " + v.getName() + " that hides $@", hidden,
   hidden.getName()
