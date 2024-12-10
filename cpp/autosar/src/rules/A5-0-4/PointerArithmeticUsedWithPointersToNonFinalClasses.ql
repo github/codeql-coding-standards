@@ -17,7 +17,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Type
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import NonFinalClassToPointerArithmeticExprFlow::PathGraph
 
 class ArrayAccessOrPointerArith extends Expr {

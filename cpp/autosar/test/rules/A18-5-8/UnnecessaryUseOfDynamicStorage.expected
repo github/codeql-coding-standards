@@ -1,3 +1,8 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UnnecessaryUseOfDynamicStorage.ql:55,34-42)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UnnecessaryUseOfDynamicStorage.ql:58,33-41)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UnnecessaryUseOfDynamicStorage.ql:60,26-34)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (UnnecessaryUseOfDynamicStorage.ql:74,5-18)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (UnnecessaryUseOfDynamicStorage.ql:79,41-54)
 | test.cpp:17:17:17:29 | new | StructA object of size 8 bytes does not appear to outlive the function, but is created on the heap instead of the stack. |
 | test.cpp:21:17:21:32 | new[] | StructA[] object of size 800 bytes does not appear to outlive the function, but is created on the heap instead of the stack. |
 | test.cpp:35:20:35:44 | call to make_shared | StructA object of size 8 bytes does not appear to outlive the function, but is created on the heap instead of the stack. |

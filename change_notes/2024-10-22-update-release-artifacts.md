@@ -1,0 +1,4 @@
+ - Modifications to the release artifacts:
+   - New CodeQL pack release artifacts have been created. These release artifacts can be downloaded from the release, and will be published to the GitHub registry under the `codeql` org for ease of deployment.
+   - The user manual has been updated to describe how to use the CodeQL packs.
+ - We no longer require a separate download of the CodeQL Standard Library for C++ - all queries have been pre-compiled and linked with the appropriate standard library.

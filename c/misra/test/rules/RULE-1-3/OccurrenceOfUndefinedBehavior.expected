@@ -1,5 +1,8 @@
-| test.c:8:6:8:35 | ____codeql_coding_standards_m2 | May result in undefined behavior. |
-| test.c:11:5:11:34 | ____codeql_coding_standards_m3 | May result in undefined behavior. |
-| test.c:15:5:15:34 | ____codeql_coding_standards_m4 | May result in undefined behavior. |
-| test.c:19:5:19:34 | ____codeql_coding_standards_m5 | May result in undefined behavior. |
-| test.c:23:5:23:34 | ____codeql_coding_standards_m6 | May result in undefined behavior. |
+| test.c:4:6:4:38 | ____codeql_coding_standards_main1 | main function may trigger undefined behavior because it is not in one of the formats specified by the C standard. |
+| test.c:8:5:8:37 | ____codeql_coding_standards_main2 | main function may trigger undefined behavior because it is not in one of the formats specified by the C standard. |
+| test.c:27:5:27:37 | ____codeql_coding_standards_main6 | main function may trigger undefined behavior because it is not in one of the formats specified by the C standard. |
+| test.c:32:6:32:38 | ____codeql_coding_standards_main7 | main function may trigger undefined behavior because it is not in one of the formats specified by the C standard. |
+| test.c:36:5:36:37 | ____codeql_coding_standards_main8 | main function may trigger undefined behavior because it is not in one of the formats specified by the C standard. |
+| test.c:40:5:40:37 | ____codeql_coding_standards_main9 | main function may trigger undefined behavior because it is not in one of the formats specified by the C standard. |
+| test.c:44:5:44:38 | ____codeql_coding_standards_main10 | main function may trigger undefined behavior because it is not in one of the formats specified by the C standard. |
+| test.c:48:5:48:38 | ____codeql_coding_standards_main11 | main function may trigger undefined behavior because it is not in one of the formats specified by the C standard. |

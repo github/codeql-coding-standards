@@ -1,0 +1,1 @@
+| test.c:37:3:37:6 | call to gets | Call to obsolescent function 'gets'. |

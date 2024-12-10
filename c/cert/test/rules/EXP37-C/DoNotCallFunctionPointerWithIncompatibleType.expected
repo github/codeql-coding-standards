@@ -1,11 +1,15 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallFunctionPointerWithIncompatibleType.ql:40,54-62)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallFunctionPointerWithIncompatibleType.ql:41,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallFunctionPointerWithIncompatibleType.ql:45,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallFunctionPointerWithIncompatibleType.ql:50,43-51)
 edges
-| test.c:48:68:48:70 | fns [f1] | test.c:49:3:49:5 | fns [f1] |
-| test.c:49:3:49:5 | fns [f1] | test.c:49:8:49:9 | f1 |
-| test.c:61:28:61:29 | f2 | test.c:62:3:62:11 | v1_called |
-| test.c:73:3:73:5 | fns [post update] [f1] | test.c:75:45:75:48 | & ... [f1] |
-| test.c:73:3:73:13 | ... = ... | test.c:73:3:73:5 | fns [post update] [f1] |
-| test.c:73:12:73:13 | v2 | test.c:73:3:73:13 | ... = ... |
-| test.c:75:45:75:48 | & ... [f1] | test.c:48:68:48:70 | fns [f1] |
+| test.c:48:68:48:70 | fns [f1] | test.c:49:3:49:5 | fns [f1] | provenance |  |
+| test.c:49:3:49:5 | fns [f1] | test.c:49:8:49:9 | f1 | provenance |  |
+| test.c:61:28:61:29 | f2 | test.c:62:3:62:11 | v1_called | provenance |  |
+| test.c:73:3:73:5 | fns [post update] [f1] | test.c:75:45:75:48 | & ... [f1] | provenance |  |
+| test.c:73:3:73:13 | ... = ... | test.c:73:3:73:5 | fns [post update] [f1] | provenance |  |
+| test.c:73:12:73:13 | v2 | test.c:73:3:73:13 | ... = ... | provenance |  |
+| test.c:75:45:75:48 | & ... [f1] | test.c:48:68:48:70 | fns [f1] | provenance |  |
 nodes
 | test.c:48:68:48:70 | fns [f1] | semmle.label | fns [f1] |
 | test.c:49:3:49:5 | fns [f1] | semmle.label | fns [f1] |

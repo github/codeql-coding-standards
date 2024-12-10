@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Macro
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 abstract class VaAccess extends Expr { }
 
@@ -71,12 +71,19 @@ predicate sameSource(VaAccess e1, VaAccess e2) {
   )
 }
 
+/**
+ * Extracted to avoid poor magic join ordering on the `isExcluded` predicate.
+ */
+predicate query(VaAccess va_acc, VaArgArg va_arg, FunctionCall fc) {
+  sameSource(va_acc, va_arg) and
+  fc = preceedsFC(va_acc) and
+  fc.getTarget().calls*(va_arg.getEnclosingFunction())
+}
+
 from VaAccess va_acc, VaArgArg va_arg, FunctionCall fc
 where
   not isExcluded(va_acc,
     Contracts7Package::doNotCallVaArgOnAVaListThatHasAnIndeterminateValueQuery()) and
-  sameSource(va_acc, va_arg) and
-  fc = preceedsFC(va_acc) and
-  fc.getTarget().calls*(va_arg.getEnclosingFunction())
+  query(va_acc, va_arg, fc)
 select va_acc, "The value of " + va_acc.toString() + " is indeterminate after the $@.", fc,
   fc.toString()

@@ -6,12 +6,22 @@ import cpp
 import codingstandards.cpp.Type
 
 /**
- * A type that is a pointer or array type.
+ * A type that is a pointer or array type after stripping top-level specifiers.
  */
 class PointerOrArrayType extends DerivedType {
   PointerOrArrayType() {
     this.stripTopLevelSpecifiers() instanceof PointerType or
     this.stripTopLevelSpecifiers() instanceof ArrayType
+  }
+}
+
+/**
+ * A type that is a pointer or array type.
+ */
+class UnspecifiedPointerOrArrayType extends DerivedType {
+  UnspecifiedPointerOrArrayType() {
+    this instanceof PointerType or
+    this instanceof ArrayType
   }
 }
 
