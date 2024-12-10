@@ -131,7 +131,7 @@ class BasePotentiallyUnusedGlobalOrNamespaceVariable extends GlobalOrNamespaceVa
 
 /**
  * A `GlobalOrNamespaceVariable` which is potentially unused, and is not defined in a macro.
-*/
+ */
 class PotentiallyUnusedGlobalOrNamespaceVariable extends BasePotentiallyUnusedGlobalOrNamespaceVariable
 {
   PotentiallyUnusedGlobalOrNamespaceVariable() {
