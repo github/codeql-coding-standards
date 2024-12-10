@@ -113,7 +113,7 @@ void f9() {
 }
 
 // Const variable tests:
-const int g9 = 1; // COMPLIANT
+const int g9 = 1;  // COMPLIANT
 const int g10 = 1; // NON-COMPLIANT
 
 void f10() {
@@ -125,7 +125,7 @@ void f10() {
 
 // Side effects should not disable this rule:
 void f11() {
-  int l1 = 1; // COMPLIANT
+  int l1 = 1;    // COMPLIANT
   int l2 = l1++; // COMPLIANT
   l2;
 }
