@@ -1,0 +1,132 @@
+{
+  "MISRA-C-2012": {
+    "DIR-5-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Circular waits leading to thread deadlocks may be avoided by locking in a predefined order.",
+          "kind": "problem",
+          "name": "There shall be no deadlocks between threads",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NotNoDeadlocksBetweenThreads",
+          "shared_implementation_short_name": "PreventDeadlockByLockingInPredefinedOrder",
+          "tags": [
+            "external/misra/c/2012/amendment4",
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "There shall be no deadlocks between threads"
+    },
+    "DIR-5-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Creating threads within threads creates uncertainty in program behavior and concurrency overhead costs.",
+          "kind": "problem",
+          "name": "Threads shall not be created by other threads",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThreadCreatedByThread",
+          "tags": [
+            "external/misra/c/2012/amendment4",
+            "correctness",
+            "maintainability",
+            "concurrency",
+            "performance"
+          ]
+        },
+        {
+          "description": "Creating threads outside of a well-defined program start-up phase creates uncertainty in program behavior and concurrency overhead costs.",
+          "kind": "problem",
+          "name": "There shall be no dynamic thread creation",
+          "precision": "low",
+          "severity": "error",
+          "short_name": "BannedDynamicThreadCreation",
+          "tags": [
+            "external/misra/c/2012/amendment4",
+            "external/misra/c/audit",
+            "correctness",
+            "maintainability",
+            "concurrency",
+            "performance"
+          ]
+        }
+      ],
+      "title": "There shall be no dynamic thread creation"
+    },
+    "RULE-12-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Accessing a member of an atomic structure or union results in undefined behavior.",
+          "kind": "problem",
+          "name": "Structure and union members of atomic objects shall not be directly accessed",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AtomicAggregateObjectDirectlyAccessed",
+          "tags": [
+            "external/misra/c/2012/amendment4",
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "Structure and union members of atomic objects shall not be directly accessed"
+    },
+    "RULE-21-25": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Only the memory ordering of 'memory_order_seq_cst' is fully portable and consistent.",
+          "kind": "path-problem",
+          "name": "All memory synchronization operations shall be executed in sequentially consistent order",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InvalidMemoryOrderArgument",
+          "tags": [
+            "external/misra/c/2012/amendment4",
+            "correctness",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "All memory synchronization operations shall be executed in sequentially consistent order"
+    },
+    "RULE-22-11": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Joining or detaching a previously joined or detached thread can lead to undefined program behavior.",
+          "kind": "problem",
+          "name": "A thread that was previously either joined or detached shall not be subsequently joined nor detached",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThreadPreviouslyJoinedOrDetached",
+          "shared_implementation_short_name": "JoinOrDetachThreadOnlyOnce",
+          "tags": [
+            "external/misra/c/2012/amendment4",
+            "correctness",
+            "concurrency"
+          ],
+          "implementation_scope": {
+            "description": "This query considers problematic usages of join and detach irrespective of the execution of the program and other synchronization and interprocess communication mechanisms that may be used."
+          }
+        }
+      ],
+      "title": "A thread that was previously either joined or detached shall not be subsequently joined nor detached"
+    }
+  }
+}
