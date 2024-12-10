@@ -6,3 +6,5 @@
 | test.c:45:9:45:10 | definition of g6 | Unused object definition 'g6'. | test.c:45:9:45:10 | test.c:45:9:45:10 |  |
 | test.c:51:5:51:6 | definition of g7 | Unused object definition 'g7'. | test.c:51:5:51:6 | test.c:51:5:51:6 |  |
 | test.c:64:3:64:18 | ONLY_DEF_VAR(x) | Unused object definition 'l2' from macro '$@'. | test.c:60:1:60:34 | test.c:60:1:60:34 | ONLY_DEF_VAR |
+| test.c:117:11:117:13 | definition of g10 | Unused object definition 'g10'. | test.c:117:11:117:13 | test.c:117:11:117:13 |  |
+| test.c:122:13:122:14 | definition of l2 | Unused object definition 'l2'. | test.c:122:13:122:14 | test.c:122:13:122:14 |  |

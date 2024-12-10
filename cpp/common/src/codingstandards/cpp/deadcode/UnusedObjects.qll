@@ -1,4 +1,5 @@
 import cpp
+import codingstandards.cpp.deadcode.UnusedVariables
 import codingstandards.cpp.alertreporting.HoldsForAllCopies
 import codingstandards.cpp.alertreporting.DeduplicateMacroResults
 
@@ -15,10 +16,13 @@ import codingstandards.cpp.alertreporting.DeduplicateMacroResults
  */
 class UnusedObjectDefinition extends VariableDeclarationEntry {
   UnusedObjectDefinition() {
+    (
+      getVariable() instanceof BasePotentiallyUnusedLocalVariable
+      or
+      getVariable() instanceof BasePotentiallyUnusedGlobalOrNamespaceVariable
+    ) and
     not exists(VariableAccess access | access.getTarget() = getVariable()) and
-    getVariable().getDefinition() = this and
-    not this instanceof ParameterDeclarationEntry and
-    not getVariable() instanceof MemberVariable
+    getVariable().getDefinition() = this
   }
 
   /* Dead objects with these attributes are reported in the "strict" queries. */

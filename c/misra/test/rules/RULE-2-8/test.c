@@ -111,3 +111,21 @@ void f8() {
 void f9() {
   DEF_ATTR_UNUSED_INNER_VAR(); // COMPLIANT
 }
+
+// Const variable tests:
+const int g9 = 1; // COMPLIANT
+const int g10 = 1; // NON-COMPLIANT
+
+void f10() {
+  g9;
+  const int l1 = 1; // COMPLIANT
+  const int l2 = 1; // NON-COMPLIANT
+  l1;
+}
+
+// Side effects should not disable this rule:
+void f11() {
+  int l1 = 1; // COMPLIANT
+  int l2 = l1++; // COMPLIANT
+  l2;
+}

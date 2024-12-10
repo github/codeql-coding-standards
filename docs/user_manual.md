@@ -71,6 +71,7 @@ For each rule we therefore identify whether it is supportable or not. Furthermor
 
 - **Automated** - the queries for the rule find contraventions directly.
 - **Audit only** - the queries for the rule does not find contraventions directly, but instead report a list of _candidates_ that can be used as input into a manual audit. For example, `A10-0-1` (_Public inheritance shall be used to implement 'is-a' relationship_) is not directly amenable to static analysis, but CodeQL can be used to produce a list of all the locations that use public inheritance so they can be manually reviewed.
+- **Strict only** - the queries for the rule find contraventions directly, but find results which are strongly indicated to be intentional, and where adding a _deviation report_ may be extra burden on developers. For example, in `RULE-2-8` (_A project should not contain unused object definitions_), declaring objects with `__attribute__((unused))` may be preferable to a _deviation report_, which will not suppress relevant compiler warnings, and therefore would otherwise require developer double-entry.
 
 Each supported rule is implemented as one or more CodeQL queries, with each query covering an aspect of the rule. In many coding standards, the rules cover non-trivial semantic properties of the codebase under analysis.
 
@@ -214,12 +215,20 @@ The following flags may be passed to the `database analyze` command to adjust th
 
 The output of this command will be a [SARIF file](https://sarifweb.azurewebsites.net/) called `<name-of-results-file>.sarif`.
 
-#### Running the analysis for audit level queries
+#### Running the analysis for strict and/or audit level queries
 
-Optionally, you may want to run the "audit" level queries. These queries produce lists of results that do not directly highlight contraventions of the rule. Instead, they identify locations in the code that can be manually audited to verify the absence of problems for that particular rule.
+Optionally, you may want to run the "strict" or "audit" level queries.
+
+Audit queries produce lists of results that do not directly highlight contraventions of the rule. Instead, they identify locations in the code that can be manually audited to verify the absence of problems for that particular rule.
 
 ```bash
 codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-audit.qls...
+```
+
+Strict queries identify contraventions in the code that strongly suggest they are deliberate, and where adding an explicit _deviation report_ may be extra burden on developers.
+
+```bash
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-strict.qls...
 ```
 
 For each Coding Standard you want to run, add a trailing entry in the following format: `path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-default.qls`.

@@ -60,7 +60,10 @@
           ]
         }
       ],
-      "title": "A project should not contain unused object definitions"
+      "title": "A project should not contain unused object definitions",
+      "implementation_scope": {
+        "description": "Unused object definitions marked with `__attribute__((unused))` (and `used`, `maybe_used`, `cleanup`) are separately reported under the 'strict' query suite. This is because these attributes strongly indicate the contravention is intentional, and a deviation report alone will not suppress compiler warnings."
+      }
     }
   }
 }
