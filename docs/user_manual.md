@@ -29,7 +29,8 @@
 | 0.21.0  | 2024-05-01 | Luke Cartey     | Add MISRA C++ 2023 as under development, and clarify MISRA C 2012 coverage.                                             |
 | 0.22.0  | 2024-10-02 | Luke Cartey     | Add MISRA C 2023 as under development, and clarify MISRA C 2012 coverage.                                               |
 | 0.23.0  | 2024-10-21 | Luke Cartey     | Add assembly as a hazard.                                                                                               |
-| 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                                                               |
+| 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                     |
+| 0.25.0  | 2024-12-03 | Luke Cartey     | Discuss support for new deviation code identifier formats                                                               |
 
 ## Release information
 
@@ -405,7 +406,7 @@ The example describes three ways of scoping a deviation:
 
 1. The deviation for `A18-1-1` applies to any source file in the same or a child directory of the directory containing the example `coding-standards.yml`.
 2. The deviation for `A18-5-1` applies to any source file in the directory `foo/bar` or a child directory of `foo/bar` relative to the directory containing the `coding-standards.yml`.
-3. The deviation for `A0-4-2` applies to any source element that has a comment residing on **the same line** containing the identifier specified in `code-identifier`.
+3. The deviation for `A0-4-2` applies to any source element that marked by a comment containing the identifier specified in `code-identifier`. The different acceptable formats are discussed in the next section.
 
 The activation of the deviation mechanism requires an extra step in the database creation process.
 This extra step is the invocation of the Python script `path/to/codeql-coding-standards/scripts/configuration/process_coding_standards_config.py` that is part of the coding standards code scanning pack.
@@ -419,6 +420,50 @@ codeql database create --language cpp --command 'python3 path/to/codeql-coding-s
 The `process_coding_standards_config.py` has a dependency on the package `pyyaml` that can be installed using the provided PIP package manifest by running the following command:
 
 `pip3 install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
+
+##### Deviation code identifiers
+
+A code identifier specified in a deviation record can be applied to certain results in the code by adding a comment marker consisting of a `code-identifier` with some optional annotations. The supported marker annotation formats are:
+
+ - `<code-identifier>` - the deviation applies to results on the current line.
+ - `DEVIATION(<code-identifier>)` - the deviation applies to results on the current line.
+ - `DEVIATION_NEXT_LINE(<code-identifier>)` - this deviation applies to results on the next line.
+ - `DEVIATION_BEGIN(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
+ - `DEVIATION_END(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
+
+Here are some examples, using the deviation record with the `a-0-4-2-deviation` code-identifier specified above:
+```cpp
+  long double x1; // NON_COMPLIANT
+
+  long double x2; // a-0-4-2-deviation - COMPLIANT
+  long double x3; // COMPLIANT - a-0-4-2-deviation
+
+  long double x4; // DEVIATION(a-0-4-2-deviation) - COMPLIANT
+  long double x5; // COMPLIANT - DEVIATION(a-0-4-2-deviation)
+
+  // DEVIATION_NEXT_LINE(a-0-4-2-deviation)
+  long double x6; // COMPLIANT
+
+  // DEVIATION_BEGIN(a-0-4-2-deviation)
+  long double x7; // COMPLIANT
+  // DEVIATION_END(a-0-4-2-deviation)
+```
+
+`DEVIATION_END` markers will pair with the closest unmatched `DEVIATION_BEGIN` for the same `code-identifier`. Consider this example:
+```cpp
+1 | // DEVIATION_BEGIN(a-0-4-2-deviation)
+2 |
+3 | // DEVIATION_BEGIN(a-0-4-2-deviation)
+4 |
+5 | // DEVIATION_END(a-0-4-2-deviation)
+6 |
+7 | // DEVIATION_END(a-0-4-2-deviation)
+```
+Here, Line 1 will pair with Line 7, and Line 3 will pair with Line 8.
+
+A `DEVIATION_END` without a matching `DEVIATION_BEGIN`, or `DEVIATION_BEGIN` without a matching `DEVIATION_END` is invalid and will be ignored.
+
+`DEVIATION_BEGIN` and `DEVIATION_END` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
 
 ##### Deviation permit
 
