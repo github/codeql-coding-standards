@@ -9,7 +9,7 @@
  * @tags external/misra/id/rule-17-5
  *       correctness
  *       external/misra/c/2012/third-edition-first-revision
- *       external/misra/obligation/advisory
+ *       external/misra/obligation/required
  */
 
 import cpp
