@@ -345,7 +345,8 @@
                             "external/misra/c/2012/third-edition-first-revision",
                             "external/misra/c/2012/amendment2",
                             "external/misra/c/2012/amendment3",
-                            "external/misra/c/2012/amendment4"
+                            "external/misra/c/2012/amendment4",
+                            "external/misra/c/strict"
                         ]
                     },
                     "minLength": 1
