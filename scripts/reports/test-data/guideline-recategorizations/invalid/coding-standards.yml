@@ -5,7 +5,7 @@ guideline-recategorizations:
     category: "disapplied"
   - rule-id: "A1-4-3"
     category: "mandatory"
-  - rule-id: "RULE-13-6"
+  - rule-id: "RULE-9-1"
     category: "required"
   - rule-id: "CON50-CPP"
     category: "required"
