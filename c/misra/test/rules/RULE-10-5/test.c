@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdbool.h>
 
 void testIncompatibleCasts() {
@@ -5,53 +6,68 @@ void testIncompatibleCasts() {
 
   _Bool b = true;
 
-  (_Bool) b;       // COMPLIANT
-  (char)b;         // NON_COMPLIANT
-  (enum E1) b;     // NON_COMPLIANT
-  (signed int)b;   // NON_COMPLIANT
-  (unsigned int)b; // NON_COMPLIANT
-  (float)b;        // NON_COMPLIANT
+  (_Bool) b;          // COMPLIANT
+  (char)b;            // NON_COMPLIANT
+  (enum E1) b;        // NON_COMPLIANT
+  (signed int)b;      // NON_COMPLIANT
+  (unsigned int)b;    // NON_COMPLIANT
+  (float)b;           // NON_COMPLIANT
+  (float _Complex) b; // NON_COMPLIANT
 
   char c = 100;
-  (_Bool) c;       // NON_COMPLIANT
-  (char)c;         // COMPLIANT
-  (enum E1) c;     // NON_COMPLIANT
-  (signed int)c;   // COMPLIANT
-  (unsigned int)c; // COMPLIANT
-  (float)c;        // NON_COMPLIANT
+  (_Bool) c;          // NON_COMPLIANT
+  (char)c;            // COMPLIANT
+  (enum E1) c;        // NON_COMPLIANT
+  (signed int)c;      // COMPLIANT
+  (unsigned int)c;    // COMPLIANT
+  (float)c;           // NON_COMPLIANT
+  (float _Complex) c; // NON_COMPLIANT
 
   enum E2 { C, D } e = C;
-  (_Bool) e;       // NON_COMPLIANT
-  (char)e;         // COMPLIANT
-  (enum E1) e;     // NON_COMPLIANT
-  (enum E2) e;     // COMPLIANT
-  (signed int)e;   // COMPLIANT
-  (unsigned int)e; // COMPLIANT
-  (float)e;        // COMPLIANT
+  (_Bool) e;          // NON_COMPLIANT
+  (char)e;            // COMPLIANT
+  (enum E1) e;        // NON_COMPLIANT
+  (enum E2) e;        // COMPLIANT
+  (signed int)e;      // COMPLIANT
+  (unsigned int)e;    // COMPLIANT
+  (float)e;           // COMPLIANT
+  (float _Complex) e; // COMPLIANT
 
   signed int i = 100;
-  (_Bool) i;       // NON_COMPLIANT
-  (char)i;         // COMPLIANT
-  (enum E1) i;     // NON_COMPLIANT
-  (signed int)i;   // COMPLIANT
-  (unsigned int)i; // COMPLIANT
-  (float)i;        // COMPLIANT
+  (_Bool) i;          // NON_COMPLIANT
+  (char)i;            // COMPLIANT
+  (enum E1) i;        // NON_COMPLIANT
+  (signed int)i;      // COMPLIANT
+  (unsigned int)i;    // COMPLIANT
+  (float)i;           // COMPLIANT
+  (float _Complex) i; // COMPLIANT
 
   unsigned int u = 100;
-  (_Bool) u;       // NON_COMPLIANT
-  (char)u;         // COMPLIANT
-  (enum E1) u;     // NON_COMPLIANT
-  (signed int)u;   // COMPLIANT
-  (unsigned int)u; // COMPLIANT
-  (float)u;        // COMPLIANT
+  (_Bool) u;          // NON_COMPLIANT
+  (char)u;            // COMPLIANT
+  (enum E1) u;        // NON_COMPLIANT
+  (signed int)u;      // COMPLIANT
+  (unsigned int)u;    // COMPLIANT
+  (float)u;           // COMPLIANT
+  (float _Complex) u; // COMPLIANT
 
   float f = 100.0;
-  (_Bool) f;       // NON_COMPLIANT
-  (char)f;         // NON_COMPLIANT
-  (enum E1) f;     // NON_COMPLIANT
-  (signed int)f;   // COMPLIANT
-  (unsigned int)f; // COMPLIANT
-  (float)f;        // COMPLIANT
+  (_Bool) f;          // NON_COMPLIANT
+  (char)f;            // NON_COMPLIANT
+  (enum E1) f;        // NON_COMPLIANT
+  (signed int)f;      // COMPLIANT
+  (unsigned int)f;    // COMPLIANT
+  (float)f;           // COMPLIANT
+  (float _Complex) f; // COMPLIANT
+
+  float _Complex cf = 100.0;
+  (_Bool) cf;          // NON_COMPLIANT
+  (char)cf;            // NON_COMPLIANT
+  (enum E1) cf;        // NON_COMPLIANT
+  (signed int)cf;      // COMPLIANT
+  (unsigned int)cf;    // COMPLIANT
+  (float)cf;           // COMPLIANT
+  (float _Complex) cf; // COMPLIANT
 }
 
 void testImplicit() {

@@ -30,6 +30,11 @@ where
   rightOpTypeCategory = getEssentialTypeCategory(rightOpEssentialType) and
   (
     not leftOpTypeCategory = rightOpTypeCategory and
+    not (
+      // Exception 3: Operands where both are real or complex floating types are allowed.
+      leftOpTypeCategory = EssentiallyFloatingType(_) and
+      rightOpTypeCategory = EssentiallyFloatingType(_)
+    ) and
     message =
       "The operands of this operator with usual arithmetic conversions have mismatched essential types (left operand: "
         + leftOpTypeCategory + ", right operand: " + rightOpTypeCategory + ")."

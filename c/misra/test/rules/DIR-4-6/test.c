@@ -15,9 +15,13 @@ typedef signed long long
 typedef unsigned long long
     uint4_t; // NON_COMPLIANT: typedef does not have its indicated size
 
-typedef float float32_t;        // COMPLIANT: exception, typedefs are permitted
-typedef double float64_t;       // COMPLIANT: exception, typedefs are permitted
+typedef float float32_t; // COMPLIANT: exception, typedefs are permitted
+typedef double _Complex float64_t; // NON-COMPLIANT: not complex floating type
 typedef long double float128_t; // COMPLIANT: exception, typedefs are permitted
+
+typedef float cfloat32_t; // NON-COMPLIANT: not a complex floating type
+typedef double _Complex cfloat64_t;  // COMPLIANT: correct complex floating type
+typedef double _Complex cfloat128_t; // NON-COMPLIANT: incorrect complex size
 
 typedef int8_t
     astronomical_number_t; // COMPLIANT: aliasing a fixed-width numeric typedef
@@ -63,4 +67,7 @@ main(int argc, // COMPLIANT: exception, argc's type can be plain int
 
   long double ld1 = 1; // NON_COMPLIANT: int is a basic numeric type
   float128_t ld2 = 1;  // COMPLIANT: typedef used instead
+
+  float _Complex cf1 = 1; // NON_COMPLIANT: complex basic numeric type
+  cfloat64_t cf2 = 1;     // COMPLIANT: typedef used instead
 }
