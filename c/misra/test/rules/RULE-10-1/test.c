@@ -340,11 +340,11 @@ void testInappropriateOperands() {
   // u >> f;  // NON_COMPILABLE
   // u >> cf;  // NON_COMPILABLE
 
-  b & u;  // NON_COMPLIANT
-  c & u;  // NON_COMPLIANT
-  e1 & u; // NON_COMPLIANT
-  s & u;  // NON_COMPLIANT
-  u & u;  // COMPLIANT
+  b &u;  // NON_COMPLIANT
+  c &u;  // NON_COMPLIANT
+  e1 &u; // NON_COMPLIANT
+  s &u;  // NON_COMPLIANT
+  u &u;  // COMPLIANT
   // f &u;  // NON_COMPILABLE
   // cf &u;  // NON_COMPILABLE
 
@@ -364,11 +364,11 @@ void testInappropriateOperands() {
   // f ^ u;  // NON_COMPILABLE
   // cf ^ u;  // NON_COMPILABLE
 
-  u & b;  // NON_COMPLIANT
-  u & c;  // NON_COMPLIANT
-  u & e1; // NON_COMPLIANT
-  u & s;  // NON_COMPLIANT
-  u & u;  // COMPLIANT
+  u &b;  // NON_COMPLIANT
+  u &c;  // NON_COMPLIANT
+  u &e1; // NON_COMPLIANT
+  u &s;  // NON_COMPLIANT
+  u &u;  // COMPLIANT
   // u &f;  // NON_COMPILABLE
   // u &cf;  // NON_COMPILABLE
 
