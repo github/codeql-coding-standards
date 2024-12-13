@@ -6,13 +6,17 @@ import codingstandards.c.misra
 import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
 import MisraExpressions
 
+newtype TEssentialFloatCategory =
+  Real() or
+  Complex()
+
 newtype TEssentialTypeCategory =
   EssentiallyBooleanType() or
   EssentiallyCharacterType() or
   EssentiallyEnumType() or
   EssentiallySignedType() or
   EssentiallyUnsignedType() or
-  EssentiallyFloatingType()
+  EssentiallyFloatingType(TEssentialFloatCategory c)
 
 /** An essential type category, as specified by Appendix D.1. */
 class EssentialTypeCategory extends TEssentialTypeCategory {
@@ -27,7 +31,9 @@ class EssentialTypeCategory extends TEssentialTypeCategory {
     or
     this = EssentiallyUnsignedType() and result = "essentially Unsigned type"
     or
-    this = EssentiallyFloatingType() and result = "essentially Floating type"
+    this = EssentiallyFloatingType(Real()) and result = "essentially Floating type"
+    or
+    this = EssentiallyFloatingType(Complex()) and result = "essentially Complex Floating type"
   }
 }
 
@@ -143,8 +149,11 @@ EssentialTypeCategory getEssentialTypeCategory(Type type) {
     essentialType instanceof NamedEnumType and
     not essentialType instanceof MisraBoolType
     or
-    result = EssentiallyFloatingType() and
-    essentialType instanceof FloatingPointType
+    result = EssentiallyFloatingType(Real()) and
+    essentialType instanceof RealNumberType
+    or
+    result = EssentiallyFloatingType(Complex()) and
+    essentialType instanceof ComplexNumberType
   )
 }
 
@@ -165,6 +174,17 @@ Type getEssentialType(Expr e) {
 }
 
 Type getEssentialTypeBeforeConversions(Expr e) { result = e.(EssentialExpr).getEssentialType() }
+
+/**
+ * For most essential types, `Type.getSize()` is correct, except for complex floating types.
+ *
+ * For complex floating types, the size is the size of the real part, so we divide by 2.
+ */
+int getEssentialSize(Type essentialType) {
+  if getEssentialTypeCategory(essentialType) = EssentiallyFloatingType(Complex())
+  then result = essentialType.getSize() / 2
+  else result = essentialType.getSize()
+}
 
 class EssentialExpr extends Expr {
   Type getEssentialType() { result = this.getType() }
