@@ -119,10 +119,10 @@
 | test.c:360:3:360:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
 | test.c:361:3:361:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
 | test.c:362:3:362:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:367:7:367:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:368:7:368:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:369:7:369:8 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:370:7:370:7 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:367:6:367:6 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:368:6:368:6 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:369:6:369:7 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:370:6:370:6 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
 | test.c:375:7:375:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
 | test.c:376:7:376:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
 | test.c:377:7:377:8 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
