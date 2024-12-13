@@ -244,7 +244,7 @@
           ]
         }
       ],
-      "title": "The relational operators >, >=, < and <= shall not be applied to objects of pointer type except where they point into the same object"
+      "title": "The relational operators >, >=, < and <= shall not be applied to expressions of pointer type except where they point into the same object"
     },
     "RULE-18-4": {
       "properties": {

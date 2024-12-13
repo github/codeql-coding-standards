@@ -25,7 +25,7 @@ predicate isContracts6QueryMetadata(Query query, string queryId, string ruleId, 
     // `@id` for the `arrayFunctionArgumentNumberOfElements` query
     "c/misra/array-function-argument-number-of-elements" and
   ruleId = "RULE-17-5" and
-  category = "advisory"
+  category = "required"
   or
   query =
     // `Query` instance for the `valueReturnedByAFunctionNotUsed` query

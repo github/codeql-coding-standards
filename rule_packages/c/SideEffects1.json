@@ -166,7 +166,7 @@
     },
     "RULE-13-6": {
       "properties": {
-        "obligation": "mandatory"
+        "obligation": "required"
       },
       "queries": [
         {
