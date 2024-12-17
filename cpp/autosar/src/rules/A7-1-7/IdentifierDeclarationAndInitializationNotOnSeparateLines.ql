@@ -23,7 +23,7 @@ class UniqueLineStmt extends Locatable {
       exists(Declaration d |
         this = d.getADeclarationEntry() and
         not d instanceof Parameter and
-        not d instanceof TemplateParameter and
+        not d instanceof TypeTemplateParameter and
         // TODO - Needs to be enhanced to solve issues with
         // templated inner classes.
         not d instanceof Function and
