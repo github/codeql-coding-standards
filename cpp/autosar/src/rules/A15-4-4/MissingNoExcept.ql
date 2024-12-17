@@ -28,6 +28,9 @@ where
   not isNoExceptTrue(f) and
   // Not explicitly marked noexcept(false)
   not isNoExceptExplicitlyFalse(f) and
+  // Not having a noexcept specification that
+  // could not be computed as true or false above.
+  not exists(f.getADeclarationEntry().getNoExceptExpr()) and
   // Not compiler generated
   not f.isCompilerGenerated() and
   // The function is defined in this database
