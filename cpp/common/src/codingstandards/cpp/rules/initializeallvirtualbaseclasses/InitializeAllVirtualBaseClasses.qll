@@ -38,6 +38,8 @@ query predicate problems(
     not c.isCompilerGenerated() and
     // Not a defaulted constructor
     not c.isDefaulted() and
+    // Not a deleted constructor
+    not c.isDeleted() and
     declaringType_string = declaringType.getSimpleName() and
     baseClass_string = baseClass.getSimpleName() and
     message =

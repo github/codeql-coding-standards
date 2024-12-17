@@ -96,14 +96,14 @@ void f8(const int *ar) {
 void f9(const std::string &s, std::string &str) {
   std::string::iterator loc = str.begin();
   for (auto i = s.begin(), e = s.end(); i != e; ++i, ++loc) { // NON_COMPLIANT
-    str.insert(loc, 'c'); // NON_COMPLIANT[FALSE POSITIVE for str]
+    str.insert(loc, 'c');                                     // NON_COMPLIANT
   }
 }
 
 void f10(const std::string &s, std::string &str) {
   std::string::iterator loc = str.begin();
   for (auto i = s.begin(), e = s.end(); i != e; ++i, ++loc) { // COMPLIANT
-    loc = str.insert(loc, 'c'); // COMPLIANT[FALSE POSITIVE]
+    loc = str.insert(loc, 'c');                               // COMPLIANT
   }
 }
 

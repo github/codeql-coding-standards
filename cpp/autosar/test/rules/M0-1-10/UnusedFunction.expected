@@ -10,4 +10,5 @@
 | test.cpp:50:5:50:6 | i3 | Function C<T>::i3 is never called. |
 | test.cpp:51:8:51:9 | i4 | Function C<T>::i4 is never called. |
 | test.cpp:52:15:52:16 | i5 | Function C<T>::i5 is never called. |
-| test.cpp:69:17:69:18 | g4 | Function g4 is never called. |
+| test.cpp:79:6:79:21 | anUnusedFunction | Function anUnusedFunction is never called. |
+| test.cpp:113:17:113:18 | g4 | Function g4 is never called. |
