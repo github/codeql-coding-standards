@@ -76,3 +76,14 @@ struct test_fix_fp_614 {
   test_fix_fp_614 operator++(int); // COMPLIANT
   test_fix_fp_614 operator--(int); // COMPLIANT
 };
+
+// COMPLIANT - instantiated with Fixed Width Types.
+template <typename MyType> constexpr void test_fix_fp_540(MyType value) {
+  value++;
+}
+
+int call_test_fix_fp_540() {
+  test_fix_fp_540<std::uint8_t>(19);
+  test_fix_fp_540<std::int16_t>(20);
+  return 0;
+}

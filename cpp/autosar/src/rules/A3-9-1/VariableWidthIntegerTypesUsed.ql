@@ -32,6 +32,10 @@ where
     typeStrippedOfSpecifiers instanceof SignedCharType
   ) and
   not v instanceof ExcludedVariable and
+  // Dont consider template instantiations because instantiations with
+  // Fixed Width Types are recorded after stripping their typedef'd type,
+  // thereby, causing false positives (#540).
+  not v.isFromTemplateInstantiation(_) and
   //post-increment/post-decrement operators are required by the standard to have a dummy int parameter
   not v.(Parameter).getFunction() instanceof PostIncrementOperator and
   not v.(Parameter).getFunction() instanceof PostDecrementOperator
