@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.exceptions.ExceptionFlow
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.HashCons
 
 /** Find a value which defines the exception thrown by the `DirectThrowExpr`, if any. */

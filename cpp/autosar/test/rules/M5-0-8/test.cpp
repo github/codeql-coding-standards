@@ -23,3 +23,21 @@ void f() {
   f32 = static_cast<float>(1.0f + 1);     // COMPLIANT
   f64 = static_cast<double>(1.0 + 1); // COMPLIANT; no suffix defines a double
 }
+
+#include <vector>
+
+void function_args() {
+  std::vector<std::uint8_t> v{0};
+
+  std::uint32_t u32{0};
+  v.at(static_cast<std::size_t>(u32)); // COMPLIANT - cast is not a cvalue
+  std::size_t st =
+      static_cast<std::size_t>(u32); // COMPLIANT - cast is not a cvalue
+  v.at(st);
+}
+
+std::size_t return_args() {
+  std::uint32_t u32{0};
+
+  return static_cast<std::size_t>(u32); // COMPLIANT
+}

@@ -15,8 +15,8 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Concurrency
-import codingstandards.cpp.dataflow.TaintTracking
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.DataFlow
 
 module TssCreateToTssDeleteConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {

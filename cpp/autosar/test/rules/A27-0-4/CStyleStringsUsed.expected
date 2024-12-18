@@ -1,3 +1,6 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CStyleStringsUsed.ql:39,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CStyleStringsUsed.ql:39,23-31)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CStyleStringsUsed.ql:39,47-55)
 | test.cpp:7:20:7:27 | CodeQL | Usage of C-style string in $@. | test.cpp:7:20:7:27 | CodeQL | expression |
 | test.cpp:7:20:7:27 | CodeQL | Usage of C-style string in $@. | test.cpp:16:16:16:17 | a1 | expression |
 | test.cpp:8:22:8:26 | call to c_str | Usage of C-style string in $@. | test.cpp:8:22:8:26 | call to c_str | expression |

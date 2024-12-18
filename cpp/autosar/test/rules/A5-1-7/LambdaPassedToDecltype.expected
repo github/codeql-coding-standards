@@ -1,1 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToDecltype.ql:20,55-63)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToDecltype.ql:21,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToDecltype.ql:23,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToDecltype.ql:28,44-52)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToDecltype.ql:39,47-55)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToDecltype.ql:40,9-17)
 | test.cpp:14:23:14:24 | decltype(...) | Lambda $@ passed as operand to decltype. | test.cpp:5:13:5:30 | [...](...){...} | expression |

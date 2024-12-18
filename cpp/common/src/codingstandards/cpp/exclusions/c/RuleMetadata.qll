@@ -2,6 +2,7 @@
 import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
+import Alignment
 import Banned
 import Banned2
 import BitfieldTypes
@@ -38,9 +39,11 @@ import IO4
 import IntegerOverflow
 import InvalidMemory1
 import InvalidMemory2
+import InvalidMemory3
 import Language1
 import Language2
 import Language3
+import Language4
 import Memory1
 import Memory2
 import Memory3
@@ -78,6 +81,7 @@ import Types2
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
+  TAlignmentPackageQuery(AlignmentQuery q) or
   TBannedPackageQuery(BannedQuery q) or
   TBanned2PackageQuery(Banned2Query q) or
   TBitfieldTypesPackageQuery(BitfieldTypesQuery q) or
@@ -114,9 +118,11 @@ newtype TCQuery =
   TIntegerOverflowPackageQuery(IntegerOverflowQuery q) or
   TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
   TInvalidMemory2PackageQuery(InvalidMemory2Query q) or
+  TInvalidMemory3PackageQuery(InvalidMemory3Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TLanguage3PackageQuery(Language3Query q) or
+  TLanguage4PackageQuery(Language4Query q) or
   TMemory1PackageQuery(Memory1Query q) or
   TMemory2PackageQuery(Memory2Query q) or
   TMemory3PackageQuery(Memory3Query q) or
@@ -154,6 +160,7 @@ newtype TCQuery =
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
+  isAlignmentQueryMetadata(query, queryId, ruleId, category) or
   isBannedQueryMetadata(query, queryId, ruleId, category) or
   isBanned2QueryMetadata(query, queryId, ruleId, category) or
   isBitfieldTypesQueryMetadata(query, queryId, ruleId, category) or
@@ -190,9 +197,11 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isIntegerOverflowQueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory2QueryMetadata(query, queryId, ruleId, category) or
+  isInvalidMemory3QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
+  isLanguage4QueryMetadata(query, queryId, ruleId, category) or
   isMemory1QueryMetadata(query, queryId, ruleId, category) or
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMemory3QueryMetadata(query, queryId, ruleId, category) or

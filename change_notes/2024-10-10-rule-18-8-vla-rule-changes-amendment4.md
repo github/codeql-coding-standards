@@ -1,0 +1,4 @@
+- `RULE-18-8` - `VariableLengthArrayTypesUsed.ql`:
+  - Implement changes declared in MISRA C 2012 Amendment 4. This rule now only bans the use of VLA objects. Rules restricting the use of VLA types -- specifically, pointers to VLA types -- are now implemented in `RULE-18-10`.
+- `EXP-35-C` - `DoNotModifyObjectsWithTemporaryLifetime.ql`
+  - Refactor component into a shared library, should not have any effect on rule results.
