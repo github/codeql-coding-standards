@@ -1,0 +1,2 @@
+ - `A15-4-4` - `MissingNoExcept.ql`:
+   - Reduce false positives by not reporting on functions that have a noexcept specification with a complex expression or call other such functions.
