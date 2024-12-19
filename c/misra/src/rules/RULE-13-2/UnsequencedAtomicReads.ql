@@ -33,22 +33,20 @@ class AtomicAccessInFullExpressionOrdering extends Ordering::Configuration {
 
 /**
  * A read of a variable specified as `_Atomic`.
- * 
+ *
  * Note, it may be accessed directly, or by passing its address into the std atomic functions.
  */
 class AtomicVariableAccess extends VariableAccess {
   pragma[noinline]
-  AtomicVariableAccess() {
-    getTarget().getType().hasSpecifier("atomic")
-  }
+  AtomicVariableAccess() { getTarget().getType().hasSpecifier("atomic") }
 
   /* Get the `atomic_<read|write>()` call this VarAccess occurs in. */
   FunctionCall getAtomicFunctionCall() {
     exists(AddressOfExpr addrParent, FunctionCall fc |
       fc.getTarget().getName().matches("__c11_atomic%") and
       addrParent = fc.getArgument(0) and
-      addrParent.getAnOperand() = this
-      and result = fc
+      addrParent.getAnOperand() = this and
+      result = fc
     )
   }
 
@@ -59,8 +57,8 @@ class AtomicVariableAccess extends VariableAccess {
     result = getAtomicFunctionCall().getArgument(1)
     or
     exists(AssignExpr assign |
-      assign.getLValue() = this
-      and result = assign.getRValue()
+      assign.getLValue() = this and
+      result = assign.getRValue()
     )
   }
 
@@ -75,8 +73,8 @@ class AtomicVariableAccess extends VariableAccess {
 }
 
 from
-  AtomicAccessInFullExpressionOrdering config, FullExpr e, Variable v,
-  AtomicVariableAccess va1, AtomicVariableAccess va2
+  AtomicAccessInFullExpressionOrdering config, FullExpr e, Variable v, AtomicVariableAccess va1,
+  AtomicVariableAccess va2
 where
   not isExcluded(e, SideEffects3Package::unsequencedAtomicReadsQuery()) and
   e = va1.(ConstituentExpr).getFullExpr() and
@@ -89,6 +87,6 @@ where
     TaintTracking::localTaint(DataFlow::exprNode(va2.getARead()), DataFlow::exprNode(write))
   ) and
   // Impose an ordering, show the first access.
-  va1.getLocation().isBefore(va2.getLocation(), _)   
-select e, "Atomic variable $@ has a $@ that is unsequenced with $@.",
-  v, v.getName(), va1, "previous read", va2, "another read"
+  va1.getLocation().isBefore(va2.getLocation(), _)
+select e, "Atomic variable $@ has a $@ that is unsequenced with $@.", v, v.getName(), va1,
+  "previous read", va2, "another read"

@@ -40,11 +40,11 @@ void unsequenced_sideeffects2() {
 
 void atomics() {
   _Atomic int a1, a2;
-  int l3 = a1 + a2; // COMPLIANT
-  int l4 = a1 + a1; // NON_COMPLIANT
-  a1 = a1 + 1;      // COMPLIANT
+  int l3 = a1 + a2;                    // COMPLIANT
+  int l4 = a1 + a1;                    // NON_COMPLIANT
+  a1 = a1 + 1;                         // COMPLIANT
   atomic_load(&a1) + atomic_load(&a1); // NON_COMPLIANT
   atomic_load(&a1) + atomic_load(&a2); // COMPLIANT
   atomic_store(&a1, atomic_load(&a1)); // COMPLIANT
-  atomic_store(&a1, a1); // COMPLIANT
+  atomic_store(&a1, a1);               // COMPLIANT
 }
