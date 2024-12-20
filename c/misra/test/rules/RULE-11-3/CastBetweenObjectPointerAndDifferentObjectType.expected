@@ -6,3 +6,7 @@
 | test.c:21:3:21:16 | (int *)... | Cast performed between a pointer to object type (char) and a pointer to a different object type (int). |
 | test.c:22:20:22:21 | (int *)... | Cast performed between a pointer to object type (char) and a pointer to a different object type (int). |
 | test.c:23:3:23:18 | (long long *)... | Cast performed between a pointer to object type (int) and a pointer to a different object type (long long). |
+| test.c:26:3:26:13 | (char *)... | Cast performed between a pointer to object type (_Atomic(int)) and a pointer to a different object type (char). |
+| test.c:27:8:27:10 | (char *)... | Cast performed between a pointer to object type (_Atomic(int)) and a pointer to a different object type (char). |
+| test.c:28:3:28:21 | (_Atomic(char) *)... | Cast performed between a pointer to object type (_Atomic(int)) and a pointer to a different object type (_Atomic(char)). |
+| test.c:29:23:29:25 | (_Atomic(char) *)... | Cast performed between a pointer to object type (_Atomic(int)) and a pointer to a different object type (_Atomic(char)). |

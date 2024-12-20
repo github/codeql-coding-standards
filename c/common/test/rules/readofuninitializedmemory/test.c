@@ -94,4 +94,6 @@ void test_non_default_init() {
   static struct A ss;
   use_struct_A(
       ss); // COMPLIANT - static struct type variables are zero initialized
+  _Atomic int x;
+  use_int(x); // COMPLIANT - atomics are special, covered by other rules
 }
