@@ -8,12 +8,13 @@
  * @problem.severity error
  * @tags external/misra/id/rule-17-5
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/advisory
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * Models a function parameter of type array with specified size

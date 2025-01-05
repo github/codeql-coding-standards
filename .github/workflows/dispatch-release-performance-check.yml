@@ -3,41 +3,45 @@ name: 🏁 Run Release Performance Check
 on:
   issue_comment:
     types: [created]
-    branches:
-      - main
-      - "rc/**"
-      - next
 
 jobs:
   dispatch-matrix-check:
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Test Variables
-        shell: pwsh
-        run: |
-          Write-Host "Running as: ${{github.actor}}"    
-
-          $actor = "${{github.actor}}"
-
-          $acl = @("jsinglet","mbaluda", "lcartey", "rvermeulen", "ravikprasad", "jeongsoolee09", "hohn", "knewbury01", "kraiouchkine") 
-
-          if(-not ($actor -in $acl)){
-            throw "Refusing to run workflow for user not in acl."
-          }
-
-      - name: Dispatch Performance Testing Job
-        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') }}
-        uses: peter-evans/repository-dispatch@v2
+      - name: Check permission
+        id: check-write-permission
+        uses: ./.github/actions/check-permissions
         with:
-          token: ${{ secrets.RELEASE_ENGINEERING_TOKEN }}
-          repository: github/codeql-coding-standards-release-engineering
-          event-type: performance-test
-          client-payload: '{"pr": "${{ github.event.issue.number  }}"}'
+          minimum-permission: "write"
 
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "codeql-coding-standards-release-engineering"
 
-      - uses: actions/github-script@v6
-        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') }}
+      - name: Invoke performance test
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') && steps.check-write-permission.outputs.has-permission }}
+        env:
+          ISSUE_NR: ${{ github.event.issue.number }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          jq -n \
+          --arg issue_nr "$ISSUE_NR" \
+          '{"issue-nr": $issue_nr}' \
+          | \
+          gh workflow run pr-performance-testing.yml \
+          --json \
+          -R github/codeql-coding-standards-release-engineering
+
+      - uses: actions/github-script@v7
+        if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') && steps.check-write-permission.outputs.has-permission }}
         with:
           script: |
             github.rest.issues.createComment({

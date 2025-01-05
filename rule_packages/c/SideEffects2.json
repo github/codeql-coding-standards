@@ -14,7 +14,8 @@
           "short_name": "SideEffectAndCrementInFullExpression",
           "tags": [
             "readability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -33,7 +34,8 @@
           "severity": "warning",
           "short_name": "ModificationOfFunctionParameter",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

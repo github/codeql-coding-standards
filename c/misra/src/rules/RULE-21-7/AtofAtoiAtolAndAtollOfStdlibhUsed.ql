@@ -8,18 +8,16 @@
  * @problem.severity error
  * @tags external/misra/id/rule-21-7
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.rules.atofatoiatolandatollused.AtofAtoiAtolAndAtollUsed
 
-private string atoi() { result = ["atof", "atoi", "atol", "atoll"] }
-
-from FunctionCall fc, Function f
-where
-  not isExcluded(fc, BannedPackage::atofAtoiAtolAndAtollOfStdlibhUsedQuery()) and
-  f = fc.getTarget() and
-  f.getName() = atoi() and
-  f.getFile().getBaseName() = "stdlib.h"
-select fc, "Call to banned function " + f.getName() + "."
+class AtofAtoiAtolAndAtollOfStdlibhUsedQuery extends AtofAtoiAtolAndAtollUsedSharedQuery {
+  AtofAtoiAtolAndAtollOfStdlibhUsedQuery() {
+    this = BannedPackage::atofAtoiAtolAndAtollOfStdlibhUsedQuery()
+  }
+}

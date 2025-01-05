@@ -1,11 +1,14 @@
 /**
- * Provides a library which includes a `problems` predicate for reporting....
+ * Provides a library with a `problems` predicate for the following issue:
+ * The pointers returned by the Standard Library functions localeconv, getenv,
+ * setlocale or, strerror shall only be used as if they have pointer to
+ * const-qualified type.
  */
 
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import DFFlow::PathGraph
 
 abstract class ConstLikeReturnValueSharedQuery extends Query { }

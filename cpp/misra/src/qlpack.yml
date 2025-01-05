@@ -1,8 +1,8 @@
 name: codeql/misra-cpp-coding-standards
-version: 2.33.0-dev
+version: 2.40.0-dev
 description: MISRA C++ 2023
-suites: codeql-suites
+default-suite: codeql-suites/misra-cpp-default.qls
 license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
-  codeql/cpp-all: 0.9.3
+  codeql/cpp-all: 1.4.2

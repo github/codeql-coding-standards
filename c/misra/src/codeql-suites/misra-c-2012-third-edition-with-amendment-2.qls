@@ -1,0 +1,13 @@
+- description: MISRA C 2012 - Third Edition, First Revision including Amendment 2
+- qlpack: codeql/misra-c-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - external/misra/c/2012/third-edition-first-revision
+    - external/misra/c/2012/amendment2
+- exclude:
+    tags contain:
+    - external/misra/audit
+    - external/misra/default-disabled

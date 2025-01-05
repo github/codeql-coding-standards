@@ -8,13 +8,14 @@
  * @problem.severity error
  * @tags external/misra/id/rule-22-3
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.standardlibrary.FileAccess
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import semmle.code.cpp.controlflow.SubBasicBlocks
 

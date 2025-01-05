@@ -15,7 +15,8 @@
           "shared_implementation_short_name": "NestedLabelInSwitch",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -35,7 +36,8 @@
           "short_name": "BreakShallTerminateSwitchClause",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -55,7 +57,8 @@
           "short_name": "EverySwitchShallHaveDefaultLabel",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -73,7 +76,9 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "DefaultNotFirstOrLastOfSwitch",
-          "tags": []
+          "tags": [
+            "external/misra/c/2012/third-edition-first-revision"
+          ]
         }
       ],
       "title": "A default label shall appear as either the first or the last switch label of a switch statement"

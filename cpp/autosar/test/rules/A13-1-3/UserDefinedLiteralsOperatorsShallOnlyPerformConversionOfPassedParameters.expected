@@ -1,1 +1,4 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UserDefinedLiteralsOperatorsShallOnlyPerformConversionOfPassedParameters.ql:27,33-41)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UserDefinedLiteralsOperatorsShallOnlyPerformConversionOfPassedParameters.ql:28,5-13)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (UserDefinedLiteralsOperatorsShallOnlyPerformConversionOfPassedParameters.ql:27,7-20)
 | test.cpp:47:8:47:23 | operator ""_uds5 | User defined literal operator returns $@, which is not converted from a passed parameter | test.cpp:48:10:48:12 | 0.0 | expression |

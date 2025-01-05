@@ -14,24 +14,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.virtualandnonvirtualclassinthehierarchy.VirtualAndNonVirtualClassInTheHierarchy
 
-from Class c1, Class c2, Class c3, Class base, ClassDerivation cd1, ClassDerivation cd2
-where
-  not isExcluded(c3,
-    InheritancePackage::accessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery()) and
-  // for each pair of classes, get all of their derivations
-  cd1 = c1.getADerivation() and
-  cd2 = c2.getADerivation() and
-  // where they share the same base class
-  base = cd1.getBaseClass() and
-  base = cd2.getBaseClass() and
-  // but one is virtual, and one is not, and the derivations are in different classes
-  cd1.isVirtual() and
-  not cd2.isVirtual() and
-  // and there is some 'other class' that derives from both of these classes
-  c3.derivesFrom*(c1) and
-  c3.derivesFrom*(c2) and
-  // and the base class is accessible from the 'other class'
-  c3.getAMemberFunction().getEnclosingAccessHolder().canAccessClass(base, c3)
-select c3, "Class inherits base class $@, which is derived virtual by $@ and non-virtual by $@.",
-  base, base.getName(), cd1, cd1.getDerivedClass().toString(), c2, cd2.getDerivedClass().toString()
+class AccessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery extends VirtualAndNonVirtualClassInTheHierarchySharedQuery
+{
+  AccessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery() {
+    this = InheritancePackage::accessibleBaseClassBothVirtualAndNonVirtualInHierarchyQuery()
+  }
+}

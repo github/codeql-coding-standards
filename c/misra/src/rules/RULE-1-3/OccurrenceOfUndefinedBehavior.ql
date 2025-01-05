@@ -8,6 +8,7 @@
  * @tags external/misra/id/rule-1-3
  *       maintainability
  *       readability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
@@ -17,4 +18,4 @@ import codingstandards.c.UndefinedBehavior
 
 from CUndefinedBehavior c
 where not isExcluded(c, Language3Package::occurrenceOfUndefinedBehaviorQuery())
-select c, "May result in undefined behavior."
+select c, c.getReason()

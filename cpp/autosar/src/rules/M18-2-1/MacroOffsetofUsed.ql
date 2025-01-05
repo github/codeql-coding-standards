@@ -15,9 +15,8 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.macrooffsetofused.MacroOffsetofUsed
 
-from MacroInvocation mi
-where
-  not isExcluded(mi, BannedFunctionsPackage::macroOffsetofUsedQuery()) and
-  mi.getMacroName() = "offsetof"
-select mi, "Use of banned macro " + mi.getMacroName() + "."
+class MacroOffsetofUsedQuery extends MacroOffsetofUsedSharedQuery {
+  MacroOffsetofUsedQuery() { this = BannedFunctionsPackage::macroOffsetofUsedQuery() }
+}

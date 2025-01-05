@@ -7,13 +7,14 @@
  * @problem.severity error
  * @tags external/misra/id/rule-19-1
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/mandatory
  */
 
 import cpp
 import codingstandards.c.misra
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * Offset in bytes of a field access

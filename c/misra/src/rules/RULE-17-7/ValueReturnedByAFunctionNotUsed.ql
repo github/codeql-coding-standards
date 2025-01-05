@@ -8,12 +8,13 @@
  * @problem.severity error
  * @tags external/misra/id/rule-17-7
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 from Call c
 where

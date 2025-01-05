@@ -81,5 +81,61 @@ int test_dead_code(int x) {
 
   static_assert(1); // COMPLIANT
 
-  return live5 + live6; // COMPLIANT
+  constexpr int constexpr_array_size{6};    // COMPLIANT
+  int unused_array[constexpr_array_size]{}; // NON_COMPLIANT
+
+  constexpr int unused_int{2}; // NON_COMPLIANT
+
+  constexpr int constexpr_used_array[]{3, 4, 5};   // COMPLIANT
+  constexpr int constexpr_unused_array[]{0, 1, 2}; // NON_COMPLIANT
+
+  return live5 + live6 + constexpr_used_array[1]; // COMPLIANT
+}
+
+class Foo {
+public:
+  void bar() { may_have_side_effects(); }
+};
+
+class Baz {
+public:
+  void bar() {} // No side effects
+};
+
+#define FULL_STMT_NO_SIDE_EFFECTS no_side_effects(1);
+#define PART_STMT_NO_SIDE_EFFECTS no_side_effects(1)
+#define BLOCK_SOME_SIDE_EFFECTS                                                \
+  {                                                                            \
+    may_have_side_effects();                                                   \
+    no_side_effects(1);                                                        \
+  }
+
+template <typename T> void test_template() {
+  T t;
+  t.bar();                       // COMPLIANT
+  no_side_effects(1);            // NON_COMPLIANT
+  FULL_STMT_NO_SIDE_EFFECTS      // NON_COMPLIANT
+      PART_STMT_NO_SIDE_EFFECTS; // NON_COMPLIANT
+  BLOCK_SOME_SIDE_EFFECTS;       // COMPLIANT - cannot determine loc for
+                                 // no_side_effects(1)
+}
+
+template <typename T> void test_variant_side_effects() {
+  T t;
+  t.bar(); // COMPLIANT - not dead in at least one instance
+}
+
+template <typename T> void test_unused_template() {
+  T t;
+  t.bar(); // COMPLIANT
+  no_side_effects(
+      1); // NON_COMPLIANT[FALSE_NEGATIVE] - unused templates are not extracted
+}
+
+void test() {
+  test_template<Foo>();
+  test_template<Baz>();
+  test_variant_side_effects<Foo>(); // COMPLIANT
+  test_variant_side_effects<Baz>(); // NON_COMPLIANT - no effect in this
+                                    // instantiation
 }

@@ -1,3 +1,9 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArrayFunctionArgumentNumberOfElements.ql:48,36-44)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArrayFunctionArgumentNumberOfElements.ql:49,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArrayFunctionArgumentNumberOfElements.ql:51,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArrayFunctionArgumentNumberOfElements.ql:56,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArrayFunctionArgumentNumberOfElements.ql:72,28-36)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArrayFunctionArgumentNumberOfElements.ql:72,51-59)
 | test.c:18:6:18:6 | 0 | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
 | test.c:19:6:19:7 | ar | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |
 | test.c:21:6:21:9 | ar2p | The function argument does not have a sufficient number or elements declared in the $@. | test.c:1:13:1:14 | ar | parameter |

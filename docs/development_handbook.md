@@ -40,6 +40,8 @@
 | 0.30.0 | 2023-11-14 | Remco Vermeulen | Clarify release steps in case of a hotfix release. |
 | 0.31.0 | 2024-02-23 | Remco Vermeulen | Clarify the required use of Python version 3.9 |
 | 0.32.0 | 2024-05-01 | Luke Cartey | Refer to the user manual for the list of supported standards. |
+| 0.33.0 | 2024-07-30 | Kristen Newbury | Remove out dated references to codeql modules directory usage. |
+| 0.34.0 | 2024-08-22 | Kristen Newbury | Remove out dated references to git submodules usage. |
 
 ## Scope of work
 
@@ -494,12 +496,11 @@ There are two external dependencies required for running the coding standards qu
 
 For the purpose of this repository, and any tool qualification, we consider these external dependencies to be "black boxes" which require verification when upgrading.
 
-To (a) clearly specify the supported versions of these external dependencies and to (b) enable automation around them, the repository contains a `supported_codeql_configs.json` which lists the sets of supported configurations. There are four fields:
+To (a) clearly specify the supported versions of these external dependencies and to (b) enable automation around them, the repository contains a `supported_codeql_configs.json` which lists the sets of supported configurations under the `supported_environments` property. There are three fields:
 
 - `codeql_cli` - this is the plain version number of the supported CodeQL CLI, e.g. `2.6.3`.
 - `codeql_standard_library` - this is the name of a tag on the `github.com/github/codeql` repository. The tag should be compatible with the CodeQL CLI given above. This would typically use the `codeql-cli/v<version-number>` tag for the release, although any tag which is compatible is allowed.
 - `codeql_cli_bundle` - (optional) - if present, describes the CodeQL CLI bundle version that is compatible. The bundle should include precisely the CodeQL CLI version and CodeQL Standard Library versions specified in the two mandatory fields.
-- `ghes` - (optional) - if present describes the GitHub Enterprise Server release whose integrated copy of the CodeQL Action points to the CodeQL CLI bundle specified in the `codeql_cli_bundle` field.
 
 #### Upgrading external dependencies
 
@@ -507,34 +508,41 @@ To upgrade the CodeQL external dependencies:
 
 1. Determine appropriate versions of the CodeQL CLI and `github/codeql` repository, according to the release schedule and customer demands.
 2. Determine if there is a compatible CodeQL CLI bundle version by looking at the releases specified at [CodeQL Action releases](https://github.com/github/codeql-action/releases). The bundle always includes the standard library at the version specified by the `codeql-cli/v<version-number>` tag in the `github/codeql` repository.
-3. If you find a compatible CodeQL CLI bundle, determine whether that bundle was released in a GitHub Enterprise server release, by inspecting the `defaults.json` file at https://github.com/github/codeql-action/blob/main/lib/defaults.json#L2 for the CodeQL Action submitted with
-4. Populated the `supported_codeql_configs.json` file with the given values, ensuring to delete the optional fields if they are not populated.
-5. Update the `codeql_modules/codeql` submodule pointer to the `codeql_standard_library` tag identified.
-6. Submit a Pull Request to the `github/codeql-coding-standards` repository with the title `Upgrade `github/codeql` dependency to <insert codeql_standard_library value>`. Use this template for the description, filling :
+
+If all components are being upgraded to a consistent veresion (e.g. CodeQL CLI v2.15.5, with `github/codeql` tag `codeql-cli/v2.15.5` and bundle `codeql-cli-bundle-v2.15.5`) then the following process can be used:
+
+1. Run the [upgrade_codeql_dependencies.yml](./github/workflows/upgrade_codeql_dependencies.yml) workflow, with the plain version number, e.g. `2.15.5`. This will:
+  - Download the specified version of the CodeQL CLI
+  - Run the [upgrade-codeql-dependencies.py](scripts/release/upgrade-codeql-dependencies.py) script, which
+    - Validates the version selected exists in all relevant places
+    - Updates the `supported_codeql_configs.json` file.
+    - Updates each `qlpack.yml` in the repository with an appropriate value for the `codeql/cpp-all` pack, consistent with the selected CodeQL CLI version.
+    - Updates each `codeql-lock.yml` file to upgrade to the new version.
+2. Follow the dependency upgrade checklist, confirming each step. The `.github/workflows/standard_library_upgrade_tests.yml` will trigger automation for running the `github/codeql` unit tests with the appropriate CLI version.
+3. Once all the automate tests have passed, and the checklist is complete, the PR can be merged.
+4. An internal notification should be shared with the development team.
+
+If the upgrade is of mismatched versions you will need to manually create the upgrade following this process:
+
+1. Populate the `supported_codeql_configs.json` file with the given values, ensuring to delete the optional fields if they are not populated.
+2. Submit a Pull Request to the `github/codeql-coding-standards` repository with the title `Upgrade `github/codeql` dependency to <insert codeql_standard_library value>`. Use this template for the description, filling:
 
     ```md
-    This PR updates the `supported_codeql_configs.json` file to target:
-
-    - CodeQL CLI <codeql_cli>
-    - CodeQL Standard Library <codeql_standard_library>
-    - GHES <ghes>
-    - CodeQL CLI Bundle <date_of_bundle>
-
-    <EITHER:This should match the versions of CodeQL deployed with GitHub Enterprise Server <ghes>>
-    <OR: This does not match any released version of GitHub Enterprise Server.>
+    This PR updates the `supported_codeql_configs.json` file to target CodeQL CLI <codeql_cli>.
 
     ## CodeQL dependency upgrade checklist:
 
-    - [ ] Reformat our CodeQL using the latest version (if required)
+    - [ ] Confirm the code has been correctly reformatted according to the new CodeQL CLI.
     - [ ] Identify any CodeQL compiler warnings and errors, and update queries as required.
     - [ ] Validate that the `github/codeql` test cases succeed.
     - [ ] Address any CodeQL test failures in the `github/codeql-coding-standards` repository.
-    - [ ] Validate performance vs pre-upgrade
+    - [ ] Validate performance vs pre-upgrade, using /test-performance
     ```
 
-7. Follow the dependency upgrade checklist, confirming each step. The `.github/workflows/standard_library_upgrade_tests.yml` will trigger automation for running the `github/codeql` unit tests with the appropriate CLI version.
-8. Once all the automate tests have passed, and the checklist is complete, the PR can be merged.
-9. An internal notification should be shared with the development team.
+3. Follow the dependency upgrade checklist, confirming each step. The `.github/workflows/standard_library_upgrade_tests.yml` will trigger automation for running the `github/codeql` unit tests with the appropriate CLI version.
+4. Once all the automate tests have passed, and the checklist is complete, the PR can be merged.
+5. An internal notification should be shared with the development team.
+
 
 ### Release process
 
@@ -735,14 +743,3 @@ codeql test run --show-extractor-output \
 # The actual output can be accepted via codeql test accept (which moves some files):
 codeql test accept \
        cpp/cert/test/rules/EXP52-CPP/DoNotRelyOnSideEffectsInDeclTypeOperand.qlref
-
-
-```
-
-### Troubleshooting: Unrecoverable mismatch between extractor and library dbschemes
-
-The following error could be indicative of the Git submodule *codeql-coding-standards/github_modules* being out-of-date:
-
->Could not upgrade the dataset in /path/to/codeql-coding-standards/cpp/autosar/test/rules/...: Unrecoverable mismatch between extractor and library dbschemes.
-
-To resolve the problem, update the submodule by executing `git submodule update`.

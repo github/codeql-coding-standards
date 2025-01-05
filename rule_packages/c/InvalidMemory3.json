@@ -1,0 +1,59 @@
+{
+  "MISRA-C-2012": {
+    "RULE-18-10": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Pointers to variably-modified array types shall not be used, as these pointer types are frequently incompatible with other fixed or variably sized arrays, resulting in undefined behavior.",
+          "kind": "problem",
+          "name": "Pointers to variably-modified array types shall not be used",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PointersToVariablyModifiedArrayTypesUsed",
+          "tags": [
+            "external/misra/c/2012/amendment4",
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Pointers to variably-modified array types shall not be used"
+    },
+    "RULE-18-9": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Modifying or accessing elements of an array with temporary lifetime that has been converted to a pointer will result in undefined behavior.",
+          "kind": "problem",
+          "name": "An object with temporary lifetime shall not undergo array to pointer conversion",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ArrayToPointerConversionOfTemporaryObject",
+          "tags": [
+            "external/misra/c/2012/amendment3",
+            "correctness",
+            "security"
+          ]
+        },
+        {
+          "description": "Modifying elements of an array with temporary lifetime will result in undefined behavior.",
+          "kind": "problem",
+          "name": "Usage of the subscript operator on an object with temporary lifetime shall not return a modifiable value",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ModifiableLValueSubscriptedWithTemporaryLifetime",
+          "tags": [
+            "external/misra/c/2012/amendment3",
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "An object with temporary lifetime shall not undergo array to pointer conversion"
+    }
+  }
+}

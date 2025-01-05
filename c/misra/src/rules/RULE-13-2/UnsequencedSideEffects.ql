@@ -8,14 +8,14 @@
  * @problem.severity error
  * @tags external/misra/id/rule-13-2
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Expr
-import codingstandards.c.SideEffects
 import codingstandards.c.Ordering
+import codingstandards.c.SideEffects
 
 class VariableEffectOrAccess extends Expr {
   VariableEffectOrAccess() {

@@ -127,7 +127,7 @@ public:
   MissingConstexprClass(int i) = delete;           // NON_COMPLIANT
   MissingConstexprClass(int i, LiteralClass lc) {} // NON_COMPLIANT
 private:
-  int m1 = 0;
+  int m1 = 0; // NON_COMPLIANT
 };
 
 class VirtualBaseClass {};
@@ -138,7 +138,7 @@ public:
   DerivedClass(int i) = delete;           // COMPLIANT
   DerivedClass(int i, LiteralClass lc) {} // COMPLIANT
 private:
-  int m1 = 0;
+  int m1 = 0; // NON_COMPLIANT
 };
 
 class NotAllMembersInitializedClass {

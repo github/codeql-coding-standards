@@ -5,13 +5,13 @@
  */
 
 import cpp
-import codingstandards.c.Pointers
+import codingstandards.cpp.Pointers
 import codingstandards.c.Variable
 import codingstandards.cpp.Allocations
 import codingstandards.cpp.Overflow
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 import codingstandards.cpp.SimpleRangeAnalysisCustomizations
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 module OOB {

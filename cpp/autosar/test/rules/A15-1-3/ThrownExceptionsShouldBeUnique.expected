@@ -1,3 +1,4 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ThrownExceptionsShouldBeUnique.ql:24,3-11)
 | test.cpp:6:5:6:26 | throw ... | The $@ thrown here is a possible duplicate of the $@ thrown $@. | test.cpp:6:5:6:26 | call to exception | std::exception exception | test.cpp:14:5:14:26 | call to exception | exception | test.cpp:14:5:14:26 | throw ... | here |
 | test.cpp:8:5:8:53 | throw ... | The $@ thrown here is a possible duplicate of the $@ thrown $@. | test.cpp:8:5:8:53 | call to runtime_error | std::runtime_error exception | test.cpp:16:5:16:53 | call to runtime_error | exception | test.cpp:16:5:16:53 | throw ... | here |
 | test.cpp:14:5:14:26 | throw ... | The $@ thrown here is a possible duplicate of the $@ thrown $@. | test.cpp:14:5:14:26 | call to exception | std::exception exception | test.cpp:6:5:6:26 | call to exception | exception | test.cpp:6:5:6:26 | throw ... | here |

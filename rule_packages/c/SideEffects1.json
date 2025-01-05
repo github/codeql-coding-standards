@@ -83,7 +83,8 @@
           "severity": "warning",
           "short_name": "UnenclosedSizeofOperand",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
@@ -94,7 +95,8 @@
           "severity": "warning",
           "short_name": "ImplicitPrecedenceOfOperatorsInExpression",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -113,7 +115,8 @@
           "severity": "error",
           "short_name": "InitializerListsContainPersistentSideEffects",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -131,9 +134,11 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed",
+          "shared_implementation_short_name": "ResultOfAnAssignmentOperatorShouldNotBeUsed",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -152,7 +157,8 @@
           "severity": "error",
           "short_name": "PossibleSuppressedSideEffectInLogicOperatorOperand",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -171,7 +177,8 @@
           "severity": "error",
           "short_name": "SizeofOperandWithSideEffect",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

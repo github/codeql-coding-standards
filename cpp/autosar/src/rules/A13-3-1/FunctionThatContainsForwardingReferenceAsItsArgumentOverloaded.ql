@@ -14,6 +14,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.FunctionEquivalence
 
 class Candidate extends TemplateFunction {
   Candidate() {
@@ -29,28 +30,18 @@ where
     OperatorsPackage::functionThatContainsForwardingReferenceAsItsArgumentOverloadedQuery()) and
   not f.isDeleted() and
   f = c.getAnOverload() and
+  // Ensure the functions are not equivalent to each other (refer #796).
+  not f = getAnEquivalentFunction(c) and
   // allow for overloading with different number of parameters, because there is no
   // confusion on what function will be called.
   f.getNumberOfParameters() = c.getNumberOfParameters() and
-  //build a dynamic select statement that guarantees to read that the overloading function is the explicit one
-  if
-    (f instanceof CopyConstructor or f instanceof MoveConstructor) and
-    f.isCompilerGenerated()
-  then (
-    (
-      f instanceof CopyConstructor and
-      msg = "implicit copy constructor"
-      or
-      f instanceof MoveConstructor and
-      msg = "implicit move constructor"
-    ) and
-    firstMsgSegment = " with a forwarding reference parameter " and
-    overloaded = f and
-    overload = c
-  ) else (
-    msg = "function with a forwarding reference parameter" and
-    firstMsgSegment = " " and
-    overloaded = c and
-    overload = f
-  )
+  //ignore implicit copy and move constructor overloads
+  not (
+    f.isCompilerGenerated() and
+    (f instanceof CopyConstructor or f instanceof MoveConstructor)
+  ) and
+  msg = "function with a forwarding reference parameter" and
+  firstMsgSegment = " " and
+  overloaded = c and
+  overload = f
 select overload, "Function" + firstMsgSegment + "overloads a $@.", overloaded, msg
