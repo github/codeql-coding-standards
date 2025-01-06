@@ -80,7 +80,7 @@ jobs:
 
       - name: Checkout external help files
         id: checkout-external-help-files
-        # Forks do not have access to an appropriate token for the help files
+        # PRs from forks and dependabot do not have access to an appropriate token for cloning the help files repos
         if: !github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]'
         uses: actions/checkout@v4
         with:
