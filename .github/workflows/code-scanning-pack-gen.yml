@@ -81,7 +81,7 @@ jobs:
       - name: Checkout external help files
         id: checkout-external-help-files
         # PRs from forks and dependabot do not have access to an appropriate token for cloning the help files repos
-        if: !github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]'
+        if: ${{ !github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]' }}
         uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.CODEQL_CODING_STANDARDS_HELP_KEY }}
@@ -90,7 +90,7 @@ jobs:
           path: external-help-files
 
       - name: Include external help files
-        if: !github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]'&& steps.checkout-external-help-files.outcome == 'success'
+        if: ${{ !github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]'&& steps.checkout-external-help-files.outcome == 'success' }}
         run: |
           pushd external-help-files
           find . -name '*.md' -exec rsync -av --relative {} "$GITHUB_WORKSPACE" \;
