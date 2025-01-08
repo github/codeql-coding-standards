@@ -677,7 +677,7 @@ c,MISRA-C-2012,RULE-9-2,Yes,Required,,,The initializer for an aggregate or union
 c,MISRA-C-2012,RULE-9-3,Yes,Required,,,Arrays shall not be partially initialized,,Memory1,Medium,
 c,MISRA-C-2012,RULE-9-4,Yes,Required,,,An element of an object shall not be initialized more than once,,Memory1,Medium,
 c,MISRA-C-2012,RULE-9-5,No,Required,,,Where designated initializers are used to initialize an array object the size of the array shall be specified explicitly,,,Medium,
-c,MISRA-C-2012,RULE-9-6,Yes,Required,,,An initializer using chained designators shall not contain initializers without designators,,Declarations9,Hard,
+c,MISRA-C-2012,RULE-9-6,Yes,Required,,,An initializer using chained designators shall not contain initializers without designators,,Declarations10,Hard,
 c,MISRA-C-2012,RULE-9-7,Yes,Mandatory,,,Atomic objects shall be appropriately initialized before being accessed,,Concurrency6,Hard,
 c,MISRA-C-2012,RULE-10-1,Yes,Required,,,Operands shall not be of an inappropriate essential type,,EssentialTypes,Hard,
 c,MISRA-C-2012,RULE-10-2,Yes,Required,,,Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations,,EssentialTypes,Medium,

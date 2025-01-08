@@ -1,0 +1,25 @@
+{
+  "MISRA-C-2012": {
+    "RULE-11-10": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Conversions between types by using an _Atomic void type may result in undefined behavior.",  
+          "kind": "problem",
+          "name": "The _Atomic qualifier shall not be applied to the incomplete type void",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AtomicQualifierAppliedToVoid",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "The _Atomic qualifier shall not be applied to the incomplete type void"
+    }
+  }
+}
