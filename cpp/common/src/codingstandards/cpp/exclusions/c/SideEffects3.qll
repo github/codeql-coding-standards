@@ -3,7 +3,9 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype SideEffects3Query = TUnsequencedSideEffectsQuery()
+newtype SideEffects3Query =
+  TUnsequencedSideEffectsQuery() or
+  TUnsequencedAtomicReadsQuery()
 
 predicate isSideEffects3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -14,6 +16,15 @@ predicate isSideEffects3QueryMetadata(Query query, string queryId, string ruleId
     "c/misra/unsequenced-side-effects" and
   ruleId = "RULE-13-2" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `unsequencedAtomicReads` query
+    SideEffects3Package::unsequencedAtomicReadsQuery() and
+  queryId =
+    // `@id` for the `unsequencedAtomicReads` query
+    "c/misra/unsequenced-atomic-reads" and
+  ruleId = "RULE-13-2" and
+  category = "required"
 }
 
 module SideEffects3Package {
@@ -22,5 +33,12 @@ module SideEffects3Package {
     result =
       // `Query` type for `unsequencedSideEffects` query
       TQueryC(TSideEffects3PackageQuery(TUnsequencedSideEffectsQuery()))
+  }
+
+  Query unsequencedAtomicReadsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `unsequencedAtomicReads` query
+      TQueryC(TSideEffects3PackageQuery(TUnsequencedAtomicReadsQuery()))
   }
 }
