@@ -26,7 +26,7 @@
   "MISRA-C-2012": {
     "RULE-17-5": {
       "properties": {
-        "obligation": "advisory"
+        "obligation": "required"
       },
       "queries": [
         {

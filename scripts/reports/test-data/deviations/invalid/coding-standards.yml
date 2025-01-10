@@ -44,8 +44,8 @@ deviations:
     permit-id: non-existing-permit
   - permit-id: DP1
   - permit-id: DP2
-  - rule-id: RULE-13-6
-    query-id: c/misra/sizeof-operand-with-side-effect
+  - rule-id: RULE-9-1
+    query-id: c/misra/object-with-auto-storage-duration-read-before-init
 deviation-permits:
   - permit-id: DP1
     justification: foo bar baz

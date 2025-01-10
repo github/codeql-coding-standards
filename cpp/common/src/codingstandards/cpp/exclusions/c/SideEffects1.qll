@@ -104,7 +104,7 @@ predicate isSideEffects1QueryMetadata(Query query, string queryId, string ruleId
     // `@id` for the `sizeofOperandWithSideEffect` query
     "c/misra/sizeof-operand-with-side-effect" and
   ruleId = "RULE-13-6" and
-  category = "mandatory"
+  category = "required"
 }
 
 module SideEffects1Package {

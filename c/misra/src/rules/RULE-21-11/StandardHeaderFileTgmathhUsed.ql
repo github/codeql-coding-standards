@@ -8,7 +8,7 @@
  * @tags external/misra/id/rule-21-11
  *       correctness
  *       external/misra/c/2012/third-edition-first-revision
- *       external/misra/obligation/required
+ *       external/misra/obligation/advisory
  */
 
 import cpp
