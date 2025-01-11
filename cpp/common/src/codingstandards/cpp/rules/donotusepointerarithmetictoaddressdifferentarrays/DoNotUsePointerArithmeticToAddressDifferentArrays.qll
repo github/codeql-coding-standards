@@ -7,20 +7,118 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
+import codeql.util.Boolean
 
 abstract class DoNotUsePointerArithmeticToAddressDifferentArraysSharedQuery extends Query { }
 
 Query getQuery() { result instanceof DoNotUsePointerArithmeticToAddressDifferentArraysSharedQuery }
 
 /**
+ * A `VariableAccess` of a variable that is an array, or a pointer type casted to a byte pointer.
+ */
+abstract class ArrayLikeAccess extends Expr {
+  abstract Element getElement();
+
+  abstract string getName();
+
+  abstract int getSize();
+
+  abstract DataFlow::Node getNode();
+}
+
+/**
+ * A `VariableAccess` of a variable that is an array.
+ */
+class ArrayVariableAccess extends ArrayLikeAccess, VariableAccess {
+  int size;
+ 
+  ArrayVariableAccess() { size = getType().(ArrayType).getArraySize() }
+
+  override Variable getElement() { result = getTarget() }
+
+  override string getName() { result = getElement().getName() }
+
+  override int getSize() { result = size }
+
+  override DataFlow::Node getNode() { result.asExpr() = this }
+}
+
+/**
+ * Get the size of the object pointed to by a type (pointer or array).
+ * 
+ * Depth of type unwrapping depends on the type. Pointer will be dereferenced only once: the element
+ * size of `T*` is `sizeof(T)` while the element size of `T**` is `sizeof(T*)`. However, array types
+ * will be deeply unwrapped, as the pointed to size of `T[][]` is `sizeof(T)`. These processes
+ * interact, so the element size of a pointer to an array of `T` has an element size of `sizeof(T)`
+ * and not `sizeof(T[length])`.
+ */
+int elementSize(Type type, Boolean deref) {
+  if type instanceof ArrayType
+  then result = elementSize(type.(ArrayType).getBaseType(), false)
+  else
+    if deref = true and type instanceof PointerType
+    then result = elementSize(type.(PointerType).getBaseType(), false)
+    else result = type.getSize()
+}
+
+/**
+ * A pointer type casted to a byte pointer, which is effectively a pointer to a byte array whose
+ * length depends on `elementSize()` of the original pointed-to type.
+ */
+class CastedToBytePointer extends ArrayLikeAccess, Conversion {
+  int size;
+
+  CastedToBytePointer() {
+    getType().(PointerType).getBaseType().getSize() = 1 and
+    size = elementSize(getExpr().getType(), true)
+  }
+
+  override Element getElement() { result = this }
+
+  override string getName() {
+    result = "cast to btye pointer " + this.toString()
+    or
+    exists(Cast cast |
+      cast.getExpr() = this and
+      result = cast.getType().(PointerType).getBaseType().toString()
+    )
+  }
+
+  override int getSize() { result = size }
+
+  override DataFlow::Node getNode() { result.asConvertedExpr() = this }
+}
+
+/**
+ * A data-flow configuration that tracks access to an array to type to an array index expression.
+ * This is used to determine possible pointer to array creations.
+ */
+module ByteArrayToArrayExprConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { exists(CastedToBytePointer a | a.getNode() = source) }
+
+  // TODO: casting to different size pointed-to-type invalidates
+  predicate isSink(DataFlow::Node sink) { exists(ArrayExpr c | c.getArrayBase() = sink.asExpr()) }
+}
+
+module BytePointerToArrayExprFlow = DataFlow::Global<ByteArrayToArrayExprConfig>;
+
+/**
  * A data-flow configuration that tracks access to an array to type to an array index expression.
  * This is used to determine possible pointer to array creations.
  */
 module ArrayToArrayExprConfig implements DataFlow::ConfigSig {
-  predicate isSource(DataFlow::Node source) {
-    source.asExpr().(VariableAccess).getType() instanceof ArrayType
+  predicate isSource(DataFlow::Node source) { exists(ArrayVariableAccess a | a.getNode() = source) }
+
+  predicate isBarrier(DataFlow::Node barrier) {
+    // Casting to a differently sized pointer invalidates this analysis.
+    exists(CStyleCast cast, Expr casted |
+      cast.getExpr() = casted and casted = barrier.asConvertedExpr()
+    |
+      not casted.getType().(PointerType).getBaseType().getSize() =
+        cast.getType().(PointerType).getBaseType().getSize()
+    )
   }
 
   predicate isSink(DataFlow::Node sink) { exists(ArrayExpr c | c.getArrayBase() = sink.asExpr()) }
@@ -28,12 +126,19 @@ module ArrayToArrayExprConfig implements DataFlow::ConfigSig {
 
 module ArrayToArrayExprFlow = DataFlow::Global<ArrayToArrayExprConfig>;
 
-/** Holds if the address taken expression `addressOf` takes the address of an array element at `index` of `array` with size `arraySize`. */
-predicate pointerOperandCreation(AddressOfExpr addressOf, Variable array, int arraySize, int index) {
-  arraySize = array.getType().(ArrayType).getArraySize() and
+/** Holds if the address taken expression `addressOf` takes the address of an array element at `index` of `array`. */
+predicate pointerOperandCreation(AddressOfExpr addressOf, ArrayLikeAccess array, int index) {
   exists(ArrayExpr ae |
-    ArrayToArrayExprFlow::flow(DataFlow::exprNode(array.getAnAccess()),
-      DataFlow::exprNode(ae.getArrayBase())) and
+    (
+      ArrayToArrayExprFlow::flow(array.getNode(), DataFlow::exprNode(ae.getArrayBase())) and
+      array instanceof ArrayVariableAccess
+      or
+      // Since casts can occur in the middle of flow, barriers are not perfect for modeling the
+      // desired behavior. Handle casts to byte pointers as sources in a separate flow analysis.
+      BytePointerToArrayExprFlow::flow(array.getNode(), DataFlow::exprNode(ae.getArrayBase())) and
+      // flow() may hold for `ArrayVariableAccess` in the above, even though they aren't sources
+      array instanceof CastedToBytePointer
+    ) and
     index = lowerBound(ae.getArrayOffset().getFullyConverted()) and
     addressOf.getOperand() = ae
   )
@@ -41,19 +146,16 @@ predicate pointerOperandCreation(AddressOfExpr addressOf, Variable array, int ar
 
 /** A variable that points to an element of an array. */
 class PointerOperand extends Variable {
-  Variable array;
-  int arraySize;
+  ArrayLikeAccess array;
   int index;
   AddressOfExpr source;
 
   PointerOperand() {
-    pointerOperandCreation(source, array, arraySize, index) and
+    pointerOperandCreation(source, array, index) and
     this.getAnAssignedValue() = source
   }
 
-  Variable getArray() { result = array }
-
-  int getArraySize() { result = arraySize }
+  ArrayLikeAccess getArray() { result = array }
 
   int getIndex() { result = index }
 
@@ -111,9 +213,7 @@ class DerivedArrayPointer extends Variable {
 
   DerivedArrayPointer() { derivedPointer(this, source, operand, index) }
 
-  Variable getArray() { result = operand.getArray() }
-
-  int getArraySize() { result = operand.getArraySize() }
+  ArrayLikeAccess getArray() { result = operand.getArray() }
 
   int getIndex() { result = index }
 
@@ -131,13 +231,8 @@ class DerivedArrayPointerOrPointerOperand extends Variable {
     this instanceof PointerOperand
   }
 
-  Variable getArray() {
+  ArrayLikeAccess getArray() {
     result = this.(DerivedArrayPointer).getArray() or result = this.(PointerOperand).getArray()
-  }
-
-  int getArraySize() {
-    result = this.(DerivedArrayPointer).getArraySize() or
-    result = this.(PointerOperand).getArraySize()
   }
 
   int getIndex() {
@@ -149,14 +244,16 @@ class DerivedArrayPointerOrPointerOperand extends Variable {
   }
 }
 
-query predicate problems(Expr arrayPointerCreation, string message, Variable array, string arrayName) {
+query predicate problems(Expr arrayPointerCreation, string message, Element array, string arrayName) {
   not isExcluded(arrayPointerCreation, getQuery()) and
   exists(
     DerivedArrayPointerOrPointerOperand derivedArrayPointerOrPointerOperand, int index,
-    int arraySize, int difference, string denomination
+    ArrayLikeAccess arrayAccess, int arraySize, int difference, string denomination
   |
-    array = derivedArrayPointerOrPointerOperand.getArray() and
-    arraySize = derivedArrayPointerOrPointerOperand.getArraySize() and
+    arrayAccess = derivedArrayPointerOrPointerOperand.getArray() and
+    array = arrayAccess.getElement() and
+    arrayName = arrayAccess.getName() and
+    arraySize = arrayAccess.getSize() and
     index = derivedArrayPointerOrPointerOperand.getIndex() and
     arrayPointerCreation = derivedArrayPointerOrPointerOperand.getSource() and
     difference = index - arraySize and
@@ -173,7 +270,6 @@ query predicate problems(Expr arrayPointerCreation, string message, Variable arr
     ) and
     message =
       "Array pointer " + derivedArrayPointerOrPointerOperand.getName() + " points " +
-        (index - arraySize).toString() + " " + denomination + " passed the end of $@."
-  ) and
-  arrayName = array.getName()
+        difference.toString() + " " + denomination + " past the end of $@."
+  )
 }

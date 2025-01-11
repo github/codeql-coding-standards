@@ -1,0 +1,11 @@
+ - `RULE-8-3` - `DeclarationsOfAFunctionSameNameAndType.ql`:
+   - Implement new exception, unnamed parameters are not covered by this rule.
+ - `RULE-10-2` - `AdditionSubtractionOnEssentiallCharType.ql`:
+   - Disallow `+` and `-` operations with an essentially char type and other types larger than int type.
+   - Note, this change affects the essential type of such expressions, which may affect other essential types rules.
+ - `RULE-18-1`, `M5-0-16` - `PointerAndDerivedPointerMustAddressSameArray.ql`, `PointerAndDerivedPointerAccessDifferentArray.ql`:
+   - Treat casts to byte pointers as pointers to arrays of the size of the pointed-to type
+   - Fix typo in report message, "passed" replaced with "past."
+ - `RULE-21-10`, `RULE-25-5-3`, `ENV34-C` - `CallToSetlocaleInvalidatesOldPointers.ql`, `CallToSetlocaleInvalidatesOldPointersMisra.ql`, `DoNotStorePointersReturnedByEnvFunctions.ql`:
+   - Report usage of returned pointers from `asctime`, `ctime`, during a call to either of the former.
+   - Report usage of returned pointers from `gmtime`, `localtime`, during a call to either of the former.
