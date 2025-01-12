@@ -35,7 +35,8 @@
           "short_name": "CommaOperatorShouldNotBeUsed",
           "shared_implementation_short_name": "CommaOperatorUsed",
           "tags": [
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -54,7 +55,8 @@
           "severity": "error",
           "short_name": "FeaturesOfStdarghUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -73,7 +75,8 @@
           "severity": "warning",
           "short_name": "UnionKeywordShouldNotBeUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -92,7 +95,8 @@
           "severity": "error",
           "short_name": "StandardLibraryTimeAndDateFunctionsUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -111,7 +115,8 @@
           "severity": "error",
           "short_name": "StandardHeaderFileTgmathhUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -130,7 +135,8 @@
           "severity": "warning",
           "short_name": "ExceptionHandlingFeaturesOfFenvhUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/amendment2"
           ]
         }
       ],
@@ -149,7 +155,8 @@
           "severity": "error",
           "short_name": "SystemOfStdlibhUsed",
           "tags": [
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -169,7 +176,8 @@
           "short_name": "MemoryAllocDeallocFunctionsOfStdlibhUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -188,7 +196,8 @@
           "severity": "error",
           "short_name": "StandardHeaderFileUsedSetjmph",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -207,7 +216,8 @@
           "severity": "error",
           "short_name": "StandardHeaderFileUsedSignalh",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -227,7 +237,8 @@
           "short_name": "StandardLibraryInputoutputFunctionsUsed",
           "tags": [
             "security",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -247,7 +258,8 @@
           "short_name": "AtofAtoiAtolAndAtollOfStdlibhUsed",
           "shared_implementation_short_name": "AtofAtoiAtolAndAtollUsed",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -267,7 +279,8 @@
           "short_name": "TerminationFunctionsOfStdlibhUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
@@ -279,7 +292,8 @@
           "short_name": "TerminationMacrosOfStdlibhUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -299,7 +313,8 @@
           "short_name": "BsearchAndQsortOfStdlibhUsed",
           "tags": [
             "security",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -320,7 +335,8 @@
           "tags": [
             "security",
             "correctness",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -342,7 +358,8 @@
           "tags": [
             "readability",
             "correctness",
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -362,7 +379,8 @@
           "short_name": "RestrictTypeQualifierUsed",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

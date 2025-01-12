@@ -11,10 +11,10 @@
  */
 
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.controlflow.Dominance
 import codingstandards.c.cert
-import codingstandards.c.Variable
+import codingstandards.cpp.Variable
 
 /**
  * An `Expr` that is an assignment or initialization to a restrict-qualified pointer-type variable.

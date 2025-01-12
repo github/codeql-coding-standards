@@ -8,17 +8,18 @@
  * @problem.severity error
  * @tags external/misra/id/rule-11-5
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/advisory
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Pointers
+import codingstandards.cpp.Pointers
 
 from Cast cast, VoidPointerType type, PointerToObjectType newType
 where
   not isExcluded(cast, Pointers1Package::conversionFromPointerToVoidIntoPointerToObjectQuery()) and
-  type = cast.getExpr().getUnderlyingType() and
+  type = cast.getExpr().getUnspecifiedType() and
   newType = cast.getUnderlyingType() and
   not isNullPointerConstant(cast.getExpr())
 select cast,

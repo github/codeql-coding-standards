@@ -14,7 +14,8 @@
           "short_name": "FunctionDeclaredImplicitly",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -33,7 +34,8 @@
           "severity": "error",
           "short_name": "FlexibleArrayMembersDeclared",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -53,7 +55,8 @@
           "short_name": "IdentifiersWithExternalLinkageNotUnique",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -73,7 +76,8 @@
           "short_name": "IdentifiersWithInternalLinkageNotUnique",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This rule does not explicitly check for the exception of inline functions in header files across multiple translation units as the CodeQL database already represents these as the same entity."
@@ -95,7 +99,8 @@
           "severity": "error",
           "short_name": "InlineFunctionNotDeclaredStaticStorage",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -115,7 +120,8 @@
           "short_name": "ArrayExternalLinkageSizeExplicitlySpecified",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -136,7 +142,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "readability"
+            "readability",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

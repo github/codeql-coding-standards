@@ -1,15 +1,19 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerArithmeticUsedWithPointersToNonFinalClasses.ql:45,62-70)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerArithmeticUsedWithPointersToNonFinalClasses.ql:46,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerArithmeticUsedWithPointersToNonFinalClasses.ql:55,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerArithmeticUsedWithPointersToNonFinalClasses.ql:61,3-11)
 edges
-| test.cpp:10:18:10:20 | foo | test.cpp:11:23:11:25 | foo |
-| test.cpp:10:18:10:20 | foo | test.cpp:11:50:11:52 | foo |
-| test.cpp:22:18:22:20 | foo | test.cpp:24:18:24:20 | foo |
-| test.cpp:35:11:35:17 | new | test.cpp:38:6:38:7 | l1 |
-| test.cpp:35:11:35:17 | new | test.cpp:39:6:39:7 | l1 |
-| test.cpp:37:11:37:13 | & ... | test.cpp:40:6:40:7 | l3 |
-| test.cpp:37:11:37:13 | & ... | test.cpp:41:6:41:7 | l3 |
-| test.cpp:38:6:38:7 | l1 | test.cpp:10:18:10:20 | foo |
-| test.cpp:39:6:39:7 | l1 | test.cpp:22:18:22:20 | foo |
-| test.cpp:40:6:40:7 | l3 | test.cpp:10:18:10:20 | foo |
-| test.cpp:41:6:41:7 | l3 | test.cpp:22:18:22:20 | foo |
+| test.cpp:10:18:10:20 | foo | test.cpp:11:23:11:25 | foo | provenance |  |
+| test.cpp:10:18:10:20 | foo | test.cpp:11:50:11:52 | foo | provenance |  |
+| test.cpp:22:18:22:20 | foo | test.cpp:24:18:24:20 | foo | provenance |  |
+| test.cpp:35:11:35:17 | new | test.cpp:38:6:38:7 | l1 | provenance |  |
+| test.cpp:35:11:35:17 | new | test.cpp:39:6:39:7 | l1 | provenance |  |
+| test.cpp:37:11:37:13 | & ... | test.cpp:40:6:40:7 | l3 | provenance |  |
+| test.cpp:37:11:37:13 | & ... | test.cpp:41:6:41:7 | l3 | provenance |  |
+| test.cpp:38:6:38:7 | l1 | test.cpp:10:18:10:20 | foo | provenance |  |
+| test.cpp:39:6:39:7 | l1 | test.cpp:22:18:22:20 | foo | provenance |  |
+| test.cpp:40:6:40:7 | l3 | test.cpp:10:18:10:20 | foo | provenance |  |
+| test.cpp:41:6:41:7 | l3 | test.cpp:22:18:22:20 | foo | provenance |  |
 nodes
 | test.cpp:10:18:10:20 | foo | semmle.label | foo |
 | test.cpp:11:23:11:25 | foo | semmle.label | foo |

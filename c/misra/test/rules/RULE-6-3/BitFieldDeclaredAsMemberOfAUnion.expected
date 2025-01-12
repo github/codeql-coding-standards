@@ -1,0 +1,2 @@
+| test.c:7:7:7:7 | x | Union member x is declared as a bit field which relies on implementation-specific behavior. |
+| test.c:20:7:20:7 | (unnamed bitfield) | Union member (unnamed bitfield) is declared as a bit field which relies on implementation-specific behavior. |

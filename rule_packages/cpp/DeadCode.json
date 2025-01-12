@@ -194,6 +194,21 @@
             "readability",
             "maintainability"
           ]
+        },
+        {
+          "description": "Uncalled functions complicate the program and can indicate a possible mistake on the part of the programmer.",
+          "kind": "problem",
+          "name": "Every defined function should be called at least once",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "UnusedSplMemberFunction",
+          "tags": [
+            "readability",
+            "maintainability"
+          ],
+          "implementation_scope": {
+            "description": "In limited cases, this query can raise false-positives for special member function calls invoked from the C++ Metaprogramming library."
+          }
         }
       ],
       "title": "Every defined function should be called at least once."

@@ -10,6 +10,7 @@
  * @tags external/misra/id/rule-20-9
  *       correctness
  *       readability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 

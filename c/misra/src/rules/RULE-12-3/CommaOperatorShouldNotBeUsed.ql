@@ -7,6 +7,7 @@
  * @problem.severity recommendation
  * @tags external/misra/id/rule-12-3
  *       readability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/advisory
  */
 

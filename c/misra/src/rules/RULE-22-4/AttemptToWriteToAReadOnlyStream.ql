@@ -7,13 +7,14 @@
  * @problem.severity error
  * @tags external/misra/id/rule-22-4
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/mandatory
  */
 
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.standardlibrary.FileAccess
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 module FileDFConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node source) {

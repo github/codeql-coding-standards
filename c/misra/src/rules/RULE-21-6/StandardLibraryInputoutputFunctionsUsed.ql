@@ -9,6 +9,7 @@
  * @tags external/misra/id/rule-21-6
  *       security
  *       correctness
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 

@@ -2,8 +2,11 @@
 import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
+import Alignment
 import Banned
+import Banned2
 import BitfieldTypes
+import BitfieldTypes2
 import Concurrency1
 import Concurrency2
 import Concurrency3
@@ -28,6 +31,7 @@ import Declarations8
 import EssentialTypes
 import Expressions
 import FloatingTypes
+import FunctionTypes
 import IO1
 import IO2
 import IO3
@@ -35,13 +39,16 @@ import IO4
 import IntegerOverflow
 import InvalidMemory1
 import InvalidMemory2
+import InvalidMemory3
 import Language1
 import Language2
 import Language3
+import Language4
 import Memory1
 import Memory2
 import Memory3
 import Misc
+import NoReturn
 import OutOfBounds
 import Pointers1
 import Pointers2
@@ -70,11 +77,15 @@ import Strings2
 import Strings3
 import Syntax
 import Types1
+import Types2
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
+  TAlignmentPackageQuery(AlignmentQuery q) or
   TBannedPackageQuery(BannedQuery q) or
+  TBanned2PackageQuery(Banned2Query q) or
   TBitfieldTypesPackageQuery(BitfieldTypesQuery q) or
+  TBitfieldTypes2PackageQuery(BitfieldTypes2Query q) or
   TConcurrency1PackageQuery(Concurrency1Query q) or
   TConcurrency2PackageQuery(Concurrency2Query q) or
   TConcurrency3PackageQuery(Concurrency3Query q) or
@@ -99,6 +110,7 @@ newtype TCQuery =
   TEssentialTypesPackageQuery(EssentialTypesQuery q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TFloatingTypesPackageQuery(FloatingTypesQuery q) or
+  TFunctionTypesPackageQuery(FunctionTypesQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
@@ -106,13 +118,16 @@ newtype TCQuery =
   TIntegerOverflowPackageQuery(IntegerOverflowQuery q) or
   TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
   TInvalidMemory2PackageQuery(InvalidMemory2Query q) or
+  TInvalidMemory3PackageQuery(InvalidMemory3Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TLanguage3PackageQuery(Language3Query q) or
+  TLanguage4PackageQuery(Language4Query q) or
   TMemory1PackageQuery(Memory1Query q) or
   TMemory2PackageQuery(Memory2Query q) or
   TMemory3PackageQuery(Memory3Query q) or
   TMiscPackageQuery(MiscQuery q) or
+  TNoReturnPackageQuery(NoReturnQuery q) or
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointers1PackageQuery(Pointers1Query q) or
   TPointers2PackageQuery(Pointers2Query q) or
@@ -140,12 +155,16 @@ newtype TCQuery =
   TStrings2PackageQuery(Strings2Query q) or
   TStrings3PackageQuery(Strings3Query q) or
   TSyntaxPackageQuery(SyntaxQuery q) or
-  TTypes1PackageQuery(Types1Query q)
+  TTypes1PackageQuery(Types1Query q) or
+  TTypes2PackageQuery(Types2Query q)
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
+  isAlignmentQueryMetadata(query, queryId, ruleId, category) or
   isBannedQueryMetadata(query, queryId, ruleId, category) or
+  isBanned2QueryMetadata(query, queryId, ruleId, category) or
   isBitfieldTypesQueryMetadata(query, queryId, ruleId, category) or
+  isBitfieldTypes2QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency1QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency2QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency3QueryMetadata(query, queryId, ruleId, category) or
@@ -170,6 +189,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isEssentialTypesQueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isFloatingTypesQueryMetadata(query, queryId, ruleId, category) or
+  isFunctionTypesQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
   isIO3QueryMetadata(query, queryId, ruleId, category) or
@@ -177,13 +197,16 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isIntegerOverflowQueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory2QueryMetadata(query, queryId, ruleId, category) or
+  isInvalidMemory3QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
+  isLanguage4QueryMetadata(query, queryId, ruleId, category) or
   isMemory1QueryMetadata(query, queryId, ruleId, category) or
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMemory3QueryMetadata(query, queryId, ruleId, category) or
   isMiscQueryMetadata(query, queryId, ruleId, category) or
+  isNoReturnQueryMetadata(query, queryId, ruleId, category) or
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointers1QueryMetadata(query, queryId, ruleId, category) or
   isPointers2QueryMetadata(query, queryId, ruleId, category) or
@@ -211,5 +234,6 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStrings2QueryMetadata(query, queryId, ruleId, category) or
   isStrings3QueryMetadata(query, queryId, ruleId, category) or
   isSyntaxQueryMetadata(query, queryId, ruleId, category) or
-  isTypes1QueryMetadata(query, queryId, ruleId, category)
+  isTypes1QueryMetadata(query, queryId, ruleId, category) or
+  isTypes2QueryMetadata(query, queryId, ruleId, category)
 }

@@ -1,7 +1,7 @@
 /** A module to reason about side effects. */
 
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 private import exceptions.ExceptionFlow
 private import codingstandards.cpp.Expr
 private import codingstandards.cpp.Variable
@@ -189,6 +189,8 @@ Expr getAnEffect(Expr base) {
   exists(VariableAccess va | va.getQualifier() = base | result = getAnEffect(va))
   or
   exists(PointerDereferenceExpr e | e.getOperand() = base | result = getAnEffect(e))
+  or
+  exists(CrementOperation c | c.getOperand() = base | result = getAnEffect(c))
   or
   // local alias analysis, assume alias when data flows to derived type (pointer/reference)
   // auto ptr = &base;

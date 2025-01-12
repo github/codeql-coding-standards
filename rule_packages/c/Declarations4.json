@@ -12,8 +12,10 @@
           "precision": "medium",
           "severity": "error",
           "short_name": "FunctionTypesNotInPrototypeForm",
+          "shared_implementation_short_name": "FunctionTypesNotInPrototypeFormShared",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query does not check for implicitly typed parameters and checks function declarations and definitions but not function pointer types. This query cannot determine when the keyword void is used in place of no parameter.",
@@ -36,7 +38,8 @@
           "severity": "error",
           "short_name": "DeclarationsOfAnObjectSameNameAndType",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         },
         {
@@ -47,7 +50,8 @@
           "severity": "error",
           "short_name": "DeclarationsOfAFunctionSameNameAndType",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],
@@ -68,7 +72,8 @@
           "tags": [
             "readability",
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query does not check for the recommendation of declarations in headers.",
@@ -85,7 +90,8 @@
           "tags": [
             "readability",
             "maintainability",
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query does not check for the recommendation of declarations in headers.",
@@ -109,7 +115,8 @@
           "short_name": "IdentifierWithExternalLinkageOneDefinition",
           "shared_implementation_short_name": "IdentifierWithExternalLinkageOneDefinitionShared",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

@@ -164,7 +164,8 @@
           "shared_implementation_short_name": "FreeMemoryWhenNoLongerNeededShared",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -180,7 +181,8 @@
           "shared_implementation_short_name": "CloseFileHandleWhenNoLongerNeededShared",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -204,7 +206,8 @@
           "shared_implementation_short_name": "OnlyFreeMemoryAllocatedDynamicallyShared",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

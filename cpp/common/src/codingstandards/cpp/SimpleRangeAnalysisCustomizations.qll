@@ -152,6 +152,40 @@ private class CastEnumToIntegerSimpleRange extends SimpleRangeAnalysisExpr, Cast
 }
 
 /**
+ * A range analysis extension that supports `%=`.
+ */
+private class RemAssignSimpleRange extends SimpleRangeAnalysisExpr, AssignRemExpr {
+  override float getLowerBounds() {
+    exists(float maxDivisorNegated, float dividendLowerBounds |
+      // Find the max divisor, negated e.g. `%= 32` would be  `-31`
+      maxDivisorNegated = (getFullyConvertedUpperBounds(getRValue()).abs() - 1) * -1 and
+      // Find the lower bounds of the dividend
+      dividendLowerBounds = getFullyConvertedLowerBounds(getLValue()) and
+      // The lower bound is calculated in two steps:
+      // 1. Determine the maximum of the dividend lower bound and maxDivisorNegated.
+      //    When the dividend is negative this will result in a negative result
+      // 2. Find the minimum with 0. If the divided is always >0 this will produce 0
+      //    otherwise it will produce the lowest negative number that can be held
+      //    after the modulo.
+      result = 0.minimum(dividendLowerBounds.maximum(maxDivisorNegated))
+    )
+  }
+
+  override float getUpperBounds() {
+    exists(float maxDivisor, float maxDividend |
+      // The maximum divisor value is the absolute value of the divisor minus 1
+      maxDivisor = getFullyConvertedUpperBounds(getRValue()).abs() - 1 and
+      // value if > 0 otherwise 0
+      maxDividend = getFullyConvertedUpperBounds(getLValue()).maximum(0) and
+      // In the case the numerator is definitely less than zero, the result could be negative
+      result = maxDividend.minimum(maxDivisor)
+    )
+  }
+
+  override predicate dependsOnChild(Expr expr) { expr = getAChild() }
+}
+
+/**
  * <stdio.h> functions that read a character from the STDIN,
  * or return EOF if it fails to do so.
  * Their return type is `int` by their signatures, but

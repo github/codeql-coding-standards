@@ -11,7 +11,7 @@ void f1(void) {
   v1 = (fp1 *)v2;        // NON_COMPLIANT
   void *v3 = (void *)v1; // NON_COMPLIANT
 
-  v2 = (fp2 *)0; // NON_COMPLIANT
+  v2 = (fp2 *)0; // COMPLIANT - null pointer constant
   v2 = (fp2 *)1; // NON_COMPLIANT
 
   pfp2 v4;

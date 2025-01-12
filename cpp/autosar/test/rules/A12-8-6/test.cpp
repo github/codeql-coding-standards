@@ -12,8 +12,8 @@ class DerivedClass1 // COMPLIANT - not a base class itself
 
 // Base class with compiler generated move/copy is not compliant, because they
 // are public by default
-class BaseClass2 {}; // NON_COMPLIANT - compiler generated move and assignment
-                     // are in contravention
+class BaseClass2 {}; // NON_COMPLIANT[FALSE_NEGATIVE] - compiler generated move
+                     // and assignment are in contravention
 class DerivedClass2  // COMPLIANT - not a base class itself
     : public BaseClass2 {};
 
@@ -87,7 +87,7 @@ public:
   BaseClass7 &operator=(BaseClass7 const &) = default; // NON_COMPLIANT
   BaseClass7 &operator=(BaseClass7 &&) = default;      // NON_COMPLIANT
   int operator=(int i); // COMPLIANT - not an assignment operator
-};                      // COMPLIANT
+};
 
 template <class T>
 class DerivedClass7 // COMPLIANT - not a base class itself
@@ -121,7 +121,7 @@ private:
   T t;
 };
 
-template <class T> class BaseClass9 { // NON_COMPLIANT
+template <class T> class BaseClass9 { // NON_COMPLIANT[FALSE_NEGATIVE]
 
 public:
   BaseClass9() {}
