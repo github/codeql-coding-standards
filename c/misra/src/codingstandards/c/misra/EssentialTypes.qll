@@ -320,29 +320,21 @@ class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, B
       rightEssentialTypeCategory = getEssentialTypeCategory(rightEssentialType)
     |
       if
-        leftEssentialTypeCategory = EssentiallySignedType() and
-        rightEssentialTypeCategory = EssentiallySignedType()
+        leftEssentialTypeCategory = rightEssentialTypeCategory and
+        leftEssentialTypeCategory =
+          [EssentiallyUnsignedType(), EssentiallySignedType().(TEssentialTypeCategory)]
       then
         if exists(getValue())
-        then result = stlr(this)
-        else (
+        then (
+          leftEssentialTypeCategory = EssentiallySignedType() and result = stlr(this)
+          or
+          leftEssentialTypeCategory = EssentiallyUnsignedType() and result = utlr(this)
+        ) else (
           if leftEssentialType.getSize() > rightEssentialType.getSize()
           then result = leftEssentialType
           else result = rightEssentialType
         )
-      else
-        if
-          leftEssentialTypeCategory = EssentiallyUnsignedType() and
-          rightEssentialTypeCategory = EssentiallyUnsignedType()
-        then
-          if exists(getValue())
-          then result = utlr(this)
-          else (
-            if leftEssentialType.getSize() > rightEssentialType.getSize()
-            then result = leftEssentialType
-            else result = rightEssentialType
-          )
-        else result = this.getStandardType()
+      else result = this.getStandardType()
     )
   }
 }
