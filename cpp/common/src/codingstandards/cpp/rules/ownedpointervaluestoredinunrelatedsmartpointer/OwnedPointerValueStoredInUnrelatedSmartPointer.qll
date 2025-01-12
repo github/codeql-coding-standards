@@ -8,7 +8,7 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.SmartPointers
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 import PointerToSmartPointerConstructorFlowFlow::PathGraph
 
 abstract class OwnedPointerValueStoredInUnrelatedSmartPointerSharedQuery extends Query { }

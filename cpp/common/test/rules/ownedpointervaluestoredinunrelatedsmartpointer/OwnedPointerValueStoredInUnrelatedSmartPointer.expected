@@ -11,10 +11,11 @@ edges
 | test.cpp:3:14:3:15 | v1 | test.cpp:7:28:7:29 | v2 | provenance |  |
 | test.cpp:4:13:4:14 | v1 | test.cpp:7:28:7:29 | v2 | provenance |  |
 | test.cpp:5:27:5:28 | v1 | test.cpp:5:27:5:29 | call to shared_ptr | provenance |  |
+| test.cpp:5:27:5:28 | v1 | test.cpp:5:27:5:29 | call to shared_ptr | provenance | Config |
 | test.cpp:5:27:5:29 | call to shared_ptr | test.cpp:6:28:6:29 | p1 | provenance |  |
 | test.cpp:5:27:5:29 | call to shared_ptr | test.cpp:6:28:6:29 | p1 | provenance |  |
-| test.cpp:6:28:6:29 | p1 | test.cpp:6:31:6:33 | call to get | provenance |  |
-| test.cpp:6:28:6:29 | p1 | test.cpp:6:31:6:33 | call to get | provenance |  |
+| test.cpp:6:28:6:29 | p1 | test.cpp:6:31:6:33 | call to get | provenance | Config |
+| test.cpp:6:28:6:29 | p1 | test.cpp:6:31:6:33 | call to get | provenance | Config |
 | test.cpp:8:8:8:14 | 0 | test.cpp:9:28:9:29 | v2 | provenance |  |
 | test.cpp:10:8:10:17 | new | test.cpp:11:28:11:29 | v2 | provenance |  |
 | test.cpp:10:8:10:17 | new | test.cpp:12:28:12:29 | v2 | provenance |  |
