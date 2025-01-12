@@ -345,7 +345,7 @@ Independent( INT34-C, FLP32-C, INT33-C) CWE-682 = Union( FLP32-C, list) where li
 
 ## Implementation notes
 
-None
+This query identifies possible domain, pole and range errors on a selection of C standard library fuctions from math.h.
 
 ## References
 
