@@ -38,7 +38,8 @@
           "short_name": "CheckMathLibraryFunctionParameters",
           "shared_implementation_short_name": "UncheckedRangeDomainPoleErrors",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query identifies possible domain, pole and range errors on a selection of C standard library fuctions from math.h."
@@ -61,7 +62,8 @@
           "short_name": "FunctionErrorInformationUntested",
           "shared_implementation_short_name": "FunctionErroneousReturnValueNotTested",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query enforces checking on some C standard library functions that may return error codes."
