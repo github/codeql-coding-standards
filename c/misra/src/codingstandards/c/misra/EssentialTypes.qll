@@ -257,6 +257,13 @@ class EssentialUnaryMinusExpr extends EssentialExpr, UnaryMinusExpr {
   }
 }
 
+bindingset[essentialTypeA, essentialTypeB]
+private Type maxRankType(Type essentialTypeA, Type essentialTypeB) {
+  if essentialTypeA.getSize() > essentialTypeB.getSize()
+  then result = essentialTypeA
+  else result = essentialTypeB
+}
+
 class EssentialConditionalExpr extends EssentialExpr, ConditionalExpr {
   override Type getEssentialType() {
     exists(Type thenEssentialType, Type elseEssentialType |
@@ -269,10 +276,7 @@ class EssentialConditionalExpr extends EssentialExpr, ConditionalExpr {
         if
           getEssentialTypeCategory(thenEssentialType) = getEssentialTypeCategory(elseEssentialType) and
           getEssentialTypeCategory(thenEssentialType) instanceof EssentiallySignedOrUnsignedType
-        then
-          if thenEssentialType.getSize() > elseEssentialType.getSize()
-          then result = thenEssentialType
-          else result = elseEssentialType
+        then result = maxRankType(thenEssentialType, elseEssentialType)
         else result = this.getStandardType()
     )
   }
@@ -316,15 +320,11 @@ class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, B
         leftEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType
       then
         if exists(getValue())
-        then (
+        then
           leftEssentialTypeCategory = EssentiallySignedType() and result = stlr(this)
           or
           leftEssentialTypeCategory = EssentiallyUnsignedType() and result = utlr(this)
-        ) else (
-          if leftEssentialType.getSize() > rightEssentialType.getSize()
-          then result = leftEssentialType
-          else result = rightEssentialType
-        )
+        else result = maxRankType(leftEssentialType, rightEssentialType)
       else result = this.getStandardType()
     )
   }
