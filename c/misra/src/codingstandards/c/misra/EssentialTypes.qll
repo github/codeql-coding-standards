@@ -31,17 +31,19 @@ class EssentialTypeCategory extends TEssentialTypeCategory {
   }
 }
 
+class EssentiallySignedOrUnsignedType extends EssentialTypeCategory {
+  EssentiallySignedOrUnsignedType() {
+    this = EssentiallySignedType() or this = EssentiallyUnsignedType()
+  }
+}
+
 /**
  * An expression in the program that evaluates to a compile time constant signed or unsigned integer.
  */
 private class ConstantIntegerExpr extends Expr {
   pragma[noinline]
   ConstantIntegerExpr() {
-    getEssentialTypeCategory(this.getType()) =
-      [
-        EssentiallyUnsignedType().(EssentialTypeCategory),
-        EssentiallySignedType().(EssentialTypeCategory)
-      ] and
+    getEssentialTypeCategory(this.getType()) instanceof EssentiallySignedOrUnsignedType and
     exists(this.getValue().toFloat()) and
     not this instanceof Conversion
   }
@@ -235,9 +237,7 @@ class EssentialUnaryPlusExpr extends EssentialExpr, UnaryPlusExpr {
       operandEssentialType = getEssentialType(getOperand()) and
       operandEssentialTypeCategory = getEssentialTypeCategory(operandEssentialType)
     |
-      if
-        operandEssentialTypeCategory =
-          [EssentiallyUnsignedType().(TEssentialTypeCategory), EssentiallySignedType()]
+      if operandEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType
       then result = operandEssentialType
       else result = getStandardType()
     )
@@ -321,8 +321,7 @@ class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, B
     |
       if
         leftEssentialTypeCategory = rightEssentialTypeCategory and
-        leftEssentialTypeCategory =
-          [EssentiallyUnsignedType(), EssentiallySignedType().(TEssentialTypeCategory)]
+        leftEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType
       then
         if exists(getValue())
         then (
@@ -352,8 +351,7 @@ class EssentialAddExpr extends EssentialBinaryOperationSubjectToUsualConversions
     |
       if
         operandTypeCategory = EssentiallyCharacterType() and
-        otherOperandTypeCategory =
-          [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
+        otherOperandTypeCategory instanceof EssentiallySignedOrUnsignedType
       then result instanceof PlainCharType
       else result = super.getEssentialType()
     )
@@ -374,8 +372,7 @@ class EssentialSubExpr extends EssentialBinaryOperationSubjectToUsualConversions
     |
       if
         leftEssentialTypeCategory = EssentiallyCharacterType() and
-        rightEssentialTypeCategory =
-          [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
+        rightEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType
       then result instanceof PlainCharType
       else result = super.getEssentialType()
     )
