@@ -286,11 +286,26 @@ class EssentialConditionalExpr extends EssentialExpr, ConditionalExpr {
   }
 }
 
-class EssentialBinaryArithmeticExpr extends EssentialExpr, BinaryArithmeticOperation {
-  EssentialBinaryArithmeticExpr() {
-    // GNU C extension has min/max which we can ignore
-    not this instanceof MinExpr and
-    not this instanceof MaxExpr
+/**
+ * A binary operation subject to usual conversions, with essential type behaviour as specified by D.7.9.
+ */
+class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, BinaryOperation {
+  EssentialBinaryOperationSubjectToUsualConversions() {
+    this instanceof MulExpr
+    or
+    this instanceof DivExpr
+    or
+    this instanceof RemExpr
+    or
+    this instanceof AddExpr
+    or
+    this instanceof SubExpr
+    or
+    this instanceof BitwiseAndExpr
+    or
+    this instanceof BitwiseOrExpr
+    or
+    this instanceof BitwiseXorExpr
   }
 
   override Type getEssentialType() {
@@ -353,51 +368,7 @@ class EssentialBinaryArithmeticExpr extends EssentialExpr, BinaryArithmeticOpera
   }
 }
 
-class EssentialBinaryBitwiseExpr extends EssentialExpr, BinaryBitwiseOperation {
-  EssentialBinaryBitwiseExpr() {
-    not this instanceof LShiftExpr and
-    not this instanceof RShiftExpr
-  }
-
-  override Type getEssentialType() {
-    exists(
-      Type leftEssentialType, Type rightEssentialType,
-      EssentialTypeCategory leftEssentialTypeCategory,
-      EssentialTypeCategory rightEssentialTypeCategory
-    |
-      leftEssentialType = getEssentialType(getLeftOperand()) and
-      rightEssentialType = getEssentialType(getRightOperand()) and
-      leftEssentialTypeCategory = getEssentialTypeCategory(leftEssentialType) and
-      rightEssentialTypeCategory = getEssentialTypeCategory(rightEssentialType)
-    |
-      if
-        leftEssentialTypeCategory = EssentiallySignedType() and
-        rightEssentialTypeCategory = EssentiallySignedType()
-      then
-        if exists(getValue())
-        then result = stlr(this)
-        else (
-          if leftEssentialType.getSize() > rightEssentialType.getSize()
-          then result = leftEssentialType
-          else result = rightEssentialType
-        )
-      else
-        if
-          leftEssentialTypeCategory = EssentiallyUnsignedType() and
-          rightEssentialTypeCategory = EssentiallyUnsignedType()
-        then
-          if exists(getValue())
-          then result = utlr(this)
-          else (
-            if leftEssentialType.getSize() > rightEssentialType.getSize()
-            then result = leftEssentialType
-            else result = rightEssentialType
-          )
-        else result = this.getStandardType()
-    )
-  }
-}
-
+// }
 /**
  * A named Enum type, as per D.5.
  */
