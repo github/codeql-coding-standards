@@ -12,6 +12,7 @@
  * @problem.severity recommendation
  * @tags external/misra/id/dir-4-7
  *       maintainability
+ *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
  */
 
