@@ -267,21 +267,13 @@ class EssentialConditionalExpr extends EssentialExpr, ConditionalExpr {
       then result = thenEssentialType
       else
         if
-          getEssentialTypeCategory(thenEssentialType) = EssentiallySignedType() and
-          getEssentialTypeCategory(elseEssentialType) = EssentiallySignedType()
+          getEssentialTypeCategory(thenEssentialType) = getEssentialTypeCategory(elseEssentialType) and
+          getEssentialTypeCategory(thenEssentialType) instanceof EssentiallySignedOrUnsignedType
         then
           if thenEssentialType.getSize() > elseEssentialType.getSize()
           then result = thenEssentialType
           else result = elseEssentialType
-        else
-          if
-            getEssentialTypeCategory(thenEssentialType) = EssentiallyUnsignedType() and
-            getEssentialTypeCategory(elseEssentialType) = EssentiallyUnsignedType()
-          then
-            if thenEssentialType.getSize() > elseEssentialType.getSize()
-            then result = thenEssentialType
-            else result = elseEssentialType
-          else result = this.getStandardType()
+        else result = this.getStandardType()
     )
   }
 }
