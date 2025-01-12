@@ -342,28 +342,50 @@ class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, B
             then result = leftEssentialType
             else result = rightEssentialType
           )
-        else
-          if
-            this instanceof AddExpr and
-            (
-              leftEssentialTypeCategory = EssentiallyCharacterType()
-              or
-              rightEssentialTypeCategory = EssentiallyCharacterType()
-            ) and
-            (
-              leftEssentialTypeCategory =
-                [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-              or
-              rightEssentialTypeCategory =
-                [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-            )
-            or
-            this instanceof SubExpr and
-            leftEssentialTypeCategory = EssentiallyCharacterType() and
-            rightEssentialTypeCategory =
-              [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-          then result instanceof PlainCharType
-          else result = this.getStandardType()
+        else result = this.getStandardType()
+    )
+  }
+}
+
+/**
+ * An add expression, with essential type behaviour as specified by D.7.9.
+ */
+class EssentialAddExpr extends EssentialBinaryOperationSubjectToUsualConversions, AddExpr {
+  override Type getEssentialType() {
+    exists(
+      EssentialTypeCategory operandTypeCategory, EssentialTypeCategory otherOperandTypeCategory
+    |
+      operandTypeCategory = getEssentialTypeCategory(getEssentialType(getAnOperand())) and
+      otherOperandTypeCategory = getEssentialTypeCategory(getEssentialType(getAnOperand()))
+    |
+      if
+        operandTypeCategory = EssentiallyCharacterType() and
+        otherOperandTypeCategory =
+          [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
+      then result instanceof PlainCharType
+      else result = super.getEssentialType()
+    )
+  }
+}
+
+/**
+ * A sub expression, with essential type behaviour as specified by D.7.9.
+ */
+class EssentialSubExpr extends EssentialBinaryOperationSubjectToUsualConversions, SubExpr {
+  override Type getEssentialType() {
+    exists(
+      EssentialTypeCategory leftEssentialTypeCategory,
+      EssentialTypeCategory rightEssentialTypeCategory
+    |
+      leftEssentialTypeCategory = getEssentialTypeCategory(getEssentialType(getLeftOperand())) and
+      rightEssentialTypeCategory = getEssentialTypeCategory(getEssentialType(getRightOperand()))
+    |
+      if
+        leftEssentialTypeCategory = EssentiallyCharacterType() and
+        rightEssentialTypeCategory =
+          [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
+      then result instanceof PlainCharType
+      else result = super.getEssentialType()
     )
   }
 }
