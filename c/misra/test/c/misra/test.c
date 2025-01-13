@@ -139,8 +139,8 @@ void testBitwise() {
   s32 ^ s16; // Essentially signed, int
   s16 ^ s32; // Essentially signed, int
 
-  u32 & s32; // Essentially signed, int
-  s32 & u32; // Essentially signed, int
+  u32 & s32; // Essentially unsigned, int
+  s32 & u32; // Essentially unsigned, int
   u8 & s32;  // Essentially signed, int
   s32 & u8;  // Essentially signed, int
   u8 & s8;   // Essentially signed, int
