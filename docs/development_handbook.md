@@ -51,6 +51,8 @@ Each coding standard consists of a list of "guidelines", however not all the gui
 
 For some of the rules which are not amenable to static analysis, we may opt to provide a query which aids with "auditing" the rules. For example, AUTOSAR includes a rule (A10-0-1) "Public inheritance shall be used to implement 'is-a' relationship.". This is not directly amenable to static analysis, because it requires external context around the concept being modeled. However, we can provide an "audit" rule which reports all the public and private inheritance relationships in the program, so they can be manually verified.
 
+For other rules, there may be means of indicating that a contravention is intentional, and where requiring a _devation report_ may be extra burdensome on developers and require double-entry. These results should be reported under a "strict" query. For instance, `RULE-2-8` "A project should not contain unused object definitions," where adding `__attribute__((unused))` may be preferable in order to suppress compiler warnings (which _deviation reports_ do not do) and are highly indicative of an intentional contravention by a developer.
+
 For each rule which will be implemented with a query we have assigned a "rule package". Rule packages represent sets of rules, possibly across standards, that will be implemented together. Examples of rule packages include "Exceptions", "Naming", "Pointers" and so forth. By implementing queries for related rules together, we intend to maximize the amount of code shared between queries, and to ensure query developers can gain a deep understanding of that specific topic.
 
 The canonical list of rules, with implementation categorization and assigned rule packages, are stored in this repository in the `rules.csv` file.
