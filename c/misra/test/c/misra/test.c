@@ -82,8 +82,8 @@ void testControlChar() {
 }
 
 #include <stdint.h>
-
-void testBitwise() {
+// clang-format off
+void testBitwise() { // Clang format disabled to avoid confusion with variable declarations
   uint8_t u8 = 0;
   uint16_t u16 = 0;
   uint32_t u32 = 0;
@@ -160,7 +160,7 @@ void testBitwise() {
   u8 ^ s8;   // Essentially signed, int
   s8 ^ u8;   // Essentially signed, int
 }
-
+// clang-format on
 void testShifts() {
   int32_t s32 = 1;
 
