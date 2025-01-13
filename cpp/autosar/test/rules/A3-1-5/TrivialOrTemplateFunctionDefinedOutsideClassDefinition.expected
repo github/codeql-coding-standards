@@ -1,7 +1,0 @@
-| test.cpp:65:5:65:11 | getB | The trivial member function getB is not defined in the class body of $@. | test.cpp:2:7:2:7 | A | A |
-| test.cpp:67:25:67:28 | d | The template member function d is not defined in the class body of $@. | test.cpp:2:7:2:7 | A | A |
-| test.cpp:69:5:69:8 | b | The trivial member function b is not defined in the class body of $@. | test.cpp:2:7:2:7 | A | A |
-| test.cpp:88:34:88:57 | complexCalculation | The template member function complexCalculation is not defined in the class body of $@. | test.cpp:71:29:71:29 | B<C> | B<C> |
-| test.cpp:104:47:104:53 | d | The template member function d is not defined in the class body of $@. | test.cpp:71:29:71:29 | B<C> | B<C> |
-| test.cpp:108:27:108:33 | b | The template member function b is not defined in the class body of $@. | test.cpp:71:29:71:29 | B<C> | B<C> |
-| test.cpp:113:27:113:36 | getB | The template member function getB is not defined in the class body of $@. | test.cpp:71:29:71:29 | B<C> | B<C> |
