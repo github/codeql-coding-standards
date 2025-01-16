@@ -297,8 +297,7 @@ class EssentialBinaryArithmeticExpr extends EssentialExpr, BinaryArithmeticOpera
     exists(
       Type leftEssentialType, Type rightEssentialType,
       EssentialTypeCategory leftEssentialTypeCategory,
-      EssentialTypeCategory rightEssentialTypeCategory,
-      int intTypeSize
+      EssentialTypeCategory rightEssentialTypeCategory, int intTypeSize
     |
       leftEssentialType = getEssentialType(getLeftOperand()) and
       rightEssentialType = getEssentialType(getRightOperand()) and
@@ -340,19 +339,19 @@ class EssentialBinaryArithmeticExpr extends EssentialExpr, BinaryArithmeticOpera
             ) and
             (
               leftEssentialTypeCategory =
-                [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-              and leftEssentialType.getSize() <= intTypeSize
+                [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)] and
+              leftEssentialType.getSize() <= intTypeSize
               or
               rightEssentialTypeCategory =
-                [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-              and rightEssentialType.getSize() <= intTypeSize
+                [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)] and
+              rightEssentialType.getSize() <= intTypeSize
             )
             or
             this instanceof SubExpr and
             leftEssentialTypeCategory = EssentiallyCharacterType() and
             rightEssentialTypeCategory =
-              [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-            and rightEssentialType.getSize() <= intTypeSize
+              [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)] and
+            rightEssentialType.getSize() <= intTypeSize
           then result instanceof PlainCharType
           else result = this.getStandardType()
     )

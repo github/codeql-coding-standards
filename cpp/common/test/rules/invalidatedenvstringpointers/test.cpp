@@ -211,7 +211,7 @@ void f11(void) {
 void f12(void) {
   time_t rawtime;
   time(&rawtime);
-  char* r1 = ctime(&rawtime);
+  char *r1 = ctime(&rawtime);
   asctime(localtime(&rawtime));
   printf("%s", r1); // NON_COMPLIANT
 }
@@ -219,10 +219,10 @@ void f12(void) {
 void f13(void) {
   time_t rawtime;
   time(&rawtime);
-  char* r1 = ctime(&rawtime);
+  char *r1 = ctime(&rawtime);
   printf("%s", r1); // COMPLIANT
 
-  char* r2 = asctime(localtime(&rawtime));
+  char *r2 = asctime(localtime(&rawtime));
   printf("%s", r1); // NON_COMPLIANT
   printf("%s", r2); // COMPLIANT
 
