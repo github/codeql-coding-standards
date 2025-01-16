@@ -191,7 +191,13 @@ class TrivialMemberFunction extends IntrospectedMemberFunction {
  * class.
  */
 class TemplateOrTemplateClassMemberFunction extends MemberFunction {
-  TemplateOrTemplateClassMemberFunction() { isFromUninstantiatedTemplate(_) }
+  TemplateOrTemplateClassMemberFunction() {
+    (
+      isFromUninstantiatedTemplate(_) or
+      isFromTemplateInstantiation(_)
+    ) and
+    not this.isCompilerGenerated()
+  }
 }
 
 /**
