@@ -42,7 +42,6 @@ void f1() {
 
   // Void pointers have size zero and can't be analyzed.
   void *p24 = 0;
-  unsigned char* p25 = (unsigned char*)p24;
+  unsigned char *p25 = (unsigned char *)p24;
   void *p26 = &p25[100]; // COMPLIANT
-
 }
