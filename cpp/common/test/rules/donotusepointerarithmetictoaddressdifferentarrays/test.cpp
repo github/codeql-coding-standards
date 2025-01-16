@@ -39,4 +39,10 @@ void f1() {
   long *p21 = (long *)&l1;
   void *p22 = &p21[0];   // COMPLIANT
   void *p23 = &p21[100]; // NON_COMPLIANT[FALSE_NEGATIVE]
+
+  // Void pointers have size zero and can't be analyzed.
+  void *p24 = 0;
+  unsigned char* p25 = (unsigned char*)p24;
+  void *p26 = &p25[100]; // COMPLIANT
+
 }

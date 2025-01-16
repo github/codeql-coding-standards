@@ -9,6 +9,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
+import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
 import codeql.util.Boolean
 
 abstract class DoNotUsePointerArithmeticToAddressDifferentArraysSharedQuery extends Query { }
@@ -68,11 +69,13 @@ int elementSize(Type type, Boolean deref) {
  * length depends on `elementSize()` of the original pointed-to type.
  */
 class CastedToBytePointer extends ArrayLikeAccess, Conversion {
+  /** The sizeof() the pointed-to type */
   int size;
 
   CastedToBytePointer() {
     getType().(PointerType).getBaseType().getSize() = 1 and
-    size = elementSize(getExpr().getType(), true)
+    size = elementSize(getExpr().getType(), true) and
+    size > 1
   }
 
   override Element getElement() { result = this }
@@ -138,7 +141,7 @@ module ArrayToArrayExprFlow = DataFlow::Global<ArrayToArrayExprConfig>;
 
 /** Holds if the address taken expression `addressOf` takes the address of an array element at `index` of `array`. */
 predicate pointerOperandCreation(AddressOfExpr addressOf, ArrayLikeAccess array, int index) {
-  exists(ArrayExpr ae |
+  exists(ArrayExpr ae, Expr arrayOffset |
     (
       ArrayToArrayExprFlow::flow(array.getNode(), DataFlow::exprNode(ae.getArrayBase())) and
       array instanceof ArrayVariableAccess
@@ -149,7 +152,10 @@ predicate pointerOperandCreation(AddressOfExpr addressOf, ArrayLikeAccess array,
       // flow() may hold for `ArrayVariableAccess` in the above, even though they aren't sources
       array instanceof CastedToBytePointer
     ) and
-    index = lowerBound(ae.getArrayOffset().getFullyConverted()) and
+    arrayOffset = ae.getArrayOffset().getFullyConverted() and
+    index = lowerBound(arrayOffset) and
+    // This case typically indicates range analysis has gone wrong:
+    not index = exprMaxVal(arrayOffset) and
     addressOf.getOperand() = ae
   )
 }
