@@ -32,7 +32,7 @@ where
     // But the overall essential type is not essentially character type
     getEssentialTypeCategory(getEssentialType(addOrSub)) = EssentiallyCharacterType()
     or
-    // Or this is a subtration of one character with another, which is permitted, but produces an integral type
+    // Or this is a subtraction of one character with another, which is permitted, but produces an integral type
     getEssentialTypeCategory(getEssentialType(addOrSub.getLeftOperand())) =
       EssentiallyCharacterType() and
     getEssentialTypeCategory(getEssentialType(addOrSub.getRightOperand())) =
