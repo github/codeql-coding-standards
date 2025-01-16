@@ -36,9 +36,7 @@ void f1() {
 
   // Casting to a pointer to a differently sized type that isn't char
   // invalidates analysis
-  int l3[3];
-  long *p21 = (long*)&l1;
+  long *p21 = (long *)&l1;
   void *p22 = &p21[0];   // COMPLIANT
-  // Not compliant, but we shouldn't detect it, but we do for the wrong reason:
-  void *p23 = &p21[100]; // NON_COMPLIANT[FALSE_NEGATIVE][FALSE_POSITIVE]
+  void *p23 = &p21[100]; // NON_COMPLIANT[FALSE_NEGATIVE]
 }

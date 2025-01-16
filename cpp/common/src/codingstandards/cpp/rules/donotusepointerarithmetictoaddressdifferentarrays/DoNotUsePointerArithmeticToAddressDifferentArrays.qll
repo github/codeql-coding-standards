@@ -33,7 +33,7 @@ abstract class ArrayLikeAccess extends Expr {
  */
 class ArrayVariableAccess extends ArrayLikeAccess, VariableAccess {
   int size;
- 
+
   ArrayVariableAccess() { size = getType().(ArrayType).getArraySize() }
 
   override Variable getElement() { result = getTarget() }
@@ -47,7 +47,7 @@ class ArrayVariableAccess extends ArrayLikeAccess, VariableAccess {
 
 /**
  * Get the size of the object pointed to by a type (pointer or array).
- * 
+ *
  * Depth of type unwrapping depends on the type. Pointer will be dereferenced only once: the element
  * size of `T*` is `sizeof(T)` while the element size of `T**` is `sizeof(T*)`. However, array types
  * will be deeply unwrapped, as the pointed to size of `T[][]` is `sizeof(T)`. These processes
@@ -88,7 +88,17 @@ class CastedToBytePointer extends ArrayLikeAccess, Conversion {
 
   override int getSize() { result = size }
 
-  override DataFlow::Node getNode() { result.asConvertedExpr() = this }
+  override DataFlow::Node getNode() {
+    // Carefully avoid use-use flow, which would mean any later usage of the original pointer value
+    // after the cast would be considered a usage of the byte pointer value.
+    //
+    // To fix this, we currently assume the value is assigned to a variable, and find that variable
+    // with `.asDefinition()` like so:
+    exists(DataFlow::Node conversion |
+      conversion.asConvertedExpr() = this and
+      result.asDefinition() = conversion.asExpr()
+    )
+  }
 }
 
 /**
