@@ -79,4 +79,16 @@ void w_call45() {
   w_sample5(L"string9"); // COMPLIANT: passing string literal to const char*
 }
 
+void w_sample6(int x, ...) {}
+
+void w_call6() {
+  w_sample6(1, "string10"); // COMPLIANT by first (and only) exception
+}
+
+void w_sample7(char *x, ...) {}
+
+void w_call7() {
+  w_sample7("string11", 1); // NON_COMPLIANT, does not fit exceptional case
+}
+
 int main() { return 0; }
