@@ -371,7 +371,6 @@ class EssentialSubExpr extends EssentialBinaryOperationSubjectToUsualConversions
   }
 }
 
-// }
 /**
  * A named Enum type, as per D.5.
  */
