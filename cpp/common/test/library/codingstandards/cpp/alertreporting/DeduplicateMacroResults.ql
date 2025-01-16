@@ -23,10 +23,7 @@ module FindMeReportConfig implements MacroReportConfigSig<FindMe> {
     result = "Invocation of macro $@ has findme var '" + f.getName() + "'."
   }
 
-  string getMessageNotInMacro(FindMe f) {
-    result = "Findme var '" + f.getName() + "'."
-
-  }
+  string getMessageNotInMacro(FindMe f) { result = "Findme var '" + f.getName() + "'." }
 }
 
 import DeduplicateMacroResults<FindMe, FindMeDedupeConfig>

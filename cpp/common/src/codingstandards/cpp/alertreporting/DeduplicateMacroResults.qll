@@ -110,7 +110,7 @@ signature module MacroReportConfigSig<ResultType ResultElement> {
  *     string getMessageResultInIsolatedExpansion(InvalidFoo foo) {
  *       result = "Invocation of macro $@ has invalid foo '" + foo.getName() + "'."
  *     }
- * 
+ *
  *     string getMessageNotInMacro(ResultElement element) {
  *       result = "Invalid foo '" + element.getName() + "'."
  *     }
@@ -286,9 +286,7 @@ module DeduplicateMacroResults<
       TReportMacroResultWithVariedName(PrimaryMacroDifferentResultElementInAllInvocations def) or
       TReportIsolatedMacroResult(IsolatedMacroExpansionWithResultElement def) or
       TReportNotInMacro(ResultElement def) {
-        not exists (ResultMacroExpansion macroExpansion |
-          macroExpansion.getResultElement() = def
-        )
+        not exists(ResultMacroExpansion macroExpansion | macroExpansion.getResultElement() = def)
       }
 
     /**
@@ -368,8 +366,8 @@ module DeduplicateMacroResults<
         )
         or
         (
-        this = TReportMacroResultWithSameName(_)
-        or this = TReportNotInMacro(_)
+          this = TReportMacroResultWithSameName(_) or
+          this = TReportNotInMacro(_)
         ) and
         result = "(ignored)"
         or

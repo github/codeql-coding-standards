@@ -48,7 +48,9 @@ module ReportDeadObjectConfig implements MacroReportConfigSig<UnusedObjectDefini
   }
 
   string getMessageVariedResultInAllExpansions(Macro m) {
-    result = "Macro '" + m.getName() + "' defines unused object with an invocation-dependent name, for example, '$@'."
+    result =
+      "Macro '" + m.getName() +
+        "' defines unused object with an invocation-dependent name, for example, '$@'."
   }
 
   string getMessageResultInIsolatedExpansion(UnusedObjectDefinition unused) {
