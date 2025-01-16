@@ -18,7 +18,7 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.deadcode.UnusedObjects
 
-from ReportDeadObjectAtDefinition report
+from ReportDeadObject report
 where
   not isExcluded(report.getPrimaryElement(), DeadCode2Package::unusedObjectDefinitionStrictQuery()) and
   report.hasAttrUnused()

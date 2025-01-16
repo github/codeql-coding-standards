@@ -22,11 +22,16 @@ module FindMeReportConfig implements MacroReportConfigSig<FindMe> {
   string getMessageResultInIsolatedExpansion(FindMe f) {
     result = "Invocation of macro $@ has findme var '" + f.getName() + "'."
   }
+
+  string getMessageNotInMacro(FindMe f) {
+    result = "Findme var '" + f.getName() + "'."
+
+  }
 }
 
 import DeduplicateMacroResults<FindMe, FindMeDedupeConfig>
 import DeduplicateMacroResults<FindMe, FindMeDedupeConfig>::Report<FindMeReportConfig>
 
-from ReportResultInMacro report
+from ReportResult report
 select report.getPrimaryElement(), report.getMessage(), report.getOptionalPlaceholderLocation(),
   report.getOptionalPlaceholderMessage()

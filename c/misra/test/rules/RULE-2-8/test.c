@@ -87,6 +87,8 @@ void f6() {
 __attribute__((unused)) int g8 = 1; // NON-COMPLIANT
 #define ONLY_DEF_ATTR_UNUSED_VAR(x) __attribute__((unused)) int x = 0;
 void f7() {
+  ONLY_DEF_ATTR_UNUSED_VAR(l1); // COMPLIANT
+  l1;
   ONLY_DEF_ATTR_UNUSED_VAR(l2); // NON-COMPLIANT
 }
 

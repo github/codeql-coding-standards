@@ -42,6 +42,7 @@
 | 0.32.0 | 2024-05-01 | Luke Cartey | Refer to the user manual for the list of supported standards. |
 | 0.33.0 | 2024-07-30 | Kristen Newbury | Remove out dated references to codeql modules directory usage. |
 | 0.34.0 | 2024-08-22 | Kristen Newbury | Remove out dated references to git submodules usage. |
+| 0.35.0 | 2025-01-15 | Mike Fairhurst | Add guidance for the addition of 'strict' queries. |
 
 ## Scope of work
 

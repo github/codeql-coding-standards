@@ -1,2 +1,0 @@
-| test.c:68:1:71:5 | #define ALSO_DEF_VAR(x) int x = 0; while (1) ; | Macro 'ALSO_DEF_VAR' defines unused object of varied names, for example, '$@'. | test.c:73:16:73:17 | test.c:73:16:73:17 | l1 |
-| test.c:77:1:82:3 | #define DEF_UNUSED_INNER_VAR() { int _v = 0; while (1) ; } | Macro 'DEF_UNUSED_INNER_VAR' defines unused object '_v'. | test.c:77:1:82:3 | test.c:77:1:82:3 | (ignored) |

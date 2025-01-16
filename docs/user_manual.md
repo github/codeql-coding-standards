@@ -29,7 +29,8 @@
 | 0.21.0  | 2024-05-01 | Luke Cartey     | Add MISRA C++ 2023 as under development, and clarify MISRA C 2012 coverage.                                             |
 | 0.22.0  | 2024-10-02 | Luke Cartey     | Add MISRA C 2023 as under development, and clarify MISRA C 2012 coverage.                                               |
 | 0.23.0  | 2024-10-21 | Luke Cartey     | Add assembly as a hazard.                                                                                               |
-| 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                                                               |
+| 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                     |
+| 0.25.0  | 2025-01-15 | Mike Fairhurst  | Add guidance for the usage of 'strict' queries.                                                                         |
 
 ## Release information
 

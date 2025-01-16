@@ -1,7 +1,7 @@
 typedef struct {
 } findme;
 
-findme g1; // ignore -- not in a macro
+findme g1; // baseline report, not in a macro
 
 #define SOMETIMES_HAS_RESULTS1(type, name) type name  // ignore
 #define SOMETIMES_HAS_RESULTS2(type, name) type name; // ignore
