@@ -1,0 +1,6 @@
+| test.c:6:14:6:14 | i | Static local variable $@ declared in the extern inlined function $@. | test.c:6:14:6:14 | i | i | test.c:5:20:5:24 | test1 | test1 |
+| test.c:7:3:7:4 | g1 | Identifier $@ with internal linkage referenced in the extern inlined function $@. | test.c:1:12:1:13 | g1 | g1 | test.c:5:20:5:24 | test1 | test1 |
+| test.c:9:3:9:4 | g3 | Identifier $@ with internal linkage referenced in the extern inlined function $@. | test.c:3:11:3:12 | g3 | g3 | test.c:5:20:5:24 | test1 | test1 |
+| test.c:27:14:27:14 | i | Static local variable $@ declared in the extern inlined function $@. | test.c:27:14:27:14 | i | i | test.c:26:13:26:17 | test4 | test4 |
+| test.c:28:3:28:4 | g1 | Identifier $@ with internal linkage referenced in the extern inlined function $@. | test.c:1:12:1:13 | g1 | g1 | test.c:26:13:26:17 | test4 | test4 |
+| test.c:30:3:30:4 | g3 | Identifier $@ with internal linkage referenced in the extern inlined function $@. | test.c:3:11:3:12 | g3 | g3 | test.c:26:13:26:17 | test4 | test4 |

@@ -80,3 +80,121 @@ void testControlChar() {
   '\n'; // Essentially char
   '\0'; // Essentially char
 }
+
+#include <stdint.h>
+// clang-format off
+void testBitwise() { // Clang format disabled to avoid confusion with variable declarations
+  uint8_t u8 = 0;
+  uint16_t u16 = 0;
+  uint32_t u32 = 0;
+  int8_t s8 = 0;
+  int16_t s16 = 0;
+  int32_t s32 = 0;
+
+  u8 & u8;   // Essentially unsigned, char
+  u16 & u8;  // Essentially unsigned, short
+  u8 & u16;  // Essentially unsigned, short
+  u32 & u8;  // Essentially unsigned, int
+  u8 & u32;  // Essentially unsigned, int
+  u32 & u16; // Essentially unsigned, int
+  u16 & u32; // Essentially unsigned, int
+
+  u8 | u8;   // Essentially unsigned, char
+  u16 | u8;  // Essentially unsigned, short
+  u8 | u16;  // Essentially unsigned, short
+  u32 | u8;  // Essentially unsigned, int
+  u8 | u32;  // Essentially unsigned, int
+  u32 | u16; // Essentially unsigned, int
+  u16 | u32; // Essentially unsigned, int
+
+  u8 ^ u8;   // Essentially unsigned, char
+  u16 ^ u8;  // Essentially unsigned, short
+  u8 ^ u16;  // Essentially unsigned, short
+  u32 ^ u8;  // Essentially unsigned, int
+  u8 ^ u32;  // Essentially unsigned, int
+  u32 ^ u16; // Essentially unsigned, int
+  u16 ^ u32; // Essentially unsigned, int
+
+  s8 & s8;   // Essentially signed, char
+  s16 & s8;  // Essentially signed, short
+  s8 & s16;  // Essentially signed, short
+  s32 & s8;  // Essentially signed, int
+  s8 & s32;  // Essentially signed, int
+  s32 & s16; // Essentially signed, int
+  s16 & s32; // Essentially signed, int
+
+  s8 | s8;   // Essentially signed, char
+  s16 | s8;  // Essentially signed, short
+  s8 | s16;  // Essentially signed, short
+  s32 | s8;  // Essentially signed, int
+  s8 | s32;  // Essentially signed, int
+  s32 | s16; // Essentially signed, int
+  s16 | s32; // Essentially signed, int
+
+  s8 ^ s8;   // Essentially signed, char
+  s16 ^ s8;  // Essentially signed, short
+  s8 ^ s16;  // Essentially signed, short
+  s32 ^ s8;  // Essentially signed, int
+  s8 ^ s32;  // Essentially signed, int
+  s32 ^ s16; // Essentially signed, int
+  s16 ^ s32; // Essentially signed, int
+
+  u32 & s32; // Essentially unsigned, int
+  s32 & u32; // Essentially unsigned, int
+  u8 & s32;  // Essentially signed, int
+  s32 & u8;  // Essentially signed, int
+  u8 & s8;   // Essentially signed, int
+  s8 & u8;   // Essentially signed, int
+
+  u32 | s32; // Essentially signed, int
+  s32 | u32; // Essentially signed, int
+  u8 | s32;  // Essentially signed, int
+  s32 | u8;  // Essentially signed, int
+  u8 | s8;   // Essentially signed, int
+  s8 | u8;   // Essentially signed, int
+
+  u32 ^ s32; // Essentially signed, int
+  s32 ^ u32; // Essentially signed, int
+  u8 ^ s32;  // Essentially signed, int
+  s32 ^ u8;  // Essentially signed, int
+  u8 ^ s8;   // Essentially signed, int
+  s8 ^ u8;   // Essentially signed, int
+}
+// clang-format on
+void testShifts() {
+  int32_t s32 = 1;
+
+  // Left hand is unsigned and both are constants, so UTLR
+  // In these cases the UTLR is the same as the essential type of
+  // the left operand
+  1U << 1;           // Essentially unsigned char
+  256U << 1;         // Essentially unsigned short
+  65536U << 1;       // Essentially unsigned int
+  2U >> 1;           // Essentially unsigned char
+  32768U >> 1;       // Essentially unsigned short - 2^15 >> 1 = 2^14
+  2147483648U >> 1;  // Essentially unsigned int - 2^31 >> 1 = 2^30
+  4294967295LU << 1; // Essentially unsigned long
+
+  // Left hand is unsigned and both are constants, so UTLR
+  // In these cases the UTLR is not the same as the essential type of
+  // the left operand
+  256U >> 1;        // Essentially unsigned char
+  65536U >> 1;      // Essentially unsigned short
+  4294967296U >> 1; // Essentially unsigned int
+  255U << 1;        // Essentially unsigned short
+  65535U << 1;      // Essentially unsigned int
+
+  // Left hand is unsigned, but left isn't a constant, so essential type of left
+  // operand
+  255U >> s32;        // Essentially unsigned char
+  65535U >> s32;      // Essentially unsigned short
+  4294967295U >> s32; // Essentially unsigned int
+  255U << s32;        // Essentially unsigned char
+  65535U << s32;      // Essentially unsigned short
+  4294967295U << s32; // Essentially unsigned int
+
+  // Left hand operand signed int, so result is standard type
+  257 >> 1;        // Essentially signed int
+  65537 >> 1;      // Essentially signed int
+  4294967297 >> 1; // Essentially signed long
+}
