@@ -302,7 +302,21 @@ module DeduplicateMacroResults<
      * signature parameter.
      */
     class ReportResult extends TReportResult {
-      string toString() { result = getMessage() }
+      string toString() {
+        this = TReportMacroResultWithVariedName(_) and
+        result =
+          "Macro that always expands to a result element with invocation-dependent description"
+        or
+        this = TReportMacroResultWithSameName(_) and
+        result = "Macro that always expands to a result element with a constant description"
+        or
+        this = TReportIsolatedMacroResult(_) and
+        result =
+          "Specific macro expansion which produces a result element, but not all expansions do"
+        or
+        this = TReportNotInMacro(_) and
+        result = "Result element that is not in a macro"
+      }
 
       string getMessage() {
         exists(PrimaryMacroDifferentResultElementInAllInvocations def |
