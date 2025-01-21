@@ -56,16 +56,16 @@ private:
   int m3 = 0; // COMPLIANT - can be set by constructor
 };
 
-int h1(int x, int y) { // NON_COMPLIANT
-  return x + y;
-}
+int h1(int x, int y) { return x + y; }
 
-constexpr int h1_correct(int x, int y) { // COMPLIANT
-  return x + y;
-}
+constexpr int h1_const(int x, int y) { return x + y; }
 
-int h2(int x) { return h1(x, 1) + 1; } // NON_COMPLIANT
-constexpr int h2_correct(int x) { return h1_correct(x, 1) + 1; } // COMPLIANT
+int h2() {
+  int x1 = h1(1, 1);                 // COMPLIANT
+  int x2 = h1_const(1, 1);           // NON_COMPLIANT
+  const int x3 = h1_const(1, 1);     // NON_COMPLIANT
+  constexpr int x4 = h1_const(1, 1); // COMPLIANT
+}
 
 int h3(int x) { // COMPLIANT - uses goto, so can't be constexpr
   if (x) {
