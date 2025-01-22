@@ -90,7 +90,7 @@ void fp_621() { recurse_var<true, true, true>; }
 void variadic_forwarding() {}
 
 template <typename T, typename... Args>
-void variadic_forwarding(T &&first, Args &&...rest) {
+void variadic_forwarding(T &&first, Args &&... rest) {
   first;
   variadic_forwarding(std::forward<Args>(rest)...);
 }
