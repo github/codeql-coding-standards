@@ -5,10 +5,10 @@
  * some range of lines in the file containing the comment based on the annotation. The supported marker annotation
  * formats are:
  *  - `<code-identifier>` - the deviation applies to results on the current line.
- *  - `DEVIATION(<code-identifier>)` - same as above.
- *  - `DEVIATION_NEXT_LINE(<code-identifier>)` - this deviation applies to results on the next line.
- *  - `DEVIATION_BEGIN(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
- *  - `DEVIATION_END(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
+ *  - `[[codingstandards::deviation(<code-identifier>)]]` - same as above.
+ *  - `[[codingstandards::deviation_next_line(<code-identifier>)]]` - this deviation applies to results on the next line.
+ *  - `[[codingstandards::deviation_begin(<code-identifier>)]]` - marks the beginning of a range of lines where the deviation applies.
+ *  - `[[codingstandards::deviation_end(<code-identifier>)]]` - marks the end of a range of lines where the deviation applies.
  *
  * The valid `code-identifier`s are specified in deviation records, which also specify the query whose results are
  * suppressed by the deviation.
@@ -53,7 +53,7 @@ private predicate commentMatches(Comment comment, string codeIdentifier) {
 /**
  * A deviation marker in the code.
  */
-abstract class DeviationMarker extends Comment {
+abstract class CommentDeviationMarker extends Comment {
   DeviationRecord record;
 
   /**
@@ -65,45 +65,50 @@ abstract class DeviationMarker extends Comment {
 /**
  * A deviation marker for a deviation that applies to the current line.
  */
-class DeviationEndOfLineMarker extends DeviationMarker {
+class DeviationEndOfLineMarker extends CommentDeviationMarker {
   DeviationEndOfLineMarker() {
-    commentMatches(this, "DEVIATION(" + record.getCodeIdentifier() + ")")
+    commentMatches(this, "[[codingstandards::deviation(" + record.getCodeIdentifier() + ")]]")
   }
 }
 
 /**
  * A deviation marker for a deviation that applies to the next line.
  */
-class DeviationNextLineMarker extends DeviationMarker {
+class DeviationNextLineMarker extends CommentDeviationMarker {
   DeviationNextLineMarker() {
-    commentMatches(this, "DEVIATION_NEXT_LINE(" + record.getCodeIdentifier() + ")")
+    commentMatches(this,
+      "[[codingstandards::deviation_next_line(" + record.getCodeIdentifier() + ")]]")
   }
 }
 
 /**
  * A deviation marker for a deviation that applies to a range of lines
  */
-abstract class DeviationRangeMarker extends DeviationMarker { }
+abstract class CommentDeviationRangeMarker extends CommentDeviationMarker { }
 
 /**
  * A deviation marker for a deviation that begins on this line.
  */
-class DeviationBegin extends DeviationRangeMarker {
-  DeviationBegin() { commentMatches(this, "DEVIATION_BEGIN(" + record.getCodeIdentifier() + ")") }
+class DeviationBegin extends CommentDeviationRangeMarker {
+  DeviationBegin() {
+    commentMatches(this, "[[codingstandards::deviation_begin(" + record.getCodeIdentifier() + ")]]")
+  }
 }
 
 /**
  * A deviation marker for a deviation that ends on this line.
  */
-class DeviationEnd extends DeviationRangeMarker {
-  DeviationEnd() { commentMatches(this, "DEVIATION_END(" + record.getCodeIdentifier() + ")") }
+class DeviationEnd extends CommentDeviationRangeMarker {
+  DeviationEnd() {
+    commentMatches(this, "[[codingstandards::deviation_end(" + record.getCodeIdentifier() + ")]]")
+  }
 }
 
 private predicate hasDeviationCommentFileOrdering(
-  DeviationRecord record, DeviationRangeMarker comment, File file, int index
+  DeviationRecord record, CommentDeviationRangeMarker comment, File file, int index
 ) {
   comment =
-    rank[index](DeviationRangeMarker c |
+    rank[index](CommentDeviationRangeMarker c |
       c.getRecord() = record and
       file = c.getFile()
     |
@@ -115,7 +120,7 @@ private predicate mkBeginStack(DeviationRecord record, File file, BeginStack sta
   // Stack is empty at the start
   index = 0 and
   stack = TEmptyBeginStack() and
-  exists(DeviationRangeMarker marker |
+  exists(CommentDeviationRangeMarker marker |
     marker.getRecord() = record and marker.getLocation().getFile() = file
   )
   or

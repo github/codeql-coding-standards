@@ -426,8 +426,8 @@ The `process_coding_standards_config.py` has a dependency on the package `pyyaml
 A code identifier specified in a deviation record can be applied to certain results in the code by adding a comment marker consisting of a `code-identifier` with some optional annotations. The supported marker annotation formats are:
 
  - `<code-identifier>` - the deviation applies to results on the current line.
- - `DEVIATION(<code-identifier>)` - the deviation applies to results on the current line.
- - `DEVIATION_NEXT_LINE(<code-identifier>)` - this deviation applies to results on the next line.
+ - `codingstandards::deviation(<code-identifier>)` - the deviation applies to results on the current line.
+ - `codingstandards::deviation_next_line(<code-identifier>)` - this deviation applies to results on the next line.
  - `DEVIATION_BEGIN(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
  - `DEVIATION_END(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
 
@@ -438,32 +438,32 @@ Here are some examples, using the deviation record with the `a-0-4-2-deviation` 
   long double x2; // a-0-4-2-deviation - COMPLIANT
   long double x3; // COMPLIANT - a-0-4-2-deviation
 
-  long double x4; // DEVIATION(a-0-4-2-deviation) - COMPLIANT
-  long double x5; // COMPLIANT - DEVIATION(a-0-4-2-deviation)
+  long double x4; // [[codingstandards::deviation(a-0-4-2-deviation)]] - COMPLIANT
+  long double x5; // COMPLIANT - [[codingstandards::deviation(a-0-4-2-deviation)]]
 
-  // DEVIATION_NEXT_LINE(a-0-4-2-deviation)
+  // [[codingstandards::deviation_next_line(a-0-4-2-deviation)]]
   long double x6; // COMPLIANT
 
-  // DEVIATION_BEGIN(a-0-4-2-deviation)
+  // [[codingstandards::deviation_begin(a-0-4-2-deviation)]]
   long double x7; // COMPLIANT
-  // DEVIATION_END(a-0-4-2-deviation)
+  // [[codingstandards::deviation_end(a-0-4-2-deviation)]]
 ```
 
-`DEVIATION_END` markers will pair with the closest unmatched `DEVIATION_BEGIN` for the same `code-identifier`. Consider this example:
+`codingstandards::deviation_end` markers will pair with the closest unmatched `codingstandards::deviation_begin` for the same `code-identifier`. Consider this example:
 ```cpp
-1 | // DEVIATION_BEGIN(a-0-4-2-deviation)
+1 | // [[codingstandards::deviation_begin(a-0-4-2-deviation)]]
 2 |
-3 | // DEVIATION_BEGIN(a-0-4-2-deviation)
+3 | // [[codingstandards::deviation_begin(a-0-4-2-deviation)]]
 4 |
-5 | // DEVIATION_END(a-0-4-2-deviation)
+5 | // [[codingstandards::deviation_end(a-0-4-2-deviation)]]
 6 |
-7 | // DEVIATION_END(a-0-4-2-deviation)
+7 | // [[codingstandards::deviation_end(a-0-4-2-deviation)]]
 ```
 Here, Line 1 will pair with Line 7, and Line 3 will pair with Line 8.
 
-A `DEVIATION_END` without a matching `DEVIATION_BEGIN`, or `DEVIATION_BEGIN` without a matching `DEVIATION_END` is invalid and will be ignored.
+A `codingstandards::deviation_end` without a matching `codingstandards::deviation_begin`, or `codingstandards::deviation_begin` without a matching `codingstandards::deviation_end` is invalid and will be ignored.
 
-`DEVIATION_BEGIN` and `DEVIATION_END` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
+`codingstandards::deviation_begin` and `codingstandards::deviation_end` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
 
 ##### Deviation permit
 
