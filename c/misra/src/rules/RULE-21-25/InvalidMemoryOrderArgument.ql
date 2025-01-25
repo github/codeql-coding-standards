@@ -149,7 +149,7 @@ import MemoryOrderFlow::PathGraph
 
 /**
  * If the node is a memory order constant, or shares a value with a memory order constant, then
- * return the name of that cnonstant. Otherwise, simply print the node.
+ * return the name of that constant. Otherwise, simply print the node.
  */
 string describeMemoryOrderNode(DataFlow::Node node) {
   if node.asExpr() instanceof MemoryOrderConstantExpr
