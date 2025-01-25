@@ -71,17 +71,6 @@
           "tags": [
             "maintainability"
           ]
-        },
-        {
-          "description": "Using 'constexpr' makes it clear that a function is intended to return a compile time constant.",
-          "kind": "problem",
-          "name": "The constexpr specifier shall be used for functions whose return value can be determined at compile time",
-          "precision": "high",
-          "severity": "recommendation",
-          "short_name": "FunctionMissingConstexpr",
-          "tags": [
-            "maintainability"
-          ]
         }
       ],
       "title": "The constexpr specifier shall be used for values that can be determined at compile time."

@@ -46,7 +46,7 @@ jobs:
 
       - name: Cache CodeQL
         id: cache-codeql
-        uses: actions/cache@v2.1.3
+        uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/codeql_home
           key: codeql-home-${{ matrix.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library }}
@@ -68,16 +68,20 @@ jobs:
       - name: Determine ref for external help files
         id: determine-ref
         run: |
-          if [[ $GITHUB_EVENT_NAME == "pull_request" || $GITHUB_EVENT_NAME == "merge_group" ]]; then
-            echo "EXTERNAL_HELP_REF=$GITHUB_HEAD_REF" >> "$GITHUB_ENV"
+          if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+            EXTERNAL_HELP_REF="${{ github.event.pull_request.base.ref }}"
+          elif [[ $GITHUB_EVENT_NAME == "merge_group" ]]; then
+            EXTERNAL_HELP_REF="${{ github.event.merge_group.base_ref }}"
           else
-            echo "EXTERNAL_HELP_REF=$GITHUB_REF" >> "$GITHUB_ENV"
+            EXTERNAL_HELP_REF="$GITHUB_REF"
           fi
+          echo "EXTERNAL_HELP_REF=$EXTERNAL_HELP_REF" >> "$GITHUB_ENV"
           echo "Using ref $EXTERNAL_HELP_REF for external help files."
 
       - name: Checkout external help files
-        continue-on-error: true
         id: checkout-external-help-files
+        # PRs from forks and dependabot do not have access to an appropriate token for cloning the help files repos
+        if: ${{ !github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]' }}
         uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.CODEQL_CODING_STANDARDS_HELP_KEY }}
@@ -86,7 +90,7 @@ jobs:
           path: external-help-files
 
       - name: Include external help files
-        if: steps.checkout-external-help-files.outcome == 'success'
+        if: ${{ !github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]'&& steps.checkout-external-help-files.outcome == 'success' }}
         run: |
           pushd external-help-files
           find . -name '*.md' -exec rsync -av --relative {} "$GITHUB_WORKSPACE" \;

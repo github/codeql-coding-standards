@@ -31,17 +31,19 @@ class EssentialTypeCategory extends TEssentialTypeCategory {
   }
 }
 
+class EssentiallySignedOrUnsignedType extends EssentialTypeCategory {
+  EssentiallySignedOrUnsignedType() {
+    this = EssentiallySignedType() or this = EssentiallyUnsignedType()
+  }
+}
+
 /**
  * An expression in the program that evaluates to a compile time constant signed or unsigned integer.
  */
 private class ConstantIntegerExpr extends Expr {
   pragma[noinline]
   ConstantIntegerExpr() {
-    getEssentialTypeCategory(this.getType()) =
-      [
-        EssentiallyUnsignedType().(EssentialTypeCategory),
-        EssentiallySignedType().(EssentialTypeCategory)
-      ] and
+    getEssentialTypeCategory(this.getType()) instanceof EssentiallySignedOrUnsignedType and
     exists(this.getValue().toFloat()) and
     not this instanceof Conversion
   }
@@ -192,8 +194,8 @@ class EssentialEqualityOperationExpr extends EssentialExpr, EqualityOperation {
   override Type getEssentialType() { result instanceof BoolType }
 }
 
-class EssentialBinaryBitwiseOperationExpr extends EssentialExpr, BinaryBitwiseOperation {
-  EssentialBinaryBitwiseOperationExpr() {
+class EssentialShiftOperationExpr extends EssentialExpr, BinaryBitwiseOperation {
+  EssentialShiftOperationExpr() {
     this instanceof LShiftExpr or
     this instanceof RShiftExpr
   }
@@ -235,9 +237,7 @@ class EssentialUnaryPlusExpr extends EssentialExpr, UnaryPlusExpr {
       operandEssentialType = getEssentialType(getOperand()) and
       operandEssentialTypeCategory = getEssentialTypeCategory(operandEssentialType)
     |
-      if
-        operandEssentialTypeCategory =
-          [EssentiallyUnsignedType().(TEssentialTypeCategory), EssentiallySignedType()]
+      if operandEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType
       then result = operandEssentialType
       else result = getStandardType()
     )
@@ -257,6 +257,13 @@ class EssentialUnaryMinusExpr extends EssentialExpr, UnaryMinusExpr {
   }
 }
 
+bindingset[essentialTypeA, essentialTypeB]
+private Type maxRankType(Type essentialTypeA, Type essentialTypeB) {
+  if essentialTypeA.getSize() > essentialTypeB.getSize()
+  then result = essentialTypeA
+  else result = essentialTypeB
+}
+
 class EssentialConditionalExpr extends EssentialExpr, ConditionalExpr {
   override Type getEssentialType() {
     exists(Type thenEssentialType, Type elseEssentialType |
@@ -267,30 +274,34 @@ class EssentialConditionalExpr extends EssentialExpr, ConditionalExpr {
       then result = thenEssentialType
       else
         if
-          getEssentialTypeCategory(thenEssentialType) = EssentiallySignedType() and
-          getEssentialTypeCategory(elseEssentialType) = EssentiallySignedType()
-        then
-          if thenEssentialType.getSize() > elseEssentialType.getSize()
-          then result = thenEssentialType
-          else result = elseEssentialType
-        else
-          if
-            getEssentialTypeCategory(thenEssentialType) = EssentiallyUnsignedType() and
-            getEssentialTypeCategory(elseEssentialType) = EssentiallyUnsignedType()
-          then
-            if thenEssentialType.getSize() > elseEssentialType.getSize()
-            then result = thenEssentialType
-            else result = elseEssentialType
-          else result = this.getStandardType()
+          getEssentialTypeCategory(thenEssentialType) = getEssentialTypeCategory(elseEssentialType) and
+          getEssentialTypeCategory(thenEssentialType) instanceof EssentiallySignedOrUnsignedType
+        then result = maxRankType(thenEssentialType, elseEssentialType)
+        else result = this.getStandardType()
     )
   }
 }
 
-class EssentialBinaryArithmeticExpr extends EssentialExpr, BinaryArithmeticOperation {
-  EssentialBinaryArithmeticExpr() {
-    // GNU C extension has min/max which we can ignore
-    not this instanceof MinExpr and
-    not this instanceof MaxExpr
+/**
+ * A binary operation subject to usual conversions, with essential type behaviour as specified by D.7.9.
+ */
+class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, BinaryOperation {
+  EssentialBinaryOperationSubjectToUsualConversions() {
+    this instanceof MulExpr
+    or
+    this instanceof DivExpr
+    or
+    this instanceof RemExpr
+    or
+    this instanceof AddExpr
+    or
+    this instanceof SubExpr
+    or
+    this instanceof BitwiseAndExpr
+    or
+    this instanceof BitwiseOrExpr
+    or
+    this instanceof BitwiseXorExpr
   }
 
   override Type getEssentialType() {
@@ -305,50 +316,57 @@ class EssentialBinaryArithmeticExpr extends EssentialExpr, BinaryArithmeticOpera
       rightEssentialTypeCategory = getEssentialTypeCategory(rightEssentialType)
     |
       if
-        leftEssentialTypeCategory = EssentiallySignedType() and
-        rightEssentialTypeCategory = EssentiallySignedType()
+        leftEssentialTypeCategory = rightEssentialTypeCategory and
+        leftEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType
       then
         if exists(getValue())
-        then result = stlr(this)
-        else (
-          if leftEssentialType.getSize() > rightEssentialType.getSize()
-          then result = leftEssentialType
-          else result = rightEssentialType
-        )
-      else
-        if
-          leftEssentialTypeCategory = EssentiallyUnsignedType() and
-          rightEssentialTypeCategory = EssentiallyUnsignedType()
         then
-          if exists(getValue())
-          then result = utlr(this)
-          else (
-            if leftEssentialType.getSize() > rightEssentialType.getSize()
-            then result = leftEssentialType
-            else result = rightEssentialType
-          )
-        else
-          if
-            this instanceof AddExpr and
-            (
-              leftEssentialTypeCategory = EssentiallyCharacterType()
-              or
-              rightEssentialTypeCategory = EssentiallyCharacterType()
-            ) and
-            (
-              leftEssentialTypeCategory =
-                [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-              or
-              rightEssentialTypeCategory =
-                [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-            )
-            or
-            this instanceof SubExpr and
-            leftEssentialTypeCategory = EssentiallyCharacterType() and
-            rightEssentialTypeCategory =
-              [EssentiallySignedType(), EssentiallyUnsignedType().(TEssentialTypeCategory)]
-          then result instanceof PlainCharType
-          else result = this.getStandardType()
+          leftEssentialTypeCategory = EssentiallySignedType() and result = stlr(this)
+          or
+          leftEssentialTypeCategory = EssentiallyUnsignedType() and result = utlr(this)
+        else result = maxRankType(leftEssentialType, rightEssentialType)
+      else result = this.getStandardType()
+    )
+  }
+}
+
+/**
+ * An add expression, with essential type behaviour as specified by D.7.9.
+ */
+class EssentialAddExpr extends EssentialBinaryOperationSubjectToUsualConversions, AddExpr {
+  override Type getEssentialType() {
+    exists(
+      EssentialTypeCategory operandTypeCategory, EssentialTypeCategory otherOperandTypeCategory
+    |
+      operandTypeCategory = getEssentialTypeCategory(getEssentialType(getAnOperand())) and
+      otherOperandTypeCategory = getEssentialTypeCategory(getEssentialType(getAnOperand()))
+    |
+      if
+        operandTypeCategory = EssentiallyCharacterType() and
+        otherOperandTypeCategory instanceof EssentiallySignedOrUnsignedType
+      then result instanceof PlainCharType
+      else result = super.getEssentialType()
+    )
+  }
+}
+
+/**
+ * A sub expression, with essential type behaviour as specified by D.7.9.
+ */
+class EssentialSubExpr extends EssentialBinaryOperationSubjectToUsualConversions, SubExpr {
+  override Type getEssentialType() {
+    exists(
+      EssentialTypeCategory leftEssentialTypeCategory,
+      EssentialTypeCategory rightEssentialTypeCategory
+    |
+      leftEssentialTypeCategory = getEssentialTypeCategory(getEssentialType(getLeftOperand())) and
+      rightEssentialTypeCategory = getEssentialTypeCategory(getEssentialType(getRightOperand()))
+    |
+      if
+        leftEssentialTypeCategory = EssentiallyCharacterType() and
+        rightEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType
+      then result instanceof PlainCharType
+      else result = super.getEssentialType()
     )
   }
 }

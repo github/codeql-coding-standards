@@ -13,18 +13,7 @@
 
 import cpp
 import codingstandards.c.cert
-
-/**
- * A struct or union type that contains an array type
- */
-class StructOrUnionTypeWithArrayField extends Struct {
-  StructOrUnionTypeWithArrayField() {
-    this.getAField().getUnspecifiedType() instanceof ArrayType
-    or
-    // nested struct or union containing an array type
-    this.getAField().getUnspecifiedType().(Struct) instanceof StructOrUnionTypeWithArrayField
-  }
-}
+import codingstandards.cpp.lifetimes.CLifetimes
 
 // Note: Undefined behavior is possible regardless of whether the accessed field from the returned
 // struct is an array or a scalar (i.e. arithmetic and pointer types) member, according to the standard.

@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 
 /**
  * Models CFG nodes which should be added to a thread context.
