@@ -58,4 +58,32 @@ void f1() {
   *s1_atomic_ptr = (s1){0};                         // COMPLIANT
   s1_atomic_ptr = l2;                               // COMPLIANT
   s1_atomic_ptr->x;                                 // COMPLIANT
+
+  // Atomic specifier hidden behind a typedef, still atomic:
+  typedef _Atomic s1 atomic_s1;
+  atomic_s1 l3;
+  l3.x; // NON_COMPLIANT
+
+  // Worst case scenario: a typedef of a volatile const pointer to an atomic
+  // typedef type.
+  typedef atomic_s1 *volatile const atomic_s1_specified_ptr;
+  atomic_s1_specified_ptr l4;
+  (l4)->x; // NON_COMPLIANT
+}
+
+#define NOOP(x) (x)
+#define DOT_FIELD_ACCESS_X(v) (v).x
+#define POINTER_FIELD_ACCESS_X(v) (v)->x
+#define GET_X_ATOMIC_S1() atomic_s1.x
+#define GET_X_PTR_ATOMIC_S1() atomic_s1.x
+
+void f2() {
+  // Banned UB with user macros:
+  NOOP(atomic_s1.x);                     // NON-COMPLIANT
+  DOT_FIELD_ACCESS_X(atomic_s1);         // NON-COMPLIANT
+  POINTER_FIELD_ACCESS_X(ptr_atomic_s1); // NON-COMPLIANT
+  GET_X_ATOMIC_S1();                     // NON-COMPLIANT
+  GET_X_PTR_ATOMIC_S1();                 // NON-COMPLIANT
+  GET_X_ATOMIC_S1() = 0;                 // NON-COMPLIANT
+  GET_X_PTR_ATOMIC_S1() = 0;             // NON-COMPLIANT
 }

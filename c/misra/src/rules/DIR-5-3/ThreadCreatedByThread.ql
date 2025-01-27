@@ -19,27 +19,22 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Concurrency
 
-Function callers(Function f) { result = f.getACallToThisFunction().getEnclosingFunction() }
+class CThreadRoot extends Function {
+  CThreadCreateCall threadCreate;
 
-class ThreadReachableFunction extends Function {
-  /* The root threaded function from which this function is reachable */
-  Function threadRoot;
-
-  ThreadReachableFunction() {
-    exists(CThreadCreateCall tc |
-      tc.getFunction() = callers*(this) and
-      threadRoot = tc.getFunction()
-    )
+  CThreadRoot() {
+    threadCreate.getFunction() = this
   }
 
-  /* Get the root threaded function from which this function is reachable */
-  Function getThreadRoot() { result = threadRoot }
+  /* Get a function which is reachable from this function */
+  Function getAReachableFunction() { calls*(result) }
+
+  CThreadCreateCall getCThreadCreateCall() { result = threadCreate }
 }
 
-from CThreadCreateCall tc, ThreadReachableFunction enclosingFunction, Function threadRoot
+  from CThreadCreateCall tc, CThreadRoot threadRoot
 where
   not isExcluded(tc, Concurrency6Package::threadCreatedByThreadQuery()) and
-  enclosingFunction = tc.getEnclosingFunction() and
-  threadRoot = enclosingFunction.getThreadRoot()
-select tc, "Thread creation call reachable from threaded function '$@'.", threadRoot,
-  threadRoot.toString()
+  tc.getEnclosingFunction() = threadRoot.getAReachableFunction()
+select tc, "Thread creation call reachable from function '$@', which may also be $@.", threadRoot,
+  threadRoot.toString(), threadRoot.getCThreadCreateCall(), "started as a thread"

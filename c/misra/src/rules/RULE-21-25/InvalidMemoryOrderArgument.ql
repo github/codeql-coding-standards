@@ -46,7 +46,7 @@ class MemoryOrderConstantExpr extends Expr {
   }
 
   /* Get the name of the `MemoryOrder` this expression is valued as. */
-  string getMemoryOrderString() { result = ord.toString() }
+  string getMemoryOrderString() { result = ord.getName() }
 }
 
 /**
@@ -56,26 +56,26 @@ class MemoryOrderedStdAtomicFunction extends Function {
   int orderParamIdx;
 
   MemoryOrderedStdAtomicFunction() {
-    exists(int baseParamIdx, int baseParams, string prefix, string suffix |
-      prefix = ["__", "__c11_"] and
-      suffix = ["", ".*", "_explicit"] and
+    exists(int baseParamIdx, int baseParams, string prefix, string regex, string basename |
+      regex = "__(c11_)?atomic_([a-z_]+)" and
+      prefix = getName().regexpCapture(regex, 1) and
+      basename = "atomic_" + getName().regexpCapture(regex, 2) + ["", "_explicit"] and
       (
-        getName().regexpMatch(prefix + ["atomic_thread_fence", "atomic_signal_fence"] + suffix) and
+        basename in ["atomic_thread_fence", "atomic_signal_fence"] and
         baseParamIdx = 0 and
         baseParams = 1
         or
-        getName()
-            .regexpMatch(prefix + ["atomic_load", "atomic_flag_clear", "atomic_flag_test_and_set"] +
-                suffix) and
+        basename in ["atomic_load", "atomic_flag_clear", "atomic_flag_test_and_set"] and
         baseParamIdx = 1 and
         baseParams = 2
         or
-        getName()
-            .regexpMatch(prefix + ["atomic_store", "atomic_fetch_.*", "atomic_exchange"] + suffix) and
+        basename in [
+            "atomic_store", "atomic_fetch_" + ["add", "sub", "or", "xor", "and"], "atomic_exchange"
+          ] and
         baseParamIdx = 2 and
         baseParams = 3
         or
-        getName().regexpMatch(prefix + "atomic_compare_exchange_.*" + suffix) and
+        basename in ["atomic_compare_exchange_" + ["strong", "weak"]] and
         baseParamIdx = [3, 4] and
         baseParams = 5
       ) and
@@ -84,8 +84,7 @@ class MemoryOrderedStdAtomicFunction extends Function {
         // __atomic_load(8, &repr->a, &desired, order)
         // or
         // __atomic_load_8(&repr->a, &desired, order)
-        prefix = "__" and
-        suffix = ".*" and
+        prefix = "" and
         exists(int extraParams |
           extraParams = getNumberOfParameters() - baseParams and
           extraParams >= 0 and
@@ -94,13 +93,7 @@ class MemoryOrderedStdAtomicFunction extends Function {
         or
         // Clang case, no inserted parameters:
         // __c11_atomic_load(object, order)
-        suffix = "" and
-        prefix = "__c11_" and
-        orderParamIdx = baseParamIdx
-        or
-        // Non-macro case, may occur in a subset of gcc/clang functions:
-        prefix = "" and
-        suffix = "_explicit" and
+        prefix = "c11_" and
         orderParamIdx = baseParamIdx
       )
     )
@@ -121,17 +114,6 @@ module MemoryOrderFlowConfig implements DataFlow::ConfigSig {
     exists(Literal literal |
       node.asExpr() = literal and
       not literal.getValue().toInt() = any(AllowedMemoryOrder a).getValue().toInt()
-    )
-    or
-    // Everything else: not a memory order constant or an integer valued literal, also exclude
-    // variables and functions, things that flow further back.
-    exists(Expr e |
-      node.asExpr() = e and
-      not e instanceof MemoryOrderConstantAccess and
-      not e instanceof Literal and
-      not e instanceof VariableAccess and
-      not e instanceof FunctionCall and
-      not DataFlow::localFlowStep(_, node)
     )
   }
 
@@ -169,4 +151,4 @@ where
   not value = any(AllowedMemoryOrder e).getName() and
   function.getACallToThisFunction().getAnArgument() = argument
 select argument, source, sink, "Invalid memory order '$@' in call to function '$@'.", value, value,
-  function, function.toString()
+  function, function.getName()

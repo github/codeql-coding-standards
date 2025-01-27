@@ -22,13 +22,13 @@ where
   (
     exists(FieldAccess fa |
       expr = fa and
-      fa.getQualifier().getUnderlyingType().hasSpecifier("atomic") and
+      fa.getQualifier().getType().hasSpecifier("atomic") and
       field = fa.getTarget()
     )
     or
     exists(PointerFieldAccess fa |
       expr = fa and
-      fa.getQualifier().getUnderlyingType().(PointerType).getBaseType().hasSpecifier("atomic") and
+      fa.getQualifier().getType().stripTopLevelSpecifiers().(PointerType).getBaseType().hasSpecifier("atomic") and
       field = fa.getTarget()
     )
   )
