@@ -177,6 +177,40 @@ private predicate isDeviationRangePaired(
   )
 }
 
+/**
+ * A standard attribute that either deviates a result.
+ */
+class DeviationAttribute extends StdAttribute {
+  DeviationRecord record;
+
+  DeviationAttribute() {
+    this.hasQualifiedName("codingstandards", "deviation") and
+    // Support multiple argument deviations
+    "\"" + record.getCodeIdentifier() + "\"" = this.getAnArgument().getValueText()
+  }
+
+  DeviationRecord getDeviationRecord() { result = record }
+
+  pragma[nomagic]
+  Element getASuppressedElement() {
+    result.(Type).getAnAttribute() = this
+    or
+    result.(Stmt).getAnAttribute() = this
+    or
+    result.(Variable).getAnAttribute() = this
+    or
+    result.(Function).getAnAttribute() = this
+    or
+    result.(Expr).getEnclosingStmt() = this.getASuppressedElement()
+    or
+    result.(Stmt).getParentStmt() = this.getASuppressedElement()
+    or
+    result.(Stmt).getEnclosingFunction() = this.getASuppressedElement()
+    or
+    result.(LocalVariable) = this.getASuppressedElement().(DeclStmt).getADeclaration()
+  }
+}
+
 newtype TCodeIndentifierDeviation =
   TSingleLineDeviation(DeviationRecord record, Comment comment, string filepath, int suppressedLine) {
     (
@@ -195,6 +229,9 @@ newtype TCodeIndentifierDeviation =
     isDeviationRangePaired(record, beginComment, endComment) and
     beginComment.getLocation().hasLocationInfo(filepath, suppressedStartLine, _, _, _) and
     endComment.getLocation().hasLocationInfo(filepath, suppressedEndLine, _, _, _)
+  } or
+  TCodeIdentifierDeviation(DeviationRecord record, DeviationAttribute attribute) {
+    attribute.getDeviationRecord() = record
   }
 
 class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
@@ -203,6 +240,8 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
     this = TSingleLineDeviation(result, _, _, _)
     or
     this = TMultiLineDeviation(result, _, _, _, _, _)
+    or
+    this = TCodeIdentifierDeviation(result, _)
   }
 
   /**
@@ -225,6 +264,11 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
         suppressedEndLine > elementLocationStart
       )
     )
+    or
+    exists(DeviationAttribute attribute |
+      this = TCodeIdentifierDeviation(_, attribute) and
+      attribute.getASuppressedElement() = e
+    )
   }
 
   string toString() {
@@ -242,6 +286,11 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
           "Deviation record " + getDeviationRecord() + " applied to " + filepath + " Line" +
             suppressedStartLine + ":" + suppressedEndLine
       )
+    )
+    or
+    exists(DeviationAttribute attribute |
+      this = TCodeIdentifierDeviation(_, attribute) and
+      result = "Deviation record " + getDeviationRecord() + " applied to " + attribute
     )
   }
 }

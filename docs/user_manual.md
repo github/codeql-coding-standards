@@ -421,15 +421,50 @@ The `process_coding_standards_config.py` has a dependency on the package `pyyaml
 
 `pip3 install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
 
-##### Deviation code identifiers
+##### Deviation code identifier attributes
 
-A code identifier specified in a deviation record can be applied to certain results in the code by adding a comment marker consisting of a `code-identifier` with some optional annotations. The supported marker annotation formats are:
+A code identifier specified in a deviation record can be applied to certain results in the code by adding a C or C++ attribute of the following format:
+
+```
+[[codingstandards::deviation("code-identifier")]]
+```
+
+This attribute may be added to the following program elements:
+ * Functions
+ * Statements
+ * Variables
+ * Type declarations
+
+Deviation attributes are inherited from parents in the code structure. For example, a deviation attribute applied to a function will apply the deviation to all code within the function. Note: deviations are not inherited by lambda expressions.
+
+Multiple code identifiers may be passed in a single attribute to apply multiple deviations, for example:
+
+```
+[[codingstandards::deviation("code-identifier-1", "code-identifier-2")]]
+```
+
+Note - considation should be taken to ensure the use of custom attributes for deviations is compatible with your chosen language version, compiler, compiler configuration and coding standard.
+
+**Use of attributes in C Coding Standards**: The C Standard introduces attributes in C23, however some compilers support attributes as a language extension in prior versions. You should:
+ * Confirm that your compiler supports attributes for your chosen compiler configuration, if necessary as a language extension.
+ * Confirm that unknown attributes are ignored by the compiler.
+ * For MISRA C, add a project deviation against "Rule 1.2: Language extensions should not be used", if attribute support is a language extension in your language version. 
+
+**Use of attributes in C++ Coding Standards**: The C++ Standard supports attributes in C++14, however the handling of unknown attributes is implementation defined. From C++17 onwards, unknown attributes are mandated to be ignored. Unknown attributes will usually raise an "unknown attribute" warning. You should:
+ * If using C++14, confirm that your compiler ignores unknown attributes.
+ * If using AUTOSAR and a compiler which produces warnings on unknown attributes, the compiler warning should be disabled (as per `A1-1-2: A warning level of the compilation process shall be set in compliance with project policies`),  to ensure compliance with `A1-4-3: All code should compiler free of compiler warnings`.
+
+If you cannot satisfy these condition, please use the deviation code identifier comment format instead.
+
+##### Deviation code identifier comments
+
+As an alternative to attributes, a code identifier specified in a deviation record can be applied to certain results in the code by adding a comment marker consisting of a `code-identifier` with some optional annotations. The supported marker annotation formats are:
 
  - `<code-identifier>` - the deviation applies to results on the current line.
  - `codingstandards::deviation(<code-identifier>)` - the deviation applies to results on the current line.
  - `codingstandards::deviation_next_line(<code-identifier>)` - this deviation applies to results on the next line.
- - `DEVIATION_BEGIN(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
- - `DEVIATION_END(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
+ - `codingstandards::deviation_begin(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
+ - `codingstandards::deviation_end(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
 
 Here are some examples, using the deviation record with the `a-0-4-2-deviation` code-identifier specified above:
 ```cpp
@@ -465,7 +500,9 @@ A `codingstandards::deviation_end` without a matching `codingstandards::deviatio
 
 `codingstandards::deviation_begin` and `codingstandards::deviation_end` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
 
-##### Deviation permit
+Note: deviation markers cannot be applied to the body of a macro. Please apply the deviation to macro expansion, or use the attribute deviation format.
+
+##### Deviation permits
 
 The current implementation supports _deviation permits_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _4.3 Deviation permits_.
 
