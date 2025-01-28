@@ -78,7 +78,7 @@ void f(int p) {
   atomic_thread_fence(memory_order_seq_cst * 1); // COMPLIANT
   atomic_thread_fence(1);                        // NON-COMPLIANT
   atomic_thread_fence(100);                      // NON-COMPLIANT
-  atomic_thread_fence(g1 + 1);                   // NON_COMPLIANT[FALSE_NEGATIVE]
+  atomic_thread_fence(g1 + 1); // NON_COMPLIANT[FALSE_NEGATIVE]
 
   // No unsafe flow, currently accepted:
   atomic_thread_fence(p); // COMPLIANT

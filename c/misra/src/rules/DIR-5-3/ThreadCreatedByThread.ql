@@ -22,9 +22,7 @@ import codingstandards.cpp.Concurrency
 class CThreadRoot extends Function {
   CThreadCreateCall threadCreate;
 
-  CThreadRoot() {
-    threadCreate.getFunction() = this
-  }
+  CThreadRoot() { threadCreate.getFunction() = this }
 
   /* Get a function which is reachable from this function */
   Function getAReachableFunction() { calls*(result) }
@@ -32,7 +30,7 @@ class CThreadRoot extends Function {
   CThreadCreateCall getCThreadCreateCall() { result = threadCreate }
 }
 
-  from CThreadCreateCall tc, CThreadRoot threadRoot
+from CThreadCreateCall tc, CThreadRoot threadRoot
 where
   not isExcluded(tc, Concurrency6Package::threadCreatedByThreadQuery()) and
   tc.getEnclosingFunction() = threadRoot.getAReachableFunction()

@@ -28,7 +28,12 @@ where
     or
     exists(PointerFieldAccess fa |
       expr = fa and
-      fa.getQualifier().getType().stripTopLevelSpecifiers().(PointerType).getBaseType().hasSpecifier("atomic") and
+      fa.getQualifier()
+          .getType()
+          .stripTopLevelSpecifiers()
+          .(PointerType)
+          .getBaseType()
+          .hasSpecifier("atomic") and
       field = fa.getTarget()
     )
   )
