@@ -27,7 +27,7 @@ class CThreadRoot extends Function {
   /* Get a function which is reachable from this function */
   Function getAReachableFunction() { calls*(result) }
 
-  CThreadCreateCall getCThreadCreateCall() { result = threadCreate }
+  CThreadCreateCall getACThreadCreateCall() { result = threadCreate }
 }
 
 from CThreadCreateCall tc, CThreadRoot threadRoot
@@ -35,4 +35,4 @@ where
   not isExcluded(tc, Concurrency6Package::threadCreatedByThreadQuery()) and
   tc.getEnclosingFunction() = threadRoot.getAReachableFunction()
 select tc, "Thread creation call reachable from function '$@', which may also be $@.", threadRoot,
-  threadRoot.toString(), threadRoot.getCThreadCreateCall(), "started as a thread"
+  threadRoot.toString(), threadRoot.getACThreadCreateCall(), "started as a thread"

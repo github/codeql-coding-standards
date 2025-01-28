@@ -1,14 +1,14 @@
-| test.c:47:3:47:13 | call to thrd_create | Thread creation call reachable from threaded function '$@'. | test.c:46:7:46:18 | pthread_func | pthread_func |
-| test.c:48:3:48:16 | call to pthread_create | Thread creation call reachable from threaded function '$@'. | test.c:46:7:46:18 | pthread_func | pthread_func |
-| test.c:56:3:56:13 | call to thrd_create | Thread creation call reachable from threaded function '$@'. | test.c:55:5:55:13 | thrd_func | thrd_func |
-| test.c:57:3:57:16 | call to pthread_create | Thread creation call reachable from threaded function '$@'. | test.c:55:5:55:13 | thrd_func | thrd_func |
-| test.c:65:3:65:13 | call to thrd_create | Thread creation call reachable from threaded function '$@'. | test.c:55:5:55:13 | thrd_func | thrd_func |
-| test.c:66:3:66:16 | call to pthread_create | Thread creation call reachable from threaded function '$@'. | test.c:55:5:55:13 | thrd_func | thrd_func |
-| test.c:74:3:74:13 | call to thrd_create | Thread creation call reachable from threaded function '$@'. | test.c:46:7:46:18 | pthread_func | pthread_func |
-| test.c:74:3:74:13 | call to thrd_create | Thread creation call reachable from threaded function '$@'. | test.c:55:5:55:13 | thrd_func | thrd_func |
-| test.c:75:3:75:16 | call to pthread_create | Thread creation call reachable from threaded function '$@'. | test.c:46:7:46:18 | pthread_func | pthread_func |
-| test.c:75:3:75:16 | call to pthread_create | Thread creation call reachable from threaded function '$@'. | test.c:55:5:55:13 | thrd_func | thrd_func |
-| test.c:79:3:79:13 | call to thrd_create | Thread creation call reachable from threaded function '$@'. | test.c:46:7:46:18 | pthread_func | pthread_func |
-| test.c:79:3:79:13 | call to thrd_create | Thread creation call reachable from threaded function '$@'. | test.c:55:5:55:13 | thrd_func | thrd_func |
-| test.c:80:3:80:16 | call to pthread_create | Thread creation call reachable from threaded function '$@'. | test.c:46:7:46:18 | pthread_func | pthread_func |
-| test.c:80:3:80:16 | call to pthread_create | Thread creation call reachable from threaded function '$@'. | test.c:55:5:55:13 | thrd_func | thrd_func |
+| test.c:49:3:49:13 | call to thrd_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:48:7:48:18 | pthread_func | pthread_func | test.c:19:3:19:16 | call to pthread_create | started as a thread |
+| test.c:50:3:50:16 | call to pthread_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:48:7:48:18 | pthread_func | pthread_func | test.c:19:3:19:16 | call to pthread_create | started as a thread |
+| test.c:58:3:58:13 | call to thrd_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:57:5:57:13 | thrd_func | thrd_func | test.c:18:3:18:13 | call to thrd_create | started as a thread |
+| test.c:59:3:59:16 | call to pthread_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:57:5:57:13 | thrd_func | thrd_func | test.c:18:3:18:13 | call to thrd_create | started as a thread |
+| test.c:67:3:67:13 | call to thrd_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:57:5:57:13 | thrd_func | thrd_func | test.c:18:3:18:13 | call to thrd_create | started as a thread |
+| test.c:68:3:68:16 | call to pthread_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:57:5:57:13 | thrd_func | thrd_func | test.c:18:3:18:13 | call to thrd_create | started as a thread |
+| test.c:76:3:76:13 | call to thrd_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:48:7:48:18 | pthread_func | pthread_func | test.c:19:3:19:16 | call to pthread_create | started as a thread |
+| test.c:76:3:76:13 | call to thrd_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:57:5:57:13 | thrd_func | thrd_func | test.c:18:3:18:13 | call to thrd_create | started as a thread |
+| test.c:77:3:77:16 | call to pthread_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:48:7:48:18 | pthread_func | pthread_func | test.c:19:3:19:16 | call to pthread_create | started as a thread |
+| test.c:77:3:77:16 | call to pthread_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:57:5:57:13 | thrd_func | thrd_func | test.c:18:3:18:13 | call to thrd_create | started as a thread |
+| test.c:81:3:81:13 | call to thrd_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:48:7:48:18 | pthread_func | pthread_func | test.c:19:3:19:16 | call to pthread_create | started as a thread |
+| test.c:81:3:81:13 | call to thrd_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:57:5:57:13 | thrd_func | thrd_func | test.c:18:3:18:13 | call to thrd_create | started as a thread |
+| test.c:82:3:82:16 | call to pthread_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:48:7:48:18 | pthread_func | pthread_func | test.c:19:3:19:16 | call to pthread_create | started as a thread |
+| test.c:82:3:82:16 | call to pthread_create | Thread creation call reachable from function '$@', which may also be $@. | test.c:57:5:57:13 | thrd_func | thrd_func | test.c:18:3:18:13 | call to thrd_create | started as a thread |
