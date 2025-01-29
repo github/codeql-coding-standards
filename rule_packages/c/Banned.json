@@ -104,7 +104,7 @@
     },
     "RULE-21-11": {
       "properties": {
-        "obligation": "required"
+        "obligation": "advisory"
       },
       "queries": [
         {
