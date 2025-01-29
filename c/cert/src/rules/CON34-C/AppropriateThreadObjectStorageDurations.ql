@@ -39,7 +39,11 @@ where
       )
     )
     or
-    // TODO: Remove/replace with tss_t type check, see #801.
+    // TODO: This case is handling threadlocals in a useful way that's not intended to be covered
+    // by the rule. See issue #801. The actual rule should expect no tss_t objects is used, and
+    // this check that this is initialized doesn't seem to belong here. However, it is a useful
+    // check in and of itself, so we should figure out if this is part of an optional rule we
+    // haven't yet implemented and move this behavior there.
     exists(TSSGetFunctionCall tsg |
       TaintTracking::localTaint(DataFlow::exprNode(tsg), DataFlow::exprNode(arg)) and
       not exists(TSSSetFunctionCall tss, DataFlow::Node src |

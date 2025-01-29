@@ -106,9 +106,14 @@ abstract class ObjectIdentityBase extends Element {
     exists(Expr subobject |
       subobject = getASubobjectAccess() and
       (
+        // Holds for address-of expressions.
         result = any(AddressOfExpr e | e.getOperand() = subobject)
         or
+        // Holds for array-to-pointer conversions, which evaluate to a usable subobject address.
         exists(ArrayToPointerConversion c | c.getExpr() = subobject) and
+        // Note that `arr[x]` has an array-to-pointer conversion, and returns the `x`th item by
+        // value, not the address of the `x`th item. Therefore, exclude `arr` if `arr` is part of
+        // an expression `arr[x]`.
         not exists(ArrayExpr a | a.getArrayBase() = subobject) and
         result = subobject
       )
