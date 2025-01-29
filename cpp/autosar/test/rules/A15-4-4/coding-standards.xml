@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<codingstandards>
+   <!--GENERATED: DO NOT MODIFY. Changes should be made to coding-standards.yml instead.-->
+   <deviations>
+      <deviations-entry>
+         <rule-id>A15-4-4</rule-id>
+         <justification>Suppress entry.</justification>
+         <code-identifier>a-15-4-4-deviation</code-identifier>
+      </deviations-entry>
+   </deviations>
+</codingstandards>
