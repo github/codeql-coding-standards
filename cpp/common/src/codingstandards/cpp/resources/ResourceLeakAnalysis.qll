@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import semmle.code.cpp.controlflow.Dominance
 import codeql.util.Boolean
