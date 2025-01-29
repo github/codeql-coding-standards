@@ -15,7 +15,10 @@
           "shared_implementation_short_name": "UncheckedRangeDomainPoleErrors",
           "tags": [
             "correctness"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query identifies possible domain, pole and range errors on a selection of C standard library fuctions from math.h."
+          }
         }
       ],
       "title": "Prevent or detect domain and range errors in math functions"
