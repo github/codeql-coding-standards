@@ -14,7 +14,6 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Objects
-import codingstandards.cpp.dataflow.DataFlow
 
 class Source extends Expr {
   ObjectIdentity rootObject;

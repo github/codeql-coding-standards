@@ -14,7 +14,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.standardlibrary.FileAccess
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 module FileDFConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node source) {

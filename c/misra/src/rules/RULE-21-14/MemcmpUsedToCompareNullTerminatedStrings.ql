@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.misra.EssentialTypes
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 import NullTerminatedStringToMemcmpFlow::PathGraph
 
 // Data flow from a StringLiteral or from an array of characters, to a memcmp call

@@ -7,7 +7,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.Pointers
 import codingstandards.cpp.Variable
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.pointsto.PointsTo
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 

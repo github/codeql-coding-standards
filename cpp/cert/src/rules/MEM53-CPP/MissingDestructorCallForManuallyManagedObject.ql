@@ -13,7 +13,7 @@
 import cpp
 import codingstandards.cpp.cert
 import ManuallyManagedLifetime
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import FreeWithoutDestructorFlow::PathGraph
 
 from FreeWithoutDestructorFlow::PathNode source, FreeWithoutDestructorFlow::PathNode sink

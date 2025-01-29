@@ -1,3 +1,5 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UniquePtrPassedToFunctionWithImproperSemantics.ql:41,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UniquePtrPassedToFunctionWithImproperSemantics.ql:51,5-13)
 | test.cpp:13:55:13:56 | v1 | Parameter of type std::unique_ptr passed as lvalue reference but not used to modify underlying object. |
 | test.cpp:17:47:17:48 | v1 | Parameter of type std::unique_ptr passed as lvalue reference but not used to modify underlying object. |
 | test.cpp:22:27:22:28 | v1 | Parameter of type std::unique_ptr passed as lvalue reference but not used to modify underlying object. |
