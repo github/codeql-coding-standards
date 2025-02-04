@@ -44,6 +44,18 @@ module InvalidInfinityUsage implements DataFlow::ConfigSig {
     exprMayEqualInfinity(node.asExpr(), _)
   }
 
+  predicate isBarrierOut(DataFlow::Node node) {
+    guardedNotFPClass(node.asExpr(), TInfinite())
+    or
+    exists(Expr e |
+      e.getType() instanceof IntegralType and
+      e = node.asConvertedExpr()
+    )
+    or
+    // Sinks are places where Infinity produce a finite value
+    isSink(node)
+  }
+
   /**
    * An additional flow step to handle operations which propagate Infinity.
    *

@@ -56,21 +56,104 @@ void f1(float p1) {
   // Guards
   float l9 = 0;
   if (l9 != 0) {
-    (int) (l9 / l9); // COMPLIANT: l9 is not zero
+    (int)(l9 / l9); // COMPLIANT: l9 is not zero
   } else {
-    (int) (l9 / l9); // NON_COMPLIANT: Casting NaN to integer
+    (int)(l9 / l9); // NON_COMPLIANT: Guarded to not be NaN
   }
 
   float l10 = 0;
   if (l10 == 0) {
-    (int) (l10 / l10); // NON_COMPLIANT: Casting NaN to integer
+    (int)(l10 / l10); // NON_COMPLIANT: Casting NaN to integer
   } else {
-    (int) (l10 / l10); // COMPLIANT: l10 is not zero
+    (int)(l10 / l10); // COMPLIANT: Guarded to not be NaN
   }
 
   float l11 = 0;
-  l11 == 0 ? (int) (l11 / l11) : 0; // NON_COMPLIANT
-  l11 == 0 ? 0 : (int) (l11 / l11); // COMPLIANT
-  l11 != 0 ? (int) (l11 / l11) : 0; // COMPLIANT
-  l11 != 0 ? 0 : (int) (l11 / l11); // NON_COMPLIANT
+  l11 == 0 ? (int)(l11 / l11) : 0; // NON_COMPLIANT
+  l11 == 0 ? 0 : (int)(l11 / l11); // COMPLIANT
+  l11 != 0 ? (int)(l11 / l11) : 0; // COMPLIANT
+  l11 != 0 ? 0 : (int)(l11 / l11); // NON_COMPLIANT
+
+  float l12 = 1.0 / 0;
+  if (isinf(l12)) {
+    (int)l12; // NON_COMPLIANT: Casting Infinity to integer
+  } else {
+    (int)l12; // COMPLIANT: Guarded not to be Infinity
+  }
+
+  if (!isinf(l12)) {
+    (int)l12; // COMPLIANT: Guarded not to be Infinity
+  } else {
+    (int)l12; // NON_COMPLIANT: Casting Infinity to integer
+  }
+
+  if (isinf(l12) == 1) {
+    (int)l12; // NON_COMPLIANT: Must be +Infinity
+  } else {
+    (int)l12; // NON_COMPLIANT: May be -Infinity
+  }
+
+  if (isfinite(l12)) {
+    (int)l12; // COMPLIANT: Guarded not to be Infinity
+  } else {
+    (int)l12; // NON_COMPLIANT: Casting Infinity to integer
+  }
+
+  if (isnormal(l12)) {
+    (int)l12; // COMPLIANT: Guarded not to be Infinity
+  } else {
+    (int)l12; // NON_COMPLIANT: Casting Infinity to integer
+  }
+
+  if (isnan(l12)) {
+    (int)l12; // COMPLIANT: Guarded not to be Infinity
+  } else {
+    (int)l12; // NON_COMPLIANT: Casting Infinity to integer
+  }
+
+  isinf(l12) ? (int)l12 : 0;    // NON_COMPLIANT: Check on wrong branch
+  isinf(l12) ? 0 : (int)l12;    // COMPLIANT: Checked not infinite before use
+  isfinite(l12) ? (int)l12 : 0; // COMPLIANT: Checked finite before use
+  isfinite(l12) ? 0 : (int)l12; // NON_COMPLIANT: Checked on wrong branch
+  isnan(l12) ? (int)l12
+             : 0; // COMPLIANT: Checked NaN, therefore not infinite, before use
+  isnan(l12) ? 0 : (int)l12; // NON_COMPLIANT: Check on wrong branch
+
+  float l13 = 0.0 / 0;
+  if (isinf(l13)) {
+    (int)l13; // COMPLIANT: Guarded not to be NaN
+  } else {
+    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+  }
+
+  if (isinf(l13) == 1) {
+    (int)l13; // COMPLIANT: Guarded not to be NaN (must be +Infinity)
+  } else {
+    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+  }
+
+  if (isfinite(l13)) {
+    (int)l13; // COMPLIANT: Guarded not to be NaN
+  } else {
+    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+  }
+
+  if (isnormal(l13)) {
+    (int)l13; // COMPLIANT: Guarded not to be NaN
+  } else {
+    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+  }
+
+  if (isnan(l13)) {
+    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+  } else {
+    (int)l13; // COMPLIANT: Guarded not to be NaN
+  }
+
+  isinf(l13) ? (int)l13 : 0;    // COMPLIANT: Checked infinite, therefore not NaN, before use
+  isinf(l13) ? 0 : (int)l13;    // COMPLIANT: Check on wrong branch
+  isfinite(l13) ? (int)l13 : 0; // COMPLIANT: Checked finite before use
+  isfinite(l13) ? 0 : (int)l13; // NON_COMPLIANT: Checked on wrong branch
+  isnan(l13) ? (int)l13 : 0; // NON_COMPLIANT: Check on wrong branch
+  isnan(l13) ? 0 : (int)l13; // COMPLIANT: Checked not NaN before use
 }

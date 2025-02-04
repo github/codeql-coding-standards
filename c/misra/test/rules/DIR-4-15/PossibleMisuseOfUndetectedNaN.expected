@@ -16,6 +16,15 @@ edges
 | test.c:33:14:33:22 | ... / ... | test.c:33:14:33:22 | ... / ... | provenance |  |
 | test.c:33:14:33:22 | ... / ... | test.c:39:3:39:9 | l8 | provenance |  |
 | test.c:33:14:33:22 | ... / ... | test.c:54:3:54:4 | l8 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:122:15:122:21 | ... / ... | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:126:5:126:12 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:132:5:132:12 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:138:5:138:12 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:144:5:144:12 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:148:5:148:12 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:154:20:154:27 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:156:23:156:30 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:157:16:157:23 | l13 | provenance |  |
 nodes
 | test.c:27:14:27:20 | ... / ... | semmle.label | ... / ... |
 | test.c:27:14:27:20 | ... / ... | semmle.label | ... / ... |
@@ -38,10 +47,20 @@ nodes
 | test.c:52:3:52:4 | l6 | semmle.label | l6 |
 | test.c:53:3:53:4 | l7 | semmle.label | l7 |
 | test.c:54:3:54:4 | l8 | semmle.label | l8 |
-| test.c:61:5:61:19 | ... / ... | semmle.label | ... / ... |
-| test.c:66:5:66:21 | ... / ... | semmle.label | ... / ... |
-| test.c:72:14:72:30 | ... / ... | semmle.label | ... / ... |
-| test.c:75:18:75:34 | ... / ... | semmle.label | ... / ... |
+| test.c:61:5:61:18 | ... / ... | semmle.label | ... / ... |
+| test.c:66:5:66:20 | ... / ... | semmle.label | ... / ... |
+| test.c:72:14:72:29 | ... / ... | semmle.label | ... / ... |
+| test.c:75:18:75:33 | ... / ... | semmle.label | ... / ... |
+| test.c:122:15:122:21 | ... / ... | semmle.label | ... / ... |
+| test.c:122:15:122:21 | ... / ... | semmle.label | ... / ... |
+| test.c:126:5:126:12 | l13 | semmle.label | l13 |
+| test.c:132:5:132:12 | l13 | semmle.label | l13 |
+| test.c:138:5:138:12 | l13 | semmle.label | l13 |
+| test.c:144:5:144:12 | l13 | semmle.label | l13 |
+| test.c:148:5:148:12 | l13 | semmle.label | l13 |
+| test.c:154:20:154:27 | l13 | semmle.label | l13 |
+| test.c:156:23:156:30 | l13 | semmle.label | l13 |
+| test.c:157:16:157:23 | l13 | semmle.label | l13 |
 subpaths
 #select
 | test.c:36:8:36:9 | l5 | test.c:27:14:27:20 | ... / ... | test.c:36:3:36:9 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
@@ -57,7 +76,15 @@ subpaths
 | test.c:52:3:52:4 | l6 | test.c:28:14:28:20 | ... / ... | test.c:52:3:52:4 | l6 | Invalid usage of possible $@. | test.c:28:14:28:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
 | test.c:53:3:53:4 | l7 | test.c:31:14:32:15 | ... / ... | test.c:53:3:53:4 | l7 | Invalid usage of possible $@. | test.c:31:14:32:15 | ... / ... | NaN resulting from possible division of zero by zero |
 | test.c:54:3:54:4 | l8 | test.c:33:14:33:22 | ... / ... | test.c:54:3:54:4 | l8 | Invalid usage of possible $@. | test.c:33:14:33:22 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:61:12:61:18 | ... / ... | test.c:61:5:61:19 | ... / ... | test.c:61:5:61:19 | ... / ... | Invalid usage of possible $@. | test.c:61:5:61:19 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:66:12:66:20 | ... / ... | test.c:66:5:66:21 | ... / ... | test.c:66:5:66:21 | ... / ... | Invalid usage of possible $@. | test.c:66:5:66:21 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:72:21:72:29 | ... / ... | test.c:72:14:72:30 | ... / ... | test.c:72:14:72:30 | ... / ... | Invalid usage of possible $@. | test.c:72:14:72:30 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:75:25:75:33 | ... / ... | test.c:75:18:75:34 | ... / ... | test.c:75:18:75:34 | ... / ... | Invalid usage of possible $@. | test.c:75:18:75:34 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:61:11:61:17 | ... / ... | test.c:61:5:61:18 | ... / ... | test.c:61:5:61:18 | ... / ... | Invalid usage of possible $@. | test.c:61:5:61:18 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:66:11:66:19 | ... / ... | test.c:66:5:66:20 | ... / ... | test.c:66:5:66:20 | ... / ... | Invalid usage of possible $@. | test.c:66:5:66:20 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:72:20:72:28 | ... / ... | test.c:72:14:72:29 | ... / ... | test.c:72:14:72:29 | ... / ... | Invalid usage of possible $@. | test.c:72:14:72:29 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:75:24:75:32 | ... / ... | test.c:75:18:75:33 | ... / ... | test.c:75:18:75:33 | ... / ... | Invalid usage of possible $@. | test.c:75:18:75:33 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:126:10:126:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:126:5:126:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:132:10:132:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:132:5:132:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:138:10:138:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:138:5:138:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:144:10:144:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:144:5:144:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:148:10:148:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:148:5:148:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:154:25:154:27 | l13 | test.c:122:15:122:21 | ... / ... | test.c:154:20:154:27 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:156:28:156:30 | l13 | test.c:122:15:122:21 | ... / ... | test.c:156:23:156:30 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:157:21:157:23 | l13 | test.c:122:15:122:21 | ... / ... | test.c:157:16:157:23 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |

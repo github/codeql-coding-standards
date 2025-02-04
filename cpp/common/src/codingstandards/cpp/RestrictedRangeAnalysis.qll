@@ -297,16 +297,20 @@ module RestrictedRangeAnalysis {
   }
 
   /**
-   * Holds if `expr` may divide by zero.
+   * Holds if `expr` may divide by zero. Excludes dividing a constant zero divided by zero,
+   * which produces NaN instead of an infinite value.
    */
-  predicate dividesByZero(Expr expr) {
-    exists(Expr divisor |
+  predicate dividesNonzeroByZero(Expr expr) {
+    exists(Expr divisor, Expr numerator |
       divisor = expr.(DivExpr).getRightOperand() and
+      numerator = expr.(DivExpr).getLeftOperand() and
       getTruncatedLowerBounds(divisor) <= 0.0 and
       getTruncatedUpperBounds(divisor) >= 0.0 and
-      not isCheckedNotZero(divisor)
+      not isCheckedNotZero(divisor) and
+      not getValue(numerator).toFloat() = 0.0
     )
   }
+
 
   /**
    * Holds if `expr` is checked with a guard to not be zero.
@@ -362,7 +366,7 @@ module RestrictedRangeAnalysis {
       // Introduces non-monotonic recursion. However, analysis mostly works with this
       // commented out.
       // or
-      // dividesByZero(e)
+      // dividesNonzeroByZero(e)
       or
       e instanceof DivExpr // TODO: confirm this is OK
       or
@@ -681,7 +685,7 @@ module RestrictedRangeAnalysis {
   }
 
   private predicate lowerBoundableExpr(Expr expr) {
-    (analyzableExpr(expr) or dividesByZero(expr)) and
+    (analyzableExpr(expr) or dividesNonzeroByZero(expr)) and
     getUpperBoundsImpl(expr) <= Util::exprMaxVal(expr) and
     not exists(getValue(expr).toFloat())
   }
@@ -760,7 +764,7 @@ module RestrictedRangeAnalysis {
    * this predicate.
    */
   private float getTruncatedUpperBounds(Expr expr) {
-    (analyzableExpr(expr) or dividesByZero(expr))
+    (analyzableExpr(expr) or dividesNonzeroByZero(expr))
     and (
       // If the expression evaluates to a constant, then there is no
       // need to call getUpperBoundsImpl.
@@ -827,7 +831,7 @@ module RestrictedRangeAnalysis {
       )
       or
       exists(DivExpr div | expr = div |
-        dividesByZero(expr) and
+        dividesNonzeroByZero(expr) and
         result = getFullyConvertedLowerBounds(div.getLeftOperand()) / 0
       )
       or
@@ -1032,7 +1036,7 @@ module RestrictedRangeAnalysis {
       )
       or
       exists(DivExpr div | expr = div |
-        dividesByZero(expr) and
+        dividesNonzeroByZero(expr) and
         result = getFullyConvertedUpperBounds(div.getLeftOperand()) / 0
       )
       or

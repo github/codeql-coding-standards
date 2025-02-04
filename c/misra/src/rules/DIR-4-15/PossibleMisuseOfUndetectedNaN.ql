@@ -89,7 +89,6 @@ class InvalidOperationExpr extends BinaryOperation {
 }
 
 module InvalidNaNUsage implements DataFlow::ConfigSig {
-
   /**
    * An expression which has non-NaN inputs and may produce a NaN output.
    */
@@ -108,6 +107,15 @@ module InvalidNaNUsage implements DataFlow::ConfigSig {
     node.asExpr() instanceof InvalidOperationExpr
   }
 
+  predicate isBarrierOut(DataFlow::Node node) {
+    guardedNotFPClass(node.asExpr(), TNaN())
+    or
+    exists(Expr e |
+      e.getType() instanceof IntegralType and
+      e = node.asConvertedExpr()
+    )
+  }
+
   /**
    * Add an additional flow step to handle NaN propagation through floating point operations.
    */
@@ -120,21 +128,24 @@ module InvalidNaNUsage implements DataFlow::ConfigSig {
   }
 
   predicate isSink(DataFlow::Node node) {
-    // Case 1: NaNs shall not be compared, except to themselves
-    exists(ComparisonOperation cmp |
-      node.asExpr() = cmp.getAnOperand() and
-      not hashCons(cmp.getLeftOperand()) = hashCons(cmp.getRightOperand())
+    not guardedNotFPClass(node.asExpr(), TNaN()) and
+    (
+      // Case 1: NaNs shall not be compared, except to themselves
+      exists(ComparisonOperation cmp |
+        node.asExpr() = cmp.getAnOperand() and
+        not hashCons(cmp.getLeftOperand()) = hashCons(cmp.getRightOperand())
+      )
+      or
+      // Case 2: NaNs and infinities shall not be cast to integers
+      exists(Conversion c |
+        node.asExpr() = c.getUnconverted() and
+        c.getExpr().getType() instanceof FloatingPointType and
+        c.getType() instanceof IntegralType
+      )
+      //or
+      //// Case 4: Functions shall not return NaNs or infinities
+      //exists(ReturnStmt ret | node.asExpr() = ret.getExpr())
     )
-    or
-    // Case 2: NaNs and infinities shall not be cast to integers
-    exists(Conversion c |
-      node.asExpr() = c.getUnconverted() and
-      c.getExpr().getType() instanceof FloatingPointType and
-      c.getType() instanceof IntegralType
-    )
-    //or
-    //// Case 4: Functions shall not return NaNs or infinities
-    //exists(ReturnStmt ret | node.asExpr() = ret.getExpr())
   }
 }
 
