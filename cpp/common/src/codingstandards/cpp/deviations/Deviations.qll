@@ -363,25 +363,30 @@ class DeviationRecord extends XmlElement {
     result.getRelativePath() = getAChild("paths").getAChild("paths-entry").getTextValue()
   }
 
+  private string getADeviationPath0() {
+    if exists(getPathAContainer())
+    then
+      // Use the path, which will be relative to this file, if specified
+      result = getPathAContainer().getRelativePath()
+    else (
+      // Otherwise, if no code identifier was supplied, it applies to the parent container of the
+      // file itself
+      not exists(getCodeIdentifier()) and
+      result = this.getFile().getParentContainer().getRelativePath()
+    )
+  }
+
   /** Gets a path to which this deviation applies. */
   string getADeviationPath() {
-    (
-      if exists(getPathAContainer())
-      then
-        // Use the path, which will be relative to this file, if specified
-        result = getPathAContainer().getRelativePath()
-      else (
-        // Otherwise, if no code identifier was supplied, it applies to the parent container of the
-        // file itself
-        not exists(getCodeIdentifier()) and
-        result = this.getFile().getParentContainer().getRelativePath()
-      )
+    exists(string res |
+      res = getADeviationPath0() and
+      if res = "" then result = "(root)" else result = res
     )
   }
 
   cached
   predicate isDeviated(Query query, string deviationPath) {
     query = getQuery() and
-    deviationPath = getADeviationPath()
+    deviationPath = getADeviationPath0()
   }
 }
