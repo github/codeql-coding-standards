@@ -73,29 +73,45 @@ module InvalidInfinityUsage implements DataFlow::ConfigSig {
   }
 
   predicate isSink(DataFlow::Node node) {
+    node instanceof InvalidInfinityUsage and
     (
       // Require that range analysis finds this value potentially infinite, to avoid false positives
       // in the presence of guards. This may induce false negatives.
-      exprMayEqualInfinity(node.asExpr(), _) or
+      exprMayEqualInfinity(node.asExpr(), _)
+      or
       // Unanalyzable expressions are not checked against range analysis, which assumes a finite
       // range.
       not RestrictedRangeAnalysis::analyzableExpr(node.asExpr())
-    ) and
-    (
-      // Case 2: NaNs and infinities shall not be cast to integers
-      exists(Conversion c |
-        node.asExpr() = c.getUnconverted() and
-        c.getExpr().getType() instanceof FloatingPointType and
-        c.getType() instanceof IntegralType
-      )
-      or
-      // Case 3: Infinities shall not underflow or otherwise produce finite values
-      exists(BinaryOperation op |
-        node.asExpr() = op.getRightOperand() and
-        op.getOperator() = ["/", "%"]
-      )
     )
   }
+}
+
+class InvalidInfinityUsage extends DataFlow::Node {
+  string description;
+  string infinityDescription;
+
+  InvalidInfinityUsage() {
+    // Case 2: NaNs and infinities shall not be cast to integers
+    exists(Conversion c |
+      asExpr() = c.getUnconverted() and
+      c.getExpr().getType() instanceof FloatingPointType and
+      c.getType() instanceof IntegralType and
+      description = "$@ casted to integer." and
+      infinityDescription = "Possibly infinite float value"
+    )
+    or
+    // Case 3: Infinities shall not underflow or otherwise produce finite values
+    exists(BinaryOperation op |
+      asExpr() = op.getRightOperand() and
+      op.getOperator() = "/" and
+      description = "Division operation may silently underflow and produce zero, as the divisor $@." and
+      infinityDescription = "may be an infinite float value"
+    )
+  }
+
+  string getDescription() { result = description }
+
+  string getInfinityDescription() { result = infinityDescription }
 }
 
 module InvalidInfinityFlow = DataFlow::Global<InvalidInfinityUsage>;
@@ -104,13 +120,26 @@ import InvalidInfinityFlow::PathGraph
 
 from
   Element elem, InvalidInfinityFlow::PathNode source, InvalidInfinityFlow::PathNode sink,
-  string msg, string sourceString
+  InvalidInfinityUsage usage, Expr sourceExpr, Element extra, string extraString
 where
   elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
+  not InvalidInfinityFlow::PathGraph::edges(_, source, _, _) and
   not isExcluded(elem, FloatingTypes2Package::possibleMisuseOfUndetectedInfinityQuery()) and
+  not sourceExpr.isFromTemplateInstantiation(_) and
+  not usage.asExpr().isFromTemplateInstantiation(_) and
+  usage = sink.getNode() and
+  sourceExpr = source.getNode().asExpr() and
+  InvalidInfinityFlow::flow(source.getNode(), usage) and
   (
-    InvalidInfinityFlow::flow(source.getNode(), sink.getNode()) and
-    msg = "Invalid usage of possible $@." and
-    sourceString = "infinity"
+    if not sourceExpr.getEnclosingFunction() = usage.asExpr().getEnclosingFunction()
+    then
+    extraString = usage.getInfinityDescription() + " computed in function " + sourceExpr.getEnclosingFunction().getName()
+    and extra = sourceExpr.getEnclosingFunction()
+    else (
+      extra = sourceExpr and
+    if sourceExpr instanceof DivExpr
+    then extraString = usage.getInfinityDescription() + " from division by zero"
+    else extraString = usage.getInfinityDescription()
+    )
   )
-select elem, source, sink, msg, source, sourceString
+select elem, source, sink, usage.getDescription(), extra, extraString

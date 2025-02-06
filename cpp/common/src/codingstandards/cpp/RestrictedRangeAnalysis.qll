@@ -1,5 +1,6 @@
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.valuenumbering.HashCons
+
 /**
  * A fork of SimpleRangeAnalysis.qll, which is intended to only give
  * results with a conservative basis.
@@ -311,7 +312,6 @@ module RestrictedRangeAnalysis {
     )
   }
 
-
   /**
    * Holds if `expr` is checked with a guard to not be zero.
    *
@@ -332,7 +332,8 @@ module RestrictedRangeAnalysis {
       expr = def.getAUse(v) and
       isNEPhi(v, def, guardVa, 0)
     )
-    or guardedHashConsNotEqualZero(expr)
+    or
+    guardedHashConsNotEqualZero(expr)
   }
 
   predicate guardedHashConsNotEqualZero(Expr e) {
@@ -342,8 +343,8 @@ module RestrictedRangeAnalysis {
       valVal = getValue(val).toFloat() and
       guard.controls(e.getBasicBlock(), cmpEq) and
       (
-      guard.comparesEq(check, val, -valVal, false, cmpEq) or
-      guard.comparesEq(val, check, -valVal, false, cmpEq)
+        guard.comparesEq(check, val, -valVal, false, cmpEq) or
+        guard.comparesEq(val, check, -valVal, false, cmpEq)
       )
     )
   }
@@ -363,11 +364,11 @@ module RestrictedRangeAnalysis {
       dividesByPositive(e, _, _)
       or
       dividesByNegative(e, _, _)
+      or
       // Introduces non-monotonic recursion. However, analysis mostly works with this
       // commented out.
       // or
       // dividesNonzeroByZero(e)
-      or
       e instanceof DivExpr // TODO: confirm this is OK
       or
       e instanceof MinExpr
@@ -468,6 +469,8 @@ module RestrictedRangeAnalysis {
       (dividesByPositive(e, operand, _) or dividesByNegative(e, operand, _)) and
       exprDependsOnDef(operand, srcDef, srcVar)
     )
+    or
+    exists(DivExpr div | div = e | exprDependsOnDef(div.getAnOperand(), srcDef, srcVar))
     or
     exists(MinExpr minExpr | e = minExpr | exprDependsOnDef(minExpr.getAnOperand(), srcDef, srcVar))
     or
@@ -595,6 +598,98 @@ module RestrictedRangeAnalysis {
     isRecursiveExpr(binop.getRightOperand())
   }
 
+  private predicate applyWideningToBinary(BinaryOperation op) {
+    // Original behavior:
+    isRecursiveBinary(op)
+    or
+    // As we added support for DivExpr, we found cases of combinatorial explosion that are not
+    // caused by recursion. Given expr `x` that depends on a phi node that has evaluated y unique
+    // values, `x + x` will in the worst case evaluate to y^2 unique values, even if `x` is not
+    // recursive. By adding support for division, we have revealed certain pathological cases in
+    // open source code, for instance `posix_time_from_utc` from boringssl. We can reduce this
+    // greatly by widening, and targeting division effectively reduces the chains of evaluations
+    // that cause this issue while preserving the original behavior.
+    //
+    // There is also a set of functions intended to estimate the combinations of phi nodes each
+    // expression depends on, which could be used to accurately widen only expensive nodes. However,
+    // that estimation is more involved than it may seem, and hasn't yet resulted in a net
+    // improvement. See `estimatedPhiCombinationsExpr` and `estimatedPhiCombinationsDef`.
+    //
+    // This approach currently has the best performance.
+    op instanceof DivExpr
+  }
+
+  /**
+   * Recursively scan this expr to see how many phi nodes it depends on. Binary expressions
+   * induce a combination effect, so `a + b` where `a` depends on 3 phi nodes and `b` depends on 4
+   * will induce 3*4 = 12 phi node combinations.
+   *
+   * This currently requires additional optimization to be useful in practice.
+   */
+  int estimatedPhiCombinationsExpr(Expr expr) {
+    if isRecursiveExpr(expr)
+    // Assume 10 values were computed to analyze recursive expressions.
+    then result = 10
+    else (
+      exists(RangeSsaDefinition def, StackVariable v | expr = def.getAUse(v) |
+        def.isPhiNode(v) and
+        result = estimatedPhiCombinationsDef(def, v)
+      )
+      or
+      exists(BinaryOperation binop |
+        binop = expr and
+        result =
+          estimatedPhiCombinationsExpr(binop.getLeftOperand()) *
+            estimatedPhiCombinationsExpr(binop.getRightOperand())
+      )
+      or
+      not expr instanceof BinaryOperation and
+      exists(RangeSsaDefinition def, StackVariable v | exprDependsOnDef(expr, def, v) |
+        result = estimatedPhiCombinationsDef(def, v)
+      )
+      or
+      not expr instanceof BinaryOperation and
+      not exprDependsOnDef(expr, _, _) and result = 1
+    )
+  }
+
+  /**
+   * Recursively scan this def to see how many phi nodes it depends on.
+   * 
+   * If this def is a phi node, it sums its downstream cost and adds one to account for itself,
+   * which is not exactly correct. 
+   * 
+   * This def may also be a crement expression (not currently supported), or an assign expr
+   * (currently not supported), or an unanalyzable expression which is the root of the recursion
+   * and given a value of 1.
+   */
+  language[monotonicAggregates]
+  int estimatedPhiCombinationsDef(RangeSsaDefinition def, StackVariable v) {
+    if isRecursiveDef(def, v)
+    // Assume 10 values were computed to analyze recursive expressions.
+    then result = 10
+    else (
+      if def.isPhiNode(v)
+      then
+        exists(Expr e | e = def.getAUse(v) |
+          result =
+            1 +
+              sum(RangeSsaDefinition srcDef |
+                srcDef = def.getAPhiInput(v)
+              |
+                estimatedPhiCombinationsDef(srcDef, v)
+              )
+        )
+      else (
+        exists(Expr expr | assignmentDef(def, v, expr) | result = estimatedPhiCombinationsExpr(expr))
+        or
+        v = def.getAVariable() and
+        not assignmentDef(def, v, _) and
+        result = 1
+      )
+    )
+  }
+
   /**
    * We distinguish 3 kinds of RangeSsaDefinition:
    *
@@ -719,7 +814,7 @@ module RestrictedRangeAnalysis {
       if Util::exprMinVal(expr) <= newLB and newLB <= Util::exprMaxVal(expr)
       then
         // Apply widening where we might get a combinatorial explosion.
-        if isRecursiveBinary(expr)
+        if applyWideningToBinary(expr)
         then
           result =
             max(float widenLB |
@@ -764,8 +859,8 @@ module RestrictedRangeAnalysis {
    * this predicate.
    */
   private float getTruncatedUpperBounds(Expr expr) {
-    (analyzableExpr(expr) or dividesNonzeroByZero(expr))
-    and (
+    (analyzableExpr(expr) or dividesNonzeroByZero(expr)) and
+    (
       // If the expression evaluates to a constant, then there is no
       // need to call getUpperBoundsImpl.
       if exists(getValue(expr).toFloat())
@@ -778,7 +873,7 @@ module RestrictedRangeAnalysis {
           if Util::exprMinVal(expr) <= newUB and newUB <= Util::exprMaxVal(expr)
           then
             // Apply widening where we might get a combinatorial explosion.
-            if isRecursiveBinary(expr)
+            if applyWideningToBinary(expr)
             then
               result =
                 min(float widenUB |
@@ -794,13 +889,14 @@ module RestrictedRangeAnalysis {
         exprMightOverflowNegatively(expr) and
         result = Util::exprMaxVal(expr)
       )
-    ) or
+    )
+    or
     not analyzableExpr(expr) and
-      // The expression is not analyzable, so its upper bound is
-      // unknown. Note that the call to exprMaxVal restricts the
-      // expressions to just those with arithmetic types. There is no
-      // need to return results for non-arithmetic expressions.
-      result = exprMaxVal(expr)
+    // The expression is not analyzable, so its upper bound is
+    // unknown. Note that the call to exprMaxVal restricts the
+    // expressions to just those with arithmetic types. There is no
+    // need to return results for non-arithmetic expressions.
+    result = exprMaxVal(expr)
   }
 
   /** Only to be called by `getTruncatedLowerBounds`. */

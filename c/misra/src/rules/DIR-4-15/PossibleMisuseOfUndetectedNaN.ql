@@ -40,7 +40,7 @@ class InvalidOperationExpr extends BinaryOperation {
         exprMayEqualInfinity(getLeftOperand(), sign) and
         exprMayEqualInfinity(getRightOperand(), sign.booleanNot())
       ) and
-      reason = "possible addition of infinity and negative infinity"
+      reason = "from addition of infinity and negative infinity"
       or
       // 7.1.2 continued
       getOperator() = "-" and
@@ -48,35 +48,35 @@ class InvalidOperationExpr extends BinaryOperation {
         exprMayEqualInfinity(getLeftOperand(), sign) and
         exprMayEqualInfinity(getRightOperand(), sign)
       ) and
-      reason = "possible subtraction of an infinity from itself"
+      reason = "from subtraction of an infinity from itself"
       or
       // 7.1.3: multiplication of zero by infinity
       getOperator() = "*" and
       exprMayEqualZero(getAnOperand()) and
       exprMayEqualInfinity(getAnOperand(), _) and
-      reason = "possible multiplication of zero by infinity"
+      reason = "from multiplication of zero by infinity"
       or
       // 7.1.4: Division of zero by zero, or infinity by infinity
       getOperator() = "/" and
       exprMayEqualZero(getLeftOperand()) and
       exprMayEqualZero(getRightOperand()) and
-      reason = "possible division of zero by zero"
+      reason = "from division of zero by zero"
       or
       // 7.1.4 continued
       getOperator() = "/" and
       exprMayEqualInfinity(getLeftOperand(), _) and
       exprMayEqualInfinity(getRightOperand(), _) and
-      reason = "possible division of infinity by infinity"
+      reason = "from division of infinity by infinity"
       or
       // 7.1.5: x % y where y is zero or x is infinite
       getOperator() = "%" and
       exprMayEqualInfinity(getLeftOperand(), _) and
-      reason = "possible modulus of infinity"
+      reason = "from modulus of infinity"
       or
       // 7.1.5 continued
       getOperator() = "%" and
       exprMayEqualZero(getRightOperand()) and
-      reason = "possible modulus by zero"
+      reason = "from modulus by zero"
       // 7.1.6 handles the sqrt function, not covered here.
       // 7.1.7 declares exceptions during invalid conversions, which we catch as sinks in our flow
       // analysis.
@@ -129,24 +129,39 @@ module InvalidNaNUsage implements DataFlow::ConfigSig {
 
   predicate isSink(DataFlow::Node node) {
     not guardedNotFPClass(node.asExpr(), TNaN()) and
-    (
+    node instanceof InvalidNaNUsage
+  }
+}
+
+class InvalidNaNUsage extends DataFlow::Node {
+  string description;
+  string nanDescription;
+
+  InvalidNaNUsage() {
       // Case 1: NaNs shall not be compared, except to themselves
       exists(ComparisonOperation cmp |
-        node.asExpr() = cmp.getAnOperand() and
-        not hashCons(cmp.getLeftOperand()) = hashCons(cmp.getRightOperand())
+        this.asExpr() = cmp.getAnOperand() and
+        not hashCons(cmp.getLeftOperand()) = hashCons(cmp.getRightOperand()) and
+        description = "Comparison involving a $@, which always evaluates to false." and
+        nanDescription = "possibly NaN float value"
       )
       or
       // Case 2: NaNs and infinities shall not be cast to integers
       exists(Conversion c |
-        node.asExpr() = c.getUnconverted() and
+        this.asExpr() = c.getUnconverted() and
         c.getExpr().getType() instanceof FloatingPointType and
-        c.getType() instanceof IntegralType
+        c.getType() instanceof IntegralType and
+        description = "$@ casted to integer." and
+        nanDescription = "Possibly NaN float value"
       )
       //or
       //// Case 4: Functions shall not return NaNs or infinities
       //exists(ReturnStmt ret | node.asExpr() = ret.getExpr())
-    )
   }
+
+  string getDescription() { result = description }
+
+  string getNaNDescription() { result = nanDescription }
 }
 
 module InvalidNaNFlow = DataFlow::Global<InvalidNaNUsage>;
@@ -154,15 +169,26 @@ module InvalidNaNFlow = DataFlow::Global<InvalidNaNUsage>;
 import InvalidNaNFlow::PathGraph
 
 from
-  Element elem, InvalidNaNFlow::PathNode source, InvalidNaNFlow::PathNode sink, string msg,
-  string sourceString
+  Element elem, InvalidNaNFlow::PathNode source, InvalidNaNFlow::PathNode sink,
+  InvalidNaNUsage usage, Expr sourceExpr, string sourceString, Element extra, string extraString
 where
+  not InvalidNaNFlow::PathGraph::edges(_, source, _, _) and
+  not sourceExpr.isFromTemplateInstantiation(_) and
+  not usage.asExpr().isFromTemplateInstantiation(_) and
   elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
-  not isExcluded(elem, FloatingTypes2Package::possibleMisuseOfUndetectedNaNQuery()) and
-  (
-    InvalidNaNFlow::flow(source.getNode(), sink.getNode()) and
-    msg = "Invalid usage of possible $@." and
+  usage = sink.getNode() and
+  sourceExpr = source.getNode().asExpr() and
     sourceString =
-      "NaN resulting from " + source.getNode().asExpr().(InvalidOperationExpr).getReason()
+      " (" + source.getNode().asExpr().(InvalidOperationExpr).getReason() + ")" and
+  InvalidNaNFlow::flow(source.getNode(), usage) and
+  (
+    if not sourceExpr.getEnclosingFunction() = usage.asExpr().getEnclosingFunction()
+    then
+    extraString = usage.getNaNDescription() + sourceString + " computed in function " + sourceExpr.getEnclosingFunction().getName()
+    and extra = sourceExpr.getEnclosingFunction()
+    else (
+      extra = sourceExpr and
+     extraString = usage.getNaNDescription() + sourceString
+    )
   )
-select elem, source, sink, msg, source, sourceString
+select elem, source, sink, usage.getDescription(), extra, extraString
