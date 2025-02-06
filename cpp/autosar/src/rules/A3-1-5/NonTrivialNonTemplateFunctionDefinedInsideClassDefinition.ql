@@ -7,6 +7,7 @@
  * @precision very-high
  * @problem.severity recommendation
  * @tags external/autosar/id/a3-1-5
+ *       external/autosar/audit
  *       external/autosar/allocated-target/design
  *       external/autosar/enforcement/partially-automated
  *       external/autosar/obligation/required

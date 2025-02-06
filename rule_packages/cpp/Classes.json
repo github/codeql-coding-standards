@@ -185,7 +185,9 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "NonTrivialNonTemplateFunctionDefinedInsideClassDefinition",
-          "tags": []
+          "tags": [
+            "external/autosar/audit"
+          ]
         }
       ],
       "title": "A function definition shall only be placed in a class definition if (1) the function is intended to be inlined (2) it is a member function template (3) it is a member function of a class template."
