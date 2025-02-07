@@ -4,8 +4,8 @@
  * @description Evaluation of floating-point expressions shall not lead to the undetected generation
  *              of NaNs.
  * @kind path-problem
- * @precision high
- * @problem.severity error
+ * @precision low
+ * @problem.severity warning
  * @tags external/misra/id/dir-4-15
  *       correctness
  *       external/misra/c/2012/amendment3

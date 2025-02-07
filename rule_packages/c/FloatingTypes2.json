@@ -9,8 +9,8 @@
           "description": "Evaluation of floating-point expressions shall not lead to the undetected generation of infinities.",
           "kind": "path-problem",
           "name": "Evaluation of floating-point expressions shall not lead to the undetected generation of infinities",
-          "precision": "high",
-          "severity": "error",
+          "precision": "medium",
+          "severity": "warning",
           "short_name": "PossibleMisuseOfUndetectedInfinity",
           "tags": [
             "correctness",
@@ -21,8 +21,8 @@
           "description": "Evaluation of floating-point expressions shall not lead to the undetected generation of NaNs.",
           "kind": "path-problem",
           "name": "Evaluation of floating-point expressions shall not lead to the undetected generation of NaNs",
-          "precision": "high",
-          "severity": "error",
+          "precision": "low",
+          "severity": "warning",
           "short_name": "PossibleMisuseOfUndetectedNaN",
           "tags": [
             "correctness",
