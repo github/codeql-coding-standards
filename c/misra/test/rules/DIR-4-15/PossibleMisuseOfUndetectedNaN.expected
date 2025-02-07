@@ -22,9 +22,27 @@ edges
 | test.c:122:15:122:21 | ... / ... | test.c:138:5:138:12 | l13 | provenance |  |
 | test.c:122:15:122:21 | ... / ... | test.c:144:5:144:12 | l13 | provenance |  |
 | test.c:122:15:122:21 | ... / ... | test.c:148:5:148:12 | l13 | provenance |  |
-| test.c:122:15:122:21 | ... / ... | test.c:154:20:154:27 | l13 | provenance |  |
-| test.c:122:15:122:21 | ... / ... | test.c:156:23:156:30 | l13 | provenance |  |
-| test.c:122:15:122:21 | ... / ... | test.c:157:16:157:23 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:155:20:155:27 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:157:23:157:30 | l13 | provenance |  |
+| test.c:122:15:122:21 | ... / ... | test.c:158:16:158:23 | l13 | provenance |  |
+| test.c:175:22:175:22 | p | test.c:175:27:175:32 | p | provenance |  |
+| test.c:183:34:183:34 | p | test.c:185:13:185:18 | p | provenance |  |
+| test.c:188:32:188:32 | p | test.c:188:47:188:51 | ... + ... | provenance | Config |
+| test.c:188:47:188:51 | ... + ... | test.c:175:22:175:22 | p | provenance |  |
+| test.c:190:32:190:32 | p | test.c:190:47:190:59 | ... + ... | provenance | Config |
+| test.c:190:47:190:59 | ... + ... | test.c:175:22:175:22 | p | provenance |  |
+| test.c:190:47:190:59 | ... + ... | test.c:175:22:175:22 | p | provenance |  |
+| test.c:190:51:190:59 | ... / ... | test.c:190:47:190:59 | ... + ... | provenance | Config |
+| test.c:195:13:195:21 | ... / ... | test.c:175:22:175:22 | p | provenance |  |
+| test.c:199:23:199:31 | ... / ... | test.c:188:32:188:32 | p | provenance |  |
+| test.c:201:25:201:33 | ... / ... | test.c:183:34:183:34 | p | provenance |  |
+| test.c:205:19:205:27 | ... / ... | test.c:205:19:205:27 | ... / ... | provenance |  |
+| test.c:205:19:205:27 | ... / ... | test.c:207:21:207:31 | ... + ... | provenance | Config |
+| test.c:207:21:207:31 | ... + ... | test.c:207:21:207:31 | ... + ... | provenance |  |
+| test.c:207:21:207:31 | ... + ... | test.c:209:13:209:21 | middleNaN | provenance |  |
+| test.c:207:21:207:31 | ... + ... | test.c:211:23:211:31 | middleNaN | provenance |  |
+| test.c:209:13:209:21 | middleNaN | test.c:175:22:175:22 | p | provenance |  |
+| test.c:211:23:211:31 | middleNaN | test.c:190:32:190:32 | p | provenance |  |
 nodes
 | test.c:27:14:27:20 | ... / ... | semmle.label | ... / ... |
 | test.c:27:14:27:20 | ... / ... | semmle.label | ... / ... |
@@ -58,33 +76,61 @@ nodes
 | test.c:138:5:138:12 | l13 | semmle.label | l13 |
 | test.c:144:5:144:12 | l13 | semmle.label | l13 |
 | test.c:148:5:148:12 | l13 | semmle.label | l13 |
-| test.c:154:20:154:27 | l13 | semmle.label | l13 |
-| test.c:156:23:156:30 | l13 | semmle.label | l13 |
-| test.c:157:16:157:23 | l13 | semmle.label | l13 |
+| test.c:155:20:155:27 | l13 | semmle.label | l13 |
+| test.c:157:23:157:30 | l13 | semmle.label | l13 |
+| test.c:158:16:158:23 | l13 | semmle.label | l13 |
+| test.c:166:3:166:18 | call to pow | semmle.label | call to pow |
+| test.c:171:3:171:15 | call to acos | semmle.label | call to acos |
+| test.c:175:22:175:22 | p | semmle.label | p |
+| test.c:175:27:175:32 | p | semmle.label | p |
+| test.c:183:34:183:34 | p | semmle.label | p |
+| test.c:185:13:185:18 | p | semmle.label | p |
+| test.c:188:32:188:32 | p | semmle.label | p |
+| test.c:188:47:188:51 | ... + ... | semmle.label | ... + ... |
+| test.c:190:32:190:32 | p | semmle.label | p |
+| test.c:190:47:190:59 | ... + ... | semmle.label | ... + ... |
+| test.c:190:47:190:59 | ... + ... | semmle.label | ... + ... |
+| test.c:190:51:190:59 | ... / ... | semmle.label | ... / ... |
+| test.c:195:13:195:21 | ... / ... | semmle.label | ... / ... |
+| test.c:199:23:199:31 | ... / ... | semmle.label | ... / ... |
+| test.c:201:25:201:33 | ... / ... | semmle.label | ... / ... |
+| test.c:205:19:205:27 | ... / ... | semmle.label | ... / ... |
+| test.c:205:19:205:27 | ... / ... | semmle.label | ... / ... |
+| test.c:207:21:207:31 | ... + ... | semmle.label | ... + ... |
+| test.c:207:21:207:31 | ... + ... | semmle.label | ... + ... |
+| test.c:209:13:209:21 | middleNaN | semmle.label | middleNaN |
+| test.c:211:23:211:31 | middleNaN | semmle.label | middleNaN |
 subpaths
 #select
-| test.c:36:8:36:9 | l5 | test.c:27:14:27:20 | ... / ... | test.c:36:3:36:9 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:37:8:37:9 | l6 | test.c:28:14:28:20 | ... / ... | test.c:37:3:37:9 | l6 | Invalid usage of possible $@. | test.c:28:14:28:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:38:8:38:9 | l7 | test.c:31:14:32:15 | ... / ... | test.c:38:3:38:9 | l7 | Invalid usage of possible $@. | test.c:31:14:32:15 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:39:8:39:9 | l8 | test.c:33:14:33:22 | ... / ... | test.c:39:3:39:9 | l8 | Invalid usage of possible $@. | test.c:33:14:33:22 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:46:3:46:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:46:3:46:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:47:3:47:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:47:3:47:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:48:3:48:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:48:3:48:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:49:3:49:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:49:3:49:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:50:3:50:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:50:3:50:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:51:3:51:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:51:3:51:4 | l5 | Invalid usage of possible $@. | test.c:27:14:27:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:52:3:52:4 | l6 | test.c:28:14:28:20 | ... / ... | test.c:52:3:52:4 | l6 | Invalid usage of possible $@. | test.c:28:14:28:20 | ... / ... | NaN resulting from possible division of infinity by infinity |
-| test.c:53:3:53:4 | l7 | test.c:31:14:32:15 | ... / ... | test.c:53:3:53:4 | l7 | Invalid usage of possible $@. | test.c:31:14:32:15 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:54:3:54:4 | l8 | test.c:33:14:33:22 | ... / ... | test.c:54:3:54:4 | l8 | Invalid usage of possible $@. | test.c:33:14:33:22 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:61:11:61:17 | ... / ... | test.c:61:5:61:18 | ... / ... | test.c:61:5:61:18 | ... / ... | Invalid usage of possible $@. | test.c:61:5:61:18 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:66:11:66:19 | ... / ... | test.c:66:5:66:20 | ... / ... | test.c:66:5:66:20 | ... / ... | Invalid usage of possible $@. | test.c:66:5:66:20 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:72:20:72:28 | ... / ... | test.c:72:14:72:29 | ... / ... | test.c:72:14:72:29 | ... / ... | Invalid usage of possible $@. | test.c:72:14:72:29 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:75:24:75:32 | ... / ... | test.c:75:18:75:33 | ... / ... | test.c:75:18:75:33 | ... / ... | Invalid usage of possible $@. | test.c:75:18:75:33 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:126:10:126:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:126:5:126:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:132:10:132:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:132:5:132:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:138:10:138:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:138:5:138:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:144:10:144:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:144:5:144:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:148:10:148:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:148:5:148:12 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:154:25:154:27 | l13 | test.c:122:15:122:21 | ... / ... | test.c:154:20:154:27 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:156:28:156:30 | l13 | test.c:122:15:122:21 | ... / ... | test.c:156:23:156:30 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
-| test.c:157:21:157:23 | l13 | test.c:122:15:122:21 | ... / ... | test.c:157:16:157:23 | l13 | Invalid usage of possible $@. | test.c:122:15:122:21 | ... / ... | NaN resulting from possible division of zero by zero |
+| test.c:36:8:36:9 | l5 | test.c:27:14:27:20 | ... / ... | test.c:36:3:36:9 | l5 | $@ casted to integer. | test.c:27:14:27:20 | ... / ... | Possibly NaN float value (from division of infinity by infinity) |
+| test.c:37:8:37:9 | l6 | test.c:28:14:28:20 | ... / ... | test.c:37:3:37:9 | l6 | $@ casted to integer. | test.c:28:14:28:20 | ... / ... | Possibly NaN float value (from division of infinity by infinity) |
+| test.c:38:8:38:9 | l7 | test.c:31:14:32:15 | ... / ... | test.c:38:3:38:9 | l7 | $@ casted to integer. | test.c:31:14:32:15 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:39:8:39:9 | l8 | test.c:33:14:33:22 | ... / ... | test.c:39:3:39:9 | l8 | $@ casted to integer. | test.c:33:14:33:22 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:46:3:46:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:46:3:46:4 | l5 | Comparison involving a $@, which always evaluates to false. | test.c:27:14:27:20 | ... / ... | possibly NaN float value (from division of infinity by infinity) |
+| test.c:47:3:47:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:47:3:47:4 | l5 | Comparison involving a $@, which always evaluates to false. | test.c:27:14:27:20 | ... / ... | possibly NaN float value (from division of infinity by infinity) |
+| test.c:48:3:48:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:48:3:48:4 | l5 | Comparison involving a $@, which always evaluates to false. | test.c:27:14:27:20 | ... / ... | possibly NaN float value (from division of infinity by infinity) |
+| test.c:49:3:49:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:49:3:49:4 | l5 | Comparison involving a $@, which always evaluates to false. | test.c:27:14:27:20 | ... / ... | possibly NaN float value (from division of infinity by infinity) |
+| test.c:50:3:50:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:50:3:50:4 | l5 | Comparison involving a $@, which always evaluates to false. | test.c:27:14:27:20 | ... / ... | possibly NaN float value (from division of infinity by infinity) |
+| test.c:51:3:51:4 | l5 | test.c:27:14:27:20 | ... / ... | test.c:51:3:51:4 | l5 | Comparison involving a $@, which always evaluates to false. | test.c:27:14:27:20 | ... / ... | possibly NaN float value (from division of infinity by infinity) |
+| test.c:52:3:52:4 | l6 | test.c:28:14:28:20 | ... / ... | test.c:52:3:52:4 | l6 | Comparison involving a $@, which always evaluates to false. | test.c:28:14:28:20 | ... / ... | possibly NaN float value (from division of infinity by infinity) |
+| test.c:53:3:53:4 | l7 | test.c:31:14:32:15 | ... / ... | test.c:53:3:53:4 | l7 | Comparison involving a $@, which always evaluates to false. | test.c:31:14:32:15 | ... / ... | possibly NaN float value (from division of zero by zero) |
+| test.c:54:3:54:4 | l8 | test.c:33:14:33:22 | ... / ... | test.c:54:3:54:4 | l8 | Comparison involving a $@, which always evaluates to false. | test.c:33:14:33:22 | ... / ... | possibly NaN float value (from division of zero by zero) |
+| test.c:61:11:61:17 | ... / ... | test.c:61:5:61:18 | ... / ... | test.c:61:5:61:18 | ... / ... | $@ casted to integer. | test.c:61:11:61:17 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:66:11:66:19 | ... / ... | test.c:66:5:66:20 | ... / ... | test.c:66:5:66:20 | ... / ... | $@ casted to integer. | test.c:66:11:66:19 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:72:20:72:28 | ... / ... | test.c:72:14:72:29 | ... / ... | test.c:72:14:72:29 | ... / ... | $@ casted to integer. | test.c:72:20:72:28 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:75:24:75:32 | ... / ... | test.c:75:18:75:33 | ... / ... | test.c:75:18:75:33 | ... / ... | $@ casted to integer. | test.c:75:24:75:32 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:126:10:126:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:126:5:126:12 | l13 | $@ casted to integer. | test.c:122:15:122:21 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:132:10:132:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:132:5:132:12 | l13 | $@ casted to integer. | test.c:122:15:122:21 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:138:10:138:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:138:5:138:12 | l13 | $@ casted to integer. | test.c:122:15:122:21 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:144:10:144:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:144:5:144:12 | l13 | $@ casted to integer. | test.c:122:15:122:21 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:148:10:148:12 | l13 | test.c:122:15:122:21 | ... / ... | test.c:148:5:148:12 | l13 | $@ casted to integer. | test.c:122:15:122:21 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:155:25:155:27 | l13 | test.c:122:15:122:21 | ... / ... | test.c:155:20:155:27 | l13 | $@ casted to integer. | test.c:122:15:122:21 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:157:28:157:30 | l13 | test.c:122:15:122:21 | ... / ... | test.c:157:23:157:30 | l13 | $@ casted to integer. | test.c:122:15:122:21 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:158:21:158:23 | l13 | test.c:122:15:122:21 | ... / ... | test.c:158:16:158:23 | l13 | $@ casted to integer. | test.c:122:15:122:21 | ... / ... | Possibly NaN float value (from division of zero by zero) |
+| test.c:166:8:166:10 | call to pow | test.c:166:3:166:18 | call to pow | test.c:166:3:166:18 | call to pow | $@ casted to integer. | test.c:166:8:166:10 | call to pow | Possibly NaN float value (both arguments are equal to zero) |
+| test.c:171:8:171:11 | call to acos | test.c:171:3:171:15 | call to acos | test.c:171:3:171:15 | call to acos | $@ casted to integer. | test.c:171:8:171:11 | call to acos | Possibly NaN float value (the argument has a range -1000000000000000...1000000000000000 which is outside the domain of this function (-1.0...1.0)) |
+| test.c:175:32:175:32 | p | test.c:190:51:190:59 | ... / ... | test.c:175:27:175:32 | p | $@ casted to integer. | test.c:190:6:190:24 | addNaNThenCastToInt | Possibly NaN float value (from division of zero by zero) computed in function addNaNThenCastToInt |
+| test.c:175:32:175:32 | p | test.c:195:13:195:21 | ... / ... | test.c:175:27:175:32 | p | $@ casted to integer. | test.c:192:6:192:7 | f2 | Possibly NaN float value (from division of zero by zero) computed in function f2 |
+| test.c:175:32:175:32 | p | test.c:199:23:199:31 | ... / ... | test.c:175:27:175:32 | p | $@ casted to integer. | test.c:192:6:192:7 | f2 | Possibly NaN float value (from division of zero by zero) computed in function f2 |
+| test.c:175:32:175:32 | p | test.c:205:19:205:27 | ... / ... | test.c:175:27:175:32 | p | $@ casted to integer. | test.c:192:6:192:7 | f2 | Possibly NaN float value (from division of zero by zero) computed in function f2 |
+| test.c:185:18:185:18 | p | test.c:201:25:201:33 | ... / ... | test.c:185:13:185:18 | p | $@ casted to integer. | test.c:192:6:192:7 | f2 | Possibly NaN float value (from division of zero by zero) computed in function f2 |

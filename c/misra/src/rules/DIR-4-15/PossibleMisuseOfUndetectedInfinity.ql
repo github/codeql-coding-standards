@@ -51,9 +51,6 @@ module InvalidInfinityUsage implements DataFlow::ConfigSig {
       e.getType() instanceof IntegralType and
       e = node.asConvertedExpr()
     )
-    or
-    // Sinks are places where Infinity produce a finite value
-    isSink(node)
   }
 
   /**
@@ -81,7 +78,9 @@ module InvalidInfinityUsage implements DataFlow::ConfigSig {
       or
       // Unanalyzable expressions are not checked against range analysis, which assumes a finite
       // range.
-      not RestrictedRangeAnalysis::analyzableExpr(node.asExpr())
+      not RestrictedRangeAnalysis::canBoundExpr(node.asExpr())
+      or
+      node.asExpr().(VariableAccess).getTarget() instanceof Parameter
     )
   }
 }
@@ -124,6 +123,7 @@ from
 where
   elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
   not InvalidInfinityFlow::PathGraph::edges(_, source, _, _) and
+  not InvalidInfinityFlow::PathGraph::edges(sink, _, _, _) and
   not isExcluded(elem, FloatingTypes2Package::possibleMisuseOfUndetectedInfinityQuery()) and
   not sourceExpr.isFromTemplateInstantiation(_) and
   not usage.asExpr().isFromTemplateInstantiation(_) and

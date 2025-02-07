@@ -23,8 +23,73 @@ import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.dataflow.new.TaintTracking
 import semmle.code.cpp.controlflow.Dominance
 
+bindingset[name]
+Function getMathVariants(string name) { result.hasGlobalOrStdName([name, name + "f", name + "l"]) }
+
+predicate hasDomainError(FunctionCall fc, string description) {
+  exists(Function functionWithDomainError | fc.getTarget() = functionWithDomainError |
+    functionWithDomainError = [getMathVariants(["acos", "asin", "atanh"])] and
+    not (
+      RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) <= 1.0 and
+      RestrictedRangeAnalysis::lowerBound(fc.getArgument(0)) >= -1.0
+    ) and
+    description =
+      "the argument has a range " + RestrictedRangeAnalysis::lowerBound(fc.getArgument(0)) + "..." +
+        RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) + " which is outside the domain of this function (-1.0...1.0)"
+    or
+    functionWithDomainError = getMathVariants(["atan2", "pow"]) and
+    (
+      exprMayEqualZero(fc.getArgument(0)) and
+      exprMayEqualZero(fc.getArgument(1)) and
+      description = "both arguments are equal to zero"
+    )
+    or
+    functionWithDomainError = getMathVariants("pow") and
+    (
+      RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) < 0.0 and
+      RestrictedRangeAnalysis::upperBound(fc.getArgument(1)) < 0.0 and
+      description = "both arguments are less than zero"
+    )
+    or
+    functionWithDomainError = getMathVariants("acosh") and
+    RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) < 1.0 and
+    description = "argument is less than 1"
+    or
+    //pole error is the same as domain for logb and tgamma (but not ilogb - no pole error exists)
+    functionWithDomainError = getMathVariants(["ilogb", "logb", "tgamma"]) and
+    exprMayEqualZero(fc.getArgument(0)) and
+    description = "argument is equal to zero"
+    or
+    functionWithDomainError = getMathVariants(["log", "log10", "log2", "sqrt"]) and
+    RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) < 0.0 and
+    description = "argument is negative"
+    or
+    functionWithDomainError = getMathVariants("log1p") and
+    RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) < -1.0 and
+    description = "argument is less than 1"
+    or
+    functionWithDomainError = getMathVariants("fmod") and
+    exprMayEqualZero(fc.getArgument(1)) and
+    description = "y is 0"
+  )
+}
+
+abstract class PotentiallyNaNExpr extends Expr {
+  abstract string getReason();
+}
+
+class DomainErrorFunctionCall extends FunctionCall, PotentiallyNaNExpr {
+  string reason;
+
+  DomainErrorFunctionCall() {
+    hasDomainError(this, reason)
+  }
+
+  override string getReason() { result = reason }
+}
+
 // IEEE 754-1985 Section 7.1 invalid operations
-class InvalidOperationExpr extends BinaryOperation {
+class InvalidOperationExpr extends BinaryOperation, PotentiallyNaNExpr {
   string reason;
 
   InvalidOperationExpr() {
@@ -85,7 +150,7 @@ class InvalidOperationExpr extends BinaryOperation {
     )
   }
 
-  string getReason() { result = reason }
+  override string getReason() { result = reason }
 }
 
 module InvalidNaNUsage implements DataFlow::ConfigSig {
@@ -104,7 +169,7 @@ module InvalidNaNUsage implements DataFlow::ConfigSig {
    * An expression which may produce a NaN output.
    */
   additional predicate potentialSource(DataFlow::Node node) {
-    node.asExpr() instanceof InvalidOperationExpr
+    node.asExpr() instanceof PotentiallyNaNExpr
   }
 
   predicate isBarrierOut(DataFlow::Node node) {
@@ -173,13 +238,14 @@ from
   InvalidNaNUsage usage, Expr sourceExpr, string sourceString, Element extra, string extraString
 where
   not InvalidNaNFlow::PathGraph::edges(_, source, _, _) and
+  not InvalidNaNFlow::PathGraph::edges(sink, _, _, _) and
   not sourceExpr.isFromTemplateInstantiation(_) and
   not usage.asExpr().isFromTemplateInstantiation(_) and
   elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
   usage = sink.getNode() and
   sourceExpr = source.getNode().asExpr() and
     sourceString =
-      " (" + source.getNode().asExpr().(InvalidOperationExpr).getReason() + ")" and
+      " (" + source.getNode().asExpr().(PotentiallyNaNExpr).getReason() + ")" and
   InvalidNaNFlow::flow(source.getNode(), usage) and
   (
     if not sourceExpr.getEnclosingFunction() = usage.asExpr().getEnclosingFunction()

@@ -84,7 +84,9 @@ module RestrictedRangeAnalysis {
     result = -256.0 or
     result = -32768.0 or
     result = -65536.0 or
-    result = max(float v | v = Util::typeLowerBound(t) or v = -largeValue())
+    result = -largeValue() or
+    result = Util::typeLowerBound(t)
+    //result = max(float v | v = Util::typeLowerBound(t) or v = -largeValue())
   }
 
   /** See comment for `wideningLowerBounds`, above. */
@@ -100,7 +102,9 @@ module RestrictedRangeAnalysis {
     result = 255.0 or
     result = 32767.0 or
     result = 65535.0 or
-    result = min(float v | v = Util::typeLowerBound(t) or v = largeValue())
+    result = largeValue() or
+    result = Util::typeUpperBound(t)
+    //result = min(float v | v = Util::typeLowerBound(t) or v = largeValue())
   }
 
   /**
@@ -312,6 +316,196 @@ module RestrictedRangeAnalysis {
     )
   }
 
+  bindingset[name]
+  Function getMathVariants(string name) {
+    result.hasGlobalOrStdName([name, name + "f", name + "l"])
+  }
+
+  /**
+   * New support added for mathematical functions that either monotonically increase, or decrease,
+   * or that have a known lower or upper bound.
+   *
+   * For instance, log(x) monotonically increases over x, and acos(x) monotonically decreases,
+   * while sin(x) has a known output range of -1 to 1.
+   *
+   * `pow` is especially common so minimal work is done to support that here as well. `pow(c, x)`
+   * monotonically increases or decreases over `x` if `c` is a constant, though the reverse is not
+   * true except in special cases.
+   */
+  newtype TSupportedMathFunctionCall =
+    /* A monotonically increasing function call. `extra` is a constant for `pow(x, c)`. */
+    TMonotonicIncrease(FunctionCall fc, Expr input, float extra) {
+      // Note: Codeql has no default implementation in codeql for exp2, atanh, acosh, asinh, or
+      // log1p so we haven't taken the time to support them yet.
+      fc.getTarget() =
+        getMathVariants(["log", "log2", "log10", "exp", "asin", "atan", "sinh", "sqrt"]) and
+      input = fc.getArgument(0) and
+      extra = 0.0
+      or
+      // Notes: pow is monotonic if the base argument is constant, increasing if the base is greater
+      // than 1 or between -1 and 0, and decreasing otherwise. A constant power is monotonic over the
+      // base in the positive or negative domain, but distinguishing those separately can introduce
+      // non-monotonic recursion errors.
+      fc.getTarget() = getMathVariants("pow") and
+      extra = fc.getArgument(0).getValue().toFloat() and
+      (
+        extra > 1.0
+        or
+        extra < 0.0 and extra > -1.0
+      ) and
+      input = fc.getArgument(1)
+    } or
+    /* A monotonically decreasing function call. `extra` is a constant for `pow(x, c)`. */
+    TMonotonicDecrease(FunctionCall fc, Expr input, float extra) {
+      fc.getTarget() = getMathVariants(["acos"]) and
+      input = fc.getArgument(0) and
+      extra = 0.0
+      or
+      fc.getTarget() = getMathVariants("pow") and
+      extra = fc.getArgument(0).getValue().toFloat() and
+      (
+        extra < -1.0
+        or
+        extra > 0.0 and extra < 1.0
+      ) and
+      input = fc.getArgument(1)
+    } or
+    /* A non-mononotic function call with a known lower bound. */
+    TNonMonotonicLowerBound(FunctionCall fc, float lb) {
+      fc.getTarget() = getMathVariants("cosh") and
+      lb = 1.0
+      or
+      fc.getTarget() = getMathVariants(["cos", "sin"]) and
+      lb = -1.0
+    } or
+    /* A non-mononotic function call with a known upper bound. */
+    TNonMonotonicUpperBound(FunctionCall fc, float lb) {
+      fc.getTarget() = getMathVariants(["cos", "sin"]) and
+      lb = 1.0
+    }
+
+  /**
+   * A function call that is supported by range analysis.
+   */
+  class SupportedFunctionCall extends TSupportedMathFunctionCall {
+    string toString() {
+      exists(FunctionCall fc |
+        this = TMonotonicIncrease(fc, _, _) and
+        result = "Monotonic increase " + fc.getTarget().getName()
+        or
+        this = TMonotonicDecrease(fc, _, _) and
+        result = "Monotonic decrease " + fc.getTarget().getName()
+        or
+        this = TNonMonotonicLowerBound(fc, _) and
+        result = "Nonmonotonic lower bound " + fc.getTarget().getName()
+        or
+        this = TNonMonotonicUpperBound(fc, _) and
+        result = "Nonmonotonic upper bound " + fc.getTarget().getName()
+      )
+    }
+
+    /** Get the function call node this algebraic type corresponds to. */
+    FunctionCall getFunctionCall() {
+      this = TMonotonicIncrease(result, _, _)
+      or
+      this = TMonotonicDecrease(result, _, _)
+      or
+      this = TNonMonotonicLowerBound(result, _)
+      or
+      this = TNonMonotonicUpperBound(result, _)
+    }
+
+    /** Get the function name (`sin`, `pow`, etc.) without the `l` or `f` suffix. */
+    bindingset[this, result]
+    string getBaseFunctionName() { getMathVariants(result) = getFunctionCall().getTarget() }
+
+    /**
+     * Compute a result bound based on an input value and an extra constant value.
+     *
+     * The functions `getUpperBound()` and `getLowerBound()` automatically handle the differences
+     * between monotonically increasing and decreasing functions, and provide the input value. The
+     * `extra` float exists to support `pow(x, c)` for the constant `c`, otherwise it is `0.0`.
+     */
+    bindingset[value, extra, this]
+    float compute(float value, float extra) {
+      exists(string name | name = getBaseFunctionName() |
+        name = "log" and
+        result = value.log()
+        or
+        name = "log2" and
+        result = value.log2()
+        or
+        name = "log10" and
+        result = value.log10()
+        or
+        name = "exp" and
+        result = value.exp()
+        or
+        name = "asin" and
+        result = value.asin()
+        or
+        name = "atan" and
+        result = value.atan()
+        or
+        name = "acos" and
+        result = value.acos()
+        or
+        name = "sinh" and
+        result = value.sinh()
+        or
+        name = "sqrt" and
+        result = value.sqrt()
+        or
+        name = "pow" and
+        result = extra.pow(value)
+      )
+    }
+
+    /**
+     * Get the lower bound of this function, based on its fixed range (if it has one) or based on
+     * the lower or upper bound of its input, if it is a monotonically increasing or decreasing
+     * function.
+     */
+    float getLowerBound() {
+      this = TNonMonotonicLowerBound(_, result)
+      or
+      exists(Expr expr, float bound, float extra |
+        (
+          this = TMonotonicIncrease(_, expr, extra) and
+          bound = getFullyConvertedLowerBounds(expr)
+          or
+          this = TMonotonicDecrease(_, expr, extra) and
+          bound = getFullyConvertedUpperBounds(expr)
+        ) and
+        result = compute(bound, extra)
+      )
+    }
+
+    /**
+     * Get the lower bound of this function, based on its fixed range (if it has one) or based on
+     * the lower or upper bound of its input, if it is a monotonically increasing or decreasing
+     * function.
+     */
+    float getUpperBound() {
+      this = TNonMonotonicUpperBound(_, result)
+      or
+      exists(Expr expr, float bound, float extra |
+        (
+          this = TMonotonicIncrease(_, expr, extra) and
+          bound = getFullyConvertedUpperBounds(expr)
+          or
+          this = TMonotonicDecrease(_, expr, extra) and
+          bound = getFullyConvertedLowerBounds(expr)
+        ) and
+        result = compute(bound, extra)
+      )
+    }
+  }
+
+  predicate supportedMathFunction(FunctionCall fc) {
+    exists(SupportedFunctionCall sfc | sfc.getFunctionCall() = fc)
+  }
+
   /**
    * Holds if `expr` is checked with a guard to not be zero.
    *
@@ -370,6 +564,8 @@ module RestrictedRangeAnalysis {
       // or
       // dividesNonzeroByZero(e)
       e instanceof DivExpr // TODO: confirm this is OK
+      or
+      supportedMathFunction(e)
       or
       e instanceof MinExpr
       or
@@ -628,8 +824,9 @@ module RestrictedRangeAnalysis {
    */
   int estimatedPhiCombinationsExpr(Expr expr) {
     if isRecursiveExpr(expr)
-    // Assume 10 values were computed to analyze recursive expressions.
-    then result = 10
+    then
+      // Assume 10 values were computed to analyze recursive expressions.
+      result = 10
     else (
       exists(RangeSsaDefinition def, StackVariable v | expr = def.getAUse(v) |
         def.isPhiNode(v) and
@@ -649,16 +846,17 @@ module RestrictedRangeAnalysis {
       )
       or
       not expr instanceof BinaryOperation and
-      not exprDependsOnDef(expr, _, _) and result = 1
+      not exprDependsOnDef(expr, _, _) and
+      result = 1
     )
   }
 
   /**
    * Recursively scan this def to see how many phi nodes it depends on.
-   * 
+   *
    * If this def is a phi node, it sums its downstream cost and adds one to account for itself,
-   * which is not exactly correct. 
-   * 
+   * which is not exactly correct.
+   *
    * This def may also be a crement expression (not currently supported), or an assign expr
    * (currently not supported), or an unanalyzable expression which is the root of the recursion
    * and given a value of 1.
@@ -666,8 +864,9 @@ module RestrictedRangeAnalysis {
   language[monotonicAggregates]
   int estimatedPhiCombinationsDef(RangeSsaDefinition def, StackVariable v) {
     if isRecursiveDef(def, v)
-    // Assume 10 values were computed to analyze recursive expressions.
-    then result = 10
+    then
+      // Assume 10 values were computed to analyze recursive expressions.
+      result = 10
     else (
       if def.isPhiNode(v)
       then
@@ -681,7 +880,9 @@ module RestrictedRangeAnalysis {
               )
         )
       else (
-        exists(Expr expr | assignmentDef(def, v, expr) | result = estimatedPhiCombinationsExpr(expr))
+        exists(Expr expr | assignmentDef(def, v, expr) |
+          result = estimatedPhiCombinationsExpr(expr)
+        )
         or
         v = def.getAVariable() and
         not assignmentDef(def, v, _) and
@@ -728,6 +929,17 @@ module RestrictedRangeAnalysis {
     v = def.getAVariable()
     or
     phiDependsOnDef(def, v, _, _)
+  }
+
+  predicate canBoundExpr(Expr e) {
+    exists(RangeSsaDefinition def, StackVariable v | e = def.getAUse(v) |
+      analyzableDef(def, v)
+    ) or
+    analyzableExpr(e)
+    or
+    exists(getGuardedUpperBound(e))
+    or
+    lowerBoundFromGuard(e, _, _, _)
   }
 
   /**
@@ -929,6 +1141,10 @@ module RestrictedRangeAnalysis {
       exists(DivExpr div | expr = div |
         dividesNonzeroByZero(expr) and
         result = getFullyConvertedLowerBounds(div.getLeftOperand()) / 0
+      )
+      or
+      exists(SupportedFunctionCall sfc | sfc.getFunctionCall() = expr |
+        result = sfc.getLowerBound()
       )
       or
       exists(MinExpr minExpr |
@@ -1134,6 +1350,10 @@ module RestrictedRangeAnalysis {
       exists(DivExpr div | expr = div |
         dividesNonzeroByZero(expr) and
         result = getFullyConvertedUpperBounds(div.getLeftOperand()) / 0
+      )
+      or
+      exists(SupportedFunctionCall sfc | sfc.getFunctionCall() = expr |
+        result = sfc.getUpperBound()
       )
       or
       exists(MaxExpr maxExpr |
