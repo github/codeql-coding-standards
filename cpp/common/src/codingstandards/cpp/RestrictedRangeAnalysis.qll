@@ -932,9 +932,8 @@ module RestrictedRangeAnalysis {
   }
 
   predicate canBoundExpr(Expr e) {
-    exists(RangeSsaDefinition def, StackVariable v | e = def.getAUse(v) |
-      analyzableDef(def, v)
-    ) or
+    exists(RangeSsaDefinition def, StackVariable v | e = def.getAUse(v) | analyzableDef(def, v))
+    or
     analyzableExpr(e)
     or
     exists(getGuardedUpperBound(e))
