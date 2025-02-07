@@ -133,13 +133,15 @@ where
   (
     if not sourceExpr.getEnclosingFunction() = usage.asExpr().getEnclosingFunction()
     then
-    extraString = usage.getInfinityDescription() + " computed in function " + sourceExpr.getEnclosingFunction().getName()
-    and extra = sourceExpr.getEnclosingFunction()
+      extraString =
+        usage.getInfinityDescription() + " computed in function " +
+          sourceExpr.getEnclosingFunction().getName() and
+      extra = sourceExpr.getEnclosingFunction()
     else (
       extra = sourceExpr and
-    if sourceExpr instanceof DivExpr
-    then extraString = usage.getInfinityDescription() + " from division by zero"
-    else extraString = usage.getInfinityDescription()
+      if sourceExpr instanceof DivExpr
+      then extraString = usage.getInfinityDescription() + " from division by zero"
+      else extraString = usage.getInfinityDescription()
     )
   )
 select elem, source, sink, usage.getDescription(), extra, extraString

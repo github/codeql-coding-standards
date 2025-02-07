@@ -35,7 +35,8 @@ predicate hasDomainError(FunctionCall fc, string description) {
     ) and
     description =
       "the argument has a range " + RestrictedRangeAnalysis::lowerBound(fc.getArgument(0)) + "..." +
-        RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) + " which is outside the domain of this function (-1.0...1.0)"
+        RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) +
+        " which is outside the domain of this function (-1.0...1.0)"
     or
     functionWithDomainError = getMathVariants(["atan2", "pow"]) and
     (
@@ -81,9 +82,7 @@ abstract class PotentiallyNaNExpr extends Expr {
 class DomainErrorFunctionCall extends FunctionCall, PotentiallyNaNExpr {
   string reason;
 
-  DomainErrorFunctionCall() {
-    hasDomainError(this, reason)
-  }
+  DomainErrorFunctionCall() { hasDomainError(this, reason) }
 
   override string getReason() { result = reason }
 }
@@ -203,25 +202,22 @@ class InvalidNaNUsage extends DataFlow::Node {
   string nanDescription;
 
   InvalidNaNUsage() {
-      // Case 1: NaNs shall not be compared, except to themselves
-      exists(ComparisonOperation cmp |
-        this.asExpr() = cmp.getAnOperand() and
-        not hashCons(cmp.getLeftOperand()) = hashCons(cmp.getRightOperand()) and
-        description = "Comparison involving a $@, which always evaluates to false." and
-        nanDescription = "possibly NaN float value"
-      )
-      or
-      // Case 2: NaNs and infinities shall not be cast to integers
-      exists(Conversion c |
-        this.asExpr() = c.getUnconverted() and
-        c.getExpr().getType() instanceof FloatingPointType and
-        c.getType() instanceof IntegralType and
-        description = "$@ casted to integer." and
-        nanDescription = "Possibly NaN float value"
-      )
-      //or
-      //// Case 4: Functions shall not return NaNs or infinities
-      //exists(ReturnStmt ret | node.asExpr() = ret.getExpr())
+    // Case 1: NaNs shall not be compared, except to themselves
+    exists(ComparisonOperation cmp |
+      this.asExpr() = cmp.getAnOperand() and
+      not hashCons(cmp.getLeftOperand()) = hashCons(cmp.getRightOperand()) and
+      description = "Comparison involving a $@, which always evaluates to false." and
+      nanDescription = "possibly NaN float value"
+    )
+    or
+    // Case 2: NaNs and infinities shall not be cast to integers
+    exists(Conversion c |
+      this.asExpr() = c.getUnconverted() and
+      c.getExpr().getType() instanceof FloatingPointType and
+      c.getType() instanceof IntegralType and
+      description = "$@ casted to integer." and
+      nanDescription = "Possibly NaN float value"
+    )
   }
 
   string getDescription() { result = description }
@@ -244,17 +240,18 @@ where
   elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
   usage = sink.getNode() and
   sourceExpr = source.getNode().asExpr() and
-    sourceString =
-      " (" + source.getNode().asExpr().(PotentiallyNaNExpr).getReason() + ")" and
+  sourceString = " (" + source.getNode().asExpr().(PotentiallyNaNExpr).getReason() + ")" and
   InvalidNaNFlow::flow(source.getNode(), usage) and
   (
     if not sourceExpr.getEnclosingFunction() = usage.asExpr().getEnclosingFunction()
     then
-    extraString = usage.getNaNDescription() + sourceString + " computed in function " + sourceExpr.getEnclosingFunction().getName()
-    and extra = sourceExpr.getEnclosingFunction()
+      extraString =
+        usage.getNaNDescription() + sourceString + " computed in function " +
+          sourceExpr.getEnclosingFunction().getName() and
+      extra = sourceExpr.getEnclosingFunction()
     else (
       extra = sourceExpr and
-     extraString = usage.getNaNDescription() + sourceString
+      extraString = usage.getNaNDescription() + sourceString
     )
   )
 select elem, source, sink, usage.getDescription(), extra, extraString
