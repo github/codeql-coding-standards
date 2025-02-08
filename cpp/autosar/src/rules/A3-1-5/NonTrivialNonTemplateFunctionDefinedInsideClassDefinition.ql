@@ -4,7 +4,7 @@
  * @description A function that is not either trivial, a template function, or a member of a
  *              template class may not be defined within a class body.
  * @kind problem
- * @precision very-high
+ * @precision low
  * @problem.severity recommendation
  * @tags external/autosar/id/a3-1-5
  *       external/autosar/audit
