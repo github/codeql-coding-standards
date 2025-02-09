@@ -479,3 +479,28 @@ void testException4() {
   double _Complex f64byparts_c = 10.0f + 10.0i;     // COMPLIANT
   double _Complex f64byparts_d = 10.0f + 10.0f * I; // COMPLIANT
 }
+
+void testBinaryBitwise() {
+  signed int s32 = 100;          // COMPLIANT - wider
+  signed short s16 = 0;          // COMPLIANT - wider
+  signed char s8 = 0;            // COMPLIANT - wider
+  unsigned int u32 = 100;        // COMPLIANT - by exception 1
+  unsigned char u8 = 0;          // COMPLIANT - by exception 1
+  unsigned short u16 = 0;        // COMPLIANT - by exception 1
+  int x1 = s32 & u32;            // NON_COMPLIANT - integer promotion to u32
+  int x2 = s32 | u32;            // NON_COMPLIANT - integer promotion to u32
+  int x3 = s32 ^ u32;            // NON_COMPLIANT - integer promotion to u32
+  int x4 = s16 & s32;            // COMPLIANT
+  int x5 = s16 & u16;            // COMPLIANT
+  int x6 = s16 & s8;             // COMPLIANT
+  signed short x7 = s16 & s8;    // COMPLIANT
+  signed char x8 = s16 & s8;     // NON_COMPLIANT
+  signed char x9 = s8 & s8;      // COMPLIANT
+  signed short x10 = s8 & s8;    // COMPLIANT
+  unsigned int x11 = u16 & u8;   // COMPLIANT
+  unsigned short x12 = u16 & u8; // COMPLIANT
+  unsigned char x13 = u16 & u8;  // NON_COMPLIANT
+  unsigned char x14 = u8 & u8;   // COMPLIANT
+  unsigned short x15 = u8 & u8;  // COMPLIANT
+  unsigned int x16 = s16 & s8;   // NON_COMPLIANT
+}
