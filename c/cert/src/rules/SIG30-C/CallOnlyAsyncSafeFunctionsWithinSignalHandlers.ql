@@ -14,7 +14,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Signal
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * Does not access an external variable except

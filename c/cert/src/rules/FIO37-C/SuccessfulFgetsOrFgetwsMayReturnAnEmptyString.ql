@@ -14,7 +14,7 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.FgetsErrorManagement
 import codingstandards.cpp.Dereferenced
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.DataFlow
 
 /*
  * CFG nodes that follows a successful call to `fgets`

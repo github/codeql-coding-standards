@@ -131,3 +131,9 @@
 | test.c:356:10:356:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
 | test.c:357:10:357:10 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
 | test.c:358:10:358:10 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
+| test.c:369:12:369:20 | ... & ... | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:370:12:370:20 | ... \| ... | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:371:12:371:20 | ... ^ ... | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:376:20:376:27 | ... & ... | Assignment of value of essentially Signed type of size 2 bytes to an object narrower essential type of size 1 bytes. |
+| test.c:381:23:381:30 | ... & ... | Assignment of value of essentially Unsigned type of size 2 bytes to an object narrower essential type of size 1 bytes. |
+| test.c:384:22:384:29 | ... & ... | Assignment of essentially Signed type value to an object of essentially Unsigned type. |

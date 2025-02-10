@@ -2,6 +2,7 @@
 import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
+import Alignment
 import Banned
 import Banned2
 import BitfieldTypes
@@ -11,7 +12,9 @@ import Concurrency2
 import Concurrency3
 import Concurrency4
 import Concurrency5
+import Concurrency6
 import Concurrency7
+import Contracts
 import Contracts1
 import Contracts2
 import Contracts3
@@ -20,6 +23,7 @@ import Contracts5
 import Contracts6
 import Contracts7
 import DeadCode
+import DeadCode2
 import Declarations1
 import Declarations2
 import Declarations3
@@ -39,9 +43,11 @@ import IO4
 import IntegerOverflow
 import InvalidMemory1
 import InvalidMemory2
+import InvalidMemory3
 import Language1
 import Language2
 import Language3
+import Language4
 import Memory1
 import Memory2
 import Memory3
@@ -79,6 +85,7 @@ import Types2
 
 /** The TQuery type representing this language * */
 newtype TCQuery =
+  TAlignmentPackageQuery(AlignmentQuery q) or
   TBannedPackageQuery(BannedQuery q) or
   TBanned2PackageQuery(Banned2Query q) or
   TBitfieldTypesPackageQuery(BitfieldTypesQuery q) or
@@ -88,7 +95,9 @@ newtype TCQuery =
   TConcurrency3PackageQuery(Concurrency3Query q) or
   TConcurrency4PackageQuery(Concurrency4Query q) or
   TConcurrency5PackageQuery(Concurrency5Query q) or
+  TConcurrency6PackageQuery(Concurrency6Query q) or
   TConcurrency7PackageQuery(Concurrency7Query q) or
+  TContractsPackageQuery(ContractsQuery q) or
   TContracts1PackageQuery(Contracts1Query q) or
   TContracts2PackageQuery(Contracts2Query q) or
   TContracts3PackageQuery(Contracts3Query q) or
@@ -97,6 +106,7 @@ newtype TCQuery =
   TContracts6PackageQuery(Contracts6Query q) or
   TContracts7PackageQuery(Contracts7Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode2PackageQuery(DeadCode2Query q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
@@ -116,9 +126,11 @@ newtype TCQuery =
   TIntegerOverflowPackageQuery(IntegerOverflowQuery q) or
   TInvalidMemory1PackageQuery(InvalidMemory1Query q) or
   TInvalidMemory2PackageQuery(InvalidMemory2Query q) or
+  TInvalidMemory3PackageQuery(InvalidMemory3Query q) or
   TLanguage1PackageQuery(Language1Query q) or
   TLanguage2PackageQuery(Language2Query q) or
   TLanguage3PackageQuery(Language3Query q) or
+  TLanguage4PackageQuery(Language4Query q) or
   TMemory1PackageQuery(Memory1Query q) or
   TMemory2PackageQuery(Memory2Query q) or
   TMemory3PackageQuery(Memory3Query q) or
@@ -156,6 +168,7 @@ newtype TCQuery =
 
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
+  isAlignmentQueryMetadata(query, queryId, ruleId, category) or
   isBannedQueryMetadata(query, queryId, ruleId, category) or
   isBanned2QueryMetadata(query, queryId, ruleId, category) or
   isBitfieldTypesQueryMetadata(query, queryId, ruleId, category) or
@@ -165,7 +178,9 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConcurrency3QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency4QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency5QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency6QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency7QueryMetadata(query, queryId, ruleId, category) or
+  isContractsQueryMetadata(query, queryId, ruleId, category) or
   isContracts1QueryMetadata(query, queryId, ruleId, category) or
   isContracts2QueryMetadata(query, queryId, ruleId, category) or
   isContracts3QueryMetadata(query, queryId, ruleId, category) or
@@ -174,6 +189,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isContracts6QueryMetadata(query, queryId, ruleId, category) or
   isContracts7QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
@@ -193,9 +209,11 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isIntegerOverflowQueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory1QueryMetadata(query, queryId, ruleId, category) or
   isInvalidMemory2QueryMetadata(query, queryId, ruleId, category) or
+  isInvalidMemory3QueryMetadata(query, queryId, ruleId, category) or
   isLanguage1QueryMetadata(query, queryId, ruleId, category) or
   isLanguage2QueryMetadata(query, queryId, ruleId, category) or
   isLanguage3QueryMetadata(query, queryId, ruleId, category) or
+  isLanguage4QueryMetadata(query, queryId, ruleId, category) or
   isMemory1QueryMetadata(query, queryId, ruleId, category) or
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMemory3QueryMetadata(query, queryId, ruleId, category) or

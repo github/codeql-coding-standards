@@ -1,3 +1,11 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:27,29-37)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:27,54-62)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:34,62-70)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:39,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:39,30-38)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:40,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:40,30-38)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:27,3-16)
 | test.c:23:3:23:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:23:24:23:29 | & ... | Shared object |
 | test.c:74:3:74:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:74:24:74:24 | p | Shared object |
 | test.c:85:3:85:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:85:24:85:24 | p | Shared object |

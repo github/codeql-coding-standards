@@ -1,2 +1,8 @@
 | test.cpp:12:7:12:8 | C3 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:12:7:12:8 | C3 | C3 |
 | test.cpp:28:7:28:8 | C5 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:28:7:28:8 | C5 | C5 |
+| test.cpp:51:7:51:9 | C10 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:51:7:51:9 | C10 | C10 |
+| test.cpp:55:7:55:9 | C11 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:55:7:55:9 | C11 | C11 |
+| test.cpp:59:7:59:9 | C12 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:59:7:59:9 | C12 | C12 |
+| test.cpp:63:7:63:9 | C13 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:63:7:63:9 | C13 | C13 |
+| test.cpp:67:7:67:9 | C14 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:67:7:67:9 | C14 | C14 |
+| test.cpp:71:7:71:9 | C15 | Class $@ has provided at least one user-defined special member function but is missing definitions for all five special member functions. | test.cpp:71:7:71:9 | C15 | C15 |

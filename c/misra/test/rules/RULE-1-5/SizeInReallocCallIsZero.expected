@@ -1,0 +1,1 @@
+| test.c:14:3:14:9 | call to realloc | Size argument '$@' may equal zero in realloc call, resulting in obsolescent and/or implementation-defined behavior. | test.c:14:14:14:14 | 0 | 0 |

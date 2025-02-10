@@ -1,3 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToTypeid.ql:21,50-58)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToTypeid.ql:22,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToTypeid.ql:24,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (LambdaPassedToTypeid.ql:27,39-47)
 edges
 | test.cpp:5:13:5:30 | [...](...){...} | test.cpp:8:38:8:39 | l1 | provenance |  |
 | test.cpp:6:13:6:30 | [...](...){...} | test.cpp:9:38:9:39 | l2 | provenance |  |

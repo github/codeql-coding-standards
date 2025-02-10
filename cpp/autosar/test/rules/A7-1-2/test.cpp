@@ -56,70 +56,16 @@ private:
   int m3 = 0; // COMPLIANT - can be set by constructor
 };
 
-int h1(int x, int y) { // NON_COMPLIANT
-  return x + y;
+int h1(int x, int y) { return x + y; }
+
+constexpr int h1_const(int x, int y) { return x + y; }
+
+int h2() {
+  int x1 = h1(1, 1);                 // COMPLIANT
+  int x2 = h1_const(1, 1);           // NON_COMPLIANT
+  const int x3 = h1_const(1, 1);     // NON_COMPLIANT
+  constexpr int x4 = h1_const(1, 1); // COMPLIANT
 }
-
-constexpr int h1_correct(int x, int y) { // COMPLIANT
-  return x + y;
-}
-
-int h2(int x) { return h1(x, 1) + 1; } // NON_COMPLIANT
-constexpr int h2_correct(int x) { return h1_correct(x, 1) + 1; } // COMPLIANT
-
-int h3(int x) { // COMPLIANT - uses goto, so can't be constexpr
-  if (x) {
-    goto l1;
-  } else {
-    return 10;
-  }
-l1:
-  return 1;
-}
-
-int h4(int x) { // COMPLIANT - uses try, so can't be constexpr
-  try {
-    return 1;
-  } catch (...) {
-  }
-}
-
-int h5(int x) { // COMPLIANT - declares non literal local var
-  NonLiteralClass nlc;
-}
-
-int h6(int x) { // COMPLIANT - declares static variable
-  static int i = x;
-  return x;
-}
-
-int h7(int x) { // COMPLIANT - declares no init variable
-  int i;
-}
-
-int h8(int x) { // NON_COMPLIANT - could be constexpr
-  int i = x;
-  return i;
-}
-
-constexpr int h8_correct(int x) { // COMPLIANT
-  int i = x;
-  return i;
-}
-
-int h9(int x) { // COMPLIANT - declares thread local variable
-  thread_local int i = x;
-  return x;
-}
-
-class ConstexprFunctionClass {
-public:
-  int mf1(int x) { return m1 + x; }                   // NON_COMPLIANT
-  constexpr int mf1_correct(int x) { return m1 + x; } // COMPLIANT
-
-private:
-  int m1;
-};
 
 class MissingConstexprClass {
 public:
@@ -127,83 +73,7 @@ public:
   MissingConstexprClass(int i) = delete;           // NON_COMPLIANT
   MissingConstexprClass(int i, LiteralClass lc) {} // NON_COMPLIANT
 private:
-  int m1 = 0;
-};
-
-class VirtualBaseClass {};
-
-class DerivedClass : public virtual VirtualBaseClass {
-public:
-  DerivedClass() = default;               // COMPLIANT
-  DerivedClass(int i) = delete;           // COMPLIANT
-  DerivedClass(int i, LiteralClass lc) {} // COMPLIANT
-private:
-  int m1 = 0;
-};
-
-class NotAllMembersInitializedClass {
-public:
-  NotAllMembersInitializedClass() = default;               // COMPLIANT
-  NotAllMembersInitializedClass(int i) = delete;           // COMPLIANT
-  NotAllMembersInitializedClass(int i, LiteralClass lc) {} // COMPLIANT
-private:
-  int m1;
-};
-
-class NonLiteralParamsClass {
-public:
-  NonLiteralParamsClass(int i, NonLiteralClass lc) {} // COMPLIANT
-};
-
-// Variant members are always initialized, so this can be marked constexpr
-class VariantMemberInitialized {
-public:
-  VariantMemberInitialized() = default;               // NON_COMPLIANT
-  VariantMemberInitialized(int i) = delete;           // NON_COMPLIANT
-  VariantMemberInitialized(int i, LiteralClass lc) {} // NON_COMPLIANT
-private:
-  union {
-    int i = 0;
-    short s;
-  };
-};
-
-class VariantMemberInitConstexpr {
-public:
-  constexpr VariantMemberInitConstexpr() = default;               // COMPLIANT
-  constexpr VariantMemberInitConstexpr(int i) = delete;           // COMPLIANT
-  constexpr VariantMemberInitConstexpr(int i, LiteralClass lc) {} // COMPLIANT
-private:
-  union {
-    int i = 0;
-    short s;
-  };
-};
-
-// Variant members are not initialized at declaration, so we can only mark the
-// constructors as constexpr if we explicitly initialize the variant member
-class VariantMemberNotInit {
-public:
-  VariantMemberNotInit() = default;                         // COMPLIANT
-  VariantMemberNotInit(int pi) = delete;                    // COMPLIANT
-  VariantMemberNotInit(int pi, LiteralClass lc) {}          // COMPLIANT
-  VariantMemberNotInit(LiteralClass lc, int pi) : i(pi) {}  // NON_COMPLIANT
-  constexpr VariantMemberNotInit(LiteralClass lc, short pi) // COMPLIANT
-      : i(pi) {}
-
-private:
-  union {
-    int i;
-    short s;
-  };
-};
-
-class ExcludedCases {
-public:
-  ~ExcludedCases() {} // COMPLIANT
-
-  void operator=(ExcludedCases &) {}  // COMPLIANT
-  void operator=(ExcludedCases &&) {} // COMPLIANT
+  int m1 = 0; // NON_COMPLIANT
 };
 
 extern int random();

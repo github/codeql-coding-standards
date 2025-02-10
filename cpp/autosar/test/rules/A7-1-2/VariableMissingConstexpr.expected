@@ -7,17 +7,18 @@
 | test.cpp:41:14:41:15 | l2 | Variable 'l2' could be marked 'constexpr'. |
 | test.cpp:44:16:44:17 | lc | Variable 'lc' could be marked 'constexpr'. |
 | test.cpp:45:17:45:19 | lc2 | Variable 'lc2' could be marked 'constexpr'. |
-| test.cpp:55:7:55:8 | m2 | Variable 'm2' could be marked 'constexpr'. |
-| test.cpp:130:7:130:8 | m1 | Variable 'm1' could be marked 'constexpr'. |
-| test.cpp:141:7:141:8 | m1 | Variable 'm1' could be marked 'constexpr'. |
-| test.cpp:221:7:221:8 | l1 | Variable 'l1' could be marked 'constexpr'. |
-| test.cpp:235:7:235:8 | l6 | Variable 'l6' could be marked 'constexpr'. |
-| test.cpp:237:7:237:8 | l8 | Variable 'l8' could be marked 'constexpr'. |
-| test.cpp:240:7:240:9 | l10 | Variable 'l10' could be marked 'constexpr'. |
-| test.cpp:243:7:243:9 | l12 | Variable 'l12' could be marked 'constexpr'. |
-| test.cpp:248:7:248:9 | l15 | Variable 'l15' could be marked 'constexpr'. |
-| test.cpp:250:7:250:9 | l16 | Variable 'l16' could be marked 'constexpr'. |
-| test.cpp:251:7:251:9 | l17 | Variable 'l17' could be marked 'constexpr'. |
-| test.cpp:257:7:257:9 | l21 | Variable 'l21' could be marked 'constexpr'. |
-| test.cpp:262:7:262:9 | l24 | Variable 'l24' could be marked 'constexpr'. |
-| test.cpp:263:7:263:9 | l25 | Variable 'l25' could be marked 'constexpr'. |
+| test.cpp:55:7:55:8 | m2 | Variable 'm2' could be marked 'constexpr' and static. |
+| test.cpp:65:7:65:8 | x2 | Variable 'x2' could be marked 'constexpr'. |
+| test.cpp:66:13:66:14 | x3 | Variable 'x3' could be marked 'constexpr'. |
+| test.cpp:76:7:76:8 | m1 | Variable 'm1' could be marked 'constexpr' and static. |
+| test.cpp:91:7:91:8 | l1 | Variable 'l1' could be marked 'constexpr'. |
+| test.cpp:105:7:105:8 | l6 | Variable 'l6' could be marked 'constexpr'. |
+| test.cpp:107:7:107:8 | l8 | Variable 'l8' could be marked 'constexpr'. |
+| test.cpp:110:7:110:9 | l10 | Variable 'l10' could be marked 'constexpr'. |
+| test.cpp:113:7:113:9 | l12 | Variable 'l12' could be marked 'constexpr'. |
+| test.cpp:118:7:118:9 | l15 | Variable 'l15' could be marked 'constexpr'. |
+| test.cpp:120:7:120:9 | l16 | Variable 'l16' could be marked 'constexpr'. |
+| test.cpp:121:7:121:9 | l17 | Variable 'l17' could be marked 'constexpr'. |
+| test.cpp:127:7:127:9 | l21 | Variable 'l21' could be marked 'constexpr'. |
+| test.cpp:132:7:132:9 | l24 | Variable 'l24' could be marked 'constexpr'. |
+| test.cpp:133:7:133:9 | l25 | Variable 'l25' could be marked 'constexpr'. |

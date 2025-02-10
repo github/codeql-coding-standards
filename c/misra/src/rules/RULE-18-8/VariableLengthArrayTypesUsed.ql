@@ -16,33 +16,53 @@ import cpp
 import codingstandards.c.misra
 
 /**
- * A variable length array (VLA)
- * ie an array where the size
- * is not an integer constant expression
+ * Typedefs may be declared as VLAs, eg, `typedef int vla[x];`. This query finds types that refer to
+ * such typedef types, for instance `vla foo;` or adding a dimension via `vla bar[10];`.
+ *
+ * Consts and other specifiers may be added, but `vla *ptr;` is not a VLA any more, and is excluded.
  */
-class VariableLengthArray extends VariableDeclarationEntry {
-  VariableLengthArray() {
-    //VLAs will not have: static/extern specifiers (compilation error)
-    not this.hasSpecifier("static") and
-    not this.hasSpecifier("extern") and
-    //VLAs are not allowed to be initialized
-    not this.getDeclaration().hasInitializer() and
-    exists(ArrayType a |
-      //a.hasArraySize() does not catch multidimensional VLAs like a[1][]
-      a.toString().matches("%[]%") and
-      this.getUnspecifiedType() = a and
-      //variable length array is one declared in block or function prototype
-      (
-        this.getDeclaration().getParentScope() instanceof Function or
-        this.getDeclaration().getParentScope() instanceof BlockStmt
-      )
+class VlaTypedefType extends Type {
+  VlaDeclStmt vlaDecl;
+  ArrayType arrayType;
+
+  VlaTypedefType() {
+    // Holds for direct references to the typedef type:
+    this = vlaDecl.getType() and
+    vlaDecl.getType() instanceof TypedefType and
+    arrayType = vlaDecl.getType().stripTopLevelSpecifiers()
+    or
+    // Handle arrays of VLA typedefs, and carefully handle specified VLA typedef types, as
+    // `stripTopLevelSpecifiers` resolves past the VLA typedef type.
+    exists(DerivedType dt, VlaTypedefType vlaType |
+      (dt instanceof ArrayType or dt instanceof SpecifiedType) and
+      this = dt and
+      vlaType = dt.getBaseType() and
+      vlaDecl = vlaType.getVlaDeclStmt() and
+      arrayType = vlaType.getArrayType()
     )
   }
+
+  VlaDeclStmt getVlaDeclStmt() { result = vlaDecl }
+
+  ArrayType getArrayType() { result = arrayType }
 }
 
-from VariableLengthArray v
+from Variable v, Expr size, ArrayType arrayType, VlaDeclStmt vlaDecl, string typeStr
 where
   not isExcluded(v, Declarations7Package::variableLengthArrayTypesUsedQuery()) and
-  //an exception, argv in : int main(int argc, char *argv[])
-  not v.getDeclaration().getParentScope().(Function).hasName("main")
-select v, "Variable length array declared."
+  size = vlaDecl.getVlaDimensionStmt(0).getDimensionExpr() and
+  (
+    // Holds is if v is a variable declaration:
+    v = vlaDecl.getVariable() and
+    arrayType = v.getType().stripTopLevelSpecifiers()
+    or
+    // Holds is if v is a typedef declaration:
+    exists(VlaTypedefType typedef |
+      v.getType() = typedef and
+      arrayType = typedef.getArrayType() and
+      vlaDecl = typedef.getVlaDeclStmt()
+    )
+  ) and
+  typeStr = arrayType.getBaseType().toString()
+select v, "Variable length array of element type '" + typeStr + "' with non-constant size $@.",
+  size, size.toString()
