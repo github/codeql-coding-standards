@@ -1,14 +1,24 @@
 /**
- * A module for identifying comment markers in code that trigger deviations.
+ * A module for identifying in code markers in code that trigger deviations.
  *
- * Each comment marker consists of a `code-identifier` with some optional annotations. A deviation will be applied to
+ * This module supports two different code identifier markers:
+ *  - A C/C++ attribute based syntax
+ *  - A comment-based format
+ *
+ * The C/C++ attribute based syntax uses the following format:
+ * ```
+ * [[codeql::<standard>_deviation("code-identifier")]]
+ * ```
+ * The deviation will be applied to the selected program element, and any syntactically nested children of that program element.
+ *
+ * For the comment format the marker consists of a `code-identifier` with some optional annotations. A deviation will be applied to
  * some range of lines in the file containing the comment based on the annotation. The supported marker annotation
  * formats are:
  *  - `<code-identifier>` - the deviation applies to results on the current line.
- *  - `[[codingstandards::deviation(<code-identifier>)]]` - same as above.
- *  - `[[codingstandards::deviation_next_line(<code-identifier>)]]` - this deviation applies to results on the next line.
- *  - `[[codingstandards::deviation_begin(<code-identifier>)]]` - marks the beginning of a range of lines where the deviation applies.
- *  - `[[codingstandards::deviation_end(<code-identifier>)]]` - marks the end of a range of lines where the deviation applies.
+ *  - `codeql::<standard>_deviation(<code-identifier>)` - same as above.
+ *  - `codeql::<standard>_deviation_next_line(<code-identifier>)` - this deviation applies to results on the next line.
+ *  - `codeql::<standard>_deviation_begin(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
+ *  - `codeql::<standard>_deviation_end(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
  *
  * The valid `code-identifier`s are specified in deviation records, which also specify the query whose results are
  * suppressed by the deviation.
@@ -22,6 +32,8 @@
 
 import cpp
 import Deviations
+
+string supportedStandard() { result = ["misra", "autosar", "cert"] }
 
 /**
  * Holds if the given comment contains the code identifier.
@@ -67,7 +79,8 @@ abstract class CommentDeviationMarker extends Comment {
  */
 class DeviationEndOfLineMarker extends CommentDeviationMarker {
   DeviationEndOfLineMarker() {
-    commentMatches(this, "[[codingstandards::deviation(" + record.getCodeIdentifier() + ")]]")
+    commentMatches(this,
+      "codeql::" + supportedStandard() + "_deviation(" + record.getCodeIdentifier() + ")")
   }
 }
 
@@ -77,7 +90,7 @@ class DeviationEndOfLineMarker extends CommentDeviationMarker {
 class DeviationNextLineMarker extends CommentDeviationMarker {
   DeviationNextLineMarker() {
     commentMatches(this,
-      "[[codingstandards::deviation_next_line(" + record.getCodeIdentifier() + ")]]")
+      "codeql::" + supportedStandard() + "_deviation_next_line(" + record.getCodeIdentifier() + ")")
   }
 }
 
@@ -91,7 +104,8 @@ abstract class CommentDeviationRangeMarker extends CommentDeviationMarker { }
  */
 class DeviationBegin extends CommentDeviationRangeMarker {
   DeviationBegin() {
-    commentMatches(this, "[[codingstandards::deviation_begin(" + record.getCodeIdentifier() + ")]]")
+    commentMatches(this,
+      "codeql::" + supportedStandard() + "_deviation_begin(" + record.getCodeIdentifier() + ")")
   }
 }
 
@@ -100,7 +114,8 @@ class DeviationBegin extends CommentDeviationRangeMarker {
  */
 class DeviationEnd extends CommentDeviationRangeMarker {
   DeviationEnd() {
-    commentMatches(this, "[[codingstandards::deviation_end(" + record.getCodeIdentifier() + ")]]")
+    commentMatches(this,
+      "codeql::" + supportedStandard() + "_deviation_end(" + record.getCodeIdentifier() + ")")
   }
 }
 
@@ -184,7 +199,7 @@ class DeviationAttribute extends StdAttribute {
   DeviationRecord record;
 
   DeviationAttribute() {
-    this.hasQualifiedName("codingstandards", "deviation") and
+    this.hasQualifiedName("codeql", supportedStandard() + "_deviation") and
     // Support multiple argument deviations
     "\"" + record.getCodeIdentifier() + "\"" = this.getAnArgument().getValueText()
   }

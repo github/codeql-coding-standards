@@ -426,10 +426,13 @@ The `process_coding_standards_config.py` has a dependency on the package `pyyaml
 A code identifier specified in a deviation record can be applied to certain results in the code by adding a C or C++ attribute of the following format:
 
 ```
-[[codingstandards::deviation("code-identifier")]]
+[[codeql::<standard>_deviation("code-identifier")]]
 ```
 
+For example `[[codeql::misra_deviation("a1-2-4")]]` would apply a deviation of a rule in a MISRA standard, using the code identifier `a1-2-4`. The supported standard names are `misra`, `autosar` and `cert`.
+
 This attribute may be added to the following program elements:
+
  * Functions
  * Statements
  * Variables
@@ -440,7 +443,7 @@ Deviation attributes are inherited from parents in the code structure. For examp
 Multiple code identifiers may be passed in a single attribute to apply multiple deviations, for example:
 
 ```
-[[codingstandards::deviation("code-identifier-1", "code-identifier-2")]]
+[[codeql::misra_deviation("code-identifier-1", "code-identifier-2")]]
 ```
 
 Note - considation should be taken to ensure the use of custom attributes for deviations is compatible with your chosen language version, compiler, compiler configuration and coding standard.
@@ -461,10 +464,10 @@ If you cannot satisfy these condition, please use the deviation code identifier 
 As an alternative to attributes, a code identifier specified in a deviation record can be applied to certain results in the code by adding a comment marker consisting of a `code-identifier` with some optional annotations. The supported marker annotation formats are:
 
  - `<code-identifier>` - the deviation applies to results on the current line.
- - `codingstandards::deviation(<code-identifier>)` - the deviation applies to results on the current line.
- - `codingstandards::deviation_next_line(<code-identifier>)` - this deviation applies to results on the next line.
- - `codingstandards::deviation_begin(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
- - `codingstandards::deviation_end(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
+ - `codeql::<standard>_deviation(<code-identifier>)` - the deviation applies to results on the current line.
+ - `codeql::<standard>_deviation_next_line(<code-identifier>)` - this deviation applies to results on the next line.
+ - `codeql::<standard>_deviation_begin(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
+ - `codeql::<standard>_deviation_end(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
 
 Here are some examples, using the deviation record with the `a-0-4-2-deviation` code-identifier specified above:
 ```cpp
@@ -473,32 +476,32 @@ Here are some examples, using the deviation record with the `a-0-4-2-deviation` 
   long double x2; // a-0-4-2-deviation - COMPLIANT
   long double x3; // COMPLIANT - a-0-4-2-deviation
 
-  long double x4; // [[codingstandards::deviation(a-0-4-2-deviation)]] - COMPLIANT
-  long double x5; // COMPLIANT - [[codingstandards::deviation(a-0-4-2-deviation)]]
+  long double x4; // codeql::<standard>_deviation(a-0-4-2-deviation) - COMPLIANT
+  long double x5; // COMPLIANT - codeql::<standard>_deviation(a-0-4-2-deviation)
 
-  // [[codingstandards::deviation_next_line(a-0-4-2-deviation)]]
+  // codeql::<standard>_deviation_next_line(a-0-4-2-deviation)
   long double x6; // COMPLIANT
 
-  // [[codingstandards::deviation_begin(a-0-4-2-deviation)]]
+  // codeql::<standard>_deviation_begin(a-0-4-2-deviation)
   long double x7; // COMPLIANT
-  // [[codingstandards::deviation_end(a-0-4-2-deviation)]]
+  // codeql::<standard>_deviation_end(a-0-4-2-deviation)
 ```
 
-`codingstandards::deviation_end` markers will pair with the closest unmatched `codingstandards::deviation_begin` for the same `code-identifier`. Consider this example:
+`codeql::<standard>_deviation_end` markers will pair with the closest unmatched `codeql::<standard>_deviation_begin` for the same `code-identifier`. Consider this example:
 ```cpp
-1 | // [[codingstandards::deviation_begin(a-0-4-2-deviation)]]
+1 | // codeql::<standard>_deviation_begin(a-0-4-2-deviation)
 2 |
-3 | // [[codingstandards::deviation_begin(a-0-4-2-deviation)]]
+3 | // codeql::<standard>_deviation_begin(a-0-4-2-deviation)
 4 |
-5 | // [[codingstandards::deviation_end(a-0-4-2-deviation)]]
+5 | // codeql::<standard>_deviation_end(a-0-4-2-deviation)
 6 |
-7 | // [[codingstandards::deviation_end(a-0-4-2-deviation)]]
+7 | // codeql::<standard>_deviation_end(a-0-4-2-deviation)
 ```
 Here, Line 1 will pair with Line 7, and Line 3 will pair with Line 8.
 
-A `codingstandards::deviation_end` without a matching `codingstandards::deviation_begin`, or `codingstandards::deviation_begin` without a matching `codingstandards::deviation_end` is invalid and will be ignored.
+A `codeql::<standard>_deviation_end` without a matching `codeql::<standard>_deviation_begin`, or `codeql::<standard>_deviation_begin` without a matching `codeql::<standard>_deviation_end` is invalid and will be ignored.
 
-`codingstandards::deviation_begin` and `codingstandards::deviation_end` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
+`codeql::<standard>_deviation_begin` and `ccodeql::<standard>_deviation_end` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
 
 Note: deviation markers cannot be applied to the body of a macro. Please apply the deviation to macro expansion, or use the attribute deviation format.
 
