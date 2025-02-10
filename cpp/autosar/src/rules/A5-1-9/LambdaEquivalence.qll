@@ -624,11 +624,21 @@ private module HashCons {
     strictcount(access.getTarget()) = 1
   }
 
+  /**
+   * Gets the name of a variable.
+   *
+   * Extracted for performance reasons, to avoid magic, which was causing performance issues in getParameter(int i).
+   */
+  pragma[nomagic]
+  private string getVariableName(Variable v) { result = v.getName() }
+
   /* Note: This changed from the original HashCons module to be able to find structural equivalent expression. */
   private predicate mk_Variable(Type t, string name, VariableAccess access) {
     analyzableVariable(access) and
     exists(Variable v |
-      v = access.getTarget() and t = v.getUnspecifiedType() and name = v.getName()
+      v = access.getTarget() and
+      t = v.getUnspecifiedType() and
+      name = getVariableName(v)
     )
   }
 
@@ -1104,7 +1114,14 @@ private module HashCons {
     nee.getExpr().getFullyConverted() = child.getAnExpr()
   }
 
-  private predicate mk_StmtCons(HashConsStmt hc, int i, HC_Stmts list, BlockStmt block) {
+  private class LambdaBlockStmt extends BlockStmt {
+    LambdaBlockStmt() {
+      // Restricting to statements inside a lambda expressions.
+      this.getParentScope*() = any(LambdaExpression le).getLambdaFunction()
+    }
+  }
+
+  private predicate mk_StmtCons(HashConsStmt hc, int i, HC_Stmts list, LambdaBlockStmt block) {
     hc = hashConsStmt(block.getStmt(i)) and
     (
       exists(HashConsStmt head, HC_Stmts tail |
@@ -1118,13 +1135,13 @@ private module HashCons {
   }
 
   private predicate mk_StmtConsInner(
-    HashConsStmt head, HC_Stmts tail, int i, HC_Stmts list, BlockStmt block
+    HashConsStmt head, HC_Stmts tail, int i, HC_Stmts list, LambdaBlockStmt block
   ) {
     list = HC_StmtCons(head, i, tail) and
     mk_StmtCons(head, i, tail, block)
   }
 
-  private predicate mk_BlockStmtCons(HC_Stmts hc, BlockStmt s) {
+  private predicate mk_BlockStmtCons(HC_Stmts hc, LambdaBlockStmt s) {
     if s.getNumStmt() > 0
     then
       exists(HashConsStmt head, HC_Stmts tail |
@@ -1487,8 +1504,6 @@ private module HashCons {
 
   cached
   HashConsStmt hashConsStmt(Stmt s) {
-    // Restricting to statements inside a lambda expressions.
-    s.getParentScope*() = any(LambdaExpression le).getLambdaFunction() and
     exists(HC_Stmts list |
       mk_BlockStmtCons(list, s) and
       result = HC_BlockStmt(list)
