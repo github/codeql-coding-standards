@@ -75,6 +75,16 @@ abstract class CommentDeviationMarker extends Comment {
 }
 
 /**
+ * A deviation marker in a comment that is not a valid deviation marker.
+ */
+class InvalidCommentDeviationMarker extends Comment {
+  InvalidCommentDeviationMarker() {
+    not this instanceof CommentDeviationMarker and
+    commentMatches(this, "codeql::" + supportedStandard() + "_deviation")
+  }
+}
+
+/**
  * A deviation marker for a deviation that applies to the current line.
  */
 class DeviationEndOfLineMarker extends CommentDeviationMarker {
@@ -182,9 +192,7 @@ private class BeginStack extends TBeginStack {
   }
 }
 
-private predicate isDeviationRangePaired(
-  DeviationRecord record, DeviationBegin begin, DeviationEnd end
-) {
+predicate isDeviationRangePaired(DeviationRecord record, DeviationBegin begin, DeviationEnd end) {
   exists(File file, int index |
     record = end.getRecord() and
     hasDeviationCommentFileOrdering(record, end, file, index) and
@@ -224,6 +232,21 @@ class DeviationAttribute extends StdAttribute {
     or
     result.(LocalVariable) = this.getASuppressedElement().(DeclStmt).getADeclaration()
   }
+}
+
+/**
+ * A deviation attribute that is not associated with any deviation record.
+ */
+class InvalidDeviationAttribute extends StdAttribute {
+  string unknownCodeIdentifier;
+
+  InvalidDeviationAttribute() {
+    this.hasQualifiedName("codeql", supportedStandard() + "_deviation") and
+    "\"" + unknownCodeIdentifier + "\"" = this.getAnArgument().getValueText() and
+    not exists(DeviationRecord record | record.getCodeIdentifier() = unknownCodeIdentifier)
+  }
+
+  string getAnUnknownCodeIdentifier() { result = unknownCodeIdentifier }
 }
 
 newtype TCodeIndentifierDeviation =
