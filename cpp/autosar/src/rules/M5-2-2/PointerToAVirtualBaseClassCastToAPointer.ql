@@ -15,7 +15,6 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.dataflow.DataFlow
 
 from Cast cast, VirtualBaseClass castFrom, Class castTo
 where

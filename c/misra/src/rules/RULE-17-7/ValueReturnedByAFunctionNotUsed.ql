@@ -14,7 +14,6 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.dataflow.DataFlow
 
 from Call c
 where

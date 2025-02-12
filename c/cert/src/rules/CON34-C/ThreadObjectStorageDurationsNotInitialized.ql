@@ -16,8 +16,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Concurrency
-import codingstandards.cpp.dataflow.TaintTracking
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 from TSSGetFunctionCall tsg, ThreadedFunction tf
 where

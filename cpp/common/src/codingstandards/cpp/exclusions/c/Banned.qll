@@ -77,7 +77,7 @@ predicate isBannedQueryMetadata(Query query, string queryId, string ruleId, stri
     // `@id` for the `standardHeaderFileTgmathhUsed` query
     "c/misra/standard-header-file-tgmathh-used" and
   ruleId = "RULE-21-11" and
-  category = "required"
+  category = "advisory"
   or
   query =
     // `Query` instance for the `exceptionHandlingFeaturesOfFenvhUsed` query

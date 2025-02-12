@@ -148,9 +148,9 @@ module MisraExpr {
   private predicate isCValue(Expr e) {
     not e.isConstant() and
     (
-      exists(ReturnStmt return | e = return.getExpr())
+      exists(ReturnStmt return | e = return.getExpr().getExplicitlyConverted())
       or
-      exists(Call call | e = call.getAnArgument())
+      exists(FunctionCall call | e = call.getAnArgument().getExplicitlyConverted())
     )
     or
     isCValue(e.(ParenthesisExpr).getExpr())

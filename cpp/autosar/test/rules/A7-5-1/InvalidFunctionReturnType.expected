@@ -1,2 +1,5 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (InvalidFunctionReturnType.ql:27,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (InvalidFunctionReturnType.ql:27,23-31)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (InvalidFunctionReturnType.ql:27,51-59)
 | test.cpp:5:3:5:11 | return ... | Function test_refconst_return returns a reference or a pointer to $@ that is passed by reference to const. | test.cpp:4:44:4:44 | x | parameter |
 | test.cpp:8:3:8:14 | return ... | Function test_ptrconst_return returns a reference or a pointer to $@ that is passed by reference to const. | test.cpp:7:44:7:44 | x | parameter |
