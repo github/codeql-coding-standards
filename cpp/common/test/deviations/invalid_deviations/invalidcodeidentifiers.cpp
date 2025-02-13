@@ -18,5 +18,4 @@
 [[codeql::misra_deviation("x")]] // invalid
 void test() {}
 
-[[codeql::autosar_deviation("a-0-4-2-deviation")]]
-void test2() {}
+[[codeql::autosar_deviation("a-0-4-2-deviation")]] void test2() {}
