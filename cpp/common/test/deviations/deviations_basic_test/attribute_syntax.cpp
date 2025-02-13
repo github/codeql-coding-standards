@@ -36,10 +36,41 @@ int alt() {
 }
 
 [[codeql::autosar_deviation("a-0-4-2-deviation")]]
-int alt2() {
+int test_function_deviation() {
   int x = 0;       // COMPLIANT[DEVIATED]
   getZ();          // NON_COMPLIANT
   long double dd1; // COMPLIANT[DEVIATED]
-  [[codeql::autosar_deviation(
-      "a-0-4-2-deviation")]] long double dd2; // COMPLIANT[DEVIATED]
 }
+
+[[codeql::autosar_deviation("a-0-4-2-deviation")]]
+void test_lambdas() {
+  auto l = []() {
+    long double d4; // COMPLIANT[DEVIATED]
+    getZ();         // NON_COMPLIANT
+  };
+}
+
+// Attributes are not supported on a class level at the moment
+[[codeql::autosar_deviation("a-0-4-2-deviation")]] class ClassA {
+  long double d1; // COMPLIANT[DEVIATED - false positive]
+  class ClassNested {
+    long double d2; // COMPLIANT[DEVIATED - false positive]
+  };
+  void test() {
+    long double d3; // COMPLIANT[DEVIATED - false positive]
+    getZ();         // NON_COMPLIANT
+  }
+};
+
+// static_assert, templates, noexcept, multiple declarations
+
+// Namespaces not currently supported by attributes
+// [[codeql::autosar_deviation("a-0-4-2-deviation")]] namespace NS {
+// long double d1; // COMPLIANT[DEVIATED]
+// class ClassA {
+//   long double d1; // COMPLIANT[DEVIATED]
+// };
+// void test() {
+//   long double d1; // COMPLIANT[DEVIATED]
+// }
+// }

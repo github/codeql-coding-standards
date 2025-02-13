@@ -231,6 +231,21 @@ class DeviationAttribute extends StdAttribute {
     result.(Stmt).getEnclosingFunction() = this.getASuppressedElement()
     or
     result.(LocalVariable) = this.getASuppressedElement().(DeclStmt).getADeclaration()
+    or
+    result.(Function).getDeclaringType() = this.getASuppressedElement()
+    or
+    result.(Variable).getDeclaringType() = this.getASuppressedElement()
+    or
+    exists(LambdaExpression expr |
+      expr = this.getASuppressedElement() and
+      result = expr.getLambdaFunction()
+    )
+    or
+    exists(Function f |
+      f = this.getASuppressedElement() and
+      // A suppression on the function should apply to the noexcept expression
+      result = f.getADeclarationEntry().getNoExceptExpr()
+    )
   }
 }
 

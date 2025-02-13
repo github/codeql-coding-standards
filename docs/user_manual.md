@@ -446,9 +446,8 @@ This attribute may be added to the following program elements:
  * Functions
  * Statements
  * Variables
- * Type declarations
 
-Deviation attributes are inherited from parents in the code structure. For example, a deviation attribute applied to a function will apply the deviation to all code within the function. Note: deviations are not inherited by lambda expressions.
+Deviation attributes are inherited from parents in the code structure. For example, a deviation attribute applied to a function will apply the deviation to all code within the function.
 
 Multiple code identifiers may be passed in a single attribute to apply multiple deviations, for example:
 
@@ -507,7 +506,7 @@ Here are some examples, using the deviation record with the `a-0-4-2-deviation` 
 6 |
 7 | // codeql::<standard>_deviation_end(a-0-4-2-deviation)
 ```
-Here, Line 1 will pair with Line 7, and Line 3 will pair with Line 8.
+Here, Line 1 will pair with Line 7, and Line 3 will pair with Line 5.
 
 A `codeql::<standard>_deviation_end` without a matching `codeql::<standard>_deviation_begin`, or `codeql::<standard>_deviation_begin` without a matching `codeql::<standard>_deviation_end` is invalid and will be ignored.
 
