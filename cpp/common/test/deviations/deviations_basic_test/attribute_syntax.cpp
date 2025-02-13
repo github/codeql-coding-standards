@@ -28,22 +28,22 @@ int alt() {
   }
   long double d14; // NON_COMPLIANT (A0-4-2)
   getZ();          // NON_COMPLIANT (A0-1-2)
-  [[codeql::autosar_deviation("a-0-4-2-deviation")]]
-  for (long double d15 = 0.0; true;) {} // COMPLIANT[DEVIATED]
-  for (long double d16 = 0.0; true;) {  // NON_COMPLIANT (A0-4-2)
+  [[codeql::autosar_deviation("a-0-4-2-deviation")]] for (long double d15 = 0.0;
+                                                          true;) {
+  }                                    // COMPLIANT[DEVIATED]
+  for (long double d16 = 0.0; true;) { // NON_COMPLIANT (A0-4-2)
   }
   return 0;
 }
 
-[[codeql::autosar_deviation("a-0-4-2-deviation")]]
-int test_function_deviation() {
+[[codeql::autosar_deviation("a-0-4-2-deviation")]] int
+test_function_deviation() {
   int x = 0;       // COMPLIANT[DEVIATED]
   getZ();          // NON_COMPLIANT
   long double dd1; // COMPLIANT[DEVIATED]
 }
 
-[[codeql::autosar_deviation("a-0-4-2-deviation")]]
-void test_lambdas() {
+[[codeql::autosar_deviation("a-0-4-2-deviation")]] void test_lambdas() {
   auto l = []() {
     long double d4; // COMPLIANT[DEVIATED]
     getZ();         // NON_COMPLIANT
