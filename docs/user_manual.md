@@ -439,7 +439,7 @@ A code identifier specified in a deviation record can be applied to certain resu
 [[codeql::<standard>_deviation("code-identifier")]]
 ```
 
-For example `[[codeql::misra_deviation("a1-2-4")]]` would apply a deviation of a rule in a MISRA standard, using the code identifier `a1-2-4`. The supported standard names are `misra`, `autosar` and `cert`.
+For example `[[codeql::autosar_deviation("a1-2-4")]]` would apply a deviation of a rule in the AUTOSAR standard, using the code identifier `a1-2-4`. The supported standard names are `misra`, `autosar` and `cert`.
 
 This attribute may be added to the following program elements:
 
