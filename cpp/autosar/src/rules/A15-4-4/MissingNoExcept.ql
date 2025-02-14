@@ -51,7 +51,7 @@ predicate mayCallThrowingFunctions(Function f) {
 
 from Function f
 where
-  not isExcluded(f, Exceptions1Package::missingNoExceptQuery()) and
+  not isExcluded(f.getADeclarationEntry(), Exceptions1Package::missingNoExceptQuery()) and
   // No thrown exceptions
   not exists(getAFunctionThrownType(f, _)) and
   // But not marked noexcept(true)
