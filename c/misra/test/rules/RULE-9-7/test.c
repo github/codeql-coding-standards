@@ -11,6 +11,8 @@ void f_starts_thread() {
   thrd_create(&t, f_thread, 0);
 }
 
+void f_may_initialize_argument(void *p1) {}
+
 void main() {
   _Atomic int l1 = 1; // COMPLIANT
   f_starts_thread();
@@ -29,6 +31,16 @@ void main() {
   _Atomic int l5; // NON-COMPLIANT
   if (g1 == 0) {
     atomic_init(&l5, 0);
+  }
+  f_starts_thread();
+
+  _Atomic int l6; // COMPLIANT
+  f_may_initialize_argument(&l6);
+  f_starts_thread();
+
+  _Atomic int l7; // NON_COMPLIANT
+  if (g1 == 0) {
+    f_may_initialize_argument(&l7);
   }
   f_starts_thread();
 }

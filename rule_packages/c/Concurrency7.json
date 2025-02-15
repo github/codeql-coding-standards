@@ -15,7 +15,11 @@
           "tags": [
             "concurrency",
             "external/misra/c/2012/amendment4"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query tracks which functions may start threads, either indirectly or directly (\"thread spawning functions\"), and checks for local atomic variables that are not passed by address into `atomic_init` or other function calls, before such a thread spawning function is called.",
+            "items": []
+          }
         }
       ],
       "title": "Atomic objects shall be appropriately initialized before being accessed"

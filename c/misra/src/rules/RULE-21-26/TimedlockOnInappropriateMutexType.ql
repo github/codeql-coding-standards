@@ -71,4 +71,6 @@ where
   not isExcluded(sink.getNode().asExpr(),
     Concurrency7Package::timedlockOnInappropriateMutexTypeQuery()) and
   Flow::flowPath(source, sink)
-select sink.getNode(), source, sink, "Call to mtx_timedlock with mutex not of type 'mtx_timed'."
+select sink.getNode(), source, sink,
+  "Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'.",
+  source.getNode(), "initialized"

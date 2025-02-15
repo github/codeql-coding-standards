@@ -14,6 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.StdFunctionOrMacro
 import semmle.code.cpp.controlflow.Dominance
 
 class ThreadSpawningFunction extends Function {
@@ -29,18 +30,14 @@ class ThreadSpawningFunction extends Function {
   }
 }
 
-class AtomicInitAddressOfExpr extends FunctionCall {
-  Expr addressedExpr;
+private string atomicInit() { result = "atomic_init" }
 
+class AtomicInitAddressOfExpr extends AddressOfExpr {
   AtomicInitAddressOfExpr() {
-    exists(AddressOfExpr addrOf |
-      getArgument(0) = addrOf and
-      addrOf.getOperand() = addressedExpr and
-      getTarget().getName() = "__c11_atomic_init"
+    exists(StdFunctionOrMacro<C11FunctionWrapperMacro, atomicInit/0>::Call c |
+      this = c.getArgument(0)
     )
   }
-
-  Expr getAddressedExpr() { result = addressedExpr }
 }
 
 ControlFlowNode getARequiredInitializationPoint(LocalScopeVariable v) {
@@ -66,9 +63,15 @@ where
   not exists(v.getInitializer()) and
   exists(ControlFlowNode missingInitPoint |
     missingInitPoint = getARequiredInitializationPoint(v) and
+    // Check for `atomic_init(&v)`
     not exists(AtomicInitAddressOfExpr initialization |
-      initialization.getAddressedExpr().(VariableAccess).getTarget() = v and
+      initialization.getOperand().(VariableAccess).getTarget() = v and
       dominates(initialization, missingInitPoint)
+    ) and
+    // Check for `unknown_func(&v)` which may call `atomic_init` on `v`.
+    not exists(FunctionCall fc |
+      fc.getAnArgument().(AddressOfExpr).getOperand().(VariableAccess).getTarget() = v and
+      dominates(fc, missingInitPoint)
     )
   )
 select decl,
