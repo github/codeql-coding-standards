@@ -72,5 +72,5 @@ where
     Concurrency7Package::timedlockOnInappropriateMutexTypeQuery()) and
   Flow::flowPath(source, sink)
 select sink.getNode(), source, sink,
-  "Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'.",
-  source.getNode(), "initialized"
+  "Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'.", source.getNode(),
+  "initialized"
