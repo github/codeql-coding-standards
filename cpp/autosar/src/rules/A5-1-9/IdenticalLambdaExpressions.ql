@@ -24,6 +24,14 @@ where
   not lambdaExpression = otherLambdaExpression and
   not lambdaExpression.isFromTemplateInstantiation(_) and
   not otherLambdaExpression.isFromTemplateInstantiation(_) and
-  getLambdaHashCons(lambdaExpression) = getLambdaHashCons(otherLambdaExpression)
+  getLambdaHashCons(lambdaExpression) = getLambdaHashCons(otherLambdaExpression) and
+  // Do not report lambdas produced by the same macro in different invocations
+  not exists(Macro m, MacroInvocation m1, MacroInvocation m2 |
+    m1 = m.getAnInvocation() and
+    m2 = m.getAnInvocation() and
+    not m1 = m2 and // Lambdas in the same macro can be reported
+    m1.getAnExpandedElement() = lambdaExpression and
+    m2.getAnExpandedElement() = otherLambdaExpression
+  )
 select lambdaExpression, "Lambda expression is identical to $@ lambda expression.",
   otherLambdaExpression, "this"

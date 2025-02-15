@@ -211,7 +211,7 @@ private module HashCons {
 
   private newtype HC_Params =
     HC_NoParams() or
-    HC_ParamCons(HashConsExpr hc, int i, HC_Params list) { mk_ParamCons(hc, i, list, _) }
+    HC_ParamCons(Type t, string name, int i, HC_Params list) { mk_ParamCons(t, name, i, list, _) }
 
   /**
    * HashConsExpr is the hash-cons of an expression. The relationship between `Expr`
@@ -624,11 +624,21 @@ private module HashCons {
     strictcount(access.getTarget()) = 1
   }
 
+  /**
+   * Gets the name of a variable.
+   *
+   * Extracted for performance reasons, to avoid magic, which was causing performance issues in getParameter(int i).
+   */
+  pragma[nomagic]
+  private string getVariableName(Variable v) { result = v.getName() }
+
   /* Note: This changed from the original HashCons module to be able to find structural equivalent expression. */
   private predicate mk_Variable(Type t, string name, VariableAccess access) {
     analyzableVariable(access) and
     exists(Variable v |
-      v = access.getTarget() and t = v.getUnspecifiedType() and name = v.getName()
+      v = access.getTarget() and
+      t = v.getUnspecifiedType() and
+      name = getVariableName(v)
     )
   }
 
@@ -1104,7 +1114,14 @@ private module HashCons {
     nee.getExpr().getFullyConverted() = child.getAnExpr()
   }
 
-  private predicate mk_StmtCons(HashConsStmt hc, int i, HC_Stmts list, BlockStmt block) {
+  private class LambdaBlockStmt extends BlockStmt {
+    LambdaBlockStmt() {
+      // Restricting to statements inside a lambda expressions.
+      this.getParentScope*() = any(LambdaExpression le).getLambdaFunction()
+    }
+  }
+
+  private predicate mk_StmtCons(HashConsStmt hc, int i, HC_Stmts list, LambdaBlockStmt block) {
     hc = hashConsStmt(block.getStmt(i)) and
     (
       exists(HashConsStmt head, HC_Stmts tail |
@@ -1118,13 +1135,13 @@ private module HashCons {
   }
 
   private predicate mk_StmtConsInner(
-    HashConsStmt head, HC_Stmts tail, int i, HC_Stmts list, BlockStmt block
+    HashConsStmt head, HC_Stmts tail, int i, HC_Stmts list, LambdaBlockStmt block
   ) {
     list = HC_StmtCons(head, i, tail) and
     mk_StmtCons(head, i, tail, block)
   }
 
-  private predicate mk_BlockStmtCons(HC_Stmts hc, BlockStmt s) {
+  private predicate mk_BlockStmtCons(HC_Stmts hc, LambdaBlockStmt s) {
     if s.getNumStmt() > 0
     then
       exists(HashConsStmt head, HC_Stmts tail |
@@ -1275,13 +1292,14 @@ private module HashCons {
     mk_DeclConsInner(_, _, s.getNumDeclarations() - 1, hc, s)
   }
 
-  private predicate mk_ParamCons(HashConsExpr hc, int i, HC_Params list, Function f) {
-    hc = hashConsExpr(f.getParameter(i).getAnAccess()) and
-    (
-      exists(HashConsExpr head, HC_Params tail |
-        mk_ParamConsInner(head, tail, i - 1, list, f) and
-        i > 0
-      )
+  private predicate mk_ParamCons(Type t, string name, int i, HC_Params list, Function f) {
+    exists(Parameter p |
+      p = f.getParameter(i) and
+      t = p.getType() and
+      name = p.getName()
+    |
+      mk_ParamConsInner(_, _, _, i - 1, list, f) and
+      i > 0
       or
       i = 0 and
       list = HC_NoParams()
@@ -1289,10 +1307,10 @@ private module HashCons {
   }
 
   private predicate mk_ParamConsInner(
-    HashConsExpr head, HC_Params tail, int i, HC_Params list, Function f
+    Type t, string name, HC_Params tail, int i, HC_Params list, Function f
   ) {
-    list = HC_ParamCons(head, i, tail) and
-    mk_ParamCons(head, i, tail, f)
+    list = HC_ParamCons(t, name, i, tail) and
+    mk_ParamCons(t, name, i, tail, f)
   }
 
   private predicate mk_FunctionCons(
@@ -1302,7 +1320,7 @@ private module HashCons {
     name = f.getName() and
     body = hashConsStmt(f.getBlock()) and
     if f.getNumberOfParameters() > 0
-    then mk_ParamConsInner(_, _, f.getNumberOfParameters() - 1, params, f)
+    then mk_ParamConsInner(_, _, _, f.getNumberOfParameters() - 1, params, f)
     else params = HC_NoParams()
   }
 
@@ -1486,8 +1504,6 @@ private module HashCons {
 
   cached
   HashConsStmt hashConsStmt(Stmt s) {
-    // Restricting to statements inside a lambda expressions.
-    s.getParentScope*() = any(LambdaExpression le).getLambdaFunction() and
     exists(HC_Stmts list |
       mk_BlockStmtCons(list, s) and
       result = HC_BlockStmt(list)
