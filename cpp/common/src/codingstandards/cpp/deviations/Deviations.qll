@@ -221,7 +221,7 @@ class DeviationRecord extends XmlElement {
   }
 
   /** Gets a code identifier deviation in code which starts or ends with the code identifier comment. */
-  CodeIdentifierDeviation getACodeIdentifierDeviation() { this = result.getDeviationRecord() }
+  CodeIdentifierDeviation getACodeIdentifierDeviation() { this = result.getADeviationRecord() }
 
   /** Gets the `rule-id` specified for this record, if any. */
   private string getRawRuleId() { result = getAChild("rule-id").getTextValue() }

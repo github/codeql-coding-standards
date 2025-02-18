@@ -224,7 +224,7 @@ class DeviationAttribute extends StdAttribute {
     "\"" + record.getCodeIdentifier() + "\"" = this.getAnArgument().getValueText()
   }
 
-  DeviationRecord getDeviationRecord() { result = record }
+  DeviationRecord getADeviationRecord() { result = record }
 
   pragma[nomagic]
   Element getASuppressedElement() {
@@ -296,12 +296,12 @@ newtype TCodeIndentifierDeviation =
     endComment.getLocation().hasLocationInfo(filepath, suppressedEndLine, _, _, _)
   } or
   TCodeIdentifierDeviation(DeviationRecord record, DeviationAttribute attribute) {
-    attribute.getDeviationRecord() = record
+    attribute.getADeviationRecord() = record
   }
 
 class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
   /** The deviation record associated with the deviation comment. */
-  DeviationRecord getDeviationRecord() {
+  DeviationRecord getADeviationRecord() {
     this = TSingleLineDeviation(result, _, _, _)
     or
     this = TMultiLineDeviation(result, _, _, _, _, _)
@@ -341,21 +341,21 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
       exists(int suppressedLine |
         this = TSingleLineDeviation(_, _, filepath, suppressedLine) and
         result =
-          "Deviation record " + getDeviationRecord() + " applied to " + filepath + " Line " +
+          "Deviation record " + getADeviationRecord() + " applied to " + filepath + " Line " +
             suppressedLine
       )
       or
       exists(int suppressedStartLine, int suppressedEndLine |
         this = TMultiLineDeviation(_, _, _, filepath, suppressedStartLine, suppressedEndLine) and
         result =
-          "Deviation record " + getDeviationRecord() + " applied to " + filepath + " Line" +
+          "Deviation record " + getADeviationRecord() + " applied to " + filepath + " Line" +
             suppressedStartLine + ":" + suppressedEndLine
       )
     )
     or
     exists(DeviationAttribute attribute |
       this = TCodeIdentifierDeviation(_, attribute) and
-      result = "Deviation record " + getDeviationRecord() + " applied to " + attribute
+      result = "Deviation record " + getADeviationRecord() + " applied to " + attribute
     )
   }
 }
