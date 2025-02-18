@@ -1,7 +1,7 @@
 | attribute_syntax.cpp:6:15:6:17 | dd1 | Use of long double type. |
 | attribute_syntax.cpp:21:15:21:17 | d10 | Use of long double type. |
 | attribute_syntax.cpp:29:15:29:17 | d14 | Use of long double type. |
-| attribute_syntax.cpp:33:20:33:22 | d16 | Use of long double type. |
+| attribute_syntax.cpp:34:20:34:22 | d16 | Use of long double type. |
 | attribute_syntax.cpp:55:15:55:16 | d1 | Use of long double type. |
 | attribute_syntax.cpp:57:17:57:18 | d2 | Use of long double type. |
 | attribute_syntax.cpp:60:17:60:18 | d3 | Use of long double type. |
