@@ -141,10 +141,14 @@ private predicate hasDeviationCommentFileOrdering(
     )
 }
 
-private predicate mkBeginStack(DeviationRecord record, File file, BeginStack stack, int index) {
+/**
+ * Calculate the stack of deviation begin markers related to the given deviation record, in the given file,
+ * at the given `markerRecordFileIndex` into the list of deviation markers for that record in that file.
+ */
+private BeginStack calculateBeginStack(DeviationRecord record, File file, int markerRecordFileIndex) {
   // Stack is empty at the start
-  index = 0 and
-  stack = TEmptyBeginStack() and
+  markerRecordFileIndex = 0 and
+  result = TEmptyBeginStack() and
   // Only initialize when there is at least one such comment marker for this file and record
   // pairing
   exists(CommentDeviationRangeMarker marker |
@@ -154,23 +158,23 @@ private predicate mkBeginStack(DeviationRecord record, File file, BeginStack sta
   // Next token is begin, so push it to the stack
   exists(DeviationBegin begin, BeginStack prev |
     record = begin.getRecord() and
-    hasDeviationCommentFileOrdering(record, begin, file, index) and
-    mkBeginStack(record, file, prev, index - 1) and
-    stack = TConsBeginStack(begin, prev)
+    hasDeviationCommentFileOrdering(record, begin, file, markerRecordFileIndex) and
+    prev = calculateBeginStack(record, file, markerRecordFileIndex - 1) and
+    result = TConsBeginStack(begin, prev)
   )
   or
   // Next token is end
   exists(DeviationEnd end, BeginStack prevStack |
     record = end.getRecord() and
-    hasDeviationCommentFileOrdering(record, end, file, index) and
-    mkBeginStack(record, file, prevStack, index - 1)
+    hasDeviationCommentFileOrdering(record, end, file, markerRecordFileIndex) and
+    prevStack = calculateBeginStack(record, file, markerRecordFileIndex - 1)
   |
     // There is, so pop the most recent begin off the stack
-    prevStack = TConsBeginStack(_, stack)
+    prevStack = TConsBeginStack(_, result)
     or
-    // Error, no begin on the stack, ignore and continue
+    // Error, no begin on the stack, ignore the end and continue
     prevStack = TEmptyBeginStack() and
-    stack = TEmptyBeginStack()
+    result = TEmptyBeginStack()
   )
 }
 
@@ -178,12 +182,18 @@ newtype TBeginStack =
   TConsBeginStack(DeviationBegin begin, TBeginStack prev) {
     exists(File file, int index |
       hasDeviationCommentFileOrdering(begin.getRecord(), begin, file, index) and
-      mkBeginStack(begin.getRecord(), file, prev, index - 1)
+      prev = calculateBeginStack(begin.getRecord(), file, index - 1)
     )
   } or
   TEmptyBeginStack()
 
+/**
+ * A stack of begin markers that occur in the same file, referring to the same record.
+ */
 private class BeginStack extends TBeginStack {
+  /** Gets the top begin marker on the stack. */
+  DeviationBegin peek() { this = TConsBeginStack(result, _) }
+
   string toString() {
     exists(DeviationBegin begin, BeginStack prev | this = TConsBeginStack(begin, prev) |
       result = "(" + begin + ", " + prev.toString() + ")"
@@ -198,7 +208,7 @@ predicate isDeviationRangePaired(DeviationRecord record, DeviationBegin begin, D
   exists(File file, int index |
     record = end.getRecord() and
     hasDeviationCommentFileOrdering(record, end, file, index) and
-    mkBeginStack(record, file, TConsBeginStack(begin, _), index - 1)
+    begin = calculateBeginStack(record, file, index - 1).peek()
   )
 }
 
