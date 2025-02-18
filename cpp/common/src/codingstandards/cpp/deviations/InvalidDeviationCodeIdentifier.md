@@ -1,4 +1,4 @@
-# Invalid deviation dode identifier
+# Invalid deviation code identifier
 
 ## Overview
 

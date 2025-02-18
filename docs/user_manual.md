@@ -485,26 +485,26 @@ Here are some examples, using the deviation record with the `a-0-4-2-deviation` 
   long double x2; // a-0-4-2-deviation - COMPLIANT
   long double x3; // COMPLIANT - a-0-4-2-deviation
 
-  long double x4; // codeql::<standard>_deviation(a-0-4-2-deviation) - COMPLIANT
-  long double x5; // COMPLIANT - codeql::<standard>_deviation(a-0-4-2-deviation)
+  long double x4; // codeql::autosar_deviation(a-0-4-2-deviation) - COMPLIANT
+  long double x5; // COMPLIANT - codeql::autosar_deviation(a-0-4-2-deviation)
 
-  // codeql::<standard>_deviation_next_line(a-0-4-2-deviation)
+  // codeql::autosar_deviation_next_line(a-0-4-2-deviation)
   long double x6; // COMPLIANT
 
-  // codeql::<standard>_deviation_begin(a-0-4-2-deviation)
+  // codeql::autosar_deviation_begin(a-0-4-2-deviation)
   long double x7; // COMPLIANT
-  // codeql::<standard>_deviation_end(a-0-4-2-deviation)
+  // codeql::autosar_deviation_end(a-0-4-2-deviation)
 ```
 
 `codeql::<standard>_deviation_end` markers will pair with the closest unmatched `codeql::<standard>_deviation_begin` for the same `code-identifier`. Consider this example:
 ```cpp
-1 | // codeql::<standard>_deviation_begin(a-0-4-2-deviation)
+1 | // codeql::autosar_deviation_begin(a-0-4-2-deviation)
 2 |
-3 | // codeql::<standard>_deviation_begin(a-0-4-2-deviation)
+3 | // codeql::autosar_deviation_begin(a-0-4-2-deviation)
 4 |
-5 | // codeql::<standard>_deviation_end(a-0-4-2-deviation)
+5 | // codeql::autosar_deviation_end(a-0-4-2-deviation)
 6 |
-7 | // codeql::<standard>_deviation_end(a-0-4-2-deviation)
+7 | // codeql::autosar_deviation_end(a-0-4-2-deviation)
 ```
 Here, Line 1 will pair with Line 7, and Line 3 will pair with Line 5.
 
