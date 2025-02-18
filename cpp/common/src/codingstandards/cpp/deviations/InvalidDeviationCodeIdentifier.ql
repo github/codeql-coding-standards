@@ -16,6 +16,12 @@ predicate deviationCodeIdentifierError(Element e, string message) {
     message = "Deviation end block is unmatched."
   )
   or
+  exists(DeviationBegin begin |
+    e = begin and
+    not isDeviationRangePaired(_, begin, _) and
+    message = "Deviation start block is unmatched."
+  )
+  or
   exists(InvalidDeviationAttribute b |
     e = b and
     message =

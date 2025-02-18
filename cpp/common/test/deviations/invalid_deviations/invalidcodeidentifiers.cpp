@@ -14,6 +14,9 @@
 // codeql::misra_deviation_end(a-0-4-2-deviation) - invalid, unmatched end
 // codeql::autosar_deviation_end(a-0-4-2-deviation) - invalid, unmatched end
 // codeql::cert_deviation_end(a-0-4-2-deviation) - invalid, unmatched end
+// codeql::misra_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin
+// codeql::autosar_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin
+// codeql::cert_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin
 
 [[codeql::misra_deviation("x")]] // invalid
 void test() {}

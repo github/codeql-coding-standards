@@ -7,4 +7,7 @@
 | invalidcodeidentifiers.cpp:14:1:14:74 | // codeql::misra_deviation_end(a-0-4-2-deviation) - invalid, unmatched end | Deviation end block is unmatched. |
 | invalidcodeidentifiers.cpp:15:1:15:76 | // codeql::autosar_deviation_end(a-0-4-2-deviation) - invalid, unmatched end | Deviation end block is unmatched. |
 | invalidcodeidentifiers.cpp:16:1:16:73 | // codeql::cert_deviation_end(a-0-4-2-deviation) - invalid, unmatched end | Deviation end block is unmatched. |
-| invalidcodeidentifiers.cpp:18:3:18:25 | misra_deviation | Deviation attribute references unknown code identifier x. |
+| invalidcodeidentifiers.cpp:17:1:17:78 | // codeql::misra_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin | Deviation start block is unmatched. |
+| invalidcodeidentifiers.cpp:18:1:18:80 | // codeql::autosar_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin | Deviation start block is unmatched. |
+| invalidcodeidentifiers.cpp:19:1:19:77 | // codeql::cert_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin | Deviation start block is unmatched. |
+| invalidcodeidentifiers.cpp:21:3:21:25 | misra_deviation | Deviation attribute references unknown code identifier x. |
