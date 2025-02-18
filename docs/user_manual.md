@@ -512,7 +512,7 @@ A `codeql::<standard>_deviation_end` without a matching `codeql::<standard>_devi
 
 `codeql::<standard>_deviation_begin` and `ccodeql::<standard>_deviation_end` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
 
-Note: deviation markers cannot be applied to the body of a macro. Please apply the deviation to macro expansion, or use the attribute deviation format.
+Note: deviation comment markers cannot be applied to the body of a macro. Please apply the deviation to macro expansion, or use the attribute deviation format.
 
 ##### Deviation permits
 
