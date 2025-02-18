@@ -145,6 +145,8 @@ private predicate mkBeginStack(DeviationRecord record, File file, BeginStack sta
   // Stack is empty at the start
   index = 0 and
   stack = TEmptyBeginStack() and
+  // Only initialize when there is at least one such comment marker for this file and record
+  // pairing
   exists(CommentDeviationRangeMarker marker |
     marker.getRecord() = record and marker.getLocation().getFile() = file
   )
