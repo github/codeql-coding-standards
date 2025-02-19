@@ -27,7 +27,7 @@
       },
       "queries": [
         {
-          "description": "Thread synchronization objects and thread-specific storage pointers shall not be destroyed until after all threads accessing them have terminated",
+          "description": "Thread synchronization objects and thread-specific storage pointers shall not be destroyed until after all threads accessing them have terminated.",
           "kind": "problem",
           "name": "Thread synchronization objects and thread-specific storage pointers shall not be disposed unsafely",
           "precision": "medium",
@@ -92,7 +92,7 @@
             "correctness",
             "concurrency",
             "external/misra/c/2012/amendment4",
-            "audit"
+            "external/misra/audit"
           ]
         }
       ],

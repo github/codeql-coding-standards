@@ -342,6 +342,7 @@
                             "external/autosar/strict",
                             "scope/single-translation-unit",
                             "scope/system",
+                            "external/misra/audit",
                             "external/misra/c/2012/third-edition-first-revision",
                             "external/misra/c/2012/amendment2",
                             "external/misra/c/2012/amendment3",

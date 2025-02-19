@@ -44,12 +44,10 @@ class SubObject extends TSubObject {
 
   /**
    * Holds for object roots and for member accesses on that root, not for array accesses.
-   * 
+   *
    * This is useful for cases where we do not wish to treat `x[y]` and `x[z]` as the same object.
    */
-  predicate isPrecise() {
-    not getParent*() = TObjectIndex(_)
-  }
+  predicate isPrecise() { not getParent*() = TObjectIndex(_) }
 
   SubObject getParent() {
     exists(SubObject struct, MemberVariable m |
@@ -79,9 +77,7 @@ class SubObject extends TSubObject {
     result.(ArrayExpr).getArrayBase() = getParent().getAnAccess()
   }
 
-  AddressOfExpr getAnAddressOfExpr() {
-    result.getOperand() = this.getAnAccess()
-  }
+  AddressOfExpr getAnAddressOfExpr() { result.getOperand() = this.getAnAccess() }
 
   ObjectIdentity getRootIdentity() {
     exists(ObjectIdentity i |

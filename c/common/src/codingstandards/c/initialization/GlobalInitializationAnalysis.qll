@@ -4,7 +4,7 @@ import codingstandards.cpp.Concurrency
 import codingstandards.cpp.Type
 
 signature module GlobalInitializationAnalysisConfigSig {
-    /** A function which is not called or started as a thread */
+  /** A function which is not called or started as a thread */
   default predicate isRootFunction(Function f) {
     not exists(Function f2 | f2.calls(f)) and
     not f instanceof ThreadedFunction
