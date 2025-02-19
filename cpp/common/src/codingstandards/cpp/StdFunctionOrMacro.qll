@@ -31,30 +31,28 @@
 
 import cpp as cpp
 
+private string atomicInit() { result = "atomic_init" }
+
+class AtomicInitCall = StdFunctionOrMacro<C11FunctionWrapperMacro, atomicInit/0>::Call;
+
 /** Specify the name of your function as a predicate */
-signature string getName();
+private signature string getName();
 
 /** Signature module to implement custom argument resolution behavior in expanded macros */
-signature module InferMacroExpansionArguments {
+private signature module InferMacroExpansionArguments {
   bindingset[mi, argumentIdx]
   cpp::Expr inferArgument(cpp::MacroInvocation mi, int argumentIdx);
 }
 
-/** Assume all subexpressions of an expanded macro may be the result of any ith argument */
-module NoMacroExpansionInference implements InferMacroExpansionArguments {
-  bindingset[mi, argumentIdx]
-  cpp::Expr inferArgument(cpp::MacroInvocation mi, int argumentIdx) {
-    result.getParent*() = mi.getExpr()
-  }
-}
-
 /** Assume macro `f(x, y, ...)` expands to `__c11_f(x, y, ...)`. */
-module C11FunctionWrapperMacro implements InferMacroExpansionArguments {
+private module C11FunctionWrapperMacro implements InferMacroExpansionArguments {
   bindingset[mi, argumentIdx]
   cpp::Expr inferArgument(cpp::MacroInvocation mi, int argumentIdx) {
-    if mi.getExpr().(cpp::FunctionCall).getTarget().hasName("__c11_" + mi.getMacroName())
-    then result = mi.getExpr().(cpp::FunctionCall).getArgument(argumentIdx)
-    else result = NoMacroExpansionInference::inferArgument(mi, argumentIdx)
+    exists(cpp::FunctionCall fc |
+      fc = mi.getExpr() and
+      fc.getTarget().hasName("__c11_" + mi.getMacroName()) and
+      result = mi.getExpr().(cpp::FunctionCall).getArgument(argumentIdx)
+    )
   }
 }
 
@@ -72,7 +70,8 @@ module C11FunctionWrapperMacro implements InferMacroExpansionArguments {
  *   select c.getArgument(0)
  * ```
  */
-module StdFunctionOrMacro<InferMacroExpansionArguments InferExpansion, getName/0 getStdName> {
+private module StdFunctionOrMacro<InferMacroExpansionArguments InferExpansion, getName/0 getStdName>
+{
   final private class Expr = cpp::Expr;
 
   final private class FunctionCall = cpp::FunctionCall;
