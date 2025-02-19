@@ -25,6 +25,11 @@ where
   ) and
   t = operand.getType() and
   not t.getUnderlyingType().getUnspecifiedType() instanceof BoolType and
+  // Ignore cases where the type is unknown - this will typically be in unevaluated contexts
+  // within uninstantiated templates. It's necessary to check for this explicitly because
+  // not all unevaluated contexts are considered to be `isFromUninstantiatedTemplate(_)`,
+  // e.g. `noexcept` specifiers
+  not t instanceof UnknownType and
   not exists(ReferenceType rt |
     rt = t.getUnderlyingType().getUnspecifiedType() and rt.getBaseType() instanceof BoolType
   ) and

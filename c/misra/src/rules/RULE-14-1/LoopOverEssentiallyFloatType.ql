@@ -21,6 +21,6 @@ from ForStmt forLoop, Variable loopIterationVariable
 where
   not isExcluded(loopIterationVariable, EssentialTypesPackage::loopOverEssentiallyFloatTypeQuery()) and
   getAnIterationVariable(forLoop) = loopIterationVariable and
-  getEssentialTypeCategory(loopIterationVariable.getType()) = EssentiallyFloatingType()
+  getEssentialTypeCategory(loopIterationVariable.getType()) = EssentiallyFloatingType(_)
 select loopIterationVariable,
   "Loop iteration variable " + loopIterationVariable.getName() + " is essentially Floating type."
