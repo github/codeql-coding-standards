@@ -1,6 +1,6 @@
 import cpp
 import semmle.code.cpp.dataflow.DataFlow
-import semmle.code.cpp.valuenumbering.GlobalValueNumbering
+import semmle.code.cpp.valuenumbering.HashCons
 import semmle.code.cpp.controlflow.Dominance
 import codeql.util.Boolean
 
@@ -40,13 +40,14 @@ signature module ResourceLeakConfigSig {
 
   predicate isFree(ControlFlowNode node, DataFlow::Node resource);
 
+  bindingset[node]
   default DataFlow::Node getAnAlias(DataFlow::Node node) {
     DataFlow::localFlow(node, result)
     or
     exists(Expr current, Expr after |
       current in [node.asExpr(), node.asDefiningArgument()] and
       after in [result.asExpr(), result.asDefiningArgument()] and
-      globalValueNumber(current) = globalValueNumber(after) and
+      hashCons(current) = hashCons(after) and
       strictlyDominates(current, after)
     )
   }
