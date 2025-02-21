@@ -64,19 +64,6 @@ module ResourceLeak<ResourceLeakConfigSig Config> {
       Config::isAllocate(cfgNode, resource)
     }
 
-  /**
-   * Get an alias of a resource, and aliases of nodes that are aliased by a resource.
-   */
-  private DataFlow::Node getAnAliasRecursive(DataFlow::Node node) {
-    result = Config::getAnAlias(node) and
-    Config::isAllocate(_, node)
-    or
-    exists(DataFlow::Node parent |
-      node = getAnAliasRecursive(parent) and
-      result = Config::getAnAlias(parent)
-    )
-  }
-
   private predicate isLeakedAtControlPoint(TResource resource, ControlFlowNode cfgNode) {
     // Holds if this control point is where the resource was allocated (and therefore not freed).
     resource = TJustResource(_, cfgNode)
@@ -86,7 +73,7 @@ module ResourceLeak<ResourceLeakConfigSig Config> {
     isLeakedAtControlPoint(resource, cfgNode.getAPredecessor()) and
     not exists(DataFlow::Node freed, DataFlow::Node resourceNode |
       Config::isFree(cfgNode, freed) and
-      freed = getAnAliasRecursive(resourceNode) and
+      freed = Config::getAnAlias(resourceNode) and
       resource = TJustResource(resourceNode, _)
     )
   }
