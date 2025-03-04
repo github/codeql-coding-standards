@@ -3,6 +3,7 @@ void testOps() {
   signed long long s64 = 100;
   unsigned int u = 100;
   float f = 10.0f;
+  float _Complex cf = 10.0f;
   char c = 'A';
 
   s32 + s32;  // COMPLIANT
@@ -17,6 +18,9 @@ void testOps() {
   f + s32;    // NON_COMPLIANT
   s32 + f;    // NON_COMPLIANT
   s32 += f;   // NON_COMPLIANT
+  cf + s32;   // NON_COMPLIANT
+  s32 + cf;   // NON_COMPLIANT
+  s32 += cf;  // NON_COMPLIANT
 
   c + s32;  // COMPLIANT - by exception
   c += s32; // COMPLIANT - by exception
@@ -26,6 +30,11 @@ void testOps() {
   c -= s32; // COMPLIANT - by exception
   s32 - c;  // NON_COMPLIANT
   s32 -= c; // NON_COMPLIANT
+
+  cf + f; // COMPLIANT - by exception
+  f + cf; // COMPLIANT - by exception
+  cf *f;  // COMPLIANT - by exception
+  f *cf;  // COMPLIANT - by exception
 
   enum E1 { A, B, C } e1a;
   enum E2 { D, E, F } e2a;

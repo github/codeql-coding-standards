@@ -16,6 +16,15 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.misra.EssentialTypes
 
+predicate hasComparableFloatValue(Expr e) {
+  exists(float value |
+    value = e.getValue().toFloat() or
+    value = -e.(UnaryMinusExpr).getOperand().getValue().toFloat()
+  |
+    value in [0.0, "Infinity".toFloat(), -"Infinity".toFloat()]
+  )
+}
+
 /**
  * Holds if the operator `operator` has an operand `child` that is of an inappropriate essential type
  * according to MISRA C 2012 Rule 10.1.
@@ -33,8 +42,11 @@ predicate isInappropriateEssentialType(
       etc = EssentiallyCharacterType() and
       rationaleId = 4
       or
-      etc = EssentiallyFloatingType() and
+      etc = EssentiallyFloatingType(Real()) and
       rationaleId = 1
+      or
+      etc = EssentiallyFloatingType(Complex()) and
+      rationaleId = 9
     )
     or
     child = operator.(UnaryPlusExpr).getOperand() and
@@ -64,8 +76,6 @@ predicate isInappropriateEssentialType(
       rationaleId = 8
     )
     or
-    // The table only talks about + and -, but below it clarifies ++ and -- are also considered to
-    // be equivalent.
     child =
       [
         operator.(AddExpr).getAnOperand(), operator.(SubExpr).getAnOperand(),
@@ -78,6 +88,13 @@ predicate isInappropriateEssentialType(
       or
       etc = EssentiallyEnumType() and
       rationaleId = 5
+    )
+    or
+    child =
+      [operator.(IncrementOperation).getAnOperand(), operator.(DecrementOperation).getAnOperand()] and
+    (
+      etc = EssentiallyFloatingType(Complex()) and
+      rationaleId = 9
     )
     or
     child =
@@ -107,13 +124,26 @@ predicate isInappropriateEssentialType(
       etc = EssentiallyEnumType() and
       rationaleId = 5
       or
-      etc = EssentiallyFloatingType() and
+      etc = EssentiallyFloatingType(Real()) and
       rationaleId = 1
+      or
+      etc = EssentiallyFloatingType(Complex()) and
+      rationaleId = 9
     )
     or
     child = operator.(RelationalOperation).getAnOperand() and
-    etc = EssentiallyBooleanType() and
-    rationaleId = 3
+    (
+      etc = EssentiallyBooleanType() and
+      rationaleId = 3
+      or
+      etc = EssentiallyFloatingType(Complex()) and
+      rationaleId = 9
+    )
+    or
+    child = operator.(EqualityOperation).getAnOperand() and
+    rationaleId = 10 and
+    not hasComparableFloatValue(operator.(EqualityOperation).getAnOperand()) and
+    etc = EssentiallyFloatingType(_)
     or
     child = [operator.(NotExpr).getAnOperand(), operator.(BinaryLogicalOperation).getAnOperand()] and
     rationaleId = 2 and
@@ -126,7 +156,7 @@ predicate isInappropriateEssentialType(
       or
       etc = EssentiallyUnsignedType()
       or
-      etc = EssentiallyFloatingType()
+      etc = EssentiallyFloatingType(_)
     )
     or
     child =
@@ -147,8 +177,11 @@ predicate isInappropriateEssentialType(
       etc = EssentiallySignedType() and
       rationaleId = 6
       or
-      etc = EssentiallyFloatingType() and
+      etc = EssentiallyFloatingType(Real()) and
       rationaleId = 1
+      or
+      etc = EssentiallyFloatingType(Complex()) and
+      rationaleId = 9
     )
     or
     child =
@@ -171,8 +204,11 @@ predicate isInappropriateEssentialType(
       etc = EssentiallySignedType() and
       rationaleId = 7
       or
-      etc = EssentiallyFloatingType() and
+      etc = EssentiallyFloatingType(Real()) and
       rationaleId = 1
+      or
+      etc = EssentiallyFloatingType(Complex()) and
+      rationaleId = 9
     )
     or
     child =
@@ -197,8 +233,11 @@ predicate isInappropriateEssentialType(
       etc = EssentiallySignedType() and
       rationaleId = 6
       or
-      etc = EssentiallyFloatingType() and
+      etc = EssentiallyFloatingType(Real()) and
       rationaleId = 1
+      or
+      etc = EssentiallyFloatingType(Complex()) and
+      rationaleId = 9
     )
     or
     child = operator.(ConditionalExpr).getCondition() and
@@ -215,7 +254,7 @@ predicate isInappropriateEssentialType(
       etc = EssentiallyUnsignedType() and
       rationaleId = 2
       or
-      etc = EssentiallyFloatingType() and
+      etc = EssentiallyFloatingType(_) and
       rationaleId = 2
     )
   )
@@ -245,6 +284,13 @@ string getRationaleMessage(int rationaleId, EssentialTypeCategory etc) {
   rationaleId = 8 and
   result =
     "Operand of essentially Unsigned type will be converted to a signed type with the signedness dependent on the implemented size of int."
+  or
+  rationaleId = 9 and
+  result = "Use of essentially Complex type in this way is a constraint violation."
+  or
+  rationaleId = 10 and
+  result =
+    "Floating point numbers have inherent error such that comparisons should consider precision and not exact equality."
 }
 
 from Expr operator, Expr child, int rationaleId, EssentialTypeCategory etc
