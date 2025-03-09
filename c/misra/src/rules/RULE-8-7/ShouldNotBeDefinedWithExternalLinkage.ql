@@ -46,6 +46,8 @@ predicate isReferencedInTranslationUnit(
 from ExternalIdentifiers e, ExternalIdentifierReference a1, TranslationUnit t1
 where
   not isExcluded(e, Declarations6Package::shouldNotBeDefinedWithExternalLinkageQuery()) and
+  // Only report external identifiers where we see the definition
+  e.hasDefinition() and
   isReferencedInTranslationUnit(e, a1, t1) and
   // Not referenced in any other translation unit
   not exists(TranslationUnit t2 |
