@@ -40,7 +40,8 @@ predicate isReferencedInTranslationUnit(
   ExternalIdentifiers e, ExternalIdentifierReference r, TranslationUnit t
 ) {
   r.getExternalIdentifierTarget() = e and
-  r.getFile() = t
+  // Used within the translation unit or an included header
+  r.getFile() = t.getAUserFile()
 }
 
 from ExternalIdentifiers e, ExternalIdentifierReference a1, TranslationUnit t1
