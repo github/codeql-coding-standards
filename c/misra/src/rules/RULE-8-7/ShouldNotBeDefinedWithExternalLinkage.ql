@@ -51,6 +51,8 @@ where
   not exists(TranslationUnit t2 |
     isReferencedInTranslationUnit(e, _, t2) and
     not t1 = t2
-  )
+  ) and
+  // Definition is also in the same translation unit
+  e.getDefinition().getFile() = t1.getAUserFile()
 select e, "Declaration with external linkage is accessed in only one translation unit $@.", a1,
   a1.toString()
