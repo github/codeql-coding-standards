@@ -1,0 +1,4 @@
+| test.c:11:1:11:64 | #define M4(X) _Generic((X), int: 1, default: 0, unsigned int: 2) | Generic macro M4 has default as 2nd association, which is not first or last. | test.c:11:1:11:64 | #define M4(X) _Generic((X), int: 1, default: 0, unsigned int: 2) | (ignored) |
+| test.c:17:1:17:60 | #define M5(__VA_ARGS__...) _Generic(0, __VA_ARGS__, default: 0, int: 1) | Generic macro M5 has a default association which is not first or last, for example $@. | test.c:28:5:28:23 | _Generic | 2nd |
+| test.c:34:5:34:27 | M6(__VA_ARGS__...) | Generic macro $@, in this expansion, has default as 2nd association, which is not first or last. | test.c:19:1:19:48 | #define M6(__VA_ARGS__...) _Generic(0, __VA_ARGS__, int: 1) | M6 |
+| test.c:44:5:44:52 | _Generic | Generic has default as 2nd association, which is not first or last. | test.c:44:5:44:52 | _Generic |  |

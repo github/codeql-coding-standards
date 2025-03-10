@@ -164,14 +164,14 @@ EssentialTypeCategory getEssentialTypeCategory(Type type) {
  */
 pragma[nomagic]
 Type getEssentialType(Expr e) {
-  if e.hasExplicitConversion()
-  then
-    if e.getConversion() instanceof ParenthesisExpr
-    then
-      if e.getConversion().(ParenthesisExpr).hasExplicitConversion()
-      then result = e.getConversion().(ParenthesisExpr).getConversion().getType()
-      else result = e.getConversion().(ParenthesisExpr).getExpr().(EssentialExpr).getEssentialType()
-    else result = e.getConversion().getType()
+  if e.hasConversion()
+  then result = getEssentialTypeOfConversion(e.getFullyConverted())
+  else result = e.(EssentialExpr).getEssentialType()
+}
+
+Type getEssentialTypeOfConversion(Expr e) {
+  if e.(Conversion).isImplicit() or e instanceof ParenthesisExpr or e instanceof C11GenericExpr
+  then result = getEssentialTypeOfConversion(e.(Conversion).getExpr())
   else result = e.(EssentialExpr).getEssentialType()
 }
 
@@ -446,7 +446,7 @@ class EssentialLiteral extends EssentialExpr, Literal {
             if underlyingStandardType.(IntType).isSigned()
             then result = stlr(this)
             else result = utlr(this)
-          else result = underlyingStandardType
+          else result = getStandardType()
         )
     )
   }

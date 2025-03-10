@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 
 from CStyleCast cast, Type baseTypeFrom, Type baseTypeTo
 where

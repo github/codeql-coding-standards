@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 import semmle.code.cpp.dataflow.TaintTracking
 import ScaledIntegerPointerArithmeticFlow::PathGraph
 
