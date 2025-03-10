@@ -4,9 +4,11 @@
  * @description The controlling expression of a generic selection shall have an essential type that
  *              matches its standard type.
  * @kind problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
  * @tags external/misra/id/rule-23-6
+ *       correctness
+ *       external/misra/c/2012/amendment3
  *       external/misra/obligation/required
  */
 

@@ -2,7 +2,7 @@
  * @id c/misra/default-generic-selection-not-first-or-last
  * @name RULE-23-8: A default association shall appear as either the first or the last association of a generic
  * @description A default association shall appear as either the first or the last association of a
- *              generic selection
+ *              generic selection.
  * @kind problem
  * @precision very-high
  * @problem.severity warning
