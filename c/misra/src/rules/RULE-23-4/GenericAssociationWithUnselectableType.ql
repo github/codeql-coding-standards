@@ -20,10 +20,10 @@ import codingstandards.cpp.alertreporting.DeduplicateMacroResults
 
 /**
  * Check if a type contains an unmatchable anonymous struct or union.
- * 
+ *
  * Anonymous structs and unions are only equal to themselves. So any anonymous struct, or compound
  * type containing an anonymous struct, is unmatchable.
- * 
+ *
  * However, there is an exception if the anonymous struct is behind a typedef. All uses of that
  * typedef will resolve to the same anonymous struct, and so the typedef is matchable.
  */

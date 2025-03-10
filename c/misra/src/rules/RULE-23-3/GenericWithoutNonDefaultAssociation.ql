@@ -31,5 +31,6 @@ where
   not exists(Type t |
     t = generic.getAnAssociationType() and
     not t instanceof VoidType
-  ) and primaryElement = MacroUnwrapper<InvalidGeneric>::unwrapElement(generic)
+  ) and
+  primaryElement = MacroUnwrapper<InvalidGeneric>::unwrapElement(generic)
 select primaryElement, "Generic selection contains no non-default association."

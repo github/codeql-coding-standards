@@ -18,8 +18,6 @@ from C11GenericExpr generic, Expr ctrlExpr
 where
   not isExcluded(generic, GenericsPackage::genericSelectionNotExpandedFromAMacroQuery()) and
   ctrlExpr = generic.getControllingExpr() and
-  not exists(MacroInvocation mi |
-    mi.getAGeneratedElement() = generic.getExpr()
-  )
+  not exists(MacroInvocation mi | mi.getAGeneratedElement() = generic.getExpr())
 select generic, "Generic expression with controlling expression $@ is not expanded froma macro",
-ctrlExpr, ctrlExpr.toString() 
+  ctrlExpr, ctrlExpr.toString()

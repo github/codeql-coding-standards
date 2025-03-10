@@ -57,6 +57,6 @@ where
     )
   )
 select generic,
-  "Controlling expression in generic " + extraMessage +
-    "has standard type " + ctrlType.toString() + ", which doesn't match its essential type " +
-    ctrlEssentialType.toString() + ".", extraElement, extraString
+  "Controlling expression in generic " + extraMessage + "has standard type " + ctrlType.toString() +
+    ", which doesn't match its essential type " + ctrlEssentialType.toString() + ".", extraElement,
+  extraString

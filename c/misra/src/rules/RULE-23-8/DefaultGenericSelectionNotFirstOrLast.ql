@@ -53,13 +53,15 @@ module GenericMisplacedDefaultReportConfig implements
   bindingset[description]
   string getMessageSameResultInAllExpansions(Macro m, string description) {
     result =
-      "Generic macro " + m.getName() + " has default as " + description + " association, which is not first or last."
+      "Generic macro " + m.getName() + " has default as " + description +
+        " association, which is not first or last."
   }
 
   /* Create a message to describe this macro, using '$@' to describe an example `ResultElement`. */
   string getMessageVariedResultInAllExpansions(Macro m) {
     result =
-      "Generic macro " + m.getName() + " has a default association which is not first or last, for example $@."
+      "Generic macro " + m.getName() +
+        " has a default association which is not first or last, for example $@."
   }
 
   /**
@@ -68,7 +70,8 @@ module GenericMisplacedDefaultReportConfig implements
    */
   string getMessageResultInIsolatedExpansion(GenericWithMisplacedDefault element) {
     result =
-      "Generic macro $@, in this expansion, has default as " + describe(element) + " association, which is not first or last."
+      "Generic macro $@, in this expansion, has default as " + describe(element) +
+        " association, which is not first or last."
   }
 
   /**

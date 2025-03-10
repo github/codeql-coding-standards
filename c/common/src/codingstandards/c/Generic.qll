@@ -10,7 +10,6 @@ string deparenthesize(string input) {
   result = input.substring(1, input.length() - 1)
 }
 
-
 class GenericMacro extends Macro {
   string ctrlExpr;
 
@@ -61,9 +60,7 @@ class ParsedGenericMacro extends Macro {
     )
   }
 
-  string getAParameter() {
-    result = this.(FunctionLikeMacro).getAParameter()
-  }
+  string getAParameter() { result = this.(FunctionLikeMacro).getAParameter() }
 
   int getAParsedGenericCommaSeparatorOffset() {
     exists(ParsedText text |
@@ -118,9 +115,7 @@ class ParsedGenericMacro extends Macro {
     )
   }
 
-  string getControllingExprString() {
-    result = getSelectionString(1)
-  }
+  string getControllingExprString() { result = getSelectionString(1) }
 
   bindingset[str, word]
   private int countWordInString(string word, string str) {

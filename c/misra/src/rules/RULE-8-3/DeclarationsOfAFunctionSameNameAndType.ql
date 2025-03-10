@@ -25,15 +25,19 @@ where
   //return type check
   (
     not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig>::equalReturnTypes(f1, f2) and
-    case = "return type" and pluralDo = "does"
+    case = "return type" and
+    pluralDo = "does"
     or
     //parameter type check
     not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig>::equalParameterTypes(f1, f2) and
-    case = "parameter types" and pluralDo = "do"
+    case = "parameter types" and
+    pluralDo = "do"
     or
     //parameter name check
     parameterNamesUnmatched(f1, f2) and
-    case = "parameter names" and pluralDo = "do"
+    case = "parameter names" and
+    pluralDo = "do"
   )
-select f1, "The " + case + " of re-declaration of $@ " + pluralDo + " not use the same type names as declaration $@", f1,
-  f1.getName(), f2, f2.getName()
+select f1,
+  "The " + case + " of re-declaration of $@ " + pluralDo +
+    " not use the same type names as declaration $@", f1, f1.getName(), f2, f2.getName()

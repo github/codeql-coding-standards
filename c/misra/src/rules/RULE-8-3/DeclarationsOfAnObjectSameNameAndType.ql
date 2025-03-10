@@ -52,5 +52,5 @@ where
     decl2.getType())
 select decl1,
   "The object $@ of type " + decl1.getType().toString() +
-    " does not use the same type names as re-declaration $@ of type " + decl2.getType().toString(), decl1,
-  decl1.getName(), decl2, decl2.getName()
+    " does not use the same type names as re-declaration $@ of type " + decl2.getType().toString(),
+  decl1, decl1.getName(), decl2, decl2.getName()
