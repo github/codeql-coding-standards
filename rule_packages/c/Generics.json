@@ -52,9 +52,8 @@
         }
       ],
       "implementation_scope": {
-        "items": [
+        "description":
           "Due to limited information in the CodeQL database for macro argument expansions, this implementation reports generics not of the form `_Generic((X)` where all invocations of that generic contain a side effect in the controlling expression."
-        ]
       },
       "title": "A generic selection that is not expanded from a macro shall not contain potential side effects in the controlling expression"
     },
@@ -138,9 +137,8 @@
         }
       ],
       "implementation_scope": {
-        "items": [
+        "description":
           "The CodeQL extractor will expand character literals passed into macros into integer literals, and therefore the essential type system for character literals will not necessarily be analyzed correctly."
-        ]
       },
       "title": "The controlling expression of a generic selection shall have an essential type that matches its standard type"
     },
@@ -164,9 +162,8 @@
         }
       ],
       "implementation_scope": {
-        "items": [
+        "description":
           "Due to limited information in the CodeQL database for macro argument expansions, this implementation performs string matching on the macro parameters against the macro body to determine where parameters are expanded. If text indicating a nonevaluated context such as sizeof() or _Alignof() appear, there will be no positive result."
-        ]
       },
       "title": "A generic selection that is expanded from a macro should evaluate its argument only once"
     },
@@ -176,7 +173,7 @@
       },
       "queries": [
         {
-          "description": "A default association shall appear as either the first or the last association of a generic selection",
+          "description": "A default association shall appear as either the first or the last association of a generic selection.",
           "kind": "problem",
           "name": "A default association shall appear as either the first or the last association of a generic",
           "precision": "very-high",
