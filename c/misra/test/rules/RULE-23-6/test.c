@@ -3,21 +3,21 @@ int l2;
 long l3;
 enum { E1 } l4;
 
-#define M1(X) _Generic((X), int: 1, unsigned int: 1, short: 2, long: 3)
+#define M1(X) _Generic((X), int : 1, unsigned int : 1, short : 2, long : 3)
 void f1() {
   M1(l1); // COMPLIANT
   M1(l2); // COMPLIANT
   M1(l3); // COMPLIANT
   M1(l4); // NON-COMPLIANT
 
-  M1(1);                 // COMPLIANT
-  M1(1u);                // COMPLIANT
-  M1(l1 + l1);           // NON-COMPLIANT
-  M1((int)(l1 + l1));    // COMPLIANT
-  M1('c');               // NON-COMPLIANT[false negative]
-  _Generic('c', int: 1); // NON-COMPLIANT
-  _Generic(_Generic(0, default: l1 + l1), default: 1); // NON-COMPLIANT
-  _Generic(((short)_Generic(0, default: (l1 + l1))), default: 1); // COMPLIANT
+  M1(1);                  // COMPLIANT
+  M1(1u);                 // COMPLIANT
+  M1(l1 + l1);            // NON-COMPLIANT
+  M1((int)(l1 + l1));     // COMPLIANT
+  M1('c');                // NON-COMPLIANT[false negative]
+  _Generic('c', int : 1); // NON-COMPLIANT
+  _Generic(_Generic(0, default : l1 + l1), default : 1); // NON-COMPLIANT
+  _Generic(((short)_Generic(0, default : (l1 + l1))), default : 1); // COMPLIANT
 }
 
 void f2() {
@@ -29,5 +29,5 @@ void f2() {
   struct S1 {
     int m1;
   };
-  _Generic((const struct S1){.m1 = 0}, default: 1);
+  _Generic((const struct S1){.m1 = 0}, default : 1);
 }
