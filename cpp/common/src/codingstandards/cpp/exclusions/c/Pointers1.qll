@@ -19,6 +19,7 @@ newtype Pointers1Query =
   TDoNotUseAdditionOrSubtractionOperatorsOnPointersQuery() or
   TNoMoreThanTwoLevelsOfPointerNestingInDeclarationsQuery() or
   TAutomaticStorageObjectAddressCopiedToOtherObjectQuery() or
+  TThreadLocalObjectAddressCopiedToGlobalObjectQuery() or
   TObjectWithNoPointerDereferenceShouldBeOpaqueQuery() or
   TPointerShouldPointToConstTypeWhenPossibleQuery()
 
@@ -159,6 +160,15 @@ predicate isPointers1QueryMetadata(Query query, string queryId, string ruleId, s
   category = "required"
   or
   query =
+    // `Query` instance for the `threadLocalObjectAddressCopiedToGlobalObject` query
+    Pointers1Package::threadLocalObjectAddressCopiedToGlobalObjectQuery() and
+  queryId =
+    // `@id` for the `threadLocalObjectAddressCopiedToGlobalObject` query
+    "c/misra/thread-local-object-address-copied-to-global-object" and
+  ruleId = "RULE-18-6" and
+  category = "required"
+  or
+  query =
     // `Query` instance for the `objectWithNoPointerDereferenceShouldBeOpaque` query
     Pointers1Package::objectWithNoPointerDereferenceShouldBeOpaqueQuery() and
   queryId =
@@ -281,6 +291,13 @@ module Pointers1Package {
     result =
       // `Query` type for `automaticStorageObjectAddressCopiedToOtherObject` query
       TQueryC(TPointers1PackageQuery(TAutomaticStorageObjectAddressCopiedToOtherObjectQuery()))
+  }
+
+  Query threadLocalObjectAddressCopiedToGlobalObjectQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `threadLocalObjectAddressCopiedToGlobalObject` query
+      TQueryC(TPointers1PackageQuery(TThreadLocalObjectAddressCopiedToGlobalObjectQuery()))
   }
 
   Query objectWithNoPointerDereferenceShouldBeOpaqueQuery() {

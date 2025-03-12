@@ -305,6 +305,18 @@
             "correctness",
             "external/misra/c/2012/third-edition-first-revision"
           ]
+        },
+        {
+          "description": "Storing the address of a thread-local object in a global object will result in undefined behavior if the address is accessed after the relevant thread is terminated.",
+          "kind": "problem",
+          "name": "The address of an object with thread-local storage shall not be copied to a global object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ThreadLocalObjectAddressCopiedToGlobalObject",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
         }
       ],
       "title": "The address of an object with automatic storage shall not be copied to another object that persists after the first object has ceased to exist"
