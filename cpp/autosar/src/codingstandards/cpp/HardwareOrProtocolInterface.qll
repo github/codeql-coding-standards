@@ -5,7 +5,7 @@ abstract class HardwareOrProtocolInterfaceClass extends Class { }
 
 class HardwareOrProtocolInterfaceComment extends Comment {
   HardwareOrProtocolInterfaceComment() {
-    getContents().regexpMatch("(?m)^\\s*(//|\\*)\\s*@HardwareOrProtocolInterface\\s*$")
+    exists(getContents().regexpFind("(?m)^\\s*(//|\\*)\\s*@HardwareOrProtocolInterface\\s*$", _, _))
   }
 }
 

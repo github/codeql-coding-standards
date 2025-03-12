@@ -16,7 +16,7 @@ Query getQuery() { result instanceof OrderingPredicateMustBeStrictlyWeakSharedQu
 
 class IsStrictlyWeaklyOrderedComment extends Comment {
   IsStrictlyWeaklyOrderedComment() {
-    getContents().regexpMatch("(?m)^\\s*(//|\\*)\\s*@IsStrictlyWeaklyOrdered\\s*$")
+    exists(getContents().regexpFind("(?m)^\\s*(//|\\*)\\s*@IsStrictlyWeaklyOrdered\\s*$", _, _))
   }
 }
 
