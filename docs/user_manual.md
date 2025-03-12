@@ -31,6 +31,7 @@
 | 0.23.0  | 2024-10-21 | Luke Cartey     | Add assembly as a hazard.                                                                                               |
 | 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                     |
 | 0.25.0  | 2025-01-15 | Mike Fairhurst  | Add guidance for the usage of 'strict' queries.                                                                         |
+| 0.26.0  | 2025-02-12 | Luke Cartey     | Describe support for new deviation code identifier formats                                                               |
 
 ## Release information
 
@@ -415,7 +416,7 @@ The example describes three ways of scoping a deviation:
 
 1. The deviation for `A18-1-1` applies to any source file in the same or a child directory of the directory containing the example `coding-standards.yml`.
 2. The deviation for `A18-5-1` applies to any source file in the directory `foo/bar` or a child directory of `foo/bar` relative to the directory containing the `coding-standards.yml`.
-3. The deviation for `A0-4-2` applies to any source element that has a comment residing on **the same line** containing the identifier specified in `code-identifier`.
+3. The deviation for `A0-4-2` applies to any source element that marked by a comment containing the identifier specified in `code-identifier`. The different acceptable formats are discussed in the next section.
 
 The activation of the deviation mechanism requires an extra step in the database creation process.
 This extra step is the invocation of the Python script `path/to/codeql-coding-standards/scripts/configuration/process_coding_standards_config.py` that is part of the coding standards code scanning pack.
@@ -430,7 +431,90 @@ The `process_coding_standards_config.py` has a dependency on the package `pyyaml
 
 `pip3 install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
 
-##### Deviation permit
+##### Deviation code identifier attributes
+
+A code identifier specified in a deviation record can be applied to certain results in the code by adding a C or C++ attribute of the following format:
+
+```
+[[codeql::<standard>_deviation("code-identifier")]]
+```
+
+For example `[[codeql::autosar_deviation("a1-2-4")]]` would apply a deviation of a rule in the AUTOSAR standard, using the code identifier `a1-2-4`. The supported standard names are `misra`, `autosar` and `cert`.
+
+This attribute may be added to the following program elements:
+
+ * Functions
+ * Statements
+ * Variables
+
+Deviation attributes are inherited from parents in the code structure. For example, a deviation attribute applied to a function will apply the deviation to all code within the function.
+
+Multiple code identifiers may be passed in a single attribute to apply multiple deviations, for example:
+
+```
+[[codeql::misra_deviation("code-identifier-1", "code-identifier-2")]]
+```
+
+Note - considation should be taken to ensure the use of custom attributes for deviations is compatible with your chosen language version, compiler, compiler configuration and coding standard.
+
+**Use of attributes in C Coding Standards**: The C Standard introduces attributes in C23, however some compilers support attributes as a language extension in prior versions. You should:
+ * Confirm that your compiler supports attributes for your chosen compiler configuration, if necessary as a language extension.
+ * Confirm that unknown attributes are ignored by the compiler.
+ * For MISRA C, add a project deviation against "Rule 1.2: Language extensions should not be used", if attribute support is a language extension in your language version. 
+
+**Use of attributes in C++ Coding Standards**: The C++ Standard supports attributes in C++14, however the handling of unknown attributes is implementation defined. From C++17 onwards, unknown attributes are mandated to be ignored. Unknown attributes will usually raise an "unknown attribute" warning. You should:
+ * If using C++14, confirm that your compiler ignores unknown attributes.
+ * If using AUTOSAR and a compiler which produces warnings on unknown attributes, the compiler warning should be disabled (as per `A1-1-2: A warning level of the compilation process shall be set in compliance with project policies`),  to ensure compliance with `A1-4-3: All code should compiler free of compiler warnings`.
+
+If you cannot satisfy these condition, please use the deviation code identifier comment format instead.
+
+##### Deviation code identifier comments
+
+As an alternative to attributes, a code identifier specified in a deviation record can be applied to certain results in the code by adding a comment marker consisting of a `code-identifier` with some optional annotations. The supported marker annotation formats are:
+
+ - `<code-identifier>` - the deviation applies to results on the current line.
+ - `codeql::<standard>_deviation(<code-identifier>)` - the deviation applies to results on the current line.
+ - `codeql::<standard>_deviation_next_line(<code-identifier>)` - this deviation applies to results on the next line.
+ - `codeql::<standard>_deviation_begin(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
+ - `codeql::<standard>_deviation_end(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
+
+Here are some examples, using the deviation record with the `a-0-4-2-deviation` code-identifier specified above:
+```cpp
+  long double x1; // NON_COMPLIANT
+
+  long double x2; // a-0-4-2-deviation - COMPLIANT
+  long double x3; // COMPLIANT - a-0-4-2-deviation
+
+  long double x4; // codeql::autosar_deviation(a-0-4-2-deviation) - COMPLIANT
+  long double x5; // COMPLIANT - codeql::autosar_deviation(a-0-4-2-deviation)
+
+  // codeql::autosar_deviation_next_line(a-0-4-2-deviation)
+  long double x6; // COMPLIANT
+
+  // codeql::autosar_deviation_begin(a-0-4-2-deviation)
+  long double x7; // COMPLIANT
+  // codeql::autosar_deviation_end(a-0-4-2-deviation)
+```
+
+`codeql::<standard>_deviation_end` markers will pair with the closest unmatched `codeql::<standard>_deviation_begin` for the same `code-identifier`. Consider this example:
+```cpp
+1 | // codeql::autosar_deviation_begin(a-0-4-2-deviation)
+2 |
+3 | // codeql::autosar_deviation_begin(a-0-4-2-deviation)
+4 |
+5 | // codeql::autosar_deviation_end(a-0-4-2-deviation)
+6 |
+7 | // codeql::autosar_deviation_end(a-0-4-2-deviation)
+```
+Here, Line 1 will pair with Line 7, and Line 3 will pair with Line 5.
+
+A `codeql::<standard>_deviation_end` without a matching `codeql::<standard>_deviation_begin`, or `codeql::<standard>_deviation_begin` without a matching `codeql::<standard>_deviation_end` is invalid and will be ignored.
+
+`codeql::<standard>_deviation_begin` and `ccodeql::<standard>_deviation_end` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
+
+Note: deviation comment markers cannot be applied to the body of a macro. Please apply the deviation to macro expansion, or use the attribute deviation format.
+
+##### Deviation permits
 
 The current implementation supports _deviation permits_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _4.3 Deviation permits_.
 
