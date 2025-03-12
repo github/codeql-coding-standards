@@ -1,0 +1,13 @@
+| test.c:14:21:14:22 | g9 | Object of type 'mtx_t' has invalid storage duration type 'thread'. |
+| test.c:15:22:15:24 | g10 | Object of type 'thrd_t' has invalid storage duration type 'thread'. |
+| test.c:16:21:16:23 | g11 | Object of type 'tss_t' has invalid storage duration type 'thread'. |
+| test.c:17:21:17:23 | g12 | Object of type 'cnd_t' has invalid storage duration type 'thread'. |
+| test.c:34:9:34:10 | l1 | Object of type 'mtx_t' has invalid storage duration type 'automatic'. |
+| test.c:35:10:35:11 | l2 | Object of type 'thrd_t' has invalid storage duration type 'automatic'. |
+| test.c:36:9:36:10 | l3 | Object of type 'tss_t' has invalid storage duration type 'automatic'. |
+| test.c:37:9:37:10 | l4 | Object of type 'cnd_t' has invalid storage duration type 'automatic'. |
+| test.c:44:9:44:10 | l9 | Object of type 'mtx_t[10]' has invalid storage duration type 'automatic'. |
+| test.c:46:13:46:15 | l11 | Object of type 'has_mtx_t' has invalid storage duration type 'automatic'. |
+| test.c:48:13:48:15 | l13 | Object of type 'has_mtx_t[10]' has invalid storage duration type 'automatic'. |
+| test.c:51:9:51:14 | call to malloc | Object of type 'mtx_t' has invalid storage duration type 'allocated'. |
+| test.c:52:9:52:14 | call to malloc | Object of type 'mtx_t' has invalid storage duration type 'allocated'. |

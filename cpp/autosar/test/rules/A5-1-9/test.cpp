@@ -105,3 +105,9 @@ public:
     LogFatal("Fatal");
   }
 };
+
+#define MACRO() [](int i) -> int { return i + 3; }
+void test_macros() {
+  MACRO(); // COMPLIANT
+  MACRO(); // COMPLIANT - no duplication
+}

@@ -1,4 +1,5 @@
 #define ATOMIC_VAR_INIT(value) (value)
+#define atomic_init __c11_atomic_init
 #define atomic_is_lock_free(obj) __c11_atomic_is_lock_free(sizeof(*(obj)))
 typedef _Atomic(int) atomic_int;
 
