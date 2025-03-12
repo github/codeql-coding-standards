@@ -34,6 +34,7 @@ import Declarations6
 import Declarations7
 import Declarations8
 import EssentialTypes
+import EssentialTypes2
 import Expressions
 import FloatingTypes
 import FunctionTypes
@@ -118,6 +119,7 @@ newtype TCQuery =
   TDeclarations7PackageQuery(Declarations7Query q) or
   TDeclarations8PackageQuery(Declarations8Query q) or
   TEssentialTypesPackageQuery(EssentialTypesQuery q) or
+  TEssentialTypes2PackageQuery(EssentialTypes2Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TFloatingTypesPackageQuery(FloatingTypesQuery q) or
   TFunctionTypesPackageQuery(FunctionTypesQuery q) or
@@ -202,6 +204,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations8QueryMetadata(query, queryId, ruleId, category) or
   isEssentialTypesQueryMetadata(query, queryId, ruleId, category) or
+  isEssentialTypes2QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isFloatingTypesQueryMetadata(query, queryId, ruleId, category) or
   isFunctionTypesQueryMetadata(query, queryId, ruleId, category) or

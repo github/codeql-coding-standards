@@ -1,0 +1,47 @@
+{
+  "MISRA-C-2012": {
+    "RULE-21-22": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "All operand arguments to any type-generic macros in <tgmath.h> shall have an appropriate essential type.",
+          "kind": "problem",
+          "name": "All operand arguments to type-generic macros in <tgmath.h> shall have an appropriate essential type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "TgMathArgumentWithInvalidEssentialType",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "implementation_scope": {
+        "description": "The CodeQL database may not contain the necessary information to determine the essential type of literal macro arguments such as character literals."
+      },
+      "title": "All operand arguments to any type-generic macros in <tgmath.h> shall have an appropriate essential type"
+    },
+    "RULE-21-23": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "All operand arguments to any multi-argument type-generic macros in <tgmath.h> shall have the same standard type.",
+          "kind": "problem",
+          "name": "Operand arguments for an invocation of a type-generic macro shall have the same standard type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "TgMathArgumentsWithDifferingStandardType",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "All operand arguments to any multi-argument type-generic macros in <tgmath.h> shall have the same standard type"
+    }
+  }
+}
