@@ -56,7 +56,8 @@ where
       name = m.getName() and
       message = "Expansion of banned macro" and
       // Exclude macro invocations expanded from other macro invocations from macros in fenv.h.
-      not element.(MacroInvocation).getParentInvocation().getMacro().getFile().getBaseName() = "fenv.h"
+      not element.(MacroInvocation).getParentInvocation().getMacro().getFile().getBaseName() =
+        "fenv.h"
     )
   )
 select element, message + " '" + name + "'."
