@@ -10,7 +10,7 @@
  *       correctness
  *       concurrency
  *       external/misra/c/2012/amendment4
- *       audit
+ *       external/misra/audit
  *       external/misra/obligation/required
  */
 

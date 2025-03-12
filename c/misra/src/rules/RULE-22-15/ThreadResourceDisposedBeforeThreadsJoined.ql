@@ -2,7 +2,7 @@
  * @id c/misra/thread-resource-disposed-before-threads-joined
  * @name RULE-22-15: Thread synchronization objects and thread-specific storage pointers shall not be disposed unsafely
  * @description Thread synchronization objects and thread-specific storage pointers shall not be
- *              destroyed until after all threads accessing them have terminated
+ *              destroyed until after all threads accessing them have terminated.
  * @kind problem
  * @precision medium
  * @problem.severity error
