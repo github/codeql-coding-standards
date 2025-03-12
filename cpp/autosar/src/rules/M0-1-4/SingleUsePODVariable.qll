@@ -1,7 +1,7 @@
 /** A module providing predicates that support identifying single use non volatile POD variables. */
 
 import cpp
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 import codingstandards.cpp.deadcode.UnusedVariables
 
 /**

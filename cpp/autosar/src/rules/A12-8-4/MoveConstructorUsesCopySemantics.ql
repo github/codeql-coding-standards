@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 
 /**
  * A literal with no values.

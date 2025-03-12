@@ -1,0 +1,6 @@
+ - `RULE-8-3` - `DeclarationsOfAFunctionSameNameAndType.ql`, `DeclarationsOfAnObjectSameNameAndType.ql`:
+   - New shared module used to fix false positives for compound types referring to the same basic integer types under a different name, e.g., query will not report for `signed[4]` used in place of `int[4]` as per MISRA spec.
+   - Now query will report incompatibilities for two functions of the same name with a different number of parameters.
+   - Query result string updated to not use the word "Compatible," which is confusing, as it may falsely appear that the query is testing for compatibility as defined by C17.
+ - `RULE-8-4`, `DCL-40C` - `CompatibleDeclarationFunctionDefined.ql`, `CompatibleDeclarationObjectDefined.ql`, `IncomptatibleFunctionDeclarations.ql`:
+   - New shared module used to fix false positives by updating "compatible" type checks to more closely match the C17 standard. For instance, `int[3]` and `int[]` are compatible declarations (while `int[3]` and `int[4]` are not), and typedefs are now resolved as well. Some false positives may still occur regarding structs from different compilation units.

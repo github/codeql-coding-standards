@@ -5,7 +5,7 @@
  */
 
 import cpp
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 import codingstandards.c.Variable
 import codingstandards.cpp.Allocations
 import codingstandards.cpp.Overflow

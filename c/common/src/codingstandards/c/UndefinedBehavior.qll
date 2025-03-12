@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 import codingstandards.cpp.UndefinedBehavior
 
 /**

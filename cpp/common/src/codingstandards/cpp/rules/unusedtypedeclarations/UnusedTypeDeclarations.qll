@@ -5,7 +5,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.cpp.TypeUses
+import codingstandards.cpp.types.Uses
 
 abstract class UnusedTypeDeclarationsSharedQuery extends Query { }
 
