@@ -1,0 +1,4 @@
+| test.c:24:15:24:16 | definition of l3 | Atomic object 'l3' has no initializer or corresponding use of 'atomic_init()'. |
+| test.c:27:15:27:16 | definition of l4 | Atomic object 'l4' has no initializer or corresponding use of 'atomic_init()'. |
+| test.c:31:15:31:16 | definition of l5 | Atomic object 'l5' has no initializer or corresponding use of 'atomic_init()'. |
+| test.c:41:15:41:16 | definition of l7 | Atomic object 'l7' has no initializer or corresponding use of 'atomic_init()'. |

@@ -1,191 +1,209 @@
-| test.c:13:5:13:5 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:14:5:14:5 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:20:4:20:4 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:21:4:21:4 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:22:4:22:5 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:27:4:27:4 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:28:4:28:4 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:29:4:29:5 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:31:4:31:4 | u | Operand of essentially Unsigned type will be converted to a signed type with the signedness dependent on the implemented size of int. |
-| test.c:34:7:34:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:36:7:36:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:41:7:41:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:43:7:43:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:48:3:48:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:50:3:50:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:15:5:15:5 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:16:5:16:5 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:23:4:23:4 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:24:4:24:4 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:25:4:25:5 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:31:4:31:4 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:32:4:32:4 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:33:4:33:5 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:35:4:35:4 | u | Operand of essentially Unsigned type will be converted to a signed type with the signedness dependent on the implemented size of int. |
+| test.c:39:7:39:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:41:7:41:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:47:7:47:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:49:7:49:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
 | test.c:55:3:55:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
 | test.c:57:3:57:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:62:3:62:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:64:3:64:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:69:3:69:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:71:3:71:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:76:5:76:5 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:78:5:78:6 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:83:5:83:5 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:85:5:85:6 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:90:7:90:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:91:7:91:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:92:7:92:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:97:7:97:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:98:7:98:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:99:7:99:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:104:3:104:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:105:3:105:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:106:3:106:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:111:3:111:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:112:3:112:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:113:3:113:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:118:3:118:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:119:3:119:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:120:3:120:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:125:7:125:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:126:7:126:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:127:7:127:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:132:7:132:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:139:7:139:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:146:8:146:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:153:8:153:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:160:3:160:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:167:3:167:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:174:3:174:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:181:3:181:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:217:4:217:4 | c | Operand of essentially Character type type interpreted as a Boolean value. |
-| test.c:218:4:218:5 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
-| test.c:219:4:219:4 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
-| test.c:220:4:220:4 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
-| test.c:221:4:221:4 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
-| test.c:224:3:224:3 | c | Operand of essentially Character type type interpreted as a Boolean value. |
-| test.c:225:3:225:4 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
-| test.c:226:3:226:3 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
-| test.c:227:3:227:3 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
-| test.c:228:3:228:3 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
-| test.c:231:3:231:3 | c | Operand of essentially Character type type interpreted as a Boolean value. |
-| test.c:232:3:232:4 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
-| test.c:233:3:233:3 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
-| test.c:234:3:234:3 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
-| test.c:235:3:235:3 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
-| test.c:238:11:238:11 | c | Operand of essentially Character type type interpreted as a Boolean value. |
-| test.c:239:11:239:12 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
-| test.c:240:11:240:11 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
-| test.c:241:11:241:11 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
-| test.c:242:11:242:11 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
-| test.c:245:12:245:12 | c | Operand of essentially Character type type interpreted as a Boolean value. |
-| test.c:246:12:246:13 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
-| test.c:247:12:247:12 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
-| test.c:248:12:248:12 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
-| test.c:249:12:249:12 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
-| test.c:251:3:251:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:252:3:252:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:253:3:253:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:254:3:254:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:258:3:258:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:259:3:259:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:260:3:260:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:261:3:261:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:265:8:265:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:266:8:266:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:267:8:267:9 | e1 | Right hand operand of shift operator is essentially Enum Type and not not essentially unsigned. |
-| test.c:268:8:268:8 | s | Right hand operand of shift operator is essentially Signed type and not not essentially unsigned. |
-| test.c:272:8:272:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:273:8:273:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:274:8:274:9 | e1 | Right hand operand of shift operator is essentially Enum Type and not not essentially unsigned. |
-| test.c:275:8:275:8 | s | Right hand operand of shift operator is essentially Signed type and not not essentially unsigned. |
-| test.c:279:3:279:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:280:3:280:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:281:3:281:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:282:3:282:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:286:3:286:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:287:3:287:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:288:3:288:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:289:3:289:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:293:3:293:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:294:3:294:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:295:3:295:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:296:3:296:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:300:6:300:6 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:301:6:301:6 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:302:6:302:7 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:303:6:303:6 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:307:7:307:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:308:7:308:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:309:7:309:8 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:310:7:310:7 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:314:7:314:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:315:7:315:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:316:7:316:8 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:317:7:317:7 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:321:4:321:4 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:322:4:322:4 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:323:4:323:5 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:324:4:324:4 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:329:3:329:3 | c | Operand of essentially Character type type interpreted as a Boolean value. |
-| test.c:330:3:330:4 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
-| test.c:331:3:331:3 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
-| test.c:332:3:332:3 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
-| test.c:333:3:333:3 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
-| test.c:342:3:342:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:344:3:344:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:349:3:349:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:351:3:351:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:356:8:356:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:358:8:358:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:363:8:363:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:365:8:365:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:370:3:370:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:371:3:371:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:372:3:372:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:377:3:377:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:378:3:378:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:379:3:379:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:384:8:384:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:385:8:385:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:386:8:386:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:391:8:391:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:392:8:392:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:393:8:393:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:398:3:398:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:399:3:399:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:400:3:400:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:405:8:405:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:406:8:406:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:407:8:407:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
-| test.c:412:3:412:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:413:3:413:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:414:3:414:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:415:3:415:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:419:3:419:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:420:3:420:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:421:3:421:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:422:3:422:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:426:9:426:9 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:427:9:427:9 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:428:9:428:10 | e1 | Right hand operand of shift operator is essentially Enum Type and not not essentially unsigned. |
-| test.c:429:9:429:9 | s | Right hand operand of shift operator is essentially Signed type and not not essentially unsigned. |
-| test.c:433:9:433:9 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:434:9:434:9 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:435:9:435:10 | e1 | Right hand operand of shift operator is essentially Enum Type and not not essentially unsigned. |
-| test.c:436:9:436:9 | s | Right hand operand of shift operator is essentially Signed type and not not essentially unsigned. |
-| test.c:440:3:440:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:441:3:441:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:442:3:442:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:443:3:443:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:63:3:63:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:65:3:65:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:71:3:71:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:73:3:73:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:77:3:77:4 | cf | Use of essentially Complex type in this way is a constraint violation. |
+| test.c:79:3:79:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:81:3:81:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:85:3:85:4 | cf | Use of essentially Complex type in this way is a constraint violation. |
+| test.c:87:5:87:5 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:89:5:89:6 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:93:5:93:6 | cf | Use of essentially Complex type in this way is a constraint violation. |
+| test.c:95:5:95:5 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:97:5:97:6 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:101:5:101:6 | cf | Use of essentially Complex type in this way is a constraint violation. |
+| test.c:103:7:103:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:104:7:104:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:105:7:105:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:111:7:111:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:112:7:112:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:113:7:113:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:119:3:119:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:120:3:120:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:121:3:121:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:127:3:127:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:128:3:128:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:129:3:129:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:135:3:135:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:136:3:136:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:137:3:137:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:143:7:143:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:144:7:144:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:145:7:145:8 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:151:7:151:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:159:7:159:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:167:8:167:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:175:8:175:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:183:3:183:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:191:3:191:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:199:3:199:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:207:3:207:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:220:3:220:3 | f | Floating point numbers have inherent error such that comparisons should consider precision and not exact equality. |
+| test.c:221:3:221:4 | cf | Floating point numbers have inherent error such that comparisons should consider precision and not exact equality. |
+| test.c:234:3:234:3 | f | Floating point numbers have inherent error such that comparisons should consider precision and not exact equality. |
+| test.c:235:3:235:4 | cf | Floating point numbers have inherent error such that comparisons should consider precision and not exact equality. |
+| test.c:248:8:248:8 | f | Floating point numbers have inherent error such that comparisons should consider precision and not exact equality. |
+| test.c:249:8:249:9 | cf | Floating point numbers have inherent error such that comparisons should consider precision and not exact equality. |
+| test.c:262:8:262:8 | f | Floating point numbers have inherent error such that comparisons should consider precision and not exact equality. |
+| test.c:263:8:263:9 | cf | Floating point numbers have inherent error such that comparisons should consider precision and not exact equality. |
+| test.c:272:4:272:4 | c | Operand of essentially Character type type interpreted as a Boolean value. |
+| test.c:273:4:273:5 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
+| test.c:274:4:274:4 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
+| test.c:275:4:275:4 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
+| test.c:276:4:276:4 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
+| test.c:277:4:277:5 | cf | Operand of essentially Complex Floating type type interpreted as a Boolean value. |
+| test.c:280:3:280:3 | c | Operand of essentially Character type type interpreted as a Boolean value. |
+| test.c:281:3:281:4 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
+| test.c:282:3:282:3 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
+| test.c:283:3:283:3 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
+| test.c:284:3:284:3 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
+| test.c:285:3:285:4 | cf | Operand of essentially Complex Floating type type interpreted as a Boolean value. |
+| test.c:288:3:288:3 | c | Operand of essentially Character type type interpreted as a Boolean value. |
+| test.c:289:3:289:4 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
+| test.c:290:3:290:3 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
+| test.c:291:3:291:3 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
+| test.c:292:3:292:3 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
+| test.c:293:3:293:4 | cf | Operand of essentially Complex Floating type type interpreted as a Boolean value. |
+| test.c:296:11:296:11 | c | Operand of essentially Character type type interpreted as a Boolean value. |
+| test.c:297:11:297:12 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
+| test.c:298:11:298:11 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
+| test.c:299:11:299:11 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
+| test.c:300:11:300:11 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
+| test.c:301:11:301:12 | cf | Operand of essentially Complex Floating type type interpreted as a Boolean value. |
+| test.c:304:12:304:12 | c | Operand of essentially Character type type interpreted as a Boolean value. |
+| test.c:305:12:305:13 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
+| test.c:306:12:306:12 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
+| test.c:307:12:307:12 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
+| test.c:308:12:308:12 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
+| test.c:309:12:309:13 | cf | Operand of essentially Complex Floating type type interpreted as a Boolean value. |
+| test.c:311:3:311:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:312:3:312:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:313:3:313:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:314:3:314:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:319:3:319:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:320:3:320:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:321:3:321:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:322:3:322:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:327:8:327:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:328:8:328:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:329:8:329:9 | e1 | Right hand operand of shift operator is essentially Enum Type and not not essentially unsigned. |
+| test.c:330:8:330:8 | s | Right hand operand of shift operator is essentially Signed type and not not essentially unsigned. |
+| test.c:335:8:335:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:336:8:336:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:337:8:337:9 | e1 | Right hand operand of shift operator is essentially Enum Type and not not essentially unsigned. |
+| test.c:338:8:338:8 | s | Right hand operand of shift operator is essentially Signed type and not not essentially unsigned. |
+| test.c:343:3:343:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:344:3:344:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:345:3:345:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:346:3:346:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:351:3:351:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:352:3:352:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:353:3:353:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:354:3:354:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:359:3:359:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:360:3:360:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:361:3:361:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:362:3:362:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:367:6:367:6 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:368:6:368:6 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:369:6:369:7 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:370:6:370:6 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:375:7:375:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:376:7:376:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:377:7:377:8 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:378:7:378:7 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:383:7:383:7 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:384:7:384:7 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:385:7:385:8 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:386:7:386:7 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:391:4:391:4 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:392:4:392:4 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:393:4:393:5 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:394:4:394:4 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:400:3:400:3 | c | Operand of essentially Character type type interpreted as a Boolean value. |
+| test.c:401:3:401:4 | e1 | Operand of essentially Enum Type type interpreted as a Boolean value. |
+| test.c:402:3:402:3 | s | Operand of essentially Signed type type interpreted as a Boolean value. |
+| test.c:403:3:403:3 | u | Operand of essentially Unsigned type type interpreted as a Boolean value. |
+| test.c:404:3:404:3 | f | Operand of essentially Floating type type interpreted as a Boolean value. |
+| test.c:405:3:405:4 | cf | Operand of essentially Complex Floating type type interpreted as a Boolean value. |
+| test.c:415:3:415:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:417:3:417:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:423:3:423:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:425:3:425:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:431:8:431:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:433:8:433:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:439:8:439:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:441:8:441:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
 | test.c:447:3:447:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
 | test.c:448:3:448:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:449:3:449:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:450:3:450:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:454:3:454:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:455:3:455:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:456:3:456:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:457:3:457:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:461:8:461:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:462:8:462:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:463:8:463:9 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:464:8:464:8 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:468:8:468:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:469:8:469:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:470:8:470:9 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:471:8:471:8 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
-| test.c:475:8:475:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
-| test.c:476:8:476:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
-| test.c:477:8:477:9 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
-| test.c:478:8:478:8 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:449:3:449:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:455:3:455:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:456:3:456:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:457:3:457:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:463:8:463:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:464:8:464:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:465:8:465:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:471:8:471:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:472:8:472:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:473:8:473:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:479:3:479:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:480:3:480:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:481:3:481:4 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:487:8:487:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:488:8:488:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:489:8:489:9 | e1 | Operand of essentially Enum type used in arithmetic operation, but has an implementation defined integer type. |
+| test.c:495:3:495:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:496:3:496:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:497:3:497:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:498:3:498:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:503:3:503:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:504:3:504:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:505:3:505:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:506:3:506:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:511:9:511:9 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:512:9:512:9 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:513:9:513:10 | e1 | Right hand operand of shift operator is essentially Enum Type and not not essentially unsigned. |
+| test.c:514:9:514:9 | s | Right hand operand of shift operator is essentially Signed type and not not essentially unsigned. |
+| test.c:519:9:519:9 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:520:9:520:9 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:521:9:521:10 | e1 | Right hand operand of shift operator is essentially Enum Type and not not essentially unsigned. |
+| test.c:522:9:522:9 | s | Right hand operand of shift operator is essentially Signed type and not not essentially unsigned. |
+| test.c:527:3:527:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:528:3:528:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:529:3:529:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:530:3:530:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:535:3:535:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:536:3:536:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:537:3:537:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:538:3:538:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:543:3:543:3 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:544:3:544:3 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:545:3:545:4 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:546:3:546:3 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:551:8:551:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:552:8:552:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:553:8:553:9 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:554:8:554:8 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:559:8:559:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:560:8:560:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:561:8:561:9 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:562:8:562:8 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |
+| test.c:567:8:567:8 | b | Operand of essentially Boolean type interpreted as a numeric value. |
+| test.c:568:8:568:8 | c | Operand of essentially Charater type interpreted as a numeric value. |
+| test.c:569:8:569:9 | e1 | Bitwise operator applied to operand of essentially Enum Type and not essentially unsigned. |
+| test.c:570:8:570:8 | s | Bitwise operator applied to operand of essentially Signed type and not essentially unsigned. |

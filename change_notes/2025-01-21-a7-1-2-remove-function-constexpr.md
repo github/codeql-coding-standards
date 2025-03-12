@@ -1,0 +1,2 @@
+ - `A7-1-2` - `FunctionMissingConstexpr.ql`
+   - Address false positives by removing the query - the rule is not intended to cover functions.

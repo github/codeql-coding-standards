@@ -12,6 +12,10 @@ import Concurrency2
 import Concurrency3
 import Concurrency4
 import Concurrency5
+import Concurrency6
+import Concurrency7
+import Concurrency8
+import Contracts
 import Contracts1
 import Contracts2
 import Contracts3
@@ -20,6 +24,7 @@ import Contracts5
 import Contracts6
 import Contracts7
 import DeadCode
+import DeadCode2
 import Declarations1
 import Declarations2
 import Declarations3
@@ -91,6 +96,10 @@ newtype TCQuery =
   TConcurrency3PackageQuery(Concurrency3Query q) or
   TConcurrency4PackageQuery(Concurrency4Query q) or
   TConcurrency5PackageQuery(Concurrency5Query q) or
+  TConcurrency6PackageQuery(Concurrency6Query q) or
+  TConcurrency7PackageQuery(Concurrency7Query q) or
+  TConcurrency8PackageQuery(Concurrency8Query q) or
+  TContractsPackageQuery(ContractsQuery q) or
   TContracts1PackageQuery(Contracts1Query q) or
   TContracts2PackageQuery(Contracts2Query q) or
   TContracts3PackageQuery(Contracts3Query q) or
@@ -99,6 +108,7 @@ newtype TCQuery =
   TContracts6PackageQuery(Contracts6Query q) or
   TContracts7PackageQuery(Contracts7Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode2PackageQuery(DeadCode2Query q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
@@ -170,6 +180,10 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConcurrency3QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency4QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency5QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency6QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency7QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency8QueryMetadata(query, queryId, ruleId, category) or
+  isContractsQueryMetadata(query, queryId, ruleId, category) or
   isContracts1QueryMetadata(query, queryId, ruleId, category) or
   isContracts2QueryMetadata(query, queryId, ruleId, category) or
   isContracts3QueryMetadata(query, queryId, ruleId, category) or
@@ -178,6 +192,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isContracts6QueryMetadata(query, queryId, ruleId, category) or
   isContracts7QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or

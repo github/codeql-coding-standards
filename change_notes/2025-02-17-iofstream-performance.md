@@ -1,0 +1,2 @@
+ - `A27-0-3`, `FIO309-C`, `FIO50-CPP`, `RULE-30-0-2` - `InterleavedInputOutputWithoutFlush.ql`, `DoNotAlternatelyIOFromStreamWithoutPositioning.ql`, `InterleavedInputOutputWithoutPosition.ql`, `ReadsAndWritesOnStreamNotSeparatedByPositioning.ql`:
+   - Reduce evaluation time on complex codebases.

@@ -57,17 +57,19 @@ predicate sameSource(FunctionCall a, FunctionCall b) {
   sameFileSource(a, b)
 }
 
+bindingset[a, b]
 predicate sameAccessDirection(ReadWriteCall a, ReadWriteCall b) {
   a.getAccessDirection() = b.getAccessDirection()
 }
 
+bindingset[a, b]
 predicate oppositeAccessDirection(ReadWriteCall a, ReadWriteCall b) {
   not sameAccessDirection(a, b)
 }
 
 /**
  * A write operation reaching a read and vice versa
- * without intervening filepositioning
+ * without intervening file positioning calls.
  */
 ControlFlowNode reachesInExOperator(ReadWriteCall op) {
   result = op
