@@ -20,7 +20,7 @@
         {
           "description": "The value of an atomic variable shall not depend on evaluation order and interleaving of threads.",
           "kind": "problem",
-          "name": "The value of an atomic variable depend on its evaluation order and interleave of threads",
+          "name": "The value of an atomic variable shall not depend on the evaluation order of interleaved threads",
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnsequencedAtomicReads",

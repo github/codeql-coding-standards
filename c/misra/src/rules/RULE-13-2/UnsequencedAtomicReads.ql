@@ -37,7 +37,6 @@ class AtomicAccessInFullExpressionOrdering extends Ordering::Configuration {
  * Note, it may be accessed directly, or by passing its address into the std atomic functions.
  */
 class AtomicVariableAccess extends VariableAccess {
-  pragma[noinline]
   AtomicVariableAccess() { getTarget().getType().hasSpecifier("atomic") }
 
   /* Get the `atomic_<read|write>()` call this VarAccess occurs in. */
