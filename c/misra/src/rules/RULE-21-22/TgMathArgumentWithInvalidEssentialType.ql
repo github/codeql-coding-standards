@@ -1,8 +1,8 @@
 /**
  * @id c/misra/tg-math-argument-with-invalid-essential-type
- * @name RULE-21-22: All operand arguments to any type-generic macros in <tgmath.h> shall have an appropriate essential
+ * @name RULE-21-22: All operand arguments to type-generic macros in <tgmath.h> shall have an appropriate essential type
  * @description All operand arguments to any type-generic macros in <tgmath.h> shall have an
- *              appropriate essential type
+ *              appropriate essential type.
  * @kind problem
  * @precision high
  * @problem.severity error

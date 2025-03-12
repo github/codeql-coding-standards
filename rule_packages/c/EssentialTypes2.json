@@ -6,9 +6,9 @@
       },
       "queries": [
         {
-          "description": "All operand arguments to any type-generic macros in <tgmath.h> shall have an appropriate essential type",
+          "description": "All operand arguments to any type-generic macros in <tgmath.h> shall have an appropriate essential type.",
           "kind": "problem",
-          "name": "All operand arguments to any type-generic macros in <tgmath.h> shall have an appropriate essential",
+          "name": "All operand arguments to type-generic macros in <tgmath.h> shall have an appropriate essential type",
           "precision": "high",
           "severity": "error",
           "short_name": "TgMathArgumentWithInvalidEssentialType",
@@ -29,9 +29,9 @@
       },
       "queries": [
         {
-          "description": "All operand arguments to any multi-argument type-generic macros in <tgmath.h> shall have the same standard type",
+          "description": "All operand arguments to any multi-argument type-generic macros in <tgmath.h> shall have the same standard type.",
           "kind": "problem",
-          "name": "All operand arguments to any multi-argument type-generic macros in <tgmath.h> shall have the same",
+          "name": "Operand arguments for an invocation of a type-generic macro shall have the same standard type",
           "precision": "high",
           "severity": "error",
           "short_name": "TgMathArgumentsWithDifferingStandardType",

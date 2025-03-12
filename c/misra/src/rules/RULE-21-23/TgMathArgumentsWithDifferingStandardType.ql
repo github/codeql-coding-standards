@@ -1,8 +1,8 @@
 /**
  * @id c/misra/tg-math-arguments-with-differing-standard-type
- * @name RULE-21-23: All operand arguments to any multi-argument type-generic macros in <tgmath.h> shall have the same
+ * @name RULE-21-23: Operand arguments for an invocation of a type-generic macro shall have the same standard type
  * @description All operand arguments to any multi-argument type-generic macros in <tgmath.h> shall
- *              have the same standard type
+ *              have the same standard type.
  * @kind problem
  * @precision high
  * @problem.severity error

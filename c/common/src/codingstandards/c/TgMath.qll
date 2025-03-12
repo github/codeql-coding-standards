@@ -1,4 +1,3 @@
-
 import cpp
 
 private string getATgMathMacroName(boolean allowComplex) {
@@ -35,21 +34,17 @@ class TgMathInvocation extends MacroInvocation {
   }
 
   Expr getOperandArgument(int i) {
-    result = call.getArgument(i)
-    and not hasOutputArgument(call.getTarget().getName(), i)
+    result = call.getArgument(i) and
+    not hasOutputArgument(call.getTarget().getName(), i)
   }
 
   int getNumberOfOperandArguments() {
     result = call.getNumberOfArguments() - count(int i | hasOutputArgument(getMacroName(), i))
   }
 
-  Expr getAnOperandArgument() {
-    result = getOperandArgument(_)
-  }
+  Expr getAnOperandArgument() { result = getOperandArgument(_) }
 
-  predicate allowsComplex() { 
-    allowComplex = true
-  }
+  predicate allowsComplex() { allowComplex = true }
 }
 
 private Call getACallInExpansion(MacroInvocation mi) { result = mi.getAnExpandedElement() }
