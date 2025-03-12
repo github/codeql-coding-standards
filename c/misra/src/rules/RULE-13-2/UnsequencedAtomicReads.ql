@@ -1,6 +1,6 @@
 /**
  * @id c/misra/unsequenced-atomic-reads
- * @name RULE-13-2: The value of an atomic variable depend on its evaluation order and interleave of threads
+ * @name RULE-13-2: The value of an atomic variable shall not depend on the evaluation order of interleaved threads
  * @description The value of an atomic variable shall not depend on evaluation order and
  *              interleaving of threads.
  * @kind problem
