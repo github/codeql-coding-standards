@@ -58,7 +58,5 @@ private class FunctionLikeMacroWithOperatorArgument extends IrreplaceableFunctio
 }
 
 private class GenericMacro extends IrreplaceableFunctionLikeMacro {
-  GenericMacro() {
-    getBody().matches("%_Generic%")
-  }
+  GenericMacro() { getBody().matches("%_Generic%") }
 }
