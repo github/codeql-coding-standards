@@ -13,10 +13,16 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.c.Objects
 import semmle.code.cpp.dataflow.DataFlow
 
-class Source extends StackVariable {
-  Source() { not this instanceof Parameter }
+class Source extends Expr {
+  ObjectIdentity rootObject;
+
+  Source() {
+    rootObject.getStorageDuration().isAutomatic() and
+    this = rootObject.getASubobjectAddressExpr()
+  }
 }
 
 class Sink extends DataFlow::Node {
@@ -40,7 +46,7 @@ from DataFlow::Node src, DataFlow::Node sink
 where
   not isExcluded(sink.asExpr(),
     Declarations8Package::appropriateStorageDurationsFunctionReturnQuery()) and
-  exists(Source s | src.asExpr() = s.getAnAccess()) and
+  exists(Source s | src.asExpr() = s) and
   sink instanceof Sink and
   DataFlow::localFlow(src, sink)
 select sink, "$@ with automatic storage may be accessible outside of its lifetime.", src,

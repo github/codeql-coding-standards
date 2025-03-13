@@ -42,6 +42,7 @@
 | 0.32.0 | 2024-05-01 | Luke Cartey | Refer to the user manual for the list of supported standards. |
 | 0.33.0 | 2024-07-30 | Kristen Newbury | Remove out dated references to codeql modules directory usage. |
 | 0.34.0 | 2024-08-22 | Kristen Newbury | Remove out dated references to git submodules usage. |
+| 0.35.0 | 2025-01-15 | Mike Fairhurst | Add guidance for the addition of 'strict' queries. |
 
 ## Scope of work
 
@@ -50,6 +51,8 @@ A *coding standard* is a set of rules or guidelines which restrict or prohibit t
 Each coding standard consists of a list of "guidelines", however not all the guidelines in all the standards will be amenable to automated static analysis. The AUTOSAR C++ standard categorizes the guidelines according to enforcement by static analysis tools in section *5.1.3 Rule classification according to enforcement by static analysis* of the standard. The CERT-C++ standard does not provide such categorization, but frequently has a [documented](https://wiki.sei.cmu.edu/confluence/display/cplusplus/How+this+Coding+Standard+Is+Organized#HowthisCodingStandardIsOrganized-AutomatedDetection) automated detection section for guidelines that documents tools, including their limitations, that can verify the guidelines in question. We have therefore carefully reviewed each supported standard. For each guidelines that is not categorized as automatic enforceable we have determined,in conjunction with end users, what parts of the guideline can be supported in which capacity with CodeQL.
 
 For some of the rules which are not amenable to static analysis, we may opt to provide a query which aids with "auditing" the rules. For example, AUTOSAR includes a rule (A10-0-1) "Public inheritance shall be used to implement 'is-a' relationship.". This is not directly amenable to static analysis, because it requires external context around the concept being modeled. However, we can provide an "audit" rule which reports all the public and private inheritance relationships in the program, so they can be manually verified.
+
+For other rules, there may be means of indicating that a contravention is intentional, and where requiring a _devation report_ may be extra burdensome on developers and require double-entry. These results should be reported under a "strict" query. For instance, `RULE-2-8` "A project should not contain unused object definitions," where adding `__attribute__((unused))` may be preferable in order to suppress compiler warnings (which _deviation reports_ do not do) and are highly indicative of an intentional contravention by a developer.
 
 For each rule which will be implemented with a query we have assigned a "rule package". Rule packages represent sets of rules, possibly across standards, that will be implemented together. Examples of rule packages include "Exceptions", "Naming", "Pointers" and so forth. By implementing queries for related rules together, we intend to maximize the amount of code shared between queries, and to ensure query developers can gain a deep understanding of that specific topic.
 

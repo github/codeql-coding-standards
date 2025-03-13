@@ -15,7 +15,6 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
 
 from NewOrNewArrayExpr na
 where
