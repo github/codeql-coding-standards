@@ -23,14 +23,33 @@ class AtomicVoidType extends Type {
   }
 }
 
-Type getNestedType(Type root) {
-  result = root
+predicate usesAtomicVoid(Type root) {
+  root instanceof AtomicVoidType
   or
-  exists(DerivedType derived | derived = root | result = getNestedType(derived.getBaseType()))
+  usesAtomicVoid(root.(DerivedType).getBaseType())
+  or
+  usesAtomicVoid(root.(RoutineType).getReturnType())
+  or
+  usesAtomicVoid(root.(RoutineType).getAParameterType())
+  or
+  usesAtomicVoid(root.(FunctionPointerType).getReturnType())
+  or
+  usesAtomicVoid(root.(FunctionPointerType).getAParameterType())
+  or
+  usesAtomicVoid(root.(TypedefType).getBaseType())
 }
 
-from DeclarationEntry decl, AtomicVoidType atomicVoid
+class ExplicitType extends Type {
+  Element getDeclaration(string description) {
+    result.(DeclarationEntry).getType() = this and description = result.(DeclarationEntry).getName()
+    or
+    result.(CStyleCast).getType() = this and description = "Cast"
+  }
+}
+
+from Element decl, ExplicitType explicitType, string elementDescription
 where
   not isExcluded(decl, Declarations9Package::atomicQualifierAppliedToVoidQuery()) and
-  atomicVoid = getNestedType(decl.getType())
-select decl, decl.getName() + " declared with an atomic void type."
+  decl = explicitType.getDeclaration(elementDescription) and
+  usesAtomicVoid(explicitType)
+select decl, elementDescription + " declared with an atomic void type."
