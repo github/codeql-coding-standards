@@ -23,6 +23,6 @@ typedef void f4(_Atomic void *);    // NON_COMPLIANT
 typedef void (*f5)(_Atomic void *); // NON_COMPLIANT
 
 void f6() {
-  (void *)0; // COMPLIANT
+  (void *)0;         // COMPLIANT
   (_Atomic void *)0; // NON_COMPLIANT
 }
