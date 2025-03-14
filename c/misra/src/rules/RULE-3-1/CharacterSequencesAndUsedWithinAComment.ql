@@ -43,7 +43,7 @@ where
   not isExcluded(comment, SyntaxPackage::characterSequencesAndUsedWithinACommentQuery()) and
   (
     exists(IllegalCommentSequence c | illegalSequence = c |
-      comment.getContents().indexOf(illegalSequence) > 0
+      comment.getContents().indexOf(illegalSequence) > 1
     )
     or
     exists(IllegalCCommentRegexp c | illegalSequence = c.getDescription() |

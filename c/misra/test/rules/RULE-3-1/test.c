@@ -35,4 +35,10 @@
 // COMPLIANT
 // https://github.com
 
+// COMPLIANT
+//* foo
+
+// NON_COMPLIANT
+///* foo
+
 void f(){}

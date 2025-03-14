@@ -7,4 +7,5 @@
  - `RULE-13-2` - `UnsequencedAtomicReads.ql`
    - New query to find expressions which read an atomic variable more than once between sequence points, to address new case from MISRA-C 2012 Amendment 4.
  - `RULE-3-1` - `CharacterSequencesAndUsedWithinAComment.ql`
-   - Add exception allowing URLs inside of cpp-style `/* ... */` comments, in compliance with MISRA-C 2012 Amendment 4
+   - Add exception allowing URLs inside of cpp-style `/* ... */` comments, in compliance with MISRA-C 2012 Amendment 4.
+   - No longer report cases of `//*some comment` in this rule.
