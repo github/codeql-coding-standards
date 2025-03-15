@@ -357,8 +357,9 @@ class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, B
  */
 class EssentialAddExpr extends EssentialBinaryOperationSubjectToUsualConversions, AddExpr {
   override Type getEssentialType() {
-    exists(Type otherOperandType,
-      EssentialTypeCategory operandTypeCategory, EssentialTypeCategory otherOperandTypeCategory, int intTypeSize
+    exists(
+      Type otherOperandType, EssentialTypeCategory operandTypeCategory,
+      EssentialTypeCategory otherOperandTypeCategory, int intTypeSize
     |
       operandTypeCategory = getEssentialTypeCategory(getEssentialType(getAnOperand())) and
       otherOperandType = getEssentialType(getAnOperand()) and
@@ -381,10 +382,8 @@ class EssentialAddExpr extends EssentialBinaryOperationSubjectToUsualConversions
 class EssentialSubExpr extends EssentialBinaryOperationSubjectToUsualConversions, SubExpr {
   override Type getEssentialType() {
     exists(
-      EssentialTypeCategory leftEssentialTypeCategory,
-      Type rightEssentialType,
-      EssentialTypeCategory rightEssentialTypeCategory,
-      int intTypeSize
+      EssentialTypeCategory leftEssentialTypeCategory, Type rightEssentialType,
+      EssentialTypeCategory rightEssentialTypeCategory, int intTypeSize
     |
       leftEssentialTypeCategory = getEssentialTypeCategory(getEssentialType(getLeftOperand())) and
       rightEssentialType = getEssentialType(getRightOperand()) and
