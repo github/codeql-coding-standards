@@ -48,18 +48,37 @@ class ThreadConstructorCall extends ConstructorCall, ThreadCreationFunction {
 }
 
 /**
- * Models a call to a thread constructor via `thrd_create`.
+ * Models a call to a thread creation via `thrd_create` or `pthread_create`.
  */
-class C11ThreadCreateCall extends ThreadCreationFunction {
+class CThreadCreateCall extends FunctionCall {
   Function f;
+  int fArgIdx;
 
-  C11ThreadCreateCall() {
-    getTarget().getName() = "thrd_create" and
+  CThreadCreateCall() {
     (
-      f = getArgument(1).(FunctionAccess).getTarget() or
-      f = getArgument(1).(AddressOfExpr).getOperand().(FunctionAccess).getTarget()
+      getTarget().getName() = "thrd_create" and
+      fArgIdx = 1
+      or
+      getTarget().getName() = "pthread_create" and
+      fArgIdx = 2
+    ) and
+    (
+      f = getArgument(fArgIdx).(FunctionAccess).getTarget() or
+      f = getArgument(fArgIdx).(AddressOfExpr).getOperand().(FunctionAccess).getTarget()
     )
   }
+
+  /**
+   * Returns the function that will be invoked by this thread.
+   */
+  Function getFunction() { result = f }
+}
+
+/**
+ * Models a call to a thread constructor via `thrd_create`.
+ */
+class C11ThreadCreateCall extends ThreadCreationFunction, CThreadCreateCall {
+  C11ThreadCreateCall() { getTarget().getName() = "thrd_create" }
 
   /**
    * Returns the function that will be invoked by this thread.
@@ -67,6 +86,34 @@ class C11ThreadCreateCall extends ThreadCreationFunction {
   override Function getFunction() { result = f }
 
   override ControlFlowNode getNext() { result = getFunction().getEntryPoint() }
+}
+
+class C11MutexType extends TypedefType {
+  C11MutexType() { this.hasName("mtx_t") }
+}
+
+class C11ThreadType extends TypedefType {
+  C11ThreadType() { this.hasName("thrd_t") }
+}
+
+class C11ConditionType extends TypedefType {
+  C11ConditionType() { this.hasName("cnd_t") }
+}
+
+class C11ThreadStorageType extends TypedefType {
+  C11ThreadStorageType() { this.hasName("tss_t") }
+}
+
+class C11ThreadingObjectType extends TypedefType {
+  C11ThreadingObjectType() {
+    this instanceof C11MutexType
+    or
+    this instanceof C11ThreadType
+    or
+    this instanceof C11ConditionType
+    or
+    this instanceof C11ThreadStorageType
+  }
 }
 
 /**
@@ -317,13 +364,21 @@ abstract class LockingOperation extends FunctionCall {
  */
 class RAIIStyleLock extends LockingOperation {
   VariableAccess lock;
-  Element e;
 
   RAIIStyleLock() {
     (
       getTarget().getDeclaringType().hasQualifiedName("std", "lock_guard") or
       getTarget().getDeclaringType().hasQualifiedName("std", "unique_lock") or
       getTarget().getDeclaringType().hasQualifiedName("std", "scoped_lock")
+    ) and
+    (
+      lock = getArgument(0).getAChild*()
+      or
+      this instanceof DestructorCall and
+      exists(RAIIStyleLock constructor |
+        constructor = getQualifier().(VariableAccess).getTarget().getInitializer().getExpr() and
+        lock = constructor.getArgument(0).getAChild*()
+      )
     )
   }
 
@@ -464,6 +519,24 @@ class CConditionalWait extends ConditionalWait {
 }
 
 /**
+ * Models a function which uses a c condition variable. Not integrated into the thread aware CFG.
+ */
+class CConditionOperation extends FunctionCall {
+  CConditionOperation() {
+    getTarget().hasName(["cnd_broadcast", "cnd_signal", "cnd_timedwait", "cnd_wait", "cnd_init"])
+  }
+
+  predicate isInit() { getTarget().hasName("cnd_init") }
+
+  predicate isUse() { not isInit() }
+
+  Expr getConditionExpr() { result = getArgument(0) }
+
+  /* Note: only holds for `cnd_wait()` and `cnd_timedwait()` */
+  Expr getMutexExpr() { result = getArgument(1) }
+}
+
+/**
  * Models a call to a `std::thread` constructor that depends on a mutex.
  */
 class MutexDependentThreadConstructor extends ThreadConstructorCall {
@@ -531,6 +604,10 @@ class CPPMutexSource extends MutexSource, ConstructorCall {
  */
 class C11MutexSource extends MutexSource, FunctionCall {
   C11MutexSource() { getTarget().hasName("mtx_init") }
+
+  Expr getMutexExpr() { result = getArgument(0) }
+
+  Expr getMutexTypeExpr() { result = getArgument(1) }
 }
 
 /**

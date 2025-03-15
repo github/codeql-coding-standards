@@ -1,0 +1,10 @@
+- `ERR57-CPP` - `DoNotLeakResourcesWhenHandlingExceptions.ql`:
+  - Resource leak detection code refactored for sharing across queries
+  - Control flow no longer uses "cut nodes." This could impact performance positively or negatively, however measurements have been taken that indicate no significant change
+  - Some false positives have been suppressed due to slightly different control flow approach
+  - Leaked mutex locks and open files are reported at slightly different location, reported at call site (e.g. `f.open(...)`, `m.lock()`) rather than on the variable itself (`f` and `m`).
+- `A15-1-4` - `ValidResourcesStateBeforeThrow.ql`:
+  - Resource leak detection code refactored for sharing across queries
+  - Control flow no longer uses "cut nodes." This could impact performance positively or negatively, however measurements have been taken that indicate no significant change
+  - Some false positives have been suppressed due to slightly different control flow approach
+  - Leaked mutex locks and open files are reported at slightly different location, reported at call site (e.g. `f.open(...)`, `m.lock()`) rather than on the variable itself (`f` and `m`).
