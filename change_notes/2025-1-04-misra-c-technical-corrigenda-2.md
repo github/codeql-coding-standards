@@ -1,6 +1,6 @@
  - `RULE-8-3` - `DeclarationsOfAFunctionSameNameAndType.ql`:
    - Implement new exception, unnamed parameters are not covered by this rule.
- - `RULE-10-2` - `AdditionSubtractionOnEssentiallCharType.ql`:
+ - `RULE-10-2` - `AdditionSubtractionOnEssentiallyCharType.ql`:
    - Disallow `+` and `-` operations with an essentially char type and other types larger than int type.
    - Note, this change affects the essential type of such expressions, which may affect other essential types rules.
  - `RULE-18-1`, `M5-0-16` - `PointerAndDerivedPointerMustAddressSameArray.ql`, `PointerAndDerivedPointerAccessDifferentArray.ql`:

@@ -104,6 +104,16 @@ class CastedToBytePointer extends ArrayLikeAccess, Conversion {
   }
 }
 
+  predicate pointerRecastBarrier(DataFlow::Node barrier) {
+    // Casting to a differently sized pointer
+    exists(CStyleCast cast, Expr casted |
+      cast.getExpr() = casted and casted = barrier.asConvertedExpr()
+    |
+      not casted.getType().(PointerType).getBaseType().getSize() =
+        cast.getType().(PointerType).getBaseType().getSize()
+    )
+  }
+
 /**
  * A data-flow configuration that tracks access to an array to type to an array index expression.
  * This is used to determine possible pointer to array creations.
@@ -111,7 +121,11 @@ class CastedToBytePointer extends ArrayLikeAccess, Conversion {
 module ByteArrayToArrayExprConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node source) { exists(CastedToBytePointer a | a.getNode() = source) }
 
-  // TODO: casting to different size pointed-to-type invalidates
+  predicate isBarrier(DataFlow::Node barrier) {
+    // Casting to a differently sized pointer invalidates this analysis.
+    pointerRecastBarrier(barrier)
+  }
+
   predicate isSink(DataFlow::Node sink) { exists(ArrayExpr c | c.getArrayBase() = sink.asExpr()) }
 }
 
@@ -126,12 +140,7 @@ module ArrayToArrayExprConfig implements DataFlow::ConfigSig {
 
   predicate isBarrier(DataFlow::Node barrier) {
     // Casting to a differently sized pointer invalidates this analysis.
-    exists(CStyleCast cast, Expr casted |
-      cast.getExpr() = casted and casted = barrier.asConvertedExpr()
-    |
-      not casted.getType().(PointerType).getBaseType().getSize() =
-        cast.getType().(PointerType).getBaseType().getSize()
-    )
+    pointerRecastBarrier(barrier)
   }
 
   predicate isSink(DataFlow::Node sink) { exists(ArrayExpr c | c.getArrayBase() = sink.asExpr()) }
