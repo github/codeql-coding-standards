@@ -104,15 +104,15 @@ class CastedToBytePointer extends ArrayLikeAccess, Conversion {
   }
 }
 
-  predicate pointerRecastBarrier(DataFlow::Node barrier) {
-    // Casting to a differently sized pointer
-    exists(CStyleCast cast, Expr casted |
-      cast.getExpr() = casted and casted = barrier.asConvertedExpr()
-    |
-      not casted.getType().(PointerType).getBaseType().getSize() =
-        cast.getType().(PointerType).getBaseType().getSize()
-    )
-  }
+predicate pointerRecastBarrier(DataFlow::Node barrier) {
+  // Casting to a differently sized pointer
+  exists(CStyleCast cast, Expr casted |
+    cast.getExpr() = casted and casted = barrier.asConvertedExpr()
+  |
+    not casted.getType().(PointerType).getBaseType().getSize() =
+      cast.getType().(PointerType).getBaseType().getSize()
+  )
+}
 
 /**
  * A data-flow configuration that tracks access to an array to type to an array index expression.
