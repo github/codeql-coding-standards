@@ -20,6 +20,9 @@
           ]
         }
       ],
+      "implementation_scope": {
+        "description": "Not all invariant logical expressions which contain dynamic values are detected to be invariant, for instance, `x < 3 && x > 5` where x does not have a statically known value."
+      },
       "title": "Controlling expressions shall not be invariant"
     },
     "RULE-15-5": {
