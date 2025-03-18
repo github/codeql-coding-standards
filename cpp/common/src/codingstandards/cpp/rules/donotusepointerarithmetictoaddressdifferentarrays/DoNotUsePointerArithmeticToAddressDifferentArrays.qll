@@ -80,14 +80,7 @@ class CastedToBytePointer extends ArrayLikeAccess, Conversion {
 
   override Element getElement() { result = this }
 
-  override string getName() {
-    result = "cast to btye pointer " + this.toString()
-    or
-    exists(Cast cast |
-      cast.getExpr() = this and
-      result = cast.getType().(PointerType).getBaseType().toString()
-    )
-  }
+  override string getName() { result = "cast to byte pointer" }
 
   override int getSize() { result = size }
 

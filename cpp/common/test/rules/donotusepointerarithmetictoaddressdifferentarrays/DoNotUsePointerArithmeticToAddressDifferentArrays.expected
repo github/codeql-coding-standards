@@ -4,5 +4,5 @@
 | test.cpp:11:8:11:11 | ... -- | Array pointer p7 points 1 element past the end of $@. | test.cpp:2:7:2:8 | l1 | l1 |
 | test.cpp:12:8:12:9 | p3 | Array pointer p8 points 1 element past the end of $@. | test.cpp:2:7:2:8 | l1 | l1 |
 | test.cpp:25:15:25:21 | & ... | Array pointer p14 points 1 element past the end of $@. | test.cpp:2:7:2:8 | l1 | l1 |
-| test.cpp:30:15:30:21 | & ... | Array pointer p17 points 1 element past the end of $@. | test.cpp:28:24:28:42 | (unsigned char *)... | cast to btye pointer (unsigned char *)... |
-| test.cpp:35:15:35:21 | & ... | Array pointer p20 points 1 element past the end of $@. | test.cpp:33:24:33:43 | (unsigned char *)... | cast to btye pointer (unsigned char *)... |
+| test.cpp:30:15:30:21 | & ... | Array pointer p17 points 1 element past the end of $@. | test.cpp:28:24:28:42 | (unsigned char *)... | cast to byte pointer |
+| test.cpp:35:15:35:21 | & ... | Array pointer p20 points 1 element past the end of $@. | test.cpp:33:24:33:43 | (unsigned char *)... | cast to byte pointer |
