@@ -1,5 +1,6 @@
 import codeql.util.Boolean
 import codingstandards.cpp.RestrictedRangeAnalysis
+import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis as SimpleRangeAnalysis
 
 predicate exprMayEqualZero(Expr e) {
   RestrictedRangeAnalysis::upperBound(e) >= 0 and
@@ -254,7 +255,7 @@ class FPClassificationGuard instanceof GuardCondition {
     )
   }
 
-  // Helper function, gets base constraint assuming `classifier() == value` or `classifier != value`.
+  // Helper predicate, gets base constraint assuming `classifier() == value` or `classifier != value`.
   private FPClassificationConstraint getBaseConstraint(Boolean areEqual, int testResult) {
     exists(FPClassificationConstraint base |
       testResult = 0 and
@@ -340,3 +341,72 @@ predicate exprMayEqualInfinity(Expr e, Boolean positive) {
   not guardedNotFPClass(e, TInfinite()) and
   not e.getType() instanceof IntegralType
 }
+
+signature float upperBoundPredicate(Expr e);
+
+signature float lowerBoundPredicate(Expr e);
+
+signature predicate exprMayEqualZeroPredicate(Expr e);
+
+predicate exprMayEqualZeroNaive(Expr e) {
+  e.getValue().toFloat() = 0
+}
+
+/**
+ * Get the math function name variants for the given name, e.g., "acos" has variants "acos",
+ * "acosf", and "acosl".
+ */
+Function getMathVariants(string name) { result.hasGlobalOrStdName([name, name + "f", name + "l"]) }
+
+module DomainError<upperBoundPredicate/1 ub, lowerBoundPredicate/1 lb, exprMayEqualZeroPredicate/1 mayEqualZero> {
+  predicate hasDomainError(FunctionCall fc, string description) {
+    exists(Function functionWithDomainError | fc.getTarget() = functionWithDomainError |
+      functionWithDomainError = [getMathVariants(["acos", "asin", "atanh"])] and
+      not (
+        ub(fc.getArgument(0)) <= 1.0 and
+        lb(fc.getArgument(0)) >= -1.0
+      ) and
+      description =
+        "the argument has a range " + lb(fc.getArgument(0)) + "..." + ub(fc.getArgument(0)) +
+          " which is outside the domain of this function (-1.0...1.0)"
+      or
+      functionWithDomainError = getMathVariants(["atan2", "pow"]) and
+      (
+        mayEqualZero(fc.getArgument(0)) and
+        mayEqualZero(fc.getArgument(1)) and
+        description = "both arguments are equal to zero"
+      )
+      or
+      functionWithDomainError = getMathVariants("pow") and
+      (
+        ub(fc.getArgument(0)) < 0.0 and
+        ub(fc.getArgument(1)) < 0.0 and
+        description = "both arguments are less than zero"
+      )
+      or
+      functionWithDomainError = getMathVariants("acosh") and
+      ub(fc.getArgument(0)) < 1.0 and
+      description = "argument is less than 1"
+      or
+      //pole error is the same as domain for logb and tgamma (but not ilogb - no pole error exists)
+      functionWithDomainError = getMathVariants(["ilogb", "logb", "tgamma"]) and
+      fc.getArgument(0).getValue().toFloat() = 0 and
+      description = "argument is equal to zero"
+      or
+      functionWithDomainError = getMathVariants(["log", "log10", "log2", "sqrt"]) and
+      ub(fc.getArgument(0)) < 0.0 and
+      description = "argument is negative"
+      or
+      functionWithDomainError = getMathVariants("log1p") and
+      ub(fc.getArgument(0)) < -1.0 and
+      description = "argument is less than 1"
+      or
+      functionWithDomainError = getMathVariants("fmod") and
+      fc.getArgument(1).getValue().toFloat() = 0 and
+      description = "y is 0"
+    )
+  }
+}
+
+import DomainError<RestrictedRangeAnalysis::upperBound/1, RestrictedRangeAnalysis::lowerBound/1, exprMayEqualZero/1> as RestrictedDomainError
+import DomainError<SimpleRangeAnalysis::upperBound/1, SimpleRangeAnalysis::lowerBound/1, exprMayEqualZeroNaive/1> as SimpleDomainError

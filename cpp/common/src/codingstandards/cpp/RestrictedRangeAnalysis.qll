@@ -2,56 +2,75 @@ import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.valuenumbering.HashCons
 
 /**
- * A fork of SimpleRangeAnalysis.qll, which is intended to only give
- * results with a conservative basis.
+ * A fork of SimpleRangeAnalysis.qll, which is intended to only give results
+ * with a conservative basis. Forked from codeql/cpp-all@1.4.2.
  *
- * For instance, since range analysis is local, a function call (e.g.
- * `f()`) is given the widest possible range in the original library. In
- * this fork, we do not provide any result.
+ * For instance, since range analysis is local, a function call (e.g. `f()`) is
+ * given the widest possible range in the original library. In this fork, we do
+ * not provide any result.
  *
  * Original library level doc comment from SimpleRangeAnalysis.qll:
  *
- * Simple range analysis library. Range analysis is usually done as an
- * abstract interpretation over the lattice of range values. (A range is a
- * pair, containing a lower and upper bound for the value.) The problem
- * with this approach is that the lattice is very tall, which means it can
- * take an extremely large number of iterations to find the least fixed
- * point. This example illustrates the problem:
+ * > Simple range analysis library. Range analysis is usually done as an
+ * > abstract interpretation over the lattice of range values. (A range is a
+ * > pair, containing a lower and upper bound for the value.) The problem
+ * > with this approach is that the lattice is very tall, which means it can
+ * > take an extremely large number of iterations to find the least fixed
+ * > point. This example illustrates the problem:
  *
- *    int count = 0;
- *    for (; p; p = p->next) {
- *      count = count+1;
- *    }
+ * >    int count = 0;
+ * >    for (; p; p = p->next) {
+ * >      count = count+1;
+ * >    }
  *
- * The range of 'count' is initially (0,0), then (0,1) on the second
- * iteration, (0,2) on the third iteration, and so on until we eventually
- * reach maxInt.
+ * > The range of 'count' is initially (0,0), then (0,1) on the second
+ * > iteration, (0,2) on the third iteration, and so on until we eventually
+ * > reach maxInt.
  *
- * This library uses a crude solution to the problem described above: if
- * the upper (or lower) bound of an expression might depend recursively on
- * itself then we round it up (down for lower bounds) to one of a fixed set
- * of values, such as 0, 1, 2, 256, and +Inf. This limits the height of the
- * lattice which ensures that the analysis will terminate in a reasonable
- * amount of time. This solution is similar to the abstract interpretation
- * technique known as 'widening', but it is less precise because we are
- * unable to inspect the bounds from the previous iteration of the fixed
- * point computation. For example, widening might be able to deduce that
- * the lower bound is -11 but we would approximate it to -16.
+ * > This library uses a crude solution to the problem described above: if
+ * > the upper (or lower) bound of an expression might depend recursively on
+ * > itself then we round it up (down for lower bounds) to one of a fixed set
+ * > of values, such as 0, 1, 2, 256, and +Inf. This limits the height of the
+ * > lattice which ensures that the analysis will terminate in a reasonable
+ * > amount of time. This solution is similar to the abstract interpretation
+ * > technique known as 'widening', but it is less precise because we are
+ * > unable to inspect the bounds from the previous iteration of the fixed
+ * > point computation. For example, widening might be able to deduce that
+ * > the lower bound is -11 but we would approximate it to -16.
  *
- * QL does not allow us to compute an aggregate over a recursive
- * sub-expression, so we cannot compute the minimum lower bound and maximum
- * upper bound during the recursive phase of the query. Instead, the
- * recursive phase computes a set of lower bounds and a set of upper bounds
- * for each expression. We compute the minimum lower bound and maximum
- * upper bound after the recursion is finished. This is another reason why
- * we need to limit the number of bounds per expression, because they will
- * all be stored until the recursive phase is finished.
+ * > QL does not allow us to compute an aggregate over a recursive
+ * > sub-expression, so we cannot compute the minimum lower bound and maximum
+ * > upper bound during the recursive phase of the query. Instead, the
+ * > recursive phase computes a set of lower bounds and a set of upper bounds
+ * > for each expression. We compute the minimum lower bound and maximum
+ * > upper bound after the recursion is finished. This is another reason why
+ * > we need to limit the number of bounds per expression, because they will
+ * > all be stored until the recursive phase is finished.
  *
- * The ranges are represented using a pair of floating point numbers. This
- * is simpler than using integers because floating point numbers cannot
- * overflow and wrap. It is also convenient because we can detect overflow
- * and negative overflow by looking for bounds that are outside the range
- * of the type.
+ * > The ranges are represented using a pair of floating point numbers. This
+ * > is simpler than using integers because floating point numbers cannot
+ * > overflow and wrap. It is also convenient because we can detect overflow
+ * > and negative overflow by looking for bounds that are outside the range
+ * > of the type.
+ *
+ * The differences between this library and the original are:
+ *  - The `largeValue()` predicate, with a value of 1e15, used in place of
+ *    `exprMaxVal()` and `exprMinVal()` in most places.
+ *  - Support for range analysis extensions removed for simplicity.
+ *  - Additional predicates have been added to check for non-zero values, and guards
+ *    against values equalling zero.
+ *  - Division by a constant value has been added as a supported operations. Division
+ *    is always widened, as support for division introduces examples of significantly
+ *    longer chains of dependent expressions than merely addition and multiplication.
+ *    These long chains can introduce exponential growth in the number of candidate
+ *    bounds, even without recursive binary operations, so widening is always applied.
+ *  - Division operations where the range of the denominator includes zero (and its
+ *    not guarded to be non-zero) and produce infinite upper and/or lower bounds.
+ *  - Support for monotonically increasing and decreasing math functions has been
+ *    added, including `log`, `exp`, `asin`, `atan`, `sinh`, and `sqrt`. If a math
+ *    function increases or decreases monotonically, then the lower or upper bound of
+ *    its input can be used to compute the lower or upper bound of the function call.
+ *    Not all math functions increase or decrease monotonically.
  */
 module RestrictedRangeAnalysis {
   import cpp

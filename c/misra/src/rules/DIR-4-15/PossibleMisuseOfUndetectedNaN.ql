@@ -1,5 +1,5 @@
 /**
- * @id c/misra/possible-misuse-of-undetected-na-n
+ * @id c/misra/possible-misuse-of-undetected-nan
  * @name DIR-4-15: Evaluation of floating-point expressions shall not lead to the undetected generation of NaNs
  * @description Evaluation of floating-point expressions shall not lead to the undetected generation
  *              of NaNs.
@@ -23,58 +23,6 @@ import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.dataflow.new.TaintTracking
 import semmle.code.cpp.controlflow.Dominance
 
-bindingset[name]
-Function getMathVariants(string name) { result.hasGlobalOrStdName([name, name + "f", name + "l"]) }
-
-predicate hasDomainError(FunctionCall fc, string description) {
-  exists(Function functionWithDomainError | fc.getTarget() = functionWithDomainError |
-    functionWithDomainError = [getMathVariants(["acos", "asin", "atanh"])] and
-    not (
-      RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) <= 1.0 and
-      RestrictedRangeAnalysis::lowerBound(fc.getArgument(0)) >= -1.0
-    ) and
-    description =
-      "the argument has a range " + RestrictedRangeAnalysis::lowerBound(fc.getArgument(0)) + "..." +
-        RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) +
-        " which is outside the domain of this function (-1.0...1.0)"
-    or
-    functionWithDomainError = getMathVariants(["atan2", "pow"]) and
-    (
-      exprMayEqualZero(fc.getArgument(0)) and
-      exprMayEqualZero(fc.getArgument(1)) and
-      description = "both arguments are equal to zero"
-    )
-    or
-    functionWithDomainError = getMathVariants("pow") and
-    (
-      RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) < 0.0 and
-      RestrictedRangeAnalysis::upperBound(fc.getArgument(1)) < 0.0 and
-      description = "both arguments are less than zero"
-    )
-    or
-    functionWithDomainError = getMathVariants("acosh") and
-    RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) < 1.0 and
-    description = "argument is less than 1"
-    or
-    //pole error is the same as domain for logb and tgamma (but not ilogb - no pole error exists)
-    functionWithDomainError = getMathVariants(["ilogb", "logb", "tgamma"]) and
-    exprMayEqualZero(fc.getArgument(0)) and
-    description = "argument is equal to zero"
-    or
-    functionWithDomainError = getMathVariants(["log", "log10", "log2", "sqrt"]) and
-    RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) < 0.0 and
-    description = "argument is negative"
-    or
-    functionWithDomainError = getMathVariants("log1p") and
-    RestrictedRangeAnalysis::upperBound(fc.getArgument(0)) < -1.0 and
-    description = "argument is less than 1"
-    or
-    functionWithDomainError = getMathVariants("fmod") and
-    exprMayEqualZero(fc.getArgument(1)) and
-    description = "y is 0"
-  )
-}
-
 abstract class PotentiallyNaNExpr extends Expr {
   abstract string getReason();
 }
@@ -82,7 +30,7 @@ abstract class PotentiallyNaNExpr extends Expr {
 class DomainErrorFunctionCall extends FunctionCall, PotentiallyNaNExpr {
   string reason;
 
-  DomainErrorFunctionCall() { hasDomainError(this, reason) }
+  DomainErrorFunctionCall() { RestrictedDomainError::hasDomainError(this, reason) }
 
   override string getReason() { result = reason }
 }
@@ -116,8 +64,13 @@ class InvalidOperationExpr extends BinaryOperation, PotentiallyNaNExpr {
       or
       // 7.1.3: multiplication of zero by infinity
       getOperator() = "*" and
-      exprMayEqualZero(getAnOperand()) and
-      exprMayEqualInfinity(getAnOperand(), _) and
+      exists(Expr zeroOp, Expr infinityOp |
+        zeroOp = getAnOperand() and
+        infinityOp = getAnOperand() and
+        not zeroOp = infinityOp and
+        exprMayEqualZero(zeroOp) and
+        exprMayEqualInfinity(infinityOp, _)
+      ) and
       reason = "from multiplication of zero by infinity"
       or
       // 7.1.4: Division of zero by zero, or infinity by infinity
@@ -199,15 +152,13 @@ module InvalidNaNUsage implements DataFlow::ConfigSig {
 
 class InvalidNaNUsage extends DataFlow::Node {
   string description;
-  string nanDescription;
 
   InvalidNaNUsage() {
     // Case 1: NaNs shall not be compared, except to themselves
     exists(ComparisonOperation cmp |
       this.asExpr() = cmp.getAnOperand() and
       not hashCons(cmp.getLeftOperand()) = hashCons(cmp.getRightOperand()) and
-      description = "Comparison involving a $@, which always evaluates to false." and
-      nanDescription = "possibly NaN float value"
+      description = "comparison, which would always evaluate to false."
     )
     or
     // Case 2: NaNs and infinities shall not be cast to integers
@@ -215,14 +166,11 @@ class InvalidNaNUsage extends DataFlow::Node {
       this.asExpr() = c.getUnconverted() and
       c.getExpr().getType() instanceof FloatingPointType and
       c.getType() instanceof IntegralType and
-      description = "$@ casted to integer." and
-      nanDescription = "Possibly NaN float value"
+      description = "a cast to integer."
     )
   }
 
   string getDescription() { result = description }
-
-  string getNaNDescription() { result = nanDescription }
 }
 
 module InvalidNaNFlow = DataFlow::Global<InvalidNaNUsage>;
@@ -231,7 +179,8 @@ import InvalidNaNFlow::PathGraph
 
 from
   Element elem, InvalidNaNFlow::PathNode source, InvalidNaNFlow::PathNode sink,
-  InvalidNaNUsage usage, Expr sourceExpr, string sourceString, Element extra, string extraString
+  InvalidNaNUsage usage, Expr sourceExpr, string sourceString, Function function,
+  string computedInFunction
 where
   not InvalidNaNFlow::PathGraph::edges(_, source, _, _) and
   not InvalidNaNFlow::PathGraph::edges(sink, _, _, _) and
@@ -240,18 +189,14 @@ where
   elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
   usage = sink.getNode() and
   sourceExpr = source.getNode().asExpr() and
-  sourceString = " (" + source.getNode().asExpr().(PotentiallyNaNExpr).getReason() + ")" and
+  sourceString = source.getNode().asExpr().(PotentiallyNaNExpr).getReason() and
+  function = sourceExpr.getEnclosingFunction() and
   InvalidNaNFlow::flow(source.getNode(), usage) and
   (
     if not sourceExpr.getEnclosingFunction() = usage.asExpr().getEnclosingFunction()
-    then
-      extraString =
-        usage.getNaNDescription() + sourceString + " computed in function " +
-          sourceExpr.getEnclosingFunction().getName() and
-      extra = sourceExpr.getEnclosingFunction()
-    else (
-      extra = sourceExpr and
-      extraString = usage.getNaNDescription() + sourceString
-    )
+    then computedInFunction = "computed in function $@ "
+    else computedInFunction = ""
   )
-select elem, source, sink, usage.getDescription(), extra, extraString
+select elem, source, sink,
+  "Possible NaN value $@ " + computedInFunction + "flows to " + usage.getDescription(), sourceExpr,
+  sourceString, function, function.getName()

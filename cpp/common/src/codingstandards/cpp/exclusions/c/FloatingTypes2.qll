@@ -22,7 +22,7 @@ predicate isFloatingTypes2QueryMetadata(Query query, string queryId, string rule
     FloatingTypes2Package::possibleMisuseOfUndetectedNaNQuery() and
   queryId =
     // `@id` for the `possibleMisuseOfUndetectedNaN` query
-    "c/misra/possible-misuse-of-undetected-na-n" and
+    "c/misra/possible-misuse-of-undetected-nan" and
   ruleId = "DIR-4-15" and
   category = "required"
 }

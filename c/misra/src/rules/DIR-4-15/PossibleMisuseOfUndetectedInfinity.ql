@@ -87,7 +87,6 @@ module InvalidInfinityUsage implements DataFlow::ConfigSig {
 
 class InvalidInfinityUsage extends DataFlow::Node {
   string description;
-  string infinityDescription;
 
   InvalidInfinityUsage() {
     // Case 2: NaNs and infinities shall not be cast to integers
@@ -95,22 +94,18 @@ class InvalidInfinityUsage extends DataFlow::Node {
       asExpr() = c.getUnconverted() and
       c.getExpr().getType() instanceof FloatingPointType and
       c.getType() instanceof IntegralType and
-      description = "$@ casted to integer." and
-      infinityDescription = "Possibly infinite float value"
+      description = "cast to integer."
     )
     or
     // Case 3: Infinities shall not underflow or otherwise produce finite values
     exists(BinaryOperation op |
       asExpr() = op.getRightOperand() and
       op.getOperator() = "/" and
-      description = "Division operation may silently underflow and produce zero, as the divisor $@." and
-      infinityDescription = "may be an infinite float value"
+      description = "divisor, which would silently underflow and produce zero."
     )
   }
 
   string getDescription() { result = description }
-
-  string getInfinityDescription() { result = infinityDescription }
 }
 
 module InvalidInfinityFlow = DataFlow::Global<InvalidInfinityUsage>;
@@ -119,7 +114,8 @@ import InvalidInfinityFlow::PathGraph
 
 from
   Element elem, InvalidInfinityFlow::PathNode source, InvalidInfinityFlow::PathNode sink,
-  InvalidInfinityUsage usage, Expr sourceExpr, Element extra, string extraString
+  InvalidInfinityUsage usage, Expr sourceExpr, string sourceString, Function function,
+  string computedInFunction
 where
   elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
   not InvalidInfinityFlow::PathGraph::edges(_, source, _, _) and
@@ -129,19 +125,18 @@ where
   not usage.asExpr().isFromTemplateInstantiation(_) and
   usage = sink.getNode() and
   sourceExpr = source.getNode().asExpr() and
+  function = sourceExpr.getEnclosingFunction() and
   InvalidInfinityFlow::flow(source.getNode(), usage) and
   (
     if not sourceExpr.getEnclosingFunction() = usage.asExpr().getEnclosingFunction()
-    then
-      extraString =
-        usage.getInfinityDescription() + " computed in function " +
-          sourceExpr.getEnclosingFunction().getName() and
-      extra = sourceExpr.getEnclosingFunction()
-    else (
-      extra = sourceExpr and
-      if sourceExpr instanceof DivExpr
-      then extraString = usage.getInfinityDescription() + " from division by zero"
-      else extraString = usage.getInfinityDescription()
-    )
+    then computedInFunction = "computed in function $@ "
+    else computedInFunction = ""
+  ) and
+  (
+    if sourceExpr instanceof DivExpr
+    then sourceString = "from division by zero"
+    else sourceString = sourceExpr.toString()
   )
-select elem, source, sink, usage.getDescription(), extra, extraString
+select elem, source, sink,
+  "Possibly infinite float value $@ " + computedInFunction + "flows to " + usage.getDescription(),
+  sourceExpr, sourceString, function, function.getName()
