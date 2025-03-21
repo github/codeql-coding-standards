@@ -328,12 +328,14 @@ class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, B
     exists(
       Type leftEssentialType, Type rightEssentialType,
       EssentialTypeCategory leftEssentialTypeCategory,
-      EssentialTypeCategory rightEssentialTypeCategory
+      EssentialTypeCategory rightEssentialTypeCategory, int intTypeSize
     |
       leftEssentialType = getEssentialType(getLeftOperand()) and
       rightEssentialType = getEssentialType(getRightOperand()) and
       leftEssentialTypeCategory = getEssentialTypeCategory(leftEssentialType) and
-      rightEssentialTypeCategory = getEssentialTypeCategory(rightEssentialType)
+      rightEssentialTypeCategory = getEssentialTypeCategory(rightEssentialType) and
+      // For rules around addition/subtraction with char types:
+      intTypeSize = any(IntType i | i.isSigned()).getSize()
     |
       if
         leftEssentialTypeCategory = rightEssentialTypeCategory and
@@ -356,14 +358,18 @@ class EssentialBinaryOperationSubjectToUsualConversions extends EssentialExpr, B
 class EssentialAddExpr extends EssentialBinaryOperationSubjectToUsualConversions, AddExpr {
   override Type getEssentialType() {
     exists(
-      EssentialTypeCategory operandTypeCategory, EssentialTypeCategory otherOperandTypeCategory
+      Type otherOperandType, EssentialTypeCategory operandTypeCategory,
+      EssentialTypeCategory otherOperandTypeCategory, int intTypeSize
     |
       operandTypeCategory = getEssentialTypeCategory(getEssentialType(getAnOperand())) and
-      otherOperandTypeCategory = getEssentialTypeCategory(getEssentialType(getAnOperand()))
+      otherOperandType = getEssentialType(getAnOperand()) and
+      otherOperandTypeCategory = getEssentialTypeCategory(otherOperandType) and
+      intTypeSize = any(IntType i).getSize()
     |
       if
         operandTypeCategory = EssentiallyCharacterType() and
-        otherOperandTypeCategory instanceof EssentiallySignedOrUnsignedType
+        otherOperandTypeCategory instanceof EssentiallySignedOrUnsignedType and
+        otherOperandType.getSize() <= intTypeSize
       then result instanceof PlainCharType
       else result = super.getEssentialType()
     )
@@ -376,15 +382,18 @@ class EssentialAddExpr extends EssentialBinaryOperationSubjectToUsualConversions
 class EssentialSubExpr extends EssentialBinaryOperationSubjectToUsualConversions, SubExpr {
   override Type getEssentialType() {
     exists(
-      EssentialTypeCategory leftEssentialTypeCategory,
-      EssentialTypeCategory rightEssentialTypeCategory
+      EssentialTypeCategory leftEssentialTypeCategory, Type rightEssentialType,
+      EssentialTypeCategory rightEssentialTypeCategory, int intTypeSize
     |
       leftEssentialTypeCategory = getEssentialTypeCategory(getEssentialType(getLeftOperand())) and
-      rightEssentialTypeCategory = getEssentialTypeCategory(getEssentialType(getRightOperand()))
+      rightEssentialType = getEssentialType(getRightOperand()) and
+      rightEssentialTypeCategory = getEssentialTypeCategory(rightEssentialType) and
+      intTypeSize = any(IntType i).getSize()
     |
       if
         leftEssentialTypeCategory = EssentiallyCharacterType() and
-        rightEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType
+        rightEssentialTypeCategory instanceof EssentiallySignedOrUnsignedType and
+        rightEssentialType.getSize() <= intTypeSize
       then result instanceof PlainCharType
       else result = super.getEssentialType()
     )

@@ -17,3 +17,5 @@ typedef long a;
 extern a f21(wi w, hi h); // NON_COMPLIANT
 
 extern void f22(int f22a, int f22b); // NON_COMPLIANT
+
+extern void f23(int); // COMPLIANT

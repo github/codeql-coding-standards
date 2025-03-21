@@ -16,27 +16,38 @@
 import cpp
 import codingstandards.c.misra
 
-class IllegalCCommentCharacter extends string {
-  IllegalCCommentCharacter() {
-    this = "/*" or
-    this = "//"
-  }
+/* Character sequence is banned from all comment types */
+class IllegalCommentSequence extends string {
+  IllegalCommentSequence() { this = "/*" }
 }
 
-class IllegalCPPCommentCharacter extends string {
-  IllegalCPPCommentCharacter() { this = "/*" }
+/* A regexp to check for illegal C-style comments */
+class IllegalCCommentRegexp extends string {
+  IllegalCCommentRegexp() {
+    // Regexp to match "//" in C-style comments, which do not appear to be URLs. General format
+    // uses negative lookahead/lookbehind to match like `.*(?<!HTTP:)//(?!GITHUB.).*`. Broken down
+    // into parts:
+    //  - `.*PATTERN.*` - look for the pattern anywhere in the comment.
+    //  - `(?<![a-zA-Z]:)` - negative lookbehind, exclude "http://github.com" by seeing "p:".
+    //  - `//` - the actual illegal sequence.
+    //  - `(?!(pattern))` - negative lookahead, exclude "http://github.com" by seeing "github.".
+    //  - `[a-zA-Z0-9\\-]+\\\\.` - Assume alphanumeric/hyphen followed by '.' is a domain name.
+    this = ".*(?<![a-zA-Z]:)//(?![a-zA-Z0-9\\-]+\\\\.).*"
+  }
+
+  string getDescription() { result = "//" }
 }
 
 from Comment comment, string illegalSequence
 where
   not isExcluded(comment, SyntaxPackage::characterSequencesAndUsedWithinACommentQuery()) and
   (
-    exists(IllegalCCommentCharacter c | illegalSequence = c |
-      comment.(CStyleComment).getContents().indexOf(illegalSequence) > 0
+    exists(IllegalCommentSequence c | illegalSequence = c |
+      comment.getContents().indexOf(illegalSequence) > 1
     )
     or
-    exists(IllegalCPPCommentCharacter c | illegalSequence = c |
-      comment.(CppStyleComment).getContents().indexOf(illegalSequence) > 0
+    exists(IllegalCCommentRegexp c | illegalSequence = c.getDescription() |
+      comment.(CStyleComment).getContents().regexpMatch(c)
     )
   )
 select comment, "Comment contains an illegal sequence '" + illegalSequence + "'"
