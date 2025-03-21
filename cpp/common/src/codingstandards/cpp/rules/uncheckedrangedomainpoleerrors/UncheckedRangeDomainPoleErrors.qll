@@ -4,62 +4,13 @@
 
 import cpp
 import codingstandards.cpp.CodingStandards
+import codingstandards.cpp.FloatingPoint
+import codingstandards.cpp.FloatingPoint::SimpleDomainError
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
 abstract class UncheckedRangeDomainPoleErrorsSharedQuery extends Query { }
 
 Query getQuery() { result instanceof UncheckedRangeDomainPoleErrorsSharedQuery }
-
-bindingset[name]
-Function getMathVariants(string name) { result.hasGlobalOrStdName([name, name + "f", name + "l"]) }
-
-predicate hasDomainError(FunctionCall fc, string description) {
-  exists(Function functionWithDomainError | fc.getTarget() = functionWithDomainError |
-    functionWithDomainError = [getMathVariants(["acos", "asin", "atanh"])] and
-    not (
-      upperBound(fc.getArgument(0)) <= 1.0 and
-      lowerBound(fc.getArgument(0)) >= -1.0
-    ) and
-    description =
-      "the argument has a range " + lowerBound(fc.getArgument(0)) + "..." +
-        upperBound(fc.getArgument(0)) + " which is outside the domain of this function (-1.0...1.0)"
-    or
-    functionWithDomainError = getMathVariants(["atan2", "pow"]) and
-    (
-      fc.getArgument(0).getValue().toFloat() = 0 and
-      fc.getArgument(1).getValue().toFloat() = 0 and
-      description = "both arguments are equal to zero"
-    )
-    or
-    functionWithDomainError = getMathVariants("pow") and
-    (
-      upperBound(fc.getArgument(0)) < 0.0 and
-      upperBound(fc.getArgument(1)) < 0.0 and
-      description = "both arguments are less than zero"
-    )
-    or
-    functionWithDomainError = getMathVariants("acosh") and
-    upperBound(fc.getArgument(0)) < 1.0 and
-    description = "argument is less than 1"
-    or
-    //pole error is the same as domain for logb and tgamma (but not ilogb - no pole error exists)
-    functionWithDomainError = getMathVariants(["ilogb", "logb", "tgamma"]) and
-    fc.getArgument(0).getValue().toFloat() = 0 and
-    description = "argument is equal to zero"
-    or
-    functionWithDomainError = getMathVariants(["log", "log10", "log2", "sqrt"]) and
-    upperBound(fc.getArgument(0)) < 0.0 and
-    description = "argument is negative"
-    or
-    functionWithDomainError = getMathVariants("log1p") and
-    upperBound(fc.getArgument(0)) < -1.0 and
-    description = "argument is less than 1"
-    or
-    functionWithDomainError = getMathVariants("fmod") and
-    fc.getArgument(1).getValue().toFloat() = 0 and
-    description = "y is 0"
-  )
-}
 
 predicate hasRangeError(FunctionCall fc, string description) {
   exists(Function functionWithRangeError | fc.getTarget() = functionWithRangeError |

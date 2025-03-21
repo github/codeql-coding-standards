@@ -19,8 +19,10 @@ codeql = None
 
 def split_camel_case(short_name : str) -> List[str]:
     """Split a camel case string to a list."""
+    # Edge case, turn FooNaNBar into foo-nan-bar instead of foo-na-n-bar by a preprocessing step.
+    nan_fixed = short_name.replace("NaN", "Nan")
     matches = re.finditer(
-        ".+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)", short_name)
+        ".+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)", nan_fixed)
     return [m.group(0) for m in matches]
 
 
