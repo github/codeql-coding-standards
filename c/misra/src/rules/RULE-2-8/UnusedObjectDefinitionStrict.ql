@@ -22,5 +22,5 @@ from ReportDeadObject report
 where
   not isExcluded(report.getPrimaryElement(), DeadCode2Package::unusedObjectDefinitionStrictQuery()) and
   report.hasAttrUnused()
-select report.getPrimaryElement(), report.getMessage(), report.getOptionalPlaceholderLocation(),
+select report.getPrimaryElement(), report.getMessage(), report.getOptionalPlaceholderLocatable(),
   report.getOptionalPlaceholderMessage()

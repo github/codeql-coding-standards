@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 
 from Type t
 where

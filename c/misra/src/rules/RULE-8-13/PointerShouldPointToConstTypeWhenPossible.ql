@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.alertreporting.HoldsForAllCopies
 

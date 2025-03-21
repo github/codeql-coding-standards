@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 import codingstandards.cpp.SideEffect
 import semmle.code.cpp.controlflow.SSA
 import codingstandards.cpp.Expr

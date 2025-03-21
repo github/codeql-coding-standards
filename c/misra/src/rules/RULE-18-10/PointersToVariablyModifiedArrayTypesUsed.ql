@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.VariablyModifiedTypes
+import codingstandards.cpp.types.VariablyModifiedTypes
 
 from VmtDeclarationEntry v, string declstr, string adjuststr, string relationstr
 where

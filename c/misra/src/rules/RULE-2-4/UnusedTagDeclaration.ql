@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.TypeUses
+import codingstandards.cpp.types.Uses
 
 from UserType s
 where
