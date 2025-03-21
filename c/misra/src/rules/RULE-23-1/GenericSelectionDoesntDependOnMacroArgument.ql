@@ -19,8 +19,9 @@ import codingstandards.c.Generic
 from ParsedGenericMacro macro, string ctrlExpr
 where
   not isExcluded(macro, GenericsPackage::genericSelectionDoesntDependOnMacroArgumentQuery()) and
-  ctrlExpr = macro.getControllingExprString().trim() and
-  not macro.expansionsInsideControllingExpr(_) > 0
+  ctrlExpr = macro.getControllingExprString() and
+  // No parameter exists that is expanded in the controlling expression one or more times
+  not exists(string parameter | macro.expansionsInsideControllingExpr(parameter) > 0)
 select macro,
-  "Generic macro " + macro.getName() + " uses controlling expr " + ctrlExpr +
-    ", which doesn't match any macro parameter."
+  "Generic macro " + macro.getName() + " doesn't refer to a macro parameter in controlling expr '" +
+    ctrlExpr + "'."

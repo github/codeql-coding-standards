@@ -72,6 +72,7 @@ module GenericSideEffectReportConfig implements MacroReportConfigSig<GenericWith
   string getMessageNotInMacro(
     GenericWithNonMacroSideEffect element, Locatable optLoc1, string optStr1
   ) {
+    // Generics which are not expanded from a macro aren't applicable to this rule.
     none()
   }
 }

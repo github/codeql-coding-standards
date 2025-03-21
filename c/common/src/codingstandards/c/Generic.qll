@@ -115,7 +115,7 @@ class ParsedGenericMacro extends Macro {
     )
   }
 
-  string getControllingExprString() { result = getSelectionString(1) }
+  string getControllingExprString() { result = getSelectionString(1).trim() }
 
   bindingset[str, word]
   private int countWordInString(string word, string str) {

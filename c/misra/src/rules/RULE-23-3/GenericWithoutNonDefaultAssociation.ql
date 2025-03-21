@@ -25,7 +25,7 @@ class InvalidGeneric extends C11GenericExpr {
   }
 }
 
-from C11GenericExpr generic, Element primaryElement
+from InvalidGeneric generic, Element primaryElement
 where
   not isExcluded(primaryElement, GenericsPackage::genericWithoutNonDefaultAssociationQuery()) and
   not exists(Type t |

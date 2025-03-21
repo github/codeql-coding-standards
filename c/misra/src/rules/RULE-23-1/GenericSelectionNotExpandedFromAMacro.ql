@@ -19,5 +19,5 @@ where
   not isExcluded(generic, GenericsPackage::genericSelectionNotExpandedFromAMacroQuery()) and
   ctrlExpr = generic.getControllingExpr() and
   not exists(MacroInvocation mi | mi.getAGeneratedElement() = generic.getExpr())
-select generic, "Generic expression with controlling expression $@ is not expanded froma macro",
-  ctrlExpr, ctrlExpr.toString()
+select generic, "$@ in generic expression does not expand a macro parameter.", ctrlExpr,
+  "Controlling expression"
