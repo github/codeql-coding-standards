@@ -348,9 +348,7 @@ signature float lowerBoundPredicate(Expr e);
 
 signature predicate exprMayEqualZeroPredicate(Expr e);
 
-predicate exprMayEqualZeroNaive(Expr e) {
-  e.getValue().toFloat() = 0
-}
+predicate exprMayEqualZeroNaive(Expr e) { e.getValue().toFloat() = 0 }
 
 /**
  * Get the math function name variants for the given name, e.g., "acos" has variants "acos",
@@ -358,7 +356,9 @@ predicate exprMayEqualZeroNaive(Expr e) {
  */
 Function getMathVariants(string name) { result.hasGlobalOrStdName([name, name + "f", name + "l"]) }
 
-module DomainError<upperBoundPredicate/1 ub, lowerBoundPredicate/1 lb, exprMayEqualZeroPredicate/1 mayEqualZero> {
+module DomainError<
+  upperBoundPredicate/1 ub, lowerBoundPredicate/1 lb, exprMayEqualZeroPredicate/1 mayEqualZero>
+{
   predicate hasDomainError(FunctionCall fc, string description) {
     exists(Function functionWithDomainError | fc.getTarget() = functionWithDomainError |
       functionWithDomainError = [getMathVariants(["acos", "asin", "atanh"])] and
