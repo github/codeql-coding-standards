@@ -226,3 +226,13 @@ class ClassG3 { // COMPLIANT
 public:
   friend int foo3() { return 1; } // NON_COMPLIANT
 };
+
+/// @brief A Doxygen comment.
+class ClassH { // COMPLIANT
+public:
+  /// @brief Group with comment at the end.
+  ///@{
+  void m(); // COMPLIANT
+  void n(); // COMPLIANT
+  ///@} End of group
+};

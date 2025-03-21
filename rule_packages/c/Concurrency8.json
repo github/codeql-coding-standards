@@ -1,0 +1,115 @@
+{
+  "MISRA-C-2012": {
+    "RULE-22-12": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Thread objects, thread synchronization objects, and thread-specific storage pointers shall only be accessed by the appropriate Standard Library functions.",
+          "kind": "problem",
+          "name": "Standard library threading objects (mutexes, threads, etc.) shall only be accessed by the appropriate Standard Library functions",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonstandardUseOfThreadingObject",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "Thread objects, thread synchronization objects, and thread-specific storage pointers shall only be accessed by the appropriate Standard Library functions"
+    },
+    "RULE-22-13": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Thread objects, thread synchronization objects, and thread specific storage pointers shall have appropriate storage duration.",
+          "kind": "problem",
+          "name": "Threading objects (mutexes, threads, etc). shall have not have automatic or thread storage duration",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ThreadingObjectWithInvalidStorageDuration",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "Thread objects, thread synchronization objects, and thread specific storage pointers shall have appropriate storage duration"
+    },
+    "RULE-22-14": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Mutex and condition objects shall be initialized with the standard library functions before using them.",
+          "kind": "problem",
+          "name": "Thread synchronization objects shall be initialized before being accessed",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "MutexNotInitializedBeforeUse",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        },
+        {
+          "description": "Mutex and condition objects initialized inside of threads may result in indeterministic state.",
+          "kind": "problem",
+          "name": "Thread synchronization objects shall be initialized deterministically",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "MutexInitializedInsideThread",
+          "tags": [
+            "readability",
+            "maintainability",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        },
+        {
+          "description": "Mutexes shall be initialized with a valid mutex type.",
+          "kind": "problem",
+          "name": "Mutexes shall be initialized with a valid mutex type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "MutexInitWithInvalidMutexType",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "Thread synchronization objects shall be initialized before being accessed"
+    },
+    "RULE-22-16": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Mutex not unlocked by thread on all execution paths in current thread after being locked.",
+          "kind": "problem",
+          "name": "All mutex objects locked by a thread shall be explicitly unlocked by the same thread",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "MutexObjectsNotAlwaysUnlocked",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "All mutex objects locked by a thread shall be explicitly unlocked by the same thread"
+    }
+  }
+}

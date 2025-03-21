@@ -45,6 +45,12 @@ predicate incompatibleFunctions(GetenvFunction f1, GetenvFunction f2) {
   or
   f1.getName() = ["setlocale", "localeconv"] and
   f2.getName() = ["setlocale", "localeconv"]
+  or
+  f1.getName() = ["asctime", "ctime"] and
+  f2.getName() = ["asctime", "ctime"]
+  or
+  f1.getName() = ["gmtime", "localtime"] and
+  f2.getName() = ["gmtime", "localtime"]
 }
 
 query predicate problems(

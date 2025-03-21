@@ -48,5 +48,11 @@ where
     lValueTypeCategory = EssentiallyUnsignedType() and
     const >= 0 and
     const <= 2.pow(lValueEssentialType.getSize() * 8)
+  ) and
+  // Exception 4: Real floating point values may be assignable to complex floating point values
+  not (
+    lValueTypeCategory = EssentiallyFloatingType(Complex()) and
+    rValueTypeCategory = EssentiallyFloatingType(Real()) and
+    lValueEssentialType.getSize() >= rValueEssentialType.getSize() * 2
   )
 select rValue, message

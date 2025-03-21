@@ -20,17 +20,17 @@ import semmle.code.cpp.controlflow.Guards
  * A check on `signal` call return value
  * `if (signal(SIGINT, handler) == SIG_ERR)`
  */
-class SignalCheckOperation extends EqualityOperation, GuardCondition {
+class SignalCheckOperation extends EqualityOperation instanceof GuardCondition {
   BasicBlock errorSuccessor;
 
   SignalCheckOperation() {
     this.getAnOperand() = any(MacroInvocation m | m.getMacroName() = "SIG_ERR").getExpr() and
     (
       this.getOperator() = "==" and
-      this.controls(errorSuccessor, true)
+      super.controls(errorSuccessor, true)
       or
       this.getOperator() = "!=" and
-      this.controls(errorSuccessor, false)
+      super.controls(errorSuccessor, false)
     )
   }
 

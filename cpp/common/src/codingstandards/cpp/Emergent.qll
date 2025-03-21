@@ -6,10 +6,6 @@ import cpp
 module C11 {
   abstract class EmergentLanguageFeature extends Element { }
 
-  class AlignAsAttribute extends EmergentLanguageFeature, Attribute {
-    AlignAsAttribute() { getName() = "_Alignas" }
-  }
-
   class AtomicVariableSpecifier extends EmergentLanguageFeature, Variable {
     AtomicVariableSpecifier() {
       getType().(DerivedType).getBaseType*().getASpecifier().getName() = "atomic"
@@ -25,9 +21,7 @@ module C11 {
   }
 
   class EmergentHeader extends EmergentLanguageFeature, Include {
-    EmergentHeader() {
-      getIncludedFile().getBaseName() = ["stdalign.h", "stdatomic.h", "stdnoreturn.h", "threads.h"]
-    }
+    EmergentHeader() { getIncludedFile().getBaseName() = ["stdatomic.h", "threads.h"] }
   }
 
   class LibExt1Macro extends EmergentLanguageFeature, Macro {
@@ -40,10 +34,4 @@ module C11 {
   class GenericMacro extends EmergentLanguageFeature, Macro {
     GenericMacro() { getBody().indexOf("_Generic") = 0 }
   }
-
-  class NoReturnSpecificer extends EmergentLanguageFeature, Function {
-    NoReturnSpecificer() { getASpecifier().getName() = "noreturn" }
-  }
-
-  class AlignOf extends EmergentLanguageFeature, AlignofTypeOperator { }
 }

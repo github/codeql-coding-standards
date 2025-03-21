@@ -28,7 +28,7 @@ private predicate isInFunctionScope(Declaration d) {
 private string doxygenCommentGroupStrings(boolean opening) {
   opening = true and result = ["///@{", "/**@{*/"]
   or
-  opening = false and result = ["///@}", "/**@}*/"]
+  opening = false and result = ["///@}%", "/**@}*/"]
 }
 
 pragma[inline]

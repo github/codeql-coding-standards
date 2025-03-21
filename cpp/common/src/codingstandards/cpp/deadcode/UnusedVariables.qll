@@ -36,11 +36,11 @@ predicate declarationHasSideEffects(Variable v) {
   v.getType() instanceof TemplateDependentType
 }
 
-/** A `LocalVariable` which is a candidate for being unused. */
-class PotentiallyUnusedLocalVariable extends LocalVariable {
-  PotentiallyUnusedLocalVariable() {
-    // Ignore variables declared in macro expansions
-    not exists(DeclStmt ds | ds.getADeclaration() = this and ds.isInMacroExpansion()) and
+/**
+ * A `LocalVariable` which is a candidate for being unused, and may or may not be defined in a macro.
+ */
+class BasePotentiallyUnusedLocalVariable extends LocalVariable {
+  BasePotentiallyUnusedLocalVariable() {
     // Ignore variables where initializing the variable has side effects
     not declarationHasSideEffects(this) and // TODO non POD types with initializers? Also, do something different with templates?
     exists(Function f | f = getFunction() |
@@ -53,6 +53,16 @@ class PotentiallyUnusedLocalVariable extends LocalVariable {
     not this.isFromUninstantiatedTemplate(_) and
     // Do not report compiler generated variables
     not this.isCompilerGenerated()
+  }
+}
+
+/**
+ * A `LocalVariable` which is a candidate for being unused, and not defined in a macro.
+ */
+class PotentiallyUnusedLocalVariable extends BasePotentiallyUnusedLocalVariable {
+  PotentiallyUnusedLocalVariable() {
+    // Ignore variables declared in macro expansions
+    not exists(DeclStmt ds | ds.getADeclaration() = this and ds.isInMacroExpansion())
   }
 }
 
@@ -105,19 +115,28 @@ class PotentiallyUnusedMemberVariable extends MemberVariable {
   }
 }
 
-/** A `GlobalOrNamespaceVariable` which is potentially unused. */
-class PotentiallyUnusedGlobalOrNamespaceVariable extends GlobalOrNamespaceVariable {
-  PotentiallyUnusedGlobalOrNamespaceVariable() {
+/** A `GlobalOrNamespaceVariable` which is potentially unused and may or may not be defined in a macro */
+class BasePotentiallyUnusedGlobalOrNamespaceVariable extends GlobalOrNamespaceVariable {
+  BasePotentiallyUnusedGlobalOrNamespaceVariable() {
     // A non-defined variable may never be used
     hasDefinition() and
-    // Not declared in a macro expansion
-    not isInMacroExpansion() and
     // No side-effects from declaration
     not declarationHasSideEffects(this) and
     // exclude uninstantiated template members
     not this.isFromUninstantiatedTemplate(_) and
     // Do not report compiler generated variables
     not this.isCompilerGenerated()
+  }
+}
+
+/**
+ * A `GlobalOrNamespaceVariable` which is potentially unused, and is not defined in a macro.
+ */
+class PotentiallyUnusedGlobalOrNamespaceVariable extends BasePotentiallyUnusedGlobalOrNamespaceVariable
+{
+  PotentiallyUnusedGlobalOrNamespaceVariable() {
+    // Not declared in a macro expansion
+    not isInMacroExpansion()
   }
 }
 

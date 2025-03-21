@@ -25,3 +25,7 @@ a f21(wi w, wi h) { // NON_COMPLIANT
 void f22(int f22b, int f22a) { // NON_COMPLIANT
   return;
 }
+
+void f23(int f23a) { // COMPLIANT
+  return;
+}
