@@ -2,7 +2,7 @@ import cpp
 import codingstandards.cpp.Macro
 import codingstandards.cpp.MatchingParenthesis
 
-string genericRegexp() { result = ".*_Generic\\s*\\(\\s*(.+),.*" }
+string genericRegexp() { result = "\\b_Generic\\s*\\(\\s*(.+),.*" }
 
 bindingset[input]
 string deparenthesize(string input) {
