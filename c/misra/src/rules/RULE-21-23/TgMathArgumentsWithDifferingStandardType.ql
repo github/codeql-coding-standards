@@ -16,12 +16,6 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.TgMath
 
-Expr getFullyExplicitlyConverted(Expr e) {
-  if e.hasExplicitConversion()
-  then result = getFullyExplicitlyConverted(e.getExplicitlyConverted())
-  else result = e
-}
-
 string argTypesString(TgMathInvocation call, int i) {
   exists(string typeStr |
     typeStr = getEffectiveStandardType(call.getOperandArgument(i)).toString() and
@@ -33,12 +27,28 @@ string argTypesString(TgMathInvocation call, int i) {
   )
 }
 
-predicate promotes(Type type) { type.(IntegralType).getSize() < any(IntType t).getSize() }
-
-Type integerPromote(Type type) {
-  promotes(type) and result.(IntType).isSigned()
-  or
-  not promotes(type) and result = type
+/**
+ * If the range of values can be represented as a signed int, it is promoted to signed int.
+ * 
+ * A value may also promote to unsigned int but only if `int` cannot represent the range of
+ * values. Which basically means only an `unsigned int` promotes to `unsigned int`, so we don't
+ * need to do anything in this case.
+ * 
+ * An unsigned int bitfield with fewer than 32 bits is promoted to `int`.
+ */
+predicate promotesToSignedInt(Expr e) {
+  exists(int intBits, int intBytes |
+    intBytes = any(IntType t).getSize() and
+    intBits = intBytes * 8 and
+    (
+      e.(FieldAccess).getTarget().(BitField).getNumBits() < intBits
+      or
+      e.getUnderlyingType().(IntegralType).getSize() < intBytes
+    )
+  )
+}
+Type getPromotedType(Expr e) {
+  if promotesToSignedInt(e) then result.(IntType).isSigned() else result = e.getUnderlyingType()
 }
 
 Type canonicalize(Type type) {
@@ -48,8 +58,7 @@ Type canonicalize(Type type) {
 }
 
 Type getEffectiveStandardType(Expr e) {
-  result =
-    canonicalize(integerPromote(getFullyExplicitlyConverted(e).getType().stripTopLevelSpecifiers()))
+  result = canonicalize(getPromotedType(e.getExplicitlyConverted()))
 }
 
 from TgMathInvocation call, Type firstType
