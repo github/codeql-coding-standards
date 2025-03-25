@@ -57,8 +57,10 @@ module ReportDeadObjectConfig implements MacroReportConfigSig<UnusedObjectDefini
     result = "Invocation of macro '$@' defines unused object '" + unused.getName() + "'."
   }
 
-  string getMessageNotInMacro(UnusedObjectDefinition unused) {
-    result = "Unused object '" + unused.getName() + "'."
+  string getMessageNotInMacro(UnusedObjectDefinition unused, Locatable optLoc1, string optStr1) {
+    result = "Unused object '" + unused.getName() + "'." and
+    optLoc1 = unused and
+    optStr1 = "(ignored)"
   }
 }
 
