@@ -29,11 +29,11 @@ string argTypesString(TgMathInvocation call, int i) {
 
 /**
  * If the range of values can be represented as a signed int, it is promoted to signed int.
- * 
+ *
  * A value may also promote to unsigned int but only if `int` cannot represent the range of
  * values. Which basically means only an `unsigned int` promotes to `unsigned int`, so we don't
  * need to do anything in this case.
- * 
+ *
  * An unsigned int bitfield with fewer than 32 bits is promoted to `int`.
  */
 predicate promotesToSignedInt(Expr e) {
@@ -47,6 +47,7 @@ predicate promotesToSignedInt(Expr e) {
     )
   )
 }
+
 Type getPromotedType(Expr e) {
   if promotesToSignedInt(e) then result.(IntType).isSigned() else result = e.getUnderlyingType()
 }
