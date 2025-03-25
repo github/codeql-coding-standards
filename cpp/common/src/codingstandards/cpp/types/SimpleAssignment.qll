@@ -1,9 +1,10 @@
 /**
  * Helper predicates related to C11/C17 constraints on simple assignment between two types.
- * 
+ *
  * Currently only a subset of the constraints are implemented, specifically those
  * related to pointer types.
  */
+
 import codingstandards.cpp.types.LvalueConversion
 import codingstandards.cpp.types.Compatible
 
