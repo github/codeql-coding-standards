@@ -1,5 +1,5 @@
 name: codeql/common-cpp-coding-standards
-version: 2.42.0-dev
+version: 2.44.0-dev
 license: MIT
 dependencies:
   codeql/cpp-all: 2.1.1

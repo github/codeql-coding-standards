@@ -3,14 +3,16 @@ import codingstandards.cpp.CommonTypes as CommonTypes
 
 abstract class HardwareOrProtocolInterfaceClass extends Class { }
 
+class HardwareOrProtocolInterfaceComment extends Comment {
+  HardwareOrProtocolInterfaceComment() {
+    exists(getContents().regexpFind("(?m)^\\s*(//|\\*)\\s*@HardwareOrProtocolInterface\\s*$", _, _))
+  }
+}
+
 class AnnotatedHardwareOrProtocolInterfaceClass extends HardwareOrProtocolInterfaceClass {
   AnnotatedHardwareOrProtocolInterfaceClass() {
-    exists(Comment c, string contents |
-      c.getCommentedElement() = this.getADeclarationEntry() and
-      contents =
-        c.getContents()
-            .splitAt("\n")
-            .regexpFind("^\\s*(//|\\*)\\s*@HardwareOrProtocolInterface\\s*$", _, _)
+    exists(HardwareOrProtocolInterfaceComment c |
+      c.getCommentedElement() = this.getADeclarationEntry()
     )
   }
 }
