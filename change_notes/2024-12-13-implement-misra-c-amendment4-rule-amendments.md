@@ -1,0 +1,11 @@
+ - `RULE-11-3` - `CastBetweenObjectPointerAndDifferentObjectType.ql`
+   - Constrain exception that pointer types to may be cast to char types, so that it does not apply to atomic pointer types, in compliance with MISRA-C 2012 Amendment 4.
+ - `RULE-11-8` - `CastRemovesConstOrVolatileQualification.ql`
+   - Query expanded to detect cases of removing `_Atomic` qualification, in compliance with MISRA-C 2012 Amendment 4.
+ - `EXP33-C`, `RULE-9-1`, `A8-5-0`, `EXP53-CPP` - `DoNotReadUninitializedMemory.ql`, `ObjectWithAutoStorageDurationReadBeforeInit.ql`, `MemoryNotInitializedBeforeItIsRead.ql`, `DoNotReadUninitializedMemory.ql`
+   - Atomic local variables excluded from query results, in compliance with MISRA-C 2012 Amendment 4, and to reduce false positives in the other standards.
+ - `RULE-13-2` - `UnsequencedAtomicReads.ql`
+   - New query to find expressions which read an atomic variable more than once between sequence points, to address new case from MISRA-C 2012 Amendment 4.
+ - `RULE-3-1` - `CharacterSequencesAndUsedWithinAComment.ql`
+   - Add exception allowing URLs inside of cpp-style `/* ... */` comments, in compliance with MISRA-C 2012 Amendment 4.
+   - No longer report cases of `//*some comment` in this rule.

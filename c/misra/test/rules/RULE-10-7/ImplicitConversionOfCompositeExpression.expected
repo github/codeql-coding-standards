@@ -1,3 +1,7 @@
 | test.c:5:3:5:16 | ... + ... | Implicit conversion of $@ from unsigned short to unsigned int | test.c:5:9:5:16 | ... * ... | composite op |
 | test.c:6:3:6:18 | ... * ... | Implicit conversion of $@ from unsigned short to unsigned int | test.c:6:9:6:17 | ... + ... | composite op |
 | test.c:9:3:9:20 | ... += ... | Implicit conversion of $@ from unsigned short to unsigned int | test.c:9:11:9:19 | ... + ... | composite op |
+| test.c:24:3:24:19 | ... + ... | Implicit conversion of $@ from float to double | test.c:24:10:24:18 | ... + ... | composite op |
+| test.c:25:3:25:21 | ... + ... | Implicit conversion of $@ from _Complex float to double | test.c:25:10:25:20 | ... + ... | composite op |
+| test.c:26:3:26:20 | ... + ... | Implicit conversion of $@ from float to _Complex double | test.c:26:11:26:19 | ... + ... | composite op |
+| test.c:27:3:27:22 | ... + ... | Implicit conversion of $@ from _Complex float to _Complex double | test.c:27:11:27:21 | ... + ... | composite op |
