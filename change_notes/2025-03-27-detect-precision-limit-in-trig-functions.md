@@ -1,0 +1,2 @@
+ - `DIR-4-11` - `LowPrecisionPeriodicTrigonometricFunctionCall.ql`:
+   - New query within rule added to detect calls to periodic trigonometric functions with values outside of pi*k for k that depends on implementation and application precision goals, assuming k=1 for 32 bit floating types and k=10 for 64 bit floating types.

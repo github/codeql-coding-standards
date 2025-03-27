@@ -6,6 +6,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype ContractsQuery =
   TDoNotViolateInLineLinkageConstraintsQuery() or
   TCheckMathLibraryFunctionParametersQuery() or
+  TLowPrecisionPeriodicTrigonometricFunctionCallQuery() or
   TFunctionErrorInformationUntestedQuery()
 
 predicate isContractsQueryMetadata(Query query, string queryId, string ruleId, string category) {
@@ -24,6 +25,15 @@ predicate isContractsQueryMetadata(Query query, string queryId, string ruleId, s
   queryId =
     // `@id` for the `checkMathLibraryFunctionParameters` query
     "c/misra/check-math-library-function-parameters" and
+  ruleId = "DIR-4-11" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `lowPrecisionPeriodicTrigonometricFunctionCall` query
+    ContractsPackage::lowPrecisionPeriodicTrigonometricFunctionCallQuery() and
+  queryId =
+    // `@id` for the `lowPrecisionPeriodicTrigonometricFunctionCall` query
+    "c/misra/low-precision-periodic-trigonometric-function-call" and
   ruleId = "DIR-4-11" and
   category = "required"
   or
@@ -50,6 +60,13 @@ module ContractsPackage {
     result =
       // `Query` type for `checkMathLibraryFunctionParameters` query
       TQueryC(TContractsPackageQuery(TCheckMathLibraryFunctionParametersQuery()))
+  }
+
+  Query lowPrecisionPeriodicTrigonometricFunctionCallQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `lowPrecisionPeriodicTrigonometricFunctionCall` query
+      TQueryC(TContractsPackageQuery(TLowPrecisionPeriodicTrigonometricFunctionCallQuery()))
   }
 
   Query functionErrorInformationUntestedQuery() {
