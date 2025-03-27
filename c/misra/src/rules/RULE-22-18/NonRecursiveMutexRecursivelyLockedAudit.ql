@@ -2,7 +2,7 @@
  * @id c/misra/non-recursive-mutex-recursively-locked-audit
  * @name RULE-22-18: (Audit) Non-recursive mutexes shall not be recursively locked
  * @description Mutex that may be initialized without mtx_recursive shall not be locked by a thread
- *              that has previous may havec locked it.
+ *              that may have previously locked it.
  * @kind problem
  * @precision high
  * @problem.severity error
@@ -57,4 +57,4 @@ where
     isTrackableMutex(lockCall, true) or
     isTrackableMutex(coveredByLock, true)
   )
-select n, "Mutex locked after previous $@.", coveredByLock, "already locked"
+select n, "Mutex locked after it was already $@.", coveredByLock, "previously locked"

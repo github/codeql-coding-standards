@@ -64,6 +64,6 @@ where
   useOne = firstCallForConditionMutex(cond, mutexOne) and
   useTwo = firstCallForConditionMutex(cond, mutexOne)
 select useOne,
-  "Condition variable $@ associated with multiple mutexes, operation uses mutex $@ while $@ uses other mutex $@",
+  "Condition variable $@ associated with multiple mutexes, operation uses mutex $@ while $@ uses other mutex $@.",
   cond.getRootIdentity(), cond.toString(), mutexOne.getRootIdentity(), mutexOne.toString(), useTwo,
   "another operation", mutexTwo.getRootIdentity(), mutexTwo.toString()

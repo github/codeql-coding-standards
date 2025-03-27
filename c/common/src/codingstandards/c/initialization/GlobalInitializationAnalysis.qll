@@ -7,7 +7,9 @@ signature module GlobalInitializationAnalysisConfigSig {
   /** A function which is not called or started as a thread */
   default predicate isRootFunction(Function f) {
     not exists(Function f2 | f2.calls(f)) and
-    not f instanceof ThreadedFunction
+    not f instanceof ThreadedFunction and
+    // Exclude functions which are used as function pointers.
+    not exists(FunctionAccess access | f = access.getTarget())
   }
 
   ObjectIdentity getAnInitializedObject(Expr e);

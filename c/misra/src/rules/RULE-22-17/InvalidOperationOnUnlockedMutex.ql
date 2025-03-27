@@ -64,5 +64,5 @@ where
   not isExcluded(operation, Concurrency9Package::invalidOperationOnUnlockedMutexQuery()) and
   mutex = operation.getMutex() and
   not DominatingSet::isDominatedByBehavior(operation)
-select operation, "Invalid operation on mutex '$@' not locked by the current thread",
+select operation, "Invalid operation on mutex '$@' not locked by the current thread.",
   mutex.getRootIdentity(), mutex.toString()

@@ -40,5 +40,5 @@ where
   not isExcluded(objUse, Concurrency9Package::threadStorageNotInitializedBeforeUseQuery()) and
   InitAnalysis::uninitializedFrom(objUse, obj, callRoot)
 select objUse,
-  "Thread specific storage pointer '$@' possibly used before initialization, from entry point function '$@'.",
+  "Thread specific storage pointer '$@' used before initialization from entry point function '$@'.",
   obj, obj.toString(), callRoot, callRoot.getName()

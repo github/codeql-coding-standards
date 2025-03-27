@@ -52,18 +52,11 @@ class CPPMutexFunctionCall extends MutexFunctionCall {
   VariableAccess var;
 
   CPPMutexFunctionCall() {
-    (
-      // the non recursive kinds
-      getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "mutex") or
-      getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "timed_mutex") or
-      getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "shared_timed_mutex") or
-      // the recursive ones
-      getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "recursive_mutex") or
-      getTarget()
-          .(MemberFunction)
-          .getDeclaringType()
-          .hasQualifiedName("std", "recursive_timed_mutex")
-    ) and
+    getTarget()
+        .(MemberFunction)
+        .getDeclaringType()
+        .hasQualifiedName("std",
+          ["mutex", "timed_mutex", "shared_timed_mutex", "recursive_mutex", "recursive_timed_mutex"]) and
     var = getQualifier()
   }
 
@@ -71,8 +64,10 @@ class CPPMutexFunctionCall extends MutexFunctionCall {
    * Holds if this mutex is a recursive mutex.
    */
   override predicate isRecursive() {
-    getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "recursive_mutex") or
-    getTarget().(MemberFunction).getDeclaringType().hasQualifiedName("std", "recursive_timed_mutex")
+    getTarget()
+        .(MemberFunction)
+        .getDeclaringType()
+        .hasQualifiedName("std", ["recursive_mutex", "recursive_timed_mutex"])
   }
 
   /**

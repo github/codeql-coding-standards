@@ -47,7 +47,7 @@ class NonReentrantOperation extends TNonReentrantOperation {
     )
   }
 
-  Expr getARead() {
+  Expr getAReadExpr() {
     exists(SubObject object |
       this = TReadWrite(object) and
       result = object.getAnAccess()
@@ -56,7 +56,7 @@ class NonReentrantOperation extends TNonReentrantOperation {
     this = TStdFunctionCall(result)
   }
 
-  Expr getAWrite() {
+  Expr getAWriteExpr() {
     exists(SubObject object, Assignment assignment |
       this = TReadWrite(object) and
       result = assignment and
@@ -94,16 +94,20 @@ class NonReentrantOperation extends TNonReentrantOperation {
 
 class WritingThread extends ThreadedFunction {
   NonReentrantOperation aWriteObject;
-  Expr aWrite;
+  Expr aWriteExpr;
 
   WritingThread() {
-    aWrite = aWriteObject.getAWrite() and
-    this.calls*(aWrite.getEnclosingFunction()) and
-    not aWrite instanceof LockProtectedControlFlowNode and
-    not aWrite.getEnclosingFunction().getName().matches(["%init%", "%boot%", "%start%"])
+    aWriteExpr = aWriteObject.getAWriteExpr() and
+    // This function directly contains the write expression, or transitively calls the function
+    // that contains the write expression.
+    this.calls*(aWriteExpr.getEnclosingFunction()) and
+    // The write isn't synchronized with a mutex or condition object.
+    not aWriteExpr instanceof LockProtectedControlFlowNode and
+    // The write doesn't seem to be during a special initialization phase of the program.
+    not aWriteExpr.getEnclosingFunction().getName().matches(["%init%", "%boot%", "%start%"])
   }
 
-  Expr getAWrite() { result = aWrite }
+  Expr getAWriteExpr() { result = aWriteExpr }
 }
 
 class ReadingThread extends ThreadedFunction {
@@ -111,22 +115,22 @@ class ReadingThread extends ThreadedFunction {
 
   ReadingThread() {
     exists(NonReentrantOperation op |
-      aReadExpr = op.getARead() and
+      aReadExpr = op.getAReadExpr() and
       this.calls*(aReadExpr.getEnclosingFunction()) and
       not aReadExpr instanceof LockProtectedControlFlowNode
     )
   }
 
-  Expr getARead() { result = aReadExpr }
+  Expr getAReadExpr() { result = aReadExpr }
 }
 
 predicate mayBeDataRace(Expr write, Expr read, NonReentrantOperation operation) {
   exists(WritingThread wt |
-    wt.getAWrite() = write and
-    write = operation.getAWrite() and
+    wt.getAWriteExpr() = write and
+    write = operation.getAWriteExpr() and
     exists(ReadingThread rt |
-      read = rt.getARead() and
-      read = operation.getARead() and
+      read = rt.getAReadExpr() and
+      read = operation.getAReadExpr() and
       (
         wt.isMultiplySpawned() or
         not wt = rt
@@ -141,18 +145,18 @@ from
 where
   not isExcluded(write, Concurrency9Package::possibleDataRaceBetweenThreadsQuery()) and
   mayBeDataRace(write, read, operation) and
-  wt = min(WritingThread f | f.getAWrite() = write | f order by f.getName()) and
-  rt = min(ReadingThread f | f.getARead() = read | f order by f.getName()) and
+  wt = min(WritingThread f | f.getAWriteExpr() = write | f order by f.getName()) and
+  rt = min(ReadingThread f | f.getAReadExpr() = read | f order by f.getName()) and
   writeString = operation.getWriteString() and
   readString = operation.getReadString() and
   if wt.isMultiplySpawned()
   then
     message =
       "Threaded " + writeString +
-        " $@ not synchronized, for example from thread function $@ spawned from a loop."
+        " $@ not synchronized from thread function $@ spawned from a loop."
   else
     message =
       "Threaded " + writeString +
-        " $@, for example from thread function $@, not synchronized with $@, for example from thread function $@."
+        " $@ from thread function $@ is not synchronized with $@ from thread function $@."
 select write, message, operation.getSourceElement(), operation.toString(), wt, wt.getName(), read,
   "concurrent " + readString, rt, rt.getName()
