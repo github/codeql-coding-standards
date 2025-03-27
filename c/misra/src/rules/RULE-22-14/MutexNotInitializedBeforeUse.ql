@@ -18,113 +18,61 @@ import codingstandards.c.misra
 import codingstandards.c.Objects
 import codingstandards.cpp.Concurrency
 import codingstandards.cpp.Type
+import codingstandards.c.initialization.GlobalInitializationAnalysis
 
-/** A function which is not called or started as a thread */
-class RootFunction extends Function {
-  RootFunction() {
-    not exists(Function f | f.calls(this)) and
-    not this instanceof ThreadedFunction
-  }
-}
-
-/** A function call which initializes a mutex or a condition */
-class ThreadObjectInitialization extends FunctionCall {
-  ObjectIdentity owningObject;
-
-  ThreadObjectInitialization() {
-    this.(C11MutexSource).getMutexExpr() = owningObject.getASubobjectAddressExpr()
-    or
-    exists(CConditionOperation condOp |
-      this = condOp and
-      condOp.isInit() and
-      condOp.getConditionExpr() = owningObject.getASubobjectAddressExpr()
-    )
+module MutexInitializationConfig implements GlobalInitializationAnalysisConfigSig {
+  ObjectIdentity getAnInitializedObject(Expr e) {
+    e.(C11MutexSource).getMutexExpr() = result.getASubobjectAddressExpr()
   }
 
-  ObjectIdentity getOwningObject() { result = owningObject }
-}
-
-/**
- * A function argument where that argument is used as a mutex or condition object.
- */
-class ThreadObjectUse extends Expr {
-  ObjectIdentity owningObject;
-  string typeString;
-
-  ThreadObjectUse() {
-    owningObject.getASubobjectAddressExpr() = this and
+  ObjectIdentity getAUsedObject(Expr e) {
+    result.getASubobjectAddressExpr() = e and
     (
-      exists(CMutexFunctionCall mutexUse | this = mutexUse.getLockExpr()) and
-      typeString = "Mutex"
+      exists(CMutexFunctionCall mutexUse | e = mutexUse.getLockExpr())
       or
-      exists(CConditionOperation condOp | this = condOp.getMutexExpr()) and
-      typeString = "Mutex"
-      or
-      exists(CConditionOperation condOp |
-        condOp.isUse() and
-        this = condOp.getConditionExpr() and
-        typeString = "Condition"
-      )
+      exists(CConditionOperation condOp | e = condOp.getMutexExpr())
     )
-  }
-
-  ObjectIdentity getOwningObject() { result = owningObject }
-
-  string getDescription() {
-    if
-      getOwningObject().getType() instanceof PossiblySpecified<C11MutexType>::Type or
-      getOwningObject().getType() instanceof PossiblySpecified<C11ConditionType>::Type
-    then result = typeString
-    else result = typeString + " in object"
   }
 }
 
-predicate requiresInitializedMutexObject(
-  Function func, ThreadObjectUse mutexUse, ObjectIdentity owningObject
-) {
-  mutexUse.getEnclosingFunction() = func and
-  owningObject = mutexUse.getOwningObject() and
-  not exists(ThreadObjectInitialization init |
-    init.getEnclosingFunction() = func and
-    init.getOwningObject() = owningObject and
-    mutexUse.getAPredecessor+() = init
-  )
-  or
-  exists(FunctionCall call |
-    func = call.getEnclosingFunction() and
-    requiresInitializedMutexObject(call.getTarget(), mutexUse, owningObject) and
-    not exists(ThreadObjectInitialization init |
-      call.getAPredecessor*() = init and
-      init.getOwningObject() = owningObject
+module ConditionInitializationConfig implements GlobalInitializationAnalysisConfigSig {
+  ObjectIdentity getAnInitializedObject(Expr e) {
+    exists(CConditionOperation condOp |
+      e = condOp and
+      condOp.isInit() and
+      condOp.getConditionExpr() = result.getASubobjectAddressExpr()
     )
-  )
-  or
-  exists(C11ThreadCreateCall call |
-    func = call.getEnclosingFunction() and
-    not owningObject.getStorageDuration().isThread() and
-    requiresInitializedMutexObject(call.getFunction(), mutexUse, owningObject) and
-    not exists(ThreadObjectInitialization init |
-      call.getAPredecessor*() = init and
-      init.getOwningObject() = owningObject
+  }
+
+  ObjectIdentity getAUsedObject(Expr e) {
+    result.getASubobjectAddressExpr() = e and
+    exists(CConditionOperation condOp |
+      condOp.isUse() and
+      e = condOp.getConditionExpr()
     )
-  )
+  }
 }
 
-from ThreadObjectUse objUse, ObjectIdentity obj, Function callRoot
+import GlobalInitalizationAnalysis<MutexInitializationConfig> as MutexInitAnalysis
+import GlobalInitalizationAnalysis<ConditionInitializationConfig> as CondInitAnalysis
+
+from Expr objUse, ObjectIdentity obj, Function callRoot, string typeString, string description
 where
   not isExcluded(objUse, Concurrency8Package::mutexNotInitializedBeforeUseQuery()) and
-  obj = objUse.getOwningObject() and
-  requiresInitializedMutexObject(callRoot, objUse, obj) and
   (
-    if obj.getStorageDuration().isAutomatic()
-    then obj.getEnclosingElement+() = callRoot
-    else (
-      obj.getStorageDuration().isThread() and callRoot instanceof ThreadedFunction
-      or
-      callRoot instanceof RootFunction
-    )
+    MutexInitAnalysis::uninitializedFrom(objUse, obj, callRoot) and
+    typeString = "Mutex"
+    or
+    CondInitAnalysis::uninitializedFrom(objUse, obj, callRoot) and
+    typeString = "Condition"
+  ) and
+  (
+    if
+      obj.getType() instanceof PossiblySpecified<C11MutexType>::Type or
+      obj.getType() instanceof PossiblySpecified<C11ConditionType>::Type
+    then description = typeString
+    else description = typeString + " in object"
   )
 select objUse,
-  objUse.getDescription() +
-    " '$@' possibly used before initialization, from entry point function '$@'.", obj,
+  description + " '$@' possibly used before initialization, from entry point function '$@'.", obj,
   obj.toString(), callRoot, callRoot.getName()
