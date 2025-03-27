@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.TypeUses
+import codingstandards.cpp.types.Uses
 import codingstandards.cpp.Operator
 
 predicate templateDefinitionMentionsTypeParameter(Declaration d, TemplateParameter tp) {

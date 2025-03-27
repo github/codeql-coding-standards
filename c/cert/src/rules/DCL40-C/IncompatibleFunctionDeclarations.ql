@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.Compatible
+import codingstandards.cpp.types.Compatible
 import ExternalIdentifiers
 
 from ExternalIdentifiers d, FunctionDeclarationEntry f1, FunctionDeclarationEntry f2
@@ -29,12 +29,10 @@ where
   f1.getName() = f2.getName() and
   (
     //return type check
-    not typesCompatible(f1.getType(), f2.getType())
+    not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig>::equalReturnTypes(f1, f2)
     or
     //parameter type check
-    parameterTypesIncompatible(f1, f2)
-    or
-    not f1.getNumberOfParameters() = f2.getNumberOfParameters()
+    not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig>::equalParameterTypes(f1, f2)
   ) and
   // Apply ordering on start line, trying to avoid the optimiser applying this join too early
   // in the pipeline

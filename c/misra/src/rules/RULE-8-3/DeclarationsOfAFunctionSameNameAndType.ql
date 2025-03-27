@@ -14,9 +14,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Compatible
+import codingstandards.cpp.types.Compatible
 
-from FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, string case
+from FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, string case, string pluralDo
 where
   not isExcluded(f1, Declarations4Package::declarationsOfAFunctionSameNameAndTypeQuery()) and
   not isExcluded(f2, Declarations4Package::declarationsOfAFunctionSameNameAndTypeQuery()) and
@@ -24,16 +24,20 @@ where
   f1.getDeclaration() = f2.getDeclaration() and
   //return type check
   (
-    not typesCompatible(f1.getType(), f2.getType()) and
-    case = "return type"
+    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig>::equalReturnTypes(f1, f2) and
+    case = "return type" and
+    pluralDo = "does"
     or
     //parameter type check
-    parameterTypesIncompatible(f1, f2) and
-    case = "parameter types"
+    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig>::equalParameterTypes(f1, f2) and
+    case = "parameter types" and
+    pluralDo = "do"
     or
     //parameter name check
-    parameterNamesIncompatible(f1, f2) and
-    case = "parameter names"
+    parameterNamesUnmatched(f1, f2) and
+    case = "parameter names" and
+    pluralDo = "do"
   )
-select f1, "The " + case + " of re-declaration of $@ is not compatible with declaration $@", f1,
-  f1.getName(), f2, f2.getName()
+select f1,
+  "The " + case + " of re-declaration of $@ " + pluralDo +
+    " not use the same type names as declaration $@", f1, f1.getName(), f2, f2.getName()

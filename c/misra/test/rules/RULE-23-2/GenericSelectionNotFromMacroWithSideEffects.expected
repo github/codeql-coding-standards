@@ -1,0 +1,3 @@
+| test.c:4:1:4:38 | #define M2(X) _Generic((X)++, int : 1) | Generic selection macro M2 contains a side effect '... ++', which is not from macro invocation arguments. | test.c:4:1:4:38 | #define M2(X) _Generic((X)++, int : 1) | (ignored) |
+| test.c:7:1:7:39 | #define M3(X) _Generic(l1++, int : (X)) | Generic selection macro M3 contains a side effect '... ++', which is not from macro invocation arguments. | test.c:7:1:7:39 | #define M3(X) _Generic(l1++, int : (X)) | (ignored) |
+| test.c:42:1:44:25 | #define M5(X) static volatile l ## X; _Generic(l ## X, int : 1) | Generic selection in macro M5 contains an invocation-dependent side effect which is not from macro invocation arguments, for example $@. | test.c:47:3:47:7 | _Generic | side effect 'la' |

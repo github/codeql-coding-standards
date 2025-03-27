@@ -12,7 +12,7 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 import ManuallyManagedLifetime
 import semmle.code.cpp.dataflow.TaintTracking
 import AllocToStaticCastFlow::PathGraph
