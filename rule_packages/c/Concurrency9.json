@@ -82,7 +82,7 @@
           ]
         },
         {
-          "description": "Mutex that may be initialized without mtx_recursive shall not be locked by a thread that may have previously locked it.",
+          "description": "Mutexes that may be initialized without mtx_recursive shall not be locked by a thread that may have previously locked it.",
           "kind": "problem",
           "name": "(Audit) Non-recursive mutexes shall not be recursively locked",
           "precision": "high",
