@@ -18,21 +18,23 @@
 import cpp
 import codingstandards.cpp.autosar
 
-bindingset[s]
-string getCharOutsideBasicSourceCharSet(string s) {
-  result = s.regexpFind("[\\u0000-\\u007f]", _, _) and
-  not result.regexpMatch("[\\p{Alnum}\\p{Space}_{}\\[\\]#()<>%:;.?*+-/^&|~!=,\\\\\"'@]")
-  or
-  result = s.regexpFind("[\\u00c0-\\u00df][\\u0080-\\u00bf]", _, _)
-  or
-  result = s.regexpFind("[\\u00e0-\\u00ef][\\u0080-\\u00bf]{2}", _, _)
-  or
-  result = s.regexpFind("[\\u00f0-\\u00f7][\\u0080-\\u00bf]{3}", _, _)
+string getCharOutsideBasicSourceCharSet(Comment c) {
+  exists(string s | s = c.getContents() |
+    result =
+      s.regexpFind("(?![\\p{Alnum}\\p{Space}_{}\\[\\]#()<>%:;.?*+-/^&|~!=,\\\\\"'@])[\\u0000-\\u007f]",
+        _, _)
+    or
+    result = s.regexpFind("[\\u00c0-\\u00df][\\u0080-\\u00bf]", _, _)
+    or
+    result = s.regexpFind("[\\u00e0-\\u00ef][\\u0080-\\u00bf]{2}", _, _)
+    or
+    result = s.regexpFind("[\\u00f0-\\u00f7][\\u0080-\\u00bf]{3}", _, _)
+  )
 }
 
 from Comment c, string ch
 where
   not isExcluded(c, NamingPackage::invalidCharacterInCommentQuery()) and
-  ch = getCharOutsideBasicSourceCharSet(c.getContents())
+  ch = getCharOutsideBasicSourceCharSet(c)
 select c,
   "Comment uses the character '" + ch + "' that is outside the language basic character set."

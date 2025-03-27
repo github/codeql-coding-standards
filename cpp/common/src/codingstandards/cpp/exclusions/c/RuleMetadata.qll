@@ -33,10 +33,13 @@ import Declarations5
 import Declarations6
 import Declarations7
 import Declarations8
+import Declarations9
 import EssentialTypes
 import Expressions
 import FloatingTypes
+import FloatingTypes2
 import FunctionTypes
+import Generics
 import IO1
 import IO2
 import IO3
@@ -117,10 +120,13 @@ newtype TCQuery =
   TDeclarations6PackageQuery(Declarations6Query q) or
   TDeclarations7PackageQuery(Declarations7Query q) or
   TDeclarations8PackageQuery(Declarations8Query q) or
+  TDeclarations9PackageQuery(Declarations9Query q) or
   TEssentialTypesPackageQuery(EssentialTypesQuery q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TFloatingTypesPackageQuery(FloatingTypesQuery q) or
+  TFloatingTypes2PackageQuery(FloatingTypes2Query q) or
   TFunctionTypesPackageQuery(FunctionTypesQuery q) or
+  TGenericsPackageQuery(GenericsQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
@@ -201,10 +207,13 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations8QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations9QueryMetadata(query, queryId, ruleId, category) or
   isEssentialTypesQueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isFloatingTypesQueryMetadata(query, queryId, ruleId, category) or
+  isFloatingTypes2QueryMetadata(query, queryId, ruleId, category) or
   isFunctionTypesQueryMetadata(query, queryId, ruleId, category) or
+  isGenericsQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
   isIO3QueryMetadata(query, queryId, ruleId, category) or
