@@ -6,3 +6,4 @@
    - New query added to detect thread local objects assigned to static storage duration objects.
  - `RULE-21-12` - `ExceptionHandlingFeaturesOfFenvhUsed.ql`:
    - Added reports for `#include`ing "fenv.h", and for using `fesetenv`, `feupdatenv`, and `fesetround`.
+   - Report message altered to handle new cases.
