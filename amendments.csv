@@ -1,7 +1,7 @@
 language,standard,amendment,rule_id,supportable,implementation_category,implemented,difficulty
 c,MISRA-C-2012,Amendment3,DIR-4-6,Yes,Expand,Yes,Easy
 c,MISRA-C-2012,Amendment3,DIR-4-9,Yes,Refine,Yes,Easy
-c,MISRA-C-2012,Amendment3,DIR-4-11,Yes,Refine,No,Import
+c,MISRA-C-2012,Amendment3,DIR-4-11,Yes,Refine,Yes,Import
 c,MISRA-C-2012,Amendment3,RULE-1-4,Yes,Replace,Yes,Easy
 c,MISRA-C-2012,Amendment3,RULE-10-1,Yes,Replace,Yes,Easy
 c,MISRA-C-2012,Amendment3,RULE-10-3,Yes,Refine,Yes,Easy
