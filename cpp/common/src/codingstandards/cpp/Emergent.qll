@@ -30,8 +30,4 @@ module C11 {
       getBody() = "1"
     }
   }
-
-  class GenericMacro extends EmergentLanguageFeature, Macro {
-    GenericMacro() { getBody().indexOf("_Generic") = 0 }
-  }
 }

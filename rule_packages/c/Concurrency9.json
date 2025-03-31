@@ -1,0 +1,158 @@
+{
+  "MISRA-C-2012": {
+    "DIR-5-1": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Threads shall not access the same memory location concurrently without utilization of thread synchronization objects.",
+          "kind": "problem",
+          "name": "There shall be no data races between threads",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "PossibleDataRaceBetweenThreads",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "There shall be no data races between threads"
+    },
+    "RULE-22-15": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Thread synchronization objects and thread-specific storage pointers shall not be destroyed until after all threads accessing them have terminated.",
+          "kind": "problem",
+          "name": "Thread synchronization objects and thread-specific storage pointers shall not be disposed unsafely",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "ThreadResourceDisposedBeforeThreadsJoined",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "Thread synchronization objects and thread-specific storage pointers shall not be destroyed until after all threads accessing them have terminated"
+    },
+    "RULE-22-17": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "No thread shall unlock a mutex or call cnd_wait() or cnd_timedwait() for a mutex it has not locked before.",
+          "kind": "problem",
+          "name": "No thread shall unlock a mutex or call cnd_wait() or cnd_timedwait() for a mutex it has not locked",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "InvalidOperationOnUnlockedMutex",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "No thread shall unlock a mutex or call cnd_wait() or cnd_timedwait() for a mutex it has not locked before"
+    },
+    "RULE-22-18": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Mutexes initialized with mtx_init() without mtx_recursive shall not be locked by a thread that has previously locked it.",
+          "kind": "problem",
+          "name": "Non-recursive mutexes shall not be recursively locked",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonRecursiveMutexRecursivelyLocked",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        },
+        {
+          "description": "Mutexes that may be initialized without mtx_recursive shall not be locked by a thread that may have previously locked it.",
+          "kind": "problem",
+          "name": "(Audit) Non-recursive mutexes shall not be recursively locked",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "NonRecursiveMutexRecursivelyLockedAudit",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4",
+            "external/misra/audit"
+          ]
+        }
+      ],
+      "title": "Non-recursive mutexes shall not be recursively locked"
+    },
+    "RULE-22-19": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Standard library functions cnd_wait() and cnd_timedwait() shall specify the same mutex object for each condition object in all calls.",
+          "kind": "problem",
+          "name": "A condition variable shall be associated with at most one mutex object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ConditionVariableUsedWithMultipleMutexes",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "A condition variable shall be associated with at most one mutex object"
+    },
+    "RULE-22-20": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Thread specific storage pointers shall be initialized with the standard library functions before using them.",
+          "kind": "problem",
+          "name": "Thread-specific storage pointers shall be created before being accessed",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ThreadStorageNotInitializedBeforeUse",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        },
+        {
+          "description": "Thread specific storage pointers initialized inside of threads may result in indeterministic state.",
+          "kind": "problem",
+          "name": "Thread specific storage pointers shall be initialized deterministically",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "ThreadStoragePointerInitializedInsideThread",
+          "tags": [
+            "readability",
+            "maintainability",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "Thread-specific storage pointers shall be created before being accessed"
+    }
+  }
+}

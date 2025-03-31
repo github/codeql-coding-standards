@@ -1,0 +1,6 @@
+| test.c:44:3:44:10 | call to mtx_lock | Mutex locked after it was already $@. | test.c:43:3:43:10 | call to mtx_lock | previously locked |
+| test.c:49:3:49:10 | call to mtx_lock | Mutex locked after it was already $@. | test.c:48:3:48:10 | call to mtx_lock | previously locked |
+| test.c:54:3:54:10 | call to mtx_lock | Mutex locked after it was already $@. | test.c:53:3:53:10 | call to mtx_lock | previously locked |
+| test.c:59:3:59:10 | call to mtx_lock | Mutex locked after it was already $@. | test.c:58:3:58:10 | call to mtx_lock | previously locked |
+| test.c:76:3:76:10 | call to mtx_lock | Mutex locked after it was already $@. | test.c:75:3:75:10 | call to mtx_lock | previously locked |
+| test.c:81:3:81:10 | call to mtx_lock | Mutex locked after it was already $@. | test.c:80:3:80:10 | call to mtx_lock | previously locked |
