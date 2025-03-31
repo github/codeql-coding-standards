@@ -31,9 +31,26 @@
 
 import cpp as cpp
 
+private string underscoresPrefix() { result = "__" }
+
+private string c11Prefix() { result = "__c11_" }
+
 private string atomicInit() { result = "atomic_init" }
 
 class AtomicInitCall = StdFunctionOrMacro<C11FunctionWrapperMacro, atomicInit/0>::Call;
+
+private string readlink() { result = "readlink" }
+
+class ReadlinkCall extends StdFunctionOrMacro<UnderscoredFunctionWrapperMacro, readlink/0>::Call {
+  /** The first argument to readlink is the file path. */
+  cpp::Expr getPathArg() { result = this.getArgument(0) }
+
+  /** The second argument to readlink is the size of the buffer. */
+  cpp::Expr getBufferArg() { result = this.getArgument(1) }
+
+  /** The third argument to readlink is the size of the buffer. */
+  cpp::Expr getSizeArg() { result = this.getArgument(2) }
+}
 
 /** Specify the name of your function as a predicate */
 private signature string getName();
@@ -42,18 +59,20 @@ private signature string getName();
 private signature module InferMacroExpansionArguments {
   bindingset[mi, argumentIdx]
   cpp::Expr inferArgument(cpp::MacroInvocation mi, int argumentIdx);
+
+  /** Get an expression representing the result of this function call if it is a macro */
+  bindingset[mi]
+  cpp::Expr inferExpr(cpp::MacroInvocation mi);
 }
 
 /** Assume macro `f(x, y, ...)` expands to `__c11_f(x, y, ...)`. */
 private module C11FunctionWrapperMacro implements InferMacroExpansionArguments {
-  bindingset[mi, argumentIdx]
-  cpp::Expr inferArgument(cpp::MacroInvocation mi, int argumentIdx) {
-    exists(cpp::FunctionCall fc |
-      fc = mi.getExpr() and
-      fc.getTarget().hasName("__c11_" + mi.getMacroName()) and
-      result = mi.getExpr().(cpp::FunctionCall).getArgument(argumentIdx)
-    )
-  }
+  import PrefixedFunctionWrapperMacro<c11Prefix/0>
+}
+
+/** Assume macro `f(x, y, ...)` expands to `__f(x, y, ...)`. */
+private module UnderscoredFunctionWrapperMacro implements InferMacroExpansionArguments {
+  import PrefixedFunctionWrapperMacro<underscoresPrefix/0>
 }
 
 /**
@@ -106,5 +125,55 @@ private module StdFunctionOrMacro<InferMacroExpansionArguments InferExpansion, g
       this = TStdMacroInvocation(_) and
       result = "Invocation of a standard function implemented as a macro"
     }
+
+    /**
+     * Get the `Element` of this pseudo-call: either the FunctionCall or the MacroInvocation.
+     */
+    cpp::Element getElement() {
+      this = TStdFunctionCall(result) or
+      this = TStdMacroInvocation(result)
+    }
+
+    /**
+     * Get an expression that represents the call to the standard function or macro.
+     * 
+     * In the case of a macro, the result is determined by the `InferMacroExpansionArguments`
+     * config module.
+     */
+    cpp::Expr getExpr() {
+      this = TStdFunctionCall(result) or
+      exists(MacroInvocation mi |
+        this = TStdMacroInvocation(mi) and
+        result = InferExpansion::inferExpr(mi)
+      )
+    }
+  }
+}
+
+/** Specify the name of your function as a predicate */
+private signature string getPrefix();
+
+/**
+ * A module to generate a config for `StdFunctionOrMacro` based on a prefix satisfying the interface
+ * of `InferMacroExpansionArguments`.
+ *
+ * For instance, if an implementation uses `#define readlink(...) __foo_readlink(...)` then this module
+ * can be used to tell `StdFunctionOrMacro` to look for `__foo_readlink` based on the prefix `__foo_`.
+ */
+private module PrefixedFunctionWrapperMacro<getPrefix/0 getPfx> {
+  bindingset[mi, argumentIdx]
+  cpp::Expr inferArgument(cpp::MacroInvocation mi, int argumentIdx) {
+    result = getFunctionCall(mi).getArgument(argumentIdx)
+  }
+
+  bindingset[mi]
+  cpp::Expr inferExpr(cpp::MacroInvocation mi) {
+    result = getFunctionCall(mi)
+  }
+
+  bindingset[mi]
+  private cpp::FunctionCall getFunctionCall(cpp::MacroInvocation mi) {
+    result = mi.getExpr() and
+    result.getTarget().hasName(getPfx() + mi.getMacroName())
   }
 }

@@ -1,0 +1,74 @@
+{
+  "CERT-C": {
+    "FIO03-C": {
+      "properties": {
+        "obligation": "recommendation"
+      },
+      "queries": [
+        {
+          "description": "Usage of fopen() without the proper exclusion mode can lead to a program overwriting over accessing an unintended file.",
+          "kind": "problem",
+          "name": "Do not make assumptions about fopen() and file creation",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "FopenWithNonExclusiveFileCreationMode",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not make assumptions about fopen() and file creation"
+    },
+    "FIO21-C": {
+      "properties": {
+        "obligation": "recommendation"
+      },
+      "queries": [
+        {
+          "description": "Hardcoded or predictably generated temporary file paths can be hijacked or manipulated by an attacker if not created in a secure manner.",
+          "kind": "path-problem",
+          "name": "Do not use predictably generated temporary file paths",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "PossiblyPredictableTemporaryFileCreation",
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "description": "Temporary files can be hijacked or manipulated by an attacker if not created in a secure manner.",
+          "kind": "problem",
+          "name": "Do not create temporary files in shared directories",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExploitableTemporaryFileCreation",
+          "tags": [
+            "security"
+          ]
+        }
+      ],
+      "title": "Do not create temporary files in shared directories"
+    },
+    "POS30-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "The readlink() function does not null terminate or leave a character at the end of the buffer argument, and must be handled properly.",
+          "kind": "problem",
+          "name": "Use the readlink() function properly",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "IncorrectNullTerminationOfReadlink",
+          "tags": [
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Use the readlink() function properly"
+    }
+  }
+}
