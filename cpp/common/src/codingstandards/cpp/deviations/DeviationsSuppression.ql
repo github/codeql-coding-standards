@@ -38,7 +38,9 @@ newtype TDeviationScope =
       file.getRelativePath().prefix(deviationPath.length()) = deviationPath
     )
   } or
-  TDeviationRecordCommentScope(DeviationRecord dr, Comment c) { c = dr.getACodeIdentifierComment() }
+  TDeviationRecordCodeIdentiferDeviationScope(DeviationRecord dr, CodeIdentifierDeviation c) {
+    c = dr.getACodeIdentifierDeviation()
+  }
 
 /** A deviation scope. */
 class DeviationScope extends TDeviationScope {
@@ -91,10 +93,16 @@ class DeviationRecordFileScope extends DeviationScope, TDeviationRecordFileScope
  * A deviation scope derived from a comment corresponding to a "code-identifier" entry for a
  * `DeviationRecord`.
  */
-class DeviationRecordCommentScope extends DeviationScope, TDeviationRecordCommentScope {
-  private DeviationRecord getDeviationRecord() { this = TDeviationRecordCommentScope(result, _) }
+class DeviationRecordCommentScope extends DeviationScope,
+  TDeviationRecordCodeIdentiferDeviationScope
+{
+  private DeviationRecord getDeviationRecord() {
+    this = TDeviationRecordCodeIdentiferDeviationScope(result, _)
+  }
 
-  private Comment getComment() { this = TDeviationRecordCommentScope(_, result) }
+  private CodeIdentifierDeviation getCodeIdentifierDeviation() {
+    this = TDeviationRecordCodeIdentiferDeviationScope(_, result)
+  }
 
   override Locatable getDeviationDefinitionLocation() { result = getDeviationRecord() }
 
@@ -103,14 +111,11 @@ class DeviationRecordCommentScope extends DeviationScope, TDeviationRecordCommen
   override predicate hasLocationInfo(
     string filepath, int startline, int startcolumn, int endline, int endcolumn
   ) {
-    getComment().getLocation().hasLocationInfo(filepath, startline, _, endline, endcolumn) and
-    startcolumn = 1
+    getCodeIdentifierDeviation()
+        .hasLocationInfo(filepath, startline, startcolumn, endline, endcolumn)
   }
 
-  override string toString() {
-    result =
-      "Deviation of " + getDeviationRecord().getQuery() + " for comment " + getComment() + "."
-  }
+  override string toString() { result = getCodeIdentifierDeviation().toString() }
 }
 
 from DeviationScope deviationScope
