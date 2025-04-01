@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from argparse import ArgumentParser
+from typing import Generator
 import tempfile
 import re
 import urllib.request
@@ -23,6 +24,7 @@ from markdown_helpers import HeadingReplaceSpec, HeadingFormatUpdateSpec, update
 
 CERT_WIKI = "https://wiki.sei.cmu.edu"
 RULES_LIST_C = "/confluence/display/c/2+Rules"
+RECOMMENDED_LIST_C = "/confluence/display/c/3+Recommendations"
 RULES_LIST_CPP = "/confluence/display/cplusplus/2+Rules"
 
 cache_path = script_path.parent / '.cache'
@@ -47,16 +49,22 @@ def soupify(url: str) -> BeautifulSoup:
 
     return BeautifulSoup(content, 'html.parser')
 
+def get_rule_listings() -> Generator[Tag, None, None]:
+    for rule_list_id in [RULES_LIST_C, RULES_LIST_CPP]:
+        soup = soupify(f"{CERT_WIKI}{rule_list_id}")
+        if soup == None:
+            continue
+    
+        yield soup.find(
+            "h1", string="Rule Listing")
+        
+    soup = soupify(f"{CERT_WIKI}{RECOMMENDED_LIST_C}")
+    if soup != None:
+        yield soup.find("h1", string="Recommendation Listing")
 
 def get_rules():
     rules = []
-    for soup in [soupify(f"{CERT_WIKI}{RULES_LIST_C}"), soupify(f"{CERT_WIKI}{RULES_LIST_CPP}")]:
-        if soup == None:
-            return None
-
-        rule_listing_start = soup.find(
-            "h1", string="Rule Listing")
-        
+    for rule_listing_start in get_rule_listings():
         for link in rule_listing_start.next_element.next_element.find_all('a'):
             if '-C' in link.string:
                 rule, title = map(str.strip, link.string.split('.', 1))
@@ -214,6 +222,8 @@ def transform_html(rule, soup):
                 # Fix a broken url present in many CERT-C pages
                 if node.name == 'a' and 'href' in node.attrs and node['href'] == "http://BB. Definitions#vulnerability":
                     node['href'] = "https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-vulnerability"
+                elif node.name == 'a' and 'href' in node.attrs and node['href'] == "http://BB. Definitions#unexpected behavior":
+                    node['href'] = "https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unexpectedbehavior"
                 # Turn relative URLs into absolute URLS
                 elif node.name == 'a' and 'href' in node.attrs and node['href'].startswith("/confluence"):
                     node['href'] = f"{CERT_WIKI}{node['href']}"
