@@ -77,9 +77,7 @@ module MemoryOrderFlowConfig implements DataFlow::ConfigSig {
   }
 
   predicate isSink(DataFlow::Node node) {
-    exists(AtomicallySequencedCall call |
-      call.getAMemoryOrderArgument() = node.asExpr()
-    )
+    exists(AtomicallySequencedCall call | call.getAMemoryOrderArgument() = node.asExpr())
   }
 }
 

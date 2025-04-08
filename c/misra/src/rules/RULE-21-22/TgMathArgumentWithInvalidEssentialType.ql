@@ -34,7 +34,9 @@ string getAllowedTypesString(TgMathInvocation call) {
   else result = "essentially signed, unsigned, or real floating type"
 }
 
-from TgMathInvocation call, Expr convertedArg, Expr unconverted, int argIndex, Type type, EssentialTypeCategory category
+from
+  TgMathInvocation call, Expr convertedArg, Expr unconverted, int argIndex, Type type,
+  EssentialTypeCategory category
 where
   not isExcluded(call, EssentialTypes2Package::tgMathArgumentWithInvalidEssentialTypeQuery()) and
   // We must handle conversions specially, as clang inserts casts in the macro body we want to ignore.

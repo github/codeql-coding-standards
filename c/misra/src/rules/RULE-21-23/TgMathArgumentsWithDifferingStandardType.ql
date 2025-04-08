@@ -58,9 +58,7 @@ Type canonicalize(Type type) {
   else result = type
 }
 
-Type getEffectiveStandardType(Expr e) {
-  result = canonicalize(getPromotedType(e))
-}
+Type getEffectiveStandardType(Expr e) { result = canonicalize(getPromotedType(e)) }
 
 from TgMathInvocation call, Type firstType
 where

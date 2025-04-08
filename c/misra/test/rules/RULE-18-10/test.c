@@ -57,9 +57,9 @@ void f1(
     } p20,
 
     // Unknown array length types:
-    int p21[],       // COMPLIANT
-    int p22[][2],    // COMPLIANT
-    int (*p23)[],    // COMPLIANT
+    int p21[],    // COMPLIANT
+    int p22[][2], // COMPLIANT
+    int (*p23)[], // COMPLIANT
     // int (*p24)[2][], // doesn't compile
     int (*p25)[][2], // COMPLIANT
 
