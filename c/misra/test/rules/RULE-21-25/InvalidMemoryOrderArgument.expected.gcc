@@ -46,11 +46,11 @@ nodes
 | test.c:8:5:8:6 | *g6 | semmle.label | *g6 |
 | test.c:8:10:8:29 | memory_order_release | semmle.label | memory_order_release |
 | test.c:8:10:8:29 | memory_order_release | semmle.label | memory_order_release |
-| test.c:17:29:17:48 | memory_order_relaxed | semmle.label | memory_order_relaxed |
-| test.c:18:29:18:48 | memory_order_acquire | semmle.label | memory_order_acquire |
-| test.c:19:29:19:48 | memory_order_consume | semmle.label | memory_order_consume |
-| test.c:20:29:20:48 | memory_order_acq_rel | semmle.label | memory_order_acq_rel |
-| test.c:21:29:21:48 | memory_order_release | semmle.label | memory_order_release |
+| test.c:17:3:17:49 | memory_order_relaxed | semmle.label | memory_order_relaxed |
+| test.c:18:3:18:49 | memory_order_acquire | semmle.label | memory_order_acquire |
+| test.c:19:3:19:49 | memory_order_consume | semmle.label | memory_order_consume |
+| test.c:20:3:20:49 | memory_order_acq_rel | semmle.label | memory_order_acq_rel |
+| test.c:21:3:21:49 | memory_order_release | semmle.label | memory_order_release |
 | test.c:54:33:54:34 | g2 | semmle.label | g2 |
 | test.c:55:29:55:30 | g2 | semmle.label | g2 |
 | test.c:56:42:56:43 | g2 | semmle.label | g2 |
@@ -76,11 +76,11 @@ nodes
 | test.c:81:23:81:25 | 100 | semmle.label | 100 |
 subpaths
 #select
-| test.c:17:29:17:48 | memory_order_relaxed | test.c:17:29:17:48 | memory_order_relaxed | test.c:17:29:17:48 | memory_order_relaxed | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_load_explicit |
-| test.c:18:29:18:48 | memory_order_acquire | test.c:18:29:18:48 | memory_order_acquire | test.c:18:29:18:48 | memory_order_acquire | Invalid memory order '$@' in call to function '$@'. | memory_order_acquire | memory_order_acquire | Invocation of a standard function implemented as a macro | atomic_load_explicit |
-| test.c:19:29:19:48 | memory_order_consume | test.c:19:29:19:48 | memory_order_consume | test.c:19:29:19:48 | memory_order_consume | Invalid memory order '$@' in call to function '$@'. | memory_order_consume | memory_order_consume | Invocation of a standard function implemented as a macro | atomic_load_explicit |
-| test.c:20:29:20:48 | memory_order_acq_rel | test.c:20:29:20:48 | memory_order_acq_rel | test.c:20:29:20:48 | memory_order_acq_rel | Invalid memory order '$@' in call to function '$@'. | memory_order_acq_rel | memory_order_acq_rel | Invocation of a standard function implemented as a macro | atomic_load_explicit |
-| test.c:21:29:21:48 | memory_order_release | test.c:21:29:21:48 | memory_order_release | test.c:21:29:21:48 | memory_order_release | Invalid memory order '$@' in call to function '$@'. | memory_order_release | memory_order_release | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:17:3:17:49 | memory_order_relaxed | test.c:17:3:17:49 | memory_order_relaxed | test.c:17:3:17:49 | memory_order_relaxed | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:18:3:18:49 | memory_order_acquire | test.c:18:3:18:49 | memory_order_acquire | test.c:18:3:18:49 | memory_order_acquire | Invalid memory order '$@' in call to function '$@'. | memory_order_acquire | memory_order_acquire | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:19:3:19:49 | memory_order_consume | test.c:19:3:19:49 | memory_order_consume | test.c:19:3:19:49 | memory_order_consume | Invalid memory order '$@' in call to function '$@'. | memory_order_consume | memory_order_consume | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:20:3:20:49 | memory_order_acq_rel | test.c:20:3:20:49 | memory_order_acq_rel | test.c:20:3:20:49 | memory_order_acq_rel | Invalid memory order '$@' in call to function '$@'. | memory_order_acq_rel | memory_order_acq_rel | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:21:3:21:49 | memory_order_release | test.c:21:3:21:49 | memory_order_release | test.c:21:3:21:49 | memory_order_release | Invalid memory order '$@' in call to function '$@'. | memory_order_release | memory_order_release | Invocation of a standard function implemented as a macro | atomic_load_explicit |
 | test.c:54:33:54:34 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:54:33:54:34 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_store_explicit |
 | test.c:55:29:55:30 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:55:29:55:30 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_load_explicit |
 | test.c:56:42:56:43 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:56:42:56:43 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_flag_test_and_set_explicit |

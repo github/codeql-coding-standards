@@ -325,7 +325,8 @@ predicate guardedNotFPClass(Expr e, FPClassification cls) {
     hashCons(checked) = hashCons(e) and
     guard.controls(e, cmpEq) and
     guard.constrainsFPClass(checked, constraint, cmpEq) and
-    constraint.mustNotBe(cls)
+    constraint.mustNotBe(cls) and
+    not checked = e
   )
 }
 

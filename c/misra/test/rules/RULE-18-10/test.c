@@ -58,9 +58,9 @@ void f1(
 
     // Unknown array length types:
     int p21[],       // COMPLIANT
-    int p22[][],     // COMPLIANT
+    int p22[][2],    // COMPLIANT
     int (*p23)[],    // COMPLIANT
-    int (*p24)[2][], // COMPLIANT
+    // int (*p24)[2][], // doesn't compile
     int (*p25)[][2], // COMPLIANT
 
     // VLA types that are rewritten as pointers:
@@ -73,7 +73,7 @@ void f1(
   int(*l2)[3];  // COMPLIANT
   int(*l3)[p0]; // NON-COMPLIANT
 
-  int l6[10] = p23;
+  int l6[10];
 
   // A pointer to a VMT may be declared `static`.
   static int(*l4)[p0]; // NON-COMPLIANT

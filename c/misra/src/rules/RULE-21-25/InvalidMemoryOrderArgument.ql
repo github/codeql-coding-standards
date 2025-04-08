@@ -14,11 +14,23 @@
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.cpp.StdFunctionOrMacro
 import semmle.code.cpp.dataflow.new.DataFlow
+
+class MemoryOrderEnum extends Enum {
+  MemoryOrderEnum() {
+    this.hasGlobalOrStdName("memory_order")
+    or
+    exists(TypedefType t |
+      t.getName() = "memory_order" and
+      t.getBaseType() = this
+    )
+  }
+}
 
 /* A member of the set of memory orders defined in the `memory_order` enum */
 class MemoryOrder extends EnumConstant {
-  MemoryOrder() { getDeclaringEnum().getName() = "memory_order" }
+  MemoryOrder() { getDeclaringEnum() instanceof MemoryOrderEnum }
 
   int getIntValue() { result = getValue().toInt() }
 }
@@ -49,59 +61,6 @@ class MemoryOrderConstantExpr extends Expr {
   string getMemoryOrderString() { result = ord.getName() }
 }
 
-/**
- * A `stdatomic.h` function which accepts a `memory_order` value as a parameter.
- */
-class MemoryOrderedStdAtomicFunction extends Function {
-  int orderParamIdx;
-
-  MemoryOrderedStdAtomicFunction() {
-    exists(int baseParamIdx, int baseParams, string prefix, string regex, string basename |
-      regex = "__(c11_)?atomic_([a-z_]+)" and
-      prefix = getName().regexpCapture(regex, 1) and
-      basename = "atomic_" + getName().regexpCapture(regex, 2) + ["", "_explicit"] and
-      (
-        basename in ["atomic_thread_fence", "atomic_signal_fence"] and
-        baseParamIdx = 0 and
-        baseParams = 1
-        or
-        basename in ["atomic_load", "atomic_flag_clear", "atomic_flag_test_and_set"] and
-        baseParamIdx = 1 and
-        baseParams = 2
-        or
-        basename in [
-            "atomic_store", "atomic_fetch_" + ["add", "sub", "or", "xor", "and"], "atomic_exchange"
-          ] and
-        baseParamIdx = 2 and
-        baseParams = 3
-        or
-        basename in ["atomic_compare_exchange_" + ["strong", "weak"]] and
-        baseParamIdx = [3, 4] and
-        baseParams = 5
-      ) and
-      (
-        // GCC case, may have one or two inserted parameters, e.g.:
-        // __atomic_load(8, &repr->a, &desired, order)
-        // or
-        // __atomic_load_8(&repr->a, &desired, order)
-        prefix = "" and
-        exists(int extraParams |
-          extraParams = getNumberOfParameters() - baseParams and
-          extraParams >= 0 and
-          orderParamIdx = baseParamIdx + extraParams
-        )
-        or
-        // Clang case, no inserted parameters:
-        // __c11_atomic_load(object, order)
-        prefix = "c11_" and
-        orderParamIdx = baseParamIdx
-      )
-    )
-  }
-
-  int getOrderParameterIdx() { result = orderParamIdx }
-}
-
 module MemoryOrderFlowConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
     // Direct usage of memory order constant
@@ -118,9 +77,8 @@ module MemoryOrderFlowConfig implements DataFlow::ConfigSig {
   }
 
   predicate isSink(DataFlow::Node node) {
-    exists(FunctionCall fc |
-      node.asExpr() =
-        fc.getArgument(fc.getTarget().(MemoryOrderedStdAtomicFunction).getOrderParameterIdx())
+    exists(AtomicallySequencedCall call |
+      call.getAMemoryOrderArgument() = node.asExpr()
     )
   }
 }
@@ -140,7 +98,7 @@ string describeMemoryOrderNode(DataFlow::Node node) {
 }
 
 from
-  Expr argument, Function function, string value, MemoryOrderFlow::PathNode source,
+  Expr argument, AtomicallySequencedCall function, string value, MemoryOrderFlow::PathNode source,
   MemoryOrderFlow::PathNode sink
 where
   not isExcluded(argument, Concurrency6Package::invalidMemoryOrderArgumentQuery()) and
@@ -149,6 +107,6 @@ where
   value = describeMemoryOrderNode(source.getNode()) and
   // Double check that we didn't find flow from something equivalent to the allowed value.
   not value = any(AllowedMemoryOrder e).getName() and
-  function.getACallToThisFunction().getAnArgument() = argument
+  function.getAMemoryOrderArgument() = argument
 select argument, source, sink, "Invalid memory order '$@' in call to function '$@'.", value, value,
   function, function.getName()

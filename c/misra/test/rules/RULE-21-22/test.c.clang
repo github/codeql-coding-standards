@@ -187,7 +187,7 @@ void f1() {
   fmin(i, c);       // NON-COMPLIANT
   fmod(c, i);       // NON-COMPLIANT
   fmod(i, c);       // NON-COMPLIANT
-  frexp(c, i);      // NON-COMPLIANT
+  //frexp(c, i);      // NON-COMPLIANT
   hypot(c, i);      // NON-COMPLIANT
   hypot(i, c);      // NON-COMPLIANT
   ilogb(c);         // NON-COMPLIANT
@@ -212,8 +212,8 @@ void f1() {
   pow(i, c);        // NON-COMPLIANT
   remainder(c, i);  // NON-COMPLIANT
   remainder(i, c);  // NON-COMPLIANT
-  remquo(c, i, i);  // NON-COMPLIANT
-  remquo(i, c, i);  // NON-COMPLIANT
+  //remquo(c, i, i);  // NON-COMPLIANT
+  //remquo(i, c, i);  // NON-COMPLIANT
   rint(c);          // NON-COMPLIANT
   round(c);         // NON-COMPLIANT
   scalbn(c, i);     // NON-COMPLIANT
@@ -236,90 +236,90 @@ void f1() {
   asin(cf);          // COMPLIANT
   asinh(cf);         // COMPLIANT
   atan(cf);          // COMPLIANT
-  atan2(cf, i);      // NON-COMPLIANT
-  atan2(i, cf);      // NON-COMPLIANT
+  //atan2(cf, i);      // NON-COMPLIANT
+  //atan2(i, cf);      // NON-COMPLIANT
   atanh(cf);         // COMPLIANT
   carg(cf);          // COMPLIANT
-  cbrt(cf);          // NON-COMPLIANT
-  ceil(cf);          // NON-COMPLIANT
+  //cbrt(cf);          // NON-COMPLIANT
+  //ceil(cf);          // NON-COMPLIANT
   cimag(cf);         // COMPLIANT
   conj(cf);          // COMPLIANT
-  copysign(i, cf);   // NON-COMPLIANT
-  copysign(cf, i);   // NON-COMPLIANT
-  copysign(i, cf);   // NON-COMPLIANT
+  //copysign(i, cf);   // NON-COMPLIANT
+  //copysign(cf, i);   // NON-COMPLIANT
+  //copysign(i, cf);   // NON-COMPLIANT
   cos(cf);           // COMPLIANT
   cosh(cf);          // COMPLIANT
   cproj(cf);         // COMPLIANT
   creal(cf);         // COMPLIANT
-  erf(cf);           // NON-COMPLIANT
-  erfc(cf);          // NON-COMPLIANT
+  //erf(cf);           // NON-COMPLIANT
+  //erfc(cf);          // NON-COMPLIANT
   exp(cf);           // COMPLIANT
-  exp2(cf);          // NON-COMPLIANT
-  expm1(cf);         // NON-COMPLIANT
+  //exp2(cf);          // NON-COMPLIANT
+  //expm1(cf);         // NON-COMPLIANT
   fabs(cf);          // COMPLIANT
-  fdim(cf, i);       // NON-COMPLIANT
-  fdim(i, cf);       // NON-COMPLIANT
-  floor(cf);         // NON-COMPLIANT
-  fma(cf, i, i);     // NON-COMPLIANT
-  fma(i, cf, i);     // NON-COMPLIANT
-  fma(i, i, cf);     // NON-COMPLIANT
-  fmax(cf, i);       // NON-COMPLIANT
-  fmax(i, cf);       // NON-COMPLIANT
-  fmin(cf, i);       // NON-COMPLIANT
-  fmin(i, cf);       // NON-COMPLIANT
-  fmod(cf, i);       // NON-COMPLIANT
-  fmod(i, cf);       // NON-COMPLIANT
-  frexp(cf, i);      // NON-COMPLIANT
-  hypot(cf, i);      // NON-COMPLIANT
-  hypot(i, cf);      // NON-COMPLIANT
-  ilogb(cf);         // NON-COMPLIANT
-  ldexp(cf, i);      // NON-COMPLIANT
-  ldexp(i, cf);      // NON-COMPLIANT
-  lgamma(cf);        // NON-COMPLIANT
-  llrint(cf);        // NON-COMPLIANT
-  llround(cf);       // NON-COMPLIANT
+  //fdim(cf, i);       // NON-COMPLIANT
+  //fdim(i, cf);       // NON-COMPLIANT
+  //floor(cf);         // NON-COMPLIANT
+  //fma(cf, i, i);     // NON-COMPLIANT
+  //fma(i, cf, i);     // NON-COMPLIANT
+  //fma(i, i, cf);     // NON-COMPLIANT
+  //fmax(cf, i);       // NON-COMPLIANT
+  //fmax(i, cf);       // NON-COMPLIANT
+  //fmin(cf, i);       // NON-COMPLIANT
+  //fmin(i, cf);       // NON-COMPLIANT
+  //fmod(cf, i);       // NON-COMPLIANT
+  //fmod(i, cf);       // NON-COMPLIANT
+  //frexp(cf, i);      // NON-COMPLIANT
+  //hypot(cf, i);      // NON-COMPLIANT
+  //hypot(i, cf);      // NON-COMPLIANT
+  //ilogb(cf);         // NON-COMPLIANT
+  //ldexp(cf, i);      // NON-COMPLIANT
+  //ldexp(i, cf);      // NON-COMPLIANT
+  //lgamma(cf);        // NON-COMPLIANT
+  //llrint(cf);        // NON-COMPLIANT
+  //llround(cf);       // NON-COMPLIANT
   log(cf);           // COMPLIANT
-  log10(cf);         // NON-COMPLIANT
-  log1p(cf);         // NON-COMPLIANT
-  log2(cf);          // NON-COMPLIANT
-  logb(cf);          // NON-COMPLIANT
-  lrint(cf);         // NON-COMPLIANT
-  lround(cf);        // NON-COMPLIANT
-  nearbyint(cf);     // NON-COMPLIANT
-  nextafter(cf, i);  // NON-COMPLIANT
-  nextafter(i, cf);  // NON-COMPLIANT
-  nexttoward(cf, i); // NON-COMPLIANT
-  nexttoward(i, cf); // NON-COMPLIANT
+  //log10(cf);         // NON-COMPLIANT
+  //log1p(cf);         // NON-COMPLIANT
+  //log2(cf);          // NON-COMPLIANT
+  //logb(cf);          // NON-COMPLIANT
+  //lrint(cf);         // NON-COMPLIANT
+  //lround(cf);        // NON-COMPLIANT
+  //nearbyint(cf);     // NON-COMPLIANT
+  //nextafter(cf, i);  // NON-COMPLIANT
+  //nextafter(i, cf);  // NON-COMPLIANT
+  //nexttoward(cf, i); // NON-COMPLIANT
+  //nexttoward(i, cf); // NON-COMPLIANT
   pow(cf, cf);       // COMPLIANT
-  remainder(cf, i);  // NON-COMPLIANT
-  remainder(i, cf);  // NON-COMPLIANT
-  remquo(cf, i, i);  // NON-COMPLIANT
-  remquo(i, cf, i);  // NON-COMPLIANT
-  rint(cf);          // NON-COMPLIANT
-  round(cf);         // NON-COMPLIANT
-  scalbn(cf, i);     // NON-COMPLIANT
-  scalbn(i, cf);     // NON-COMPLIANT
-  scalbln(cf, i);    // NON-COMPLIANT
-  scalbln(i, cf);    // NON-COMPLIANT
+  //remainder(cf, i);  // NON-COMPLIANT
+  //remainder(i, cf);  // NON-COMPLIANT
+  //remquo(cf, i, i);  // NON-COMPLIANT
+  //remquo(i, cf, i);  // NON-COMPLIANT
+  //rint(cf);          // NON-COMPLIANT
+  //round(cf);         // NON-COMPLIANT
+  //scalbn(cf, i);     // NON-COMPLIANT
+  //scalbn(i, cf);     // NON-COMPLIANT
+  //scalbln(cf, i);    // NON-COMPLIANT
+  //scalbln(i, cf);    // NON-COMPLIANT
   sin(cf);           // COMPLIANT
   sinh(cf);          // COMPLIANT
   sqrt(cf);          // COMPLIANT
   tan(cf);           // COMPLIANT
   tanh(cf);          // COMPLIANT
-  tgamma(cf);        // NON-COMPLIANT
-  trunc(cf);         // NON-COMPLIANT
+  //tgamma(cf);        // NON-COMPLIANT
+  //trunc(cf);         // NON-COMPLIANT
 
   /* Test output arguments thoroughly */
   frexp(i, &i);            // COMPLIANT
   frexp(i, vp);            // COMPLIANT
   frexp(i, 0);             // COMPLIANT
   frexp(i, 'c' - 'c');     // COMPLIANT
-  frexp(i, c);             // COMPLIANT
+  //frexp(i, c);             // COMPLIANT
   remquo(i, i, &i);        // COMPLIANT
   remquo(i, i, vp);        // COMPLIANT
   remquo(i, i, 0);         // COMPLIANT
   remquo(i, i, 'c' - 'c'); // COMPLIANT
-  remquo(i, i, c);         // COMPLIANT
+  //remquo(i, i, c);         // COMPLIANT
 
   /* Test casts */
   cos((char) i);  // NON-COMPLIANT

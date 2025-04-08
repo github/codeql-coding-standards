@@ -29,7 +29,7 @@ void f1(int n,
         // Pointers to variably-modified types are not VLAs.
         int p2[n][n],
         int p3[],  // array of unknown length is converted to pointer
-        int p4[][] // array of unknown length are not VLAs.
+        int p4[][n] // array of unknown length are not VLAs.
 ) {}
 
 struct s {
