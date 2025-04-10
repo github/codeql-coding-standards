@@ -94,8 +94,7 @@
                                         "obligation": {
                                             "type": "string",
                                             "enum": [
-                                                "rule",
-                                                "recommendation"
+                                                "rule"
                                             ]
                                         }
                                     },
@@ -142,7 +141,8 @@
                                         "obligation": {
                                             "type": "string",
                                             "enum": [
-                                                "rule"
+                                                "rule",
+                                                "recommendation"
                                             ]
                                         }
                                     },
