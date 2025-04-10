@@ -83,19 +83,3 @@ where
   function = funcExpr.getFunction() and
   funcName = funcExpr.getFuncName()
 select comparison, comparison.getExplanation(), function, funcName
-//from
-//  EqualityOperation equality, FunctionExpr funcExpr, Element function, string funcName,
-//  Expr constantExpr
-//where
-//  not isExcluded(equality, Expressions2Package::doNotCompareFunctionPointersToConstantValuesQuery()) and
-//  funcExpr = equality.getAnOperand() and
-//  constantExpr = equality.getAnOperand() and
-//  exists(constantExpr.getValue()) and
-//  function = funcExpr.getFunction() and
-//  funcName = funcExpr.getFuncName() and
-//  constantExpr.getFullyConverted().getUnderlyingType() =
-//    funcExpr.getFullyConverted().getUnderlyingType()
-//select equality,
-//  "Pointer to function $@ compared to constant value." +
-//    constantExpr.getFullyConverted().getUnderlyingType().explain() + " / " +
-//    funcExpr.getFullyConverted().getUnderlyingType().explain(), function, funcName
