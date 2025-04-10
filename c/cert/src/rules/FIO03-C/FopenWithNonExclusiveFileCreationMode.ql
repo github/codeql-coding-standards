@@ -34,5 +34,4 @@ where
   fopen.mayCreate() and
   not fopen.isExclusiveMode() and
   modeStr = PrintExpr<PrettyPrintExpr>::print(fopen.getMode())
-select fopen,
-  "Call to create file with non-exclusive creation mode '" + modeStr + "'."
+select fopen, "Call to create file with non-exclusive creation mode '" + modeStr + "'."

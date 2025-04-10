@@ -136,12 +136,13 @@ private module StdFunctionOrMacro<InferMacroExpansionArguments InferExpansion, g
 
     /**
      * Get an expression that represents the call to the standard function or macro.
-     * 
+     *
      * In the case of a macro, the result is determined by the `InferMacroExpansionArguments`
      * config module.
      */
     cpp::Expr getExpr() {
-      this = TStdFunctionCall(result) or
+      this = TStdFunctionCall(result)
+      or
       exists(MacroInvocation mi |
         this = TStdMacroInvocation(mi) and
         result = InferExpansion::inferExpr(mi)
@@ -167,9 +168,7 @@ private module PrefixedFunctionWrapperMacro<getPrefix/0 getPfx> {
   }
 
   bindingset[mi]
-  cpp::Expr inferExpr(cpp::MacroInvocation mi) {
-    result = getFunctionCall(mi)
-  }
+  cpp::Expr inferExpr(cpp::MacroInvocation mi) { result = getFunctionCall(mi) }
 
   bindingset[mi]
   private cpp::FunctionCall getFunctionCall(cpp::MacroInvocation mi) {
