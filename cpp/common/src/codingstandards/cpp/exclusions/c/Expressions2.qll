@@ -13,7 +13,7 @@ predicate isExpressions2QueryMetadata(Query query, string queryId, string ruleId
     // `@id` for the `doNotCompareFunctionPointersToConstantValues` query
     "c/cert/do-not-compare-function-pointers-to-constant-values" and
   ruleId = "EXP16-C" and
-  category = "rule"
+  category = "recommendation"
 }
 
 module Expressions2Package {

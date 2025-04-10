@@ -2,7 +2,7 @@
   "CERT-C": {
     "EXP16-C": {
       "properties": {
-        "obligation": "rule"
+        "obligation": "recommendation"
       },
       "queries": [
         {

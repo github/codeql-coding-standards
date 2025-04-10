@@ -8,7 +8,7 @@
  * @problem.severity error
  * @tags external/cert/id/exp16-c
  *       correctness
- *       external/cert/obligation/rule
+ *       external/cert/obligation/recommendation
  */
 
 import cpp
