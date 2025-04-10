@@ -19,20 +19,20 @@ import codingstandards.cpp.standardlibrary.FileAccess
 
 class PrettyPrintExpr extends Expr {
   PrettyPrintExpr() {
-    this instanceof BinaryOperation
-    or
-    this instanceof Literal
+    exists(FOpenCall fopen | this.getParent*() = fopen.getMode()) and
+    (
+      this instanceof BinaryOperation
+      or
+      this instanceof Literal
+    )
   }
 }
 
-string prettyPrint(Expr e) {
-  result = PrintExpr<PrettyPrintExpr>::print(e)
-}
-
-from FOpenCall fopen
+from FOpenCall fopen, string modeStr
 where
   not isExcluded(fopen, IO5Package::fopenWithNonExclusiveFileCreationModeQuery()) and
   fopen.mayCreate() and
-  not fopen.isExclusiveMode()
+  not fopen.isExclusiveMode() and
+  modeStr = PrintExpr<PrettyPrintExpr>::print(fopen.getMode())
 select fopen,
-  "Call to create file with non-exclusive creation mode '" + prettyPrint(fopen.getMode()) + "'."
+  "Call to create file with non-exclusive creation mode '" + modeStr + "'."
