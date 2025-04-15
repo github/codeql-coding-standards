@@ -1,0 +1,113 @@
+problems
+| test.cpp:12:8:12:9 | l2 | test.cpp:8:14:8:20 | ... / ... | test.cpp:12:8:12:9 | l2 | Possibly infinite float value $@ flows to divisor, which would silently underflow and produce zero. | test.cpp:8:14:8:20 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:13:8:13:9 | l3 | test.cpp:8:14:8:20 | ... / ... | test.cpp:13:8:13:9 | l3 | Possibly infinite float value $@ flows to divisor, which would silently underflow and produce zero. | test.cpp:8:14:8:20 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:18:20:18:21 | l2 | test.cpp:8:14:8:20 | ... / ... | test.cpp:18:3:18:22 | l2 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:8:14:8:20 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:19:20:19:21 | l3 | test.cpp:8:14:8:20 | ... / ... | test.cpp:19:3:19:22 | l3 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:8:14:8:20 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:27:19:27:20 | l2 | test.cpp:8:14:8:20 | ... / ... | test.cpp:27:19:27:20 | l2 | Possibly infinite float value $@ flows to divisor, which would silently underflow and produce zero. | test.cpp:8:14:8:20 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:28:19:28:20 | l3 | test.cpp:8:14:8:20 | ... / ... | test.cpp:28:19:28:20 | l3 | Possibly infinite float value $@ flows to divisor, which would silently underflow and produce zero. | test.cpp:8:14:8:20 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:38:20:38:21 | l7 | test.cpp:31:14:32:15 | ... / ... | test.cpp:38:3:38:22 | l7 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:31:14:32:15 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:61:22:61:28 | ... / ... | test.cpp:61:5:61:29 | ... / ... | test.cpp:61:5:61:29 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.cpp:61:22:61:28 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:66:22:66:30 | ... / ... | test.cpp:66:5:66:31 | ... / ... | test.cpp:66:5:66:31 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.cpp:66:22:66:30 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:72:31:72:39 | ... / ... | test.cpp:72:14:72:40 | ... / ... | test.cpp:72:14:72:40 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.cpp:72:31:72:39 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:75:35:75:43 | ... / ... | test.cpp:75:18:75:44 | ... / ... | test.cpp:75:18:75:44 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.cpp:75:35:75:43 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:79:22:79:24 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:79:5:79:25 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:87:22:87:24 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:87:5:87:25 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:91:22:91:24 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:91:5:91:25 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:93:22:93:24 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:93:5:93:25 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:99:22:99:24 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:99:5:99:25 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:105:22:105:24 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:105:5:105:25 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:111:22:111:24 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:111:5:111:25 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:114:38:114:40 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:114:21:114:41 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:117:45:117:47 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:117:28:117:48 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:120:42:120:44 | l12 | test.cpp:77:15:77:21 | ... / ... | test.cpp:120:25:120:45 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.cpp:77:15:77:21 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:163:20:164:20 | ... / ... | test.cpp:163:3:164:21 | ... / ... | test.cpp:163:3:164:21 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.cpp:163:20:164:20 | ... / ... | from division by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:175:44:175:44 | p | test.cpp:189:51:189:59 | ... / ... | test.cpp:175:27:175:45 | p | Possibly infinite float value $@ computed in function $@ flows to cast to integer. | test.cpp:189:51:189:59 | ... / ... | from division by zero | test.cpp:189:6:189:24 | addInfThenCastToInt | addInfThenCastToInt |
+| test.cpp:175:44:175:44 | p | test.cpp:193:13:194:15 | ... / ... | test.cpp:175:27:175:45 | p | Possibly infinite float value $@ computed in function $@ flows to cast to integer. | test.cpp:193:13:194:15 | ... / ... | from division by zero | test.cpp:192:6:192:7 | f2 | f2 |
+| test.cpp:175:44:175:44 | p | test.cpp:204:19:204:27 | ... / ... | test.cpp:175:27:175:45 | p | Possibly infinite float value $@ computed in function $@ flows to cast to integer. | test.cpp:204:19:204:27 | ... / ... | from division by zero | test.cpp:192:6:192:7 | f2 | f2 |
+| test.cpp:185:30:185:30 | p | test.cpp:200:25:200:33 | ... / ... | test.cpp:185:13:185:31 | p | Possibly infinite float value $@ computed in function $@ flows to cast to integer. | test.cpp:200:25:200:33 | ... / ... | from division by zero | test.cpp:192:6:192:7 | f2 | f2 |
+edges
+| test.cpp:8:14:8:20 | ... / ... | test.cpp:8:14:8:20 | ... / ... | provenance |  |
+| test.cpp:8:14:8:20 | ... / ... | test.cpp:9:14:9:16 | - ... | provenance | Config |
+| test.cpp:8:14:8:20 | ... / ... | test.cpp:12:8:12:9 | l2 | provenance |  |
+| test.cpp:8:14:8:20 | ... / ... | test.cpp:18:3:18:22 | l2 | provenance |  |
+| test.cpp:8:14:8:20 | ... / ... | test.cpp:27:19:27:20 | l2 | provenance |  |
+| test.cpp:9:14:9:16 | - ... | test.cpp:9:14:9:16 | - ... | provenance |  |
+| test.cpp:9:14:9:16 | - ... | test.cpp:13:8:13:9 | l3 | provenance |  |
+| test.cpp:9:14:9:16 | - ... | test.cpp:19:3:19:22 | l3 | provenance |  |
+| test.cpp:9:14:9:16 | - ... | test.cpp:28:19:28:20 | l3 | provenance |  |
+| test.cpp:31:14:32:15 | ... / ... | test.cpp:31:14:32:15 | ... / ... | provenance |  |
+| test.cpp:31:14:32:15 | ... / ... | test.cpp:38:3:38:22 | l7 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:77:15:77:21 | ... / ... | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:79:5:79:25 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:87:5:87:25 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:91:5:91:25 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:93:5:93:25 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:99:5:99:25 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:105:5:105:25 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:111:5:111:25 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:114:21:114:41 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:117:28:117:48 | l12 | provenance |  |
+| test.cpp:77:15:77:21 | ... / ... | test.cpp:120:25:120:45 | l12 | provenance |  |
+| test.cpp:175:22:175:22 | p | test.cpp:175:27:175:45 | p | provenance |  |
+| test.cpp:183:34:183:34 | p | test.cpp:185:13:185:31 | p | provenance |  |
+| test.cpp:189:32:189:32 | p | test.cpp:189:47:189:59 | ... + ... | provenance | Config |
+| test.cpp:189:47:189:59 | ... + ... | test.cpp:175:22:175:22 | p | provenance |  |
+| test.cpp:189:47:189:59 | ... + ... | test.cpp:175:22:175:22 | p | provenance |  |
+| test.cpp:189:51:189:59 | ... / ... | test.cpp:189:47:189:59 | ... + ... | provenance | Config |
+| test.cpp:193:13:194:15 | ... / ... | test.cpp:175:22:175:22 | p | provenance |  |
+| test.cpp:200:25:200:33 | ... / ... | test.cpp:183:34:183:34 | p | provenance |  |
+| test.cpp:204:19:204:27 | ... / ... | test.cpp:204:19:204:27 | ... / ... | provenance |  |
+| test.cpp:204:19:204:27 | ... / ... | test.cpp:206:21:206:31 | ... + ... | provenance | Config |
+| test.cpp:206:21:206:31 | ... + ... | test.cpp:206:21:206:31 | ... + ... | provenance |  |
+| test.cpp:206:21:206:31 | ... + ... | test.cpp:208:13:208:21 | middleInf | provenance |  |
+| test.cpp:206:21:206:31 | ... + ... | test.cpp:210:23:210:31 | middleInf | provenance |  |
+| test.cpp:208:13:208:21 | middleInf | test.cpp:175:22:175:22 | p | provenance |  |
+| test.cpp:210:23:210:31 | middleInf | test.cpp:189:32:189:32 | p | provenance |  |
+nodes
+| test.cpp:8:14:8:20 | ... / ... | semmle.label | ... / ... |
+| test.cpp:8:14:8:20 | ... / ... | semmle.label | ... / ... |
+| test.cpp:9:14:9:16 | - ... | semmle.label | - ... |
+| test.cpp:9:14:9:16 | - ... | semmle.label | - ... |
+| test.cpp:12:8:12:9 | l2 | semmle.label | l2 |
+| test.cpp:13:8:13:9 | l3 | semmle.label | l3 |
+| test.cpp:18:3:18:22 | l2 | semmle.label | l2 |
+| test.cpp:19:3:19:22 | l3 | semmle.label | l3 |
+| test.cpp:27:19:27:20 | l2 | semmle.label | l2 |
+| test.cpp:28:19:28:20 | l3 | semmle.label | l3 |
+| test.cpp:31:14:32:15 | ... / ... | semmle.label | ... / ... |
+| test.cpp:31:14:32:15 | ... / ... | semmle.label | ... / ... |
+| test.cpp:38:3:38:22 | l7 | semmle.label | l7 |
+| test.cpp:61:5:61:29 | ... / ... | semmle.label | ... / ... |
+| test.cpp:66:5:66:31 | ... / ... | semmle.label | ... / ... |
+| test.cpp:72:14:72:40 | ... / ... | semmle.label | ... / ... |
+| test.cpp:75:18:75:44 | ... / ... | semmle.label | ... / ... |
+| test.cpp:77:15:77:21 | ... / ... | semmle.label | ... / ... |
+| test.cpp:77:15:77:21 | ... / ... | semmle.label | ... / ... |
+| test.cpp:79:5:79:25 | l12 | semmle.label | l12 |
+| test.cpp:87:5:87:25 | l12 | semmle.label | l12 |
+| test.cpp:91:5:91:25 | l12 | semmle.label | l12 |
+| test.cpp:93:5:93:25 | l12 | semmle.label | l12 |
+| test.cpp:99:5:99:25 | l12 | semmle.label | l12 |
+| test.cpp:105:5:105:25 | l12 | semmle.label | l12 |
+| test.cpp:111:5:111:25 | l12 | semmle.label | l12 |
+| test.cpp:114:21:114:41 | l12 | semmle.label | l12 |
+| test.cpp:117:28:117:48 | l12 | semmle.label | l12 |
+| test.cpp:120:25:120:45 | l12 | semmle.label | l12 |
+| test.cpp:163:3:164:21 | ... / ... | semmle.label | ... / ... |
+| test.cpp:175:22:175:22 | p | semmle.label | p |
+| test.cpp:175:27:175:45 | p | semmle.label | p |
+| test.cpp:183:34:183:34 | p | semmle.label | p |
+| test.cpp:185:13:185:31 | p | semmle.label | p |
+| test.cpp:189:32:189:32 | p | semmle.label | p |
+| test.cpp:189:47:189:59 | ... + ... | semmle.label | ... + ... |
+| test.cpp:189:47:189:59 | ... + ... | semmle.label | ... + ... |
+| test.cpp:189:51:189:59 | ... / ... | semmle.label | ... / ... |
+| test.cpp:193:13:194:15 | ... / ... | semmle.label | ... / ... |
+| test.cpp:200:25:200:33 | ... / ... | semmle.label | ... / ... |
+| test.cpp:204:19:204:27 | ... / ... | semmle.label | ... / ... |
+| test.cpp:204:19:204:27 | ... / ... | semmle.label | ... / ... |
+| test.cpp:206:21:206:31 | ... + ... | semmle.label | ... + ... |
+| test.cpp:206:21:206:31 | ... + ... | semmle.label | ... + ... |
+| test.cpp:208:13:208:21 | middleInf | semmle.label | middleInf |
+| test.cpp:210:23:210:31 | middleInf | semmle.label | middleInf |
+subpaths

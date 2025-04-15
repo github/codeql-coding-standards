@@ -1,0 +1,19 @@
+namespace std {
+#include <math.h>
+
+int isinf(float x);
+int isinf(double x);
+int isinf(long double x);
+bool isfinite(float x);
+bool isfinite(double x);
+bool isfinite(long double x);
+bool isnan(float x);
+bool isnan(double x);
+bool isnan(long double x);
+bool isnormal(float x);
+bool isnormal(double x);
+bool isnormal(long double x);
+int fpclassify(float x);
+int fpclassify(double x);
+int fpclassify(long double x);
+}
