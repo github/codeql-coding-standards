@@ -14,11 +14,13 @@ void f1(float p1) {
   10 / p1;         // COMPLIANT: Reduce false positives by assuming not infinity
   10 / getFloat(); // COMPLIANT: Reduce false positives by assuming not infinity
 
-  static_cast<int>(l1);         // COMPLIANT
-  static_cast<int>(l2);         // NON_COMPLIANT
-  static_cast<int>(l3);         // NON_COMPLIANT
-  static_cast<int>(p1);         // COMPLIANT: Reduce false positives by assuming not infinity
-  static_cast<int>(getFloat()); // COMPLIANT: Reduce false positives by assuming not infinity
+  static_cast<int>(l1); // COMPLIANT
+  static_cast<int>(l2); // NON_COMPLIANT
+  static_cast<int>(l3); // NON_COMPLIANT
+  static_cast<int>(
+      p1); // COMPLIANT: Reduce false positives by assuming not infinity
+  static_cast<int>(
+      getFloat()); // COMPLIANT: Reduce false positives by assuming not infinity
 
   // Not NaN:
   float l4 = l1 / l1; // COMPLIANT
@@ -58,12 +60,14 @@ void f1(float p1) {
   if (l9 != 0) {
     static_cast<int>(l9 / l9); // COMPLIANT: l9 is not zero
   } else {
-    static_cast<int>(l9 / l9); // NON_COMPLIANT[False positive]: Guarded to not be NaN
+    static_cast<int>(
+        l9 / l9); // NON_COMPLIANT[False positive]: Guarded to not be NaN
   }
 
   float l10 = 0;
   if (l10 == 0) {
-    static_cast<int>(l10 / l10); // NON_COMPLIANT[False positive]: Casting NaN to integer
+    static_cast<int>(
+        l10 / l10); // NON_COMPLIANT[False positive]: Casting NaN to integer
   } else {
     static_cast<int>(l10 / l10); // COMPLIANT: Guarded to not be NaN
   }
@@ -111,13 +115,22 @@ void f1(float p1) {
     static_cast<int>(l12); // NON_COMPLIANT: Casting Infinity to integer
   }
 
-  std::isinf(l12) ? static_cast<int>(l12) : 0;    // NON_COMPLIANT: Check on wrong branch
-  std::isinf(l12) ? 0 : static_cast<int>(l12);    // COMPLIANT: Checked not infinite before use
-  std::isfinite(l12) ? static_cast<int>(l12) : 0; // COMPLIANT: Checked finite before use
-  std::isfinite(l12) ? 0 : static_cast<int>(l12); // NON_COMPLIANT: Checked on wrong branch
-  std::isnan(l12) ? static_cast<int>(l12)
-             : 0; // COMPLIANT: Checked NaN, therefore not infinite, before use
-  std::isnan(l12) ? 0 : static_cast<int>(l12); // NON_COMPLIANT: Check on wrong branch
+  std::isinf(l12) ? static_cast<int>(l12)
+                  : 0; // NON_COMPLIANT: Check on wrong branch
+  std::isinf(l12)
+      ? 0
+      : static_cast<int>(l12); // COMPLIANT: Checked not infinite before use
+  std::isfinite(l12) ? static_cast<int>(l12)
+                     : 0; // COMPLIANT: Checked finite before use
+  std::isfinite(l12)
+      ? 0
+      : static_cast<int>(l12); // NON_COMPLIANT: Checked on wrong branch
+  std::isnan(l12)
+      ? static_cast<int>(l12)
+      : 0; // COMPLIANT: Checked NaN, therefore not infinite, before use
+  std::isnan(l12)
+      ? 0
+      : static_cast<int>(l12); // NON_COMPLIANT: Check on wrong branch
 
   float l13 = 0.0 / 0;
   if (std::isinf(l13)) {
@@ -127,7 +140,8 @@ void f1(float p1) {
   }
 
   if (std::isinf(l13) == 1) {
-    static_cast<int>(l13); // COMPLIANT: Guarded not to be NaN (must be +Infinity)
+    static_cast<int>(
+        l13); // COMPLIANT: Guarded not to be NaN (must be +Infinity)
   } else {
     static_cast<int>(l13); // COMPLIANT: Casting NaN to integer
   }
@@ -150,26 +164,39 @@ void f1(float p1) {
     static_cast<int>(l13); // COMPLIANT: Guarded not to be NaN
   }
 
-  std::isinf(l13) ? static_cast<int>(l13)
-             : 0; // COMPLIANT: Checked infinite, therefore not NaN, before use
-  std::isinf(l13) ? 0 : static_cast<int>(l13);    // COMPLIANT: Check on wrong branch
-  std::isfinite(l13) ? static_cast<int>(l13) : 0; // COMPLIANT: Checked finite before use
-  std::isfinite(l13) ? 0 : static_cast<int>(l13); // COMPLIANT: Checked on wrong branch
-  std::isnan(l13) ? static_cast<int>(l13) : 0;    // COMPLIANT: Check on wrong branch
-  std::isnan(l13) ? 0 : static_cast<int>(l13);    // COMPLIANT: Checked not NaN before use
+  std::isinf(l13)
+      ? static_cast<int>(l13)
+      : 0; // COMPLIANT: Checked infinite, therefore not NaN, before use
+  std::isinf(l13) ? 0
+                  : static_cast<int>(l13); // COMPLIANT: Check on wrong branch
+  std::isfinite(l13) ? static_cast<int>(l13)
+                     : 0; // COMPLIANT: Checked finite before use
+  std::isfinite(l13)
+      ? 0
+      : static_cast<int>(l13); // COMPLIANT: Checked on wrong branch
+  std::isnan(l13) ? static_cast<int>(l13)
+                  : 0; // COMPLIANT: Check on wrong branch
+  std::isnan(l13)
+      ? 0
+      : static_cast<int>(l13); // COMPLIANT: Checked not NaN before use
 
-  static_cast<int>(std::pow(2, p1));      // NON_COMPLIANT[False negative]: likely to be Infinity
-  static_cast<int>(std::pow(2, std::sin(p1))); // COMPLIANT: not likely to be Infinity
+  static_cast<int>(
+      std::pow(2, p1)); // NON_COMPLIANT[False negative]: likely to be Infinity
+  static_cast<int>(
+      std::pow(2, std::sin(p1))); // COMPLIANT: not likely to be Infinity
+  static_cast<int>(
+      1 / std::sin(
+              p1)); // NON_COMPLIANT: possible infinity from zero in denominator
   static_cast<int>(1 /
-        std::sin(p1)); // NON_COMPLIANT: possible infinity from zero in denominator
-  static_cast<int>(1 / std::log(p1)); // COMPLIANT: not possibly zero in denominator
-  static_cast<int>(std::pow(p1, p1));   // COMPLIANT: NaN if p1 is zero
+                   std::log(p1)); // COMPLIANT: not possibly zero in denominator
+  static_cast<int>(std::pow(p1, p1)); // COMPLIANT: NaN if p1 is zero
   if (p1 != 0) {
     static_cast<int>(std::pow(p1, p1)); // COMPLIANT: p1 is not zero
   }
 
-  static_cast<int>(std::acos(p1));      // COMPLIANT: NaN if p1 is not within -1..1
-  static_cast<int>(std::acos(std::cos(p1))); // COMPLIANT: cos(p1) is within -1..1
+  static_cast<int>(std::acos(p1)); // COMPLIANT: NaN if p1 is not within -1..1
+  static_cast<int>(
+      std::acos(std::cos(p1))); // COMPLIANT: cos(p1) is within -1..1
 }
 
 void castToInt(float p) { static_cast<int>(p); }
@@ -192,7 +219,7 @@ void addNaNThenCastToInt(float p) { castToInt(p + 0.0 / 0.0); }
 void f2() {
   castToInt(1.0 /
             0.0); // NON_COMPLIANT: Infinity flows to denominator in division
-  castToInt(0.0 / 0.0); // COMPLIANT
+  castToInt(0.0 / 0.0);             // COMPLIANT
   checkBeforeCastToInt(1.0 / 0.0);  // COMPLIANT
   checkBeforeCastToInt(0.0 / 0.0);  // COMPLIANT
   addOneThenCastToInt(1.0 / 0.0);   // NON_COMPLIANT[False negative]

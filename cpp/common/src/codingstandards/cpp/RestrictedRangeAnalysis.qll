@@ -1093,8 +1093,9 @@ module RestrictedRangeAnalysis {
     (
       // If the expression evaluates to a constant, then there is no
       // need to call getUpperBoundsImpl.
-      if exists(getValue(expr).toFloat()) and
-      not getValue(expr) = "NaN"
+      if
+        exists(getValue(expr).toFloat()) and
+        not getValue(expr) = "NaN"
       then result = getValue(expr).toFloat()
       else (
         // Some of the bounds computed by `getUpperBoundsImpl`

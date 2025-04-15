@@ -192,7 +192,7 @@ void addNaNThenCastToInt(float p) { castToInt(p + 0.0 / 0.0); }
 void f2() {
   castToInt(1.0 /
             0.0); // NON_COMPLIANT: Infinity flows to denominator in division
-  castToInt(0.0 / 0.0); // COMPLIANT
+  castToInt(0.0 / 0.0);             // COMPLIANT
   checkBeforeCastToInt(1.0 / 0.0);  // COMPLIANT
   checkBeforeCastToInt(0.0 / 0.0);  // COMPLIANT
   addOneThenCastToInt(1.0 / 0.0);   // NON_COMPLIANT[False negative]

@@ -16,21 +16,21 @@ problems
 | test.cpp:66:11:66:19 | ... / ... | test.cpp:66:5:66:20 | ... / ... | test.cpp:66:5:66:20 | ... / ... | Possible NaN value $@ flows to a cast to integer. | test.cpp:66:11:66:19 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
 | test.cpp:72:20:72:28 | ... / ... | test.cpp:72:14:72:29 | ... / ... | test.cpp:72:14:72:29 | ... / ... | Possible NaN value $@ flows to a cast to integer. | test.cpp:72:20:72:28 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
 | test.cpp:75:24:75:32 | ... / ... | test.cpp:75:18:75:33 | ... / ... | test.cpp:75:18:75:33 | ... / ... | Possible NaN value $@ flows to a cast to integer. | test.cpp:75:24:75:32 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:126:10:126:12 | l13 | test.cpp:122:15:122:21 | ... / ... | test.cpp:126:5:126:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:122:15:122:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:132:10:132:12 | l13 | test.cpp:122:15:122:21 | ... / ... | test.cpp:132:5:132:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:122:15:122:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:138:10:138:12 | l13 | test.cpp:122:15:122:21 | ... / ... | test.cpp:138:5:138:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:122:15:122:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:144:10:144:12 | l13 | test.cpp:122:15:122:21 | ... / ... | test.cpp:144:5:144:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:122:15:122:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:148:10:148:12 | l13 | test.cpp:122:15:122:21 | ... / ... | test.cpp:148:5:148:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:122:15:122:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:155:30:155:32 | l13 | test.cpp:122:15:122:21 | ... / ... | test.cpp:155:25:155:32 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:122:15:122:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:157:33:157:35 | l13 | test.cpp:122:15:122:21 | ... / ... | test.cpp:157:28:157:35 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:122:15:122:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:158:26:158:28 | l13 | test.cpp:122:15:122:21 | ... / ... | test.cpp:158:21:158:28 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:122:15:122:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:166:8:166:15 | call to pow | test.cpp:166:3:166:23 | call to pow | test.cpp:166:3:166:23 | call to pow | Possible NaN value $@ flows to a cast to integer. | test.cpp:166:8:166:15 | call to pow | both arguments are equal to zero | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:171:8:171:16 | call to acos | test.cpp:171:3:171:20 | call to acos | test.cpp:171:3:171:20 | call to acos | Possible NaN value $@ flows to a cast to integer. | test.cpp:171:8:171:16 | call to acos | the argument has a range -1000000000000000...1000000000000000 which is outside the domain of this function (-1.0...1.0) | test.cpp:6:6:6:7 | f1 | f1 |
-| test.cpp:175:32:175:32 | p | test.cpp:190:51:190:59 | ... / ... | test.cpp:175:27:175:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:190:51:190:59 | ... / ... | from division of zero by zero | test.cpp:190:6:190:24 | addNaNThenCastToInt | addNaNThenCastToInt |
-| test.cpp:175:32:175:32 | p | test.cpp:195:13:195:21 | ... / ... | test.cpp:175:27:175:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:195:13:195:21 | ... / ... | from division of zero by zero | test.cpp:192:6:192:7 | f2 | f2 |
-| test.cpp:175:32:175:32 | p | test.cpp:199:23:199:31 | ... / ... | test.cpp:175:27:175:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:199:23:199:31 | ... / ... | from division of zero by zero | test.cpp:192:6:192:7 | f2 | f2 |
-| test.cpp:175:32:175:32 | p | test.cpp:205:19:205:27 | ... / ... | test.cpp:175:27:175:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:205:19:205:27 | ... / ... | from division of zero by zero | test.cpp:192:6:192:7 | f2 | f2 |
-| test.cpp:185:18:185:18 | p | test.cpp:201:25:201:33 | ... / ... | test.cpp:185:13:185:18 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:201:25:201:33 | ... / ... | from division of zero by zero | test.cpp:192:6:192:7 | f2 | f2 |
+| test.cpp:127:10:127:12 | l13 | test.cpp:123:15:123:21 | ... / ... | test.cpp:127:5:127:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:123:15:123:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:133:10:133:12 | l13 | test.cpp:123:15:123:21 | ... / ... | test.cpp:133:5:133:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:123:15:123:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:139:10:139:12 | l13 | test.cpp:123:15:123:21 | ... / ... | test.cpp:139:5:139:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:123:15:123:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:145:10:145:12 | l13 | test.cpp:123:15:123:21 | ... / ... | test.cpp:145:5:145:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:123:15:123:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:149:10:149:12 | l13 | test.cpp:123:15:123:21 | ... / ... | test.cpp:149:5:149:12 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:123:15:123:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:157:30:157:32 | l13 | test.cpp:123:15:123:21 | ... / ... | test.cpp:157:25:157:32 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:123:15:123:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:159:33:159:35 | l13 | test.cpp:123:15:123:21 | ... / ... | test.cpp:159:28:159:35 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:123:15:123:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:160:26:160:28 | l13 | test.cpp:123:15:123:21 | ... / ... | test.cpp:160:21:160:28 | l13 | Possible NaN value $@ flows to a cast to integer. | test.cpp:123:15:123:21 | ... / ... | from division of zero by zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:168:8:168:15 | call to pow | test.cpp:168:3:168:23 | call to pow | test.cpp:168:3:168:23 | call to pow | Possible NaN value $@ flows to a cast to integer. | test.cpp:168:8:168:15 | call to pow | both arguments are equal to zero | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:173:8:173:16 | call to acos | test.cpp:173:3:173:20 | call to acos | test.cpp:173:3:173:20 | call to acos | Possible NaN value $@ flows to a cast to integer. | test.cpp:173:8:173:16 | call to acos | the argument has a range -1000000000000000...1000000000000000 which is outside the domain of this function (-1.0...1.0) | test.cpp:6:6:6:7 | f1 | f1 |
+| test.cpp:177:32:177:32 | p | test.cpp:192:51:192:59 | ... / ... | test.cpp:177:27:177:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:192:51:192:59 | ... / ... | from division of zero by zero | test.cpp:192:6:192:24 | addNaNThenCastToInt | addNaNThenCastToInt |
+| test.cpp:177:32:177:32 | p | test.cpp:196:13:196:21 | ... / ... | test.cpp:177:27:177:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:196:13:196:21 | ... / ... | from division of zero by zero | test.cpp:194:6:194:7 | f2 | f2 |
+| test.cpp:177:32:177:32 | p | test.cpp:200:23:200:31 | ... / ... | test.cpp:177:27:177:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:200:23:200:31 | ... / ... | from division of zero by zero | test.cpp:194:6:194:7 | f2 | f2 |
+| test.cpp:177:32:177:32 | p | test.cpp:206:19:206:27 | ... / ... | test.cpp:177:27:177:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:206:19:206:27 | ... / ... | from division of zero by zero | test.cpp:194:6:194:7 | f2 | f2 |
+| test.cpp:187:18:187:18 | p | test.cpp:202:25:202:33 | ... / ... | test.cpp:187:13:187:18 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.cpp:202:25:202:33 | ... / ... | from division of zero by zero | test.cpp:194:6:194:7 | f2 | f2 |
 edges
 | test.cpp:27:14:27:20 | ... / ... | test.cpp:27:14:27:20 | ... / ... | provenance |  |
 | test.cpp:27:14:27:20 | ... / ... | test.cpp:36:3:36:9 | l5 | provenance |  |
@@ -49,33 +49,33 @@ edges
 | test.cpp:33:14:33:22 | ... / ... | test.cpp:33:14:33:22 | ... / ... | provenance |  |
 | test.cpp:33:14:33:22 | ... / ... | test.cpp:39:3:39:9 | l8 | provenance |  |
 | test.cpp:33:14:33:22 | ... / ... | test.cpp:54:3:54:4 | l8 | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:122:15:122:21 | ... / ... | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:126:5:126:12 | l13 | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:132:5:132:12 | l13 | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:138:5:138:12 | l13 | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:144:5:144:12 | l13 | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:148:5:148:12 | l13 | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:155:25:155:32 | l13 | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:157:28:157:35 | l13 | provenance |  |
-| test.cpp:122:15:122:21 | ... / ... | test.cpp:158:21:158:28 | l13 | provenance |  |
-| test.cpp:175:22:175:22 | p | test.cpp:175:27:175:32 | p | provenance |  |
-| test.cpp:183:34:183:34 | p | test.cpp:185:13:185:18 | p | provenance |  |
-| test.cpp:188:32:188:32 | p | test.cpp:188:47:188:51 | ... + ... | provenance | Config |
-| test.cpp:188:47:188:51 | ... + ... | test.cpp:175:22:175:22 | p | provenance |  |
-| test.cpp:190:32:190:32 | p | test.cpp:190:47:190:59 | ... + ... | provenance | Config |
-| test.cpp:190:47:190:59 | ... + ... | test.cpp:175:22:175:22 | p | provenance |  |
-| test.cpp:190:47:190:59 | ... + ... | test.cpp:175:22:175:22 | p | provenance |  |
-| test.cpp:190:51:190:59 | ... / ... | test.cpp:190:47:190:59 | ... + ... | provenance | Config |
-| test.cpp:195:13:195:21 | ... / ... | test.cpp:175:22:175:22 | p | provenance |  |
-| test.cpp:199:23:199:31 | ... / ... | test.cpp:188:32:188:32 | p | provenance |  |
-| test.cpp:201:25:201:33 | ... / ... | test.cpp:183:34:183:34 | p | provenance |  |
-| test.cpp:205:19:205:27 | ... / ... | test.cpp:205:19:205:27 | ... / ... | provenance |  |
-| test.cpp:205:19:205:27 | ... / ... | test.cpp:207:21:207:31 | ... + ... | provenance | Config |
-| test.cpp:207:21:207:31 | ... + ... | test.cpp:207:21:207:31 | ... + ... | provenance |  |
-| test.cpp:207:21:207:31 | ... + ... | test.cpp:209:13:209:21 | middleNaN | provenance |  |
-| test.cpp:207:21:207:31 | ... + ... | test.cpp:211:23:211:31 | middleNaN | provenance |  |
-| test.cpp:209:13:209:21 | middleNaN | test.cpp:175:22:175:22 | p | provenance |  |
-| test.cpp:211:23:211:31 | middleNaN | test.cpp:190:32:190:32 | p | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:123:15:123:21 | ... / ... | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:127:5:127:12 | l13 | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:133:5:133:12 | l13 | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:139:5:139:12 | l13 | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:145:5:145:12 | l13 | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:149:5:149:12 | l13 | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:157:25:157:32 | l13 | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:159:28:159:35 | l13 | provenance |  |
+| test.cpp:123:15:123:21 | ... / ... | test.cpp:160:21:160:28 | l13 | provenance |  |
+| test.cpp:177:22:177:22 | p | test.cpp:177:27:177:32 | p | provenance |  |
+| test.cpp:185:34:185:34 | p | test.cpp:187:13:187:18 | p | provenance |  |
+| test.cpp:190:32:190:32 | p | test.cpp:190:47:190:51 | ... + ... | provenance | Config |
+| test.cpp:190:47:190:51 | ... + ... | test.cpp:177:22:177:22 | p | provenance |  |
+| test.cpp:192:32:192:32 | p | test.cpp:192:47:192:59 | ... + ... | provenance | Config |
+| test.cpp:192:47:192:59 | ... + ... | test.cpp:177:22:177:22 | p | provenance |  |
+| test.cpp:192:47:192:59 | ... + ... | test.cpp:177:22:177:22 | p | provenance |  |
+| test.cpp:192:51:192:59 | ... / ... | test.cpp:192:47:192:59 | ... + ... | provenance | Config |
+| test.cpp:196:13:196:21 | ... / ... | test.cpp:177:22:177:22 | p | provenance |  |
+| test.cpp:200:23:200:31 | ... / ... | test.cpp:190:32:190:32 | p | provenance |  |
+| test.cpp:202:25:202:33 | ... / ... | test.cpp:185:34:185:34 | p | provenance |  |
+| test.cpp:206:19:206:27 | ... / ... | test.cpp:206:19:206:27 | ... / ... | provenance |  |
+| test.cpp:206:19:206:27 | ... / ... | test.cpp:208:21:208:31 | ... + ... | provenance | Config |
+| test.cpp:208:21:208:31 | ... + ... | test.cpp:208:21:208:31 | ... + ... | provenance |  |
+| test.cpp:208:21:208:31 | ... + ... | test.cpp:210:13:210:21 | middleNaN | provenance |  |
+| test.cpp:208:21:208:31 | ... + ... | test.cpp:212:23:212:31 | middleNaN | provenance |  |
+| test.cpp:210:13:210:21 | middleNaN | test.cpp:177:22:177:22 | p | provenance |  |
+| test.cpp:212:23:212:31 | middleNaN | test.cpp:192:32:192:32 | p | provenance |  |
 nodes
 | test.cpp:27:14:27:20 | ... / ... | semmle.label | ... / ... |
 | test.cpp:27:14:27:20 | ... / ... | semmle.label | ... / ... |
@@ -102,35 +102,35 @@ nodes
 | test.cpp:66:5:66:20 | ... / ... | semmle.label | ... / ... |
 | test.cpp:72:14:72:29 | ... / ... | semmle.label | ... / ... |
 | test.cpp:75:18:75:33 | ... / ... | semmle.label | ... / ... |
-| test.cpp:122:15:122:21 | ... / ... | semmle.label | ... / ... |
-| test.cpp:122:15:122:21 | ... / ... | semmle.label | ... / ... |
-| test.cpp:126:5:126:12 | l13 | semmle.label | l13 |
-| test.cpp:132:5:132:12 | l13 | semmle.label | l13 |
-| test.cpp:138:5:138:12 | l13 | semmle.label | l13 |
-| test.cpp:144:5:144:12 | l13 | semmle.label | l13 |
-| test.cpp:148:5:148:12 | l13 | semmle.label | l13 |
-| test.cpp:155:25:155:32 | l13 | semmle.label | l13 |
-| test.cpp:157:28:157:35 | l13 | semmle.label | l13 |
-| test.cpp:158:21:158:28 | l13 | semmle.label | l13 |
-| test.cpp:166:3:166:23 | call to pow | semmle.label | call to pow |
-| test.cpp:171:3:171:20 | call to acos | semmle.label | call to acos |
-| test.cpp:175:22:175:22 | p | semmle.label | p |
-| test.cpp:175:27:175:32 | p | semmle.label | p |
-| test.cpp:183:34:183:34 | p | semmle.label | p |
-| test.cpp:185:13:185:18 | p | semmle.label | p |
-| test.cpp:188:32:188:32 | p | semmle.label | p |
-| test.cpp:188:47:188:51 | ... + ... | semmle.label | ... + ... |
+| test.cpp:123:15:123:21 | ... / ... | semmle.label | ... / ... |
+| test.cpp:123:15:123:21 | ... / ... | semmle.label | ... / ... |
+| test.cpp:127:5:127:12 | l13 | semmle.label | l13 |
+| test.cpp:133:5:133:12 | l13 | semmle.label | l13 |
+| test.cpp:139:5:139:12 | l13 | semmle.label | l13 |
+| test.cpp:145:5:145:12 | l13 | semmle.label | l13 |
+| test.cpp:149:5:149:12 | l13 | semmle.label | l13 |
+| test.cpp:157:25:157:32 | l13 | semmle.label | l13 |
+| test.cpp:159:28:159:35 | l13 | semmle.label | l13 |
+| test.cpp:160:21:160:28 | l13 | semmle.label | l13 |
+| test.cpp:168:3:168:23 | call to pow | semmle.label | call to pow |
+| test.cpp:173:3:173:20 | call to acos | semmle.label | call to acos |
+| test.cpp:177:22:177:22 | p | semmle.label | p |
+| test.cpp:177:27:177:32 | p | semmle.label | p |
+| test.cpp:185:34:185:34 | p | semmle.label | p |
+| test.cpp:187:13:187:18 | p | semmle.label | p |
 | test.cpp:190:32:190:32 | p | semmle.label | p |
-| test.cpp:190:47:190:59 | ... + ... | semmle.label | ... + ... |
-| test.cpp:190:47:190:59 | ... + ... | semmle.label | ... + ... |
-| test.cpp:190:51:190:59 | ... / ... | semmle.label | ... / ... |
-| test.cpp:195:13:195:21 | ... / ... | semmle.label | ... / ... |
-| test.cpp:199:23:199:31 | ... / ... | semmle.label | ... / ... |
-| test.cpp:201:25:201:33 | ... / ... | semmle.label | ... / ... |
-| test.cpp:205:19:205:27 | ... / ... | semmle.label | ... / ... |
-| test.cpp:205:19:205:27 | ... / ... | semmle.label | ... / ... |
-| test.cpp:207:21:207:31 | ... + ... | semmle.label | ... + ... |
-| test.cpp:207:21:207:31 | ... + ... | semmle.label | ... + ... |
-| test.cpp:209:13:209:21 | middleNaN | semmle.label | middleNaN |
-| test.cpp:211:23:211:31 | middleNaN | semmle.label | middleNaN |
+| test.cpp:190:47:190:51 | ... + ... | semmle.label | ... + ... |
+| test.cpp:192:32:192:32 | p | semmle.label | p |
+| test.cpp:192:47:192:59 | ... + ... | semmle.label | ... + ... |
+| test.cpp:192:47:192:59 | ... + ... | semmle.label | ... + ... |
+| test.cpp:192:51:192:59 | ... / ... | semmle.label | ... / ... |
+| test.cpp:196:13:196:21 | ... / ... | semmle.label | ... / ... |
+| test.cpp:200:23:200:31 | ... / ... | semmle.label | ... / ... |
+| test.cpp:202:25:202:33 | ... / ... | semmle.label | ... / ... |
+| test.cpp:206:19:206:27 | ... / ... | semmle.label | ... / ... |
+| test.cpp:206:19:206:27 | ... / ... | semmle.label | ... / ... |
+| test.cpp:208:21:208:31 | ... + ... | semmle.label | ... + ... |
+| test.cpp:208:21:208:31 | ... + ... | semmle.label | ... + ... |
+| test.cpp:210:13:210:21 | middleNaN | semmle.label | middleNaN |
+| test.cpp:212:23:212:31 | middleNaN | semmle.label | middleNaN |
 subpaths

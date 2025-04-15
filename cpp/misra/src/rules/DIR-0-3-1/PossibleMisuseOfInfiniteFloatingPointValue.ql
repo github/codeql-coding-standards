@@ -15,7 +15,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.misuseofinfinitefloatingpointvalue.MisuseOfInfiniteFloatingPointValue
 
-class PossibleMisuseOfInfiniteFloatingPointValueQuery extends MisuseOfInfiniteFloatingPointValueSharedQuery {
+class PossibleMisuseOfInfiniteFloatingPointValueQuery extends MisuseOfInfiniteFloatingPointValueSharedQuery
+{
   PossibleMisuseOfInfiniteFloatingPointValueQuery() {
     this = FloatingPointPackage::possibleMisuseOfInfiniteFloatingPointValueQuery()
   }

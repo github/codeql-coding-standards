@@ -160,10 +160,9 @@ void f1(float p1) {
 
   (int)pow(2, p1);      // COMPLIANT: likely to be Infinity
   (int)pow(2, sin(p1)); // COMPLIANT: not likely to be Infinity
-  (int)(1 /
-        sin(p1)); // COMPLIANT: possible infinity from zero in denominator
-  (int)(1 / log(p1)); // COMPLIANT: not possibly zero in denominator
-  (int)pow(p1, p1);   // NON_COMPLIANT: NaN if p1 is zero
+  (int)(1 / sin(p1));   // COMPLIANT: possible infinity from zero in denominator
+  (int)(1 / log(p1));   // COMPLIANT: not possibly zero in denominator
+  (int)pow(p1, p1);     // NON_COMPLIANT: NaN if p1 is zero
   if (p1 != 0) {
     (int)pow(p1, p1); // COMPLIANT: p1 is not zero
   }
@@ -190,8 +189,7 @@ void addInfThenCastToInt(float p) { castToInt(p + 1.0 / 0.0); }
 void addNaNThenCastToInt(float p) { castToInt(p + 0.0 / 0.0); }
 
 void f2() {
-  castToInt(1.0 /
-            0.0); // COMPLIANT: Infinity flows to denominator in division
+  castToInt(1.0 / 0.0); // COMPLIANT: Infinity flows to denominator in division
   castToInt(0.0 / 0.0); // COMPLIANT: NaN flows to denominator in division
   checkBeforeCastToInt(1.0 / 0.0);  // COMPLIANT
   checkBeforeCastToInt(0.0 / 0.0);  // COMPLIANT

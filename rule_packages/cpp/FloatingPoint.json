@@ -14,8 +14,7 @@
           "short_name": "PossibleMisuseOfInfiniteFloatingPointValue",
           "shared_implementation_short_name": "MisuseOfInfiniteFloatingPointValue",
           "tags": [
-            "correctness",
-            "external/misra/c/2012/amendment3"
+            "correctness"
           ]
         },
         {
@@ -27,8 +26,7 @@
           "short_name": "PossibleMisuseOfNaNFloatingPointValue",
           "shared_implementation_short_name": "MisuseOfNaNFloatingPointValue",
           "tags": [
-            "correctness",
-            "external/misra/c/2012/amendment3"
+            "correctness"
           ]
         }
       ],

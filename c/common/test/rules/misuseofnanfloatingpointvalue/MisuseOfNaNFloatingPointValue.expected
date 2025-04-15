@@ -24,13 +24,13 @@ problems
 | test.c:155:25:155:27 | l13 | test.c:122:15:122:21 | ... / ... | test.c:155:20:155:27 | l13 | Possible NaN value $@ flows to a cast to integer. | test.c:122:15:122:21 | ... / ... | from division of zero by zero | test.c:6:6:6:7 | f1 | f1 |
 | test.c:157:28:157:30 | l13 | test.c:122:15:122:21 | ... / ... | test.c:157:23:157:30 | l13 | Possible NaN value $@ flows to a cast to integer. | test.c:122:15:122:21 | ... / ... | from division of zero by zero | test.c:6:6:6:7 | f1 | f1 |
 | test.c:158:21:158:23 | l13 | test.c:122:15:122:21 | ... / ... | test.c:158:16:158:23 | l13 | Possible NaN value $@ flows to a cast to integer. | test.c:122:15:122:21 | ... / ... | from division of zero by zero | test.c:6:6:6:7 | f1 | f1 |
-| test.c:166:8:166:10 | call to pow | test.c:166:3:166:18 | call to pow | test.c:166:3:166:18 | call to pow | Possible NaN value $@ flows to a cast to integer. | test.c:166:8:166:10 | call to pow | both arguments are equal to zero | test.c:6:6:6:7 | f1 | f1 |
-| test.c:171:8:171:11 | call to acos | test.c:171:3:171:15 | call to acos | test.c:171:3:171:15 | call to acos | Possible NaN value $@ flows to a cast to integer. | test.c:171:8:171:11 | call to acos | the argument has a range -1000000000000000...1000000000000000 which is outside the domain of this function (-1.0...1.0) | test.c:6:6:6:7 | f1 | f1 |
-| test.c:175:32:175:32 | p | test.c:190:51:190:59 | ... / ... | test.c:175:27:175:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:190:51:190:59 | ... / ... | from division of zero by zero | test.c:190:6:190:24 | addNaNThenCastToInt | addNaNThenCastToInt |
-| test.c:175:32:175:32 | p | test.c:195:13:195:21 | ... / ... | test.c:175:27:175:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:195:13:195:21 | ... / ... | from division of zero by zero | test.c:192:6:192:7 | f2 | f2 |
-| test.c:175:32:175:32 | p | test.c:199:23:199:31 | ... / ... | test.c:175:27:175:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:199:23:199:31 | ... / ... | from division of zero by zero | test.c:192:6:192:7 | f2 | f2 |
-| test.c:175:32:175:32 | p | test.c:205:19:205:27 | ... / ... | test.c:175:27:175:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:205:19:205:27 | ... / ... | from division of zero by zero | test.c:192:6:192:7 | f2 | f2 |
-| test.c:185:18:185:18 | p | test.c:201:25:201:33 | ... / ... | test.c:185:13:185:18 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:201:25:201:33 | ... / ... | from division of zero by zero | test.c:192:6:192:7 | f2 | f2 |
+| test.c:165:8:165:10 | call to pow | test.c:165:3:165:18 | call to pow | test.c:165:3:165:18 | call to pow | Possible NaN value $@ flows to a cast to integer. | test.c:165:8:165:10 | call to pow | both arguments are equal to zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:170:8:170:11 | call to acos | test.c:170:3:170:15 | call to acos | test.c:170:3:170:15 | call to acos | Possible NaN value $@ flows to a cast to integer. | test.c:170:8:170:11 | call to acos | the argument has a range -1000000000000000...1000000000000000 which is outside the domain of this function (-1.0...1.0) | test.c:6:6:6:7 | f1 | f1 |
+| test.c:174:32:174:32 | p | test.c:189:51:189:59 | ... / ... | test.c:174:27:174:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:189:51:189:59 | ... / ... | from division of zero by zero | test.c:189:6:189:24 | addNaNThenCastToInt | addNaNThenCastToInt |
+| test.c:174:32:174:32 | p | test.c:193:13:193:21 | ... / ... | test.c:174:27:174:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:193:13:193:21 | ... / ... | from division of zero by zero | test.c:191:6:191:7 | f2 | f2 |
+| test.c:174:32:174:32 | p | test.c:197:23:197:31 | ... / ... | test.c:174:27:174:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:197:23:197:31 | ... / ... | from division of zero by zero | test.c:191:6:191:7 | f2 | f2 |
+| test.c:174:32:174:32 | p | test.c:203:19:203:27 | ... / ... | test.c:174:27:174:32 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:203:19:203:27 | ... / ... | from division of zero by zero | test.c:191:6:191:7 | f2 | f2 |
+| test.c:184:18:184:18 | p | test.c:199:25:199:33 | ... / ... | test.c:184:13:184:18 | p | Possible NaN value $@ computed in function $@ flows to a cast to integer. | test.c:199:25:199:33 | ... / ... | from division of zero by zero | test.c:191:6:191:7 | f2 | f2 |
 edges
 | test.c:27:14:27:20 | ... / ... | test.c:27:14:27:20 | ... / ... | provenance |  |
 | test.c:27:14:27:20 | ... / ... | test.c:36:3:36:9 | l5 | provenance |  |
@@ -58,24 +58,24 @@ edges
 | test.c:122:15:122:21 | ... / ... | test.c:155:20:155:27 | l13 | provenance |  |
 | test.c:122:15:122:21 | ... / ... | test.c:157:23:157:30 | l13 | provenance |  |
 | test.c:122:15:122:21 | ... / ... | test.c:158:16:158:23 | l13 | provenance |  |
-| test.c:175:22:175:22 | p | test.c:175:27:175:32 | p | provenance |  |
-| test.c:183:34:183:34 | p | test.c:185:13:185:18 | p | provenance |  |
-| test.c:188:32:188:32 | p | test.c:188:47:188:51 | ... + ... | provenance | Config |
-| test.c:188:47:188:51 | ... + ... | test.c:175:22:175:22 | p | provenance |  |
-| test.c:190:32:190:32 | p | test.c:190:47:190:59 | ... + ... | provenance | Config |
-| test.c:190:47:190:59 | ... + ... | test.c:175:22:175:22 | p | provenance |  |
-| test.c:190:47:190:59 | ... + ... | test.c:175:22:175:22 | p | provenance |  |
-| test.c:190:51:190:59 | ... / ... | test.c:190:47:190:59 | ... + ... | provenance | Config |
-| test.c:195:13:195:21 | ... / ... | test.c:175:22:175:22 | p | provenance |  |
-| test.c:199:23:199:31 | ... / ... | test.c:188:32:188:32 | p | provenance |  |
-| test.c:201:25:201:33 | ... / ... | test.c:183:34:183:34 | p | provenance |  |
-| test.c:205:19:205:27 | ... / ... | test.c:205:19:205:27 | ... / ... | provenance |  |
-| test.c:205:19:205:27 | ... / ... | test.c:207:21:207:31 | ... + ... | provenance | Config |
-| test.c:207:21:207:31 | ... + ... | test.c:207:21:207:31 | ... + ... | provenance |  |
-| test.c:207:21:207:31 | ... + ... | test.c:209:13:209:21 | middleNaN | provenance |  |
-| test.c:207:21:207:31 | ... + ... | test.c:211:23:211:31 | middleNaN | provenance |  |
-| test.c:209:13:209:21 | middleNaN | test.c:175:22:175:22 | p | provenance |  |
-| test.c:211:23:211:31 | middleNaN | test.c:190:32:190:32 | p | provenance |  |
+| test.c:174:22:174:22 | p | test.c:174:27:174:32 | p | provenance |  |
+| test.c:182:34:182:34 | p | test.c:184:13:184:18 | p | provenance |  |
+| test.c:187:32:187:32 | p | test.c:187:47:187:51 | ... + ... | provenance | Config |
+| test.c:187:47:187:51 | ... + ... | test.c:174:22:174:22 | p | provenance |  |
+| test.c:189:32:189:32 | p | test.c:189:47:189:59 | ... + ... | provenance | Config |
+| test.c:189:47:189:59 | ... + ... | test.c:174:22:174:22 | p | provenance |  |
+| test.c:189:47:189:59 | ... + ... | test.c:174:22:174:22 | p | provenance |  |
+| test.c:189:51:189:59 | ... / ... | test.c:189:47:189:59 | ... + ... | provenance | Config |
+| test.c:193:13:193:21 | ... / ... | test.c:174:22:174:22 | p | provenance |  |
+| test.c:197:23:197:31 | ... / ... | test.c:187:32:187:32 | p | provenance |  |
+| test.c:199:25:199:33 | ... / ... | test.c:182:34:182:34 | p | provenance |  |
+| test.c:203:19:203:27 | ... / ... | test.c:203:19:203:27 | ... / ... | provenance |  |
+| test.c:203:19:203:27 | ... / ... | test.c:205:21:205:31 | ... + ... | provenance | Config |
+| test.c:205:21:205:31 | ... + ... | test.c:205:21:205:31 | ... + ... | provenance |  |
+| test.c:205:21:205:31 | ... + ... | test.c:207:13:207:21 | middleNaN | provenance |  |
+| test.c:205:21:205:31 | ... + ... | test.c:209:23:209:31 | middleNaN | provenance |  |
+| test.c:207:13:207:21 | middleNaN | test.c:174:22:174:22 | p | provenance |  |
+| test.c:209:23:209:31 | middleNaN | test.c:189:32:189:32 | p | provenance |  |
 nodes
 | test.c:27:14:27:20 | ... / ... | semmle.label | ... / ... |
 | test.c:27:14:27:20 | ... / ... | semmle.label | ... / ... |
@@ -112,25 +112,25 @@ nodes
 | test.c:155:20:155:27 | l13 | semmle.label | l13 |
 | test.c:157:23:157:30 | l13 | semmle.label | l13 |
 | test.c:158:16:158:23 | l13 | semmle.label | l13 |
-| test.c:166:3:166:18 | call to pow | semmle.label | call to pow |
-| test.c:171:3:171:15 | call to acos | semmle.label | call to acos |
-| test.c:175:22:175:22 | p | semmle.label | p |
-| test.c:175:27:175:32 | p | semmle.label | p |
-| test.c:183:34:183:34 | p | semmle.label | p |
-| test.c:185:13:185:18 | p | semmle.label | p |
-| test.c:188:32:188:32 | p | semmle.label | p |
-| test.c:188:47:188:51 | ... + ... | semmle.label | ... + ... |
-| test.c:190:32:190:32 | p | semmle.label | p |
-| test.c:190:47:190:59 | ... + ... | semmle.label | ... + ... |
-| test.c:190:47:190:59 | ... + ... | semmle.label | ... + ... |
-| test.c:190:51:190:59 | ... / ... | semmle.label | ... / ... |
-| test.c:195:13:195:21 | ... / ... | semmle.label | ... / ... |
-| test.c:199:23:199:31 | ... / ... | semmle.label | ... / ... |
-| test.c:201:25:201:33 | ... / ... | semmle.label | ... / ... |
-| test.c:205:19:205:27 | ... / ... | semmle.label | ... / ... |
-| test.c:205:19:205:27 | ... / ... | semmle.label | ... / ... |
-| test.c:207:21:207:31 | ... + ... | semmle.label | ... + ... |
-| test.c:207:21:207:31 | ... + ... | semmle.label | ... + ... |
-| test.c:209:13:209:21 | middleNaN | semmle.label | middleNaN |
-| test.c:211:23:211:31 | middleNaN | semmle.label | middleNaN |
+| test.c:165:3:165:18 | call to pow | semmle.label | call to pow |
+| test.c:170:3:170:15 | call to acos | semmle.label | call to acos |
+| test.c:174:22:174:22 | p | semmle.label | p |
+| test.c:174:27:174:32 | p | semmle.label | p |
+| test.c:182:34:182:34 | p | semmle.label | p |
+| test.c:184:13:184:18 | p | semmle.label | p |
+| test.c:187:32:187:32 | p | semmle.label | p |
+| test.c:187:47:187:51 | ... + ... | semmle.label | ... + ... |
+| test.c:189:32:189:32 | p | semmle.label | p |
+| test.c:189:47:189:59 | ... + ... | semmle.label | ... + ... |
+| test.c:189:47:189:59 | ... + ... | semmle.label | ... + ... |
+| test.c:189:51:189:59 | ... / ... | semmle.label | ... / ... |
+| test.c:193:13:193:21 | ... / ... | semmle.label | ... / ... |
+| test.c:197:23:197:31 | ... / ... | semmle.label | ... / ... |
+| test.c:199:25:199:33 | ... / ... | semmle.label | ... / ... |
+| test.c:203:19:203:27 | ... / ... | semmle.label | ... / ... |
+| test.c:203:19:203:27 | ... / ... | semmle.label | ... / ... |
+| test.c:205:21:205:31 | ... + ... | semmle.label | ... + ... |
+| test.c:205:21:205:31 | ... + ... | semmle.label | ... + ... |
+| test.c:207:13:207:21 | middleNaN | semmle.label | middleNaN |
+| test.c:209:23:209:31 | middleNaN | semmle.label | middleNaN |
 subpaths

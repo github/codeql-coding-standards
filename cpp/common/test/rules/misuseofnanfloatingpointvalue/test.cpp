@@ -111,12 +111,13 @@ void f1(float p1) {
     (int)l12; // COMPLIANT: Casting Infinity to integer
   }
 
-  std::isinf(l12) ? (int)l12 : 0;    // COMPLIANT: Check on wrong branch
-  std::isinf(l12) ? 0 : (int)l12;    // COMPLIANT: Checked not infinite before use
+  std::isinf(l12) ? (int)l12 : 0; // COMPLIANT: Check on wrong branch
+  std::isinf(l12) ? 0 : (int)l12; // COMPLIANT: Checked not infinite before use
   std::isfinite(l12) ? (int)l12 : 0; // COMPLIANT: Checked finite before use
   std::isfinite(l12) ? 0 : (int)l12; // COMPLIANT: Checked on wrong branch
-  std::isnan(l12) ? (int)l12
-             : 0; // COMPLIANT: Checked NaN, therefore not infinite, before use
+  std::isnan(l12)
+      ? (int)l12
+      : 0; // COMPLIANT: Checked NaN, therefore not infinite, before use
   std::isnan(l12) ? 0 : (int)l12; // COMPLIANT: Check on wrong branch
 
   float l13 = 0.0 / 0;
@@ -150,15 +151,16 @@ void f1(float p1) {
     (int)l13; // COMPLIANT: Guarded not to be NaN
   }
 
-  std::isinf(l13) ? (int)l13
-             : 0; // COMPLIANT: Checked infinite, therefore not NaN, before use
+  std::isinf(l13)
+      ? (int)l13
+      : 0; // COMPLIANT: Checked infinite, therefore not NaN, before use
   std::isinf(l13) ? 0 : (int)l13;    // NON_COMPLIANT: Check on wrong branch
   std::isfinite(l13) ? (int)l13 : 0; // COMPLIANT: Checked finite before use
   std::isfinite(l13) ? 0 : (int)l13; // NON_COMPLIANT: Checked on wrong branch
   std::isnan(l13) ? (int)l13 : 0;    // NON_COMPLIANT: Check on wrong branch
   std::isnan(l13) ? 0 : (int)l13;    // COMPLIANT: Checked not NaN before use
 
-  (int)std::pow(2, p1);      // COMPLIANT: likely to be Infinity
+  (int)std::pow(2, p1);           // COMPLIANT: likely to be Infinity
   (int)std::pow(2, std::sin(p1)); // COMPLIANT: not likely to be Infinity
   (int)(1 /
         std::sin(p1)); // COMPLIANT: possible infinity from zero in denominator
@@ -168,7 +170,7 @@ void f1(float p1) {
     (int)std::pow(p1, p1); // COMPLIANT: p1 is not zero
   }
 
-  (int)std::acos(p1);      // NON_COMPLIANT: NaN if p1 is not within -1..1
+  (int)std::acos(p1);           // NON_COMPLIANT: NaN if p1 is not within -1..1
   (int)std::acos(std::cos(p1)); // COMPLIANT: cos(p1) is within -1..1
 }
 
@@ -190,8 +192,7 @@ void addInfThenCastToInt(float p) { castToInt(p + 1.0 / 0.0); }
 void addNaNThenCastToInt(float p) { castToInt(p + 0.0 / 0.0); }
 
 void f2() {
-  castToInt(1.0 /
-            0.0); // COMPLIANT: Infinity flows to denominator in division
+  castToInt(1.0 / 0.0); // COMPLIANT: Infinity flows to denominator in division
   castToInt(0.0 / 0.0); // COMPLIANT: NaN flows to denominator in division
   checkBeforeCastToInt(1.0 / 0.0);  // COMPLIANT
   checkBeforeCastToInt(0.0 / 0.0);  // COMPLIANT
