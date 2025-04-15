@@ -8,7 +8,6 @@
  * @problem.severity warning
  * @tags external/misra/id/dir-0-3-1
  *       correctness
- *       external/misra/c/2012/amendment3
  *       external/misra/obligation/advisory
  */
 
