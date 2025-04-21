@@ -7,29 +7,7 @@
 
 import cpp
 import Deviations
-
-/** Holds if `lineNumber` is an indexed line number in file `f`. */
-private predicate isLineNumber(File f, int lineNumber) {
-  exists(Location l | l.getFile() = f |
-    l.getStartLine() = lineNumber
-    or
-    l.getEndLine() = lineNumber
-  )
-}
-
-/** Gets the last line number in `f`. */
-private int getLastLineNumber(File f) { result = max(int lineNumber | isLineNumber(f, lineNumber)) }
-
-/** Gets the last column number on the last line of `f`. */
-int getLastColumnNumber(File f) {
-  result =
-    max(Location l |
-      l.getFile() = f and
-      l.getEndLine() = getLastLineNumber(f)
-    |
-      l.getEndColumn()
-    )
-}
+import codingstandards.cpp.Locations
 
 newtype TDeviationScope =
   TDeviationRecordFileScope(DeviationRecord dr, File file) {
@@ -71,10 +49,9 @@ class DeviationRecordFileScope extends DeviationScope, TDeviationRecordFileScope
     string filepath, int startline, int startcolumn, int endline, int endcolumn
   ) {
     // In an ideal world, we would produce a URL here that informed the AlertSuppression code that
-    // the whole file was suppressed. However, experimentation suggestions the alert suppression
-    // code only works with locations with lines and columns, so we generate a location that covers
-    // the whole "indexed" file, by finding the location indexed in the database with the latest
-    // line and column number.
+    // the whole file was suppressed. However, the alert suppression code only works with locations
+    // with lines and columns, so we generate a location that covers the whole "indexed" file, by
+    // finding the location indexed in the database with the latest line and column number.
     exists(File f | f = getFile() |
       f.getLocation().hasLocationInfo(filepath, _, _, _, _) and
       startline = 1 and
