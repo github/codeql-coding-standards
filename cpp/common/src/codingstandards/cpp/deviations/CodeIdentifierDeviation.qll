@@ -32,6 +32,7 @@
 
 import cpp
 import Deviations
+import codingstandards.cpp.Locations
 
 string supportedStandard() { result = ["misra", "autosar", "cert"] }
 
@@ -358,13 +359,7 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
       then endcolumn = commentMarker.(DeviationEndOfLineMarker).getLocation().getEndColumn()
       else
         // Find the last column for a location on the next line
-        endcolumn =
-          max(Location l |
-            l.hasLocationInfo(filepath, _, _, _, _) and
-            l.getEndLine() = suppressedLine
-          |
-            l.getEndColumn()
-          )
+        endcolumn = getLastColumnNumber(filepath, suppressedLine)
     )
     or
     this = TMultiLineDeviation(_, _, _, filepath, suppressedLine, endline) and

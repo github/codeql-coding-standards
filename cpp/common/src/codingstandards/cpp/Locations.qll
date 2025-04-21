@@ -22,3 +22,9 @@ int getLastColumnNumber(File f) {
       l.getEndColumn()
     )
 }
+
+/** Gets the last column number on the given line of `filepath`. */
+bindingset[filepath, lineNumber]
+int getLastColumnNumber(string filepath, int lineNumber) {
+  result = max(Location l | l.hasLocationInfo(filepath, _, _, lineNumber, _) | l.getEndColumn())
+}
