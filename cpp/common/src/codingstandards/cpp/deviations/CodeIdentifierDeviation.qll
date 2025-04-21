@@ -341,6 +341,11 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
     )
   }
 
+  /**
+   * Holds for the region matched by this code identifier deviation.
+   *
+   * Note: this is not the location of the marker itself.
+   */
   predicate hasLocationInfo(
     string filepath, int suppressedLine, int suppressedColumn, int endline, int endcolumn
   ) {
