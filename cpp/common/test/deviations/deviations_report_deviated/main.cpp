@@ -35,5 +35,10 @@ int main(int argc, char **argv) {
   // codeql::autosar_deviation_end(a-0-4-2-deviation)
   long double d14; // NON_COMPLIANT (A0-4-2)
   getX();          // NON_COMPLIANT (A0-1-2)
+
+  // clang-format off
+  long double d15; /* NON_COMPLIANT*/ /* codeql::autosar_deviation_begin(a-0-4-2-deviation) */ long double d16; // COMPLIANT[DEVIATED]
+  long double d17; /* COMPLIANT[DEVIATED] */ /* codeql::autosar_deviation_end(a-0-4-2-deviation) */ long double d18; // NON_COMPLIANT
+  // clang-format on
   return 0;
 }
