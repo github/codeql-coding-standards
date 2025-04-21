@@ -295,11 +295,11 @@ newtype TCodeIndentifierDeviation =
   } or
   TMultiLineDeviation(
     DeviationRecord record, DeviationBegin beginComment, DeviationEnd endComment, string filepath,
-    int suppressedStartLine, int suppressedEndLine
+    int suppressedStartLine, int suppressedEndLine, int suppressedEndColumn
   ) {
     isDeviationRangePaired(record, beginComment, endComment) and
     beginComment.getLocation().hasLocationInfo(filepath, suppressedStartLine, _, _, _) and
-    endComment.getLocation().hasLocationInfo(filepath, suppressedEndLine, _, _, _)
+    endComment.getLocation().hasLocationInfo(filepath, _, _, suppressedEndLine, suppressedEndColumn)
   } or
   TCodeIdentifierDeviation(DeviationRecord record, DeviationAttribute attribute) {
     attribute.getADeviationRecord() = record
@@ -310,7 +310,7 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
   DeviationRecord getADeviationRecord() {
     this = TSingleLineDeviation(result, _, _, _)
     or
-    this = TMultiLineDeviation(result, _, _, _, _, _)
+    this = TMultiLineDeviation(result, _, _, _, _, _, _)
     or
     this = TCodeIdentifierDeviation(result, _)
   }
@@ -321,18 +321,27 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
   bindingset[e]
   pragma[inline_late]
   predicate isElementMatching(Element e) {
-    exists(string filepath, int elementLocationStart |
-      e.getLocation().hasLocationInfo(filepath, elementLocationStart, _, _, _)
+    exists(string filepath, int elementLocationStart, int elementLocationColumnStart |
+      e.getLocation()
+          .hasLocationInfo(filepath, elementLocationStart, elementLocationColumnStart, _, _)
     |
       exists(int suppressedLine |
         this = TSingleLineDeviation(_, _, filepath, suppressedLine) and
         suppressedLine = elementLocationStart
       )
       or
-      exists(int suppressedStartLine, int suppressedEndLine |
-        this = TMultiLineDeviation(_, _, _, filepath, suppressedStartLine, suppressedEndLine) and
-        suppressedStartLine < elementLocationStart and
+      exists(int suppressedStartLine, int suppressedEndLine, int suppressedEndColumn |
+        this =
+          TMultiLineDeviation(_, _, _, filepath, suppressedStartLine, suppressedEndLine,
+            suppressedEndColumn) and
+        suppressedStartLine < elementLocationStart
+      |
+        // Element starts before the end line of the suppression
         suppressedEndLine > elementLocationStart
+        or
+        // Element exists on the same line as the suppression, and occurs before it
+        suppressedEndLine = elementLocationStart and
+        elementLocationColumnStart < suppressedEndColumn
       )
     )
     or
@@ -362,9 +371,8 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
         endcolumn = getLastColumnNumber(filepath, suppressedLine)
     )
     or
-    this = TMultiLineDeviation(_, _, _, filepath, suppressedLine, endline) and
-    suppressedColumn = 1 and
-    endcolumn = 1
+    this = TMultiLineDeviation(_, _, _, filepath, suppressedLine, endline, endcolumn) and
+    suppressedColumn = 1
     or
     exists(DeviationAttribute attribute |
       this = TCodeIdentifierDeviation(_, attribute) and
@@ -384,11 +392,13 @@ class CodeIdentifierDeviation extends TCodeIndentifierDeviation {
             suppressedLine
       )
       or
-      exists(int suppressedStartLine, int suppressedEndLine |
-        this = TMultiLineDeviation(_, _, _, filepath, suppressedStartLine, suppressedEndLine) and
+      exists(int suppressedStartLine, int suppressedEndLine, int suppressedEndColumn |
+        this =
+          TMultiLineDeviation(_, _, _, filepath, suppressedStartLine, suppressedEndLine,
+            suppressedEndColumn) and
         result =
           "Deviation of " + getADeviationRecord().getQuery() + " applied to " + filepath + " Line " +
-            suppressedStartLine + ":" + suppressedEndLine
+            suppressedStartLine + ":" + suppressedEndLine + " (Column " + suppressedEndColumn + ")"
       )
     )
     or
