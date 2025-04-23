@@ -129,6 +129,14 @@ void setbuf(FILE *__restrict, char *__restrict);
 char *tmpnam(char *);
 FILE *tmpfile(void);
 
+#ifdef __STDC_WANT_LIB_EXT1__
+#define errno_t int
+errno_t fopen_s(FILE * restrict* restrict, const char * restrict, const char * restrict);
+typedef size_t rsize_t;
+errno_t tmpfile_s(FILE * restrict* restrict streamptr);
+int tmpnam_s(char *, rsize_t);
+#endif
+
 #if defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) \
  || defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) \
  || defined(_BSD_SOURCE)

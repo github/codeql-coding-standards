@@ -1,0 +1,24 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:29,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:29,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:29,65-73)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:30,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:30,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:31,7-15)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:38,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:38,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:38,65-73)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:53,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:53,23-31)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (IncorrectNullTerminationOfReadlink.ql:54,5-13)
+| test.c:7:17:7:24 | call to readlink | Call to readlink() not followed by a check to result error code. | test.c:7:17:7:24 | call to readlink |  | test.c:7:17:7:24 | call to readlink |  |
+| test.c:7:17:7:24 | call to readlink | Call to readlink() with size argument that may not leave room for a null terminator. | test.c:7:17:7:24 | call to readlink |  | test.c:7:17:7:24 | call to readlink |  |
+| test.c:13:17:13:24 | call to readlink | Call to readlink() not followed by a check to result error code. | test.c:13:17:13:24 | call to readlink |  | test.c:13:17:13:24 | call to readlink |  |
+| test.c:13:17:13:24 | call to readlink | Call to readlink() not followed by an assignment that ensures a null terminated result string. | test.c:13:17:13:24 | call to readlink |  | test.c:13:17:13:24 | call to readlink |  |
+| test.c:19:17:19:24 | call to readlink | Call to readlink() not followed by a check to result error code. | test.c:19:17:19:24 | call to readlink |  | test.c:19:17:19:24 | call to readlink |  |
+| test.c:26:17:26:24 | call to readlink | Call to readlink() not followed by an assignment that ensures a null terminated result string. | test.c:26:17:26:24 | call to readlink |  | test.c:26:17:26:24 | call to readlink |  |
+| test.c:46:17:46:24 | call to readlink | Buffer passed to readlink() is $@ by result value before the result value is $@. | test.c:48:3:48:17 | ... = ... | null terminated | test.c:49:7:49:15 | ... != ... | error checked |
+| test.c:58:17:58:24 | call to readlink | Buffer passed to readlink() is $@ before $@. | test.c:66:11:66:13 | buf | used | test.c:62:7:62:21 | ... = ... | null terminaton is added |
+| test.c:71:17:71:24 | call to readlink | Buffer passed to readlink() is $@ before $@. | test.c:73:11:73:13 | buf | used | test.c:78:3:78:17 | ... = ... | null terminaton is added |
+| test.c:91:17:91:24 | call to readlink | Call to readlink() not followed by a check to result error code. | test.c:91:17:91:24 | call to readlink |  | test.c:91:17:91:24 | call to readlink |  |
+| test.c:91:17:91:24 | call to readlink | Call to readlink() not followed by an assignment that ensures a null terminated result string. | test.c:91:17:91:24 | call to readlink |  | test.c:91:17:91:24 | call to readlink |  |
+| test.c:91:17:91:24 | call to readlink | Call to readlink() with size argument that may not leave room for a null terminator. | test.c:91:17:91:24 | call to readlink |  | test.c:91:17:91:24 | call to readlink |  |

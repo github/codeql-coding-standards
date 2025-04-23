@@ -1,0 +1,19 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PossiblyPredictableTemporaryFileCreation.ql:18,38-46)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PossiblyPredictableTemporaryFileCreation.ql:19,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PossiblyPredictableTemporaryFileCreation.ql:23,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PossiblyPredictableTemporaryFileCreation.ql:36,20-28)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (PossiblyPredictableTemporaryFileCreation.ql:28,23-36)
+edges
+| test.c:66:36:66:42 | /tmp/dir/ | test.c:67:21:67:22 | l1 | provenance |  |
+nodes
+| test.c:9:9:9:19 | /tmp/file | semmle.label | /tmp/file |
+| test.c:10:9:10:23 | /var/tmp/file | semmle.label | /var/tmp/file |
+| test.c:11:9:11:24 | C:\\Temp\\file | semmle.label | C:\\Temp\\file |
+| test.c:66:36:66:42 | /tmp/dir/ | semmle.label | /tmp/dir/ |
+| test.c:67:21:67:22 | l1 | semmle.label | l1 |
+subpaths
+#select
+| test.c:9:3:9:7 | call to fopen | test.c:9:9:9:19 | /tmp/file | test.c:9:9:9:19 | /tmp/file | Possible unsafe temporary file creation using 'fopen'. |
+| test.c:10:3:10:7 | call to fopen | test.c:10:9:10:23 | /var/tmp/file | test.c:10:9:10:23 | /var/tmp/file | Possible unsafe temporary file creation using 'fopen'. |
+| test.c:11:3:11:7 | call to fopen | test.c:11:9:11:24 | C:\\Temp\\file | test.c:11:9:11:24 | C:\\Temp\\file | Possible unsafe temporary file creation using 'fopen'. |
+| test.c:67:15:67:19 | call to fopen | test.c:66:36:66:42 | /tmp/dir/ | test.c:67:21:67:22 | l1 | Possible unsafe temporary file creation using 'fopen'. |

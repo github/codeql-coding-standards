@@ -71,9 +71,9 @@ class FOpenCall extends FunctionCall {
   }
 
   Expr getMode() {
-    this.getTarget().hasGlobalName("open") and result = this.getArgument(1)
-    or
-    result = this.getArgument(getNumberOfArguments() - 1)
+    if this.getTarget().hasGlobalName("open")
+    then result = this.getArgument(1)
+    else result = this.getArgument(getNumberOfArguments() - 1)
   }
 
   // make predicate
@@ -81,11 +81,29 @@ class FOpenCall extends FunctionCall {
 
   predicate isWriteMode() { this.getMode().getValue() = ["w", "a", "r+", "w+", "a+"] }
 
+  predicate mayCreate() {
+    not getTarget().hasGlobalName("fdopen") and
+    this.getMode().getValue().matches(["%w%", "%a%"])
+    or
+    modeHasOFlag("O_CREAT")
+  }
+
+  predicate isExclusiveMode() {
+    this.getMode().getValue().matches(["%x"])
+    or
+    modeHasOFlag("O_EXCL")
+  }
+
   predicate isReadOnlyMode() {
     this.isReadMode() and not this.isWriteMode()
     or
+    modeHasOFlag("O_RDONLY")
+  }
+
+  /** Holds if the flag is present in a call such as `open(..., O_CREAT | O_RDONLY, ...)` */
+  private predicate modeHasOFlag(string flag) {
     exists(MacroInvocation mi |
-      mi.getMacroName() = "O_RDONLY" and
+      mi.getMacroName() = flag and
       (
         this.getMode() = mi.getExpr()
         or

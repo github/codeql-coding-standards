@@ -1,0 +1,4 @@
+| test.c:10:14:10:18 | call to fopen | Call to create file with non-exclusive creation mode 'w'. |
+| test.c:35:17:35:23 | call to fopen_s | Call to create file with non-exclusive creation mode 'w'. |
+| test.c:52:12:52:15 | call to open | Call to create file with non-exclusive creation mode 'O_CREAT \| O_WRONLY'. |
+| test.c:89:12:89:15 | call to open | Call to create file with non-exclusive creation mode 'O_CREAT \| O_WRONLY'. |
