@@ -53,8 +53,11 @@ module TypesCompatibleConfig implements TypeEquivalenceSig {
     or
     // Enum types are compatible with one of char, int, or signed int, but the implementation
     // decides.
-    [t1, t2] instanceof Enum and
-    ([t1, t2] instanceof CharType or [t1, t2] instanceof IntType)
+    t1 instanceof Enum and
+    (t2 instanceof CharType or t2 instanceof IntType)
+    or
+    t2 instanceof Enum and
+    (t1 instanceof CharType or t1 instanceof IntType)
   }
 
   bindingset[t1, t2]
@@ -348,8 +351,15 @@ module FunctionDeclarationTypeEquivalence<TypeEquivalenceSig Config> {
   predicate equalParameterTypes(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
     f1.getDeclaration() = f2.getDeclaration() and
     forall(int i | exists([f1, f2].getParameterDeclarationEntry(i)) |
-      TypeEquivalence<Config, FunctionSignatureType>::equalTypes(f1.getParameterDeclarationEntry(i)
-            .getType(), f2.getParameterDeclarationEntry(i).getType())
+      equalParameterTypesAt(f1, f2, pragma[only_bind_into](i))
+    )
+  }
+
+  predicate equalParameterTypesAt(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, int i) {
+    pragma[only_bind_out](f1.getDeclaration()) = pragma[only_bind_out](f2.getDeclaration()) and
+    TypeEquivalence<Config, FunctionSignatureType>::equalTypes(
+      f1.getParameterDeclarationEntry(i).getType(),
+      f2.getParameterDeclarationEntry(i).getType()
     )
   }
 }
