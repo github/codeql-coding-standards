@@ -69,6 +69,7 @@ module TypesCompatibleConfig implements TypeEquivalenceSig {
 /**
  * Utilize QlBuiltins::InternSets to efficiently compare the sets of specifiers on two types.
  */
+bindingset[t1, t2]
 private predicate specifiersMatchExactly(Type t1, Type t2) {
   t1 = t2
   or
