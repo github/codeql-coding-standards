@@ -224,7 +224,7 @@ signature predicate interestedInEquality(Type a, Type b);
  * Note that `equalTypes(a, b)` only holds if `interestedIn(a, b)` holds. A type is always
  * considered to be equal to itself, and this module does not support configurations that declare
  * otherwise.
- * 
+ *
  * Further, `interestedInEquality(a, a)` is treated differently from `interestedInEquality(a, b)`,
  * assuming that `a` and `b` are not identical. This is so that we can construct a set of types
  * that are not identical, but still may be equivalent by the specified configuration. We also must
@@ -233,45 +233,75 @@ signature predicate interestedInEquality(Type a, Type b);
  * only a few are not.
  */
 module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interestedIn> {
+
   /**
-   * Check whether two types are equivalent, as defined by the `TypeEquivalenceSig` module.
-   * 
-   * This only holds if the specified predicate `interestedIn` holds for the types, and always
-   * holds if `t1` and `t2` are identical.
+   * Performance related predicate to force top down rather than bottom up evaluation of type
+   * equivalence.
    */
-  predicate equalTypes(Type t1, Type t2) {
-    interestedInUnordered(t1, t2) and
-    (
-      // If the types are identical, they are trivially equal.
-      t1 = t2
+  predicate compares(Type t1, Type t2) {
+    interestedIn(t1, t2)
+    or
+    exists(DerivedType t1Derived, DerivedType t2Derived |
+      not t1Derived instanceof SpecifiedType and
+      not t2Derived instanceof SpecifiedType and
+      compares(pragma[only_bind_into](t1Derived), pragma[only_bind_into](t2Derived)) and
+      t1 = t1Derived.getBaseType() and
+      t2 = t2Derived.getBaseType()
+    )
+    or
+    exists(SpecifiedType t1Spec, SpecifiedType t2Spec |
+      compares(pragma[only_bind_into](t1Spec), pragma[only_bind_into](t2Spec)) and
+      (
+        t1 = unspecify(t1Spec) and
+        t2 = unspecify(t2Spec)
+      )
+    )
+    or
+    exists(FunctionType t1Func, FunctionType t2Func |
+      compares(pragma[only_bind_into](t1Func), pragma[only_bind_into](t2Func)) and
+      (
+        t1 = t1Func.getReturnType() and
+        t2 = t2Func.getReturnType()
+        or
+        exists(int i |
+          t1 = t1Func.getParameterType(pragma[only_bind_out](i)) and
+          t2 = t2Func.getParameterType(i)
+        )
+      )
+    )
+    or
+    Config::resolveTypedefs() and
+    exists(TypedefType tdtype |
+      tdtype.getBaseType() = t1 and
+      compares(pragma[only_bind_into](tdtype), t2)
       or
-      not t1 = t2 and
-      equalTypesImpl(t1, t2)
+      tdtype.getBaseType() = t2 and
+      compares(t1, pragma[only_bind_into](tdtype))
     )
   }
 
   /**
-   * This implementation handles only the slow and complex cases of type equivalence, where the
-   * types are not identical.
+   * Check whether two types are equivalent, as defined by the `TypeEquivalenceSig` module.
    *
-   * Assuming that types a, b must be compared where `a` and `b` are not identical, we wish to
-   * search only the smallest set of possible relevant types. See `RelevantType` for more.
+   * This only holds if the specified predicate `interestedIn` holds for the types, and always
+   * holds if `t1` and `t2` are identical.
    */
-  private predicate equalTypesImpl(RelevantType t1, RelevantType t2) {
+  private predicate equalTypes(Type t1, Type t2) {
+    compares(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
     if Config::overrideTypeComparison(t1, t2, _)
     then Config::overrideTypeComparison(t1, t2, true)
     else
       if t1 instanceof TypedefType and Config::resolveTypedefs()
-      then equalTypesImpl(t1.(TypedefType).getBaseType(), t2)
+      then equalTypes(t1.(TypedefType).getBaseType(), t2)
       else
         if t2 instanceof TypedefType and Config::resolveTypedefs()
-        then equalTypesImpl(t1, t2.(TypedefType).getBaseType())
+        then equalTypes(t1, t2.(TypedefType).getBaseType())
         else (
           not t1 instanceof DerivedType and
           not t2 instanceof DerivedType and
           not t1 instanceof TypedefType and
           not t2 instanceof TypedefType and
-          LeafEquiv::getEquivalenceClass(t1) = LeafEquiv::getEquivalenceClass(t2)
+          equalLeafRelation(t1, t2)
           or
           equalDerivedTypes(t1, t2)
           or
@@ -284,56 +314,14 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
   /** Whether two types will be compared, regardless of order (a, b) or (b, a). */
   private predicate interestedInUnordered(Type t1, Type t2) {
     interestedIn(t1, t2) or
-    interestedIn(t2, t1) }
-
-  final private class FinalType = Type;
-
-  /**
-   * A type that is compared to another type that is not identical. This is the set of types that
-   * form the roots of our more expensive type equivalence analysis.
-   */
-  private class InterestingType extends FinalType {
-    InterestingType() {
-      exists(Type inexactCompare |
-        interestedInUnordered(this, _) and
-        not inexactCompare = this
-      )
-    }
+    interestedIn(t2, t1)
   }
 
-  /**
-   * A type that is reachable from an `InterestingType` (a type that is compared to a non-identical
-   * type).
-   * 
-   * Since type equivalence is recursive, CodeQL will consider the equality of these types in a
-   * bottom-up evaluation, with leaf nodes first. Therefore, this set must be as small as possible
-   * in order to be efficient.
-   */
-  private class RelevantType extends FinalType {
-    RelevantType() { exists(InterestingType t | typeGraph*(t, this)) }
-  }
+  bindingset[t1, t2]
+  private predicate equalLeafRelation(Type t1, Type t2) { Config::equalLeafTypes(t1, t2) }
 
-  private class RelevantDerivedType extends RelevantType instanceof DerivedType {
-    RelevantType getBaseType() { result = this.(DerivedType).getBaseType() }
-  }
-
-  private class RelevantFunctionType extends RelevantType instanceof FunctionType {
-    RelevantType getReturnType() { result = this.(FunctionType).getReturnType() }
-
-    RelevantType getParameterType(int i) { result = this.(FunctionType).getParameterType(i) }
-  }
-
-  private class RelevantTypedefType extends RelevantType instanceof TypedefType {
-    RelevantType getBaseType() { result = this.(TypedefType).getBaseType() }
-  }
-
-  private module LeafEquiv = QlBuiltins::EquivalenceRelation<RelevantType, equalLeafRelation/2>;
-
-  private predicate equalLeafRelation(RelevantType t1, RelevantType t2) {
-    Config::equalLeafTypes(t1, t2)
-  }
-
-  private RelevantType unspecify(SpecifiedType t) {
+  bindingset[t]
+  private Type unspecify(SpecifiedType t) {
     // This subtly and importantly handles the complicated cases of typedefs. Under most scenarios,
     // if we see a typedef in `equalTypes()` we can simply get the base type and continue. However,
     // there is an exception if we have a specified type that points to a typedef that points to
@@ -347,9 +335,9 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
   }
 
   bindingset[t1, t2]
-  private predicate equalDerivedTypes(RelevantDerivedType t1, RelevantDerivedType t2) {
+  private predicate equalDerivedTypes(DerivedType t1, DerivedType t2) {
     exists(Boolean baseTypesEqual |
-      (baseTypesEqual = true implies equalTypesImpl(t1.getBaseType(), t2.getBaseType())) and
+      (baseTypesEqual = true implies equalTypes(t1.getBaseType(), t2.getBaseType())) and
       (
         Config::equalPointerTypes(t1, t2, baseTypesEqual)
         or
@@ -363,20 +351,20 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
       // Note that this case is different from the above, in that we don't merely get the base
       // type (as that could be a TypedefType that points to another SpecifiedType). We need to
       // unspecify the type to see if the base types are equal.
-      (unspecifiedTypesEqual = true implies equalTypesImpl(unspecify(t1), unspecify(t2))) and
+      (unspecifiedTypesEqual = true implies equalTypes(unspecify(t1), unspecify(t2))) and
       Config::equalSpecifiedTypes(t1, t2, unspecifiedTypesEqual)
     )
   }
 
   bindingset[t1, t2]
-  private predicate equalFunctionTypes(RelevantFunctionType t1, RelevantFunctionType t2) {
+  private predicate equalFunctionTypes(FunctionType t1, FunctionType t2) {
     exists(Boolean returnTypeEqual, Boolean parameterTypesEqual |
-      (returnTypeEqual = true implies equalTypesImpl(t1.getReturnType(), t2.getReturnType())) and
+      (returnTypeEqual = true implies equalTypes(t1.getReturnType(), t2.getReturnType())) and
       (
         parameterTypesEqual = true
         implies
         forall(int i | exists([t1, t2].getParameterType(i)) |
-          equalTypesImpl(t1.getParameterType(i), t2.getParameterType(i))
+          equalTypes(t1.getParameterType(i), t2.getParameterType(i))
         )
       ) and
       (
@@ -388,9 +376,9 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
   }
 
   bindingset[t1, t2]
-  private predicate equalTypedefTypes(RelevantTypedefType t1, RelevantTypedefType t2) {
+  private predicate equalTypedefTypes(TypedefType t1, TypedefType t2) {
     exists(Boolean baseTypesEqual |
-      (baseTypesEqual = true implies equalTypesImpl(t1.getBaseType(), t2.getBaseType())) and
+      (baseTypesEqual = true implies equalTypes(t1.getBaseType(), t2.getBaseType())) and
       Config::equalTypedefTypes(t1, t2, baseTypesEqual)
     )
   }
