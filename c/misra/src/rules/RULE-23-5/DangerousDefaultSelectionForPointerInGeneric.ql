@@ -20,18 +20,14 @@ import codingstandards.cpp.types.LvalueConversion
 import codingstandards.cpp.types.SimpleAssignment
 
 predicate typesCompatible(Type t1, Type t2) {
-  TypeEquivalence<TypesCompatibleConfig, TypeFromGeneric>::equalTypes(t1, t2)
+  TypeEquivalence<TypesCompatibleConfig, relevantTypes/2>::equalTypes(t1, t2)
 }
 
-class TypeFromGeneric extends Type {
-  TypeFromGeneric() {
-    exists(C11GenericExpr g |
-      (
-        this = g.getAssociationType(_) or
-        this = g.getControllingExpr().getFullyConverted().getType()
-      )
-    )
-  }
+predicate relevantTypes(Type a, Type b) {
+  exists(C11GenericExpr g |
+    a = g.getAnAssociationType() and
+    b = getLvalueConverted(g.getControllingExpr().getFullyConverted().getType())
+  )
 }
 
 predicate missesOnPointerConversion(Type provided, Type expected) {
@@ -40,11 +36,11 @@ predicate missesOnPointerConversion(Type provided, Type expected) {
   // But 6.5.16.1 simple assignment constraints would have been satisfied:
   (
     // Check as if the controlling expr is assigned to the expected type:
-    SimpleAssignment<TypeFromGeneric>::satisfiesSimplePointerAssignment(expected, provided)
+    SimpleAssignment<relevantTypes/2>::satisfiesSimplePointerAssignment(expected, provided)
     or
     // Since developers typically rely on the compiler to catch const/non-const assignment
     // errors, don't assume a const-to-non-const generic selection miss was intentional.
-    SimpleAssignment<TypeFromGeneric>::satisfiesSimplePointerAssignment(provided, expected)
+    SimpleAssignment<relevantTypes/2>::satisfiesSimplePointerAssignment(provided, expected)
   )
 }
 

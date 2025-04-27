@@ -19,6 +19,16 @@ import codingstandards.c.misra
 import codingstandards.cpp.Identifiers
 import codingstandards.cpp.types.Compatible
 
+predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  f1.getDeclaration() instanceof ExternalIdentifiers and
+  f1.isDefinition() and
+  f1.getName() = f2.getName() and
+  f1.getDeclaration() = f2.getDeclaration() and
+  not f2.isDefinition() and
+  not f1.isFromTemplateInstantiation(_) and
+  not f2.isFromTemplateInstantiation(_)
+}
+
 from FunctionDeclarationEntry f1
 where
   not isExcluded(f1, Declarations4Package::compatibleDeclarationFunctionDefinedQuery()) and
@@ -38,10 +48,12 @@ where
       f2.getDeclaration() = f1.getDeclaration() and
       (
         //return types differ
-        not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig>::equalReturnTypes(f1, f2)
+        not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalReturnTypes(f1,
+          f2)
         or
         //parameter types differ
-        not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig>::equalParameterTypes(f1, f2)
+        not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalParameterTypes(f1,
+          f2)
         or
         //parameter names differ
         parameterNamesUnmatched(f1, f2)

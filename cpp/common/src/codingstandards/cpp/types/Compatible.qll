@@ -25,7 +25,7 @@ class VariableType extends Type {
 }
 
 predicate parameterNamesUnmatched(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-  f1.getDeclaration() = f2.getDeclaration() and
+  pragma[only_bind_into](f1).getDeclaration() = pragma[only_bind_into](f2).getDeclaration() and
   exists(string p1Name, string p2Name, int i |
     p1Name = f1.getParameterDeclarationEntry(i).getName() and
     p2Name = f2.getParameterDeclarationEntry(i).getName()
@@ -208,34 +208,64 @@ signature module TypeEquivalenceSig {
 module DefaultEquivalence implements TypeEquivalenceSig { }
 
 /**
- * A signature class used to restrict the set of types considered by `TypeEquivalence`, for
+ * A signature predicate used to restrict the set of types considered by `TypeEquivalence`, for
  * performance reasons.
  */
-signature class TypeSubset extends Type;
+signature predicate interestedInEquality(Type a, Type b);
 
 /**
  * A module to check the equivalence of two types, as defined by the provided `TypeEquivalenceSig`.
  *
- * For performance reasons, this module is designed to be used with a `TypeSubset` that restricts
- * the set of considered types. All types reachable (in the type graph) from a type in the subset
- * will be considered. (See `RelevantType`.)
+ * For performance reasons, this module is designed to be used with a predicate
+ * `interestedInEquality` that restricts the set of considered types.
  *
  * To use this module, define a `TypeEquivalenceSig` module and implement a subset of `Type` that
  * selects the relevant root types to be considered. Then use the predicate `equalTypes(a, b)`.
+ * Note that `equalTypes(a, b)` only holds if `interestedIn(a, b)` holds. A type is always
+ * considered to be equal to itself, and this module does not support configurations that declare
+ * otherwise.
+ * 
+ * Further, `interestedInEquality(a, a)` is treated differently from `interestedInEquality(a, b)`,
+ * assuming that `a` and `b` are not identical. This is so that we can construct a set of types
+ * that are not identical, but still may be equivalent by the specified configuration. We also must
+ * consider all types that are reachable from these types, as the equivalence relation is
+ * recursive. Therefore, this module is more performant when most comparisons are identical, and
+ * only a few are not.
  */
-module TypeEquivalence<TypeEquivalenceSig Config, TypeSubset T> {
+module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interestedIn> {
   /**
    * Check whether two types are equivalent, as defined by the `TypeEquivalenceSig` module.
+   * 
+   * This only holds if the specified predicate `interestedIn` holds for the types, and always
+   * holds if `t1` and `t2` are identical.
    */
-  predicate equalTypes(RelevantType t1, RelevantType t2) {
+  predicate equalTypes(Type t1, Type t2) {
+    interestedInUnordered(t1, t2) and
+    (
+      // If the types are identical, they are trivially equal.
+      t1 = t2
+      or
+      not t1 = t2 and
+      equalTypesImpl(t1, t2)
+    )
+  }
+
+  /**
+   * This implementation handles only the slow and complex cases of type equivalence, where the
+   * types are not identical.
+   *
+   * Assuming that types a, b must be compared where `a` and `b` are not identical, we wish to
+   * search only the smallest set of possible relevant types. See `RelevantType` for more.
+   */
+  private predicate equalTypesImpl(RelevantType t1, RelevantType t2) {
     if Config::overrideTypeComparison(t1, t2, _)
     then Config::overrideTypeComparison(t1, t2, true)
     else
       if t1 instanceof TypedefType and Config::resolveTypedefs()
-      then equalTypes(t1.(TypedefType).getBaseType(), t2)
+      then equalTypesImpl(t1.(TypedefType).getBaseType(), t2)
       else
         if t2 instanceof TypedefType and Config::resolveTypedefs()
-        then equalTypes(t1, t2.(TypedefType).getBaseType())
+        then equalTypesImpl(t1, t2.(TypedefType).getBaseType())
         else (
           not t1 instanceof DerivedType and
           not t2 instanceof DerivedType and
@@ -251,13 +281,36 @@ module TypeEquivalence<TypeEquivalenceSig Config, TypeSubset T> {
         )
   }
 
-  /**
-   * A type that is either part of the type subset, or that is reachable from a type in the subset.
-   */
-  private class RelevantType instanceof Type {
-    RelevantType() { exists(T t | typeGraph*(t, this)) }
+  /** Whether two types will be compared, regardless of order (a, b) or (b, a). */
+  private predicate interestedInUnordered(Type t1, Type t2) {
+    interestedIn(t1, t2) or
+    interestedIn(t2, t1) }
 
-    string toString() { result = this.(Type).toString() }
+  final private class FinalType = Type;
+
+  /**
+   * A type that is compared to another type that is not identical. This is the set of types that
+   * form the roots of our more expensive type equivalence analysis.
+   */
+  private class InterestingType extends FinalType {
+    InterestingType() {
+      exists(Type inexactCompare |
+        interestedInUnordered(this, _) and
+        not inexactCompare = this
+      )
+    }
+  }
+
+  /**
+   * A type that is reachable from an `InterestingType` (a type that is compared to a non-identical
+   * type).
+   * 
+   * Since type equivalence is recursive, CodeQL will consider the equality of these types in a
+   * bottom-up evaluation, with leaf nodes first. Therefore, this set must be as small as possible
+   * in order to be efficient.
+   */
+  private class RelevantType extends FinalType {
+    RelevantType() { exists(InterestingType t | typeGraph*(t, this)) }
   }
 
   private class RelevantDerivedType extends RelevantType instanceof DerivedType {
@@ -296,7 +349,7 @@ module TypeEquivalence<TypeEquivalenceSig Config, TypeSubset T> {
   bindingset[t1, t2]
   private predicate equalDerivedTypes(RelevantDerivedType t1, RelevantDerivedType t2) {
     exists(Boolean baseTypesEqual |
-      (baseTypesEqual = true implies equalTypes(t1.getBaseType(), t2.getBaseType())) and
+      (baseTypesEqual = true implies equalTypesImpl(t1.getBaseType(), t2.getBaseType())) and
       (
         Config::equalPointerTypes(t1, t2, baseTypesEqual)
         or
@@ -310,7 +363,7 @@ module TypeEquivalence<TypeEquivalenceSig Config, TypeSubset T> {
       // Note that this case is different from the above, in that we don't merely get the base
       // type (as that could be a TypedefType that points to another SpecifiedType). We need to
       // unspecify the type to see if the base types are equal.
-      (unspecifiedTypesEqual = true implies equalTypes(unspecify(t1), unspecify(t2))) and
+      (unspecifiedTypesEqual = true implies equalTypesImpl(unspecify(t1), unspecify(t2))) and
       Config::equalSpecifiedTypes(t1, t2, unspecifiedTypesEqual)
     )
   }
@@ -318,12 +371,12 @@ module TypeEquivalence<TypeEquivalenceSig Config, TypeSubset T> {
   bindingset[t1, t2]
   private predicate equalFunctionTypes(RelevantFunctionType t1, RelevantFunctionType t2) {
     exists(Boolean returnTypeEqual, Boolean parameterTypesEqual |
-      (returnTypeEqual = true implies equalTypes(t1.getReturnType(), t2.getReturnType())) and
+      (returnTypeEqual = true implies equalTypesImpl(t1.getReturnType(), t2.getReturnType())) and
       (
         parameterTypesEqual = true
         implies
         forall(int i | exists([t1, t2].getParameterType(i)) |
-          equalTypes(t1.getParameterType(i), t2.getParameterType(i))
+          equalTypesImpl(t1.getParameterType(i), t2.getParameterType(i))
         )
       ) and
       (
@@ -337,18 +390,41 @@ module TypeEquivalence<TypeEquivalenceSig Config, TypeSubset T> {
   bindingset[t1, t2]
   private predicate equalTypedefTypes(RelevantTypedefType t1, RelevantTypedefType t2) {
     exists(Boolean baseTypesEqual |
-      (baseTypesEqual = true implies equalTypes(t1.getBaseType(), t2.getBaseType())) and
+      (baseTypesEqual = true implies equalTypesImpl(t1.getBaseType(), t2.getBaseType())) and
       Config::equalTypedefTypes(t1, t2, baseTypesEqual)
     )
   }
 }
 
-module FunctionDeclarationTypeEquivalence<TypeEquivalenceSig Config> {
+signature predicate interestedInFunctionDeclarations(
+  FunctionDeclarationEntry f1, FunctionDeclarationEntry f2
+);
+
+module FunctionDeclarationTypeEquivalence<
+  TypeEquivalenceSig Config, interestedInFunctionDeclarations/2 interestedInFunctions>
+{
+  private predicate interestedInReturnTypes(Type a, Type b) {
+    exists(FunctionDeclarationEntry aFun, FunctionDeclarationEntry bFun |
+      interestedInFunctions(aFun, bFun) and
+      a = aFun.getType() and
+      b = bFun.getType()
+    )
+  }
+
+  private predicate interestedInParameterTypes(Type a, Type b) {
+    exists(FunctionDeclarationEntry aFun, FunctionDeclarationEntry bFun, int i |
+      interestedInFunctions(pragma[only_bind_into](aFun), pragma[only_bind_into](bFun)) and
+      a = aFun.getParameterDeclarationEntry(i).getType() and
+      b = bFun.getParameterDeclarationEntry(i).getType()
+    )
+  }
+
   predicate equalReturnTypes(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-    TypeEquivalence<Config, FunctionSignatureType>::equalTypes(f1.getType(), f2.getType())
+    TypeEquivalence<Config, interestedInReturnTypes/2>::equalTypes(f1.getType(), f2.getType())
   }
 
   predicate equalParameterTypes(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+    interestedInFunctions(f1, f2) and
     f1.getDeclaration() = f2.getDeclaration() and
     forall(int i | exists([f1, f2].getParameterDeclarationEntry(i)) |
       equalParameterTypesAt(f1, f2, pragma[only_bind_into](i))
@@ -356,11 +432,10 @@ module FunctionDeclarationTypeEquivalence<TypeEquivalenceSig Config> {
   }
 
   predicate equalParameterTypesAt(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, int i) {
-    pragma[only_bind_out](f1.getDeclaration()) = pragma[only_bind_out](f2.getDeclaration()) and
-    TypeEquivalence<Config, FunctionSignatureType>::equalTypes(
-      f1.getParameterDeclarationEntry(i).getType(),
-      f2.getParameterDeclarationEntry(i).getType()
-    )
+    interestedInFunctions(f1, f2) and
+    f1.getDeclaration() = f2.getDeclaration() and
+    TypeEquivalence<Config, interestedInParameterTypes/2>::equalTypes(f1.getParameterDeclarationEntry(pragma[only_bind_into](i))
+          .getType(), f2.getParameterDeclarationEntry(pragma[only_bind_into](i)).getType())
   }
 }
 
