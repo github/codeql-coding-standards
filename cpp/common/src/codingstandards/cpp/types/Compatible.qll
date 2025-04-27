@@ -286,7 +286,7 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
    * This only holds if the specified predicate `interestedIn` holds for the types, and always
    * holds if `t1` and `t2` are identical.
    */
-  private predicate equalTypes(Type t1, Type t2) {
+  predicate equalTypes(Type t1, Type t2) {
     compares(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
     if Config::overrideTypeComparison(t1, t2, _)
     then Config::overrideTypeComparison(t1, t2, true)
