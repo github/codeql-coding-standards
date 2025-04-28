@@ -30,12 +30,14 @@ where
   f1.getDeclaration() = f2.getDeclaration() and
   //return type check
   (
-    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig, interestedInFunctions/2>::equalReturnTypes(f1, f2) and
+    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig, interestedInFunctions/2>::equalReturnTypes(f1,
+      f2) and
     case = "return type" and
     pluralDo = "does"
     or
     //parameter type check
-    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig, interestedInFunctions/2>::equalParameterTypes(f1, f2) and
+    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig, interestedInFunctions/2>::equalParameterTypes(f1,
+      f2) and
     case = "parameter types" and
     pluralDo = "do"
     or

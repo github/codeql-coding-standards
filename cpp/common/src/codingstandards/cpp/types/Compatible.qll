@@ -217,48 +217,61 @@ signature predicate interestedInEquality(Type a, Type b);
  * A module to check the equivalence of two types, as defined by the provided `TypeEquivalenceSig`.
  *
  * For performance reasons, this module is designed to be used with a predicate
- * `interestedInEquality` that restricts the set of considered types.
+ * `interestedInEquality` that restricts the set of considered pairwise comparisons.
  *
  * To use this module, define a `TypeEquivalenceSig` module and implement a subset of `Type` that
  * selects the relevant root types to be considered. Then use the predicate `equalTypes(a, b)`.
  * Note that `equalTypes(a, b)` only holds if `interestedIn(a, b)` holds. A type is always
  * considered to be equal to itself, and this module does not support configurations that declare
- * otherwise.
+ * otherwise. Additionally, `interestedIn(a, b)` implies `interestedIn(b, a)`.
  *
- * Further, `interestedInEquality(a, a)` is treated differently from `interestedInEquality(a, b)`,
- * assuming that `a` and `b` are not identical. This is so that we can construct a set of types
- * that are not identical, but still may be equivalent by the specified configuration. We also must
- * consider all types that are reachable from these types, as the equivalence relation is
- * recursive. Therefore, this module is more performant when most comparisons are identical, and
- * only a few are not.
+ * This module will recursively select pairs of types to be compared. For instance, if
+ * `interestedInEquality(a, b)` holds, then types `a` and `b` will be compared. If
+ * `Config::equalPointerTypes(a, b, true)` holds, then the pointed-to types of `a` and `b` will be
+ * compared. However, if `Config::equalPointerTypes(a, b, false)` holds, then `a` and `b` will be
+ * compared, but their pointed-to types will not. Similarly, inner types will not be compared if
+ * `Config::overrideTypeComparison(a, b, _)` holds. For detail, see the module predicates
+ * `recurses` and `compares`.
  */
 module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interestedIn> {
-
   /**
    * Performance related predicate to force top down rather than bottom up evaluation of type
    * equivalence.
+   *
+   * This interoperates with the predicate `recurses` to find types that will be compared, along
+   * with the inner types of those types that will be compared. See `recurses` for cases where this
+   * algorithm will or will not recurse. We still need to know which types are compared, even if
+   * we do not recurse on them, in order to properly constrain `equalTypes(x, y)` to hold for types
+   * such as leaf types, where we do not recurse during comparison.
+   *
+   * At each stage of recursion, we specify `pragma[only_bind_into]` to ensure that the
+   * prior `recurses` results are considered first in the pipeline.
    */
   predicate compares(Type t1, Type t2) {
-    interestedIn(t1, t2)
+    // Base case: config specifies that these root types will be compared.
+    interestedInUnordered(t1, t2)
     or
+    // If derived types are compared, their base types must be compared.
     exists(DerivedType t1Derived, DerivedType t2Derived |
       not t1Derived instanceof SpecifiedType and
       not t2Derived instanceof SpecifiedType and
-      compares(pragma[only_bind_into](t1Derived), pragma[only_bind_into](t2Derived)) and
+      recurses(pragma[only_bind_into](t1Derived), pragma[only_bind_into](t2Derived)) and
       t1 = t1Derived.getBaseType() and
       t2 = t2Derived.getBaseType()
     )
     or
+    // If specified types are compared, their unspecified types must be compared.
     exists(SpecifiedType t1Spec, SpecifiedType t2Spec |
-      compares(pragma[only_bind_into](t1Spec), pragma[only_bind_into](t2Spec)) and
+      recurses(pragma[only_bind_into](t1Spec), pragma[only_bind_into](t2Spec)) and
       (
         t1 = unspecify(t1Spec) and
         t2 = unspecify(t2Spec)
       )
     )
     or
+    // If function types are compared, their return types and parameter types must be compared.
     exists(FunctionType t1Func, FunctionType t2Func |
-      compares(pragma[only_bind_into](t1Func), pragma[only_bind_into](t2Func)) and
+      recurses(pragma[only_bind_into](t1Func), pragma[only_bind_into](t2Func)) and
       (
         t1 = t1Func.getReturnType() and
         t2 = t2Func.getReturnType()
@@ -270,13 +283,79 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
       )
     )
     or
+    // If the config says to resolve typedefs, and a typedef type is compared to a non-typedef
+    // type, then the non-typedef type must be compared to the base type of the typedef.
     Config::resolveTypedefs() and
     exists(TypedefType tdtype |
       tdtype.getBaseType() = t1 and
-      compares(pragma[only_bind_into](tdtype), t2)
+      recurses(pragma[only_bind_into](tdtype), t2)
       or
       tdtype.getBaseType() = t2 and
-      compares(t1, pragma[only_bind_into](tdtype))
+      recurses(t1, pragma[only_bind_into](tdtype))
+    )
+    or
+    // If two typedef types are compared, then their base types must be compared.
+    exists(TypedefType t1Typedef, TypedefType t2Typedef |
+      recurses(pragma[only_bind_into](t1Typedef), pragma[only_bind_into](t2Typedef)) and
+      (
+        t1 = t1Typedef.getBaseType() and
+        t2 = t2Typedef.getBaseType()
+      )
+    )
+  }
+
+  /**
+   * Performance related predicate to force top down rather than bottom up evaluation of type
+   * equivalence.
+   *
+   * This predicate is used to determine whether we should recurse on a type. It is used in
+   * conjunction with the `compares` predicate to only recurse on types that are being compared.
+   *
+   * We don't recurse on identical types, as they are already equal. We also don't recurse on
+   * types that are overriden by `Config::overrideTypeComparison`, as that predicate determines
+   * their equalivance.
+   *
+   * For the other types, we have a set of predicates such as `Config::equalPointerTypes` that
+   * holds for `(x, y, true)` if the types `x` and `y` should be considered equivalent when the
+   * pointed-to types of `x` and `y` are equivalent. If the predicate does not hold, or holds for
+   * `(x, y, false)`, then we do not recurse on the types.
+   *
+   * We do not recurse on leaf types.
+   */
+  private predicate recurses(Type t1, Type t2) {
+    // We only recurse on types we are comparing.
+    compares(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
+    // We don't recurse on identical types, as they are already equal.
+    not t1 = t2 and
+    // We don't recurse on overriden comparisons
+    not Config::overrideTypeComparison(t1, t2, _) and
+    (
+      // These pointer types are equal if their base types are equal: recurse.
+      Config::equalPointerTypes(t1, t2, true)
+      or
+      // These array types are equal if their base types are equal: recurse.
+      Config::equalArrayTypes(t1, t2, true)
+      or
+      // These reference types are equal if their base types are equal: recurse.
+      Config::equalReferenceTypes(t1, t2, true)
+      or
+      // These routine types are equal if their return and parameter types are equal: recurse.
+      Config::equalRoutineTypes(t1, t2, true, true)
+      or
+      // These function pointer-ish types are equal if their return and parameter types are equal: recurse.
+      Config::equalFunctionPointerIshTypes(t1, t2, true, true)
+      or
+      // These typedef types are equal if their base types are equal: recurse.
+      Config::equalTypedefTypes(t1, t2, true)
+      or
+      // These specified types are equal if their unspecified types are equal: recurse.
+      Config::equalSpecifiedTypes(t1, t2, true)
+      or
+      // We resolve typedefs, and one of these types is a typedef type: recurse.
+      Config::resolveTypedefs() and
+      t1 instanceof TypedefType
+      or
+      t2 instanceof TypedefType
     )
   }
 
@@ -288,27 +367,32 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
    */
   predicate equalTypes(Type t1, Type t2) {
     compares(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
-    if Config::overrideTypeComparison(t1, t2, _)
-    then Config::overrideTypeComparison(t1, t2, true)
-    else
-      if t1 instanceof TypedefType and Config::resolveTypedefs()
-      then equalTypes(t1.(TypedefType).getBaseType(), t2)
+    (
+      t1 = t2
+      or
+      not t1 = t2 and
+      if Config::overrideTypeComparison(t1, t2, _)
+      then Config::overrideTypeComparison(t1, t2, true)
       else
-        if t2 instanceof TypedefType and Config::resolveTypedefs()
-        then equalTypes(t1, t2.(TypedefType).getBaseType())
-        else (
-          not t1 instanceof DerivedType and
-          not t2 instanceof DerivedType and
-          not t1 instanceof TypedefType and
-          not t2 instanceof TypedefType and
-          equalLeafRelation(t1, t2)
-          or
-          equalDerivedTypes(t1, t2)
-          or
-          equalTypedefTypes(t1, t2)
-          or
-          equalFunctionTypes(t1, t2)
-        )
+        if t1 instanceof TypedefType and Config::resolveTypedefs()
+        then equalTypes(t1.(TypedefType).getBaseType(), t2)
+        else
+          if t2 instanceof TypedefType and Config::resolveTypedefs()
+          then equalTypes(t1, t2.(TypedefType).getBaseType())
+          else (
+            not t1 instanceof DerivedType and
+            not t2 instanceof DerivedType and
+            not t1 instanceof TypedefType and
+            not t2 instanceof TypedefType and
+            equalLeafRelation(t1, t2)
+            or
+            equalDerivedTypes(t1, t2)
+            or
+            equalTypedefTypes(t1, t2)
+            or
+            equalFunctionTypes(t1, t2)
+          )
+    )
   }
 
   /** Whether two types will be compared, regardless of order (a, b) or (b, a). */
@@ -408,6 +492,7 @@ module FunctionDeclarationTypeEquivalence<
   }
 
   predicate equalReturnTypes(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+    interestedInFunctions(f1, f2) and
     TypeEquivalence<Config, interestedInReturnTypes/2>::equalTypes(f1.getType(), f2.getType())
   }
 
