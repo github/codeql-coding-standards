@@ -17,7 +17,6 @@ import codingstandards.c.misra
 import codingstandards.cpp.types.Compatible
 
 predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-  f1.getDeclaration() = f2.getDeclaration() and
   not f1 = f2 and
   f1.getDeclaration() = f2.getDeclaration()
 }
