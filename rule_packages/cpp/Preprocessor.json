@@ -1,0 +1,143 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-19-0-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using #undef to undefine a macro that is not defined in the same file can lead to confusion.",
+          "kind": "problem",
+          "name": "#undef should only be used for macros defined previously in the same file",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UndefOfMacroNotDefinedInFile",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability",
+            "maintanability"
+          ]
+        }
+      ],
+      "title": "#undef should only be used for macros defined previously in the same file"
+    },
+    "RULE-19-1-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using the defined operator without an immediately following optionally parenthesized identifier results in undefined behavior.",
+          "kind": "problem",
+          "name": "The defined preprocessor operator shall be used appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InvalidTokenInDefinedOperator",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Macro expansions that produce the token 'defined' inside of an if directive result in undefined behavior.",
+          "kind": "problem",
+          "name": "The defined preprocessor operator shall be used appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DefinedOperatorExpandedInIfDirective",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The defined preprocessor operator shall be used appropriately"
+    },
+    "RULE-19-2-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Precautions shall be taken in order to prevent the contents of a header file being included more than once",
+          "kind": "problem",
+          "name": "Precautions shall be taken in order to prevent the contents of a header file being included more",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoValidIfdefGuardInHeader",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Precautions shall be taken in order to prevent the contents of a header file being included more than once"
+    },
+    "RULE-19-2-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "The #include directive shall be followed by either a <filename> or \"filename\" sequence",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IncludeDirectiveNotFollowedByEitherAFilenameOrFilenameSequence",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The #include directive shall be followed by either a <filename> or \"filename\" sequence"
+    },
+    "RULE-19-3-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "Parentheses shall be used to ensure macro arguments are expanded appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ParenthesesNotUsedToEnsureMacroArgumentsAreExpandedAppropriately",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Parentheses shall be used to ensure macro arguments are expanded appropriately"
+    },
+    "RULE-19-6-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "",
+          "kind": "problem",
+          "name": "The #pragma directive and the _Pragma operator should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PragmaDirectiveAndThePragmaOperatorShouldNotBeUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The #pragma directive and the _Pragma operator should not be used"
+    }
+  }
+}
