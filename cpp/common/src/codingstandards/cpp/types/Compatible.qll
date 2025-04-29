@@ -231,23 +231,31 @@ signature predicate interestedInEquality(Type a, Type b);
  * compared. However, if `Config::equalPointerTypes(a, b, false)` holds, then `a` and `b` will be
  * compared, but their pointed-to types will not. Similarly, inner types will not be compared if
  * `Config::overrideTypeComparison(a, b, _)` holds. For detail, see the module predicates
- * `recurses` and `compares`.
+ * `shouldRecurseOn` and `interestedInNestedTypes`.
  */
 module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interestedIn> {
   /**
-   * Performance related predicate to force top down rather than bottom up evaluation of type
-   * equivalence.
+   * Performance-related predicate that holds for a pair of types `(a, b)` such that
+   * `interestedIn(a, b)` holds, or there exists a pair of types `(c, d)` such that
+   * `interestedIn(c, d)` holds, and computing `equalTypes(a, b)` requires computing
+   * `equalTypes(c, d)`.
    *
-   * This interoperates with the predicate `recurses` to find types that will be compared, along
-   * with the inner types of those types that will be compared. See `recurses` for cases where this
-   * algorithm will or will not recurse. We still need to know which types are compared, even if
-   * we do not recurse on them, in order to properly constrain `equalTypes(x, y)` to hold for types
-   * such as leaf types, where we do not recurse during comparison.
+   * The goal of this predicate is to force top down rather than bottom up evaluation of type
+   * equivalence. That is to say, if we compare array types `int[]` and `int[]`, we to compare that
+   * both types are arrays first, and then compare that their base types are equal. Naively, CodeQL
+   * is liable to compute this kind of recursive equality in a bottom up fashion, where the cross
+   * product of all types is considered in computing `equalTypes(a, b)`.
+   *
+   * This interoperates with the predicate `shouldRecurseOn` to find types that will be compared,
+   * along with the inner types of those types that will be compared. See `shouldRecurseOn` for
+   * cases where this algorithm will or will not recurse. We still need to know which types are
+   * compared, even if we do not recurse on them, in order to properly constrain `equalTypes(x, y)`
+   * to hold for types such as leaf types, where we do not recurse during comparison.
    *
    * At each stage of recursion, we specify `pragma[only_bind_into]` to ensure that the
-   * prior `recurses` results are considered first in the pipeline.
+   * prior `shouldRecurseOn` results are considered first in the pipeline.
    */
-  predicate compares(Type t1, Type t2) {
+  private predicate interestedInNestedTypes(Type t1, Type t2) {
     // Base case: config specifies that these root types will be compared.
     interestedInUnordered(t1, t2)
     or
@@ -255,14 +263,14 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
     exists(DerivedType t1Derived, DerivedType t2Derived |
       not t1Derived instanceof SpecifiedType and
       not t2Derived instanceof SpecifiedType and
-      recurses(pragma[only_bind_into](t1Derived), pragma[only_bind_into](t2Derived)) and
+      shouldRecurseOn(pragma[only_bind_into](t1Derived), pragma[only_bind_into](t2Derived)) and
       t1 = t1Derived.getBaseType() and
       t2 = t2Derived.getBaseType()
     )
     or
     // If specified types are compared, their unspecified types must be compared.
     exists(SpecifiedType t1Spec, SpecifiedType t2Spec |
-      recurses(pragma[only_bind_into](t1Spec), pragma[only_bind_into](t2Spec)) and
+      shouldRecurseOn(pragma[only_bind_into](t1Spec), pragma[only_bind_into](t2Spec)) and
       (
         t1 = unspecify(t1Spec) and
         t2 = unspecify(t2Spec)
@@ -271,7 +279,7 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
     or
     // If function types are compared, their return types and parameter types must be compared.
     exists(FunctionType t1Func, FunctionType t2Func |
-      recurses(pragma[only_bind_into](t1Func), pragma[only_bind_into](t2Func)) and
+      shouldRecurseOn(pragma[only_bind_into](t1Func), pragma[only_bind_into](t2Func)) and
       (
         t1 = t1Func.getReturnType() and
         t2 = t2Func.getReturnType()
@@ -288,15 +296,15 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
     Config::resolveTypedefs() and
     exists(TypedefType tdtype |
       tdtype.getBaseType() = t1 and
-      recurses(pragma[only_bind_into](tdtype), t2)
+      shouldRecurseOn(pragma[only_bind_into](tdtype), t2)
       or
       tdtype.getBaseType() = t2 and
-      recurses(t1, pragma[only_bind_into](tdtype))
+      shouldRecurseOn(t1, pragma[only_bind_into](tdtype))
     )
     or
     // If two typedef types are compared, then their base types must be compared.
     exists(TypedefType t1Typedef, TypedefType t2Typedef |
-      recurses(pragma[only_bind_into](t1Typedef), pragma[only_bind_into](t2Typedef)) and
+      shouldRecurseOn(pragma[only_bind_into](t1Typedef), pragma[only_bind_into](t2Typedef)) and
       (
         t1 = t1Typedef.getBaseType() and
         t2 = t2Typedef.getBaseType()
@@ -309,7 +317,8 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
    * equivalence.
    *
    * This predicate is used to determine whether we should recurse on a type. It is used in
-   * conjunction with the `compares` predicate to only recurse on types that are being compared.
+   * conjunction with the `interestedInNestedTypes` predicate to only recurse on types that are
+   * being compared.
    *
    * We don't recurse on identical types, as they are already equal. We also don't recurse on
    * types that are overriden by `Config::overrideTypeComparison`, as that predicate determines
@@ -322,9 +331,9 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
    *
    * We do not recurse on leaf types.
    */
-  private predicate recurses(Type t1, Type t2) {
+  private predicate shouldRecurseOn(Type t1, Type t2) {
     // We only recurse on types we are comparing.
-    compares(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
+    interestedInNestedTypes(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
     // We don't recurse on identical types, as they are already equal.
     not t1 = t2 and
     // We don't recurse on overriden comparisons
@@ -353,45 +362,45 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
       or
       // We resolve typedefs, and one of these types is a typedef type: recurse.
       Config::resolveTypedefs() and
-      t1 instanceof TypedefType
-      or
-      t2 instanceof TypedefType
+      (
+        t1 instanceof TypedefType
+        or
+        t2 instanceof TypedefType
+      )
     )
   }
 
   /**
    * Check whether two types are equivalent, as defined by the `TypeEquivalenceSig` module.
    *
-   * This only holds if the specified predicate `interestedIn` holds for the types, and always
-   * holds if `t1` and `t2` are identical.
+   * This only holds if the specified predicate `interestedIn` holds for the types, or
+   * `interestedInNestedTypes` holds for the types, and holds if `t1` and `t2` are identical,
+   * regardless of how `TypeEquivalenceSig` is defined.
    */
   predicate equalTypes(Type t1, Type t2) {
-    compares(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
+    interestedInNestedTypes(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
     (
       t1 = t2
       or
       not t1 = t2 and
       if Config::overrideTypeComparison(t1, t2, _)
       then Config::overrideTypeComparison(t1, t2, true)
-      else
-        if t1 instanceof TypedefType and Config::resolveTypedefs()
-        then equalTypes(t1.(TypedefType).getBaseType(), t2)
-        else
-          if t2 instanceof TypedefType and Config::resolveTypedefs()
-          then equalTypes(t1, t2.(TypedefType).getBaseType())
-          else (
-            not t1 instanceof DerivedType and
-            not t2 instanceof DerivedType and
-            not t1 instanceof TypedefType and
-            not t2 instanceof TypedefType and
-            equalLeafRelation(t1, t2)
-            or
-            equalDerivedTypes(t1, t2)
-            or
-            equalTypedefTypes(t1, t2)
-            or
-            equalFunctionTypes(t1, t2)
-          )
+      else (
+        equalLeafRelation(t1, t2)
+        or
+        equalDerivedTypes(t1, t2)
+        or
+        equalTypedefTypes(t1, t2)
+        or
+        equalFunctionTypes(t1, t2)
+        or
+        Config::resolveTypedefs() and
+        (
+          equalTypes(t1.(TypedefType).getBaseType(), t2)
+          or
+          equalTypes(t1, t2.(TypedefType).getBaseType())
+        )
+      )
     )
   }
 
@@ -402,7 +411,7 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
   }
 
   bindingset[t1, t2]
-  private predicate equalLeafRelation(Type t1, Type t2) { Config::equalLeafTypes(t1, t2) }
+  private predicate equalLeafRelation(LeafType t1, LeafType t2) { Config::equalLeafTypes(t1, t2) }
 
   bindingset[t]
   private Type unspecify(SpecifiedType t) {
@@ -477,7 +486,7 @@ module FunctionDeclarationTypeEquivalence<
 {
   private predicate interestedInReturnTypes(Type a, Type b) {
     exists(FunctionDeclarationEntry aFun, FunctionDeclarationEntry bFun |
-      interestedInFunctions(aFun, bFun) and
+      interestedInFunctions(pragma[only_bind_into](aFun), pragma[only_bind_into](bFun)) and
       a = aFun.getType() and
       b = bFun.getType()
     )
@@ -527,5 +536,13 @@ private class FunctionType extends Type {
   Type getParameterType(int i) {
     result = this.(RoutineType).getParameterType(i) or
     result = this.(FunctionPointerIshType).getParameterType(i)
+  }
+}
+
+private class LeafType extends Type {
+  LeafType() {
+    not this instanceof DerivedType and
+    not this instanceof FunctionType and
+    not this instanceof FunctionType
   }
 }
