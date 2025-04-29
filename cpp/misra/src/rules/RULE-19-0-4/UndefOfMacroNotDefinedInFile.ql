@@ -9,7 +9,7 @@
  * @tags external/misra/id/rule-19-0-4
  *       scope/single-translation-unit
  *       readability
- *       maintanability
+ *       maintainability
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/advisory
  */
