@@ -2,7 +2,7 @@
  * @id cpp/misra/no-valid-ifdef-guard-in-header
  * @name RULE-19-2-1: Precautions shall be taken in order to prevent the contents of a header file being included more
  * @description Precautions shall be taken in order to prevent the contents of a header file being
- *              included more than once
+ *              included more than once.
  * @kind problem
  * @precision very-high
  * @problem.severity error

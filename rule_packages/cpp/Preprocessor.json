@@ -64,7 +64,7 @@
       },
       "queries": [
         {
-          "description": "Precautions shall be taken in order to prevent the contents of a header file being included more than once",
+          "description": "Precautions shall be taken in order to prevent the contents of a header file being included more than once.",
           "kind": "problem",
           "name": "Precautions shall be taken in order to prevent the contents of a header file being included more",
           "precision": "very-high",
@@ -78,26 +78,6 @@
         }
       ],
       "title": "Precautions shall be taken in order to prevent the contents of a header file being included more than once"
-    },
-    "RULE-19-2-2": {
-      "properties": {
-        "enforcement": "decidable",
-        "obligation": "required"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "The #include directive shall be followed by either a <filename> or \"filename\" sequence",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "IncludeDirectiveNotFollowedByEitherAFilenameOrFilenameSequence",
-          "tags": [
-            "scope/single-translation-unit"
-          ]
-        }
-      ],
-      "title": "The #include directive shall be followed by either a <filename> or \"filename\" sequence"
     }
   }
 }
