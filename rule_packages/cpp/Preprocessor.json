@@ -98,46 +98,6 @@
         }
       ],
       "title": "The #include directive shall be followed by either a <filename> or \"filename\" sequence"
-    },
-    "RULE-19-3-4": {
-      "properties": {
-        "enforcement": "decidable",
-        "obligation": "required"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "Parentheses shall be used to ensure macro arguments are expanded appropriately",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "ParenthesesNotUsedToEnsureMacroArgumentsAreExpandedAppropriately",
-          "tags": [
-            "scope/single-translation-unit"
-          ]
-        }
-      ],
-      "title": "Parentheses shall be used to ensure macro arguments are expanded appropriately"
-    },
-    "RULE-19-6-1": {
-      "properties": {
-        "enforcement": "decidable",
-        "obligation": "advisory"
-      },
-      "queries": [
-        {
-          "description": "",
-          "kind": "problem",
-          "name": "The #pragma directive and the _Pragma operator should not be used",
-          "precision": "very-high",
-          "severity": "error",
-          "short_name": "PragmaDirectiveAndThePragmaOperatorShouldNotBeUsed",
-          "tags": [
-            "scope/single-translation-unit"
-          ]
-        }
-      ],
-      "title": "The #pragma directive and the _Pragma operator should not be used"
     }
   }
 }

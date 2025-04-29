@@ -19,7 +19,7 @@ import codingstandards.cpp.misra
 
 from PreprocessorIf ifDirective, MacroInvocation mi
 where
-  not isExcluded(ifDirective, PreprocessorPackage::macroDefinitionContainsDefinedOperatorQuery()) and
+  not isExcluded(ifDirective, PreprocessorPackage::definedOperatorExpandedInIfDirectiveQuery()) and
   ifDirective.getLocation().subsumes(mi.getLocation()) and
   mi.getMacro().getBody().regexpMatch(".*defined.*")
 select ifDirective,
