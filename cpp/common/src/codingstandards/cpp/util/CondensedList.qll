@@ -27,11 +27,11 @@ signature module CondensedListSig {
    *
    * For instance, if connecting variables defined in a file, the index will be the line number of
    * the variable in the file.
-   * 
+   *
    * The sparse index (which may have gaps) is used to determine the ordering of the items in the
    * condensed list. Once the condensed list is created, the items in the list will automatically be
    * assigned a dense index (which has no gaps).
-   * 
+   *
    * There must be no duplicate indices for the same division for correctness.
    */
   int getSparseIndex(Division d, Item l);
@@ -40,7 +40,7 @@ signature module CondensedListSig {
 /**
  * A module to take orderable data (which may not be continuous) and condense it into one or more
  * dense lists, with one such list per specified division.
- * 
+ *
  * To instantiate this module, you need to provide a `CondensedListSig` module that
  * specifies the spare index and division of the items to be connected.
  *
@@ -67,7 +67,9 @@ signature module CondensedListSig {
 module Condense<CondensedListSig Config> {
   newtype TList =
     THead(Config::Item l, Config::Division t) { denseRank(t, l) = 1 } or
-    TCons(ListEntry prev, Config::Item l) { prev.getDenseIndex() = denseRank(prev.getDivision(), l) - 1 }
+    TCons(ListEntry prev, Config::Item l) {
+      prev.getDenseIndex() = denseRank(prev.getDivision(), l) - 1
+    }
 
   private module DenseRankConfig implements DenseRankInputSig2 {
     class Ranked = Config::Item;
@@ -86,9 +88,7 @@ module Condense<CondensedListSig Config> {
       exists(ListEntry prev | this = TCons(prev, _) and result = prev.getDivision())
     }
 
-    string toString() {
-      result = getItem().toString() + " [index " + getDenseIndex() + "]"
-    }
+    string toString() { result = getItem().toString() + " [index " + getDenseIndex() + "]" }
 
     Config::Item getItem() {
       this = THead(result, _)
@@ -96,9 +96,7 @@ module Condense<CondensedListSig Config> {
       this = TCons(_, result)
     }
 
-    int getDenseIndex() {
-      result = denseRank(getDivision(), getItem())
-    }
+    int getDenseIndex() { result = denseRank(getDivision(), getItem()) }
 
     ListEntry getPrev() { this = TCons(result, _) }
 

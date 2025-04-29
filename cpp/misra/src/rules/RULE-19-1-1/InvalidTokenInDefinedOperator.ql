@@ -17,25 +17,22 @@
 import cpp
 import codingstandards.cpp.misra
 
-string idRegex() {
-  result = "[a-zA-Z_]([a-zA-Z_0-9]*)"
-}
+string idRegex() { result = "[a-zA-Z_]([a-zA-Z_0-9]*)" }
 
 bindingset[body]
 predicate hasInvalidDefinedOperator(string body) {
-  body.regexpMatch(
-    // Contains text "defined" at a word break
-    ".*\\bdefined" +
-    // Negative zero width lookahead:
-    "(?!(" +
-    // (group) optional whitespace followed by a valid identifier
-    "(\\s*" + idRegex() + ")" +
-    // or
-    "|" +
-    // (group) optional whitespace followed by parenthesis and valid identifier
-    "(\\s*\\(\\s*" + idRegex() + "\\s*\\))" +
-    // End negative zero width lookahead, match remaining text
-    ")).*")
+  body.regexpMatch(".*\\bdefined" +
+      // Contains text "defined" at a word break
+      // Negative zero width lookahead:
+      "(?!(" +
+      // (group) optional whitespace followed by a valid identifier
+      "(\\s*" + idRegex() + ")" +
+      // or
+      "|" +
+      // (group) optional whitespace followed by parenthesis and valid identifier
+      "(\\s*\\(\\s*" + idRegex() + "\\s*\\))" +
+      // End negative zero width lookahead, match remaining text
+      ")).*")
 }
 
 from PreprocessorIf ifDirective
