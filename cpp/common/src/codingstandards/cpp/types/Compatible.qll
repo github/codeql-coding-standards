@@ -390,8 +390,6 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
         or
         equalDerivedTypes(t1, t2)
         or
-        equalTypedefTypes(t1, t2)
-        or
         equalFunctionTypes(t1, t2)
         or
         Config::resolveTypedefs() and
@@ -400,6 +398,9 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
           or
           equalTypes(t1, t2.(TypedefType).getBaseType())
         )
+        or
+        not Config::resolveTypedefs() and
+        equalTypedefTypes(t1, t2)
       )
     )
   }
