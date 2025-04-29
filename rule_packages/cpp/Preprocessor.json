@@ -16,7 +16,7 @@
           "tags": [
             "scope/single-translation-unit",
             "readability",
-            "maintanability"
+            "maintainability"
           ]
         }
       ],
