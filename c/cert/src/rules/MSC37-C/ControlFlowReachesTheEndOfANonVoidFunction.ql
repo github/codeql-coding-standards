@@ -8,7 +8,7 @@
  * @problem.severity error
  * @tags external/cert/id/msc37-c
  *       correctness
- *       external/cert/obligation/
+ *       external/cert/obligation/rule
  *       external/cert/priority/p9
  *       external/cert/level/l2
  */

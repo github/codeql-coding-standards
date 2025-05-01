@@ -6,7 +6,7 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/cert/id/msc32-c
-  *       security
+ *       security
  *       external/cert/obligation/rule
  *       external/cert/priority/p18
  *       external/cert/level/l1
