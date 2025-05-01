@@ -398,7 +398,8 @@ void func(signed long s_a) {
 }
 
 ```
-Risk Assessment
+
+## Risk Assessment
 
 Integer overflow can lead to buffer overflows and the execution of arbitrary code by an attacker.
 
