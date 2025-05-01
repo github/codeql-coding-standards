@@ -8,6 +8,8 @@
  * @tags external/cert/id/int33-c
  *       correctness
  *       external/cert/obligation/rule
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  */
 
 import cpp

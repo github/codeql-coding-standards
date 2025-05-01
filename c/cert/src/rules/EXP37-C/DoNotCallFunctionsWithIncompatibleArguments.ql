@@ -9,6 +9,8 @@
  * @tags external/cert/id/exp37-c
  *       correctness
  *       external/cert/obligation/rule
+ *       external/cert/priority/p4
+ *       external/cert/level/l3
  */
 
 import cpp

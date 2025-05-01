@@ -8,6 +8,8 @@
  * @tags external/cert/id/err30-c
  *       correctness
  *       external/cert/obligation/rule
+ *       external/cert/priority/p8
+ *       external/cert/level/l2
  */
 
 import cpp

@@ -9,6 +9,8 @@
  * @tags external/cert/id/dcl39-c
  *       security
  *       external/cert/obligation/rule
+ *       external/cert/priority/p1
+ *       external/cert/level/l3
  */
 
 import cpp

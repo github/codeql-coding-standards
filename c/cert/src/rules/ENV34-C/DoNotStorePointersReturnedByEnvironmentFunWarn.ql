@@ -10,6 +10,8 @@
  * @tags external/cert/id/env34-c
  *       correctness
  *       external/cert/obligation/rule
+ *       external/cert/priority/p4
+ *       external/cert/level/l3
  */
 
 import cpp

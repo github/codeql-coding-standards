@@ -9,6 +9,8 @@
  * @tags external/cert/id/flp36-c
  *       correctness
  *       external/cert/obligation/rule
+ *       external/cert/priority/p2
+ *       external/cert/level/l3
  */
 
 import cpp

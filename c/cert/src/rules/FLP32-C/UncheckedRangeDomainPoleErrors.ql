@@ -9,6 +9,8 @@
  * @tags external/cert/id/flp32-c
  *       correctness
  *       external/cert/obligation/rule
+ *       external/cert/priority/p8
+ *       external/cert/level/l2
  */
 
 import cpp

@@ -8,6 +8,8 @@
  * @tags external/cert/id/fio37-c
  *       correctness
  *       external/cert/obligation/rule
+ *       external/cert/priority/p12
+ *       external/cert/level/l1
  */
 
 import cpp

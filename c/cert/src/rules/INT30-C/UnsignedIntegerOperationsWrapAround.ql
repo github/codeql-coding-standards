@@ -11,6 +11,8 @@
  *       correctness
  *       security
  *       external/cert/obligation/rule
+ *       external/cert/priority/p9
+ *       external/cert/level/l2
  */
 
 import cpp

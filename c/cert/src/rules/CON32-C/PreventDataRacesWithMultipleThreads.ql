@@ -10,6 +10,8 @@
  *       correctness
  *       concurrency
  *       external/cert/obligation/rule
+ *       external/cert/priority/p8
+ *       external/cert/level/l2
  */
 
 import cpp

@@ -8,6 +8,8 @@
  * @tags external/cert/id/env33-c
  *       security
  *       external/cert/obligation/rule
+ *       external/cert/priority/p12
+ *       external/cert/level/l1
  */
 
 import cpp
