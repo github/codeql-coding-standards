@@ -10,6 +10,12 @@
  *       external/cert/audit
  *       correctness
  *       concurrency
+ *       external/cert/recommendation/con34-c
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p4
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 

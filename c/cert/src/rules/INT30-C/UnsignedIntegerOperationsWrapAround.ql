@@ -10,6 +10,11 @@
  * @tags external/cert/id/int30-c
  *       correctness
  *       security
+ *       external/cert/severity/high
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p9
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

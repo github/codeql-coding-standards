@@ -9,6 +9,11 @@
  * @tags external/cert/id/con39-c
  *       correctness
  *       concurrency
+ *       external/cert/severity/low
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
