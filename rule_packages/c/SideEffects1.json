@@ -78,7 +78,6 @@
           "short_name": "AssignmentsInSelectionStatements",
           "tags": [
             "correctness",
-            "external/cert/recommendation/exp45-c",
             "external/cert/severity/low",
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",

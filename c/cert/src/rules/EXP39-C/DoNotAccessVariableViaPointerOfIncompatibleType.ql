@@ -8,7 +8,6 @@
  * @problem.severity error
  * @tags external/cert/id/exp39-c
  *       correctness
- *       external/cert/recommendation/exp39-c
  *       external/cert/severity/medium
  *       external/cert/likelihood/unlikely
  *       external/cert/remediation-cost/high

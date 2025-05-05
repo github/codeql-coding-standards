@@ -9,7 +9,6 @@
  * @tags external/cert/id/mem36-c
  *       correctness
  *       security
- *       external/cert/recommendation/mem36-c
  *       external/cert/severity/low
  *       external/cert/likelihood/probable
  *       external/cert/remediation-cost/high

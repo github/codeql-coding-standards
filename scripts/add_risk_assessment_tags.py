@@ -123,8 +123,8 @@ def process_rule_package(rule_package_file):
                                         # Add each risk assessment property as a tag
                                         for key, value in risk_data.items():
                                             key_sanitized = key.lower().replace(" ", "-")
-                                            if key_sanitized == "rule":
-                                                # skip rule, as that is already in the rule ID
+                                            if key_sanitized == "rule" or key_sanitized == "recommendation":
+                                                # skip rule/recommendation as they just repeat the rule ID
                                                 continue
                                             tag = f"external/cert/{key_sanitized}/{value.lower()}"
                                             if tag not in query["tags"]:

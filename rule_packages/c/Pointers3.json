@@ -65,7 +65,6 @@
           "short_name": "DoNotAccessVariableViaPointerOfIncompatibleType",
           "tags": [
             "correctness",
-            "external/cert/recommendation/exp39-c",
             "external/cert/severity/medium",
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/high",

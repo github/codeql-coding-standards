@@ -9,7 +9,6 @@
  * @tags external/cert/id/con34-c
  *       correctness
  *       concurrency
- *       external/cert/recommendation/con34-c
  *       external/cert/severity/medium
  *       external/cert/likelihood/probable
  *       external/cert/remediation-cost/high
