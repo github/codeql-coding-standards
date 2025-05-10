@@ -3,28 +3,21 @@
  * implement a function as a macro: the class `StdFunctionOrMacro<...>::Call` matches both std
  * function calls as well as std function macro expansions.
  *
- * For instance, `atomic_init` may be implemented as a function, but is also implemented as
- * `#DEFINE atomic_init(x) __c11_atomic_init(x)` on some platforms. This module aids in finding
- * calls to any standard function which may be a macro, and has predefined behavior for
- * handling `__c11_*` macros.
+ * For instance, `atomic_init` may be implemented as a function, but is also implemented as a
+ * complicated macro on some platforms. This module aids in finding calls to any standard function
+ * which may be a macro.
  *
  * Since a macro can be defined to expand to any expression, we cannot know generally which
- * expanded expressions in `f(x, y)` correspond to arguments `x` or `y`. To handle this, the
- * following inference options are available:
- *  - `NoMacroExpansionInference`: Assume any expression in the macro expansion could correspond to
- *    any macro argument.
- *  - `C11FunctionWrapperMacro`: Check if the macro expands to a function call prefixed with
- *    `__c11_` and if so, return the corresponding argument. Otherwise, fall back to
- *    `NoMacroExpansionInference`.
- *  - `InferMacroExpansionArguments`: Implement your own logic for inferring the argument.
+ * expanded expressions in `f(x, y)` correspond to arguments `x` or `y`. To handle this, implement
+ * the module `InferMacroExpansionArguments`.
  *
- * To use this module, pick one of the above inference strategies, and then create a predicate for
- * the name you wish to match. For instance:
+ * To match a function of a particular name create a predicate for the name you wish to match. For
+ * instance:
  *
  * ```codeql
  *   private string atomicInit() { result = "atomic_init" }
  *
- *   from StdFunctionOrMacro<C11FunctionWrapperMacro, atomicInit/0>::Call c
+ *   from StdFunctionOrMacro<YourInferenceModule, atomicInit/0>::Call c
  *   select c.getArgument(0)
  * ```
  */
@@ -33,7 +26,7 @@ import cpp as cpp
 
 private string atomicInit() { result = "atomic_init" }
 
-class AtomicInitCall = StdFunctionOrMacro<C11FunctionWrapperMacro, atomicInit/0>::Call;
+class AtomicInitCall = StdFunctionOrMacro<InferAtomicMacroArgs, atomicInit/0>::Call;
 
 /** Specify the name of your function as a predicate */
 private signature string getName();
@@ -44,15 +37,72 @@ private signature module InferMacroExpansionArguments {
   cpp::Expr inferArgument(cpp::MacroInvocation mi, int argumentIdx);
 }
 
-/** Assume macro `f(x, y, ...)` expands to `__c11_f(x, y, ...)`. */
-private module C11FunctionWrapperMacro implements InferMacroExpansionArguments {
+private module InferAtomicMacroArgs implements InferMacroExpansionArguments {
+  bindingset[pattern]
+  private cpp::Expr getMacroVarInitializer(cpp::MacroInvocation mi, string pattern) {
+    exists(cpp::VariableDeclarationEntry decl |
+      mi.getAGeneratedElement() = decl and
+      decl.getName().matches(pattern) and
+      result = decl.getDeclaration().getInitializer().getExpr()
+    )
+  }
+
   bindingset[mi, argumentIdx]
   cpp::Expr inferArgument(cpp::MacroInvocation mi, int argumentIdx) {
-    exists(cpp::FunctionCall fc |
-      fc = mi.getExpr() and
-      fc.getTarget().hasName("__c11_" + mi.getMacroName()) and
-      result = mi.getExpr().(cpp::FunctionCall).getArgument(argumentIdx)
-    )
+    result = mi.getExpr().(cpp::FunctionCall).getArgument(argumentIdx)
+    or
+    if
+      argumentIdx = 0 and
+      exists(getMacroVarInitializer(mi, "__atomic_%_ptr"))
+    then result = getMacroVarInitializer(mi, "__atomic_%_ptr")
+    else
+      if
+        argumentIdx = [1, 2] and
+        exists(getMacroVarInitializer(mi, "__atomic_%_tmp"))
+      then result = getMacroVarInitializer(mi, "__atomic_%_tmp")
+      else
+        exists(cpp::FunctionCall fc |
+          fc = mi.getAnExpandedElement() and
+          fc.getTarget().getName().matches("%atomic_%") and
+          result = fc.getArgument(argumentIdx)
+        )
+  }
+}
+
+private string atomicReadOrWriteName() {
+  result =
+    [
+        "atomic_load",
+        "atomic_store",
+        "atomic_fetch_" + ["add", "sub", "or", "xor", "and"],
+        "atomic_exchange",
+        "atomic_compare_exchange_" + ["strong", "weak"]
+      ] + ["", "_explicit"]
+}
+
+class AtomicReadOrWriteCall =
+  StdFunctionOrMacro<InferAtomicMacroArgs, atomicReadOrWriteName/0>::Call;
+
+private string atomicallySequencedName() {
+  result =
+    [
+      "atomic_thread_fence",
+      "atomic_signal_fence",
+      "atomic_flag_clear_explicit",
+      "atomic_flag_test_and_set_explicit",
+    ]
+  or
+  result = atomicReadOrWriteName() and
+  result.matches("%_explicit")
+}
+
+/** A `stdatomic.h` function which accepts a `memory_order` value as a parameter. */
+class AtomicallySequencedCall extends StdFunctionOrMacro<InferAtomicMacroArgs, atomicallySequencedName/0>::Call
+{
+  cpp::Expr getAMemoryOrderArgument() {
+    if getName() = "atomic_compare_exchange_" + ["strong", "weak"] + "_explicit"
+    then result = getArgument(getNumberOfArguments() - [1, 2])
+    else result = getArgument(getNumberOfArguments() - 1)
   }
 }
 
@@ -66,7 +116,7 @@ private module C11FunctionWrapperMacro implements InferMacroExpansionArguments {
  *
  * ```codeql
  *   private string atomicInit() { result = "atomic_init" }
- *   from StdFunctionOrMacro<C11FunctionWrapperMacro, atomicInit/0>::Call c
+ *   from StdFunctionOrMacro<YourInferenceModule, atomicInit/0>::Call c
  *   select c.getArgument(0)
  * ```
  */
@@ -99,12 +149,52 @@ private module StdFunctionOrMacro<InferMacroExpansionArguments InferExpansion, g
       )
     }
 
+    Expr getAnArgument() {
+      exists(int i |
+        i = [0 .. getNumberOfArguments()] and
+        result = getArgument(i)
+      )
+    }
+
+    string getName() {
+      exists(FunctionCall fc |
+        this = TStdFunctionCall(fc) and
+        result = fc.getTarget().getName()
+      )
+      or
+      exists(MacroInvocation mi |
+        this = TStdMacroInvocation(mi) and
+        result = mi.getMacroName()
+      )
+    }
+
     string toString() {
       this = TStdFunctionCall(_) and
       result = "Standard function call"
       or
       this = TStdMacroInvocation(_) and
       result = "Invocation of a standard function implemented as a macro"
+    }
+
+    int getNumberOfArguments() {
+      exists(FunctionCall fc |
+        this = TStdFunctionCall(fc) and
+        result = fc.getTarget().getNumberOfParameters()
+      )
+      or
+      exists(MacroInvocation mi |
+        this = TStdMacroInvocation(mi) and
+        result = count(int i | i = [0 .. 10] and exists(InferExpansion::inferArgument(mi, i)))
+      )
+    }
+
+    Expr getExpr() {
+      this = TStdFunctionCall(result)
+      or
+      exists(MacroInvocation mi |
+        this = TStdMacroInvocation(mi) and
+        result = mi.getExpr()
+      )
     }
   }
 }

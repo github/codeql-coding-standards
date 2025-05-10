@@ -31,7 +31,11 @@ class ThreadSpawningFunction extends Function {
 }
 
 class AtomicInitAddressOfExpr extends AddressOfExpr {
-  AtomicInitAddressOfExpr() { exists(AtomicInitCall c | this = c.getArgument(0)) }
+  AtomicInitAddressOfExpr() {
+    // StdFunctionOrMacro arguments are not necessarily reliable, so we look for any AddressOfExpr
+    // that is an argument to a call to `atomic_init`.
+    exists(AtomicInitCall c | this = c.getAnArgument())
+  }
 }
 
 ControlFlowNode getARequiredInitializationPoint(LocalScopeVariable v) {

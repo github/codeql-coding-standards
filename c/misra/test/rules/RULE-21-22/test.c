@@ -320,4 +320,10 @@ void f1() {
   remquo(i, i, 0);         // COMPLIANT
   remquo(i, i, 'c' - 'c'); // COMPLIANT
   remquo(i, i, c);         // COMPLIANT
+
+  /* Test casts */
+  cos((char)i);      // NON-COMPLIANT
+  cos((int)c);       // COMPLIANT
+  cos((int)(char)i); // COMPLIANT
+  cos((char)(int)c); // NON-COMPLIANT
 }
