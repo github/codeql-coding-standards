@@ -34,14 +34,19 @@ string getAllowedTypesString(TgMathInvocation call) {
   else result = "essentially signed, unsigned, or real floating type"
 }
 
-from TgMathInvocation call, Expr arg, int argIndex, Type type, EssentialTypeCategory category
+from
+  TgMathInvocation call, Expr convertedArg, Expr unconverted, int argIndex, Type type,
+  EssentialTypeCategory category
 where
   not isExcluded(call, EssentialTypes2Package::tgMathArgumentWithInvalidEssentialTypeQuery()) and
-  arg = call.getOperandArgument(argIndex) and
-  type = getEssentialType(arg) and
+  // We must handle conversions specially, as clang inserts casts in the macro body we want to ignore.
+  convertedArg = call.getExplicitlyConvertedOperandArgument(argIndex) and
+  unconverted = convertedArg.getUnconverted() and
+  // Do not use `convertedArg.getEssentialType()`, as that is affected by clang's casts in the macro body.
+  type = getEssentialTypeBeforeConversions(convertedArg) and
   category = getEssentialTypeCategory(type) and
   not category = getAnAllowedEssentialTypeCategory(call)
-select arg,
+select unconverted,
   "Argument " + (argIndex + 1) + " provided to type-generic macro '" + call.getMacroName() +
     "' has " + category.toString().toLowerCase() + ", which is not " + getAllowedTypesString(call) +
     "."

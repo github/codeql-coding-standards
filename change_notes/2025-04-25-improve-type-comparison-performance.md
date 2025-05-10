@@ -1,0 +1,6 @@
+ - `RULE-8-3`, `RULE-8-4`, `DCL40-C`, `RULE-23-5`: `DeclarationsOfAFunctionSameNameAndType.ql`, `DeclarationsOfAnObjectSameNameAndType.ql`, `CompatibleDeclarationOfFunctionDefined.ql`, `CompatibleDeclarationObjectDefined.ql`, `IncompatibleFunctionDeclarations.ql`, `DangerousDefaultSelectionForPointerInGeneric.ql`:
+   - Added pragmas to alter join order on function parameter equivalence (names and types).
+   - Refactored expression which the optimizer was confused by, and compiled into a cartesian product. 
+   - Altered the module `Compatible.qll` to compute equality in two stages. Firstly, all pairs of possible type comparisons (including recursive comparisons) are found, then those pairwise comparisons are evaluated in a second stage. This greatly reduces the number of comparisons and greatly improves performance.
+ - `RULE-23-5`: `DangerousDefaultSelectionForPointerInGeneric.ql`:
+   - Altered the module `SimpleAssignment.qll` in accordance with the changes to `Compatible.qll`.

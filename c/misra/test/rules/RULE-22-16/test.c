@@ -41,7 +41,7 @@ void f6(int p) {
     goto skipped;
   }
   mtx_unlock(&m);
-skipped:
+skipped:;
 }
 
 void f7(int p) {

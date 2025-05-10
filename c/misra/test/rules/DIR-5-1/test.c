@@ -99,7 +99,7 @@ void many_thread13_calls_nonreentrant_funcs(void *p) {
   wcsrtombs(NULL, NULL, 0, NULL); // NON-COMPLIANT
 }
 
-void main() {
+int main(int argc, char *argv[]) {
   thrd_t single_thread1;
   thrd_t many_thread2;
   thrd_t single_thread3;
