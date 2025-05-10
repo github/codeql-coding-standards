@@ -24,7 +24,7 @@ c,MISRA-C-2012,Amendment4,RULE-8-9,Yes,Clarification,Yes,Import
 c,MISRA-C-2012,Amendment4,RULE-9-4,Yes,Clarification,Yes,Import
 c,MISRA-C-2012,Amendment4,RULE-10-1,Yes,Clarification,Yes,Import
 c,MISRA-C-2012,Amendment4,RULE-18-3,Yes,Clarification,Yes,Import
-c,MISRA-C-2012,Amendment4,RULE-1-4,Yes,Replace,No,Easy
+c,MISRA-C-2012,Amendment4,RULE-1-4,Yes,Replace,Yes,Easy
 c,MISRA-C-2012,Amendment4,RULE-9-1,Yes,Refine,Yes,Easy
 c,MISRA-C-2012,Corrigendum2,DIR-4-10,Yes,Clarification,Yes,Import
 c,MISRA-C-2012,Corrigendum2,RULE-7-4,Yes,Refine,Yes,Easy

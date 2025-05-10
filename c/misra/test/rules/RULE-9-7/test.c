@@ -4,7 +4,7 @@
 _Atomic int g1;     // COMPLIANT
 _Atomic int g2 = 0; // COMPLIANT
 
-void f_thread(void *x);
+int f_thread(void *x);
 
 void f_starts_thread() {
   thrd_t t;
@@ -13,7 +13,7 @@ void f_starts_thread() {
 
 void f_may_initialize_argument(void *p1) {}
 
-void main() {
+int main(int argc, char *argv[]) {
   _Atomic int l1 = 1; // COMPLIANT
   f_starts_thread();
 

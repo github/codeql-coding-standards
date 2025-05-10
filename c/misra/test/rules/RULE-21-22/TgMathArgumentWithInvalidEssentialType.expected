@@ -130,3 +130,5 @@
 | test.c:303:14:303:15 | cf | Argument 2 provided to type-generic macro 'scalbln' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
 | test.c:309:10:309:11 | cf | Argument 1 provided to type-generic macro 'tgamma' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
 | test.c:310:9:310:10 | cf | Argument 1 provided to type-generic macro 'trunc' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:325:13:325:13 | i | Argument 1 provided to type-generic macro 'cos' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:328:18:328:18 | c | Argument 1 provided to type-generic macro 'cos' has essentially character type, which is not essentially signed, unsigned, or floating type. |
