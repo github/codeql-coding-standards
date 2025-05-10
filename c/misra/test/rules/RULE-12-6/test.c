@@ -28,8 +28,8 @@ void f1() {
   atomic_store(&s1_atomic_ptr, l2); // COMPLIANT
 
   // Undefined behavior, but not banned by this rule.
-  memset(&atomic_s1, sizeof(atomic_s1), 0);         // COMPLIANT
-  memset(ptr_atomic_s1, sizeof(*ptr_atomic_s1), 0); // COMPLIANT
+  memset(&atomic_s1, 0, sizeof(atomic_s1));         // COMPLIANT
+  memset(ptr_atomic_s1, 0, sizeof(*ptr_atomic_s1)); // COMPLIANT
 
   // OK: whole loads and stores are protected from data-races.
   takeCopy(atomic_s1);      // COMPLIANT
@@ -53,7 +53,7 @@ void f1() {
 
   // All OK: not an atomic struct, but rather an atomic pointer to non-atomic
   // struct.
-  memset(s1_atomic_ptr, sizeof(*s1_atomic_ptr), 0); // COMPLIANT
+  memset(s1_atomic_ptr, 0, sizeof(*s1_atomic_ptr)); // COMPLIANT
   takeCopy(*s1_atomic_ptr);                         // COMPLIANT
   *s1_atomic_ptr = (s1){0};                         // COMPLIANT
   s1_atomic_ptr = l2;                               // COMPLIANT

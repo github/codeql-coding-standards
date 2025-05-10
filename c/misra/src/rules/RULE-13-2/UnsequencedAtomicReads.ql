@@ -17,6 +17,7 @@ import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.c.misra
 import codingstandards.c.Ordering
 import codingstandards.c.orderofevaluation.VariableAccessOrdering
+import codingstandards.cpp.StdFunctionOrMacro
 
 class AtomicAccessInFullExpressionOrdering extends Ordering::Configuration {
   AtomicAccessInFullExpressionOrdering() { this = "AtomicAccessInFullExpressionOrdering" }
@@ -24,8 +25,8 @@ class AtomicAccessInFullExpressionOrdering extends Ordering::Configuration {
   override predicate isCandidate(Expr e1, Expr e2) {
     exists(AtomicVariableAccess a, AtomicVariableAccess b, FullExpr e | a = e1 and b = e2 |
       a.getTarget() = b.getTarget() and
-      a.(ConstituentExpr).getFullExpr() = e and
-      b.(ConstituentExpr).getFullExpr() = e and
+      a.getARead().(ConstituentExpr).getFullExpr() = e and
+      b.getARead().(ConstituentExpr).getFullExpr() = e and
       not a = b
     )
   }
@@ -39,13 +40,32 @@ class AtomicAccessInFullExpressionOrdering extends Ordering::Configuration {
 class AtomicVariableAccess extends VariableAccess {
   AtomicVariableAccess() { getTarget().getType().hasSpecifier("atomic") }
 
-  /* Get the `atomic_<read|write>()` call this VarAccess occurs in. */
-  FunctionCall getAtomicFunctionCall() {
-    exists(AddressOfExpr addrParent, FunctionCall fc |
-      fc.getTarget().getName().matches("__c11_atomic%") and
+  /* Get the `atomic_load()` call this VarAccess occurs in. */
+  Expr getAtomicFunctionRead() {
+    exists(AddressOfExpr addrParent, AtomicReadOrWriteCall fc |
+      fc.getName().matches("atomic_load%") and
+      // StdFunctionOrMacro arguments are not necessarily reliable, so we look for any AddressOfExpr
+      // that is an argument to a call to `atomic_load`.
       addrParent = fc.getArgument(0) and
       addrParent.getAnOperand() = this and
-      result = fc
+      result = fc.getExpr()
+    )
+  }
+
+  /* Get the `atomic_store()` call this VarAccess occurs in. */
+  Expr getAtomicFunctionWrite(Expr storedValue) {
+    exists(AddressOfExpr addrParent, AtomicReadOrWriteCall fc |
+      addrParent = fc.getArgument(0) and
+      addrParent.getAnOperand() = this and
+      result = fc.getExpr() and
+      (
+        fc.getName().matches(["%store%", "%exchange%", "%fetch_%"]) and
+        not fc.getName().matches("%compare%") and
+        storedValue = fc.getArgument(1)
+        or
+        fc.getName().matches(["%compare%"]) and
+        storedValue = fc.getArgument(2)
+      )
     )
   }
 
@@ -53,7 +73,7 @@ class AtomicVariableAccess extends VariableAccess {
    * Gets an assigned expr, either in the form `x = <result>` or `atomic_store(&x, <result>)`.
    */
   Expr getAnAssignedExpr() {
-    result = getAtomicFunctionCall().getArgument(1)
+    exists(getAtomicFunctionWrite(result))
     or
     exists(AssignExpr assign |
       assign.getLValue() = this and
@@ -65,7 +85,7 @@ class AtomicVariableAccess extends VariableAccess {
    * Gets the expression holding this variable access, either in the form `x` or `atomic_read(&x)`.
    */
   Expr getARead() {
-    result = getAtomicFunctionCall()
+    result = getAtomicFunctionRead()
     or
     result = this
   }
@@ -73,11 +93,17 @@ class AtomicVariableAccess extends VariableAccess {
 
 from
   AtomicAccessInFullExpressionOrdering config, FullExpr e, Variable v, AtomicVariableAccess va1,
-  AtomicVariableAccess va2
+  AtomicVariableAccess va2, Expr va1Read, Expr va2Read
 where
   not isExcluded(e, SideEffects3Package::unsequencedAtomicReadsQuery()) and
-  e = va1.(ConstituentExpr).getFullExpr() and
-  config.isUnsequenced(va1, va2) and
+  va1Read = va1.getARead() and
+  va2Read = va2.getARead() and
+  e = va1Read.(ConstituentExpr).getFullExpr() and
+  // Careful here. The `VariableAccess` in a pair of atomic function calls may not be unsequenced,
+  // for instance in gcc where atomic functions expand to StmtExprs, which have clear sequences.
+  // In this case, the result of `getARead()` for a pair of atomic function calls may be
+  // unsequenced even though the `VariableAccess`es within those calls are not.
+  config.isUnsequenced(va1Read, va2Read) and
   v = va1.getTarget() and
   v = va2.getTarget() and
   // Exclude cases where the variable is assigned a value tainted by the other variable access.

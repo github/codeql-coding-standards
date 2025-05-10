@@ -14,7 +14,7 @@ void func_called_from_main(void);
 void make_threads_called_from_func_called_from_main(void);
 void make_threads_called_from_main_pthread_thrd(void);
 
-void main() {
+int main(int argc, char *argv[]) {
   thrd_create(&g1, &thrd_func, NULL);             // COMPLIANT
   pthread_create(&g2, NULL, &pthread_func, NULL); // COMPLIANT
 

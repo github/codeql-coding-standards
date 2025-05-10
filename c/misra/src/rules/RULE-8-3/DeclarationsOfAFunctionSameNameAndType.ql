@@ -16,6 +16,11 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.types.Compatible
 
+predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  not f1 = f2 and
+  f1.getDeclaration() = f2.getDeclaration()
+}
+
 from FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, string case, string pluralDo
 where
   not isExcluded(f1, Declarations4Package::declarationsOfAFunctionSameNameAndTypeQuery()) and
@@ -24,12 +29,14 @@ where
   f1.getDeclaration() = f2.getDeclaration() and
   //return type check
   (
-    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig>::equalReturnTypes(f1, f2) and
+    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig, interestedInFunctions/2>::equalReturnTypes(f1,
+      f2) and
     case = "return type" and
     pluralDo = "does"
     or
     //parameter type check
-    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig>::equalParameterTypes(f1, f2) and
+    not FunctionDeclarationTypeEquivalence<TypeNamesMatchConfig, interestedInFunctions/2>::equalParameterTypes(f1,
+      f2) and
     case = "parameter types" and
     pluralDo = "do"
     or

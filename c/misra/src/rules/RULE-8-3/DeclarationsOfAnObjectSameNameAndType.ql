@@ -16,15 +16,6 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.types.Compatible
 
-class RelevantType extends Type {
-  RelevantType() {
-    exists(VariableDeclarationEntry decl |
-      (relevantPair(decl, _) or relevantPair(_, decl)) and
-      decl.getType() = this
-    )
-  }
-}
-
 predicate relevantPair(VariableDeclarationEntry decl1, VariableDeclarationEntry decl2) {
   not decl1 = decl2 and
   not decl1.getVariable().getDeclaringType().isAnonymous() and
@@ -43,12 +34,20 @@ predicate relevantPair(VariableDeclarationEntry decl1, VariableDeclarationEntry 
   )
 }
 
+predicate relevantTypes(Type a, Type b) {
+  exists(VariableDeclarationEntry varA, VariableDeclarationEntry varB |
+    a = varA.getType() and
+    b = varB.getType() and
+    relevantPair(varA, varB)
+  )
+}
+
 from VariableDeclarationEntry decl1, VariableDeclarationEntry decl2
 where
   not isExcluded(decl1, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
   not isExcluded(decl2, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
   relevantPair(decl1, decl2) and
-  not TypeEquivalence<TypeNamesMatchConfig, RelevantType>::equalTypes(decl1.getType(),
+  not TypeEquivalence<TypeNamesMatchConfig, relevantTypes/2>::equalTypes(decl1.getType(),
     decl2.getType())
 select decl1,
   "The object $@ of type " + decl1.getType().toString() +
