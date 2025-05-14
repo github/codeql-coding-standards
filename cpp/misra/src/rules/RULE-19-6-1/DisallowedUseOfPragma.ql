@@ -5,7 +5,7 @@
  *              maintain code portability.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-19-6-1
  *       scope/single-translation-unit
  *       maintainability

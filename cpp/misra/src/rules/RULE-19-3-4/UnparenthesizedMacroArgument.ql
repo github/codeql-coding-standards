@@ -4,7 +4,7 @@
  * @description Expanded macro arguments shall be enclosed in parentheses to ensure the resulting
  *              expressions have the expected precedence and order of operations.
  * @kind problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
  * @tags external/misra/id/rule-19-3-4
  *       scope/single-translation-unit

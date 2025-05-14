@@ -4,11 +4,11 @@
  * @description Include directives shall only use the <filename> or "filename" forms.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-19-2-2
  *       scope/single-translation-unit
  *       maintainability
- *       correctness
+ *       readability
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/required
  */
