@@ -14,7 +14,12 @@
           "short_name": "DoNotTreatAPredefinedIdentifierAsObject",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "This query reports locations corresponding to both redefinitions of those standard library macros as well as locations where the identifiers used for accesses.",
@@ -38,7 +43,12 @@
           "short_name": "MacroOrFunctionArgsContainHashToken",
           "tags": [
             "correctness",
-            "readability"
+            "readability",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "This query defines end of function call as the next node in the control flow graph.",

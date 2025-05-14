@@ -14,7 +14,12 @@
           "short_name": "RandUsedForGeneratingPseudorandomNumbers",
           "shared_implementation_short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
           "tags": [
-            "security"
+            "security",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -33,7 +38,12 @@
           "severity": "error",
           "short_name": "ProperlySeedPseudorandomNumberGenerators",
           "tags": [
-            "security"
+            "security",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ],
           "implementation_scope": {
             "description": "This rule will be checked by looking for calls to random that are no preceded by a call to srandom(). We perform a simple check for the argument to srandom() and verify it is not a literal (or a value easily deduced to be a literal)."
@@ -56,7 +66,12 @@
           "short_name": "ControlFlowReachesTheEndOfANonVoidFunction",
           "shared_implementation_short_name": "NonVoidFunctionDoesNotReturn",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p9",
+            "external/cert/level/l2"
           ]
         }
       ],

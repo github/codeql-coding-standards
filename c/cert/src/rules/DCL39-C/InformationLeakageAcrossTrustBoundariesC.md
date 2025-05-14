@@ -249,7 +249,7 @@ In addition, this solution assumes that there are no integer padding bits in an 
 
 From this situation, it can be seen that special care must be taken because no solution to the bit-field padding issue will be 100% portable.
 
-Risk Assessment
+## Risk Assessment
 
 Padding units might contain sensitive data because the C Standard allows any padding to take [unspecified values](https://wiki.sei.cmu.edu/confluence/display/c/BB.+Definitions#BB.Definitions-unspecifiedvalue). A pointer to such a structure could be passed to other functions, causing information leakage.
 

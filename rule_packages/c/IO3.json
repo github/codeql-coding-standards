@@ -14,7 +14,12 @@
           "short_name": "DoNotPerformFileOperationsOnDevices",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "The rule checks that filenames are not tainted. It does not verify that appropriate OS-specific checks are in place to exclude that the opened file is a device."
@@ -36,7 +41,12 @@
           "severity": "error",
           "short_name": "SuccessfulFgetsOrFgetwsMayReturnAnEmptyString",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p12",
+            "external/cert/level/l1"
           ],
           "implementation_scope": {
             "description": "The rule checks that access to a string returned by fgets() or fgetws() if protected by a guard condition. The rule is enforced in the context of a single function."

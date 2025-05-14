@@ -1,10 +1,10 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:61,38-46)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:64,22-30)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:69,20-28)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:102,23-31)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:111,5-13)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:111,45-53)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:133,27-35)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:66,38-46)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:69,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:74,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:107,23-31)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:116,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:116,45-53)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:138,27-35)
 edges
 | test.c:49:8:49:9 | s3 | test.c:50:8:50:9 | s1 | provenance |  |
 | test.c:60:16:60:18 | E1A | test.c:61:16:61:17 | e1 | provenance |  |

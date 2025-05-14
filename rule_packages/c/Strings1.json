@@ -14,7 +14,12 @@
           "short_name": "DoNotAttemptToModifyStringLiterals",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p9",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -34,7 +39,12 @@
           "short_name": "StringsHasSufficientSpaceForTheNullTerminator",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ],
           "implementation_scope": {
             "description": "The enforcement of this rule does not try to approximate the effects of loops and as such may not find cases where a loop operation on a string fails to null terminate a string (or causes an overflow)."
@@ -57,7 +67,12 @@
           "short_name": "NonNullTerminatedToFunctionThatExpectsAString",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p12",
+            "external/cert/level/l1"
           ],
           "implementation_scope": {
             "description": "Wide character types are not handled correctly on the `aarch64le` architecture. This can lead to false negative alerts."
