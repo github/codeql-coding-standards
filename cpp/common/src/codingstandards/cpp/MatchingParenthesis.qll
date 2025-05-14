@@ -61,7 +61,7 @@ module MatchingParenthesis<InputString Input> {
           occurrence = prevOccurrence + 1
         ) else (
           token = TNotParen() and
-          exists(inputStr.regexpFind("\\(|\\)", prevOccurrence + 1, endPos)) and
+          exists(inputStr.regexpFind("\\(|\\)|$", prevOccurrence + 1, endPos)) and
           occurrence = prevOccurrence
         )
       )

@@ -41,6 +41,7 @@ import OrderOfEvaluation
 import OutOfBounds
 import Pointers
 import Preprocessor
+import Preprocessor2
 import Representation
 import Scope
 import SideEffects1
@@ -96,6 +97,7 @@ newtype TCPPQuery =
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointersPackageQuery(PointersQuery q) or
   TPreprocessorPackageQuery(PreprocessorQuery q) or
+  TPreprocessor2PackageQuery(Preprocessor2Query q) or
   TRepresentationPackageQuery(RepresentationQuery q) or
   TScopePackageQuery(ScopeQuery q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
@@ -151,6 +153,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointersQueryMetadata(query, queryId, ruleId, category) or
   isPreprocessorQueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessor2QueryMetadata(query, queryId, ruleId, category) or
   isRepresentationQueryMetadata(query, queryId, ruleId, category) or
   isScopeQueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
