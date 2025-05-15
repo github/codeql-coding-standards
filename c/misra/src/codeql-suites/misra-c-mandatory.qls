@@ -1,4 +1,4 @@
-- description: MISRA C 2012 (Advisory)
+- description: MISRA C 2023 (Advisory)
 - qlpack: codeql/misra-c-coding-standards
 - include:
     kind:
