@@ -31,7 +31,8 @@
 | 0.23.0  | 2024-10-21 | Luke Cartey     | Add assembly as a hazard.                                                                                               |
 | 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                     |
 | 0.25.0  | 2025-01-15 | Mike Fairhurst  | Add guidance for the usage of 'strict' queries.                                                                         |
-| 0.26.0  | 2025-02-12 | Luke Cartey     | Describe support for new deviation code identifier formats                                                               |
+| 0.26.0  | 2025-02-12 | Luke Cartey     | Describe support for new deviation code identifier formats                                                              |
+| 0.27.0  | 2025-05-15 | Luke Cartey     | Documented completed support for MISRA C 2023.                                                                          |
 
 ## Release information
 
@@ -59,16 +60,16 @@ A _coding standard_ is a set of rules or guidelines which restrict or prohibit t
 
 The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying contraventions of rules in the following coding standards:
 
-| Standard                                                                                                             | Version | Rules | Supportable rules | Implemented rules | Status            |
-| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- | ------- |
-| AUTOSAR C++ | [^1] [R22-11](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf), R21-11, R20-11, R19-11, R19-03 | 397         | 372                     | 370[^2] | Implemented       |
-| CERT-C++   | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)    | 83          | 82                      | 82 | Implemented       |
-| CERT C       | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)    | 99          | 97                      | 97 | Implemented |
-| MISRA C                                | [2012 Third Edition, First Revision](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/), [Amendment 2](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf) and TC2  | 175         | 164                     | 162[^3] | Implemented |
-|                                | [MISRA C 2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)   | 24         | 24                     | - | Under development |
-|                                 | [MISRA C 2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)   | 22         | 22                     | - | Under development |
-|                                 | [2023 Third Edition, Second Revision](https://misra.org.uk/product/misra-c2023/)  | 221         | 210                     | - | Under development |
-| MISRA C++                                | [2023](https://misra.org.uk/product/misra-cpp2023/)  | 179         | 176[^4]                     | - | Under development |
+| Standard    | Version                                                                                                                                                                                                  | Rules | Supportable rules | Implemented rules | Status            |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ----------------- | ----------------- | ----------------- |
+| AUTOSAR C++ | [^1] [R22-11](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf), R21-11, R20-11, R19-11, R19-03                                                                      | 397   | 372               | 370[^2]           | Implemented       |
+| CERT-C++    | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)                                                                                           | 83    | 82                | 82                | Implemented       |
+| CERT C      | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)                                                                                             | 99    | 97                | 97                | Implemented       |
+| MISRA C     | [2012 Third Edition, First Revision](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/), [Amendment 2](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf) and TC2  | 175   | 164               | 162[^3]           | Implemented       |
+|             | [2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)                                                                                                                       | 24    | 24                | 24                | Implemented       |
+|             | [2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)                                                                                                                       | 22    | 22                | 21[^4]            | Implemented       |
+|             | [2023 Third Edition, Second Revision](https://misra.org.uk/product/misra-c2023/)                                                                                                                         | 221   | 210               | 207[^5]           | Implemented       |
+| MISRA C++   | [2023](https://misra.org.uk/product/misra-cpp2023/)                                                                                                                                                      | 179   | 176[^6]           | -                 | Under development |
 
 Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
 
@@ -84,8 +85,10 @@ The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each r
 
 [^1]: AUTOSAR C++ versions R22-11, R21-11, R20-11, R19-11 and R19-03 are all identical as indicated in the document change history.
 [^2]: The unimplemented supportable AUTOSAR rules are `A7-1-8` and `A8-2-1`. These rules require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules.
-[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5`, `Rule 17.13`, and `Dir 4.14`. `Rule 9.5` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
-[^4]: The rules 5.13.7, 19.0.1 and 19.1.2 are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
+[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5`, `Rule 17.13`. `Rule 9.5` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. Note: `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
+[^4]: The unimplemented supportable MISRA C 2012 Amendment 4 rule is `Rule 9.6`. `Rule 9.6` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of this rule.
+[^5]: The unimplemented supportable MISRA C 2023 rules are `Rule 9.5`, `Rule 9.6`, `Rule 17.13`. `Rule 9.5`, `Rule 9.6` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. Note: `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
+[^6]: The rules `5.13.7`, `19.0.1` and `19.1.2` are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
 
 ## Supported environment
 
