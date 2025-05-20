@@ -122,9 +122,7 @@ TryStmt getNearestTry(Stmt s) {
 }
 
 /** Gets a try statement that contains the given statement. */
-TryStmt getATryStmt(Stmt s) {
-  result.getStmt() = s.getEnclosingStmt().getEnclosingBlock*()
-}
+TryStmt getATryStmt(Stmt s) { result.getStmt() = s.getEnclosingStmt().getEnclosingBlock*() }
 
 /** Gets the nearest parent catch block for the given statement. */
 CatchBlock getNearestCatch(Stmt s) {
