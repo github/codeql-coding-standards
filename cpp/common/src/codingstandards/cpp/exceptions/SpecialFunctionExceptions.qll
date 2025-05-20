@@ -83,8 +83,8 @@ class FunctionGivenToStdExitHandler extends FunctionAccess, SpecialUseOfFunction
 
   FunctionGivenToStdExitHandler() {
     exitHandler.hasGlobalOrStdName(["atexit", "at_quick_exit", "set_terminate"]) and
-      exitHandlerCall.getTarget() = exitHandler and
-      exitHandlerCall.getArgument(0) = this
+    exitHandlerCall.getTarget() = exitHandler and
+    exitHandlerCall.getArgument(0) = this
   }
 
   override Function getFunction() { result = getTarget() }
