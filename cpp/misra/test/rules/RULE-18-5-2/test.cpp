@@ -1,3 +1,4 @@
+#include "custom_abort.h"
 #include <cassert>
 #include <cstdlib>
 #include <stdexcept>
@@ -62,4 +63,17 @@ void test_compliant_alternatives() {
 
   // Using exceptions for error handling
   throw std::runtime_error("error"); // COMPLIANT
+}
+
+#define CALL_ABORT() std::abort()         // NON_COMPLIANT
+#define CALL_EXIT(x) std::exit(x)         // NON_COMPLIANT
+#define CALL_TERMINATE() std::terminate() // NON_COMPLIANT
+
+void test_macro_expansion_with_terminating_functions() {
+  // Macro expansions containing terminating functions
+  CALL_ABORT();     // reported at the definition site
+  CALL_EXIT(1);     // reported at the definition site
+  CALL_TERMINATE(); // reported at the definition site
+  LIBRARY_ABORT();  // NON_COMPLIANT - macro not defined by user, so flagged at
+                    // the call site
 }

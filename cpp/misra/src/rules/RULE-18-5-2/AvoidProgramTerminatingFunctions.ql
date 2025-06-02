@@ -15,6 +15,7 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.AlertReporting
 
 predicate isTerminatingFunction(Function f, string functionName) {
   functionName = f.getName() and
@@ -27,27 +28,46 @@ predicate isTerminatingFunction(Function f, string functionName) {
   )
 }
 
-predicate isAssertMacroCall(FunctionCall call) {
+class TerminatingFunctionUse extends Expr {
+  string action;
+  string functionName;
+
+  TerminatingFunctionUse() {
+    exists(Function f | isTerminatingFunction(f, functionName) |
+      this.(FunctionCall).getTarget() = f and
+      action = "Call to"
+      or
+      this.(FunctionAccess).getTarget() = f and
+      action = "Address taken for"
+    )
+  }
+
+  string getFunctionName() { result = functionName }
+
+  string getAction() { result = action }
+
+  Element getPrimaryElement() {
+    // If this is defined in a macro in the users source location, then report the macro
+    // expansion, otherwise report the element itself. This ensures that we always report
+    // the use of the terminating function, but combine usages when the macro is defined
+    // by the user.
+    exists(Element e | e = MacroUnwrapper<TerminatingFunctionUse>::unwrapElement(this) |
+      if exists(e.getFile().getRelativePath()) then result = e else result = this
+    )
+  }
+}
+
+predicate isInAssertMacroInvocation(TerminatingFunctionUse use) {
   exists(MacroInvocation mi |
     mi.getMacroName() = "assert" and
-    mi.getAnExpandedElement() = call
+    mi.getAnExpandedElement() = use
   )
 }
 
-from Expr e, Function f, string functionName, string action
+from TerminatingFunctionUse use
 where
-  not isExcluded(e, BannedAPIsPackage::avoidProgramTerminatingFunctionsQuery()) and
-  isTerminatingFunction(f, functionName) and
-  (
-    // Direct function calls (excluding assert macro calls)
-    e instanceof FunctionCall and
-    f = e.(FunctionCall).getTarget() and
-    not isAssertMacroCall(e) and
-    action = "Call to"
-    or
-    // Function access
-    e instanceof FunctionAccess and
-    f = e.(FunctionAccess).getTarget() and
-    action = "Address taken for"
-  )
-select e, action + " program-terminating function '" + functionName + "'."
+  not isExcluded(use, BannedAPIsPackage::avoidProgramTerminatingFunctionsQuery()) and
+  // Exclude the uses in the assert macro
+  not isInAssertMacroInvocation(use)
+select use.getPrimaryElement(),
+  use.getAction() + " program-terminating function '" + use.getFunctionName() + "'."
