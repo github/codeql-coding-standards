@@ -1,19 +1,20 @@
 #ifndef _GHLIBCPP_CSTDINT
 #define _GHLIBCPP_CSTDINT
+#include "stdint.h"
 namespace std {
-typedef signed char int8_t;
-typedef unsigned char uint8_t;
-typedef signed short int int16_t;
-typedef unsigned short int uint16_t;
-typedef signed int int32_t;
-typedef unsigned int uint32_t;
-typedef signed long int int64_t;
-typedef unsigned long int uint64_t;
-typedef int intmax_t;
-
-typedef uint8_t uint_fast8_t;
-typedef uint16_t uint_fast16_t;
-typedef uint32_t uint_fast32_t;
-typedef uint64_t uint_fast64_t;
+using ::int16_t;
+using ::int32_t;
+using ::int64_t;
+using ::int8_t;
+using ::intmax_t;
+using ::uint16_t;
+using ::uint32_t;
+using ::uint64_t;
+using ::uint8_t;
+using ::uint_fast16_t;
+using ::uint_fast32_t;
+using ::uint_fast64_t;
+using ::uint_fast8_t;
+using ::uintmax_t;
 } // namespace std
 #endif // _GHLIBCPP_CSTDINT
