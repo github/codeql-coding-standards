@@ -1,0 +1,8 @@
+#ifndef _GHLIBCPP_CWCTYPE
+#define _GHLIBCPP_CWCTYPE
+
+namespace std {
+using ::wint_t;
+} // namespace std
+
+#endif // _GHLIBCPP_CWCTYPE

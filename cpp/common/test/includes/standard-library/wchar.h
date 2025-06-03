@@ -2,10 +2,11 @@
 #define _GHLIBCPP_WCHAR
 
 #include "stddef.h"
+#include "wctype.h"
 
 // Wide character I/O functions
-wchar_t fgetwc(void *stream);
-wchar_t fputwc(wchar_t wc, void *stream);
+wint_t fgetwc(void *stream);
+wint_t fputwc(wchar_t wc, void *stream);
 
 // Wide character string conversion functions
 long wcstol(const wchar_t *str, wchar_t **endptr, int base);
