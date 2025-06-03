@@ -1,0 +1,18 @@
+#pragma once
+#ifndef _GHLIBCPP_CWCHAR
+#define _GHLIBCPP_CWCHAR
+#include "wchar.h"
+
+namespace std {
+using ::fgetwc;
+using ::fputwc;
+using ::wcstod;
+using ::wcstof;
+using ::wcstol;
+using ::wcstold;
+using ::wcstoll;
+using ::wcstoul;
+using ::wcstoull;
+} // namespace std
+
+#endif // _GHLIBCPP_CWCHAR
