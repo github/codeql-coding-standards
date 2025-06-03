@@ -26,6 +26,14 @@ long int atol(const char *str);
 long long int atoll(const char *str);
 double atof(const char *str);
 
+long int strtol(const char *str, char **endptr, int base);
+long long int strtoll(const char *str, char **endptr, int base);
+unsigned long int strtoul(const char *str, char **endptr, int base);
+unsigned long long int strtoull(const char *str, char **endptr, int base);
+double strtod(const char *str, char **endptr);
+float strtof(const char *str, char **endptr);
+long double strtold(const char *str, char **endptr);
+
 int rand(void);
 
 #endif // _GHLIBCPP_STDLIB

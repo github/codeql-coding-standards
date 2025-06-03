@@ -15,5 +15,12 @@ using ::free;
 using ::malloc;
 using ::quick_exit;
 using ::rand;
+using ::strtod;
+using ::strtof;
+using ::strtol;
+using ::strtold;
+using ::strtoll;
+using ::strtoul;
+using ::strtoull;
 } // namespace std
 #endif // _GHLIBCPP_CSTDLIB
