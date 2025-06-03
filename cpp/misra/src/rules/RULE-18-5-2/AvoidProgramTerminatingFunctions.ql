@@ -16,55 +16,25 @@
 import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.AlertReporting
+import codingstandards.cpp.BannedFunctions
 
-predicate isTerminatingFunction(Function f, string functionName) {
-  functionName = f.getName() and
-  (
-    functionName in ["abort", "exit", "_Exit", "quick_exit"] and
-    (f.hasQualifiedName("", functionName) or f.hasQualifiedName("std", functionName))
+class TerminatingFunction extends Function {
+  TerminatingFunction() {
+    this.hasQualifiedName(["", "std"], ["abort", "exit", "_Exit", "quick_exit"])
     or
     // std::terminate does not occur in the global namespace.
-    functionName = "terminate" and f.hasQualifiedName("std", functionName)
-  )
-}
-
-class TerminatingFunctionUse extends Expr {
-  string action;
-  string functionName;
-
-  TerminatingFunctionUse() {
-    exists(Function f | isTerminatingFunction(f, functionName) |
-      this.(FunctionCall).getTarget() = f and
-      action = "Call to"
-      or
-      this.(FunctionAccess).getTarget() = f and
-      action = "Address taken for"
-    )
-  }
-
-  string getFunctionName() { result = functionName }
-
-  string getAction() { result = action }
-
-  Element getPrimaryElement() {
-    // If this is defined in a macro in the users source location, then report the macro
-    // expansion, otherwise report the element itself. This ensures that we always report
-    // the use of the terminating function, but combine usages when the macro is defined
-    // by the user.
-    exists(Element e | e = MacroUnwrapper<TerminatingFunctionUse>::unwrapElement(this) |
-      if exists(e.getFile().getRelativePath()) then result = e else result = this
-    )
+    this.hasQualifiedName("std", "terminate")
   }
 }
 
-predicate isInAssertMacroInvocation(TerminatingFunctionUse use) {
+predicate isInAssertMacroInvocation(BannedFunctions<TerminatingFunction>::UseExpr use) {
   exists(MacroInvocation mi |
     mi.getMacroName() = "assert" and
     mi.getAnExpandedElement() = use
   )
 }
 
-from TerminatingFunctionUse use
+from BannedFunctions<TerminatingFunction>::UseExpr use
 where
   not isExcluded(use, BannedAPIsPackage::avoidProgramTerminatingFunctionsQuery()) and
   // Exclude the uses in the assert macro
