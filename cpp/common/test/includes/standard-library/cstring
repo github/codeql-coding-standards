@@ -15,6 +15,7 @@ using ::strcmp;
 using ::strcoll;
 using ::strcpy;
 using ::strcspn;
+using ::strerror;
 using ::strlen;
 using ::strncat;
 using ::strncmp;
