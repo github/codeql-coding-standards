@@ -1,0 +1,9 @@
+| test.cpp:4:3:4:13 | call to system | Call to banned function 'system'. |
+| test.cpp:8:14:8:24 | system | Address taken for banned function 'system'. |
+| test.cpp:9:29:9:39 | system | Address taken for banned function 'system'. |
+| test.cpp:13:40:13:50 | system | Address taken for banned function 'system'. |
+| test.cpp:17:3:17:13 | call to system | Call to banned function 'system'. |
+| test.cpp:22:3:22:13 | call to system | Call to banned function 'system'. |
+| test.cpp:35:3:35:8 | call to system | Call to banned function 'system'. |
+| test.cpp:39:29:39:34 | system | Address taken for banned function 'system'. |
+| test.cpp:44:3:44:21 | system(x) | Use of banned macro 'system'. |
