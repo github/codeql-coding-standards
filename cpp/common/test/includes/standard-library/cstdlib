@@ -22,5 +22,6 @@ using ::strtold;
 using ::strtoll;
 using ::strtoul;
 using ::strtoull;
+using ::system;
 } // namespace std
 #endif // _GHLIBCPP_CSTDLIB
