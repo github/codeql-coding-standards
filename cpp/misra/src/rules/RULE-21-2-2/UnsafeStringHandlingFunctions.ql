@@ -14,32 +14,20 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.BannedFunctions
 
-predicate isBannedStringFunction(Function f) {
-  f.hasGlobalName([
-    "strcat", "strchr", "strcmp", "strcoll", "strcpy", "strcspn",
-    "strerror", "strlen", "strncat", "strncmp", "strncpy", "strpbrk",
-    "strrchr", "strspn", "strstr", "strtok", "strxfrm",
-    "strtol", "strtoll", "strtoul", "strtoull", "strtod", "strtof", "strtold",
-    "fgetwc", "fputwc", "wcstol", "wcstoll", "wcstoul", "wcstoull",
-    "wcstod", "wcstof", "wcstold",
-    "strtoumax", "strtoimax", "wcstoumax", "wcstoimax"
-  ])
+class StringFunction extends Function {
+  StringFunction() {
+    this.hasGlobalName([
+        "strcat", "strchr", "strcmp", "strcoll", "strcpy", "strcspn", "strerror", "strlen",
+        "strncat", "strncmp", "strncpy", "strpbrk", "strrchr", "strspn", "strstr", "strtok",
+        "strxfrm", "strtol", "strtoll", "strtoul", "strtoull", "strtod", "strtof", "strtold",
+        "fgetwc", "fputwc", "wcstol", "wcstoll", "wcstoul", "wcstoull", "wcstod", "wcstof",
+        "wcstold", "strtoumax", "strtoimax", "wcstoumax", "wcstoimax"
+      ])
+  }
 }
 
-from Expr e, Function f, string msg
-where
-  not isExcluded(e, BannedAPIsPackage::unsafeStringHandlingFunctionsQuery()) and
-  (
-    (e.(FunctionCall).getTarget() = f and isBannedStringFunction(f) and
-     msg = "Call to banned string handling function '" + f.getName() + "'.")
-    or
-    (e.(AddressOfExpr).getOperand().(FunctionAccess).getTarget() = f and isBannedStringFunction(f) and
-     msg = "Address taken of banned string handling function '" + f.getName() + "'.")
-    or
-    (e.(FunctionAccess).getTarget() = f and isBannedStringFunction(f) and
-     not e.getParent() instanceof FunctionCall and
-     not e.getParent() instanceof AddressOfExpr and
-     msg = "Reference to banned string handling function '" + f.getName() + "'.")
-  )
-select e, msg
+from BannedFunctions<StringFunction>::Use use
+where not isExcluded(use, BannedAPIsPackage::unsafeStringHandlingFunctionsQuery())
+select use, use.getAction() + " banned string handling function '" + use.getFunctionName() + "'."
