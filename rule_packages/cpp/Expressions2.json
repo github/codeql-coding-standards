@@ -63,7 +63,7 @@
       "queries": [
         {
           "description": "Using implicit capture for a lambda declared in a class will capture the `this` pointer and not the instance members, which can be suprising and result in undefined behavior past the object's lifetime.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "A non-transient lambda shall not implicitly capture this",
           "precision": "very-high",
           "severity": "error",
@@ -86,7 +86,7 @@
       "queries": [
         {
           "description": "Explicit captures in lambdas which are \"stored\" clarifies dependencies that must be managed for memory management and safety.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "Variables should be captured explicitly in a non-transient lambda",
           "precision": "very-high",
           "severity": "error",

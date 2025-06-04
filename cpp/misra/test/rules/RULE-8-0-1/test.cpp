@@ -201,7 +201,7 @@ void f9() {
   // COMPLIANT: Lambda expressions (excluded from rule)
   auto l4 = [&]() {
     return l1 + l2 * 2; // NON_COMPLIANT: lambda body still checked
-  }(); // COMPLIANT: lambda definition is always compliant
+  }();                  // COMPLIANT: lambda definition is always compliant
 }
 
 // Test macros
