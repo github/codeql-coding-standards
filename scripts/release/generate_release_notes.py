@@ -167,9 +167,6 @@ else:
     supported_codeql_configs = json.load(supported_codeql_configs_file)
     supported_environments = supported_codeql_configs['supported_environment']
 
-# Find the supported standard libraries that match LGTM tags
-lgtm_supported_versions = filter(lambda v: re.match("(lgtm\/)?v1\\.[0-9][0-9]?\\.[0-9][0-9]?", v), map(lambda e: e["codeql_standard_library"], supported_environments))
-
 # Print the release notes to stdout
 
 # Print a summary
@@ -186,10 +183,6 @@ if len(change_notes) > 0:
 
 # Print out "supported versions" statements
 print("## Supported versions")
-if len(list(lgtm_supported_versions)):
-  print(" - The LGTM pack is supported on LGTM versions: `" + "`, ".join(lgtm_supported_versions) + "`.")
-else:
-  print(" - The LGTM pack is not supported on any released version of LGTM without support from GitHub Professional Services.")
 print(" - The Code Scanning pack is supported when:")
 for supported_environment in supported_environments:
   if "ghes" in supported_environment:
