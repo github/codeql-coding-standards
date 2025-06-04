@@ -1,0 +1,3 @@
+| test.c:2:1:2:31 | #define M1 _Generic(1, int : 1) | Generic macro M1 doesn't refer to a macro parameter in controlling expr '1'. |
+| test.c:4:1:4:34 | #define M2(X) _Generic(1, int : X) | Generic macro M2 doesn't refer to a macro parameter in controlling expr '1'. |
+| test.c:18:1:18:39 | #define M9(X) g(_Generic((Y), int : 1)) | Generic macro M9 doesn't refer to a macro parameter in controlling expr '(Y)'. |

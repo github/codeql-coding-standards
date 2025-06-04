@@ -396,7 +396,12 @@
           "severity": "warning",
           "short_name": "DoNotUsePointerArithmeticOnPolymorphicObjects",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p9",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -416,7 +421,12 @@
           "short_name": "DeletingPointerToIncompleteClass",
           "shared_implementation_short_name": "DeleteOfPointerToIncompleteClass",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -427,7 +437,12 @@
           "severity": "error",
           "short_name": "CastOfPointerToIncompleteClass",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -447,7 +462,12 @@
           "short_name": "UseOfPointerToMemberToAccessUndefinedMember",
           "shared_implementation_short_name": "AccessOfUndefinedMemberThroughNullPointer",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         },
         {
@@ -459,7 +479,12 @@
           "short_name": "MemberAccessWithUninitializedStaticPointerToMember",
           "shared_implementation_short_name": "AccessOfUndefinedMemberThroughUninitializedStaticPointer",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         },
         {
@@ -471,7 +496,12 @@
           "short_name": "UseOfPointerToMemberToAccessNonexistentMember",
           "shared_implementation_short_name": "AccessOfNonExistingMemberThroughPointerToMember",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],

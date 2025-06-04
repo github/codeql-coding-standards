@@ -10,7 +10,7 @@
 
 import cpp
 import codingstandards.cpp.CodingStandards
-import codingstandards.cpp.TypeUses
+import codingstandards.cpp.types.Uses
 import codingstandards.cpp.exclusions.cpp.RuleMetadata
 
 from UserType ut, string reason

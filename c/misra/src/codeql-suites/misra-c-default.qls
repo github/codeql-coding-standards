@@ -1,4 +1,4 @@
-- description: MISRA C 2012 (Default)
+- description: MISRA C 2023 (Default)
 - qlpack: codeql/misra-c-coding-standards
 - include:
     kind:
@@ -7,4 +7,5 @@
 - exclude:
     tags contain:
     - external/misra/audit
+    - external/misra/strict
     - external/misra/default-disabled

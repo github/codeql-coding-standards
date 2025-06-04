@@ -179,22 +179,15 @@
       },
       "queries": [
         {
-          "description": "A function that is either trivial, a template function, or a member of a template class may not be defined outside of a class body.",
-          "kind": "problem",
-          "name": "A function shall be defined with a class body if and only if it is intended to be inlined",
-          "precision": "very-high",
-          "severity": "recommendation",
-          "short_name": "TrivialOrTemplateFunctionDefinedOutsideClassDefinition",
-          "tags": []
-        },
-        {
           "description": "A function that is not either trivial, a template function, or a member of a template class may not be defined within a class body.",
           "kind": "problem",
           "name": "A function shall be defined with a class body if and only if it is intended to be inlined",
-          "precision": "very-high",
+          "precision": "low",
           "severity": "recommendation",
           "short_name": "NonTrivialNonTemplateFunctionDefinedInsideClassDefinition",
-          "tags": []
+          "tags": [
+            "external/autosar/audit"
+          ]
         }
       ],
       "title": "A function definition shall only be placed in a class definition if (1) the function is intended to be inlined (2) it is a member function template (3) it is a member function of a class template."
@@ -322,7 +315,12 @@
           "severity": "recommendation",
           "short_name": "OffsetUsedOnInvalidTypeOrMember",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],

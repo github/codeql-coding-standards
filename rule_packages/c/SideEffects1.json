@@ -13,7 +13,12 @@
           "severity": "warning",
           "short_name": "DependenceOnOrderOfScalarEvaluationForSideEffects",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         },
         {
@@ -24,7 +29,12 @@
           "severity": "warning",
           "short_name": "DependenceOnOrderOfFunctionArgumentsForSideEffects",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -43,7 +53,12 @@
           "severity": "error",
           "short_name": "UnevaluatedOperandWithSideEffect",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -62,7 +77,12 @@
           "severity": "error",
           "short_name": "AssignmentsInSelectionStatements",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -166,7 +186,7 @@
     },
     "RULE-13-6": {
       "properties": {
-        "obligation": "mandatory"
+        "obligation": "required"
       },
       "queries": [
         {

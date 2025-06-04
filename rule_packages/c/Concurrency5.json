@@ -12,9 +12,15 @@
           "precision": "high",
           "severity": "error",
           "short_name": "ThreadWasPreviouslyJoinedOrDetached",
+          "shared_implementation_short_name": "JoinOrDetachThreadOnlyOnce",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ],
           "implementation_scope": {
             "description": "This query considers problematic usages of join and detach irrespective of the execution of the program and other synchronization and interprocess communication mechanisms that may be used."
@@ -37,7 +43,12 @@
           "short_name": "AtomicVariableTwiceInExpression",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],

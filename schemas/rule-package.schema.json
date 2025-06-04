@@ -141,7 +141,8 @@
                                         "obligation": {
                                             "type": "string",
                                             "enum": [
-                                                "rule"
+                                                "rule",
+                                                "recommendation"
                                             ]
                                         }
                                     },
@@ -342,10 +343,34 @@
                             "external/autosar/strict",
                             "scope/single-translation-unit",
                             "scope/system",
+                            "external/misra/audit",
                             "external/misra/c/2012/third-edition-first-revision",
                             "external/misra/c/2012/amendment2",
                             "external/misra/c/2012/amendment3",
-                            "external/misra/c/2012/amendment4"
+                            "external/misra/c/2012/amendment4",
+                            "external/misra/c/strict",
+                            "external/cert/severity/low",
+                            "external/cert/severity/medium",
+                            "external/cert/severity/high",
+                            "external/cert/likelihood/unlikely",
+                            "external/cert/likelihood/probable",
+                            "external/cert/likelihood/likely",
+                            "external/cert/remediation-cost/low",
+                            "external/cert/remediation-cost/medium",
+                            "external/cert/remediation-cost/high",
+                            "external/cert/priority/p1",
+                            "external/cert/priority/p2",
+                            "external/cert/priority/p3",
+                            "external/cert/priority/p4",
+                            "external/cert/priority/p6",
+                            "external/cert/priority/p8",
+                            "external/cert/priority/p9",
+                            "external/cert/priority/p12",
+                            "external/cert/priority/p18",
+                            "external/cert/priority/p27",
+                            "external/cert/level/l1",
+                            "external/cert/level/l2",
+                            "external/cert/level/l3"
                         ]
                     },
                     "minLength": 1

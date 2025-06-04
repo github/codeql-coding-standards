@@ -8,6 +8,11 @@
  * @tags external/cert/id/msc50-cpp
  *       security
  *       scope/single-translation-unit
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

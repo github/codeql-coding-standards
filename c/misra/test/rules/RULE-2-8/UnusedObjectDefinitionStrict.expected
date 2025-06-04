@@ -1,0 +1,4 @@
+| test.c:87:29:87:30 | definition of g8 | Unused object 'g8'. | test.c:87:29:87:30 | definition of g8 | (ignored) |
+| test.c:92:3:92:30 | ONLY_DEF_ATTR_UNUSED_VAR(x) | Invocation of macro '$@' defines unused object 'l2'. | test.c:88:1:88:70 | #define ONLY_DEF_ATTR_UNUSED_VAR(x) __attribute__((unused)) int x = 0; | ONLY_DEF_ATTR_UNUSED_VAR |
+| test.c:96:1:99:5 | #define ALSO_DEF_ATTR_UNUSED_VAR(x) __attribute__((unused)) int x = 0; while (1) ; | Macro 'ALSO_DEF_ATTR_UNUSED_VAR' defines unused object with an invocation-dependent name, for example, '$@'. | test.c:101:28:101:29 | definition of l1 | l1 |
+| test.c:106:1:111:3 | #define DEF_ATTR_UNUSED_INNER_VAR() { __attribute__((unused)) int _v = 0; while (1) ; } | Macro 'DEF_ATTR_UNUSED_INNER_VAR' defines unused object '_v'. | test.c:106:1:111:3 | #define DEF_ATTR_UNUSED_INNER_VAR() { __attribute__((unused)) int _v = 0; while (1) ; } | (ignored) |

@@ -43,7 +43,12 @@
           "short_name": "InterleavedInputOutputWithoutPosition",
           "shared_implementation_short_name": "IOFstreamMissingPositioning",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -63,7 +68,12 @@
           "short_name": "CloseFilesWhenTheyAreNoLongerNeeded",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],

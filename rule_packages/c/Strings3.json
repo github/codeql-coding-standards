@@ -12,9 +12,15 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CastCharBeforeConvertingToLargerSizes",
+          "shared_implementation_short_name": "CastCharBeforeConvertingToLargerSizes",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -34,7 +40,12 @@
           "short_name": "DoNotConfuseNarrowAndWideFunctions",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p27",
+            "external/cert/level/l1"
           ],
           "implementation_scope": {
             "description": "Wide character types are not handled correctly on the `aarch64le` architecture. This can lead to false negative alerts."

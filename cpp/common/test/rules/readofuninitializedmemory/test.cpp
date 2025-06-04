@@ -121,4 +121,6 @@ void test_non_default_init() {
   use(slp); // COMPLIANT - static variables are zero initialized
   thread_local int *tlp;
   use(tlp); // COMPLIANT - thread local variables are zero initialized
+  _Atomic int ai;
+  use(ai); // COMPLIANT - atomics are special and not covered by this rule
 }

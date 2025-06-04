@@ -1,0 +1,94 @@
+{
+  "CERT-C": {
+    "MSC40-C": {
+      "properties": {
+        "obligation": "rule"
+      },
+      "queries": [
+        {
+          "description": "Inlined external functions are prohibited by the language standard from defining modifiable static or thread storage objects, or referencing identifiers with internal linkage.",
+          "kind": "problem",
+          "name": "Do not violate inline linkage constraints",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotViolateInLineLinkageConstraints",
+          "tags": [
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
+          ],
+          "implementation_scope": {
+            "description": "This query only considers the constraints related to inline extern functions."
+          }
+        }
+      ],
+      "title": "Do not violate constraints"
+    }
+  },
+  "MISRA-C-2012": {
+    "DIR-4-11": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Range, domain or pole errors in math functions may return unexpected values, trigger floating-point exceptions or set unexpected error modes.",
+          "kind": "problem",
+          "name": "The validity of values passed to `math.h` library functions shall be checked",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "CheckMathLibraryFunctionParameters",
+          "shared_implementation_short_name": "UncheckedRangeDomainPoleErrors",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision"
+          ],
+          "implementation_scope": {
+            "description": "This query identifies possible domain, pole and range errors on a selection of C standard library fuctions from math.h."
+          }
+        },
+        {
+          "description": "Trigonometric periodic functions have significantly less precision when called with large floating-point values.",
+          "kind": "problem",
+          "name": "The validity of values passed to trigonometric functions shall be checked",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "LowPrecisionPeriodicTrigonometricFunctionCall",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/third-edition-first-revision",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "The validity of values passed to library functions shall be checked"
+    },
+    "DIR-4-7": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function (whether it is part of the standard library, a third party library or a user defined function) may provide some means of indicating the occurrence of an error. This may be via a global error flag, a parametric error flag, a special return value or some other means. Whenever such a mechanism is provided by a function the calling program shall check for the indication of an error as soon as the function returns.",
+          "kind": "problem",
+          "name": "If a function generates error information, then that error information shall be tested",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "FunctionErrorInformationUntested",
+          "shared_implementation_short_name": "FunctionErroneousReturnValueNotTested",
+          "tags": [
+            "maintainability",
+            "external/misra/c/2012/third-edition-first-revision"
+          ],
+          "implementation_scope": {
+            "description": "This query enforces checking on some C standard library functions that may return error codes."
+          }
+        }
+      ],
+      "title": "If a function returns error information, then that error information shall be tested"
+    }
+  }
+}

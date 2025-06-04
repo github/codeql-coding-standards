@@ -244,7 +244,7 @@
           ]
         }
       ],
-      "title": "The relational operators >, >=, < and <= shall not be applied to objects of pointer type except where they point into the same object"
+      "title": "The relational operators >, >=, < and <= shall not be applied to expressions of pointer type except where they point into the same object"
     },
     "RULE-18-4": {
       "properties": {
@@ -304,6 +304,18 @@
           "tags": [
             "correctness",
             "external/misra/c/2012/third-edition-first-revision"
+          ]
+        },
+        {
+          "description": "Storing the address of a thread-local object in a global object will result in undefined behavior if the address is accessed after the relevant thread is terminated.",
+          "kind": "problem",
+          "name": "The address of an object with thread-local storage shall not be copied to a global object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ThreadLocalObjectAddressCopiedToGlobalObject",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
           ]
         }
       ],

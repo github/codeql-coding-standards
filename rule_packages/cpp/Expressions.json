@@ -86,9 +86,13 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "FunctionErroneousReturnValueNotTested",
+          "shared_implementation_short_name": "FunctionErroneousReturnValueNotTested",
           "tags": [
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The query enforces checking on some C standard library functions that may return error codes."
+          }
         }
       ],
       "title": "If a function generates error information, then that error information shall be tested."
@@ -126,7 +130,7 @@
       },
       "queries": [
         {
-          "description": "Expressions with type (plain) char and wchar_t shall not be used as operands to built-in operators other than the assignment operator =, the equality operators == and ! =, and the unary & operator. Manipulation of character data may generate results that are contrary to developer expectations. For example, ISO/IEC 14882:2003 [1] §2.2(3) only requires that the digits \"0\" to \"9\" have consecutive numerical values.",
+          "description": "Expressions with type (plain) char and wchar_t shall not be used as operands to built-in operators other than the assignment operator =, the equality operators == and ! =, and the unary & operator. Manipulation of character data may generate results that are contrary to developer expectations. For example, ISO/IEC 14882:2003 [1] \u00a72.2(3) only requires that the digits \"0\" to \"9\" have consecutive numerical values.",
           "kind": "problem",
           "name": "Expressions with type (plain) char and wchar_t shall only be used as operands to =, ==, !=, &",
           "precision": "very-high",
@@ -319,7 +323,12 @@
           "severity": "error",
           "short_name": "PassPromotablePrimitiveTypeToVaStart",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -330,7 +339,12 @@
           "severity": "error",
           "short_name": "PassReferenceTypeToVaStart",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -341,7 +355,12 @@
           "severity": "warning",
           "short_name": "PassNonTrivialObjectToVaStart",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],

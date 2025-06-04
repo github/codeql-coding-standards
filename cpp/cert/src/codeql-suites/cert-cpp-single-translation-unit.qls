@@ -1,0 +1,11 @@
+- description: CERT C++ 2016 (Single Translation Unit)
+- qlpack: codeql/cert-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - scope/single-translation-unit
+- exclude:
+    tags contain:
+    - external/cert/default-disabled

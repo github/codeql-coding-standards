@@ -1,6 +1,6 @@
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 
 /**
  * Get the largest word size, in bytes. Some projects may have multiple different

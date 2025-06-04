@@ -5,6 +5,10 @@ void testRules() {
   enum E1 { A, B, C } e1 = A;
   signed int i = 100;
   unsigned int u = 100;
+  signed short s = 100;
+  unsigned short us = 100;
+  signed long l = 100L;
+  unsigned long ul = 100UL;
   float f = 10.0f;
 
   // Addition cases
@@ -19,8 +23,12 @@ void testRules() {
   b + 'a';   // NON_COMPLIANT
   'a' + e1;  // NON_COMPLIANT
   e1 + 'a';  // NON_COMPLIANT
+  'a' + s;   // COMPLIANT
+  'a' + us;  // COMPLIANT
+  'a' + l;   // NON_COMPLIANT
+  'a' + ul;  // NON_COMPLIANT
 
-  // Subtration cases
+  // Subtraction cases
   'a' - i;   // COMPLIANT
   'a' - u;   // COMPLIANT
   'a' - 'a'; // COMPLIANT
@@ -32,4 +40,8 @@ void testRules() {
   'a' - b;   // NON_COMPLIANT
   e1 - 'a';  // NON_COMPLIANT
   'a' - e1;  // NON_COMPLIANT
+  'a' - s;   // COMPLIANT
+  'a' - us;  // COMPLIANT
+  'a' - l;   // NON_COMPLIANT
+  'a' - ul;  // NON_COMPLIANT
 }

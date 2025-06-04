@@ -9,6 +9,11 @@
  * @tags external/cert/id/con52-cpp
  *       correctness
  *       concurrency
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p8
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

@@ -13,7 +13,12 @@
           "severity": "error",
           "short_name": "DoNotModifyConstantObjects",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "The implementation does not consider pointer aliasing via multiple indirection."
@@ -26,7 +31,7 @@
   "MISRA-C-2012": {
     "RULE-17-5": {
       "properties": {
-        "obligation": "advisory"
+        "obligation": "required"
       },
       "queries": [
         {

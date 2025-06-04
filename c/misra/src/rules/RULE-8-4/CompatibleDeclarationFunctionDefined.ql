@@ -17,7 +17,18 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Identifiers
-import codingstandards.cpp.Compatible
+import codingstandards.cpp.types.Compatible
+
+predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  f1.getDeclaration() instanceof ExternalIdentifiers and
+  f1.isDefinition() and
+  f1.getDeclaration() = f2.getDeclaration() and
+  // This condition should always hold, but removing it affects join order performance.
+  f1.getName() = f2.getName() and
+  not f2.isDefinition() and
+  not f1.isFromTemplateInstantiation(_) and
+  not f2.isFromTemplateInstantiation(_)
+}
 
 from FunctionDeclarationEntry f1
 where
@@ -36,15 +47,17 @@ where
       f1.getName() = f2.getName() and
       not f2.isDefinition() and
       f2.getDeclaration() = f1.getDeclaration() and
-      //return types differ
       (
-        not typesCompatible(f1.getType(), f2.getType())
+        //return types differ
+        not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalReturnTypes(f1,
+          f2)
         or
         //parameter types differ
-        parameterTypesIncompatible(f1, f2)
+        not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalParameterTypes(f1,
+          f2)
         or
         //parameter names differ
-        parameterNamesIncompatible(f1, f2)
+        parameterNamesUnmatched(f1, f2)
       )
     )
   )

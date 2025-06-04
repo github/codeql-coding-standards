@@ -9,23 +9,21 @@
  * @tags external/cert/id/str34-c
  *       correctness
  *       security
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p8
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.commons.CommonType
+import codingstandards.cpp.rules.castcharbeforeconvertingtolargersizes.CastCharBeforeConvertingToLargerSizes
 
-from Cast c
-where
-  not isExcluded(c, Strings3Package::castCharBeforeConvertingToLargerSizesQuery()) and
-  // find cases where there is a conversion happening wherein the
-  // base type is a char
-  c.getExpr().getType() instanceof CharType and
-  not c.getExpr().getType() instanceof UnsignedCharType and
-  // it's a bigger type
-  c.getType().getSize() > c.getExpr().getType().getSize() and
-  // and it's some kind of integer type
-  c.getType() instanceof IntegralType
-select c.getExpr(),
-  "Expression not converted to `unsigned char` before converting to a larger integer type."
+class CastCharBeforeConvertingToLargerSizesQuery extends CastCharBeforeConvertingToLargerSizesSharedQuery
+{
+  CastCharBeforeConvertingToLargerSizesQuery() {
+    this = Strings3Package::castCharBeforeConvertingToLargerSizesQuery()
+  }
+}

@@ -1,0 +1,2 @@
+ - `M5-3-1` - `EachOperandOfTheOperatorOfTheLogicalAndOrTheLogicalOperatorsShallHaveTypeBool.ql`:
+   - Consistently exclude results in unevaluated contexts associated with uninstantiated templates, for example `noexcept` specifiers and `static_assert`s.

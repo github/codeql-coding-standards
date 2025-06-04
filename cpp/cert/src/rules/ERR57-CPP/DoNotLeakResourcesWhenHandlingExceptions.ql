@@ -8,6 +8,11 @@
  * @tags external/cert/id/err57-cpp
  *       correctness
  *       security
+ *       external/cert/severity/low
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p2
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 

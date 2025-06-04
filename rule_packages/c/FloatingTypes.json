@@ -14,8 +14,16 @@
           "short_name": "UncheckedRangeDomainPoleErrors",
           "shared_implementation_short_name": "UncheckedRangeDomainPoleErrors",
           "tags": [
-            "correctness"
-          ]
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
+          ],
+          "implementation_scope": {
+            "description": "This query identifies possible domain, pole and range errors on a selection of C standard library fuctions from math.h."
+          }
         }
       ],
       "title": "Prevent or detect domain and range errors in math functions"
@@ -33,7 +41,12 @@
           "severity": "error",
           "short_name": "UncheckedFloatingPointConversion",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -52,7 +65,12 @@
           "severity": "error",
           "short_name": "IntToFloatPreservePrecision",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -71,7 +89,12 @@
           "severity": "error",
           "short_name": "MemcmpUsedToCompareFloats",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],

@@ -1,0 +1,191 @@
+{
+  "MISRA-C-2012": {
+    "RULE-23-1": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A generic selection should only be expanded from a macro.",
+          "kind": "problem",
+          "name": "A generic selection should only be expanded from a macro",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "GenericSelectionNotExpandedFromAMacro",
+          "tags": [
+            "maintainability",
+            "external/misra/c/2012/amendment3"
+          ]
+        },
+        {
+          "description": "A generic selection should depend on the type of a macro argument.",
+          "kind": "problem",
+          "name": "A generic selection should depend on the type of a macro argument",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "GenericSelectionDoesntDependOnMacroArgument",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "A generic selection should only be expanded from a macro"
+    },
+    "RULE-23-2": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A generic selection that is not expanded from a macro shall not contain potential side effects in the controlling expression.",
+          "kind": "problem",
+          "name": "A generic selection shall not contain side-effects if it is not expanded from a macro",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "GenericSelectionNotFromMacroWithSideEffects",
+          "tags": [
+            "maintainability",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "implementation_scope": {
+        "description":
+          "Due to limited information in the CodeQL database for macro argument expansions, this implementation reports generics not of the form `_Generic((X)` where all invocations of that generic contain a side effect in the controlling expression."
+      },
+      "title": "A generic selection that is not expanded from a macro shall not contain potential side effects in the controlling expression"
+    },
+    "RULE-23-3": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A generic selection should contain at least one non-default association.",
+          "kind": "problem",
+          "name": "A generic selection should contain at least one non-default association",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "GenericWithoutNonDefaultAssociation",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "A generic selection should contain at least one non-default association"
+    },
+    "RULE-23-4": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Generic selections undergo lvalue conversion before type comparison, leading to certain types being impossible to select.",
+          "kind": "problem",
+          "name": "A generic association shall list an appropriate type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GenericAssociationWithUnselectableType",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "A generic association shall list an appropriate type"
+    },
+    "RULE-23-5": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Pointer types in a generic selection do not undergo pointer conversions and should not counterintuitively fall through to the default association.",
+          "kind": "problem",
+          "name": "A generic selection should not depend on implicit pointer type conversion",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DangerousDefaultSelectionForPointerInGeneric",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "A generic selection should not depend on implicit pointer type conversion"
+    },
+    "RULE-23-6": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The controlling expression of a generic selection shall have an essential type that matches its standard type.",
+          "kind": "problem",
+          "name": "The controlling expression of a generic selection shall have an essential type that matches its standard type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "GenericExpressionWithIncorrectEssentialType",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "implementation_scope": {
+        "description":
+          "The CodeQL extractor will expand character literals passed into macros into integer literals, and therefore the essential type system for character literals will not necessarily be analyzed correctly."
+      },
+      "title": "The controlling expression of a generic selection shall have an essential type that matches its standard type"
+    },
+    "RULE-23-7": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A generic selection that is expanded from a macro should evaluate its argument only once.",
+          "kind": "problem",
+          "name": "A generic selection that is expanded from a macro should evaluate its argument only once",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "InvalidGenericMacroArgumentEvaluation",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "implementation_scope": {
+        "description":
+          "Due to limited information in the CodeQL database for macro argument expansions, this implementation performs string matching on the macro parameters against the macro body to determine where parameters are expanded. If text indicating a nonevaluated context such as sizeof() or _Alignof() appear, there will be no positive result."
+      },
+      "title": "A generic selection that is expanded from a macro should evaluate its argument only once"
+    },
+    "RULE-23-8": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A default association shall appear as either the first or the last association of a generic selection.",
+          "kind": "problem",
+          "name": "A default association shall appear as either the first or the last association of a generic",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DefaultGenericSelectionNotFirstOrLast",
+          "tags": [
+            "maintainability",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "A default association shall appear as either the first or the last association of a generic selection"
+    }
+  }
+}

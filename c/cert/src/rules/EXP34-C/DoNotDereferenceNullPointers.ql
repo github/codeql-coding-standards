@@ -7,6 +7,11 @@
  * @problem.severity error
  * @tags external/cert/id/exp34-c
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p18
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 
