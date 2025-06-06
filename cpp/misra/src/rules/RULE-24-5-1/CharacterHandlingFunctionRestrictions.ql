@@ -20,23 +20,25 @@ import codingstandards.cpp.BannedFunctions
 class BannedCharacterHandlingFunction extends Function {
   BannedCharacterHandlingFunction() {
     this.hasGlobalOrStdName([
-      "isalnum", "isalpha", "isblank", "iscntrl", "isdigit", "isgraph", "islower", "isprint",
-      "ispunct", "isspace", "isupper", "isxdigit", "tolower", "toupper",
-      "iswalnum", "iswalpha", "iswblank", "iswcntrl", "iswctype", "iswdigit", "iswgraph",
-      "iswlower", "iswprint", "iswpunct", "iswspace", "iswupper", "iswxdigit", "towctrans",
-      "towlower", "towupper", "wctrans", "wctype"
-    ]) and
-    not (
-      this.hasGlobalOrStdName([
         "isalnum", "isalpha", "isblank", "iscntrl", "isdigit", "isgraph", "islower", "isprint",
-        "ispunct", "isspace", "isupper", "isxdigit", "tolower", "toupper"
+        "ispunct", "isspace", "isupper", "isxdigit", "tolower", "toupper", "iswalnum", "iswalpha",
+        "iswblank", "iswcntrl", "iswctype", "iswdigit", "iswgraph", "iswlower", "iswprint",
+        "iswpunct", "iswspace", "iswupper", "iswxdigit", "towctrans", "towlower", "towupper",
+        "wctrans", "wctype"
       ]) and
-      this.getACallToThisFunction().(FunctionCall).getNumberOfArguments() = 2
-    )
+    // Exclude the functions which pass a reference to a std::locale as the second parameter
+    not this.getParameter(1)
+        .getType()
+        .getUnspecifiedType()
+        .(ReferenceType)
+        .getBaseType()
+        .(UserType)
+        .hasQualifiedName("std", "locale")
   }
 }
 
 from BannedFunctions<BannedCharacterHandlingFunction>::Use use
-where
-  not isExcluded(use, BannedAPIsPackage::characterHandlingFunctionRestrictionsQuery())
-select use, use.getAction() + " banned character handling function '" + use.getFunctionName() + "' from <cctype> or <cwctype>."
+where not isExcluded(use, BannedAPIsPackage::characterHandlingFunctionRestrictionsQuery())
+select use,
+  use.getAction() + " banned character handling function '" + use.getFunctionName() +
+    "' from <cctype> or <cwctype>."
