@@ -869,7 +869,7 @@ cpp,MISRA-C++-2023,RULE-6-8-2,Yes,Mandatory,Decidable,Single Translation Unit,A 
 cpp,MISRA-C++-2023,RULE-6-8-3,Yes,Required,Decidable,Single Translation Unit,An assignment operator shall not assign the address of an object with automatic storage duration to an object with a greater lifetime,,Lifetime,Medium,
 cpp,MISRA-C++-2023,RULE-6-8-4,Yes,Advisory,Decidable,Single Translation Unit,Member functions returning references to their object should be refqualified appropriately,,Declarations2,Medium,
 cpp,MISRA-C++-2023,RULE-6-9-1,Yes,Required,Decidable,Single Translation Unit,The same type aliases shall be used in all declarations of the same entity,,Declarations2,Medium,
-cpp,MISRA-C++-2023,RULE-6-9-2,Yes,Advisory,Decidable,Single Translation Unit,The names of the standard signed integer types and standard unsigned integer types should not be used,A3-9-1,BannedAPIs,Easy,
+cpp,MISRA-C++-2023,RULE-6-9-2,Yes,Advisory,Decidable,Single Translation Unit,The names of the standard signed integer types and standard unsigned integer types should not be used,A3-9-1,FixedWithInt,Easy,
 cpp,MISRA-C++-2023,RULE-7-0-1,Yes,Required,Decidable,Single Translation Unit,There shall be no conversion from type bool,,Conversions,Easy,
 cpp,MISRA-C++-2023,RULE-7-0-2,Yes,Required,Decidable,Single Translation Unit,There shall be no conversion to type bool,,Conversions,Easy,
 cpp,MISRA-C++-2023,RULE-7-0-3,Yes,Required,Decidable,Single Translation Unit,The numerical value of a character shall not be used,M5-0-11,Conversions,Medium,
