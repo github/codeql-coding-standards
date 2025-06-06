@@ -16,7 +16,6 @@
 | test.cpp:31:3:31:12 | __builtin_va_end | Call to 'va_end'. |
 | test.cpp:32:3:32:12 | __builtin_va_end | Call to 'va_end'. |
 | test.cpp:35:37:35:38 | l1 | Declaration of parameter 'l1' of type 'va_list'. |
-| test.cpp:35:37:35:38 | l1 | Declaration of variable 'l1' of type 'va_list'. |
 | test.cpp:36:15:36:32 | __builtin_va_arg | Call to 'va_arg'. |
 | test.cpp:40:11:40:12 | l2 | Declaration of variable 'l2' of type 'va_list'. |
 | test.cpp:41:3:41:18 | __builtin_va_start | Call to 'va_start'. |

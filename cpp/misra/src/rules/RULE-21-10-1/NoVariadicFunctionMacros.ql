@@ -18,7 +18,6 @@ import codingstandards.cpp.misra
 class VaListType extends Type {
   VaListType() {
     this.getName() = "va_list" or
-    this.getName() = "__va_list_tag" or
     this.(SpecifiedType).getBaseType() instanceof VaListType or
     this.(TypedefType).getBaseType() instanceof VaListType
   }
@@ -29,10 +28,15 @@ where
   not isExcluded(element, BannedAPIsPackage::noVariadicFunctionMacrosQuery()) and
   (
     element.(Variable).getType() instanceof VaListType and
-    message = "Declaration of variable '" + element.(Variable).getName() + "' of type 'va_list'."
-    or
-    element.(Parameter).getType() instanceof VaListType and
-    message = "Declaration of parameter '" + element.(Parameter).getName() + "' of type 'va_list'."
+    (
+      if element instanceof Parameter
+      then
+        message =
+          "Declaration of parameter '" + element.(Parameter).getName() + "' of type 'va_list'."
+      else
+        message =
+          "Declaration of variable '" + element.(Variable).getName() + "' of type 'va_list'."
+    )
     or
     element instanceof BuiltInVarArgsStart and
     message = "Call to 'va_start'."
