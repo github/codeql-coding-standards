@@ -1,11 +1,12 @@
-#pragma once
+#ifndef _GHLIBCPP_INTTYPES
+#define _GHLIBCPP_INTTYPES
+#include <stdint.h>
 
-typedef signed char int8_t;
-typedef signed short int int16_t;
-typedef signed long int int32_t;
-typedef signed long long int int64_t;
+// String conversion functions
+intmax_t strtoimax(const char *str, char **endptr, int base);
+uintmax_t strtoumax(const char *str, char **endptr, int base);
 
-typedef unsigned char uint8_t;
-typedef unsigned short int uint16_t;
-typedef unsigned long int uint32_t;
-typedef unsigned long long int uint64_t;
+// Wide character versions
+intmax_t wcstoimax(const wchar_t *str, wchar_t **endptr, int base);
+uintmax_t wcstoumax(const wchar_t *str, wchar_t **endptr, int base);
+#endif // _GHLIBCPP_INTTYPES
