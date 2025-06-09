@@ -63,7 +63,12 @@
           "shared_implementation_short_name": "OrderingPredicateMustBeStrictlyWeak",
           "short_name": "ProvideAValidOrderingPredicate",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -82,7 +87,12 @@
           "severity": "error",
           "short_name": "SignalHandlerMustBeAPlainOldFunction",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -101,7 +111,12 @@
           "severity": "error",
           "short_name": "HonorTerminationReplacementHandlerRequirements",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -112,7 +127,12 @@
           "severity": "error",
           "short_name": "HonorNewReplacementHandlerRequirements",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],

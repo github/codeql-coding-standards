@@ -11,6 +11,11 @@
  *       correctness
  *       maintainability
  *       readability
+ *       external/cert/severity/low
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p2
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
@@ -18,6 +23,12 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.types.Compatible
 import ExternalIdentifiers
+
+predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  not f1 = f2 and
+  f1.getDeclaration() = f2.getDeclaration() and
+  f1.getName() = f2.getName()
+}
 
 from ExternalIdentifiers d, FunctionDeclarationEntry f1, FunctionDeclarationEntry f2
 where
@@ -29,10 +40,12 @@ where
   f1.getName() = f2.getName() and
   (
     //return type check
-    not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig>::equalReturnTypes(f1, f2)
+    not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalReturnTypes(f1,
+      f2)
     or
     //parameter type check
-    not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig>::equalParameterTypes(f1, f2)
+    not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalParameterTypes(f1,
+      f2)
   ) and
   // Apply ordering on start line, trying to avoid the optimiser applying this join too early
   // in the pipeline

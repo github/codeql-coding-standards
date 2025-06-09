@@ -9,6 +9,11 @@
  * @tags external/cert/id/con37-c
  *       correctness
  *       concurrency
+ *       external/cert/severity/low
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

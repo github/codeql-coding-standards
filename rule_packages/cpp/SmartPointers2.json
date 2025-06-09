@@ -16,7 +16,10 @@
           "precision": "medium",
           "severity": "warning",
           "short_name": "WeakPtrNotUsedToRepresentTemporarySharedOwnership",
-          "tags": ["correctness", "external/autosar/audit"]
+          "tags": [
+            "correctness",
+            "external/autosar/audit"
+          ]
         }
       ],
       "title": "A std::weak_ptr shall be used to represent temporary shared ownership."
@@ -36,8 +39,14 @@
           "severity": "error",
           "short_name": "OwnedPointerValueStoredInUnrelatedSmartPointerCert",
           "shared_implementation_short_name": "OwnedPointerValueStoredInUnrelatedSmartPointer",
-
-          "tags": ["correctness"]
+          "tags": [
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
+          ]
         }
       ],
       "title": "Do not store an already-owned pointer value in an unrelated smart pointer"
