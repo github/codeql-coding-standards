@@ -1,0 +1,47 @@
+/**
+ * @id cpp/misra/no-conversion-from-bool
+ * @name RULE-7-0-1: There shall be no conversion from type bool
+ * @description Converting a bool type (implicitly or explicitly) to another type can lead to
+ *              unintended behavior and code obfuscation, particularly when using bitwise operators
+ *              instead of logical operators.
+ * @kind problem
+ * @precision very-high
+ * @problem.severity error
+ * @tags external/misra/id/rule-7-0-1
+ *       scope/single-translation-unit
+ *       external/misra/enforcement/decidable
+ *       external/misra/obligation/required
+ */
+
+import cpp
+import codingstandards.cpp.misra
+
+from Expr e, Conversion conv
+where
+  not isExcluded(e, ConversionsPackage::noConversionFromBoolQuery()) and
+  conv = e.getConversion() and
+  conv.getExpr().getType().stripTopLevelSpecifiers() instanceof BoolType and
+  not conv.getType().stripTopLevelSpecifiers() instanceof BoolType and
+  // Exclude cases that are explicitly allowed
+  not (
+    // Exception: equality operators with both bool operands
+    exists(EQExpr eq | 
+      eq.getAnOperand() = e and
+      eq.getLeftOperand().getType().stripTopLevelSpecifiers() instanceof BoolType and
+      eq.getRightOperand().getType().stripTopLevelSpecifiers() instanceof BoolType
+    ) or
+    exists(NEExpr ne | 
+      ne.getAnOperand() = e and
+      ne.getLeftOperand().getType().stripTopLevelSpecifiers() instanceof BoolType and
+      ne.getRightOperand().getType().stripTopLevelSpecifiers() instanceof BoolType
+    ) or
+    // Exception: explicit constructor calls
+    exists(ConstructorCall cc | cc.getAnArgument() = e) or
+    // Exception: assignment to bit-field of length 1
+    exists(AssignExpr assign |
+      assign.getRValue() = e and
+      assign.getLValue().(ValueFieldAccess).getTarget() instanceof BitField and
+      assign.getLValue().(ValueFieldAccess).getTarget().(BitField).getNumBits() = 1
+    )
+  )
+select e, "Conversion from 'bool' to '" + conv.getType().toString() + "'."
