@@ -82,8 +82,74 @@ template <typename MyType> constexpr void test_fix_fp_540(MyType value) {
   value++;
 }
 
-int call_test_fix_fp_540() {
+void call_test_fix_fp_540() {
   test_fix_fp_540<std::uint8_t>(19);
   test_fix_fp_540<std::int16_t>(20);
-  return 0;
+}
+
+char test_char_return() { // COMPLIANT
+  return 'a';
+}
+unsigned char test_unsigned_char_return() { // NON_COMPLIANT
+  return 'b';
+}
+signed char test_signed_char_return() { // NON_COMPLIANT
+  return 'c';
+}
+int test_int_return() { // NON_COMPLIANT
+  return 42;
+}
+unsigned int test_unsigned_int_return() { // NON_COMPLIANT
+  return 43;
+}
+unsigned test_unsigned_return() { // NON_COMPLIANT
+  return 44;
+}
+signed int test_signed_int_return() { // NON_COMPLIANT
+  return 45;
+}
+signed test_signed_return() { // NON_COMPLIANT
+  return 46;
+}
+short test_short_return() { // NON_COMPLIANT
+  return 47;
+}
+unsigned short test_unsigned_short_return() { // NON_COMPLIANT
+  return 48;
+}
+signed short test_signed_short_return() { // NON_COMPLIANT
+  return 49;
+}
+long test_long_return() { // NON_COMPLIANT
+  return 50;
+}
+unsigned long test_unsigned_long_return() { // NON_COMPLIANT
+  return 51;
+}
+signed long test_signed_long_return() { // NON_COMPLIANT
+  return 52;
+}
+std::int8_t test_int8_t_return() { // COMPLIANT
+  return 53;
+}
+std::int16_t test_int16_t_return() { // COMPLIANT
+  return 54;
+}
+std::int32_t test_int32_t_return() { // COMPLIANT
+  return 55;
+}
+std::int64_t test_int64_t_return() { // COMPLIANT
+  return 56;
+}
+std::uint8_t test_uint8_t_return() { // COMPLIANT
+  return 57;
+}
+std::uint16_t test_uint16_t_return() { // COMPLIANT
+  return 58;
+}
+std::uint32_t test_uint32_t_return() { // COMPLIANT
+  return 59;
+}
+std::uint64_t test_uint64_t_return() { // COMPLIANT
+  return 60;
 }
