@@ -93,7 +93,8 @@
           ],
           "implementation_scope": {
             "description": "This implementation excludes the plain char type from consideration."
-          }
+          },
+          "shared_implementation_short_name": "VariableWidthIntegerTypesUsed"
         },
         {
           "description": "The basic numerical type char is not supposed to be used. The specific-length types from <cstdint> header need be used instead.",
