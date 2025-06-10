@@ -25,22 +25,18 @@ where
   // Exclude cases that are explicitly allowed
   not (
     // Exception: equality operators with both bool operands
-    exists(EQExpr eq | 
+    exists(EqualityOperation eq |
       eq.getAnOperand() = e and
       eq.getLeftOperand().getType().stripTopLevelSpecifiers() instanceof BoolType and
       eq.getRightOperand().getType().stripTopLevelSpecifiers() instanceof BoolType
-    ) or
-    exists(NEExpr ne | 
-      ne.getAnOperand() = e and
-      ne.getLeftOperand().getType().stripTopLevelSpecifiers() instanceof BoolType and
-      ne.getRightOperand().getType().stripTopLevelSpecifiers() instanceof BoolType
-    ) or
+    )
+    or
     // Exception: explicit constructor calls
-    exists(ConstructorCall cc | cc.getAnArgument() = e) or
+    exists(ConstructorCall cc | cc.getAnArgument() = e)
+    or
     // Exception: assignment to bit-field of length 1
     exists(AssignExpr assign |
       assign.getRValue() = e and
-      assign.getLValue().(ValueFieldAccess).getTarget() instanceof BitField and
       assign.getLValue().(ValueFieldAccess).getTarget().(BitField).getNumBits() = 1
     )
   )
