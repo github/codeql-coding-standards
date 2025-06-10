@@ -179,6 +179,27 @@
         }
       ],
       "title": "The setlocale and std::locale::global functions shall not be called"
+    },
+    "RULE-6-9-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using standard signed and unsigned integer type names instead of specified width types makes storage requirements unclear and implementation-dependent.",
+          "kind": "problem",
+          "name": "The names of the standard signed integer types and standard unsigned integer types should not be",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AvoidStandardIntegerTypeNames",
+          "shared_implementation_short_name": "VariableWidthIntegerTypesUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The names of the standard signed integer types and standard unsigned integer types should not be used"
     }
   }
 }

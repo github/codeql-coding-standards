@@ -12,7 +12,8 @@ newtype BannedAPIsQuery =
   TUseSmartPtrFactoryFunctionsQuery() or
   TCharacterHandlingFunctionRestrictionsQuery() or
   TNoMemoryFunctionsFromCStringQuery() or
-  TLocaleGlobalFunctionNotAllowedQuery()
+  TLocaleGlobalFunctionNotAllowedQuery() or
+  TAvoidStandardIntegerTypeNamesQuery()
 
 predicate isBannedAPIsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -95,6 +96,15 @@ predicate isBannedAPIsQueryMetadata(Query query, string queryId, string ruleId, 
     "cpp/misra/locale-global-function-not-allowed" and
   ruleId = "RULE-25-5-1" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `avoidStandardIntegerTypeNames` query
+    BannedAPIsPackage::avoidStandardIntegerTypeNamesQuery() and
+  queryId =
+    // `@id` for the `avoidStandardIntegerTypeNames` query
+    "cpp/misra/avoid-standard-integer-type-names" and
+  ruleId = "RULE-6-9-2" and
+  category = "advisory"
 }
 
 module BannedAPIsPackage {
@@ -159,5 +169,12 @@ module BannedAPIsPackage {
     result =
       // `Query` type for `localeGlobalFunctionNotAllowed` query
       TQueryCPP(TBannedAPIsPackageQuery(TLocaleGlobalFunctionNotAllowedQuery()))
+  }
+
+  Query avoidStandardIntegerTypeNamesQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `avoidStandardIntegerTypeNames` query
+      TQueryCPP(TBannedAPIsPackageQuery(TAvoidStandardIntegerTypeNamesQuery()))
   }
 }
