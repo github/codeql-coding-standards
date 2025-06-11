@@ -9,6 +9,7 @@ std::uint8_t g4 = 20;
 std::int16_t g5 = 100;
 std::int32_t g6 = 200;
 bool g7 = true;
+std::int32_t g8[5] = {1, 2, 3, 4, 5};
 
 // Function declarations
 std::int32_t f1();
@@ -28,6 +29,12 @@ class TestClassImplicit {
 
 public:
   operator bool() const { return m1 < 0; } // Implicit conversion
+};
+
+// Class with member function pointer
+class TestClassMemberFunc {
+public:
+  void memberFunc() {}
 };
 
 // Bit-field struct for exception #3
@@ -96,12 +103,32 @@ void test_while_loops() {
   }
 }
 
+void test_do_while_loops() {
+  std::int32_t l1 = 5;
+  bool l2 = true;
+
+  do {
+    --l1;
+  } while (l1); // NON_COMPLIANT
+
+  do {
+    --l1;
+  } while (l2); // COMPLIANT
+
+  do {
+    --l1;
+  } while (l1 > 0); // COMPLIANT
+}
+
 void test_pointer_conversions() {
   if (f3()) { // COMPLIANT - exception #2
   }
 
   bool l1 = f3();            // NON_COMPLIANT
   bool l2 = f3() != nullptr; // COMPLIANT
+
+  if (nullptr) { // NON_COMPLIANT
+  }
 }
 
 void test_assignment_to_bool() {
@@ -111,7 +138,7 @@ void test_assignment_to_bool() {
   bool l4 = g7;                   // COMPLIANT
 }
 
-void test_class_with_explicit_bool_operator() {
+void test_classes_with_bool_operators() {
   TestClassExplicit l1;
 
   bool l2 = static_cast<bool>(l1); // COMPLIANT - exception #1
@@ -142,4 +169,46 @@ void test_scoped_enum_conversion() {
   Status l1 = Status::ACTIVE;
 
   bool l2 = (l1 == Status::ACTIVE); // COMPLIANT
+}
+
+void test_floating_point_conversion() {
+  float l1 = 3.14f;
+  double l2 = 2.71;
+  long double l3 = 1.41L;
+
+  bool l4 = l1; // NON_COMPLIANT
+  bool l5 = l2; // NON_COMPLIANT
+  bool l6 = l3; // NON_COMPLIANT
+  if (l1) {     // NON_COMPLIANT
+  }
+  if (l2) { // NON_COMPLIANT
+  }
+  if (l3) { // NON_COMPLIANT
+  }
+  bool l7 = (l1 > 0.0f); // COMPLIANT
+  bool l8 = (l2 != 0.0); // COMPLIANT
+}
+
+void test_array_conversion() {
+  std::int32_t l1[5] = {1, 2, 3, 4, 5};
+
+  if (l1) { // NON_COMPLIANT
+  }
+  if (g8) { // NON_COMPLIANT
+  }
+  bool l2 = l1;              // NON_COMPLIANT
+  bool l3 = (l1 != nullptr); // COMPLIANT
+}
+
+void test_member_function_pointer_conversion() {
+  void (TestClassMemberFunc::*l1)() = &TestClassMemberFunc::memberFunc;
+  void (TestClassMemberFunc::*l2)() = nullptr;
+
+  if (l1) { // COMPLIANT - exception #2
+  }
+  if (l2) { // COMPLIANT - exception #2
+  }
+  bool l3 = l1;              // NON_COMPLIANT
+  bool l4 = l2;              // NON_COMPLIANT
+  bool l5 = (l1 != nullptr); // COMPLIANT
 }

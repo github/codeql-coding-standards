@@ -41,6 +41,12 @@ predicate isBitFieldOfSizeOne(Expr expr) {
   )
 }
 
+predicate isPointerType(Type t) {
+  t.getUnspecifiedType() instanceof PointerType or
+  t.getUnspecifiedType() instanceof ArrayType or
+  t.getUnspecifiedType() instanceof PointerToMemberType
+}
+
 from Element e, string reason
 where
   not isExcluded(e, ConversionsPackage::noImplicitBoolConversionQuery()) and
@@ -52,7 +58,7 @@ where
       not conv.getExpr().getType().getUnspecifiedType() instanceof BoolType and
       // Exception 2: Contextual conversion from pointer
       not (
-        conv.getExpr().getType().getUnspecifiedType() instanceof PointerType and
+        isPointerType(conv.getExpr().getType()) and
         isInContextualBoolContext(conv.getExpr())
       ) and
       // Exception 3: Bit-field of size 1
