@@ -1,0 +1,15 @@
+| test.cpp:46:20:46:28 | (bool)... | Conversion from 'int' to 'bool'. |
+| test.cpp:50:7:50:7 | (bool)... | Conversion from 'int' to 'bool'. |
+| test.cpp:52:7:52:8 | (bool)... | Conversion from 'uint8_t' to 'bool'. |
+| test.cpp:54:8:54:8 | (bool)... | Conversion from 'int' to 'bool'. |
+| test.cpp:58:7:58:8 | (bool)... | Conversion from 'uint8_t' to 'bool'. |
+| test.cpp:69:8:69:9 | (bool)... | Conversion from 'int16_t' to 'bool'. |
+| test.cpp:78:20:78:21 | (bool)... | Conversion from 'int32_t' to 'bool'. |
+| test.cpp:84:31:84:32 | (bool)... | Conversion from 'int32_t' to 'bool'. |
+| test.cpp:92:30:92:31 | (bool)... | Conversion from 'int32_t' to 'bool'. |
+| test.cpp:103:13:103:16 | (bool)... | Conversion from 'int32_t *' to 'bool'. |
+| test.cpp:108:13:108:32 | static_cast<bool>... | Conversion from 'int' to 'bool'. |
+| test.cpp:109:13:109:14 | (bool)... | Conversion from 'uint8_t' to 'bool'. |
+| test.cpp:121:13:121:13 | call to operator bool | Conversion operator call from 'TestClassImplicit' to 'bool'. |
+| test.cpp:134:13:134:14 | (bool)... | Conversion from 'Color' to 'bool'. |
+| test.cpp:135:7:135:8 | (bool)... | Conversion from 'Color' to 'bool'. |
