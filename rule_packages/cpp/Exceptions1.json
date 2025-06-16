@@ -502,7 +502,12 @@
           "shared_implementation_short_name": "ConditionVariablePostConditionFailed",
           "tags": [
             "correctness",
-            "external/cert/audit"
+            "external/cert/audit",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -513,7 +518,12 @@
           "short_name": "JoinableThreadCopiedOrDestroyedCert",
           "shared_implementation_short_name": "JoinableThreadCopiedOrDestroyed",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -525,7 +535,12 @@
           "short_name": "RethrowNestedWithoutCaptureCert",
           "shared_implementation_short_name": "RethrowNestedWithoutCapture",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -537,7 +552,12 @@
           "short_name": "ExplicitAbruptTerminationCert",
           "shared_implementation_short_name": "ExplicitAbruptTermination",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -549,7 +569,12 @@
           "short_name": "ExitHandlerThrowsExceptionCert",
           "shared_implementation_short_name": "ExitHandlerThrowsException",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -568,7 +593,12 @@
           "kind": "path-problem",
           "short_name": "HandleAllExceptions",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -587,7 +617,12 @@
           "shared_implementation_short_name": "DestroyedValueReferencedInDestructorCatchBlock",
           "short_name": "DestroyedValueReferencedInConstructorDestructorCatchBlock",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -606,7 +641,12 @@
           "kind": "path-problem",
           "short_name": "HonorExceptionSpecifications",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p9",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -626,7 +666,12 @@
           "shared_implementation_short_name": "HandleAllExceptionsDuringStartup",
           "short_name": "HandleAllExceptionsThrownBeforeMainBeginsExecuting",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p9",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -644,7 +689,12 @@
           "severity": "error",
           "short_name": "ExceptionObjectsMustBeNothrowCopyConstructible",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -663,7 +713,12 @@
           "shared_implementation_short_name": "CatchExceptionsByLvalueReference",
           "short_name": "CatchExceptionsByLvalueReference",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],

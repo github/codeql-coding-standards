@@ -14,7 +14,12 @@
           "short_name": "DoNotCopyAFileObject",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -34,7 +39,12 @@
           "short_name": "ResetStringsOnFgetsOrFgetwsFailure",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -53,7 +63,12 @@
           "severity": "error",
           "short_name": "DoNotCallGetcAndPutcWithSideEffects",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -72,7 +87,12 @@
           "severity": "error",
           "short_name": "OnlyUseValuesForFsetposThatAreReturnedFromFgetpos",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],

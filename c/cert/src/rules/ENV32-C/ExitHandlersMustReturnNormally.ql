@@ -8,6 +8,11 @@
  * @problem.severity error
  * @tags external/cert/id/env32-c
  *       correctness
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p12
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 

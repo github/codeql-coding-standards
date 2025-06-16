@@ -13,7 +13,12 @@
           "severity": "error",
           "short_name": "ExitHandlersMustReturnNormally",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p12",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -33,7 +38,12 @@
           "short_name": "DoNotStorePointersReturnedByEnvFunctions",
           "shared_implementation_short_name": "InvalidatedEnvStringPointers",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -45,7 +55,12 @@
           "short_name": "DoNotStorePointersReturnedByEnvironmentFunWarn",
           "shared_implementation_short_name": "InvalidatedEnvStringPointersWarn",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],

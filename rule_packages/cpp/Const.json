@@ -251,7 +251,12 @@
           "shared_implementation_short_name": "RemoveConstOrVolatileQualification",
           "short_name": "RemoveConstOrVolatileQualificationCert",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
