@@ -1,6 +1,7 @@
 import cpp
 import codeql.util.Boolean
 import codingstandards.cpp.types.Graph
+import codingstandards.cpp.types.FunctionType
 
 module TypeNamesMatchConfig implements TypeEquivalenceSig {
   predicate resolveTypedefs() {
@@ -519,24 +520,6 @@ module FunctionDeclarationTypeEquivalence<
     f1.getDeclaration() = f2.getDeclaration() and
     TypeEquivalence<Config, interestedInParameterTypes/2>::equalTypes(f1.getParameterDeclarationEntry(pragma[only_bind_into](i))
           .getType(), f2.getParameterDeclarationEntry(pragma[only_bind_into](i)).getType())
-  }
-}
-
-/**
- * Convenience class to reduce the awkwardness of how `RoutineType` and `FunctionPointerIshType`
- * don't have a common ancestor.
- */
-private class FunctionType extends Type {
-  FunctionType() { this instanceof RoutineType or this instanceof FunctionPointerIshType }
-
-  Type getReturnType() {
-    result = this.(RoutineType).getReturnType() or
-    result = this.(FunctionPointerIshType).getReturnType()
-  }
-
-  Type getParameterType(int i) {
-    result = this.(RoutineType).getParameterType(i) or
-    result = this.(FunctionPointerIshType).getParameterType(i)
   }
 }
 
