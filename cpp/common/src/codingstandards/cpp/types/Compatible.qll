@@ -522,3 +522,11 @@ module FunctionDeclarationTypeEquivalence<
           .getType(), f2.getParameterDeclarationEntry(pragma[only_bind_into](i)).getType())
   }
 }
+
+private class LeafType extends Type {
+  LeafType() {
+    not this instanceof DerivedType and
+    not this instanceof FunctionType and
+    not this instanceof FunctionType
+  }
+}
