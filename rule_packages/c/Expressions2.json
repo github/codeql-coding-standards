@@ -13,7 +13,13 @@
           "severity": "error",
           "short_name": "DoNotCompareFunctionPointersToConstantValues",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/obligation/recommendation",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
