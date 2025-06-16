@@ -11,7 +11,7 @@
  *       external/cert/obligation/recommendation
  *       external/cert/severity/low
  *       external/cert/likelihood/likely
- *       external/cert/remediation-cost/
+ *       external/cert/remediation-cost/medium
  *       external/cert/priority/p6
  *       external/cert/level/l2
  *       external/cert/obligation/recommendation
