@@ -101,6 +101,7 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
     context = "initialization"
   )
   or
+  // Passing a function parameter by value
   exists(Call call, int i |
     call.getArgument(i) = source and
     not targetType.stripTopLevelSpecifiers() instanceof ReferenceType and

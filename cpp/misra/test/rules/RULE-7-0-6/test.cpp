@@ -351,12 +351,12 @@ void f13(std::uint16_t &l1) {}
 
 void f14(std::uint32_t l1) {}
 
-void test_references() {
+void test_references_to_parameters() {
   std::uint8_t l1 = 42;
   std::uint16_t l2 = 1000;
 
-  f13(l1); // COMPLIANT - exact match
-  f13(l2); // COMPLIANT - exact match
+  f13(l1); // COMPLIANT - not covered by rule, as pass-by-ref
+  f13(l2); // COMPLIANT - not covered by rule, as pass-by-ref
 
   std::uint16_t &l3 = l2;
   f14(l3); // NON_COMPLIANT - must be the same type, as non-overload-independent
