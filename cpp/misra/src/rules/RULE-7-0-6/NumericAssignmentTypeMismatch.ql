@@ -194,8 +194,8 @@ class IdExpression extends VariableAccess {
       // Member variable, but the qualifier is not explicit
       this.getQualifier().isCompilerGenerated()
     ) and
-    // No name qualifiers
-    not exists(NameQualifier qual | qual.getExpr() = this)
+    // Not an id-expression if it's an explicit conversion
+    not this.hasExplicitConversion()
   }
 }
 
