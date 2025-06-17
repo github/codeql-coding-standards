@@ -54,26 +54,17 @@ class NumericType extends Type {
 }
 
 predicate isAssignment(Expr source, NumericType targetType, string context) {
-  // Assignment operator (but not compound assignment)
+  // Assignment expression (which excludes compound assignments)
   exists(AssignExpr assign |
     assign.getRValue() = source and
     context = "assignment"
   |
-    // TODO generalize to variable init (do we need this for bitfields?) and extract
     if isAssignedToBitfield(source, _)
     then
+      // For the MISRA type rules we treat bit fields as a special case
       exists(BitField bf |
         isAssignedToBitfield(source, bf) and
-        // TODO integral after numeric?
-        targetType.(IntegralType).(NumericType).getSignedness() =
-          bf.getType().(NumericType).getSignedness() and
-        // smallest integral type that can hold the bit field value
-        targetType.getRealSize() * 8 >= bf.getNumBits() and
-        not exists(IntegralType other |
-          other.getSize() * 8 >= bf.getNumBits() and
-          other.(NumericType).getSignedness() = targetType.getSignedness() and
-          other.getSize() < targetType.getRealSize()
-        )
+        targetType = getBitFieldType(bf)
       )
     else targetType = assign.getLValue().getType()
   )
@@ -82,8 +73,14 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
   exists(Variable v, Initializer init |
     init.getExpr() = source and
     v.getInitializer() = init and
-    targetType = v.getType() and
     context = "initialization"
+  |
+    // For the MISRA type rules we treat bit fields as a special case
+    if v instanceof BitField
+    then targetType = getBitFieldType(v)
+    else
+      // Regular variable initialization
+      targetType = v.getType()
   )
   or
   // Passing a function parameter by value
@@ -117,6 +114,30 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
   )
 }
 
+/**
+ * Gets the smallest integral type that can hold the value of a bit field.
+ *
+ * The type is determined by the signedness of the bit field and the number of bits.
+ */
+NumericType getBitFieldType(BitField bf) {
+  exists(NumericType bitfieldActualType |
+    bitfieldActualType = bf.getType() and
+    // Integral type with the same signedness as the bit field, and big enough to hold the bit field value
+    result instanceof IntegralType and
+    result.getSignedness() = bitfieldActualType.getSignedness() and
+    result.getSize() * 8 >= bf.getNumBits() and
+    // No smaller integral type can hold the bit field value
+    not exists(IntegralType other |
+      other.getSize() * 8 >= bf.getNumBits() and
+      other.(NumericType).getSignedness() = result.getSignedness() and
+      other.getSize() < result.getRealSize()
+    )
+  )
+}
+
+/**
+ * Holds if the `source` expression is assigned to a bit field.
+ */
 predicate isAssignedToBitfield(Expr source, BitField bf) {
   exists(Assignment assign |
     assign.getRValue() = source and
