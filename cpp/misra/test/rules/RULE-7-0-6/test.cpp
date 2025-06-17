@@ -270,3 +270,93 @@ void test_switch_cases() {
     //      break;
   }
 }
+
+// Test reference types - references to numeric types are considered numeric
+void test_reference_types_basic() {
+  std::uint8_t l1 = 42;
+  std::uint32_t l2 = 100;
+  std::int8_t l3 = -5;
+  float l4 = 3.14f;
+
+  std::uint8_t &l5 = l1;  // COMPLIANT
+  std::uint32_t &l6 = l2; // COMPLIANT
+  std::int8_t &l7 = l3;   // COMPLIANT
+  float &l8 = l4;         // COMPLIANT
+
+  // Reference types follow same rules as their referred types
+  u32 = l5; // COMPLIANT - widening of id-expression (reference)
+  u8 = l6;  // NON_COMPLIANT - narrowing from reference
+  u8 = l7;  // NON_COMPLIANT - different signedness from reference
+  s32 = l8; // NON_COMPLIANT - different type category from reference
+}
+
+void test_reference_types_function_parameters() {
+  std::uint8_t l1 = 42;
+  std::uint16_t l2 = 1000;
+
+  std::uint8_t &l3 = l1;
+  std::uint16_t &l4 = l2;
+
+  // Function calls with reference arguments
+  f1(l3); // NON_COMPLIANT - widening conversion through reference
+  f2(l4); // NON_COMPLIANT - narrowing conversion through reference
+}
+
+void test_reference_types_signedness() {
+  std::uint8_t l1 = 42;
+  std::int8_t l2 = -5;
+
+  std::uint8_t &l3 = l1;
+  std::int8_t &l4 = l2;
+
+  // Signedness violations through references
+  s8 = l3; // NON_COMPLIANT - different signedness through reference
+  u8 = l4; // NON_COMPLIANT - different signedness through reference
+}
+
+void test_reference_types_floating_point() {
+  float l1 = 3.14f;
+  double l2 = 2.718;
+  std::int32_t l3 = 42;
+
+  float &l4 = l1;
+  double &l5 = l2;
+  std::int32_t &l6 = l3;
+
+  // Type category violations through references
+  s32 = l4; // NON_COMPLIANT - different type category through reference
+  f = l5;   // NON_COMPLIANT - different size through reference
+  f = l6;   // NON_COMPLIANT - different type category through reference
+}
+
+void test_reference_types_expressions() {
+  std::uint8_t l1 = 42;
+  std::uint8_t l2 = 24;
+
+  std::uint8_t &l3 = l1;
+  std::uint8_t &l4 = l2;
+
+  // Expression results with references still follow expression rules
+  u8 = l3 + l4;  // NON_COMPLIANT - addition promotes to int
+  s32 = l3 + l4; // COMPLIANT - promotion to int
+}
+
+// Test reference parameters in functions
+void f13(std::uint8_t &l1) {}
+void f13(std::uint16_t &l1) {}
+
+void f14(std::uint32_t l1) {}
+
+void test_references() {
+  std::uint8_t l1 = 42;
+  std::uint16_t l2 = 1000;
+
+  f13(l1); // COMPLIANT - exact match
+  f13(l2); // COMPLIANT - exact match
+
+  std::uint16_t &l3 = l2;
+  f14(l3); // NON_COMPLIANT - must be the same type, as non-overload-independent
+  std::uint64_t l4 = 1000;
+  std::uint64_t &l5 = l4;
+  f14(l5); // NON_COMPLIANT - narrowing conversion through reference
+}

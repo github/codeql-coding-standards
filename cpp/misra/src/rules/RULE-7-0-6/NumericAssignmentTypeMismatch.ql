@@ -43,6 +43,7 @@ class NumericType extends Type {
   Type realType;
 
   NumericType() {
+    realType = this.getUnspecifiedType().(ReferenceType).getBaseType().(NumericType).getRealType() or
     realType = this.getUnspecifiedType().(IntegralType) or
     realType = this.getUnspecifiedType().(FloatingPointType) or
     realType = this.getUnspecifiedType().(Enum).getExplicitUnderlyingType().getUnspecifiedType()
@@ -51,6 +52,8 @@ class NumericType extends Type {
   Signedness getSignedness() {
     if realType.(IntegralType).isUnsigned() then result = Unsigned() else result = Signed()
   }
+
+  int getRealSize() { result = realType.getSize() }
 
   TypeCategory getTypeCategory() {
     realType instanceof IntegralType and result = Integral()
@@ -76,14 +79,15 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
     then
       exists(BitField bf |
         isAssignedToBitfield(source, bf) and
+        // TODO integral after numeric?
         targetType.(IntegralType).(NumericType).getSignedness() =
           bf.getType().(NumericType).getSignedness() and
         // smallest integral type that can hold the bit field value
-        targetType.getSize() * 8 >= bf.getNumBits() and
+        targetType.getRealSize() * 8 >= bf.getNumBits() and
         not exists(IntegralType other |
           other.getSize() * 8 >= bf.getNumBits() and
           other.(NumericType).getSignedness() = targetType.getSignedness() and
-          other.getSize() < targetType.getSize()
+          other.getSize() < targetType.getRealSize()
         )
       )
     else targetType = assign.getLValue().getType()
@@ -159,7 +163,7 @@ predicate isValidTypeMatch(NumericType sourceType, NumericType targetType) {
   // Same type category, signedness and size
   sourceType.getTypeCategory() = targetType.getTypeCategory() and
   sourceType.getSignedness() = targetType.getSignedness() and
-  sourceType.getSize() = targetType.getSize()
+  sourceType.getRealSize() = targetType.getRealSize()
 }
 
 predicate hasConstructorException(FunctionCall call) {
@@ -209,7 +213,7 @@ predicate isValidWidening(Expr source, NumericType sourceType, NumericType targe
   ) and
   sourceType.getTypeCategory() = targetType.getTypeCategory() and
   sourceType.getSignedness() = targetType.getSignedness() and
-  sourceType.getSize() < targetType.getSize()
+  sourceType.getRealSize() < targetType.getRealSize()
 }
 
 /**
