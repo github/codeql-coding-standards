@@ -360,3 +360,24 @@ void test_references() {
   std::uint64_t &l5 = l4;
   f14(l5); // NON_COMPLIANT - narrowing conversion through reference
 }
+
+// Test compound assignments - rule does not apply to compound assignments
+void test_compound_assignments() {
+  std::uint8_t l1 = 10;
+  std::uint16_t l2 = 100;
+  std::int8_t l3 = 5;
+  float l4 = 1.5f;
+
+  l1 += l2;  // COMPLIANT - compound assignment, rule does not apply
+  l1 -= l3;  // COMPLIANT - compound assignment, rule does not apply
+  l2 *= l1;  // COMPLIANT - compound assignment, rule does not apply
+  l2 /= l3;  // COMPLIANT - compound assignment, rule does not apply
+  l1 %= l3;  // COMPLIANT - compound assignment, rule does not apply
+  l2 &= l1;  // COMPLIANT - compound assignment, rule does not apply
+  l2 |= l3;  // COMPLIANT - compound assignment, rule does not apply
+  l2 ^= l1;  // COMPLIANT - compound assignment, rule does not apply
+  l2 <<= 2;  // COMPLIANT - compound assignment, rule does not apply
+  l2 >>= 1;  // COMPLIANT - compound assignment, rule does not apply
+  l4 += l1;  // COMPLIANT - compound assignment, rule does not apply
+  l4 -= s32; // COMPLIANT - compound assignment, rule does not apply
+}

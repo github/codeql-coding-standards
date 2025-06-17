@@ -69,8 +69,8 @@ class NumericType extends Type {
 }
 
 predicate isAssignment(Expr source, NumericType targetType, string context) {
-  // Assignment operator
-  exists(Assignment assign |
+  // Assignment operator (but not compound assignment)
+  exists(AssignExpr assign |
     assign.getRValue() = source and
     context = "assignment"
   |
@@ -191,7 +191,7 @@ predicate hasConstructorException(FunctionCall call) {
  */
 class IdExpression extends VariableAccess {
   IdExpression() {
-    // Not a member variable
+    // Not a member variable access (no dot or arrow)
     (
       not exists(this.getQualifier())
       or
