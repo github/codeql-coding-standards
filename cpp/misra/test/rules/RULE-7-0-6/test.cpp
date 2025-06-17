@@ -255,6 +255,10 @@ std::int32_t f12(std::int8_t l1) {
   return l1;                // COMPLIANT
 }
 
+std::int32_t test_return() {
+  return u32; // NON_COMPLIANT - wrong signedness
+}
+
 // Test switch cases
 void test_switch_cases() {
   switch (s8) {
