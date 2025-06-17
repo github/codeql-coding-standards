@@ -2,58 +2,58 @@
 #include <string>
 
 // Global variables for testing
-std::uint32_t g1;
-std::int32_t g2;
-std::uint8_t g3;
-std::int8_t g4;
-std::uint16_t g5;
-std::int16_t g6;
-std::uint64_t g7;
-std::int64_t g8;
-float g9;
-double g10;
+std::uint32_t u32;
+std::int32_t s32;
+std::uint8_t u8;
+std::int8_t s8;
+std::uint16_t u16;
+std::int16_t s16;
+std::uint64_t u64;
+std::int64_t s64;
+float f;
+double d;
 
 // Test basic constant assignments
 void test_constant_assignments() {
-  g1 = 1;          // COMPLIANT
-  g2 = 4u * 2u;    // COMPLIANT
-  g3 = 3u;         // COMPLIANT
-  g3 = 300u;       // NON_COMPLIANT
-  g9 = 1;          // COMPLIANT
-  g9 = 9999999999; // COMPLIANT
-  g10 = 0.0f;      // NON_COMPLIANT
-  g9 = 0.0f;       // COMPLIANT
+  u32 = 1;          // COMPLIANT
+  s32 = 4u * 2u;    // COMPLIANT
+  u8 = 3u;         // COMPLIANT
+  u8 = 300u;       // NON_COMPLIANT
+  f = 1;          // COMPLIANT
+  f = 9999999999; // COMPLIANT
+  d = 0.0f;      // NON_COMPLIANT
+  f = 0.0f;       // COMPLIANT
 }
 
 // Test signedness violations
 void test_signedness_violations() {
-  g3 = g4; // NON_COMPLIANT
-  g4 = g3; // NON_COMPLIANT
+  u8 = s8; // NON_COMPLIANT
+  s8 = u8; // NON_COMPLIANT
 }
 
 // Test size violations
 void test_size_violations() {
-  g3 = g5; // NON_COMPLIANT
-  g5 = g7; // NON_COMPLIANT
+  u8 = u16; // NON_COMPLIANT
+  u16 = u64; // NON_COMPLIANT
 }
 
 // Test type category violations
 void test_type_category_violations() {
-  g9 = g2; // NON_COMPLIANT
-  g2 = g9; // NON_COMPLIANT
+  f = s32; // NON_COMPLIANT
+  s32 = f; // NON_COMPLIANT
 }
 
 // Test widening of id-expressions
 void test_widening_id_expressions() {
-  g1 = g3; // COMPLIANT
-  g8 = g4; // COMPLIANT
-  g7 = g5; // COMPLIANT
+  u32 = u8; // COMPLIANT
+  s64 = s8; // COMPLIANT
+  u64 = u16; // COMPLIANT
 }
 
 // Test expression results
 void test_expression_results() {
-  g3 = g3 + g3;              // NON_COMPLIANT
-  std::int16_t l1 = g4 + g4; // NON_COMPLIANT
+  u8 = u8 + u8;              // NON_COMPLIANT
+  std::int16_t l1 = s8 + s8; // NON_COMPLIANT
 }
 
 // Test bit-fields
@@ -65,8 +65,8 @@ void test_bitfields() {
   S l1;
   l1.m1 = 2;   // COMPLIANT
   l1.m1 = 32u; // NON_COMPLIANT
-  l1.m1 = g3;  // COMPLIANT
-  l1.m1 = g5;  // NON_COMPLIANT
+  l1.m1 = u8;  // COMPLIANT
+  l1.m1 = u16;  // NON_COMPLIANT
 }
 
 // Test enums
@@ -76,11 +76,11 @@ enum States { enabled, disabled };
 
 void test_enums() {
   Colour l1 = red;
-  g3 = red;     // COMPLIANT
-  g1 = red;     // COMPLIANT
-  g3 = l1;      // NON_COMPLIANT
-  g1 = l1;      // COMPLIANT
-  g3 = enabled; // COMPLIANT - enabled is not numeric
+  u8 = red;     // COMPLIANT
+  u32 = red;     // COMPLIANT
+  u8 = l1;      // NON_COMPLIANT
+  u32 = l1;      // COMPLIANT
+  u8 = enabled; // COMPLIANT - enabled is not numeric
 }
 
 // Test function parameters - non-overload-independent
@@ -88,10 +88,10 @@ void f1(std::int64_t l1) {}
 void f2(std::int32_t l1) {}
 
 void test_function_parameters_non_overload_independent() {
-  f1(g2); // NON_COMPLIANT
-  f1(g8); // COMPLIANT
-  f2(g2); // COMPLIANT
-  f2(g8); // NON_COMPLIANT
+  f1(s32); // NON_COMPLIANT
+  f1(s64); // COMPLIANT
+  f2(s32); // COMPLIANT
+  f2(s64); // NON_COMPLIANT
   int l1 = 42;
   f2(l1); // NON_COMPLIANT - needs to be the same type as the parameter
   signed int l2 = 42;
@@ -105,9 +105,9 @@ void f3(std::int64_t l1) {}
 void f3(std::int32_t l1) {}
 
 void test_overloaded_functions() {
-  f3(g2); // COMPLIANT
-  f3(g4); // NON_COMPLIANT
-  f3(g8); // COMPLIANT
+  f3(s32); // COMPLIANT
+  f3(s8); // NON_COMPLIANT
+  f3(s64); // COMPLIANT
 }
 
 // Test function pointers - always "overload-independent"
@@ -123,8 +123,8 @@ void test_function_pointers() {
 void f5(const char *l1, ...) {}
 
 void test_variadic_functions() {
-  f5("test", g3); // NON_COMPLIANT - will be promoted to `int`
-  f5("test", g2); // COMPLIANT - already `int`, no promotion needed
+  f5("test", u8); // NON_COMPLIANT - will be promoted to `int`
+  f5("test", s32); // COMPLIANT - already `int`, no promotion needed
 }
 
 // Test member function calls - not overload-independent
@@ -135,11 +135,11 @@ struct A {
 };
 
 void A::f7() {
-  f6(g1, "answer");       // NON_COMPLIANT - extensible, could call a global
+  f6(u32, "answer");       // NON_COMPLIANT - extensible, could call a global
                           // function instead - e.g. `void f6(std::uint32_t l1,
                           // std::string l2)`
-  this->f6(g1, "answer"); // COMPLIANT
-  this->f6(g1, 42);       // COMPLIANT
+  this->f6(u32, "answer"); // COMPLIANT
+  this->f6(u32, 42);       // COMPLIANT
 }
 
 void test_member_function_overload_independent() {
@@ -169,8 +169,8 @@ struct MyInt {
 void f9(MyInt l1) {}
 
 void test_constructor_exception() {
-  f9(MyInt{g4}); // COMPLIANT
-  MyInt l1{g4};  // COMPLIANT
+  f9(MyInt{s8}); // COMPLIANT
+  MyInt l1{s8};  // COMPLIANT
 }
 
 // Test template functions - not overload-independent
@@ -202,7 +202,7 @@ std::int32_t f12(std::int8_t l1) {
 
 // Test switch cases
 void test_switch_cases() {
-  switch (g4) {
+  switch (s8) {
   case 1: // COMPLIANT
     break;
   case 0x7F: // COMPLIANT
