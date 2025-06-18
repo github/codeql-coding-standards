@@ -27,8 +27,16 @@ predicate isValidConstantAssignment(Expr source, NumericType targetType) {
     exists(BitField bf, int numBits |
       isAssignedToBitfield(source, bf) and
       numBits = bf.getNumBits() and
-      val >= 0 and
-      val < 2.pow(numBits)
+      if targetType.getSignedness() = Signed()
+      then
+        // Signed bit field: value must be in the range of signed bit field
+        val >= -2.pow(numBits - 1) and
+        val < 2.pow(numBits - 1)
+      else (
+        // Unsigned bit field: value must be in the range of unsigned bit field
+        val >= 0 and
+        val < 2.pow(numBits)
+      )
     )
     or
     // Regular assignment: check if the value fits in the target type range

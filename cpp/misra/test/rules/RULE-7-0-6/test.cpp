@@ -111,17 +111,105 @@ void test_expression_results() {
   std::int16_t l1 = s8 + s8; // NON_COMPLIANT
 }
 
-// Test bit-fields
+// Test bit-fields with various sizes around boundaries
 struct S {
-  std::uint32_t m1 : 2;
+  std::uint32_t m1 : 2;  // 2-bit field
+  std::uint32_t m2 : 8;  // 8-bit field (boundary)
+  std::uint32_t m3 : 9;  // 9-bit field (boundary + 1)
+  std::uint32_t m4 : 16; // 16-bit field (boundary)
+  std::uint32_t m5 : 17; // 17-bit field (boundary + 1)
+  std::uint32_t m6 : 32; // 32-bit field (boundary)
+  std::uint64_t m7 : 33; // 33-bit field (boundary + 1)
+  std::int32_t m8 : 5;   // Signed 5-bit field
+  std::int32_t m9 : 12;  // Signed 12-bit field
+  std::int32_t m10 : 28; // Signed 28-bit field
 };
 
 void test_bitfields() {
   S l1;
-  l1.m1 = 2;   // COMPLIANT
-  l1.m1 = 32u; // NON_COMPLIANT
-  l1.m1 = u8;  // COMPLIANT
-  l1.m1 = u16; // NON_COMPLIANT
+
+  // 2-bit field tests
+  l1.m1 = 2; // COMPLIANT - value fits in 2 bits
+  l1.m1 = 3; // COMPLIANT - value fits in 2 bits
+  l1.m1 = 4; // NON_COMPLIANT - constant does not fit in 2 bits
+
+  l1.m1 = u8;  // COMPLIANT - u8 is fine, not integer constant
+  l1.m1 = u16; // NON_COMPLIANT - narrowing from uint16_t
+
+  // 8-bit boundary field tests
+  l1.m2 = 255; // COMPLIANT - value fits in uint8_t
+  l1.m2 = 256; // NON_COMPLIANT - value does not fit in unint8_t
+  l1.m2 = u8;  // COMPLIANT - same width as uint8_t
+  l1.m2 = u16; // NON_COMPLIANT - narrowing from uint16_t
+  l1.m2 = u32; // NON_COMPLIANT - narrowing from uint32_t
+
+  // 9-bit boundary + 1 field tests
+  l1.m3 = 511;   // COMPLIANT
+  l1.m3 = 512;   // NON_COMPLIANT - value does not fit in 9 bits
+  l1.m3 = 65535; // NON_COMPLIANT - value does not fit in 9 bits
+  l1.m3 = 65536; // NON_COMPLIANT - value does not fit in 9 bits
+  l1.m3 = u8;    // COMPLIANT - widening from uint8_t to uint16_t
+  l1.m3 = u16;   // COMPLIANT
+  l1.m3 = u32;   // NON_COMPLIANT - narrowing from uint32_t
+
+  // 16-bit boundary field tests
+  l1.m4 = 65535; // COMPLIANT - value fits in 16 bits
+  l1.m4 = 65536; // NON_COMPLIANT - value does not fit in 16 bits
+  l1.m4 = u8;    // COMPLIANT - widening from uint8_t
+  l1.m4 = u16;   // COMPLIANT - same width as uint16_t
+  l1.m4 = u32;   // NON_COMPLIANT - narrowing from uint32_t
+
+  // 17-bit boundary + 1 field tests
+  l1.m5 = 131071; // COMPLIANT - value fits in 17 bits
+  l1.m5 = 131072; // NON_COMPLIANT - value does not fit in 17 bits
+  l1.m5 = u8;     // COMPLIANT - widening from uint8_t
+  l1.m5 = u16;    // COMPLIANT - widening from uint16_t
+  l1.m5 = u32;    // COMPLIANT
+  l1.m5 = u64;    // NON_COMPLIANT - narrowing from uint64_t
+
+  // 32-bit boundary field tests
+  l1.m6 = 4294967295U;  // COMPLIANT - value fits in 32 bits
+  l1.m6 = 4294967296UL; // NON_COMPLIANT - value does not fit in 32 bits
+  l1.m6 = u8;           // COMPLIANT - widening from uint8_t
+  l1.m6 = u16;          // COMPLIANT - widening from uint16_t
+  l1.m6 = u32;          // COMPLIANT - same width as uint32_t
+  l1.m6 = u64;          // NON_COMPLIANT - narrowing from uint64_t
+
+  // 33-bit boundary + 1 field tests
+  l1.m7 = 8589934591ULL; // COMPLIANT
+  l1.m7 = 8589934592L;   // NON_COMPLIANT - value does not fit in 33 bits
+  l1.m7 = 8589934592ULL; // COMPLIANT - integer constant does not satisfy
+                         // conditions, but the type matches the deduced type of
+                         // the bitfield (unsigned long long), so is considered
+                         // compliant by the rule(!)
+  l1.m7 = u8;            // COMPLIANT - widening from uint8_t
+  l1.m7 = u16;           // COMPLIANT - widening from uint16_t
+  l1.m7 = u32;           // COMPLIANT - widening from uint32_t
+  l1.m7 = u64;           // COMPLIANT - narrowing from uint64_t
+
+  // Signed bitfield tests
+  l1.m8 = 15;  // COMPLIANT
+  l1.m8 = -16; // COMPLIANT
+  l1.m8 = 16;  // NON_COMPLIANT - value does not fit in signed 5-bit type
+  l1.m8 = -17; // NON_COMPLIANT - value does not fit in signed 5-bit type
+  l1.m8 = s8;  // COMPLIANT - same width as int8_t
+  l1.m8 = s16; // NON_COMPLIANT - narrowing from int16_t
+
+  l1.m9 = 2047;  // COMPLIANT - value fits in signed 12-bit type
+  l1.m9 = -2048; // COMPLIANT - value fits in signed 12-bit type
+  l1.m9 = 2048;  // NON_COMPLIANT - value does not fit in signed 12-bit type
+  l1.m9 = -2049; // NON_COMPLIANT - value does not fit in signed 12-bit type
+  l1.m9 = s8;    // COMPLIANT - widening from int8_t
+  l1.m9 = s16;   // COMPLIANT - same width as int16_t
+  l1.m9 = s32;   // NON_COMPLIANT - narrowing from int32_t
+
+  l1.m10 = 134217727;    // COMPLIANT - value fits in signed 28-bit type
+  l1.m10 = -134217728;   // COMPLIANT - value fits in signed 28-bit type
+  l1.m10 = 134217728LL;  // NON_COMPLIANT - does not fit in signed 28-bit type
+  l1.m10 = -134217729LL; // NON_COMPLIANT - does not fit in signed 28-bit type
+  l1.m10 = s8;           // COMPLIANT - widening from int8_t
+  l1.m10 = s16;          // COMPLIANT - widening from int16_t
+  l1.m10 = s32;          // COMPLIANT
 }
 
 // Test enums
