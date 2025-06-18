@@ -2,21 +2,65 @@ import cpp
 import codingstandards.cpp.misra
 
 /**
- * The signedness of a numeric type.
+ * A MISRA C++ 2023 type category.
+ */
+newtype TypeCategory =
+  Integral() or
+  FloatingPoint() or
+  Character() or
+  Other()
+
+/**
+ * Gets the type category of a built-in type.
+ *
+ * This does not apply the rules related to stripping specifiers or typedefs, or references.
+ */
+TypeCategory getTypeCategory(BuiltInType t) {
+  (
+    t instanceof CharType or
+    t instanceof WideCharType or
+    t instanceof Char16Type or
+    t instanceof Char32Type or
+    t instanceof Char8Type
+  ) and
+  result = Character()
+  or
+  (
+    // The 5 standard integral types, covering both signed/unsigned variants
+    // Explicitly list the signed/unsigned `char` to avoid capturing plain `char`, which is of character type category
+    t instanceof SignedCharType or
+    t instanceof UnsignedCharType or
+    t instanceof ShortType or
+    t instanceof IntType or
+    t instanceof LongType or
+    t instanceof LongLongType
+  ) and
+  result = Integral()
+  or
+  (
+    t instanceof FloatType or
+    t instanceof DoubleType or
+    t instanceof LongDoubleType
+  ) and
+  result = FloatingPoint()
+  or
+  (
+    t instanceof BoolType or
+    t instanceof VoidType or
+    t instanceof NullPointerType
+  ) and
+  result = Other()
+}
+
+/**
+ * The signedness of a MISRA C++ 2023 numeric type
  */
 newtype Signedness =
   Signed() or
   Unsigned()
 
 /**
- * The type category of a numeric type - either integral or floating-point.
- */
-newtype TypeCategory =
-  Integral() or
-  FloatingPoint()
-
-/**
- * A numeric type is a type that represents a number, either an integral or a floating-point.
+ * A MISRA C++ 2023 numeric type is a type that represents a number, either an integral or a floating-point.
  *
  * In addition to the basic integral and floating-point types, it includes:
  * - Enum types with an explicit underlying type that is a numeric type.
@@ -24,33 +68,45 @@ newtype TypeCategory =
  * - Numeric types with specifiers (e.g., `const`, `volatile`, `restrict`).
  */
 class NumericType extends Type {
+  // The actual numeric type, which is either an integral or a floating-point type.
   Type realType;
 
   NumericType() {
-    realType = this.getUnspecifiedType().(ReferenceType).getBaseType().(NumericType).getRealType() or
-    realType = this.getUnspecifiedType().(IntegralType) or
-    realType = this.getUnspecifiedType().(FloatingPointType) or
-    realType = this.getUnspecifiedType().(Enum).getExplicitUnderlyingType().getUnspecifiedType()
+    // A type which is either an integral or a floating-point type category
+    getTypeCategory(this) = [Integral().(TypeCategory), FloatingPoint()] and
+    realType = this
+    or
+    // Any type which, after stripping specifiers and typedefs, is a numeric type
+    realType = this.getUnspecifiedType().(NumericType).getRealType()
+    or
+    // Any reference type where the base type is a numeric type
+    realType = this.(ReferenceType).getBaseType().(NumericType).getRealType()
+    or
+    // Any Enum type with an explicit underlying type that is a numeric type
+    realType = this.(Enum).getExplicitUnderlyingType().(NumericType).getRealType()
   }
 
   Signedness getSignedness() {
     if realType.(IntegralType).isUnsigned() then result = Unsigned() else result = Signed()
   }
 
-  /** Gets the size of the actual numeric type */
+  /** Gets the size of the actual numeric type. */
   int getRealSize() { result = realType.getSize() }
 
-  TypeCategory getTypeCategory() {
-    realType instanceof IntegralType and result = Integral()
-    or
-    realType instanceof FloatingPointType and result = FloatingPoint()
-  }
+  TypeCategory getTypeCategory() { result = getTypeCategory(realType) }
 
   float getUpperBound() { result = typeUpperBound(realType) }
 
   float getLowerBound() { result = typeLowerBound(realType) }
 
   Type getRealType() { result = realType }
+}
+
+/**
+ * One of the 10 canonical integer types, which are the standard integer types.
+ */
+class CanonicalIntegerTypes extends NumericType, IntegralType {
+  CanonicalIntegerTypes() { this = this.getCanonicalArithmeticType() }
 }
 
 predicate isAssignment(Expr source, NumericType targetType, string context) {
@@ -119,18 +175,24 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
  *
  * The type is determined by the signedness of the bit field and the number of bits.
  */
-NumericType getBitFieldType(BitField bf) {
+CanonicalIntegerTypes getBitFieldType(BitField bf) {
   exists(NumericType bitfieldActualType |
     bitfieldActualType = bf.getType() and
     // Integral type with the same signedness as the bit field, and big enough to hold the bit field value
-    result instanceof IntegralType and
     result.getSignedness() = bitfieldActualType.getSignedness() and
     result.getSize() * 8 >= bf.getNumBits() and
     // No smaller integral type can hold the bit field value
-    not exists(IntegralType other |
+    not exists(CanonicalIntegerTypes other |
       other.getSize() * 8 >= bf.getNumBits() and
-      other.(NumericType).getSignedness() = result.getSignedness() and
+      other.getSignedness() = result.getSignedness()
+    |
       other.getSize() < result.getRealSize()
+      or
+      // Where multiple types exist with the same size and signedness, prefer shorter names - mainly
+      // to disambiguate between `unsigned long` and `unsigned long long` on platforms where they
+      // are the same size
+      other.getSize() = result.getRealSize() and
+      other.getName().length() < result.getName().length()
     )
   )
 }

@@ -30,37 +30,15 @@
 | test.cpp:168:11:168:13 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'unsigned int'. |
 | test.cpp:172:11:172:22 | 4294967296 | Assignment between incompatible numeric types from 'unsigned long' to 'unsigned int'. |
 | test.cpp:176:11:176:13 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'unsigned int'. |
-| test.cpp:180:11:180:21 | 8589934592 | Assignment between incompatible numeric types from 'long' to 'unsigned long long'. |
 | test.cpp:180:11:180:21 | 8589934592 | Assignment between incompatible numeric types from 'long' to 'unsigned long'. |
-| test.cpp:193:11:193:12 | 16 | Assignment between incompatible numeric types from 'int32_t' to 'bool'. |
-| test.cpp:193:11:193:12 | 16 | Assignment between incompatible numeric types from 'int32_t' to 'char8_t'. |
-| test.cpp:193:11:193:12 | 16 | Assignment between incompatible numeric types from 'int32_t' to 'char'. |
 | test.cpp:193:11:193:12 | 16 | Assignment between incompatible numeric types from 'int32_t' to 'signed char'. |
-| test.cpp:194:11:194:13 | - ... | Assignment between incompatible numeric types from 'int' to 'bool'. |
-| test.cpp:194:11:194:13 | - ... | Assignment between incompatible numeric types from 'int' to 'char8_t'. |
-| test.cpp:194:11:194:13 | - ... | Assignment between incompatible numeric types from 'int' to 'char'. |
 | test.cpp:194:11:194:13 | - ... | Assignment between incompatible numeric types from 'int' to 'signed char'. |
-| test.cpp:196:11:196:13 | s16 | Assignment between incompatible numeric types from 'int16_t' to 'bool'. |
-| test.cpp:196:11:196:13 | s16 | Assignment between incompatible numeric types from 'int16_t' to 'char8_t'. |
-| test.cpp:196:11:196:13 | s16 | Assignment between incompatible numeric types from 'int16_t' to 'char'. |
 | test.cpp:196:11:196:13 | s16 | Assignment between incompatible numeric types from 'int16_t' to 'signed char'. |
-| test.cpp:200:11:200:14 | 2048 | Assignment between incompatible numeric types from 'int32_t' to 'char16_t'. |
 | test.cpp:200:11:200:14 | 2048 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
-| test.cpp:200:11:200:14 | 2048 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
-| test.cpp:201:11:201:15 | - ... | Assignment between incompatible numeric types from 'int' to 'char16_t'. |
 | test.cpp:201:11:201:15 | - ... | Assignment between incompatible numeric types from 'int' to 'short'. |
-| test.cpp:201:11:201:15 | - ... | Assignment between incompatible numeric types from 'int' to 'signed short'. |
-| test.cpp:204:11:204:13 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'char16_t'. |
 | test.cpp:204:11:204:13 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
-| test.cpp:204:11:204:13 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
-| test.cpp:208:12:208:22 | 134217728 | Assignment between incompatible numeric types from 'long long' to 'char32_t'. |
 | test.cpp:208:12:208:22 | 134217728 | Assignment between incompatible numeric types from 'long long' to 'int'. |
-| test.cpp:208:12:208:22 | 134217728 | Assignment between incompatible numeric types from 'long long' to 'signed int'. |
-| test.cpp:208:12:208:22 | 134217728 | Assignment between incompatible numeric types from 'long long' to 'wchar_t'. |
-| test.cpp:209:12:209:23 | - ... | Assignment between incompatible numeric types from 'long long' to 'char32_t'. |
 | test.cpp:209:12:209:23 | - ... | Assignment between incompatible numeric types from 'long long' to 'int'. |
-| test.cpp:209:12:209:23 | - ... | Assignment between incompatible numeric types from 'long long' to 'signed int'. |
-| test.cpp:209:12:209:23 | - ... | Assignment between incompatible numeric types from 'long long' to 'wchar_t'. |
 | test.cpp:224:8:224:9 | l1 | Assignment between incompatible numeric types from 'Colour' to 'uint8_t'. |
 | test.cpp:234:6:234:8 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'int64_t'. |
 | test.cpp:237:6:237:8 | s64 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
