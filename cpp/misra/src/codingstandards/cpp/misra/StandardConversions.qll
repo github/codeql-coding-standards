@@ -168,6 +168,26 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
     targetType = switch.getExpr().getFullyConverted().getType() and
     context = "switch case"
   )
+  or
+  // Class aggregate literal initialization
+  exists(ClassAggregateLiteral al, Field f |
+    source = al.getAFieldExpr(f) and
+    context = "class aggregate literal"
+  |
+    // For the MISRA type rules we treat bit fields as a special case
+    if f instanceof BitField
+    then targetType = getBitFieldType(f)
+    else
+      // Regular variable initialization
+      targetType = f.getType()
+  )
+  or
+  // Array or vector aggregate literal initialization
+  exists(ArrayOrVectorAggregateLiteral vl |
+    source = vl.getAnElementExpr(_) and
+    targetType = vl.getElementType() and
+    context = "array or vector aggregate literal"
+  )
 }
 
 /**
@@ -200,9 +220,4 @@ CanonicalIntegerTypes getBitFieldType(BitField bf) {
 /**
  * Holds if the `source` expression is assigned to a bit field.
  */
-predicate isAssignedToBitfield(Expr source, BitField bf) {
-  exists(Assignment assign |
-    assign.getRValue() = source and
-    assign.getLValue() = bf.getAnAccess()
-  )
-}
+predicate isAssignedToBitfield(Expr source, BitField bf) { source = bf.getAnAssignedValue() }

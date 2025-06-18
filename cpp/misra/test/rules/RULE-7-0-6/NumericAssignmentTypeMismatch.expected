@@ -137,3 +137,36 @@
 | test.cpp:766:8:766:10 | 42 | Assignment between incompatible numeric types from 'long' to 'int32_t'. |
 | test.cpp:767:8:767:11 | 42 | Assignment between incompatible numeric types from 'long long' to 'int32_t'. |
 | test.cpp:768:8:768:10 | 42 | Assignment between incompatible numeric types from 'unsigned int' to 'int32_t'. |
+| test.cpp:786:22:786:24 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test.cpp:788:26:788:28 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'uint16_t'. |
+| test.cpp:790:31:790:33 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test.cpp:792:22:792:24 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'float'. |
+| test.cpp:795:22:795:24 | 256 | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test.cpp:795:27:795:31 | 65536 | Assignment between incompatible numeric types from 'int' to 'uint16_t'. |
+| test.cpp:796:22:796:33 | 2147483648 | Assignment between incompatible numeric types from 'long long' to 'int32_t'. |
+| test.cpp:808:22:808:24 | 300 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test.cpp:808:27:808:29 | 400 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test.cpp:808:32:808:34 | 500 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test.cpp:809:22:809:23 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'unsigned char'. |
+| test.cpp:809:26:809:27 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'unsigned char'. |
+| test.cpp:809:30:809:31 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'unsigned char'. |
+| test.cpp:810:22:810:24 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test.cpp:810:27:810:29 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test.cpp:810:32:810:34 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test.cpp:815:26:815:28 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
+| test.cpp:815:31:815:33 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
+| test.cpp:815:38:815:40 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
+| test.cpp:815:43:815:45 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
+| test.cpp:816:26:816:27 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'signed short'. |
+| test.cpp:816:30:816:31 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'signed short'. |
+| test.cpp:817:26:817:27 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'signed short'. |
+| test.cpp:817:30:817:31 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'signed short'. |
+| test.cpp:833:8:833:10 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test.cpp:837:7:837:9 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'uint32_t'. |
+| test.cpp:853:24:853:26 | 300 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test.cpp:853:29:853:33 | 70000 | Assignment between incompatible numeric types from 'int' to 'unsigned short'. |
+| test.cpp:853:36:853:39 | 5000 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
+| test.cpp:854:24:854:26 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test.cpp:854:29:854:31 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'unsigned short'. |
+| test.cpp:854:34:854:36 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
+| test.cpp:864:28:864:30 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
