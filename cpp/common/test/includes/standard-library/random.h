@@ -1,7 +1,7 @@
 #ifndef _GHLIBCPP_RANDOM
 #define _GHLIBCPP_RANDOM
-#include "cstdint.h"
 #include "stddef.h"
+#include <cstdint>
 #include <string>
 
 namespace std {
