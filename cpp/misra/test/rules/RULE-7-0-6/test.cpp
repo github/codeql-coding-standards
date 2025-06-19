@@ -567,3 +567,55 @@ void test_constructor_field_initializers() {
   ConstructorTest l7(0);           // Test fourth constructor
   ConstructorTest l8(l1, l1, l3);  // Test fifth constructor
 }
+
+// Test explicit casts
+void test_explicit_casts() {
+  std::uint8_t l1 = 42;
+  std::uint16_t l2 = 1000;
+  std::int8_t l3 = -10;
+  std::int32_t l4 = -100;
+  float l5 = 3.14f;
+  double l6 = 2.718;
+
+  // Explicit cast expressions are treated as expressions, not id-expressions
+  u8 = static_cast<std::uint8_t>(l2);   // COMPLIANT
+  u16 = static_cast<std::uint16_t>(l1); // COMPLIANT
+  s8 = static_cast<std::int8_t>(l4);    // COMPLIANT
+  s32 = static_cast<std::int32_t>(l3);  // COMPLIANT
+  s32 = static_cast<std::int16_t>(l3);  // NON_COMPLIANT
+
+  // Type category conversions with explicit casts
+  f = static_cast<float>(l4);          // COMPLIANT
+  s32 = static_cast<std::int32_t>(l5); // COMPLIANT
+
+  // Size conversions with explicit casts
+  d = static_cast<double>(l5); // COMPLIANT
+  l5 = static_cast<float>(l6); // COMPLIANT
+
+  // C-style casts (also expressions)
+  u8 = (std::uint8_t)l2; // COMPLIANT
+  s8 = (std::int8_t)l4;  // COMPLIANT
+  f = (float)l4;         // COMPLIANT
+
+  // Functional style casts (also expressions)
+  u8 = std::uint8_t(l2); // COMPLIANT
+  s8 = std::int8_t(l4);  // COMPLIANT
+  f = float(l4);         // COMPLIANT
+
+  // Const_cast (creates expressions)
+  const std::uint8_t l7 = 100;
+  u8 = const_cast<std::uint8_t &>(l7); // COMPLIANT
+
+  // Reinterpret_cast (creates expressions)
+  u32 = reinterpret_cast<std::uint32_t &>(l4); // COMPLIANT
+
+  // Assignment to variables through explicit casts
+  std::uint32_t l8;
+  std::uint16_t l9;
+  l8 = static_cast<std::uint32_t>(l9); // COMPLIANT
+  l9 = static_cast<std::uint16_t>(l8); // COMPLIANT
+
+  // Function calls with explicit casts
+  f1(static_cast<std::int64_t>(l4)); // COMPLIANT
+  f2(static_cast<std::int32_t>(l4)); // COMPLIANT
+}

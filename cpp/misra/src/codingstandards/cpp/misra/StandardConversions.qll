@@ -117,6 +117,13 @@ class CanonicalIntegerTypes extends NumericType, IntegralType {
 }
 
 predicate isAssignment(Expr source, NumericType targetType, string context) {
+  exists(Expr preConversionAssignment |
+    isPreConversionAssignment(preConversionAssignment, targetType, context) and
+    preConversionAssignment.getExplicitlyConverted() = source
+  )
+}
+
+predicate isPreConversionAssignment(Expr source, NumericType targetType, string context) {
   // Assignment expression (which excludes compound assignments)
   exists(AssignExpr assign |
     assign.getRValue() = source and
@@ -261,4 +268,6 @@ CanonicalIntegerTypes getBitFieldType(BitField bf) {
 /**
  * Holds if the `source` expression is assigned to a bit field.
  */
-predicate isAssignedToBitfield(Expr source, BitField bf) { source = bf.getAnAssignedValue() }
+predicate isAssignedToBitfield(Expr source, BitField bf) {
+  source = bf.getAnAssignedValue().getExplicitlyConverted()
+}

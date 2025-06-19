@@ -101,7 +101,7 @@ predicate isValidWidening(Expr source, NumericType sourceType, NumericType targe
   // Same type category and signedness, source size smaller, source is id-expression or has constructor exception
   (
     source instanceof IdExpression or
-    hasConstructorException(any(Call call | call.getAnArgument() = source))
+    hasConstructorException(any(Call call | call.getAnArgument().getExplicitlyConverted() = source))
   ) and
   sourceType.getTypeCategory() = targetType.getTypeCategory() and
   sourceType.getSignedness() = targetType.getSignedness() and
@@ -163,7 +163,7 @@ predicate isOverloadIndependent(Call call, Expr arg) {
  */
 predicate shouldHaveSameType(Expr source) {
   exists(Call call |
-    call.getAnArgument() = source and
+    call.getAnArgument().getExplicitlyConverted() = source and
     isAssignment(source, _, _) and
     not hasConstructorException(call)
   |
@@ -172,7 +172,7 @@ predicate shouldHaveSameType(Expr source) {
     // Passed as a varargs parameter
     exists(int i |
       call.getTarget().isVarargs() and
-      call.getArgument(i) = source and
+      call.getArgument(i).getExplicitlyConverted() = source and
       // Argument is greater than the number of parameters
       call.getTarget().getNumberOfParameters() <= i
     )
