@@ -152,6 +152,18 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
       targetType = v.getType()
   )
   or
+  exists(ConstructorFieldInit fi |
+    fi.getExpr() = source and
+    context = "constructor field initialization"
+  |
+    // For the MISRA type rules we treat bit fields as a special case
+    if fi.getTarget() instanceof BitField
+    then targetType = getBitFieldType(fi.getTarget())
+    else
+      // Regular variable initialization
+      targetType = fi.getTarget().getType()
+  )
+  or
   // Passing a function parameter by value
   exists(Call call, int i |
     call.getArgument(i) = source and

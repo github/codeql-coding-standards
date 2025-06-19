@@ -483,3 +483,87 @@ void test_compound_assignments() {
   l4 += l1;  // COMPLIANT - compound assignment, rule does not apply
   l4 -= s32; // COMPLIANT - compound assignment, rule does not apply
 }
+
+// Test constructor field initializers
+struct ConstructorTest {
+  std::uint8_t m1;
+  std::uint16_t m2;
+  std::uint32_t m3;
+  std::int8_t m4;
+  std::int16_t m5;
+  std::int32_t m6;
+  float m7;
+  double m8;
+
+  // Constructor with various member initializer scenarios
+  ConstructorTest(std::uint8_t l1, std::uint16_t l2, std::int8_t l3)
+      : m1(l1),   // COMPLIANT - same type
+        m2(l2),   // COMPLIANT - same type
+        m3(l1),   // COMPLIANT - widening of id-expression
+        m4(l3),   // COMPLIANT - same type
+        m5(l3),   // COMPLIANT - widening of id-expression
+        m6(l3),   // COMPLIANT - widening of id-expression
+        m7(1.0f), // COMPLIANT - same type
+        m8(1.0) { // COMPLIANT - same type
+  }
+
+  // Constructor with non-compliant initializers
+  ConstructorTest(std::uint32_t l1, std::int32_t l2, float l3)
+      : m1(l1),  // NON_COMPLIANT - narrowing
+        m2(l1),  // NON_COMPLIANT - narrowing
+        m3(l1),  // COMPLIANT - same type
+        m4(l2),  // NON_COMPLIANT - narrowing and different signedness
+        m5(l2),  // NON_COMPLIANT - narrowing and different signedness
+        m6(l2),  // COMPLIANT - same type
+        m7(l3),  // COMPLIANT - same type
+        m8(l3) { // COMPLIANT - allowed to use float to initialize double
+  }
+
+  // Constructor with constant initializers
+  ConstructorTest()
+      : m1(100),         // COMPLIANT - constant fits
+        m2(65535),       // COMPLIANT - constant fits
+        m3(4294967295U), // COMPLIANT - constant fits
+        m4(127),         // COMPLIANT - constant fits
+        m5(32767),       // COMPLIANT - constant fits
+        m6(2147483647),  // COMPLIANT - constant fits
+        m7(3.14f),       // COMPLIANT - same type constant
+        m8(2.718) {      // COMPLIANT - same type constant
+  }
+
+  // Constructor with non-compliant constant initializers
+  ConstructorTest(int)
+      : m1(300),              // NON_COMPLIANT - constant too large
+        m2(70000),            // NON_COMPLIANT - constant too large
+        m3(0x1'0000'0000ULL), // NON_COMPLIANT - constant too large
+        m4(200),              // NON_COMPLIANT - constant too large
+        m5(40000),            // NON_COMPLIANT - constant too large
+        m6(0x1'0000'0000LL),  // NON_COMPLIANT - constant too large
+        m7(1.0),              // NON_COMPLIANT - different size
+        m8(1.0f) {            // NON_COMPLIANT - different size
+  }
+
+  // Constructor with expression initializers
+  ConstructorTest(std::uint8_t l1, std::uint8_t l2, std::int8_t l3)
+      : m1(l1 + l2), // NON_COMPLIANT - expression result is int
+        m2(l1 + l2), // NON_COMPLIANT - expression result is int
+        m3(l1 + l2), // NON_COMPLIANT - expression result is int
+        m4(l3),      // COMPLIANT - widening of id-expression
+        m5(l1),      // NON_COMPLIANT - different signedness
+        m6(l1),      // NON_COMPLIANT - different signedness
+        m7(l1),      // NON_COMPLIANT - different type category
+        m8(l1) {     // NON_COMPLIANT - different type category
+  }
+};
+
+void test_constructor_field_initializers() {
+  std::uint8_t l1 = 42;
+  std::uint16_t l2 = 1000;
+  std::int8_t l3 = 10;
+
+  ConstructorTest l4(l1, l2, l3);  // Test first constructor
+  ConstructorTest l5(u32, s32, f); // Test second constructor
+  ConstructorTest l6;              // Test third constructor
+  ConstructorTest l7(0);           // Test fourth constructor
+  ConstructorTest l8(l1, l1, l3);  // Test fifth constructor
+}
