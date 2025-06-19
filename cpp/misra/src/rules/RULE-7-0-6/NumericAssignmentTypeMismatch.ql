@@ -123,34 +123,37 @@ int getMinimumNumberOfParameters(Function f) {
   result = count(Parameter p | p = f.getAParameter() and not p.hasInitializer() | p)
 }
 
-predicate isOverloadIndependent(Call call, Expr arg) {
-  arg = call.getAnArgument() and
+/** Get an overload of the function f, excluding deleted overloads. */
+Function getAnOverload(Function f) {
   (
+    result = f.getAnOverload()
+    or
+    // Instantiated function templates don't directly participate in overload resolution
+    // so check the templates overloads
+    result = f.(FunctionTemplateInstantiation).getTemplate().getAnOverload()
+  ) and
+  // Exclude deleted overloads
+  not result.isDeleted()
+}
+
+predicate isOverloadIndependent(Call call, Expr arg) {
+  exists(int i | arg = call.getArgument(i) |
     // Call through function pointer
     call instanceof ExprCall
     or
     isNonExtensible(call) and
-    forall(Function target, Function overload, int i |
-      target = call.getTarget() and
-      (
-        overload = target.getAnOverload()
-        or
-        // Instantiated function templates don't directly participate in overload resolution
-        // so check the templates overloads
-        overload = target.(FunctionTemplateInstantiation).getTemplate().getAnOverload()
-      ) and
-      // Check that the overload accepts the number of arguments provided by this call,
-      // considering parameters with default values may be omitted in the call
-      overload.getNumberOfParameters() >= call.getNumberOfArguments() and
-      getMinimumNumberOfParameters(overload) <= call.getNumberOfArguments() and
-      // Ignore deleted overloads
-      not overload.isDeleted() and
-      //
-      call.getArgument(i) = arg
-    |
-      // Check that the parameter types match
-      overload.getParameter(i).getType().getUnspecifiedType() =
-        target.getParameter(i).getType().getUnspecifiedType()
+    exists(Function target | target = call.getTarget() |
+      forall(Function overload |
+        overload = getAnOverload(target) and
+        // Check that the overload accepts the number of arguments provided by this call,
+        // considering parameters with default values may be omitted in the call
+        overload.getNumberOfParameters() >= call.getNumberOfArguments() and
+        getMinimumNumberOfParameters(overload) <= call.getNumberOfArguments()
+      |
+        // Check that the parameter types match
+        overload.getParameter(i).getType().getUnspecifiedType() =
+          target.getParameter(i).getType().getUnspecifiedType()
+      )
     )
   )
 }
