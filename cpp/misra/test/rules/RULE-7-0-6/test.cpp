@@ -270,19 +270,27 @@ void test_variadic_functions() {
   f5("test", s32); // COMPLIANT - already `int`, no promotion needed
 }
 
-// Test member function calls - not overload-independent
 struct A {
+  // first parameter to f6 with two arguments is overload-independent
   void f6(std::size_t l1, int l2) {}
   void f6(std::size_t l1, std::string l2) {}
-  void f7();
+  // Different overload, so does not conflict with f6 above
+  void f6(std::int8_t l1, std::string l2, int x) {}
+  // Not overload-independent when called with one parameter
+  // Overload-independent when called with two parameters
+  void f7(float l1) {}
+  void f7(std::int32_t l1, int x = 1) {}
+  void f8();
 };
 
-void A::f7() {
+void A::f8() {
   f6(u32, "answer");       // NON_COMPLIANT - extensible, could call a global
                            // function instead - e.g. `void f6(std::uint32_t l1,
                            // std::string l2)`
   this->f6(u32, "answer"); // COMPLIANT
   this->f6(u32, 42);       // COMPLIANT
+  this->f7(s16);    // NON_COMPLIANT - no widening as not overload-independent
+  this->f7(s16, 2); // COMPLIANT - overload-independent, only one target
 }
 
 void test_member_function_overload_independent() {

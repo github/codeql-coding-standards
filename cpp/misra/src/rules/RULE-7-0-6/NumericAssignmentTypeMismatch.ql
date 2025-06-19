@@ -119,6 +119,10 @@ predicate isNonExtensible(Call c) {
   c.getTarget() instanceof Operator
 }
 
+int getMinimumNumberOfParameters(Function f) {
+  result = count(Parameter p | p = f.getAParameter() and not p.hasInitializer() | p)
+}
+
 predicate isOverloadIndependent(Call call, Expr arg) {
   arg = call.getAnArgument() and
   (
@@ -135,7 +139,10 @@ predicate isOverloadIndependent(Call call, Expr arg) {
         // so check the templates overloads
         overload = target.(FunctionTemplateInstantiation).getTemplate().getAnOverload()
       ) and
-      overload.getNumberOfParameters() = call.getNumberOfArguments() and
+      // Check that the overload accepts the number of arguments provided by this call,
+      // considering parameters with default values may be omitted in the call
+      overload.getNumberOfParameters() >= call.getNumberOfArguments() and
+      getMinimumNumberOfParameters(overload) <= call.getNumberOfArguments() and
       call.getArgument(i) = arg
     |
       // Check that the parameter types match
