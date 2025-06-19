@@ -15,14 +15,13 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.ConstantExpressions
 import codingstandards.cpp.misra.StandardConversions
+import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
-predicate isValidConstantAssignment(Expr source, NumericType targetType) {
+predicate isValidConstantAssignment(IntegerConstantExpr source, NumericType targetType) {
   isAssignment(source, targetType, _) and
-  // Source is an integer constant expression
-  source.isConstant() and
-  source.getType().(NumericType).getTypeCategory() = Integral() and
-  exists(float val | val = source.getValue().toFloat() |
+  exists(QlBuiltins::BigInt val | val = source.getConstantValue() |
     // Bit field assignment: check if the value fits in the bit field
     exists(BitField bf, int numBits |
       isAssignedToBitfield(source, bf) and
@@ -30,19 +29,25 @@ predicate isValidConstantAssignment(Expr source, NumericType targetType) {
       if targetType.getSignedness() = Signed()
       then
         // Signed bit field: value must be in the range of signed bit field
-        val >= -2.pow(numBits - 1) and
-        val < 2.pow(numBits - 1)
+        val >= -2.toBigInt().pow(numBits - 1) and
+        val < 2.toBigInt().pow(numBits - 1)
       else (
         // Unsigned bit field: value must be in the range of unsigned bit field
-        val >= 0 and
-        val < 2.pow(numBits)
+        val >= 0.toBigInt() and
+        val < 2.toBigInt().pow(numBits)
       )
     )
     or
     // Regular assignment: check if the value fits in the target type range
     not isAssignedToBitfield(source, _) and
-    targetType.getLowerBound() <= val and
-    val <= targetType.getUpperBound()
+    (
+      // Integer types: check if the value fits in the target type range
+      targetType.getIntegralLowerBound() <= val and
+      val <= targetType.getIntegralUpperBound()
+      or
+      // All floating point types can represent all integer values
+      targetType.getTypeCategory() = FloatingPoint()
+    )
   )
 }
 

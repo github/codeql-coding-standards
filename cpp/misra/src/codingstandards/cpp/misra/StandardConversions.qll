@@ -1,5 +1,6 @@
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.Type
 
 /**
  * A MISRA C++ 2023 type category.
@@ -95,9 +96,15 @@ class NumericType extends Type {
 
   TypeCategory getTypeCategory() { result = getTypeCategory(realType) }
 
-  float getUpperBound() { result = typeUpperBound(realType) }
+  /**
+   * Gets the integeral upper bound of the numeric type, if it represents an integer type.
+   */
+  QlBuiltins::BigInt getIntegralUpperBound() { integralTypeBounds(realType, _, result) }
 
-  float getLowerBound() { result = typeLowerBound(realType) }
+  /**
+   * Gets the integeral lower bound of the numeric type, if it represents an integer type.
+   */
+  QlBuiltins::BigInt getIntegralLowerBound() { integralTypeBounds(realType, result, _) }
 
   Type getRealType() { result = realType }
 }
