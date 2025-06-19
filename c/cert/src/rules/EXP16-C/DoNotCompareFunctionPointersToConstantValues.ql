@@ -17,33 +17,11 @@
  */
 
 import cpp
+import semmle.code.cpp.controlflow.IRGuards
 import codingstandards.c.cert
 import codingstandards.cpp.types.FunctionType
-import semmle.code.cpp.controlflow.IRGuards
-
-class FunctionExpr extends Expr {
-  Element function;
-  string funcName;
-
-  FunctionExpr() {
-    function = this.(FunctionAccess).getTarget() and
-    funcName = "Function " + function.(Function).getName()
-    or
-    this.(VariableAccess).getUnderlyingType() instanceof FunctionType and
-    function = this and
-    funcName = "Function pointer variable " + this.(VariableAccess).getTarget().getName()
-    or
-    this.getUnderlyingType() instanceof FunctionType and
-    not this instanceof FunctionAccess and
-    not this instanceof VariableAccess and
-    function = this and
-    funcName = "Expression with function pointer type"
-  }
-
-  Element getFunction() { result = function }
-
-  string getFuncName() { result = funcName }
-}
+import codingstandards.cpp.exprs.FunctionExprs
+import codingstandards.cpp.exprs.Guards
 
 abstract class EffectivelyComparison extends Element {
   abstract string getExplanation();
@@ -85,6 +63,7 @@ where
   not isExcluded(comparison,
     Expressions2Package::doNotCompareFunctionPointersToConstantValuesQuery()) and
   funcExpr = comparison.getFunctionExpr() and
+  not exists(NullFunctionCallGuard nullGuard | nullGuard.getFunctionExpr() = funcExpr) and
   function = funcExpr.getFunction() and
-  funcName = funcExpr.getFuncName()
+  funcName = funcExpr.describe()
 select comparison, comparison.getExplanation(), function, funcName

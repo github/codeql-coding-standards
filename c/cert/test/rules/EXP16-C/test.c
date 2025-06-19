@@ -94,7 +94,7 @@ void f6(void) {
 void f7(void) {
   struct S s;
   if (s.fp == NULL) // NON-COMPLIANT
-    return;
+    f1();
 
   if (s.fp() == NULL) // COMPLIANT
     return;
@@ -110,4 +110,44 @@ void f7(void) {
 
   if (get_handler()() == 0) // COMPLIANT
     return;
+}
+
+void f8(void) {
+  // Test instances of where the function pointer check is used to guard calls
+  // to that function.
+
+  // Technically, this function may perhaps be set to NULL by the linker. But
+  // it is not a variable that should need to be null-checked at runtime.
+  if (f1 != 0) // NON-COMPLIANT
+  {
+    f1();
+  }
+
+  // Check guards a call, so it is compliant.
+  if (g1 != 0) // COMPLIANT
+  {
+    g1();
+  }
+
+  // Incorrect check, not compliant.
+  if (g1 != 0) // NON-COMPLIANT
+  {
+    f1();
+  }
+
+  // Incorrect check, not compliant.
+  if (g1 == 0) // NON-COMPLIANT
+  {
+    g1();
+  }
+
+  if (g1) // COMPLIANT
+  {
+    g1();
+  }
+
+  if (!g1) // NON-COMPLIANT
+  {
+    g1();
+  }
 }
