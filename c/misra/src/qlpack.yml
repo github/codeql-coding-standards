@@ -6,4 +6,4 @@ license: MIT
 default-suite-file: codeql-suites/misra-c-default.qls
 dependencies:
   codeql/common-c-coding-standards: '*'
-  codeql/cpp-all: 2.1.1
+  codeql/cpp-all: 4.0.3
