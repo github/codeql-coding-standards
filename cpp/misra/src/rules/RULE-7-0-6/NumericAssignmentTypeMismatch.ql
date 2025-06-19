@@ -143,6 +143,9 @@ predicate isOverloadIndependent(Call call, Expr arg) {
       // considering parameters with default values may be omitted in the call
       overload.getNumberOfParameters() >= call.getNumberOfArguments() and
       getMinimumNumberOfParameters(overload) <= call.getNumberOfArguments() and
+      // Ignore deleted overloads
+      not overload.isDeleted() and
+      //
       call.getArgument(i) = arg
     |
       // Check that the parameter types match

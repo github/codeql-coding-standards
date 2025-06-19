@@ -276,6 +276,8 @@ struct A {
   void f6(std::size_t l1, std::string l2) {}
   // Different overload, so does not conflict with f6 above
   void f6(std::int8_t l1, std::string l2, int x) {}
+  // Deleted function, ignored for overload independence calculations
+  void f6(float l1, float l2) = delete;
   // Not overload-independent when called with one parameter
   // Overload-independent when called with two parameters
   void f7(float l1) {}
