@@ -129,7 +129,13 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
         isAssignedToBitfield(source, bf) and
         targetType = getBitFieldType(bf)
       )
-    else targetType = assign.getLValue().getType()
+    else
+      exists(Type t | t = assign.getLValue().getType() |
+        // Unwrap PointerToMemberType e.g `l1.*l2 = x;`
+        if t instanceof PointerToMemberType
+        then targetType = t.(PointerToMemberType).getBaseType()
+        else targetType = t
+      )
   )
   or
   // Variable initialization
@@ -157,6 +163,22 @@ predicate isAssignment(Expr source, NumericType targetType, string context) {
     // Handle varargs - use the fully converted type of the argument
     call.getTarget().getNumberOfParameters() <= i and
     targetType = source.getFullyConverted().getType()
+    or
+    // A standard expression call
+    targetType = call.(ExprCall).getExpr().getType().(FunctionPointerIshType).getParameterType(i)
+    or
+    // An expression call using the pointer to member operator (.* or ->*)
+    // This special handling is required because we don't have a CodeQL class representing the call
+    // to a pointer to member function, but the right hand side is extracted as the -1 child of the
+    // call
+    targetType =
+      call.(ExprCall)
+          .getChild(-1)
+          .getType()
+          .(PointerToMemberType)
+          .getBaseType()
+          .(RoutineType)
+          .getParameterType(i)
   )
   or
   // Return statement
