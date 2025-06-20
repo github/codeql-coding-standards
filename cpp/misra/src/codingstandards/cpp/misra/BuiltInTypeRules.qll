@@ -120,6 +120,19 @@ class CanonicalIntegerTypes extends NumericType, IntegralType {
   CanonicalIntegerTypes() { this = this.getCanonicalArithmeticType() }
 }
 
+FunctionType getExprCallFunctionType(ExprCall call) {
+  // A standard expression call
+  // Returns a FunctionPointerIshType
+  result = call.(ExprCall).getExpr().getType()
+  or
+  // An expression call using the pointer to member operator (.* or ->*)
+  // This special handling is required because we don't have a CodeQL class representing the call
+  // to a pointer to member function, but the right hand side is extracted as the -1 child of the
+  // call.
+  // Returns a RoutineType
+  result = call.(ExprCall).getChild(-1).getType().(PointerToMemberType).getBaseType()
+}
+
 predicate isAssignment(Expr source, NumericType targetType, string context) {
   exists(Expr preConversionAssignment |
     isPreConversionAssignment(preConversionAssignment, targetType, context) and
@@ -181,27 +194,16 @@ predicate isPreConversionAssignment(Expr source, NumericType targetType, string 
     not targetType.stripTopLevelSpecifiers() instanceof ReferenceType and
     context = "function argument"
   |
+    // A regular function call
     targetType = call.getTarget().getParameter(i).getType()
     or
-    // Handle varargs - use the fully converted type of the argument
+    // A function call where the argument is passed as varargs
     call.getTarget().getNumberOfParameters() <= i and
+    // The rule states that the type should match the "adjusted" type of the argument
     targetType = source.getFullyConverted().getType()
     or
-    // A standard expression call
-    targetType = call.(ExprCall).getExpr().getType().(FunctionPointerIshType).getParameterType(i)
-    or
-    // An expression call using the pointer to member operator (.* or ->*)
-    // This special handling is required because we don't have a CodeQL class representing the call
-    // to a pointer to member function, but the right hand side is extracted as the -1 child of the
-    // call
-    targetType =
-      call.(ExprCall)
-          .getChild(-1)
-          .getType()
-          .(PointerToMemberType)
-          .getBaseType()
-          .(RoutineType)
-          .getParameterType(i)
+    // An expression call - get the function type, then the parameter type
+    targetType = getExprCallFunctionType(call).getParameterType(i)
   )
   or
   // Return statement

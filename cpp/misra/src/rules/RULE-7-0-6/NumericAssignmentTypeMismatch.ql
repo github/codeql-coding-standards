@@ -51,6 +51,8 @@ predicate isValidConstantAssignment(IntegerConstantExpr source, NumericType targ
   )
 }
 
+bindingset[sourceType, targetType]
+pragma[inline_late]
 predicate isValidTypeMatch(NumericType sourceType, NumericType targetType) {
   // Same type category, signedness and size
   sourceType.getTypeCategory() = targetType.getTypeCategory() and
