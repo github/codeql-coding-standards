@@ -326,22 +326,28 @@ void test_constructor_exception() {
   MyInt l1{s8};  // COMPLIANT
 }
 
-// Test template functions - not overload-independent
 template <typename T> struct D {
+  // Overload-independent - f10 parameters are always the same type
   void f10(T l1, int l2) {}
   void f10(T l1, std::string l2) {}
+  // Not overload-independent
   template <typename S1> void f11(S1 l1, int l2) {}
   template <typename S2> void f11(S2 l1, std::string l2) {}
   void f11(std::int32_t l1, float f) {}
 };
 
 void test_template_functions() {
-  D<std::size_t> l1;
-  l1.f10(42, "X");              // COMPLIANT
-  l1.f10(42, 1);                // COMPLIANT
-  l1.f11<std::size_t>(42, "X"); // NON_COMPLIANT - int not size_t
-  l1.f11<int>(42, 1);           // COMPLIANT - same as specialized type
-  l1.f11(42, 0.0f);             // COMPLIANT - same as specialized type
+  D<std::uint64_t> l1;
+  l1.f10(u32, "X"); // COMPLIANT - can widen, because always same type
+  l1.f10(u32, 1);   // COMPLIANT - can widen, because always same type
+  D<std::uint32_t> l2;
+  l2.f10(u16, "X"); // COMPLIANT - can widen, because always same type
+  l2.f10(u16, 1);   // COMPLIANT - can widen, because always same type
+  l1.f11<std::uint64_t>(u32, "X"); // NON_COMPLIANT - not overload-independent
+                                   // and not the same type as the parameter
+                                   // so cannot widen - must be the same type
+  l1.f11<std::int32_t>(s32, 1);    // COMPLIANT - same as specialized type
+  l1.f11(s32, 0.0f);               // COMPLIANT - matches parameter type
 }
 
 // Test initialization forms
