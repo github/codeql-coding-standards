@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.ConstantExpressions
-import codingstandards.cpp.misra.StandardConversions
+import codingstandards.cpp.misra.BuiltInTypeRules
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
 predicate isValidConstantAssignment(IntegerConstantExpr source, NumericType targetType) {

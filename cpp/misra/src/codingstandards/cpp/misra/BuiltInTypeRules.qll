@@ -1,3 +1,7 @@
+/**
+ * A library for utility classes related to the built-in type rules in MISRA C++ 2023 (Section 4.7.0).
+ */
+
 import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.Type
@@ -54,7 +58,7 @@ TypeCategory getTypeCategory(BuiltInType t) {
 }
 
 /**
- * The signedness of a MISRA C++ 2023 numeric type
+ * The signedness of a MISRA C++ 2023 numeric type.
  */
 newtype Signedness =
   Signed() or
