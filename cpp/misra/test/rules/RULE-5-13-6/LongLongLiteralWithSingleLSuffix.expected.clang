@@ -1,0 +1,33 @@
+| test.cpp:16:3:16:13 | 2147483648 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:17:3:17:13 | 2147483648 | Integer literal declared with suffix 'l' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:26:3:26:14 | 4294967296 | Integer literal declared with suffix 'UL' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:28:3:28:14 | 4294967296 | Integer literal declared with suffix 'Ul' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:30:3:30:14 | 4294967296 | Integer literal declared with suffix 'uL' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:32:3:32:14 | 4294967296 | Integer literal declared with suffix 'ul' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:36:3:36:22 | 9223372036854775807 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:37:3:37:22 | 9223372036854775807 | Integer literal declared with suffix 'l' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:40:3:40:24 | 18446744073709551615 | Integer literal declared with suffix 'UL' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:41:3:41:24 | 18446744073709551615 | Integer literal declared with suffix 'Ul' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:93:3:93:14 | 4294967296 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:95:3:95:14 | 4294967296 | Integer literal declared with suffix 'l' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:99:3:99:21 | 9223372036854775807 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:100:3:100:21 | 9223372036854775808 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:101:3:101:21 | 18446744073709551615 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:131:3:131:15 | 4294967296 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:133:3:133:15 | 4294967296 | Integer literal declared with suffix 'l' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:137:3:137:25 | 9223372036854775807 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:138:3:138:26 | 9223372036854775808 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:170:3:170:38 | 4294967296 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:172:3:172:38 | 4294967296 | Integer literal declared with suffix 'l' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:176:3:176:69 | 9223372036854775807 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:179:3:179:69 | 9223372036854775808 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:221:18:221:29 | 2147483648 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:222:27:222:39 | 4294967296 | Integer literal declared with suffix 'UL' indicative of a long type, but has actual type 'unsigned long long'. |
+| test.cpp:223:18:223:30 | 4294967296 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:224:18:224:31 | 4294967296 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:225:18:225:38 | 9223372036854775807 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:231:17:231:31 | 2147483648 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:233:17:234:32 | 9223372036854775807 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:240:12:240:23 | 2147483648 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:243:12:243:24 | 4294967296 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
+| test.cpp:244:12:244:32 | 9223372036854775807 | Integer literal declared with suffix 'L' indicative of a long type, but has actual type 'long long'. |
