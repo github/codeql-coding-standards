@@ -5,3 +5,4 @@ dependencies:
   codeql/cpp-all: 4.0.3
 dataExtensions:
 - ext/*.model.yml
+- ext/unicode.yml

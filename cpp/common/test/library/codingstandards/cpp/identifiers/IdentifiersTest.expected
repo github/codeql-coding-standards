@@ -1,0 +1,306 @@
+| test.cpp:7:1:7:25 | MACRO_CONSTANT | test.cpp:7:1:7:25 | #define MACRO_CONSTANT 42 |
+| test.cpp:8:1:8:35 | FUNCTION_MACRO | test.cpp:8:1:8:35 | #define FUNCTION_MACRO(x) ((x) * 2) |
+| test.cpp:8:1:8:35 | x | test.cpp:8:1:8:35 | #define FUNCTION_MACRO(x) ((x) * 2) |
+| test.cpp:9:1:9:57 | VARIADIC_MACRO | test.cpp:9:1:9:57 | #define VARIADIC_MACRO(fmt,__VA_ARGS__...) printf(fmt, __VA_ARGS__) |
+| test.cpp:9:1:9:57 | __VA_ARGS__ | test.cpp:9:1:9:57 | #define VARIADIC_MACRO(fmt,__VA_ARGS__...) printf(fmt, __VA_ARGS__) |
+| test.cpp:9:1:9:57 | fmt | test.cpp:9:1:9:57 | #define VARIADIC_MACRO(fmt,__VA_ARGS__...) printf(fmt, __VA_ARGS__) |
+| test.cpp:10:1:10:71 | VARIADIC_MACRO_CUSTOM | test.cpp:10:1:10:71 | #define VARIADIC_MACRO_CUSTOM(fmt,addl_args...) printf(fmt, addl_args) |
+| test.cpp:10:1:10:71 | addl_args | test.cpp:10:1:10:71 | #define VARIADIC_MACRO_CUSTOM(fmt,addl_args...) printf(fmt, addl_args) |
+| test.cpp:10:1:10:71 | fmt | test.cpp:10:1:10:71 | #define VARIADIC_MACRO_CUSTOM(fmt,addl_args...) printf(fmt, addl_args) |
+| test.cpp:13:5:13:14 | global_var | test.cpp:13:5:13:14 | definition of global_var |
+| test.cpp:14:11:14:22 | const_global | test.cpp:14:11:14:22 | definition of const_global |
+| test.cpp:15:12:15:24 | static_global | test.cpp:15:12:15:24 | definition of static_global |
+| test.cpp:16:12:16:21 | extern_var | test.cpp:16:12:16:21 | declaration of extern_var |
+| test.cpp:17:18:17:33 | thread_local_var | test.cpp:17:18:17:33 | definition of thread_local_var |
+| test.cpp:18:5:18:24 | multiple_global_ids1 | test.cpp:18:5:18:24 | definition of multiple_global_ids1 |
+| test.cpp:18:27:18:46 | multiple_global_ids2 | test.cpp:18:27:18:46 | definition of multiple_global_ids2 |
+| test.cpp:21:6:21:20 | simple_function | test.cpp:21:6:21:20 | declaration of simple_function |
+| test.cpp:22:5:22:24 | function_with_params | test.cpp:22:5:22:24 | declaration of function_with_params |
+| test.cpp:22:30:22:35 | param1 | test.cpp:22:30:22:35 | declaration of param1 |
+| test.cpp:22:44:22:49 | param2 | test.cpp:22:44:22:49 | declaration of param2 |
+| test.cpp:23:6:23:25 | auto_return_function | test.cpp:23:6:23:25 | declaration of auto_return_function |
+| test.cpp:24:12:24:26 | inline_function | test.cpp:24:12:24:26 | definition of inline_function |
+| test.cpp:25:12:25:26 | static_function | test.cpp:25:12:25:26 | definition of static_function |
+| test.cpp:26:16:26:25 | c_function | test.cpp:26:16:26:25 | declaration of c_function |
+| test.cpp:29:6:29:21 | complex_function | test.cpp:29:6:29:21 | declaration of complex_function |
+| test.cpp:29:27:29:38 | normal_param | test.cpp:29:27:29:38 | declaration of normal_param |
+| test.cpp:29:46:29:54 | ref_param | test.cpp:29:46:29:54 | declaration of ref_param |
+| test.cpp:30:34:30:48 | const_ref_param | test.cpp:30:34:30:48 | declaration of const_ref_param |
+| test.cpp:30:56:30:64 | ptr_param | test.cpp:30:56:30:64 | declaration of ptr_param |
+| test.cpp:31:29:31:44 | rvalue_ref_param | test.cpp:31:29:31:44 | declaration of rvalue_ref_param |
+| test.cpp:31:51:31:61 | array_param | test.cpp:31:51:31:61 | declaration of array_param |
+| test.cpp:32:29:32:40 | function_ptr | test.cpp:32:29:32:40 | declaration of function_ptr |
+| test.cpp:32:56:32:63 | callback | test.cpp:32:56:32:63 | declaration of callback |
+| test.cpp:34:6:34:27 | forward_declared_twice | test.cpp:34:6:34:27 | declaration of forward_declared_twice |
+| test.cpp:34:33:34:35 | apm | test.cpp:34:33:34:35 | declaration of apm |
+| test.cpp:35:6:35:27 | forward_declared_twice | test.cpp:35:6:35:27 | declaration of forward_declared_twice |
+| test.cpp:35:33:35:35 | apm | test.cpp:35:33:35:35 | declaration of apm |
+| test.cpp:37:6:37:37 | forward_declared_twice_differing | test.cpp:37:6:37:37 | declaration of forward_declared_twice_differing |
+| test.cpp:37:43:37:45 | apm | test.cpp:37:43:37:45 | declaration of apm |
+| test.cpp:38:6:38:37 | forward_declared_twice_differing | test.cpp:38:6:38:37 | declaration of forward_declared_twice_differing |
+| test.cpp:38:43:38:45 | bpm | test.cpp:38:43:38:45 | declaration of bpm |
+| test.cpp:41:6:41:22 | variadic_function | test.cpp:41:6:41:22 | declaration of variadic_function |
+| test.cpp:41:28:41:32 | count | test.cpp:41:28:41:32 | declaration of count |
+| test.cpp:42:23:42:26 | Args | test.cpp:42:23:42:26 | definition of Args |
+| test.cpp:42:34:42:59 | variadic_template_function | test.cpp:42:34:42:59 | declaration of variadic_template_function |
+| test.cpp:42:69:42:72 | args | test.cpp:42:69:42:72 | declaration of args |
+| test.cpp:45:11:45:25 | outer_namespace | test.cpp:45:11:45:25 | outer_namespace |
+| test.cpp:46:5:46:17 | namespace_var | test.cpp:46:5:46:17 | definition of namespace_var |
+| test.cpp:48:11:48:25 | inner_namespace | test.cpp:48:11:48:25 | outer_namespace::inner_namespace |
+| test.cpp:49:5:49:13 | inner_var | test.cpp:49:5:49:13 | definition of inner_var |
+| test.cpp:52:11:52:16 | nested | test.cpp:52:11:52:16 | outer_namespace::nested |
+| test.cpp:52:19:52:24 | deeply | test.cpp:52:19:52:24 | outer_namespace::nested::deeply |
+| test.cpp:52:27:52:32 | nested | test.cpp:52:27:52:32 | outer_namespace::nested::deeply::nested |
+| test.cpp:53:5:53:12 | deep_var | test.cpp:53:5:53:12 | definition of deep_var |
+| test.cpp:58:11:58:18 | alias_ns | test.cpp:58:11:58:18 | alias_ns |
+| test.cpp:59:11:59:21 | short_alias | test.cpp:59:11:59:21 | short_alias |
+| test.cpp:67:7:67:14 | IntAlias | test.cpp:67:7:67:14 | declaration of IntAlias |
+| test.cpp:68:7:68:22 | FunctionPtrAlias | test.cpp:68:7:68:22 | declaration of FunctionPtrAlias |
+| test.cpp:69:20:69:20 | T | test.cpp:69:20:69:20 | definition of T |
+| test.cpp:69:29:69:41 | TemplateAlias | test.cpp:69:29:69:41 | definition of TemplateAlias |
+| test.cpp:72:13:72:23 | OldStyleInt | test.cpp:72:13:72:23 | declaration of OldStyleInt |
+| test.cpp:73:16:73:20 | Point | test.cpp:73:16:73:20 | definition of Point |
+| test.cpp:74:7:74:7 | x | test.cpp:74:7:74:7 | definition of x |
+| test.cpp:74:10:74:10 | y | test.cpp:74:10:74:10 | definition of y |
+| test.cpp:75:3:75:7 | Point | test.cpp:75:3:75:7 | declaration of Point |
+| test.cpp:76:13:76:28 | MultipleTypedefs | test.cpp:76:13:76:28 | declaration of MultipleTypedefs |
+| test.cpp:76:31:76:44 | AnotherTypedef | test.cpp:76:31:76:44 | declaration of AnotherTypedef |
+| test.cpp:76:48:76:64 | YetAnotherTypedef | test.cpp:76:48:76:64 | declaration of YetAnotherTypedef |
+| test.cpp:79:6:79:10 | Color | test.cpp:79:6:79:10 | definition of Color |
+| test.cpp:79:14:79:16 | RED | test.cpp:79:14:79:16 | RED |
+| test.cpp:79:19:79:23 | GREEN | test.cpp:79:19:79:23 | GREEN |
+| test.cpp:79:26:79:29 | BLUE | test.cpp:79:26:79:29 | BLUE |
+| test.cpp:80:12:80:22 | StrongColor | test.cpp:80:12:80:22 | definition of StrongColor |
+| test.cpp:80:32:80:34 | RED | test.cpp:80:32:80:34 | RED |
+| test.cpp:80:41:80:45 | GREEN | test.cpp:80:41:80:45 | GREEN |
+| test.cpp:80:52:80:55 | BLUE | test.cpp:80:52:80:55 | BLUE |
+| test.cpp:81:8:81:27 | ANONYMOUS_ENUM_VALUE | test.cpp:81:8:81:27 | ANONYMOUS_ENUM_VALUE |
+| test.cpp:84:7:84:26 | ForwardDeclaredClass | test.cpp:84:7:84:26 | declaration of ForwardDeclaredClass |
+| test.cpp:85:8:85:28 | ForwardDeclaredStruct | test.cpp:85:8:85:28 | declaration of ForwardDeclaredStruct |
+| test.cpp:86:7:86:26 | ForwardDeclaredUnion | test.cpp:86:7:86:26 | declaration of ForwardDeclaredUnion |
+| test.cpp:89:7:89:16 | BasicClass | test.cpp:89:7:89:16 | definition of BasicClass |
+| test.cpp:93:18:93:22 | value | test.cpp:93:18:93:22 | declaration of value |
+| test.cpp:94:19:94:38 | declared_not_defined | test.cpp:94:19:94:38 | declaration of declared_not_defined |
+| test.cpp:95:32:95:36 | other | test.cpp:95:32:95:36 | declaration of other |
+| test.cpp:96:27:96:31 | other | test.cpp:96:27:96:31 | declaration of other |
+| test.cpp:100:43:100:47 | other | test.cpp:100:43:100:47 | declaration of other |
+| test.cpp:101:38:101:42 | other | test.cpp:101:38:101:42 | declaration of other |
+| test.cpp:104:7:104:16 | member_var | test.cpp:104:7:104:16 | definition of member_var |
+| test.cpp:105:14:105:26 | static_member | test.cpp:105:14:105:26 | declaration of static_member |
+| test.cpp:106:13:106:24 | const_member | test.cpp:106:13:106:24 | definition of const_member |
+| test.cpp:107:15:107:28 | mutable_member | test.cpp:107:15:107:28 | definition of mutable_member |
+| test.cpp:110:8:110:22 | member_function | test.cpp:110:8:110:22 | declaration of member_function |
+| test.cpp:111:7:111:27 | const_member_function | test.cpp:111:7:111:27 | declaration of const_member_function |
+| test.cpp:112:16:112:31 | virtual_function | test.cpp:112:16:112:31 | declaration of virtual_function |
+| test.cpp:113:16:113:36 | pure_virtual_function | test.cpp:113:16:113:36 | declaration of pure_virtual_function |
+| test.cpp:114:15:114:36 | static_member_function | test.cpp:114:15:114:36 | declaration of static_member_function |
+| test.cpp:117:43:117:47 | other | test.cpp:117:43:117:47 | declaration of other |
+| test.cpp:120:37:120:41 | other | test.cpp:120:37:120:41 | declaration of other |
+| test.cpp:121:23:121:27 | index | test.cpp:121:23:121:27 | declaration of index |
+| test.cpp:128:16:128:26 | FriendClass | test.cpp:128:16:128:26 | BasicClass's friend |
+| test.cpp:129:15:129:29 | friend_function | test.cpp:129:15:129:29 | BasicClass's friend |
+| test.cpp:130:15:130:37 | friend_function_no_impl | test.cpp:130:15:130:37 | BasicClass's friend |
+| test.cpp:136:9:136:19 | NestedClass | test.cpp:136:9:136:19 | definition of NestedClass |
+| test.cpp:138:9:138:21 | nested_member | test.cpp:138:9:138:21 | definition of nested_member |
+| test.cpp:139:10:139:24 | nested_function | test.cpp:139:10:139:24 | declaration of nested_function |
+| test.cpp:142:10:142:21 | NestedStruct | test.cpp:142:10:142:21 | definition of NestedStruct |
+| test.cpp:143:9:143:21 | struct_member | test.cpp:143:9:143:21 | definition of struct_member |
+| test.cpp:146:9:146:19 | NestedUnion | test.cpp:146:9:146:19 | definition of NestedUnion |
+| test.cpp:147:9:147:18 | int_member | test.cpp:147:9:147:18 | definition of int_member |
+| test.cpp:148:11:148:22 | float_member | test.cpp:148:11:148:22 | definition of float_member |
+| test.cpp:151:8:151:17 | NestedEnum | test.cpp:151:8:151:17 | definition of NestedEnum |
+| test.cpp:151:21:151:32 | NESTED_VALUE | test.cpp:151:21:151:32 | NESTED_VALUE |
+| test.cpp:154:7:154:20 | private_member | test.cpp:154:7:154:20 | definition of private_member |
+| test.cpp:157:7:157:22 | protected_member | test.cpp:157:7:157:22 | definition of protected_member |
+| test.cpp:161:8:161:20 | ComplexStruct | test.cpp:161:8:161:20 | definition of ComplexStruct |
+| test.cpp:162:7:162:7 | x | test.cpp:162:7:162:7 | definition of x |
+| test.cpp:162:10:162:10 | y | test.cpp:162:10:162:10 | definition of y |
+| test.cpp:162:13:162:13 | z | test.cpp:162:13:162:13 | definition of z |
+| test.cpp:165:21:165:21 | a | test.cpp:165:21:165:21 | definition of a |
+| test.cpp:165:28:165:28 | b | test.cpp:165:28:165:28 | definition of b |
+| test.cpp:165:35:165:35 | c | test.cpp:165:35:165:35 | definition of c |
+| test.cpp:168:48:168:52 | other | test.cpp:168:48:168:52 | definition of other |
+| test.cpp:174:7:174:17 | SimpleUnion | test.cpp:174:7:174:17 | definition of SimpleUnion |
+| test.cpp:175:7:175:15 | int_value | test.cpp:175:7:175:15 | definition of int_value |
+| test.cpp:176:9:176:19 | float_value | test.cpp:176:9:176:19 | definition of float_value |
+| test.cpp:177:8:177:17 | char_array | test.cpp:177:8:177:17 | definition of char_array |
+| test.cpp:182:7:182:19 | anonymous_int | test.cpp:182:7:182:19 | definition of anonymous_int |
+| test.cpp:183:9:183:23 | anonymous_float | test.cpp:183:9:183:23 | definition of anonymous_float |
+| test.cpp:188:7:188:29 | anonymous_struct_member | test.cpp:188:7:188:29 | definition of anonymous_struct_member |
+| test.cpp:189:3:189:27 | anonymous_struct_instance | test.cpp:189:3:189:27 | definition of anonymous_struct_instance |
+| test.cpp:192:20:192:20 | T | test.cpp:192:20:192:20 | definition of T |
+| test.cpp:192:29:192:41 | TemplateClass | test.cpp:192:29:192:41 | TemplateClass<T> |
+| test.cpp:194:5:194:19 | template_member | test.cpp:194:5:194:19 | definition of template_member |
+| test.cpp:196:19:196:23 | value | test.cpp:196:19:196:23 | definition of value |
+| test.cpp:201:22:201:22 | U | test.cpp:201:22:201:22 | definition of U |
+| test.cpp:201:30:201:53 | template_member_function | test.cpp:201:30:201:53 | declaration of template_member_function |
+| test.cpp:205:22:205:22 | U | test.cpp:205:22:205:22 | definition of U |
+| test.cpp:205:30:205:60 | template_member_function_unused | test.cpp:205:30:205:60 | declaration of template_member_function_unused |
+| test.cpp:205:64:205:68 | param | test.cpp:205:64:205:68 | declaration of param |
+| test.cpp:208:22:208:22 | V | test.cpp:208:22:208:22 | definition of V |
+| test.cpp:208:31:208:44 | NestedTemplate | test.cpp:208:31:208:44 | NestedTemplate<V> |
+| test.cpp:209:7:209:28 | nested_template_member | test.cpp:209:7:209:28 | definition of nested_template_member |
+| test.cpp:214:20:214:20 | T | test.cpp:214:20:214:20 | definition of T |
+| test.cpp:214:32:214:32 | U | test.cpp:214:32:214:32 | definition of U |
+| test.cpp:214:37:214:53 | template_function | test.cpp:214:37:214:53 | definition of template_function |
+| test.cpp:214:57:214:61 | first | test.cpp:214:57:214:61 | definition of first |
+| test.cpp:214:66:214:71 | second | test.cpp:214:66:214:71 | definition of second |
+| test.cpp:221:7:221:24 | specialized_member | test.cpp:221:7:221:24 | definition of specialized_member |
+| test.cpp:222:21:222:25 | value | test.cpp:222:21:222:25 | definition of value |
+| test.cpp:226:20:226:20 | T | test.cpp:226:20:226:20 | definition of T |
+| test.cpp:228:6:228:19 | pointer_member | test.cpp:228:6:228:19 | definition of pointer_member |
+| test.cpp:229:20:229:22 | ptr | test.cpp:229:20:229:22 | declaration of ptr |
+| test.cpp:233:27:233:27 | T | test.cpp:233:27:233:27 | definition of T |
+| test.cpp:233:36:233:45 | N | test.cpp:233:36:233:45 | N |
+| test.cpp:234:5:234:9 | array | test.cpp:234:5:234:9 | definition of array |
+| test.cpp:240:24:240:24 | size | test.cpp:240:24:240:24 | definition of size |
+| test.cpp:240:24:240:27 | size | test.cpp:240:24:240:27 | definition of size |
+| test.cpp:244:37:244:45 | Container | test.cpp:244:37:244:45 | definition of Container |
+| test.cpp:244:57:244:57 | T | test.cpp:244:57:244:57 | definition of T |
+| test.cpp:245:7:245:27 | TemplateTemplateClass | test.cpp:245:7:245:27 | TemplateTemplateClass<Container, T> |
+| test.cpp:246:16:246:24 | container | test.cpp:246:16:246:24 | definition of container |
+| test.cpp:250:20:250:20 | T | test.cpp:250:20:250:20 | definition of T |
+| test.cpp:250:53:250:53 | variable_template | test.cpp:250:53:250:53 | definition of variable_template |
+| test.cpp:253:20:253:20 | T | test.cpp:253:20:253:20 | definition of T |
+| test.cpp:253:29:253:39 | VectorAlias | test.cpp:253:29:253:39 | definition of VectorAlias |
+| test.cpp:256:7:256:15 | BaseClass | test.cpp:256:7:256:15 | definition of BaseClass |
+| test.cpp:259:16:259:36 | base_virtual_function | test.cpp:259:16:259:36 | declaration of base_virtual_function |
+| test.cpp:262:7:262:18 | DerivedClass | test.cpp:262:7:262:18 | definition of DerivedClass |
+| test.cpp:264:8:264:28 | base_virtual_function | test.cpp:264:8:264:28 | declaration of base_virtual_function |
+| test.cpp:265:8:265:23 | derived_function | test.cpp:265:8:265:23 | declaration of derived_function |
+| test.cpp:269:7:269:25 | MultipleInheritance | test.cpp:269:7:269:25 | definition of MultipleInheritance |
+| test.cpp:271:8:271:28 | base_virtual_function | test.cpp:271:8:271:28 | declaration of base_virtual_function |
+| test.cpp:275:7:275:17 | VirtualBase | test.cpp:275:7:275:17 | definition of VirtualBase |
+| test.cpp:277:7:277:25 | virtual_base_member | test.cpp:277:7:277:25 | definition of virtual_base_member |
+| test.cpp:280:7:280:21 | VirtualDerived1 | test.cpp:280:7:280:21 | definition of VirtualDerived1 |
+| test.cpp:282:7:282:21 | derived1_member | test.cpp:282:7:282:21 | definition of derived1_member |
+| test.cpp:285:7:285:21 | VirtualDerived2 | test.cpp:285:7:285:21 | definition of VirtualDerived2 |
+| test.cpp:287:7:287:21 | derived2_member | test.cpp:287:7:287:21 | definition of derived2_member |
+| test.cpp:290:7:290:13 | Diamond | test.cpp:290:7:290:13 | definition of Diamond |
+| test.cpp:292:7:292:20 | diamond_member | test.cpp:292:7:292:20 | definition of diamond_member |
+| test.cpp:296:21:296:33 | _km | test.cpp:296:21:296:33 | definition of operator ""_km |
+| test.cpp:296:54:296:58 | value | test.cpp:296:54:296:58 | definition of value |
+| test.cpp:300:23:300:40 | _celsius | test.cpp:300:23:300:40 | definition of operator ""_celsius |
+| test.cpp:300:54:300:57 | temp | test.cpp:300:54:300:57 | definition of temp |
+| test.cpp:305:13:305:26 | _raw | test.cpp:305:13:305:26 | definition of operator ""_raw |
+| test.cpp:305:40:305:42 | str | test.cpp:305:40:305:42 | definition of str |
+| test.cpp:305:52:305:54 | len | test.cpp:305:52:305:54 | definition of len |
+| test.cpp:310:7:310:20 | FunctionObject | test.cpp:310:7:310:20 | definition of FunctionObject |
+| test.cpp:312:22:312:22 | x | test.cpp:312:22:312:22 | definition of x |
+| test.cpp:316:7:316:21 | CustomException | test.cpp:316:7:316:21 | definition of CustomException |
+| test.cpp:318:15:318:18 | what | test.cpp:318:15:318:18 | definition of what |
+| test.cpp:322:6:322:26 | complex_function_body | test.cpp:322:6:322:26 | definition of complex_function_body |
+| test.cpp:324:7:324:15 | local_var | test.cpp:324:7:324:15 | definition of local_var |
+| test.cpp:325:13:325:23 | const_local | test.cpp:325:13:325:23 | definition of const_local |
+| test.cpp:326:14:326:25 | static_local | test.cpp:326:14:326:25 | definition of static_local |
+| test.cpp:329:7:329:11 | array | test.cpp:329:7:329:11 | definition of array |
+| test.cpp:330:7:330:19 | dynamic_array | test.cpp:330:7:330:19 | definition of dynamic_array |
+| test.cpp:333:8:333:10 | ptr | test.cpp:333:8:333:10 | definition of ptr |
+| test.cpp:334:8:334:10 | ref | test.cpp:334:8:334:10 | definition of ref |
+| test.cpp:337:8:337:15 | auto_var | test.cpp:337:8:337:15 | definition of auto_var |
+| test.cpp:338:8:338:15 | auto_ptr | test.cpp:338:8:338:15 | definition of auto_ptr |
+| test.cpp:341:8:341:11 | pair | test.cpp:341:8:341:11 | definition of pair |
+| test.cpp:342:9:342:9 | first | test.cpp:342:9:342:9 | definition of first |
+| test.cpp:342:16:342:16 | second | test.cpp:342:16:342:16 | definition of second |
+| test.cpp:345:7:345:17 | range_array | test.cpp:345:7:345:17 | definition of range_array |
+| test.cpp:346:12:346:18 | element | test.cpp:346:12:346:18 | definition of element |
+| test.cpp:350:14:350:24 | ref_element | test.cpp:350:14:350:24 | definition of ref_element |
+| test.cpp:355:12:355:12 | i | test.cpp:355:12:355:12 | definition of i |
+| test.cpp:360:7:360:13 | counter | test.cpp:360:7:360:13 | definition of counter |
+| test.cpp:376:9:376:18 | case_local | test.cpp:376:9:376:18 | definition of case_local |
+| test.cpp:386:1:386:7 | label1 | test.cpp:386:1:386:7 | label ...: |
+| test.cpp:392:35:392:35 | e | test.cpp:392:35:392:35 | definition of e |
+| test.cpp:394:34:394:42 | generic_e | test.cpp:394:34:394:42 | definition of generic_e |
+| test.cpp:401:8:401:20 | simple_lambda | test.cpp:401:8:401:20 | definition of simple_lambda |
+| test.cpp:403:8:403:26 | lambda_with_capture | test.cpp:403:8:403:26 | definition of lambda_with_capture |
+| test.cpp:403:46:403:50 | param | test.cpp:403:46:403:50 | definition of param |
+| test.cpp:407:8:407:35 | lambda_with_various_captures | test.cpp:407:8:407:35 | definition of lambda_with_various_captures |
+| test.cpp:407:58:407:58 | x | test.cpp:407:58:407:58 | definition of x |
+| test.cpp:412:8:412:21 | generic_lambda | test.cpp:412:8:412:21 | definition of generic_lambda |
+| test.cpp:412:33:412:33 | x | test.cpp:412:33:412:33 | definition of x |
+| test.cpp:412:41:412:41 | y | test.cpp:412:41:412:41 | definition of y |
+| test.cpp:415:8:415:22 | template_lambda | test.cpp:415:8:415:22 | definition of template_lambda |
+| test.cpp:415:38:415:38 | T | test.cpp:415:38:415:38 | definition of T |
+| test.cpp:415:43:415:47 | value | test.cpp:415:43:415:47 | definition of value |
+| test.cpp:418:12:418:17 | result | test.cpp:418:12:418:17 | definition of result |
+| test.cpp:423:16:423:18 | val | test.cpp:423:16:423:18 | definition of val |
+| test.cpp:431:7:431:15 | condition | test.cpp:431:7:431:15 | definition of condition |
+| test.cpp:432:7:432:12 | result | test.cpp:432:7:432:12 | definition of result |
+| test.cpp:435:8:435:23 | compound_literal | test.cpp:435:8:435:23 | definition of compound_literal |
+| test.cpp:439:9:439:24 | nested_scope_var | test.cpp:439:9:439:24 | definition of nested_scope_var |
+| test.cpp:441:11:441:27 | deeply_nested_var | test.cpp:441:11:441:27 | definition of deeply_nested_var |
+| test.cpp:462:20:462:20 | U | test.cpp:462:20:462:20 | definition of U |
+| test.cpp:468:6:468:47 | template_member_function | test.cpp:468:6:468:47 | definition of template_member_function |
+| test.cpp:468:51:468:55 | param | test.cpp:468:51:468:55 | declaration of param |
+| test.cpp:468:51:468:55 | param | test.cpp:468:51:468:55 | definition of param |
+| test.cpp:473:5:473:29 | static_member | test.cpp:473:5:473:29 | definition of static_member |
+| test.cpp:476:6:476:32 | member_function | test.cpp:476:6:476:32 | definition of member_function |
+| test.cpp:485:28:485:32 | value | test.cpp:485:28:485:32 | definition of value |
+| test.cpp:496:53:496:57 | other | test.cpp:496:53:496:57 | definition of other |
+| test.cpp:501:6:501:20 | friend_function | test.cpp:501:6:501:20 | definition of friend_function |
+| test.cpp:501:40:501:42 | obj | test.cpp:501:40:501:42 | definition of obj |
+| test.cpp:506:6:506:45 | nested_function | test.cpp:506:6:506:45 | definition of nested_function |
+| test.cpp:511:41:511:43 | lhs | test.cpp:511:41:511:43 | definition of lhs |
+| test.cpp:511:64:511:66 | rhs | test.cpp:511:64:511:66 | definition of rhs |
+| test.cpp:516:42:516:46 | other | test.cpp:516:42:516:46 | definition of other |
+| test.cpp:561:8:561:14 | Point3D | test.cpp:561:8:561:14 | definition of Point3D |
+| test.cpp:562:7:562:7 | x | test.cpp:562:7:562:7 | definition of x |
+| test.cpp:562:10:562:10 | y | test.cpp:562:10:562:10 | definition of y |
+| test.cpp:562:13:562:13 | z | test.cpp:562:13:562:13 | definition of z |
+| test.cpp:565:6:565:35 | designated_initializer_example | test.cpp:565:6:565:35 | definition of designated_initializer_example |
+| test.cpp:565:49:565:49 | p | test.cpp:565:49:565:49 | definition of p |
+| test.cpp:568:19:568:36 | attribute_function | test.cpp:568:19:568:36 | declaration of attribute_function |
+| test.cpp:568:19:568:36 | nodiscard | test.cpp:568:19:568:36 | nodiscard |
+| test.cpp:569:49:569:60 | deprecated | test.cpp:569:49:569:60 | deprecated |
+| test.cpp:569:49:569:60 | old_function | test.cpp:569:49:569:60 | declaration of old_function |
+| test.cpp:570:22:570:36 | maybe_unused | test.cpp:570:22:570:36 | maybe_unused |
+| test.cpp:570:22:570:36 | unused_variable | test.cpp:570:22:570:36 | definition of unused_variable |
+| test.cpp:572:39:572:53 | custom_attr | test.cpp:572:39:572:53 | custom_attr |
+| test.cpp:572:39:572:53 | custom_attr_var | test.cpp:572:39:572:53 | definition of custom_attr_var |
+| test.cpp:572:39:572:53 | custom_namespace | test.cpp:572:39:572:53 | custom_attr |
+| test.cpp:577:60:577:67 | OldClass | test.cpp:577:60:577:67 | definition of OldClass |
+| test.cpp:577:60:577:67 | deprecated | test.cpp:577:60:577:67 | deprecated |
+| test.cpp:580:6:580:27 | attribute_on_statement | test.cpp:580:6:580:27 | definition of attribute_on_statement |
+| test.cpp:581:7:581:7 | x | test.cpp:581:7:581:7 | definition of x |
+| test.cpp:583:3:583:18 | my_attr | test.cpp:583:3:583:18 | my_attr |
+| test.cpp:588:8:588:13 | lambda | test.cpp:588:8:588:13 | definition of lambda |
+| test.cpp:594:18:594:27 | versioning | test.cpp:594:18:594:27 | versioning |
+| test.cpp:595:11:595:12 | v1 | test.cpp:595:11:595:12 | versioning::v1 |
+| test.cpp:596:6:596:20 | api_function_v1 | test.cpp:596:6:596:20 | declaration of api_function_v1 |
+| test.cpp:599:11:599:12 | v2 | test.cpp:599:11:599:12 | versioning::v2 |
+| test.cpp:600:6:600:20 | api_function_v2 | test.cpp:600:6:600:20 | declaration of api_function_v2 |
+| test.cpp:606:5:606:27 | anonymous_namespace_var | test.cpp:606:5:606:27 | definition of anonymous_namespace_var |
+| test.cpp:607:6:607:33 | anonymous_namespace_function | test.cpp:607:6:607:33 | definition of anonymous_namespace_function |
+| test.cpp:614:18:614:37 | thread_local_counter | test.cpp:614:18:614:37 | definition of thread_local_counter |
+| test.cpp:617:15:617:32 | constexpr_function | test.cpp:617:15:617:32 | definition of constexpr_function |
+| test.cpp:617:38:617:38 | x | test.cpp:617:38:617:38 | definition of x |
+| test.cpp:624:18:624:29 | extern_const | test.cpp:624:18:624:29 | declaration of extern_const |
+| test.cpp:625:22:625:37 | static_constexpr | test.cpp:625:22:625:37 | definition of static_constexpr |
+| test.cpp:626:22:626:37 | inline_constexpr | test.cpp:626:22:626:37 | definition of inline_constexpr |
+| test.cpp:629:6:629:32 | structured_binding_examples | test.cpp:629:6:629:32 | definition of structured_binding_examples |
+| test.cpp:630:25:630:34 | pair_value | test.cpp:630:25:630:34 | definition of pair_value |
+| test.cpp:631:9:631:9 | int_part | test.cpp:631:9:631:9 | definition of int_part |
+| test.cpp:631:19:631:19 | float_part | test.cpp:631:19:631:19 | definition of float_part |
+| test.cpp:633:7:633:11 | array | test.cpp:633:7:633:11 | definition of array |
+| test.cpp:634:9:634:9 | a | test.cpp:634:9:634:9 | definition of a |
+| test.cpp:634:12:634:12 | b | test.cpp:634:12:634:12 | definition of b |
+| test.cpp:634:15:634:15 | c | test.cpp:634:15:634:15 | definition of c |
+| test.cpp:636:10:636:20 | LocalStruct | test.cpp:636:10:636:20 | definition of LocalStruct |
+| test.cpp:637:9:637:9 | x | test.cpp:637:9:637:9 | definition of x |
+| test.cpp:638:11:638:11 | y | test.cpp:638:11:638:11 | definition of y |
+| test.cpp:640:15:640:26 | local_struct | test.cpp:640:15:640:26 | definition of local_struct |
+| test.cpp:641:9:641:9 | struct_x | test.cpp:641:9:641:9 | definition of struct_x |
+| test.cpp:641:19:641:19 | struct_y | test.cpp:641:19:641:19 | definition of struct_y |
+| test.cpp:645:7:645:25 | global_function_ptr | test.cpp:645:7:645:25 | definition of global_function_ptr |
+| test.cpp:646:8:646:24 | void_function_ptr | test.cpp:646:8:646:24 | definition of void_function_ptr |
+| test.cpp:649:19:649:37 | member_function_ptr | test.cpp:649:19:649:37 | definition of member_function_ptr |
+| test.cpp:650:18:650:36 | member_variable_ptr | test.cpp:650:18:650:36 | definition of member_variable_ptr |
+| test.cpp:653:6:653:24 | reference_to_global | test.cpp:653:6:653:24 | definition of reference_to_global |
+| test.cpp:654:12:654:36 | const_reference_to_global | test.cpp:654:12:654:36 | definition of const_reference_to_global |
+| test.cpp:657:8:657:21 | BitFieldStruct | test.cpp:657:8:657:21 | definition of BitFieldStruct |
+| test.cpp:658:16:658:20 | flag1 | test.cpp:658:16:658:20 | definition of flag1 |
+| test.cpp:659:16:659:20 | flag2 | test.cpp:659:16:659:20 | definition of flag2 |
+| test.cpp:660:16:660:20 | value | test.cpp:660:16:660:20 | definition of value |
+| test.cpp:664:8:664:20 | FlexibleArray | test.cpp:664:8:664:20 | definition of FlexibleArray |
+| test.cpp:665:7:665:11 | count | test.cpp:665:7:665:11 | definition of count |
+| test.cpp:666:7:666:10 | data | test.cpp:666:7:666:10 | definition of data |

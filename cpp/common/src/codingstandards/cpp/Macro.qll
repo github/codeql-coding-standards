@@ -8,7 +8,11 @@ class FunctionLikeMacro extends Macro {
 
   string getParameter(int i) {
     result =
-      this.getHead().regexpCapture("[_a-zA-Z0-9]+\\s*\\(([^\\)]*)\\)", 1).splitAt(",", i).trim()
+      this.getHead()
+          .regexpCapture("[_a-zA-Z0-9]+\\s*\\(([^\\)]*)\\)", 1)
+          .splitAt(",", i)
+          .trim()
+          .replaceAll("...", "")
   }
 
   string getAParameter() { result = getParameter(_) }
