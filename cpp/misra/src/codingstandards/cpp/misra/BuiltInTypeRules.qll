@@ -23,7 +23,7 @@ newtype TypeCategory =
  */
 TypeCategory getTypeCategory(BuiltInType t) {
   (
-    t instanceof CharType or
+    t instanceof PlainCharType or
     t instanceof WideCharType or
     t instanceof Char16Type or
     t instanceof Char32Type or
@@ -59,11 +59,43 @@ TypeCategory getTypeCategory(BuiltInType t) {
 }
 
 /**
+ * Gets the built-in type of a type, if it is a built-in type.
+ *
+ * This function will strip specifiers and typedefs to get the underlying built-in type.
+ */
+BuiltInType getBuiltInType(Type t) {
+  // Get the built-in type of a type, if it is a built-in type
+  result = t
+  or
+  // Strip specifiers and typedefs to get the built-in type
+  result = getBuiltInType(t.getUnspecifiedType())
+  or
+  // For reference types, get the base type and then the built-in type
+  result = getBuiltInType(t.(ReferenceType).getBaseType())
+  or
+  // For enum types, get the explicit underlying type and then the built-in type
+  result = getBuiltInType(t.(Enum).getExplicitUnderlyingType())
+}
+
+/**
  * The signedness of a MISRA C++ 2023 numeric type.
  */
 newtype Signedness =
   Signed() or
   Unsigned()
+
+class CharacterType extends Type {
+  // The actual character type, which is either a plain char or a wide char
+  BuiltInType realType;
+
+  CharacterType() {
+    // A type whose type category is character
+    getTypeCategory(realType) = Character() and
+    realType = getBuiltInType(this)
+  }
+
+  Type getRealType() { result = realType }
+}
 
 /**
  * A MISRA C++ 2023 numeric type is a type that represents a number, either an integral or a floating-point.
@@ -78,18 +110,9 @@ class NumericType extends Type {
   Type realType;
 
   NumericType() {
-    // A type which is either an integral or a floating-point type category
-    getTypeCategory(this) = [Integral().(TypeCategory), FloatingPoint()] and
-    realType = this
-    or
-    // Any type which, after stripping specifiers and typedefs, is a numeric type
-    realType = this.getUnspecifiedType().(NumericType).getRealType()
-    or
-    // Any reference type where the base type is a numeric type
-    realType = this.(ReferenceType).getBaseType().(NumericType).getRealType()
-    or
-    // Any Enum type with an explicit underlying type that is a numeric type
-    realType = this.(Enum).getExplicitUnderlyingType().(NumericType).getRealType()
+    // A type whose type category is either integral or a floating-point
+    getTypeCategory(realType) = [Integral().(TypeCategory), FloatingPoint()] and
+    realType = getBuiltInType(this)
   }
 
   Signedness getSignedness() {
