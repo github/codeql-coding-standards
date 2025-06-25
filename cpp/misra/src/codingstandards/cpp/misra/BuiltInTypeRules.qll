@@ -121,14 +121,14 @@ class CanonicalIntegerTypes extends NumericType, IntegralType {
   CanonicalIntegerTypes() { this = this.getCanonicalArithmeticType() }
 }
 
-predicate isAssignment(Expr source, NumericType targetType, string context) {
+predicate isAssignment(Expr source, Type targetType, string context) {
   exists(Expr preConversionAssignment |
     isPreConversionAssignment(preConversionAssignment, targetType, context) and
     preConversionAssignment.getExplicitlyConverted() = source
   )
 }
 
-predicate isPreConversionAssignment(Expr source, NumericType targetType, string context) {
+predicate isPreConversionAssignment(Expr source, Type targetType, string context) {
   // Assignment expression (which excludes compound assignments)
   exists(AssignExpr assign |
     assign.getRValue() = source and
