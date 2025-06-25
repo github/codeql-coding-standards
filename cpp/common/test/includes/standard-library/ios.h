@@ -67,5 +67,8 @@ public:
 
 ios_base &hex(ios_base &str);
 
+std::ios_base &boolalpha(std::ios_base &str);
+std::ios_base &noboolalpha(std::ios_base &str);
+
 } // namespace std
 #endif // _GHLIBCPP_IOS
