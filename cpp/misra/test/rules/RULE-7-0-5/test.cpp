@@ -237,3 +237,23 @@ void test_pointer_assignment_arithmetic() {
   l5 -= l3; // COMPLIANT - rule does not apply to pointer arithmetic
   l5 -= l4; // COMPLIANT - rule does not apply to pointer arithmetic
 }
+
+#define A 100LL  // intmax_t
+#define B 200LL  // intmax_t
+#define C 300ULL // uintmax_t
+#define D 400ULL // uintmax_t
+
+#if A + B > 250 // COMPLIANT - both intmax_t, no conversion
+;
+#elif C + D < 800 // COMPLIANT - both uintmax_t, no conversion
+;
+#endif
+
+#define SIGNED_MAX 9223372036854775807LL // intmax_t
+#define UNSIGNED_VAL 1ULL                // uintmax_t
+
+#if SIGNED_MAX + UNSIGNED_VAL > 0 // NON_COMPLIANT[FALSE_NEGATIVE]
+// intmax_t + uintmax_t → both converted to uintmax_t
+// This changes SIGNED_MAX from signed to unsigned
+;
+#endif
