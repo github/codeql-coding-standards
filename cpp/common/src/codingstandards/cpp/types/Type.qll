@@ -113,6 +113,19 @@ predicate integralTypeBounds(IntegralType integralType, QlBuiltins::BigInt lb, Q
 }
 
 /**
+ * The size of the smallest `int` type in the database in bytes.
+ */
+int sizeOfInt() {
+  // The size of int is implementation-defined
+  result =
+    min(int size |
+      size = any(IntType i | i.isSigned()).getCanonicalArithmeticType().getSize()
+    |
+      size
+    )
+}
+
+/**
  * Convenience class to reduce the awkwardness of how `RoutineType` and `FunctionPointerIshType`
  * don't have a common ancestor.
  */
