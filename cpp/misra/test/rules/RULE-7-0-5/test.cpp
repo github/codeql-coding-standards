@@ -200,3 +200,40 @@ void test_floating_point_conversions() {
   l1 *= l2; // NON_COMPLIANT - l2 -> floating
   l1 /= l2; // NON_COMPLIANT - l2 -> floating
 }
+
+void test_pointer_arithmetic() {
+  int l1[10];
+  std::uint8_t l2 = 5;
+  std::uint16_t l3 = 2;
+  std::int8_t l4 = 3;
+  std::int32_t l5 = 1;
+  int *l6 = l1;
+
+  l1 + l2; // COMPLIANT - rule does not apply to pointer arithmetic
+  l1 + l3; // COMPLIANT - rule does not apply to pointer arithmetic
+  l1 + l4; // COMPLIANT - rule does not apply to pointer arithmetic
+  l1 + l5; // COMPLIANT - rule does not apply to pointer arithmetic
+  l6 + l2; // COMPLIANT - rule does not apply to pointer arithmetic
+  l6 + l3; // COMPLIANT - rule does not apply to pointer arithmetic
+
+  l1 - l2; // COMPLIANT - rule does not apply to pointer arithmetic
+  l6 - l3; // COMPLIANT - rule does not apply to pointer arithmetic
+
+  l6 - l1; // COMPLIANT - rule does not apply to pointer arithmetic
+}
+
+void test_pointer_assignment_arithmetic() {
+  int l1[10];
+  std::uint8_t l2 = 5;
+  std::uint16_t l3 = 2;
+  std::int8_t l4 = 3;
+  int *l5 = l1;
+
+  l5 += l2; // COMPLIANT - rule does not apply to pointer arithmetic
+  l5 += l3; // COMPLIANT - rule does not apply to pointer arithmetic
+  l5 += l4; // COMPLIANT - rule does not apply to pointer arithmetic
+
+  l5 -= l2; // COMPLIANT - rule does not apply to pointer arithmetic
+  l5 -= l3; // COMPLIANT - rule does not apply to pointer arithmetic
+  l5 -= l4; // COMPLIANT - rule does not apply to pointer arithmetic
+}
