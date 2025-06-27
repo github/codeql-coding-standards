@@ -18,9 +18,9 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.misra.BuiltInTypeRules
 
 abstract class RelevantConversion extends Expr {
-  abstract Type getFromType();
+  abstract NumericType getFromType();
 
-  abstract Type getToType();
+  abstract NumericType getToType();
 
   abstract Expr getConvertedExpr();
 
@@ -40,9 +40,9 @@ abstract class RelevantRealConversion extends RelevantConversion, Conversion {
     this.isImplicit()
   }
 
-  override Type getFromType() { result = fromType }
+  override NumericType getFromType() { result = fromType }
 
-  override Type getToType() { result = toType }
+  override NumericType getToType() { result = toType }
 
   override Expr getConvertedExpr() { result = this.getExpr() }
 }
@@ -119,9 +119,9 @@ class ImpliedUsualArithmeticConversion extends RelevantConversion {
     )
   }
 
-  override Type getFromType() { result = fromType }
+  override NumericType getFromType() { result = fromType }
 
-  override Type getToType() { result = toType }
+  override NumericType getToType() { result = toType }
 
   override Expr getConvertedExpr() { result = this }
 
@@ -143,11 +143,11 @@ class ImpliedIntegerPromotion extends RelevantConversion {
     fromType.getRealSize() < sizeOfInt()
   }
 
-  override Type getFromType() { result = fromType }
+  override NumericType getFromType() { result = fromType }
 
-  override IntegralType getToType() {
+  override NumericType getToType() {
     // Only report the canonical type - e.g. `int` not `signed int`
-    result = result.getCanonicalArithmeticType() and
+    result = result.(IntegralType).getCanonicalArithmeticType() and
     if result instanceof Char16Type or result instanceof Char32Type or result instanceof Wchar_t
     then
       // Smallest type that can hold the value of the `fromType`
@@ -163,8 +163,6 @@ class ImpliedIntegerPromotion extends RelevantConversion {
           candidateType order by candidateType.getIntegralUpperBound()
         )
     else (
-      // The result is always `int` or `unsigned int`
-      result instanceof IntType and
       if
         // If the `fromType` is signed, the result must be signed
         fromType.getSignedness() = Signed()
@@ -173,10 +171,12 @@ class ImpliedIntegerPromotion extends RelevantConversion {
         // result must be signed as well.
         fromType.getIntegralUpperBound() <=
           any(IntType t | t.isSigned()).(NumericType).getIntegralUpperBound()
-      then result.isSigned()
+      then
+        // `int` is returned
+        result.(IntType).isSigned()
       else
-        // Otherwise an unsigned type is returned
-        result.isUnsigned()
+        // Otherwise `unsigned int` is returned
+        result.(IntType).isUnsigned()
     )
   }
 
