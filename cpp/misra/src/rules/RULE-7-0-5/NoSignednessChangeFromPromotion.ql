@@ -50,9 +50,22 @@ abstract class RelevantRealConversion extends RelevantConversion, Conversion {
 class UsualArithmeticConversion extends RelevantRealConversion {
   UsualArithmeticConversion() {
     (
-      exists(BinaryOperation op | op.getAnOperand().getFullyConverted() = this) or
-      exists(UnaryOperation uao | uao.getOperand().getFullyConverted() = this) or
-      exists(AssignArithmeticOperation ao | ao.getAnOperand().getFullyConverted() = this)
+      // Most binary operations from and to numeric types participate in usual arithmetic conversions
+      exists(BinaryOperation op |
+        // Shifts do not participate in usual arithmetic conversions
+        not op instanceof LShiftExpr and
+        not op instanceof RShiftExpr and
+        op.getAnOperand().getFullyConverted() = this
+      )
+      or
+      // Most binary assignment operations from and to numeric types participate in usual arithmetic
+      // conversions
+      exists(AssignOperation ao |
+        // Shifts do not participate in usual arithmetic conversions
+        not ao instanceof AssignLShiftExpr and
+        not ao instanceof AssignRShiftExpr and
+        ao.getRValue().getFullyConverted() = this
+      )
     )
   }
 
@@ -61,15 +74,24 @@ class UsualArithmeticConversion extends RelevantRealConversion {
 
 class IntegerPromotion extends RelevantRealConversion {
   IntegerPromotion() {
+    // Exclude integer promotions combined with usual arithmetic conversions, which are handled separately
+    not this instanceof UsualArithmeticConversion and
     // Only consider cases where the integer promotion is the last conversion applied
     exists(Expr e | e.getFullyConverted() = this) and
     // Integer promotion occurs where the from type is smaller than int
-    fromType.getRealSize() < any(IntType i).(NumericType).getRealSize() and
+    fromType.getRealSize() < sizeOfInt() and
     // To type is bigger than or equal to int
-    toType.getRealSize() >= any(IntType i).(NumericType).getRealSize() and
+    toType.getRealSize() >= sizeOfInt() and
+    // An integer promotion is a conversion from an integral type to an integral type
+    //
+    // This deliberately excludes integer promotions from `bool` and unscoped enums which do not
+    // have a fixed underlying type, because neither of these are considered integral types in the
+    // MISRA C++ rules.
     fromType.getTypeCategory() = Integral() and
     toType.getTypeCategory() = Integral()
   }
+
+  override string getKindOfConversion() { result = "Integer promotion" }
 }
 
 from Expr e, RelevantConversion c, NumericType fromType, NumericType toType, string changeType
