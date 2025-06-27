@@ -53,6 +53,35 @@ void test_assignment_operations() {
   l1 += l3;                             // COMPLIANT - l1 -> unsigned int
 }
 
+void test_shift_operations() {
+  std::uint8_t l1 = 5;
+  std::uint16_t l2 = 100;
+  std::uint32_t l3 = 1000;
+  std::int16_t l4;
+
+  l1 << 2;  // NON_COMPLIANT - l1 -> signed int
+  l1 >> 1;  // NON_COMPLIANT - l1 -> signed int
+  l2 << 2;  // NON_COMPLIANT - l2 -> signed int
+  l2 >> 1;  // NON_COMPLIANT - l2 -> signed int
+  l3 << 2;  // COMPLIANT
+  l3 >> 1;  // COMPLIANT
+  l3 << l1; // NON_COMPLIANT - l1 -> signed int
+  l3 >> l1; // NON_COMPLIANT - l1 -> signed int
+  l3 << l4; // COMPLIANT
+  l3 >> l4; // COMPLIANT
+
+  l1 <<= 2;  // NON_COMPLIANT - l1 -> signed int
+  l1 >>= 1;  // NON_COMPLIANT - l1 -> signed int
+  l2 <<= 2;  // NON_COMPLIANT - l2 -> signed int
+  l2 >>= 1;  // NON_COMPLIANT - l2 -> signed int
+  l3 <<= 2;  // COMPLIANT
+  l3 >>= 1;  // COMPLIANT
+  l3 <<= l1; // NON_COMPLIANT - l1 -> signed int
+  l3 >>= l1; // NON_COMPLIANT - l1 -> signed int
+  l3 <<= l4; // COMPLIANT
+  l3 >>= l4; // COMPLIANT
+}
+
 void test_comparison_operations() {
   std::int32_t l1 = -1000;
   std::uint32_t l2 = 1000;
@@ -78,16 +107,6 @@ void test_conditional_operator() {
 
   l1 ? l2 : l3; // COMPLIANT - no conversion
   l1 ? l2 : l4; // NON_COMPLIANT - l2 and l4 -> signed int
-}
-
-void test_shift_operations() {
-  std::uint8_t l1 = 5;
-  std::uint32_t l2 = 1000;
-
-  l1 << 2; // NON_COMPLIANT - l1 -> signed int
-  l1 >> 1; // NON_COMPLIANT - l1 -> signed int
-  l2 << 2; // COMPLIANT
-  l2 >> 1; // COMPLIANT
 }
 
 void test_unary_operations() {
@@ -119,6 +138,45 @@ void test_array_subscript() {
   std::uint8_t l2 = 5;
 
   l1[l2]; // COMPLIANT - rule does not apply
+}
+
+void test_logical_operators() {
+  std::uint8_t l1 = 5;
+  std::uint8_t l2 = 10;
+  std::uint16_t l3 = 100;
+  std::int8_t l4 = -5;
+  bool l5 = true;
+
+  l1 &&l2;  // COMPLIANT - rule does not apply to logical operators
+  l1 || l2; // COMPLIANT - rule does not apply to logical operators
+  l1 &&l3;  // COMPLIANT - rule does not apply to logical operators
+  l4 &&l1;  // COMPLIANT - rule does not apply to logical operators
+  l5 &&l1;  // COMPLIANT - rule does not apply to logical operators
+  l1 &&l5;  // COMPLIANT - rule does not apply to logical operators
+}
+
+void test_mixed_signed_unsigned_arithmetic() {
+  std::int8_t l1 = -5;
+  std::uint8_t l2 = 10;
+  std::int16_t l3 = -100;
+  std::uint16_t l4 = 200;
+
+  l1 + l2; // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 - l2; // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 *l2;  // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 / l2; // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 % l2; // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 & l2; // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 | l2; // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 ^ l2; // NON_COMPLIANT - l1 and l2 -> signed int
+
+  l3 + l4; // NON_COMPLIANT - l3 and l4 -> signed int
+  l3 - l4; // NON_COMPLIANT - l3 and l4 -> signed int
+  l3 *l4;  // NON_COMPLIANT - l3 and l4 -> signed int
+
+  l1 < l2;  // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 > l2;  // NON_COMPLIANT - l1 and l2 -> signed int
+  l3 == l4; // NON_COMPLIANT - l3 and l4 -> signed int
 }
 
 void test_exception_compile_time_constants() {
