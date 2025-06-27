@@ -94,6 +94,97 @@ class IntegerPromotion extends RelevantRealConversion {
   override string getKindOfConversion() { result = "Integer promotion" }
 }
 
+class ImpliedUsualArithmeticConversion extends RelevantConversion {
+  NumericType fromType;
+  NumericType toType;
+
+  ImpliedUsualArithmeticConversion() {
+    // The lvalue of an assignment operation does not have a `Conversion` in our model, but
+    // it is still subject to usual arithmetic conversions (excepting shifts).
+    //
+    // rvalues are handled separately in the `UsualArithmeticConversion` class.
+    exists(AssignOperation aop |
+      not aop instanceof AssignLShiftExpr and
+      not aop instanceof AssignRShiftExpr and
+      // lvalue subject to usual arithmetic conversions
+      aop.getLValue() = this and
+      // From type is the type of the lvalue, which should be a numeric type under the MISRA rule
+      fromType = this.getType() and
+      // Under usual arithmetic conversions, the converted types of both arguments will be the same,
+      // so even though we don't have an explicit conversion, we can still deduce that the target
+      // type will be the same as the converted type of the rvalue.
+      toType = aop.getRValue().getFullyConverted().getType() and
+      // Only consider cases where the conversion is not a no-op, for consistency with the `Conversion` class
+      not fromType.getRealType() = toType.getRealType()
+    )
+  }
+
+  override Type getFromType() { result = fromType }
+
+  override Type getToType() { result = toType }
+
+  override Expr getConvertedExpr() { result = this }
+
+  override string getKindOfConversion() { result = "Usual arithmetic conversion" }
+}
+
+class ImpliedIntegerPromotion extends RelevantConversion {
+  NumericType fromType;
+
+  ImpliedIntegerPromotion() {
+    (
+      exists(AssignLShiftExpr aop | aop.getLValue() = this) or
+      exists(AssignRShiftExpr aop | aop.getLValue() = this)
+    ) and
+    // Only consider integer promotions from MISRA C++ "numeric types" as per the rule
+    fromType = this.getType() and
+    fromType.getTypeCategory() = Integral() and
+    // If the size is less than int, then it is an implied integer promotion
+    fromType.getRealSize() < sizeOfInt()
+  }
+
+  override Type getFromType() { result = fromType }
+
+  override IntegralType getToType() {
+    // Only report the canonical type - e.g. `int` not `signed int`
+    result = result.getCanonicalArithmeticType() and
+    if result instanceof Char16Type or result instanceof Char32Type or result instanceof Wchar_t
+    then
+      // Smallest type that can hold the value of the `fromType`
+      result =
+        min(NumericType candidateType |
+          (
+            candidateType instanceof IntType or
+            candidateType instanceof LongType or
+            candidateType instanceof LongLongType
+          ) and
+          fromType.getIntegralUpperBound() <= candidateType.getIntegralUpperBound()
+        |
+          candidateType order by candidateType.getIntegralUpperBound()
+        )
+    else (
+      // The result is always `int` or `unsigned int`
+      result instanceof IntType and
+      if
+        // If the `fromType` is signed, the result must be signed
+        fromType.getSignedness() = Signed()
+        or
+        // If the `fromType` is unsigned, but the result can fit into the signed int type, then the
+        // result must be signed as well.
+        fromType.getIntegralUpperBound() <=
+          any(IntType t | t.isSigned()).(NumericType).getIntegralUpperBound()
+      then result.isSigned()
+      else
+        // Otherwise an unsigned type is returned
+        result.isUnsigned()
+    )
+  }
+
+  override Expr getConvertedExpr() { result = this }
+
+  override string getKindOfConversion() { result = "Integer promotion" }
+}
+
 from Expr e, RelevantConversion c, NumericType fromType, NumericType toType, string changeType
 where
   not isExcluded(e, ConversionsPackage::noSignednessChangeFromPromotionQuery()) and
