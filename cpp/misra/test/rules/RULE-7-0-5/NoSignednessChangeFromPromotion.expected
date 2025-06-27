@@ -1,47 +1,47 @@
-| test.cpp:24:5:24:6 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:24:10:24:11 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:25:5:25:6 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:25:10:25:11 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:26:5:26:6 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:26:10:26:11 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:27:5:27:6 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:27:10:27:11 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:28:5:28:6 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:28:10:28:11 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:29:5:29:6 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:29:10:29:11 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:30:5:30:6 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:30:10:30:11 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:31:5:31:6 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:31:10:31:11 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:45:11:45:12 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:46:11:46:12 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:47:11:47:12 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:48:11:48:12 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:49:11:49:12 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:50:11:50:12 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:51:11:51:12 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:52:11:52:12 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:64:5:64:6 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
-| test.cpp:65:5:65:6 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
-| test.cpp:66:5:66:6 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
-| test.cpp:67:5:67:6 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
-| test.cpp:68:5:68:6 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
-| test.cpp:69:5:69:6 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
-| test.cpp:71:5:71:6 | l3 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:71:10:71:11 | l4 | Usual arithmetic conversion from 'uint16_t' to 'int' changes signedness. |
-| test.cpp:72:5:72:6 | l3 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:72:10:72:11 | l4 | Usual arithmetic conversion from 'uint16_t' to 'int' changes signedness. |
-| test.cpp:82:10:82:11 | l2 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:82:15:82:16 | l4 | Integer promotion from 'uint16_t' to 'int' changes signedness. |
-| test.cpp:89:5:89:6 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:90:5:90:6 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:100:6:100:7 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:102:6:102:7 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:104:6:104:7 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:143:11:143:12 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes signedness. |
-| test.cpp:143:11:143:12 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes type category. |
-| test.cpp:144:11:144:12 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes signedness. |
-| test.cpp:144:11:144:12 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes type category. |
-| test.cpp:145:11:145:12 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes signedness. |
-| test.cpp:145:11:145:12 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes type category. |
+| test.cpp:22:3:22:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:22:8:22:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:23:3:23:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:23:7:23:8 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:24:3:24:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:24:8:24:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:25:3:25:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:25:8:25:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:26:3:26:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:26:8:26:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:27:3:27:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:27:8:27:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:28:3:28:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:28:8:28:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:29:3:29:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:29:8:29:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:43:9:43:10 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:44:9:44:10 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:45:9:45:10 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:46:9:46:10 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:47:9:47:10 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:48:9:48:10 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:49:9:49:10 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:50:9:50:10 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:62:3:62:4 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
+| test.cpp:63:3:63:4 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
+| test.cpp:64:3:64:4 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
+| test.cpp:65:3:65:4 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
+| test.cpp:66:3:66:4 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
+| test.cpp:67:3:67:4 | l1 | Usual arithmetic conversion from 'int32_t' to 'unsigned int' changes signedness. |
+| test.cpp:69:3:69:4 | l3 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:69:8:69:9 | l4 | Usual arithmetic conversion from 'uint16_t' to 'int' changes signedness. |
+| test.cpp:70:3:70:4 | l3 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:70:8:70:9 | l4 | Usual arithmetic conversion from 'uint16_t' to 'int' changes signedness. |
+| test.cpp:80:8:80:9 | l2 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:80:13:80:14 | l4 | Integer promotion from 'uint16_t' to 'int' changes signedness. |
+| test.cpp:87:3:87:4 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:88:3:88:4 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:98:4:98:5 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:100:4:100:5 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:102:4:102:5 | l1 | Integer promotion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:141:9:141:10 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes signedness. |
+| test.cpp:141:9:141:10 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes type category. |
+| test.cpp:142:9:142:10 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes signedness. |
+| test.cpp:142:9:142:10 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes type category. |
+| test.cpp:143:9:143:10 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes signedness. |
+| test.cpp:143:9:143:10 | l2 | Usual arithmetic conversion from 'uint32_t' to 'float' changes type category. |
