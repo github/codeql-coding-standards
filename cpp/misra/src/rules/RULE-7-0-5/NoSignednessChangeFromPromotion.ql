@@ -17,25 +17,37 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.misra.BuiltInTypeRules
 
+abstract class RelevantConversion extends Expr {
+  abstract Type getFromType();
+
+  abstract Type getToType();
+
+  abstract Expr getConvertedExpr();
+
+  abstract string getKindOfConversion();
+}
+
 /**
  * A `Conversion` that is relevant for the rule.
  */
-abstract class RelevantConversion extends Conversion {
+abstract class RelevantRealConversion extends RelevantConversion, Conversion {
   NumericType fromType;
   NumericType toType;
 
-  RelevantConversion() {
-    fromType = this.getExpr().getType().getUnspecifiedType() and
-    toType = this.getType().getUnspecifiedType() and
+  RelevantRealConversion() {
+    fromType = this.getExpr().getType() and
+    toType = this.getType() and
     this.isImplicit()
   }
 
-  Type getFromType() { result = fromType }
+  override Type getFromType() { result = fromType }
 
-  Type getToType() { result = toType }
+  override Type getToType() { result = toType }
+
+  override Expr getConvertedExpr() { result = this.getExpr() }
 }
 
-class UsualArithmeticConversion extends RelevantConversion {
+class UsualArithmeticConversion extends RelevantRealConversion {
   UsualArithmeticConversion() {
     (
       exists(BinaryOperation op | op.getAnOperand().getFullyConverted() = this) or
@@ -43,9 +55,11 @@ class UsualArithmeticConversion extends RelevantConversion {
       exists(AssignArithmeticOperation ao | ao.getAnOperand().getFullyConverted() = this)
     )
   }
+
+  override string getKindOfConversion() { result = "Usual arithmetic conversion" }
 }
 
-class IntegerPromotion extends RelevantConversion {
+class IntegerPromotion extends RelevantRealConversion {
   IntegerPromotion() {
     // Only consider cases where the integer promotion is the last conversion applied
     exists(Expr e | e.getFullyConverted() = this) and
@@ -61,7 +75,7 @@ class IntegerPromotion extends RelevantConversion {
 from Expr e, RelevantConversion c, NumericType fromType, NumericType toType, string changeType
 where
   not isExcluded(e, ConversionsPackage::noSignednessChangeFromPromotionQuery()) and
-  c = e.getConversion() and
+  c.getConvertedExpr() = e and
   fromType = c.getFromType() and
   toType = c.getToType() and
   (
@@ -84,5 +98,5 @@ where
     toType.getTypeCategory() = FloatingPoint()
   )
 select e,
-  "Conversion from '" + fromType.getName() + "' to '" + toType.getName() + "' changes " + changeType
-    + "."
+  c.getKindOfConversion() + " from '" + fromType.getName() + "' to '" + toType.getName() +
+    "' changes " + changeType + "."
