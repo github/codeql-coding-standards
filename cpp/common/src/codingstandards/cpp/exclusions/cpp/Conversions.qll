@@ -7,15 +7,10 @@ newtype ConversionsQuery =
   TNoConversionFromBoolQuery() or
   TNoImplicitBoolConversionQuery() or
   TNoCharacterNumericalValueQuery() or
+  TInappropriateBitwiseOrShiftOperandsQuery() or
   TNoSignednessChangeFromPromotionQuery() or
   TNumericAssignmentTypeMismatchQuery() or
-  TFunctionPointerConversionContextQuery() or
-  TVirtualBaseClassCastToDerivedQuery() or
-  TNoCStyleOrFunctionalCastsQuery() or
-  TIntToPointerCastProhibitedQuery() or
-  TNoPointerToIntegralCastQuery() or
-  TPointerToIntegralCastQuery() or
-  TNoStandaloneTypeCastExpressionQuery()
+  TFunctionPointerConversionContextQuery()
 
 predicate isConversionsQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -46,6 +41,15 @@ predicate isConversionsQueryMetadata(Query query, string queryId, string ruleId,
   category = "required"
   or
   query =
+    // `Query` instance for the `inappropriateBitwiseOrShiftOperands` query
+    ConversionsPackage::inappropriateBitwiseOrShiftOperandsQuery() and
+  queryId =
+    // `@id` for the `inappropriateBitwiseOrShiftOperands` query
+    "cpp/misra/inappropriate-bitwise-or-shift-operands" and
+  ruleId = "RULE-7-0-4" and
+  category = "required"
+  or
+  query =
     // `Query` instance for the `noSignednessChangeFromPromotion` query
     ConversionsPackage::noSignednessChangeFromPromotionQuery() and
   queryId =
@@ -71,60 +75,6 @@ predicate isConversionsQueryMetadata(Query query, string queryId, string ruleId,
     "cpp/misra/function-pointer-conversion-context" and
   ruleId = "RULE-7-11-3" and
   category = "required"
-  or
-  query =
-    // `Query` instance for the `virtualBaseClassCastToDerived` query
-    ConversionsPackage::virtualBaseClassCastToDerivedQuery() and
-  queryId =
-    // `@id` for the `virtualBaseClassCastToDerived` query
-    "cpp/misra/virtual-base-class-cast-to-derived" and
-  ruleId = "RULE-8-2-1" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `noCStyleOrFunctionalCasts` query
-    ConversionsPackage::noCStyleOrFunctionalCastsQuery() and
-  queryId =
-    // `@id` for the `noCStyleOrFunctionalCasts` query
-    "cpp/misra/no-c-style-or-functional-casts" and
-  ruleId = "RULE-8-2-2" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `intToPointerCastProhibited` query
-    ConversionsPackage::intToPointerCastProhibitedQuery() and
-  queryId =
-    // `@id` for the `intToPointerCastProhibited` query
-    "cpp/misra/int-to-pointer-cast-prohibited" and
-  ruleId = "RULE-8-2-6" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `noPointerToIntegralCast` query
-    ConversionsPackage::noPointerToIntegralCastQuery() and
-  queryId =
-    // `@id` for the `noPointerToIntegralCast` query
-    "cpp/misra/no-pointer-to-integral-cast" and
-  ruleId = "RULE-8-2-7" and
-  category = "advisory"
-  or
-  query =
-    // `Query` instance for the `pointerToIntegralCast` query
-    ConversionsPackage::pointerToIntegralCastQuery() and
-  queryId =
-    // `@id` for the `pointerToIntegralCast` query
-    "cpp/misra/pointer-to-integral-cast" and
-  ruleId = "RULE-8-2-8" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `noStandaloneTypeCastExpression` query
-    ConversionsPackage::noStandaloneTypeCastExpressionQuery() and
-  queryId =
-    // `@id` for the `noStandaloneTypeCastExpression` query
-    "cpp/misra/no-standalone-type-cast-expression" and
-  ruleId = "RULE-9-2-1" and
-  category = "required"
 }
 
 module ConversionsPackage {
@@ -149,6 +99,13 @@ module ConversionsPackage {
       TQueryCPP(TConversionsPackageQuery(TNoCharacterNumericalValueQuery()))
   }
 
+  Query inappropriateBitwiseOrShiftOperandsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `inappropriateBitwiseOrShiftOperands` query
+      TQueryCPP(TConversionsPackageQuery(TInappropriateBitwiseOrShiftOperandsQuery()))
+  }
+
   Query noSignednessChangeFromPromotionQuery() {
     //autogenerate `Query` type
     result =
@@ -168,47 +125,5 @@ module ConversionsPackage {
     result =
       // `Query` type for `functionPointerConversionContext` query
       TQueryCPP(TConversionsPackageQuery(TFunctionPointerConversionContextQuery()))
-  }
-
-  Query virtualBaseClassCastToDerivedQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `virtualBaseClassCastToDerived` query
-      TQueryCPP(TConversionsPackageQuery(TVirtualBaseClassCastToDerivedQuery()))
-  }
-
-  Query noCStyleOrFunctionalCastsQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `noCStyleOrFunctionalCasts` query
-      TQueryCPP(TConversionsPackageQuery(TNoCStyleOrFunctionalCastsQuery()))
-  }
-
-  Query intToPointerCastProhibitedQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `intToPointerCastProhibited` query
-      TQueryCPP(TConversionsPackageQuery(TIntToPointerCastProhibitedQuery()))
-  }
-
-  Query noPointerToIntegralCastQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `noPointerToIntegralCast` query
-      TQueryCPP(TConversionsPackageQuery(TNoPointerToIntegralCastQuery()))
-  }
-
-  Query pointerToIntegralCastQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `pointerToIntegralCast` query
-      TQueryCPP(TConversionsPackageQuery(TPointerToIntegralCastQuery()))
-  }
-
-  Query noStandaloneTypeCastExpressionQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `noStandaloneTypeCastExpression` query
-      TQueryCPP(TConversionsPackageQuery(TNoStandaloneTypeCastExpressionQuery()))
   }
 }
