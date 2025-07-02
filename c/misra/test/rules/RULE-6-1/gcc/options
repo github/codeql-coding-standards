@@ -1,1 +1,1 @@
-semmle-extractor-options:--mimic gcc --std=c11 --edg --diag_error=implicit_func_decl -nostdinc -I../../../../common/test/includes/standard-library
+semmle-extractor-options:--gcc --std=c11 --edg --diag_error=implicit_func_decl -nostdinc -I../../../../common/test/includes/standard-library
