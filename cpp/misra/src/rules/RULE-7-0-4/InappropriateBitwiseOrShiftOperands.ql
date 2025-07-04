@@ -34,7 +34,10 @@ predicate isValidShiftConstantRange(Expr right, Type leftType) {
 }
 
 predicate isSignedConstantLeftShiftException(LShiftExpr shift) {
-  exists(Expr left, Expr right, NumericType leftType, int leftVal, int rightVal, int maxBit |
+  exists(
+    Expr left, Expr right, NumericType leftType, QlBuiltins::BigInt leftVal, int rightVal,
+    int maxBit
+  |
     left = shift.getLeftOperand() and
     right = shift.getRightOperand() and
     leftType = left.getType() and
@@ -42,12 +45,12 @@ predicate isSignedConstantLeftShiftException(LShiftExpr shift) {
     isConstantExpression(right) and
     isSignedType(leftType) and
     isValidShiftConstantRange(right, leftType) and
-    leftVal = left.getValue().toInt() and
+    leftVal = left.getValue().toBigInt() and
     rightVal = right.getValue().toInt() and
-    leftVal >= 0 and
+    leftVal >= 0.toBigInt() and
     maxBit = leftType.getSize() * 8 - 1 and
     // Check that no set bit is shifted into or beyond the sign bit
-    leftVal * 2.pow(rightVal) < 2.pow(maxBit)
+    leftVal * 2.toBigInt().pow(rightVal) < 2.toBigInt().pow(maxBit)
   )
 }
 
@@ -111,7 +114,6 @@ where
     or
     // Shift operators - right operand must be unsigned or constant in valid range
     exists(BinaryShiftOperation shift, Expr right |
-      shift = x and
       shift = x and
       right = shift.getRightOperand() and
       not isUnsignedType(right.getExplicitlyConverted().getType()) and

@@ -87,7 +87,16 @@ void test_shift_operators_right_operand_constant_range() {
   u32 >> 32; // NON_COMPLIANT
 }
 
-void test_exception_signed_constant_left_operand() {
+void test_shift_operators_negative_right_operand() {
+  std::uint32_t u32 = 0x12345678U;
+
+  u32 << -1; // NON_COMPLIANT
+  u32 << -5; // NON_COMPLIANT
+  u32 >> -1; // NON_COMPLIANT
+  u32 >> -3; // NON_COMPLIANT
+}
+
+void test_exception_signed_constant_left_operand_exception() {
   // Exception cases for signed constant expressions
   1 << 30; // COMPLIANT
   2 << 29; // COMPLIANT
@@ -99,9 +108,13 @@ void test_exception_signed_constant_left_operand() {
   4 << 29; // NON_COMPLIANT
   8 << 28; // NON_COMPLIANT
 
-  1LL << 31; // COMPLIANT - 64 bit type
-  1LL << 62; // COMPLIANT - 64 bit type
-  1LL << 63; // NON_COMPLIANT - 64 bit type
+  1LL << 31;                    // COMPLIANT - 64 bit type
+  1LL << 62;                    // COMPLIANT - 64 bit type
+  1LL << 63;                    // NON_COMPLIANT - 64 bit type
+  0x1000'0000'0000'0000LL << 2; // COMPLIANT
+  0x2000'0000'0000'0000LL << 1; // COMPLIANT
+
+  0x4000'0000'0000'0000LL << 1; // NON_COMPLIANT
 
   0x40000000 << 1; // NON_COMPLIANT
 }
