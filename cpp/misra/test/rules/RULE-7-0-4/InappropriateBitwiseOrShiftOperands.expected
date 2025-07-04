@@ -1,0 +1,25 @@
+| test.cpp:14:3:14:13 | ... & ... | Binary bitwise operator '&' requires both operands to be unsigned. |
+| test.cpp:15:3:15:13 | ... \| ... | Binary bitwise operator '\|' requires both operands to be unsigned. |
+| test.cpp:16:3:16:13 | ... ^ ... | Binary bitwise operator '^' requires both operands to be unsigned. |
+| test.cpp:18:3:18:13 | ... & ... | Binary bitwise operator '&' requires both operands to be unsigned. |
+| test.cpp:19:3:19:13 | ... \| ... | Binary bitwise operator '\|' requires both operands to be unsigned. |
+| test.cpp:30:3:30:15 | ... &= ... | Compound assignment bitwise operator '&=' requires both operands to be unsigned. |
+| test.cpp:31:3:31:15 | ... \|= ... | Compound assignment bitwise operator '\|=' requires both operands to be unsigned. |
+| test.cpp:32:3:32:15 | ... ^= ... | Compound assignment bitwise operator '^=' requires both operands to be unsigned. |
+| test.cpp:42:3:42:6 | ~ ... | Bit complement operator '~' requires unsigned operand. |
+| test.cpp:54:3:54:9 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:55:3:55:11 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:63:3:63:18 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:74:3:74:11 | ... << ... | Shift operator '<<' requires unsigned right operand or constant in valid range. |
+| test.cpp:75:3:75:11 | ... >> ... | Shift operator '>>' requires unsigned right operand or constant in valid range. |
+| test.cpp:85:3:85:11 | ... << ... | Shift operator '<<' requires unsigned right operand or constant in valid range. |
+| test.cpp:86:3:86:11 | ... << ... | Shift operator '<<' requires unsigned right operand or constant in valid range. |
+| test.cpp:87:3:87:11 | ... >> ... | Shift operator '>>' requires unsigned right operand or constant in valid range. |
+| test.cpp:97:3:97:9 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:98:3:98:9 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:99:3:99:9 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:100:3:100:9 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:104:3:104:11 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:106:3:106:17 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:112:3:112:10 | ... << ... | Shift operator '<<' requires unsigned left operand. |
+| test.cpp:120:3:120:11 | ... >> ... | Shift operator '>>' requires unsigned left operand. |
