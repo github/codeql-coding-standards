@@ -14,7 +14,9 @@
           "severity": "error",
           "short_name": "AvoidProgramTerminatingFunctions",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "maintainability",
+            "correctness"
           ]
         }
       ],
@@ -34,7 +36,9 @@
           "severity": "error",
           "short_name": "NoVariadicFunctionMacros",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
@@ -54,7 +58,9 @@
           "severity": "error",
           "short_name": "NoCsetjmpHeader",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
@@ -74,7 +80,9 @@
           "severity": "error",
           "short_name": "UnsafeStringHandlingFunctions",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
@@ -94,7 +102,10 @@
           "severity": "error",
           "short_name": "BannedSystemFunction",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability",
+            "security"
           ]
         }
       ],
@@ -114,7 +125,9 @@
           "severity": "error",
           "short_name": "UseSmartPtrFactoryFunctions",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
@@ -134,7 +147,9 @@
           "severity": "error",
           "short_name": "CharacterHandlingFunctionRestrictions",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
@@ -154,7 +169,9 @@
           "severity": "error",
           "short_name": "NoMemoryFunctionsFromCString",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
@@ -174,7 +191,10 @@
           "severity": "error",
           "short_name": "LocaleGlobalFunctionNotAllowed",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability",
+            "concurrency"
           ]
         }
       ],
@@ -195,7 +215,9 @@
           "short_name": "AvoidStandardIntegerTypeNames",
           "shared_implementation_short_name": "VariableWidthIntegerTypesUsed",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
