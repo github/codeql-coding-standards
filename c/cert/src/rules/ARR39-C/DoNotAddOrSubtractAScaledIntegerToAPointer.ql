@@ -19,7 +19,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.types.Pointers
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import ScaledIntegerPointerArithmeticFlow::PathGraph
 
 /**
@@ -61,9 +61,11 @@ class ScaledIntegerExpr extends Expr {
   ScaledIntegerExpr() {
     not this.getParent*() instanceof ArrayCountOfExpr and
     (
-      this.(SizeofExprOperator).getExprOperand().getType().getSize() > 1
+      exists(this.getValue()) and
+      this.getAChild*().(SizeofExprOperator).getExprOperand().getType().getSize() > 1
       or
-      this.(SizeofTypeOperator).getTypeOperand().getSize() > 1
+      exists(this.getValue()) and
+      this.getAChild*().(SizeofTypeOperator).getTypeOperand().getSize() > 1
       or
       this instanceof OffsetOfExpr
     )
