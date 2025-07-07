@@ -96,6 +96,43 @@ void test_shift_operators_negative_right_operand() {
   u32 >> -3; // NON_COMPLIANT
 }
 
+void test_compound_assignment_shift_operators() {
+  std::uint32_t u32 = 0x12345678U;
+  std::uint8_t u8 = 2U;
+  std::int32_t s32 = 0x12345678;
+  std::int8_t s8 = 2;
+
+  // Unsigned left operand with unsigned right operand
+  u32 <<= u8; // COMPLIANT
+  u32 >>= u8; // COMPLIANT
+
+  // Unsigned left operand with constant right operand in valid range
+  u32 <<= 0;  // COMPLIANT
+  u32 <<= 31; // COMPLIANT
+  u32 >>= 15; // COMPLIANT
+
+  // Signed left operand
+  s32 <<= u8; // NON_COMPLIANT
+  s32 >>= u8; // NON_COMPLIANT
+  s32 <<= 2;  // NON_COMPLIANT
+  s32 >>= 2;  // NON_COMPLIANT
+
+  // Unsigned left operand with signed right operand
+  u32 <<= s8; // NON_COMPLIANT
+  u32 >>= s8; // NON_COMPLIANT
+
+  // Right operand out of range
+  u32 <<= 32; // NON_COMPLIANT
+  u32 <<= 64; // NON_COMPLIANT
+  u32 >>= 32; // NON_COMPLIANT
+
+  // Negative right operand
+  u32 <<= -1; // NON_COMPLIANT
+  u32 <<= -5; // NON_COMPLIANT
+  u32 >>= -1; // NON_COMPLIANT
+  u32 >>= -3; // NON_COMPLIANT
+}
+
 void test_exception_signed_constant_left_operand_exception() {
   // Exception cases for signed constant expressions
   1 << 30; // COMPLIANT

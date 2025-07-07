@@ -112,12 +112,30 @@ where
       message = "Shift operator '" + shift.getOperator() + "' requires unsigned left operand."
     )
     or
+    // Compound assignment shift operators - left operand must be unsigned
+    exists(AssignShiftOperation shift |
+      shift = x and
+      not isUnsignedType(shift.getLValue().getExplicitlyConverted().getType()) and
+      message = "Shift operator '" + shift.getOperator() + "' requires unsigned left operand."
+    )
+    or
     // Shift operators - right operand must be unsigned or constant in valid range
     exists(BinaryShiftOperation shift, Expr right |
       shift = x and
       right = shift.getRightOperand() and
       not isUnsignedType(right.getExplicitlyConverted().getType()) and
       not isValidShiftConstantRange(right, shift.getLeftOperand().getExplicitlyConverted().getType()) and
+      message =
+        "Shift operator '" + shift.getOperator() +
+          "' requires unsigned right operand or constant in valid range."
+    )
+    or
+    // Compound assignment shift operators - right operand must be unsigned or constant in valid range
+    exists(AssignShiftOperation shift, Expr right |
+      shift = x and
+      right = shift.getRValue() and
+      not isUnsignedType(right.getExplicitlyConverted().getType()) and
+      not isValidShiftConstantRange(right, shift.getLValue().getExplicitlyConverted().getType()) and
       message =
         "Shift operator '" + shift.getOperator() +
           "' requires unsigned right operand or constant in valid range."
