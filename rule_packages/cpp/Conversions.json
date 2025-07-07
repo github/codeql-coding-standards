@@ -95,7 +95,10 @@
           "short_name": "NoSignednessChangeFromPromotion",
           "tags": [
             "scope/single-translation-unit"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Arithmetic conversions in preprocessor directives are not supported."
+          }
         }
       ],
       "title": "Integral promotion and the usual arithmetic conversions shall not change the signedness or the type category of an operand"
