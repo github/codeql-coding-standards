@@ -24,9 +24,8 @@ where
     smartPtrClass.hasQualifiedName("std", "shared_ptr") or
     smartPtrClass.hasQualifiedName("std", "unique_ptr")
   ) and
-  call.getNumberOfArguments() >= 1 and
-  exists(Type argType |
-    argType = call.getArgument(0).getType().getUnspecifiedType() and
-    argType instanceof PointerType
-  )
+  // The rule only applies to constructors that take a raw pointer as the first argument
+  // This includes the (*p, deleter) and (*p, deleter, alloc) constructors
+  // and excludes e.g. the move or aliasing constructors.
+  call.getArgument(0).getType().getUnspecifiedType() instanceof PointerType
 select call, "Use of raw pointer constructor for 'std::" + smartPtrClass.getSimpleName() + "'."
