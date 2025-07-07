@@ -12,3 +12,4 @@
 | test.cpp:21:5:21:16 | call to longjmp | Call to banned function 'longjmp'. |
 | test.cpp:26:11:26:12 | l1 | Declaration of variable 'l1' with banned type 'jmp_buf'. |
 | test.cpp:27:16:27:17 | l2 | Declaration of variable 'l2' with banned type 'jmp_buf'. |
+| test.cpp:40:38:40:39 | l1 | Declaration of variable 'l1' with banned type 'jmp_buf'. |

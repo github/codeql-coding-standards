@@ -36,3 +36,5 @@ void test_compliant_alternative() {
     // Handle error properly
   }
 }
+
+void test_jmp_buf_usage() { jmp_buf *l1; } // NON_COMPLIANT - pointer to jmp_buf

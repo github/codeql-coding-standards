@@ -16,13 +16,14 @@
 import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.BannedFunctions
+import codingstandards.cpp.types.Uses
 
 class CSetJmpHeader extends Include {
   CSetJmpHeader() { this.getIncludeText().regexpMatch("[<\\\"](csetjmp|setjmp.h)[>\\\"]") }
 }
 
-class JmpBufVariable extends Variable {
-  JmpBufVariable() { this.getType().(UserType).hasGlobalOrStdName("jmp_buf") }
+class JmpBufType extends UserType {
+  JmpBufType() { this.hasGlobalOrStdName("jmp_buf") }
 }
 
 class LongjmpFunction extends Function {
@@ -39,9 +40,15 @@ where
   (
     message = "Use of banned header " + element.(CSetJmpHeader).getIncludeText() + "."
     or
-    message =
-      "Declaration of variable '" + element.(JmpBufVariable).getName() +
-        "' with banned type 'jmp_buf'."
+    (
+      element = getATypeUse(any(JmpBufType jbt)) and
+      if element instanceof Variable
+      then
+        message =
+          "Declaration of variable '" + element.(Variable).getName() +
+            "' with banned type 'jmp_buf'."
+      else message = "Use of banned type 'jmp_buf'."
+    )
     or
     message =
       element.(BannedFunctions<LongjmpFunction>::Use).getAction() + " banned function '" +
