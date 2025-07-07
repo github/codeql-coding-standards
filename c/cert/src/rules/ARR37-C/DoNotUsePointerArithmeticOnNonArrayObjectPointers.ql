@@ -18,7 +18,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import NonArrayPointerToArrayIndexingExprFlow::PathGraph
 
 /**

@@ -1,22 +1,22 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAddOrSubtractAScaledIntegerToAPointer.ql:77,56-64)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAddOrSubtractAScaledIntegerToAPointer.ql:78,22-30)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAddOrSubtractAScaledIntegerToAPointer.ql:80,20-28)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAddOrSubtractAScaledIntegerToAPointer.ql:89,45-53)
 edges
 | test.c:7:13:7:14 | p1 | test.c:9:9:9:10 | p1 | provenance |  |
+| test.c:16:19:16:41 | ... - ... | test.c:16:19:16:41 | ... - ... | provenance |  |
 | test.c:16:19:16:41 | ... - ... | test.c:18:26:18:31 | offset | provenance |  |
 | test.c:16:19:16:41 | ... - ... | test.c:29:6:29:11 | offset | provenance |  |
+| test.c:17:17:17:26 | sizeof(<expr>) | test.c:17:17:17:26 | sizeof(<expr>) | provenance |  |
 | test.c:17:17:17:26 | sizeof(<expr>) | test.c:23:9:23:12 | size | provenance |  |
 | test.c:29:6:29:11 | offset | test.c:7:13:7:14 | p1 | provenance |  |
 nodes
 | test.c:7:13:7:14 | p1 | semmle.label | p1 |
 | test.c:9:9:9:10 | p1 | semmle.label | p1 |
 | test.c:16:19:16:41 | ... - ... | semmle.label | ... - ... |
+| test.c:16:19:16:41 | ... - ... | semmle.label | ... - ... |
+| test.c:17:17:17:26 | sizeof(<expr>) | semmle.label | sizeof(<expr>) |
 | test.c:17:17:17:26 | sizeof(<expr>) | semmle.label | sizeof(<expr>) |
 | test.c:18:26:18:31 | offset | semmle.label | offset |
 | test.c:23:9:23:12 | size | semmle.label | size |
 | test.c:25:9:25:18 | sizeof(<expr>) | semmle.label | sizeof(<expr>) |
-| test.c:27:17:27:26 | sizeof(<expr>) | semmle.label | sizeof(<expr>) |
+| test.c:27:12:27:26 | ... / ... | semmle.label | ... / ... |
 | test.c:29:6:29:11 | offset | semmle.label | offset |
 subpaths
 #select
@@ -24,4 +24,4 @@ subpaths
 | test.c:18:26:18:31 | offset | test.c:16:19:16:41 | ... - ... | test.c:18:26:18:31 | offset | Scaled integer used in pointer arithmetic. |
 | test.c:23:9:23:12 | size | test.c:17:17:17:26 | sizeof(<expr>) | test.c:23:9:23:12 | size | Scaled integer used in pointer arithmetic. |
 | test.c:25:9:25:18 | sizeof(<expr>) | test.c:25:9:25:18 | sizeof(<expr>) | test.c:25:9:25:18 | sizeof(<expr>) | Scaled integer used in pointer arithmetic. |
-| test.c:27:17:27:26 | sizeof(<expr>) | test.c:27:17:27:26 | sizeof(<expr>) | test.c:27:17:27:26 | sizeof(<expr>) | Scaled integer used in pointer arithmetic. |
+| test.c:27:12:27:26 | ... / ... | test.c:27:12:27:26 | ... / ... | test.c:27:12:27:26 | ... / ... | Scaled integer used in pointer arithmetic. |
