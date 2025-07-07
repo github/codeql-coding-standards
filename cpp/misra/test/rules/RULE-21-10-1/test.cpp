@@ -58,3 +58,9 @@ void test_va_list_alias() {
   va_list_alias l1; // NON_COMPLIANT
   SOME_TYPE l2;     // NON_COMPLIANT
 }
+
+// Note: use of va_list as a return type, or a cast, is not legal
+
+void test_va_list() {
+  va_list *l1; // NON_COMPLIANT - pointer to va_list
+}

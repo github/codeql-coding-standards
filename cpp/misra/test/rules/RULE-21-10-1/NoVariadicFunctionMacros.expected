@@ -26,3 +26,4 @@
 | test.cpp:56:17:56:25 | SOME_TYPE | Declaration of typedef 'SOME_TYPE' aliasing 'va_list' type. |
 | test.cpp:58:17:58:18 | l1 | Declaration of variable 'l1' of type 'va_list'. |
 | test.cpp:59:13:59:14 | l2 | Declaration of variable 'l2' of type 'va_list'. |
+| test.cpp:65:12:65:13 | l1 | Declaration of variable 'l1' of type 'va_list'. |

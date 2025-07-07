@@ -14,6 +14,7 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.types.Uses
 
 class VaListType extends Type {
   VaListType() {
@@ -27,15 +28,24 @@ from Element element, string message
 where
   not isExcluded(element, BannedAPIsPackage::noVariadicFunctionMacrosQuery()) and
   (
-    element.(Variable).getType() instanceof VaListType and
+    element = getATypeUse(any(VaListType vlt)) and
     (
       if element instanceof Parameter
       then
         message =
           "Declaration of parameter '" + element.(Parameter).getName() + "' of type 'va_list'."
       else
-        message =
-          "Declaration of variable '" + element.(Variable).getName() + "' of type 'va_list'."
+        if element instanceof Variable
+        then
+          message =
+            "Declaration of variable '" + element.(Variable).getName() + "' of type 'va_list'."
+        else
+          if element instanceof TypedefType
+          then
+            message =
+              "Declaration of typedef '" + element.(TypedefType).getName() +
+                "' aliasing 'va_list' type."
+          else message = "Use of 'va_list' type in an unsupported context."
     )
     or
     element instanceof BuiltInVarArgsStart and
@@ -49,9 +59,5 @@ where
     or
     element instanceof BuiltInVarArgCopy and
     message = "Call to 'va_copy'."
-    or
-    element.(TypedefType).getBaseType() instanceof VaListType and
-    message =
-      "Declaration of typedef '" + element.(TypedefType).getName() + "' aliasing 'va_list' type."
   )
 select element, message
