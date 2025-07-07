@@ -1,4 +1,3 @@
-#pragma once
 #ifndef _GHLIBCPP_CWCHAR
 #define _GHLIBCPP_CWCHAR
 #include "wchar.h"
