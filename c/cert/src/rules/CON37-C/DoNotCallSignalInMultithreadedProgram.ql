@@ -19,7 +19,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 
 from FunctionCall fc
 // This should only be applied in the context of a multi-threaded program (since

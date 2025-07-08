@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 import codingstandards.cpp.Type
 
 predicate isThreadingObject(Type t) { t instanceof PossiblySpecified<C11ThreadingObjectType>::Type }

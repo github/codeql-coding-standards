@@ -17,7 +17,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 
 class CThreadRoot extends Function {
   CThreadCreateCall threadCreate;

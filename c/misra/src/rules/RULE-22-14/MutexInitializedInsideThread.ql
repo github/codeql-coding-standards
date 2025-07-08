@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 
 from C11MutexSource mutexCreate, ThreadedFunction thread
 where
