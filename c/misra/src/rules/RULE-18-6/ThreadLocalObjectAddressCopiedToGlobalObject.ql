@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.Objects
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 
 from AssignExpr assignment, Element threadLocal, ObjectIdentity static
 where
