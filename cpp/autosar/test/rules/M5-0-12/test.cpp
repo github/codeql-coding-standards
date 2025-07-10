@@ -78,13 +78,13 @@ void f12(std::int8_t x) {}
 
 template <typename T> void f5(T x) { unsigned char y = x; }
 template <typename T> void f6(T x) { signed char y = x; }
-template <typename T> void f7(T x) { signed char y = x; }
+template <typename T> void f7(T x) { unsigned char y = x; }
 template <typename T> void f8(T x) { signed char y = x; }
 
 /* Twin template functions for std::uint8_t and std::int8_t */
 template <typename T> void f13(T x) { std::uint8_t y = x; }
 template <typename T> void f14(T x) { std::int8_t y = x; }
-template <typename T> void f15(T x) { std::int8_t y = x; }
+template <typename T> void f15(T x) { std::uint8_t y = x; }
 template <typename T> void f16(T x) { std::int8_t y = x; }
 
 template <typename T> class C9 {
@@ -286,16 +286,16 @@ int main() {
   /* ===== 2-2. Passing char argument to a char parameter through a template
    * ===== */
 
-  unsigned char a9 = 'a';
+  unsigned char a9 = 1;
   f5(a9); // COMPLIANT: unsigned char arg passed to an unsigned char parameter
           // through a template
 
-  signed char a10 = 'a';
+  signed char a10 = 1;
   f6(a10); // COMPLIANT: signed char arg passed to a signed char parameter
            // through a template
 
   char a11 = 'a';
-  f7(a11); // NON-COMPLIANT: plain char arg passed to a signed char parameter
+  f7(a11); // NON-COMPLIANT: plain char arg passed to an unsigned char parameter
            // through a template
 
   char a12 = 'a';
@@ -303,16 +303,16 @@ int main() {
            // a template
 
   /* Twin cases with std::uint8_t and std::int8_t */
-  std::uint8_t a13 = 'a';
+  std::uint8_t a13 = 1;
   f13(a13); // COMPLIANT: std::uint8_t arg passed to a std::uint8_t parameter
             // through a template
 
-  std::int8_t a14 = 'a';
+  std::int8_t a14 = 1;
   f14(a14); // COMPLIANT: std::int8_t arg passed to a std::int8_t parameter
             // through a template
 
   char a15 = 'a';
-  f15(a15); // NON-COMPLIANT: plain char arg passed to a std::int8_t parameter
+  f15(a15); // NON-COMPLIANT: plain char arg passed to a std::uint8_t parameter
             // through a template
 
   char a16 = 'a';
