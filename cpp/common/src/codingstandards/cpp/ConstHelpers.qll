@@ -4,7 +4,7 @@
 
 import cpp
 import codingstandards.cpp.SideEffect
-import semmle.code.cpp.dataflow.DataFlow
+private import semmle.code.cpp.dataflow.DataFlow
 import codingstandards.cpp.FunctionParameter
 
 /** A variable that can be modified (both the pointer and object pointed to if pointer type) */

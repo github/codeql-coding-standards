@@ -1,5 +1,4 @@
 import cpp
-import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.cpp.concurrency.Atomic
 import codingstandards.cpp.concurrency.CConditionOperation
 import codingstandards.cpp.concurrency.ControlFlow
