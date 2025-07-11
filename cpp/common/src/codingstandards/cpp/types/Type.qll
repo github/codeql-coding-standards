@@ -94,3 +94,51 @@ int getPrecision(IntegralType type) {
   or
   type.isExplicitlySigned() and result = type.getSize() * 8 - 1
 }
+
+/**
+ * Determines the lower and upper bounds of an integral type.
+ */
+predicate integralTypeBounds(IntegralType integralType, QlBuiltins::BigInt lb, QlBuiltins::BigInt ub) {
+  exists(QlBuiltins::BigInt limit | limit = 2.toBigInt().pow(8 * integralType.getSize()) |
+    if integralType instanceof BoolType
+    then lb = 0.toBigInt() and ub = 1.toBigInt()
+    else
+      if integralType.isSigned()
+      then (
+        lb = -(limit / 2.toBigInt()) and ub = (limit / 2.toBigInt()) - 1.toBigInt()
+      ) else (
+        lb = 0.toBigInt() and ub = limit - 1.toBigInt()
+      )
+  )
+}
+
+/**
+ * The size of the smallest `int` type in the database in bytes.
+ */
+int sizeOfInt() {
+  // The size of int is implementation-defined
+  result =
+    min(int size |
+      size = any(IntType i | i.isSigned()).getCanonicalArithmeticType().getSize()
+    |
+      size
+    )
+}
+
+/**
+ * Convenience class to reduce the awkwardness of how `RoutineType` and `FunctionPointerIshType`
+ * don't have a common ancestor.
+ */
+class FunctionType extends Type {
+  FunctionType() { this instanceof RoutineType or this instanceof FunctionPointerIshType }
+
+  Type getReturnType() {
+    result = this.(RoutineType).getReturnType() or
+    result = this.(FunctionPointerIshType).getReturnType()
+  }
+
+  Type getParameterType(int i) {
+    result = this.(RoutineType).getParameterType(i) or
+    result = this.(FunctionPointerIshType).getParameterType(i)
+  }
+}
