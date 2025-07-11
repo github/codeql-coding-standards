@@ -1,5 +1,5 @@
 import cpp
-private import semmle.code.cpp.dataflow.DataFlow
+private import semmle.code.cpp.dataflow.new.DataFlow
 
 /**
  * A signal corresponding to a computational exception
