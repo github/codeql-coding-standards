@@ -62,7 +62,7 @@ where
     ExpressionsPackage::doNotCallFunctionPointerWithIncompatibleTypeQuery()) and
   access = src.getNode().asExpr() and
   SuspectFunctionPointerToCallFlow::flowPath(src, sink) and
-  not src.getNode().asExpr().getType() = sink.getNode().asExpr().getFullyConverted().getType()
+  not access.getType() = sink.getNode().asExpr().getFullyConverted().getType()
 select src, src, sink,
   "Incompatible function $@ assigned to function pointer is eventually called through the pointer.",
   access.getTarget(), access.getTarget().getName()
