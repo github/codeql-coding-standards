@@ -1,0 +1,23 @@
+| test.cpp:9:3:9:8 | call to memcpy | Call to banned function 'memcpy' from <cstring>. |
+| test.cpp:10:3:10:13 | call to memcpy | Call to banned function 'memcpy' from <cstring>. |
+| test.cpp:17:3:17:9 | call to memmove | Call to banned function 'memmove' from <cstring>. |
+| test.cpp:18:3:18:14 | call to memmove | Call to banned function 'memmove' from <cstring>. |
+| test.cpp:25:12:25:17 | call to memcmp | Call to banned function 'memcmp' from <cstring>. |
+| test.cpp:26:12:26:22 | call to memcmp | Call to banned function 'memcmp' from <cstring>. |
+| test.cpp:30:52:30:57 | memcpy | Address taken for banned function 'memcpy' from <cstring>. |
+| test.cpp:31:52:31:58 | memmove | Address taken for banned function 'memmove' from <cstring>. |
+| test.cpp:32:56:32:61 | memcmp | Address taken for banned function 'memcmp' from <cstring>. |
+| test.cpp:34:52:34:62 | memcpy | Address taken for banned function 'memcpy' from <cstring>. |
+| test.cpp:36:7:36:18 | memmove | Address taken for banned function 'memmove' from <cstring>. |
+| test.cpp:38:7:38:17 | memcmp | Address taken for banned function 'memcmp' from <cstring>. |
+| test.cpp:50:7:50:12 | call to memcmp | Call to banned function 'memcmp' from <cstring>. |
+| test.cpp:53:7:53:17 | call to memcmp | Call to banned function 'memcmp' from <cstring>. |
+| test.cpp:61:7:61:12 | call to memcmp | Call to banned function 'memcmp' from <cstring>. |
+| test.cpp:64:7:64:17 | call to memcmp | Call to banned function 'memcmp' from <cstring>. |
+| test.cpp:71:3:71:8 | call to memcpy | Call to banned function 'memcpy' from <cstring>. |
+| test.cpp:72:3:72:9 | call to memmove | Call to banned function 'memmove' from <cstring>. |
+| test.cpp:74:3:74:13 | call to memcpy | Call to banned function 'memcpy' from <cstring>. |
+| test.cpp:75:3:75:14 | call to memmove | Call to banned function 'memmove' from <cstring>. |
+| test.cpp:78:1:78:28 | #define CUSTOM_MEMCPY memcpy | Call to banned function 'memcpy' from <cstring>. |
+| test.cpp:79:1:79:30 | #define CUSTOM_MEMMOVE memmove | Call to banned function 'memmove' from <cstring>. |
+| test.cpp:80:1:80:28 | #define CUSTOM_MEMCMP memcmp | Call to banned function 'memcmp' from <cstring>. |
