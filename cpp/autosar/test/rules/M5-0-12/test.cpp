@@ -121,7 +121,7 @@ int main() {
   C2<signed char, 1> c2; // COMPLIANT: signed char arg passed to a signed char
                          // member through a template
 
-  C1<char, 'x'> c3; // NON-COMPLIANT: plain char arg passed to a unsigned char
+  C1<char, 'x'> c3; // NON-COMPLIANT: plain char arg passed to an unsigned char
                     // member through a template
 
   C2<char, 'x'> c4; // NON-COMPLIANT: plain char arg passed to a signed char
@@ -145,7 +145,7 @@ int main() {
   unsigned char x9 = 1;
   unsigned char *y9 = &x9;
   unsigned char z1 =
-      *y9; // COMPLIANT: unsigned char assigned to a *&unsigned char
+      *y9; // COMPLIANT: unsigned char assigned to an *&unsigned char
 
   signed char x10 = 1;
   signed char *y10 = &x10;
@@ -193,7 +193,7 @@ int main() {
   f2(a2); // COMPLIANT: signed char arg passed to a signed char parameter
 
   char a3 = 'a';
-  f1(a3); // NON-COMPLIANT: plain char arg passed to a unsigned char parameter
+  f1(a3); // NON-COMPLIANT: plain char arg passed to an unsigned char parameter
 
   char a4 = 'a';
   f2(a4); // NON-COMPLIANT: plain char arg passed to a signed char parameter
@@ -262,7 +262,7 @@ int main() {
 
   char a19 = 'a';
   C9<char> c11(
-      a19); // NON-COMPLIANT: plain char arg passed to a unsigned signed char
+      a19); // NON-COMPLIANT: plain char arg passed to an unsigned signed char
             // parameter of a constructor through a template
 
   char a20 = 'a';
