@@ -16,22 +16,6 @@ private:
   signed char x;
 };
 
-template <typename T, T y> class C3 {
-public:
-  C3() : x(y) {}
-
-private:
-  unsigned char x;
-};
-
-template <typename T, T y> class C4 {
-public:
-  C4() : x(y) {}
-
-private:
-  signed char x;
-};
-
 /* Twin templates for std::uint8_t and std::int8_t */
 template <typename T, T y> class C5 {
 public:
@@ -44,22 +28,6 @@ private:
 template <typename T, T y> class C6 {
 public:
   C6() : x(y) {}
-
-private:
-  std::int8_t x;
-};
-
-template <typename T, T y> class C7 {
-public:
-  C7() : x(y) {}
-
-private:
-  std::uint8_t x;
-};
-
-template <typename T, T y> class C8 {
-public:
-  C8() : x(y) {}
 
 private:
   std::int8_t x;
@@ -103,22 +71,6 @@ private:
   signed char x;
 };
 
-template <typename T> class C11 {
-public:
-  C11(T y) : x(y) {}
-
-private:
-  signed char x;
-};
-
-template <typename T> class C12 {
-public:
-  C12(T y) : x(y) {}
-
-private:
-  signed char x;
-};
-
 /* Twin template classes for std::uint8_t and std::int8_t */
 template <typename T> class C13 {
 public:
@@ -131,22 +83,6 @@ private:
 template <typename T> class C14 {
 public:
   C14(T y) : x(y) {}
-
-private:
-  std::int8_t x;
-};
-
-template <typename T> class C15 {
-public:
-  C15(T y) : x(y) {}
-
-private:
-  std::int8_t x;
-};
-
-template <typename T> class C16 {
-public:
-  C16(T y) : x(y) {}
 
 private:
   std::int8_t x;
@@ -166,15 +102,15 @@ int main() {
   signed char y2 = x2; // COMPLIANT: signed char assigned to a signed char
 
   char x3 = 'x';
-  unsigned char y3 = x3; // NON-COMPLIANT: plain char assigned to a unsigned char
+  unsigned char y3 =
+      x3; // NON-COMPLIANT: plain char assigned to a unsigned char
 
   char x4 = 'x';
   signed char y4 = x4; // NON-COMPLIANT: plain char assigned to a signed char
 
   /* Twin cases with std::uint8_t and std::int8_t */
   std::uint8_t x5 = 1;
-  std::uint8_t y5 =
-      x5; // COMPLIANT: std::uint8_t assigned to a std::uint8_t
+  std::uint8_t y5 = x5; // COMPLIANT: std::uint8_t assigned to a std::uint8_t
 
   std::int8_t x6 = 1;
   std::int8_t y6 = x6; // COMPLIANT: std::int8_t assigned to a std::int8_t
@@ -193,24 +129,24 @@ int main() {
   C2<signed char, 1> c2; // COMPLIANT: signed char arg passed to a signed char
                          // member through a template
 
-  C3<char, 'x'> c3; // NON-COMPLIANT: plain char arg passed to a unsigned char
+  C1<char, 'x'> c3; // NON-COMPLIANT: plain char arg passed to a unsigned char
                     // member through a template
 
-  C4<char, 'x'> c4; // NON-COMPLIANT: plain char arg passed to a signed char
+  C2<char, 'x'> c4; // NON-COMPLIANT: plain char arg passed to a signed char
                     // member through a template
 
   /* Twin cases with std::uint8_t and std::int8_t */
-  C5<std::uint8_t, 1> c5; // COMPLIANT: std::uint8_t arg passed to a std::uint8_t
-                          // member through a template
+  C5<std::uint8_t, 1> c5; // COMPLIANT: std::uint8_t arg passed to a
+                          // std::uint8_t member through a template
 
   C6<std::int8_t, 1> c6; // COMPLIANT: std::int8_t arg passed to a std::int8_t
-                           // member through a template
+                         // member through a template
 
-  C7<char, 'x'> c7; // NON-COMPLIANT: plain char arg passed to a std::uint8_t
-                      // member through a template
+  C5<char, 1> c7; // NON-COMPLIANT: plain char arg passed to a
+                  // std::uint8_t member through a template
 
-  C8<char, 'x'> c8; // NON-COMPLIANT: plain char arg passed to a std::int8_t
-                      // member through a template
+  C6<char, 1> c8; // NON-COMPLIANT: plain char arg passed to a std::int8_t
+                  // member through a template
 
   /* ========== 1-3. Assigning a char to a char through a pointer ========== */
 
@@ -299,8 +235,8 @@ int main() {
            // through a template
 
   char a12 = 'a';
-  f8(a12); // NON-COMPLIANT: plain char arg passed to a signed char parameter through
-           // a template
+  f8(a12); // NON-COMPLIANT: plain char arg passed to a signed char parameter
+           // through a template
 
   /* Twin cases with std::uint8_t and std::int8_t */
   std::uint8_t a13 = 1;
@@ -316,8 +252,8 @@ int main() {
             // through a template
 
   char a16 = 'a';
-  f16(a16); // NON-COMPLIANT: plain char arg passed to a std::int8_t parameter through
-            // a template
+  f16(a16); // NON-COMPLIANT: plain char arg passed to a std::int8_t parameter
+            // through a template
 
   /* ========== 2-3. Passing a char argument to a char parameter through a
    * template ========== */
@@ -328,16 +264,18 @@ int main() {
             // of a constructor through a template
 
   signed char a18 = 1;
-  C10<signed char> c10(a18); // COMPLIANT: signed char arg passed to an signed
-                           // char parameter of a constructor through a template
+  C10<signed char> c10(
+      a18); // COMPLIANT: signed char arg passed to an signed
+            // char parameter of a constructor through a template
 
   char a19 = 'a';
-  C11<char> c11(a19); // NON-COMPLIANT: plain char arg passed to a signed char
-                    // parameter of a constructor through a template
+  C9<char> c11(
+      a19); // NON-COMPLIANT: plain char arg passed to a unsigned signed char
+            // parameter of a constructor through a template
 
   char a20 = 'a';
-  C12<char> c12(a20); // NON-COMPLIANT: plain char arg passed to an signed char
-                    // parameter of a constructor through a template
+  C10<char> c12(a20); // NON-COMPLIANT: plain char arg passed to an signed char
+                      // parameter of a constructor through a template
 
   /* Twin cases with std::uint8_t and std::int8_t */
   std::uint8_t a21 = 1;
@@ -346,14 +284,15 @@ int main() {
             // of a constructor through a template
 
   std::int8_t a22 = 1;
-  C14<std::int8_t> c14(a22); // COMPLIANT: std::int8_t arg passed to a std::int8_t
-                             // parameter of a constructor through a template
+  C14<std::int8_t> c14(
+      a22); // COMPLIANT: std::int8_t arg passed to a std::int8_t
+            // parameter of a constructor through a template
 
   char a23 = 'a';
-  C15<char> c15(a23); // NON-COMPLIANT: plain char arg passed to a std::int8_t
+  C13<char> c15(a23); // NON-COMPLIANT: plain char arg passed to a std::uint8_t
                       // parameter of a constructor through a template
 
   char a24 = 'a';
-  C16<char> c16(a24); // NON-COMPLIANT: plain char arg passed to a std::int8_t
+  C14<char> c16(a24); // NON-COMPLIANT: plain char arg passed to a std::int8_t
                       // parameter of a constructor through a template
 }
