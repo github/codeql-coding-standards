@@ -1,17 +1,11 @@
 edges
-| test.c:6:6:6:6 | *c | test.c:6:15:6:17 | 97 | provenance |  |
 | test.c:6:6:6:6 | *c | test.c:16:10:16:10 | *c | provenance |  |
 | test.c:6:6:6:6 | *c | test.c:26:13:26:13 | *c | provenance |  |
 | test.c:6:6:6:6 | *c | test.c:27:10:27:10 | *c | provenance |  |
 | test.c:6:14:6:26 | {...} | test.c:6:6:6:6 | *c | provenance |  |
-| test.c:6:15:6:17 | 97 | test.c:6:20:6:22 | 98 | provenance |  |
-| test.c:6:20:6:22 | 98 | test.c:6:25:6:25 | {...} | provenance |  |
 | test.c:6:25:6:25 | {...} | test.c:6:14:6:26 | {...} | provenance |  |
-| test.c:7:6:7:6 | *d | test.c:7:15:7:17 | 97 | provenance |  |
 | test.c:7:6:7:6 | *d | test.c:16:13:16:13 | *d | provenance |  |
 | test.c:7:14:7:26 | {...} | test.c:7:6:7:6 | *d | provenance |  |
-| test.c:7:15:7:17 | 97 | test.c:7:20:7:22 | 98 | provenance |  |
-| test.c:7:20:7:22 | 98 | test.c:7:25:7:25 | {...} | provenance |  |
 | test.c:7:25:7:25 | {...} | test.c:7:14:7:26 | {...} | provenance |  |
 | test.c:12:13:12:15 | *a | test.c:14:10:14:10 | *a | provenance | DataFlowFunction |
 | test.c:12:13:12:15 | *a | test.c:23:13:23:13 | *a | provenance | DataFlowFunction |
@@ -24,13 +18,9 @@ edges
 nodes
 | test.c:6:6:6:6 | *c | semmle.label | *c |
 | test.c:6:14:6:26 | {...} | semmle.label | {...} |
-| test.c:6:15:6:17 | 97 | semmle.label | 97 |
-| test.c:6:20:6:22 | 98 | semmle.label | 98 |
 | test.c:6:25:6:25 | {...} | semmle.label | {...} |
 | test.c:7:6:7:6 | *d | semmle.label | *d |
 | test.c:7:14:7:26 | {...} | semmle.label | {...} |
-| test.c:7:15:7:17 | 97 | semmle.label | 97 |
-| test.c:7:20:7:22 | 98 | semmle.label | 98 |
 | test.c:7:25:7:25 | {...} | semmle.label | {...} |
 | test.c:10:10:10:12 | *a | semmle.label | *a |
 | test.c:10:15:10:17 | *b | semmle.label | *b |
