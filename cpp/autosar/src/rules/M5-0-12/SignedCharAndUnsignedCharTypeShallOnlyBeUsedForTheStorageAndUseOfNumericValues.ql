@@ -228,12 +228,12 @@ string getMessageTemplate(ImplicitConversionLocation implicitConversionLocation)
   |
     implicitConversionLocation.isImplicitConversionOutsideTemplate() and
     result =
-      "Implicit conversion of plain char $@ to " + implicitConversion.getType().getName() + "."
+      "Implicit conversion of plain char $@ to '" + implicitConversion.getType().getName() + "'."
     or
     implicitConversionLocation.isInstantiationOfImplicitConversionTemplate() and
     result =
-      "Implicit conversion of plain char $@ to " + implicitConversion.getType().getName() +
-        " from instantiating template '" +
+      "Implicit conversion of plain char $@ to '" + implicitConversion.getType().getName() +
+        "' from instantiating template '" +
         implicitConversionLocation
             .asInstantiationOfImplicitConversionTemplate(implicitConversion)
             .getTemplate()
