@@ -1,24 +1,24 @@
-| test.cpp:106:7:106:8 | (unsigned char)... | Implicit conversion of plain char $@ to unsigned char. | test.cpp:106:7:106:8 | x3 | expression |
-| test.cpp:109:20:109:21 | (signed char)... | Implicit conversion of plain char $@ to signed char. | test.cpp:109:20:109:21 | x4 | expression |
-| test.cpp:119:21:119:22 | (uint8_t)... | Implicit conversion of plain char $@ to uint8_t. | test.cpp:119:21:119:22 | x7 | expression |
-| test.cpp:122:20:122:21 | (int8_t)... | Implicit conversion of plain char $@ to int8_t. | test.cpp:122:20:122:21 | x8 | expression |
-| test.cpp:132:17:132:18 | definition of c3 | Implicit conversion of plain char $@ to unsigned char from instantiating template 'C1<T, y>'. | test.cpp:5:12:5:12 | 120 | expression |
-| test.cpp:135:17:135:18 | definition of c4 | Implicit conversion of plain char $@ to signed char from instantiating template 'C2<T, y>'. | test.cpp:13:12:13:12 | 120 | expression |
-| test.cpp:145:15:145:16 | definition of c7 | Implicit conversion of plain char $@ to uint8_t from instantiating template 'C5<T, y>'. | test.cpp:22:12:22:12 | 1 | expression |
-| test.cpp:148:15:148:16 | definition of c8 | Implicit conversion of plain char $@ to int8_t from instantiating template 'C6<T, y>'. | test.cpp:30:12:30:12 | 1 | expression |
-| test.cpp:165:7:165:10 | (unsigned char)... | Implicit conversion of plain char $@ to unsigned char. | test.cpp:165:7:165:10 | * ... | expression |
-| test.cpp:170:7:170:10 | (signed char)... | Implicit conversion of plain char $@ to signed char. | test.cpp:170:7:170:10 | * ... | expression |
-| test.cpp:185:7:185:10 | (uint8_t)... | Implicit conversion of plain char $@ to uint8_t. | test.cpp:185:7:185:10 | * ... | expression |
-| test.cpp:190:7:190:10 | (int8_t)... | Implicit conversion of plain char $@ to int8_t. | test.cpp:190:7:190:10 | * ... | expression |
-| test.cpp:204:6:204:7 | (unsigned char)... | Implicit conversion of plain char $@ to unsigned char. | test.cpp:204:6:204:7 | a3 | expression |
-| test.cpp:207:6:207:7 | (signed char)... | Implicit conversion of plain char $@ to signed char. | test.cpp:207:6:207:7 | a4 | expression |
-| test.cpp:217:7:217:8 | (uint8_t)... | Implicit conversion of plain char $@ to uint8_t. | test.cpp:217:7:217:8 | a7 | expression |
-| test.cpp:220:7:220:8 | (int8_t)... | Implicit conversion of plain char $@ to int8_t. | test.cpp:220:7:220:8 | a8 | expression |
-| test.cpp:234:3:234:4 | call to f7 | Implicit conversion of plain char $@ to unsigned char from instantiating template 'f7'. | test.cpp:49:56:49:56 | x | expression |
-| test.cpp:238:3:238:4 | call to f8 | Implicit conversion of plain char $@ to signed char from instantiating template 'f8'. | test.cpp:50:54:50:54 | x | expression |
-| test.cpp:251:3:251:5 | call to f15 | Implicit conversion of plain char $@ to uint8_t from instantiating template 'f15'. | test.cpp:55:56:55:56 | x | expression |
-| test.cpp:255:3:255:5 | call to f16 | Implicit conversion of plain char $@ to int8_t from instantiating template 'f16'. | test.cpp:56:55:56:55 | x | expression |
-| test.cpp:272:12:272:14 | definition of c11 | Implicit conversion of plain char $@ to unsigned char from instantiating template 'C9<T>'. | test.cpp:60:15:60:15 | y | expression |
-| test.cpp:277:13:277:15 | definition of c12 | Implicit conversion of plain char $@ to signed char from instantiating template 'C10<T>'. | test.cpp:68:16:68:16 | y | expression |
-| test.cpp:292:13:292:15 | definition of c15 | Implicit conversion of plain char $@ to uint8_t from instantiating template 'C13<T>'. | test.cpp:77:16:77:16 | y | expression |
-| test.cpp:296:13:296:15 | definition of c16 | Implicit conversion of plain char $@ to int8_t from instantiating template 'C14<T>'. | test.cpp:85:16:85:16 | y | expression |
+| test.cpp:98:7:98:8 | (unsigned char)... | Implicit conversion of plain char $@ to unsigned char. | test.cpp:98:7:98:8 | x3 | expression |
+| test.cpp:101:20:101:21 | (signed char)... | Implicit conversion of plain char $@ to signed char. | test.cpp:101:20:101:21 | x4 | expression |
+| test.cpp:111:21:111:22 | (uint8_t)... | Implicit conversion of plain char $@ to uint8_t. | test.cpp:111:21:111:22 | x7 | expression |
+| test.cpp:114:20:114:21 | (int8_t)... | Implicit conversion of plain char $@ to int8_t. | test.cpp:114:20:114:21 | x8 | expression |
+| test.cpp:124:17:124:18 | definition of c3 | Implicit conversion of plain char $@ to unsigned char from instantiating template 'C1<T, y>'. | test.cpp:5:12:5:12 | 120 | expression |
+| test.cpp:127:17:127:18 | definition of c4 | Implicit conversion of plain char $@ to signed char from instantiating template 'C2<T, y>'. | test.cpp:13:12:13:12 | 120 | expression |
+| test.cpp:137:15:137:16 | definition of c7 | Implicit conversion of plain char $@ to uint8_t from instantiating template 'C5<T, y>'. | test.cpp:22:12:22:12 | 1 | expression |
+| test.cpp:140:15:140:16 | definition of c8 | Implicit conversion of plain char $@ to int8_t from instantiating template 'C6<T, y>'. | test.cpp:30:12:30:12 | 1 | expression |
+| test.cpp:157:7:157:10 | (unsigned char)... | Implicit conversion of plain char $@ to unsigned char. | test.cpp:157:7:157:10 | * ... | expression |
+| test.cpp:162:7:162:10 | (signed char)... | Implicit conversion of plain char $@ to signed char. | test.cpp:162:7:162:10 | * ... | expression |
+| test.cpp:177:7:177:10 | (uint8_t)... | Implicit conversion of plain char $@ to uint8_t. | test.cpp:177:7:177:10 | * ... | expression |
+| test.cpp:182:7:182:10 | (int8_t)... | Implicit conversion of plain char $@ to int8_t. | test.cpp:182:7:182:10 | * ... | expression |
+| test.cpp:196:6:196:7 | (unsigned char)... | Implicit conversion of plain char $@ to unsigned char. | test.cpp:196:6:196:7 | a3 | expression |
+| test.cpp:199:6:199:7 | (signed char)... | Implicit conversion of plain char $@ to signed char. | test.cpp:199:6:199:7 | a4 | expression |
+| test.cpp:209:6:209:7 | (uint8_t)... | Implicit conversion of plain char $@ to uint8_t. | test.cpp:209:6:209:7 | a7 | expression |
+| test.cpp:212:7:212:8 | (int8_t)... | Implicit conversion of plain char $@ to int8_t. | test.cpp:212:7:212:8 | a8 | expression |
+| test.cpp:226:3:226:4 | call to f5 | Implicit conversion of plain char $@ to unsigned char from instantiating template 'f5'. | test.cpp:43:56:43:56 | x | expression |
+| test.cpp:230:3:230:4 | call to f6 | Implicit conversion of plain char $@ to signed char from instantiating template 'f6'. | test.cpp:44:54:44:54 | x | expression |
+| test.cpp:243:3:243:5 | call to f13 | Implicit conversion of plain char $@ to uint8_t from instantiating template 'f13'. | test.cpp:47:56:47:56 | x | expression |
+| test.cpp:247:3:247:5 | call to f14 | Implicit conversion of plain char $@ to int8_t from instantiating template 'f14'. | test.cpp:48:55:48:55 | x | expression |
+| test.cpp:264:12:264:14 | definition of c11 | Implicit conversion of plain char $@ to unsigned char from instantiating template 'C9<T>'. | test.cpp:52:15:52:15 | y | expression |
+| test.cpp:269:13:269:15 | definition of c12 | Implicit conversion of plain char $@ to signed char from instantiating template 'C10<T>'. | test.cpp:60:16:60:16 | y | expression |
+| test.cpp:284:13:284:15 | definition of c15 | Implicit conversion of plain char $@ to uint8_t from instantiating template 'C13<T>'. | test.cpp:69:16:69:16 | y | expression |
+| test.cpp:288:13:288:15 | definition of c16 | Implicit conversion of plain char $@ to int8_t from instantiating template 'C14<T>'. | test.cpp:77:16:77:16 | y | expression |

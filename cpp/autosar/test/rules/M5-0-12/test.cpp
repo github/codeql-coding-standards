@@ -35,25 +35,17 @@ private:
 
 void f1(unsigned char x) {}
 void f2(signed char x) {}
-void f3(unsigned char x) {}
-void f4(signed char x) {}
 
 /* Twin functions for std::uint8_t and std::int8_t */
 void f9(std::uint8_t x) {}
 void f10(std::int8_t x) {}
-void f11(std::uint8_t x) {}
-void f12(std::int8_t x) {}
 
 template <typename T> void f5(T x) { unsigned char y = x; }
 template <typename T> void f6(T x) { signed char y = x; }
-template <typename T> void f7(T x) { unsigned char y = x; }
-template <typename T> void f8(T x) { signed char y = x; }
 
 /* Twin template functions for std::uint8_t and std::int8_t */
 template <typename T> void f13(T x) { std::uint8_t y = x; }
 template <typename T> void f14(T x) { std::int8_t y = x; }
-template <typename T> void f15(T x) { std::uint8_t y = x; }
-template <typename T> void f16(T x) { std::int8_t y = x; }
 
 template <typename T> class C9 {
 public:
@@ -201,10 +193,10 @@ int main() {
   f2(a2); // COMPLIANT: signed char arg passed to a signed char parameter
 
   char a3 = 'a';
-  f3(a3); // NON-COMPLIANT: plain char arg passed to a unsigned char parameter
+  f1(a3); // NON-COMPLIANT: plain char arg passed to a unsigned char parameter
 
   char a4 = 'a';
-  f4(a4); // NON-COMPLIANT: plain char arg passed to a signed char parameter
+  f2(a4); // NON-COMPLIANT: plain char arg passed to a signed char parameter
 
   /* Twin cases with std::uint8_t and std::int8_t */
   std::uint8_t a5 = 1;
@@ -214,10 +206,10 @@ int main() {
   f10(a6); // COMPLIANT: std::int8_t arg passed to a std::int8_t parameter
 
   char a7 = 'a';
-  f11(a7); // NON-COMPLIANT: plain char arg passed to a std::uint8_t parameter
+  f9(a7); // NON-COMPLIANT: plain char arg passed to a std::uint8_t parameter
 
   char a8 = 'a';
-  f12(a8); // NON-COMPLIANT: plain char arg passed to a std::int8_t parameter
+  f10(a8); // NON-COMPLIANT: plain char arg passed to a std::int8_t parameter
 
   /* ===== 2-2. Passing char argument to a char parameter through a template
    * ===== */
@@ -231,11 +223,11 @@ int main() {
            // through a template
 
   char a11 = 'a';
-  f7(a11); // NON-COMPLIANT: plain char arg passed to an unsigned char parameter
+  f5(a11); // NON-COMPLIANT: plain char arg passed to an unsigned char parameter
            // through a template
 
   char a12 = 'a';
-  f8(a12); // NON-COMPLIANT: plain char arg passed to a signed char parameter
+  f6(a12); // NON-COMPLIANT: plain char arg passed to a signed char parameter
            // through a template
 
   /* Twin cases with std::uint8_t and std::int8_t */
@@ -248,11 +240,11 @@ int main() {
             // through a template
 
   char a15 = 'a';
-  f15(a15); // NON-COMPLIANT: plain char arg passed to a std::uint8_t parameter
+  f13(a15); // NON-COMPLIANT: plain char arg passed to a std::uint8_t parameter
             // through a template
 
   char a16 = 'a';
-  f16(a16); // NON-COMPLIANT: plain char arg passed to a std::int8_t parameter
+  f14(a16); // NON-COMPLIANT: plain char arg passed to a std::int8_t parameter
             // through a template
 
   /* ========== 2-3. Passing a char argument to a char parameter through a
