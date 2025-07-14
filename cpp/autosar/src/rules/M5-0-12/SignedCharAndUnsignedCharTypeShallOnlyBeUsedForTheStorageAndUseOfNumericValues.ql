@@ -16,17 +16,21 @@
 import cpp
 import codingstandards.cpp.autosar
 
-newtype TTemplatedElement =
-  TClassTemplate(TemplateClass c) or
-  TFunctionTemplate(TemplateFunction f) or
-  TVariableTemplate(TemplateVariable v)
+newtype TTemplateElement =
+  TTemplateClass(TemplateClass c) or
+  TTemplateFunction(TemplateFunction f) or
+  TTemplateVariable(TemplateVariable v)
 
-class TemplatedElement extends TTemplatedElement {
-  TemplateClass asTemplateClass() { this = TClassTemplate(result) }
+/**
+ * A templated element. These are either templated classes, templated functions,
+ * or templated variables.
+ */
+class TemplateElement extends TTemplateElement {
+  TemplateClass asTemplateClass() { this = TTemplateClass(result) }
 
-  TemplateFunction asTemplateFunction() { this = TFunctionTemplate(result) }
+  TemplateFunction asTemplateFunction() { this = TTemplateFunction(result) }
 
-  TemplateVariable asTemplateVariable() { this = TVariableTemplate(result) }
+  TemplateVariable asTemplateVariable() { this = TTemplateVariable(result) }
 
   string toString() {
     result = this.asTemplateClass().toString() or
@@ -52,6 +56,10 @@ newtype TTemplateInstantiation =
   TFunctionTemplateInstantiation(FunctionTemplateInstantiation f) or
   TVariableTemplateInstantiation(VariableTemplateInstantiation v)
 
+/**
+ * An instantiation of a templated element, either a templated class, templated
+ * function, or templated variable.
+ */
 class TemplateInstantiation extends TTemplateInstantiation {
   ClassTemplateInstantiation asClassTemplateInstantiation() {
     this = TClassTemplateInstantiation(result)
@@ -83,7 +91,11 @@ class TemplateInstantiation extends TTemplateInstantiation {
     result = this.asVariableTemplateInstantiation()
   }
 
-  TemplatedElement getTemplate() {
+  /**
+   * Gets the template this instantiation is from, depending on the kind of the element
+   * this instantiation is for.
+   */
+  TemplateElement getTemplate() {
     result.asTemplateClass() = this.asClassTemplateInstantiation().getTemplate() or
     result.asTemplateFunction() = this.asFunctionTemplateInstantiation().getTemplate() or
     result.asTemplateVariable() = this.asVariableTemplateInstantiation().getTemplate()
@@ -102,6 +114,13 @@ class TemplateInstantiation extends TTemplateInstantiation {
   }
 }
 
+/**
+ * An implicit conversion from a plain char type to an explicitly signed or unsigned char
+ * type. `std::uint8_t` and `std::int8_t` are also considered as these char types.
+ *
+ * Note that this class only includes implicit conversions and does not include explicit
+ * type conversions, i.e. casts.
+ */
 class ImplicitConversionFromPlainCharType extends Conversion {
   ImplicitConversionFromPlainCharType() {
     this.isImplicit() and
@@ -126,6 +145,16 @@ newtype TImplicitConversionElement =
     implicitConversion.getEnclosingElement+() = templateInstantiation.asElement()
   }
 
+/**
+ * The locations where the implicit conversion from a plain char to an explicitly signed / unsigned
+ * char is taking place on a high level. It splits case on whether the conversion is caused by
+ * instantiating a template:
+ *
+ * - For conversions not due to template usage (i.e. outside a templated element), this refers to
+ * the same element as the one associated with the conversion.
+ * - For conversions due to template usage, this refers to the element that uses the instantiation
+ * of a template where an implicit char conversion happens.
+ */
 class ImplicitConversionLocation extends TImplicitConversionElement {
   ImplicitConversionFromPlainCharType asImplicitConversionOutsideTemplate() {
     this = TImplicitConversionOutsideTemplate(result)
@@ -137,10 +166,17 @@ class ImplicitConversionLocation extends TImplicitConversionElement {
     this = TInstantiationOfImplicitConversionTemplate(result, implicitConversion)
   }
 
+  /**
+   * Holds if this is a location of a conversion happening outside of a template.
+   */
   predicate isImplicitConversionOutsideTemplate() {
     exists(this.asImplicitConversionOutsideTemplate())
   }
 
+  /**
+   * Holds if this is a location of a conversion happening due to instantiating a
+   * template.
+   */
   predicate isInstantiationOfImplicitConversionTemplate() {
     exists(
       TemplateInstantiation templateInstantiation,
@@ -150,6 +186,13 @@ class ImplicitConversionLocation extends TImplicitConversionElement {
     )
   }
 
+  /**
+   * Gets the implicit conversion that this location is associated with.
+   * - In cases of conversions not involving a template, this is the same as the
+   * location associated with the conversion.
+   * - In cases of conversions due to using a template, this is the conversion that
+   * happens in the instantiated template.
+   */
   ImplicitConversionFromPlainCharType getImplicitConversion() {
     result = this.asImplicitConversionOutsideTemplate() or
     exists(TemplateInstantiation templateInstantiation |
