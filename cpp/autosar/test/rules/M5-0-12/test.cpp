@@ -80,6 +80,29 @@ private:
   std::int8_t x;
 };
 
+template <typename T> T v1;
+template <typename T> T v2;
+
+void instantiateTemplateVariables() {
+  v1<unsigned char> =
+      1;               // COMPLIANT: unsigned char assigned to an unsigned char
+  v2<signed char> = 1; // COMPLIANT: signed char assigned to a signed char
+  v2<char> = 'v';      // COMPLIANT: signed char assigned to a signed char
+
+  v1<unsigned char> =
+      'v'; // NON-COMPLIANT: plain char assigned to an unsigned char
+  v2<signed char> = 'v'; // NON-COMPLIANT: plain char assigned to a signed char
+
+  /* Twin cases with std::uint8_t and std::int8_t */
+  v1<std::uint8_t> = 1; // COMPLIANT: std::uint8_t assigned to a std::uint8_t
+  v2<std::int8_t> = 1;  // COMPLIANT: std::int8_t assigned to a std::int8_t
+  v2<char> = 'v';       // COMPLIANT: signed char assigned to a signed char
+
+  v1<std::uint8_t> =
+      'v';               // NON-COMPLIANT: plain char assigned to a std::uint8_t
+  v2<std::int8_t> = 'v'; // NON-COMPLIANT: plain char assigned to a std::int8_t
+}
+
 int main() {
 
   /* ========== 1. Assigning a char to another char ========== */
