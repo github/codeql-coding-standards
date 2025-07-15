@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /*
  * Finds `std::shared_ptr` local variables which are not copy or move initialized, and are not used in
@@ -44,7 +44,11 @@ from AutosarSharedPointerLocalScopeVariable var, SharedPointerLocalAllocInitiali
 where
   not isExcluded(var, SmartPointers1Package::sharedPointerUsedWithNoOwnershipSharingQuery()) and
   var.getAnAssignedValue() = src and
-  not DataFlow::localExprFlow(src, varOwnershipSharingExpr(var.getType(), var.getFunction()))
+  not exists(DataFlow::Node n |
+    n.asIndirectExpr() = varOwnershipSharingExpr(var.getType(), var.getFunction())
+  |
+    DataFlow::localFlow(DataFlow::exprNode(src), n)
+  )
 select var,
   "The ownership of shared_ptr $@ is not shared within or passed out of the local scope of function $@.",
   var, var.getName(), var.getFunction(), var.getFunction().getQualifiedName()
