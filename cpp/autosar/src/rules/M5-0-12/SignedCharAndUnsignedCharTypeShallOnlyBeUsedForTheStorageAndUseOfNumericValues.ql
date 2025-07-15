@@ -29,5 +29,6 @@ where
   ) and
   /* 3. Check if the source expression is a plain char type, i.e. not explicitly signed / unsigned. */
   c.getExpr().getUnspecifiedType() instanceof PlainCharType
-select c, "Implicit conversion of plain char type to $@ with an explicitly signed char type", c,
-  c.getUnspecifiedType().getName()
+select c,
+  "This expression of plain char type is implicitly converted to '" +
+    c.getUnspecifiedType().getName() + "'."
