@@ -15,7 +15,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.autosar
 import codingstandards.cpp.exceptions.ExceptionFlow
 import codingstandards.cpp.exceptions.ExceptionSpecifications
@@ -98,6 +98,18 @@ class ExceptionThrownInConstructor extends ExceptionThrowingExpr {
   Constructor getConstructor() { result = c }
 }
 
+module NewDeleteConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node src) { src.asExpr() instanceof NewAllocationExpr }
+
+  predicate isSink(DataFlow::Node sink) { sink.asExpr() instanceof DeletedExpr }
+
+  DataFlow::FlowFeature getAFeature() {
+    result instanceof DataFlow::FeatureEqualSourceSinkCallContext
+  }
+}
+
+module NewDeleteFlow = DataFlow::Global<NewDeleteConfig>;
+
 from
   ExceptionThrowingConstructor c, ExceptionThrownInConstructor throwingExpr,
   NewAllocationExpr newExpr, ExceptionFlowNode exceptionSource,
@@ -127,7 +139,7 @@ where
   not exists(DeletedExpr deletedExpr |
     deletedExpr.getEnclosingFunction() = c and
     // Deletes the same memory location that was new'd
-    DataFlow::localFlow(DataFlow::exprNode(newExpr), DataFlow::exprNode(deletedExpr)) and
+    NewDeleteFlow::flow(DataFlow::exprNode(newExpr), DataFlow::exprNode(deletedExpr)) and
     newExpr.getASuccessor+() = deletedExpr and
     deletedExpr.getASuccessor+() = throwingExpr
   ) and
