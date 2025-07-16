@@ -14,14 +14,16 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.autosar
 import LambdaExpressionToTypeidFlow::PathGraph
 
 module LambdaExpressionToTypeidConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node source) { source.asExpr() instanceof LambdaExpression }
 
-  predicate isSink(DataFlow::Node sink) { exists(TypeidOperator op | op.getExpr() = sink.asExpr()) }
+  predicate isSink(DataFlow::Node sink) {
+    exists(TypeidOperator op | op.getExpr() = sink.asIndirectExpr())
+  }
 }
 
 module LambdaExpressionToTypeidFlow = DataFlow::Global<LambdaExpressionToTypeidConfig>;
