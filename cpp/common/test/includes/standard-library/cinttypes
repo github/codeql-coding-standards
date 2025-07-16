@@ -1,1 +1,12 @@
-#include <inttypes.h>
+#ifndef _GHLIBCPP_CINTTYPES
+#define _GHLIBCPP_CINTTYPES
+#include "inttypes.h"
+
+namespace std {
+using ::strtoimax;
+using ::strtoumax;
+using ::wcstoimax;
+using ::wcstoumax;
+} // namespace std
+
+#endif // _GHLIBCPP_CINTTYPES

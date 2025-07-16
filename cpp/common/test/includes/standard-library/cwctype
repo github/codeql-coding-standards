@@ -1,0 +1,38 @@
+#ifndef _GHLIBCPP_CWCTYPE
+#define _GHLIBCPP_CWCTYPE
+#include "wctype.h"
+
+namespace std {
+// Types
+using ::wint_t;
+using ::wctype_t;
+using ::wctrans_t;
+
+// Wide character classification functions
+using ::iswalnum;
+using ::iswalpha;
+using ::iswblank;
+using ::iswcntrl;
+using ::iswdigit;
+using ::iswgraph;
+using ::iswlower;
+using ::iswprint;
+using ::iswpunct;
+using ::iswspace;
+using ::iswupper;
+using ::iswxdigit;
+
+// Wide character conversion functions
+using ::towlower;
+using ::towupper;
+
+// Generic wide character classification functions
+using ::iswctype;
+using ::wctype;
+
+// Generic wide character mapping functions
+using ::towctrans;
+using ::wctrans;
+} // namespace std
+
+#endif // _GHLIBCPP_CWCTYPE
