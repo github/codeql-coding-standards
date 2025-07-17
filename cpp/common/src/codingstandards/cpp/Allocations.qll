@@ -7,7 +7,7 @@
 
 import cpp
 import semmle.code.cpp.controlflow.SSA
-import semmle.code.cpp.dataflow.DataFlow
+private import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * Holds if `alloc` is a use of `malloc` or `new`.  `kind` is

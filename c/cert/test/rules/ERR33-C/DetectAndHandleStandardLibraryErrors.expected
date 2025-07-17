@@ -1,4 +1,4 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleStandardLibraryErrors.ql:458,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleStandardLibraryErrors.ql:459,5-13)
 | test.c:18:3:18:11 | call to setlocale | Missing error detection for the call to function `setlocale`. |
 | test.c:24:23:24:31 | call to setlocale | Missing error detection for the call to function `setlocale`. |
 | test.c:29:22:29:27 | call to calloc | Missing error detection for the call to function `calloc`. |
