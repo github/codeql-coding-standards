@@ -23,13 +23,17 @@ import codingstandards.cpp.types.FunctionType
 import codingstandards.cpp.exprs.FunctionExprs
 import codingstandards.cpp.exprs.Guards
 
-abstract class EffectivelyComparison extends Element {
+final class FinalElement = Element;
+
+abstract class EffectivelyComparison extends FinalElement {
   abstract string getExplanation();
 
   abstract FunctionExpr getFunctionExpr();
 }
 
-class ExplicitComparison extends EffectivelyComparison, ComparisonOperation {
+final class FinalComparisonOperation = ComparisonOperation;
+
+class ExplicitComparison extends EffectivelyComparison, FinalComparisonOperation {
   Expr constantExpr;
   FunctionExpr funcExpr;
 
