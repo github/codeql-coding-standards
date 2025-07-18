@@ -28,3 +28,14 @@ bindingset[filepath, lineNumber]
 int getLastColumnNumber(string filepath, int lineNumber) {
   result = max(Location l | l.hasLocationInfo(filepath, _, _, lineNumber, _) | l.getEndColumn())
 }
+
+bindingset[a, b]
+predicate shareEnding(Locatable a, Locatable b) {
+  exists(Location la, Location lb |
+    la = a.getLocation() and
+    lb = b.getLocation() and
+    la.getFile() = lb.getFile() and
+    la.getEndLine() = lb.getEndLine() and
+    la.getEndColumn() = lb.getEndColumn()
+  )
+}
