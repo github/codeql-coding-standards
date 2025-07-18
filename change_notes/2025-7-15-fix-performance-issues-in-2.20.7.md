@@ -1,0 +1,4 @@
+ - `DCL40-C`, `RULE-8-4`: `IncompatibleFunctionDeclarations.ql`, `CompatibleDeclarationFunctionDefined.ql`.
+   - Fixed performance issues introduced when upgrading to CodeQL `2.20.7` by removing unnecessary check that matching function declarations have matching names.
+ - `RULE-7-5`: `IncorrectlySizedIntegerConstantMacroArgument.ql`.
+   - Added a `bindingset` to improve performance when checking if a literal matches the size of an integer constant macro.

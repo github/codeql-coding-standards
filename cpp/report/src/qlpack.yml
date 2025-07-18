@@ -2,4 +2,4 @@ name: codeql/report-cpp-coding-standards
 version: 2.49.0-dev
 license: MIT
 dependencies:
-  codeql/cpp-all: 2.1.1
+  codeql/cpp-all: 4.0.3

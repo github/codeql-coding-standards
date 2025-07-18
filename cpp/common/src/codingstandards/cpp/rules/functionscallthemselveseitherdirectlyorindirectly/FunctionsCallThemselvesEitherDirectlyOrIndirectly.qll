@@ -19,17 +19,17 @@ class RecursiveCall extends FunctionCall {
   }
 }
 
-query predicate problems(FunctionCall fc, string message, Function f, string f_name) {
-  exists(RecursiveCall call |
-    not isExcluded(call, getQuery()) and
-    f = fc.getTarget() and
-    f_name = fc.getTarget().getName() and
-    fc.getTarget() = call.getTarget() and
-    if fc.getTarget() = fc.getEnclosingFunction()
-    then message = "This call directly invokes its containing function $@."
-    else
-      message =
-        "The function " + fc.getEnclosingFunction() +
-          " is indirectly recursive via this call to $@."
-  )
+class RecursiveFunction extends Function {
+  RecursiveFunction() { exists(RecursiveCall fc | fc.getEnclosingFunction() = this) }
+}
+
+query predicate problems(FunctionCall fc, string message, RecursiveFunction f, string functionName) {
+  not isExcluded(fc, getQuery()) and
+  f = fc.getTarget() and
+  functionName = f.getName() and
+  if f = fc.getEnclosingFunction()
+  then message = "This call directly invokes its containing function $@."
+  else
+    message =
+      "The function " + fc.getEnclosingFunction() + " is indirectly recursive via this call to $@."
 }
