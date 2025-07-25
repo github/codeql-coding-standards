@@ -22,15 +22,28 @@ import codingstandards.c.cert
 import codingstandards.cpp.ConcurrencyNew
 import semmle.code.cpp.dataflow.new.DataFlow
 
+newtype Direction =
+  Incoming() or
+  Outgoing()
+
+predicate isSource(DataFlow::Node node, Direction d) {
+  exists(TSSCreateFunctionCall tsc, Expr e |
+    // the only requirement of the source is that at some point
+    // it refers to the key of a create statement
+    e.getParent*() = tsc.getKey()
+  |
+    d = Outgoing() and
+    e = [node.asExpr(), node.asDefiningArgument()]
+    or
+    d = Incoming() and
+    e = [node.asExpr(), node.asIndirectArgument()]
+  )
+}
+
 module TssCreateToTssDeleteConfig implements DataFlow::ConfigSig {
-  predicate isSource(DataFlow::Node node) {
-    exists(TSSCreateFunctionCall tsc, Expr e |
-      // the only requirement of the source is that at some point
-      // it refers to the key of a create statement
-      e.getParent*() = tsc.getKey() and
-      (e = node.asDefiningArgument() or e = node.asExpr())
-    )
-  }
+  predicate isSource(DataFlow::Node node) { isSource(node, Outgoing()) }
+
+  predicate isBarrierIn(DataFlow::Node node) { isSource(node, Incoming()) }
 
   predicate isSink(DataFlow::Node node) {
     exists(TSSDeleteFunctionCall tsd, Expr e |
