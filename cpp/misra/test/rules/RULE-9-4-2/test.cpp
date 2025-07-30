@@ -1,304 +1,250 @@
-// Test cases for RULE-9-4-2: The structure of a switch statement shall be
-// appropriate This rule combines RULE-16-1 through RULE-16-7
+int i = 0;
 
-void test_rule_16_1_well_formed(int expr) {
-  int i = 0;
-
-  // COMPLIANT - well-formed switch with proper statements
-  switch (expr) {
+/**
+ * Test the initializer of a switch statement.
+ */
+void testInitializer(int expr) {
+  switch (expr) { // COMPLIANT: No initializer
   case 1:
-    i++; // expression statement
-    break;
-  case 2: { // compound statement
     i++;
-  } break;
-  case 3:
-    if (i > 0) { // selection statement
-      i++;
-    }
-    break;
-  case 4:
-    while (i < 10) { // iteration statement
-      i++;
-    }
     break;
   default:
+    i--;
     break;
   }
 
-  // NON_COMPLIANT - switch with inappropriate statement (declaration)
-  switch (expr) {
+  switch (int j = 0;
+          expr) { // COMPLIANT: Only declaration statement can be an initializer
   case 1:
-    int j = 5; // declaration statement - not allowed
+    j++;
     break;
   default:
+    j--;
+    break;
+  }
+
+  switch (
+      i = 1;
+      expr) { // NON_COMPLIANT: Only declaration statement can be an initializer
+  case 1:
+    i++;
+    break;
+  default:
+    i--;
     break;
   }
 }
 
-void test_rule_16_2_nested_labels(int expr) {
-  // COMPLIANT - labels directly within switch body
-  switch (expr) {
+void testNestedCaseLabels(int expr) {
+  switch (expr) { // COMPLIANT: Consecutive case labels are allowed
   case 1:
-    break;
   case 2:
+    i++;
     break;
   default:
+    i--;
     break;
   }
 
-  // NON_COMPLIANT - nested switch labels (this would be a compiler error in
-  // practice) switch (expr) { case 1:
-  //   {
-  //     case 2:  // nested label - not allowed
-  //       break;
-  //   }
-  //   break;
-  // default:
-  //   break;
-  // }
-}
-
-void test_rule_16_3_termination(int expr) {
-  int i = 0;
-
-  // COMPLIANT - all cases properly terminated
-  switch (expr) {
-  case 1:
-    i++;
-    break;
+  switch (expr) { // NON_COMPLIANT: Statements with case labels should all be at
+                  // the same level
+  case 1: {
   case 2:
-  case 3: // empty cases are fine
     i++;
     break;
-  case 4:
-    throw "error"; // throw is also valid termination
+  }
   default:
     break;
   }
 
-  // NON_COMPLIANT - case 1 falls through without break
-  switch (expr) {
-  case 1: // NON_COMPLIANT - missing break
-    i++;
-  case 2: // COMPLIANT - properly terminated
-    i++;
-    break;
-  default:
-    break;
-  }
-
-  // NON_COMPLIANT - default case falls through
-  switch (expr) {
+  switch (expr) { // NON_COMPLIANT: Statements with case labels should all be at
+                  // the same level
   case 1:
     i++;
     break;
-  default: // NON_COMPLIANT - missing break
-    i++;
+  case 2: {
+  default:
+    break;
+  }
   }
 }
 
-void test_rule_16_4_default_label(int expr) {
-  int i = 0;
-
-  // COMPLIANT - has default label
-  switch (expr) {
-  case 1:
-    i++;
-    break;
-  case 2:
-    i++;
-    break;
-  default:
-    break;
-  }
-
-  // NON_COMPLIANT - missing default label
-  switch (expr) {
-  case 1:
-    i++;
-    break;
-  case 2:
-    i++;
-    break;
-  }
-}
-
-void test_rule_16_5_default_position(int expr) {
-  int i = 0;
-
-  // COMPLIANT - default is first
-  switch (expr) {
-  default:
-    i++;
-    break;
-  case 1:
-    i++;
-    break;
-  case 2:
-    i++;
-    break;
-  }
-
-  // COMPLIANT - default is last
-  switch (expr) {
-  case 1:
-    i++;
-    break;
-  case 2:
-    i++;
-    break;
-  default:
-    i++;
-    break;
-  }
-
-  // NON_COMPLIANT - default is in the middle
-  switch (expr) {
-  case 1:
-    i++;
-    break;
-  default: // NON_COMPLIANT - not first or last
-    i++;
-    break;
-  case 2:
-    i++;
-    break;
-  }
-}
-
-void test_rule_16_6_two_clauses(int expr) {
-  int i = 0;
-
-  // COMPLIANT - has multiple clauses
-  switch (expr) {
-  case 1:
-    i++;
-    break;
-  case 2:
-    i++;
-    break;
-  default:
-    break;
-  }
-
-  // NON_COMPLIANT - only has default (single clause)
-  switch (expr) {
-  default:
-    i++;
-    break;
-  }
-
-  // NON_COMPLIANT - only has one case plus default (still only one effective
-  // clause)
-  switch (expr) {
-  case 1:
-  default:
-    i++;
-    break;
-  }
-}
-
-void test_rule_16_7_boolean_expression() {
-  int i = 0;
-  bool flag = true;
-
-  // COMPLIANT - non-boolean expression
-  switch (i) {
-  case 0:
-    break;
-  case 1:
-    break;
-  default:
-    break;
-  }
-
-  // NON_COMPLIANT - boolean expression
-  switch (flag) {
-  case true:
-    break;
-  case false:
-    break;
-  default:
-    break;
-  }
-
-  // NON_COMPLIANT - boolean comparison expression
-  switch (i == 0) {
-  case true:
-    break;
-  case false:
-    break;
-  default:
-    break;
-  }
-}
-
-int f() { return 1; }
-
-void test_complex_violations(int expr) {
-  int i = 0;
-  bool flag = true;
-
-  // NON_COMPLIANT - multiple violations:
-  // - Boolean expression (16-7)
-  // - Missing default (16-4)
-  // - Single clause (16-6)
-  switch (flag) {
-  case true:
-    i++;
-  }
-
-  // NON_COMPLIANT - multiple violations:
-  // - Fall-through case (16-3)
-  // - Default not first/last (16-5)
-  switch (expr) {
-  case 1: // NON_COMPLIANT - falls through
-    i++;
-  default: // NON_COMPLIANT - not first/last
-    i++;
-    break;
-  case 2:
-    i++;
-    break;
-  }
-
-  switch (expr) {
-    int i = 0;
-  case 1:
-    i++;
-  }
-  
-  switch (int x = f(); x) {
-  case 1:
-    i++;
-  }
-
-  switch (expr = f(); expr) {
-  case 1:
-    i++;
-  }
-
-  switch (expr) {
-  case 1:
-    {
-      case 2:
-      i++;
-    }
-  }
-
-  switch (expr) {
+void testOtherLabelsInBranch(int expr) {
+  switch (expr) { // NON_COMPLIANT: Non-case labels appearing in a switch branch
   case 1: {
     i++;
     goto someLabel;
   someLabel:
     i++;
+    break;
+  default:
+    break;
   }
   }
+}
 
-  switch (expr) {
-    int x = 1;
+void testLeadingNonCaseStatement(int expr) {
+  switch (expr) { // NON_COMPLIANT: Non-case statement is the first statement in
+                  // the switch body
+
   case 1:
     i++;
+    break;
+  default:
+    break;
+  }
+}
+
+[[noreturn]] void f() {}
+void g() {}
+
+void testSwitchBranchTerminator(int expr) {
+  switch (expr) { // COMPLIANT: Break is allowed as a branch terminator
+  case 1:
+    i++;
+    break;
+  default:
+    break;
+  }
+
+  for (int j = 0; j++; j < 10) {
+    switch (expr) { // COMPLIANT: Continue is allowed as a branch terminator
+    case 1:
+      i++;
+      continue;
+    default:
+      continue;
+    }
+  }
+
+  switch (expr) { // COMPLIANT: Goto is allowed as a branch terminator
+  case 1:
+    i++;
+    goto error;
+  default:
+    goto error;
+  }
+
+  switch (expr) { // COMPLIANT: Throw is allowed as a branch terminator
+  case 1:
+    i++;
+    throw;
+  default:
+    throw;
+  }
+
+  switch (expr) { // COMPLIANT: Call to a `[[noreturn]]` function is allowed as
+                  // a branch terminator
+  case 1:
+    i++;
+    f();
+  default:
+    f();
+  }
+
+  switch (expr) { // NON_COMPLIANT: Branch ends with a call to a function that
+                  // is not `[[noreturn]]`
+  case 1:
+    i++;
+    g();
+  default:
+    g();
+  }
+
+  switch (expr) { // COMPLIANT: Return is allowed as a branch terminator
+  case 1:
+    i++;
+    return;
+  default:
+    return;
+  }
+
+  switch (expr) { // COMPLIANT: Empty statement with `[[fallthrough]]` is
+                  // allowed as a branch terminator
+  case 1:
+    i++;
+    [[fallthrough]];
+  default:
+    i++;
+  }
+
+error:
+  return;
+}
+
+void testSwitchBranchCount(int expr) {
+  switch (expr) { // COMPLIANT: Branch count is 2
+  case 1:
+    i++;
+    break;
+  default:
+    i++;
+    break;
+  }
+
+  switch (expr) { // NON_COMPLIANT: Branch count is 1
+  default:
+    i++;
+    break;
+  }
+
+  switch (expr) { // NON_COMPLIANT: Branch count is 1
+  case 1:
+  case 2:
+  default:
+    i++;
+    break;
+  }
+}
+
+enum E { V1, V2, V3 };
+
+void testDefaultLabelPresence(int expr) {
+  switch (expr) { // COMPLIANT: There is a default branch
+  case 1:
+    i++;
+    break;
+  default:
+    i++;
+    break;
+  }
+
+  switch (expr) { // NON_COMPLIANT: Default branch is missing
+  case 1:
+    i++;
+    break;
+  }
+
+  E e;
+
+  switch (e) { // COMPLIANT: There is a default branch
+  case V1:
+    i++;
+    break;
+  default:
+    break;
+  }
+
+  switch (e) { // NON_COMPLIANT: Default branch is missing on a non-exhaustive
+               // enum switch
+  case V1:
+    i++;
+    break;
+  case V2:
+    i++;
+    break;
+  }
+
+  switch (e) { // COMPLIANT: Default branch can be omitted on an exhaustive enum
+               // switch
+  case V1:
+    i++;
+    break;
+  case V2:
+    i++;
+    break;
+  case V3:
+    i++;
+    break;
   }
 }
