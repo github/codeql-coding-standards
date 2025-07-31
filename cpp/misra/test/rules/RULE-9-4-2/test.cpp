@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 int i = 0;
 
 /**
@@ -77,16 +79,16 @@ void testOtherLabelsInBranch(int expr) {
   someLabel:
     i++;
     break;
+  }
   default:
     break;
-  }
   }
 }
 
 void testLeadingNonCaseStatement(int expr) {
   switch (expr) { // NON_COMPLIANT: Non-case statement is the first statement in
                   // the switch body
-
+  int x = 1;
   case 1:
     i++;
     break;
@@ -95,7 +97,7 @@ void testLeadingNonCaseStatement(int expr) {
   }
 }
 
-[[noreturn]] void f() {}
+[[noreturn]] void f() { exit(0); }
 void g() {}
 
 void testSwitchBranchTerminator(int expr) {
@@ -166,6 +168,7 @@ void testSwitchBranchTerminator(int expr) {
     [[fallthrough]];
   default:
     i++;
+    break;
   }
 
 error:

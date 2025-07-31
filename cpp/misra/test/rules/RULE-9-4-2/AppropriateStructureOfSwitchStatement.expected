@@ -1,15 +1,12 @@
-| test.cpp:40:3:40:8 | Switch statement has a case that contains inappropriate statements (only expression, compound, selection, iteration or try statements are allowed). |
-| test.cpp:86:3:86:8 | Switch statement has a non-empty case that does not terminate with an unconditional break or throw statement. |
-| test.cpp:86:3:86:8 | Switch statement has a non-empty case that does not terminate with an unconditional break or throw statement. |
-| test.cpp:98:3:98:8 | Switch statement has a non-empty case that does not terminate with an unconditional break or throw statement. |
-| test.cpp:123:3:123:8 | Switch statement is missing a default clause. |
-| test.cpp:166:3:166:8 | Switch statement has a default clause that is not the first or last switch label. |
-| test.cpp:203:3:203:8 | Switch statement has fewer than two switch-clauses. |
-| test.cpp:210:3:210:8 | Switch statement has fewer than two switch-clauses. |
-| test.cpp:235:3:235:8 | Switch statement has a controlling expression of essentially Boolean type. |
-| test.cpp:245:3:245:8 | Switch statement has a controlling expression of essentially Boolean type. |
-| test.cpp:266:3:266:8 | Switch statement has a controlling expression of essentially Boolean type. |
-| test.cpp:266:3:266:8 | Switch statement is missing a default clause. |
-| test.cpp:266:3:266:8 | Switch statement has fewer than two switch-clauses. |
-| test.cpp:275:3:275:8 | Switch statement has a non-empty case that does not terminate with an unconditional break or throw statement. |
-| test.cpp:275:3:275:8 | Switch statement has a default clause that is not the first or last switch label. |
+| test.cpp:28:3:37:3 | switch (...) ...  | Switch statement contains a statement that that is not a simple declaration. |
+| test.cpp:51:3:60:3 | switch (...) ...  | Switch statement contains a switch label that is not directly within the switch body. |
+| test.cpp:62:3:71:3 | switch (...) ...  | Switch statement contains a switch label that is not directly within the switch body. |
+| test.cpp:75:3:85:3 | switch (...) ...  | Switch statement contains a statement label that is not a case label. |
+| test.cpp:89:3:97:3 | switch (...) ...  | Switch statement has a statement that is not a case label as its first element. |
+| test.cpp:147:3:154:3 | switch (...) ...  | Switch statement is missing a terminator that moves the control out of its body. |
+| test.cpp:188:3:192:3 | switch (...) ...  | Switch statement contains less than two branches. |
+| test.cpp:194:3:200:3 | switch (...) ...  | Switch statement contains less than two branches. |
+| test.cpp:215:3:219:3 | switch (...) ...  | Switch statement contains less than two branches. |
+| test.cpp:215:3:219:3 | switch (...) ...  | Switch statement lacks a default case. |
+| test.cpp:223:3:229:3 | switch (...) ...  | Switch statement lacks a case for one of its variants. |
+| test.cpp:231:3:239:3 | switch (...) ...  | Switch statement lacks a case for one of its variants. |
