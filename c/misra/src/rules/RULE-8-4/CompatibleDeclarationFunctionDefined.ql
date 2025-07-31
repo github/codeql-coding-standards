@@ -23,12 +23,13 @@ predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclaration
   f1.getDeclaration() instanceof ExternalIdentifiers and
   f1.isDefinition() and
   f1.getDeclaration() = f2.getDeclaration() and
-  // This condition should always hold, but removing it affects join order performance.
-  f1.getName() = f2.getName() and
   not f2.isDefinition() and
   not f1.isFromTemplateInstantiation(_) and
   not f2.isFromTemplateInstantiation(_)
 }
+
+module FunDeclEquiv =
+  FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>;
 
 from FunctionDeclarationEntry f1
 where
@@ -44,17 +45,13 @@ where
     or
     //or one exists that is close but incompatible in some way
     exists(FunctionDeclarationEntry f2 |
-      f1.getName() = f2.getName() and
-      not f2.isDefinition() and
-      f2.getDeclaration() = f1.getDeclaration() and
+      interestedInFunctions(f1, f2) and
       (
         //return types differ
-        not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalReturnTypes(f1,
-          f2)
+        not FunDeclEquiv::equalReturnTypes(f1, f2)
         or
         //parameter types differ
-        not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalParameterTypes(f1,
-          f2)
+        not FunDeclEquiv::equalParameterTypes(f1, f2)
         or
         //parameter names differ
         parameterNamesUnmatched(f1, f2)
