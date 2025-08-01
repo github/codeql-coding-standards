@@ -18,7 +18,7 @@ private:
 
 class ConvertibleToVector {
 public:
-  operator std::vector<int>() const { return {}; }
+  operator std::vector<int>() const { return {7, 8, 9}; }
   std::array<int, 3>::iterator begin() { return data_.begin(); }
   std::array<int, 3>::iterator end() { return data_.end(); }
 
