@@ -1,4 +1,5 @@
 #include <vector>
+#include <array>
 
 /* Helper functions */
 std::vector<int> getData() { return {1, 2, 3}; }
@@ -9,8 +10,8 @@ class MyContainer {
 public:
   MyContainer() = default;
   MyContainer(std::vector<int> data) : data_(data) {}
-  std::vector<int>::iterator begin() { return data_.begin(); }
-  std::vector<int>::iterator end() { return data_.end(); }
+  std::vector<int>::const_iterator begin() const { return data_.begin(); }
+  std::vector<int>::const_iterator end() const { return data_.end(); }
 
 private:
   std::vector<int> data_{7, 8, 9};
@@ -19,15 +20,15 @@ private:
 class ConvertibleToVector {
 public:
   operator std::vector<int>() const { return {7, 8, 9}; }
-  std::array<int, 3>::iterator begin() { return data_.begin(); }
-  std::array<int, 3>::iterator end() { return data_.end(); }
+  std::array<int, 3>::const_iterator begin() const { return data_.begin(); }
+  std::array<int, 3>::const_iterator end() const { return data_.end(); }
 
 private:
   std::array<int, 3> data_{7, 8, 9};
 };
 
-std::vector<int> operator+(const std::vector<int> &a,
-                           const std::vector<int> &b) {
+std::vector<int> operator+(std::vector<int> a,
+                           std::vector<int> b) {
   std::vector<int> result = a;
   result.insert(result.end(), b.begin(), b.end());
   return result;
@@ -37,8 +38,6 @@ std::vector<int> convertToIntVector(std::vector<int> vector) { return vector; }
 
 int main() {
   std::vector<int> localVec = {1, 2, 3};
-  std::vector<int> *vecPtr = &localVec;
-  ConvertibleToVector convertible;
 
   /* ========== 1. EXPLICIT FUNCTION CALLS ========== */
 
@@ -92,7 +91,6 @@ int main() {
                localVec)) { // NON-COMPLIANT: 2 function calls + 1 operator call
   }
 
-  std::vector<int> vec1 = {1}, vec2 = {2}, vec3 = {3};
   std::vector<int> appendedVector = (vec1 + vec2) + vec3;
   for (auto x : appendedVector) { // COMPLIANT: 0 calls
   }
@@ -104,26 +102,26 @@ int main() {
   /* ========== 4. IMPLICIT CONVERSIONS ========== */
 
   ConvertibleToVector convertible;
-  for (auto x : convertible) { // COMPLIANT: 1 conversion operator call only
+  for (int x : convertible) { // COMPLIANT: 1 conversion operator call only
   }
 
-  for (auto x :
+  for (int x :
        convertToIntVector(convertible)) { // NON_COMPLIANT: 1 function call + 1
                                           // conversion operator call
   }
 
-  for (auto x :
+  for (int x :
        convertToIntVector(convertible)) { // NON_COMPLIANT: 1 function call + 1
                                           // conversion operator call
   }
 
   std::vector<int> intVector1 = convertToIntVector(convertible);
-  for (auto x : intVector1) { // NON_COMPLIANT: 1 function call + 1
+  for (int x : intVector1) { // NON_COMPLIANT: 1 function call + 1
                               // conversion operator call
   }
 
   std::vector<int> intVector2 = convertToIntVector(convertible);
-  for (auto x : intVector2) { // NON_COMPLIANT: 1 function call + 1
+  for (int x : intVector2) { // NON_COMPLIANT: 1 function call + 1
                               // conversion operator call
   }
 }
