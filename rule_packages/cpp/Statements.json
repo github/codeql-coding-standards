@@ -1,0 +1,78 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-9-4-2": {
+      "properties": {
+        "allocated-target": [
+          "Single Translation Unit"
+        ],
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A switch statement should have an appropriate structure with proper cases, default labels, and break statements to ensure clear control flow and prevent unintended fall-through behavior.",
+          "kind": "problem",
+          "name": "The structure of a switch statement shall be appropriate",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AppropriateStructureOfSwitchStatement",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The structure of a switch statement shall be appropriate"
+    },
+    "RULE-9-5-1": {
+      "properties": {
+        "allocated-target": [
+          "Single Translation Unit"
+        ],
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Legacy for statements with complex initialization, condition, and increment expressions can be difficult to understand and maintain. Simple for loops are more readable.",
+          "kind": "problem",
+          "name": "Legacy for statements should be simple",
+          "precision": "high",
+          "severity": "recommendation",
+          "short_name": "LegacyForStatementsShouldBeSimple",
+          "tags": [
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Legacy for statements should be simple"
+    },
+    "RULE-9-5-2": {
+      "properties": {
+        "allocated-target": [
+          "Single Translation Unit"
+        ],
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Multiple function calls in a for-range-initializer can lead to unclear iteration behavior and potential side effects that make the code harder to understand and debug.",
+          "kind": "problem",
+          "name": "A for-range-initializer shall contain at most one function call",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ForRangeInitializerAtMostOneFunctionCall",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "A for-range-initializer shall contain at most one function call"
+    }
+  }
+}
