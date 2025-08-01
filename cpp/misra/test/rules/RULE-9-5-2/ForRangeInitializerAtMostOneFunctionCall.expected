@@ -1,1 +1,8 @@
-No expected results have yet been specified
+| test.cpp:48:3:49:3 | for(...:...) ... | Range-based for loop has nested call expression in its initializer. |
+| test.cpp:56:3:59:3 | for(...:...) ... | Range-based for loop has nested call expression in its initializer. |
+| test.cpp:71:3:73:3 | for(...:...) ... | Range-based for loop has nested call expression in its initializer. |
+| test.cpp:95:3:97:3 | for(...:...) ... | Range-based for loop has nested call expression in its initializer. |
+| test.cpp:99:3:101:3 | for(...:...) ... | Range-based for loop has nested call expression in its initializer. |
+| test.cpp:103:3:107:3 | for(...:...) ... | Range-based for loop has nested call expression in its initializer. |
+| test.cpp:116:3:119:3 | for(...:...) ... | Range-based for loop has nested call expression in its initializer. |
+| test.cpp:121:3:124:3 | for(...:...) ... | Range-based for loop has nested call expression in its initializer. |

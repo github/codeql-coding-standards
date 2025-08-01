@@ -1,5 +1,5 @@
-#include <vector>
 #include <array>
+#include <vector>
 
 /* Helper functions */
 std::vector<int> getData() { return {1, 2, 3}; }
@@ -10,8 +10,8 @@ class MyContainer {
 public:
   MyContainer() = default;
   MyContainer(std::vector<int> data) : data_(data) {}
-  std::vector<int>::const_iterator begin() const { return data_.begin(); }
-  std::vector<int>::const_iterator end() const { return data_.end(); }
+  std::vector<int>::iterator begin() { return data_.begin(); }
+  std::vector<int>::iterator end() { return data_.end(); }
 
 private:
   std::vector<int> data_{7, 8, 9};
@@ -20,15 +20,16 @@ private:
 class ConvertibleToVector {
 public:
   operator std::vector<int>() const { return {7, 8, 9}; }
-  std::array<int, 3>::const_iterator begin() const { return data_.begin(); }
-  std::array<int, 3>::const_iterator end() const { return data_.end(); }
+  std::array<int, 3>::iterator begin() { return data_.begin(); }
+  std::array<int, 3>::iterator end() { return data_.end(); }
+  std::array<int, 3>::const_iterator begin() const { return data_.cbegin(); }
+  std::array<int, 3>::const_iterator end() const { return data_.cend(); }
 
 private:
   std::array<int, 3> data_{7, 8, 9};
 };
 
-std::vector<int> operator+(std::vector<int> a,
-                           std::vector<int> b) {
+std::vector<int> operator+(std::vector<int> a, std::vector<int> b) {
   std::vector<int> result = a;
   result.insert(result.end(), b.begin(), b.end());
   return result;
@@ -49,8 +50,12 @@ int main() {
 
   /* ========== 2. OBJECT CREATION (CONSTRUCTOR CALLS) ========== */
 
+  for (auto x : std::vector<int>(3)) { // COMPLIANT: 1 constructor call only
+  }
+
   for (auto x :
-       std::vector<int>{1, 2, 3}) { // COMPLIANT: 1 constructor call only
+       std::vector<int>{1, 2, 3}) { // NON_COMPLIANT: 2 constructor call to
+                                    // `vector` and `initializer_list`, respectively
   }
 
   for (auto x : MyContainer()) { // COMPLIANT: 1 constructor call only
@@ -77,20 +82,7 @@ int main() {
 
   /* ========== 3. OPERATOR OVERLOADING ========== */
 
-  std::vector<int> anotherVec = {4, 5, 6};
-  for (auto x : localVec + anotherVec) { // COMPLIANT: 1 operator+ call only
-  }
-
   std::vector<int> vec1 = {1}, vec2 = {2}, vec3 = {3};
-  for (auto x : (vec1 + vec2) + vec3) { // NON-COMPLIANT: 2 operator+ calls
-  }
-
-  for (auto x :
-       getData() +
-           processData(
-               localVec)) { // NON-COMPLIANT: 2 function calls + 1 operator call
-  }
-
   std::vector<int> appendedVector = (vec1 + vec2) + vec3;
   for (auto x : appendedVector) { // COMPLIANT: 0 calls
   }
@@ -99,10 +91,26 @@ int main() {
   for (auto x : appendedVector2) { // COMPLIANT: 0 calls
   }
 
+  std::vector<int> anotherVec = {4, 5, 6};
+  for (auto x : localVec + anotherVec) { // NON_COMPLIANT: 2 calls to vector's
+                                         // constructor, 1 operator+ call
+  }
+
+  for (auto x : (vec1 + vec2) + vec3) { // NON-COMPLIANT: 3 calls to vector's
+                                        // constructor, 2 operator+ calls
+  }
+
+  for (auto x :
+       getData() +
+           processData(
+               localVec)) { // NON-COMPLIANT: 2 function calls + 1 operator call
+  }
+
   /* ========== 4. IMPLICIT CONVERSIONS ========== */
 
   ConvertibleToVector convertible;
-  for (int x : convertible) { // COMPLIANT: 1 conversion operator call only
+  for (int x :
+       ConvertibleToVector()) { // COMPLIANT: 1 conversion operator call only
   }
 
   for (int x :
@@ -116,12 +124,10 @@ int main() {
   }
 
   std::vector<int> intVector1 = convertToIntVector(convertible);
-  for (int x : intVector1) { // NON_COMPLIANT: 1 function call + 1
-                              // conversion operator call
+  for (int x : intVector1) { // COMPLIANT: 0 function calls
   }
 
   std::vector<int> intVector2 = convertToIntVector(convertible);
-  for (int x : intVector2) { // NON_COMPLIANT: 1 function call + 1
-                              // conversion operator call
+  for (int x : intVector2) { // COMPLIANT: 0 function calls
   }
 }
