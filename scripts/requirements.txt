@@ -4,7 +4,7 @@ chardet==3.0.4
 gitdb==4.0.5
 GitPython==3.1.41
 idna==2.10
-Jinja2==2.11.3
+Jinja2==3.1.6
 MarkupSafe==1.1.1
 requests==2.31.0
 smmap==3.0.5
