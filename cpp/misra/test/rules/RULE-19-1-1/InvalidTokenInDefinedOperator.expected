@@ -1,0 +1,3 @@
+| test.cpp:11:1:11:11 | #if defined | Invalid use of defined operator in if directive. |
+| test.cpp:13:1:13:26 | #if defined(M1) && defined | Invalid use of defined operator in if directive. |
+| test.cpp:15:1:15:26 | #if defined && defined(M1) | Invalid use of defined operator in if directive. |
