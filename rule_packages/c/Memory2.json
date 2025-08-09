@@ -14,7 +14,12 @@
           "short_name": "DoNotSubtractPointersThatDoNotReferToTheSameArray",
           "shared_implementation_short_name": "DoNotSubtractPointersAddressingDifferentArrays",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         },
         {
@@ -26,7 +31,12 @@
           "short_name": "DoNotRelatePointersThatDoNotReferToTheSameArray",
           "shared_implementation_short_name": "DoNotUseRelationalOperatorsWithDifferingArrays",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -46,7 +56,12 @@
           "short_name": "DoNotComparePaddingData",
           "shared_implementation_short_name": "MemcmpUsedToComparePaddingData",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -67,7 +82,12 @@
           "shared_implementation_short_name": "FreeMemoryWhenNoLongerNeededShared",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -89,7 +109,12 @@
           "severity": "error",
           "short_name": "AllocStructsWithAFlexibleArrayMemberDynamically",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -100,7 +125,12 @@
           "severity": "error",
           "short_name": "CopyStructsWithAFlexibleArrayMemberDynamically",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -121,7 +151,12 @@
           "shared_implementation_short_name": "OnlyFreeMemoryAllocatedDynamicallyShared",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -141,7 +176,12 @@
           "short_name": "DoNotModifyAlignmentOfMemoryWithRealloc",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],

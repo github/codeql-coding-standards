@@ -15,6 +15,7 @@ import Concurrency5
 import Concurrency6
 import Concurrency7
 import Concurrency8
+import Concurrency9
 import Contracts
 import Contracts1
 import Contracts2
@@ -33,10 +34,15 @@ import Declarations5
 import Declarations6
 import Declarations7
 import Declarations8
+import Declarations9
 import EssentialTypes
+import EssentialTypes2
 import Expressions
+import Expressions2
 import FloatingTypes
+import FloatingTypes2
 import FunctionTypes
+import Generics
 import IO1
 import IO2
 import IO3
@@ -99,6 +105,7 @@ newtype TCQuery =
   TConcurrency6PackageQuery(Concurrency6Query q) or
   TConcurrency7PackageQuery(Concurrency7Query q) or
   TConcurrency8PackageQuery(Concurrency8Query q) or
+  TConcurrency9PackageQuery(Concurrency9Query q) or
   TContractsPackageQuery(ContractsQuery q) or
   TContracts1PackageQuery(Contracts1Query q) or
   TContracts2PackageQuery(Contracts2Query q) or
@@ -117,10 +124,15 @@ newtype TCQuery =
   TDeclarations6PackageQuery(Declarations6Query q) or
   TDeclarations7PackageQuery(Declarations7Query q) or
   TDeclarations8PackageQuery(Declarations8Query q) or
+  TDeclarations9PackageQuery(Declarations9Query q) or
   TEssentialTypesPackageQuery(EssentialTypesQuery q) or
+  TEssentialTypes2PackageQuery(EssentialTypes2Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
+  TExpressions2PackageQuery(Expressions2Query q) or
   TFloatingTypesPackageQuery(FloatingTypesQuery q) or
+  TFloatingTypes2PackageQuery(FloatingTypes2Query q) or
   TFunctionTypesPackageQuery(FunctionTypesQuery q) or
+  TGenericsPackageQuery(GenericsQuery q) or
   TIO1PackageQuery(IO1Query q) or
   TIO2PackageQuery(IO2Query q) or
   TIO3PackageQuery(IO3Query q) or
@@ -183,6 +195,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConcurrency6QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency7QueryMetadata(query, queryId, ruleId, category) or
   isConcurrency8QueryMetadata(query, queryId, ruleId, category) or
+  isConcurrency9QueryMetadata(query, queryId, ruleId, category) or
   isContractsQueryMetadata(query, queryId, ruleId, category) or
   isContracts1QueryMetadata(query, queryId, ruleId, category) or
   isContracts2QueryMetadata(query, queryId, ruleId, category) or
@@ -201,10 +214,15 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations8QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations9QueryMetadata(query, queryId, ruleId, category) or
   isEssentialTypesQueryMetadata(query, queryId, ruleId, category) or
+  isEssentialTypes2QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
+  isExpressions2QueryMetadata(query, queryId, ruleId, category) or
   isFloatingTypesQueryMetadata(query, queryId, ruleId, category) or
+  isFloatingTypes2QueryMetadata(query, queryId, ruleId, category) or
   isFunctionTypesQueryMetadata(query, queryId, ruleId, category) or
+  isGenericsQueryMetadata(query, queryId, ruleId, category) or
   isIO1QueryMetadata(query, queryId, ruleId, category) or
   isIO2QueryMetadata(query, queryId, ruleId, category) or
   isIO3QueryMetadata(query, queryId, ruleId, category) or

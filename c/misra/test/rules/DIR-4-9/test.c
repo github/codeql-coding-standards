@@ -10,6 +10,7 @@
 #define MACRO8(x) "NOP"                                 // COMPLIANT
 #define MACRO9() printf_custom("output = %d", 7)        // NON_COMPLIANT
 #define MACRO10(x)                                      // COMPLIANT
+#define MACRO11(x) _Generic((x), int : 1, default : 0)  // COMPLIANT
 #define MY_ASSERT(X) assert(X) // NON_COMPLIANT[FALSE_NEGATIVE]
 
 const char a1[MACRO2(1, 1) + 6];

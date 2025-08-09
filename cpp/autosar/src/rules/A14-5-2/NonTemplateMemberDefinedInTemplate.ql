@@ -15,10 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.TypeUses
+import codingstandards.cpp.types.Uses
 import codingstandards.cpp.Operator
 
-predicate templateDefinitionMentionsTypeParameter(Declaration d, TemplateParameter tp) {
+predicate templateDefinitionMentionsTypeParameter(Declaration d, TypeTemplateParameter tp) {
   exists(Type t |
     (
       // direct reference, e.g., fields.
@@ -50,36 +50,36 @@ predicate templateDefinitionMentionsTypeParameter(Declaration d, TemplateParamet
 }
 
 /**
- * The set of `TemplateParameter` references within an `Enum`.
+ * The set of `TypeTemplateParameter` references within an `Enum`.
  */
-TemplateParameter enumTemplateReferences(Enum e) {
+TypeTemplateParameter enumTemplateReferences(Enum e) {
   templateDefinitionMentionsTypeParameter(e.getADeclaration(), result)
   or
   result = e.getExplicitUnderlyingType()
 }
 
 /**
- * The set of `TemplateParameter` references within an `Class`.
+ * The set of `TypeTemplateParameter` references within an `Class`.
  */
-TemplateParameter classTemplateReferences(Class c) {
+TypeTemplateParameter classTemplateReferences(Class c) {
   templateDefinitionMentionsTypeParameter(c.getAMember(), result)
   or
   c.getADerivation().getBaseType() = result
 }
 
 /**
- * The set of all of the `TemplateParameter`s referenced by a `EnumConstant`.
+ * The set of all of the `TypeTemplateParameter`s referenced by a `EnumConstant`.
  */
-TemplateParameter enumConstantTemplateReferences(EnumConstant ec) {
+TypeTemplateParameter enumConstantTemplateReferences(EnumConstant ec) {
   templateDefinitionMentionsTypeParameter(ec.getDeclaringType(), result)
 }
 
 /**
- * The set of all `TemplateParameter`s referenced by a `Function`.
+ * The set of all `TypeTemplateParameter`s referenced by a `Function`.
  */
-TemplateParameter functionTemplateReferences(Function mf) {
+TypeTemplateParameter functionTemplateReferences(Function mf) {
   // the type of the function
-  exists(TemplateParameter tp |
+  exists(TypeTemplateParameter tp |
     result = tp and
     (
       mf.getType().refersTo(result)
@@ -115,10 +115,10 @@ TemplateParameter functionTemplateReferences(Function mf) {
 }
 
 /**
- * The set of all `TemplateParameters` available as arguments to the declaring
+ * The set of all `TypeTemplateParameters` available as arguments to the declaring
  * element of some `Declarations`.
  */
-TemplateParameter templateParametersOfDeclaringTemplateClass(Declaration d) {
+TypeTemplateParameter templateParametersOfDeclaringTemplateClass(Declaration d) {
   result = d.getDeclaringType().getATemplateArgument()
 }
 
@@ -149,7 +149,7 @@ where
   not d instanceof UserNegationOperator and
   // for each declaration within a template class get the
   // template parameters of the declaring class
-  not exists(TemplateParameter t |
+  not exists(TypeTemplateParameter t |
     t = templateParametersOfDeclaringTemplateClass(d) and
     // and require that the declaration depends on at least
     // one of those template parameters.
@@ -170,7 +170,7 @@ where
   ) and
   // Omit using alias (cf. https://github.com/github/codeql-coding-standards/issues/739)
   // Exclude Using alias which refer directly to a TypeParameter
-  not d.(UsingAliasTypedefType).getBaseType() instanceof TemplateParameter
+  not d.(UsingAliasTypedefType).getBaseType() instanceof TypeTemplateParameter
 select d,
   "Member " + d.getName() + " template class does not use any of template arguments of its $@.",
   d.getDeclaringType(), "declaring type"

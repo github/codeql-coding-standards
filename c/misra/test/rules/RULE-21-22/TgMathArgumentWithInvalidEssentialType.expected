@@ -1,0 +1,134 @@
+| test.c:29:7:29:7 | c | Argument 1 provided to type-generic macro 'cos' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:40:7:40:7 | e | Argument 1 provided to type-generic macro 'cos' has essentially enum type, which is not essentially signed, unsigned, or floating type. |
+| test.c:41:7:41:7 | b | Argument 1 provided to type-generic macro 'cos' has essentially boolean type, which is not essentially signed, unsigned, or floating type. |
+| test.c:156:8:156:8 | c | Argument 1 provided to type-generic macro 'acos' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:157:9:157:9 | c | Argument 1 provided to type-generic macro 'acosh' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:158:8:158:8 | c | Argument 1 provided to type-generic macro 'asin' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:159:9:159:9 | c | Argument 1 provided to type-generic macro 'asinh' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:160:9:160:9 | c | Argument 1 provided to type-generic macro 'atan2' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:161:12:161:12 | c | Argument 2 provided to type-generic macro 'atan2' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:162:9:162:9 | c | Argument 1 provided to type-generic macro 'atanh' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:163:8:163:8 | c | Argument 1 provided to type-generic macro 'carg' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:164:8:164:8 | c | Argument 1 provided to type-generic macro 'ceil' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:165:9:165:9 | c | Argument 1 provided to type-generic macro 'cimag' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:166:8:166:8 | c | Argument 1 provided to type-generic macro 'conj' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:167:15:167:15 | c | Argument 2 provided to type-generic macro 'copysign' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:168:12:168:12 | c | Argument 1 provided to type-generic macro 'copysign' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:169:8:169:8 | c | Argument 1 provided to type-generic macro 'cosh' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:170:9:170:9 | c | Argument 1 provided to type-generic macro 'cproj' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:171:9:171:9 | c | Argument 1 provided to type-generic macro 'creal' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:172:7:172:7 | c | Argument 1 provided to type-generic macro 'erf' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:173:8:173:8 | c | Argument 1 provided to type-generic macro 'erfc' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:174:7:174:7 | c | Argument 1 provided to type-generic macro 'exp' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:175:8:175:8 | c | Argument 1 provided to type-generic macro 'exp2' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:176:9:176:9 | c | Argument 1 provided to type-generic macro 'expm1' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:177:8:177:8 | c | Argument 1 provided to type-generic macro 'fabs' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:178:8:178:8 | c | Argument 1 provided to type-generic macro 'fdim' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:179:11:179:11 | c | Argument 2 provided to type-generic macro 'fdim' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:180:9:180:9 | c | Argument 1 provided to type-generic macro 'floor' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:181:7:181:7 | c | Argument 1 provided to type-generic macro 'fma' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:182:10:182:10 | c | Argument 2 provided to type-generic macro 'fma' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:183:13:183:13 | c | Argument 3 provided to type-generic macro 'fma' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:184:8:184:8 | c | Argument 1 provided to type-generic macro 'fmax' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:185:11:185:11 | c | Argument 2 provided to type-generic macro 'fmax' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:186:8:186:8 | c | Argument 1 provided to type-generic macro 'fmin' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:187:11:187:11 | c | Argument 2 provided to type-generic macro 'fmin' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:188:8:188:8 | c | Argument 1 provided to type-generic macro 'fmod' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:189:11:189:11 | c | Argument 2 provided to type-generic macro 'fmod' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:190:9:190:9 | c | Argument 1 provided to type-generic macro 'frexp' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:191:9:191:9 | c | Argument 1 provided to type-generic macro 'hypot' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:192:12:192:12 | c | Argument 2 provided to type-generic macro 'hypot' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:193:9:193:9 | c | Argument 1 provided to type-generic macro 'ilogb' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:194:9:194:9 | c | Argument 1 provided to type-generic macro 'ldexp' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:195:12:195:12 | c | Argument 2 provided to type-generic macro 'ldexp' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:196:10:196:10 | c | Argument 1 provided to type-generic macro 'lgamma' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:197:10:197:10 | c | Argument 1 provided to type-generic macro 'llrint' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:198:11:198:11 | c | Argument 1 provided to type-generic macro 'llround' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:199:7:199:7 | c | Argument 1 provided to type-generic macro 'log' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:200:9:200:9 | c | Argument 1 provided to type-generic macro 'log10' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:201:9:201:9 | c | Argument 1 provided to type-generic macro 'log1p' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:202:8:202:8 | c | Argument 1 provided to type-generic macro 'log2' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:203:8:203:8 | c | Argument 1 provided to type-generic macro 'logb' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:204:9:204:9 | c | Argument 1 provided to type-generic macro 'lrint' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:205:10:205:10 | c | Argument 1 provided to type-generic macro 'lround' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:206:13:206:13 | c | Argument 1 provided to type-generic macro 'nearbyint' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:207:13:207:13 | c | Argument 1 provided to type-generic macro 'nextafter' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:208:16:208:16 | c | Argument 2 provided to type-generic macro 'nextafter' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:209:14:209:14 | c | Argument 1 provided to type-generic macro 'nexttoward' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:210:17:210:17 | c | Argument 2 provided to type-generic macro 'nexttoward' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:211:7:211:7 | c | Argument 1 provided to type-generic macro 'pow' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:212:10:212:10 | c | Argument 2 provided to type-generic macro 'pow' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:213:13:213:13 | c | Argument 1 provided to type-generic macro 'remainder' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:214:16:214:16 | c | Argument 2 provided to type-generic macro 'remainder' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:215:10:215:10 | c | Argument 1 provided to type-generic macro 'remquo' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:216:13:216:13 | c | Argument 2 provided to type-generic macro 'remquo' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:217:8:217:8 | c | Argument 1 provided to type-generic macro 'rint' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:218:9:218:9 | c | Argument 1 provided to type-generic macro 'round' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:219:10:219:10 | c | Argument 1 provided to type-generic macro 'scalbn' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:220:13:220:13 | c | Argument 2 provided to type-generic macro 'scalbn' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:221:11:221:11 | c | Argument 1 provided to type-generic macro 'scalbln' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:222:14:222:14 | c | Argument 2 provided to type-generic macro 'scalbln' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:223:7:223:7 | c | Argument 1 provided to type-generic macro 'sin' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:224:8:224:8 | c | Argument 1 provided to type-generic macro 'sinh' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:225:8:225:8 | c | Argument 1 provided to type-generic macro 'sqrt' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:226:7:226:7 | c | Argument 1 provided to type-generic macro 'tan' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:227:8:227:8 | c | Argument 1 provided to type-generic macro 'tanh' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:228:10:228:10 | c | Argument 1 provided to type-generic macro 'tgamma' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:229:9:229:9 | c | Argument 1 provided to type-generic macro 'trunc' has essentially character type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:239:9:239:10 | cf | Argument 1 provided to type-generic macro 'atan2' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:240:12:240:13 | cf | Argument 2 provided to type-generic macro 'atan2' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:243:8:243:9 | cf | Argument 1 provided to type-generic macro 'cbrt' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:244:8:244:9 | cf | Argument 1 provided to type-generic macro 'ceil' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:247:15:247:16 | cf | Argument 2 provided to type-generic macro 'copysign' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:248:12:248:13 | cf | Argument 1 provided to type-generic macro 'copysign' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:249:15:249:16 | cf | Argument 2 provided to type-generic macro 'copysign' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:254:7:254:8 | cf | Argument 1 provided to type-generic macro 'erf' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:255:8:255:9 | cf | Argument 1 provided to type-generic macro 'erfc' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:257:8:257:9 | cf | Argument 1 provided to type-generic macro 'exp2' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:258:9:258:10 | cf | Argument 1 provided to type-generic macro 'expm1' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:260:8:260:9 | cf | Argument 1 provided to type-generic macro 'fdim' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:261:11:261:12 | cf | Argument 2 provided to type-generic macro 'fdim' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:262:9:262:10 | cf | Argument 1 provided to type-generic macro 'floor' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:263:7:263:8 | cf | Argument 1 provided to type-generic macro 'fma' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:264:10:264:11 | cf | Argument 2 provided to type-generic macro 'fma' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:265:13:265:14 | cf | Argument 3 provided to type-generic macro 'fma' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:266:8:266:9 | cf | Argument 1 provided to type-generic macro 'fmax' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:267:11:267:12 | cf | Argument 2 provided to type-generic macro 'fmax' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:268:8:268:9 | cf | Argument 1 provided to type-generic macro 'fmin' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:269:11:269:12 | cf | Argument 2 provided to type-generic macro 'fmin' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:270:8:270:9 | cf | Argument 1 provided to type-generic macro 'fmod' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:271:11:271:12 | cf | Argument 2 provided to type-generic macro 'fmod' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:272:9:272:10 | cf | Argument 1 provided to type-generic macro 'frexp' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:273:9:273:10 | cf | Argument 1 provided to type-generic macro 'hypot' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:274:12:274:13 | cf | Argument 2 provided to type-generic macro 'hypot' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:275:9:275:10 | cf | Argument 1 provided to type-generic macro 'ilogb' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:276:9:276:10 | cf | Argument 1 provided to type-generic macro 'ldexp' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:277:12:277:13 | cf | Argument 2 provided to type-generic macro 'ldexp' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:278:10:278:11 | cf | Argument 1 provided to type-generic macro 'lgamma' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:279:10:279:11 | cf | Argument 1 provided to type-generic macro 'llrint' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:280:11:280:12 | cf | Argument 1 provided to type-generic macro 'llround' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:282:9:282:10 | cf | Argument 1 provided to type-generic macro 'log10' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:283:9:283:10 | cf | Argument 1 provided to type-generic macro 'log1p' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:284:8:284:9 | cf | Argument 1 provided to type-generic macro 'log2' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:285:8:285:9 | cf | Argument 1 provided to type-generic macro 'logb' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:286:9:286:10 | cf | Argument 1 provided to type-generic macro 'lrint' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:287:10:287:11 | cf | Argument 1 provided to type-generic macro 'lround' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:288:13:288:14 | cf | Argument 1 provided to type-generic macro 'nearbyint' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:289:13:289:14 | cf | Argument 1 provided to type-generic macro 'nextafter' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:290:16:290:17 | cf | Argument 2 provided to type-generic macro 'nextafter' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:291:14:291:15 | cf | Argument 1 provided to type-generic macro 'nexttoward' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:292:17:292:18 | cf | Argument 2 provided to type-generic macro 'nexttoward' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:294:13:294:14 | cf | Argument 1 provided to type-generic macro 'remainder' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:295:16:295:17 | cf | Argument 2 provided to type-generic macro 'remainder' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:296:10:296:11 | cf | Argument 1 provided to type-generic macro 'remquo' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:297:13:297:14 | cf | Argument 2 provided to type-generic macro 'remquo' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:298:8:298:9 | cf | Argument 1 provided to type-generic macro 'rint' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:299:9:299:10 | cf | Argument 1 provided to type-generic macro 'round' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:300:10:300:11 | cf | Argument 1 provided to type-generic macro 'scalbn' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:301:13:301:14 | cf | Argument 2 provided to type-generic macro 'scalbn' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:302:11:302:12 | cf | Argument 1 provided to type-generic macro 'scalbln' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:303:14:303:15 | cf | Argument 2 provided to type-generic macro 'scalbln' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:309:10:309:11 | cf | Argument 1 provided to type-generic macro 'tgamma' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:310:9:310:10 | cf | Argument 1 provided to type-generic macro 'trunc' has essentially complex floating type, which is not essentially signed, unsigned, or real floating type. |
+| test.c:325:13:325:13 | i | Argument 1 provided to type-generic macro 'cos' has essentially character type, which is not essentially signed, unsigned, or floating type. |
+| test.c:328:18:328:18 | c | Argument 1 provided to type-generic macro 'cos' has essentially character type, which is not essentially signed, unsigned, or floating type. |

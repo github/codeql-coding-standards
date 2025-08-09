@@ -144,3 +144,15 @@ void invalid_mtx_init_types() {
   mtx_init(&m, mtx_plain * mtx_recursive); // NON-COMPLIANT
   mtx_init(&m, -1);                        // NON-COMPLIANT
 }
+
+void function_pointer_uses_global_mutexes() {
+  // If the function has been used as a function pointer, we don't attempt to
+  // analyze this.
+  mtx_lock(&g1);    // COMPLIANT
+  mtx_lock(&g2.m1); // COMPLIANT
+  mtx_lock(g3);     // COMPLIANT
+}
+
+void take_function_pointer() {
+  void (*f)(void) = function_pointer_uses_global_mutexes;
+}

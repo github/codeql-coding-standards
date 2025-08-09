@@ -8,12 +8,18 @@
  * @problem.severity error
  * @tags external/cert/id/ctr53-cpp
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.Iterators
+import semmle.code.cpp.dataflow.DataFlow
 
 predicate startEndArgumentsDoNotPointToTheSameContainer(
   IteratorRangeFunctionCall fc, Expr arg, string reason

@@ -1,0 +1,36 @@
+{
+  "MISRA-C++-2023": {
+    "DIR-0-3-1": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Possible misuse of a generate infinite floating point value.",
+          "kind": "path-problem",
+          "name": "Possible misuse of a generate infinite floating point value",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "PossibleMisuseOfInfiniteFloatingPointValue",
+          "shared_implementation_short_name": "MisuseOfInfiniteFloatingPointValue",
+          "tags": [
+            "correctness"
+          ]
+        },
+        {
+          "description": "Possible mishandling of an undetected NaN value produced by a floating point operation.",
+          "kind": "path-problem",
+          "name": "Possible mishandling of an undetected NaN value produced by a floating point operation",
+          "precision": "low",
+          "severity": "warning",
+          "short_name": "PossibleMisuseOfNaNFloatingPointValue",
+          "shared_implementation_short_name": "MisuseOfNaNFloatingPointValue",
+          "tags": [
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Floating-point arithmetic should be used appropriately"
+    }
+  }
+}

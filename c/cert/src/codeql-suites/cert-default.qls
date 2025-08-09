@@ -1,9 +1,2 @@
-- description: CERT C 2016 (Default)
-- qlpack: codeql/cert-c-coding-standards
-- include:
-    kind:
-    - problem
-    - path-problem
-- exclude:
-    tags contain:
-    - external/cert/default-disabled
+- description: "DEPRECATED - CERT C 2016 - use cert-c-default.qls instead"
+- import: codeql-suites/cert-c-default.qls

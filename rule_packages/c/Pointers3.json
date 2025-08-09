@@ -13,7 +13,12 @@
           "severity": "error",
           "short_name": "DoNotAccessVolatileObjectWithNonVolatileReference",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ],
           "implementation_scope": {
             "description": "In limited cases, this query can raise false-positives for assignment of volatile objects and subsequent accesses of those objects via non-volatile pointers."
@@ -35,7 +40,12 @@
           "severity": "error",
           "short_name": "DoNotCastPointerToMoreStrictlyAlignedPointerType",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -54,7 +64,12 @@
           "severity": "error",
           "short_name": "DoNotAccessVariableViaPointerOfIncompatibleType",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -74,7 +89,12 @@
           "short_name": "DoNotPassAliasedPointerToRestrictQualifiedParam",
           "shared_implementation_short_name": "DoNotPassAliasedPointerToRestrictQualifiedParamShared",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -85,7 +105,12 @@
           "severity": "error",
           "short_name": "RestrictPointerReferencesOverlappingObject",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],

@@ -1,0 +1,4 @@
+| test.c:29:3:29:10 | ... = ... | Thread local object $@ address copied to static object $@. | test.c:8:19:8:20 | test.c:8:19:8:20 | t1 | test.c:12:6:12:7 | test.c:12:6:12:7 | g2 |
+| test.c:55:3:55:14 | ... = ... | Thread local object $@ address copied to static object $@. | test.c:10:17:10:18 | test.c:10:17:10:18 | t3 | test.c:13:3:13:4 | test.c:13:3:13:4 | g3 |
+| test.c:152:3:152:21 | ... = ... | Thread local object $@ address copied to static object $@. | test.c:152:16:152:20 | test.c:152:16:152:20 | & ... | test.c:12:6:12:7 | test.c:12:6:12:7 | g2 |
+| test.c:155:3:155:23 | ... = ... | Thread local object $@ address copied to static object $@. | test.c:155:18:155:22 | test.c:155:18:155:22 | & ... | test.c:13:3:13:4 | test.c:13:3:13:4 | g3 |

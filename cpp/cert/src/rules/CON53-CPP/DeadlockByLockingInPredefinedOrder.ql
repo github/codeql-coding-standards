@@ -9,6 +9,11 @@
  * @tags external/cert/id/con53-cpp
  *       correctness
  *       concurrency
+ *       external/cert/severity/low
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p4
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 

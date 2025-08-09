@@ -8,6 +8,11 @@
  * @problem.severity warning
  * @tags external/cert/id/ctr56-cpp
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p9
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

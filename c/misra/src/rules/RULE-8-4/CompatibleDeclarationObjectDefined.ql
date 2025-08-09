@@ -17,7 +17,16 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Identifiers
-import codingstandards.cpp.Compatible
+import codingstandards.cpp.types.Compatible
+
+predicate relevantTypes(Type a, Type b) {
+  exists(VariableDeclarationEntry varA, VariableDeclarationEntry varB |
+    not varA = varB and
+    varA.getDeclaration() = varB.getDeclaration() and
+    a = varA.getType() and
+    b = varB.getType()
+  )
+}
 
 from VariableDeclarationEntry decl1
 where
@@ -28,6 +37,7 @@ where
   not exists(VariableDeclarationEntry decl2 |
     not decl2.isDefinition() and
     decl1.getDeclaration() = decl2.getDeclaration() and
-    typesCompatible(decl1.getType(), decl2.getType())
+    TypeEquivalence<TypesCompatibleConfig, relevantTypes/2>::equalTypes(decl1.getType(),
+      decl2.getType())
   )
 select decl1, "No separate compatible declaration found for this definition."

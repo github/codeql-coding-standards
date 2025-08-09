@@ -8,6 +8,11 @@
  * @problem.severity error
  * @tags external/cert/id/msc37-c
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p9
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

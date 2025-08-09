@@ -1,6 +1,6 @@
 import codingstandards.cpp.cert
 import codingstandards.cpp.Conversion
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 import ManuallyManagedLifetime
 import semmle.code.cpp.controlflow.Dominance
 import semmle.code.cpp.dataflow.TaintTracking

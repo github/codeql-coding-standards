@@ -10,14 +10,14 @@
 
 import cpp
 import codingstandards.cpp.CodingStandards
-import codingstandards.cpp.TypeUses
+import codingstandards.cpp.types.Uses
 import codingstandards.cpp.exclusions.cpp.RuleMetadata
 
 from UserType ut, string reason
 where
   isExcluded(ut, DeadCodePackage::unusedTypeDeclarationsQuery(), reason) and
   exists(ut.getFile()) and
-  not ut instanceof TemplateParameter and
+  not ut instanceof TypeTemplateParameter and
   not ut instanceof ProxyClass and
   not exists(getATypeUse(ut)) and
   not ut.isFromUninstantiatedTemplate(_)
