@@ -1,11 +1,25 @@
 edges
+| test.c:3:7:3:8 | *g1 | test.c:3:7:3:8 | *g1 | provenance |  |
+| test.c:3:7:3:8 | *g1 | test.c:14:17:14:19 | *& ... | provenance |  |
+| test.c:3:7:3:8 | *g1 | test.c:15:14:15:16 | *& ... | provenance |  |
+| test.c:4:7:4:8 | *g2 | test.c:4:7:4:8 | *g2 | provenance |  |
+| test.c:4:7:4:8 | *g2 | test.c:18:17:18:19 | *& ... | provenance |  |
+| test.c:4:7:4:8 | *g2 | test.c:19:14:19:16 | *& ... | provenance |  |
+| test.c:10:24:10:24 | *m | test.c:10:24:10:24 | *m | provenance |  |
 | test.c:10:24:10:24 | *m | test.c:10:43:10:43 | *m | provenance |  |
+| test.c:10:24:10:24 | *m | test.c:10:43:10:43 | *m | provenance |  |
+| test.c:13:12:13:14 | mtx_init output argument | test.c:3:7:3:8 | *g1 | provenance |  |
 | test.c:13:12:13:14 | mtx_init output argument | test.c:14:17:14:19 | *& ... | provenance |  |
 | test.c:13:12:13:14 | mtx_init output argument | test.c:15:14:15:16 | *& ... | provenance |  |
 | test.c:15:14:15:16 | *& ... | test.c:10:24:10:24 | *m | provenance |  |
+| test.c:15:14:15:16 | *& ... | test.c:15:14:15:16 | doTimeLock output argument | provenance |  |
+| test.c:15:14:15:16 | doTimeLock output argument | test.c:3:7:3:8 | *g1 | provenance |  |
+| test.c:17:12:17:14 | mtx_init output argument | test.c:4:7:4:8 | *g2 | provenance |  |
 | test.c:17:12:17:14 | mtx_init output argument | test.c:18:17:18:19 | *& ... | provenance |  |
 | test.c:17:12:17:14 | mtx_init output argument | test.c:19:14:19:16 | *& ... | provenance |  |
 | test.c:19:14:19:16 | *& ... | test.c:10:24:10:24 | *m | provenance |  |
+| test.c:19:14:19:16 | *& ... | test.c:19:14:19:16 | doTimeLock output argument | provenance |  |
+| test.c:19:14:19:16 | doTimeLock output argument | test.c:4:7:4:8 | *g2 | provenance |  |
 | test.c:30:12:30:14 | mtx_init output argument | test.c:31:17:31:19 | *& ... | provenance |  |
 | test.c:30:12:30:14 | mtx_init output argument | test.c:32:14:32:16 | *& ... | provenance |  |
 | test.c:32:14:32:16 | *& ... | test.c:10:24:10:24 | *m | provenance |  |
@@ -16,14 +30,20 @@ edges
 | test.c:44:14:44:18 | *& ... | test.c:10:24:10:24 | *m | provenance |  |
 | test.c:44:15:44:16 | *l3 [m] | test.c:44:14:44:18 | *& ... | provenance |  |
 nodes
+| test.c:3:7:3:8 | *g1 | semmle.label | *g1 |
+| test.c:4:7:4:8 | *g2 | semmle.label | *g2 |
+| test.c:10:24:10:24 | *m | semmle.label | *m |
+| test.c:10:24:10:24 | *m | semmle.label | *m |
 | test.c:10:24:10:24 | *m | semmle.label | *m |
 | test.c:10:43:10:43 | *m | semmle.label | *m |
 | test.c:13:12:13:14 | mtx_init output argument | semmle.label | mtx_init output argument |
 | test.c:14:17:14:19 | *& ... | semmle.label | *& ... |
 | test.c:15:14:15:16 | *& ... | semmle.label | *& ... |
+| test.c:15:14:15:16 | doTimeLock output argument | semmle.label | doTimeLock output argument |
 | test.c:17:12:17:14 | mtx_init output argument | semmle.label | mtx_init output argument |
 | test.c:18:17:18:19 | *& ... | semmle.label | *& ... |
 | test.c:19:14:19:16 | *& ... | semmle.label | *& ... |
+| test.c:19:14:19:16 | doTimeLock output argument | semmle.label | doTimeLock output argument |
 | test.c:30:12:30:14 | mtx_init output argument | semmle.label | mtx_init output argument |
 | test.c:31:17:31:19 | *& ... | semmle.label | *& ... |
 | test.c:32:14:32:16 | *& ... | semmle.label | *& ... |
@@ -34,6 +54,8 @@ nodes
 | test.c:44:14:44:18 | *& ... | semmle.label | *& ... |
 | test.c:44:15:44:16 | *l3 [m] | semmle.label | *l3 [m] |
 subpaths
+| test.c:15:14:15:16 | *& ... | test.c:10:24:10:24 | *m | test.c:10:24:10:24 | *m | test.c:15:14:15:16 | doTimeLock output argument |
+| test.c:19:14:19:16 | *& ... | test.c:10:24:10:24 | *m | test.c:10:24:10:24 | *m | test.c:19:14:19:16 | doTimeLock output argument |
 #select
 | test.c:10:43:10:43 | *m | test.c:13:12:13:14 | mtx_init output argument | test.c:10:43:10:43 | *m | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:13:12:13:14 | mtx_init output argument | initialized |
 | test.c:10:43:10:43 | *m | test.c:17:12:17:14 | mtx_init output argument | test.c:10:43:10:43 | *m | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:17:12:17:14 | mtx_init output argument | initialized |
