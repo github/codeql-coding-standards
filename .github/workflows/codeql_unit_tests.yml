@@ -170,7 +170,7 @@ jobs:
         run: |
           for json_report in *-test-results-*/test_report_*
           do
-            jq --raw-output '"PASS \(map(select(.pass == true)) | length)/\(length)'" $json_report
+            jq --raw-output 'PASS \(map(select(.pass == true)) | length)/\(length)' $json_report
           done
           FAILING_TESTS=$(jq --raw-output '.[] | select(.pass == false)' *-test-results-*/test_report_*.json)
           if [[ ! -z "$FAILING_TESTS" ]]; then
