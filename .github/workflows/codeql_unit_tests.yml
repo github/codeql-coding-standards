@@ -59,9 +59,7 @@ jobs:
         id: cache-codeql
         uses: actions/cache@v4
         with:
-          # A list of files, directories, and wildcard patterns to cache and restore
           path: ${{github.workspace}}/codeql_home
-          # An explicit key for restoring and saving the cache
           key: codeql-home-${{matrix.os}}-${{matrix.codeql_cli}}-${{matrix.codeql_standard_library}}
 
       - name: Install CodeQL
@@ -82,7 +80,6 @@ jobs:
         id: pre-compile-queries
         run: |
          ${{ github.workspace }}/codeql_home/codeql/codeql query compile --threads 0 ${{ matrix.language }}
-
 
       - name: Run test suites
         id: run-test-suites
@@ -124,7 +121,6 @@ jobs:
             print(f"Executing tests found (recursively) in the directory '{test_root}'")
           files_to_close = []
           try:
-            # XL runners have 8 cores, so split the tests into 8 "slices", and run one per thread
             num_slices = 8
             procs = []
 
@@ -139,12 +135,8 @@ jobs:
               _, err = p.communicate()
               if p.returncode != 0:
                 if p.returncode == 122:
-                  # Failed because a test case failed, so just print the regular output.
-                  # This will allow us to proceed to validate-test-results, which will fail if
-                  # any test cases failed
                   print(f"{err.decode()}")
                 else:
-                  # Some more serious problem occurred, so print and fail fast
                   print_error_and_fail(f"Failed to run tests with return code {p.returncode}\n{err.decode()}")
           finally:
             for file in files_to_close:
@@ -170,6 +162,7 @@ jobs:
         with:
           script: |
             core.setFailed('Test run job failed')
+
       - name: Collect test results
         uses: actions/download-artifact@v5
 
@@ -177,7 +170,7 @@ jobs:
         run: |
           for json_report in *-test-results-*/test_report_*
           do
-            jq --raw-output '"PASS \(map(select(.pass == true)) | length)/\(length)'" $json_report\"" "$json_report"
+            jq --raw-output '"PASS \(map(select(.pass == true)) | length)/\(length)'" $json_report
           done
           FAILING_TESTS=$(jq --raw-output '.[] | select(.pass == false)' *-test-results-*/test_report_*.json)
           if [[ ! -z "$FAILING_TESTS" ]]; then
@@ -185,3 +178,4 @@ jobs:
             echo $FAILING_TESTS | jq .
             exit 1
           fi
+
