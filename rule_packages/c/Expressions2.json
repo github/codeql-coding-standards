@@ -1,0 +1,28 @@
+{
+  "CERT-C": {
+    "EXP16-C": {
+      "properties": {
+        "obligation": "recommendation"
+      },
+      "queries": [
+        {
+          "description": "Comparing function pointers to a constant value is not reliable and likely indicates a programmer error.",
+          "kind": "problem",
+          "name": "Do not compare function pointers to constant values",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DoNotCompareFunctionPointersToConstantValues",
+          "tags": [
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
+          ]
+        }
+      ],
+      "title": "Do not compare function pointers to constant values"
+    }
+  }
+}
