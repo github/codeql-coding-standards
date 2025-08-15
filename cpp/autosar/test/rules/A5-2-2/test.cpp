@@ -2,7 +2,7 @@
 #include <string>
 #include <utility>
 int foo() { return 1; }
-
+// A copy of 8.2,2 test.cpp, but with different cases compliant/non-compliant
 void test_c_style_cast() {
   double f = 3.14;
   std::uint32_t n1 = (std::uint32_t)f; // NON_COMPLIANT - C-style cast
