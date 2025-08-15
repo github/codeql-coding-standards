@@ -1,0 +1,3 @@
+| test.cpp:36:12:36:37 | reinterpret_cast<C2 *>... | A pointer to virtual base class C1 is not cast to a pointer of derived class C2 using a dynamic_cast. |
+| test.cpp:42:12:42:38 | reinterpret_cast<C2>... | A pointer to virtual base class C1 is not cast to a pointer of derived class C2 using a dynamic_cast. |
+| test.cpp:48:17:48:48 | reinterpret_cast<Derived>... | A pointer to virtual base class C1 is not cast to a pointer of derived class C2 using a dynamic_cast. |
