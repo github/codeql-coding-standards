@@ -69,10 +69,10 @@ query predicate problems(
   // The two calls are incompatible
   fc1 != fc2 and
   incompatibleFunctions(fc1.getTarget(), fc2.getFunction()) and
-  // The pointer returned by fc1 accessed in `e` afer the second `GetenvFunctionCall`
+  // The pointer returned by fc1 accessed in `e` after the second `GetenvFunctionCall`
   DataFlow::localExprFlow(fc1, e) and
   e = fc2.getASuccessor+() and
-  message = "This pointer was returned by a $@ and may have been overwritten by the susequent $@." and
+  message = "This pointer was returned by a $@ and may have been overwritten by the subsequent $@." and
   fc1text = fc1.toString() and
   fc2text = fc2.toString()
 }

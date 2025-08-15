@@ -1,0 +1,2 @@
+- `ENV34-C`, `RULE-21-20`, `RULE-25-5-3`: `DoNotStorePointersReturnedByEnvFunctions.ql`, `CallToSetlocaleInvalidatesOldPointers.ql`, `CallToSetlocaleInvalidatesOldPointersMisra.ql`
+ - Fixed a misspelling of "subsequent" in the alert message.
