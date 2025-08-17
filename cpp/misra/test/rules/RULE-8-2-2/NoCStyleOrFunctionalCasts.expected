@@ -1,0 +1,7 @@
+| test.cpp:8:22:8:37 | (uint32_t)... | Use of explicit c-style cast to uint32_t. |
+| test.cpp:9:22:9:32 | (unsigned int)... | Use of explicit c-style cast to unsigned int. |
+| test.cpp:70:1:70:31 | #define ADD_ONE(x) ((int)x) + 1 | Use of explicit c-style cast to int. |
+| test.cpp:83:19:83:26 | (int)... | Use of explicit c-style cast to int. |
+| test.cpp:84:27:84:34 | (int)... | Use of explicit c-style cast to int. |
+| test.cpp:112:10:112:13 | (int)... | Use of explicit c-style cast to int. |
+| test.cpp:147:12:147:26 | (unsigned int)... | Use of explicit c-style cast to unsigned int. |
