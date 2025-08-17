@@ -1,0 +1,9 @@
+| test.cpp:37:13:37:47 | reinterpret_cast<unsigned long>... | Cast of object pointer type to integral type 'unsigned long' instead of 'std::uintptr_t' or 'std::intptr_t'. |
+| test.cpp:42:13:42:46 | reinterpret_cast<unsigned int>... | Cast of object pointer type to integral type 'unsigned int' instead of 'std::uintptr_t' or 'std::intptr_t'. |
+| test.cpp:47:13:47:38 | reinterpret_cast<long>... | Cast of object pointer type to integral type 'long' instead of 'std::uintptr_t' or 'std::intptr_t'. |
+| test.cpp:52:13:52:45 | reinterpret_cast<size_t>... | Cast of object pointer type to integral type 'size_t' instead of 'std::uintptr_t' or 'std::intptr_t'. |
+| test.cpp:57:13:57:43 | reinterpret_cast<hashPtr_t>... | Cast of object pointer type to integral type 'hashPtr_t' instead of 'std::uintptr_t' or 'std::intptr_t'. |
+| test.cpp:62:13:62:42 | reinterpret_cast<MyIntPtr>... | Cast of object pointer type to integral type 'MyIntPtr' instead of 'std::uintptr_t' or 'std::intptr_t'. |
+| test.cpp:67:13:67:35 | reinterpret_cast<unsigned long>... | Cast of object pointer type to integral type 'unsigned long' instead of 'std::uintptr_t' or 'std::intptr_t'. |
+| test.cpp:72:13:72:47 | reinterpret_cast<uint64_t>... | Cast of object pointer type to integral type 'uint64_t' instead of 'std::uintptr_t' or 'std::intptr_t'. |
+| test.cpp:77:13:77:46 | reinterpret_cast<int64_t>... | Cast of object pointer type to integral type 'int64_t' instead of 'std::uintptr_t' or 'std::intptr_t'. |
