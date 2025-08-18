@@ -18,7 +18,6 @@ import codingstandards.c.misra
 import codingstandards.c.SubObjects
 import codingstandards.cpp.Concurrency
 import codingstandards.cpp.dominance.BehavioralSet
-import semmle.code.cpp.dataflow.new.DataFlow::DataFlow as NewDF
 
 /* A call to mtx_unlock() or cnd_wait() or cnd_timedwait(), which require a locked mutex */
 class RequiresLockOperation extends FunctionCall {

@@ -32,5 +32,5 @@ where
   // `isInMacroExpansion` is broken for `UserType`s.
   not s.isInMacroExpansion() and
   // Exclude template parameters, in case this is run on C++ code.
-  not s instanceof TemplateParameter
+  not s instanceof TypeTemplateParameter
 select s, "struct " + s.getName() + " has an unused tag."
