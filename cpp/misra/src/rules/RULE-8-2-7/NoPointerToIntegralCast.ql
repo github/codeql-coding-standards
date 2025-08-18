@@ -15,11 +15,10 @@
 import cpp
 import codingstandards.cpp.misra
 
-from Cast cast, Type sourceType, Type targetType
+from Cast cast, Type sourceType, IntegralType targetType
 where
   not isExcluded(cast, Conversions2Package::noPointerToIntegralCastQuery()) and
   sourceType = cast.getExpr().getType().getUnspecifiedType() and
   targetType = cast.getType().getUnspecifiedType() and
-  (sourceType instanceof PointerType or sourceType instanceof FunctionPointerType) and
-  targetType instanceof IntegralType
-select cast, "Cast converts pointer type to integral type '" + targetType.toString() + "'."
+  (sourceType instanceof PointerType or sourceType instanceof FunctionPointerType)
+select cast, "Cast converts pointer type to integral type '" + targetType + "'."
