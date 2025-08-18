@@ -65,30 +65,46 @@ class DocumentableDeclaration extends Declaration {
   string declarationType;
 
   DocumentableDeclaration() {
-    this instanceof UserType and
-    declarationType = "user-defined type" and
-    // Exclude template parameter types.
-    not this.(UserType).involvesTemplateParameter()
-    or
-    this instanceof Function and
-    declarationType = "function" and
-    // Exclude compiler generated functions, which cannot reasonably be documented.
-    not this.(Function).isCompilerGenerated() and
-    // Exclude instantiated template functions, which cannot reasonably be documented.
-    not this.(Function).isFromTemplateInstantiation(_) and
-    // Exclude anonymous lambda functions.
-    not exists(LambdaExpression lc | lc.getLambdaFunction() = this) and
-    //Exclude friend functions (because they have 2 entries in the database), and only one shows documented truly
-    not exists(FriendDecl d |
-      d.getFriend().(Function).getDefinition() = this.getADeclarationEntry()
+    // Within the users codebase, not a system header
+    exists(this.getFile().getRelativePath()) and
+    // Not required to be documented, as used within same scope
+    not isInFunctionScope(this) and
+    (
+      this instanceof UserType and
+      declarationType = "user-defined type" and
+      // Exclude template parameter types.
+      not this.(UserType).involvesTemplateParameter()
+      or
+      this instanceof Function and
+      declarationType = "function" and
+      // Exclude compiler generated functions, which cannot reasonably be documented.
+      not this.(Function).isCompilerGenerated() and
+      // Exclude instantiated template functions, which cannot reasonably be documented.
+      not this.(Function).isFromTemplateInstantiation(_) and
+      // Exclude anonymous lambda functions.
+      not exists(LambdaExpression lc | lc.getLambdaFunction() = this) and
+      //Exclude friend functions (because they have 2 entries in the database), and only one shows documented truly
+      not exists(FriendDecl d |
+        d.getFriend().(Function).getDefinition() = this.getADeclarationEntry()
+      )
+      or
+      this instanceof MemberVariable and
+      declarationType = "member variable" and
+      // Exclude memeber variables in instantiated templates, which cannot reasonably be documented.
+      not this.(MemberVariable).isFromTemplateInstantiation(_) and
+      // Exclude compiler generated variables, such as those for anonymous lambda functions
+      not this.(MemberVariable).isCompilerGenerated()
     )
-    or
-    this instanceof MemberVariable and
-    declarationType = "member variable" and
-    // Exclude memeber variables in instantiated templates, which cannot reasonably be documented.
-    not this.(MemberVariable).isFromTemplateInstantiation(_) and
-    // Exclude compiler generated variables, such as those for anonymous lambda functions
-    not this.(MemberVariable).isCompilerGenerated()
+  }
+
+  private predicate hasDocumentedDefinition() {
+    // Check if the declaration has a documented definition
+    exists(DeclarationEntry de | de = getADeclarationEntry() and isDocumented(de))
+  }
+
+  private predicate hasOnlyDefinitions() {
+    // Check if the declaration has only definitions, i.e., no non-definition entries
+    not exists(DeclarationEntry de | de = getADeclarationEntry() and not de.isDefinition())
   }
 
   /** Gets a `DeclarationEntry` for this declaration that should be documented. */
@@ -96,20 +112,16 @@ class DocumentableDeclaration extends Declaration {
     // Find a declaration entry that is not documented
     result = getADeclarationEntry() and
     not isDocumented(result) and
-    (
-      // Report any non definition DeclarationEntry that is not documented
-      // as long as there is no corresponding documented definition (which must be for a forward declaration)
-      not result.isDefinition() and
-      not exists(DeclarationEntry de |
-        de = getADeclarationEntry() and de.isDefinition() and isDocumented(de)
-      )
-      or
+    if result.isDefinition()
+    then
       // Report the definition DeclarationEntry, only if there are no non-definition `DeclarationEntry`'s
       // The rationale here is that documenting both the non-definition and definition declaration entries
       // is redundant
-      result.isDefinition() and
-      not exists(DeclarationEntry de | de = getADeclarationEntry() and not de.isDefinition())
-    )
+      hasOnlyDefinitions()
+    else
+      // Report any non definition DeclarationEntry that is not documented
+      // as long as there is no corresponding documented definition (which must be for a forward declaration)
+      not hasDocumentedDefinition()
   }
 
   /** Gets a string describing the type of declaration. */
@@ -144,7 +156,6 @@ from DocumentableDeclaration d, DeclarationEntry de
 where
   not isExcluded(de, CommentsPackage::undocumentedUserDefinedTypeQuery()) and
   not isExcluded(d, CommentsPackage::undocumentedUserDefinedTypeQuery()) and
-  not isInFunctionScope(d) and
   d.getAnUndocumentedDeclarationEntry() = de
 select de,
   "Declaration entry for " + d.getDeclarationType() + " " + d.getName() +

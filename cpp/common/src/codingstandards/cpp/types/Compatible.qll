@@ -2,6 +2,7 @@ import cpp
 import codeql.util.Boolean
 import codingstandards.cpp.types.Graph
 import codingstandards.cpp.types.Type
+import codingstandards.cpp.types.FunctionType
 
 module TypeNamesMatchConfig implements TypeEquivalenceSig {
   predicate resolveTypedefs() {
