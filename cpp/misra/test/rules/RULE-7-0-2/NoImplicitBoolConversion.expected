@@ -21,8 +21,6 @@
 | test.cpp:182:7:182:8 | (bool)... | Conversion from 'float' to 'bool'. |
 | test.cpp:184:7:184:8 | (bool)... | Conversion from 'double' to 'bool'. |
 | test.cpp:186:7:186:8 | (bool)... | Conversion from 'long double' to 'bool'. |
-| test.cpp:195:7:195:8 | (bool)... | Conversion from 'int32_t *' to 'bool'. |
-| test.cpp:197:7:197:8 | (bool)... | Conversion from 'int32_t *' to 'bool'. |
 | test.cpp:199:13:199:14 | (bool)... | Conversion from 'int32_t *' to 'bool'. |
 | test.cpp:211:13:211:14 | (bool)... | Conversion from '..:: *' to 'bool'. |
 | test.cpp:212:13:212:14 | (bool)... | Conversion from '..:: *' to 'bool'. |

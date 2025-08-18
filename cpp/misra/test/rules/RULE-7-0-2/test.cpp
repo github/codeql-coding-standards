@@ -192,9 +192,9 @@ void test_floating_point_conversion() {
 void test_array_conversion() {
   std::int32_t l1[5] = {1, 2, 3, 4, 5};
 
-  if (l1) { // NON_COMPLIANT
+  if (l1) { // COMPLIANT
   }
-  if (g8) { // NON_COMPLIANT
+  if (g8) { // COMPLIANT
   }
   bool l2 = l1;              // NON_COMPLIANT
   bool l3 = (l1 != nullptr); // COMPLIANT

@@ -43,7 +43,6 @@ predicate isBitFieldOfSizeOne(Expr expr) {
 
 predicate isPointerType(Type t) {
   t.getUnspecifiedType() instanceof PointerType or
-  t.getUnspecifiedType() instanceof ArrayType or
   t.getUnspecifiedType() instanceof PointerToMemberType
 }
 
@@ -59,12 +58,15 @@ where
       // Exception 2: Contextual conversion from pointer
       not (
         isPointerType(conv.getExpr().getType()) and
-        isInContextualBoolContext(conv.getExpr())
+        // Checks if the unconverted expression for this conversion is in a contextual bool context
+        // This handles the cases where we have multiple stacked conversions, e.g. when converting
+        // an array to a pointer, then the pointer to bool
+        isInContextualBoolContext(conv.getUnconverted())
       ) and
-      // Exception 3: Bit-field of size 1
-      not isBitFieldOfSizeOne(conv.getExpr()) and
-      // Exception 4: While condition declaration
-      not isInWhileConditionDeclaration(conv.getExpr()) and
+      // Exception 3: Unconverted expression is a bit-field of size 1
+      not isBitFieldOfSizeOne(conv.getUnconverted()) and
+      // Exception 4: Unconverted expression is in a while condition declaration
+      not isInWhileConditionDeclaration(conv.getUnconverted()) and
       reason = "Conversion from '" + conv.getExpr().getType().toString() + "' to 'bool'"
     )
     or
