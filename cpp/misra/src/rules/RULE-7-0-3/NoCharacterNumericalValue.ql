@@ -29,11 +29,6 @@ where
     // Conversion from non-character type to character type
     not sourceType instanceof CharacterType and
     targetType instanceof CharacterType
-    // or
-    // // Conversion between different character types
-    // getTypeCategory(sourceType) instanceof Character and
-    // getTypeCategory(targetType) instanceof Character and
-    // not sourceType = targetType
   ) and
   // Exclude conversions where both operands have the same character type in equality operations
   not exists(EqualityOperation eq, CharacterType leftType, CharacterType rightType |
@@ -43,19 +38,7 @@ where
     leftType.getRealType() = rightType.getRealType()
   ) and
   // Exclude unevaluated operands
-  not (
-    expr.getParent*() instanceof SizeofExprOperator or
-    expr.getParent*() instanceof SizeofTypeOperator or
-    expr.getParent*() instanceof TypeidOperator or
-    expr.getParent*() = any(Decltype dt).getExpr() or
-    expr.getParent*() instanceof StaticAssert
-  ) and
-  // Exclude optional comparisons that don't involve conversion
-  not exists(FunctionCall fc |
-    fc.getTarget().hasName("operator==") and
-    fc.getAnArgument() = expr and
-    fc.getQualifier().getType().hasName("optional")
-  )
+  not expr.isUnevaluated()
 select expr,
   "Conversion of character type '" + sourceType.getName() + "' to '" + targetType.getName() +
     "' uses numerical value of character."
