@@ -116,7 +116,10 @@
           "short_name": "NoStandaloneTypeCastExpression",
           "tags": [
             "scope/single-translation-unit"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Expression statements in if statement initializers are not currently supported."
+          }
         }
       ],
       "title": "An explicit type conversion shall not be an expression statement"
