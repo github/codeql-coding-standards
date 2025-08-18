@@ -1,0 +1,222 @@
+| test.cpp:16:3:16:8 | call to strcat | Call to banned string handling function 'strcat'. |
+| test.cpp:17:3:17:8 | call to strchr | Call to banned string handling function 'strchr'. |
+| test.cpp:18:3:18:8 | call to strcmp | Call to banned string handling function 'strcmp'. |
+| test.cpp:19:3:19:9 | call to strcoll | Call to banned string handling function 'strcoll'. |
+| test.cpp:20:3:20:8 | call to strcpy | Call to banned string handling function 'strcpy'. |
+| test.cpp:21:3:21:9 | call to strcspn | Call to banned string handling function 'strcspn'. |
+| test.cpp:22:3:22:10 | call to strerror | Call to banned string handling function 'strerror'. |
+| test.cpp:23:3:23:8 | call to strlen | Call to banned string handling function 'strlen'. |
+| test.cpp:24:3:24:9 | call to strncat | Call to banned string handling function 'strncat'. |
+| test.cpp:25:3:25:9 | call to strncmp | Call to banned string handling function 'strncmp'. |
+| test.cpp:26:3:26:9 | call to strncpy | Call to banned string handling function 'strncpy'. |
+| test.cpp:27:3:27:9 | call to strpbrk | Call to banned string handling function 'strpbrk'. |
+| test.cpp:28:3:28:9 | call to strrchr | Call to banned string handling function 'strrchr'. |
+| test.cpp:29:3:29:8 | call to strspn | Call to banned string handling function 'strspn'. |
+| test.cpp:30:3:30:8 | call to strstr | Call to banned string handling function 'strstr'. |
+| test.cpp:31:3:31:8 | call to strtok | Call to banned string handling function 'strtok'. |
+| test.cpp:32:3:32:9 | call to strxfrm | Call to banned string handling function 'strxfrm'. |
+| test.cpp:39:3:39:8 | call to strtol | Call to banned string handling function 'strtol'. |
+| test.cpp:40:3:40:9 | call to strtoll | Call to banned string handling function 'strtoll'. |
+| test.cpp:41:3:41:9 | call to strtoul | Call to banned string handling function 'strtoul'. |
+| test.cpp:42:3:42:10 | call to strtoull | Call to banned string handling function 'strtoull'. |
+| test.cpp:43:3:43:8 | call to strtod | Call to banned string handling function 'strtod'. |
+| test.cpp:44:3:44:8 | call to strtof | Call to banned string handling function 'strtof'. |
+| test.cpp:45:3:45:9 | call to strtold | Call to banned string handling function 'strtold'. |
+| test.cpp:54:3:54:8 | call to fgetwc | Call to banned string handling function 'fgetwc'. |
+| test.cpp:55:3:55:8 | call to fputwc | Call to banned string handling function 'fputwc'. |
+| test.cpp:56:3:56:8 | call to wcstol | Call to banned string handling function 'wcstol'. |
+| test.cpp:57:3:57:9 | call to wcstoll | Call to banned string handling function 'wcstoll'. |
+| test.cpp:58:3:58:9 | call to wcstoul | Call to banned string handling function 'wcstoul'. |
+| test.cpp:59:3:59:10 | call to wcstoull | Call to banned string handling function 'wcstoull'. |
+| test.cpp:60:3:60:8 | call to wcstod | Call to banned string handling function 'wcstod'. |
+| test.cpp:61:3:61:8 | call to wcstof | Call to banned string handling function 'wcstof'. |
+| test.cpp:62:3:62:9 | call to wcstold | Call to banned string handling function 'wcstold'. |
+| test.cpp:71:3:71:11 | call to strtoumax | Call to banned string handling function 'strtoumax'. |
+| test.cpp:72:3:72:11 | call to strtoimax | Call to banned string handling function 'strtoimax'. |
+| test.cpp:73:3:73:11 | call to wcstoumax | Call to banned string handling function 'wcstoumax'. |
+| test.cpp:74:3:74:11 | call to wcstoimax | Call to banned string handling function 'wcstoimax'. |
+| test.cpp:78:40:78:45 | strcat | Address taken for banned string handling function 'strcat'. |
+| test.cpp:79:39:79:44 | strcat | Address taken for banned string handling function 'strcat'. |
+| test.cpp:80:42:80:48 | strchr | Address taken for banned string handling function 'strchr'. |
+| test.cpp:81:42:81:47 | strchr | Address taken for banned string handling function 'strchr'. |
+| test.cpp:82:44:82:49 | strcmp | Address taken for banned string handling function 'strcmp'. |
+| test.cpp:83:43:83:48 | strcmp | Address taken for banned string handling function 'strcmp'. |
+| test.cpp:84:44:84:50 | strcoll | Address taken for banned string handling function 'strcoll'. |
+| test.cpp:85:43:85:49 | strcoll | Address taken for banned string handling function 'strcoll'. |
+| test.cpp:86:40:86:45 | strcpy | Address taken for banned string handling function 'strcpy'. |
+| test.cpp:87:40:87:45 | strcpy | Address taken for banned string handling function 'strcpy'. |
+| test.cpp:88:48:88:54 | strcspn | Address taken for banned string handling function 'strcspn'. |
+| test.cpp:89:47:89:53 | strcspn | Address taken for banned string handling function 'strcspn'. |
+| test.cpp:90:24:90:31 | strerror | Address taken for banned string handling function 'strerror'. |
+| test.cpp:91:23:91:30 | strerror | Address taken for banned string handling function 'strerror'. |
+| test.cpp:92:34:92:39 | strlen | Address taken for banned string handling function 'strlen'. |
+| test.cpp:93:33:93:38 | strlen | Address taken for banned string handling function 'strlen'. |
+| test.cpp:94:49:94:55 | strncat | Address taken for banned string handling function 'strncat'. |
+| test.cpp:95:48:95:54 | strncat | Address taken for banned string handling function 'strncat'. |
+| test.cpp:96:53:96:59 | strncmp | Address taken for banned string handling function 'strncmp'. |
+| test.cpp:97:52:97:58 | strncmp | Address taken for banned string handling function 'strncmp'. |
+| test.cpp:98:49:98:55 | strncpy | Address taken for banned string handling function 'strncpy'. |
+| test.cpp:99:48:99:54 | strncpy | Address taken for banned string handling function 'strncpy'. |
+| test.cpp:100:52:100:59 | strpbrk | Address taken for banned string handling function 'strpbrk'. |
+| test.cpp:101:52:101:58 | strpbrk | Address taken for banned string handling function 'strpbrk'. |
+| test.cpp:102:43:102:50 | strrchr | Address taken for banned string handling function 'strrchr'. |
+| test.cpp:103:43:103:49 | strrchr | Address taken for banned string handling function 'strrchr'. |
+| test.cpp:104:48:104:53 | strspn | Address taken for banned string handling function 'strspn'. |
+| test.cpp:105:47:105:52 | strspn | Address taken for banned string handling function 'strspn'. |
+| test.cpp:106:52:106:58 | strstr | Address taken for banned string handling function 'strstr'. |
+| test.cpp:107:52:107:57 | strstr | Address taken for banned string handling function 'strstr'. |
+| test.cpp:108:41:108:46 | strtok | Address taken for banned string handling function 'strtok'. |
+| test.cpp:109:40:109:45 | strtok | Address taken for banned string handling function 'strtok'. |
+| test.cpp:110:50:110:56 | strxfrm | Address taken for banned string handling function 'strxfrm'. |
+| test.cpp:111:49:111:55 | strxfrm | Address taken for banned string handling function 'strxfrm'. |
+| test.cpp:115:45:115:50 | strtol | Address taken for banned string handling function 'strtol'. |
+| test.cpp:116:44:116:49 | strtol | Address taken for banned string handling function 'strtol'. |
+| test.cpp:117:50:117:56 | strtoll | Address taken for banned string handling function 'strtoll'. |
+| test.cpp:118:49:118:55 | strtoll | Address taken for banned string handling function 'strtoll'. |
+| test.cpp:119:54:119:60 | strtoul | Address taken for banned string handling function 'strtoul'. |
+| test.cpp:120:53:120:59 | strtoul | Address taken for banned string handling function 'strtoul'. |
+| test.cpp:122:8:122:15 | strtoull | Address taken for banned string handling function 'strtoull'. |
+| test.cpp:124:7:124:14 | strtoull | Address taken for banned string handling function 'strtoull'. |
+| test.cpp:125:42:125:47 | strtod | Address taken for banned string handling function 'strtod'. |
+| test.cpp:126:42:126:47 | strtod | Address taken for banned string handling function 'strtod'. |
+| test.cpp:127:42:127:47 | strtof | Address taken for banned string handling function 'strtof'. |
+| test.cpp:128:41:128:46 | strtof | Address taken for banned string handling function 'strtof'. |
+| test.cpp:129:48:129:54 | strtold | Address taken for banned string handling function 'strtold'. |
+| test.cpp:130:47:130:53 | strtold | Address taken for banned string handling function 'strtold'. |
+| test.cpp:134:27:134:32 | fgetwc | Address taken for banned string handling function 'fgetwc'. |
+| test.cpp:135:26:135:31 | fgetwc | Address taken for banned string handling function 'fgetwc'. |
+| test.cpp:136:36:136:41 | fputwc | Address taken for banned string handling function 'fputwc'. |
+| test.cpp:137:35:137:40 | fputwc | Address taken for banned string handling function 'fputwc'. |
+| test.cpp:138:51:138:56 | wcstol | Address taken for banned string handling function 'wcstol'. |
+| test.cpp:139:50:139:55 | wcstol | Address taken for banned string handling function 'wcstol'. |
+| test.cpp:140:56:140:62 | wcstoll | Address taken for banned string handling function 'wcstoll'. |
+| test.cpp:141:55:141:61 | wcstoll | Address taken for banned string handling function 'wcstoll'. |
+| test.cpp:143:8:143:14 | wcstoul | Address taken for banned string handling function 'wcstoul'. |
+| test.cpp:145:7:145:13 | wcstoul | Address taken for banned string handling function 'wcstoul'. |
+| test.cpp:147:8:147:15 | wcstoull | Address taken for banned string handling function 'wcstoull'. |
+| test.cpp:149:7:149:14 | wcstoull | Address taken for banned string handling function 'wcstoull'. |
+| test.cpp:150:49:150:54 | wcstod | Address taken for banned string handling function 'wcstod'. |
+| test.cpp:151:48:151:53 | wcstod | Address taken for banned string handling function 'wcstod'. |
+| test.cpp:152:48:152:53 | wcstof | Address taken for banned string handling function 'wcstof'. |
+| test.cpp:153:47:153:52 | wcstof | Address taken for banned string handling function 'wcstof'. |
+| test.cpp:154:54:154:60 | wcstold | Address taken for banned string handling function 'wcstold'. |
+| test.cpp:155:53:155:59 | wcstold | Address taken for banned string handling function 'wcstold'. |
+| test.cpp:159:50:159:58 | strtoumax | Address taken for banned string handling function 'strtoumax'. |
+| test.cpp:160:49:160:57 | strtoumax | Address taken for banned string handling function 'strtoumax'. |
+| test.cpp:161:49:161:57 | strtoimax | Address taken for banned string handling function 'strtoimax'. |
+| test.cpp:162:48:162:56 | strtoimax | Address taken for banned string handling function 'strtoimax'. |
+| test.cpp:164:8:164:16 | wcstoumax | Address taken for banned string handling function 'wcstoumax'. |
+| test.cpp:166:7:166:15 | wcstoumax | Address taken for banned string handling function 'wcstoumax'. |
+| test.cpp:168:8:168:16 | wcstoimax | Address taken for banned string handling function 'wcstoimax'. |
+| test.cpp:169:54:169:62 | wcstoimax | Address taken for banned string handling function 'wcstoimax'. |
+| test.cpp:177:3:177:13 | call to strcat | Call to banned string handling function 'strcat'. |
+| test.cpp:178:3:178:13 | call to strchr | Call to banned string handling function 'strchr'. |
+| test.cpp:179:3:179:13 | call to strcmp | Call to banned string handling function 'strcmp'. |
+| test.cpp:180:3:180:14 | call to strcoll | Call to banned string handling function 'strcoll'. |
+| test.cpp:181:3:181:13 | call to strcpy | Call to banned string handling function 'strcpy'. |
+| test.cpp:182:3:182:14 | call to strcspn | Call to banned string handling function 'strcspn'. |
+| test.cpp:183:3:183:15 | call to strerror | Call to banned string handling function 'strerror'. |
+| test.cpp:184:3:184:13 | call to strlen | Call to banned string handling function 'strlen'. |
+| test.cpp:185:3:185:14 | call to strncat | Call to banned string handling function 'strncat'. |
+| test.cpp:186:3:186:14 | call to strncmp | Call to banned string handling function 'strncmp'. |
+| test.cpp:187:3:187:14 | call to strncpy | Call to banned string handling function 'strncpy'. |
+| test.cpp:188:3:188:14 | call to strpbrk | Call to banned string handling function 'strpbrk'. |
+| test.cpp:189:3:189:14 | call to strrchr | Call to banned string handling function 'strrchr'. |
+| test.cpp:190:3:190:13 | call to strspn | Call to banned string handling function 'strspn'. |
+| test.cpp:191:3:191:13 | call to strstr | Call to banned string handling function 'strstr'. |
+| test.cpp:192:3:192:13 | call to strtok | Call to banned string handling function 'strtok'. |
+| test.cpp:193:3:193:14 | call to strxfrm | Call to banned string handling function 'strxfrm'. |
+| test.cpp:200:3:200:13 | call to strtol | Call to banned string handling function 'strtol'. |
+| test.cpp:201:3:201:14 | call to strtoll | Call to banned string handling function 'strtoll'. |
+| test.cpp:202:3:202:14 | call to strtoul | Call to banned string handling function 'strtoul'. |
+| test.cpp:203:3:203:15 | call to strtoull | Call to banned string handling function 'strtoull'. |
+| test.cpp:204:3:204:13 | call to strtod | Call to banned string handling function 'strtod'. |
+| test.cpp:205:3:205:13 | call to strtof | Call to banned string handling function 'strtof'. |
+| test.cpp:206:3:206:14 | call to strtold | Call to banned string handling function 'strtold'. |
+| test.cpp:215:3:215:13 | call to fgetwc | Call to banned string handling function 'fgetwc'. |
+| test.cpp:216:3:216:13 | call to fputwc | Call to banned string handling function 'fputwc'. |
+| test.cpp:217:3:217:13 | call to wcstol | Call to banned string handling function 'wcstol'. |
+| test.cpp:218:3:218:14 | call to wcstoll | Call to banned string handling function 'wcstoll'. |
+| test.cpp:219:3:219:14 | call to wcstoul | Call to banned string handling function 'wcstoul'. |
+| test.cpp:220:3:220:15 | call to wcstoull | Call to banned string handling function 'wcstoull'. |
+| test.cpp:221:3:221:13 | call to wcstod | Call to banned string handling function 'wcstod'. |
+| test.cpp:222:3:222:13 | call to wcstof | Call to banned string handling function 'wcstof'. |
+| test.cpp:223:3:223:14 | call to wcstold | Call to banned string handling function 'wcstold'. |
+| test.cpp:232:3:232:16 | call to strtoumax | Call to banned string handling function 'strtoumax'. |
+| test.cpp:233:3:233:16 | call to strtoimax | Call to banned string handling function 'strtoimax'. |
+| test.cpp:234:3:234:16 | call to wcstoumax | Call to banned string handling function 'wcstoumax'. |
+| test.cpp:235:3:235:16 | call to wcstoimax | Call to banned string handling function 'wcstoimax'. |
+| test.cpp:239:40:239:50 | strcat | Address taken for banned string handling function 'strcat'. |
+| test.cpp:240:39:240:49 | strcat | Address taken for banned string handling function 'strcat'. |
+| test.cpp:241:42:241:53 | strchr | Address taken for banned string handling function 'strchr'. |
+| test.cpp:242:42:242:52 | strchr | Address taken for banned string handling function 'strchr'. |
+| test.cpp:243:44:243:54 | strcmp | Address taken for banned string handling function 'strcmp'. |
+| test.cpp:244:43:244:53 | strcmp | Address taken for banned string handling function 'strcmp'. |
+| test.cpp:245:44:245:55 | strcoll | Address taken for banned string handling function 'strcoll'. |
+| test.cpp:246:43:246:54 | strcoll | Address taken for banned string handling function 'strcoll'. |
+| test.cpp:247:40:247:50 | strcpy | Address taken for banned string handling function 'strcpy'. |
+| test.cpp:248:40:248:50 | strcpy | Address taken for banned string handling function 'strcpy'. |
+| test.cpp:249:48:249:59 | strcspn | Address taken for banned string handling function 'strcspn'. |
+| test.cpp:250:47:250:58 | strcspn | Address taken for banned string handling function 'strcspn'. |
+| test.cpp:251:24:251:36 | strerror | Address taken for banned string handling function 'strerror'. |
+| test.cpp:252:23:252:35 | strerror | Address taken for banned string handling function 'strerror'. |
+| test.cpp:253:34:253:44 | strlen | Address taken for banned string handling function 'strlen'. |
+| test.cpp:254:33:254:43 | strlen | Address taken for banned string handling function 'strlen'. |
+| test.cpp:255:49:255:60 | strncat | Address taken for banned string handling function 'strncat'. |
+| test.cpp:256:48:256:59 | strncat | Address taken for banned string handling function 'strncat'. |
+| test.cpp:258:8:258:19 | strncmp | Address taken for banned string handling function 'strncmp'. |
+| test.cpp:260:7:260:18 | strncmp | Address taken for banned string handling function 'strncmp'. |
+| test.cpp:261:49:261:60 | strncpy | Address taken for banned string handling function 'strncpy'. |
+| test.cpp:262:48:262:59 | strncpy | Address taken for banned string handling function 'strncpy'. |
+| test.cpp:264:7:264:19 | strpbrk | Address taken for banned string handling function 'strpbrk'. |
+| test.cpp:266:7:266:18 | strpbrk | Address taken for banned string handling function 'strpbrk'. |
+| test.cpp:267:43:267:55 | strrchr | Address taken for banned string handling function 'strrchr'. |
+| test.cpp:268:43:268:54 | strrchr | Address taken for banned string handling function 'strrchr'. |
+| test.cpp:269:48:269:58 | strspn | Address taken for banned string handling function 'strspn'. |
+| test.cpp:270:47:270:57 | strspn | Address taken for banned string handling function 'strspn'. |
+| test.cpp:272:7:272:18 | strstr | Address taken for banned string handling function 'strstr'. |
+| test.cpp:273:52:273:62 | strstr | Address taken for banned string handling function 'strstr'. |
+| test.cpp:274:41:274:51 | strtok | Address taken for banned string handling function 'strtok'. |
+| test.cpp:275:40:275:50 | strtok | Address taken for banned string handling function 'strtok'. |
+| test.cpp:276:50:276:61 | strxfrm | Address taken for banned string handling function 'strxfrm'. |
+| test.cpp:277:49:277:60 | strxfrm | Address taken for banned string handling function 'strxfrm'. |
+| test.cpp:281:45:281:55 | strtol | Address taken for banned string handling function 'strtol'. |
+| test.cpp:282:44:282:54 | strtol | Address taken for banned string handling function 'strtol'. |
+| test.cpp:283:50:283:61 | strtoll | Address taken for banned string handling function 'strtoll'. |
+| test.cpp:284:49:284:60 | strtoll | Address taken for banned string handling function 'strtoll'. |
+| test.cpp:286:8:286:19 | strtoul | Address taken for banned string handling function 'strtoul'. |
+| test.cpp:288:7:288:18 | strtoul | Address taken for banned string handling function 'strtoul'. |
+| test.cpp:290:8:290:20 | strtoull | Address taken for banned string handling function 'strtoull'. |
+| test.cpp:292:7:292:19 | strtoull | Address taken for banned string handling function 'strtoull'. |
+| test.cpp:293:42:293:52 | strtod | Address taken for banned string handling function 'strtod'. |
+| test.cpp:294:42:294:52 | strtod | Address taken for banned string handling function 'strtod'. |
+| test.cpp:295:42:295:52 | strtof | Address taken for banned string handling function 'strtof'. |
+| test.cpp:296:41:296:51 | strtof | Address taken for banned string handling function 'strtof'. |
+| test.cpp:297:48:297:59 | strtold | Address taken for banned string handling function 'strtold'. |
+| test.cpp:298:47:298:58 | strtold | Address taken for banned string handling function 'strtold'. |
+| test.cpp:302:27:302:37 | fgetwc | Address taken for banned string handling function 'fgetwc'. |
+| test.cpp:303:26:303:36 | fgetwc | Address taken for banned string handling function 'fgetwc'. |
+| test.cpp:304:36:304:46 | fputwc | Address taken for banned string handling function 'fputwc'. |
+| test.cpp:305:35:305:45 | fputwc | Address taken for banned string handling function 'fputwc'. |
+| test.cpp:306:51:306:61 | wcstol | Address taken for banned string handling function 'wcstol'. |
+| test.cpp:307:50:307:60 | wcstol | Address taken for banned string handling function 'wcstol'. |
+| test.cpp:309:8:309:19 | wcstoll | Address taken for banned string handling function 'wcstoll'. |
+| test.cpp:311:7:311:18 | wcstoll | Address taken for banned string handling function 'wcstoll'. |
+| test.cpp:313:8:313:19 | wcstoul | Address taken for banned string handling function 'wcstoul'. |
+| test.cpp:315:7:315:18 | wcstoul | Address taken for banned string handling function 'wcstoul'. |
+| test.cpp:317:8:317:20 | wcstoull | Address taken for banned string handling function 'wcstoull'. |
+| test.cpp:319:7:319:19 | wcstoull | Address taken for banned string handling function 'wcstoull'. |
+| test.cpp:320:49:320:59 | wcstod | Address taken for banned string handling function 'wcstod'. |
+| test.cpp:321:48:321:58 | wcstod | Address taken for banned string handling function 'wcstod'. |
+| test.cpp:322:48:322:58 | wcstof | Address taken for banned string handling function 'wcstof'. |
+| test.cpp:323:47:323:57 | wcstof | Address taken for banned string handling function 'wcstof'. |
+| test.cpp:325:8:325:19 | wcstold | Address taken for banned string handling function 'wcstold'. |
+| test.cpp:327:7:327:18 | wcstold | Address taken for banned string handling function 'wcstold'. |
+| test.cpp:332:8:332:21 | strtoumax | Address taken for banned string handling function 'strtoumax'. |
+| test.cpp:333:49:333:62 | strtoumax | Address taken for banned string handling function 'strtoumax'. |
+| test.cpp:334:49:334:62 | strtoimax | Address taken for banned string handling function 'strtoimax'. |
+| test.cpp:335:48:335:61 | strtoimax | Address taken for banned string handling function 'strtoimax'. |
+| test.cpp:337:8:337:21 | wcstoumax | Address taken for banned string handling function 'wcstoumax'. |
+| test.cpp:339:7:339:20 | wcstoumax | Address taken for banned string handling function 'wcstoumax'. |
+| test.cpp:341:8:341:21 | wcstoimax | Address taken for banned string handling function 'wcstoimax'. |
+| test.cpp:343:7:343:20 | wcstoimax | Address taken for banned string handling function 'wcstoimax'. |

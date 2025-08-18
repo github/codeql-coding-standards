@@ -1,0 +1,12 @@
+#ifndef _GHLIBCPP_CSETJMP
+#define _GHLIBCPP_CSETJMP
+
+#include "setjmp.h"
+
+// C++ std namespace declarations
+namespace std {
+using ::jmp_buf;
+using ::longjmp;
+} // namespace std
+
+#endif // _GHLIBCPP_CSETJMP
