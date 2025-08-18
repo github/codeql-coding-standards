@@ -15,6 +15,7 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.misra.BuiltInTypeRules
 
 from Expr e, Conversion conv
 where
@@ -31,13 +32,9 @@ where
       eq.getRightOperand().getType().stripTopLevelSpecifiers() instanceof BoolType
     )
     or
-    // Exception: explicit constructor calls
-    exists(ConstructorCall cc | cc.getAnArgument() = e)
-    or
     // Exception: assignment to bit-field of length 1
-    exists(AssignExpr assign |
-      assign.getRValue() = e and
-      assign.getLValue().(ValueFieldAccess).getTarget().(BitField).getNumBits() = 1
-    )
+    isAssignedToBitfield(e, _)
+    // Note: conversions that result in a constructor call are not represented as `Conversion`s
+    //       in our model, so do not need to be excluded here.
   )
-select e, "Conversion from 'bool' to '" + conv.getType().toString() + "'."
+select e, "Conversion from 'bool' to '" + conv.getType() + "'."
