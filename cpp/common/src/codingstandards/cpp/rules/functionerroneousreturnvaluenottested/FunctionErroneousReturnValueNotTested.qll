@@ -4,7 +4,7 @@
 
 import cpp
 import codingstandards.cpp.Customizations
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.controlflow.Guards
 import codingstandards.cpp.Exclusions
 
