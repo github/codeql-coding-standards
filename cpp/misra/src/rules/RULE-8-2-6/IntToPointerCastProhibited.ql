@@ -15,29 +15,26 @@
 import cpp
 import codingstandards.cpp.misra
 
-from Cast cast, Type sourceType, Type targetType
+from Cast cast, Type sourceType, PointerType targetType, string typeKind
 where
   not isExcluded(cast, Conversions2Package::intToPointerCastProhibitedQuery()) and
-  sourceType = cast.getExpr().getType().stripTopLevelSpecifiers() and
-  targetType = cast.getType().stripTopLevelSpecifiers() and
-  targetType instanceof PointerType and
-  not targetType instanceof FunctionPointerType and
-  not (
-    // Exception: casts between void pointers are allowed
-    targetType.(PointerType).getBaseType().stripTopLevelSpecifiers() instanceof VoidType and
-    sourceType instanceof PointerType and
-    sourceType.(PointerType).getBaseType().stripTopLevelSpecifiers() instanceof VoidType
-  ) and
+  sourceType = cast.getExpr().getType().getUnspecifiedType() and
+  targetType = cast.getType().getUnspecifiedType() and
   (
     // Integral types
-    sourceType instanceof IntegralType
+    sourceType instanceof IntegralType and
+    typeKind = "integral"
     or
     // Enumerated types
-    sourceType instanceof Enum
+    sourceType instanceof Enum and
+    typeKind = "enumerated"
     or
     // Pointer to void type
-    sourceType instanceof PointerType and
-    sourceType.(PointerType).getBaseType().stripTopLevelSpecifiers() instanceof VoidType
+    sourceType.(PointerType).getBaseType() instanceof VoidType and
+    typeKind = "pointer to void" and
+    // Exception: casts between void pointers are allowed
+    not targetType.getBaseType() instanceof VoidType
   )
 select cast,
-  "Cast from '" + sourceType.toString() + "' to '" + targetType.toString() + "' is prohibited."
+  "Cast from " + typeKind + " type '" + cast.getExpr().getType() + "' to pointer type '" +
+    cast.getType() + "'."
