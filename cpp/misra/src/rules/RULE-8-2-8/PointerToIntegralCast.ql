@@ -15,18 +15,15 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.types.Type
 
-from ReinterpretCast cast, Type targetType, Type sourceType
+from ReinterpretCast cast, PointerType sourceType, Type targetType
 where
   not isExcluded(cast, Conversions2Package::pointerToIntegralCastQuery()) and
   sourceType = cast.getExpr().getType().getUnspecifiedType() and
-  sourceType instanceof PointerType and
   targetType = cast.getType() and
   targetType.getUnspecifiedType() instanceof IntegralType and
-  not (
-    targetType.(UserType).hasGlobalOrStdName("uintptr_t") or
-    targetType.(UserType).hasGlobalOrStdName("intptr_t")
-  )
+  not stripSpecifiers(targetType).(UserType).hasGlobalOrStdName(["uintptr_t", "intptr_t"])
 select cast,
-  "Cast of object pointer type to integral type '" + targetType.toString() +
+  "Cast of object pointer type to integral type '" + targetType +
     "' instead of 'std::uintptr_t' or 'std::intptr_t'."
