@@ -113,17 +113,51 @@ int main() {
 
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop counter is passed
                                    // as a non-const reference
-    f(j);
+    int &m = i;
   }
 
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop counter is passed
                                    // as a non-const pointer
-    g(&j);
+    int *m = &i;
+  }
+
+  for (int i = j; i < k;
+       i +=
+       l) { // NON_COMPLIANT: The loop bound is passed as a non-const reference
+    int &m = k;
   }
 
   for (int i = j; i < k;
        i +=
        l) { // NON_COMPLIANT: The loop bound is passed as a non-const pointer
+    int *m = &k;
+  }
+
+  for (int i = j; i < k;
+       i +=
+       l) { // NON_COMPLIANT: The loop step is passed as a non-const reference
+    int &m = l;
+  }
+
+  for (int i = j; i < k;
+       i +=
+       l) { // NON_COMPLIANT: The loop step is passed as a non-const pointer
+    int *m = &l;
+  }
+
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop counter is passed
+                                   // as a non-const reference
+    f(i);
+  }
+
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop counter is passed
+                                   // as a non-const pointer
+    g(&i);
+  }
+
+  for (int i = j; i < k;
+       i +=
+       l) { // NON_COMPLIANT: The loop bound is passed as a non-const reference
     f(k);
   }
 
@@ -135,7 +169,7 @@ int main() {
 
   for (int i = j; i < k;
        i +=
-       l) { // NON_COMPLIANT: The loop step is passed as a non-const pointer
+       l) { // NON_COMPLIANT: The loop step is passed as a non-const reference
     f(l);
   }
 
