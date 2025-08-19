@@ -60,18 +60,29 @@ predicate isValidTypeMatch(NumericType sourceType, NumericType targetType) {
   sourceType.getRealSize() = targetType.getRealSize()
 }
 
+/**
+ * A constructor that can be called with a single argument
+ */
+private class CallableWithASingleArgumentConstructor extends Constructor {
+  CallableWithASingleArgumentConstructor() {
+    // Either a constructor with a single parameter
+    this.getNumberOfParameters() = 1
+    or
+    // Or the second (and later parameters) all have defaults
+    exists(this.getParameter(1).getInitializer())
+  }
+}
+
 predicate hasConstructorException(FunctionCall call) {
-  exists(Constructor ctor, Class c |
+  exists(CallableWithASingleArgumentConstructor ctor, Class c |
     call.getTarget() = ctor and
     c = ctor.getDeclaringType() and
     // Constructor callable with single numeric argument
-    ctor.getNumberOfParameters() = 1 and
     ctor.getParameter(0).getType() instanceof NumericType and
     // No other single-argument constructors except copy/move
-    not exists(Constructor other |
+    not exists(CallableWithASingleArgumentConstructor other |
       other.getDeclaringType() = c and
       other != ctor and
-      other.getNumberOfParameters() = 1 and
       not other instanceof CopyConstructor and
       not other instanceof MoveConstructor
     )

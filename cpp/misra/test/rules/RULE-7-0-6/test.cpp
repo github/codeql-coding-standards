@@ -317,13 +317,29 @@ void test_member_function_not_overload_independent() {
 struct MyInt {
   explicit MyInt(std::int32_t l1) {}
   MyInt(std::int32_t l1, std::int32_t l2) {}
+  // Move and copy constructors are allowed
+  MyInt(MyInt const &) = default;
+  MyInt(MyInt &&) = default;
+};
+
+struct ConstructorException {
+  explicit ConstructorException(std::int32_t l1, std::int32_t l2 = 2) {}
+};
+
+struct NotInConstructorException {
+  explicit NotInConstructorException(std::int32_t l1) {}
+  NotInConstructorException(std::int16_t l1, std::int32_t l2 = 2) {}
 };
 
 void f9(MyInt l1) {}
 
 void test_constructor_exception() {
-  f9(MyInt{s8}); // COMPLIANT
-  MyInt l1{s8};  // COMPLIANT
+  f9(MyInt{s8});                    // COMPLIANT
+  MyInt l1{s8};                     // COMPLIANT
+  f9(MyInt{s8, 10});                // NON_COMPLIANT - not covered by exception
+  MyInt l2{s8, 10};                 // NON_COMPLIANT - not covered by exception
+  ConstructorException l3{s8};      // COMPLIANT
+  NotInConstructorException l4{s8}; // NON_COMPLIANT - ambiguous constructor
 }
 
 template <typename T> struct D {
