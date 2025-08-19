@@ -15,6 +15,7 @@
 import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.misra.BuiltInTypeRules
+import codingstandards.cpp.BinaryOperations
 
 predicate isConstantExpression(Expr e) {
   e instanceof Literal or
@@ -50,91 +51,70 @@ predicate isSignedConstantLeftShiftException(LShiftExpr shift) {
   )
 }
 
-class BinaryShiftOperation extends BinaryOperation {
-  BinaryShiftOperation() {
-    this instanceof LShiftExpr or
-    this instanceof RShiftExpr
-  }
-}
-
-class AssignShiftOperation extends AssignOperation {
-  AssignShiftOperation() {
-    this instanceof AssignLShiftExpr or
-    this instanceof AssignRShiftExpr
-  }
-}
-
 from Expr x, string message
 where
   not isExcluded(x, ConversionsPackage::inappropriateBitwiseOrShiftOperandsQuery()) and
   (
     // Binary bitwise operators (excluding shift operations) - both operands must be unsigned
-    exists(BinaryBitwiseOperation op |
-      not op instanceof BinaryShiftOperation and
-      op = x and
-      not (
-        isUnsignedType(op.getLeftOperand().getExplicitlyConverted().getType()) and
-        isUnsignedType(op.getRightOperand().getExplicitlyConverted().getType())
-      ) and
+    exists(BinaryBitwiseOpOrAssignOp op, Type operandType |
+      not op instanceof BinaryShiftOpOrAssignOp
+    |
+      x = op.getLeftOperand() and
+      operandType = op.getLeftOperand().getExplicitlyConverted().getType() and
+      not isUnsignedType(operandType) and
       message =
-        "Binary bitwise operator '" + op.getOperator() + "' requires both operands to be unsigned."
-    )
-    or
-    // Compound assignment bitwise operators - both operands must be unsigned
-    exists(AssignBitwiseOperation op |
-      not op instanceof AssignShiftOperation and
-      op = x and
-      not (
-        isUnsignedType(op.getLValue().getExplicitlyConverted().getType()) and
-        isUnsignedType(op.getRValue().getExplicitlyConverted().getType())
-      ) and
+        "Bitwise operator '" + op.getOperator() +
+          "' requires unsigned numeric operands, but the left operand has type '" + operandType +
+          "'."
+      or
+      x = op.getRightOperand() and
+      operandType = op.getRightOperand().getExplicitlyConverted().getType() and
+      not isUnsignedType(operandType) and
       message =
-        "Compound assignment bitwise operator '" + op.getOperator() +
-          "' requires both operands to be unsigned."
+        "Bitwise operator '" + op.getOperator() +
+          "' requires unsigned numeric operands, but the right operand has type '" + operandType +
+          "'."
     )
     or
     // Bit complement operator - operand must be unsigned
-    exists(ComplementExpr comp |
-      comp = x and
-      not isUnsignedType(comp.getOperand().getExplicitlyConverted().getType()) and
-      message = "Bit complement operator '~' requires unsigned operand."
+    exists(ComplementExpr comp, Type opType |
+      x = comp.getOperand() and
+      opType = comp.getOperand().getExplicitlyConverted().getType() and
+      not isUnsignedType(opType) and
+      message =
+        "Bit complement operator '~' requires unsigned operand, but has type '" + opType + "'."
     )
     or
     // Shift operators - left operand must be unsigned
-    exists(BinaryShiftOperation shift |
-      shift = x and
-      not isUnsignedType(shift.getLeftOperand().getExplicitlyConverted().getType()) and
+    exists(BinaryShiftOpOrAssignOp shift, Type leftType |
+      x = shift.getLeftOperand() and
+      leftType = shift.getLeftOperand().getExplicitlyConverted().getType() and
+      not isUnsignedType(leftType) and
       not isSignedConstantLeftShiftException(shift) and
-      message = "Shift operator '" + shift.getOperator() + "' requires unsigned left operand."
-    )
-    or
-    // Compound assignment shift operators - left operand must be unsigned
-    exists(AssignShiftOperation shift |
-      shift = x and
-      not isUnsignedType(shift.getLValue().getExplicitlyConverted().getType()) and
-      message = "Shift operator '" + shift.getOperator() + "' requires unsigned left operand."
+      message =
+        "Shift operator '" + shift.getOperator() +
+          "' requires unsigned left operand, but has type '" + leftType + "'."
     )
     or
     // Shift operators - right operand must be unsigned or constant in valid range
-    exists(BinaryShiftOperation shift, Expr right |
-      shift = x and
+    exists(BinaryShiftOpOrAssignOp shift, Expr right, Type rightType, Type leftType |
       right = shift.getRightOperand() and
-      not isUnsignedType(right.getExplicitlyConverted().getType()) and
-      not isValidShiftConstantRange(right, shift.getLeftOperand().getExplicitlyConverted().getType()) and
-      message =
-        "Shift operator '" + shift.getOperator() +
-          "' requires unsigned right operand or constant in valid range."
-    )
-    or
-    // Compound assignment shift operators - right operand must be unsigned or constant in valid range
-    exists(AssignShiftOperation shift, Expr right |
-      shift = x and
-      right = shift.getRValue() and
-      not isUnsignedType(right.getExplicitlyConverted().getType()) and
-      not isValidShiftConstantRange(right, shift.getLValue().getExplicitlyConverted().getType()) and
-      message =
-        "Shift operator '" + shift.getOperator() +
-          "' requires unsigned right operand or constant in valid range."
+      x = right and
+      rightType = right.getExplicitlyConverted().getType() and
+      leftType = shift.getLeftOperand().getExplicitlyConverted().getType()
+    |
+      if exists(right.getValue().toInt())
+      then
+        not isValidShiftConstantRange(right, leftType) and
+        message =
+          "Shift operator '" + shift.getOperator() + "' shifts by " + right.getValue().toInt() +
+            " which is not within the valid range 0.." + ((leftType.getSize() * 8) - 1) + "."
+      else (
+        not isUnsignedType(rightType) and
+        message =
+          "Shift operator '" + shift.getOperator() +
+            "' requires unsigned right operand, but has type '" + rightType + "'."
+      )
     )
   )
 select x, message
