@@ -18,7 +18,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 class ReferenceTypeWithNonConstBaseType extends ReferenceType {
   ReferenceTypeWithNonConstBaseType() { not this.getBaseType().isConst() }
@@ -46,14 +46,16 @@ class ConstMemberFunctionWithRetNonConst extends ConstMemberFunction {
 from ConstMemberFunctionWithRetNonConst fun, Locatable f
 where
   not isExcluded(fun, ConstPackage::constMemberFunctionReturnsNonConstPointerQuery()) and
-  exists(ReturnStmt ret |
+  exists(ReturnStmt ret, DataFlow::Node vaNode, DataFlow::Node retNode |
     ret.getEnclosingFunction() = fun and
+    retNode.asIndirectExpr() = ret.getExpr() and
     (
-      f.(MemberVariable).getDeclaringType() = fun.getDeclaringType() and
-      DataFlow::localExprFlow(f.(MemberVariable).getAnAccess(), ret.getExpr())
+      vaNode.asIndirectExpr() = f.(MemberVariable).getAnAccess() and
+      f.(MemberVariable).getDeclaringType() = fun.getDeclaringType()
       or
-      DataFlow::localExprFlow(f.(ThisExpr), ret.getExpr())
-    )
+      vaNode.asIndirectExpr() = f.(ThisExpr)
+    ) and
+    DataFlow::localFlow(vaNode, retNode)
   )
 select fun, "Const member function returns a " + fun.getReturnTypeCategory() + " to class data $@.",
   f, f.toString()
