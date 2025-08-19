@@ -56,7 +56,7 @@ class IntegerConstantExpr extends FinalExpr {
     or
     result = this.(UnaryPlusExpr).getOperand().getFullyConverted().getValue().toBigInt()
     or
-    result = this.(NotExpr).getOperand().getFullyConverted().getValue().toBigInt().bitNot()
+    result = this.(ComplementExpr).getOperand().getFullyConverted().getValue().toBigInt().bitNot()
     or
     exists(BinaryOperation op, QlBuiltins::BigInt left, QlBuiltins::BigInt right |
       op = this and
