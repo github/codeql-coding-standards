@@ -137,6 +137,10 @@ class NumericType extends Type {
   Type getRealType() { result = realType }
 }
 
+predicate isSignedType(NumericType t) { t.getSignedness() = Signed() }
+
+predicate isUnsignedType(NumericType t) { t.getSignedness() = Unsigned() }
+
 /**
  * One of the 10 canonical integer types, which are the standard integer types.
  */

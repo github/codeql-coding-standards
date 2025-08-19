@@ -16,10 +16,6 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.misra.BuiltInTypeRules
 
-predicate isSignedType(NumericType t) { t.getSignedness() = Signed() }
-
-predicate isUnsignedType(NumericType t) { t.getSignedness() = Unsigned() }
-
 predicate isConstantExpression(Expr e) {
   e instanceof Literal or
   e.isConstant()
