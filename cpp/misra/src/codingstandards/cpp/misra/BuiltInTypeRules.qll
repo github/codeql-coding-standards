@@ -243,8 +243,16 @@ predicate isPreConversionAssignment(Expr source, Type targetType, string context
   exists(SwitchCase case, SwitchStmt switch |
     case.getExpr() = source and
     case.getSwitchStmt() = switch and
-    targetType = switch.getExpr().getFullyConverted().getType() and
     context = "switch case"
+  |
+    if switch.getExpr().(FieldAccess).getTarget() instanceof BitField
+    then
+      // For the MISRA type rules we treat bit fields as a special case
+      targetType = getBitFieldType(switch.getExpr().(FieldAccess).getTarget())
+    else
+      // Regular variable initialization
+      // Get the type of the switch expression, which is the type of the case expression
+      targetType = switch.getExpr().getFullyConverted().getType()
   )
   or
   // Class aggregate literal initialization
