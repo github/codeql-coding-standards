@@ -144,8 +144,8 @@ predicate isUnsignedType(NumericType t) { t.getSignedness() = Unsigned() }
 /**
  * One of the 10 canonical integer types, which are the standard integer types.
  */
-class CanonicalIntegerTypes extends NumericType, IntegralType {
-  CanonicalIntegerTypes() { this = this.getCanonicalArithmeticType() }
+class CanonicalIntegerType extends NumericType, IntegralType {
+  CanonicalIntegerType() { this = this.getCanonicalArithmeticType() }
 }
 
 predicate isAssignment(Expr source, Type targetType, string context) {
@@ -264,14 +264,14 @@ predicate isPreConversionAssignment(Expr source, Type targetType, string context
  *
  * The type is determined by the signedness of the bit field and the number of bits.
  */
-CanonicalIntegerTypes getBitFieldType(BitField bf) {
+CanonicalIntegerType getBitFieldType(BitField bf) {
   exists(NumericType bitfieldActualType |
     bitfieldActualType = bf.getType() and
     // Integral type with the same signedness as the bit field, and big enough to hold the bit field value
     result.getSignedness() = bitfieldActualType.getSignedness() and
     result.getSize() * 8 >= bf.getNumBits() and
     // No smaller integral type can hold the bit field value
-    not exists(CanonicalIntegerTypes other |
+    not exists(CanonicalIntegerType other |
       other.getSize() * 8 >= bf.getNumBits() and
       other.getSignedness() = result.getSignedness()
     |

@@ -145,9 +145,8 @@ class ImpliedIntegerPromotion extends RelevantConversion {
 
   override NumericType getFromType() { result = fromType }
 
-  override NumericType getToType() {
+  override CanonicalIntegerType getToType() {
     // Only report the canonical type - e.g. `int` not `signed int`
-    result = result.(IntegralType).getCanonicalArithmeticType() and
     if result instanceof Char16Type or result instanceof Char32Type or result instanceof Wchar_t
     then
       // Smallest type that can hold the value of the `fromType`
