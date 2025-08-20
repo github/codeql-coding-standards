@@ -1,0 +1,10 @@
+| test.cpp:15:26:15:44 | derivation | Class 'VirtualDerived1' inherits virtually from 'Base'. |
+| test.cpp:21:26:21:44 | derivation | Class 'VirtualDerived2' inherits virtually from 'Base'. |
+| test.cpp:25:26:25:44 | derivation | Class 'VirtualMultiple' inherits virtually from 'Base'. |
+| test.cpp:25:47:25:72 | derivation | Class 'VirtualMultiple' inherits virtually from 'AnotherBase'. |
+| test.cpp:30:32:30:51 | derivation | Class 'PrivateVirtualDerived' inherits virtually from 'Base'. |
+| test.cpp:34:34:34:55 | derivation | Class 'ProtectedVirtualDerived' inherits virtually from 'Base'. |
+| test.cpp:62:22:62:40 | derivation | Class 'DiamondLeft' inherits virtually from 'Base'. |
+| test.cpp:66:23:66:41 | derivation | Class 'DiamondRight' inherits virtually from 'Base'. |
+| test.cpp:78:21:78:39 | derivation | Class 'Level1' inherits virtually from 'Base'. |
+| test.cpp:82:21:82:41 | derivation | Class 'Level2' inherits virtually from 'Level1'. |
