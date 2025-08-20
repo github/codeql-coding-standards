@@ -17,7 +17,13 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.misra.BuiltInTypeRules
 
-abstract class RelevantConversion extends Expr {
+/**
+ * An expression that represents a integral promotion or usual arithmetic conversion.
+ *
+ * Such conversions are usual either explicitly described with a `Cast`, or, in the case
+ * of assign operations, implicitly applied to an lvalue.
+ */
+abstract class IntegerPromotionOrUsualArithmeticConversion extends Expr {
   abstract NumericType getFromType();
 
   abstract NumericType getToType();
@@ -28,13 +34,15 @@ abstract class RelevantConversion extends Expr {
 }
 
 /**
- * A `Conversion` that is relevant for the rule.
+ * A `Cast` which is either an integer promotion or usual arithmetic conversion.
  */
-abstract class RelevantRealConversion extends RelevantConversion, Conversion {
+abstract class IntegerPromotionOrUsualArithmeticConversionAsCast extends IntegerPromotionOrUsualArithmeticConversion,
+  Cast
+{
   NumericType fromType;
   NumericType toType;
 
-  RelevantRealConversion() {
+  IntegerPromotionOrUsualArithmeticConversionAsCast() {
     fromType = this.getExpr().getType() and
     toType = this.getType() and
     this.isImplicit()
@@ -47,7 +55,7 @@ abstract class RelevantRealConversion extends RelevantConversion, Conversion {
   override Expr getConvertedExpr() { result = this.getExpr() }
 }
 
-class UsualArithmeticConversion extends RelevantRealConversion {
+class UsualArithmeticConversion extends IntegerPromotionOrUsualArithmeticConversionAsCast {
   UsualArithmeticConversion() {
     (
       // Most binary operations from and to numeric types participate in usual arithmetic conversions
@@ -72,9 +80,11 @@ class UsualArithmeticConversion extends RelevantRealConversion {
   override string getKindOfConversion() { result = "Usual arithmetic conversion" }
 }
 
-class IntegerPromotion extends RelevantRealConversion {
+class IntegerPromotion extends IntegerPromotionOrUsualArithmeticConversionAsCast {
   IntegerPromotion() {
-    // Exclude integer promotions combined with usual arithmetic conversions, which are handled separately
+    // In the case where a conversion involves both an integer promotion and a usual arithmetic conversion
+    // we only get a single `Conversion` which combines both. According to the rule, only the "final" type
+    // should be consider, so we handle these combined conversions as `UsualArithmeticConversion`s instead.
     not this instanceof UsualArithmeticConversion and
     // Only consider cases where the integer promotion is the last conversion applied
     exists(Expr e | e.getFullyConverted() = this) and
@@ -94,7 +104,7 @@ class IntegerPromotion extends RelevantRealConversion {
   override string getKindOfConversion() { result = "Integer promotion" }
 }
 
-class ImpliedUsualArithmeticConversion extends RelevantConversion {
+class ImpliedUsualArithmeticConversion extends IntegerPromotionOrUsualArithmeticConversion {
   NumericType fromType;
   NumericType toType;
 
@@ -128,7 +138,7 @@ class ImpliedUsualArithmeticConversion extends RelevantConversion {
   override string getKindOfConversion() { result = "Usual arithmetic conversion" }
 }
 
-class ImpliedIntegerPromotion extends RelevantConversion {
+class ImpliedIntegerPromotion extends IntegerPromotionOrUsualArithmeticConversion {
   NumericType fromType;
 
   ImpliedIntegerPromotion() {
@@ -136,7 +146,9 @@ class ImpliedIntegerPromotion extends RelevantConversion {
       exists(AssignLShiftExpr aop | aop.getLValue() = this) or
       exists(AssignRShiftExpr aop | aop.getLValue() = this)
     ) and
-    // Only consider integer promotions from MISRA C++ "numeric types" as per the rule
+    // The rule applies to integer promotions from and to MISRA C++ numeric types
+    // However, you cannot have an integer promotion on a float, so we restrict
+    // this to integral types only
     fromType = this.getType() and
     fromType.getTypeCategory() = Integral() and
     // If the size is less than int, then it is an implied integer promotion
@@ -184,7 +196,9 @@ class ImpliedIntegerPromotion extends RelevantConversion {
   override string getKindOfConversion() { result = "Integer promotion" }
 }
 
-from Expr e, RelevantConversion c, NumericType fromType, NumericType toType, string changeType
+from
+  Expr e, IntegerPromotionOrUsualArithmeticConversion c, NumericType fromType, NumericType toType,
+  string changeType
 where
   not isExcluded(e, ConversionsPackage::noSignednessChangeFromPromotionQuery()) and
   c.getConvertedExpr() = e and
