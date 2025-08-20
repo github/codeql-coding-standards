@@ -148,12 +148,16 @@ predicate isUnsignedType(NumericType t) { t.getSignedness() = Unsigned() }
  * Where multiple canonical arithmetic types exist for a given size/signedness combination, we
  * prefer the type with the shortest name.
  */
-class CanonicalIntegerNumericType extends NumericType, CanonicalIntegralType {
+class CanonicalIntegerNumericType extends NumericType {
   CanonicalIntegerNumericType() {
     // Where multiple types exist with the same size and signedness, prefer shorter names - mainly
     // to disambiguate between `unsigned long` and `unsigned long long` on platforms where they
     // are the same size
-    this.isMinimal()
+    this.(CanonicalIntegralType).isMinimal()
+    or
+    // `signed char` is not considered a canonical type (`char` is), but `char` is not a MISRA numeric
+    // type, so we need to reintroduce `signed char` here.
+    this instanceof SignedCharType
   }
 }
 

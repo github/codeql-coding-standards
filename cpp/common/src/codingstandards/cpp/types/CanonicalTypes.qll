@@ -12,6 +12,11 @@ class CanonicalIntegralType extends IntegralType {
   predicate isMinimal() {
     not exists(CanonicalIntegralType other |
       other.getSize() = this.getSize() and
+      (
+        other.isSigned() and this.isSigned()
+        or
+        other.isUnsigned() and this.isUnsigned()
+      ) and
       other.getName().length() < this.getName().length()
     )
   }
