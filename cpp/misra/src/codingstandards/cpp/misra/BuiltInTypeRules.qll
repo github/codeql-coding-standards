@@ -6,6 +6,7 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.Call
 import codingstandards.cpp.Type
+import codingstandards.cpp.types.CanonicalTypes
 
 /**
  * A MISRA C++ 2023 type category.
@@ -142,10 +143,18 @@ predicate isSignedType(NumericType t) { t.getSignedness() = Signed() }
 predicate isUnsignedType(NumericType t) { t.getSignedness() = Unsigned() }
 
 /**
- * One of the 10 canonical integer types, which are the standard integer types.
+ * A canonical integer type for each unique size and signedness combination.
+ *
+ * Where multiple canonical arithmetic types exist for a given size/signedness combination, we
+ * prefer the type with the shortest name.
  */
-class CanonicalIntegerType extends NumericType, IntegralType {
-  CanonicalIntegerType() { this = this.getCanonicalArithmeticType() }
+class CanonicalIntegerNumericType extends NumericType, CanonicalIntegralType {
+  CanonicalIntegerNumericType() {
+    // Where multiple types exist with the same size and signedness, prefer shorter names - mainly
+    // to disambiguate between `unsigned long` and `unsigned long long` on platforms where they
+    // are the same size
+    this.isMinimal()
+  }
 }
 
 predicate isAssignment(Expr source, Type targetType, string context) {
@@ -264,24 +273,18 @@ predicate isPreConversionAssignment(Expr source, Type targetType, string context
  *
  * The type is determined by the signedness of the bit field and the number of bits.
  */
-CanonicalIntegerType getBitFieldType(BitField bf) {
+CanonicalIntegerNumericType getBitFieldType(BitField bf) {
   exists(NumericType bitfieldActualType |
     bitfieldActualType = bf.getType() and
     // Integral type with the same signedness as the bit field, and big enough to hold the bit field value
     result.getSignedness() = bitfieldActualType.getSignedness() and
     result.getSize() * 8 >= bf.getNumBits() and
     // No smaller integral type can hold the bit field value
-    not exists(CanonicalIntegerType other |
+    not exists(CanonicalIntegerNumericType other |
       other.getSize() * 8 >= bf.getNumBits() and
       other.getSignedness() = result.getSignedness()
     |
       other.getSize() < result.getRealSize()
-      or
-      // Where multiple types exist with the same size and signedness, prefer shorter names - mainly
-      // to disambiguate between `unsigned long` and `unsigned long long` on platforms where they
-      // are the same size
-      other.getSize() = result.getRealSize() and
-      other.getName().length() < result.getName().length()
     )
   )
 }

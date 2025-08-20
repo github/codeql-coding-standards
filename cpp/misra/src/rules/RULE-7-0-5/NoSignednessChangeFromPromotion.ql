@@ -145,7 +145,7 @@ class ImpliedIntegerPromotion extends RelevantConversion {
 
   override NumericType getFromType() { result = fromType }
 
-  override CanonicalIntegerType getToType() {
+  override CanonicalIntegerNumericType getToType() {
     // Only report the canonical type - e.g. `int` not `signed int`
     if result instanceof Char16Type or result instanceof Char32Type or result instanceof Wchar_t
     then
