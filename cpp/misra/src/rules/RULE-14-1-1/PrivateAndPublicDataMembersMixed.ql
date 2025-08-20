@@ -8,7 +8,7 @@
  * @problem.severity warning
  * @tags external/misra/id/rule-14-1-1
  *       scope/single-translation-unit
- *       maintanability
+ *       maintainability
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/advisory
  */

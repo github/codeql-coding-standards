@@ -8,10 +8,10 @@
 class CompliantClass {
 public:
   CompliantClass() = default;
-  CompliantClass(CompliantClass const &);                  // COMPLIANT
-  CompliantClass(CompliantClass &&) noexcept;              // COMPLIANT
-  CompliantClass &operator=(CompliantClass const &) &;     // COMPLIANT
-  CompliantClass &operator=(CompliantClass &&) & noexcept; // COMPLIANT
+  CompliantClass(CompliantClass const &);                 // COMPLIANT
+  CompliantClass(CompliantClass &&) noexcept;             // COMPLIANT
+  CompliantClass &operator=(CompliantClass const &) &;    // COMPLIANT
+  CompliantClass &operator=(CompliantClass &&) &noexcept; // COMPLIANT
 };
 
 class CompliantWithAlternatives {
@@ -22,9 +22,9 @@ public:
   explicit constexpr CompliantWithAlternatives(
       CompliantWithAlternatives &&) noexcept; // COMPLIANT
   constexpr CompliantWithAlternatives &
-  operator=(const CompliantWithAlternatives &) & noexcept; // COMPLIANT
+  operator=(const CompliantWithAlternatives &) &noexcept; // COMPLIANT
   constexpr CompliantWithAlternatives &
-  operator=(CompliantWithAlternatives &&) & noexcept; // COMPLIANT
+  operator=(CompliantWithAlternatives &&) &noexcept; // COMPLIANT
 };
 
 class CompliantVoidReturn {
@@ -35,7 +35,7 @@ public:
   void
   operator=(CompliantVoidReturn const &) &; // COMPLIANT - void return allowed
   void operator=(
-      CompliantVoidReturn &&) & noexcept; // COMPLIANT - void return allowed
+      CompliantVoidReturn &&) &noexcept; // COMPLIANT - void return allowed
 };
 
 // Non-compliant examples
@@ -146,10 +146,10 @@ public:
 struct CompliantStruct {
 public:
   CompliantStruct() = default;
-  CompliantStruct(CompliantStruct const &);                  // COMPLIANT
-  CompliantStruct(CompliantStruct &&) noexcept;              // COMPLIANT
-  CompliantStruct &operator=(CompliantStruct const &) &;     // COMPLIANT
-  CompliantStruct &operator=(CompliantStruct &&) & noexcept; // COMPLIANT
+  CompliantStruct(CompliantStruct const &);                 // COMPLIANT
+  CompliantStruct(CompliantStruct &&) noexcept;             // COMPLIANT
+  CompliantStruct &operator=(CompliantStruct const &) &;    // COMPLIANT
+  CompliantStruct &operator=(CompliantStruct &&) &noexcept; // COMPLIANT
 };
 
 struct NonCompliantStruct {

@@ -59,7 +59,7 @@
           "short_name": "PrivateAndPublicDataMembersMixed",
           "tags": [
             "scope/single-translation-unit",
-            "maintanability"
+            "maintainability"
           ]
         }
       ],
