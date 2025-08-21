@@ -119,10 +119,10 @@ void test_user_defined_operators() {
   l1 % l4; // NON_COMPLIANT - different type
   l1 % l5; // NON_COMPLIANT - different signedness
 
-  l1 & l2; // COMPLIANT - exact type match
-  l1 & l3; // COMPLIANT - widening conversion is allowed
-  l1 & l4; // NON_COMPLIANT - different type
-  l1 & l5; // NON_COMPLIANT - different signedness
+  l1 &l2; // COMPLIANT - exact type match
+  l1 &l3; // COMPLIANT - widening conversion is allowed
+  l1 &l4; // NON_COMPLIANT - different type
+  l1 &l5; // NON_COMPLIANT - different signedness
 
   l1 | l2; // COMPLIANT - exact type match
   l1 | l3; // COMPLIANT - widening conversion is allowed

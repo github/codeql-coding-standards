@@ -24,7 +24,7 @@ void test_binary_arithmetic_operations() {
   l1 - l2; // NON_COMPLIANT - u8 - u8 -> signed int
   l1 / l2; // NON_COMPLIANT - u8 / u8 -> signed int
   l1 % l2; // NON_COMPLIANT - u8 % u8 -> signed int
-  l1 & l2; // NON_COMPLIANT - u8 & u8 -> signed int
+  l1 &l2; // NON_COMPLIANT - u8 & u8 -> signed int
   l1 | l2; // NON_COMPLIANT - u8 | u8 -> signed int
   l1 ^ l2; // NON_COMPLIANT - u8 ^ u8 -> signed int
 
@@ -166,7 +166,7 @@ void test_mixed_signed_unsigned_arithmetic() {
   l1 *l2;  // NON_COMPLIANT - l1 and l2 -> signed int
   l1 / l2; // NON_COMPLIANT - l1 and l2 -> signed int
   l1 % l2; // NON_COMPLIANT - l1 and l2 -> signed int
-  l1 & l2; // NON_COMPLIANT - l1 and l2 -> signed int
+  l1 &l2; // NON_COMPLIANT - l1 and l2 -> signed int
   l1 | l2; // NON_COMPLIANT - l1 and l2 -> signed int
   l1 ^ l2; // NON_COMPLIANT - l1 and l2 -> signed int
 
@@ -264,12 +264,12 @@ void test_enum_types() {
   // type
   l1 + l2; // COMPLIANT - rule does not apply
   l1 *l2;  // COMPLIANT - rule does not apply
-  l1 & l2; // COMPLIANT - rule does not apply
+  l1 &l2; // COMPLIANT - rule does not apply
 
   // Unscoped enum with explicit underlying type - considered numeric type
   l3 + l4; // NON_COMPLIANT - uint8_t + uint8_t -> signed int
   l3 *l4;  // NON_COMPLIANT - uint8_t * uint8_t -> signed int
-  l3 & l4; // NON_COMPLIANT - uint8_t & uint8_t -> signed int
+  l3 &l4; // NON_COMPLIANT - uint8_t & uint8_t -> signed int
   l3 - l4; // NON_COMPLIANT - uint8_t - uint8_t -> signed int
   l3 | l4; // NON_COMPLIANT - uint8_t | uint8_t -> signed int
   l3 ^ l4; // NON_COMPLIANT - uint8_t ^ uint8_t -> signed int
