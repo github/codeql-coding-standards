@@ -8,7 +8,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import semmle.code.cpp.security.BufferWrite
 import semmle.code.cpp.commons.Buffer
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 
 abstract class BasicStringMayNotBeNullTerminatedSharedQuery extends Query { }
@@ -39,8 +39,13 @@ query predicate problems(BasicStringConstructorCall cc, string message) {
     // a) is not a string literal
     not arg instanceof StringLiteral and
     // b) may exist in a dataflow from an unsafe usage of a string function
-    exists(PossiblyUnsafeStringOperation op |
-      TaintTracking::localTaint(DataFlow::exprNode(op.getAnArgument()), DataFlow::exprNode(arg))
+    exists(
+      PossiblyUnsafeStringOperation op, DataFlow::DefinitionByReferenceNode opNode,
+      DataFlow::Node argNode
+    |
+      opNode.asDefiningArgument() = op.getAnArgument() and argNode.asIndirectExpr() = arg
+    |
+      TaintTracking::localTaint(opNode, argNode)
     ) and
     message = "Construction of string object with possibly non-null terminated C-style string."
   )
