@@ -3,9 +3,7 @@
 struct S {};
 class C {};
 
-void *g1 = nullptr;
-S *g2 = nullptr;
-const int *g3 = nullptr;
+S *g1 = nullptr;
 
 using hashPtr_t = std::uintptr_t;
 using MyIntPtr = std::intptr_t;
@@ -64,7 +62,9 @@ void test_non_compliant_using_alias_cast() {
 
 template <typename T> void test_non_compliant_template_cast() {
   S *l1 = nullptr;
-  auto l2 = reinterpret_cast<T>(l1); // NON_COMPLIANT
+  auto l2 = reinterpret_cast<T>(l1);              // NON_COMPLIANT
+  auto l3 = reinterpret_cast<std::uintptr_t>(l1); // COMPLIANT
+  auto l4 = reinterpret_cast<std::uint64_t>(l1);  // NON_COMPLIANT
 }
 
 void test_non_compliant_uint64_t_cast() {
@@ -77,6 +77,21 @@ void test_non_compliant_int64_t_cast() {
   auto l2 = reinterpret_cast<std::int64_t>(l1); // NON_COMPLIANT
 }
 
+template <typename T> class TestNonCompliantTemplateCast {
+public:
+  TestNonCompliantTemplateCast() {
+    S *l1 = nullptr;
+    auto l2 = reinterpret_cast<T>(l1);              // NON_COMPLIANT
+    auto l3 = reinterpret_cast<std::uintptr_t>(l1); // COMPLIANT
+    auto l4 = reinterpret_cast<std::uint64_t>(l1);  // NON_COMPLIANT
+  }
+};
+
+template <class T>
+T variable_template = reinterpret_cast<T>(g1); // NON_COMPLIANT
+
 void test_instantiate_template() {
   test_non_compliant_template_cast<std::uintptr_t>();
+  TestNonCompliantTemplateCast<std::uintptr_t> x{};
+  variable_template<std::uintptr_t>;
 }
