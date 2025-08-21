@@ -22,7 +22,7 @@ newtype TypeCategory =
  *
  * This does not apply the rules related to stripping specifiers or typedefs, or references.
  */
-TypeCategory getTypeCategory(BuiltInType t) {
+private TypeCategory getBuiltInTypeCategory(BuiltInType t) {
   (
     t instanceof PlainCharType or
     t instanceof WideCharType or
@@ -64,7 +64,7 @@ TypeCategory getTypeCategory(BuiltInType t) {
  *
  * This function will strip specifiers and typedefs to get the underlying built-in type.
  */
-BuiltInType getBuiltInType(Type t) {
+private BuiltInType getBuiltInType(Type t) {
   // Get the built-in type of a type, if it is a built-in type
   result = t
   or
@@ -87,15 +87,15 @@ newtype Signedness =
 
 class CharacterType extends Type {
   // The actual character type, which is either a plain char or a wide char
-  BuiltInType realType;
+  BuiltInType builtInType;
 
   CharacterType() {
     // A type whose type category is character
-    getTypeCategory(realType) = Character() and
-    realType = getBuiltInType(this)
+    getBuiltInTypeCategory(builtInType) = Character() and
+    builtInType = getBuiltInType(this)
   }
 
-  Type getRealType() { result = realType }
+  BuiltInType getRealType() { result = builtInType }
 }
 
 /**
@@ -108,34 +108,34 @@ class CharacterType extends Type {
  */
 class NumericType extends Type {
   // The actual numeric type, which is either an integral or a floating-point type.
-  Type realType;
+  BuiltInType builtInType;
 
   NumericType() {
     // A type whose type category is either integral or a floating-point
-    getTypeCategory(realType) = [Integral().(TypeCategory), FloatingPoint()] and
-    realType = getBuiltInType(this)
+    getBuiltInTypeCategory(builtInType) = [Integral().(TypeCategory), FloatingPoint()] and
+    builtInType = getBuiltInType(this)
   }
 
   Signedness getSignedness() {
-    if realType.(IntegralType).isUnsigned() then result = Unsigned() else result = Signed()
+    if builtInType.(IntegralType).isUnsigned() then result = Unsigned() else result = Signed()
   }
 
   /** Gets the size of the actual numeric type. */
-  int getRealSize() { result = realType.getSize() }
+  int getRealSize() { result = builtInType.getSize() }
 
-  TypeCategory getTypeCategory() { result = getTypeCategory(realType) }
+  TypeCategory getTypeCategory() { result = getBuiltInTypeCategory(builtInType) }
 
   /**
    * Gets the integeral upper bound of the numeric type, if it represents an integer type.
    */
-  QlBuiltins::BigInt getIntegralUpperBound() { integralTypeBounds(realType, _, result) }
+  QlBuiltins::BigInt getIntegralUpperBound() { integralTypeBounds(builtInType, _, result) }
 
   /**
    * Gets the integeral lower bound of the numeric type, if it represents an integer type.
    */
-  QlBuiltins::BigInt getIntegralLowerBound() { integralTypeBounds(realType, result, _) }
+  QlBuiltins::BigInt getIntegralLowerBound() { integralTypeBounds(builtInType, result, _) }
 
-  Type getRealType() { result = realType }
+  BuiltInType getRealType() { result = builtInType }
 }
 
 predicate isSignedType(NumericType t) { t.getSignedness() = Signed() }
