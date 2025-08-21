@@ -23,15 +23,18 @@ where
   targetType = c.getType() and
   (
     // Conversion from character type to non-character type
-    sourceType instanceof CharacterType and
-    not targetType instanceof CharacterType
+    sourceType instanceof MisraCpp23BuiltInTypes::CharacterType and
+    not targetType instanceof MisraCpp23BuiltInTypes::CharacterType
     or
     // Conversion from non-character type to character type
-    not sourceType instanceof CharacterType and
-    targetType instanceof CharacterType
+    not sourceType instanceof MisraCpp23BuiltInTypes::CharacterType and
+    targetType instanceof MisraCpp23BuiltInTypes::CharacterType
   ) and
   // Exclude conversions where both operands have the same character type in equality operations
-  not exists(EqualityOperation eq, CharacterType leftType, CharacterType rightType |
+  not exists(
+    EqualityOperation eq, MisraCpp23BuiltInTypes::CharacterType leftType,
+    MisraCpp23BuiltInTypes::CharacterType rightType
+  |
     eq.getAnOperand() = expr and
     leftType = eq.getLeftOperand().getType() and
     rightType = eq.getRightOperand().getType() and

@@ -32,15 +32,15 @@ predicate isValidShiftConstantRange(Expr right, Type leftType) {
 
 predicate isSignedConstantLeftShiftException(LShiftExpr shift) {
   exists(
-    Expr left, Expr right, NumericType leftType, QlBuiltins::BigInt leftVal, int rightVal,
-    int maxBit
+    Expr left, Expr right, MisraCpp23BuiltInTypes::NumericType leftType, QlBuiltins::BigInt leftVal,
+    int rightVal, int maxBit
   |
     left = shift.getLeftOperand() and
     right = shift.getRightOperand() and
     leftType = left.getType() and
     isConstantExpression(left) and
     isConstantExpression(right) and
-    isSignedType(leftType) and
+    MisraCpp23BuiltInTypes::isSignedType(leftType) and
     isValidShiftConstantRange(right, leftType) and
     leftVal = left.getValue().toBigInt() and
     rightVal = right.getValue().toInt() and
@@ -61,7 +61,7 @@ where
     |
       x = op.getLeftOperand() and
       operandType = op.getLeftOperand().getExplicitlyConverted().getType() and
-      not isUnsignedType(operandType) and
+      not MisraCpp23BuiltInTypes::isUnsignedType(operandType) and
       message =
         "Bitwise operator '" + op.getOperator() +
           "' requires unsigned numeric operands, but the left operand has type '" + operandType +
@@ -69,7 +69,7 @@ where
       or
       x = op.getRightOperand() and
       operandType = op.getRightOperand().getExplicitlyConverted().getType() and
-      not isUnsignedType(operandType) and
+      not MisraCpp23BuiltInTypes::isUnsignedType(operandType) and
       message =
         "Bitwise operator '" + op.getOperator() +
           "' requires unsigned numeric operands, but the right operand has type '" + operandType +
@@ -80,7 +80,7 @@ where
     exists(ComplementExpr comp, Type opType |
       x = comp.getOperand() and
       opType = comp.getOperand().getExplicitlyConverted().getType() and
-      not isUnsignedType(opType) and
+      not MisraCpp23BuiltInTypes::isUnsignedType(opType) and
       message =
         "Bit complement operator '~' requires unsigned operand, but has type '" + opType + "'."
     )
@@ -89,7 +89,7 @@ where
     exists(BinaryShiftOpOrAssignOp shift, Type leftType |
       x = shift.getLeftOperand() and
       leftType = shift.getLeftOperand().getExplicitlyConverted().getType() and
-      not isUnsignedType(leftType) and
+      not MisraCpp23BuiltInTypes::isUnsignedType(leftType) and
       not isSignedConstantLeftShiftException(shift) and
       message =
         "Shift operator '" + shift.getOperator() +
@@ -110,7 +110,7 @@ where
           "Shift operator '" + shift.getOperator() + "' shifts by " + right.getValue().toInt() +
             " which is not within the valid range 0.." + ((leftType.getSize() * 8) - 1) + "."
       else (
-        not isUnsignedType(rightType) and
+        not MisraCpp23BuiltInTypes::isUnsignedType(rightType) and
         message =
           "Shift operator '" + shift.getOperator() +
             "' requires unsigned right operand, but has type '" + rightType + "'."

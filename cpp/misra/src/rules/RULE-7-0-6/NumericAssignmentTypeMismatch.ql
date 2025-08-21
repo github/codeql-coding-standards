@@ -19,14 +19,16 @@ import codingstandards.cpp.ConstantExpressions
 import codingstandards.cpp.misra.BuiltInTypeRules
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
-predicate isValidConstantAssignment(IntegerConstantExpr source, NumericType targetType) {
-  isAssignment(source, targetType, _) and
+predicate isValidConstantAssignment(
+  IntegerConstantExpr source, MisraCpp23BuiltInTypes::NumericType targetType
+) {
+  MisraCpp23BuiltInTypes::isAssignment(source, targetType, _) and
   exists(QlBuiltins::BigInt val | val = source.getConstantValue() |
     // Bit field assignment: check if the value fits in the bit field
     exists(BitField bf, int numBits |
       isAssignedToBitfield(source, bf) and
       numBits = bf.getNumBits() and
-      if targetType.getSignedness() = Signed()
+      if targetType.getSignedness() = MisraCpp23BuiltInTypes::Signed()
       then
         // Signed bit field: value must be in the range of signed bit field
         val >= -2.toBigInt().pow(numBits - 1) and
@@ -46,14 +48,16 @@ predicate isValidConstantAssignment(IntegerConstantExpr source, NumericType targ
       val <= targetType.getIntegralUpperBound()
       or
       // All floating point types can represent all integer values
-      targetType.getTypeCategory() = FloatingPoint()
+      targetType.getTypeCategory() = MisraCpp23BuiltInTypes::FloatingPoint()
     )
   )
 }
 
 bindingset[sourceType, targetType]
 pragma[inline_late]
-predicate isValidTypeMatch(NumericType sourceType, NumericType targetType) {
+predicate isValidTypeMatch(
+  MisraCpp23BuiltInTypes::NumericType sourceType, MisraCpp23BuiltInTypes::NumericType targetType
+) {
   // Same type category, signedness and size
   sourceType.getTypeCategory() = targetType.getTypeCategory() and
   sourceType.getSignedness() = targetType.getSignedness() and
@@ -78,7 +82,7 @@ predicate hasConstructorException(FunctionCall call) {
     call.getTarget() = ctor and
     c = ctor.getDeclaringType() and
     // Constructor callable with single numeric argument
-    ctor.getParameter(0).getType() instanceof NumericType and
+    ctor.getParameter(0).getType() instanceof MisraCpp23BuiltInTypes::NumericType and
     // No other single-argument constructors except copy/move
     not exists(CallableWithASingleArgumentConstructor other |
       other.getDeclaringType() = c and
@@ -108,8 +112,11 @@ class IdExpression extends VariableAccess {
   }
 }
 
-predicate isValidWidening(Expr source, NumericType sourceType, NumericType targetType) {
-  isAssignment(source, targetType, _) and
+predicate isValidWidening(
+  Expr source, MisraCpp23BuiltInTypes::NumericType sourceType,
+  MisraCpp23BuiltInTypes::NumericType targetType
+) {
+  MisraCpp23BuiltInTypes::isAssignment(source, targetType, _) and
   source.getType() = sourceType and
   // Same type category and signedness, source size smaller, source is id-expression or has constructor exception
   (
@@ -177,7 +184,7 @@ predicate isOverloadIndependent(Call call, Expr arg) {
 predicate shouldHaveSameType(Expr source) {
   exists(Call call |
     call.getAnArgument().getExplicitlyConverted() = source and
-    isAssignment(source, _, _) and
+    MisraCpp23BuiltInTypes::isAssignment(source, _, _) and
     not hasConstructorException(call)
   |
     not isOverloadIndependent(call, source)
@@ -192,9 +199,11 @@ predicate shouldHaveSameType(Expr source) {
   )
 }
 
-predicate isValidAssignment(Expr source, NumericType targetType, string context) {
-  isAssignment(source, targetType, context) and
-  exists(NumericType sourceType | sourceType = source.getType() |
+predicate isValidAssignment(
+  Expr source, MisraCpp23BuiltInTypes::NumericType targetType, string context
+) {
+  MisraCpp23BuiltInTypes::isAssignment(source, targetType, context) and
+  exists(MisraCpp23BuiltInTypes::NumericType sourceType | sourceType = source.getType() |
     if shouldHaveSameType(source)
     then sourceType.isSameType(targetType)
     else (
@@ -210,10 +219,12 @@ predicate isValidAssignment(Expr source, NumericType targetType, string context)
   )
 }
 
-from Expr source, NumericType sourceType, NumericType targetType, string context
+from
+  Expr source, MisraCpp23BuiltInTypes::NumericType sourceType,
+  MisraCpp23BuiltInTypes::NumericType targetType, string context
 where
   not isExcluded(source, ConversionsPackage::numericAssignmentTypeMismatchQuery()) and
-  isAssignment(source, targetType, context) and
+  MisraCpp23BuiltInTypes::isAssignment(source, targetType, context) and
   // The assignment must be between numeric types
   sourceType = source.getType() and
   not isValidAssignment(source, targetType, context)

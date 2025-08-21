@@ -24,9 +24,9 @@ import codingstandards.cpp.misra.BuiltInTypeRules
  * of assign operations, implicitly applied to an lvalue.
  */
 abstract class IntegerPromotionOrUsualArithmeticConversion extends Expr {
-  abstract NumericType getFromType();
+  abstract MisraCpp23BuiltInTypes::NumericType getFromType();
 
-  abstract NumericType getToType();
+  abstract MisraCpp23BuiltInTypes::NumericType getToType();
 
   abstract Expr getConvertedExpr();
 
@@ -39,8 +39,8 @@ abstract class IntegerPromotionOrUsualArithmeticConversion extends Expr {
 abstract class IntegerPromotionOrUsualArithmeticConversionAsCast extends IntegerPromotionOrUsualArithmeticConversion,
   Cast
 {
-  NumericType fromType;
-  NumericType toType;
+  MisraCpp23BuiltInTypes::NumericType fromType;
+  MisraCpp23BuiltInTypes::NumericType toType;
 
   IntegerPromotionOrUsualArithmeticConversionAsCast() {
     fromType = this.getExpr().getType() and
@@ -48,9 +48,9 @@ abstract class IntegerPromotionOrUsualArithmeticConversionAsCast extends Integer
     this.isImplicit()
   }
 
-  override NumericType getFromType() { result = fromType }
+  override MisraCpp23BuiltInTypes::NumericType getFromType() { result = fromType }
 
-  override NumericType getToType() { result = toType }
+  override MisraCpp23BuiltInTypes::NumericType getToType() { result = toType }
 
   override Expr getConvertedExpr() { result = this.getExpr() }
 }
@@ -97,16 +97,16 @@ class IntegerPromotion extends IntegerPromotionOrUsualArithmeticConversionAsCast
     // This deliberately excludes integer promotions from `bool` and unscoped enums which do not
     // have a fixed underlying type, because neither of these are considered integral types in the
     // MISRA C++ rules.
-    fromType.getTypeCategory() = Integral() and
-    toType.getTypeCategory() = Integral()
+    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::Integral() and
+    toType.getTypeCategory() = MisraCpp23BuiltInTypes::Integral()
   }
 
   override string getKindOfConversion() { result = "Integer promotion" }
 }
 
 class ImpliedUsualArithmeticConversion extends IntegerPromotionOrUsualArithmeticConversion {
-  NumericType fromType;
-  NumericType toType;
+  MisraCpp23BuiltInTypes::NumericType fromType;
+  MisraCpp23BuiltInTypes::NumericType toType;
 
   ImpliedUsualArithmeticConversion() {
     // The lvalue of an assignment operation does not have a `Conversion` in our model, but
@@ -129,9 +129,9 @@ class ImpliedUsualArithmeticConversion extends IntegerPromotionOrUsualArithmetic
     )
   }
 
-  override NumericType getFromType() { result = fromType }
+  override MisraCpp23BuiltInTypes::NumericType getFromType() { result = fromType }
 
-  override NumericType getToType() { result = toType }
+  override MisraCpp23BuiltInTypes::NumericType getToType() { result = toType }
 
   override Expr getConvertedExpr() { result = this }
 
@@ -139,7 +139,7 @@ class ImpliedUsualArithmeticConversion extends IntegerPromotionOrUsualArithmetic
 }
 
 class ImpliedIntegerPromotion extends IntegerPromotionOrUsualArithmeticConversion {
-  NumericType fromType;
+  MisraCpp23BuiltInTypes::NumericType fromType;
 
   ImpliedIntegerPromotion() {
     (
@@ -150,20 +150,20 @@ class ImpliedIntegerPromotion extends IntegerPromotionOrUsualArithmeticConversio
     // However, you cannot have an integer promotion on a float, so we restrict
     // this to integral types only
     fromType = this.getType() and
-    fromType.getTypeCategory() = Integral() and
+    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::Integral() and
     // If the size is less than int, then it is an implied integer promotion
     fromType.getBuiltInSize() < sizeOfInt()
   }
 
-  override NumericType getFromType() { result = fromType }
+  override MisraCpp23BuiltInTypes::NumericType getFromType() { result = fromType }
 
-  override CanonicalIntegerNumericType getToType() {
+  override MisraCpp23BuiltInTypes::CanonicalIntegerNumericType getToType() {
     // Only report the canonical type - e.g. `int` not `signed int`
     if result instanceof Char16Type or result instanceof Char32Type or result instanceof Wchar_t
     then
       // Smallest type that can hold the value of the `fromType`
       result =
-        min(NumericType candidateType |
+        min(MisraCpp23BuiltInTypes::NumericType candidateType |
           (
             candidateType instanceof IntType or
             candidateType instanceof LongType or
@@ -176,12 +176,14 @@ class ImpliedIntegerPromotion extends IntegerPromotionOrUsualArithmeticConversio
     else (
       if
         // If the `fromType` is signed, the result must be signed
-        fromType.getSignedness() = Signed()
+        fromType.getSignedness() = MisraCpp23BuiltInTypes::Signed()
         or
         // If the `fromType` is unsigned, but the result can fit into the signed int type, then the
         // result must be signed as well.
         fromType.getIntegralUpperBound() <=
-          any(IntType t | t.isSigned()).(NumericType).getIntegralUpperBound()
+          any(IntType t | t.isSigned())
+              .(MisraCpp23BuiltInTypes::NumericType)
+              .getIntegralUpperBound()
       then
         // `int` is returned
         result.(IntType).isSigned()
@@ -197,7 +199,8 @@ class ImpliedIntegerPromotion extends IntegerPromotionOrUsualArithmeticConversio
 }
 
 from
-  Expr e, IntegerPromotionOrUsualArithmeticConversion c, NumericType fromType, NumericType toType,
+  Expr e, IntegerPromotionOrUsualArithmeticConversion c,
+  MisraCpp23BuiltInTypes::NumericType fromType, MisraCpp23BuiltInTypes::NumericType toType,
   string changeType
 where
   not isExcluded(e, ConversionsPackage::noSignednessChangeFromPromotionQuery()) and
@@ -220,8 +223,8 @@ where
   // Exception 2: allow safe conversions from integral to floating-point types
   not (
     e.isConstant() and
-    fromType.getTypeCategory() = Integral() and
-    toType.getTypeCategory() = FloatingPoint()
+    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::Integral() and
+    toType.getTypeCategory() = MisraCpp23BuiltInTypes::FloatingPoint()
   )
 select e,
   c.getKindOfConversion() + " from '" + fromType.getName() + "' to '" + toType.getName() +
