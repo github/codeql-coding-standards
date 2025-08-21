@@ -48,7 +48,7 @@ predicate isValidConstantAssignment(
       val <= targetType.getIntegralUpperBound()
       or
       // All floating point types can represent all integer values
-      targetType.getTypeCategory() = MisraCpp23BuiltInTypes::FloatingPoint()
+      targetType.getTypeCategory() = MisraCpp23BuiltInTypes::FloatingPointTypeCategory()
     )
   )
 }

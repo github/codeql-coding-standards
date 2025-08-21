@@ -13,10 +13,10 @@ module MisraCpp23BuiltInTypes {
    * A MISRA C++ 2023 type category.
    */
   newtype TypeCategory =
-    Integral() or
-    FloatingPoint() or
-    Character() or
-    Other()
+    IntegralTypeCategory() or
+    FloatingPointTypeCategory() or
+    CharacterTypeCategory() or
+    OtherTypeCategory()
 
   /**
    * Gets the type category of a built-in type.
@@ -31,7 +31,7 @@ module MisraCpp23BuiltInTypes {
       t instanceof Char32Type or
       t instanceof Char8Type
     ) and
-    result = Character()
+    result = CharacterTypeCategory()
     or
     (
       // The 5 standard integral types, covering both signed/unsigned variants
@@ -43,21 +43,21 @@ module MisraCpp23BuiltInTypes {
       t instanceof LongType or
       t instanceof LongLongType
     ) and
-    result = Integral()
+    result = IntegralTypeCategory()
     or
     (
       t instanceof FloatType or
       t instanceof DoubleType or
       t instanceof LongDoubleType
     ) and
-    result = FloatingPoint()
+    result = FloatingPointTypeCategory()
     or
     (
       t instanceof BoolType or
       t instanceof VoidType or
       t instanceof NullPointerType
     ) and
-    result = Other()
+    result = OtherTypeCategory()
   }
 
   /**
@@ -119,7 +119,7 @@ module MisraCpp23BuiltInTypes {
   class CharacterType extends MisraBuiltInType {
     CharacterType() {
       // A type whose type category is character
-      getBuiltInTypeCategory(builtInType) = Character()
+      getBuiltInTypeCategory(builtInType) = CharacterTypeCategory()
     }
   }
 
@@ -134,7 +134,8 @@ module MisraCpp23BuiltInTypes {
   class NumericType extends MisraBuiltInType {
     NumericType() {
       // A type whose type category is either integral or a floating-point
-      getBuiltInTypeCategory(builtInType) = [Integral().(TypeCategory), FloatingPoint()]
+      getBuiltInTypeCategory(builtInType) =
+        [IntegralTypeCategory().(TypeCategory), FloatingPointTypeCategory()]
     }
 
     Signedness getSignedness() {

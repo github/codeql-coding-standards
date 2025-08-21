@@ -97,8 +97,8 @@ class IntegerPromotion extends IntegerPromotionOrUsualArithmeticConversionAsCast
     // This deliberately excludes integer promotions from `bool` and unscoped enums which do not
     // have a fixed underlying type, because neither of these are considered integral types in the
     // MISRA C++ rules.
-    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::Integral() and
-    toType.getTypeCategory() = MisraCpp23BuiltInTypes::Integral()
+    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::IntegralTypeCategory() and
+    toType.getTypeCategory() = MisraCpp23BuiltInTypes::IntegralTypeCategory()
   }
 
   override string getKindOfConversion() { result = "Integer promotion" }
@@ -150,7 +150,7 @@ class ImpliedIntegerPromotion extends IntegerPromotionOrUsualArithmeticConversio
     // However, you cannot have an integer promotion on a float, so we restrict
     // this to integral types only
     fromType = this.getType() and
-    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::Integral() and
+    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::IntegralTypeCategory() and
     // If the size is less than int, then it is an implied integer promotion
     fromType.getBuiltInSize() < sizeOfInt()
   }
@@ -223,8 +223,8 @@ where
   // Exception 2: allow safe conversions from integral to floating-point types
   not (
     e.isConstant() and
-    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::Integral() and
-    toType.getTypeCategory() = MisraCpp23BuiltInTypes::FloatingPoint()
+    fromType.getTypeCategory() = MisraCpp23BuiltInTypes::IntegralTypeCategory() and
+    toType.getTypeCategory() = MisraCpp23BuiltInTypes::FloatingPointTypeCategory()
   )
 select e,
   c.getKindOfConversion() + " from '" + fromType.getName() + "' to '" + toType.getName() +
