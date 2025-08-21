@@ -26,7 +26,7 @@ predicate isValidConstantAssignment(
   exists(QlBuiltins::BigInt val | val = source.getConstantValue() |
     // Bit field assignment: check if the value fits in the bit field
     exists(BitField bf, int numBits |
-      isAssignedToBitfield(source, bf) and
+      MisraCpp23BuiltInTypes::isAssignedToBitfield(source, bf) and
       numBits = bf.getNumBits() and
       if targetType.getSignedness() = MisraCpp23BuiltInTypes::Signed()
       then
@@ -41,7 +41,7 @@ predicate isValidConstantAssignment(
     )
     or
     // Regular assignment: check if the value fits in the target type range
-    not isAssignedToBitfield(source, _) and
+    not MisraCpp23BuiltInTypes::isAssignedToBitfield(source, _) and
     (
       // Integer types: check if the value fits in the target type range
       targetType.getIntegralLowerBound() <= val and

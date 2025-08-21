@@ -33,7 +33,7 @@ where
     )
     or
     // Exception: assignment to bit-field of length 1
-    isAssignedToBitfield(e, _)
+    MisraCpp23BuiltInTypes::isAssignedToBitfield(e, _)
     // Note: conversions that result in a constructor call are not represented as `Conversion`s
     //       in our model, so do not need to be excluded here.
   )

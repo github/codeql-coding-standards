@@ -184,114 +184,95 @@ module MisraCpp23BuiltInTypes {
   }
 
   predicate isPreConversionAssignment(Expr source, Type targetType, string context) {
-    // Assignment expression (which excludes compound assignments)
-    exists(AssignExpr assign |
-      assign.getRValue() = source and
-      context = "assignment"
-    |
-      if isAssignedToBitfield(source, _)
-      then
-        // For the MISRA type rules we treat bit fields as a special case
-        exists(BitField bf |
-          isAssignedToBitfield(source, bf) and
-          targetType = getBitFieldType(bf)
-        )
-      else
+    if isAssignedToBitfield(source, _)
+    then
+      // For the MISRA type rules we treat bit fields as a special case
+      exists(BitField bf |
+        isAssignedToBitfield(source, bf) and
+        targetType = getBitFieldType(bf) and
+        context = "assignment to bitfield"
+      )
+    else (
+      // Assignment expression (which excludes compound assignments)
+      exists(AssignExpr assign |
+        assign.getRValue() = source and
+        context = "assignment"
+      |
         exists(Type t | t = assign.getLValue().getType() |
           // Unwrap PointerToMemberType e.g `l1.*l2 = x;`
           if t instanceof PointerToMemberType
           then targetType = t.(PointerToMemberType).getBaseType()
           else targetType = t
         )
-    )
-    or
-    // Variable initialization
-    exists(Variable v, Initializer init |
-      init.getExpr() = source and
-      v.getInitializer() = init and
-      context = "initialization"
-    |
-      // For the MISRA type rules we treat bit fields as a special case
-      if v instanceof BitField
-      then targetType = getBitFieldType(v)
-      else
-        // Regular variable initialization
+      )
+      or
+      // Variable initialization
+      exists(Variable v, Initializer init |
+        init.getExpr() = source and
+        v.getInitializer() = init and
+        context = "initialization"
+      |
         targetType = v.getType()
-    )
-    or
-    exists(ConstructorFieldInit fi |
-      fi.getExpr() = source and
-      context = "constructor field initialization"
-    |
-      // For the MISRA type rules we treat bit fields as a special case
-      if fi.getTarget() instanceof BitField
-      then targetType = getBitFieldType(fi.getTarget())
-      else
-        // Regular variable initialization
+      )
+      or
+      exists(ConstructorFieldInit fi |
+        fi.getExpr() = source and
+        context = "constructor field initialization"
+      |
         targetType = fi.getTarget().getType()
-    )
-    or
-    // Passing a function parameter by value
-    exists(Call call, int i |
-      call.getArgument(i) = source and
-      not targetType.stripTopLevelSpecifiers() instanceof ReferenceType and
-      context = "function argument"
-    |
-      // A regular function call
-      targetType = call.getTarget().getParameter(i).getType()
+      )
       or
-      // A function call where the argument is passed as varargs
-      call.getTarget().getNumberOfParameters() <= i and
-      // The rule states that the type should match the "adjusted" type of the argument
-      targetType = source.getFullyConverted().getType()
+      // Passing a function parameter by value
+      exists(Call call, int i |
+        call.getArgument(i) = source and
+        not targetType.stripTopLevelSpecifiers() instanceof ReferenceType and
+        context = "function argument"
+      |
+        // A regular function call
+        targetType = call.getTarget().getParameter(i).getType()
+        or
+        // A function call where the argument is passed as varargs
+        call.getTarget().getNumberOfParameters() <= i and
+        // The rule states that the type should match the "adjusted" type of the argument
+        targetType = source.getFullyConverted().getType()
+        or
+        // An expression call - get the function type, then the parameter type
+        targetType = getExprCallFunctionType(call).getParameterType(i)
+      )
       or
-      // An expression call - get the function type, then the parameter type
-      targetType = getExprCallFunctionType(call).getParameterType(i)
-    )
-    or
-    // Return statement
-    exists(ReturnStmt ret, Function f |
-      ret.getExpr() = source and
-      ret.getEnclosingFunction() = f and
-      targetType = f.getType() and
-      not targetType.stripTopLevelSpecifiers() instanceof ReferenceType and
-      context = "return"
-    )
-    or
-    // Switch case
-    exists(SwitchCase case, SwitchStmt switch |
-      case.getExpr() = source and
-      case.getSwitchStmt() = switch and
-      context = "switch case"
-    |
-      if switch.getExpr().(FieldAccess).getTarget() instanceof BitField
-      then
-        // For the MISRA type rules we treat bit fields as a special case
-        targetType = getBitFieldType(switch.getExpr().(FieldAccess).getTarget())
-      else
-        // Regular variable initialization
+      // Return statement
+      exists(ReturnStmt ret, Function f |
+        ret.getExpr() = source and
+        ret.getEnclosingFunction() = f and
+        targetType = f.getType() and
+        not targetType.stripTopLevelSpecifiers() instanceof ReferenceType and
+        context = "return"
+      )
+      or
+      // Switch case
+      exists(SwitchCase case, SwitchStmt switch |
+        case.getExpr() = source and
+        case.getSwitchStmt() = switch and
+        context = "switch case"
+      |
         // Get the type of the switch expression, which is the type of the case expression
         targetType = switch.getExpr().getFullyConverted().getType()
-    )
-    or
-    // Class aggregate literal initialization
-    exists(ClassAggregateLiteral al, Field f |
-      source = al.getAFieldExpr(f) and
-      context = "class aggregate literal"
-    |
-      // For the MISRA type rules we treat bit fields as a special case
-      if f instanceof BitField
-      then targetType = getBitFieldType(f)
-      else
-        // Regular variable initialization
+      )
+      or
+      // Class aggregate literal initialization
+      exists(ClassAggregateLiteral al, Field f |
+        source = al.getAFieldExpr(f) and
+        context = "class aggregate literal"
+      |
         targetType = f.getType()
-    )
-    or
-    // Array or vector aggregate literal initialization
-    exists(ArrayOrVectorAggregateLiteral vl |
-      source = vl.getAnElementExpr(_) and
-      targetType = vl.getElementType() and
-      context = "array or vector aggregate literal"
+      )
+      or
+      // Array or vector aggregate literal initialization
+      exists(ArrayOrVectorAggregateLiteral vl |
+        source = vl.getAnElementExpr(_) and
+        targetType = vl.getElementType() and
+        context = "array or vector aggregate literal"
+      )
     )
   }
 
@@ -315,11 +296,16 @@ module MisraCpp23BuiltInTypes {
       )
     )
   }
-}
 
-/**
- * Holds if the `source` expression is assigned to a bit field.
- */
-predicate isAssignedToBitfield(Expr source, BitField bf) {
-  source = bf.getAnAssignedValue().getExplicitlyConverted()
+  /**
+   * Holds if the `source` expression is "assigned" to a bit field per MISRA C++ 2023.
+   */
+  predicate isAssignedToBitfield(Expr source, BitField bf) {
+    source = bf.getAnAssignedValue().getExplicitlyConverted()
+    or
+    exists(SwitchStmt switch, SwitchCase case |
+      bf = switch.getExpr().(FieldAccess).getTarget() and
+      source = case.getExpr()
+    )
+  }
 }
