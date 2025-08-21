@@ -5,7 +5,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 
@@ -48,7 +48,14 @@ query predicate problems(
   not isExcluded(returnStmt, getQuery()) and
   lambda.getACapture() = danglingCapture and
   (
-    DataFlow::localExprFlow(lambda, returnStmt.getExpr())
+    returnStmt.getExpr() = lambda
+    or
+    exists(DataFlow::Node lambdaNode, DataFlow::Node returnNode |
+      lambdaNode.asExpr() = lambda and
+      returnNode.asIndirectExpr() = returnStmt.getExpr()
+    |
+      DataFlow::localFlow(lambdaNode, returnNode)
+    )
     or
     // implement a rough heuristic to catch the results of constructors (such as std::function's)
     // which take an argument that has a dangling capture and flow to a return statement
