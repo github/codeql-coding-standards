@@ -90,7 +90,7 @@ where
       // Exception 2: Contextual conversion from class with explicit operator bool is allowed
       not (
         op.isExplicit() and
-        isInContextualBoolContext(conversionCall)
+        isInContextualBoolContext(conversionCall.getUnconverted())
       ) and
       reason =
         "Conversion operator call from '" + conversionCall.getQualifier().getType().toString() +
