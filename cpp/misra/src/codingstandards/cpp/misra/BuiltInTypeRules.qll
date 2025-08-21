@@ -93,8 +93,11 @@ newtype Signedness =
  *  - Typedefs to built in types
  *  - References to built in types
  *  - Enum types with an explicit underlying type that is a built-in type.
+ *
+ * Note: this does not extend `Type` directly, to prevent accidental use of `getSize()`, which
+ * returns the "wrong" size for e.g. reference types.
  */
-class MisraBuiltInType extends Type {
+class MisraBuiltInType extends Element {
   // The built in type underlying this MISRA built in type
   BuiltInType builtInType;
 
@@ -108,6 +111,8 @@ class MisraBuiltInType extends Type {
   TypeCategory getTypeCategory() { result = getBuiltInTypeCategory(builtInType) }
 
   predicate isSameType(MisraBuiltInType other) { this.getBuiltInType() = other.getBuiltInType() }
+
+  string getName() { result = this.(Type).getName() }
 }
 
 class CharacterType extends MisraBuiltInType {
@@ -298,13 +303,13 @@ CanonicalIntegerNumericType getBitFieldType(BitField bf) {
     bitfieldActualType = bf.getType() and
     // Integral type with the same signedness as the bit field, and big enough to hold the bit field value
     result.getSignedness() = bitfieldActualType.getSignedness() and
-    result.getSize() * 8 >= bf.getNumBits() and
+    result.getBuiltInSize() * 8 >= bf.getNumBits() and
     // No smaller integral type can hold the bit field value
     not exists(CanonicalIntegerNumericType other |
-      other.getSize() * 8 >= bf.getNumBits() and
+      other.getBuiltInSize() * 8 >= bf.getNumBits() and
       other.getSignedness() = result.getSignedness()
     |
-      other.getSize() < result.getBuiltInSize()
+      other.getBuiltInSize() < result.getBuiltInSize()
     )
   )
 }

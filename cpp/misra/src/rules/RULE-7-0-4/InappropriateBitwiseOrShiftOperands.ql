@@ -45,7 +45,7 @@ predicate isSignedConstantLeftShiftException(LShiftExpr shift) {
     leftVal = left.getValue().toBigInt() and
     rightVal = right.getValue().toInt() and
     leftVal >= 0.toBigInt() and
-    maxBit = leftType.getSize() * 8 - 1 and
+    maxBit = leftType.getBuiltInSize() * 8 - 1 and
     // Check that no set bit is shifted into or beyond the sign bit
     leftVal * 2.toBigInt().pow(rightVal) < 2.toBigInt().pow(maxBit)
   )
