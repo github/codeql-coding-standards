@@ -527,7 +527,6 @@ module FunctionDeclarationTypeEquivalence<
 private class LeafType extends Type {
   LeafType() {
     not this instanceof DerivedType and
-    not this instanceof FunctionType and
     not this instanceof FunctionType
   }
 }

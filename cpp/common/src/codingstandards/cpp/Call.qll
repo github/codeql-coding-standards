@@ -1,5 +1,6 @@
 import cpp
 import codingstandards.cpp.types.Type
+import codingstandards.cpp.types.FunctionType
 
 /**
  * Gets the `FunctionType` of an expression call.
