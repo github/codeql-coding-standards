@@ -43,7 +43,8 @@ predicate isBitFieldOfSizeOne(Expr expr) {
 
 predicate isPointerType(Type t) {
   t.getUnspecifiedType() instanceof PointerType or
-  t.getUnspecifiedType() instanceof PointerToMemberType
+  t.getUnspecifiedType() instanceof PointerToMemberType or
+  t.getUnspecifiedType() instanceof NullPointerType
 }
 
 from Element e, string reason

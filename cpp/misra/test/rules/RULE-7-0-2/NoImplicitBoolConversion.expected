@@ -9,7 +9,6 @@
 | test.cpp:99:30:99:31 | (bool)... | Conversion from 'int32_t' to 'bool'. |
 | test.cpp:112:12:112:13 | (bool)... | Conversion from 'int32_t' to 'bool'. |
 | test.cpp:127:13:127:16 | (bool)... | Conversion from 'int32_t *' to 'bool'. |
-| test.cpp:130:7:130:13 | (bool)... | Conversion from 'decltype(nullptr)' to 'bool'. |
 | test.cpp:135:13:135:32 | static_cast<bool>... | Conversion from 'int' to 'bool'. |
 | test.cpp:136:13:136:14 | (bool)... | Conversion from 'uint8_t' to 'bool'. |
 | test.cpp:148:13:148:13 | call to operator bool | Conversion operator call from 'TestClassImplicit' to 'bool'. |

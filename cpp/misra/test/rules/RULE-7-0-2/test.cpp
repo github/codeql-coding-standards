@@ -127,7 +127,7 @@ void test_pointer_conversions() {
   bool l1 = f3();            // NON_COMPLIANT
   bool l2 = f3() != nullptr; // COMPLIANT
 
-  if (nullptr) { // NON_COMPLIANT
+  if (nullptr) { // COMPLIANT
   }
 }
 
