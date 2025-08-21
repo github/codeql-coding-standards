@@ -57,7 +57,9 @@ where
     c.getType().getUnspecifiedType() instanceof FunctionPointerIshType
   ) and
   // Not a MISRA compliant assignment to a function pointer type
-  not exists(FunctionPointerIshType targetType | isAssignment(f, targetType, _))
+  not exists(FunctionPointerIshType targetType |
+    MisraCpp23BuiltInTypes::isAssignment(f, targetType, _)
+  )
 select f,
   "Inappropriate conversion from function type to pointer-to-function type in '" + f.toString() +
     "'."
