@@ -95,7 +95,9 @@ class CharacterType extends Type {
     builtInType = getBuiltInType(this)
   }
 
-  BuiltInType getRealType() { result = builtInType }
+  private BuiltInType getBuiltInType() { result = builtInType }
+
+  predicate isSameType(CharacterType other) { this.getBuiltInType() = other.getBuiltInType() }
 }
 
 /**
@@ -135,7 +137,9 @@ class NumericType extends Type {
    */
   QlBuiltins::BigInt getIntegralLowerBound() { integralTypeBounds(builtInType, result, _) }
 
-  BuiltInType getRealType() { result = builtInType }
+  private BuiltInType getBuiltInType() { result = builtInType }
+
+  predicate isSameType(NumericType other) { this.getBuiltInType() = other.getBuiltInType() }
 }
 
 predicate isSignedType(NumericType t) { t.getSignedness() = Signed() }

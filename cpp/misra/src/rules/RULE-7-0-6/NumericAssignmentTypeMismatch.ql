@@ -196,7 +196,7 @@ predicate isValidAssignment(Expr source, NumericType targetType, string context)
   isAssignment(source, targetType, context) and
   exists(NumericType sourceType | sourceType = source.getType() |
     if shouldHaveSameType(source)
-    then sourceType.getRealType() = targetType.getRealType()
+    then sourceType.isSameType(targetType)
     else (
       // Valid type match
       isValidTypeMatch(sourceType, targetType)

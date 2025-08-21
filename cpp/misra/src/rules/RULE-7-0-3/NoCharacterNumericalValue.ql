@@ -35,7 +35,7 @@ where
     eq.getAnOperand() = expr and
     leftType = eq.getLeftOperand().getType() and
     rightType = eq.getRightOperand().getType() and
-    leftType.getRealType() = rightType.getRealType()
+    leftType.isSameType(rightType)
   ) and
   // Exclude unevaluated operands
   not expr.isUnevaluated()

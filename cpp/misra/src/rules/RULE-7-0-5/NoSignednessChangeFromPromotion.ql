@@ -125,7 +125,7 @@ class ImpliedUsualArithmeticConversion extends IntegerPromotionOrUsualArithmetic
       // type will be the same as the converted type of the rvalue.
       toType = aop.getRValue().getFullyConverted().getType() and
       // Only consider cases where the conversion is not a no-op, for consistency with the `Conversion` class
-      not fromType.getRealType() = toType.getRealType()
+      not fromType.isSameType(toType)
     )
   }
 
