@@ -12,23 +12,31 @@ abstract class PointerToAVirtualBaseClassCastToAPointerSharedQuery extends Query
 
 Query getQuery() { result instanceof PointerToAVirtualBaseClassCastToAPointerSharedQuery }
 
-query predicate problems(Cast cast, string message) {
-  exists(VirtualBaseClass castFrom, Class castTo |
+query predicate problems(
+  Cast cast, string message, VirtualClassDerivation derivation, string derivationDescription
+) {
+  exists(Class castFrom, VirtualBaseClass virtualBaseClass, Class castTo, string type |
     not isExcluded(cast, getQuery()) and
     not cast instanceof DynamicCast and
-    castTo = castFrom.getADerivedClass+() and
+    castTo = virtualBaseClass.getADerivedClass+() and
+    virtualBaseClass = castFrom.getADerivedClass*() and
+    derivation = virtualBaseClass.getAVirtualDerivation() and
+    derivation.getDerivedClass().getADerivedClass*() = castTo and
+    derivationDescription = "derived through virtual base class " + virtualBaseClass.getName() and
     message =
-      "A pointer to virtual base class " + castFrom.getName() +
-        " is not cast to a pointer of derived class " + castTo.getName() + " using a dynamic_cast."
+      "dynamic_cast not used for cast from " + type + " to base class " + castFrom.getName() +
+        " to derived class " + castTo.getName() + " which is  $@."
   |
     // Pointer cast
     castFrom = cast.getExpr().getType().stripTopLevelSpecifiers().(PointerType).getBaseType() and
-    cast.getType().stripTopLevelSpecifiers().(PointerType).getBaseType() = castTo
+    cast.getType().stripTopLevelSpecifiers().(PointerType).getBaseType() = castTo and
+    type = "pointer"
     or
     // Reference type cast
     castFrom = cast.getExpr().getType().stripTopLevelSpecifiers() and
     // Not actually represented as a reference type in our model - instead as the
     // type itself
-    cast.getType().stripTopLevelSpecifiers() = castTo
+    cast.getType().stripTopLevelSpecifiers() = castTo and
+    type = "reference"
   )
 }

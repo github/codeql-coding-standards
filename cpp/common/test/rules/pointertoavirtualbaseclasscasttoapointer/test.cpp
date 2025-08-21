@@ -1,4 +1,9 @@
-class C1 {
+class C0 {
+public:
+  virtual ~C0() {}
+};
+
+class C1 : public C0 {
 public:
   virtual ~C1() {}
 };
@@ -72,4 +77,11 @@ void test_static_cast_reference_non_compliant() {
   C1 *p1 = &l1;
   // C2 &l2 = static_cast<C2 &>(*p1); // NON_COMPLIANT - prohibited by the
   // compiler
+}
+
+void test_skipped_base_class() {
+  C2 l1;
+  C0 *p1 = &l1;
+  C2 *l2 = dynamic_cast<C2 *>(p1);     // COMPLIANT
+  C2 *p2 = reinterpret_cast<C2 *>(p1); // NON_COMPLIANT
 }
