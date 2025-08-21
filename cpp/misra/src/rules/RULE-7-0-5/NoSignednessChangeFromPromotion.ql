@@ -89,9 +89,9 @@ class IntegerPromotion extends IntegerPromotionOrUsualArithmeticConversionAsCast
     // Only consider cases where the integer promotion is the last conversion applied
     exists(Expr e | e.getFullyConverted() = this) and
     // Integer promotion occurs where the from type is smaller than int
-    fromType.getRealSize() < sizeOfInt() and
+    fromType.getBuiltInSize() < sizeOfInt() and
     // To type is bigger than or equal to int
-    toType.getRealSize() >= sizeOfInt() and
+    toType.getBuiltInSize() >= sizeOfInt() and
     // An integer promotion is a conversion from an integral type to an integral type
     //
     // This deliberately excludes integer promotions from `bool` and unscoped enums which do not
@@ -152,7 +152,7 @@ class ImpliedIntegerPromotion extends IntegerPromotionOrUsualArithmeticConversio
     fromType = this.getType() and
     fromType.getTypeCategory() = Integral() and
     // If the size is less than int, then it is an implied integer promotion
-    fromType.getRealSize() < sizeOfInt()
+    fromType.getBuiltInSize() < sizeOfInt()
   }
 
   override NumericType getFromType() { result = fromType }

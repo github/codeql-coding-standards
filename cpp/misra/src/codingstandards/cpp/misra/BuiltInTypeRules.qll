@@ -85,19 +85,36 @@ newtype Signedness =
   Signed() or
   Unsigned()
 
-class CharacterType extends Type {
-  // The actual character type, which is either a plain char or a wide char
+/**
+ * A `Type` which is considered to be a built-in type by MISRA.
+ *
+ * It differs from `BuiltInType` in that includes:
+ *  - Built in types with specifiers (e.g., `const`, `volatile`, `restrict`).
+ *  - Typedefs to built in types
+ *  - References to built in types
+ *  - Enum types with an explicit underlying type that is a built-in type.
+ */
+class MisraBuiltInType extends Type {
+  // The built in type underlying this MISRA built in type
   BuiltInType builtInType;
 
-  CharacterType() {
-    // A type whose type category is character
-    getBuiltInTypeCategory(builtInType) = Character() and
-    builtInType = getBuiltInType(this)
-  }
+  MisraBuiltInType() { builtInType = getBuiltInType(this) }
 
   private BuiltInType getBuiltInType() { result = builtInType }
 
-  predicate isSameType(CharacterType other) { this.getBuiltInType() = other.getBuiltInType() }
+  /** Gets the size of the underlying built in type. */
+  int getBuiltInSize() { result = builtInType.getSize() }
+
+  TypeCategory getTypeCategory() { result = getBuiltInTypeCategory(builtInType) }
+
+  predicate isSameType(MisraBuiltInType other) { this.getBuiltInType() = other.getBuiltInType() }
+}
+
+class CharacterType extends MisraBuiltInType {
+  CharacterType() {
+    // A type whose type category is character
+    getBuiltInTypeCategory(builtInType) = Character()
+  }
 }
 
 /**
@@ -108,24 +125,15 @@ class CharacterType extends Type {
  * - Typedef'd types that are numeric types.
  * - Numeric types with specifiers (e.g., `const`, `volatile`, `restrict`).
  */
-class NumericType extends Type {
-  // The actual numeric type, which is either an integral or a floating-point type.
-  BuiltInType builtInType;
-
+class NumericType extends MisraBuiltInType {
   NumericType() {
     // A type whose type category is either integral or a floating-point
-    getBuiltInTypeCategory(builtInType) = [Integral().(TypeCategory), FloatingPoint()] and
-    builtInType = getBuiltInType(this)
+    getBuiltInTypeCategory(builtInType) = [Integral().(TypeCategory), FloatingPoint()]
   }
 
   Signedness getSignedness() {
     if builtInType.(IntegralType).isUnsigned() then result = Unsigned() else result = Signed()
   }
-
-  /** Gets the size of the actual numeric type. */
-  int getRealSize() { result = builtInType.getSize() }
-
-  TypeCategory getTypeCategory() { result = getBuiltInTypeCategory(builtInType) }
 
   /**
    * Gets the integeral upper bound of the numeric type, if it represents an integer type.
@@ -136,10 +144,6 @@ class NumericType extends Type {
    * Gets the integeral lower bound of the numeric type, if it represents an integer type.
    */
   QlBuiltins::BigInt getIntegralLowerBound() { integralTypeBounds(builtInType, result, _) }
-
-  private BuiltInType getBuiltInType() { result = builtInType }
-
-  predicate isSameType(NumericType other) { this.getBuiltInType() = other.getBuiltInType() }
 }
 
 predicate isSignedType(NumericType t) { t.getSignedness() = Signed() }
@@ -300,7 +304,7 @@ CanonicalIntegerNumericType getBitFieldType(BitField bf) {
       other.getSize() * 8 >= bf.getNumBits() and
       other.getSignedness() = result.getSignedness()
     |
-      other.getSize() < result.getRealSize()
+      other.getSize() < result.getBuiltInSize()
     )
   )
 }

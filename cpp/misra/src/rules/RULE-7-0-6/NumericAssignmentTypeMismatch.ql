@@ -57,7 +57,7 @@ predicate isValidTypeMatch(NumericType sourceType, NumericType targetType) {
   // Same type category, signedness and size
   sourceType.getTypeCategory() = targetType.getTypeCategory() and
   sourceType.getSignedness() = targetType.getSignedness() and
-  sourceType.getRealSize() = targetType.getRealSize()
+  sourceType.getBuiltInSize() = targetType.getBuiltInSize()
 }
 
 /**
@@ -118,7 +118,7 @@ predicate isValidWidening(Expr source, NumericType sourceType, NumericType targe
   ) and
   sourceType.getTypeCategory() = targetType.getTypeCategory() and
   sourceType.getSignedness() = targetType.getSignedness() and
-  sourceType.getRealSize() < targetType.getRealSize()
+  sourceType.getBuiltInSize() < targetType.getBuiltInSize()
 }
 
 /**
