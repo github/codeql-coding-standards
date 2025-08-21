@@ -7,15 +7,15 @@ void test_binary_bitwise_operators_unsigned_operands() {
   std::int32_t s32a = 0x12345678;
   std::int32_t s32b = 0x87654321;
 
-  u32a &u32b; // COMPLIANT
+  u32a &u32b;  // COMPLIANT
   u32a | u32b; // COMPLIANT
   u32a ^ u32b; // COMPLIANT
 
-  s32a &s32b; // NON_COMPLIANT
+  s32a &s32b;  // NON_COMPLIANT
   s32a | s32b; // NON_COMPLIANT
   s32a ^ s32b; // NON_COMPLIANT
 
-  s32a &u32b; // NON_COMPLIANT
+  s32a &u32b;  // NON_COMPLIANT
   u32a | s32b; // NON_COMPLIANT
 }
 
