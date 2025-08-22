@@ -166,8 +166,8 @@
 | test_operators.cpp:115:8:115:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
 | test_operators.cpp:119:8:119:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
 | test_operators.cpp:120:8:120:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
-| test_operators.cpp:124:8:124:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
-| test_operators.cpp:125:8:125:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:124:7:124:8 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:125:7:125:8 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
 | test_operators.cpp:129:8:129:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
 | test_operators.cpp:130:8:130:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
 | test_operators.cpp:134:8:134:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |

@@ -9,7 +9,7 @@
 | test.cpp:26:3:26:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:26:8:26:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:27:3:27:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:27:8:27:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:27:7:27:8 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:28:3:28:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:28:8:28:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:29:3:29:4 | l1 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
@@ -62,7 +62,7 @@
 | test.cpp:166:7:166:8 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:167:8:167:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:168:8:168:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
-| test.cpp:169:8:169:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
+| test.cpp:169:7:169:8 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:170:8:170:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:171:8:171:9 | l2 | Usual arithmetic conversion from 'uint8_t' to 'int' changes signedness. |
 | test.cpp:173:8:173:9 | l4 | Usual arithmetic conversion from 'uint16_t' to 'int' changes signedness. |
@@ -82,7 +82,7 @@
 | test.cpp:271:3:271:4 | l3 | Usual arithmetic conversion from 'UnscopedEnumExplicit' to 'int' changes signedness. |
 | test.cpp:271:7:271:8 | l4 | Usual arithmetic conversion from 'UnscopedEnumExplicit' to 'int' changes signedness. |
 | test.cpp:272:3:272:4 | l3 | Usual arithmetic conversion from 'UnscopedEnumExplicit' to 'int' changes signedness. |
-| test.cpp:272:8:272:9 | l4 | Usual arithmetic conversion from 'UnscopedEnumExplicit' to 'int' changes signedness. |
+| test.cpp:272:7:272:8 | l4 | Usual arithmetic conversion from 'UnscopedEnumExplicit' to 'int' changes signedness. |
 | test.cpp:273:3:273:4 | l3 | Usual arithmetic conversion from 'UnscopedEnumExplicit' to 'int' changes signedness. |
 | test.cpp:273:8:273:9 | l4 | Usual arithmetic conversion from 'UnscopedEnumExplicit' to 'int' changes signedness. |
 | test.cpp:274:3:274:4 | l3 | Usual arithmetic conversion from 'UnscopedEnumExplicit' to 'int' changes signedness. |

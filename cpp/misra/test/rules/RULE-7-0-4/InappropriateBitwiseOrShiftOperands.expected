@@ -1,5 +1,5 @@
 | test.cpp:14:3:14:6 | s32a | Bitwise operator '&' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
-| test.cpp:14:10:14:13 | s32b | Bitwise operator '&' requires unsigned numeric operands, but the right operand has type 'int32_t'. |
+| test.cpp:14:9:14:12 | s32b | Bitwise operator '&' requires unsigned numeric operands, but the right operand has type 'int32_t'. |
 | test.cpp:15:3:15:6 | s32a | Bitwise operator '\|' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
 | test.cpp:15:10:15:13 | s32b | Bitwise operator '\|' requires unsigned numeric operands, but the right operand has type 'int32_t'. |
 | test.cpp:16:3:16:6 | s32a | Bitwise operator '^' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
