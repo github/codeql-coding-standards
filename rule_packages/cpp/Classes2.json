@@ -65,6 +65,28 @@
       ],
       "title": "Non-static data members should be either all private or all public"
     },
+    "RULE-15-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Correct overrides of special member functions ensure proper resource management, and prevents incorrect compiler-generated functions from being used.",
+          "kind": "problem",
+          "name": "Special member functions shall be provided appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InvalidSpecialMemberFunctionsOnClass",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Special member functions shall be provided appropriately"
+    },
     "RULE-15-0-2": {
       "properties": {
         "enforcement": "decidable",
@@ -108,6 +130,28 @@
         }
       ],
       "title": "Conversion operators and constructors that are callable with a single argument shall be explicit"
+    },
+    "RULE-15-1-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Classes should be fully initialized before they are used, to prevent undefined behavior.",
+          "kind": "problem",
+          "name": "All direct, non-static data members of a class should be initialized before the class object is",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "DataMemberNotInitialized",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "All direct, non-static data members of a class should be initialized before the class object is accessible"
     },
     "RULE-16-5-1": {
       "properties": {

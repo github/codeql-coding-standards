@@ -1,0 +1,297 @@
+WARNING: query predicates as instantiation arguments are deprecated (InvalidSpecialMemberFunctionsOnClass.ql:66,37-58)
+WARNING: query predicates as instantiation arguments are deprecated (InvalidSpecialMemberFunctionsOnClass.ql:80,62-83)
+isMoveConstructible
+| test.cpp:9:10:9:19 | ValueClass |
+| test.cpp:68:9:68:19 | CCAndMCOnly |
+| test.cpp:111:9:111:24 | CCAndMAAndCAOnly |
+| test.cpp:126:9:126:24 | CCAndMAAndMAOnly |
+| test.cpp:141:9:141:14 | MCOnly |
+| test.cpp:154:9:154:19 | MCAndCAOnly |
+| test.cpp:169:9:169:19 | MCAndMAOnly |
+| test.cpp:184:9:184:24 | MCAndMAAndCAOnly |
+| test.cpp:243:9:243:22 | CompliantClass |
+| test.cpp:248:9:248:25 | NonCompliantClass |
+| test.cpp:289:9:289:25 | NonCompliantClass |
+| test.cpp:377:9:377:25 | NonCompliantClass |
+| test.cpp:396:11:396:34 | ExplicitMoveConstructor1 |
+specials
+| file://:0:0:0:0 | operator= | copy assignment operator | false |
+| file://:0:0:0:0 | operator= | move assignment operator | false |
+| test.cpp:5:10:5:10 | operator= | copy assignment operator | false |
+| test.cpp:5:10:5:10 | operator= | move assignment operator | false |
+| test.cpp:9:10:9:10 | ValueClass | copy constructor | false |
+| test.cpp:9:10:9:10 | ValueClass | move constructor | false |
+| test.cpp:9:10:9:10 | operator= | copy assignment operator | false |
+| test.cpp:9:10:9:10 | operator= | move assignment operator | false |
+| test.cpp:16:5:16:21 | NonCopyableMember | copy constructor | true |
+| test.cpp:17:24:17:32 | operator= | copy assignment operator | true |
+| test.cpp:20:10:20:10 | NonCopyableValueClass | copy constructor | true |
+| test.cpp:20:10:20:10 | operator= | copy assignment operator | true |
+| test.cpp:26:10:26:10 | UnmovableMember | copy constructor | true |
+| test.cpp:26:10:26:10 | operator= | copy assignment operator | true |
+| test.cpp:27:5:27:19 | UnmovableMember | move constructor | true |
+| test.cpp:28:22:28:30 | operator= | move assignment operator | true |
+| test.cpp:31:10:31:10 | NonCopyableValueClass | copy constructor | true |
+| test.cpp:31:10:31:10 | operator= | copy assignment operator | true |
+| test.cpp:38:5:38:33 | NonCopyableAndUnmovableMember | copy constructor | true |
+| test.cpp:41:5:41:13 | operator= | copy assignment operator | true |
+| test.cpp:42:5:42:33 | NonCopyableAndUnmovableMember | move constructor | true |
+| test.cpp:44:5:44:13 | operator= | move assignment operator | true |
+| test.cpp:47:10:47:10 | NonCopyableValueClass | copy constructor | true |
+| test.cpp:47:10:47:10 | operator= | copy assignment operator | true |
+| test.cpp:57:5:57:10 | CCOnly | copy constructor | false |
+| test.cpp:59:13:59:21 | operator= | copy assignment operator | true |
+| test.cpp:60:5:60:10 | CCOnly | move constructor | true |
+| test.cpp:61:13:61:21 | operator= | move assignment operator | true |
+| test.cpp:70:5:70:15 | CCAndMCOnly | copy constructor | false |
+| test.cpp:71:5:71:15 | CCAndMCOnly | move constructor | false |
+| test.cpp:74:5:74:13 | operator= | copy assignment operator | true |
+| test.cpp:75:18:75:26 | operator= | move assignment operator | true |
+| test.cpp:84:5:84:15 | CCAndCAOnly | copy constructor | false |
+| test.cpp:86:5:86:13 | operator= | copy assignment operator | false |
+| test.cpp:88:5:88:15 | CCAndCAOnly | move constructor | true |
+| test.cpp:89:18:89:26 | operator= | move assignment operator | true |
+| test.cpp:98:5:98:15 | CCAndMAOnly | copy constructor | false |
+| test.cpp:100:5:100:13 | operator= | move assignment operator | false |
+| test.cpp:102:5:102:15 | CCAndMAOnly | move constructor | true |
+| test.cpp:104:5:104:13 | operator= | copy assignment operator | true |
+| test.cpp:113:5:113:20 | CCAndMAAndCAOnly | copy constructor | false |
+| test.cpp:114:5:114:20 | CCAndMAAndCAOnly | move constructor | false |
+| test.cpp:116:5:116:13 | operator= | copy assignment operator | false |
+| test.cpp:119:5:119:13 | operator= | move assignment operator | true |
+| test.cpp:128:5:128:20 | CCAndMAAndMAOnly | copy constructor | false |
+| test.cpp:129:5:129:20 | CCAndMAAndMAOnly | move constructor | false |
+| test.cpp:131:5:131:13 | operator= | move assignment operator | false |
+| test.cpp:134:5:134:13 | operator= | copy assignment operator | true |
+| test.cpp:143:5:143:10 | MCOnly | move constructor | false |
+| test.cpp:145:5:145:10 | MCOnly | copy constructor | true |
+| test.cpp:146:13:146:21 | operator= | copy assignment operator | true |
+| test.cpp:147:13:147:21 | operator= | move assignment operator | true |
+| test.cpp:157:5:157:15 | MCAndCAOnly | move constructor | false |
+| test.cpp:159:5:159:13 | operator= | copy assignment operator | false |
+| test.cpp:161:5:161:15 | MCAndCAOnly | copy constructor | true |
+| test.cpp:162:18:162:26 | operator= | move assignment operator | true |
+| test.cpp:171:5:171:15 | MCAndMAOnly | move constructor | false |
+| test.cpp:173:5:173:13 | operator= | move assignment operator | false |
+| test.cpp:175:5:175:15 | MCAndMAOnly | copy constructor | true |
+| test.cpp:177:5:177:13 | operator= | copy assignment operator | true |
+| test.cpp:187:5:187:20 | MCAndMAAndCAOnly | move constructor | false |
+| test.cpp:189:5:189:13 | operator= | move assignment operator | false |
+| test.cpp:191:5:191:13 | operator= | copy assignment operator | false |
+| test.cpp:193:5:193:20 | MCAndMAAndCAOnly | copy constructor | true |
+| test.cpp:202:13:202:21 | operator= | copy assignment operator | false |
+| test.cpp:204:5:204:10 | CAOnly | copy constructor | true |
+| test.cpp:205:5:205:10 | CAOnly | move constructor | true |
+| test.cpp:206:13:206:21 | operator= | move assignment operator | true |
+| test.cpp:217:5:217:13 | operator= | copy assignment operator | false |
+| test.cpp:219:5:219:13 | operator= | move assignment operator | false |
+| test.cpp:221:5:221:15 | CAAndMAOnly | copy constructor | true |
+| test.cpp:222:5:222:15 | CAAndMAOnly | move constructor | true |
+| test.cpp:231:13:231:21 | operator= | move assignment operator | false |
+| test.cpp:233:5:233:10 | MAOnly | move constructor | true |
+| test.cpp:234:5:234:10 | MAOnly | copy constructor | true |
+| test.cpp:235:13:235:21 | operator= | copy assignment operator | true |
+| test.cpp:243:9:243:9 | CompliantClass | copy constructor | true |
+| test.cpp:243:9:243:9 | operator= | copy assignment operator | true |
+| test.cpp:245:5:245:18 | CompliantClass | move constructor | false |
+| test.cpp:248:9:248:9 | NonCompliantClass | copy constructor | true |
+| test.cpp:250:5:250:21 | NonCompliantClass | move constructor | false |
+| test.cpp:251:24:251:32 | operator= | copy assignment operator | false |
+| test.cpp:261:5:261:13 | operator= | copy assignment operator | true |
+| test.cpp:268:5:268:13 | operator= | copy assignment operator | false |
+| test.cpp:276:5:276:21 | NonCopyableMember | copy constructor | true |
+| test.cpp:277:5:277:21 | NonCopyableMember | move constructor | true |
+| test.cpp:279:5:279:13 | operator= | copy assignment operator | true |
+| test.cpp:281:5:281:13 | operator= | move assignment operator | true |
+| test.cpp:284:9:284:9 | CompliantClass | copy constructor | true |
+| test.cpp:284:9:284:9 | operator= | copy assignment operator | true |
+| test.cpp:286:5:286:18 | CompliantClass | move constructor | true |
+| test.cpp:289:9:289:9 | NonCompliantClass | copy constructor | true |
+| test.cpp:291:5:291:21 | NonCompliantClass | move constructor | false |
+| test.cpp:292:24:292:32 | operator= | copy assignment operator | false |
+| test.cpp:299:9:299:9 | operator= | copy assignment operator | false |
+| test.cpp:300:5:300:40 | ExplicitCopyConstructorNonCompliant1 | copy constructor | true |
+| test.cpp:303:9:303:9 | operator= | copy assignment operator | false |
+| test.cpp:304:5:304:40 | ExplicitCopyConstructorNonCompliant2 | copy constructor | false |
+| test.cpp:308:38:308:46 | operator= | copy assignment operator | true |
+| test.cpp:312:41:312:49 | operator= | copy assignment operator | false |
+| test.cpp:315:9:315:9 | ExplicitMoveAssignmentCompliant | copy constructor | true |
+| test.cpp:315:9:315:9 | operator= | copy assignment operator | true |
+| test.cpp:316:38:316:46 | operator= | move assignment operator | true |
+| test.cpp:319:9:319:9 | ExplicitMoveAssignmentNonCompliant | copy constructor | true |
+| test.cpp:319:9:319:9 | operator= | copy assignment operator | true |
+| test.cpp:320:41:320:49 | operator= | move assignment operator | false |
+| test.cpp:323:9:323:9 | operator= | copy assignment operator | false |
+| test.cpp:329:34:329:42 | operator= | copy assignment operator | true |
+| test.cpp:339:9:339:9 | operator= | copy assignment operator | false |
+| test.cpp:340:5:340:18 | CompliantClass | copy constructor | false |
+| test.cpp:343:9:343:9 | operator= | copy assignment operator | false |
+| test.cpp:344:5:344:21 | NonCompliantClass | copy constructor | true |
+| test.cpp:354:5:354:21 | NonCopyableMember | copy constructor | true |
+| test.cpp:355:5:355:21 | NonCopyableMember | move constructor | true |
+| test.cpp:357:5:357:13 | operator= | copy assignment operator | true |
+| test.cpp:359:5:359:13 | operator= | move assignment operator | true |
+| test.cpp:362:9:362:9 | operator= | copy assignment operator | true |
+| test.cpp:363:5:363:19 | CompliantClass1 | copy constructor | true |
+| test.cpp:364:5:364:19 | CompliantClass1 | move constructor | true |
+| test.cpp:367:9:367:9 | operator= | copy assignment operator | true |
+| test.cpp:368:5:368:19 | CompliantClass2 | copy constructor | true |
+| test.cpp:369:22:369:30 | operator= | move assignment operator | true |
+| test.cpp:372:9:372:9 | operator= | copy assignment operator | true |
+| test.cpp:373:5:373:19 | CompliantClass3 | copy constructor | true |
+| test.cpp:377:9:377:9 | operator= | copy assignment operator | true |
+| test.cpp:378:5:378:21 | NonCompliantClass | copy constructor | true |
+| test.cpp:379:5:379:21 | NonCompliantClass | move constructor | false |
+| test.cpp:380:24:380:32 | operator= | move assignment operator | true |
+| test.cpp:388:11:388:11 | operator= | copy assignment operator | false |
+| test.cpp:389:7:389:29 | ExplicitCopyConstructor | copy constructor | false |
+| test.cpp:393:33:393:41 | operator= | copy assignment operator | false |
+| test.cpp:396:11:396:11 | ExplicitMoveConstructor1 | copy constructor | true |
+| test.cpp:396:11:396:11 | operator= | copy assignment operator | true |
+| test.cpp:398:9:398:32 | ExplicitMoveConstructor1 | move constructor | false |
+| test.cpp:401:11:401:11 | ExplicitMoveConstructor2 | copy constructor | true |
+| test.cpp:401:11:401:11 | operator= | copy assignment operator | true |
+| test.cpp:403:9:403:32 | ExplicitMoveConstructor2 | move constructor | true |
+| test.cpp:406:11:406:11 | operator= | copy assignment operator | false |
+ctors
+| test.cpp:9:10:9:10 | ValueClass | false |
+| test.cpp:9:10:9:10 | ValueClass | false |
+| test.cpp:9:10:9:10 | ValueClass | false |
+| test.cpp:16:5:16:21 | NonCopyableMember | true |
+| test.cpp:20:10:20:10 | NonCopyableValueClass | true |
+| test.cpp:20:10:20:10 | NonCopyableValueClass | true |
+| test.cpp:26:10:26:10 | UnmovableMember | true |
+| test.cpp:27:5:27:19 | UnmovableMember | true |
+| test.cpp:31:10:31:10 | NonCopyableValueClass | true |
+| test.cpp:31:10:31:10 | NonCopyableValueClass | true |
+| test.cpp:38:5:38:33 | NonCopyableAndUnmovableMember | true |
+| test.cpp:42:5:42:33 | NonCopyableAndUnmovableMember | true |
+| test.cpp:47:10:47:10 | NonCopyableValueClass | true |
+| test.cpp:47:10:47:10 | NonCopyableValueClass | true |
+| test.cpp:57:5:57:10 | CCOnly | false |
+| test.cpp:60:5:60:10 | CCOnly | true |
+| test.cpp:70:5:70:15 | CCAndMCOnly | false |
+| test.cpp:71:5:71:15 | CCAndMCOnly | false |
+| test.cpp:84:5:84:15 | CCAndCAOnly | false |
+| test.cpp:88:5:88:15 | CCAndCAOnly | true |
+| test.cpp:98:5:98:15 | CCAndMAOnly | false |
+| test.cpp:102:5:102:15 | CCAndMAOnly | true |
+| test.cpp:113:5:113:20 | CCAndMAAndCAOnly | false |
+| test.cpp:114:5:114:20 | CCAndMAAndCAOnly | false |
+| test.cpp:128:5:128:20 | CCAndMAAndMAOnly | false |
+| test.cpp:129:5:129:20 | CCAndMAAndMAOnly | false |
+| test.cpp:143:5:143:10 | MCOnly | false |
+| test.cpp:145:5:145:10 | MCOnly | true |
+| test.cpp:157:5:157:15 | MCAndCAOnly | false |
+| test.cpp:161:5:161:15 | MCAndCAOnly | true |
+| test.cpp:171:5:171:15 | MCAndMAOnly | false |
+| test.cpp:175:5:175:15 | MCAndMAOnly | true |
+| test.cpp:187:5:187:20 | MCAndMAAndCAOnly | false |
+| test.cpp:193:5:193:20 | MCAndMAAndCAOnly | true |
+| test.cpp:204:5:204:10 | CAOnly | true |
+| test.cpp:205:5:205:10 | CAOnly | true |
+| test.cpp:221:5:221:15 | CAAndMAOnly | true |
+| test.cpp:222:5:222:15 | CAAndMAOnly | true |
+| test.cpp:233:5:233:10 | MAOnly | true |
+| test.cpp:234:5:234:10 | MAOnly | true |
+| test.cpp:243:9:243:9 | CompliantClass | true |
+| test.cpp:245:5:245:18 | CompliantClass | false |
+| test.cpp:248:9:248:9 | NonCompliantClass | true |
+| test.cpp:250:5:250:21 | NonCompliantClass | false |
+| test.cpp:276:5:276:21 | NonCopyableMember | true |
+| test.cpp:277:5:277:21 | NonCopyableMember | true |
+| test.cpp:284:9:284:9 | CompliantClass | true |
+| test.cpp:286:5:286:18 | CompliantClass | true |
+| test.cpp:289:9:289:9 | NonCompliantClass | true |
+| test.cpp:291:5:291:21 | NonCompliantClass | false |
+| test.cpp:300:5:300:40 | ExplicitCopyConstructorNonCompliant1 | true |
+| test.cpp:304:5:304:40 | ExplicitCopyConstructorNonCompliant2 | false |
+| test.cpp:315:9:315:9 | ExplicitMoveAssignmentCompliant | false |
+| test.cpp:315:9:315:9 | ExplicitMoveAssignmentCompliant | true |
+| test.cpp:319:9:319:9 | ExplicitMoveAssignmentNonCompliant | false |
+| test.cpp:319:9:319:9 | ExplicitMoveAssignmentNonCompliant | true |
+| test.cpp:340:5:340:18 | CompliantClass | false |
+| test.cpp:344:5:344:21 | NonCompliantClass | true |
+| test.cpp:354:5:354:21 | NonCopyableMember | true |
+| test.cpp:355:5:355:21 | NonCopyableMember | true |
+| test.cpp:363:5:363:19 | CompliantClass1 | true |
+| test.cpp:364:5:364:19 | CompliantClass1 | true |
+| test.cpp:368:5:368:19 | CompliantClass2 | true |
+| test.cpp:373:5:373:19 | CompliantClass3 | true |
+| test.cpp:378:5:378:21 | NonCompliantClass | true |
+| test.cpp:379:5:379:21 | NonCompliantClass | false |
+| test.cpp:389:7:389:29 | ExplicitCopyConstructor | false |
+| test.cpp:396:11:396:11 | ExplicitMoveConstructor1 | true |
+| test.cpp:398:9:398:32 | ExplicitMoveConstructor1 | false |
+| test.cpp:401:11:401:11 | ExplicitMoveConstructor2 | true |
+| test.cpp:403:9:403:32 | ExplicitMoveConstructor2 | true |
+calls
+#select
+| test.cpp:5:10:5:19 | EmptyClass | Class EmptyClass appears to be copy-enabled and assignable, but is not copy constructible |
+| test.cpp:5:10:5:19 | EmptyClass | Class EmptyClass appears to be copy-enabled and assignable, but is not move constructible |
+| test.cpp:5:10:5:19 | EmptyClass | Class EmptyClass appears to be move-only and assignable, but is copy assignable |
+| test.cpp:5:10:5:19 | EmptyClass | Class EmptyClass appears to be move-only and assignable, but is not move constructible |
+| test.cpp:5:10:5:19 | EmptyClass | Class EmptyClass appears to be unmovable, but is copy assignable |
+| test.cpp:5:10:5:19 | EmptyClass | Class EmptyClass appears to be unmovable, but is move assignable |
+| test.cpp:55:9:55:14 | CCOnly | Class CCOnly appears to be copy-enabled and unassignable, but is not move constructible |
+| test.cpp:55:9:55:14 | CCOnly | Class CCOnly appears to be unmovable, but is copy constructible |
+| test.cpp:82:9:82:19 | CCAndCAOnly | Class CCAndCAOnly appears to be copy-enabled and assignable, but is not move assignable |
+| test.cpp:82:9:82:19 | CCAndCAOnly | Class CCAndCAOnly appears to be copy-enabled and assignable, but is not move constructible |
+| test.cpp:82:9:82:19 | CCAndCAOnly | Class CCAndCAOnly appears to be copy-enabled and unassignable, but is copy assignable |
+| test.cpp:82:9:82:19 | CCAndCAOnly | Class CCAndCAOnly appears to be copy-enabled and unassignable, but is not move constructible |
+| test.cpp:82:9:82:19 | CCAndCAOnly | Class CCAndCAOnly appears to be unmovable, but is copy assignable |
+| test.cpp:82:9:82:19 | CCAndCAOnly | Class CCAndCAOnly appears to be unmovable, but is copy constructible |
+| test.cpp:96:9:96:19 | CCAndMAOnly | Class CCAndMAOnly appears to be copy-enabled and assignable, but is not copy assignable |
+| test.cpp:96:9:96:19 | CCAndMAOnly | Class CCAndMAOnly appears to be copy-enabled and assignable, but is not move constructible |
+| test.cpp:96:9:96:19 | CCAndMAOnly | Class CCAndMAOnly appears to be copy-enabled and unassignable, but is move assignable |
+| test.cpp:96:9:96:19 | CCAndMAOnly | Class CCAndMAOnly appears to be copy-enabled and unassignable, but is not move constructible |
+| test.cpp:96:9:96:19 | CCAndMAOnly | Class CCAndMAOnly appears to be move-only and assignable, but is copy constructible |
+| test.cpp:96:9:96:19 | CCAndMAOnly | Class CCAndMAOnly appears to be move-only and assignable, but is not move constructible |
+| test.cpp:96:9:96:19 | CCAndMAOnly | Class CCAndMAOnly appears to be unmovable, but is copy constructible |
+| test.cpp:96:9:96:19 | CCAndMAOnly | Class CCAndMAOnly appears to be unmovable, but is move assignable |
+| test.cpp:111:9:111:24 | CCAndMAAndCAOnly | Class CCAndMAAndCAOnly appears to be copy-enabled and assignable, but is not move assignable |
+| test.cpp:111:9:111:24 | CCAndMAAndCAOnly | Class CCAndMAAndCAOnly appears to be copy-enabled and unassignable, but is copy assignable |
+| test.cpp:126:9:126:24 | CCAndMAAndMAOnly | Class CCAndMAAndMAOnly appears to be copy-enabled and assignable, but is not copy assignable |
+| test.cpp:126:9:126:24 | CCAndMAAndMAOnly | Class CCAndMAAndMAOnly appears to be copy-enabled and unassignable, but is move assignable |
+| test.cpp:126:9:126:24 | CCAndMAAndMAOnly | Class CCAndMAAndMAOnly appears to be move-only and assignable, but is copy constructible |
+| test.cpp:154:9:154:19 | MCAndCAOnly | Class MCAndCAOnly appears to be move-only and unassignable, but is copy assignable |
+| test.cpp:184:9:184:24 | MCAndMAAndCAOnly | Class MCAndMAAndCAOnly appears to be copy-enabled and assignable, but is not copy constructible |
+| test.cpp:184:9:184:24 | MCAndMAAndCAOnly | Class MCAndMAAndCAOnly appears to be move-only and assignable, but is copy assignable |
+| test.cpp:200:9:200:14 | CAOnly | Class CAOnly appears to be unmovable, but is copy assignable |
+| test.cpp:213:9:213:19 | CAAndMAOnly | Class CAAndMAOnly appears to be copy-enabled and assignable, but is not copy constructible |
+| test.cpp:213:9:213:19 | CAAndMAOnly | Class CAAndMAOnly appears to be copy-enabled and assignable, but is not move constructible |
+| test.cpp:213:9:213:19 | CAAndMAOnly | Class CAAndMAOnly appears to be move-only and assignable, but is copy assignable |
+| test.cpp:213:9:213:19 | CAAndMAOnly | Class CAAndMAOnly appears to be move-only and assignable, but is not move constructible |
+| test.cpp:213:9:213:19 | CAAndMAOnly | Class CAAndMAOnly appears to be unmovable, but is copy assignable |
+| test.cpp:213:9:213:19 | CAAndMAOnly | Class CAAndMAOnly appears to be unmovable, but is move assignable |
+| test.cpp:229:9:229:14 | MAOnly | Class MAOnly appears to be move-only and assignable, but is not move constructible |
+| test.cpp:229:9:229:14 | MAOnly | Class MAOnly appears to be unmovable, but is move assignable |
+| test.cpp:248:9:248:25 | NonCompliantClass | Class NonCompliantClass appears to be move-only and unassignable, but is copy assignable |
+| test.cpp:265:9:265:25 | NonCompliantClass | Class NonCompliantClass appears to be unmovable, but is copy assignable |
+| test.cpp:289:9:289:25 | NonCompliantClass | Class NonCompliantClass appears to be move-only and unassignable, but is copy assignable |
+| test.cpp:299:9:299:44 | ExplicitCopyConstructorNonCompliant1 | Class ExplicitCopyConstructorNonCompliant1 appears to be unmovable, but is copy assignable |
+| test.cpp:303:9:303:44 | ExplicitCopyConstructorNonCompliant2 | Class ExplicitCopyConstructorNonCompliant2 appears to be copy-enabled and assignable, but is not move assignable |
+| test.cpp:303:9:303:44 | ExplicitCopyConstructorNonCompliant2 | Class ExplicitCopyConstructorNonCompliant2 appears to be copy-enabled and assignable, but is not move constructible |
+| test.cpp:303:9:303:44 | ExplicitCopyConstructorNonCompliant2 | Class ExplicitCopyConstructorNonCompliant2 appears to be copy-enabled and unassignable, but is copy assignable |
+| test.cpp:303:9:303:44 | ExplicitCopyConstructorNonCompliant2 | Class ExplicitCopyConstructorNonCompliant2 appears to be copy-enabled and unassignable, but is not move constructible |
+| test.cpp:303:9:303:44 | ExplicitCopyConstructorNonCompliant2 | Class ExplicitCopyConstructorNonCompliant2 appears to be unmovable, but is copy assignable |
+| test.cpp:303:9:303:44 | ExplicitCopyConstructorNonCompliant2 | Class ExplicitCopyConstructorNonCompliant2 appears to be unmovable, but is copy constructible |
+| test.cpp:311:9:311:42 | ExplicitCopyAssignmentNonCompliant | Class ExplicitCopyAssignmentNonCompliant appears to be unmovable, but is copy assignable |
+| test.cpp:319:9:319:42 | ExplicitMoveAssignmentNonCompliant | Class ExplicitMoveAssignmentNonCompliant appears to be move-only and assignable, but is not move constructible |
+| test.cpp:319:9:319:42 | ExplicitMoveAssignmentNonCompliant | Class ExplicitMoveAssignmentNonCompliant appears to be unmovable, but is move assignable |
+| test.cpp:323:9:323:38 | ExplicitDestructorNonCompliant | Class ExplicitDestructorNonCompliant appears to be unmovable, but is copy assignable |
+| test.cpp:339:9:339:22 | CompliantClass | Class CompliantClass appears to be copy-enabled and assignable, but is not move assignable |
+| test.cpp:339:9:339:22 | CompliantClass | Class CompliantClass appears to be copy-enabled and assignable, but is not move constructible |
+| test.cpp:339:9:339:22 | CompliantClass | Class CompliantClass appears to be copy-enabled and unassignable, but is copy assignable |
+| test.cpp:339:9:339:22 | CompliantClass | Class CompliantClass appears to be copy-enabled and unassignable, but is not move constructible |
+| test.cpp:339:9:339:22 | CompliantClass | Class CompliantClass appears to be unmovable, but is copy assignable |
+| test.cpp:339:9:339:22 | CompliantClass | Class CompliantClass appears to be unmovable, but is copy constructible |
+| test.cpp:343:9:343:25 | NonCompliantClass | Class NonCompliantClass appears to be unmovable, but is copy assignable |
+| test.cpp:388:11:388:33 | ExplicitCopyConstructor | Class ExplicitCopyConstructor appears to be copy-enabled and assignable, but is not move assignable |
+| test.cpp:388:11:388:33 | ExplicitCopyConstructor | Class ExplicitCopyConstructor appears to be copy-enabled and assignable, but is not move constructible |
+| test.cpp:388:11:388:33 | ExplicitCopyConstructor | Class ExplicitCopyConstructor appears to be copy-enabled and unassignable, but is copy assignable |
+| test.cpp:388:11:388:33 | ExplicitCopyConstructor | Class ExplicitCopyConstructor appears to be copy-enabled and unassignable, but is not move constructible |
+| test.cpp:388:11:388:33 | ExplicitCopyConstructor | Class ExplicitCopyConstructor appears to be unmovable, but is copy assignable |
+| test.cpp:388:11:388:33 | ExplicitCopyConstructor | Class ExplicitCopyConstructor appears to be unmovable, but is copy constructible |
+| test.cpp:392:11:392:32 | ExplicitCopyAssignment | Class ExplicitCopyAssignment appears to be unmovable, but is copy assignable |
+| test.cpp:406:11:406:28 | ExplicitDestructor | Class ExplicitDestructor appears to be unmovable, but is copy assignable |
