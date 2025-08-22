@@ -3,7 +3,9 @@
 struct A {
   explicit A(bool) {}
 };
-
+struct B {
+  B(int) {}
+};
 struct BitField {
   std::uint8_t bit : 1;
 };
@@ -105,12 +107,18 @@ void test_bool_conversion_compliant() {
   f1(b1 ? 1 : 0); // COMPLIANT
 
   // Explicit constructor calls - compliant
-  A l1{true};                  // COMPLIANT
-  A l2(false);                 // COMPLIANT
-  A l3 = static_cast<A>(true); // COMPLIANT
+  A l1{true};                          // COMPLIANT
+  A l2(false);                         // COMPLIANT
+  A l3 = static_cast<A>(true);         // COMPLIANT
+  A *l4 = reinterpret_cast<A *>(true); // NON_COMPLIANT - converted to integer
+                                       //                 then pointer, does not
+                                       //                 use constructor.
+  B l5{true};                          // NON_COMPLIANT
+  B l6(false);                         // NON_COMPLIANT
+  B l7 = static_cast<B>(true);         // NON_COMPLIANT
 
   // Assignment to constructor - compliant
-  A l4 = A{false}; // COMPLIANT
+  A l8 = A{false}; // COMPLIANT
 
   // Bit-field assignment exception - compliant
   bf.bit = b1; // COMPLIANT
