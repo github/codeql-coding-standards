@@ -80,8 +80,9 @@ void test_optional_comparison() {
 }
 
 void test_unevaluated_operand() {
-  decltype('s' + 't') l1;         // COMPLIANT
-  static_assert(sizeof('x') > 0); // COMPLIANT
+  decltype('s' + 't') l1; // COMPLIANT
+  static_assert('x' > 0); // NON_COMPLIANT
+  sizeof('x');            // COMPLIANT
 }
 
 void test_range_check_non_compliant() {
