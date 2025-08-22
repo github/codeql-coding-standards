@@ -4,7 +4,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.standardlibrary.Utility
 
@@ -75,9 +75,10 @@ query predicate problems(Expr e, string message, StdMoveCall f, string argDesc) 
   not e instanceof ReassignedExpression and
   // object moved to safe functions are preserved
   not exists(SafeRead safe | f = safe.getArgument(0)) and
-  exists(DataFlow::DefinitionByReferenceNode def |
-    def.asDefiningArgument() = f and
-    DataFlow::localFlow(def, DataFlow::exprNode(e))
+  exists(DataFlow::DefinitionByReferenceNode def, DataFlow::Node n |
+    f.getArgument(0) = def.getArgument() and
+    n.asIndirectExpr() = e and
+    DataFlow::localFlow(def, n)
   ) and
   message = "The argument of the $@ may be indeterminate when accessed at this location." and
   argDesc = f.toString()
