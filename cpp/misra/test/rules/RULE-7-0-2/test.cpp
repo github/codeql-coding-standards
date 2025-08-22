@@ -136,6 +136,8 @@ void test_assignment_to_bool() {
   bool l2 = g1;                   // NON_COMPLIANT
   bool l3 = (g1 < g2);            // COMPLIANT
   bool l4 = g7;                   // COMPLIANT
+  bool l5 = bool(4);              // NON_COMPLIANT
+  bool l6 = (bool)4;              // NON_COMPLIANT
 }
 
 void test_classes_with_bool_operators() {
