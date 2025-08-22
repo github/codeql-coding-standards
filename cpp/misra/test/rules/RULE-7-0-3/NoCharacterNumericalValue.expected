@@ -1,0 +1,28 @@
+| test.cpp:17:13:17:14 | 10 | Conversion of character type 'int' to 'char' uses numerical value of character. |
+| test.cpp:18:13:18:14 | 65 | Conversion of character type 'int' to 'char' uses numerical value of character. |
+| test.cpp:19:13:19:13 | 0 | Conversion of character type 'int' to 'char' uses numerical value of character. |
+| test.cpp:24:20:24:22 | 97 | Conversion of character type 'char' to 'int8_t' uses numerical value of character. |
+| test.cpp:25:21:25:24 | 13 | Conversion of character type 'char' to 'uint8_t' uses numerical value of character. |
+| test.cpp:26:12:26:14 | 98 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:43:13:43:14 | l1 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:43:13:43:20 | ... - ... | Conversion of character type 'int' to 'char' uses numerical value of character. |
+| test.cpp:43:18:43:20 | 48 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:44:13:44:14 | l1 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:44:13:44:18 | ... + ... | Conversion of character type 'int' to 'char' uses numerical value of character. |
+| test.cpp:45:13:45:14 | l1 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:45:13:45:18 | ... * ... | Conversion of character type 'int' to 'char' uses numerical value of character. |
+| test.cpp:51:7:51:8 | l1 | Conversion of character type 'char' to 'bool' uses numerical value of character. |
+| test.cpp:51:13:51:14 | l2 | Conversion of character type 'char' to 'bool' uses numerical value of character. |
+| test.cpp:53:7:53:8 | l1 | Conversion of character type 'char' to 'bool' uses numerical value of character. |
+| test.cpp:55:8:55:9 | l2 | Conversion of character type 'char' to 'bool' uses numerical value of character. |
+| test.cpp:73:39:73:41 | 97 | Conversion of character type 'char' to 'int_type' uses numerical value of character. |
+| test.cpp:84:17:84:19 | 120 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:90:8:90:9 | l1 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:90:14:90:16 | 48 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:90:23:90:24 | l1 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:90:29:90:31 | 57 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:103:25:103:26 | l1 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:118:15:118:16 | l2 | Conversion of character type 'int_type' to 'char' uses numerical value of character. |
+| test.cpp:124:31:124:32 | 65 | Conversion of character type 'int' to 'char' uses numerical value of character. |
+| test.cpp:125:29:125:31 | 65 | Conversion of character type 'char' to 'int' uses numerical value of character. |
+| test.cpp:131:6:131:7 | l2 | Conversion of character type 'char' to 'int' uses numerical value of character. |
