@@ -35,6 +35,7 @@ import Loops
 import Macros
 import MoveForward
 import Naming
+import Naming2
 import Null
 import OperatorInvariants
 import Operators
@@ -90,6 +91,7 @@ newtype TCPPQuery =
   TMacrosPackageQuery(MacrosQuery q) or
   TMoveForwardPackageQuery(MoveForwardQuery q) or
   TNamingPackageQuery(NamingQuery q) or
+  TNaming2PackageQuery(Naming2Query q) or
   TNullPackageQuery(NullQuery q) or
   TOperatorInvariantsPackageQuery(OperatorInvariantsQuery q) or
   TOperatorsPackageQuery(OperatorsQuery q) or
@@ -145,6 +147,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
   isMoveForwardQueryMetadata(query, queryId, ruleId, category) or
   isNamingQueryMetadata(query, queryId, ruleId, category) or
+  isNaming2QueryMetadata(query, queryId, ruleId, category) or
   isNullQueryMetadata(query, queryId, ruleId, category) or
   isOperatorInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isOperatorsQueryMetadata(query, queryId, ruleId, category) or
