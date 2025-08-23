@@ -1,7 +1,9 @@
 import cpp
 
 /**
- * Macros with a parameter
+ * Macros with parentheses, e.g. `#define MACRO(x) (x * 2)`.
+ *
+ * Note that this includes macros with empty parameter lists, e.g. `#define MACRO() 42`.
  */
 class FunctionLikeMacro extends Macro {
   FunctionLikeMacro() { this.getHead().regexpMatch("[_a-zA-Z0-9]+\\s*\\([^\\)]*?\\)") }
@@ -12,7 +14,8 @@ class FunctionLikeMacro extends Macro {
           .regexpCapture("[_a-zA-Z0-9]+\\s*\\(([^\\)]*)\\)", 1)
           .splitAt(",", i)
           .trim()
-          .replaceAll("...", "")
+          .replaceAll("...", "") and
+    not result = ""
   }
 
   string getAParameter() { result = getParameter(_) }

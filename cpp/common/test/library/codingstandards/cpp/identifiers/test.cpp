@@ -6,6 +6,7 @@
 // Preprocessor identifiers
 #define MACRO_CONSTANT 42
 #define FUNCTION_MACRO(x) ((x)*2)
+#define FUNCTION_MACRO_NOARGS() 0xFF
 #define VARIADIC_MACRO(fmt, ...) printf(fmt, __VA_ARGS__)
 #define VARIADIC_MACRO_CUSTOM(fmt, addl_args...) printf(fmt, addl_args)
 
