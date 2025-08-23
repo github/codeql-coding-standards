@@ -1,0 +1,2 @@
+ - "Function-like macros"
+   - The parameter list of variadic macros previously included the ellipsis in name of the final parameter, potentially leading to incorrect analysis. This has been corrected.

@@ -5,7 +5,7 @@
 
 // Preprocessor identifiers
 #define MACRO_CONSTANT 42
-#define FUNCTION_MACRO(x) ((x) * 2)
+#define FUNCTION_MACRO(x) ((x)*2)
 #define VARIADIC_MACRO(fmt, ...) printf(fmt, __VA_ARGS__)
 #define VARIADIC_MACRO_CUSTOM(fmt, addl_args...) printf(fmt, addl_args)
 
@@ -205,9 +205,7 @@ public:
   template <typename U> void template_member_function_unused(U param);
 
   // Nested template
-  template <typename V> class NestedTemplate {
-    V nested_template_member;
-  };
+  template <typename V> class NestedTemplate { V nested_template_member; };
 };
 
 // Template function
@@ -437,9 +435,7 @@ label1:
   // Nested scope
   {
     int nested_scope_var = 100;
-    {
-      int deeply_nested_var = 200;
-    }
+    { int deeply_nested_var = 200; }
   }
 }
 
@@ -524,7 +520,9 @@ BasicClass::BasicClass(const BasicClass &other) try
 // Concepts (C++20)
 #if __cpp_concepts
 template <typename T>
-concept Addable = requires(T a, T b) { a + b; };
+concept Addable = requires(T a, T b) {
+  a + b;
+};
 
 template <Addable T> T add(T a, T b) { return a + b; }
 #endif
@@ -574,7 +572,7 @@ void designated_initializer_example() { Point3D p = {.x = 1, .y = 2, .z = 3}; }
 // Attributes on classes
 // Note: for some reason missing the `nodiscard` attribute in the matched
 // identifiers.
-[[nodiscard]] class [[deprecated("Use NewClass instead")]] OldClass {};
+[[nodiscard]] class [[deprecated("Use NewClass instead")]] OldClass{};
 
 // Attributes on statements
 void attribute_on_statement() {
