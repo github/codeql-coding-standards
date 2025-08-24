@@ -6,4 +6,4 @@ license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
   codeql/cpp-all: 4.0.3
-  advanced-security/qtil: 0.0.2
+  advanced-security/qtil: 0.0.3
