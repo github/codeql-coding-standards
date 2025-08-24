@@ -58,15 +58,13 @@ Type canonicalize(Type type) {
   else result = type
 }
 
-Type getEffectiveStandardType(Expr e) {
-  result = canonicalize(getPromotedType(e.getExplicitlyConverted()))
-}
+Type getEffectiveStandardType(Expr e) { result = canonicalize(getPromotedType(e)) }
 
 from TgMathInvocation call, Type firstType
 where
   not isExcluded(call, EssentialTypes2Package::tgMathArgumentsWithDifferingStandardTypeQuery()) and
-  firstType = getEffectiveStandardType(call.getAnOperandArgument()) and
-  not forall(Expr arg | arg = call.getAnOperandArgument() |
+  firstType = getEffectiveStandardType(call.getExplicitlyConvertedOperandArgument(0)) and
+  not forall(Expr arg | arg = call.getExplicitlyConvertedOperandArgument(_) |
     firstType = getEffectiveStandardType(arg)
   )
 select call,

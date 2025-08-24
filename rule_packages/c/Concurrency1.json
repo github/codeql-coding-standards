@@ -15,7 +15,12 @@
           "shared_implementation_short_name": "GuardAccessToBitFields",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -35,7 +40,12 @@
           "short_name": "RaceConditionsWhenUsingLibraryFunctions",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -55,7 +65,12 @@
           "short_name": "DoNotCallSignalInMultithreadedProgram",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ],
           "implementation_scope": {
             "description": "This implementation does not consider threads created function pointers."

@@ -1,0 +1,1 @@
+| test.c:29:18:29:36 | ATOMIC_VAR_INIT(VALUE) | Usage of macro ATOMIC_VAR_INIT() is declared obscelescent in C18, and discouraged in earlier C versions. |

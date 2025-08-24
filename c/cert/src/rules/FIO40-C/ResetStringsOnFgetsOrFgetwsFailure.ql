@@ -9,6 +9,11 @@
  * @tags external/cert/id/fio40-c
  *       correctness
  *       security
+ *       external/cert/severity/low
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p4
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
@@ -16,6 +21,7 @@ import cpp
 import codingstandards.cpp.FgetsErrorManagement
 import codingstandards.cpp.Dereferenced
 import codingstandards.c.cert
+import semmle.code.cpp.dataflow.DataFlow
 
 /*
  * Models calls to `memcpy` `strcpy` `strncpy` and their wrappers

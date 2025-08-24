@@ -1,0 +1,4 @@
+ - `DIR-4-15` - `PossibleMisuseOfUndetectedInfinity.ql`, `PossibleMisuseOfUndetectedNaN.ql`:
+   - Add logic to suppress NaNs from the CodeQL extractor in the new restricted range analysis, which can have unexpected downstream effects.
+   - Alter the behavior of floating point class guards (such as `isinf`, `isfinite`, `isnan`) to more correctly reflect the branches that have been guarded.
+   - Query files have been moved/refactored to share logic across MISRA-C and MISRA-C++; no observable change in behavior from this is expected.

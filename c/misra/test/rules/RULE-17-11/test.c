@@ -86,7 +86,7 @@ __attribute__((noreturn)) void test_noreturn_f13(int i) { // COMPLIANT
 
 // Allowed by exception. It is undefined behavior for main() to be declared with
 // noreturn.
-int main(char **argv, int argc) { // COMPLIANT
+int main(int argc, char *argv[]) { // COMPLIANT
   abort();
 }
 

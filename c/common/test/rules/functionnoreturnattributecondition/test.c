@@ -77,7 +77,7 @@ _Noreturn void test_noreturn_f10(int i) { // COMPLIANT
   case 4:
     thrd_exit(0);
     break;
-  default:
+  default:;
     jmp_buf jb;
     longjmp(jb, 0);
   }

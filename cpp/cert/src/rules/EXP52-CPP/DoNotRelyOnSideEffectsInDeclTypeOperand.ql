@@ -8,6 +8,11 @@
  * @problem.severity warning
  * @tags external/cert/id/exp52-cpp
  *       correctness
+ *       external/cert/severity/low
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p3
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 

@@ -108,7 +108,10 @@ void f(void) {
   get_s2_ptr()->member_s1.arr[0] = 1;     // COMPLIANT
 
   // Other types of non-lvalue types
-  use_int_ptr((l1 = l1).const_arr);       // NON-COMPLIANT
+  struct {
+    int arr[10];
+  } l3;
+  use_int_ptr((l3 = l3).arr);             // NON-COMPLIANT
   use_int_ptr(((struct s1)l1).const_arr); // NON-COMPLIANT[FALSE_NEGATIVE]
   use_int_ptr((1 ? l1 : l1).const_arr);   // NON-COMPLIANT
   use_int_ptr((0, l1).const_arr);         // NON-COMPLIANT

@@ -33,10 +33,10 @@ void f1(float p1) {
   float l8 = 0.0 / 0.0;
 
   (int)l4; // COMPLIANT
-  (int)l5; // NON_COMPLIANT: Casting NaN to int
-  (int)l6; // NON_COMPLIANT: Casting NaN to int
-  (int)l7; // NON_COMPLIANT: Casting NaN to int
-  (int)l8; // NON_COMPLIANT: Casting NaN to int
+  (int)l5; // COMPLIANT: Casting NaN to int
+  (int)l6; // COMPLIANT: Casting NaN to int
+  (int)l7; // NON_COMPLIANT: Casting Infinity to int
+  (int)l8; // COMPLIANT: Casting NaN to int
 
   l4 == 0; // COMPLIANT
   l4 != 0; // COMPLIANT
@@ -58,21 +58,21 @@ void f1(float p1) {
   if (l9 != 0) {
     (int)(l9 / l9); // COMPLIANT: l9 is not zero
   } else {
-    (int)(l9 / l9); // NON_COMPLIANT: Guarded to not be NaN
+    (int)(l9 / l9); // NON_COMPLIANT[False positive]: Guarded to not be NaN
   }
 
   float l10 = 0;
   if (l10 == 0) {
-    (int)(l10 / l10); // NON_COMPLIANT: Casting NaN to integer
+    (int)(l10 / l10); // NON_COMPLIANT[False positive]: Casting NaN to integer
   } else {
     (int)(l10 / l10); // COMPLIANT: Guarded to not be NaN
   }
 
   float l11 = 0;
-  l11 == 0 ? (int)(l11 / l11) : 0; // NON_COMPLIANT
+  l11 == 0 ? (int)(l11 / l11) : 0; // NON_COMPLIANT[False positive]
   l11 == 0 ? 0 : (int)(l11 / l11); // COMPLIANT
   l11 != 0 ? (int)(l11 / l11) : 0; // COMPLIANT
-  l11 != 0 ? 0 : (int)(l11 / l11); // NON_COMPLIANT
+  l11 != 0 ? 0 : (int)(l11 / l11); // NON_COMPLIANT[False positive]
 
   float l12 = 1.0 / 0;
   if (isinf(l12)) {
@@ -123,29 +123,29 @@ void f1(float p1) {
   if (isinf(l13)) {
     (int)l13; // COMPLIANT: Guarded not to be NaN
   } else {
-    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+    (int)l13; // COMPLIANT: Casting NaN to integer
   }
 
   if (isinf(l13) == 1) {
     (int)l13; // COMPLIANT: Guarded not to be NaN (must be +Infinity)
   } else {
-    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+    (int)l13; // COMPLIANT: Casting NaN to integer
   }
 
   if (isfinite(l13)) {
     (int)l13; // COMPLIANT: Guarded not to be NaN
   } else {
-    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+    (int)l13; // COMPLIANT: Casting NaN to integer
   }
 
   if (isnormal(l13)) {
     (int)l13; // COMPLIANT: Guarded not to be NaN
   } else {
-    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+    (int)l13; // COMPLIANT: Casting NaN to integer
   }
 
   if (isnan(l13)) {
-    (int)l13; // NON_COMPLIANT: Casting NaN to integer
+    (int)l13; // COMPLIANT: Casting NaN to integer
   } else {
     (int)l13; // COMPLIANT: Guarded not to be NaN
   }
@@ -154,21 +154,21 @@ void f1(float p1) {
              : 0; // COMPLIANT: Checked infinite, therefore not NaN, before use
   isinf(l13) ? 0 : (int)l13;    // COMPLIANT: Check on wrong branch
   isfinite(l13) ? (int)l13 : 0; // COMPLIANT: Checked finite before use
-  isfinite(l13) ? 0 : (int)l13; // NON_COMPLIANT: Checked on wrong branch
-  isnan(l13) ? (int)l13 : 0;    // NON_COMPLIANT: Check on wrong branch
+  isfinite(l13) ? 0 : (int)l13; // COMPLIANT: Checked on wrong branch
+  isnan(l13) ? (int)l13 : 0;    // COMPLIANT: Check on wrong branch
   isnan(l13) ? 0 : (int)l13;    // COMPLIANT: Checked not NaN before use
 
-  (int)pow(2, p1);      // NON_COMPLIANT: likely to be Infinity
+  (int)pow(2, p1);      // NON_COMPLIANT[False negative]: likely to be Infinity
   (int)pow(2, sin(p1)); // COMPLIANT: not likely to be Infinity
   (int)(1 /
         sin(p1)); // NON_COMPLIANT: possible infinity from zero in denominator
   (int)(1 / log(p1)); // COMPLIANT: not possibly zero in denominator
-  (int)pow(p1, p1);   // NON_COMPLIANT: NaN if p1 is zero
+  (int)pow(p1, p1);   // COMPLIANT: NaN if p1 is zero
   if (p1 != 0) {
     (int)pow(p1, p1); // COMPLIANT: p1 is not zero
   }
 
-  (int)acos(p1);      // NON_COMPLIANT: NaN if p1 is not within -1..1
+  (int)acos(p1);      // COMPLIANT: NaN if p1 is not within -1..1
   (int)acos(cos(p1)); // COMPLIANT: cos(p1) is within -1..1
 }
 
@@ -192,13 +192,13 @@ void addNaNThenCastToInt(float p) { castToInt(p + 0.0 / 0.0); }
 void f2() {
   castToInt(1.0 /
             0.0); // NON_COMPLIANT: Infinity flows to denominator in division
-  castToInt(0.0 / 0.0); // NON_COMPLIANT: NaN flows to denominator in division
+  castToInt(0.0 / 0.0);             // COMPLIANT
   checkBeforeCastToInt(1.0 / 0.0);  // COMPLIANT
   checkBeforeCastToInt(0.0 / 0.0);  // COMPLIANT
   addOneThenCastToInt(1.0 / 0.0);   // NON_COMPLIANT[False negative]
   addOneThenCastToInt(0.0 / 0.0);   // NON_COMPLIANT
   castToIntToFloatToInt(1.0 / 0.0); // NON_COMPLIANT
-  castToIntToFloatToInt(0.0 / 0.0); // NON_COMPLIANT
+  castToIntToFloatToInt(0.0 / 0.0); // COMPLIANT
 
   // Check that during flow analysis, we only report the true root cause:
   float rootInf = 1.0 / 0.0;
@@ -206,7 +206,7 @@ void f2() {
   float middleInf = rootInf + 1;
   float middleNaN = rootNaN + 1;
   castToInt(middleInf);           // NON_COMPLIANT
-  castToInt(middleNaN);           // NON_COMPLIANT
+  castToInt(middleNaN);           // COMPLIANT
   addInfThenCastToInt(middleInf); // NON_COMPLIANT
-  addNaNThenCastToInt(middleNaN); // NON_COMPLIANT
+  addNaNThenCastToInt(middleNaN); // COMPLIANT
 }

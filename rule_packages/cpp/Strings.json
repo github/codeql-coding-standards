@@ -133,7 +133,13 @@
           "severity": "recommendation",
           "shared_implementation_short_name": "BasicStringMayNotBeNullTerminated",
           "short_name": "BasicStringMayNotBeNullTerminatedCert",
-          "tags": []
+          "tags": [
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
+          ]
         },
         {
           "description": "Certain operations may not null terminate CStyle strings which may cause unpredictable behavior.",
@@ -143,7 +149,13 @@
           "severity": "recommendation",
           "shared_implementation_short_name": "OperationMayNotNullTerminateCStyleString",
           "short_name": "OperationMayNotNullTerminateCStyleStringCert",
-          "tags": []
+          "tags": [
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
+          ]
         }
       ],
       "title": "Guarantee that storage for strings has sufficient space for character data and the null terminator"

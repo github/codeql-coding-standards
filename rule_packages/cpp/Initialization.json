@@ -417,7 +417,12 @@
           "short_name": "CyclesDuringStaticObjectInit",
           "tags": [
             "correctness",
-            "maintainability"
+            "maintainability",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -437,7 +442,12 @@
           "short_name": "BadlySeededRandomNumberGenerator",
           "tags": [
             "security",
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -460,7 +470,12 @@
             "correctness",
             "security",
             "maintainability",
-            "readability"
+            "readability",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],

@@ -9,6 +9,11 @@
  * @tags external/cert/id/str53-cpp
  *       correctness
  *       security
+ *       external/cert/severity/high
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

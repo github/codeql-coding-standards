@@ -7,6 +7,11 @@
  * @precision very-high
  * @problem.severity warning
  * @tags external/cert/id/oop52-cpp
+ *       external/cert/severity/low
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p9
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

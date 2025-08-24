@@ -1,5 +1,5 @@
 import cpp
-import semmle.code.cpp.dataflow.TaintTracking
+private import semmle.code.cpp.dataflow.TaintTracking
 
 abstract class LockingOperation extends FunctionCall {
   /**

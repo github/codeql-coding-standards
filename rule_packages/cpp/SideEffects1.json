@@ -84,7 +84,12 @@
           "severity": "warning",
           "short_name": "DoNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         },
         {
@@ -95,7 +100,12 @@
           "severity": "warning",
           "short_name": "DoNotDependOnTheOrderOfEvaluationForSideEffectsInFunctionCallsAsFunctionArguments",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -114,7 +124,12 @@
           "severity": "warning",
           "short_name": "DoNotRelyOnSideEffectsInSizeOfOperand",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -125,7 +140,12 @@
           "severity": "warning",
           "short_name": "DoNotRelyOnSideEffectsInTypeIdOperand",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -136,7 +156,12 @@
           "severity": "warning",
           "short_name": "DoNotRelyOnSideEffectsInNoExceptOperand",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -147,7 +172,12 @@
           "severity": "warning",
           "short_name": "DoNotRelyOnSideEffectsInDeclTypeOperand",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -158,7 +188,12 @@
           "severity": "warning",
           "short_name": "DoNotRelyOnSideEffectsInDeclValExpression",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],

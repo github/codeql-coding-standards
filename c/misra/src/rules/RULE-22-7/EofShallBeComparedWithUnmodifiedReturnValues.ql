@@ -15,6 +15,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.ReadErrorsAndEOF
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * The getchar() return value propagates directly to a check against EOF macro

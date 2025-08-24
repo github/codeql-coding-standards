@@ -9,7 +9,7 @@ struct timespec ts = {0, 0};
 
 void doTimeLock(mtx_t *m) { mtx_timedlock(m, &ts); }
 
-void main(void) {
+int main(int argc, char *argv[]) {
   mtx_init(&g1, mtx_plain);
   mtx_timedlock(&g1, &ts); // NON-COMPLIANT
   doTimeLock(&g1);         // NON-COMPLIANT
