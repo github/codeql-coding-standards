@@ -2,7 +2,7 @@
 lockVersion: 1.0.0
 dependencies:
   advanced-security/qtil:
-    version: 0.0.2
+    version: 0.0.3
   codeql/cpp-all:
     version: 4.0.3
   codeql/dataflow:
