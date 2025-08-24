@@ -34,10 +34,10 @@ class TemplateAssignmentOperatorMember extends MemberFunction {
   }
 
   /**
-   * is a copy assigment operator candidate if it has only one param and form in [T, T&, const T&, volatile T&, const volatile T&]
+   * is a copy assignment operator candidate if it has only one param and form in [T, T&, const T&, volatile T&, const volatile T&]
    */
   predicate hasGenericCopyCompatibleParameter() {
-    exists(TemplateParameter tp, Type pType |
+    exists(TypeTemplateParameter tp, Type pType |
       pType = this.getAParameter().getType().getUnspecifiedType() and //Parameter Type
       (
         tp = pType //T

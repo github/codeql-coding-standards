@@ -1,0 +1,2 @@
+- `SIG30-C`: `CallOnlyAsyncSafeFunctionsWithinSignalHandlers.ql`
+ - Fixed a misspelling of "asynchronous" in the alert message.

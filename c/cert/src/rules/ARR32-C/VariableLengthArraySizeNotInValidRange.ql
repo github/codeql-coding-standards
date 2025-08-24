@@ -20,6 +20,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Overflow
+import semmle.code.cpp.dataflow.TaintTracking
 
 /**
  * Gets the maximum size (in bytes) a variable-length array
