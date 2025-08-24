@@ -16,18 +16,15 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.util.CondensedList
-import codingstandards.cpp.util.Pair
+import qtil.Qtil
 
 class DefOrUndef extends PreprocessorDirective {
-  string name;
+  DefOrUndef() { this instanceof PreprocessorUndef or this instanceof Macro }
 
-  DefOrUndef() {
-    name = this.(PreprocessorUndef).getName() or
-    name = this.(Macro).getName()
+  string getName() {
+    result = this.(PreprocessorUndef).getName() or
+    result = this.(Macro).getName()
   }
-
-  string getName() { result = name }
 }
 
 predicate relevantNameAndFile(string name, File file) {
@@ -37,30 +34,24 @@ predicate relevantNameAndFile(string name, File file) {
   )
 }
 
-class StringFilePair = Pair<string, File>::Where<relevantNameAndFile/2>::Pair;
+class StringFilePair = Qtil::Pair<string, File, relevantNameAndFile/2>::Pair;
 
-module DefUndefListConfig implements CondensedListSig {
-  class Division = StringFilePair;
+/**
+ * Defs and undefs ordered by location, grouped by name and file.
+ */
+class OrderedDefOrUndef extends Qtil::Ordered<DefOrUndef>::GroupBy<StringFilePair>::Type {
+  override int getOrder() { result = getLocation().getStartLine() }
 
-  class Item = DefOrUndef;
-
-  int getSparseIndex(StringFilePair division, DefOrUndef directive) {
-    directive.getName() = division.getFirst() and
-    directive.getFile() = division.getSecond() and
-    result = directive.getLocation().getStartLine()
+  override StringFilePair getGroup() {
+    result.getFirst() = getName() and result.getSecond() = getFile()
   }
 }
 
-class ListEntry = Condense<DefUndefListConfig>::ListEntry;
-
-from PreprocessorUndef undef, ListEntry defUndefListEntry
+from OrderedDefOrUndef defOrUndef
 where
-  not isExcluded(undef, PreprocessorPackage::undefOfMacroNotDefinedInFileQuery()) and
-  // There exists a def or undef for a given name and file, and it is an #undef
-  undef = defUndefListEntry.getItem() and
-  // Exclude cases where the previous def or undef with the same name in the same file is a #define
-  not exists(ListEntry prev |
-    prev = defUndefListEntry.getPrev() and
-    prev.getItem() instanceof Macro
-  )
-select undef, "Undef of name '" + undef.getName() + "' not defined in the same file."
+  not isExcluded(defOrUndef, PreprocessorPackage::undefOfMacroNotDefinedInFileQuery()) and
+  // There exists an #undef for a given name and file
+  defOrUndef instanceof PreprocessorUndef and
+  // A previous def or undef of this name must exist in this file, and it must be a #define
+  not defOrUndef.getPrevious() instanceof Macro
+select defOrUndef, "Undef of name '" + defOrUndef.getName() + "' not defined in the same file."
