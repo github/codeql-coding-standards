@@ -9,6 +9,7 @@
  * @problem.severity error
  * @tags external/misra/id/rule-8-2-8
  *       scope/single-translation-unit
+ *       correctness
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/required
  */
