@@ -1,0 +1,61 @@
+
+#ifndef _GHLIBCPP_LOCALE
+#define _GHLIBCPP_LOCALE
+
+#include <string>
+
+namespace std {
+
+class locale {
+public:
+  class facet;
+  class id;
+  typedef int category;
+
+  static const category none = 0, collate = 0x010, ctype = 0x020,
+                        monetary = 0x040, numeric = 0x080, time = 0x100,
+                        messages = 0x200,
+                        all = collate | ctype | monetary | numeric | time |
+                              messages;
+
+  locale() noexcept;
+  locale(const locale &other) noexcept;
+  explicit locale(const char *std_name);
+  explicit locale(const string &std_name);
+  locale(const locale &other, const char *std_name, category);
+  locale(const locale &other, const string &std_name, category);
+  template <class Facet> locale(const locale &other, Facet *f);
+  locale(const locale &other, const locale &one, category);
+  ~locale();
+  const locale &operator=(const locale &other) noexcept;
+  template <class Facet> locale combine(const locale &other) const;
+
+  basic_string<char> name() const;
+
+  bool operator==(const locale &other) const;
+  bool operator!=(const locale &other) const;
+  template <class charT, class traits, class Allocator>
+  bool operator()(const basic_string<charT, traits, Allocator> &s1,
+                  const basic_string<charT, traits, Allocator> &s2) const;
+
+  static locale global(const locale &);
+  static const locale &classic();
+};
+
+template <class charT> bool isspace(charT c, const locale &loc);
+template <class charT> bool isprint(charT c, const locale &loc);
+template <class charT> bool iscntrl(charT c, const locale &loc);
+template <class charT> bool isupper(charT c, const locale &loc);
+template <class charT> bool islower(charT c, const locale &loc);
+template <class charT> bool isalpha(charT c, const locale &loc);
+template <class charT> bool isdigit(charT c, const locale &loc);
+template <class charT> bool ispunct(charT c, const locale &loc);
+template <class charT> bool isxdigit(charT c, const locale &loc);
+template <class charT> bool isalnum(charT c, const locale &loc);
+template <class charT> bool isgraph(charT c, const locale &loc);
+template <class charT> bool isblank(charT c, const locale &loc);
+template <class charT> charT toupper(charT c, const locale &loc);
+template <class charT> charT tolower(charT c, const locale &loc);
+} // namespace std
+
+#endif // _GHLIBCPP_LOCALE

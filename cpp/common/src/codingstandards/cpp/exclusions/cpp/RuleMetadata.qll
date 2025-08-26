@@ -12,6 +12,7 @@ import Comments
 import Concurrency
 import Conditionals
 import Const
+import Conversions
 import DeadCode
 import Declarations
 import ExceptionSafety
@@ -67,6 +68,7 @@ newtype TCPPQuery =
   TConcurrencyPackageQuery(ConcurrencyQuery q) or
   TConditionalsPackageQuery(ConditionalsQuery q) or
   TConstPackageQuery(ConstQuery q) or
+  TConversionsPackageQuery(ConversionsQuery q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
@@ -122,6 +124,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConcurrencyQueryMetadata(query, queryId, ruleId, category) or
   isConditionalsQueryMetadata(query, queryId, ruleId, category) or
   isConstQueryMetadata(query, queryId, ruleId, category) or
+  isConversionsQueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
