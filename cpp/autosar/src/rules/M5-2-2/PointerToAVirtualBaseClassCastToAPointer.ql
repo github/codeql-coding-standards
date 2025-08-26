@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.pointertoavirtualbaseclasscasttoapointer.PointerToAVirtualBaseClassCastToAPointer
 
-class PointerToAVirtualBaseClassCastToAPointerQuery extends PointerToAVirtualBaseClassCastToAPointerSharedQuery {
+class PointerToAVirtualBaseClassCastToAPointerQuery extends PointerToAVirtualBaseClassCastToAPointerSharedQuery
+{
   PointerToAVirtualBaseClassCastToAPointerQuery() {
     this = PointersPackage::pointerToAVirtualBaseClassCastToAPointerQuery()
   }

@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.pointertoavirtualbaseclasscasttoapointer.PointerToAVirtualBaseClassCastToAPointer
 
-class VirtualBaseClassCastToDerivedQuery extends PointerToAVirtualBaseClassCastToAPointerSharedQuery {
+class VirtualBaseClassCastToDerivedQuery extends PointerToAVirtualBaseClassCastToAPointerSharedQuery
+{
   VirtualBaseClassCastToDerivedQuery() {
     this = Conversions2Package::virtualBaseClassCastToDerivedQuery()
   }
