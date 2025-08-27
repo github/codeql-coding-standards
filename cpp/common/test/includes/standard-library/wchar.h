@@ -17,4 +17,13 @@ double wcstod(const wchar_t *str, wchar_t **endptr);
 float wcstof(const wchar_t *str, wchar_t **endptr);
 long double wcstold(const wchar_t *str, wchar_t **endptr);
 
+// Character classification and conversion types
+typedef struct {
+  int __count;
+  union {
+    unsigned int __wch;
+    char __wchb[4];
+  } __value;
+} mbstate_t;
+
 #endif // _GHLIBCPP_WCHAR

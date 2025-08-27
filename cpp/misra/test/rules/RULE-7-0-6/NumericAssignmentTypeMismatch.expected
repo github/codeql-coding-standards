@@ -1,0 +1,325 @@
+| test.cpp:36:8:36:11 | 300 | Assignment between incompatible numeric types from 'unsigned int' to 'uint8_t'. |
+| test.cpp:39:7:39:10 | 0.0 | Assignment between incompatible numeric types from 'float' to 'double'. |
+| test.cpp:45:8:45:9 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'uint8_t'. |
+| test.cpp:46:8:46:9 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'int8_t'. |
+| test.cpp:51:8:51:10 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test.cpp:52:9:52:11 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'uint16_t'. |
+| test.cpp:57:7:57:9 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'float'. |
+| test.cpp:58:9:58:9 | f | Assignment between incompatible numeric types from 'float' to 'int32_t'. |
+| test.cpp:95:12:95:13 | m1 | Assignment between incompatible numeric types from 'uint8_t' to 'uint32_t'. |
+| test.cpp:96:12:96:13 | m2 | Assignment between incompatible numeric types from 'uint16_t' to 'uint64_t'. |
+| test.cpp:97:13:97:14 | m1 | Assignment between incompatible numeric types from 'uint8_t' to 'uint32_t'. |
+| test.cpp:98:13:98:14 | m2 | Assignment between incompatible numeric types from 'uint16_t' to 'uint64_t'. |
+| test.cpp:103:9:103:14 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint32_t'. |
+| test.cpp:104:9:104:12 | (...) | Assignment between incompatible numeric types from 'uint8_t' to 'uint32_t'. |
+| test.cpp:105:9:105:37 | static_cast<uint8_t>... | Assignment between incompatible numeric types from 'uint8_t' to 'uint32_t'. |
+| test.cpp:110:8:110:14 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test.cpp:111:21:111:27 | ... + ... | Assignment between incompatible numeric types from 'int' to 'int16_t'. |
+| test.cpp:134:11:134:11 | 4 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test.cpp:137:11:137:13 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test.cpp:141:11:141:13 | 256 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test.cpp:143:11:143:13 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test.cpp:144:11:144:13 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'unsigned char'. |
+| test.cpp:148:11:148:13 | 512 | Assignment between incompatible numeric types from 'int' to 'unsigned short'. |
+| test.cpp:149:11:149:15 | 65535 | Assignment between incompatible numeric types from 'int' to 'unsigned short'. |
+| test.cpp:150:11:150:15 | 65536 | Assignment between incompatible numeric types from 'int' to 'unsigned short'. |
+| test.cpp:153:11:153:13 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'unsigned short'. |
+| test.cpp:157:11:157:15 | 65536 | Assignment between incompatible numeric types from 'int' to 'unsigned short'. |
+| test.cpp:160:11:160:13 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'unsigned short'. |
+| test.cpp:164:11:164:16 | 131072 | Assignment between incompatible numeric types from 'int' to 'unsigned int'. |
+| test.cpp:168:11:168:13 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'unsigned int'. |
+| test.cpp:172:11:172:22 | 4294967296 | Assignment between incompatible numeric types from 'unsigned long' to 'unsigned int'. |
+| test.cpp:176:11:176:13 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'unsigned int'. |
+| test.cpp:180:11:180:21 | 8589934592 | Assignment between incompatible numeric types from 'long' to 'unsigned long'. |
+| test.cpp:193:11:193:12 | 16 | Assignment between incompatible numeric types from 'int32_t' to 'signed char'. |
+| test.cpp:194:11:194:13 | - ... | Assignment between incompatible numeric types from 'int' to 'signed char'. |
+| test.cpp:196:11:196:13 | s16 | Assignment between incompatible numeric types from 'int16_t' to 'signed char'. |
+| test.cpp:200:11:200:14 | 2048 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
+| test.cpp:201:11:201:15 | - ... | Assignment between incompatible numeric types from 'int' to 'short'. |
+| test.cpp:204:11:204:13 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
+| test.cpp:208:12:208:22 | 134217728 | Assignment between incompatible numeric types from 'long long' to 'int'. |
+| test.cpp:209:12:209:23 | - ... | Assignment between incompatible numeric types from 'long long' to 'int'. |
+| test.cpp:224:8:224:9 | l1 | Assignment between incompatible numeric types from 'Colour' to 'uint8_t'. |
+| test.cpp:234:6:234:8 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'int64_t'. |
+| test.cpp:237:6:237:8 | s64 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test.cpp:239:6:239:7 | l1 | Assignment between incompatible numeric types from 'int' to 'int32_t'. |
+| test.cpp:252:6:252:7 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'int32_t'. |
+| test.cpp:261:6:261:6 | 2 | Assignment between incompatible numeric types from 'int' to 'long'. |
+| test.cpp:269:14:269:15 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'int'. |
+| test.cpp:289:6:289:8 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'size_t'. |
+| test.cpp:294:12:294:14 | s16 | Assignment between incompatible numeric types from 'int16_t' to 'int32_t'. |
+| test.cpp:313:9:313:10 | 42 | Assignment between incompatible numeric types from 'int' to 'long'. |
+| test.cpp:339:12:339:13 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'int32_t'. |
+| test.cpp:340:12:340:13 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'int32_t'. |
+| test.cpp:342:32:342:33 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'int32_t'. |
+| test.cpp:362:25:362:27 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'unsigned long'. |
+| test.cpp:374:19:374:25 | ... + ... | Assignment between incompatible numeric types from 'int' to 'int16_t'. |
+| test.cpp:379:10:379:12 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test.cpp:412:8:412:9 | l6 | Assignment between incompatible numeric types from 'uint32_t &' to 'uint8_t'. |
+| test.cpp:413:8:413:9 | l7 | Assignment between incompatible numeric types from 'int8_t &' to 'uint8_t'. |
+| test.cpp:414:9:414:10 | l8 | Assignment between incompatible numeric types from 'float &' to 'int32_t'. |
+| test.cpp:425:6:425:7 | l3 | Assignment between incompatible numeric types from 'uint8_t &' to 'int64_t'. |
+| test.cpp:426:6:426:7 | l4 | Assignment between incompatible numeric types from 'uint16_t &' to 'int32_t'. |
+| test.cpp:437:8:437:9 | l3 | Assignment between incompatible numeric types from 'uint8_t &' to 'int8_t'. |
+| test.cpp:438:8:438:9 | l4 | Assignment between incompatible numeric types from 'int8_t &' to 'uint8_t'. |
+| test.cpp:451:9:451:10 | l4 | Assignment between incompatible numeric types from 'float &' to 'int32_t'. |
+| test.cpp:452:7:452:8 | l5 | Assignment between incompatible numeric types from 'double &' to 'float'. |
+| test.cpp:453:7:453:8 | l6 | Assignment between incompatible numeric types from 'int32_t &' to 'float'. |
+| test.cpp:464:8:464:14 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test.cpp:482:7:482:8 | l3 | Assignment between incompatible numeric types from 'uint16_t &' to 'uint32_t'. |
+| test.cpp:485:7:485:8 | l5 | Assignment between incompatible numeric types from 'uint64_t &' to 'uint32_t'. |
+| test.cpp:534:12:534:13 | l1 | Assignment between incompatible numeric types from 'uint32_t' to 'uint8_t'. |
+| test.cpp:535:12:535:13 | l1 | Assignment between incompatible numeric types from 'uint32_t' to 'uint16_t'. |
+| test.cpp:537:12:537:13 | l2 | Assignment between incompatible numeric types from 'int32_t' to 'int8_t'. |
+| test.cpp:538:12:538:13 | l2 | Assignment between incompatible numeric types from 'int32_t' to 'int16_t'. |
+| test.cpp:558:12:558:14 | 300 | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test.cpp:559:12:559:16 | 70000 | Assignment between incompatible numeric types from 'int' to 'uint16_t'. |
+| test.cpp:560:12:560:27 | 4294967296 | Assignment between incompatible numeric types from 'unsigned long long' to 'uint32_t'. |
+| test.cpp:561:12:561:14 | 200 | Assignment between incompatible numeric types from 'int' to 'int8_t'. |
+| test.cpp:562:12:562:16 | 40000 | Assignment between incompatible numeric types from 'int' to 'int16_t'. |
+| test.cpp:563:12:563:26 | 4294967296 | Assignment between incompatible numeric types from 'long long' to 'int32_t'. |
+| test.cpp:564:12:564:14 | 1.0 | Assignment between incompatible numeric types from 'double' to 'float'. |
+| test.cpp:565:12:565:15 | 1.0 | Assignment between incompatible numeric types from 'float' to 'double'. |
+| test.cpp:570:12:570:18 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test.cpp:571:12:571:18 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint16_t'. |
+| test.cpp:572:12:572:18 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint32_t'. |
+| test.cpp:574:12:574:13 | l1 | Assignment between incompatible numeric types from 'uint8_t' to 'int16_t'. |
+| test.cpp:575:12:575:13 | l1 | Assignment between incompatible numeric types from 'uint8_t' to 'int32_t'. |
+| test.cpp:576:12:576:13 | l1 | Assignment between incompatible numeric types from 'uint8_t' to 'float'. |
+| test.cpp:577:12:577:13 | l1 | Assignment between incompatible numeric types from 'uint8_t' to 'double'. |
+| test.cpp:607:9:607:37 | static_cast<int16_t>... | Assignment between incompatible numeric types from 'int16_t' to 'int32_t'. |
+| test_aggregate.cpp:29:22:29:24 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test_aggregate.cpp:31:26:31:28 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'uint16_t'. |
+| test_aggregate.cpp:33:31:33:33 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_aggregate.cpp:35:22:35:24 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'float'. |
+| test_aggregate.cpp:38:22:38:24 | 256 | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test_aggregate.cpp:38:27:38:31 | 65536 | Assignment between incompatible numeric types from 'int' to 'uint16_t'. |
+| test_aggregate.cpp:39:22:39:33 | 2147483648 | Assignment between incompatible numeric types from 'long long' to 'int32_t'. |
+| test_aggregate.cpp:51:22:51:24 | 300 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test_aggregate.cpp:51:27:51:29 | 400 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test_aggregate.cpp:51:32:51:34 | 500 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test_aggregate.cpp:52:22:52:23 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'unsigned char'. |
+| test_aggregate.cpp:52:26:52:27 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'unsigned char'. |
+| test_aggregate.cpp:52:30:52:31 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'unsigned char'. |
+| test_aggregate.cpp:53:22:53:24 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test_aggregate.cpp:53:27:53:29 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test_aggregate.cpp:53:32:53:34 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test_aggregate.cpp:58:26:58:28 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
+| test_aggregate.cpp:58:31:58:33 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
+| test_aggregate.cpp:58:38:58:40 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
+| test_aggregate.cpp:58:43:58:45 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'signed short'. |
+| test_aggregate.cpp:59:26:59:27 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'signed short'. |
+| test_aggregate.cpp:59:30:59:31 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'signed short'. |
+| test_aggregate.cpp:60:26:60:27 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'signed short'. |
+| test_aggregate.cpp:60:30:60:31 | u8 | Assignment between incompatible numeric types from 'uint8_t' to 'signed short'. |
+| test_aggregate.cpp:76:8:76:10 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test_aggregate.cpp:80:7:80:9 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'uint32_t'. |
+| test_aggregate.cpp:96:24:96:26 | 300 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test_aggregate.cpp:96:29:96:33 | 70000 | Assignment between incompatible numeric types from 'int' to 'unsigned short'. |
+| test_aggregate.cpp:96:36:96:39 | 5000 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
+| test_aggregate.cpp:97:24:97:26 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test_aggregate.cpp:97:29:97:31 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'unsigned short'. |
+| test_aggregate.cpp:97:34:97:36 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
+| test_aggregate.cpp:107:28:107:30 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test_member_pointers.cpp:25:12:25:14 | s64 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_member_pointers.cpp:26:12:26:14 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:27:12:27:14 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_member_pointers.cpp:28:12:28:14 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'int32_t'. |
+| test_member_pointers.cpp:32:13:32:15 | s64 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_member_pointers.cpp:33:13:33:15 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:34:13:34:15 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_member_pointers.cpp:35:13:35:15 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'int32_t'. |
+| test_member_pointers.cpp:42:12:42:14 | s64 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_member_pointers.cpp:43:12:43:14 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:44:12:44:14 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_member_pointers.cpp:45:12:45:14 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'int32_t'. |
+| test_member_pointers.cpp:49:13:49:15 | s64 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_member_pointers.cpp:50:13:50:15 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:51:13:51:15 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_member_pointers.cpp:52:13:52:15 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'int32_t'. |
+| test_member_pointers.cpp:58:11:58:13 | s16 | Assignment between incompatible numeric types from 'int16_t' to 'int32_t'. |
+| test_member_pointers.cpp:60:11:60:13 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:66:11:66:13 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:67:11:67:13 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_member_pointers.cpp:82:6:82:8 | s64 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_member_pointers.cpp:83:6:83:8 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:84:6:84:8 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_member_pointers.cpp:85:6:85:8 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'int32_t'. |
+| test_member_pointers.cpp:90:6:90:8 | s64 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_member_pointers.cpp:91:6:91:8 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:92:6:92:8 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_member_pointers.cpp:93:6:93:8 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'int32_t'. |
+| test_member_pointers.cpp:97:7:97:9 | s16 | Assignment between incompatible numeric types from 'int16_t' to 'int32_t'. |
+| test_member_pointers.cpp:100:7:100:9 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:106:41:106:43 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int32_t'. |
+| test_member_pointers.cpp:107:41:107:43 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_member_pointers.cpp:125:12:125:14 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'int64_t'. |
+| test_member_pointers.cpp:126:12:126:14 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int64_t'. |
+| test_member_pointers.cpp:127:12:127:14 | u64 | Assignment between incompatible numeric types from 'uint64_t' to 'int64_t'. |
+| test_operators.cpp:99:8:99:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:100:8:100:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:104:8:104:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:105:8:105:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:109:7:109:8 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:110:7:110:8 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:114:8:114:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:115:8:115:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:119:8:119:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:120:8:120:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:124:7:124:8 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:125:7:125:8 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:129:8:129:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:130:8:130:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:134:8:134:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:135:8:135:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:139:9:139:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:140:9:140:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:144:9:144:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:145:9:145:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:150:9:150:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:151:9:151:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:155:9:155:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:156:9:156:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:160:8:160:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:161:8:161:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:165:9:165:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:166:9:166:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:170:8:170:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:171:8:171:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:175:9:175:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:176:9:176:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:181:6:181:7 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:182:6:182:7 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:187:6:187:7 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:188:6:188:7 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:190:10:190:11 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:191:6:191:7 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:192:6:192:7 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:192:10:192:11 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:197:8:197:9 | l3 | Assignment between incompatible numeric types from 'int16_t' to 'int32_t'. |
+| test_operators.cpp:198:8:198:9 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:199:8:199:9 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:203:9:203:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:204:9:204:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:208:9:208:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:209:9:209:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:213:9:213:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:214:9:214:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:218:9:218:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:219:9:219:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:223:9:223:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:224:9:224:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:228:9:228:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:229:9:229:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:233:9:233:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:234:9:234:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:238:9:238:10 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:239:9:239:10 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:243:10:243:11 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:244:10:244:11 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:248:10:248:11 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:249:10:249:11 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:254:3:254:4 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:255:3:255:4 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:259:3:259:4 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:260:3:260:4 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:264:3:264:4 | l4 | Assignment between incompatible numeric types from 'int64_t' to 'int32_t'. |
+| test_operators.cpp:265:3:265:4 | l5 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_operators.cpp:277:8:277:12 | 42.0 | Assignment between incompatible numeric types from 'float' to 'int32_t'. |
+| test_operators.cpp:292:8:292:10 | 42 | Assignment between incompatible numeric types from 'long' to 'int32_t'. |
+| test_operators.cpp:293:8:293:11 | 42 | Assignment between incompatible numeric types from 'long long' to 'int32_t'. |
+| test_operators.cpp:294:8:294:10 | 42 | Assignment between incompatible numeric types from 'unsigned int' to 'int32_t'. |
+| test_specified.cpp:37:8:37:9 | l2 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test_specified.cpp:38:8:38:9 | l3 | Assignment between incompatible numeric types from 'uint32_t' to 'uint8_t'. |
+| test_specified.cpp:41:8:41:9 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'int8_t'. |
+| test_specified.cpp:42:8:42:9 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'int8_t'. |
+| test_specified.cpp:43:9:43:10 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'int16_t'. |
+| test_specified.cpp:48:8:48:9 | l4 | Assignment between incompatible numeric types from 'int8_t' to 'uint8_t'. |
+| test_specified.cpp:49:9:49:10 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'uint16_t'. |
+| test_specified.cpp:50:9:50:10 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'uint32_t'. |
+| test_specified.cpp:58:9:58:10 | l7 | Assignment between incompatible numeric types from 'float' to 'int32_t'. |
+| test_specified.cpp:59:9:59:10 | l8 | Assignment between incompatible numeric types from 'double' to 'int32_t'. |
+| test_specified.cpp:71:7:71:8 | l8 | Assignment between incompatible numeric types from 'double' to 'float'. |
+| test_specified.cpp:94:8:94:9 | l2 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test_specified.cpp:95:8:95:9 | l3 | Assignment between incompatible numeric types from 'uint32_t' to 'uint8_t'. |
+| test_specified.cpp:96:9:96:10 | l3 | Assignment between incompatible numeric types from 'uint32_t' to 'uint16_t'. |
+| test_specified.cpp:97:8:97:9 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'int8_t'. |
+| test_specified.cpp:98:8:98:9 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'int8_t'. |
+| test_specified.cpp:99:9:99:10 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'int16_t'. |
+| test_specified.cpp:102:8:102:9 | l4 | Assignment between incompatible numeric types from 'int8_t' to 'uint8_t'. |
+| test_specified.cpp:103:9:103:10 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'uint16_t'. |
+| test_specified.cpp:104:9:104:10 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'uint32_t'. |
+| test_specified.cpp:105:8:105:9 | l1 | Assignment between incompatible numeric types from 'uint8_t' to 'int8_t'. |
+| test_specified.cpp:106:9:106:10 | l2 | Assignment between incompatible numeric types from 'uint16_t' to 'int16_t'. |
+| test_specified.cpp:107:9:107:10 | l3 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_specified.cpp:110:9:110:10 | l7 | Assignment between incompatible numeric types from 'float' to 'int32_t'. |
+| test_specified.cpp:111:9:111:10 | l8 | Assignment between incompatible numeric types from 'double' to 'int32_t'. |
+| test_specified.cpp:112:7:112:8 | l4 | Assignment between incompatible numeric types from 'int8_t' to 'float'. |
+| test_specified.cpp:113:7:113:8 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'float'. |
+| test_specified.cpp:114:7:114:8 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'float'. |
+| test_specified.cpp:115:7:115:8 | l4 | Assignment between incompatible numeric types from 'int8_t' to 'double'. |
+| test_specified.cpp:116:7:116:8 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'double'. |
+| test_specified.cpp:117:7:117:8 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'double'. |
+| test_specified.cpp:120:7:120:8 | l8 | Assignment between incompatible numeric types from 'double' to 'float'. |
+| test_specified.cpp:143:8:143:9 | l2 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test_specified.cpp:144:8:144:9 | l3 | Assignment between incompatible numeric types from 'uint32_t' to 'uint8_t'. |
+| test_specified.cpp:145:9:145:10 | l3 | Assignment between incompatible numeric types from 'uint32_t' to 'uint16_t'. |
+| test_specified.cpp:146:8:146:9 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'int8_t'. |
+| test_specified.cpp:147:8:147:9 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'int8_t'. |
+| test_specified.cpp:148:9:148:10 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'int16_t'. |
+| test_specified.cpp:151:8:151:9 | l4 | Assignment between incompatible numeric types from 'int8_t' to 'uint8_t'. |
+| test_specified.cpp:152:9:152:10 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'uint16_t'. |
+| test_specified.cpp:153:9:153:10 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'uint32_t'. |
+| test_specified.cpp:154:8:154:9 | l1 | Assignment between incompatible numeric types from 'uint8_t' to 'int8_t'. |
+| test_specified.cpp:155:9:155:10 | l2 | Assignment between incompatible numeric types from 'uint16_t' to 'int16_t'. |
+| test_specified.cpp:156:9:156:10 | l3 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
+| test_specified.cpp:159:9:159:10 | l7 | Assignment between incompatible numeric types from 'float' to 'int32_t'. |
+| test_specified.cpp:160:9:160:10 | l8 | Assignment between incompatible numeric types from 'double' to 'int32_t'. |
+| test_specified.cpp:161:7:161:8 | l4 | Assignment between incompatible numeric types from 'int8_t' to 'float'. |
+| test_specified.cpp:162:7:162:8 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'float'. |
+| test_specified.cpp:163:7:163:8 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'float'. |
+| test_specified.cpp:164:7:164:8 | l4 | Assignment between incompatible numeric types from 'int8_t' to 'double'. |
+| test_specified.cpp:165:7:165:8 | l5 | Assignment between incompatible numeric types from 'int16_t' to 'double'. |
+| test_specified.cpp:166:7:166:8 | l6 | Assignment between incompatible numeric types from 'int32_t' to 'double'. |
+| test_specified.cpp:169:7:169:8 | l8 | Assignment between incompatible numeric types from 'double' to 'float'. |
+| test_specified.cpp:213:8:213:9 | l6 | Assignment between incompatible numeric types from 'const uint16_t &' to 'uint8_t'. |
+| test_specified.cpp:214:8:214:10 | l10 | Assignment between incompatible numeric types from 'volatile uint16_t &' to 'uint8_t'. |
+| test_specified.cpp:215:8:215:10 | l14 | Assignment between incompatible numeric types from 'const volatile uint16_t &' to 'uint8_t'. |
+| test_specified.cpp:218:8:218:9 | l5 | Assignment between incompatible numeric types from 'const uint8_t &' to 'int8_t'. |
+| test_specified.cpp:219:8:219:9 | l7 | Assignment between incompatible numeric types from 'const int8_t &' to 'uint8_t'. |
+| test_specified.cpp:220:8:220:9 | l9 | Assignment between incompatible numeric types from 'volatile uint8_t &' to 'int8_t'. |
+| test_specified.cpp:221:8:221:10 | l11 | Assignment between incompatible numeric types from 'volatile int8_t &' to 'uint8_t'. |
+| test_specified.cpp:222:8:222:10 | l13 | Assignment between incompatible numeric types from 'const volatile uint8_t &' to 'int8_t'. |
+| test_specified.cpp:223:8:223:10 | l15 | Assignment between incompatible numeric types from 'const volatile int8_t &' to 'uint8_t'. |
+| test_specified.cpp:226:9:226:10 | l8 | Assignment between incompatible numeric types from 'const float &' to 'int32_t'. |
+| test_specified.cpp:227:9:227:11 | l12 | Assignment between incompatible numeric types from 'volatile float &' to 'int32_t'. |
+| test_specified.cpp:228:9:228:11 | l16 | Assignment between incompatible numeric types from 'const volatile float &' to 'int32_t'. |
+| test_specified.cpp:229:7:229:8 | l3 | Assignment between incompatible numeric types from 'int8_t' to 'float'. |
+| test_specified.cpp:230:7:230:8 | l7 | Assignment between incompatible numeric types from 'const int8_t &' to 'float'. |
+| test_specified.cpp:231:7:231:9 | l11 | Assignment between incompatible numeric types from 'volatile int8_t &' to 'float'. |
+| test_specified.cpp:232:7:232:9 | l15 | Assignment between incompatible numeric types from 'const volatile int8_t &' to 'float'. |
+| test_specified.cpp:245:7:245:8 | l1 | Assignment between incompatible numeric types from 'uint8_t' to 'const uint32_t'. |
+| test_specified.cpp:246:7:246:8 | l2 | Assignment between incompatible numeric types from 'uint16_t' to 'const uint32_t'. |
+| test_specified.cpp:247:7:247:8 | l3 | Assignment between incompatible numeric types from 'int8_t' to 'volatile int64_t'. |
+| test_specified.cpp:248:7:248:8 | l1 | Assignment between incompatible numeric types from 'uint8_t' to 'const volatile uint16_t'. |
+| test_specified.cpp:250:7:250:8 | l3 | Assignment between incompatible numeric types from 'int8_t' to 'const volatile uint16_t'. |
+| test_specified.cpp:285:8:285:22 | g4 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test_specified.cpp:287:8:287:19 | s4 | Assignment between incompatible numeric types from 'uint16_t' to 'uint8_t'. |
+| test_specified.cpp:292:9:292:23 | g5 | Assignment between incompatible numeric types from 'int8_t' to 'uint16_t'. |
+| test_specified.cpp:294:9:294:20 | s5 | Assignment between incompatible numeric types from 'int8_t' to 'uint16_t'. |
+| test_specified.cpp:308:23:308:25 | 300 | Assignment between incompatible numeric types from 'int' to 'unsigned char'. |
+| test_specified.cpp:308:28:308:32 | 70000 | Assignment between incompatible numeric types from 'int' to 'unsigned short'. |
+| test_specified.cpp:308:35:308:38 | 3000 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
+| test_specified.cpp:309:12:309:16 | 70000 | Assignment between incompatible numeric types from 'int' to 'unsigned short'. |
+| test_specified.cpp:314:23:314:25 | u16 | Assignment between incompatible numeric types from 'uint16_t' to 'unsigned char'. |
+| test_specified.cpp:314:28:314:30 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'unsigned short'. |
+| test_specified.cpp:314:33:314:35 | s32 | Assignment between incompatible numeric types from 'int32_t' to 'short'. |
+| test_specified.cpp:329:8:329:9 | l2 | Assignment between incompatible numeric types from 'CVColour' to 'uint8_t'. |
+| test_specified.cpp:331:8:331:9 | l3 | Assignment between incompatible numeric types from 'CVColour' to 'uint8_t'. |
+| test_specified.cpp:342:8:342:14 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test_specified.cpp:343:8:343:14 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test_specified.cpp:344:8:344:14 | ... + ... | Assignment between incompatible numeric types from 'int' to 'uint8_t'. |
+| test_specified.cpp:351:9:351:12 | (...) | Assignment between incompatible numeric types from 'uint8_t' to 'uint32_t'. |
+| test_specified.cpp:352:9:352:12 | (...) | Assignment between incompatible numeric types from 'uint8_t' to 'uint32_t'. |
+| test_specified.cpp:370:18:370:20 | 300 | Assignment between incompatible numeric types from 'int' to 'const uint8_t'. |
+| test_specified.cpp:370:23:370:27 | 70000 | Assignment between incompatible numeric types from 'int' to 'volatile uint16_t'. |

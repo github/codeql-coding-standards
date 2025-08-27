@@ -12,6 +12,10 @@ using ::wcstold;
 using ::wcstoll;
 using ::wcstoul;
 using ::wcstoull;
+
+using ::mbstate_t;
+using ::WEOF;
+using ::wint_t;
 } // namespace std
 
 #endif // _GHLIBCPP_CWCHAR

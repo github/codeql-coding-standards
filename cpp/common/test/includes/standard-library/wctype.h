@@ -31,4 +31,7 @@ extern wctype_t wctype(const char *property);
 extern wint_t towctrans(wint_t wc, wctrans_t desc);
 extern wctrans_t wctrans(const char *property);
 
+// Wide character constants
+static const wint_t WEOF = static_cast<wint_t>(-1);
+
 #endif // _GHLIBCPP_WCTYPE
