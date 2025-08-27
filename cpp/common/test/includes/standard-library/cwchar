@@ -1,23 +1,21 @@
 #ifndef _GHLIBCPP_CWCHAR
 #define _GHLIBCPP_CWCHAR
-
-#include "stddef.h"
+#include "wchar.h"
 
 namespace std {
-// Character classification and conversion types
-typedef struct {
-  int __count;
-  union {
-    unsigned int __wch;
-    char __wchb[4];
-  } __value;
-} mbstate_t;
+using ::fgetwc;
+using ::fputwc;
+using ::wcstod;
+using ::wcstof;
+using ::wcstol;
+using ::wcstold;
+using ::wcstoll;
+using ::wcstoul;
+using ::wcstoull;
 
-typedef unsigned int wint_t;
-
-// Wide character constants
-static const wint_t WEOF = static_cast<wint_t>(-1);
-
+using ::mbstate_t;
+using ::WEOF;
+using ::wint_t;
 } // namespace std
 
 #endif // _GHLIBCPP_CWCHAR
