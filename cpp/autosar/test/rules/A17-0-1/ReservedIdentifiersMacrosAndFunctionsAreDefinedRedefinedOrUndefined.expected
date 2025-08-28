@@ -24,3 +24,6 @@
 | test.cpp:35:1:35:12 | #define _Foo | '#define _Foo' uses a name reserved for the C++14 implementation. |
 | test.cpp:37:1:37:11 | #undef _foo | '#undef _foo' uses a name reserved for the C++14 implementation. |
 | test.cpp:38:1:38:12 | #define _foo | '#define _foo' uses a name reserved for the C++14 implementation. |
+| test.cpp:59:1:59:16 | #define str(x) 0 | '#define str' uses a reserved name from the C++14 standard library header <regex>. |
+| test.cpp:59:1:59:16 | #define str(x) 0 | '#define str' uses a reserved name from the C++14 standard library header <sstream>. |
+| test.cpp:59:1:59:16 | #define str(x) 0 | '#define str' uses a reserved name from the C++14 standard library header <strstream>. |
