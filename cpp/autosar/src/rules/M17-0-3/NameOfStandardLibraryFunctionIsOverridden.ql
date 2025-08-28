@@ -15,16 +15,26 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Naming
+import codingstandards.cpp.StandardLibraryNames
 
-predicate isGlobal(Function f) { f.hasGlobalName(_) }
-
-from TopLevelFunction f
+from TopLevelFunction f, string functionName, string header
 where
   not isExcluded(f, NamingPackage::nameOfStandardLibraryFunctionIsOverriddenQuery()) and
-  Naming::Cpp14::hasStandardLibraryFunctionName(f.getName()) and
-  f.fromSource() and
-  isGlobal(f)
+  f.hasGlobalName(functionName) and
+  /*
+   * The rule does not define what it means by "standard library function", but we will
+   * assume that it is a non-member function which is declared in the global namespace.
+   * Functions declared in `std` only can't be easily "replaced" in the way the rule is
+   * concerned about (without extending 'std'), and so are excluded.
+   */
+
+  (
+    // Directly defined by C++
+    CppStandardLibrary::Cpp14::hasFunctionName(header, "", "", functionName, _, _, _)
+    or
+    // Defined by C and inherited by C++
+    CStandardLibrary::C11::hasFunctionName(header, "", "", functionName, _, _, _)
+  ) and
+  f.fromSource()
 select f,
-  "Function " + f.getName() + " overrides standard library function " +
-    Naming::Cpp14::getQualifiedStandardLibraryFunctionName(f.getName()) + "."
+  "Function " + functionName + " overrides a standard library function from '" + header + "'."
