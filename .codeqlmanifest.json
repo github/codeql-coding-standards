@@ -4,6 +4,6 @@
     "cpp/*/test/qlpack.yml",
     "c/*/src/qlpack.yml",
     "c/*/test/qlpack.yml",
-    "scripts/generate_modules/queries/qlpack.yml"
+    "scripts/generate_standard_library_models/cpp/queries/qlpack.yml"
   ]
 }

@@ -16,23 +16,10 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Naming
+import codingstandards.cpp.ReservedNames
 
-from PreprocessorDirective p, string name
+from PreprocessorDirective p, string message
 where
   not isExcluded(p, Preprocessor4Package::defineAndUndefUsedOnReservedIdentifierOrMacroNameQuery()) and
-  (
-    p.(Macro).hasName(name)
-    or
-    p.(PreprocessorUndef).getName() = name
-  ) and
-  (
-    Naming::Cpp14::hasStandardLibraryMacroName(name)
-    or
-    Naming::Cpp14::hasStandardLibraryObjectName(name)
-    or
-    name.regexpMatch("_.*")
-    or
-    name = "defined"
-  )
-select p, "Reserved identifier '" + name + "' has been undefined or redefined."
+  ReservedNames::C11::isAReservedIdentifier(p, message, false)
+select p, message

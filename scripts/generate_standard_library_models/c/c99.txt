@@ -1,0 +1,886 @@
+B.1 Diagnostics <assert.h>
+NDEBUG
+void assert(scalar expression);
+B.2 Complex <complex.h>
+complex
+_Complex_I
+imaginary
+_Imaginary_I
+I
+#pragma STDC CX_LIMITED_RANGE on-off-switch
+double complex cacos(double complex z);
+float complex cacosf(float complex z);
+long double complex cacosl(long double complex z);
+double complex casin(double complex z);
+float complex casinf(float complex z);
+long double complex casinl(long double complex z);
+double complex catan(double complex z);
+float complex catanf(float complex z);
+long double complex catanl(long double complex z);
+double complex ccos(double complex z);
+float complex ccosf(float complex z);
+long double complex ccosl(long double complex z);
+double complex csin(double complex z);
+float complex csinf(float complex z);
+long double complex csinl(long double complex z);
+double complex ctan(double complex z);
+float complex ctanf(float complex z);
+long double complex ctanl(long double complex z);
+double complex cacosh(double complex z);
+float complex cacoshf(float complex z);
+long double complex cacoshl(long double complex z);
+double complex casinh(double complex z);
+float complex casinhf(float complex z);
+long double complex casinhl(long double complex z);
+double complex catanh(double complex z);
+float complex catanhf(float complex z);
+long double complex catanhl(long double complex z);
+double complex ccosh(double complex z);
+float complex ccoshf(float complex z);
+long double complex ccoshl(long double complex z);
+double complex csinh(double complex z);
+float complex csinhf(float complex z);
+long double complex csinhl(long double complex z);
+double complex ctanh(double complex z);
+float complex ctanhf(float complex z);
+long double complex ctanhl(long double complex z);
+double complex cexp(double complex z);
+float complex cexpf(float complex z);
+long double complex cexpl(long double complex z);
+double complex clog(double complex z);
+float complex clogf(float complex z);
+long double complex clogl(long double complex z);
+double cabs(double complex z);
+float cabsf(float complex z);
+long double cabsl(long double complex z);
+double complex cpow(double complex x, double complex y);
+float complex cpowf(float complex x, float complex y);
+long double complex cpowl(long double complex x,
+long double complex y);
+double complex csqrt(double complex z);
+float complex csqrtf(float complex z);
+long double complex csqrtl(long double complex z);
+double carg(double complex z);
+float cargf(float complex z);
+long double cargl(long double complex z);
+double cimag(double complex z);
+float cimagf(float complex z);
+long double cimagl(long double complex z);
+double complex conj(double complex z);
+float complex conjf(float complex z);
+long double complex conjl(long double complex z);
+double complex cproj(double complex z);
+float complex cprojf(float complex z);
+long double complex cprojl(long double complex z);
+double creal(double complex z);
+float crealf(float complex z);
+long double creall(long double complex z);
+B.3 Character handling <ctype.h>
+int isalnum(int c);
+int isalpha(int c);
+int isblank(int c);
+int iscntrl(int c);
+int isdigit(int c);
+int isgraph(int c);
+int islower(int c);
+int isprint(int c);
+int ispunct(int c);
+int isspace(int c);
+int isupper(int c);
+int isxdigit(int c);
+int tolower(int c);
+int toupper(int c);
+B.4 Errors <errno.h>
+EDOM EILSEQ ERANGE errno
+B.5 Floating-point environment <fenv.h>
+fenv_t
+fexcept_t
+FE_DIVBYZERO
+FE_INEXACT
+FE_INVALID
+FE_OVERFLOW
+FE_UNDERFLOW
+FE_ALL_EXCEPT
+FE_DOWNWARD
+FE_TONEAREST
+FE_TOWARDZERO
+FE_UPWARD
+FE_DFL_ENV
+#pragma STDC FENV_ACCESS on-off-switch
+int feclearexcept(int excepts);
+int fegetexceptflag(fexcept_t *flagp, int excepts);
+int feraiseexcept(int excepts);
+int fesetexceptflag(const fexcept_t *flagp,
+int excepts);
+int fetestexcept(int excepts);
+int fegetround(void);
+int fesetround(int round);
+int fegetenv(fenv_t *envp);
+int feholdexcept(fenv_t *envp);
+int fesetenv(const fenv_t *envp);
+int feupdateenv(const fenv_t *envp);
+B.6 Characteristics of floating types <float.h>
+FLT_ROUNDS
+FLT_EVAL_METHOD
+FLT_RADIX
+FLT_MANT_DIG
+DBL_MANT_DIG
+LDBL_MANT_DIG
+DECIMAL_DIG
+FLT_DIG
+DBL_DIG
+LDBL_DIG
+FLT_MIN_EXP
+DBL_MIN_EXP
+LDBL_MIN_EXP
+FLT_MIN_10_EXP
+DBL_MIN_10_EXP
+LDBL_MIN_10_EXP
+FLT_MAX_EXP
+DBL_MAX_EXP
+LDBL_MAX_EXP
+FLT_MAX_10_EXP
+DBL_MAX_10_EXP
+LDBL_MAX_10_EXP
+FLT_MAX
+DBL_MAX
+LDBL_MAX
+FLT_EPSILON
+DBL_EPSILON
+LDBL_EPSILON
+FLT_MIN
+DBL_MIN
+LDBL_MIN
+B.7 Format conversion of integer types <inttypes.h>
+imaxdiv_t
+PRIdN PRIdLEASTN PRIdFASTN PRIdMAX PRIdPTR
+PRIiN PRIiLEASTN PRIiFASTN PRIiMAX PRIiPTR
+PRIoN PRIoLEASTN PRIoFASTN PRIoMAX PRIoPTR
+PRIuN PRIuLEASTN PRIuFASTN PRIuMAX PRIuPTR
+PRIxN PRIxLEASTN PRIxFASTN PRIxMAX PRIxPTR
+PRIXN PRIXLEASTN PRIXFASTN PRIXMAX PRIXPTR
+SCNdN SCNdLEASTN SCNdFASTN SCNdMAX SCNdPTR
+SCNiN SCNiLEASTN SCNiFASTN SCNiMAX SCNiPTR
+SCNoN SCNoLEASTN SCNoFASTN SCNoMAX SCNoPTR
+SCNuN SCNuLEASTN SCNuFASTN SCNuMAX SCNuPTR
+SCNxN SCNxLEASTN SCNxFASTN SCNxMAX SCNxPTR
+intmax_t imaxabs(intmax_t j);
+imaxdiv_t imaxdiv(intmax_t numer, intmax_t denom);
+intmax_t strtoimax(const char * restrict nptr,
+char ** restrict endptr, int base);
+uintmax_t strtoumax(const char * restrict nptr,
+char ** restrict endptr, int base);
+intmax_t wcstoimax(const wchar_t * restrict nptr,
+wchar_t ** restrict endptr, int base);
+uintmax_t wcstoumax(const wchar_t * restrict nptr,
+wchar_t ** restrict endptr, int base);
+B.8 Alternative spellings <iso646.h>
+and
+and_eq
+bitand
+bitor
+compl
+not
+not_eq
+or
+or_eq
+xor
+xor_eq
+B.9 Sizes of integer types <limits.h>
+CHAR_BIT
+SCHAR_MIN
+SCHAR_MAX
+UCHAR_MAX
+CHAR_MIN
+CHAR_MAX
+MB_LEN_MAX
+SHRT_MIN
+SHRT_MAX
+USHRT_MAX
+INT_MIN
+INT_MAX
+UINT_MAX
+LONG_MIN
+LONG_MAX
+B.10 Localization <locale.h>
+struct lconv
+NULL
+LC_ALL
+LC_COLLATE
+LC_CTYPE
+LC_MONETARY
+LC_NUMERIC
+LC_TIME
+char *setlocale(int category, const char *locale);
+struct lconv *localeconv(void);
+B.11 Mathematics <math.h>
+float_t
+double_t
+HUGE_VAL
+HUGE_VALF
+HUGE_VALL
+INFINITY
+NAN
+FP_INFINITE
+FP_NAN
+FP_NORMAL
+FP_SUBNORMAL
+FP_ZERO
+FP_FAST_FMA
+FP_FAST_FMAF
+FP_FAST_FMAL
+FP_ILOGB0
+FP_ILOGBNAN
+MATH_ERRNO
+MATH_ERREXCEPT
+math_errhandling
+#pragma STDC FP_CONTRACT on-off-switch
+int fpclassify(real-floating x);
+int isfinite(real-floating x);
+int isinf(real-floating x);
+int isnan(real-floating x);
+int isnormal(real-floating x);
+int signbit(real-floating x);
+double acos(double x);
+float acosf(float x);
+long double acosl(long double x);
+double asin(double x);
+float asinf(float x);
+long double asinl(long double x);
+double atan(double x);
+float atanf(float x);
+long double atanl(long double x);
+double atan2(double y, double x);
+float atan2f(float y, float x);
+long double atan2l(long double y, long double x);
+double cos(double x);
+float cosf(float x);
+long double cosl(long double x);
+double sin(double x);
+float sinf(float x);
+long double sinl(long double x);
+double tan(double x);
+float tanf(float x);
+long double tanl(long double x);
+double acosh(double x);
+float acoshf(float x);
+long double acoshl(long double x);
+double asinh(double x);
+float asinhf(float x);
+long double asinhl(long double x);
+double atanh(double x);
+float atanhf(float x);
+long double atanhl(long double x);
+double cosh(double x);
+float coshf(float x);
+long double coshl(long double x);
+double sinh(double x);
+float sinhf(float x);
+long double sinhl(long double x);
+double tanh(double x);
+float tanhf(float x);
+long double tanhl(long double x);
+double exp(double x);
+float expf(float x);
+long double expl(long double x);
+double exp2(double x);
+float exp2f(float x);
+long double exp2l(long double x);
+double expm1(double x);
+float expm1f(float x);
+long double expm1l(long double x);
+double frexp(double value, int *exp);
+float frexpf(float value, int *exp);
+long double frexpl(long double value, int *exp);
+int ilogb(double x);
+int ilogbf(float x);
+int ilogbl(long double x);
+double ldexp(double x, int exp);
+float ldexpf(float x, int exp);
+long double ldexpl(long double x, int exp);
+double log(double x);
+float logf(float x);
+long double logl(long double x);
+double log10(double x);
+float log10f(float x);
+long double log10l(long double x);
+double log1p(double x);
+float log1pf(float x);
+long double log1pl(long double x);
+double log2(double x);
+float log2f(float x);
+long double log2l(long double x);
+double logb(double x);
+float logbf(float x);
+long double logbl(long double x);
+double modf(double value, double *iptr);
+float modff(float value, float *iptr);
+long double modfl(long double value, long double *iptr);
+double scalbn(double x, int n);
+float scalbnf(float x, int n);
+long double scalbnl(long double x, int n);
+double scalbln(double x, long int n);
+float scalblnf(float x, long int n);
+long double scalblnl(long double x, long int n);
+double cbrt(double x);
+float cbrtf(float x);
+long double cbrtl(long double x);
+double fabs(double x);
+float fabsf(float x);
+long double fabsl(long double x);
+double hypot(double x, double y);
+float hypotf(float x, float y);
+long double hypotl(long double x, long double y);
+double pow(double x, double y);
+float powf(float x, float y);
+long double powl(long double x, long double y);
+double sqrt(double x);
+float sqrtf(float x);
+long double sqrtl(long double x);
+double erf(double x);
+float erff(float x);
+long double erfl(long double x);
+double erfc(double x);
+float erfcf(float x);
+long double erfcl(long double x);
+double lgamma(double x);
+float lgammaf(float x);
+long double lgammal(long double x);
+double tgamma(double x);
+float tgammaf(float x);
+long double tgammal(long double x);
+double ceil(double x);
+float ceilf(float x);
+long double ceill(long double x);
+double floor(double x);
+float floorf(float x);
+long double floorl(long double x);
+double nearbyint(double x);
+float nearbyintf(float x);
+long double nearbyintl(long double x);
+double rint(double x);
+float rintf(float x);
+long double rintl(long double x);
+long int lrint(double x);
+long int lrintf(float x);
+long int lrintl(long double x);
+long long int llrint(double x);
+long long int llrintf(float x);
+long long int llrintl(long double x);
+double round(double x);
+float roundf(float x);
+long double roundl(long double x);
+long int lround(double x);
+long int lroundf(float x);
+long int lroundl(long double x);
+long long int llround(double x);
+long long int llroundf(float x);
+long long int llroundl(long double x);
+double trunc(double x);
+float truncf(float x);
+long double truncl(long double x);
+double fmod(double x, double y);
+float fmodf(float x, float y);
+long double fmodl(long double x, long double y);
+double remainder(double x, double y);
+float remainderf(float x, float y);
+long double remainderl(long double x, long double y);
+double remquo(double x, double y, int *quo);
+float remquof(float x, float y, int *quo);
+long double remquol(long double x, long double y,
+int *quo);
+double copysign(double x, double y);
+float copysignf(float x, float y);
+long double copysignl(long double x, long double y);
+double nan(const char *tagp);
+float nanf(const char *tagp);
+long double nanl(const char *tagp);
+double nextafter(double x, double y);
+float nextafterf(float x, float y);
+long double nextafterl(long double x, long double y);
+double nexttoward(double x, long double y);
+float nexttowardf(float x, long double y);
+long double nexttowardl(long double x, long double y);
+double fdim(double x, double y);
+float fdimf(float x, float y);
+long double fdiml(long double x, long double y);
+double fmax(double x, double y);
+float fmaxf(float x, float y);
+long double fmaxl(long double x, long double y);
+double fmin(double x, double y);
+float fminf(float x, float y);
+long double fminl(long double x, long double y);
+double fma(double x, double y, double z);
+float fmaf(float x, float y, float z);
+long double fmal(long double x, long double y,
+long double z);
+int isgreater(real-floating x, real-floating y);
+int isgreaterequal(real-floating x, real-floating y);
+int isless(real-floating x, real-floating y);
+int islessequal(real-floating x, real-floating y);
+int islessgreater(real-floating x, real-floating y);
+int isunordered(real-floating x, real-floating y);
+B.12 Nonlocal jumps <setjmp.h>
+jmp_buf
+int setjmp(jmp_buf env);
+void longjmp(jmp_buf env, int val);
+B.13 Signal handling <signal.h>
+sig_atomic_t
+SIG_DFL
+SIG_ERR
+SIG_IGN
+SIGABRT
+SIGFPE
+SIGILL
+SIGINT
+SIGSEGV
+SIGTERM
+void (*signal(int sig, void (*func)(int)))(int);
+int raise(int sig);
+B.14 Variable arguments <stdarg.h>
+va_list
+type va_arg(va_list ap, type);
+void va_copy(va_list dest, va_list src);
+void va_end(va_list ap);
+void va_start(va_list ap, parmN);
+B.15 Boolean type and values <stdbool.h>
+bool
+true
+false
+_ _bool_true_false_are_defined
+B.16 Common definitions <stddef.h>
+ptrdiff_t size_t wchar_t NULL
+offsetof(type, member-designator)
+B.17 Integer types <stdint.h>
+intN_t
+uintN_t
+int_leastN_t
+uint_leastN_t
+int_fastN_t
+uint_fastN_t
+intptr_t
+uintptr_t
+intmax_t
+uintmax_t
+INTN_MIN
+INTN_MAX
+UINTN_MAX
+INT_LEASTN_MIN
+INT_LEASTN_MAX
+UINT_LEASTN_MAX
+INT_FASTN_MIN
+INT_FASTN_MAX
+UINT_FASTN_MAX
+INTPTR_MIN
+INTPTR_MAX
+UINTPTR_MAX
+INTMAX_MIN
+INTMAX_MAX
+UINTMAX_MAX
+PTRDIFF_MIN
+PTRDIFF_MAX
+SIG_ATOMIC_MIN
+SIG_ATOMIC_MAX
+SIZE_MAX
+WCHAR_MIN
+WCHAR_MAX
+WINT_MIN
+WINT_MAX
+INTN_C(value)
+UINTN_C(value)
+INTMAX_C(value)
+UINTMAX_C(value)
+B.18 Input/output <stdio.h>
+size_t
+FILE
+fpos_t
+NULL
+_IOFBF
+_IOLBF
+_IONBF
+BUFSIZ
+EOF
+FOPEN_MAX
+FILENAME_MAX
+L_tmpnam
+SEEK_CUR
+SEEK_END
+SEEK_SET
+TMP_MAX
+stderr
+stdin
+stdout
+int remove(const char *filename);
+int rename(const char *old, const char *new);
+FILE *tmpfile(void);
+char *tmpnam(char *s);
+int fclose(FILE *stream);
+int fflush(FILE *stream);
+FILE *fopen(const char * restrict filename,
+const char * restrict mode);
+FILE *freopen(const char * restrict filename,
+const char * restrict mode,
+FILE * restrict stream);
+void setbuf(FILE * restrict stream,
+char * restrict buf);
+int setvbuf(FILE * restrict stream,
+char * restrict buf,
+int mode, size_t size);
+int fprintf(FILE * restrict stream,
+const char * restrict format, ...);
+int fscanf(FILE * restrict stream,
+const char * restrict format, ...);
+int printf(const char * restrict format, ...);
+int scanf(const char * restrict format, ...);
+int snprintf(char * restrict s, size_t n,
+const char * restrict format, ...);
+int sprintf(char * restrict s,
+const char * restrict format, ...);
+int sscanf(const char * restrict s,
+const char * restrict format, ...);
+int vfprintf(FILE * restrict stream,
+const char * restrict format, va_list arg);
+int vfscanf(FILE * restrict stream,
+const char * restrict format, va_list arg);
+int vprintf(const char * restrict format, va_list arg);
+int vscanf(const char * restrict format, va_list arg);
+int vsnprintf(char * restrict s, size_t n,
+const char * restrict format, va_list arg);
+int vsprintf(char * restrict s,
+const char * restrict format, va_list arg);
+int vsscanf(const char * restrict s,
+const char * restrict format, va_list arg);
+int fgetc(FILE *stream);
+char *fgets(char * restrict s, int n,
+FILE * restrict stream);
+int fputc(int c, FILE *stream);
+int fputs(const char * restrict s,
+FILE * restrict stream);
+int getc(FILE *stream);
+int getchar(void);
+char *gets(char *s);
+int putc(int c, FILE *stream);
+int putchar(int c);
+int puts(const char *s);
+int ungetc(int c, FILE *stream);
+size_t fread(void * restrict ptr,
+size_t size, size_t nmemb,
+FILE * restrict stream);
+size_t fwrite(const void * restrict ptr,
+size_t size, size_t nmemb,
+FILE * restrict stream);
+int fgetpos(FILE * restrict stream,
+fpos_t * restrict pos);
+int fseek(FILE *stream, long int offset, int whence);
+int fsetpos(FILE *stream, const fpos_t *pos);
+long int ftell(FILE *stream);
+void rewind(FILE *stream);
+void clearerr(FILE *stream);
+int feof(FILE *stream);
+int ferror(FILE *stream);
+void perror(const char *s);
+B.19 General utilities <stdlib.h>
+size_t
+wchar_t
+div_t
+ldiv_t
+lldiv_t
+NULL
+EXIT_FAILURE
+EXIT_SUCCESS
+RAND_MAX
+MB_CUR_MAX
+double atof(const char *nptr);
+int atoi(const char *nptr);
+long int atol(const char *nptr);
+long long int atoll(const char *nptr);
+double strtod(const char * restrict nptr,
+char ** restrict endptr);
+float strtof(const char * restrict nptr,
+char ** restrict endptr);
+long double strtold(const char * restrict nptr,
+char ** restrict endptr);
+long int strtol(const char * restrict nptr,
+char ** restrict endptr, int base);
+long long int strtoll(const char * restrict nptr,
+char ** restrict endptr, int base);
+unsigned long int strtoul(
+const char * restrict nptr,
+char ** restrict endptr, int base);
+unsigned long long int strtoull(
+const char * restrict nptr,
+char ** restrict endptr, int base);
+int rand(void);
+void srand(unsigned int seed);
+void *calloc(size_t nmemb, size_t size);
+void free(void *ptr);
+void *malloc(size_t size);
+void *realloc(void *ptr, size_t size);
+void abort(void);
+int atexit(void (*func)(void));
+void exit(int status);
+void _Exit(int status);
+char *getenv(const char *name);
+int system(const char *string);
+void *bsearch(const void *key, const void *base,
+size_t nmemb, size_t size,
+int (*compar)(const void *, const void *));
+void qsort(void *base, size_t nmemb, size_t size,
+int (*compar)(const void *, const void *));
+int abs(int j);
+long int labs(long int j);
+long long int llabs(long long int j);
+div_t div(int numer, int denom);
+ldiv_t ldiv(long int numer, long int denom);
+lldiv_t lldiv(long long int numer,
+long long int denom);
+int mblen(const char *s, size_t n);
+int mbtowc(wchar_t * restrict pwc,
+const char * restrict s, size_t n);
+int wctomb(char *s, wchar_t wchar);
+size_t mbstowcs(wchar_t * restrict pwcs,
+const char * restrict s, size_t n);
+size_t wcstombs(char * restrict s,
+const wchar_t * restrict pwcs, size_t n);
+B.20 String handling <string.h>
+size_t
+NULL
+void *memcpy(void * restrict s1,
+const void * restrict s2, size_t n);
+void *memmove(void *s1, const void *s2, size_t n);
+char *strcpy(char * restrict s1,
+const char * restrict s2);
+char *strncpy(char * restrict s1,
+const char * restrict s2, size_t n);
+char *strcat(char * restrict s1,
+const char * restrict s2);
+char *strncat(char * restrict s1,
+const char * restrict s2, size_t n);
+int memcmp(const void *s1, const void *s2, size_t n);
+int strcmp(const char *s1, const char *s2);
+int strcoll(const char *s1, const char *s2);
+int strncmp(const char *s1, const char *s2, size_t n);
+size_t strxfrm(char * restrict s1,
+const char * restrict s2, size_t n);
+void *memchr(const void *s, int c, size_t n);
+char *strchr(const char *s, int c);
+size_t strcspn(const char *s1, const char *s2);
+char *strpbrk(const char *s1, const char *s2);
+char *strrchr(const char *s, int c);
+size_t strspn(const char *s1, const char *s2);
+char *strstr(const char *s1, const char *s2);
+char *strtok(char * restrict s1,
+const char * restrict s2);
+void *memset(void *s, int c, size_t n);
+char *strerror(int errnum);
+size_t strlen(const char *s);
+B.21 Type-generic math <tgmath.h>
+acos
+asin
+atan
+acosh
+asinh
+atanh
+cos
+sin
+tan
+cosh
+sinh
+tanh
+exp
+log
+pow
+sqrt
+fabs
+atan2
+cbrt
+ceil
+copysign
+erf
+erfc
+exp2
+expm1
+fdim
+floor
+fma
+fmax
+fmin
+fmod
+frexp
+hypot
+ilogb
+ldexp
+lgamma
+llrint
+llround
+log10
+log1p
+log2
+logb
+lrint
+lround
+nearbyint
+nextafter
+nexttoward
+remainder
+remquo
+rint
+round
+scalbn
+scalbln
+tgamma
+trunc
+carg
+cimag
+conj
+cproj
+creal
+B.22 Date and time <time.h>
+NULL
+CLOCKS_PER_SEC
+size_t
+clock_t
+time_t
+struct tm
+clock_t clock(void);
+double difftime(time_t time1, time_t time0);
+time_t mktime(struct tm *timeptr);
+time_t time(time_t *timer);
+char *asctime(const struct tm *timeptr);
+char *ctime(const time_t *timer);
+struct tm *gmtime(const time_t *timer);
+struct tm *localtime(const time_t *timer);
+size_t strftime(char * restrict s,
+size_t maxsize,
+const char * restrict format,
+const struct tm * restrict timeptr);
+B.23 Extended multibyte/wide character utilities <wchar.h>
+wchar_t
+size_t
+mbstate_t
+wint_t
+struct tm
+NULL
+WCHAR_MAX
+WCHAR_MIN
+WEOF
+int fwprintf(FILE * restrict stream,
+const wchar_t * restrict format, ...);
+int fwscanf(FILE * restrict stream,
+const wchar_t * restrict format, ...);
+int swprintf(wchar_t * restrict s, size_t n,
+const wchar_t * restrict format, ...);
+int swscanf(const wchar_t * restrict s,
+const wchar_t * restrict format, ...);
+int vfwprintf(FILE * restrict stream,
+const wchar_t * restrict format, va_list arg);
+int vfwscanf(FILE * restrict stream,
+const wchar_t * restrict format, va_list arg);
+int vswprintf(wchar_t * restrict s, size_t n,
+const wchar_t * restrict format, va_list arg);
+int vswscanf(const wchar_t * restrict s,
+const wchar_t * restrict format, va_list arg);
+int vwprintf(const wchar_t * restrict format,
+va_list arg);
+int vwscanf(const wchar_t * restrict format,
+va_list arg);
+int wprintf(const wchar_t * restrict format, ...);
+int wscanf(const wchar_t * restrict format, ...);
+wint_t fgetwc(FILE *stream);
+wchar_t *fgetws(wchar_t * restrict s, int n,
+FILE * restrict stream);
+wint_t fputwc(wchar_t c, FILE *stream);
+int fputws(const wchar_t * restrict s,
+FILE * restrict stream);
+int fwide(FILE *stream, int mode);
+wint_t getwc(FILE *stream);
+wint_t getwchar(void);
+wint_t putwc(wchar_t c, FILE *stream);
+wint_t putwchar(wchar_t c);
+wint_t ungetwc(wint_t c, FILE *stream);
+double wcstod(const wchar_t * restrict nptr,
+wchar_t ** restrict endptr);
+float wcstof(const wchar_t * restrict nptr,
+wchar_t ** restrict endptr);
+long double wcstold(const wchar_t * restrict nptr,
+wchar_t ** restrict endptr);
+long int wcstol(const wchar_t * restrict nptr,
+wchar_t ** restrict endptr, int base);
+long long int wcstoll(const wchar_t * restrict nptr,
+wchar_t ** restrict endptr, int base);
+unsigned long int wcstoul(const wchar_t * restrict nptr,
+wchar_t ** restrict endptr, int base);
+unsigned long long int wcstoull(
+const wchar_t * restrict nptr,
+wchar_t ** restrict endptr, int base);
+wchar_t *wcscpy(wchar_t * restrict s1,
+const wchar_t * restrict s2);
+wchar_t *wcsncpy(wchar_t * restrict s1,
+const wchar_t * restrict s2, size_t n);
+wchar_t *wmemcpy(wchar_t * restrict s1,
+const wchar_t * restrict s2, size_t n);
+wchar_t *wmemmove(wchar_t *s1, const wchar_t *s2,
+size_t n);
+wchar_t *wcscat(wchar_t * restrict s1,
+const wchar_t * restrict s2);
+wchar_t *wcsncat(wchar_t * restrict s1,
+const wchar_t * restrict s2, size_t n);
+int wcscmp(const wchar_t *s1, const wchar_t *s2);
+int wcscoll(const wchar_t *s1, const wchar_t *s2);
+int wcsncmp(const wchar_t *s1, const wchar_t *s2,
+size_t n);
+size_t wcsxfrm(wchar_t * restrict s1,
+const wchar_t * restrict s2, size_t n);
+int wmemcmp(const wchar_t *s1, const wchar_t *s2,
+size_t n);
+wchar_t *wcschr(const wchar_t *s, wchar_t c);
+size_t wcscspn(const wchar_t *s1, const wchar_t *s2);
+wchar_t *wcspbrk(const wchar_t *s1, const wchar_t *s2); ∗
+wchar_t *wcsrchr(const wchar_t *s, wchar_t c);
+size_t wcsspn(const wchar_t *s1, const wchar_t *s2);
+wchar_t *wcsstr(const wchar_t *s1, const wchar_t *s2);
+wchar_t *wcstok(wchar_t * restrict s1,
+const wchar_t * restrict s2,
+wchar_t ** restrict ptr);
+wchar_t *wmemchr(const wchar_t *s, wchar_t c, size_t n);
+size_t wcslen(const wchar_t *s);
+wchar_t *wmemset(wchar_t *s, wchar_t c, size_t n);
+size_t wcsftime(wchar_t * restrict s, size_t maxsize,
+const wchar_t * restrict format,
+const struct tm * restrict timeptr);
+wint_t btowc(int c);
+int wctob(wint_t c);
+int mbsinit(const mbstate_t *ps);
+size_t mbrlen(const char * restrict s, size_t n,
+mbstate_t * restrict ps);
+size_t mbrtowc(wchar_t * restrict pwc,
+const char * restrict s, size_t n,
+mbstate_t * restrict ps);
+size_t wcrtomb(char * restrict s, wchar_t wc,
+mbstate_t * restrict ps);
+size_t mbsrtowcs(wchar_t * restrict dst,
+const char ** restrict src, size_t len,
+mbstate_t * restrict ps);
+size_t wcsrtombs(char * restrict dst,
+const wchar_t ** restrict src, size_t len,
+mbstate_t * restrict ps);
+B.24 Wide character classification and mapping utilities <wctype.h>
+wint_t wctrans_t wctype_t WEOF
+int iswalnum(wint_t wc);
+int iswalpha(wint_t wc);
+int iswblank(wint_t wc);
+int iswcntrl(wint_t wc);
+int iswdigit(wint_t wc);
+int iswgraph(wint_t wc);
+int iswlower(wint_t wc);
+int iswprint(wint_t wc);
+int iswpunct(wint_t wc);
+int iswspace(wint_t wc);
+int iswupper(wint_t wc);
+int iswxdigit(wint_t wc);
+int iswctype(wint_t wc, wctype_t desc);
+wctype_t wctype(const char *property);
+wint_t towlower(wint_t wc);
+wint_t towupper(wint_t wc);
+wint_t towctrans(wint_t wc, wctrans_t desc);
+wctrans_t wctrans(const char *property);

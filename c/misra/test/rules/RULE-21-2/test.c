@@ -1,9 +1,9 @@
 #ifndef _RESERVED_MACRO
-#define _RESERVED_MACRO // NON_COMPLIANT
+#define _RESERVED_MACRO // Not reported by this rule
 #endif                  /* _RESERVED_MACRO */
 
 #ifndef _also_reserved_MACRO
-#define _also_reserved_MACRO // NON_COMPLIANT
+#define _also_reserved_MACRO // Not reported by this rule
 #endif                       /* _not_reserved_MACRO */
 
 static const int INT_LIMIT_MAX = 12000; // COMPLIANT future library directions
@@ -52,8 +52,7 @@ void _Test_func(       // NON_COMPLIANT - _ followed by capital is reserved
 struct _Test_struct { // NON_COMPLIANT - _ followed by capital is reserved
   int _Test_member;   // NON_COMPLIANT - _ followed by capital is reserved
 };
-#define _TEST_MACRO                                                            \
-  x // NON_COMPLIANT - single _ followed by capital is reserved
+#define _TEST_MACRO x // Not reported by this rule
 
 /* Test __ */
 
@@ -68,7 +67,7 @@ void __test_double_func(              // NON_COMPLIANT - double _ is reserved
 struct __test_double_struct { // NON_COMPLIANT - double _ is reserved
   int __test_double_member;   // NON_COMPLIANT - double _ is reserved
 };
-#define __TEST_MACRO x // NON_COMPLIANT - double _ is reserved
+#define __TEST_MACRO x // Not reported by this rule
 
 /*
  * Test _, but not followed by underscore or upper case, which is reserved in
@@ -88,9 +87,7 @@ void _test_lower_func(  // NON_COMPLIANT - _ is reserved as a function name in
 struct _test_struct { // NON_COMPLIANT - _ is reserved in the tag name space
   int _test;          // COMPLIANT - _ is not reserved in the member name space
 };
-#define _test_macro                                                            \
-  x // NON_COMPLIANT - _ is reserved for for file scope names and so cannot be
-    // used as a macro name
+#define _test_macro x // Not reported by this rule
 
 /* Identify names reserved as a macro when the relevant header is included. */
 int FE_INEXACT;    // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
@@ -104,9 +101,7 @@ void FE_DIVBYZERO( // NON_COMPLIANT - FE_DIVBYZERO is reserved as a macro name
 struct FE_INEXACT { // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
   int FE_INEXACT;   // NON_COMPLIANT - FE_INEXACT is reserved as a macro name
 };
-#define FE_INEXACT                                                             \
-  x // NON_COMPLIANT - FE_INEXACT is reserved as a macro name for the standard
-    // library
+#define FE_INEXACT x // Not reported by this rule
 
 // We include the header after the declarations to avoid the inbuilt macros
 // expanding in the declarations above. The rule is not, however, sensitive
@@ -127,7 +122,7 @@ static int srand() { // COMPLIANT - only reserved for external linkage or if
 }
 
 #include <string.h>
-#define strlen 0 // NON_COMPLIANT - reserved when string.h is included
+#define strlen 0 // Not reported by this rule
 
 // The examples below are non compliant, because those symbols are reserved in
 // file scope when string.h is included.  However, the compiler/edg rejects the
@@ -137,7 +132,7 @@ static int srand() { // COMPLIANT - only reserved for external linkage or if
 // static void *memcpy(void *s1, const void *s2, size_t n) {}
 
 #include <time.h>
-#define tm_sec 0 // NON_COMPLIANT - reserved when time.h is included
+#define tm_sec 0 // Not reported by this rule
 
 // The examples below are non compliant, because those symbols are reserved in
 // file scope when time.h is included.  However, the compiler/edg rejects the
@@ -159,7 +154,7 @@ static int srand() { // COMPLIANT - only reserved for external linkage or if
 
 // Examples below are compliant because threads.h is not included
 
-#define tss_set 0   // COMPLIANT - threads.h not included
+#define tss_set 0   // Not reported by this rule
 static int tss_get; // COMPLIANT - threads.h not included, not external linkage
 static void
 tss_delete(        // COMPLIANT - threads.h not included, not external linkage

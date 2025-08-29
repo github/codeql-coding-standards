@@ -1,2 +1,2 @@
-| test.cpp:1:1:1:14 | #define NULL 0 | Macro reuses the name NULL from the standard library. |
-| test.cpp:3:5:3:10 | tzname | Object reuses the name tzname from the standard library. |
+| test.cpp:1:1:1:14 | #define NULL 0 | Macro reuses the name NULL from the C99 standard library header <wchar.h>. |
+| test.cpp:3:5:3:8 | cout | Object reuses the name cout from the C++14 standard library header <iostream>. |

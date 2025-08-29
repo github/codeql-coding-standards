@@ -268,7 +268,10 @@
           "tags": [
             "readability",
             "maintainability"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This implementation reports all functions with the same name as a function declared in the global namespace in the C++ standard."
+          }
         }
       ],
       "title": "The names of standard library functions shall not be overridden."
