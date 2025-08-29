@@ -1,0 +1,17 @@
+| test.cpp:22:22:22:59 | reinterpret_cast<intptr_t>... | Cast converts pointer type to integral type 'long'. |
+| test.cpp:23:23:23:61 | reinterpret_cast<uintptr_t>... | Cast converts pointer type to integral type 'unsigned long'. |
+| test.cpp:24:20:24:55 | reinterpret_cast<int8_t>... | Cast converts pointer type to integral type 'signed char'. |
+| test.cpp:25:21:25:57 | reinterpret_cast<uint8_t>... | Cast converts pointer type to integral type 'unsigned char'. |
+| test.cpp:26:21:26:57 | reinterpret_cast<int16_t>... | Cast converts pointer type to integral type 'signed short'. |
+| test.cpp:27:22:27:59 | reinterpret_cast<uint16_t>... | Cast converts pointer type to integral type 'unsigned short'. |
+| test.cpp:28:21:28:59 | reinterpret_cast<int32_t>... | Cast converts pointer type to integral type 'signed int'. |
+| test.cpp:29:22:29:61 | reinterpret_cast<uint32_t>... | Cast converts pointer type to integral type 'unsigned int'. |
+| test.cpp:30:22:30:61 | reinterpret_cast<int64_t>... | Cast converts pointer type to integral type 'signed long'. |
+| test.cpp:32:7:32:47 | reinterpret_cast<uint64_t>... | Cast converts pointer type to integral type 'unsigned long'. |
+| test.cpp:33:14:33:42 | reinterpret_cast<long>... | Cast converts pointer type to integral type 'long'. |
+| test.cpp:34:23:34:60 | reinterpret_cast<unsigned long>... | Cast converts pointer type to integral type 'unsigned long'. |
+| test.cpp:35:13:35:40 | reinterpret_cast<int>... | Cast converts pointer type to integral type 'int'. |
+| test.cpp:36:22:36:58 | reinterpret_cast<unsigned int>... | Cast converts pointer type to integral type 'unsigned int'. |
+| test.cpp:64:7:64:47 | reinterpret_cast<intptr_t>... | Cast converts pointer type to integral type 'long'. |
+| test.cpp:66:7:66:48 | reinterpret_cast<uintptr_t>... | Cast converts pointer type to integral type 'unsigned long'. |
+| test.cpp:67:14:67:45 | reinterpret_cast<long>... | Cast converts pointer type to integral type 'long'. |

@@ -1,0 +1,11 @@
+| test.cpp:15:20:15:53 | reinterpret_cast<TestStruct *>... | Cast from integral type 'int32_t' to pointer type 'TestStruct *'. |
+| test.cpp:16:20:16:53 | reinterpret_cast<TestStruct *>... | Cast from integral type 'int64_t' to pointer type 'TestStruct *'. |
+| test.cpp:17:22:17:57 | reinterpret_cast<int32_t *>... | Cast from integral type 'int64_t' to pointer type 'int32_t *'. |
+| test.cpp:24:20:24:53 | reinterpret_cast<TestStruct *>... | Cast from enumerated type 'TestEnum' to pointer type 'TestStruct *'. |
+| test.cpp:25:22:25:57 | reinterpret_cast<int32_t *>... | Cast from enumerated type 'TestEnum' to pointer type 'int32_t *'. |
+| test.cpp:32:20:32:48 | static_cast<TestStruct *>... | Cast from pointer to void type 'void *' to pointer type 'TestStruct *'. |
+| test.cpp:33:20:33:53 | reinterpret_cast<TestStruct *>... | Cast from pointer to void type 'void *' to pointer type 'TestStruct *'. |
+| test.cpp:34:22:34:52 | static_cast<int32_t *>... | Cast from pointer to void type 'void *' to pointer type 'int32_t *'. |
+| test.cpp:35:22:35:57 | reinterpret_cast<int32_t *>... | Cast from pointer to void type 'void *' to pointer type 'int32_t *'. |
+| test.cpp:43:14:43:41 | reinterpret_cast<void *>... | Cast from integral type 'int32_t' to pointer type 'void *'. |
+| test.cpp:44:14:44:41 | reinterpret_cast<void *>... | Cast from integral type 'int64_t' to pointer type 'void *'. |

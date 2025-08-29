@@ -2,17 +2,17 @@
 #include <string>
 #include <utility>
 int foo() { return 1; }
-// A copy of 8.2,2 test.cpp, but with different cases compliant/non-compliant
+// A copy of A5-2-2 test.cpp, but with different cases compliant/non-compliant
 void test_c_style_cast() {
   double f = 3.14;
   std::uint32_t n1 = (std::uint32_t)f; // NON_COMPLIANT - C-style cast
-  std::uint32_t n2 = unsigned(f);      // COMPLIANT[FALSE_POSITIVE]
+  std::uint32_t n2 = unsigned(f);      // NON_COMPLIANT - functional notation
 
   std::uint8_t n3 = 1;
   std::uint8_t n4 = 1;
   std::uint8_t n5 = n3 + n4; // ignored, implicit casts
 
-  (void)foo(); // NON_COMPLIANT
+  (void)foo(); // COMPLIANT - permitted by MISRA C++
 }
 
 class A {
@@ -46,8 +46,8 @@ class A5_2_2a {
 public:
   template <typename... As>
   static void Foo(const std::string &name, As &&...rest) {
-    Fun(Log(
-        std::forward<As>(rest)...)); // COMPLIANT - reported as a false positive
+    Fun(Log(std::forward<As>(
+        rest)...)); // COMPLIANT - previously reported as a false positive
   }
 
   template <typename... As> static std::string Log(As &&...tail) {
@@ -67,17 +67,15 @@ void a5_2_2_test() {
   a.f("");
 }
 
-#define ADD_ONE(x) ((int)x) + 1
-#define NESTED_ADD_ONE(x) ADD_ONE(x)
-#define NO_CAST_ADD_ONE(x) x + 1
+#define ADD_ONE(x) ((int)x) + 1      // NON_COMPLIANT
+#define NESTED_ADD_ONE(x) ADD_ONE(x) // Not reported - reported at ADD_ONE
+#define NO_CAST_ADD_ONE(x) x + 1     // COMPLIANT
 
 #include "macro_c_style_casts.h"
 
 void test_macro_cast() {
-  ADD_ONE(1);         // NON_COMPLIANT - expansion of user-defined macro creates
-                      // c-style cast
-  NESTED_ADD_ONE(1);  // NON_COMPLIANT - expansion of user-defined macro creates
-                      // c-style cast
+  ADD_ONE(1);         // Reported at macro definition site
+  NESTED_ADD_ONE(1);  // reported at macro definition site
   LIBRARY_ADD_TWO(1); // COMPLIANT - macro generating the cast is defined in a
                       // library, and is not modifiable by the user
   LIBRARY_NESTED_ADD_TWO(1); // COMPLIANT - macro generating the cast is defined
@@ -99,7 +97,7 @@ private:
 };
 
 D testNonFunctionalCast() {
-  return (D)1; // NON_COMPLIANT[FALSE_NEGATIVE]
+  return (D)1; // COMPLIANT
 }
 
 D testFunctionalCast() {
@@ -111,7 +109,7 @@ D testFunctionalCastMulti() {
 }
 
 template <typename T> T testFunctionalCastTemplate() {
-  return T(1); // COMPLIANT[FALSE_POSITIVE]
+  return T(1); // NON_COMPLIANT - used with an int
 }
 
 template <typename T> T testFunctionalCastTemplateMulti() {

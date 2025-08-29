@@ -1,0 +1,3 @@
+ - `RULE-1-2`, `RULE-23-3`, `RULE-23-5`, `RULE-23-6`:
+   - Results that occur in nested macro invocations are now reported in the macro that defines the contravening code, rather than the macro which is first expanded.
+   - Results the occur in arguments to macro invocations are now reported in at the macro invocation site, instead of the macro definition site.

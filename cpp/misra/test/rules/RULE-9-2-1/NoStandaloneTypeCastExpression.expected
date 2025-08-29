@@ -1,0 +1,7 @@
+| test.cpp:20:3:20:35 | ExprStmt | Explicit type conversion used as expression statement creates temporary object that is immediately discarded. |
+| test.cpp:21:3:21:23 | ExprStmt | Explicit type conversion used as expression statement creates temporary object that is immediately discarded. |
+| test.cpp:22:3:22:27 | ExprStmt | Explicit type conversion used as expression statement creates temporary object that is immediately discarded. |
+| test.cpp:23:3:23:34 | ExprStmt | Explicit type conversion used as expression statement creates temporary object that is immediately discarded. |
+| test.cpp:42:8:42:40 | ExprStmt | Explicit type conversion used as expression statement creates temporary object that is immediately discarded. |
+| test.cpp:66:3:66:17 | ExprStmt | Explicit type conversion used as expression statement creates temporary object that is immediately discarded. |
+| test.cpp:67:3:67:17 | ExprStmt | Explicit type conversion used as expression statement creates temporary object that is immediately discarded. |
