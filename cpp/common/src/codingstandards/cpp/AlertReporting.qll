@@ -17,6 +17,17 @@ module MacroUnwrapper<ResultType ResultElement> {
     result.getAnAffectedElement() = re
   }
 
+  private MacroInvocation getASubsumedMacroInvocation(ResultElement re) {
+    result = getAMacroInvocation(re) and
+    // Only report cases where the element is not located at the macro expansion site
+    // This means we'll report results in macro arguments in the macro argument
+    // location, not within the macro itself.
+    //
+    // Do not join start column values.
+    pragma[only_bind_out](result.getLocation().getStartColumn()) =
+      pragma[only_bind_out](re.getLocation().getStartColumn())
+  }
+
   /**
    * Gets the primary macro invocation that generated the result element.
    *
@@ -24,11 +35,7 @@ module MacroUnwrapper<ResultType ResultElement> {
    */
   MacroInvocation getPrimaryMacroInvocation(ResultElement re) {
     exists(MacroInvocation mi |
-      mi = getAMacroInvocation(re) and
-      // Only report cases where the element is not located at the macro expansion site
-      // This means we'll report results in macro arguments in the macro argument
-      // location, not within the macro itself
-      mi.getLocation().getStartColumn() = re.getLocation().getStartColumn() and
+      mi = getASubsumedMacroInvocation(re) and
       // No other more specific macro that expands to element
       not exists(MacroInvocation otherMi |
         otherMi = getAMacroInvocation(re) and otherMi.getParentInvocation() = mi
