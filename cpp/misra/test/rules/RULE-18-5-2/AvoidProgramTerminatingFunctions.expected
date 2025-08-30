@@ -1,0 +1,31 @@
+| test.cpp:8:3:8:7 | call to abort | Call to program-terminating function 'abort'. |
+| test.cpp:9:3:9:6 | call to exit | Call to program-terminating function 'exit'. |
+| test.cpp:10:3:10:7 | call to _Exit | Call to program-terminating function '_Exit'. |
+| test.cpp:11:3:11:12 | call to quick_exit | Call to program-terminating function 'quick_exit'. |
+| test.cpp:16:3:16:12 | call to abort | Call to program-terminating function 'abort'. |
+| test.cpp:17:3:17:11 | call to exit | Call to program-terminating function 'exit'. |
+| test.cpp:18:3:18:12 | call to _Exit | Call to program-terminating function '_Exit'. |
+| test.cpp:19:3:19:17 | call to quick_exit | Call to program-terminating function 'quick_exit'. |
+| test.cpp:20:3:20:16 | call to terminate | Call to program-terminating function 'terminate'. |
+| test.cpp:25:14:25:18 | abort | Address taken for program-terminating function 'abort'. |
+| test.cpp:26:14:26:17 | exit | Address taken for program-terminating function 'exit'. |
+| test.cpp:27:14:27:18 | _Exit | Address taken for program-terminating function '_Exit'. |
+| test.cpp:28:14:28:23 | quick_exit | Address taken for program-terminating function 'quick_exit'. |
+| test.cpp:29:14:29:23 | abort | Address taken for program-terminating function 'abort'. |
+| test.cpp:30:14:30:22 | exit | Address taken for program-terminating function 'exit'. |
+| test.cpp:31:14:31:23 | _Exit | Address taken for program-terminating function '_Exit'. |
+| test.cpp:32:14:32:28 | quick_exit | Address taken for program-terminating function 'quick_exit'. |
+| test.cpp:33:14:33:27 | terminate | Address taken for program-terminating function 'terminate'. |
+| test.cpp:38:18:38:22 | abort | Address taken for program-terminating function 'abort'. |
+| test.cpp:39:21:39:24 | exit | Address taken for program-terminating function 'exit'. |
+| test.cpp:40:21:40:25 | _Exit | Address taken for program-terminating function '_Exit'. |
+| test.cpp:41:21:41:30 | quick_exit | Address taken for program-terminating function 'quick_exit'. |
+| test.cpp:42:18:42:27 | abort | Address taken for program-terminating function 'abort'. |
+| test.cpp:43:21:43:29 | exit | Address taken for program-terminating function 'exit'. |
+| test.cpp:44:21:44:30 | _Exit | Address taken for program-terminating function '_Exit'. |
+| test.cpp:45:21:45:35 | quick_exit | Address taken for program-terminating function 'quick_exit'. |
+| test.cpp:46:18:46:31 | terminate | Address taken for program-terminating function 'terminate'. |
+| test.cpp:68:1:68:33 | #define CALL_ABORT() std::abort() | Call to program-terminating function 'abort'. |
+| test.cpp:69:1:69:33 | #define CALL_EXIT(x) std::exit(x) | Call to program-terminating function 'exit'. |
+| test.cpp:70:1:70:41 | #define CALL_TERMINATE() std::terminate() | Call to program-terminating function 'terminate'. |
+| test.cpp:77:3:77:17 | call to abort | Call to program-terminating function 'abort'. |
