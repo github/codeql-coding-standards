@@ -224,13 +224,13 @@ int main() {
     g1(&l);
   }
 
-  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop step is passed to
-                                   // a non-const reference parameter
+  for (int i = j; i < k; i += l) { // COMPLIANT: The loop step is passed to
+                                   // a const reference parameter
     f2(l);
   }
 
-  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop step is passed to
-                                   // a non-const pointer parameter
+  for (int i = j; i < k; i += l) { // COMPLIANT: The loop step is passed to
+                                   // a const pointer parameter
     g2(&l);
   }
 
