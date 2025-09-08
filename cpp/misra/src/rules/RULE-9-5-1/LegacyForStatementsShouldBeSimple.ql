@@ -72,14 +72,14 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
  * Holds if the given function has as parameter at a given index a pointer to a
  * constant value or a reference of a constant value.
  */
-predicate functionHasConstPointerOrReferenceParameter(Function function, int index) {
+private predicate functionHasConstPointerOrReferenceParameter(Function function, int index) {
   function.getParameter(index).getType().(PointerType).getBaseType().isConst() or
   function.getParameter(index).getType().(ReferenceType).getBaseType().isConst()
 }
 
 /**
  * Holds if the the variable behind a given variable access is taken its address
- * in a declaration in either the body of the for-loop or in its update expression.
+ * in a non-const variable declaration, in the body of the for-loop.
  *
  * e.g.1. The loop counter variable `i` in the body is taken its address in the
  * declaration of a pointer variable `m`.
@@ -96,13 +96,21 @@ predicate functionHasConstPointerOrReferenceParameter(Function function, int ind
  * }
  * ```
  */
-predicate variableAddressTakenInDeclaration(ForStmt forLoop, VariableAccess baseVariableAccess) {
+predicate variableAddressTakenInNonConstDeclaration(
+  ForStmt forLoop, VariableAccess baseVariableAccess
+) {
   exists(AddressOfExpr addressOfExpr, DeclStmt decl |
     decl.getParentStmt+() = forLoop and
     decl.getADeclarationEntry().(VariableDeclarationEntry).getVariable().getInitializer().getExpr() =
       addressOfExpr and
-    baseVariableAccess.getTarget() =
-      forLoop.getCondition().(LegacyForLoopCondition).getLoopBound().(VariableAccess).getTarget()
+    addressOfExpr.getOperand() = baseVariableAccess and
+    not decl.getADeclarationEntry()
+        .(VariableDeclarationEntry)
+        .getVariable()
+        .getType()
+        .(PointerType)
+        .getBaseType()
+        .isConst()
   )
 }
 
@@ -126,14 +134,15 @@ predicate variableAddressTakenInDeclaration(ForStmt forLoop, VariableAccess base
  * }
  * ```
  */
-predicate variableAddressTakenAsConstArgument(
+private predicate variableAddressTakenAsConstArgument(
   ForStmt forLoop, VariableAccess baseVariableAccess, Call call
 ) {
   exists(AddressOfExpr addressOfExpr, int index |
-    call.getParent+() = forLoop.getAChild+() and
+    call.getParent+() = forLoop.getAChild+() and // TODO: Bad
     call.getArgument(index).getAChild*() = addressOfExpr and
     functionHasConstPointerOrReferenceParameter(call.getTarget(), index) and
-    addressOfExpr.getOperand() = baseVariableAccess.getTarget().getAnAccess()
+    addressOfExpr.getOperand() = baseVariableAccess.getTarget().getAnAccess() and
+    baseVariableAccess.getParent+() = forLoop
   )
 }
 
@@ -152,11 +161,11 @@ predicate variableAddressTakenAsConstArgument(
  */
 predicate variableAddressTakenInExpression(ForStmt forLoop, VariableAccess baseVariableAccess) {
   exists(AddressOfExpr addressOfExpr |
-    baseVariableAccess.getParent+() = forLoop.getAChild+() and
+    baseVariableAccess.getParent+() = forLoop.getAChild+() and // TODO: Bad
     addressOfExpr.getParent+() = forLoop.getAChild+() and
     addressOfExpr.getOperand() = baseVariableAccess.getTarget().getAnAccess()
   ) and
-  not exists(Call call | variableAddressTakenAsConstArgument(forLoop, baseVariableAccess, call))
+  not variableAddressTakenAsConstArgument(forLoop, baseVariableAccess.getTarget().getAnAccess(), _)
 }
 
 from ForStmt forLoop
@@ -225,8 +234,17 @@ where
    */
 
   /* 6-1. The loop counter is taken a mutable reference or its address to a mutable pointer. */
-  variableAddressTakenInDeclaration(forLoop,
-    forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter())
+  exists(VariableAccess loopCounterAccessInCondition |
+    loopCounterAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter()
+  |
+    exists(VariableAccess loopCounterAccessTakenAddress |
+      loopCounterAccessInCondition.getTarget() = loopCounterAccessTakenAddress.getTarget()
+    |
+      variableAddressTakenInNonConstDeclaration(forLoop, loopCounterAccessTakenAddress)
+      or
+      variableAddressTakenInExpression(forLoop, loopCounterAccessTakenAddress)
+    )
+  )
   or
   /* 6-2. The loop bound is taken a mutable reference or its address to a mutable pointer. */
   none()
