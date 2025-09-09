@@ -24,6 +24,9 @@ import codingstandards.cpp.misra
  * compared to a value, which is supposed to be the loop bound.
  */
 class LegacyForLoopCondition extends RelationalOperation {
+  /**
+   * The legacy for-loop this relational operation is a condition of.
+   */
   ForStmt forLoop;
   VariableAccess loopCounter;
   Expr loopBound;
@@ -35,8 +38,14 @@ class LegacyForLoopCondition extends RelationalOperation {
     loopBound != loopCounter
   }
 
+  /**
+   * Gets the variable access to the loop counter variable, embedded in this loop condition.
+   */
   VariableAccess getLoopCounter() { result = loopCounter }
 
+  /**
+   * Gets the variable access to the loop bound variable, embedded in this loop condition.
+   */
   Expr getLoopBound() { result = loopBound }
 }
 
@@ -69,17 +78,16 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
 }
 
 /**
- * Holds if the given function has as parameter at a given index a pointer to a
- * constant value or a reference of a constant value.
+ * Holds if the given function has as parameter a pointer to a constant
+ * value, at a given index.
  */
-private predicate functionHasConstPointerOrReferenceParameter(Function function, int index) {
-  function.getParameter(index).getType().(PointerType).getBaseType().isConst() or
-  function.getParameter(index).getType().(ReferenceType).getBaseType().isConst()
+private predicate functionHasConstPointerParameter(Function function, int index) {
+  function.getParameter(index).getType().(PointerType).getBaseType().isConst()
 }
 
 /**
- * Holds if the the variable behind a given variable access is taken its address
- * in a non-const variable declaration, in the body of the for-loop.
+ * Holds if the variable behind a given variable access is taken its address in
+ * a non-const variable declaration, in the body of the for-loop.
  *
  * e.g.1. The loop counter variable `i` in the body is taken its address in the
  * declaration of a pointer variable `m`.
@@ -115,22 +123,26 @@ predicate variableAddressTakenInNonConstDeclaration(
 }
 
 /**
- * Holds if the the variable behind a given variable access is taken its address
+ * Holds if the variable behind a given variable access is taken its address
  * as an argument of a call in either the body of the for-loop or in its update
  * expression.
  *
- * e.g.1. The loop counter variable `i` in the body is taken its address in the
- * declaration of a pointer variable `m`.
+ * e.g.1. The address of the loop counter variable `i` is passed as argument
+ * to the call to `g`.
  * ``` C++
+ * void g1(int *x);
+ *
  * for (int i = 0; i < k; i += l) {
- *   g(&i);
+ *   g1(&i);
  * }
  * ```
- * e.g.2. The loop bound variable `k` in the body is taken its address in the
- * declaration of a pointer variable `m`.
+ * e.g.2. The address of the loop counter variable `k` is passed as argument
+ * to the call to `g`.
  * ``` C++
+ * void g1(int *x);
+ *
  * for (int i = j; i < k; i += l) {
- *   g(&k);
+ *   g1(&k);
  * }
  * ```
  */
@@ -140,18 +152,30 @@ private predicate variableAddressTakenAsConstArgument(
   exists(AddressOfExpr addressOfExpr, int index |
     call.getParent+() = forLoop.getAChild+() and // TODO: Bad
     call.getArgument(index).getAChild*() = addressOfExpr and
-    functionHasConstPointerOrReferenceParameter(call.getTarget(), index) and
+    exists(PointerType parameterType |
+      parameterType = call.getTarget().getParameter(index).getType() and
+      not parameterType.getBaseType().isConst()
+    ) and
     addressOfExpr.getOperand() = baseVariableAccess.getTarget().getAnAccess() and
     baseVariableAccess.getParent+() = forLoop
   )
 }
 
 /**
- * Holds if the the variable behind a given variable access is taken its address
+ * Holds if the variable behind a given variable access is taken its address
  * as an argument of a complex expression in either the body of the for-loop or
  * in its update expression.
  *
- * e.g. The loop counter variable `i` in the body and the loop bound variable `k`
+ * e.g.1. The loop counter variable `i` in the body and the loop bound variable `k`
+ * is taken its address in a call.
+ * ``` C++
+ * void g1(int *x);
+ *
+ * for (int i = j; i < k; i += l) {
+ *   g1(&i);
+ * }
+ * ```
+ * e.g.2. The loop counter variable `i` in the body and the loop bound variable `k`
  * is taken its address in a compound expression.
  * ``` C++
  * for (int i = 0; i < k; i += l) {
@@ -159,13 +183,88 @@ private predicate variableAddressTakenAsConstArgument(
  * }
  * ```
  */
+/* TODO: Do we need to use Expr.getUnderlyingType() to ensure that the expression is non-const? */
 predicate variableAddressTakenInExpression(ForStmt forLoop, VariableAccess baseVariableAccess) {
   exists(AddressOfExpr addressOfExpr |
     baseVariableAccess.getParent+() = forLoop.getAChild+() and // TODO: Bad
     addressOfExpr.getParent+() = forLoop.getAChild+() and
     addressOfExpr.getOperand() = baseVariableAccess.getTarget().getAnAccess()
-  ) and
-  not variableAddressTakenAsConstArgument(forLoop, baseVariableAccess.getTarget().getAnAccess(), _)
+  )
+}
+
+/**
+ * Holds if the variable behind a given variable access is taken its reference
+ * in a non-const variable declaration, in the body of the for-loop.
+ *
+ * e.g.1. The loop counter variable `i` in the body is taken its reference in
+ * the declaration of a variable `m`.
+ * ``` C++
+ * for (int i = j; i < k; i += l) {
+ *   int &m = i;
+ * }
+ * ```
+ * e.g.2. The loop bound variable `k` in the body is taken its reference in the
+ * declaration of a variable `m`.
+ * ``` C++
+ * for (int i = j; i < k; i += l) {
+ *   int &m = k;
+ * }
+ * ```
+ */
+predicate variableReferenceTakenInNonConstDeclaration(
+  ForStmt forLoop, VariableAccess baseVariableAccess
+) {
+  exists(DeclStmt decl, Variable definedVariable, ReferenceType definedVariableType |
+    decl.getParentStmt+() = forLoop and
+    not decl = forLoop.getInitialization() and // Exclude the for-loop counter initialization.
+    definedVariable = decl.getADeclarationEntry().(VariableDeclarationEntry).getVariable() and
+    definedVariable.getInitializer().getExpr() = baseVariableAccess and
+    definedVariableType = definedVariable.getType() and
+    not definedVariableType.getBaseType().isConst()
+  )
+}
+
+/**
+ * Holds if the variable behind a given variable access is taken its reference
+ * as an argument of a call in either the body of the for-loop or in its update
+ * expression.
+ *
+ * e.g.1. The loop counter variable `i` in the body is passed by reference to the
+ * call to `f1`.
+ * ``` C++
+ * void f1(int &x);
+ *
+ * for (int i = j; i < k; i += l) {
+ *   f1(i);
+ * }
+ * ```
+ * e.g.2. The loop bound variable `k` in the body is passed by reference to the
+ * call to `f1`.
+ * ``` C++
+ * void f1(int &x);
+ *
+ * for (int i = j; i < k; i += l) {
+ *   f1(k);
+ * }
+ * ```
+ */
+private predicate variableReferenceTakenAsNonConstArgument(
+  ForStmt forLoop, VariableAccess baseVariableAccess, Call call
+) {
+  exists(int index |
+    call.getParent+() = forLoop.getAChild+() and
+    call.getArgument(index).getAChild*() = baseVariableAccess.getTarget().getAnAccess() and
+    /*
+     * The given function has as parameter a reference of a constant
+     * value, at a given index.
+     */
+
+    exists(ReferenceType parameterType |
+      parameterType = call.getTarget().getParameter(index).getType() and
+      not parameterType.getBaseType().isConst()
+    ) and
+    baseVariableAccess.getParent+() = forLoop
+  )
 }
 
 from ForStmt forLoop
@@ -237,34 +336,59 @@ where
   exists(VariableAccess loopCounterAccessInCondition |
     loopCounterAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter()
   |
-    exists(VariableAccess loopCounterAccessTakenAddress |
-      loopCounterAccessInCondition.getTarget() = loopCounterAccessTakenAddress.getTarget()
+    exists(VariableAccess loopCounterAccessTakenAddressOrReference |
+      loopCounterAccessInCondition.getTarget() =
+        loopCounterAccessTakenAddressOrReference.getTarget()
     |
-      variableAddressTakenInNonConstDeclaration(forLoop, loopCounterAccessTakenAddress)
+      variableAddressTakenInNonConstDeclaration(forLoop, loopCounterAccessTakenAddressOrReference)
       or
-      variableAddressTakenInExpression(forLoop, loopCounterAccessTakenAddress)
+      variableAddressTakenInExpression(forLoop, loopCounterAccessTakenAddressOrReference) and
+      not variableAddressTakenAsConstArgument(forLoop,
+        loopCounterAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
+      or
+      variableReferenceTakenInNonConstDeclaration(forLoop, loopCounterAccessTakenAddressOrReference)
+      or
+      variableReferenceTakenAsNonConstArgument(forLoop,
+        loopCounterAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
     )
   )
   or
   /* 6-2. The loop bound is taken a mutable reference or its address to a mutable pointer. */
-  none()
+  exists(VariableAccess loopBoundAccessInCondition |
+    loopBoundAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound()
+  |
+    exists(VariableAccess loopBoundAccessTakenAddressOrReference |
+      loopBoundAccessInCondition.getTarget() = loopBoundAccessTakenAddressOrReference.getTarget()
+    |
+      variableAddressTakenInNonConstDeclaration(forLoop, loopBoundAccessTakenAddressOrReference)
+      or
+      variableAddressTakenInExpression(forLoop, loopBoundAccessTakenAddressOrReference) and
+      not variableAddressTakenAsConstArgument(forLoop,
+        loopBoundAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
+      or
+      variableReferenceTakenInNonConstDeclaration(forLoop, loopBoundAccessTakenAddressOrReference)
+      or
+      variableReferenceTakenAsNonConstArgument(forLoop, loopBoundAccessTakenAddressOrReference, _)
+    )
+  )
   or
   /* 6-3. The loop step is taken a mutable reference or its address to a mutable pointer. */
-  none()
+  exists(VariableAccess loopStepAccessInCondition |
+    loopStepAccessInCondition = getLoopStepOfForStmt(forLoop)
+  |
+    exists(VariableAccess loopStepAccessTakenAddressOrReference |
+      loopStepAccessInCondition.getTarget() = loopStepAccessTakenAddressOrReference.getTarget()
+    |
+      variableAddressTakenInNonConstDeclaration(forLoop, loopStepAccessTakenAddressOrReference)
+      or
+      variableAddressTakenInExpression(forLoop, loopStepAccessTakenAddressOrReference) and
+      not variableAddressTakenAsConstArgument(forLoop,
+        loopStepAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
+      or
+      variableReferenceTakenInNonConstDeclaration(forLoop, loopStepAccessTakenAddressOrReference)
+      or
+      variableReferenceTakenAsNonConstArgument(forLoop,
+        loopStepAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
+    )
+  )
 select forLoop, "TODO"
-
-private module Notebook {
-  private predicate test(Function function) {
-    function.getParameter(_).getType().(PointerType).getBaseType().isConst() or
-    function.getParameter(_).getType().(ReferenceType).getBaseType().isConst()
-  }
-
-  private predicate test2(Expr expr, string qlClasses) {
-    expr.getType().isConst() and
-    qlClasses = expr.getPrimaryQlClasses()
-  }
-
-  private predicate test3(Function function, string qlClasses) {
-    qlClasses = function.getParameter(_).getType().getAQlClass()
-  }
-}
