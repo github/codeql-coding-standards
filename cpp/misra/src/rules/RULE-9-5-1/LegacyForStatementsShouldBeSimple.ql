@@ -17,6 +17,8 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.Call
+import codingstandards.cpp.misra.BuiltInTypeRules::MisraCpp23BuiltInTypes
 
 /**
  * A comparison expression that has the minimum qualification as being a valid termination
@@ -59,7 +61,7 @@ class LegacyForLoopCondition extends RelationalOperation {
 predicate exprWithVarAccessMaybeImpure(Expr expr, Variable variable) {
   exists(VariableAccess varAccess |
     expr.mayBeImpure() and
-    expr.getAChild*() = varAccess and
+    expr.getAChild*() = varAccess and // TODO: the `l` in the `i += l` is not mutated!
     variable = varAccess.getTarget()
   )
 }
@@ -267,6 +269,61 @@ private predicate variableReferenceTakenAsNonConstArgument(
   )
 }
 
+predicate loopVariableAssignedToPointerOrReferenceType(
+  ForStmt forLoop, VariableAccess loopVariableAccessInCondition
+) {
+  exists(Expr assignmentRhs, DerivedType targetType |
+    assignmentRhs.getEnclosingStmt().getParent*() = forLoop.getStmt() and
+    (
+      assignmentRhs.(AddressOfExpr).getOperand() =
+        loopVariableAccessInCondition.getTarget().getAnAccess() or
+      assignmentRhs = loopVariableAccessInCondition.getTarget().getAnAccess()
+    ) and
+    isAssignment(assignmentRhs, targetType, _) and
+    (
+      targetType instanceof PointerType or
+      targetType instanceof ReferenceType
+    ) and
+    not targetType.getBaseType().isConst()
+  )
+}
+
+/*
+ * An adapted part of `BuiltinTypeRules::MisraCpp23BuiltInTypes::isPreConversionAssignment`
+ * that is only relevant to an argument passed to a parameter, seen as an assignment.
+ *
+ * This predicate adds two constraints to the target type, as compared to the original
+ * portion of the predicate:
+ *
+ * 1. This predicate adds type constraint that the target type is a `ReferenceType`.
+ * 2. This predicate adds the constraint that the target type is not `const`.
+ *
+ * Also, this predicate requires that the call is the body of the given for-loop.
+ */
+
+predicate loopVariablePassedAsArgumentToReferenceParameter(
+  ForStmt forLoop, Expr loopVariableAccessInCondition
+) {
+  exists(ReferenceType targetType |
+    exists(Call call, int i |
+      call.getArgument(i) = loopVariableAccessInCondition and
+      call.getEnclosingStmt().getParent*() = forLoop.getStmt() and
+      not targetType.getBaseType().isConst()
+    |
+      /* A regular function call */
+      targetType = call.getTarget().getParameter(i).getType()
+      or
+      /* A function call where the argument is passed as varargs */
+      call.getTarget().getNumberOfParameters() <= i and
+      /* The rule states that the type should match the "adjusted" type of the argument */
+      targetType = loopVariableAccessInCondition.getFullyConverted().getType()
+      or
+      /* An expression call - get the function type, then the parameter type */
+      targetType = getExprCallFunctionType(call).getParameterType(i)
+    )
+  )
+}
+
 from ForStmt forLoop
 where
   not isExcluded(forLoop, StatementsPackage::legacyForStatementsShouldBeSimpleQuery()) and
@@ -332,63 +389,13 @@ where
    * or its address to a mutable pointer.
    */
 
-  /* 6-1. The loop counter is taken a mutable reference or its address to a mutable pointer. */
-  exists(VariableAccess loopCounterAccessInCondition |
-    loopCounterAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter()
+  exists(VariableAccess loopVariableAccessInCondition |
+    loopVariableAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter() or
+    loopVariableAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() or
+    loopVariableAccessInCondition = getLoopStepOfForStmt(forLoop)
   |
-    exists(VariableAccess loopCounterAccessTakenAddressOrReference |
-      loopCounterAccessInCondition.getTarget() =
-        loopCounterAccessTakenAddressOrReference.getTarget()
-    |
-      variableAddressTakenInNonConstDeclaration(forLoop, loopCounterAccessTakenAddressOrReference)
-      or
-      variableAddressTakenInExpression(forLoop, loopCounterAccessTakenAddressOrReference) and
-      not variableAddressTakenAsConstArgument(forLoop,
-        loopCounterAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
-      or
-      variableReferenceTakenInNonConstDeclaration(forLoop, loopCounterAccessTakenAddressOrReference)
-      or
-      variableReferenceTakenAsNonConstArgument(forLoop,
-        loopCounterAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
-    )
-  )
-  or
-  /* 6-2. The loop bound is taken a mutable reference or its address to a mutable pointer. */
-  exists(VariableAccess loopBoundAccessInCondition |
-    loopBoundAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound()
-  |
-    exists(VariableAccess loopBoundAccessTakenAddressOrReference |
-      loopBoundAccessInCondition.getTarget() = loopBoundAccessTakenAddressOrReference.getTarget()
-    |
-      variableAddressTakenInNonConstDeclaration(forLoop, loopBoundAccessTakenAddressOrReference)
-      or
-      variableAddressTakenInExpression(forLoop, loopBoundAccessTakenAddressOrReference) and
-      not variableAddressTakenAsConstArgument(forLoop,
-        loopBoundAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
-      or
-      variableReferenceTakenInNonConstDeclaration(forLoop, loopBoundAccessTakenAddressOrReference)
-      or
-      variableReferenceTakenAsNonConstArgument(forLoop, loopBoundAccessTakenAddressOrReference, _)
-    )
-  )
-  or
-  /* 6-3. The loop step is taken a mutable reference or its address to a mutable pointer. */
-  exists(VariableAccess loopStepAccessInCondition |
-    loopStepAccessInCondition = getLoopStepOfForStmt(forLoop)
-  |
-    exists(VariableAccess loopStepAccessTakenAddressOrReference |
-      loopStepAccessInCondition.getTarget() = loopStepAccessTakenAddressOrReference.getTarget()
-    |
-      variableAddressTakenInNonConstDeclaration(forLoop, loopStepAccessTakenAddressOrReference)
-      or
-      variableAddressTakenInExpression(forLoop, loopStepAccessTakenAddressOrReference) and
-      not variableAddressTakenAsConstArgument(forLoop,
-        loopStepAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
-      or
-      variableReferenceTakenInNonConstDeclaration(forLoop, loopStepAccessTakenAddressOrReference)
-      or
-      variableReferenceTakenAsNonConstArgument(forLoop,
-        loopStepAccessTakenAddressOrReference.getTarget().getAnAccess(), _)
-    )
+    loopVariableAssignedToPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
+    or
+    loopVariablePassedAsArgumentToReferenceParameter(forLoop, loopVariableAccessInCondition)
   )
 select forLoop, "TODO"
