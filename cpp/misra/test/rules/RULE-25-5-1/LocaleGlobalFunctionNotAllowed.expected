@@ -1,0 +1,9 @@
+| test.cpp:6:3:6:16 | call to setlocale | Call to banned function 'setlocale' from <locale>. |
+| test.cpp:7:3:7:16 | call to setlocale | Call to banned function 'setlocale' from <locale>. |
+| test.cpp:8:3:8:16 | call to setlocale | Call to banned function 'setlocale' from <locale>. |
+| test.cpp:12:3:12:21 | call to global | Call to banned function 'global' from <locale>. |
+| test.cpp:13:3:13:21 | call to global | Call to banned function 'global' from <locale>. |
+| test.cpp:36:5:36:18 | call to setlocale | Call to banned function 'setlocale' from <locale>. |
+| test.cpp:40:5:40:18 | call to setlocale | Call to banned function 'setlocale' from <locale>. |
+| test.cpp:45:3:45:21 | call to global | Call to banned function 'global' from <locale>. |
+| test.cpp:46:3:46:21 | call to global | Call to banned function 'global' from <locale>. |

@@ -23,6 +23,7 @@ public:
   unique_ptr(T *ptr) {}
   unique_ptr(const unique_ptr<T> &t) = delete;
   unique_ptr(unique_ptr<T> &&t) {}
+  unique_ptr(pointer p, Deleter d) noexcept {}
   ~unique_ptr() {}
   T &operator*() const { return *ptr; }
   T *operator->() const noexcept { return ptr; }
@@ -93,8 +94,10 @@ public:
   shared_ptr(T *ptr);
   shared_ptr(const shared_ptr<T> &r) noexcept;
   template <class Y> shared_ptr(const shared_ptr<Y> &r) noexcept;
+  template <class Y> shared_ptr(const shared_ptr<Y> &r, T *p) noexcept;
   shared_ptr(shared_ptr<T> &&r) noexcept;
   template <class Y> shared_ptr(shared_ptr<Y> &&r) noexcept;
+  template <class D> shared_ptr(T *p, D d);
   shared_ptr(unique_ptr<T> &&t) {}
   ~shared_ptr() {}
   T &operator*() const noexcept;
