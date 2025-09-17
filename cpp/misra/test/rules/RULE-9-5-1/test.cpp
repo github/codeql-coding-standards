@@ -1,3 +1,6 @@
+#include <string>
+#include <string_view>
+
 void f1(int &x) {}       // Function that takes a non-const integer reference
 void g1(int *x) {}       // Function that takes a non-const integer pointer
 void f2(const int &x) {} // Function that takes a non-const integer reference
@@ -5,6 +8,8 @@ void g2(const int *x) {} // Function that takes a non-const integer pointer
 
 int main() {
   int j = 5;
+  int k = 10;
+  int l = 2;
 
   /* ========== 1. Type of the initialized counter variable ========== */
 
@@ -62,7 +67,7 @@ int main() {
   }
 
   for (int i = 0; i < j;
-       i++) { // NON_COMPLIANT: The loop bound is not a constant
+       i++) { // COMPLIANT: The loop step and the loop bound has the same type
   }
 
   /* ========== 5. Immutability of the loop bound and the loop step ==========
@@ -103,11 +108,40 @@ int main() {
     j++;
   }
 
+  int n = 0;
+
+  for (int i = 0; i < k;
+       i += l) { // NON_COMPLIANT: The loop bound is mutated through an address
+    *(true ? &k : &n) += 1;
+  }
+
+  for (int i = 0; i < k;
+       i += l) { // NON_COMPLIANT: The loop step is mutated through an address
+    *(true ? &l : &n) += 1;
+  }
+
+  std::string hello1 = "hello";
+  std::string_view hello2{"hello"};
+
+  for (int i = 0; i < hello1.size();
+       i++) { // NON_COMPLIANT: The loop bound is not a constant expression
+  }
+
+  for (int i = 0; i < hello2.size();
+       i++) { // COMPLIANT: The loop bound is a constant expression
+  }
+
+  for (int i = 0; i < j; i += hello1.size()) { // NON_COMPLIANT: The loop step
+                                               // is not a constant expression
+  }
+
+  for (int i = 0; i < j;
+       i +=
+       hello2.size()) { // COMPLIANT: The loop step is a constant expression
+  }
+
   /* ========== 6. Existence of pointers to the loop counter, loop bound, and
    * loop step ========== */
-
-  int k = 10;
-  int l = 2;
 
   for (int i = 0; i < k; i += l) { // COMPLIANT: The loop counter, bound, and
                                    // step are not taken addresses of
@@ -232,22 +266,5 @@ int main() {
   for (int i = j; i < k; i += l) { // COMPLIANT: The loop step is passed to
                                    // a const pointer parameter
     g2(&l);
-  }
-
-  int n = 0;
-
-  for (int i = 0; i < k; i += l) { // NON_COMPLIANT: The loop counter is taken
-                                   // as a non-const pointer
-    *(true ? &i : &n) += 1;
-  }
-
-  for (int i = 0; i < k; i += l) { // NON_COMPLIANT: The loop counter is taken
-                                   // as a non-const pointer
-    *(true ? &k : &n) += 1;
-  }
-
-  for (int i = 0; i < k; i += l) { // NON_COMPLIANT: The loop counter is taken
-                                   // as a non-const pointer
-    *(true ? &l : &n) += 1;
   }
 }
