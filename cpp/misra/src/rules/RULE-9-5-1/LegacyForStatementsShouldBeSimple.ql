@@ -85,6 +85,21 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
   result = forLoop.getUpdate().(AssignSubExpr).getRValue()
 }
 
+/**
+ * Holds if either of the following holds for the given variable access:
+ * 1. Another variable access of the same variable as the given variable access is taken an
+ * address and is assigned to a non-const pointer variable, i.e. initialization, assignment,
+ * and pass-by-value.
+ * 2. Another variable access of the same variable as the given variable access is assigned
+ * to a non-const reference variable (thus constituting a `T` -> `&T` conversion.), i.e.
+ * initialization and assignment.
+ */
+/*
+ * Note that pass-by-reference is dealt with in a different predicate named
+ * `loopVariablePassedAsArgumentToNonConstReferenceParameter`, due to implementation
+ * limitations.
+ */
+
 predicate loopVariableAssignedToNonConstPointerOrReferenceType(
   ForStmt forLoop, VariableAccess loopVariableAccessInCondition
 ) {
@@ -121,6 +136,11 @@ predicate loopVariableAssignedToNonConstPointerOrReferenceType(
  * Also, this predicate requires that the call is the body of the given for-loop.
  */
 
+/**
+ * Holds if the given variable access has another variable access with the same target
+ * variable that is passed as reference to a non-const reference parameter of a function,
+ * constituting a `T` -> `&T` conversion.
+ */
 predicate loopVariablePassedAsArgumentToNonConstReferenceParameter(
   ForStmt forLoop, VariableAccess loopVariableAccessInCondition
 ) {
