@@ -6,6 +6,9 @@ void g1(int *x) {}       // Function that takes a non-const integer pointer
 void f2(const int &x) {} // Function that takes a non-const integer reference
 void g2(const int *x) {} // Function that takes a non-const integer pointer
 
+int h1() { return 1; }
+constexpr int h2() { return 1; }
+
 int main() {
   int j = 5;
   int k = 10;
@@ -120,24 +123,20 @@ int main() {
     *(true ? &l : &n) += 1;
   }
 
-  std::string hello1 = "hello";
-  std::string_view hello2{"hello"};
-
-  for (int i = 0; i < hello1.size();
+  for (int i = 0; i < h1();
        i++) { // NON_COMPLIANT: The loop bound is not a constant expression
   }
 
-  for (int i = 0; i < hello2.size();
+  for (int i = 0; i < h2();
        i++) { // COMPLIANT: The loop bound is a constant expression
   }
 
-  for (int i = 0; i < j; i += hello1.size()) { // NON_COMPLIANT: The loop step
-                                               // is not a constant expression
+  for (int i = 0; i < j;
+       i += h1()) { // NON_COMPLIANT: The loop step is not a constant expression
   }
 
   for (int i = 0; i < j;
-       i +=
-       hello2.size()) { // COMPLIANT: The loop step is a constant expression
+       i += h2()) { // COMPLIANT: The loop step is a constant expression
   }
 
   /* ========== 6. Existence of pointers to the loop counter, loop bound, and
