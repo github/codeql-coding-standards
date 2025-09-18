@@ -56,7 +56,7 @@ query predicate problems(FunctionCall fc, string message) {
           "vsnwprintf_s"
         ]) and
   not exists(GuardCondition gc |
-    DataFlow::localFlow(DataFlow::exprNode(fc), DataFlow::exprNode(gc.getAChild*()))
+    DataFlow::localFlow(DataFlow::exprNode(fc), DataFlow::exprNode(gc.(Expr).getAChild*()))
   ) and
   message = "Return value from " + fc.getTarget().getName() + " is not tested for errors."
 }
