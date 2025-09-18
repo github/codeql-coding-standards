@@ -46,7 +46,7 @@ jobs:
         - language: actions
           build-mode: none
         - language: c-cpp
-          build-mode: autobuild
+          build-mode: none
         - language: javascript-typescript
           build-mode: none
         - language: python
@@ -102,3 +102,4 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+
