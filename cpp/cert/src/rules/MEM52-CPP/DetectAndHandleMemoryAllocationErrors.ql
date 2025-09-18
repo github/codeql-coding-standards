@@ -63,7 +63,7 @@ class NoThrowAllocExprWrapperFunction extends Function {
     n.getEnclosingFunction() = this and
     DataFlow::localExprFlow(n, any(ReturnStmt rs).getExpr()) and
     // Not checked in this wrapper function
-    not exists(GuardCondition gc | DataFlow::localExprFlow(n, gc.getAChild*()))
+    not exists(GuardCondition gc | DataFlow::localExprFlow(n, gc.(Expr).getAChild*()))
   }
 
   /** Gets the underlying nothrow allocation ultimately being wrapped. */
