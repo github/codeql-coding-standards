@@ -164,98 +164,115 @@ predicate loopVariablePassedAsArgumentToNonConstReferenceParameter(
   )
 }
 
-from ForStmt forLoop
+from ForStmt forLoop, Locatable forLoopExpr, string message
 where
   not isExcluded(forLoop, StatementsPackage::legacyForStatementsShouldBeSimpleQuery()) and
-  /* 1. There is a counter variable that is not of an integer type. */
-  exists(Type type | type = forLoop.getAnIterationVariable().getType() |
-    not (
-      type instanceof IntegralType or
-      type instanceof FixedWidthIntegralType
-    )
-  )
-  or
-  /*
-   * 2. The loop condition checks termination without comparing the counter variable and the
-   * loop bound using a relational operator.
-   */
-
-  not forLoop.getCondition() instanceof LegacyForLoopCondition
-  or
-  /* 3. The loop counter is mutated somewhere other than its update expression. */
-  exists(Variable loopCounter |
-    isIrregularLoopCounterModification(forLoop, loopCounter, loopCounter.getAnAccess())
-  )
-  or
-  /* 4. The type size of the loop counter is not greater or equal to that of the loop counter. */
-  exists(LegacyForLoopCondition forLoopCondition | forLoopCondition = forLoop.getCondition() |
-    exists(Type loopCounterType, Type loopBoundType |
-      loopCounterType = forLoopCondition.getLoopCounter().getType() and
-      loopBoundType = forLoopCondition.getLoopBound().getType()
-    |
-      loopCounterType.getSize() < loopBoundType.getSize()
-    )
-  )
-  or
-  /*
-   * 5. The loop bound and the loop step are non-const expressions, or are variables that are
-   * mutated in the for loop.
-   */
-
-  /* 5-1. The mutating expression mutates the loop bound. */
-  exists(Expr loopBound |
-    loopBound = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound()
-  |
-    exists(Expr mutatingExpr |
-      /* The mutating expression may be in the loop body. */
-      mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
-      or
-      /* The mutating expression may be in the loop updating expression. */
-      mutatingExpr = forLoop.getUpdate().getAChild*()
-    |
-      /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */
-      variableModifiedInExpression(mutatingExpr,
-        loopBound.(VariableAccess).getTarget().getAnAccess())
-      or
-      /* 5-1-2. The loop bound is not a variable access and is not a constant expression. */
-      not loopBound instanceof VariableAccess and not loopBound.isConstant()
-    )
-  )
-  or
-  /* 5-2. The mutating expression mutates the loop step. */
-  exists(Expr loopStep | loopStep = getLoopStepOfForStmt(forLoop) |
-    exists(Expr mutatingExpr |
-      /* The mutating expression may be in the loop body. */
-      mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
-      or
-      /* The mutating expression may be in the loop updating expression. */
-      mutatingExpr = forLoop.getUpdate().getAChild*()
-    |
-      /* 5-1-2. The loop step is a variable that is mutated in the for loop. */
-      variableModifiedInExpression(mutatingExpr, loopStep.(VariableAccess).getTarget().getAnAccess())
-      or
-      /* 5-1-2. The loop bound is not a variable access and is not a constant expression. */
-      not loopStep instanceof VariableAccess and not loopStep.isConstant()
-    )
-  )
-  or
-  /*
-   * 6. Any of the loop counter, loop bound, or a loop step is taken as a mutable reference
-   * or its address to a mutable pointer.
-   */
-
-  exists(VariableAccess loopVariableAccessInCondition |
-    (
-      loopVariableAccessInCondition =
-        forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter() or
-      loopVariableAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() or
-      loopVariableAccessInCondition = getLoopStepOfForStmt(forLoop)
+  (
+    /* 1. There is a counter variable that is not of an integer type. */
+    exists(Type type | type = forLoop.getAnIterationVariable().getType() |
+      not (
+        type instanceof IntegralType or
+        type instanceof FixedWidthIntegralType
+      )
     ) and
-    (
-      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
-      or
-      loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
-        loopVariableAccessInCondition)
-    )
+    forLoopExpr = forLoop.getAnIterationVariable() and
+    message = "The counter variable is not of an integer type."
+    or
+    /*
+     * 2. The loop condition checks termination without comparing the counter variable to the
+     * loop bound using a relational operator.
+     */
+
+    not forLoop.getCondition() instanceof LegacyForLoopCondition and
+    forLoopExpr = forLoop.getCondition() and
+    message = "TODO"
+    or
+    /* 3. The loop counter is mutated somewhere other than its update expression. */
+    exists(Variable loopCounter |
+      isIrregularLoopCounterModification(forLoop, loopCounter, loopCounter.getAnAccess())
+    ) and
+    forLoopExpr = forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter() and
+    message = "TODO"
+    or
+    /* 4. The type size of the loop counter is not greater or equal to that of the loop counter. */
+    exists(LegacyForLoopCondition forLoopCondition | forLoopCondition = forLoop.getCondition() |
+      exists(Type loopCounterType, Type loopBoundType |
+        loopCounterType = forLoopCondition.getLoopCounter().getType() and
+        loopBoundType = forLoopCondition.getLoopBound().getType()
+      |
+        loopCounterType.getSize() < loopBoundType.getSize()
+      )
+    ) and
+    forLoopExpr = forLoop.getCondition() and
+    message = "TODO"
+    or
+    /*
+     * 5. The loop bound and the loop step are non-const expressions, or are variables that are
+     * mutated in the for loop.
+     */
+
+    /* 5-1. The mutating expression mutates the loop bound. */
+    exists(Expr loopBound |
+      loopBound = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound()
+    |
+      exists(Expr mutatingExpr |
+        /* The mutating expression may be in the loop body. */
+        mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
+        or
+        /* The mutating expression may be in the loop updating expression. */
+        mutatingExpr = forLoop.getUpdate().getAChild*()
+      |
+        /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */
+        variableModifiedInExpression(mutatingExpr,
+          loopBound.(VariableAccess).getTarget().getAnAccess())
+        or
+        /* 5-1-2. The loop bound is not a variable access and is not a constant expression. */
+        not loopBound instanceof VariableAccess and not loopBound.isConstant()
+      )
+    ) and
+    forLoopExpr = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
+    message = "TODO"
+    or
+    /* 5-2. The mutating expression mutates the loop step. */
+    exists(Expr loopStep | loopStep = getLoopStepOfForStmt(forLoop) |
+      exists(Expr mutatingExpr |
+        /* The mutating expression may be in the loop body. */
+        mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
+        or
+        /* The mutating expression may be in the loop updating expression. */
+        mutatingExpr = forLoop.getUpdate().getAChild*()
+      |
+        /* 5-1-2. The loop step is a variable that is mutated in the for loop. */
+        variableModifiedInExpression(mutatingExpr,
+          loopStep.(VariableAccess).getTarget().getAnAccess())
+        or
+        /* 5-1-2. The loop bound is not a variable access and is not a constant expression. */
+        not loopStep instanceof VariableAccess and not loopStep.isConstant()
+      )
+    ) and
+    forLoopExpr = getLoopStepOfForStmt(forLoop) and
+    message = "TODO"
+    or
+    /*
+     * 6. Any of the loop counter, loop bound, or a loop step is taken as a mutable reference
+     * or its address to a mutable pointer.
+     */
+
+    exists(VariableAccess loopVariableAccessInCondition |
+      (
+        loopVariableAccessInCondition =
+          forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter() or
+        loopVariableAccessInCondition =
+          forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() or
+        loopVariableAccessInCondition = getLoopStepOfForStmt(forLoop)
+      ) and
+      (
+        loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
+        or
+        loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
+          loopVariableAccessInCondition)
+      )
+    ) and
+    message = "TODO"
   )
-select forLoop, "TODO"
+select forLoop, message, forLoopExpr, "???"
