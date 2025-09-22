@@ -198,11 +198,8 @@ private newtype TAlertType =
       loopCounterType.getSize() < loopBoundType.getSize()
     )
   } or
-  /*
-   * 5-1. The loop bound is a non-const expression, or a variable that is mutated in the for loop.
-   */
-
-  TLoopBoundIsNonConstExprOrMutatedVariableAccess(ForStmt forLoop, Expr loopBound, Expr mutatingExpr) {
+  /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */
+  TLoopBoundIsMutatedVariableAccess(ForStmt forLoop, Expr loopBound, Expr mutatingExpr) {
     loopBound = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
     (
       /* The mutating expression may be in the loop body. */
@@ -211,20 +208,22 @@ private newtype TAlertType =
       /* The mutating expression may be in the loop updating expression. */
       mutatingExpr = forLoop.getUpdate().getAChild*()
     ) and
-    /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */
-    (
-      variableModifiedInExpression(mutatingExpr,
-        loopBound.(VariableAccess).getTarget().getAnAccess())
-      or
-      /* 5-1-2. The loop bound is not a variable access nor a constant expression. */
-      not loopBound instanceof VariableAccess and not loopBound.isConstant()
-    )
+    variableModifiedInExpression(mutatingExpr, loopBound.(VariableAccess).getTarget().getAnAccess())
   } or
-  /*
-   * 5-2. The loop step is a non-const expression, or are variable that is mutated in the for loop.
-   */
-
-  TLoopStepIsNonConstExprOrMutatedVariableAccess(ForStmt forLoop, Expr loopStep, Expr mutatingExpr) {
+  /* 5-1-2. The loop bound is not a variable access nor a constant expression. */
+  TLoopBoundIsNonConstExpr(ForStmt forLoop, Expr loopBound, Expr mutatingExpr) {
+    loopBound = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
+    (
+      /* The mutating expression may be in the loop body. */
+      mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
+      or
+      /* The mutating expression may be in the loop updating expression. */
+      mutatingExpr = forLoop.getUpdate().getAChild*()
+    ) and
+    (not loopBound instanceof VariableAccess and not loopBound.isConstant())
+  } or
+  /* 5-2-1. The loop step is a variable that is mutated in the for loop. */
+  TLoopStepIsMutatedVariableAccess(ForStmt forLoop, Expr loopStep, Expr mutatingExpr) {
     loopStep = getLoopStepOfForStmt(forLoop) and
     (
       /* The mutating expression may be in the loop body. */
@@ -233,13 +232,19 @@ private newtype TAlertType =
       /* The mutating expression may be in the loop updating expression. */
       mutatingExpr = forLoop.getUpdate().getAChild*()
     ) and
+    variableModifiedInExpression(mutatingExpr, loopStep.(VariableAccess).getTarget().getAnAccess())
+  } or
+  /* 5-2-2. The loop step is not a variable access nor a constant expression. */
+  TLoopStepIsNonConstExpr(ForStmt forLoop, Expr loopStep, Expr mutatingExpr) {
+    loopStep = getLoopStepOfForStmt(forLoop) and
     (
-      /* 5-2-2. The loop step is a variable that is mutated in the for loop. */
-      variableModifiedInExpression(mutatingExpr, loopStep.(VariableAccess).getTarget().getAnAccess())
+      /* The mutating expression may be in the loop body. */
+      mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
       or
-      /* 5-2-2. The loop step is not a variable access nor a constant expression. */
-      not loopStep instanceof VariableAccess and not loopStep.isConstant()
-    )
+      /* The mutating expression may be in the loop updating expression. */
+      mutatingExpr = forLoop.getUpdate().getAChild*()
+    ) and
+    (not loopStep instanceof VariableAccess and not loopStep.isConstant())
   } or
   /*
    * 6-1. The loop counter is taken as a mutable reference or its address to a mutable pointer.
@@ -292,8 +297,10 @@ class AlertType extends TAlertType {
     this = TNoRelationalOperatorInLoopCondition(result, _) or
     this = TLoopCounterMutatedInLoopBody(result, _) or
     this = TLoopCounterSmallerThanLoopBound(result, _) or
-    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(result, _, _) or
-    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(result, _, _) or
+    this = TLoopBoundIsMutatedVariableAccess(result, _, _) or
+    this = TLoopStepIsNonConstExpr(result, _, _) or
+    this = TLoopBoundIsMutatedVariableAccess(result, _, _) or
+    this = TLoopStepIsNonConstExpr(result, _, _) or
     this = TLoopCounterIsTakenNonConstAddress(result, _) or
     this = TLoopBoundIsTakenNonConstAddress(result, _) or
     this = TLoopStepIsTakenNonConstAddress(result, _)
@@ -314,9 +321,13 @@ class AlertType extends TAlertType {
       result = forLoopCondition.getLoopCounter()
     )
     or
-    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, result, _)
+    this = TLoopBoundIsNonConstExpr(_, result, _)
     or
-    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, result, _)
+    this = TLoopBoundIsMutatedVariableAccess(_, result, _)
+    or
+    this = TLoopStepIsNonConstExpr(_, result, _)
+    or
+    this = TLoopStepIsMutatedVariableAccess(_, result, _)
     or
     this = TLoopCounterIsTakenNonConstAddress(_, result)
     or
@@ -341,10 +352,16 @@ class AlertType extends TAlertType {
     this = TLoopCounterSmallerThanLoopBound(_, _) and
     result = "counter variable"
     or
-    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    this = TLoopBoundIsMutatedVariableAccess(_, _, _) and
     result = "loop bound"
     or
-    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    this = TLoopBoundIsNonConstExpr(_, _, _) and
+    result = "loop bound"
+    or
+    this = TLoopStepIsMutatedVariableAccess(_, _, _) and
+    result = "loop step"
+    or
+    this = TLoopStepIsNonConstExpr(_, _, _) and
     result = "loop step"
     or
     this = TLoopCounterIsTakenNonConstAddress(_, _) and
@@ -374,10 +391,16 @@ class AlertType extends TAlertType {
     this = TLoopCounterSmallerThanLoopBound(_, _) and
     result = "The $@ has a smaller type than that of the $@."
     or
-    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    this = TLoopBoundIsNonConstExpr(_, _, _) and
     result = "The $@ is a non-const expression, or a variable that is $@ in the loop."
     or
-    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    this = TLoopBoundIsMutatedVariableAccess(_, _, _) and
+    result = "The $@ is a non-const expression, or a variable that is $@ in the loop."
+    or
+    this = TLoopStepIsNonConstExpr(_, _, _) and
+    result = "The $@ is a non-const expression, or a variable that is $@ in the loop."
+    or
+    this = TLoopStepIsMutatedVariableAccess(_, _, _) and
     result = "The $@ is a non-const expression, or a variable that is $@ in the loop."
     or
     this = TLoopCounterIsTakenNonConstAddress(_, _) and
@@ -402,9 +425,13 @@ class AlertType extends TAlertType {
       result = forLoopCondition.getLoopBound()
     )
     or
-    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, _, result)
+    this = TLoopBoundIsNonConstExpr(_, _, result)
     or
-    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, _, result)
+    this = TLoopBoundIsMutatedVariableAccess(_, _, result)
+    or
+    this = TLoopStepIsNonConstExpr(_, _, result)
+    or
+    this = TLoopStepIsMutatedVariableAccess(_, _, result)
     or
     this = TLoopCounterIsTakenNonConstAddress(_, result) // Throwaway
     or
@@ -426,10 +453,16 @@ class AlertType extends TAlertType {
     this = TLoopCounterSmallerThanLoopBound(_, _) and
     result = "loop bound"
     or
-    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    this = TLoopBoundIsNonConstExpr(_, _, _) and
     result = "mutated"
     or
-    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    this = TLoopBoundIsMutatedVariableAccess(_, _, _) and
+    result = "mutated"
+    or
+    this = TLoopStepIsNonConstExpr(_, _, _) and
+    result = "mutated"
+    or
+    this = TLoopStepIsMutatedVariableAccess(_, _, _) and
     result = "mutated"
     or
     this = TLoopCounterIsTakenNonConstAddress(_, _) and
@@ -449,4 +482,3 @@ from AlertType alert
 where not isExcluded(alert.asElement(), StatementsPackage::legacyForStatementsShouldBeSimpleQuery())
 select alert, alert.getMessage(), alert.getLinkTarget1(), alert.getLinkText1(),
   alert.getLinkTarget2(), alert.getLinkText2()
-
