@@ -164,115 +164,289 @@ predicate loopVariablePassedAsArgumentToNonConstReferenceParameter(
   )
 }
 
-from ForStmt forLoop, Locatable forLoopExpr, string message
-where
-  not isExcluded(forLoop, StatementsPackage::legacyForStatementsShouldBeSimpleQuery()) and
-  (
-    /* 1. There is a counter variable that is not of an integer type. */
-    exists(Type type | type = forLoop.getAnIterationVariable().getType() |
+private newtype TAlertType =
+  /* 1. There is a counter variable that is not of an integer type. */
+  TNonIntegerTypeCounterVariable(ForStmt forLoop, Variable iterationVariable) {
+    iterationVariable = forLoop.getAnIterationVariable() and
+    exists(Type type | type = iterationVariable.getType() |
       not (
         type instanceof IntegralType or
         type instanceof FixedWidthIntegralType
       )
-    ) and
-    forLoopExpr = forLoop.getAnIterationVariable() and
-    message = "The counter variable is not of an integer type."
-    or
-    /*
-     * 2. The loop condition checks termination without comparing the counter variable to the
-     * loop bound using a relational operator.
-     */
+    )
+  } or
+  /*
+   * 2. The loop condition checks termination without comparing the counter variable to the
+   * loop bound using a relational operator.
+   */
 
-    not forLoop.getCondition() instanceof LegacyForLoopCondition and
-    forLoopExpr = forLoop.getCondition() and
-    message = "TODO"
-    or
-    /* 3. The loop counter is mutated somewhere other than its update expression. */
-    exists(Variable loopCounter |
-      isIrregularLoopCounterModification(forLoop, loopCounter, loopCounter.getAnAccess())
-    ) and
-    forLoopExpr = forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter() and
-    message = "TODO"
-    or
-    /* 4. The type size of the loop counter is not greater or equal to that of the loop counter. */
-    exists(LegacyForLoopCondition forLoopCondition | forLoopCondition = forLoop.getCondition() |
-      exists(Type loopCounterType, Type loopBoundType |
-        loopCounterType = forLoopCondition.getLoopCounter().getType() and
-        loopBoundType = forLoopCondition.getLoopBound().getType()
-      |
-        loopCounterType.getSize() < loopBoundType.getSize()
-      )
-    ) and
-    forLoopExpr = forLoop.getCondition() and
-    message = "TODO"
-    or
-    /*
-     * 5. The loop bound and the loop step are non-const expressions, or are variables that are
-     * mutated in the for loop.
-     */
-
-    /* 5-1. The mutating expression mutates the loop bound. */
-    exists(Expr loopBound |
-      loopBound = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound()
+  TNoRelationalOperatorInLoopCondition(ForStmt forLoop, Expr condition) {
+    condition = forLoop.getCondition() and
+    not condition instanceof LegacyForLoopCondition
+  } or
+  /* 3. The loop counter is mutated somewhere other than its update expression. */
+  TLoopCounterMutatedInLoopBody(ForStmt forLoop, Variable loopCounter) {
+    isIrregularLoopCounterModification(forLoop, loopCounter, loopCounter.getAnAccess())
+  } or
+  /* 4. The type size of the loop counter is smaller than that of the loop bound. */
+  TLoopCounterSmallerThanLoopBound(ForStmt forLoop, LegacyForLoopCondition forLoopCondition) {
+    forLoopCondition = forLoop.getCondition() and
+    exists(Type loopCounterType, Type loopBoundType |
+      loopCounterType = forLoopCondition.getLoopCounter().getType() and
+      loopBoundType = forLoopCondition.getLoopBound().getType()
     |
-      exists(Expr mutatingExpr |
-        /* The mutating expression may be in the loop body. */
-        mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
-        or
-        /* The mutating expression may be in the loop updating expression. */
-        mutatingExpr = forLoop.getUpdate().getAChild*()
-      |
-        /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */
-        variableModifiedInExpression(mutatingExpr,
-          loopBound.(VariableAccess).getTarget().getAnAccess())
-        or
-        /* 5-1-2. The loop bound is not a variable access and is not a constant expression. */
-        not loopBound instanceof VariableAccess and not loopBound.isConstant()
-      )
-    ) and
-    forLoopExpr = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
-    message = "TODO"
-    or
-    /* 5-2. The mutating expression mutates the loop step. */
-    exists(Expr loopStep | loopStep = getLoopStepOfForStmt(forLoop) |
-      exists(Expr mutatingExpr |
-        /* The mutating expression may be in the loop body. */
-        mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
-        or
-        /* The mutating expression may be in the loop updating expression. */
-        mutatingExpr = forLoop.getUpdate().getAChild*()
-      |
-        /* 5-1-2. The loop step is a variable that is mutated in the for loop. */
-        variableModifiedInExpression(mutatingExpr,
-          loopStep.(VariableAccess).getTarget().getAnAccess())
-        or
-        /* 5-1-2. The loop bound is not a variable access and is not a constant expression. */
-        not loopStep instanceof VariableAccess and not loopStep.isConstant()
-      )
-    ) and
-    forLoopExpr = getLoopStepOfForStmt(forLoop) and
-    message = "TODO"
-    or
-    /*
-     * 6. Any of the loop counter, loop bound, or a loop step is taken as a mutable reference
-     * or its address to a mutable pointer.
-     */
+      loopCounterType.getSize() < loopBoundType.getSize()
+    )
+  } or
+  /*
+   * 5-1. The loop bound is a non-const expression, or a variable that is mutated in the for loop.
+   */
 
-    exists(VariableAccess loopVariableAccessInCondition |
-      (
-        loopVariableAccessInCondition =
-          forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter() or
-        loopVariableAccessInCondition =
-          forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() or
-        loopVariableAccessInCondition = getLoopStepOfForStmt(forLoop)
-      ) and
-      (
-        loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
-        or
-        loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
-          loopVariableAccessInCondition)
-      )
+  TLoopBoundIsNonConstExprOrMutatedVariableAccess(ForStmt forLoop, Expr loopBound, Expr mutatingExpr) {
+    loopBound = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
+    (
+      /* The mutating expression may be in the loop body. */
+      mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
+      or
+      /* The mutating expression may be in the loop updating expression. */
+      mutatingExpr = forLoop.getUpdate().getAChild*()
     ) and
-    message = "TODO"
-  )
-select forLoop, message, forLoopExpr, "???"
+    /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */
+    (
+      variableModifiedInExpression(mutatingExpr,
+        loopBound.(VariableAccess).getTarget().getAnAccess())
+      or
+      /* 5-1-2. The loop bound is not a variable access nor a constant expression. */
+      not loopBound instanceof VariableAccess and not loopBound.isConstant()
+    )
+  } or
+  /*
+   * 5-2. The loop step is a non-const expression, or are variable that is mutated in the for loop.
+   */
+
+  TLoopStepIsNonConstExprOrMutatedVariableAccess(ForStmt forLoop, Expr loopStep, Expr mutatingExpr) {
+    loopStep = getLoopStepOfForStmt(forLoop) and
+    (
+      /* The mutating expression may be in the loop body. */
+      mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
+      or
+      /* The mutating expression may be in the loop updating expression. */
+      mutatingExpr = forLoop.getUpdate().getAChild*()
+    ) and
+    (
+      /* 5-2-2. The loop step is a variable that is mutated in the for loop. */
+      variableModifiedInExpression(mutatingExpr, loopStep.(VariableAccess).getTarget().getAnAccess())
+      or
+      /* 5-2-2. The loop step is not a variable access nor a constant expression. */
+      not loopStep instanceof VariableAccess and not loopStep.isConstant()
+    )
+  } or
+  /*
+   * 6-1. The loop counter is taken as a mutable reference or its address to a mutable pointer.
+   */
+
+  TLoopCounterIsTakenNonConstAddress(ForStmt forLoop, VariableAccess loopVariableAccessInCondition) {
+    loopVariableAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter() and
+    (
+      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
+      or
+      loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
+        loopVariableAccessInCondition)
+    )
+  } or
+  /*
+   * 6-2. The loop bound is taken as a mutable reference or its address to a mutable pointer.
+   */
+
+  TLoopBoundIsTakenNonConstAddress(ForStmt forLoop, Expr loopVariableAccessInCondition) {
+    loopVariableAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
+    (
+      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
+      or
+      loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
+        loopVariableAccessInCondition)
+    )
+  } or
+  /*
+   * 6-3. The loop step is taken as a mutable reference or its address to a mutable pointer.
+   */
+
+  TLoopStepIsTakenNonConstAddress(ForStmt forLoop, Expr loopVariableAccessInCondition) {
+    loopVariableAccessInCondition = getLoopStepOfForStmt(forLoop) and
+    (
+      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
+      or
+      loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
+        loopVariableAccessInCondition)
+    )
+  }
+
+class AlertType extends TAlertType {
+  /**
+   * Extract the primary location depending on the case of this instance.
+   */
+  Location getLocation() { result = this.asElement().getLocation() }
+
+  Element asElement() {
+    this = TNonIntegerTypeCounterVariable(result, _) or
+    this = TNoRelationalOperatorInLoopCondition(result, _) or
+    this = TLoopCounterMutatedInLoopBody(result, _) or
+    this = TLoopCounterSmallerThanLoopBound(result, _) or
+    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(result, _, _) or
+    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(result, _, _) or
+    this = TLoopCounterIsTakenNonConstAddress(result, _) or
+    this = TLoopBoundIsTakenNonConstAddress(result, _) or
+    this = TLoopStepIsTakenNonConstAddress(result, _)
+  }
+
+  /**
+   * Gets the target the link leads to depending on the case of this instance.
+   */
+  Locatable getLinkTarget1() {
+    this = TNonIntegerTypeCounterVariable(_, result)
+    or
+    this = TNoRelationalOperatorInLoopCondition(_, result)
+    or
+    this = TLoopCounterMutatedInLoopBody(_, result)
+    or
+    exists(LegacyForLoopCondition forLoopCondition |
+      this = TLoopCounterSmallerThanLoopBound(_, forLoopCondition) and
+      result = forLoopCondition.getLoopCounter()
+    )
+    or
+    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, result, _)
+    or
+    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, result, _)
+    or
+    this = TLoopCounterIsTakenNonConstAddress(_, result)
+    or
+    this = TLoopBoundIsTakenNonConstAddress(_, result)
+    or
+    this = TLoopStepIsTakenNonConstAddress(_, result)
+  }
+
+  /**
+   * Gets the text of the link depending on the case of this instance.
+   */
+  string getLinkText1() {
+    this = TNonIntegerTypeCounterVariable(_, _) and
+    result = "counter variable"
+    or
+    this = TNoRelationalOperatorInLoopCondition(_, _) and
+    result = "loop condition"
+    or
+    this = TLoopCounterMutatedInLoopBody(_, _) and
+    result = "counter variable"
+    or
+    this = TLoopCounterSmallerThanLoopBound(_, _) and
+    result = "counter variable"
+    or
+    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    result = "loop bound"
+    or
+    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    result = "loop step"
+    or
+    this = TLoopCounterIsTakenNonConstAddress(_, _) and
+    result = "loop counter"
+    or
+    this = TLoopBoundIsTakenNonConstAddress(_, _) and
+    result = "loop bound"
+    or
+    this = TLoopStepIsTakenNonConstAddress(_, _) and
+    result = "loop step"
+  }
+
+  /**
+   * Gets the message with a placeholder, depending on the case of this instance.
+   */
+  string getMessage() {
+    this = TNonIntegerTypeCounterVariable(_, _) and
+    result = "The $@ is not of an integer type." // Throwaway placeholder
+    or
+    this = TNoRelationalOperatorInLoopCondition(_, _) and
+    result =
+      "The $@ does not compare the counter variable to an expression using a relational operator." // Throwaway placeholder
+    or
+    this = TLoopCounterMutatedInLoopBody(_, _) and
+    result = "The $@ may be mutated in a location other than its update expression."
+    or
+    this = TLoopCounterSmallerThanLoopBound(_, _) and
+    result = "The $@ has a smaller type than that of the $@."
+    or
+    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    result = "The $@ is a non-const expression, or a variable that is $@ in the loop."
+    or
+    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    result = "The $@ is a non-const expression, or a variable that is $@ in the loop."
+    or
+    this = TLoopCounterIsTakenNonConstAddress(_, _) and
+    result = "The $@ is taken as a mutable reference or its address to a mutable pointer."
+    or
+    this = TLoopBoundIsTakenNonConstAddress(_, _) and
+    result = "The $@ is taken as a mutable reference or its address to a mutable pointer."
+    or
+    this = TLoopStepIsTakenNonConstAddress(_, _) and
+    result = "The $@ is taken as a mutable reference or its address to a mutable pointer."
+  }
+
+  Locatable getLinkTarget2() {
+    this = TNonIntegerTypeCounterVariable(_, result) // Throwaway
+    or
+    this = TNoRelationalOperatorInLoopCondition(_, result) // Throwaway
+    or
+    this = TLoopCounterMutatedInLoopBody(_, _) // Throwaway
+    or
+    exists(LegacyForLoopCondition forLoopCondition |
+      this = TLoopCounterSmallerThanLoopBound(_, forLoopCondition) and
+      result = forLoopCondition.getLoopBound()
+    )
+    or
+    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, _, result)
+    or
+    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, _, result)
+    or
+    this = TLoopCounterIsTakenNonConstAddress(_, result) // Throwaway
+    or
+    this = TLoopBoundIsTakenNonConstAddress(_, result) // Throwaway
+    or
+    this = TLoopStepIsTakenNonConstAddress(_, result) // Throwaway
+  }
+
+  string getLinkText2() {
+    this = TNonIntegerTypeCounterVariable(_, _) and
+    result = "N/A" // Throwaway
+    or
+    this = TNoRelationalOperatorInLoopCondition(_, _) and
+    result = "N/A" // Throwaway
+    or
+    this = TLoopCounterMutatedInLoopBody(_, _) and
+    result = "N/A" // Throwaway
+    or
+    this = TLoopCounterSmallerThanLoopBound(_, _) and
+    result = "loop bound"
+    or
+    this = TLoopBoundIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    result = "mutated"
+    or
+    this = TLoopStepIsNonConstExprOrMutatedVariableAccess(_, _, _) and
+    result = "mutated"
+    or
+    this = TLoopCounterIsTakenNonConstAddress(_, _) and
+    result = "N/A" // Throwaway
+    or
+    this = TLoopBoundIsTakenNonConstAddress(_, _) and
+    result = "N/A" // Throwaway
+    or
+    this = TLoopStepIsTakenNonConstAddress(_, _) and
+    result = "N/A" // Throwaway
+  }
+
+  string toString() { result = this.asElement().toString() }
+}
+
+from AlertType alert
+where not isExcluded(alert.asElement(), StatementsPackage::legacyForStatementsShouldBeSimpleQuery())
+select alert, alert.getMessage(), alert.getLinkTarget1(), alert.getLinkText1(),
+  alert.getLinkTarget2(), alert.getLinkText2()
+
