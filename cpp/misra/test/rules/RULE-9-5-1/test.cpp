@@ -46,8 +46,31 @@ int main() {
                                  // the update expression
   }
 
+  for (int i = 20; i > 10;
+       --i) { // COMPLIANT: Pre-increment operator used as the update expression
+  }
+
+  for (int i = 20; i > 10; i--) { // COMPLIANT: Post-increment operator used as
+                                  // the update expression
+  }
+
   for (int i = 0; i < 10; i += 3) { // COMPLIANT: Add-and-assign operator used
                                     // as the update expression with loop step 3
+  }
+
+  for (int i = 20; i > 10;
+       i -= 3) { // COMPLIANT: Add-and-assign operator used
+                 // as the update expression with loop step 3
+  }
+
+  for (int i = 0; i < 10;
+       i = i +
+           3) { // COMPLIANT: Direct assignment with addition with loop step 3
+  }
+
+  for (int i = 20; i < 10;
+       i = i -
+           3) { // COMPLIANT: Direct assignment with addition with loop step 3
   }
 
   for (int i = 0; i < 10;

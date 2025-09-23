@@ -72,6 +72,60 @@ predicate variableModifiedInExpression(Expr expr, VariableAccess va) {
   valueToUpdate(va, _, expr)
 }
 
+abstract class LegacyForLoopUpdateExpression extends Expr {
+  ForStmt forLoop;
+
+  LegacyForLoopUpdateExpression() { this = forLoop.getUpdate().getAChild*() }
+
+  abstract Expr getLoopStep();
+}
+
+class CrementLegacyForLoopUpdateExpression extends LegacyForLoopUpdateExpression {
+  CrementLegacyForLoopUpdateExpression() { this instanceof CrementOperation }
+
+  override Expr getLoopStep() { none() }
+}
+
+class AssignAddOrSubExpr extends LegacyForLoopUpdateExpression {
+  AssignAddOrSubExpr() {
+    this instanceof AssignAddExpr or
+    this instanceof AssignSubExpr
+  }
+
+  override Expr getLoopStep() {
+    result = this.(AssignAddExpr).getRValue() or
+    result = this.(AssignSubExpr).getRValue()
+  }
+}
+
+class AddOrSubThenAssignExpr extends LegacyForLoopUpdateExpression {
+  Expr assignRhs;
+
+  AddOrSubThenAssignExpr() {
+    this.(AssignExpr).getRValue() = assignRhs and
+    (
+      assignRhs instanceof AddExpr or
+      assignRhs instanceof SubExpr
+    )
+  }
+
+  override Expr getLoopStep() {
+    (
+      result = assignRhs.(AddExpr).getAnOperand() or
+      result = assignRhs.(SubExpr).getAnOperand()
+    ) and
+    exists(VariableAccess iterationVariableAccess |
+      (
+        iterationVariableAccess = assignRhs.(AddExpr).getAnOperand()
+        or
+        iterationVariableAccess = assignRhs.(SubExpr).getAnOperand()
+      ) and
+      iterationVariableAccess.getTarget() = forLoop.getAnIterationVariable() and
+      result != iterationVariableAccess
+    )
+  }
+}
+
 /**
  * Gets the loop step of a legacy for loop.
  *
@@ -81,8 +135,36 @@ predicate variableModifiedInExpression(Expr expr, VariableAccess va) {
  * predicate.
  */
 Expr getLoopStepOfForStmt(ForStmt forLoop) {
-  result = forLoop.getUpdate().(AssignAddExpr).getRValue() or
-  result = forLoop.getUpdate().(AssignSubExpr).getRValue()
+  /*
+   * NOTE: We compute the transitive closure of `getAChild` on the update expression,
+   * since the update expression may be a compound one that embeds the four aforementioned
+   * expression types, such as a comma expression (e.g. `i += 1, E` where `E` is an
+   * arbitrary expression).
+   *
+   * This may be detrimental to performance, but we keep it for soundness. A possible
+   * alternative is an IR-based solution.
+   */
+
+  /* 1. Get the expression `E` when the update expression is `i += E` or `i -= E`. */
+  result = forLoop.getUpdate().getAChild*().(AssignAddExpr).getRValue()
+  or
+  result = forLoop.getUpdate().getAChild*().(AssignSubExpr).getRValue()
+  or
+  /* 2. Get the expression `E` when the update expression is `i = i + E` or `i = i - E`. */
+  (
+    result = forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(AddExpr).getAnOperand() or
+    result = forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(SubExpr).getAnOperand()
+  ) and
+  exists(VariableAccess iterationVariableAccess |
+    (
+      iterationVariableAccess =
+        forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(AddExpr).getAnOperand() or
+      iterationVariableAccess =
+        forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(SubExpr).getAnOperand()
+    ) and
+    iterationVariableAccess.getTarget() = forLoop.getAnIterationVariable() and
+    result != iterationVariableAccess
+  )
 }
 
 /**
@@ -184,9 +266,15 @@ private newtype TAlertType =
     condition = forLoop.getCondition() and
     not condition instanceof LegacyForLoopCondition
   } or
-  /* 3. The loop counter is mutated somewhere other than its update expression. */
+  /* 3-1. The loop counter is mutated somewhere other than its update expression. */
   TLoopCounterMutatedInLoopBody(ForStmt forLoop, Variable loopCounter) {
-    isIrregularLoopCounterModification(forLoop, loopCounter, loopCounter.getAnAccess())
+    loopCounter = forLoop.getAnIterationVariable() and
+    variableModifiedInExpression(forLoop.getStmt().getChildStmt().getAChild*(),
+      loopCounter.getAnAccess())
+  } or
+  /* 3-2. The loop counter is not updated using either of `++`, `--`, `+=`, or `-=`. */
+  TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(ForStmt forLoop) {
+    none() // TODO
   } or
   /* 4. The type size of the loop counter is smaller than that of the loop bound. */
   TLoopCounterSmallerThanLoopBound(ForStmt forLoop, LegacyForLoopCondition forLoopCondition) {
