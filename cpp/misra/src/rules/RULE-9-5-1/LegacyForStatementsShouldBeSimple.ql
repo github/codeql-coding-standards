@@ -20,7 +20,12 @@ import semmle.code.cpp.dataflow.internal.AddressFlow
 import codingstandards.cpp.misra
 import codingstandards.cpp.Call
 import codingstandards.cpp.Loops
+import codingstandards.cpp.ast.Increment
 import codingstandards.cpp.misra.BuiltInTypeRules::MisraCpp23BuiltInTypes
+
+Variable getDeclaredVariableInForLoop(ForStmt forLoop) {
+  result = forLoop.getADeclaration().getADeclarationEntry().(VariableDeclarationEntry).getVariable()
+}
 
 /**
  * Holds if the given expression may mutate the variable.
@@ -75,7 +80,7 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
       iterationVariableAccess =
         forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(SubExpr).getAnOperand()
     ) and
-    iterationVariableAccess.getTarget() = forLoop.getAnIterationVariable() and
+    iterationVariableAccess.getTarget() = getDeclaredVariableInForLoop(forLoop) and
     result != iterationVariableAccess
   )
 }
@@ -159,9 +164,9 @@ predicate loopVariablePassedAsArgumentToNonConstReferenceParameter(
 
 private newtype TAlertType =
   /* 1. There is a counter variable that is not of an integer type. */
-  TNonIntegerTypeCounterVariable(ForStmt forLoop, Variable iterationVariable) {
-    iterationVariable = forLoop.getAnIterationVariable() and
-    exists(Type type | type = iterationVariable.getType() |
+  TNonIntegerTypeCounterVariable(ForStmt forLoop, Variable loopCounter) {
+    loopCounter = getDeclaredVariableInForLoop(forLoop) and
+    exists(Type type | type = loopCounter.getType() |
       not (
         type instanceof IntegralType or
         type instanceof FixedWidthIntegralType
@@ -178,14 +183,18 @@ private newtype TAlertType =
     not condition instanceof LegacyForLoopCondition
   } or
   /* 3-1. The loop counter is mutated somewhere other than its update expression. */
-  TLoopCounterMutatedInLoopBody(ForStmt forLoop, Variable loopCounter) {
-    loopCounter = forLoop.getAnIterationVariable() and
+  TLoopCounterMutatedInLoopBody(ForStmt forLoop, Variable loopCounterVariable) {
+    loopCounterVariable = getDeclaredVariableInForLoop(forLoop) and
     variableModifiedInExpression(forLoop.getStmt().getChildStmt().getAChild*(),
-      loopCounter.getAnAccess())
+      loopCounterVariable.getAnAccess())
   } or
   /* 3-2. The loop counter is not updated using either of `++`, `--`, `+=`, or `-=`. */
-  TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(ForStmt forLoop) {
-    none() // TODO
+  TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(
+    ForStmt forLoop, Variable loopCounterVariable, Expr updateExpr
+  ) {
+    loopCounterVariable = getDeclaredVariableInForLoop(forLoop) and
+    variableModifiedInExpression(updateExpr, loopCounterVariable.getAnAccess()) and
+    not updateExpr instanceof LegacyForLoopUpdateExpression
   } or
   /* 4. The type size of the loop counter is smaller than that of the loop bound. */
   TLoopCounterSmallerThanLoopBound(ForStmt forLoop, LegacyForLoopCondition forLoopCondition) {
@@ -281,6 +290,7 @@ class AlertType extends TAlertType {
     this = TNonIntegerTypeCounterVariable(result, _) or
     this = TNoRelationalOperatorInLoopCondition(result, _) or
     this = TLoopCounterMutatedInLoopBody(result, _) or
+    this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(result, _, _) or
     this = TLoopCounterSmallerThanLoopBound(result, _) or
     this = TLoopBoundIsMutatedVariableAccess(result, _, _) or
     this = TLoopBoundIsNonConstExpr(result, _) or
@@ -300,6 +310,8 @@ class AlertType extends TAlertType {
     this = TNoRelationalOperatorInLoopCondition(_, result)
     or
     this = TLoopCounterMutatedInLoopBody(_, result)
+    or
+    this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, result, _)
     or
     exists(LegacyForLoopCondition forLoopCondition |
       this = TLoopCounterSmallerThanLoopBound(_, forLoopCondition) and
@@ -334,6 +346,9 @@ class AlertType extends TAlertType {
     this = TLoopCounterMutatedInLoopBody(_, _) and
     result = "counter variable"
     or
+    this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, _, _) and
+    result = "counter variable"
+    or
     this = TLoopCounterSmallerThanLoopBound(_, _) and
     result = "counter variable"
     or
@@ -364,14 +379,17 @@ class AlertType extends TAlertType {
    */
   string getMessage() {
     this = TNonIntegerTypeCounterVariable(_, _) and
-    result = "The $@ is not of an integer type." // Throwaway placeholder
+    result = "The $@ is not of an integer type."
     or
     this = TNoRelationalOperatorInLoopCondition(_, _) and
     result =
-      "The $@ does not compare the counter variable to an expression using a relational operator." // Throwaway placeholder
+      "The $@ does not compare the counter variable to an expression using a relational operator."
     or
     this = TLoopCounterMutatedInLoopBody(_, _) and
     result = "The $@ may be mutated in a location other than its update expression."
+    or
+    this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, _, _) and
+    result = "The $@ is not updated with an $@ other than addition or subtraction."
     or
     this = TLoopCounterSmallerThanLoopBound(_, _) and
     result = "The $@ has a smaller type than that of the $@."
@@ -403,7 +421,9 @@ class AlertType extends TAlertType {
     or
     this = TNoRelationalOperatorInLoopCondition(_, result) // Throwaway
     or
-    this = TLoopCounterMutatedInLoopBody(_, _) // Throwaway
+    this = TLoopCounterMutatedInLoopBody(_, result) // Throwaway
+    or
+    this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, _, result)
     or
     exists(LegacyForLoopCondition forLoopCondition |
       this = TLoopCounterSmallerThanLoopBound(_, forLoopCondition) and
@@ -434,6 +454,9 @@ class AlertType extends TAlertType {
     or
     this = TLoopCounterMutatedInLoopBody(_, _) and
     result = "N/A" // Throwaway
+    or
+    this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, _, _) and
+    result = "expression"
     or
     this = TLoopCounterSmallerThanLoopBound(_, _) and
     result = "loop bound"
