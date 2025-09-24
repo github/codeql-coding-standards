@@ -66,23 +66,7 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
    */
 
   /* 1. Get the expression `E` when the update expression is `i += E` or `i -= E`. */
-  result = forLoop.getUpdate().getAChild*().(AssignAddOrSubExpr).getLoopStep()
-  or
-  /* 2. Get the expression `E` when the update expression is `i = i + E` or `i = i - E`. */
-  (
-    result = forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(AddExpr).getAnOperand() or
-    result = forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(SubExpr).getAnOperand()
-  ) and
-  exists(VariableAccess iterationVariableAccess |
-    (
-      iterationVariableAccess =
-        forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(AddExpr).getAnOperand() or
-      iterationVariableAccess =
-        forLoop.getUpdate().getAChild*().(AssignExpr).getRValue().(SubExpr).getAnOperand()
-    ) and
-    iterationVariableAccess.getTarget() = getDeclaredVariableInForLoop(forLoop) and
-    result != iterationVariableAccess
-  )
+  result = forLoop.getUpdate().getAChild*().(StepCrementUpdateExpr).getAmountExpr()
 }
 
 /**
@@ -194,7 +178,7 @@ private newtype TAlertType =
   ) {
     loopCounterVariable = getDeclaredVariableInForLoop(forLoop) and
     variableModifiedInExpression(updateExpr, loopCounterVariable.getAnAccess()) and
-    not updateExpr instanceof LegacyForLoopUpdateExpression
+    not updateExpr instanceof StepCrementUpdateExpr
   } or
   /* 4. The type size of the loop counter is smaller than that of the loop bound. */
   TLoopCounterSmallerThanLoopBound(ForStmt forLoop, LegacyForLoopCondition forLoopCondition) {
