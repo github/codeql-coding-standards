@@ -23,37 +23,6 @@ import codingstandards.cpp.Loops
 import codingstandards.cpp.misra.BuiltInTypeRules::MisraCpp23BuiltInTypes
 
 /**
- * A comparison expression that has the minimum qualification as being a valid termination
- * condition of a legacy for-loop. It is characterized by a value read from a variable being
- * compared to a value, which is supposed to be the loop bound.
- */
-class LegacyForLoopCondition extends RelationalOperation {
-  /**
-   * The legacy for-loop this relational operation is a condition of.
-   */
-  ForStmt forLoop;
-  VariableAccess loopCounter;
-  Expr loopBound;
-
-  LegacyForLoopCondition() {
-    loopCounter = this.getAnOperand() and
-    loopBound = this.getAnOperand() and
-    loopCounter.getTarget() = getAnIterationVariable(forLoop) and
-    loopBound != loopCounter
-  }
-
-  /**
-   * Gets the variable access to the loop counter variable, embedded in this loop condition.
-   */
-  VariableAccess getLoopCounter() { result = loopCounter }
-
-  /**
-   * Gets the variable access to the loop bound variable, embedded in this loop condition.
-   */
-  Expr getLoopBound() { result = loopBound }
-}
-
-/**
  * Holds if the given expression may mutate the variable.
  */
 predicate variableModifiedInExpression(Expr expr, VariableAccess va) {
@@ -70,60 +39,6 @@ predicate variableModifiedInExpression(Expr expr, VariableAccess va) {
    */
 
   valueToUpdate(va, _, expr)
-}
-
-abstract class LegacyForLoopUpdateExpression extends Expr {
-  ForStmt forLoop;
-
-  LegacyForLoopUpdateExpression() { this = forLoop.getUpdate().getAChild*() }
-
-  abstract Expr getLoopStep();
-}
-
-class CrementLegacyForLoopUpdateExpression extends LegacyForLoopUpdateExpression {
-  CrementLegacyForLoopUpdateExpression() { this instanceof CrementOperation }
-
-  override Expr getLoopStep() { none() }
-}
-
-class AssignAddOrSubExpr extends LegacyForLoopUpdateExpression {
-  AssignAddOrSubExpr() {
-    this instanceof AssignAddExpr or
-    this instanceof AssignSubExpr
-  }
-
-  override Expr getLoopStep() {
-    result = this.(AssignAddExpr).getRValue() or
-    result = this.(AssignSubExpr).getRValue()
-  }
-}
-
-class AddOrSubThenAssignExpr extends LegacyForLoopUpdateExpression {
-  Expr assignRhs;
-
-  AddOrSubThenAssignExpr() {
-    this.(AssignExpr).getRValue() = assignRhs and
-    (
-      assignRhs instanceof AddExpr or
-      assignRhs instanceof SubExpr
-    )
-  }
-
-  override Expr getLoopStep() {
-    (
-      result = assignRhs.(AddExpr).getAnOperand() or
-      result = assignRhs.(SubExpr).getAnOperand()
-    ) and
-    exists(VariableAccess iterationVariableAccess |
-      (
-        iterationVariableAccess = assignRhs.(AddExpr).getAnOperand()
-        or
-        iterationVariableAccess = assignRhs.(SubExpr).getAnOperand()
-      ) and
-      iterationVariableAccess.getTarget() = forLoop.getAnIterationVariable() and
-      result != iterationVariableAccess
-    )
-  }
 }
 
 /**
@@ -146,9 +61,7 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
    */
 
   /* 1. Get the expression `E` when the update expression is `i += E` or `i -= E`. */
-  result = forLoop.getUpdate().getAChild*().(AssignAddExpr).getRValue()
-  or
-  result = forLoop.getUpdate().getAChild*().(AssignSubExpr).getRValue()
+  result = forLoop.getUpdate().getAChild*().(AssignAddOrSubExpr).getLoopStep()
   or
   /* 2. Get the expression `E` when the update expression is `i = i + E` or `i = i - E`. */
   (
@@ -175,13 +88,11 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
  * 2. Another variable access of the same variable as the given variable access is assigned
  * to a non-const reference variable (thus constituting a `T` -> `&T` conversion.), i.e.
  * initialization and assignment.
- */
-/*
+ *
  * Note that pass-by-reference is dealt with in a different predicate named
  * `loopVariablePassedAsArgumentToNonConstReferenceParameter`, due to implementation
  * limitations.
  */
-
 predicate loopVariableAssignedToNonConstPointerOrReferenceType(
   ForStmt forLoop, VariableAccess loopVariableAccessInCondition
 ) {
@@ -199,7 +110,7 @@ predicate loopVariableAssignedToNonConstPointerOrReferenceType(
       assignmentRhs.(AddressOfExpr).getOperand() =
         loopVariableAccessInCondition.getTarget().getAnAccess()
       or
-      /* 2. The address is taken: A loop variable access */
+      /* 2. A reference is taken: A loop variable access */
       assignmentRhs = loopVariableAccessInCondition.getTarget().getAnAccess()
     )
   )
