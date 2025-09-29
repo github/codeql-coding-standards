@@ -19,9 +19,10 @@
 import cpp
 import codingstandards.cpp.misra
 
-from RangeBasedForStmt foreach, string message
+from RangeBasedForStmt foreach, Expr initializer
 where
   not isExcluded(foreach, StatementsPackage::forRangeInitializerAtMostOneFunctionCallQuery()) and
-  count(Call call | call = foreach.getRange().getAChild*() | call) >= 2 and
-  message = "has nested call expression in its initializer"
-select foreach, "Range-based for loop " + message + "."
+  initializer = foreach.getRange() and
+  count(Call call | call = initializer.getAChild*() | call) >= 2
+select foreach, "Range-based for loop has nested call expression in its $@.", initializer,
+  "initializer"
