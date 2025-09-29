@@ -1,1 +1,36 @@
-No expected results have yet been specified
+| test2.cpp:8:5:11:5 | for(...;...;...) ... | The $@ is not updated with an $@ other than addition or subtraction. | test2.cpp:8:14:8:14 | i | counter variable | test2.cpp:9:9:9:9 | call to f | expression |
+| test2.cpp:8:5:11:5 | for(...;...;...) ... | The $@ may be mutated in a location other than its update expression. | test2.cpp:8:14:8:14 | i | counter variable | test2.cpp:8:14:8:14 | i | N/A |
+| test.cpp:22:3:24:3 | for(...;...;...) ... | The $@ is not of an integer type. | test.cpp:22:14:22:14 | i | counter variable | test.cpp:22:14:22:14 | i | N/A |
+| test.cpp:31:3:33:3 | for(...;...;...) ... | The $@ does not compare the counter variable to an expression using a relational operator. | test.cpp:31:19:31:25 | ... == ... | loop condition | test.cpp:31:19:31:25 | ... == ... | N/A |
+| test.cpp:35:3:37:3 | for(...;...;...) ... | The $@ does not compare the counter variable to an expression using a relational operator. | test.cpp:35:19:35:24 | ... < ... | loop condition | test.cpp:35:19:35:24 | ... < ... | N/A |
+| test.cpp:76:3:78:3 | for(...;...;...) ... | The $@ is not updated with an $@ other than addition or subtraction. | test.cpp:76:12:76:12 | i | counter variable | test.cpp:77:8:77:13 | ... *= ... | expression |
+| test.cpp:90:3:93:3 | for(...;...;...) ... | The $@ has a smaller type than that of the $@. | test.cpp:90:19:90:19 | i | counter variable | test.cpp:90:23:90:27 | 10 | loop bound |
+| test.cpp:115:3:118:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:116:13:116:13 | j | loop step | test.cpp:117:5:117:7 | ... ++ | mutated |
+| test.cpp:120:3:122:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:121:13:121:13 | j | loop step | test.cpp:121:8:121:18 | ... , ... | mutated |
+| test.cpp:120:3:122:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:121:13:121:13 | j | loop step | test.cpp:121:16:121:18 | ... ++ | mutated |
+| test.cpp:120:3:122:3 | for(...;...;...) ... | The $@ is not updated with an $@ other than addition or subtraction. | test.cpp:120:12:120:12 | i | counter variable | test.cpp:121:8:121:18 | ... , ... | expression |
+| test.cpp:132:3:135:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:132:23:132:23 | j | loop bound | test.cpp:134:5:134:7 | ... ++ | mutated |
+| test.cpp:139:3:142:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:139:23:139:23 | k | loop bound | test.cpp:141:5:141:26 | ... += ... | mutated |
+| test.cpp:144:3:147:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:145:13:145:13 | l | loop step | test.cpp:146:5:146:26 | ... += ... | mutated |
+| test.cpp:149:3:151:3 | for(...;...;...) ... | The $@ is a $@. | test.cpp:149:23:149:24 | call to h1 | loop bound | test.cpp:149:23:149:24 | call to h1 | non-const expression |
+| test.cpp:157:3:159:3 | for(...;...;...) ... | The $@ is a $@. | test.cpp:158:13:158:14 | call to h1 | loop step | test.cpp:158:13:158:14 | call to h1 | non-const expression |
+| test.cpp:172:3:175:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:172:19:172:19 | i | loop counter | test.cpp:172:19:172:19 | i | N/A |
+| test.cpp:177:3:180:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:177:19:177:19 | i | loop counter | test.cpp:177:19:177:19 | i | N/A |
+| test.cpp:192:3:195:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:192:23:192:23 | k | loop bound | test.cpp:192:23:192:23 | k | N/A |
+| test.cpp:197:3:200:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:197:23:197:23 | k | loop bound | test.cpp:197:23:197:23 | k | N/A |
+| test.cpp:212:3:215:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:212:31:212:31 | l | loop step | test.cpp:212:31:212:31 | l | N/A |
+| test.cpp:217:3:220:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:217:31:217:31 | l | loop step | test.cpp:217:31:217:31 | l | N/A |
+| test.cpp:232:3:235:3 | for(...;...;...) ... | The $@ is not updated with an $@ other than addition or subtraction. | test.cpp:232:12:232:12 | i | counter variable | test.cpp:234:5:234:6 | call to f1 | expression |
+| test.cpp:232:3:235:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:232:19:232:19 | i | loop counter | test.cpp:232:19:232:19 | i | N/A |
+| test.cpp:232:3:235:3 | for(...;...;...) ... | The $@ may be mutated in a location other than its update expression. | test.cpp:232:12:232:12 | i | counter variable | test.cpp:232:12:232:12 | i | N/A |
+| test.cpp:237:3:240:3 | for(...;...;...) ... | The $@ is not updated with an $@ other than addition or subtraction. | test.cpp:237:12:237:12 | i | counter variable | test.cpp:239:5:239:6 | call to g1 | expression |
+| test.cpp:237:3:240:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:237:19:237:19 | i | loop counter | test.cpp:237:19:237:19 | i | N/A |
+| test.cpp:237:3:240:3 | for(...;...;...) ... | The $@ may be mutated in a location other than its update expression. | test.cpp:237:12:237:12 | i | counter variable | test.cpp:237:12:237:12 | i | N/A |
+| test.cpp:252:3:255:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:252:23:252:23 | k | loop bound | test.cpp:254:5:254:6 | call to f1 | mutated |
+| test.cpp:252:3:255:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:252:23:252:23 | k | loop bound | test.cpp:252:23:252:23 | k | N/A |
+| test.cpp:257:3:260:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:257:23:257:23 | k | loop bound | test.cpp:259:5:259:6 | call to g1 | mutated |
+| test.cpp:257:3:260:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:257:23:257:23 | k | loop bound | test.cpp:257:23:257:23 | k | N/A |
+| test.cpp:273:3:276:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:273:31:273:31 | l | loop step | test.cpp:275:5:275:6 | call to f1 | mutated |
+| test.cpp:273:3:276:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:273:31:273:31 | l | loop step | test.cpp:273:31:273:31 | l | N/A |
+| test.cpp:278:3:281:3 | for(...;...;...) ... | The $@ is a non-const expression, or a variable that is $@ in the loop. | test.cpp:278:31:278:31 | l | loop step | test.cpp:280:5:280:6 | call to g1 | mutated |
+| test.cpp:278:3:281:3 | for(...;...;...) ... | The $@ is taken as a mutable reference or its address to a mutable pointer. | test.cpp:278:31:278:31 | l | loop step | test.cpp:278:31:278:31 | l | N/A |
