@@ -62,8 +62,13 @@ class NoThrowAllocExprWrapperFunction extends Function {
   NoThrowAllocExprWrapperFunction() {
     n.getEnclosingFunction() = this and
     DataFlow::localExprFlow(n, any(ReturnStmt rs).getExpr()) and
-    // Not checked in this wrapper function
-    not exists(GuardCondition gc | DataFlow::localExprFlow(n, gc.(Expr).getAChild*()))
+    // Not checked in this wrapper function. That is, the allocation is not a
+    // guard condition which guards something inside the function.
+    not exists(BasicBlock bb |
+      pragma[only_bind_out](bb.getEnclosingFunction()) =
+        pragma[only_bind_out](n.getEnclosingFunction()) and
+      n.(GuardCondition).valueControlsEdge(bb, _, _)
+    )
   }
 
   /** Gets the underlying nothrow allocation ultimately being wrapped. */
@@ -84,7 +89,9 @@ module NoThrowNewErrorCheckConfig implements DataFlow::ConfigSig {
     source.asExpr() instanceof NotWrappedNoThrowAllocExpr
   }
 
-  predicate isSink(DataFlow::Node sink) { sink.asExpr() = any(GuardCondition gc).getAChild*() }
+  predicate isSink(DataFlow::Node sink) {
+    sink.asExpr().(GuardCondition).valueControlsEdge(_, _, _)
+  }
 }
 
 module NoThrowNewErrorCheckFlow = DataFlow::Global<NoThrowNewErrorCheckConfig>;

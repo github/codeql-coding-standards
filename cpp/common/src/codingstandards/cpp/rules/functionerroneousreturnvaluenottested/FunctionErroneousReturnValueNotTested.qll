@@ -55,8 +55,6 @@ query predicate problems(FunctionCall fc, string message) {
           "vwprintf", "vfwprintf", "vswprintf", "vwprintf_s", "vfwprintf_s", "vswprintf_s",
           "vsnwprintf_s"
         ]) and
-  not exists(GuardCondition gc |
-    DataFlow::localFlow(DataFlow::exprNode(fc), DataFlow::exprNode(gc.(Expr).getAChild*()))
-  ) and
+  not fc.(GuardCondition).valueControlsEdge(_, _, _) and
   message = "Return value from " + fc.getTarget().getName() + " is not tested for errors."
 }
