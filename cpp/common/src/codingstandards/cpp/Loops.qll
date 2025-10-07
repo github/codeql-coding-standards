@@ -389,7 +389,7 @@ class LegacyForLoopCondition extends RelationalOperation {
   Expr loopBound;
 
   LegacyForLoopCondition() {
-    loopCounter = this.getAnOperand() and
+    loopCounter = this.getAnOperand().getAChild*() and
     loopBound = this.getAnOperand() and
     loopCounter.getTarget() = getAnIterationVariable(forLoop) and
     loopBound != loopCounter
