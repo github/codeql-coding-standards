@@ -178,6 +178,7 @@ private newtype TAlertType =
     ForStmt forLoop, Variable loopCounterVariable, Expr updateExpr
   ) {
     loopCounterVariable = getDeclaredVariableInForLoop(forLoop) and
+    updateExpr = forLoop.getUpdate() and
     variableModifiedInExpression(updateExpr, loopCounterVariable.getAnAccess()) and
     not updateExpr instanceof StepCrementUpdateExpr
   } or
