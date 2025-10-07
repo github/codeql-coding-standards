@@ -85,9 +85,10 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
 predicate loopVariableAssignedToNonConstPointerOrReferenceType(
   ForStmt forLoop, VariableAccess loopVariableAccessInCondition
 ) {
-  exists(Expr assignmentRhs, DerivedType targetType |
+  exists(Expr assignmentRhs, Type targetType, DerivedType strippedType |
     isAssignment(assignmentRhs, targetType, _) and
-    not targetType.getBaseType().isConst() and
+    strippedType = targetType.stripTopLevelSpecifiers() and
+    not strippedType.getBaseType().isConst() and
     (
       targetType instanceof PointerType or
       targetType instanceof ReferenceType
@@ -105,9 +106,14 @@ predicate loopVariableAssignedToNonConstPointerOrReferenceType(
   )
 }
 
-/*
- * An adapted part of `BuiltinTypeRules::MisraCpp23BuiltInTypes::isPreConversionAssignment`
- * that is only relevant to an argument passed to a parameter, seen as an assignment.
+/**
+ * Holds if the given variable access has another variable access with the same target
+ * variable that is passed as reference to a non-const reference parameter of a function,
+ * constituting a `T` -> `&T` conversion.
+ *
+ * This is an adapted part of
+ * `BuiltinTypeRules::MisraCpp23BuiltInTypes::isPreConversionAssignment` that is only
+ * relevant to an argument passed to a parameter, seen as an assignment.
  *
  * This predicate adds two constraints to the target type, as compared to the original
  * portion of the predicate:
@@ -117,20 +123,15 @@ predicate loopVariableAssignedToNonConstPointerOrReferenceType(
  *
  * Also, this predicate requires that the call is the body of the given for-loop.
  */
-
-/**
- * Holds if the given variable access has another variable access with the same target
- * variable that is passed as reference to a non-const reference parameter of a function,
- * constituting a `T` -> `&T` conversion.
- */
 predicate loopVariablePassedAsArgumentToNonConstReferenceParameter(
   ForStmt forLoop, VariableAccess loopVariableAccessInCondition
 ) {
-  exists(ReferenceType targetType |
+  exists(Type targetType, ReferenceType strippedReferenceType |
     exists(Call call, int i |
       call.getArgument(i) = loopVariableAccessInCondition.getTarget().getAnAccess() and
       call.getEnclosingStmt().getParent*() = forLoop.getStmt() and
-      not targetType.getBaseType().isConst()
+      strippedReferenceType = targetType.stripTopLevelSpecifiers() and
+      not strippedReferenceType.getBaseType().isConst()
     |
       /* A regular function call */
       targetType = call.getTarget().getParameter(i).getType()
