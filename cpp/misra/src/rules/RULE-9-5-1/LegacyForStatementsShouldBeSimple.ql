@@ -384,13 +384,13 @@ class AlertType extends TAlertType {
     result = "The $@ is a $@."
     or
     this = TLoopBoundIsMutatedVariableAccess(_, _, _) and
-    result = "The $@ is a non-const expression, or a variable that is $@ in the loop."
+    result = "The $@ is a non-const expression, or a variable that may be $@ in the loop."
     or
     this = TLoopStepIsNonConstExpr(_, _) and
     result = "The $@ is a $@."
     or
     this = TLoopStepIsMutatedVariableAccess(_, _, _) and
-    result = "The $@ is a non-const expression, or a variable that is $@ in the loop."
+    result = "The $@ is a non-const expression, or a variable that may be $@ in the loop."
     or
     this = TLoopCounterIsTakenNonConstAddress(_, _) and
     result = "The $@ is taken as a mutable reference or its address to a mutable pointer."
