@@ -369,7 +369,7 @@ class AlertType extends TAlertType {
     or
     this = TNoRelationalOperatorInLoopCondition(_, _) and
     result =
-      "The $@ does not compare the counter variable to an expression using a relational operator."
+      "The $@ does not determine termination based only on a comparison against the value of the counter variable."
     or
     this = TLoopCounterMutatedInLoopBody(_, _) and
     result = "The $@ may be mutated in a location other than its update expression."
