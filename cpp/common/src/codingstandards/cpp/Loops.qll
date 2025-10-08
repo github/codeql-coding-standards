@@ -389,11 +389,20 @@ class LegacyForLoopCondition extends RelationalOperation {
   Expr loopBound;
 
   LegacyForLoopCondition() {
-    loopCounter = this.getAnOperand().getAChild*() and
-    loopBound = this.getAnOperand() and
-    loopCounter.getTarget() = getAnIterationVariable(forLoop) and
-    loopBound != loopCounter
+    this = forLoop.getCondition() and
+    exists(Expr loopCounterExpr |
+      loopCounterExpr = this.getAnOperand() and
+      loopBound = this.getAnOperand() and
+      loopCounter = loopCounterExpr.getAChild*() and
+      loopCounter.getTarget() = getAnIterationVariable(forLoop) and
+      loopBound != loopCounterExpr
+    )
   }
+
+  /**
+   * Gets the for-loop this expression is a termination condition of.
+   */
+  ForStmt getForLoop() { result = forLoop }
 
   /**
    * Gets the variable access to the loop counter variable, appearing in this loop condition.
