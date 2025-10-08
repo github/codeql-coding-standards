@@ -185,11 +185,10 @@ private newtype TAlertType =
   /* 4. The type size of the loop counter is smaller than that of the loop bound. */
   TLoopCounterSmallerThanLoopBound(ForStmt forLoop, LegacyForLoopCondition forLoopCondition) {
     forLoopCondition = forLoop.getCondition() and
-    exists(Type loopCounterType, Type loopBoundType |
-      loopCounterType = forLoopCondition.getLoopCounter().getType() and
-      loopBoundType = forLoopCondition.getLoopBound().getType()
-    |
-      loopCounterType.getSize() < loopBoundType.getSize()
+    exists(Expr loopCounter, Expr loopBound |
+      loopCounter = forLoopCondition.getLoopCounter() and
+      loopBound = forLoopCondition.getLoopBound() and
+      upperBound(loopCounter.getFullyConverted()) < upperBound(loopBound.getFullyConverted())
     )
   } or
   /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */
