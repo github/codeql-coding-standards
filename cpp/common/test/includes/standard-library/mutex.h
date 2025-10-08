@@ -1,6 +1,6 @@
 #ifndef _GHLIBCPP_MUTEX
 #define _GHLIBCPP_MUTEX
-#include "chrono.h"
+#include <chrono>
 
 namespace std {
 
@@ -75,6 +75,14 @@ public:
 
 private:
   mutex_type &_m;
+};
+
+template <class... MutexTypes> class scoped_lock {
+public:
+  explicit scoped_lock(MutexTypes &...m);
+  scoped_lock(const scoped_lock &) = delete;
+  scoped_lock &operator=(const scoped_lock &) = delete;
+  ~scoped_lock();
 };
 
 } // namespace std
