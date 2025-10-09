@@ -1,5 +1,5 @@
 | test.cpp:48:3:49:3 | for(...:...) ... | Range-based for loop has nested call expression in its $@. | test.cpp:48:17:48:27 | call to processData | initializer |
-| test.cpp:56:3:59:3 | for(...:...) ... | Range-based for loop has nested call expression in its $@. | test.cpp:57:8:57:32 | call to vector | initializer |
+| test.cpp:56:3:59:3 | for(...:...) ... | Range-based for loop has nested call expression in its $@. | test.cpp:56:17:57:19 | call to vector | initializer |
 | test.cpp:71:3:73:3 | for(...:...) ... | Range-based for loop has nested call expression in its $@. | test.cpp:71:17:72:21 | call to MyContainer | initializer |
 | test.cpp:95:3:97:3 | for(...:...) ... | Range-based for loop has nested call expression in its $@. | test.cpp:95:26:95:26 | call to operator+ | initializer |
 | test.cpp:99:3:101:3 | for(...:...) ... | Range-based for loop has nested call expression in its $@. | test.cpp:99:31:99:31 | call to operator+ | initializer |

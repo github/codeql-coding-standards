@@ -1,4 +1,4 @@
-| test.cpp:28:3:37:3 | switch (...) ...  | Switch statement contains a statement that that is not a simple declaration. |
+| test.cpp:28:3:37:3 | switch (...) ...  | Switch statement contains a statement that is not a simple declaration. |
 | test.cpp:51:3:60:3 | switch (...) ...  | Switch statement contains a switch label that is not directly within the switch body. |
 | test.cpp:62:3:71:3 | switch (...) ...  | Switch statement contains a switch label that is not directly within the switch body. |
 | test.cpp:75:3:85:3 | switch (...) ...  | Switch statement contains a statement label that is not a case label. |
