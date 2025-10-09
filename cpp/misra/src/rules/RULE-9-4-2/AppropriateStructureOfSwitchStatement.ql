@@ -28,7 +28,7 @@ where
   exists(Stmt initializer | initializer = switch.getInitialization() |
     not initializer instanceof DeclStmt
   ) and
-  message = "contains a statement that that is not a simple declaration"
+  message = "contains a statement that is not a simple declaration"
   or
   /* 2. There is a switch case label that does not lead a branch (i.e. a switch case label is nested). */
   exists(SwitchCase case | case = switch.getASwitchCase() | case instanceof NestedSwitchCase) and
