@@ -187,8 +187,9 @@ private newtype TAlertType =
     forLoopCondition = forLoop.getCondition() and
     exists(Expr loopCounter, Expr loopBound |
       loopCounter = forLoopCondition.getLoopCounter() and
-      loopBound = forLoopCondition.getLoopBound() and
-      upperBound(loopCounter.getFullyConverted()) < upperBound(loopBound.getFullyConverted())
+      loopBound = forLoopCondition.getLoopBound()
+    |
+      typeUpperBound(loopCounter.getType()) < upperBound(loopBound.getFullyConverted())
     )
   } or
   /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */

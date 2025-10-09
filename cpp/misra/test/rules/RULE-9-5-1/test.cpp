@@ -1,3 +1,4 @@
+#include <limits>
 #include <string>
 #include <string_view>
 
@@ -87,7 +88,7 @@ int main() {
               // loop bound
   }
 
-  for (int i = 0; i < 10ull;
+  for (short i = 0; i < std::numeric_limits<int>::max();
        i++) { // NON_COMPLIANT: The type of the loop counter is not bigger
               // than that of the loop bound
   }
