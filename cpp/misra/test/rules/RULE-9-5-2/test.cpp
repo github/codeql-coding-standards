@@ -54,7 +54,7 @@ int main() {
   }
 
   for (auto x :
-       std::vector<int>{1, 2, 3}) { // NON_COMPLIANT: 2 constructor call to
+       std::vector<int>{1, 2, 3}) { // NON_COMPLIANT: 2 constructor calls to
                                     // `vector` and `initializer_list`, respectively
   }
 
