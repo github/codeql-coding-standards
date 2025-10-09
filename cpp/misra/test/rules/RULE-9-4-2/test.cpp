@@ -88,7 +88,7 @@ void testOtherLabelsInBranch(int expr) {
 void testLeadingNonCaseStatement(int expr) {
   switch (expr) { // NON_COMPLIANT: Non-case statement is the first statement in
                   // the switch body
-  int x = 1;
+    int x = 1;
   case 1:
     i++;
     break;

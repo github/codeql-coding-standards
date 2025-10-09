@@ -53,9 +53,9 @@ int main() {
   for (auto x : std::vector<int>(3)) { // COMPLIANT: 1 constructor call only
   }
 
-  for (auto x :
-       std::vector<int>{1, 2, 3}) { // NON_COMPLIANT: 2 constructor call to
-                                    // `vector` and `initializer_list`, respectively
+  for (auto x : std::vector<int>{
+           1, 2, 3}) { // NON_COMPLIANT: 2 constructor call to
+                       // `vector` and `initializer_list`, respectively
   }
 
   for (auto x : MyContainer()) { // COMPLIANT: 1 constructor call only
