@@ -170,8 +170,9 @@ private newtype TAlertType =
   /* 3-1. The loop counter is mutated somewhere other than its update expression. */
   TLoopCounterMutatedInLoopBody(ForStmt forLoop, Variable loopCounterVariable) {
     loopCounterVariable = getDeclaredVariableInForLoop(forLoop) and
-    variableModifiedInExpression(forLoop.getStmt().getChildStmt().getAChild*(),
-      loopCounterVariable.getAnAccess())
+    exists(Expr mutatingExpr | not mutatingExpr = forLoop.getUpdate().getAChild*() |
+      variableModifiedInExpression(mutatingExpr, loopCounterVariable.getAnAccess())
+    )
   } or
   /* 3-2. The loop counter is not updated using either of `++`, `--`, `+=`, or `-=`. */
   TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(
