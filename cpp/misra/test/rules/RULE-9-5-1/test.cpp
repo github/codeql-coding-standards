@@ -208,12 +208,12 @@ int main() {
     int *m = &k;
   }
 
-  for (int i = j; i < k; i += l) { // COMPLIANT: The loop counter is taken
+  for (int i = j; i < k; i += l) { // COMPLIANT: The loop bound is taken
                                    // as a const reference
     const int &m = k;
   }
 
-  for (int i = j; i < k; i += l) { // COMPLIANT: The loop counter is taken
+  for (int i = j; i < k; i += l) { // COMPLIANT: The loop bound is taken
                                    // as a const pointer
     const int *m = &k;
   }
