@@ -135,6 +135,14 @@ int main() {
     j++;
   }
 
+  for (int i = 0; i < j++;
+       i++) { // NON_COMPLIANT: The loop bound `j` is mutated in the loop
+  }
+
+  for (int i = 0; i++ < j++;
+       i++) { // NON_COMPLIANT: The loop bound `j` is mutated in the loop
+  }
+
   int n = 0;
 
   for (int i = 0; i < k;
