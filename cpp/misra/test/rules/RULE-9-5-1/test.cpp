@@ -6,6 +6,7 @@ void f1(int &x) {}       // Function that takes a non-const integer reference
 void g1(int *x) {}       // Function that takes a non-const integer pointer
 void f2(const int &x) {} // Function that takes a non-const integer reference
 void g2(const int *x) {} // Function that takes a non-const integer pointer
+void f3(int *const x) {}
 
 int h1() { return 1; }
 constexpr int h2() { return 1; }
@@ -198,6 +199,11 @@ int main() {
     const int *m = &i;
   }
 
+  for (int i = j; i < k; i += l) { // NON-COMPLIANT: The loop counter is taken
+                                   // as a const but mutable pointer
+    int *const m = &i;
+  }
+
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop bound is taken as
                                    // a non-const reference
     int &m = k;
@@ -216,6 +222,11 @@ int main() {
   for (int i = j; i < k; i += l) { // COMPLIANT: The loop bound is taken
                                    // as a const pointer
     const int *m = &k;
+  }
+
+  for (int i = j; i < k; i += l) { // NON-COMPLIANT: The loop bound is taken as
+                                   // a const but mutable pointer
+    int *const m = &k;
   }
 
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop step is taken as
@@ -238,6 +249,11 @@ int main() {
     const int *m = &l;
   }
 
+  for (int i = j; i < k; i += l) { // NON-COMPLIANT: The loop step is taken as
+                                   // a const but mutable pointer
+    int *const m = &l;
+  }
+
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop counter is passed
                                    // to a non-const reference parameter
     f1(i);
@@ -256,6 +272,11 @@ int main() {
   for (int i = j; i < k; i += l) { // COMPLIANT: The loop counter is passed
                                    // to a const pointer parameter
     g2(&i);
+  }
+
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop counter is passed
+                                   // to a const but mutable pointer parameter
+    f3(&i);
   }
 
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop bound is passed to
@@ -279,6 +300,11 @@ int main() {
     g2(&k);
   }
 
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop bound is passed to
+                                   // a const but mutable pointer parameter
+    f3(&k);
+  }
+
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop step is passed to
                                    // a non-const reference parameter
     f1(l);
@@ -297,5 +323,10 @@ int main() {
   for (int i = j; i < k; i += l) { // COMPLIANT: The loop step is passed to
                                    // a const pointer parameter
     g2(&l);
+  }
+
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop step is passed to
+                                   // a const but mutable pointer parameter
+    f3(&l);
   }
 }
