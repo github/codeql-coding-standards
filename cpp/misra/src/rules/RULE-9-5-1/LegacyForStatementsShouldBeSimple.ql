@@ -194,16 +194,28 @@ private newtype TAlertType =
     )
   } or
   /* 5-1-1. The loop bound is a variable that is mutated in the for loop. */
-  TLoopBoundIsMutatedVariableAccess(ForStmt forLoop, Expr loopBound, Expr mutatingExpr) {
-    loopBound = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
-    (
-      /* The mutating expression may be in the loop body. */
-      mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
-      or
-      /* The mutating expression may be in the loop updating expression. */
-      mutatingExpr = forLoop.getUpdate().getAChild*()
-    ) and
-    variableModifiedInExpression(mutatingExpr, loopBound.(VariableAccess).getTarget().getAnAccess())
+  TLoopBoundIsMutatedVariableAccess(
+    ForStmt forLoop, VariableAccess variableAccess, VariableAccess mutatedVariableAccess
+  ) {
+    exists(Expr loopBoundExpr, Expr mutatingExpr |
+      loopBoundExpr = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
+      (
+        /* 1. The mutating expression may be in the loop body. */
+        mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
+        or
+        /* 2. The mutating expression may be in the loop updating expression. */
+        mutatingExpr = forLoop.getUpdate().getAChild*()
+        or
+        /* 3. The mutating expression may be in the loop condition */
+        mutatingExpr = forLoop.getCondition().getAChild*()
+        or
+        /* 4. The mutating expression may be in the loop initializer */
+        mutatingExpr = forLoop.getInitialization().getAChild*()
+      ) and
+      variableAccess = loopBoundExpr.getAChild*() and
+      mutatedVariableAccess = variableAccess.getTarget().getAnAccess() and
+      variableModifiedInExpression(mutatingExpr, mutatedVariableAccess)
+    )
   } or
   /* 5-1-2. The loop bound is not a variable access nor a constant expression. */
   TLoopBoundIsNonConstExpr(ForStmt forLoop, Expr loopBound) {
@@ -211,16 +223,28 @@ private newtype TAlertType =
     (not loopBound instanceof VariableAccess and not loopBound.isConstant())
   } or
   /* 5-2-1. The loop step is a variable that is mutated in the for loop. */
-  TLoopStepIsMutatedVariableAccess(ForStmt forLoop, Expr loopStep, Expr mutatingExpr) {
-    loopStep = getLoopStepOfForStmt(forLoop) and
-    (
-      /* The mutating expression may be in the loop body. */
-      mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
-      or
-      /* The mutating expression may be in the loop updating expression. */
-      mutatingExpr = forLoop.getUpdate().getAChild*()
-    ) and
-    variableModifiedInExpression(mutatingExpr, loopStep.(VariableAccess).getTarget().getAnAccess())
+  TLoopStepIsMutatedVariableAccess(
+    ForStmt forLoop, VariableAccess variableAccess, VariableAccess mutatedVariableAccess
+  ) {
+    exists(Expr loopStepExpr, Expr mutatingExpr |
+      loopStepExpr = getLoopStepOfForStmt(forLoop) and
+      (
+        /* 1. The mutating expression may be in the loop body. */
+        mutatingExpr = forLoop.getStmt().getChildStmt().getAChild*()
+        or
+        /* 2. The mutating expression may be in the loop updating expression. */
+        mutatingExpr = forLoop.getUpdate().getAChild*()
+        or
+        /* 3. The mutating expression may be in the loop condition */
+        mutatingExpr = forLoop.getCondition().getAChild*()
+        or
+        /* 4. The mutating expression may be in the loop initializer */
+        mutatingExpr = forLoop.getInitialization().getAChild*()
+      ) and
+      variableAccess = loopStepExpr.getAChild*() and
+      mutatedVariableAccess = variableAccess.getTarget().getAnAccess() and
+      variableModifiedInExpression(mutatingExpr, mutatedVariableAccess)
+    )
   } or
   /* 5-2-2. The loop step is not a variable access nor a constant expression. */
   TLoopStepIsNonConstExpr(ForStmt forLoop, Expr loopStep) {
@@ -244,13 +268,15 @@ private newtype TAlertType =
    * 6-2. The loop bound is taken as a mutable reference or its address to a mutable pointer.
    */
 
-  TLoopBoundIsTakenNonConstAddress(ForStmt forLoop, Expr loopVariableAccessInCondition) {
-    loopVariableAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
-    (
-      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
-      or
-      loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
-        loopVariableAccessInCondition)
+  TLoopBoundIsTakenNonConstAddress(ForStmt forLoop, Expr loopBoundExpr) {
+    loopBoundExpr = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
+    exists(VariableAccess variableAccess |
+      variableAccess = loopBoundExpr.getAChild*() and
+      (
+        loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, variableAccess)
+        or
+        loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop, variableAccess)
+      )
     )
   } or
   /*
