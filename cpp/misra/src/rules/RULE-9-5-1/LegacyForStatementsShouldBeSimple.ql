@@ -90,8 +90,8 @@ predicate loopVariableAssignedToNonConstPointerOrReferenceType(
     strippedType = targetType.stripTopLevelSpecifiers() and
     not strippedType.getBaseType().isConst() and
     (
-      targetType instanceof PointerType or
-      targetType instanceof ReferenceType
+      strippedType instanceof PointerType or
+      strippedType instanceof ReferenceType
     )
   |
     assignmentRhs.getEnclosingStmt().getParent*() = forLoop.getStmt() and
@@ -118,7 +118,7 @@ predicate loopVariableAssignedToNonConstPointerOrReferenceType(
  * This predicate adds two constraints to the target type, as compared to the original
  * portion of the predicate:
  *
- * 1. This predicate adds type constraint that the target type is a `ReferenceType`.
+ * 1. This predicate adds a type constraint that the target type is a `ReferenceType`.
  * 2. This predicate adds the constraint that the target type is not `const`.
  *
  * Also, this predicate requires that the call is the body of the given for-loop.
