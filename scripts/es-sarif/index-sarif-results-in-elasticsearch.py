@@ -64,7 +64,8 @@ def load_env_file(env_file_path):
 DEFAULT_ELASTIC_HOST = "http://localhost:9200"
 SARIF_VERSION = "2.1.0"
 
-# Elasticsearch mapping optimized for SARIF result documents
+            # Elasticsearch mapping optimized for SARIF result documents
+# Minimal mapping - only results with versionControlProvenance enrichment
 SARIF_MAPPING = {
     "mappings": {
         "properties": {
@@ -149,37 +150,15 @@ SARIF_MAPPING = {
             "occurrenceCount": {"type": "integer"},
             "rank": {"type": "float"},
             "baselineState": {"type": "keyword"},
-            # Run-level metadata (tool, repo info, etc.)
-            "run": {
+            # ONLY versionControlProvenance from run-level (minimal enrichment)
+            "versionControlProvenance": {
+                "type": "nested",
                 "properties": {
-                    "tool": {
-                        "properties": {
-                            "driver": {
-                                "properties": {
-                                    "name": {"type": "keyword"},
-                                    "organization": {"type": "keyword"},
-                                    "product": {"type": "keyword"},
-                                    "version": {"type": "keyword"},
-                                    "semanticVersion": {"type": "keyword"},
-                                }
-                            }
-                        }
-                    },
-                    "automationDetails": {
-                        "properties": {
-                            "id": {"type": "keyword"},
-                            "guid": {"type": "keyword"},
-                            "correlationGuid": {"type": "keyword"},
-                        }
-                    },
-                    "versionControlProvenance": {
-                        "type": "nested",
-                        "properties": {
-                            "repositoryUri": {"type": "keyword"},
-                            "revisionId": {"type": "keyword"},
-                        },
-                    },
-                }
+                    "repositoryUri": {"type": "keyword"},
+                    "revisionId": {"type": "keyword"},
+                    "branch": {"type": "keyword"},
+                    "revisionTag": {"type": "keyword"},
+                },
             },
             # Metadata for tracking source SARIF file
             "_sarif_source": {
@@ -197,8 +176,6 @@ SARIF_MAPPING = {
         "analysis": {"analyzer": {"sarif_text": {"type": "standard", "stopwords": "_none_"}}},
     },
 }
-
-
 def create_elasticsearch_client(host, api_key=None, username=None, password=None):
     """Create Elasticsearch client with optional API key or basic authentication."""
     if api_key and api_key.strip():
@@ -327,10 +304,12 @@ def sarif_results_generator(sarif_files, index_name):
     2. Extracts each result from runs[].results[]
     3. Creates a separate Elasticsearch document per result
     4. Adds derived fields (ruleGroup, ruleLanguage) from ruleId parsing
-    5. Includes run-level metadata and source file tracking
+    5. ONLY enriches with versionControlProvenance from run (minimal overhead)
+    6. Adds source file tracking metadata
 
-    This approach allows for granular querying of individual code scanning findings
-    rather than treating entire SARIF files as single documents.
+    This approach keeps document sizes minimal by ONLY indexing the result objects
+    themselves plus minimal enrichment data, avoiding the overhead of tool info,
+    automation details, and other run-level data.
     """
     from datetime import datetime
 
@@ -366,15 +345,11 @@ def sarif_results_generator(sarif_files, index_name):
 
                 file_results_count += len(results)
 
-                # Extract run-level metadata
-                run_metadata = {
-                    "tool": run.get("tool", {}),
-                    "automationDetails": run.get("automationDetails", {}),
-                    "versionControlProvenance": run.get("versionControlProvenance", []),
-                }
+                # Extract ONLY versionControlProvenance from run (minimal enrichment)
+                version_control_provenance = run.get("versionControlProvenance", [])
 
                 for result_index, result in enumerate(results):
-                    # Create a document that includes both the result and metadata
+                    # Create a document that includes ONLY the result fields
                     document = dict(result)  # Copy all result fields
 
                     # Add derived fields from ruleId parsing
@@ -386,8 +361,9 @@ def sarif_results_generator(sarif_files, index_name):
                         if rule_language:
                             document["ruleLanguage"] = rule_language
 
-                    # Add run-level metadata
-                    document["run"] = run_metadata
+                    # Add ONLY versionControlProvenance (not tool, automationDetails, etc.)
+                    if version_control_provenance:
+                        document["versionControlProvenance"] = version_control_provenance
 
                     # Add source file metadata
                     document["_sarif_source"] = {
