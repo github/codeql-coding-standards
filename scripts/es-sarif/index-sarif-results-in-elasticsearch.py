@@ -11,8 +11,13 @@ The script reads a list of SARIF file paths from a text file and bulk indexes al
 results into a single Elasticsearch index. Each result document includes:
 - All original SARIF result fields (ruleId, message, locations, etc.)
 - Derived fields (ruleGroup, ruleLanguage) parsed from ruleId
-- ONLY versionControlProvenance from run (minimal enrichment)
+- versionControlProvenance from run, OR derived from filename pattern
 - Source file tracking metadata
+
+Repository URI Derivation from Filename:
+If versionControlProvenance is missing or lacks repositoryUri, it will be derived
+from SARIF filenames matching: [<lang>-<framework>_]<org>_<repo>[_<id>].sarif
+Example: "cpp-misra_nasa_fprime_18795.sarif" -> "https://github.com/nasa/fprime"
 
 This approach keeps documents minimal by indexing ONLY the result objects to avoid
 Elasticsearch size limits. Tool info and automation details are NOT included.
@@ -69,10 +74,11 @@ def load_env_file(env_file_path):
 DEFAULT_ELASTIC_HOST = "http://localhost:9200"
 SARIF_VERSION = "2.1.0"
 
-            # Elasticsearch mapping optimized for SARIF result documents
+# Elasticsearch mapping optimized for SARIF result documents
 # Minimal mapping - only results with versionControlProvenance enrichment
 SARIF_MAPPING = {
     "mappings": {
+        "dynamic": True,  # Allow dynamic field mapping for any unmapped fields
         "properties": {
             # Core SARIF result fields
             "ruleId": {"type": "keyword"},
@@ -300,6 +306,45 @@ def parse_rule_id(rule_id):
     return rule_group, rule_language
 
 
+def parse_repository_uri_from_filename(filename):
+    """
+    Parse repository URI from SARIF filename following the pattern:
+    [<lang>-<framework>_]<org>_<repo>[_<id>].sarif
+    
+    Examples:
+    - "nasa_fprime_18795.sarif" -> "https://github.com/nasa/fprime"
+    - "cpp-misra_nasa_fprime_18795.sarif" -> "https://github.com/nasa/fprime"
+    - "tmux_tmux.sarif" -> "https://github.com/tmux/tmux"
+    
+    Returns:
+        str or None: The repository URI if parsing succeeds, None otherwise
+    """
+    # Remove .sarif extension
+    name = filename.replace('.sarif', '')
+    
+    # Split by underscore
+    parts = name.split('_')
+    
+    # Need at least org_repo (2 parts)
+    if len(parts) < 2:
+        return None
+    
+    # Check if first part contains a hyphen (lang-framework pattern)
+    if '-' in parts[0]:
+        # Pattern: lang-framework_org_repo[_id]
+        # Skip the lang-framework prefix
+        if len(parts) < 3:
+            return None
+        org = parts[1]
+        repo = parts[2]
+    else:
+        # Pattern: org_repo[_id]
+        org = parts[0]
+        repo = parts[1]
+    
+    return f"https://github.com/{org}/{repo}"
+
+
 def sarif_results_generator(sarif_files, index_name):
     """
     Generator that yields Elasticsearch bulk actions for individual SARIF results.
@@ -309,8 +354,13 @@ def sarif_results_generator(sarif_files, index_name):
     2. Extracts each result from runs[].results[]
     3. Creates a separate Elasticsearch document per result
     4. Adds derived fields (ruleGroup, ruleLanguage) from ruleId parsing
-    5. ONLY enriches with versionControlProvenance from run (minimal overhead)
+    5. Enriches with versionControlProvenance from run, or derives repositoryUri from filename
     6. Adds source file tracking metadata
+
+    Filename Pattern for Repository URI Derivation:
+    - [<lang>-<framework>_]<org>_<repo>[_<id>].sarif
+    - Examples: "nasa_fprime_18795.sarif" -> "https://github.com/nasa/fprime"
+    - Examples: "cpp-misra_tmux_tmux.sarif" -> "https://github.com/tmux/tmux"
 
     This approach keeps document sizes minimal by ONLY indexing the result objects
     themselves plus minimal enrichment data, avoiding the overhead of tool info,
@@ -324,6 +374,11 @@ def sarif_results_generator(sarif_files, index_name):
 
     for sarif_file in sarif_files:
         print(f"Processing {sarif_file.name}...")
+        
+        # Parse repository URI from filename
+        repo_uri_from_filename = parse_repository_uri_from_filename(sarif_file.name)
+        if repo_uri_from_filename:
+            print(f"  → Derived repository URI: {repo_uri_from_filename}")
 
         try:
             with open(sarif_file, "r", encoding="utf-8") as f:
@@ -352,6 +407,17 @@ def sarif_results_generator(sarif_files, index_name):
 
                 # Extract ONLY versionControlProvenance from run (minimal enrichment)
                 version_control_provenance = run.get("versionControlProvenance", [])
+                
+                # If no versionControlProvenance in run, create from filename
+                if not version_control_provenance and repo_uri_from_filename:
+                    version_control_provenance = [{
+                        "repositoryUri": repo_uri_from_filename
+                    }]
+                # If versionControlProvenance exists but missing repositoryUri, add it from filename
+                elif version_control_provenance and repo_uri_from_filename:
+                    # Check if repositoryUri is missing from the first entry
+                    if not version_control_provenance[0].get("repositoryUri"):
+                        version_control_provenance[0]["repositoryUri"] = repo_uri_from_filename
 
                 for result_index, result in enumerate(results):
                     # Create a document that includes ONLY the result fields
