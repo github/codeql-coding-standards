@@ -3,14 +3,14 @@
 SARIF Results Elasticsearch Indexer
 
 This script creates a fresh Elasticsearch index and indexes individual SARIF results
-from multiple SARIF files into it. Each result from runs[].results[] becomes a 
-separate document in the Elasticsearch index, allowing for granular querying and 
+from multiple SARIF files into it. Each result from runs[].results[] becomes a
+separate document in the Elasticsearch index, allowing for granular querying and
 analysis of code scanning findings.
 
 The script reads a list of SARIF file paths from a text file and bulk indexes all
 results into a single Elasticsearch index. Each result document includes:
 - All original SARIF result fields (ruleId, message, locations, etc.)
-- Derived fields (ruleGroup, ruleLanguage) parsed from ruleId  
+- Derived fields (ruleGroup, ruleLanguage) parsed from ruleId
 - Run-level metadata (tool info, version control provenance)
 - Source file tracking metadata
 
@@ -39,21 +39,24 @@ def load_env_file(env_file_path):
     """Load environment variables from a .env file."""
     if not os.path.exists(env_file_path):
         return
-    
-    with open(env_file_path, 'r') as f:
+
+    with open(env_file_path, "r") as f:
         for line in f:
             line = line.strip()
-            if line and not line.startswith('#') and '=' in line:
-                key, value = line.split('=', 1)
+            if line and not line.startswith("#") and "=" in line:
+                key, value = line.split("=", 1)
                 # Handle variable substitution
-                if '${' in value and '}' in value:
+                if "${" in value and "}" in value:
                     # Simple variable substitution for ${VAR} patterns
                     import re
+
                     def replace_var(match):
                         var_name = match.group(1)
                         return os.environ.get(var_name, match.group(0))
-                    value = re.sub(r'\$\{([^}]+)\}', replace_var, value)
+
+                    value = re.sub(r"\$\{([^}]+)\}", replace_var, value)
                 os.environ[key] = value
+
 
 # --- Configuration ---
 DEFAULT_ELASTIC_HOST = "http://localhost:9200"
@@ -68,21 +71,18 @@ SARIF_MAPPING = {
             "ruleIndex": {"type": "integer"},
             "kind": {"type": "keyword"},
             "level": {"type": "keyword"},
-            
             # Derived fields from ruleId parsing
             "ruleGroup": {"type": "keyword"},
             "ruleLanguage": {"type": "keyword"},
-            
             # Message object
             "message": {
                 "properties": {
                     "text": {"type": "text"},
                     "markdown": {"type": "text"},
                     "id": {"type": "keyword"},
-                    "arguments": {"type": "keyword"}
+                    "arguments": {"type": "keyword"},
                 }
             },
-            
             # Locations array - each result can have multiple locations
             "locations": {
                 "type": "nested",
@@ -94,7 +94,7 @@ SARIF_MAPPING = {
                                 "properties": {
                                     "uri": {"type": "keyword"},
                                     "uriBaseId": {"type": "keyword"},
-                                    "index": {"type": "integer"}
+                                    "index": {"type": "integer"},
                                 }
                             },
                             "region": {
@@ -106,20 +106,16 @@ SARIF_MAPPING = {
                                     "charOffset": {"type": "integer"},
                                     "charLength": {"type": "integer"},
                                     "byteOffset": {"type": "integer"},
-                                    "byteLength": {"type": "integer"}
+                                    "byteLength": {"type": "integer"},
                                 }
                             },
                             "contextRegion": {
                                 "properties": {
                                     "startLine": {"type": "integer"},
                                     "endLine": {"type": "integer"},
-                                    "snippet": {
-                                        "properties": {
-                                            "text": {"type": "text"}
-                                        }
-                                    }
+                                    "snippet": {"properties": {"text": {"type": "text"}}},
                                 }
-                            }
+                            },
                         }
                     },
                     "logicalLocations": {
@@ -128,30 +124,22 @@ SARIF_MAPPING = {
                             "name": {"type": "keyword"},
                             "fullyQualifiedName": {"type": "keyword"},
                             "decoratedName": {"type": "keyword"},
-                            "kind": {"type": "keyword"}
-                        }
-                    }
-                }
+                            "kind": {"type": "keyword"},
+                        },
+                    },
+                },
             },
-            
             # Rule reference
-            "rule": {
-                "properties": {
-                    "id": {"type": "keyword"},
-                    "index": {"type": "integer"}
-                }
-            },
-            
+            "rule": {"properties": {"id": {"type": "keyword"}, "index": {"type": "integer"}}},
             # Fingerprints for deduplication
             "partialFingerprints": {"type": "object"},
             "fingerprints": {"type": "object"},
-            
             # Analysis and classification
             "analysisTarget": {
                 "properties": {
                     "uri": {"type": "keyword"},
                     "uriBaseId": {"type": "keyword"},
-                    "index": {"type": "integer"}
+                    "index": {"type": "integer"},
                 }
             },
             "guid": {"type": "keyword"},
@@ -159,7 +147,6 @@ SARIF_MAPPING = {
             "occurrenceCount": {"type": "integer"},
             "rank": {"type": "float"},
             "baselineState": {"type": "keyword"},
-            
             # Run-level metadata (tool, repo info, etc.)
             "run": {
                 "properties": {
@@ -171,7 +158,7 @@ SARIF_MAPPING = {
                                     "organization": {"type": "keyword"},
                                     "product": {"type": "keyword"},
                                     "version": {"type": "keyword"},
-                                    "semanticVersion": {"type": "keyword"}
+                                    "semanticVersion": {"type": "keyword"},
                                 }
                             }
                         }
@@ -180,41 +167,33 @@ SARIF_MAPPING = {
                         "properties": {
                             "id": {"type": "keyword"},
                             "guid": {"type": "keyword"},
-                            "correlationGuid": {"type": "keyword"}
+                            "correlationGuid": {"type": "keyword"},
                         }
                     },
                     "versionControlProvenance": {
                         "type": "nested",
                         "properties": {
                             "repositoryUri": {"type": "keyword"},
-                            "revisionId": {"type": "keyword"}
-                        }
-                    }
+                            "revisionId": {"type": "keyword"},
+                        },
+                    },
                 }
             },
-            
             # Metadata for tracking source SARIF file
             "_sarif_source": {
                 "properties": {
                     "file_path": {"type": "keyword"},
                     "file_name": {"type": "keyword"},
-                    "indexed_at": {"type": "date"}
+                    "indexed_at": {"type": "date"},
                 }
-            }
+            },
         }
     },
     "settings": {
         "number_of_shards": 1,
         "number_of_replicas": 0,
-        "analysis": {
-            "analyzer": {
-                "sarif_text": {
-                    "type": "standard",
-                    "stopwords": "_none_"
-                }
-            }
-        }
-    }
+        "analysis": {"analyzer": {"sarif_text": {"type": "standard", "stopwords": "_none_"}}},
+    },
 }
 
 
@@ -225,7 +204,7 @@ def create_elasticsearch_client(host, api_key=None):
             hosts=[host],
             api_key=api_key.strip(),
             verify_certs=False,  # For local development
-            ssl_show_warn=False
+            ssl_show_warn=False,
         )
     else:
         return Elasticsearch(hosts=[host])
@@ -249,7 +228,9 @@ def validate_index_name(es_client, index_name):
     """Validate that the index doesn't already exist."""
     if es_client.indices.exists(index=index_name):
         print(f"Error: Index '{index_name}' already exists.")
-        print("This script requires a fresh index. Please choose a different name or delete the existing index.")
+        print(
+            "This script requires a fresh index. Please choose a different name or delete the existing index."
+        )
         return False
     print(f"✓ Index name '{index_name}' is available")
     return True
@@ -272,28 +253,30 @@ def read_sarif_files_list(list_file_path):
     if not list_file.exists():
         print(f"Error: SARIF files list not found at {list_file_path}")
         return None
-    
+
     base_dir = list_file.parent
     sarif_files = []
-    
-    with open(list_file, 'r') as f:
+
+    with open(list_file, "r") as f:
         for line_num, line in enumerate(f, 1):
             line = line.strip()
-            if not line or line.startswith('#'):
+            if not line or line.startswith("#"):
                 continue
-            
+
             # Resolve relative paths relative to the list file
             sarif_path = base_dir / line
             if not sarif_path.exists():
                 print(f"Warning: SARIF file not found: {sarif_path} (line {line_num})")
                 continue
-            
-            if not sarif_path.suffix.lower() == '.sarif':
-                print(f"Warning: File does not have .sarif extension: {sarif_path} (line {line_num})")
+
+            if not sarif_path.suffix.lower() == ".sarif":
+                print(
+                    f"Warning: File does not have .sarif extension: {sarif_path} (line {line_num})"
+                )
                 continue
-                
+
             sarif_files.append(sarif_path)
-    
+
     print(f"✓ Found {len(sarif_files)} valid SARIF files to process")
     return sarif_files
 
@@ -301,7 +284,7 @@ def read_sarif_files_list(list_file_path):
 def parse_rule_id(rule_id):
     """
     Parse a ruleId to extract ruleGroup and ruleLanguage.
-    
+
     Examples:
     - "cpp/misra/function-like-macros-defined" -> ruleGroup="cpp/misra", ruleLanguage="cpp"
     - "c/misra/cast-between-pointer-to-object-and-non-int-arithmetic-type" -> ruleGroup="c/misra", ruleLanguage="c"
@@ -309,107 +292,110 @@ def parse_rule_id(rule_id):
     """
     if not rule_id:
         return None, None
-    
-    parts = rule_id.split('/')
+
+    parts = rule_id.split("/")
     if len(parts) < 2:
         return None, None
-    
+
     # First part is the language
     rule_language = parts[0]
-    
+
     # Rule group is language + first category (e.g., "cpp/misra", "py/baseline")
     if len(parts) >= 2:
         rule_group = f"{parts[0]}/{parts[1]}"
     else:
         rule_group = rule_language
-    
+
     return rule_group, rule_language
 
 
 def sarif_results_generator(sarif_files, index_name):
     """
     Generator that yields Elasticsearch bulk actions for individual SARIF results.
-    
+
     For each SARIF file:
     1. Processes each run in runs[]
     2. Extracts each result from runs[].results[]
     3. Creates a separate Elasticsearch document per result
     4. Adds derived fields (ruleGroup, ruleLanguage) from ruleId parsing
     5. Includes run-level metadata and source file tracking
-    
+
     This approach allows for granular querying of individual code scanning findings
     rather than treating entire SARIF files as single documents.
     """
     from datetime import datetime
+
     indexed_at = datetime.utcnow().isoformat()
-    
+
     total_results = 0
-    
+
     for sarif_file in sarif_files:
         print(f"Processing {sarif_file.name}...")
-        
+
         try:
-            with open(sarif_file, 'r', encoding='utf-8') as f:
+            with open(sarif_file, "r", encoding="utf-8") as f:
                 sarif_data = json.load(f)
-            
+
             # Validate SARIF version
-            if sarif_data.get('version') != SARIF_VERSION:
-                print(f"Warning: {sarif_file.name} has version {sarif_data.get('version')}, expected {SARIF_VERSION}")
-            
+            if sarif_data.get("version") != SARIF_VERSION:
+                print(
+                    f"Warning: {sarif_file.name} has version {sarif_data.get('version')}, expected {SARIF_VERSION}"
+                )
+
             # Extract metadata from the SARIF file
-            runs = sarif_data.get('runs', [])
+            runs = sarif_data.get("runs", [])
             if not runs:
                 print(f"Warning: No runs found in {sarif_file.name}")
                 continue
-            
+
             file_results_count = 0
             for run_index, run in enumerate(runs):
-                results = run.get('results', [])
+                results = run.get("results", [])
                 if not results:
                     print(f"Warning: No results found in run {run_index} of {sarif_file.name}")
                     continue
-                
+
                 file_results_count += len(results)
-                
+
                 # Extract run-level metadata
                 run_metadata = {
-                    'tool': run.get('tool', {}),
-                    'automationDetails': run.get('automationDetails', {}),
-                    'versionControlProvenance': run.get('versionControlProvenance', [])
+                    "tool": run.get("tool", {}),
+                    "automationDetails": run.get("automationDetails", {}),
+                    "versionControlProvenance": run.get("versionControlProvenance", []),
                 }
-                
+
                 for result_index, result in enumerate(results):
                     # Create a document that includes both the result and metadata
                     document = dict(result)  # Copy all result fields
-                    
+
                     # Add derived fields from ruleId parsing
-                    rule_id = document.get('ruleId')
+                    rule_id = document.get("ruleId")
                     if rule_id:
                         rule_group, rule_language = parse_rule_id(rule_id)
                         if rule_group:
-                            document['ruleGroup'] = rule_group
+                            document["ruleGroup"] = rule_group
                         if rule_language:
-                            document['ruleLanguage'] = rule_language
-                    
+                            document["ruleLanguage"] = rule_language
+
                     # Add run-level metadata
-                    document['run'] = run_metadata
-                    
+                    document["run"] = run_metadata
+
                     # Add source file metadata
-                    document['_sarif_source'] = {
-                        'file_path': str(sarif_file),
-                        'file_name': sarif_file.name,
-                        'indexed_at': indexed_at
+                    document["_sarif_source"] = {
+                        "file_path": str(sarif_file),
+                        "file_name": sarif_file.name,
+                        "indexed_at": indexed_at,
                     }
-                    
+
                     yield {
                         "_index": index_name,
                         "_source": document,
                     }
-                    
+
                     total_results += 1
-            
+
             print(f"  → Found {file_results_count} results in {sarif_file.name}")
-                    
+
         except FileNotFoundError:
             print(f"Error: SARIF file not found: {sarif_file}")
             continue
@@ -419,8 +405,10 @@ def sarif_results_generator(sarif_files, index_name):
         except Exception as e:
             print(f"Error processing {sarif_file}: {e}")
             continue
-    
-    print(f"✓ Prepared {total_results} individual results for indexing from {len(sarif_files)} SARIF files")
+
+    print(
+        f"✓ Prepared {total_results} individual results for indexing from {len(sarif_files)} SARIF files"
+    )
 
 
 def index_sarif_files(sarif_files, index_name, host, api_key=None):
@@ -428,49 +416,49 @@ def index_sarif_files(sarif_files, index_name, host, api_key=None):
     Connect to Elasticsearch and bulk index all SARIF results.
     """
     es_client = create_elasticsearch_client(host, api_key)
-    
+
     # Validate connection
     if not validate_elasticsearch_connection(es_client, host):
         return False
-    
+
     # Validate index name
     if not validate_index_name(es_client, index_name):
         return False
-    
+
     # Create index with mapping
     if not create_index_with_mapping(es_client, index_name):
         return False
-    
+
     print(f"Indexing results from {len(sarif_files)} SARIF files...")
-    
+
     try:
         # Use bulk helper to index all documents
         success_count, failed_docs = helpers.bulk(
-            es_client, 
+            es_client,
             sarif_results_generator(sarif_files, index_name),
             chunk_size=500,
-            request_timeout=60
+            request_timeout=60,
         )
-        
+
         print("-" * 50)
         print(f"✓ Bulk indexing complete")
         print(f"✓ Successfully indexed: {success_count} documents")
         print(f"✗ Failed to index: {len(failed_docs)} documents")
-        
+
         if failed_docs:
             print("\nFailed documents:")
             for doc in failed_docs[:5]:  # Show first 5 failures
                 print(f"  - {doc}")
             if len(failed_docs) > 5:
                 print(f"  ... and {len(failed_docs) - 5} more")
-        
+
         # Get final index stats
         stats = es_client.indices.stats(index=index_name)
-        doc_count = stats['indices'][index_name]['total']['docs']['count']
+        doc_count = stats["indices"][index_name]["total"]["docs"]["count"]
         print(f"✓ Final document count in index: {doc_count}")
-        
+
         return True
-        
+
     except Exception as e:
         print(f"Error during bulk indexing: {e}")
         return False
@@ -481,7 +469,9 @@ def main():
         print(f"Usage: python {sys.argv[0]} <sarif_files_list.txt> <elasticsearch_index_name>")
         print()
         print("Arguments:")
-        print("  sarif_files_list.txt    - Text file containing relative paths to SARIF files (one per line)")
+        print(
+            "  sarif_files_list.txt    - Text file containing relative paths to SARIF files (one per line)"
+        )
         print("  elasticsearch_index_name - Name for the new Elasticsearch index to create")
         print()
         print("Environment Variables:")
@@ -494,28 +484,28 @@ def main():
         print("  ES_LOCAL_API_KEY=your_api_key \\")
         print(f"  python {sys.argv[0]} sarif-files.txt sarif_results_2024")
         sys.exit(1)
-    
+
     sarif_files_list = sys.argv[1]
     index_name = sys.argv[2]
-    
+
     # Load environment variables from .env file if it exists
     script_dir = Path(__file__).parent
-    env_file = script_dir / 'elastic-start-local' / '.env'
+    env_file = script_dir / "elastic-start-local" / ".env"
     load_env_file(env_file)
-    
+
     # Get configuration from environment variables
-    elastic_host = os.getenv('ES_LOCAL_URL', DEFAULT_ELASTIC_HOST)
-    elastic_api_key = os.getenv('ES_LOCAL_API_KEY')
-    
+    elastic_host = os.getenv("ES_LOCAL_URL", DEFAULT_ELASTIC_HOST)
+    elastic_api_key = os.getenv("ES_LOCAL_API_KEY")
+
     # Handle variable substitution in ES_LOCAL_URL if needed
-    if elastic_host and '${ES_LOCAL_PORT}' in elastic_host:
-        es_local_port = os.getenv('ES_LOCAL_PORT', '9200')
-        elastic_host = elastic_host.replace('${ES_LOCAL_PORT}', es_local_port)
-    
+    if elastic_host and "${ES_LOCAL_PORT}" in elastic_host:
+        es_local_port = os.getenv("ES_LOCAL_PORT", "9200")
+        elastic_host = elastic_host.replace("${ES_LOCAL_PORT}", es_local_port)
+
     # Treat empty string or literal "None" as None for API key
-    if elastic_api_key == '' or elastic_api_key == 'None':
+    if elastic_api_key == "" or elastic_api_key == "None":
         elastic_api_key = None
-    
+
     print(f"SARIF Files Elasticsearch Indexer")
     print(f"==================================")
     print(f"SARIF files list: {sarif_files_list}")
@@ -523,13 +513,13 @@ def main():
     print(f"Elasticsearch host: {elastic_host}")
     print(f"Authentication: {'API Key' if elastic_api_key else 'None (HTTP Basic)'}")
     print()
-    
+
     # Read and validate SARIF files list
     sarif_files = read_sarif_files_list(sarif_files_list)
     if not sarif_files:
         print("No valid SARIF files found. Exiting.")
         sys.exit(1)
-    
+
     # Index the files
     if index_sarif_files(sarif_files, index_name, elastic_host, elastic_api_key):
         print(f"\n✓ Successfully created and populated index '{index_name}'")
