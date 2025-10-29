@@ -11,8 +11,11 @@ The script reads a list of SARIF file paths from a text file and bulk indexes al
 results into a single Elasticsearch index. Each result document includes:
 - All original SARIF result fields (ruleId, message, locations, etc.)
 - Derived fields (ruleGroup, ruleLanguage) parsed from ruleId
-- Run-level metadata (tool info, version control provenance)
+- ONLY versionControlProvenance from run (minimal enrichment)
 - Source file tracking metadata
+
+This approach keeps documents minimal by indexing ONLY the result objects to avoid
+Elasticsearch size limits. Tool info and automation details are NOT included.
 
 Usage:
     python index-sarif-results-in-elasticsearch.py <sarif_files_list.txt> <elasticsearch_index_name>
@@ -398,7 +401,7 @@ def sarif_results_generator(sarif_files, index_name):
 
 def index_sarif_files(sarif_files, index_name, host, api_key=None, username=None, password=None):
     """
-    Connect to Elasticsearch and bulk index all SARIF results.
+    Connect to Elasticsearch and bulk index all SARIF results with progress logging.
     """
     es_client = create_elasticsearch_client(host, api_key, username, password)
 
@@ -415,37 +418,58 @@ def index_sarif_files(sarif_files, index_name, host, api_key=None, username=None
         return False
 
     print(f"Indexing results from {len(sarif_files)} SARIF files...")
+    print()
 
     try:
-        # Use bulk helper to index all documents
-        success_count, failed_docs = helpers.bulk(
+        # Track progress during bulk indexing
+        documents_indexed = 0
+        last_progress_update = 0
+        progress_interval = 100  # Update every 100 documents
+
+        def progress_callback(success, info):
+            """Callback to track progress during bulk indexing."""
+            nonlocal documents_indexed, last_progress_update
+            documents_indexed += 1
+            
+            # Print progress updates periodically
+            if documents_indexed - last_progress_update >= progress_interval:
+                print(f"  → Indexed {documents_indexed} documents so far...")
+                last_progress_update = documents_indexed
+            
+            if not success:
+                print(f"  ✗ Failed to index document: {info}")
+
+        # Use bulk helper to index all documents with progress tracking
+        print("Starting bulk indexing...")
+        for success, info in helpers.streaming_bulk(
             es_client,
             sarif_results_generator(sarif_files, index_name),
             chunk_size=500,
             request_timeout=60,
-        )
+            raise_on_error=False,
+        ):
+            progress_callback(success, info)
 
+        print(f"  → Indexed {documents_indexed} documents (final)")
+        print()
         print("-" * 50)
         print(f"✓ Bulk indexing complete")
-        print(f"✓ Successfully indexed: {success_count} documents")
-        print(f"✗ Failed to index: {len(failed_docs)} documents")
+        print(f"✓ Total documents indexed: {documents_indexed}")
 
-        if failed_docs:
-            print("\nFailed documents:")
-            for doc in failed_docs[:5]:  # Show first 5 failures
-                print(f"  - {doc}")
-            if len(failed_docs) > 5:
-                print(f"  ... and {len(failed_docs) - 5} more")
-
-        # Get final index stats
+        # Get final index stats to verify
         stats = es_client.indices.stats(index=index_name)
         doc_count = stats["indices"][index_name]["total"]["docs"]["count"]
         print(f"✓ Final document count in index: {doc_count}")
+        
+        if doc_count != documents_indexed:
+            print(f"⚠ Warning: Document count mismatch (indexed: {documents_indexed}, in index: {doc_count})")
 
         return True
 
     except Exception as e:
         print(f"Error during bulk indexing: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 
