@@ -11,6 +11,8 @@
  *       readability
  *       maintainability
  *       external/misra/obligation/required
+ *       coding-standards/baseline/safety
+ *       coding-standards/baseline/style
  */
 
 import cpp

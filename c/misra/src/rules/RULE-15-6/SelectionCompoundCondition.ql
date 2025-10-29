@@ -1,6 +1,6 @@
 /**
  * @id c/misra/selection-compound-condition
- * @name RULE-15-6: The statement forming the body of a slection statement shall be a compound statement
+ * @name RULE-15-6: The statement forming the body of a selection statement shall be a compound statement
  * @description if the body of a selection statement is not enclosed in braces, then this can lead
  *              to incorrect execution, and is hard for developers to maintain.
  * @kind problem
@@ -11,6 +11,7 @@
  *       readability
  *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/required
+ *       coding-standards/baseline/style
  */
 
 import cpp

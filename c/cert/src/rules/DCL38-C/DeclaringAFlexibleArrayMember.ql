@@ -16,6 +16,7 @@
  *       external/cert/priority/p3
  *       external/cert/level/l3
  *       external/cert/obligation/rule
+ *       coding-standards/baseline/style
  */
 
 import cpp

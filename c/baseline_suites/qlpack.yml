@@ -1,0 +1,9 @@
+name: codeql/coding-standards-c-baseline
+version: 2.49.0-dev
+description: A set of baseline coding standards for C projects, combining hand picked rules from MISRA C and CERT C.
+suites: codeql-suites
+license: MIT
+default-suite-file: codeql-suites/c-baseline-default.qls
+dependencies:
+  codeql/misra-c-coding-standards: 2.49.0-dev
+  codeql/cert-c-coding-standards: 2.49.0-dev

@@ -12,6 +12,7 @@
  *       external/autosar/allocated-target/design
  *       external/autosar/enforcement/non-automated
  *       external/autosar/obligation/advisory
+ *       coding-standards/baseline/style
  */
 
 import cpp

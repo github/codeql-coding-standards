@@ -1,0 +1,15 @@
+- description: C++ Baseline Safety Coding Standards Queries
+- qlpack: codeql/cert-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - coding-standards/baseline/safety
+- qlpack: codeql/autosar-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - coding-standards/baseline/safety

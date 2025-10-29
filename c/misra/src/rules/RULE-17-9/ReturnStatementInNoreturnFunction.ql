@@ -9,6 +9,7 @@
  *       correctness
  *       external/misra/c/2012/amendment3
  *       external/misra/obligation/mandatory
+ *       coding-standards/baseline/safety
  */
 
 import cpp
