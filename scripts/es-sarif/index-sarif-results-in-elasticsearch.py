@@ -12,6 +12,7 @@ results into a single Elasticsearch index. Each result document includes:
 - All original SARIF result fields (ruleId, message, locations, etc.)
 - Derived fields (ruleGroup, ruleLanguage) parsed from ruleId
 - versionControlProvenance from run, OR derived from filename pattern
+- repositoryUri (flattened from versionControlProvenance for easier querying)
 - Source file tracking metadata
 
 Repository URI Derivation from Filename:
@@ -171,6 +172,8 @@ SARIF_MAPPING = {
                     "revisionTag": {"type": "keyword"},
                 },
             },
+            # Flattened repositoryUri for easier querying (extracted from versionControlProvenance)
+            "repositoryUri": {"type": "keyword"},
             # Metadata for tracking source SARIF file
             "_sarif_source": {
                 "properties": {
@@ -435,6 +438,9 @@ def sarif_results_generator(sarif_files, index_name):
                     # Add ONLY versionControlProvenance (not tool, automationDetails, etc.)
                     if version_control_provenance:
                         document["versionControlProvenance"] = version_control_provenance
+                        # Also add flattened repositoryUri for easier querying
+                        if version_control_provenance[0].get("repositoryUri"):
+                            document["repositoryUri"] = version_control_provenance[0]["repositoryUri"]
 
                     # Add source file metadata
                     document["_sarif_source"] = {
