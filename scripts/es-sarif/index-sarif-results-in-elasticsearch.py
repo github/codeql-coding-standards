@@ -20,6 +20,8 @@ Usage:
 Environment Variables:
     ES_LOCAL_URL          - Elasticsearch host URL (default: http://localhost:9200)
     ES_LOCAL_API_KEY      - API key for authentication (optional, enables API key auth)
+    ES_LOCAL_USERNAME     - Username for basic authentication (optional)
+    ES_LOCAL_PASSWORD     - Password for basic authentication (optional)
 
 Requirements:
     - Python 3.11+
@@ -197,12 +199,19 @@ SARIF_MAPPING = {
 }
 
 
-def create_elasticsearch_client(host, api_key=None):
-    """Create Elasticsearch client with optional API key authentication."""
+def create_elasticsearch_client(host, api_key=None, username=None, password=None):
+    """Create Elasticsearch client with optional API key or basic authentication."""
     if api_key and api_key.strip():
         return Elasticsearch(
             hosts=[host],
             api_key=api_key.strip(),
+            verify_certs=False,  # For local development
+            ssl_show_warn=False,
+        )
+    elif username and password:
+        return Elasticsearch(
+            hosts=[host],
+            basic_auth=(username, password),
             verify_certs=False,  # For local development
             ssl_show_warn=False,
         )
@@ -411,11 +420,11 @@ def sarif_results_generator(sarif_files, index_name):
     )
 
 
-def index_sarif_files(sarif_files, index_name, host, api_key=None):
+def index_sarif_files(sarif_files, index_name, host, api_key=None, username=None, password=None):
     """
     Connect to Elasticsearch and bulk index all SARIF results.
     """
-    es_client = create_elasticsearch_client(host, api_key)
+    es_client = create_elasticsearch_client(host, api_key, username, password)
 
     # Validate connection
     if not validate_elasticsearch_connection(es_client, host):
@@ -477,6 +486,8 @@ def main():
         print("Environment Variables:")
         print("  ES_LOCAL_URL            - Elasticsearch host URL (default: http://localhost:9200)")
         print("  ES_LOCAL_API_KEY        - API key for authentication (optional)")
+        print("  ES_LOCAL_USERNAME       - Username for basic authentication (optional)")
+        print("  ES_LOCAL_PASSWORD       - Password for basic authentication (optional)")
         print()
         print("Example:")
         print(f"  python {sys.argv[0]} sarif-files.txt sarif_results_2024")
@@ -496,6 +507,8 @@ def main():
     # Get configuration from environment variables
     elastic_host = os.getenv("ES_LOCAL_URL", DEFAULT_ELASTIC_HOST)
     elastic_api_key = os.getenv("ES_LOCAL_API_KEY")
+    elastic_username = os.getenv("ES_LOCAL_USERNAME")
+    elastic_password = os.getenv("ES_LOCAL_PASSWORD")
 
     # Handle variable substitution in ES_LOCAL_URL if needed
     if elastic_host and "${ES_LOCAL_PORT}" in elastic_host:
@@ -505,13 +518,26 @@ def main():
     # Treat empty string or literal "None" as None for API key
     if elastic_api_key == "" or elastic_api_key == "None":
         elastic_api_key = None
+    
+    # Treat empty strings as None for username/password
+    if elastic_username == "" or elastic_username == "None":
+        elastic_username = None
+    if elastic_password == "" or elastic_password == "None":
+        elastic_password = None
 
+    # Determine authentication method
+    auth_method = "None"
+    if elastic_api_key:
+        auth_method = "API Key"
+    elif elastic_username and elastic_password:
+        auth_method = "Basic Auth (Username/Password)"
+    
     print(f"SARIF Files Elasticsearch Indexer")
     print(f"==================================")
     print(f"SARIF files list: {sarif_files_list}")
     print(f"Elasticsearch index: {index_name}")
     print(f"Elasticsearch host: {elastic_host}")
-    print(f"Authentication: {'API Key' if elastic_api_key else 'None (HTTP Basic)'}")
+    print(f"Authentication: {auth_method}")
     print()
 
     # Read and validate SARIF files list
@@ -521,7 +547,7 @@ def main():
         sys.exit(1)
 
     # Index the files
-    if index_sarif_files(sarif_files, index_name, elastic_host, elastic_api_key):
+    if index_sarif_files(sarif_files, index_name, elastic_host, elastic_api_key, elastic_username, elastic_password):
         print(f"\n✓ Successfully created and populated index '{index_name}'")
         print(f"You can now query the index using Elasticsearch APIs or Kibana.")
         sys.exit(0)
