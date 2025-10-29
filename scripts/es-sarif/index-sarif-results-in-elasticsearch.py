@@ -25,6 +25,7 @@ Environment Variables:
     ES_LOCAL_API_KEY      - API key for authentication (optional, enables API key auth)
     ES_LOCAL_USERNAME     - Username for basic authentication (optional)
     ES_LOCAL_PASSWORD     - Password for basic authentication (optional)
+    ES_BULK_DELAY         - Delay in seconds between bulk indexing chunks (default: 1)
 
 Requirements:
     - Python 3.11+
@@ -35,6 +36,7 @@ Requirements:
 import sys
 import json
 import os
+import time
 from pathlib import Path
 from elasticsearch import Elasticsearch, helpers
 from elasticsearch.exceptions import ConnectionError, RequestError
@@ -399,9 +401,18 @@ def sarif_results_generator(sarif_files, index_name):
     )
 
 
-def index_sarif_files(sarif_files, index_name, host, api_key=None, username=None, password=None):
+def index_sarif_files(sarif_files, index_name, host, api_key=None, username=None, password=None, bulk_delay=1):
     """
     Connect to Elasticsearch and bulk index all SARIF results with progress logging.
+    
+    Args:
+        sarif_files: List of SARIF file paths to index
+        index_name: Name of the Elasticsearch index to create
+        host: Elasticsearch host URL
+        api_key: Optional API key for authentication
+        username: Optional username for basic auth
+        password: Optional password for basic auth
+        bulk_delay: Delay in seconds between bulk indexing chunks (default: 1)
     """
     es_client = create_elasticsearch_client(host, api_key, username, password)
 
@@ -418,6 +429,8 @@ def index_sarif_files(sarif_files, index_name, host, api_key=None, username=None
         return False
 
     print(f"Indexing results from {len(sarif_files)} SARIF files...")
+    if bulk_delay > 0:
+        print(f"Bulk delay: {bulk_delay} second(s) between chunks")
     print()
 
     try:
@@ -425,10 +438,11 @@ def index_sarif_files(sarif_files, index_name, host, api_key=None, username=None
         documents_indexed = 0
         last_progress_update = 0
         progress_interval = 100  # Update every 100 documents
+        chunks_processed = 0
 
         def progress_callback(success, info):
             """Callback to track progress during bulk indexing."""
-            nonlocal documents_indexed, last_progress_update
+            nonlocal documents_indexed, last_progress_update, chunks_processed
             documents_indexed += 1
             
             # Print progress updates periodically
@@ -449,12 +463,22 @@ def index_sarif_files(sarif_files, index_name, host, api_key=None, username=None
             raise_on_error=False,
         ):
             progress_callback(success, info)
+            
+            # Check if we just completed a chunk and should sleep
+            # streaming_bulk yields one result per document, so we track chunks
+            if documents_indexed > 0 and documents_indexed % 500 == 0:
+                chunks_processed += 1
+                if bulk_delay > 0:
+                    print(f"  → Sleeping {bulk_delay}s after chunk {chunks_processed}...")
+                    time.sleep(bulk_delay)
 
         print(f"  → Indexed {documents_indexed} documents (final)")
         print()
         print("-" * 50)
         print(f"✓ Bulk indexing complete")
         print(f"✓ Total documents indexed: {documents_indexed}")
+        if chunks_processed > 0:
+            print(f"✓ Total chunks processed: {chunks_processed}")
 
         # Get final index stats to verify
         stats = es_client.indices.stats(index=index_name)
@@ -488,11 +512,13 @@ def main():
         print("  ES_LOCAL_API_KEY        - API key for authentication (optional)")
         print("  ES_LOCAL_USERNAME       - Username for basic authentication (optional)")
         print("  ES_LOCAL_PASSWORD       - Password for basic authentication (optional)")
+        print("  ES_BULK_DELAY           - Delay in seconds between bulk chunks (default: 1)")
         print()
         print("Example:")
         print(f"  python {sys.argv[0]} sarif-files.txt sarif_results_2024")
         print("  ES_LOCAL_URL=https://my-cluster.elastic.co:9243 \\")
         print("  ES_LOCAL_API_KEY=your_api_key \\")
+        print("  ES_BULK_DELAY=1 \\")
         print(f"  python {sys.argv[0]} sarif-files.txt sarif_results_2024")
         sys.exit(1)
 
@@ -509,6 +535,7 @@ def main():
     elastic_api_key = os.getenv("ES_LOCAL_API_KEY")
     elastic_username = os.getenv("ES_LOCAL_USERNAME")
     elastic_password = os.getenv("ES_LOCAL_PASSWORD")
+    bulk_delay = float(os.getenv("ES_BULK_DELAY", "1"))
 
     # Handle variable substitution in ES_LOCAL_URL if needed
     if elastic_host and "${ES_LOCAL_PORT}" in elastic_host:
@@ -538,6 +565,8 @@ def main():
     print(f"Elasticsearch index: {index_name}")
     print(f"Elasticsearch host: {elastic_host}")
     print(f"Authentication: {auth_method}")
+    if bulk_delay > 0:
+        print(f"Bulk delay: {bulk_delay} second(s) between chunks")
     print()
 
     # Read and validate SARIF files list
@@ -547,7 +576,7 @@ def main():
         sys.exit(1)
 
     # Index the files
-    if index_sarif_files(sarif_files, index_name, elastic_host, elastic_api_key, elastic_username, elastic_password):
+    if index_sarif_files(sarif_files, index_name, elastic_host, elastic_api_key, elastic_username, elastic_password, bulk_delay):
         print(f"\n✓ Successfully created and populated index '{index_name}'")
         print(f"You can now query the index using Elasticsearch APIs or Kibana.")
         sys.exit(0)
