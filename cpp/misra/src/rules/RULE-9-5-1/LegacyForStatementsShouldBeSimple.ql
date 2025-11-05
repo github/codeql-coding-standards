@@ -83,9 +83,9 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
  * limitations.
  */
 predicate loopVariableAssignedToNonConstPointerOrReferenceType(
-  ForStmt forLoop, VariableAccess loopVariableAccessInCondition
+  ForStmt forLoop, VariableAccess loopVariableAccessInCondition, Expr assignmentRhs
 ) {
-  exists(Expr assignmentRhs, Type targetType, DerivedType strippedType |
+  exists(Type targetType, DerivedType strippedType |
     isAssignment(assignmentRhs, targetType, _) and
     strippedType = targetType.stripTopLevelSpecifiers() and
     not strippedType.getBaseType().isConst() and
@@ -124,11 +124,12 @@ predicate loopVariableAssignedToNonConstPointerOrReferenceType(
  * Also, this predicate requires that the call is the body of the given for-loop.
  */
 predicate loopVariablePassedAsArgumentToNonConstReferenceParameter(
-  ForStmt forLoop, VariableAccess loopVariableAccessInCondition
+  ForStmt forLoop, VariableAccess loopVariableAccessInCondition, Expr loopVariableArgument
 ) {
   exists(Type targetType, ReferenceType strippedReferenceType |
     exists(Call call, int i |
-      call.getArgument(i) = loopVariableAccessInCondition.getTarget().getAnAccess() and
+      loopVariableArgument = call.getArgument(i) and
+      loopVariableArgument = loopVariableAccessInCondition.getTarget().getAnAccess() and
       call.getEnclosingStmt().getParent*() = forLoop.getStmt() and
       strippedReferenceType = targetType.stripTopLevelSpecifiers() and
       not strippedReferenceType.getBaseType().isConst()
@@ -168,11 +169,10 @@ private newtype TAlertType =
     not condition instanceof LegacyForLoopCondition
   } or
   /* 3-1. The loop counter is mutated somewhere other than its update expression. */
-  TLoopCounterMutatedInLoopBody(ForStmt forLoop, Variable loopCounterVariable) {
+  TLoopCounterMutatedInLoopBody(ForStmt forLoop, Variable loopCounterVariable, Expr mutatingExpr) {
     loopCounterVariable = getDeclaredVariableInForLoop(forLoop) and
-    exists(Expr mutatingExpr | not mutatingExpr = forLoop.getUpdate().getAChild*() |
-      variableModifiedInExpression(mutatingExpr, loopCounterVariable.getAnAccess())
-    )
+    not mutatingExpr = forLoop.getUpdate().getAChild*() and
+    variableModifiedInExpression(mutatingExpr, loopCounterVariable.getAnAccess())
   } or
   /* 3-2. The loop counter is not updated using either of `++`, `--`, `+=`, or `-=`. */
   TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(
@@ -255,27 +255,35 @@ private newtype TAlertType =
    * 6-1. The loop counter is taken as a mutable reference or its address to a mutable pointer.
    */
 
-  TLoopCounterIsTakenNonConstAddress(ForStmt forLoop, VariableAccess loopVariableAccessInCondition) {
+  TLoopCounterIsTakenNonConstAddress(
+    ForStmt forLoop, VariableAccess loopVariableAccessInCondition,
+    Expr loopVariableAccessInAssignment
+  ) {
     loopVariableAccessInCondition = forLoop.getCondition().(LegacyForLoopCondition).getLoopCounter() and
     (
-      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
+      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition,
+        loopVariableAccessInAssignment)
       or
       loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
-        loopVariableAccessInCondition)
+        loopVariableAccessInCondition, loopVariableAccessInAssignment)
     )
   } or
   /*
    * 6-2. The loop bound is taken as a mutable reference or its address to a mutable pointer.
    */
 
-  TLoopBoundIsTakenNonConstAddress(ForStmt forLoop, Expr loopBoundExpr) {
+  TLoopBoundIsTakenNonConstAddress(
+    ForStmt forLoop, Expr loopBoundExpr, Expr loopVariableAccessInAssignment
+  ) {
     loopBoundExpr = forLoop.getCondition().(LegacyForLoopCondition).getLoopBound() and
     exists(VariableAccess variableAccess |
       variableAccess = loopBoundExpr.getAChild*() and
       (
-        loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, variableAccess)
+        loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, variableAccess,
+          loopVariableAccessInAssignment)
         or
-        loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop, variableAccess)
+        loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop, variableAccess,
+          loopVariableAccessInAssignment)
       )
     )
   } or
@@ -283,13 +291,16 @@ private newtype TAlertType =
    * 6-3. The loop step is taken as a mutable reference or its address to a mutable pointer.
    */
 
-  TLoopStepIsTakenNonConstAddress(ForStmt forLoop, Expr loopVariableAccessInCondition) {
+  TLoopStepIsTakenNonConstAddress(
+    ForStmt forLoop, Expr loopVariableAccessInCondition, Expr loopVariableAccessInAssignment
+  ) {
     loopVariableAccessInCondition = getLoopStepOfForStmt(forLoop) and
     (
-      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition)
+      loopVariableAssignedToNonConstPointerOrReferenceType(forLoop, loopVariableAccessInCondition,
+        loopVariableAccessInAssignment)
       or
       loopVariablePassedAsArgumentToNonConstReferenceParameter(forLoop,
-        loopVariableAccessInCondition)
+        loopVariableAccessInCondition, loopVariableAccessInAssignment)
     )
   }
 
@@ -302,16 +313,16 @@ class AlertType extends TAlertType {
   Element asElement() {
     this = TNonIntegerTypeCounterVariable(result, _) or
     this = TNoRelationalOperatorInLoopCondition(result, _) or
-    this = TLoopCounterMutatedInLoopBody(result, _) or
+    this = TLoopCounterMutatedInLoopBody(result, _, _) or
     this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(result, _, _) or
     this = TLoopCounterSmallerThanLoopBound(result, _) or
     this = TLoopBoundIsMutatedVariableAccess(result, _, _) or
     this = TLoopBoundIsNonConstExpr(result, _) or
     this = TLoopStepIsMutatedVariableAccess(result, _, _) or
     this = TLoopStepIsNonConstExpr(result, _) or
-    this = TLoopCounterIsTakenNonConstAddress(result, _) or
-    this = TLoopBoundIsTakenNonConstAddress(result, _) or
-    this = TLoopStepIsTakenNonConstAddress(result, _)
+    this = TLoopCounterIsTakenNonConstAddress(result, _, _) or
+    this = TLoopBoundIsTakenNonConstAddress(result, _, _) or
+    this = TLoopStepIsTakenNonConstAddress(result, _, _)
   }
 
   /**
@@ -322,7 +333,7 @@ class AlertType extends TAlertType {
     or
     this = TNoRelationalOperatorInLoopCondition(_, result)
     or
-    this = TLoopCounterMutatedInLoopBody(_, result)
+    this = TLoopCounterMutatedInLoopBody(_, result, _)
     or
     this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, result, _)
     or
@@ -339,11 +350,11 @@ class AlertType extends TAlertType {
     or
     this = TLoopStepIsMutatedVariableAccess(_, result, _)
     or
-    this = TLoopCounterIsTakenNonConstAddress(_, result)
+    this = TLoopCounterIsTakenNonConstAddress(_, result, _)
     or
-    this = TLoopBoundIsTakenNonConstAddress(_, result)
+    this = TLoopBoundIsTakenNonConstAddress(_, result, _)
     or
-    this = TLoopStepIsTakenNonConstAddress(_, result)
+    this = TLoopStepIsTakenNonConstAddress(_, result, _)
   }
 
   /**
@@ -356,7 +367,7 @@ class AlertType extends TAlertType {
     this = TNoRelationalOperatorInLoopCondition(_, _) and
     result = "loop condition"
     or
-    this = TLoopCounterMutatedInLoopBody(_, _) and
+    this = TLoopCounterMutatedInLoopBody(_, _, _) and
     result = "counter variable"
     or
     this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, _, _) and
@@ -377,13 +388,13 @@ class AlertType extends TAlertType {
     this = TLoopStepIsNonConstExpr(_, _) and
     result = "loop step"
     or
-    this = TLoopCounterIsTakenNonConstAddress(_, _) and
+    this = TLoopCounterIsTakenNonConstAddress(_, _, _) and
     result = "loop counter"
     or
-    this = TLoopBoundIsTakenNonConstAddress(_, _) and
+    this = TLoopBoundIsTakenNonConstAddress(_, _, _) and
     result = "loop bound"
     or
-    this = TLoopStepIsTakenNonConstAddress(_, _) and
+    this = TLoopStepIsTakenNonConstAddress(_, _, _) and
     result = "loop step"
   }
 
@@ -398,8 +409,8 @@ class AlertType extends TAlertType {
     result =
       "The $@ does not determine termination based only on a comparison against the value of the counter variable."
     or
-    this = TLoopCounterMutatedInLoopBody(_, _) and
-    result = "The $@ may be mutated in a location other than its update expression."
+    this = TLoopCounterMutatedInLoopBody(_, _, _) and
+    result = "The $@ may be mutated in $@ other than its update expression."
     or
     this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, _, _) and
     result = "The $@ is not updated with an $@ other than addition or subtraction."
@@ -419,14 +430,14 @@ class AlertType extends TAlertType {
     this = TLoopStepIsMutatedVariableAccess(_, _, _) and
     result = "The $@ is a non-const expression, or a variable that may be $@ in the loop."
     or
-    this = TLoopCounterIsTakenNonConstAddress(_, _) and
-    result = "The $@ is taken as a mutable reference or its address to a mutable pointer."
+    this = TLoopCounterIsTakenNonConstAddress(_, _, _) and
+    result = "The $@ is $@."
     or
-    this = TLoopBoundIsTakenNonConstAddress(_, _) and
-    result = "The $@ is taken as a mutable reference or its address to a mutable pointer."
+    this = TLoopBoundIsTakenNonConstAddress(_, _, _) and
+    result = "The $@ is $@."
     or
-    this = TLoopStepIsTakenNonConstAddress(_, _) and
-    result = "The $@ is taken as a mutable reference or its address to a mutable pointer."
+    this = TLoopStepIsTakenNonConstAddress(_, _, _) and
+    result = "The $@ is $@."
   }
 
   Locatable getLinkTarget2() {
@@ -434,7 +445,7 @@ class AlertType extends TAlertType {
     or
     this = TNoRelationalOperatorInLoopCondition(_, result) // Throwaway
     or
-    this = TLoopCounterMutatedInLoopBody(_, result) // Throwaway
+    this = TLoopCounterMutatedInLoopBody(_, _, result)
     or
     this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, _, result)
     or
@@ -451,11 +462,11 @@ class AlertType extends TAlertType {
     or
     this = TLoopStepIsMutatedVariableAccess(_, _, result)
     or
-    this = TLoopCounterIsTakenNonConstAddress(_, result) // Throwaway
+    this = TLoopCounterIsTakenNonConstAddress(_, _, result)
     or
-    this = TLoopBoundIsTakenNonConstAddress(_, result) // Throwaway
+    this = TLoopBoundIsTakenNonConstAddress(_, _, result)
     or
-    this = TLoopStepIsTakenNonConstAddress(_, result) // Throwaway
+    this = TLoopStepIsTakenNonConstAddress(_, _, result)
   }
 
   string getLinkText2() {
@@ -465,8 +476,8 @@ class AlertType extends TAlertType {
     this = TNoRelationalOperatorInLoopCondition(_, _) and
     result = "N/A" // Throwaway
     or
-    this = TLoopCounterMutatedInLoopBody(_, _) and
-    result = "N/A" // Throwaway
+    this = TLoopCounterMutatedInLoopBody(_, _, _) and
+    result = "a location"
     or
     this = TLoopCounterUpdatedNotByCrementOrAddSubAssignmentExpr(_, _, _) and
     result = "expression"
@@ -486,14 +497,14 @@ class AlertType extends TAlertType {
     this = TLoopStepIsMutatedVariableAccess(_, _, _) and
     result = "mutated"
     or
-    this = TLoopCounterIsTakenNonConstAddress(_, _) and
-    result = "N/A" // Throwaway
+    this = TLoopCounterIsTakenNonConstAddress(_, _, _) and
+    result = "taken as a mutable reference or its address to a mutable pointer"
     or
-    this = TLoopBoundIsTakenNonConstAddress(_, _) and
-    result = "N/A" // Throwaway
+    this = TLoopBoundIsTakenNonConstAddress(_, _, _) and
+    result = "taken as a mutable reference or its address to a mutable pointer"
     or
-    this = TLoopStepIsTakenNonConstAddress(_, _) and
-    result = "N/A" // Throwaway
+    this = TLoopStepIsTakenNonConstAddress(_, _, _) and
+    result = "taken as a mutable reference or its address to a mutable pointer"
   }
 
   string toString() { result = this.asElement().toString() }
