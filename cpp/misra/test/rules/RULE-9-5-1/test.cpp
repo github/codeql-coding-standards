@@ -7,9 +7,18 @@ void g1(int *x) {}       // Function that takes a non-const integer pointer
 void f2(const int &x) {} // Function that takes a non-const integer reference
 void g2(const int *x) {} // Function that takes a non-const integer pointer
 void f3(int *const x) {}
+void f4(int *x...) {}       // Function that takes a non-const integer pointer
+void g4(int &x...) {}       // Function that takes a non-const integer pointer
+void f5(const int *x...) {} // Function that takes a non-const integer pointer
+void g5(const int &x...) {} // Function that takes a non-const integer pointer
 
 int h1() { return 1; }
 constexpr int h2() { return 1; }
+
+int h3(int x) { return x; }
+
+void h4(int &args...) {}
+void h5(const int &args...) {}
 
 int main() {
   int j = 5;
@@ -36,6 +45,33 @@ int main() {
 
   for (int i = 0; j < 10; i++) { // NON_COMPLIANT: `j` is not the loop counter
     j++;
+  }
+
+  /*
+   * The following test cases in this section document our stance on arithmetic
+   * operations on loop counters appearing as an operand of the loop condition.
+   * Our stance is that such conditions are non-compliant cases according to
+   * this part of the rule.
+   *
+   * Why we think they are non-compliant is as follows: We interpret the rule as
+   * having the loop counter be an index that are meant to be used directly as
+   * is, by their value. Therefore, performing arithmetic and comparing the
+   * result to a loop bound goes against the interpretation.
+   */
+
+  for (int i = 0; i + 10 < j;
+       ++i) { // NON_COMPLIANT: The loop condition does not directly compare
+              // loop counter `i` to the loop bound `j`
+  }
+
+  for (int i = 0; h3(i) < j;
+       ++i) { // NON_COMPLIANT: The loop condition does not directly compare
+              // loop counter `i` to the loop bound `j`
+  }
+
+  for (int i = 0; i++ < j++;
+       i++) { // NON_COMPLIANT: The loop condition does not directly compare
+              // loop counter `i` to the loop bound `j`
   }
 
   /* ========== 3. Updating expression ========== */
@@ -199,7 +235,7 @@ int main() {
     const int *m = &i;
   }
 
-  for (int i = j; i < k; i += l) { // NON-COMPLIANT: The loop counter is taken
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop counter is taken
                                    // as a const but mutable pointer
     int *const m = &i;
   }
@@ -224,7 +260,7 @@ int main() {
     const int *m = &k;
   }
 
-  for (int i = j; i < k; i += l) { // NON-COMPLIANT: The loop bound is taken as
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop bound is taken as
                                    // a const but mutable pointer
     int *const m = &k;
   }
@@ -249,7 +285,7 @@ int main() {
     const int *m = &l;
   }
 
-  for (int i = j; i < k; i += l) { // NON-COMPLIANT: The loop step is taken as
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop step is taken as
                                    // a const but mutable pointer
     int *const m = &l;
   }
@@ -279,6 +315,26 @@ int main() {
     f3(&i);
   }
 
+  for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop counter is passed
+                                   // to a non-const variadic reference argument
+    f4(&i);
+  }
+
+  for (int i = j; i < k; i += l) { // COMPLIANT: The loop counter is passed to a
+                                   // const variadic reference argument
+    f5(&i);
+  }
+
+  for (int i = 0; i < k; i += l) { // NON_COMPLIANT: The loop counter is passed
+                                   // to a non-const variadic reference argument
+    g4(i);
+  }
+
+  for (int i = 0; i < k; i += l) { // COMPLIANT: The loop counter is passed to a
+                                   // const variadic reference argument
+    g5(i);
+  }
+
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop bound is passed to
                                    // a non-const reference parameter
     f1(k);
@@ -305,6 +361,26 @@ int main() {
     f3(&k);
   }
 
+  for (int i = 0; i < k; i += l) { // NON_COMPLIANT: The loop bound is passed to
+                                   // a non-const variadic reference argument
+    f4(&k);
+  }
+
+  for (int i = 0; i < k; i += l) { // COMPLIANT: The loop bound is passed to a
+                                   // const variadic reference argument
+    f5(&k);
+  }
+
+  for (int i = 0; i < k; i += l) { // NON_COMPLIANT: The loop bound is passed to
+                                   // a non-const variadic reference argument
+    g4(k);
+  }
+
+  for (int i = 0; i < k; i += l) { // COMPLIANT: The loop bound is passed to a
+                                   // const variadic reference argument
+    g5(k);
+  }
+
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop step is passed to
                                    // a non-const reference parameter
     f1(l);
@@ -328,5 +404,25 @@ int main() {
   for (int i = j; i < k; i += l) { // NON_COMPLIANT: The loop step is passed to
                                    // a const but mutable pointer parameter
     f3(&l);
+  }
+
+  for (int i = 0; i < k; i += l) { // NON_COMPLIANT: The loop step is passed to
+                                   // a non-const variadic reference argument
+    f4(&l);
+  }
+
+  for (int i = 0; i < k; i += l) { // COMPLIANT: The loop step is passed to a
+                                   // const variadic reference argument
+    f5(&l);
+  }
+
+  for (int i = 0; i < k; i += l) { // NON_COMPLIANT: The loop step is passed to
+                                   // a non-const variadic reference argument
+    g4(l);
+  }
+
+  for (int i = 0; i < k; i += l) { // COMPLIANT: The loop step is passed to a
+                                   // const variadic reference argument
+    g5(l);
   }
 }

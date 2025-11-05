@@ -390,13 +390,10 @@ class LegacyForLoopCondition extends RelationalOperation {
 
   LegacyForLoopCondition() {
     this = forLoop.getCondition() and
-    exists(Expr loopCounterExpr |
-      loopCounterExpr = this.getAnOperand() and
-      loopBound = this.getAnOperand() and
-      loopCounter = loopCounterExpr.getAChild*() and
-      loopCounter.getTarget() = getAnIterationVariable(forLoop) and
-      loopBound != loopCounterExpr
-    )
+    loopCounter = this.getAnOperand() and
+    loopBound = this.getAnOperand() and
+    loopCounter.getTarget() = getAnIterationVariable(forLoop) and
+    loopBound != loopCounter
   }
 
   /**
