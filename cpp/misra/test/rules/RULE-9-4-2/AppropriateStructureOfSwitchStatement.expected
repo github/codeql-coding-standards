@@ -1,0 +1,12 @@
+| test.cpp:28:3:37:3 | switch (...) ...  | Switch statement contains a statement that is not a simple declaration. |
+| test.cpp:51:3:60:3 | switch (...) ...  | Switch statement contains a switch label that is not directly within the switch body. |
+| test.cpp:62:3:71:3 | switch (...) ...  | Switch statement contains a switch label that is not directly within the switch body. |
+| test.cpp:75:3:85:3 | switch (...) ...  | Switch statement contains a statement label that is not a case label. |
+| test.cpp:89:3:97:3 | switch (...) ...  | Switch statement has a statement that is not a case label as its first element. |
+| test.cpp:147:3:154:3 | switch (...) ...  | Switch statement is missing a terminator that moves the control out of its body. |
+| test.cpp:188:3:192:3 | switch (...) ...  | Switch statement contains less than two branches. |
+| test.cpp:194:3:200:3 | switch (...) ...  | Switch statement contains less than two branches. |
+| test.cpp:215:3:219:3 | switch (...) ...  | Switch statement contains less than two branches. |
+| test.cpp:215:3:219:3 | switch (...) ...  | Switch statement lacks a default case. |
+| test.cpp:223:3:229:3 | switch (...) ...  | Switch statement lacks a case for one of its variants. |
+| test.cpp:231:3:239:3 | switch (...) ...  | Switch statement lacks a case for one of its variants. |

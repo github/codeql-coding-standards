@@ -1,0 +1,52 @@
+| test.cpp:5:17:5:18 | uc | Variable 'uc' has variable-width type. |
+| test.cpp:6:15:6:16 | sc | Variable 'sc' has variable-width type. |
+| test.cpp:8:7:8:7 | i | Variable 'i' has variable-width type. |
+| test.cpp:9:16:9:17 | ui | Variable 'ui' has variable-width type. |
+| test.cpp:10:12:10:12 | u | Variable 'u' has variable-width type. |
+| test.cpp:11:14:11:15 | si | Variable 'si' has variable-width type. |
+| test.cpp:12:10:12:10 | s | Variable 's' has variable-width type. |
+| test.cpp:14:9:14:10 | sh | Variable 'sh' has variable-width type. |
+| test.cpp:15:18:15:20 | ush | Variable 'ush' has variable-width type. |
+| test.cpp:16:16:16:18 | ssh | Variable 'ssh' has variable-width type. |
+| test.cpp:18:8:18:8 | l | Variable 'l' has variable-width type. |
+| test.cpp:19:17:19:18 | ul | Variable 'ul' has variable-width type. |
+| test.cpp:20:15:20:16 | sl | Variable 'sl' has variable-width type. |
+| test.cpp:39:23:39:25 | uc1 | Variable 'uc1' has variable-width type. |
+| test.cpp:40:21:40:23 | sc1 | Variable 'sc1' has variable-width type. |
+| test.cpp:42:13:42:14 | i1 | Variable 'i1' has variable-width type. |
+| test.cpp:43:22:43:24 | ui1 | Variable 'ui1' has variable-width type. |
+| test.cpp:44:18:44:19 | u1 | Variable 'u1' has variable-width type. |
+| test.cpp:45:20:45:22 | si1 | Variable 'si1' has variable-width type. |
+| test.cpp:46:16:46:17 | s1 | Variable 's1' has variable-width type. |
+| test.cpp:48:15:48:17 | sh1 | Variable 'sh1' has variable-width type. |
+| test.cpp:49:24:49:27 | ush1 | Variable 'ush1' has variable-width type. |
+| test.cpp:50:22:50:25 | ssh1 | Variable 'ssh1' has variable-width type. |
+| test.cpp:52:14:52:15 | l1 | Variable 'l1' has variable-width type. |
+| test.cpp:53:23:53:25 | ul1 | Variable 'ul1' has variable-width type. |
+| test.cpp:54:21:54:23 | sl1 | Variable 'sl1' has variable-width type. |
+| test.cpp:57:26:57:28 | uc2 | Variable 'uc2' has variable-width type. |
+| test.cpp:58:24:58:26 | sc2 | Variable 'sc2' has variable-width type. |
+| test.cpp:60:16:60:17 | i2 | Variable 'i2' has variable-width type. |
+| test.cpp:61:25:61:27 | ui2 | Variable 'ui2' has variable-width type. |
+| test.cpp:62:21:62:22 | u2 | Variable 'u2' has variable-width type. |
+| test.cpp:63:23:63:25 | si2 | Variable 'si2' has variable-width type. |
+| test.cpp:64:19:64:20 | s2 | Variable 's2' has variable-width type. |
+| test.cpp:66:18:66:20 | sh2 | Variable 'sh2' has variable-width type. |
+| test.cpp:67:27:67:30 | ush2 | Variable 'ush2' has variable-width type. |
+| test.cpp:68:25:68:28 | ssh2 | Variable 'ssh2' has variable-width type. |
+| test.cpp:70:17:70:18 | l2 | Variable 'l2' has variable-width type. |
+| test.cpp:71:26:71:28 | ul2 | Variable 'ul2' has variable-width type. |
+| test.cpp:72:24:72:26 | sl2 | Variable 'sl2' has variable-width type. |
+| test.cpp:93:15:93:39 | test_unsigned_char_return | Function 'test_unsigned_char_return' has variable-width return type. |
+| test.cpp:96:13:96:35 | test_signed_char_return | Function 'test_signed_char_return' has variable-width return type. |
+| test.cpp:99:5:99:19 | test_int_return | Function 'test_int_return' has variable-width return type. |
+| test.cpp:102:14:102:37 | test_unsigned_int_return | Function 'test_unsigned_int_return' has variable-width return type. |
+| test.cpp:105:10:105:29 | test_unsigned_return | Function 'test_unsigned_return' has variable-width return type. |
+| test.cpp:108:12:108:33 | test_signed_int_return | Function 'test_signed_int_return' has variable-width return type. |
+| test.cpp:111:8:111:25 | test_signed_return | Function 'test_signed_return' has variable-width return type. |
+| test.cpp:114:7:114:23 | test_short_return | Function 'test_short_return' has variable-width return type. |
+| test.cpp:117:16:117:41 | test_unsigned_short_return | Function 'test_unsigned_short_return' has variable-width return type. |
+| test.cpp:120:14:120:37 | test_signed_short_return | Function 'test_signed_short_return' has variable-width return type. |
+| test.cpp:123:6:123:21 | test_long_return | Function 'test_long_return' has variable-width return type. |
+| test.cpp:126:15:126:39 | test_unsigned_long_return | Function 'test_unsigned_long_return' has variable-width return type. |
+| test.cpp:129:13:129:35 | test_signed_long_return | Function 'test_signed_long_return' has variable-width return type. |

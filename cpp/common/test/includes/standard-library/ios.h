@@ -5,6 +5,9 @@
 namespace std {
 typedef size_t streamsize;
 typedef int pos_type;
+typedef long long streamoff;
+typedef pos_type streampos;
+typedef pos_type wstreampos;
 
 // Bitmask type as specified by [bitmask.types]
 // Operators omitted as not required for our test cases
@@ -66,6 +69,9 @@ public:
 };
 
 ios_base &hex(ios_base &str);
+
+std::ios_base &boolalpha(std::ios_base &str);
+std::ios_base &noboolalpha(std::ios_base &str);
 
 } // namespace std
 #endif // _GHLIBCPP_IOS
