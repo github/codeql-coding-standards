@@ -10,4 +10,3 @@
 | test.cpp:77:13:77:46 | reinterpret_cast<int64_t>... | Cast of object pointer type to integral type 'int64_t' instead of 'std::uintptr_t' or 'std::intptr_t'. | test.cpp:77:13:77:46 | reinterpret_cast<int64_t>... |  |
 | test.cpp:84:15:84:37 | reinterpret_cast<unsigned long>... | Cast of object pointer type to integral type inside $@. | test.cpp:95:48:95:48 | definition of x | instantiation of class TestNonCompliantTemplateCast<unsigned long> |
 | test.cpp:86:15:86:49 | reinterpret_cast<uint64_t>... | Cast of object pointer type to integral type 'uint64_t' instead of 'std::uintptr_t' or 'std::intptr_t'. | test.cpp:86:15:86:49 | reinterpret_cast<uint64_t>... |  |
-| test.cpp:91:23:91:45 | reinterpret_cast<unsigned long>... | Cast of object pointer type to integral type inside $@. | test.cpp:96:3:96:35 | variable_template | reference to instantiated template variable variable_template |
