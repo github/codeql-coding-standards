@@ -13,6 +13,7 @@
  *       external/cert/priority/p8
  *       external/cert/level/l2
  *       external/cert/obligation/rule
+ *       coding-standards/baseline/safety
  */
 
 import cpp

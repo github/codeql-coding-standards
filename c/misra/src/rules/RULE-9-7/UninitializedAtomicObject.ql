@@ -10,6 +10,7 @@
  *       concurrency
  *       external/misra/c/2012/amendment4
  *       external/misra/obligation/mandatory
+ *       coding-standards/baseline/safety
  */
 
 import cpp

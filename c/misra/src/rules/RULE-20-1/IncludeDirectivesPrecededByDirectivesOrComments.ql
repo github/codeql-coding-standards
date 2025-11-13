@@ -10,6 +10,7 @@
  *       readability
  *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/advisory
+ *       coding-standards/baseline/style
  */
 
 import cpp

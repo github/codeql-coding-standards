@@ -12,6 +12,7 @@
  *       security
  *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/obligation/mandatory
+ *       coding-standards/baseline/safety
  */
 
 import cpp

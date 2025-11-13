@@ -11,6 +11,7 @@
  *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/c/2012/amendment4
  *       external/misra/obligation/required
+ *       coding-standards/baseline/safety
  */
 
 import cpp

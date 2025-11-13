@@ -1,0 +1,24 @@
+---
+lockVersion: 1.0.0
+dependencies:
+  codeql/cpp-all:
+    version: 4.0.3
+  codeql/dataflow:
+    version: 2.0.3
+  codeql/mad:
+    version: 1.0.19
+  codeql/rangeanalysis:
+    version: 1.0.19
+  codeql/ssa:
+    version: 1.0.19
+  codeql/tutorial:
+    version: 1.0.19
+  codeql/typeflow:
+    version: 1.0.19
+  codeql/typetracking:
+    version: 2.0.3
+  codeql/util:
+    version: 2.0.6
+  codeql/xml:
+    version: 1.0.19
+compiled: false
