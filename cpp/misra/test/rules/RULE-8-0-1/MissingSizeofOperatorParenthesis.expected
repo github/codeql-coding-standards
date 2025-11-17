@@ -1,0 +1,3 @@
+| test.cpp:246:3:246:11 | sizeof(<expr>) | Sizeof operator used without parenthesis. |
+| test.cpp:253:3:253:11 | sizeof(<expr>) | Sizeof operator used without parenthesis. |
+| test.cpp:256:3:257:6 | sizeof(<expr>) | Sizeof operator used without parenthesis. |
