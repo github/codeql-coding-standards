@@ -26,14 +26,8 @@ import codingstandards.cpp.deadcode.UnusedVariables
 //
 // For performance reasons, these special values should be collected in a single pass.
 predicate excludedConstantValue(string value) {
-  // For constexpr variables used as template arguments, we don't see accesses (just the
-  // appropriate literals). We therefore take a conservative approach and count the number of
-  // template instantiations that use the given constant, and consider each one to be a use
-  // of the variable
   value = any(ClassTemplateInstantiation cti).getTemplateArgument(_).(Expr).getValue()
   or
-  // For static asserts too, check if there is a child which has the same value
-  // as the constexpr variable.
   value = any(StaticAssert sa).getCondition().getAChild*().getValue()
 }
 
