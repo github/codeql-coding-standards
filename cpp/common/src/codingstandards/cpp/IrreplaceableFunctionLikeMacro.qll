@@ -1,6 +1,6 @@
 import cpp
 import codingstandards.cpp.Macro
-import codingstandards.cpp.Naming
+import codingstandards.cpp.StandardLibraryNames
 
 /**
  * Macros that cannot be replaced by functions
@@ -17,7 +17,7 @@ private class StringizeOrTokenizeMacro extends IrreplaceableFunctionLikeMacro {
 
 /** A standard library function like macro that should not be replaced by a function. */
 private class StandardLibraryFunctionLikeMacro extends IrreplaceableFunctionLikeMacro {
-  StandardLibraryFunctionLikeMacro() { Naming::Cpp14::hasStandardLibraryMacroName(this.getName()) }
+  StandardLibraryFunctionLikeMacro() { CStandardLibrary::C11::hasMacroName(_, this.getName(), _) }
 }
 
 /** A function like macro invocation as an `asm` argument cannot be replaced by a function. */

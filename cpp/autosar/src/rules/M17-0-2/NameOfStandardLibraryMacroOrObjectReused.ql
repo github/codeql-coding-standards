@@ -16,9 +16,13 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Naming
+import codingstandards.cpp.StandardLibraryNames
 
-from Locatable l, string s, string t
+module TargetedCLibrary = CStandardLibrary::C99;
+
+module TargetedCppLibrary = CppStandardLibrary::Cpp14;
+
+from Locatable l, string s, string t, string header, string standard
 where
   not isExcluded(l, NamingPackage::nameOfStandardLibraryMacroOrObjectReusedQuery()) and
   l.fromSource() and
@@ -28,8 +32,21 @@ where
     s = l.(GlobalOrNamespaceVariable).getName() and t = "Object"
   ) and
   (
-    Naming::Cpp14::hasStandardLibraryMacroName(s)
+    standard = TargetedCppLibrary::getName() and
+    (
+      TargetedCppLibrary::hasMacroName(header, s, _)
+      or
+      TargetedCppLibrary::hasObjectName(header, _, s, _, _)
+    )
     or
-    Naming::Cpp14::hasStandardLibraryObjectName(s)
+    standard = TargetedCLibrary::getName() and
+    (
+      header = max(string candidateHeader | TargetedCLibrary::hasMacroName(candidateHeader, s, _))
+      or
+      header =
+        max(string candidateHeader | TargetedCLibrary::hasObjectName(candidateHeader, _, s, _, _))
+    )
   )
-select l, t + " reuses the name " + s + " from the standard library."
+select l,
+  t + " reuses the name " + s + " from the " + standard + " standard library header <" + header +
+    ">."

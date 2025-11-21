@@ -22,33 +22,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Naming
+import codingstandards.cpp.ReservedNames
 
-predicate isLocatedInNamespaceBody(NamespaceDeclarationEntry n, PreprocessorDirective m) {
-  m.getFile() = n.getFile() and
-  m.getLocation().getStartLine() >= n.getBodyLocation().getStartLine() and
-  m.getLocation().getEndLine() <= n.getBodyLocation().getEndLine()
-}
-
-from PreprocessorDirective ppd, string name
+from PreprocessorDirective ppd, string reason
 where
   not isExcluded(ppd,
     BannedLibrariesPackage::reservedIdentifiersMacrosAndFunctionsAreDefinedRedefinedOrUndefinedQuery()) and
-  (
-    ppd.(Macro).hasName(name)
-    or
-    ppd.(PreprocessorUndef).getName() = name
-  ) and
-  (
-    Naming::Cpp14::hasStandardLibraryMacroName(name)
-    or
-    Naming::Cpp14::hasStandardLibraryObjectName(name)
-    or
-    // Reserved everywhere according to [global.names]
-    name.regexpMatch("(__|_[A-Z]).*")
-    or
-    // Reserved only in the global namespace according to [global.names]
-    name.regexpMatch("_.*") and
-    not isLocatedInNamespaceBody(_, ppd)
-  )
-select ppd, "Reserved identifier '" + name + "' has been undefined or redefined."
+  ReservedNames::Cpp14::isMacroUsingReservedIdentifier(ppd, reason)
+select ppd, reason

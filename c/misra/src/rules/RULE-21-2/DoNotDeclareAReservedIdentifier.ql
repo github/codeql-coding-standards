@@ -15,10 +15,12 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.rules.declaredareservedidentifier.DeclaredAReservedIdentifier
+import codingstandards.cpp.ReservedNames
 
-class DoNotDeclareAReservedIdentifierQuery extends DeclaredAReservedIdentifierSharedQuery {
-  DoNotDeclareAReservedIdentifierQuery() {
-    this = Declarations1Package::doNotDeclareAReservedIdentifierQuery()
-  }
-}
+from Element e, string message
+where
+  not isExcluded(e, Declarations1Package::doNotDeclareAReservedIdentifierQuery()) and
+  ReservedNames::C11::isAReservedIdentifier(e, message, true) and
+  // Not covered by this rule - covered by Rule 21.2
+  not e instanceof PreprocessorDirective
+select e, message
