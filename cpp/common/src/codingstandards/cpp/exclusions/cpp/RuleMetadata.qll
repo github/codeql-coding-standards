@@ -20,6 +20,7 @@ import Declarations
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
+import Exceptions3
 import Expressions
 import FloatingPoint
 import Freed
@@ -79,6 +80,7 @@ newtype TCPPQuery =
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
+  TExceptions3PackageQuery(Exceptions3Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TFloatingPointPackageQuery(FloatingPointQuery q) or
   TFreedPackageQuery(FreedQuery q) or
@@ -138,6 +140,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
+  isExceptions3QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isFloatingPointQueryMetadata(query, queryId, ruleId, category) or
   isFreedQueryMetadata(query, queryId, ruleId, category) or
