@@ -1,0 +1,37 @@
+| test.cpp:26:3:26:13 | ... = ... | Assignment to 'errno' with non-zero literal value '0.0'. |
+| test.cpp:27:3:27:14 | ... = ... | Assignment to 'errno' with non-zero literal value '0.0'. |
+| test.cpp:31:3:31:11 | ... = ... | Assignment to 'errno' with non-zero literal value '1'. |
+| test.cpp:32:3:32:12 | ... = ... | Assignment to 'errno' with non-zero literal value '42'. |
+| test.cpp:33:3:33:12 | ... = ... | Assignment to 'errno' with non-zero literal value '- ...'. |
+| test.cpp:39:3:39:22 | ... = ... | Assignment to 'errno' with non-zero literal value '42'. |
+| test.cpp:49:3:49:12 | ... = ... | Assignment to 'errno' with non-zero literal value 'l1'. |
+| test.cpp:50:3:50:12 | ... = ... | Assignment to 'errno' with non-zero literal value 'l2'. |
+| test.cpp:51:3:51:12 | ... = ... | Assignment to 'errno' with non-zero literal value 'l3'. |
+| test.cpp:52:3:52:12 | ... = ... | Assignment to 'errno' with non-zero literal value 'l4'. |
+| test.cpp:53:3:53:12 | ... = ... | Assignment to 'errno' with non-zero literal value 'l5'. |
+| test.cpp:57:3:57:16 | ... = ... | Assignment to 'errno' with non-zero literal value '22'. |
+| test.cpp:58:3:58:16 | ... = ... | Assignment to 'errno' with non-zero literal value '34'. |
+| test.cpp:59:3:59:14 | ... = ... | Assignment to 'errno' with non-zero literal value '33'. |
+| test.cpp:63:3:63:15 | ... = ... | Assignment to 'errno' with non-zero literal value '... + ...'. |
+| test.cpp:64:3:64:15 | ... = ... | Assignment to 'errno' with non-zero literal value '... - ...'. |
+| test.cpp:65:3:65:15 | ... = ... | Assignment to 'errno' with non-zero literal value '... * ...'. |
+| test.cpp:66:3:66:35 | ... = ... | Assignment to 'errno' with non-zero literal value '... - ...'. |
+| test.cpp:70:3:70:11 | ... = ... | Assignment to 'errno' with non-zero literal value '5'. |
+| test.cpp:71:3:71:12 | ... += ... | Compound assignment to 'errno' with operator '+=' is not allowed. |
+| test.cpp:72:3:72:12 | ... -= ... | Assignment to 'errno' with non-zero literal value '5'. |
+| test.cpp:72:3:72:12 | ... -= ... | Compound assignment to 'errno' with operator '-=' is not allowed. |
+| test.cpp:73:3:73:12 | ... *= ... | Compound assignment to 'errno' with operator '*=' is not allowed. |
+| test.cpp:74:3:74:12 | ... /= ... | Assignment to 'errno' with non-zero literal value '1'. |
+| test.cpp:74:3:74:12 | ... /= ... | Compound assignment to 'errno' with operator '/=' is not allowed. |
+| test.cpp:81:3:81:14 | ... = ... | Assignment to 'errno' with non-zero literal value 'call to operator()'. |
+| test.cpp:82:3:82:14 | ... = ... | Assignment to 'errno' with non-zero literal value 'call to operator()'. |
+| test.cpp:86:3:86:29 | ... = ... | Assignment to 'errno' with non-zero literal value 'static_cast<int>...'. |
+| test.cpp:87:3:87:31 | ... = ... | Assignment to 'errno' with non-zero literal value 'static_cast<int>...'. |
+| test.cpp:88:3:88:16 | ... = ... | Assignment to 'errno' with non-zero literal value '(int)...'. |
+| test.cpp:89:3:89:16 | ... = ... | Assignment to 'errno' with non-zero literal value '(int)...'. |
+| test.cpp:108:3:108:40 | ... = ... | Assignment to 'errno' with non-zero literal value 'reinterpret_cast<int>...'. |
+| test.cpp:110:3:110:35 | ... = ... | Assignment to 'errno' with non-zero literal value 'reinterpret_cast<int>...'. |
+| test.cpp:111:3:111:35 | ... = ... | Assignment to 'errno' with non-zero literal value 'reinterpret_cast<int>...'. |
+| test.cpp:113:3:113:40 | ... = ... | Assignment to 'errno' with non-zero literal value 'reinterpret_cast<int>...'. |
+| test.cpp:122:3:122:13 | ... = ... | Assignment to 'errno' with non-zero literal value '48'. |
+| test.cpp:128:3:128:14 | ... = ... | Assignment to 'errno' with non-zero literal value '1'. |
