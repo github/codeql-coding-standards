@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-22-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Compile time checking of constant expressions via static_assert is preferred to potentially disabled runtime checking via the assert macro.",
+          "kind": "problem",
+          "name": "The assert macro shall not be used with a constant-expression",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AssertMacroUsedWithAConstantExpression",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The assert macro shall not be used with a constant-expression"
+    }
+  }
+}
