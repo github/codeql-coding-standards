@@ -22,6 +22,8 @@ import codingstandards.cpp.Call
 import codingstandards.cpp.Loops
 import codingstandards.cpp.ast.Increment
 import codingstandards.cpp.misra.BuiltInTypeRules::MisraCpp23BuiltInTypes
+import codingstandards.cpp.types.Resolve
+import codingstandards.cpp.types.Specifiers
 
 Variable getDeclaredVariableInForLoop(ForStmt forLoop) {
   result = forLoop.getADeclaration().getADeclarationEntry().(VariableDeclarationEntry).getVariable()
@@ -85,13 +87,11 @@ Expr getLoopStepOfForStmt(ForStmt forLoop) {
 predicate loopVariableAssignedToNonConstPointerOrReferenceType(
   ForStmt forLoop, VariableAccess loopVariableAccessInCondition, Expr assignmentRhs
 ) {
-  exists(Type targetType, DerivedType strippedType |
+  exists(Type targetType |
     isAssignment(assignmentRhs, targetType, _) and
-    strippedType = targetType.stripTopLevelSpecifiers() and
-    not strippedType.getBaseType().isConst() and
     (
-      strippedType instanceof PointerType or
-      strippedType instanceof ReferenceType
+      targetType instanceof ResolvesTo<PointerTo<NonConstType>::Type>::IgnoringSpecifiers or
+      targetType instanceof ResolvesTo<ReferenceOf<NonConstType>::Type>::IgnoringSpecifiers
     )
   |
     assignmentRhs.getEnclosingStmt().getParent*() = forLoop.getStmt() and

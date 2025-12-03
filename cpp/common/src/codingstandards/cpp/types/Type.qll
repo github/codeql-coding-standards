@@ -60,30 +60,6 @@ Type stripSpecifiers(Type type) {
   else result = type
 }
 
-signature class PossiblySpecifiedBaseType extends Type;
-
-/**
- * This module defines a class `Type` which holds for types `T` and `const/volatile T` etc.
- *
- * Similar to `getUnspecifiedType()`, but does not resolve typedefs. Useful for matching
- * potentially qualified versions of standard typedef types, such as `const mtx_t`.
- *
- * Example usage: `someType.(PossiblySpecified<PointerType>::Type).strip()`
- */
-module PossiblySpecified<PossiblySpecifiedBaseType BaseType> {
-  import cpp as cpp
-
-  final class CppType = cpp::Type;
-
-  class Type extends CppType {
-    BaseType baseType;
-
-    Type() { baseType = stripSpecifiers(this) }
-
-    BaseType strip() { result = baseType }
-  }
-}
-
 /**
  * Get the precision of an integral type, where precision is defined as the number of bits
  * that can be used to represent the numeric value.
