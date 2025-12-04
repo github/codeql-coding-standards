@@ -129,7 +129,9 @@
             "correctness",
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ],
           "implementation_scope": {
             "description": "This query checks the first 63 characters of macro identifiers as significant, as per C99. Distinctness of parameters within the same function like macro are checked by compiler and therefore not checked by this rule.",
@@ -146,7 +148,8 @@
           "tags": [
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ]
         }
       ],

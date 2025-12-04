@@ -38,7 +38,10 @@
           "precision": "high",
           "severity": "warning",
           "short_name": "UniquePtrNotUsedToRepresentExclusiveOwnership",
-          "tags": ["maintainability"]
+          "tags": [
+            "maintainability",
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "A std::unique_ptr shall be used to represent exclusive ownership."

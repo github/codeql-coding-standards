@@ -19,7 +19,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p8",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -36,7 +37,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p8",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -114,7 +116,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p3",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -130,7 +133,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p3",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -181,7 +185,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -205,7 +210,8 @@
           "tags": [
             "correctness",
             "security",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -222,7 +228,8 @@
           "tags": [
             "correctness",
             "security",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -247,7 +254,8 @@
           "tags": [
             "correctness",
             "security",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

@@ -64,7 +64,8 @@
           "severity": "warning",
           "short_name": "ExplicitConstructionOfUnnamedTemporary",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -124,7 +125,9 @@
           "short_name": "IncrementAndDecrementOperatorsMixedWithOtherOperatorsInExpression",
           "tags": [
             "readability",
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -147,7 +150,8 @@
           "severity": "warning",
           "short_name": "AssignmentInSubExpression",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/style"
           ]
         }
       ],

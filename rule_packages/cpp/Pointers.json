@@ -17,7 +17,8 @@
           "severity": "error",
           "short_name": "PointerToAnElementOfAnArrayPassedToASmartPointer",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -42,7 +43,8 @@
           "shared_implementation_short_name": "DoNotUseMoreThanTwoLevelsOfPointerIndirection",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -113,7 +115,8 @@
           "short_name": "DeletingPointerToIncompleteType",
           "shared_implementation_short_name": "DeleteOfPointerToIncompleteClass",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -137,7 +140,8 @@
           "short_name": "PointerToMemberAccessNonExistentClassMembers",
           "shared_implementation_short_name": "AccessOfNonExistingMemberThroughPointerToMember",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -161,7 +165,8 @@
           "short_name": "UninitializedStaticPointerToMemberUse",
           "shared_implementation_short_name": "AccessOfUndefinedMemberThroughUninitializedStaticPointer",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -210,7 +215,8 @@
           "short_name": "PointerAndDerivedPointerAccessDifferentArray",
           "shared_implementation_short_name": "DoNotUsePointerArithmeticToAddressDifferentArrays",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -234,7 +240,8 @@
           "short_name": "PointerSubtractionOnDifferentArrays",
           "shared_implementation_short_name": "DoNotSubtractPointersAddressingDifferentArrays",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -305,7 +312,8 @@
           "severity": "error",
           "short_name": "PointerToAVirtualBaseClassCastToAPointer",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -401,7 +409,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p9",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -426,7 +435,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -467,7 +477,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -484,7 +495,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -501,7 +513,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

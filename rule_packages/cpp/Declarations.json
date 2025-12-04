@@ -17,7 +17,8 @@
           "severity": "error",
           "short_name": "OperatorNewAndOperatorDeleteNotDefinedLocally",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -28,7 +29,8 @@
           "severity": "error",
           "short_name": "OperatorNewAndOperatorDeleteNotDefinedGlobally",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -197,7 +199,8 @@
           "severity": "recommendation",
           "short_name": "ClassStructEnumDeclaredInDefinition",
           "tags": [
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -245,7 +248,8 @@
           "severity": "recommendation",
           "short_name": "EnumerationsNotDeclaredAsScopedEnumClasses",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -269,7 +273,8 @@
           "short_name": "NoneFirstOrAllEnumeratorsNotInitialized",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -293,7 +298,8 @@
           "short_name": "FunctionsDeclaredAtBlockScope",
           "tags": [
             "correctness",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/style"
           ]
         }
       ],

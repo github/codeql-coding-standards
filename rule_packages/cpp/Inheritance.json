@@ -17,7 +17,9 @@
           "precision": "low",
           "severity": "recommendation",
           "short_name": "PublicInheritanceNotUsedForIsARelationship",
-          "tags": []
+          "tags": [
+            "codingstandards/baseline/style"
+          ]
         }
       ],
       "title": "Public inheritance shall be used to implement 'is-a' relationship."
@@ -146,7 +148,9 @@
           "severity": "warning",
           "short_name": "AccessibleBaseClassBothVirtualAndNonVirtualInHierarchy",
           "shared_implementation_short_name": "VirtualAndNonVirtualClassInTheHierarchy",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "An accessible base class shall not be both virtual and non-virtual in the same hierarchy."
@@ -189,7 +193,9 @@
           "severity": "error",
           "short_name": "DynamicTypeOfThisUsedFromConstructorOrDestructor",
           "shared_implementation_short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "An object's dynamic type shall not be used from the body of its constructor or destructor."
@@ -234,7 +240,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -257,7 +264,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -280,7 +288,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p9",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

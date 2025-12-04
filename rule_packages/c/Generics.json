@@ -14,7 +14,9 @@
           "short_name": "GenericSelectionNotExpandedFromAMacro",
           "tags": [
             "maintainability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -27,7 +29,9 @@
           "tags": [
             "correctness",
             "maintainability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -72,7 +76,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -92,7 +97,8 @@
           "short_name": "GenericAssociationWithUnselectableType",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -112,7 +118,8 @@
           "short_name": "DangerousDefaultSelectionForPointerInGeneric",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -157,7 +164,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -181,7 +189,8 @@
           "short_name": "DefaultGenericSelectionNotFirstOrLast",
           "tags": [
             "maintainability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/style"
           ]
         }
       ],

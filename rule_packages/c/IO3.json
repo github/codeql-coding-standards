@@ -46,7 +46,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p12",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The rule checks that access to a string returned by fgets() or fgetws() if protected by a guard condition. The rule is enforced in the context of a single function."
@@ -71,7 +72,8 @@
           "short_name": "FileOpenForReadAndWriteOnDifferentStreams",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -94,7 +96,8 @@
           "short_name": "AttemptToWriteToAReadOnlyStream",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -114,7 +117,8 @@
           "short_name": "PointerToAFileObjectDereferenced",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -134,7 +138,8 @@
           "short_name": "EofShallBeComparedWithUnmodifiedReturnValues",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

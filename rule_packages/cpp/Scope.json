@@ -42,7 +42,8 @@
           "severity": "warning",
           "short_name": "ExternalLinkageArrayWithoutExplicitSize",
           "tags": [
-            "correctness"
+            "correctness",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -114,7 +115,8 @@
           "short_name": "OneDefinitionRuleViolation",
           "shared_implementation_short_name": "OneDefinitionRuleViolation",
           "tags": [
-            "correctness"
+            "correctness",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -185,7 +187,8 @@
           "short_name": "MissingStaticSpecifierOnFunctionRedeclaration",
           "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
           "tags": [
-            "readability"
+            "readability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -259,7 +262,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "codingstandards/baseline/style"
           ]
         },
         {
@@ -275,7 +279,9 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -299,7 +305,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -324,7 +331,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -348,7 +356,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "codingstandards/baseline/style"
           ]
         }
       ],

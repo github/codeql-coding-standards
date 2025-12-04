@@ -45,7 +45,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -71,7 +72,8 @@
           "short_name": "HeaderFileExpectedFileNameExtension",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -97,7 +99,8 @@
           "short_name": "FileNameExtensionCpp",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "codingstandards/baseline/style"
           ]
         }
       ],

@@ -48,7 +48,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This query defines end of function call as the next node in the control flow graph.",

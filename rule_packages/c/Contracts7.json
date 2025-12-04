@@ -19,7 +19,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p27",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -43,7 +44,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p3",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -85,7 +87,8 @@
           "short_name": "ObjectAssignedToAnOverlappingObject",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -97,7 +100,8 @@
           "short_name": "ObjectCopiedToAnOverlappingObject",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

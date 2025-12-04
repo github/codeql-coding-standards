@@ -15,7 +15,8 @@
           "tags": [
             "external/misra/c/2012/amendment4",
             "correctness",
-            "security"
+            "security",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -36,7 +37,8 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "correctness",
-            "security"
+            "security",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -49,7 +51,8 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "correctness",
-            "security"
+            "security",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

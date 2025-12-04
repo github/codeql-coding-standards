@@ -15,7 +15,9 @@
           "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
           "tags": [
             "readability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -28,7 +30,9 @@
           "shared_implementation_short_name": "MissingStaticSpecifierObjectRedeclarationShared",
           "tags": [
             "readability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -41,7 +45,9 @@
           "shared_implementation_short_name": "FunctionTypesNotInPrototypeFormShared",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ],
           "implementation_scope": {
             "description": "This query does not check for implicitly typed parameters and checks function declarations and definitions but not function pointer types."
@@ -57,7 +63,9 @@
           "tags": [
             "maintainability",
             "readability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -70,7 +78,9 @@
           "tags": [
             "maintainability",
             "readability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -83,7 +93,9 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "security",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -96,7 +108,9 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "security",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -108,7 +122,9 @@
           "short_name": "SizeInReallocCallMayBeZero",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -120,7 +136,9 @@
           "short_name": "SizeInReallocCallIsZero",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],

@@ -16,7 +16,8 @@
           "tags": [
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -77,7 +78,8 @@
           "severity": "recommendation",
           "short_name": "DefaultNotFirstOrLastOfSwitch",
           "tags": [
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ]
         }
       ],

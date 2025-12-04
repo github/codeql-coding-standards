@@ -199,7 +199,8 @@
           "tags": [
             "correctness",
             "security",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -223,7 +224,8 @@
           "short_name": "RegisterKeywordUsed",
           "tags": [
             "correctness",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -346,7 +348,8 @@
           "shared_implementation_short_name": "CommaOperatorUsed",
           "tags": [
             "correctness",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -394,7 +397,8 @@
           "short_name": "UsingDeclarationsUsedInHeaderFiles",
           "tags": [
             "correctness",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -422,7 +426,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p12",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "codingstandards/baseline/style"
           ]
         }
       ],

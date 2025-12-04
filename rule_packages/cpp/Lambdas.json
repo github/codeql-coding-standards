@@ -17,7 +17,8 @@
           "severity": "warning",
           "short_name": "ImplicitLambdaCapture",
           "tags": [
-            "readability"
+            "readability",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -40,7 +41,8 @@
           "severity": "warning",
           "short_name": "LambdaExpressionWithoutParameterList",
           "tags": [
-            "readability"
+            "readability",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -158,7 +160,8 @@
           "severity": "recommendation",
           "short_name": "LambdaExpressionInLambdaExpression",
           "tags": [
-            "readability"
+            "readability",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -182,7 +185,8 @@
           "short_name": "IdenticalLambdaExpressions",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -228,7 +232,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

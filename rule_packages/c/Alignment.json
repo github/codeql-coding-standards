@@ -15,7 +15,9 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -28,7 +30,9 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -49,7 +53,8 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -69,7 +74,8 @@
           "short_name": "MoreThanOneAlignmentSpecifierOnDeclaration",
           "tags": [
             "external/misra/c/2012/amendment3",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],

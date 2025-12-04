@@ -109,7 +109,8 @@
           "severity": "warning",
           "short_name": "DestructorOfABaseClassNotPublicVirtual",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -155,7 +156,8 @@
           "severity": "recommendation",
           "short_name": "VirtualFunctionOverriddenByAPureVirtualFunction",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -179,7 +181,8 @@
           "short_name": "VirtualFunctionParametersUseTheSameDefaultArguments",
           "shared_implementation_short_name": "OverridingShallSpecifyDifferentDefaultArguments",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/style"
           ]
         }
       ],

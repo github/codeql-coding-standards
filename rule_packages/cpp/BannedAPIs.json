@@ -16,7 +16,8 @@
           "tags": [
             "scope/single-translation-unit",
             "maintainability",
-            "correctness"
+            "correctness",
+            "codingstandards/baseline/style"
           ]
         }
       ],
@@ -127,7 +128,8 @@
           "tags": [
             "scope/single-translation-unit",
             "correctness",
-            "maintainability"
+            "maintainability",
+            "codingstandards/baseline/style"
           ]
         }
       ],

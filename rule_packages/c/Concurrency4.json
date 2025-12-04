@@ -19,7 +19,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This query does not attempt to ensure that the deallocation function in fact deallocates memory and instead assumes the contract is valid. Additionally, this query requires that all `tss_create` calls are bookended by calls to `tss_delete`, even if a thread is not created."

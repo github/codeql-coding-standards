@@ -19,7 +19,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -72,7 +73,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p3",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -97,7 +99,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p1",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

@@ -18,7 +18,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The implementation does not consider pointer aliasing via multiple indirection."
@@ -43,7 +44,8 @@
           "short_name": "ArrayFunctionArgumentNumberOfElements",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

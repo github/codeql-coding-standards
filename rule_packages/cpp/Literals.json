@@ -16,7 +16,8 @@
           "severity": "recommendation",
           "short_name": "UseCorrectIntervalForDigitSequencesSeparators",
           "tags": [
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -41,7 +42,8 @@
           "short_name": "EscapeSequenceOutsideISO",
           "shared_implementation_short_name": "BackslashCharacterMisuse",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -146,7 +148,8 @@
           "severity": "recommendation",
           "short_name": "UseOfNonZeroOctalEscape",
           "tags": [
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -222,7 +225,8 @@
           "severity": "recommendation",
           "short_name": "NullUsedAsIntegerValue",
           "tags": [
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -244,7 +248,8 @@
           "severity": "recommendation",
           "short_name": "LiteralZeroUsedAsNullPointerConstant",
           "tags": [
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],

@@ -45,7 +45,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p27",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "Wide character types are not handled correctly on the `aarch64le` architecture. This can lead to false negative alerts."
