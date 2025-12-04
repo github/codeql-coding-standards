@@ -18,27 +18,44 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedVariables
 
-// This predicate is similar to getUseCount for M0-1-4 except that it also
-// considers static_asserts. This was created to cater for M0-1-3 specifically
-// and hence, doesn't attempt to reuse the M0-1-4 specific predicate
-// - getUseCount()
+// Collect constant values that we should use to exclude otherwise unused constexpr variables.
+//
+// For constexpr variables used as template arguments or in static_asserts, we don't see accesses
+// (just the appropriate literals). We therefore take a conservative approach and do not report
+// constexpr variables whose values are used in such contexts.
+//
+// For performance reasons, these special values should be collected in a single pass.
+predicate excludedConstantValue(string value) {
+  value = any(ClassTemplateInstantiation cti).getTemplateArgument(_).(Expr).getValue()
+  or
+  value = any(StaticAssert sa).getCondition().getAChild*().getValue()
+}
+
+/**
+ * Defines the local variables that should be excluded from the unused variable analysis based
+ * on their constant value.
+ *
+ * See `excludedConstantValue` for more details.
+ */
+predicate excludeVariableByValue(Variable variable) {
+  variable.isConstexpr() and
+  excludedConstantValue(getConstExprValue(variable))
+}
+
+// TODO: This predicate may be possible to merge with M0-1-4's getUseCount(). These two rules
+// diverged to handle `excludeVariableByValue`, but may be possible to merge.
 int getUseCountConservatively(Variable v) {
   result =
     count(VariableAccess access | access = v.getAnAccess()) +
       count(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) +
-      // For constexpr variables used as template arguments, we don't see accesses (just the
-      // appropriate literals). We therefore take a conservative approach and count the number of
-      // template instantiations that use the given constant, and consider each one to be a use
-      // of the variable
-      count(ClassTemplateInstantiation cti |
-        cti.getTemplateArgument(_).(Expr).getValue() = getConstExprValue(v)
-      ) +
-      // For static asserts too, check if there is a child which has the same value
-      // as the constexpr variable.
-      count(StaticAssert s | s.getCondition().getAChild*().getValue() = getConstExprValue(v)) +
       // In case an array type uses a constant in the same scope as the constexpr variable,
       // consider it as used.
       countUsesInLocalArraySize(v)
+}
+
+predicate isConservativelyUnused(Variable v) {
+  getUseCountConservatively(v) = 0 and
+  not excludeVariableByValue(v)
 }
 
 from PotentiallyUnusedLocalVariable v
@@ -54,5 +71,5 @@ where
     exists(another.getAnAccess()) and
     another != v
   ) and
-  getUseCountConservatively(v) = 0
+  isConservativelyUnused(v)
 select v, "Local variable '" + v.getName() + "' in '" + v.getFunction().getName() + "' is not used."
