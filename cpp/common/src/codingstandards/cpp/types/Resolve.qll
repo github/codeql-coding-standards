@@ -38,7 +38,7 @@ module ReferenceOf<Qtil::Signature<Type>::Type ReferencedType> {
  * - `resolvedType.resolve()` gets the fully resolved class type for the above.
  * - `ResolvesTo<ClassType>::Specified` is the set of types that resolve to a specified class type.
  * - `ResolvesTo<ClassType>::Ref` is the set of types that resolve to a reference to a class type.
- * - `ResolvesTo<ClassType>::Const` is the set of types that resolve to a const class type.
+ * - `ResolvesTo<ClassType>::CvConst` is the set of types that resolve to a const class type.
  * - `ResolvesTo<ClassType>::IgnoringSpecifiers` is the set of types that resolve to a class type
  *    ignoring specifiers.
  * - `ResolvesTo<ClassType>::ExactlyOrRef` is the set of types that resolve to a class type and
@@ -59,7 +59,7 @@ module ResolvesTo<Qtil::Signature<Type>::Type ResolvedType> {
   final class CppType = cpp::Type;
 
   /**
-   * A type that resolve exactly to the module's `ResolvedType` type parameter.
+   * A type that resolves exactly to the module's `ResolvedType` type parameter.
    *
    * For example, `ResolvesTo<FooType>::Type` is the set of all `FooType`s and types that resolve
    * (through typedefs * and/or decltypes) to `FooType`s. This does _not_ include types that resolve
@@ -180,7 +180,7 @@ module ResolvesTo<Qtil::Signature<Type>::Type ResolvedType> {
   }
 
   /**
-   * A type that resolves to a reference to that resolves to the module's `ResolvedType` type
+   * A type that resolves to a reference that resolves to the module's `ResolvedType` type
    * parameter.
    *
    * For example, `ResolvesTo<FooType>::Ref` is the set of all references to `FooType`s and types
@@ -213,8 +213,6 @@ module ResolvesTo<Qtil::Signature<Type>::Type ResolvedType> {
     ResolvedType resolve() { result = resolved }
   }
 
-  //class Ref =
-  //Impl::ResolveRefType;
   /**
    * A type that resolves to a const reference of (or reference to const of) the module's
    * `ResolvedType` type parameter.
@@ -248,7 +246,7 @@ module ResolvesTo<Qtil::Signature<Type>::Type ResolvedType> {
         // Note that the extractor appears to perform reference collapsing, so cases like
         // `const T& &` are treated as `const T&`.
         refType = typeResolvesToTypeStep*(this) and
-        refType.getBaseType() instanceof CvConst
+        resolved = refType.getBaseType().(CvConst).resolve()
       )
     }
 
@@ -256,7 +254,7 @@ module ResolvesTo<Qtil::Signature<Type>::Type ResolvedType> {
   }
 
   /**
-   * A type that resolves to either a reference to that resolves to the module's `ResolvedType` type
+   * A type that resolves to either a reference that resolves to the module's `ResolvedType` type
    * parameter, or exactly to the `ResolvedType`.
    */
   class ExactlyOrRef extends CppType {
