@@ -26,7 +26,9 @@ where
   assign.getRValue().getExplicitlyConverted() = rvalue and
   (
     not rvalue instanceof LiteralZero and
-    message = "Assignment to 'errno' with non-zero literal value '" + rvalue.toString() + "'."
+    message =
+      "Assignment to 'errno' with value '" + rvalue.toString() +
+        "' that is not a zero integer literal."
     or
     assign instanceof AssignOperation and
     message =
