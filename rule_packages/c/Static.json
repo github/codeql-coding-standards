@@ -14,7 +14,8 @@
           "short_name": "UseOfArrayStatic",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The static keyword is associated with particular array types in our model. This means we can get false positives when two parameter use the same array type and size, but only one of which uses the `static` keyword."

@@ -20,7 +20,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p8",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -45,7 +46,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

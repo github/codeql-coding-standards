@@ -9,6 +9,7 @@
  * @tags external/autosar/id/a2-13-6
  *       maintainability
  *       readability
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/architecture
  *       external/autosar/allocated-target/design
  *       external/autosar/allocated-target/implementation

@@ -42,7 +42,8 @@
           "short_name": "ForwardingValuesToOtherFunctions",
           "shared_implementation_short_name": "ForwardingReferencesAndForwardNotUsedTogether",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -65,7 +66,8 @@
           "severity": "error",
           "short_name": "MoveUsedOnConstObjects",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -87,7 +89,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ArgumentToForwardSubsequentlyUsed",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "An argument to std::forward shall not be subsequently used."
@@ -109,7 +113,8 @@
           "severity": "error",
           "short_name": "MoveFromConsumeParametersRvalRef",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -132,7 +137,8 @@
           "severity": "error",
           "short_name": "ForwardForwardingReferences",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -159,7 +165,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p8",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

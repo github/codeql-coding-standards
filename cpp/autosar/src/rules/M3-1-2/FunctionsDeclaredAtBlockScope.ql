@@ -10,6 +10,7 @@
  * @tags external/autosar/id/m3-1-2
  *       correctness
  *       maintainability
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

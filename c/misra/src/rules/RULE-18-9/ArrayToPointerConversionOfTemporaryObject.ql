@@ -10,6 +10,7 @@
  *       external/misra/c/2012/amendment3
  *       correctness
  *       security
+ *       coding-standards/baseline/safety
  *       external/misra/obligation/required
  */
 

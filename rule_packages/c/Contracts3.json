@@ -14,7 +14,8 @@
           "short_name": "OnlyTestErrnoRightAfterErrnoSettingFunction",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -34,7 +35,8 @@
           "short_name": "ErrnoSetToZeroPriorToCall",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -54,7 +56,8 @@
           "short_name": "ErrnoSetToZeroAfterCall",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

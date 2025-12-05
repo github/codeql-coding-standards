@@ -17,7 +17,8 @@
           "severity": "recommendation",
           "short_name": "OnlyThrowStdExceptionDerivedTypes",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -40,7 +41,8 @@
           "severity": "error",
           "short_name": "ConstructorErrorLeavesObjectInInvalidState",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -87,7 +89,8 @@
           "severity": "error",
           "short_name": "IncompatibleNoexceptSpecification",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -98,7 +101,8 @@
           "severity": "error",
           "short_name": "InconsistentNoexceptFalseSpecification",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -109,7 +113,8 @@
           "severity": "error",
           "short_name": "InconsistentNoexceptTrueSpecification",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -120,7 +125,8 @@
           "severity": "error",
           "short_name": "IncompatibleNoexceptSpecificationForOverriders",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -215,7 +221,8 @@
           "shared_implementation_short_name": "HandleAllExceptionsDuringStartup",
           "short_name": "ExceptionRaisedDuringStartup",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -226,7 +233,8 @@
           "severity": "error",
           "short_name": "ExceptionRaisedDuringTermination",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -250,7 +258,8 @@
           "shared_implementation_short_name": "DestroyedValueReferencedInDestructorCatchBlock",
           "short_name": "DestroyedValueReferencedInDestructorCatchBlock",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -300,7 +309,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -325,7 +335,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

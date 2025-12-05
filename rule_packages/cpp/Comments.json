@@ -20,7 +20,9 @@
           "tags": [
             "correctness",
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],

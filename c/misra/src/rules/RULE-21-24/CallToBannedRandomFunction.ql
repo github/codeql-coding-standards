@@ -9,6 +9,7 @@
  * @tags external/misra/id/rule-21-24
  *       security
  *       external/misra/c/2012/amendment3
+ *       coding-standards/baseline/safety
  *       external/misra/obligation/required
  */
 

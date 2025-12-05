@@ -136,7 +136,8 @@
           "short_name": "InitializerListsContainPersistentSideEffects",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -158,7 +159,8 @@
           "tags": [
             "correctness",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -198,7 +200,8 @@
           "short_name": "SizeofOperandWithSideEffect",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

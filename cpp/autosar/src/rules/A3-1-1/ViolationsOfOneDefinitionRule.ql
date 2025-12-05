@@ -11,6 +11,7 @@
  *       correctness
  *       maintainability
  *       readability
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/architecture
  *       external/autosar/allocated-target/design
  *       external/autosar/allocated-target/implementation

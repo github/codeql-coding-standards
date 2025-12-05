@@ -74,7 +74,8 @@
           "short_name": "UseOfBannedSmallIntegerConstantMacro",
           "tags": [
             "readability",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/style"
           ]
         }
       ],

@@ -8,6 +8,7 @@
  * @problem.severity recommendation
  * @tags external/autosar/id/m10-3-3
  *       correctness
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

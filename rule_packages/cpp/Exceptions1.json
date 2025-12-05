@@ -92,7 +92,8 @@
           "short_name": "PointerExceptionObject",
           "shared_implementation_short_name": "ExceptionObjectHavePointerType",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -159,7 +160,8 @@
           "short_name": "MissingCatchHandlerInMain",
           "tags": [
             "maintainability",
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -181,7 +183,8 @@
           "severity": "error",
           "short_name": "CatchAllEllipsisUsedInNonMain",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -203,7 +206,8 @@
           "severity": "warning",
           "short_name": "UseOfDynamicExceptionSpecification",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -355,7 +359,8 @@
           "severity": "error",
           "short_name": "GotoToCatchBlock",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -365,7 +370,8 @@
           "severity": "error",
           "short_name": "SwitchToCatchBlock",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -387,7 +393,8 @@
           "severity": "warning",
           "short_name": "ExceptionThrownDuringThrow",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -409,7 +416,8 @@
           "severity": "error",
           "short_name": "NullThrownExplicitly",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -432,7 +440,8 @@
           "short_name": "EmptyThrowOutsideCatch",
           "shared_implementation_short_name": "EmptyThrowOnlyWithinACatchHandler",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -455,7 +464,8 @@
           "kind": "path-problem",
           "short_name": "CatchAllExplicitlyThrownExceptions",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -477,7 +487,8 @@
           "severity": "warning",
           "short_name": "CatchAllHandlerLast",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "Catch all handlers that cause other catch handlers to become unreachable are typically flagged as compiler errors. If you observe alerts for this rule, it is likely that you have passed a compiler flag that converts these errors to warnings - for example the `-fpermissive` flag for g++. Consider removing the permissive flag in addition to addressing the problem."
@@ -540,7 +551,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -557,7 +569,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -574,7 +587,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -598,7 +612,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -622,7 +637,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -694,7 +710,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -718,7 +735,9 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p3",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],

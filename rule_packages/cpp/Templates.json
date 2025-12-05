@@ -43,7 +43,8 @@
           "short_name": "TemplateConstructorOverloadResolution",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -90,7 +91,8 @@
           "short_name": "TemplateSpecializationNotDeclaredInTheSameFile",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -150,7 +152,8 @@
           "short_name": "CopyAssignmentOperatorNotDeclared",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

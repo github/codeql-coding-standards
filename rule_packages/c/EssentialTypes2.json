@@ -37,7 +37,8 @@
           "short_name": "TgMathArgumentsWithDifferingStandardType",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

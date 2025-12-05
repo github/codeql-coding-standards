@@ -38,7 +38,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The rule checks specifically for pointers to objects with automatic storage duration that are returned by functions or assigned to function output parameters."
