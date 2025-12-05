@@ -17,7 +17,7 @@
             "scope/single-translation-unit",
             "maintainability",
             "correctness",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -129,7 +129,7 @@
             "scope/single-translation-unit",
             "correctness",
             "maintainability",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],

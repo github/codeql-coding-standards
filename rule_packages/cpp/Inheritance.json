@@ -18,7 +18,7 @@
           "severity": "recommendation",
           "short_name": "PublicInheritanceNotUsedForIsARelationship",
           "tags": [
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],

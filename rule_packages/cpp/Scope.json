@@ -43,7 +43,7 @@
           "short_name": "ExternalLinkageArrayWithoutExplicitSize",
           "tags": [
             "correctness",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -116,7 +116,7 @@
           "shared_implementation_short_name": "OneDefinitionRuleViolation",
           "tags": [
             "correctness",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -263,7 +263,7 @@
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
             "external/cert/level/l3",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -281,7 +281,7 @@
             "external/cert/priority/p2",
             "external/cert/level/l3",
             "coding-standards/baseline/safety",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -332,7 +332,7 @@
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p6",
             "external/cert/level/l2",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -357,7 +357,7 @@
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
             "external/cert/level/l3",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],

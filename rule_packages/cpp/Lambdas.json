@@ -18,7 +18,7 @@
           "short_name": "ImplicitLambdaCapture",
           "tags": [
             "readability",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -42,7 +42,7 @@
           "short_name": "LambdaExpressionWithoutParameterList",
           "tags": [
             "readability",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -161,7 +161,7 @@
           "short_name": "LambdaExpressionInLambdaExpression",
           "tags": [
             "readability",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -186,7 +186,7 @@
           "tags": [
             "readability",
             "maintainability",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],

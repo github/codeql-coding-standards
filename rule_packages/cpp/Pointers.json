@@ -515,7 +515,6 @@
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
             "coding-standards/baseline/safety"
-            "coding-standards/baseline/safety"
           ]
         }
       ],

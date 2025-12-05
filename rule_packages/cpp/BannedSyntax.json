@@ -200,7 +200,7 @@
             "correctness",
             "security",
             "scope/single-translation-unit",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -225,7 +225,7 @@
           "tags": [
             "correctness",
             "scope/single-translation-unit",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -349,7 +349,7 @@
           "tags": [
             "correctness",
             "scope/single-translation-unit",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -398,7 +398,7 @@
           "tags": [
             "correctness",
             "scope/single-translation-unit",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -427,7 +427,7 @@
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p12",
             "external/cert/level/l1",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],

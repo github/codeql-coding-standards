@@ -119,7 +119,7 @@
           "severity": "recommendation",
           "short_name": "ClassDataMembersInitializationCondition",
           "tags": [
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -189,7 +189,7 @@
           "short_name": "NonTrivialNonTemplateFunctionDefinedInsideClassDefinition",
           "tags": [
             "external/autosar/audit",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],

@@ -18,7 +18,7 @@
           "short_name": "UnusedLoopCounterForContainerIteration",
           "tags": [
             "maintainability",
-            "codingstandards/baseline/style"
+            "coding-standards/baseline/style"
           ]
         }
       ],
