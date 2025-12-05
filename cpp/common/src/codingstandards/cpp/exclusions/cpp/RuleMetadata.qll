@@ -14,6 +14,7 @@ import Concurrency
 import Conditionals
 import Const
 import Conversions
+import Conversions2
 import DeadCode
 import Declarations
 import ExceptionSafety
@@ -43,12 +44,14 @@ import Operators
 import OrderOfEvaluation
 import OutOfBounds
 import Pointers
+import Preconditions1
 import Representation
 import Scope
 import SideEffects1
 import SideEffects2
 import SmartPointers1
 import SmartPointers2
+import Statements
 import Strings
 import Templates
 import Toolchain
@@ -71,6 +74,7 @@ newtype TCPPQuery =
   TConditionalsPackageQuery(ConditionalsQuery q) or
   TConstPackageQuery(ConstQuery q) or
   TConversionsPackageQuery(ConversionsQuery q) or
+  TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
@@ -100,12 +104,14 @@ newtype TCPPQuery =
   TOrderOfEvaluationPackageQuery(OrderOfEvaluationQuery q) or
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointersPackageQuery(PointersQuery q) or
+  TPreconditions1PackageQuery(Preconditions1Query q) or
   TRepresentationPackageQuery(RepresentationQuery q) or
   TScopePackageQuery(ScopeQuery q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
   TSmartPointers1PackageQuery(SmartPointers1Query q) or
   TSmartPointers2PackageQuery(SmartPointers2Query q) or
+  TStatementsPackageQuery(StatementsQuery q) or
   TStringsPackageQuery(StringsQuery q) or
   TTemplatesPackageQuery(TemplatesQuery q) or
   TToolchainPackageQuery(ToolchainQuery q) or
@@ -128,6 +134,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConditionalsQueryMetadata(query, queryId, ruleId, category) or
   isConstQueryMetadata(query, queryId, ruleId, category) or
   isConversionsQueryMetadata(query, queryId, ruleId, category) or
+  isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
@@ -157,12 +164,14 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isOrderOfEvaluationQueryMetadata(query, queryId, ruleId, category) or
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointersQueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
   isRepresentationQueryMetadata(query, queryId, ruleId, category) or
   isScopeQueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
   isSmartPointers1QueryMetadata(query, queryId, ruleId, category) or
   isSmartPointers2QueryMetadata(query, queryId, ruleId, category) or
+  isStatementsQueryMetadata(query, queryId, ruleId, category) or
   isStringsQueryMetadata(query, queryId, ruleId, category) or
   isTemplatesQueryMetadata(query, queryId, ruleId, category) or
   isToolchainQueryMetadata(query, queryId, ruleId, category) or

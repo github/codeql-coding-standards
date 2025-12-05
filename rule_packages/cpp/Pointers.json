@@ -314,7 +314,8 @@
           "tags": [
             "correctness",
             "coding-standards/baseline/safety"
-          ]
+          ],
+          "shared_implementation_short_name": "PointerToAVirtualBaseClassCastToAPointer"
         }
       ],
       "title": "A pointer to a virtual base class shall only be cast to a pointer to a derived class by means of dynamic_cast."
@@ -513,7 +514,7 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
-            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
             "coding-standards/baseline/safety"
           ]
         }
