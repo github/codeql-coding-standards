@@ -10,8 +10,8 @@
  *       correctness
  *       maintainability
  *       external/misra/c/2012/amendment3
- *       external/misra/obligation/advisory
  *       coding-standards/baseline/safety
+ *       external/misra/obligation/advisory
  */
 
 import cpp

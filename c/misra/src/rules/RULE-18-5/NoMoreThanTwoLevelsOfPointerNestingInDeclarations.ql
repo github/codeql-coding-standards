@@ -9,8 +9,8 @@
  * @tags external/misra/id/rule-18-5
  *       readability
  *       external/misra/c/2012/third-edition-first-revision
- *       external/misra/obligation/advisory
  *       coding-standards/baseline/style
+ *       external/misra/obligation/advisory
  */
 
 import cpp

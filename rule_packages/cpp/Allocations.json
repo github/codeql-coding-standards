@@ -179,8 +179,7 @@
           "short_name": "OperatorDeleteMissingPartnerAutosar",
           "shared_implementation_short_name": "OperatorDeleteMissingPartner",
           "tags": [
-            "correctness",
-            "coding-standards/baseline/safety"
+            "correctness"
           ]
         }
       ],
@@ -257,8 +256,7 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1",
-            "coding-standards/baseline/safety"
+            "external/cert/level/l1"
           ]
         },
         {
@@ -346,7 +344,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -363,7 +362,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -380,7 +380,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -397,7 +398,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

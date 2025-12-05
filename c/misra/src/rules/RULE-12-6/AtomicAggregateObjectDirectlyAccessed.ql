@@ -9,8 +9,8 @@
  *       external/misra/c/2012/amendment4
  *       correctness
  *       concurrency
- *       external/misra/obligation/required
  *       coding-standards/baseline/safety
+ *       external/misra/obligation/required
  */
 
 import cpp

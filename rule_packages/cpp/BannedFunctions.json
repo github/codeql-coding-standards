@@ -42,7 +42,8 @@
           "short_name": "BindUsed",
           "tags": [
             "correctness",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -67,8 +68,7 @@
           "shared_implementation_short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
           "tags": [
             "security",
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],

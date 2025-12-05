@@ -121,8 +121,7 @@
                     "short_name": "IncludeDirectivesNotPrecededByDirectivesOrComments",
                     "shared_implementation_short_name": "PreprocessorIncludesPreceded",
                     "tags": [
-                        "readability",
-                        "coding-standards/baseline/safety"
+                        "readability"
                     ]
                 }
             ],
@@ -170,7 +169,8 @@
                     "shared_implementation_short_name": "PreprocessingDirectiveWithinMacroArgument",
                     "tags": [
                         "readability",
-                        "correctness"
+                        "correctness",
+                        "coding-standards/baseline/safety"
                     ]
                 }
             ],

@@ -66,8 +66,7 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p6",
-            "external/cert/level/l2",
-            "coding-standards/baseline/safety"
+            "external/cert/level/l2"
           ]
         },
         {
@@ -84,8 +83,7 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p6",
-            "external/cert/level/l2",
-            "coding-standards/baseline/safety"
+            "external/cert/level/l2"
           ]
         }
       ],

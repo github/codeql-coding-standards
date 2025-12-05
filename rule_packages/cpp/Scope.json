@@ -115,8 +115,7 @@
           "short_name": "OneDefinitionRuleViolation",
           "shared_implementation_short_name": "OneDefinitionRuleViolation",
           "tags": [
-            "correctness",
-            "coding-standards/baseline/style"
+            "correctness"
           ]
         }
       ],
@@ -188,7 +187,8 @@
           "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
           "tags": [
             "readability",
-            "coding-standards/baseline/safety"
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],

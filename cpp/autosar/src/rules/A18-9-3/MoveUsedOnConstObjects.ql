@@ -7,10 +7,10 @@
  * @problem.severity error
  * @tags external/autosar/id/a18-9-3
  *       correctness
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/safety
  */
 
 import cpp

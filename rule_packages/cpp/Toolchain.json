@@ -65,8 +65,7 @@
           "severity": "warning",
           "short_name": "IncrementOperatorWithBoolOperandIsDeprecated",
           "tags": [
-            "maintainability",
-            "coding-standards/baseline/style"
+            "maintainability"
           ]
         },
         {
@@ -77,8 +76,7 @@
           "severity": "warning",
           "short_name": "RegisterKeywordIsDeprecated",
           "tags": [
-            "maintainability",
-            "coding-standards/baseline/style"
+            "maintainability"
           ]
         },
         {
@@ -89,8 +87,7 @@
           "severity": "warning",
           "short_name": "ImplicitCopyConstructorIsDeprecated",
           "tags": [
-            "maintainability",
-            "coding-standards/baseline/style"
+            "maintainability"
           ]
         },
         {
@@ -101,8 +98,7 @@
           "severity": "warning",
           "short_name": "ImplicitCopyAssignmentOperatorIsDeprecated",
           "tags": [
-            "maintainability",
-            "coding-standards/baseline/style"
+            "maintainability"
           ]
         },
         {
@@ -113,8 +109,7 @@
           "severity": "warning",
           "short_name": "DynamicExceptionsAreDeprecated",
           "tags": [
-            "maintainability",
-            "coding-standards/baseline/style"
+            "maintainability"
           ]
         },
         {
@@ -137,8 +132,7 @@
           "severity": "warning",
           "short_name": "StrstreamTypesAreDeprecated",
           "tags": [
-            "maintainability",
-            "coding-standards/baseline/style"
+            "maintainability"
           ]
         }
       ],

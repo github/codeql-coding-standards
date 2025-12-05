@@ -91,7 +91,8 @@
           "short_name": "PointerToMemberVirtualFunctionWithNullPointerConstant",
           "shared_implementation_short_name": "PotentiallyVirtualPointerOnlyComparesToNullptr",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -115,8 +116,7 @@
           "short_name": "DeletingPointerToIncompleteType",
           "shared_implementation_short_name": "DeleteOfPointerToIncompleteClass",
           "tags": [
-            "correctness",
-            "coding-standards/baseline/safety"
+            "correctness"
           ]
         }
       ],

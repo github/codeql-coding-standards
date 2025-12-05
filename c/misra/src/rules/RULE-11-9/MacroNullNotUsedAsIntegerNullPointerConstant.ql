@@ -8,8 +8,8 @@
  * @tags external/misra/id/rule-11-9
  *       readability
  *       external/misra/c/2012/third-edition-first-revision
- *       external/misra/obligation/required
  *       coding-standards/baseline/style
+ *       external/misra/obligation/required
  */
 
 import cpp

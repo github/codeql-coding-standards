@@ -9,8 +9,8 @@
  * @tags external/misra/id/rule-9-7
  *       concurrency
  *       external/misra/c/2012/amendment4
- *       external/misra/obligation/mandatory
  *       coding-standards/baseline/safety
+ *       external/misra/obligation/mandatory
  */
 
 import cpp

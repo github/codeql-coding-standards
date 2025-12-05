@@ -16,8 +16,7 @@
           "tags": [
             "correctness",
             "external/misra/c/2012/third-edition-first-revision",
-            "coding-standards/baseline/safety",
-            "coding-standards/baseline/style"
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This query applies to function like macros and not object like macros. This rule strictly disallows the use of # operator followed by a ## and other combinations are permitted.",
@@ -43,8 +42,7 @@
           "tags": [
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision",
-            "coding-standards/baseline/style"
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

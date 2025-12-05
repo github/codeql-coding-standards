@@ -9,8 +9,8 @@
  * @tags external/misra/id/rule-13-1
  *       correctness
  *       external/misra/c/2012/third-edition-first-revision
- *       external/misra/obligation/required
  *       coding-standards/baseline/safety
+ *       external/misra/obligation/required
  */
 
 import cpp

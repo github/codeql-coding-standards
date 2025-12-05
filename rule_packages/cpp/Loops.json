@@ -161,9 +161,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "LoopCounterModifiedWithinStatement",
-          "tags": [
-            "coding-standards/baseline/safety"
-          ]
+          "tags": []
         }
       ],
       "title": "The loop-counter shall not be modified within condition or statement."
@@ -184,9 +182,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "IrregularLoopCounterModification",
-          "tags": [
-            "coding-standards/baseline/safety"
-          ]
+          "tags": []
         }
       ],
       "title": "The loop-counter should be modified by one of: --, ++, -=n, or +=n, where n remains constant for the duration of the loop."

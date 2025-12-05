@@ -9,12 +9,12 @@
  * @tags external/autosar/id/a3-1-2
  *       maintainability
  *       readability
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/architecture
  *       external/autosar/allocated-target/design
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/style
  */
 
 import cpp

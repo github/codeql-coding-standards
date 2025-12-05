@@ -10,10 +10,10 @@
  * @problem.severity warning
  * @tags external/autosar/id/m6-2-2
  *       maintainability
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/partially-automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/safety
  */
 
 import cpp

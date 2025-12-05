@@ -17,9 +17,7 @@
           "precision": "low",
           "severity": "recommendation",
           "short_name": "PublicInheritanceNotUsedForIsARelationship",
-          "tags": [
-            "coding-standards/baseline/style"
-          ]
+          "tags": []
         }
       ],
       "title": "Public inheritance shall be used to implement 'is-a' relationship."
@@ -62,7 +60,9 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "ClassDerivedFromMoreThanOneNonInterfaceBaseClass",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/style"
+          ]
         }
       ],
       "title": "Class shall not be derived from more than one base class which is not an interface class."

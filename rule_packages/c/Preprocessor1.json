@@ -37,8 +37,7 @@
           "shared_implementation_short_name": "HashOperatorsUsed",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision",
-            "coding-standards/baseline/style"
+            "external/misra/c/2012/third-edition-first-revision"
           ]
         }
       ],

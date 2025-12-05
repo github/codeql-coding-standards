@@ -36,8 +36,7 @@
           "tags": [
             "correctness",
             "concurrency",
-            "external/misra/c/2012/amendment4",
-            "coding-standards/baseline/safety"
+            "external/misra/c/2012/amendment4"
           ]
         }
       ],
@@ -80,8 +79,7 @@
           "tags": [
             "correctness",
             "concurrency",
-            "external/misra/c/2012/amendment4",
-            "coding-standards/baseline/safety"
+            "external/misra/c/2012/amendment4"
           ]
         },
         {
@@ -95,8 +93,7 @@
             "correctness",
             "concurrency",
             "external/misra/c/2012/amendment4",
-            "external/misra/audit",
-            "coding-standards/baseline/safety"
+            "external/misra/audit"
           ]
         }
       ],
@@ -154,8 +151,7 @@
             "readability",
             "maintainability",
             "concurrency",
-            "external/misra/c/2012/amendment4",
-            "coding-standards/baseline/safety"
+            "external/misra/c/2012/amendment4"
           ]
         }
       ],

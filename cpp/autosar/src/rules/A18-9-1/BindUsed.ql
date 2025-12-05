@@ -8,10 +8,10 @@
  * @tags external/autosar/id/a18-9-1
  *       correctness
  *       scope/single-translation-unit
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/style
  */
 
 import cpp

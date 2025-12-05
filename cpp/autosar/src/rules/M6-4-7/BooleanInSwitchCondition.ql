@@ -8,10 +8,10 @@
  * @tags external/autosar/id/m6-4-7
  *       maintainability
  *       readability
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/style
  */
 
 import cpp

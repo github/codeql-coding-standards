@@ -8,11 +8,11 @@
  * @problem.severity warning
  * @tags external/autosar/id/m3-3-2
  *       readability
+ *       coding-standards/baseline/safety
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/style
- *       coding-standards/baseline/safety
  */
 
 import cpp

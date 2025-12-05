@@ -367,8 +367,7 @@
             "correctness",
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision",
-            "coding-standards/baseline/style"
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "To exclude compliant exceptions, this rule only excludes direct assignments of pointers to non-const-qualified types in the context of a single function and does not cover memory-copying functions. This rule also excludes pointers passed to other functions without conversion."

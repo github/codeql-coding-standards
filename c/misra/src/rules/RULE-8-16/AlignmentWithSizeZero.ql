@@ -9,8 +9,8 @@
  *       external/misra/c/2012/amendment3
  *       readability
  *       maintainability
- *       external/misra/obligation/advisory
  *       coding-standards/baseline/style
+ *       external/misra/obligation/advisory
  */
 
 import cpp

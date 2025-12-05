@@ -103,7 +103,8 @@
             "correctness",
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This query considers the first 31 characters of identifiers as significant, as per C99 and reports the case when names are longer than 31 characters and differ in those characters past the 31 first only. This query does not consider universal or extended source characters.",
@@ -129,9 +130,7 @@
             "correctness",
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision",
-            "coding-standards/baseline/safety",
-            "coding-standards/baseline/style"
+            "external/misra/c/2012/third-edition-first-revision"
           ],
           "implementation_scope": {
             "description": "This query checks the first 63 characters of macro identifiers as significant, as per C99. Distinctness of parameters within the same function like macro are checked by compiler and therefore not checked by this rule.",

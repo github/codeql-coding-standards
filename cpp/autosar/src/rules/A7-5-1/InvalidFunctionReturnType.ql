@@ -9,10 +9,10 @@
  * @tags external/autosar/id/a7-5-1
  *       correctness
  *       security
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/safety
  */
 
 import cpp

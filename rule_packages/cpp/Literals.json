@@ -138,7 +138,8 @@
           "short_name": "UseOfNonZeroOctalLiteral",
           "shared_implementation_short_name": "UseOfNonZeroOctalLiteral",
           "tags": [
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         },
         {

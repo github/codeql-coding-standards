@@ -8,12 +8,12 @@
  * @precision very-high
  * @problem.severity warning
  * @tags external/autosar/id/a2-13-4
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/architecture
  *       external/autosar/allocated-target/design
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/safety
  */
 
 import cpp

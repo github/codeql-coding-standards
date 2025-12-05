@@ -10,8 +10,8 @@
  * @tags external/misra/id/rule-18-6
  *       correctness
  *       external/misra/c/2012/amendment3
- *       external/misra/obligation/required
  *       coding-standards/baseline/safety
+ *       external/misra/obligation/required
  */
 
 import cpp

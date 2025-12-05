@@ -16,7 +16,6 @@
           "tags": [
             "readability",
             "external/misra/c/2012/amendment3",
-            "coding-standards/baseline/safety",
             "coding-standards/baseline/style"
           ]
         },
@@ -31,7 +30,6 @@
           "tags": [
             "readability",
             "external/misra/c/2012/amendment3",
-            "coding-standards/baseline/safety",
             "coding-standards/baseline/style"
           ]
         },
@@ -46,7 +44,6 @@
           "tags": [
             "correctness",
             "external/misra/c/2012/amendment3",
-            "coding-standards/baseline/safety",
             "coding-standards/baseline/style"
           ],
           "implementation_scope": {
@@ -64,7 +61,6 @@
             "maintainability",
             "readability",
             "external/misra/c/2012/amendment3",
-            "coding-standards/baseline/safety",
             "coding-standards/baseline/style"
           ]
         },
@@ -79,8 +75,7 @@
             "maintainability",
             "readability",
             "external/misra/c/2012/amendment3",
-            "coding-standards/baseline/safety",
-            "coding-standards/baseline/style"
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -94,8 +89,7 @@
             "external/misra/c/2012/amendment3",
             "security",
             "maintainability",
-            "coding-standards/baseline/safety",
-            "coding-standards/baseline/style"
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -108,9 +102,7 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "security",
-            "maintainability",
-            "coding-standards/baseline/safety",
-            "coding-standards/baseline/style"
+            "maintainability"
           ]
         },
         {
@@ -122,9 +114,7 @@
           "short_name": "SizeInReallocCallMayBeZero",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3",
-            "coding-standards/baseline/safety",
-            "coding-standards/baseline/style"
+            "external/misra/c/2012/amendment3"
           ]
         },
         {
@@ -137,8 +127,7 @@
           "tags": [
             "correctness",
             "external/misra/c/2012/amendment3",
-            "coding-standards/baseline/safety",
-            "coding-standards/baseline/style"
+            "coding-standards/baseline/safety"
           ]
         }
       ],

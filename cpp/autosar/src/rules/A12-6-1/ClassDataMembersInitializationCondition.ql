@@ -7,10 +7,10 @@
  * @precision very-high
  * @problem.severity recommendation
  * @tags external/autosar/id/a12-6-1
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required
- *       coding-standards/baseline/style
  */
 
 import cpp

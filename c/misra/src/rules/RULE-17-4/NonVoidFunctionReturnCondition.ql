@@ -11,9 +11,9 @@
  *       maintainability
  *       readability
  *       external/misra/c/2012/third-edition-first-revision
- *       external/misra/obligation/mandatory
- *       coding-standards/baseline/style
  *       coding-standards/baseline/safety
+ *       coding-standards/baseline/style
+ *       external/misra/obligation/mandatory
  */
 
 import cpp

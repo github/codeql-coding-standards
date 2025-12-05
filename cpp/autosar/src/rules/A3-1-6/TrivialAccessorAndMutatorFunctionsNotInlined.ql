@@ -7,10 +7,10 @@
  * @problem.severity recommendation
  * @tags external/autosar/id/a3-1-6
  *       readability
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/design
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/advisory
- *       coding-standards/baseline/style
  */
 
 import cpp

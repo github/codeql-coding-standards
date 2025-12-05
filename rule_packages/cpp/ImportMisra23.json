@@ -38,8 +38,7 @@
           "shared_implementation_short_name": "OneDefinitionRuleViolation",
           "tags": [
             "correctness",
-            "scope/system",
-            "coding-standards/baseline/safety"
+            "scope/system"
           ]
         }
       ],
@@ -119,8 +118,7 @@
           "shared_implementation_short_name": "RemoveConstOrVolatileQualification",
           "tags": [
             "correctness",
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -143,8 +141,7 @@
           "tags": [
             "readability",
             "maintainability",
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -301,8 +298,7 @@
           "tags": [
             "correctness",
             "readability",
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -520,8 +516,7 @@
           "short_name": "CommaOperatorShouldNotBeUsed",
           "shared_implementation_short_name": "CommaOperatorUsed",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -706,8 +701,7 @@
           "short_name": "VirtualAndNonVirtualClassInTheHierarchy",
           "shared_implementation_short_name": "VirtualAndNonVirtualClassInTheHierarchy",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -770,8 +764,7 @@
           "short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor",
           "shared_implementation_short_name": "ObjectsDynamicTypeUsedFromConstructorOrDestructor",
           "tags": [
-            "scope/system",
-            "coding-standards/baseline/style"
+            "scope/system"
           ]
         }
       ],
@@ -792,8 +785,7 @@
           "short_name": "InitializeAllVirtualBaseClasses",
           "shared_implementation_short_name": "InitializeAllVirtualBaseClasses",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -814,8 +806,7 @@
           "short_name": "InitializerListConstructorIsTheOnlyConstructor",
           "shared_implementation_short_name": "InitializerListConstructorIsTheOnlyConstructor",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -836,8 +827,7 @@
           "short_name": "AddressOfOperatorOverloaded",
           "shared_implementation_short_name": "AddressOfOperatorOverloaded",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -921,8 +911,7 @@
           "short_name": "NoexceptFunctionShouldNotPropagateToTheCaller",
           "shared_implementation_short_name": "NoexceptFunctionShouldNotPropagateToTheCaller",
           "tags": [
-            "scope/system",
-            "coding-standards/baseline/style"
+            "scope/system"
           ]
         }
       ],
@@ -1213,8 +1202,7 @@
           "short_name": "BackslashCharacterMisuse",
           "shared_implementation_short_name": "BackslashCharacterMisuse",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -1235,8 +1223,7 @@
           "short_name": "NonTerminatedEscapeSequences",
           "shared_implementation_short_name": "NonTerminatedEscapeSequences",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -1257,8 +1244,7 @@
           "short_name": "OctalConstantsUsed",
           "shared_implementation_short_name": "UseOfNonZeroOctalLiteral",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -1279,8 +1265,7 @@
           "short_name": "UnsignedIntegerLiteralsNotAppropriatelySuffixed",
           "shared_implementation_short_name": "UnsignedIntegerLiteralsNotAppropriatelySuffixed",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -1301,8 +1286,7 @@
           "short_name": "LowercaseLStartsInLiteralSuffix",
           "shared_implementation_short_name": "LowercaseLStartsInLiteralSuffix",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -1597,8 +1581,7 @@
           "short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType",
           "shared_implementation_short_name": "CastsBetweenAPointerToFunctionAndAnyOtherType",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -1619,8 +1602,7 @@
           "short_name": "ReinterpretCastShallNotBeUsed",
           "shared_implementation_short_name": "ReinterpretCastUsed",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -1641,8 +1623,7 @@
           "short_name": "UnsignedOperationWithConstantOperandsWraps",
           "shared_implementation_short_name": "UnsignedOperationWithConstantOperandsWraps",
           "tags": [
-            "scope/single-translation-unit",
-            "coding-standards/baseline/style"
+            "scope/single-translation-unit"
           ]
         }
       ],
@@ -1686,8 +1667,7 @@
           "tags": [
             "maintainability",
             "readability",
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         },
         {
@@ -1701,8 +1681,7 @@
           "tags": [
             "maintainability",
             "readability",
-            "scope/single-translation-unit",
-            "coding-standards/baseline/safety"
+            "scope/single-translation-unit"
           ]
         }
       ],

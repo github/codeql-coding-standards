@@ -15,8 +15,8 @@
  *       external/cert/remediation-cost/low
  *       external/cert/priority/p3
  *       external/cert/level/l3
- *       external/cert/obligation/rule
  *       coding-standards/baseline/style
+ *       external/cert/obligation/rule
  */
 
 import cpp
