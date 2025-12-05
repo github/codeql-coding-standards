@@ -23,7 +23,7 @@ The following coding standards are supported:
 
 The following standards are under active development for [C++17](https://www.iso.org/standard/68564.html):
 
-- [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development - _scheduled for release 2025 Q2/Q3_
+- [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development - _scheduled for release 2026 Q1/Q2_
 
 ## How do I use the CodeQL Coding Standards Queries?
 
