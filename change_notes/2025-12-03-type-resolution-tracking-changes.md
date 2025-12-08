@@ -1,0 +1,6 @@
+ - `INT36-C` - `ConvertingAPointerToIntegerOrIntegerToPointer.ql`:
+  - Integrated new type resolution modules to fully handle typedefs and ignore cv-qualifiers during type comparisons, such as in detecting int types, pointer types, (u)intptr_t types, and void pointer types.
+ - `RULE-22-12`, `RULE-22-13`, `RULE-22-14` - `NonstandardUseOfThreadingObject.ql`, `ThreadingObjectWithInvalidStorageDuration.ql`, `MutexNotInitializedBeforeUse.ql`:
+  - Integrated new type resolution modules to handle typedefs when identifying threading object types.
+ - `RULE-9-5-1` - `LegacyForStatementsShouldBeSimple.ql`:
+  - Refactor to integrate new type resolution, no change in functionality expected.
