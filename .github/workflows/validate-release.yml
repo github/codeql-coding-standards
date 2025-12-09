@@ -1,9 +1,4 @@
 name: Validate release
-permissions:
-  contents: read
-  actions: write
-  checks: write
-  pull-requests: write
 
 on:
   pull_request:
