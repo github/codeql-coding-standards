@@ -10,6 +10,6 @@
 | test.cpp:97:5:97:23 | calledInInitializer | Function 'calledInInitializer' must be noexcept because it is used to initialize variable $@. | test.cpp:100:5:100:6 | g9 | g9 |
 | test.cpp:109:5:109:15 | some_func_t | Function 'some_func_t' must be noexcept because it is $@ extern "C" function 'take_int_c'. | test.cpp:116:3:116:12 | call to take_int_c | passed to |
 | test.cpp:123:16:123:16 | operator() | Function 'operator()' must be noexcept because it is $@ extern "C" function 'take_int_c'. | test.cpp:123:3:123:12 | call to take_int_c | passed to |
-| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:135:3:135:13 | call to atexit | passed exit handler std::atexit |
-| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:139:3:139:20 | call to at_quick_exit | passed exit handler std::at_quick_exit |
-| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:144:3:144:20 | call to set_terminate | passed exit handler std::set_terminate |
+| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:135:3:135:13 | call to atexit | passed to the exit handler std::atexit |
+| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:139:3:139:20 | call to at_quick_exit | passed to the exit handler std::at_quick_exit |
+| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:144:3:144:20 | call to set_terminate | passed to the exit handler std::set_terminate |
