@@ -15,6 +15,7 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.EncapsulatingFunctions
 import codingstandards.cpp.exceptions.ExceptionFlow
 import codingstandards.cpp.exceptions.ExceptionSpecifications
 
@@ -24,7 +25,7 @@ import codingstandards.cpp.exceptions.ExceptionSpecifications
  */
 class UncaughtFunctionCallInMain extends FunctionCall {
   UncaughtFunctionCallInMain() {
-    getEnclosingFunction().hasName("main") and
+    getEnclosingFunction() instanceof MainFunction and
     not isNoExceptTrue(getTarget()) and
     not exists(TryStmt try |
       try = getATryStmt(this.getEnclosingStmt()) and
@@ -46,10 +47,9 @@ class UncaughtFunctionCallInMain extends FunctionCall {
   }
 }
 
-from Function f, UncaughtFunctionCallInMain fc
+from MainFunction f, UncaughtFunctionCallInMain fc
 where
   not isExcluded(f, Exceptions3Package::missingCatchAllExceptionHandlerInMainQuery()) and
-  f.getName() = "main" and
   fc.isFirst()
 select f,
   "Main function has a $@ which is not within a try block with a catch-all ('catch(...)') handler.",

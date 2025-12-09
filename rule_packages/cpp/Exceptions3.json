@@ -50,7 +50,7 @@
       },
       "queries": [
         {
-          "description": "Throwing exceptions in constructors, descructors, copy-constructors, move constructors, assignments, and functions named swap, may result in implementation-defined behavior.",
+          "description": "Throwing exceptions in constructors, destructors, copy-constructors, move constructors, assignments, and functions named swap, may result in implementation-defined behavior.",
           "kind": "problem",
           "name": "Exception-unfriendly functions shall be noexcept",
           "precision": "very-high",

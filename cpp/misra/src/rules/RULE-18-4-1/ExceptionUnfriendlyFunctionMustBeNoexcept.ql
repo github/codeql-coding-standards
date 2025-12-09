@@ -1,7 +1,7 @@
 /**
  * @id cpp/misra/exception-unfriendly-function-must-be-noexcept
  * @name RULE-18-4-1: Exception-unfriendly functions shall be noexcept
- * @description Throwing exceptions in constructors, descructors, copy-constructors, move
+ * @description Throwing exceptions in constructors, destructors, copy-constructors, move
  *              constructors, assignments, and functions named swap, may result in
  *              implementation-defined behavior.
  * @kind problem

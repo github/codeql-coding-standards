@@ -92,7 +92,7 @@ class FunctionGivenToStdExitHandler extends FunctionAccess, SpecialUseOfFunction
   override string getSpecialDescription(Locatable extra, string extraString) {
     result = "$@" and
     extra = exitHandlerCall and
-    extraString = "passed exit handler std::" + exitHandler.getName()
+    extraString = "passed to the exit handler std::" + exitHandler.getName()
   }
 }
 

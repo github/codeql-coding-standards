@@ -47,7 +47,7 @@ class FunctionAccessExpr extends FunctionAccess, FunctionAccessLikeExpr {
 }
 
 /**
- * Taking an address of a function access in effectively a function access.
+ * Taking the address of a function access in effectively a function access.
  */
 class FunctionAddressExpr extends AddressOfExpr, FunctionAccessLikeExpr {
   Function func;
