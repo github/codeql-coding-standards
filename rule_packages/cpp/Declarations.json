@@ -92,8 +92,9 @@
             "maintainability"
           ],
           "implementation_scope": {
-            "description": "This implementation excludes the plain char type from consideration."
-          }
+            "description": "This implementation excludes the plain char type. It also excludes the use of standard integer types in the definition of main functions, and the use of an integer parameter in the declaration of postfix operators."
+          },
+          "shared_implementation_short_name": "VariableWidthIntegerTypesUsed"
         },
         {
           "description": "The basic numerical type char is not supposed to be used. The specific-length types from <cstdint> header need be used instead.",

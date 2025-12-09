@@ -1,0 +1,165 @@
+#ifndef _GHLIBCPP_OPTIONAL
+#define _GHLIBCPP_OPTIONAL
+
+#include "initializer_list"
+#include "stddef.h"
+
+namespace std {
+
+// Forward declarations and helper types
+struct in_place_t {
+  explicit in_place_t() = default;
+};
+constexpr in_place_t in_place{};
+
+// Type trait helper
+template <class T> struct decay {
+  typedef T type;
+};
+
+// nullopt_t type and nullopt constant
+struct nullopt_t {
+  explicit constexpr nullopt_t(int) {}
+};
+constexpr nullopt_t nullopt{0};
+
+// bad_optional_access exception
+class bad_optional_access {};
+
+// optional template class
+template <class T> class optional {
+public:
+  typedef T value_type;
+
+  // Constructors
+  constexpr optional() noexcept;
+  constexpr optional(nullopt_t) noexcept;
+  constexpr optional(const optional &other);
+  constexpr optional(optional &&other) noexcept;
+  template <class U> constexpr explicit optional(const optional<U> &other);
+  template <class U> constexpr explicit optional(optional<U> &&other);
+  template <class... Args>
+  constexpr explicit optional(in_place_t, Args &&...args);
+  template <class U, class... Args>
+  constexpr explicit optional(in_place_t, initializer_list<U> ilist,
+                              Args &&...args);
+  template <class U = T> constexpr explicit optional(U &&value);
+
+  // Destructor
+  ~optional();
+
+  // Assignment operators
+  optional &operator=(nullopt_t) noexcept;
+  constexpr optional &operator=(const optional &other);
+  constexpr optional &operator=(optional &&other) noexcept;
+  template <class U = T> optional &operator=(U &&value);
+  template <class U> optional &operator=(const optional<U> &other);
+  template <class U> optional &operator=(optional<U> &&other);
+
+  // Observers
+  constexpr const T *operator->() const;
+  constexpr T *operator->();
+  constexpr const T &operator*() const &;
+  constexpr T &operator*() &;
+  constexpr const T &&operator*() const &&;
+  constexpr T &&operator*() &&;
+  constexpr explicit operator bool() const noexcept;
+  constexpr bool has_value() const noexcept;
+  constexpr const T &value() const &;
+  constexpr T &value() &;
+  constexpr const T &&value() const &&;
+  constexpr T &&value() &&;
+  template <class U> constexpr T value_or(U &&default_value) const &;
+  template <class U> constexpr T value_or(U &&default_value) &&;
+
+  // Modifiers
+  void swap(optional &other) noexcept;
+  void reset() noexcept;
+  template <class... Args> T &emplace(Args &&...args);
+  template <class U, class... Args>
+  T &emplace(initializer_list<U> ilist, Args &&...args);
+};
+
+// Deduction guides
+template <class T> optional(T) -> optional<T>;
+
+// Comparison operators
+template <class T, class U>
+constexpr bool operator==(const optional<T> &lhs, const optional<U> &rhs);
+template <class T, class U>
+constexpr bool operator!=(const optional<T> &lhs, const optional<U> &rhs);
+template <class T, class U>
+constexpr bool operator<(const optional<T> &lhs, const optional<U> &rhs);
+template <class T, class U>
+constexpr bool operator<=(const optional<T> &lhs, const optional<U> &rhs);
+template <class T, class U>
+constexpr bool operator>(const optional<T> &lhs, const optional<U> &rhs);
+template <class T, class U>
+constexpr bool operator>=(const optional<T> &lhs, const optional<U> &rhs);
+
+// Comparison with nullopt
+template <class T>
+constexpr bool operator==(const optional<T> &opt, nullopt_t) noexcept;
+template <class T>
+constexpr bool operator==(nullopt_t, const optional<T> &opt) noexcept;
+template <class T>
+constexpr bool operator!=(const optional<T> &opt, nullopt_t) noexcept;
+template <class T>
+constexpr bool operator!=(nullopt_t, const optional<T> &opt) noexcept;
+template <class T>
+constexpr bool operator<(const optional<T> &opt, nullopt_t) noexcept;
+template <class T>
+constexpr bool operator<(nullopt_t, const optional<T> &opt) noexcept;
+template <class T>
+constexpr bool operator<=(const optional<T> &opt, nullopt_t) noexcept;
+template <class T>
+constexpr bool operator<=(nullopt_t, const optional<T> &opt) noexcept;
+template <class T>
+constexpr bool operator>(const optional<T> &opt, nullopt_t) noexcept;
+template <class T>
+constexpr bool operator>(nullopt_t, const optional<T> &opt) noexcept;
+template <class T>
+constexpr bool operator>=(const optional<T> &opt, nullopt_t) noexcept;
+template <class T>
+constexpr bool operator>=(nullopt_t, const optional<T> &opt) noexcept;
+
+// Comparison with T
+template <class T, class U>
+constexpr bool operator==(const optional<T> &opt, const U &value);
+template <class T, class U>
+constexpr bool operator==(const T &value, const optional<U> &opt);
+template <class T, class U>
+constexpr bool operator!=(const optional<T> &opt, const U &value);
+template <class T, class U>
+constexpr bool operator!=(const T &value, const optional<U> &opt);
+template <class T, class U>
+constexpr bool operator<(const optional<T> &opt, const U &value);
+template <class T, class U>
+constexpr bool operator<(const T &value, const optional<U> &opt);
+template <class T, class U>
+constexpr bool operator<=(const optional<T> &opt, const U &value);
+template <class T, class U>
+constexpr bool operator<=(const T &value, const optional<U> &opt);
+template <class T, class U>
+constexpr bool operator>(const optional<T> &opt, const U &value);
+template <class T, class U>
+constexpr bool operator>(const T &value, const optional<U> &opt);
+template <class T, class U>
+constexpr bool operator>=(const optional<T> &opt, const U &value);
+template <class T, class U>
+constexpr bool operator>=(const T &value, const optional<U> &opt);
+
+// Specialized algorithms
+template <class T> void swap(optional<T> &lhs, optional<T> &rhs) noexcept;
+
+// Factory functions
+template <class T>
+constexpr optional<typename decay<T>::type> make_optional(T &&value);
+template <class T, class... Args>
+constexpr optional<T> make_optional(Args &&...args);
+template <class T, class U, class... Args>
+constexpr optional<T> make_optional(initializer_list<U> ilist, Args &&...args);
+
+} // namespace std
+
+#endif // _GHLIBCPP_OPTIONAL

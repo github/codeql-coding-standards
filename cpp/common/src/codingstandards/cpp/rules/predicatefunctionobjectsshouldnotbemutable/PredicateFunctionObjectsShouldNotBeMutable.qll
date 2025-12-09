@@ -9,6 +9,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.sideeffect.DefaultEffects
+import semmle.code.cpp.dataflow.DataFlow
 
 abstract class PredicateFunctionObjectsShouldNotBeMutableSharedQuery extends Query { }
 

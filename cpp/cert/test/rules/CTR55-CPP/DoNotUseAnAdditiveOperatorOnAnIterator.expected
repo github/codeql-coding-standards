@@ -1,12 +1,12 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:43,5-13)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:43,25-33)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:43,51-59)
 WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:44,5-13)
 WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:44,25-33)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:44,52-60)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:79,5-13)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:79,25-33)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:80,7-15)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:44,51-59)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:45,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:45,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:45,52-60)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:80,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:80,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUseAnAdditiveOperatorOnAnIterator.ql:81,7-15)
 | test.cpp:8:7:8:7 | i | Increment of iterator may overflow since its bounds are not checked. |
 | test.cpp:9:9:9:9 | i | Increment of iterator may overflow since its bounds are not checked. |
 | test.cpp:10:9:10:9 | i | Increment of iterator may overflow since its bounds are not checked. |

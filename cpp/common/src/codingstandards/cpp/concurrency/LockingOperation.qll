@@ -1,5 +1,5 @@
 import cpp
-import semmle.code.cpp.dataflow.TaintTracking
+private import semmle.code.cpp.dataflow.TaintTracking
 
 abstract class LockingOperation extends FunctionCall {
   /**
@@ -23,6 +23,11 @@ abstract class LockingOperation extends FunctionCall {
   abstract predicate isUnlock();
 
   /**
+   * Holds if this locking operation can leak the lock. For example, RAII-style locks cannot leak.
+   */
+  abstract predicate canLeak();
+
+  /**
    * Holds if this locking operation is really a locking operation within a
    * designated locking operation. This library assumes the underlying locking
    * operations are implemented correctly in that calling a `LockingOperation`
@@ -34,10 +39,26 @@ abstract class LockingOperation extends FunctionCall {
 }
 
 /**
+ * A locking operation that can leak the lock.
+ *
+ * RAII style locks cannot leak, but other kinds of locks can.
+ */
+abstract class LeakableLockingOperation extends LockingOperation {
+  override predicate canLeak() { any() }
+}
+
+/**
+ * A locking operation that cannot leak the lock, such as RAII-style locks.
+ */
+abstract class NonLeakableLockingOperation extends LockingOperation {
+  override predicate canLeak() { none() }
+}
+
+/**
  * Common base class providing an interface into function call
  * based mutex locks.
  */
-abstract class MutexFunctionCall extends LockingOperation {
+abstract class MutexFunctionCall extends LeakableLockingOperation {
   abstract predicate isRecursive();
 
   abstract predicate isSpeculativeLock();
@@ -180,7 +201,7 @@ class CMutexFunctionCall extends MutexFunctionCall {
 /**
  * Models a RAII-Style lock.
  */
-class RAIIStyleLock extends LockingOperation {
+class RAIIStyleLock extends NonLeakableLockingOperation {
   VariableAccess lock;
 
   RAIIStyleLock() {
