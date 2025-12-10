@@ -1,4 +1,8 @@
 name: 🏁 Run Release Performance Check
+permissions:
+  contents: read
+  actions: write
+  pull-requests: write
 
 on:
   issue_comment:
