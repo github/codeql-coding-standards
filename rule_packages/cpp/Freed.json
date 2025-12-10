@@ -17,7 +17,8 @@
           "severity": "warning",
           "short_name": "NewDeleteArrayMismatch",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -28,7 +29,8 @@
           "severity": "warning",
           "short_name": "NewArrayDeleteMismatch",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -90,7 +92,8 @@
           "short_name": "AssignmentOfEscapingAutoStorage",
           "shared_implementation_short_name": "DoNotCopyAddressOfAutoStorageObjectToOtherObject",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -116,7 +119,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -142,7 +146,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -160,7 +165,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -186,7 +192,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

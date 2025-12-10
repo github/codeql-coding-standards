@@ -10,6 +10,7 @@
  *       maintainability
  *       readability
  *       external/misra/c/2012/amendment3
+ *       coding-standards/baseline/style
  *       external/misra/obligation/required
  */
 

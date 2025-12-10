@@ -16,7 +16,8 @@
           "tags": [
             "external/misra/c/2012/amendment4",
             "correctness",
-            "concurrency"
+            "concurrency",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -76,7 +77,8 @@
           "tags": [
             "external/misra/c/2012/amendment4",
             "correctness",
-            "concurrency"
+            "concurrency",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -119,7 +121,8 @@
           "tags": [
             "external/misra/c/2012/amendment4",
             "correctness",
-            "concurrency"
+            "concurrency",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This query considers problematic usages of join and detach irrespective of the execution of the program and other synchronization and interprocess communication mechanisms that may be used."

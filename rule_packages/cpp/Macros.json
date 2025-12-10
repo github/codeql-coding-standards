@@ -43,7 +43,9 @@
                     "short_name": "CharactersOccurInHeaderFileNameOrInIncludeDirective",
                     "shared_implementation_short_name": "PreprocessorIncludesForbiddenHeaderNames",
                     "tags": [
-                        "correctness"
+                        "correctness",
+                        "coding-standards/baseline/safety",
+                        "coding-standards/baseline/style"
                     ],
                     "implementation_scope": {
                       "description": "This query identifies the use of the ', \\, /*, // characters in header file names. The query is not able to detect the use of the \" character in header file names.",
@@ -70,7 +72,8 @@
                     "severity": "warning",
                     "short_name": "ErrorDirectiveUsed",
                     "tags": [
-                        "readability"
+                        "readability",
+                        "coding-standards/baseline/style"
                     ]
                 }
             ],
@@ -166,7 +169,8 @@
                     "shared_implementation_short_name": "PreprocessingDirectiveWithinMacroArgument",
                     "tags": [
                         "readability",
-                        "correctness"
+                        "correctness",
+                        "coding-standards/baseline/safety"
                     ]
                 }
             ],
@@ -247,7 +251,8 @@
                     "severity": "error",
                     "short_name": "DefinedPreProcessorOperatorInOneOfTheTwoStandardForms",
                     "tags": [
-                        "correctness"
+                        "correctness",
+                        "coding-standards/baseline/safety"
                     ]
                 }
             ],

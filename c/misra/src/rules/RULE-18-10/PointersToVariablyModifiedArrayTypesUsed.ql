@@ -11,6 +11,7 @@
  *       external/misra/c/2012/amendment4
  *       correctness
  *       security
+ *       coding-standards/baseline/safety
  *       external/misra/obligation/mandatory
  */
 

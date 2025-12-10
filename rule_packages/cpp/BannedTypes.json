@@ -44,7 +44,8 @@
           "shared_implementation_short_name": "VectorShouldNotBeSpecializedWithBool",
           "tags": [
             "correctness",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -68,7 +69,8 @@
           "short_name": "AutoPtrTypeUsed",
           "tags": [
             "maintainability",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "coding-standards/baseline/style"
           ]
         }
       ],

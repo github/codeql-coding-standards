@@ -1,5 +1,5 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (MutexObjectsNotAlwaysUnlocked.ql:22,52-60)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (MutexObjectsNotAlwaysUnlocked.ql:30,42-50)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (MutexObjectsNotAlwaysUnlocked.ql:23,52-60)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (MutexObjectsNotAlwaysUnlocked.ql:31,42-50)
 | test.c:16:3:16:10 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |
 | test.c:21:3:21:10 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |
 | test.c:39:3:39:10 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |

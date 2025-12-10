@@ -10,6 +10,8 @@
  *       correctness
  *       readability
  *       maintainability
+ *       coding-standards/baseline/safety
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

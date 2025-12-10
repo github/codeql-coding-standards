@@ -9,6 +9,7 @@
  *       maintainability
  *       performance
  *       external/misra/c/2012/amendment4
+ *       coding-standards/baseline/style
  *       external/misra/obligation/advisory
  */
 

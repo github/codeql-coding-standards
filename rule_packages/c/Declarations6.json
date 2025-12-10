@@ -15,7 +15,8 @@
           "tags": [
             "correctness",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -35,7 +36,9 @@
           "short_name": "FlexibleArrayMembersDeclared",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -100,7 +103,9 @@
           "short_name": "InlineFunctionNotDeclaredStaticStorage",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],

@@ -195,7 +195,8 @@
           "tags": [
             "correctness",
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

@@ -1,0 +1,6 @@
+ - Added tags `codingstandards/baseline/safety` and `codingstandards/baseline/style` to various rules
+   - These tags are intended to be applied to rules that are well supported, have low false positive rates, and widely applicable, even beyond safety-critical systems that want strict adherence to any particular coding standard for compliance purposes.
+ - Added packs `coding-standards-cpp-baseline` and `coding-standards-c-baseline`
+   - These packs have default query suites that include both `safety` and `style` baseline rules for C++ and C coding standards respectively.
+   - These packs are designed to be suitable for a wide variety of C/C++ projects that are interested in additional code quality and safety checks without the full strictness of a specific coding standard.
+   - In additional to the default suites which have both style and safety rules, these packs contain `c??-baseline-safety` and `c??-baseline-style` query suites for each area of focus. 

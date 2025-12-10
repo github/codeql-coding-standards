@@ -9,6 +9,7 @@
  *       external/misra/c/2012/amendment4
  *       correctness
  *       concurrency
+ *       coding-standards/baseline/safety
  *       external/misra/obligation/required
  */
 

@@ -19,7 +19,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p9",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -44,7 +45,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The enforcement of this rule does not try to approximate the effects of loops and as such may not find cases where a loop operation on a string fails to null terminate a string (or causes an overflow)."

@@ -8,6 +8,7 @@
  * @problem.severity warning
  * @tags external/autosar/id/m6-2-1
  *       correctness
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

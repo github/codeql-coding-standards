@@ -14,6 +14,7 @@
  *       external/cert/remediation-cost/medium
  *       external/cert/priority/p6
  *       external/cert/level/l2
+ *       coding-standards/baseline/style
  *       external/cert/obligation/rule
  */
 

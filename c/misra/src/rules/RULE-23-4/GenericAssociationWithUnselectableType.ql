@@ -9,6 +9,7 @@
  * @tags external/misra/id/rule-23-4
  *       correctness
  *       external/misra/c/2012/amendment3
+ *       coding-standards/baseline/safety
  *       external/misra/obligation/required
  */
 

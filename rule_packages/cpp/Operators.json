@@ -17,7 +17,8 @@
           "severity": "error",
           "short_name": "UserDefinedAssignmentOperatorVirtual",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -149,7 +150,9 @@
           "severity": "error",
           "short_name": "UserDefinedConversionOperatorsNotDefinedExplicit",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -255,7 +258,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "CommaOperatorAndOperatorAndTheOperatorOverloaded",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "The comma operator, && operator and the || operator shall not be overloaded."
@@ -298,7 +303,9 @@
           "severity": "error",
           "short_name": "UnaryMinusOperatorAppliedToAnExpressionWhoseUnderlyingTypeIsUnsigned",
           "shared_implementation_short_name": "BuiltInUnaryOperatorAppliedToUnsignedExpression",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "The unary minus operator shall not be applied to an expression whose underlying type is unsigned."
@@ -320,7 +327,9 @@
           "severity": "error",
           "short_name": "UnaryOperatorOverloaded",
           "shared_implementation_short_name": "AddressOfOperatorOverloaded",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "The unary & operator shall not be overloaded."

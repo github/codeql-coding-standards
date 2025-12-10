@@ -115,7 +115,8 @@
           "short_name": "UnnecessaryUseOfDynamicStorage",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -139,7 +140,8 @@
           "short_name": "ThrowingOperatorNewReturnsNullAutosar",
           "shared_implementation_short_name": "ThrowingOperatorNewReturnsNull",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -151,7 +153,8 @@
           "short_name": "ThrowingOperatorNewThrowsInvalidExceptionAutosar",
           "shared_implementation_short_name": "ThrowingOperatorNewThrowsInvalidException",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -163,7 +166,8 @@
           "short_name": "ThrowingNoThrowOperatorNewDeleteAutosar",
           "shared_implementation_short_name": "ThrowingNoThrowOperatorNewDelete",
           "tags": [
-            "correctness"
+            "correctness",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -202,7 +206,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -226,7 +231,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -266,7 +272,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -292,7 +299,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -310,7 +318,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -335,7 +344,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -352,7 +362,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -369,7 +380,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -386,7 +398,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -411,7 +424,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

@@ -20,7 +20,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -93,7 +94,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p6",
-            "external/cert/level/l2"
+            "external/cert/level/l2",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -150,7 +152,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -176,7 +179,8 @@
           "shared_implementation_short_name": "DoNotAccessAClosedFile",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."

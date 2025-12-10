@@ -92,7 +92,9 @@
           "short_name": "ConstructorWithFundamentalArgMissingExplicit",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -162,7 +164,8 @@
           "short_name": "MoveConstructorUsesCopySemantics",
           "tags": [
             "maintainability",
-            "performance"
+            "performance",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -308,7 +311,8 @@
           "shared_implementation_short_name": "InitializerListConstructorIsTheOnlyConstructor",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -422,7 +426,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -447,7 +452,8 @@
             "external/cert/likelihood/likely",
             "external/cert/remediation-cost/low",
             "external/cert/priority/p18",
-            "external/cert/level/l1"
+            "external/cert/level/l1",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -475,7 +481,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/style"
           ]
         }
       ],

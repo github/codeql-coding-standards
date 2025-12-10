@@ -34,7 +34,8 @@
           "short_name": "SingleBitNamedBitFieldsOfASignedType",
           "shared_implementation_short_name": "NamedBitFieldsWithSignedIntegerType",
           "tags": [
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

@@ -9,6 +9,7 @@
  *       correctness
  *       security
  *       scope/single-translation-unit
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

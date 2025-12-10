@@ -265,6 +265,7 @@ The `generate_package_description.py` script provides a "best-effort" approach t
     - `maintainability` - if the query identifies an issue which makes the code harder to maintain.
     - `performance` - if the query identifies an issue which has a negative impact on the performance of the code.
     - `concurrency` - if the query identifies a concurrency issue.
+    - `coding-standards/baseline/safety` or `/style` - if the query is part of the baseline safety suite. See the user manual for our definition of `safety` vs `style`.
   - Validate the rule package description file using the `validate-rule-package.py` script that validates the rule package descriptions against the schema `rule-package.schema.json` located in the `schemas` directory.
     - `python3.9 scripts/validate-rule-package.py <rule_package_name>`
 

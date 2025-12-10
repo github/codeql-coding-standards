@@ -120,7 +120,8 @@
           "severity": "warning",
           "short_name": "CStandardLibraryHeadersAreDeprecated",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/style"
           ]
         },
         {

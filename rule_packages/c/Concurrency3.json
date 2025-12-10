@@ -20,7 +20,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This implementation does not allow for thread synchronization to be performed in subroutines. All synchronization must be performed within the context of the other thread management functions."
@@ -41,7 +42,8 @@
             "external/cert/likelihood/probable",
             "external/cert/remediation-cost/high",
             "external/cert/priority/p4",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -67,7 +69,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This implementation does not attempt to identify unique condition variables and instead advocates for the usage of `cnd_broadcast`."
@@ -95,7 +98,8 @@
             "external/cert/likelihood/unlikely",
             "external/cert/remediation-cost/medium",
             "external/cert/priority/p2",
-            "external/cert/level/l3"
+            "external/cert/level/l3",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This implementation does not attempt to identify a relationship between the condition variable and the atomic operation."
