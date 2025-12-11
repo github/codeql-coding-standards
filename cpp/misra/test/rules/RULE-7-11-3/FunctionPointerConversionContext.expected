@@ -1,0 +1,16 @@
+| test.cpp:11:7:11:7 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:14:7:14:7 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:18:16:18:16 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:21:14:21:14 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:25:7:25:7 | call to operator void (*)() | Inappropriate conversion from function type to pointer-to-function type in 'call to operator void (*)()'. |
+| test.cpp:33:14:33:14 | call to operator void (*)() | Inappropriate conversion from function type to pointer-to-function type in 'call to operator void (*)()'. |
+| test.cpp:61:13:61:13 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:64:13:64:13 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:67:7:67:7 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:71:7:71:7 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:74:7:74:7 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:77:7:77:7 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:83:7:83:7 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:87:7:87:7 | f | Inappropriate conversion from function type to pointer-to-function type in 'f'. |
+| test.cpp:92:7:92:7 | call to operator void (*)() | Inappropriate conversion from function type to pointer-to-function type in 'call to operator void (*)()'. |
+| test.cpp:96:7:96:7 | call to operator void (*)() | Inappropriate conversion from function type to pointer-to-function type in 'call to operator void (*)()'. |

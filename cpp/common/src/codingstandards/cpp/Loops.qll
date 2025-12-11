@@ -374,3 +374,40 @@ predicate isInvalidLoop(ForStmt forLoop, string reason, Locatable reasonLocation
   reason = "its $@ is not a boolean" and
   reasonLabel = "loop control variable"
 }
+
+/**
+ * A comparison expression that has the minimum qualification as being a valid termination
+ * condition of a legacy for-loop. It is characterized by a value read from a variable being
+ * compared to a value, which is supposed to be the loop bound.
+ */
+class LegacyForLoopCondition extends RelationalOperation {
+  /**
+   * The legacy for-loop this relational operation is a condition of.
+   */
+  ForStmt forLoop;
+  VariableAccess loopCounter;
+  Expr loopBound;
+
+  LegacyForLoopCondition() {
+    this = forLoop.getCondition() and
+    loopCounter = this.getAnOperand() and
+    loopBound = this.getAnOperand() and
+    loopCounter.getTarget() = getAnIterationVariable(forLoop) and
+    loopBound != loopCounter
+  }
+
+  /**
+   * Gets the for-loop this expression is a termination condition of.
+   */
+  ForStmt getForLoop() { result = forLoop }
+
+  /**
+   * Gets the variable access to the loop counter variable, appearing in this loop condition.
+   */
+  VariableAccess getLoopCounter() { result = loopCounter }
+
+  /**
+   * Gets the variable access to the loop bound variable, appearing in this loop condition.
+   */
+  Expr getLoopBound() { result = loopBound }
+}
