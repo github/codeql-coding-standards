@@ -27,8 +27,8 @@ void f3(int p1) {
     int l6 = 0; // NON-COMPLIANT
   }
 
-  // Rule text states tht both operands of && are considered reachable, and that
-  // blocks linked from edges of conditions are considered reachable if the
+  // Rule text states that both operands of && are considered reachable, and
+  // that blocks linked from edges of conditions are considered reachable if the
   // condition is not a constant expression.
   if (false && p1) {
     int l7 = 0; // COMPLIANT

@@ -67,5 +67,8 @@ where
   not isReachable(bb) and
   not isCompilerGenerated(bb) and
   not affectedByMacro(bb)
-select bb, "Unreachable statement in function '$@'.", bb.getEnclosingFunction(),
+// Note that the location of a BasicBlock will in some cases have an incorrect end location, often
+// preceding the end and including live code. We cast the block to an `Element` to get locations
+// that are not broken.
+select bb.(Element), "Unreachable statement in function '$@'.", bb.getEnclosingFunction(),
   bb.getEnclosingFunction().getName()
