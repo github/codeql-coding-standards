@@ -1,4 +1,8 @@
 name: Update Release
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
 
 on:
   workflow_dispatch:
