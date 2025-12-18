@@ -18,7 +18,8 @@ signature module InvariantConditionConfigSig {
 
 private module Impl {
   /**
-   * A "conditional" node in the control flow graph, i.e. one that can potentially have a true and false path.
+   * A "conditional" node in the control flow graph, i.e. one that can potentially have a true and
+   * false path.
    */
   class ConditionalControlFlowNode extends ControlFlowNode {
     ConditionalControlFlowNode() {
@@ -28,7 +29,8 @@ private module Impl {
   }
 
   /**
-   * Holds if the `ConditionalNode` has an infeasible `path` according to the control flow graph library.
+   * Holds if the `ConditionalNode` has an infeasible `path` according to the control flow graph
+   * library.
    */
   predicate hasCFGDeducedInfeasiblePath(
     ConditionalControlFlowNode cond, boolean infeasiblePath, string explanation
@@ -49,18 +51,20 @@ private module Impl {
     RelationalOperation rel, boolean infeasiblePath, string explanation
   ) {
     /*
-     * This predicate identifies a number of a cases where we can conclusive determine that a relational
-     * operation will always return true or false, based on the ranges for each operand as determined
-     * by the SimpleRangeAnalysis library (and any extensions provide in the Coding Standards library).
+     * This predicate identifies a number of cases where we can conclusive determine that a
+     * relational operation will always return true or false, based on the ranges for each operand
+     * as determined by the SimpleRangeAnalysis library (and any extensions provided in the Coding
+     * Standards library).
      *
-     * Important note: in order to deduce that an relational operation _always_ returns true or false,
-     * we must ensure that it returns true or false for _all_ possible values of the operands. For
-     * example, it may be tempting to look at this relational operation on these ranges:
+     * Important note: in order to deduce that a relational operation _always_ returns true or
+     * false, we must ensure that it returns true or false for _all_ possible values of the
+     * operands. For example, it may be tempting to look at this relational operation on these
+     * ranges:
      * ```
      *   [0..5] < [0..10]
      * ```
-     * And say that ub(lesser) < ub(greater) and therefore it is `true`, however this is not the case
-     * for all permutations (e.g. 5 < 0).
+     * And say that ub(lesser) < ub(greater) and therefore it is `true`, however this is not the
+     * case for all permutations (e.g. 5 < 0).
      *
      * Instead, we look at all four permutations of these two dimensions:
      *  - Equal-to or not equal-to
@@ -72,8 +76,8 @@ private module Impl {
     // later read in a conditional control flow node within the same function (using SSA)
     // Doing so would benefit from path explanations, but would require a more complex analysis
     rel instanceof ConditionalControlFlowNode and
-    // If at least one operand includes an access of a volatile variable, the range analysis library may
-    // provide inaccurate results, so we ignore this case
+    // If at least one operand includes an access of a volatile variable, the range analysis library
+    // may provide inaccurate results, so we ignore this case
     not rel.getAnOperand().getAChild*().(VariableAccess).getTarget().isVolatile() and
     exists(boolean isEqual |
       if
@@ -96,8 +100,8 @@ private module Impl {
       infeasiblePath = false
       or
       // Equal-to/always true
-      // If the largest value of the lesser operand is less than or equal to the smallest value of the
-      // greater operand, then the LTE/GTE comparison is always true
+      // If the largest value of the lesser operand is less than or equal to the smallest value of
+      // the greater operand, then the LTE/GTE comparison is always true
       // Example: [0..6] <= [6..10]
       upperBound(rel.getLesserOperand()) <= lowerBound(rel.getGreaterOperand()) and
       explanation =
@@ -120,8 +124,8 @@ private module Impl {
       infeasiblePath = true
       or
       // Equal to/always true
-      // If the largest value of the greater operand is less than or equal to the smallest value of the
-      // lesser operand, then the LT/GT comparison is always false
+      // If the largest value of the greater operand is less than or equal to the smallest value of
+      // the lesser operand, then the LT/GT comparison is always false
       // Example: [6..10] < [0..6]
       upperBound(rel.getGreaterOperand()) <= lowerBound(rel.getLesserOperand()) and
       explanation =

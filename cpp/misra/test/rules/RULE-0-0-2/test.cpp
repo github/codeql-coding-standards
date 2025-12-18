@@ -6,7 +6,6 @@
  * - Tests have been added for macro-generated `do {} while(false);` loops.
  * - Some examples have been removed to reduce maintenance burden
  */
-int f1_volatile();
 
 void test_infeasible(unsigned int a) {
   if (a >= 0U) // NON_COMPLIANT - `a` is unsigned, therefore the comparison is
@@ -26,10 +25,12 @@ void test_infeasible(unsigned int a) {
     ;
   }
 
-  volatile int l3 = f1_volatile();
-  if (l3 < 10) // COMPLIANT - `l3` is volatile, so while `l1 < l2`, the value
-               // of `l3` could change
-    ;
+  volatile int l3;
+  if (l3 < 10) { // COMPLIANT - `l3` is not constant
+    if (l3 < 10) // COMPLIANT - `l3` is volatile, so while `l3 < 10`, the value
+                 // of `l3` could change
+      ;
+  }
 }
 
 template <class T> int f() {
