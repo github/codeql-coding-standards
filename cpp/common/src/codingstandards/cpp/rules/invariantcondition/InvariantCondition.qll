@@ -123,7 +123,7 @@ private module Impl {
       isEqual = true and
       infeasiblePath = true
       or
-      // Equal to/always true
+      // Equal to/always false
       // If the largest value of the greater operand is less than or equal to the smallest value of
       // the lesser operand, then the LT/GT comparison is always false
       // Example: [6..10] < [0..6]
