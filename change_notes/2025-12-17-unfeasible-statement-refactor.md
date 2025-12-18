@@ -1,0 +1,2 @@
+- `M0-1-2` - `InfeasiblePath.ql`:
+  - Refactored to share logic with `RULE-0-0-2` while allowing for different exceptional cases. No change in behavior expected.
