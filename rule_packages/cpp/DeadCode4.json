@@ -15,7 +15,7 @@
           "short_name": "InvariantCondition",
           "tags": [
             "scope/system",
-            "maintenance",
+            "maintainability",
             "correctness"
           ]
         }

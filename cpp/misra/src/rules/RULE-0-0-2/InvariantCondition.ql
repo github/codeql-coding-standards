@@ -8,7 +8,7 @@
  * @problem.severity error
  * @tags external/misra/id/rule-0-0-2
  *       scope/system
- *       maintenance
+ *       maintainability
  *       correctness
  *       external/misra/enforcement/undecidable
  *       external/misra/obligation/advisory
