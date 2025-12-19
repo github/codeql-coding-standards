@@ -1,4 +1,6 @@
 name: Validate Package Files
+permissions:
+  contents: read
 on:
   merge_group:
     types: [checks_requested]
