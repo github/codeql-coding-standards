@@ -135,7 +135,7 @@ jobs:
     permissions:
       actions: write
       contents: write
-      pull-request: write
+      pull-requests: write
     with:
       head-sha: ${{ inputs.head-sha }}
     secrets:
