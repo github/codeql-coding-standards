@@ -1,0 +1,15 @@
+| test.cpp:11:7:11:13 | ... >= ... | The false path is infeasible because 0 (max value: 0) is always less than or equal to a (minimum value: 0). |
+| test.cpp:14:7:14:22 | ... <= ... | The false path is infeasible because a (max value: 4294967295) is always less than or equal to 4294967295 (minimum value: 4294967295). |
+| test.cpp:21:7:21:13 | ... < ... | The false path is infeasible because l1 (max value: 2) is always less than 10 (minimum value: 10). |
+| test.cpp:37:7:37:7 | 0 | The path is unreachable in a template. |
+| test.cpp:41:7:41:14 | call to isVal | The false path is infeasible because this expression consists of constants which evaluate to true. |
+| test.cpp:62:10:62:14 | 0 | The true path is infeasible because this expression consists of constants which evaluate to false. |
+| test.cpp:69:12:69:13 | 10 | The false path is infeasible because this expression consists of constants which evaluate to true. |
+| test.cpp:73:14:73:14 | x | The false path is infeasible because this expression consists of constants which evaluate to true. |
+| test.cpp:95:12:95:16 | 0 | The true path is infeasible because this expression consists of constants which evaluate to false. |
+| test.cpp:99:12:99:15 | 1 | The false path is infeasible because this expression consists of constants which evaluate to true. |
+| test.cpp:102:3:102:17 | 1 | The false path is infeasible because this expression consists of constants which evaluate to true. |
+| test.cpp:104:3:104:15 | 0 | The true path is infeasible because this expression consists of constants which evaluate to false. |
+| test.cpp:107:5:107:17 | 0 | The true path is infeasible because this expression consists of constants which evaluate to false. |
+| test.cpp:108:12:108:16 | 0 | The true path is infeasible because this expression consists of constants which evaluate to false. |
+| test.cpp:112:7:112:7 | 1 | The false path is infeasible because this expression consists of constants which evaluate to true. |
