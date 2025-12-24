@@ -37,7 +37,7 @@ jobs:
           python scripts/documentation/generate_iso26262_docs.py coding-standards-html-docs
 
       - name: Upload HTML documentation
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: coding-standards-docs-${{ github.sha }}
           path: coding-standards-html-docs/
