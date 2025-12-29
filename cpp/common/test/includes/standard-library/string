@@ -248,6 +248,8 @@ public:
   int compare(size_type pos1, size_type n1, const charT *s) const;
   int compare(size_type pos1, size_type n1, const charT *s, size_type n2) const;
 
+  bool empty() const noexcept;
+
   void reserve(size_type new_cap = 0);
 };
 

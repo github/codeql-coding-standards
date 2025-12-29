@@ -20,6 +20,7 @@ import Declarations
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
+import Exceptions3
 import Expressions
 import FloatingPoint
 import Freed
@@ -45,6 +46,7 @@ import OrderOfEvaluation
 import OutOfBounds
 import Pointers
 import Preconditions1
+import Preconditions4
 import Representation
 import Scope
 import SideEffects1
@@ -80,6 +82,7 @@ newtype TCPPQuery =
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
+  TExceptions3PackageQuery(Exceptions3Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TFloatingPointPackageQuery(FloatingPointQuery q) or
   TFreedPackageQuery(FreedQuery q) or
@@ -105,6 +108,7 @@ newtype TCPPQuery =
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointersPackageQuery(PointersQuery q) or
   TPreconditions1PackageQuery(Preconditions1Query q) or
+  TPreconditions4PackageQuery(Preconditions4Query q) or
   TRepresentationPackageQuery(RepresentationQuery q) or
   TScopePackageQuery(ScopeQuery q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
@@ -140,6 +144,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
+  isExceptions3QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isFloatingPointQueryMetadata(query, queryId, ruleId, category) or
   isFreedQueryMetadata(query, queryId, ruleId, category) or
@@ -165,6 +170,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointersQueryMetadata(query, queryId, ruleId, category) or
   isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
   isRepresentationQueryMetadata(query, queryId, ruleId, category) or
   isScopeQueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or

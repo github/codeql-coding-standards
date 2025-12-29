@@ -1,4 +1,6 @@
 name: Validate Query Test Case Formatting
+permissions:
+  contents: read
 on:
   merge_group:
     types: [checks_requested]
