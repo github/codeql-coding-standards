@@ -69,6 +69,10 @@ class BoolLiteral extends Literal {
     or
     this.getValue() = "0" and this.getValueText() = "false"
   }
+
+  predicate isTrue() { this.getValue() = "1" }
+
+  predicate isFalse() { this.getValue() = "0" }
 }
 
 /**
