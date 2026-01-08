@@ -87,8 +87,7 @@ public:
   }
 };
 
-template <class T>
-T variable_template = reinterpret_cast<T>(g1); // COMPLIANT
+template <class T> T variable_template = reinterpret_cast<T>(g1); // COMPLIANT
 
 void test_instantiate_template() {
   test_non_compliant_template_cast<std::uintptr_t>();
