@@ -51,11 +51,13 @@ void f2_realloc(int *array) {
 }
 
 int main() {
+  /* 1. Array initialized on the stack */
   int array[3] = {0, 1, 2};
 
   f1(array);
   f2(array);
 
+  /* 2. Array initialized on the heap */
   int num_of_elements = 3;
 
   int* array_malloc = (int*)std::malloc(num_of_elements * sizeof(int));
