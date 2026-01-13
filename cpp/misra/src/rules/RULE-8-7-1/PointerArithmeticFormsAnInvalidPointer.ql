@@ -15,26 +15,78 @@
 import cpp
 import codingstandards.cpp.misra
 import semmle.code.cpp.dataflow.new.DataFlow
+import semmle.code.cpp.security.BufferAccess
+
+class ArrayDeclaration extends VariableDeclarationEntry {
+  int length;
+
+  ArrayDeclaration() { this.getType().getUnderlyingType().(ArrayType).getArraySize() = length }
+
+  /**
+   * Gets the declared length of this array.
+   */
+  int getLength() { result = length }
+}
+
+newtype TArrayAllocation =
+  TStackAllocation(ArrayDeclaration arrayDecl) or
+  TDynamicAllocation(AllocationFunction alloc)
+
+class ArrayAllocation extends TArrayAllocation {
+  ArrayDeclaration asStackAllocation() { this = TStackAllocation(result) }
+
+  AllocationFunction asDynamicAllocation() { this = TDynamicAllocation(result) }
+
+  string toString() {
+    result = this.asStackAllocation().toString() or
+    result = this.asDynamicAllocation().toString()
+  }
+
+  int getLength() {
+    result = this.asStackAllocation().getLength() or
+    none() // TODO: this.asDynamicAllocation()
+  }
+}
 
 module TrackArrayConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
-    /* 1. Declaring an array-type variable */
-    none()
+    /* 1. Declaring / Initializing an array-type variable */
+    exists(ArrayDeclaration arrayDecl |
+      node.asExpr() = arrayDecl.getVariable().getInitializer().getExpr()
+    )
     or
     /* 2. Allocating dynamic memory as an array */
-    none()
+    none() // TODO
   }
 
   predicate isSink(DataFlow::Node node) {
     /* 1. Pointer arithmetic */
-    none()
+    exists(PointerArithmeticOperation pointerArithmetic |
+      node.asIndirectExpr() = pointerArithmetic.getAnOperand()
+    )
     or
     /* 2. Array access */
-    none()
+    node.asExpr() instanceof ArrayExprBA
   }
 }
 
 module TrackArray = DataFlow::Global<TrackArrayConfig>;
+
+private predicate arrayDeclarationAndAccess(
+  DataFlow::Node arrayDeclaration, DataFlow::Node arrayAccess
+) {
+  TrackArray::flow(arrayDeclaration, arrayAccess)
+}
+
+private predicate arrayIndexExceedsOutOfBounds(
+  DataFlow::Node arrayDeclaration, DataFlow::Node arrayAccess
+) {
+  arrayDeclarationAndAccess(arrayDeclaration, arrayAccess) and
+  // exists(int declaredLength |
+  //   declaredLength = arrayDeclaration
+  // )
+  any() // TODO
+}
 
 from Expr expr
 where
