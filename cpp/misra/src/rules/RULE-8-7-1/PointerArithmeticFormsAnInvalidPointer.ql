@@ -55,6 +55,11 @@ class ArrayAllocation extends TArrayAllocation {
     result = this.asStackAllocation().getLength() or
     none() // TODO: this.asDynamicAllocation()
   }
+
+  Location getLocation() {
+    result = this.asStackAllocation().getLocation() or
+    result = this.asDynamicAllocation().getLocation()
+  }
 }
 
 class PointerFormation extends TPointerFormation {
@@ -88,6 +93,11 @@ class PointerFormation extends TPointerFormation {
     result.asExpr() = this.asExpr() or
     result.asIndirectExpr() = this.asExpr()
   }
+
+  Location getLocation() {
+    result = this.asArrayExpr().getLocation() or
+    result = this.asPointerArithmetic().getLocation()
+  }
 }
 
 module TrackArrayConfig implements DataFlow::ConfigSig {
@@ -109,19 +119,19 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
 module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
 private predicate arrayDeclarationAndAccess(
-  DataFlow::Node arrayDeclarationNode, DataFlow::Node arrayAccessNode
+  DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode
 ) {
-  TrackArray::flow(arrayDeclarationNode, arrayAccessNode)
+  TrackArray::flow(arrayDeclarationNode, pointerFormationNode)
 }
 
 private predicate arrayIndexExceedsOutOfBounds(
-  DataFlow::Node arrayDeclarationNode, DataFlow::Node arrayAccessNode
+  DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode
 ) {
   /* 1. Ensure the array access is reachable from the array declaration. */
-  arrayDeclarationAndAccess(arrayDeclarationNode, arrayAccessNode) and
+  arrayDeclarationAndAccess(arrayDeclarationNode, pointerFormationNode) and
   exists(ArrayAllocation arrayAllocation, PointerFormation pointerFormation |
     arrayDeclarationNode.asExpr() = arrayAllocation.asStackAllocation().getInitExpr() and
-    arrayAccessNode = pointerFormation.getNode()
+    pointerFormationNode = pointerFormation.getNode()
   |
     /* 2. Cases where a pointer formation becomes illegal. */
     (
@@ -134,8 +144,11 @@ private predicate arrayIndexExceedsOutOfBounds(
   )
 }
 
-from Expr expr
+from PointerFormation pointerFormation
 where
-  not isExcluded(expr, Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  none() // TODO
-select "TODO", "TODO"
+  not isExcluded(pointerFormation.asExpr(),
+    Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
+  exists(DataFlow::Node pointerFormationNode | pointerFormationNode = pointerFormation.getNode() |
+    arrayIndexExceedsOutOfBounds(_, pointerFormationNode)
+  )
+select pointerFormation, "TODO"
