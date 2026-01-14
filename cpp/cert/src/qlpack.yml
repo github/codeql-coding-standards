@@ -5,5 +5,5 @@ suites: codeql-suites
 license: MIT
 default-suite-file: codeql-suites/cert-cpp-default.qls
 dependencies:
-  codeql/cpp-all: 4.0.3
+  codeql/cpp-all: 5.0.0
   codeql/common-cpp-coding-standards: '*'
