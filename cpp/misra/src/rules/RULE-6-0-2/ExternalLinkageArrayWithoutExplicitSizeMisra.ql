@@ -1,5 +1,5 @@
 /**
- * @id cpp/misra/array-external-linkage-size-explicit
+ * @id cpp/misra/external-linkage-array-without-explicit-size-misra
  * @name RULE-6-0-2: Arrays with external linkage declared without explicit size shall not be used
  * @description Declaring an array with external linkage without its size being explicitly specified
  *              can disallow consistency and range checks on the array size and usage.
