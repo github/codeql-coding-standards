@@ -4,41 +4,41 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Linkage1Query =
-  TArrayExternalLinkageSizeExplicitQuery() or
-  TExternalLinkageArrayWithoutExplicitSizeMisraQuery()
+  TExternalLinkageArrayWithoutExplicitSizeMisraQuery() or
+  TExternalLinkageNotDeclaredInHeaderFileMisraQuery()
 
 predicate isLinkage1QueryMetadata(Query query, string queryId, string ruleId, string category) {
-  query =
-    // `Query` instance for the `arrayExternalLinkageSizeExplicit` query
-    Linkage1Package::arrayExternalLinkageSizeExplicitQuery() and
-  queryId =
-    // `@id` for the `arrayExternalLinkageSizeExplicit` query
-    "cpp/misra/array-external-linkage-size-explicit" and
-  ruleId = "RULE-6-0-2" and
-  category = "advisory"
-  or
   query =
     // `Query` instance for the `externalLinkageArrayWithoutExplicitSizeMisra` query
     Linkage1Package::externalLinkageArrayWithoutExplicitSizeMisraQuery() and
   queryId =
     // `@id` for the `externalLinkageArrayWithoutExplicitSizeMisra` query
     "cpp/misra/external-linkage-array-without-explicit-size-misra" and
+  ruleId = "RULE-6-0-2" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `externalLinkageNotDeclaredInHeaderFileMisra` query
+    Linkage1Package::externalLinkageNotDeclaredInHeaderFileMisraQuery() and
+  queryId =
+    // `@id` for the `externalLinkageNotDeclaredInHeaderFileMisra` query
+    "cpp/misra/external-linkage-not-declared-in-header-file-misra" and
   ruleId = "RULE-6-5-1" and
   category = "advisory"
 }
 
 module Linkage1Package {
-  Query arrayExternalLinkageSizeExplicitQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `arrayExternalLinkageSizeExplicit` query
-      TQueryCPP(TLinkage1PackageQuery(TArrayExternalLinkageSizeExplicitQuery()))
-  }
-
   Query externalLinkageArrayWithoutExplicitSizeMisraQuery() {
     //autogenerate `Query` type
     result =
       // `Query` type for `externalLinkageArrayWithoutExplicitSizeMisra` query
       TQueryCPP(TLinkage1PackageQuery(TExternalLinkageArrayWithoutExplicitSizeMisraQuery()))
+  }
+
+  Query externalLinkageNotDeclaredInHeaderFileMisraQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `externalLinkageNotDeclaredInHeaderFileMisra` query
+      TQueryCPP(TLinkage1PackageQuery(TExternalLinkageNotDeclaredInHeaderFileMisraQuery()))
   }
 }
