@@ -1,0 +1,49 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-6-0-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Declaring an array with external linkage without its size being explicitly specified can disallow consistency and range checks on the array size and usage.",
+          "kind": "problem",
+          "name": "Arrays with external linkage declared without explicit size shall not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ArrayExternalLinkageSizeExplicit",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "When an array with external linkage is declared, its size should be explicitly specified"
+    },
+    "RULE-6-5-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Introducing a function or object with external linkage outside of a header file can cause developer confusion about its translation unit access semantics.",
+          "kind": "problem",
+          "name": "Introducing a function or object with external linkage outside of a header file can cause developer confusion about its translation unit access semantics.",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ExternalLinkageArrayWithoutExplicitSizeMisra",
+          "shared_implementation_short_name": "ExternalLinkageArrayWithoutExplicitSize",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A function or object with external linkage should be introduced in a header file"
+    }
+  }
+}

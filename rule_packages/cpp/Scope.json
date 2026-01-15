@@ -40,7 +40,8 @@
           "name": "When an array with external linkage is declared, its size shall be stated explicitly",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "ExternalLinkageArrayWithoutExplicitSize",
+          "short_name": "ExternalLinkageArrayWithoutExplicitSizeAutosar",
+          "shared_implementation_short_name": "ExternalLinkageArrayWithoutExplicitSize",
           "tags": [
             "correctness"
           ]

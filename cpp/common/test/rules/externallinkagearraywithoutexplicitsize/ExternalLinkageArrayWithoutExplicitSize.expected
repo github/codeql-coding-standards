@@ -1,0 +1,1 @@
+| test.cpp:19:14:19:15 | declaration of e1 | The declared array 'e1' with external linkage doesn't specify the size explicitly. |
