@@ -18,7 +18,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.externallinkagearraywithoutexplicitsize.ExternalLinkageArrayWithoutExplicitSize
 
-class ExternalLinkageArrayWithoutExplicitSizeAutosarQuery extends ExternalLinkageArrayWithoutExplicitSizeSharedQuery {
+class ExternalLinkageArrayWithoutExplicitSizeAutosarQuery extends ExternalLinkageArrayWithoutExplicitSizeSharedQuery
+{
   ExternalLinkageArrayWithoutExplicitSizeAutosarQuery() {
     this = ScopePackage::externalLinkageArrayWithoutExplicitSizeAutosarQuery()
   }

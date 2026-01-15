@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.externallinkagenotdeclaredinheaderfile.ExternalLinkageNotDeclaredInHeaderFile
 
-class ExternalLinkageNotDeclaredInHeaderFileQuery extends ExternalLinkageNotDeclaredInHeaderFileSharedQuery {
+class ExternalLinkageNotDeclaredInHeaderFileQuery extends ExternalLinkageNotDeclaredInHeaderFileSharedQuery
+{
   ExternalLinkageNotDeclaredInHeaderFileQuery() {
     this = IncludesPackage::externalLinkageNotDeclaredInHeaderFileQuery()
   }

@@ -19,7 +19,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.externallinkagenotdeclaredinheaderfile.ExternalLinkageNotDeclaredInHeaderFile
 
-class ExternalLinkageNotDeclaredInHeaderFileMisraQuery extends ExternalLinkageNotDeclaredInHeaderFileSharedQuery {
+class ExternalLinkageNotDeclaredInHeaderFileMisraQuery extends ExternalLinkageNotDeclaredInHeaderFileSharedQuery
+{
   ExternalLinkageNotDeclaredInHeaderFileMisraQuery() {
     this = Linkage1Package::externalLinkageNotDeclaredInHeaderFileMisraQuery()
   }
