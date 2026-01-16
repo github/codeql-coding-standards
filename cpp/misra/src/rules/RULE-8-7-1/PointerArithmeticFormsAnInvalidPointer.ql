@@ -33,9 +33,50 @@ class ArrayDeclaration extends VariableDeclarationEntry {
   Expr getInitExpr() { result = this.getVariable().getInitializer().getExpr() }
 }
 
+class HeapAllocationFunctionCall extends FunctionCall {
+  AllocationFunction heapAllocFunction;
+
+  HeapAllocationFunctionCall() { this.getTarget() = heapAllocFunction }
+
+  predicate isMallocCall() { heapAllocFunction.getName() = "malloc" }
+
+  predicate isCallocCall() { heapAllocFunction.getName() = "calloc" }
+
+  predicate isReallocCall() { heapAllocFunction.getName() = "realloc" }
+
+  abstract Expr getByteArgument();
+
+  int getByteLowerBound() { result = lowerBound(this.getByteArgument()) }
+}
+
+class MallocFunctionCall extends HeapAllocationFunctionCall {
+  MallocFunctionCall() { this.isMallocCall() }
+
+  override Expr getByteArgument() { result = this.getArgument(0) }
+}
+
+class CallocReallocFunctionCall extends HeapAllocationFunctionCall {
+  CallocReallocFunctionCall() { this.isCallocCall() or this.isReallocCall() }
+
+  override Expr getByteArgument() { result = this.getArgument(1) }
+}
+
+class NarrowedHeapAllocationFunctionCall extends Cast {
+  HeapAllocationFunctionCall alloc;
+
+  NarrowedHeapAllocationFunctionCall() { alloc = this.getExpr() }
+
+  int getMinNumElements() {
+    result =
+      alloc.getByteLowerBound() / this.getUnderlyingType().(PointerType).getBaseType().getSize()
+  }
+
+  HeapAllocationFunctionCall getAllocFunctionCall() { result = alloc }
+}
+
 newtype TArrayAllocation =
   TStackAllocation(ArrayDeclaration arrayDecl) or
-  TDynamicAllocation(AllocationFunction alloc)
+  TDynamicAllocation(NarrowedHeapAllocationFunctionCall narrowedAlloc)
 
 newtype TPointerFormation =
   TArrayExpr(ArrayExprBA arrayExpr) or
@@ -44,16 +85,20 @@ newtype TPointerFormation =
 class ArrayAllocation extends TArrayAllocation {
   ArrayDeclaration asStackAllocation() { this = TStackAllocation(result) }
 
-  AllocationFunction asDynamicAllocation() { this = TDynamicAllocation(result) }
+  NarrowedHeapAllocationFunctionCall asDynamicAllocation() { this = TDynamicAllocation(result) }
 
   string toString() {
     result = this.asStackAllocation().toString() or
     result = this.asDynamicAllocation().toString()
   }
 
+  /**
+   * Gets the number of the object that the array holds. This number is exact for a stack-allocated
+   * array, and the minimum estimated value for a heap-allocated one.
+   */
   int getLength() {
     result = this.asStackAllocation().getLength() or
-    none() // TODO: this.asDynamicAllocation()
+    result = this.asDynamicAllocation().getMinNumElements()
   }
 
   Location getLocation() {
