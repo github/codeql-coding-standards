@@ -168,7 +168,7 @@ jobs:
     steps:
       - name: Check if run-test-suites job failed to complete, if so fail
         if: ${{ needs.run-test-suites.result == 'failure' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             core.setFailed('Test run job failed')
