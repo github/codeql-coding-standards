@@ -24,6 +24,13 @@ struct s {
   int foo;
 
   // static data members have external linkage - but not currently detected in
-  // our external linkage lib - also FAMs are not in scope for this rule
-  static const int flexibleArrayMember[]; // COMPLIANT
+  // our external linkage lib - also FAMs are expected to be detected
+  // specifically in RULE-18-7
+  static const int flexibleArrayMember[]; // NON_COMPLIANT[FALSE_NEGATIVE]
+  static int flexibleArrayMember2[];      // NON_COMPLIANT[FALSE_NEGATIVE]
 };
+
+// test.cpp
+#include "test.hpp"
+// definition associated with a declaration from test.hpp
+int header_and_cpp[1] = {1};

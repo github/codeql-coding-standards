@@ -1,7 +1,6 @@
 /**
  * Provides a library with a `problems` predicate for the following issue:
- * Introducing a function or object with external linkage outside of a header file can
- * cause developer confusion about its translation unit access semantics.
+ * Declaring an array with external linkage without its size being explicitly specified can disallow consistency and range checks on the array size and usage.
  */
 
 import cpp
@@ -21,9 +20,9 @@ query predicate problems(DeclarationEntry declEntry, string message) {
         "' with external linkage doesn't specify the size explicitly." and
     hasExternalLinkage(v) and
     not arrayType.hasArraySize() and
-    // Holds is if declEntry is an array variable declaration (not a definition)
+    // Holds if declEntry is an array variable declaration (not a definition)
     v.getADeclarationEntry() = declEntry and
     not declEntry.isDefinition() and
-    arrayType = v.getType().stripTopLevelSpecifiers()
+    arrayType = declEntry.getType().stripTopLevelSpecifiers()
   )
 }
