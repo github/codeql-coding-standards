@@ -105,6 +105,11 @@ class ArrayAllocation extends TArrayAllocation {
     result = this.asStackAllocation().getLocation() or
     result = this.asDynamicAllocation().getLocation()
   }
+
+  DataFlow::Node getNode() {
+    result.asExpr() = this.asStackAllocation().getInitExpr() or
+    result.asConvertedExpr() = this.asDynamicAllocation()
+  }
 }
 
 class PointerFormation extends TPointerFormation {
@@ -147,13 +152,7 @@ class PointerFormation extends TPointerFormation {
 
 module TrackArrayConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
-    /* 1. Declaring / Initializing an array-type variable */
-    exists(ArrayAllocation arrayAllocation |
-      node.asExpr() = arrayAllocation.asStackAllocation().getInitExpr()
-    )
-    or
-    /* 2. Allocating dynamic memory as an array */
-    none() // TODO
+    exists(ArrayAllocation arrayAllocation | node = arrayAllocation.getNode())
   }
 
   predicate isSink(DataFlow::Node node) {
@@ -161,7 +160,8 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
   }
 }
 
-module TrackArray = DataFlow::Global<TrackArrayConfig>;
+import semmle.code.cpp.dataflow.new.TaintTracking
+module TrackArray = TaintTracking::Global<TrackArrayConfig>;
 
 private predicate arrayDeclarationAndAccess(
   DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode

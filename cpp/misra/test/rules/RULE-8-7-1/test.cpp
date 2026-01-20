@@ -72,11 +72,11 @@ int main(int argc, char *argv[]) {
     num_of_elements_realloc = 6;
   }
 
-  int *array_malloc = (int *)std::malloc(num_of_elements_malloc * sizeof(int));
-  int *array_calloc = (int *)std::calloc(num_of_elements_calloc, sizeof(int));
+  int *array_malloc = (int *)malloc(num_of_elements_malloc * sizeof(int));
+  int *array_calloc = (int *)calloc(num_of_elements_calloc, sizeof(int));
 
   int *array_realloc =
-      (int *)std::realloc(array_malloc, num_of_elements_realloc * sizeof(int));
+      (int *)realloc(array_malloc, num_of_elements_realloc * sizeof(int));
 
   f1(array_malloc);
   f2(array_malloc);
