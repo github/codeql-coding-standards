@@ -9,6 +9,7 @@
  *       correctness
  *       security
  *       external/misra/c/2012/third-edition-first-revision
+ *       coding-standards/baseline/safety
  *       external/misra/obligation/mandatory
  */
 

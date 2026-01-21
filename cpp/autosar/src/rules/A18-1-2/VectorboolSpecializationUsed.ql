@@ -10,6 +10,7 @@
  * @tags external/autosar/id/a18-1-2
  *       correctness
  *       scope/single-translation-unit
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

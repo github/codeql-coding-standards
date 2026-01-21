@@ -6,6 +6,7 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/autosar/id/m5-3-3
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

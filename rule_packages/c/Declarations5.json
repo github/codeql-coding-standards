@@ -16,7 +16,8 @@
             "correctness",
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This query considers the first 63 characters of identifiers as significant, as per C99 for nonexternal identifiers and reports the case when names are longer than 63 characters and differ in those characters past the 63 first only. This query does not consider universal or extended source characters.",
@@ -61,7 +62,9 @@
           "shared_implementation_short_name": "MissingStaticSpecifierFunctionRedeclarationShared",
           "tags": [
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -74,7 +77,9 @@
           "shared_implementation_short_name": "MissingStaticSpecifierObjectRedeclarationShared",
           "tags": [
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],

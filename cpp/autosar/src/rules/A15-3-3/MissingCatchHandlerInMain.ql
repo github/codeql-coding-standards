@@ -10,6 +10,7 @@
  * @tags external/autosar/id/a15-3-3
  *       maintainability
  *       correctness
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/partially-automated
  *       external/autosar/obligation/required

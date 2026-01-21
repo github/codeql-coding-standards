@@ -9,6 +9,8 @@
  *       correctness
  *       readability
  *       external/misra/c/2012/third-edition-first-revision
+ *       coding-standards/baseline/safety
+ *       coding-standards/baseline/style
  *       external/misra/obligation/required
  */
 

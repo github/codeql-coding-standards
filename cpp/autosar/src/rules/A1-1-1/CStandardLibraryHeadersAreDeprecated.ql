@@ -7,6 +7,7 @@
  * @problem.severity warning
  * @tags external/autosar/id/a1-1-1
  *       maintainability
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

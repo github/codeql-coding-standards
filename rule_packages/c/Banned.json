@@ -41,7 +41,8 @@
           "shared_implementation_short_name": "CommaOperatorUsed",
           "tags": [
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -202,7 +203,8 @@
           "short_name": "StandardHeaderFileUsedSetjmph",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -264,7 +266,8 @@
           "shared_implementation_short_name": "AtofAtoiAtolAndAtollUsed",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -385,7 +388,8 @@
           "tags": [
             "correctness",
             "security",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

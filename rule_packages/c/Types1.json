@@ -80,7 +80,8 @@
           "severity": "error",
           "short_name": "SizeofOperatorUsedOnArrayTypeParam",
           "tags": [
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

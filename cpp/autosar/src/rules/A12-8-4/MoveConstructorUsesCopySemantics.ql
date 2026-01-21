@@ -9,6 +9,7 @@
  * @tags external/autosar/id/a12-8-4
  *       maintainability
  *       performance
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

@@ -18,7 +18,8 @@
           "short_name": "UselessAssignment",
           "tags": [
             "readability",
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

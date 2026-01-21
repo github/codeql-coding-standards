@@ -8,6 +8,7 @@
  * @problem.severity error
  * @tags external/misra/id/rule-12-5
  *       external/misra/c/2012/third-edition-first-revision
+ *       coding-standards/baseline/safety
  *       external/misra/obligation/mandatory
  */
 

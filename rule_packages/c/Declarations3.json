@@ -104,7 +104,8 @@
           "tags": [
             "correctness",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ],
           "implementation_scope": {
             "description": "This query does not check for implicitly typed parameters, typedefs or member declarations as this is partially compiler checked.",

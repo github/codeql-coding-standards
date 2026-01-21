@@ -7,6 +7,8 @@
  * @problem.severity error
  * @tags external/autosar/id/a13-5-2
  *       correctness
+ *       coding-standards/baseline/safety
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/required

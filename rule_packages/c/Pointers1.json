@@ -34,7 +34,8 @@
           "short_name": "ConversionBetweenIncompleteTypePointerAndOtherType",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -134,7 +135,8 @@
           "short_name": "CastBetweenPointerToObjectAndNonIntArithmeticType",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -174,7 +176,8 @@
           "short_name": "MacroNullNotUsedAsIntegerNullPointerConstant",
           "tags": [
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ],
           "implementation_scope": {
             "description": "This rule allows two forms of null-pointer constants: a Zero literal created by the NULL macro or a Zero literal cast to a void pointer."
@@ -282,7 +285,8 @@
           "shared_implementation_short_name": "DoNotUseMoreThanTwoLevelsOfPointerIndirection",
           "tags": [
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -303,7 +307,8 @@
           "shared_implementation_short_name": "DoNotCopyAddressOfAutoStorageObjectToOtherObject",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -315,7 +320,8 @@
           "short_name": "ThreadLocalObjectAddressCopiedToGlobalObject",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

@@ -34,7 +34,8 @@
           "short_name": "FunctionWithNoReturningBranchShouldBeNoreturn",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -54,7 +55,8 @@
           "short_name": "ReturnStatementInNoreturnFunction",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety"
           ],
           "shared_implementation_short_name": "FunctionNoReturnAttributeCondition"
         }

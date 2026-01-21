@@ -8,6 +8,7 @@
  * @problem.severity recommendation
  * @tags external/autosar/id/a3-1-5
  *       external/autosar/audit
+ *       coding-standards/baseline/style
  *       external/autosar/allocated-target/design
  *       external/autosar/enforcement/partially-automated
  *       external/autosar/obligation/required

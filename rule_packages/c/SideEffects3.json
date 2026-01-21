@@ -14,7 +14,8 @@
           "short_name": "UnsequencedSideEffects",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         },
         {
@@ -26,7 +27,8 @@
           "short_name": "UnsequencedAtomicReads",
           "tags": [
             "correctness",
-            "external/misra/c/2012/amendment3"
+            "external/misra/c/2012/amendment3",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

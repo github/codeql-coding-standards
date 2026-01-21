@@ -8,6 +8,7 @@
  * @problem.severity recommendation
  * @tags external/autosar/id/a15-1-1
  *       maintainability
+ *       coding-standards/baseline/safety
  *       external/autosar/allocated-target/implementation
  *       external/autosar/enforcement/automated
  *       external/autosar/obligation/advisory

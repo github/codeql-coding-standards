@@ -177,7 +177,8 @@
           "short_name": "UniversalCharacterNamesUsedOutsideCharacterOrStringLiterals",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],

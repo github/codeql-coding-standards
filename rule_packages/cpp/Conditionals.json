@@ -81,7 +81,8 @@
           "shared_implementation_short_name": "SwitchCompoundCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -94,7 +95,8 @@
           "shared_implementation_short_name": "LoopCompoundCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -118,7 +120,8 @@
           "short_name": "IfCompoundCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -168,7 +171,8 @@
           "shared_implementation_short_name": "SwitchCasePositionCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         },
         {
@@ -181,7 +185,8 @@
           "shared_implementation_short_name": "SwitchNotWellFormed",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -206,7 +211,9 @@
           "shared_implementation_short_name": "NestedLabelInSwitch",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/safety",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -230,7 +237,8 @@
           "short_name": "NonEmptySwitchClauseDoesNotTerminate",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -290,7 +298,8 @@
           "short_name": "BooleanInSwitchCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -314,7 +323,8 @@
           "short_name": "GotoBlockCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -339,7 +349,8 @@
           "shared_implementation_short_name": "GotoStatementCondition",
           "tags": [
             "maintainability",
-            "readability"
+            "readability",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

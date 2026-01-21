@@ -1,0 +1,9 @@
+name: advanced-security/coding-standards-c-baseline
+version: 0.0.2
+description: A set of baseline coding standards for C projects, combining hand picked rules from MISRA C and CERT C.
+suites: codeql-suites
+license: MIT
+default-suite-file: codeql-suites/c-baseline-default.qls
+dependencies:
+  codeql/misra-c-coding-standards: 2.51.0
+  codeql/cert-c-coding-standards: 2.51.0

@@ -13,7 +13,8 @@
           "severity": "error",
           "short_name": "CtypeFunctionArgNotUnsignedCharOrEof",
           "tags": [
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],
@@ -32,7 +33,8 @@
           "severity": "error",
           "short_name": "MemcpyMemmoveMemcmpArgNotPointersToCompatibleTypes",
           "tags": [
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ]
         }
       ],

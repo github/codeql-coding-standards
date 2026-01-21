@@ -25,6 +25,10 @@ The following standards are under active development for [C++17](https://www.iso
 
 - [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development - _scheduled for release 2026 Q1/Q2_
 
+## Baseline suites
+
+In addition to supporting the above coding standards, we also export "baseline" query suites for C and C++ which contain a selection of well-supported, less opinionated, low false positive rate rules. These baseline suites are intended to be suitable for a wide variety of C/C++ projects that are interested in additional code quality and safety checks without the full strictness of a specific coding standard.
+
 ## How do I use the CodeQL Coding Standards Queries?
 
 The use of the CodeQL Coding Standards is extensively documented in the [user manual](docs/user_manual.md).

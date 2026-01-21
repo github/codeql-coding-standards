@@ -17,7 +17,8 @@
           "severity": "recommendation",
           "short_name": "UnusedLoopCounterForContainerIteration",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -126,7 +127,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NotEqualsInLoopCondition",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "If loop-counter is not modified by or ++, then, within condition, the loop-counter shall only be used as an operand to <=, <, > or >=."
@@ -147,7 +150,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "LoopCounterModifiedWithinCondition",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         },
         {
           "description": "The loop-counter shall not be modified within a statement.",
@@ -198,7 +203,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "LoopControlVariableModifiedInLoopCondition",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         },
         {
           "description": "A loop-control-variable other than the loop-counter shall not be modified within an expression.",
@@ -207,7 +214,9 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "LoopControlVariableModifiedInLoopExpression",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/safety"
+          ]
         }
       ],
       "title": "A loop-control-variable other than the loop-counter shall not be modified within a condition or an expression."

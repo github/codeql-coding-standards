@@ -10,6 +10,7 @@
  * @tags external/misra/id/rule-22-8
  *       correctness
  *       external/misra/c/2012/third-edition-first-revision
+ *       coding-standards/baseline/safety
  *       external/misra/obligation/required
  */
 

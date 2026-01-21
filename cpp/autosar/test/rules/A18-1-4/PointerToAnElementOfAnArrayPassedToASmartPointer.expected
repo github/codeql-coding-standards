@@ -1,10 +1,10 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:26,67-75)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:27,22-30)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:39,20-28)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:50,34-42)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:50,57-65)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:58,25-33)
-WARNING: module 'TaintTracking' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:70,3-16)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:27,67-75)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:28,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:40,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:51,34-42)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:51,57-65)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:59,25-33)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (PointerToAnElementOfAnArrayPassedToASmartPointer.ql:71,3-16)
 edges
 | test.cpp:3:36:3:45 | new[] | test.cpp:19:27:19:44 | call to allocate_int_array | provenance |  |
 | test.cpp:3:36:3:45 | new[] | test.cpp:23:12:23:29 | call to allocate_int_array | provenance |  |

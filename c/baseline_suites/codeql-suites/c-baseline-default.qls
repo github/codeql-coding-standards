@@ -1,0 +1,10 @@
+- description: C Baseline Coding Standards Queries
+- qlpack: codeql/cert-c-coding-standards
+- qlpack: codeql/misra-c-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - coding-standards/baseline/safety
+    - coding-standards/baseline/style

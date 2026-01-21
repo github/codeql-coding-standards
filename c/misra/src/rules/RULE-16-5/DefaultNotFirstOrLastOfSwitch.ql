@@ -7,6 +7,7 @@
  * @problem.severity recommendation
  * @tags external/misra/id/rule-16-5
  *       external/misra/c/2012/third-edition-first-revision
+ *       coding-standards/baseline/style
  *       external/misra/obligation/required
  */
 

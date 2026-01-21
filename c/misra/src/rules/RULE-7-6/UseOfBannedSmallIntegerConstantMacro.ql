@@ -9,6 +9,7 @@
  * @tags external/misra/id/rule-7-6
  *       readability
  *       external/misra/c/2012/amendment3
+ *       coding-standards/baseline/style
  *       external/misra/obligation/required
  */
 

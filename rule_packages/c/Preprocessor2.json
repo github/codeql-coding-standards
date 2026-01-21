@@ -15,7 +15,8 @@
           "shared_implementation_short_name": "MacroParameterFollowingHash",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/safety"
           ],
           "implementation_scope": {
             "description": "This query applies to function like macros and not object like macros. This rule strictly disallows the use of # operator followed by a ## and other combinations are permitted.",
@@ -62,7 +63,8 @@
           "tags": [
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ]
         }
       ],
@@ -85,7 +87,8 @@
             "correctness",
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ],
           "implementation_scope": {
             "description": "This query defines header file as any file that is included regardless of file extension. This query does not consider the use of `#pragma once` as a permitted header guard.",

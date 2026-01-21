@@ -34,6 +34,7 @@
 | 0.25.0  | 2025-01-15 | Mike Fairhurst  | Add guidance for the usage of 'strict' queries.                                                                         |
 | 0.26.0  | 2025-02-12 | Luke Cartey     | Describe support for new deviation code identifier formats                                                              |
 | 0.27.0  | 2025-05-15 | Luke Cartey     | Documented completed support for MISRA C 2023.                                                                          |
+| 0.28.0  | 2025-12-08 | Mike Fairhurst  | Add baseline query suites for C and C++ coding standards.                                                               |
 
 ## Release information
 
@@ -90,6 +91,25 @@ The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each r
 [^4]: The unimplemented supportable MISRA C 2012 Amendment 4 rule is `Rule 9.6`. `Rule 9.6` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of this rule.
 [^5]: The unimplemented supportable MISRA C 2023 rules are `Rule 9.5`, `Rule 9.6`, `Rule 17.13`. `Rule 9.5`, `Rule 9.6` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. Note: `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
 [^6]: The rules `5.13.7`, `19.0.1` and `19.1.2` are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
+
+## Baseline suites
+
+Queries that are part of the above rules may additionally be added to our C or C++ "baseline suites." The baseline suites are not intended for compliance with any particular coding standard, but rather to provide a set of well-supported, less opinionated, low false positive rate rules. Project maintainers interested in additional code quality and safety checks, and have no specific compliance requirements, may find these suites useful.
+
+Baseline suites are separated by language (C or C++) and area of focus (`safety` or `style`). The difference between style and safety is not always clear-cut. Our project uses the following guidelines to determine whether a rule is more focused on safety or style:
+
+| Characteristic     | Focus  | Description |
+|--------------------|--------|-------------|
+| Simplicity         | Style  | Simpler concepts tend to be added to the style suite. |
+| Severity           | Safety | Rules that prevent potentially severe issues tend to be added to the safety suite. |
+| Undefined behavior | Safety | Rules that detect undefined behavior tend to be added to the safety suite. |
+| Bug detection      | Safety | Rules detecting misuse of an API or language feature tend to be added to the safety suite. |
+| Opinionated        | Style  | More opinionated rules tend to be added to the style suite. |
+| Habit-enforcing    | Style  | Rules that enforce common coding habits tend to be added to the style suite. |
+| Bans               | Style  | Rules that ban certain language features or coding patterns tend to be added to the style suite. |
+| Remediatability    | Style  | Rules that are easy to remediate tend to be added to the style suite. |
+
+Only the rules in the baseline suites are categorized into `safety` and `style`, the remaining rules are not. Some baseline rules may be categorized as both `safety` and `style`, though this is kept to a minimum.
 
 ## Supported environment
 
@@ -255,12 +275,27 @@ If you have downloaded a release artifact containing the packs, you will need to
 
 Alternatively, the packs can be made available to CodeQL without specification on the comamnd line by placing them inside the distribution under the `qlpacks/codeql/` directory, or placed inside a directory adjacent to the folder containing the distribution.
 
-##### Alternative query sets
+##### Running the baseline suites
 
-Each supported standard includes a variety of query suites, which enable the running of different sets of queries based on specified properties. In addition, a custom query suite can be defined as specified by the CodeQL CLI documentation, in order to select any arbitrary sets of queries in this repository. To run
+Once you have a CodeQL database for your project you can run the baseline style and safety checks using the `codeql database analyze` command by specifying the baseline QL pack which you want to run as an argument, along with a version specifier:
 
 ```bash
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> advanced-security/coding-standards-<language>-baseline@version
+```
+
+The output of this command will be a [SARIF file](https://sarifweb.azurewebsites.net/) called `<name-of-results-file>.sarif`.
+
+##### Alternative query sets
+
+Each supported standard includes a variety of query suites, which enable the running of different sets of queries based on specified properties. The baseline suites optionally expose `safety` and `style` suites as described in the section _Baseline suites_. In addition, any arbitrary set of queries from this repository can be selected via custom query suites as specified by the CodeQL CLI documentation.
+
+To run
+
+```bash
+# For a specific coding standard
 codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standard@version:codeql-suites/<alternative-suite>.qls
+# or for baseline suites
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> advanced-security/coding-standards-<language>-baseline@version:codeql-suites/<alternative-suite>.qls
 ```
 
 If modifying the query suite, ensure that all Rules you expect to be covered by CodeQL in your Guideline Enforcement Plan (or similar) are included in the query suite, by running:

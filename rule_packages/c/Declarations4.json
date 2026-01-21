@@ -15,7 +15,8 @@
           "shared_implementation_short_name": "FunctionTypesNotInPrototypeFormShared",
           "tags": [
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "coding-standards/baseline/style"
           ],
           "implementation_scope": {
             "description": "This query does not check for implicitly typed parameters and checks function declarations and definitions but not function pointer types. This query cannot determine when the keyword void is used in place of no parameter.",

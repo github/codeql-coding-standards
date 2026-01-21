@@ -118,7 +118,9 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "ClassDataMembersInitializationCondition",
-          "tags": []
+          "tags": [
+            "coding-standards/baseline/style"
+          ]
         }
       ],
       "title": "All class data members that are initialized by the constructor shall be initialized using member initializers."
@@ -186,7 +188,8 @@
           "severity": "recommendation",
           "short_name": "NonTrivialNonTemplateFunctionDefinedInsideClassDefinition",
           "tags": [
-            "external/autosar/audit"
+            "external/autosar/audit",
+            "coding-standards/baseline/style"
           ]
         }
       ],
