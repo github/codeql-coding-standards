@@ -3,7 +3,7 @@
  * @name RULE-8-7-1: Pointer arithmetic shall not form an invalid pointer.
  * @description Pointers obtained as result of performing arithmetic should point to an initialized
  *              object, or an element right next to the last element of an array.
- * @kind problem
+ * @kind path-problem
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-8-7-1
@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.cpp.misra
-import semmle.code.cpp.dataflow.new.DataFlow
+import semmle.code.cpp.dataflow.new.TaintTracking
 import semmle.code.cpp.security.BufferAccess
 
 class ArrayDeclaration extends VariableDeclarationEntry {
@@ -135,14 +135,11 @@ class PointerFormation extends TPointerFormation {
   }
 
   Expr asExpr() {
-    result = this.asArrayExpr() or
+    result = this.asArrayExpr() or // This needs to be array base, as we are only dealing with pointers here.
     result = this.asPointerArithmetic()
   }
 
-  DataFlow::Node getNode() {
-    result.asExpr() = this.asExpr() or
-    result.asIndirectExpr() = this.asExpr()
-  }
+  DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
 
   Location getLocation() {
     result = this.asArrayExpr().getLocation() or
@@ -160,40 +157,31 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
   }
 }
 
-import semmle.code.cpp.dataflow.new.TaintTracking
 module TrackArray = TaintTracking::Global<TrackArrayConfig>;
-
-private predicate arrayDeclarationAndAccess(
-  DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode
-) {
-  TrackArray::flow(arrayDeclarationNode, pointerFormationNode)
-}
 
 private predicate arrayIndexExceedsOutOfBounds(
   DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode
 ) {
   /* 1. Ensure the array access is reachable from the array declaration. */
-  arrayDeclarationAndAccess(arrayDeclarationNode, pointerFormationNode) and
+  TrackArray::flow(arrayDeclarationNode, pointerFormationNode) and
+  /* 2. Cases where a pointer formation becomes illegal. */
   exists(ArrayAllocation arrayAllocation, PointerFormation pointerFormation |
-    arrayDeclarationNode.asExpr() = arrayAllocation.asStackAllocation().getInitExpr() and
+    arrayDeclarationNode = arrayAllocation.getNode() and
     pointerFormationNode = pointerFormation.getNode()
   |
-    /* 2. Cases where a pointer formation becomes illegal. */
-    (
-      /* 2-1. An offset cannot be negative. */
-      pointerFormation.getOffset() < 0
-      or
-      /* 2-2. The offset should be at most (number of elements) + 1 = (the declared length). */
-      arrayAllocation.getLength() < pointerFormation.getOffset()
-    )
+    /* 2-1. An offset cannot be negative. */
+    pointerFormation.getOffset() < 0
+    or
+    /* 2-2. The offset should be at most (number of elements) + 1 = (the declared length). */
+    arrayAllocation.getLength() < pointerFormation.getOffset()
   )
 }
 
-from PointerFormation pointerFormation
+import TrackArray::PathGraph
+
+from TrackArray::PathNode source, TrackArray::PathNode sink
 where
-  not isExcluded(pointerFormation.asExpr(),
+  not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  exists(DataFlow::Node pointerFormationNode | pointerFormationNode = pointerFormation.getNode() |
-    arrayIndexExceedsOutOfBounds(_, pointerFormationNode)
-  )
-select pointerFormation, "TODO"
+  arrayIndexExceedsOutOfBounds(source.getNode(), sink.getNode())
+select sink, source, sink, "TODO"
