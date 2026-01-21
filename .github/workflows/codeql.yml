@@ -1,0 +1,66 @@
+name: CodeQL workflow for analyzing QL queries
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request: 
+    branches: [main]
+
+permissions:
+  security-events: write
+
+env:
+ NIXPKGS_ALLOW_UNFREE: 1
+
+jobs:
+  analyze-ql-files:
+    name: Analyze QL files
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Install Nix
+        uses: cachix/install-nix-action@6004951b182f8860210c8d6f0d808ec5b1a33d28
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Nix store
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: ${{ runner.temp }}/nix/store
+          key: ${{ runner.os }}-${{ hashFiles('tooling/**', '.github/workflows/codeql.yml') }}
+      
+      - name: Copy Nix store from cache
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: |
+          nix copy --all --from "file://$RUNNER_TEMP/nix/store"
+
+      - name: Prepare Nix store
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          nix-shell --pure --command "codeql version" tooling/shell.nix
+      
+      - name: Copy Nix store to cache location
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          nix copy --all --to "file://$RUNNER_TEMP/nix/store"
+
+      - name: Create database
+        run: |
+          nix-shell --pure --command "codeql database create --language=ql --source-root=. $RUNNER_TEMP/ql-db" tooling/shell.nix
+
+      - name: Analyze database
+        run: |
+          nix-shell --pure --command "codeql database analyze --output=$RUNNER_TEMP/ql.sarif --format=sarif-latest --sarif-category=ql4ql -- $RUNNER_TEMP/ql-db codeql/ql" tooling/shell.nix
+
+      - name: Upload results
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          nix-shell --pure --keep GITHUB_TOKEN --command "codeql github upload-results --sarif=$RUNNER_TEMP/ql.sarif --repository=$GITHUB_REPOSITORY --ref=$GITHUB_REF --commit=$GITHUB_SHA" tooling/shell.nix
+
+
+
+
