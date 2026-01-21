@@ -16,6 +16,11 @@ import cpp
 import codingstandards.cpp.misra
 import semmle.code.cpp.dataflow.new.TaintTracking
 import semmle.code.cpp.security.BufferAccess
+private import semmle.code.cpp.ir.IR // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+private import semmle.code.cpp.ir.dataflow.internal.DataFlowPrivate // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+private import semmle.code.cpp.ir.dataflow.internal.DataFlowUtil // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+private import semmle.code.cpp.ir.dataflow.FlowSteps // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+private import semmle.code.cpp.ir.dataflow.internal.SsaInternals as Ssa
 
 class ArrayDeclaration extends VariableDeclarationEntry {
   int length;
@@ -147,6 +152,50 @@ class PointerFormation extends TPointerFormation {
   }
 }
 
+/**
+ * NOTE
+ */
+private predicate operandToInstructionTaintStep(Operand opFrom, Instruction instrTo) {
+  // Taint can flow through expressions that alter the value but preserve
+  // more than one bit of it _or_ expressions that follow data through
+  // pointer indirections.
+  instrTo.getAnOperand() = opFrom and
+  (
+    instrTo instanceof ArithmeticInstruction
+    or
+    instrTo instanceof BitwiseInstruction
+    or
+    instrTo instanceof PointerArithmeticInstruction
+  )
+  or
+  // Taint flow from an address to its dereference.
+  Ssa::isDereference(instrTo, opFrom, _)
+  or
+  // Unary instructions tend to preserve enough information in practice that we
+  // want taint to flow through.
+  // The exception is `FieldAddressInstruction`. Together with the rules below for
+  // `LoadInstruction`s and `ChiInstruction`s, flow through `FieldAddressInstruction`
+  // could cause flow into one field to come out an unrelated field.
+  // This would happen across function boundaries, where the IR would not be able to
+  // match loads to stores.
+  instrTo.(UnaryInstruction).getUnaryOperand() = opFrom and
+  (
+    not instrTo instanceof FieldAddressInstruction
+    or
+    instrTo.(FieldAddressInstruction).getField().getDeclaringType() instanceof Union
+  )
+  or
+  // Taint from int to boolean casts. This ensures that we have flow to `!x` in:
+  // ```cpp
+  // x = integer_source();
+  // if(!x) { ... }
+  // ```
+  exists(Operand zero |
+    zero.getDef().(ConstantValueInstruction).getValue() = "0" and
+    instrTo.(CompareNEInstruction).hasOperands(opFrom, zero)
+  )
+}
+
 module TrackArrayConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
     exists(ArrayAllocation arrayAllocation | node = arrayAllocation.getNode())
@@ -155,9 +204,22 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
   predicate isSink(DataFlow::Node node) {
     exists(PointerFormation pointerFormation | node = pointerFormation.getNode())
   }
+
+  predicate isAdditionalFlowStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
+    /*
+     * NOTE
+     */
+
+    operandToInstructionTaintStep(nodeFrom.asOperand(), nodeTo.asInstruction())
+    or
+    exists(PointerArithmeticInstruction pai, int indirectionIndex |
+      nodeHasOperand(nodeFrom, pai.getAnOperand(), pragma[only_bind_into](indirectionIndex)) and
+      hasInstructionAndIndex(nodeTo, pai, indirectionIndex + 1)
+    )
+  }
 }
 
-module TrackArray = TaintTracking::Global<TrackArrayConfig>;
+module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
 private predicate arrayIndexExceedsOutOfBounds(
   DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode
