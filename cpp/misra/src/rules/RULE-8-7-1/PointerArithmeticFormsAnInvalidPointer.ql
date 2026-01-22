@@ -16,11 +16,6 @@ import cpp
 import codingstandards.cpp.misra
 import semmle.code.cpp.dataflow.new.TaintTracking
 import semmle.code.cpp.security.BufferAccess
-private import semmle.code.cpp.ir.IR // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
-private import semmle.code.cpp.ir.dataflow.internal.DataFlowPrivate // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
-private import semmle.code.cpp.ir.dataflow.internal.DataFlowUtil // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
-private import semmle.code.cpp.ir.dataflow.FlowSteps // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
-private import semmle.code.cpp.ir.dataflow.internal.SsaInternals as Ssa
 
 class ArrayDeclaration extends VariableDeclarationEntry {
   int length;
@@ -31,11 +26,6 @@ class ArrayDeclaration extends VariableDeclarationEntry {
    * Gets the declared length of this array.
    */
   int getLength() { result = length }
-
-  /**
-   * Gets the expression that the variable declared is initialized to, given there is such one.
-   */
-  Expr getInitExpr() { result = this.getVariable().getInitializer().getExpr() }
 }
 
 class HeapAllocationFunctionCall extends FunctionCall {
@@ -49,21 +39,27 @@ class HeapAllocationFunctionCall extends FunctionCall {
 
   predicate isReallocCall() { heapAllocFunction.getName() = "realloc" }
 
-  abstract Expr getByteArgument();
-
-  int getByteLowerBound() { result = lowerBound(this.getByteArgument()) }
+  abstract int getMinNumBytes();
 }
 
 class MallocFunctionCall extends HeapAllocationFunctionCall {
   MallocFunctionCall() { this.isMallocCall() }
 
-  override Expr getByteArgument() { result = this.getArgument(0) }
+  override int getMinNumBytes() { result = lowerBound(this.getArgument(0)) }
 }
 
-class CallocReallocFunctionCall extends HeapAllocationFunctionCall {
-  CallocReallocFunctionCall() { this.isCallocCall() or this.isReallocCall() }
+class CallocFunctionCall extends HeapAllocationFunctionCall {
+  CallocFunctionCall() { this.isCallocCall() }
 
-  override Expr getByteArgument() { result = this.getArgument(1) }
+  override int getMinNumBytes() {
+    result = lowerBound(this.getArgument(0)) * lowerBound(this.getArgument(1))
+  }
+}
+
+class ReallocFunctionCall extends HeapAllocationFunctionCall {
+  ReallocFunctionCall() { this.isReallocCall() }
+
+  override int getMinNumBytes() { result = lowerBound(this.getArgument(1)) }
 }
 
 class NarrowedHeapAllocationFunctionCall extends Cast {
@@ -72,8 +68,7 @@ class NarrowedHeapAllocationFunctionCall extends Cast {
   NarrowedHeapAllocationFunctionCall() { alloc = this.getExpr() }
 
   int getMinNumElements() {
-    result =
-      alloc.getByteLowerBound() / this.getUnderlyingType().(PointerType).getBaseType().getSize()
+    result = alloc.getMinNumBytes() / this.getUnderlyingType().(PointerType).getBaseType().getSize()
   }
 
   HeapAllocationFunctionCall getAllocFunctionCall() { result = alloc }
@@ -112,7 +107,7 @@ class ArrayAllocation extends TArrayAllocation {
   }
 
   DataFlow::Node getNode() {
-    result.asExpr() = this.asStackAllocation().getInitExpr() or
+    result.asUninitialized() = this.asStackAllocation().getVariable() or
     result.asConvertedExpr() = this.asDynamicAllocation()
   }
 }
@@ -140,8 +135,8 @@ class PointerFormation extends TPointerFormation {
   }
 
   Expr asExpr() {
-    result = this.asArrayExpr() or // This needs to be array base, as we are only dealing with pointers here.
-    result = this.asPointerArithmetic()
+    result = this.asArrayExpr() or
+    /*.getArrayBase()*/ result = this.asPointerArithmetic()
   }
 
   DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
@@ -155,46 +150,56 @@ class PointerFormation extends TPointerFormation {
 /**
  * NOTE
  */
-private predicate operandToInstructionTaintStep(Operand opFrom, Instruction instrTo) {
-  // Taint can flow through expressions that alter the value but preserve
-  // more than one bit of it _or_ expressions that follow data through
-  // pointer indirections.
-  instrTo.getAnOperand() = opFrom and
-  (
-    instrTo instanceof ArithmeticInstruction
+module Copied {
+  import semmle.code.cpp.ir.IR // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+  import semmle.code.cpp.ir.dataflow.internal.DataFlowPrivate // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+  import semmle.code.cpp.ir.dataflow.internal.DataFlowUtil // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+  import semmle.code.cpp.ir.dataflow.FlowSteps // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+  import semmle.code.cpp.ir.dataflow.internal.SsaInternals as Ssa
+
+  predicate operandToInstructionTaintStep(Operand opFrom, Instruction instrTo) {
+    // Taint can flow through expressions that alter the value but preserve
+    // more than one bit of it _or_ expressions that follow data through
+    // pointer indirections.
+    instrTo.getAnOperand() = opFrom and
+    (
+      instrTo instanceof ArithmeticInstruction
+      or
+      instrTo instanceof BitwiseInstruction
+      or
+      instrTo instanceof PointerArithmeticInstruction
+    )
     or
-    instrTo instanceof BitwiseInstruction
+    // Taint flow from an address to its dereference.
+    Ssa::isDereference(instrTo, opFrom, _)
     or
-    instrTo instanceof PointerArithmeticInstruction
-  )
-  or
-  // Taint flow from an address to its dereference.
-  Ssa::isDereference(instrTo, opFrom, _)
-  or
-  // Unary instructions tend to preserve enough information in practice that we
-  // want taint to flow through.
-  // The exception is `FieldAddressInstruction`. Together with the rules below for
-  // `LoadInstruction`s and `ChiInstruction`s, flow through `FieldAddressInstruction`
-  // could cause flow into one field to come out an unrelated field.
-  // This would happen across function boundaries, where the IR would not be able to
-  // match loads to stores.
-  instrTo.(UnaryInstruction).getUnaryOperand() = opFrom and
-  (
-    not instrTo instanceof FieldAddressInstruction
+    // Unary instructions tend to preserve enough information in practice that we
+    // want taint to flow through.
+    // The exception is `FieldAddressInstruction`. Together with the rules below for
+    // `LoadInstruction`s and `ChiInstruction`s, flow through `FieldAddressInstruction`
+    // could cause flow into one field to come out an unrelated field.
+    // This would happen across function boundaries, where the IR would not be able to
+    // match loads to stores.
+    instrTo.(UnaryInstruction).getUnaryOperand() = opFrom and
+    (
+      not instrTo instanceof FieldAddressInstruction
+      or
+      instrTo.(FieldAddressInstruction).getField().getDeclaringType() instanceof Union
+    )
     or
-    instrTo.(FieldAddressInstruction).getField().getDeclaringType() instanceof Union
-  )
-  or
-  // Taint from int to boolean casts. This ensures that we have flow to `!x` in:
-  // ```cpp
-  // x = integer_source();
-  // if(!x) { ... }
-  // ```
-  exists(Operand zero |
-    zero.getDef().(ConstantValueInstruction).getValue() = "0" and
-    instrTo.(CompareNEInstruction).hasOperands(opFrom, zero)
-  )
+    // Taint from int to boolean casts. This ensures that we have flow to `!x` in:
+    // ```cpp
+    // x = integer_source();
+    // if(!x) { ... }
+    // ```
+    exists(Operand zero |
+      zero.getDef().(ConstantValueInstruction).getValue() = "0" and
+      instrTo.(CompareNEInstruction).hasOperands(opFrom, zero)
+    )
+  }
 }
+
+import Copied
 
 module TrackArrayConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
@@ -206,44 +211,58 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
   }
 
   predicate isAdditionalFlowStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
-    /*
-     * NOTE
-     */
-
     operandToInstructionTaintStep(nodeFrom.asOperand(), nodeTo.asInstruction())
-    or
-    exists(PointerArithmeticInstruction pai, int indirectionIndex |
-      nodeHasOperand(nodeFrom, pai.getAnOperand(), pragma[only_bind_into](indirectionIndex)) and
-      hasInstructionAndIndex(nodeTo, pai, indirectionIndex + 1)
-    )
   }
 }
 
 module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
-private predicate arrayIndexExceedsOutOfBounds(
+predicate arrayIndexIsNegative(
   DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode
 ) {
   /* 1. Ensure the array access is reachable from the array declaration. */
   TrackArray::flow(arrayDeclarationNode, pointerFormationNode) and
-  /* 2. Cases where a pointer formation becomes illegal. */
+  /* 2. An offset cannot be negative. */
   exists(ArrayAllocation arrayAllocation, PointerFormation pointerFormation |
     arrayDeclarationNode = arrayAllocation.getNode() and
     pointerFormationNode = pointerFormation.getNode()
   |
-    /* 2-1. An offset cannot be negative. */
     pointerFormation.getOffset() < 0
-    or
-    /* 2-2. The offset should be at most (number of elements) + 1 = (the declared length). */
-    arrayAllocation.getLength() < pointerFormation.getOffset()
+  )
+}
+
+predicate arrayIndexExceedsBounds(
+  DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode, int pointerOffset,
+  int arrayLength
+) {
+  /* 1. Ensure the array access is reachable from the array declaration. */
+  TrackArray::flow(arrayDeclarationNode, pointerFormationNode) and
+  /* 2. The offset must be at most (number of elements) + 1 = (the declared length). */
+  exists(ArrayAllocation arrayAllocation, PointerFormation pointerFormation |
+    arrayDeclarationNode = arrayAllocation.getNode() and
+    pointerFormationNode = pointerFormation.getNode() and
+    pointerOffset = pointerFormation.getOffset() and
+    arrayLength = arrayAllocation.getLength()
+  |
+    arrayLength < pointerOffset
   )
 }
 
 import TrackArray::PathGraph
 
-from TrackArray::PathNode source, TrackArray::PathNode sink
+from TrackArray::PathNode source, TrackArray::PathNode sink, string message
 where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  arrayIndexExceedsOutOfBounds(source.getNode(), sink.getNode())
-select sink, source, sink, "TODO"
+  (
+    exists(int pointerOffset, int arrayLength |
+      arrayIndexExceedsBounds(source.getNode(), sink.getNode(), pointerOffset, arrayLength) and
+      message =
+        "This pointer has offset " + pointerOffset +
+          " when the minimum possible length of the object is " + arrayLength + "."
+    )
+    or
+    arrayIndexIsNegative(source.getNode(), sink.getNode()) and
+    message = "This pointer has a negative offset."
+  )
+select sink, source, sink, message
