@@ -148,13 +148,13 @@ class PointerFormation extends TPointerFormation {
 }
 
 /**
- * NOTE
+ * NOTE The code in the below module is copied from
+ * `cpp/ql/lib/semmle/code/cpp/ir/dataflow/internal/TaintTrackingUtil.qll` in `github/codeql`, commit hash
+ * `960e990`. This commit hash is the latest of the ones with tag  `codeql-cli-2.21.4` which is the CLI version
+ * compatible with `codeql/cpp-all: 5.0.0` that this query depends on.
  */
 module Copied {
-  import semmle.code.cpp.ir.IR // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
-  import semmle.code.cpp.ir.dataflow.internal.DataFlowPrivate // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
-  import semmle.code.cpp.ir.dataflow.internal.DataFlowUtil // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
-  import semmle.code.cpp.ir.dataflow.FlowSteps // For PointerArithmeticInstruction (see TrackArray::isAdditionalFlowStep/2 below)
+  import semmle.code.cpp.ir.IR
   import semmle.code.cpp.ir.dataflow.internal.SsaInternals as Ssa
 
   predicate operandToInstructionTaintStep(Operand opFrom, Instruction instrTo) {
