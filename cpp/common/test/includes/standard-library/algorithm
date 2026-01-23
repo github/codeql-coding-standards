@@ -3,8 +3,6 @@
 #include <bits/stl_algobase.h>
 
 namespace std {
-template <class T1, class T2> struct pair {};
-
 template <class T> constexpr const T &min(const T &a, const T &b);
 
 template <class InputIterator, class Function>
