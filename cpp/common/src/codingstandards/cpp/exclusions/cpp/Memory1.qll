@@ -3,7 +3,9 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Memory1Query = TPointerArithmeticFormsAnInvalidPointerQuery()
+newtype Memory1Query =
+  TPointerArithmeticFormsAnInvalidPointerQuery() or
+  TPointerArgumentToCstringFunctionIsInvalidQuery()
 
 predicate isMemory1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -14,6 +16,15 @@ predicate isMemory1QueryMetadata(Query query, string queryId, string ruleId, str
     "cpp/misra/pointer-arithmetic-forms-an-invalid-pointer" and
   ruleId = "RULE-8-7-1" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `pointerArgumentToCstringFunctionIsInvalid` query
+    Memory1Package::pointerArgumentToCstringFunctionIsInvalidQuery() and
+  queryId =
+    // `@id` for the `pointerArgumentToCstringFunctionIsInvalid` query
+    "cpp/misra/pointer-argument-to-cstring-function-is-invalid" and
+  ruleId = "RULE-8-7-1" and
+  category = "required"
 }
 
 module Memory1Package {
@@ -22,5 +33,12 @@ module Memory1Package {
     result =
       // `Query` type for `pointerArithmeticFormsAnInvalidPointer` query
       TQueryCPP(TMemory1PackageQuery(TPointerArithmeticFormsAnInvalidPointerQuery()))
+  }
+
+  Query pointerArgumentToCstringFunctionIsInvalidQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `pointerArgumentToCstringFunctionIsInvalid` query
+      TQueryCPP(TMemory1PackageQuery(TPointerArgumentToCstringFunctionIsInvalidQuery()))
   }
 }
