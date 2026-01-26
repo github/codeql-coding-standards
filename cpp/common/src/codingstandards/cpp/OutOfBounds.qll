@@ -6,7 +6,6 @@
 
 import cpp
 import codingstandards.cpp.types.Pointers
-import codingstandards.cpp.Variable
 import codingstandards.cpp.Allocations
 import codingstandards.cpp.Overflow
 import codingstandards.cpp.PossiblyUnsafeStringOperation
