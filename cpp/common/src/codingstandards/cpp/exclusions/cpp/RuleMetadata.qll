@@ -34,6 +34,7 @@ import IntegerConversion
 import Invariants
 import Iterators
 import Lambdas
+import Linkage2
 import Literals
 import Loops
 import Macros
@@ -96,6 +97,7 @@ newtype TCPPQuery =
   TInvariantsPackageQuery(InvariantsQuery q) or
   TIteratorsPackageQuery(IteratorsQuery q) or
   TLambdasPackageQuery(LambdasQuery q) or
+  TLinkage2PackageQuery(Linkage2Query q) or
   TLiteralsPackageQuery(LiteralsQuery q) or
   TLoopsPackageQuery(LoopsQuery q) or
   TMacrosPackageQuery(MacrosQuery q) or
@@ -158,6 +160,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isIteratorsQueryMetadata(query, queryId, ruleId, category) or
   isLambdasQueryMetadata(query, queryId, ruleId, category) or
+  isLinkage2QueryMetadata(query, queryId, ruleId, category) or
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or
   isLoopsQueryMetadata(query, queryId, ruleId, category) or
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
