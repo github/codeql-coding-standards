@@ -1,0 +1,2 @@
+- `A3-1-1` - `ViolationsOfOneDefinitionRule.ql`:
+  - The query previously would incorrectly allow cases where something was defined with `extern` and did not use the defined external linkage library to find external linkage. This change may result in the query finding more results.

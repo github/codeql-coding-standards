@@ -4,16 +4,16 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Linkage2Query =
-  THeaderDefinitionsExternalLinkageQuery() or
+  TViolationsOfOneDefinitionRuleMisraQuery() or
   TInternalLinkageSpecifiedAppropriatelyQuery()
 
 predicate isLinkage2QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
-    // `Query` instance for the `headerDefinitionsExternalLinkage` query
-    Linkage2Package::headerDefinitionsExternalLinkageQuery() and
+    // `Query` instance for the `violationsOfOneDefinitionRuleMisra` query
+    Linkage2Package::violationsOfOneDefinitionRuleMisraQuery() and
   queryId =
-    // `@id` for the `headerDefinitionsExternalLinkage` query
-    "cpp/misra/header-definitions-external-linkage" and
+    // `@id` for the `violationsOfOneDefinitionRuleMisra` query
+    "cpp/misra/violations-of-one-definition-rule-misra" and
   ruleId = "RULE-6-2-4" and
   category = "required"
   or
@@ -28,11 +28,11 @@ predicate isLinkage2QueryMetadata(Query query, string queryId, string ruleId, st
 }
 
 module Linkage2Package {
-  Query headerDefinitionsExternalLinkageQuery() {
+  Query violationsOfOneDefinitionRuleMisraQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `headerDefinitionsExternalLinkage` query
-      TQueryCPP(TLinkage2PackageQuery(THeaderDefinitionsExternalLinkageQuery()))
+      // `Query` type for `violationsOfOneDefinitionRuleMisra` query
+      TQueryCPP(TLinkage2PackageQuery(TViolationsOfOneDefinitionRuleMisraQuery()))
   }
 
   Query internalLinkageSpecifiedAppropriatelyQuery() {

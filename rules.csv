@@ -856,7 +856,7 @@ cpp,MISRA-C++-2023,RULE-6-0-4,Yes,Required,Decidable,Single Translation Unit,The
 cpp,MISRA-C++-2023,RULE-6-2-1,Yes,Required,Decidable,System,The one-definition rule shall not be violated,M3-2-2,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-6-2-2,Yes,Required,Decidable,System,All declarations of a variable or function shall have the same type,"M3-9-1,DCL40-C",Declarations2,Easy,
 cpp,MISRA-C++-2023,RULE-6-2-3,Yes,Required,Decidable,System,The source code used to implement an entity shall appear only once,,Declarations2,Medium,
-cpp,MISRA-C++-2023,RULE-6-2-4,Yes,Required,Decidable,Single Translation Unit,A header file shall not contain definitions of functions or objects that are non-inline and have external linkage,M3-2-4,Linkage2,Easy,
+cpp,MISRA-C++-2023,RULE-6-2-4,Yes,Required,Decidable,Single Translation Unit,A header file shall not contain definitions of functions or objects that are non-inline and have external linkage,A3-1-1,Linkage2,Import,
 cpp,MISRA-C++-2023,RULE-6-4-1,Yes,Required,Decidable,Single Translation Unit,A variable declared in an inner scope shall not hide a variable declared in an outer scope,A2-10-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-6-4-2,Yes,Required,Decidable,Single Translation Unit,Derived classes shall not conceal functions that are inherited from their bases,A7-3-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-6-4-3,Yes,Required,Decidable,Single Translation Unit,A name that is present in a dependent base shall not be resolved by unqualified lookup,M14-6-1,ImportMisra23,Import,
