@@ -3,7 +3,7 @@
  * @name RULE-8-7-1: Pointer arithmetic shall not form an invalid pointer.
  * @description Pointers obtained as result of performing arithmetic should point to an initialized
  *              object, or an element right next to the last element of an array.
- * @kind problem
+ * @kind path-problem
  * @precision high
  * @problem.severity error
  * @tags external/misra/id/rule-8-7-1

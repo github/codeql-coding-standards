@@ -8,7 +8,7 @@
       "queries": [
         {
           "description": "Pointers obtained as result of performing arithmetic should point to an initialized object, or an element right next to the last element of an array.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "Pointer arithmetic shall not form an invalid pointer.",
           "precision": "high",
           "severity": "error",
