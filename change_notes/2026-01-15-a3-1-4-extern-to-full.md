@@ -1,0 +1,2 @@
+- `A3-1-4` - `ExternalLinkageArrayWithoutExplicitSizeAutosar.ql`:
+   - `ExternalLinkageArrayWithoutExplicitSize.ql` has been renamed to `ExternalLinkageArrayWithoutExplicitSizeAutosar.ql` to reflect shared query implementation. Additionally the query previously only detected explicit uses of `extern` to determine external linkage, and now would catch other cases that are possible where it is external linkage and an array is declared without an explicit size.
