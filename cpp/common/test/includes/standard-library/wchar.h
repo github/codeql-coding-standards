@@ -17,6 +17,9 @@ double wcstod(const wchar_t *str, wchar_t **endptr);
 float wcstof(const wchar_t *str, wchar_t **endptr);
 long double wcstold(const wchar_t *str, wchar_t **endptr);
 
+size_t wcsftime (wchar_t *__restrict, size_t, const wchar_t *__restrict, const struct tm *__restrict);
+size_t wcsxfrm (wchar_t *__restrict, const wchar_t *__restrict, size_t);
+
 // Character classification and conversion types
 typedef struct {
   int __count;
