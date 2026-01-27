@@ -32,7 +32,7 @@ query predicate problems(DeclarationEntry decl, string message, File declFile, s
     secondmessage = decl.getFile().getBaseName() and
     message =
       "Header file $@ contains " + case + " " + decl.getName() +
-        " that lead to One Defintion Rule violation." and
+        " that lead to One Definition Rule violation." and
     hasExternalLinkage(decl.getDeclaration()) and
     (
       //a non-inline/non-extern function defined in a header
