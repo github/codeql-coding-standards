@@ -9,6 +9,7 @@ import BannedLibraries
 import BannedSyntax
 import BannedTypes
 import Classes
+import Classes2
 import Comments
 import Concurrency
 import Conditionals
@@ -73,6 +74,7 @@ newtype TCPPQuery =
   TBannedSyntaxPackageQuery(BannedSyntaxQuery q) or
   TBannedTypesPackageQuery(BannedTypesQuery q) or
   TClassesPackageQuery(ClassesQuery q) or
+  TClasses2PackageQuery(Classes2Query q) or
   TCommentsPackageQuery(CommentsQuery q) or
   TConcurrencyPackageQuery(ConcurrencyQuery q) or
   TConditionalsPackageQuery(ConditionalsQuery q) or
@@ -137,6 +139,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBannedSyntaxQueryMetadata(query, queryId, ruleId, category) or
   isBannedTypesQueryMetadata(query, queryId, ruleId, category) or
   isClassesQueryMetadata(query, queryId, ruleId, category) or
+  isClasses2QueryMetadata(query, queryId, ruleId, category) or
   isCommentsQueryMetadata(query, queryId, ruleId, category) or
   isConcurrencyQueryMetadata(query, queryId, ruleId, category) or
   isConditionalsQueryMetadata(query, queryId, ruleId, category) or
