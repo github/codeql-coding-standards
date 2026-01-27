@@ -98,8 +98,8 @@ newtype TCPPQuery =
   TInvariantsPackageQuery(InvariantsQuery q) or
   TIteratorsPackageQuery(IteratorsQuery q) or
   TLambdasPackageQuery(LambdasQuery q) or
-  TLinkage2PackageQuery(Linkage2Query q) or
   TLinkage1PackageQuery(Linkage1Query q) or
+  TLinkage2PackageQuery(Linkage2Query q) or
   TLiteralsPackageQuery(LiteralsQuery q) or
   TLoopsPackageQuery(LoopsQuery q) or
   TMacrosPackageQuery(MacrosQuery q) or
