@@ -23,11 +23,9 @@ struct s {
   // Structs must have at least one non-flexible array member.
   int foo;
 
-  // static data members have external linkage - but not currently detected in
-  // our external linkage lib - also FAMs are expected to be detected
-  // specifically in RULE-18-7
-  static const int flexibleArrayMember[]; // NON_COMPLIANT[FALSE_NEGATIVE]
-  static int flexibleArrayMember2[];      // NON_COMPLIANT[FALSE_NEGATIVE]
+  // FAMs are expected to be detected specifically in RULE-18-7
+  static const int flexibleArrayMember[]; // NON_COMPLIANT
+  static int flexibleArrayMember2[];      // NON_COMPLIANT
 };
 
 // test.cpp
