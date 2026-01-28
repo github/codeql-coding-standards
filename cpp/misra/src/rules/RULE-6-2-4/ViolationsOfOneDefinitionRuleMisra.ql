@@ -6,7 +6,7 @@
  *              behaviour.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-6-2-4
  *       correctness
  *       maintainability

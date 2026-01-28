@@ -11,7 +11,7 @@
           "kind": "problem",
           "name": "A header file shall not contain definitions of functions or objects that are non-inline and have external linkage",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "warning",
           "short_name": "ViolationsOfOneDefinitionRuleMisra",
           "shared_implementation_short_name": "ViolationsOfOneDefinitionRule",
           "tags": [

@@ -20,7 +20,5 @@ class C {
   int m1();       // COMPLIANT
 };
 
-int C::m() {}  // NON_COMPLIANT[FALSE_NEGATIVE] - external linkage library
-               // issue/namespace of class not found
-int C::m1() {} // NON_COMPLIANT[FALSE_NEGATIVE] - external linkage library
-               // issue/namespace of class not found
+int C::m() {}  // NON_COMPLIANT
+int C::m1() {} // NON_COMPLIANT
