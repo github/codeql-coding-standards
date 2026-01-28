@@ -1,0 +1,51 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-6-2-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Placing the definitions of functions or objects that are non-inline and have external linkage can lead to violations of the ODR and can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "A header file shall not contain definitions of functions or objects that are non-inline and have external linkage",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ViolationsOfOneDefinitionRuleMisra",
+          "shared_implementation_short_name": "ViolationsOfOneDefinitionRule",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A header file shall not contain definitions of functions or objects that are non-inline and have external linkage"
+    },
+    "RULE-6-5-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using certain specifiers or declaring entities with internal linkage in certain namespaces can lead to confusion as to the linkage of the entity and can cause code to be more difficult to read.",
+          "kind": "problem",
+          "name": "Internal linkage should be specified appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InternalLinkageSpecifiedAppropriately",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Internal linkage should be specified appropriately"
+    }
+  }
+}

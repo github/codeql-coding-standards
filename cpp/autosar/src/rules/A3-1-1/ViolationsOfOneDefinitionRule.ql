@@ -20,67 +20,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.AcceptableHeader
+import codingstandards.cpp.rules.violationsofonedefinitionrule.ViolationsOfOneDefinitionRule
 
-predicate isInline(Function decl) {
-  exists(Specifier spec |
-    spec = decl.getASpecifier() and
-    (
-      spec.hasName("inline") or
-      spec.hasName("constexpr")
-    )
-  )
+class ViolationsOfOneDefinitionRuleQuery extends ViolationsOfOneDefinitionRuleSharedQuery {
+  ViolationsOfOneDefinitionRuleQuery() {
+    this = IncludesPackage::violationsOfOneDefinitionRuleQuery()
+  }
 }
-
-predicate isExtern(FunctionDeclarationEntry decl) {
-  exists(string spec |
-    spec = decl.getASpecifier() and
-    spec = "extern"
-  )
-}
-
-from DeclarationEntry decl, string case, string name
-where
-  (
-    //a non-inline/non-extern function defined in a header
-    exists(FunctionDeclarationEntry fn |
-      fn.isDefinition() and
-      not (
-        isInline(fn.getDeclaration())
-        or
-        isExtern(fn)
-        or
-        //any (defined) templates do not violate the ODR
-        fn.isFromUninstantiatedTemplate(_)
-        or
-        fn.isFromTemplateInstantiation(_) and
-        //except for specializations, those do violate ODR
-        not fn.isSpecialization()
-        or
-        fn.getDeclaration().isStatic()
-      ) and
-      decl = fn and
-      case = "function"
-    )
-    or
-    //an non-const object defined in a header
-    exists(GlobalOrNamespaceVariable object |
-      object.hasDefinition() and
-      not (
-        object.isConstexpr()
-        or
-        object.isConst()
-        or
-        object.isStatic()
-      ) and
-      decl = object.getDefinition() and
-      case = "object"
-    )
-  ) and
-  not decl.getDeclaration().getNamespace().isAnonymous() and
-  decl.getFile() instanceof AcceptableHeader and
-  not isExcluded(decl, IncludesPackage::violationsOfOneDefinitionRuleQuery()) and
-  name = decl.getName()
-select decl,
-  "Header file $@ contains " + case + " " + name + " that lead to One Defintion Rule violation.",
-  decl.getFile(), decl.getFile().getBaseName()
