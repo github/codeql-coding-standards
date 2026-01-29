@@ -1,282 +1,395 @@
-WARNING: unused method 'getAllocFunctionCall' (PointerArithmeticFormsAnInvalidPointer.ql:74,30-50)
 edges
-| test.cpp:3:65:3:69 | array | test.cpp:5:17:5:21 | array | provenance |  |
-| test.cpp:5:17:5:21 | array | test.cpp:6:17:6:25 | ... + ... | provenance | Config |
-| test.cpp:5:17:5:21 | array | test.cpp:7:17:7:25 | ... + ... | provenance | Config |
-| test.cpp:5:17:5:21 | array | test.cpp:9:7:9:15 | ... + ... | provenance | Config |
-| test.cpp:5:17:5:21 | array | test.cpp:11:7:12:7 | ... + ... | provenance | Config |
-| test.cpp:5:17:5:21 | array | test.cpp:13:19:13:27 | ... - ... | provenance | Config |
-| test.cpp:16:59:16:63 | array | test.cpp:18:16:18:23 | access to array | provenance | Config |
-| test.cpp:16:59:16:63 | array | test.cpp:19:16:19:23 | access to array | provenance | Config |
-| test.cpp:16:59:16:63 | array | test.cpp:20:16:20:23 | access to array | provenance | Config |
-| test.cpp:16:59:16:63 | array | test.cpp:21:16:21:23 | access to array | provenance | Config |
-| test.cpp:16:59:16:63 | array | test.cpp:23:18:23:25 | access to array | provenance | Config |
-| test.cpp:16:59:16:63 | array | test.cpp:25:18:25:26 | access to array | provenance | Config |
-| test.cpp:28:56:28:60 | array | test.cpp:30:17:30:21 | array | provenance |  |
-| test.cpp:30:17:30:21 | array | test.cpp:31:17:31:25 | ... + ... | provenance | Config |
-| test.cpp:30:17:30:21 | array | test.cpp:33:17:33:25 | ... + ... | provenance | Config |
-| test.cpp:30:17:30:21 | array | test.cpp:35:17:35:25 | ... + ... | provenance | Config |
-| test.cpp:30:17:30:21 | array | test.cpp:37:19:37:27 | ... + ... | provenance | Config |
-| test.cpp:30:17:30:21 | array | test.cpp:39:19:39:27 | ... + ... | provenance | Config |
-| test.cpp:30:17:30:21 | array | test.cpp:41:19:41:27 | ... - ... | provenance | Config |
-| test.cpp:44:50:44:54 | array | test.cpp:47:7:47:14 | access to array | provenance | Config |
-| test.cpp:44:50:44:54 | array | test.cpp:48:16:48:23 | access to array | provenance | Config |
-| test.cpp:44:50:44:54 | array | test.cpp:51:16:51:23 | access to array | provenance | Config |
-| test.cpp:44:50:44:54 | array | test.cpp:53:16:53:23 | access to array | provenance | Config |
-| test.cpp:44:50:44:54 | array | test.cpp:55:18:55:25 | access to array | provenance | Config |
-| test.cpp:44:50:44:54 | array | test.cpp:57:18:57:26 | access to array | provenance | Config |
-| test.cpp:60:56:60:60 | array | test.cpp:62:17:62:21 | array | provenance |  |
-| test.cpp:62:17:62:21 | array | test.cpp:64:7:64:15 | ... + ... | provenance | Config |
-| test.cpp:62:17:62:21 | array | test.cpp:65:17:65:25 | ... + ... | provenance | Config |
-| test.cpp:62:17:62:21 | array | test.cpp:68:17:68:25 | ... + ... | provenance | Config |
-| test.cpp:62:17:62:21 | array | test.cpp:70:19:70:27 | ... + ... | provenance | Config |
-| test.cpp:62:17:62:21 | array | test.cpp:72:19:72:27 | ... - ... | provenance | Config |
-| test.cpp:75:50:75:54 | array | test.cpp:77:16:77:23 | access to array | provenance | Config |
-| test.cpp:75:50:75:54 | array | test.cpp:78:16:78:23 | access to array | provenance | Config |
-| test.cpp:75:50:75:54 | array | test.cpp:79:16:79:23 | access to array | provenance | Config |
-| test.cpp:75:50:75:54 | array | test.cpp:82:16:82:23 | access to array | provenance | Config |
-| test.cpp:75:50:75:54 | array | test.cpp:84:18:84:25 | access to array | provenance | Config |
-| test.cpp:75:50:75:54 | array | test.cpp:86:18:86:26 | access to array | provenance | Config |
-| test.cpp:89:57:89:61 | array | test.cpp:91:17:91:21 | array | provenance |  |
-| test.cpp:91:17:91:21 | array | test.cpp:93:7:93:15 | ... + ... | provenance | Config |
-| test.cpp:91:17:91:21 | array | test.cpp:95:7:95:15 | ... + ... | provenance | Config |
-| test.cpp:91:17:91:21 | array | test.cpp:96:17:96:25 | ... + ... | provenance | Config |
-| test.cpp:91:17:91:21 | array | test.cpp:98:19:98:27 | ... + ... | provenance | Config |
-| test.cpp:91:17:91:21 | array | test.cpp:100:19:100:27 | ... - ... | provenance | Config |
-| test.cpp:103:51:103:55 | array | test.cpp:106:7:106:14 | access to array | provenance | Config |
-| test.cpp:103:51:103:55 | array | test.cpp:108:7:108:14 | access to array | provenance | Config |
-| test.cpp:103:51:103:55 | array | test.cpp:110:7:110:14 | access to array | provenance | Config |
-| test.cpp:103:51:103:55 | array | test.cpp:112:7:112:14 | access to array | provenance | Config |
-| test.cpp:103:51:103:55 | array | test.cpp:114:18:114:25 | access to array | provenance | Config |
-| test.cpp:103:51:103:55 | array | test.cpp:116:18:116:26 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:120:17:120:24 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:120:17:120:27 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:121:17:121:24 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:121:17:121:27 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:122:17:122:24 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:122:17:122:27 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:124:18:124:25 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:124:18:124:28 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:127:17:127:24 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:127:17:127:27 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:128:17:128:24 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:128:17:128:27 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:129:17:129:24 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:129:17:129:27 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:132:18:132:25 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:132:18:132:28 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:135:17:135:24 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:135:17:135:27 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:137:18:137:25 | access to array | provenance | Config |
-| test.cpp:119:57:119:61 | array | test.cpp:137:18:137:28 | access to array | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:142:20:142:31 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:142:20:142:35 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:144:7:145:10 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:148:20:148:31 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:148:20:148:35 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:150:9:151:9 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:153:9:153:20 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:153:9:153:24 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:156:7:157:7 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:159:21:159:32 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:159:21:159:36 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:162:9:162:18 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:165:20:165:31 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:165:20:165:35 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:167:7:168:10 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:169:19:169:30 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:169:19:169:34 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:171:9:171:20 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:171:9:171:24 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:173:20:173:31 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:173:20:173:35 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:177:9:177:20 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:177:9:177:24 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:179:20:181:8 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:183:21:183:32 | * ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:183:21:183:36 | ... + ... | provenance | Config |
-| test.cpp:141:63:141:67 | array | test.cpp:186:9:186:20 | * ... | provenance | Config |
-| test.cpp:192:7:192:36 | definition of stack_single_dimensional_array | test.cpp:195:7:195:36 | stack_single_dimensional_array | provenance |  |
-| test.cpp:195:7:195:36 | stack_single_dimensional_array | test.cpp:3:65:3:69 | array | provenance |  |
-| test.cpp:195:7:195:36 | stack_single_dimensional_array | test.cpp:197:7:197:36 | stack_single_dimensional_array | provenance |  |
-| test.cpp:197:7:197:36 | stack_single_dimensional_array | test.cpp:16:59:16:63 | array | provenance |  |
-| test.cpp:215:7:215:57 | call to malloc | test.cpp:215:7:215:57 | call to malloc | provenance |  |
-| test.cpp:215:7:215:57 | call to malloc | test.cpp:220:7:220:37 | single_dimensional_array_malloc | provenance |  |
-| test.cpp:215:7:215:57 | call to malloc | test.cpp:220:7:220:37 | single_dimensional_array_malloc | provenance | Config |
-| test.cpp:217:7:217:56 | call to calloc | test.cpp:217:7:217:56 | call to calloc | provenance |  |
-| test.cpp:217:7:217:56 | call to calloc | test.cpp:225:48:225:78 | single_dimensional_array_calloc | provenance |  |
-| test.cpp:219:43:220:77 | call to realloc | test.cpp:219:43:220:77 | call to realloc | provenance |  |
-| test.cpp:219:43:220:77 | call to realloc | test.cpp:229:7:229:38 | single_dimensional_array_realloc | provenance |  |
-| test.cpp:220:7:220:37 | single_dimensional_array_malloc | test.cpp:222:48:222:78 | single_dimensional_array_malloc | provenance |  |
-| test.cpp:222:48:222:78 | single_dimensional_array_malloc | test.cpp:28:56:28:60 | array | provenance |  |
-| test.cpp:222:48:222:78 | single_dimensional_array_malloc | test.cpp:223:42:223:72 | single_dimensional_array_malloc | provenance |  |
-| test.cpp:223:42:223:72 | single_dimensional_array_malloc | test.cpp:44:50:44:54 | array | provenance |  |
-| test.cpp:225:48:225:78 | single_dimensional_array_calloc | test.cpp:60:56:60:60 | array | provenance |  |
-| test.cpp:225:48:225:78 | single_dimensional_array_calloc | test.cpp:226:42:226:72 | single_dimensional_array_calloc | provenance |  |
-| test.cpp:226:42:226:72 | single_dimensional_array_calloc | test.cpp:75:50:75:54 | array | provenance |  |
-| test.cpp:229:7:229:38 | single_dimensional_array_realloc | test.cpp:89:57:89:61 | array | provenance |  |
-| test.cpp:229:7:229:38 | single_dimensional_array_realloc | test.cpp:230:43:230:74 | single_dimensional_array_realloc | provenance |  |
-| test.cpp:230:43:230:74 | single_dimensional_array_realloc | test.cpp:103:51:103:55 | array | provenance |  |
-| test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:239:50:239:78 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:239:50:239:78 | stack_multi_dimensional_array | test.cpp:119:57:119:61 | array | provenance |  |
-| test.cpp:239:50:239:78 | stack_multi_dimensional_array | test.cpp:241:7:241:35 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:241:7:241:35 | stack_multi_dimensional_array | test.cpp:141:63:141:67 | array | provenance |  |
+| test.cpp:6:65:6:69 | array | test.cpp:8:17:8:21 | array | provenance |  |
+| test.cpp:8:17:8:21 | array | test.cpp:9:17:9:25 | ... + ... | provenance | Config |
+| test.cpp:8:17:8:21 | array | test.cpp:10:17:10:25 | ... + ... | provenance | Config |
+| test.cpp:8:17:8:21 | array | test.cpp:12:7:12:15 | ... + ... | provenance | Config |
+| test.cpp:8:17:8:21 | array | test.cpp:14:7:15:7 | ... + ... | provenance | Config |
+| test.cpp:8:17:8:21 | array | test.cpp:16:19:16:27 | ... - ... | provenance | Config |
+| test.cpp:19:59:19:63 | array | test.cpp:21:16:21:23 | access to array | provenance | Config |
+| test.cpp:19:59:19:63 | array | test.cpp:22:16:22:23 | access to array | provenance | Config |
+| test.cpp:19:59:19:63 | array | test.cpp:23:16:23:23 | access to array | provenance | Config |
+| test.cpp:19:59:19:63 | array | test.cpp:24:16:24:23 | access to array | provenance | Config |
+| test.cpp:19:59:19:63 | array | test.cpp:26:18:26:25 | access to array | provenance | Config |
+| test.cpp:19:59:19:63 | array | test.cpp:28:18:28:26 | access to array | provenance | Config |
+| test.cpp:31:56:31:60 | array | test.cpp:33:17:33:21 | array | provenance |  |
+| test.cpp:33:17:33:21 | array | test.cpp:34:17:34:25 | ... + ... | provenance | Config |
+| test.cpp:33:17:33:21 | array | test.cpp:36:17:36:25 | ... + ... | provenance | Config |
+| test.cpp:33:17:33:21 | array | test.cpp:38:17:38:25 | ... + ... | provenance | Config |
+| test.cpp:33:17:33:21 | array | test.cpp:40:19:40:27 | ... + ... | provenance | Config |
+| test.cpp:33:17:33:21 | array | test.cpp:42:19:42:27 | ... + ... | provenance | Config |
+| test.cpp:33:17:33:21 | array | test.cpp:44:19:44:27 | ... - ... | provenance | Config |
+| test.cpp:47:50:47:54 | array | test.cpp:50:7:50:14 | access to array | provenance | Config |
+| test.cpp:47:50:47:54 | array | test.cpp:51:16:51:23 | access to array | provenance | Config |
+| test.cpp:47:50:47:54 | array | test.cpp:54:16:54:23 | access to array | provenance | Config |
+| test.cpp:47:50:47:54 | array | test.cpp:56:16:56:23 | access to array | provenance | Config |
+| test.cpp:47:50:47:54 | array | test.cpp:58:18:58:25 | access to array | provenance | Config |
+| test.cpp:47:50:47:54 | array | test.cpp:60:18:60:26 | access to array | provenance | Config |
+| test.cpp:63:56:63:60 | array | test.cpp:65:17:65:21 | array | provenance |  |
+| test.cpp:65:17:65:21 | array | test.cpp:67:7:67:15 | ... + ... | provenance | Config |
+| test.cpp:65:17:65:21 | array | test.cpp:68:17:68:25 | ... + ... | provenance | Config |
+| test.cpp:65:17:65:21 | array | test.cpp:71:17:71:25 | ... + ... | provenance | Config |
+| test.cpp:65:17:65:21 | array | test.cpp:73:19:73:27 | ... + ... | provenance | Config |
+| test.cpp:65:17:65:21 | array | test.cpp:75:19:75:27 | ... - ... | provenance | Config |
+| test.cpp:78:50:78:54 | array | test.cpp:80:16:80:23 | access to array | provenance | Config |
+| test.cpp:78:50:78:54 | array | test.cpp:81:16:81:23 | access to array | provenance | Config |
+| test.cpp:78:50:78:54 | array | test.cpp:82:16:82:23 | access to array | provenance | Config |
+| test.cpp:78:50:78:54 | array | test.cpp:85:16:85:23 | access to array | provenance | Config |
+| test.cpp:78:50:78:54 | array | test.cpp:87:18:87:25 | access to array | provenance | Config |
+| test.cpp:78:50:78:54 | array | test.cpp:89:18:89:26 | access to array | provenance | Config |
+| test.cpp:92:57:92:61 | array | test.cpp:94:17:94:21 | array | provenance |  |
+| test.cpp:94:17:94:21 | array | test.cpp:96:7:96:15 | ... + ... | provenance | Config |
+| test.cpp:94:17:94:21 | array | test.cpp:98:7:98:15 | ... + ... | provenance | Config |
+| test.cpp:94:17:94:21 | array | test.cpp:99:17:99:25 | ... + ... | provenance | Config |
+| test.cpp:94:17:94:21 | array | test.cpp:101:19:101:27 | ... + ... | provenance | Config |
+| test.cpp:94:17:94:21 | array | test.cpp:103:19:103:27 | ... - ... | provenance | Config |
+| test.cpp:106:51:106:55 | array | test.cpp:109:7:109:14 | access to array | provenance | Config |
+| test.cpp:106:51:106:55 | array | test.cpp:111:7:111:14 | access to array | provenance | Config |
+| test.cpp:106:51:106:55 | array | test.cpp:113:7:113:14 | access to array | provenance | Config |
+| test.cpp:106:51:106:55 | array | test.cpp:115:7:115:14 | access to array | provenance | Config |
+| test.cpp:106:51:106:55 | array | test.cpp:117:18:117:25 | access to array | provenance | Config |
+| test.cpp:106:51:106:55 | array | test.cpp:119:18:119:26 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:123:17:123:24 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:123:17:123:27 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:124:17:124:24 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:124:17:124:27 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:125:17:125:24 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:125:17:125:27 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:127:18:127:25 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:127:18:127:28 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:130:17:130:24 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:130:17:130:27 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:131:17:131:24 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:131:17:131:27 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:132:17:132:24 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:132:17:132:27 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:135:18:135:25 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:135:18:135:28 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:138:17:138:24 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:138:17:138:27 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:140:18:140:25 | access to array | provenance | Config |
+| test.cpp:122:57:122:61 | array | test.cpp:140:18:140:28 | access to array | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:145:20:145:31 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:145:20:145:35 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:147:7:148:10 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:151:20:151:31 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:151:20:151:35 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:153:9:154:9 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:156:9:156:20 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:156:9:156:24 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:159:7:160:7 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:162:21:162:32 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:162:21:162:36 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:165:9:165:18 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:168:20:168:31 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:168:20:168:35 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:170:7:171:10 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:172:19:172:30 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:172:19:172:34 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:174:9:174:20 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:174:9:174:24 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:176:20:176:31 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:176:20:176:35 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:180:9:180:20 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:180:9:180:24 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:182:20:184:8 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:186:21:186:32 | * ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:186:21:186:36 | ... + ... | provenance | Config |
+| test.cpp:144:63:144:67 | array | test.cpp:189:9:189:20 | * ... | provenance | Config |
+| test.cpp:207:8:207:11 | definition of buf5 | test.cpp:210:12:210:15 | buf5 | provenance |  |
+| test.cpp:210:12:210:15 | buf5 | test.cpp:211:12:211:19 | ... + ... | provenance | Config |
+| test.cpp:210:12:210:15 | buf5 | test.cpp:212:13:212:16 | buf5 | provenance |  |
+| test.cpp:212:13:212:16 | buf5 | test.cpp:213:13:213:16 | buf5 | provenance |  |
+| test.cpp:213:13:213:16 | buf5 | test.cpp:210:12:210:15 | buf5 | provenance |  |
+| test.cpp:273:14:273:45 | call to malloc | test.cpp:273:14:273:45 | call to malloc | provenance |  |
+| test.cpp:273:14:273:45 | call to malloc | test.cpp:280:12:280:13 | p2 | provenance |  |
+| test.cpp:273:14:273:45 | call to malloc | test.cpp:280:12:280:13 | p2 | provenance | Config |
+| test.cpp:273:14:273:45 | call to malloc | test.cpp:283:12:283:17 | ... + ... | provenance | Config |
+| test.cpp:280:12:280:13 | p2 | test.cpp:283:12:283:17 | ... + ... | provenance | Config |
+| test.cpp:341:10:341:12 | definition of buf | test.cpp:343:14:343:16 | buf | provenance |  |
+| test.cpp:342:13:342:16 | definition of wbuf | test.cpp:343:19:343:22 | wbuf | provenance |  |
+| test.cpp:343:14:343:16 | buf | test.cpp:344:14:344:16 | buf | provenance |  |
+| test.cpp:343:19:343:22 | wbuf | test.cpp:344:19:344:22 | wbuf | provenance |  |
+| test.cpp:344:14:344:16 | buf | test.cpp:345:14:345:20 | ... + ... | provenance | Config |
+| test.cpp:344:14:344:16 | buf | test.cpp:346:14:346:20 | ... + ... | provenance | Config |
+| test.cpp:344:19:344:22 | wbuf | test.cpp:345:23:345:30 | ... + ... | provenance | Config |
+| test.cpp:344:19:344:22 | wbuf | test.cpp:346:23:346:30 | ... + ... | provenance | Config |
+| test.cpp:380:10:380:12 | definition of buf | test.cpp:381:14:381:16 | buf | provenance |  |
+| test.cpp:381:14:381:16 | buf | test.cpp:382:14:382:16 | buf | provenance |  |
+| test.cpp:382:14:382:16 | buf | test.cpp:383:14:383:16 | buf | provenance |  |
+| test.cpp:383:14:383:16 | buf | test.cpp:384:14:384:20 | ... + ... | provenance | Config |
+| test.cpp:389:13:389:16 | definition of wbuf | test.cpp:390:14:390:17 | wbuf | provenance |  |
+| test.cpp:390:14:390:17 | wbuf | test.cpp:392:14:392:17 | wbuf | provenance |  |
+| test.cpp:392:14:392:17 | wbuf | test.cpp:394:14:394:17 | wbuf | provenance |  |
+| test.cpp:394:14:394:17 | wbuf | test.cpp:396:14:396:21 | ... + ... | provenance | Config |
+| test.cpp:403:10:403:12 | definition of buf | test.cpp:405:13:405:15 | buf | provenance |  |
+| test.cpp:405:13:405:15 | buf | test.cpp:406:13:406:15 | buf | provenance |  |
+| test.cpp:406:13:406:15 | buf | test.cpp:407:13:407:15 | buf | provenance |  |
+| test.cpp:407:13:407:15 | buf | test.cpp:408:13:408:19 | ... + ... | provenance | Config |
+| test.cpp:414:10:414:12 | definition of buf | test.cpp:416:13:416:15 | buf | provenance |  |
+| test.cpp:415:10:415:13 | definition of buf2 | test.cpp:416:18:416:21 | buf2 | provenance |  |
+| test.cpp:416:13:416:15 | buf | test.cpp:417:13:417:15 | buf | provenance |  |
+| test.cpp:416:18:416:21 | buf2 | test.cpp:417:18:417:21 | buf2 | provenance |  |
+| test.cpp:417:13:417:15 | buf | test.cpp:418:13:418:15 | buf | provenance |  |
+| test.cpp:417:18:417:21 | buf2 | test.cpp:418:18:418:21 | buf2 | provenance |  |
+| test.cpp:418:13:418:15 | buf | test.cpp:419:13:419:19 | ... + ... | provenance | Config |
+| test.cpp:418:18:418:21 | buf2 | test.cpp:419:22:419:25 | buf2 | provenance |  |
+| test.cpp:419:22:419:25 | buf2 | test.cpp:420:18:420:25 | ... + ... | provenance | Config |
+| test.cpp:425:13:425:16 | definition of wbuf | test.cpp:427:13:427:16 | wbuf | provenance |  |
+| test.cpp:427:13:427:16 | wbuf | test.cpp:428:13:428:16 | wbuf | provenance |  |
+| test.cpp:428:13:428:16 | wbuf | test.cpp:429:13:429:16 | wbuf | provenance |  |
+| test.cpp:429:13:429:16 | wbuf | test.cpp:430:13:430:20 | ... + ... | provenance | Config |
+| test.cpp:437:10:437:12 | definition of buf | test.cpp:442:12:442:14 | buf | provenance |  |
+| test.cpp:438:10:438:13 | definition of buf2 | test.cpp:442:17:442:20 | buf2 | provenance |  |
+| test.cpp:442:12:442:14 | buf | test.cpp:443:12:443:14 | buf | provenance |  |
+| test.cpp:442:17:442:20 | buf2 | test.cpp:443:17:443:20 | buf2 | provenance |  |
+| test.cpp:443:12:443:14 | buf | test.cpp:444:12:444:14 | buf | provenance |  |
+| test.cpp:443:17:443:20 | buf2 | test.cpp:444:17:444:20 | buf2 | provenance |  |
+| test.cpp:444:12:444:14 | buf | test.cpp:445:12:445:18 | ... + ... | provenance | Config |
+| test.cpp:444:17:444:20 | buf2 | test.cpp:445:21:445:24 | buf2 | provenance |  |
+| test.cpp:445:21:445:24 | buf2 | test.cpp:446:17:446:24 | ... + ... | provenance | Config |
+| test.cpp:461:7:461:36 | definition of stack_single_dimensional_array | test.cpp:464:7:464:36 | stack_single_dimensional_array | provenance |  |
+| test.cpp:464:7:464:36 | stack_single_dimensional_array | test.cpp:6:65:6:69 | array | provenance |  |
+| test.cpp:464:7:464:36 | stack_single_dimensional_array | test.cpp:466:7:466:36 | stack_single_dimensional_array | provenance |  |
+| test.cpp:466:7:466:36 | stack_single_dimensional_array | test.cpp:19:59:19:63 | array | provenance |  |
+| test.cpp:484:7:484:57 | call to malloc | test.cpp:484:7:484:57 | call to malloc | provenance |  |
+| test.cpp:484:7:484:57 | call to malloc | test.cpp:489:7:489:37 | single_dimensional_array_malloc | provenance |  |
+| test.cpp:484:7:484:57 | call to malloc | test.cpp:489:7:489:37 | single_dimensional_array_malloc | provenance | Config |
+| test.cpp:486:7:486:56 | call to calloc | test.cpp:486:7:486:56 | call to calloc | provenance |  |
+| test.cpp:486:7:486:56 | call to calloc | test.cpp:494:48:494:78 | single_dimensional_array_calloc | provenance |  |
+| test.cpp:488:43:489:77 | call to realloc | test.cpp:488:43:489:77 | call to realloc | provenance |  |
+| test.cpp:488:43:489:77 | call to realloc | test.cpp:498:7:498:38 | single_dimensional_array_realloc | provenance |  |
+| test.cpp:489:7:489:37 | single_dimensional_array_malloc | test.cpp:491:48:491:78 | single_dimensional_array_malloc | provenance |  |
+| test.cpp:491:48:491:78 | single_dimensional_array_malloc | test.cpp:31:56:31:60 | array | provenance |  |
+| test.cpp:491:48:491:78 | single_dimensional_array_malloc | test.cpp:492:42:492:72 | single_dimensional_array_malloc | provenance |  |
+| test.cpp:492:42:492:72 | single_dimensional_array_malloc | test.cpp:47:50:47:54 | array | provenance |  |
+| test.cpp:494:48:494:78 | single_dimensional_array_calloc | test.cpp:63:56:63:60 | array | provenance |  |
+| test.cpp:494:48:494:78 | single_dimensional_array_calloc | test.cpp:495:42:495:72 | single_dimensional_array_calloc | provenance |  |
+| test.cpp:495:42:495:72 | single_dimensional_array_calloc | test.cpp:78:50:78:54 | array | provenance |  |
+| test.cpp:498:7:498:38 | single_dimensional_array_realloc | test.cpp:92:57:92:61 | array | provenance |  |
+| test.cpp:498:7:498:38 | single_dimensional_array_realloc | test.cpp:499:43:499:74 | single_dimensional_array_realloc | provenance |  |
+| test.cpp:499:43:499:74 | single_dimensional_array_realloc | test.cpp:106:51:106:55 | array | provenance |  |
+| test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:508:50:508:78 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:508:50:508:78 | stack_multi_dimensional_array | test.cpp:122:57:122:61 | array | provenance |  |
+| test.cpp:508:50:508:78 | stack_multi_dimensional_array | test.cpp:510:7:510:35 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:510:7:510:35 | stack_multi_dimensional_array | test.cpp:144:63:144:67 | array | provenance |  |
 nodes
-| test.cpp:3:65:3:69 | array | semmle.label | array |
-| test.cpp:5:17:5:21 | array | semmle.label | array |
-| test.cpp:6:17:6:25 | ... + ... | semmle.label | ... + ... |
-| test.cpp:7:17:7:25 | ... + ... | semmle.label | ... + ... |
-| test.cpp:9:7:9:15 | ... + ... | semmle.label | ... + ... |
-| test.cpp:11:7:12:7 | ... + ... | semmle.label | ... + ... |
-| test.cpp:13:19:13:27 | ... - ... | semmle.label | ... - ... |
-| test.cpp:16:59:16:63 | array | semmle.label | array |
-| test.cpp:18:16:18:23 | access to array | semmle.label | access to array |
-| test.cpp:19:16:19:23 | access to array | semmle.label | access to array |
-| test.cpp:20:16:20:23 | access to array | semmle.label | access to array |
+| test.cpp:6:65:6:69 | array | semmle.label | array |
+| test.cpp:8:17:8:21 | array | semmle.label | array |
+| test.cpp:9:17:9:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:10:17:10:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:12:7:12:15 | ... + ... | semmle.label | ... + ... |
+| test.cpp:14:7:15:7 | ... + ... | semmle.label | ... + ... |
+| test.cpp:16:19:16:27 | ... - ... | semmle.label | ... - ... |
+| test.cpp:19:59:19:63 | array | semmle.label | array |
 | test.cpp:21:16:21:23 | access to array | semmle.label | access to array |
-| test.cpp:23:18:23:25 | access to array | semmle.label | access to array |
-| test.cpp:25:18:25:26 | access to array | semmle.label | access to array |
-| test.cpp:28:56:28:60 | array | semmle.label | array |
-| test.cpp:30:17:30:21 | array | semmle.label | array |
-| test.cpp:31:17:31:25 | ... + ... | semmle.label | ... + ... |
-| test.cpp:33:17:33:25 | ... + ... | semmle.label | ... + ... |
-| test.cpp:35:17:35:25 | ... + ... | semmle.label | ... + ... |
-| test.cpp:37:19:37:27 | ... + ... | semmle.label | ... + ... |
-| test.cpp:39:19:39:27 | ... + ... | semmle.label | ... + ... |
-| test.cpp:41:19:41:27 | ... - ... | semmle.label | ... - ... |
-| test.cpp:44:50:44:54 | array | semmle.label | array |
-| test.cpp:47:7:47:14 | access to array | semmle.label | access to array |
-| test.cpp:48:16:48:23 | access to array | semmle.label | access to array |
+| test.cpp:22:16:22:23 | access to array | semmle.label | access to array |
+| test.cpp:23:16:23:23 | access to array | semmle.label | access to array |
+| test.cpp:24:16:24:23 | access to array | semmle.label | access to array |
+| test.cpp:26:18:26:25 | access to array | semmle.label | access to array |
+| test.cpp:28:18:28:26 | access to array | semmle.label | access to array |
+| test.cpp:31:56:31:60 | array | semmle.label | array |
+| test.cpp:33:17:33:21 | array | semmle.label | array |
+| test.cpp:34:17:34:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:36:17:36:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:38:17:38:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:40:19:40:27 | ... + ... | semmle.label | ... + ... |
+| test.cpp:42:19:42:27 | ... + ... | semmle.label | ... + ... |
+| test.cpp:44:19:44:27 | ... - ... | semmle.label | ... - ... |
+| test.cpp:47:50:47:54 | array | semmle.label | array |
+| test.cpp:50:7:50:14 | access to array | semmle.label | access to array |
 | test.cpp:51:16:51:23 | access to array | semmle.label | access to array |
-| test.cpp:53:16:53:23 | access to array | semmle.label | access to array |
-| test.cpp:55:18:55:25 | access to array | semmle.label | access to array |
-| test.cpp:57:18:57:26 | access to array | semmle.label | access to array |
-| test.cpp:60:56:60:60 | array | semmle.label | array |
-| test.cpp:62:17:62:21 | array | semmle.label | array |
-| test.cpp:64:7:64:15 | ... + ... | semmle.label | ... + ... |
-| test.cpp:65:17:65:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:54:16:54:23 | access to array | semmle.label | access to array |
+| test.cpp:56:16:56:23 | access to array | semmle.label | access to array |
+| test.cpp:58:18:58:25 | access to array | semmle.label | access to array |
+| test.cpp:60:18:60:26 | access to array | semmle.label | access to array |
+| test.cpp:63:56:63:60 | array | semmle.label | array |
+| test.cpp:65:17:65:21 | array | semmle.label | array |
+| test.cpp:67:7:67:15 | ... + ... | semmle.label | ... + ... |
 | test.cpp:68:17:68:25 | ... + ... | semmle.label | ... + ... |
-| test.cpp:70:19:70:27 | ... + ... | semmle.label | ... + ... |
-| test.cpp:72:19:72:27 | ... - ... | semmle.label | ... - ... |
-| test.cpp:75:50:75:54 | array | semmle.label | array |
-| test.cpp:77:16:77:23 | access to array | semmle.label | access to array |
-| test.cpp:78:16:78:23 | access to array | semmle.label | access to array |
-| test.cpp:79:16:79:23 | access to array | semmle.label | access to array |
+| test.cpp:71:17:71:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:73:19:73:27 | ... + ... | semmle.label | ... + ... |
+| test.cpp:75:19:75:27 | ... - ... | semmle.label | ... - ... |
+| test.cpp:78:50:78:54 | array | semmle.label | array |
+| test.cpp:80:16:80:23 | access to array | semmle.label | access to array |
+| test.cpp:81:16:81:23 | access to array | semmle.label | access to array |
 | test.cpp:82:16:82:23 | access to array | semmle.label | access to array |
-| test.cpp:84:18:84:25 | access to array | semmle.label | access to array |
-| test.cpp:86:18:86:26 | access to array | semmle.label | access to array |
-| test.cpp:89:57:89:61 | array | semmle.label | array |
-| test.cpp:91:17:91:21 | array | semmle.label | array |
-| test.cpp:93:7:93:15 | ... + ... | semmle.label | ... + ... |
-| test.cpp:95:7:95:15 | ... + ... | semmle.label | ... + ... |
-| test.cpp:96:17:96:25 | ... + ... | semmle.label | ... + ... |
-| test.cpp:98:19:98:27 | ... + ... | semmle.label | ... + ... |
-| test.cpp:100:19:100:27 | ... - ... | semmle.label | ... - ... |
-| test.cpp:103:51:103:55 | array | semmle.label | array |
-| test.cpp:106:7:106:14 | access to array | semmle.label | access to array |
-| test.cpp:108:7:108:14 | access to array | semmle.label | access to array |
-| test.cpp:110:7:110:14 | access to array | semmle.label | access to array |
-| test.cpp:112:7:112:14 | access to array | semmle.label | access to array |
-| test.cpp:114:18:114:25 | access to array | semmle.label | access to array |
-| test.cpp:116:18:116:26 | access to array | semmle.label | access to array |
-| test.cpp:119:57:119:61 | array | semmle.label | array |
-| test.cpp:120:17:120:24 | access to array | semmle.label | access to array |
-| test.cpp:120:17:120:27 | access to array | semmle.label | access to array |
-| test.cpp:121:17:121:24 | access to array | semmle.label | access to array |
-| test.cpp:121:17:121:27 | access to array | semmle.label | access to array |
-| test.cpp:122:17:122:24 | access to array | semmle.label | access to array |
-| test.cpp:122:17:122:27 | access to array | semmle.label | access to array |
-| test.cpp:124:18:124:25 | access to array | semmle.label | access to array |
-| test.cpp:124:18:124:28 | access to array | semmle.label | access to array |
-| test.cpp:127:17:127:24 | access to array | semmle.label | access to array |
-| test.cpp:127:17:127:27 | access to array | semmle.label | access to array |
-| test.cpp:128:17:128:24 | access to array | semmle.label | access to array |
-| test.cpp:128:17:128:27 | access to array | semmle.label | access to array |
-| test.cpp:129:17:129:24 | access to array | semmle.label | access to array |
-| test.cpp:129:17:129:27 | access to array | semmle.label | access to array |
-| test.cpp:132:18:132:25 | access to array | semmle.label | access to array |
-| test.cpp:132:18:132:28 | access to array | semmle.label | access to array |
-| test.cpp:135:17:135:24 | access to array | semmle.label | access to array |
-| test.cpp:135:17:135:27 | access to array | semmle.label | access to array |
-| test.cpp:137:18:137:25 | access to array | semmle.label | access to array |
-| test.cpp:137:18:137:28 | access to array | semmle.label | access to array |
-| test.cpp:141:63:141:67 | array | semmle.label | array |
-| test.cpp:142:20:142:31 | * ... | semmle.label | * ... |
-| test.cpp:142:20:142:35 | ... + ... | semmle.label | ... + ... |
-| test.cpp:144:7:145:10 | * ... | semmle.label | * ... |
-| test.cpp:148:20:148:31 | * ... | semmle.label | * ... |
-| test.cpp:148:20:148:35 | ... + ... | semmle.label | ... + ... |
-| test.cpp:150:9:151:9 | ... + ... | semmle.label | ... + ... |
-| test.cpp:153:9:153:20 | * ... | semmle.label | * ... |
-| test.cpp:153:9:153:24 | ... + ... | semmle.label | ... + ... |
-| test.cpp:156:7:157:7 | ... + ... | semmle.label | ... + ... |
-| test.cpp:159:21:159:32 | * ... | semmle.label | * ... |
-| test.cpp:159:21:159:36 | ... + ... | semmle.label | ... + ... |
-| test.cpp:162:9:162:18 | ... + ... | semmle.label | ... + ... |
-| test.cpp:165:20:165:31 | * ... | semmle.label | * ... |
-| test.cpp:165:20:165:35 | ... + ... | semmle.label | ... + ... |
-| test.cpp:167:7:168:10 | * ... | semmle.label | * ... |
-| test.cpp:169:19:169:30 | * ... | semmle.label | * ... |
-| test.cpp:169:19:169:34 | ... + ... | semmle.label | ... + ... |
-| test.cpp:171:9:171:20 | * ... | semmle.label | * ... |
-| test.cpp:171:9:171:24 | ... + ... | semmle.label | ... + ... |
-| test.cpp:173:20:173:31 | * ... | semmle.label | * ... |
-| test.cpp:173:20:173:35 | ... + ... | semmle.label | ... + ... |
-| test.cpp:177:9:177:20 | * ... | semmle.label | * ... |
-| test.cpp:177:9:177:24 | ... + ... | semmle.label | ... + ... |
-| test.cpp:179:20:181:8 | * ... | semmle.label | * ... |
-| test.cpp:183:21:183:32 | * ... | semmle.label | * ... |
-| test.cpp:183:21:183:36 | ... + ... | semmle.label | ... + ... |
-| test.cpp:186:9:186:20 | * ... | semmle.label | * ... |
-| test.cpp:192:7:192:36 | definition of stack_single_dimensional_array | semmle.label | definition of stack_single_dimensional_array |
-| test.cpp:195:7:195:36 | stack_single_dimensional_array | semmle.label | stack_single_dimensional_array |
-| test.cpp:197:7:197:36 | stack_single_dimensional_array | semmle.label | stack_single_dimensional_array |
-| test.cpp:215:7:215:57 | call to malloc | semmle.label | call to malloc |
-| test.cpp:215:7:215:57 | call to malloc | semmle.label | call to malloc |
-| test.cpp:217:7:217:56 | call to calloc | semmle.label | call to calloc |
-| test.cpp:217:7:217:56 | call to calloc | semmle.label | call to calloc |
-| test.cpp:219:43:220:77 | call to realloc | semmle.label | call to realloc |
-| test.cpp:219:43:220:77 | call to realloc | semmle.label | call to realloc |
-| test.cpp:220:7:220:37 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
-| test.cpp:222:48:222:78 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
-| test.cpp:223:42:223:72 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
-| test.cpp:225:48:225:78 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
-| test.cpp:226:42:226:72 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
-| test.cpp:229:7:229:38 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
-| test.cpp:230:43:230:74 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
-| test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | semmle.label | definition of stack_multi_dimensional_array |
-| test.cpp:239:50:239:78 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
-| test.cpp:241:7:241:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:85:16:85:23 | access to array | semmle.label | access to array |
+| test.cpp:87:18:87:25 | access to array | semmle.label | access to array |
+| test.cpp:89:18:89:26 | access to array | semmle.label | access to array |
+| test.cpp:92:57:92:61 | array | semmle.label | array |
+| test.cpp:94:17:94:21 | array | semmle.label | array |
+| test.cpp:96:7:96:15 | ... + ... | semmle.label | ... + ... |
+| test.cpp:98:7:98:15 | ... + ... | semmle.label | ... + ... |
+| test.cpp:99:17:99:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:101:19:101:27 | ... + ... | semmle.label | ... + ... |
+| test.cpp:103:19:103:27 | ... - ... | semmle.label | ... - ... |
+| test.cpp:106:51:106:55 | array | semmle.label | array |
+| test.cpp:109:7:109:14 | access to array | semmle.label | access to array |
+| test.cpp:111:7:111:14 | access to array | semmle.label | access to array |
+| test.cpp:113:7:113:14 | access to array | semmle.label | access to array |
+| test.cpp:115:7:115:14 | access to array | semmle.label | access to array |
+| test.cpp:117:18:117:25 | access to array | semmle.label | access to array |
+| test.cpp:119:18:119:26 | access to array | semmle.label | access to array |
+| test.cpp:122:57:122:61 | array | semmle.label | array |
+| test.cpp:123:17:123:24 | access to array | semmle.label | access to array |
+| test.cpp:123:17:123:27 | access to array | semmle.label | access to array |
+| test.cpp:124:17:124:24 | access to array | semmle.label | access to array |
+| test.cpp:124:17:124:27 | access to array | semmle.label | access to array |
+| test.cpp:125:17:125:24 | access to array | semmle.label | access to array |
+| test.cpp:125:17:125:27 | access to array | semmle.label | access to array |
+| test.cpp:127:18:127:25 | access to array | semmle.label | access to array |
+| test.cpp:127:18:127:28 | access to array | semmle.label | access to array |
+| test.cpp:130:17:130:24 | access to array | semmle.label | access to array |
+| test.cpp:130:17:130:27 | access to array | semmle.label | access to array |
+| test.cpp:131:17:131:24 | access to array | semmle.label | access to array |
+| test.cpp:131:17:131:27 | access to array | semmle.label | access to array |
+| test.cpp:132:17:132:24 | access to array | semmle.label | access to array |
+| test.cpp:132:17:132:27 | access to array | semmle.label | access to array |
+| test.cpp:135:18:135:25 | access to array | semmle.label | access to array |
+| test.cpp:135:18:135:28 | access to array | semmle.label | access to array |
+| test.cpp:138:17:138:24 | access to array | semmle.label | access to array |
+| test.cpp:138:17:138:27 | access to array | semmle.label | access to array |
+| test.cpp:140:18:140:25 | access to array | semmle.label | access to array |
+| test.cpp:140:18:140:28 | access to array | semmle.label | access to array |
+| test.cpp:144:63:144:67 | array | semmle.label | array |
+| test.cpp:145:20:145:31 | * ... | semmle.label | * ... |
+| test.cpp:145:20:145:35 | ... + ... | semmle.label | ... + ... |
+| test.cpp:147:7:148:10 | * ... | semmle.label | * ... |
+| test.cpp:151:20:151:31 | * ... | semmle.label | * ... |
+| test.cpp:151:20:151:35 | ... + ... | semmle.label | ... + ... |
+| test.cpp:153:9:154:9 | ... + ... | semmle.label | ... + ... |
+| test.cpp:156:9:156:20 | * ... | semmle.label | * ... |
+| test.cpp:156:9:156:24 | ... + ... | semmle.label | ... + ... |
+| test.cpp:159:7:160:7 | ... + ... | semmle.label | ... + ... |
+| test.cpp:162:21:162:32 | * ... | semmle.label | * ... |
+| test.cpp:162:21:162:36 | ... + ... | semmle.label | ... + ... |
+| test.cpp:165:9:165:18 | ... + ... | semmle.label | ... + ... |
+| test.cpp:168:20:168:31 | * ... | semmle.label | * ... |
+| test.cpp:168:20:168:35 | ... + ... | semmle.label | ... + ... |
+| test.cpp:170:7:171:10 | * ... | semmle.label | * ... |
+| test.cpp:172:19:172:30 | * ... | semmle.label | * ... |
+| test.cpp:172:19:172:34 | ... + ... | semmle.label | ... + ... |
+| test.cpp:174:9:174:20 | * ... | semmle.label | * ... |
+| test.cpp:174:9:174:24 | ... + ... | semmle.label | ... + ... |
+| test.cpp:176:20:176:31 | * ... | semmle.label | * ... |
+| test.cpp:176:20:176:35 | ... + ... | semmle.label | ... + ... |
+| test.cpp:180:9:180:20 | * ... | semmle.label | * ... |
+| test.cpp:180:9:180:24 | ... + ... | semmle.label | ... + ... |
+| test.cpp:182:20:184:8 | * ... | semmle.label | * ... |
+| test.cpp:186:21:186:32 | * ... | semmle.label | * ... |
+| test.cpp:186:21:186:36 | ... + ... | semmle.label | ... + ... |
+| test.cpp:189:9:189:20 | * ... | semmle.label | * ... |
+| test.cpp:207:8:207:11 | definition of buf5 | semmle.label | definition of buf5 |
+| test.cpp:210:12:210:15 | buf5 | semmle.label | buf5 |
+| test.cpp:211:12:211:19 | ... + ... | semmle.label | ... + ... |
+| test.cpp:212:13:212:16 | buf5 | semmle.label | buf5 |
+| test.cpp:213:13:213:16 | buf5 | semmle.label | buf5 |
+| test.cpp:273:14:273:45 | call to malloc | semmle.label | call to malloc |
+| test.cpp:273:14:273:45 | call to malloc | semmle.label | call to malloc |
+| test.cpp:280:12:280:13 | p2 | semmle.label | p2 |
+| test.cpp:283:12:283:17 | ... + ... | semmle.label | ... + ... |
+| test.cpp:341:10:341:12 | definition of buf | semmle.label | definition of buf |
+| test.cpp:342:13:342:16 | definition of wbuf | semmle.label | definition of wbuf |
+| test.cpp:343:14:343:16 | buf | semmle.label | buf |
+| test.cpp:343:19:343:22 | wbuf | semmle.label | wbuf |
+| test.cpp:344:14:344:16 | buf | semmle.label | buf |
+| test.cpp:344:19:344:22 | wbuf | semmle.label | wbuf |
+| test.cpp:345:14:345:20 | ... + ... | semmle.label | ... + ... |
+| test.cpp:345:23:345:30 | ... + ... | semmle.label | ... + ... |
+| test.cpp:346:14:346:20 | ... + ... | semmle.label | ... + ... |
+| test.cpp:346:23:346:30 | ... + ... | semmle.label | ... + ... |
+| test.cpp:380:10:380:12 | definition of buf | semmle.label | definition of buf |
+| test.cpp:381:14:381:16 | buf | semmle.label | buf |
+| test.cpp:382:14:382:16 | buf | semmle.label | buf |
+| test.cpp:383:14:383:16 | buf | semmle.label | buf |
+| test.cpp:384:14:384:20 | ... + ... | semmle.label | ... + ... |
+| test.cpp:389:13:389:16 | definition of wbuf | semmle.label | definition of wbuf |
+| test.cpp:390:14:390:17 | wbuf | semmle.label | wbuf |
+| test.cpp:392:14:392:17 | wbuf | semmle.label | wbuf |
+| test.cpp:394:14:394:17 | wbuf | semmle.label | wbuf |
+| test.cpp:396:14:396:21 | ... + ... | semmle.label | ... + ... |
+| test.cpp:403:10:403:12 | definition of buf | semmle.label | definition of buf |
+| test.cpp:405:13:405:15 | buf | semmle.label | buf |
+| test.cpp:406:13:406:15 | buf | semmle.label | buf |
+| test.cpp:407:13:407:15 | buf | semmle.label | buf |
+| test.cpp:408:13:408:19 | ... + ... | semmle.label | ... + ... |
+| test.cpp:414:10:414:12 | definition of buf | semmle.label | definition of buf |
+| test.cpp:415:10:415:13 | definition of buf2 | semmle.label | definition of buf2 |
+| test.cpp:416:13:416:15 | buf | semmle.label | buf |
+| test.cpp:416:18:416:21 | buf2 | semmle.label | buf2 |
+| test.cpp:417:13:417:15 | buf | semmle.label | buf |
+| test.cpp:417:18:417:21 | buf2 | semmle.label | buf2 |
+| test.cpp:418:13:418:15 | buf | semmle.label | buf |
+| test.cpp:418:18:418:21 | buf2 | semmle.label | buf2 |
+| test.cpp:419:13:419:19 | ... + ... | semmle.label | ... + ... |
+| test.cpp:419:22:419:25 | buf2 | semmle.label | buf2 |
+| test.cpp:420:18:420:25 | ... + ... | semmle.label | ... + ... |
+| test.cpp:425:13:425:16 | definition of wbuf | semmle.label | definition of wbuf |
+| test.cpp:427:13:427:16 | wbuf | semmle.label | wbuf |
+| test.cpp:428:13:428:16 | wbuf | semmle.label | wbuf |
+| test.cpp:429:13:429:16 | wbuf | semmle.label | wbuf |
+| test.cpp:430:13:430:20 | ... + ... | semmle.label | ... + ... |
+| test.cpp:437:10:437:12 | definition of buf | semmle.label | definition of buf |
+| test.cpp:438:10:438:13 | definition of buf2 | semmle.label | definition of buf2 |
+| test.cpp:442:12:442:14 | buf | semmle.label | buf |
+| test.cpp:442:17:442:20 | buf2 | semmle.label | buf2 |
+| test.cpp:443:12:443:14 | buf | semmle.label | buf |
+| test.cpp:443:17:443:20 | buf2 | semmle.label | buf2 |
+| test.cpp:444:12:444:14 | buf | semmle.label | buf |
+| test.cpp:444:17:444:20 | buf2 | semmle.label | buf2 |
+| test.cpp:445:12:445:18 | ... + ... | semmle.label | ... + ... |
+| test.cpp:445:21:445:24 | buf2 | semmle.label | buf2 |
+| test.cpp:446:17:446:24 | ... + ... | semmle.label | ... + ... |
+| test.cpp:461:7:461:36 | definition of stack_single_dimensional_array | semmle.label | definition of stack_single_dimensional_array |
+| test.cpp:464:7:464:36 | stack_single_dimensional_array | semmle.label | stack_single_dimensional_array |
+| test.cpp:466:7:466:36 | stack_single_dimensional_array | semmle.label | stack_single_dimensional_array |
+| test.cpp:484:7:484:57 | call to malloc | semmle.label | call to malloc |
+| test.cpp:484:7:484:57 | call to malloc | semmle.label | call to malloc |
+| test.cpp:486:7:486:56 | call to calloc | semmle.label | call to calloc |
+| test.cpp:486:7:486:56 | call to calloc | semmle.label | call to calloc |
+| test.cpp:488:43:489:77 | call to realloc | semmle.label | call to realloc |
+| test.cpp:488:43:489:77 | call to realloc | semmle.label | call to realloc |
+| test.cpp:489:7:489:37 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
+| test.cpp:491:48:491:78 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
+| test.cpp:492:42:492:72 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
+| test.cpp:494:48:494:78 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
+| test.cpp:495:42:495:72 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
+| test.cpp:498:7:498:38 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
+| test.cpp:499:43:499:74 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
+| test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | semmle.label | definition of stack_multi_dimensional_array |
+| test.cpp:508:50:508:78 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:510:7:510:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
 subpaths
 #select
-| test.cpp:11:7:12:7 | ... + ... | test.cpp:192:7:192:36 | definition of stack_single_dimensional_array | test.cpp:11:7:12:7 | ... + ... | This pointer has offset 4 when the minimum possible length of the object is 3. |
-| test.cpp:13:19:13:27 | ... - ... | test.cpp:192:7:192:36 | definition of stack_single_dimensional_array | test.cpp:13:19:13:27 | ... - ... | This pointer has a negative offset. |
-| test.cpp:23:18:23:25 | access to array | test.cpp:192:7:192:36 | definition of stack_single_dimensional_array | test.cpp:23:18:23:25 | access to array | This pointer has offset 4 when the minimum possible length of the object is 3. |
-| test.cpp:25:18:25:26 | access to array | test.cpp:192:7:192:36 | definition of stack_single_dimensional_array | test.cpp:25:18:25:26 | access to array | This pointer has a negative offset. |
-| test.cpp:33:17:33:25 | ... + ... | test.cpp:215:7:215:57 | call to malloc | test.cpp:33:17:33:25 | ... + ... | This pointer has offset 2 when the minimum possible length of the object is 1. |
-| test.cpp:35:17:35:25 | ... + ... | test.cpp:215:7:215:57 | call to malloc | test.cpp:35:17:35:25 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 1. |
-| test.cpp:37:19:37:27 | ... + ... | test.cpp:215:7:215:57 | call to malloc | test.cpp:37:19:37:27 | ... + ... | This pointer has offset 4 when the minimum possible length of the object is 1. |
-| test.cpp:39:19:39:27 | ... + ... | test.cpp:215:7:215:57 | call to malloc | test.cpp:39:19:39:27 | ... + ... | This pointer has offset 5 when the minimum possible length of the object is 1. |
-| test.cpp:41:19:41:27 | ... - ... | test.cpp:215:7:215:57 | call to malloc | test.cpp:41:19:41:27 | ... - ... | This pointer has a negative offset. |
-| test.cpp:51:16:51:23 | access to array | test.cpp:215:7:215:57 | call to malloc | test.cpp:51:16:51:23 | access to array | This pointer has offset 2 when the minimum possible length of the object is 1. |
-| test.cpp:53:16:53:23 | access to array | test.cpp:215:7:215:57 | call to malloc | test.cpp:53:16:53:23 | access to array | This pointer has offset 3 when the minimum possible length of the object is 1. |
-| test.cpp:55:18:55:25 | access to array | test.cpp:215:7:215:57 | call to malloc | test.cpp:55:18:55:25 | access to array | This pointer has offset 4 when the minimum possible length of the object is 1. |
-| test.cpp:57:18:57:26 | access to array | test.cpp:215:7:215:57 | call to malloc | test.cpp:57:18:57:26 | access to array | This pointer has a negative offset. |
-| test.cpp:68:17:68:25 | ... + ... | test.cpp:217:7:217:56 | call to calloc | test.cpp:68:17:68:25 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:70:19:70:27 | ... + ... | test.cpp:217:7:217:56 | call to calloc | test.cpp:70:19:70:27 | ... + ... | This pointer has offset 4 when the minimum possible length of the object is 2. |
-| test.cpp:72:19:72:27 | ... - ... | test.cpp:217:7:217:56 | call to calloc | test.cpp:72:19:72:27 | ... - ... | This pointer has a negative offset. |
-| test.cpp:82:16:82:23 | access to array | test.cpp:217:7:217:56 | call to calloc | test.cpp:82:16:82:23 | access to array | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:84:18:84:25 | access to array | test.cpp:217:7:217:56 | call to calloc | test.cpp:84:18:84:25 | access to array | This pointer has offset 4 when the minimum possible length of the object is 2. |
-| test.cpp:86:18:86:26 | access to array | test.cpp:217:7:217:56 | call to calloc | test.cpp:86:18:86:26 | access to array | This pointer has a negative offset. |
-| test.cpp:98:19:98:27 | ... + ... | test.cpp:219:43:220:77 | call to realloc | test.cpp:98:19:98:27 | ... + ... | This pointer has offset 4 when the minimum possible length of the object is 3. |
-| test.cpp:100:19:100:27 | ... - ... | test.cpp:219:43:220:77 | call to realloc | test.cpp:100:19:100:27 | ... - ... | This pointer has a negative offset. |
-| test.cpp:114:18:114:25 | access to array | test.cpp:219:43:220:77 | call to realloc | test.cpp:114:18:114:25 | access to array | This pointer has offset 4 when the minimum possible length of the object is 3. |
-| test.cpp:116:18:116:26 | access to array | test.cpp:219:43:220:77 | call to realloc | test.cpp:116:18:116:26 | access to array | This pointer has a negative offset. |
-| test.cpp:124:18:124:28 | access to array | test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:124:18:124:28 | access to array | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:132:18:132:28 | access to array | test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:132:18:132:28 | access to array | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:137:18:137:25 | access to array | test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:137:18:137:25 | access to array | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:159:21:159:36 | ... + ... | test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:159:21:159:36 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:162:9:162:18 | ... + ... | test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:162:9:162:18 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:173:20:173:35 | ... + ... | test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:173:20:173:35 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:183:21:183:32 | * ... | test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:183:21:183:32 | * ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
-| test.cpp:186:9:186:20 | * ... | test.cpp:233:7:233:35 | definition of stack_multi_dimensional_array | test.cpp:186:9:186:20 | * ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:14:7:15:7 | ... + ... | test.cpp:461:7:461:36 | definition of stack_single_dimensional_array | test.cpp:14:7:15:7 | ... + ... | This pointer has offset 4 when the minimum possible length of the object is 3. |
+| test.cpp:16:19:16:27 | ... - ... | test.cpp:461:7:461:36 | definition of stack_single_dimensional_array | test.cpp:16:19:16:27 | ... - ... | This pointer has a negative offset. |
+| test.cpp:26:18:26:25 | access to array | test.cpp:461:7:461:36 | definition of stack_single_dimensional_array | test.cpp:26:18:26:25 | access to array | This pointer has offset 4 when the minimum possible length of the object is 3. |
+| test.cpp:28:18:28:26 | access to array | test.cpp:461:7:461:36 | definition of stack_single_dimensional_array | test.cpp:28:18:28:26 | access to array | This pointer has a negative offset. |
+| test.cpp:36:17:36:25 | ... + ... | test.cpp:484:7:484:57 | call to malloc | test.cpp:36:17:36:25 | ... + ... | This pointer has offset 2 when the minimum possible length of the object is 1. |
+| test.cpp:38:17:38:25 | ... + ... | test.cpp:484:7:484:57 | call to malloc | test.cpp:38:17:38:25 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 1. |
+| test.cpp:40:19:40:27 | ... + ... | test.cpp:484:7:484:57 | call to malloc | test.cpp:40:19:40:27 | ... + ... | This pointer has offset 4 when the minimum possible length of the object is 1. |
+| test.cpp:42:19:42:27 | ... + ... | test.cpp:484:7:484:57 | call to malloc | test.cpp:42:19:42:27 | ... + ... | This pointer has offset 5 when the minimum possible length of the object is 1. |
+| test.cpp:44:19:44:27 | ... - ... | test.cpp:484:7:484:57 | call to malloc | test.cpp:44:19:44:27 | ... - ... | This pointer has a negative offset. |
+| test.cpp:54:16:54:23 | access to array | test.cpp:484:7:484:57 | call to malloc | test.cpp:54:16:54:23 | access to array | This pointer has offset 2 when the minimum possible length of the object is 1. |
+| test.cpp:56:16:56:23 | access to array | test.cpp:484:7:484:57 | call to malloc | test.cpp:56:16:56:23 | access to array | This pointer has offset 3 when the minimum possible length of the object is 1. |
+| test.cpp:58:18:58:25 | access to array | test.cpp:484:7:484:57 | call to malloc | test.cpp:58:18:58:25 | access to array | This pointer has offset 4 when the minimum possible length of the object is 1. |
+| test.cpp:60:18:60:26 | access to array | test.cpp:484:7:484:57 | call to malloc | test.cpp:60:18:60:26 | access to array | This pointer has a negative offset. |
+| test.cpp:71:17:71:25 | ... + ... | test.cpp:486:7:486:56 | call to calloc | test.cpp:71:17:71:25 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:73:19:73:27 | ... + ... | test.cpp:486:7:486:56 | call to calloc | test.cpp:73:19:73:27 | ... + ... | This pointer has offset 4 when the minimum possible length of the object is 2. |
+| test.cpp:75:19:75:27 | ... - ... | test.cpp:486:7:486:56 | call to calloc | test.cpp:75:19:75:27 | ... - ... | This pointer has a negative offset. |
+| test.cpp:85:16:85:23 | access to array | test.cpp:486:7:486:56 | call to calloc | test.cpp:85:16:85:23 | access to array | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:87:18:87:25 | access to array | test.cpp:486:7:486:56 | call to calloc | test.cpp:87:18:87:25 | access to array | This pointer has offset 4 when the minimum possible length of the object is 2. |
+| test.cpp:89:18:89:26 | access to array | test.cpp:486:7:486:56 | call to calloc | test.cpp:89:18:89:26 | access to array | This pointer has a negative offset. |
+| test.cpp:101:19:101:27 | ... + ... | test.cpp:488:43:489:77 | call to realloc | test.cpp:101:19:101:27 | ... + ... | This pointer has offset 4 when the minimum possible length of the object is 3. |
+| test.cpp:103:19:103:27 | ... - ... | test.cpp:488:43:489:77 | call to realloc | test.cpp:103:19:103:27 | ... - ... | This pointer has a negative offset. |
+| test.cpp:117:18:117:25 | access to array | test.cpp:488:43:489:77 | call to realloc | test.cpp:117:18:117:25 | access to array | This pointer has offset 4 when the minimum possible length of the object is 3. |
+| test.cpp:119:18:119:26 | access to array | test.cpp:488:43:489:77 | call to realloc | test.cpp:119:18:119:26 | access to array | This pointer has a negative offset. |
+| test.cpp:127:18:127:28 | access to array | test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:127:18:127:28 | access to array | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:135:18:135:28 | access to array | test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:135:18:135:28 | access to array | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:140:18:140:25 | access to array | test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:140:18:140:25 | access to array | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:162:21:162:36 | ... + ... | test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:162:21:162:36 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:165:9:165:18 | ... + ... | test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:165:9:165:18 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:176:20:176:35 | ... + ... | test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:176:20:176:35 | ... + ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:186:21:186:32 | * ... | test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:186:21:186:32 | * ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:189:9:189:20 | * ... | test.cpp:502:7:502:35 | definition of stack_multi_dimensional_array | test.cpp:189:9:189:20 | * ... | This pointer has offset 3 when the minimum possible length of the object is 2. |
+| test.cpp:283:12:283:17 | ... + ... | test.cpp:273:14:273:45 | call to malloc | test.cpp:283:12:283:17 | ... + ... | This pointer has offset 1 when the minimum possible length of the object is 0. |

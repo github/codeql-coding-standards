@@ -70,8 +70,6 @@ class NarrowedHeapAllocationFunctionCall extends Cast {
   int getMinNumElements() {
     result = alloc.getMinNumBytes() / this.getUnderlyingType().(PointerType).getBaseType().getSize()
   }
-
-  HeapAllocationFunctionCall getAllocFunctionCall() { result = alloc }
 }
 
 newtype TArrayAllocation =
