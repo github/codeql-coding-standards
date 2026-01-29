@@ -502,8 +502,7 @@ int main(int argc, char *argv[]) {
   int stack_multi_dimensional_array[2][3] = {{1, 2, 3}, {4, 5, 6}};
 
   /* 4. Multi-dimensional array initialized on the heap */
-  int (*heap_multi_dimensional_array)[3] =
-      (int (*)[3])malloc(sizeof(int[2][3]));
+  int(*heap_multi_dimensional_array)[3] = (int(*)[3])malloc(sizeof(int[2][3]));
 
   stack_allocated_multi_dimensional_array_access(stack_multi_dimensional_array);
   stack_allocated_multi_dimensional_pointer_arithmetic(
