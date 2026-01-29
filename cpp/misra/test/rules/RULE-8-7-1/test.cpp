@@ -411,14 +411,15 @@ void test_wrong_buf_size(void) {
 
   // strncat
   {
-    char buf[64];
-    char buf2[64];
-    strncat(buf, buf2, sizeof(buf));         // COMPLIANT
-    strncat(buf, buf2, sizeof(buf) + 1);     // NON_COMPLIANT
-    strncat(buf, buf2, sizeof(buf) - 1);     // COMPLIANT
-    strncat(buf + 1, buf2, sizeof(buf));     // NON_COMPLIANT
-    strncat(buf, buf2 + 1, sizeof(buf) * 2); // NON_COMPLIANT
+    char buf[65];
+    char buf2[32];
+    strncat(buf, buf2, sizeof(buf2));         // COMPLIANT
+    strncat(buf, buf2, sizeof(buf2) + 1);     // NON_COMPLIANT
+    strncat(buf, buf2, sizeof(buf2) - 1);     // COMPLIANT
+    strncat(buf + 1, buf2, sizeof(buf2));     // COMPLIANT
+    strncat(buf, buf2 + 1, sizeof(buf2) * 2); // NON_COMPLIANT
   }
+
   // wcsxfrm
   {
     wchar_t wbuf[64];

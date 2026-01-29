@@ -379,8 +379,16 @@ module OOB {
     StrncatLibraryFunction() { this.getName() = getNameOrInternalName(["strncat", "wcsncat"]) }
 
     override predicate getALengthParameterIndex(int i) {
-      // `strncat` and `wcsncat` exclude the size of a null terminator
-      i = 2
+      // `strncat` and `wcsncat` exclude the size of a null terminator, but
+      // both stops copying right after the null terminator is encountered.
+      // In fact, they don't care if the source buffer is null-terminated
+      // or not.
+      none()
+    }
+
+    override predicate getANullTerminatedParameterIndex(int i) {
+      // `strncat` does not require null-terminated parameters
+      none()
     }
   }
 
