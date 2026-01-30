@@ -9,7 +9,7 @@
         {
           "description": "Using advanced memory management that either alters allocation and deallocation or constructs object construction on uninitalized memory may result in undefined behavior.",
           "kind": "problem",
-          "name": "Advanced memory management shall not be used.",
+          "name": "Advanced memory management shall not be used",
           "precision": "very-high",
           "severity": "error",
           "short_name": "AdvancedMemoryManagementUsed",

@@ -9,7 +9,7 @@
         {
           "description": "Dynamically allocated memory must not be managed manually.",
           "kind": "problem",
-          "name": "Dynamic memory shall be managed automatically.",
+          "name": "Dynamic memory shall be managed automatically",
           "precision": "very-high",
           "severity": "error",
           "short_name": "DynamicMemoryManagedManually",

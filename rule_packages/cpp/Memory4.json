@@ -9,7 +9,7 @@
         {
           "description": "Copying a member of a union to another, and copying a slice of an array to an overlapping one causes undefined behavior.",
           "kind": "problem",
-          "name": "An object or subobject must not be copied to an overlapping object.",
+          "name": "An object or subobject must not be copied to an overlapping object",
           "precision": "high",
           "severity": "error",
           "short_name": "ObjectMustNotBeCopiedToAnOverlappingObject",
