@@ -8,5 +8,5 @@ const char *g6 = "??<"; // NON_COMPLIANT
 const char *g7 = "??>"; // NON_COMPLIANT
 const char *g8 = "??-"; // NON_COMPLIANT
 
-const char *g9 = "\?\?="; // COMPLIANT[FALSE_POSITIVE]
+const char *g9 = "\?\?="; // COMPLIANT
 const char *g10 = "?=";   // COMPLIANT
