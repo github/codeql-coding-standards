@@ -4,7 +4,7 @@
  * @description Unused writes to objects may harm performance, complicate code comprehension, or
  *              indicate logical errors in the program.
  * @kind problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
  * @tags external/misra/id/rule-0-1-1
  *       scope/system
