@@ -17,6 +17,9 @@ import codingstandards.cpp.misra
 import semmle.code.cpp.dataflow.new.TaintTracking
 import semmle.code.cpp.security.BufferAccess
 
+/**
+ * A declaration of a variable that is of an array type.
+ */
 class ArrayDeclaration extends VariableDeclarationEntry {
   int length;
 
@@ -28,6 +31,9 @@ class ArrayDeclaration extends VariableDeclarationEntry {
   int getLength() { result = length }
 }
 
+/**
+ * A call to a function that dynamically allocates memory on the heap.
+ */
 class HeapAllocationFunctionCall extends FunctionCall {
   AllocationFunction heapAllocFunction;
 
@@ -39,6 +45,9 @@ class HeapAllocationFunctionCall extends FunctionCall {
 
   predicate isReallocCall() { heapAllocFunction.getName() = "realloc" }
 
+  /**
+   * Get the minimum estimated number of bytes allocated.
+   */
   abstract int getMinNumBytes();
 }
 
@@ -62,6 +71,9 @@ class ReallocFunctionCall extends HeapAllocationFunctionCall {
   override int getMinNumBytes() { result = lowerBound(this.getArgument(1)) }
 }
 
+/**
+ * The
+ */
 class NarrowedHeapAllocationFunctionCall extends Cast {
   HeapAllocationFunctionCall alloc;
 
@@ -72,6 +84,15 @@ class NarrowedHeapAllocationFunctionCall extends Cast {
       rawResult =
         alloc.getMinNumBytes() / this.getUnderlyingType().(PointerType).getBaseType().getSize()
     |
+      /*
+       * The `SimpleRangeAnalysis` library is not perfect, and sometimes can widen to both ends
+       * of the type bound.
+       *
+       * Since it does not make sense for a object to have negative length or even zero (the
+       * rule dictates that non-array objects should have length of 0), we clip the range and
+       * make the minimum number of elements to 1.
+       */
+
       result = rawResult.maximum(1)
     )
   }
@@ -85,6 +106,9 @@ newtype TPointerFormation =
   TArrayExpr(ArrayExprBA arrayExpr) or
   TPointerArithmetic(PointerArithmeticOperation pointerArithmetic)
 
+/**
+ * Any kind of allocation of an array, either allocated on the stack or the heap.
+ */
 class ArrayAllocation extends TArrayAllocation {
   ArrayDeclaration asStackAllocation() { this = TStackAllocation(result) }
 
@@ -109,12 +133,19 @@ class ArrayAllocation extends TArrayAllocation {
     result = this.asDynamicAllocation().getLocation()
   }
 
+  /**
+   * Gets the node associated with this allocation.
+   */
   DataFlow::Node getNode() {
     result.asUninitialized() = this.asStackAllocation().getVariable() or
     result.asConvertedExpr() = this.asDynamicAllocation()
   }
 }
 
+/**
+ * Any kind of pointer formation that derives from a base pointer, either as an arithmetic operation
+ * on pointers, or an array access expression.
+ */
 class PointerFormation extends TPointerFormation {
   ArrayExprBA asArrayExpr() { this = TArrayExpr(result) }
 
@@ -125,6 +156,9 @@ class PointerFormation extends TPointerFormation {
     result = this.asPointerArithmetic().toString()
   }
 
+  /**
+   * Gets the offset of this pointer formation as calculated in relation to the base pointer.
+   */
   int getOffset() {
     result = this.asArrayExpr().getArrayOffset().getValue().toInt()
     or
@@ -137,11 +171,17 @@ class PointerFormation extends TPointerFormation {
     )
   }
 
+  /**
+   * Gets the expression associated with this pointer formation.
+   */
   Expr asExpr() {
     result = this.asArrayExpr() or
-    /*.getArrayBase()*/ result = this.asPointerArithmetic()
+    result = this.asPointerArithmetic()
   }
 
+  /**
+   * Gets the data-flow node associated with this pointer formation.
+   */
   DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
 
   Location getLocation() {
@@ -204,6 +244,10 @@ module Copied {
 
 import Copied
 
+/**
+ * A data flow configuration that starts from the allocation of an array and ends at a
+ * pointer derived from that array.
+ */
 module TrackArrayConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
     exists(ArrayAllocation arrayAllocation | node = arrayAllocation.getNode())
@@ -221,6 +265,10 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
 
 module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
+/**
+ * Holds if the offset of a pointer formation, as referred to by `pointerFormationNode`,
+ * exceeds the length of the declared array, as represented by `arrayDeclarationNode`.
+ */
 predicate arrayIndexExceedsBounds(
   DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode, int pointerOffset,
   int arrayLength
