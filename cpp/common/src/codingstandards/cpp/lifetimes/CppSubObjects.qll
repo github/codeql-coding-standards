@@ -3,7 +3,7 @@
  *
  * See `codingstandards.c.SubObjects` for the C equivalent. Changes specific to C++ are:
  * - excluding fields of reference type as subobjects
- * 
+ *
  * A library that expands upon the `Objects.qll` library, to support nested "Objects" such as
  * `x.y.z` or `x[i][j]` within an object `x`.
  *

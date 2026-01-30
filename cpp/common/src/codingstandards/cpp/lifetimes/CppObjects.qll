@@ -125,7 +125,7 @@ abstract class ObjectIdentityBase extends Element {
 
   /**
    * Finds cases such as a subobject such as `x.y` is taken as a reference.
-   * 
+   *
    * This is useful for alias analysis, as references create aliases that can invalidate certain
    * assumptions about object accesses.
    */
