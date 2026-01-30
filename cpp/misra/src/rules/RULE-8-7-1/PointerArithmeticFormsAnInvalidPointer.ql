@@ -1,10 +1,10 @@
 /**
  * @id cpp/misra/pointer-arithmetic-forms-an-invalid-pointer
- * @name RULE-8-7-1: Pointer arithmetic shall not form an invalid pointer.
+ * @name RULE-8-7-1: Pointer arithmetic shall not form an invalid pointer
  * @description Pointers obtained as result of performing arithmetic should point to an initialized
  *              object, or an element right next to the last element of an array.
  * @kind path-problem
- * @precision high
+ * @precision medium
  * @problem.severity error
  * @tags external/misra/id/rule-8-7-1
  *       scope/system
@@ -68,7 +68,12 @@ class NarrowedHeapAllocationFunctionCall extends Cast {
   NarrowedHeapAllocationFunctionCall() { alloc = this.getExpr() }
 
   int getMinNumElements() {
-    result = alloc.getMinNumBytes() / this.getUnderlyingType().(PointerType).getBaseType().getSize()
+    exists(int rawResult |
+      rawResult =
+        alloc.getMinNumBytes() / this.getUnderlyingType().(PointerType).getBaseType().getSize()
+    |
+      result = rawResult.maximum(1)
+    )
   }
 }
 
@@ -209,25 +214,12 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
   }
 
   predicate isAdditionalFlowStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
-    operandToInstructionTaintStep(nodeFrom.asOperand(), nodeTo.asInstruction())
+    operandToInstructionTaintStep(nodeFrom.asOperand(), nodeTo.asInstruction()) and
+    nodeTo.asInstruction() instanceof PointerArithmeticInstruction
   }
 }
 
 module TrackArray = DataFlow::Global<TrackArrayConfig>;
-
-predicate arrayIndexIsNegative(
-  DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode
-) {
-  /* 1. Ensure the array access is reachable from the array declaration. */
-  TrackArray::flow(arrayDeclarationNode, pointerFormationNode) and
-  /* 2. An offset cannot be negative. */
-  exists(ArrayAllocation arrayAllocation, PointerFormation pointerFormation |
-    arrayDeclarationNode = arrayAllocation.getNode() and
-    pointerFormationNode = pointerFormation.getNode()
-  |
-    pointerFormation.getOffset() < 0
-  )
-}
 
 predicate arrayIndexExceedsBounds(
   DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode, int pointerOffset,
@@ -252,15 +244,10 @@ from TrackArray::PathNode source, TrackArray::PathNode sink, string message
 where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  (
-    exists(int pointerOffset, int arrayLength |
-      arrayIndexExceedsBounds(source.getNode(), sink.getNode(), pointerOffset, arrayLength) and
-      message =
-        "This pointer has offset " + pointerOffset +
-          " when the minimum possible length of the object is " + arrayLength + "."
-    )
-    or
-    arrayIndexIsNegative(source.getNode(), sink.getNode()) and
-    message = "This pointer has a negative offset."
+  exists(int pointerOffset, int arrayLength |
+    arrayIndexExceedsBounds(source.getNode(), sink.getNode(), pointerOffset, arrayLength) and
+    message =
+      "This pointer has offset " + pointerOffset +
+        " when the minimum possible length of the object might be " + arrayLength + "."
   )
 select sink, source, sink, message

@@ -1,6 +1,6 @@
 /**
  * @id cpp/misra/pointer-argument-to-cstring-function-is-invalid
- * @name RULE-8-7-1: Pointer and index arguments passed to functions in <cstring> shall not be invalid.
+ * @name RULE-8-7-1: Pointer and index arguments passed to functions in <cstring> shall not be invalid
  * @description Pointer and index arguments passed to functions in <cstring> should result in valid
  *              reads and/or writes.
  * @kind problem
