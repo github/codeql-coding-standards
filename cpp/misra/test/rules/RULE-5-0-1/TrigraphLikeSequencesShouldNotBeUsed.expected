@@ -1,0 +1,9 @@
+| test.cpp:1:18:1:22 | ??= | Trigraph-like sequence used in string literal. |
+| test.cpp:2:19:2:23 | ??/ | Trigraph-like sequence used in string literal. |
+| test.cpp:3:19:3:23 | ??' | Trigraph-like sequence used in string literal. |
+| test.cpp:4:19:4:23 | ??( | Trigraph-like sequence used in string literal. |
+| test.cpp:5:19:5:23 | ??) | Trigraph-like sequence used in string literal. |
+| test.cpp:6:19:6:23 | ??! | Trigraph-like sequence used in string literal. |
+| test.cpp:7:19:7:23 | ??< | Trigraph-like sequence used in string literal. |
+| test.cpp:8:19:8:23 | ??> | Trigraph-like sequence used in string literal. |
+| test.cpp:9:19:9:23 | ??- | Trigraph-like sequence used in string literal. |

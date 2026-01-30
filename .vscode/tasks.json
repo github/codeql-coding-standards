@@ -290,6 +290,7 @@
                 "Strings3",
                 "Syntax",
                 "Templates",
+                "Trigraph",
                 "TypeRanges",
                 "Lambdas",
                 "Pointers",
