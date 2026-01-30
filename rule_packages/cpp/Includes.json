@@ -42,6 +42,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "ViolationsOfOneDefinitionRule",
+          "shared_implementation_short_name": "ViolationsOfOneDefinitionRule",
           "tags": [
             "correctness",
             "maintainability",
@@ -119,6 +120,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "ExternalLinkageNotDeclaredInHeaderFile",
+          "shared_implementation_short_name": "ExternalLinkageNotDeclaredInHeaderFile",
           "tags": [
             "correctness",
             "maintainability",

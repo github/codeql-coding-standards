@@ -16,6 +16,7 @@ import Const
 import Conversions
 import Conversions2
 import DeadCode
+import DeadCode3
 import DeadCode5
 import Declarations
 import ExceptionSafety
@@ -35,6 +36,8 @@ import IntegerConversion
 import Invariants
 import Iterators
 import Lambdas
+import Linkage1
+import Linkage2
 import Literals
 import Loops
 import Macros
@@ -79,6 +82,7 @@ newtype TCPPQuery =
   TConversionsPackageQuery(ConversionsQuery q) or
   TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode3PackageQuery(DeadCode3Query q) or
   TDeadCode5PackageQuery(DeadCode5Query q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
@@ -98,6 +102,8 @@ newtype TCPPQuery =
   TInvariantsPackageQuery(InvariantsQuery q) or
   TIteratorsPackageQuery(IteratorsQuery q) or
   TLambdasPackageQuery(LambdasQuery q) or
+  TLinkage1PackageQuery(Linkage1Query q) or
+  TLinkage2PackageQuery(Linkage2Query q) or
   TLiteralsPackageQuery(LiteralsQuery q) or
   TLoopsPackageQuery(LoopsQuery q) or
   TMacrosPackageQuery(MacrosQuery q) or
@@ -142,6 +148,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConversionsQueryMetadata(query, queryId, ruleId, category) or
   isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode5QueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
@@ -161,6 +168,8 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isIteratorsQueryMetadata(query, queryId, ruleId, category) or
   isLambdasQueryMetadata(query, queryId, ruleId, category) or
+  isLinkage1QueryMetadata(query, queryId, ruleId, category) or
+  isLinkage2QueryMetadata(query, queryId, ruleId, category) or
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or
   isLoopsQueryMetadata(query, queryId, ruleId, category) or
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
