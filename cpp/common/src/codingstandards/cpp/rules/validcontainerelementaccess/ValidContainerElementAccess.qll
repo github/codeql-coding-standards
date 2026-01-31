@@ -25,7 +25,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.cpp.Iterators
+import codingstandards.cpp.standardlibrary.Iterators
 
 abstract class ValidContainerElementAccessSharedQuery extends Query { }
 

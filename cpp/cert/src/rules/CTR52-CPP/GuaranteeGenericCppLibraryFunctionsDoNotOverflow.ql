@@ -18,7 +18,7 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.Iterators
+import codingstandards.cpp.standardlibrary.Iterators
 import codingstandards.cpp.rules.containeraccesswithoutrangecheck.ContainerAccessWithoutRangeCheck as ContainerAccessWithoutRangeCheck
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.dataflow.TaintTracking
