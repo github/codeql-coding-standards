@@ -315,7 +315,7 @@ void f16() {
   useVec(v2);
 
   std::vector<int> v3; // NON_COMPLIANT -- unobserved
-  v3[0] = 0; // NON_COMPLIANT -- unused
+  v3[0] = 0;           // NON_COMPLIANT -- unused
 
   std::vector<int> v4;
   v4[0] = 0; // COMPLIANT
@@ -422,10 +422,10 @@ void f21() {
   f0(l6[0]); // Observes entire object
 
   int l6_1[10];
-  l6_1[0] = 0; // NON_COMPLIANT
+  l6_1[0] = 0;       // NON_COMPLIANT
   l6_1[1] = l6_1[2]; // COMPLIANT
-  l6_1[0] = 0; // COMPLIANT
-  f0(l6_1[0]); // Observes entire object
+  l6_1[0] = 0;       // COMPLIANT
+  f0(l6_1[0]);       // Observes entire object
 
   int l7[10];
   l7[0] = 0;  // COMPLIANT
@@ -570,18 +570,18 @@ void f24() {
   l1[l0 + 1] = 0; // COMPLIANT
   useVec(l1);
 
-  int l2 = 0; // COMPLIANT
-  int *l3; // COMPLIANT
+  int l2 = 0;     // COMPLIANT
+  int *l3;        // COMPLIANT
   l3[l2 * 2] = 0; // COMPLIANT
   f0(l3[0]);
-  
+
   int l4 = 0; // COMPLIANT
   int l5[10];
   l5[l4 % 10] = 0; // COMPLIANT
   f0(l5[0]);
 
-  int l6 = 0; // COMPLIANT
-  Trivial *l7; // COMPLIANT
+  int l6 = 0;       // COMPLIANT
+  Trivial *l7;      // COMPLIANT
   l7[l6 & 3].a = 0; // COMPLIANT
   use(l7[0]);
 
@@ -609,23 +609,23 @@ void f25() {
   f0(*l1);
 
   // False positive case
-  int l2 = 0; // COMPLIANT
+  int l2 = 0;    // COMPLIANT
   int *l3 = &l2; // COMPLIANT
   f0(*l3);
   l2 = 1; // NON_COMPLIANT[False negative] -- not observed
 
   // True positive case
   // Handles case where l4 is written twice without read
-  int l4 = 0; // COMPLIANT
+  int l4 = 0;    // COMPLIANT
   int *l5 = &l4; // COMPLIANT
-  l4 = 1; // COMPLIANT
+  l4 = 1;        // COMPLIANT
   f0(*l5);
   l4 = 2; // COMPLIANT
   f0(l4); // observe l4
 
   // False positive case
   // Handles case where l6 is written twice without read
-  int l6 = 0; // COMPLIANT
+  int l6 = 0;    // COMPLIANT
   int *l7 = &l6; // COMPLIANT
   f0(*l7);
   l6 = 1; // NON_COMPLIANT[False negative]
@@ -633,12 +633,12 @@ void f25() {
   f0(l6); // observe l6
 
   // Test reference variables
-  int l8 = 0; // COMPLIANT
+  int l8 = 0;   // COMPLIANT
   int &l9 = l8; // COMPLIANT
-  l8 = 1; // COMPLIANT
+  l8 = 1;       // COMPLIANT
   f0(l9);
 
-  int l10 = 0; // COMPLIANT
+  int l10 = 0;    // COMPLIANT
   int &l11 = l10; // COMPLIANT
   f0(l11);
   l10 = 1; // NON_COMPLIANT[False negative]
@@ -647,30 +647,33 @@ void f25() {
 void f26() {
   /**
    * The following tests show the limitations of our STL container modeling.
-   * 
+   *
    * These FNs are preferred over FPs.
    */
   std::vector<int> v0 = {0, 1, 2}; // COMPLIANT[False negative]
   v0.size(); // finding size is currently treated as observes whole object
 
   std::vector<int> v1 = {0, 1, 2}; // NON_COMPLIANT[False negative]
-  v1.begin(); // obtaining iterator is currently treated as observing whole object
+  v1.begin(); // obtaining iterator is currently treated as observing whole
+              // object
 
   std::vector<int> v2 = {0, 1, 2}; // NON_COMPLIANT[False negative]
   v2.end(); // obtaining iterator is currently treated as observing whole object
 
   std::vector<int> v3 = {0, 1, 2}; // NON_COMPLIANT[False negative]
-  v3.empty(); // checking emptiness is currently treated as observing whole object
+  v3.empty(); // checking emptiness is currently treated as observing whole
+              // object
 
-  //std::vector<int> v4 = {0, 1, 2}; // COMPLIANT[False negative]
-  //v4.capacity(); // checking capacity is currently treated as observing whole object
+  // std::vector<int> v4 = {0, 1, 2}; // COMPLIANT[False negative]
+  // v4.capacity(); // checking capacity is currently treated as observing whole
+  // object
 
   /**
    * Testing calls to methods that modify the container.
-   * 
+   *
    * These could be treated as a possible assignment to any index of that
    * container. Therefore, never treated as an overwrite, but must be observed.
-   * 
+   *
    * This is not currently modeled, so all are FNs.
    */
   std::vector<int> v5 = {0, 1, 2}; // NON_COMPLIANT[False negative]
@@ -678,7 +681,7 @@ void f26() {
   v5.clear(); // NON_COMPLIANT[False negative] -- not observed
 
   std::vector<int> v6 = {0, 1, 2}; // NON_COMPLIANT[False negative]
-  v6.clear(); // COMPLIANT -- observed
+  v6.clear();                      // COMPLIANT -- observed
   useVec(v6);
 
   std::vector<int> v7 = {0, 1, 2}; // NON_COMPLIANT[False negative]
@@ -690,12 +693,12 @@ void f26() {
   std::vector<int> v9 = {0, 1, 2}; // NON_COMPLIANT[False negative]
   v9.pop_back(); // NON_COMPLIANT[False negative] -- not observed
 
-  //std::vector<int> v10 = {0, 1, 2}; // NON_COMPLIANT[False negative]
-  //v10.assign(5, 0); // NON_COMPLIANT[False negative] -- not observed
+  // std::vector<int> v10 = {0, 1, 2}; // NON_COMPLIANT[False negative]
+  // v10.assign(5, 0); // NON_COMPLIANT[False negative] -- not observed
 
-  //std::vector<int> v11 = {0, 1, 2}; // NON_COMPLIANT[False negative]
-  //std::vector<int> v12 = {3, 4, 5}; // NON_COMPLIANT[False negative]
-  //v11.swap(v12); // NON_COMPLIANT[False negative] -- not observed
+  // std::vector<int> v11 = {0, 1, 2}; // NON_COMPLIANT[False negative]
+  // std::vector<int> v12 = {3, 4, 5}; // NON_COMPLIANT[False negative]
+  // v11.swap(v12); // NON_COMPLIANT[False negative] -- not observed
 
   std::vector<int> v13 = {0, 1, 2}; // NON_COMPLIANT[False negative]
   v13.emplace(v13.begin(), 3); // NON_COMPLIANT[False negative] -- not observed
@@ -706,13 +709,13 @@ void f26() {
   std::vector<int> v15 = {0, 1, 2}; // NON_COMPLIANT[False negative]
   v15.insert(v15.begin(), 3); // NON_COMPLIANT[False negative] -- not observed
 
-  //std::vector<int> v16 = {0, 1, 2}; // NON_COMPLIANT[False negative]
-  //v16.erase(v16.begin()); // NON_COMPLIANT[False negative] -- not observed
+  // std::vector<int> v16 = {0, 1, 2}; // NON_COMPLIANT[False negative]
+  // v16.erase(v16.begin()); // NON_COMPLIANT[False negative] -- not observed
 }
 
 void f27() {
   // Lambdas have been excluded for now for simplicity.
-  int l0 = 0; // COMPLIANT
+  int l0 = 0;                           // COMPLIANT
   auto l1 = [&l0]() { return l0 + 1; }; // COMPLIANT
   f0(l1());
 
