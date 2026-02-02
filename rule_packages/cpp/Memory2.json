@@ -13,6 +13,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "PointerDifferenceTakenBetweenDifferentArrays",
+          "shared_implementation_short_name": "DoNotSubtractPointersAddressingDifferentArrays",
           "tags": [
             "scope/system"
           ]
