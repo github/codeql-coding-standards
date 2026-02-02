@@ -8,7 +8,7 @@
       "queries": [
         {
           "description": "Pointer comparison should be done between ones that belong to a same array.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "The built-in relational operators >, >=, < and <= shall not be applied to objects of pointer type",
           "precision": "high",
           "severity": "error",
