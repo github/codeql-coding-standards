@@ -3,7 +3,7 @@
  * @name RULE-8-7-2: Subtraction between pointers shall only be applied to ones that address elements of the same array
  * @description Pointer difference should be taken from pointers that belong to a same array.
  * @kind problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
  * @tags external/misra/id/rule-8-7-2
  *       scope/system
@@ -13,8 +13,11 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.rules.donotsubtractpointersaddressingdifferentarrays.DoNotSubtractPointersAddressingDifferentArrays
 
-from
-where
-  not isExcluded(x, Memory2Package::pointerDifferenceTakenBetweenDifferentArraysQuery()) and
-select
+class PointerDifferenceTakenBetweenDifferentArraysQuery extends DoNotSubtractPointersAddressingDifferentArraysSharedQuery
+{
+  PointerDifferenceTakenBetweenDifferentArraysQuery() {
+    this = Memory2Package::pointerDifferenceTakenBetweenDifferentArraysQuery()
+  }
+}
