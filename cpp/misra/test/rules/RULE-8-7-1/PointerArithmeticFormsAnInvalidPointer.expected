@@ -83,10 +83,10 @@ edges
 | test.cpp:498:48:498:78 | single_dimensional_array_malloc | test.cpp:33:56:33:60 | array | provenance |  |
 | test.cpp:501:48:501:78 | single_dimensional_array_calloc | test.cpp:66:56:66:60 | array | provenance |  |
 | test.cpp:505:7:505:38 | single_dimensional_array_realloc | test.cpp:97:57:97:61 | array | provenance |  |
-| test.cpp:509:7:509:35 | definition of stack_multi_dimensional_array | test.cpp:515:50:515:78 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:509:7:509:35 | definition of stack_multi_dimensional_array | test.cpp:517:7:517:35 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:515:50:515:78 | stack_multi_dimensional_array | test.cpp:129:57:129:61 | array | provenance |  |
-| test.cpp:517:7:517:35 | stack_multi_dimensional_array | test.cpp:151:63:151:67 | array | provenance |  |
+| test.cpp:509:7:509:35 | definition of stack_multi_dimensional_array | test.cpp:514:50:514:78 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:509:7:509:35 | definition of stack_multi_dimensional_array | test.cpp:516:7:516:35 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:514:50:514:78 | stack_multi_dimensional_array | test.cpp:129:57:129:61 | array | provenance |  |
+| test.cpp:516:7:516:35 | stack_multi_dimensional_array | test.cpp:151:63:151:67 | array | provenance |  |
 nodes
 | test.cpp:6:65:6:69 | array | semmle.label | array |
 | test.cpp:9:17:9:25 | ... + ... | semmle.label | ... + ... |
@@ -191,8 +191,8 @@ nodes
 | test.cpp:501:48:501:78 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
 | test.cpp:505:7:505:38 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
 | test.cpp:509:7:509:35 | definition of stack_multi_dimensional_array | semmle.label | definition of stack_multi_dimensional_array |
-| test.cpp:515:50:515:78 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
-| test.cpp:517:7:517:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:514:50:514:78 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:516:7:516:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
 subpaths
 #select
 | test.cpp:14:7:15:7 | ... + ... | test.cpp:468:7:468:36 | definition of stack_single_dimensional_array | test.cpp:14:7:15:7 | ... + ... | This pointer has offset 4 when the minimum possible length of the object might be 3. |
