@@ -13,14 +13,14 @@
  */
 
 import cpp
+import codingstandards.cpp.misra
 import codingstandards.cpp.OutOfBounds // for OOB::problems
 import codingstandards.cpp.Exclusions // for isExcluded(Element, Query)
-import codingstandards.cpp.exclusions.c.RuleMetadata
 
 from
   OOB::BufferAccessLibraryFunctionCall fc, string message, Expr bufferArg, string bufferArgStr,
   Expr sizeOrOtherBufferArg, string otherStr
 where
-  not isExcluded(fc, OutOfBoundsPackage::libraryFunctionArgumentOutOfBoundsQuery()) and
+  not isExcluded(fc, Memory1Package::pointerArgumentToCstringFunctionIsInvalidQuery()) and
   OOB::problems(fc, message, bufferArg, bufferArgStr, sizeOrOtherBufferArg, otherStr)
 select fc, message, bufferArg, bufferArgStr, sizeOrOtherBufferArg, otherStr
