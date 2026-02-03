@@ -72,7 +72,13 @@ class ReallocFunctionCall extends HeapAllocationFunctionCall {
 }
 
 /**
- * The
+ * A cast that converts the pointer to an allocated byte array to that of a specialized type.
+ * e.g.
+ * 
+ * ``` C++
+ * int *x = (int*)malloc(SIZE * sizeof(int));
+ * ```
+ * This class captures the cast `(int*)malloc(SIZE * sizeof(int))` above.
  */
 class NarrowedHeapAllocationFunctionCall extends Cast {
   HeapAllocationFunctionCall alloc;
