@@ -7,6 +7,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.controlflow.SubBasicBlocks
+import codingstandards.cpp.enhancements.AggregateLiteralEnhancements
 
 abstract class ReadOfUninitializedMemorySharedQuery extends Query { }
 
@@ -126,8 +127,18 @@ class InitializationContext extends TInitializationContext {
  */
 class UninitializedVariable extends LocalVariable {
   UninitializedVariable() {
-    // Not initialized at declaration
-    not exists(getInitializer()) and
+    (
+      // Not initialized at declaration
+      not exists(getInitializer())
+      or
+      //or is a builtin type used with new operator but there is no value initialization as far as we can see
+      exists(Initializer i, NewExpr n |
+        i = getInitializer() and
+        n = i.getExpr() and
+        this.getUnspecifiedType().stripType() instanceof BuiltInType and
+        not i.isBraced()
+      )
+    ) and
     // Not static or thread local, because they are not initialized with indeterminate values
     not isStatic() and
     not isThreadLocal() and

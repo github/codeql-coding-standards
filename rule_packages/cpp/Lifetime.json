@@ -1,0 +1,47 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-11-6-2": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Reading from uninitialized indeterminate values may produce undefined behavior.",
+          "kind": "problem",
+          "name": "The value of an object must not be read before it has been set",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "ValueOfAnObjectMustNotBeReadBeforeItHasBeenSet",
+          "shared_implementation_short_name": "ReadOfUninitializedMemory",
+          "tags": [
+            "correctness",
+            "security",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "The value of an object must not be read before it has been set"
+    },
+    "RULE-6-8-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An assignment operator shall not assign the address of an object with automatic storage duration to an object with a greater lifetime",
+          "kind": "problem",
+          "name": "An assignment operator shall not assign the address of an object with automatic storage duration to",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AssignmentOperatorAssignTheAddressOfAnObjectWithAutomaticStorageDurationToAnObjectWithAGreaterLifetime",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "An assignment operator shall not assign the address of an object with automatic storage duration to an object with a greater lifetime"
+    }
+  }
+}

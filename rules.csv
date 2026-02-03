@@ -925,7 +925,7 @@ cpp,MISRA-C++-2023,RULE-10-4-1,Yes,Required,Decidable,Single Translation Unit,Th
 cpp,MISRA-C++-2023,RULE-11-3-1,Yes,Advisory,Decidable,Single Translation Unit,Variables of array type should not be declared,,Declarations2,Easy,
 cpp,MISRA-C++-2023,RULE-11-3-2,Yes,Advisory,Decidable,Single Translation Unit,The declaration of an object should contain no more than two levels of pointer indirection,A5-0-3,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-11-6-1,Yes,Advisory,Decidable,Single Translation Unit,All variables should be initialized,,Declarations2,Easy,
-cpp,MISRA-C++-2023,RULE-11-6-2,Yes,Mandatory,Undecidable,System,The value of an object must not be read before it has been set,A8-5-0,Lifetime,Very Hard,
+cpp,MISRA-C++-2023,RULE-11-6-2,Yes,Mandatory,Undecidable,System,The value of an object must not be read before it has been set,A8-5-0,Lifetime,Import
 cpp,MISRA-C++-2023,RULE-11-6-3,Yes,Required,Decidable,Single Translation Unit,"Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique",RULE-8-12,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-12-2-1,Yes,Advisory,Decidable,Single Translation Unit,Bit-fields should not be declared,A9-6-2,Banned,Easy,
 cpp,MISRA-C++-2023,RULE-12-2-2,Yes,Required,Decidable,Single Translation Unit,A bit-field shall have an appropriate type,RULE-6-1,ImportMisra23,Import,
