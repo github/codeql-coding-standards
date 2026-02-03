@@ -6,6 +6,7 @@
  * @precision medium
  * @problem.severity warning
  * @tags external/misra/id/rule-5-0-1
+ *       portability
  *       readability
  *       scope/single-translation-unit
  *       external/misra/enforcement/decidable
@@ -15,10 +16,28 @@
 import cpp
 import codingstandards.cpp.misra
 
-from StringLiteral s, int occurrenceOffset
+class CanContainSequenceType extends Locatable {
+  CanContainSequenceType() {
+    this instanceof StringLiteral
+    or
+    this instanceof Comment
+    or
+    this instanceof Macro
+  }
+
+  string getContent() {
+    result = this.(StringLiteral).getValue()
+    or
+    result = this.(Comment).getContents()
+    or
+    result = this.(Macro).getBody()
+  }
+}
+
+from CanContainSequenceType s, int occurrenceOffset, string substring
 where
   not isExcluded(s, TrigraphPackage::trigraphLikeSequencesShouldNotBeUsedQuery()) and
-  exists(s.getValue().regexpFind("\\?\\?[=/'()!<>-]", _, occurrenceOffset)) and
+  substring = s.getContent().regexpFind("\\?\\?[=/'()!<>-]", _, occurrenceOffset) and
   //one escape character is enough to mean this isnt a trigraph-like sequence
-  not exists(s.getASimpleEscapeSequence(_, occurrenceOffset + 1))
-select s, "Trigraph-like sequence used in string literal."
+  not exists(s.(StringLiteral).getASimpleEscapeSequence(_, occurrenceOffset + 1))
+select s, "Trigraph-like sequence found: '" + substring + "'."

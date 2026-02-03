@@ -14,6 +14,7 @@
           "severity": "warning",
           "short_name": "TrigraphLikeSequencesShouldNotBeUsed",
           "tags": [
+            "portability",
             "readability",
             "scope/single-translation-unit"
           ],
