@@ -40,6 +40,7 @@ import Linkage2
 import Literals
 import Loops
 import Macros
+import Memory1
 import MoveForward
 import Naming
 import Null
@@ -106,6 +107,7 @@ newtype TCPPQuery =
   TLiteralsPackageQuery(LiteralsQuery q) or
   TLoopsPackageQuery(LoopsQuery q) or
   TMacrosPackageQuery(MacrosQuery q) or
+  TMemory1PackageQuery(Memory1Query q) or
   TMoveForwardPackageQuery(MoveForwardQuery q) or
   TNamingPackageQuery(NamingQuery q) or
   TNullPackageQuery(NullQuery q) or
@@ -172,6 +174,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or
   isLoopsQueryMetadata(query, queryId, ruleId, category) or
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
+  isMemory1QueryMetadata(query, queryId, ruleId, category) or
   isMoveForwardQueryMetadata(query, queryId, ruleId, category) or
   isNamingQueryMetadata(query, queryId, ruleId, category) or
   isNullQueryMetadata(query, queryId, ruleId, category) or

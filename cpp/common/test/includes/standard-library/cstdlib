@@ -23,5 +23,8 @@ using ::strtoll;
 using ::strtoul;
 using ::strtoull;
 using ::system;
+using ::malloc;
+using ::calloc;
+using ::realloc;
 } // namespace std
 #endif // _GHLIBCPP_CSTDLIB
