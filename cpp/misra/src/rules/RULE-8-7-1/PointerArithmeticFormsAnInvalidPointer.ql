@@ -179,10 +179,17 @@ class PointerFormation extends TPointerFormation {
     result = this.asPointerArithmetic()
   }
 
+  Expr getPointerBase() {
+    result = this.asArrayExpr().getArrayBase()
+    or
+    result = this.asPointerArithmetic().getAnOperand()
+  }
+
   /**
    * Gets the data-flow node associated with this pointer formation.
    */
-  DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
+  DataFlow::Node getNode() { result.asExpr() = this.getPointerBase() }
+  //DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
 
   Location getLocation() {
     result = this.asArrayExpr().getLocation() or
@@ -258,8 +265,12 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
   }
 
   predicate isAdditionalFlowStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
-    operandToInstructionTaintStep(nodeFrom.asOperand(), nodeTo.asInstruction()) and
-    nodeTo.asInstruction() instanceof PointerArithmeticInstruction
+    //operandToInstructionTaintStep(nodeFrom.asOperand(), nodeTo.asInstruction()) and
+    //nodeTo.asInstruction() instanceof PointerArithmeticInstruction
+    exists(ArrayToPointerConversion arrayToPointer |
+      nodeFrom.asExpr() = arrayToPointer and
+      nodeTo.asExpr() = arrayToPointer
+    )
   }
 }
 
@@ -299,3 +310,13 @@ where
         " when the minimum possible length of the object might be " + arrayLength + "."
   )
 select sink, source, sink, message
+
+//import codingstandards.cpp.OutOfBounds
+//
+//from
+//    Expr bufferArg, Expr sizeArg, OOB::PointerToObjectSource bufferSource, int computedBufferSize,
+//    int computedSizeAccessed, BufferAccess bufferAccess
+//where
+// OOB::isSizeArgGreaterThanBufferSize(bufferArg, sizeArg, bufferSource, computedBufferSize,
+//    computedSizeAccessed, bufferAccess)
+//select bufferArg
