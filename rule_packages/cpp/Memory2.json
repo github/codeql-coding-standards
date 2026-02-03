@@ -15,7 +15,8 @@
           "short_name": "PointerDifferenceTakenBetweenDifferentArrays",
           "shared_implementation_short_name": "DoNotSubtractPointersAddressingDifferentArrays",
           "tags": [
-            "scope/system"
+            "scope/system",
+            "correctness"
           ]
         }
       ],

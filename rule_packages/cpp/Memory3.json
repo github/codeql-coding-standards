@@ -15,7 +15,8 @@
           "short_name": "PointerComparedBetweenDifferentArrays",
           "shared_implementation_short_name": "DoNotUseRelationalOperatorsWithDifferingArrays",
           "tags": [
-            "scope/system"
+            "scope/system",
+            "correctness"
           ]
         }
       ],
