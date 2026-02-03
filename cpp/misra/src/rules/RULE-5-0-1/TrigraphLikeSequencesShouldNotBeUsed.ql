@@ -6,7 +6,7 @@
  * @precision medium
  * @problem.severity warning
  * @tags external/misra/id/rule-5-0-1
- *       portability
+ *       maintainability
  *       readability
  *       scope/single-translation-unit
  *       external/misra/enforcement/decidable
