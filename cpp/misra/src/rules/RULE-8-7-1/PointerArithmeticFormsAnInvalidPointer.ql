@@ -162,6 +162,16 @@ predicate isBadArrayAccess(ArrayExpr ae) {
   ae.getArrayBase().getUnderlyingType().(ArrayType).getArraySize() <= ae.getArrayOffset().getValue().toInt()
 }
 
+predicate isDecaySource(DataFlow::Node node, int arraySize) {
+  // x[4];
+  // f(x); // x decays to int*
+  // x + 2; // x decays to int*
+  exists(ArrayToPointerConversion atpc |
+    node.asConvertedExpr() = atpc and
+    arraySize = atpc.getExpr().getUnderlyingType().(ArrayType).getArraySize()
+  )
+}
+
 /**
  * Any kind of pointer formation that derives from a base pointer, either as an arithmetic operation
  * on pointers, or an array access expression.
