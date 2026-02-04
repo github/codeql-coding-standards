@@ -137,9 +137,29 @@ class ArrayAllocation extends TArrayAllocation {
    * Gets the node associated with this allocation.
    */
   DataFlow::Node getNode() {
-    result.asUninitialized() = this.asStackAllocation().getVariable() or
-    result.asConvertedExpr() = this.asDynamicAllocation()
+    // int x[4];
+    //result.asExpr() = this.asStackAllocation().getVariable().getInitializer().getExpr()
+
+    // void f(int *ptr[4]) {
+    //   *ptr + 5; // NON_COMPLIANT
+    //}
+    exists(ArrayToPointerConversion arrayToPointer |
+      arrayToPointer.getExpr() = this.asStackAllocation().getVariable().getAnAccess() and
+      result.asConvertedExpr() = arrayToPointer
+    )
+    //result.asVariable() = this.asStackAllocation().getVariable()
+    //result.asConvertedExpr() = this.asDynamicAllocation()
   }
+}
+
+//predicate isArrayAccess(ArrayExpr ae, Type t, int cval) {
+//  t = ae.getArrayBase().getUnderlyingType() and
+//  cval = ae.getArrayOffset().getValue().toInt()
+//}
+predicate isBadArrayAccess(ArrayExpr ae) {
+  // x[y]
+  // x has type int[4]
+  ae.getArrayBase().getUnderlyingType().(ArrayType).getArraySize() <= ae.getArrayOffset().getValue().toInt()
 }
 
 /**
@@ -185,11 +205,13 @@ class PointerFormation extends TPointerFormation {
     result = this.asPointerArithmetic().getAnOperand()
   }
 
+  // getNode() = arr[x] or ptr + n
+  // getNode() = arr or ptr
+  DataFlow::Node getPointerNode() { result.asExpr() = this.getPointerBase() }
   /**
    * Gets the data-flow node associated with this pointer formation.
    */
-  DataFlow::Node getNode() { result.asExpr() = this.getPointerBase() }
-  //DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
+  DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
 
   Location getLocation() {
     result = this.asArrayExpr().getLocation() or
@@ -258,21 +280,32 @@ import Copied
 module TrackArrayConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
     exists(ArrayAllocation arrayAllocation | node = arrayAllocation.getNode())
+    //node.asConvertedExpr() instanceof ArrayToPointerConversion
   }
 
   predicate isSink(DataFlow::Node node) {
-    exists(PointerFormation pointerFormation | node = pointerFormation.getNode())
+    //exists(PointerFormation pointerFormation | node = pointerFormation.getNode())
+    exists(PointerFormation pointerFormation | node = pointerFormation.getPointerNode())
   }
 
   predicate isAdditionalFlowStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
     //operandToInstructionTaintStep(nodeFrom.asOperand(), nodeTo.asInstruction()) and
     //nodeTo.asInstruction() instanceof PointerArithmeticInstruction
-    exists(ArrayToPointerConversion arrayToPointer |
-      nodeFrom.asExpr() = arrayToPointer and
-      nodeTo.asExpr() = arrayToPointer
-    )
+    //exists(ArrayToPointerConversion arrayToPointer |
+    //  nodeFrom.asExpr() = arrayToPointer and
+    //  nodeTo.asExpr() = arrayToPointer
+    //)
+    none()
   }
 }
+
+int length() { result = 20 }
+
+  module TrackArrayFwd = TrackArray::FlowExplorationFwd<length/0>;
+
+  predicate trackArrayDebug(TrackArrayFwd::PartialPathNode source) {
+      TrackArrayFwd::partialFlow(source, _, _)
+  }
 
 module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
@@ -289,7 +322,7 @@ predicate arrayIndexExceedsBounds(
   /* 2. The offset must be at most (number of elements) + 1 = (the declared length). */
   exists(ArrayAllocation arrayAllocation, PointerFormation pointerFormation |
     arrayDeclarationNode = arrayAllocation.getNode() and
-    pointerFormationNode = pointerFormation.getNode() and
+    pointerFormationNode = pointerFormation.getPointerNode() and
     pointerOffset = pointerFormation.getOffset() and
     arrayLength = arrayAllocation.getLength()
   |

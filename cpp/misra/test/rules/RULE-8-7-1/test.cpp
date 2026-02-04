@@ -166,7 +166,7 @@ void stack_allocated_multi_dimensional_pointer_arithmetic(int array[2][3]) {
       *array +
       2); // COMPLIANT: pointer points one beyond the last
           // element, but non-compliant to Rule 4.1.3 (equivalent to the above)
-  int invalid11 = *(*(array + 0) + 3); // NON_COMPLIANT: pointer points more
+  int invalid11 = *(*(array + 0) + 4); // NON_COMPLIANT: pointer points more
                                        // than one beyond the last element
   int invalid12 =
       *(*array + 3); // NON_COMPLIANT: pointer points more than
@@ -180,7 +180,7 @@ void stack_allocated_multi_dimensional_pointer_arithmetic(int array[2][3]) {
   int valid23 =
       *(*(array + 1) + 2); // COMPLIANT: pointer points one beyond the last
                            // element, but non-compliant to Rule 4.1.3
-  int invalid2 = *(*(array + 1) + 3); // NON_COMPLIANT: pointer points more than
+  int invalid2 = *(*(array + 1) + 4); // NON_COMPLIANT: pointer points more than
                                       // one beyond the last element
 
   int valid311 =
