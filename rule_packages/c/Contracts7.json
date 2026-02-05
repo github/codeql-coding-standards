@@ -82,7 +82,8 @@
           "name": "An object shall not be assigned to an overlapping object",
           "precision": "high",
           "severity": "error",
-          "short_name": "ObjectAssignedToAnOverlappingObject",
+          "short_name": "ObjectAssignedToAnOverlappingObjectMisraC",
+          "shared_implementation_short_name": "ObjectAssignedToAnOverlappingObject",
           "tags": [
             "correctness",
             "external/misra/c/2012/third-edition-first-revision"
@@ -94,7 +95,8 @@
           "name": "An object shall not be copied to an overlapping object",
           "precision": "high",
           "severity": "error",
-          "short_name": "ObjectCopiedToAnOverlappingObject",
+          "short_name": "ObjectCopiedToAnOverlappingObjectMisraC",
+          "shared_implementation_short_name": "ObjectCopiedToAnOverlappingObject",
           "tags": [
             "correctness",
             "external/misra/c/2012/third-edition-first-revision"
