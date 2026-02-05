@@ -17,16 +17,12 @@
 
 import cpp
 import semmle.code.cpp.dataflow.DataFlow
-import semmle.code.cpp.dataflow.internal.TaintTrackingUtil as Taint
 import codingstandards.cpp.misra
 import codingstandards.cpp.lifetimes.CppObjects
 import codingstandards.cpp.lifetimes.CppSubObjects
-import codingstandards.cpp.dominance.BehavioralSet
-import codingstandards.cpp.dominance.SuccessorUnless
+import codingstandards.cpp.dominance.FeasiblePath
 import codingstandards.cpp.types.TrivialType
 import codingstandards.cpp.standardlibrary.STLContainers
-import semmle.code.cpp.ir.dataflow.internal.SsaInternalsCommon as Ssa
-import semmle.code.cpp.dataflow.new.DataFlow as NewDataFlow
 
 /**
  * A type that is relevant for analysis by this rule.
@@ -384,7 +380,7 @@ class CrementAwareNode extends TCrementAwareNode {
     or
     this = TPreCrementNode(_) and result = "pre crement node"
     or
-    this = TPostCrementNode(_) and result = "pre crement node"
+    this = TPostCrementNode(_) and result = "post crement node"
   }
 
   Location getLocation() { result = getControlFlowNode().getLocation() }
@@ -577,7 +573,7 @@ predicate isExcludedWrite(RelevantControlFlowNode node, RelevantObject obj) {
   node.getAPredecessor+() = [obj.getASubobjectAddressExpr(), obj.getASubobjectTakenAsReference()]
 }
 
-module WriteWithReadConfig implements SuccessorUnlessConfigSig {
+module WriteWithReadConfig implements FeasiblePathConfigSig {
   class State = TrackedObject;
 
   class Node = CrementAwareNode;
@@ -589,7 +585,7 @@ module WriteWithReadConfig implements SuccessorUnlessConfigSig {
     )
   }
 
-  predicate isUnless(TrackedObject state, CrementAwareNode node) {
+  predicate isExcludedPath(TrackedObject state, CrementAwareNode node) {
     exists(TrackedObject rewritten |
       rewritten = state.getParent*() and
       isWrite(_, rewritten, node) and
@@ -609,7 +605,7 @@ module WriteWithReadConfig implements SuccessorUnlessConfigSig {
   }
 }
 
-predicate isWriteWithRead = SuccessorUnless<WriteWithReadConfig>::isSuccessor/3;
+predicate isWriteWithRead = FeasiblePath<WriteWithReadConfig>::isSuccessor/3;
 
 predicate isWriteWithObserve(RelevantObject obj, CrementAwareNode node) {
   isWrite(obj, _, node) and

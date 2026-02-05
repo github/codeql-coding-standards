@@ -41,11 +41,14 @@ class BoundedIndex extends TBoundedIndex {
   float getUpperBound() { result = ub }
 
   predicate mayOverlap(BoundedIndex other) {
-    // The lower bound is contained by the other index range.
-    lb <= other.getUpperBound() and lb >= other.getLowerBound()
-    or
-    // or the upper bound is contained by the other index range.
-    ub <= other.getUpperBound() and ub >= other.getLowerBound()
+    // It's easier to think about bounds that cannot overlap, and then negate that.
+    not (
+      // If our lower bound is greater than the other's upper bound, they can't overlap.
+      lb > other.getUpperBound()
+      or
+      // If our upper bound is less than the other's lower bound, they can't overlap.
+      ub < other.getLowerBound()
+    )
   }
 
   predicate forIndexExpr(Expr expr) {
@@ -120,7 +123,7 @@ class STLContainerUnknownElementModification extends FunctionCall {
               "clear", "push_back", "pop_back", "pop_front", "insert", "emplace", "emplace_back",
               "emplace_front", "emplace_hint", "erase", "resize", "assign", "assign_range", "swap",
               "push", "pop", "fill", "extract", "merge", "insert_or_assign", "try_emplace",
-              "operaator+=", "replace", "replace_with_range", "copy"
+              "operator+=", "replace", "replace_with_range", "copy"
             ])
   }
 }
@@ -164,7 +167,7 @@ class STLContainer extends Class {
   STLContainer() {
     getNamespace() instanceof StdNS and
     // TODO: add to change log that we added std::array
-    getSimpleName() in ["vector", "deque", "array", "valarray",] and
+    getSimpleName() in ["vector", "deque", "array", "valarray"] and
     containerKind = TIndexableContainer()
     or
     getSimpleName() in [
@@ -175,7 +178,8 @@ class STLContainer extends Class {
     getNamespace() instanceof StdNS and
     getSimpleName() in [
         "multiset", "map", "multimap", "unordered_multiset", "unordered_map", "unordered_multimap"
-      ]
+      ] and
+    containerKind = TAssociativeContainer()
     or
     // TODO: This intentionally doesn't check namespace::std, what are the implications?
     // TODO: add support for `std::string_view`?

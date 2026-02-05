@@ -247,7 +247,7 @@ void f14() {
   // Test that dereferencing can observe the pointer base, but only when
   // assigned to.
   //
-  // Note that the cases involve assigment to dereferenced pointers could be
+  // Note that the cases involve assignment to dereferenced pointers could be
   // fully modeled to count as an assignment to the pointee object, but we don't
   // currently do that advanced of an analysis.
   int l0[] = {0, 1, 2}; // COMPLIANT

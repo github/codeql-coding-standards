@@ -1,12 +1,12 @@
 import cpp
 
 /**
- * The configuration signature for the SuccessorUnless module.
+ * The configuration signature for the FeasiblePath module.
  *
  * Typically, the `Node` type should be a `ControlFlowNode`, but it can be overridden to enable
  * other kinds of graphs.
  */
-signature module SuccessorUnlessConfigSig {
+signature module FeasiblePathConfigSig {
   /** The state type used to carry context through the CFG exploration. */
   class State;
 
@@ -17,14 +17,14 @@ signature module SuccessorUnlessConfigSig {
 
   predicate isStart(State state, Node node);
 
-  predicate isUnless(State state, Node node);
+  predicate isExcludedPath(State state, Node node);
 
   predicate isEnd(State state, Node node);
 }
 
 /**
- * A module that finds successor of a node -- unless there is an intermediate node that satisfies
- * a given condition.
+ * A module that finds whether a feasible path exists between two control flow nodes, and
+ * additionally support configuration that should not be traversed.
  *
  * Also accepts a state parameter to allow a context to flow through the CFG.
  *
@@ -33,13 +33,13 @@ signature module SuccessorUnlessConfigSig {
  * Implement the module `ConfigSig`, with some context type:
  *
  * ```ql
- * module MyConfig implements SuccessorUnless<SomeContext>::ConfigSig {
+ * module MyConfig implements FeasiblePathConfigSig {
  *   predicate isStart(SomeContext state, ControlFlowNode node) {
  *     node = state.someStartCondition()
  *   }
  *
- *   predicate isUnless(SomeContext state, ControlFlowNode node) {
- *    node = state.someUnlessCondition()
+ *   predicate isExcludedPath(SomeContext state, ControlFlowNode node) {
+ *    node = state.someExcludedPathCondition()
  *   }
  *
  *   predicate isEnd(SomeContext state, ControlFlowNode node) {
@@ -47,7 +47,7 @@ signature module SuccessorUnlessConfigSig {
  *   }
  * }
  *
- * import SuccessorUnless<SomeContext>::Make<MyConfig> as Successor
+ * import FeasiblePath<MyConfig> as MyFeasiblePath
  * ```
  *
  * ## Rationale
@@ -62,7 +62,7 @@ signature module SuccessorUnlessConfigSig {
  *   not exists(ControlFlowNode mid |
  *     mid = start.getASuccessor+() and
  *     end = mid.getASuccessor*() and
- *     isUnless(mid)
+ *     isExcludedPath(mid)
  *   )
  * }
  * ```
@@ -73,19 +73,19 @@ signature module SuccessorUnlessConfigSig {
  * while (cond) {
  *   start();
  *   end();
- *   unless();
+ *   excluded();
  * }
  * ```
  *
- * In the above code, `unless()` is a successor of `start()`, and `end()` is also a successor of
- * `unless()` (via the loop back edge). However, there is no path from `start()` to `end()` that
- * does not pass through `unless()`.
+ * In the above code, `excluded()` is a successor of `start()`, and `end()` is also a successor of
+ * `excluded()` (via the loop back edge). However, there is no path from `start()` to `end()` that
+ * does not pass through `excluded()`.
  *
  * This module will correctly handle this case. Forward exploration through the graph will stop
- * at the `unless()` nodes, such that only paths from `start()` to `end()` that do not pass through
- * `unless()` nodes will be found.
+ * at the `excluded()` nodes, such that only paths from `start()` to `end()` that do not pass
+ * through `excluded()` nodes will be found.
  */
-module SuccessorUnless<SuccessorUnlessConfigSig Config> {
+module FeasiblePath<FeasiblePathConfigSig Config> {
   predicate isSuccessor(Config::State state, Config::Node start, Config::Node end) {
     isMid(state, start, end) and
     Config::isEnd(state, end)
@@ -100,7 +100,7 @@ module SuccessorUnless<SuccessorUnlessConfigSig Config> {
       exists(Config::Node prevMid |
         isMid(state, start, prevMid) and
         mid = prevMid.getASuccessor() and
-        not Config::isUnless(state, mid) and
+        not Config::isExcludedPath(state, mid) and
         not Config::isEnd(state, prevMid)
       )
     )
