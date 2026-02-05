@@ -61,6 +61,7 @@ import Statements
 import Strings
 import Templates
 import Toolchain
+import Trigraph
 import TrustBoundaries
 import TypeRanges
 import Uninitialized
@@ -127,6 +128,7 @@ newtype TCPPQuery =
   TStringsPackageQuery(StringsQuery q) or
   TTemplatesPackageQuery(TemplatesQuery q) or
   TToolchainPackageQuery(ToolchainQuery q) or
+  TTrigraphPackageQuery(TrigraphQuery q) or
   TTrustBoundariesPackageQuery(TrustBoundariesQuery q) or
   TTypeRangesPackageQuery(TypeRangesQuery q) or
   TUninitializedPackageQuery(UninitializedQuery q) or
@@ -193,6 +195,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStringsQueryMetadata(query, queryId, ruleId, category) or
   isTemplatesQueryMetadata(query, queryId, ruleId, category) or
   isToolchainQueryMetadata(query, queryId, ruleId, category) or
+  isTrigraphQueryMetadata(query, queryId, ruleId, category) or
   isTrustBoundariesQueryMetadata(query, queryId, ruleId, category) or
   isTypeRangesQueryMetadata(query, queryId, ruleId, category) or
   isUninitializedQueryMetadata(query, queryId, ruleId, category) or
