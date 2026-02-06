@@ -15,7 +15,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.objectcopiedtoanoverlappingobject.ObjectCopiedToAnOverlappingObject
 
-class ObjectCopiedToAnOverlappingObjectMisraCQuery extends ObjectCopiedToAnOverlappingObjectSharedQuery {
+class ObjectCopiedToAnOverlappingObjectMisraCQuery extends ObjectCopiedToAnOverlappingObjectSharedQuery
+{
   ObjectCopiedToAnOverlappingObjectMisraCQuery() {
     this = Contracts7Package::objectCopiedToAnOverlappingObjectMisraCQuery()
   }
