@@ -2,7 +2,7 @@
 | test.cpp:15:16:15:17 | f2 | Member function 'f2' uses redundant 'virtual' and 'final' specifiers together. |
 | test.cpp:33:16:33:25 | m1_virtual | Member function 'm1_virtual' overrides a base function but uses 'virtual' specifier. |
 | test.cpp:38:16:38:25 | m1_virtual | Member function 'm1_virtual' overrides a base function but uses 'virtual' specifier. |
-| test.cpp:38:16:38:25 | m1_virtual | Member function 'm1_virtual' uses redundant 'virtual' and 'final' specifiers together. |
+| test.cpp:38:16:38:25 | m1_virtual | Member function 'm1_virtual' uses redundant 'virtual' and 'override' specifiers together. |
 | test.cpp:43:16:43:25 | m1_virtual | Member function 'm1_virtual' overrides a base function but uses 'virtual' specifier. |
 | test.cpp:43:16:43:25 | m1_virtual | Member function 'm1_virtual' uses redundant 'virtual' and 'final' specifiers together. |
 | test.cpp:48:8:48:17 | m1_virtual | Member function 'm1_virtual' uses redundant 'override' and 'final' specifiers together. |
@@ -10,4 +10,4 @@
 | test.cpp:69:16:69:28 | m1_nonvirtual | Member function 'm1_nonvirtual' uses redundant 'virtual' and 'final' specifiers together. |
 | test.cpp:90:3:90:6 | ~C12 | Member function '~C12' overrides a base function but lacks 'override' or 'final' specifier. |
 | test.cpp:95:11:95:14 | ~C13 | Member function '~C13' overrides a base function but uses 'virtual' specifier. |
-| test.cpp:95:11:95:14 | ~C13 | Member function '~C13' uses redundant 'virtual' and 'final' specifiers together. |
+| test.cpp:95:11:95:14 | ~C13 | Member function '~C13' uses redundant 'virtual' and 'override' specifiers together. |

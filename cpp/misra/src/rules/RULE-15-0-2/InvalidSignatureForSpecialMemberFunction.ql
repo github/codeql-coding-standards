@@ -23,20 +23,21 @@ predicate checkSignature(
   MemberFunction f, Boolean noexcept, Boolean lvalueQualified, Boolean rvalueRef, string err
 ) {
   f.getNumberOfParameters() > 1 and
-  err = "too many parameters"
+  err = "has too many parameters"
   or
   noexcept = true and
   not f.isNoExcept() and
   err = "should be noexcept"
   or
+  // Note: There is no check when `lvalueQualified` is false, only when true. `lvalueQualified` will
+  // only be false for constructors, and constructors cannot be ref-qualified.
   lvalueQualified = true and
   not f.isLValueRefQualified() and
   err = "should be lvalue-qualified"
   or
-  lvalueQualified = false and
-  f.isLValueRefQualified() and
-  err = "should not be lvalue-qualified"
-  or
+  // Note: This case is also only here for completeness. `rvalueRef` is only true for move
+  // constructors and move assignment operators. However, these special member functions by
+  // definition must take an rvalue reference, so this case cannot hold.
   rvalueRef = true and
   not isRvalueRefX(f.getParameter(0).getType(), f.getDeclaringType()) and
   err = "should take rvalue reference to class or struct type"
@@ -53,6 +54,8 @@ predicate checkSignature(
   not f.getType() instanceof VoidType and
   err = "should return void or lvalue reference to class or struct type"
   or
+  // Note: this is here for completeness. It is a static error to declare copy or move constructors
+  // as `explicit`, so this cannot hold.
   not f instanceof Constructor and
   f.isExplicit() and
   err = "should not be explicit"

@@ -27,6 +27,8 @@ where
     or
     // Public and private data members cannot be mixed.
     exists(Field other |
+      // Allow manual exclusion of 'other' field.
+      not isExcluded(other, Classes2Package::privateAndPublicDataMembersMixedQuery()) and
       other = c.getAMember() and
       not other.isStatic() and
       other != f and

@@ -25,11 +25,11 @@ where
     f.isDeclaredVirtual() and
     exists(Specifier s |
       s = f.getASpecifier() and
-      s.getName() = ["final", "override"]
-    ) and
-    message =
-      "Member function '" + f.getName() +
-        "' uses redundant 'virtual' and 'final' specifiers together."
+      s.getName() = ["final", "override"] and
+      message =
+        "Member function '" + f.getName() + "' uses redundant 'virtual' and '" + s.getName() +
+          "' specifiers together."
+    )
     or
     // Case 2: Redundant 'virtual' specifier
     f.overrides(_) and

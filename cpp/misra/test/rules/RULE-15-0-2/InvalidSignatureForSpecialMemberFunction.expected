@@ -7,5 +7,17 @@
 | test.cpp:92:3:92:22 | NonCompliantVolatile | Copy constructor on type $@ should take const reference to class or struct type. | test.cpp:89:7:89:26 | NonCompliantVolatile | NonCompliantVolatile |
 | test.cpp:100:3:100:11 | operator= | Copy assignment operator on type $@ should not be virtual. | test.cpp:96:7:96:25 | NonCompliantVirtual | NonCompliantVirtual |
 | test.cpp:107:3:107:11 | operator= | Copy assignment operator on type $@ should take const reference to class or struct type. | test.cpp:103:7:103:29 | NonCompliantCopyByValue | NonCompliantCopyByValue |
-| test.cpp:113:3:113:30 | NonCompliantDefaultArguments | Move constructor on type $@ too many parameters. | test.cpp:110:7:110:34 | NonCompliantDefaultArguments | NonCompliantDefaultArguments |
+| test.cpp:113:3:113:30 | NonCompliantDefaultArguments | Move constructor on type $@ has too many parameters. | test.cpp:110:7:110:34 | NonCompliantDefaultArguments | NonCompliantDefaultArguments |
 | test.cpp:158:3:158:20 | NonCompliantStruct | Copy constructor on type $@ should take const reference to class or struct type. | test.cpp:155:8:155:25 | NonCompliantStruct | NonCompliantStruct |
+| test.cpp:185:27:185:35 | operator= | Copy assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:183:7:183:29 | AssignmentReturnByValue | AssignmentReturnByValue |
+| test.cpp:187:27:187:35 | operator= | Move assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:183:7:183:29 | AssignmentReturnByValue | AssignmentReturnByValue |
+| test.cpp:193:31:193:39 | operator= | Copy assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:191:7:191:31 | AssignmentReturnRvalueRef | AssignmentReturnRvalueRef |
+| test.cpp:195:31:195:39 | operator= | Move assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:191:7:191:31 | AssignmentReturnRvalueRef | AssignmentReturnRvalueRef |
+| test.cpp:202:15:202:23 | operator= | Copy assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:200:7:200:32 | WrongClassAssignmentReturn | WrongClassAssignmentReturn |
+| test.cpp:204:15:204:23 | operator= | Move assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:200:7:200:32 | WrongClassAssignmentReturn | WrongClassAssignmentReturn |
+| test.cpp:210:7:210:15 | operator= | Copy assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:208:7:208:22 | ScalarReturnType | ScalarReturnType |
+| test.cpp:212:7:212:15 | operator= | Move assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:208:7:208:22 | ScalarReturnType | ScalarReturnType |
+| test.cpp:219:3:219:11 | operator= | Copy assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:216:7:216:23 | PointerReturnType | PointerReturnType |
+| test.cpp:220:22:220:30 | operator= | Move assignment operator on type $@ should return void or lvalue reference to class or struct type. | test.cpp:216:7:216:23 | PointerReturnType | PointerReturnType |
+| test.cpp:226:8:226:16 | operator= | Copy assignment operator on type $@ should be lvalue-qualified. | test.cpp:224:7:224:34 | RvalueRefQualifiedAssignment | RvalueRefQualifiedAssignment |
+| test.cpp:228:8:228:16 | operator= | Move assignment operator on type $@ should be lvalue-qualified. | test.cpp:224:7:224:34 | RvalueRefQualifiedAssignment | RvalueRefQualifiedAssignment |
