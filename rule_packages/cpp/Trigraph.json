@@ -1,0 +1,29 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-5-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using trigraph-like sequences can lead to developer confusion.",
+          "kind": "problem",
+          "name": "Trigraph-like sequences should not be used",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "TrigraphLikeSequencesShouldNotBeUsed",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ],
+          "implementation_scope": {
+            "description": "The rule checks within string literals only for trigraph-like sequences."
+          }
+        }
+      ],
+      "title": "Trigraph-like sequences should not be used"
+    }
+  }
+}

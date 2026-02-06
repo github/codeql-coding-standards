@@ -16,5 +16,8 @@ using ::uint_fast32_t;
 using ::uint_fast64_t;
 using ::uint_fast8_t;
 using ::uintmax_t;
+
+using ::intptr_t;
+using ::uintptr_t;
 } // namespace std
 #endif // _GHLIBCPP_CSTDINT
