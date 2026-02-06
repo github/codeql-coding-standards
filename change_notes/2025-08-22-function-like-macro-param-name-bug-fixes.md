@@ -1,0 +1,3 @@
+ - "Function-like macros"
+   - The parameter list of variadic macros previously included the ellipsis in name of the final parameter, potentially leading to incorrect analysis. This has been corrected.
+   - The parameter list of function-like macros with no parameters (i.e. `MACRO()`) was interpreted in a shared library as having a single parameter with an empty name. This does not seem to have had an impact on any existing queries, but has been fixed to correctly show no parameters.
