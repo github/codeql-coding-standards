@@ -9,6 +9,7 @@ import BannedLibraries
 import BannedSyntax
 import BannedTypes
 import Classes
+import Classes2
 import Comments
 import Concurrency
 import Conditionals
@@ -45,6 +46,7 @@ import Memory3
 import Memory4
 import MoveForward
 import Naming
+import Naming2
 import Null
 import OperatorInvariants
 import Operators
@@ -78,6 +80,7 @@ newtype TCPPQuery =
   TBannedSyntaxPackageQuery(BannedSyntaxQuery q) or
   TBannedTypesPackageQuery(BannedTypesQuery q) or
   TClassesPackageQuery(ClassesQuery q) or
+  TClasses2PackageQuery(Classes2Query q) or
   TCommentsPackageQuery(CommentsQuery q) or
   TConcurrencyPackageQuery(ConcurrencyQuery q) or
   TConditionalsPackageQuery(ConditionalsQuery q) or
@@ -114,6 +117,7 @@ newtype TCPPQuery =
   TMemory4PackageQuery(Memory4Query q) or
   TMoveForwardPackageQuery(MoveForwardQuery q) or
   TNamingPackageQuery(NamingQuery q) or
+  TNaming2PackageQuery(Naming2Query q) or
   TNullPackageQuery(NullQuery q) or
   TOperatorInvariantsPackageQuery(OperatorInvariantsQuery q) or
   TOperatorsPackageQuery(OperatorsQuery q) or
@@ -147,6 +151,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBannedSyntaxQueryMetadata(query, queryId, ruleId, category) or
   isBannedTypesQueryMetadata(query, queryId, ruleId, category) or
   isClassesQueryMetadata(query, queryId, ruleId, category) or
+  isClasses2QueryMetadata(query, queryId, ruleId, category) or
   isCommentsQueryMetadata(query, queryId, ruleId, category) or
   isConcurrencyQueryMetadata(query, queryId, ruleId, category) or
   isConditionalsQueryMetadata(query, queryId, ruleId, category) or
@@ -183,6 +188,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isMemory4QueryMetadata(query, queryId, ruleId, category) or
   isMoveForwardQueryMetadata(query, queryId, ruleId, category) or
   isNamingQueryMetadata(query, queryId, ruleId, category) or
+  isNaming2QueryMetadata(query, queryId, ruleId, category) or
   isNullQueryMetadata(query, queryId, ruleId, category) or
   isOperatorInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isOperatorsQueryMetadata(query, queryId, ruleId, category) or
