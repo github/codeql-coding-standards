@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.objectassignedtoanoverlappingobject.ObjectAssignedToAnOverlappingObject
 
-class ObjectAssignedToAnOverlappingObjectAutosarCppQuery extends ObjectAssignedToAnOverlappingObjectSharedQuery {
+class ObjectAssignedToAnOverlappingObjectAutosarCppQuery extends ObjectAssignedToAnOverlappingObjectSharedQuery
+{
   ObjectAssignedToAnOverlappingObjectAutosarCppQuery() {
     this = RepresentationPackage::objectAssignedToAnOverlappingObjectAutosarCppQuery()
   }

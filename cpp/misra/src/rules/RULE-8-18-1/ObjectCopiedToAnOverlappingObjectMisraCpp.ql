@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.objectcopiedtoanoverlappingobject.ObjectCopiedToAnOverlappingObject
 
-class ObjectCopiedToAnOverlappingObjectMisraCppQuery extends ObjectCopiedToAnOverlappingObjectSharedQuery {
+class ObjectCopiedToAnOverlappingObjectMisraCppQuery extends ObjectCopiedToAnOverlappingObjectSharedQuery
+{
   ObjectCopiedToAnOverlappingObjectMisraCppQuery() {
     this = Memory4Package::objectCopiedToAnOverlappingObjectMisraCppQuery()
   }
