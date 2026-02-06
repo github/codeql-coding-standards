@@ -6,7 +6,6 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.c.misra
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 abstract class ObjectCopiedToAnOverlappingObjectSharedQuery extends Query { }
