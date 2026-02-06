@@ -1,7 +1,7 @@
 /**
  * @id cpp/misra/object-assigned-to-an-overlapping-object-misra-cpp
  * @name RULE-8-18-1: A member of a union must not be copied to its another member
- * @description Copying a member of a union to another causes undefined behavior.
+ * @description Copying a member of a union to another member causes undefined behavior.
  * @kind problem
  * @precision high
  * @problem.severity error
@@ -16,7 +16,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.objectassignedtoanoverlappingobject.ObjectAssignedToAnOverlappingObject
 
-class ObjectAssignedToAnOverlappingObjectMisraCppQuery extends ObjectAssignedToAnOverlappingObjectSharedQuery {
+class ObjectAssignedToAnOverlappingObjectMisraCppQuery extends ObjectAssignedToAnOverlappingObjectSharedQuery
+{
   ObjectAssignedToAnOverlappingObjectMisraCppQuery() {
     this = Memory4Package::objectAssignedToAnOverlappingObjectMisraCppQuery()
   }

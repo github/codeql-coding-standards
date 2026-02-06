@@ -1,6 +1,6 @@
 /**
  * @id cpp/misra/object-copied-to-an-overlapping-object-misra-cpp
- * @name RULE-8-18-1: An slice of an array must not be copied to an overlapping region of itself
+ * @name RULE-8-18-1: A slice of an array must not be copied to an overlapping region of itself
  * @description Copying a slice of an array to an overlapping region of the same array causes
  *              undefined behavior.
  * @kind problem

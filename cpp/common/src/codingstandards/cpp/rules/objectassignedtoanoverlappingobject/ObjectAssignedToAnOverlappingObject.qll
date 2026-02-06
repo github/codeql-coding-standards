@@ -59,6 +59,7 @@ query predicate problems(
    */
 
   exists(Expr lhs, Expr rhs |
+    not isExcluded(assignExpr, getQuery()) and
     lhs.getType() instanceof Union and
     rhs.getType() instanceof Union and
     lhs = getAQualifier(assignExpr.getLValue()) and

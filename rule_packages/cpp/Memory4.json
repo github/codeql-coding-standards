@@ -7,7 +7,7 @@
       },
       "queries": [
         {
-            "description": "Copying a member of a union to another causes undefined behavior.",
+            "description": "Copying a member of a union to another member causes undefined behavior.",
             "kind": "problem",
             "name": "A member of a union must not be copied to its another member",
             "precision": "high",
@@ -22,7 +22,7 @@
         {
           "description": "Copying a slice of an array to an overlapping region of the same array causes undefined behavior.",
           "kind": "problem",
-          "name": "An slice of an array must not be copied to an overlapping region of itself",
+          "name": "A slice of an array must not be copied to an overlapping region of itself",
           "precision": "high",
           "severity": "error",
           "short_name": "ObjectCopiedToAnOverlappingObjectMisraCpp",
