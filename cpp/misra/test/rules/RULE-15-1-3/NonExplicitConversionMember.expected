@@ -1,5 +1,5 @@
 | test.cpp:5:3:5:12 | TestClass1 | Constructor 'TestClass1' that is callable with a single argument shall be explicit. |
-| test.cpp:6:3:6:23 | operator std::int32_t | Conversion operator shall be explicit. |
+| test.cpp:6:3:6:23 | operator signed int | Conversion operator shall be explicit. |
 | test.cpp:23:3:23:12 | TestClass4 | Constructor 'TestClass4' that is callable with a single argument shall be explicit. |
 | test.cpp:25:3:25:12 | TestClass4 | Constructor 'TestClass4' that is callable with a single argument shall be explicit. |
 | test.cpp:44:3:44:17 | operator double | Conversion operator shall be explicit. |
