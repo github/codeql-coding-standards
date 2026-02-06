@@ -1,9 +1,9 @@
 #pragma once
+#ifndef _GHLIBCPP_CSTDARG
+#define _GHLIBCPP_CSTDARG
+#include "stdarg.h"
 
 namespace std {
-    typedef __builtin_va_list va_list;
+using ::va_list;
 } // namespace std
-
-#define va_arg(v, p) __builtin_va_arg(v, p)
-#define va_end(v) __builtin_va_end(v)
-#define va_start(v,l)  __builtin_va_start(v,l)
+#endif // _GHLIBCPP_CSTDARG

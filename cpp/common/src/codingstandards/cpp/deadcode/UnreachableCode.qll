@@ -8,6 +8,16 @@ predicate isCompilerGenerated(BasicBlock b) {
   b.(Stmt).isCompilerGenerated()
   or
   b.(Expr).isCompilerGenerated()
+  or
+  // Catch blocks come with a generated 'Handler' that owns the basic block of the catch body,
+  // however, `isCompilerGenerated` does not hold these generated handlers.
+  //
+  // We must also handle the case of `CatchAnyBlock`s. Unlike other catch blocks, for these the
+  // handler dominates the non-generated basic block, so in our CFG the `Handler` node is the entity
+  // used in the CFG rather than the basic block itself. Therefore we must not exclude these
+  // `BasicBlock`s.
+  b instanceof Handler and
+  not b.(Handler).getBlock() instanceof CatchAnyBlock
 }
 
 /**

@@ -1,0 +1,28 @@
+| test.cpp:7:3:7:13 | declaration | Unreachable statement in function '$@'. | test.cpp:5:6:5:7 | f2 | f2 |
+| test.cpp:18:14:20:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:10:6:10:7 | f3 | f3 |
+| test.cpp:26:10:28:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:10:6:10:7 | f3 | f3 |
+| test.cpp:43:5:43:15 | declaration | Unreachable statement in function '$@'. | test.cpp:40:6:40:7 | f4 | f4 |
+| test.cpp:52:5:52:15 | declaration | Unreachable statement in function '$@'. | test.cpp:40:6:40:7 | f4 | f4 |
+| test.cpp:63:3:63:13 | declaration | Unreachable statement in function '$@'. | test.cpp:40:6:40:7 | f4 | f4 |
+| test.cpp:70:10:72:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:66:6:66:7 | f5 | f5 |
+| test.cpp:75:11:77:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:66:6:66:7 | f5 | f5 |
+| test.cpp:89:10:92:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:88:24:88:24 | f6 | f6 |
+| test.cpp:92:10:95:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:88:24:88:24 | f6 | f6 |
+| test.cpp:114:5:114:15 | declaration | Unreachable statement in function '$@'. | test.cpp:109:6:109:7 | f8 | f8 |
+| test.cpp:119:5:119:15 | declaration | Unreachable statement in function '$@'. | test.cpp:109:6:109:7 | f8 | f8 |
+| test.cpp:131:3:131:13 | declaration | Unreachable statement in function '$@'. | test.cpp:109:6:109:7 | f8 | f8 |
+| test.cpp:135:18:137:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:134:6:134:7 | f9 | f9 |
+| test.cpp:146:5:146:15 | declaration | Unreachable statement in function '$@'. | test.cpp:134:6:134:7 | f9 | f9 |
+| test.cpp:158:3:158:13 | declaration | Unreachable statement in function '$@'. | test.cpp:134:6:134:7 | f9 | f9 |
+| test.cpp:162:17:164:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:161:6:161:8 | f10 | f10 |
+| test.cpp:173:5:173:15 | declaration | Unreachable statement in function '$@'. | test.cpp:161:6:161:8 | f10 | f10 |
+| test.cpp:185:3:185:13 | declaration | Unreachable statement in function '$@'. | test.cpp:161:6:161:8 | f10 | f10 |
+| test.cpp:192:3:192:13 | declaration | Unreachable statement in function '$@'. | test.cpp:190:6:190:8 | f11 | f11 |
+| test.cpp:213:30:215:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:200:6:200:8 | f12 | f12 |
+| test.cpp:215:27:217:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:200:6:200:8 | f12 | f12 |
+| test.cpp:217:17:219:3 | <handler> | Unreachable statement in function '$@'. | test.cpp:200:6:200:8 | f12 | f12 |
+| test.cpp:225:30:227:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:200:6:200:8 | f12 | f12 |
+| test.cpp:233:30:235:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:200:6:200:8 | f12 | f12 |
+| test.cpp:235:24:237:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:200:6:200:8 | f12 | f12 |
+| test.cpp:237:23:239:3 | { ... } | Unreachable statement in function '$@'. | test.cpp:200:6:200:8 | f12 | f12 |
+| test.cpp:246:19:248:5 | <handler> | Unreachable statement in function '$@'. | test.cpp:200:6:200:8 | f12 | f12 |

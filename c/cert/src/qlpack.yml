@@ -1,9 +1,9 @@
 name: codeql/cert-c-coding-standards
-version: 2.49.0-dev
+version: 2.55.0-dev
 description: CERT C 2016
 suites: codeql-suites
 license: MIT
 default-suite-file: codeql-suites/cert-c-default.qls
 dependencies:
   codeql/common-c-coding-standards: '*'
-  codeql/cpp-all: 4.0.3
+  codeql/cpp-all: 5.0.0

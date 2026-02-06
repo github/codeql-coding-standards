@@ -1,4 +1,8 @@
 name: 🏁 Run Release Performance Check
+permissions:
+  contents: read
+  actions: write
+  pull-requests: write
 
 on:
   issue_comment:
@@ -9,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Check permission
         id: check-write-permission

@@ -17,26 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.EncapsulatingFunctions
-import codingstandards.cpp.BuiltInNumericTypes
-import codingstandards.cpp.Type
-import codingstandards.cpp.Operator
+import codingstandards.cpp.rules.variablewidthintegertypesused.VariableWidthIntegerTypesUsed
 
-from Variable v, Type typeStrippedOfSpecifiers
-where
-  not isExcluded(v, DeclarationsPackage::variableWidthIntegerTypesUsedQuery()) and
-  typeStrippedOfSpecifiers = stripSpecifiers(v.getType()) and
-  (
-    typeStrippedOfSpecifiers instanceof BuiltInIntegerType or
-    typeStrippedOfSpecifiers instanceof UnsignedCharType or
-    typeStrippedOfSpecifiers instanceof SignedCharType
-  ) and
-  not v instanceof ExcludedVariable and
-  // Dont consider template instantiations because instantiations with
-  // Fixed Width Types are recorded after stripping their typedef'd type,
-  // thereby, causing false positives (#540).
-  not v.isFromTemplateInstantiation(_) and
-  //post-increment/post-decrement operators are required by the standard to have a dummy int parameter
-  not v.(Parameter).getFunction() instanceof PostIncrementOperator and
-  not v.(Parameter).getFunction() instanceof PostDecrementOperator
-select v, "Variable '" + v.getName() + "' has variable-width type."
+class VariableWidthIntegerTypesUsedQuery extends VariableWidthIntegerTypesUsedSharedQuery {
+  VariableWidthIntegerTypesUsedQuery() {
+    this = DeclarationsPackage::variableWidthIntegerTypesUsedQuery()
+  }
+}
