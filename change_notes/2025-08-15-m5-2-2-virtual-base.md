@@ -1,0 +1,5 @@
+ - `M5-2-2` - `PointerToAVirtualBaseClassCastToAPointer.ql`:
+   - Report casts where the from or to types are typedefs to virtual base classes or derived classes.
+   - Report casts to a reference type which is a derived type.
+   - Report casts where the base class is the parent of a virtual base class.
+   - The alert message has been updated to refer to the virtual base class derivation.
