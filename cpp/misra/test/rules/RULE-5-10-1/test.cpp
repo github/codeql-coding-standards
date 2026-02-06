@@ -67,8 +67,25 @@ void test_user_defined_literals() {
   // NON_COMPLIANT - user-defined literal suffix doesn't start with underscore
   long double operator"" mil(long double value) { return value; }
 
-  // NON_COMPLIANT - space before underscore makes it reserved
+  // Space before underscore makes it reserved, however, we can't detect this in
+  // the extractor. NON_COMPLIANT[False negative]
   long double operator"" _meter(long double value) { return value; }
+
+  // COMPLIANT - space before quotes does not affect compliance.
+  long double operator""_nanometer(long double value) { return value; }
+
+  // clang-format off
+  // NON_COMPLIANT - space before underscore makes it reserved, this we can
+  // guess with offsets.
+  long double operator "" _micrometer(long double value) { return value; }
+
+  // COMPLIANT[False positive] - This confuses our logic that uses spaces to
+  // guess offsets.
+  long double operator  ""_picometer(long double value) { return value; }
+
+  // NON_COMPLIANT -- not reserved, but required to start with an underscore.
+  long double operator "" angstrom(long double value) { return value; }
+  // clang-format on
 
   // COMPLIANT - proper user-defined literal suffix
   int operator""_count(unsigned long long value) {
@@ -99,7 +116,7 @@ class C1 {
 #define FUNCTION_LIKE_MACRO(x)                                                 \
   ((x) + 1) // NON_COMPLIANT - lower case argument name
 #define FUNCTION_LIKE_MACRO2(X)                                                \
-  ((X) + 1) // NON_COMPLIANT - lower case argument name
+  ((X) + 1) // COMPLIANT - upper case argument name
 #define VARIADIC_MACRO(X, __VA_ARGS__...) __VA_ARGS__ // COMPLIANT - variadic
 #define NOT_VARIADIC_MACRO(X, __Y) __Y // NON_COMPLIANT -- double underscore
 

@@ -54,7 +54,7 @@ predicate isTemplateSpecialization(Declaration d) {
   d instanceof ClassTemplateSpecialization
 }
 
-private newtype TIndentifierIntroduction =
+private newtype TIdentifierIntroduction =
   TSomeIdentifierIntroduction(
     string ident, Location loc, IdentifierIntroductionImpl::IdentifierIntroductionBase element
   ) {
@@ -77,7 +77,7 @@ private newtype TIndentifierIntroduction =
  * which introduces both the macro name and its parameter names, and therefore plural `getAnIdent()`
  * is used instead of singular `getIdent()`.
  */
-class IdentifierIntroduction extends TIndentifierIntroduction {
+class IdentifierIntroduction extends TIdentifierIntroduction {
   string getIdent() { this = TSomeIdentifierIntroduction(result, _, _) }
 
   Element getElement() { this = TSomeIdentifierIntroduction(_, _, result) }
@@ -207,7 +207,7 @@ private module IdentifierIntroductionImpl {
    * This has to be treated specially. The member predicate `getName()` on a `FriendDecl` returns the
    * string "foo's friend", which is not an identifier in the program.
    *
-   * The elements returned by the `getFriend()` member predicate often do not have a correspending
+   * The elements returned by the `getFriend()` member predicate often do not have a corresponding
    * `DeclarationEntry`, and therefore these element identifiers are not matched by the other classes
    * defined here that extend `IdentifierIntroductionBase`.
    *
@@ -365,7 +365,7 @@ private module IdentifierIntroductionImpl {
   }
 
   /**
-   * An identifier introduced as a template function name or as a parameter of a function-like macro.
+   * An identifier introduced as a macro name or as a parameter of a function-like macro.
    */
   class MacroIdentifier extends IdentifierIntroductionBase, Macro {
     override string getAnIdent() {

@@ -7,7 +7,7 @@
       },
       "queries": [
         {
-          "description": "Identifiers shall not conflict with keywords, reserved name, or otherwise be poorly formed.",
+          "description": "Identifiers shall not conflict with keywords, reserved names, or otherwise be poorly formed.",
           "kind": "problem",
           "name": "User-defined identifiers shall have an appropriate form",
           "precision": "very-high",

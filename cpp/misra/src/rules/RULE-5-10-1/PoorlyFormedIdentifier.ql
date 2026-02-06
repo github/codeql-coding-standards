@@ -1,7 +1,7 @@
 /**
  * @id cpp/misra/poorly-formed-identifier
  * @name RULE-5-10-1: User-defined identifiers shall have an appropriate form
- * @description Identifiers shall not conflict with keywords, reserved name, or otherwise be poorly
+ * @description Identifiers shall not conflict with keywords, reserved names, or otherwise be poorly
  *              formed.
  * @kind problem
  * @precision very-high
@@ -32,11 +32,18 @@ predicate hasDoubleUnderscore(string s) { s.matches("%\\_\\_%") }
 bindingset[s]
 predicate startsWithUnderscore(string s) { s.matches("\\_%") }
 
-predicate isUserDefinedLiteralSuffixNonCompliant(Function f) {
-  f.getName().matches("operator\"\"%") and
-  (
-    not f.getName().matches("operator\"\"\\_%") or
-    f.getName().matches("operator\"\" \\_%")
+predicate isReservedLiteralSuffix(Function f, IdentifierIntroduction intro) {
+  // `operator"" _km` is reserved while `operator ""_km` is not. We don't have adequate information
+  // from the extractor to distinguish this, however, we can use offset information to detect
+  // `operator "" _km` as a best effort guess.
+  f = intro.getElement().(FunctionDeclarationEntry).getFunction() and
+  f.getName().matches("operator%\"\"%") and
+  startsWithUnderscore(intro.getIdent()) and
+  exists(Location loc, int reservedLength, int actualLength | loc = intro.getLocation() |
+    loc.getStartLine() = loc.getEndLine() and
+    reservedLength = ("operator \"\" " + intro).length() and
+    actualLength = loc.getEndColumn() - loc.getStartColumn() + 1 and
+    reservedLength = actualLength
   )
 }
 
@@ -69,7 +76,7 @@ where
     or
     intro.isFromMacro() and
     not ident.regexpMatch("^[a-zA-Z0-9_]+$") and
-    message = "Identifier '" + ident + "' contains invalid characters. "
+    message = "Identifier '" + ident + "' contains invalid characters."
     or
     intro.isFromMacro() and
     containsLowercase(ident) and
@@ -95,8 +102,10 @@ where
     message = "Identifier '" + ident + "' is defined in reserved namespace."
     or
     exists(Function func | func = intro.getElement().(FunctionDeclarationEntry).getFunction() |
-      isUserDefinedLiteralSuffixNonCompliant(func) and
-      message = "User-defined literal suffix '" + ident + "' is malformed."
+      isReservedLiteralSuffix(func, intro) and
+      message =
+        "User-defined literal suffix '" + ident +
+          "' is reserved due to leading underscore and space."
     )
   )
 select intro, message
