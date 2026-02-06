@@ -22,10 +22,11 @@
 | test.cpp:112:1:112:27 | MACRO_with_lower | Identifier 'MACRO_with_lower' contains lowercase characters. |
 | test.cpp:113:1:113:26 | MACRO_123_lower | Identifier 'MACRO_123_lower' contains lowercase characters. |
 | test.cpp:114:1:114:25 | macro_ALL_CAPS | Identifier 'macro_ALL_CAPS' contains lowercase characters. |
-| test.cpp:115:1:115:23 | MACRO$DOLLAR | Identifier 'MACRO$DOLLAR' contains invalid characters.  |
+| test.cpp:115:1:115:23 | MACRO$DOLLAR | Identifier 'MACRO$DOLLAR' contains invalid characters. |
 | test.cpp:116:1:117:11 | x | Identifier 'x' contains lowercase characters. |
 | test.cpp:121:1:121:38 | __Y | Identifier '__Y' contains double underscores. |
 | test.cpp:121:1:121:38 | __Y | Identifier '__Y' starts with underscore. |
+| test.cpp:125:5:125:6 | l1 | Identifier 'l1' is defined in reserved namespace. |
 | test.cpp:134:5:134:6 | l2 | Identifier 'l2' is defined in reserved namespace. |
 | test.cpp:138:5:138:6 | l3 | Identifier 'l3' is defined in reserved namespace. |
 | test.cpp:142:5:142:6 | l4 | Identifier 'l4' is defined in reserved namespace. |

@@ -48,7 +48,7 @@ predicate isReservedLiteralSuffix(Function f, IdentifierIntroduction intro) {
 }
 
 predicate isReservedNamespace(Namespace ns) {
-  ns.getName().regexpMatch("std\\d+") or ns.getName() = "posix"
+  ns.getName().regexpMatch("std\\d*") or ns.getName() = "posix"
 }
 
 bindingset[s]
