@@ -21,9 +21,10 @@ void test_universal_character_continue() {
   int varα = 2;        // COMPLIANT - XID_Continue character
   int var_γ = 3;       // COMPLIANT - underscore and XID_Continue
   int var⁺invalid = 5; // NON_COMPLIANT - U+207A not in XID_Continue class
-  int var̃ = 6; // COMPLIANT - combining tilde, XID_Continue but not XID_Start
-  int var‿conn = 7; // COMPLIANT - connector punctuation, XID_Continue
-  int var9 = 8;     // COMPLIANT - decimal number, XID_Continue
+  int var̅ = 6;         // COMPLIANT - combining overline, XID_Continue but not
+                       // XID_Start, NFC form
+  int var‿conn = 7;    // COMPLIANT - connector punctuation, XID_Continue
+  int var9 = 8;        // COMPLIANT - decimal number, XID_Continue
   int varً = 9;  // COMPLIANT - Arabic fathatan, XID_Continue but not XID_Start
   int var֪ = 10; // COMPLIANT - Hebrew point, XID_Continue but not XID_Start
 }
@@ -31,9 +32,11 @@ void test_universal_character_continue() {
 // Test case for Normalization Form C compliance - separate functions to avoid
 // redefinition
 void test_normalization_form_c_nfc() {
-  int café1 = 1;   // COMPLIANT - NFC form (precomposed)
-  int naïve1 = 2;  // COMPLIANT - NFC form (precomposed)
-  int résumé1 = 3; // COMPLIANT - NFC form (precomposed)
+  int café1 = 1;          // COMPLIANT - NFC form (precomposed)
+  int naïve1 = 2;         // COMPLIANT - NFC form (precomposed)
+  int résumé1 = 3;        // COMPLIANT - NFC form (precomposed)
+  int no̠tpre̕comp̐os̎ed̍ = 3; // COMPLIANT - NFC form (combining marks that
+                          // cannot be precomposed)
 }
 
 void test_normalization_form_c_nfd() {

@@ -2,51 +2,50 @@
 | test.cpp:9:7:9:14 | \\u203finvalid | Identifier '\u203finvalid' has non-UAX44 codepoint at index 0: '8255'. |
 | test.cpp:10:7:10:12 | \\u2070start | Identifier '\u2070start' has non-UAX44 codepoint at index 0: '8304'. |
 | test.cpp:23:7:23:17 | var\\u207ainvalid | Identifier 'var\u207ainvalid' has non-UAX44 codepoint at index 3: '8314'. |
-| test.cpp:24:7:24:10 | var\\u0303 | Identifier 'var\u0303' has non-NFC normalized codepoint at index 3 with NFC_QC value 'M'. |
-| test.cpp:40:7:40:12 | cafe\\u03012 | Identifier 'cafe\u03012' has non-NFC normalized codepoint at index 4 with NFC_QC value 'M'. |
-| test.cpp:42:7:42:13 | nai\\u0308ve2 | Identifier 'nai\u0308ve2' has non-NFC normalized codepoint at index 3 with NFC_QC value 'M'. |
-| test.cpp:44:7:44:15 | re\\u0301sume\\u03012 | Identifier 're\u0301sume\u03012' has non-NFC normalized codepoint at index 2 with NFC_QC value 'M'. |
-| test.cpp:44:7:44:15 | re\\u0301sume\\u03012 | Identifier 're\u0301sume\u03012' has non-NFC normalized codepoint at index 7 with NFC_QC value 'M'. |
-| test.cpp:50:7:50:15 | __invalid | Identifier '__invalid' contains double underscores. |
-| test.cpp:50:7:50:15 | __invalid | Identifier '__invalid' starts with underscore. |
-| test.cpp:51:7:51:13 | val__id | Identifier 'val__id' contains double underscores. |
-| test.cpp:52:7:52:13 | __end__ | Identifier '__end__' contains double underscores. |
-| test.cpp:52:7:52:13 | __end__ | Identifier '__end__' starts with underscore. |
-| test.cpp:57:7:57:12 | _local | Identifier '_local' starts with underscore. |
-| test.cpp:68:15:68:28 | mil | User-defined literal suffix 'mil' does not start with underscore. |
-| test.cpp:80:15:80:37 | _micrometer | User-defined literal suffix '_micrometer' is reserved due to leading underscore and space. |
-| test.cpp:84:15:84:36 | _picometer | User-defined literal suffix '_picometer' is reserved due to leading underscore and space. |
-| test.cpp:87:15:87:34 | angstrom | User-defined literal suffix 'angstrom' does not start with underscore. |
-| test.cpp:109:1:109:24 | invalid_macro | Identifier 'invalid_macro' contains lowercase characters. |
-| test.cpp:110:1:110:21 | Mixed_Case | Identifier 'Mixed_Case' contains lowercase characters. |
-| test.cpp:112:1:112:27 | MACRO_with_lower | Identifier 'MACRO_with_lower' contains lowercase characters. |
-| test.cpp:113:1:113:26 | MACRO_123_lower | Identifier 'MACRO_123_lower' contains lowercase characters. |
-| test.cpp:114:1:114:25 | macro_ALL_CAPS | Identifier 'macro_ALL_CAPS' contains lowercase characters. |
-| test.cpp:115:1:115:23 | MACRO$DOLLAR | Identifier 'MACRO$DOLLAR' contains invalid characters. |
-| test.cpp:116:1:117:11 | x | Identifier 'x' contains lowercase characters. |
-| test.cpp:121:1:121:38 | __Y | Identifier '__Y' contains double underscores. |
-| test.cpp:121:1:121:38 | __Y | Identifier '__Y' starts with underscore. |
-| test.cpp:125:5:125:6 | l1 | Identifier 'l1' is defined in reserved namespace. |
-| test.cpp:134:5:134:6 | l2 | Identifier 'l2' is defined in reserved namespace. |
-| test.cpp:138:5:138:6 | l3 | Identifier 'l3' is defined in reserved namespace. |
-| test.cpp:142:5:142:6 | l4 | Identifier 'l4' is defined in reserved namespace. |
-| test.cpp:147:5:147:6 | l5 | Identifier 'l5' is defined in reserved namespace. |
-| test.cpp:165:7:165:11 | final | Identifier 'final' is a reserved name. |
-| test.cpp:166:7:166:14 | override | Identifier 'override' is a reserved name. |
-| test.cpp:167:7:167:13 | defined | Identifier 'defined' is a reserved name. |
-| test.cpp:168:7:168:12 | size_t | Identifier 'size_t' is a reserved name. |
-| test.cpp:169:7:169:10 | FILE | Identifier 'FILE' is a reserved name. |
-| test.cpp:170:7:170:12 | time_t | Identifier 'time_t' is a reserved name. |
-| test.cpp:171:7:171:15 | ptrdiff_t | Identifier 'ptrdiff_t' is a reserved name. |
-| test.cpp:172:7:172:13 | clock_t | Identifier 'clock_t' is a reserved name. |
-| test.cpp:173:7:173:11 | div_t | Identifier 'div_t' is a reserved name. |
-| test.cpp:174:7:174:12 | fpos_t | Identifier 'fpos_t' is a reserved name. |
-| test.cpp:175:7:175:11 | lconv | Identifier 'lconv' is a reserved name. |
-| test.cpp:176:7:176:12 | ldiv_t | Identifier 'ldiv_t' is a reserved name. |
-| test.cpp:177:7:177:15 | mbstate_t | Identifier 'mbstate_t' is a reserved name. |
-| test.cpp:178:7:178:18 | sig_atomic_t | Identifier 'sig_atomic_t' is a reserved name. |
-| test.cpp:179:7:179:8 | tm | Identifier 'tm' is a reserved name. |
-| test.cpp:180:7:180:13 | va_list | Identifier 'va_list' is a reserved name. |
-| test.cpp:181:7:181:15 | wctrans_t | Identifier 'wctrans_t' is a reserved name. |
-| test.cpp:182:7:182:14 | wctype_t | Identifier 'wctype_t' is a reserved name. |
-| test.cpp:183:7:183:12 | wint_t | Identifier 'wint_t' is a reserved name. |
+| test.cpp:43:7:43:12 | cafe\\u03012 | Identifier 'cafe\u03012' has non-NFC normalized codepoint at index 4 with NFC_QC value 'M'. |
+| test.cpp:45:7:45:13 | nai\\u0308ve2 | Identifier 'nai\u0308ve2' has non-NFC normalized codepoint at index 3 with NFC_QC value 'M'. |
+| test.cpp:47:7:47:15 | re\\u0301sume\\u03012 | Identifier 're\u0301sume\u03012' has non-NFC normalized codepoint at index 2 with NFC_QC value 'M'. |
+| test.cpp:47:7:47:15 | re\\u0301sume\\u03012 | Identifier 're\u0301sume\u03012' has non-NFC normalized codepoint at index 7 with NFC_QC value 'M'. |
+| test.cpp:53:7:53:15 | __invalid | Identifier '__invalid' contains double underscores. |
+| test.cpp:53:7:53:15 | __invalid | Identifier '__invalid' starts with underscore. |
+| test.cpp:54:7:54:13 | val__id | Identifier 'val__id' contains double underscores. |
+| test.cpp:55:7:55:13 | __end__ | Identifier '__end__' contains double underscores. |
+| test.cpp:55:7:55:13 | __end__ | Identifier '__end__' starts with underscore. |
+| test.cpp:60:7:60:12 | _local | Identifier '_local' starts with underscore. |
+| test.cpp:71:15:71:28 | mil | User-defined literal suffix 'mil' does not start with underscore. |
+| test.cpp:83:15:83:37 | _micrometer | User-defined literal suffix '_micrometer' is reserved due to leading underscore and space. |
+| test.cpp:87:15:87:36 | _picometer | User-defined literal suffix '_picometer' is reserved due to leading underscore and space. |
+| test.cpp:90:15:90:34 | angstrom | User-defined literal suffix 'angstrom' does not start with underscore. |
+| test.cpp:112:1:112:24 | invalid_macro | Identifier 'invalid_macro' contains lowercase characters. |
+| test.cpp:113:1:113:21 | Mixed_Case | Identifier 'Mixed_Case' contains lowercase characters. |
+| test.cpp:115:1:115:27 | MACRO_with_lower | Identifier 'MACRO_with_lower' contains lowercase characters. |
+| test.cpp:116:1:116:26 | MACRO_123_lower | Identifier 'MACRO_123_lower' contains lowercase characters. |
+| test.cpp:117:1:117:25 | macro_ALL_CAPS | Identifier 'macro_ALL_CAPS' contains lowercase characters. |
+| test.cpp:118:1:118:23 | MACRO$DOLLAR | Identifier 'MACRO$DOLLAR' contains invalid characters. |
+| test.cpp:119:1:120:11 | x | Identifier 'x' contains lowercase characters. |
+| test.cpp:124:1:124:38 | __Y | Identifier '__Y' contains double underscores. |
+| test.cpp:124:1:124:38 | __Y | Identifier '__Y' starts with underscore. |
+| test.cpp:128:5:128:6 | l1 | Identifier 'l1' is defined in reserved namespace. |
+| test.cpp:137:5:137:6 | l2 | Identifier 'l2' is defined in reserved namespace. |
+| test.cpp:141:5:141:6 | l3 | Identifier 'l3' is defined in reserved namespace. |
+| test.cpp:145:5:145:6 | l4 | Identifier 'l4' is defined in reserved namespace. |
+| test.cpp:150:5:150:6 | l5 | Identifier 'l5' is defined in reserved namespace. |
+| test.cpp:168:7:168:11 | final | Identifier 'final' is a reserved name. |
+| test.cpp:169:7:169:14 | override | Identifier 'override' is a reserved name. |
+| test.cpp:170:7:170:13 | defined | Identifier 'defined' is a reserved name. |
+| test.cpp:171:7:171:12 | size_t | Identifier 'size_t' is a reserved name. |
+| test.cpp:172:7:172:10 | FILE | Identifier 'FILE' is a reserved name. |
+| test.cpp:173:7:173:12 | time_t | Identifier 'time_t' is a reserved name. |
+| test.cpp:174:7:174:15 | ptrdiff_t | Identifier 'ptrdiff_t' is a reserved name. |
+| test.cpp:175:7:175:13 | clock_t | Identifier 'clock_t' is a reserved name. |
+| test.cpp:176:7:176:11 | div_t | Identifier 'div_t' is a reserved name. |
+| test.cpp:177:7:177:12 | fpos_t | Identifier 'fpos_t' is a reserved name. |
+| test.cpp:178:7:178:11 | lconv | Identifier 'lconv' is a reserved name. |
+| test.cpp:179:7:179:12 | ldiv_t | Identifier 'ldiv_t' is a reserved name. |
+| test.cpp:180:7:180:15 | mbstate_t | Identifier 'mbstate_t' is a reserved name. |
+| test.cpp:181:7:181:18 | sig_atomic_t | Identifier 'sig_atomic_t' is a reserved name. |
+| test.cpp:182:7:182:8 | tm | Identifier 'tm' is a reserved name. |
+| test.cpp:183:7:183:13 | va_list | Identifier 'va_list' is a reserved name. |
+| test.cpp:184:7:184:15 | wctrans_t | Identifier 'wctrans_t' is a reserved name. |
+| test.cpp:185:7:185:14 | wctype_t | Identifier 'wctype_t' is a reserved name. |
+| test.cpp:186:7:186:12 | wint_t | Identifier 'wint_t' is a reserved name. |
