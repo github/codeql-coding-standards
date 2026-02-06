@@ -1,4 +1,6 @@
 name: CodeQL Unit Testing
+permissions:
+  contents: read
 
 on:
   merge_group:
@@ -23,7 +25,7 @@ jobs:
       matrix: ${{ steps.export-unit-test-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Export unit test matrix
         id: export-unit-test-matrix
@@ -45,7 +47,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Python
         uses: actions/setup-python@v5

@@ -1,4 +1,6 @@
 name: CodeQL Standard Library Upgrade tests
+permissions:
+  contents: read
 
 # Run this workflow every time the "supported_codeql_configs.json" file is changed
 on:
@@ -19,7 +21,7 @@ jobs:
       matrix: ${{ steps.export-unit-test-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Export unit test matrix
         id: export-unit-test-matrix
@@ -41,7 +43,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python 3
         uses: actions/setup-python@v5

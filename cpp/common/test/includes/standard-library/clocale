@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GHLIBCPP_CLOCALE
+#define _GHLIBCPP_CLOCALE
 
 #define NULL 0
 #define LC_ALL 0
@@ -15,3 +16,5 @@ using ::lconv;
 using ::localeconv;
 using ::setlocale;
 } // namespace std
+
+#endif // _GHLIBCPP_CLOCALE

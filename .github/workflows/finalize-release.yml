@@ -1,4 +1,9 @@
 name: Finalize Release
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
 on:
   pull_request:
     types:
@@ -39,14 +44,14 @@ jobs:
           fi
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ env.REF }}
           fetch-depth: 0
           path: release 
       
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ env.TOOL_REF }}
           path: tooling 

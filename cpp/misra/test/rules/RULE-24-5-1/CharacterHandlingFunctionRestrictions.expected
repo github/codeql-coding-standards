@@ -1,0 +1,132 @@
+| test.cpp:11:3:11:14 | call to isalnum | Call to banned character handling function 'isalnum' from <cctype> or <cwctype>. |
+| test.cpp:12:3:12:14 | call to isalpha | Call to banned character handling function 'isalpha' from <cctype> or <cwctype>. |
+| test.cpp:13:3:13:14 | call to isblank | Call to banned character handling function 'isblank' from <cctype> or <cwctype>. |
+| test.cpp:14:3:14:14 | call to iscntrl | Call to banned character handling function 'iscntrl' from <cctype> or <cwctype>. |
+| test.cpp:15:3:15:14 | call to isdigit | Call to banned character handling function 'isdigit' from <cctype> or <cwctype>. |
+| test.cpp:16:3:16:14 | call to isgraph | Call to banned character handling function 'isgraph' from <cctype> or <cwctype>. |
+| test.cpp:17:3:17:14 | call to islower | Call to banned character handling function 'islower' from <cctype> or <cwctype>. |
+| test.cpp:18:3:18:14 | call to isprint | Call to banned character handling function 'isprint' from <cctype> or <cwctype>. |
+| test.cpp:19:3:19:14 | call to ispunct | Call to banned character handling function 'ispunct' from <cctype> or <cwctype>. |
+| test.cpp:20:3:20:14 | call to isspace | Call to banned character handling function 'isspace' from <cctype> or <cwctype>. |
+| test.cpp:21:3:21:14 | call to isupper | Call to banned character handling function 'isupper' from <cctype> or <cwctype>. |
+| test.cpp:22:3:22:15 | call to isxdigit | Call to banned character handling function 'isxdigit' from <cctype> or <cwctype>. |
+| test.cpp:25:3:25:14 | call to tolower | Call to banned character handling function 'tolower' from <cctype> or <cwctype>. |
+| test.cpp:26:3:26:14 | call to toupper | Call to banned character handling function 'toupper' from <cctype> or <cwctype>. |
+| test.cpp:33:3:33:9 | call to isalnum | Call to banned character handling function 'isalnum' from <cctype> or <cwctype>. |
+| test.cpp:34:3:34:9 | call to isalpha | Call to banned character handling function 'isalpha' from <cctype> or <cwctype>. |
+| test.cpp:35:3:35:9 | call to isblank | Call to banned character handling function 'isblank' from <cctype> or <cwctype>. |
+| test.cpp:36:3:36:9 | call to iscntrl | Call to banned character handling function 'iscntrl' from <cctype> or <cwctype>. |
+| test.cpp:37:3:37:9 | call to isdigit | Call to banned character handling function 'isdigit' from <cctype> or <cwctype>. |
+| test.cpp:38:3:38:9 | call to isgraph | Call to banned character handling function 'isgraph' from <cctype> or <cwctype>. |
+| test.cpp:39:3:39:9 | call to islower | Call to banned character handling function 'islower' from <cctype> or <cwctype>. |
+| test.cpp:40:3:40:9 | call to isprint | Call to banned character handling function 'isprint' from <cctype> or <cwctype>. |
+| test.cpp:41:3:41:9 | call to ispunct | Call to banned character handling function 'ispunct' from <cctype> or <cwctype>. |
+| test.cpp:42:3:42:9 | call to isspace | Call to banned character handling function 'isspace' from <cctype> or <cwctype>. |
+| test.cpp:43:3:43:9 | call to isupper | Call to banned character handling function 'isupper' from <cctype> or <cwctype>. |
+| test.cpp:44:3:44:10 | call to isxdigit | Call to banned character handling function 'isxdigit' from <cctype> or <cwctype>. |
+| test.cpp:47:3:47:9 | call to tolower | Call to banned character handling function 'tolower' from <cctype> or <cwctype>. |
+| test.cpp:48:3:48:9 | call to toupper | Call to banned character handling function 'toupper' from <cctype> or <cwctype>. |
+| test.cpp:55:3:55:15 | call to iswalnum | Call to banned character handling function 'iswalnum' from <cctype> or <cwctype>. |
+| test.cpp:56:3:56:15 | call to iswalpha | Call to banned character handling function 'iswalpha' from <cctype> or <cwctype>. |
+| test.cpp:57:3:57:15 | call to iswblank | Call to banned character handling function 'iswblank' from <cctype> or <cwctype>. |
+| test.cpp:58:3:58:15 | call to iswcntrl | Call to banned character handling function 'iswcntrl' from <cctype> or <cwctype>. |
+| test.cpp:59:3:59:15 | call to iswdigit | Call to banned character handling function 'iswdigit' from <cctype> or <cwctype>. |
+| test.cpp:60:3:60:15 | call to iswgraph | Call to banned character handling function 'iswgraph' from <cctype> or <cwctype>. |
+| test.cpp:61:3:61:15 | call to iswlower | Call to banned character handling function 'iswlower' from <cctype> or <cwctype>. |
+| test.cpp:62:3:62:15 | call to iswprint | Call to banned character handling function 'iswprint' from <cctype> or <cwctype>. |
+| test.cpp:63:3:63:15 | call to iswpunct | Call to banned character handling function 'iswpunct' from <cctype> or <cwctype>. |
+| test.cpp:64:3:64:15 | call to iswspace | Call to banned character handling function 'iswspace' from <cctype> or <cwctype>. |
+| test.cpp:65:3:65:15 | call to iswupper | Call to banned character handling function 'iswupper' from <cctype> or <cwctype>. |
+| test.cpp:66:3:66:16 | call to iswxdigit | Call to banned character handling function 'iswxdigit' from <cctype> or <cwctype>. |
+| test.cpp:69:3:69:15 | call to towlower | Call to banned character handling function 'towlower' from <cctype> or <cwctype>. |
+| test.cpp:70:3:70:15 | call to towupper | Call to banned character handling function 'towupper' from <cctype> or <cwctype>. |
+| test.cpp:73:3:73:13 | call to wctype | Call to banned character handling function 'wctype' from <cctype> or <cwctype>. |
+| test.cpp:74:3:74:15 | call to iswctype | Call to banned character handling function 'iswctype' from <cctype> or <cwctype>. |
+| test.cpp:74:21:74:31 | call to wctype | Call to banned character handling function 'wctype' from <cctype> or <cwctype>. |
+| test.cpp:75:3:75:14 | call to wctrans | Call to banned character handling function 'wctrans' from <cctype> or <cwctype>. |
+| test.cpp:76:3:76:16 | call to towctrans | Call to banned character handling function 'towctrans' from <cctype> or <cwctype>. |
+| test.cpp:76:22:76:33 | call to wctrans | Call to banned character handling function 'wctrans' from <cctype> or <cwctype>. |
+| test.cpp:83:3:83:10 | call to iswalnum | Call to banned character handling function 'iswalnum' from <cctype> or <cwctype>. |
+| test.cpp:84:3:84:10 | call to iswalpha | Call to banned character handling function 'iswalpha' from <cctype> or <cwctype>. |
+| test.cpp:85:3:85:10 | call to iswblank | Call to banned character handling function 'iswblank' from <cctype> or <cwctype>. |
+| test.cpp:86:3:86:10 | call to iswcntrl | Call to banned character handling function 'iswcntrl' from <cctype> or <cwctype>. |
+| test.cpp:87:3:87:10 | call to iswdigit | Call to banned character handling function 'iswdigit' from <cctype> or <cwctype>. |
+| test.cpp:88:3:88:10 | call to iswgraph | Call to banned character handling function 'iswgraph' from <cctype> or <cwctype>. |
+| test.cpp:89:3:89:10 | call to iswlower | Call to banned character handling function 'iswlower' from <cctype> or <cwctype>. |
+| test.cpp:90:3:90:10 | call to iswprint | Call to banned character handling function 'iswprint' from <cctype> or <cwctype>. |
+| test.cpp:91:3:91:10 | call to iswpunct | Call to banned character handling function 'iswpunct' from <cctype> or <cwctype>. |
+| test.cpp:92:3:92:10 | call to iswspace | Call to banned character handling function 'iswspace' from <cctype> or <cwctype>. |
+| test.cpp:93:3:93:10 | call to iswupper | Call to banned character handling function 'iswupper' from <cctype> or <cwctype>. |
+| test.cpp:94:3:94:11 | call to iswxdigit | Call to banned character handling function 'iswxdigit' from <cctype> or <cwctype>. |
+| test.cpp:97:3:97:10 | call to towlower | Call to banned character handling function 'towlower' from <cctype> or <cwctype>. |
+| test.cpp:98:3:98:10 | call to towupper | Call to banned character handling function 'towupper' from <cctype> or <cwctype>. |
+| test.cpp:101:3:101:8 | call to wctype | Call to banned character handling function 'wctype' from <cctype> or <cwctype>. |
+| test.cpp:102:3:102:10 | call to iswctype | Call to banned character handling function 'iswctype' from <cctype> or <cwctype>. |
+| test.cpp:102:16:102:21 | call to wctype | Call to banned character handling function 'wctype' from <cctype> or <cwctype>. |
+| test.cpp:103:3:103:9 | call to wctrans | Call to banned character handling function 'wctrans' from <cctype> or <cwctype>. |
+| test.cpp:104:3:104:11 | call to towctrans | Call to banned character handling function 'towctrans' from <cctype> or <cwctype>. |
+| test.cpp:104:17:104:23 | call to wctrans | Call to banned character handling function 'wctrans' from <cctype> or <cwctype>. |
+| test.cpp:109:20:109:32 | isalnum | Address taken for banned character handling function 'isalnum' from <cctype> or <cwctype>. |
+| test.cpp:110:20:110:32 | isalpha | Address taken for banned character handling function 'isalpha' from <cctype> or <cwctype>. |
+| test.cpp:111:20:111:32 | isblank | Address taken for banned character handling function 'isblank' from <cctype> or <cwctype>. |
+| test.cpp:112:20:112:32 | iscntrl | Address taken for banned character handling function 'iscntrl' from <cctype> or <cwctype>. |
+| test.cpp:113:20:113:32 | isdigit | Address taken for banned character handling function 'isdigit' from <cctype> or <cwctype>. |
+| test.cpp:114:20:114:32 | isgraph | Address taken for banned character handling function 'isgraph' from <cctype> or <cwctype>. |
+| test.cpp:115:20:115:32 | islower | Address taken for banned character handling function 'islower' from <cctype> or <cwctype>. |
+| test.cpp:116:20:116:32 | isprint | Address taken for banned character handling function 'isprint' from <cctype> or <cwctype>. |
+| test.cpp:117:20:117:32 | ispunct | Address taken for banned character handling function 'ispunct' from <cctype> or <cwctype>. |
+| test.cpp:118:21:118:33 | isspace | Address taken for banned character handling function 'isspace' from <cctype> or <cwctype>. |
+| test.cpp:119:21:119:33 | isupper | Address taken for banned character handling function 'isupper' from <cctype> or <cwctype>. |
+| test.cpp:120:21:120:34 | isxdigit | Address taken for banned character handling function 'isxdigit' from <cctype> or <cwctype>. |
+| test.cpp:121:21:121:33 | tolower | Address taken for banned character handling function 'tolower' from <cctype> or <cwctype>. |
+| test.cpp:122:21:122:33 | toupper | Address taken for banned character handling function 'toupper' from <cctype> or <cwctype>. |
+| test.cpp:125:22:125:28 | isalnum | Address taken for banned character handling function 'isalnum' from <cctype> or <cwctype>. |
+| test.cpp:126:22:126:28 | isalpha | Address taken for banned character handling function 'isalpha' from <cctype> or <cwctype>. |
+| test.cpp:127:22:127:28 | isblank | Address taken for banned character handling function 'isblank' from <cctype> or <cwctype>. |
+| test.cpp:128:22:128:28 | iscntrl | Address taken for banned character handling function 'iscntrl' from <cctype> or <cwctype>. |
+| test.cpp:129:22:129:28 | isdigit | Address taken for banned character handling function 'isdigit' from <cctype> or <cwctype>. |
+| test.cpp:130:22:130:28 | isgraph | Address taken for banned character handling function 'isgraph' from <cctype> or <cwctype>. |
+| test.cpp:131:22:131:28 | islower | Address taken for banned character handling function 'islower' from <cctype> or <cwctype>. |
+| test.cpp:132:22:132:28 | isprint | Address taken for banned character handling function 'isprint' from <cctype> or <cwctype>. |
+| test.cpp:133:22:133:28 | ispunct | Address taken for banned character handling function 'ispunct' from <cctype> or <cwctype>. |
+| test.cpp:134:22:134:28 | isspace | Address taken for banned character handling function 'isspace' from <cctype> or <cwctype>. |
+| test.cpp:135:22:135:28 | isupper | Address taken for banned character handling function 'isupper' from <cctype> or <cwctype>. |
+| test.cpp:136:22:136:29 | isxdigit | Address taken for banned character handling function 'isxdigit' from <cctype> or <cwctype>. |
+| test.cpp:137:22:137:28 | tolower | Address taken for banned character handling function 'tolower' from <cctype> or <cwctype>. |
+| test.cpp:138:22:138:28 | toupper | Address taken for banned character handling function 'toupper' from <cctype> or <cwctype>. |
+| test.cpp:141:25:141:37 | iswalnum | Address taken for banned character handling function 'iswalnum' from <cctype> or <cwctype>. |
+| test.cpp:142:25:142:37 | iswalpha | Address taken for banned character handling function 'iswalpha' from <cctype> or <cwctype>. |
+| test.cpp:143:25:143:37 | iswblank | Address taken for banned character handling function 'iswblank' from <cctype> or <cwctype>. |
+| test.cpp:144:25:144:37 | iswcntrl | Address taken for banned character handling function 'iswcntrl' from <cctype> or <cwctype>. |
+| test.cpp:145:25:145:37 | iswdigit | Address taken for banned character handling function 'iswdigit' from <cctype> or <cwctype>. |
+| test.cpp:146:25:146:37 | iswgraph | Address taken for banned character handling function 'iswgraph' from <cctype> or <cwctype>. |
+| test.cpp:147:25:147:37 | iswlower | Address taken for banned character handling function 'iswlower' from <cctype> or <cwctype>. |
+| test.cpp:148:25:148:37 | iswprint | Address taken for banned character handling function 'iswprint' from <cctype> or <cwctype>. |
+| test.cpp:149:25:149:37 | iswpunct | Address taken for banned character handling function 'iswpunct' from <cctype> or <cwctype>. |
+| test.cpp:150:25:150:37 | iswspace | Address taken for banned character handling function 'iswspace' from <cctype> or <cwctype>. |
+| test.cpp:151:25:151:37 | iswupper | Address taken for banned character handling function 'iswupper' from <cctype> or <cwctype>. |
+| test.cpp:152:25:152:38 | iswxdigit | Address taken for banned character handling function 'iswxdigit' from <cctype> or <cwctype>. |
+| test.cpp:153:28:153:40 | towlower | Address taken for banned character handling function 'towlower' from <cctype> or <cwctype>. |
+| test.cpp:154:28:154:40 | towupper | Address taken for banned character handling function 'towupper' from <cctype> or <cwctype>. |
+| test.cpp:155:36:155:46 | wctype | Address taken for banned character handling function 'wctype' from <cctype> or <cwctype>. |
+| test.cpp:156:35:156:47 | iswctype | Address taken for banned character handling function 'iswctype' from <cctype> or <cwctype>. |
+| test.cpp:157:37:157:48 | wctrans | Address taken for banned character handling function 'wctrans' from <cctype> or <cwctype>. |
+| test.cpp:158:39:158:52 | towctrans | Address taken for banned character handling function 'towctrans' from <cctype> or <cwctype>. |
+| test.cpp:161:25:161:32 | iswalnum | Address taken for banned character handling function 'iswalnum' from <cctype> or <cwctype>. |
+| test.cpp:162:25:162:32 | iswalpha | Address taken for banned character handling function 'iswalpha' from <cctype> or <cwctype>. |
+| test.cpp:163:25:163:32 | iswblank | Address taken for banned character handling function 'iswblank' from <cctype> or <cwctype>. |
+| test.cpp:164:25:164:32 | iswcntrl | Address taken for banned character handling function 'iswcntrl' from <cctype> or <cwctype>. |
+| test.cpp:165:25:165:32 | iswdigit | Address taken for banned character handling function 'iswdigit' from <cctype> or <cwctype>. |
+| test.cpp:166:25:166:32 | iswgraph | Address taken for banned character handling function 'iswgraph' from <cctype> or <cwctype>. |
+| test.cpp:167:25:167:32 | iswlower | Address taken for banned character handling function 'iswlower' from <cctype> or <cwctype>. |
+| test.cpp:168:25:168:32 | iswprint | Address taken for banned character handling function 'iswprint' from <cctype> or <cwctype>. |
+| test.cpp:169:25:169:32 | iswpunct | Address taken for banned character handling function 'iswpunct' from <cctype> or <cwctype>. |
+| test.cpp:170:25:170:32 | iswspace | Address taken for banned character handling function 'iswspace' from <cctype> or <cwctype>. |
+| test.cpp:171:25:171:32 | iswupper | Address taken for banned character handling function 'iswupper' from <cctype> or <cwctype>. |
+| test.cpp:172:25:172:33 | iswxdigit | Address taken for banned character handling function 'iswxdigit' from <cctype> or <cwctype>. |
+| test.cpp:173:28:173:35 | towlower | Address taken for banned character handling function 'towlower' from <cctype> or <cwctype>. |
+| test.cpp:174:28:174:35 | towupper | Address taken for banned character handling function 'towupper' from <cctype> or <cwctype>. |
+| test.cpp:175:36:175:41 | wctype | Address taken for banned character handling function 'wctype' from <cctype> or <cwctype>. |
+| test.cpp:176:35:176:42 | iswctype | Address taken for banned character handling function 'iswctype' from <cctype> or <cwctype>. |
+| test.cpp:177:37:177:43 | wctrans | Address taken for banned character handling function 'wctrans' from <cctype> or <cwctype>. |
+| test.cpp:178:39:178:47 | towctrans | Address taken for banned character handling function 'towctrans' from <cctype> or <cwctype>. |

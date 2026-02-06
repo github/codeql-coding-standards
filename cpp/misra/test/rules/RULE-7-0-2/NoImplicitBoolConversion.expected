@@ -1,0 +1,27 @@
+| test.cpp:53:20:53:28 | (bool)... | Conversion from 'int' to 'bool'. |
+| test.cpp:57:7:57:7 | (bool)... | Conversion from 'int' to 'bool'. |
+| test.cpp:59:7:59:8 | (bool)... | Conversion from 'uint8_t' to 'bool'. |
+| test.cpp:61:8:61:8 | (bool)... | Conversion from 'int' to 'bool'. |
+| test.cpp:65:7:65:8 | (bool)... | Conversion from 'uint8_t' to 'bool'. |
+| test.cpp:76:8:76:9 | (bool)... | Conversion from 'int16_t' to 'bool'. |
+| test.cpp:85:20:85:21 | (bool)... | Conversion from 'int32_t' to 'bool'. |
+| test.cpp:91:31:91:32 | (bool)... | Conversion from 'int32_t' to 'bool'. |
+| test.cpp:99:30:99:31 | (bool)... | Conversion from 'int32_t' to 'bool'. |
+| test.cpp:112:12:112:13 | (bool)... | Conversion from 'int32_t' to 'bool'. |
+| test.cpp:127:13:127:16 | (bool)... | Conversion from 'int32_t *' to 'bool'. |
+| test.cpp:135:13:135:32 | static_cast<bool>... | Conversion from 'int' to 'bool'. |
+| test.cpp:136:13:136:14 | (bool)... | Conversion from 'uint8_t' to 'bool'. |
+| test.cpp:139:13:139:19 | (bool)... | Conversion from 'int' to 'bool'. |
+| test.cpp:140:13:140:19 | (bool)... | Conversion from 'int' to 'bool'. |
+| test.cpp:150:13:150:13 | call to operator bool | Conversion operator call from 'TestClassImplicit' to 'bool'. |
+| test.cpp:163:13:163:14 | (bool)... | Conversion from 'Color' to 'bool'. |
+| test.cpp:164:7:164:8 | (bool)... | Conversion from 'Color' to 'bool'. |
+| test.cpp:181:13:181:14 | (bool)... | Conversion from 'float' to 'bool'. |
+| test.cpp:182:13:182:14 | (bool)... | Conversion from 'double' to 'bool'. |
+| test.cpp:183:13:183:14 | (bool)... | Conversion from 'long double' to 'bool'. |
+| test.cpp:184:7:184:8 | (bool)... | Conversion from 'float' to 'bool'. |
+| test.cpp:186:7:186:8 | (bool)... | Conversion from 'double' to 'bool'. |
+| test.cpp:188:7:188:8 | (bool)... | Conversion from 'long double' to 'bool'. |
+| test.cpp:201:13:201:14 | (bool)... | Conversion from 'int32_t *' to 'bool'. |
+| test.cpp:213:13:213:14 | (bool)... | Conversion from '..:: *' to 'bool'. |
+| test.cpp:214:13:214:14 | (bool)... | Conversion from '..:: *' to 'bool'. |

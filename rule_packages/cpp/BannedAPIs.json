@@ -1,0 +1,227 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-18-5-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using program-terminating functions like abort, exit, _Exit, quick_exit or terminate causes the stack to not be unwound and object destructors to not be called, potentially leaving the environment in an undesirable state.",
+          "kind": "problem",
+          "name": "Program-terminating functions should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AvoidProgramTerminatingFunctions",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Program-terminating functions should not be used"
+    },
+    "RULE-21-10-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using <cstdarg> features like va_list, va_arg, va_start, va_end and va_copy bypasses compiler type checking and leads to undefined behavior when used incorrectly.",
+          "kind": "problem",
+          "name": "The features of <cstdarg> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoVariadicFunctionMacros",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The features of <cstdarg> shall not be used"
+    },
+    "RULE-21-10-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using facilities from the <csetjmp> header causes undefined behavior by bypassing normal function return mechanisms and may result in non-trivial object destruction being omitted.",
+          "kind": "problem",
+          "name": "The standard header file <csetjmp> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoCsetjmpHeader",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The standard header file <csetjmp> shall not be used"
+    },
+    "RULE-21-2-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using string handling functions from <cstring>, <cstdlib>, <cwchar> and <cinttypes> headers may result in buffer overflows or unreliable error detection through errno.",
+          "kind": "problem",
+          "name": "The string handling functions from <cstring>, <cstdlib>, <cwchar> and <cinttypes> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnsafeStringHandlingFunctions",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The string handling functions from <cstring>, <cstdlib>, <cwchar> and <cinttypes> shall not be used"
+    },
+    "RULE-21-2-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using the system() function from cstdlib or stdlib.h causes undefined behavior and potential security vulnerabilities.",
+          "kind": "problem",
+          "name": "The library function system from <cstdlib> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BannedSystemFunction",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability",
+            "security"
+          ]
+        }
+      ],
+      "title": "The library function system from <cstdlib> shall not be used"
+    },
+    "RULE-23-11-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using raw pointer constructors of std::shared_ptr and std::unique_ptr instead of make_shared/make_unique can lead to memory leaks if exceptions occur during construction.",
+          "kind": "problem",
+          "name": "The raw pointer constructors of std::shared_ptr and std::unique_ptr should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UseSmartPtrFactoryFunctions",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The raw pointer constructors of std::shared_ptr and std::unique_ptr should not be used"
+    },
+    "RULE-24-5-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using character classification and case mapping functions from <cctype> and <cwctype> causes undefined behavior when arguments are not representable as unsigned char or not equal to EOF.",
+          "kind": "problem",
+          "name": "The character handling functions from <cctype> and <cwctype> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "CharacterHandlingFunctionRestrictions",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The character handling functions from <cctype> and <cwctype> shall not be used"
+    },
+    "RULE-24-5-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using memcpy, memmove or memcmp from <cstring> can result in undefined behavior due to overlapping memory, non-trivially copyable objects, or unequal comparison of logically equal objects.",
+          "kind": "problem",
+          "name": "The C++ Standard Library functions memcpy, memmove and memcmp from <cstring> shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoMemoryFunctionsFromCString",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The C++ Standard Library functions memcpy, memmove and memcmp from <cstring> shall not be used"
+    },
+    "RULE-25-5-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Calling setlocale or std::locale::global functions can introduce data races with functions that use the locale, leading to undefined behavior.",
+          "kind": "problem",
+          "name": "The setlocale and std::locale::global functions shall not be called",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LocaleGlobalFunctionNotAllowed",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability",
+            "concurrency"
+          ]
+        }
+      ],
+      "title": "The setlocale and std::locale::global functions shall not be called"
+    },
+    "RULE-6-9-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using standard signed and unsigned integer type names instead of specified width types makes storage requirements unclear and implementation-dependent.",
+          "kind": "problem",
+          "name": "The names of the standard signed integer types and standard unsigned integer types should not be",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AvoidStandardIntegerTypeNames",
+          "shared_implementation_short_name": "VariableWidthIntegerTypesUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The names of the standard signed integer types and standard unsigned integer types should not be used"
+    }
+  }
+}

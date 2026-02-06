@@ -13,6 +13,7 @@
 | 0.5.0   | 2021-11-29 | Remco Vermeulen | Add document management section.                                                         |
 | 0.6.0   | 2023-08-14 | Luke Cartey     | Update use and testing statement after LGTM.com deprecation.                             |
 | 0.7.0   | 2024-07-23 | Luke Cartey     | Fix development handbook link                                                            |
+| 0.8.0   | 2025-08-29 | Luke Cartey     | Update Safety Manager                                                                    |
 
 ## Introduction
 
@@ -138,7 +139,7 @@ In addition to this black box testing of the components, we also provide validat
 
 ## Safety manager
 
- - **Safety Manager**: @lcartey
- - **Deputy Safety Manager**: @rvermeulen
+ - **Safety Manager**: @michaelrfairhurst
+ - **Deputy Safety Manager**: @nicolaswill
 
 In the event of the Safety Manager being on leave, the Deputy Safety Manager will be responsible for all duties.

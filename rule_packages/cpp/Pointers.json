@@ -306,7 +306,8 @@
           "short_name": "PointerToAVirtualBaseClassCastToAPointer",
           "tags": [
             "correctness"
-          ]
+          ],
+          "shared_implementation_short_name": "PointerToAVirtualBaseClassCastToAPointer"
         }
       ],
       "title": "A pointer to a virtual base class shall only be cast to a pointer to a derived class by means of dynamic_cast."
