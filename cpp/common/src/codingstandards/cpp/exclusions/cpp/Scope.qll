@@ -5,7 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype ScopeQuery =
   TNonStandardEntitiesInStandardNamespacesQuery() or
-  TExternalLinkageArrayWithoutExplicitSizeQuery() or
+  TExternalLinkageArrayWithoutExplicitSizeAutosarQuery() or
   THiddenInheritedNonOverridableMemberFunctionQuery() or
   THiddenInheritedOverridableMemberFunctionQuery() or
   TDefinitionNotConsideredForUnqualifiedLookupQuery() or
@@ -33,11 +33,11 @@ predicate isScopeQueryMetadata(Query query, string queryId, string ruleId, strin
   category = "required"
   or
   query =
-    // `Query` instance for the `externalLinkageArrayWithoutExplicitSize` query
-    ScopePackage::externalLinkageArrayWithoutExplicitSizeQuery() and
+    // `Query` instance for the `externalLinkageArrayWithoutExplicitSizeAutosar` query
+    ScopePackage::externalLinkageArrayWithoutExplicitSizeAutosarQuery() and
   queryId =
-    // `@id` for the `externalLinkageArrayWithoutExplicitSize` query
-    "cpp/autosar/external-linkage-array-without-explicit-size" and
+    // `@id` for the `externalLinkageArrayWithoutExplicitSizeAutosar` query
+    "cpp/autosar/external-linkage-array-without-explicit-size-autosar" and
   ruleId = "A3-1-4" and
   category = "required"
   or
@@ -185,11 +185,11 @@ module ScopePackage {
       TQueryCPP(TScopePackageQuery(TNonStandardEntitiesInStandardNamespacesQuery()))
   }
 
-  Query externalLinkageArrayWithoutExplicitSizeQuery() {
+  Query externalLinkageArrayWithoutExplicitSizeAutosarQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `externalLinkageArrayWithoutExplicitSize` query
-      TQueryCPP(TScopePackageQuery(TExternalLinkageArrayWithoutExplicitSizeQuery()))
+      // `Query` type for `externalLinkageArrayWithoutExplicitSizeAutosar` query
+      TQueryCPP(TScopePackageQuery(TExternalLinkageArrayWithoutExplicitSizeAutosarQuery()))
   }
 
   Query hiddenInheritedNonOverridableMemberFunctionQuery() {

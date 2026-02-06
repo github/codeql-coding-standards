@@ -1,0 +1,5 @@
+| test.hpp:3:6:3:7 | definition of f1 | Header file $@ contains function f1 that lead to One Definition Rule violation. | test.hpp:0:0:0:0 | test.hpp | test.hpp |
+| test.hpp:8:5:8:5 | definition of i | Header file $@ contains object i that lead to One Definition Rule violation. | test.hpp:0:0:0:0 | test.hpp | test.hpp |
+| test.hpp:9:12:9:13 | definition of i1 | Header file $@ contains object i1 that lead to One Definition Rule violation. | test.hpp:0:0:0:0 | test.hpp | test.hpp |
+| test.hpp:23:5:23:8 | definition of m | Header file $@ contains function m that lead to One Definition Rule violation. | test.hpp:0:0:0:0 | test.hpp | test.hpp |
+| test.hpp:24:5:24:9 | definition of m1 | Header file $@ contains function m1 that lead to One Definition Rule violation. | test.hpp:0:0:0:0 | test.hpp | test.hpp |
