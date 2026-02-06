@@ -1,0 +1,25 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-0-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Dead code can indicate a logic error, potentially introduced during code edits, or it may be unnecessary code that can be deleted.",
+          "kind": "problem",
+          "name": "A function shall not contain unreachable statements",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnreachableStatement",
+          "tags": [
+            "maintainability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A function shall not contain unreachable statements"
+    }
+  }
+}

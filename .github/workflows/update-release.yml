@@ -1,8 +1,4 @@
 name: Update Release
-permissions:
-  contents: write
-  pull-requests: write
-  actions: write
 
 on:
   workflow_dispatch:
@@ -23,8 +19,14 @@ on:
         description: |
           The private key to use to generate a token for accessing the release engineering repository.
         required: true
+
 env:
   HEAD_SHA: ${{ inputs.head-sha }}
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
 
 jobs:
   update-release:
@@ -32,13 +34,13 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # We need the full history to compute the changelog
           ref: ${{ inputs.head-sha }}
 
       - name: Install Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.9"
 
