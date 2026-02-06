@@ -57,4 +57,3 @@ void test_unions() {
   memcpy(&u1.m2.m2, &u1.m1, sizeof(u1.m1)); // NON_COMPLIANT
   memcpy(&u2.diff.suffix, &u2.fnv.suffix, sizeof(u2.fnv.suffix)); // COMPLIANT
 }
-
