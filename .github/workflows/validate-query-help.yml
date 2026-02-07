@@ -1,4 +1,6 @@
 name: Validate Query Help Files
+permissions:
+  contents: read
 on:
   merge_group:
     types: [checks_requested]

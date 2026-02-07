@@ -83,6 +83,11 @@ void f8(std::mutex *pm) {
   }
 }
 
+void f9(std::mutex *pm) {
+  std::lock_guard<std::mutex> lg(*pm);
+  mightThrow(); // COMPLIANT
+}
+
 void m() {
   std::mutex pm;
   std::thread t1 = std::thread(f1, &pm);
@@ -93,4 +98,5 @@ void m() {
   std::thread t6 = std::thread(f6, &pm);
   std::thread t7 = std::thread(f7, &pm);
   std::thread t8 = std::thread(f8, &pm);
+  std::thread t9 = std::thread(f9, &pm);
 }

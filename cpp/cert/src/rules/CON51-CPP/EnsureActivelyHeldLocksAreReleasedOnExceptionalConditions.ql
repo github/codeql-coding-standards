@@ -36,6 +36,8 @@ where
   // To reduce the number of results we require that this is a direct child
   // of the lock within the same function
   lpn.coveredByLock().getASuccessor*() = lpn and
+  // Exclude RAII-style locks which cannot leak
+  lpn.coveredByLock().canLeak() and
   // report those expressions for which there doesn't exist a catch block
   not exists(CatchBlock cb |
     catches(cb, lpn, _) and
