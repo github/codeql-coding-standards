@@ -10,7 +10,7 @@
           "description": "Invariant expressions in controlling statements can indicate logic errors or redundant code.",
           "kind": "problem",
           "name": "Controlling expressions should not be invariant",
-          "precision": "very-high",
+          "precision": "high",
           "severity": "error",
           "short_name": "InvariantCondition",
           "tags": [

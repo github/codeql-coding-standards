@@ -4,7 +4,7 @@
  * @description Invariant expressions in controlling statements can indicate logic errors or
  *              redundant code.
  * @kind problem
- * @precision very-high
+ * @precision high
  * @problem.severity error
  * @tags external/misra/id/rule-0-0-2
  *       scope/system
