@@ -1,0 +1,12 @@
+| test.cpp:6:16:6:17 | m1 | Non-static data member 'm1' has mixed access level with other data members in class 'MixedAccessClass'. |
+| test.cpp:8:16:8:17 | m2 | Non-static data member 'm2' has mixed access level with other data members in class 'MixedAccessClass'. |
+| test.cpp:45:16:45:17 | m1 | Non-static data member 'm1' has mixed access level with other data members in class 'ProtectedAndPrivateClass'. |
+| test.cpp:47:16:47:17 | m2 | Non-static data member 'm2' has mixed access level with other data members in class 'ProtectedAndPrivateClass'. |
+| test.cpp:53:16:53:17 | m1 | Non-static data member 'm1' has mixed access level with other data members in class 'PublicAndProtectedClass'. |
+| test.cpp:55:16:55:17 | m2 | Non-static data member 'm2' has mixed access level with other data members in class 'PublicAndProtectedClass'. |
+| test.cpp:61:16:61:17 | m1 | Non-static data member 'm1' has mixed access level with other data members in class 'AllThreeAccessLevels'. |
+| test.cpp:63:16:63:17 | m2 | Non-static data member 'm2' has mixed access level with other data members in class 'AllThreeAccessLevels'. |
+| test.cpp:65:16:65:17 | m3 | Non-static data member 'm3' has mixed access level with other data members in class 'AllThreeAccessLevels'. |
+| test.cpp:71:16:71:17 | m1 | Non-static data member 'm1' has mixed access level with other data members in class 'OnlyProtected'. |
+| test.cpp:72:16:72:17 | m2 | Non-static data member 'm2' has mixed access level with other data members in class 'OnlyProtected'. |
+| test.cpp:73:16:73:17 | m3 | Non-static data member 'm3' has mixed access level with other data members in class 'OnlyProtected'. |

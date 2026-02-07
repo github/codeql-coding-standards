@@ -1,4 +1,7 @@
 | file://:0:0:0:0 | (global namespace) | Element has external linkage |
+| file://:0:0:0:0 | __va_list_tag | Element has external linkage |
+| file://:0:0:0:0 | operator= | Element has external linkage |
+| file://:0:0:0:0 | operator= | Element has external linkage |
 | test.cpp:1:5:1:6 | g1 | Element has external linkage |
 | test.cpp:2:12:2:13 | g2 | Element has external linkage |
 | test.cpp:7:11:7:13 | ns1 | Element has external linkage |

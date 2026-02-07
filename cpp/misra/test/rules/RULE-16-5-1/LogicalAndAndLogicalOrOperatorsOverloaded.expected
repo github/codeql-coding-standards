@@ -1,0 +1,4 @@
+| test.cpp:13:6:13:15 | operator&& | Overloaded logical operator 'operator&&' changes short-circuit evaluation behavior. |
+| test.cpp:17:6:17:15 | operator\|\| | Overloaded logical operator 'operator\|\|' changes short-circuit evaluation behavior. |
+| test.cpp:21:10:21:19 | operator&& | Overloaded logical operator 'operator&&' changes short-circuit evaluation behavior. |
+| test.cpp:25:10:25:19 | operator\|\| | Overloaded logical operator 'operator\|\|' changes short-circuit evaluation behavior. |
