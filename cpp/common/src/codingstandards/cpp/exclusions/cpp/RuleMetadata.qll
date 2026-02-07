@@ -9,6 +9,7 @@ import BannedLibraries
 import BannedSyntax
 import BannedTypes
 import Classes
+import Classes2
 import Comments
 import Concurrency
 import Conditionals
@@ -16,10 +17,12 @@ import Const
 import Conversions
 import Conversions2
 import DeadCode
+import DeadCode3
 import Declarations
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
+import Exceptions3
 import Expressions
 import FloatingPoint
 import Freed
@@ -33,26 +36,35 @@ import IntegerConversion
 import Invariants
 import Iterators
 import Lambdas
+import Linkage1
+import Linkage2
 import Literals
 import Loops
 import Macros
+import Memory2
+import Memory3
 import MoveForward
 import Naming
+import Naming2
 import Null
 import OperatorInvariants
 import Operators
 import OrderOfEvaluation
 import OutOfBounds
 import Pointers
+import Preconditions1
+import Preconditions4
 import Representation
 import Scope
 import SideEffects1
 import SideEffects2
 import SmartPointers1
 import SmartPointers2
+import Statements
 import Strings
 import Templates
 import Toolchain
+import Trigraph
 import TrustBoundaries
 import TypeRanges
 import Uninitialized
@@ -67,6 +79,7 @@ newtype TCPPQuery =
   TBannedSyntaxPackageQuery(BannedSyntaxQuery q) or
   TBannedTypesPackageQuery(BannedTypesQuery q) or
   TClassesPackageQuery(ClassesQuery q) or
+  TClasses2PackageQuery(Classes2Query q) or
   TCommentsPackageQuery(CommentsQuery q) or
   TConcurrencyPackageQuery(ConcurrencyQuery q) or
   TConditionalsPackageQuery(ConditionalsQuery q) or
@@ -74,10 +87,12 @@ newtype TCPPQuery =
   TConversionsPackageQuery(ConversionsQuery q) or
   TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode3PackageQuery(DeadCode3Query q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
+  TExceptions3PackageQuery(Exceptions3Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
   TFloatingPointPackageQuery(FloatingPointQuery q) or
   TFreedPackageQuery(FreedQuery q) or
@@ -91,26 +106,35 @@ newtype TCPPQuery =
   TInvariantsPackageQuery(InvariantsQuery q) or
   TIteratorsPackageQuery(IteratorsQuery q) or
   TLambdasPackageQuery(LambdasQuery q) or
+  TLinkage1PackageQuery(Linkage1Query q) or
+  TLinkage2PackageQuery(Linkage2Query q) or
   TLiteralsPackageQuery(LiteralsQuery q) or
   TLoopsPackageQuery(LoopsQuery q) or
   TMacrosPackageQuery(MacrosQuery q) or
+  TMemory2PackageQuery(Memory2Query q) or
+  TMemory3PackageQuery(Memory3Query q) or
   TMoveForwardPackageQuery(MoveForwardQuery q) or
   TNamingPackageQuery(NamingQuery q) or
+  TNaming2PackageQuery(Naming2Query q) or
   TNullPackageQuery(NullQuery q) or
   TOperatorInvariantsPackageQuery(OperatorInvariantsQuery q) or
   TOperatorsPackageQuery(OperatorsQuery q) or
   TOrderOfEvaluationPackageQuery(OrderOfEvaluationQuery q) or
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointersPackageQuery(PointersQuery q) or
+  TPreconditions1PackageQuery(Preconditions1Query q) or
+  TPreconditions4PackageQuery(Preconditions4Query q) or
   TRepresentationPackageQuery(RepresentationQuery q) or
   TScopePackageQuery(ScopeQuery q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
   TSmartPointers1PackageQuery(SmartPointers1Query q) or
   TSmartPointers2PackageQuery(SmartPointers2Query q) or
+  TStatementsPackageQuery(StatementsQuery q) or
   TStringsPackageQuery(StringsQuery q) or
   TTemplatesPackageQuery(TemplatesQuery q) or
   TToolchainPackageQuery(ToolchainQuery q) or
+  TTrigraphPackageQuery(TrigraphQuery q) or
   TTrustBoundariesPackageQuery(TrustBoundariesQuery q) or
   TTypeRangesPackageQuery(TypeRangesQuery q) or
   TUninitializedPackageQuery(UninitializedQuery q) or
@@ -125,6 +149,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBannedSyntaxQueryMetadata(query, queryId, ruleId, category) or
   isBannedTypesQueryMetadata(query, queryId, ruleId, category) or
   isClassesQueryMetadata(query, queryId, ruleId, category) or
+  isClasses2QueryMetadata(query, queryId, ruleId, category) or
   isCommentsQueryMetadata(query, queryId, ruleId, category) or
   isConcurrencyQueryMetadata(query, queryId, ruleId, category) or
   isConditionalsQueryMetadata(query, queryId, ruleId, category) or
@@ -132,10 +157,12 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConversionsQueryMetadata(query, queryId, ruleId, category) or
   isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
+  isExceptions3QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
   isFloatingPointQueryMetadata(query, queryId, ruleId, category) or
   isFreedQueryMetadata(query, queryId, ruleId, category) or
@@ -149,26 +176,35 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isIteratorsQueryMetadata(query, queryId, ruleId, category) or
   isLambdasQueryMetadata(query, queryId, ruleId, category) or
+  isLinkage1QueryMetadata(query, queryId, ruleId, category) or
+  isLinkage2QueryMetadata(query, queryId, ruleId, category) or
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or
   isLoopsQueryMetadata(query, queryId, ruleId, category) or
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
+  isMemory2QueryMetadata(query, queryId, ruleId, category) or
+  isMemory3QueryMetadata(query, queryId, ruleId, category) or
   isMoveForwardQueryMetadata(query, queryId, ruleId, category) or
   isNamingQueryMetadata(query, queryId, ruleId, category) or
+  isNaming2QueryMetadata(query, queryId, ruleId, category) or
   isNullQueryMetadata(query, queryId, ruleId, category) or
   isOperatorInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isOperatorsQueryMetadata(query, queryId, ruleId, category) or
   isOrderOfEvaluationQueryMetadata(query, queryId, ruleId, category) or
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointersQueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
   isRepresentationQueryMetadata(query, queryId, ruleId, category) or
   isScopeQueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
   isSmartPointers1QueryMetadata(query, queryId, ruleId, category) or
   isSmartPointers2QueryMetadata(query, queryId, ruleId, category) or
+  isStatementsQueryMetadata(query, queryId, ruleId, category) or
   isStringsQueryMetadata(query, queryId, ruleId, category) or
   isTemplatesQueryMetadata(query, queryId, ruleId, category) or
   isToolchainQueryMetadata(query, queryId, ruleId, category) or
+  isTrigraphQueryMetadata(query, queryId, ruleId, category) or
   isTrustBoundariesQueryMetadata(query, queryId, ruleId, category) or
   isTypeRangesQueryMetadata(query, queryId, ruleId, category) or
   isUninitializedQueryMetadata(query, queryId, ruleId, category) or

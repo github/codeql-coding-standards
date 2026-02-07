@@ -38,9 +38,10 @@ class LockProtectedControlFlowNode extends ThreadedCFN {
   }
 
   /**
-   * The `MutexFunctionCall` holding the lock that locks this node.
+   * The LockingOperation (for instance, a `MutexFunctionCall`, or RAII-style lock constructor)
+   * holding the lock that locks this node.
    */
-  FunctionCall coveredByLock() { result = lockingFunction }
+  LockingOperation coveredByLock() { result = lockingFunction }
 
   /**
    * The lock underlying this `LockProtectedControlFlowNode`.
