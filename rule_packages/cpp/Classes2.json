@@ -1,0 +1,158 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-13-1-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Virtual inheritance should not be used as it may lead to unexpected behavior.",
+          "kind": "problem",
+          "name": "Classes should not be inherited virtually",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "VirtualInheritanceNotAllowed",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Classes should not be inherited virtually"
+    },
+    "RULE-13-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Appropriate use of specifiers on member functions more clearly indicate the intention of the function.",
+          "kind": "problem",
+          "name": "User-declared member functions shall use the virtual, override and final specifiers appropriately",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "MemberSpecifiersNotUsedAppropriately",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "User-declared member functions shall use the virtual, override and final specifiers appropriately"
+    },
+    "RULE-14-1-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Mixing public and private data members in a class obfuscates the range of valid states allowable for that class.",
+          "kind": "problem",
+          "name": "Non-static data members should be either all private or all public",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "PrivateAndPublicDataMembersMixed",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Non-static data members should be either all private or all public"
+    },
+    "RULE-15-0-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Proper implementations of copy and move constructors and assignment operators ensure that resources are managed correctly.",
+          "kind": "problem",
+          "name": "User-provided copy and move member functions of a class should have appropriate signatures",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "InvalidSignatureForSpecialMemberFunction",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "User-provided copy and move member functions of a class should have appropriate signatures"
+    },
+    "RULE-15-1-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Implicit conversions can lead to unexpected behavior that is preventable by declaring conversion operators and constructors as explicit.",
+          "kind": "problem",
+          "name": "Conversion operators and constructors that are callable with a single argument shall be explicit",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "NonExplicitConversionMember",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Conversion operators and constructors that are callable with a single argument shall be explicit"
+    },
+    "RULE-16-5-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Overloaded logical AND and logical OR operators change short-circuiting behavior and can lead to unexpected results.",
+          "kind": "problem",
+          "name": "The logical AND and logical OR operators shall not be overloaded",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "LogicalAndAndLogicalOrOperatorsOverloaded",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The logical AND and logical OR operators shall not be overloaded"
+    },
+    "RULE-16-6-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Function resolution of operators overloaded as member functions is dependent on ordering and available conversions, which can lead to unexpected behavior.",
+          "kind": "problem",
+          "name": "Symmetrical operators should only be implemented as non-member functions",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "InvalidOperatorOverloadedAsMemberFunction",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Symmetrical operators should only be implemented as non-member functions"
+    }
+  }
+}
