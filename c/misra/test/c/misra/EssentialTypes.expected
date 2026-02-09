@@ -90,3 +90,351 @@
 | test.c:79:3:79:5 | 97 | char | char | essentially Character type |
 | test.c:80:3:80:6 | 10 | char | char | essentially Character type |
 | test.c:81:3:81:6 | 0 | char | char | essentially Character type |
+| test.c:87:16:87:16 | 0 | signed char | signed char | essentially Signed type |
+| test.c:87:16:87:16 | (uint8_t)... | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:88:18:88:18 | 0 | signed char | signed char | essentially Signed type |
+| test.c:88:18:88:18 | (uint16_t)... | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:89:18:89:18 | 0 | signed char | signed char | essentially Signed type |
+| test.c:89:18:89:18 | (uint32_t)... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:90:15:90:15 | 0 | signed char | signed char | essentially Signed type |
+| test.c:90:15:90:15 | (int8_t)... | int8_t | int8_t | essentially Signed type |
+| test.c:91:17:91:17 | 0 | signed char | signed char | essentially Signed type |
+| test.c:91:17:91:17 | (int16_t)... | int16_t | int16_t | essentially Signed type |
+| test.c:92:16:92:17 | 0 | signed char | signed char | essentially Signed type |
+| test.c:94:3:94:4 | (int)... | int | int | essentially Signed type |
+| test.c:94:3:94:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:94:3:94:9 | ... & ... | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:94:8:94:9 | (int)... | int | int | essentially Signed type |
+| test.c:94:8:94:9 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:95:3:95:5 | (int)... | int | int | essentially Signed type |
+| test.c:95:3:95:5 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:95:3:95:10 | ... & ... | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:95:9:95:10 | (int)... | int | int | essentially Signed type |
+| test.c:95:9:95:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:96:3:96:4 | (int)... | int | int | essentially Signed type |
+| test.c:96:3:96:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:96:3:96:10 | ... & ... | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:96:8:96:10 | (int)... | int | int | essentially Signed type |
+| test.c:96:8:96:10 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:97:3:97:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:97:3:97:10 | ... & ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:97:9:97:10 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:97:9:97:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:98:3:98:4 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:98:3:98:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:98:3:98:10 | ... & ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:98:8:98:10 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:99:3:99:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:99:3:99:11 | ... & ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:99:9:99:11 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:99:9:99:11 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:100:3:100:5 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:100:3:100:5 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:100:3:100:11 | ... & ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:100:9:100:11 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:102:3:102:4 | (int)... | int | int | essentially Signed type |
+| test.c:102:3:102:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:102:3:102:9 | ... \| ... | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:102:8:102:9 | (int)... | int | int | essentially Signed type |
+| test.c:102:8:102:9 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:103:3:103:5 | (int)... | int | int | essentially Signed type |
+| test.c:103:3:103:5 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:103:3:103:10 | ... \| ... | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:103:9:103:10 | (int)... | int | int | essentially Signed type |
+| test.c:103:9:103:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:104:3:104:4 | (int)... | int | int | essentially Signed type |
+| test.c:104:3:104:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:104:3:104:10 | ... \| ... | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:104:8:104:10 | (int)... | int | int | essentially Signed type |
+| test.c:104:8:104:10 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:105:3:105:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:105:3:105:10 | ... \| ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:105:9:105:10 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:105:9:105:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:106:3:106:4 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:106:3:106:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:106:3:106:10 | ... \| ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:106:8:106:10 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:107:3:107:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:107:3:107:11 | ... \| ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:107:9:107:11 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:107:9:107:11 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:108:3:108:5 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:108:3:108:5 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:108:3:108:11 | ... \| ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:108:9:108:11 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:110:3:110:4 | (int)... | int | int | essentially Signed type |
+| test.c:110:3:110:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:110:3:110:9 | ... ^ ... | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:110:8:110:9 | (int)... | int | int | essentially Signed type |
+| test.c:110:8:110:9 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:111:3:111:5 | (int)... | int | int | essentially Signed type |
+| test.c:111:3:111:5 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:111:3:111:10 | ... ^ ... | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:111:9:111:10 | (int)... | int | int | essentially Signed type |
+| test.c:111:9:111:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:112:3:112:4 | (int)... | int | int | essentially Signed type |
+| test.c:112:3:112:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:112:3:112:10 | ... ^ ... | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:112:8:112:10 | (int)... | int | int | essentially Signed type |
+| test.c:112:8:112:10 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:113:3:113:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:113:3:113:10 | ... ^ ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:113:9:113:10 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:113:9:113:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:114:3:114:4 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:114:3:114:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:114:3:114:10 | ... ^ ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:114:8:114:10 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:115:3:115:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:115:3:115:11 | ... ^ ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:115:9:115:11 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:115:9:115:11 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:116:3:116:5 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:116:3:116:5 | u16 | uint16_t | uint16_t | essentially Unsigned type |
+| test.c:116:3:116:11 | ... ^ ... | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:116:9:116:11 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:118:3:118:4 | (int)... | int | int | essentially Signed type |
+| test.c:118:3:118:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:118:3:118:9 | ... & ... | int8_t | int8_t | essentially Signed type |
+| test.c:118:8:118:9 | (int)... | int | int | essentially Signed type |
+| test.c:118:8:118:9 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:119:3:119:5 | (int)... | int | int | essentially Signed type |
+| test.c:119:3:119:5 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:119:3:119:10 | ... & ... | int16_t | int16_t | essentially Signed type |
+| test.c:119:9:119:10 | (int)... | int | int | essentially Signed type |
+| test.c:119:9:119:10 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:120:3:120:4 | (int)... | int | int | essentially Signed type |
+| test.c:120:3:120:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:120:3:120:10 | ... & ... | int16_t | int16_t | essentially Signed type |
+| test.c:120:8:120:10 | (int)... | int | int | essentially Signed type |
+| test.c:120:8:120:10 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:121:3:121:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:121:3:121:10 | ... & ... | int32_t | int32_t | essentially Signed type |
+| test.c:121:9:121:10 | (int)... | int | int | essentially Signed type |
+| test.c:121:9:121:10 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:122:3:122:4 | (int)... | int | int | essentially Signed type |
+| test.c:122:3:122:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:122:3:122:10 | ... & ... | int32_t | int32_t | essentially Signed type |
+| test.c:122:8:122:10 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:123:3:123:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:123:3:123:11 | ... & ... | int32_t | int32_t | essentially Signed type |
+| test.c:123:9:123:11 | (int)... | int | int | essentially Signed type |
+| test.c:123:9:123:11 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:124:3:124:5 | (int)... | int | int | essentially Signed type |
+| test.c:124:3:124:5 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:124:3:124:11 | ... & ... | int32_t | int32_t | essentially Signed type |
+| test.c:124:9:124:11 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:126:3:126:4 | (int)... | int | int | essentially Signed type |
+| test.c:126:3:126:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:126:3:126:9 | ... \| ... | int8_t | int8_t | essentially Signed type |
+| test.c:126:8:126:9 | (int)... | int | int | essentially Signed type |
+| test.c:126:8:126:9 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:127:3:127:5 | (int)... | int | int | essentially Signed type |
+| test.c:127:3:127:5 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:127:3:127:10 | ... \| ... | int16_t | int16_t | essentially Signed type |
+| test.c:127:9:127:10 | (int)... | int | int | essentially Signed type |
+| test.c:127:9:127:10 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:128:3:128:4 | (int)... | int | int | essentially Signed type |
+| test.c:128:3:128:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:128:3:128:10 | ... \| ... | int16_t | int16_t | essentially Signed type |
+| test.c:128:8:128:10 | (int)... | int | int | essentially Signed type |
+| test.c:128:8:128:10 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:129:3:129:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:129:3:129:10 | ... \| ... | int32_t | int32_t | essentially Signed type |
+| test.c:129:9:129:10 | (int)... | int | int | essentially Signed type |
+| test.c:129:9:129:10 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:130:3:130:4 | (int)... | int | int | essentially Signed type |
+| test.c:130:3:130:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:130:3:130:10 | ... \| ... | int32_t | int32_t | essentially Signed type |
+| test.c:130:8:130:10 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:131:3:131:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:131:3:131:11 | ... \| ... | int32_t | int32_t | essentially Signed type |
+| test.c:131:9:131:11 | (int)... | int | int | essentially Signed type |
+| test.c:131:9:131:11 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:132:3:132:5 | (int)... | int | int | essentially Signed type |
+| test.c:132:3:132:5 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:132:3:132:11 | ... \| ... | int32_t | int32_t | essentially Signed type |
+| test.c:132:9:132:11 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:134:3:134:4 | (int)... | int | int | essentially Signed type |
+| test.c:134:3:134:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:134:3:134:9 | ... ^ ... | int8_t | int8_t | essentially Signed type |
+| test.c:134:8:134:9 | (int)... | int | int | essentially Signed type |
+| test.c:134:8:134:9 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:135:3:135:5 | (int)... | int | int | essentially Signed type |
+| test.c:135:3:135:5 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:135:3:135:10 | ... ^ ... | int16_t | int16_t | essentially Signed type |
+| test.c:135:9:135:10 | (int)... | int | int | essentially Signed type |
+| test.c:135:9:135:10 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:136:3:136:4 | (int)... | int | int | essentially Signed type |
+| test.c:136:3:136:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:136:3:136:10 | ... ^ ... | int16_t | int16_t | essentially Signed type |
+| test.c:136:8:136:10 | (int)... | int | int | essentially Signed type |
+| test.c:136:8:136:10 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:137:3:137:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:137:3:137:10 | ... ^ ... | int32_t | int32_t | essentially Signed type |
+| test.c:137:9:137:10 | (int)... | int | int | essentially Signed type |
+| test.c:137:9:137:10 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:138:3:138:4 | (int)... | int | int | essentially Signed type |
+| test.c:138:3:138:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:138:3:138:10 | ... ^ ... | int32_t | int32_t | essentially Signed type |
+| test.c:138:8:138:10 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:139:3:139:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:139:3:139:11 | ... ^ ... | int32_t | int32_t | essentially Signed type |
+| test.c:139:9:139:11 | (int)... | int | int | essentially Signed type |
+| test.c:139:9:139:11 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:140:3:140:5 | (int)... | int | int | essentially Signed type |
+| test.c:140:3:140:5 | s16 | int16_t | int16_t | essentially Signed type |
+| test.c:140:3:140:11 | ... ^ ... | int32_t | int32_t | essentially Signed type |
+| test.c:140:9:140:11 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:142:3:142:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:142:3:142:11 | ... & ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:142:9:142:11 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:142:9:142:11 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:143:3:143:5 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:143:3:143:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:143:3:143:11 | ... & ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:143:9:143:11 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:144:3:144:4 | (int)... | int | int | essentially Signed type |
+| test.c:144:3:144:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:144:3:144:10 | ... & ... | int | int | essentially Signed type |
+| test.c:144:8:144:10 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:145:3:145:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:145:3:145:10 | ... & ... | int | int | essentially Signed type |
+| test.c:145:9:145:10 | (int)... | int | int | essentially Signed type |
+| test.c:145:9:145:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:146:3:146:4 | (int)... | int | int | essentially Signed type |
+| test.c:146:3:146:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:146:3:146:9 | ... & ... | int | int | essentially Signed type |
+| test.c:146:8:146:9 | (int)... | int | int | essentially Signed type |
+| test.c:146:8:146:9 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:147:3:147:4 | (int)... | int | int | essentially Signed type |
+| test.c:147:3:147:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:147:3:147:9 | ... & ... | int | int | essentially Signed type |
+| test.c:147:8:147:9 | (int)... | int | int | essentially Signed type |
+| test.c:147:8:147:9 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:149:3:149:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:149:3:149:11 | ... \| ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:149:9:149:11 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:149:9:149:11 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:150:3:150:5 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:150:3:150:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:150:3:150:11 | ... \| ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:150:9:150:11 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:151:3:151:4 | (int)... | int | int | essentially Signed type |
+| test.c:151:3:151:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:151:3:151:10 | ... \| ... | int | int | essentially Signed type |
+| test.c:151:8:151:10 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:152:3:152:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:152:3:152:10 | ... \| ... | int | int | essentially Signed type |
+| test.c:152:9:152:10 | (int)... | int | int | essentially Signed type |
+| test.c:152:9:152:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:153:3:153:4 | (int)... | int | int | essentially Signed type |
+| test.c:153:3:153:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:153:3:153:9 | ... \| ... | int | int | essentially Signed type |
+| test.c:153:8:153:9 | (int)... | int | int | essentially Signed type |
+| test.c:153:8:153:9 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:154:3:154:4 | (int)... | int | int | essentially Signed type |
+| test.c:154:3:154:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:154:3:154:9 | ... \| ... | int | int | essentially Signed type |
+| test.c:154:8:154:9 | (int)... | int | int | essentially Signed type |
+| test.c:154:8:154:9 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:156:3:156:5 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:156:3:156:11 | ... ^ ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:156:9:156:11 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:156:9:156:11 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:157:3:157:5 | (unsigned int)... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:157:3:157:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:157:3:157:11 | ... ^ ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:157:9:157:11 | u32 | uint32_t | uint32_t | essentially Unsigned type |
+| test.c:158:3:158:4 | (int)... | int | int | essentially Signed type |
+| test.c:158:3:158:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:158:3:158:10 | ... ^ ... | int | int | essentially Signed type |
+| test.c:158:8:158:10 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:159:3:159:5 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:159:3:159:10 | ... ^ ... | int | int | essentially Signed type |
+| test.c:159:9:159:10 | (int)... | int | int | essentially Signed type |
+| test.c:159:9:159:10 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:160:3:160:4 | (int)... | int | int | essentially Signed type |
+| test.c:160:3:160:4 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:160:3:160:9 | ... ^ ... | int | int | essentially Signed type |
+| test.c:160:8:160:9 | (int)... | int | int | essentially Signed type |
+| test.c:160:8:160:9 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:161:3:161:4 | (int)... | int | int | essentially Signed type |
+| test.c:161:3:161:4 | s8 | int8_t | int8_t | essentially Signed type |
+| test.c:161:3:161:9 | ... ^ ... | int | int | essentially Signed type |
+| test.c:161:8:161:9 | (int)... | int | int | essentially Signed type |
+| test.c:161:8:161:9 | u8 | uint8_t | uint8_t | essentially Unsigned type |
+| test.c:165:16:165:17 | 1 | signed char | signed char | essentially Signed type |
+| test.c:170:3:170:4 | 1 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:170:3:170:9 | ... << ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:170:9:170:9 | 1 | signed char | signed char | essentially Signed type |
+| test.c:171:3:171:6 | 256 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:171:3:171:11 | ... << ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:171:11:171:11 | 1 | signed char | signed char | essentially Signed type |
+| test.c:172:3:172:8 | 65536 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:172:3:172:13 | ... << ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:172:13:172:13 | 1 | signed char | signed char | essentially Signed type |
+| test.c:173:3:173:4 | 2 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:173:3:173:9 | ... >> ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:173:9:173:9 | 1 | signed char | signed char | essentially Signed type |
+| test.c:174:3:174:8 | 32768 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:174:3:174:13 | ... >> ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:174:13:174:13 | 1 | signed char | signed char | essentially Signed type |
+| test.c:175:3:175:13 | 2147483648 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:175:3:175:18 | ... >> ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:175:18:175:18 | 1 | signed char | signed char | essentially Signed type |
+| test.c:176:3:176:14 | 4294967295 | unsigned long | unsigned long | essentially Unsigned type |
+| test.c:176:3:176:19 | ... << ... | unsigned long | unsigned long | essentially Unsigned type |
+| test.c:176:3:176:19 | ... << ... | unsigned long | unsigned long long | essentially Unsigned type |
+| test.c:176:3:176:19 | ... << ... | unsigned long long | unsigned long | essentially Unsigned type |
+| test.c:176:3:176:19 | ... << ... | unsigned long long | unsigned long long | essentially Unsigned type |
+| test.c:176:19:176:19 | 1 | signed char | signed char | essentially Signed type |
+| test.c:181:3:181:6 | 256 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:181:3:181:11 | ... >> ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:181:11:181:11 | 1 | signed char | signed char | essentially Signed type |
+| test.c:182:3:182:8 | 65536 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:182:3:182:13 | ... >> ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:182:13:182:13 | 1 | signed char | signed char | essentially Signed type |
+| test.c:183:3:183:13 | 4294967296 | unsigned long | unsigned long | essentially Unsigned type |
+| test.c:183:3:183:18 | ... >> ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:183:18:183:18 | 1 | signed char | signed char | essentially Signed type |
+| test.c:184:3:184:6 | 255 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:184:3:184:11 | ... << ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:184:11:184:11 | 1 | signed char | signed char | essentially Signed type |
+| test.c:185:3:185:8 | 65535 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:185:3:185:13 | ... << ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:185:13:185:13 | 1 | signed char | signed char | essentially Signed type |
+| test.c:189:3:189:6 | 255 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:189:3:189:13 | ... >> ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:189:11:189:13 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:190:3:190:8 | 65535 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:190:3:190:15 | ... >> ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:190:13:190:15 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:191:3:191:13 | 4294967295 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:191:3:191:20 | ... >> ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:191:18:191:20 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:192:3:192:6 | 255 | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:192:3:192:13 | ... << ... | unsigned char | unsigned char | essentially Unsigned type |
+| test.c:192:11:192:13 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:193:3:193:8 | 65535 | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:193:3:193:15 | ... << ... | unsigned short | unsigned short | essentially Unsigned type |
+| test.c:193:13:193:15 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:194:3:194:13 | 4294967295 | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:194:3:194:20 | ... << ... | unsigned int | unsigned int | essentially Unsigned type |
+| test.c:194:18:194:20 | s32 | int32_t | int32_t | essentially Signed type |
+| test.c:197:3:197:5 | 257 | short | short | essentially Signed type |
+| test.c:197:3:197:5 | 257 | short | signed short | essentially Signed type |
+| test.c:197:3:197:5 | 257 | signed short | short | essentially Signed type |
+| test.c:197:3:197:5 | 257 | signed short | signed short | essentially Signed type |
+| test.c:197:3:197:10 | ... >> ... | int | int | essentially Signed type |
+| test.c:197:10:197:10 | 1 | signed char | signed char | essentially Signed type |
+| test.c:198:3:198:7 | 65537 | int | int | essentially Signed type |
+| test.c:198:3:198:7 | 65537 | int | signed int | essentially Signed type |
+| test.c:198:3:198:7 | 65537 | signed int | int | essentially Signed type |
+| test.c:198:3:198:7 | 65537 | signed int | signed int | essentially Signed type |
+| test.c:198:3:198:12 | ... >> ... | int | int | essentially Signed type |
+| test.c:198:12:198:12 | 1 | signed char | signed char | essentially Signed type |
+| test.c:199:3:199:12 | 4294967297 | long | long | essentially Signed type |
+| test.c:199:3:199:17 | ... >> ... | long | long | essentially Signed type |
+| test.c:199:17:199:17 | 1 | signed char | signed char | essentially Signed type |

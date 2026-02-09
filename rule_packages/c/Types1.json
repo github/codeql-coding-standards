@@ -12,7 +12,13 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ExprShiftedbyNegativeOrGreaterPrecisionOperand",
-          "tags": []
+          "tags": [
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
+          ]
         }
       ],
       "title": "Do not shift an expression by a negative number of bits or by greater than or equal to the number of bits that exist in the operand"
@@ -29,7 +35,13 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "ConvertingAPointerToIntegerOrIntegerToPointer",
-          "tags": []
+          "tags": [
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
+          ]
         }
       ],
       "title": "Converting a pointer to integer or integer to pointer"

@@ -8,13 +8,18 @@
  * @tags external/cert/id/fio45-c
  *       correctness
  *       security
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.standardlibrary.FileAccess
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /**

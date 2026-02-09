@@ -1,3 +1,13 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:69,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:71,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:79,39-47)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:80,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:86,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:88,34-42)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:88,57-65)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:128,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:128,26-34)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (NonNullTerminatedToFunctionThatExpectsAString.ql:125,17-30)
 | test.c:20:3:20:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:8:20:8:24 | Cod | this expression |
 | test.c:21:3:21:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:8:20:8:24 | Cod | this expression |
 | test.c:23:3:23:8 | call to printf | String modified by $@ is passed to function expecting a null-terminated string. | test.c:14:3:14:9 | call to strncpy | this expression |

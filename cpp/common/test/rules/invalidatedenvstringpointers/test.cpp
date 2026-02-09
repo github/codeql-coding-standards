@@ -207,3 +207,40 @@ void f11(void) {
 
   printf(tmpvar); // NON_COMPLIANT
 }
+
+void f12(void) {
+  time_t rawtime;
+  time(&rawtime);
+  char *r1 = ctime(&rawtime);
+  asctime(localtime(&rawtime));
+  printf("%s", r1); // NON_COMPLIANT
+}
+
+void f13(void) {
+  time_t rawtime;
+  time(&rawtime);
+  char *r1 = ctime(&rawtime);
+  printf("%s", r1); // COMPLIANT
+
+  char *r2 = asctime(localtime(&rawtime));
+  printf("%s", r1); // NON_COMPLIANT
+  printf("%s", r2); // COMPLIANT
+
+  r1 = ctime(&rawtime);
+  printf("%s", r1); // COMPLIANT
+  printf("%s", r2); // NON_COMPLIANT
+}
+
+void f14(void) {
+  time_t rawtime;
+  struct tm *r1 = localtime(&rawtime);
+  printf("%d", r1->tm_year); // COMPLIANT
+
+  struct tm *r2 = gmtime(&rawtime);
+  printf("%s", r1->tm_year); // NON_COMPLIANT
+  printf("%s", r2->tm_year); // COMPLIANT
+
+  r1 = localtime(&rawtime);
+  printf("%s", r1->tm_year); // COMPLIANT
+  printf("%s", r2->tm_year); // NON_COMPLIANT
+}

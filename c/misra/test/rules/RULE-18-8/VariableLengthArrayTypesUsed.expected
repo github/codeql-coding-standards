@@ -1,5 +1,8 @@
-| test.c:3:19:3:20 | definition of pa | Variable length array declared. |
-| test.c:6:7:6:8 | definition of a1 | Variable length array declared. |
-| test.c:7:7:7:8 | definition of a2 | Variable length array declared. |
-| test.c:8:7:8:8 | definition of a3 | Variable length array declared. |
-| test.c:14:20:14:21 | definition of pa | Variable length array declared. |
+| test.c:6:7:6:8 | a1 | Variable length array of element type 'int' with non-constant size $@. | test.c:6:10:6:14 | ... + ... | ... + ... |
+| test.c:7:7:7:8 | a2 | Variable length array of element type 'int' with non-constant size $@. | test.c:7:10:7:10 | n | n |
+| test.c:8:7:8:8 | a3 | Variable length array of element type 'int[]' with non-constant size $@. | test.c:8:13:8:13 | n | n |
+| test.c:12:7:12:8 | a7 | Variable length array of element type 'int[1]' with non-constant size $@. | test.c:12:10:12:10 | n | n |
+| test.c:20:14:20:15 | t1 | Variable length array of element type 'int' with non-constant size $@. | test.c:18:26:18:26 | n | n |
+| test.c:21:14:21:15 | t2 | Variable length array of element type 'int' with non-constant size $@. | test.c:18:26:18:26 | n | n |
+| test.c:22:14:22:15 | t3 | Variable length array of element type 'int' with non-constant size $@. | test.c:18:26:18:26 | n | n |
+| test.c:22:14:22:15 | t3 | Variable length array of element type 'vlaTypedef' with non-constant size $@. | test.c:22:17:22:17 | x | x |

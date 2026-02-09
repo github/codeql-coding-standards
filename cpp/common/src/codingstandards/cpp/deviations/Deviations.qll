@@ -8,6 +8,7 @@ import cpp
 import semmle.code.cpp.XML
 import codingstandards.cpp.exclusions.RuleMetadata
 import codingstandards.cpp.Config
+import CodeIdentifierDeviation
 
 predicate applyDeviationsAtQueryLevel() {
   not exists(CodingStandardsReportDeviatedAlerts reportDeviatedResults |
@@ -219,32 +220,8 @@ class DeviationRecord extends XmlElement {
     else result = getADeviationPermit().getCodeIdentifier()
   }
 
-  /** Gets a comment which starts or ends with the code identifier comment. */
-  Comment getACodeIdentifierComment() {
-    exists(string text |
-      (
-        result instanceof CppStyleComment and
-        // strip the beginning slashes
-        text = result.getContents().suffix(2).trim()
-        or
-        result instanceof CStyleComment and
-        // strip both the beginning /* and the end */ the comment
-        exists(string text0 |
-          text0 = result.getContents().suffix(2) and
-          text = text0.prefix(text0.length() - 2).trim()
-        ) and
-        // The /* */ comment must be a single-line comment
-        not text.matches("%\n%")
-      ) and
-      (
-        // Code identifier appears at the start of the comment (modulo whitespace)
-        text.prefix(getCodeIdentifier().length()) = getCodeIdentifier()
-        or
-        // Code identifier appears at the end of the comment (modulo whitespace)
-        text.suffix(text.length() - getCodeIdentifier().length()) = getCodeIdentifier()
-      )
-    )
-  }
+  /** Gets a code identifier deviation in code which starts or ends with the code identifier comment. */
+  CodeIdentifierDeviation getACodeIdentifierDeviation() { this = result.getADeviationRecord() }
 
   /** Gets the `rule-id` specified for this record, if any. */
   private string getRawRuleId() { result = getAChild("rule-id").getTextValue() }
@@ -363,25 +340,30 @@ class DeviationRecord extends XmlElement {
     result.getRelativePath() = getAChild("paths").getAChild("paths-entry").getTextValue()
   }
 
+  private string getADeviationPath0() {
+    if exists(getPathAContainer())
+    then
+      // Use the path, which will be relative to this file, if specified
+      result = getPathAContainer().getRelativePath()
+    else (
+      // Otherwise, if no code identifier was supplied, it applies to the parent container of the
+      // file itself
+      not exists(getCodeIdentifier()) and
+      result = this.getFile().getParentContainer().getRelativePath()
+    )
+  }
+
   /** Gets a path to which this deviation applies. */
   string getADeviationPath() {
-    (
-      if exists(getPathAContainer())
-      then
-        // Use the path, which will be relative to this file, if specified
-        result = getPathAContainer().getRelativePath()
-      else (
-        // Otherwise, if no code identifier was supplied, it applies to the parent container of the
-        // file itself
-        not exists(getCodeIdentifier()) and
-        result = this.getFile().getParentContainer().getRelativePath()
-      )
+    exists(string res |
+      res = getADeviationPath0() and
+      if res = "" then result = "(root)" else result = res
     )
   }
 
   cached
   predicate isDeviated(Query query, string deviationPath) {
     query = getQuery() and
-    deviationPath = getADeviationPath()
+    deviationPath = getADeviationPath0()
   }
 }

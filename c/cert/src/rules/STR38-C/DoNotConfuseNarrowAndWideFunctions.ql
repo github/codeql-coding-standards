@@ -8,6 +8,11 @@
  * @tags external/cert/id/str38-c
  *       correctness
  *       security
+ *       external/cert/severity/high
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p27
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 

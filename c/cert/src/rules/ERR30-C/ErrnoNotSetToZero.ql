@@ -8,6 +8,11 @@
  * @problem.severity error
  * @tags external/cert/id/err30-c
  *       correctness
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p8
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

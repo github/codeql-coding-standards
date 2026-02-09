@@ -1,3 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallFunctionPointerWithIncompatibleType.ql:45,54-62)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallFunctionPointerWithIncompatibleType.ql:46,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallFunctionPointerWithIncompatibleType.ql:50,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallFunctionPointerWithIncompatibleType.ql:55,43-51)
 edges
 | test.c:48:68:48:70 | fns [f1] | test.c:49:3:49:5 | fns [f1] | provenance |  |
 | test.c:49:3:49:5 | fns [f1] | test.c:49:8:49:9 | f1 | provenance |  |

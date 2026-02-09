@@ -1,0 +1,4 @@
+| test.c:11:3:11:8 | _Generic | Controlling expression in generic macro $@ has standard type (unnamed enum), which doesn't match its essential type (unnamed enum). | test.c:6:1:6:75 | #define M1(X) _Generic((X), int : 1, unsigned int : 1, short : 2, long : 3) | M1 |
+| test.c:15:3:15:13 | _Generic | Controlling expression in generic macro $@ has standard type int, which doesn't match its essential type short. | test.c:6:1:6:75 | #define M1(X) _Generic((X), int : 1, unsigned int : 1, short : 2, long : 3) | M1 |
+| test.c:18:3:18:24 | _Generic | Controlling expression in generic has standard type int, which doesn't match its essential type char. | test.c:18:3:18:24 | _Generic |  |
+| test.c:19:3:19:55 | _Generic | Controlling expression in generic has standard type int, which doesn't match its essential type short. | test.c:19:3:19:55 | _Generic |  |

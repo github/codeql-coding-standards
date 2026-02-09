@@ -1,0 +1,13 @@
+| invalidcodeidentifiers.cpp:1:1:1:45 | // codeql::misra_deviation(x) - invalid, no x | Deviation marker does not match an expected format, or references an unknown code identifier. |
+| invalidcodeidentifiers.cpp:2:1:2:47 | // codeql::autosar_deviation(x) - invalid, no x | Deviation marker does not match an expected format, or references an unknown code identifier. |
+| invalidcodeidentifiers.cpp:3:1:3:44 | // codeql::cert_deviation(x) - invalid, no x | Deviation marker does not match an expected format, or references an unknown code identifier. |
+| invalidcodeidentifiers.cpp:4:1:4:71 | // codeql::misra_deviation_next(a-0-4-2-deviation) - invalid, next_line | Deviation marker does not match an expected format, or references an unknown code identifier. |
+| invalidcodeidentifiers.cpp:5:1:5:73 | // codeql::autosar_deviation_next(a-0-4-2-deviation) - invalid, next_line | Deviation marker does not match an expected format, or references an unknown code identifier. |
+| invalidcodeidentifiers.cpp:6:1:6:70 | // codeql::cert_deviation_next(a-0-4-2-deviation) - invalid, next_line | Deviation marker does not match an expected format, or references an unknown code identifier. |
+| invalidcodeidentifiers.cpp:14:1:14:74 | // codeql::misra_deviation_end(a-0-4-2-deviation) - invalid, unmatched end | Deviation end block is unmatched. |
+| invalidcodeidentifiers.cpp:15:1:15:76 | // codeql::autosar_deviation_end(a-0-4-2-deviation) - invalid, unmatched end | Deviation end block is unmatched. |
+| invalidcodeidentifiers.cpp:16:1:16:73 | // codeql::cert_deviation_end(a-0-4-2-deviation) - invalid, unmatched end | Deviation end block is unmatched. |
+| invalidcodeidentifiers.cpp:17:1:17:78 | // codeql::misra_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin | Deviation start block is unmatched. |
+| invalidcodeidentifiers.cpp:18:1:18:80 | // codeql::autosar_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin | Deviation start block is unmatched. |
+| invalidcodeidentifiers.cpp:19:1:19:77 | // codeql::cert_deviation_begin(a-0-4-2-deviation) - invalid, unmatched begin | Deviation start block is unmatched. |
+| invalidcodeidentifiers.cpp:21:3:21:25 | misra_deviation | Deviation attribute references unknown code identifier x. |

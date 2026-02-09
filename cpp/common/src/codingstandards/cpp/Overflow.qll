@@ -6,7 +6,7 @@ import cpp
 import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 import SimpleRangeAnalysisCustomizations
 import semmle.code.cpp.controlflow.Guards
-import codingstandards.cpp.dataflow.TaintTracking
+private import semmle.code.cpp.dataflow.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import codingstandards.cpp.Expr
 import codingstandards.cpp.UndefinedBehavior

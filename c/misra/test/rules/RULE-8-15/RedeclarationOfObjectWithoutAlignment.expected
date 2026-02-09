@@ -1,0 +1,2 @@
+| test.c:5:12:5:13 | declaration of g2 | Variable g2 declared without explicit alignment to match $@ with alignment $@. | test.c:4:25:4:26 | declaration of g2 | other definition | test.c:4:8:4:15 | alignas(...) | alignas(...) |
+| test.c:7:12:7:13 | declaration of g3 | Variable g3 declared without explicit alignment to match $@ with alignment $@. | test.c:8:25:8:26 | declaration of g3 | other definition | test.c:8:8:8:15 | alignas(...) | alignas(...) |

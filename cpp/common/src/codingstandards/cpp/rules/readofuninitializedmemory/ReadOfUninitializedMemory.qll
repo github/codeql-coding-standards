@@ -131,6 +131,8 @@ class UninitializedVariable extends LocalVariable {
     // Not static or thread local, because they are not initialized with indeterminate values
     not isStatic() and
     not isThreadLocal() and
+    // Not atomic, which have special initialization rules
+    not getType().hasSpecifier("atomic") and
     // Not a class type, because default initialization of a class calls the default constructor
     // The default constructor may leave certain fields uninitialized, but that would be a separate
     // field-wise analysis

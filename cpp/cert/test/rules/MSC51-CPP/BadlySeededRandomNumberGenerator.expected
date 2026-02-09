@@ -1,3 +1,4 @@
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (BadlySeededRandomNumberGenerator.ql:42,7-20)
 | test.cpp:9:33:9:33 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |
 | test.cpp:10:30:10:31 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |
 | test.cpp:11:21:11:22 | call to linear_congruential_engine | Random number generator linear_congruential_engine is default-initialized and is therefore not properly seeded. |

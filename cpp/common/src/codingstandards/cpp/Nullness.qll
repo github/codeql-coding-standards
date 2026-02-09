@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 private class PointerToMember extends Variable {
   PointerToMember() { this.getType() instanceof PointerToMemberType }

@@ -7,6 +7,11 @@
  * @precision very-high
  * @problem.severity error
  * @tags external/cert/id/int36-c
+ *       external/cert/severity/low
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p2
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 

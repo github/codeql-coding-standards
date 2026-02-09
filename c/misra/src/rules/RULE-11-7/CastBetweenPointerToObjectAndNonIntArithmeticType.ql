@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 
 class MisraNonIntegerArithmeticType extends Type {
   MisraNonIntegerArithmeticType() {

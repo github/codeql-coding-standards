@@ -111,7 +111,12 @@
           "severity": "error",
           "short_name": "DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -132,7 +137,12 @@
           "short_name": "ObjectAccessedBeforeLifetimeCert",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         },
         {
@@ -145,7 +155,12 @@
           "short_name": "ObjectAccessedAfterLifetimeCert",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -166,7 +181,12 @@
           "short_name": "UseAfterFree",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],

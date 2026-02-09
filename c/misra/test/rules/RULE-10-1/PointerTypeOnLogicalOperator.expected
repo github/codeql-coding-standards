@@ -1,5 +1,5 @@
-| test.c:488:4:488:4 | p | Logical operators should not be used with pointer types. |
-| test.c:490:3:490:3 | p | Logical operators should not be used with pointer types. |
-| test.c:491:7:491:7 | p | Logical operators should not be used with pointer types. |
-| test.c:493:3:493:3 | p | Logical operators should not be used with pointer types. |
-| test.c:494:8:494:8 | p | Logical operators should not be used with pointer types. |
+| test.c:581:4:581:4 | p | Logical operators should not be used with pointer types. |
+| test.c:583:3:583:3 | p | Logical operators should not be used with pointer types. |
+| test.c:584:7:584:7 | p | Logical operators should not be used with pointer types. |
+| test.c:586:3:586:3 | p | Logical operators should not be used with pointer types. |
+| test.c:587:8:587:8 | p | Logical operators should not be used with pointer types. |

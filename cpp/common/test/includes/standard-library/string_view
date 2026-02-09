@@ -1,0 +1,79 @@
+#pragma once
+#ifndef _GHLIBCPP_STRING_VIEW
+#define _GHLIBCPP_STRING_VIEW
+
+#include "stddef.h"
+
+namespace std {
+
+template <typename CharT> class basic_string_view {
+public:
+  typedef CharT value_type;
+  typedef const CharT *pointer;
+  typedef const CharT *const_pointer;
+  typedef const CharT &reference;
+  typedef const CharT &const_reference;
+  typedef const CharT *const_iterator;
+  typedef const_iterator iterator;
+  typedef size_t size_type;
+  typedef ptrdiff_t difference_type;
+
+  // Constructors
+  basic_string_view() noexcept;
+  basic_string_view(const basic_string_view &) noexcept = default;
+  basic_string_view(const CharT *s, size_type count);
+  basic_string_view(const CharT *s);
+
+  // Assignment
+  basic_string_view &operator=(const basic_string_view &) noexcept = default;
+
+  // Element access
+  const_reference operator[](size_type pos) const;
+  const_reference at(size_type pos) const;
+  const_reference front() const;
+  const_reference back() const;
+  const_pointer data() const noexcept;
+
+  // Capacity
+  size_type size() const noexcept;
+  size_type length() const noexcept;
+  size_type max_size() const noexcept;
+  bool empty() const noexcept;
+
+  // Modifiers
+  void remove_prefix(size_type n);
+  void remove_suffix(size_type n);
+  void swap(basic_string_view &v) noexcept;
+
+  // String operations
+  size_type copy(CharT *dest, size_type count, size_type pos = 0) const;
+  basic_string_view substr(size_type pos = 0, size_type len = npos) const;
+
+  // Comparison
+  int compare(basic_string_view v) const noexcept;
+  int compare(size_type pos1, size_type n1, basic_string_view v) const;
+  int compare(const CharT *s) const;
+
+  // Search
+  size_type find(basic_string_view v, size_type pos = 0) const noexcept;
+  size_type find(CharT c, size_type pos = 0) const noexcept;
+  size_type find(const CharT *s, size_type pos, size_type n) const;
+  size_type find(const CharT *s, size_type pos = 0) const;
+
+  // Constants
+  static const size_type npos = static_cast<size_type>(-1);
+
+private:
+  const CharT *data_;
+  size_type size_;
+};
+
+// Type aliases
+typedef basic_string_view<char> string_view;
+typedef basic_string_view<wchar_t> wstring_view;
+typedef basic_string_view<char16_t> u16string_view;
+typedef basic_string_view<char32_t> u32string_view;
+
+} // namespace std
+
+#endif // _GHLIBCPP_STRING_VIEW

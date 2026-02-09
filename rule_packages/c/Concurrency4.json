@@ -14,7 +14,12 @@
           "short_name": "CleanUpThreadSpecificStorage",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "This query does not attempt to ensure that the deallocation function in fact deallocates memory and instead assumes the contract is valid. Additionally, this query requires that all `tss_create` calls are bookended by calls to `tss_delete`, even if a thread is not created."
@@ -37,7 +42,12 @@
           "short_name": "AppropriateThreadObjectStorageDurations",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "This query does not consider Windows implementations or OpenMP implementations. This query is primarily about excluding cases wherein the storage duration of a variable is appropriate. As such, this query is not concerned if the appropriate synchronization mechanisms are used, such as sequencing calls to `thrd_join` and `free`. An audit query is supplied to handle some of those cases."
@@ -53,7 +63,12 @@
           "tags": [
             "external/cert/audit",
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],

@@ -1,0 +1,16 @@
+| test.c:19:3:19:10 | call to cnd_wait | Invalid operation on mutex '$@' not locked by the current thread. | test.c:11:9:11:10 | l1 | l1 |
+| test.c:20:3:20:12 | call to mtx_unlock | Invalid operation on mutex '$@' not locked by the current thread. | test.c:11:9:11:10 | l1 | l1 |
+| test.c:25:3:25:10 | call to cnd_wait | Invalid operation on mutex '$@' not locked by the current thread. | test.c:14:5:14:6 | l2 | l2.m1 |
+| test.c:26:3:26:12 | call to mtx_unlock | Invalid operation on mutex '$@' not locked by the current thread. | test.c:14:5:14:6 | l2 | l2.m1 |
+| test.c:31:3:31:10 | call to cnd_wait | Invalid operation on mutex '$@' not locked by the current thread. | test.c:3:7:3:8 | g1 | g1 |
+| test.c:32:3:32:12 | call to mtx_unlock | Invalid operation on mutex '$@' not locked by the current thread. | test.c:3:7:3:8 | g1 | g1 |
+| test.c:37:3:37:10 | call to cnd_wait | Invalid operation on mutex '$@' not locked by the current thread. | test.c:6:3:6:4 | g2 | g2.m1 |
+| test.c:38:3:38:12 | call to mtx_unlock | Invalid operation on mutex '$@' not locked by the current thread. | test.c:6:3:6:4 | g2 | g2.m1 |
+| test.c:47:3:47:10 | call to cnd_wait | Invalid operation on mutex '$@' not locked by the current thread. | test.c:11:9:11:10 | l1 | l1 |
+| test.c:48:3:48:10 | call to cnd_wait | Invalid operation on mutex '$@' not locked by the current thread. | test.c:14:5:14:6 | l2 | l2.m1 |
+| test.c:49:3:49:10 | call to cnd_wait | Invalid operation on mutex '$@' not locked by the current thread. | test.c:3:7:3:8 | g1 | g1 |
+| test.c:50:3:50:10 | call to cnd_wait | Invalid operation on mutex '$@' not locked by the current thread. | test.c:6:3:6:4 | g2 | g2.m1 |
+| test.c:51:3:51:12 | call to mtx_unlock | Invalid operation on mutex '$@' not locked by the current thread. | test.c:11:9:11:10 | l1 | l1 |
+| test.c:52:3:52:12 | call to mtx_unlock | Invalid operation on mutex '$@' not locked by the current thread. | test.c:14:5:14:6 | l2 | l2.m1 |
+| test.c:53:3:53:12 | call to mtx_unlock | Invalid operation on mutex '$@' not locked by the current thread. | test.c:3:7:3:8 | g1 | g1 |
+| test.c:54:3:54:12 | call to mtx_unlock | Invalid operation on mutex '$@' not locked by the current thread. | test.c:6:3:6:4 | g2 | g2.m1 |

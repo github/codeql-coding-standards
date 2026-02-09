@@ -1,2 +1,10 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:24,28-36)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:25,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:29,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:38,23-31)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:43,17-25)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:52,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:60,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (EofShallBeComparedWithUnmodifiedReturnValues.ql:60,46-54)
 | test.c:6:7:6:20 | ... != ... | The check is not reliable as the type of the return value of $@ is converted. | test.c:5:14:5:20 | call to getchar | call to getchar |
 | test.c:13:7:13:15 | ... != ... | The check is not reliable as the type of the return value of $@ is converted. | test.c:12:14:12:20 | call to getchar | call to getchar |

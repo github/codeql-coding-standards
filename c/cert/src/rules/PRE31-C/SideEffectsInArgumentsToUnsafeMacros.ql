@@ -8,6 +8,11 @@
  * @problem.severity error
  * @tags external/cert/id/pre31-c
  *       correctness
+ *       external/cert/severity/low
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p3
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
@@ -15,7 +20,6 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Macro
 import codingstandards.cpp.SideEffect
-import codingstandards.cpp.StructuralEquivalence
 import codingstandards.cpp.sideeffect.DefaultEffects
 import codingstandards.cpp.sideeffect.Customizations
 import semmle.code.cpp.valuenumbering.HashCons

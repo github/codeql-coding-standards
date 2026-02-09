@@ -131,7 +131,12 @@
           "severity": "error",
           "short_name": "MemsetUsedToAccessObjectRepresentation",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         },
         {
@@ -143,7 +148,12 @@
           "short_name": "MemcmpUsedToAccessObjectRepresentation",
           "shared_implementation_short_name": "MemcmpUsedToComparePaddingData",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         },
         {
@@ -154,7 +164,12 @@
           "severity": "error",
           "short_name": "MemcpyUsedToAccessObjectRepresentation",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],

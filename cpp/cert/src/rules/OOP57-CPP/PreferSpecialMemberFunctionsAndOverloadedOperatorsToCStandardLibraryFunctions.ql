@@ -8,6 +8,11 @@
  * @tags external/cert/id/oop57-cpp
  *       correctness
  *       scope/single-translation-unit
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

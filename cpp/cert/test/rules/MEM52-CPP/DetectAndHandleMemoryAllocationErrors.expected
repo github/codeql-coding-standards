@@ -1,2 +1,9 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleMemoryAllocationErrors.ql:64,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleMemoryAllocationErrors.ql:66,36-44)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleMemoryAllocationErrors.ql:82,46-54)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleMemoryAllocationErrors.ql:83,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleMemoryAllocationErrors.ql:87,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleMemoryAllocationErrors.ql:90,35-43)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DetectAndHandleMemoryAllocationErrors.ql:95,38-46)
 | test.cpp:24:7:24:34 | new | nothrow new allocation of $@ returns here without a subsequent check to see whether the pointer is valid. | test.cpp:24:7:24:34 | new | StructA * |
 | test.cpp:40:17:40:38 | call to allocate_without_check | nothrow new allocation of $@ returns here without a subsequent check to see whether the pointer is valid. | test.cpp:35:17:35:44 | new | StructA * |

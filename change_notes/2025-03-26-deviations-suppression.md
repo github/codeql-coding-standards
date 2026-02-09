@@ -1,0 +1,1 @@
+ - The `DeviationsSuppression.ql` query has been restored after being incorrectly deleted in a previous release.

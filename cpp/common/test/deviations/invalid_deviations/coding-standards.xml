@@ -83,8 +83,13 @@
          <permit-id>DP2</permit-id>
       </deviations-entry>
       <deviations-entry>
-         <rule-id>RULE-13-6</rule-id>
-         <query-id>c/misra/sizeof-operand-with-side-effect</query-id>
+         <rule-id>RULE-9-1</rule-id>
+         <query-id>c/misra/object-with-auto-storage-duration-read-before-init</query-id>
+      </deviations-entry>
+      <deviations-entry>
+         <rule-id>A0-4-2</rule-id>
+         <justification>long double is required for interaction with third-party libraries.</justification>
+         <code-identifier>a-0-4-2-deviation</code-identifier>
       </deviations-entry>
    </deviations>
    <deviation-permits>

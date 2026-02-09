@@ -1,0 +1,9 @@
+- description: CERT C++ 2016 (Default)
+- qlpack: codeql/cert-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+- exclude:
+    tags contain:
+    - external/cert/default-disabled

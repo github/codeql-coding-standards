@@ -215,7 +215,12 @@
           "shared_implementation_short_name": "DoNotUseSetjmpOrLongjmpShared",
           "tags": [
             "correctness",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -236,7 +241,12 @@
           "shared_implementation_short_name": "DoNotUseRandForGeneratingPseudorandomNumbers",
           "tags": [
             "security",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -256,7 +266,12 @@
           "short_name": "PreferSpecialMemberFunctionsAndOverloadedOperatorsToCStandardLibraryFunctions",
           "tags": [
             "correctness",
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],

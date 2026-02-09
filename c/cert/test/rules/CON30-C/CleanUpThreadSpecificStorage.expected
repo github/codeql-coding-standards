@@ -1,3 +1,9 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CleanUpThreadSpecificStorage.ql:25,46-54)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CleanUpThreadSpecificStorage.ql:26,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CleanUpThreadSpecificStorage.ql:35,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CleanUpThreadSpecificStorage.ql:45,35-43)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CleanUpThreadSpecificStorage.ql:53,36-44)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (CleanUpThreadSpecificStorage.ql:55,36-44)
 | test.c:27:3:27:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
 | test.c:49:3:49:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |
 | test.c:71:3:71:12 | call to tss_create | Resources used by thread specific storage may not be cleaned up. |

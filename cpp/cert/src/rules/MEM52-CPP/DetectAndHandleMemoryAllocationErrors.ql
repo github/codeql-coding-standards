@@ -7,13 +7,18 @@
  * @problem.severity error
  * @tags external/cert/id/mem52-cpp
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p18
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.cpp.cert
 import semmle.code.cpp.controlflow.Guards
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import codingstandards.cpp.exceptions.ExceptionSpecifications
 
 /**

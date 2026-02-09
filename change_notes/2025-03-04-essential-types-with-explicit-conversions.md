@@ -1,0 +1,2 @@
+ - `EssentialType` - for all queries related to essential types:
+   - Updated the way essential types of expressions with "conversions" (including explicit casts, parenthesis, and implicit conversions such as array-to-pointer conversions) are handled, to get proper essential types when parenthesis, casts, and generics interact.

@@ -197,7 +197,12 @@
           "short_name": "ProperlyDeallocateDynamicallyAllocatedResources",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -216,7 +221,12 @@
           "severity": "error",
           "short_name": "DetectAndHandleMemoryAllocationErrors",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -235,7 +245,12 @@
           "severity": "error",
           "short_name": "MissingConstructorCallForManuallyManagedObject",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         },
         {
@@ -246,7 +261,12 @@
           "severity": "error",
           "short_name": "MissingDestructorCallForManuallyManagedObject",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -267,7 +287,12 @@
           "shared_implementation_short_name": "PlacementNewNotProperlyAligned",
           "tags": [
             "security",
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         },
         {
@@ -280,7 +305,12 @@
           "shared_implementation_short_name": "PlacementNewInsufficientStorage",
           "tags": [
             "security",
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -300,7 +330,12 @@
           "short_name": "ThrowingOperatorNewReturnsNullCert",
           "shared_implementation_short_name": "ThrowingOperatorNewReturnsNull",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         },
         {
@@ -312,7 +347,12 @@
           "short_name": "ThrowingOperatorNewThrowsInvalidExceptionCert",
           "shared_implementation_short_name": "ThrowingOperatorNewThrowsInvalidException",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         },
         {
@@ -324,7 +364,12 @@
           "short_name": "ThrowingNoThrowOperatorNewDeleteCert",
           "shared_implementation_short_name": "ThrowingNoThrowOperatorNewDelete",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         },
         {
@@ -336,7 +381,12 @@
           "short_name": "OperatorDeleteMissingPartnerCert",
           "shared_implementation_short_name": "OperatorDeleteMissingPartner",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -356,7 +406,12 @@
           "short_name": "UsingDefaultOperatorNewForOverAlignedTypes",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],

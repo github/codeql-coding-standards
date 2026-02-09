@@ -23,7 +23,7 @@ public:
 
   int complexCalculation();
 
-  int gcd(int a, int b) {
+  int gcd(int a, int b) { // NON_COMPLIANT
     if (b == 0)
       return a;
     int result = gcd(b, (a % b));
@@ -62,11 +62,11 @@ inline int A::complexCalculation() { // COMPLIANT
   return 1;
 }
 
-int A::getB() { return 1; } // NON_COMPLIANT
+int A::getB() { return 1; } // COMPLIANT
 
-template <typename T> T A::d(T t) { return t; } // NON_COMPLIANT
+template <typename T> T A::d(T t) { return t; } // COMPLIANT
 
-int A::b() { return 3; } // NON_COMPLIANT
+int A::b() { return 3; } // COMPLIANT
 
 template <typename C> class B {
 public:
@@ -83,9 +83,30 @@ public:
   template <typename T> T d(T t);
 
   int complexCalculation();
+
+  int complexCalculation2() { // COMPLIANT - template
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    return 1;
+  }
 };
 
-template <typename C> inline int B<C>::complexCalculation() { // NON_COMPLIANT
+void test_B() {
+  B<int> b;
+  b.complexCalculation2();
+}
+
+template <typename C> inline int B<C>::complexCalculation() { // COMPLIANT
   ;
   ;
   ;
@@ -101,16 +122,16 @@ template <typename C> inline int B<C>::complexCalculation() { // NON_COMPLIANT
   return 1;
 }
 
-template <typename C> template <typename T> T B<C>::d(T t) { // NON_COMPLIANT
+template <typename C> template <typename T> T B<C>::d(T t) { // COMPLIANT
   return t;
 }
 
-template <typename C> int B<C>::b() { // NON_COMPLIANT
+template <typename C> int B<C>::b() { // COMPLIANT
   C c;
   return 3;
 }
 
-template <typename C> int B<C>::getB() { return 3; } // NON_COMPLIANT
+template <typename C> int B<C>::getB() { return 3; } // COMPLIANT
 
 template <typename T> class Foo {
 public:
@@ -128,7 +149,28 @@ class FooBar {
 public:
   ~FooBar();
   int f1(int a, int b);
+
+  template <typename C> int complexCalculation() { // COMPLIANT - template
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    return 1;
+  }
 };
+
+void test_FooBar() {
+  FooBar foobar;
+  foobar.complexCalculation<int>();
+}
 
 FooBar::~FooBar() {} // COMPLIANT want to ignore pImpl uses of destructors
 

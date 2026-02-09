@@ -109,6 +109,24 @@ for rule_package_file_name in os.listdir(rule_packages_file_path):
                             print(
                                 f' - ERROR: {standard_name} query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json has a spurious `external/misra/c/2012/...` tag.')
                             failed = True
+                        if standard_name == "CERT-C" or standard_name == "CERT-C++":
+                            expected_properties = [
+                                "severity",
+                                "likelihood",
+                                "remediation-cost",
+                                "priority",
+                                "level"
+                            ]
+                            for expected_property in expected_properties:
+                                if not any(tag for tag in query["tags"] if tag.startswith(f"external/cert/{expected_property}/")):
+                                    print(
+                                        f' - ERROR: {standard_name} query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json is missing a `external/cert/{expected_property}/...` tag.')
+                                    failed = True
+                        if not standard_name == "CERT-C" and not standard_name == "CERT-C++":
+                            if any(tag for tag in query["tags"] if tag.startswith("external/cert/")):
+                                print(
+                                    f' - ERROR: {standard_name} query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json has a spurious `external/cert/...` tag.')
+                                failed = True
             rules_csv_rule_ids = package_rules_from_csv[package_name]
 
             json_missing_rules = rules_csv_rule_ids.difference(package_json_rule_ids)

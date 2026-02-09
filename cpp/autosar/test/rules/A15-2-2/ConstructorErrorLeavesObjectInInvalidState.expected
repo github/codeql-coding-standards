@@ -1,3 +1,12 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:47,12-20)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:48,30-38)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:48,57-65)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:74,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:74,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:75,7-15)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:130,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:130,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ConstructorErrorLeavesObjectInInvalidState.ql:130,54-62)
 edges
 | test.cpp:12:16:12:27 | new [bad_alloc] | test.cpp:14:33:16:5 | { ... } [bad_alloc] |
 | test.cpp:13:7:13:28 | throw ... [exception] | test.cpp:14:33:16:5 | { ... } [exception] |

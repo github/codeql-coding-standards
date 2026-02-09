@@ -40,17 +40,22 @@ predicate isReferencedInTranslationUnit(
   ExternalIdentifiers e, ExternalIdentifierReference r, TranslationUnit t
 ) {
   r.getExternalIdentifierTarget() = e and
-  r.getFile() = t
+  // Used within the translation unit or an included header
+  r.getFile() = t.getAUserFile()
 }
 
 from ExternalIdentifiers e, ExternalIdentifierReference a1, TranslationUnit t1
 where
   not isExcluded(e, Declarations6Package::shouldNotBeDefinedWithExternalLinkageQuery()) and
+  // Only report external identifiers where we see the definition
+  e.hasDefinition() and
   isReferencedInTranslationUnit(e, a1, t1) and
   // Not referenced in any other translation unit
   not exists(TranslationUnit t2 |
     isReferencedInTranslationUnit(e, _, t2) and
     not t1 = t2
-  )
+  ) and
+  // Definition is also in the same translation unit
+  e.getDefinition().getFile() = t1.getAUserFile()
 select e, "Declaration with external linkage is accessed in only one translation unit $@.", a1,
   a1.toString()

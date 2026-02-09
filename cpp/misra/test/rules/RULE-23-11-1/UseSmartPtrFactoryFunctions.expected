@@ -1,0 +1,9 @@
+| test.cpp:23:25:23:27 | call to shared_ptr | Use of raw pointer constructor for 'std::shared_ptr'. |
+| test.cpp:28:25:28:27 | call to unique_ptr | Use of raw pointer constructor for 'std::unique_ptr'. |
+| test.cpp:34:3:34:32 | call to shared_ptr | Use of raw pointer constructor for 'std::shared_ptr'. |
+| test.cpp:40:3:40:32 | call to unique_ptr | Use of raw pointer constructor for 'std::unique_ptr'. |
+| test.cpp:46:6:46:32 | call to shared_ptr | Use of raw pointer constructor for 'std::shared_ptr'. |
+| test.cpp:47:6:47:32 | call to shared_ptr | Use of raw pointer constructor for 'std::shared_ptr'. |
+| test.cpp:57:27:57:29 | call to unique_ptr | Use of raw pointer constructor for 'std::unique_ptr'. |
+| test.cpp:67:25:67:31 | call to shared_ptr | Use of raw pointer constructor for 'std::shared_ptr'. |
+| test.cpp:74:39:74:45 | call to unique_ptr | Use of raw pointer constructor for 'std::unique_ptr'. |

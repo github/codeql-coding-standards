@@ -6,7 +6,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 import codingstandards.cpp.exceptions.ExceptionFlow
 
 abstract class CatchExceptionsByLvalueReferenceSharedQuery extends Query { }

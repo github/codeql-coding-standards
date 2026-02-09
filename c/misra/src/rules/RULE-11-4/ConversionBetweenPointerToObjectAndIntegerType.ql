@@ -15,7 +15,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Macro
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 
 MacroInvocation getAMacroInvocation(CStyleCast cast) { result.getAnExpandedElement() = cast }
 

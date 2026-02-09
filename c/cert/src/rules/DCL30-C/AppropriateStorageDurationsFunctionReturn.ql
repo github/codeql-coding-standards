@@ -8,15 +8,26 @@
  * @problem.severity error
  * @tags external/cert/id/dcl30-c
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.dataflow.DataFlow
+import codingstandards.c.Objects
+import semmle.code.cpp.dataflow.DataFlow
 
-class Source extends StackVariable {
-  Source() { not this instanceof Parameter }
+class Source extends Expr {
+  ObjectIdentity rootObject;
+
+  Source() {
+    rootObject.getStorageDuration().isAutomatic() and
+    this = rootObject.getASubobjectAddressExpr()
+  }
 }
 
 class Sink extends DataFlow::Node {
@@ -40,7 +51,7 @@ from DataFlow::Node src, DataFlow::Node sink
 where
   not isExcluded(sink.asExpr(),
     Declarations8Package::appropriateStorageDurationsFunctionReturnQuery()) and
-  exists(Source s | src.asExpr() = s.getAnAccess()) and
+  exists(Source s | src.asExpr() = s) and
   sink instanceof Sink and
   DataFlow::localFlow(src, sink)
 select sink, "$@ with automatic storage may be accessible outside of its lifetime.", src,

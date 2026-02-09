@@ -1,3 +1,6 @@
 | test.c:9:1:9:8 | /* /* */ | Comment contains an illegal sequence '/*' |
 | test.c:12:1:12:8 | /* // */ | Comment contains an illegal sequence '//' |
 | test.c:21:1:21:7 | //  /*  | Comment contains an illegal sequence '/*' |
+| test.c:30:1:30:27 | /* https://github.com // */ | Comment contains an illegal sequence '//' |
+| test.c:33:1:33:60 | /* a://b, a://b., ://a.b, a://b., a://.b, ://, a://, ://b */ | Comment contains an illegal sequence '//' |
+| test.c:42:1:42:8 | ///* foo | Comment contains an illegal sequence '/*' |

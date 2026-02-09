@@ -7,6 +7,11 @@
  * @problem.severity error
  * @tags external/cert/id/err32-c
  *       correctness
+ *       external/cert/severity/low
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p3
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
@@ -15,22 +20,23 @@ import codingstandards.c.cert
 import codingstandards.c.Errno
 import codingstandards.c.Signal
 import semmle.code.cpp.controlflow.Guards
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * A check on `signal` call return value
  * `if (signal(SIGINT, handler) == SIG_ERR)`
  */
-class SignalCheckOperation extends EqualityOperation, GuardCondition {
+class SignalCheckOperation extends EqualityOperation instanceof GuardCondition {
   BasicBlock errorSuccessor;
 
   SignalCheckOperation() {
     this.getAnOperand() = any(MacroInvocation m | m.getMacroName() = "SIG_ERR").getExpr() and
     (
       this.getOperator() = "==" and
-      this.controls(errorSuccessor, true)
+      super.controls(errorSuccessor, true)
       or
       this.getOperator() = "!=" and
-      this.controls(errorSuccessor, false)
+      super.controls(errorSuccessor, false)
     )
   }
 

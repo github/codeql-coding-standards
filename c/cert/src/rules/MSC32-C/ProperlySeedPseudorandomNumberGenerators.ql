@@ -7,6 +7,11 @@
  * @problem.severity error
  * @tags external/cert/id/msc32-c
  *       security
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p18
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 

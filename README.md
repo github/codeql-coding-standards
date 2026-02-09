@@ -15,14 +15,15 @@ The following coding standards are supported:
 - [MISRA C 2012, 3rd Edition, 1st revision](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/) (incoporating Amendment 1 & Technical Corrigendum 1). In addition, we support the following additional amendments and technical corrigendums:
    - [MISRA C 2012 Amendment 2](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf)
    - [MISRA C 2012 Technical Corrigendum 2](https://misra.org.uk/app/uploads/2022/04/MISRA-C-2012-TC2.pdf)
+   - [MISRA C 2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)
+   - [MISRA C 2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)
+- [MISRA C 2023](https://misra.org.uk/product/misra-c2023/)
 
 ## :construction: Standards under development :construction:
 
-The following standards are under active development:
+The following standards are under active development for [C++17](https://www.iso.org/standard/68564.html):
 
-- [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development - _scheduled for release 2025 Q1_
-- [MISRA C 2023](https://misra.org.uk/product/misra-c2023/) - under development - _scheduled for release 2025 Q1_
-  - This includes the development of [MISRA C 2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf) and [MISRA C 2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf), which are incorporated into MISRA C 2023.
+- [MISRA C++ 2023](https://misra.org.uk/product/misra-cpp2023/) - under development - _scheduled for release 2026 Q1/Q2_
 
 ## How do I use the CodeQL Coding Standards Queries?
 

@@ -1,3 +1,3 @@
 | test.cpp:4:8:4:8 | c | Variable 'c' has variable-width char type. |
-| test.cpp:38:14:38:15 | c1 | Variable 'c1' has variable-width char type. |
-| test.cpp:56:17:56:18 | c2 | Variable 'c2' has variable-width char type. |
+| test.cpp:10:14:10:15 | c1 | Variable 'c1' has variable-width char type. |
+| test.cpp:14:17:14:18 | c2 | Variable 'c2' has variable-width char type. |

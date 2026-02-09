@@ -1,0 +1,12 @@
+- description: CERT C++ 2016 Level 1 Rules (Priority 12 - Priority 27)
+- qlpack: codeql/cert-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    - external/cert/obligation/rule
+    tags contain:
+    - external/cert/level/l1
+- exclude:
+    tags contain:
+    - external/cert/default-disabled

@@ -1,3 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerArithmeticUsedWithPointersToNonFinalClasses.ql:45,62-70)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerArithmeticUsedWithPointersToNonFinalClasses.ql:46,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerArithmeticUsedWithPointersToNonFinalClasses.ql:55,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (PointerArithmeticUsedWithPointersToNonFinalClasses.ql:61,3-11)
 edges
 | test.cpp:10:18:10:20 | foo | test.cpp:11:23:11:25 | foo | provenance |  |
 | test.cpp:10:18:10:20 | foo | test.cpp:11:50:11:52 | foo | provenance |  |

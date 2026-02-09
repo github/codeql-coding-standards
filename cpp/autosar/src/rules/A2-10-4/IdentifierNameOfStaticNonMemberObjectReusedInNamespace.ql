@@ -22,7 +22,7 @@ class CandidateVariable extends Variable {
     isStatic() and
     not this instanceof MemberVariable and
     //exclude partially specialized template variables
-    not exists(TemplateVariable v | this = v.getAnInstantiation())
+    not this.isSpecialization()
   }
 }
 

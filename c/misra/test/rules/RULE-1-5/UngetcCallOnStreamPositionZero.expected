@@ -1,6 +1,8 @@
 edges
+| test.c:39:16:39:20 | *call to fopen | test.c:39:16:39:20 | *call to fopen | provenance |  |
 | test.c:39:16:39:20 | *call to fopen | test.c:41:15:41:18 | *file | provenance |  |
 nodes
+| test.c:39:16:39:20 | *call to fopen | semmle.label | *call to fopen |
 | test.c:39:16:39:20 | *call to fopen | semmle.label | *call to fopen |
 | test.c:41:15:41:18 | *file | semmle.label | *file |
 subpaths

@@ -6,3 +6,4 @@
 | test.c:58:5:58:22 | return ... | wchar_t * function w_sample3 is returning a string literal. |
 | test.c:69:3:69:9 | call to sample4 | char * parameter of sample4 is passed a string literal. |
 | test.c:78:3:78:11 | call to w_sample4 | wchar_t * parameter of w_sample4 is passed a string literal. |
+| test.c:91:3:91:11 | call to w_sample7 | char * parameter of w_sample7 is passed a string literal. |

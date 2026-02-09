@@ -1,0 +1,8 @@
+ - `EssentialType` - for all queries related to essential types:
+   - Complex floating types are now considered a different essential type than real floating types.
+ - `RULE-10-1` `RULE-10-3`, `RULE-10-4`, `RULE-10-5`, `RULE-10-7`, `RULE-10-8` - `OperandsOfAnInappropriateEssentialType.ql`, `AssignmentOfIncompatibleEssentialType.ql`, `OperandsWithMismatchedEssentialTypeCategory.ql`, `InappropriateEssentialTypeCast.ql`, `ImplicitConversionOfCompositeExpression.ql`, `InappropriateCastOfCompositeExpression.ql`:
+   - Updates to rules handling complex floating types in MISRA-C 2012 Amendment 3 have been implemented.
+- `RULE-14-1`, `LoopOverEssentiallyFloatType.ql`:
+   - Query updated to account for the existence of complex essentially floating point types. No change in query results or performance expected.
+ - `DIR-4-6` - `PlainNumericalTypeUsedOverExplicitTypedef.ql`:
+   - Updates from MISRA-C 2012 Amendment 3 specifying complex fixed width typedef support has been implemented.

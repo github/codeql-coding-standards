@@ -1,0 +1,8 @@
+| test.c:3:15:3:16 | definition of g3 | g3 declared with an atomic void type. |
+| test.c:10:17:10:18 | definition of m3 | m3 declared with an atomic void type. |
+| test.c:15:22:15:23 | definition of p2 | p2 declared with an atomic void type. |
+| test.c:20:23:20:24 | declaration of f2 | f2 declared with an atomic void type. |
+| test.c:21:25:21:26 | declaration of f3 | f3 declared with an atomic void type. |
+| test.c:22:14:22:15 | declaration of f4 | f4 declared with an atomic void type. |
+| test.c:23:16:23:17 | declaration of f5 | f5 declared with an atomic void type. |
+| test.c:27:3:27:19 | (_Atomic(void) *)... | Cast declared with an atomic void type. |

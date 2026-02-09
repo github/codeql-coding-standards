@@ -1,58 +1,45 @@
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.resources.ResourceLeakAnalysis
 
-/**
- * The `ResourceAcquisitionExpr` abstract class models resource
- * acquisition and release expressions
- */
-abstract class ResourceAcquisitionExpr extends Expr {
-  abstract Expr getReleaseExpr();
-}
-
-// allocation - deallocation
-class AllocExpr extends ResourceAcquisitionExpr {
-  AllocExpr() { this.(AllocationExpr).requiresDealloc() }
-
-  override Expr getReleaseExpr() {
-    exists(DeallocationExpr d | result = d.getFreedExpr()) and
-    DataFlow::localFlow(DataFlow::exprNode(this), DataFlow::exprNode(result))
-  }
-}
-
-// file open-close
-class FstreamAcquisitionExpr extends ResourceAcquisitionExpr {
-  FstreamAcquisitionExpr() {
+module ResourceLeakConfig implements ResourceLeakConfigSig {
+  predicate isAllocate(ControlFlowNode allocPoint, DataFlow::Node node) {
+    exists(AllocationExpr alloc |
+      allocPoint = alloc and
+      alloc.requiresDealloc() and
+      node.asExpr() = alloc
+    )
+    or
     exists(FunctionCall f |
-      f.getTarget().hasQualifiedName("std", "basic_fstream", "open") and this = f.getQualifier()
+      f.getTarget().hasQualifiedName("std", "basic_fstream", "open") and
+      allocPoint = f and
+      node.asDefiningArgument() = f.getQualifier()
+    )
+    or
+    exists(FunctionCall f |
+      f.getTarget().hasQualifiedName("std", "mutex", "lock") and
+      allocPoint = f and
+      node.asDefiningArgument() = f.getQualifier()
     )
   }
 
-  override Expr getReleaseExpr() {
-    exists(FunctionCall f |
-      f.getTarget().hasQualifiedName("std", "basic_fstream", "close") and result = f.getQualifier()
-    ) and
-    exists(DataFlow::Node def |
-      def.asDefiningArgument() = this and
-      DataFlow::localFlow(def, DataFlow::exprNode(result))
+  predicate isFree(ControlFlowNode node, DataFlow::Node resource) {
+    exists(DeallocationExpr d, Expr freedExpr |
+      freedExpr = d.getFreedExpr() and
+      node = d and
+      resource.asExpr() = freedExpr
     )
-  }
-}
-
-// mutex lock unlock
-class MutexAcquisitionExpr extends ResourceAcquisitionExpr {
-  MutexAcquisitionExpr() {
+    or
     exists(FunctionCall f |
-      f.getTarget().hasQualifiedName("std", "mutex", "lock") and this = f.getQualifier()
+      f.getTarget().hasQualifiedName("std", "basic_fstream", "close") and
+      node = f and
+      resource.asExpr() = f.getQualifier()
     )
-  }
-
-  override Expr getReleaseExpr() {
+    or
     exists(FunctionCall f |
-      f.getTarget().hasQualifiedName("std", "mutex", "unlock") and result = f.getQualifier()
-    ) and
-    exists(DataFlow::Node def |
-      def.asDefiningArgument() = this and
-      DataFlow::localFlow(def, DataFlow::exprNode(result))
+      f.getTarget().hasQualifiedName("std", "mutex", "unlock") and
+      node = f and
+      resource.asExpr() = f.getQualifier()
     )
   }
 }

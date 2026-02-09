@@ -1,0 +1,2 @@
+ - All CERT rules now include additional tags to represent the [Risk Assessment](https://wiki.sei.cmu.edu/confluence/display/c/How+this+Coding+Standard+is+Organized#HowthisCodingStandardisOrganized-RiskAssessment) properties specified on CERT rules.
+   - In addition, new query suites are included which allow the selection of queries that represent CERT Rules (not Recommendations) for each of the Levels (1-3). These are called `cert-<lang>-<level>.qls` and can be used either directly in the CodeQL CLI, or via the CodeQL Action.

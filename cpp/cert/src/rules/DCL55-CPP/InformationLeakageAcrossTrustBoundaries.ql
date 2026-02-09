@@ -8,6 +8,11 @@
  * @problem.severity error
  * @tags external/cert/id/dcl55-cpp
  *       security
+ *       external/cert/severity/low
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p1
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 

@@ -14,7 +14,12 @@
           "short_name": "DoNotPassInvalidDataToTheAsctimeFunction",
           "tags": [
             "security",
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p27",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -33,7 +38,12 @@
           "severity": "error",
           "short_name": "DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],

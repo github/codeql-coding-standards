@@ -10,6 +10,11 @@
  * @tags external/cert/id/con51-cpp
  *       correctness
  *       concurrency
+ *       external/cert/severity/low
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
@@ -31,6 +36,8 @@ where
   // To reduce the number of results we require that this is a direct child
   // of the lock within the same function
   lpn.coveredByLock().getASuccessor*() = lpn and
+  // Exclude RAII-style locks which cannot leak
+  lpn.coveredByLock().canLeak() and
   // report those expressions for which there doesn't exist a catch block
   not exists(CatchBlock cb |
     catches(cb, lpn, _) and

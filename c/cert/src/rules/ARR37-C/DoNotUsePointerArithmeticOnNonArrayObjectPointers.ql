@@ -8,12 +8,17 @@
  * @problem.severity error
  * @tags external/cert/id/arr37-c
  *       correctness
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p8
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import NonArrayPointerToArrayIndexingExprFlow::PathGraph
 
 /**

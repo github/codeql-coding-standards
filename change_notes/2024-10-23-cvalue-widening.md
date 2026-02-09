@@ -1,0 +1,2 @@
+ - `M5-0-3`, `M5-0-7`, `M5-0-8`, `M5-0-9` - `CvalueExpressionConvertedToDifferentUnderlyingType.ql`, `ExplicitFloatingIntegralConversionOfACValueExpr.ql`, `ExplicitWideningConversionOfACValueExpr.ql`, `ExplicitSignedness.ql`:
+   - Reduce false positives from misidentifying an explicitly casted expression used as a function argument or return value as a `cvalue`.

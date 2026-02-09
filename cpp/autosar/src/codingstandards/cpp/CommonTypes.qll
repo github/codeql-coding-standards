@@ -1,7 +1,7 @@
 import cpp as default
 
 /*
- * Implementations of the C/C++ Fixed Width Types from cstdint.h.
+ * Implementations of the C/C++ Fixed Width Types from cstdint.
  *
  * TODO: Deprecate once this is available in the CodeQL standard library.
  */

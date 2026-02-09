@@ -14,19 +14,19 @@ abstract class OrderingPredicateMustBeStrictlyWeakSharedQuery extends Query { }
 
 Query getQuery() { result instanceof OrderingPredicateMustBeStrictlyWeakSharedQuery }
 
+class IsStrictlyWeaklyOrderedComment extends Comment {
+  IsStrictlyWeaklyOrderedComment() {
+    exists(getContents().regexpFind("(?m)^\\s*(//|\\*)\\s*@IsStrictlyWeaklyOrdered\\s*$", _, _))
+  }
+}
+
 /**
  * User annotated class indicating a comparator is axiomatically strictly weakly
  * ordering.
  */
 class UserDefinedStrictlyWeakOrderingComparator extends Class {
   UserDefinedStrictlyWeakOrderingComparator() {
-    exists(Comment c, string contents |
-      c.getCommentedElement() = this.getADeclarationEntry() and
-      contents =
-        c.getContents()
-            .splitAt("\n")
-            .regexpFind("^\\s*(//|\\*)\\s*@IsStrictlyWeaklyOrdered\\s*$", _, _)
-    )
+    exists(IsStrictlyWeaklyOrderedComment c | c.getCommentedElement() = this.getADeclarationEntry())
   }
 }
 

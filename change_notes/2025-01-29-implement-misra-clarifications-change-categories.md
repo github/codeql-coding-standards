@@ -1,0 +1,6 @@
+ - `RULE-13-6` - `SizeofOperandWithSideEffect.ql`:
+   - Changed from Mandatory to Required in implementation of Technical Corrigenda 2.
+ - `RULE-17-5` - `ArrayFunctionArgumentNumberOfElements.ql`:
+   - Changed from Advisory to Required in implementation of Technical Corrigenda 2.
+ - `RULE-21-11` - `StandardHeaderFileTgmathhUsed.ql`:
+   - Changed from Required to Advisory in implementation of Amendment 3.

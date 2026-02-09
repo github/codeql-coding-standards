@@ -14,7 +14,12 @@
           "short_name": "VariableLengthArraySizeNotInValidRange",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -33,7 +38,12 @@
           "severity": "error",
           "short_name": "DoNotUsePointerArithmeticOnNonArrayObjectPointers",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -52,7 +62,12 @@
           "severity": "error",
           "short_name": "DoNotModifyObjectsWithTemporaryLifetime",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "This implementation also always reports non-modifying accesses of objects with temporary lifetime, which are only compliant in C11."

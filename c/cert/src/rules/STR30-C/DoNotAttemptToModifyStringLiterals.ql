@@ -8,13 +8,18 @@
  * @tags external/cert/id/str30-c
  *       correctness
  *       security
+ *       external/cert/severity/low
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p9
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.security.BufferWrite
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * Class that includes into `BufferWrite` functions that will modify their

@@ -7,6 +7,11 @@
  * @problem.severity error
  * @tags external/cert/id/msc54-cpp
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

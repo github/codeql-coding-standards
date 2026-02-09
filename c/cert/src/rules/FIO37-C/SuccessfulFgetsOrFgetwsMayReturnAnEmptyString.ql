@@ -7,6 +7,11 @@
  * @problem.severity error
  * @tags external/cert/id/fio37-c
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p12
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 
@@ -14,7 +19,7 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.FgetsErrorManagement
 import codingstandards.cpp.Dereferenced
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.DataFlow
 
 /*
  * CFG nodes that follows a successful call to `fgets`

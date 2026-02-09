@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.cpp.standardlibrary.Utility
 
 /*

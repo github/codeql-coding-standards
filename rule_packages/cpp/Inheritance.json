@@ -229,7 +229,13 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotInvokeVirtualFunctionsFromConstructorsOrDestructors",
-          "tags": []
+          "tags": [
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
+          ]
         }
       ],
       "title": "Do not invoke virtual functions from constructors or destructors"
@@ -246,7 +252,13 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "DoNotSliceDerivedObjects",
-          "tags": []
+          "tags": [
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
+          ]
         }
       ],
       "title": "Do not slice derived objects"
@@ -263,7 +275,13 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "DoNotDeleteAPolymorphicObjectWithoutAVirtualDestructor",
-          "tags": []
+          "tags": [
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p9",
+            "external/cert/level/l2"
+          ]
         }
       ],
       "title": "Do not delete a polymorphic object without a virtual destructor"

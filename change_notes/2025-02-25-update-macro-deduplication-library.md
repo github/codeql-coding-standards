@@ -1,0 +1,4 @@
+- `RULE-2-8` - `UnusedObjectDefinition.ql`, `UnusedObjectDefinitionStrict.ql`:
+  - Refactor to allow additional parameters in non-macro results for library `DeduplicateMacroResults.qll`.
+  - Refactor to replace `Location` with `Locatable` in API of library `DeduplicationMacroResults.qll`.
+  - No observable difference in behavior expected.

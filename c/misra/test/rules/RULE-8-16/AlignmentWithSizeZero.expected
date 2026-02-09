@@ -1,0 +1,4 @@
+| test.c:2:10:2:10 | 0 | Invalid alignof() size set to zero for variable $@. | test.c:2:17:2:18 | g2 | g2 |
+| test.c:3:10:3:14 | ... - ... | Invalid alignof() size set to zero for variable $@. | test.c:3:21:3:22 | g3 | g3 |
+| test.c:8:12:8:12 | 0 | Invalid alignof() size set to zero for variable $@. | test.c:8:19:8:20 | m2 | m2 |
+| test.c:13:12:13:12 | 0 | Invalid alignof() size set to zero for variable $@. | test.c:13:19:13:20 | l2 | l2 |

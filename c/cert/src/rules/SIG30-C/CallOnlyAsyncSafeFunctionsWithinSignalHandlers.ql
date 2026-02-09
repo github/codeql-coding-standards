@@ -8,13 +8,18 @@
  * @tags external/cert/id/sig30-c
  *       correctness
  *       security
+ *       external/cert/severity/high
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p18
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Signal
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * Does not access an external variable except
@@ -32,7 +37,7 @@ class AsyncSafeVariableAccess extends VariableAccess {
 abstract class AsyncSafeFunction extends Function { }
 
 /**
- * C standard library ayncronous-safe functions
+ * C standard library asynchronous-safe functions
  */
 class CAsyncSafeFunction extends AsyncSafeFunction {
   //tion, or the signal function with the first argument equal to the signal number corresponding to the signal that caused the invocation of the handler
@@ -40,7 +45,7 @@ class CAsyncSafeFunction extends AsyncSafeFunction {
 }
 
 /**
- * POSIX defined ayncronous-safe functions
+ * POSIX defined asynchronous-safe functions
  */
 class PosixAsyncSafeFunction extends AsyncSafeFunction {
   PosixAsyncSafeFunction() {
@@ -68,7 +73,7 @@ class PosixAsyncSafeFunction extends AsyncSafeFunction {
 }
 
 /**
- * Application defined ayncronous-safe functions
+ * Application defined asynchronous-safe functions
  */
 class ApplicationAsyncSafeFunction extends AsyncSafeFunction {
   pragma[nomagic]
@@ -117,5 +122,5 @@ where
     or
     fc instanceof AsyncUnsafeRaiseCall
   )
-select fc, "Asyncronous-unsafe function calls within a $@ can lead to undefined behavior.",
+select fc, "Asynchronous-unsafe function calls within a $@ can lead to undefined behavior.",
   handler.getRegistration(), "signal handler"

@@ -16,6 +16,18 @@
             "correctness",
             "external/misra/c/2012/third-edition-first-revision"
           ]
+        },
+        {
+          "description": "The value of an atomic variable shall not depend on evaluation order and interleaving of threads.",
+          "kind": "problem",
+          "name": "The value of an atomic variable shall not depend on the evaluation order of interleaved threads",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnsequencedAtomicReads",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
         }
       ],
       "title": "The value of an expression and its persistent side effects shall be the same under all permitted evaluation orders"

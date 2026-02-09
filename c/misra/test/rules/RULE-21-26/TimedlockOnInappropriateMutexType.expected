@@ -1,0 +1,45 @@
+edges
+| test.c:10:24:10:24 | *m | test.c:10:43:10:43 | *m | provenance |  |
+| test.c:13:12:13:14 | mtx_init output argument | test.c:14:17:14:19 | *& ... | provenance |  |
+| test.c:13:12:13:14 | mtx_init output argument | test.c:15:14:15:16 | *& ... | provenance |  |
+| test.c:15:14:15:16 | *& ... | test.c:10:24:10:24 | *m | provenance |  |
+| test.c:17:12:17:14 | mtx_init output argument | test.c:18:17:18:19 | *& ... | provenance |  |
+| test.c:17:12:17:14 | mtx_init output argument | test.c:19:14:19:16 | *& ... | provenance |  |
+| test.c:19:14:19:16 | *& ... | test.c:10:24:10:24 | *m | provenance |  |
+| test.c:30:12:30:14 | mtx_init output argument | test.c:31:17:31:19 | *& ... | provenance |  |
+| test.c:30:12:30:14 | mtx_init output argument | test.c:32:14:32:16 | *& ... | provenance |  |
+| test.c:32:14:32:16 | *& ... | test.c:10:24:10:24 | *m | provenance |  |
+| test.c:42:12:42:16 | mtx_init output argument | test.c:42:13:42:14 | *l3 [post update] [m] | provenance |  |
+| test.c:42:13:42:14 | *l3 [post update] [m] | test.c:43:18:43:19 | *l3 [m] | provenance |  |
+| test.c:42:13:42:14 | *l3 [post update] [m] | test.c:44:15:44:16 | *l3 [m] | provenance |  |
+| test.c:43:18:43:19 | *l3 [m] | test.c:43:17:43:21 | *& ... | provenance |  |
+| test.c:44:14:44:18 | *& ... | test.c:10:24:10:24 | *m | provenance |  |
+| test.c:44:15:44:16 | *l3 [m] | test.c:44:14:44:18 | *& ... | provenance |  |
+nodes
+| test.c:10:24:10:24 | *m | semmle.label | *m |
+| test.c:10:43:10:43 | *m | semmle.label | *m |
+| test.c:13:12:13:14 | mtx_init output argument | semmle.label | mtx_init output argument |
+| test.c:14:17:14:19 | *& ... | semmle.label | *& ... |
+| test.c:15:14:15:16 | *& ... | semmle.label | *& ... |
+| test.c:17:12:17:14 | mtx_init output argument | semmle.label | mtx_init output argument |
+| test.c:18:17:18:19 | *& ... | semmle.label | *& ... |
+| test.c:19:14:19:16 | *& ... | semmle.label | *& ... |
+| test.c:30:12:30:14 | mtx_init output argument | semmle.label | mtx_init output argument |
+| test.c:31:17:31:19 | *& ... | semmle.label | *& ... |
+| test.c:32:14:32:16 | *& ... | semmle.label | *& ... |
+| test.c:42:12:42:16 | mtx_init output argument | semmle.label | mtx_init output argument |
+| test.c:42:13:42:14 | *l3 [post update] [m] | semmle.label | *l3 [post update] [m] |
+| test.c:43:17:43:21 | *& ... | semmle.label | *& ... |
+| test.c:43:18:43:19 | *l3 [m] | semmle.label | *l3 [m] |
+| test.c:44:14:44:18 | *& ... | semmle.label | *& ... |
+| test.c:44:15:44:16 | *l3 [m] | semmle.label | *l3 [m] |
+subpaths
+#select
+| test.c:10:43:10:43 | *m | test.c:13:12:13:14 | mtx_init output argument | test.c:10:43:10:43 | *m | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:13:12:13:14 | mtx_init output argument | initialized |
+| test.c:10:43:10:43 | *m | test.c:17:12:17:14 | mtx_init output argument | test.c:10:43:10:43 | *m | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:17:12:17:14 | mtx_init output argument | initialized |
+| test.c:10:43:10:43 | *m | test.c:30:12:30:14 | mtx_init output argument | test.c:10:43:10:43 | *m | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:30:12:30:14 | mtx_init output argument | initialized |
+| test.c:10:43:10:43 | *m | test.c:42:12:42:16 | mtx_init output argument | test.c:10:43:10:43 | *m | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:42:12:42:16 | mtx_init output argument | initialized |
+| test.c:14:17:14:19 | *& ... | test.c:13:12:13:14 | mtx_init output argument | test.c:14:17:14:19 | *& ... | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:13:12:13:14 | mtx_init output argument | initialized |
+| test.c:18:17:18:19 | *& ... | test.c:17:12:17:14 | mtx_init output argument | test.c:18:17:18:19 | *& ... | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:17:12:17:14 | mtx_init output argument | initialized |
+| test.c:31:17:31:19 | *& ... | test.c:30:12:30:14 | mtx_init output argument | test.c:31:17:31:19 | *& ... | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:30:12:30:14 | mtx_init output argument | initialized |
+| test.c:43:17:43:21 | *& ... | test.c:42:12:42:16 | mtx_init output argument | test.c:43:17:43:21 | *& ... | Call to mtx_timedlock with mutex which is $@ without flag 'mtx_timed'. | test.c:42:12:42:16 | mtx_init output argument | initialized |

@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 
 class MemCmpMoveCpy extends Function {
   // Couldn't extend BuiltInFunction because it misses `memcmp`

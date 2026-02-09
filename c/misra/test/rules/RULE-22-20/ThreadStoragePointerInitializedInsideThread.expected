@@ -1,0 +1,1 @@
+| test.c:61:3:61:12 | call to tss_create | Thread specific storage object initialization reachable from threaded function '$@'. | test.c:57:6:57:41 | from_root6_init_and_use_thread_local | from_root6_init_and_use_thread_local |

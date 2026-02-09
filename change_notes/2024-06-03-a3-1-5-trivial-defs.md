@@ -1,0 +1,4 @@
+ - `A3-1-5` - `TrivialOrTemplateFunctionDefinedOutsideClassDefinition.ql`:
+   - Query deleted - rule was never intended to cover this case (see https://forum.misra.org.uk/archive/index.php?thread-1588.html).
+ - `A3-1-5` - `NonTrivialNonTemplateFunctionDefinedInsideClassDefinition.ql`:
+   - Removed false positives caused by flagging member functions in template instantiations

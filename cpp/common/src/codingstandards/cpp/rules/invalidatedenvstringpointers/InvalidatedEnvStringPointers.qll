@@ -6,7 +6,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 abstract class InvalidatedEnvStringPointersSharedQuery extends Query { }
 
@@ -45,6 +45,12 @@ predicate incompatibleFunctions(GetenvFunction f1, GetenvFunction f2) {
   or
   f1.getName() = ["setlocale", "localeconv"] and
   f2.getName() = ["setlocale", "localeconv"]
+  or
+  f1.getName() = ["asctime", "ctime"] and
+  f2.getName() = ["asctime", "ctime"]
+  or
+  f1.getName() = ["gmtime", "localtime"] and
+  f2.getName() = ["gmtime", "localtime"]
 }
 
 query predicate problems(
@@ -63,10 +69,10 @@ query predicate problems(
   // The two calls are incompatible
   fc1 != fc2 and
   incompatibleFunctions(fc1.getTarget(), fc2.getFunction()) and
-  // The pointer returned by fc1 accessed in `e` afer the second `GetenvFunctionCall`
+  // The pointer returned by fc1 accessed in `e` after the second `GetenvFunctionCall`
   DataFlow::localExprFlow(fc1, e) and
   e = fc2.getASuccessor+() and
-  message = "This pointer was returned by a $@ and may have been overwritten by the susequent $@." and
+  message = "This pointer was returned by a $@ and may have been overwritten by the subsequent $@." and
   fc1text = fc1.toString() and
   fc2text = fc2.toString()
 }

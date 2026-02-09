@@ -13,7 +13,7 @@ abstract class ReturnReferenceOrPointerToAutomaticLocalVariableSharedQuery exten
 Query getQuery() { result instanceof ReturnReferenceOrPointerToAutomaticLocalVariableSharedQuery }
 
 query predicate problems(
-  ReturnStmt rs, string message, Function f, string f_string, Variable auto, string auto_string
+  ReturnStmt rs, string message, Function f, string f_string, StackVariable auto, string auto_string
 ) {
   exists(VariableAccess va, string returnType |
     not isExcluded(rs, getQuery()) and

@@ -40,7 +40,8 @@
           "name": "When an array with external linkage is declared, its size shall be stated explicitly",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "ExternalLinkageArrayWithoutExplicitSize",
+          "short_name": "ExternalLinkageArrayWithoutExplicitSizeAutosar",
+          "shared_implementation_short_name": "ExternalLinkageArrayWithoutExplicitSize",
           "tags": [
             "correctness"
           ]
@@ -254,7 +255,12 @@
           "severity": "warning",
           "short_name": "LocalFunctionDeclaration",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -265,7 +271,12 @@
           "severity": "warning",
           "short_name": "LocalConstructorInitializedObjectHidesIdentifier",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -284,7 +295,12 @@
           "severity": "error",
           "short_name": "SingularOverloadOfMemoryFunction",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -304,7 +320,12 @@
           "short_name": "ModificationOfTheStandardNamespaces",
           "shared_implementation_short_name": "NonStandardEntitiesInStandardNamespaces",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -323,7 +344,12 @@
           "severity": "error",
           "short_name": "UnnamedNamespaceInHeaderFile",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -343,7 +369,12 @@
           "short_name": "OneDefinitionRuleNotObeyed",
           "shared_implementation_short_name": "OneDefinitionRuleViolation",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],

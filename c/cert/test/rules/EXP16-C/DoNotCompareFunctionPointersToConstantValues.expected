@@ -1,0 +1,20 @@
+| test.c:17:7:17:13 | ... == ... | $@ compared to constant value. | test.c:3:5:3:6 | f1 | Address of function f1 |
+| test.c:20:7:20:12 | ... > ... | $@ compared to constant value. | test.c:3:5:3:6 | f1 | Address of function f1 |
+| test.c:29:7:29:13 | ... == ... | $@ compared to constant value. | test.c:4:8:4:9 | g1 | Function pointer variable g1 |
+| test.c:32:7:32:16 | ... == ... | $@ compared to constant value. | test.c:5:7:5:8 | g2 | Function pointer variable g2 |
+| test.c:35:7:35:15 | ... != ... | $@ compared to constant value. | test.c:4:8:4:9 | g1 | Function pointer variable g1 |
+| test.c:38:7:38:8 | f1 | $@ undergoes implicit constant comparison. | test.c:3:5:3:6 | f1 | Address of function f1 |
+| test.c:41:7:41:8 | g1 | $@ undergoes implicit constant comparison. | test.c:4:8:4:9 | g1 | Function pointer variable g1 |
+| test.c:68:7:68:27 | ... == ... | $@ compared to constant value. | test.c:3:5:3:6 | f1 | Address of function f1 |
+| test.c:71:7:71:18 | ... == ... | $@ compared to constant value. | test.c:3:5:3:6 | f1 | Address of function f1 |
+| test.c:74:7:76:14 | ... == ... | $@ compared to constant value. | test.c:3:5:3:6 | f1 | Address of function f1 |
+| test.c:83:3:83:9 | ... == ... | $@ compared to constant value. | test.c:82:10:82:11 | l1 | Function pointer variable l1 |
+| test.c:84:3:84:12 | ... == ... | $@ compared to constant value. | test.c:82:10:82:11 | l1 | Function pointer variable l1 |
+| test.c:91:3:91:4 | g1 | $@ undergoes implicit constant comparison. | test.c:4:8:4:9 | g1 | Function pointer variable g1 |
+| test.c:96:7:96:18 | ... == ... | $@ compared to constant value. | test.c:9:9:9:10 | fp | Function pointer variable fp |
+| test.c:102:7:102:22 | ... == ... | $@ compared to constant value. | test.c:14:11:14:21 | get_handler | Address of function get_handler |
+| test.c:105:7:105:24 | ... == ... | $@ compared to constant value. | test.c:105:7:105:17 | call to get_handler | Expression with function pointer type |
+| test.c:121:7:121:13 | ... != ... | $@ compared to constant value. | test.c:3:5:3:6 | f1 | Address of function f1 |
+| test.c:133:7:133:13 | ... != ... | $@ compared to constant value. | test.c:4:8:4:9 | g1 | Function pointer variable g1 |
+| test.c:139:7:139:13 | ... == ... | $@ compared to constant value. | test.c:4:8:4:9 | g1 | Function pointer variable g1 |
+| test.c:149:8:149:9 | g1 | $@ undergoes implicit constant comparison. | test.c:4:8:4:9 | g1 | Function pointer variable g1 |

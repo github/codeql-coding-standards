@@ -1,3 +1,10 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (RestrictPointerReferencesOverlappingObject.ql:47,57-65)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (RestrictPointerReferencesOverlappingObject.ql:48,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (RestrictPointerReferencesOverlappingObject.ql:52,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (RestrictPointerReferencesOverlappingObject.ql:58,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (RestrictPointerReferencesOverlappingObject.ql:61,58-66)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (RestrictPointerReferencesOverlappingObject.ql:77,64-72)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (RestrictPointerReferencesOverlappingObject.ql:78,64-72)
 | test.c:18:22:18:23 | i2 | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:18:17:18:18 | i3 | i3 | test.c:18:22:18:23 | i2 | the object pointed to by i2 |
 | test.c:19:8:19:9 | g2 | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:5:15:5:16 | g1 | g1 | test.c:19:8:19:9 | g2 | the object pointed to by g2 |
 | test.c:20:8:20:9 | i2 | Assignment to restrict-qualified pointer $@ results in pointers aliasing $@. | test.c:16:17:16:18 | i1 | i1 | test.c:20:8:20:9 | i2 | the object pointed to by i2 |

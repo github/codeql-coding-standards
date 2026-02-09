@@ -1,133 +1,194 @@
-| test.c:11:7:11:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
-| test.c:12:7:12:7 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
-| test.c:13:7:13:7 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
-| test.c:14:7:14:7 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
-| test.c:16:8:16:8 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
-| test.c:18:8:18:8 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
-| test.c:19:8:19:8 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
-| test.c:20:8:20:8 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
-| test.c:22:7:22:7 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
-| test.c:23:7:23:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
-| test.c:25:7:25:7 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
-| test.c:26:7:26:7 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
-| test.c:28:7:28:7 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
-| test.c:29:7:29:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
-| test.c:30:7:30:7 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
-| test.c:32:7:32:7 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
-| test.c:34:7:34:7 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
-| test.c:35:7:35:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
-| test.c:36:7:36:7 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
-| test.c:37:7:37:7 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
-| test.c:49:14:49:15 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
-| test.c:50:14:50:14 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
-| test.c:51:14:51:14 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
-| test.c:52:14:52:14 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
-| test.c:54:17:54:17 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
-| test.c:56:17:56:17 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
-| test.c:57:17:57:17 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
-| test.c:58:17:58:17 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
-| test.c:60:19:60:19 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
-| test.c:61:19:61:20 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
-| test.c:63:19:63:19 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
-| test.c:64:19:64:19 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
-| test.c:66:21:66:21 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
-| test.c:67:21:67:22 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
-| test.c:68:21:68:21 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
-| test.c:70:21:70:21 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
-| test.c:72:14:72:14 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
-| test.c:73:14:73:15 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
-| test.c:74:14:74:14 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
-| test.c:75:14:75:14 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
-| test.c:80:7:80:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
-| test.c:81:7:81:7 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
-| test.c:82:7:82:7 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
-| test.c:83:7:83:7 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
-| test.c:86:7:86:7 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
-| test.c:88:7:88:7 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
-| test.c:89:7:89:7 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
-| test.c:90:7:90:7 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
-| test.c:93:7:93:7 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
-| test.c:94:7:94:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
-| test.c:96:7:96:7 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
-| test.c:97:7:97:7 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
-| test.c:100:7:100:7 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
-| test.c:101:7:101:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
-| test.c:102:7:102:7 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
-| test.c:104:7:104:7 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
-| test.c:107:7:107:7 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
-| test.c:108:7:108:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
-| test.c:109:7:109:7 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
-| test.c:110:7:110:7 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
-| test.c:118:7:118:8 | - ... | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
-| test.c:119:7:119:16 | 4294967296 | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
-| test.c:131:8:131:8 | A | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
-| test.c:132:8:132:10 | 100 | Assignment of essentially Signed type value to an object of essentially Boolean type. |
-| test.c:133:23:133:25 | 200 | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
-| test.c:138:8:138:11 | 1 | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
-| test.c:140:8:140:10 | 100 | Assignment of essentially Signed type value to an object of essentially Enum Type. |
-| test.c:141:23:141:25 | 200 | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
-| test.c:146:8:146:11 | 1 | Assignment of essentially Boolean type value to an object of essentially Signed type. |
-| test.c:147:8:147:8 | A | Assignment of essentially Enum Type value to an object of essentially Signed type. |
-| test.c:149:23:149:25 | 200 | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
-| test.c:154:8:154:11 | 1 | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
-| test.c:155:8:155:8 | A | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
-| test.c:174:8:174:8 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
-| test.c:175:8:175:8 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
-| test.c:176:8:176:8 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
-| test.c:177:8:177:8 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
-| test.c:180:8:180:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
-| test.c:182:8:182:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
-| test.c:183:8:183:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
-| test.c:184:8:184:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
-| test.c:187:8:187:8 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
-| test.c:188:8:188:8 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
-| test.c:190:8:190:8 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
-| test.c:191:8:191:8 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
-| test.c:194:8:194:8 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
-| test.c:195:8:195:8 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
-| test.c:196:8:196:8 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
-| test.c:198:8:198:8 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
-| test.c:201:8:201:8 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
-| test.c:202:8:202:8 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
-| test.c:203:8:203:8 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
-| test.c:204:8:204:8 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
-| test.c:220:12:220:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
-| test.c:222:12:222:12 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
-| test.c:224:12:224:12 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
-| test.c:226:12:226:12 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
-| test.c:239:12:239:12 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
-| test.c:243:12:243:12 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
-| test.c:245:12:245:12 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
-| test.c:247:12:247:12 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
-| test.c:260:12:260:12 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
-| test.c:262:12:262:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
-| test.c:266:12:266:12 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
-| test.c:268:12:268:12 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
-| test.c:281:12:281:12 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
-| test.c:283:12:283:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
-| test.c:285:12:285:12 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
-| test.c:289:12:289:12 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
-| test.c:302:12:302:12 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
-| test.c:304:12:304:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
-| test.c:306:12:306:12 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
-| test.c:308:12:308:12 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
-| test.c:332:10:332:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
-| test.c:333:10:333:10 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
-| test.c:334:10:334:10 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
-| test.c:335:10:335:10 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
-| test.c:337:11:337:11 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
-| test.c:339:11:339:11 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
-| test.c:340:11:340:11 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
-| test.c:341:11:341:11 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
-| test.c:343:10:343:10 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
-| test.c:344:10:344:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
-| test.c:346:10:346:10 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
-| test.c:347:10:347:10 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
-| test.c:349:10:349:10 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
-| test.c:350:10:350:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
-| test.c:351:10:351:10 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
-| test.c:353:10:353:10 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
-| test.c:355:10:355:10 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
-| test.c:356:10:356:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
-| test.c:357:10:357:10 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
-| test.c:358:10:358:10 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
+| test.c:13:7:13:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
+| test.c:14:7:14:7 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
+| test.c:15:7:15:7 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
+| test.c:16:7:16:7 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
+| test.c:17:7:17:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Boolean type. |
+| test.c:19:8:19:8 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
+| test.c:21:8:21:8 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
+| test.c:22:8:22:8 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
+| test.c:23:8:23:8 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
+| test.c:24:8:24:9 | cf | Assignment of essentially Complex Floating type value to an object of essentially Enum Type. |
+| test.c:26:7:26:7 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
+| test.c:27:7:27:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
+| test.c:29:7:29:7 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:30:7:30:7 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
+| test.c:31:7:31:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Signed type. |
+| test.c:33:7:33:7 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
+| test.c:34:7:34:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
+| test.c:35:7:35:7 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
+| test.c:37:7:37:7 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
+| test.c:38:7:38:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Unsigned type. |
+| test.c:40:7:40:7 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
+| test.c:41:7:41:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
+| test.c:42:7:42:7 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
+| test.c:43:7:43:7 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
+| test.c:45:7:45:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Floating type. |
+| test.c:47:8:47:8 | b | Assignment of essentially Boolean type value to an object of essentially Complex Floating type. |
+| test.c:48:8:48:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Complex Floating type. |
+| test.c:49:8:49:8 | s | Assignment of essentially Signed type value to an object of essentially Complex Floating type. |
+| test.c:50:8:50:8 | u | Assignment of essentially Unsigned type value to an object of essentially Complex Floating type. |
+| test.c:64:14:64:15 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
+| test.c:65:14:65:14 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
+| test.c:66:14:66:14 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
+| test.c:67:14:67:14 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
+| test.c:68:15:68:16 | cf | Assignment of essentially Complex Floating type value to an object of essentially Boolean type. |
+| test.c:70:17:70:17 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
+| test.c:72:17:72:17 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
+| test.c:73:17:73:17 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
+| test.c:74:17:74:17 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
+| test.c:75:18:75:19 | cf | Assignment of essentially Complex Floating type value to an object of essentially Enum Type. |
+| test.c:77:19:77:19 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
+| test.c:78:19:78:20 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
+| test.c:80:19:80:19 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:81:19:81:19 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
+| test.c:82:20:82:21 | cf | Assignment of essentially Complex Floating type value to an object of essentially Signed type. |
+| test.c:84:21:84:21 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
+| test.c:85:21:85:22 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
+| test.c:86:21:86:21 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
+| test.c:88:21:88:21 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
+| test.c:89:22:89:23 | cf | Assignment of essentially Complex Floating type value to an object of essentially Unsigned type. |
+| test.c:91:14:91:14 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
+| test.c:92:14:92:15 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
+| test.c:93:14:93:14 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
+| test.c:94:14:94:14 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
+| test.c:96:15:96:16 | cf | Assignment of essentially Complex Floating type value to an object of essentially Floating type. |
+| test.c:98:24:98:24 | b | Assignment of essentially Boolean type value to an object of essentially Complex Floating type. |
+| test.c:99:24:99:25 | e1 | Assignment of essentially Enum Type value to an object of essentially Complex Floating type. |
+| test.c:100:24:100:24 | s | Assignment of essentially Signed type value to an object of essentially Complex Floating type. |
+| test.c:101:24:101:24 | u | Assignment of essentially Unsigned type value to an object of essentially Complex Floating type. |
+| test.c:107:7:107:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
+| test.c:108:7:108:7 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
+| test.c:109:7:109:7 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
+| test.c:110:7:110:7 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
+| test.c:111:7:111:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Boolean type. |
+| test.c:114:7:114:7 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
+| test.c:116:7:116:7 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
+| test.c:117:7:117:7 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
+| test.c:118:7:118:7 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
+| test.c:119:7:119:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Enum Type. |
+| test.c:122:7:122:7 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
+| test.c:123:7:123:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
+| test.c:125:7:125:7 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:126:7:126:7 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
+| test.c:127:7:127:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Signed type. |
+| test.c:130:7:130:7 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
+| test.c:131:7:131:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
+| test.c:132:7:132:7 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
+| test.c:134:7:134:7 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
+| test.c:135:7:135:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Unsigned type. |
+| test.c:138:7:138:7 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
+| test.c:139:7:139:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
+| test.c:140:7:140:7 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
+| test.c:141:7:141:7 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
+| test.c:143:7:143:8 | cf | Assignment of essentially Complex Floating type value to an object of essentially Floating type. |
+| test.c:146:7:146:7 | b | Assignment of essentially Boolean type value to an object of essentially Complex Floating type. |
+| test.c:147:7:147:8 | e1 | Assignment of essentially Enum Type value to an object of essentially Complex Floating type. |
+| test.c:148:7:148:7 | s | Assignment of essentially Signed type value to an object of essentially Complex Floating type. |
+| test.c:149:7:149:7 | u | Assignment of essentially Unsigned type value to an object of essentially Complex Floating type. |
+| test.c:158:7:158:8 | - ... | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
+| test.c:159:7:159:16 | 4294967296 | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
+| test.c:171:8:171:8 | A | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
+| test.c:172:8:172:10 | 100 | Assignment of essentially Signed type value to an object of essentially Boolean type. |
+| test.c:173:23:173:25 | 200 | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
+| test.c:178:8:178:11 | 1 | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
+| test.c:180:8:180:10 | 100 | Assignment of essentially Signed type value to an object of essentially Enum Type. |
+| test.c:181:23:181:25 | 200 | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
+| test.c:186:8:186:11 | 1 | Assignment of essentially Boolean type value to an object of essentially Signed type. |
+| test.c:187:8:187:8 | A | Assignment of essentially Enum Type value to an object of essentially Signed type. |
+| test.c:189:23:189:25 | 200 | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:194:8:194:11 | 1 | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
+| test.c:195:8:195:8 | A | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
+| test.c:216:8:216:8 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
+| test.c:217:8:217:8 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
+| test.c:218:8:218:8 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
+| test.c:219:8:219:8 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
+| test.c:220:8:220:8 | b | Assignment of essentially Boolean type value to an object of essentially Complex Floating type. |
+| test.c:223:8:223:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
+| test.c:225:8:225:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
+| test.c:226:8:226:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
+| test.c:227:8:227:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
+| test.c:228:8:228:9 | e1 | Assignment of essentially Enum Type value to an object of essentially Complex Floating type. |
+| test.c:231:8:231:8 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
+| test.c:232:8:232:8 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
+| test.c:234:8:234:8 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
+| test.c:235:8:235:8 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
+| test.c:236:8:236:8 | s | Assignment of essentially Signed type value to an object of essentially Complex Floating type. |
+| test.c:239:8:239:8 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
+| test.c:240:8:240:8 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
+| test.c:241:8:241:8 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:243:8:243:8 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
+| test.c:244:8:244:8 | u | Assignment of essentially Unsigned type value to an object of essentially Complex Floating type. |
+| test.c:247:8:247:8 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
+| test.c:248:8:248:8 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
+| test.c:249:8:249:8 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
+| test.c:250:8:250:8 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
+| test.c:255:8:255:9 | cf | Assignment of essentially Complex Floating type value to an object of essentially Boolean type. |
+| test.c:256:8:256:9 | cf | Assignment of essentially Complex Floating type value to an object of essentially Enum Type. |
+| test.c:257:8:257:9 | cf | Assignment of essentially Complex Floating type value to an object of essentially Signed type. |
+| test.c:258:8:258:9 | cf | Assignment of essentially Complex Floating type value to an object of essentially Unsigned type. |
+| test.c:259:8:259:9 | cf | Assignment of essentially Complex Floating type value to an object of essentially Floating type. |
+| test.c:275:12:275:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
+| test.c:277:12:277:12 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
+| test.c:279:12:279:12 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
+| test.c:281:12:281:12 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
+| test.c:283:12:283:13 | cf | Assignment of essentially Complex Floating type value to an object of essentially Boolean type. |
+| test.c:297:12:297:12 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
+| test.c:301:12:301:12 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
+| test.c:303:12:303:12 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
+| test.c:305:12:305:12 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
+| test.c:307:12:307:13 | cf | Assignment of essentially Complex Floating type value to an object of essentially Enum Type. |
+| test.c:321:12:321:12 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
+| test.c:323:12:323:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
+| test.c:327:12:327:12 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:329:12:329:12 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
+| test.c:331:12:331:13 | cf | Assignment of essentially Complex Floating type value to an object of essentially Signed type. |
+| test.c:345:12:345:12 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
+| test.c:347:12:347:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
+| test.c:349:12:349:12 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
+| test.c:353:12:353:12 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
+| test.c:355:12:355:13 | cf | Assignment of essentially Complex Floating type value to an object of essentially Unsigned type. |
+| test.c:369:12:369:12 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
+| test.c:371:12:371:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
+| test.c:373:12:373:12 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
+| test.c:375:12:375:12 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
+| test.c:379:12:379:13 | cf | Assignment of essentially Complex Floating type value to an object of essentially Floating type. |
+| test.c:393:12:393:12 | b | Assignment of essentially Boolean type value to an object of essentially Complex Floating type. |
+| test.c:395:12:395:13 | e1 | Assignment of essentially Enum Type value to an object of essentially Complex Floating type. |
+| test.c:397:12:397:12 | s | Assignment of essentially Signed type value to an object of essentially Complex Floating type. |
+| test.c:399:12:399:12 | u | Assignment of essentially Unsigned type value to an object of essentially Complex Floating type. |
+| test.c:427:10:427:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Boolean type. |
+| test.c:428:10:428:10 | s | Assignment of essentially Signed type value to an object of essentially Boolean type. |
+| test.c:429:10:429:10 | u | Assignment of essentially Unsigned type value to an object of essentially Boolean type. |
+| test.c:430:10:430:10 | f | Assignment of essentially Floating type value to an object of essentially Boolean type. |
+| test.c:431:10:431:11 | cf | Assignment of essentially Complex Floating type value to an object of essentially Boolean type. |
+| test.c:433:11:433:11 | b | Assignment of essentially Boolean type value to an object of essentially Enum Type. |
+| test.c:435:11:435:11 | s | Assignment of essentially Signed type value to an object of essentially Enum Type. |
+| test.c:436:11:436:11 | u | Assignment of essentially Unsigned type value to an object of essentially Enum Type. |
+| test.c:437:11:437:11 | f | Assignment of essentially Floating type value to an object of essentially Enum Type. |
+| test.c:438:11:438:12 | cf | Assignment of essentially Complex Floating type value to an object of essentially Enum Type. |
+| test.c:440:10:440:10 | b | Assignment of essentially Boolean type value to an object of essentially Signed type. |
+| test.c:441:10:441:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Signed type. |
+| test.c:443:10:443:10 | u | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:444:10:444:10 | f | Assignment of essentially Floating type value to an object of essentially Signed type. |
+| test.c:445:10:445:11 | cf | Assignment of essentially Complex Floating type value to an object of essentially Signed type. |
+| test.c:447:10:447:10 | b | Assignment of essentially Boolean type value to an object of essentially Unsigned type. |
+| test.c:448:10:448:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Unsigned type. |
+| test.c:449:10:449:10 | s | Assignment of essentially Signed type value to an object of essentially Unsigned type. |
+| test.c:451:10:451:10 | f | Assignment of essentially Floating type value to an object of essentially Unsigned type. |
+| test.c:452:10:452:11 | cf | Assignment of essentially Complex Floating type value to an object of essentially Unsigned type. |
+| test.c:454:10:454:10 | b | Assignment of essentially Boolean type value to an object of essentially Floating type. |
+| test.c:455:10:455:11 | e1 | Assignment of essentially Enum Type value to an object of essentially Floating type. |
+| test.c:456:10:456:10 | s | Assignment of essentially Signed type value to an object of essentially Floating type. |
+| test.c:457:10:457:10 | u | Assignment of essentially Unsigned type value to an object of essentially Floating type. |
+| test.c:459:10:459:11 | cf | Assignment of essentially Complex Floating type value to an object of essentially Floating type. |
+| test.c:461:11:461:11 | b | Assignment of essentially Boolean type value to an object of essentially Complex Floating type. |
+| test.c:462:11:462:12 | e1 | Assignment of essentially Enum Type value to an object of essentially Complex Floating type. |
+| test.c:463:11:463:11 | s | Assignment of essentially Signed type value to an object of essentially Complex Floating type. |
+| test.c:464:11:464:11 | u | Assignment of essentially Unsigned type value to an object of essentially Complex Floating type. |
+| test.c:473:26:473:28 | f64 | Assignment of essentially Floating type value to an object of essentially Complex Floating type. |
+| test.c:490:12:490:20 | ... & ... | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:491:12:491:20 | ... \| ... | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:492:12:492:20 | ... ^ ... | Assignment of essentially Unsigned type value to an object of essentially Signed type. |
+| test.c:497:20:497:27 | ... & ... | Assignment of value of essentially Signed type of size 2 bytes to an object narrower essential type of size 1 bytes. |
+| test.c:502:23:502:30 | ... & ... | Assignment of value of essentially Unsigned type of size 2 bytes to an object narrower essential type of size 1 bytes. |
+| test.c:505:22:505:29 | ... & ... | Assignment of essentially Signed type value to an object of essentially Unsigned type. |

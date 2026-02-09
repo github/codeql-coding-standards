@@ -1,0 +1,106 @@
+edges
+| test.c:4:5:4:6 | *g2 | test.c:54:33:54:34 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:55:29:55:30 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:56:42:56:43 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:57:35:57:36 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:58:36:58:37 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:59:56:59:57 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:60:60:60:61 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:61:54:61:55 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:62:58:62:59 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:63:37:63:38 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:64:37:64:38 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:65:36:65:37 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:66:37:66:38 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:67:37:67:38 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:68:23:68:24 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:69:23:69:24 | g2 | provenance |  |
+| test.c:4:5:4:6 | *g2 | test.c:72:23:72:24 | g2 | provenance |  |
+| test.c:4:10:4:29 | memory_order_relaxed | test.c:4:5:4:6 | *g2 | provenance |  |
+| test.c:4:10:4:29 | memory_order_relaxed | test.c:4:10:4:29 | memory_order_relaxed | provenance |  |
+| test.c:5:5:5:6 | *g3 | test.c:73:23:73:24 | g3 | provenance |  |
+| test.c:5:10:5:29 | memory_order_acquire | test.c:5:5:5:6 | *g3 | provenance |  |
+| test.c:5:10:5:29 | memory_order_acquire | test.c:5:10:5:29 | memory_order_acquire | provenance |  |
+| test.c:6:5:6:6 | *g4 | test.c:74:23:74:24 | g4 | provenance |  |
+| test.c:6:10:6:29 | memory_order_consume | test.c:6:5:6:6 | *g4 | provenance |  |
+| test.c:6:10:6:29 | memory_order_consume | test.c:6:10:6:29 | memory_order_consume | provenance |  |
+| test.c:7:5:7:6 | *g5 | test.c:75:23:75:24 | g5 | provenance |  |
+| test.c:7:10:7:29 | memory_order_acq_rel | test.c:7:5:7:6 | *g5 | provenance |  |
+| test.c:7:10:7:29 | memory_order_acq_rel | test.c:7:10:7:29 | memory_order_acq_rel | provenance |  |
+| test.c:8:5:8:6 | *g6 | test.c:76:23:76:24 | g6 | provenance |  |
+| test.c:8:10:8:29 | memory_order_release | test.c:8:5:8:6 | *g6 | provenance |  |
+| test.c:8:10:8:29 | memory_order_release | test.c:8:10:8:29 | memory_order_release | provenance |  |
+nodes
+| test.c:4:5:4:6 | *g2 | semmle.label | *g2 |
+| test.c:4:10:4:29 | memory_order_relaxed | semmle.label | memory_order_relaxed |
+| test.c:4:10:4:29 | memory_order_relaxed | semmle.label | memory_order_relaxed |
+| test.c:5:5:5:6 | *g3 | semmle.label | *g3 |
+| test.c:5:10:5:29 | memory_order_acquire | semmle.label | memory_order_acquire |
+| test.c:5:10:5:29 | memory_order_acquire | semmle.label | memory_order_acquire |
+| test.c:6:5:6:6 | *g4 | semmle.label | *g4 |
+| test.c:6:10:6:29 | memory_order_consume | semmle.label | memory_order_consume |
+| test.c:6:10:6:29 | memory_order_consume | semmle.label | memory_order_consume |
+| test.c:7:5:7:6 | *g5 | semmle.label | *g5 |
+| test.c:7:10:7:29 | memory_order_acq_rel | semmle.label | memory_order_acq_rel |
+| test.c:7:10:7:29 | memory_order_acq_rel | semmle.label | memory_order_acq_rel |
+| test.c:8:5:8:6 | *g6 | semmle.label | *g6 |
+| test.c:8:10:8:29 | memory_order_release | semmle.label | memory_order_release |
+| test.c:8:10:8:29 | memory_order_release | semmle.label | memory_order_release |
+| test.c:17:3:17:49 | memory_order_relaxed | semmle.label | memory_order_relaxed |
+| test.c:18:3:18:49 | memory_order_acquire | semmle.label | memory_order_acquire |
+| test.c:19:3:19:49 | memory_order_consume | semmle.label | memory_order_consume |
+| test.c:20:3:20:49 | memory_order_acq_rel | semmle.label | memory_order_acq_rel |
+| test.c:21:3:21:49 | memory_order_release | semmle.label | memory_order_release |
+| test.c:54:33:54:34 | g2 | semmle.label | g2 |
+| test.c:55:29:55:30 | g2 | semmle.label | g2 |
+| test.c:56:42:56:43 | g2 | semmle.label | g2 |
+| test.c:57:35:57:36 | g2 | semmle.label | g2 |
+| test.c:58:36:58:37 | g2 | semmle.label | g2 |
+| test.c:59:56:59:57 | g2 | semmle.label | g2 |
+| test.c:60:60:60:61 | g2 | semmle.label | g2 |
+| test.c:61:54:61:55 | g2 | semmle.label | g2 |
+| test.c:62:58:62:59 | g2 | semmle.label | g2 |
+| test.c:63:37:63:38 | g2 | semmle.label | g2 |
+| test.c:64:37:64:38 | g2 | semmle.label | g2 |
+| test.c:65:36:65:37 | g2 | semmle.label | g2 |
+| test.c:66:37:66:38 | g2 | semmle.label | g2 |
+| test.c:67:37:67:38 | g2 | semmle.label | g2 |
+| test.c:68:23:68:24 | g2 | semmle.label | g2 |
+| test.c:69:23:69:24 | g2 | semmle.label | g2 |
+| test.c:72:23:72:24 | g2 | semmle.label | g2 |
+| test.c:73:23:73:24 | g3 | semmle.label | g3 |
+| test.c:74:23:74:24 | g4 | semmle.label | g4 |
+| test.c:75:23:75:24 | g5 | semmle.label | g5 |
+| test.c:76:23:76:24 | g6 | semmle.label | g6 |
+| test.c:80:23:80:23 | 1 | semmle.label | 1 |
+| test.c:81:23:81:25 | 100 | semmle.label | 100 |
+subpaths
+#select
+| test.c:17:3:17:49 | memory_order_relaxed | test.c:17:3:17:49 | memory_order_relaxed | test.c:17:3:17:49 | memory_order_relaxed | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:18:3:18:49 | memory_order_acquire | test.c:18:3:18:49 | memory_order_acquire | test.c:18:3:18:49 | memory_order_acquire | Invalid memory order '$@' in call to function '$@'. | memory_order_acquire | memory_order_acquire | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:19:3:19:49 | memory_order_consume | test.c:19:3:19:49 | memory_order_consume | test.c:19:3:19:49 | memory_order_consume | Invalid memory order '$@' in call to function '$@'. | memory_order_consume | memory_order_consume | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:20:3:20:49 | memory_order_acq_rel | test.c:20:3:20:49 | memory_order_acq_rel | test.c:20:3:20:49 | memory_order_acq_rel | Invalid memory order '$@' in call to function '$@'. | memory_order_acq_rel | memory_order_acq_rel | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:21:3:21:49 | memory_order_release | test.c:21:3:21:49 | memory_order_release | test.c:21:3:21:49 | memory_order_release | Invalid memory order '$@' in call to function '$@'. | memory_order_release | memory_order_release | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:54:33:54:34 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:54:33:54:34 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_store_explicit |
+| test.c:55:29:55:30 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:55:29:55:30 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_load_explicit |
+| test.c:56:42:56:43 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:56:42:56:43 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_flag_test_and_set_explicit |
+| test.c:57:35:57:36 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:57:35:57:36 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_flag_clear_explicit |
+| test.c:58:36:58:37 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:58:36:58:37 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_exchange_explicit |
+| test.c:59:56:59:57 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:59:56:59:57 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_compare_exchange_strong_explicit |
+| test.c:60:60:60:61 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:60:60:60:61 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_compare_exchange_strong_explicit |
+| test.c:61:54:61:55 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:61:54:61:55 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_compare_exchange_weak_explicit |
+| test.c:62:58:62:59 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:62:58:62:59 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_compare_exchange_weak_explicit |
+| test.c:63:37:63:38 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:63:37:63:38 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_fetch_add_explicit |
+| test.c:64:37:64:38 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:64:37:64:38 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_fetch_sub_explicit |
+| test.c:65:36:65:37 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:65:36:65:37 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_fetch_or_explicit |
+| test.c:66:37:66:38 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:66:37:66:38 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_fetch_xor_explicit |
+| test.c:67:37:67:38 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:67:37:67:38 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_fetch_and_explicit |
+| test.c:68:23:68:24 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:68:23:68:24 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_thread_fence |
+| test.c:69:23:69:24 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:69:23:69:24 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_signal_fence |
+| test.c:72:23:72:24 | g2 | test.c:4:10:4:29 | memory_order_relaxed | test.c:72:23:72:24 | g2 | Invalid memory order '$@' in call to function '$@'. | memory_order_relaxed | memory_order_relaxed | Invocation of a standard function implemented as a macro | atomic_thread_fence |
+| test.c:73:23:73:24 | g3 | test.c:5:10:5:29 | memory_order_acquire | test.c:73:23:73:24 | g3 | Invalid memory order '$@' in call to function '$@'. | memory_order_acquire | memory_order_acquire | Invocation of a standard function implemented as a macro | atomic_thread_fence |
+| test.c:74:23:74:24 | g4 | test.c:6:10:6:29 | memory_order_consume | test.c:74:23:74:24 | g4 | Invalid memory order '$@' in call to function '$@'. | memory_order_consume | memory_order_consume | Invocation of a standard function implemented as a macro | atomic_thread_fence |
+| test.c:75:23:75:24 | g5 | test.c:7:10:7:29 | memory_order_acq_rel | test.c:75:23:75:24 | g5 | Invalid memory order '$@' in call to function '$@'. | memory_order_acq_rel | memory_order_acq_rel | Invocation of a standard function implemented as a macro | atomic_thread_fence |
+| test.c:76:23:76:24 | g6 | test.c:8:10:8:29 | memory_order_release | test.c:76:23:76:24 | g6 | Invalid memory order '$@' in call to function '$@'. | memory_order_release | memory_order_release | Invocation of a standard function implemented as a macro | atomic_thread_fence |
+| test.c:80:23:80:23 | 1 | test.c:80:23:80:23 | 1 | test.c:80:23:80:23 | 1 | Invalid memory order '$@' in call to function '$@'. | memory_order_consume | memory_order_consume | Invocation of a standard function implemented as a macro | atomic_thread_fence |
+| test.c:81:23:81:25 | 100 | test.c:81:23:81:25 | 100 | test.c:81:23:81:25 | 100 | Invalid memory order '$@' in call to function '$@'. | 100 | 100 | Invocation of a standard function implemented as a macro | atomic_thread_fence |

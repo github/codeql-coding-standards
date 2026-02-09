@@ -1,3 +1,16 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:35,14-22)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:37,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:39,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:42,45-53)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:52,33-41)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:52,58-66)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:53,42-50)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:56,9-17)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:56,34-42)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:57,9-17)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:57,34-42)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:42,9-22)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (AppropriateThreadObjectStorageDurations.ql:52,7-20)
 | test.c:23:3:23:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:23:24:23:29 | & ... | Shared object |
 | test.c:74:3:74:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:74:24:74:24 | p | Shared object |
 | test.c:85:3:85:13 | call to thrd_create | $@ not declared with appropriate storage duration | test.c:85:24:85:24 | p | Shared object |

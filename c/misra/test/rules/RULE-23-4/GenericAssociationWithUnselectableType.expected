@@ -1,0 +1,13 @@
+| test.c:11:24:11:24 | 1 | Generic selection uses unselectable type 'const int', due to qualifiers removed'. | test.c:11:24:11:24 | 1 | side effect |
+| test.c:12:27:12:27 | 1 | Generic selection uses unselectable type 'volatile int', due to qualifiers removed'. | test.c:12:27:12:27 | 1 | side effect |
+| test.c:13:26:13:26 | 1 | Generic selection uses unselectable type '_Atomic(int)', due to qualifiers removed'. | test.c:13:26:13:26 | 1 | side effect |
+| test.c:16:33:16:33 | 1 | Generic selection uses unselectable type 'const volatile int', due to qualifiers removed'. | test.c:16:33:16:33 | 1 | side effect |
+| test.c:18:24:18:24 | 1 | Generic selection uses unselectable type '(unnamed class/struct/union)', due to containing an anonymous struct or union type'. | test.c:18:24:18:24 | 1 | side effect |
+| test.c:19:26:19:26 | 1 | Generic selection uses unselectable type 'struct <unnamed> *', due to containing an anonymous struct or union type'. | test.c:19:26:19:26 | 1 | side effect |
+| test.c:24:23:24:23 | 1 | Generic selection uses unselectable type '(unnamed class/struct/union)', due to containing an anonymous struct or union type'. | test.c:24:23:24:23 | 1 | side effect |
+| test.c:25:25:25:25 | 1 | Generic selection uses unselectable type 'union <unnamed> *', due to containing an anonymous struct or union type'. | test.c:25:25:25:25 | 1 | side effect |
+| test.c:31:21:31:21 | 1 | Generic selection uses unselectable type 'int[3]', due to array-to-pointer decay'. | test.c:31:21:31:21 | 1 | side effect |
+| test.c:40:1:40:55 | #define M1(X) _Generic((X), const int : 1, default : 0) | Generic in macro M1 has unselectable type 'const int', due to qualifiers removed. | test.c:40:1:40:55 | #define M1(X) _Generic((X), const int : 1, default : 0) | (ignored) |
+| test.c:42:1:42:48 | #define M2(X) _Generic(1, X[3] : 1, default : 0) | Generic in macro M2 has an invocation-dependent unselectable type, for example $@. | test.c:49:3:49:10 | 1 | 'char[3]', due to array-to-pointer decay |
+| test.c:52:3:52:15 | M3(X) | Generic resulting from invocation of macro $@ contains an unselectable type 'const int', due to qualifiers removed. | test.c:44:1:44:45 | #define M3(X) _Generic(1, X : 1, default : 0) | M3 |
+| test.c:64:24:64:24 | 1 | Generic selection uses unselectable type 'const_int', due to qualifiers removed'. | test.c:64:24:64:24 | 1 | side effect |

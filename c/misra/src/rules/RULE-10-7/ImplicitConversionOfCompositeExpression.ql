@@ -23,6 +23,10 @@ bindingset[essentialTypeLeft, essentialTypeRight]
 pragma[inline_late]
 predicate isSameEssentialTypeCategory(Type essentialTypeLeft, Type essentialTypeRight) {
   getEssentialTypeCategory(essentialTypeLeft) = getEssentialTypeCategory(essentialTypeRight)
+  or
+  // Complex and real floating types are considered interchangeable
+  getEssentialTypeCategory(essentialTypeLeft) = EssentiallyFloatingType(_) and
+  getEssentialTypeCategory(essentialTypeRight) = EssentiallyFloatingType(_)
 }
 
 from
@@ -35,7 +39,7 @@ where
   not otherOp = compositeOp and
   compositeEssentialType = getEssentialType(compositeOp) and
   otherOpEssentialType = getEssentialType(otherOp) and
-  compositeEssentialType.getSize() < otherOpEssentialType.getSize() and
+  getEssentialSize(compositeEssentialType) < getEssentialSize(otherOpEssentialType) and
   // Operands of a different type category in an operation with the usual arithmetic conversions is
   // prohibited by Rule 10.4, so we only report cases here where the essential type categories are
   // the same

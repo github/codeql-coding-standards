@@ -9,12 +9,17 @@
  * @tags external/cert/id/msc33-c
  *       security
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p27
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * The argument of a call to `asctime`

@@ -9,6 +9,11 @@
  * @tags external/cert/id/exp33-c
  *       correctness
  *       security
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p12
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 

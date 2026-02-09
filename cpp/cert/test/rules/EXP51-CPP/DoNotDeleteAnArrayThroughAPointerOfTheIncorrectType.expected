@@ -1,3 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:24,44-52)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:25,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:27,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql:32,33-41)
 edges
 | test.cpp:6:19:6:37 | new[] | test.cpp:9:12:9:13 | l1 | provenance |  |
 | test.cpp:7:22:7:40 | new[] | test.cpp:10:12:10:13 | l2 | provenance |  |

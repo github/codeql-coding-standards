@@ -1,0 +1,2 @@
+ - `RULE-1-4` -  `EmergentLanguageFeaturesUsed.ql`:
+   - Remove restrictions on `stdnoreturn.h`, `stdalign.h`.

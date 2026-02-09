@@ -1,0 +1,79 @@
+{
+  "MISRA-C-2012": {
+    "RULE-8-15": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "An object declared with an explicit alignment shall be explicitly aligned in all declarations.",
+          "kind": "problem",
+          "name": "Alignment should match between all declarations of an object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RedeclarationOfObjectWithoutAlignment",
+          "tags": [
+            "external/misra/c/2012/amendment3",
+            "readability",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "All declarations of an object with an explicit alignment specification shall specify the same alignment.",
+          "kind": "problem",
+          "name": "Alignment should match between all declarations of an object",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "RedeclarationOfObjectWithUnmatchedAlignment",
+          "tags": [
+            "external/misra/c/2012/amendment3",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "All declarations of an object with an explicit alignment specification shall specify the same alignment"
+    },
+    "RULE-8-16": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "A declaration shall not have an alignment of size zero.",
+          "kind": "problem",
+          "name": "The alignment specification of zero should not appear in an object declaration",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AlignmentWithSizeZero",
+          "tags": [
+            "external/misra/c/2012/amendment3",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The alignment specification of zero should not appear in an object declaration"
+    },
+    "RULE-8-17": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "While C permits the usage of multiple alignment specifiers, doing so reduces readability and may obscure the intent of the declaration.",
+          "kind": "problem",
+          "name": "At most one explicit alignment specifier should appear in an object declaration",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MoreThanOneAlignmentSpecifierOnDeclaration",
+          "tags": [
+            "external/misra/c/2012/amendment3",
+            "readability"
+          ]
+        }
+      ],
+      "title": "At most one explicit alignment specifier should appear in an object declaration"
+    }
+  }
+}

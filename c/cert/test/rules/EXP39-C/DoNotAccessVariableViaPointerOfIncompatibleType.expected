@@ -1,3 +1,10 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:66,38-46)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:69,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:74,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:107,23-31)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:116,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:116,45-53)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAccessVariableViaPointerOfIncompatibleType.ql:138,27-35)
 edges
 | test.c:49:8:49:9 | s3 | test.c:50:8:50:9 | s1 | provenance |  |
 | test.c:60:16:60:18 | E1A | test.c:61:16:61:17 | e1 | provenance |  |
@@ -9,7 +16,7 @@ edges
 | test.c:97:32:97:37 | call to malloc | test.c:98:40:98:41 | s2 | provenance |  |
 | test.c:98:32:98:38 | call to realloc | test.c:99:3:99:4 | s3 | provenance |  |
 | test.c:98:32:98:38 | call to realloc | test.c:100:10:100:11 | s3 | provenance |  |
-| test.c:98:40:98:41 | s2 | test.c:98:32:98:38 | call to realloc | provenance |  |
+| test.c:98:40:98:41 | s2 | test.c:98:32:98:38 | call to realloc | provenance | Config |
 nodes
 | test.c:6:19:6:20 | & ... | semmle.label | & ... |
 | test.c:11:10:11:11 | & ... | semmle.label | & ... |

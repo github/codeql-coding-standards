@@ -1,1 +1,4 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArgumentToForwardSubsequentlyUsed.ql:22,10-18)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArgumentToForwardSubsequentlyUsed.ql:24,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ArgumentToForwardSubsequentlyUsed.ql:24,30-38)
 | test.cpp:8:5:8:6 | t2 | The argument $@ of `std::forward` may be indeterminate when accessed at this location. | test.cpp:7:45:7:46 | t2 | t2 |

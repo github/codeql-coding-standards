@@ -1,3 +1,12 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:93,7-15)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:93,27-35)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:94,9-17)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:98,9-17)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:98,29-37)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:99,11-19)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:109,35-43)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:110,11-19)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql:109,9-22)
 | test.cpp:8:42:8:46 | call to begin | Output iterator for $@ is not guaranteed to be large enough for the input iterator. | test.cpp:8:3:8:11 | call to copy | call to copy |
 | test.cpp:17:42:17:46 | call to begin | Output iterator for $@ is not guaranteed to be large enough for the input iterator. | test.cpp:17:3:17:11 | call to copy | call to copy |
 | test.cpp:55:42:55:46 | call to begin | Output iterator for $@ is not guaranteed to be large enough for the input iterator. | test.cpp:55:3:55:11 | call to copy | call to copy |

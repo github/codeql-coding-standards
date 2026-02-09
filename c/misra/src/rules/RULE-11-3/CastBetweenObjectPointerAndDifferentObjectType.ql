@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Pointers
+import codingstandards.cpp.types.Pointers
 
 from CStyleCast cast, Type baseTypeFrom, Type baseTypeTo
 where
@@ -23,7 +23,11 @@ where
   baseTypeFrom = cast.getExpr().getType().(PointerToObjectType).getBaseType() and
   baseTypeTo = cast.getType().(PointerToObjectType).getBaseType() and
   // exception: cast to a char, signed char, or unsigned char is permitted
-  not baseTypeTo.stripType() instanceof CharType and
+  not (
+    baseTypeTo.stripType() instanceof CharType and
+    // Exception does not apply to _Atomic types
+    not baseTypeFrom.hasSpecifier("atomic")
+  ) and
   (
     (
       baseTypeFrom.isVolatile() and not baseTypeTo.isVolatile()

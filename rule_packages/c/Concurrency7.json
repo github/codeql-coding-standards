@@ -1,0 +1,49 @@
+{
+  "MISRA-C-2012": {
+    "RULE-9-7": {
+      "properties": {
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Atomic objects that do not have static storage duration shall be initialized with a value or by using 'atomic_init()'.",
+          "kind": "problem",
+          "name": "Atomic objects shall be appropriately initialized before being accessed",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "UninitializedAtomicObject",
+          "tags": [
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ],
+          "implementation_scope": {
+            "description": "This query tracks which functions may start threads, either indirectly or directly (\"thread spawning functions\"), and checks for local atomic variables that are not passed by address into `atomic_init` or other function calls, before such a thread spawning function is called.",
+            "items": []
+          }
+        }
+      ],
+      "title": "Atomic objects shall be appropriately initialized before being accessed"
+    },
+    "RULE-21-26": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The Standard Library function mtx_timedlock() shall only be invoked on mutex objects of appropriate mutex type.",
+          "kind": "path-problem",
+          "name": "The Standard Library function mtx_timedlock() shall only be invoked on mutexes of type mtx_timed",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "TimedlockOnInappropriateMutexType",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "external/misra/c/2012/amendment4"
+          ]
+        }
+      ],
+      "title": "The Standard Library function mtx_timedlock() shall only be invoked on mutex objects of appropriate mutex type"
+    }
+  }
+}

@@ -1,3 +1,4 @@
-| test.h:2:12:2:13 | i1 | Declaration with external linkage is accessed in only one translation unit $@. | test.c:4:3:4:4 | i1 | i1 |
-| test.h:3:5:3:6 | i2 | Declaration with external linkage is accessed in only one translation unit $@. | test.c:5:3:5:4 | i2 | i2 |
-| test.h:5:13:5:14 | f2 | Declaration with external linkage is accessed in only one translation unit $@. | test.c:7:3:7:4 | call to f2 | call to f2 |
+| test2.h:2:13:2:14 | f6 | Declaration with external linkage is accessed in only one translation unit $@. | test2.h:3:22:3:23 | call to f6 | call to f6 |
+| test.c:3:5:3:6 | i1 | Declaration with external linkage is accessed in only one translation unit $@. | test.c:11:3:11:4 | i1 | i1 |
+| test.c:4:5:4:6 | i2 | Declaration with external linkage is accessed in only one translation unit $@. | test.c:12:3:12:4 | i2 | i2 |
+| test.c:6:6:6:7 | f2 | Declaration with external linkage is accessed in only one translation unit $@. | test.c:14:3:14:4 | call to f2 | call to f2 |

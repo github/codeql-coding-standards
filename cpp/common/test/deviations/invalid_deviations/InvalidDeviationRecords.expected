@@ -1,14 +1,14 @@
-| coding-standards.xml:5:7:5:27 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: No rule-id and query-id specified for this deviation record. |
-| coding-standards.xml:6:7:8:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: The rule-id `bad rule id` for this deviation matches none of the available queries. |
-| coding-standards.xml:9:7:11:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A query-id of `bad rule id` is specified for this deviation, but not rule-id is specified. |
-| coding-standards.xml:15:7:17:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A query-id of `cpp/autosar/useless-assignment` is specified for this deviation, but not rule-id is specified. |
-| coding-standards.xml:22:7:26:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A deviation `raised-by` is specified without providing an `approved-by`. |
-| coding-standards.xml:22:7:26:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A deviation `raised-by` is specified without providing both a `name` and `date`. |
-| coding-standards.xml:27:7:33:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A deviation `raised-by` is specified without providing an `approved-by`. |
-| coding-standards.xml:27:7:33:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A deviation `raised-by` is specified without providing both a `name` and `date`. |
-| coding-standards.xml:34:7:41:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A deviation `raised-by` is specified without providing an `approved-by`. |
-| coding-standards.xml:42:7:50:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A deviation `approved-by` is specified without providing both a `name` and `date`. |
-| coding-standards.xml:51:7:61:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: A deviation `approved-by` is specified without providing both a `name` and `date`. |
-| coding-standards.xml:74:7:78:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: There is no deviation permit with id `non-existing-permit`. |
-| coding-standards.xml:79:7:81:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: No rule-id and query-id specified for this deviation record. |
-| coding-standards.xml:85:7:88:26 | deviations-entry | deviations/invalid_deviations/coding-standards.xml: The deviation is applied to a query with the rule category 'mandatory' that does not permit a deviation. |
+| coding-standards.xml:5:7:5:27 | deviations-entry | coding-standards.xml: No rule-id and query-id specified for this deviation record. |
+| coding-standards.xml:6:7:8:26 | deviations-entry | coding-standards.xml: The rule-id `bad rule id` for this deviation matches none of the available queries. |
+| coding-standards.xml:9:7:11:26 | deviations-entry | coding-standards.xml: A query-id of `bad rule id` is specified for this deviation, but not rule-id is specified. |
+| coding-standards.xml:15:7:17:26 | deviations-entry | coding-standards.xml: A query-id of `cpp/autosar/useless-assignment` is specified for this deviation, but not rule-id is specified. |
+| coding-standards.xml:22:7:26:26 | deviations-entry | coding-standards.xml: A deviation `raised-by` is specified without providing an `approved-by`. |
+| coding-standards.xml:22:7:26:26 | deviations-entry | coding-standards.xml: A deviation `raised-by` is specified without providing both a `name` and `date`. |
+| coding-standards.xml:27:7:33:26 | deviations-entry | coding-standards.xml: A deviation `raised-by` is specified without providing an `approved-by`. |
+| coding-standards.xml:27:7:33:26 | deviations-entry | coding-standards.xml: A deviation `raised-by` is specified without providing both a `name` and `date`. |
+| coding-standards.xml:34:7:41:26 | deviations-entry | coding-standards.xml: A deviation `raised-by` is specified without providing an `approved-by`. |
+| coding-standards.xml:42:7:50:26 | deviations-entry | coding-standards.xml: A deviation `approved-by` is specified without providing both a `name` and `date`. |
+| coding-standards.xml:51:7:61:26 | deviations-entry | coding-standards.xml: A deviation `approved-by` is specified without providing both a `name` and `date`. |
+| coding-standards.xml:74:7:78:26 | deviations-entry | coding-standards.xml: There is no deviation permit with id `non-existing-permit`. |
+| coding-standards.xml:79:7:81:26 | deviations-entry | coding-standards.xml: No rule-id and query-id specified for this deviation record. |
+| coding-standards.xml:85:7:88:26 | deviations-entry | coding-standards.xml: The deviation is applied to a query with the rule category 'mandatory' that does not permit a deviation. |

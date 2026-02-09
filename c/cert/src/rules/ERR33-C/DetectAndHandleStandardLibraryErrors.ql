@@ -8,6 +8,11 @@
  * @problem.severity error
  * @tags external/cert/id/err33-c
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p18
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 
@@ -15,6 +20,7 @@ import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.commons.NULL
 import codingstandards.cpp.ReadErrorsAndEOF
+import semmle.code.cpp.dataflow.DataFlow
 
 ComparisonOperation getAValidComparison(string spec) {
   spec = "=0" and result.(EqualityOperation).getAnOperand().getValue() = "0"

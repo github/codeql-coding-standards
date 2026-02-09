@@ -1,0 +1,2 @@
+| test.cpp:11:9:11:9 | (int32_t)... | Expression not converted to `unsigned char` before converting to a larger integer type. |
+| test.cpp:12:41:12:41 | (signed int)... | Expression not converted to `unsigned char` before converting to a larger integer type. |

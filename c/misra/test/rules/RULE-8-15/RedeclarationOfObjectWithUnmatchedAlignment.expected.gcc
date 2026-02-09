@@ -1,0 +1,10 @@
+| test.c:11:8:11:15 | alignas(...) | Variable g4 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:11:8:11:15 | alignas(...) | 16 | test.c:12:8:12:15 | alignas(...) | 32 |
+| test.c:12:8:12:15 | alignas(...) | Variable g4 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:12:8:12:15 | alignas(...) | 32 | test.c:11:8:11:15 | alignas(...) | 16 |
+| test.c:18:8:18:15 | alignas(...) | Variable g6 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:18:8:18:15 | alignas(...) | int | test.c:19:8:19:15 | alignas(...) | 4 |
+| test.c:19:8:19:15 | alignas(...) | Variable g6 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:19:8:19:15 | alignas(...) | 4 | test.c:18:8:18:15 | alignas(...) | int |
+| test.c:22:8:22:15 | alignas(...) | Variable g7 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:22:8:22:15 | alignas(...) | ... * ... | test.c:23:8:23:15 | alignas(...) | 32 |
+| test.c:23:8:23:15 | alignas(...) | Variable g7 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:23:8:23:15 | alignas(...) | 32 | test.c:22:8:22:15 | alignas(...) | ... * ... |
+| test.c:28:8:28:15 | alignas(...) | Variable g9 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:28:8:28:15 | alignas(...) | ... * ... | test.c:29:8:29:15 | alignas(...) | ... * ... |
+| test.c:29:8:29:15 | alignas(...) | Variable g9 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:29:8:29:15 | alignas(...) | ... * ... | test.c:28:8:28:15 | alignas(...) | ... * ... |
+| test.c:34:8:34:15 | alignas(...) | Variable g11 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:34:8:34:15 | alignas(...) | signed int | test.c:35:8:35:15 | alignas(...) | unsigned int |
+| test.c:35:8:35:15 | alignas(...) | Variable g11 declared with lexically different _Alignof() values '$@' and '$@'. | test.c:35:8:35:15 | alignas(...) | unsigned int | test.c:34:8:34:15 | alignas(...) | signed int |

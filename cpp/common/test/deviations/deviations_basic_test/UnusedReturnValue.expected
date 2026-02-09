@@ -1,3 +1,17 @@
+| attribute_syntax.cpp:5:3:5:6 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
+| attribute_syntax.cpp:16:5:16:8 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
+| attribute_syntax.cpp:18:5:18:8 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
+| attribute_syntax.cpp:24:5:24:8 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
+| attribute_syntax.cpp:26:5:26:8 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
+| attribute_syntax.cpp:30:3:30:6 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
+| attribute_syntax.cpp:42:3:42:6 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
+| attribute_syntax.cpp:49:5:49:8 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
+| attribute_syntax.cpp:61:5:61:8 | call to getZ | Return value from call to $@ is unused. | attribute_syntax.cpp:1:5:1:8 | getZ | getZ |
 | main.cpp:12:3:12:6 | call to getX | Return value from call to $@ is unused. | main.cpp:8:5:8:8 | getX | getX |
+| main.cpp:25:3:25:6 | call to getX | Return value from call to $@ is unused. | main.cpp:8:5:8:8 | getX | getX |
+| main.cpp:27:3:27:6 | call to getX | Return value from call to $@ is unused. | main.cpp:8:5:8:8 | getX | getX |
+| main.cpp:33:3:33:6 | call to getX | Return value from call to $@ is unused. | main.cpp:8:5:8:8 | getX | getX |
+| main.cpp:35:3:35:6 | call to getX | Return value from call to $@ is unused. | main.cpp:8:5:8:8 | getX | getX |
+| main.cpp:39:3:39:6 | call to getX | Return value from call to $@ is unused. | main.cpp:8:5:8:8 | getX | getX |
 | nested/nested3/test3.h:5:3:5:7 | call to getZ3 | Return value from call to $@ is unused. | nested/nested3/test3.h:1:5:1:9 | getZ3 | getZ3 |
 | nested/test.h:5:3:5:6 | call to getY | Return value from call to $@ is unused. | nested/test.h:1:5:1:8 | getY | getY |

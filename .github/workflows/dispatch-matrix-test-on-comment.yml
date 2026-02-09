@@ -1,4 +1,8 @@
 name: 🤖 Run Matrix Check (On Comment)
+permissions:
+  contents: read
+  actions: write
+  pull-requests: write
 
 on:
   issue_comment:
@@ -9,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Check permission
         id: check-write-permission
@@ -19,7 +23,7 @@ jobs:
 
       - name: Generate token
         id: generate-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ vars.AUTOMATION_APP_ID }}
           private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
@@ -40,7 +44,7 @@ jobs:
           --json \
             -R github/codeql-coding-standards-release-engineering
 
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v8
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-matrix') && steps.check-write-permission.outputs.has-permission }}
         with:
           script: |

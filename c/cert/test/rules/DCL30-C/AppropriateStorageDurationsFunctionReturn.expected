@@ -1,2 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateStorageDurationsFunctionReturn.ql:33,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateStorageDurationsFunctionReturn.ql:37,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateStorageDurationsFunctionReturn.ql:50,6-14)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateStorageDurationsFunctionReturn.ql:50,26-34)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (AppropriateStorageDurationsFunctionReturn.ql:56,3-11)
 | test.c:3:10:3:10 | a | $@ with automatic storage may be accessible outside of its lifetime. | test.c:3:10:3:10 | a | a |
 | test.c:15:4:15:8 | param [inner post update] | $@ with automatic storage may be accessible outside of its lifetime. | test.c:15:12:15:13 | a2 | a2 |

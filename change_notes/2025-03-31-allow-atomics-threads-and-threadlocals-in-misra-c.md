@@ -1,0 +1,2 @@
+ - `RULE-1-4` - `EmergentLanguageFeaturesUsed.ql`:
+   - Allow usage of atomics, `thread.h`, and `_Thread_local` as per Misra C 2012 Amendment 4.

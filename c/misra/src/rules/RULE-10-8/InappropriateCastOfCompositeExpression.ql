@@ -30,12 +30,19 @@ where
   castTypeCategory = getEssentialTypeCategory(castEssentialType) and
   compositeTypeCategory = getEssentialTypeCategory(compositeExprEssentialType) and
   (
-    not castTypeCategory = compositeTypeCategory and
-    message =
-      "Cast from " + compositeTypeCategory + " to " + castTypeCategory + " changes type category."
-    or
-    castTypeCategory = compositeTypeCategory and
-    castEssentialType.getSize() > compositeExprEssentialType.getSize() and
-    message = "Cast from " + compositeTypeCategory + " to " + castTypeCategory + " widens type."
+    if
+      not castTypeCategory = compositeTypeCategory and
+      not (
+        // Exception 2: Casts between real or complex floating types are allowed
+        castTypeCategory = EssentiallyFloatingType(_) and
+        compositeTypeCategory = EssentiallyFloatingType(_)
+      )
+    then
+      message =
+        "Cast from " + compositeTypeCategory + " to " + castTypeCategory + " changes type category."
+    else (
+      getEssentialSize(castEssentialType) > getEssentialSize(compositeExprEssentialType) and
+      message = "Cast from " + compositeTypeCategory + " to " + castTypeCategory + " widens type."
+    )
   )
 select ce, message

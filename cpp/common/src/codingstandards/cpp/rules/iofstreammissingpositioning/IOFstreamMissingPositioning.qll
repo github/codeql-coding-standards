@@ -5,7 +5,7 @@
  */
 
 import cpp
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.cpp.Exclusions
 import codingstandards.cpp.standardlibrary.FileStreams
 import codingstandards.cpp.standardlibrary.FileAccess
@@ -51,23 +51,26 @@ class WriteFunctionCall extends ReadWriteCall {
   }
 }
 
-pragma[inline]
+bindingset[a, b]
+pragma[inline_late]
 predicate sameSource(FunctionCall a, FunctionCall b) {
   sameStreamSource(a, b) or
   sameFileSource(a, b)
 }
 
+bindingset[a, b]
 predicate sameAccessDirection(ReadWriteCall a, ReadWriteCall b) {
   a.getAccessDirection() = b.getAccessDirection()
 }
 
+bindingset[a, b]
 predicate oppositeAccessDirection(ReadWriteCall a, ReadWriteCall b) {
   not sameAccessDirection(a, b)
 }
 
 /**
  * A write operation reaching a read and vice versa
- * without intervening filepositioning
+ * without intervening file positioning calls.
  */
 ControlFlowNode reachesInExOperator(ReadWriteCall op) {
   result = op

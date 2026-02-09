@@ -153,3 +153,13 @@ void example_function() { f1(); } // COMPLIANT
 // clang-format off
 typedef struct x { int y; } z; //COMPLIANT - for struct typedef and struct var //NON_COMPLIANT - for struct all on one line
 // clang-format on
+
+#define foo(x, y)                                                              \
+  x++;                                                                         \
+  y++;
+
+void test_foo() {
+  int a = 1;
+  int b = 1;
+  foo(a, b); // COMPLIANT
+}

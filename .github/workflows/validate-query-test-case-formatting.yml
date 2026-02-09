@@ -1,4 +1,6 @@
 name: Validate Query Test Case Formatting
+permissions:
+  contents: read
 on:
   merge_group:
     types: [checks_requested]
@@ -20,7 +22,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ inputs.ref }}
 

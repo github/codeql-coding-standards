@@ -1,2 +1,2 @@
-| coding-standards.xml:100:7:103:33 | deviation-permits-entry | deviations/invalid_deviations/coding-standards.xml: Deviation permit does not specify a permit identifier. |
-| coding-standards.xml:104:7:107:33 | deviation-permits-entry | deviations/invalid_deviations/coding-standards.xml: Deviation permit specifies unknown property `invalid-property`. |
+| coding-standards.xml:105:7:108:33 | deviation-permits-entry | coding-standards.xml: Deviation permit does not specify a permit identifier. |
+| coding-standards.xml:109:7:112:33 | deviation-permits-entry | coding-standards.xml: Deviation permit specifies unknown property `invalid-property`. |

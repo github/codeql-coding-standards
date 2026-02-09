@@ -23,14 +23,14 @@ predicate isIncompatibleEssentialTypeCast(EssentialTypeCategory fromCat, Essenti
   toCat =
     [
       EssentiallyCharacterType(), EssentiallyEnumType(), EssentiallySignedType(),
-      EssentiallyUnsignedType(), EssentiallyFloatingType().(TEssentialTypeCategory)
+      EssentiallyUnsignedType(), EssentiallyFloatingType(_).(TEssentialTypeCategory)
     ]
   or
   fromCat = EssentiallyCharacterType() and
   toCat =
     [
       EssentiallyBooleanType(), EssentiallyEnumType(),
-      EssentiallyFloatingType().(TEssentialTypeCategory)
+      EssentiallyFloatingType(_).(TEssentialTypeCategory)
     ]
   or
   fromCat = EssentiallyEnumType() and
@@ -42,7 +42,7 @@ predicate isIncompatibleEssentialTypeCast(EssentialTypeCategory fromCat, Essenti
   fromCat = EssentiallyUnsignedType() and
   toCat = [EssentiallyBooleanType(), EssentiallyEnumType().(TEssentialTypeCategory)]
   or
-  fromCat = EssentiallyFloatingType() and
+  fromCat = EssentiallyFloatingType(_) and
   toCat =
     [
       EssentiallyBooleanType(), EssentiallyCharacterType(),

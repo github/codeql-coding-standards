@@ -46,16 +46,32 @@ string step1(string s) {
 
 string step2(string s) { s = "m_" and result = "rn" }
 
-predicate violation(UserVariable v1, UserVariable v2) {
-  v2 = getPotentialScopeOfVariable(v1) and
+class VariableName extends string {
+  VariableName() { exists(UserVariable uv | uv.getName() = this) }
+
+  string getCanon() {
+    result =
+      this.toLowerCase()
+          .replaceAll("_", "")
+          .regexpReplaceAll("[il]", "1")
+          .replaceAll("s", "5")
+          .replaceAll("z", "2")
+          .replaceAll("b", "8")
+          .replaceAll("h", "n")
+          .replaceAll("m", "rn")
+          .replaceAll("o", "0")
+  }
+}
+
+predicate isConflictingName(VariableName name1, VariableName name2) {
   exists(string s1, string s2 |
     // over-approximate a match, because it is cheaper to compute
-    getCanon(v1) = getCanon(v2) and
-    v1 != v2 and
-    not v1.getName() = v2.getName() and
+    name1.getCanon() = name2.getCanon() and
+    // Exclude identical names
+    not name1 = name2 and
     // expand 'm' to 'm_' to match either 'm_' or 'rn'
-    s1 = v1.getName().replaceAll("_", "").replaceAll("m", "m_") and
-    s2 = v2.getName().replaceAll("_", "").replaceAll("m", "m_") and
+    s1 = name1.replaceAll("_", "").replaceAll("m", "m_") and
+    s2 = name2.replaceAll("_", "").replaceAll("m", "m_") and
     // at this point the strings must have equal length, the substitutions do not expand nor contract the string
     s1.length() = s2.length() and
     forall(int i | i in [0 .. s1.length() - 1] |
@@ -84,6 +100,23 @@ predicate violation(UserVariable v1, UserVariable v2) {
         )
       )
     )
+  )
+}
+
+predicate violation(UserVariable v1, UserVariable v2) {
+  exists(string name1, string name2 |
+    isConflictingName(name1, name2) and
+    exists(Scope parentScope, Scope childScope |
+      parentScope.getVariable(name1) = v1 and
+      childScope.getVariable(name2) = v2
+    |
+      childScope.getStrictParent+() = parentScope
+      or
+      // Disambiguate names in the same scope by name order
+      childScope = parentScope and
+      name1 < name2
+    ) and
+    inSameTranslationUnitLate(v1.getFile(), v2.getFile())
   )
 }
 

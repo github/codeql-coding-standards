@@ -9,6 +9,11 @@
  * @problem.severity warning
  * @tags external/cert/id/dcl53-cpp
  *       correctness
+ *       external/cert/severity/low
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p2
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
@@ -20,6 +25,6 @@ from UserVariable v, UserVariable hidden
 where
   not isExcluded(v, ScopePackage::localConstructorInitializedObjectHidesIdentifierQuery()) and
   v.getInitializer().getExpr() instanceof ConstructorCall and
-  hides(hidden, v)
+  hidesStrict(hidden, v)
 select v, "The declaration declares variable " + v.getName() + " that hides $@", hidden,
   hidden.getName()

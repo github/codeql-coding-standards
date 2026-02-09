@@ -1,3 +1,4 @@
+
 # CodeQL Coding Standards : User manual
 
 ## Document management
@@ -29,18 +30,21 @@
 | 0.21.0  | 2024-05-01 | Luke Cartey     | Add MISRA C++ 2023 as under development, and clarify MISRA C 2012 coverage.                                             |
 | 0.22.0  | 2024-10-02 | Luke Cartey     | Add MISRA C 2023 as under development, and clarify MISRA C 2012 coverage.                                               |
 | 0.23.0  | 2024-10-21 | Luke Cartey     | Add assembly as a hazard.                                                                                               |
-| 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                                                               |
+| 0.24.0  | 2024-10-22 | Luke Cartey     | Add CodeQL packs as a usable output, update release artifacts list.                                                     |
+| 0.25.0  | 2025-01-15 | Mike Fairhurst  | Add guidance for the usage of 'strict' queries.                                                                         |
+| 0.26.0  | 2025-02-12 | Luke Cartey     | Describe support for new deviation code identifier formats                                                              |
+| 0.27.0  | 2025-05-15 | Luke Cartey     | Documented completed support for MISRA C 2023.                                                                          |
 
 ## Release information
 
-This user manual documents release `2.38.0-dev` of the coding standards located at [https://github.com/github/codeql-coding-standards](https://github.com/github/codeql-coding-standards).
+This user manual documents release `2.55.0-dev` of the coding standards located at [https://github.com/github/codeql-coding-standards](https://github.com/github/codeql-coding-standards).
 The release page documents the release notes and contains the following artifacts part of the release:
 
 - `coding-standards-codeql-packs-2.37.0-dev.zip`: CodeQL packs that can be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
-- `code-scanning-cpp-query-pack-2.38.0-dev.zip`: Legacy packaging for the queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
-- `supported_rules_list_2.38.0-dev.csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
-- `supported_rules_list_2.38.0-dev.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
-- `user_manual_2.38.0-dev.md`: This user manual.
+- `code-scanning-cpp-query-pack-2.55.0-dev.zip`: Legacy packaging for the queries and scripts to be used with GitHub Code Scanning or the CodeQL CLI as documented in the section _Operating manual_.
+- `supported_rules_list_2.55.0-dev.csv`: A Comma Separated File (CSV) containing the supported rules per standard and the queries that implement the rule.
+- `supported_rules_list_2.55.0-dev.md`: A Markdown formatted file with a table containing the supported rules per standard and the queries that implement the rule.
+- `user_manual_2.55.0-dev.md`: This user manual.
 - `Source Code (zip)`: A zip archive containing the contents of https://github.com/github/codeql-coding-standards
 - `Source Code (tar.gz)`: A GZip compressed tar archive containing the contents of https://github.com/github/codeql-coding-standards
 - `checksums.txt`: A text file containing sha256 checksums for the aforementioned artifacts.
@@ -57,16 +61,16 @@ A _coding standard_ is a set of rules or guidelines which restrict or prohibit t
 
 The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying contraventions of rules in the following coding standards:
 
-| Standard                                                                                                             | Version | Rules | Supportable rules | Implemented rules | Status            |
-| -------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ----------------------- | ----------------- | ------- |
-| AUTOSAR C++ | [^1] [R22-11](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf), R21-11, R20-11, R19-11, R19-03 | 397         | 372                     | 370[^2] | Implemented       |
-| CERT-C++   | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)    | 83          | 82                      | 82 | Implemented       |
-| CERT C       | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)    | 99          | 97                      | 97 | Implemented |
-| MISRA C                                | [2012 Third Edition, First Revision](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/), [Amendment 2](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf) and TC2  | 175         | 164                     | 162[^3] | Implemented |
-|                                | [MISRA C 2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)   | 24         | 24                     | - | Under development |
-|                                 | [MISRA C 2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)   | 22         | 22                     | - | Under development |
-|                                 | [2023 Third Edition, Second Revision](https://misra.org.uk/product/misra-c2023/)  | 221         | 210                     | - | Under development |
-| MISRA C++                                | [2023](https://misra.org.uk/product/misra-cpp2023/)  | 179         | 176[^4]                     | - | Under development |
+| Standard    | Version                                                                                                                                                                                                  | Rules | Supportable rules | Implemented rules | Status            |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ----------------- | ----------------- | ----------------- |
+| AUTOSAR C++ | [^1] [R22-11](https://www.autosar.org/fileadmin/standards/R22-11/AP/AUTOSAR_RS_CPP14Guidelines.pdf), R21-11, R20-11, R19-11, R19-03                                                                      | 397   | 372               | 370[^2]           | Implemented       |
+| CERT-C++    | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-cpp-coding-standard-2016-v01.pdf)                                                                                           | 83    | 82                | 82                | Implemented       |
+| CERT C      | [2016](https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf)                                                                                             | 99    | 97                | 97                | Implemented       |
+| MISRA C     | [2012 Third Edition, First Revision](https://www.misra.org.uk/product/misra-c2012-third-edition-first-revision/), [Amendment 2](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD2.pdf) and TC2  | 175   | 164               | 162[^3]           | Implemented       |
+|             | [2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)                                                                                                                       | 24    | 24                | 24                | Implemented       |
+|             | [2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)                                                                                                                       | 22    | 22                | 21[^4]            | Implemented       |
+|             | [2023 Third Edition, Second Revision](https://misra.org.uk/product/misra-c2023/)                                                                                                                         | 221   | 210               | 207[^5]           | Implemented       |
+| MISRA C++   | [2023](https://misra.org.uk/product/misra-cpp2023/)                                                                                                                                                      | 179   | 176[^6]           | -                 | Under development |
 
 Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
 
@@ -74,6 +78,7 @@ For each rule we therefore identify whether it is supportable or not. Furthermor
 
 - **Automated** - the queries for the rule find contraventions directly.
 - **Audit only** - the queries for the rule does not find contraventions directly, but instead report a list of _candidates_ that can be used as input into a manual audit. For example, `A10-0-1` (_Public inheritance shall be used to implement 'is-a' relationship_) is not directly amenable to static analysis, but CodeQL can be used to produce a list of all the locations that use public inheritance so they can be manually reviewed.
+- **Strict only** - the queries for the rule find contraventions directly, but find results which are strongly indicated to be intentional, and where adding a _deviation report_ may be extra burden on developers. For example, in `RULE-2-8` (_A project should not contain unused object definitions_), declaring objects with `__attribute__((unused))` may be preferable to a _deviation report_, which will not suppress relevant compiler warnings, and therefore would otherwise require developer double-entry.
 
 Each supported rule is implemented as one or more CodeQL queries, with each query covering an aspect of the rule. In many coding standards, the rules cover non-trivial semantic properties of the codebase under analysis.
 
@@ -81,8 +86,10 @@ The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each r
 
 [^1]: AUTOSAR C++ versions R22-11, R21-11, R20-11, R19-11 and R19-03 are all identical as indicated in the document change history.
 [^2]: The unimplemented supportable AUTOSAR rules are `A7-1-8` and `A8-2-1`. These rules require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules.
-[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5`, `Rule 17.13`, and `Dir 4.14`. `Rule 9.5` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
-[^4]: The rules 5.13.7, 19.0.1 and 19.1.2 are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
+[^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5`, `Rule 17.13`. `Rule 9.5` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. Note: `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
+[^4]: The unimplemented supportable MISRA C 2012 Amendment 4 rule is `Rule 9.6`. `Rule 9.6` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of this rule.
+[^5]: The unimplemented supportable MISRA C 2023 rules are `Rule 9.5`, `Rule 9.6`, `Rule 17.13`. `Rule 9.5`, `Rule 9.6` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. Note: `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
+[^6]: The rules `5.13.7`, `19.0.1` and `19.1.2` are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
 
 ## Supported environment
 
@@ -286,12 +293,20 @@ For each Coding Standard you want to run, add a trailing entry in the following 
 
 All other options discussed above are valid.
 
-#### Running the analysis for audit level queries
+#### Running the analysis for strict and/or audit level queries
 
-Optionally, you may want to run the "audit" level queries. These queries produce lists of results that do not directly highlight contraventions of the rule. Instead, they identify locations in the code that can be manually audited to verify the absence of problems for that particular rule.
+Optionally, you may want to run the "strict" or "audit" level queries.
+
+Audit queries produce lists of results that do not directly highlight contraventions of the rule. Instead, they identify locations in the code that can be manually audited to verify the absence of problems for that particular rule.
 
 ```bash
 codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-audit.qls...
+```
+
+Strict queries identify contraventions in the code that strongly suggest they are deliberate, and where adding an explicit _deviation report_ may be extra burden on developers.
+
+```bash
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> path/to/codeql-coding-standards/cpp/<coding-standard>/src/codeql-suites/<coding-standard>-strict.qls...
 ```
 
 #### Producing an analysis report
@@ -405,7 +420,7 @@ The example describes three ways of scoping a deviation:
 
 1. The deviation for `A18-1-1` applies to any source file in the same or a child directory of the directory containing the example `coding-standards.yml`.
 2. The deviation for `A18-5-1` applies to any source file in the directory `foo/bar` or a child directory of `foo/bar` relative to the directory containing the `coding-standards.yml`.
-3. The deviation for `A0-4-2` applies to any source element that has a comment residing on **the same line** containing the identifier specified in `code-identifier`.
+3. The deviation for `A0-4-2` applies to any source element that marked by a comment containing the identifier specified in `code-identifier`. The different acceptable formats are discussed in the next section.
 
 The activation of the deviation mechanism requires an extra step in the database creation process.
 This extra step is the invocation of the Python script `path/to/codeql-coding-standards/scripts/configuration/process_coding_standards_config.py` that is part of the coding standards code scanning pack.
@@ -420,7 +435,90 @@ The `process_coding_standards_config.py` has a dependency on the package `pyyaml
 
 `pip3 install -r path/to/codeql-coding-standards/scripts/configuration/requirements.txt`
 
-##### Deviation permit
+##### Deviation code identifier attributes
+
+A code identifier specified in a deviation record can be applied to certain results in the code by adding a C or C++ attribute of the following format:
+
+```
+[[codeql::<standard>_deviation("code-identifier")]]
+```
+
+For example `[[codeql::autosar_deviation("a1-2-4")]]` would apply a deviation of a rule in the AUTOSAR standard, using the code identifier `a1-2-4`. The supported standard names are `misra`, `autosar` and `cert`.
+
+This attribute may be added to the following program elements:
+
+ * Functions
+ * Statements
+ * Variables
+
+Deviation attributes are inherited from parents in the code structure. For example, a deviation attribute applied to a function will apply the deviation to all code within the function.
+
+Multiple code identifiers may be passed in a single attribute to apply multiple deviations, for example:
+
+```
+[[codeql::misra_deviation("code-identifier-1", "code-identifier-2")]]
+```
+
+Note - considation should be taken to ensure the use of custom attributes for deviations is compatible with your chosen language version, compiler, compiler configuration and coding standard.
+
+**Use of attributes in C Coding Standards**: The C Standard introduces attributes in C23, however some compilers support attributes as a language extension in prior versions. You should:
+ * Confirm that your compiler supports attributes for your chosen compiler configuration, if necessary as a language extension.
+ * Confirm that unknown attributes are ignored by the compiler.
+ * For MISRA C, add a project deviation against "Rule 1.2: Language extensions should not be used", if attribute support is a language extension in your language version. 
+
+**Use of attributes in C++ Coding Standards**: The C++ Standard supports attributes in C++14, however the handling of unknown attributes is implementation defined. From C++17 onwards, unknown attributes are mandated to be ignored. Unknown attributes will usually raise an "unknown attribute" warning. You should:
+ * If using C++14, confirm that your compiler ignores unknown attributes.
+ * If using AUTOSAR and a compiler which produces warnings on unknown attributes, the compiler warning should be disabled (as per `A1-1-2: A warning level of the compilation process shall be set in compliance with project policies`),  to ensure compliance with `A1-4-3: All code should compiler free of compiler warnings`.
+
+If you cannot satisfy these condition, please use the deviation code identifier comment format instead.
+
+##### Deviation code identifier comments
+
+As an alternative to attributes, a code identifier specified in a deviation record can be applied to certain results in the code by adding a comment marker consisting of a `code-identifier` with some optional annotations. The supported marker annotation formats are:
+
+ - `<code-identifier>` - the deviation applies to results on the current line.
+ - `codeql::<standard>_deviation(<code-identifier>)` - the deviation applies to results on the current line.
+ - `codeql::<standard>_deviation_next_line(<code-identifier>)` - this deviation applies to results on the next line.
+ - `codeql::<standard>_deviation_begin(<code-identifier>)` - marks the beginning of a range of lines where the deviation applies.
+ - `codeql::<standard>_deviation_end(<code-identifier>)` - marks the end of a range of lines where the deviation applies.
+
+Here are some examples, using the deviation record with the `a-0-4-2-deviation` code-identifier specified above:
+```cpp
+  long double x1; // NON_COMPLIANT
+
+  long double x2; // a-0-4-2-deviation - COMPLIANT
+  long double x3; // COMPLIANT - a-0-4-2-deviation
+
+  long double x4; // codeql::autosar_deviation(a-0-4-2-deviation) - COMPLIANT
+  long double x5; // COMPLIANT - codeql::autosar_deviation(a-0-4-2-deviation)
+
+  // codeql::autosar_deviation_next_line(a-0-4-2-deviation)
+  long double x6; // COMPLIANT
+
+  // codeql::autosar_deviation_begin(a-0-4-2-deviation)
+  long double x7; // COMPLIANT
+  // codeql::autosar_deviation_end(a-0-4-2-deviation)
+```
+
+`codeql::<standard>_deviation_end` markers will pair with the closest unmatched `codeql::<standard>_deviation_begin` for the same `code-identifier`. Consider this example:
+```cpp
+1 | // codeql::autosar_deviation_begin(a-0-4-2-deviation)
+2 |
+3 | // codeql::autosar_deviation_begin(a-0-4-2-deviation)
+4 |
+5 | // codeql::autosar_deviation_end(a-0-4-2-deviation)
+6 |
+7 | // codeql::autosar_deviation_end(a-0-4-2-deviation)
+```
+Here, Line 1 will pair with Line 7, and Line 3 will pair with Line 5.
+
+A `codeql::<standard>_deviation_end` without a matching `codeql::<standard>_deviation_begin`, or `codeql::<standard>_deviation_begin` without a matching `codeql::<standard>_deviation_end` is invalid and will be ignored.
+
+`codeql::<standard>_deviation_begin` and `ccodeql::<standard>_deviation_end` markers only apply within a single file. Markers cannot be paired across files, and deviations do not apply to included files.
+
+Note: deviation comment markers cannot be applied to the body of a macro. Please apply the deviation to macro expansion, or use the attribute deviation format.
+
+##### Deviation permits
 
 The current implementation supports _deviation permits_ as described in the [MISRA Compliance:2020](https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf) section _4.3 Deviation permits_.
 
@@ -573,7 +671,7 @@ This section describes known failure modes for "CodeQL Coding Standards" and des
 |                              | Out of space                                                                                                                                                       | Less output. Some files may be only be partially analyzed, or not analyzed at all.                                                                        | Error reported on the command line.                                                                                                                                                                                                                                                                                                  | Increase space. If it remains an issue report space consumption issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                            |
 |                              | False positives                                                                                                                                                    | More output. Results are reported which are not violations of the guidelines.                                                                             | All reported results must be reviewed.                                                                                                                                                                                                                                                                                               | Report false positive issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                                                                      |
 |                              | False negatives                                                                                                                                                    | Less output. Violations of the guidelines are not reported.                                                                                               | Other validation and verification processes during software development should be used to complement the analysis performed by CodeQL Coding Standards.                                                                                                                                                                              | Report false negative issues via the CodeQL Coding Standards [bug tracker](https://github.com/github/codeql-coding-standards/issues).                                                                                                                                                                                                                                      |
-|                              | Modifying coding standard suite                                                                                                                                    | More or less output. If queries are added to the query set more result can be reported. If queries are removed less results might be reported.            | All queries supported by the CodeQL Coding Standards are listed in the release artifacts `supported_rules_list_2.38.0-dev.csv` where VERSION is replaced with the used release. The rules in the resulting Sarif file must be cross-referenced with the expected rules in this list to determine the validity of the used CodeQL suite. | Ensure that the CodeQL Coding Standards are not modified in ways that are not documented as supported modifications.                                                                                                                                                                                                                                                    |
+|                              | Modifying coding standard suite                                                                                                                                    | More or less output. If queries are added to the query set more result can be reported. If queries are removed less results might be reported.            | All queries supported by the CodeQL Coding Standards are listed in the release artifacts `supported_rules_list_2.55.0-dev.csv` where VERSION is replaced with the used release. The rules in the resulting Sarif file must be cross-referenced with the expected rules in this list to determine the validity of the used CodeQL suite. | Ensure that the CodeQL Coding Standards are not modified in ways that are not documented as supported modifications.                                                                                                                                                                                                                                                    |
 |                              | Incorrect deviation record specification                                                                                                                           | More output. Results are reported for guidelines for which a deviation is assigned.                                                                       | Analysis integrity report lists all deviations and incorrectly specified deviation records with a reason. Ensure that all deviation records are correctly specified.                                                                                                                                                                 | Ensure that the deviation record is specified according to the specification in the user manual.                                                                                                                                                                                                                                                                           |
 |                              | Incorrect deviation permit specification                                                                                                                           | More output. Results are reported for guidelines for which a deviation is assigned.                                                                       | Analysis integrity report lists all deviations and incorrectly specified deviation permits with a reason. Ensure that all deviation permits are correctly specified.                                                                                                                                                                 | Ensure that the deviation record is specified according to the specification in the user manual.                                                                                                                                                                                                                                                                           |
 |                              | Unapproved use of a deviation record                                                                                                                               | Less output. Results for guideline violations are not reported.                                                                                           | Validate that the deviation record use is approved by verifying the approved-by attribute of the deviation record specification.                                                                                                                                                                                                     | Ensure that each raised deviation record is approved by an independent approver through an auditable process.                                                                                                                                                                                                                                                              |

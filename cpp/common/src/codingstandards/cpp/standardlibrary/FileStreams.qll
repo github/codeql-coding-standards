@@ -10,8 +10,8 @@
  */
 
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
-import codingstandards.cpp.dataflow.TaintTracking
+private import semmle.code.cpp.dataflow.DataFlow
+private import semmle.code.cpp.dataflow.TaintTracking
 private import codingstandards.cpp.Operator
 
 /**

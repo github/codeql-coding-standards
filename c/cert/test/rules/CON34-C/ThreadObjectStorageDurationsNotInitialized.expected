@@ -1,1 +1,6 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ThreadObjectStorageDurationsNotInitialized.ql:32,38-46)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ThreadObjectStorageDurationsNotInitialized.ql:35,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ThreadObjectStorageDurationsNotInitialized.ql:35,30-38)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ThreadObjectStorageDurationsNotInitialized.ql:36,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ThreadObjectStorageDurationsNotInitialized.ql:36,30-38)
 | test.c:14:7:14:13 | call to tss_get | Call to a thread specific storage function from within a threaded context on an object that may not be owned by this thread. |

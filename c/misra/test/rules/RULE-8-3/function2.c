@@ -8,7 +8,7 @@ long f5(int f5a) { return 0; } // COMPLIANT
 
 long f6(int f6a) { return 0; } // NON_COMPLIANT
 
-int f20(int f20a, int f20b); // COMPLIANT -- overloaded function
+int f20(int f20a, int f20b); // NON_COMPLIANT
 
 typedef int wi;
 typedef int hi;
@@ -17,3 +17,5 @@ typedef long a;
 extern a f21(wi w, hi h); // NON_COMPLIANT
 
 extern void f22(int f22a, int f22b); // NON_COMPLIANT
+
+extern void f23(int); // COMPLIANT

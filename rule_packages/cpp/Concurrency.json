@@ -15,7 +15,12 @@
           "shared_implementation_short_name": "DoNotAllowAMutexToGoOutOfScopeWhileLocked",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -28,7 +33,12 @@
           "shared_implementation_short_name": "DoNotDestroyAMutexWhileItIsLocked",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -48,7 +58,12 @@
           "short_name": "EnsureActivelyHeldLocksAreReleasedOnExceptionalConditions",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -69,7 +84,12 @@
           "shared_implementation_short_name": "GuardAccessToBitFields",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -90,7 +110,12 @@
           "shared_implementation_short_name": "PreventDeadlockByLockingInPredefinedOrder",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/low",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -111,7 +136,12 @@
           "shared_implementation_short_name": "WrapSpuriousFunctionInLoop",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -132,7 +162,12 @@
           "shared_implementation_short_name": "PreserveSafetyWhenUsingConditionVariables",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -152,7 +187,12 @@
           "short_name": "DoNotSpeculativelyLockALockedNonRecursiveMutex",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p1",
+            "external/cert/level/l3"
           ]
         },
         {
@@ -164,7 +204,12 @@
           "short_name": "LockedALockedNonRecursiveMutexAudit",
           "tags": [
             "correctness",
-            "concurrency"
+            "concurrency",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p1",
+            "external/cert/level/l3"
           ]
         }
       ],

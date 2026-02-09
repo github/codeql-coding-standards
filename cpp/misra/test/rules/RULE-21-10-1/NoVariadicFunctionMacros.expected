@@ -1,0 +1,29 @@
+| test.cpp:5:11:5:12 | l1 | Declaration of variable 'l1' of type 'va_list'. |
+| test.cpp:9:11:9:12 | l2 | Declaration of variable 'l2' of type 'va_list'. |
+| test.cpp:10:3:10:18 | __builtin_va_start | Call to 'va_start'. |
+| test.cpp:11:3:11:12 | __builtin_va_end | Call to 'va_end'. |
+| test.cpp:15:11:15:12 | l2 | Declaration of variable 'l2' of type 'va_list'. |
+| test.cpp:16:3:16:18 | __builtin_va_start | Call to 'va_start'. |
+| test.cpp:17:21:17:44 | __builtin_va_arg | Call to 'va_arg'. |
+| test.cpp:18:3:18:12 | __builtin_va_end | Call to 'va_end'. |
+| test.cpp:22:11:22:12 | l2 | Declaration of variable 'l2' of type 'va_list'. |
+| test.cpp:23:3:23:18 | __builtin_va_start | Call to 'va_start'. |
+| test.cpp:24:3:24:12 | __builtin_va_end | Call to 'va_end'. |
+| test.cpp:28:11:28:12 | l2 | Declaration of variable 'l2' of type 'va_list'. |
+| test.cpp:28:15:28:16 | l3 | Declaration of variable 'l3' of type 'va_list'. |
+| test.cpp:29:3:29:18 | __builtin_va_start | Call to 'va_start'. |
+| test.cpp:30:3:30:17 | __builtin_va_copy | Call to 'va_copy'. |
+| test.cpp:31:3:31:12 | __builtin_va_end | Call to 'va_end'. |
+| test.cpp:32:3:32:12 | __builtin_va_end | Call to 'va_end'. |
+| test.cpp:35:37:35:38 | l1 | Declaration of parameter 'l1' of type 'va_list'. |
+| test.cpp:36:15:36:32 | __builtin_va_arg | Call to 'va_arg'. |
+| test.cpp:40:11:40:12 | l2 | Declaration of variable 'l2' of type 'va_list'. |
+| test.cpp:41:3:41:18 | __builtin_va_start | Call to 'va_start'. |
+| test.cpp:42:21:42:44 | __builtin_va_arg | Call to 'va_arg'. |
+| test.cpp:43:15:43:32 | __builtin_va_arg | Call to 'va_arg'. |
+| test.cpp:44:3:44:12 | __builtin_va_end | Call to 'va_end'. |
+| test.cpp:55:17:55:29 | va_list_alias | Declaration of typedef 'va_list_alias' aliasing 'va_list' type. |
+| test.cpp:56:17:56:25 | SOME_TYPE | Declaration of typedef 'SOME_TYPE' aliasing 'va_list' type. |
+| test.cpp:58:17:58:18 | l1 | Declaration of variable 'l1' of type 'va_list'. |
+| test.cpp:59:13:59:14 | l2 | Declaration of variable 'l2' of type 'va_list'. |
+| test.cpp:65:12:65:13 | l1 | Declaration of variable 'l1' of type 'va_list'. |

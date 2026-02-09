@@ -1,0 +1,12 @@
+| test.c:6:5:6:6 | definition of g2 | Unused object 'g2'. | test.c:6:5:6:6 | definition of g2 | (ignored) |
+| test.c:9:5:9:6 | definition of g3 | Unused object 'g3'. | test.c:9:5:9:6 | definition of g3 | (ignored) |
+| test.c:20:7:20:8 | definition of l2 | Unused object 'l2'. | test.c:20:7:20:8 | definition of l2 | (ignored) |
+| test.c:27:7:27:8 | definition of l5 | Unused object 'l5'. | test.c:27:7:27:8 | definition of l5 | (ignored) |
+| test.c:37:10:37:11 | definition of g5 | Unused object 'g5'. | test.c:37:10:37:11 | definition of g5 | (ignored) |
+| test.c:45:9:45:10 | definition of g6 | Unused object 'g6'. | test.c:45:9:45:10 | definition of g6 | (ignored) |
+| test.c:51:5:51:6 | definition of g7 | Unused object 'g7'. | test.c:51:5:51:6 | definition of g7 | (ignored) |
+| test.c:64:3:64:18 | ONLY_DEF_VAR(x) | Invocation of macro '$@' defines unused object 'l2'. | test.c:60:1:60:34 | #define ONLY_DEF_VAR(x) int x = 0; | ONLY_DEF_VAR |
+| test.c:68:1:71:5 | #define ALSO_DEF_VAR(x) int x = 0; while (1) ; | Macro 'ALSO_DEF_VAR' defines unused object with an invocation-dependent name, for example, '$@'. | test.c:73:16:73:17 | definition of l1 | l1 |
+| test.c:77:1:82:3 | #define DEF_UNUSED_INNER_VAR() { int _v = 0; while (1) ; } | Macro 'DEF_UNUSED_INNER_VAR' defines unused object '_v'. | test.c:77:1:82:3 | #define DEF_UNUSED_INNER_VAR() { int _v = 0; while (1) ; } | (ignored) |
+| test.c:119:11:119:13 | definition of g10 | Unused object 'g10'. | test.c:119:11:119:13 | definition of g10 | (ignored) |
+| test.c:124:13:124:14 | definition of l2 | Unused object 'l2'. | test.c:124:13:124:14 | definition of l2 | (ignored) |

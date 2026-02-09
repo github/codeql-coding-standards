@@ -1,0 +1,21 @@
+- `CON34-C` - `AppropriateThreadObjectStorageDurations.ql`:
+  - Improved analysis for detecting objects with automatic storage duration
+  - New reports will include `a.x`, `a[x]` for object `a` with automatic storage duration
+- `DCL30-C` - `AppropriateStorageDurationsFunctionReturn.ql`:
+  - Improved analysis for detecting objects with automatic storage duration
+  - New reports will include `a.x`, `a[x]` for object `a` with automatic storage duration
+  - False positives related to returning copying pointer values 
+- `EXP35-C` - `DoNotModifyObjectsWithTemporaryLifetime.ql`:
+  - Improved analysis for detecting objects with temporary lifetime
+  - More non-lvalue expressions that produce temporary objects detected, for instance `(x = y).x`, previously only `f().x` discovered
+- `MEM33-C` - `AllocStructsWithAFlexibleArrayMemberDynamically.ql`:
+  - Improved analysis for detecting objects with automatic storage duration
+  - New reports will include struct literals with a flexible array member
+- `RULE-18-9` - `ModifiableLValueSubscriptedWithTemporaryLifetime.ql`:
+  - Problems will be reported at more obviously non-lvalue locations
+  - Implementation refactored to be shared with other libraries
+  - No other changes expected
+- `RULE-18-9` - `ArrayToPointerConversionOfTemporaryLifetime.ql`:
+  - Problems will be reported at more obviously non-lvalue locations
+  - Implementation refactored to be shared with other libraries
+  - No other changes expected

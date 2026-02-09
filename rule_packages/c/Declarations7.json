@@ -14,7 +14,12 @@
           "short_name": "InformationLeakageAcrossTrustBoundariesC",
           "shared_implementation_short_name": "InformationLeakageAcrossBoundaries",
           "tags": [
-            "security"
+            "security",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p1",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "The rule does not detect cases where fields may have uninitialized padding but are initialized via an initializer."

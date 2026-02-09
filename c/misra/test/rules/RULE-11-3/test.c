@@ -21,4 +21,10 @@ void f1(void) {
   (int *const)v2;             // NON_COMPLIANT
   int *const v10 = v2;        // NON_COMPLIANT
   (long long *)v10;           // NON_COMPLIANT
+
+  _Atomic int *v11 = 0;
+  (char *)v11;             // NON_COMPLIANT
+  v2 = v11;                // NON_COMPLIANT
+  (_Atomic char *)v11;     // NON_COMPLIANT
+  _Atomic char *v12 = v11; // NON_COMPLIANT
 }

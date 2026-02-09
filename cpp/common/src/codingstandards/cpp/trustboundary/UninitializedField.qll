@@ -5,7 +5,7 @@
  */
 
 import cpp
-private import codingstandards.cpp.dataflow.DataFlow
+private import semmle.code.cpp.dataflow.DataFlow
 private import semmle.code.cpp.controlflow.SubBasicBlocks
 private import semmle.code.cpp.padding.Padding as Padding
 private import semmle.code.cpp.dataflow.internal.FlowVar

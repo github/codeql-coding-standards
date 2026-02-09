@@ -9,6 +9,11 @@
  * @problem.severity error
  * @tags external/cert/id/err55-cpp
  *       correctness
+ *       external/cert/severity/low
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p9
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

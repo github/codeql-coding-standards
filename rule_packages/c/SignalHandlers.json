@@ -14,7 +14,12 @@
           "short_name": "CallOnlyAsyncSafeFunctionsWithinSignalHandlers",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -34,7 +39,12 @@
           "short_name": "DoNotAccessSharedObjectsInSignalHandlers",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p9",
+            "external/cert/level/l2"
           ],
           "implementation_scope": {
             "description": "The implementation does not verify the correct usage of `atomic_is_lock_free`."
@@ -57,7 +67,12 @@
           "short_name": "DoNotCallSignalFromInterruptibleSignalHandlers",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -77,7 +92,12 @@
           "short_name": "DoNotReturnFromAComputationalExceptionHandler",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p1",
+            "external/cert/level/l3"
           ]
         }
       ],

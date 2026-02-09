@@ -1,0 +1,12 @@
+- description: CERT C++ 2016 Level 2 Rules (Priority 6 - Priority 9)
+- qlpack: codeql/cert-cpp-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    - external/cert/obligation/rule
+    tags contain:
+    - external/cert/level/l2
+- exclude:
+    tags contain:
+    - external/cert/default-disabled

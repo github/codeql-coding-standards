@@ -1,0 +1,10 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (MutexObjectsNotAlwaysUnlocked.ql:22,52-60)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (MutexObjectsNotAlwaysUnlocked.ql:30,42-50)
+| test.c:16:3:16:10 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |
+| test.c:21:3:21:10 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |
+| test.c:39:3:39:10 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |
+| test.c:55:3:55:10 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |
+| test.c:72:3:72:10 | call to mtx_lock | Mutex 'g1' is locked here and may not always be subsequently unlocked. |
+| test.c:79:3:79:10 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |
+| test.c:101:5:101:12 | call to mtx_lock | Mutex 'm' is locked here and may not always be subsequently unlocked. |
+| test.c:113:3:113:10 | call to mtx_lock | Mutex 'ptr_m1' is locked here and may not always be subsequently unlocked. |

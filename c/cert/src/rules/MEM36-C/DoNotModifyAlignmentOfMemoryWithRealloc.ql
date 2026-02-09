@@ -9,13 +9,18 @@
  * @tags external/cert/id/mem36-c
  *       correctness
  *       security
+ *       external/cert/severity/low
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p2
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Alignment
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import AlignedAllocToReallocFlow::PathGraph
 
 int getStatedValue(Expr e) {

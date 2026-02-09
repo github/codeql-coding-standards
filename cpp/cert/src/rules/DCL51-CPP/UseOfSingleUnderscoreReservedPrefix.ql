@@ -9,6 +9,11 @@
  * @tags external/cert/id/dcl51-cpp
  *       maintainability
  *       readability
+ *       external/cert/severity/low
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p3
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 

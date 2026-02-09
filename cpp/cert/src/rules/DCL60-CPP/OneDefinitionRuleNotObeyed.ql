@@ -8,6 +8,11 @@
  * @problem.severity error
  * @tags external/cert/id/dcl60-cpp
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p3
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 

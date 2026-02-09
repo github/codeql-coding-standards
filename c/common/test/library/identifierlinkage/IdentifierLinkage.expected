@@ -1,0 +1,10 @@
+| identifierlinkage.c:2:5:2:10 | g_ext1 | external linkage |
+| identifierlinkage.c:3:12:3:17 | g_ext2 | external linkage |
+| identifierlinkage.c:6:12:6:17 | g_int1 | internal linkage |
+| identifierlinkage.c:9:5:9:10 | g_ext3 | external linkage |
+| identifierlinkage.c:12:12:12:17 | g_int2 | internal linkage |
+| identifierlinkage.c:15:12:15:12 | p | no linkage |
+| identifierlinkage.c:16:7:16:13 | l_none1 | no linkage |
+| identifierlinkage.c:17:14:17:20 | l_none2 | no linkage |
+| identifierlinkage.c:18:14:18:19 | l_ext1 | external linkage |
+| identifierlinkage.c:24:7:24:7 | m | no linkage |

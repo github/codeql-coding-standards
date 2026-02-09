@@ -1,0 +1,38 @@
+{
+  "MISRA-C-2012": {
+    "DIR-4-15": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Evaluation of floating-point expressions shall not lead to the undetected generation of infinities.",
+          "kind": "path-problem",
+          "name": "Evaluation of floating-point expressions shall not lead to the undetected generation of infinities",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "PossibleMisuseOfUndetectedInfinity",
+          "shared_implementation_short_name": "MisuseOfInfiniteFloatingPointValue",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        },
+        {
+          "description": "Evaluation of floating-point expressions shall not lead to the undetected generation of NaNs.",
+          "kind": "path-problem",
+          "name": "Evaluation of floating-point expressions shall not lead to the undetected generation of NaNs",
+          "precision": "low",
+          "severity": "warning",
+          "short_name": "PossibleMisuseOfUndetectedNaN",
+          "shared_implementation_short_name": "MisuseOfNaNFloatingPointValue",
+          "tags": [
+            "correctness",
+            "external/misra/c/2012/amendment3"
+          ]
+        }
+      ],
+      "title": "Evaluation of floating-point expressions shall not lead to the undetected generation of infinities and NaNs"
+    }
+  }
+}

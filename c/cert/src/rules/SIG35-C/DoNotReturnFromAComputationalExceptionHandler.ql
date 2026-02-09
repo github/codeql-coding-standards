@@ -8,13 +8,18 @@
  * @tags external/cert/id/sig35-c
  *       correctness
  *       security
+ *       external/cert/severity/low
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p1
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Signal
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * CFG nodes preceeding a `ReturnStmt`

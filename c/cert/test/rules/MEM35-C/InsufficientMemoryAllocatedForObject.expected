@@ -1,3 +1,5 @@
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (InsufficientMemoryAllocatedForObject.ql:90,5-18)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (InsufficientMemoryAllocatedForObject.ql:148,5-18)
 | test.c:12:19:12:24 | call to malloc | Allocation size (32 bytes) is not a multiple of the size of 'S1' (36 bytes). | test.c:12:26:12:32 | 32 |  |
 | test.c:15:19:15:24 | call to malloc | Allocation size calculated from the size of a different type ($@). | test.c:15:26:15:35 | sizeof(<expr>) | sizeof(S1 *) |
 | test.c:20:19:20:24 | call to malloc | Allocation size (128 bytes) is not a multiple of the size of 'S1' (36 bytes). | test.c:20:26:20:36 | ... * ... |  |

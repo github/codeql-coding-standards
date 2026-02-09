@@ -1,7 +1,6 @@
 /** Provides a library for errno-setting functions. */
 
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
 
 /**
  * An errno-setting function

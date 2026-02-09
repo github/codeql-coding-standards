@@ -1,0 +1,1 @@
+| test.c:21:3:21:22 | _Generic | $@ in generic expression does not expand a macro parameter. | test.c:21:12:21:12 | 1 | Controlling expression |

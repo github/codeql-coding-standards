@@ -12,7 +12,7 @@ long f5(int f5a) { return 0; } // COMPLIANT
 
 int f6(int f6a) { return 0; } // NON_COMPLIANT
 
-int f20(int f20a); // COMPLIANT - overloaded function
+int f20(int f20a); // NON_COMPLIANT
 
 typedef int wi;
 typedef int hi;
@@ -23,5 +23,9 @@ a f21(wi w, wi h) { // NON_COMPLIANT
 }
 
 void f22(int f22b, int f22a) { // NON_COMPLIANT
+  return;
+}
+
+void f23(int f23a) { // COMPLIANT
   return;
 }

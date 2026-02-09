@@ -1,3 +1,5 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (InOutParametersDeclaredAsTNotModified.ql:50,7-15)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (InOutParametersDeclaredAsTNotModified.ql:64,7-15)
 | test.cpp:4:13:4:13 | i | In-out parameter i that is not written to. |
 | test.cpp:7:22:7:24 | str | In-out parameter str that is not read from. |
 | test.cpp:18:14:18:14 | i | In-out parameter i that is not read from. |

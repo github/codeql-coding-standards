@@ -1,3 +1,10 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql:43,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql:44,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql:49,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql:52,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql:73,10-18)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql:74,29-37)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql:75,29-37)
 | test.c:23:32:23:33 | ap | The value of ap is indeterminate after the $@. | test.c:17:7:17:19 | call to contains_zero | call to contains_zero |
 | test.c:26:10:26:11 | ap | The value of ap is indeterminate after the $@. | test.c:17:7:17:19 | call to contains_zero | call to contains_zero |
 | test.c:39:12:39:13 | ap | The value of ap is indeterminate after the $@. | test.c:35:7:35:19 | call to contains_zero | call to contains_zero |

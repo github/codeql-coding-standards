@@ -1,0 +1,10 @@
+- description: CERT C 2016 (Recommendations)
+- qlpack: codeql/cert-c-coding-standards
+- include:
+    kind:
+    - problem
+    - path-problem
+    - external/cert/obligation/recommendation
+- exclude:
+    tags contain:
+    - external/cert/default-disabled

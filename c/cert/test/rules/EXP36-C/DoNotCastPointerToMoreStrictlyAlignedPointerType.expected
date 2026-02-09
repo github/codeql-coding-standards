@@ -1,3 +1,13 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:103,86-94)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:125,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:127,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:132,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:138,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:144,55-63)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:145,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:147,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:154,26-34)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotCastPointerToMoreStrictlyAlignedPointerType.ql:169,44-52)
 edges
 | test.c:75:14:75:16 | & ... | test.c:76:11:76:12 | v1 | provenance |  |
 | test.c:75:14:75:16 | & ... | test.c:77:12:77:13 | v1 | provenance |  |

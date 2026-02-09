@@ -295,7 +295,12 @@
           "severity": "error",
           "short_name": "DoNotLetExceptionsEscapeFromDestructorsOrDeallocationFunctions",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -315,7 +320,12 @@
           "shared_implementation_short_name": "CatchBlockShadowing",
           "short_name": "CatchBlockShadowingCert",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],

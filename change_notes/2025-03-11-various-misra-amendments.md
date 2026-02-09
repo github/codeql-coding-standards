@@ -1,0 +1,9 @@
+ - `DIR-4-9` - `FunctionOverFunctionLikeMacro.ql`:
+   - Macros with `_Generic` now no longer reported.
+ - `RULE-1-4` - `EmergentLanguageFeaturesUsed.ql`:
+   - Ban on usage of `_Generics` removed.
+ - `RULE-18-6` - `ThreadLocalObjectAddressCopiedToGlobalObject.ql`:
+   - New query added to detect thread local objects assigned to static storage duration objects.
+ - `RULE-21-12` - `ExceptionHandlingFeaturesOfFenvhUsed.ql`:
+   - Added reports for `#include`ing "fenv.h", and for using `fesetenv`, `feupdatenv`, and `fesetround`.
+   - Report message altered to handle new cases.

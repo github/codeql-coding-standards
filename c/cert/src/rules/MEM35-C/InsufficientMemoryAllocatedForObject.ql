@@ -9,6 +9,11 @@
  * @tags external/cert/id/mem35-c
  *       correctness
  *       security
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
@@ -16,7 +21,7 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Overflow
 import semmle.code.cpp.controlflow.Guards
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 import semmle.code.cpp.models.Models
 
 /**

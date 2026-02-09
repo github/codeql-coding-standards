@@ -33,3 +33,16 @@ void test_templatefunction_return() {
   int k = 3;
   t1(j, k);
 }
+
+class C1 {
+private:
+  int x;
+
+public:
+  int test() { return x; } // COMPLIANT - ignore member vars
+};
+
+int x;
+int test_global() {
+  return x; // COMPLIANT - ignore global vars
+}

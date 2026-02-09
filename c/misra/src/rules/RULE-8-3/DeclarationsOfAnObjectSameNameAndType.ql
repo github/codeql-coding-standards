@@ -14,12 +14,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Compatible
+import codingstandards.cpp.types.Compatible
 
-from VariableDeclarationEntry decl1, VariableDeclarationEntry decl2
-where
-  not isExcluded(decl1, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
-  not isExcluded(decl2, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
+predicate relevantPair(VariableDeclarationEntry decl1, VariableDeclarationEntry decl2) {
   not decl1 = decl2 and
   not decl1.getVariable().getDeclaringType().isAnonymous() and
   // Declarations are for the same qualified name
@@ -34,9 +31,25 @@ where
     or
     decl1.getVariable().(Field).getDeclaringType().(Class).getALinkTarget() =
       decl2.getVariable().(Field).getDeclaringType().(Class).getALinkTarget()
-  ) and
-  not typesCompatible(decl1.getType(), decl2.getType())
+  )
+}
+
+predicate relevantTypes(Type a, Type b) {
+  exists(VariableDeclarationEntry varA, VariableDeclarationEntry varB |
+    a = varA.getType() and
+    b = varB.getType() and
+    relevantPair(varA, varB)
+  )
+}
+
+from VariableDeclarationEntry decl1, VariableDeclarationEntry decl2
+where
+  not isExcluded(decl1, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
+  not isExcluded(decl2, Declarations4Package::declarationsOfAnObjectSameNameAndTypeQuery()) and
+  relevantPair(decl1, decl2) and
+  not TypeEquivalence<TypeNamesMatchConfig, relevantTypes/2>::equalTypes(decl1.getType(),
+    decl2.getType())
 select decl1,
   "The object $@ of type " + decl1.getType().toString() +
-    " is not compatible with re-declaration $@ of type " + decl2.getType().toString(), decl1,
-  decl1.getName(), decl2, decl2.getName()
+    " does not use the same type names as re-declaration $@ of type " + decl2.getType().toString(),
+  decl1, decl1.getName(), decl2, decl2.getName()

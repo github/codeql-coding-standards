@@ -3,8 +3,8 @@
  */
 
 import cpp
-import codingstandards.cpp.dataflow.DataFlow
-import codingstandards.cpp.dataflow.TaintTracking
+private import semmle.code.cpp.dataflow.DataFlow
+private import semmle.code.cpp.dataflow.TaintTracking
 import codingstandards.cpp.StdNamespace
 import codingstandards.cpp.rules.containeraccesswithoutrangecheck.ContainerAccessWithoutRangeCheck as ContainerAccessWithoutRangeCheck
 import semmle.code.cpp.controlflow.Guards
@@ -16,7 +16,9 @@ abstract class ContainerAccess extends VariableAccess {
 }
 
 pragma[noinline, nomagic]
-predicate localTaint(DataFlow::Node n1, DataFlow::Node n2) { TaintTracking::localTaint(n1, n2) }
+private predicate localTaint(DataFlow::Node n1, DataFlow::Node n2) {
+  TaintTracking::localTaint(n1, n2)
+}
 
 // define this as anything with dataflow FROM the vector
 class ContainerPointerOrReferenceAccess extends ContainerAccess {
@@ -37,7 +39,9 @@ class ContainerPointerOrReferenceAccess extends ContainerAccess {
       ) and
       localTaint(DataFlow::exprNode(fc), DataFlow::exprNode(this)) and
       (getUnderlyingType() instanceof ReferenceType or getUnderlyingType() instanceof PointerType) and
-      fc.getQualifier().(VariableAccess).getTarget() = owningContainer
+      fc.getQualifier().(VariableAccess).getTarget() = owningContainer and
+      // Exclude cases where we see taint into the owning container
+      not this = owningContainer.getAnAccess()
     )
   }
 

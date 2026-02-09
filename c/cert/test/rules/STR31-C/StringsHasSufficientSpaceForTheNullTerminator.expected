@@ -1,3 +1,9 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (StringsHasSufficientSpaceForTheNullTerminator.ql:62,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (StringsHasSufficientSpaceForTheNullTerminator.ql:62,55-63)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (StringsHasSufficientSpaceForTheNullTerminator.ql:68,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (StringsHasSufficientSpaceForTheNullTerminator.ql:68,54-62)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (StringsHasSufficientSpaceForTheNullTerminator.ql:62,5-18)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (StringsHasSufficientSpaceForTheNullTerminator.ql:68,5-18)
 | test.c:10:20:10:24 | Cod | Expression produces or consumes a string that may not have sufficient space for a null-terminator. |
 | test.c:16:3:16:9 | call to strncpy | Expression produces or consumes a string that may not have sufficient space for a null-terminator. |
 | test.c:26:3:26:10 | call to snprintf | Expression produces or consumes a string that may not have sufficient space for a null-terminator. |

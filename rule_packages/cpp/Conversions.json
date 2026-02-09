@@ -1,0 +1,147 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-7-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Converting a bool type (implicitly or explicitly) to another type can lead to unintended behavior and code obfuscation, particularly when using bitwise operators instead of logical operators.",
+          "kind": "problem",
+          "name": "There shall be no conversion from type bool",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoConversionFromBool",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "There shall be no conversion from type bool"
+    },
+    "RULE-7-0-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Implicit and contextual conversions to bool from fundamental types, unscoped enums, or pointers may lead to unintended behavior, except for specific cases like pointer checks and explicit operator bool conversions.",
+          "kind": "problem",
+          "name": "There shall be no conversion to type bool",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoImplicitBoolConversion",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "There shall be no conversion to type bool"
+    },
+    "RULE-7-0-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using the numerical value of a character type may lead to inconsistent behavior due to encoding dependencies and should be avoided in favor of safer C++ Standard Library functions.",
+          "kind": "problem",
+          "name": "The numerical value of a character shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoCharacterNumericalValue",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The numerical value of a character shall not be used"
+    },
+    "RULE-7-0-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Bitwise and shift operators should only be applied to operands of appropriate types and values to avoid implementation-defined or undefined behavior.",
+          "kind": "problem",
+          "name": "The operands of bitwise operators and shift operators shall be appropriate",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InappropriateBitwiseOrShiftOperands",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The operands of bitwise operators and shift operators shall be appropriate"
+    },
+    "RULE-7-0-5": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Integral promotion and usual arithmetic conversions that change operand signedness or type category may cause unexpected behavior or undefined behavior when operations overflow.",
+          "kind": "problem",
+          "name": "Integral promotion and the usual arithmetic conversions shall not change the signedness or the type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoSignednessChangeFromPromotion",
+          "tags": [
+            "scope/single-translation-unit"
+          ],
+          "implementation_scope": {
+            "description": "Arithmetic conversions in preprocessor directives are not supported."
+          }
+        }
+      ],
+      "title": "Integral promotion and the usual arithmetic conversions shall not change the signedness or the type category of an operand"
+    },
+    "RULE-7-0-6": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Assignment between numeric types with different sizes, signedness, or type categories can lead to unexpected information loss, undefined behavior, or silent overload resolution changes.",
+          "kind": "problem",
+          "name": "Assignment between numeric types shall be appropriate",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "NumericAssignmentTypeMismatch",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Assignment between numeric types shall be appropriate"
+    },
+    "RULE-7-11-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Converting a function type to a pointer-to-function type outside of static_cast or assignment to a pointer-to-function object creates ambiguous behavior and potential unintended effects.",
+          "kind": "problem",
+          "name": "A conversion from function type to pointer-to-function type shall only occur in appropriate contexts",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "FunctionPointerConversionContext",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "A conversion from function type to pointer-to-function type shall only occur in appropriate contexts"
+    }
+  }
+}

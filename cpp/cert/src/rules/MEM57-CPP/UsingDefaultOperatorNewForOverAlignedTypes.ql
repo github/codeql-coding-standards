@@ -9,6 +9,11 @@
  * @tags external/cert/id/mem57-cpp
  *       correctness
  *       security
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 

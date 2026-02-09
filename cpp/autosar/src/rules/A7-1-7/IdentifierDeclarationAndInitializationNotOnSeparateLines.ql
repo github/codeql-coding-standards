@@ -19,26 +19,28 @@ import codingstandards.cpp.autosar
 class UniqueLineStmt extends Locatable {
   UniqueLineStmt() {
     not isAffectedByMacro() and
-    exists(Declaration d |
-      this = d.getADeclarationEntry() and
-      not d instanceof Parameter and
-      not d instanceof TemplateParameter and
-      // TODO - Needs to be enhanced to solve issues with
-      // templated inner classes.
-      not d instanceof Function and
-      not d.isFromTemplateInstantiation(_) and
-      not d.(Variable).isCompilerGenerated() and
-      not exists(RangeBasedForStmt f | f.getADeclaration() = d) and
-      not exists(DeclStmt declStmt, ForStmt f |
-        f.getInitialization() = declStmt and
-        declStmt.getADeclaration() = d
-      ) and
-      not exists(LambdaCapture lc | lc.getField().getADeclarationEntry() = this)
+    (
+      exists(Declaration d |
+        this = d.getADeclarationEntry() and
+        not d instanceof Parameter and
+        not d instanceof TypeTemplateParameter and
+        // TODO - Needs to be enhanced to solve issues with
+        // templated inner classes.
+        not d instanceof Function and
+        not d.isFromTemplateInstantiation(_) and
+        not d.(Variable).isCompilerGenerated() and
+        not exists(RangeBasedForStmt f | f.getADeclaration() = d) and
+        not exists(DeclStmt declStmt, ForStmt f |
+          f.getInitialization() = declStmt and
+          declStmt.getADeclaration() = d
+        ) and
+        not exists(LambdaCapture lc | lc.getField().getADeclarationEntry() = this)
+      )
+      or
+      this instanceof ExprStmt and
+      not exists(ForStmt f | f.getInitialization().getAChild*() = this) and
+      not exists(LambdaExpression l | l.getLambdaFunction().getBlock().getAChild*() = this)
     )
-    or
-    this instanceof ExprStmt and
-    not exists(ForStmt f | f.getInitialization().getAChild*() = this) and
-    not exists(LambdaExpression l | l.getLambdaFunction().getBlock().getAChild*() = this)
   }
 }
 
@@ -53,11 +55,9 @@ where
   //omit the cases where there is one struct identifier on a struct var line used with typedef
   not exists(Struct s | s.getADeclarationEntry() = e1 and e1 instanceof TypeDeclarationEntry) and
   not exists(Struct s | s.getATypeNameUse() = e1 and e1 instanceof TypeDeclarationEntry) and
-  exists(Location l1, Location l2 |
-    e1.getLocation() = l1 and
-    e2.getLocation() = l2 and
-    not l1 = l2 and
-    l1.getFile() = l2.getFile() and
-    l1.getStartLine() = l2.getStartLine()
+  exists(string file, int startline |
+    e1.getLocation().hasLocationInfo(file, startline, _, _, _) and
+    e2.getLocation().hasLocationInfo(file, startline, _, _, _) and
+    not e1.getLocation() = e2.getLocation()
   )
 select e1, "Expression statement and identifier are on the same line."

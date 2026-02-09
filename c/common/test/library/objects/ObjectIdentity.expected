@@ -1,0 +1,21 @@
+| objectidentity.c:3:5:3:14 | g_statstg1 | static storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:4:12:4:21 | g_statstg2 | static storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:5:12:5:21 | g_statstg3 | static storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:8:13:8:22 | p_autostg1 | automatic storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:8:31:8:40 | l_autostg2 | automatic storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:12:14:12:23 | l_statstg1 | static storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:13:14:13:23 | l_statstg2 | static storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:17:15:17:24 | g_thrdstg1 | thread storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:18:22:18:31 | g_thrdstg2 | thread storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:19:22:19:31 | g_thrdstg3 | thread storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:21:24:21:33 | l_statstg3 | thread storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:22:24:22:33 | l_statstg4 | thread storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:35:11:35:20 | g_statstg4 | static storage duration | file://:0:0:0:0 | s * |
+| objectidentity.c:35:35:35:37 | {...} | static storage duration | objectidentity.c:27:8:27:8 | s |
+| objectidentity.c:35:36:35:36 | 0 | static storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:36:7:36:16 | g_statstg5 | static storage duration | file://:0:0:0:0 | char * |
+| objectidentity.c:36:20:36:26 | hello | static storage duration | file://:0:0:0:0 | char[6] |
+| objectidentity.c:38:3:38:3 | 1 | static storage duration | file://:0:0:0:0 | int |
+| objectidentity.c:39:3:39:9 | hello | static storage duration | file://:0:0:0:0 | char[6] |
+| objectidentity.c:40:3:40:15 | {...} | automatic storage duration | objectidentity.c:27:8:27:8 | s |
+| objectidentity.c:40:14:40:14 | 1 | static storage duration | file://:0:0:0:0 | int |

@@ -7,7 +7,6 @@ newtype ConstQuery =
   TRemoveConstOrVolatileQualificationAutosarQuery() or
   TDeclarationUnmodifiedObjectMissingConstSpecifierQuery() or
   TVariableMissingConstexprQuery() or
-  TFunctionMissingConstexprQuery() or
   TCvQualifiersNotPlacedOnTheRightHandSideQuery() or
   TOutputParametersUsedQuery() or
   TInOutParametersDeclaredAsTNotModifiedQuery() or
@@ -42,15 +41,6 @@ predicate isConstQueryMetadata(Query query, string queryId, string ruleId, strin
   queryId =
     // `@id` for the `variableMissingConstexpr` query
     "cpp/autosar/variable-missing-constexpr" and
-  ruleId = "A7-1-2" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `functionMissingConstexpr` query
-    ConstPackage::functionMissingConstexprQuery() and
-  queryId =
-    // `@id` for the `functionMissingConstexpr` query
-    "cpp/autosar/function-missing-constexpr" and
   ruleId = "A7-1-2" and
   category = "required"
   or
@@ -147,13 +137,6 @@ module ConstPackage {
     result =
       // `Query` type for `variableMissingConstexpr` query
       TQueryCPP(TConstPackageQuery(TVariableMissingConstexprQuery()))
-  }
-
-  Query functionMissingConstexprQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `functionMissingConstexpr` query
-      TQueryCPP(TConstPackageQuery(TFunctionMissingConstexprQuery()))
   }
 
   Query cvQualifiersNotPlacedOnTheRightHandSideQuery() {

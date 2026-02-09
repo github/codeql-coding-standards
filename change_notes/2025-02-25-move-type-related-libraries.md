@@ -1,0 +1,2 @@
+ - All rules using `Type.qll`, `TypeUses.qll`, `Pointers.qll`, `TrivialType.qll`, `VariablyModifiedTypes.qll`:
+   - Files moved into `cpp/common/types` directory. No external changes in behavior expected.

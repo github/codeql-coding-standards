@@ -9,14 +9,18 @@
  * @tags external/cert/id/con30-c
  *       correctness
  *       concurrency
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/unlikely
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p4
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Concurrency
-import codingstandards.cpp.dataflow.TaintTracking
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 
 module TssCreateToTssDeleteConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {

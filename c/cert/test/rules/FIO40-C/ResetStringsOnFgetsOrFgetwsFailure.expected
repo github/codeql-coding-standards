@@ -1,3 +1,6 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ResetStringsOnFgetsOrFgetwsFailure.ql:48,11-19)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ResetStringsOnFgetsOrFgetwsFailure.ql:48,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ResetStringsOnFgetsOrFgetwsFailure.ql:49,13-21)
 | test.c:20:10:20:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:15:7:15:11 | call to fgets | call to fgets |
 | test.c:57:10:57:12 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:52:7:52:11 | call to fgets | call to fgets |
 | test.c:66:18:66:20 | buf | The buffer is not reset before being referenced following a failed $@. | test.c:61:7:61:11 | call to fgets | call to fgets |

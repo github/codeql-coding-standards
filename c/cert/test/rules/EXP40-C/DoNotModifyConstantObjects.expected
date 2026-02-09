@@ -1,3 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotModifyConstantObjects.ql:40,30-38)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotModifyConstantObjects.ql:41,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotModifyConstantObjects.ql:47,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotModifyConstantObjects.ql:52,19-27)
 edges
 | test.c:5:8:5:9 | & ... | test.c:6:4:6:5 | aa | provenance |  |
 | test.c:26:15:26:15 | a | test.c:27:4:27:4 | a | provenance |  |

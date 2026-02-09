@@ -24,5 +24,9 @@ where
     baseTypeFrom.isVolatile() and not baseTypeTo.isVolatile() and qualificationName = "volatile"
     or
     baseTypeFrom.isConst() and not baseTypeTo.isConst() and qualificationName = "const"
+    or
+    baseTypeFrom.hasSpecifier("atomic") and
+    not baseTypeTo.hasSpecifier("atomic") and
+    qualificationName = "atomic"
   )
 select cast, "Cast of pointer removes " + qualificationName + " qualification from its base type."

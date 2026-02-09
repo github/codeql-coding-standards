@@ -8,13 +8,18 @@
  * @problem.severity error
  * @tags external/cert/id/arr39-c
  *       correctness
+ *       external/cert/severity/high
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p6
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.Pointers
-import codingstandards.cpp.dataflow.TaintTracking
+import codingstandards.cpp.types.Pointers
+import semmle.code.cpp.dataflow.TaintTracking
 import ScaledIntegerPointerArithmeticFlow::PathGraph
 
 /**

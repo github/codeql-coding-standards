@@ -1,0 +1,13 @@
+| test.c:43:13:43:13 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:44:18:44:18 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:45:13:45:13 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:46:18:46:18 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:65:6:65:6 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:71:9:71:9 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:82:18:82:18 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:83:3:83:31 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:84:3:84:39 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:85:3:85:19 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:86:3:86:23 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:87:3:87:19 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |
+| test.c:88:3:88:23 | x | Invalid access to member '$@' on atomic struct or union. | test.c:5:7:5:7 | x | x |

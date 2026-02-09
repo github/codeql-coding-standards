@@ -1,2 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:30,32-40)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:31,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:33,14-22)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:36,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (OnlyUseValuesForFsetposThatAreReturnedFromFgetpos.ql:42,21-29)
 | test.c:7:24:7:30 | & ... | The position argument of a call to `fsetpos()` should be obtained from a call to `fgetpos()`. |
 | test.c:33:24:33:30 | & ... | The position argument of a call to `fsetpos()` should be obtained from a call to `fgetpos()`. |

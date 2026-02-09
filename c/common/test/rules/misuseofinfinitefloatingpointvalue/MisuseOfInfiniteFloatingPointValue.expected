@@ -1,0 +1,113 @@
+problems
+| test.c:12:8:12:9 | l2 | test.c:8:14:8:20 | ... / ... | test.c:12:8:12:9 | l2 | Possibly infinite float value $@ flows to divisor, which would silently underflow and produce zero. | test.c:8:14:8:20 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:13:8:13:9 | l3 | test.c:8:14:8:20 | ... / ... | test.c:13:8:13:9 | l3 | Possibly infinite float value $@ flows to divisor, which would silently underflow and produce zero. | test.c:8:14:8:20 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:18:8:18:9 | l2 | test.c:8:14:8:20 | ... / ... | test.c:18:3:18:9 | l2 | Possibly infinite float value $@ flows to cast to integer. | test.c:8:14:8:20 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:19:8:19:9 | l3 | test.c:8:14:8:20 | ... / ... | test.c:19:3:19:9 | l3 | Possibly infinite float value $@ flows to cast to integer. | test.c:8:14:8:20 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:27:19:27:20 | l2 | test.c:8:14:8:20 | ... / ... | test.c:27:19:27:20 | l2 | Possibly infinite float value $@ flows to divisor, which would silently underflow and produce zero. | test.c:8:14:8:20 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:28:19:28:20 | l3 | test.c:8:14:8:20 | ... / ... | test.c:28:19:28:20 | l3 | Possibly infinite float value $@ flows to divisor, which would silently underflow and produce zero. | test.c:8:14:8:20 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:38:8:38:9 | l7 | test.c:31:14:32:15 | ... / ... | test.c:38:3:38:9 | l7 | Possibly infinite float value $@ flows to cast to integer. | test.c:31:14:32:15 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:61:11:61:17 | ... / ... | test.c:61:5:61:18 | ... / ... | test.c:61:5:61:18 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.c:61:11:61:17 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:66:11:66:19 | ... / ... | test.c:66:5:66:20 | ... / ... | test.c:66:5:66:20 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.c:66:11:66:19 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:72:20:72:28 | ... / ... | test.c:72:14:72:29 | ... / ... | test.c:72:14:72:29 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.c:72:20:72:28 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:75:24:75:32 | ... / ... | test.c:75:18:75:33 | ... / ... | test.c:75:18:75:33 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.c:75:24:75:32 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:79:10:79:12 | l12 | test.c:77:15:77:21 | ... / ... | test.c:79:5:79:12 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:87:10:87:12 | l12 | test.c:77:15:77:21 | ... / ... | test.c:87:5:87:12 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:91:10:91:12 | l12 | test.c:77:15:77:21 | ... / ... | test.c:91:5:91:12 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:93:10:93:12 | l12 | test.c:77:15:77:21 | ... / ... | test.c:93:5:93:12 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:99:10:99:12 | l12 | test.c:77:15:77:21 | ... / ... | test.c:99:5:99:12 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:105:10:105:12 | l12 | test.c:77:15:77:21 | ... / ... | test.c:105:5:105:12 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:111:10:111:12 | l12 | test.c:77:15:77:21 | ... / ... | test.c:111:5:111:12 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:114:21:114:23 | l12 | test.c:77:15:77:21 | ... / ... | test.c:114:16:114:23 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:117:28:117:30 | l12 | test.c:77:15:77:21 | ... / ... | test.c:117:23:117:30 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:120:25:120:27 | l12 | test.c:77:15:77:21 | ... / ... | test.c:120:20:120:27 | l12 | Possibly infinite float value $@ flows to cast to integer. | test.c:77:15:77:21 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:163:9:164:15 | ... / ... | test.c:163:3:164:16 | ... / ... | test.c:163:3:164:16 | ... / ... | Possibly infinite float value $@ flows to cast to integer. | test.c:163:9:164:15 | ... / ... | from division by zero | test.c:6:6:6:7 | f1 | f1 |
+| test.c:175:32:175:32 | p | test.c:189:51:189:59 | ... / ... | test.c:175:27:175:32 | p | Possibly infinite float value $@ computed in function $@ flows to cast to integer. | test.c:189:51:189:59 | ... / ... | from division by zero | test.c:189:6:189:24 | addInfThenCastToInt | addInfThenCastToInt |
+| test.c:175:32:175:32 | p | test.c:193:13:194:15 | ... / ... | test.c:175:27:175:32 | p | Possibly infinite float value $@ computed in function $@ flows to cast to integer. | test.c:193:13:194:15 | ... / ... | from division by zero | test.c:192:6:192:7 | f2 | f2 |
+| test.c:175:32:175:32 | p | test.c:204:19:204:27 | ... / ... | test.c:175:27:175:32 | p | Possibly infinite float value $@ computed in function $@ flows to cast to integer. | test.c:204:19:204:27 | ... / ... | from division by zero | test.c:192:6:192:7 | f2 | f2 |
+| test.c:185:18:185:18 | p | test.c:200:25:200:33 | ... / ... | test.c:185:13:185:18 | p | Possibly infinite float value $@ computed in function $@ flows to cast to integer. | test.c:200:25:200:33 | ... / ... | from division by zero | test.c:192:6:192:7 | f2 | f2 |
+edges
+| test.c:8:14:8:20 | ... / ... | test.c:8:14:8:20 | ... / ... | provenance |  |
+| test.c:8:14:8:20 | ... / ... | test.c:9:14:9:16 | - ... | provenance | Config |
+| test.c:8:14:8:20 | ... / ... | test.c:12:8:12:9 | l2 | provenance |  |
+| test.c:8:14:8:20 | ... / ... | test.c:18:3:18:9 | l2 | provenance |  |
+| test.c:8:14:8:20 | ... / ... | test.c:27:19:27:20 | l2 | provenance |  |
+| test.c:9:14:9:16 | - ... | test.c:9:14:9:16 | - ... | provenance |  |
+| test.c:9:14:9:16 | - ... | test.c:13:8:13:9 | l3 | provenance |  |
+| test.c:9:14:9:16 | - ... | test.c:19:3:19:9 | l3 | provenance |  |
+| test.c:9:14:9:16 | - ... | test.c:28:19:28:20 | l3 | provenance |  |
+| test.c:31:14:32:15 | ... / ... | test.c:31:14:32:15 | ... / ... | provenance |  |
+| test.c:31:14:32:15 | ... / ... | test.c:38:3:38:9 | l7 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:77:15:77:21 | ... / ... | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:79:5:79:12 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:87:5:87:12 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:91:5:91:12 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:93:5:93:12 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:99:5:99:12 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:105:5:105:12 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:111:5:111:12 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:114:16:114:23 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:117:23:117:30 | l12 | provenance |  |
+| test.c:77:15:77:21 | ... / ... | test.c:120:20:120:27 | l12 | provenance |  |
+| test.c:175:22:175:22 | p | test.c:175:27:175:32 | p | provenance |  |
+| test.c:183:34:183:34 | p | test.c:185:13:185:18 | p | provenance |  |
+| test.c:189:32:189:32 | p | test.c:189:47:189:59 | ... + ... | provenance | Config |
+| test.c:189:47:189:59 | ... + ... | test.c:175:22:175:22 | p | provenance |  |
+| test.c:189:47:189:59 | ... + ... | test.c:175:22:175:22 | p | provenance |  |
+| test.c:189:51:189:59 | ... / ... | test.c:189:47:189:59 | ... + ... | provenance | Config |
+| test.c:193:13:194:15 | ... / ... | test.c:175:22:175:22 | p | provenance |  |
+| test.c:200:25:200:33 | ... / ... | test.c:183:34:183:34 | p | provenance |  |
+| test.c:204:19:204:27 | ... / ... | test.c:204:19:204:27 | ... / ... | provenance |  |
+| test.c:204:19:204:27 | ... / ... | test.c:206:21:206:31 | ... + ... | provenance | Config |
+| test.c:206:21:206:31 | ... + ... | test.c:206:21:206:31 | ... + ... | provenance |  |
+| test.c:206:21:206:31 | ... + ... | test.c:208:13:208:21 | middleInf | provenance |  |
+| test.c:206:21:206:31 | ... + ... | test.c:210:23:210:31 | middleInf | provenance |  |
+| test.c:208:13:208:21 | middleInf | test.c:175:22:175:22 | p | provenance |  |
+| test.c:210:23:210:31 | middleInf | test.c:189:32:189:32 | p | provenance |  |
+nodes
+| test.c:8:14:8:20 | ... / ... | semmle.label | ... / ... |
+| test.c:8:14:8:20 | ... / ... | semmle.label | ... / ... |
+| test.c:9:14:9:16 | - ... | semmle.label | - ... |
+| test.c:9:14:9:16 | - ... | semmle.label | - ... |
+| test.c:12:8:12:9 | l2 | semmle.label | l2 |
+| test.c:13:8:13:9 | l3 | semmle.label | l3 |
+| test.c:18:3:18:9 | l2 | semmle.label | l2 |
+| test.c:19:3:19:9 | l3 | semmle.label | l3 |
+| test.c:27:19:27:20 | l2 | semmle.label | l2 |
+| test.c:28:19:28:20 | l3 | semmle.label | l3 |
+| test.c:31:14:32:15 | ... / ... | semmle.label | ... / ... |
+| test.c:31:14:32:15 | ... / ... | semmle.label | ... / ... |
+| test.c:38:3:38:9 | l7 | semmle.label | l7 |
+| test.c:61:5:61:18 | ... / ... | semmle.label | ... / ... |
+| test.c:66:5:66:20 | ... / ... | semmle.label | ... / ... |
+| test.c:72:14:72:29 | ... / ... | semmle.label | ... / ... |
+| test.c:75:18:75:33 | ... / ... | semmle.label | ... / ... |
+| test.c:77:15:77:21 | ... / ... | semmle.label | ... / ... |
+| test.c:77:15:77:21 | ... / ... | semmle.label | ... / ... |
+| test.c:79:5:79:12 | l12 | semmle.label | l12 |
+| test.c:87:5:87:12 | l12 | semmle.label | l12 |
+| test.c:91:5:91:12 | l12 | semmle.label | l12 |
+| test.c:93:5:93:12 | l12 | semmle.label | l12 |
+| test.c:99:5:99:12 | l12 | semmle.label | l12 |
+| test.c:105:5:105:12 | l12 | semmle.label | l12 |
+| test.c:111:5:111:12 | l12 | semmle.label | l12 |
+| test.c:114:16:114:23 | l12 | semmle.label | l12 |
+| test.c:117:23:117:30 | l12 | semmle.label | l12 |
+| test.c:120:20:120:27 | l12 | semmle.label | l12 |
+| test.c:163:3:164:16 | ... / ... | semmle.label | ... / ... |
+| test.c:175:22:175:22 | p | semmle.label | p |
+| test.c:175:27:175:32 | p | semmle.label | p |
+| test.c:183:34:183:34 | p | semmle.label | p |
+| test.c:185:13:185:18 | p | semmle.label | p |
+| test.c:189:32:189:32 | p | semmle.label | p |
+| test.c:189:47:189:59 | ... + ... | semmle.label | ... + ... |
+| test.c:189:47:189:59 | ... + ... | semmle.label | ... + ... |
+| test.c:189:51:189:59 | ... / ... | semmle.label | ... / ... |
+| test.c:193:13:194:15 | ... / ... | semmle.label | ... / ... |
+| test.c:200:25:200:33 | ... / ... | semmle.label | ... / ... |
+| test.c:204:19:204:27 | ... / ... | semmle.label | ... / ... |
+| test.c:204:19:204:27 | ... / ... | semmle.label | ... / ... |
+| test.c:206:21:206:31 | ... + ... | semmle.label | ... + ... |
+| test.c:206:21:206:31 | ... + ... | semmle.label | ... + ... |
+| test.c:208:13:208:21 | middleInf | semmle.label | middleInf |
+| test.c:210:23:210:31 | middleInf | semmle.label | middleInf |
+subpaths

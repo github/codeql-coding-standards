@@ -1,0 +1,2 @@
+ - `M7-5-1`, `RULE-6-8-2` - `FunctionReturnAutomaticVarCondition.ql`, `ReturnReferenceOrPointerToAutomaticLocalVariable.ql`:
+   - Remove false positives for member and global variables reported under this rule.

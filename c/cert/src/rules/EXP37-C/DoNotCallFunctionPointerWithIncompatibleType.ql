@@ -8,12 +8,17 @@
  * @problem.severity error
  * @tags external/cert/id/exp37-c
  *       correctness
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/high
+ *       external/cert/priority/p4
+ *       external/cert/level/l3
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.DataFlow
 import SuspectFunctionPointerToCallFlow::PathGraph
 
 /**

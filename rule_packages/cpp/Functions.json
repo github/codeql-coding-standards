@@ -281,7 +281,12 @@
           "severity": "error",
           "short_name": "FunctionWithMismatchedLanguageLinkage",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],
@@ -301,7 +306,12 @@
           "short_name": "NonVoidFunctionDoesNotReturnCert",
           "shared_implementation_short_name": "NonVoidFunctionDoesNotReturn",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p8",
+            "external/cert/level/l2"
           ]
         }
       ],
@@ -321,7 +331,12 @@
           "short_name": "FunctionNoReturnAttributeConditionCert",
           "shared_implementation_short_name": "FunctionNoReturnAttributeCondition",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p2",
+            "external/cert/level/l3"
           ]
         }
       ],

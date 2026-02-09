@@ -9,13 +9,18 @@
  * @tags external/cert/id/msc51-cpp
  *       security
  *       correctness
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/likely
+ *       external/cert/remediation-cost/low
+ *       external/cert/priority/p18
+ *       external/cert/level/l1
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.standardlibrary.Random
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 
 from RandomNumberEngineCreation createRandomNumberEngine, string seedSource
 where

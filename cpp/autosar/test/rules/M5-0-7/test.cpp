@@ -19,3 +19,12 @@ void f1() {
   s16a = static_cast<int16_t>(f32a);        // COMPLIANT
   s16a = static_cast<int16_t>(f32a) / f32b; // COMPLIANT
 }
+
+void int_arg(std::int32_t i);
+
+std::int16_t test_args() {
+  float f32a;
+  float f32b;
+  int_arg(static_cast<std::int16_t>(f32a)); // COMPLIANT - f32a is not a cvalue
+  return static_cast<std::int16_t>(f32a);   // COMPLIANT - f32a is not a cvalue
+}

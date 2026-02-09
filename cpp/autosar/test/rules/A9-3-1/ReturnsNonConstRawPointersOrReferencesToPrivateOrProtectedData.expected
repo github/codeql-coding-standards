@@ -1,3 +1,6 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ReturnsNonConstRawPointersOrReferencesToPrivateOrProtectedData.ql:73,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ReturnsNonConstRawPointersOrReferencesToPrivateOrProtectedData.ql:73,23-31)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (ReturnsNonConstRawPointersOrReferencesToPrivateOrProtectedData.ql:73,46-54)
 | test.cpp:20:8:20:12 | getB2 | Member function A::getB2 $@ a non-const raw pointer or reference to a private or protected $@. | test.cpp:20:25:20:25 | b | returns | test.cpp:54:7:54:7 | b | field |
 | test.cpp:22:8:22:12 | getB3 | Member function A::getB3 $@ a non-const raw pointer or reference to a private or protected $@. | test.cpp:22:25:22:26 | & ... | returns | test.cpp:54:7:54:7 | b | field |
 | test.cpp:24:8:24:13 | getB33 | Member function A::getB33 $@ a non-const raw pointer or reference to a private or protected $@. | test.cpp:26:12:26:13 | bb | returns | test.cpp:54:7:54:7 | b | field |

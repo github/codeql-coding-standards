@@ -63,7 +63,12 @@
           "severity": "error",
           "short_name": "DoNotAttemptToCreateAStringFromANullPointer",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],

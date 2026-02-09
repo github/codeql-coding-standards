@@ -1,3 +1,9 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UseValidIteratorRanges.ql:29,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UseValidIteratorRanges.ql:29,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UseValidIteratorRanges.ql:30,7-15)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UseValidIteratorRanges.ql:36,5-13)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UseValidIteratorRanges.ql:36,25-33)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UseValidIteratorRanges.ql:37,7-15)
 | test.cpp:7:3:7:15 | call to for_each | The $@ of iterator range function does not point to the end of an iterator. | test.cpp:7:28:7:32 | call to begin | argument |
 | test.cpp:7:3:7:15 | call to for_each | The $@ of iterator range function does not point to the start of an iterator. | test.cpp:7:19:7:21 | call to end | argument |
 | test.cpp:8:3:8:15 | call to for_each | The $@ of iterator range function does not point to the end of an iterator. | test.cpp:8:30:8:34 | call to begin | argument |

@@ -1,4 +1,6 @@
 name: Generate HTML documentation
+permissions:
+  contents: read
 
 on:
   merge_group:
@@ -20,10 +22,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.9"
 

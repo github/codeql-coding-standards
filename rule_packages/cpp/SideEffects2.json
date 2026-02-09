@@ -165,7 +165,12 @@
           "shared_implementation_short_name": "PredicateFunctionObjectsShouldNotBeMutable",
           "short_name": "PredicateFunctionObjectsShouldNotBeMutable",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ]
         }
       ],

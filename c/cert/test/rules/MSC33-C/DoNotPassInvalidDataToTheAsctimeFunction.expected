@@ -1,1 +1,5 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotPassInvalidDataToTheAsctimeFunction.ql:38,38-46)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotPassInvalidDataToTheAsctimeFunction.ql:39,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotPassInvalidDataToTheAsctimeFunction.ql:46,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotPassInvalidDataToTheAsctimeFunction.ql:49,27-35)
 | test.c:6:24:6:30 | time_tm | The function `asctime` and `asctime_r` should be discouraged. Unsanitized input can overflow the output buffer. |

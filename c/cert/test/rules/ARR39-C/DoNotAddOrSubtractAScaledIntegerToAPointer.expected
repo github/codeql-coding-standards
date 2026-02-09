@@ -1,3 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAddOrSubtractAScaledIntegerToAPointer.ql:77,56-64)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAddOrSubtractAScaledIntegerToAPointer.ql:78,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAddOrSubtractAScaledIntegerToAPointer.ql:80,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAddOrSubtractAScaledIntegerToAPointer.ql:89,45-53)
 edges
 | test.c:7:13:7:14 | p1 | test.c:9:9:9:10 | p1 | provenance |  |
 | test.c:16:19:16:41 | ... - ... | test.c:18:26:18:31 | offset | provenance |  |

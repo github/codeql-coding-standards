@@ -1,9 +1,9 @@
 import codingstandards.cpp.cert
 import codingstandards.cpp.Conversion
-import codingstandards.cpp.TrivialType
+import codingstandards.cpp.types.TrivialType
 import ManuallyManagedLifetime
 import semmle.code.cpp.controlflow.Dominance
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.TaintTracking
 
 /**
  * A taint-tracking configuration from allocation expressions to casts to a specific pointer type.

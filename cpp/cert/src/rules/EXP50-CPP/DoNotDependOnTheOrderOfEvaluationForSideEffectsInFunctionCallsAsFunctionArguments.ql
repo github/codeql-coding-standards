@@ -8,14 +8,19 @@
  * @problem.severity warning
  * @tags external/cert/id/exp50-cpp
  *       correctness
+ *       external/cert/severity/medium
+ *       external/cert/likelihood/probable
+ *       external/cert/remediation-cost/medium
+ *       external/cert/priority/p8
+ *       external/cert/level/l2
  *       external/cert/obligation/rule
  */
 
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.SideEffect
-import codingstandards.cpp.dataflow.DataFlow
-import codingstandards.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /** Holds if the function's return value is derived from the `AliasParamter` p. */

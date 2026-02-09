@@ -14,7 +14,12 @@
           "short_name": "AppropriateStorageDurationsStackAdressEscape",
           "shared_implementation_short_name": "DoNotCopyAddressOfAutoStorageObjectToOtherObject",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ],
           "implementation_scope": {
             "description": "The rule checks specifically for pointers to objects with automatic storage duration that are assigned to static storage duration variables."
@@ -28,7 +33,12 @@
           "severity": "error",
           "short_name": "AppropriateStorageDurationsFunctionReturn",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/high",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ],
           "implementation_scope": {
             "description": "The rule checks specifically for pointers to objects with automatic storage duration that are returned by functions or assigned to function output parameters."

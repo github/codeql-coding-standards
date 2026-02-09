@@ -35,19 +35,14 @@ predicate isExcluded(Element e, Query query, string reason) {
     ) and
     reason = "Query has an associated deviation record for the element's file."
     or
-    // The element is on the same line as a suppression comment
-    exists(Comment c |
-      c = dr.getACodeIdentifierComment() and
-      query = dr.getQuery()
-    |
-      exists(string filepath, int endLine |
-        // Comment occurs on the same line as the end line of the element
-        e.getLocation().hasLocationInfo(filepath, _, _, endLine, _) and
-        c.getLocation().hasLocationInfo(filepath, endLine, _, _, _)
-      )
-    ) and
-    reason =
-      "Query has an associated deviation record with a code identifier that is applied to the element."
+    // The element is annotated by a code identifier that deviates this rule
+    exists(CodeIdentifierDeviation deviationInCode |
+      dr.getQuery() = query and
+      deviationInCode = dr.getACodeIdentifierDeviation() and
+      deviationInCode.isElementMatching(e) and
+      reason =
+        "Query has an associated deviation record with a code identifier that is applied to the element."
+    )
   )
   or
   // The effective category of the query is 'Disapplied'.

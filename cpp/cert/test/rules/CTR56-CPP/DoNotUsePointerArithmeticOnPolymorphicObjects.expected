@@ -1,3 +1,7 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnPolymorphicObjects.ql:46,62-70)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnPolymorphicObjects.ql:47,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnPolymorphicObjects.ql:56,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotUsePointerArithmeticOnPolymorphicObjects.ql:62,3-11)
 edges
 | test.cpp:15:19:15:21 | foo | test.cpp:16:24:16:26 | foo | provenance |  |
 | test.cpp:15:19:15:21 | foo | test.cpp:16:51:16:53 | foo | provenance |  |

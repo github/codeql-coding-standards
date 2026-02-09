@@ -1,3 +1,18 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:47,65-73)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:48,22-30)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:69,20-28)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:82,3-11)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:106,11-19)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:106,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:106,55-63)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:111,11-19)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:111,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:111,57-65)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:144,11-19)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:144,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:144,55-63)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:155,53-61)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (DoNotAttemptToModifyStringLiterals.ql:156,5-13)
 | test.c:7:3:7:3 | a | This operation may write to a string that may be a string literal that was $@. | test.c:6:13:6:20 | codeql | created here |
 | test.c:30:3:30:3 | a | This operation may write to a string that may be a string literal that was $@. | test.c:29:13:29:18 | call to strchr | created here |
 | test.c:36:3:36:3 | b | This operation may write to a string that may be a string literal that was $@. | test.c:35:13:35:18 | call to strchr | created here |

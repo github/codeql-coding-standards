@@ -84,3 +84,15 @@ template <bool B1, bool... Args>
 extern constexpr bool recurse_var<B1, Args...> = B1 &&recurse_var<Args...>;
 
 void fp_621() { recurse_var<true, true, true>; }
+
+#include <utility>
+
+void variadic_forwarding() {}
+
+template <typename T, typename... Args>
+void variadic_forwarding(T &&first, Args &&...rest) {
+  first;
+  variadic_forwarding(std::forward<Args>(rest)...);
+}
+
+int test_variadic_forwarding() { variadic_forwarding(1, 1.1, "a"); }

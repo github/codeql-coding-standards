@@ -1,0 +1,139 @@
+| test.c:95:3:95:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:96:3:96:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:97:3:97:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:98:3:98:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:99:3:99:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:100:3:100:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:101:3:101:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:102:3:102:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:103:3:103:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:104:3:104:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:105:3:105:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:106:3:106:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:107:3:107:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:108:3:108:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:109:3:109:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:110:3:110:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:111:3:111:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:112:3:112:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:113:3:113:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:114:3:114:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned int). |
+| test.c:121:3:121:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:122:3:122:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:123:3:123:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:124:3:124:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:125:3:125:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:126:3:126:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:127:3:127:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:128:3:128:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:131:3:131:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:132:3:132:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:133:3:133:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, long). |
+| test.c:134:3:134:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, long). |
+| test.c:135:3:135:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, int). |
+| test.c:136:3:136:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, unsigned int). |
+| test.c:137:3:137:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, int). |
+| test.c:138:3:138:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, unsigned int). |
+| test.c:139:3:139:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned long). |
+| test.c:140:3:140:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned long). |
+| test.c:141:3:141:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, unsigned long). |
+| test.c:142:3:142:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, unsigned long). |
+| test.c:143:3:143:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, int). |
+| test.c:144:3:144:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, unsigned int). |
+| test.c:145:3:145:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, int). |
+| test.c:146:3:146:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, unsigned int). |
+| test.c:147:3:147:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:148:3:148:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long). |
+| test.c:149:3:149:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, long). |
+| test.c:150:3:150:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, long). |
+| test.c:151:3:151:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, int). |
+| test.c:152:3:152:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, unsigned int). |
+| test.c:153:3:153:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, int). |
+| test.c:154:3:154:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, unsigned int). |
+| test.c:155:3:155:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned long). |
+| test.c:156:3:156:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, unsigned long). |
+| test.c:157:3:157:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, unsigned long). |
+| test.c:158:3:158:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, unsigned long). |
+| test.c:159:3:159:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, int). |
+| test.c:160:3:160:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, unsigned int). |
+| test.c:161:3:161:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, int). |
+| test.c:162:3:162:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, unsigned int). |
+| test.c:165:3:165:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, unsigned long). |
+| test.c:166:3:166:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, unsigned long). |
+| test.c:167:3:167:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, unsigned long). |
+| test.c:168:3:168:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, unsigned long). |
+| test.c:169:3:169:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, long). |
+| test.c:170:3:170:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, long). |
+| test.c:171:3:171:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, long). |
+| test.c:172:3:172:17 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, long). |
+| test.c:175:3:175:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (float, double). |
+| test.c:176:3:176:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (float, long double). |
+| test.c:177:3:177:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (double, float). |
+| test.c:178:3:178:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (double, long double). |
+| test.c:179:3:179:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long double, float). |
+| test.c:180:3:180:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long double, double). |
+| test.c:183:3:183:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:184:3:184:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:185:3:185:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:186:3:186:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:187:3:187:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:188:3:188:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:189:3:189:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:190:3:190:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:191:3:191:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:192:3:192:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:193:3:193:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:194:3:194:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:195:3:195:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:196:3:196:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:197:3:197:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:198:3:198:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:199:3:199:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:200:3:200:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:201:3:201:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:202:3:202:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:203:3:203:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:204:3:204:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:205:3:205:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:206:3:206:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:207:3:207:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:208:3:208:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:209:3:209:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:210:3:210:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:211:3:211:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, double). |
+| test.c:212:3:212:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, long double). |
+| test.c:213:3:213:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, float). |
+| test.c:214:3:214:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, double). |
+| test.c:215:3:215:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, long double). |
+| test.c:216:3:216:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, float). |
+| test.c:217:3:217:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, double). |
+| test.c:218:3:218:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned int, long double). |
+| test.c:219:3:219:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, float). |
+| test.c:220:3:220:13 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, double). |
+| test.c:221:3:221:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, long double). |
+| test.c:222:3:222:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, float). |
+| test.c:223:3:223:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, double). |
+| test.c:224:3:224:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (long, long double). |
+| test.c:225:3:225:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, float). |
+| test.c:226:3:226:14 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, double). |
+| test.c:227:3:227:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, long double). |
+| test.c:228:3:228:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, float). |
+| test.c:229:3:229:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, double). |
+| test.c:230:3:230:16 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (unsigned long, long double). |
+| test.c:235:3:235:15 | atan2(__x,__y) | Call to type-generic macro 'atan2' has arguments with differing standard types (int, float). |
+| test.c:242:3:242:16 | copysign(__x,__y) | Call to type-generic macro 'copysign' has arguments with differing standard types (int, float). |
+| test.c:245:3:245:12 | fdim(__x,__y) | Call to type-generic macro 'fdim' has arguments with differing standard types (int, float). |
+| test.c:248:3:248:14 | fma(__x,__y,__z) | Call to type-generic macro 'fma' has arguments with differing standard types (float, int, int). |
+| test.c:249:3:249:14 | fma(__x,__y,__z) | Call to type-generic macro 'fma' has arguments with differing standard types (int, float, int). |
+| test.c:250:3:250:14 | fma(__x,__y,__z) | Call to type-generic macro 'fma' has arguments with differing standard types (int, int, float). |
+| test.c:253:3:253:12 | fmax(__x,__y) | Call to type-generic macro 'fmax' has arguments with differing standard types (int, float). |
+| test.c:256:3:256:12 | fmin(__x,__y) | Call to type-generic macro 'fmin' has arguments with differing standard types (int, float). |
+| test.c:259:3:259:12 | fmod(__x,__y) | Call to type-generic macro 'fmod' has arguments with differing standard types (int, float). |
+| test.c:262:3:262:13 | hypot(__x,__y) | Call to type-generic macro 'hypot' has arguments with differing standard types (int, float). |
+| test.c:265:3:265:13 | ldexp(__x,__y) | Call to type-generic macro 'ldexp' has arguments with differing standard types (int, float). |
+| test.c:268:3:268:17 | nextafter(__x,__y) | Call to type-generic macro 'nextafter' has arguments with differing standard types (int, float). |
+| test.c:271:3:271:18 | nexttoward(__x,__y) | Call to type-generic macro 'nexttoward' has arguments with differing standard types (int, float). |
+| test.c:274:3:274:17 | remainder(__x,__y) | Call to type-generic macro 'remainder' has arguments with differing standard types (int, float). |
+| test.c:277:3:277:17 | remquo(__x,__y,__z) | Call to type-generic macro 'remquo' has arguments with differing standard types (int, float). |
+| test.c:280:3:280:15 | scalbln(__x,__y) | Call to type-generic macro 'scalbln' has arguments with differing standard types (int, float). |
+| test.c:283:3:283:14 | scalbn(__x,__y) | Call to type-generic macro 'scalbn' has arguments with differing standard types (int, float). |

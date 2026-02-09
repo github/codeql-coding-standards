@@ -13,7 +13,12 @@
           "severity": "error",
           "short_name": "DoNotRelyOnIndeterminateValuesOfErrno",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/low",
+            "external/cert/priority/p3",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -35,7 +40,12 @@
           "severity": "error",
           "short_name": "DetectAndHandleStandardLibraryErrors",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."

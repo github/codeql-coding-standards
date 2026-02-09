@@ -1,3 +1,5 @@
+#include <stdatomic.h>
+
 void foo(int, int);
 
 void unsequenced_sideeffects1() {
@@ -34,4 +36,15 @@ void unsequenced_sideeffects2() {
   for (i = 0; i < 10; i++) {
     test(i++); // NON_COMPLIANT
   }
+}
+
+void atomics() {
+  _Atomic int a1, a2;
+  int l3 = a1 + a2;                    // COMPLIANT
+  int l4 = a1 + a1;                    // NON_COMPLIANT
+  a1 = a1 + 1;                         // COMPLIANT
+  atomic_load(&a1) + atomic_load(&a1); // NON_COMPLIANT
+  atomic_load(&a1) + atomic_load(&a2); // COMPLIANT
+  atomic_store(&a1, atomic_load(&a1)); // COMPLIANT
+  atomic_store(&a1, a1);               // COMPLIANT
 }

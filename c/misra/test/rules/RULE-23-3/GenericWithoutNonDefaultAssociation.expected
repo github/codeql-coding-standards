@@ -1,0 +1,2 @@
+| test.c:2:1:2:36 | #define M1 _Generic(1, default : 1); | Generic selection contains no non-default association. |
+| test.c:14:3:14:26 | _Generic | Generic selection contains no non-default association. |

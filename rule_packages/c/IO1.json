@@ -15,7 +15,12 @@
           "shared_implementation_short_name": "NonConstantFormat",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p18",
+            "external/cert/level/l1"
           ]
         }
       ],
@@ -35,7 +40,12 @@
           "short_name": "DistinguishBetweenCharReadFromAFileAndEofOrWeof",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p12",
+            "external/cert/level/l1"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function. The query does not validate if the FILE status is handled correctly after being read."
@@ -50,7 +60,12 @@
           "short_name": "EndOfFileCheckPortability",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/high",
+            "external/cert/likelihood/probable",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p12",
+            "external/cert/level/l1"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function. The query does not validate if the FILE status is handled correctly after being read."
@@ -73,7 +88,12 @@
           "short_name": "DoNotAlternatelyIOFromAStreamWithoutPositioning",
           "shared_implementation_short_name": "IOFstreamMissingPositioning",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/low",
+            "external/cert/likelihood/likely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p6",
+            "external/cert/level/l2"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -97,7 +117,12 @@
           "shared_implementation_short_name": "CloseFileHandleWhenNoLongerNeededShared",
           "tags": [
             "correctness",
-            "security"
+            "security",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
@@ -120,7 +145,12 @@
           "short_name": "UndefinedBehaviorAccessingAClosedFile",
           "shared_implementation_short_name": "DoNotAccessAClosedFile",
           "tags": [
-            "correctness"
+            "correctness",
+            "external/cert/severity/medium",
+            "external/cert/likelihood/unlikely",
+            "external/cert/remediation-cost/medium",
+            "external/cert/priority/p4",
+            "external/cert/level/l3"
           ],
           "implementation_scope": {
             "description": "The rule is enforced in the context of a single function."
