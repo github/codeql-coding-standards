@@ -55,7 +55,7 @@ jobs:
 
       - name: Cache CodeQL
         id: cache-codeql
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
           path: ${{github.workspace}}/codeql_home
