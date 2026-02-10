@@ -41,22 +41,6 @@ query predicate problems(
   AssignExpr assignExpr, string message, ValueFieldAccess valuelhs, string valuelhsTargetName,
   ValueFieldAccess valuerhs, string valuerhsTargetName
 ) {
-  /*
-   * from AssignExpr assignExpr, Expr lhs, Expr rhs, ValueFieldAccess valuelhs, ValueFieldAccess valuerhs
-   * where
-   *  not isExcluded(assignExpr, Contracts7Package::objectAssignedToAnOverlappingObjectQuery()) and
-   *  lhs.getType() instanceof Union and
-   *  rhs.getType() instanceof Union and
-   *  lhs = getAQualifier(assignExpr.getLValue()) and
-   *  rhs = getAQualifier(assignExpr.getRValue()) and
-   *  globalValueNumber(lhs) = globalValueNumber(rhs) and
-   *  valuerhs = assignExpr.getRValue() and
-   *  valuelhs = assignExpr.getLValue() and // a.b.c == ((a.b).c)
-   *  overlaps(valuelhs, valuerhs)
-   * select assignExpr, "An object $@ assigned to overlapping object $@.", valuelhs,
-   *  valuelhs.getTarget().getName(), valuerhs, valuerhs.getTarget().getName()
-   */
-
   exists(Expr lhs, Expr rhs |
     not isExcluded(assignExpr, getQuery()) and
     lhs.getType() instanceof Union and

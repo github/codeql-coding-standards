@@ -94,15 +94,6 @@ query predicate problems(
   OverlappingCopy copy, string message, Expr copySrc, string fromLiteral, Expr copyDst,
   string toLiteral
 ) {
-  /*
-   * from OverlappingCopy copy
-   * where
-   *   not isExcluded(copy, Contracts7Package::objectCopiedToAnOverlappingObjectQuery()) and
-   *   copy.overlaps()
-   * select copy, "The object to copy $@ overlaps the object to copy $@.", copy.getSrc(), "from",
-   *   copy.getDst(), "to"
-   */
-
   not isExcluded(copy, getQuery()) and
   copy.overlaps() and
   message = "The object to copy $@ overlaps the object to copy $@." and
