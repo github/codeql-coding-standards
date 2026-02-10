@@ -7,7 +7,8 @@ newtype PreprocessorQuery =
   TUndefOfMacroNotDefinedInFileQuery() or
   TInvalidTokenInDefinedOperatorQuery() or
   TDefinedOperatorExpandedInIfDirectiveQuery() or
-  TNoValidIfdefGuardInHeaderQuery()
+  TNoValidIfdefGuardInHeaderQuery() or
+  TIncludeOutsideGuardQuery()
 
 predicate isPreprocessorQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -45,6 +46,15 @@ predicate isPreprocessorQueryMetadata(Query query, string queryId, string ruleId
     "cpp/misra/no-valid-ifdef-guard-in-header" and
   ruleId = "RULE-19-2-1" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `includeOutsideGuard` query
+    PreprocessorPackage::includeOutsideGuardQuery() and
+  queryId =
+    // `@id` for the `includeOutsideGuard` query
+    "cpp/misra/include-outside-guard" and
+  ruleId = "RULE-19-2-1" and
+  category = "required"
 }
 
 module PreprocessorPackage {
@@ -74,5 +84,12 @@ module PreprocessorPackage {
     result =
       // `Query` type for `noValidIfdefGuardInHeader` query
       TQueryCPP(TPreprocessorPackageQuery(TNoValidIfdefGuardInHeaderQuery()))
+  }
+
+  Query includeOutsideGuardQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `includeOutsideGuard` query
+      TQueryCPP(TPreprocessorPackageQuery(TIncludeOutsideGuardQuery()))
   }
 }
