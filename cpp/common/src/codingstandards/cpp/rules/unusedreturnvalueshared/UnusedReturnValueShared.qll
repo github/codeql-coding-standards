@@ -9,11 +9,11 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 
-signature module UnusedReturnValueConfigSig {
+signature module UnusedReturnValueSharedConfigSig {
   Query getQuery();
 }
 
-module UnusedReturnValue<UnusedReturnValueConfigSig Config> {
+module UnusedReturnValueShared<UnusedReturnValueSharedConfigSig Config> {
   /*
    * This query performs a simple syntactic check to ensure that the return value of the function is
    * not completely ignored. This matches the examples given in the rule, although the text itself is

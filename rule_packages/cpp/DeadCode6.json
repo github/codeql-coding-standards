@@ -13,7 +13,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "UnusedReturnValueMisraCpp",
-          "shared_implementation_short_name": "UnusedReturnValue",
+          "shared_implementation_short_name": "UnusedReturnValueShared",
           "tags": [
             "scope/single-translation-unit",
             "correctness"

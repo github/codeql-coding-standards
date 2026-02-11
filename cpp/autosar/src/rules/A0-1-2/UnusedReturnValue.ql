@@ -16,10 +16,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.unusedreturnvalue.UnusedReturnValue
+import codingstandards.cpp.rules.unusedreturnvalueshared.UnusedReturnValueShared
 
-module UnusedReturnValueAutosarConfig implements UnusedReturnValueConfigSig {
-  Query getQuery() { result = DeadCodePackage::unusedReturnValueAutosarQuery() }
+module UnusedReturnValueConfig implements UnusedReturnValueSharedConfigSig {
+  Query getQuery() { result = DeadCodePackage::unusedReturnValueQuery() }
 }
 
-import UnusedReturnValue<UnusedReturnValueAutosarConfig>
+import UnusedReturnValueShared<UnusedReturnValueConfig>

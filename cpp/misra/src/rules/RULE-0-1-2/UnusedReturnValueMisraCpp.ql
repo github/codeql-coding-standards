@@ -14,10 +14,10 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.unusedreturnvalue.UnusedReturnValue
+import codingstandards.cpp.rules.unusedreturnvalueshared.UnusedReturnValueShared
 
-module UnusedReturnValueMisraCppConfig implements UnusedReturnValueConfigSig {
+module UnusedReturnValueMisraCppConfig implements UnusedReturnValueSharedConfigSig {
   Query getQuery() { result = DeadCode6Package::unusedReturnValueMisraCppQuery() }
 }
 
-import UnusedReturnValue<UnusedReturnValueMisraCppConfig>
+import UnusedReturnValueShared<UnusedReturnValueMisraCppConfig>
