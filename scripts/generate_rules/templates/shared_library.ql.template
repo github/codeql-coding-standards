@@ -13,11 +13,11 @@ import codingstandards.{{ ql_language_name }}.Customizations
 import codingstandards.{{ ql_language_name }}.Exclusions
 
 signature module {{shared_implementation_short_name}}ConfigSig {
-    Query getQuery();
+  Query getQuery();
 }
 
 module {{shared_implementation_short_name}}<{{shared_implementation_short_name}}ConfigSig Config> {
-    query predicate problems(Element e, string message) {
-        not isExcluded(e, Config::getQuery()) and message = "<replace with problem alert message for >"
-    }
+  query predicate problems(Element e, string message) {
+    not isExcluded(e, Config::getQuery()) and message = "<replace with problem alert message for >"
+  }
 }
