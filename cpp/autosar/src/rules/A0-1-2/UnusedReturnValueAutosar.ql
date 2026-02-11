@@ -19,9 +19,7 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.unusedreturnvalue.UnusedReturnValue
 
 module UnusedReturnValueAutosarConfig implements UnusedReturnValueConfigSig {
-  Query getQuery() {
-    result = DeadCodePackage::unusedReturnValueAutosarQuery()
-  }
+  Query getQuery() { result = DeadCodePackage::unusedReturnValueAutosarQuery() }
 }
 
 import UnusedReturnValue<UnusedReturnValueAutosarConfig>

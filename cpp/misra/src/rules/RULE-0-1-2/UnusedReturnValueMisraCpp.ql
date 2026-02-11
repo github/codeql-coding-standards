@@ -17,9 +17,7 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.rules.unusedreturnvalue.UnusedReturnValue
 
 module UnusedReturnValueMisraCppConfig implements UnusedReturnValueConfigSig {
-  Query getQuery() {
-    result = DeadCode6Package::unusedReturnValueMisraCppQuery()
-  }
+  Query getQuery() { result = DeadCode6Package::unusedReturnValueMisraCppQuery() }
 }
 
 import UnusedReturnValue<UnusedReturnValueMisraCppConfig>
